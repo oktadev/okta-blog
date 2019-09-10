@@ -1,0 +1,42 @@
+{
+  "name": "@oktadeveloper/okta.github.io",
+  "version": "1.0.0",
+  "description": "The Okta Developer Blog",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "generate": "cross-env-shell PID_FINDER=okta_github_io JEKYLL_ENV=production bundle exec jekyll",
+    "build-prod": "npm run generate build -- --verbose",
+    "start": "npm run generate serve -- --incremental --future",
+    "markdown-lint": "node scripts/lint",
+    "find-missing-slashes": "node scripts/find-missing-slashes",
+    "prep-for-deploy": "bash scripts/prep-for-deploy.sh",
+    "dev": "node scripts/dev-clean && npm run start",
+    "dev-restore": "node scripts/dev-restore",
+    "post": "node scripts/post"
+  },
+  "pre-push": [
+    "dev-restore",
+    "markdown-lint"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oktadeveloper/okta.github.io.git"
+  },
+  "author": "Joel Franusic <joel.franusic@okta.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/oktadeveloper/okta.github.io/issues"
+  },
+  "homepage": "https://github.com/oktadeveloper/okta.github.io#readme",
+  "devDependencies": {
+    "chalk": "2.4.2",
+    "cross-env": "5.2.0",
+    "fs-extra": "^8.1.0",
+    "pre-push": "0.1.1",
+    "recursive-readdir": "2.2.2",
+    "simple-git": "^1.126.0",
+    "yargs": "^14.0.0"
+  }
+}
