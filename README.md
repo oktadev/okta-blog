@@ -62,4 +62,3 @@ Deleted posts are restored automatically before the push occurs. However, you ca
 ```sh
 npm run dev-restore
 ```
-
