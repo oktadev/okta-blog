@@ -55,11 +55,11 @@ npm install --save-exact express@4.17.1 cors@2.8.5 express-bearer-token@2.4.0 \
   @okta/jwt-verifier@1.0.0 mongoose@5.6.7
 ```
 
-The `express` library provides a framework for creating Node-based REST servers. Express heavily uses middleware to extend the basic functionality. The `cors` module provides response headers for Cross-Origin Resource Sharing support and you’ll use Okta to provide user management and authentication. 
+The `express` library provides a framework for creating Node-based REST servers. Express heavily uses middleware to extend the basic functionality. The `cors` module provides response headers for Cross-Origin Resource Sharing support and you'll use Okta to provide user management and authentication. 
 
 Okta works by passing a bearer token to the server. which is first extracted by the `express-bearer-token` middleware. The `@okta/jwt-verifier` library then allows you to validate that token and extract the user data from it. 
 
-Finally, we’ll use the `mongoose` library to provide a JavaScript client interface for the MongoDB database.
+Finally, we'll use the `mongoose` library to provide a JavaScript client interface for the MongoDB database.
 
 In the project directory, create a directory called `src` and, using your favorite IDE, create a file called `src/index.js`. This source file will contain the entry point of the server application.
 
@@ -96,7 +96,7 @@ Once the connection is up and running, the `listen()` method starts the server.
 
 The code above also contains two references to local modules which you'll implement below.
 
-The hangman game uses Okta, an identity service for developers, for user management and authentication. On the server-side, Okta’s functionality is implemented in `src/auth.js`.
+The hangman game uses Okta, an identity service for developers, for user management and authentication. On the server-side, Okta's functionality is implemented in `src/auth.js`.
 
 ```js
 const OktaJwtVerifier = require('@okta/jwt-verifier');
@@ -130,7 +130,7 @@ module.exports = oktaAuth;
 
 The function `oktaAuth()` is an Express middleware. It reads the `req.token` from the request and checks it using the `OktaJwtVerifier`. On success, the `verifyAccessToken()` method returns the data contained in the token. 
 
-The data is used to create a user object and attach it to the incoming request. In the code above, `{yourClientId}` and `{yourOktaDomain}` are placeholders that we’ll populate in a moment. 
+The data is used to create a user object and attach it to the incoming request. In the code above, `{yourClientId}` and `{yourOktaDomain}` are placeholders that we'll populate in a moment. 
 
 For now, implement another middleware to take the user's email and look up the user data in the database. 
 
@@ -208,7 +208,7 @@ authentication
 database
 ```
 
-The first route you’ll implement queries the current game and creates a new game if necessary. 
+The first route you'll implement queries the current game and creates a new game if necessary. 
 
 Within the `createRouter()` function, paste the following code.
 
@@ -277,7 +277,7 @@ router.put('/game',
 });
 ```
 
-The `req.body.guess` contains the incoming guess of the player which is added to the `lettersGuessed` property of the user document and saved back to the database. The response depends on the game’s status as lost, won, or ongoing. 
+The `req.body.guess` contains the incoming guess of the player which is added to the `lettersGuessed` property of the user document and saved back to the database. The response depends on the game's status as lost, won, or ongoing. 
 
 The `profile` route gives access to the user data through a GET request and allows a user to set their username through a PUT request. Add the following routes to `src/hangman.js`:
 
@@ -318,7 +318,7 @@ router.get('/leaderboard', async (req, res, next) => {
 });
 ```
 
-Here, you use the `User` model to query the database and get the 20 top-scoring players’ usernames and scores.
+Here, you use the `User` model to query the database and get the 20 top-scoring players' usernames and scores.
 
 ## Add User Management to Your Angular + MongoDB App
 
@@ -348,7 +348,7 @@ node src/index.js
 
 ## Build Your Application Client with Angular
 
- You’ll use the latest version of Angular to build the client, combined with the `ngx-bootstrap` library for the CSS framework. Open the terminal and install the current (as of this article’s publication) version of the Angular CLI tool by running the following command.
+ You'll use the latest version of Angular to build the client, combined with the `ngx-bootstrap` library for the CSS framework. Open the terminal and install the current (as of this article's publication) version of the Angular CLI tool by running the following command.
 
 ```bash
 npm install -g @angular/cli@8.3.0
@@ -686,7 +686,7 @@ export class ProfileComponent implements OnInit {
 
 Note how the call to `HangmanService.getProfile()` is surrounded in a try-catch block. The call is expected to fail when a user opens this page for the very first time because they have not yet set their username on the server. In this case, the `profile` property remains unset and the user will be presented the form to set their username.
 
-The game component contains the actual hangman game. For the sake of simplicity, there will be no graphical representation of the hangman. Instead, you’ll show the list of letters the user has guessed so far. 
+The game component contains the actual hangman game. For the sake of simplicity, there will be no graphical representation of the hangman. Instead, you'll show the list of letters the user has guessed so far. 
 
 In the terminal, create the `game` component.
 
