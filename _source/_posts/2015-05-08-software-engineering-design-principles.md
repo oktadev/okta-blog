@@ -31,7 +31,7 @@ new feature we're working on. We collaborate closely with customers while
 building features allowing for continuous feedback as we iterate and get
 changes out in weekly sprints.
 
-![xkcd - pass the salt](http://imgs.xkcd.com/comics/the_general_problem.png)
+![xkcd - pass the salt](https://imgs.xkcd.com/comics/the_general_problem.png)
 
 ## 2. Keep it Simple
 

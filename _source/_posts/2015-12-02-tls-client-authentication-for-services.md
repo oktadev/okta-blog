@@ -268,7 +268,7 @@ Jersey code is Copyright &copy; 2010-2015 Oracle and/or its affiliates.
 Hooray authentication!
 
 {: style="text-align: center"}
-[![xkcd-identity](http://imgs.xkcd.com/comics/identity.png)](https://xkcd.com/1121/)
+[![xkcd-identity](https://imgs.xkcd.com/comics/identity.png)](https://xkcd.com/1121/)
 
 {: style="text-align: center;font-size: x-small;"}
 Comic is Copyright &copy; [xkcd.com](https://xkcd.com).
