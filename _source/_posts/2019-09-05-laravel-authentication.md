@@ -17,7 +17,7 @@ Laravel is a clean and modern framework with a vast ecosystem of learning resour
 In this article, I'll show you how to get started with Laravel and quickly build an application with user authentication (using Okta as your identity management provider).
 
 <div markdown="1" style="border: 1px #eedeaa solid; background: #ffffee; padding: 20px; border-radius: 8px;">
-**Prerequisites:** Please ensure you have already installed PHP, Composer, and have signed up for a [free Okta developer account](https://developer.okta.com/signup/).
+**Prerequisites:** Please ensure you have already installed PHP, Composer, and have signed up for a [free Okta developer account](/signup/).
 </div>
 
 ## Understand the Laravel Model-View-Controller (MVC) Architecture and Middlewares
@@ -53,12 +53,14 @@ You'll replace some of the Laravel boilerplate code in your application so it us
 
 The tutorial assumes your development environment already has PHP and Composer. Pull up the Laravel installer as a global Composer package, initialize a new Laravel project, and add the authentication boilerplate (with the `make:auth` command below):
 
+{% raw %}
 ```bash
 composer global require laravel/installer
 laravel new okta-laravel-auth && cd okta-laravel-auth
 php artisan make:auth
 php artisan serve
 ```
+{% endraw %}
 
 Load `http://localhost:8000/` and you'll see the default Laravel page with Login and Register links. However, these links will not work yet because you haven't run the database migrations yet, and the boilerplate code uses the local database for user registration/authorization.
 
@@ -66,7 +68,7 @@ In the next two sections, you'll set up a new Okta account/web application and c
 
 ## Add Authentication to Laravel with Okta
 
-Before you proceed, you need to log into your Okta account (or [create a new one for free](https://developer.okta.com/signup/)) and create a new application to get a client ID and a client secret to use with Laravel.
+Before you proceed, you need to log into your Okta account (or [create a new one for free](/signup/)) and create a new application to get a client ID and a client secret to use with Laravel.
 
 Start by going to the **Applications** menu item and clicking the **Add Application** button:
 
@@ -84,12 +86,14 @@ Copy the **Client ID** and **Client Secret** values from the application setting
 
 Edit `.env.example` and add the following:
 
+{% raw %}
 ```
 OKTA_CLIENT_ID=
 OKTA_CLIENT_SECRET=
 OKTA_BASE_URL=
 OKTA_REDIRECT_URI=http://localhost:8000/login/okta/callback
 ```
+{% endraw %}
 
 Copy `.env.example` to `.env` to start filling out your own details.
 
@@ -97,9 +101,11 @@ Edit `.env`, add the Okta keys and input the values you copied in the previous s
 
 Next, add the Laravel Socialite and `socialiteproviders/okta` packages to the project:
 
+{% raw %}
 ```bash
 composer require laravel/socialite socialiteproviders/okta
 ```
+{% endraw %}
 
 Before running the database migrations, you need to make some changes to the migrations and the User model (to cope with the fact that account verifications/password resets will not be handled by your app anymore):
 
@@ -107,6 +113,7 @@ Delete the `database/migrations/2014_10_12_100000_create_password_resets_table.p
 
 Replace `database/migrations/2014_10_12_000000_create_users_table.php` with:
 
+{% raw %}
 ```php
 <?php
 
@@ -143,9 +150,11 @@ class CreateUsersTable extends Migration
     }
 }
 ```
+{% endraw %}
 
 Replace `app/User.php` with:
 
+{% raw %}
 ```php
 <?php
 
@@ -169,33 +178,42 @@ class User extends Authenticatable
     ];
 }
 ```
+{% endraw %}
 
 You can use sqlite as the database engine (it's perfectly fine for this tutorial). Update `.env` and set the database connection to sqlite:
 
+{% raw %}
 ```
 DB_CONNECTION=sqlite
 ```
+{% endraw %}
+
 (remove the rest of the DB_... environment settings from the file).
 
 Then initialize an empty database file in the database directory:
 
+{% raw %}
 ```bash
 touch database/database.sqlite
 ```
+{% endraw %}
 
 Run the database migrations:
 
+{% raw %}
 ```bash
 php artisan migrate
 Migration table created successfully.
 Migrating: 2014_10_12_000000_create_users_table
 Migrated:  2014_10_12_000000_create_users_table (0 seconds)
 ```
+{% endraw %}
 
 ## Configure Socialite for Okta Authentication
 
 Add to the `$providers` array in `config/app.php` to configure the Socialite provider:
 
+{% raw %}
 ```php
 $providers = [
     ...
@@ -203,9 +221,11 @@ $providers = [
     ...
 ]
 ```
+{% endraw %}
 
 Add the following to the `$listen` array in `app/Providers/EventServiceProvider.php`:
 
+{% raw %}
 ```php
 protected $listen = [
     ...
@@ -215,9 +235,11 @@ protected $listen = [
     ...
 ];
 ```
+{% endraw %}
 
 Next, update `config/services.php`:
 
+{% raw %}
 ```php
 'okta' => [
     'client_id' => env('OKTA_CLIENT_ID'),
@@ -226,16 +248,20 @@ Next, update `config/services.php`:
     'base_url' => env('OKTA_BASE_URL')
 ],
 ```
+{% endraw %}
 
 Add to `routes/web.php`:
 
+{% raw %}
 ```php
 Route::get('login/okta', 'Auth\LoginController@redirectToProvider')->name('login-okta');
 Route::get('login/okta/callback', 'Auth\LoginController@handleProviderCallback');
 ```
+{% endraw %}
 
 Replace `app/Http/Controllers/Auth/LoginController.php` with:
 
+{% raw %}
 ```php
 <?php
 
@@ -298,9 +324,11 @@ class LoginController extends Controller
     }
 }
 ```
+{% endraw %}
 
 Modify the section of `resources/views/welcome.blade.php` that displays the top right menu:
 
+{% raw %}
 ```php
 @if (Route::has('login'))
     <div class="top-right links">
@@ -312,6 +340,7 @@ Modify the section of `resources/views/welcome.blade.php` that displays the top 
     </div>
 @endif
 ```
+{% endraw %}
 
 Update `app/Http/Middleware/Authenticate.php`, replace `return route('login');` with `return route('login-okta');`
 
@@ -321,6 +350,7 @@ Run the development web server again with `php artisan serve` and load up `http:
 
 Open `resources/views/welcome.blade.php` and update the section that contains the 'Laravel' text so it shows some additional information if a user is logged in:
 
+{% raw %}
 ```php
 <div class="title m-b-md">
     Laravel
@@ -329,6 +359,7 @@ Open `resources/views/welcome.blade.php` and update the section that contains th
     @endauth
 </div>
 ```
+{% endraw %}
 
 Go back to the home page at `http://localhost:8000/`. If you're logged in, you will see the text with your name in it.
 
@@ -338,12 +369,15 @@ Next, create a new route and controller method in `HomeController` for a new per
 
 `routes/web.php`
 
+{% raw %}
 ```php
 Route::get('/personal-home', 'HomeController@personal')->name('personal-home')->middleware('auth');
 ```
+{% endraw %}
 
 `app/Http/Controllers/HomeController.php`
 
+{% raw %}
 ```php
 ...
 public function personal()
@@ -352,6 +386,7 @@ public function personal()
 }
 ...
 ```
+{% endraw %}
 
 Create a new file `resources/views/personal.blade.php`
 
