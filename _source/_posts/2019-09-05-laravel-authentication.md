@@ -14,7 +14,7 @@ PHP remains the single most popular language choice when creating the backend of
 
 Laravel is a clean and modern framework with a vast ecosystem of learning resources. The creators of Laravel provide a number of first-party tools such as Forge/Envoyer/Spark/Nova/Vapor and the vibrant Laravel community produces and supports tons of third-party packages. It's easy to get started with Laravel but not at the expense of available features or performance. It's an opinionated framework that allows you to move quickly if you follow its conventions, but with enough breathing room to deviate from the standards when you need to.
 
-In this article, I'll show you how to get started with Laravel and quickly build an application with user authentication (using Okta as your identity management provider). 
+In this article, I'll show you how to get started with Laravel and quickly build an application with user authentication (using Okta as your identity management provider).
 
 <div markdown="1" style="border: 1px #eedeaa solid; background: #ffffee; padding: 20px; border-radius: 8px;">
 **Prerequisites:** Please ensure you have already installed PHP, Composer, and have signed up for a [free Okta developer account](https://developer.okta.com/signup/).
@@ -45,7 +45,7 @@ Laravel handles user authentication by default through its 'auth' middleware. Wh
 
 Okta is an API Identity service that allows you to create, edit, and securely store user accounts and user account data, and connect them with one or more applications. We might be biased, but we think Okta makes [identity management](https://developer.okta.com/product/user-management/) easier, more secure, and more scalable than what you're used to.
 
-To complete this tutorial, you'll need to [register for a forever-free developer account](https://developer.okta.com/signup/). 
+To complete this tutorial, you'll need to [register for a forever-free developer account](https://developer.okta.com/signup/).
 
 You'll replace some of the Laravel boilerplate code in your application so it uses Okta to authenticate users. The Socialite package for Laravel will help make it easier - it can handle integration with a large number of social login providers (including Okta) out-of-the-box.
 
@@ -75,7 +75,7 @@ Start by going to the **Applications** menu item and clicking the **Add Applicat
 Select **Web** and click **Next**.
 
 {% img blog/php-laravel-authentication/create-new-application-menu.png alt:"Select Web from the list of application types" width:"800" %}{: .center-image }
-  
+
 Enter a title, set `http://localhost:8000/` as the Base URI and `http://localhost:8000/login/okta/callback` as the Login Redirect URI, then click Done. You can leave the rest of the settings as they are.
 
 Copy the **Client ID** and **Client Secret** values from the application settings. Go to **API** > **Authorization Servers**, and copy just the hostname part of the `Issuer URI` field (without the `/oauth2/default` part) - this is your Okta Base URL (it looks like `https://{{yourOktaDomain}}`).
@@ -200,7 +200,7 @@ Add to the `$providers` array in `config/app.php` to configure the Socialite pro
 $providers = [
     ...
     \SocialiteProviders\Manager\ServiceProvider::class,
-    ...    
+    ...
 ]
 ```
 
@@ -287,7 +287,7 @@ class LoginController extends Controller
         } catch (\Throwable $e) {
             return redirect('/login-okta');
         }
-        
+
         return redirect('/home');
     }
 
