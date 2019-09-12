@@ -10,5 +10,4 @@ gem 'tzinfo-data'
 group :jekyll_plugins do
   gem 'jekyll-asciidoc'
   gem 'jekyll-paginate'
-  gem 'asciidoctor-rouge'
 end
