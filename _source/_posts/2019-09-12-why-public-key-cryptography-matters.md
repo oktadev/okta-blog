@@ -8,7 +8,7 @@ tweets:
 - "How does public key cryptography work? Check out our short article on the subject!"
 - "Interested in #security? Read our short writeup on public key crypto:"
 - "Public key cryptography is really useful. If you'd like to learn more about it, read our writeup on the subject:"
-image: blog/featured/okta-angular-headphones.jpg
+image: blog/why-public-key-cryptography-matters/public-key-encryption.png
 ---
 
 40 years old and as relevant today as when it was first invented, public key cryptography is the unsung hero of modern cybersecurity. Most people take unknowing advantage of it many times a day. So what is it, and how does it work?
