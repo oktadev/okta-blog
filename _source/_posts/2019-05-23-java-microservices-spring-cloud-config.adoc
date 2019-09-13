@@ -24,6 +24,14 @@ https://spring.io/projects/spring-cloud-config[Spring Cloud Config] is a project
 
 Today I'd like to show you how this works and demo it using one of the hippest microservice solutions I've ever worked with.
 
+If you'd rather watch a video, https://youtu.be/ez7HMO60kE8[I created a screencast of this blog post].
+
+++++
+<div style="text-align: center; margin-bottom: 1.25rem">
+<iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/ez7HMO60kE8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+++++
+
 == Use JHipster to Generate a Java Microservices Architecture
 
 https://www.jhipster.tech/[JHipster] is a development platform to generate, develop, and deploy Spring Boot + { Angular or React or Vue } applications. In addition, it supports creating Spring-based microservice architectures. In fact, if you create microservices projects and choose OAuth 2.0 / OIDC for authentication, you'll be using code that's very similar to the aforementioned example.
