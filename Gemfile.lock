@@ -8,10 +8,7 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
-    asciidoctor (1.5.7.1)
-    asciidoctor-rouge (0.3.1)
-      asciidoctor (~> 1.5.6)
-      rouge (~> 2.2)
+    asciidoctor (2.0.10)
     colorator (1.1.0)
     colored (1.2)
     concurrent-ruby (1.1.5)
@@ -114,7 +111,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  asciidoctor-rouge
   html-proofer (= 3.7.2)
   jekyll-asciidoc
   jekyll-assets (= 2.3.2)
@@ -124,4 +120,4 @@ DEPENDENCIES
   tzinfo-data
 
 BUNDLED WITH
-   1.17.2
+   2.0.2
