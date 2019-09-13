@@ -50,7 +50,7 @@ Applications in OpenID Connect have a username and password (referred to as a cl
 
 To create a new application browse to the **Applications** tab and click **Add Application**.
 
-{% img blog/build-a-simple-crud-app-with-python-and-flask/okta-application-page.png alt:"Okta application page" width:"700" %}{: .center-image }
+{% img blog/build-a-simple-crud-app-with-python-and-flask/okta-application-page.jpg alt:"Okta application page" width:"700" %}{: .center-image }
 
 Next, click the **Web** platform option (since this project is a web app).
 
