@@ -2,11 +2,12 @@ name: Compress Images
 on: pull_request
 jobs:
   build:
-    name: Compress Images 
+    name: Compress Images
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: calibreapp/image-actions
+
+      - name: Compress images
         uses: docker://calibreapp/github-image-actions
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
