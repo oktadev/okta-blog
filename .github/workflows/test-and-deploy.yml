@@ -23,7 +23,7 @@ jobs:
 
     - name: Install ruby dependencies
       run: |
-        gem install bundler
+        gem install bundler -v 2.0.2
         bundle install
 
     - name: Set up python and pip
