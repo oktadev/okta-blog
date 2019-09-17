@@ -30,7 +30,7 @@ Let's start by creating the project using Spring Initializr.
 - Group: com.okta
 - Artifact: spring-kotlin
 - Options:
-  - Package Name: 
+  - Package Name: com.okta
 - Dependencies: Spring Web
 
 You can also use the command line to get the same result:
