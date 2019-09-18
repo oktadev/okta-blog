@@ -17,7 +17,7 @@ One important aspect of "stuff just works" -- reliability. Recently, the softwar
 
 ## Sample App Dependencies: ASP.Net Core and Docker Packages
 
-To build an app in Docker, first we need an app to Dockerize. This tutorial uses the  ASP.Net Core project from a previous blogpost on [Adding Login to Your ASP.NET Core MVC App](https://developer.okta.com/blog/2018/10/29/add-login-to-you-aspnetcore-app).
+To build an app in Docker, first we need an app to Dockerize. This tutorial uses the  ASP.Net Core project from a previous blogpost on [Adding Login to Your ASP.NET Core MVC App](blog/2018/10/29/add-login-to-you-aspnetcore-app).
 That blogpost shows you how to build a simple .Net Core application that uses Okta for Identity Management. You should work through that blog post, or at very least read it and clone the repo.
 
 You'll also need:
@@ -63,9 +63,9 @@ Edit `appsettings.json` to remove:
 
 ```json
 "Okta": {
-"ClientId": "{OktaClientId}",
-"ClientSecret": "{OktaClientSecret}",
-"Domain": "https://dev-107646.okta.com"
+    "ClientId": "{OktaClientId}",
+    "ClientSecret": "{OktaClientSecret}",
+    "Domain": "https://{yourOktaDomain}.okta.com"
 },
 ```
 
@@ -104,28 +104,27 @@ The uppercase words are Docker commands. There aren't many of them, and you can 
 
 `FROM` tells Docker which image you want to use for your container. An image is a compressed file system snapshot. Also, the result of building a `Dockerfile` is a new image. So, one way to look at a `Dockerfile` is as a series of transformations that convert one image into another image that includes your application.
 
-`WORKDIR` tells Docker which directory to use for performing subsequent commands.
-`COPY` tells Docker to copy a file from your local filesystem into the container image.
-`RUN` executes commands within the container image.
+* `WORKDIR` tells Docker which directory to use for performing subsequent commands.
+* `COPY` tells Docker to copy a file from your local filesystem into the container image.
+* `RUN` executes commands within the container image.
 
 So, in plain English - this `Dockerfile` is based on the `dotnet/core/sdk` image hosted at `mcr.microsoft.com`. Docker copies the `.csproj` file from your local working directory to create your image and `dotnet restore` restores all the referenced packages. Once that's done, Docker copies the remaining files from your working directory, then `dotnet build` creates a **Release** build at `/app`.
 
 ## Manage Dependencies Efficiently with Docker
 
-Reading this, you may be thinking, why bother to copy the project file and run `restore` before copying the source code and running `build`. Why not copy everything then build and restore in one step? The answer is caching. Every time a `Dockerfile` modifies the docker image, Docker creates a snapshot.  If you copy a file or run a command to install a package, Docker captures the differences in a new snapshot. Docker then caches and reuses the snapshots if the image hasn't changed. So, by restoring dependencies as a separate step, the image snapshot can be reused for every build, as long as the dependencies haven't changed. This process speeds up the build considerably since downloading dependencies can take some time.
+Reading this, you may be thinking, why bother to copy the project file and run `restore` before copying the source code and running `build`? Why not copy everything then build and restore in one step? The answer is caching. Every time a `Dockerfile` modifies the docker image, Docker creates a snapshot.  If you copy a file or run a command to install a package, Docker captures the differences in a new snapshot. Docker then caches and reuses the snapshots if the image hasn't changed. So, by restoring dependencies as a separate step, the image snapshot can be reused for every build, as long as the dependencies haven't changed. This process speeds up the build considerably since downloading dependencies can take some time.
 
 ## Run the ASP.NET Core App in a Docker Container
 
 As mentioned above, a `Dockerfile` can be considered a series of filesystem transformations. Your current file transforms the Microsoft-provided SDK container into a new container with both the Microsoft SDK and a release build of your application stored at `/app`.
 
-Check this out::
+Try this out::
 
 ```bash
 # Build an image using the Dockerfile in the current directory
 docker build --target build -t oktamvclogin .
 # Run the image, executing the command 'ls /app'
 docker run -it oktamvclogin ls /app
-
 ```
 
 You'll see that the `app` folder in your container image contains the Release build output for your project.
@@ -202,7 +201,7 @@ Now listening on: 'http://[::]:80'
 Application started. Press Ctrl+C to shut down.
 ```
 
->**Note**: you may also see a 'No XML Encryptor' warning. You can ignore that for this walkthrough.
+**NOTE**: you may also see a 'No XML Encryptor' warning. You can ignore that for this walkthrough.
 
 ## Configure Docker Networking
 
@@ -220,11 +219,11 @@ oktamvclogin
 
 Now, if you open a browser and go to `http://localhost:5001` (because you mapped port 5001 to port 80 in your container), Et voila!
 
->**Note**: this approach is suitable for development. However, for production workloads, Docker offers a comprehensive set of options designed for managing virtual networks. For more information see [the networking overview in Docker's documentation](https://docs.docker.com/network/).
+**NOTE**: this approach is suitable for development. However, for production workloads, Docker offers a comprehensive set of options designed for managing virtual networks. For more information see [the networking overview in Docker's documentation](https://docs.docker.com/network/).
 
 ## Configure SSL/TLS for Your Docker Image
 
-If you click on the 'Login' link in your application, chances are you'll get an error from Okta with a message:
+If you click on the **Login** link in your application, chances are you'll get an error from Okta with a message:
 
 ```bash
 Description: The 'redirect_uri' parameter must be an absolute URI that is whitelisted in the client app settings.
@@ -285,7 +284,7 @@ Notice the additional environment variable with the certificate export password 
 
 You can now navigate to `https://localhost:5001`, and this time, you'll be able to log in and use the sample application correctly.
 
->Note: Since you're using a self-signed certificate, your browser may display a warning page. You can safely ignore this warning.
+NOTE: Since you're using a self-signed certificate, your browser may display a warning page. You can safely ignore this warning.
 
 ## Not the Best Way to Start Your Docker Container
 
@@ -335,9 +334,9 @@ Now, by including a `Dockerfile` along with your source code, any developer can 
 
 If you want to learn more about ASP.NET Core, Okta, or Docker, check out these other posts!
 
-* [A Developer's Guide to Docker - A Gentle Introduction](https://developer.okta.com/blog/2017/05/10/developers-guide-to-docker-part-1)
-* [A Developer's Guide to Docker - The Dockerfile](https://developer.okta.com/blog/2017/08/28/developers-guide-to-docker-part-2)
-* [A Developer's Guide to Docker - Docker Compose](https://developer.okta.com/blog/2017/10/11/developers-guide-to-docker-part-3)
-* [Add Login to Your ASP.NET Core MVC App](https://developer.okta.com/blog/2018/10/29/add-login-to-you-aspnetcore-app)
+* [A Developer's Guide to Docker - A Gentle Introduction](/blog/2017/05/10/developers-guide-to-docker-part-1)
+* [A Developer's Guide to Docker - The Dockerfile](/blog/2017/08/28/developers-guide-to-docker-part-2)
+* [A Developer's Guide to Docker - Docker Compose](/blog/2017/10/11/developers-guide-to-docker-part-3)
+* [Add Login to Your ASP.NET Core MVC App](/blog/2018/10/29/add-login-to-you-aspnetcore-app)
 
 As usual, if you have any questions about this post, leave them in the comments below. To get Okta's developer content, follow us on [Twitter](https://www.twitter.com/oktadev) and subscribe to our [YouTube channel](https://www.youtube.com/c/oktadev)!
