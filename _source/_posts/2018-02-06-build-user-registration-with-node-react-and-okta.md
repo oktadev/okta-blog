@@ -744,4 +744,4 @@ As always, if you have questions, comments, or concerns about the article you ca
 
 **Changelog:**
 
-* Sep 18, 2019: Updated to use the latest versions of dependencies. You can see the example app changes in [okta-node-react-registration-example#1]; changes to this post can be viewed in [okta-blog#20](https://github.com/oktadeveloper/okta.github.io/pull/2672).
+* Sep 18, 2019: Updated to use the latest versions of dependencies. You can see the example app changes in [okta-node-react-registration-example#1](https://github.com/oktadeveloper/okta-node-react-registration-example/pull/1); changes to this post can be viewed in [okta-blog#20](https://github.com/oktadeveloper/okta-blog/pull/20).
