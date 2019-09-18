@@ -17,7 +17,7 @@ Many people believe the simplicity of "just writing" code is efficient for provi
 
 However, as those applications grow, the typeless code used to build them often becomes incredibly convoluted and more difficult (some would say impossible) to manage.
 
-In the worst cases, developers end up resorting to testing and prayer in the hopes that simple operations like renaming a function won’t break the whole complex system.  However, developers can build their code from day one to make their codebase readable at scale.
+In the worst cases, developers end up resorting to testing and prayer in the hopes that simple operations like renaming a function won't break the whole complex system.  However, developers can build their code from day one to make their codebase readable at scale.
 
 ## TypeScript to the rescue
 
@@ -30,7 +30,7 @@ There are other efficient ways developers can use their knowledge and code in ne
 
 Additionally, the introduction of static typing to JavaScript allows developers to reuse some of that old Java/C# knowledge to help maintain their NodeJS codebases.
 
-## Today’s Project: A Simple Blogging Engine
+## Today's Project: A Simple Blogging Engine
 
 In this tutorial, we need a new backend for a blogging engine. This app will contain a list of blog posts, each with a title, content, and author.
 
@@ -106,7 +106,7 @@ Also, create a `src` directory, for the source code.
 
 ## Create a NestJS module
 
-Both Node.js and .NET heavily inspired NestJS. So it’s not surprising that every NestJS app is just a bunch of modules.
+Both Node.js and .NET heavily inspired NestJS. So it's not surprising that every NestJS app is just a bunch of modules.
 
 Create an (almost) empty NestJS module `src/application.module.ts`. It only contains a cookie-parser middleware, and will contain all of the application's (currently non-existent) controllers:
 
@@ -226,9 +226,9 @@ To help offload the burden of authentication, you will use Okta for authenticati
 
 [Click here](https://developer.okta.com/signup/) to create an account.
 
-Once you’re logged into your Okta dashboard, click **Applications** in the menu and click **Add Application**. From the wizard, choose **Service** and click **Next**.
+Once you're logged into your Okta dashboard, click **Applications** in the menu and click **Add Application**. From the wizard, choose **Service** and click **Next**.
 
-On the Application Settings screen, name the application (I’ve named mine "the-blog-backend").
+On the Application Settings screen, name the application (I've named mine "the-blog-backend").
 
 After an application has been successfully created, copy the client ID and client secret into the `.env` file in the root of the project.
 
@@ -391,7 +391,7 @@ We currently have no way to register a user through the server, so you can use O
 
 ## Create endpoints to create and fetch users
 
-Having said that, let’s create endpoints for user creation and fetching.
+Having said that, let's create endpoints for user creation and fetching.
 
 Create `src/user.module` file and in it, create a `src/user.module/user-controller.ts` file:
 
