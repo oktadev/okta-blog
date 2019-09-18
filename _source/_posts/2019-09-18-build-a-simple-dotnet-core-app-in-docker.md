@@ -294,7 +294,6 @@ Using Docker Compose is pretty straightforward. Create a file named `docker-comp
 
 ```yaml
 version: "3"
-version: "3"
 services:
   web:
     build: .
