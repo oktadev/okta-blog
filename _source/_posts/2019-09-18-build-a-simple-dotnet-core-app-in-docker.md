@@ -294,17 +294,18 @@ Using Docker Compose is pretty straightforward. Create a file named `docker-comp
 
 ```yaml
 version: "3"
+version: "3"
 services:
-web:
-build: .
-image: oktamvclogin
-ports:
-- "5001:443"
-environment:
-ASPNETCORE_Okta__ClientId: "{yourClientId}-"
-ASPNETCORE_Okta__ClientSecret: "{yourClientSecret}"
-ASPNETCORE_Okta__Domain: "{yourOktaDomain}"
-ASPNETCORE_Kestrel__Certificates__Default__Password: "{yourExportPassword}"
+  web:
+    build: .
+    image: oktamvclogin
+    ports:
+      - "5001:443"
+    environment:
+      - ASPNETCORE_Okta__ClientId: "{yourClientId}"
+      - ASPNETCORE_Okta__ClientSecret: "{yourClientSecret}"
+      - ASPNETCORE_Okta__Domain: "{yourOktaDomain}"
+      - ASPNETCORE_Kestrel__Certificates__Default__Password: "{yourExportPassword}"
 ```
 
 The `docker-compose` file contains all values you previously passed to the `docker run` command.
