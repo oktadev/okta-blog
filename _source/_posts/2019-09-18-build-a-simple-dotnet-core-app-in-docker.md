@@ -2,18 +2,18 @@
 layout: blog_post
 title: "Build a Simple .NET Core App on Docker"
 author: charlieholland
-description: "Are you in tech? Getting ready to travel? These travel tips will save you time and reduce stress on your next conference or work trip."
-tags: [ dotnetcore, docker, dotnet, .netcore, csharp ]
+description: "Learn how to containerize your secure .NET Core applications with Docker, the Okta way."
+tags: [ dotnetcore, docker, dotnet, .netcore, csharp, containerization, containers ]
 tweets:
 - "Ever wonder what you can with #Docker + #AspNetCore? Check it out! →"
 - "Hey .NET devs, we've got a simple #Docker tutorial for your #AspNetCore apps! →"
-- "Traveling for work or to a conference? Make your journey a breeze with these tips →"
+- "Docker + .NET Core = <3 →"
 image: blog/featured/okta-dotnet-mouse-down.jpg
 ---
 
-Wouldn’t it be great if stuff just worked? Especially in the ever-changing world of software. Chasing dependency issues and debugging arcane operating system errors - not a good use of time.
+Wouldn't it be great if stuff just worked? Especially in the ever-changing world of software. Chasing dependency issues and debugging arcane operating system errors - not a good use of time.
 
-One important aspect of "stuff just works" -- reliability. Recently, the software community has made strides in test-driven development and continuous integration processes to drive up quality, and of course, that improves reliability. But it can only go so far. Operating systems perform many functions and incorporate many features, so running them reliably is a huge task. The core secret to improving reliability is fewer moving parts. In this post, I’ll cover how you can use Docker to run your application in an isolated, minimal environment with fewer moving parts.
+One important aspect of "stuff just works" -- reliability. Recently, the software community has made strides in test-driven development and continuous integration processes to drive up quality, and of course, that improves reliability. But it can only go so far. Operating systems perform many functions and incorporate many features, so running them reliably is a huge task. The core secret to improving reliability is fewer moving parts. In this post, I'll cover how you can use Docker to run your application in an isolated, minimal environment with fewer moving parts.
 
 ## Sample App Dependencies: ASP.Net Core and Docker Packages
 
@@ -48,12 +48,12 @@ First things first, set up an application that will provide us with identity man
     * Login Redirect URIs: `https://localhost:5001/authorization-code/callback`
 6. Click **Done** to create the application
 
-Once you’ve created the app, click **Edit** to change a few settings:
+Once you've created the app, click **Edit** to change a few settings:
 
 * Logout redirect URIs: `https://localhost:5001/signout-callback-oidc`
 * Initiate login URI: `https://localhost:5001/authorization-code/callback`
 
-At the bottom of the page, you’ll see Client Credentials, including a ClientID and a Client secret. Take note of these for later use.
+At the bottom of the page, you'll see Client Credentials, including a ClientID and a Client secret. Take note of these for later use.
 
 ## Update the Settings in the ASP.NET Core App
 
@@ -134,7 +134,7 @@ You'll see that the `app` folder in your container image contains the Release bu
 
 So far, you've built your application within a Docker container. Nice work!
 
-However, remember Docker, as a tool, reduces the number of moving parts in your application. To improve reliability by eliminating unnecessary dependencies, we also need to remove development tools, which can cause conflicts and open security risks. The Microsoft-provided SDK image includes development tools, so let’s look at how to get rid of them.
+However, remember Docker, as a tool, reduces the number of moving parts in your application. To improve reliability by eliminating unnecessary dependencies, we also need to remove development tools, which can cause conflicts and open security risks. The Microsoft-provided SDK image includes development tools, so let's look at how to get rid of them.
 
 Add the following lines to your `Dockerfile`:
 
@@ -220,7 +220,7 @@ oktamvclogin
 
 Now, if you open a browser and go to `http://localhost:5001` (because you mapped port 5001 to port 80 in your container), Et voila!
 
->**Note**: this approach is suitable for development. However, for production workloads, Docker offers a comprehensive set of options designed for managing virtual networks. For more information see [the networking overview in Docker’s documentation](https://docs.docker.com/network/).
+>**Note**: this approach is suitable for development. However, for production workloads, Docker offers a comprehensive set of options designed for managing virtual networks. For more information see [the networking overview in Docker's documentation](https://docs.docker.com/network/).
 
 ## Configure SSL/TLS for Your Docker Image
 
