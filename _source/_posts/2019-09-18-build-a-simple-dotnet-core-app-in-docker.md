@@ -17,8 +17,8 @@ One important aspect of "stuff just works" -- reliability. Recently, the softwar
 
 ## Sample App Dependencies: ASP.Net Core and Docker Packages
 
-To build an app in Docker, first we need an app to Dockerize. This tutorial uses the  ASP.Net Core project from a previous blogpost on [Adding Login to Your ASP.NET Core MVC App](blog/2018/10/29/add-login-to-you-aspnetcore-app).
-That blogpost shows you how to build a simple .Net Core application that uses Okta for Identity Management. You should work through that blog post, or at very least read it and clone the repo.
+To build an app in Docker, first we need an app to Dockerize. This tutorial uses the  ASP.Net Core project from a previous blog post on [Adding Login to Your ASP.NET Core MVC App](/blog/2018/10/29/add-login-to-you-aspnetcore-app).
+That blog post shows you how to build a simple .Net Core application that uses Okta for Identity Management. You should work through that blog post, or at very least read it and clone the repo.
 
 You'll also need:
 
