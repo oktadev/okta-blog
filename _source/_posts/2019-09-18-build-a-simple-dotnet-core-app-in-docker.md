@@ -5,15 +5,15 @@ author: charlieholland
 description: "Are you in tech? Getting ready to travel? These travel tips will save you time and reduce stress on your next conference or work trip."
 tags: [ dotnetcore, docker, dotnet, .netcore, csharp ]
 tweets:
-- "Are you a software engineer jet-setting to a destination? Check out these travel tips →"
-- "Developers! We've got the BEST travel tips for you →"
+- "Ever wonder what you can with #Docker + #AspNetCore? Check it out! →"
+- "Hey .NET devs, we've got a simple #Docker tutorial for your #AspNetCore apps! →"
 - "Traveling for work or to a conference? Make your journey a breeze with these tips →"
-image: blog/best-travel-tips/the-best-travel-tips-for-people-in-tech.png
+image: blog/featured/okta-dotnet-mouse-down.jpg
 ---
 
 Wouldn’t it be great if stuff just worked? Especially in the ever-changing world of software. Chasing dependency issues and debugging arcane operating system errors - not a good use of time.
 
-One important aspect of “stuff just works” -- reliability. Recently, the software community has made strides in test-driven development and continuous integration processes to drive up quality, and of course, that improves reliability. But it can only go so far. Operating systems perform many functions and incorporate many features, so running them reliably is a huge task. The core secret to improving reliability is fewer moving parts. In this post, I’ll cover how you can use Docker to run your application in an isolated, minimal environment with fewer moving parts.
+One important aspect of "stuff just works" -- reliability. Recently, the software community has made strides in test-driven development and continuous integration processes to drive up quality, and of course, that improves reliability. But it can only go so far. Operating systems perform many functions and incorporate many features, so running them reliably is a huge task. The core secret to improving reliability is fewer moving parts. In this post, I’ll cover how you can use Docker to run your application in an isolated, minimal environment with fewer moving parts.
 
 ## Sample App Dependencies: ASP.Net Core and Docker Packages
 
@@ -57,7 +57,7 @@ At the bottom of the page, you’ll see Client Credentials, including a ClientID
 
 ## Update the Settings in the ASP.NET Core App
 
-The sample application you created has identity management configuration stored in `appsettings.json`,unless you cloned the repo above rather than working through the complete post. In real life, you shouldn't store this configuration in your source code for security reasons. In this post, we will demonstrate how to reliably pass dynamic configuration to your application, and close this security gap. Start by removing the settings.
+The sample application you created has identity management configuration stored in `appsettings.json`, unless you cloned the repo above rather than working through the complete post. In real life, you shouldn't store this configuration in your source code for security reasons. In this post, we will demonstrate how to reliably pass dynamic configuration to your application, and close this security gap. Start by removing the settings.
 
 Edit `appsettings.json` to remove:
 
@@ -85,7 +85,7 @@ Nice work!
 
 ## Use Docker to Containerize the ASP.NET Core App
 
-Docker is a collection of virtualization technologies wrapped up in an easy to use package. Don't let “virtualization” trip you up, though. Docker doesn't deal with virtual machines; instead, it works by sharing a kernel between multiple isolated containers. Each one of these containers operates utterly unaware of other containers that may be sharing the same kernel. Virtual machines, in contrast, run multiple discrete operating systems on top of a virtualized hardware platform that, itself, runs atop the host operating system. Docker is much more lightweight, and many Docker containers can run on a single host machine.
+Docker is a collection of virtualization technologies wrapped up in an easy to use package. Don't let "virtualization" trip you up, though. Docker doesn't deal with virtual machines; instead, it works by sharing a kernel between multiple isolated containers. Each one of these containers operates utterly unaware of other containers that may be sharing the same kernel. Virtual machines, in contrast, run multiple discrete operating systems on top of a virtualized hardware platform that, itself, runs atop the host operating system. Docker is much more lightweight, and many Docker containers can run on a single host machine.
 
 ## Build the ASP.NET Core App Using Docker
 
@@ -220,7 +220,7 @@ oktamvclogin
 
 Now, if you open a browser and go to `http://localhost:5001` (because you mapped port 5001 to port 80 in your container), Et voila!
 
->**Note**: this approach is suitable for development. However, for production workloads, Docker offers a comprehensive set of options designed for managing virtual networks. For more information see [the networking overview in Docker’s documentation] (https://docs.docker.com/network/).
+>**Note**: this approach is suitable for development. However, for production workloads, Docker offers a comprehensive set of options designed for managing virtual networks. For more information see [the networking overview in Docker’s documentation](https://docs.docker.com/network/).
 
 ## Configure SSL/TLS for Your Docker Image
 
@@ -329,7 +329,7 @@ By working through this post, you've learned how to:
 * Configure SSL/TLS for a containerized ASP.NET Core application
 * Use `docker-compose` to efficiently run a Docker container with a particular configuration
 
-Now, by including a `Dockerfile` along with your source code, any developer can build your app -- reliably. They can build it in any environment, as long as they have Docker installed, and it will work in precisely the same way. Every time, without exception. No dependency issues, no operating system hassles. It will just work. Not only that, but you can deploy the same container directly to production without any further modification. 
+Now, by including a `Dockerfile` along with your source code, any developer can build your app -- reliably. They can build it in any environment, as long as they have Docker installed, and it will work in precisely the same way. Every time, without exception. No dependency issues, no operating system hassles. It will just work. Not only that, but you can deploy the same container directly to production without any further modification.
 
 ## Learn More About Docker and ASP.NET Core
 
