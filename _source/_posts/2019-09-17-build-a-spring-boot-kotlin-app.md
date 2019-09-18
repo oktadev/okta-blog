@@ -11,9 +11,7 @@ tweets:
 image: blog/featured/okta-java-short-skew.jpg
 ---
 
-Java, once considered the coolest kid on the block, is now seen by many as a legacy language. Some developers believe it stopped evolving when it comes to features and many consider it too verbose, claiming it makes code hard to read.
-
-JetBrains, the company behind IntelliJ decided to do something about it and create a modern language that would run inside the Java Virtual Machine. This project became Kotlin, a quickly growing and popular language.
+In 2011, JetBrains, the company behind IntelliJ, decided to create a modern language that would run inside the Java Virtual Machine and address common concerns with Java at the time like its verbosity. This project became Kotlin, a quickly growing and popular language.
 
 Google then announced official support for Kotlin on Android, further accelerating its adoption. Many companies started to replace Java with Kotlin as their main language to take advantage of the new features it provides. Kotlin is now an increasingly important language for developers inside the JVM ecosystem to know and understand.
 
