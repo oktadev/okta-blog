@@ -136,7 +136,7 @@ Or, if you're using the [yarn](https://yarnpkg.com) package manager:
 yarn add @okta/okta-react react-router-dom
 ```
 
-Add a file to the `client/src' folder called` app.config.js`. The contents of the file are:
+Add a file to the `client/src` folder called` app.config.js`. The contents of the file are:
 
 ```js
 export default {
@@ -147,9 +147,9 @@ export default {
 };
 ```
 
-Then, setup the `index.js` file to use the React Router and Okta's React SDK. When the `index.js` file is complete, it will look like this:
+Then, setup the `src/index.js` file to use the React Router and Okta's React SDK. When the `index.js` file is complete, it will look like this:
 
-```js
+```jsx
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
@@ -158,7 +158,7 @@ import { Security } from '@okta/okta-react';
 import './index.css';
 import config from './app.config';
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import * as serviceWorker from './serviceWorker';
 
 function onAuthRequired({ history }) {
   history.push('/login');
@@ -177,7 +177,10 @@ ReactDOM.render(
   </Router>,
   document.getElementById('root')
 );
-registerServiceWorker();
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
+serviceWorker.unregister();
 ```
 
 Once complete, you will have added the `BrowserRouter` component (aliased as "Router") from the React Router, and the `Security` component from Okta's React SDK. Also that the `app.config.js` file is imported as "config" so that you can use the config values in the properties required by the `Security` component.
@@ -192,7 +195,7 @@ Before adding any routes to the React app, create some components to handle the 
 
 Add a `components` folder to the `client/src` folder. This is where all your components will live and the easiest way to organize them. Then create a `home` folder for your home page components. For now there will be just one, but there may be more components used only for the home page later. Add a `HomePage.js` file to the folder with the following contents:
 
-```js
+```jsx
 import React from 'react';
 
 export default class HomePage extends React.Component {
@@ -210,7 +213,7 @@ The first thing to note is that you'll be using the `withAuth` higher-order comp
 
 The code for the `LoginForm` component is as follows:
 
-```js
+```jsx
 import React from 'react';
 import OktaAuth from '@okta/okta-auth-js';
 import { withAuth } from '@okta/okta-react';
@@ -301,7 +304,8 @@ export default withAuth(
 
 The other thing of note here is the `OktaAuth` library being imported. This is the base library for doing things like signing in using the Okta application you created previously. You'll notice an `OktaAuth` object being created in the constructor that gets a property of `baseUrl` passed to it. This is the URL for the issuer that is in your `app.config.js` file. The `LoginForm` component is meant to be contained in another component, so you'll have to create a `LoginPage.js` file to contain this component. You'll use the `withAuth` higher-order component again, to get access to the `isAuthenticated` function. The contents of `LoginPage.js` will be:
 
-```js
+{% raw %}
+```jsx
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import LoginForm from './LoginForm';
@@ -329,13 +333,12 @@ export default withAuth(class Login extends Component {
   render() {
     if (this.state.authenticated === null) return null;
     return this.state.authenticated ?
-      {% raw %}
       <Redirect to={{ pathname: '/profile' }} /> :
       <LoginForm baseUrl={this.props.baseUrl} />;
-      {% endraw %}
   }
 });
 ```
+{% endraw %}
 
 Although it's a bit less than what's in the login form component, there are still some important pieces to point out here.
 
@@ -345,7 +348,7 @@ When `isAuthenticated` returns true, then it is set in the component's state. It
 
 Now create the `ProfilePage.js` component inside the `auth` folder. The contents of the component are:
 
-```js
+```jsx
 import React from 'react';
 import { withAuth } from '@okta/okta-react';
 
@@ -385,7 +388,7 @@ The `withAuth` component here gives you access to the `getUser` function. Here, 
 
 Next, you'll add a registration component. This could be done just like the login form, where there is a `LoginForm` component that is contained in a `LoginPage` component. In order to demonstrate another way to display this, you'll just create a `RegistrationForm` component that will be the main container component. Create a `RegistrationForm.js` file in the `auth` folder with the following content:
 
-```js
+```jsx
 import React from 'react';
 import OktaAuth from '@okta/okta-auth-js';
 import { withAuth } from '@okta/okta-react';
@@ -525,7 +528,7 @@ First, add a navigation component for the routes you'll be adding. In the `clien
 
 You'll need to wrap the navigation component in the `withAuth` higher-order component. That way, you can check to see if there is an authenticated user and display the login or logout button as appropriate.
 
-```js
+```jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { withAuth } from '@okta/okta-react';
@@ -702,7 +705,7 @@ Create a file called `oktaClient.js` in a new folder called `lib` in the Node ap
 const okta = require('@okta/okta-sdk-nodejs');
 
 const client = new okta.Client({
-  orgUrl: '{yourOktaDomain}',
+  orgUrl: 'https://{yourOktaDomain}',
   token: '{yourApiToken}'
 });
 
@@ -712,8 +715,8 @@ module.exports = client;
 In the `app.js` file at the root of the Node app, update the file to have all calls route to `/api/<something>`. You'll see a section below the block of `app.use` statements. Change the route set up so that it looks like this:
 
 ```js
-app.use('/api', index);
-app.use('/api/users', users);
+app.use('/api', indexRouter);
+app.use('/api/users', usersRouter);
 ```
 
 If your Node app is still running, you will need to stop the app (with CTRL+C) and rerun it (with `npm start`) for the updates to take effect.
@@ -727,7 +730,9 @@ Even though the site still needs some serious style love, you will now be able t
 If you want to learn more about the technologies used in this articles, you can check out the documentation for:
 
 - Okta's [Node SDK](https://developer.okta.com/okta-sdk-nodejs/jsdocs/index.html)
-- Okta's [React SDK](https://developer.okta.com/code/react/).
+- Okta's [React SDK](https://developer.okta.com/code/react/)
+
+The source code for this example is available at [oktadeveloper/okta-node-react-registration-example](https://github.com/oktadeveloper/okta-node-react-registration-example).
 
 Also, check out other articles using Okta for authentication:
 
@@ -736,3 +741,7 @@ Also, check out other articles using Okta for authentication:
 - Matt Raible's Article on [Progressive Web Apps](https://developer.okta.com/blog/2017/07/20/the-ultimate-guide-to-progressive-web-applications)
 
 As always, if you have questions, comments, or concerns about the article you can post a comment below, email me at <lee.brandt@okta.com> or post your questions to the [developer forums](https://devforum.okta.com). For more articles and tutorials, follow us on Twitter [@OktaDev](https://twitter.com/oktadev).
+
+**Changelog:**
+
+* Sep 18, 2019: Updated to use the latest versions of dependencies. You can see the example app changes in [okta-node-react-registration-example#1](https://github.com/oktadeveloper/okta-node-react-registration-example/pull/1); changes to this post can be viewed in [okta-blog#20](https://github.com/oktadeveloper/okta-blog/pull/20).
