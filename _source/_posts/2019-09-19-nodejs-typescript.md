@@ -5,9 +5,9 @@ author: ivo-katunaric
 description: "Learn to build a simple blog server using Node.js and TypeScript"
 tags: [nodejs, typescript, nestjs, secure, oauth, oidc, javascript]
 tweets:
-- ""
-- ""
-- ""
+- "Learn to build a blog application using Node.js and TypeScript with NestJS! →"
+- "Yes, you can use TypeScript with Node.js! Here's an example of building a blog application using Node.js and TypeScript with NestJS! →"
+- "Can you use TypeScript with Node.js? Absolutely! Here's one approach to building a blog application with TypeScript and NestJS! →"
 image: blog/featured/okta-node-bottle-headphones.jpg
 ---
 
