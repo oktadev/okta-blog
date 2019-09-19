@@ -243,10 +243,10 @@ You'll also put your Okta account's domain in the `.env` file. It's the hostname
 After writing all those values, your `.env` file should look something like this:
 
 ```dotenv
-OKTA_CLIENT_ID=xxxxxxxxxxxxxxxxxxxx
-OKTA_CLIENT_SECRET=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-OKTA_APP_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-OKTA_DOMAIN=https://dev-xxxxxx.okta.com
+OKTA_CLIENT_ID={yourClientId}
+OKTA_CLIENT_SECRET={yourClientSecret}
+OKTA_APP_TOKEN={yourAppToken}
+OKTA_DOMAIN={yourDomainUrl}
 ```
 
 All these values are needed for the next section.
