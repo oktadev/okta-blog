@@ -2,7 +2,7 @@
 layout: blog_post
 title: "Build a NodeJS App with TypeScript"
 author: ivo-katunaric
-description: "Learn to build a simple blog server using Node.js and TypeScript"
+description: "Learn to build a simple blog server using Node.js and TypeScript."
 tags: [nodejs, typescript, nestjs, secure, oauth, oidc, javascript]
 tweets:
 - "Learn to build a blog application using Node.js and TypeScript with NestJS! →"
@@ -170,7 +170,7 @@ After running the server, direct your browser to `http://localhost:3000`. An API
 
 Now let's create a few operations!
 
-## Create the `blogpost` module
+## Create the `BlogPost` module
 
 Create a directory `src/blog-post.module`. In it, create `src/blog-post.module/blog-post-controller.ts` to contain all the posts:
 
@@ -236,7 +236,7 @@ The dotenv (.env) file stores your development environment variables. They switc
 
 This file is consumed by the `require('dotenv/config')` statement in your `server.js` file. It copies the values from `.env` file into the `process.env` global variable. Create an empty `.env` file in the root directory of the project.
 
-The application needs an API token to communicate with Okta. In the Okta dashboard, click on **API**, then **Tokens**, and on the new page click**Create Token**. Copy its value to the `.env` file as well.
+The application needs an API token to communicate with Okta. In the Okta dashboard, click on **API**, then **Tokens**, and on the new page click **Create Token**. Copy its value to the `.env` file as well.
 
 You'll also put your Okta account's domain in the `.env` file. It's the hostname of the Okta dashboard you're currently using, but without the `-admin` part. It should look something like `dev-xxxxxx.okta.com`.
 
@@ -540,9 +540,9 @@ Now we're finally ready to create a blog post!
 
 ## Create a blog post
 
-To allow blog post creation, let's expand our `BlogPost` controller to add a `create` method. The method should be secured against unauthenticated usage and also modified to use `userId` extracted from the user's session.
+To allow blog post creation, let's expand our `BlogPost` controller to add a `create()` method. The method should be secured against unauthenticated usage and also modified to use `userId` extracted from the user's session.
 
-This is what the `src/blog-post.module/blog-post-controller.ts`  file looks like after adding the `create` method:
+This is what the `src/blog-post.module/blog-post-controller.ts`  file looks like after adding the `create()` method:
 
 ```typescript
 import { Body, Controller, Get, NotFoundException, Param, Post, Req, UseGuards } from '@nestjs/common';
@@ -630,8 +630,8 @@ If you liked this post, you may also like these great posts from the Okta Develo
 - [Build a Node.js API with TypeScript](/blog/2019/05/07/nodejs-typescript-api)
 - [Use TypeScript to Build a Node API with Express](/blog/2018/11/15/node-express-typescript)
 
-The source code for this project can be found on [GitHub](https://github.com/oktadeveloper/okta-nodejs-typescript).
+The source code for this project can be found on [GitHub](https://github.com/oktadeveloper/okta-nodejs-typescript-example).
 
-If you want to explore the more advanced authentication, authorization, and user management functionality Okta provides, take a look at the [developer documentation](/docs/reference/)
+If you want to explore the more advanced authentication, authorization, and user management functionality Okta provides, take a look at our [developer documentation](/docs/reference/)
 
 If you liked this tutorial, follow us [@oktadev](https://twitter.com/oktadev) on Twitter and check out tutorial screencasts and other videos on our [YouTube channel](https://youtube.com/c/oktadev).
