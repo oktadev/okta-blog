@@ -246,7 +246,7 @@ After writing all those values, your `.env` file should look something like this
 OKTA_CLIENT_ID={yourClientId}
 OKTA_CLIENT_SECRET={yourClientSecret}
 OKTA_APP_TOKEN={yourAppToken}
-OKTA_DOMAIN={yourDomainUrl}
+OKTA_DOMAIN=https://{yourOktaDomain}
 ```
 
 All these values are needed for the next section.
