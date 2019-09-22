@@ -1,18 +1,18 @@
 (function($) {
   $(function() {
-    var iframe = $('<iframe id="myOktaIFrame" src="https://login.okta.com" style="display:none"></iframe>');
-    $('body').append(iframe);
+    // var iframe = $('<iframe id="myOktaIFrame" src="https://login.okta.com" style="display:none"></iframe>');
+    // $('body').append(iframe);
 
-    $('#myOktaIFrame').on('load', function() {
-      window.getMyOktaAccounts();
-    });
+    // $('#myOktaIFrame').on('load', function() {
+    //   window.getMyOktaAccounts();
+    // });
 
-    window.addEventListener('message', receiveMessage, false);
-    document.addEventListener('visibilitychange', checkSuccess, false);
+    // window.addEventListener('message', receiveMessage, false);
+    // document.addEventListener('visibilitychange', checkSuccess, false);
 
-    window.addEventListener('myOktaAccountFound', function (event) {
-      $('.is-signed-in').show();
-    }, false);
+    // window.addEventListener('myOktaAccountFound', function (event) {
+    //   $('.is-signed-in').show();
+    // }, false);
   });
 
   /**
