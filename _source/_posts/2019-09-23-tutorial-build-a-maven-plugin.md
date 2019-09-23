@@ -5,9 +5,9 @@ description: 'Tutorial: How to build a Maven plugin.'
 tags: [tutorial, maven, java, builds]
 author: bdemers
 tweets:
-- "Learn how to build an @ApacheMaven plugin" 
-- "Maven Plugins are built with @ApacheMaven plugins 🐢🐢🐢"
-- "Build a simple @ApacheMaven plugin that will run `git rev-parse`"
+- "Learn how to build an @ASFMavenProject plugin" 
+- "Maven plugins are built with Maven plugins 🐢🐢🐢"
+- "Build a simple ASFMavenProject plugin that will run `git rev-parse`"
 image: blog/tutorial-build-a-maven-plugin/console-usage-example.png
 ---
 
@@ -16,6 +16,12 @@ Apache Maven is still the most popular build tool in the Java space, thanks to t
 In this tutorial, I'm going to show you how to build a simple Maven Plugin that resolves a project's current Git hash, i.e. `git rev-parse --short HEAD`.
 
 Before you get started, make sure to install [Java 8](https://adoptopenjdk.net/) and [Apache Maven](https://maven.apache.org/).  I use [SDKMAN](https://sdkman.io/) to install them both.
+
+If you'd rather watch a video, [I created a screencast of this blog post](https://youtu.be/wHX4j0z-sUU).
+
+<div style="text-align: center; margin-bottom: 1.25rem">
+<iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed//wHX4j0z-sUU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 ## Create a new Maven project
 
