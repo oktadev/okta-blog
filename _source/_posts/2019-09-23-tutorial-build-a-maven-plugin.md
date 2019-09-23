@@ -7,7 +7,7 @@ author: bdemers
 tweets:
 - "Learn how to build an @ASFMavenProject plugin" 
 - "Maven plugins are built with Maven plugins 🐢🐢🐢"
-- "Build a simple ASFMavenProject plugin that will run `git rev-parse`"
+- "Build a simple @ASFMavenProject plugin that will run `git rev-parse`"
 image: blog/tutorial-build-a-maven-plugin/console-usage-example.png
 ---
 
