@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: How to Build a Maven Plugin
-description: 'Tutorial: How to build a Maven plugin'
+description: 'Tutorial: How to build a Maven plugin.'
 tags: [tutorial, maven, java, builds]
 author: bdemers
 tweets:
@@ -209,21 +209,20 @@ This uses Java's built-in [`Runtime.exec()`](https://docs.oracle.com/javase/8/do
 Next update the `execute()` method:
 
 ```java
-   public void execute() throws MojoExecutionException, MojoFailureException {
+public void execute() throws MojoExecutionException, MojoFailureException {
 
-        // call the getVersion method
-        String version = getVersion(command);
+    // call the getVersion method
+    String version = getVersion(command);
 
-        // define a new property in the Maven Project
-        project.getProperties().put("exampleVersion", version);
+    // define a new property in the Maven Project
+    project.getProperties().put("exampleVersion", version);
 
-        // Maven Plugins have built in logging too
-        getLog().info("Git hash: " + version);
-    }
+    // Maven Plugins have built in logging too
+    getLog().info("Git hash: " + version);
+}
 ```
 
 That is it, now we just need to use the plugin!
-
 
 
 ## Usage of a Maven Plugin
@@ -299,7 +298,7 @@ Running `mvn package` on this project result gives the output:
 
 The `[INFO] Git hash: 1ab3` line shows my plugin as it executes, and the new `exampleVersion` property defined by the plugin is used by the `echo-maven-plugin`
 
-> **NOTE:** Once you have added a plugin to a `pom.xml` you can use the shorthand notation to execute the plugin: `mvn <prefix>:<goal>`, commonly the "prefix" is the [artifact ID minus the "-maven-plugin"](https://maven.apache.org/guides/introduction/introduction-to-plugin-prefix-mapping.html#Specifying_a_Plugin.27s_Prefix). For example `mvn example:version` 
+> **NOTE:** Once you have added a plugin to a `pom.xml` you can use the shorthand notation to execute the plugin: `mvn <prefix>:<goal>`, commonly the "prefix" is the [artifact ID minus the "-maven-plugin"](https://maven.apache.org/guides/introduction/introduction-to-plugin-prefix-mapping.html#Specifying_a_Plugin.27s_Prefix). For example `mvn example:version`.
 
 ##  Dependency Injection in Maven Plugins
 
