@@ -166,9 +166,9 @@ It's worth noting the Javadoc is important for Maven Plugins, as it will be used
 
 The `Parameter` annotation tells Maven to inject a value into the field.  This is similar to Spring's `Value` annotation. For the `command` field, I've set `property` value to be `git.command`. This allows the user to change the value on the command line with the standard `-D` notation:
 
-```bashs
+```bash
 mvn com.okta.example:example-maven-plugin:version \
-    -Dgit.command="git rev-parse --short=4 HEAD"`
+    -Dgit.command="git rev-parse --short=4 HEAD"
 ```
 
 It's also common to inject the `MavenProject` in order to read or modify something in the project directly. For example, the `MavenProject` gives you access to the dependencies and anything defined in a `pom.xml`. In my case, I'm going to add an additional property that can be used later in the build.
