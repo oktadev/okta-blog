@@ -7,7 +7,7 @@ author: krasimir
 tweets:
 - "Learn how to quickly add authentication to a Symfony project" 
 - "Add authentication to your Symfony project quickly using Okta! 🎉"
-image: blog/featured/okta-php-headphones.png
+image: blog/featured/okta-php-headphones.jpg
 ---
 
 Symfony is not the most popular or loved PHP framework, but it's arguably the most mature, flexible, and reliable. Since its initial release, Symfony has evolved into a set of loosely-coupled, high-quality components that can be chosen individually or combined to create powerful applications, without the compromise of bloat or huge runtime overhead. These components are also widely used outside the context of the framework, as stand-alone modules or sitting at the bottom of other frameworks (e.g., Laravel) and content management systems (Drupal).
