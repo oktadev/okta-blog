@@ -14,7 +14,8 @@
     "prep-for-deploy": "bash scripts/prep-for-deploy.sh",
     "dev": "node scripts/dev-clean && npm run start",
     "dev-restore": "node scripts/dev-restore",
-    "post": "node scripts/post"
+    "post": "node scripts/post",
+    "clean-post": "node scripts/dev-chars"
   },
   "pre-push": [
     "dev-restore",
