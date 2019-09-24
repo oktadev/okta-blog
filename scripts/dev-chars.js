@@ -19,15 +19,20 @@ fs.readdir( postsDir, (err, files) => {
 
     const fn = files[files.length-1];
 
-    rl.question("Replace funny characters in "+fn+"? [Y/n] ", (answer) => {
+    var contents = fs.readFileSync(postsDir+'/'+fn, 'utf8');
+
+    // Count matches to report
+    var count_quotes = (contents.match(/[‘’“”…]/g) || []).length;
+
+    var count_urls = (contents.match(/\(https:\/\/developer\.okta\.com\/blog\/(.+)\)/g) || []).length;
+
+    console.log("Found "+count_quotes+" curly quotes and "+count_urls+" absolute blog URLs");
+
+    rl.question("Replace characters in "+fn+"? [Y/n] ", (answer) => {
         console.log(answer);
 
         if(answer.toLowerCase() == 'yes' || answer.toLowerCase() == 'y' || answer == '') {
                 
-            var contents = fs.readFileSync(postsDir+'/'+fn, 'utf8');
-
-            // Count matches to report
-            var count = (contents.match(/[‘’“”…]/g) || []).length
 
             contents = contents.replace(/‘/g, "'")
                 .replace(/’/g, "'")
@@ -35,13 +40,12 @@ fs.readdir( postsDir, (err, files) => {
                 .replace(/”/g, '"')
                 .replace(/…/g, '...');
 
-            console.log("Replaced "+count+" characters");
-
-            count = (contents.match(/\(https:\/\/developer\.okta\.com\/blog\/(.+)\)/g) || []).length
+            console.log("");
+            console.log("Replaced "+count_quotes+" characters");
 
             contents = contents.replace(/\(https:\/\/developer\.okta\.com\/blog\/(.+)\)/g, '(/blog/$1)')
 
-            console.log("Replaced "+count+" instances of absolute blog URLs");
+            console.log("Replaced "+count_urls+" instances of absolute blog URLs");
 
             fs.writeFileSync(postsDir+'/'+fn, contents);
 
