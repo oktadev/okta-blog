@@ -1,7 +1,7 @@
 ---
 layout: blog_post
-title: Symfony Authentication
-description: 'Tutorial: How to add authentication to a Symfony app.'
+title: How to Create a Simple Symfony Application with Authentication
+description: "In this post we'll create a simple Symfony application and add user authentication with Okta"
 tags: [tutorial, php, symfony]
 author: krasimir
 tweets:
