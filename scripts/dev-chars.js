@@ -26,13 +26,12 @@ fs.readdir( postsDir, (err, files) => {
 
     var count_urls = (contents.match(/\(https:\/\/developer\.okta\.com\/blog\/(.+)\)/g) || []).length;
 
+    console.log("Reading latest post "+fn);
     console.log("Found "+count_quotes+" curly quotes and "+count_urls+" absolute blog URLs");
 
-    rl.question("Replace characters in "+fn+"? [Y/n] ", (answer) => {
-        console.log(answer);
+    rl.question("Replace characters? [Y/n] ", (answer) => {
 
         if(answer.toLowerCase() == 'yes' || answer.toLowerCase() == 'y' || answer == '') {
-                
 
             contents = contents.replace(/‘/g, "'")
                 .replace(/’/g, "'")
