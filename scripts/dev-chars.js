@@ -20,27 +20,34 @@ fs.readdir( postsDir, (err, files) => {
     const fn = files[files.length-1];
 
     rl.question("Replace funny characters in "+fn+"? [Y/n] ", (answer) => {
-    	console.log(answer);
+        console.log(answer);
 
-    	if(answer.toLowerCase() == 'yes' || answer.toLowerCase() == 'y' || answer == '') {
-    			
-			var contents = fs.readFileSync(postsDir+'/'+fn, 'utf8');
+        if(answer.toLowerCase() == 'yes' || answer.toLowerCase() == 'y' || answer == '') {
+                
+            var contents = fs.readFileSync(postsDir+'/'+fn, 'utf8');
 
-			// Count matches to report
-			var count = (contents.match(/[‘’“”…]/g) || []).length
+            // Count matches to report
+            var count = (contents.match(/[‘’“”…]/g) || []).length
 
-			contents = contents.replace(/‘/g, "'")
-				.replace(/’/g, "'")
-				.replace(/“/g, '"')
-				.replace(/”/g, '"')
-				.replace(/…/g, '...');
+            contents = contents.replace(/‘/g, "'")
+                .replace(/’/g, "'")
+                .replace(/“/g, '"')
+                .replace(/”/g, '"')
+                .replace(/…/g, '...');
 
-			fs.writeFileSync(postsDir+'/'+fn, contents);
-			console.log("Replaced "+count+" characters");
+            console.log("Replaced "+count+" characters");
 
-    	}
+            count = (contents.match(/\(https:\/\/developer\.okta\.com\/blog\/(.+)\)/g) || []).length
 
-    	rl.close();
+            contents = contents.replace(/\(https:\/\/developer\.okta\.com\/blog\/(.+)\)/g, '(/blog/$1)')
+
+            console.log("Replaced "+count+" instances of absolute blog URLs");
+
+            fs.writeFileSync(postsDir+'/'+fn, contents);
+
+        }
+
+        rl.close();
     });
 
 });
