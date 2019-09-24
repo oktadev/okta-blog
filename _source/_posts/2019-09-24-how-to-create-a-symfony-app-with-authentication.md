@@ -95,6 +95,7 @@ Create a new `.env.local` file inside the main project directory to store your l
 
 `.env.local`
 
+{% raw %}
 ```
 DATABASE_URL=mysql://symfony_auth:symfony_auth@127.0.0.1:3306/symfony_auth
 OKTA_BASE_URL=http://localhost:8000/
@@ -103,6 +104,7 @@ OKTA_CLIENT_ID=
 OKTA_CLIENT_SECRET=
 OKTA_METADATA_URL=https://{{yourOktaDomain}}/oauth2/default/.well-known/oauth-authorization-server
 ```
+{% endraw %}
 
 Replace the domain name in `OKTA_METADATA_URL` with your own (`dev-xxxxxx.okta.com`), and input your Client ID and Client Secret (saved when you created the Okta application).
 
@@ -759,7 +761,7 @@ Clicking the login button now takes you to the Okta login form, or immediately l
 
 ## Learn More About Symfony, Authentication, and Okta
 
-You can find the whole code example [on GitHub](https://github.com/oktadeveloper/okta-php-symfony-auth). 
+You can find the whole code example [on GitHub](https://github.com/oktadeveloper/okta-php-symfony-auth-example). 
 If you would like to learn more about Symfony, Okta, and PHP Authentication, start with these resources:
 
 * [OAuth 2.0 and OpenID Connect](https://developer.okta.com/authentication-guide/auth-overview/)
