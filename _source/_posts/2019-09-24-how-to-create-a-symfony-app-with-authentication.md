@@ -1,7 +1,7 @@
 ---
 layout: blog_post
-title: Symfony Authentication
-description: 'Tutorial: How to add authentication to a Symfony app.'
+title: How to Create a Simple Symfony Application with Authentication
+description: "In this tutorial, you'll learn how to create a simple Symfony application and add user authentication with Okta."
 tags: [tutorial, php, symfony]
 author: krasimir
 tweets:
@@ -14,7 +14,7 @@ Symfony is not the most popular or loved PHP framework, but it's arguably the mo
 
 One of the most common features of Web applications is user authentication/authorization. Symfony provides a powerful Security component that can take care of most user management use cases automatically. However, you can quickly expand it to add additional authentication methods and user providers, so you don't have to maintain your own Identity Provider (IdP). In this article, I'll show you how to implement user authentication using Okta as the IdP within the Symfony 4.3 security module.
 
-To follow this tutorial, you'll need PHP, MySQL, Composer, and a free [Okta developer account](https://developer.okta.com/).
+To follow this tutorial, you'll need PHP, MySQL, Composer, and a free [Okta developer account](https://developer.okta.com/signup/).
 
 ## Symfony Architecture
 
@@ -95,6 +95,7 @@ Create a new `.env.local` file inside the main project directory to store your l
 
 `.env.local`
 
+{% raw %}
 ```
 DATABASE_URL=mysql://symfony_auth:symfony_auth@127.0.0.1:3306/symfony_auth
 OKTA_BASE_URL=http://localhost:8000/
@@ -103,6 +104,7 @@ OKTA_CLIENT_ID=
 OKTA_CLIENT_SECRET=
 OKTA_METADATA_URL=https://{{yourOktaDomain}}/oauth2/default/.well-known/oauth-authorization-server
 ```
+{% endraw %}
 
 Replace the domain name in `OKTA_METADATA_URL` with your own (`dev-xxxxxx.okta.com`), and input your Client ID and Client Secret (saved when you created the Okta application).
 
@@ -377,7 +379,7 @@ Success!
 Next: When you're ready, create a migration with make:migration
 ```
 
-Next, let's make modifications to the User entity: set the email field to be unique, implement the `UserInterface`, and make it serializable. Here's the full version for clarity:
+Next, let's make modifications to the `User` entity: set the email field to be unique, implement the `UserInterface`, and make it serializable. Here's the full version for clarity:
 
 ```php
 <?php
@@ -650,7 +652,7 @@ class OktaApiService
 }
 ```
 
-Quite a few things happen inside this service. This service initiates the authentication flow and redirects the user to Okta, and confirms their user info when Okta redirects back to the app. If you want to understand it better, check this article: [Build Simple Login in PHP](https://developer.okta.com/blog/2018/12/28/simple-login-php)
+Quite a few things happen inside this service. This service initiates the authentication flow and redirects the user to Okta, and confirms their user info when Okta redirects back to the app. If you want to understand it better, check this article: [Build Simple Login in PHP](/blog/2018/12/28/simple-login-php).
 
 Also, using the `$_GET` array directly is more limiting compared to Symfony's `Request` object, so you can refactor this service by injecting the `Request` object and using it instead of `$_GET`.
 
@@ -759,7 +761,7 @@ Clicking the login button now takes you to the Okta login form, or immediately l
 
 ## Learn More About Symfony, Authentication, and Okta
 
-You can find the whole code example [on GitHub](https://github.com/oktadeveloper/okta-php-symfony-auth). 
+You can find the whole code example [on GitHub](https://github.com/oktadeveloper/okta-php-symfony-auth-example). 
 If you would like to learn more about Symfony, Okta, and PHP Authentication, start with these resources:
 
 * [OAuth 2.0 and OpenID Connect](https://developer.okta.com/authentication-guide/auth-overview/)
