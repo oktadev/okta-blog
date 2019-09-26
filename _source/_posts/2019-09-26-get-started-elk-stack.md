@@ -2,7 +2,7 @@
 layout: blog_post
 title: "Get Started with the ELK Stack"
 author: jimena-garbarino
-description: "Learn how to monitor your microservices architecture with the Elastic Stack (Formerly ELK Stack)"
+description: "Learn how to monitor your microservices architecture with the Elastic Stack (formerly ELK Stack)."
 tags: [security, oauth2, monitoring, microservices, elk]
 tweets:
 - "Curious about how to monitor your Java microservices architecture? Learn about the Elastic Stack."
@@ -30,15 +30,15 @@ _**L**ogstash_ is an ETL (extract, transform, load) tool to enrich documents, ru
 
 _**K**ibana_ provides the visualization front-end, a window into the Elastic Stack. With dashboards and visualization elements, the data stored in Elasticsearch can be explored, aggregated and analyzed.
 
-From version 7 on, the ELK Stack was renamed to [**Elastic Stack**](https://www.elastic.co/elk-stack) and added Beats to the stack. Beats is a family of lightweight data shippers that work with Elasticsearch and Logstash. 
+From version 7 on, the ELK Stack was renamed to [Elastic Stack](https://www.elastic.co/elk-stack) and added Beats to the stack. Beats is a family of lightweight data shippers that work with Elasticsearch and Logstash. 
 
 ## Set up the Elastic Stack
 
-Elastic has published [**a Docker Compose configuration**](https://github.com/elastic/stack-docker), to demonstrate the stack components on a single machine.
+Elastic has published [a Docker Compose configuration](https://github.com/elastic/stack-docker), to demonstrate the stack components on a single machine.
 Install [Docker](https://docs.docker.com/install/) and [Docker Compose](https://docs.docker.com/compose/install/) and follow these steps to start up the stack:
 
 > Windows users must configure 2 environment variables, check out the instructions on the [**stack-docker** github repository](https://github.com/elastic/stack-docker)
-
+> 
 > Allow at least 4GB of RAM for the containers, also check out instructions for your environment
 
 1. Clone the `stack-docker` repository
@@ -89,7 +89,7 @@ Install [Docker](https://docs.docker.com/install/) and [Docker Compose](https://
     ```
     **NOTE:** This will destroy all docker containers, images and networks, so use at your own risk.
 
-4. Go to [http://localhost:5601/](http://localhost:5601/) to log into Kibana.
+4. Go to [http://localhost:5601](http://localhost:5601/) to log into Kibana.
 
     Once you log in (using the **elastic** user and the password you captured above), explore the installed dashboards from the Dashboards section via the menu on the left. Heartbeat is one of the Beat services that monitors your services uptime from a provided list of URLs. Open the dashboard *Heartbeat HTTP monitoring* and see the power of the stack for data visualization.
 
@@ -106,27 +106,30 @@ One of the easier ways to start with the JHipster Console is to deploy the appli
 
 ## Create a Java Microservices Architecture with JHipster
 
-> To install a version of JHipster that will work here, you need to install [**Node.js**](https://nodejs.org/en/)
+> To install a version of JHipster that will work here, you need to install [Node.js](https://nodejs.org/).
 
 ### Install JHipster
 
-```SHELL
+```shell
 npm install -g generator-jhipster@6.3.1
 jhipster --version
 ```
 
 The version command should output something like this:
+
 ```
 INFO! Using JHipster version installed globally
 6.3.1
 ```
 
 Create a directory for the project:
-```SHELL
+
+```shell
 mkdir jhipster
 cd jhipster
 ```
-Create `apps.jh` to define  store, blog and gateway microservices in JHipster Domain Language (JDL). We are going to recreate [a java-based example of **Microservices Architecture** we have built before](/blog/2019/05/23/java-microservices-spring-cloud-config) for this tutorial.
+
+Create `apps.jh` to define  store, blog, and gateway microservices in JHipster Domain Language (JDL). We are going to recreate [a Java-based example of microservices architecture we have built before](/blog/2019/05/23/java-microservices-spring-cloud-config) for this tutorial.
 
 ```json
 application {
@@ -210,7 +213,7 @@ microservice Blog, Post, Tag with blog
 
 Now, in your `jhipster` folder, run the [**import-jdl** generator](https://www.jhipster.tech/jdl/#importingjdl).
 
-```SHELL
+```shell
 jhipster import-jdl apps.jh
 ```
 
@@ -218,7 +221,7 @@ jhipster import-jdl apps.jh
 
 In the project folder, create a subfolder for the `docker-compose` configuration and run the subgenerator.
 
-```SHELL
+```shell
 mkdir docker-compose
 cd docker-compose
 jhipster docker-compose
@@ -245,13 +248,14 @@ To generate the missing Docker image(s), please run:
   ./mvnw package -Pprod verify jib:dockerBuild in /home/indiepopart/jhipster/gateway
   ./mvnw package -Pprod verify jib:dockerBuild in /home/indiepopart/jhipster/store
 ```
+
 You can follow the instructions above for creating the microservices images, or create an aggregator `pom.xml` and use just one command for building all the images, as described in [our post on Java microservices](/blog/2019/05/23/java-microservices-spring-cloud-config).
 
-### Setup Okta OpenID Connect (OIDC) Authentication for your Microservices
+### Setup Okta OpenID Connect (OIDC) Authentication for Your Microservices
 
 By default, the microservices architecture authenticates against Keycloak. Update the settings to use Okta as the authentication provider:
 
-First of all, go to Okta for a [**free developer account**](https://developer.okta.com/signup/). 
+First of all, go to Okta for a [free developer account](https://developer.okta.com/signup/). 
 
 Once you log in, click **Your Org**, and it will take you to the **Developer Console**. Go to the **Applications** section and add a new **Web Application**. Set the following authentication settings:
 - Name: give a name for your application
@@ -271,7 +275,7 @@ OIDC_CLIENT_SECRET=<client_secret>
 RESOURCE_ISSUER_URI=<org_url>/oauth2/default
 ```
 
-Edit `docker-compose/docker-compose.yml` and update the `SECURITY_*` settings for the services `blog-app`, `gateway-app` and `store-app`:
+Edit `docker-compose/docker-compose.yml` and update the `SECURITY_*` settings for the services `blog-app`, `gateway-app`, and `store-app`:
 
 ```shell
 SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=${RESOURCE_ISSUER_URI}
@@ -287,11 +291,11 @@ Now go to **API** > **Authorization Servers**, select the **default** server and
 1. Name: groups
 2. Include in token type: ID Token, Always
 3. Value type: Groups
-4. Filter: Matches regex, set the Regex `.*`
+4. Filter: Matches regex, set the Regex to `.*`
 
 ### Enable Debug Logs and Zipkin
 
-To send debug logs to the JHipster Console, let's update the log level in the prod profile.  Edit **src/main/resources/config/application-prod.yml** to set the level for each service (`blog-app`, `store-app` and `gateway-app`) to  **DEBUG** for the **com.okta.developer.\*** logger. For example, in the blog application-prod.yml:
+To send debug logs to the JHipster Console, let's update the log level in the prod profile. Edit `src/main/resources/config/application-prod.yml` to set the level for each service (`blog-app`, `store-app`, and `gateway-app`) to  **DEBUG** for the `com.okta.developer.*` logger. For example, in the blog's `application-prod.yml`:
 
 ```yaml
 logging:
@@ -299,7 +303,7 @@ logging:
         com.okta.developer.blog: DEBUG
 ```
 
-Also, for each service, update the **LoggingAspectConfiguration** to load when the prod profile is active. Change the `@Profile` annotation:
+Also, for each service, update the `LoggingAspectConfiguration` to load when the prod profile is active. Change the `@Profile` annotation:
 
 ```java
 @Configuration
@@ -314,13 +318,14 @@ public class LoggingAspectConfiguration {
 }
 ```
 [Zipkin](https://zipkin.io/) is a distributed tracing system that helps to troubleshoot latency issues in microservices architectures. With a traceId propagated from service to service, calls to different services can be correlated and analyzed as a part of the same flow. The Zipkin server and UI are provided with the JHipster Console, and JHipster apps can integrate with Zipkin through [Spring Cloud Sleuth](https://cloud.spring.io/spring-cloud-sleuth/reference/html/#sleuth-with-zipkin-via-http). 
-To enable Zipkin tracing, add the `zipkin` profile to `blog-app`, `gateway-app` and `store-app` in `docker-compose/docker-compose.yml`.
+To enable Zipkin tracing, add the `zipkin` profile to `blog-app`, `gateway-app`, and `store-app` in `docker-compose/docker-compose.yml`.
 
 ```yaml
 - SPRING_PROFILES_ACTIVE=prod,swagger,zipkin
 ```
-You also need to rebuild the Docker images with the `zipkin` profile, for `blog-app`, `store-app` and `gateway-app` with the following Maven command:
-```SHELL
+You also need to rebuild the Docker images with the `zipkin` profile, for `blog-app`, `store-app`, and `gateway-app` with the following Maven command:
+
+```shell
 ./mvnw package -Pprod -Pzipkin verify jib:dockerBuild -DskipTests
 ```
 
@@ -367,7 +372,7 @@ Since you integrated the JHipster Console with Zipkin UI, in the traces-dashboar
 
 {% img blog/getting-started-with-elk/zipkin-ui.png alt:"zipkin ui" width:"800" %}{: .center-image }
 
-## Learn More about JHipster and Elastic Stack
+## Learn More About JHipster and Elastic Stack
 
 I hope you enjoyed this tutorial and the power of the **Elastic Stack** and the **JHipster Console** for monitoring a microservices architecture.
 To continue expanding your knowledge on JHipster monitoring and Okta integration with the Elastic Stack, check out the following links:
@@ -376,3 +381,13 @@ To continue expanding your knowledge on JHipster monitoring and Okta integration
 - [JHipster Monitoring Documentation](https://www.jhipster.tech/monitoring/)
 - [SAML Authentication and the Elastic Stack](https://www.elastic.co/blog/how-to-enable-saml-authentication-in-kibana-and-elasticsearch)
 - [Authentication in Kibana](https://www.elastic.co/guide/en/kibana/current/kibana-authentication.html)
+
+If you liked this post, chances are you'll like our other posts on JHipster and microservices:
+
+- [Better, Faster, Lighter Java with Java 12 and JHipster 6](/blog/2019/04/04/java-11-java-12-jhipster-oidc)
+- [Upgrading Spring Security OAuth and JUnit Tests through the 👀 of a Java Hipster](/blog/2019/04/15/testing-spring-security-oauth-with-junit)
+- [Java Microservices with Spring Boot and Spring Cloud](/blog/2019/05/22/java-microservices-spring-boot-spring-cloud)
+- [Java Microservices with Spring Cloud Config and JHipster](/blog/2019/05/23/java-microservices-spring-cloud-config)
+- [Secure Reactive Microservices with Spring Cloud Gateway](/blog/2019/08/28/reactive-microservices-spring-cloud-gateway)
+
+To be notified when we published new posts, [follow @oktadev on Twitter](https://twitter.com/oktadev). We also publish screencasts to [our YouTube channel](https://www.youtube.com/c/oktadev) on a regular basis.
