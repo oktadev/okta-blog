@@ -42,64 +42,67 @@ Install [Docker](https://docs.docker.com/install/) and [Docker Compose](https://
 > Allow at least 4GB of RAM for the containers, also check out instructions for your environment
 
 1. Clone the `stack-docker` repository
-```
-git clone https://github.com/elastic/stack-docker.git
-```
-2. Setup the stack with Docker Compose
-```
-cd stack-docker
-docker-compose -f setup.yml up
-```
-When the setup completes, it will output the **password** for the **elastic** user. On a slow connection, this can take up to 20 minutes. When it completes, you will see the following logs:
 
-```
-setup_1  | Setup completed successfully. To start the stack please run:
-setup_1  | 	 docker-compose up -d
-setup_1  |
-setup_1  | If you wish to remove the setup containers please run:
-setup_1  | 	docker-compose -f docker-compose.yml -f docker-compose.setup.yml down --remove-orphans
-setup_1  |
-setup_1  | You will have to re-start the stack after removing setup containers.
-setup_1  |
-setup_1  | Your 'elastic' user password is: Z8GFVXu9UVsBrM6nup5fHw==
-stack-docker_setup_1 exited with code 0
-```
+    ```
+    git clone https://github.com/elastic/stack-docker.git
+    ```
+
+2. Setup the stack with Docker Compose
+
+    ```
+    cd stack-docker
+    docker-compose -f setup.yml up
+    ```
+
+    When the setup completes, it will output the **password** for the **elastic** user. On a slow connection, this can take up to 20 minutes. When it completes, you will see the following logs:
+
+    ```
+    setup_1  | Setup completed successfully. To start the stack please run:
+    setup_1  | 	 docker-compose up -d
+    setup_1  |
+    setup_1  | If you wish to remove the setup containers please run:
+    setup_1  | 	docker-compose -f docker-compose.yml -f docker-compose.setup.yml down --remove-orphans
+    setup_1  |
+    setup_1  | You will have to re-start the stack after removing setup containers.
+    setup_1  |
+    setup_1  | Your 'elastic' user password is: Z8GFVXu9UVsBrM6nup5fHw==
+    stack-docker_setup_1 exited with code 0
+    ```
 
 3. Launch the stack
 
-Start the stack in the foreground to watch the containers logs:
-```
-docker-compose up
-```
-When you see Kibana log the response to health check requests sent by the Beats family and you see at least one heartbeat entry in the logs, you can try the login (step 4 below):
-```
-kibana           | {"type":"response","@timestamp":"2019-09-23T20:38:47Z","tags":[],"pid":1,"method":"get","statusCode":200,"req":{"url":"/login?next=%2F","method":"get","headers":{"host":"kibana:5601","user-agent":"Go-http-client/1.1","referer":"http://kibana:5601"},"remoteAddress":"172.25.0.9","userAgent":"172.25.0.9","referer":"http://kibana:5601"},"res":{"statusCode":200,"responseTime":30,"contentLength":9},"message":"GET /login?next=%2F 200 30ms - 9.0B"}
-...
-heartbeat        | 2019-09-23T20:38:52.213Z	INFO	[monitoring]	log/log.go:144	Non-zero metrics in the last 30s	{"monitoring": {"metrics": {"beat":{"cpu":{"system":{"ticks":160,"time":{"ms":50}},"total":{"ticks":430,"time":{"ms":120},"value":430},"user":{"ticks":270,"time":{"ms":70}}},"handles":{"limit":{"hard":1048576,"soft":1048576},"open":9},"info":{"ephemeral_id":"d8d4f6a2-39fa-41cb-9e9c-520438d49a9e","uptime":{"ms":93132}},"memstats":{"gc_next":4194304,"memory_alloc":3365792,"memory_total":12191384,"rss":327680}},"libbeat":{"config":{"module":{"running":0}},"output":{"events":{"acked":24,"batches":6,"total":24},"read":{"bytes":5970},"write":{"bytes":16878}},"pipeline":{"clients":4,"events":{"active":0,"published":24,"total":24},"queue":{"acked":24}}},"system":{"load":{"1":4.83,"15":2.43,"5":3.44,"norm":{"1":1.2075,"15":0.6075,"5":0.86}}}}}}
-```
+    Start the stack in the foreground to watch the containers logs:
+    ```
+    docker-compose up
+    ```
+    When you see Kibana log the response to health check requests sent by the Beats family and you see at least one heartbeat entry in the logs, you can try the login (step 4 below):
+    ```
+    kibana           | {"type":"response","@timestamp":"2019-09-23T20:38:47Z","tags":[],"pid":1,"method":"get","statusCode":200,"req":{"url":"/login?next=%2F","method":"get","headers":{"host":"kibana:5601","user-agent":"Go-http-client/1.1","referer":"http://kibana:5601"},"remoteAddress":"172.25.0.9","userAgent":"172.25.0.9","referer":"http://kibana:5601"},"res":{"statusCode":200,"responseTime":30,"contentLength":9},"message":"GET /login?next=%2F 200 30ms - 9.0B"}
+    ...
+    heartbeat        | 2019-09-23T20:38:52.213Z	INFO	[monitoring]	log/log.go:144	Non-zero metrics in the last 30s	{"monitoring": {"metrics": {"beat":{"cpu":{"system":{"ticks":160,"time":{"ms":50}},"total":{"ticks":430,"time":{"ms":120},"value":430},"user":{"ticks":270,"time":{"ms":70}}},"handles":{"limit":{"hard":1048576,"soft":1048576},"open":9},"info":{"ephemeral_id":"d8d4f6a2-39fa-41cb-9e9c-520438d49a9e","uptime":{"ms":93132}},"memstats":{"gc_next":4194304,"memory_alloc":3365792,"memory_total":12191384,"rss":327680}},"libbeat":{"config":{"module":{"running":0}},"output":{"events":{"acked":24,"batches":6,"total":24},"read":{"bytes":5970},"write":{"bytes":16878}},"pipeline":{"clients":4,"events":{"active":0,"published":24,"total":24},"queue":{"acked":24}}},"system":{"load":{"1":4.83,"15":2.43,"5":3.44,"norm":{"1":1.2075,"15":0.6075,"5":0.86}}}}}}
+    ```
+    > You may notice exceptions in the log output. For this demonstration, they can be safely ignored. If you run into any issues with docker, you can start fresh with:
+    ```
+    docker container ls -a | cut -c1-12 | xargs docker container rm --force
+    docker images | cut -c69-80 | xargs docker rmi
+    docker system prune -a
+    ```
+    **NOTE:** This will destroy all docker containers, images and networks, so use at your own risk.
 
-> You may notice exceptions in the log output. For this demonstration, they can be safely ignored. If you run into any issues with docker, you can start fresh with:
-```
-docker container ls -a | cut -c1-12 | xargs docker container rm --force
-docker images | cut -c69-80 | xargs docker rmi
-docker system prune -a
-```
-**NOTE:** This will destroy all docker containers, images and networks, so use at your own risk.
+4. Go to [http://localhost:5601/](http://localhost:5601/) to log into Kibana.
 
-4. Go to [**http://localhost:5601/**](http://localhost:5601/) to log into Kibana.
+    Once you log in (using the **elastic** user and the password you captured above), explore the installed dashboards from the Dashboards section via the menu on the left. Heartbeat a Beat that monitors services uptime from a provided list of URLs. Open the dashboard *Heartbeat HTTP monitoring* and see the power of the stack for data visualization.
 
-Once you log in (using the **elastic** user and the password you captured above), explore the installed dashboards from the Dashboards section via the menu on the left. Heartbeat a Beat that monitors services uptime from a provided list of URLs. Open the dashboard *Heartbeat HTTP monitoring* and see the power of the stack for data visualization.
-
-{% img blog/getting-started-with-elk/http-heartbeat.png alt:"Heartbeat HTTP Monitoring" width:"800" %}{: .center-image }
+    {% img blog/getting-started-with-elk/http-heartbeat.png alt:"Heartbeat HTTP Monitoring" width:"800" %}{: .center-image }
 
 ## The JHipster Console
 
-The Jhipster Console, an awesome monitoring solution based on the Elastic Stack, allows the visualization and analysis of JHipster applications metrics over time. The Console provides pre-configured dashboards to monitor microservices infrastructure. You can review the complete list of features at the [**JHipster Console**](https://www.jhipster.tech/monitoring/#jhipster-console) documentation.
+The Jhipster Console, an awesome monitoring solution based on the Elastic Stack, allows the visualization and analysis of JHipster applications metrics over time. The Console provides pre-configured dashboards to monitor microservices infrastructure. You can review the complete list of features in [JHipster Console's documentation](https://www.jhipster.tech/monitoring/#jhipster-console).
 
 One of the easier ways to start with the JHipster Console is to deploy the applications and enable monitoring with the [**docker-compose sub-generator**](https://www.jhipster.tech/docker-compose/). We'll use this to:
 - Create a microservices architecture with JHipster
 - Enable monitoring with JHipster Console
-- Configure Okta OpenID Connect for authentication to the microservices
+- Configure OpenID Connect for authentication to microservices
 
 ## Create a Java Microservices Architecture with JHipster
 
@@ -108,7 +111,7 @@ One of the easier ways to start with the JHipster Console is to deploy the appli
 ### Install JHipster
 
 ```SHELL
-npm install -g generator-jhipster
+npm install -g generator-jhipster@6.3.1
 jhipster --version
 ```
 
@@ -242,7 +245,7 @@ To generate the missing Docker image(s), please run:
   ./mvnw package -Pprod verify jib:dockerBuild in /home/indiepopart/jhipster/gateway
   ./mvnw package -Pprod verify jib:dockerBuild in /home/indiepopart/jhipster/store
 ```
-You can follow the instructions above for creating the microservices images, or create an aggregator pom.xml and use just one command for building all the images, as described in [**our post on Java microservices**](https://developer.okta.com/blog/2019/05/23/java-microservices-spring-cloud-config).
+You can follow the instructions above for creating the microservices images, or create an aggregator `pom.xml` and use just one command for building all the images, as described in [our post on Java microservices](/blog/2019/05/23/java-microservices-spring-cloud-config).
 
 ### Setup Okta OpenID Connect (OIDC) Authentication for your Microservices
 
@@ -252,15 +255,15 @@ First of all, go to Okta for a [**free developer account**](https://developer.ok
 
 Once you log in, click **Your Org**, and it will take you to the **Developer Console**. Go to the **Applications** section and add a new **Web Application**. Set the following authentication settings:
 - Name: give a name for your application
-- Base URIs: http://localhost:8761, http://localhost:8080
-- Login redirect URIs: http://localhost:8080/login/oauth2/code/oidc, http://localhost:8761/login/oauth2/code/oidc
+- Base URIs: `http://localhost:8761` and `http://localhost:8080`
+- Login redirect URIs: `http://localhost:8080/login/oauth2/code/oidc` and  `http://localhost:8761/login/oauth2/code/oidc`
 - Grant Type Allowed: Authorization Code and Refresh Token
 
 > For simplicity, this tutorial only creates Web App, and its credentials will be used for all the services. In a real environment, each service must identify itself with its own credentials, and you should create one Web App or Service for each one of them in the Okta console.
 
 Copy the **Client ID** and **Client secret**, as we will use it for the application's setup. Find the **Org URL** at the top right corner in the Okta Dashboard.
 
-Create a **docker-compose/.env** file and the following content:
+Create a `docker-compose/.env` file with the following content:
 
 ```
 OIDC_CLIENT_ID=<client_id>
@@ -268,7 +271,7 @@ OIDC_CLIENT_SECRET=<client_secret>
 RESOURCE_ISSUER_URI=<org_url>/oauth2/default
 ```
 
-Edit **docker-compose/docker-compose.yml** and update the **SECURITY_\*** settings for the services **blog-app**, **gateway-app** and **store-app**:
+Edit `docker-compose/docker-compose.yml` and update the `SECURITY_*` settings for the services `blog-app`, `gateway-app` and `store-app`:
 
 ```yaml
 SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=${RESOURCE_ISSUER_URI}
