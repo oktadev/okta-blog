@@ -236,7 +236,11 @@ The generator will ask you to define the following configurations:
 6. Additional technologies for monitoring: **Zipkin**
 7. Password for JHipster Registry: **default**
 
-[![asciicast](https://asciinema.org/a/261254.svg)](https://asciinema.org/a/261254)
+You can see how this works in the recording below.
+
+<div style="text-align: center">
+<script id="asciicast-261254" src="https://asciinema.org/a/261254.js" async></script>
+</div>
 
 When the generator has almost finished, a warning shows in the output:
 
