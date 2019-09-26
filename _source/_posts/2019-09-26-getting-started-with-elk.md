@@ -273,21 +273,21 @@ RESOURCE_ISSUER_URI=<org_url>/oauth2/default
 
 Edit `docker-compose/docker-compose.yml` and update the `SECURITY_*` settings for the services `blog-app`, `gateway-app` and `store-app`:
 
-```yaml
+```shell
 SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=${RESOURCE_ISSUER_URI}
 SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=${OIDC_CLIENT_ID}
 SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=${OIDC_CLIENT_SECRET}
 ```
 
-The same authentication must be set up for the JHipster Registry. Edit **docker-compose/jhipster-registry.yml** and set the same values as the environment section of the `gateway-app`.
+The same authentication must be set up for the JHipster Registry. Edit `docker-compose/jhipster-registry.yml` and set the same values as the environment section of the `gateway-app`.
 
-JHipster applications require the specific user roles **ROLE_USER** and **ROLE_ADMIN** as claims in the ID Token. In the Okta Developer Console, go to **Users > Groups** and create a group for each JHipster role, and add users to each group.
+JHipster applications require the specific user roles `ROLE_USER` and `ROLE_ADMIN` as claims in the ID Token. In the Okta Developer Console, go to **Users** > **Groups** and create a group for each JHipster role, and add users to each group.
 
-Now go to **API > Authorization Servers**, select the **default** server and **Add Claim** with the following settings:
+Now go to **API** > **Authorization Servers**, select the **default** server and **Add Claim** with the following settings:
 1. Name: groups
 2. Include in token type: ID Token, Always
 3. Value type: Groups
-4. Filter: Matches regex, set the Regex **.\***
+4. Filter: Matches regex, set the Regex `.*`
 
 ### Enable Debug Logs and Zipkin
 
@@ -301,7 +301,7 @@ logging:
 
 Also, for each service, update the **LoggingAspectConfiguration** to load when the prod profile is active. Change the `@Profile` annotation:
 
-```Java
+```java
 @Configuration
 @EnableAspectJAutoProxy
 public class LoggingAspectConfiguration {
@@ -313,13 +313,13 @@ public class LoggingAspectConfiguration {
     }
 }
 ```
-[**Zipkin**](https://zipkin.io/) is a distributed tracing system that helps troubleshooting latency issues in microservices architectures. With a traceId propagated from service to service, calls to different services can be correlated and analyzed as a part of the same flow. The Zipkin server and UI are provided with the JHipster Console, and JHipster apps can integrate with Zipkin through [**Spring Cloud Sleuth**](https://cloud.spring.io/spring-cloud-sleuth/reference/html/#sleuth-with-zipkin-via-http). 
-To enable Zipkin tracing, add the zipkin profile to `blog-app`, `gateway-app` and `store-app` in **docker-compose/docker-compose.yml**.
+[Zipkin](https://zipkin.io/) is a distributed tracing system that helps to troubleshoot latency issues in microservices architectures. With a traceId propagated from service to service, calls to different services can be correlated and analyzed as a part of the same flow. The Zipkin server and UI are provided with the JHipster Console, and JHipster apps can integrate with Zipkin through [Spring Cloud Sleuth](https://cloud.spring.io/spring-cloud-sleuth/reference/html/#sleuth-with-zipkin-via-http). 
+To enable Zipkin tracing, add the `zipkin` profile to `blog-app`, `gateway-app` and `store-app` in `docker-compose/docker-compose.yml`.
 
 ```yaml
 - SPRING_PROFILES_ACTIVE=prod,swagger,zipkin
 ```
-You also need to rebuild the docker images with the **zipkin** profile, for `blog-app`, `store-app` and `gateway-app` with the following Maven command:
+You also need to rebuild the Docker images with the `zipkin` profile, for `blog-app`, `store-app` and `gateway-app` with the following Maven command:
 ```SHELL
 ./mvnw package -Pprod -Pzipkin verify jib:dockerBuild -DskipTests
 ```
@@ -338,7 +338,7 @@ done
 
 Are you ready for the best? Go to the `docker-compose` folder and start the services with the following command:
 
-```SHELL
+```shell
 docker-compose up
 ```
 
