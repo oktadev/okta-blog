@@ -91,7 +91,7 @@ Install [Docker](https://docs.docker.com/install/) and [Docker Compose](https://
 
 4. Go to [http://localhost:5601/](http://localhost:5601/) to log into Kibana.
 
-    Once you log in (using the **elastic** user and the password you captured above), explore the installed dashboards from the Dashboards section via the menu on the left. Heartbeat a Beat that monitors services uptime from a provided list of URLs. Open the dashboard *Heartbeat HTTP monitoring* and see the power of the stack for data visualization.
+    Once you log in (using the **elastic** user and the password you captured above), explore the installed dashboards from the Dashboards section via the menu on the left. Heartbeat is one of the Beat services that monitors your services uptime from a provided list of URLs. Open the dashboard *Heartbeat HTTP monitoring* and see the power of the stack for data visualization.
 
     {% img blog/getting-started-with-elk/http-heartbeat.png alt:"Heartbeat HTTP Monitoring" width:"800" %}{: .center-image }
 
@@ -99,7 +99,7 @@ Install [Docker](https://docs.docker.com/install/) and [Docker Compose](https://
 
 The Jhipster Console, an awesome monitoring solution based on the Elastic Stack, allows the visualization and analysis of JHipster applications metrics over time. The Console provides pre-configured dashboards to monitor microservices infrastructure. You can review the complete list of features in [JHipster Console's documentation](https://www.jhipster.tech/monitoring/#jhipster-console).
 
-One of the easier ways to start with the JHipster Console is to deploy the applications and enable monitoring with the [**docker-compose sub-generator**](https://www.jhipster.tech/docker-compose/). We'll use this to:
+One of the easier ways to start with the JHipster Console is to deploy the applications and enable monitoring with the [docker-compose sub-generator](https://www.jhipster.tech/docker-compose/). You'll use this to:
 - Create a microservices architecture with JHipster
 - Enable monitoring with JHipster Console
 - Configure OpenID Connect for authentication to microservices
