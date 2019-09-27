@@ -274,7 +274,7 @@ Now that we are done updating the book, let's move on to the Delete part.
 
 ## Delete A Record
 
-The previous section covers hard part - loading a book inside the bean.Adding the delete button will be easier.
+The previous section covers the hard part - loading a book inside the bean. Adding the delete button will be easier.
 
 Add a delete link for each entry in the list to the edit page in file `src/main/webapp/result.xhtml`:
 
