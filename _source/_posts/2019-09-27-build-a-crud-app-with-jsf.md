@@ -136,7 +136,7 @@ Cool. But how does the page actually display the book information? In the `resul
 </ui:repeat>
 ```
 
-The `ui:repeat` tag iterates over its `value`, in this case `#{bookBean.booksAvailable` the field we just assigned from the `fetchBooks()` method. Each element of the collection can be referenced by the name in the `var` attribute of the tag (in this case `book`).
+The `<ui:repeat>` tag iterates over each `value`, in this case `#{bookBean.booksAvailable}` is the field we just assigned from the `fetchBooks()` method. Each element of the collection can be referenced by the name in the `var` attribute of the tag (in this case `book`).
 
 Whatever is inside the `ui:repeat` tag will be repeated for each of the elements in the collection. Here, it simply outputs the book title by using the interpolation notation `#{book.bookTitle}` followed by a line break tag (`<br/>`).
 
