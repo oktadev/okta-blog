@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Build a Simple Application with JavaServer Faces"
+title: "Build a CRUD App with Java and JSF"
 author: thiago-negri
 description: "Tutorial: Build a CRUD application with JSF."
 tags: [jsf, spring, oauth, oauth 2.0, java]
@@ -449,7 +449,7 @@ Let's also change our landing page. Instead of adding a Book through the form, l
 %>
 ```
 
-Here is what my files now look like. Feel free to adapt yours as you browse the PrimeFaces component library.
+Here is what my files now look like. Feel free to adapt yours as you browse the [PrimeFaces component library](https://www.primefaces.org/showcase/index.xhtml).
 
 File: `src/main/webapp/book.xhtml` using a `p:panel` and `p:panelGrid`:
 ```xml
@@ -582,9 +582,9 @@ To prevent that, let's add a security layer to our application with the Spring S
 
 First, [register for a forever-free developer account today!](https://developer.okta.com/signup/) When you're finished, complete the steps below to create an OIDC app.
 
-1. Log in to your developer account at [developer.okta.com](https://developer.okta.com/).
-2. Navigate to **Applications** and click on **Add Application**.
-3. Select **Web** and click **Next**.
+1. Log in to your developer account at [developer.okta.com](https://developer.okta.com/)
+2. Navigate to **Applications** and click on **Add Application**
+3. Select **Web** and click **Next**
 4. Give the application a name (.e.g., `Java JSF Secure CRUD`) 
 5. Add the following as Login redirect URI:
     - `http://localhost:8080/login/oauth2/code/okta`
