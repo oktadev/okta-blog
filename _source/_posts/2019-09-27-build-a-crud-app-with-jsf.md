@@ -258,7 +258,7 @@ public String update() {
 }
 ```
 
-And to properly redirect the user to the list page, we add the following to the file `src/main/webapp/faces-config.xml`:
+And to properly redirect the user to the list page, add the following navigation rule to the file `src/main/webapp/faces-config.xml`:
 
 ```xml
 <navigation-rule>
