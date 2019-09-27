@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Build a CRUD App with Java and JSF"
+title: "Build a Simple CRUD App with Java and JSF"
 author: thiago-negri
 description: "Tutorial: Build a CRUD application with JSF."
 tags: [jsf, spring, oauth, oauth 2.0, java]
@@ -573,7 +573,7 @@ File: `src/main/webapp/result.xhtml` using a `p:dataList` instead of `ui:repeat`
 
 Restart the app with `mvn package tomee:run`. The app will look a bit better now! Check out the book list:
 
-{% img blog/build-a-crud-app-with-jsf/prime-faces-list.png alt:"Book list with PrimeFaces" width:"600" %}{: .center-image }
+{% img blog/build-crud-app-jsf/prime-faces-list.png alt:"Book list with PrimeFaces" width:"600" %}{: .center-image }
 
 ## Secure Your Application With Okta
 
