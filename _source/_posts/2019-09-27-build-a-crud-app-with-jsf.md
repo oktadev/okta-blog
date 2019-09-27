@@ -322,7 +322,7 @@ Now,create the delete confirmation page at `src/main/webapp/delete.xhtml`:
 </html>
 ```
 
-And add the proper delete handler in our `BookBean` class:
+And add the proper delete handler in the `BookBean` class:
 
 ```java
 public String delete() {
