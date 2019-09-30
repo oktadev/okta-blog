@@ -61,11 +61,11 @@ quarkus.smallrye-jwt.auth-mechanism=MP-JWT
 quarkus.smallrye-jwt.enabled=true
 ```
 
-You’ll need to fill in your Okta developer URI in two places. 
+You'll need to fill in your Okta developer URI in two places. 
 
 To find your developer URI, open your Okta developer dashboard and navigate to **API** > **Authorization Servers**. Look at the row for the `default` auth server where you'll see the **Issuer URI**. 
 
-That domain is your Okta URI that you’ll need to populate in place of `{yourOktaDomain}`.
+That domain is your Okta URI that you'll need to populate in place of `{yourOktaDomain}`.
 
 ## Test the Default Quarkus Endpoint
 
@@ -176,7 +176,7 @@ hello + anonymous, isSecure: false, authScheme: null, hasJWT: true
 
 Did you notice how you didn't need to re-start or re-compile your application for the new endpoint to work? That's one of the slickest features of Quarkus!
 
-Next, we’ll add OAuth 2.0 support to the application. 
+Next, we'll add OAuth 2.0 support to the application. 
 
 ## Create an OIDC Application in Okta to Test Your Quarkus Service
 
@@ -186,7 +186,7 @@ From the top menu, click on the  **Application** button and then click **Add App
 
 Select application type **Web** and click **Next**.
 
-Give the app a name. I named mine “Quarkus Demo”.
+Give the app a name. I named mine "Quarkus Demo".
 
 Under  **Login redirect URIs**, add a new URI: `https://oidcdebugger.com/debug`.
 
