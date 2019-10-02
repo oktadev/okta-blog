@@ -277,7 +277,7 @@ If you don't already have one, [sign up for a forever-free developer account](ht
 
 Since Create React App runs on port 3000 by default, add it as a Base URI and Login Redirect URI. Your settings should look like this:
 
-{% img blog/react-jwt/create-new-application-settings.png alt:"Create New Application Settings" width:"800" %}{: .center-image }
+{% img blog/react-jwt/create-new-application-settings.png alt:"Create New Application Settings" width:"700" %}{: .center-image }
 
 Click **Done** to save your app, then copy your **Client ID** and paste it into the `.env.local` file as a variable. This will allow you to access the file in your code without storing your credentials in source control. You'll need to add your organization URL (without the `-admin` suffix) to that file as well. Environment variables (other than `NODE_ENV`) need to start with `REACT_APP_` in order for Create React App to read them, so the file should end up like this:
 
