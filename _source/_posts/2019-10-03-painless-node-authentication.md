@@ -406,9 +406,9 @@ What we'll do here is use [OpenID Connect](/blog/2017/07/25/oidc-primer-part-1) 
 
 Okta is an API service that allows you to create users, handle user authentication and authorization, etc. By using Okta, you avoid writing most of the authentication/authorization/user management logic. To continue below and implement Okta, you'll need to create a [forever-free developer account](https://developer.okta.com/signup/).
 
-Once you’ve created your Okta account and are logged into your Okta dashboard, click on the **Applications** menu item then **Add Application**. From the app creation wizard, select **Web** then click **Next**.
+Once you've created your Okta account and are logged into your Okta dashboard, click on the **Applications** menu item then **Add Application**. From the app creation wizard, select **Web** then click **Next**.
 
-On the **Application Settings** screen, give your application a name (I’ve named mine "The-Chatter") and copy in the following app settings:
+On the **Application Settings** screen, give your application a name (I've named mine "The-Chatter") and copy in the following app settings:
 
 - **Base URIs**: `http://localhost:3000`
 - **Login redirect URIs**: `http://localhost:3000/authorization-code/callback`
