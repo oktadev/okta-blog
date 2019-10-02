@@ -17,7 +17,7 @@ Today I'll shed some light on what exactly a JWT is, and how to use one in pract
 
 ## Understand JWTs
 
-If you're wondering, "I don't know what a JWT is, or even how to pronounce it.”   The official [RFC specification](https://tools.ietf.org/html/rfc7519#section-1) says to just pronounce it like the word "jot." As far as what a JWT is? Put simply, it's a way to make a set of easily readable and verifiable claims that cannot be easily recreated without a secret key.
+If you're wondering, "I don't know what a JWT is, or even how to pronounce it."   The official [RFC specification](https://tools.ietf.org/html/rfc7519#section-1) says to just pronounce it like the word "jot." As far as what a JWT is? Put simply, it's a way to make a set of easily readable and verifiable claims that cannot be easily recreated without a secret key.
 
 A good analogy would be a driver's license. The government does the work to verify your identity and your ability to drive, then issues you a card with some information on it and an expiration date. You can use your license to verify your name, birthday, address, etc. to anyone who asks. You could put that information on any piece of paper, but a driver's license has additional security. It may have some watermarks, an electronic chip, a barcode, something only seen under ultraviolet light; plenty of ways for someone to verify its validity, but very difficult for you  to recreate at home.
 
@@ -582,7 +582,7 @@ export default () => (
 
 ## Update Your UI to Reflect Auth Changes
 
-You've already modified the API to provide more information, but you don’t display it anywhere. To update the UI, add a few `Card.Meta` items to the `SelectedUser` component, just after the `Card.Header`, so the existing `Card.Content` now looks like this:
+You've already modified the API to provide more information, but you don't display it anywhere. To update the UI, add a few `Card.Meta` items to the `SelectedUser` component, just after the `Card.Header`, so the existing `Card.Content` now looks like this:
 
 **src/SelectedUser.js**
 ```jsx
@@ -655,7 +655,7 @@ When the app first loads, the user state starts out as `null` and Okta needs to 
 
 {% img blog/react-jwt/admins-vs-everyone.gif alt:"Admin View vs Public View" width:"650" %}{: .center-image }
 
-### Use Okta’s React Library to Decode the JWT
+### Use Okta's React Library to Decode the JWT
 
 You can leverage Okta's React library to decode the JWT instead of doing it yourself. Simply call `auth.getUser()` to return a promise that contains the user (or `null`):
 
