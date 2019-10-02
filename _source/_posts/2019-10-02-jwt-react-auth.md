@@ -80,7 +80,7 @@ yarn start
 
 The `yarn start` command starts the server, which will watch for any changes you make to any files and automatically reload the page. You should now see the default app up at `http://localhost:3000`.
 
-## Add a Search UI and API With Semantic UI, Fuse.js and the Hooks API
+## Add a Search UI and API With Semantic UI, Fuse.js, and the Hooks API
 
 With the basic app up and running, you need to install a few dependencies. For the frontend you can use faker.js to generate fake data (for now, rather than pulling data via an API). The app will also look much nicer without a lot of extra code if you use a UI framework such as Semantic UI. For client-side search, I like Fuse.js. Add them as dependencies:
 
