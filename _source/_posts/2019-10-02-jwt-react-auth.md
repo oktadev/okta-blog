@@ -11,6 +11,7 @@ tweets:
 image: blog/featured/okta-react-skew.jpg
 ---
 
+
 Although authentication is a common requirement for web apps, it can be difficult to get it right, especially if you're by yourself or part of a small team. That's why many sites choose to use OAuth 2.0 to let a third-party handle authentication for them. They just need to know how to decode a JSON Web Token (JWT), rather than how to store a bunch of user information and pray they aren't the next company with leaked passwords.
 
 Today I'll shed some light on what exactly a JWT is, and how to use one in practice. If you follow along, you'll learn how to create an app in React with Okta as a third-party to authenticate users. You'll learn how to decode the JWT and use it to make decisions about what to display on the screen.
