@@ -538,8 +538,8 @@ You created a small chat-focused web app to provide simple messaging functionali
 
 To learn more about Node and authentication, check out some of our other interesting blog posts:
 
-* [What the Heck is OAuth?](https://developer.okta.com/blog/2017/06/21/what-the-heck-is-oauth)
-* [Build a REST API with Node and Postgres](https://developer.okta.com/blog/2019/03/27/build-rest-api-with-node-and-postgres)
-* [Build a Simple REST API with Node and OAuth 2.0](https://developer.okta.com/blog/2018/08/21/build-secure-rest-api-with-node)
+* [What the Heck is OAuth?](/blog/2017/06/21/what-the-heck-is-oauth)
+* [Build a REST API with Node and Postgres](/blog/2019/03/27/build-rest-api-with-node-and-postgres)
+* [Build a Simple REST API with Node and OAuth 2.0](/blog/2018/08/21/build-secure-rest-api-with-node)
 
 As always, if you have questions or comments about this post, leave them in the comments below and don't forget to follow us on [Twitter](https://twitter.com/oktadev) and [Facebook](https://www.facebook.com/oktadevelopers)!
