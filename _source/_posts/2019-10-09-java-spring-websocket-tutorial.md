@@ -13,7 +13,7 @@ image:
 
 WebSockets is a modern transport layer technology that establishes a two-way communication channel between a client and a server, perfect for low-latency, high-frequency interactions. Websockets tend to be used in collaborative, real-time or event-driven applications, where traditional client-server request-response architecture or long polling would not satisfy requirements. Use cases include stock trading and shared dashboard applications .
 
-In this tutorial, I'll give you a quick overview of the WebSockets protocol and how it handles messages with STOMP. Then you'll create an application that uses the WebSockets API to configure a Java/Spring Boot message broker, and authenticate a JavaScript STOMP client during the WebSocket handshake. We’ll add some nifty helper frameworks, so the application is actually cool and plays music loops, and also use Okta for authentication and access tokens, rather than building it ourselves.
+In this tutorial, I'll give you a quick overview of the WebSockets protocol and how it handles messages with STOMP. Then you'll create an application that uses the WebSockets API to configure a Java/Spring Boot message broker, and authenticate a JavaScript STOMP client during the WebSocket handshake. We'll add some nifty helper frameworks, so the application is actually cool and plays music loops, and also use Okta for authentication and access tokens, rather than building it ourselves.
 
 ## The WebSocket Protocol and HTTP
 
@@ -59,13 +59,13 @@ Body^@
 
 ## Spring Support for WebSockets
 
-Happily for Java developers, Spring supports the WebSocket API, which implements raw WebSockets, WebSocket emulation through SocksJS (when WebSockets are not supported), and publish-subscribe messaging through STOMP. In this tutorial, you will learn how to use the WebSockets API and configure a Spring Boot message broker. Then we will authenticate a JavaScript STOMP client during the WebSocket handshake and implement Okta as an authentication and access token service. Let’s go!
+Happily for Java developers, Spring supports the WebSocket API, which implements raw WebSockets, WebSocket emulation through SocksJS (when WebSockets are not supported), and publish-subscribe messaging through STOMP. In this tutorial, you will learn how to use the WebSockets API and configure a Spring Boot message broker. Then we will authenticate a JavaScript STOMP client during the WebSocket handshake and implement Okta as an authentication and access token service. Let's go!
 
 ##  Spring Boot Sample App - Sound Looping!
 
 For our example application, let's create a collaborative sound-looping UI, where all connected users can play and stop a set of music loops. We will use [Tone.js](https://tonejs.github.io/) and [NexusUI](https://nexus-js.github.io/ui/)  and configure a Spring Message Broker Server and JavaScript WebSocket Client. Rather than build authentication and access control yourself, register for an [Okta Developer Account](https://developer.okta.com/signup/).It's free!
 
-Once you’ve logged into Okta, go to the **Applications** section and create an application:
+Once you've logged into Okta, go to the **Applications** section and create an application:
 
 - Choose **SPA** (Single Page Application) and click **Next**
 - On the next page, add `http://localhost:8080` as a Login redirect URI
@@ -73,7 +73,7 @@ Once you’ve logged into Okta, go to the **Applications** section and create an
 
 ## Create the Message Broker Server Application in Spring Boot
 
-Let’s get started with the application skeleton. Create a Spring Boot application with [Spring Initializr](https://start.spring.io/) and add the Okta Spring Boot Starter and WebSocket dependencies.
+Let's get started with the application skeleton. Create a Spring Boot application with [Spring Initializr](https://start.spring.io/) and add the Okta Spring Boot Starter and WebSocket dependencies.
 
 ```shell
 curl https://start.spring.io/starter.zip -d dependencies=websocket,okta \
@@ -352,7 +352,7 @@ Add `Tone.js` to `src/main/resources/static/js`. **Tone.js** is a JavaScript fra
 
 Add `NexusUI` also to `src/main/resources/static/js`.**NexusUI** is a framework for building web audio instruments, such as dials and sliders, in the browser. In this example, we will create simple circular buttons, each one to play a different loop. [Download NexusUI from Github](https://nexus-js.github.io/ui/api/#intro).
 
-Add an `auth.js` script to handle client authentication with the [**Okta Authentication SDK**](https://developer.okta.com/code/javascript/okta_auth_sdk/). Use the **Client ID** you copied from the SPA application in the Okta developer console, and also your Org URL. If the client has not authenticated, it will be redirected to the Okta login page. After login and redirect to “/”, the ID token and access token will be parsed from the URL and added to the token manager.
+Add an `auth.js` script to handle client authentication with the [**Okta Authentication SDK**](https://developer.okta.com/code/javascript/okta_auth_sdk/). Use the **Client ID** you copied from the SPA application in the Okta developer console, and also your Org URL. If the client has not authenticated, it will be redirected to the Okta login page. After login and redirect to "/", the ID token and access token will be parsed from the URL and added to the token manager.
 
 ```javascript
 var authClient = new OktaAuth({
@@ -475,7 +475,7 @@ button2.on('change', function(v) {
 });
 ```
 
-In the code above, `button1` is set to play `/loops/loop-chill-1.wav’ and `button2` will play `/loops/loop-drum-1.wav`. Optionally, configure the behavior for buttons 3 to 9, each one should play a different loop when toggled on. You can get the loops from the [Github repo of this tutorial](https://github.com/oktadeveloper/okta-java-websockets-example/tree/master/src/main/resources/static/loops).To use your own music files, place them in the `src/main/resources/static/loops` folder. In addition to loop `restart` and `stop`, the `on change` handler will send the `toggle` event to the **loops topic** through the server message broker.
+In the code above, `button1` is set to play `/loops/loop-chill-1.wav' and `button2` will play `/loops/loop-drum-1.wav`. Optionally, configure the behavior for buttons 3 to 9, each one should play a different loop when toggled on. You can get the loops from the [Github repo of this tutorial](https://github.com/oktadeveloper/okta-java-websockets-example/tree/master/src/main/resources/static/loops).To use your own music files, place them in the `src/main/resources/static/loops` folder. In addition to loop `restart` and `stop`, the `on change` handler will send the `toggle` event to the **loops topic** through the server message broker.
 
 ## Run and Test the Java Application with WebSockets
 
@@ -491,7 +491,7 @@ Open two different browser sessions at `http://localhost:8080`, with developer t
 
 
 
-You can log in with the same account in both browser sessions or use different accounts. After you login, the UI will load the loop buttons. In each browser, click the “Connect” button on the top to initiate the WebSocket handshake with the server and subscribe to the “loops” topic. 
+You can log in with the same account in both browser sessions or use different accounts. After you login, the UI will load the loop buttons. In each browser, click the "Connect" button on the top to initiate the WebSocket handshake with the server and subscribe to the "loops" topic. 
 
 {% img blog/java-websocket/loopme.png alt:"Loop Me" width:"800" %}{: .center-image }
 
@@ -535,14 +535,14 @@ content-length:33
 {"loopId":"button1","value":true}
 
 ```
-Congrats! You’ve successfully connected a Spring Boot Application with WebSockets.
+Congrats! You've successfully connected a Spring Boot Application with WebSockets.
 
 ## Learn More About WebSockets and Spring Boot
 
 I hope you enjoyed this WebSocket experiment as much as I did.
 You can find all this tutorial's code [on Github](https://github.com/oktadeveloper/okta-java-websockets-example).
 
- To continue learning about Okta’s WebSockets related technologies and Spring Framework's support, check out our related blog posts:
+ To continue learning about Okta's WebSockets related technologies and Spring Framework's support, check out our related blog posts:
 
 * [Full Stack Reactive with Spring WebFlux, WebSockets, and React](/blog/2018/09/25/spring-webflux-websockets-react)
 * [A Quick Guide to Spring Boot Login Options](/blog/2019/05/15/spring-boot-login-options)
