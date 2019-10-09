@@ -1,23 +1,23 @@
 ---
 layout: blog_post
-title: ""
-author: 
-description: ""
-tags: []
+title: "Tutorial: Develop Apps with Secure WebSockets in Java"
+author: jimena-garbarino
+description: "This tutorial shows you how to develop an application with Spring Boot and WebSockets, then secure them with Okta."
+tags: [java, websockets, spring, stomp, messaging]
 tweets:
-- ""
-- ""
-- ""
-image: 
+- "Want to learn how to develop a secure app with @springboot and WebSockets? This tutorial is for you!"
+- "Use Java, Spring, and JavaScript to develop a secure musical app that leverages WebSockets."
+- "In this tutorial, you'll build a Spring Boot app and a JavaScript client that communicate with one another via WebSockets."
+image: blog/featured/okta-java-tile-books-mouse.jpg
 ---
 
-WebSockets is a modern transport layer technology that establishes a two-way communication channel between a client and a server, perfect for low-latency, high-frequency interactions. Websockets tend to be used in collaborative, real-time or event-driven applications, where traditional client-server request-response architecture or long polling would not satisfy requirements. Use cases include stock trading and shared dashboard applications .
+WebSockets is a modern transport layer technology that establishes a two-way communication channel between a client and a server, perfect for low-latency, high-frequency interactions. WebSockets tend to be used in collaborative, real-time or event-driven applications, where traditional client-server request-response architecture or long polling would not satisfy requirements. Use cases include stock trading and shared dashboard applications.
 
-In this tutorial, I'll give you a quick overview of the WebSockets protocol and how it handles messages with STOMP. Then you'll create an application that uses the WebSockets API to configure a Java/Spring Boot message broker, and authenticate a JavaScript STOMP client during the WebSocket handshake. We'll add some nifty helper frameworks, so the application is actually cool and plays music loops, and also use Okta for authentication and access tokens, rather than building it ourselves.
+In this tutorial, I'll give you a quick overview of the WebSockets protocol and how it handles messages with STOMP. Then you'll create an application that uses the WebSockets API to configure a Java/Spring Boot message broker and authenticate a JavaScript STOMP client during the WebSocket handshake. We'll add some nifty helper frameworks, so the application is actually cool and plays music loops, and also use Okta for authentication and access tokens, rather than building it ourselves.
 
 ## The WebSocket Protocol and HTTP
 
-The WebSocket protocol, defined in [**RFC 6455**](https://tools.ietf.org/html/rfc6455), consists of an opening **handshake**, followed by basic message framing, all over TCP. Although it is not HTTP,  Websockets works over HTTP and  begins with a client HTTP request with an `Upgrade` header to switch to the WebSocket protocol:
+The WebSocket protocol, defined in [RFC 6455](https://tools.ietf.org/html/rfc6455), consists of an opening **handshake**, followed by basic message framing, all over TCP. Although it is not HTTP, WebSockets works over HTTP and  begins with a client HTTP request with an `Upgrade` header to switch to the WebSocket protocol:
 
 ```
 GET /chat HTTP/1.1
@@ -39,13 +39,13 @@ Sec-WebSocket-Accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=
 Sec-WebSocket-Protocol: chat
 ```
 
-After the handshake comes the the **data transfer** phase, during which each side can send data frames, or **messages**.The protocol defines message types *binary* and *text* but does not define their contents. However, it does define the mechanism for sub-protocol negotiation, STOMP.
+After the handshake comes the **data transfer** phase, during which each side can send data frames, or **messages**. The protocol defines message types *binary* and *text* but does not define their contents. However, it does define the mechanism for sub-protocol negotiation, STOMP.
 
 ## STOMP - Simple Text Oriented Messaging Protocol
 
-[**STOMP**](https://stomp.github.io/stomp-specification-1.2.html#Abstract) (Simple Text Oriented Messaging Protocol) was born as an alternative to existing open messaging protocols, like AMQP, to enterprise message brokers from scripting languages like Ruby, Python, and Perl with a subset of common message operations.
+[STOMP](https://stomp.github.io/stomp-specification-1.2.html#Abstract) (Simple Text Oriented Messaging Protocol) was born as an alternative to existing open messaging protocols, like AMQP, to enterprise message brokers from scripting languages like Ruby, Python, and Perl with a subset of common message operations.
 
-STOMP enables a simple publish-subscribe interaction over Websockets, and defines SUBSCRIBE and SEND commands with a destination header. These are inspected by the broker for message dispatching.
+STOMP enables a simple publish-subscribe interaction over WebSockets and defines SUBSCRIBE and SEND commands with a destination header. These are inspected by the broker for message dispatching.
 
 The STOMP frame contains a command string, header entries, and a body:
 
@@ -59,13 +59,13 @@ Body^@
 
 ## Spring Support for WebSockets
 
-Happily for Java developers, Spring supports the WebSocket API, which implements raw WebSockets, WebSocket emulation through SocksJS (when WebSockets are not supported), and publish-subscribe messaging through STOMP. In this tutorial, you will learn how to use the WebSockets API and configure a Spring Boot message broker. Then we will authenticate a JavaScript STOMP client during the WebSocket handshake and implement Okta as an authentication and access token service. Let's go!
+Happily, for Java developers, Spring supports the WebSocket API, which implements raw WebSockets, WebSocket emulation through SocksJS (when WebSockets are not supported), and publish-subscribe messaging through STOMP. In this tutorial, you will learn how to use the WebSockets API and configure a Spring Boot message broker. Then we will authenticate a JavaScript STOMP client during the WebSocket handshake and implement Okta as an authentication and access token service. Let's go!
 
-##  Spring Boot Sample App - Sound Looping!
+##  Spring Boot Example App - Sound Looping!
 
 For our example application, let's create a collaborative sound-looping UI, where all connected users can play and stop a set of music loops. We will use [Tone.js](https://tonejs.github.io/) and [NexusUI](https://nexus-js.github.io/ui/)  and configure a Spring Message Broker Server and JavaScript WebSocket Client. Rather than build authentication and access control yourself, register for an [Okta Developer Account](https://developer.okta.com/signup/).It's free!
 
-Once you've logged into Okta, go to the **Applications** section and create an application:
+Once you've logged in to Okta, go to the **Applications** section and create an application:
 
 - Choose **SPA** (Single Page Application) and click **Next**
 - On the next page, add `http://localhost:8080` as a Login redirect URI
@@ -130,11 +130,11 @@ public class WebSocketBrokerConfig implements WebSocketMessageBrokerConfigurer {
 }
 ```
 
-In the configuration above, the `/looping` connection endpoint initiates aWebSocket handshake and the `/topic` endpoint handles publish-subscribe interactions.
+In the configuration above, the `/looping` connection endpoint initiates a WebSocket handshake and the `/topic` endpoint handles publish-subscribe interactions.
 
 ## Token-Based Authentication for Server Side Java
 
-**NOTE:**  [Spring Security](https://docs.spring.io/spring-security/site/docs/5.1.6.RELEASE/reference/htmlsingle/#websocket-authentication) requires authentication performed in the web application to hand off the principal to the WebSocket during the connection. For this example, we will use a different approach, and configure Okta authentication to obtain an access token the client will send to the server during the WebSockets handshake. This allows you to have unique sessions in the same browser. If we only used server-side authentication, your browser tabs would share the same session.
+**NOTE:** [Spring Security](https://docs.spring.io/spring-security/site/docs/5.1.6.RELEASE/reference/htmlsingle/#websocket-authentication) requires authentication performed in the web application to hand off the principal to the WebSocket during the connection. For this example, we will use a different approach and configure Okta authentication to obtain an access token the client will send to the server during the WebSockets handshake. This allows you to have unique sessions in the same browser. If we only used server-side authentication, your browser tabs would share the same session.
 
 First, configure WebSocket security and request authentication for any message. To do this, create a `WebSocketSecurityConfig` class to extend `AbstractSecurityWebSocketMessageBrokerConfigurer`. Override the `configureInbound()` method to require authentication for all requests, and disable the same-origin policy by overriding `sameOriginDisabled()`. 
 
@@ -306,7 +306,7 @@ Then create an `index.html` page in `src/main/resources/static`:
 </head>
 <body>
 <noscript>
-<h2 style="color: #ff0000">It seems your browser doesn't support JavaScript! Websocket relies on JavaScript being enabled. Please enable JavaScript and reload this page!</h2>
+<h2 style="color: #ff0000">It seems your browser doesn't support JavaScript! WebSocket relies on JavaScript being enabled. Please enable JavaScript and reload this page!</h2>
 </noscript>
 <div id="main-content" class="container">
     <div class="row my-2">
@@ -352,7 +352,7 @@ Add `Tone.js` to `src/main/resources/static/js`. **Tone.js** is a JavaScript fra
 
 Add `NexusUI` also to `src/main/resources/static/js`.**NexusUI** is a framework for building web audio instruments, such as dials and sliders, in the browser. In this example, we will create simple circular buttons, each one to play a different loop. [Download NexusUI from Github](https://nexus-js.github.io/ui/api/#intro).
 
-Add an `auth.js` script to handle client authentication with the [**Okta Authentication SDK**](https://developer.okta.com/code/javascript/okta_auth_sdk/). Use the **Client ID** you copied from the SPA application in the Okta developer console, and also your Org URL. If the client has not authenticated, it will be redirected to the Okta login page. After login and redirect to "/", the ID token and access token will be parsed from the URL and added to the token manager.
+Add an `auth.js` script to handle client authentication with the [Okta Authentication SDK](https://developer.okta.com/code/javascript/okta_auth_sdk/). Use the **Client ID** you copied from the SPA application in the Okta developer console, and also your Org URL. If the client has not authenticated, it will be redirected to the Okta login page. After login and redirect to "/", the ID token and access token will be parsed from the URL and added to the token manager.
 
 ```javascript
 var authClient = new OktaAuth({
@@ -475,7 +475,7 @@ button2.on('change', function(v) {
 });
 ```
 
-In the code above, `button1` is set to play `/loops/loop-chill-1.wav' and `button2` will play `/loops/loop-drum-1.wav`. Optionally, configure the behavior for buttons 3 to 9, each one should play a different loop when toggled on. You can get the loops from the [Github repo of this tutorial](https://github.com/oktadeveloper/okta-java-websockets-example/tree/master/src/main/resources/static/loops).To use your own music files, place them in the `src/main/resources/static/loops` folder. In addition to loop `restart` and `stop`, the `on change` handler will send the `toggle` event to the **loops topic** through the server message broker.
+In the code above, `button1` is set to play `/loops/loop-chill-1.wav` and `button2` will play `/loops/loop-drum-1.wav`. Optionally, configure the behavior for buttons 3 to 9, each one should play a different loop when toggled on. You can get the loops from the [Github repo of this tutorial](https://github.com/oktadeveloper/okta-java-websockets-example/tree/master/src/main/resources/static/loops).To use your own music files, place them in the `src/main/resources/static/loops` folder. In addition to loop `restart` and `stop`, the `on change` handler will send the `toggle` event to the **loops topic** through the server message broker.
 
 ## Run and Test the Java Application with WebSockets
 
@@ -487,16 +487,11 @@ Run the application with Maven:
 
 Open two different browser sessions at `http://localhost:8080`, with developer tools enabled to watch the console for STOMP traces. The app will first redirect to Okta for the login:
 
-{% img blog/java-websocket/okta-login.png alt:"Loop Me" width:"800" %}{: .center-image }
+{% img blog/java-spring-websockets/okta-login.png alt:"Loop Me" width:"800" %}{: .center-image }
 
+You can log in with the same account in both browser sessions or use different accounts. After you log in, the UI will load the loop buttons. In each browser, click the "Connect" button on the top to initiate the WebSocket handshake with the server and subscribe to the "loops" topic. 
 
-
-You can log in with the same account in both browser sessions or use different accounts. After you login, the UI will load the loop buttons. In each browser, click the "Connect" button on the top to initiate the WebSocket handshake with the server and subscribe to the "loops" topic. 
-
-{% img blog/java-websocket/loopme.png alt:"Loop Me" width:"800" %}{: .center-image }
-
-
-
+{% img blog/java-spring-websockets/loopme.png alt:"Loop Me" width:"800" %}{: .center-image }
 
 You should see STOMP commands CONNECT and SUBSCRIBE in the web console:
 
