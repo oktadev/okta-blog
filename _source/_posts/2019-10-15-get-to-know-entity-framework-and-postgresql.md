@@ -511,7 +511,7 @@ else
 }
 ```
 
-Now, run the application to seeyou have to authenticate to access the family tree pages.
+Now, run the application to see you have to authenticate to access the family tree pages.
 
 ## Learn More About ASP.NET Core, Entity Framework Core and PostgreSQL
 
