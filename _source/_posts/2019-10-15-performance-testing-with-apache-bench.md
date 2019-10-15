@@ -80,7 +80,7 @@ For example, maybe you want your automated performance tests to fail if your tot
 
 ## Other Types of Performance Tests
 
-As I mentioned, you can also use Apache Bench to run other types of tests under the “Performance Testing” umbrella.
+As I mentioned, you can also use Apache Bench to run other types of tests under the "Performance Testing" umbrella.
 
 `ab` can also help with stress testing. You can send a number of requests with a large `post` payload to a particular page on your website to see how it handles a lot of data. This can be handy in determining max file size uploads, etc.
 
