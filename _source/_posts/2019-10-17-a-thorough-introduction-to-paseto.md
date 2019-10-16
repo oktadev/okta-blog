@@ -8,7 +8,7 @@ tweets:
 - "Using JSON Web Tokens in your applications? If so, you'll definitely enjoy reading our new article on PASETO tokens!"
 - "JSON Web Tokens vs PASETO -- @rdegges breaks it down for you in his recent article."
 - "PASETO is a new type of token that aims to replace JSON Web Tokens. @rdegges did a great writeup on it. Be sure to check it out."
-image: blog/featured/okta-dotnet-tile-mouse.jpg
+image: blog/a-thorough-introduction-to-paseto/an-introduction-to-paseto.png
 ---
 
 Today I'm going to introduce you to one of my favorite pieces of security technology released in the last several years: **PASETO** (*platform-agnostic security tokens*). PASETO is a relatively new protocol, designed by [Scott Arciszewski](https://paragonie.com/) in early 2018 that is quickly gaining adoption in the security community.
