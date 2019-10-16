@@ -58,7 +58,13 @@ The first section of the PASETO is the **protocol version** (`v2`). This tells y
 
 The second section of the PASETO is the **purpose** (`local`). PASETO only defines two *purposes* for tokens: `local` or `public`. I'll expand on these later. For now, just know that the `local` purpose is the one I'm demonstrating here.
 
-The third section of the PASETO defines the actual token contents, also known as the **payload** (`sIgVm0es9uswZliPdyXOOi99czPbpl41KOUu45e62BvCaL5H3kHNibrbRZkM1-wW091ARzNexLY8g0GZA0-WCNsgs8GZLClEk5TJbgQjf__yExZRh2qMnqxfVr_KS9WoqKVlU-WrAG6TRUXZo43OSJQkeNBnB8Gq4rN2A8HYeA3ms20up80dgz2rpY79F9ILvPrAIzxNkDSE51vAxv50BTShuel3F3hXgReHsDv2PJCnMBnMyE_AfePxJ6WJ1obXSIUpSsOQX6wjwdQdOIcXZ853c-NPYMVU-abXJhhLVvvHyNZPi1wcEvjt`). The payload is really nothing more than an encrypted blob of JSON data that you specify when the token is created. If you have the right key, you can decrypt it and view the original JSON data.
+The third section of the PASETO defines the actual token contents, also known as the **payload**:
+
+```
+sIgVm0es9uswZliPdyXOOi99czPbpl41KOUu45e62BvCaL5H3kHNibrbRZkM1-wW091ARzNexLY8g0GZA0-WCNsgs8GZLClEk5TJbgQjf__yExZRh2qMnqxfVr_KS9WoqKVlU-WrAG6TRUXZo43OSJQkeNBnB8Gq4rN2A8HYeA3ms20up80dgz2rpY79F9ILvPrAIzxNkDSE51vAxv50BTShuel3F3hXgReHsDv2PJCnMBnMyE_AfePxJ6WJ1obXSIUpSsOQX6wjwdQdOIcXZ853c-NPYMVU-abXJhhLVvvHyNZPi1wcEvjt
+```
+
+The payload is really nothing more than an encrypted blob of JSON data that you specify when the token is created. If you have the right key, you can decrypt it and view the original JSON data.
 
 Finally, there's an optional fourth section of the PASETO called the **footer** (`eyJraWQiOiAiMTIzNDUifQ`). The footer can be used to store additional metadata, unencrypted. This is useful for scenarios where you may need to handle things like key rotation, etc. But we'll save that explanation for later.
 
