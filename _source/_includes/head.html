@@ -75,6 +75,40 @@
   <meta property="og:description"        content="{{ page.description }}" />
   <link rel="canonical" href="{{ site.external_domain }}{{ page.url }}" />
 
+  <!-- Add BlogPosting schema -->
+  {% capture blog_image %}{% asset_path '{{ page.image }}' %}{% endcapture %}
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "BlogPosting",
+      "headline": "{{ page.title }}",
+      "genre": "Technology",
+      "publisher": {
+        "@type": "Organization",
+        "url": "https://www.okta.com",
+        "name": "Okta Inc.",
+        "logo": {
+          "@type": "imageObject",
+          "url": "https://www.okta.com/sites/all/themes/Okta/images/okta-logo-lg.png"
+        }
+      },
+      "url": "{{ site.external_domain }}{{ page.url }}",
+      "datePublished": "{{ page.date | date: "%Y-%m-%d" }}",
+      "dateCreated": "{{ page.date | date: "%Y-%m-%d" }}",
+      "dateModified": "{{ page.date | date: "%Y-%m-%d" }}",
+      "articleBody": "{% if page.description %}{{ page.description | strip_html | strip_newlines | truncate: 300 }}{% elsif page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate 300 }}{% else %}{{ site.description }}{% endif %}",
+      "author": {
+        "@type": "Person",
+        "name": "{{ site.data.authors[page.author].full_name }}"
+      },
+      "image": "{{ site.external_domain }}{{ blog_image }}",
+      "mainEntityOfPage": "BlogPost-content"
+    }
+    
+     </script>
+  
+  <!-- End BlogPosting schema -->
+
   {% if page.image %}
   <meta property="og:image"              content="{{ site.external_domain }}{% asset_path '{{ page.image }}' %}" />
   {% endif %}
