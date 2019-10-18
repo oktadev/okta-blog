@@ -73,6 +73,8 @@
   <meta property="og:url"                content="{{ site.external_domain }}{{ page.url }}" />
   <meta property="og:title"              content="{{ page.title }}" />
   <meta property="og:description"        content="{{ page.description }}" />
+  <link rel="canonical" href="{{ site.external_domain }}{{ page.url }}" />
+
   {% if page.image %}
   <meta property="og:image"              content="{{ site.external_domain }}{% asset_path '{{ page.image }}' %}" />
   {% endif %}
