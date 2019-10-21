@@ -5,9 +5,9 @@ author: reverentgeek
 description: "An illustrated guide to explain OAuth and OpenID Connect!"
 tags: [oauth, oidc, openid connect, security, authorization, authentication]
 tweets:
-- ""
-- ""
-- ""
+- "Want to learn about OAuth and OpenID Connect? Try this entertaining illustrated guide from @reverentgeek! #OAuth #OIDC #SSO #security"
+- "What is OAuth 2.0 and OpenID Connect? Check out this entertaining illustrated guide from @reverentgeek! #OAuth #OIDC #SSO #security"
+- "🤩 An introduction to OAuth 2.0 and OpenID Connect that's actually fun to read?! 🤩 #OAuth #OIDC #SSO #security"
 image: blog/illustrated-guide-to-oauth-and-oidc/illustrated-guide-to-oauth-and-oidc.jpg
 ---
 
@@ -71,7 +71,7 @@ Before we dive into more details on what OAuth is doing, let's map some of the O
 </tr>
 <tr>
     <td>{% img blog/illustrated-guide-to-oauth-and-oidc/response-type.jpg alt:"Response/Grant Type" width:"200" %}</td>
-    <td markdown="span">**Response/Grant Type**: The type of authorization flow the **Client** wants to use. The most common type is `code`, where the **Client** will receive an **Authorization Code** and exchange it for an **Access Token**.</td>
+    <td markdown="span">**Response/Grant Type**: The type of authorization flow the **Client** wants to use. The most common type is `code`, where the **Client** will request an **Authorization Code** (response type) and exchange it for an **Access Token** (grant type).</td>
 </tr>
 <tr>
     <td>{% img blog/illustrated-guide-to-oauth-and-oidc/scope.jpg alt:"Scope" width:"200" %}</td>
@@ -110,7 +110,7 @@ Now that we have some of the OAuth 2.0 vocabulary handy, let's revisit the examp
 1. The **Authorization Server** verifies who you are, and if necessary prompts for a login.
 1. The **Authorization Server** presents you with a **Consent** form based on the **Scopes** requested by the **Client**. You grant (or deny) permission.
 1. The **Authorization Server** redirects back to **Client** using the **Redirect URI** along with an **Authorization Code**.
-1. The **Client** contacts the **Authorization Server** directly (does not use the **Resource Owner**'s browser) and securely sends its **Client ID**, **Client Secret**, and the **Authorization Code**.
+1. The **Client** contacts the **Authorization Server** directly (does not use the **Resource Owner**'s browser) and securely sends its **Client ID**, **Client Secret**, **Grant Type**, and the **Authorization Code**.
 1. The **Authorization Server** verifies the data and responds with an **Access Token**.
 1. The **Client** can now use the **Access Token** to send requests to the **Resource Server** for your contacts.
 
