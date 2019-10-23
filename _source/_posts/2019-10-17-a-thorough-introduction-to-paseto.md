@@ -557,7 +557,7 @@ PASETO takes a developer-first approach to security tokens by consolidating deve
 
 The PASETO specification also clearly defines how PASETOs *should* and *should not* be used in an effort to reduce misuse of PASETO tokens in ways people currently misuse JWTs.
 
-Overall, I'm a huge fan of PASETO technology and see a lot of potential in its adoption and usage. At Okta, we're currently working on some PASETO-focused projects that we hope to release in the coming months to help make PASETO technology more widespread.
+Overall, I'm a huge fan of PASETO technology and see a lot of potential in its adoption and usage. At Okta, we're currently working on some PASETO-focused projects that we hope to release in the coming months to help make PASETO technology more widespread. While we do still use JSON Web Tokens in our product, we're also working on open standards to help make JSON Web Token usage safer. Our hope isthat by tackling the problem from all angles we'll be able to improve token security on the web for everyone.
 
 Have any thoughts, comments, or suggestions? Please leave a comment below or hit us up on [Twitter](https://twitter.com/oktadev)! And, if you'd like to read some of our other security-focused content, please check out some of these pieces.
 
