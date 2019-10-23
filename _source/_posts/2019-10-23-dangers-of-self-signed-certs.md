@@ -2,12 +2,12 @@
 layout: blog_post
 title: "The Dangers of Self-Signed Certificates"
 author: bdemers
-description: "Self-Signed certificates are free, but not without cost."
+description: "Self-Signed certificates are free, but not without cost. In this post you'll learn all about the dangers of self-signed certificates."
 tags: [security, certificates, best-practices]
 tweets:
 - "Just Say No to Self-Signed Certificates 🚫"
 - "Only you can prevent Self-Signed Certificates 🔥"
-- "Self-Signed certificates = no trust"
+- "Self-Signed certificates != trust"
 image: blog/dangers-of-self-signed-certs/no-to-self-signed.png
 ---
 
@@ -19,11 +19,12 @@ How many times have you started a new job, and the first thing you see on the co
 
 ## The Chain of Trust with Digital Certificates
 
-Before we continue, let's talk about how a _typical_ certificate works by using a passport analogy. A passport (the certificate) is issued by a government body (authority).  A customs agent who trusts the authority can validate the passport.
+Before we continue, let's talk about how a _typical_ certificate works by using a passport analogy. A passport (the certificate) is issued by a government body (the authority).  A customs agent who trusts the authority can validate the passport.
  
 I can create my own passport, but no customs agent will validate it - it has no originating authority. The same holds true for certificates.
 
 {% img blog/dangers-of-self-signed-certs/custom-made-passport.png alt:"Custom made passport" width:"800" %}{: .center-image }
+
 
 A typical TLS certificate has more than one authority involved. A "root certificate authority" that issues an intermediate "certificate authority" (CA), that may issue another intermediate CA, which finally issues the certificate for a site.
 
@@ -33,7 +34,7 @@ Verifying a digital certificate is more complicated than getting a stamp on your
 
 ## Inspect the Chain of Trust
 
-We can look at this site's certificate by using OpenSSL:
+We can look at a site's certificate using OpenSSL:
 
 ```bash
 openssl s_client -connect developer.okta.com:443 -servername developer.okta.com
