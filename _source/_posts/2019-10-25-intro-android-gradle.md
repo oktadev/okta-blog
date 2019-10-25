@@ -23,7 +23,7 @@ Gradle manages all aspects of the Android development process, making it easy to
 
 In true Android fashion, you can configure most aspects of Gradle's behavior by providing Gradle with different configuration options. Going further, lots of freely available plugins add features to Gradle: extended error reporting, custom app icons, integration with other systems, etc.  You can also use Groovy or Kotlin to create your own completely custom plugins.
 
-This article will introduce you to the essential aspects of what Gradle does and how you can configure it I’ll also introduce you to a couple more advanced Gradle concepts.
+This article will introduce you to the essential aspects of what Gradle does and how you can configure it I'll also introduce you to a couple more advanced Gradle concepts.
 
 Your App will also use Okta to safely and easily authenticate users, so you can focus on your business while Okta gives you the security you need, plus services like:
 
@@ -32,13 +32,13 @@ Your App will also use Okta to safely and easily authenticate users, so you can 
 * [Social login](https://developer.okta.com/authentication-guide/social-login/)
 * [Multi-factor authentication](https://developer.okta.com/use_cases/mfa/)
 
-This article follows an example Android app that authenticates a user with [Okta’s SDK for Android](https://developer.okta.com/code/android/) and demonstrates Gradle in Android. Please clone and set it up yourself, so you can follow along.  
+This article follows an example Android app that authenticates a user with [Okta's SDK for Android](https://developer.okta.com/code/android/) and demonstrates Gradle in Android. Please clone and set it up yourself, so you can follow along.  
 What you will also need:
 
 * [A Free Okta Developer Account](https://developer.okta.com/signup/)
 * [Android Studio](https://developer.android.com/studio)
 
-Let’s get started!
+Let's get started!
 
 ## Set Up Your Android App to work With Okta and Gradle
 
@@ -53,7 +53,7 @@ Next:
 
 1. Sign up for a free [Okta developer account](https://developer.okta.com/signup/)
 2. Create a new **Application** for **Native Android**
-3. Create a *config.json* file similar to this one in the *app* module’s `/app/res/raw` folder:
+3. Create a *config.json* file similar to this one in the *app* module's `/app/res/raw` folder:
 
     ```json
     {
@@ -69,7 +69,7 @@ Next:
     }
     ```
 
-4. Set a *URI Scheme* unique to your app in the *app* module’s `/app/build.gradle`:
+4. Set a *URI Scheme* unique to your app in the *app* module's `/app/build.gradle`:
 
     ```groovy
     android.defaultConfig.manifestPlaceholders = [
@@ -293,7 +293,7 @@ For instance, the `application-id` of an app is the combination of *applicationI
 
 ### Manifest Placeholders
 
-Dependencies often require certain parameters in the *AndroidManifest.xml* file, for each application module. Additionally, we often need to define different parameters for each build-type. Unfortunately, historical limitations introduced in the Android packaging (way before Gradle) mean there isn’t a way around this.
+Dependencies often require certain parameters in the *AndroidManifest.xml* file, for each application module. Additionally, we often need to define different parameters for each build-type. Unfortunately, historical limitations introduced in the Android packaging (way before Gradle) mean there isn't a way around this.
 
 As we previously discussed, Gradle manages manifest files and merges them if required, so it allows us to set the value of a property in the manifest configuration. The function of the *manifestPlaceholders{}* block is to define an array of property and values that will be set in the manifest when Gradle builds an app.
 
@@ -365,7 +365,7 @@ Gradle is a very powerful tool with a vast and overarching role in Android devel
 
 ## Advanced Configuration Options for Gradle in Android
 
-Now that we learned the essentials, let’s go a little further. The example app we used contains a few more advanced Gradle configuration options for you to explore and further your expertise. Please inspect the app to find a few more advanced Gradle features like:
+Now that we learned the essentials, let's go a little further. The example app we used contains a few more advanced Gradle configuration options for you to explore and further your expertise. Please inspect the app to find a few more advanced Gradle features like:
 
 * Sourcesets specific to a build-type
 * Conditional configuration
