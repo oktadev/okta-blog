@@ -828,6 +828,8 @@ Modify the index template to show all items:
 
 Reload the application and check that the items are displayed correctly, and all navigation links work. Congratulations, your application is now complete!
 
+{% img blog/php-codeigniter-login/news-items.png alt:"The finished application showing the logged-in user and list of news items" width:"685" %}{: .center-image }
+
 ## Learn More About CodeIgniter, Authentication, and Okta
 
 You can find the whole code example
