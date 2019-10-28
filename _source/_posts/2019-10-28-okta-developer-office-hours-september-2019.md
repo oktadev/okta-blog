@@ -145,7 +145,7 @@ Q: How can I use Okta to develop my own identity providing service that is integ
 >
 > I guess I'll answer this because I have some familiarity with blockchain and stuff like that. In general, you probably don't need to do it that way. Let me take a step back. If your goal is to authenticate users using blockchain, but the rest of the platform does not need to be distributed as a ledger than I would say don't bother trying to find a way to handle blockchain authentication for users because it's just gonna be a big time sink. It's a lot easier to just use OAuth and OpenID Connect with any sort of provider. You can use Okta, or literally anyone else. Amazon has products, Auth0 has products, and there's plenty of open source ways to do this.
 > 
->  But, if you have to use blockchain because the application you're building is dependent on being distributed across the blockchain, like for example: if you want to make sure that the videos are never taken down and that everything is immutable and stuff like that, there's some really good blockchain authentication providers that you might want to check out. I forget the names of them off the top of my head, to be honest, but you might want to check some of those out to see if they can help you.
+> But, if you have to use blockchain because the application you're building is dependent on being distributed across the blockchain, like for example: if you want to make sure that the videos are never taken down and that everything is immutable and stuff like that, there's some really good blockchain authentication providers that you might want to check out. I forget the names of them off the top of my head, to be honest, but you might want to check some of those out to see if they can help you.
 > 
 > Or, if you're OK with centralizing the authentication component, you can just use Okta's standard SDKs and OAuth and OpenID Connect support to handle that for you.
 
@@ -229,7 +229,7 @@ Q: How would we implement an SSO solution for a client that wants to use their o
 > 
 > What you're gonna want to do is use our [Active Directory agent](https://help.okta.com/en/prod/Content/Topics/Directory/ad-agent-install.htm). We have an agent you can use. You can download it. You run it within the network that your Active Directory server is on. It will handle synchronizing those users into Okta. It can be the master so that Okta only receives a read-only copy of the user data or you can have Okta be the master and AD is mirroring it. There's different configuration options there. That will allow your users to authenticate using their Active Directory credentials.
 
-Q: I'm pretty new to Okta. With an identity provider-initiated service, how do we configure in Okta the ability to pass and ID token and access token to a backend application's REST API?  We have our grant type set as implicit and currently, it only passes the issuer. [Watch on YouTube](https://youtu.be/nGi8x5XppHI?t=3346). 
+Q: I'm pretty new to Okta. With an identity provider-initiated service, how do we configure in Okta the ability to pass and ID token and access token to a backend application's REST API? We have our grant type set as implicit and currently, it only passes the issuer. [Watch on YouTube](https://youtu.be/nGi8x5XppHI?t=3346). 
 
 > **Randall:** I'm just gonna go ahead and say I don't fully understand this question. It sounds like what you want to do is pass all the tokens to the application you're signing in to. I think I need a little more context here. Matt, you're muted. Do you have anything?
 > 
@@ -253,7 +253,7 @@ At this point, our live session ended. However, we received numerous other quest
 
 Q: Search users within a Group (Group Member Operations) is very limited. It only can list all users within a Group paged. There is no ability to filter/search and return sorted results. Any ideas how it can be improved?
 
-> **Brian:** Take a look at our [Groups API](https://developer.okta.com/docs/reference/api/groups/#list-groups), you can do simple searches or use a more complex filter expression.  Our SDKs support this too!
+> **Brian:** Take a look at our [Groups API](https://developer.okta.com/docs/reference/api/groups/#list-groups), you can do simple searches or use a more complex filter expression. Our SDKs support this too!
 
 Q: I am integrating my Okta with my customers for a single sign-on (SSO) experience. What Okta details I should share with my customers for IDP and SP initiated integration? Looking for Okta best practices for customer integration.
 
@@ -307,7 +307,7 @@ Q: Are SWA apps secure to use?
 
 Q: Getting statistics on usage statistics of applications authenticated by Okta, what are the options? Sufficient details in the Okta access log?
 
-> **Joël:** Take a look a the System Log (and it’s [API](https://developer.okta.com/docs/reference/api/system-log/)).  There is even a preconfigured "Authentication Activity" link in your Okta Admin Console.
+> **Joël:** Take a look a the System Log (and it’s [API](https://developer.okta.com/docs/reference/api/system-log/)). There is even a preconfigured "Authentication Activity" link in your Okta Admin Console.
 
 ## Attend our October Office Hours
 
