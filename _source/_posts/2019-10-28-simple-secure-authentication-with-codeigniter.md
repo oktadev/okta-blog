@@ -841,5 +841,5 @@ If you would like to learn more about Okta and PHP Authentication, start with th
 * [Build Simple Login in PHP](/blog/2018/12/28/simple-login-php)
 * [PHP Authorization with OAuth 2.0 and Okta](/blog/2019/08/30/php-authorization-oauth-2-okta)
 
-Like what you learned today? Follow us on [Twitter](https://twitter.com/oktadev), like us on [Facebook](https://www.facebook.com/oktadevelopers), check us out on [LinkedIn](https://www.linkedin.com/company/oktadev/), and subscribe to our [YouTube channel](https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q) for more awesome content!
+Like what you learned today? Follow us on [Twitter](https://twitter.com/oktadev), like us on [Facebook](https://www.facebook.com/oktadevelopers), check us out on [LinkedIn](https://www.linkedin.com/company/oktadev/), and subscribe to our [YouTube channel](https://www.youtube.com/c/oktadev) for more awesome content!
 
