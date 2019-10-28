@@ -20,7 +20,7 @@ Before you get started, make sure to install [Java 8](https://adoptopenjdk.net/)
 If you'd rather watch a video, [I created a screencast of this blog post](https://youtu.be/wHX4j0z-sUU).
 
 <div style="text-align: center; margin-bottom: 1.25rem">
-<iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed//wHX4j0z-sUU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/wHX4j0z-sUU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 ## Create a new Maven project
