@@ -307,7 +307,7 @@ Q: Are SWA apps secure to use?
 
 Q: Getting statistics on usage statistics of applications authenticated by Okta, what are the options? Sufficient details in the Okta access log?
 
-> **Joël:** Take a look a the System Log (and it’s [API](https://developer.okta.com/docs/reference/api/system-log/)). There is even a preconfigured "Authentication Activity" link in your Okta Admin Console.
+> **Joël:** Take a look a the System Log (and it's [API](https://developer.okta.com/docs/reference/api/system-log/)). There is even a preconfigured "Authentication Activity" link in your Okta Admin Console.
 
 ## Attend our October Office Hours
 
