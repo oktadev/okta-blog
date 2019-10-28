@@ -474,7 +474,7 @@ class Users_model extends CI_Model
 
 ```
 
-The model has a single method `find_or_create($email)` that accepts the email of the logged-in user, and returns the user id if it already exists in the database, or creates a new User record and then returns the ID if it doesn't exist.
+The model has a single method `find_or_create($email)` that accepts the email of the logged-in user, and returns the user ID if it already exists in the database, or creates a new User record and then returns the ID if it doesn't exist.
 
 Modify the header template to include the navigation row:
 
