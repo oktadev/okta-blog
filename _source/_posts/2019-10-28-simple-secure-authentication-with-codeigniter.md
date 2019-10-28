@@ -68,11 +68,11 @@ Before proceeding with the CodeIgniter application, take some time to set up you
 
 [Register for a forever-free developer account](https://developer.okta.com/signup/), then log in to your Okta account, go to the Applications menu item and click the **Add Application** button:
 
-{% img blog/php-codeigniter-login/add-application.png alt:"Click the Add Application button" width:"300" align:"center" %}
+{% img blog/php-codeigniter-login/add-application.png alt:"Click the Add Application button" width:"300" %}{: .center-image }
 
 Select **Web** and click **Next**.
   
-{% img blog/php-codeigniter-login/create-new-application.png alt:"Select Web and click Next" width:"800" align:"center" %}
+{% img blog/php-codeigniter-login/create-new-application.png alt:"Select Web and click Next" width:"800" %}{: .center-image }
 
 Enter a title, and set `http://localhost:8000/` as the Base URI, and `http://localhost:8000/callback` as the Login Redirect URI, then click Done. You can leave the rest of the settings as they are.
 
@@ -129,7 +129,7 @@ $dotenv->load();
 
 Add the following line at the end of `public/index.php`, but before the default CodeIgniter bootstrapper: 
 
-```
+```php
 // this is the line you're adding:
 require_once '../bootstrap.php';
 
