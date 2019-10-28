@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Okta Developer Office Hours - September 2019 Edition"
+title: "Okta Developer Office Hours Q&A - September 2019 Edition"
 author: mraible
 description: "We held developer office hours recently and answered a lot of questions!"
 tags: [okta, developer, office hours]
@@ -11,7 +11,7 @@ tweets:
 image: blog/okta-developer-office-hours/okta-dev-office-hours.jpg
 ---
 
-On September 19, 2019, we held our first Okta Developer office hours. Our goal was to host a live Q & A with developers that use Okta. We had over 150 developers attend.
+On September 19, 2019, we held our first Okta Developer office hours. Our goal was to host a live Q&A with developers that use Okta. Over 150 developers attended!
 
 We [streamed the session live on YouTube](https://youtu.be/nGi8x5XppHI), so you can watch it below if you like.
 
@@ -19,9 +19,9 @@ We [streamed the session live on YouTube](https://youtu.be/nGi8x5XppHI), so you 
 <iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/nGi8x5XppHI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
-We received around 60 questions during our live-stream and did not get a chance to answer them all. After close examination, we determined that many questions overlapped and ended up with 37 unique questions.
+We received around 60 questions during our live-stream and did not get a chance to answer them all. After close examination, we determined that many questions overlapped and ended up with 40 unique questions.
 
-Since we couldn't answer all the questions in real-time, we decided to write up a blog post and answer all the questions we received. There were four of us from Developer Relations that answered questions:
+Since we couldn't answer all the questions in real-time, we decided to write up a transcript of the questions we _were_ able to answer and add short responses to the ones we didn't get to. Keep in mind that our responses here are succinct; please reach out to developers@okta.com if you need more in-depth information on how to use Okta.
 
 * [**Randall Degges**](https://twitter.com/rdegges): a happy programmer that likes to hack stuff.
 * [**Brian Demers**](https://twitter.com/briandemers): Father, Geek, Podcast co-host @CodeMonkeyTalks, and Developer Advocate at https://developer.okta.com.
@@ -31,9 +31,9 @@ Since we couldn't answer all the questions in real-time, we decided to write up 
 
 Without further ado, here's the list of questions and answers. If we answered it during the session, I added a link to the location in the video.
 
-## Okta Developer Q & A
+## Okta Developer Q&A
 
-Q: I'm thinking about migrating my users from my custom application to Okta. What do I need to know? [Watch Q & A on YouTube](https://youtu.be/nGi8x5XppHI?t=225).
+Q: I'm thinking about migrating my users from my custom application to Okta. What do I need to know? [Watch Q&A on YouTube](https://youtu.be/nGi8x5XppHI?t=225).
 
 > **Randall:** Matt you are unmuted, so you are going to get the honor of doing this one.
 > 
@@ -55,7 +55,7 @@ Q: I'm thinking about migrating my users from my custom application to Okta. Wha
 > 
 > If you're not able to shut your website down or freeze user registration, the other mechanism you have is a real-time user migration. Basically, that involves building a shim in your codebase. The way you can think of this is let's say you have this live website and it's got millions of active users. You can't afford any downtime. What you do is basically modify your authentication flow. Imagine that a current user is going to log in to your website. They send you their email and password in plain text. When your website receives the email and password in plain text, what you're gonna do is first make an API request to Okta to see if the user exists with the email address. Yes or no? If the answer is yes, then you know the user has already been migrated to Okta. So then what you do is attempt to authenticate the user into Okta and you should have no problem. If the user doesn't exist in Okta, then you know the user must exist in your current database, or not at all. In that scenario, you query your current database to pull out all the user info and make sure it matches. Then you make sure the password the user gave is the correct password for the current database. If all that's good, then you go ahead and run that post request to Okta to create the user account inside of Okta and you migrate them in real-time to the Okta platform. Then you authenticate them against Okta and keep moving on. Every time a user on your site logs in, they'll be seamlessly migrated behind the scenes over to Okta without any issues. One more thing I'll share real quick. I wrote an article on this at the beginning of this year: [User Migration: The Definitive Guide](/blog/2019/02/15/user-migration-the-definitive-guide). It goes into this in a bunch of depth and covers a lot of gotchas and things you should worry about or look for if you're going to be migrating to Okta or anywhere else. Definitely check this out.
 
-Q: When we started adopting Okta, I originally thought we'd go with SAML, since I understood that to be the "standard", and I also understood that proper authentication was a missing part of OAuth. However, with OpenID Connect (OIDC) that problem seems to have largely been addressed. Should I ever consider SAML if OIDC exists? [Watch Q & A on YouTube](https://youtu.be/nGi8x5XppHI?t=690).
+Q: When we started adopting Okta, I originally thought we'd go with SAML, since I understood that to be the "standard", and I also understood that proper authentication was a missing part of OAuth. However, with OpenID Connect (OIDC) that problem seems to have largely been addressed. Should I ever consider SAML if OIDC exists? [Watch Q&A on YouTube](https://youtu.be/nGi8x5XppHI?t=690).
 
 > **Brian:** No. (Laughs) It's a little more complicated than that. I would say anything you can use OIDC for, you should. That's the newer standard, that's where people are going. The support is a bit more flexible depending on the types of applications you're working on. But if you have legacy systems that only speak SAML, and that's what you need to deal with, then Okta does support SAML. If you can, try to use OIDC first. Use SAML as a last resort.
 > 
@@ -63,23 +63,23 @@ Q: When we started adopting Okta, I originally thought we'd go with SAML, since 
 > 
 > We wrote an article about this last year. There are SAML vulnerabilities that basically allow you to gain root access all over the place. In like every SAML library ever, there's issues with this stuff. If you want to learn more about this, see [A Breakdown of the New SAML Authentication Bypass Vulnerability](/blog/2018/02/27/a-breakdown-of-the-new-saml-authentication-bypass-vulnerability). Just to point out, we are not vulnerable to this, just in case you're wondering. So yeah, don't use SAML unless you cannot avoid it.
 
-Q: I am trying to integrate Jumio Identity Verification with Okta. Jumio takes a picture of your ID with a selfie and verifies that they are valid. Should I try to make it another MFA option as part of a server? Sort of write a plugin? Can you point me to the documentation on how to get started? [Watch Q & A on YouTube](https://youtu.be/nGi8x5XppHI?t=848).
+Q: I am trying to integrate Jumio Identity Verification with Okta. Jumio takes a picture of your ID with a selfie and verifies that they are valid. Should I try to make it another MFA option as part of a server? Sort of write a plugin? Can you point me to the documentation on how to get started? [Watch Q&A on YouTube](https://youtu.be/nGi8x5XppHI?t=848).
 
 > **Brian:** I was actually talking to someone recently about something very similar. I don't know if it was Jumio, but it was another one of these types of services. The particular service I was dealing with... the guy had his phone and there was some app you used to take a picture, so there was a photo, timestamp, geolocation, and other things that played into this factor. The problem integrating it as an MFA component is trusting applications. 
 > 
 > In the OIDC sense, or when you log in with Okta, you would want Okta to handle that factor. Once you step outside of that, it isn't your traditional multi-factor since you're dealing with a custom application. There are ways around this. You could write a whole bunch of code. Some of these services expose themselves as an OAuth IdP. So you could have Okta talk to that service. you'd basically go through a couple of extra redirects. That's what I'd recommend looking for. That way you don't have to touch any code and there's less code to write. It establishes trust between the parties and you don't have to worry about it. If Jumio exposes themselves as an OAuth IdP, try to go that route and see what you can do.
 
-Q: What are the options and the best way to secure your public APIs that are being called by client's websites from a web browser? [Watch Q & A on YouTube](https://youtu.be/nGi8x5XppHI?t=1038).
+Q: What are the options and the best way to secure your public APIs that are being called by client's websites from a web browser? [Watch Q&A on YouTube](https://youtu.be/nGi8x5XppHI?t=1038).
 
 > **Matt:** One of the ways that we typically recommend people do it right now is that they have some sort of authentication mechanism in their front-end browser application. Whether that's Angular, React, or Vue, we have SDKs for all those. Once you've authenticated, you'll get an access token and then you can use that access token to talk to your APIs. Your APIs will have a similar configuration that says it has to come from this issuer and have this audience, and then you know it's a valid authentication token. 
 
-Q: We use Azure Active Directory, but create our own enterprise applications. We like to use Azure AD for SSO authentication. Does Okta have a product that can help me with this? [Watch Q & A on YouTube](https://youtu.be/nGi8x5XppHI?t=1114).
+Q: We use Azure Active Directory, but create our own enterprise applications. We like to use Azure AD for SSO authentication. Does Okta have a product that can help me with this? [Watch Q&A on YouTube](https://youtu.be/nGi8x5XppHI?t=1114).
 
 > **Heather:** The answer is yes, but no. Technically speaking, Okta is what Azure AD is, but more. We have authentication built on top of it and that scales a lot more. Where your users live is important. If they live in Azure AD, you would need to move your users from Azure AD into Okta in order to use our authentication mechanism.
 > 
 > Yes, there is a way to have that be a continuous thing and work in tandem. For example, we have really easy widgets that you don't have to host yourself. Normally, you would have to. For Single Sign-On, that's one of Okta's strengths. It's really one or the other, but yes, technically you could use them both in tandem, but you're going to have to move your users over.
 
-Q: We are currently using Okta for OAuth/OIDC access for our customers through a mobile app. We are now building internal tools that will require OAuth access for internal team members. Is it a good practice to mix external customers and internal team members in the same Okta account or should different Okta accounts be used and configured for their specific use cases? [Watch Q & A on YouTube](https://youtu.be/nGi8x5XppHI?t=1205).
+Q: We are currently using Okta for OAuth/OIDC access for our customers through a mobile app. We are now building internal tools that will require OAuth access for internal team members. Is it a good practice to mix external customers and internal team members in the same Okta account or should different Okta accounts be used and configured for their specific use cases? [Watch Q&A on YouTube](https://youtu.be/nGi8x5XppHI?t=1205).
 
 > **Randall:** This is up for debate honestly. There's no rule around this. I'll share my two cents. My two cents is that if you're building things internally, it's a little bit easier to just have a separate Okta account right now. The main reason why is that if you're going to have internal people also be external users, you would basically -- in Okta right now, the multi-tenancy story is a little bit confusing. You essentially need multiple Okta orgs that are linked together and can do all of these things to have your concept of "tenants" there and so if there's a risk that any internal employee will also be an external employee, it's a little bit easier for you logistically to just have a separate Okta account. 
 > 
@@ -145,7 +145,7 @@ Q: How can I use Okta to develop my own identity providing service that is integ
 >
 > I guess I'll answer this because I have some familiarity with blockchain and stuff like that. In general, you probably don't need to do it that way. Let me take a step back. If your goal is to authenticate users using blockchain, but the rest of the platform does not need to be distributed as a ledger than I would say don't bother trying to find a way to handle blockchain authentication for users because it's just gonna be a big time sink. It's a lot easier to just use OAuth and OpenID Connect with any sort of provider. You can use Okta, or literally anyone else. Amazon has products, Auth0 has products, and there's plenty of open source ways to do this.
 > 
-> But, if you have to use blockchain because the application you're building is dependent on being distributed across the blockchain, like for example: if you want to make sure that the videos are never taken down and that everything is immutable and stuff like that, there's some really good blockchain authentication providers that you might want to check out. I forget the names of them off the top of my head, to be honest, but you might want to check some of those out to see if they can help you.
+>  But, if you have to use blockchain because the application you're building is dependent on being distributed across the blockchain, like for example: if you want to make sure that the videos are never taken down and that everything is immutable and stuff like that, there's some really good blockchain authentication providers that you might want to check out. I forget the names of them off the top of my head, to be honest, but you might want to check some of those out to see if they can help you.
 > 
 > Or, if you're OK with centralizing the authentication component, you can just use Okta's standard SDKs and OAuth and OpenID Connect support to handle that for you.
 
@@ -253,11 +253,11 @@ At this point, our live session ended. However, we received numerous other quest
 
 Q: Search users within a Group (Group Member Operations) is very limited. It only can list all users within a Group paged. There is no ability to filter/search and return sorted results. Any ideas how it can be improved?
 
-> **Brian:** Take a look at our [Groups API](https://developer.okta.com/docs/reference/api/groups/#list-groups), you can do simple searches or use a more complex filter expression. Our SDKs support this too!
+> **Brian:** Take a look at our [Groups API](https://developer.okta.com/docs/reference/api/groups/#list-groups), you can do simple searches or use a more complex filter expression.  Our SDKs support this too!
 
 Q: I am integrating my Okta with my customers for a single sign-on (SSO) experience. What Okta details I should share with my customers for IDP and SP initiated integration? Looking for Okta best practices for customer integration.
 
-> **Joël:** Ideally, all you should need to share with your customers is the Metadata URL for the SAML app you have configured in Okta ... (this assumes that Okta is the IdP and your customers are the SP) many SPs can use a metadata URL. Otherwise, you might need to share the individual data the Metadata URL bundles together separately: the x509 cert for Okta, the audience, the issuer, etc.
+> **Joël:** Ideally, all you should need to share with your customers is the Metadata URL for the SAML app you have configured in Okta as (this assumes that Okta is the IdP and your customers are the SP) many SPs can use a metadata URL. Otherwise, you might need to share the individual data the Metadata URL bundles together separately: the x509 cert for Okta, the audience, the issuer, etc.
 
 Q: Does Okta recommend obtaining an access token in the application based on an ID token vs Okta sending both id token and access token to a custom web application?
 
@@ -265,7 +265,7 @@ Q: Does Okta recommend obtaining an access token in the application based on an 
 
 Q: Is using Okta with AWS Cognito a common use case? Any recommendations?
 
-> **Joël:** Yes! Very common. I wrote some sample code to do this ... 3 years ago. See <https://github.com/okta/okta-oidc-aws>.
+> **Joël:** Yes! Very common. I wrote some sample code to do this 3 years ago. See <https://github.com/okta/okta-oidc-aws>.
 
 Q: How do I enable iframe only for one app rather than the overall org? How do I secure it further?
 
@@ -293,7 +293,7 @@ Q: Possibility of moving Okta Configurations between environments easily? It's b
 
 Q: Can you force all permissions and policies to be enforced based on the permissions set in the Okta Universal Directory? Essentially using Okta Universal Directory for all policy enforcement and management.
 
-> **Joël:** In general, yes. You can set policies and permissions in Okta via Group Membership rules, but also via attributes in UD (which can be set via EL) ... there are many ways to answer this question, we need to hear more details to give a more useful answer here.
+> **Joël:** In general, yes. You can set policies and permissions in Okta via Group Membership rules, but also via attributes in UD (which can be set via EL). There are many ways to answer this question, so we would need to hear more details to give a more useful answer here.
 
 Q: Are SWA apps secure to use?
 
@@ -307,7 +307,7 @@ Q: Are SWA apps secure to use?
 
 Q: Getting statistics on usage statistics of applications authenticated by Okta, what are the options? Sufficient details in the Okta access log?
 
-> **Joël:** Take a look a the System Log (and it's [API](https://developer.okta.com/docs/reference/api/system-log/)). There is even a preconfigured "Authentication Activity" link in your Okta Admin Console.
+> **Joël:** Take a look a the System Log (and its [API](https://developer.okta.com/docs/reference/api/system-log/)).  There is even a preconfigured "Authentication Activity" link in your Okta Admin Console.
 
 ## Attend our October Office Hours
 
