@@ -271,7 +271,7 @@ You will need an `OktaApiService` class to handle the communication with Okta. F
 
 `composer.json` (full version):
 
-```
+```json
 {
     "description" : "The CodeIgniter Application with Composer",
     "require": {
