@@ -249,7 +249,7 @@ Getting started with Ionic for JHipster is similar to JHipster. You simply have 
 
 [source,shell]
 ----
-npm i -g ionic@5.4.4 yo generator-jhipster-ionic@4.2.1
+npm i -g ionic@5.4.4 yo generator-jhipster-ionic@4.3.0
 yo jhipster-ionic
 ----
 
