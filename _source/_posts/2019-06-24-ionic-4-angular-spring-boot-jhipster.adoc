@@ -28,6 +28,14 @@ In this brief tutorial, I'll show you to use https://github.com/oktadeveloper/ge
 
 **Prerequisites**: To complete this tutorial, you'll need to have Java 8+, Node.js 10+, and Docker installed. You'll also need to create an https://developer.okta.com/signup/[Okta developer account].
 
+TIP: https://youtu.be/Rc07SUW3gWQ[Watch this tutorial as a screencast]. 👇
+
+++++
+<div style="text-align: center; margin-bottom: 1.25rem">
+<iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/Rc07SUW3gWQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+++++
+
 == Create a Spring Boot + Angular App with JHipster
 
 You can install JHipster via http://brewformulas.org/Jhipster[Homebrew] (`brew install jhipster`) or with npm.
