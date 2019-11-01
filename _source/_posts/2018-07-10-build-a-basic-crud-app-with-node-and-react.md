@@ -1335,3 +1335,6 @@ If you're still aching for more content, there is a plethora of great posts on t
 
 And as always, we'd love to hear from you. Hit us up with questions or feedback in the comments, or on Twitter [@oktadev](https://twitter.com/oktadev).
 
+<a name="changelog">**Changelog:**</a>
+
+* Nov 1, 2019: Added an error snackbar to help with debugging, added some information about installing SQLite, and updated a majority of the dependencies. Changes to this post can be viewed in [okta-blog#58](https://github.com/oktadeveloper/okta-blog/pull/58).
