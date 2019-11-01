@@ -3,13 +3,12 @@ layout: blog_post
 title: "Add Authentication to Any Web Page in 10 Minutes"
 author: rdegges
 description: "You've got a web page, you want to add authentication to. Normally you'd have to build out a backend, user management, etc., but that's hard. Today I'll show you how to do it in just 10 minutes."
-tags: [javascript, authentication]
+tags: [javascript, authentication, html]
 tweets:
  - "Have a simple website you need to add authentication to? @rdegges will show you how to do it in 10 minutes or less using only a few lines of #javascript code:"
  - "Adding user management to websites can be really difficult: you have to build a backend, etc. -- or do you? @rdegges will show you how to do it with just a few lines of #javascript"
  - "Hey you. Yah, you. Stop scrolling through Twitter and learn how to add authentication to any web page in 10 minutes flat. It'll be fun!"
 ---
-
 
 Adding authentication to web pages can be pretty annoying.
 
@@ -53,23 +52,11 @@ Once you've got all the settings specified, click **Done** to create your new ap
 
 Now, scroll down to the bottom of your newly created app page and copy down the **Client ID** value. This is your app's unique OpenID Connect client identifier. It isn't important that you understand what that is yet, but it *is* important that you copy that value down for later.
 
-## Add a Trusted Origin (CORS)
-
-Because Okta is going to be authenticating your users, you also need to tell Okta to whitelist your domain so the OpenID Connect flow works properly. To do this, go to the **API** -> **Trusted Origins** dropdown and click the **Add Origin** button. Enter the following values then click **Save**.
-
-- **Name**: `My Simple App` - Put whatever the name of your app is in this box.
-- **Origin URL**: `http://localhost:8080` - Put your app's origin in here. For
-  most of you, this should be the localhost domain you are testing your app on.
-  You will need to create one trusted origin entry for each domain you want to
-  support authentication from.
-- **Type**: Select both the `CORS` and `Redirect` boxes. These are what make the
-  magic happen.
-
-{% img blog/add-authentication-to-any-web-page-in-10-minutes/okta-trusted-origin.gif alt:"Okta Trusted Origin GIF" %}{: .center-image }
-
 ## Create a Web Page
 
-Now that you've got the Okta stuff out of the way, go ahead and create a web page, any web page! You can use an existing page, create a new one, or use the one that I've provided below.
+Now that you've got the Okta stuff out of the way, go ahead and create a web page, any web page! You can use an existing page, create a new one, or use the one that I've provided below. 
+
+To use the one below, create an `index.html` file on your hard drive, and copy/paste the HTML below into it.
 
 ```html
 <!doctype html>
@@ -100,7 +87,7 @@ If you open this page in your browser, you'll see the incredibly simple web page
 
 {% img blog/add-authentication-to-any-web-page-in-10-minutes/simple-web-page.png alt:"Simple Web Page" %}{: .center-image }
 
-**NOTE**: I like to run my test servers on port `8080`. When I test my page out, I visit `http://localhost:8080` in my browser. To do this, if you have Python 3 installed, you can simply run the command `python -m http.server 8080` in your project directory. This will open a web server on the specified port. In my case, I named my HTML file `index.html` so that when I visit `http://localhost:8080` it will display by default.
+**NOTE**: I like to run my test servers on port `8080`. When I test my page out, I visit `http://localhost:8080` in my browser. To do this, if you have Python 3 installed, you can simply run the command `python -m http.server 8080` in your project directory (if you're on a Mac, you can use `python -m SimpleHTTPServer 8080`). This will open a web server on the specified port. In my case, I named my HTML file `index.html` so that when I visit `http://localhost:8080` it will display by default.
 
 ## Add Authentication to Your Web Page
 
@@ -137,7 +124,7 @@ You can do this by simply defining a `<div id="okta-login-container"></div>` any
 </html>
 ```
 
-After that, you'll need to copy the following JavaScript code into the `head` element towards the top of your page. This code will load the [Okta widget](https://github.com/okta/okta-signin-widget), which is what makes all this fancy authentication functionality work:
+After that, you'll need to copy the following JavaScript code into the `<head>` element towards the top of your page. This code will load the [Okta widget](https://github.com/okta/okta-signin-widget), which is what makes all this fancy authentication functionality work:
 
 ```html
 <!-- widget stuff here -->
@@ -146,7 +133,7 @@ After that, you'll need to copy the following JavaScript code into the `head` el
 <link href="https://ok1static.oktacdn.com/assets/js/sdk/okta-signin-widget/2.16.0/css/okta-theme.css" type="text/css" rel="stylesheet"/>
 ```
 
-Once you've got the Okta widget loaded up, the last thing you need to do is initialize the widget, give it some configuration data, and tell it what to do. Copy the code below into the bottom of your HTML page, directly above the closing `body` tag:
+Once you've got the Okta widget loaded up, the last thing you need to do is initialize the widget, give it some configuration data, and tell it what to do. Copy the code below into the bottom of your HTML page, directly above the closing `</body>` tag:
 
 {% raw %}
 ```html
@@ -156,7 +143,7 @@ Once you've got the Okta widget loaded up, the last thing you need to do is init
     baseUrl: "{{ YOUR_ORG_URL }}",
     clientId: "{{ YOUR_APP_CLIENT_ID }}",
     authParams: {
-      issuer: "{{ YOUR_ORG_URL }}/oauth2/default",
+      issuer: "default",
       responseType: ['token', 'id_token'],
       display: 'page'
     }
@@ -167,7 +154,7 @@ Once you've got the Okta widget loaded up, the last thing you need to do is init
       // If we get here, the user just logged in.
       function success(res) {
         var accessToken = res[0];
-        var idToken = res[1]
+        var idToken = res[1];
 
         oktaSignIn.tokenManager.add('accessToken', accessToken);
         oktaSignIn.tokenManager.add('idToken', idToken);
@@ -236,7 +223,7 @@ Your final web page should look like this:
         baseUrl: "{{ YOUR_ORG_URL }}",
         clientId: "{{ YOUR_APP_CLIENT_ID }}",
         authParams: {
-          issuer: "{{ YOUR_ORG_URL }}/oauth2/default",
+          issuer: "default",
           responseType: ['token', 'id_token'],
           display: 'page'
         }
@@ -247,7 +234,7 @@ Your final web page should look like this:
           // If we get here, the user just logged in.
           function success(res) {
             var accessToken = res[0];
-            var idToken = res[1]
+            var idToken = res[1];
 
             oktaSignIn.tokenManager.add('accessToken', accessToken);
             oktaSignIn.tokenManager.add('idToken', idToken);
@@ -347,3 +334,8 @@ If you liked this, you might want to [follow @oktadev on Twitter](https://twitte
 - [Build a Basic CRUD App with Vue.js and Node](/blog/2018/02/15/build-crud-app-vuejs-node)
 
 Until next time!
+
+<a name="changelog"></a>
+**Changelog:**
+
+* Oct 31, 2019: Removed Trusted Origin (CORS) section since it's no longer needed. Changes to this post can be viewed in [okta-blog#69](https://github.com/oktadeveloper/okta-blog/pull/69).
