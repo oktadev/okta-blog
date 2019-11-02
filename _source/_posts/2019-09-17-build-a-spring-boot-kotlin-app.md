@@ -36,7 +36,7 @@ You can also use the command line to get the same result:
 ```bash
 curl https://start.spring.io/starter.zip \
         -d language=kotlin \
-        -d style=web \
+        -d dependencies=web \
         -d packageName=com.okta \
         -d name=spring-kotlin \
         -d type=gradle-project \
