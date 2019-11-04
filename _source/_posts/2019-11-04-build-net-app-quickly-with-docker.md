@@ -45,7 +45,7 @@ HResult=0x80070057
 Message=Your Okta URL must start with https. Current value: {yourOktaDomain}. You can copy your domain from the Okta Developer Console. Follow these instructions to find it: https://bit.ly/finding-okta-domain
 ```
 
-Thankfully, this is very easy to fix.  Okta simplifies  identity management, while making to more secure and scalable than is worth building yourself. Okta’s APIs create, edit, and securely store user accounts and data, and connect them with one or more applications, without the need for custom code. To add Okta to your app to offload authentication, simply configure Okta Identity Management and add the appropriate configuration values to your `web.config` file:
+Thankfully, this is very easy to fix.  Okta simplifies  identity management, while making to more secure and scalable than is worth building yourself. Okta's APIs create, edit, and securely store user accounts and data, and connect them with one or more applications, without the need for custom code. To add Okta to your app to offload authentication, simply configure Okta Identity Management and add the appropriate configuration values to your `web.config` file:
 
 ```xml
 <add key="okta:ClientId" value="{clientId}" />
@@ -83,7 +83,7 @@ Once the build process completes, start the application and  keep an eye on the 
 
 ## Docker Networking for .NET Applications
 
-Usually, applications running in Docker containers don't know they're running in a container. They talk to other containerized applications over the network as though they were running on physical hardware. However, Docker’s networking capabilities are extensible and can be set up in many different ways to support particular scenarios. Visual Studio automatically deploys your Docker container on a virtual network with an address in the 172.x.x.x range. You can then connect to that virtual network address from your browser and see your containerized application as though it was running on a physical machine.
+Usually, applications running in Docker containers don't know they're running in a container. They talk to other containerized applications over the network as though they were running on physical hardware. However, Docker's networking capabilities are extensible and can be set up in many different ways to support particular scenarios. Visual Studio automatically deploys your Docker container on a virtual network with an address in the 172.x.x.x range. You can then connect to that virtual network address from your browser and see your containerized application as though it was running on a physical machine.
 
 ## Create a Self-Signed Certificate for .NET in Docker
 
