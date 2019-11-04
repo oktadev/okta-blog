@@ -136,7 +136,7 @@ services:
 
 ## Update Identity Management Configuration
 
-You'll also need to update your Okta Identity application with the new URL. Log into your Okta dashboard and select Applications > Okta MVC Crud App. In the General tab, click Edit to change the various URLs.
+You'll also need to update your Okta Identity application with the new URL. Log into your Okta dashboard and select **Applications** and choose the **Okta MVC Crud App**. In the General tab, click **Edit** to change the various URLs.
 
 Add:
 
