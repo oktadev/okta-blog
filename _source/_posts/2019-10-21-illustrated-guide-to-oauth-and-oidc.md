@@ -23,6 +23,12 @@ You can think of this post as the worst children's book ever. You're welcome.
 
 {% img blog/illustrated-guide-to-oauth-and-oidc/illustrated-guide-to-oauth-and-oidc-post.jpg alt:"The Illustrated Guide to OAuth and OpenID Connect" width:"600" %}{: .center-image }
 
+By the way, this content is also available as a [video](https://www.youtube.com/watch?v=t18YB3xDfXI)!
+
+<div style="text-align: center; margin-bottom: 1.25rem">
+<iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/t18YB3xDfXI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
 ## Ladies and Gentlemen, Introducing OAuth 2.0
 
 [OAuth 2.0](https://oauth.net/2/) is a security standard where you give one application permission to access _your data_ in another application. The steps to grant permission, or _consent_, are often referred to as _authorization_ or even _delegated authorization_. You authorize one application to access your data, or use features in another application on your behalf, without giving them your password. Sweet!
