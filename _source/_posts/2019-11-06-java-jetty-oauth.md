@@ -17,7 +17,7 @@ In this tutorial, you will build a simple web service with Jetty embedded. After
 
 Eclipse Jetty is a web server and servlet container. Because it is an Eclipse project, it is standards compliant and open source, as well as commercially usable. It is the main alternative to Tomcat when hosting Java applications. Like you can with Tomcat, you can use Jetty both embedded and stand-alone. 
 
-By default, Spring Boot creates applications with embedded web servers, which means that the server is embedded within the application code itself, so you don’t have to run a separate web server to publish Java web applications. However, with a little configuration, you can also publish a WAR file to a separate Jetty or Tomcat servlet container (old-school application server style). Spring also uses Tomcat by default, but you can easily change this, as you'll see.
+By default, Spring Boot creates applications with embedded web servers, which means that the server is embedded within the application code itself, so you don't have to run a separate web server to publish Java web applications. However, with a little configuration, you can also publish a WAR file to a separate Jetty or Tomcat servlet container (old-school application server style). Spring also uses Tomcat by default, but you can easily change this, as you'll see.
 
 ## Install the Project Dependencies
 
@@ -67,7 +67,7 @@ gretty {
 }
 ```
 
-I want to point out a few things here. Notice the `org.gretty` plugin added in the `plugins` block. Also notice that you added the `javax.servlet:javax.servlet-api` dependency using `providedCompile`. This adds it to the compile classpath but doesn't add it to the packaged war file (since this will be provided by the servlet container when it’s deployed). Finally, I want to call out the fact that the context path for the embedded servlet container has been set to root in the `gretty` block.
+I want to point out a few things here. Notice the `org.gretty` plugin added in the `plugins` block. Also notice that you added the `javax.servlet:javax.servlet-api` dependency using `providedCompile`. This adds it to the compile classpath but doesn't add it to the packaged war file (since this will be provided by the servlet container when it's deployed). Finally, I want to call out the fact that the context path for the embedded servlet container has been set to root in the `gretty` block.
 
 Now make the root directory for the Java files (`src/main/java` is the standard Java root folder, plus the `com.okta.jettyembedded` package):
 
@@ -276,7 +276,7 @@ Select application type **Web**.
 
 Click **Next**.
 
-Give the app a name. I named mine “Spring Boot Jetty”.
+Give the app a name. I named mine "Spring Boot Jetty".
 
 Under  **Login redirect URIs**, add two new URIs:
 
