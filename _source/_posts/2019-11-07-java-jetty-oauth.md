@@ -13,7 +13,7 @@ image: blog/featured/okta-java-short-bottle-headphones.jpg
 
 Jetty is a small, highly-scalable Java-based web server and servlet engine. It supports HTTP/2, WebSockets, and many other protocols. It powers websites and frameworks, both large and small, such as Google AppEngine. Because it is an Eclipse project, its open source project is  called Eclipse Jetty. it is standards compliant and open source, as well as commercially usable. It is the main alternative to Tomcat when hosting Java applications. Like you can with Tomcat, you can use Jetty both embedded and stand-alone. 
 
-By default, Spring Boot creates applications with embedded web servers, which means that the server is embedded within the application code itself, so you don’t have to run a separate web server to publish Java web applications. However, with a little configuration, you can also publish a WAR file to a separate Jetty or Tomcat servlet container (old-school application server style). Spring also uses Tomcat by default, but you can easily change this, as you'll see.
+By default, Spring Boot creates applications with embedded web servers, which means that the server is embedded within the application code itself, so you don't have to run a separate web server to publish Java web applications. However, with a little configuration, you can also publish a WAR file to a separate Jetty or Tomcat servlet container (old-school application server style). Spring also uses Tomcat by default, but you can easily change this, as you'll see.
 
 In this tutorial, you will build a simple web service with Jetty embedded. After that, you will build the same web service in Spring Boot and Jetty. Finally, you'll add JWT (JSON Web Token) authentication and authorization to the web service using method-level security with Okta as the OAuth/OIDC provider.
 
@@ -69,7 +69,7 @@ gretty {
 }
 ```
 
-I want to point out a few things here. Notice the `org.gretty` plugin in the `plugins` block. Also, notice the `javax.servlet:javax.servlet-api` dependency you added using `providedCompile`. This adds it to the compile classpath, but doesn't add it to the packaged war file, since this will be provided by the servlet container when it’s deployed. Finally, notice that the context path for the embedded servlet container has been set to root in the `gretty` block.
+I want to point out a few things here. Notice the `org.gretty` plugin in the `plugins` block. Also, notice the `javax.servlet:javax.servlet-api` dependency you added using `providedCompile`. This adds it to the compile classpath, but doesn't add it to the packaged war file, since this will be provided by the servlet container when it's deployed. Finally, notice that the context path for the embedded servlet container has been set to root in the `gretty` block.
 
 Now make the root directory for the Java files (`src/main/java` is the standard Java root folder, plus the `com.okta.jettyembedded` package):
 
@@ -266,7 +266,7 @@ So far things are going pretty great. In the next section, you will recreate the
 
 ## Create an OIDC Application
 
-Now let’s take a little field trip over to Okta and set things up for OAuth/OpenID Connect (OIDC). Together, they are a set of open standards for implementing secure authorization and authentication. In this tutorial, Okta will act as the identity provider, and your Spring Boot app will be the client.
+Now let's take a little field trip over to Okta and set things up for OAuth/OpenID Connect (OIDC). Together, they are a set of open standards for implementing secure authorization and authentication. In this tutorial, Okta will act as the identity provider, and your Spring Boot app will be the client.
 
 You should have already signed up for a free developer account with Okta. Navigate to the developer dashboard at [https://developer.okta.com](https://developer.okta.com). If this is your first time logging in, you may need to click the **Admin** button.
 
