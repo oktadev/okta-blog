@@ -11,7 +11,7 @@ tweets:
 image: blog/featured/okta-java-short-bottle-headphones.jpg
 ---
 
-Jetty is a small, highly-scalable Java-based web server and servlet engine. It supports HTTP/2, WebSockets, and many other protocols. It powers websites and frameworks, both large and small, such as Google AppEngine. Because it is an Eclipse project, its open source project is  called Eclipse Jetty. it is standards compliant and open source, as well as commercially usable. It is the main alternative to Tomcat when hosting Java applications. Like you can with Tomcat, you can use Jetty both embedded and stand-alone. 
+Jetty is a small, highly-scalable Java-based web server and servlet engine. It supports HTTP/2, WebSockets, and many other protocols. It powers websites and frameworks, both large and small, such as Google AppEngine. Because it is an Eclipse project, its open source project is called Eclipse Jetty. it is standards compliant and open source, as well as commercially usable. It is the main alternative to Tomcat when hosting Java applications. Like you can with Tomcat, you can use Jetty both embedded and stand-alone. 
 
 By default, Spring Boot creates applications with embedded web servers, which means that the server is embedded within the application code itself, so you don't have to run a separate web server to publish Java web applications. However, with a little configuration, you can also publish a WAR file to a separate Jetty or Tomcat servlet container (old-school application server style). Spring also uses Tomcat by default, but you can easily change this, as you'll see.
 
@@ -31,7 +31,7 @@ You'll need to install a few things before you get started.
 
 ## Build a Simple Web Service With Java and Jetty
 
-The first step in this tutorial is to build a simple web service using Java and Gradle. To accomplish this, you'll be using the [Gretty plugin for Gradle](http://akhikhl.github.io/gretty-doc/index.html). Gretty makes it super easy to run web apps on embedded servlet containers using Gradle, and supports both Tomcat and Jetty.
+The first step in this tutorial is to build a simple web service using Java and Gradle. To accomplish this, you'll be using the [Gretty plugin for Gradle](http://akhikhl.github.io/gretty-doc/index.html). Gretty makes it super easy to run web apps on embedded servlet containers using Gradle and supports both Tomcat and Jetty.
 
 If you choose to [download the project for this tutorial from the GitHub repo](https://github.com/oktadeveloper/okta-spring-boot-jetty-example), just follow along for the next few steps while I explain how to build the project from scratch.
 
@@ -69,7 +69,7 @@ gretty {
 }
 ```
 
-I want to point out a few things here. Notice the `org.gretty` plugin in the `plugins` block. Also, notice the `javax.servlet:javax.servlet-api` dependency you added using `providedCompile`. This adds it to the compile classpath, but doesn't add it to the packaged war file, since this will be provided by the servlet container when it's deployed. Finally, notice that the context path for the embedded servlet container has been set to root in the `gretty` block.
+I want to point out a few things here. Notice the `org.gretty` plugin in the `plugins` block. Also, notice the `javax.servlet:javax.servlet-api` dependency you added using `providedCompile`. This adds it to the compile classpath but doesn't add it to the packaged war file, since this will be provided by the servlet container when it's deployed. Finally, notice that the context path for the embedded servlet container has been set to root in the `gretty` block.
 
 Now make the root directory for the Java files (`src/main/java` is the standard Java root folder, plus the `com.okta.jettyembedded` package):
 
@@ -122,7 +122,7 @@ Howdy
 
 ```
 
-You've built a super simple web servlet. It doesn't do much yet, but it works (hopefully). Notice the `@WebServlet` annotation in the `Hello.java` class. Here you can configure some of the servlet parameters, rather than in a `web.xml` file. Moving this configuration  into the code makes it easier to build and maintain some of the servlet configuration.
+You've built a super simple web servlet. It doesn't do much yet, but it works (hopefully). Notice the `@WebServlet` annotation in the `Hello.java` class. Here you can configure some of the servlet parameters, rather than in a `web.xml` file. Moving this configuration into the code makes it easier to build and maintain some of the servlet configuration.
 
 Next, you'll take a look at a more fully-featured web servlet.
 
@@ -443,7 +443,7 @@ http DELETE :8080 hike=="South Maroon Peak"
 
 ## Deploy the Spring Boot Project
 
-You now have  a Spring Boot application that runs on an embedded Jetty container. To deploy it to a production server, build an executable jar file using `gradle bootJar`, copy this jar file to the server, and run it using `java -jar <your jar file name>.jar`. There's no need for a separate web server since this jar contains an embedded Jetty web server.
+You now have a Spring Boot application that runs on an embedded Jetty container. To deploy it to a production server, build an executable jar file using `gradle bootJar`, copy this jar file to the server, and run it using `java -jar <your jar file name>.jar`. There's no need for a separate web server since this jar contains an embedded Jetty web server.
 
 > **NOTE:** For a more old-school deployment to an application server with multiple separate applications on the same server, you need to build a war file. [The Spring docs](https://docs.spring.io/spring-boot/docs/current/reference/html/howto-traditional-deployment.html) on how to do this are a great resource. Essentially you need to do two things: 1) add the `war` plugin to the project dependencies, and 2) change the Jetty or Tomcat dependency to `providedRuntime` so it's not included in the packaged war. Then you build a war file and deploy it to the servlet web app path on the server. 
 
