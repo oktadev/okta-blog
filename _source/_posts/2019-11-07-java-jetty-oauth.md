@@ -494,12 +494,12 @@ public class SpringBootJettyApplication extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
+            .authorizeRequests()
                 .anyRequest().permitAll()
                 .and()
-                .oauth2Login()
+            .oauth2Login()
                 .and()
-                .oauth2ResourceServer().jwt();
+            .oauth2ResourceServer().jwt();
     }
 
 }
