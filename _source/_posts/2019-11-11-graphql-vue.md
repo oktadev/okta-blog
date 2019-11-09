@@ -1,8 +1,8 @@
 ---
 layout: blog_post
-title: "GraphQL + Vue = A Match Made in Heaven"
+title: "Use Vue and GraphQL to Build a Secure App"
 author: holgerschmitz
-description: "Learn how to build a Node.js GraphQL backend and a Vue.js frontend that talks to it."
+description: "Learn how to build a secure Node.js GraphQL backend with a Vue.js frontend."
 tags: [graphql, vuejs, vue, javascript]
 tweets:
 - "GraphQL allows flexible queries and @vuejs is a joy to work with. Learn how to use them together in a secure fashion with this tutorial."
@@ -292,7 +292,7 @@ Now navigate to a directory of your choice and create a new Vue project.
 vue create olympics-client
 ```
 
-This will start the wizard for creating a new Vue application. Make sure that you choose **Manually Select Features** and then select the **Babel** and the **Router** options. You might also want to deselect the **Linter / Formatter** option for this tutorial. Your options should look something like the following.
+This will start the wizard to create a new Vue application. Make sure you choose **Manually Select Features** and then select the **Babel** and the **Router** options. You might also want to deselect the **Linter / Formatter** option for this tutorial. Your options should look something like the following.
 
 ```
 ? Check the features needed for your project:
@@ -313,17 +313,13 @@ After you press return, you can accept the default options for all the following
 vue add apollo
 ```
 
-This will present you with a few configuration options before installing the library. You should accept the default option for each of the questions. 
-
-Now install some packages by running the following command.
+This will present you with a few configuration options before installing the library. Accept the default option for each of the questions. Now install some packages by running the following command:
 
 ```bash
 npm install -E bootstrap-vue@2.0.4 bootstrap@4.3.1 @okta/okta-vue@1.1.1 apollo-link-http@1.5.15 
 ```
 
-The Bootstrap libraries will be used for the layout of the application and the `okta-vue` library is needed for the client-side of the authentication process.
-
-Next, open `src/main.js` and replace its contents with the following code.
+The Bootstrap libraries control the layout of the application, and the `okta-vue` library handles the client-side of the authentication process. Next, open `src/main.js` and replace its contents with the following code:
 
 ```js
 import Vue from 'vue';
@@ -367,20 +363,20 @@ new Vue({
 }).$mount('#app');
 ```
 
-The first step after the imports is to include the Bootstrap libraries. Then, `Auth` from `okta-vue` provides the authentication flow. Just like above, `{yourOktaDomain}` is your Okta domain and `{yourClientId}` should be replaced with the client ID from Okta's application settings. 
+After the imports, the next step is to include the Bootstrap libraries. Then, `Auth` from `okta-vue` provides the authentication flow. Just like above, `{yourOktaDomain}` is your Okta domain, and `{yourClientId}` should be replaced with the client ID from Okta's application settings. 
 
 The `pkce: true` setting will cause the Okta Vue SDK to use authorization code flow with PKCE. It's recommended to use this flow over implicit when you have the opportunity. See [Is the OAuth 2.0 Implicit Flow Dead?](/blog/2019/05/01/is-the-oauth-implicit-flow-dead) for more information.
 
-To make the authentication work with Apollo, you need to create authentication middleware for the Apollo client. The `authMiddleware` link retrieves the access token and attaches it to the `Authorization` header. Now the global `Vue` object can be created with an `apolloProvider` that contains the authentication middleware linked with the endpoint of the server.
+For the authentication work with Apollo, you need to create authentication middleware for the Apollo client. The `authMiddleware` link retrieves the access token and attaches it to the `Authorization` header. Now, the global `Vue` object can include an `apolloProvider`  with the authentication middleware linked with the endpoint of the server.
 
-Next, open `public/index.html` and paste the following two lines inside the `<head>` tag.
+Next, open `public/index.html` and paste the following two lines in the `<head>` tag.
 
 ```html
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Ubuntu">
 <link rel="stylesheet" href="https://maxcdn.icons8.com/fonts/line-awesome/1.1/css/line-awesome-font-awesome.min.css">
 ```
 
-The first line includes the Ubuntu font from Google Fonts. The second includes the Line Awesome icon set. Now open `src/App.vue` and replace the contents with the code below.
+The first line includes the Ubuntu font from Google Fonts. The second includes the Line Awesome icon set. Now, open `src/App.vue` and replace the contents with the code below:
 
 ```html
 <template>
@@ -447,9 +443,9 @@ export default {
 </style>
 ```
 
-Each `.vue` file has three parts. The `<template>` contains the HTML template of the view or component. Here, you have created a Bootstrap navigation bar that contains several links and buttons to log in or out. The `<script>` section contains the component logic. In this case, most of the code handles authentication. Finally, the `<style>` section contains the CSS styles for the component.
+Each `.vue` file has three parts. The `<template>` contains the HTML template of the view or component. Here, you have created a Bootstrap navigation bar with links and buttons to log in or out. The `<script>` section contains the component logic. In this case, most of the code handles authentication. Finally, the `<style>` section contains the CSS styles for the component.
 
-When the Vue application was created, the wizard should have initialized several default views and components. In this application, you will not be using any components outside the `src/views` folder. You can feel free to delete `src/components/HelloWorld.vue`. Now, open `src/views/Home.vue` and replace the contents with the following code.
+When the Vue application was created, the wizard initialized several default views and components. In this application, you will not use any components outside the `src/views` folder, so you can delete `src/components/HelloWorld.vue`. Now, open `src/views/Home.vue` and replace the contents with the following code:
 
 {% raw %}
 ```html
@@ -486,7 +482,7 @@ h1, h2 {
 ```
 {% endraw %}
 
-This view provides a static splash screen for the application. The main code is contained in the Olympics component. Rename the existing `src/views/About.vue` to `src/views/Olympics.vue` and delete all existing content. Paste the following template into the file.
+This view provides a static splash screen for the application. The main code is contained in the Olympics component. Rename the existing `src/views/About.vue` to `src/views/Olympics.vue` and delete all existing content. Paste the following template into the file:
 
 {% raw %}
 ```html
@@ -541,7 +537,7 @@ This view provides a static splash screen for the application. The main code is 
 ```
 {% endraw %}
 
-The first part of the template contains form fields used for defining query filters. The second part shows a table of Olympic events obtained from the server. Now add the component implementation to the bottom of `src/views/Olympics.vue`, as shown below.
+The first part of the template contains form fields for defining query filters. The second part shows a table of Olympic events obtained from the server. Now add the component implementation to the bottom of `src/views/Olympics.vue`, as shown below.
 
 ```html
 <script>
@@ -581,7 +577,7 @@ export default {
 </script>
 ```
 
-The component contains an `apollo` property that defines the GraphQL query. The main query is defined using the `gql` string tag. The variables that enter the query are defined by the `variables()` callback. The values are taken from the form fields. This has the effect that the GraphQL query is run every time a form field changes. The search results are updated automatically when the server responds. 
+The component contains an `apollo` property that defines the GraphQL query. The main query is defined by the `gql` string tag. The `variables()` callback defines the variables that enter the query, taking them from the form fields. This has the effect that the GraphQL query is run every time a form field changes. The search results are updated automatically when the server responds. 
 
 Finally, add the following style into the Olympics view.
 
@@ -593,7 +589,7 @@ Finally, add the following style into the Olympics view.
 </style>
 ```
 
-Now that the views are defined, they need to be registered with the router. Open `src/router.js` and replace the content with the following code.
+Now the views are defined, they need to be registered with the router. Open `src/router.js` and replace the content with the following code:
 
 ```js
 import Vue from 'vue'
@@ -639,7 +635,7 @@ const router = new Router({
 export default router;
 ```
 
-The `authGuard` constant defines a navigation guard. When the user is not logged in, this guard redirects the user to the Okta login page. In the router definition, the navigation guard is used to protect the `/olympics` route from access by unauthorized users. 
+The `authGuard` constant defines a navigation guard that redirects an unauthenticated user to the Okta login page. In the router definition, the navigation guard protects the `/olympics` route from access by unauthorized users. 
 
 This completes the implementation of the client. You can start the client by opening the terminal and running the following command.
 
@@ -651,15 +647,15 @@ Navigate to `http://localhost:8080` and you should be able to log in and view Ol
 
 {% img blog/graphql-vue-olympics/olympics-app.png alt:"The finished olympics application" width:"800" %}{: .center-image }
 
-Congratulations! If you see something like the screen above you have just created a full web application with Vue and GraphQL.
+Congratulations! You have just created a full web application with Vue and GraphQL.
 
-## Find Out More About GraphQL and Vue
+## Learn More About GraphQL and Vue
 
-In this tutorial, I have shown you how to develop a web application that uses GraphQL to communicate between the client and the server. GraphQL replaces or augments REST APIs. All requests are sent through a single endpoint and multiple queries can be bundled into a single request. This makes GraphQL flexible and fast compared to traditional REST APIs. 
+In this tutorial, you developed a web application that uses GraphQL to communicate between the client and the server. GraphQL sends all requests through a single endpoint and bundles multiple queries into a single request. This makes GraphQL a flexible and fast replacement for traditional REST APIs.  Finally, you integrated GraphQL into a client based on Vue. Okta was used to authenticate the user, both in the client as well as the server application.
 
-I have shown you how to integrate GraphQL into a client based on Vue. If you want to find out more about GraphQL, I recommend Sebastian Eschweiler's [great post about REST vs GraphQL](https://medium.com/codingthesmartway-com-blog/rest-vs-graphql-418eac2e3083). Okta has been used to authenticate the user, both in the client as well as the server application.
+You can find all the source code created in this tutorial on GitHub in the [oktadeveloper/okta-graphql-vue-olympics-example](https://github.com/oktadeveloper/okta-graphql-vue-olympics-example) repository.
 
-You can find all the source code created in this tutorial on GitHub in our [oktadeveloper/okta-graphql-vue-olympics-example](https://github.com/oktadeveloper/okta-graphql-vue-olympics-example) repository.
+If you want to find out more about GraphQL, I recommend Sebastian Eschweiler's [great post about REST vs GraphQL](https://medium.com/codingthesmartway-com-blog/rest-vs-graphql-418eac2e3083). 
 
 To find out more about building GraphQL, Vue, and Node applications using Okta, I recommend the following articles.
 
