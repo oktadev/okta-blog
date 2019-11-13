@@ -1,27 +1,26 @@
 ---
 layout: blog_post
 title: "Create a React Native App with Login in 10 Minutes"
-// How to Add Login to React Native Apps with OIDC
 author: mraible
 description: "This tutorial shows you how to add a login feature to a React Native application."
 tags: [react-native, react, login, javascript, mobile, oidc, pkce]
 tweets:
-- ""
-- ""
-- ""
-image: 
+- "Learn how to add login to your @reactnative app in just 10 minutes!"
+- "Add login to your React Native application in minutes with OIDC."
+- "Need auth in your #ReactNative app? Just add auth with @okta!"
+image: blog/react-native-login/react-native-login.png
 ---
 
-React Native is a mobile app development framework that allows you to use React to build native mobile apps. Instead of using a webview and rendering HTML and JavaScript, it converts React components to native platform components. This means you can use React Native in your existing Android and iOS projects, or you can create a whole new app from scratch.
+React Native is a mobile app development framework that allows you to use React to build native iOS and Android mobile apps. Instead of using a web view and rendering HTML and JavaScript, it converts React components to native platform components. This means you can use React Native in your existing Android and iOS projects, or you can create a whole new app from scratch.
 
-In this post, I'll show you how to add login to a React Native application. Authentication and authorization is an important part of most applications. You often need to know who the person is (authentication) and what they're allowed to do (authorization). OAuth 2.0 is an industry-standard protocol for authorization. OpenID Connect (OIDC) is an authentication layer on top of OAuth 2.0. Using an always on service like Okta for OAuth is easy to setup and configure, especially with React Native and Okta's React Native SDK.
+In this post, I'll show you how to add a login feature to a React Native application using OAuth 2.0 and OpenID Connect. Authentication and authorization are important parts of most applications as you often need to know who a user is (authentication) and what they're allowed to do (authorization). OAuth 2.0 is an industry-standard protocol for authorization and OpenID Connect (OIDC) is an authentication layer on top of OAuth 2.0. Integrating with an always-on service like Okta for OAuth makes set up and configuration easy, particularly with React Native and Okta's React Native SDK.
 
-React Native 0.61 was released on September 18, 2019. One of its biggest features is Fast Refresh. It's a unification of live reloading (reload on save) and hot reloading. It fully supports modern React's functional components and hooks and recovers after typos and other mistakes.
+React Native 0.61 was just released a couple of weeks ago. One of its biggest features is [Fast Refresh](https://facebook.github.io/react-native/blog/2019/09/18/version-0.61) - a unification of live reloading (reload on save) and hot reloading. Fast Refreshfully supports modern React's functional components and hooks and recovers after typos and other mistakes. In previous versions of React Native, a common complaint was that "hot reloading" was broken. 
 
 **Prerequisites:**
 
 * Node 10
-* Yarn 
+* Yarn
 * Watchman
 * Java 8 (for Android)
 * An Okta Developer Account
@@ -47,17 +46,17 @@ You'll also need to download and install IDEs for Android and iOS:
 * [Android Studio](https://developer.android.com/studio/index.html) (for Android)
 * [Xcode](https://developer.apple.com/xcode/) (for iOS)
 
-You can signup for an Okta developer account at [developer.okta.com/signup](https://developer.okta.com/signup/). 
+You can sign up for an Okta developer account at [developer.okta.com/signup](https://developer.okta.com/signup/).
 
 ## Create a React Native Application
 
-A popular way to get started with React Native development is with React Native CLI. 
+React Native CLI is a popular way to get started with React Native development.
 
 ```shell
 npm install -g react-native-cli@2.0.1
 ```
 
-Once you have React Native CLI installed, you can create a new application using its `init` command.
+Once you have React Native CLI installed, you can create a new application using the `init` command.
 
 ```shell
 react-native init ReactNativeLogin
@@ -65,11 +64,11 @@ react-native init ReactNativeLogin
 
 ## Add Login with OIDC
 
-Okta provides a [React Native SDK](https://github.com/okta/okta-oidc-js/tree/master/packages/okta-react-native) that is a wrapper around its native [Android OIDC](https://github.com/okta/okta-oidc-android) and [iOS OIDC](https://github.com/okta/okta-oidc-ios) libraries.
+Okta provides a [React Native SDK](https://github.com/okta/okta-oidc-js/tree/master/packages/okta-react-native) which conveniently wraps the Okta native [Android OIDC](https://github.com/okta/okta-oidc-android) and [iOS OIDC](https://github.com/okta/okta-oidc-ios) libraries.
 
-There are a number of steps you have to complete to add OIDC login with Okta. However, I created a tool that makes it so you only have to do a few steps to add a login feature.
+I'm going to show you two ways to add OIDC-based login with Okta: The fast way with a tool I created and the step-by-step instructions.
 
-This tool is based on [Schematics](https://angular.io/guide/schematics) and manipulates your project to install and configure everything. I'll show you how to do everything step-by-step after I show you the fast way.
+This tool is based on [Schematics](https://angular.io/guide/schematics) and manipulates your project to install and configure everything.
 
 Install Schematics globally.
 
@@ -81,10 +80,10 @@ npm install -g @angular-devkit/schematics-cli@0.803.7
 
 Log in to your Okta Developer account (or [sign up](https://developer.okta.com/signup/) if you don't have an account).
 
-* From the **Applications** page, choose **Add Application**. 
+* From the **Applications** page, choose **Add Application**.
 * On the Create New Application page, select **Native** as the platform and click **Next**.
-* Give your app a memorable name, select `Refresh Token` as a grant type, and click **Done**. 
-* Click the **Edit** button and add a Logout redirect URI that matches the default Login redirect URI (e.g., `com.okta.dev-123456:/callback`). 
+* Give your app a memorable name, select `Refresh Token` as a grant type, and click **Done**.
+* Click the **Edit** button and add a Logout redirect URI that matches the default Login redirect URI (e.g., `com.okta.dev-123456:/callback`).
 * Click **Save**.
 
 {% img blog/react-native-login/react-native-oidc-app.png alt:"Native OIDC App on Okta" width:"700" %}{: .center-image }
@@ -99,7 +98,7 @@ npm i @oktadev/schematics@1.0.0
 
 **NOTE:** If you have a React Native 0.60.x app, use `@oktadev/schematics@0.9.0`. The only difference between the two is the [tests](https://stackoverflow.com/questions/58088834/cannot-find-module-eventemitter-from-setupjest-js-with-react-native-0-61-0).
 
-Run the `add-auth` schematic in your `ReactNativeLogin` project. 
+Run the `add-auth` schematic in your `ReactNativeLogin` project.
 
 ```shell
 schematics @oktadev/schematics:add-auth
@@ -110,18 +109,16 @@ You will be prompted for an `issuer` and a `clientId`. You can find your issuer 
 {% img blog/react-native-login/default-auth-server.png alt:"Default Auth Server Issuer URI" width:"800" %}{: .center-image }
 
 The client ID will be on your application screen.
- 
+
 {% img blog/react-native-login/oidc-client-credentials.png alt:"OIDC Client ID" width:"700" %}{: .center-image }
 
 This process will take a minute to complete.
 
 {% img blog/react-native-login/add-auth-process.png alt:"Add Auth Process" width:"800" %}{: .center-image }
 
-
-
 ### Configure Your iOS Project to use Swift
 
-React Native uses Objective-C, yet the Okta React Native library uses Swift. Because of this, you have to add a Swift file in your iOS project for it to compile. Run the follow command to open your native iOS project in Xcode.
+React Native uses Objective-C, but the Okta React Native library uses Swift. Because of this, you have to add a Swift file in your iOS project for it to compile. Run the following command to open your native iOS project in Xcode.
 
 ```shell
 open ios/ReactNativeLogin.xcworkspace
@@ -129,7 +126,7 @@ open ios/ReactNativeLogin.xcworkspace
 
 To add a Swift file, complete the following steps:
 
-1. Right click on your project and select **New File...**.
+1. Right-click on your project and select **New File...**.
 2. Select `Swift File`, and click **Next**.
 3. Enter a name (e.g., `Polyfill`) and click **Create**.
 3. If prompted for a header file, it is not required to create one.
@@ -148,15 +145,15 @@ react-native run-ios
 
 {% img blog/react-native-login/ios-login-process.png alt:"iOS Login Process" %}{: .center-image }
 
-Once you're signed in, you'll see options to logout, get the user's information from an ID token, and get the user's information from the React Native SDK's `getUser()` method (a.k.a. the request).
+Once you're signed in, you'll see options to log out, get the user's information from an ID token, and get the user's information from the React Native SDK's `getUser()` method (a.k.a. the request).
 
 {% img blog/react-native-login/ios-login-complete.png alt:"iOS Login Process" %}{: .center-image }
 
-**NOTE:** The prompt that happens when you click **Login** cannot be avoided. This is an iOS safety mechanism. It also pops up when you log out. See [this issue](https://github.com/okta/samples-js-react-native/issues/14) for more information.
+**NOTE:** The prompt when you click **Login** cannot be avoided. This is an iOS safety mechanism. It also pops up when you log out. See [this issue](https://github.com/okta/samples-js-react-native/issues/14) for more information.
 
 ### Run Your React Native App on Android
 
-The schematic you ran modifies all the necessary files for Android. There's no code modifications required! 
+The schematic you ran modifies all the necessary files for Android; there are no code modifications required!
 
 You will need to run an AVD (Android Virtual Device) before starting your app, or you can plug in your Android phone and use that. If you have neither, launch Android Studio and go to **Tools** > **AVD Manager**. Click **Create Virtual Device** at the bottom and select a phone of your choice. I chose a Pixel 3 XL with Android 10.
 
@@ -170,13 +167,13 @@ react-native run-android
 
 {% img blog/react-native-login/android-login-process.png alt:"Android Login process" %}{: .center-image }
 
-Click the **Get User from ID Token** button to confirm you can get the user's information.
+Click the **Get User from ID Token** button to confirm you can retrieve the user's information.
 
 {% img blog/react-native-login/android-id-token.png alt:"Android ID Token" width:"250" %}{: .center-image }
 
-### Run Installed React Native Authentication Tests 
+### Run Installed React Native Authentication Tests
 
-In addition to integrating login, you also installed some tests that verify login and authentication works. Run `npm test` to see these tests run in your terminal.
+In addition to integrating login, OktaDev Schematics also installed some tests that verify login and authentication work. Run `npm test` to see these tests run in your terminal.
 
 ```
 Snapshot Summary
@@ -189,20 +186,20 @@ Time:        8.952s
 Ran all test suites.
 ```
 
-**NOTE:** OktaDev Schematics puts tests in a `tests` directory rather than the default `__tests__` directory. This is because Angular Schematics uses double underscore as a placeholder.
+**NOTE:** OktaDev Schematics puts tests in a `tests` directory rather than the default `__tests__` directory because Angular Schematics uses double underscore as a placeholder.
 
 ## Using a Custom Login Screen with Okta
 
-This example showed you how to add an OIDC flow that opens a browser when the user logs in and logs out. You might have an app that requires a smoother login experience that doesn't pop a browser. See 
+This example showed you how to add an OIDC flow that opens a browser when a user logs in and logs out. If you require a smoother login experience that doesn't pop open a browser, see
 Okta's [Custom Sign-In Example](https://github.com/okta/samples-js-react-native/tree/master/custom-sign-in) for example code that shows you how to implement that type of flow.
 
 ## Add OIDC Login the Hard Way
 
-The previous section showed you how to use OktaDev Schematics to quickly add a login feature (and tests!) to a React Native application. However, you might have an existing React Native application that doesn't have the same structure as a brand new React Native application. 
+The previous section showed you how to use OktaDev Schematics to quickly add a login feature (and tests!) to a React Native application. However, you might have an existing React Native application that doesn't have the same structure as a brand new React Native application.
 
 This section shows you everything that OktaDev Schematics does for you, in detail.
 
-Create a project with React Native CLI and install Okta's SDK:
+Create a project with React Native CLI and install Okta's SDK.
 
 ```shell
 react-native init ReactNativeLogin
@@ -222,9 +219,9 @@ Open your project in Xcode.
 open ios/ReactNativeLogin.xcworkspace
 ```
 
-Add a Swift file:
+Add a Swift file.
 
-1. Right click on your project and select **New File...**.
+1. Right-click on your project and select **New File...**.
 2. Select `Swift File`, and click **Next**.
 3. Enter a name (e.g., `Polyfill`) and click **Create**.
 3. If prompted for a header file, it is not required to create one.
@@ -236,11 +233,9 @@ cd ios
 pod install
 ```
 
-For Android, see the [developer documentation](https://github.com/okta/okta-oidc-js/tree/master/packages/okta-react-native#android-setup).
-
 ### Add Jest and Enzyme to Test Your React Native Login
 
-Jest is a library for testing JavaScript apps. Enzyme is a library that makes it easier to select and query elements in tests. They're often used alongside one another.
+Jest is a library for testing JavaScript apps and Enzyme is a library that makes it easier to select and query elements in tests. They're often used alongside one another.
 
 Install testing dependencies with npm.
 
@@ -480,20 +475,20 @@ export default {
 };
 ```
 
-Create an app on [Okta](https://developer.okta.com/) to get the values for `$yourClientId` and `######`. 
+Create an app on [Okta](https://developer.okta.com/) to get the values for `$yourClientId` and `######`.
 
-* From the **Applications** page, choose **Add Application**. 
+* From the **Applications** page, choose **Add Application**.
 * On the Create New Application page, select **Native** as the platform and click **Next**.
-* Give your app a memorable name, select `Refresh Token` as a grant type, and click **Done**. 
-* Click the **Edit** button and add a Logout redirect URI that matches the default Login redirect URI (e.g., `com.okta.dev-123456:/callback`). 
+* Give your app a memorable name, select `Refresh Token` as a grant type, and click **Done**.
+* Click the **Edit** button and add a Logout redirect URI that matches the default Login redirect URI (e.g., `com.okta.dev-123456:/callback`).
 * Click **Save**.
 
 In `App.js`, import `Auth`.
- 
+
 ```js
 import Auth from './Auth';
-``` 
- 
+```
+
 And use it in a new `<View />` after the Hermes logic.
 
 ```jsx
@@ -685,22 +680,46 @@ describe('authentication flow', () => {
 });
 ```
 
-Run `npm test` to see the fruits of your labor!
+Run `npm test` to bask in the fruits of your labor!
+
+To run your app on iOS, use `react-native run-ios`.
+
+{% img blog/react-native-login/ios-login-process.png alt:"iOS Login Process" %}{: .center-image }
+
+To run it on Android, you'll need to modify your Gradle build files. 
+
+Okta's React Native SDK depends on the [Okta OIDC Android](https://github.com/okta/okta-oidc-android) library. You have to add this library through Gradle.
+
+1. Add Okta's BinTray repo to `android/build.gradle`, under `allprojects` -> `repositories`.
+    ```
+    maven {
+      url  "https://dl.bintray.com/okta/com.okta.android"
+    }
+    ```
+2. Make sure your `minSdkVersion` is `19` in `android/build.gradle`.
+3. Define a redirect scheme to capture the authorization redirect. In `android/app/build.gradle`, under `android` -> `defaultConfig`, add:
+    ```
+    manifestPlaceholders = [ appAuthRedirectScheme: 'com.okta.dev-###### ]
+    ```
+
+Finally, start a virtual device (or plug in your phone), and run `react-native run-android`. 
+
+{% img blog/react-native-login/android-login-process.png alt:"Android Login process" %}{: .center-image }
 
 ## Learn More About React Native and OIDC Login
 
-This tutorial showed you how to add a login feature to a React Native application. You learned that OAuth 2.0 is an authorization protocol and OIDC is a authentication layer on top of it. You also used PKCE (Public Key Code Exchange) in your implementation, which is the more secure way to implement OAuth 2.0 in mobile applications.
+This tutorial showed you how to add a login feature to a React Native application. You learned that OAuth 2.0 is an authorization protocol and OIDC is an authentication layer on top of it. You also used PKCE (Public Key Code Exchange) in your implementation, which is the more secure way to implement OAuth 2.0 in mobile applications.
 
-I hope you enjoy your React Native development journey and its __fast refresh__ feature.
+I hope you enjoy your React Native development journey and its fast refresh feature!
 
 You can find the source code for this example on GitHub at [oktadeveloper/okta-react-native-login-example](https://github.com/oktadeveloper/okta-react-native-login-example).
 
 To learn more about React Native, OIDC, and PKCE, check out these posts:
 
-* [Build an iOS App with React Native and Publish it to the App Store](https://developer.okta.com/blog/2019/04/05/react-native-ios-app-store)
-* [Design and Develop an Android App with React Native and Publish to Google Play Store](https://developer.okta.com/blog/2018/12/26/react-native-android-play-store)
-* [Identity, Claims, & Tokens – An OpenID Connect Primer, Part 1 of 3](https://developer.okta.com/blog/2017/07/25/oidc-primer-part-1)
-* [Implement the OAuth 2.0 Authorization Code with PKCE Flow](https://developer.okta.com/blog/2019/08/22/okta-authjs-pkce)
-* [Why OAuth API Keys and Secrets Aren't Safe in Mobile Apps](https://developer.okta.com/blog/2019/01/22/oauth-api-keys-arent-safe-in-mobile-apps)
+* [Build an iOS App with React Native and Publish it to the App Store](/blog/2019/04/05/react-native-ios-app-store)
+* [Design and Develop an Android App with React Native and Publish to Google Play Store](/blog/2018/12/26/react-native-android-play-store)
+* [Identity, Claims, & Tokens – An OpenID Connect Primer, Part 1 of 3](/blog/2017/07/25/oidc-primer-part-1)
+* [Implement the OAuth 2.0 Authorization Code with PKCE Flow](/blog/2019/08/22/okta-authjs-pkce)
+* [Why OAuth API Keys and Secrets Aren't Safe in Mobile Apps](/blog/2019/01/22/oauth-api-keys-arent-safe-in-mobile-apps)
 
-If you liked this tutorial, follow [@oktadev](https://twitter.com/oktadev) on Twitter or subscribe to [our YouTube channel](https://www.youtube.com/c/oktadev).
+If you liked this tutorial, follow [@oktadev](https://twitter.com/oktadev) on Twitter and subscribe to [our YouTube channel](https://www.youtube.com/c/oktadev).
