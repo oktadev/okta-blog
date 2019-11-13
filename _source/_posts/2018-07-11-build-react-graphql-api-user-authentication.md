@@ -1229,7 +1229,7 @@ Restart the API, and you should be off to the races!
 
 ### Source Code
 
-You can find the source code for this article at https://github.com/oktadeveloper/okta-react-graphql-example.
+You can find the source code for this article at <https://github.com/oktadeveloper/okta-react-graphql-example>.
 
 ## Learn More About React, Node, and User Authentication
 
@@ -1238,9 +1238,9 @@ This article showed you how to build a secure React app with GraphQL, TypeORM, a
 At Okta, we care about making authentication with React and Node easy to implement. We have several blog posts on the topic, and documentation too! I encourage you to check out the following links:
 
 * [Build User Registration with Node, React, and Okta](https://scotch.io/tutorials/add-user-registration-to-your-site-with-node-react-and-okta)
-* [Build a React Application with User Authentication in 15 Minutes](https://developer.okta.com/blog/2017/03/30/react-okta-sign-in-widget)
-* [Build a React Native App and Authenticate with OAuth 2.0](https://scotch.io/tutorials/build-a-react-native-app-and-authenticate-with-oauth-20)
+* [Build a React Application with User Authentication in 15 Minutes](/blog/2017/03/30/react-okta-sign-in-widget)
+* [Build a React Native App and Authenticate with OAuth 2.0](/blog/2018/03/16/build-react-native-authentication-oauth-2)
 * [Add Okta Authentication to Your React app](https://developer.okta.com/code/react/okta_react)
-* [Build a Basic CRUD App with Vue.js and Node](https://developer.okta.com/blog/2018/02/15/build-crud-app-vuejs-node)
+* [Build a Basic CRUD App with Vue.js and Node](/blog/2018/02/15/build-crud-app-vuejs-node)
 
 I hope you have an excellent experience building apps with React and GraphQL. If you have any questions, please [hit me up on Twitter](https://twitter.com/mraible) or my whole kick-ass team on [@oktadev](https://twitter.com/oktadev). Our DMs are wide open! :)

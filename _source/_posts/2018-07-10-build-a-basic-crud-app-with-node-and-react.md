@@ -89,7 +89,7 @@ The quickest way to get started with React is to use [Create React App](https://
 To install `create-react-app` and `yarn`, simply run:
 
 ```bash
-npm i -g create-react-app@1.5.2 yarn@1.7.0
+npm i -g create-react-app@3.2.0 yarn@1.19.1
 ```
 
 **NOTE**: I'll be adding version numbers to help future-proof this post. In general though, you'd be fine leaving out the version numbers (e.g. `npm i -g create-react-app`).
@@ -114,7 +114,7 @@ To keep things looking nice without writing a lot of extra CSS, you can use a UI
 Add the dependency with:
 
 ```bash
-yarn add @material-ui/core@1.3.1
+yarn add @material-ui/core@4.5.1
 ```
 
 Material recommends the Roboto font. You can add it to your project by editing `public/index.html` and adding the following line inside the `head` tag:
@@ -144,7 +144,7 @@ import {
 const AppHeader = () => (
   <AppBar position="static">
     <Toolbar>
-      <Typography variant="title" color="inherit">
+      <Typography variant="h6" color="inherit">
         My React App
       </Typography>
     </Toolbar>
@@ -164,7 +164,7 @@ import {
 } from '@material-ui/core';
 
 export default () => (
-  <Typography variant="display1">Welcome Home!</Typography>
+  <Typography variant="h4">Welcome Home!</Typography>
 );
 ```
 
@@ -183,9 +183,9 @@ import Home from './pages/Home';
 
 const styles = theme => ({
   main: {
-    padding: 3 * theme.spacing.unit,
+    padding: theme.spacing(3),
     [theme.breakpoints.down('xs')]: {
-      padding: 2 * theme.spacing.unit,
+      padding: theme.spacing(2),
     },
   },
 });
@@ -250,7 +250,7 @@ REACT_APP_OKTA_ORG_URL=https://{yourOktaDomain}
 The easiest way to add Authentication with Okta to a React app is to use [Okta's React SDK](https://github.com/okta/okta-oidc-js/tree/master/packages/okta-react). You'll also need to add routes, which can be done using [React Router](https://reacttraining.com/react-router/). I'll also have you start adding icons to the app (for now as an avatar icon to show you're logged in). Material UI provides Material Icons, but in another package, so you'll need to add that too. Run the following command to add these new dependencies:
 
 ```bash
-yarn add @okta/okta-react@1.0.2 react-router-dom@4.3.1 @material-ui/icons@1.1.0
+yarn add @okta/okta-react@1.2.3 react-router-dom@5.1.2 @material-ui/icons@4.5.1
 ```
 
 For routes to work properly in React, you need to wrap your whole application in a `Router`. Similarly, to allow access to authentication anywhere in the app, you need to wrap the app in a `Security` component provided by Okta. Okta also needs access to the router, so the `Security` component should be nested inside the router. You should modify your `src/index.js` file to look like the following:
@@ -263,7 +263,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Security } from '@okta/okta-react';
 
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import * as serviceWorker from './serviceWorker';
 
 const oktaConfig = {
   issuer: `${process.env.REACT_APP_OKTA_ORG_URL}/oauth2/default`,
@@ -279,7 +279,11 @@ ReactDOM.render(
   </BrowserRouter>,
   document.getElementById('root'),
 );
-registerServiceWorker();
+
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
+serviceWorker.unregister();
 
 if (module.hot) module.hot.accept();
 ```
@@ -359,7 +363,7 @@ class LoginButton extends Component {
   render() {
     const { authenticated, user, menuAnchorEl } = this.state;
 
-    if (authenticated == null) return null;
+    if (authenticated === null) return null;
     if (!authenticated) return <Button color="inherit" onClick={this.login}>Login</Button>;
 
     const menuPosition = {
@@ -523,7 +527,7 @@ The next piece of the puzzle is to add this `LoginButton` component to your head
 +const AppHeader = ({ classes }) => (
    <AppBar position="static">
      <Toolbar>
-       <Typography variant="title" color="inherit">
+       <Typography variant="h6" color="inherit">
          My React App
        </Typography>
 +      <div className={classes.flex} />
@@ -556,11 +560,19 @@ Once successfully signed in, you're returned back to your app and should now see
 Now that users can securely authenticate, you can build the REST API server to perform CRUD operations on a post model. You'll need to add quite a few dependencies to your project at this point:
 
 ```bash
-yarn add @okta/jwt-verifier@0.0.12 body-parser@1.18.3 cors@2.8.4 dotenv@6.0.0 epilogue@0.7.1 express @4.16.3 sequelize@4.38.0 sqlite@2.9.2
+yarn add @okta/jwt-verifier@1.0.0 body-parser@1.18.3 cors@2.8.4 dotenv@8.1.0 epilogue@0.7.1 express@4.16.3 sequelize@4.44.3 sqlite3@4.1.0
 yarn add -D npm-run-all@4.1.3
 ```
 
-Create a new folder for the server under the src directory:
+You'll also need to make sure you have SQLite installed on your machine. You can check if it's installed by running the following command:
+
+```bash
+which sqlite3
+```
+
+You should get something like `/usr/bin/sqlite3` or `/Users/me/bin/sqlite3`. If you don't get a response, then you'll need to install SQLite. On a Debian-based Linux system you should be able to run the command `sudo apt-get install sqlite3`. On macOS you could use homebrew with `brew install sqlite3`. If you're having trouble geting it installed, try visiting the [SQLite homepage](https://sqlite.org) for more information.
+
+Once you have SQLite ready, create a new folder for the server under the src directory:
 
 ```bash
 mkdir src/server
@@ -593,7 +605,7 @@ app.use(async (req, res, next) => {
     if (!req.headers.authorization) throw new Error('Authorization header is required');
 
     const accessToken = req.headers.authorization.trim().split(' ')[1];
-    await oktaJwtVerifier.verifyAccessToken(accessToken);
+    await oktaJwtVerifier.verifyAccessToken(accessToken, 'api://default');
     next();
   } catch (error) {
     next(error.message);
@@ -650,7 +662,7 @@ app.use(async (req, res, next) => {
     if (!req.headers.authorization) throw new Error('Authorization header is required');
 
     const accessToken = req.headers.authorization.trim().split(' ')[1];
-    await oktaJwtVerifier.verifyAccessToken(accessToken);
+    await oktaJwtVerifier.verifyAccessToken(accessToken, 'api://default');
     next();
   } catch (error) {
     next(error.message);
@@ -724,7 +736,7 @@ Forms in React can be a bit of a pain. You can use a basic `form` element, but y
 You'll also need [recompose](https://github.com/acdlite/recompose), [lodash](https://lodash.com/), and [moment](https://momentjs.com/) for some helper functions. You can install them all as dependencies with the following command:
 
 ```bash
-yarn add react-final-form@3.6.4 final-form@4.8.3 recompose@0.27.1 lodash@4.17.10 moment@2.22.2
+yarn add react-final-form@6.3.0 final-form@4.18.5 recompose@0.30.0 lodash@4.17.10 moment@2.22.2
 ```
 
 ### Create a Post Editor Component
@@ -762,7 +774,7 @@ const styles = theme => ({
     flexDirection: 'column',
   },
   marginTop: {
-    marginTop: 2 * theme.spacing.unit,
+    marginTop: theme.spacing(2),
   },
 });
 
@@ -809,6 +821,78 @@ export default compose(
 )(PostEditor);
 ```
 
+### Add Friendly Error Messages
+
+In some circumstances, you may run into an issue with the server not working as expected. For example, if you don't have sqlite on your machine, the posts may fail to load and it could be unclear as to why. A way to help debug is to display a message to the user when you get an error. Material Design has a concept called a Snackbar, where messages will show up at the bottom of the screen.
+
+The Snackbar component expects a unique ID for your rendered component. In order to create one, you can use the `uuid` package. Go ahead and install that now:
+
+```
+yarn add uuid@3.3.2
+```
+
+Now create a new file `src/components/ErrorSnackbar.js`:
+
+**src/components/ErrorSnackbar.js**
+```javascript
+import React from 'react';
+import {
+  withStyles,
+  Snackbar,
+  SnackbarContent,
+  IconButton,
+} from '@material-ui/core';
+import { Error as ErrorIcon, Close as CloseIcon } from '@material-ui/icons';
+import { compose, withState } from 'recompose';
+import uuid from 'uuid/v4';
+
+const styles = theme => ({
+  snackbarContent: {
+    backgroundColor: theme.palette.error.dark,
+  },
+  message: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  icon: {
+    fontSize: 20,
+  },
+  iconVariant: {
+    opacity: 0.9,
+    marginRight: theme.spacing(1),
+  },
+});
+
+const ErrorSnackbar = ({ id, message, onClose, classes }) => (
+  <Snackbar
+    open
+    autoHideDuration={6000}
+    onClose={onClose}
+  >
+    <SnackbarContent
+      className={`${classes.margin} ${classes.snackbarContent}`}
+      aria-describedby={id}
+      message={
+        <span id={id} className={classes.message}>
+          <ErrorIcon className={`${classes.icon} ${classes.iconVariant}`} />
+          {message}
+        </span>
+      }
+      action={[
+        <IconButton key="close" aria-label="Close" color="inherit" onClick={onClose}>
+          <CloseIcon className={classes.icon} />
+        </IconButton>
+      ]}
+    />
+  </Snackbar>
+);
+
+export default compose(
+  withState('id', 'setId', uuid),
+  withStyles(styles),
+)(ErrorSnackbar);
+```
+
 ### Create the Posts Manager Page Component
 
 You'll also need a page to render a list of posts, and to inject the post editor. Create a new file `src/pages/PostsManager.js`. Once again, I'll post the whole file then walk you through each section.
@@ -821,7 +905,7 @@ import { withRouter, Route, Redirect, Link } from 'react-router-dom';
 import {
   withStyles,
   Typography,
-  Button,
+  Fab,
   IconButton,
   Paper,
   List,
@@ -835,18 +919,19 @@ import { find, orderBy } from 'lodash';
 import { compose } from 'recompose';
 
 import PostEditor from '../components/PostEditor';
+import ErrorSnackbar from '../components/ErrorSnackbar';
 
 const styles = theme => ({
   posts: {
-    marginTop: 2 * theme.spacing.unit,
+    marginTop: theme.spacing(2),
   },
   fab: {
     position: 'absolute',
-    bottom: 3 * theme.spacing.unit,
-    right: 3 * theme.spacing.unit,
+    bottom: theme.spacing(3),
+    right: theme.spacing(3),
     [theme.breakpoints.down('xs')]: {
-      bottom: 2 * theme.spacing.unit,
-      right: 2 * theme.spacing.unit,
+      bottom: theme.spacing(2),
+      right: theme.spacing(2),
     },
   },
 });
@@ -857,6 +942,7 @@ class PostsManager extends Component {
   state = {
     loading: true,
     posts: [],
+    error: null,
   };
 
   componentDidMount() {
@@ -877,11 +963,13 @@ class PostsManager extends Component {
       return await response.json();
     } catch (error) {
       console.error(error);
+
+      this.setState({ error });
     }
   }
 
   async getPosts() {
-    this.setState({ loading: false, posts: await this.fetch('get', '/posts') });
+    this.setState({ loading: false, posts: (await this.fetch('get', '/posts')) || [] });
   }
 
   savePost = async (post) => {
@@ -916,7 +1004,7 @@ class PostsManager extends Component {
 
     return (
       <Fragment>
-        <Typography variant="display1">Posts Manager</Typography>
+        <Typography variant="h4">Posts Manager</Typography>
         {this.state.posts.length > 0 ? (
           <Paper elevation={1} className={classes.posts}>
             <List>
@@ -936,10 +1024,9 @@ class PostsManager extends Component {
             </List>
           </Paper>
         ) : (
-          !this.state.loading && <Typography variant="subheading">No posts to display</Typography>
+          !this.state.loading && <Typography variant="subtitle1">No posts to display</Typography>
         )}
-        <Button
-          variant="fab"
+        <Fab
           color="secondary"
           aria-label="add"
           className={classes.fab}
@@ -947,8 +1034,14 @@ class PostsManager extends Component {
           to="/posts/new"
         >
           <AddIcon />
-        </Button>
+        </Fab>
         <Route exact path="/posts/:id" render={this.renderPostEditor} />
+        {this.state.error && (
+          <ErrorSnackbar
+            onClose={() => this.setState({ error: null })}
+            message={this.state.error.message}
+          />
+        )}
       </Fragment>
     );
   }
@@ -974,6 +1067,7 @@ class PostsManager extends Component {
   state = {
     loading: true,
     posts: [],
+    error: null,
   };
 
   componentDidMount() {
@@ -987,6 +1081,8 @@ class PostsManager extends Component {
 Here you're setting up a simple helper function to send a request to the server. This uses the `fetch` function that's built into all modern browsers. The helper accepts a `method` (e.g. `get`, `post`, `delete`), an `endpoint` (here it would either be `/posts` or a specific post like `/posts/3`), and a `body` (some optional JSON value, in this case the post content).
 
 This also sets some headers to tell the backend that any body it sends will be in JSON format, and it sets the authorization header by fetching the access token from Okta.
+
+If you get an error, setting it in the state will allow you to display it in the Snackbar.
 
 
 ```javascript
@@ -1007,6 +1103,8 @@ class PostsManager extends Component {
       return await response.json();
     } catch (error) {
       console.error(error);
+
+      this.setState({ error });
     }
   }
 
@@ -1081,6 +1179,8 @@ When there are posts, it renders a simple list of them, with the main text being
 
 By adding `component={Link}` and the `to` value, you are actually turning the list item into a link that takes you to the path of the post (e.g. `/posts/5`). You can do the same to send you to create a new post, by creating the Floating Action Button (FAB) that you see on many Material Design apps.
 
+The ErrorSnackbar will display any error messages you receive when fetching posts.
+
 ```jsx
 class PostsManager extends Component {
   // ...
@@ -1090,7 +1190,7 @@ class PostsManager extends Component {
 
     return (
       <Fragment>
-        <Typography variant="display1">Posts Manager</Typography>
+        <Typography variant="h4">Posts Manager</Typography>
         {this.state.posts.length > 0 ? (
           <Paper elevation={1} className={classes.posts}>
             <List>
@@ -1110,10 +1210,9 @@ class PostsManager extends Component {
             </List>
           </Paper>
         ) : (
-          !this.state.loading && <Typography variant="subheading">No posts to display</Typography>
+          !this.state.loading && <Typography variant="subtitle1">No posts to display</Typography>
         )}
-        <Button
-          variant="fab"
+        <Fab
           color="secondary"
           aria-label="add"
           className={classes.fab}
@@ -1121,8 +1220,14 @@ class PostsManager extends Component {
           to="/posts/new"
         >
           <AddIcon />
-        </Button>
+        </Fab>
         <Route exact path="/posts/:id" render={this.renderPostEditor} />
+        {this.state.error && (
+          <ErrorSnackbar
+            onClose={() => this.setState({ error: null })}
+            message={this.state.error.message}
+          />
+        )}
       </Fragment>
     );
   }
@@ -1169,7 +1274,7 @@ Add the `PostsManager` page to `src/App.js`. Okta provides a `SecureRoute` compo
      <AppHeader />
      <main className={classes.main}>
        <Route exact path="/" component={Home} />
-+      <SecureRoute exact path="/posts" component={PostsManager} />
++      <SecureRoute path="/posts" component={PostsManager} />
        <Route path="/implicit/callback" component={ImplicitCallback} />
      </main>
    </Fragment>
@@ -1191,7 +1296,7 @@ You also need to add a couple links to get to the Posts Manager and back to the 
    Typography,
    withStyles,
 @@ -20,6 +22,8 @@ const AppHeader = ({ classes }) => (
-       <Typography variant="title" color="inherit">
+       <Typography variant="h6" color="inherit">
          My React App
        </Typography>
 +      <Button color="inherit" component={Link} to="/">Home</Button>
@@ -1230,3 +1335,6 @@ If you're still aching for more content, there is a plethora of great posts on t
 
 And as always, we'd love to hear from you. Hit us up with questions or feedback in the comments, or on Twitter [@oktadev](https://twitter.com/oktadev).
 
+<a name="changelog">**Changelog:**</a>
+
+* Nov 1, 2019: Added an error snackbar to help with debugging, added some information about installing SQLite, and updated a majority of the dependencies. Changes to this post can be viewed in [okta-blog#58](https://github.com/oktadeveloper/okta-blog/pull/58).

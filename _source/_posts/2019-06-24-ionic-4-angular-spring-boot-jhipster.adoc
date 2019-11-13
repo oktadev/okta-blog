@@ -26,7 +26,15 @@ Spring Boot is the only backend framework currently supported, with .NET and Nod
 
 In this brief tutorial, I'll show you to use https://github.com/oktadeveloper/generator-jhipster-ionic[Ionic for JHipster] v4 with Spring Boot and JHipster 6.
 
-To complete this tutorial, you'll need to have Java 8+, Node.js 10+, and Docker installed. You'll also need to create an https://developer.okta.com/signup/[Okta developer account].
+**Prerequisites**: To complete this tutorial, you'll need to have Java 8+, Node.js 10+, and Docker installed. You'll also need to create an https://developer.okta.com/signup/[Okta developer account].
+
+TIP: https://youtu.be/Rc07SUW3gWQ[Watch this tutorial as a screencast]. 👇
+
+++++
+<div style="text-align: center; margin-bottom: 1.25rem">
+<iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/Rc07SUW3gWQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+++++
 
 == Create a Spring Boot + Angular App with JHipster
 
@@ -34,7 +42,7 @@ You can install JHipster via http://brewformulas.org/Jhipster[Homebrew] (`brew i
 
 [source,shell]
 ----
-npm i -g generator-jhipster@6.1.2
+npm i -g generator-jhipster@6.4.1
 ----
 
 Once you have JHipster installed, you have two choices. There's the quick way to generate an app (which I recommend), and there's the tedious way of picking all your options. I don't care which one you use, but you **must** select **OAuth 2.0 / OIDC** authentication to complete this tutorial successfully.
@@ -155,6 +163,16 @@ Go back to the Okta developer console and follow the steps below:
 * Click **Done**, then **Edit** and add Logout redirect URIs: `http://localhost:8100/implicit/logout` and `dev.localhost.ionic:/logout`
 * Click **Save**
 
+You'll also need to add a trusted origin for `http://localhost:8100`. Navigate to **API** > **Trusted Origins** > **Add Origin**. Use the following values:
+
+* Name: `http://localhost:8100`
+* Origin URL: `http://localhost:8100`
+* Type: Check **both** CORS and Redirect
+
+Click **Save**.
+
+NOTE: You didn't need to add a trusted origin for the `JHipster FTW!` app because one is automatically created for you when the OIDC app is a web app.
+
 You'll need the client ID from your Native app, so keep your browser tab open or copy/paste it somewhere.
 
 === Create Groups and Add Them as Claims to the ID Token
@@ -249,13 +267,11 @@ Getting started with Ionic for JHipster is similar to JHipster. You simply have 
 
 [source,shell]
 ----
-npm i -g generator-jhipster-ionic@4.0.0 ionic@5.1.0 yo
+npm i -g ionic@5.4.4 yo generator-jhipster-ionic@4.3.0
 yo jhipster-ionic
 ----
 
 If you have your `app` application at `~/app`, you should run this command from your home directory (`~`). Ionic for JHipster will prompt you for the location of your backend application. Use `mobile` for your app's name and `app` for the JHipster app's location.
-
-Type **a** when prompted to overwrite `mobile/src/app/app.component.ts`.
 
 Open `mobile/src/app/auth/auth.service.ts` in an editor, search for `data.clientId` and replace it with the client ID from your Native app on Okta.
 
@@ -322,7 +338,7 @@ Refresh your JHipster app's album list and you'll see it there too!
 
 image::{% asset_path 'blog/ionic-4-jhipster/jhipster-albums.png' %}[alt=JHipster Albums,width=800,align=center]
 
-Generate code for the other entities using the following commands and the same answers as above.
+Stop the `ionic` process and generate code for the other entities using the following commands. Use the same answers as above.
 
 [source,shell]
 ----
@@ -332,7 +348,14 @@ yo jhipster-ionic:entity tag
 
 == Run Your Ionic App on iOS
 
-To generate an iOS project for your Ionic application, run the following command:
+To generate an iOS project for your Ionic application, install Cordova.
+
+[source,shell]
+----
+npm i -g cordova
+----
+
+Then run the following command:
 
 [source,shell]
 ----
@@ -348,7 +371,7 @@ open platforms/ios/MyApp.xcworkspace
 
 TIP: If you don't have Xcode installed, you can https://developer.apple.com/xcode/[download it from Apple].
 
-You'll need to configure code signing in the **General** tab, then you should be able to run your app in Simulator.
+You'll need to configure code signing in the **General** tab (or **Signing & Capabilities** if you're on Catalina), then you should be able to run your app in Simulator.
 
 Log in to your Ionic app, tap **Entities** and view the list of photos.
 
@@ -394,3 +417,8 @@ I've written a few other posts on Ionic, JHipster, and Angular. Check them out i
 * link:/blog/2018/10/10/react-native-spring-boot-mobile-app[Build a Mobile App with React Native and Spring Boot]
 
 Give https://twitter.com/oktadev[@oktadev] a follow on Twitter if you liked this tutorial. You might also want to https://www.youtube.com/c/oktadev[subscribe to our YouTube channel]. If you have any questions, please leave a comment or post your question to https://www.stackoverflow.com[Stack Overflow] with a `jhipster` tag.
+
+[[changelog]]
+**Changelog:**
+
+* Oct 30, 2019: Updated to use JHipster 6.4.1 and Ionic for JHipster 4.3.0. Changes to this post can be viewed in https://github.com/oktadeveloper/okta-blog/pull/64[okta-blog#64]. Updates to the example application are in https://github.com/oktadeveloper/okta-ionic4-jhipster-example/pull/7[okta-ionic4-jhipster-example#7].
