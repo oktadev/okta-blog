@@ -24,6 +24,14 @@ image::{% asset_path 'blog/spring-cloud-gateway/spring-cloud-gateway-oauth2.png'
 
 **Prerequisites**: https://httpie.org/[HTTPie] (or cURL), https://adoptopenjdk.net/[Java] 11+, and an internet connection.
 
+If you'd rather watch a video, https://youtu.be/iuH_B1FutRo[I created a screencast of this blog post].
+
+++++
+<div style="text-align: center; margin-bottom: 1.25rem">
+<iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/iuH_B1FutRo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+++++
+
 == Spring Cloud Gateway vs. Zuul
 
 Zuul is Netflix's API gateway. First released in 2013, Zuul was not originally reactive, but Zuul 2 is a ground-up rewrite to make it reactive. Unfortunately, Spring Cloud https://github.com/spring-cloud/spring-cloud-netflix/issues/1498[does not support Zuul 2] and it likely never will.
