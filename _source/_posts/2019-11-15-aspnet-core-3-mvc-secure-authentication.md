@@ -274,6 +274,8 @@ You can check this isn't a false positive by changing the `Roles` value passed i
 
 Then when you log in and try to go to the Everyone page, you should be redirected to an `/Account/AccessDenied` page. To handle this more gracefully, you can add an action handler to the `AccountController` and a view to display a more user friendly message.
 
+If you want the final code for this post, you can get it [on GitHub](https://github.com/oktadeveloper/okta-aspnet-core-3-oidc-example).
+
 ## Learn More About OpenID Connect and ASP.NET
 
 If you want to learn more about OAuth2, OpenID Connect, or ASP.NET in general, check out these other great pieces of content!
