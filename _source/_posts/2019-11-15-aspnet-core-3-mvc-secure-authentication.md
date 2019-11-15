@@ -135,7 +135,7 @@ services.AddAuthentication(options =>
 services.AddAuthorization();
 ```
 
-While it may look like there’s a lot to unpack here, all you really did was add `AddAuthentication()`, `AddCookie()`, `AddOpenIdConnect()`, and `AddAuthorization()`. The rest of it is configuration options.
+While it may look like there's a lot to unpack here, all you really did was add `AddAuthentication()`, `AddCookie()`, `AddOpenIdConnect()`, and `AddAuthorization()`. The rest of it is configuration options.
 
 Starting from the top, you told ASP.NET's authentication middleware to use cookies as the authorization scheme and to use OpenID Connect to authenticate. The `AddCookie()` method with no options passed to it simply lets the middleware know to use the default setup for cookies.
 
@@ -240,7 +240,7 @@ Now you can fire up the app and log in with your username and password you use f
 
 ## Add Authorization to your ASP.NET Core 3 MVC App
 
-Because you mapped the authenticated user’s roles from the groups claim you set up in Okta, adding authorization becomes drop-dead simple. Add a new action to your `HomeController.cs` file:
+Because you mapped the authenticated user's roles from the groups claim you set up in Okta, adding authorization becomes drop-dead simple. Add a new action to your `HomeController.cs` file:
 
 ```cs
 [Authorize(Roles="Everyone")]
