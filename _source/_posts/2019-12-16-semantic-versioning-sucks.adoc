@@ -1,0 +1,30 @@
+---
+layout: blog_post
+title: "Semantic Versioning Sucks!"
+author: mraible
+description: "Semantic versioning is a mechanism to convey compatibility between releases. Why does it suck so bad?"
+tags: [versioning, semantic, semantic versioning]
+tweets:
+- "Semantic versioning sucks! Here's how to fix it."
+- "Semantic vesioning seems like a good idea. Why does it cause things to be broken all the time?"
+- "Is there any hope for semantic versioning?"
+image: // todo
+---
+
+What is Semantic versioning?
+
+== Why does Semantic Versioning Suck?
+
+== What can we do to make it better?
+
+== Semantic Versioning Tools
+
+== How Experts do Semantic Versioning
+
+// Les for JJWT and Brian for Okta Boot Starter
+// Phill Web for Spring Boot
+// Juergen for Spring Framework
+// Julien, Deepu, and Pascal for JHipster
+// Minko Gechev for Angular
+
+== Good Luck!
