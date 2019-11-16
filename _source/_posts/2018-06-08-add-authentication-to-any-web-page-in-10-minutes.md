@@ -344,5 +344,5 @@ Until next time!
 <a name="changelog"></a>
 **Changelog:**
 
-* Nov 16, 2019: Added screencast of the tutorial. See [okta-blog#69](https://github.com/oktadeveloper/okta-blog/pull/69) for changes.
+* Nov 16, 2019: Added screencast of this tutorial. See [okta-blog#85](https://github.com/oktadeveloper/okta-blog/pull/85) for changes.
 * Oct 31, 2019: Removed Trusted Origin (CORS) section since it's no longer needed. Changes to this post can be viewed in [okta-blog#69](https://github.com/oktadeveloper/okta-blog/pull/69).
