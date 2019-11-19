@@ -33,7 +33,7 @@ A Kafka cluster groups together one or more brokers. Instead of connecting to a 
 
 ### Publish/Subscribe Messaging System With Durable Messages
 
-The publish/Subscribe is a common pattern in distributed systems. The image below illustrates the basic structure of this pattern within Kafka:
+The publish/subscribe is a common pattern in distributed systems. The image below illustrates the basic structure of this pattern within Kafka:
 
 {% img blog/kafka-java/kafka-arch.png alt:"Kafka Architecture" width:"785" %}{: .center-image }
 
@@ -201,6 +201,8 @@ public class KafkaController {
 }
 ```
 
+**NOTE:** Since you're sending data to be processed, the `produce()` method really ought to be a POST. For demo purposes it's easier to leave it as a GET so you can exercise it in the browser.
+
 As you can see, this endpoint is very simple. It injects the `KafkaTemplate` configured earlier and sends a message to `myTopic` when a `GET` request is made to `/kafka/produce`.
 
 Let's test if everything is working as expected. Run the `main` method inside the `JavaKafkaApplication` class. To run from the command line, execute the following command:
@@ -290,7 +292,7 @@ The Group ID is mandatory and used by Kafka to allow parallel data consumption. 
 
 Now that your Java app is configured to find consumers inside your Kafka broker, let's start listening to the messages sent to the topic.
 
-Inside the `src/main/java/com/okta/javakafka/consumer` directory, create the following class:
+Create a `src/main/java/com/okta/javakafka/consumer` directory, and the following class in it:
 
 ```java
 import org.springframework.kafka.annotation.KafkaListener;
@@ -320,7 +322,7 @@ public class MyTopicConsumer {
 
 This class is responsible for listening to changes inside the `myTopic` topic. It does so by using the `KafkaListener` annotation. Every time a new message is sent from a producer to the topic, your app receives a message inside this class. It adds a message to the list of messages received, making it available to other classes through the `getMessages()` method.
 
-Next, let's create an endpoint that displays a list of consumed messages. Go back to the `KafkaController` to add `MyTopicConsumer` as a dependency and a `getMessages()` endpoint. 
+Next, let's create an endpoint that displays a list of consumed messages. Go back to the `KafkaController` to add `MyTopicConsumer` as a dependency and a `getMessages()` method. 
 
  ```java
 import com.okta.javakafka.consumer.MyTopicConsumer;
