@@ -8,7 +8,7 @@ tweets:
 - "Learn how to integrate @apachekafka in your Java apps and secure everything with @oauth_2."
 - "Kafka is all the rage for messaging! Try it in your @java apps today."
 - "Tutorial: use #Java + #Kafka to implement asynchronous messaging."
-image: 
+image: blog/kafka-java/java-kafka.png
 ---
 
 Today's users expect your app to be accessible from their computer, mobile phone, tablet, or any other device! This transition to Software as a Service (SaaS) as the norm requires developers to effectively integrate with robust tools that scale to handle thousands (or even millions) of requests every second. Apache Kafka is one of the most effective tools for handling those high throughput environments.
