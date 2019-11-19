@@ -13,7 +13,7 @@ image:
 
 # Creating a Secure Java Application With Apache Kafka
 
-Today’s users expect your app to be accessible from their computer, mobile phone, tablet, or any other device! This transition to Software as a Service (SaaS) as the norm requires developers to effectively integrate with robust tools that scale to handle thousands (or even millions) of requests every second. Apache Kafka is one of the most effective tools for handling those high throughput environments.
+Today's users expect your app to be accessible from their computer, mobile phone, tablet, or any other device! This transition to Software as a Service (SaaS) as the norm requires developers to effectively integrate with robust tools that scale to handle thousands (or even millions) of requests every second. Apache Kafka is one of the most effective tools for handling those high throughput environments.
 
 In this tutorial, you'll learn the basic concepts behind Apache Kafka and build a fully-functional Java application, capable of both producing and consuming messages from Kafka.
 
@@ -51,7 +51,7 @@ As Kafka stores messages for long durations (the default value is 7 days), you c
 
 When you send a message to a Kafka broker, you need to specify where the message will be sent by specifying a topic. A topic is a category of messages that a consumer can subscribe to. This mechanism ensures that consumers only receive messages relevant to them, rather than receiving every message published to the cluster.
 
-Now that you understand Kafka’s basic architecture, let's download and install it.
+Now that you understand Kafka's basic architecture, let's download and install it.
 
 ## Install and Run Kafka
 
@@ -71,7 +71,7 @@ Let's start a Zookeeper instance! Inside the `bin` folder in your Kafka director
 ./zookeeper-server-start.sh ../config/zookeeper.properties
 ```
 
-This command starts a Zookeeper server on port 2181 by default. Zookeeper is responsible to coordinate the Kafka brokers inside your cluster. You’ll use the default configurations inside the Kafka project for this tutorial, but you can always change those values as needed.
+This command starts a Zookeeper server on port 2181 by default. Zookeeper is responsible to coordinate the Kafka brokers inside your cluster. You'll use the default configurations inside the Kafka project for this tutorial, but you can always change those values as needed.
 
 ## Run a Kafka Broker
 
@@ -171,7 +171,7 @@ public class ProducerConfiguration {
 }
 ```
 
-This class creates a `ProducerFactory` which knows how to create producers based on the configurations you provided. You’ve also specified to connect to your local Kafka broker and to serialize both the key and the values with `String`.
+This class creates a `ProducerFactory` which knows how to create producers based on the configurations you provided. You've also specified to connect to your local Kafka broker and to serialize both the key and the values with `String`.
 
 You also declared a `KafkaTemplate` bean to perform high-level operations on your producer. In other words, the template is able to do operations such as sending a message to a topic and efficiently hides under-the-hood details from you.
 
@@ -360,7 +360,7 @@ This class now has a new endpoint to display the messages stored in your consume
 
 Your Java app now has both a Kafka producer and a consumer, so let's test it all together! Restart your application, and go to <http://localhost:8080/kafka/messages>.
 
-Right now, no information is being returned. The reason is pretty simple: your consumer is configured only to receive new messages and you haven’t sent a new message yet. Let's fix this problem by going to your web browser and accessing <http://localhost:8080/kafka/produce?message=Message sent by my App!>.
+Right now, no information is being returned. The reason is pretty simple: your consumer is configured only to receive new messages and you haven't sent a new message yet. Let's fix this problem by going to your web browser and accessing <http://localhost:8080/kafka/produce?message=Message sent by my App!>.
 
 When Kafka receives the message, it will let your consumer know about it right away. Go ahead and go to <http://localhost:8080/kafka/messages> in your browser. You will now see that your message was successfully received!
 
@@ -424,7 +424,7 @@ export OKTA_OAUTH2_CLIENT_ID={yourClientID}
 export OKTA_OAUTH2_CLIENT_SECRET={yourClientSecret}
 ```
 
-You can find `{yourClientID}` and `{yourClientSecret}` in the Okta UI’s applications page. To access it, follow the steps below:
+You can find `{yourClientID}` and `{yourClientSecret}` in the Okta UI's applications page. To access it, follow the steps below:
 
 * In your Okta menu, go to Applications
 * Select the "Bootiful Kafka" application
