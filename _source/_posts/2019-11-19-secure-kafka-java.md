@@ -11,13 +11,11 @@ tweets:
 image: 
 ---
 
-# Creating a Secure Java Application With Apache Kafka
-
 Today's users expect your app to be accessible from their computer, mobile phone, tablet, or any other device! This transition to Software as a Service (SaaS) as the norm requires developers to effectively integrate with robust tools that scale to handle thousands (or even millions) of requests every second. Apache Kafka is one of the most effective tools for handling those high throughput environments.
 
 In this tutorial, you'll learn the basic concepts behind Apache Kafka and build a fully-functional Java application, capable of both producing and consuming messages from Kafka.
 
-**Prerequisites:** Java 8+, an internet connection, and an [Okta developer account](https://developer.okta.com/signup).
+**Prerequisites:** Java 8+, an internet connection, and a [free Okta developer account](https://developer.okta.com/signup).
 
 ## A Brief Overview of Apache Kafka
 
@@ -88,7 +86,8 @@ As you might have guessed, this command runs the Kafka server with the default c
 Now that you have the broker and Zookeeper running, you can specify a topic to start sending messages from a producer. You're going to run a command inside the `bin` folder, just like you did in the previous steps:
 
 ```bash
-./kafka-topics.sh --create --topic myTopic -zookeeper localhost:2181 --replication-factor 1 --partitions 1
+./kafka-topics.sh --create --topic myTopic -zookeeper \
+ localhost:2181 --replication-factor 1 --partitions 1
 ```
 
 This command creates a topic named `myTopic` pointing to the Zookeeper instance you started with the first command. There are also two different parameters you have to specify: `replication-factor` and `partitions`. Don't worry about them right now - they are used to control specific aspects related to distributed systems in Kafka. As you are running a simple setup, you can specify one or both parameters.
@@ -106,8 +105,8 @@ Go to <https://start.spring.io> and fill in the following information:
 - Group: `com.okta.javakafka`
 - Artifact: `kafka-java`
 - Dependencies:
- - Spring Web
- - Spring for Apache Kafka
+   - Spring Web
+   - Spring for Apache Kafka
 
 You can also generate the project using the command line. Paste the following command in your terminal and it will download the project with the same configurations defined above:
 
@@ -383,13 +382,11 @@ If you don't already have an Okta account, [go ahead and create one](https://dev
 
 {% img blog/kafka-java/okta-applications.png alt:"Okta application page" width:"800" %}{: .center-image }
 
-* Select **Web** and click**Next** 
+* Select **Web** and click **Next** 
 * Fill in the following options in the form:
-
-- Name: Bootiful Kafka
-- Base URIs: `http://localhost:8080`
-- Login redirect URLs: `http://localhost:8080/login/oauth2/code/okta`
-
+    - Name: `Bootiful Kafka`
+    - Base URIs: `http://localhost:8080`
+    - Login redirect URLs: `http://localhost:8080/login/oauth2/code/okta`
 * Click **Done**
 
 Now that you have your Okta application, you can use it to authenticate users in your Java + Kafka app.
@@ -416,25 +413,25 @@ okta.oauth2.client-secret: {yourClientSecret}
 
 **IMPORTANT**: This file should only be used locally. Do not commit your client's secret to Git or any other Version Control System.
 
-To avoid accidentally exposing these credentials, you can also specify your Okta application's values as environment variables. Create an `okta.env` file in the root directory of your app with the following environment variables. Then run `source okta.env` before starting your app.
-
-```bash
-export OKTA_OAUTH2_ISSUER=https://{yourOktaDomain}/oauth2/default
-export OKTA_OAUTH2_CLIENT_ID={yourClientID}
-export OKTA_OAUTH2_CLIENT_SECRET={yourClientSecret}
-```
+> To avoid accidentally exposing these credentials, you can also specify your Okta application's values as environment variables. Create an `okta.env` file in the root directory of your app with the following environment variables. Then run `source okta.env` before starting your app.
+> 
+> ```bash
+> export OKTA_OAUTH2_ISSUER=https://{yourOktaDomain}/oauth2/default
+> export OKTA_OAUTH2_CLIENT_ID={yourClientID}
+> export OKTA_OAUTH2_CLIENT_SECRET={yourClientSecret}
+> ```
 
 You can find `{yourClientID}` and `{yourClientSecret}` in the Okta UI's applications page. To access it, follow the steps below:
 
-* In your Okta menu, go to Applications
-* Select the "Bootiful Kafka" application
-* Click on the General tab
+* In your Okta menu, go to **Applications**
+* Select the **Bootiful Kafka** application
+* Click on the **General** tab
 
 You should see both values inside the Client Credentials area.
 
-{% img blog/kafka-java/client-credentials.png alt:"Okta Client Credentials" width:"721" %}{: .center-image }
+{% img blog/kafka-java/client-credentials.png alt:"Okta Client Credentials" width:"700" %}{: .center-image }
 
-The `{yourOktaDomain}` will be visible in your Okta dashboard, just click on the Dashboard on the menu. You will see the Org URL in the right upper corner.
+The value `{yourOktaDomain}` for will be visible in your Okta dashboard, just click on the Dashboard on the menu. You will see the Org URL in the right upper corner.
 
 That's it!
 
@@ -448,7 +445,7 @@ Enter your username and password. If your login attempt is successful, you'll be
 
 Congratulations! You now have a secure Java application that can produce and consume messages from Kafka.
 
-If you want to check out the complete source code for this tutorial, head over to [oktadeveloper/okta-kafka-java-example](https://github.com/oktadeveloper/okta-kafka-java-example) on GitHub.
+If you want to check out the complete source code for this tutorial, head over to [oktadeveloper/okta-java-kafka-example](https://github.com/oktadeveloper/okta-java-kafka-example) on GitHub.
 
 Want to learn more about Java, security, and OAuth 2.0? Here are a few links you might be interested in:
 
