@@ -90,7 +90,7 @@ Now that you have the broker and Zookeeper running, you can specify a topic to s
  localhost:2181 --replication-factor 1 --partitions 1
 ```
 
-This command creates a topic named `myTopic` pointing to the Zookeeper instance you started with the first command. There are also two different parameters you have to specify: `replication-factor` and `partitions`. Don't worry about them right now - they are used to control specific aspects related to distributed systems in Kafka. As you are running a simple setup, you can specify one or both parameters.
+This command creates a topic named `myTopic` pointing to the Zookeeper instance you started with the first command. There are also two different parameters you have to specify: `replication-factor` and `partitions`. Don't worry about them right now - they are used to control specific aspects related to distributed systems in Kafka. As you are running a simple setup, you can specify "1" for both parameters. 
 
 Now that you have everything up and running, you can start integrating Kafka with a Java application!
 
