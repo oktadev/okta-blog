@@ -1,12 +1,12 @@
 ---
 layout: blog_post
-title: "Symfony + Vue: PHP Apps Made Simple"
+title: "Symfony 4.3 + Vue.js: PHP Apps Made Simple"
 author: krasimir
 description: ""
 tags: [php, vue, symfony, crud]
 tweets:
-- "Learn how to use @Symfony and @VueJS to create a simple responsive application →"
-- "Create a CRUD application with @Symfony and @VueJS, and add authentication with Okta! #symfony4"
+- "Learn how to use @Symfony 4.3 and @VueJS to create a simple responsive application →"
+- "Create a CRUD application with @Symfony 4.3 and @VueJS, and add authentication with Okta! #symfony4"
 - "Check out how easy it is to add authentication to a @Symfony app with Okta! #symfony4 #php"
 ---
 
