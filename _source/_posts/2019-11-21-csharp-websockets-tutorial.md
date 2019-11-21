@@ -257,11 +257,11 @@ public override async Task OnDisconnectedAsync(Exception exception)
 
 Hub objects contain a `Context` property that represents the client on the other end of the communication channel. Whenever the client sends data to the Hub, the web server creates the appropriate Hub object, and the SignalR framework automatically sets the `Context` property.
 
-Before a client can communicate with a Hub, it must create a session. As part of this session's initialization process, the SignalR framework calls the `OnConnectedAsync` method of the corresponding Hub controller. Each client session has a unique `ConnectionId` property value, and the server uses this value to send messages to specific connected clients. Furthermore, `ConnectionId` can be added to `Groups` to allow the server to send messages to particular groups of connected clients.
+Before a client can communicate with a Hub, it must create a session. As part of this session's initialization process, the SignalR framework calls the `OnConnectedAsync()` method of the corresponding Hub controller. Each client session has a unique `ConnectionId` property value, and the server uses this value to send messages to specific connected clients. Furthermore, `ConnectionId` can be added to `Groups` to allow the server to send messages to particular groups of connected clients.
 
 In this sample, the code creates a group for each game and adds the `ConnectionId` for both players. This approach means that many games can be in progress at any given time, and the server can determine which clients should receive which messages.
 
-Both the `OnConnectedAsync` method that is  called when a client connects and the `OnDisconnectedAsync` method are used when a client disconnects. This method allows for any cleanup that may be necessary. In the sample code, it's used to forfeit the game.
+Both the `OnConnectedAsync()` method that is  called when a client connects and the `OnDisconnectedAsync()` method are used when a client disconnects. This method allows for any cleanup that may be necessary. In the sample code, it's used to forfeit the game.
 
 ## Client Libraries for WebSocket communications
 
@@ -281,8 +281,9 @@ The resulting `hubConnection` object can be used throughout Client-side code to 
 
 ## Call Methods on the Server with WebSocket
 
-So far, you've seen how Server-side code communicates with Clients by serializing method calls picked up in the client-side code as events. But what about the other way round? What if the client needs to send a message to the server? 
-The `@aspnet/signalr` package provides a `HubConnection` class to expose an `invoke` method. You can use this method to invoke any public method on the server-side Hub controller.
+So far, you've seen how Server-side code communicates with Clients by serializing method calls picked up in the client-side code as events. But what about the other way round? What if the client needs to send a message to the server?
+
+The `@aspnet/signalr` package provides a `HubConnection` class to expose an `invoke()` method. You can use this method to invoke any public method on the server-side Hub controller.
 
 For example (from `Connect4.js`):
 
@@ -353,7 +354,7 @@ export default class App extends Component {
   render() {
     return (
       <Security
-        issuer={`https://{yourOktaDomainl}/oauth2/default`}
+        issuer={`https://{yourOktaDomain}/oauth2/default`}
         client_id='{yourClientId}'
         redirect_uri={`${window.location.origin}/implicit/callback`}
       >
@@ -368,18 +369,18 @@ export default class App extends Component {
 }
 ```
 
-This code creates a React router component that handles the authentication callback from Okta and also requires authentication to connect to the '/connect4' path. 
+This code creates a React router component that handles the authentication callback from Okta and also requires authentication to connect to the '/connect4' path.
 
-If you've configured everything correctly, you can run the project in Visual Studio by pressing F5 or selecting **Start Debugging** from the **Debug** menu. 
+If you've configured everything correctly, you can run the project in Visual Studio by pressing F5 or selecting **Start Debugging** from the **Debug** menu.
 
-Point your browser at <http://localhost:5000> and enjoy. To put it through its paces, deploy it to a web server, and challenge your colleagues. Remember, it's all in the name of research.
+Point your browser at <http://localhost:5000> and enjoy! To put it through its paces, deploy it to a web server, and challenge your colleagues. Remember, it's all in the name of research.
 
 ## Learn More about Websockets, .NET and React
 
 In this post, you've learned about the WebSocket protocol and how it can be easily used in ASP.NET Core by hooking up the SignalR Framework. To find out more about the other areas covered by the sample app see:
 
-- [Simple User Authentication in React](https://developer.okta.com/blog/2019/03/06/simple-user-authentication-in-react)
-- [Build a Secure App with ASP.Net Core and React](https://developer.okta.com/blog/2018/07/02/build-a-secure-crud-app-with-aspnetcore-and-react)
-- [Build a REST API with ASP.NET Core 2.2](https://developer.okta.com/blog/2019/04/10/build-rest-api-with-aspnetcore)
+- [Simple User Authentication in React](/blog/2019/03/06/simple-user-authentication-in-react)
+- [Build a Secure App with ASP.Net Core and React](/blog/2018/07/02/build-a-secure-crud-app-with-aspnetcore-and-react)
+- [Build a REST API with ASP.NET Core 2.2](/blog/2019/04/10/build-rest-api-with-aspnetcore)
 
 For more informative tutorials, please [follow @oktadev on Twitter](https://twitter.com/oktadev) and [subscribe to our YouTube channel](https://youtube.com/c/oktadev).
