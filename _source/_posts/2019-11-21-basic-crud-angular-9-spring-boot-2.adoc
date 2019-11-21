@@ -16,6 +16,12 @@ tweets:
 
 Angular is a web framework for building mobile and desktop applications. It's first version, AngularJS, was one of the first JavaScript MVC frameworks to dominate the web landscape. Developers loved it and it rose to popularity in the early 2010s. AngularJS 1.0 was released on June 14, 2014. Angular 9 was recently released, giving Angular quite a popularity run in the land of web frameworks.
 
+Spring Boot is one of the most popular frameworks for developing Java applications and REST APIs. It also has first class support for Kotlin!
+
+Spring Boot 1.0 was released on April 1, 2014 and revolutionized the way Java developers write Spring apps. Instead of writing a lot of boilerplate XML or JavaConfig with annotations, Spring Boot introduced the idea of pre-configured _starters_ with smart defaults.
+
+== What's New In Angular 9?
+
 Angular 9's biggest new feature is Ivy. Ivy is Angular's new compiler and renderer. The renderer is the engine that takes your components and templates and translates them into instructions that manipulate the DOM. Ivy is an internal component, so you don't interact with it directly. However, it can have a big impact on your code, yielding much smaller JavaScript bundles and increasing performance.
 
 Simply put: upgrading to Angular 9 will make your web apps faster!
@@ -29,9 +35,7 @@ To use Angular CLI's i18n feature, you simply need to add the `i18n` attribute t
 
 `TestBed.inject(Component)` is the new way to get references to components in tests. `TestBed.get(Component)` is deprecated.
 
-Spring Boot is one of the most popular frameworks for developing Java applications and REST APIs. It also has first class support for Kotlin!
-
-Spring Boot 1.0 was released on April 1, 2014 and revolutionized the way Java developers write Spring apps. Instead of writing a lot of boilerplate XML or JavaConfig with annotations, Spring Boot introduced the idea of pre-configured _starters_ with smart defaults.
+== What's New in Spring Boot 2.2?
 
 Spring Boot 2.2 was released in September 2019 and focuses on performance improvements and reduced memory usage. It adds Java 13 support, RSocket support, and the ability to group health indicators. This can be useful if you're deploying to Kubernetes and want different groups of indicators for "liveness" and "readiness" probes.
 
@@ -133,7 +137,7 @@ image::{% asset_path 'blog/spring-boot-2-angular-9/angular-login-button.png' %}[
 
 Click on it and you'll be redirected to Okta to login.
 
-image::{% asset_path 'blog/spring-boot-2-angular-9/okta-login.png' %}[alt=Okta Login form,width=600,align=center]
+image::{% asset_path 'blog/spring-boot-2-angular-9/okta-login.png' %}[alt=Okta Login form,width=425,align=center]
 
 Enter valid credentials and you'll be redirected back to your app. There will now be a **Logout** button, indicating that you've authenticated successfully.
 
@@ -180,9 +184,9 @@ Log in to your Okta dashboard, then:
 
 Your app's settings should look as follows.
 
-image::{% asset_path 'blog/spring-boot-2-angular-9/spring-boot-oidc-settings.png' %}[alt=Spring Boot OIDC Setttings,width=800,align=center]
+image::{% asset_path 'blog/spring-boot-2-angular-9/spring-boot-oidc-settings.png' %}[alt=Spring Boot OIDC Settings,width=700,align=center]
 
-Copy your app's OIDC settings to `src/main/resources/application.properties`:
+You _could_ copy your app's OIDC settings to `src/main/resources/application.properties`:
 
 [source,properties]
 ----
@@ -191,7 +195,9 @@ okta.oauth2.client-id={yourClientId}
 okta.oauth2.client-secret={yourClientSecret}
 ----
 
-TIP: You should never store secrets in source control. To prevent you from checking secrets in, you can use https://github.com/awslabs/git-secrets[git-secrets]. For this example, move your client secret from `application.properties` to `okta.env` and ignore `*.env` in `.gitignore`.
+However, **you should never store secrets in source control**!
+
+To prevent you from checking secrets in, you can use https://github.com/awslabs/git-secrets[git-secrets]. For this example, copy your settings into a new `okta.env` file and ignore `*.env` in your `.gitignore`.
 
 [source,shell]
 ----
@@ -200,13 +206,15 @@ export OKTA_OAUTH2_CLIENT_ID={yourClientId}
 export OKTA_OAUTH2_CLIENT_SECRET={yourClientSecret}
 ----
 
-Run `source okta.env` to set these environment variables, then start your app using `./gradlew bootRun`. Open `http://localhost:8080` in a browser and you'll be redirected to Okta to sign in.
+After replacing the `{...}` placeholders with your values, run `source okta.env` to set these environment variables.
 
-NOTE: If you don't get prompted, it's because you're already logged in. Try it in an incognito window to see the the full login flow.
+Then start your app using `./gradlew bootRun`. Open `http://localhost:8080` in a browser and you'll be redirected to Okta to sign in.
+
+TIP: If you don't get prompted, it's because you're already logged in. Try it in an incognito window to see the the full login flow.
 
 === Spring Boot as an Auth 2.0 Resource Server
 
-Your Spring Boot API is now secure, but it's not configured to look for an `Authorization` header with an access token in it. You need to write some code to make Spring Boot API an OAuth 2.0 resource server.
+Your Spring Boot API is now secure, but it's not configured to look for an `Authorization` header with an access token in it. You need to write some code to make your Spring Boot API an OAuth 2.0 resource server.
 
 Create a `SecurityConfiguration.kt` class in the same directory as `DemoApplication.kt`:
 
@@ -220,27 +228,30 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @Configuration
 class SecurityConfiguration : WebSecurityConfigurerAdapter() {
-	override fun configure(http: HttpSecurity) {
-		http
-			.authorizeRequests().anyRequest().authenticated()
-				.and()
-			.oauth2Login()
-				.and()
-			.oauth2ResourceServer().jwt()
-	}
+    override fun configure(http: HttpSecurity) {
+        //@formatter:off
+        http
+            .authorizeRequests().anyRequest().authenticated()
+                .and()
+            .oauth2Login()
+                .and()
+            .oauth2ResourceServer().jwt()
+		//@formatter:on
+    }
 }
 ----
 
-INFO: The `oauth2Login()` configuration is not necessary for this example to work. It's only needed if you want to require authentication from a browser.
+NOTE: The `oauth2Login()` configuration is not necessary for this example to work. It's only needed if you want to require authentication from a browser.
 
 == Add a Notes REST API with Spring Data REST
 
-Start by creating a new `Note` entity in `src/main/kotlin/com/okta/developer/notes/DemoApplication.kt`.
+Start by creating a new `Note` entity in `src/main/kotlin/.../notes/DemoApplication.kt`.
 
 [source,kotlin]
 ----
 package com.okta.developer.notes
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import javax.persistence.Entity
@@ -251,17 +262,17 @@ import javax.persistence.Id
 class DemoApplication
 
 fun main(args: Array<String>) {
-	runApplication<DemoApplication>(*args)
+    runApplication<DemoApplication>(*args)
 }
 
 @Entity
 data class Note(@Id @GeneratedValue var id: Long? = null,
-				var title: String? = null,
-				var text: String? = null,
-				var user: String? = null)
+                var title: String? = null,
+                var text: String? = null,
+                @JsonIgnore var user: String? = null)
 ----
 
-Kotlin's [data classes](https://kotlinlang.org/docs/reference/data-classes.html) are built to hold data. By adding the `data` keyword, your class will get `equals()`, `hashCode()`, `toString()`, and a `copy()` function. The `Type? = null` syntax means the arguments are nullable when creating a new instance of the class.
+Kotlin's https://kotlinlang.org/docs/reference/data-classes.html[data classes] are built to hold data. By adding the `data` keyword, your class will get `equals()`, `hashCode()`, `toString()`, and a `copy()` function. The `Type? = null` syntax means the arguments are nullable when creating a new instance of the class.
 
 Create a `NotesRepository` for persisting the data in your notes. Add the following lines of code just below your `Note` entity.
 
@@ -272,6 +283,23 @@ interface NotesRepository : JpaRepository<Note, Long>
 ----
 
 The `extends` syntax differs from Java and is a lot more concise (a colon instead of `extends`).
+
+To automatically add the username to a note when it’s created, add a `RepositoryEventHandler` that is invoked before creating the record.
+
+[source,kotlin]
+----
+@Component
+@RepositoryEventHandler(Note::class)
+class AddUserToNote {
+
+    @HandleBeforeCreate
+    fun handleCreate(note: Note) {
+        val username: String =  SecurityContextHolder.getContext().getAuthentication().name
+        println("Creating note: $note with user: $username")
+        note.user = username
+    }
+}
+----
 
 Create a `DataInitializer.kt` class that populates the database with some default data on startup.
 
@@ -286,13 +314,13 @@ import org.springframework.stereotype.Component
 @Component
 class DataInitializer(val repository: NotesRepository) : ApplicationRunner {
 
-	@Throws(Exception::class)
-	override fun run(args: ApplicationArguments) {
-		listOf("Note 1", "Note 2", "Note 3").forEach {
-			repository.save(Note(title = it, user = "user"))
-		}
-		repository.findAll().forEach { println(it) }
-	}
+    @Throws(Exception::class)
+    override fun run(args: ApplicationArguments) {
+        listOf("Note 1", "Note 2", "Note 3").forEach {
+            repository.save(Note(title = it, user = "user"))
+        }
+        repository.findAll().forEach { println(it) }
+    }
 }
 ----
 
@@ -305,17 +333,23 @@ Note(id=2, title=Note 2, text=null, user=user)
 Note(id=3, title=Note 3, text=null, user=user)
 ----
 
-Create a `HomeController.kt` class (in the same `DemoApplication.kt` file) and use it to filter notes by the currently logged-in user.
+Create a `UserController.kt` class (in the same directory as `DemoApplication.kt`) and use it to filter notes by the currently logged-in user. While you're at it, add a `/user` endpoint that returns the user's information.
 
 [source,kotlin]
 ----
+package com.okta.developer.notes;
+
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 import java.security.Principal
 
 @RestController
-class HomeController(val repository: NotesRepository) {
+class UserController(val repository: NotesRepository) {
 
-    @GetMapping("/")
-    fun home(principal: Principal): List<Note> {
+    @GetMapping("/user/notes")
+    fun notes(principal: Principal): List<Note> {
         println("Fetching notes for user: ${principal.name}")
         val notes = repository.findAllByUser(principal.name)
         if (notes.isEmpty()) {
@@ -323,6 +357,11 @@ class HomeController(val repository: NotesRepository) {
         } else {
             return notes
         }
+    }
+
+    @GetMapping("/user")
+    fun user(@AuthenticationPrincipal user: OidcUser): OidcUser {
+        return user;
     }
 }
 ----
@@ -336,62 +375,172 @@ interface NotesRepository : JpaRepository<Note, Long> {
 }
 ----
 
+To prevent conflicting paths with the REST endpoints created by `@RepositoryRestResource`, set the base path to `/api` in `application.properties`.
+
+[source,properties]
+----
+spring.data.rest.base-path=/api
+----
+
+Restart your Spring Boot app, navigate to `http://localhost:8080/user` and you'll see a whole plethora of details about your account. Opening `http://localhost:8080/api/notes` will show the default notes entered by `DataInitializer` component.
+
+=== Add a CORS Filter for Angular
+
+In order for your Angular app (on port 4200) to communicate with your Spring Boot app (on port 8080), you have to enable CORS (cross-origin resource sharing). You can do this by giving your `DemoApplication` a body and defining a `corsFilter` bean inside it.
+
+[source,kotlin]
+----
+@SpringBootApplication
+class DemoApplication {
+
+	@Bean
+	fun simpleCorsFilter(): FilterRegistrationBean<CorsFilter> {
+		val source = UrlBasedCorsConfigurationSource()
+		val config = CorsConfiguration()
+		config.allowCredentials = true
+		config.allowedOrigins = listOf("http://localhost:4200")
+		config.allowedMethods = listOf("*");
+		config.allowedHeaders = listOf("*")
+		source.registerCorsConfiguration("/**", config)
+		val bean = FilterRegistrationBean(CorsFilter(source))
+		bean.order = Ordered.HIGHEST_PRECEDENCE
+		return bean
+	}
+}
+----
+
+To see how your final `DemoApplication` file should look, you can [view the completed version in GitHub].
+
+Now that your API is working, it's time to develop a UI for it with Angular 9!
+
 == Add a Notes CRUD Feature in Angular
 
-// spring data rest
-//
+Angular Schematics is a workflow tool that allows you to manipulate any project that has a `package.json`. Angular CLI is based on Schematics. OktaDev Schematics uses Schematics to update and add new files to projects. There's even an https://github.com/manfredsteyer/angular-crud[angular-crud] schematic! This allows you to generate CRUD (create, read, update, and delete) functionality from a JSON file.
+
+Install angular-crud using npm:
+
+[source,shell]
+----
+npm i -D angular-crud
+----
+
+In your Angular `notes` app, create a `src/app/notes` directory.
+
+[source,shell]
+----
+mkdir -p src/app/notes
+----
+
+Then, create a `model.json` file in it that defines metadata that's used when generating files.
+
+[source,json]
+----
+{
+    "title": "Notes",
+    "entity": "note",
+    "api": {
+      "url": "http://localhost:8080/api/notes"
+    },
+    "filter": [
+      "title"
+    ],
+    "fields": [
+      {
+        "name": "id",
+        "label": "Id",
+        "isId": true,
+        "readonly": true,
+        "type": "number"
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "label": "Title"
+      },
+      {
+        "name": "text",
+        "type": "string",
+        "label": "Text"
+      }
+    ]
+}
+----
+
+Navigate to the `src/app/notes` directory in a terminal window, and run the command below to generate CRUD screens.
+
+[source,shell]
+----
+ng g angular-crud:crud-module notes
+----
+
+// todo: fix or create new schematic (maybe in OktaDev Schematics)
+// maybe use https://ng-bootstrap.github.io/#/components/table/overview?
+
+// todo: move URL into environment.ts, auto-search in list, modify search to only show your notes
+
+// todo: remove placeholder content in app.component.html
+
+// todo: add a link to View Notes in home.component.html
+
+Navigate to your Angular project's root directory and run `ng serve`. Log in and click the **View Notes** link. You should see a list screen like the one below. Since you haven't created any notes that are tied to your user, none are returned.
+
+// image
+
+Add a few new notes and you should be able to see them in the list, filter them by title, and edit or delete them.
+
+// screenshots
 
 == Lock Down Spring Boot with Recommended Security Practices
 
-* CSRF vs. SameSite
-* CSP
-* HTTPS
+In link:/blog/2018/07/30/10-ways-to-secure-spring-boot[10 Excellent Ways to Secure Your Spring Boot Application], I recommended a few Spring Boot-specific items:
 
-== Use PostgreSQL for Production with Spring Boot
+1. Use HTTPS
+2. Enable Cross-Site Request Forgery (CSRF) Protection
+3. Use a Content Security Policy (CSP) to Prevent XSS Attacks
+4. Use OpenID Connect for Authentication
 
-To pull down an image for the latest stable release of Postgres, simply run
+You've already implemented #4 with Okta, but what about the others?
 
-[source,shell]
+You can use https://github.com/FiloSottile/mkcert[mkcert] for to generate local, valid TLS certificates. To force, HTTPS, you just need to configure Spring Security. CSRF protection and a CSP can be configured with Spring Security.
+
+Modify your `SecurityConfiguration` class with these security enhancements.
+
+====
+[source,kotlin]
 ----
-docker pull postgres
+class SecurityConfiguration : WebSecurityConfigurerAdapter() {
+    override fun configure(http: HttpSecurity) {
+        //@formatter:off
+        http
+            .authorizeRequests().anyRequest().authenticated()
+                .and()
+            .oauth2Login()
+                .and()
+            .oauth2ResourceServer().jwt()
+
+        http.requiresChannel().anyRequest().requiresSecure(); // <1>
+
+        http.csrf()
+            .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()); // <2>
+
+        http.headers()
+            .contentSecurityPolicy("script-src 'self'; report-uri /csp-report-endpoint/"); // <3>
+        //@formatter:on
+    }
+}
 ----
+<1> Force HTTPS
+<2> Configure the CSRF Cookie so it can be read by JavaScript
+<3> Configure a CSP that only allows local scripts
+====
 
-This will pull down the latest stable release Postgres image from the official Postgres docker hub repository.
+Angular's `HttpClient` has built-in support for the client-side half of the CSRF protection. It'll read the cookie sent by Spring Boot and return it in a `X-XSRF-TOKEN` header.
 
-If your want to persist data generated by the Postgres instance running inside a container beyond the container's lifecycle, we need to map a local mount point as a data volume to an appropriate path inside the container. Typically I create a volumes folder (we can give the folder any name we like) in my home directory and then create subfolders for each of the applications I need to create data volume mount points for.
+In this particular example, the CSP won't be used since Angular is a separate app. However, if you were to include the Angular app in your Spring Boot artifact, it'd come in handy.
 
-[source,shell]
-----
-mkdir -p $HOME/docker/volumes/postgres
-----
-
-Starting the Postgres container is as simple as running the docker run command
-
-[source,shell]
-----
-docker run --rm --name postgresql-docker -e POSTGRES_PASSWORD=docker -d -p 5432:5432 \
-  -v $HOME/docker/volumes/postgres:/var/lib/postgresql/data  postgres
-----
-
-We have provided several options to the docker run command:
-
-— rm: Automatically remove the container and it's associated file system upon exit. In general, if we are running lots of short term containers, it is good practice to to pass rm flag to the docker run command for automatic cleanup and avoid disk space issues. We can always use the v option (described below) to persist data beyond the lifecycle of a container
-— name: An identifying name for the container. We can choose any name we want. Note that two existing (even if they are stopped) containers cannot have the same name. In order to re-use a name, you would either need pass the rm flag to the docker run command or explicitly remove the container by using the command docker rm [container name].
--e: Expose environment variable of name POSTGRES_PASSWORD with value docker to the container. This environment variable sets the superuser password for PostgreSQL. We can set POSTGRES_PASSWORD to anything we like. I just choose it to be docker for demonstration. There are additional environment variables you can set. These include POSTGRES_USER and POSTGRES_DB. POSTGRES_USER sets the superuser name. If not provided, the superuser name defaults to postgres. POSTGRES_DB sets the name of the default database to setup. If not provided, it defaults to the value of POSTGRES_USER.
--d: Launches the container in detached mode or in other words, in the background.
--p: Bind port 5432 on localhost to port 5432 within the container. This option enables applications running out side of the container to be able to connect to the Postgres server running inside the container.
--v: Mount $HOME/docker/volumes/postgres on the host machine to the container side volume path /var/lib/postgresql/data created inside the container. This ensures that postgres data persists even after the container is removed.
-
-// https://hackernoon.com/dont-install-postgres-docker-pull-postgres-bee20e200198
-
-// mention testcontainers for testing
-
-
-// angular docker is 🔥 at 2900. Do another post and show
-// 1) single artifact + docker + aws
-// 2) static apps with netlify
-// 3) cloud foundry and heroku for Spring Boot
-// https://medium.com/@ryanyuliu/deploy-your-spring-boot-project-properly-for-free-66ae38012698
+TIP: Once you've deployed your Spring Boot app to a public URL, you can test your CSP headers are working with https://securityheaders.com/[securityheaders.com].
 
 https://www.grapecity.com/blogs/what-to-expect-in-angular-9
 https://spring.io/blog/2019/10/16/spring-boot-2-2-0
+Angular Material > https://developer.okta.com/blog/2017/09/19/build-a-secure-notes-application-with-kotlin-typescript-and-okta
+https://angular.io/guide/security
