@@ -312,7 +312,7 @@ The first parameter is the method name. Again, the SignalR framework switches th
 
 To see all this WebSocket goodness in action, try out the sample project. Since the application is a multi-player game, a straightforward way to authenticate and identify individual players is to use Okta.
 
-If you don’t already have one, sign up for a [forever-free developer account](https://developer.okta.com/signup/).
+If you don't already have one, sign up for a [forever-free developer account](https://developer.okta.com/signup/).
 
 Log in to your developer console, navigate to **Applications**, then click **Add Application**. Select **Single-Page App**, then click **Next**.
 
