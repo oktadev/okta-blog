@@ -8,14 +8,14 @@ tweets:
 - "Wish your Java application would run as a native binary? Learn how with @GraalVM‼️"
 - "Build a native command-line application with @Java and @GraalVM 🔥"
 - "☕ @Java + @GraalVM == native binaries ❤️"
-image: blog/graalvm-turn-java-into-binaries/native-image-header.png
+image: blog/graalvm-java-binaries/native-image-header.png
 ---
 
 There has been much buzz about GraalVM and what it means for the Java world. GraalVM is a Java distribution from Oracle that adds a bunch of features, most notably a new JIT compiler, polyglot capabilities, an LLVM runtime... and the ability to turn your Java application into a native binary.
 
 This last one offers the potential to distribute Java applications as a single binary, and a few frameworks like Quarkus, Helidon, and Micronaut already take advantage of this feature. Native images also open up the possibility to distribute Java applications as CLI applications, which has recently been the near-exclusive domain of Go and Node. This tutorial will show you how!
 
-{% img blog/graalvm-turn-java-into-binaries/native-image-header.png alt:"GraalVM Native Images with dice" width:"600" %}{: .center-image }
+{% img blog/graalvm-java-binaries/native-image-header.png alt:"GraalVM Native Images with dice" width:"600" %}{: .center-image }
 
 ## Turn Your Java Application Into a Binary
 
