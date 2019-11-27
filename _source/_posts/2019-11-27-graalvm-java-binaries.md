@@ -2,7 +2,7 @@
 layout: blog_post
 title: "Watch GraalVM Turn Your Java Into Binaries"
 author: bdemers
-description: ""
+description: "Tutorial: Learn how to build native binaries from a Java application with GraalVM's native-image tool."
 tags: [java, graalvm, cli, tutorial]
 tweets:
 - "Wish your Java application would run as a native binary? Learn how with @GraalVM‼️"
