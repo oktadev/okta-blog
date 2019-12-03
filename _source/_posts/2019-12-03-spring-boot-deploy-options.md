@@ -47,7 +47,7 @@ First, [register for a forever-free developer account today!](https://developer.
 3. Select **Web** and click **Next**
 4. Give the application a name (e.g. `Spring Boot Awesome App`)
 5. Add the following as Login redirect URI:
-	- `http://localhost:8080/login/oauth2/code/okta`
+    - `http://localhost:8080/login/oauth2/code/okta`
 6. Click **Done**
 
 
@@ -93,26 +93,26 @@ On the project, add the Azure plugin as part of the build on the `pom.xml` file.
     <artifactId>azure-webapp-maven-plugin</artifactId>
     <version>1.7.0</version>
     <configuration>
-   	 <schemaVersion>v2</schemaVersion>
-   	 <resourceGroup>maven-plugin</resourceGroup>
-   	 <appName>Spring-App</appName>
-   	 <region>East US</region>
-   	 <runtime>
-   		 <os>linux</os>
-   		 <javaVersion>jre8</javaVersion>
-   		 <webContainer></webContainer>
-   	 </runtime>
-   	 <deployment>
-   		 <resources>
-   			 <resource>
-   				 <directory>${project.basedir}/target</directory>
-   				 <includes>
-   					 <include>*.jar</include>
-   				 </includes>
-   			 </resource>
-   		 </resources>
-   	 </deployment>
-   	 <pricingTier>F1</pricingTier>
+     <schemaVersion>v2</schemaVersion>
+     <resourceGroup>maven-plugin</resourceGroup>
+     <appName>Spring-App</appName>
+     <region>East US</region>
+     <runtime>
+         <os>linux</os>
+         <javaVersion>jre8</javaVersion>
+         <webContainer></webContainer>
+     </runtime>
+     <deployment>
+         <resources>
+             <resource>
+                 <directory>${project.basedir}/target</directory>
+                 <includes>
+                     <include>*.jar</include>
+                 </includes>
+             </resource>
+         </resources>
+     </deployment>
+     <pricingTier>F1</pricingTier>
     </configuration>
 </plugin>
 ```
@@ -220,12 +220,12 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 public class DemoApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
-   	 SpringApplication.run(DemoApplication.class, args);
+        SpringApplication.run(DemoApplication.class, args);
     }
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-   	 return builder.sources(DemoApplication.class);
+        return builder.sources(DemoApplication.class);
     }
 }
 ```
