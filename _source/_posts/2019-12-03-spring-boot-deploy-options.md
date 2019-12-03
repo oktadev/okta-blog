@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Deploy Your Spring Boot The Right Way"
+title: "Deploy Your Spring Boot App the Right Way"
 author: thiago-negri
 description: "Tutorial: This tutorial walks through deploying Java applications to Azure, AWS, and a self-hosted option."
 tags: [java, spring, spring-boot, oidc, oauth, deploy, aws, azure, tomcat]
@@ -11,7 +11,7 @@ tweets:
 image: blog/featured/okta-java-short-tile-books-mouse.jpg
 ---
 
-Spring Boot is an awesome solution to speed up the development cycle of your app. Have an awesome idea and want to transform it into a Spring Boot app, but don't know the best way to deploy it? Look no further, we will help you out!
+Spring Boot is an awesome solution to speed up the development cycle of your app. Have an idea and want to transform it into a Spring Boot app, but don't know the best way to deploy it? Look no further, we will help you out!
 
 There are plenty of options to deploy Spring Boot applications. In this article. we will cover three of them:
 1. Azure
@@ -77,7 +77,7 @@ You can find your **Client ID** and **Client Secret** in the Okta dashboard, on 
 
 And we are done! Simple as that, your app is now secured with OAuth 2.0.
 
-## Deploying Your Spring Boot App to Azure
+## Deploy Your Spring Boot App to Azure
 
 {% img blog/spring-boot-deploy-options/azure-logo.png alt:"Microsoft Azure logo" width:"600" %}{: .center-image }
 
