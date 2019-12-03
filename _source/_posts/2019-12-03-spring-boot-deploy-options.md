@@ -22,11 +22,11 @@ We will use a simple application to demonstrate deployment for each of the optio
 
 ## Build Your Spring Boot Sample App
 
-I've created a [very simple Spring Boot application](https://github.com/thiago-negri/okta-spring-boot-demo) you can download from GitHub.. The app consists of a single controller and a small form to submit. So, clone the repository, build and run it:
+I've created a [very simple Spring Boot application](https://github.com/oktadeveloper/okta-spring-boot-deploy) you can download from GitHub. The app consists of a single controller and a small form to submit. So, clone the repository, build and run it:
 
 ```bash
-$ git clone https://github.com/thiago-negri/okta-spring-boot-demo.git
-$ cd okta-spring-boot-demo
+$ git clone https://github.com/oktadeveloper/okta-spring-boot-deploy.git
+$ cd okta-spring-boot-deploy
 $ ./mvnw spring-boot:run
 ```
 
