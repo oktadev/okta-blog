@@ -265,7 +265,7 @@ Now, when logged in, you can access the page, but the call will fail and you won
 import withAuth from '@okta/okta-react/dist/withAuth';
 ```
 
-Also, add some lines between `const clientParam = …` and `const client = …`:
+Also, add some lines between `const clientParam = ...` and `const client = ...`:
 
 ```js
 const clientParam = { uri: '/graphql' };
