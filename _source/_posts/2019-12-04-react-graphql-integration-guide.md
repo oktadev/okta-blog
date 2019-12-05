@@ -6,8 +6,8 @@ description: "A tutorial about using a QraphQL API from React."
 tags: [react, graphql, javascript]
 tweets:
   - "Need to get up and running with GraphQL from React? Check this out!"
-  - ""
-  - ""
+  - "Get a quick run down of how to get GraphQL and React to work together."
+  - "Here's a quick guide to integrating React and GraphQL."
 image: blog/featured/okta-react-skew.jpg
 ---
 
