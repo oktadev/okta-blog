@@ -1,14 +1,15 @@
 ---
 layout: blog_post
-title: "Build a Secure CRUD App with Angular 9.0 and Spring Boot 2.2"
+title: "Build a CRUD App with Angular 9 and Spring Boot"
 author: mraible
-description: "This tutorial demonstrates how to connect Angular and Spring Boot, with OIDC for auth, CSRF protection, and a CSP to prevent XSS."
-tags: [angular, spring boot, typescript, kotlin, crud]
+description: "This tutorial demonstrates how to develop a secure CRUD application using Angular 9 and Spring Boot."
+tags: [angular, angular 9, spring boot, crud, typescript, kotlin]
 tweets:
 - "Learn how to connect @angular and @springboot in 2019!"
 - "Check out this tutorial on how to build secure apps with @angular and @springboot."
 - "Build secure applications with @angular and @springboot in our 2019 howto guide."
-// image: blog/spring-boot-2-angular-9/secure-bootiful-angular.png
+image: blog/spring-boot-2-angular-9/bootiful-angular.png
+url: basic-crud-angular-9-spring-boot-2
 ---
 :toc: macro
 :page-liquid:
@@ -19,6 +20,10 @@ Angular is a web framework for building mobile and desktop applications. It's fi
 Spring Boot is one of the most popular frameworks for developing Java applications and REST APIs. It also has first class support for Kotlin!
 
 Spring Boot 1.0 was released on April 1, 2014 and revolutionized the way Java developers write Spring apps. Instead of writing a lot of boilerplate XML or JavaConfig with annotations, Spring Boot introduced the idea of pre-configured _starters_ with smart defaults.
+
+Long story short, they're a match made in heaven!
+
+image::{% asset_path 'blog/spring-boot-2-angular-9/bootiful-angular.png' %}[alt=Bootiful Angular,width=800,align=center]
 
 == What's New In Angular 9?
 
@@ -40,8 +45,6 @@ To use Angular CLI's i18n feature, you simply need to add the `i18n` attribute t
 Spring Boot 2.2 was released in September 2019 and focuses on performance improvements and reduced memory usage. It adds Java 13 support, RSocket support, and the ability to group health indicators. This can be useful if you're deploying to Kubernetes and want different groups of indicators for "liveness" and "readiness" probes.
 
 In this post, I'll show you how to build a CRUD application with Angular 9 and Spring Boot 2.2. Along the way, I'll do my best to weave in security tips and how to make your applications more secure.
-
-// Mention 10 Excellent Ways to Secure Spring Boot. TLS, mkcert, CSRF, dependabot, CSP, OIDC.
 
 **Prerequisites:**
 
@@ -75,7 +78,7 @@ To create an Angular 9 app, you first need to install Angular CLI.
 
 [source,shell]
 ----
-npm install -g @angular/cli@9.0.0-rc.2
+npm install -g @angular/cli@9.0.0-rc.5
 ----
 
 Then create a directory on your hard-drive called `angular-spring-boot`. Open a terminal window and navigate to this directory. Run `ng new` to create an Angular application.
@@ -167,7 +170,7 @@ Run this command in a terminal and a `notes-api.zip` file will be downloaded. Ex
 unzip notes-api.zip -d angular-spring-boot/notes-api
 ----
 
-You can also use https://start.spring.io[start.spring.io] in your browser to create this same app.
+You can also use https://start.spring.io/#!type=gradle-project&language=kotlin&platformVersion=2.2.1.RELEASE&packaging=jar&jvmVersion=11&groupId=com.okta.developer&artifactId=demo&name=demo&description=Notes%20API%20for%20Spring%20Boot&packageName=com.okta.developer.notes&dependencies=h2,data-jpa,data-rest,okta,web[start.spring.io] in your browser to create this same app.
 
 image::{% asset_path 'blog/spring-boot-2-angular-9/start.spring.io.png' %}[alt=Create app with start.spring.io,width=800,align=center]
 
@@ -236,7 +239,7 @@ class SecurityConfiguration : WebSecurityConfigurerAdapter() {
             .oauth2Login()
                 .and()
             .oauth2ResourceServer().jwt()
-		//@formatter:on
+        //@formatter:on
     }
 }
 ----
@@ -390,45 +393,65 @@ In order for your Angular app (on port 4200) to communicate with your Spring Boo
 
 [source,kotlin]
 ----
+import org.springframework.boot.web.servlet.FilterRegistrationBean
+import org.springframework.context.annotation.Bean
+import org.springframework.core.Ordered
+import org.springframework.web.cors.CorsConfiguration
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource
+import org.springframework.web.filter.CorsFilter
+
 @SpringBootApplication
 class DemoApplication {
 
-	@Bean
-	fun simpleCorsFilter(): FilterRegistrationBean<CorsFilter> {
-		val source = UrlBasedCorsConfigurationSource()
-		val config = CorsConfiguration()
-		config.allowCredentials = true
-		config.allowedOrigins = listOf("http://localhost:4200")
-		config.allowedMethods = listOf("*");
-		config.allowedHeaders = listOf("*")
-		source.registerCorsConfiguration("/**", config)
-		val bean = FilterRegistrationBean(CorsFilter(source))
-		bean.order = Ordered.HIGHEST_PRECEDENCE
-		return bean
-	}
+    @Bean
+    fun simpleCorsFilter(): FilterRegistrationBean<CorsFilter> {
+        val source = UrlBasedCorsConfigurationSource()
+        val config = CorsConfiguration()
+        config.allowCredentials = true
+        config.allowedOrigins = listOf("http://localhost:4200")
+        config.allowedMethods = listOf("*");
+        config.allowedHeaders = listOf("*")
+        source.registerCorsConfiguration("/**", config)
+        val bean = FilterRegistrationBean(CorsFilter(source))
+        bean.order = Ordered.HIGHEST_PRECEDENCE
+        return bean
+    }
 }
 ----
 
-To see how your final `DemoApplication` file should look, you can [view the completed version in GitHub].
+To see how your final `DemoApplication` file should look, you can [view the completed version in GitHub](todo).
 
 Now that your API is working, it's time to develop a UI for it with Angular 9!
 
 == Add a Notes CRUD Feature in Angular
 
-Angular Schematics is a workflow tool that allows you to manipulate any project that has a `package.json`. Angular CLI is based on Schematics. OktaDev Schematics uses Schematics to update and add new files to projects. There's even an https://github.com/manfredsteyer/angular-crud[angular-crud] schematic! This allows you to generate CRUD (create, read, update, and delete) functionality from a JSON file.
+Angular Schematics is a workflow tool that allows you to manipulate any project that has a `package.json`. Angular CLI is based on Schematics. OktaDev Schematics uses Schematics to update and add new files to projects. There's even an https://github.com/manfredsteyer/angular-crud[Angular CRUD] schematic!
 
-Install angular-crud using npm:
+Angular CRUD allows you to generate CRUD (create, read, update, and delete) screens and associated files from JSON.
 
-[source,shell]
-----
-npm i -D angular-crud
-----
-
-In your Angular `notes` app, create a `src/app/notes` directory.
+The latest version has a number of improvements and hasn't been published, so you have to clone it from GitHub, install, and link to it.
 
 [source,shell]
 ----
-mkdir -p src/app/notes
+git clone https://github.com/manfredsteyer/angular-crud.git
+cd angular-crud/angular-crud
+npm install
+npm link
+----
+
+Then, in your Angular `notes` app, install `angular-crud` using npm:
+
+[source,shell]
+----
+npm link angular-crud
+//npm i -D angular-crud
+----
+
+In your Angular `notes` app, create a `src/app/note` directory.
+
+[source,shell]
+----
+mkdir -p src/app/note
 ----
 
 Then, create a `model.json` file in it that defines metadata that's used when generating files.
@@ -436,72 +459,163 @@ Then, create a `model.json` file in it that defines metadata that's used when ge
 [source,json]
 ----
 {
-    "title": "Notes",
-    "entity": "note",
-    "api": {
-      "url": "http://localhost:8080/api/notes"
+  "title": "Notes",
+  "entity": "note",
+  "api": {
+    "url": "http://localhost:8080/api/notes"
+  },
+  "filter": [
+    "title"
+  ],
+  "fields": [
+    {
+      "name": "id",
+      "label": "Id",
+      "isId": true,
+      "readonly": true,
+      "type": "number"
     },
-    "filter": [
-      "title"
-    ],
-    "fields": [
-      {
-        "name": "id",
-        "label": "Id",
-        "isId": true,
-        "readonly": true,
-        "type": "number"
-      },
-      {
-        "name": "title",
-        "type": "string",
-        "label": "Title"
-      },
-      {
-        "name": "text",
-        "type": "string",
-        "label": "Text"
-      }
-    ]
+    {
+      "name": "title",
+      "type": "string",
+      "label": "Title"
+    },
+    {
+      "name": "text",
+      "type": "string",
+      "label": "Text"
+    }
+  ]
 }
 ----
 
-Navigate to the `src/app/notes` directory in a terminal window, and run the command below to generate CRUD screens.
+Run the command below to generate CRUD screens.
 
 [source,shell]
 ----
-ng g angular-crud:crud-module notes
+ng g angular-crud:crud-module note
 ----
 
-// todo: fix or create new schematic (maybe in OktaDev Schematics)
-// maybe use https://ng-bootstrap.github.io/#/components/table/overview?
+You will see the following output.
 
-// todo: move URL into environment.ts, auto-search in list, modify search to only show your notes
+[source,shell]
+----
+CREATE src/app/note/note-filter.ts (44 bytes)
+CREATE src/app/note/note.module.ts (659 bytes)
+CREATE src/app/note/note.routes.ts (346 bytes)
+CREATE src/app/note/note.service.spec.ts (607 bytes)
+CREATE src/app/note/note.service.ts (2064 bytes)
+CREATE src/app/note/note.ts (69 bytes)
+CREATE src/app/note/note-edit/note-edit.component.html (1097 bytes)
+CREATE src/app/note/note-edit/note-edit.component.spec.ts (978 bytes)
+CREATE src/app/note/note-edit/note-edit.component.ts (1493 bytes)
+CREATE src/app/note/note-list/note-list.component.html (1716 bytes)
+CREATE src/app/note/note-list/note-list.component.spec.ts (978 bytes)
+CREATE src/app/note/note-list/note-list.component.ts (1091 bytes)
+UPDATE src/app/app.module.ts (540 bytes)
+----
 
-// todo: remove placeholder content in app.component.html
+This creates a `NotesModule`, routes, a service to communicate with the API, and list/edit screens for viewing and editing notes. If you look at the `src/app/note/note.routes.ts` file, you'll see the routes it creates.
 
-// todo: add a link to View Notes in home.component.html
+[source,ts]
+----
+import { Routes } from '@angular/router';
+import { NoteListComponent } from './note-list/note-list.component';
+import { NoteEditComponent } from './note-edit/note-edit.component';
 
-Navigate to your Angular project's root directory and run `ng serve`. Log in and click the **View Notes** link. You should see a list screen like the one below. Since you haven't created any notes that are tied to your user, none are returned.
+export const NOTE_ROUTES: Routes = [
+  {
+    path: 'notes',
+    component: NoteListComponent
+  },
+  {
+    path: 'notes/:id',
+    component: NoteEditComponent
+  }
+];
+----
 
-// image
+Add a link to the `NoteListComponent` in `src/app/home/home.component.html`.
 
-Add a few new notes and you should be able to see them in the list, filter them by title, and edit or delete them.
+[source,html]
+----
+<div>
+  <button *ngIf="!isAuthenticated" (click)="oktaAuth.loginRedirect()">Login</button>
+  <p><a routerLink="/notes" *ngIf="isAuthenticated">View Notes</a></p>
+  <button *ngIf="isAuthenticated" (click)="oktaAuth.logout()">Logout</button>
+</div>
+----
 
-// screenshots
+Change `src/app/app.component.html` to be as simple as it can be.
+
+{% raw %}
+[source,html]
+----
+<h1>{{ title }} app is running!</h1>
+
+<router-outlet></router-outlet>
+----
+{% endraw %}
+
+TIP: If you want `npm test` to pass after modifying this template, you'll need to change `app.component.spec.ts` to look for `querySelector('h1')` instead of `querySelector('.content span')`.
+
+Run `ng serve` (and make sure your Spring Boot app is running too).
+
+image::{% asset_path 'blog/spring-boot-2-angular-9/notes-login.png' %}[alt=Notes App Login,width=800,align=center]
+
+Log in and you should see a **View Notes** link.
+
+image::{% asset_path 'blog/spring-boot-2-angular-9/notes-link.png' %}[alt=Notes Link,width=800,align=center]
+
+Click on the link and you'll see a list screen like the one below. Since you haven't created any notes that are tied to your user, none are returned.
+
+image::{% asset_path 'blog/spring-boot-2-angular-9/notes-list.png' %}[alt=Notes List,width=800,align=center]
+
+Click on the **New** link to add a new note.
+
+image::{% asset_path 'blog/spring-boot-2-angular-9/notes-detail.png' %}[alt=Notes Detail,width=800,align=center]
+
+Add a new note and you'll see a message like this in your backend console.
+
+[source,shell]
+----
+Creating note: Note(id=null, title=1st note, text=Wahoo!, user=null) with user: matt.raible@okta.com
+----
+
+You still won't see notes in the list. You need to change the `NoteService` to call the `/user/notes` endpoint to get your notes.
+
+[source,ts]
+----
+find(filter: NoteFilter): Observable<Note[]> {
+  const url = `http://localhost:8080/user/notes`;
+  const headers = new HttpHeaders().set('Accept', 'application/json');
+
+  const params = {
+    title: filter.title,
+  };
+
+  return this.http.get<Note[]>(url, {params, headers});
+}
+----
+
+Now you'll see your notes listed. Nice work!
+
+image::{% asset_path 'blog/spring-boot-2-angular-9/notes-user-list.png' %}[alt=Notes User List,width=800,align=center]
 
 == Lock Down Spring Boot with Recommended Security Practices
 
 In link:/blog/2018/07/30/10-ways-to-secure-spring-boot[10 Excellent Ways to Secure Your Spring Boot Application], I recommended a few Spring Boot-specific items:
 
-1. Use HTTPS
+1. Use HTTPS in Production
 2. Enable Cross-Site Request Forgery (CSRF) Protection
 3. Use a Content Security Policy (CSP) to Prevent XSS Attacks
 4. Use OpenID Connect for Authentication
 
 You've already implemented #4 with Okta, but what about the others?
 
-You can use https://github.com/FiloSottile/mkcert[mkcert] for to generate local, valid TLS certificates. To force, HTTPS, you just need to configure Spring Security. CSRF protection and a CSP can be configured with Spring Security.
+You can use https://github.com/FiloSottile/mkcert[mkcert] for to generate local, valid TLS certificates. To force HTTPS, you just need to configure Spring Security. I like to just do it in production so I don't need to install certificates in development.
+
+CSRF protection and a CSP can be configured with Spring Security.
 
 Modify your `SecurityConfiguration` class with these security enhancements.
 
@@ -518,7 +632,10 @@ class SecurityConfiguration : WebSecurityConfigurerAdapter() {
                 .and()
             .oauth2ResourceServer().jwt()
 
-        http.requiresChannel().anyRequest().requiresSecure(); // <1>
+        http.requiresChannel()
+            .requestMatchers(RequestMatcher {
+                r -> r.getHeader("X-Forwarded-Proto") != null
+            }).requiresSecure() // <1>
 
         http.csrf()
             .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()); // <2>
@@ -529,18 +646,44 @@ class SecurityConfiguration : WebSecurityConfigurerAdapter() {
     }
 }
 ----
-<1> Force HTTPS
+<1> Force HTTPS in production
 <2> Configure the CSRF Cookie so it can be read by JavaScript
 <3> Configure a CSP that only allows local scripts
 ====
 
-Angular's `HttpClient` has built-in support for the client-side half of the CSRF protection. It'll read the cookie sent by Spring Boot and return it in a `X-XSRF-TOKEN` header.
+Angular's `HttpClient` has built-in support for the client-side half of the CSRF protection. It'll read the cookie sent by Spring Boot and return it in a `X-XSRF-TOKEN` header. You can read more about this in https://angular.io/guide/security[Angular's Security docs].
 
 In this particular example, the CSP won't be used since Angular is a separate app. However, if you were to include the Angular app in your Spring Boot artifact, it'd come in handy.
 
 TIP: Once you've deployed your Spring Boot app to a public URL, you can test your CSP headers are working with https://securityheaders.com/[securityheaders.com].
 
-https://www.grapecity.com/blogs/what-to-expect-in-angular-9
-https://spring.io/blog/2019/10/16/spring-boot-2-2-0
-Angular Material > https://developer.okta.com/blog/2017/09/19/build-a-secure-notes-application-with-kotlin-typescript-and-okta
-https://angular.io/guide/security
+== Learn More about Angular, Spring Boot, and Kotlin
+
+In this tutorial, I showed you how to create an Angular 9 app, a Spring Boot 2.2 app, and how to secure communication between them with OAuth 2.0 and OIDC. You used Kotlin on the backend, a language loved by many. You used Angular Schematics to generate code for authentication and CRUD, improving your efficiency as a developer.
+
+This tutorial did not show you how to make your Angular app look good or how to deploy it to a public server. I'll tackle those topics in an upcoming post. In the meantime, you can see a previous tutorial I wrote to see how this app might look with Angular Material.
+
+* link:/blog/2017/09/19/build-a-secure-notes-application-with-kotlin-typescript-and-okta[Build a Secure Notes Application with Kotlin, TypeScript, and Okta]
+
+You can find the source code for the completed application at https://github.com/oktadeveloper/okta-spring-boot-2-angular-9-example[oktadeveloper/okta-spring-boot-2-angular9-example].
+
+This blog has a bunch of Angular, Spring Boot, and Kotlin tutorials. Here are some I recommend:
+
+* // todo: find top 2 angular posts and list them here
+* link:/blog/2019/10/30/java-oauth2[OAuth 2.0 Java Guide: Secure Your App in 5 Minutes]
+* link:/blog/2019/08/28/reactive-microservices-spring-cloud-gateway[Secure Reactive Microservices with Spring Cloud Gateway]
+* link:/blog/2019/09/17/build-a-spring-boot-kotlin-app[Build an Application with Spring Boot and Kotlin]
+
+To read more about the Angular 9 and Spring Boot 2.2 releases, I recommend these articles:
+
+* https://www.grapecity.com/blogs/what-to-expect-in-angular-9[What's New in Angular 9]
+* https://spring.io/blog/2019/10/16/spring-boot-2-2-0[Spring Boot 2.2.0] from the Spring Team's Blog
+
+For Angular 5, 7, and 8 versions of this tutorial, see my past posts.
+
+* link:/blog/2019/05/13/angular-8-spring-boot-2[Angular 8 + Spring Boot 2.2: Build a CRUD App Today!] - May 2019
+* link:/blog/2018/08/22/basic-crud-angular-7-and-spring-boot-2[Build a Basic CRUD App with Angular 7.0 and Spring Boot 2.1] - August 2018
+* link:/blog/2017/12/04/basic-crud-angular-and-spring-boot[Build a Basic CRUD App with Angular 5.0 and Spring Boot 2.0] - December 2017
+
+If you like this article and want to see more like it, follow @oktadev on Twitter, subscribe to [our YouTube channel], or follow us on LinkedIn. As always, please leave a comment below if you have any questions.
+
