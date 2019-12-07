@@ -237,7 +237,7 @@ console.log(roll(expression));
 Execute `roll.js` with GraalVM and flip a coin by running: 
 
 ```txt
-$JAVA_HOME/bin/node src/main/resources/roll.js 1d2`
+$JAVA_HOME/bin/node src/main/resources/roll.js 1d2
 ```
 
 So far, this doesn't look any different than using stock Node.js, but wait!
