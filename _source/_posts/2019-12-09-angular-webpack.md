@@ -11,7 +11,7 @@ tweets:
 image: blog/angular-webpack/angular-webpack.png
 ---
 
-If you’re a frontend dev in the world today you’ve probably heard of (and possibly even used)  **webpack**. The Angular build process uses webpack behind the scenes to transpile TypeScript to JavaScript, transform Sass files to CSS, and many other tasks.. To understand the importance of this build tool, it helps to understand why it exists. 
+If you're a frontend dev in the world today you've probably heard of (and possibly even used)  **webpack**. The Angular build process uses webpack behind the scenes to transpile TypeScript to JavaScript, transform Sass files to CSS, and many other tasks.. To understand the importance of this build tool, it helps to understand why it exists. 
 
 Browsers have very limited support for JavaScript modules. In practice, any JavaScript application loaded into the browser should be contained in a single source file. On the other hand, it is good software development practice to separate out code into modules contained in separate files. When deploying a JavaScript application for the browser, the modules must then be built into a single source file. Bundling multiple modules into a single file is the main purpose of webpack.
 
