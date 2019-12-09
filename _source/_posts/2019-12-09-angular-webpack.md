@@ -210,7 +210,7 @@ Next, open `src/app/demo/demo.component.html` and replace the contents with the 
 
 Almost every web application will need some sort of user authentication. Using the Okta Angular SDK it is really easy to add state of the art single sign-on authentication to any Angular app. 
 
-To get started, sign up for an Okta developer account, if you don't already have one. Open your browser and navigate to https://developer.okta.com. Follow the sign-in link and fill in the registration form. When you have completed the registration you will be taken to your Okta dashboard. 
+To get started, sign up for an Okta developer account, if you don't already have one. Open your browser and navigate to <https://developer.okta.com>. Follow the sign-in link and fill in the registration form. When you have completed the registration you will be taken to your Okta dashboard. 
 
 To register a new application with Okta, select the **Applications** tab at the top and then click on the **Add Application** button. You will be taken to a configuration screen where you can modify the settings for your application. 
 
