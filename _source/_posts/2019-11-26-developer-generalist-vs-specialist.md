@@ -24,33 +24,33 @@ So what are you to do? Let's look at what the next decade has in store for the d
 
 ## How Do I Choose the Right Tech to Focus On
 
-This is the question for a specialist: how to leap frog from one framework lilypad to another. It's easy to fall in love with a specific area of coding and become obsessed - I’ve certainly done it. However, it can truly lead to a head-in-the-sand position when the world moves on without you (my condolences to Windows Phone developer friends, for example).
+This is the question for a specialist: how to leap frog from one framework lilypad to another. It's easy to fall in love with a specific area of coding and become obsessed - I've certainly done it. However, it can truly lead to a head-in-the-sand position when the world moves on without you (my condolences to Windows Phone developer friends, for example).
 
 ## Are You Saying I Should be a Full Stack Developer
 
-Great question! "Generalist" doesn't always mean "Full Stack"; they aren't interchangeable. The traditional view of a full stack programmer referred to the web (back end and front end) but there are many different places where code plays a role! 
+Great question! "Generalist" doesn't always mean "Full Stack"; they aren't interchangeable. The traditional view of a full stack programmer referred to the web (back end and front end) but there are many different places where code plays a role!
 
-Personally, I've coded for voice, IoT, APIs, timer jobs, mobile apps, intranet sites, external websites, ETLs, and the list goes on. Is any of that knowledge evergreen? Some of it! Mostly the ways in which I interacted with my team and product owner - not how I specifically customized a Sharepoint page. 
+Personally, I've coded for voice, IoT, APIs, timer jobs, mobile apps, intranet sites, external websites, ETLs, and the list goes on. Is any of that knowledge evergreen? Some of it! Mostly the ways in which I interacted with my team and product owner - not how I specifically customized a Sharepoint page.
 
-You can carry a cross-section of evergreen knowledge with you as a software engineer. A specific part of those "years of experience" is still applicable to whatever you need to work on now. And that part fits neatly into being a generalist developer. 
+You can carry a cross-section of evergreen knowledge with you as a software engineer. A specific part of those "years of experience" is still applicable to whatever you need to work on now. And that part fits neatly into being a generalist developer.
 
 ## Why Does Future Tech Require a Generalist Approach
 
 Regardless of what kind of coding you do now, areas of our industry are developing in impossible to ignore ways. Remember when Javascript started taking over the world? If you wanted to do anything in the browser, you had to learn it. Now, not only does it influence the browser - Node.js & Reactive Native have hugely influenced API and mobile app development as well.
 
-Remember when AI was just another fad? With advancements in Machine Learning, Deep Learning and Big Data analytics - it doesn’t look so dismissable anymore.
+Remember when AI was just another fad? With advancements in Machine Learning, Deep Learning and Big Data analytics - it doesn't look so dismissable anymore.
 
 Even if your main gig is maintaining a legacy code base, you owe it to your future self to know what tools are out there, different than what you use today. This knowledge doesn't have to be super deep to be powerful, but you do need to know _enough_ about current and future industry techniques to understand where your experience can fit.
 
 ## What Should All Developers Learn Right Now
 
-I’m glad you asked! There are a few areas in particular that developers really can't afford to ignore anymore.
+I'm glad you asked! There are a few areas in particular that developers really can't afford to ignore anymore.
 
 ### 1. Security
 
-Naturally, the developer relations team here at Okta cares a lot about this topic! Often, developers are content to make a system 'just work' well enough to get out the door for a deadline. The result is company after company coming forward and admitting to their users that their data was not securely stored or collected. This is an area you HAVE to educate yourself on. 
+Naturally, the developer relations team here at Okta cares a lot about this topic! Often, developers are content to make a system 'just work' well enough to get out the door for a deadline. The result is company after company coming forward and admitting to their users that their data was not securely stored or collected. This is an area you HAVE to educate yourself on.
 
-Get started with the basics like the [OWASP Top 10](https://www.owasp.org/index.php/Category:OWASP_Top_Ten_Project) security vulnerabilities. The [Cheat Sheet Series](https://cheatsheetseries.owasp.org) is another excellent resource for app devs looking to become knowledgeable on security quickly. 
+Get started with the basics like the [OWASP Top 10](https://www.owasp.org/index.php/Category:OWASP_Top_Ten_Project) security vulnerabilities. The [Cheat Sheet Series](https://cheatsheetseries.owasp.org) is another excellent resource for app devs looking to become knowledgeable on security quickly.
 
 Next, make sure you are coding securely from the very beginning, from how you store API keys to the way you deploy your code. This is one area you cannot afford to cut corners. We've got lots of blog posts here at Okta to get you up to speed on user security specifically.
 
@@ -58,13 +58,13 @@ Next, make sure you are coding securely from the very beginning, from how you st
 
 Automation will come in many forms and affect all areas of technology. You should have at least a cursory understanding of how your data is fed into various algorithms and the decisions those algorithms can make.
 
-You’ll need to use coding languages like Python and/or R to get started in this area and there are great tutorials on using [Jupyter](https://jupyter.org/) Notebooks to help. However, if you are interested in using machine learning as a service, Microsoft has come a long way with [Cognitive Services](https://azure.microsoft.com/en-us/services/cognitive-services/), which will allow you to use REST APIs to do basic machine learning tasks like image recognition or text analysis. No matter what business you are part of, AI is here to stay in some capacity and you will probably need to interact with it in some way.
+You'll need to use coding languages like Python and/or R to get started in this area and there are great tutorials on using [Jupyter](https://jupyter.org/) Notebooks to help. However, if you are interested in using machine learning as a service, Microsoft has come a long way with [Cognitive Services](https://azure.microsoft.com/en-us/services/cognitive-services/), which will allow you to use REST APIs to do basic machine learning tasks like image recognition or text analysis. No matter what business you are part of, AI is here to stay in some capacity and you will probably need to interact with it in some way.
 
 ### 3. DevOps/TechOps
 
-Even if you aren't the keeper of the big red deployment button, it’s crucial for all developers to understand how code gets to production. From mastering pull-request procedures to knowing how your application architecture impacts hosting costs, development work is intrinsically tied to ops work. This is especially true with microservices architecture, which often impact the bottom line.
+Even if you aren't the keeper of the big red deployment button, it's crucial for all developers to understand how code gets to production. From mastering pull-request procedures to knowing how your application architecture impacts hosting costs, development work is intrinsically tied to ops work. This is especially true with microservices architecture, which often impact the bottom line.
 
-Reach out to your local DevOps or TechOps meetup or user group and get acquainted with a few people who really know the practice. If that’s not an option in your area, watch a few video courses on the subject. Look into scripting tools  for DevOps automation like [Terraform](https://www.terraform.io/) or [Pulumi](https://www.pulumi.com/). Playing with infrastructure as code can actually be quite enjoyable and a nice change of pace coming from application development. Whether you are the only technical person both building and deploying code, or you are one part of a large department with a separate DevOps team, take the time to become educated on this flow.
+Reach out to your local DevOps or TechOps meetup or user group and get acquainted with a few people who really know the practice. If that's not an option in your area, watch a few video courses on the subject. Look into scripting tools  for DevOps automation like [Terraform](https://www.terraform.io/) or [Pulumi](https://www.pulumi.com/). Playing with infrastructure as code can actually be quite enjoyable and a nice change of pace coming from application development. Whether you are the only technical person both building and deploying code, or you are one part of a large department with a separate DevOps team, take the time to become educated on this flow.
 
 ## What Do You Think Developers Should Learn
 
