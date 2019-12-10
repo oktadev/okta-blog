@@ -65,7 +65,7 @@ I've personally experienced some times when semantic versioning killed my produc
 https://jhipster.tech[JHipster] is an application generator that uses Java on the backend (with Maven or Gradle) and npm for the frontend. It doesn't use version ranges in its `package.json`, but still had issues caused by downstream releases. The project experienced three issues in 2019:
 
 . https://github.com/jhipster/generator-jhipster/issues/9438[#9438] React Router (broke React)
-. https://github.com/jhipster/generator-jhipster/issues/9952[#9952] Inquirer (broke all prompts)
+. https://github.com/jhipster/generator-jhipster/issues/9952[#9952] Inquirer (broke all prompts, JHipster unusable for a whole day)
 . https://github.com/jhipster/generator-jhipster/issues/10371[#10371] Terser (broke Angular entity screens)
 
 None of these problems where caused by versions specified in `package.json`. They were all caused by downstream dependencies releasing new versions and breaking things!
@@ -106,12 +106,31 @@ Semantic versioning is a good idea. It would be a great idea if there were tools
 
 If we could automate the version number assignment, I think Node projects would experience a lot less issues. Of course, then you'd have to get all developers to adopt it, so that might be tough. Then again, if it was built into npm (like `npm audit` for security vulnerabilities), then we might be onto something!
 
+Personally, I don't know of any tools that do this, so I reached out to friends in the community.
+
 == How Experts Do Semantic Versioning
 
 // Les for JJWT and Brian for Okta Boot Starter
-// Phill Web for Spring Boot
+// Phil Web for Spring Boot
 // Juergen for Spring Framework
 // Julien, Deepu, and Pascal for JHipster
 // Minko Gechev for Angular
+// Robert Damphousse for Okta JS SDKs
 
 == Good Luck!
+
+In this post, you learned about the problems with semantic versioning and using ranges for versions. Using version ranges causes a lot of problems for Node developers. This isn't semantic versioning's fault. It's often caused by humans who think they didn't break anything in a patch or minor release, but they actually did.
+
+I believe that automated tools that assign version numbers to releases (based on backwards compatibility) could be a fix for this problem. Unfortunately, I don't know of any such tools. It also doesn't seem to be a problem in the Java community where ranges aren't really used.
+
+If you have any ideas about how to improve semantic versioning and create truthful release numbers, I'd love to hear about it in the comments.
+
+In the meantime, you might enjoy some of my other blog posts.
+
+* link:/blog/2019/01/16/which-java-sdk[Which Java SDK Should You Use?]
+* link:/blog/2019/08/08/micro-frontends-for-microservices[How to Win at UI Development in the World of Microservices]
+* link:/blog/2019/04/04/java-11-java-12-jhipster-oidc[Better, Faster, Lighter Java with Java 12 and JHipster 6]
+* link:/blog/2019/08/28/reactive-microservices-spring-cloud-gateway[Secure Reactive Microservices with Spring Cloud Gateway]
+* link:/blog/2019/06/20/ionic-4-tutorial-user-authentication-and-registration[Tutorial: User Login and Registration in Ionic 4]
+
+For more posts like this one, follow https://twitter.com/oktadev[@oktadev] on Twitter, follow us https://www.linkedin.com/company/oktadev/[on LinkedIn], or subscribe to https://www.youtube.com/c/oktadev[our YouTube channel].
