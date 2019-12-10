@@ -27,7 +27,7 @@ It's a naming system for version numbers of software releases. It's commonly use
 . `MINOR` version when you add functionality in a backwards compatible manner, and
 . `PATCH` version when you make backwards compatible bug fixes.
 
-== Why does Semantic Versioning Suck?
+== Why Does Semantic Versioning Suck?
 
 Semantic versioning sucks because of transitive dependencies. Back in the day, when you had all your dependencies in source control, there were no additional dependencies pulled in. Today, there's tools like Maven/Gradle (for Java) and npm for Node. These build tools read a set of dependencies, download them (including the dependencies they depend on), and make it so your project can read them and compile everything.
 
@@ -76,7 +76,7 @@ A wide sweeping patch update that affected react-scripts, Angular CLI, and Ionic
 
 I also experienced an issue in 2018 where the TypeScript support for Create React App didn't work for a two hour period. That period happened to be when I was on stage demoing React at Spring One. You can watch my failure https://youtu.be/fiR7MWoTYjs?t=2462[here] and find the cause in https://twitter.com/mraible/status/1045345722449768449[this Twitter thread].
 
-== What can we do to make it better?
+== What Can We Do to Make Semantic Versioning Better?
 
 The Java projects I use don't seem to have semantic versioning issues. I believe this is because no one uses version ranges in Java. If there's a new downstream release that fixes a critical bug, the upstream library does a new release. Builds are always reproducible.
 
@@ -100,13 +100,13 @@ However, this only works with Yarn. The good news is you can use https://www.npm
 }
 ----
 
-== Semantic Versioning Tools
+== Automate Semantic Versioning
 
 Semantic versioning is a good idea. It would be a great idea if there were tools that automatically assigned the version based on comparing the current version to a previous version. Assigning the version number for a release seems to be mostly a manual task.
 
 If we could automate the version number assignment, I think Node projects would experience a lot less issues. Of course, then you'd have to get all developers to adopt it, so that might be tough. Then again, if it was built into npm (like `npm audit` for security vulnerabilities), then we might be onto something!
 
-== How Experts do Semantic Versioning
+== How Experts Do Semantic Versioning
 
 // Les for JJWT and Brian for Okta Boot Starter
 // Phill Web for Spring Boot
