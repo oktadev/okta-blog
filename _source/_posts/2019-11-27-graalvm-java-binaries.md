@@ -21,7 +21,7 @@ This last one offers the potential to distribute Java applications as a single b
 
 GraalVM's `native-image` tool converts a Java application into a native binary. It isn't just a repackaging of the application. The Java byte code compiles into native code ahead-of-time (AOT). This native code runs on a Substrate VM, a minimal virtual machine separate from the Java Virtual Machine. Without (just-in-time) JIT compilation, applications can start faster with less memory.  As a side effect this simplifies running Java applications, removing the need for long shell scripts that resolve `$JAVA_HOME` and setup the classpath.
 
-In this post, I'll walk through building a simple CLI that parses simple [dice notation](https://wiki.roll20.net/Dice_Reference) (e.g., "2d20") and displays the result. I'll first build the example with just Java, and then again with Javascript to show of the polyglot features of GraalVM, building a single binary each time.
+In this post, I'll walk through building a simple CLI that parses simple [dice notation](https://wiki.roll20.net/Dice_Reference) (e.g., "2d20") and displays the result. I'll first build the example with just Java, and then again with JavaScript to show of the polyglot features of GraalVM, building a single binary each time.
 
 ## Install GraalVM
 
@@ -169,7 +169,7 @@ As expected the application exits with a status code of 1.
 
 ## GraalVM's Polyglot Support
 
-One of the popular features of GraalVM is the ability to run other languages alongside your Java code. For example, you could use GraalVM to execute some Javascript, R, or Python from your Java code. This is beneficial if you need  to share code between different programming languages, or if you wanted to take advantage of running Node with a large heap and Java's garbage collector.
+One of the popular features of GraalVM is the ability to run other languages alongside your Java code. For example, you could use GraalVM to execute some JavaScript, R, or Python from your Java code. This is beneficial if you need  to share code between different programming languages, or if you wanted to take advantage of running Node with a large heap and Java's garbage collector.
 
 I've put another example together in the `javascript` directory of the example project.
 
@@ -186,11 +186,11 @@ v12.10.0
 
 > NOTE: In my case, simply running `node` uses the version of Node.js managed by `nvm`, you can confirm this by running `which node`. I'll use `$JAVA_HOME/bin/node` going forward.
 
-## Create a Javascript Application
+## Create a JavaScript Application
 
-There are a few limitations on how you can execute Javascript with GraalVM. If you run `node` form the command line, most libraries _should_  just work, and GraalVM tests over 100,000 packages from npmjs.org regularly. However, when you use the `native-image` tool, things change. Notably, you cannot use module exports or use `process` to get at the current environment.
+There are a few limitations on how you can execute JavaScript with GraalVM. If you run `node` form the command line, most libraries _should_  just work, and GraalVM tests over 100,000 packages from npmjs.org regularly. However, when you use the `native-image` tool, things change. Notably, you cannot use module exports or use `process` to get at the current environment.
 
-To port the previous Java example to Javascript, I've split the code up into two separate files to avoid the limitations mentioned above. Both files are located in `src/main/resources/` so they can later be included in the native image, but more on that later.
+To port the previous Java example to JavaScript, I've split the code up into two separate files to avoid the limitations mentioned above. Both files are located in `src/main/resources/` so they can later be included in the native image, but more on that later.
 
 First, create a `dice-roller.js` with the string parsing logic:
 
@@ -237,20 +237,20 @@ console.log(roll(expression));
 Execute `roll.js` with GraalVM and flip a coin by running: 
 
 ```txt
-$JAVA_HOME/bin/node src/main/resources/roll.js 1d2`
+$JAVA_HOME/bin/node src/main/resources/roll.js 1d2
 ```
 
 So far, this doesn't look any different than using stock Node.js, but wait!
 
-## Mix Javascript and Java
+## Mix JavaScript and Java
 
-It's been possible to execute Javascript in a JVM forever, first with Rhino in Java 1.6 and then Nashorn in 1.8. However, these engines [have been deprecated](https://openjdk.java.net/jeps/335) and GraalVM will likely replace them in the future.
+It's been possible to execute JavaScript in a JVM forever, first with Rhino in Java 1.6 and then Nashorn in 1.8. However, these engines [have been deprecated](https://openjdk.java.net/jeps/335) and GraalVM will likely replace them in the future.
 
-When calling Javascript from Java code, you can use the [`ScriptEngine` API from JSR 223](https://docs.oracle.com/javase/8/docs/api/javax/script/ScriptEngine.html), or classes from the `org.graalvm.polyglot` package.
+When calling JavaScript from Java code, you can use the [`ScriptEngine` API from JSR 223](https://docs.oracle.com/javase/8/docs/api/javax/script/ScriptEngine.html), or classes from the `org.graalvm.polyglot` package.
 
 > NOTE: GraalVM automatically provides the classes in `org.graalvm.polyglot`, so you do NOT need to add them as a dependency. However, I was unable to make IntelliJ's code completion/compilation work with GraalVM 19.3.0 and had to revert to using the command line.
 
-Create a class in `src/main/java/com/okta/examples/javascript/JsDiceApplication.java` with a `main` method that calls the Javascript code in `dice-roller.js`:
+Create a class in `src/main/java/com/okta/examples/javascript/JsDiceApplication.java` with a `main` method that calls the JavaScript code in `dice-roller.js`:
 
 ```java
 package com.okta.examples.javascript;
@@ -337,7 +337,7 @@ Run the example with the Exec Maven Plugin: `mvn compile exec:java`:
 
 Great! Now let's build a native-image with this example.
 
-## Build a GraalVM Native Image with Javascript Support
+## Build a GraalVM Native Image with JavaScript Support
 
 As with the first example, we can use the `native-image-maven-plugin` to build the native image, add the following plugin block to your `javascript/pom.xml`:
 
@@ -362,7 +362,7 @@ As with the first example, we can use the `native-image-maven-plugin` to build t
 </plugin>
 ```
 
-Take note of the `buildArgs` parameter of `--language:js`.  Without this argument, Javascript support is NOT included in the image. Including support for other languages also causes the build time to be significantly longer. ☕
+Take note of the `buildArgs` parameter of `--language:js`.  Without this argument, JavaScript support is NOT included in the image. Including support for other languages also causes the build time to be significantly longer. ☕
 
 Build the project with `mvn package` and then run the new executable `./target/roll 10d10`.This results in the following error:
 
@@ -374,7 +374,7 @@ Exception in thread "main" java.lang.NullPointerException: source
         at com.okta.examples.javascript.JsDiceApplication.main(JsDiceApplication.java:17)
 ```
 
-This error has nothing to do with the inclusion of Javascript. It is caused by the use of `Class.getResourceAsStream` (the same is true for `Class.getResource`). By default, resources are NOT included in the native image.
+This error has nothing to do with the inclusion of JavaScript. It is caused by the use of `Class.getResourceAsStream` (the same is true for `Class.getResource`). By default, resources are NOT included in the native image.
 
 A Java Agent can help discover the needed resources for the image. The agent can be enabled with `-agentlib:native-image-agent=config-merge-dir=<output-directory>`.
 
@@ -419,7 +419,7 @@ Success!
 
 ## Are GraalVM Native Images Ready for Primetime?
 
-GraalVM's native image feature has me excited. Historically, distributing Java command-line tools has been a pain, we often resort to shipping zip files and shell scripts as a workaround. While GraalVM's `native-image` solves much of this pain, the project isn't quite ready for everyone just yet. Substrate VM's list of [current limitations](https://github.com/oracle/graal/blob/master/substratevm/LIMITATIONS.md) and the lack of [Spring support](https://github.com/spring-projects/spring-framework/wiki/GraalVM-native-image-support) might be the biggest drawbacks. GraalVM also lacks support for [cross-compiling](https://github.com/oracle/graal/issues/407), which may add complexity to your CI pipeline to workaround. Binary size may also be an issue; the second example that embeds javascript caused the image size to ballon from 6.6M in the pure Java example to 92M. 
+GraalVM's native image feature has me excited. Historically, distributing Java command-line tools has been a pain, we often resort to shipping zip files and shell scripts as a workaround. While GraalVM's `native-image` solves much of this pain, the project isn't quite ready for everyone just yet. Substrate VM's list of [current limitations](https://github.com/oracle/graal/blob/master/substratevm/LIMITATIONS.md) and the lack of [Spring support](https://github.com/spring-projects/spring-framework/wiki/GraalVM-native-image-support) might be the biggest drawbacks. GraalVM also lacks support for [cross-compiling](https://github.com/oracle/graal/issues/407), which may add complexity to your CI pipeline to workaround. Binary size may also be an issue; the second example that embeds JavaScript caused the image size to ballon from 6.6M in the pure Java example to 92M. 
 
 Even with these limitations, GraalVM's native-image can be used today for a wide variety of applications.
 
