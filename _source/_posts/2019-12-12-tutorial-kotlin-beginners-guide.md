@@ -75,7 +75,7 @@ fun readMethod(a: Array<out Any>) {
 }
 ```
 
-The example above does not compile in Kotlin, because the `readMethod()` receives the out-projected array (only read operations allowed) and it is calling the write operation `set`.
+The example above does not compile in Kotlin, because the `readMethod()` receives the out-projected array (only read operations allowed) and it is calling the write operation `set()`.
 
 **No checked exceptions**: Java checked exceptions must be somehow handled for the program to compile, and are many times swallowed by an empty catch block. Kotlin does not have checked exceptions, because it is suggested that in large software projects it decreases productivity.
 
