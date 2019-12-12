@@ -93,9 +93,9 @@ val calendar = Calendar.getInstance()
 calendar.firstDayOfWeek = Calendar.MONDAY // setFirstOfWeek()
 ```
 
-With an IDE like IntelliJ IDEA, you can add Java source code to a Kotlin project just by creating the `.java` file.
+With an IDE like IntelliJ IDEA, you can add Java source code to a Kotlin project just by creating a `.java` file.
 
-Objects coming from Java, called **platform types**, have relaxed null-checks for practical reasons, and safety is the same as in Java. Kotlin will not inform a compilation error but the call might fail at runtime. For example, if Kotlin calls Java code that returns an ArrayList, the inferred type in Kotlin will be ArrayList<String!>!, which means the collection can be nullable, and the items as well.
+Objects coming from Java, called **platform types**, have relaxed null-checks for practical reasons, and safety is the same as in Java. Kotlin will not inform a compilation error but the call might fail at runtime. For example, if Kotlin calls Java code that returns an `ArrayList`, the inferred type in Kotlin will be `ArrayList<String!>!`, which means the collection can be nullable, and the items as well.
 
 In the Java code below, `null` is added as an item to the list.
 
@@ -112,7 +112,7 @@ public class ArrayWithNulls {
     }
 }
 ```
-In the Kotlin lines below, we are calling the previous Java code, so the safety is relaxed. The program compiles, but as the first item is null, it will fail at runtime with IllegalStateException. 
+In the Kotlin lines below, we are calling the previous Java code, so the safety is relaxed. The program compiles, but as the first item is `null`, it will fail at runtime with `IllegalStateException`. 
 
 ```kotlin
     val list = ArrayWithNulls.create()
@@ -128,7 +128,7 @@ Start IntelliJ IDEA and create a new Kotlin project, choosing **Kotlin/JVM**.
 
 {% img blog/tutorial-kotlin-beginners-guide/intellij-new-project.png alt:"Create new IntelliJ project" width:"600" %}{: .center-image }
 
-Set the project name, location, and Java 8 SDK. After the project is created, add Maven support by doing a right-click on the project and choosing *Add Framework Support*. Then select the Maven box and *Ok*.
+Set the project name, location, and Java 8 SDK. After the project is created, add Maven support by doing a right-click on the project and choosing **Add Framework Support**. Then select the Maven checkbox and click **OK**.
 
 {% img blog/tutorial-kotlin-beginners-guide/intellij-maven.png alt:"Configure IntelliJ to use Maven" width:"600" %}{: .center-image }
 
@@ -147,7 +147,7 @@ In the lines above, you can see a package declaration, which is optional. If not
 
 **NOTE**: In Kotlin, it is not required to match directories and packages. Source files can be placed arbitrarily in the file system, and one file can contain multiple classes. For pure Kotlin projects, the common root package `com.okta.developers` is [omitted in the filesystem](https://kotlinlang.org/docs/reference/coding-conventions.html#source-code-organization).
 
-Edit your `pom.xml` to add Kotlin dependencies and the **Kotlin Maven Plugin**.
+Edit your `pom.xml` to add Kotlin dependencies and the Kotlin Maven Plugin.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -420,9 +420,9 @@ Check your email and follow the instructions to activate your Okta account.
 > **If you already have an Okta Developer account**
 > 
 > Log in and create a new Application:
-> - From the Applications page, choose Add Application.
-> - On the Create New Application page, select Web.
-> - Give your app a memorable name, add http://localhost:8080/login/oauth2/code/okta and http://localhost:8080/authorization-code/callback as a Login redirect URIs.
+> - From the **Applications** page, choose **Add Application**.
+> - On the Create New Application page, select **Web**.
+> - Give your app a memorable name, add `http://localhost:8080/login/oauth2/code/okta` as a Login redirect URI.
 > 
 > Copy the issuer (found under **API** > **Authorization Servers**), client ID, and client secret into `src/main/resources/application.properties`.
 > 
@@ -460,7 +460,7 @@ fun main(args: Array<String>) {
 }
 ```
 
-As you can see, in the `hello` function, the authenticated user is passed in the `authenticationToken`. `@AuthenticationPrincipal` annotation from Spring Security helps to resolve the principal to the expected principal type. The welcome message is built using **String interpolation**, a Kotlin idiom for variable substitution inside strings.
+As you can see, in the `hello()` function, the authenticated user is passed in the `authenticationToken`. The `@AuthenticationPrincipal` annotation from Spring Security helps to resolve the principal to the expected principal type. The welcome message is built using **String interpolation**, a Kotlin idiom for variable substitution inside strings.
 
 Run the application with the following command:
 ```txt
