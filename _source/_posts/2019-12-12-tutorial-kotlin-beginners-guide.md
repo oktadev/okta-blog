@@ -486,4 +486,4 @@ I hope this blog post helped you grasp how succinct and expressive Kotlin is and
 - [Build an Application with Spring Boot and Kotlin](/blog/2019/09/17/build-a-spring-boot-kotlin-app)
 - [Kotlin Reference](https://kotlinlang.org/docs/reference/)
 
-Questions? Requests for a future post? Drop them in the comments! And don't forget to follow [@oktadev on Twitter](https://twitter.com/oktadev) and [subscribe to our YouTube](http://youtube.com/c/oktadev) channel.
+Questions? Requests for a future post? Drop them in the comments! And don't forget to follow [@oktadev on Twitter](https://twitter.com/oktadev) and [subscribe to our YouTube channel](http://youtube.com/c/oktadev).
