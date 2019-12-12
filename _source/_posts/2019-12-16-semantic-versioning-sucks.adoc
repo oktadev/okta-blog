@@ -10,6 +10,7 @@ tweets:
 - "Is there any hope for semantic versioning?"
 image: // todo
 ---
+:page-liquid:
 
 Hello, fellow developers.
 
@@ -106,16 +107,111 @@ Semantic versioning is a good idea. It would be a great idea if there were tools
 
 If we could automate the version number assignment, I think Node projects would experience a lot less issues. Of course, then you'd have to get all developers to adopt it, so that might be tough. Then again, if it was built into npm (like `npm audit` for security vulnerabilities), then we might be onto something!
 
-Personally, I don't know of any tools that do this, so I reached out to friends in the community.
+Personally, I don't know of any tools that do this, so I asked a few friends in the developer community.
 
 == How Experts Do Semantic Versioning
 
-// Les for JJWT and Brian for Okta Boot Starter
-// Phil Web for Spring Boot
-// Juergen for Spring Framework
-// Julien, Deepu, and Pascal for JHipster
-// Minko Gechev for Angular
-// Robert Damphousse for Okta JS SDKs
+I contacted the following developers that maintain open source projects I use and love.
+
+* https://twitter.com/phillip_webb[Phil Webb]: Spring Boot project lead
+* https://twitter.com/springjuergen[Juergen Hoeller]: Spring Framework project lead
+* https://twitter.com/mgechev[Minko Gechev]: works on the Angular team at Google
+* https://twitter.com/briandemers[Brian Demers]: created the Okta Spring Boot Starter and Okta Java SDK
+* https://twitter.com/deepu105[Deepu K Sasidharan] and https://twitter.com/juliendubois[Julien Dubois]: JHipster project leads
+* https://twitter.com/robertjd_[Robert Damphousse]: Okta JavaScript SDKs project lead
+
+I asked them each how they manage semantic versioning for their projects and if it's automated. If their process is manual, I asked them how they validate patch and minor releases to verify they don't break anything. Specifically, these were my questions:
+
+* How do you do semantic versioning? Is it manual or automated?
+* If automated, what tools do you use to validate a patch or minor release doesn’t break anything?
+* If manual, how do you guarantee you aren't breaking backwards compatibility?
+
+=== Phil Webb, Spring Boot
+image:{% asset_path 'blog/semantic-versioning/phillip_webb.png' %}[alt=Phil Webb,role="BlogPost-avatar pull-right img-100px"]
+
+With Spring Boot we actually decided to intentionally not use semantic versioning. We found it too rigid for our needs because we’d need to bump the major version too frequently. Instead we try to take a more pragmatic approach where we’ll try to ensure back compatibility, but will occasionally choose to break things if we feel like that’s ultimately the best option.
+
+Instead of true semantic versioning, we instead use the version number to indicate the amount of pain users might expect with an upgrade. The general rule is:
+
+- A patch version should be a drop in replacement (e.g. v2.2.1 -> v.2.2.2 should just work). Very very rarely we might choose to break something if there’s no way to deprecate methods
+- A minor version should be relatively easy to upgrade. You will need to make sure you’re not using deprecated methods because we remove them fairly aggressively.
+- A major version might cause some upgrade pain depending on how deeply you integrate with our code. For example, v1.5.x -> 2.0.x wasn’t too tricky for most users, but it was hard if you’d written custom actuator endpoints. We take the opportunity on a major version bump to fix deeper problems with APIs where we need to break them because there’s not an obvious way to migrate them.
+
+With that in mind, your questions are still valid if you remove the work "semantic" so here are the answers:
+
+_How do you do semantic versioning for Spring Boot? Is it manual or automated?_
+
+It’s a manual process. We’ve got quite a bit of experience evolving APIs so we tend to know when a change will cause problems.
+
+_If automated, what tools do you use to validate a patch or minor release doesn’t break anything?_
+
+We don’t have any automated tools. We do however review each others commits to try and spot issues early. We also have a great user community that less us know when we break things. :)
+
+_If manual, how do you guarantee you aren't breaking backwards compatibility?_
+
+We don’t make strong guarantees. We mainly rely on our own experience to ensure we don’t do anything foolish. We only add new features in minor versions so most patch releases are bug fix only and hence API changes are rare.
+
+=== Juergen Hoeller, Spring Framework
+image:{% asset_path 'blog/semantic-versioning/springjuergen.jpg' %}[alt=Juergen Hoeller,role="BlogPost-avatar pull-right img-100px"]
+
+Our semantic versioning in Spring is not strictly about backwards compatibility, it's rather a form of pragmatic impact guidance along the lines of generation / feature release / maintenance release (e.g. 5.2.3). This is an entirely manual part of our design process where "generation" means a fundamental revision of the codebase (mostly JDK baselining but also e.g. nullable annotations and Kotlin extensions in 5.0) including some pruning and module rearrangements, "feature release" means a rich set of new features (including refactorings and re-implementations of existing features) but all within the existing framework architecture and its structural arrangements, and "maintenance release" means bug fixes and minor enhancements.
+
+We compare API diff reports between releases and run https://www.mojohaus.org/animal-sniffer/[Animal Sniffer] for JDK baseline enforcement, but otherwise there are no tools involved. Backwards compatibility (in particular binary compatibility between maintenance releases) is mostly covered through integration tests, no guarantees attached... Sometimes we have to fix regressions after the fact, doesn't happen all that often though, in particular not for maintenance releases where we strongly enforce selective and well-reviewed backporting to begin with. And in very rare cases, we have to intentionally break strict backwards compatibility even within a maintenance line, e.g. in case of tightened rules for vulnerabilities or to fix accidents or recent regressions.
+
+All in all, our versioning is pragmatically semantic with a focus on developer impact. Near-100% backwards compatibility is a key goal, mostly covered by backport reviews and integration testing.
+
+=== Minko Gechev, Angular
+image:{% asset_path 'blog/semantic-versioning/mgechev.jpg' %}[alt=Minko Gechev,role="BlogPost-avatar pull-right img-100px"]
+
+We have semantic commit messages prefixed with "fix", "refactor", "test", "ci", "feat", etc. If we're about to release a patch version, we cannot include a feature (feat) PR. Based on these semantic commit messages we can automatically generate the changelog.
+
+Additionally, to make sure we're not introducing breaking changes we have two (maybe more that I'm not aware of), processes:
+
+1. We have golden files. These are TypeScript d.ts files which we verify each build against. If we change the public API surface, we'll generate another set of d.ts files which will not match the current set. We can release backwards incompatible changes in the public API surface only between major releases and the golden files help us verify that.
+2. We run tests for affected google projects. The d.ts files do not provide 100% guarantee that we haven't changed anything semantically in Angular (for example, the lifecycle hooks execution order) in a backwards incompatible way. When we introduce a change we run the tests of the affected google projects to make sure we haven't broken them. This is all automated with our internal CI.
+
+We've reached a state in which we can detect (almost?) any breaking change in Angular thanks to the tens of hundreds of projects internally and the hundreds of thousands of tests.
+
+In general, I agree semantic versioning is not ideal. I don't see a way it could be completely automated. Programming languages are too complicated to verify statically, as part of the build process, which should be the next version a certain project should be released under.
+
+=== Brian Demers, Okta Java Tools
+image:{% asset_path 'blog/semantic-versioning/briandemers.jpg' %}[alt=Brian Demers,role="BlogPost-avatar pull-right img-100px"]
+
+The Okta Spring Boot Starter has VERY few public classes as to avoid this exact problem. It mostly proves implementations of existing Spring Security interfaces.
+
+The Okta Java SDK is a different story. I heavily rely on the https://siom79.github.io/japicmp/[japicmp] Maven plugin.
+
+_If automated, what tools do you use to validate a patch or minor release doesn’t break anything?_
+
+I don't think I'd be able to follow semver without it. We run the `cmp` goal during CI and releases which will fail if there is a breaking change (or if a minor version needs to be bumped instead of a patch).  Updating the actual version is still a manual process (I use the Maven versions plugin `man versions:set -DnewVersion={new-version-here}`).
+
+Semver and Java don't 100% line up, the https://www.osgi.org/wp-content/uploads/SemanticVersioning.pdf[OSGi alliance has a nice guide]. Java has a notion of "source" and "binary" compatibility. Japicmp can handle both, but it's really only binary compatibility that matters.
+
+Adding new "default" methods to a Java interface is technically a breaking change too, japicmp allows for post processing of the results, so you can allow these changes depending on your use cases.
+
+_If manual, how do you guarantee you aren't breaking backwards compatibility?_
+
+The Okta Spring Boot Starter public methods (I think there are three total) are easy to manage right now because of the small team size and the public API size.  That said it's very easy to change an API in what you think is a backward compatible way (this recently happened in the Spring Security 5.2 release).  Scanning this project to ensure semver is on the TODO list.
+
+=== Deepu K Sasidharan, JHipster
+image:{% asset_path 'blog/semantic-versioning/deepu105.jpg' %}[alt=Deepu K Sasidharan,role="BlogPost-avatar pull-right img-100px"]
+
+IMO semantic versioning itself doesn't suck, I mean the idea of having major.minor.patch releases do work when done correctly.
+
+The problem is actually when using non fixed version ranges. For example, the same problem is present in the Golang community as well even though they don't necessarily use semver, but the module system supports using ranges or GIT branches for versions, which breaks stuff when you accidentally upgrade transitive dependencies. To an extent, this could also happen in Java IMO. I have experienced it but surely not as much as NodeJS. That is also due to the amount of modularization there.
+
+I was doing the releases for ng-jhipster, react-jhipster, and few other libs, and even wrote the release scripts on the NPM files, I never had issues with semver per se. The issue is obviously when a bad actor doesn't respect the semver versioning and do breaking changes in minor version or something like that. If the range support is removed in NPM package resolution, most of the issues will be gone
+
+For your question 2 and 3, I don't see how it is a server-specific problem, it could be applied to any versioning scheme right.
+
+=== Julien Dubois, JHipster
+image:{% asset_path 'blog/semantic-versioning/juliendubois.jpg' %}[alt=Julien Dubois,role="BlogPost-avatar pull-right img-100px"]
+
+Concerning the automatic Semver, there is just no way to do this for JHipster... so we do it manually.
+
+Basically, the release manager "knows" when there is something breaking, and usually we never break anything outside of major releases. Of course we can be wrong sometimes!
+
+The only exception would be for a security patch: then it's good for us to break the user code, if necessary, as he also needs to fix his own code. But that's very specific, because we are code generator, and I hope we can remove this as much as possible (I'd like to generate less code, and give more responsibilities to the JHipster libraries, typically because they solve this kind of issue).
 
 == Good Luck!
 
