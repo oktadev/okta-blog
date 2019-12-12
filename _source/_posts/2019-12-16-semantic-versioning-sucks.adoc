@@ -123,33 +123,33 @@ I contacted the following developers that maintain open source projects I use an
 I asked them each how they manage semantic versioning for their projects and if it's automated. If their process is manual, I asked them how they validate patch and minor releases to verify they don't break anything. Specifically, these were my questions:
 
 * How do you do semantic versioning? Is it manual or automated?
-* If automated, what tools do you use to validate a patch or minor release doesn’t break anything?
+* If automated, what tools do you use to validate a patch or minor release doesn't break anything?
 * If manual, how do you guarantee you aren't breaking backwards compatibility?
 
 === Phil Webb, Spring Boot
 image:{% asset_path 'blog/semantic-versioning/phillip_webb.png' %}[alt=Phil Webb,role="BlogPost-avatar pull-right img-100px"]
 
-With Spring Boot we actually decided to intentionally not use semantic versioning. We found it too rigid for our needs because we’d need to bump the major version too frequently. Instead we try to take a more pragmatic approach where we’ll try to ensure back compatibility, but will occasionally choose to break things if we feel like that’s ultimately the best option.
+With Spring Boot we actually decided to intentionally not use semantic versioning. We found it too rigid for our needs because we'd need to bump the major version too frequently. Instead we try to take a more pragmatic approach where we'll try to ensure back compatibility, but will occasionally choose to break things if we feel like that's ultimately the best option.
 
 Instead of true semantic versioning, we instead use the version number to indicate the amount of pain users might expect with an upgrade. The general rule is:
 
-- A patch version should be a drop in replacement (e.g. v2.2.1 -> v.2.2.2 should just work). Very very rarely we might choose to break something if there’s no way to deprecate methods
-- A minor version should be relatively easy to upgrade. You will need to make sure you’re not using deprecated methods because we remove them fairly aggressively.
-- A major version might cause some upgrade pain depending on how deeply you integrate with our code. For example, v1.5.x -> 2.0.x wasn’t too tricky for most users, but it was hard if you’d written custom actuator endpoints. We take the opportunity on a major version bump to fix deeper problems with APIs where we need to break them because there’s not an obvious way to migrate them.
+- A patch version should be a drop in replacement (e.g. v2.2.1 -> v.2.2.2 should just work). Very very rarely we might choose to break something if there's no way to deprecate methods
+- A minor version should be relatively easy to upgrade. You will need to make sure you're not using deprecated methods because we remove them fairly aggressively.
+- A major version might cause some upgrade pain depending on how deeply you integrate with our code. For example, v1.5.x -> 2.0.x wasn't too tricky for most users, but it was hard if you'd written custom actuator endpoints. We take the opportunity on a major version bump to fix deeper problems with APIs where we need to break them because there's not an obvious way to migrate them.
 
 With that in mind, your questions are still valid if you remove the work "semantic" so here are the answers:
 
 _How do you do semantic versioning for Spring Boot? Is it manual or automated?_
 
-It’s a manual process. We’ve got quite a bit of experience evolving APIs so we tend to know when a change will cause problems.
+It's a manual process. We've got quite a bit of experience evolving APIs so we tend to know when a change will cause problems.
 
-_If automated, what tools do you use to validate a patch or minor release doesn’t break anything?_
+_If automated, what tools do you use to validate a patch or minor release doesn't break anything?_
 
-We don’t have any automated tools. We do however review each others commits to try and spot issues early. We also have a great user community that less us know when we break things. :)
+We don't have any automated tools. We do however review each others commits to try and spot issues early. We also have a great user community that less us know when we break things. :)
 
 _If manual, how do you guarantee you aren't breaking backwards compatibility?_
 
-We don’t make strong guarantees. We mainly rely on our own experience to ensure we don’t do anything foolish. We only add new features in minor versions so most patch releases are bug fix only and hence API changes are rare.
+We don't make strong guarantees. We mainly rely on our own experience to ensure we don't do anything foolish. We only add new features in minor versions so most patch releases are bug fix only and hence API changes are rare.
 
 === Juergen Hoeller, Spring Framework
 image:{% asset_path 'blog/semantic-versioning/springjuergen.jpg' %}[alt=Juergen Hoeller,role="BlogPost-avatar pull-right img-100px"]
@@ -181,7 +181,7 @@ The Okta Spring Boot Starter has VERY few public classes as to avoid this exact 
 
 The Okta Java SDK is a different story. I heavily rely on the https://siom79.github.io/japicmp/[japicmp] Maven plugin.
 
-_If automated, what tools do you use to validate a patch or minor release doesn’t break anything?_
+_If automated, what tools do you use to validate a patch or minor release doesn't break anything?_
 
 I don't think I'd be able to follow semver without it. We run the `cmp` goal during CI and releases which will fail if there is a breaking change (or if a minor version needs to be bumped instead of a patch).  Updating the actual version is still a manual process (I use the Maven versions plugin `man versions:set -DnewVersion={new-version-here}`).
 
