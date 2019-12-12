@@ -115,9 +115,9 @@ public class ArrayWithNulls {
 In the Kotlin lines below, we are calling the previous Java code, so the safety is relaxed. The program compiles, but as the first item is `null`, it will fail at runtime with `IllegalStateException`. 
 
 ```kotlin
-    val list = ArrayWithNulls.create()
-    val item = list.get(0) // platform type inferred (ordinary Java object)
-    item.substring(1) // IllegalStateException: item must not be null
+val list = ArrayWithNulls.create()
+val item = list.get(0) // platform type inferred (ordinary Java object)
+item.substring(1) // IllegalStateException: item must not be null
 ```
 
 ## Pre-Tutorial: A Taste of Kotlin
@@ -268,7 +268,6 @@ First, update the `main` function in `app.kt` to make it scan the string to anal
 package com.okta.developers
 
 fun main() {
-
     val string = readLine()
     val result = string?.let { Anagrams().count(it) }
 
@@ -432,7 +431,7 @@ okta.oauth2.client-id=$clientId
 okta.oauth2.client-secret=$clientSecret
 ```
 
-Edit `KotlinSpringBootApplication` located the package `com.okta.developer` to add a controller mapping that will print a welcome message in the browser window.
+Edit `KotlinSpringBootApplication` located in the package `com.okta.developer` to add a controller mapping that will print a welcome message in the browser window.
 
 ```kotlin
 package com.okta.developer
@@ -450,7 +449,6 @@ class KotlinSpringBootApplication {
 
     @GetMapping("/")
     fun hello(@AuthenticationPrincipal authenticationToken: OAuth2AuthenticationToken): String {
-
         return "Welcome ${authenticationToken.principal.attributes["name"]}"
     }
 }
