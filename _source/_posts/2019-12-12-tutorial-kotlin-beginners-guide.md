@@ -2,7 +2,7 @@
 layout: blog_post
 title: "Kotlin: A Beginner's Guide and Tutorial"
 author: jimena-garbarino
-description: "Tutorial: Learn the basics of Kotlin by building an app, find out why Java developers love Kotlin!"
+description: "Tutorial: Learn the basics of Kotlin by building an app and find out why Java developers love Kotlin!"
 tags: [kotlin, java, tutorial, oauth2, oidc, guide]
 tweets:
 - "Find out why Java developers ❤️ @Kotlin in this tutorial!"
@@ -15,7 +15,7 @@ Kotlin is a modern, statically typed language within the JVM. Kotlin is a cross-
 
 Kotlin is an awesome option for Java developers because it is concise, expressive, and safe. According to JetBrains estimates, it can cut the total lines of code in your app by up to 40%. Kotlin also helps prevent `NullPointerException`s as it provides **non-nullable** types
 
-According to [Github Octoverse Report 2018](https://octoverse.github.com/projects#languages), Kotlin is the number one fastest-growing language. With 2.2M users, its popularity increases every month and big companies are using it. Android and JVM developers are falling in love with its features. Let's learn why.
+According to [GitHub Octoverse Report 2018](https://octoverse.github.com/projects#languages), Kotlin is the number one fastest-growing language. With 2.2M users, its popularity increases every month and big companies are using it. Android and JVM developers are falling in love with its features. Let's learn why.
 
 In this post you will find:
 - An overview of Kotlin's features
@@ -25,7 +25,7 @@ In this post you will find:
 In order to complete the full tutorial, you'll need the following tools:
 - [Java 8](https://adoptopenjdk.net/)
 - [Apache Maven](https://maven.apache.org/)
-- [IntelliJ](https://www.jetbrains.com/idea/) (or other IDE)
+- [IntelliJ](https://www.jetbrains.com/idea/) (or another IDE)
 
 Before we dive into the tutorial, let's talk a little about why Kotlin might be the right choice for your next project.
 
@@ -65,7 +65,6 @@ numArray = intArray // Compiler error Type mismatch
 package com.okta.developer
 
 fun main() {
-
     val a = arrayOf("uno", "dos", "tres")
     readMethod(a)
 }
@@ -76,7 +75,7 @@ fun readMethod(a: Array<out Any>) {
 }
 ```
 
-The example above does not compile in Kotlin, because the `readMethod` receives the out-projected array (only read operations allowed) and it is calling the write operation `set`.
+The example above does not compile in Kotlin, because the `readMethod()` receives the out-projected array (only read operations allowed) and it is calling the write operation `set`.
 
 **No checked exceptions**: Java checked exceptions must be somehow handled for the program to compile, and are many times swallowed by an empty catch block. Kotlin does not have checked exceptions, because it is suggested that in large software projects it decreases productivity.
 
@@ -467,7 +466,7 @@ Run the application with the following command:
 ```txt
 ./mvnw spring-boot:run
 ```
-Browse to`http://localhost:8080` and the application should start an OAuth 2.0  authentication code flow, redirecting to the Okta login page.
+Browse to `http://localhost:8080` and the application should start an OAuth 2.0 authentication code flow, redirecting to the Okta login page.
 
 {% img blog/tutorial-kotlin-beginners-guide/okta-sign-in-widget.png alt:"Okta Sign-In Widget screenshot" width:"400" %}{: .center-image }
 
@@ -481,11 +480,10 @@ You now have a secure application with just a few lines of Kotlin and the help o
 
 ## Learn More about Kotlin, Java, and Secure Authentication with these Tutorials
 
-I hope you could grasp how succinct and expressive Kotlin is and why developers are loving it. You can find all the tutorial code in repositories [kotlin-hello-world](https://github.com/oktadeveloper/kotlin-hello-world-example) and [kotlin-spring-boot](https://github.com/oktadeveloper/kotlin-spring-boot-tutorial) on Github. To learn more about Kotlin, check out the following links:
+I hope this blog post helped you grasp how succinct and expressive Kotlin is and why developers are loving it. You can find all the tutorial code in repositories [kotlin-hello-world](https://github.com/oktadeveloper/kotlin-hello-world-example) and [kotlin-spring-boot](https://github.com/oktadeveloper/kotlin-spring-boot-tutorial) on GitHub. To learn more about Kotlin, check out the following links:
 
-- [Build a Basic CRUD App in Android with Kotlin
-](https://developer.okta.com/blog/2018/09/11/android-kotlin-crud)
-- [Build an Application with Spring Boot and Kotlin](https://developer.okta.com/blog/2019/09/17/build-a-spring-boot-kotlin-app)
+- [Build a Basic CRUD App in Android with Kotlin](/blog/2018/09/11/android-kotlin-crud)
+- [Build an Application with Spring Boot and Kotlin](/blog/2019/09/17/build-a-spring-boot-kotlin-app)
 - [Kotlin Reference](https://kotlinlang.org/docs/reference/)
 
-Questions? Requests for a future post? Drop them in the comments! And don't forget to follow [@oktadev on Twitter](https://twitter.com/oktadev) and [subscribe on Youtube](http://youtube.com/c/oktadev).
+Questions? Requests for a future post? Drop them in the comments! And don't forget to follow [@oktadev on Twitter](https://twitter.com/oktadev) and [subscribe to our YouTube](http://youtube.com/c/oktadev) channel.
