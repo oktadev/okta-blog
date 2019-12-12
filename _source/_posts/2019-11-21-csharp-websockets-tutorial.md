@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "C# WebSockets Tutorial: Build a Mutliplayer Game"
+title: "C# WebSockets Tutorial: Build a Multiplayer Game"
 author: charlieholland
 description: "Learn to use C# and WebSockets to build a multiplayer game."
 tags: [c#, csharp, websockets]
