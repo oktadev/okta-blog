@@ -25,6 +25,8 @@ Okta has already implemented the proof key code exchange recommendations for sin
 
 {% img blog/oauth-2-1-how-many-rfcs/okta-pkce.png alt:"Screenshot showing PKCE support for single page apps" width:"600" %}{: .center-image }
 
+You can learn more about the specifics of the OAuth 2.1 proposal by reading Aaron Parecki's post [It's Time for OAuth 2.1](https://aaronparecki.com/2019/12/12/21/its-time-for-oauth-2-dot-1).
+
 ## Will there be an OAuth 3.0?
 
 There is also work on a potential [OAuth 3.0](https://oauth.net/3/) specification by the Transactional Authorization working group. Although it's likely that these RFCs wouldn't be available in the short term and the implementation by authorization server vendors such as Okta would occur at some point in the future, it is interesting to stay up to date on what kinds of rich authorization data models could be used by developers and underlying applications in the future.
