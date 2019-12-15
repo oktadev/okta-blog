@@ -76,7 +76,7 @@ There are a number of scripts available to assist with content creation.
 ### Create a New Post
 
 ```bash
-docker run -it okta-blog npm run post create [post-name] [format] [date]
+docker run -v $PWD:/app -it okta-blog npm run post create [post-name] [format] [date]
 ```
 
 Creates a new post under `_source/_posts` with the given name and populates it the file with a blank front matter template. Also creates a folder with the same name for images under `_source/_assets/img/blog`. **Format** can be `md` (default), `adoc`, or any file extension. If **date** is not specified, it will default to today's date.
@@ -84,13 +84,13 @@ Creates a new post under `_source/_posts` with the given name and populates it t
 Example:
 
 ```bash
-docker run -it okta-blog npm run post create build-crud-app-with-nodejs
+docker run -v $PWD:/app -it okta-blog npm run post create build-crud-app-with-nodejs
 ```
 
 ### Stamp a Post
 
 ```bash
-docker run -it okta-blog npm run post stamp [date]
+docker run -v $PWD:/app -it okta-blog npm run post stamp [date]
 ```
 
 Finds the latest blog post and updates the post date to the date specified. **Date** should be in ISO format (e.g. 2019-08-31). If no **date** is specified, today's date is used.
@@ -98,7 +98,7 @@ Finds the latest blog post and updates the post date to the date specified. **Da
 ### Faster Rendering for Development
 
 ```bash
-docker run -it okta-blog npm run dev
+docker run -v $PWD:/app -it okta-blog npm run dev
 ```
 
 This command removes all posts from the local development environment except those dated within the last two weeks.
@@ -108,5 +108,5 @@ This command removes all posts from the local development environment except tho
 Deleted posts are restored automatically before the push occurs. However, you can manually restore all deleted posts using the following.
 
 ```bash
-docker run -it okta-blog npm run dev-restore
+docker run -v $PWD:/app -it okta-blog npm run dev-restore
 ```
