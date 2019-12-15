@@ -23,13 +23,13 @@ To simplify the running of the blog, we're using Docker. This means that before 
 Once you have Docker installed and working, the next step to clone this GitHub repo:
 
 ```bash
-$ git clone git@github.com:oktadeveloper/okta-blog.git
+git clone git@github.com:oktadeveloper/okta-blog.git
 ```
 
 Once you've cloned the repository, change into the `okta-blog` directory to get started:
 
 ```bash
-$ cd okta-blog
+cd okta-blog
 ```
 
 ### Build the Docker Image
@@ -37,7 +37,7 @@ $ cd okta-blog
 Next, you'll want to build the Docker image. To do this, run the following command:
 
 ```bash
-$ docker build . -t okta-blog
+docker build . -t okta-blog
 ```
 
 What this command does is:
@@ -56,66 +56,57 @@ Now that you've got the Docker image setup, all you need to do is run the Docker
 Here's the command you'll want to run:
 
 ```bash
-$ docker run -p 4000:4000 -v $PWD:/app -it okta-blog npm start
+docker run -p 4000:4000 -v $PWD:/app -it okta-blog npm start
 ```
 
 What this command does is:
 
 - `-p 4000:4000` - This maps port `4000` from the Docker container to port `4000` on your computer's localhost. This way you can easily access the blog website.
-- `-v $PWD/app` - This mounts the current directory (the okta-blog source code repo) as `/app` in the Docker container's filesystem. This way, if you change articles or mess with the blog locally, your changes will be picked up by the blog software.
+- `-v $PWD:/app` - This mounts the current directory (the okta-blog source code repo) as `/app` in the Docker container's filesystem. This way, if you change articles or mess with the blog locally, your changes will be picked up by the blog software.
 - `-it` - These CLI options just map the Docker container to your current terminal so that when you CTRL+c to exit the blog the Docker container will be killed.
 - `okta-blog` - This is telling Docker to run the `okta-blog` image you created earlier using that `docker build` command. The `-t` option you specified earlier when running `docker build` assigned a name tag to the image so you could easily reference it.
 - `npm start` - This is the actual command you're telling Docker to run to launch the blog sofware. Docker will start the container up and then run this command inside the container to launch the Jekyll blog.
 
 After that, all you have to do is open your browser and visit http://localhost:4000 to visit the site!
 
-### Building the site locally
-
-TODO
-
-- [Clone and install dependencies](https://github.com/oktadeveloper/okta.github.io/wiki/Setting-Up-Your-Environment)
-- Build the site and start a development server with `npm start`
-- Visit [localhost:4000](http://localhost:4000) in your browser
-
-
-## Post Utilities
+## Utilities
 
 There are a number of scripts available to assist with content creation.
 
-### Create a new post
+### Create a New Post
 
-```sh
-npm run post create [post-name] [format] [date]
+```bash
+docker run -it okta-blog npm run post create [post-name] [format] [date]
 ```
 
 Creates a new post under `_source/_posts` with the given name and populates it the file with a blank front matter template. Also creates a folder with the same name for images under `_source/_assets/img/blog`. **Format** can be `md` (default), `adoc`, or any file extension. If **date** is not specified, it will default to today's date.
 
 Example:
 
-```sh
-npm run post create build-crud-app-with-nodejs
+```bash
+docker run -it okta-blog npm run post create build-crud-app-with-nodejs
 ```
 
-### Stamp a post
+### Stamp a Post
 
-```sh
-npm run post stamp [date]
+```bash
+docker run -it okta-blog npm run post stamp [date]
 ```
 
 Finds the latest blog post and updates the post date to the date specified. **Date** should be in ISO format (e.g. 2019-08-31). If no **date** is specified, today's date is used.
 
-### Faster rendering for development
+### Faster Rendering for Development
 
-```sh
-npm run dev
+```bash
+docker run -it okta-blog npm run dev
 ```
 
 This command removes all posts from the local development environment except those dated within the last two weeks.
 
-### Restoring deleted posts before pushing to GitHub
+### Restoring Deleted Posts Before Pushing to GitHub
 
 Deleted posts are restored automatically before the push occurs. However, you can manually restore all deleted posts using the following.
 
-```sh
-npm run dev-restore
+```bash
+docker run -it okta-blog npm run dev-restore
 ```
