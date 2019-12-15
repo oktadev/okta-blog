@@ -26,8 +26,10 @@ fs.readdir( postsDir, (err, files) => {
 
     var count_urls = (contents.match(/\(https:\/\/developer\.okta\.com\/blog\/(.+)\)/g) || []).length;
 
+    var count_github_case =  (contents.match(/Github/g) || []).length;
+
     console.log("Reading latest post "+fn);
-    console.log("Found "+count_quotes+" curly quotes and "+count_urls+" absolute blog URLs");
+    console.log("Found "+count_quotes+" curly quotes, "+count_urls+" absolute blog URLs, and "+count_github_case+" 'GitHub' case issues.");
 
     rl.question("Replace characters? [Y/n] ", (answer) => {
 
@@ -42,9 +44,11 @@ fs.readdir( postsDir, (err, files) => {
             console.log("");
             console.log("Replaced "+count_quotes+" characters");
 
-            contents = contents.replace(/\(https:\/\/developer\.okta\.com\/blog\/(.+)\)/g, '(/blog/$1)')
-
+            contents = contents.replace(/\(https:\/\/developer\.okta\.com\/blog\/(.+)\)/g, '(/blog/$1)');
             console.log("Replaced "+count_urls+" instances of absolute blog URLs");
+
+            contents = contents.replace(/Github/g, 'GitHub');
+            console.log("Replaced "+count_github_case+" instances of 'Github' to 'GitHub'");
 
             fs.writeFileSync(postsDir+'/'+fn, contents);
 
