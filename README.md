@@ -23,7 +23,7 @@ To simplify the running of the blog, we're using Docker. This means that before 
 Once you have Docker installed and working, the next step to clone this GitHub repo:
 
 ```bash
-$ git clone git@github.com:oktadeveloper/okta-blog.git`
+$ git clone git@github.com:oktadeveloper/okta-blog.git
 ```
 
 Once you've cloned the repository, change into the `okta-blog` directory to get started:
