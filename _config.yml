@@ -5,6 +5,7 @@ description: > # this means to ignore newlines until "baseurl:"
   Secure, scalable, and highly available authentication and user management for any app.
 baseurl: ""
 url: "https://developer.okta.com"
+encoding: utf-8
 twitter_username: OktaDev
 github_username:  oktadeveloper
 disqus_shortname: oktadevblog
