@@ -26,9 +26,11 @@ RUN gem install bundler
 
 # App setup
 WORKDIR /app
+
 ADD package.json /app/package.json
 ADD package-lock.json /app/package-lock.json
 RUN npm install
+
 ADD Gemfile /app/Gemfile
 ADD Gemfile.lock /app/Gemfile.lock
 RUN bundle install
