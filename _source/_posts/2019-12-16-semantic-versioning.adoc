@@ -243,7 +243,7 @@ There's a lot of developers in the world, and some of them work on open source. 
 
 Most of the folks I interviewed in this post are paid to work on their respective open source projects. They all seem to have somewhat rigorous processes for maintaining and releasing their projects. This seems to be the magic recipe: spend more time thinking about releases, reviewing your code, and setting version numbers. I love the thought of setting release numbers based on level of developer pain.
 
-How do you succeed at open source releases? I think it's important to test your libraries as much as you can. If you have a lot of projects depending on yours, join https://opencollective.com/[OpenCollective] and ask for donations. Encourage other developers to join your project and help out! Mentor developers and enter bugs and enhancements in your issuer tracker so folks know what you need help with. Don't be afraid to increment your minor and major release numbers when you're creating upgrade pain.
+How do you succeed at open source releases? I think it's important to test your libraries as much as you can. If you have a lot of projects depending on yours, join https://opencollective.com/[Open Collective] and ask for donations. Encourage other developers to join your project and help out! Mentor developers and enter bugs and enhancements in your issuer tracker so folks know what you need help with. Don't be afraid to increment your minor and major release numbers when you're creating upgrade pain.
 
 Finally, lock those versions down as much as you can for the sanity of your end users.
 
