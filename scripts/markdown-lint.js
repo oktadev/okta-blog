@@ -127,6 +127,8 @@ async function run(dir) {
 Found ${badFiles.length} files with ${nameCount} invalid substrings and/or characters.
 
 To Fix:
+  Run 'npm run clean-post'
+OR:
 1. Find the source .md files
 2. Search in the source file for the problem links
 3. Change the invalid substrings and/or charaters based on the regex error:

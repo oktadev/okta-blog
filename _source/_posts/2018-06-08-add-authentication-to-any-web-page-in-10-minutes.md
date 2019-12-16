@@ -26,6 +26,12 @@ Okta essentially handles all the bullshit you typically need to build when you n
 
 So, with that in mind, today I'm going to show you how to easily add authentication to any web page in 10 minutes.
 
+You can also watch this tutorial as a [video on YouTube](https://youtu.be/uPFirakhBtQ).
+
+<div style="text-align: center; margin-bottom: 1.25rem">
+<iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/uPFirakhBtQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
 ## Create an Okta Account
 
 The first thing you'll need to do is [create a free Okta developer account](https://developer.okta.com/signup/).
@@ -75,7 +81,7 @@ To use the one below, create an `index.html` file on your hard drive, and copy/p
   <body>
     <div class="container">
       <h1 class="text-center">Simple Web Page</h1>
-      <div class="jumbotron">
+      <div id="messageBox" class="jumbotron">
         You are not logged in. Get outta here! Shoo! >:S
       </div>
     </div>
@@ -338,4 +344,5 @@ Until next time!
 <a name="changelog"></a>
 **Changelog:**
 
+* Nov 16, 2019: Added screencast of this tutorial. See [okta-blog#85](https://github.com/oktadeveloper/okta-blog/pull/85) for changes.
 * Oct 31, 2019: Removed Trusted Origin (CORS) section since it's no longer needed. Changes to this post can be viewed in [okta-blog#69](https://github.com/oktadeveloper/okta-blog/pull/69).
