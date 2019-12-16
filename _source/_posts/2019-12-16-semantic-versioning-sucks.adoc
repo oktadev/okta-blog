@@ -223,7 +223,7 @@ _How do you do semantic versioning for the Okta JS SDKs (Auth SDK, Angular, Reac
 
 Manual at the moment, as it provides the most about of flexibility. As you know, semver is opinionated about feature vs. patch/bugfix, so we have to take that into account. The interesting thing about semver is that, because of that constraint, it forces you to break up multiple changes, which I don't think is a bad thing. There seems to be a lot of FUD around releasing too many versions, but I don't worry about that. We invented numbers to be used.
 
-_If automated, what tools do you use to validate a patch or minor release doesn’t break anything?_
+_If automated, what tools do you use to validate a patch or minor release doesn't break anything?_
 
 We have looked at automation, and if we go down this route it would likely rely on well-formatted commit messages, such as conventional commits (which would have to be human vetted during code review). There is some trickiness around how to enforce those messages though, and where we would want to put those assertions (e.g. a GitHub PR hook?)
 
