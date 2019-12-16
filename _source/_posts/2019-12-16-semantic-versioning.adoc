@@ -39,7 +39,7 @@ This is not the fault of the build tool, but often the library authors who depen
 In Java-land, we learned early that version ranges are a bad idea. If you want them, you _can_ use them, but most people don't. Here's how they work:
 
 * `[1.0, 2.0]`: all versions >= 1.0 and <= 2.0
-* `[1.0, 2.0[`: all versions >= 1.0 and < 2.0
+* `[1.0, 2.0)`: all versions >= 1.0 and < 2.0
 * `[1.0, )` : all versions >= 1.0
 
 Node, on the other hand, _encourages_ ranges. Even if you don't want to use them, chances are your downstream dependencies are. This doesn't happen often in Java libraries.
