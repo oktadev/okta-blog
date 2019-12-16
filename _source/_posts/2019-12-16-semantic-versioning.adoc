@@ -187,7 +187,7 @@ The Okta Java SDK is a different story. I heavily rely on the https://siom79.git
 
 _If automated, what tools do you use to validate a patch or minor release doesn't break anything?_
 
-I don't think I'd be able to follow semver without it. We run the `cmp` goal during CI and releases which will fail if there is a breaking change (or if a minor version needs to be bumped instead of a patch). Updating the actual version is still a manual process (I use the Maven versions plugin `man versions:set -DnewVersion={new-version-here}`).
+I don't think I'd be able to follow semver without it. We run the `cmp` goal during CI and releases which will fail if there is a breaking change (or if a minor version needs to be bumped instead of a patch). Updating the actual version is still a manual process (I use the Maven versions plugin `mvn versions:set -DnewVersion={new-version-here}`).
 
 Semver and Java don't 100% line up, the https://www.osgi.org/wp-content/uploads/SemanticVersioning.pdf[OSGi alliance has a nice guide]. Java has a notion of "source" and "binary" compatibility. Japicmp can handle both, but it's really only binary compatibility that matters.
 
