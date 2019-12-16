@@ -215,7 +215,7 @@ Concerning the automatic Semver, there is just no way to do this for JHipster...
 
 Basically, the release manager "knows" when there is something breaking, and usually, we never break anything outside of major releases. Of course, we can be wrong sometimes!
 
-The only exception would be for a security patch: then it's good for us to break the user code, if necessary, as he also needs to fix his own code. But that's very specific because we are a code generator, and I hope we can remove this as much as possible (I'd like to generate less code, and give more responsibilities to the JHipster libraries, typically because they solve this kind of issue).
+The only exception would be for a security patch: then it's good for us to break the user code, if necessary, as they also needs to fix their own code. But that's very specific because we are a code generator, and I hope we can remove this as much as possible (I'd like to generate less code, and give more responsibilities to the JHipster libraries, typically because they solve this kind of issue).
 
 === Robert Damphousse, Okta JavaScript SDKs
 
