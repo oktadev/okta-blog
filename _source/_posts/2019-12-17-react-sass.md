@@ -49,15 +49,15 @@ Once you are done you can see your Okta developer dashboard. Click on **Applicat
 
 {% img blog/react-sass/okta-spa.png alt:"Creating a single-page app" width:"800" %}{: .center-image }
 
-The following screen lets you edit the application's settings. Under **Allowed grant types** check the box **Authorization Code**. Then make sure that the port number is 3000. Change the base URI to `http://localhost:3000/` and set the Login Redirect URI to `http://localhost:3000/implicit/callback`.
+The following screen lets you edit the application's settings. Under **Allowed grant types**, check the box **Authorization Code**. Then make sure that the port number is 3000. Change the base URI to `http://localhost:3000/` and set the Login Redirect URI to `http://localhost:3000/implicit/callback`.
 
-Once you are done, you should now see a **Client ID** which you will need later on. 
+Once you are done, you will see a **Client ID** which you will need in a minute. 
 
 {% img blog/react-sass/okta-settings.png alt:"The application settings on your Okta dashboard" width:"700" %}{: .center-image }
 
 ## Set Up Authentication in Your React Sass App
 
-Okta has created a tool to add authentication to React applications in seconds. . These use the Angular Schematics command-line tool to inject code into your skeleton application. Install the Schematics CLI on your system by running the following command in your terminal.
+Okta has created a tool to add authentication to React applications in seconds. It uses the Angular Schematics command-line tool to inject code into your skeleton application. Install the Schematics CLI on your system by running the following command in your terminal.
 
 ```bash
 npm i -g @angular-devkit/schematics-cli@0.803.20
@@ -81,7 +81,7 @@ schematics @oktadev/schematics:add-auth
 
 You will be asked for your issuer's URL. This can be found at **API** > **Authorization Servers** in your Okta dashboard. . 
 
-You will also need the application's client ID which you received when earlier when setting up your application with Okta. Once the questions have been answered, the schematic will insert all the necessary code into your application to provide the authentication flow.
+You will also need the application's client ID which you received when earlier when setting up your application. Once the questions have been answered, the schematic will insert all the necessary code into your application to provide the authentication flow. Pretty neat, don't you think?
 
 ## Implement a React Calculator with Sass
 
