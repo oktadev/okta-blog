@@ -205,7 +205,7 @@ class Calculator extends React.Component {
       <div className="calculator-container">
         <div className="calculator">
           <p className="display">{this.state.display}</p>
-          <div class="calculator-buttons">
+          <div className="calculator-buttons">
             <button className="reset-button" onClick={this.acPressed.bind(this)}>AC</button>
             <button className="reset-button" onClick={this.cePressed.bind(this)}>CE</button>
             <button className="operator-button" onClick={this.percentPressed.bind(this)}>%</button>
