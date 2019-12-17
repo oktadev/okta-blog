@@ -17,7 +17,7 @@ When you are developing web applications with React, you know that writing the J
 
 Sass source files come in two flavors. The older `.sass` format has now almost completely replaced by the `.scss` syntax. The latter is a superset of CSS and lets you paste existing CSS code into the SCSS file without problems. Sass compiles the SCSS source files into a single CSS file with the option of minifying the resulting output. The resulting file can be included in your web page just like any other CSS style sheet.
 
-Many CSS frameworks are use Sass to generate their stylesheets. In this tutorial, I will show you how to integrate Zurb’s Foundation framework using Sass mixins. Using this approach keeps the size of your CSS to a minimum. It also gives you the opportunity of more semantic markup.
+Many CSS frameworks are use Sass to generate their stylesheets. In this tutorial, I will show you how to integrate Zurb's Foundation framework using Sass mixins. Using this approach keeps the size of your CSS to a minimum. It also gives you the opportunity of more semantic markup.
 
 ## Create Your React Application with Sass
 
