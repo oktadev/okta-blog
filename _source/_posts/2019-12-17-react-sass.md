@@ -279,7 +279,7 @@ render() {
   return (
     <div className="App">
       <h1>Calculator</h1>
-        {body}
+      {body}
     </div>
   );
 }
