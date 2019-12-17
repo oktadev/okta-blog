@@ -260,7 +260,7 @@ render() {
   if (authenticated) {
     body = (
       <div className="page-body">
-        <div class="login-buttons">
+        <div className="login-buttons">
           <button onClick={this.logout}>Logout</button>
         </div>
         <Calculator></Calculator>
@@ -269,7 +269,7 @@ render() {
   } else {
     body = (
       <div className="page-body">
-        <div class="login-buttons">
+        <div className="login-buttons">
           <button onClick={this.login}>Login</button>
         </div>
       </div>
