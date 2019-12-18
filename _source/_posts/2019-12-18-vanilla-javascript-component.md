@@ -200,6 +200,6 @@ If you liked this tutorial, check out other great content on the Okta Developer 
 
 * [The History (and Future) of Asynchronous JavaScript](/blog/2019/01/16/history-and-future-of-async-javascript)
 * [Learn JavaScript in 2019](/blog/2018/12/19/learn-javascript-in-2019)
-* [Build a Video Chat Service with JavaScript, WebRTC, and Okta](https://developer.okta.com/blog/2018/05/08/build-video-chat-app-with-javascript-webrtc-and-okta)
+* [Build a Video Chat Service with JavaScript, WebRTC, and Okta](/blog/2018/05/08/build-video-chat-app-with-javascript-webrtc-and-okta)
 
 As always, if you have any questions about this post you can leave them in the comments below. Make sure you don't miss any of our awesome content by following us on [Twitter](https://twitter.com/oktadev) and check out our great videos on [YouTube](https://www.youtube.com/c/oktadev).
