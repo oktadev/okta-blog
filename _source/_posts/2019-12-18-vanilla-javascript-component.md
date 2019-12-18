@@ -11,11 +11,11 @@ tweets:
 image: blog/featured/okta-node-bottle-headphones.jpg
 ---
 
-Everyone has their favorite framework, and most developers aren’t shy about sharing those opinions. I guarantee you right now two developers are arguing about their favorite frameworks. Personally, I've been using JavaScript frameworks since JQuery was introduced. I've written applications for clients using Knockout.js, Angular 1+, React (since before v15), and have made some small learning apps using Stencil and Vue.
+Everyone has their favorite framework, and most developers aren't shy about sharing those opinions. I guarantee you right now two developers are arguing about their favorite frameworks. Personally, I've been using JavaScript frameworks since JQuery was introduced. I've written applications for clients using Knockout.js, Angular 1+, React (since before v15), and have made some small learning apps using Stencil and Vue.
 
 One of the great things that all of these frameworks bring to the table is their easy composability. The ability to make components that you can reuse throughout your app helps so much with development time, code reusability, and testability. You don't **have** to use a framework to get these benefits. JavaScript has them built-in, you just have to know where to look. Also, learning how to build components in vanilla JavaScript will help you understand how to make those components in your favorite framework.
 
-In this post, I’ll show you how to build a simple star rating component using nothing but vanilla JavaScript, CSS, and HTML. I'll be using [VS Code](https://code.visualstudio.com/) and [http-server](https://www.npmjs.com/package/http-server) to build and serve a static set of files. You'll need [Node.js](https://nodejs.org/en/) and [npm](https://www.npmjs.com/) installed to run `http-server`.
+In this post, I'll show you how to build a simple star rating component using nothing but vanilla JavaScript, CSS, and HTML. I'll be using [VS Code](https://code.visualstudio.com/) and [http-server](https://www.npmjs.com/package/http-server) to build and serve a static set of files. You'll need [Node.js](https://nodejs.org/en/) and [npm](https://www.npmjs.com/) installed to run `http-server`.
 
 ## Define the Desired Behavior for the JavaScript Component
 
