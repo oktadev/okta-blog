@@ -74,7 +74,7 @@ Start by creating a folder somewhere you want to serve the application from. Whe
 </html>
 ```
 
-You'll notice I've added the `role="rater"` to each element. That will be the way you tell the main javascript file to attach the functionality of your `Rater` component to this element.
+You'll notice I've added the `role="rater"` to each element. That will be the way you tell the main JavaScript file to attach the functionality of your `Rater` component to this element.
 
 Now create a folder called `js` to house your vanilla JavaScript component code, and then create two files called `rater.js` and `main.js` inside that new folder. That `script` tag above brings in the `main.js` file as a `module` type. For [browsers that support module syntax for JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#Browser_compatibility), this will allow you to use the `import` and `export` statements introduced in ES2015.
 
@@ -86,7 +86,7 @@ export function Rater(ratingElement) {
 }
 ```
 
-The first bit of functionality is here as well. The `Rater` takes in an HTML element and queries it for all of its elements with a class of `.star` and puts them into the `stars` array.
+The first bit of functionality is here as well. The `Rater` takes in an HTML element and queries it for all of its elements with a class of `star` and puts them into the `stars` array.
 
 To finish out the shell, add the code to the `main.js` file that finds all the HTML elements with a role of `rater` and pass them to the `Rater` component.
 
