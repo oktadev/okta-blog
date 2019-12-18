@@ -8,7 +8,7 @@ tweets:
 - "Does multi-factor authentication really suck? Read @rdegges' thoughts on the subject."
 - "Is it time to get rid of multi-factor authentication?"
 - "Multi-factor authentication has a lot of problems, let's talk about how we can fix them!"
-image: blog/featured/okta-java-short-headphones.jpg
+image: blog/mfa-sucks/mfa-circle-of-life.png
 ---
 
 {% img blog/mfa-sucks/mfa-circle-of-life.png alt:"multi-factor authentication circle of life" width:"600" %}{: .center-image }
@@ -154,13 +154,13 @@ As a matter of fact, SMS, in particular, is an incredibly [weak factor](https://
 
 In addition to that, SailPoint published [survey results](https://www.sailpoint.com/blog/2018-market-pulse-survey-key-findings/) recently which show that 75% of users are reusing their passwords for multiple accounts. This means that if an attacker gets hold of your username and password for a service and you're using that same password on another service then an attacker will also likely be able to log in as you there. So unless you're using MFA for all your important services (especially those that protect your factors), attackers may be able to breach you regardless of whether or not you have MFA on any one particular service.
 
-### MFA Won't Help If Your Password Isn't Breached
+#### MFA Won't Help If Your Password Isn't Breached
 
 If you're using MFA to protect account credentials, then MFA is really only useful in the event that your password is breached. If your password hasn't been discovered by a third-party, MFA exists solely to annoy you.
 
 According to that Verizon report cited above, only 22% of data breaches result from stolen credentials. In the other 78% of breach scenarios, even if users had MFA active, it wouldn't have mitigated the breach since no stolen credentials were involved.
 
-### Even When MFA Protects You, It's Still a Breach
+#### Even When MFA Protects You, It's Still a Breach
 
 There's a misconception floating around that if you force your users to use MFA, you'll prevent breaches. This is not true.
 
@@ -170,7 +170,7 @@ However... If attackers were able to get a hold of any of your user's passwords,
 
 Investing lots of time and effort into ensuring that you don't leak any user credentials should always be priority number one. MFA isn't a catch-all solution to preventing data breaches.
 
-### MFA Won't Help You In Any Number of Other Circumstances
+#### MFA Won't Help You In Any Number of Other Circumstances
 
 Because MFA is often thought of as the strongest line of defense in many user-facing applications, it has a positive reputation for preventing data breaches.
 
@@ -192,11 +192,11 @@ It's insane to me that while we've come so far in terms of web security, we've a
 
 Luckily, however, there's a foolproof way to get the benefits of MFA without needing to annoy and frustrate your users.
 
-Say hello to **Adaptive Multi-Factor Authentication (aMFA)**.
+Say hello to **aMFA**.
 
 ### What is Adaptive Multi-Factor Authentication?
 
-aMFA is essentially a "smarter" version of MFA that only prompts users for factor verification if something suspicious happens. It gets you all the benefits of MFA without most of the annoyance.
+Adaptive multi-factor authentication or aMFA is essentially a "smarter" version of MFA that only prompts users for factor verification if something suspicious happens. It gets you all the benefits of MFA without most of the annoyance.
 
 The idea of aMFA is built on top of the concept of machine learning: using software to detect abnormalities in patterns.
 
@@ -231,7 +231,7 @@ aMFA really gives you the best of both worlds: you get all the security benefits
 
 It's almost 2020, let's make the next decade both secure and user-friendly. Leave MFA in the 2010s and move on.
 
-If you enjoyed this article, you might want to [follow us](https://twitter.com/oktadev) on Twitter, check out some of your [YouTube videos](https://www.youtube.com/c/oktadev), or even check out some of our other fun articles:
+If you enjoyed this post, you might want to [follow us](https://twitter.com/oktadev) on Twitter, check out some of your [YouTube videos](https://www.youtube.com/c/oktadev), or even check out some of our other fun posts:
 
 - [Semantic Versioning Sucks! Long Live Semantic Versioning!](/blog/2019/12/16/semantic-versioning)
 - [OAuth 2.1: How Many RFCs Does it Take to Change a Lightbulb?](/blog/2019/12/13/oauth-2-1-how-many-rfcs)
