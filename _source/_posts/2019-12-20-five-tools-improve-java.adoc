@@ -31,7 +31,6 @@ There are a few coverage options in Java-land, but my favorite has been https://
 
 JaCoCo runs as a Java Agent, which makes it easy to add to any test framework (or any `java` execution). For Maven-based projects you simply add the https://www.eclemma.org/jacoco/trunk/doc/maven.html"[JaCoCo Maven Plugin] to your `pom.xml`:
 
-.pom.xml
 [source,xml]
 ----
 <plugin>
@@ -72,11 +71,11 @@ JaCoCo runs as a Java Agent, which makes it easy to add to any test framework (o
 
 Run `mvn verify` to generate the report in `target/site/jacoco/index.html`.
 
-image:{% asset_path 'blog/five-tools-improve-java/jacoco-package.png' %}[alt=JaCoCo package screen shot ...,,align=center]
+image:{% asset_path 'blog/five-tools-improve-java/jacoco-package.png' %}[alt="JaCoCo package screen shot",,align=center]
 
 Above is a screenshot of the test coverage report for this project. You can see right away that the `FiltUtility` class has no coverage and that it has more lines than `SomeUtilityClass`. If you click into `SomeUtilityClass`, you can see the tests have missed one of the branches on line 8.
 
-image:{% asset_path 'blog/five-tools-improve-java/jacoco-class.png' %}[alt=JaCoCo class screen shot ...,,align=center]
+image:{% asset_path 'blog/five-tools-improve-java/jacoco-class.png' %}[alt="JaCoCo class screen shot",,align=center]
 
 If you have a Maven multi-module project, you can https://github.com/jacoco/jacoco/wiki/MavenMultiModule[aggregate coverage data] across modules and even merge unit test and integration test coverage to get a picture of the full project's coverage.
 
@@ -84,11 +83,10 @@ If you have a Maven multi-module project, you can https://github.com/jacoco/jaco
 
 PMD is a static code analyzer that can detect potential issues such as dead code, empty blocks, complicated statements, suboptimal code, and duplicate code. PMD doesn't stand for anything; unofficially, some refer to it as "Programming Mistake Detector."
 
-image:{% asset_path 'blog/five-tools-improve-java/pmd-logo.png' %}[alt=PMD logo ...,,align=center]
+image:{% asset_path 'blog/five-tools-improve-java/pmd-logo.png' %}[alt="PMD logo",width=400,align=center]
 
 PMD's Maven plugin one of the officially supported plugins in the Apache Maven project and comes with a robust set of default rules; however, if you are not happy with these rules, you can change them or https://pmd.github.io/pmd/pmd_userdocs_making_rulesets.html[define your own]. The basic configuration for a `pom.xml` is as follows:
 
-.pom.xml
 [source,xml]
 ----
 <plugin>
@@ -109,43 +107,44 @@ PMD's Maven plugin one of the officially supported plugins in the Apache Maven p
 
 Now run `mvn verify` or just `mvn pmd:check` on a project with the following Java class:
 
-.FileUtility.java
+====
 [source,java]
 ----
 package com.okta.examples;
 
 import java.io.File;
-import java.io.FileWriter;; // <1>
+import java.io.FileWriter;; // <.>
 import java.io.IOException;
-import java.io.BufferedOutputStream; // <2>
+import java.io.BufferedOutputStream; // <.>
 
 public class FileUtility {
 
-    private static void toFile_bad(String contents, File file) throws IOException { // <3>
+    private static void toFile_bad(String contents, File file) throws IOException { // <.>
         FileWriter fileWriter = new FileWriter(file);
         fileWriter.write(contents);
     }
 }
 ----
-<1> Empty statement `;;` - delete the trailing `;`.
-<2> Unused import - remove line.
-<3> Unused private method - dead code, consider deleting.
+<.> Empty statement `;;` - delete the trailing `;`.
+<.> Unused import - remove line.
+<.> Unused private method - dead code, consider deleting.
+====
 
 These are just a few common issues usually caused by removing code, or cut/paste errors. Check out the PMD docs for https://pmd.github.io/latest/pmd_rules_java.html[full list of rules] it supports.
 
 PMD doesn't detect all the issues with this code though, the observant reader may have noticed a few bigger problems. To detect those, we can use SpotBugs.
 
-== 3. Conduct ByteCode Analysis with SpotBugs and Find Security Bugs
+== 3. Conduct Bytecode Analysis with SpotBugs and Find Security Bugs
 
-image:{% asset_path 'blog/five-tools-improve-java/spotbugs-logo.png' %}[alt=Spotbugs logo ...,,align=center]
+image:{% asset_path 'blog/five-tools-improve-java/spotbugs-logo.png' %}[alt="Spotbugs logo",width=600,align=center]
 
-SpotBugs checks byte code, whereas PMD scans source files, this means anything the compiler throws away (unused imports or example) would not be reported by SpotBugs. The SpotBugs project is an updated version of FindBugs, many items in the documentation still reference "FindBugs." For those of you still using FindBugs, https://spotbugs.readthedocs.io/en/stable/migration.html[updating to SpotBugs] is trivial.
+SpotBugs checks bytecode, whereas PMD scans source files, this means anything the compiler throws away (unused imports or example) would not be reported by SpotBugs. The SpotBugs project is an updated version of FindBugs, many items in the documentation still reference "FindBugs." For those of you still using FindBugs, https://spotbugs.readthedocs.io/en/stable/migration.html[updating to SpotBugs] is trivial.
 
 SpotBugs also has a few plugins, my favorite being "Find Security Bugs", and as you might guess, it helps you detect security issues like weak hash functions, file/path traversals, untrusted inputs, https://find-sec-bugs.github.io/bugs.htm[and many more].
 
 To add SpotBugs (and Find Security Bugs) to a Maven project, add the following to your `pom.xml`:
 
-.pom.xml
+====
 [source,xml]
 ----
 <plugin>
@@ -176,12 +175,13 @@ To add SpotBugs (and Find Security Bugs) to a Maven project, add the following t
 </plugin>
 ----
 <1> Find Security Bugs is a plugin to a plugin 🤯
+====
 
 When we scan the same code as above using `mvn compile spotbugs:check`, typically you would just run `mvn verify`, however, we haven't fixed the PMD issues above yet.
 
-TIP: **NOTE:** you can skip PMD using the command line arg `-Dpmd.skip`, similarly with SpotBugs, `-Dspotbugs.skip`. For example: `mvn verify -Dpmd.skip -Dspotbugs.skip` would skip both.
+TIP: You can skip PMD using the command line arg `-Dpmd.skip`, similarly with SpotBugs, `-Dspotbugs.skip`. For example: `mvn verify -Dpmd.skip -Dspotbugs.skip` would skip both.
 
-.FileUtility.java
+====
 [source,java]
 ----
 package com.okta.examples;
@@ -202,6 +202,7 @@ public class FileUtility {
 <1> Default encoding used, use `UTF8` or other Charset.
 <2> Failed to close FileWriter, consider using a try-with-resources block.
 <3> Unused private method - dead code, consider deleting.
+====
 
 You can see from the results there is some overlap between PMD and SpotBugs, but the latter was able to detect that `FileWriter` wasn't closed.
 
@@ -229,7 +230,7 @@ public class FileUtility {
 }
 ----
 
-TIP: **NOTE:** this could be written more succinctly using `Files.write()`, or with Java 11, `new FileWriter(file, UTF_8)`.
+TIP: This could be written more succinctly using `Files.write()`, or with Java 11, `new FileWriter(file, UTF_8)`.
 
 == 4. Ensure Backward Compatibility and Semantic Versioning with japicmp
 
@@ -237,14 +238,14 @@ Ensuring backward compatibility is difficult, there are many nuances that even a
 
 [quote, The Java Language Specification, Chapter 13 - Binary Compatibility]
 ____
-Adding a default method, or changing a method from abstract to default, does not break compatibility with pre-existing binaries, but may cause an IncompatibleClassChangeError if a pre-existing binary attempts to invoke the method.
+Adding a default method, or changing a method from abstract to default, does not break compatibility with pre-existing binaries, but may cause an `IncompatibleClassChangeError` if a pre-existing binary attempts to invoke the method.
 ____
 
 Usually, this is safe to ignore, but I point this out to help explain the complexity of this topic. If you want to ensure backward compatibility, you need a tool to help, and I strongly recommend https://siom79.github.io/japicmp/[japicmp].
 
 Showing a full-blown example of is a outside the scope of this post, but here is a snippet from a Maven `pom.xml` configuration:
 
-.pom.xml
+====
 [source,xml]
 ----
 <plugin>
@@ -280,7 +281,7 @@ Showing a full-blown example of is a outside the scope of this post, but here is
     </executions>
 </plugin>
 ----
-<1> The dependency block the previous version.
+<1> The previous version's dependency block to compare against.
 <2> `breakBuildOnBinaryIncompatibleModifications` - fail the build on any backward-incompatible changes.
 <3> `breakBuildBasedOnSemanticVersioning` - fail based on semver rules. For example, if your public API changes in a way that would require a "minor" version change.
 <4> `postAnalysisScript` - Optional, allows use of a custom Groovy script to modify the results based on your own needs. If you want to allow new default methods in interfaces, you would need a script similar to this:
@@ -306,6 +307,7 @@ while (it.hasNext()) {
 }
 return jApiClasses
 ----
+====
 
 Take a look at the https://siom79.github.io/japicmp/[japicmp project documentation] for more examples.
 
@@ -315,24 +317,24 @@ Using the above tools can help make your code reviews more effective. The goal s
 
 Code reviews are great; they provide an opportunity for both the author and the reviewer to learn from each other and ask questions, suggest alternatives, or discuss other architectural topics. The reviewer shouldn't be wasting time checking for things that a program can detect.
 
-TIP: **Pro Tip:** Keep the number of changes in your reviews small and to the point. Nobody wants to review hundreds of potentially unrelated code changes at once.
+TIP: Keep the number of changes in your reviews small and to the point. Nobody wants to review hundreds of potentially unrelated code changes at once.
 
 == Bonus: Scan your Dependencies for Vulnerabilities
 
 Your code is just a small percentage of your overall application. Dependencies (direct and indirect) make up the rest. Keeping on top of vulnerabilities in those dependencies is not something you can do manually. Luckily for us, there are several tools available to help us out.
 
 - https://www.owasp.org/index.php/OWASP_Dependency_Check[OWASP Dependency Check] - I've been using the Maven plugin with success for years. The only downside is there is a high rate of false-positive matches that requires updating an "exclusion" file in your repository.
-- https://snyk.io/[Snyk.io] - Offers dependency scanning, and includes additional security issues that are not official in the https://nvd.nist.gov/[NIST National Vulnerability Database]
+- https://snyk.io/[Snyk.io] - Offers dependency scanning, and includes additional security issues that are not official in the https://nvd.nist.gov/[NIST National Vulnerability Database].
 - https://dependabot.com/[GitHub Dependabot] - GitHub has been rolling out Dependabot, and there is a good chance it's already scanning your public repositories. I've had mixed success in the past, specifically when it comes to Maven multi-module projects. I'm sure this will improve in the future.
 - Many more! Have a favorite dependency scanner; let us know in the comments!
 
 WARNING: One key thing to remember the code in your repository doesn't always match the code that is running in production. Make sure you track the dependencies in your production code too!
 
-== Want to Build More Secure Applications? Learn More!
+== Want More Secure Applications? Learn More!
 
 Using the tools in this post will help you write better (and more secure) Java code. Many of the issues detected also provide excellent examples of how to fix the problems, which is a great way to learn. You can also integrate most of them in your IDE so you can see the issues as soon as you type them.
 
-This is just the tip of the iceberg. There are many other great projects; for example, https://www.sonarlint.org/[SonarLint]'s IntelliJ plugin is excellent and will detect many of the issues I showed above. Have a favorite code analyzer? Let us know in the comments!
+This is just the tip of the iceberg. There are many other great projects; for example, https://www.sonarlint.org/[SonarLint]'s IntelliJ plugin is excellent and will detect many of the issues I showed above.
 
 If you liked this post check out our related content:
 
