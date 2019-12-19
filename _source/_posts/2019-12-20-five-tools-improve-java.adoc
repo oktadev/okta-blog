@@ -29,7 +29,7 @@ Many projects aim for 100% test coverage. This metric can be deceiving, a low co
 
 There are a few coverage options in Java-land, but my favorite has been https://www.eclemma.org/jacoco/[JaCoCo] (originally named EclEmma, which is still in the URL).
 
-JaCoCo runs as a Java Agent, which makes it easy to add to any test framework (or any `java` execution). For Maven-based projects you simply add the https://www.eclemma.org/jacoco/trunk/doc/maven.html"[JaCoCo Maven Plugin] to your `poml.xml`:
+JaCoCo runs as a Java Agent, which makes it easy to add to any test framework (or any `java` execution). For Maven-based projects you simply add the https://www.eclemma.org/jacoco/trunk/doc/maven.html"[JaCoCo Maven Plugin] to your `pom.xml`:
 
 .pom.xml
 [source,xml]
@@ -74,7 +74,7 @@ Run `mvn verify` to generate the report in `target/site/jacoco/index.html`.
 
 image:{% asset_path 'blog/five-tools-improve-java/jacoco-package.png' %}[alt=JaCoCo package screen shot ...,,align=center]
 
-Above is a screenshot of the test coverage report for this project. You can see right away that the `FiltUtility` class has no coverage and that it has more lines than `SomeUtilityClass`.  If click into `SomeUtilityClass`, you can see the tests have missed one of the branches on line 8.
+Above is a screenshot of the test coverage report for this project. You can see right away that the `FiltUtility` class has no coverage and that it has more lines than `SomeUtilityClass`. If you click into `SomeUtilityClass`, you can see the tests have missed one of the branches on line 8.
 
 image:{% asset_path 'blog/five-tools-improve-java/jacoco-class.png' %}[alt=JaCoCo class screen shot ...,,align=center]
 
