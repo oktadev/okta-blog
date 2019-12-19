@@ -10,7 +10,6 @@ tweets:
 - "Improve your Java code quality the easy way, automate it!"
 image: blog/five-tools-improve-java/stop-bad-code.png
 ---
-
 :toc: macro
 :page-liquid:
 :experimental:
@@ -71,11 +70,11 @@ JaCoCo runs as a Java Agent, which makes it easy to add to any test framework (o
 
 Run `mvn verify` to generate the report in `target/site/jacoco/index.html`.
 
-image:{% asset_path 'blog/five-tools-improve-java/jacoco-package.png' %}[alt="JaCoCo package screen shot",,align=center]
+image::{% asset_path 'blog/five-tools-improve-java/jacoco-package.png' %}[alt="JaCoCo package screen shot",,align=center]
 
 Above is a screenshot of the test coverage report for this project. You can see right away that the `FiltUtility` class has no coverage and that it has more lines than `SomeUtilityClass`. If you click into `SomeUtilityClass`, you can see the tests have missed one of the branches on line 8.
 
-image:{% asset_path 'blog/five-tools-improve-java/jacoco-class.png' %}[alt="JaCoCo class screen shot",,align=center]
+image::{% asset_path 'blog/five-tools-improve-java/jacoco-class.png' %}[alt=JaCoCo class screen shot,,align=center]
 
 If you have a Maven multi-module project, you can https://github.com/jacoco/jacoco/wiki/MavenMultiModule[aggregate coverage data] across modules and even merge unit test and integration test coverage to get a picture of the full project's coverage.
 
@@ -83,7 +82,7 @@ If you have a Maven multi-module project, you can https://github.com/jacoco/jaco
 
 PMD is a static code analyzer that can detect potential issues such as dead code, empty blocks, complicated statements, suboptimal code, and duplicate code. PMD doesn't stand for anything; unofficially, some refer to it as "Programming Mistake Detector."
 
-image:{% asset_path 'blog/five-tools-improve-java/pmd-logo.png' %}[alt="PMD logo",width=400,align=center]
+image::{% asset_path 'blog/five-tools-improve-java/pmd-logo.png' %}[alt=PMD logo,width=400,align=center]
 
 PMD's Maven plugin one of the officially supported plugins in the Apache Maven project and comes with a robust set of default rules; however, if you are not happy with these rules, you can change them or https://pmd.github.io/pmd/pmd_userdocs_making_rulesets.html[define your own]. The basic configuration for a `pom.xml` is as follows:
 
@@ -136,7 +135,7 @@ PMD doesn't detect all the issues with this code though, the observant reader ma
 
 == 3. Conduct Bytecode Analysis with SpotBugs and Find Security Bugs
 
-image:{% asset_path 'blog/five-tools-improve-java/spotbugs-logo.png' %}[alt="Spotbugs logo",width=600,align=center]
+image::{% asset_path 'blog/five-tools-improve-java/spotbugs-logo.png' %}[alt=SpotBugs logo,width=600,align=center]
 
 SpotBugs checks bytecode, whereas PMD scans source files, this means anything the compiler throws away (unused imports or example) would not be reported by SpotBugs. The SpotBugs project is an updated version of FindBugs, many items in the documentation still reference "FindBugs." For those of you still using FindBugs, https://spotbugs.readthedocs.io/en/stable/migration.html[updating to SpotBugs] is trivial.
 
@@ -286,7 +285,7 @@ Showing a full-blown example of is a outside the scope of this post, but here is
 <3> `breakBuildBasedOnSemanticVersioning` - fail based on semver rules. For example, if your public API changes in a way that would require a "minor" version change.
 <4> `postAnalysisScript` - Optional, allows use of a custom Groovy script to modify the results based on your own needs. If you want to allow new default methods in interfaces, you would need a script similar to this:
 
-.postAnalysisScript.groovy
+.src/japicmp/postAnalysisScript.groovy
 [source,groovy]
 ----
 import static japicmp.model.JApiCompatibilityChange.*
