@@ -24,13 +24,13 @@ Once you have created an unsecured REST API, you are going to use Okta and Sprin
 
 ## Install Java, Spring Boot, MongoDB, and Other Project Dependencies
 
-You’ll need to install a few things before you get started.
+You'll need to install a few things before you get started.
 
-**Java 11**: This project uses Java 11. If you don’t have Java 11, you can install OpenJDK. Instructions are found on the [OpenJDK website](https://openjdk.java.net/install/). OpenJDK can also be installed using [Homebrew](https://brew.sh/). [SDKMAN](https://sdkman.io/) is another great option for installing and managing Java versions.
+**Java 11**: This project uses Java 11. If you don't have Java 11, you can install OpenJDK. Instructions are found on the [OpenJDK website](https://openjdk.java.net/install/). OpenJDK can also be installed using [Homebrew](https://brew.sh/). [SDKMAN](https://sdkman.io/) is another great option for installing and managing Java versions.
 
-**HTTPie**: This is a simple command-line utility for making HTTP requests. You’ll use this to test the REST application. Check out [the installation instructions on their website](https://httpie.org/doc#installation).
+**HTTPie**: This is a simple command-line utility for making HTTP requests. You'll use this to test the REST application. Check out [the installation instructions on their website](https://httpie.org/doc#installation).
 
-**Okta Developer Account**: You’ll be using Okta as an OAuth/OIDC provider to add JWT authentication and authorization to the application. Go to [developer.okta.com/signup](https://developer.okta.com/signup/) and sign up for a free developer account, if you haven’t already.
+**Okta Developer Account**: You'll be using Okta as an OAuth/OIDC provider to add JWT authentication and authorization to the application. Go to [developer.okta.com/signup](https://developer.okta.com/signup/) and sign up for a free developer account, if you haven't already.
 
 ### Download a Skeleton Project From Spring Initializr
 
@@ -376,7 +376,7 @@ From the top menu, click on the  **Applications** button. Click the  **Add Appli
 
 Select application type  **Web** and click  **Next**.
 
-Give the app a name. I named mine “Spring Boot Mongo”.
+Give the app a name. I named mine "Spring Boot Mongo".
 
 Under  **Login redirect URIs**, add a new URI: `https://oidcdebugger.com/debug`.
 
