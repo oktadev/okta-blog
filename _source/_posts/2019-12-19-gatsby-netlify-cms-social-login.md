@@ -12,10 +12,15 @@ image:
 ---
 
 https://www.gatsbyjs.org/docs/sourcing-from-netlify-cms/
+https://auth0.com/blog/securing-gatsby-with-auth0/
 
+Okta Single Site Sign on w/ Netlify Access Control & Serverless Functions > https://www.youtube.com/watch?v=cxieiiwms5k
+
+
+Good example https://github.com/netlify-templates/gatsby-starter-netlify-cms
 
 ```
-npm i -g gatsby@2.18.15
+npm install -g gatsby-cli
 ```
 
 ```
@@ -155,3 +160,43 @@ Set Authorization callback URL https://api.netlify.com/auth/done
 
 
 https://github.com/netlify/example-gated-content-with-okta
+
+
+https://www.gatsbyjs.org/docs/adding-markdown-pages/
+
+```
+npm i gatsby-source-filesystem gatsby-transformer-remark
+```
+
+Fails because no front-matter
+
+```
+5:57:59 PM: failed Building static HTML for pages - 0.351s
+5:57:59 PM: error Building static HTML failed for path "/hello-world"
+5:57:59 PM:    5 | }) {
+5:57:59 PM:    6 |   const { markdownRemark } = data // data.markdownRemark holds your post data
+5:57:59 PM: >  7 |   const { frontmatter, html } = markdownRemark
+5:57:59 PM:      |                                 ^
+5:57:59 PM:    8 |   return (
+5:57:59 PM:    9 |     <div className="blog-post-container">
+5:57:59 PM:   10 |       <div className="blog-post">
+5:57:59 PM: 
+5:57:59 PM:   WebpackError: TypeError: Cannot destructure property `frontmatter` of 'undefin  ed' or 'null'.
+```
+
+https://www.gatsbyjs.org/packages/gatsby-plugin-netlify/ for better security headers
+
+TypeError: Cannot read property 'frontmatter' of null
+
+^^ happens because missing first slash
+
+
+https://www.codespot.org/how-to-build-a-blog-with-gatsby-and-netlify/
+
+ncu 
+
+
+ gatsby  ^2.18.12  →  ^2.18.15
+ 
+ 
+Aaron's video (blank slate): https://youtu.be/7b1iKuFWVSw?t=2264
