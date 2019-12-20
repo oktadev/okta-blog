@@ -252,7 +252,6 @@ Other than that, we have more resources for you to continue learning about Java,
 - link:/blog/2019/05/24/java-spring-tutorials[Java + Spring Tutorials]
 - link:/blog/2018/09/26/build-a-spring-boot-webapp[Build a Web App with Spring Boot and Spring Security in 15 Minutes]
 
-TODO: fix github link
-The source code for this post is available at https://github.com/thiago-negri/spring-boot-docker[github.com/thiago-negri/spring-boot-docker].
+The source code for this post is available on https://github.com/oktadeveloper/spring-boot-docker-example[GitHub].
 
 If you have any questions about this post, please add a comment below. For more awesome content, follow https://twitter.com/oktadev[@oktadev] on Twitter, like us https://www.facebook.com/oktadevelopers/[on Facebook], or subscribe to https://www.youtube.com/c/oktadev[our YouTube channel].
