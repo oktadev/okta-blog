@@ -11,7 +11,7 @@ tweets:
 image: blog/oauth-2-1-how-many-rfcs/oauth-maze.png
 ---
 
-The OAuth working group agreed last month in Singapore ([IETF 106](https://oauth.net/events/2019-11-ietf106/)) that work will begin to update the current OAuth 2.0 Framework to version 2.1 encompassing all the latest recommendations and best practices around the specification. This is in part due to the maze of documentation that developers need to understand when getting started on the topic to choose the correct flow and implement the best security posture for their application landscape.
+The OAuth working group agreed last month in Singapore ([IETF 106](https://oauth.net/events/2019-11-ietf106/)) that work will begin to update the current OAuth 2.0 Framework to a potential version 2.1 encompassing all the latest recommendations and best practices around the specification. This is in part due to the maze of documentation that developers need to understand when getting started on the topic to choose the correct flow and implement the best security posture for their application landscape.
 
 {% img blog/oauth-2-1-how-many-rfcs/oauth-maze.png alt:"OAuth maze" width:"100%" %}{: .center-image }
 
@@ -29,7 +29,7 @@ You can learn more about the specifics of the OAuth 2.1 proposal by reading Aaro
 
 ## Will there be an OAuth 3.0?
 
-There is also work on a potential [OAuth 3.0](https://oauth.net/3/) specification by the Transactional Authorization working group. Although it's likely that these RFCs wouldn't be available in the short term and the implementation by authorization server vendors such as Okta would occur at some point in the future, it is interesting to stay up to date on what kinds of rich authorization data models could be used by developers and underlying applications in the future.
+There is also work beginning on a potential [OAuth 3.0](https://oauth.net/3/) specification by several people in the OAuth working group. While it's likely that these RFCs wouldn't be available in the short term and the implementation by authorization server vendors such as Okta would occur at some point in the future, it is interesting to stay up to date on what kinds of rich authorization data models could be used by developers and underlying applications in the future.
 
 ## Learn More about OAuth
 
