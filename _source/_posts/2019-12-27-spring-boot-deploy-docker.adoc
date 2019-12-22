@@ -22,9 +22,9 @@ In this tutorial, you'll see how to leverage Docker to deploy your Spring Boot a
 
 **Prerequisites:**
 
-* Java 8+ - Install with https://sdkman.io/[SDKMAN] or directly from https://adoptopenjdk.net/[AdoptOpenJDK].
-* Docker - I recommend https://www.docker.com/products/docker-desktop[Docker Desktop].
-* An https://developer.okta.com/signup[Okta account] - More on that below.
+* Java 8+ - Install with https://sdkman.io/[SDKMAN] or directly from https://adoptopenjdk.net/[AdoptOpenJDK]
+* Docker - I recommend https://www.docker.com/products/docker-desktop[Docker Desktop]
+* An https://developer.okta.com/signup[Okta account] - More on that below
 
 First, let's build a sample Spring Boot app to use.
 
@@ -38,7 +38,7 @@ From the command line simply enter:
 
 [source,txt]
 ----
-$ http https://start.spring.io/starter.zip \
+http https://start.spring.io/starter.zip \
  dependencies==web,okta \
  groupId==com.okta.spring-docker.demo \
  packageName==com.okta.spring-docker.demo \
@@ -49,8 +49,8 @@ And then unzip the downloaded file.
 
 [source,txt]
 ----
-$ unzip demo.zip -d spring-boot-docker
-$ cd spring-boot-docker
+unzip demo.zip -d spring-boot-docker
+cd spring-boot-docker
 ----
 
 You'll next add a web controller by creating file
@@ -108,8 +108,8 @@ You may compile and run your app with:
 
 [source,txt]
 ----
-$ ./mvnw package
-$ java -jar target/demo-0.0.1-SNAPSHOT.jar
+./mvnw package
+java -jar target/demo-0.0.1-SNAPSHOT.jar
 ----
 
 Then if you hit `http://localhost:8080` you should see a "Welcome!" message.
@@ -148,28 +148,28 @@ Now you can build the container on your command line. Execute the following whil
 
 [source,text]
 ----
-$ docker build . -t okta:spring_boot_docker
+docker build . -t okta:spring_boot_docker
 ----
 
 If all went well, you may now run your Dockerized app (using the same **tag** as you used before):
 
 [source,text]
 ----
-$ docker run --publish=8080:8080 okta:spring_boot_docker
+docker run --publish=8080:8080 okta:spring_boot_docker
 ----
 
 To stop the container, hit **CTRL-C**. Verify the container isn't running, execute:
 
 [source,text]
 ----
-$ docker ps
+docker ps
 ----
 
 This will list all the containers running on your machine. If your Spring Boot app is still running, you can terminate the container with (use the **Container ID** printed by `docker ps`):
 
 [source,text]
 ----
-$ docker kill <CONTAINER_ID>
+docker kill <CONTAINER_ID>
 ----
 
 As your JAR file is copied into the container when you build it, you will need to rebuild your container each time you want to use a newer version of the app. So the cycle would be:
@@ -217,21 +217,21 @@ First compile and build your container. For the build process to work correctly,
 
 [source,text]
 ----
-$ ./mvnw package
+./mvnw package
 ----
 
 Then build the container:
 
 [source,text]
 ----
-$ docker build . -t okta:spring_boot_docker
+docker build . -t okta:spring_boot_docker
 ----
 
 In order to run the container now, you will pass your Okta info to the container as environment variables. This is done by using the `-e` command line parameter. Like so:
 
 [source,text]
 ----
-$ docker run --publish=8080:8080 \
+docker run --publish=8080:8080 \
  -e OKTA_OAUTH2_ISSUER=<org_url>/oauth2/default \
  -e OKTA_OAUTH2_CLIENT_ID=<client_id> \
  -e OKTA_OAUTH2_CLIENT_SECRET=<client_secret> \
