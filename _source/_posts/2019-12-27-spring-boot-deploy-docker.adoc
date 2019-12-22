@@ -22,7 +22,7 @@ In this tutorial, you'll see how to leverage Docker to deploy your Spring Boot a
 
 **Prerequisites:**
 
-* Java 8+ - Install with https://sdkman.io/SDKMAN or directly from https://adoptopenjdk.net/[AdoptOpenJDK].
+* Java 8+ - Install with https://sdkman.io/[SDKMAN] or directly from https://adoptopenjdk.net/[AdoptOpenJDK].
 * Docker - I recommend https://www.docker.com/products/docker-desktop[Docker Desktop].
 * An https://developer.okta.com/signup[Okta account] - More on that below.
 
