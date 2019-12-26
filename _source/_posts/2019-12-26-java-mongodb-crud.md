@@ -352,7 +352,7 @@ If you wanted to update an item, you could use a PUT, as shown below.
 http PUT :8080/fridge/5dae7b4f6a99f01364de916e name="old pizza" expiration="03-30-2020" owner="Erin"
 ```
 
-Note that with a PUT you have to send data for all the fields, not just the field you want to update, otherwise the omitted fields are set to null. If you just want to update select fields, use a PATCH.
+Note that with a PUT you have to send data for all the fields, not just the field you want to update, otherwise the omitted fields are set to `null`. If you just want to update select fields, use a PATCH.
 
 ```bash
 http PATCH :8080/fridge/5dae7b4f6a99f01364de916e owner="Andrew"
