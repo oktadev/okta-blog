@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Build a CRUD Application with Java and MongoDB"
+title: "Build a CRUD API with Java and MongoDB"
 author: moksamedia
 description: "Learn how to use Java and MongoDB to create a REST API. Then secure with Spring Security and OAuth 2.0."
 tags: [java, mongodb, rest, oauth2]
@@ -16,6 +16,8 @@ This tutorial leverages two technologies that are commonly used to build web ser
 NoSQL databases like MongoDB were developed, to a large degree, to fit the needs of internet scaling where server loads can balloon dramatically and the preferred growth pattern is the replication of servers, not scaling a single monolithic server. MongoDB is a document-based database that natively stores JSON and was built for distributed scaling. Mongo documents are JSON objects and have no predetermined structure on the side of the database. The structure of the documents is determined by the application and can be changed dynamically, adding or removing fields as needed. This means that Mongo documents are very flexible (possibly a blessing and a curse, FYI). Also, because MongoDB produces JSON documents, it has become very popular with many of the JS-based front-ends where Javascript is king and JSON is easily handled.
 
 Spring Boot is an easy to use web application framework from Spring that can be used to create enterprise web services and web applications. They've done an admirable job simplifying the underlying complexity of the Spring framework, while still exposing all of its power. And no XML required! Spring Boot can be deployed in a traditional WAR format or can be run stand-alone using embedded Tomcat (the default), Jetty, or Undertow. With Spring you get the benefit of literally decades of proven enterprise Java expertise - Spring has run thousands of productions applications - combined with the simplicity of a modern, "just work" web framework, incredible depth of features, and great community support.
+
+{% img blog/java-mongodb-crud/duke-cheers-to-mongodb.png alt:"Duke raises a glass to MongoDB" width:"800" %}{: .center-image }
 
 In this tutorial, you will create a simple Java class file to model your data, you will store this data in a MongoDB database, and you will expose the data with a REST API. To do this, you will use Spring Boot and Spring Data.
 
@@ -499,7 +501,6 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
         }
     }
 }
-
 ```
 
 ## Learn More about Java, Spring Boot, and MongoDB
