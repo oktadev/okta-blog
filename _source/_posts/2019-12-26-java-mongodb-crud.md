@@ -429,7 +429,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {  
   
     @Override  
-  public void configure (HttpSecurity http) throws Exception {  
+    public void configure (HttpSecurity http) throws Exception {  
         http.authorizeRequests()
             .anyRequest().authenticated()
             .and()
