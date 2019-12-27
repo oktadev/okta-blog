@@ -30,12 +30,12 @@ You'll use https://start.spring.io/[Spring Initializer] to create the applicatio
 
 Go to `https://start.spring.io/` and fill in the following information:
 
-- Project: Maven Project
-- Language: Java
-- Group: com.okta
-- Artifact: jersey-rest
-- Dependencies:
--- Jersey
+* Project: Maven Project
+* Language: Java
+* Group: com.okta
+* Artifact: jersey-rest
+* Dependencies:
+** Jersey
 
 When you filled all the fields, click **Generate**. This action will download the project, which you can unzip to your preferred folder.
 
@@ -61,11 +61,13 @@ Now that your Java project structure is created, you can start developing your a
 
 Before you can start programming your REST application, you need to specify in which packages you'll have endpoints.
 
-Inside your project, go to `src/main/java/com/okta/jerseyrest/configuration/` and create the following class:
+Inside your project, create a `src/main/java/com/okta/jerseyrest/configuration/` directory and the following `JerseyConfiguration` class:
 
 ====
 [source,java]
 ----
+package com.okta.jerseyrest.configuration;
+
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.context.annotation.Configuration;
 
@@ -102,10 +104,12 @@ In REST applications, you use the POST method to create an entity. Your goal is 
 
 The result of this request should be an identifier to the task you just created.
 
-Create a class that represents the JSON above. Go to `src/main/java/com/okta/jerseyrest/request` and add the following code:
+Create a class that represents the JSON above. Create the `src/main/java/com/okta/jerseyrest/request` directory and add the following new `TaskRequest` class:
 
 [source,java]
 ----
+package com.okta.jerseyrest.request;
+
 public class TaskRequest {
 
     private String description;
@@ -122,10 +126,14 @@ public class TaskRequest {
 
 The class above is a simple Plain Old Java Object (POJO), that will receive the JSON payload that the user sends to the API. Jersey uses Jackson, a JSON library that can serialize and deserialize JSON objects to Java classes automatically. All you need to do is declare the class as a parameter in your endpoint and you'll receive the information already deserialized.
 
-Next, create a class to represent the task inside your application model. Go to `src/main/java/com/okta/jerseyrest/model` and add the following code:
+Next, create a class to represent the task inside your application model. Create a new `src/main/java/com/okta/jerseyrest/model` directory and add the following new `Task` class:
 
 [source,java]
 ----
+package com.okta.jerseyrest.model;
+
+import java.util.UUID;
+
 public class Task {
 
     private UUID id;
@@ -154,7 +162,7 @@ In an advanced scenario, this class would represent data saved on a database, fo
 
 Now that you have both the model and the payload classes, you can start working on your endpoint to create the task itself.
 
-Go to `src/main/java/com/okta/jerseyrest/resources` and create the following class:
+Create the `src/main/java/com/okta/jerseyrest/resources` directory and create the following `TaskResource` class:
 
 ====
 [source,java]
@@ -165,13 +173,10 @@ import com.okta.jerseyrest.model.Task;
 import com.okta.jerseyrest.request.TaskRequest;
 
 import javax.inject.Singleton;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.UUID;
+import javax.ws.rs.core.Response;
+import java.util.*;
 
 @Path("/tasks") // <1>
 @Singleton // <2>
@@ -195,7 +200,7 @@ public class TaskResource {
 
 <3> To create the endpoint you need to define which HTTP method is going to be handled by your method. In the case of `createTask` the HTTP method is POST, which is represented by the annotation `@POST`.
 
-<4> There is also the annotation `@Consumes`, which specifies what kind of data will come in the request. Since you're expecting a payload in JSON, you inform `MediaType.APPLICATION_JSON` as the value of the annotation.
+<4> There is also the annotation `@Consumes`, which specifies what kind of data will come in the request. Since you're expecting a payload in JSON, you use `MediaType.APPLICATION_JSON` as the value of the annotation.
 ====
 
 You implemented all the code for your POST endpoint! Let's call it and see if it works. Start your application by executing the following command inside your project folder:
@@ -389,11 +394,9 @@ image::{% asset_path 'blog/java-jersey-jaxrs/okta-applications.png' %}[alt=Okta 
 * Fill in the following options in the form:
 ** Name: my-first-app
 ** Base URIs: http://localhost:8080
-** Login redirect URLs:
-*** `http://localhost:8080/login/oauth2/code/okta`
+** Login redirect URL:
 *** `https://oidcdebugger.com/debug`
 ** Grant Type allowed:
-*** [.line-through]#Client Credentials#
 *** Authorization Code
 *** Implicit(Hybrid)
 **** Allow Access Token with implicit grant type
@@ -418,10 +421,17 @@ Go to the `pom.xml` and add the following dependency inside the `<depencencies>`
 
 This library will integrate with your Okta app you just created. It will also add Spring Security to your current application.
 
-Inside `src/main/java/com/okta/jerseyrest/configuration` create the following class:
+Inside `src/main/java/com/okta/jerseyrest/configuration` create the following `SecurityConfiguration` class:
 
 [source,java]
 ----
+package com.okta.jerseyrest.configuration;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -439,33 +449,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 The configuration above will ensure all your requests will be authenticated. If you're using Spring MVC you don't need to add this configuration, but since you're developing with Jersey you need to make sure they are also included in the authentication process.
 
-Now that you added the library and the configuration, you can inform the following variables inside the `application.properties` inside your project:
+Now that you added the library and the configuration, you can inform the following variables inside the `src/main/resources/application.properties` inside your project:
 
 [source,properties]
 ----
 okta.oauth2.issuer: https://{yourOktaDomain}/oauth2/default
-okta.oauth2.client-id: {yourClientID}
-okta.oauth2.client-secret: {yourClientSecret}
 ----
 
-WARNING: This is a file that should be used locally only. You shouldn't commit your client's secret to Git or other Version Control System.
-
-If you want to avoid that happening use environment variables for your configuration:
+If you want to avoid adding this configuration to source control, you can use environment variables:
 
 [source,properties]
 ----
 OKTA_OAUTH2_ISSUER=https://{yourOktaDomain}/oauth2/default
-OKTA_OAUTH2_CLIENT_ID={yourClientID}
-OKTA_OAUTH2_CLIENT_SECRET={yourClientSecret}
 ----
-
-You will find `{yourClientID}` and `{yourClientSecret}` in the application's page. To access it, follow the steps below:
-
-* In your Okta menu, go to **Applications**
-* Select the "my-first-app" application
-* Click on the **General** tab
-
-You should see both values inside the Client Credentials area.
 
 Your `{yourOktaDomain}` will be visible in your Okta dashboard, just click on the Dashboard on the menu. You will see the Org URL in the right upper corner.
 
