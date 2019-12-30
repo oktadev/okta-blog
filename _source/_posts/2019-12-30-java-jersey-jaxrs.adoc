@@ -32,8 +32,8 @@ Go to `https://start.spring.io/` and fill in the following information:
 
 * Project: Maven Project
 * Language: Java
-* Group: com.okta
-* Artifact: jersey-rest
+* Group: `com.okta`
+* Artifact: `jersey-rest`
 * Dependencies:
 ** Jersey
 
@@ -393,7 +393,7 @@ image::{% asset_path 'blog/java-jersey-jaxrs/okta-applications.png' %}[alt=Okta 
 * Select **Web** and click **Next**
 * Fill in the following options in the form:
 ** Name: my-first-app
-** Base URIs: http://localhost:8080
+** Base URIs: `http://localhost:8080`
 ** Login redirect URL:
 *** `https://oidcdebugger.com/debug`
 ** Grant Type allowed:
@@ -506,7 +506,7 @@ To validate your request you need to add the `Authorization` header to the reque
 -H 'Authorization: Bearer <token>'
 ----
 
-To generate the token you can access https://oidcdebugger.com/ and provide the following information:
+To generate the token you can access <https://oidcdebugger.com> and provide the following information:
 
 - Authorize URI: `\https://{yourOktaDomain}/oauth2/default/v1/authorize`
 - Redirect URI: `\https://oidcdebugger.com/debug`
