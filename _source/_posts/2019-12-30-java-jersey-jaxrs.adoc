@@ -2,7 +2,7 @@
 layout: blog_post
 title: "Build a Secure REST Application Using Jersey"
 author: daniel-pereira
-description: "Tutorial: Learn how to build a secure REST application with JAX-RS and Jersey"
+description: "Tutorial: Learn how to build a secure REST application with JAX-RS and Jersey."
 tags: [tutorial, java, jersey, jaxrs, oauth, REST]
 tweets:
 - "Build a REST app with Jersey and JAX-RS, code is on GitHub!"
@@ -79,7 +79,6 @@ public class JerseyConfiguration extends ResourceConfig { // <.>
     }
 }
 ----
-
 <1> The class above is annotated with `Configuration`. This annotation will make sure Spring executes this class when the project starts.
 <2> `JerseyConfiguration` extends from `ResourceConfig`, a class from Jersey that defines the resource configuration from your web application.
 <3> Inform Jersey that it should scan all classes inside the `com.okta.jerseyrest.resource` package, and look for REST endpoits.
@@ -332,7 +331,7 @@ Great job! If you list your tasks again you'll see that the description changed.
 
 You implemented all the CRUD functions, except for the last one. Let's finish it by implementing the delete endpoint.
 
-== Delete a Entry
+== Delete an Entry
 
 To delete a task you're going to make a DELETE request to the URI `tasks/<task_id>`. This is the same URI that is used to update the task, the only difference is the HTTP method being used to perform the action.
 
@@ -427,12 +426,10 @@ Inside `src/main/java/com/okta/jerseyrest/configuration` create the following `S
 ----
 package com.okta.jerseyrest.configuration;
 
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
-@Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
@@ -490,7 +487,7 @@ X-Frame-Options: DENY
 Content-Type: text/html;charset=utf-8
 Content-Language: en
 Content-Length: 802
-Date: Mon, 04 Nov 2019 12:52:52 GMT
+Date: Mon, 30 Dec 2019 12:52:52 GMT
 ----
 
 The status code of the response is `HTTP 401`, which means the request was not authorized to execute. In other words, your application is now secure! You need a valid token to make a request to your endpoints.
@@ -546,7 +543,7 @@ You'll see that the command now executes successfully:
 < X-Frame-Options: DENY
 < Content-Type: application/json
 < Content-Length: 2
-< Date: Thu, 21 Nov 2019 10:15:36 GMT
+< Date: Mon, 30 Dec 2019 10:15:36 GMT
 <
 * Connection #1 to host localhost left intact
 []
@@ -582,9 +579,9 @@ It now returns the task you just created!
 
 Well done! You managed to create a CRUD service using Jersey! Even better, the service is secure and it took you minimal effort to make it happen.
 
-You can view the source code of this tutorial going to its https://github.com/oktadeveloper/jersey-rest-example[GitHub repository].
+You can view the source code of this tutorial going to its https://github.com/oktadeveloper/okta-jersey-rest-example[GitHub repository].
 
-== Learn More!
+== Learn More About Jersey and REST!
 
 Do you want to learn more about Java, REST, Jersey, and secure applications? Here are some links you might want to read:
 
