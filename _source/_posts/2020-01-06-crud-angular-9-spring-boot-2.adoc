@@ -24,6 +24,8 @@ Long story short, they're a match made in heaven!
 
 image::{% asset_path 'blog/spring-boot-2-angular-9/bootiful-angular.png' %}[alt=Bootiful Angular,width=800,align=center]
 
+toc::[]
+
 == What's New In Angular 9?
 
 Angular 9's biggest new feature is Ivy. Ivy is Angular's new compiler and renderer. The renderer is the engine that takes your components and templates and translates them into instructions that manipulate the DOM. Ivy is an internal component, so you don't interact with it directly. However, it can have a big impact on your code, yielding much smaller JavaScript bundles and increasing performance.
@@ -68,8 +70,6 @@ sdk install java 11.0.5.hs-adpt
 ----
 
 You can refer to the table of contents below for the steps in this tutorial.
-
-toc::[]
 
 == Create an Angular 9 App
 
@@ -513,7 +513,7 @@ class DemoApplication {
 
 Restart your Spring Boot app after adding this bean.
 
-To see how your final `DemoApplication` file should look, you can [view the completed version in GitHub](https://github.com/oktadeveloper/okta-spring-boot-2-angular-9-example/blob/master/notes-api/src/main/kotlin/com/okta/developer/notes/DemoApplication.kt).
+To see how your final `DemoApplication` file should look, you can https://github.com/oktadeveloper/okta-spring-boot-2-angular-9-example/blob/master/notes-api/src/main/kotlin/com/okta/developer/notes/DemoApplication.kt[view the completed version in GitHub].
 
 Now that your API is working, it's time to develop a UI for it with Angular 9!
 
@@ -945,10 +945,10 @@ To read more about the Angular 9 and Spring Boot 2.2 releases, I recommend these
 * https://www.grapecity.com/blogs/what-to-expect-in-angular-9[What's New in Angular 9]
 * https://spring.io/blog/2019/10/16/spring-boot-2-2-0[Spring Boot 2.2.0] from the Spring Team's Blog
 
-For Angular 5, 7, and 8 versions of this tutorial, see my past posts.
+For Angular 8, 7, and 5 versions of this tutorial, see my past posts.
 
 * link:/blog/2019/05/13/angular-8-spring-boot-2[Angular 8 + Spring Boot 2.2: Build a CRUD App Today!] - May 2019
 * link:/blog/2018/08/22/basic-crud-angular-7-and-spring-boot-2[Build a Basic CRUD App with Angular 7.0 and Spring Boot 2.1] - August 2018
 * link:/blog/2017/12/04/basic-crud-angular-and-spring-boot[Build a Basic CRUD App with Angular 5.0 and Spring Boot 2.0] - December 2017
 
-If you like this blog post and want to see more like it, follow https://twitter.com/oktadev[@oktadev on Twitter], subscribe to [our YouTube channel], or follow us https://www.linkedin.com/company/oktadev/[on LinkedIn]. As always, please leave a comment below if you have any questions.
+If you like this blog post and want to see more like it, follow https://twitter.com/oktadev[@oktadev on Twitter], subscribe to https://youtube.com/c/oktadev[our YouTube channel], or follow us https://www.linkedin.com/company/oktadev/[on LinkedIn]. As always, please leave a comment below if you have any questions.
