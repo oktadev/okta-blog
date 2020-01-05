@@ -28,11 +28,11 @@ This is the question for a specialist: how to leap frog from one framework lilyp
 
 ## Are You Saying I Should be a Full Stack Developer
 
-Great question! "Generalist" doesn't always mean "Full Stack"; they aren't interchangeable. The traditional view of a full stack programmer referred to the web (back end and front end) but there are many different places where code plays a role! 
+Great question! "Generalist" doesn't always mean "Full Stack"; they aren't interchangeable. The traditional view of a full stack programmer referred to the web (back end and front end) but there are many different places where code plays a role!
 
-Personally, I've coded for voice, IoT, APIs, timer jobs, mobile apps, intranet sites, external websites, ETLs, and the list goes on. Is any of that knowledge evergreen? Some of it! Mostly the ways in which I interacted with my team and product owner - not how I specifically customized a Sharepoint page. 
+Personally, I've coded for voice, IoT, APIs, timer jobs, mobile apps, intranet sites, external websites, ETLs, and the list goes on. Is any of that knowledge evergreen? Some of it! Mostly the ways in which I interacted with my team and product owner - not how I specifically customized a Sharepoint page.
 
-You can carry a cross-section of evergreen knowledge with you as a software engineer. A specific part of those "years of experience" is still applicable to whatever you need to work on now. And that part fits neatly into being a generalist developer. 
+You can carry a cross-section of evergreen knowledge with you as a software engineer. A specific part of those "years of experience" is still applicable to whatever you need to work on now. And that part fits neatly into being a generalist developer.
 
 ## Why Does Future Tech Require a Generalist Approach
 
@@ -48,9 +48,9 @@ I'm glad you asked! There are a few areas in particular that developers really c
 
 ### 1. Security
 
-Naturally, the developer relations team here at Okta cares a lot about this topic! Often, developers are content to make a system 'just work' well enough to get out the door for a deadline. The result is company after company coming forward and admitting to their users that their data was not securely stored or collected. This is an area you HAVE to educate yourself on. 
+Naturally, the developer relations team here at Okta cares a lot about this topic! Often, developers are content to make a system 'just work' well enough to get out the door for a deadline. The result is company after company coming forward and admitting to their users that their data was not securely stored or collected. This is an area you HAVE to educate yourself on.
 
-Get started with the basics like the [OWASP Top 10](https://www.owasp.org/index.php/Category:OWASP_Top_Ten_Project) security vulnerabilities. The [Cheat Sheet Series](https://cheatsheetseries.owasp.org) is another excellent resource for app devs looking to become knowledgeable on security quickly. 
+Get started with the basics like the [OWASP Top 10](https://www.owasp.org/index.php/Category:OWASP_Top_Ten_Project) security vulnerabilities. The [Cheat Sheet Series](https://cheatsheetseries.owasp.org) is another excellent resource for app devs looking to become knowledgeable on security quickly.
 
 Next, make sure you are coding securely from the very beginning, from how you store API keys to the way you deploy your code. This is one area you cannot afford to cut corners. We've got lots of blog posts here at Okta to get you up to speed on user security specifically.
 
