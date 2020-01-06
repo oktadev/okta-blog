@@ -161,7 +161,7 @@ export class HomeComponent implements OnInit {
 }
 ----
 
-[source,ts]
+[source,html]
 .src/app/home/home.component.html
 ----
 <div>
@@ -208,7 +208,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
 NOTE: You might notice that tokens are only added for `http://localhost`. You'll need to modify the `allowedOrigins` array to include your production URL eventually.
 
-Start your app again using `ng serve`, open a private/incognito window to `http://localhost:4200, and you'll see a **Login** button in the bottom left.
+Start your app again using `ng serve`, open a private/incognito window to `http://localhost:4200`, and you'll see a **Login** button in the bottom left.
 
 CAUTION: If you see `ERROR in node_modules/@okta/okta-angular`, modify your `package.json` to use version `1.2.2` of @okta/okta-angular and run `npm install`, followed by `ng serve`. See https://github.com/okta/okta-oidc-js/issues/643[okta-angular's issue #643] for more information.
 
@@ -235,7 +235,7 @@ Create a new Spring Boot app that uses Java 11, Kotlin, Gradle, and has the nece
 [source,shell]
 ----
 http https://start.spring.io/starter.zip javaVersion==11 language==kotlin \
-artifactId==notes-api groupId=com.okta.developer packageName==com.okta.developer.notes \
+artifactId==notes-api groupId==com.okta.developer packageName==com.okta.developer.notes \
 type==gradle-project dependencies==h2,data-jpa,data-rest,okta,web -d
 ----
 
