@@ -1,16 +1,26 @@
 ---
 layout: blog_post
-title: ""
-author: 
-description: ""
-tags: []
+title: "Build a Secure Blog with Gatsby and Netlify" // 65
+title: "Build a Secure Blog with React, Gatsby, and Netlify" // 63
+scores:
+ - gatsby 301K
+ - gatsby blog 1K
+ - gatsby netlify 880
+ - gatsby react 2400
+author: mraible
+description: "This tutorial shows how you to build a secure blog app with Gatsby and Netlify."
+tags: [gatsby, netlify, react, jamstack]
 tweets:
-- ""
-- ""
-- ""
+- "Learn how to build a blog with Gatsby, React, and Netlify in this guide from @mraible."
+- "Blogging with Gatsby and Netlify: #JAMStack FTW!"
+- "A concise guide on how to build a secure blogging site with @gatsbyjs and @netlify. "
 image: 
 ---
 
+Gatsby is a tool for creating static websites with React. It allows allows you to pull your data from virtually anywhere: content management systems (CMSs), Markdown files, APIs, and databases. It leverages GraphQL and webpack to combine your data and React code to produce static files. 
+
+JAMstack - JavaScript, APIs, and Markup - apps are delivered by pre-rendering files and serving them directly from a CDN, removing the requirement to manage or run web servers.
+ 
 https://www.gatsbyjs.org/docs/sourcing-from-netlify-cms/
 https://auth0.com/blog/securing-gatsby-with-auth0/
 
