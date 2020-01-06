@@ -14,7 +14,7 @@ image: blog/spring-boot-2-angular-9/bootiful-angular.png
 :page-liquid:
 :experimental:
 
-Angular is a web framework for building mobile and desktop applications. It's first version, AngularJS, was one of the first JavaScript MVC frameworks to dominate the web landscape. Developers loved it and it rose to popularity in the early 2010s. AngularJS 1.0 was released on June 14, 2014. Angular 9 was recently released, giving Angular quite a popular run in the land of web frameworks.
+Angular is a web framework for building mobile and desktop applications. Its first version, AngularJS, was one of the first JavaScript MVC frameworks to dominate the web landscape. Developers loved it, and it rose to popularity in the early 2010s. AngularJS 1.0 was released on June 14, 2014. Angular 9 was recently released, giving Angular quite a successful run in the land of web frameworks.
 
 Spring Boot is one of the most popular frameworks for developing Java applications and REST APIs. It also has first-class support for Kotlin!
 
@@ -28,7 +28,7 @@ toc::[]
 
 == What's New In Angular 9?
 
-Angular 9's biggest new feature is Ivy. Ivy is Angular's new compiler and renderer. The renderer is the engine that takes your components and templates and translates them into instructions that manipulate the DOM. Ivy is an internal component, so you don't interact with it directly. However, it can have a big impact on your code, yielding much smaller JavaScript bundles and increasing performance.
+Angular 9's most prominent new feature is Ivy. Ivy is Angular's new compiler and renderer. The renderer is the engine that takes your components and templates and translates them into instructions that manipulate the DOM. Ivy is an internal component, so you don't interact with it directly. However, it can have a significant impact on your code, yielding much smaller JavaScript bundles and increasing performance.
 
 Simply put: upgrading to Angular 9 will make your web apps faster!
 
@@ -43,9 +43,9 @@ To use Angular CLI's i18n feature, you simply need to add the `i18n` attribute t
 
 == What's New in Spring Boot 2.2?
 
-Spring Boot 2.2 was released in September 2019 and focuses on performance improvements and reduced memory usage. It adds Java 13 support, RSocket support, and the ability to group health indicators. This can be useful if you're deploying to Kubernetes and want different groups of indicators for "liveness" and "readiness" probes.
+Spring Boot 2.2 was released in September 2019 and focuses on performance improvements and reduced memory usage. It adds Java 13 support, RSocket support, and the ability to group health indicators. Grouping indicators can be useful if you're deploying to Kubernetes and want different groups for "liveness" and "readiness" probes.
 
-In this post, I'll show you how to build a CRUD application with Angular 9 and Spring Boot 2.2. Along the way, I'll do my best to weave in security tips and how to make your applications more secure.
+In this post, I'll show you how to build a CRUD application with Angular 9 and Spring Boot 2.2. Along the way, I'll do my best to weave in security tips and how to make your apps more secure.
 
 **Prerequisites:**
 
@@ -87,14 +87,14 @@ Then create a directory on your hard-drive called `angular-spring-boot`. Open a 
 ng new notes --routing --style css
 ----
 
-This will take a minute or two to complete, depending on your internet speed and hardware. Once it's finished, navigate into the directory and run `ng serve`.
+This process will take a minute or two to complete, depending on your internet speed and hardware. Once it's finished, navigate into the directory and run `ng serve`.
 
 [source,shell]
 ----
 ng serve
 ----
 
-Open your browser to `http://localhost:4200` and you'll see the default homepage.
+Open your browser to `http://localhost:4200`, and you'll see the default homepage.
 
 image::{% asset_path 'blog/spring-boot-2-angular-9/default-homepage.png' %}[alt=Angular default homepage,width=800,align=center]
 
@@ -102,7 +102,7 @@ Stop the `ng serve` process using kbd:[Ctrl+C] in your terminal.
 
 == Add Angular Authentication using OpenID Connect
 
-OpenID Connect (also called OIDC) is an identity later that's based on the OAuth 2.0 specification. It leverages JSON Web Tokens (JWT) to provide an ID token and other features like discoverability and a `/userinfo` endpoint.
+OpenID Connect (also called OIDC) is an identity later based on the OAuth 2.0 specification. It leverages JSON Web Tokens (JWT) to provide an ID token and other features like discoverability and a `/userinfo` endpoint.
 
 Okta has Authentication and User Management APIs that reduce development time with instant-on, scalable user infrastructure. Okta's intuitive API and expert support make it easy for developers to authenticate, manage, and secure users + roles in any application.
 
@@ -128,7 +128,7 @@ Copy your client ID and your issuer URI (from **API** > **Authorization Servers*
 ng add @oktadev/schematics --issuer=$issuer --clientId=$clientId
 ----
 
-This adds Okta's Angular SDK and configures OIDC authentication for your app.
+This command adds Okta's Angular SDK and configures OIDC authentication for your app.
 
 image::{% asset_path 'blog/spring-boot-2-angular-9/oktadev-schematics.png' %}[alt=OktaDev Schematics in Action,width=800,align=center]
 
@@ -170,7 +170,7 @@ export class HomeComponent implements OnInit {
 </div>
 ----
 
-There's also an `HttpInterceptor` that's created to add an access token to outgoing HTTP requests.
+There's also an `HttpInterceptor` created to add an access token to outgoing HTTP requests.
 
 [source,ts]
 .src/app/shared/okta/auth.interceptor.ts
@@ -206,23 +206,23 @@ export class AuthInterceptor implements HttpInterceptor {
 }
 ----
 
-NOTE: You might notice that tokens are only added for `http://localhost`. You'll need to add to the `allowedOrigins` array when you deploy to production.
+NOTE: You might notice that tokens are only added for `http://localhost`. You'll need to modify the `allowedOrigins` array to include your production URL eventually.
 
 Start your app again using `ng serve`, open a private/incognito window to `http://localhost:4200, and you'll see a **Login** button in the bottom left.
 
-CAUTION: If you see `ERROR in node_modules/@okta/okta-angular`, modify your `package.json` to use version `1.2.2` of @okta/okta-angular and run `npm install`, followed by `ng serve`. See https://github.com/okta/okta-oidc-js/issues/643[this issue] for more information.
+CAUTION: If you see `ERROR in node_modules/@okta/okta-angular`, modify your `package.json` to use version `1.2.2` of @okta/okta-angular and run `npm install`, followed by `ng serve`. See https://github.com/okta/okta-oidc-js/issues/643[okta-angular's issue #643] for more information.
 
 image::{% asset_path 'blog/spring-boot-2-angular-9/angular-login-button.png' %}[alt=Login button,width=800,align=center]
 
-Click on it and you'll be redirected to Okta to log in.
+Click on it, and you'll be redirected to Okta to log in.
 
 image::{% asset_path 'blog/spring-boot-2-angular-9/okta-login.png' %}[alt=Okta Login form,width=425,align=center]
 
-Enter valid credentials and you'll be redirected back to your app. There will now be a **Logout** button, indicating that you've authenticated successfully.
+Enter valid credentials, and you'll be redirected back to your app. There will now be a **Logout** button, indicating that you've authenticated successfully.
 
 image::{% asset_path 'blog/spring-boot-2-angular-9/angular-logout-button.png' %}[alt=Logout button,width=800,align=center]
 
-Now that you've created a secure Angular 9 app, let's create a Spring Boot app to serve up data with a REST API.
+Now that you've created a secure Angular 9 app let's create a Spring Boot app to serve up data with a REST API.
 
 == Create a Spring Boot 2.2 App
 
@@ -239,7 +239,7 @@ artifactId==notes-api groupId=com.okta.developer packageName==com.okta.developer
 type==gradle-project dependencies==h2,data-jpa,data-rest,okta,web -d
 ----
 
-Run this command in a terminal and a `notes-api.zip` file will be downloaded. Expand it into the `angular-spring-boot/notes-api` directory.
+Run this command in a terminal, and a `notes-api.zip` file will be downloaded. Expand it into the `angular-spring-boot/notes-api` directory.
 
 [source,shell]
 ----
@@ -287,7 +287,7 @@ export OKTA_OAUTH2_CLIENT_SECRET={yourClientSecret}
 
 After replacing the `{...}` placeholders with your values, run `source okta.env` to set these environment variables.
 
-Then start your app using `./gradlew bootRun`. Open `http://localhost:8080` in a browser and you'll be redirected to Okta to sign in.
+Then start your app using `./gradlew bootRun`. Open `http://localhost:8080` in a browser, and you'll be redirected to Okta to sign in.
 
 TIP: If you don't get prompted, it's because you're already logged in. Try it in an incognito window to see the full login flow.
 
@@ -419,7 +419,7 @@ class DataInitializer(val repository: NotesRepository) : ApplicationRunner {
 }
 ----
 
-Restart your Spring Boot app and you should see the following printed to your console on startup.
+Restart your Spring Boot app, and you should see the following printed to your console on startup.
 
 [source,shell]
 ----
@@ -477,7 +477,7 @@ To prevent conflicting paths with the REST endpoints created by `@RepositoryRest
 spring.data.rest.base-path=/api
 ----
 
-Restart your Spring Boot app, navigate to `http://localhost:8080/user` and you'll see a whole plethora of details about your account. Opening `http://localhost:8080/api/notes` will show the default notes entered by the `DataInitializer` component.
+Restart your Spring Boot app, navigate to `http://localhost:8080/user`, and you'll see a whole plethora of details about your account. Opening `http://localhost:8080/api/notes` will show the default notes entered by the `DataInitializer` component.
 
 === Add a CORS Filter for Angular
 
@@ -598,7 +598,7 @@ CREATE src/app/note/note-list/note-list.component.ts (1091 bytes)
 UPDATE src/app/app.module.ts (540 bytes)
 ----
 
-This creates a `NotesModule`, routes, a service to communicate with the API, and list/edit screens for viewing and editing notes. If you look at the `src/app/note/note.routes.ts` file, you'll see the routes it creates.
+This schematic creates a `NotesModule`, routes, a service to communicate with the API, and list/edit screens for viewing and editing notes. If you look at the `src/app/note/note.routes.ts` file, you'll see the routes it creates.
 
 [source,ts]
 ----
@@ -646,11 +646,11 @@ Run `ng serve` (and make sure your Spring Boot app is running too).
 
 image::{% asset_path 'blog/spring-boot-2-angular-9/notes-login.png' %}[alt=Notes App Login,width=800,align=center]
 
-Log in and you should see a **View Notes** link.
+Log in, and you should see a **View Notes** link.
 
 image::{% asset_path 'blog/spring-boot-2-angular-9/notes-link.png' %}[alt=Notes Link,width=800,align=center]
 
-Click on the link and you'll see a list screen like the one below. Since you haven't created any notes that are tied to your user, none are returned.
+Click on the link, and you'll see a list screen like the one below. No notes are displayed because you haven't created any notes that are tied to your user.
 
 image::{% asset_path 'blog/spring-boot-2-angular-9/notes-list.png' %}[alt=Notes List,width=800,align=center]
 
@@ -658,7 +658,7 @@ Click on the **New** link to add a new note.
 
 image::{% asset_path 'blog/spring-boot-2-angular-9/notes-detail.png' %}[alt=Notes Detail,width=800,align=center]
 
-Add a new note and you'll see a message like this in your backend console.
+Add a new note, and you'll see a message like this in your backend console.
 
 [source,shell]
 ----
@@ -682,7 +682,7 @@ Now you'll see your notes listed. Nice work!
 
 image::{% asset_path 'blog/spring-boot-2-angular-9/notes-user-list.png' %}[alt=Notes User List,width=800,align=center]
 
-You might be wondering how the `NoteListComponent` works. It loads the user's notes from the `NoteService` when the component initializes, and also contains `select()` and `delete()` methods. The reason it's able to talk to your secured Spring Boot API is because the aforementioned `AuthInterceptor` adds an access token to the request.
+You might be wondering how the `NoteListComponent` works. It loads the user's notes from the `NoteService` when the component initializes, and also contains `select()` and `delete()` methods. The reason it's able to talk to your secured Spring Boot API is that the aforementioned `AuthInterceptor` adds an access token to the request.
 
 [source,ts]
 .src/app/note/note-list/note-list.component.ts
@@ -878,7 +878,7 @@ In link:/blog/2018/07/30/10-ways-to-secure-spring-boot[10 Excellent Ways to Secu
 
 You've already implemented #4 with Okta, but what about the others?
 
-You can use https://github.com/FiloSottile/mkcert[mkcert] to generate local, valid TLS certificates. To force HTTPS, you just need to configure Spring Security. I like to just do it in production so I don't need to install certificates in development.
+You can use https://github.com/FiloSottile/mkcert[mkcert] to generate local, valid TLS certificates. To force HTTPS, you just need to configure Spring Security. I like just to do it in production, so I don't need to install certificates in development.
 
 CSRF protection and a CSP can be configured with Spring Security.
 
@@ -924,7 +924,7 @@ TIP: Once you've deployed your Spring Boot app to a public URL, you can test you
 
 == Learn More about Angular, Spring Boot, and Kotlin
 
-In this tutorial, I showed you how to create an Angular 9 app, a Spring Boot 2.2 app, and how to secure communication between them with OAuth 2.0 and OIDC. You used Kotlin on the backend, a language loved by many. You used Angular Schematics to generate code for authentication and CRUD, improving your efficiency as a developer.
+In this tutorial, I showed you how to create an Angular 9 app, a Spring Boot 2.2 app, and how to secure communication between them with OAuth 2.0 and OIDC. You used Kotlin on the backend; a language loved by many. You used Angular Schematics to generate code for authentication and CRUD, improving your efficiency as a developer.
 
 This tutorial did not show you how to make your Angular app look good, add validation, or how to deploy it to a public server. I'll tackle those topics in an upcoming post. In the meantime, you can see a previous tutorial I wrote to see how this app might look with Angular Material.
 
