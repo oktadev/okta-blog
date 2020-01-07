@@ -8,7 +8,7 @@ tweets:
 - "Learn how to build a blog with Gatsby, React, and Netlify in this guide from @mraible."
 - "Blogging with Gatsby and Netlify: #JAMStack FTW!"
 - "A concise guide on how to build a secure blogging site with @gatsbyjs and @netlify. "
-image: 
+image: blog/gatsby-netlify-okta/gatsby-netlify.png
 ---
 
 <!-- 
