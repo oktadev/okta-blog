@@ -405,7 +405,7 @@ The last step is to add the issuer information, allowing Spring to know how to r
 Go to `resources/applications.properties` and add the following configuration:
 
 ```properties
-okta.oauth2.issuer=https://dev-919283.okta.com/oauth2/default
+okta.oauth2.issuer=https://{yourOktaDomain}/oauth2/default
 ```
 
 Let's test it! Open a terminal and execute the command below:
