@@ -22,7 +22,7 @@ image::{% asset_path 'blog/oauth-legacy-spring-cloud-gateway/spring-cloud-gatewa
 
 The first step is to create a new project on the https://start.spring.io[Spring Initializr]. I typically create it from my IDE or the command line:
 
-[source,text]
+[source,shell]
 ----
 curl https://start.spring.io/starter.tgz -d dependencies=okta,cloud-gateway,cloud-security \
   -d groupId=com.okta.tutorial \
@@ -65,9 +65,9 @@ okta:
 
 == Configure Spring Cloud Gateway Routes
 
-Next, we'll configure Spring Cloud Gateway to forward routes to our legacy application. For this post, the legacy application serves two paths `/` and `/profile`.
+Next, you'll configure Spring Cloud Gateway to forward routes to your legacy application. For this post, the legacy application serves two paths `/` and `/profile`.
 
-Once again in your `application.yml` file add the following block:
+Once again in your `application.yml` file, add the following block:
 
 ====
 [source,yaml]
@@ -121,7 +121,7 @@ public class DemoApplication {
 
 That's it! Start it up by running `./mvnw spring-boot:run`.
 
-A quick recap before we move on: that `application.yml` has a lot going on. It contains the OAuth 2.0 configuration (issuer, client ID, client secret) everything needed to securely proxy to the legacy application.
+A quick recap before we move on: that `application.yml` has a lot going on. It contains the OAuth 2.0 configuration (issuer, client ID, client secret) and everything needed to securely proxy to the legacy application.
 
 == Update a Legacy Application
 
@@ -145,7 +145,7 @@ public class UserProfileServlet extends HttpServlet {
 }
 ----
 
-Grab the full code on https://github.com/oktadeveloper/okta-legacy-with-cloud-gateway-example/tree/original-servlet-app[GitHub] (on the `original-servlet-app` branch):
+Grab the full code on https://github.com/oktadeveloper/okta-legacy-with-cloud-gateway-example/tree/original-servlet-app[GitHub] (in the `original-servlet-app` branch):
 
 [source,text]
 ----
@@ -153,7 +153,7 @@ git clone https://github.com/oktadeveloper/okta-legacy-with-cloud-gateway-exampl
 cd okta-legacy-with-cloud-gateway-example/legacy-servlet-app
 ----
 
-The above example uses static strings, a real application likely has a form to collect a username and password along with a user service that connects to a database, use your imagination. 😉
+The above example uses static strings, a real application likely has a form to collect a username and password along with a user service that connects to a database; you can use your imagination. 😉
 
 Start this application with `./mvnw jetty:run` and browse to `http://localhost:8080`.
 
@@ -249,7 +249,7 @@ public class BearerTokenFilter implements Filter {
 
 == Update the Servlet with Access Token Data
 
-The last step is to update the `UserProfileServlet` with data from the JWT access token. To do so, replace the `doGet` method with the one below:
+The last step is to update the `UserProfileServlet` with data from the JWT access token. To do so, replace the `doGet()` method with the one below:
 
 ====
 [source,java]
@@ -269,11 +269,11 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 <3> Add the other token claims as attributes in order to render them in the `user-profile.jsp`
 ====
 
-== Test Out your Secure Application!
+== Test Out Your Secure Application!
 
 Before restarting the servlet application, grab the "issuer" URL you used in the first step by copying it from `src/main/resources/application.yml`. You can also find this in your Okta Admin Console under **API** -> **Authorization Servers**.
 
-Now start the legacy application with:
+Start the legacy application with:
 
 [source,text]
 ----
@@ -284,9 +284,9 @@ That is it! Open an incognito/private browser and navigate to `http://localhost:
 
 image::{% asset_path 'blog/oauth-legacy-spring-cloud-gateway/profile-screenshot.png' %}[alt=Profile screenshot ,width=600,align=center]
 
-== Learn More About Java Web Security!
+== Learn More About Java Web Security
 
-In this post, you have taken a simple servlet application and secured it with OAuth through just a few lines of code (plus a healthy dose of configuration and error handling). You also used Spring Cloud Gateway to proxy and secure requests before they even get to your application!
+In this post, you learned how to secure a simple servlet application with OAuth 2.0 and just a few lines of code (plus a healthy dose of configuration and error handling). You also used Spring Cloud Gateway to proxy and secure requests before they even get to your application!
 
 The full source code for this post is available on https://github.com/oktadeveloper/okta-legacy-with-cloud-gateway-example[GitHub].
 
