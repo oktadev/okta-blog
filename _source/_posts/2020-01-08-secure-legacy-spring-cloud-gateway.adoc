@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Add OAuth 2.0 to Legacy Apps with Spring Cloud Gateway"
+title: "Secure Legacy Apps with Spring Cloud Gateway"
 author: bdemers
 description: "This tutorial shows show you how to secure legacy applications with OAuth 2.0 and Spring Cloud Gateway."
 tags: [java, spring cloud gateway, legacy, spring boot, spring cloud, oauth, oidc]
@@ -8,7 +8,7 @@ tweets:
 - "A low code option to secure legacy applications with Spring Cloud Gateway!"
 - "Adding OAuth 2.0 support to your existing applications is easy with Spring Cloud Gateway❗"
 - "Legacy Apps + Spring Cloud Gateway == 🔒"
-image: blog/oauth-legacy-spring-cloud-gateway/spring-cloud-gateway-legacy-social.png
+image: blog/secure-legacy-spring-cloud-gateway/spring-cloud-gateway-legacy-social.png
 ---
 :page-liquid:
 
@@ -16,7 +16,7 @@ One of the biggest challenges of adding OAuth 2.0 support to legacy applications
 
 You'll learn how to setup Spring Cloud Gateway running as a stand-alone application that proxies HTTP requests and handles the OAuth dance before forwarding the request onto your application.
 
-image::{% asset_path 'blog/oauth-legacy-spring-cloud-gateway/spring-cloud-gateway-legacy.png' %}[alt=Spring Cloud Gateway sequence diagram,width=800,align=center]
+image::{% asset_path 'blog/secure-legacy-spring-cloud-gateway/spring-cloud-gateway-legacy.png' %}[alt=Spring Cloud Gateway sequence diagram,width=800,align=center]
 
 == Create a Spring Cloud Gateway Project
 
@@ -282,7 +282,7 @@ Start the legacy application with:
 
 That is it! Open an incognito/private browser and navigate to `http://localhost:8080/` where you'll be redirected to Okta for login and then back to the profile page!
 
-image::{% asset_path 'blog/oauth-legacy-spring-cloud-gateway/profile-screenshot.png' %}[alt=Profile screenshot ,width=600,align=center]
+image::{% asset_path 'blog/secure-legacy-spring-cloud-gateway/profile-screenshot.png' %}[alt=Profile screenshot ,width=600,align=center]
 
 == Learn More About Java Web Security
 
