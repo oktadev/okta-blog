@@ -2,11 +2,11 @@
 layout: blog_post
 title: "Add OAuth 2.0 to Legacy Apps with Spring Cloud Gateway"
 author: bdemers
-description: "This tutorial shows show you how to secure legacy applications with OAuth 2.0 and Spring Cloud Gateway"
+description: "This tutorial shows show you how to secure legacy applications with OAuth 2.0 and Spring Cloud Gateway."
 tags: [java, spring cloud gateway, legacy, spring boot, spring cloud, oauth, oidc]
 tweets:
 - "A low code option to secure legacy applications with Spring Cloud Gateway!"
-- "Adding OAuth 2.0 support to your existing applications is easy with Spring Cloud Gateway"
+- "Adding OAuth 2.0 support to your existing applications is easy with Spring Cloud Gateway❗"
 - "Legacy Apps + Spring Cloud Gateway == 🔒"
 image: blog/oauth-legacy-spring-cloud-gateway/spring-cloud-gateway-legacy-social.png
 ---
