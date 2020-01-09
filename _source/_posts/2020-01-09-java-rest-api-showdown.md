@@ -198,7 +198,7 @@ The class has only one method, named `hello()`. The `@Get` annotation shows that
 
 The last annotation is `@Secured`. It simply tells Micronaut that this method is only accessible to authenticated users.
 
-You now have a controller that is secured, but you haven’t defined the security configuration yet. Let's configure Micronaut to connect to your Okta application.
+You now have a controller that is secured, but you haven't defined the security configuration yet. Let's configure Micronaut to connect to your Okta application.
 
 Go to `resources/application.yml` and add the following security configuration:
 
@@ -271,7 +271,7 @@ Now it works as expected! This time you're receiving the greeting message as a r
 Hello, daniel.pereira@email.com!
 ```
 
-You can see that Micronaut requires very little code to create a secure REST API. If you counted the lines of code, you’d find that ~20% is dependencies in XML (12 lines), the Java code is only 21 lines of code, and the security configuration (in YAML) takes 16 lines. Micronaut’s built-in OAuth 2.0 support makes it easy to integrate with Okta and they even have a [Guide for Okta](https://guides.micronaut.io/micronaut-oauth2-okta/guide/index.html) in their documentation.
+You can see that Micronaut requires very little code to create a secure REST API. If you counted the lines of code, you'd find that ~20% is dependencies in XML (12 lines), the Java code is only 21 lines of code, and the security configuration (in YAML) takes 16 lines. Micronaut's built-in OAuth 2.0 support makes it easy to integrate with Okta and they even have a [Guide for Okta](https://guides.micronaut.io/micronaut-oauth2-okta/guide/index.html) in their documentation.
 
 Great! Now let's see how you create the same app using Quarkus.
 
@@ -472,7 +472,7 @@ It worked! As with the other services, the result of this command is the followi
 Hello, daniel.pereira@email.com!
 ```
 
-Spring Boot clocks in at the least amount of code required: 17 lines of Java and only 1 line of configuration! Spring has always been excellent at making developers’ lives easier, so this comes as no surprise. 
+Spring Boot clocks in at the least amount of code required: 17 lines of Java and only 1 line of configuration! Spring has always been excellent at making developers' lives easier, so this comes as no surprise. 
 
 That's it! You implemented a basic Java REST API in all three frameworks!
 
@@ -496,9 +496,9 @@ Want to take a look at the source code? You can find it on [GitHub at okta-java-
 
 Do you want to learn more about Java, REST APIs, and secure applications? Here are some other posts from our blog that you might find useful:
 
-* [OAuth 2.0 Java Guide: Secure Your App in 5 Minutes](https://developer.okta.com/blog/2019/10/30/java-oauth2)
-* [Java Microservices with Spring Boot and Spring Cloud](https://developer.okta.com/blog/2019/05/22/java-microservices-spring-boot-spring-cloud)
-* [How to Develop a Quarkus App with Java and OIDC Authentication](https://developer.okta.com/blog/2019/09/30/java-quarkus-oidc)
-* [Simple Authentication with Spring Security](https://developer.okta.com/blog/2019/05/31/spring-security-authentication)
+* [OAuth 2.0 Java Guide: Secure Your App in 5 Minutes](/blog/2019/10/30/java-oauth2)
+* [Java Microservices with Spring Boot and Spring Cloud](/blog/2019/05/22/java-microservices-spring-boot-spring-cloud)
+* [How to Develop a Quarkus App with Java and OIDC Authentication](/blog/2019/09/30/java-quarkus-oidc)
+* [Simple Authentication with Spring Security](/blog/2019/05/31/spring-security-authentication)
 
 For more posts like this one, follow [@oktadev on Twitter](https://twitter.com/oktadev). We also regularly publish screencasts to [our YouTube channel](https://youtube.com/c/oktadev)!
