@@ -8,20 +8,20 @@ tweets:
 - "Learn how to create REST APIs with @micronautfw, @QuarkusIO, and @springboot."
 - "We created a guide for how to create REST APIs with leading Java frameworks: Micronaut, Quarkus, and Spring Boot."
 - "REST APIs are still popular! Learn how to do it in 2019 with @micronautfw, @QuarkusIO, and @springboot."
-image: blog/featured/okta-java-short-skew.jpg
+image: blog/java-rest-api/java-rest-api-showdown.png
 ---
 
-Developing services, including REST APIs, in Java, wasn't always something easy or productive, but then Spring came along and change the landscape. Many years have passed since then, and new frameworks emerged in the community.
+Developing services in Java, including REST APIs, wasn't always easy or productive until Spring came along and changed the landscape. Many years have passed since then, and new frameworks have emerged in the community.
 
-One of these frameworks was Micronaut. It's developed by OCI, the same company behind Grails, and their goal is to help to create microservices and serverless applications.
+One of these frameworks was Micronaut. It's developed by OCI, the same company behind Grails, and their goal is to help developers create microservices and serverless applications.
 
-There is also Quarkus, another framework that gained popularity during this year. Quarkus,  a framework developed by RedHat, promises to deliver fast startup and less memory usage, which are two problems that are common when developing REST services in Java.
+There is also Quarkus, another framework that gained popularity over the last year. Developed by RedHat, Quarkus promises to deliver fast startup and less memory usage, two common problems when developing REST services in Java.
 
-In these times, there is a very important question to ask: how easy it is to create a service in these three frameworks?
+With all these choices, there is a very important question to ask: how easy it is to create a service with each of these three frameworks?
 
-In this tutorial, you'll create a secure REST application in each of the frameworks we're comparing. By the end of this tutorial, you'll be able to see how they differ from one another, and which one best suits your needs.
+In this tutorial, you'll create a secure REST application using Spring, Micronaut, and Quarkus to see how they differ from one another, and which one best suits your needs.
 
-## Pre-requisites for Your Java REST API
+## Prerequisites for Your Java REST API
 
 This tutorial uses [Maven 3+](https://maven.apache.org). Make sure it is installed and available to use before continuing. You can certainly also use Gradle, but YMMV.
 
@@ -45,7 +45,7 @@ You will be asked to input the following information:
 
 Once you've answered the questions, you'll receive an email to activate your brand new account. With the account activated, you're ready to go!
 
-The Maven plugin already creates an application for you with auth code flow and Spring Security's redirect URI for Okta.
+The Maven plugin creates an application for you with auth code flow and Spring Security's redirect URI for Okta.
 
 {% img blog/java-rest-api/okta-maven-app.png alt:"Okta Maven-generated application" width:"700" %}{: .center-image }
 
@@ -60,19 +60,26 @@ You'll see the following screen:
 
 Before you continue, make the following changes in the application:
 
-* Name: `my-app`
 * Login redirect URIs:
   * `http://localhost:8080/login/oauth2/code/okta`
   * `https://oidcdebugger.com/debug`
 * Grant type allowed
-  * Client Credentials
   * Authorization Code
+  * Implicit (Hybrid)
 
-The fields not mentioned above can keep their default values.
+_The implicit grant type (with ID and Access Token allowed checked) is necessary to retrieve an access token in your browser._
 
-After you finish it, click **Done**. Your app is ready! The next step is to learn how to generate a valid token using it.
+The fields not mentioned above can keep their default values. 
+
+After you finish it, click **Done**. Your app is ready! 
+
+The next step is to learn how to generate a valid token using it.
 
 ### Generate Tokens Using OpenID Connect Debugger
+
+Okta allows you to manage your users in the cloud using its APIs. It also allows you to secure your applications using OAuth 2.0 and OpenID Connect (a.k.a., OIDC). OAuth 2.0 provides a mechanism for delegated authorization which means you don't have to store user credentials in your application. Instead, you can _delegate_ that to an OAuth 2.0 provider (Okta, in this case). OIDC provides an identity layer on top of OAuth 2.0 and that's why companies like Okta are called "identity providers", or IdPs. 
+
+You've registered your app with Okta and can now generate a token to gain access to it. One of the login redirect URIs you registered is for the OpenID Connect website. 
 
 Your requests will be validated using a token. To generate this token, you will use OpenID Connect Debugger. This website will provide you an easy way to generate credentials for the users on your Okta application.
 
@@ -81,7 +88,7 @@ Go to the https://oidcdebugger.com/ and fill in the following information:
 * Authorize URI: `https://{yourOktaDomain}/oauth2/default/v1/authorize`
 * Redirect URI: `https://oidcdebugger.com/debug`
 * Client ID: `{yourOktaClientId}`
-* Scope: `openid`
+* Scope: `openid email profile`
 * State: `dev`
 * Nonce: (keep the default value)
 * Response type: `token`
@@ -93,12 +100,12 @@ You can find the value for `{yourOktaDomain}` in the right upper corner of your 
 To find your Okta Client ID follow the steps below:
 
 * Go to **Applications**
-* Select **my-app**
+* Select **My Web App**
 * Click **General**
 
 The Client ID will be available in the **Client Credentials** section:
 
-{% img blog/java-rest-api/client-credentials.png alt:"Client Credentials" width:"700" %}{: .center-image }
+{% img blog/java-rest-api/client-credentials.png alt:"Client Credentials" width:"800" %}{: .center-image }
 
 After you complete all the fields, click **Send Request**. You'll be redirected to your Okta login page.
 
@@ -106,13 +113,13 @@ Once you have successfully authenticated, you'll be redirected to OIDC Debugger 
 
 {% img blog/java-rest-api/generated-token.png alt:"Generated Token" width:"800" %}{: .center-image }
 
-You'll use this token in the header of the requests you'll make in the services you're going to build.
+You'll use this token to securely access the services you're going to build.
 
 Now that you have an Okta account and you know how to generate tokens using your Okta application, let's start comparing the frameworks!
 
 ## Build a Java REST API with Micronaut
 
-The first step to start developing your Micronaut service is to download [SDKMAN!](https://sdkman.io/). SDKMAN! is a tool for managing parallel versions of multiple SDKs, which you'll use to install the Micronaut client.
+The first step to developing your Micronaut service is to download [SDKMAN!](https://sdkman.io/). SDKMAN! is a tool for managing parallel versions of multiple SDKs, which you'll use to install the Micronaut client.
 
 You can download SDKMAN! by running the following command:
 
@@ -138,9 +145,9 @@ Go to the directory you want to create your application in and execute the follo
 mn create-app com.okta.rest.micronaut --build maven
 ```
 
-This command will create a project with the basic structure of a Micronaut project. By default Micronaut uses Gradle, but since you're using `--build maven` it will use Maven instead.
+This command will create a project with the basic structure of a Micronaut project. Micronaut uses Gradle by default, but since you're using `--build maven`, it will use Maven instead.
 
-The next step is to add the security libraries inside the project. Go to the `pom.xml` file and add the following dependencies:
+The next step is to add the security libraries inside the project. Edit the `pom.xml` file and add the following dependencies:
 
 ```xml
 <dependency>
@@ -157,11 +164,13 @@ The next step is to add the security libraries inside the project. Go to the `po
 </dependency>
 ```
 
-These dependencies will enable security inside your project. Now that you have all the dependencies in place, you can start creating your endpoint.
+These dependencies will enable security -- specifically OAuth 2.0 with JWT -- inside your project. Now that you have all the dependencies in place, you can start creating your endpoint.
 
-Go to `src/main/java/com/okta/rest/controller` and create the following class:
+Create the following class in `src/main/java/com/okta/rest/controller`:
 
 ```java
+package com.okta.rest.controller;
+
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
@@ -185,15 +194,15 @@ public class HelloController {
 
 The `@Controller` annotation indicates to Micronaut that this component will receive requests in the `/hello` path.
 
-The class has only one method, named `hello()`. The `@Get` annotation shows that the method will receive HTTP GET requests. You need `@Produces` because Micronaut's default return type is a JSON object. Since you're returning simple text you need to explicitly define this information in the method.
+The class has only one method, named `hello()`. The `@Get` annotation shows that the method will receive HTTP GET requests. You need `@Produces` because Micronaut's default return type is a JSON object. Since you're returning simple text, you need to explicitly define this information in the method.
 
 The last annotation is `@Secured`. It simply tells Micronaut that this method is only accessible to authenticated users.
 
-You now have a controller that is secured, but you still didn't define the security configuration. Let's configure Micronaut to connect to your Okta application.
+You now have a controller that is secured, but you haven’t defined the security configuration yet. Let's configure Micronaut to connect to your Okta application.
 
-Go to `resources/application.yml` and add the following code:
+Go to `resources/application.yml` and add the following security configuration:
 
-```yml
+```yaml
 micronaut:
   application:
     name: micronaut
@@ -219,14 +228,14 @@ micronaut:
 
 Replace `{yourOktaDomain}` with the value from your Okta account.
 
-The configuration above enables security using OAuth 2.0. You declare that your OAuth 2.0 client comes from Okta, by specifying the issuer from your Okta account.
+The configuration above enables security using OAuth 2.0. You declare that your OAuth 2.0 client comes from Okta, by specifying the issuer from your Okta organization.
 
 You're also enabling the use of JSON web tokens, or JWTs. Since you want to read the information from Okta, you must declare where you can find your JWKS (JSON Web Key Set) to validate JWT signatures.
 
 It's time to test your service! Start your application by executing the following command:
 
 ```bash
-./mvnw exec:exec
+./mvnw compile exec:exec
 ```
 
 With your app running, execute the following command:
@@ -244,31 +253,36 @@ transfer-encoding: chunked
 connection: close
 ```
 
-As you can see, the request didn't go through. To make it work, you need to pass in the OAuth 2.0 access token retrieved by the OIDC Debugger.
-
-Execute the command below, changing `<TOKEN>` for the token you obtained on OIDC Debugger:
+As you can see, the request didn't go through. To make it work, you need to pass in the OAuth 2.0 access token retrieved by the OIDC Debugger. Assign the access token to a `TOKEN` variable in your shell.
 
 ```bash
-curl -X GET http://localhost:8080/hello \
-  -H 'Authorization: Bearer <TOKEN>'
+TOKEN=eyJraWQiOiJxOE1QMjFNNHZCVmxOSkxGbFFWNlN...
+```
+
+Execute the command below:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" http://localhost:8080/hello
 ```
 
 Now it works as expected! This time you're receiving the greeting message as a response:
 
 ```bash
-Hello, daniel.pereira@gmail.com!
+Hello, daniel.pereira@email.com!
 ```
+
+You can see that Micronaut requires very little code to create a secure REST API. If you counted the lines of code, you’d find that ~20% is dependencies in XML (12 lines), the Java code is only 21 lines of code, and the security configuration (in YAML) takes 16 lines. Micronaut’s built-in OAuth 2.0 support makes it easy to integrate with Okta and they even have a [Guide for Okta](https://guides.micronaut.io/micronaut-oauth2-okta/guide/index.html) in their documentation.
 
 Great! Now let's see how you create the same app using Quarkus.
 
 ## Build a Java REST API with Quarkus
 
-To develop your application using Quarkus you only need Maven installed, there is no other dependency needed.
+To develop your application using Quarkus you only need Maven installed, there are no other dependencies required.
 
-Let's start creating your app! Go to the directory you want it to be created in and execute the following command:
+Let's start creating your app! Go to the directory you want to create it in and execute the following command:
 
 ```bash
-mvn io.quarkus:quarkus-maven-plugin:1.1.Final:create \
+mvn io.quarkus:quarkus-maven-plugin:1.1.1.Final:create \
     -DprojectGroupId=com.okta.rest \
     -DprojectArtifactId=quarkus \
     -DclassName="com.okta.rest.quarkus.HelloResource" \
@@ -278,9 +292,11 @@ mvn io.quarkus:quarkus-maven-plugin:1.1.Final:create \
 
 The command above creates a project using the Quarkus Maven plugin. It will create a resource named `HelloResource`, which is going to receive requests on the `/hello` path. You're also adding the JWT extension from Quarkus on the project.
 
-Once you create the project, go to `src/java/com/okta/rest/quarkus` and make the following changes:
+Once you create the project, edit `src/java/com/okta/rest/quarkus/HelloResource.java` and add user information to the `hello()` method:
 
 ```java
+package com.okta.rest.quarkus;
+
 import io.quarkus.security.Authenticated;
 
 import javax.ws.rs.GET;
@@ -302,6 +318,7 @@ public class HelloResource {
         Principal userPrincipal = context.getUserPrincipal();
         return "Hello, " + userPrincipal.getName() + "!";
     }
+
 }
 ```
 
@@ -309,7 +326,7 @@ The class above will behave the same way as the one you created in Micronaut. It
 
 You still haven't configured Quarkus with your issuer and keys from Okta, so let's do that.
 
-Go to `resources/application.properties` and add the following code:
+Edit `src/main/resources/application.properties` and add the following code:
 
 ```properties
 mp.jwt.verify.publickey.location=https://{yourOktaDomain}/oauth2/default/v1/keys
@@ -340,13 +357,12 @@ www-authenticate: Bearer {token}
 Content-Length: 0
 ```
 
-If you execute passing the token obtained by the OIDC Debugger it should return the greeting message.
+If you execute this same request, including the token from the OIDC Debugger, it should return the greeting message.
 
 Execute the following command:
 
 ```bash
-curl -X GET http://localhost:8080/hello \
-  -H 'Authorization: Bearer <TOKEN>'
+curl -H "Authorization: Bearer $TOKEN" http://localhost:8080/hello
 ```
 
 It worked like a charm! In my case, the result was:
@@ -354,6 +370,8 @@ It worked like a charm! In my case, the result was:
 ```bash
 Hello, daniel.pereira@email.com!
 ```
+
+Quarkus requires even fewer lines of code than Micronaut! It generates an app with dependencies included, has 25 lines of Java code, and only 2 lines of configuration. Yes, lines of code is a silly comparison, but it also shows how these frameworks require very little code to develop secure apps.
 
 Two down, one to go! Now that you were able to implement the app on Micronaut and Quarkus, let's finish by creating the same app using Spring Boot.
 
@@ -372,13 +390,19 @@ curl https://start.spring.io/starter.zip -d language=java \
  -o spring-boot.zip
 ```
 
-The command above will create a `.zip` file with a Spring Boot application that uses Maven. You can extract the file into the directory you want to work on.
+The command above will create a `spring-boot.zip` file with a Spring Boot application that uses Maven. You can extract the file into a `spring-boot` directory using the command below.
 
-The last step is to implement the controller that will receive the requests.
+```bash
+unzip spring-boot.zip -d spring-boot
+```
 
-Go to `src/main/java/okta/rest/springboot/controller` and create the following class:
+Now, you'll implement the controller that will receive the requests.
+
+Create a `com.okta.rest.controller` package and a `HelloController` class in it:
 
 ```java
+package com.okta.rest.controller;
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -400,15 +424,21 @@ The configuration here is very similar to the other frameworks. You annotate the
 
 Different from the other frameworks, you don't need to specify that this endpoint is authenticated since Spring already controls this information from its configurations.
 
-The last step is to add the issuer information, allowing Spring to know how to reach your Okta application.
+The last step is to add the issuer information, so  Spring Security's OIDC support can auto-discover the endpoints it needs to communicate with..
 
-Go to `resources/applications.properties` and add the following configuration:
+Edit `src/main/resources/applications.properties` and add the following configuration:
 
 ```properties
 okta.oauth2.issuer=https://{yourOktaDomain}/oauth2/default
 ```
 
-Let's test it! Open a terminal and execute the command below:
+Let's test it! Start your Spring Boot app using Maven.
+
+```bash
+./mvnw spring-boot:run
+```
+
+Then, open a terminal and execute the command below:
 
 ```bash
 curl -X GET -I http://localhost:8080/hello
@@ -427,33 +457,40 @@ Pragma: no-cache
 Expires: 0
 X-Frame-Options: DENY
 Content-Length: 0
-Date: Mon, 09 Dec 2019 13:01:35 GMT
+Date: Thu, 09 Jan 2020 15:46:34 GMT
 ```
 
 Test it again, now passing the token:
 
 ```bash
-curl -X GET http://localhost:8080/hello \
-  -H 'Authorization: Bearer <TOKEN>'
+curl -H "Authorization: Bearer $TOKEN" http://localhost:8080/hello
 ```
 
-It worked! As it happens with the other services, the result of my executing is the following one:
+It worked! As with the other services, the result of this command is the following:
 
 ```bash
 Hello, daniel.pereira@email.com!
 ```
 
-That's it! You implemented a basic Java REST API  in all three frameworks!
+Spring Boot clocks in at the least amount of code required: 17 lines of Java and only 1 line of configuration! Spring has always been excellent at making developers’ lives easier, so this comes as no surprise. 
+
+That's it! You implemented a basic Java REST API in all three frameworks!
 
 ## Final Thoughts on REST APIs With Java: Micronaut, Quarkus, and Spring Boot
 
-When it comes to developing your REST API, all three frameworks did the job well. With only a couple of classes, you were able to develop a secure application using Okta and OAuth 2.0.
+When it comes to developing your REST API, all three frameworks did the job well. With only a bit of code and some configuration, you were able to develop a secure application using Okta and OAuth 2.0.
 
 Spring has been around for many years, it's widely popular, and has many features around its ecosystem. Personally, I still believe it is the best option available when programming in Java.
 
-Micronaut and Quarkus are growing in popularity and gaining momentum inside the Java community. If you're facing performance issues, or maybe if you're aching for a change, you might give one of them a try and see how it goes.
+Micronaut and Quarkus are growing in popularity and gaining momentum inside the Java community. If you're facing performance issues, or maybe if you're aching for a change, you might give one of them a try and see how it goes. 
 
-In the end, you'll be able to be productive when developing a secure application, regardless of the choice you make.
+Performance is the most often highlighted comparison point between these three frameworks. If you're looking for fast startup in a serverless environment, or the ability to create native images with GraalVM, Micronaut and Quarkus will likely work well for you. Just for fun, the startup times for each of these apps are as follows:
+
+* Micronaut: 1985ms
+* Quarkus: 1.156s
+* Spring Boot: 1.127 seconds
+
+In the end, you'll be able to productively develop a secure application, regardless of the choice you make.
 
 Want to take a look at the source code? You can find it on [GitHub at okta-java-rest-api-comparison-example](https://github.com/oktadeveloper/okta-java-rest-api-comparison-example).
 
