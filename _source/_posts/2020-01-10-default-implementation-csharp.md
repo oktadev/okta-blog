@@ -13,7 +13,7 @@ image: blog/featured/okta-dotnet-half.jpg
 
 If you haven't heard, C# 8.0 ships with a new feature that allows you to add default implementations to interfaces. If you're like me, you may be thinking, "Why? Why would I want to add implementations to interfaces? Isn't that what abstract classes are for? Doesn't that go against everything that interfaces stand for?"
 
-My immediate reaction to this new feature was visceral and negative,, but I decided to investigate closer and... I think I may actually love it. Stay with me here and I’ll explain why.
+My immediate reaction to this new feature was visceral and negative,, but I decided to investigate closer and... I think I may actually love it. Stay with me here and I'll explain why.
 
 ## What Did Abstract Classes Ever Do to You?
 
@@ -31,7 +31,7 @@ So how can you have a default implementation as you might in an abstract or pare
 
 ## What Problems Do Default Implementations Solve?
 
-Beyond my initial negative reaction to "dirtying up" interfaces with implementations, I thought, "What problem is this solving for me?" I think it’s a fair question, so here are the two ways I see them helping.
+Beyond my initial negative reaction to "dirtying up" interfaces with implementations, I thought, "What problem is this solving for me?" I think it's a fair question, so here are the two ways I see them helping.
 
 The first problem is when you have an existing interface that may be implemented by multiple classes and you need to change the interface. It is time-consuming to track down all the places an interface is implemented and add implementations for the new interface methods.
 
