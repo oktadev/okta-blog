@@ -288,7 +288,7 @@ yarn add bootstrap react-router-dom reactstrap
 
 This installs Bootstrap, React Router, and Reactstrap. It's unlikely I have to tell you what Bootstrap is, but if you want to dig deeper, take a look at [the project page](https://getbootstrap.com/). `react-router-dom` provides DOM bindings for React Router ([their docs](https://reacttraining.com/react-router/web/guides/quick-start)). Reactstrap is a library of React components that leverage Bootstrap to provide a set of mobile-friendly UI components ([their docs](https://reactstrap.github.io/)).
 
-Add Bootstrap’s CSS file as an import in `client/src/index.js`.
+Add Bootstrap's CSS file as an import in `client/src/index.js`.
 
 ```js
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -1255,11 +1255,11 @@ You can find the source code for this example on GitHub in the [okta-kotlin-reac
 If you want to keep learning, take a look at these related posts:
 
 - [Kotlin: A Beginner's Guide and Tutorial](/blog/2019/12/12/tutorial-kotlin-beginners-guide)
-- [Use React and Spring Boot to Build a Simple CRUD App](https://developer.okta.com/blog/2018/07/19/simple-crud-react-and-spring-boot)
+- [Use React and Spring Boot to Build a Simple CRUD App](/blog/2018/07/19/simple-crud-react-and-spring-boot)
   - ^^ Shows how to configure CSRF protection with Spring Boot and React
 - [Build a Basic CRUD App in Android with Kotlin](/blog/2018/09/11/android-kotlin-crud)
-- [Build a Web App with Spring Boot and Spring Security in 15 Minutes](https://developer.okta.com/blog/2018/09/26/build-a-spring-boot-webapp)
--  [Create a Secure Spring REST API](https://developer.okta.com/blog/2018/12/18/secure-spring-rest-api)
-- [Build a Simple CRUD App with Spring Boot and Vue.js](https://developer.okta.com/blog/2018/11/20/build-crud-spring-and-vue)
+- [Build a Web App with Spring Boot and Spring Security in 15 Minutes](/blog/2018/09/26/build-a-spring-boot-webapp)
+-  [Create a Secure Spring REST API](/blog/2018/12/18/secure-spring-rest-api)
+- [Build a Simple CRUD App with Spring Boot and Vue.js](/blog/2018/11/20/build-crud-spring-and-vue)
 
 If you have any questions about this post, please add a comment below. For more awesome content, follow  [@oktadev](https://twitter.com/oktadev) on Twitter, like us [on Facebook](https://www.facebook.com/oktadevelopers/), or subscribe to [our YouTube channel](https://www.youtube.com/c/oktadev).
