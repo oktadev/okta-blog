@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Build a CRUD Application with Kotlin and React"
+title: "How to Build a CRUD Application with Kotlin and React"
 author: moksamedia
 description: "This tutorial shows how to build a CRUD application with Kotlin and React."
 tags: [kotlin, react, spring boot, oauth2, oidc, authentication]
@@ -11,7 +11,7 @@ tweets:
 image: blog/kotlin-react-crud/kotlin-react.png
 ---
 
-In this tutorial, you're going to build a client and server application using React for the frontend and Kotlin with Spring Boot for the backend. You'll first build the application unsecured before securing the application using Okta. To secure the React frontend, you'll use OAuth 2.0 login, and for the backend, you'll use a JSON Web Token and Spring Boot's resource server OAuth implementation.
+In this tutorial, you're going to build a client and server application using React for the frontend and Kotlin with Spring Boot for the backend. You'll first build the app unsecured before securing it using Okta. To secure the React frontend, you'll use OAuth 2.0 login, and for the backend, you'll use a JSON Web Token and Spring Boot's resource server OAuth implementation.
 
 This tutorial covers a lot of ground. It also uses a lot of technologies. Because of this, it doesn't dive too deep into any one of them and assumes a basic familiarity with React, Kotlin, Spring Boot, and REST APIs.
 
@@ -19,7 +19,7 @@ This tutorial covers a lot of ground. It also uses a lot of technologies. Becaus
 
 You'll need to install a few things before you get started.
 
-**Java 11**: If you don't have Java 11, you can install OpenJDK. Instructions are found on the [OpenJDK website](https://openjdk.java.net/install/). OpenJDK can also be installed using [Homebrew](https://brew.sh/). [SDKMAN](https://sdkman.io/) is another great option for installing and managing Java versions.
+**Java 11**: If you don't have Java 11, you can install OpenJDK. The [OpenJDK website](https://openjdk.java.net/install/) has instructions for installation. OpenJDK can also be installed using [Homebrew](https://brew.sh/). [SDKMAN](https://sdkman.io/) is another excellent option for installing and managing Java versions.
 
 **Node 12**: You'll need Node to create and run your React application. You can install it with Homebrew or download it from [nodejs.org](https://nodejs.org).
 
@@ -31,7 +31,7 @@ You'll need to install a few things before you get started.
 
 ## Download a Kotlin Starter Project With Spring Initializr
 
-To get the party started, you're going to use the [Spring Initializr](https://start.spring.io/). It's a great resource that makes getting started with Spring Boot projects super simple. If you want to really dig into the options, take a look at [the Spring Initializr GitHub page](https://github.com/spring-io/initializr).
+To get the party started, you're going to use the [Spring Initializr](https://start.spring.io/). It's a great resource that makes getting started with Spring Boot projects super simple. If you want to dig into the options, take a look at [the Spring Initializr GitHub page](https://github.com/spring-io/initializr).
 
 Open [this link to a pre-configured project](https://start.spring.io/#!type=gradle-project&language=kotlin&platformVersion=2.2.2.RELEASE&packaging=jar&jvmVersion=11&groupId=com.okta.kotlin&artifactId=resourceserver&name=ResourceServer&description=rest%20api%20for%20react%20app&packageName=com.okta.kotlin&dependencies=web,data-jpa,data-rest,h2) for this tutorial.
 
@@ -39,7 +39,7 @@ Take a moment to peruse the pre-selected options. Note a feature that I really l
 
 To highlight some of the important settings:
 
-- Project: **Gradle project** (vs Maven, because XML. Ugh. Holy 1999!)
+- Project: **Gradle project** (vs. Maven, because XML. Ugh. Holy 1999!)
 - Language: **Kotlin**
 - Group: `com.okta.kotlin` (this defines the package of the app files)
 - Artifact: `resourceserver` (determines the project identifier as well as the name of the generated artifact)
@@ -91,7 +91,7 @@ You may be wondering why, without even defining a controller, you have any respo
 
 A "hypermedia-based RESTful front end" is a REST API that uses Hypertext Application Language (HAL) format to output descriptive JSON. It's essentially a systematic way for a REST API to describe itself to client applications and for the client applications to easily navigate between the various endpoints.
 
-The `/profile` endpoint that you're seeing there is an endpoint automatically added by the `spring-boot-starter-data-rest` starter dependency.
+The `/profile` endpoint that you see is an endpoint automatically added by the `spring-boot-starter-data-rest` starter dependency.
 
 Otherwise, there isn't much going on yet. That's about to change!
 
@@ -180,7 +180,7 @@ class ResourceServerApplication  {
 }
 
 fun main(args: Array<String>) {
-	runApplication<ResourceServerApplication>(*args)
+    runApplication<ResourceServerApplication>(*args)
 }
 ```
 
@@ -262,7 +262,7 @@ open class RestConfiguration : RepositoryRestConfigurer {
 }
 ```
 
-If you re-start the resource server and execute a `http :8080/api/coffeeshops` request, you'll find that the `id` field is now included in the JSON response.
+If you re-start the resource server and execute an `http :8080/api/coffeeshops` request, you'll find that the `id` field is now included in the JSON response.
 
 ## Create the React Frontend
 
@@ -730,7 +730,7 @@ export default withRouter(CoffeeShopEdit);
 
 ### Add an Authentication-Aware Service for Server Requests
 
-Create one more new file, `src/Api.js`. This module serves to centralize all of the server request logic. It is written so that it allows you to pass an authorization token to its constructor (which you'll get to in the next section) and it will set the appropriate header. Without an auth token, it makes an unauthenticated request.
+Create one more new file, `src/Api.js`. This module serves to centralize all of the server request logic. It is written so that it allows you to pass an authorization token to its constructor (which you'll get to in the next section), and it will set the appropriate header. Without an auth token, it makes an unauthenticated request.
 
 `src/Api.js`
 ```jsx
@@ -886,7 +886,7 @@ a.app-link:hover {
 }
 ```
 
-Run `yarn start` again if you need to (you may not need to; if you left it running it should update automatically as you make changes). Make sure your resource server is running as well.
+Run `yarn start` again if you need to (you may not need to; if you left it running, it should update automatically as you make changes). Make sure your resource server is running as well.
 
 Take a look at the updated app at `http://localhost:3000/`.
 
@@ -902,7 +902,7 @@ You can now view, edit, create, and delete coffee shops.
 
 ## Secure Your Kotlin + React App
 
-You've got a nice, functional client and server application going. Don't rest on your laurels yet! It's unsecured, and if you leave that thing unattended hackers will have it spewing spam and twist it into cheating little old ladies out of their retirement funds quicker than you can figure out what the heck a 'hook' is.
+You've got a nice, functional client and server application going. Don't rest on your laurels yet! It's unsecured, and if you leave that thing unattended, hackers will have it spewing spam and twist it into cheating little old ladies out of their retirement funds quicker than you can figure out what the heck a 'hook' is.
 
 The next step is to secure it. You're going to implement OAuth 2.0 login on the frontend. On the back end, you're going to use a JSON Web Token (JWT) to secure the resource server. To make life much easier, you're going to use Okta as your OAuth provider. Using Okta means you won't have to write or maintain any login code or handle user passwords; nor will you have to waste any time mucking around writing code to verify tokens.
 
@@ -912,7 +912,7 @@ Before you make any code changes, though, you need to log into your Okta develop
 
 ## Create an OpenID Connect Application
 
-OpenID Connect (or, OIDC) is an authentication protocol built on top of OAuth 2.0, which is an authorization protocol. Very briefly, OIDC allows you to know *who* a client is and OAuth 2.0 allows you to determine *what* they're allowed to do. Together they specify a complete authentication and authorization system. You're going to use Okta's implementation of these protocols as your OAuth 2.0 / OIDC provider. 
+OpenID Connect (or, OIDC) is an authentication protocol built on top of OAuth 2.0, which is an authorization protocol. Very briefly, OIDC allows you to know *who* a client is, and OAuth 2.0 allows you to determine *what* they're allowed to do. Together they specify a complete authentication and authorization system. You're going to use Okta's implementation of these protocols as your OAuth 2.0 / OIDC provider. 
 
 To do this, you need to create an OIDC application in your Okta account. This configures and activates the OIDC application that your frontend application and backend resources server will interact with when verifying authentication and authorization.
 
