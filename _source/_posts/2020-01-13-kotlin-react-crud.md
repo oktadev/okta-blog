@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Build a CRUD Application with Kotlin and React"
+title: "Build a CRUD Application with Kotlin and React2"
 author: moksamedia
 description: "This tutorial shows how to build a CRUD application with Kotlin and React."
 tags: [kotlin, react, spring boot, oauth2, oidc, authentication]
