@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Never Build MFA Again: A Developer’s Guide to Transactional MFA"
+title: "Never Build MFA Again: A Developer's Guide to Transactional MFA"
 author: jeffersonhaw
 description: "Learn how to implement transactional MFA in your applications."
 tags: [transactional MFA, MFA]
@@ -30,19 +30,19 @@ an application, or a component of an interface that enables a user to perform a 
 
 The [Okta Sign-In Widget](https://github.com/okta/okta-signin-widget) is a handy tool that covers all of your authentication and authorization use cases in securing your web application and mobile application. As Okta would say, NEVER BUILD AUTH AGAIN.
 
-Did you know that outside of the standard authentication scenarios, a developer can actually leverage the Okta Sign-In Widget in other places as well? I’m talking about use cases like providing Transactional 2FA/MFA over certain flows where you would want to verify the user before executing a sensitive transaction or allowing the user access a secured section of your web application.
+Did you know that outside of the standard authentication scenarios, a developer can actually leverage the Okta Sign-In Widget in other places as well? I'm talking about use cases like providing Transactional 2FA/MFA over certain flows where you would want to verify the user before executing a sensitive transaction or allowing the user access a secured section of your web application.
 
 {% img blog/transactional-mfa/mfa-sequence-diagram.png alt:"MFA Sequence Diagram" width:"800" %}{: .center-image }
 
 >For this project, you'll need to prepare a few dependencies:
->1. Any IDE to access NodeJS files. I’m using [Visual Studio Code](https://code.visualstudio.com/)
+>1. Any IDE to access NodeJS files. I'm using [Visual Studio Code](https://code.visualstudio.com/)
 >2. Nodejs and NPM
 >3. A free [Okta Developer](https://developer.okta.com/) account
 >4. An existing [NodeJS Express Okta project](https://github.com/okta/samples-nodejs-express-4/tree/master/okta-hosted-login) where you will inject your on-demand MFA.
 
 ## Create a Custom SAML Application in Okta
 
-In this example, you will be using a new early-access feature called [Step-up authentication with Okta Session](https://developer.okta.com/docs/reference/api/authn/#step-up-authentication-with-okta-session). This is a new feature that allows you to get a `stateToken` from Okta and use it as a parameter within the Okta Sign-In widget so that you can bootstrap the Okta Sign-In widget to do MFA automatically. If you don’t have this feature enabled, I would suggest creating a support ticket to have this feature enabled on your Okta tenant.
+In this example, you will be using a new early-access feature called [Step-up authentication with Okta Session](https://developer.okta.com/docs/reference/api/authn/#step-up-authentication-with-okta-session). This is a new feature that allows you to get a `stateToken` from Okta and use it as a parameter within the Okta Sign-In widget so that you can bootstrap the Okta Sign-In widget to do MFA automatically. If you don't have this feature enabled, I would suggest creating a support ticket to have this feature enabled on your Okta tenant.
 
 To do this, you will need to create a custom SAML application.
 
@@ -74,7 +74,7 @@ You will be redirected to the **Application Sign On Policy Tab**. Scroll down an
 
 {% img blog/transactional-mfa/app-sign-on-rule.png alt:"App Sign On Rule" width:"800" %}{: .center-image }
 
-Click the **General** Tab and scroll down until you see the **App Embed Link** section and click **Edit**. Enter the URL where you will host a separate widget that will do MFA as a service. In this example, I’ve created a basic Node.JS web application and hosted it under `http://localhost:<port>`. Click **Save**. I will be using port 3000 for this blog post.
+Click the **General** Tab and scroll down until you see the **App Embed Link** section and click **Edit**. Enter the URL where you will host a separate widget that will do MFA as a service. In this example, I've created a basic Node.JS web application and hosted it under `http://localhost:<port>`. Click **Save**. I will be using port 3000 for this blog post.
 
 {% img blog/transactional-mfa/app-embed-link.png alt:"App Embed Link" width:"800" %}{: .center-image }
 
@@ -148,9 +148,9 @@ Edit the `profile.mustache` view so that you can inject a new HTML link that can
 
 ## Setup a Separate Widget to do MFA as a Service
 
-Instead of using the same web application, I’ve decided to create a separate Node.JS application to represent my MFA as a service widget such that later on, if there are any other applications who need to use this capability, then it can be extended for other usages as well. You would need to do the same steps mentioned above.
+Instead of using the same web application, I've decided to create a separate Node.JS application to represent my MFA as a service widget such that later on, if there are any other applications who need to use this capability, then it can be extended for other usages as well. You would need to do the same steps mentioned above.
 
-I’ve also set the redirect URI to the success page or the secured page where I want to redirect my user if the MFA step up is successful and the URL is [https://i.ytimg.com/vi/jwg8LvOv6QQ/maxresdefault.jpg](https://i.ytimg.com/vi/jwg8LvOv6QQ/maxresdefault.jpg)
+I've also set the redirect URI to the success page or the secured page where I want to redirect my user if the MFA step up is successful and the URL is [https://i.ytimg.com/vi/jwg8LvOv6QQ/maxresdefault.jpg](https://i.ytimg.com/vi/jwg8LvOv6QQ/maxresdefault.jpg)
 
 {% img blog/transactional-mfa/mfa-widget-redirect-uri.png alt:"MFA Widget Redirect URI" width:"800" %}{: .center-image }
 
@@ -242,7 +242,7 @@ Click **Transact with MFA**, you should be redirected to the separate MFA widget
 
 {% img blog/transactional-mfa/mfa-challenge-screen.png alt:"MFA Challenge Screen" width:"800" %}{: .center-image }
 
-After completing the MFA verification, the MFA widget will redirect you to the success page. If you inspect the URL, I’ve explicitly added the id token in the URL such that later if you want to create a facade to check whether the end-user has actually completed the MFA rather than relying on the redirect flow then this is possible by decoding the ID Token (JWT) and check the `amr` claims. The `amr` claim should have a value of `mfa` and `swk` instead of the standard `pwd` which you already have done earlier.
+After completing the MFA verification, the MFA widget will redirect you to the success page. If you inspect the URL, I've explicitly added the id token in the URL such that later if you want to create a facade to check whether the end-user has actually completed the MFA rather than relying on the redirect flow then this is possible by decoding the ID Token (JWT) and check the `amr` claims. The `amr` claim should have a value of `mfa` and `swk` instead of the standard `pwd` which you already have done earlier.
 
 Here you can validate if the token that was generated actually came from the MFA as a service process.
 
@@ -254,7 +254,7 @@ Here is a GIF showing everything in one go
 
 ## Learn More About MFA and Okta
 
-As you can see, the Okta Sign-In Widget can be extended to support outside the standard authentication scenarios. This allows you to reduce your development time in creating MFA or 2FA screens for your web application. The Okta Sign-In Widget also supports MFA enrollment as part of the capability which is also by default provided with the bootstrapping process above. I would like to end this with a modified note on Okta’s developer home page which shows:
+As you can see, the Okta Sign-In Widget can be extended to support outside the standard authentication scenarios. This allows you to reduce your development time in creating MFA or 2FA screens for your web application. The Okta Sign-In Widget also supports MFA enrollment as part of the capability which is also by default provided with the bootstrapping process above. I would like to end this with a modified note on Okta's developer home page which shows:
 
 If you'd like to see similar content from our blog, check out these posts:
 
