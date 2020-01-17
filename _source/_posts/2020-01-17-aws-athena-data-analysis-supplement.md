@@ -88,7 +88,7 @@ After this table is defined, we are then able to issue SQL queries against `clou
 
 ```sql
 SELECT sourceipaddress, eventname, awsregion
-FROM default.cloudtrail_logs
+FROM default.cloudtrail_logs_partitioned;
 LIMIT 10;
 ```
 
