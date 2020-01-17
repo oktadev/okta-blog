@@ -23,7 +23,7 @@ In this post, we take a quick look at:
 
 ## Introduce S3 Data to Athena
 
-Before Athena can query data in S3, it needs to be made aware that data exists and how it's structured. We do this by defining a table. Luckily, Amazon provides a great starting point for analyzing [their service logs](https://docs.aws.amazon.com/athena/latest/ug/querying-AWS-service-logs.html) in their documentation. Let’s take a look at the [example for CloudTrail](https://docs.aws.amazon.com/athena/latest/ug/cloudtrail-logs.html):
+Before Athena can query data in S3, it needs to be made aware that data exists and how it's structured. We do this by defining a table. Luckily, Amazon provides a great starting point for analyzing [their service logs](https://docs.aws.amazon.com/athena/latest/ug/querying-AWS-service-logs.html) in their documentation. Let's take a look at the [example for CloudTrail](https://docs.aws.amazon.com/athena/latest/ug/cloudtrail-logs.html):
 
 ```sql
 CREATE EXTERNAL TABLE default.cloudtrail_logs (
@@ -94,7 +94,7 @@ LIMIT 10;
 
 ## Add Partitioning for S3 Directories
 
-So far, we have a way of querying our data, but it's not very efficient. Whenever we query this table, Athena recursively scans the specified S3 path, looking at all files rooted at the directory we specified as the `LOCATION` for the table. This directory is traversed in parallel before results are aggregated and returned. In some cases, this might be what is needed, but it's safe to say that in a majority of cases we're only interested in a subset of this directory. Can we do better? 
+So far, we have a way of querying our data, but it's not very efficient. Whenever we query this table, Athena recursively scans the specified S3 path, looking at all files rooted at the directory we specified as the `LOCATION` for the table. This directory is traversed in parallel before results are aggregated and returned. In some cases, this might be what is needed, but it's safe to say that in a majority of cases we're only interested in a subset of this directory. Can we do better?
 
 This is where [partitioning](https://docs.aws.amazon.com/athena/latest/ug/partitions.html) comes into play. When we define partitions, we direct what data Athena scans. Athena is billed by the amount of data it scans, so scanning at the minimum number of partitions is paramount to reducing time and cost.
 
