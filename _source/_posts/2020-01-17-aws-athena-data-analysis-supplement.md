@@ -88,7 +88,7 @@ After this table is defined, we are then able to issue SQL queries against `clou
 
 ```sql
 SELECT sourceipaddress, eventname, awsregion
-FROM default.cloudtrail_logs_partitioned;
+FROM default.cloudtrail_logs
 LIMIT 10;
 ```
 
@@ -170,7 +170,7 @@ If we query `cloudtrail_logs_partitioned` without specifying any partition keys,
 
 ```sql
 SELECT sourceipaddress, eventname, awsregion
-FROM default.cloudtrail_logs;
+FROM default.cloudtrail_logs_partitioned;
 ```
 
 Athena will traverse all partitions it knows about for a partitioned table. In our case, all files under these paths will be scanned:
