@@ -48,6 +48,10 @@
 </footer>
 
     {% js master %}
+    <!-- Coveo -->
+    <script src="https://static.cloud.coveo.com/searchui/v2.7219/js/CoveoJsSearch.Lazy.min.js"></script>
+    <script src="{{ site.external_stage_domain }}/sites/all/modules/okta_coveo_search_developer/js/okta_coveo_search_developer.js"></script>
+
     {% for script in page.scripts %}
       <script src="{{ script }}"></script>
     {% endfor %}

@@ -18,6 +18,14 @@ Writing quality code takes practice. To write better code, you need to know what
 
 I wrote some intentionally bad code to demo these tools (which was harder than you might think). If you cannot wait and just want to see the code, you can grab it on https://github.com/oktadeveloper/okta-java-tools-example[GitHub]. Clone the project and run `./mvnw verify` and you will see the issues.
 
+If you'd rather watch a video, I https://youtu.be/_VCJ8jCRVWo[created a screencast too]!
+
+++++
+<div style="text-align: center; margin-bottom: 1.25rem">
+<iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/_VCJ8jCRVWo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+++++
+
 First, it's always a good idea to start with tests!
 
 toc::[]
