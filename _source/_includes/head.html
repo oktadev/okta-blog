@@ -1,14 +1,8 @@
 <head>
+  <link rel="preload" href="https://use.typekit.net/osg6paw.css" as="style" crossorigin />
+  <link rel="stylesheet" href="https://use.typekit.net/osg6paw.css" crossorigin />
+
   <script>
-    // TypeKit
-    (function(d) {
-      var config = {
-        kitId: 'jff5neq',
-        scriptTimeout: 3000,
-        async: true
-      },
-      h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/bwf-loadingb/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
-    })(document);
 
     var searchDomain = '{{ site.external_domain }}';
     var isProduction = window.location.hostname === 'developer.okta.com';
@@ -33,8 +27,7 @@
    {% endif %}
 
   <link type="text/css" rel="stylesheet" href="{{ site.external_domain }}/sites/all/themes/developer/css/master.css" media="all" />
-  <meta class="swiftype" name="title" data-type="string" content="{% if page.meta_title %}{{ page.meta_title }}{% elsif page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}">
-  <meta class="swiftype" name="summary" data-type="string" content="{% if page.description %}{{ page.description | strip_html | strip_newlines | truncate: 300 }}{% elsif page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate 300 }}{% else %}{{ site.description }}{% endif %}" />
+  <link type="text/css" rel="stylesheet" href="https://okta.com.test/sites/all/modules/okta_coveo_search_developer/css/okta_coveo_search_developer.css?q49ktf" media="all" />
 
   {% css animate %}
   {% css okta %}
