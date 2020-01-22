@@ -2,7 +2,7 @@
 layout: blog_post
 title: "Use PKCE with OAuth 2.0 and Spring Boot for Better Security"
 author: dogeared
-description: "PKCE guards against replay attacks with authorization codes, even for confidential clients"
+description: "PKCE guards against replay attacks with authorization codes, even for confidential clients."
 tags: [oauth, oauth2, Java, Spring Boot, Spring Security]
 tweets:
 - "Familiar with OAuth 2.0? Did you know that it's recommended to always use PKCE? It's easy with Okta's Spring Boot Starter!"
@@ -12,7 +12,7 @@ image: blog/featured/okta-java-bottle-headphones.jpg
 
 Browser and mobile feature enhancements move fast. Often times, these technologies move faster than security standards designed to protect them can keep up. OAuth 2.0 offers the best and most mature standard for modern applications. However, there hasn't been an official release of this standard since 2012. Eight years is a very long time in Internet technology years! That doesn't mean that its contributors have been sitting idly by. There is active work on the next version and in lieu of an official release, contributors will release "guidance" from time to time to keep up with evolving technology.
 
-Last year, there were two important specification drafts submitted for review. These serve as the "updated guidance" for best practices when using OAuth 2.0. The first is [OAuth 2.0 Security Best Current Practice](https://tools.ietf.org/html/draft-ietf-oauth-security-topics-13). This is general best practices for securing modern applications with OAuth 2.0. The second draft is [OAuth 2.0 for Browser-Based Apps](https://tools.ietf.org/html/draft-parecki-oauth-browser-based-apps-00). This is best practices specifically for web apps. In this post, I focus on the first draft with practical application for Spring Boot with Spring Security apps.
+Last year, there were two important specification drafts submitted for review. These serve as the "updated guidance" for best practices when using OAuth 2.0. The first is `OAuth 2.0 Security Best Current Practice`. This is general best practices for securing modern applications with OAuth 2.0. The second draft is `OAuth 2.0 for Browser-Based Apps`. This is best practices specifically for web apps. In this post, I focus on the first draft with practical application for Spring Boot with Spring Security apps.
 
 OAuth 2.0 is for delegated authorization and OpenID Connect is for identity and rides on top of OAuth 2.0.
 
@@ -69,7 +69,7 @@ Okta's own [Spring Boot Starter](https://github.com/okta/okta-spring-boot) makes
 
 You can find the full source code this post [here](https://github.com/oktadeveloper/okta-spring-boot-oauth2-pkce-example) or head on over to [start.spring.io](https://start.spring.io) to quickly create a Spring Boot app with everything you need for a confidential client. The only starters you need are: Spring Web, Okta and [Thymeleaf](https://www.thymeleaf.org/). Okta automatically brings in Spring Security. Thymeleaf is used for html templates. The core of your `pom.xml` should look something like this:
 
-```
+```xml
 <dependencies>
 	<dependency>
 		<groupId>org.springframework.boot</groupId>
@@ -87,7 +87,7 @@ You can find the full source code this post [here](https://github.com/oktadevelo
 </dependencies>
 ```
 
-**Note:** The example code uses Java 11
+**NOTE:** The example code uses Java 11
 
 ### Run the Application on Heroku with the Okta Add-On
 
@@ -107,9 +107,9 @@ For the purposes of demonstrating the app, you can also set the logging level fo
 
 Using your free [Heroku](https://heroku.com) account, you can easily deploy the application by clicking this button: [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/oktadeveloper/okta-spring-boot-oauth2-pkce-example)
 
-**Note**: Clicking the deploy to heroku button will allocate an Okta org for you, create an Okta OpenID Connect web application, deploy the example application and set all the environment variables for the application to run. If you want to know more about the Okta Heroku Add-On, you can see a video of it [here](https://www.youtube.com/watch?v=ZRBXgLTMvuY).
+**NOTE:** Clicking the deploy to heroku button will allocate an Okta org for you, create an Okta OpenID Connect web application, deploy the example application and set all the environment variables for the application to run. Watch this video to learn more about the [Okta Heroku Add-On](https://www.youtube.com/watch?v=ZRBXgLTMvuY).
 
-**Note**: It's also be useful to have the [heroku command line](https://devcenter.heroku.com/articles/heroku-cli) tool installed, if you don't already have it.
+**NOTE:** It's also be useful to have the [heroku command line](https://devcenter.heroku.com/articles/heroku-cli) tool installed, if you don't already have it.
 
 By default, the application is set to run without using PKCE. Let's see that in action first. A user was created as part of the Okta org creation process. To see the username and password that was automatically generated for you, use the following command:
 
@@ -317,11 +317,16 @@ With the security configuration in place, we can now ensure that the application
 
 ## Good News Everyone!
 
-In the very near future, once [this](https://github.com/spring-projects/spring-security/pull/7804) pull request is merged and a new version of Spring Security is released (as well as the new version of the Spring Boot Spring Security Starter), you won't need to use the custom authorization request resolver and the security configuration as shown above. PKCE with confidential clients will be the default behavior.
+In the very near future, once the [spring-security#7804](https://github.com/spring-projects/spring-security/pull/7804) pull request is merged and a new version of Spring Security is released (as well as the new version of the Spring Boot Spring Security Starter), you won't need to use the custom authorization request resolver and the security configuration as shown above. PKCE with confidential clients will be the default behavior.
 
-This is aligned when the current security best practices as oultined [here](https://tools.ietf.org/html/draft-ietf-oauth-security-topics-13#section-3.1.1).
+This is aligned with the current security best practices as outlined in the [Authorization Code Grant](https://tools.ietf.org/html/draft-ietf-oauth-security-topics-13#section-3.1.1) section.
 
-For more on OAuth 2.0 and OpenID Connect, I recommend these:
+To see the two OAuth 2.0 best practices guidance specifications referenced in this post, use these links:
+
+* [OAuth 2.0 Security Best Current Practice](https://tools.ietf.org/html/draft-ietf-oauth-security-topics-13)
+* [OAuth 2.0 for Browser-Based Apps](https://tools.ietf.org/html/draft-parecki-oauth-browser-based-apps-00)
+
+For more on OAuth 2.0 and OpenID Connect, I recommend these blog posts and videos:
 
 * [OAuth 2.0 Java Guide: Secure Your App in 5 Minutes](/blog/2019/10/30/java-oauth2)
 * [Use Okta Token Hooks to Supercharge OpenID Connect](/blog/2019/12/23/extend-oidc-okta-token-hooks)
@@ -330,7 +335,7 @@ For more on OAuth 2.0 and OpenID Connect, I recommend these:
 * [OAuth 2.0 Access Tokens explained](https://www.youtube.com/watch?v=BNEoKexlmA4)
 * [OAuth 2.0 and OpenID Connect (in plain English)](https://www.youtube.com/watch?v=996OiexHze0&t=5s)
 
-For more on PKCE, I recommend these posts and videos:
+For more on PKCE, I recommend a previous PKCE post I wrote and our documentation:
 
 * [Implement the OAuth 2.0 Authorization Code with PKCE Flow](/blog/2019/08/22/okta-authjs-pkce)
 * [Use the Authorization Code Flow with PKCE](/docs/guides/implement-auth-code-pkce/-/use-flow/)
