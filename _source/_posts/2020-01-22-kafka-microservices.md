@@ -45,9 +45,13 @@ Popular use cases of Kafka include:
 
 ## Microservices Communication With Kafka
 
-Let's build a microservices architecture with JHipster and Kafka support. We are going to create a `store` microservice, to create and update store records, and an `alert` microservice that will receive update events from `store` and will send an email alert.
+Let's build a microservices architecture with JHipster and Kafka support. In this tutorial, you'll create a `store` and an `alert` microservices. The store microservices will create and update store records. The `alert` microservice will receive update events from `store` and send an email alert.
 
-> Prerequisites: Install [Node.js 12.x](https://nodejs.org/) and [Docker](https://www.docker.com/products/docker-desktop).
+> **Prerequisites:** 
+> - [Java 8+](https://adoptopenjdk.net/)
+> - [Docker](https://docs.docker.com/install)
+> - [Docker Compose](https://docs.docker.com/compose/install)
+> - [Node.js](https://nodejs.org/en/)
 
 Install JHipster.
 
@@ -70,9 +74,9 @@ mkdir jhipster-kafka
 cd jhipster-kafka
 ```
 
-Create an `apps.jh` file that defines the store, alert, and gateway microservices in JHipster Domain Language (JDL). Kafka integration is enabled by adding `messageBroker kafka` to the store and alert applications.
+Create an `apps.jh` file that defines the store, alert, and gateway applications in JHipster Domain Language (JDL). Kafka integration is enabled by adding `messageBroker kafka` to the store and alert app definitions.
 
-```
+```text
 application {
   config {
     baseName gateway,
@@ -167,7 +171,7 @@ The generator will ask you to define the following things:
 
 Almost when the generator completes, a warning shows in the output:
 
-```
+```bash
 WARNING! Docker Compose configuration generated, but no Jib cache found
 If you forgot to generate the Docker image for this application, please run:
 To generate the missing Docker image(s), please run:
@@ -208,7 +212,7 @@ Now go to **API** > **Authorization Servers**, select the `default` server, and 
 
 In the project, create a `docker-compose/.env` file and add the following variables. For the values, use the settings from the Okta web application you created:
 
-```
+```bash
 OIDC_CLIENT_ID={yourClientId}
 OIDC_CLIENT_SECRET={yourClientSecret}
 OIDC_ISSUER_URI={yourOrgUrl}/oauth2/default
