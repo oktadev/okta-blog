@@ -71,23 +71,23 @@ You can find the full source code this post [here](https://github.com/oktadevelo
 
 ```xml
 <dependencies>
-	<dependency>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-thymeleaf</artifactId>
-	</dependency>
-	<dependency>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-web</artifactId>
-	</dependency>
-	<dependency>
-		<groupId>com.okta.spring</groupId>
-		<artifactId>okta-spring-boot-starter</artifactId>
-		<version>1.3.0</version>
-	</dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-thymeleaf</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.okta.spring</groupId>
+        <artifactId>okta-spring-boot-starter</artifactId>
+        <version>1.3.0</version>
+    </dependency>
 </dependencies>
 ```
 
-**NOTE:** The example code uses Java 11
+**NOTE:** The example code uses Java 11.
 
 ### Run the Application on Heroku with the Okta Add-On
 
