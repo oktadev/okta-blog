@@ -75,7 +75,7 @@ dev_forum:  https://devforum.okta.com/
 external_domain: https://developer.okta.com
 
 # Location of Staging Drupal site for Coveo used by navigation and shared resources
-external_stage_domain: https://coveo-oktaweb.pantheonsite.io
+external_stage_domain: https://www.atko.biz
 
 # Link for telling people to contact support
 
