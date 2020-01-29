@@ -74,8 +74,8 @@ dev_forum:  https://devforum.okta.com/
 # Location of main Drupal site for navigation and shared resources
 external_domain: https://developer.okta.com
 
-# Location of Staging Drupal site for Coveo used by navigation and shared resources
-external_stage_domain: https://www.atko.biz
+# Location of Drupal site for Coveo, used by navigation and shared resources
+external_www_domain: https://www.okta.com
 
 # Link for telling people to contact support
 
