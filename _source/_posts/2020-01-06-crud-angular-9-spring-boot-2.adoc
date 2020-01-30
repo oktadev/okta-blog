@@ -77,7 +77,7 @@ To create an Angular 9 app, you first need to install Angular CLI.
 
 [source,shell]
 ----
-npm install -g @angular/cli@9.0.0-rc.7
+npm install -g @angular/cli@9.0.0-rc.11
 ----
 
 Then create a directory on your hard-drive called `angular-spring-boot`. Open a terminal window and navigate to this directory. Run `ng new` to create an Angular application.
@@ -210,8 +210,6 @@ NOTE: You might notice that tokens are only added for `http://localhost`. You'll
 
 Start your app again using `ng serve`, open a private/incognito window to `http://localhost:4200`, and you'll see a **Login** button in the bottom left.
 
-CAUTION: If you see `ERROR in node_modules/@okta/okta-angular`, modify your `package.json` to use version `1.2.2` of @okta/okta-angular and run `npm install`, followed by `ng serve`. See https://github.com/okta/okta-oidc-js/issues/643[okta-angular's issue #643] for more information.
-
 image::{% asset_path 'blog/spring-boot-2-angular-9/angular-login-button.png' %}[alt=Login button,width=800,align=center]
 
 Click on it, and you'll be redirected to Okta to log in.
@@ -246,7 +244,7 @@ Run this command in a terminal, and a `notes-api.zip` file will be downloaded. E
 unzip notes-api.zip -d angular-spring-boot/notes-api
 ----
 
-You can also use https://start.spring.io/#!type=gradle-project&language=kotlin&platformVersion=2.2.2.RELEASE&packaging=jar&jvmVersion=11&groupId=com.okta.developer&artifactId=demo&name=demo&description=Notes%20API%20for%20Spring%20Boot&packageName=com.okta.developer.notes&dependencies=h2,data-jpa,data-rest,okta,web[start.spring.io] in your browser to create this same app.
+You can also use https://start.spring.io/#!type=gradle-project&language=kotlin&platformVersion=2.2.4.RELEASE&packaging=jar&jvmVersion=11&groupId=com.okta.developer&artifactId=demo&name=demo&description=Notes%20API%20for%20Spring%20Boot&packageName=com.okta.developer.notes&dependencies=h2,data-jpa,data-rest,okta,web[start.spring.io] in your browser to create this same app.
 
 image::{% asset_path 'blog/spring-boot-2-angular-9/start.spring.io.png' %}[alt=Create app with start.spring.io,width=800,align=center]
 
@@ -952,3 +950,7 @@ For Angular 8, 7, and 5 versions of this tutorial, see my past posts.
 * link:/blog/2017/12/04/basic-crud-angular-and-spring-boot[Build a Basic CRUD App with Angular 5.0 and Spring Boot 2.0] - December 2017
 
 If you like this blog post and want to see more like it, follow https://twitter.com/oktadev[@oktadev on Twitter], subscribe to https://youtube.com/c/oktadev[our YouTube channel], or follow us https://www.linkedin.com/company/oktadev/[on LinkedIn]. As always, please leave a comment below if you have any questions.
+
+**Changelog:**
+
+* Jan 30, 2020: Updated to use Spring Boot 2.2.4 and Angular CLI 9.0 RC11 (with Angular 9.0 RC11). See the code changes in the https://github.com/oktadeveloper/okta-spring-boot-2-angular-9-example/pull/1[example app on GitHub]. Changes to this article can be viewed in https://github.com/oktadeveloper/okta-blog/pull/175[oktadeveloper/okta-blog#175].
