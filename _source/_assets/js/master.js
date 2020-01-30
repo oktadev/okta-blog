@@ -12,12 +12,7 @@ function escapeHtml(unsafe) {
   return $('<div />').text(unsafe).html();
 };
 
-function oktaCustomRenderFunction(document_type, item) {
-  var pageUrl = escapeHtml(item['url']);
-  var pageTitle = escapeHtml(item['title']);
-  var out = '<a href="' + pageUrl + '" class="st-search-result-link"><div class="st-result autocomplete-item"><p class="title">' + pageTitle + '</p></div></a>';
-  return out;
-};
+
 
 (function($) {
 
@@ -48,16 +43,6 @@ function oktaCustomRenderFunction(document_type, item) {
     }
   });
 
-  $('.Header nav .SearchIcon').on('click', function(e) {
-    e.stopPropagation();
-    e.preventDefault();
-    $('.Header').toggleClass('search-active');
-
-    if ($('.Header').hasClass('search-active')) {
-      $('.Header nav #st-search-input-auto').focus();
-    }
-  });
-
   $('.PrimaryNav-toggle').on('click', function(e){
     e.stopPropagation();
     e.preventDefault();
@@ -66,47 +51,13 @@ function oktaCustomRenderFunction(document_type, item) {
     $('.Page').toggleClass('PrimaryNav-is-active');
   });
 
-
-  $('#form_search #st-search-input-auto').on('keyup', function(){
-      if ($(this).val().length > 0) {
-          $(this).parent().addClass('button-active');
-      }
-      else {
-          $(this).parent().removeClass('button-active');
-      }
-  });
-
-  $('#form_search').on('submit', function(e){
-    e.preventDefault();
-
-    if($('#st-search-input-auto').val() != '') {
-      window.location.href = searchDomain + '/search/#stq=' + encodeURIComponent($('#st-search-input-auto').val());
-    }
-
-    return false;
-  });
-
   $('#form_search').on('click', function(e){
     e.stopPropagation();
-  });
-
-  $(window).on('click', function() {
-    $('.search-active').removeClass('search-active');
-  });
-
-  $(window).on('resize', function(e){
-    $('.search-active').removeClass('search-active');
   });
 
   $(window).on('load', function(){
     // TypeKit fallback to avoid page whiteout
     setTimeout(function(){$('.wf-loading').addClass('wf-active').removeClass('wf-loading');}, 100);
-  });
-
-  $(".st-search-input").swiftype({
-    renderFunction: oktaCustomRenderFunction,
-    engineKey: 'NqMYCYpFoWmsc4NaNY_y',
-    perPage: 40
   });
 
   $('.Sidebar-toggle').on('click', function(e) {
