@@ -427,14 +427,14 @@ If you try running your tests (`./mvnw test`), you will notice they are failing 
 
 ```bash
 $ ./mvnw test
-…
+...
 [INFO] Results:
 [INFO]
 [ERROR] Failures:
 [ERROR]   GraphqldemoApplicationTests.listFoods:34 Status expected:<200> but was:<403>
 [INFO]
 [ERROR] Tests run: 1, Failures: 1, Errors: 0, Skipped: 0
-…
+...
 ```
 
 That happens because your tests are not security-aware. To fix that, you need to add the method call `.with(SecurityMockMvcRequestPostProcessors.jwt())` to each of your `mockMvc.perform()` chains, for example:
@@ -592,14 +592,14 @@ In this tutorial, you learned how to create your GraphQL API in Java with Spring
 
 If you are using Quarkus and natively compiling your code, GraphQL SPQR wouldn't work as it depends on reflection. But on that environment (and others) you could use the less-magic [GraphQL Java](https://github.com/graphql-java/graphql-java), it's a bit more verbose as you need to manually declare your schema, but it gets the job done as well as GraphQL SPQR. And don't worry, we have a tutorial for GraphQL Java as well: 
 
-* [Build a Secure API with Spring Boot and GraphQL](https://developer.okta.com/blog/2018/08/16/secure-api-spring-boot-graphql).
+* [Build a Secure API with Spring Boot and GraphQL](/blog/2018/08/16/secure-api-spring-boot-graphql)
 
 If you want to keep reading about Java, Security, and Spring, here are some other links for you:
 
-- [Build a Java REST API with Java EE and OIDC](https://developer.okta.com/blog/2018/09/12/secure-java-ee-rest-api)
-- [Java + Spring Tutorials](https://developer.okta.com/blog/2019/05/24/java-spring-tutorials)
-- [10 Myths About Java in 2019](https://developer.okta.com/blog/2019/07/15/java-myths-2019)
-- [Use React and Spring Boot to Build a Simple CRUD App](https://developer.okta.com/blog/2018/07/19/simple-crud-react-and-spring-boot)
+- [Build a Java REST API with Java EE and OIDC](/blog/2018/09/12/secure-java-ee-rest-api)
+- [Java + Spring Tutorials](/blog/2019/05/24/java-spring-tutorials)
+- [10 Myths About Java in 2019](/blog/2019/07/15/java-myths-2019)
+- [Use React and Spring Boot to Build a Simple CRUD App](/blog/2018/07/19/simple-crud-react-and-spring-boot)
 
 The source code for this post is available on GitHub in the [oktadeveloper/okta-graphql-java-example](https://github.com/oktadeveloper/okta-graphql-java-example) repository.
 
