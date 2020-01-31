@@ -1092,6 +1092,7 @@ This article uses [Okta's Angular SDK](https://www.npmjs.com/package/@okta/okta-
 
 This blog has a plethora of Spring Boot and Angular tutorials. Here are some of my favorites:
 
+* [Build a CRUD App with Angular 9 and Spring Boot 2.2](/blog/2020/01/06/crud-angular-9-spring-boot-2)
 * [Angular 8 + Spring Boot 2.2: Build a CRUD App Today!](/blog/2019/05/13/angular-8-spring-boot-2)
 * [Deploy Your Secure Spring Boot + Angular PWA as a Single Artifact](/blog/2018/06/18/spring-boot-angular-auth-code-flow)
 * [Build and Secure Microservices with Spring Boot 2.0 and OAuth 2.0](/blog/2018/05/17/microservices-spring-boot-2-oauth)
