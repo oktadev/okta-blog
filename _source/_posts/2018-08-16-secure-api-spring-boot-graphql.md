@@ -7,6 +7,7 @@ tags: [graphql, spring boot, spring security, oauth]
 tweets:
 - "Learn how to build a secure API with @springboot and @GraphQL →"
 - "Have your heard of GraphQL as an alternative to building REST APIs? This post shows you what it is and how it works with @springboot. It's #bootiful!"
+image: blog/featured/okta-java-headphones.jpg
 ---
 
 GraphQL is a data query language developed by Facebook in 2012 to solve a shortcoming of REST APIs and traditional database models. All too often, when programmers write REST API data queries, they default to retrieving entire data structures when they need only a part of it. For example, if you want to find out the number of comments on a blog post, a developer might typically retrieve the entire post and all associated fields along with all the comments and all their associated fields **only to** count the number of comments in the resulting array.
@@ -464,5 +465,7 @@ But as you can see, Okta's Spring Boot Starter makes securing a GraphQL endpoint
 * [Get Started with Spring Boot, OAuth 2.0, and Okta](/blog/2017/03/21/spring-boot-oauth)
 * [Secure Server-to-Server Communication with Spring Boot and OAuth 2.0](/blog/2018/04/02/client-creds-with-spring-boot)
 * [10 Excellent Ways to Secure Your Spring Boot Application](/blog/2018/07/30/10-ways-to-secure-spring-boot)
+
+The source code for this example can be found [on GitHub](https://github.com/oktadeveloper/okta-springboot-graphql-example).
 
 If you have any questions about this post, please add a comment below. For more awesome content, follow [@oktadev](https://twitter.com/oktadev) on Twitter, like us [on Facebook](https://www.facebook.com/oktadevelopers/), or subscribe to [our YouTube channel](https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q).
