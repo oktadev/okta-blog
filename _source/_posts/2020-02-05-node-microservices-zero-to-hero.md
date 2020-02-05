@@ -479,11 +479,11 @@ The next thing you want to do is set up Okta to handle the authentication. Okta 
 
 If you don't have an Okta account, you will [need to sign up first](https://developer.okta.com/signup). Then log in and navigate to the **Applications** area of the site. Click on **Add Application** and follow the wizard. The wizard will prompt you to select an application type. For this project, choose **Web**.
 
-Next, the wizard will bring you to the **Create New Application - Settings** page. Give your application a name you will remember. For this example, you can use “Restaurant Application”. Ensure your base domain for **Login redirect URIs** is the same as your Node application. In your example, you are set to listen to `localhost:3000`, but if your environment dictates you use a different port, you'll need to use that. You can leave the rest of the settings set to their defaults. Click **Done** and proceed to the application screen.
+Next, the wizard will bring you to the **Create New Application - Settings** page. Give your application a name you will remember. For this example, you can use "Restaurant Application". Ensure your base domain for **Login redirect URIs** is the same as your Node application. In your example, you are set to listen to `localhost:3000`, but if your environment dictates you use a different port, you'll need to use that. You can leave the rest of the settings set to their defaults. Click **Done** and proceed to the application screen.
 
 {% img blog/node-microservices/okta-app-settings.jpg alt:"Okta App Settings" width:"800" %}{: .center-image }
 
-To connect your application to Okta, you will need a few pieces of information. First, make sure you grab the **Client ID** and **Client secret** from the **General** tab of your application's page. The secret will be obfuscated but there is an “eye” icon that will allow you to see it and a clipboard icon that will allow you to copy it to your clipboard.
+To connect your application to Okta, you will need a few pieces of information. First, make sure you grab the **Client ID** and **Client secret** from the **General** tab of your application's page. The secret will be obfuscated but there is an "eye" icon that will allow you to see it and a clipboard icon that will allow you to copy it to your clipboard.
 
 {% img blog/node-microservices/okta-client-creds alt:"Okta Client Credentials" width:"800" %}{: .center-image }
 
