@@ -35,10 +35,10 @@ Did you know that outside of the standard authentication scenarios, a developer 
 {% img blog/transactional-mfa/mfa-sequence-diagram.png alt:"MFA Sequence Diagram" width:"800" %}{: .center-image }
 
 >For this project, you'll need to prepare a few dependencies:
->1. Any IDE to access NodeJS files. I'm using [Visual Studio Code](https://code.visualstudio.com/)
->2. Nodejs and NPM
+>1. Any IDE to access Node.js files. I'm using [Visual Studio Code](https://code.visualstudio.com/)
+>2. Node.js and NPM
 >3. A free [Okta Developer](https://developer.okta.com/) account
->4. An existing [NodeJS Express Okta project](https://github.com/okta/samples-nodejs-express-4/tree/master/okta-hosted-login) where you will inject your on-demand MFA.
+>4. An existing [Node.js Express Okta project](https://github.com/okta/samples-nodejs-express-4/tree/master/okta-hosted-login) where you will inject your on-demand MFA.
 
 ## Enable a Factor in Okta
 
@@ -74,7 +74,7 @@ You will be redirected to the **Application Sign On Policy Tab**. Scroll down an
 
 {% img blog/transactional-mfa/app-sign-on-rule.png alt:"App Sign On Rule" width:"800" %}{: .center-image }
 
-Click the **General** Tab and scroll down until you see the **App Embed Link** section and click **Edit**. Enter the URL where you will host a separate widget that will do MFA as a service. In this example, I've created a basic Node.JS web application and hosted it under `http://localhost:<port>`. Click **Save**. I will be using port 3000 for this blog post.
+Click the **General** Tab and scroll down until you see the **App Embed Link** section and click **Edit**. Enter the URL where you will host a separate widget that will do MFA as a service. In this example, I've created a basic Node.js web application and hosted it under `http://localhost:<port>`. Click **Save**. I will be using port 3000 for this blog post.
 
 {% img blog/transactional-mfa/app-embed-link.png alt:"App Embed Link" width:"800" %}{: .center-image }
 
@@ -82,7 +82,7 @@ Click **Save**.
 
 Take note of the embed link URL above which will be used later to trigger the transactional MFA process.
 
-## Create a NodeJS Express Application in Okta
+## Create a Node.js Express Application in Okta
 
 For the remaining steps, you will need to switch back to the Dev UI Console, then click **Applications > Add Application**. Next, click **Web > Next**.
 
@@ -90,17 +90,17 @@ This will create an OpenID Connect application representing your Node.js applica
 
 {% img blog/transactional-mfa/web-app.png alt:"Create Node Application" width:"800" %}{: .center-image }
 
-You'll be presented with a screen to configure your Okta OpenID Connect application where you can change the name to "NodeJS Express Application". As for the **Login redirect URIs** field, this will be the URL where you want to redirect the user to your authenticated page. You can leave the default: `http://localhost:8080/authorization-code/callback`.
+You'll be presented with a screen to configure your Okta OpenID Connect application where you can change the name to "Node.js Express Application". As for the **Login redirect URIs** field, this will be the URL where you want to redirect the user to your authenticated page. You can leave the default: `http://localhost:8080/authorization-code/callback`.
 
 Click **Done** when you're finished.
 
-Note the *Client ID* and *Client Secret* by scrolling down below as you will need these to complete the NodeJS Express OIDC configuration.
+Note the *Client ID* and *Client Secret* by scrolling down below as you will need these to complete the Node.js Express OIDC configuration.
 
 In this example, just use the default Authorization server which is already enabled by default within your Okta tenant. Navigate to: **API > Authorization Servers**.
 
 {% img blog/transactional-mfa/default-auth-server.png alt:"Default Auth Server" width:"800" %}{: .center-image }
 
-I will be using the [NodeJS Express](https://github.com/okta/samples-nodejs-express-4/tree/master/okta-hosted-login) sample app as the sample application where the widget is used for authentication purposes.
+I will be using the [Node.js Express](https://github.com/okta/samples-nodejs-express-4/tree/master/okta-hosted-login) sample app as the sample application where the widget is used for authentication purposes.
 
 To run this application, you first need to clone this repo and then enter into this directory:
 
@@ -151,7 +151,7 @@ Edit the `common/views/profile.mustache` view so that you can inject a new HTML 
 
 ## Setup a Separate Widget to do MFA as a Service
 
-Instead of using the same web application, I've decided to create a separate Node.JS application to represent my MFA as a service widget such that later on, if there are any other applications who need to use this capability, then it can be extended for other usages as well. You would need to do the same steps mentioned above.
+Instead of using the same web application, I've decided to create a separate Node.js application to represent my MFA as a service widget such that later on, if there are any other applications who need to use this capability, then it can be extended for other usages as well. You would need to do the same steps mentioned above.
 
 The redirect uri should be set back to this mini-application: `http://localhost:3000`
 
@@ -262,8 +262,8 @@ As you can see, the Okta Sign-In Widget can be extended to support outside the s
 
 If you'd like to see similar content from our blog, check out these posts:
 
-[Use Okta Token Hooks to Supercharge OpenID Connect](https://developer.okta.com/blog/2019/12/23/extend-oidc-okta-token-hooks)
-[Multi-Factor Authentication Sucks](https://developer.okta.com/blog/2019/12/19/multi-factor-authentication-sucks)
-[Protecting Your APIs with OAuth](https://www.youtube.com/watch?v=8c1SOuO4mPc)
+* [Use Okta Token Hooks to Supercharge OpenID Connect](/blog/2019/12/23/extend-oidc-okta-token-hooks)
+* [Multi-Factor Authentication Sucks](/blog/2019/12/19/multi-factor-authentication-sucks)
+* [Protecting Your APIs with OAuth](https://www.youtube.com/watch?v=8c1SOuO4mPc)
 
 We'd love to hear from you in the comments below or follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube Channel](https://youtube.com/c/oktadev)!
