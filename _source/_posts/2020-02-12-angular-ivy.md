@@ -25,7 +25,7 @@ Ivy has been around in a preview version since Angular 8, but you previously had
 
 With all these massive changes behind the scenes, you might be scared and wonder how much you would need to refactor your code to be compatible with Ivy. It turns out that the Angular team has made backward compatibility a priority and, in most cases, you should not have to change anything in your application other than updating it to the latest Angular version.
 
-In this tutorial, I'll show you how to upgrade an existing application from Angular 8 to Angular 9. By upgrading, the application will automatically use the new Ivy rendering engine. You'll start with the Angular 8 app from [Build a Beautiful App + Login with Angular Material](https://developer.okta.com/blog/2020/01/21/angular-material-login).
+In this tutorial, I'll show you how to upgrade an existing application from Angular 8 to Angular 9. By upgrading, the application will automatically use the new Ivy rendering engine. You'll start with the Angular 8 app from [Build a Beautiful App + Login with Angular Material](/blog/2020/01/21/angular-material-login).
 
 ## Install the Angular Material Tic-Tac-Toe Game
 
@@ -304,10 +304,10 @@ You can find the source code for this example on GitHub at [oktadeveloper/okta-a
 
 If you want to learn more about Angular, using Angular with Okta authentication, or Material Design, check out the links below.
 
-* [Build a Beautiful App + Login with Angular Material](https://developer.okta.com/blog/2020/01/21/angular-material-login)
-* [Angular MVC - A Primer](https://developer.okta.com/blog/2019/04/26/angular-mvc-primer)
-* [Build an Angular App with Okta's Sign-In Widget in 15 Minutes](https://developer.okta.com/blog/2017/03/27/angular-okta-sign-in-widget)
-* [Build a CRUD App with Angular 9 and Spring Boot 2.2](https://developer.okta.com/blog/2020/01/06/crud-angular-9-spring-boot-2)
-* [Build a Basic CRUD App with Angular and Node](https://developer.okta.com/blog/2018/10/30/basic-crud-angular-and-node)
+* [Build a Beautiful App + Login with Angular Material](/blog/2020/01/21/angular-material-login)
+* [Angular MVC - A Primer](/blog/2019/04/26/angular-mvc-primer)
+* [Build an Angular App with Okta's Sign-In Widget in 15 Minutes](/blog/2017/03/27/angular-okta-sign-in-widget)
+* [Build a CRUD App with Angular 9 and Spring Boot 2.2](/blog/2020/01/06/crud-angular-9-spring-boot-2)
+* [Build a Basic CRUD App with Angular and Node](/blog/2018/10/30/basic-crud-angular-and-node)
 
 If you liked this tutorial and want to be notified when we publish more, follow [@oktadev on Twitter](https://twitter.com/oktadev), subscribe to [our YouTube channel](https://youtube.com/c/oktadev), or [follow us on LinkedIn](https://www.linkedin.com/company/oktadev/). If you have a question, please leave a comment below.
