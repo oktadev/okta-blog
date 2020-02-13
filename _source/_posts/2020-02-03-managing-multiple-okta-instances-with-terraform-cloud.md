@@ -1,4 +1,4 @@
----
+s--
 layout: blog_post
 title: "Managing Multiple Okta Instances with Terraform Cloud"
 author: amarch
@@ -41,7 +41,7 @@ cd okta-user-schema
 terraform init
 ```
 
-This will initialize the Terraform state file in your directory that tracks the configuration Terraform has applied to your resources. 
+This will initialize the Terraform state file in your directory that tracks the configuration Terraform has applied to your resources.
 Next, create a file named `okta.auto.tfvars` and insert the code below. This file will hold your Okta configuration values that Terraform will use to talk to the Okta APIs.
 
 ```
@@ -50,9 +50,9 @@ base_url  = "okta.com"
 api_token = "<your-api-token>"
 ```
 
-Replace each of the placeholder values above with those from your Okta org. For example, you should use the subdomain of your Okta org to fill in the `org_name` value. If the address of your Okta instance is `dev12345.okta.com` then your `org_name` would be `dev12345`. The value for `base_url` should be everything that comes after the org name (e.g., `okta.com`) so be sure to update this value if you are using an `okta-emea` or `oktapreview` org. You will need to generate the `api-token` value. 
+Replace each of the placeholder values above with those from your Okta org. For example, you should use the subdomain of your Okta org to fill in the `org_name` value. If the address of your Okta instance is `dev-1234.okta.com` then your `org_name` would be `dev-1234`. The value for `base_url` should be everything that comes after the org name (e.g., `okta.com`) so be sure to update this value if you are using an `okta-emea` or `oktapreview` org. You will need to generate the `api-token` value.
 
-To generate a new Okta API token, log into your Okta administrator console as a superuser and select **Security** -> **API** -> **Tokens** from the navigation menu. Next, click the **Create Token** button and give your token a name, then click **Ok** and copy the newly generated token into the configuration file above.
+To generate a new Okta API token, log into your Okta administrator console as a superuser and select **API** -> **Tokens** from the navigation menu. Next, click the **Create Token** button and give your token a name, then click **Ok** and copy the newly generated token into the configuration file above.
 
 Next, create a new file named `identity.tf` and add the following:
 
@@ -61,7 +61,7 @@ variable "org_name" {}
 variable "api_token" {}
 variable "base_url" {}
 
-provider "okta" { 
+provider "okta" {
     org_name = var.org_name
     base_url = var.base_url
     api_token = var.api_token
@@ -77,13 +77,13 @@ resource "okta_user_schema" "dob_extension" {
   index  = "date_of_birth"
   title  = "Date of Birth"
   type   = "string"
-  master = "PROFILE_MASTER" 
+  master = "PROFILE_MASTER"
 }
 ```
 
 This will extend the Okta user schema by adding a field to store users' date of birth.
 
-To enable Terraform to use the Okta API, you need to install a provider. Download the latest binary for Darwin from the repository [here](https://github.com/articulate/terraform-provider-okta/releases) and place it in the following folder path in your directory: `terraform.d/plugins/linux_amd64`. 
+To enable Terraform to use the Okta API, you need to install a provider. Download the latest binary for Darwin from the repository [here](https://github.com/articulate/terraform-provider-okta/releases) and place it in the following folder path in your directory: `terraform.d/plugins/linux_amd64`.
 
 > **NOTE**: If you are using Windows, you'll need the appropriate binary for local use, but you will need the Darwin build for later, so download that as well.
 
@@ -95,7 +95,7 @@ Before you change anything, you'll want to version control your new configuratio
 
 ```console
 git init
-git add identity.tf 
+git add identity.tf
 git add terraform.d/plugins/darwin/linux_amd64/*
 git commit -m "Initial commit. Adding the date of birth extension"
 ```
@@ -110,7 +110,7 @@ Although working on your local machine is fine if you're building a simple proje
 
 Now let's set up Terraform Cloud so you can configure your infrastructure without needing to worry about storing and managing local files.
 
-If you don't already have a Terraform Cloud account, you can sign up for a free account, which you can use with a team of up to five people, [here](https://app.terraform.io/signup/account),. 
+If you don't already have a Terraform Cloud account, you can sign up for a free account, which you can use with a team of up to five people, [here](https://app.terraform.io/signup/account).
 
 Once you create an account and sign in, you are going to create a "Workspace". Workspaces describe your environments (production, staging, development, etc.). The environment you'll create below will be a "production" environment (we'll create others later).
 
@@ -126,7 +126,7 @@ Next, I'm going to select the code repository that holds my project.
 
 Give your new workspace a descriptive name. In this example, we're defining our production environment, so use the repository's name with `-production` added to the end for clarity. For example, `my-project-production`.
 
-Locally you defined variables inthe `okta.auto.tfvars` file. Since that files isn't stored in source control, you have to explicitly define them. Click the **Variables** tab in the top navbar, then define the three variables you put into the `okta.auto.tfvars` file earlier. 
+Locally you defined variables in the `okta.auto.tfvars` file. Since that file isn't stored in source control, you have to explicitly define them. Click the **Variables** tab in the top navbar, then define the three variables you put into the `okta.auto.tfvars` file earlier.
 
 {% img blog/okta-terraform-cloud/terraform-cloud-set-variables.gif alt:"Terraform Cloud set variables" width:"800" %}{: .center-image }
 
@@ -175,7 +175,7 @@ git checkout -b dev
 git push origin dev
 ```
 
-In Terraform Cloud, create a new workspace to represent this new environment. Target the same repository as before but set the branch specifier to `dev`. For this environment, set the apply method in Terraform Cloud to `auto` so changes will be applied to the environment immediately if the plan stage is successful without you needing to manually confirm anything. 
+In Terraform Cloud, create a new workspace to represent this new environment. Target the same repository as before but set the branch specifier to `dev`. For this environment, set the apply method in Terraform Cloud to `auto` so changes will be applied to the environment immediately if the plan stage is successful without you needing to manually confirm anything.
 
 {% img blog/okta-terraform-cloud/terraform-cloud-create-workspace.gif alt:"Terraform Cloud create workspace" width:"800" %}{: .center-image }
 
@@ -216,7 +216,7 @@ Once you're happy with the changes you have made to the development environment,
 
 {% img blog/okta-terraform-cloud/github-open-pull-request.png alt:"GitHub open pull request" width:"800" %}{: .center-image }
 
-Once you create the pull request, GitHub provides a nice UI experience that shows the branch protection in action. 
+Once you create the pull request, GitHub provides a nice UI experience that shows the branch protection in action.
 
 {% img blog/okta-terraform-cloud/github-review-required.png alt:"GitHub review required" width:"800" %}{: .center-image }
 
