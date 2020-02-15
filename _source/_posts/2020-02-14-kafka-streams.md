@@ -1,3 +1,15 @@
+---
+layout: blog_post
+title: "Kafka Streams"
+author: 
+description: ""
+tags: []
+tweets:
+- ""
+- ""
+- ""
+image: 
+---
 ## How to Develop a Secure Kafka Streams Application with a Quarkus Front End
 
 In this tutorial you're going to use Apache Kafka and Quarkus to create a secure, scalable web application. The application will use Kafka Streams and a small Kafka cluster to consume data from a server and push it to a client application as a real-time stream. The entire application will be secured. The Kafka cluster will be secured with SSL and SASL/JAAS password protection. The Quarkus client application will be secured using OAuth 2.0 & OIDC using Okta as the OIDC provider.
