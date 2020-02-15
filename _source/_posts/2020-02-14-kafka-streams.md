@@ -1,20 +1,8 @@
----
-layout: blog_post
-title: "Kafka Streams"
-author: Andrew Hughes
-description: ""
-tags: []
-tweets:
-- ""
-- ""
-- ""
-image: 
----
 ## How to Develop a Secure Kafka Streams Application with a Quarkus Front End
 
 In this tutorial you're going to use Apache Kafka and Quarkus to create a secure, scalable web application. The application will use Kafka Streams and a small Kafka cluster to consume data from a server and push it to a client application as a real-time stream. The entire application will be secured. The Kafka cluster will be secured with SSL and SASL/JAAS password protection. The Quarkus client application will be secured using OAuth 2.0 & OIDC using Okta as the OIDC provider.
 
-Both Apache Kafka and Quarkus are designed for use in scalable clusters. Quarkus is a container-first Kubernetes Java framework that you'll use to create a scalable, Java-based REST service and client application. It's extremely performant and designed to be used in serverless and microservice environments. Since I covered Quarkus [in a previous tutorial](http://need.a.link), I'm going to focus more on discussing Kafka in this tutorial. 
+Both Apache Kafka and Quarkus are designed for use in scalable clusters. Quarkus is a container-first Kubernetes Java framework that you'll use to create a scalable, Java-based REST service and client application. It's extremely performant and designed to be used in serverless and microservice environments. Since I covered Quarkus [in a previous tutorial](http://need.a.link), I'm going to focus more on discussing Kafka in the intro to this tutorial. Just know that you'll be using it to create a simple client application for Kafka Streams that will also serve web template page. If you want to know more, take a look at the links at the end of the tutorial or [the Quarkus docs](https://quarkus.io/get-started/).
 
 Apache Kafka describes itself as a "distributed streaming platform" that has three capabilities: 
  1. publish and subscribe to streams of messages;  
@@ -55,7 +43,7 @@ A **zookeeper** is a special process in the Kafka cluster that manages and coord
 
 A **broker** is a worker node in the cluster. Typically you'll have many nodes distributed geographically to ensure fail-over and network speed. However, here you'll just configure one broker that runs locally.
 
-Both the **consumers** and **producers** connect to the **broker**, which is the worker that accepts **records** to the **topics** and pushes records to subscribed **consumers**.
+Both the **consumers** and **producers** connect to the **broker**, which is the worker that accepts **records** to the **topics** and pushes records to subscribed **consumers**. In larger cluster configuration, which may have dozens or hundreds of brokers, the consumers and producers can connect to any of the brokers.
 
 ## Overview of Tutorial Steps
 
@@ -82,23 +70,33 @@ In summary:
 
 ## Install Requirements
 
-TODO
+**Java 11**: This project uses Java 11. OpenJDK 11 will work just as well. Instructions are found on the [OpenJDK website](https://openjdk.java.net/install/). OpenJDK can also be installed using [Homebrew](https://brew.sh/). Alternatively, [SDKMAN](https://sdkman.io/) is another great option for installing and managing Java versions.
+
+**Maven**: You need Maven installed to bootstrap the project using the `quarkus-maven-plugin`. Install it according to the instructions on [their website](https://maven.apache.org/install.html). Or use SDKMAN or Homebrew (iOS).
+
+Just a hint, if you run `mvn -v`, you’ll see your Maven version **and** the Java version Maven is running on. You'll need to make sure Maven is using the correct version, not just what `java -version` gets you from the command line, which could be different.
+
+**Okta Developer Account**: You’ll be using Okta as an OAuth/OIDC provider to add JWT authentication and authorization to the application. Go to [our developer site](https://developer.okta.com/signup/) and sign up for a free developer account.
 
 ## Create a Simple and Secure Quarkus Java Application
 
-Quarkus has a nice Maven plugin, `quarkus-maven-plugin`, that makes bootstrapping new projects easy. Open a terminal and `cd` to an appropriate parent directory for the project. Since you're going to be creating both a Kafka cluster and a Quarkus Java application, you might want to make a parent directory named `kafka-quarkus-java`. I'll refer to this as the project root path throughout the tutorial. 
+Quarkus has a nice Maven plugin, `quarkus-maven-plugin`, that makes bootstrapping new projects easy. Open a terminal and `cd` to an appropriate parent directory for the project. Since you're going to be creating both a Kafka cluster and a Quarkus Java application, as well as a bunch of SSL certs and keyfiles, you might want to make a parent directory named `kafka-quarkus-java` for the whole project. I'll refer to this as the project root path throughout the tutorial. 
 
-You'll notice that we're using Quarkus version `1.3.0.Alpha1`. We're using the alpha version because there is a bug in the current stable release, `1.2.0`, in the OIDC extension, which is what allows Quarkus to use Okta for OAuth 2.0 authorization and OIDC authentication. Take a look at [my bug report on the Quarkus GitHub page](https://github.com/quarkusio/quarkus/issues/7129) for more info.
+You'll notice that we're using Quarkus version `1.3.0.Alpha1`. We're using the alpha version because there is a bug in the current stable release, `1.2.0`, in the OIDC extension, which is what allows Quarkus to use Okta for OAuth 2.0 authorization and OIDC authentication. Take a look at [my bug report on the Quarkus GitHub page](https://github.com/quarkusio/quarkus/issues/7129) for more info. You can also peruse [the OIDC extension docs](https://quarkus.io/guides/security-openid-connect-web-authentication).
 
-Run the following Maven command. This bootstraps our starter project with dependencies for interacting with Kafka, OIDC authentication, and the Qute templating engine.
+Run the following Maven command. This bootstraps our starter project with dependencies for interacting with Kafka, OIDC authentication, and the Qute templating engine. 
+
+This command creates a new directory for the project: `quarkus-client`.
 ```bash
 mvn io.quarkus:quarkus-maven-plugin:1.3.0.Alpha1:create \
 -DplatformVersion=1.3.0.Alpha1 -DplatformArtifactId=quarkus-bom \
--DprojectGroupId=com.okta -DprojectArtifactId=quarkus-client2 \
+-DprojectGroupId=com.okta -DprojectArtifactId=quarkus-client \
 -DclassName="com.okta.quarkusclient.SecureResource" \
 -Dextensions="quarkus-smallrye-reactive-messaging-kafka,oidc,quarkus-resteasy-qute"
 ```
 Open the `quarkus-client` directory with your favorite IDE or editor.
+
+> Side note: If you ever want to update this install command to a stable release version, you may want to remove the `platformArtifactId` parameter as this was added to allow use of the alpha release (the default value is `quarkus-universe-bom`, which doesn't exist in the alpha releases).
 
 ## Test the Bootstrapped Quarkus Application
 
@@ -132,7 +130,7 @@ If you ever need or want to, I'll just point out that you can debug Quarkus remo
 
 You're going to use Okta as your authentication and authorization provider. This leverages two different protocols: Open Authentication 2.0 (OAuth 2.0) and OpenID Connect (OIDC). OIDC is built on top of OAuth 2.0. OAuth 2.0 provides an **authorization** protocol while OIDC provides and **authentication** protocol. Together they provide a complete protocol for securely determining who a client is and what they are allowed to access or what actions they are allowed to perform. 
 
-You’re going to use Okta’s implementation of these protocols as your OAuth 2.0 / OIDC provider.
+You’re going to use Okta’s implementation of these protocols as your OAuth 2.0 & OIDC provider.
 
 If you haven’t already, head over to developer.okta.com to sign up for a free account. Once you have an account, open the developer dashboard and create an OpenID Connect (OIDC) application by clicking on the **Applications** top-menu item, and then on the **Add Application** button.
 
@@ -148,11 +146,11 @@ Leave the page open or take note of the **Client ID** and **Client Secret**. You
 In your Quarkus client project, open the `src/main/resources/application.properties` file and copy and paste the following into it.
 
 ```properties
-quarkus.oidc.auth-server-url=https://{yourOktaDomain}/oauth2/default  
-quarkus.oidc.client-id={yourClientId}  
-quarkus.oidc.credentials.secret={yourClientSecret}  
-quarkus.oidc.authentication.scopes=openid,profile  
-quarkus.oidc.application-type=web-app  
+quarkus.oidc.auth-server-url=https://{yourOktaDomain}/oauth2/default
+quarkus.oidc.client-id={yourClientId}
+quarkus.oidc.credentials.secret={yourClientSecret}
+quarkus.oidc.authentication.scopes=openid,profile 
+quarkus.oidc.application-type=web-app
 quarkus.oidc.authentication.redirect-path=/
 ```
 
@@ -192,7 +190,9 @@ public class SecureResource {
 }
 ```
 
-The resource is secured using the `@RolesAllowed` annotation. Because `Everyone` is the default group assigned by the Okta auth server to every authenticated user, specifying `Everyone` as the role means that any authenticated user is allowed to access the resource. This is passed from Okta to Quarkus using the `groups` claim in the JWT.
+The resource is secured using the `@RolesAllowed` annotation. 
+
+Because `Everyone` is the default group assigned by the Okta auth server to every authenticated user, specifying `Everyone` as the role means that any authenticated user is allowed to access the resource. This is passed from Okta to Quarkus using the `groups` claim in the JWT.
 
 Now it's time to test out the secured endpoint.
 
@@ -200,11 +200,13 @@ In your shell, **Control-C** to end any open Quarkus sessions and restart it wit
 ```bash
 ./mvnw clean compile quarkus:dev
 ```
-In a browser, open [http://localhost/secured](http://localhost/secured).
+In a browser, open [http://localhost/secured](http://localhost/secured). You will need to sign out of the Okta developer panel or use a private browser session. Otherwise you'll bypass the sign-in page since you're already signed into Okta.
 
 This time you'll be redirected to the Okta login page, which, if successful, will redirect you back to the `/secured` endpoint.
 
-<<image_1>> Okta login
+{% img blog/kafka-streams/kafka_streams_quarkus_image_1.png alt:"Okta Login Page" width:"500" %}{: .center-image }
+
+If all goes well, you'll get a "secure hello."
 
 ## Use Qute Templating to Display a Template Page
 
@@ -277,7 +279,7 @@ First, the `LOG` variable creates a logger using the default JBoss logging inclu
 
 Second, notice that the method is now returning a `TemplateInstance` and that the template is being injected into the resource class using the `@Inject` annotation. It is also marked with  `@Produces(MediaType.TEXT_HTML)`, which tells Quarkus that it is returning HTML.
 
-Finally, you use dependency injection to get the `SecurityContext` from which you can get the `Principal`. This allows you to get the name, which you pass on to the template. 
+Finally, you use dependency injection to get the `SecurityContext` from which you can get the `Principal`. This allows you to get the name, which you pass on to the template. You can also inject JWT claims or the whole JSON web token.
 
 Now, test it out.
 
@@ -286,11 +288,11 @@ In your shell, **Control-C** to end any open Quarkus sessions and restart it wit
 ./mvnw clean compile quarkus:dev
 ```
 
-In a browser, open [http://localhost/secured](http://localhost/secured). If you want to force a re-authentication, you can use an incognito or private browser session. Otherwise you'll likely just be passe through using your already authenticated credentials.
+In a browser, open [http://localhost/secured](http://localhost/secured). Don't forget to use a private browser session if you want to re-authenticate.
 
-You should now see our new, somewhat fancier secured template page.
+You should now see our new, somewhat fancier secured template page that says something like, "Hello, your@email.com".
 
-Let's move on to setting up a secure Kafka cluster.
+You've secured a very simple Quarkus client application. Time to move on to setting up a secure Kafka cluster.
 
 ## Download Apache Kafka
 
@@ -298,7 +300,12 @@ The Apache Kafka cluster you're going to create will have two processes: one zoo
 
 Download Apache Kakfa 2.4.0 from [their download page](https://www.apache.org/dyn/closer.cgi?path=/kafka/2.4.0/kafka_2.12-2.4.0.tgz) and copy it to your base project directory, `kafka-quarkus-java`.
 
-Open a new shell. (You're going to want to have two shells open for Apache Kafka: one for the zookeeper process and one for the Broker process).
+Or use curl:
+```bash
+curl http://apache.claz.org/kafka/2.4.0/kafka_2.12-2.4.0.tgz --output kafka_2.12-2.4.0.tgz
+```
+
+Open a new shell. (You're going to want to have two shells open for Apache Kafka: one for the zookeeper process and one for the broker process).
 
 Un-tar the downloaded file and `cd` into the directory using the following commands:
 
@@ -312,14 +319,28 @@ Start a zookeeper:
 bin/zookeeper-server-start.sh config/zookeeper.properties
 ```
 
-Start the broker:
+Open a second shell and start the broker:
 ```bash
 bin/kafka-server-start.sh config/server.properties
 ```
 
+If you want to test the Kafka cluster, you can use the commands below to create a test topic and list the topic. They need to be run from the `kafka_2.12-2.4.0` directory.
+
+```bash
+# Create a topic named 'test'
+bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic test
+# List the topics on the cluster
+bin/kafka-topics.sh --list --bootstrap-server localhost:9092
+```
+You should see the `test` topic listed in the output.
+
+Kakfa includes lots of scripts that can be used to test and manipulate the cluster. See [the Kafka quickstart docs](https://kafka.apache.org/quickstart).
+
 ## Configure Quarkus to use Kafka Streams
 
-To get Quarkus talking to Kafka, you need to update `application.properties` and create a couple new files. The first file is a stream generator that will push data to a Kafka streams topic. Just for fun, our stream is going to be a selection from George Washington's farewell address. Every 500 milliseconds a new word will be sent to the `generated-word` topic.
+The Kafka Streams application you're going to create will, just for fun, stream the last few paragraphs from George Washington's farewell address. You'll create a producer that sends a new word every 500 milliseconds and a consumer that listens for new words. You'll also have a web template that uses an `EventSource` to subscribe to the updates to the topic via the Quarkus client and displays them in real time.
+
+To get Quarkus talking to Kafka, you need to update `application.properties` and create a couple new files. The first file is a stream generator that will push data to a Kafka streams topic.
 
 Create the following new Java file.
 
@@ -414,14 +435,14 @@ Next you need to add the following to your `application.properties`.
 
 ```properties
 # Configure the Kafka sink (we write to it)  
-mp.messaging.outgoing.generated-word.connector=smallrye-kafka  
-mp.messaging.outgoing.generated-word.topic=words  
-mp.messaging.outgoing.generated-word.value.serializer=org.apache.kafka.common.serialization.StringSerializer  
-  
+mp.messaging.outgoing.generated-word.connector=smallrye-kafka
+mp.messaging.outgoing.generated-word.topic=words
+mp.messaging.outgoing.generated-word.value.serializer=org.apache.kafka.common.serialization.StringSerializer
+
 # Configure the Kafka source (we read from it)  
-mp.messaging.incoming.words.connector=smallrye-kafka  
-mp.messaging.incoming.words.value.deserializer=org.apache.kafka.common.serialization.StringDeserializer  
-mp.messaging.incoming.words.group-id=kafka-sandbox`
+mp.messaging.incoming.words.connector=smallrye-kafka
+mp.messaging.incoming.words.value.deserializer=org.apache.kafka.common.serialization.StringDeserializer
+mp.messaging.incoming.words.group-id=kafka-sandbox
 ```
 
 Finally, update the Qute template file.
@@ -463,7 +484,7 @@ Finally, update the Qute template file.
 ```
 The most interesting part of this file is this bit `var source = new EventSource("/words/stream")`. Here you're creating an event source from the `/words/stream` endpoint you just created in the `SpeechResource` class. This endpoint is protected. However, because the request for the `EventSource` will come from the same browser session as the authenticated request, there is no need to manually pass in the JWT and add it to the token header here.
 
-With that all in place, re-start the Quarkus client. Make sure both your Kafka ZooKeeper and Broker processes are still running and happy.
+With that all in place, re-start the Quarkus client. Make sure both your Kafka zookeeper and broker processes are still running and happy.
 
 ```bash
 ./mvnw clean compile quarkus:dev
@@ -473,10 +494,10 @@ Open a browser and navigate to [http//localhost:8080/secured](http//localhost:80
 
 You'll see a new window with your authenticated identity and a stream of words from George Washington's farewell address.
 
-<< image_2 >> /secured page with speech words
+{% img blog/kafka-streams/kafka_streams_quarkus_image_2.png alt:"Secured Page With Streaming Words" width:"800" %}{: .center-image }
 
-At this point, you've got a working Kafka cluster and a Quarkus client. The Quarkus client is secured using OIDC / OAuth 2.0. However, the Kafka cluster isn't secured yet. You've generated the necessary certificates, truststores, and keystores--but they're not being used. You'll do that in the next section. I just wanted you to be sure you had a working Kafka cluster and client application before you added security (to narrow things down if you have problems).
 
+At this point, you've got a working Kafka cluster and a Quarkus client. The Quarkus client is secured using OIDC / OAuth 2.0. However, the Kafka cluster isn't secured yet. All communication between the Quarkus client and the Kafka cluster is vulnerable. 
 
 ## Create a Secure Kafka Cluster
 
@@ -493,7 +514,7 @@ Kakfa implements the following SASL mechanism:
 
 `GSSAPI/Kerberos` allows Kafka to authenticate using an enterprise authentication server like Active Directory. The next three are password-based authentication mechanisms. `PLAIN` is a plain text password that is stored in plain text on the broker. `SCRAM-SHA` allows Kakfa to authenticate passwords in a more secure manner using Salted Challenge Response Authentication Mechanism (SCRAM). `OAUTHBEARER` allows Kafka to use JSON Web Tokens to authenticate both clients and brokers. 
 
-You're going to use SSL + `PLAIN` in this tutorial. **All three of the password-based SASL mechanisms should be used along with TLS/SSL in production.**
+You're going to use SSL + `PLAIN` in this tutorial. **All three of the password-based SASL mechanisms should be used along with TLS/SSL in production.** Probably all of these should be used with TSL/SSL if you wan to be secure, really.
 
 It may also be worth referring to the [Apache Kafka security documentation](https://kafka.apache.org/documentation/#security) if you want to look deeper. If you're going to use these technologies in production, you should definitely familiarize yourself with the security documentation. 
 
@@ -512,6 +533,8 @@ In case you don't know, a **keystore** is a Java file used to store certificates
 Open a shell. 
 
 Make a directory to hold all of your SSL certificates. In production on a server, these would generally end up somewhere like `/var/private/ssl`, but for this tutorial I suggest you put them under the root project directory, somewhere like `kafka-quarkus-java/ssl`.
+
+**Note**: All of the commands below assume your doing everything locally via `localhost`. If that's not the case, you'll need to update the commands below and/or disable host name verification in the brokers by placing the config value `ssl.endpoint.identification.algorithm=` (the value is blank on purpose) in the `server.properites`, `consumer.properties`, and `producer.properties` Kafka config files.
 
 Navigate into the `kafka-quarkus-java/ssl` using `cd`.
 
@@ -551,8 +574,8 @@ keytool -keystore server.keystore.jks -alias server -certreq -file cert-file-ser
 # Sign the server cert with the root CA
 openssl x509 -req -CA ca-cert -CAkey ca-key -in cert-file-server -out cert-signed-server -days 365 -CAcreateserial -passin pass:test1234
 # Import server cert and root CA into server keystore
-keytool -keystore server.keystore.jks -alias CARoot -import -file ca-cert -storepass test1234
-keytool -keystore server.keystore.jks -alias server -import -file cert-signed-server -storepass test1234
+keytool -keystore server.keystore.jks -alias CARoot -import -file ca-cert -storepass test1234 -noprompt
+keytool -keystore server.keystore.jks -alias server -import -file cert-signed-server -storepass test1234 -noprompt
 ```
 
 Step 5: Create a client keystore with a private key and unsigned certificate.
@@ -571,8 +594,8 @@ keytool -keystore client.keystore.jks -alias client -certreq -file cert-file-cli
 # Sign the client cert
 openssl x509 -req -CA ca-cert -CAkey ca-key -in cert-file-client -out cert-signed-client -days 365 -CAcreateserial -passin pass:test1234
 # Import client cert and CA into client keystore
-keytool -keystore client.keystore.jks -alias CARoot -import -file ca-cert -storepass test1234
-keytool -keystore client.keystore.jks -alias client -import -file cert-signed-client -storepass test1234
+keytool -keystore client.keystore.jks -alias CARoot -import -file ca-cert -storepass test1234 -noprompt
+keytool -keystore client.keystore.jks -alias client -import -file cert-signed-client -storepass test1234 -noprompt
 ```
 Now your keystores contain the certificates signed with the root CA.
 
@@ -581,6 +604,8 @@ If you had multiple broker machines, you'd need to create multiple certificates 
 Also notice that the keystores and truststores all have their passwords set to `test1234`. You'd clearly want to change this to something else in production.
 
 What's going to happen (to greatly simplify things), is that when the clients or brokers try to talk to each other, they're going to show each other their signed certificates from their keystores, and they're going to use the root CA from their truststores to try and verify the other machine's certificate. If that's successful, they'll accept the identity of the other machine and accept the SSL connection, establishing a encrypted connection.
+
+In the [project GitHub repository](http://need.a.link), there's a script called `create_ssl_directory.sh` that will generate the contents of the `/ssl` directory, including all of the certs, keystores, truststores, and client and server JAAS config files for you.
 
 ## Secure the Kafka Cluster Using SSL and JAAS Password Protection
 
@@ -722,7 +747,14 @@ But in the second instance you don't get this error. That's because you've given
 
 At this point your Kafka cluster is secured using SSL and SASL/JAAS PLAIN passwords. If you had multiple brokers they would communicate with each other using SSL and passwords (however, you only have one broker in this case).
 
-You still need to update the Quarkus client.
+You still need to update the Quarkus client. You can try and start the Quarkus client (or re-start) and you'll see that you get an error.
+
+```bash
+... INFO  [com.okt.qua.SpeechGenerator] ... Next word = Interwoven
+... ERROR [io.sma.rea.mes.kaf.KafkaSink] ... Unable to dispatch message to Kafka ... 
+```
+
+To fix this, you need to configure the Kafka client to use SASL SSL.
 
 First create a `kafka_client_jaas.conf` file. Where this ends up in production is a bit of a design decision since it contains passwords, but for the moment, I'd suggest it go in the `/ssl` folder.
 
@@ -737,28 +769,29 @@ KafkaClient {
 
 Add the following lines to your Quarkus client `application.properties`.
 ```properties
-mp.messaging.incoming.words.security.protocol=SASL_SSL  
-mp.messaging.incoming.words.sasl.mechanism=PLAIN  
-  
-mp.messaging.outgoing.generated-word.security.protocol=SASL_SSL  
-mp.messaging.outgoing.generated-word.sasl.mechanism=PLAIN  
-  
-mp.messaging.outgoing.generated-word.ssl.key-password=test1234  
-mp.messaging.outgoing.generated-word.ssl.keystore.location=${SSL_DIR_PATH}/client.keystore.jks  
-mp.messaging.outgoing.generated-word.ssl.keystore.password=test1234  
-mp.messaging.outgoing.generated-word.ssl.truststore.location=${SSL_DIR_PATH}/client.truststore.jks  
-mp.messaging.outgoing.generated-word.ssl.truststore.password=test1234  
-  
-mp.messaging.incoming.words.ssl.key-password=test1234  
-mp.messaging.incoming.words.ssl.keystore.location=${SSL_DIR_PATH}/client.keystore.jks  
-mp.messaging.incoming.words.ssl.keystore.password=test1234  
-mp.messaging.incoming.words.ssl.truststore.location=${SSL_DIR_PATH}/client.truststore.jks  
+# SASL Configuration for Kafka client
+mp.messaging.incoming.words.security.protocol=SASL_SSL
+mp.messaging.incoming.words.sasl.mechanism=PLAIN
+
+mp.messaging.outgoing.generated-word.security.protocol=SASL_SSL
+mp.messaging.outgoing.generated-word.sasl.mechanism=PLAIN
+
+mp.messaging.outgoing.generated-word.ssl.key-password=test1234
+mp.messaging.outgoing.generated-word.ssl.keystore.location=${SSL_DIR_PATH}/client.keystore.jks
+mp.messaging.outgoing.generated-word.ssl.keystore.password=test1234
+mp.messaging.outgoing.generated-word.ssl.truststore.location=${SSL_DIR_PATH}/client.truststore.jks
+mp.messaging.outgoing.generated-word.ssl.truststore.password=test1234
+
+mp.messaging.incoming.words.ssl.key-password=test1234
+mp.messaging.incoming.words.ssl.keystore.location=${SSL_DIR_PATH}/client.keystore.jks
+mp.messaging.incoming.words.ssl.keystore.password=test1234
+mp.messaging.incoming.words.ssl.truststore.location=${SSL_DIR_PATH}/client.truststore.jks
 mp.messaging.incoming.words.ssl.truststore.password=test1234
 ```
-Note that you're using an environmental variable to set the path to the SSL directory where the client keystore and truststore are located. You need to export this path into your bash shell using the command below (adding in your correct local path).
+Note that you're using an environmental variable to set the path to the SSL directory where the client keystore and truststore are located. You need to export this path into your bash shell using the command below (adding in your correct local path). In a real install, this would probably be an absolute path.
 
 ```bash
-export SSL_DIR_PATH=/path/to/your/ssl/directory
+export SSL_DIR_PATH=/path/to/your/ssl/directory <-- NO TRAILING SLASH
 ```
 
 You can now run the Quarkus client app configured to connect to Kakfa via SSL using the following command. As you did for the broker, you're providing the path to the JAAS config file using a Java property. Maybe this seems like a lot of hoopla, but that file contains a plain text password, so it's best to keep it somewhere safe and out of version control.
