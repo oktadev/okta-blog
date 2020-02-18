@@ -290,7 +290,7 @@ There's a huge number of additions that've happened to OAuth in the last several
 
 Login with OAuth was made famous by Facebook Connect and Twitter. In this flow, a client accesses a `/me` endpoint with an access token. All it says is that the client has access to the resource with a token. People invented this fake endpoint as a way of getting back a user profile with an access token. It's a non-standard way to get information about the user. There's nothing in the standards that say everyone has to implement this endpoint. Access tokens are meant to be opaque. They're meant for the API, they're not designed to contain user information.
 
-What you're really trying to answer with authentication is *who* the user is, *when* did the user authenticate, and *how* did the user authenticate. You can answer typically answer these questions with SAML assertions, not with access tokens and authorization grants. That's why we call this pseudo authentication.
+What you're really trying to answer with authentication is *who* the user is, *when* did the user authenticate, and *how* did the user authenticate. You can typically answer these questions with SAML assertions, not with access tokens and authorization grants. That's why we call this pseudo authentication.
 
 ## Enter OpenID Connect
 
