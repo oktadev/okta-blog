@@ -64,15 +64,6 @@ $ tree -I node_modules
 ├── gatsby-config.js
 ├── package-lock.json
 ├── package.json
-├── public
-│   ├── favicon.ico
-│   ├── index.html
-│   ├── page-data
-│   │   ├── dev-404-page
-│   │   │   └── page-data.json
-│   │   └── index
-│   │       └── page-data.json
-│   └── static
 ├── src
 │   └── pages
 │       └── index.js
@@ -84,7 +75,6 @@ Run `npm start` and check out your "Hello World" app at `http://localhost:8000`.
 
 {% img blog/gatsby-netlify-okta/hello-world.png alt:"Hello World" width:"800" %}{: .center-image }
 
-
 Now let's move on to adding a neat feature, [sourcing content from Netlify CMS](https://www.gatsbyjs.org/docs/sourcing-from-netlify-cms/)!
 
 ## Add Netlify CMS for Content Management
@@ -94,7 +84,7 @@ Netlify CMS is a single-page React app too! Its features include custom-styled p
 You can install Netlify CMS and the Gatsby plugin for it using `npm`:
 
 ```
-npm i netlify-cms-app@2.10.0 gatsby-plugin-netlify-cms@4.1.33
+npm i netlify-cms-app@2.11.20 gatsby-plugin-netlify-cms@4.1.40
 ```
 
 In `gatsby-config.js`, register the Netlify CMS plugin:
@@ -225,7 +215,7 @@ When your changes finish deploying on Netlify (it should take around 30 seconds)
 
 Click **Login with GitHub** and you'll see a page that says "No Auth Provider Found".
 
-Go to your site's dashboard and navigate to **Access control** > (scroll down) **OAuth**.
+On Netlify, go to **Site settings** and navigate to **Access control** > (scroll down) **OAuth**.
 
 Click **Install provider**. It will prompt you for a client ID and secret. To get this, navigate to [GitHub Developer settings](https://github.com/settings/apps) > **OAuth Apps** > **New OAuth App**.
 
@@ -441,7 +431,7 @@ module.exports = {
 }
 ```
 
-Restart everything and you'll be able to see your blog posts at `/blogs`.
+Restart everything and you'll be able to see your blog posts at `/blog`.
 
 {% img blog/gatsby-netlify-okta/blogroll.png alt:"Gatsby blogs" width:"800" %}{: .center-image }
 
