@@ -83,7 +83,7 @@ You've registered your app with Okta and can now generate a token to gain access
 
 Your requests will be validated using a token. To generate this token, you will use OpenID Connect Debugger. This website will provide you an easy way to generate credentials for the users on your Okta application.
 
-Go to the https://oidcdebugger.com/ and fill in the following information:
+Go to the <https://oidcdebugger.com> and fill in the following information:
 
 * Authorize URI: `https://{yourOktaDomain}/oauth2/default/v1/authorize`
 * Redirect URI: `https://oidcdebugger.com/debug`
@@ -151,10 +151,6 @@ The next step is to add the security libraries inside the project. Edit the `pom
 
 ```xml
 <dependency>
-    <groupId>io.micronaut.configuration</groupId>
-    <artifactId>micronaut-security-oauth2</artifactId>
-</dependency>
-<dependency>
     <groupId>io.micronaut</groupId>
     <artifactId>micronaut-security</artifactId>
 </dependency>
@@ -176,8 +172,9 @@ import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Produces;
 import io.micronaut.security.annotation.Secured;
-import io.micronaut.security.authentication.Authentication;
 import io.micronaut.security.rules.SecurityRule;
+
+import java.security.Principal;
 
 @Controller("/hello")
 public class HelloController {
@@ -185,8 +182,8 @@ public class HelloController {
     @Get
     @Secured(SecurityRule.IS_AUTHENTICATED)
     @Produces(MediaType.TEXT_PLAIN)
-    public String hello(Authentication authentication) {
-        return "Hello, " + authentication.getName() + "!";
+    public String hello(Principal principal) {
+        return "Hello, " + principal.getName() + "!";
     }
 
 }
@@ -200,31 +197,13 @@ The last annotation is `@Secured`. It simply tells Micronaut that this method is
 
 You now have a controller that is secured, but you haven't defined the security configuration yet. Let's configure Micronaut to connect to your Okta application.
 
-Go to `resources/application.yml` and add the following security configuration:
+Rename `src/main/resources/application.yml` to `application.properties` and add the following security configuration:
 
-```yaml
-micronaut:
-  application:
-    name: micronaut
-  security:
-    enabled: true
-    oauth2:
-      enabled: true
-      clients:
-        okta:
-          openid:
-            issuer: https://{yourOktaDomain}/oauth2/default
-    token:
-      jwt:
-        enabled: true
-        cookie:
-          enabled: true
-        signatures:
-          jwks:
-            okta:
-              url: https://{yourOktaDomain}/oauth2/default/v1/keys
+```properties
+micronaut.security.enabled=true
+micronaut.security.token.jwt.enabled=true
+micronaut.security.token.jwt.signatures.jwks.okta.url=https://{yourOktaDomain}/oauth2/default/v1/keys
 ```
-
 
 Replace `{yourOktaDomain}` with the value from your Okta account.
 
@@ -271,7 +250,7 @@ Now it works as expected! This time you're receiving the greeting message as a r
 Hello, daniel.pereira@email.com!
 ```
 
-You can see that Micronaut requires very little code to create a secure REST API. If you counted the lines of code, you'd find that ~20% is dependencies in XML (12 lines), the Java code is only 21 lines of code, and the security configuration (in YAML) takes 16 lines. Micronaut's built-in OAuth 2.0 support makes it easy to integrate with Okta and they even have a [Guide for Okta](https://guides.micronaut.io/micronaut-oauth2-okta/guide/index.html) in their documentation.
+You can see that Micronaut requires very little code to create a secure REST API. If you counted the lines of code, you'd find that ~24% is dependencies in XML (8 lines), the Java code is only 22 lines of code, and the security configuration takes 3 lines. Micronaut's built-in OAuth 2.0 support makes it easy to integrate with Okta and they even have a [Guide for Okta](https://guides.micronaut.io/micronaut-oauth2-okta/guide/index.html) in their documentation.
 
 Great! Now let's see how you create the same app using Quarkus.
 
@@ -484,11 +463,11 @@ Spring has been around for many years, it's widely popular, and has many feature
 
 Micronaut and Quarkus are growing in popularity and gaining momentum inside the Java community. If you're facing performance issues, or maybe if you're aching for a change, you might give one of them a try and see how it goes. 
 
-Performance is the most often highlighted comparison point between these three frameworks. If you're looking for fast startup in a serverless environment, or the ability to create native images with GraalVM, Micronaut and Quarkus will likely work well for you. Just for fun, the startup times for each of these apps are as follows:
+Performance is the most often highlighted comparison point between these three frameworks. If you're looking for fast startup in a serverless environment, or the ability to create native images with GraalVM, Micronaut and Quarkus will likely work well for you. Just for fun, the startup times for each of these apps are as follows (based on the average from three attempts):
 
-* Micronaut: 1985ms
-* Quarkus: 1.156s
-* Spring Boot: 1.127 seconds
+* Micronaut: 1003ms
+* Quarkus: 1278ms
+* Spring Boot: 1653ms
 
 In the end, you'll be able to productively develop a secure application, regardless of the choice you make.
 
@@ -502,3 +481,7 @@ Do you want to learn more about Java, REST APIs, and secure applications? Here a
 * [Simple Authentication with Spring Security](/blog/2019/05/31/spring-security-authentication)
 
 For more posts like this one, follow [@oktadev on Twitter](https://twitter.com/oktadev). We also regularly publish screencasts to [our YouTube channel](https://youtube.com/c/oktadev)!
+
+**Changelog:**
+
+* Jan 30, 2020: Updated to optimize Micronaut based on [feedback from the Micronaut team](https://github.com/oktadeveloper/okta-java-rest-api-comparison-example/pull/2). Also re-calculated startup times based on an average of three attempts. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-java-rest-api-comparison-example/pull/3). Changes to this article can be viewed in [oktadeveloper/okta-blog#176](https://github.com/oktadeveloper/okta-blog/pull/176).
