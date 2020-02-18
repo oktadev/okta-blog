@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Build a Secure Blog with React, Gatsby, and Netlify"
+title: "Build a Secure Blog with Gatsby, React, and Netlify"
 author: mraible
 description: "This tutorial shows how to build a secure blog app with Gatsby, React, and Netlify."
 tags: [gatsby, netlify, react, jamstack]
@@ -17,6 +17,8 @@ JAM - JavaScript, APIs, and Markup - apps are delivered by pre-rendering files a
 
 Netlify is a hosting company for static sites that offers continuous integration, HTML forms, AWS Lambda functions, and even content management.
 
+{% img blog/gatsby-netlify-okta/gatsby-netlify.png alt:"Gatsby + Netlify" width:"800" %}{: .center-image }
+
 In this tutorial, I'll show you how to use Gatsby to create a blog that integrates with Netlify CMS for content. The app you build will support authoring posts in Markdown and adding/editing posts from your browser or via Git! Finally, I'll show you how to secure a section of your app with Okta.
 
 > Before you begin, there's a few things you'll need:
@@ -25,6 +27,11 @@ In this tutorial, I'll show you how to use Gatsby to create a blog that integrat
 > * A [GitHub Account](https://github.com/join)
 > * A [Netlify Account](https://app.netlify.com/signup)
 > * An [Okta Developer Account](https://developer.okta.com/signup)
+
+If you'd prefer to watch a video, you can [watch this tutorial as a screencast](https://youtu.be/T5a5nmbV_g4).
+<div style="text-align: center; margin-bottom: 1.25rem">
+<iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/T5a5nmbV_g4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 ## Install Gatsby CLI
 
