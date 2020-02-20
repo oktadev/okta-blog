@@ -100,7 +100,6 @@ Pragma: no-cache
 
 The Authorization Code flow is complete! The application now has an access token it can use when making API requests.
 
-
 ## When to use the Authorization Code Flow
 
 The Authorization Code flow is best used in web and mobile apps. Since the Authorization Code grant has the extra step of exchanging the authorization code for the access token, it provides an additional layer of security not present in the Implicit grant type.
@@ -112,8 +111,10 @@ The code exchange step ensures that an attacker isn't able to intercept the acce
 ## Learn More About OAuth and Okta
 
 You can learn more about OAuth 2.0 on [OAuth.com](https://www.oauth.com/), or check out any of these resources to get started building!
+
 * [Get Started with Spring Boot, OAuth 2.0, and Okta](/blog/2017/03/21/spring-boot-oauth)
 * [Token Authentication in ASP.NET Core 2.0 - A Complete Guide](/blog/2018/03/23/token-authentication-aspnetcore-complete-guide)
 * [Secure your SPA with Spring Boot and OAuth](/blog/2017/10/27/secure-spa-spring-boot-oauth)
+
 Or hit up [Okta's OIDC/OAuth 2.0 API](/docs/api/resources/oidc) for specific information on how we support OAuth. And as always, follow us on Twitter [@oktadev](https://twitter.com/oktadev) for more great content.
 
