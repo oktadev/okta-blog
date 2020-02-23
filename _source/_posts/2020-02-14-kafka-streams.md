@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Kafka Streams"
-author: 
+author: Andrew Hughes
 description: ""
 tags: []
 tweets:
