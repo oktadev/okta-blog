@@ -74,16 +74,22 @@
         <a href="{{ site.external_domain }}/signup/" class="Button--red">Sign up</a>
       </div>
 
-      <a class="SearchIcon" href="#"></a>
-      <form id="form_search" class="SearchBar Formisimo_clocked_69929" method="get" action="{{ site.external_domain }}/search/" name="form_search" __bizdiag="-784164280" __biza="WJ__">
-        <input type="text" name="stq" autocomplete="off" id="st-search-input-auto" class="st-search-input" placeholder="Search">
-        <input type="submit" name="submit" value="GO">
-      </form>
+      <a class="SearchIcon" href="#" data-search-toggle></a>
 
     </nav>
 
   </div>
 
 </header>
-
+<!-- Search box  -->
+<div class="SearchBar" data-search-bar>
+  <div class="Wrap">
+    <div class="SearchBox" data-pipeline="developer-okta-com" style="display: flex;">
+      <div class="CoveoOmnibox"></div>
+      <div class="CoveoSearchButton">Search</div>
+      <div class="CoveoAnalytics"></div>
+    </div>
+  </div>
+</div>
+<!-- end Search box  -->
 <!-- START Promo banner -->{% include promo_banner.html %}<!-- END Promo banner -->

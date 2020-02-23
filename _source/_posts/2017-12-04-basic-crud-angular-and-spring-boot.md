@@ -1072,10 +1072,11 @@ I've written a number of Spring Boot and Angular tutorials in the past, and I've
 * [Angular Authentication with OpenID Connect and Okta in 20 Minutes](/blog/2017/04/17/angular-authentication-with-oidc)
 * [Build an Angular App with Okta's Sign-In Widget in 15 Minutes](/blog/2017/03/27/angular-okta-sign-in-widget)
 
-If you're using Angular 7 or 8, we have tutorials for those too!
+If you're using Angular 7, 8, or 9, we have tutorials for those too!
 
 * [Build a Basic CRUD App with Angular 7.0 and Spring Boot 2.1](/blog/2018/08/22/basic-crud-angular-7-and-spring-boot-2)
 * [Angular 8 + Spring Boot 2.2: Build a CRUD App Today!](/blog/2019/05/13/angular-8-spring-boot-2)
+* [Build a CRUD App with Angular 9 and Spring Boot 2.2](/blog/2020/01/06/crud-angular-9-spring-boot-2)
 
 If you have any questions, please don't hesitate to leave a comment below, or ask us on our [Okta Developer Forums](https://devforum.okta.com/). Follow us [on Twitter](https://twitter.com/oktadev) if you want to be notified when we publish new blog posts.
 

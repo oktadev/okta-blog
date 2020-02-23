@@ -1001,6 +1001,7 @@ You can see the full source code for the application developed in this tutorial 
 
 This blog has a plethora of Spring Boot and Angular tutorials. Here are some of my favorites:
 
+* [Build a CRUD App with Angular 9 and Spring Boot 2.2](/blog/2020/01/06/crud-angular-9-spring-boot-2)
 * [Build a Desktop Application with Angular and Electron](/blog/2019/03/20/build-desktop-app-with-angular-electron)
 * [Migrate Your Spring Boot App to the Latest and Greatest Spring Security and OAuth 2.0](/blog/2019/03/05/spring-boot-migration)
 * [i18n in Java 11, Spring Boot, and JavaScript](/blog/2019/02/25/java-i18n-internationalization-localization)
