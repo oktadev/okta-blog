@@ -26,6 +26,14 @@ image::{% asset_path 'blog/spring-boot-2-angular-9/bootiful-angular.png' %}[alt=
 
 toc::[]
 
+If you'd rather watch a video, https://youtu.be/pgWk9dft3So[I created a screencast of this tutorial].
+
+++++
+<div style="text-align: center; margin-bottom: 1.25rem">
+<iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/pgWk9dft3So" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+++++
+
 == What's New In Angular 9?
 
 Angular 9's most prominent new feature is Ivy. Ivy is Angular's new compiler and renderer. The renderer is the engine that takes your components and templates and translates them into instructions that manipulate the DOM. Ivy is an internal component, so you don't interact with it directly. However, it can have a significant impact on your code, yielding much smaller JavaScript bundles and increasing performance.
