@@ -1,0 +1,239 @@
+---
+layout: blog_post
+title: "Build Beautiful Angular Apps with Bootstrap"
+// 62, 55 for Bootiful
+author: mraible
+description: "Angular + Spring Boot = 💚! Learn how to add Bootstrap to the mix and configure searching, sorting, and pagination with ng-bootstrap and Spring Data JPA."
+tags: [angular, bootstrap, ng-bootstrap, spring boot, spring data jpa]
+tweets:
+- "TODO"
+- "TODO"
+- "Learn how to integrate @angular and @getbootstrap in 2020!"
+image: TBD
+---
+:toc: macro
+:page-liquid:
+:experimental:
+
+I've been a longtime fan of CSS frameworks dating all the way back to 2005. I lead an open source project called AppFuse at the time and wanted a way to provide themes for our users. We used Mike Stenhouse's CSS Framework and held a design content to gather some themes we liked for our users. A couple of other CSS frameworks came along in the next few years, namely Blueprint in 2007 and Compass in 2008.
+
+However, no CSS frameworks took the world by storm like Bootstrap. Back then, it was called Twitter Bootstrap. It was invented by Mark Otto and Jacob Thornton in mid-2010 while they worked at Twitter. From "Building Twitter Bootstrap" in Issue 324 of A List Apart:
+
+> Our goal is to provide a refined, well-documented, and extensive library of flexible design components built with HTML, CSS, and JavaScript for others to build and innovate on.
+
+Bootstrap was originally released on August 19, 2011 and quickly became _the_ most popular project on GitHub. Developers like myself all over the world started using it.
+
+Another web framework took the world by storm the following year: AngularJS. AngularJS (v0.9) first appeared on GitHub in October 2010. Version 1.0 was released on June 14, 2012.
+
+Together, these frameworks have had quite a run. It's hard to believe that they've lasted so long, especially considering both projects have had major rewrites!
+
+// image::{% asset_path 'blog/spring-boot-2-angular-9/angular-bootstrap.png' %}[alt=Angular 💜 Bootstrap,width=800,align=center]
+
+toc::[]
+
+== Isn't Angular Dead?
+
+I've heard many developers say that Angular is Dead. As a veteran Java developer, I've heard this said about Java many times over the years as well. Yet it continues to thrive. Angular is similar in that it's become someone boring. Some people call boring framework "legacy". Others call it "revenue-generating".
+
+Whatever you want to call it, Angular is far from dead. At least according to the popularity of two recent articles we've published! Both of these posts have experienced high traffic numbers.
+
+* https://developer.okta.com/blog/2020/01/06/crud-angular-9-spring-boot-2[Build a CRUD App with Angular 9 and Spring Boot 2.2]
+* https://developer.okta.com/blog/2020/01/21/angular-material-login[Build a Beautiful App + Login with Angular Material]
+
+== Angular Still Loves Bootstrap
+
+You might think that Angular Material is more popular than Bootstrap these days. You might be right, but I believe that popularity is often shaped by who you follow on Twitter. For those fabulous folks that follow me, most of them are still using Bootstrap.
+
+++++
+<div style="max-width: 500px; margin: 0 auto 1.25rem">
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">If you&#39;re developing <a href="https://twitter.com/angular?ref_src=twsrc%5Etfw">@angular</a> apps, what&#39;s your preferred CSS framework? <a href="https://twitter.com/hashtag/Angular?src=hash&amp;ref_src=twsrc%5Etfw">#Angular</a> <a href="https://twitter.com/hashtag/CSS?src=hash&amp;ref_src=twsrc%5Etfw">#CSS</a></p>&mdash; Matt Raible (@mraible) <a href="https://twitter.com/mraible/status/1196894737870938113?ref_src=twsrc%5Etfw">November 19, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+++++
+
+== Integrate Bootstrap with Angular 9
+
+Today I'd like to show you how to integrate Bootstrap into an Angular 9 application. I'll start with the CRUD example from my aforementioned Angular 9 + Spring Boot 2.2 tutorial. I'll integrate Bootstrap, convert the app to use Sass (because CSS is more fun with Sass), make the app look good, add form validation, and write some code to develop a searchable, sortable, and pageable data table. The last part sounds hard, but it only requires eight lines of code on the Spring Boot side of things. Kotlin and Spring Data JPA FTW!
+
+**Prerequisites:**
+
+* https://nodejs.org/[Node 12]+
+* https://adoptopenjdk.net/[Java 11]+
+* An https://developer.okta.com/signup/[Okta Developer Account]
+
+[source,shell]
+----
+git clone https://github.com/oktadeveloper/okta-spring-boot-2-angular-9-example.git okta-angular-bootstrap-example
+----
+
+In a terminal, navigate into this new directory and its `notes` folder. Then install the dependencies for your Angular app.
+
+[source,shell]
+----
+cd okta-angular-bootstrap-example/notes
+npm i
+----
+
+npm install bootstrap@4.4.1 @ng-bootstrap/ng-bootstrap@6.0.0
+
+
+
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+@NgModule({
+declarations: [
+AppComponent
+  ],
+imports: [
+BrowserModule,
+AppRoutingModule,
+AuthRoutingModule,
+NgbModule,
+NoteModule
+  ],
+providers: [],
+bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+If you run `ng serve`, you'll get a blank screen and a message in your console.
+
+[source,shell]
+----
+Uncaught Error: It looks like your application or one of its dependencies is using i18n.
+Angular 9 introduced a global `$localize()` function that needs to be loaded.
+Please run `ng add @angular/localize` from the Angular CLI.
+----
+
+Run `ng add @angular/localize` to continue.
+
+<nav class="navbar navbar-light bg-secondary">
+<a class="navbar-brand text-light" href="#">{{ title }} app is running!</a>
+</nav>
+
+<router-outlet></router-outlet>
+
+== Add Security to Angular + Bootstrap with OpenID Connect
+
+
+To create a new OIDC app for Spring Boot on Okta:
+
+1. Log in to your developer account, navigate to **Applications**, and click on **Add Application**.
+2. Select **Web** and click **Next**.
+3. Give the application a name and add `http://localhost:8080/login/oauth2/code/okta` as a login redirect URI.
+4. Click **Done**.
+
+Create an `okta.env` file and copy your settings into it.
+
+[source,shell]
+----
+export OKTA_OAUTH2_ISSUER=https://{yourOktaDomain}/oauth2/default
+export OKTA_OAUTH2_CLIENT_ID={yourClientId}
+export OKTA_OAUTH2_CLIENT_SECRET={yourClientSecret}
+----
+
+Start your Spring Boot app by navigating to the `notes-api` directory, sourcing this file, and starting your app.
+
+[source,shell]
+----
+cd notes-api
+source okta.env
+./gradlew bootRun
+----
+
+To create a new OIDC app for Angular on Okta:
+
+1. Log in to your developer account, navigate to **Applications**, and click on **Add Application**.
+3. Select **Single-Page App** and click **Next**.
+4. Give the application a name, set the login redirect URI to `http://localhost:4200/implicit/callback`, and click **Done**.
+
+Copy the `issuer` and `clientId` into `notes/src/app/auth-routing.module.ts`.
+
+[source,typescript]
+----
+const oktaConfig = {
+  issuer: 'https://{yourOktaDomain}/oauth2/default',
+  redirectUri: window.location.origin + '/implicit/callback',
+  clientId: '{yourClientId}',
+  pkce: true
+};
+----
+
+Navigate into the `notes` folder and run:
+
+[source,shell]
+----
+npm install
+----
+
+Open your browser to <http://localhost:4200>, log in, and create notes to your hearts content!
+
+== Convert to Sass
+
+ng config schematics.@schematics/angular:component.styleext scss
+
+https://shermandigital.com/blog/bootstrap-sass-with-angular-cli/[Use Bootstrap SASS with Angular CLI]
+https://scotch.io/tutorials/using-sass-with-the-angular-cli[Using Sass with the Angular CLI] - convert an existing Angular CLI app to use Sass.
+
+
+git commit
+
+brew install rename
+
+
+find . -name "*.css" -not -path "./node_modules/*"
+
+
+find . -name "*.css" -not -path "./node_modules/*" | rename -v "s/css/scss/g"
+Reading filenames from STDIN
+'./src/app/home/home.component.css' renamed to './src/app/home/home.component.scss'
+'./src/app/app.component.css' renamed to './src/app/app.component.scss'
+'./src/styles.css' renamed to './src/styles.scss'
+
+find ./src/app -type f -exec sed -i '' -e  's/.css/.scss/g' {} \;
+
+Then, remove `bootstrap` as a dependency in `package.json` and add `bootstrap-sass`
+
+npm i -g bootstrap-sass@3.4.1
+
+Change `src/styles.scss` to be:
+
+```scss
+@import "~bootstrap/scss/bootstrap.scss";
+```
+
+Create `src/_variables.scss` and override the colors. https://github.com/twbs/bootstrap/blob/v4-dev/scss/_variables.scss
+
+$primary: $purple;
+$secondary: $orange;
+
+Then import at the top of `src/styles.scss`
+
+```css
+@import "variables";
+@import "~bootstrap/scss/bootstrap.scss";
+```
+
+
+
+===
+
+https://getbootstrap.com/docs/4.3/components/navbar/
+
+https://getbootstrap.com/docs/4.0/components/forms/
+
+https://getbootstrap.com/docs/4.0/utilities/sizing/
+
+https://www.baeldung.com/spring-data-sorting
+
+https://docs.spring.io/spring-data/rest/docs/current/reference/html/#paging-and-sorting
+
+More About Bootstrap
+
+
+KHipster
+
+
+https://raibledesigns.com/rd/entry/refreshing_appfuse_s_ui_with
+https://alistapart.com/article/building-twitter-bootstrap/
+https://v4-alpha.getbootstrap.com/about/history/
+https://medium.com/dailyjs/angular-1-0-turns-five-years-old-4d7108a5e412
