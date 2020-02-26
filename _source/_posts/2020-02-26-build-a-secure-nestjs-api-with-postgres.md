@@ -751,4 +751,4 @@ If you liked this post, you may be interested in these other posts on Node.js.
 - [Build a NodeJS App with TypeScript](/blog/2019/09/19/nodejs-typescript)
 - [Build a REST API with Node and Postgres](/blog/2019/03/27/build-rest-api-with-node-and-postgres)
 
-If you have any questions about this post, please add a comment below. For more awesome content, follow [@oktadev](https://twitter.com/oktadev) on Twitter, like us [on Facebook](https://www.facebook.com/oktadevelopers/), or subscribe to [our YouTube channel](https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q).
+If you have any questions about this post, please add a comment below. For more awesome content, follow [@oktadev](https://twitter.com/oktadev) on Twitter, like us [on Facebook](https://www.facebook.com/oktadevelopers/), or subscribe to [our YouTube channel](https://www.youtube.com/c/oktadev).
