@@ -16,13 +16,13 @@ image: TBD
 
 // re: title - // 62, 55 for Bootiful
 
-I've been a longtime fan of CSS frameworks dating all the way back to 2005. I lead an open source project called AppFuse at the time and wanted a way to provide themes for our users. We used Mike Stenhouse's CSS Framework and held a design content to gather some themes we liked for our users. A couple of other CSS frameworks came along in the next few years, namely Blueprint in 2007 and Compass in 2008.
+I've been a longtime fan of CSS frameworks dating back to 2005. I led an open-source project called AppFuse at the time and wanted a way to provide themes for our users. We used Mike Stenhouse's CSS Framework and held a design content to gather some themes we liked for our users. A couple of other CSS frameworks came along in the next few years, namely Blueprint in 2007 and Compass in 2008.
 
 However, no CSS frameworks took the world by storm like Bootstrap. Back then, it was called Twitter Bootstrap. It was invented by Mark Otto and Jacob Thornton in mid-2010 while they worked at Twitter. From "Building Twitter Bootstrap" in Issue 324 of A List Apart:
 
 > Our goal is to provide a refined, well-documented, and extensive library of flexible design components built with HTML, CSS, and JavaScript for others to build and innovate on.
 
-Bootstrap was originally released on August 19, 2011 and quickly became _the_ most popular project on GitHub. Developers like myself all over the world started using it.
+Bootstrap was initially released on August 19, 2011, and quickly became _the_ most popular project on GitHub. Developers like myself all over the world started using it.
 
 Another web framework took the world by storm the following year: AngularJS. AngularJS (v0.9) first appeared on GitHub in October 2010. Version 1.0 was released on June 14, 2012.
 
@@ -34,7 +34,7 @@ toc::[]
 
 == Isn't Angular Dead?
 
-I've heard many developers say that Angular is Dead. As a veteran Java developer, I've heard this said about Java many times over the years as well. Yet it continues to thrive. Angular is similar in that it's become somewhat boring. Some people call boring frameworks "legacy". Others call it "revenue-generating".
+I've heard many developers say that Angular is Dead. As a veteran Java developer, I've heard this said about Java many times over the years as well. Yet it continues to thrive. Angular is similar in that it's become somewhat boring. Some people call boring frameworks "legacy." Others call it "revenue-generating."
 
 Whatever you want to call it, Angular is far from dead. At least according to the popularity of two recent articles we've published! Both of these posts have experienced high traffic numbers.
 
@@ -104,7 +104,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 export class AppModule { }
 ----
 
-If you run `ng serve -o`, you'll get a blank screen. Look in your browser's developer console and you'll see why.
+If you run `ng serve -o`, you'll get a blank screen. Look in your browser's developer console, and you'll see why.
 
 [source,shell]
 ----
@@ -113,7 +113,7 @@ Angular 9 introduced a global `$localize()` function that needs to be loaded.
 Please run `ng add @angular/localize` from the Angular CLI.
 ----
 
-Cancel the process and run `ng add @angular/localize` to fix this error. Now if you restart your app, you'll see it's pretty simple. And kinda ugly.
+Cancel the process and run `ng add @angular/localize` to fix this error. Now, if you restart your app, you'll see it's pretty simple. And kinda ugly.
 
 image::{% asset_path 'blog/angular-bootstrap/notes-bare-bones.png' %}[alt=Bare-bones styling,width=800,align=center]
 
@@ -158,7 +158,7 @@ Using your Okta developer account (you https://developer.okta.com/signup[created
 3. Give the application a name and add `http://localhost:8080/login/oauth2/code/okta` as a login redirect URI
 4. Click **Done**
 
-Create a `okta.env` file in the `notes-api` directory and copy your settings into it.
+Create an `okta.env` file in the `notes-api` directory and copy your settings into it.
 
 [source,shell]
 ----
@@ -196,7 +196,7 @@ const oktaConfig = {
 };
 ----
 
-Now you should be able to log in with your Okta credentials and create notes to your hearts content!
+Now you should be able to log in with your Okta credentials and create notes to your heart's content!
 
 image::{% asset_path 'blog/angular-bootstrap/first-note.png' %}[alt=First note,width=800,align=center]
 
@@ -211,7 +211,7 @@ git commit -am "Add Bootstrap and configure OIDC"
 
 == Use Sass to Customize Bootstrap
 
-Before you make things awesome, I'd like to show you how to convert from using CSS with Angular to using Sass. Why? Because https://sass-lang.com/[Sass] is completely compatible with CSS and it makes CSS more like programming. It also allows you to customize Bootstrap by overriding its variables.
+Before you make things awesome, I'd like to show you how to convert from using CSS with Angular to using Sass. Why? Because https://sass-lang.com/[Sass] is completely compatible with CSS, and it makes CSS more like programming. It also allows you to customize Bootstrap by overriding its variables.
 
 NOTE: If you're not into Sass, you can <<#make-angular-beautiful,skip this section>>. Everything will still work without it.
 
@@ -229,7 +229,7 @@ If you run the following `find` command:
 find . -name "*.css" -not -path "./node_modules/*"
 ----
 
-You'll see there's three files that have a `.css` extension.
+You'll see three files have a `.css` extension.
 
 [source,shell]
 ----
@@ -358,7 +358,7 @@ If you reduce the width of your browser window, you'll see the menu collapses to
 
 image::{% asset_path 'blog/angular-bootstrap/navbar-squished.png' %}[alt=Navbar squished,width=600,align=center]
 
-However, if you click on it, the menu doesn't expand. To fix that, you need to use the `ngbCollapse` directive from NG Bootstrap. Modify `app.component.html` to have a click handler on the navbar toggler and add `ngbCollapse` to the menu.
+However, if you click on it, the menu doesn't expand. To fix that, you need to use the `ngbCollapse` directive from NG Bootstrap. Modify `app.component.html` to have a click handler on the navbar toggle and add `ngbCollapse` to the menu.
 
 [source,html]
 .src/app/app/app.component.html
@@ -372,7 +372,7 @@ However, if you click on it, the menu doesn't expand. To fix that, you need to u
 </div>
 ----
 
-Then add `isCollapsible` in `app.component.ts` and and change the title to be capitalized.
+Then add `isCollapsible` in `app.component.ts` and change the title to be capitalized.
 
 [source,ts]
 .src/app/app/app.component.ts
@@ -393,7 +393,7 @@ image::{% asset_path 'blog/angular-bootstrap/notes-menu.png' %}[alt=Squished nav
 
 === Update the Note List Angular Template
 
-Modify the `note-list.component.html` to so the breadcrumb doesn't float right and all the content is in the same card.
+Modify the `note-list.component.html` so the breadcrumb doesn't float right, and all the content is in the same card.
 
 {% raw %}
 [source,html]
@@ -521,7 +521,7 @@ image::{% asset_path 'blog/angular-bootstrap/notes-edit-red-outline.png' %}[alt=
 
 == Add a Searchable, Sortable, and Pageable Data Table with Angular and Spring Data JPA
 
-In the beginning of this tutorial, I said I'd show you how to develop a searchable, sortable, and pageable data table. NG Bootstrap has a https://ng-bootstrap.github.io/#/components/table/examples#complete[complete example] I used to build the section below. The major difference is you'll be using a real server, not a simulated one. Spring Data JPA has some slick features that make this possible, namely its query methods and paging/sorting.
+At the beginning of this tutorial, I said I'd show you how to develop a searchable, sortable, and pageable data table. NG Bootstrap has a https://ng-bootstrap.github.io/#/components/table/examples#complete[complete example] I used to build the section below. The major difference is you'll be using a real server, not a simulated one. Spring Data JPA has some slick features that make this possible, namely its query methods and paging/sorting.
 
 === Add Search by Title with Spring Data JPA
 
@@ -890,7 +890,7 @@ export class NoteListComponent implements OnInit {
 }
 ----
 
-Then update `notes.service.ts` to add add a `size$` observable and parameters for the page size and page number.
+Then update `notes.service.ts` to add a `size$` observable and parameters for the page size and page number.
 
 [source,ts]
 .src/app/note/note.service.ts
@@ -943,7 +943,7 @@ I also wanted to let you know you can get a lot of this functionality for free w
 
   npm install -g generator-jhipster@6.6.0 generator-jhipster-kotlin@1.4.0
 
-2. Create a `easy-notes` directory and a `notes.jdl` file in it
+2. Create an `easy-notes` directory and a `notes.jdl` file in it
 
   application {
     config {
@@ -967,7 +967,7 @@ I also wanted to let you know you can get a lot of this functionality for free w
 
 That's it! 🎉
 
-Of course, you probably want to see it running. Run the following commands to start Keycloak (as a local OAuth 2.0 server) and start the app.
+Of course, you probably want to see it running. Run the following commands to start Keycloak (as a local OAuth 2.0 server) and launch the app.
 
 [source,shell]
 ----
@@ -983,7 +983,7 @@ Want to make it work with Okta? See https://www.jhipster.tech/security/#okta[JHi
 
 == Learn More About Angular and Spring Boot
 
-I used the following resources to gather the historical information about Angular and Bootstrap.
+I used the following resources to gather historical information about Angular and Bootstrap.
 
 * https://raibledesigns.com/rd/entry/refreshing_appfuse_s_ui_with[Refreshing AppFuse's UI with Twitter Bootstrap]
 * https://alistapart.com/article/building-twitter-bootstrap/[Building Twitter Bootstrap]
