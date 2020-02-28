@@ -146,7 +146,7 @@ Now we're getting somewhere!
 image::{% asset_path 'blog/angular-bootstrap/notes-slightly-styled.png' %}[alt=Slightly styled,width=800,align=center]
 
 
-To make the login button work, you need to configure both apps’ security configurations.
+To make the login button work, you need to configure both apps' security configurations.
 
 == Secure Angular and Spring Boot with OpenID Connect
 
