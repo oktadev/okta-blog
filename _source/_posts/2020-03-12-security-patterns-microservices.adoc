@@ -1,0 +1,47 @@
+---
+layout: blog_post
+title: "Security Patterns for Microservice Architectures"
+author: mraible
+description: "Are you securing your microservice architectures by hiding them behind a firewall? That works, but there are better ways to do it."
+tags: [microservices, security, security patterns, microservice patterns]
+tweets:
+- ""
+- ""
+- ""
+image:
+---
+:toc: macro
+:page-liquid:
+:experimental:
+
+== Secure Code
+
+== Dependency Scanning
+
+== HTTPS
+
+mention GraphQL and RSocket
+
+== Access Tokens + Identity
+
+== Verify Security with Delivery Pipelines
+
+== Docker Rootless Mode
+
+== Encrypt and Protect Secrets
+
+== Time-based Security
+
+== Scan K8s YAML
+
+== Cloud and Cluster Security
+
+https://kubernetes.io/docs/concepts/security/#the-4c-s-of-cloud-native-security
+
+== Auth Servers: One or Many
+
+== JWT vs Paseto
+
+https://paseto.io/
+
+Paseto is everything you love about JOSE (JWT, JWE, JWS) without any of the many design deficits that plague the JOSE standards.
