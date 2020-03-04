@@ -33,7 +33,7 @@ GUIs require you to go to a help menu. Depending on the operating system and the
 
 In contrast, CLIs allow you to just type the CLI command and `--help` to get a list of all the commands with a short description of what the command switch does. Voila!
 
-{% img blog/why-guis-suck/drawing.jpg alt:"Girl Drawing" width:"450" %}{: .center-image }
+{% img blog/why-guis-suck/drawing.png alt:"Girl Drawing" width:"450" %}{: .center-image }
 
 ## CLIs are Scriptable
 
