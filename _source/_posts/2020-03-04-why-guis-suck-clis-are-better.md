@@ -61,8 +61,8 @@ I also understand the hesitance of people who grew up in the industry with mostl
 
 Want to see more killer content like this? Check out some other posts from the Okta Developer team:
 
-* [Why CLIs Suck (and GUIs are Better)](https://developer.okta.com/blog/2020/02/19/why-clis-suck-guis-are-better)
-* [What is Angular Ivy and Why Is It Awesome?](https://developer.okta.com/blog/2020/02/12/angular-ivy)
-* [The Best Testing Tools for Node.js](https://developer.okta.com/blog/2020/01/27/best-nodejs-testing-tools)
+* [Why CLIs Suck (and GUIs are Better)](/blog/2020/02/19/why-clis-suck-guis-are-better)
+* [What is Angular Ivy and Why Is It Awesome?](/blog/2020/02/12/angular-ivy)
+* [The Best Testing Tools for Node.js](/blog/2020/01/27/best-nodejs-testing-tools)
 
 Also, for all the developer goodness, don't forget to follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube Channel](https://youtube.com/c/oktadev).
