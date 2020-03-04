@@ -23,7 +23,7 @@ CLIs also have some benefits that make them clearly superior to GUIs, in my opin
 
 No pretty colors or buttons to render to the screen—just open the terminal and your CLI is there. All of your CLIs. Whether you're using the AWS CLI, or Git, or Heroku's CLI tool. They are all there in one terminal. No need to open other graphical application windows.
 
-You can also customize your shell for your tastes to make it easier to use. I tend toward [Oh My ZShell](https://ohmyz.sh/), which is a tool that uses the ZShell and adds lots of great features and customization. Most terminals also have great autocompletion, so if you can remember _exactly_ what the command is, part of the command will give you a selection of possibilities.
+You can also customize your shell for your tastes to make it easier to use. I tend toward [Oh My ZShell](https://ohmyz.sh/), which is a tool that uses the ZShell and adds lots of great features and customization. Most terminals also have great autocompletion, so if you can't remember _exactly_ what the command is, part of the command will give you a selection of possibilities.
 
 {% img blog/why-guis-suck/help-button.png alt:"Help Button" width:"350" %}{: .center-image }
 
