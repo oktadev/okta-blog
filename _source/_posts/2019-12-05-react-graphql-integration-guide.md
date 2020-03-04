@@ -15,7 +15,7 @@ If your application consumes a ReST API from React, the default setup will give 
 
 There are a lot of GraphQL clients to choose from. Two of the most popular are Apollo and Relay, but both are powerful and might be too complex for a beginner. Luckily, eachoffers a preconfigured "light" option: Apollo Boost and Relay Modern.
 
-For this article, you will use Apollo Boost to do GraphQL queries and mutations from a React frontend to a .NET Core backend. Emphasis here is on the frontend and the GraphQL setup, so you will start by simply cloning a functional backend [from Github](https://github.com/oktadeveloper/okta-dotnet-react-graphql-example)
+For this article, you will use Apollo Boost to do GraphQL queries and mutations from a React frontend to a .NET Core backend. Emphasis here is on the frontend and the GraphQL setup, so you will start by simply cloning a functional backend [from GitHub](https://github.com/oktadeveloper/okta-dotnet-react-graphql-example).
 
 ```sh
 git clone https://github.com/oktadeveloper/okta-dotnet-react-graphql-example.git
@@ -217,7 +217,7 @@ Click **Save**.
 Now, add authentication to the front end. Okta has a library for React; install it by running this in a terminal in the `ClientApp` folder:
 
 ```sh
-npm install @okta/okta-react
+npm install @okta/okta-react@1.2.3
 ```
 
 Next, go to `App.js` in the `ClientApp/src`, and add one more import:
