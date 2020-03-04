@@ -25,7 +25,7 @@ No pretty colors or buttons to render to the screen—just open the terminal and
 
 You can also customize your shell for your tastes to make it easier to use. I tend toward [Oh My ZShell](https://ohmyz.sh/), which is a tool that uses the ZShell and adds lots of great features and customization. Most terminals also have great autocompletion, so if you can remember _exactly_ what the command is, part of the command will give you a selection of possibilities.
 
-{% img blog/why-guis-suck/help-button.png alt:"Help Button" width:"450" %}{: .center-image }
+{% img blog/why-guis-suck/help-button.png alt:"Help Button" width:"350" %}{: .center-image }
 
 ## Help is Only a Few Keystrokes Away
 
