@@ -8,7 +8,7 @@ tweets:
 - "Think GUIs are better than CLIs? Think again!"
 - "A quick run-down of whay CLIs are better than GUIs."
 - "My top reasons why CLIs will always be better than GUIs."
-image: blog/why-guis-suck-clis-are-better/docker-run-help.png
+image: blog/why-guis-suck/docker-run-help.png
 ---
 
 I've always tended to lean toward Command-Line Interfaces (CLIs) over Graphical User Interfaces (GUIs). Maybe it's because I cut my teeth in computing in the Windows 3.1 days. I split my time between the "new" Windows 95 and Linux (usually RedHat 5 or Debian 2). When things weren't going well in a GUI (which was a LOT of the time), you just dropped to a terminal, typed in a command, and BAM! you were in business. Sometimes on Linux, you HAD to spend some time in the command line to install and configure the video drivers before you could even think about using a GUI.
