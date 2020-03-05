@@ -44,9 +44,9 @@ Secure code is the best code. Secure by design means that you bake security into
 
 As engineers, we're taught early on about the importance of creating well-designed software and architectures. You study it and take pride in it. Design is a natural part of creating software.
 
-Design decisions in security architectures should be based on well-known security threats. Reusable techniques and patterns provide solutions for enforcing the necessary authentication, authorization, confidentiality, data integrity, privacy, accountability, and availability, even when the system is under attack.
+https://www.manning.com/books/secure-by-design[image:{% asset_path 'blog/security-patterns-microservices/secure-by-design.png' %}[alt=Secure by Design Book,width=150,align=center,role="pull-right img-150px"]]
 
-https://www.manning.com/books/secure-by-design[image:{% asset_path 'blog/security-patterns-microservices/secure-by-design.png' %}[alt=Secure by Design Book,align=center,role="pull-right img-200px"]]
+Design decisions in security architectures should be based on well-known security threats. Reusable techniques and patterns provide solutions for enforcing the necessary authentication, authorization, confidentiality, data integrity, privacy, accountability, and availability, even when the system is under attack.
 
 I like the example from the https://www.manning.com/books/secure-by-design[Secure by Design] book, by Dan Bergh Johnsson, Daniel Deogun, and Daniel Sawano. They show how you can develop a basic `User` object that has a username that's displayed on a page.
 
