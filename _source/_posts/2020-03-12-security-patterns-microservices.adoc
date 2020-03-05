@@ -267,7 +267,7 @@ Atlassian has an informative blog post titled https://www.atlassian.com/continuo
 
 // devsecops - funny cartoon
 
-Most of the above mentioned suggestions can actually be automated in your code delivery pipeline as part of a series of checks in security. To learn about a more “Continuous Hacking” approach to software delivery, this article provides more detail.
+Most of the above mentioned suggestions can actually be automated in your code delivery pipeline as part of a series of checks in security. To learn about a more "Continuous Hacking" approach to software delivery, this article provides more detail.
 
 == 6. Use Docker Rootless Mode
 
@@ -306,7 +306,7 @@ As you can see from the above figure, each one of the 4C's depend on the securit
 
 Be able to throttle down during an attack. Make it so it's not worth the attacker's time.
 
-// Most of the above mentioned suggestions can actually be automated in your code delivery pipeline as part of a series of checks in security. To learn about a more “Continuous Hacking” approach to software delivery, https://thenewstack.io/beyond-ci-cd-how-continuous-hacking-of-docker-containers-and-pipeline-driven-security-keeps-ygrene-secure/[this article provides more detail].
+// Most of the above mentioned suggestions can actually be automated in your code delivery pipeline as part of a series of checks in security. To learn about a more "Continuous Hacking" approach to software delivery, https://thenewstack.io/beyond-ci-cd-how-continuous-hacking-of-docker-containers-and-pipeline-driven-security-keeps-ygrene-secure/[this article provides more detail].
 
 == Learn More About Microservices and Web Security
 
