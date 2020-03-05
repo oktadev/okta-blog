@@ -14,13 +14,157 @@ image:
 :page-liquid:
 :experimental:
 
-== Secure Code
+If you attend a lot of Java ecosystem conferences, you'll think that everyone uses microservices. It's a very popular topic and developers everywhere are interested in learning about them. For good reason too! Microservice architectures are a technique for delivering code faster.
+
+Chris Richardson is a friend and expert on microservices. He suggests a helpful guideline in a recent blog post:
+
+.Why microservices?
+[quote, Chris Richardson, When to use the microservice architecture]]
+----
+IF
+  you are developing a large/complex application
+AND
+  you need to deliver it rapidly, frequently and reliably
+  over a long period of time
+THEN
+  the Microservice Architecture is often a good choice
+----
+
+Chris Richardson also runs https://microservices.io/[microservices.io], which lists a number of microservice patterns at the bottom. I noticed that "access tokens" is the only item under security.
+
+In this post, I hope to describe XX patterns for more secure microservices. It's possible many of these will apply to monoliths too, but I'm taking a distributing computing perspective.
+
+In the same vein as Chris's listing, the patterns in this post might not be necessary or needed by everyone. For example, if I say to use Paseto tokens instead of JWT when possible, that's going to be difficult for developers that use Okta or other IdPs that don't offer Paseto.
+
+toc::[]
+
+== Secure by Design
+
+Secure code is the best code. Secure by design means that you bake security into your software design from the beginning. If you have user input, sanitize the data and remove malicious characters.
+
+As engineers, we're taught early on about the importance of creating well-designed software and architectures. You study it and take pride in it. Design is a natural part of creating software.
+
+Design decisions in security architectures should be based on well-known security threats. Reusable techniques and patterns provide solutions for enforcing the necessary authentication, authorization, confidentiality, data integrity, privacy, accountability, and availability, even when the system is under attack.
+
+https://www.manning.com/books/secure-by-design[image:{% asset_path 'blog/security-patterns-microservices/secure-by-design.png' %}[alt=Secure by Design Book,align=center,role="pull-right img-200px"]]
+
+I like the example from the https://www.manning.com/books/secure-by-design[Secure by Design] book, by Dan Bergh Johnsson, Daniel Deogun, and Daniel Sawano. They show how you can develop a basic `User` object that has a username that's displayed on a page.
+
+[source,java]
+----
+public class User {
+   private final Long id;
+   private final String username;
+
+   public User(final Long id, final String username) {
+      this.id = id;
+      this.username = username;
+   }
+
+   // ...
+}
+----
+
+If you accept any string value for the username, the username could be used for performing XSS attacks. You can fix this with input validation, like the following.
+
+[source,java]
+----
+import static com.example.xss.ValidationUtils.validateForXSS;
+import static org.apache.commons.lang3.Validate.notNull;
+
+public class User {
+   private final Long id;
+   private final String username;
+
+   public User(final Long id, final String username) {
+      notNull(id);
+      notNull(username);
+
+      this.id = notNull(id);
+      this.username = validateForXSS(username);
+   }
+}
+----
+
+This code is still problematic.
+
+* Developers need to be thinking about security vulnerabilities
+* It requires every developer to be a security expert
+* It assumes that the person writing the code can think of every potential vulnerability that might occur now or in the future
+
+A better design is to create a `Username` class that encapsulates all of the security concerns.
+
+[source,java]
+----
+import static org.apache.commons.lang3.Validate.*;
+
+public class Username {
+   private static final int MINIMUM_LENGTH = 4;
+   private static final int MAXIMUM_LENGTH = 40;
+   private static final String VALID_CHARACTERS = "[A-Za-z0-9_-]+";
+
+   private final String value;
+
+   public Username(final String value) {
+      notBlank(value);
+
+      final String trimmed = value.trim();
+      inclusiveBetween(MINIMUM_LENGTH,
+                       MAXIMUM_LENGTH,
+                       trimmed.length());
+      matchesPattern(trimmed,
+                     VALID_CHARACTERS,
+                     "Allowed characters are: %s", VALID_CHARACTERS);
+      this.value = trimmed;
+   }
+
+   public String value() {
+      return value;
+   }
+}
+
+public class User {
+   private final Long id;
+   private final Username username;
+
+   public User(final Long id, final Username username) {
+      this.id = notNull(id);
+      this.username = notNull(username);
+   }
+}
+----
+
+This way, your design makes it easier for developers to write secure code.
 
 == Dependency Scanning
 
+80% of the code you deploy to production is composed of 3rd party dependencies. Many of the libraries we use to develop software are dependent on other libraries. This leads to a (sometimes) large chain of dependencies, some of which might have security vulnerabilities.
+
+You can use a scanning program on your source code repository to identity vulnerable dependencies. You should be scanning for vulnerabilities on your main line of code, on released versions of code, as well as new code contributions.
+
+If you're a GitHub user, you can use https://dependabot.com/[dependabot] to provide automated updates via pull requests. There's also security alerts feature you can enable on your repository.
+
+There's also more robust solutions, such as https://snyk.io/[Snyk] and https://jfrog.com/xray/[JFrog Xray].
+
+// drawing of vulnerable dependencies
+
 == HTTPS
 
-mention GraphQL and RSocket
+You should use HTTPS everywhere. If you have an HTTP connection, change it to an HTTPS one. Make sure all aspects of your workflow, from Maven repositories to XSDs refer to HTTPS URIs. HTTPS has an official name: Transport Layer Security (a.k.a., TLS). It's designed to ensure privacy and data integrity between computer applications.
+
+=== GraphQL
+
+GraphQL uses HTTP too. Maybe an example of client code (React, Angular, and Vue?)
+
+=== RSocket
+
+RSocket is a next-generation, reactive, layer 5 application communication protocol for building today's modern cloud-native and microservice applications.
+
+https://docs.spring.io/spring-security/site/docs/5.3.0.RELEASE/reference/html5/#rsocket[Spring Security 5.3.0 has full support for securing RSocket applications].
+
+Unfortunately, RSocket's documentation needs some HTTPS love.
+
+image::{% asset_path 'blog/security-patterns-microservices/rsocket-io.png' %}[alt=rsocket.io invalid HTTPS certificate,width=800,align=center]
 
 == Access Tokens + Identity
 
@@ -31,6 +175,10 @@ mention GraphQL and RSocket
 == Encrypt and Protect Secrets
 
 == Time-based Security
+
+- InfoQ Podcast https://www.infoq.com/podcasts/web-security-hack-anatomy/
+- MFA
+- Alerts for successful logins
 
 == Scan K8s YAML
 
