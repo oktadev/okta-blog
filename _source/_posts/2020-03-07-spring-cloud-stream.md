@@ -15,11 +15,13 @@ image:
 
 In this tutorial, you're going to create a Spring Cloud Streams application that demonstrates how to publish to and subscribe to topics on a messaging service, such as RabbitMQ or Apache Kafka. You're going to do this using functional, reactive code by utilizing Spring's WebFlux and by taking advantage of Spring Cloud Streams functional binding model.
 
+You'll create an application that contains a **publisher**, a **processor**, and a **subscriber**. A **processor** is simply a consumer and a publisher in one function that transforms a stream of messages and publishes the new stream to a new topic or channel. The app will publish a stream of integers, process the integers to calculate a running total, and consume the processed data. You'll also see how easy Spring Cloud Streams makes mapping POJOs (Plain Old Java Objects) to messages using JSON mapping.
+
 If all of that technical jargon made 100% sense to you, feel free to skip to the requirements section. Otherwise, I'm going to take a few paragraphs to introduce the technologies.
 
 Spring describes **Spring Cloud Streams** as "a framework for building highly scalable event-driven microservices connected with shared messaging systems." This means that Spring Cloud Streams was created by Spring to work with messaging services like RabbitMQ or Apache Kafka. It was also made to work in distributed microservices that respond to streams of incoming data (data being the "events" in "event-driven"). It's built on top of Spring Boot, works well with Spring MVC or Spring WebFlux, and can be used to create highly scalable messaging and stream processing applications.
 
-**RabbitMQ and Apache Kafka** are messaging applications. They use various strategies to distribute a stream of messages from producers to consumers. They both easily support the simple publish-subscribe strategy that we will be using in this tutorial; however, they are divergent technologies with different strengths and weaknesses. Very, very breifly: RabbitMQ is a great general-purpose message broker that pushes data from the messaging service to the consumers; Apache Kafka uses a hybrid model (combining aspects of pub-sub and message queuing) designed to allow for scaling and distribution of processing that excels in stream processing and allows for message storage and replay.
+**RabbitMQ and Apache Kafka** are messaging applications. They use various strategies to distribute a stream of messages from producers to consumers. They both easily support the simple publish-subscribe strategy that we will be using in this tutorial; however, they are divergent technologies with different strengths and weaknesses. Very, very briefly: RabbitMQ is a great general-purpose message broker that pushes data from the messaging service to the consumers; Apache Kafka uses a hybrid model (combining aspects of pub-sub and message queuing) designed to allow for scaling and distribution of processing that excels in stream processing and allows for message storage and replay.
 
 The simple messaging strategy you're going to use here is called **pub-sub**, or publish and subscribe. A **consumer** **subscribes** to a **topic** (generally just identified by a text name). **Publishers** push messages to the **topic**, and the message is sent to all **subscribed** **consumers**.
 
@@ -31,8 +33,6 @@ In this tutorial, you will actually use RabbitMQ in a Docker container. However,
 > Reactive programming is a programming paradigm that promotes an asynchronous, non-blocking, event-driven approach to data processing. Reactive programming involves modeling data and events as observable data streams and implementing data processing routines to react to the changes in those streams.
 
 **Reactive** programming is a set of tools and techniques that have evolved to treat data as a continuous stream of data, like water flowing through a pipe, rather than viewing them as discrete events to be handled individually. In reactive programming you define potentially complex transformations and mappings that get applied to the stream, sometimes returning a new stream, sometimes returning a reduced result. Functional programming is not necessarily reactive, but reactive programming tools almost always use functional programming paradigms.
-
-In this tutorial, you will create an application that contains a **publisher**, a **processor**, and a **subscriber**. A **processor** is simply a consumer and a publisher in one function that transforms a stream of messages and publishes the new stream to a new topic or channel. The app will publish a stream of integers, process the integers to calculate a running total, and consume the processed data. You'll also see how easy Spring Cloud Streams makes mapping POJOs (Plain Old Java Objects) to messages using JSON mapping.
 
 ## Requirements
 
@@ -59,12 +59,6 @@ You should get something like:
 ```bash
 docker-compose version 1.25.4, build 01110ad01
 ```
-```bash
-curl https://start.spring.io/starter.tgz -d dependencies=webflux,okta,cloud-stream,amqp,lombok \
-  -d groupId=okta.springcloudstreams \
-  -d baseDir=okta-spring-cloud-streams | tar -xzvf -
-cd okta-spring-cloud-streams
-```
 ## Bootstrap the Project
 
 Spring has a great project called the Spring Initializr that can be used to quickly build starter Spring Boot projects.  You can take a look at [the project website](https://start.spring.io/). However, here you're going to use the REST API to download a pre-configured project.
@@ -81,16 +75,16 @@ cd okta-spring-cloud-streams
 This creates a Spring Boot project configured with five additional dependencies:
 
  1. `webflux`: [Spring Boot WebFlux](https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html), the functional and reactive web framework
- 2. `okta`: [Okta's Spring Boot Starter](https://github.com/okta/okta-spring-boot) that simplifies integrating OAuth 2.0 and OIDC
+ 2. `okta`: [Okta's Spring Boot Starter](https://github.com/okta/okta-spring-boot) that simplifies integrating OAuth 2.0 and OIDC 
  3. `cloud-stream`: [Spring Cloud Stream](https://cloud.spring.io/spring-cloud-static/spring-cloud-stream/3.0.3.RELEASE/reference/html/) main dependency
  4. `amqp`: [RabbitMQ](https://www.rabbitmq.com/) binders for Spring Cloud Stream
  5. `lombok`: [Project Lombok](https://projectlombok.org/), a set of helper annotation that generate boilerplate code
 
 ## Configure the OIDC Settings
 
-You should now have an open shell and be in the project root directory. The next step is to use the [Okta Maven Plugin](https://github.com/oktadeveloper/okta-maven-plugin) to configure the OAuth 2.0 and OIDC settings. This plugin is great for tutorials like this because it will simplify signing up for an account, if you don't already have one, and will create an appropriately configured OIDC application straight from the command line.
+You should now have an open shell and be in the project root directory. The next step is to use the [Okta Maven Plugin](https://github.com/oktadeveloper/okta-maven-plugin) to configure the OAuth 2.0 and OIDC settings. This plugin is great for tutorials like this because it will simplify signing up for an account, if you don't already have one, and will create an appropriately configured OIDC application straight from the command line. 
 
-**If you already have an Okta developer account**, you may want to create a configuration file at `~/.okta/okta.yaml` with your account information, otherwise the Okta Maven Plugin may end up creating a new Okta Org for you.
+**If you already have an Okta developer account**, you may want to create a configuration file at `~/.okta/okta.yaml` with your account information, otherwise the Okta Maven Plugin may end up creating a new Okta Org for you. If you do not already have an account, you can skip this step and go on down to changing the `application.properties` file to a `yml` file.
 
 ```yml
 okta:
@@ -149,9 +143,9 @@ And get something like this:
 2020-03-04 13:59:29.842  INFO 1664 --- [           main] o.s.b.web.embedded.netty.NettyWebServer  : Netty started on port(s): 8080
 2020-03-04 13:59:29.845  INFO 1664 --- [           main] o.s.demo.DemoApplication                 : Started DemoApplication in 2.074 seconds (JVM running for 2.236)
 ```
-Notice that the output says `Netty started on port(s): 8080`. [Netty](https://netty.io/) is the default web server for Spring WebFlux applications (not Jetty or Tomcat which are typical for SpringMVC). Since WebFlux is designed to be asynchronous and event driven, Netty is the obvious choice because it's built for the exact same model.
+Notice that the output says `Netty started on port(s): 8080`. [Netty](https://netty.io/) is the default web server for Spring WebFlux applications (not Jetty or Tomcat which are typical for SpringMVC). Since WebFlux is designed to be asynchronous and event driven, Netty is the obvious choice because it's built for the exact same model. 
 
-If you make a request on the running server, you'll get a 404 - Not Authorized.
+If you make a request on the running server, you'll get a `404 - Not Authorized`.
 
 Use HTTPie to give it a try. Open an new shell and run:
 ```bash
@@ -162,7 +156,7 @@ HTTP/1.1 401 Unauthorized
 Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 ...
 ```
-The reason for this is that by including the Okta Spring Boot Starter you've auto-configured OAuth SSO (Single Sign-on), and by default all requests require authentication. I'm pointing this out simply because at this point all you've done is include a dependency--no configuration--so it might seem a little confusing.
+The reason for this is that by including the Okta Spring Boot Starter you've auto-configured OAuth SSO (Single Sign-on), and by default all requests require authentication. I'm pointing this out simply because at this point all you've done is include a dependency--without any configuration--so it might seem a little confusing.
 
 ## Create a RabbitMQ Pub-Sub Messaging Service
 
@@ -318,11 +312,11 @@ output - <functionName> + -out- + <index>
 
 For example, `accumulate-in-0` in the example above defines a binding for function `accumulate` that is in **input** that **subscribes** to a channel with the data received in the first input parameter (index 0).
 
-Notice how the three bound functions, `accumulate;receive;send`, match the three functions in the `DemoApplication` class. Don't get distracted by the `static class` structures. That was just a way for me to make the state local to the functions and to organize things--it would all have worked just as well having the function beans be methods of `DemoApplication` itself.
+Notice how the three bound functions, `accumulate;receive;send`, match the three functions in the `DemoApplication` class. Don't get distracted by the `static class` structures. That was just a way to make the state local to the functions and to organize things--it would all have worked just as well having the function beans be methods of `DemoApplication` itself.
 
-The application itself is very simple. `send` is bound to the `ints` channel, to which it is going to send a random integer every second. This, by the way, is a property of the `Supplier` class; it's triggered every second and so makes a great tool for testing and developing streams. `accumulate` receives the random integers from the `ints` channel, calculates a running total, and publishes both together as a String on the `total` channel. `receive` listens to the `total` channel and logs the messages.
+The application itself is very simple. `send` is bound to the `ints` channel, to which it is going to send a random integer every second. This, by the way, is a property of Spring's implementation of the `Supplier` interface; it's triggered every second and so makes a great tool for testing and developing streams. `accumulate` receives the random integers from the `ints` channel, calculates a running total, and publishes both together as a String on the `total` channel. `receive` listens to the `total` channel and logs the messages.
 
-The last thing I'll mention is the security configuration, which is done in `securityWebFilterChain(ServerHttpSecurity http)`. Here you are telling Spring WebFlux and Spring Security to allow all transactions. By default, Spring Security requires all requests to be authenticated, which is great, but you're not there yet, so for the moment you're essentially turning off security. You'll re-enable it in just a moment.
+The last thing I'll mention is the security configuration, which is done in `securityWebFilterChain(ServerHttpSecurity http)`. Here you are telling Spring WebFlux and Spring Security to allow all transactions. By default, Spring Security requires all requests to be authenticated, which is great, but you're not there yet, so for the moment you're essentially turning off security. You'll re-enable it later.
 
 There are two annotations that, along with the `okta-spring-boot-starter` dependency, activate WebFlux security: `@EnableWebFluxSecurity` and `@EnableReactiveMethodSecurity`. The first turns on security generally, and the second allows for method-level security. The Okta starter dependency, `okta-spring-boot-starter`, brings in the necessary dependencies for Spring Boot Security, so you don't have to do that separately.
 
@@ -354,7 +348,7 @@ Press **Control-C** to stop the Spring Boot application, but leave the Rabbit se
 
 In this section, you're going to do a couple things that highlight how easy Spring Boot, Spring Webflux, and Spring Cloud Streams makes handling streams. First, instead of simply passing a String with the current value and accumulated total, you're going to encapsulate that data in a Java class that will get automatically serialized to and de-serialized from JSON. Second, you're going to use WebFlux stream processing to return an event stream from a REST endpoint, which you'll be able to view using HTTPie.
 
-Add the POJO mapping class: `AccumulatorMessage`.
+Add the POJO (Plain Old Java Object) mapping class: `AccumulatorMessage`.
 
 `src/main/java/okta/springcloudstreams/demo/AccumulatorMessage.java`
 ```java
@@ -373,7 +367,7 @@ public class AccumulatorMessage {
 }
 ```
 
-This class takes advantage of Lobok's `@Data` annotation, which means you don't have to write getters and setters for the class properties--they're generated automatically.
+This class takes advantage of Lombok's `@Data` annotation, which means you don't have to write getters and setters for the class properties--they're generated automatically.
 
 The next class is the REST resource class: `RestResource`.
 
@@ -585,7 +579,7 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 
 To access the protected endpoint, you need a valid JWT. Fortunately, there's [OIDC Debugger](https://oidcdebugger.com/), which is a simple webpage designed to help test OIDC applications. Before you can use it, however, you need to add the OIDC Debugger redirect URL to your Okta OIDC application.
 
-Open you Okta developer account. If you auto-created it using the Maven plugin, look at the `issuer` URL in the `application.yml` file and open the base URL in a browser (without the `/oauth2/default`). It will be something like: `https://dev-123456.okta.com`.
+Open you Okta developer account. If you auto-created it using the Maven plugin, look at the `issuer` URL in the `application.yml` file and open the base URL in a browser (without the `/oauth2/default`). It will be something like: `https://dev-123456.okta.com`. 
 
 Once you're in the Okta developer dashboard, from the top menu, go to **Applications**. You'll see the `demo` application that the Maven plugin created for you.
 
@@ -644,9 +638,10 @@ data:{"currentValue":84,"total":6328}
 ...
 ```
 
-That's it! You've got a secured Spring Cloud Streams application.
+That's it! You've got a secured Spring Cloud Streams application. 
 
-The astute out there might object that the RabbitMQ server itself isn't secured. That's true, and there are various methods for securing it, [chiefly using TLS and SSL certificates](https://www.rabbitmq.com/ssl.html), but including that in this tutorial greatly expands the scope. We've got a tutorial coming out soon that demonstrates end-to-end security using Quarkus and Apahce Kafka Streams, including how to generate all of the necessary SSL certificates and Java keyfiles.
+The astute out there might object that the RabbitMQ server itself isn't secured. That's true, and there are various methods for securing it, [chiefly using TLS and SSL certificates](https://www.rabbitmq.com/ssl.html), but including that in this tutorial greatly expands the scope. We've got a tutorial coming out soon that demonstrates end-to-end security using Quarkus and Apahce Kafka Streams, including how to generate all of the necessary SSL certificates and Java keyfiles. 
+
 
 
 
