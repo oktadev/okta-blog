@@ -10,11 +10,13 @@ tweets:
 - ""
 image: 
 ---
+
+
 ## Spring Cloud Streams
 
-In this tutorial, you're going to create a Spring Cloud Streams application that demonstrates how to interact with a messaging service, such as RabbitMQ or Apache Kafka. You're going to do this using functional, reactive code by utilizing Spring's WebFlux and by taking advantage of Spring Cloud Streams functional binding model.
+In this tutorial, you're going to create a Spring Cloud Streams application that demonstrates how to interact with a messaging service, such as RabbitMQ or Apache Kafka. You're going to do this using functional, reactive code by utilizing Spring's WebFlux and by taking advantage of Spring Cloud Streams' functional binding model.
 
-You'll create an application that contains a **publisher**, a **processor**, and a **consumer**. The app will use two topics to publish a stream of integers, process the integers to calculate a running total, and consume the processed data. Initially the messages will be simple types: strings and integers, but you'll also see how easy Spring Cloud Streams makes mapping POJOs (Plain Old Java Objects) to messages using JSON mapping.
+You'll create an application that contains a **publisher**, a **processor**, and a **consumer**. The app will use two topics to publish a stream of integers, process the integers to calculate a running total, and consume the processed data. Initially, the messages will be simple types: strings and integers, but you'll also see how easy Spring Cloud Streams makes mapping POJOs (Plain Old Java Objects) to messages using JSON mapping.
 
 If all of that technical jargon made sense to you, feel free to skip to the requirements section. Otherwise, I'm going to take a few paragraphs to introduce the technologies.
 
@@ -24,7 +26,7 @@ Spring describes **Spring Cloud Streams** as "a framework for building highly sc
 
 The simple messaging strategy you're going to use here is called **pub-sub**, or publish and subscribe. A **consumer** **subscribes** to a **topic** (generally just identified by a text name). **Publishers** push messages to the **topic**, and the message is sent to all **subscribed** **consumers**.
 
-In this tutorial, you will actually use RabbitMQ in a Docker container. However, you can use Apache Kafka simply by replacing the `docker-compose.yml` file and by changing the Spring Cloud Streams binding dependency.
+In this tutorial, you will use RabbitMQ in a Docker container. However, you can use Apache Kafka simply by replacing the `docker-compose.yml` file and by changing the Spring Cloud Streams binding dependency.
 
 **Functional programming** is opposed to the object-oriented model that dominated programming (especially Java) until the last decade. Functions are treated as first-class objects that are the main organizational unit of code execution, instead of object instances and classes. This decouples data and logic in a way that has some benefits for applications such as stream processing and allows for powerful chaining and composition of functions.
 
@@ -43,7 +45,7 @@ In this tutorial, you will actually use RabbitMQ in a Docker container. However,
 
 **HTTPie**: This is a powerful command-line HTTP request utility that you'll use to test the WebFlux server. Install it according to [the docs on their site](https://httpie.org/doc#installation).
 
-**Docker** and **Docker Compose**: You'll use Docker and Docker Compose to run the RabbitMQ service. First you need to install Docker. On Mac and Windows you can install the desktop client. On Linux you'll need to install Docker Machine directly. Take a look at [the Docker docs for installation instructions.](https://docs.docker.com/) for your operating system. Once you have Docker installed, follow [the instructions to install Docker Compose](https://docs.docker.com/compose/install/).
+**Docker** and **Docker Compose**: You'll use Docker and Docker Compose to run the RabbitMQ service. First, you need to install Docker. On Mac and Windows you can install the desktop client. On Linux you'll need to install Docker Machine directly. Take a look at [the Docker docs for installation instructions.](https://docs.docker.com/) for your operating system. Once you have Docker installed, follow [the instructions to install Docker Compose](https://docs.docker.com/compose/install/).
 
 You can test the `docker-compose` installation by opening a shell and running the following command:
 
@@ -578,7 +580,7 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 
 To access the protected endpoint, you need a valid JWT. Fortunately, there's [OIDC Debugger](https://oidcdebugger.com/), which is a simple webpage designed to help test OIDC applications. Before you can use it, however, you need to add the OIDC Debugger redirect URL to your Okta OIDC application.
 
-Open you Okta developer account. If you auto-created it using the Maven plugin, look at the `issuer` URL in the `application.yml` file and open the base URL in a browser (without the `/oauth2/default`). It will be something like: `https://dev-123456.okta.com`. 
+Open your Okta developer account. If you auto-created it using the Maven plugin, look at the `issuer` URL in the `application.yml` file and open the base URL in a browser (without the `/oauth2/default`). It will be something like: `https://dev-123456.okta.com`. 
 
 Once you're in the Okta developer dashboard, from the top menu, go to **Applications**. You'll see the `demo` application that the Maven plugin created for you.
 
@@ -643,8 +645,7 @@ The astute out there might object that the RabbitMQ server itself isn't secured.
 
 ## Finishing the Tutorial
 
-All done. You created a Spring Cloud Streams application that publishes and subscribes to multiple channels. You used Docker to quickly and easily launch a RabbitMQ messaging service. You used reactive, functional programming and saw how to use Spring's new functional binding model. You used Spring WebFlux to publish the data to a web stream, and used HTTPie to stream the data from the command line. Finally, you used Okta's Spring Boot Starter and to add OAuth 2.0 and OIDC authentication to the application.
-
+All done. You created a Spring Cloud Streams application that publishes and subscribes to multiple channels. You used Docker to quickly and easily launch a RabbitMQ messaging service. You used reactive, functional programming and saw how to use Spring's new functional binding model. You used Spring WebFlux to publish the data to a web stream and used HTTPie to stream the data from the command line. Finally, you used Okta's Spring Boot Starter and to add OAuth 2.0 and OIDC authentication to the application.
 
 
 
