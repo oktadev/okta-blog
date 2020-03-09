@@ -356,7 +356,7 @@ To learn about a more "Continuous Hacking" approach to software delivery, https:
 * Sign the metadata of a pushed image cryptographically so it can be checked later
 * In your containers, only use Linux distributions that verify the integrity of the package using the package manager's security features
 * When pulling third-party dependencies manually, only allow HTTPS and ensure checksums are validated
-* Don’t allow images to be built whose `Dockerfile` specifies a sensitive host path as a volume mount
+* Don't allow images to be built whose `Dockerfile` specifies a sensitive host path as a volume mount
 
 But what about the code? They use automation to analyze it too:
 
