@@ -127,13 +127,13 @@ Hover over the **Classic UI** button at the top right of the page and select the
 Now that the application is created, add authentication using Okta by adding a couple of npm dependencies. From the `client` folder run:
 
 ```bash
-npm install @okta/okta-react react-router-dom --save
+npm install @okta/okta-react@1.2.3 react-router-dom@5.0.1 --save
 ```
 
 Or, if you're using the [yarn](https://yarnpkg.com) package manager:
 
 ```bash
-yarn add @okta/okta-react react-router-dom
+yarn add @okta/okta-react@1.2.3 react-router-dom@5.0.1
 ```
 
 Add a file to the `client/src` folder called` app.config.js`. The contents of the file are:

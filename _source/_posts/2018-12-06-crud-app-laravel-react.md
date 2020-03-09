@@ -300,8 +300,8 @@ We'll use `react-create-app` (installed globally) to create our application. We 
 npm install --global create-react-app
 npx create-react-app trivia-web-client-react
 cd trivia-web-client-react
-yarn add react-router-dom semantic-ui-react
-yarn add @okta/okta-react --save
+yarn add react-router-dom@4.3.1 semantic-ui-react@0.83.0
+yarn add @okta/okta-react@1.1.4 --save
 yarn start
 ```
 
