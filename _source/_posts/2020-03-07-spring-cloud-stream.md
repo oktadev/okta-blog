@@ -14,6 +14,8 @@ image:
 
 ## Spring Cloud Streams
 
+GitHub Repo: https://github.com/moksamedia/okta-spring-cloud-streams
+
 In this tutorial, you're going to create a Spring Cloud Streams application that demonstrates how to interact with a messaging service, such as RabbitMQ or Apache Kafka. You're going to do this using functional, reactive code by utilizing Spring's WebFlux and by taking advantage of Spring Cloud Streams' functional binding model.
 
 You'll create an application that contains a **publisher**, a **processor**, and a **consumer**. The app will use two topics to publish a stream of integers, process the integers to calculate a running total, and consume the processed data. Initially, the messages will be simple types: strings and integers, but you'll also see how easy Spring Cloud Streams makes mapping POJOs (Plain Old Java Objects) to messages using JSON mapping.
