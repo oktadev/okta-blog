@@ -10,7 +10,6 @@ tweets:
 - ""
 image: 
 ---
-
 ## Spring Cloud Streams
 
 In this tutorial, you're going to create a Spring Cloud Streams application that demonstrates how to interact with a messaging service, such as RabbitMQ or Apache Kafka. You're going to do this using functional, reactive code by utilizing Spring's WebFlux and by taking advantage of Spring Cloud Streams functional binding model.
@@ -641,6 +640,15 @@ data:{"currentValue":84,"total":6328}
 That's it! You've got a secured Spring Cloud Streams application. 
 
 The astute out there might object that the RabbitMQ server itself isn't secured. That's true, and there are various methods for securing it, [chiefly using TLS and SSL certificates](https://www.rabbitmq.com/ssl.html), but including that in this tutorial greatly expands the scope. We've got a tutorial coming out soon that demonstrates end-to-end security using Quarkus and Apace Kafka Streams, including how to generate all of the necessary SSL certificates and Java keyfiles. 
+
+## Finishing the Tutorial
+
+All done. You created a Spring Cloud Streams application that publishes and subscribes to multiple channels. You used Docker to quickly and easily launch a RabbitMQ messaging service. You used reactive, functional programming and saw how to use Spring's new functional binding model. You used Spring WebFlux to publish the data to a web stream, and used HTTPie to stream the data from the command line. Finally, you used Okta's Spring Boot Starter and to add OAuth 2.0 and OIDC authentication to the application.
+
+
+
+
+
 
 
 
