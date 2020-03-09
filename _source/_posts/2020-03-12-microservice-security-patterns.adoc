@@ -141,7 +141,7 @@ This way, your design makes it easier for developers to write secure code.
 
 Writing and shipping secure code is going to become more and more important as we put more software in robots and embedded devices.
 
-The OWASP Top 10 really hasn’t changed all that much in the last ten years. For example, despite being the number one approach used to educate defensive engineers on how to protect their apps, SQL Injection is still the most common attack. We continue to repeat the same mistakes that have exposed systems for a decade now.
+The OWASP Top 10 really hasn't changed all that much in the last ten years. For example, despite being the number one approach used to educate defensive engineers on how to protect their apps, SQL Injection is still the most common attack. We continue to repeat the same mistakes that have exposed systems for a decade now.
 
 https://www.infoq.com/podcasts/web-security-hack-anatomy/
 
@@ -180,7 +180,7 @@ Let's Encrypt offers free certificates and you can automate renewing them using 
 
 > Let's Encrypt launched on April 12, 2016 and somehow transformed the Internet by making a costly and lengthy process, such as using HTTPS through an X.509 certificate, into a straightforward, free, widely available service. Recently, the organization announced it has issued one billion certificates overall since its foundation and it is estimated that Let's Encrypt doubled the Internet's percentage of secure websites.
 
-Let's Encrypt recommends you use **Certbot** to obtain and renew your certificates. Certbot is a free, open source software tool for automatically using Let’s Encrypt certificates on manually-administrated websites to enable HTTPS. Certbot is made by the Electronic Frontier Foundation (EFF).
+Let's Encrypt recommends you use **Certbot** to obtain and renew your certificates. Certbot is a free, open source software tool for automatically using Let's Encrypt certificates on manually-administrated websites to enable HTTPS. Certbot is made by the Electronic Frontier Foundation (EFF).
 
 https://certbot.eff.org/[image:{% asset_path 'blog/microservice-security-patterns/certbot-logo.svg' %}[alt=Certbots,role="pull-right w-200 m-x-m",width=200]]
 The https://certbot.eff.org/[Certbot] site let's you choose your web server and system, then provides the instructions for automating certificate generation and renewal. For example, https://certbot.eff.org/lets-encrypt/ubuntubionic-nginx[here's instructions for Ubuntu with Nginx].
@@ -302,7 +302,7 @@ Most of the above mentioned suggestions can actually be automated in your code d
 
 == 6. Slow Down Attackers
 
-Attackers have hundreds of gigs of actual username/password combinations that have been exposed from all the breaches over the past few years. These are often a first step when attempting to compromise a system. It’s more often likely that they will figure out a valid email pattern for a company and then feed actual names into that pattern to go after the username. From there, brute force attacks with those usernames against libraries of passwords is a common approach.
+Attackers have hundreds of gigs of actual username/password combinations that have been exposed from all the breaches over the past few years. These are often a first step when attempting to compromise a system. It's more often likely that they will figure out a valid email pattern for a company and then feed actual names into that pattern to go after the username. From there, brute force attacks with those usernames against libraries of passwords is a common approach.
 
 https://www.infoq.com/podcasts/web-security-hack-anatomy/
 
