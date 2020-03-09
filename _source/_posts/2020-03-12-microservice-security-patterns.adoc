@@ -141,6 +141,10 @@ This way, your design makes it easier for developers to write secure code.
 
 Writing and shipping secure code is going to become more and more important as we put more software in robots and embedded devices.
 
+The OWASP Top 10 really hasn’t changed all that much in the last ten years. For example, despite being the number one approach used to educate defensive engineers on how to protect their apps, SQL Injection is still the most common attack. We continue to repeat the same mistakes that have exposed systems for a decade now.
+
+https://www.infoq.com/podcasts/web-security-hack-anatomy/
+
 == 2. Scan Dependencies
 
 80% of the code you deploy to production is composed of 3rd party dependencies. Many of the libraries we use to develop software are dependent on other libraries. This leads to a (sometimes) large chain of dependencies, some of which might have security vulnerabilities.
@@ -259,7 +263,7 @@ TIP: https://docs.spring.io/spring-security/site/docs/5.3.0.RELEASE/reference/ht
 
 To learn more about RSocket, I recommend reading https://spring.io/blog/2020/03/02/getting-started-with-rsocket-spring-boot-server[Getting Started With RSocket: Spring Boot Server].
 
-== 4. Access Tokens + Identity
+== 4. Use Access and Identity Tokens
 
 OAuth 2.0 has provided delegated authorization since 2012. OpenID Connect added federated identity on top of OAuth 2.0 in 2014. Together, they provide a standard spec you can write code against, and have confident that it will work across IdPs (Identity Providers).
 
@@ -274,6 +278,7 @@ image::{% asset_path 'blog/microservice-security-patterns/client-credentials.png
 === Auth Servers: One or Many?
 
 // graphs + pros and cons
+
 
 === Use Paseto Tokens Over JWT
 
@@ -294,6 +299,12 @@ Atlassian has an informative blog post titled https://www.atlassian.com/continuo
 // devsecops - funny cartoon
 
 Most of the above mentioned suggestions can actually be automated in your code delivery pipeline as part of a series of checks in security. To learn about a more "Continuous Hacking" approach to software delivery, this article provides more detail.
+
+== 6. Slow Down Attackers
+
+Attackers have hundreds of gigs of actual username/password combinations that have been exposed from all the breaches over the past few years. These are often a first step when attempting to compromise a system. It’s more often likely that they will figure out a valid email pattern for a company and then feed actual names into that pattern to go after the username. From there, brute force attacks with those usernames against libraries of passwords is a common approach.
+
+https://www.infoq.com/podcasts/web-security-hack-anatomy/
 
 == 6. Use Docker Rootless Mode
 
