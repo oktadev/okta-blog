@@ -635,4 +635,4 @@ Please follow us https://twitter.com/oktadev[on Twitter @oktadev] and subscribe 
 [[changelog]]
 **Changelog:**
 
-* Mar 10, 2020: Updated to use Spring Boot 2.2.5 and Spring Cloud Hoxton SR3. Changes to this post can be viewed in https://github.com/oktadeveloper/okta-blog/pull/129[okta-blog#129]. Updates to the example application are in https://github.com/oktadeveloper/java-microservices-examples/pull/7[java-microservices-examples#7].
+* Mar 10, 2020: Updated to use Spring Boot 2.2.5 and Spring Cloud Hoxton SR3. Changes to this post can be viewed in https://github.com/oktadeveloper/okta-blog/pull/217[okta-blog#217]. Updates to the example application are in https://github.com/oktadeveloper/java-microservices-examples/pull/7[java-microservices-examples#7].
