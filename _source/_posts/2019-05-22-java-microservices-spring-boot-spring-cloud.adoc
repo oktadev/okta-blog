@@ -61,20 +61,6 @@ http https://start.spring.io/starter.zip \
   dependencies==cloud-eureka,cloud-feign,data-rest,web,cloud-hystrix,lombok | tar -xzvf -
 ----
 
-=== Spring Microservices with Java 11+
-
-To make the `discovery-service` run on Java 11, I had to add a dependency on JAXB.
-
-[source,xml]
-----
-<dependency>
-    <groupId>org.glassfish.jaxb</groupId>
-    <artifactId>jaxb-runtime</artifactId>
-</dependency>
-----
-
-The other two applications worked fine out-of-the-box on Java 11 with no changes in dependencies.
-
 == Java Service Discovery with Netflix Eureka
 
 The `discovery-service` is configured the same as you would most Eureka servers. It has an `@EnableEurekaServer` annotation on its main class and properties that set its port and turn off discovery.
@@ -189,7 +175,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.hateoas.Resources;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -220,7 +206,7 @@ interface CarClient {
 
     @GetMapping("/cars")
     @CrossOrigin
-    Resources<Car> readCars();
+    CollectionModel<Car> readCars();
 }
 
 @RestController
@@ -277,7 +263,7 @@ I added Okta's Spring Boot starter to the `pom.xml` in `api-gateway` and `car-se
 <dependency>
     <groupId>com.okta.spring</groupId>
     <artifactId>okta-spring-boot-starter</artifactId>
-    <version>1.2.0</version>
+    <version>1.4.0</version>
 </dependency>
 ----
 
@@ -645,3 +631,8 @@ We're big fans of Spring Boot, Spring Cloud, and microservices on this blog. Her
 * link:/blog/2019/02/28/spring-microservices-docker[Build Spring Microservices and Dockerize Them for Production]
 
 Please follow us https://twitter.com/oktadev[on Twitter @oktadev] and subscribe to https://www.youtube.com/c/oktadev[our YouTube channel] for more Spring Boot and microservices knowledge.
+
+[[changelog]]
+**Changelog:**
+
+* Mar 10, 2020: Updated to use Spring Boot 2.2.5 and Spring Cloud Hoxton SR3. Changes to this post can be viewed in https://github.com/oktadeveloper/okta-blog/pull/129[okta-blog#129]. Updates to the example application are in https://github.com/oktadeveloper/java-microservices-examples/pull/7[java-microservices-examples#7].
