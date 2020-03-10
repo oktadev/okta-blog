@@ -12,7 +12,7 @@ image: blog/working-remotely/workingremoteBW.jpg
 
 What happens when you suddenly need to work from home due to a myriad of reasons? Whether it's the daily expectation or an occasional occurrence, working remotely has it's benefits and challenges. After coming to a fully remote team at Okta, I discovered a few things about the reality of working outside of an office building that I'd like to share.
 
-{% img blog/working-remotely/workingremotefrontface.jpg alt:"Working remote on the sidewalk" width:"500" .center-image %}
+{% img blog/working-remotely/workingremotefrontface.jpg alt:"Working remote on the sidewalk" width:"500" %}{: .center-image }
 
 ## Communication is EVERYTHING When Working Remote
 
@@ -66,7 +66,7 @@ While I mentioned earlier in this post that working remotely is not for everyone
 
 You can do this. In fact, I challenge every dev team to try it out! You never know when staying away from your office building for a while might be mandatory, so give it a go and discuss how best to start this experiment. You might find that you organize your information better, your communication skills improve, and working with no pants on can be very freeing - but maybe not do that when using your webcam during a conference call. Get outside the office and code!
 
-{% img blog/working-remotely/workingremotelookingforward.jpg alt:"Working remote on the grass" width:"900" %}
+{% img blog/working-remotely/workingremoteBW.jpg alt:"Working remote on the sidewalk" width:"500" %}{: .center-image }
 
 Working remotely can make you grow as a professional developer. Have you tried it? What was your experience? Share in the comments below any tips you have for working from home.
 
