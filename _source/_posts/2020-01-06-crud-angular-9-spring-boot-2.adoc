@@ -928,7 +928,7 @@ In this particular example, the CSP won't be used since Angular is a separate ap
 
 TIP: Once you've deployed your Spring Boot app to a public URL, you can test your CSP headers are working with https://securityheaders.com/[securityheaders.com].
 
-== Learn More about Angular, Spring Boot, and Kotlin
+== Learn More About Angular, Spring Boot, and Kotlin
 
 In this tutorial, I showed you how to create an Angular 9 app, a Spring Boot 2.2 app, and how to secure communication between them with OAuth 2.0 and OIDC. You used Kotlin on the backend; a language loved by many. You used Angular Schematics to generate code for authentication and CRUD, improving your efficiency as a developer.
 
