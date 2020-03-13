@@ -11,7 +11,7 @@ tweets:
 image: blog/featured/okta-react-headphones.jpg
 ---
 
-When you create React applications, at some point you have to make a decision on how to organize your CSS styles. For larger applications, you’ll have to modularize the stylesheets. Tools such as Sass and Less let you divide up your styles into separate files and provide lots of other features that make writing CSS files more productive. But some problems remain. The tools separate your styles from your components, and keeping the styles up-to-date with the rest of your code can be difficult. It is hard to figure out if a large application that has been developed and modified for several years still uses a particular CSS class. It is also not easy to make sure that changing a style in one part of your application doesn't affect the appearance of some other unrelated component.
+When you create React applications, at some point you have to make a decision on how to organize your CSS styles. For larger applications, you'll have to modularize the stylesheets. Tools such as Sass and Less let you divide up your styles into separate files and provide lots of other features that make writing CSS files more productive. But some problems remain. The tools separate your styles from your components, and keeping the styles up-to-date with the rest of your code can be difficult. It is hard to figure out if a large application that has been developed and modified for several years still uses a particular CSS class. It is also not easy to make sure that changing a style in one part of your application doesn't affect the appearance of some other unrelated component.
 
 ## Styled Components to the Rescue
 
@@ -25,7 +25,7 @@ In this tutorial, I will show you how to use Styled Components in your React app
 
 ## Create a React App 
 
-I will assume that you have some basic knowledge of React and that you have a recent version of Node installed on your system. Node comes with a couple of utility commands. Probably the best known of these is the node package manager `npm`. Less well known is the `npx` command that lets you run commands installed in your local repository. If it can’t find a command, `npx` will automatically install the commands before executing it. 
+I will assume that you have some basic knowledge of React and that you have a recent version of Node installed on your system. Node comes with a couple of utility commands. Probably the best known of these is the node package manager `npm`. Less well known is the `npx` command that lets you run commands installed in your local repository. If it can't find a command, `npx` will automatically install the commands before executing it. 
 
 You should always use the more recent versions of the React command-line interface with `npx`. This ensures that you are always using the latest version. To create a new React application, open a terminal, navigate to a directory of your choice, and run the following command.
 
@@ -325,10 +325,10 @@ In this tutorial, I showed you how to create and use Styled Components in your R
 
 If you want to learn more about creating React applications, styling them, and making them secure, check out the links below.
 
-* [Build Reusable React Components](https://developer.okta.com/blog/2020/01/20/build-reusable-react-components)
-* [Use Sass with React to Build Beautiful Apps](https://developer.okta.com/blog/2019/12/17/react-sass)
-* [A Quick Guide to Integrating React and GraphQL](https://developer.okta.com/blog/2019/12/05/react-graphql-integration-guide)
-* [Build a Secure React Application with JWTs and Redux](https://developer.okta.com/blog/2019/08/12/build-secure-react-application-redux-jwt)
+* [Build Reusable React Components](/blog/2020/01/20/build-reusable-react-components)
+* [Use Sass with React to Build Beautiful Apps](/blog/2019/12/17/react-sass)
+* [A Quick Guide to Integrating React and GraphQL](/blog/2019/12/05/react-graphql-integration-guide)
+* [Build a Secure React Application with JWTs and Redux](/blog/2019/08/12/build-secure-react-application-redux-jwt)
 
 The code for this tutorial is available at [@oktadeveloper/okta-react-styled-components-example](https://github.com/oktadeveloper/okta-react-styled-components-example) on GitHub. 
 
