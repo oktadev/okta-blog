@@ -12,11 +12,11 @@ image: blog/paseto-security-tokens-java/paseto-social.png
 ---
 :page-liquid:
 
-Many of us are not familiar with vulnerability reporting and how it is different from reporting a regular bug. Frequently, I've seen people report vulnerabilities or potential security issues incorrectly. A public bug tracker or StackOverflow is NOT the right tool; developers need to handle vulnerabilities differently and should not disclose them until the project/vendor fixes them.
+Many of us are not familiar with vulnerability reporting and how it is different from reporting a regular bug. Frequently, I've seen people report vulnerabilities or potential security issues incorrectly. A public bug tracker or Stack Overflow is NOT the right tool; developers need to handle vulnerabilities differently and should not disclose them until the project/vendor fixes them.
 
 In this post, you will learn basics about vulnerabilities, how they relate to Common Vulnerabilities and Exposures (CVEs), and how to report them responsibly.
 
-== What is a Vulnerability
+== What is a Vulnerability?
 
 Simply put, a vulnerability is any weakness that an attacker can exploit to perform unauthorized actions. This means any security issue from SQL injection to side-channel attacks and everything in between.
 
@@ -39,13 +39,16 @@ I'll pick on the same `virturalenv` issue (CVE-2018-17793) as before. A user ori
 
 == Responsible Disclosure
 
-Responsible disclosure is a model in which a user reports a vulnerability and gives the project (or vendor) time to fix it before they release any information publicly. This model stands in contrast  to full disclosure, which is "tell everyone, everything, right now." The idea of full disclosure is to give developers and system admins all the info so they can make their own decisions. The problem with full disclosure is it also gives attackers the same information, and depending on the bug, the attackers might be able to exploit the issue before the project releases a fix.
+Responsible disclosure is a model in which a user reports a vulnerability and gives the project (or vendor) time to fix it before they release any information publicly. This model stands in contrast to full disclosure, which is "tell everyone, everything, right now." The idea of full disclosure is to give developers and system admins all the info so they can make their own decisions. The problem with full disclosure is it also gives attackers the same information, and depending on the bug, the attackers might be able to exploit the issue before the project releases a fix.
 
 Responsible disclosure allows for a period of secrecy after an issue has been reported, known as a "security embargo." A security embargo lasts until developers release a fix/patch. Ideally, a security embargo should be as short as possible while still allowing for a quality, tested release. The actual length of an embargo is a subject of debate and depends on whom you ask. https://googleprojectzero.blogspot.com/p/vulnerability-disclosure-faq.html[Google's Project Zero] is 90 days, whereas the Linux Kernel is two weeks (actually 19 days to allow for long weekends and holidays). Occasionally, companies grant extensions; for example, https://www.theverge.com/2018/1/11/16878670/meltdown-spectre-disclosure-embargo-google-microsoft-linux[Spectre's embargo] lasted eight months before finally details leaked out.
 
 Just like with any secret, the more people who know about it, the more likely it is to get out. The Linux Kernel is a popular project, and Linus Torvalds's https://github.com/torvalds/linux[Linux kernel GitHub repo] has more than 30 thousand stars! That is a lot of eyeballs watching the code; it would be hard to keep anything secret for very long.
 
-> Three may keep a secret if two of them are dead. --Benjamin Franklin
+[quote, Benjamin Franklin]
+____
+Three may keep a secret if two of them are dead.
+____
 
 == Report, Fix, Disclose
 
@@ -59,7 +62,7 @@ If you reported a vulnerability to an open-source project and you are interested
 
 Once the developers release a fix and make it available to the public, you can disclose the vulnerability. This is the first time someone will alert the public to the issue. Most of the time, the vendor handles the disclosure, after which you can share what you learned with the world!
 
-== Tips for Making Vulnerabilities easier to Report
+== Tips for Making Vulnerabilities Easier to Report
 
 One way to make sure people don't report vulnerabilities in your bug tracker is to warn users when they are creating issues. For GitHub projects, you can create a https://help.github.com/en/github/building-a-strong-community/about-issue-and-pull-request-templates[`.github/ISSUE_TEMPLATE.md`] with a note about reporting security vulnerabilities elsewhere. Any time they create a new issue, the reporter sees your message. For example, Spring Security's https://raw.githubusercontent.com/spring-projects/spring-security/master/.github/ISSUE_TEMPLATE.md[`ISSUE_TEMPLATE`] looks like this:
 
