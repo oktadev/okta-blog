@@ -23,6 +23,11 @@ The solution to these problems is a concept known as scoped styles. Here you wri
 
 In this tutorial, I will show you how to use Styled Components in your React application by creating a simple calendar application.
 
+**Prerequisites:**
+
+* https://nodejs.org/[Node 12]+
+* An https://developer.okta.com/signup/[Okta Developer Account]
+
 ## Create a React App 
 
 I will assume that you have some basic knowledge of React and that you have a recent version of Node installed on your system. Node comes with a couple of utility commands. Probably the best known of these is the node package manager `npm`. Less well known is the `npx` command that lets you run commands installed in your local repository. If it can't find a command, `npx` will automatically install the commands before executing it. 
