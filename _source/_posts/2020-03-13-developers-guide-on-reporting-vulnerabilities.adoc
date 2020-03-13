@@ -8,7 +8,7 @@ tweets:
 - "Are you a developer? Do you know how reporting a vulnerability is different from a regular bug? 🐛"
 - "Are you reporting a vulnerability in a bug tracker? Read this first 🛑"
 - "️Vulnerability Reporting != Bug Reporting  - Here is why ‼️"
-image: blog/paseto-security-tokens-java/paseto-social.png
+image: blog/developers-guide-on-reporting-vulnerabilities/dev-guide-vulns.png
 ---
 :page-liquid:
 
