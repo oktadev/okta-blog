@@ -21,7 +21,7 @@ There were definitely some great points from both sides, but I wanted to explore
 
 ## WHY COMMAND LINE INTERFACES SUCK
 
-(Don't worry, it's not that dramatic - just using a catchy title! Well, mostly.)
+(Don't worry, it's not that dramatic - just using a catchy title. Well, mostly.)
 
 ### Commands require commitment to memory
 
