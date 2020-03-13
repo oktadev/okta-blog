@@ -43,7 +43,7 @@ In this tutorial, you will use RabbitMQ in a Docker container. However, you can 
 
 **Maven**: You need Maven installed to bootstrap the project. Install it according to the instructions on [their website](https://maven.apache.org/install.html). Or use SDKMAN or Homebrew.
 
-**Okta Developer Account**: You’ll be using Okta as an OAuth/OIDC provider to add JWT authentication and authorization to the application. You can go to [our developer site](https://developer.okta.com/signup/) and sign up for a free developer account. Or you can wait and use the Okta Maven Plugin to create an account from the shell.
+**Okta Developer Account**: You'll be using Okta as an OAuth/OIDC provider to add JWT authentication and authorization to the application. You can go to [our developer site](https://developer.okta.com/signup/) and sign up for a free developer account. Or you can wait and use the Okta Maven Plugin to create an account from the shell.
 
 **HTTPie**: This is a powerful command-line HTTP request utility that you'll use to test the WebFlux server. Install it according to [the docs on their site](https://httpie.org/doc#installation).
 
