@@ -932,7 +932,7 @@ TIP: Once you've deployed your Spring Boot app to a public URL, you can test you
 
 In this tutorial, I showed you how to create an Angular 9 app, a Spring Boot 2.2 app, and how to secure communication between them with OAuth 2.0 and OIDC. You used Kotlin on the backend; a language loved by many. You used Angular Schematics to generate code for authentication and CRUD, improving your efficiency as a developer.
 
-This tutorial did not show you how to make your Angular app look good, add validation, or how to deploy it to a public server. I'll tackle those topics in an upcoming post. In the meantime, you can see a previous tutorial I wrote to see how this app might look with Angular Material.
+This tutorial did not show you how to make your Angular app look good, add validation, or how to deploy it to a public server. I'll tackle those topics in an link:/blog/2020/03/02/angular-bootstrap[upcoming post]. In the meantime, you can see a previous tutorial I wrote to see how this app might look with Angular Material.
 
 * link:/blog/2017/09/19/build-a-secure-notes-application-with-kotlin-typescript-and-okta[Build a Secure Notes Application with Kotlin, TypeScript, and Okta]
 
@@ -940,6 +940,7 @@ You can find the source code for the completed application at https://github.com
 
 Our blog has a bunch of Angular, Spring Boot, and Kotlin tutorials. Here are some I recommend:
 
+* link:/blog/2020/03/02/angular-bootstrap[Build Beautiful Angular Apps with Bootstrap]
 * link:/blog/2019/05/16/angular-authentication-jwt[Angular Authentication with JWT]
 * link:/blog/2019/03/20/build-desktop-app-with-angular-electron[Build a Desktop Application with Angular and Electron]
 * link:/blog/2019/10/30/java-oauth2[OAuth 2.0 Java Guide: Secure Your App in 5 Minutes]
