@@ -25,8 +25,8 @@ In this tutorial, I will show you how to use Styled Components in your React app
 
 **Prerequisites:**
 
-* https://nodejs.org/[Node 12]+
-* An https://developer.okta.com/signup/[Okta Developer Account]
+* [Node 12](https://nodejs.org/)+
+* An [Okta Developer Account](https://developer.okta.com/signup/)
 
 ## Create a React App 
 
