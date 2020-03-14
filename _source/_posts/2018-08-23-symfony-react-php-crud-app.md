@@ -544,8 +544,8 @@ We will also install the dependencies we will need (React Router, Semantic UI Re
 
 ```bash
 cd bad-puns-tracker-client-react
-npm install react-router-dom semantic-ui-react
-npm install @okta/okta-react --save
+npm install react-router-dom@4.3.1 semantic-ui-react@0.82.2
+npm install @okta/okta-react@1.0.2 --save
 ```
 
 We will run our app now and should see the default React application when we load `http://localhost:3000`:

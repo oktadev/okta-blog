@@ -547,7 +547,7 @@ yarn add react-router-dom
 And to install the Okta React SDK run the command:
 
 ```bash
-yarn add @okta/okta-react
+yarn add @okta/okta-react@1.1.4
 ```
 
 Now, go head and create your Main component.
