@@ -205,7 +205,7 @@ HTTPS has an official name: Transport Layer Security (a.k.a., TLS). It's designe
 
 image::{% asset_path 'blog/microservice-security-patterns/how-https-works.png' %}[alt=How HTTPS Works,align=center,width=800]
 
-To use HTTPS, you need a certificate. It's a driver’s license of sorts and serves two functions. It grants permissions to use encrypted communication via Public Key Infrastructure (PKI), and also authenticates the identity of the certificate’s holder.
+To use HTTPS, you need a certificate. It's a driver's license of sorts and serves two functions. It grants permissions to use encrypted communication via Public Key Infrastructure (PKI), and also authenticates the identity of the certificate's holder.
 
 Let's Encrypt offers free certificates, and you can use its API to automate renewing them. From a https://www.infoq.com/news/2020/03/letsencrypt-revokes-certificates/[recent InfoQ article] by https://twitter.com/MaybeSergio[Sergio De Simone]:
 
@@ -470,7 +470,7 @@ The Kubernetes blog has a detailed post from https://twitter.com/sublimino[Andre
 10. Scan Images and Run IDS (Intrusion Detection System)
 11. Run a Service Mesh
 
-This blog post is from July 2018, but not a whole lot has changed. I do think there's been a fair amount of hype around service meshes since 2018, but that hasn’t made a huge difference.
+This blog post is from July 2018, but not a whole lot has changed. I do think there's been a fair amount of hype around service meshes since 2018, but that hasn't made a huge difference.
 
 Running a service mesh like Istio _might_ allow you to offload your security to a "shared, battle-tested set of libraries." Still, I don't think it's "simplified the deployment of the next generation of network security" like the blog post says it could.
 
