@@ -28,7 +28,7 @@ In this tutorial, I will show you how to use Styled Components in your React app
 * [Node 12](https://nodejs.org/)+
 * An [Okta Developer Account](https://developer.okta.com/signup/)
 
-## Create a React App 
+## Create a React App
 
 I will assume that you have some basic knowledge of React and that you have a recent version of Node installed on your system. Node comes with a couple of utility commands. Probably the best known of these is the node package manager `npm`. Less well known is the `npx` command that lets you run commands installed in your local repository. If it can't find a command, `npx` will automatically install the commands before executing it. 
 
@@ -157,13 +157,13 @@ Open your browser at `http://localhost:3000` and you can see your calendar. Clic
 
 ## Add Authentication to Your React App
 
-Many web applications need to be restricted to users that are registered to the service. With Okta, you can quickly set up secure authentication and control which users can access your application. In this section, I will show you how to add authentication to your React application. First, you will need to sign up for a free developer account with Okta. 
+Many web applications need to be restricted to users that are registered to the service. With Okta, you can quickly set up secure authentication and control which users can access your application. In this section, I will show you how to add authentication to your React application. First, you will need to sign up for a free developer account with Okta.
 
-Open your browser, navigate to <https://developer.okta.com>, follow the sign-in link, and complete the form that appears next. After you register, you will be taken to your Okta dashboard. 
+Open your browser, navigate to <https://developer.okta.com>, follow the sign-in link, and complete the form that appears next. After you register, you will be taken to your Okta dashboard.
 
-Select **Applications** in the top menu and create your first application by clicking the **Add Application** button. On the screen that appears next, select **Single-Page App** and click **Next**. 
+Select **Applications** in the top menu and create your first application by clicking the **Add Application** button. On the screen that appears next, select **Single-Page App** and click **Next**.
 
-You will see a screen with settings. Make sure the port is set to 3000 and that the return URL is set to `http://localhost:3000/implicit/callback`. This is the port that your React application uses to run the development server. When you're done, click on **Done**. 
+You will see a screen with settings. Make sure the port is set to 3000 and that the return URL is set to `http://localhost:3000/implicit/callback`. This is the port that your React application uses to run the development server. When you're done, click on **Done**.
 
 The resulting screen will provide you with a client ID, which you will need to copy and paste into your application in the following steps.
 
@@ -335,6 +335,6 @@ If you want to learn more about creating React applications, styling them, and m
 * [A Quick Guide to Integrating React and GraphQL](/blog/2019/12/05/react-graphql-integration-guide)
 * [Build a Secure React Application with JWTs and Redux](/blog/2019/08/12/build-secure-react-application-redux-jwt)
 
-The code for this tutorial is available at [@oktadeveloper/okta-react-styled-components-example](https://github.com/oktadeveloper/okta-react-styled-components-example) on GitHub. 
+The code for this tutorial is available at [@oktadeveloper/okta-react-styled-components-example](https://github.com/oktadeveloper/okta-react-styled-components-example) on GitHub.
 
 If you liked this tutorial and want to be notified when we publish more, follow [@oktadev on Twitter](https://twitter.com/oktadev), subscribe to [our YouTube channel](https://youtube.com/c/oktadev), or [follow us on LinkedIn](https://www.linkedin.com/company/oktadev/). If you have a question, please leave a comment below.
