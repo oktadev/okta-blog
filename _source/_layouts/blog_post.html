@@ -36,6 +36,8 @@ show_bottom_cta: true
 </section>
 
 <script>
-  // The visitor has just viewed a developer artice.
   gtag('event', 'View', {'event_category': 'Article', 'event_label': 'developer'});
+  {% for community in post.communities %}
+    gtag('event', 'View', {'event_category': 'Article', 'event_label': '{{ community }}'});
+  {% endfor %}
 </script>
