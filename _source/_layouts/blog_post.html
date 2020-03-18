@@ -34,3 +34,8 @@ show_bottom_cta: true
   </div>
   {% include blog_post.html post_content=_post_content %}
 </section>
+
+<script>
+  // The visitor has just viewed a developer artice.
+  gtag('event', 'View', {'event_category': 'Article', 'event_label': 'developer'});
+</script>
