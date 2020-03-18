@@ -16,6 +16,12 @@
       })(window,document,'script','dataLayer','GTM-KXMLV58');
       // END Google Tag Manager
 
+      // Expose the 'ga' object so we can use the Google Analytics API directly.
+      window['GoogleAnalyticsObject'] = 'ga';
+      window['ga'] = window['ga'] || function() {
+        (window['ga'].q = window['ga'].q || []).push(arguments)
+      };
+
     }
   </script>
   <meta charset="utf-8">
