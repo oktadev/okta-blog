@@ -15,18 +15,67 @@ const chalk = require("chalk");
 const fm = require("front-matter");
 const readdir = require("recursive-readdir");
 
-const communities = require("../_source/_data/communities.json").communities;
-const types = require("../_source/_data/types.json").types;
+const frontMatter = require("../_source/_data/front-matter.json");
 
 function isValidCommunity(community) {
-  return communities.includes(community);
+  return frontMatter.communities.includes(community);
+}
+
+function validateBy(file, by) {
+  if (by && !frontMatter.bys.includes(by)) {
+    let validBys = chalk.green(frontMatter.bys.join(", "));
+    let invalidBy = chalk.red(by);
+
+    throw new Error(file +
+      " contains an invalid by in the YAML front matter. Valid bys are: " +
+      validBys + ". You supplied: " + invalidBy + "."
+    );
+  }
+}
+
+function validateComms(file, comms) {
+  let err, invalidCommunities, validCommunities;
+
+  if (!comms) return;
+
+  validCommunities = chalk.green(frontMatter.communities.join(", "));
+  invalidCommunities = chalk.red(Array.isArray(comms) ? comms.join(", ") : comms);
+
+  if (Array.isArray(comms)) {
+    if (!comms.every(isValidCommunity)) {
+      err = true;
+    }
+  } else {
+    if (!frontMatter.communities.includes(comms)) {
+      err = true;
+    }
+  }
+
+  if (err) {
+    throw new Error(file +
+      " contains an invalid community in the YAML front matter. Valid communities are: " +
+      validCommunities + ". You supplied: " + invalidCommunities + "."
+    );
+  }
+}
+
+function validateTypes(file, type) {
+  if (type && !frontMatter.types.includes(type)) {
+    let invalidType = chalk.red(type);
+    let validTypes = chalk.green(frontMatter.types.join(", "));
+
+    throw new Error(file +
+      " contains an invalid type in the YAML front matter. Valid types are: " +
+      validTypes + ". You supplied: " + invalidType + "."
+    );
+  }
 }
 
 readdir("_source/_posts", (err, files) => {
   if (err) throw err;
 
   for (let i = 0; i < files.length; i++) {
-    let content, comms, err;
+    let content;
 
     try {
       content = fm(fs.readFileSync(files[i], "utf8"));
@@ -35,42 +84,12 @@ readdir("_source/_posts", (err, files) => {
       throw err;
     }
 
-    comms = content.attributes.communities;
-    typ = content.attributes.type;
-
-    if (comms) {
-      if (Array.isArray(comms)) {
-        if (!comms.every(isValidCommunity)) {
-          err = true;
-        }
-      } else {
-        if (!communities.includes(comms)) {
-          err = true;
-        }
-      }
-
-      if (err) {
-        let validCommunities = chalk.green(communities.join(", "));
-        let invalidCommunities = chalk.red(Array.isArray(comms) ? comms.join(", ") : comms);
-
-        throw new Error(files[i] +
-          " contains an invalid community in the YAML front matter. Valid communities are: " +
-          validCommunities + ". You supplied: " + invalidCommunities + "."
-        );
-      }
-    }
-
-    if (typ && !types.includes(typ)) {
-      let validTypes = chalk.green(types.join(", "));
-      let invalidType = chalk.red(typ);
-
-      throw new Error(files[i] +
-        " contains an invalid type in the YAML front matter. Valid types are: " +
-        validTypes + ". You supplied: " + invalidType + "."
-      );
-    }
+    validateBy(files[i], content.attributes.by);
+    validateComms(files[i], content.attributes.communities);
+    validateTypes(files[i], content.attributes.type);
   }
 
-  console.log(`Finished validating all YAML front matter for ${chalk.green('communities')}.`);
-  console.log(`Finished validating all YAML front matter for ${chalk.green('type')}.`);
+  for (let i = 0; i < Object.keys(frontMatter).length; i++) {
+    console.log(`Finished validating all YAML front matter for ${chalk.green(Object.keys(frontMatter)[i])}.`);
+  }
 });
