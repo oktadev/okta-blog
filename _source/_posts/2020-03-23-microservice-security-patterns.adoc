@@ -5,9 +5,9 @@ author: mraible
 description: "Are you securing your microservice architectures by hiding them behind a firewall? That works, but there are better ways to do it."
 tags: [microservices, security, security patterns, microservice patterns]
 tweets:
-- ""
-- ""
-- ""
+- "Learn how to your microservice architecture using these 11 patterns."
+- "Want to lock down your microservice architecture from intruders? @mraible has some patterns for you!"
+- "11 security patterns for microservice architectures - all in one handy guide!"
 image: blog/microservice-security-patterns/security-patterns-for-microservices.png
 ---
 :toc: macro
@@ -45,7 +45,7 @@ Secure code is the best code. Secure by design means that you bake security into
 
 I asked my friend https://twitter.com/rob_winch[Rob Winch] what he thought about removing malicious characters. Rob is the lead of the Spring Security project, and widely considered a security expert.
 
-[quote, Rob Winch]
+[quote,Rob Winch]
 ____
 I think that it makes sense to design your code to be secure from the beginning. However, removing malicious characters is tricky at best. What is a malicious character really depends on the context that it is used in. You could ensure there are no malicious characters in an HTML context only to find out that there are other injection attacks (i.e. JavaScript, SQL, etc). It is important to note that even https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html#why-cant-i-just-html-entity-encode-untrusted-data[encoding for HTML documents is contextually based].
 
@@ -213,7 +213,7 @@ Let's Encrypt offers free certificates, and you can use its API to automate rene
 
 Let's Encrypt recommends you use **Certbot** to obtain and renew your certificates. Certbot is a free, open-source software tool for automatically using Let's Encrypt certificates on manually-administrated websites to enable HTTPS. The Electronic Frontier Foundation (EFF) created and maintains Certbot.
 
-https://certbot.eff.org/[image:{% asset_path 'blog/microservice-security-patterns/certbot-logo.svg' %}[alt=Certbots,role="pull-right w-200 m-x-m",width=200]]
+https://certbot.eff.org/[image:{% asset_path 'blog/microservice-security-patterns/certbot-logo.svg' %}[alt=Certbots,role="pull-right w-200 m-x-sm",width=200]]
 The https://certbot.eff.org/[Certbot] website lets you choose your web server and system, then provides the instructions for automating certificate generation and renewal. For example, https://certbot.eff.org/lets-encrypt/ubuntubionic-nginx[here's instructions for Ubuntu with Nginx].
 
 To use a certificate with Spring Boot, you just need some configuration.
@@ -233,9 +233,9 @@ server:
 
 _Storing passwords and secrets in configuration files is a bad idea. I'll show you how to encrypt keys like this below._
 
-You also might want to force HTTPS. You can see how to do that in my previous blog post https://developer.okta.com/blog/2018/07/30/10-ways-to-secure-spring-boot#1-use-https-in-production[10 Excellent Ways to Secure Your Spring Boot Application]. Often, forcing HTTPS uses an **HTTP Strict-Transport-Security** response header (abbreviated as `HSTS`) to tell browsers they should only access a website using HTTPS.
+You also might want to force HTTPS. You can see how to do that in my previous blog post link:/blog/2018/07/30/10-ways-to-secure-spring-boot#1-use-https-in-production[10 Excellent Ways to Secure Your Spring Boot Application]. Often, forcing HTTPS uses an **HTTP Strict-Transport-Security** response header (abbreviated as `HSTS`) to tell browsers they should only access a website using HTTPS.
 
-TIP: To see how to set up your Spring-based microservice architecture to use HTTPS locally, see https://developer.okta.com/blog/2019/03/07/spring-microservices-https-oauth2[Secure Service-to-Service Spring Microservices with HTTPS and OAuth 2.0].
+TIP: To see how to set up your Spring-based microservice architecture to use HTTPS locally, see link:/blog/2019/03/07/spring-microservices-https-oauth2[Secure Service-to-Service Spring Microservices with HTTPS and OAuth 2.0].
 
 You might ask "`Why do we need HTTPS _inside_ our network?`"
 
@@ -247,7 +247,7 @@ Johnny Xmas describes how a web attack typically happens in a https://www.infoq.
 
 GraphQL uses HTTP, so you don't have to do any extra logic from a security perspective. The biggest thing you'll need to do is keep your GraphQL implementation up-to-date. GraphQL relies on making POST requests for everything. The server you use will be responsible for input sanitization.
 
-If you'd like to connect to a https://developer.okta.com/blog/2019/12/05/react-graphql-integration-guide[GraphQL server with OAuth 2.0 and React], you just need to pass an `Authorization` header.
+If you'd like to connect to a link:/blog/2019/12/05/react-graphql-integration-guide[GraphQL server with OAuth 2.0 and React], you just need to pass an `Authorization` header.
 
 TIP: Apollo is a platform for building a data graph, and Apollo Client has implementations for https://www.apollographql.com/docs/react/[React] and https://www.apollographql.com/docs/angular/[Angular], among others.
 
@@ -264,7 +264,7 @@ if (myAuth) {
 const client = new ApolloClient(clientParam);
 ----
 
-Configuring a secure Apollo Client https://developer.okta.com/blog/2018/11/30/web-app-with-express-angular-graphql[looks similar for Angular].
+Configuring a secure Apollo Client link:/blog/2018/11/30/web-app-with-express-angular-graphql[looks similar for Angular].
 
 [source,ts]
 ----
@@ -304,13 +304,13 @@ The spec also allows you to look up the identity of the user by sending an acces
 
 image::{% asset_path 'blog/microservice-security-patterns/openid-connect.png' %}[alt=OpenID Connect,width=800,align=center]
 
-If you're communicating between microservices, you can use OAuth 2.0's client credentials flow to implement https://developer.okta.com/blog/2018/04/02/client-creds-with-spring-boot[secure server-to-server communication]. In the diagram below, the `API Client` is one server, and the `API Server` is another.
+If you're communicating between microservices, you can use OAuth 2.0's client credentials flow to implement link:/blog/2018/04/02/client-creds-with-spring-boot[secure server-to-server communication]. In the diagram below, the `API Client` is one server, and the `API Server` is another.
 
 image::{% asset_path 'blog/microservice-security-patterns/client-credentials.png' %}[alt=Client Credentials,width=800,align=center]
 
-=== Authorization Servers: One or Many?
+=== Authorization Servers: Many-to-One or One-to-One?
 
-If you are using OAuth 2.0 to secure your service, you're using an authorization server. The typical setup is a many-to-one relationship, where you have many microservices talking to one authorization server.
+If you are using OAuth 2.0 to secure your service, you're using an authorization server. The typical setup is a **many-to-one** relationship, where you have many microservices talking to one authorization server.
 
 image::{% asset_path 'blog/microservice-security-patterns/auth-server-one-to-many.png' %}[alt=Auth Server: One-to-Many,width=600,align=center]
 
@@ -327,24 +327,24 @@ The cons:
 * If one service's token is compromised, all services are at risk
 * Vague security boundaries
 
-The other, more secure, alternative is that every microservice is bound to its own authorization server.
+The other, more secure, alternative is a **one-to-one** approach where every microservice is bound to its own authorization server. If they need to talk to each other, they need to register before trusting.
 
-image::{% asset_path 'blog/microservice-security-patterns/auth-server-many-to-many.png' %}[alt=Auth Server: Many-to-Many,width=600,align=center]
+image::{% asset_path 'blog/microservice-security-patterns/auth-server-one-to-one.png' %}[alt=Auth Server: One-to-One,width=600,align=center]
 
 This architecture allows you to have clearly defined security boundaries. However, it's slower because it's more chatty, and it's harder to manage.
 
-My recommendation: use a one-to-many relationship until you have a plan and documentation to support a many-to-many relationship.
+My recommendation: use a one-to-many relationship until you have a plan and documentation to support a one-to-one relationship.
 
-=== Use Paseto Tokens Over JWT
+=== Use PASETO Tokens Over JWT
 
-JSON Web Tokens (JWT) have become very popular in the past several years, but they've also come under fire. Mostly because a lot of developers try to use JWT to avoid server-side storage for sessions. See link:/blog/2017/08/17/why-jwts-suck-as-session-tokens[Why JWTs Suck as Session Tokens] to learn more.
+JSON Web Tokens (JWT) have become very popular in the past several years, but they've also come under fire. Mostly because a lot of developers try to use JWT to avoid server-side storage for sessions. See link:/blog/2017/08/17/why-jwts-suck-as-session-tokens[Why JWTs Suck as Session Tokens] to learn why this is not recommended.
 
 PASETO stands for **p**latform-**a**gnostic **se**curity **to**kens. Paseto is everything you love about JOSE (JWT, JWE, JWS) without any of the many design deficits that plague the JOSE standards.
 
 My colleagues Randall Degges and Brian Demers wrote up some informative posts on PASETO.
 
-* https://developer.okta.com/blog/2019/10/17/a-thorough-introduction-to-paseto[A Thorough Introduction to PASETO]
-* https://developer.okta.com/blog/2020/02/14/paseto-security-tokens-java[Create and Verify PASETO Tokens in Java]
+* link:/blog/2019/10/17/a-thorough-introduction-to-paseto[A Thorough Introduction to PASETO]
+* link:/blog/2020/02/14/paseto-security-tokens-java[Create and Verify PASETO Tokens in Java]
 
 Long story, short: using PASETO tokens isn't as easy as it sounds. If you want to write your own security, it is possible. But if you're going to use a well-known cloud provider, chances are it doesn't support the PASETO standard (yet).
 
@@ -358,7 +358,7 @@ The first step to being more secure with secrets is to store them in environment
 
 In the Java world, I'm most familiar with https://www.vaultproject.io/[HashiCorp Vault] and https://spring.io/projects/spring-vault[Spring Vault].
 
-My co-worker https://developer.okta.com/blog/2019/07/25/the-hardest-thing-about-data-encryption#data-encryption-key-management-solutions[Randall is a fan of Amazon KMS].
+My co-worker link:/blog/2019/07/25/the-hardest-thing-about-data-encryption#data-encryption-key-management-solutions[Randall is a fan of Amazon KMS].
 
 image::{% asset_path 'blog/the-hardest-thing-about-data-encryption/symmetric-encryption-best-practices.png' %}[alt=Symmetric Encryption Best Practices,width=800,align=center]
 
@@ -372,7 +372,7 @@ In short, the way it works is:
 
 The reason this is so convenient is that you never need to worry about safeguarding keys—the keys someone would need to decrypt any data are always unique and safe.
 
-You could also use https://developer.okta.com/blog/2019/06/04/store-secrets-securely-int-dotnet-with-azure-keyvault[Azure KeyVault] to store your secrets.
+You could also use link:/blog/2019/06/04/store-secrets-securely-int-dotnet-with-azure-keyvault[Azure KeyVault] to store your secrets.
 
 == 6. Verify Security with Delivery Pipelines
 
@@ -386,9 +386,7 @@ Atlassian's post recommends using security unit tests, static analysis security 
 
 Your code delivery pipeline can automate these security checks, but it'll likely take some time to set up.
 
-To learn about a more "Continuous Hacking" approach to software delivery, check out https://thenewstack.io/beyond-ci-cd-how-continuous-hacking-of-docker-containers-and-pipeline-driven-security-keeps-ygrene-secure/[this article from Zach Arnold and Austin Adams] that has some useful tips.
-
-They recommend the following:
+To learn about a more "Continuous Hacking" approach to software delivery, check out https://thenewstack.io/beyond-ci-cd-how-continuous-hacking-of-docker-containers-and-pipeline-driven-security-keeps-ygrene-secure/[this article from Zach Arnold and Austin Adams]. They recommend the following:
 
 * Create a whitelist of Docker base images to check against at build time
 * Ensure you're pulling cryptographically signed base images
@@ -498,13 +496,16 @@ Since all of these patterns are important considerations, you should make sure t
 
 Looking for more? We have a few microservice and security-focused blogs I think you'll like:
 
-* https://developer.okta.com/blog/2019/05/22/java-microservices-spring-boot-spring-cloud[Java Microservices with Spring Boot and Spring Cloud]
-* https://developer.okta.com/blog/2019/03/21/build-secure-microservices-with-aspnet-core[Build Secure Microservices with AWS Lambda and ASP.NET Core]
-* https://developer.okta.com/blog/2020/02/05/node-microservices-zero-to-hero[Node Microservices: From Zero to Hero]
-* https://developer.okta.com/blog/2019/07/25/the-hardest-thing-about-data-encryption[The Hardest Thing About Data Encryption]
-* https://developer.okta.com/blog/2019/10/23/dangers-of-self-signed-certs[The Dangers of Self-Signed Certificates]
+* link:/blog/2019/05/22/java-microservices-spring-boot-spring-cloud[Java Microservices with Spring Boot and Spring Cloud]
+* link:/blog/2019/03/21/build-secure-microservices-with-aspnet-core[Build Secure Microservices with AWS Lambda and ASP.NET Core]
+* link:/blog/2020/02/05/node-microservices-zero-to-hero[Node Microservices: From Zero to Hero]
+* link:/blog/2019/07/25/the-hardest-thing-about-data-encryption[The Hardest Thing About Data Encryption]
+* link:/blog/2019/10/23/dangers-of-self-signed-certs[The Dangers of Self-Signed Certificates]
 
 https://developer.okta.com/books/api-security[image:{% asset_path 'blog/microservice-security-patterns/api-security-book.png' %}[alt=API Security Book,width=150,align=center,role="pull-right w-150px m-x-sm fa-border"]]
 We also wrote a book! https://developer.okta.com/books/api-security/[API Security] is a guide to building and securing APIs from the developer team at Okta.
 
 If you liked this post and want notifications when we post others, please https://twitter.com/oktadev[follow @oktadev on Twitter]. We also have a https://youtube.com/c/oktadev[YouTube channel] you might enjoy. As always, please leave a comment below if you have any questions.
+
+[[acknowledgements]]
+_A huge thanks to Chris Richardson and Rob Winch for their thorough reviews and detailed feedback._
