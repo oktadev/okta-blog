@@ -1,13 +1,13 @@
 /**
  * This script will validate the legitimacy of each blog post's YAML
- * front matter. Specifically, it will look at the "communities" front matter
- * variable and ensure:
+ * front matter. Specifically, it will look at the "communities" and "type"
+ * front matter variable and ensure:
  *
  *   - It is an array
- *   - It contains only valid "communities"
+ *   - It contains only valid "communities" or "types"
  *
- * This is incredibly important because these community definitions are what we
- * use to track metrics on our site.
+ * This is incredibly important because these definitions are what we use to
+ * track metrics on our site.
  */
 const fs = require("fs");
 
@@ -16,6 +16,7 @@ const fm = require("front-matter");
 const readdir = require("recursive-readdir");
 
 const communities = require("../_source/_data/communities.json").communities;
+const types = require("../_source/_data/types.json").types;
 
 function isValidCommunity(community) {
   return communities.includes(community);
@@ -35,6 +36,8 @@ readdir("_source/_posts", (err, files) => {
     }
 
     comms = content.attributes.communities;
+    typ = content.attributes.type;
+
     if (comms) {
       if (Array.isArray(comms)) {
         if (!comms.every(isValidCommunity)) {
@@ -56,7 +59,18 @@ readdir("_source/_posts", (err, files) => {
         );
       }
     }
+
+    if (typ && !types.includes(typ)) {
+      let validTypes = chalk.green(types.join(", "));
+      let invalidType = chalk.red(typ);
+
+      throw new Error(files[i] +
+        " contains an invalid type in the YAML front matter. Valid types are: " +
+        validTypes + ". You supplied: " + invalidType + "."
+      );
+    }
   }
 
   console.log(`Finished validating all YAML front matter for ${chalk.green('communities')}.`);
+  console.log(`Finished validating all YAML front matter for ${chalk.green('type')}.`);
 });
