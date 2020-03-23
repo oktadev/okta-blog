@@ -16,7 +16,8 @@
     "dev": "node scripts/dev-clean && npm run start",
     "dev-restore": "node scripts/dev-restore",
     "post": "node scripts/post",
-    "clean-post": "node scripts/dev-chars"
+    "clean-post": "node scripts/dev-chars",
+    "validate-front-matter": "node ./scripts/validate-front-matter"
   },
   "pre-push": [
     "dev-restore",
@@ -35,6 +36,7 @@
   "devDependencies": {
     "chalk": "2.4.2",
     "cross-env": "5.2.0",
+    "front-matter": "^3.1.0",
     "fs-extra": "^8.1.0",
     "pre-push": "0.1.1",
     "recursive-readdir": "2.2.2",
