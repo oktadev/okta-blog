@@ -9,6 +9,7 @@ tweets:
 - "Use Styled Components with @reactjs to scope your styles and create CSS directly in JavaScript!"
 - "Styled Components offer a nice way to manage your CSS when writing @reactjs application. Check out this tutorial! 👉"
 - "💙 React? We do too! That's why we wrote this guide on how to use Styled Components with @reactjs."
+type: contractor
 image: blog/featured/okta-react-headphones.jpg
 ---
 
