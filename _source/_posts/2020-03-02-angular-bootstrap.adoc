@@ -30,6 +30,14 @@ Together, these frameworks have had quite a run. It's hard to believe that they'
 
 toc::[]
 
+TIP: https://youtu.be/r_4Gpa8Qk8A[Watch this tutorial as a screencast]. 👇
+
+++++
+<div style="text-align: center; margin-bottom: 1.25rem">
+<iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/r_4Gpa8Qk8A" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+++++
+
 == Isn't Angular Dead?
 
 I've heard many developers say that Angular is dead. As a veteran Java developer, I've heard this said about Java many times over the years as well. Yet it continues to thrive. Angular is similar in that it's become somewhat boring. Some people call boring frameworks "legacy." Others call them "revenue-generating."
