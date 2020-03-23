@@ -37,6 +37,7 @@ show_bottom_cta: true
 
 <script>
   gtag('event', 'View', {'event_category': 'Article', 'event_label': 'developer'});
+  gtag('event', 'View', {'event_category': 'Article', 'event_label': '{{ post.type }}'});
   gtag('event', 'View', {'event_category': 'Article', 'event_label': '{{ post.author }}'});
   {% for community in post.communities %}
     gtag('event', 'View', {'event_category': 'Article', 'event_label': '{{ community }}'});
