@@ -38,9 +38,15 @@ show_bottom_cta: true
 <script>
   gtag('event', 'View', {'event_category': 'Article', 'event_label': 'developer'});
   gtag('event', 'View', {'event_category': 'Article', 'event_label': '{{ post.author }}'});
+
   {% if post.type %}
     gtag('event', 'View', {'event_category': 'Article', 'event_label': '{{ post.type }}'});
   {% endif %}
+
+  {% if post.by %}
+    gtag('event', 'View', {'event_category': 'Article', 'event_label': '{{ post.by }}'});
+  {% endif %}
+
   {% for community in post.communities %}
     gtag('event', 'View', {'event_category': 'Article', 'event_label': '{{ community }}'});
   {% endfor %}
