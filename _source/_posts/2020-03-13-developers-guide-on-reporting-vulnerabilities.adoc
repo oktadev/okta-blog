@@ -16,6 +16,14 @@ Many of us are not familiar with vulnerability reporting and how it is different
 
 In this post, you will learn basics about vulnerabilities, how they relate to Common Vulnerabilities and Exposures (CVEs), and how to report them responsibly.
 
+If you'd rather watch a video, https://youtu.be/ZAEJ3iHXPl0[I created a screencast of this tutorial].
+
+++++
+<div style="text-align: center; margin-bottom: 1.25rem">
+<iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/ZAEJ3iHXPl0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+++++
+
 == What is a Vulnerability?
 
 Simply put, a vulnerability is any weakness that an attacker can exploit to perform unauthorized actions. This means any security issue from SQL injection to side-channel attacks and everything in between.
