@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "10 Myths About Java in 2019"
-author: mraible
+author: matt-raible
 description: "There are many myths about Java in the programming world. Read about 10 myths of the Java ecosystem and whether or not  they're true."
 tags: [java]
 tweets:

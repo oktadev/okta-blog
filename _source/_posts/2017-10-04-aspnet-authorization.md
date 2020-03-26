@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "User Authorization in ASP.NET Core with Okta"
-author: leebrandt
+author: lee-brandt
 tags: [asp.net, aspnet core, authz, authorization]
 ---
 

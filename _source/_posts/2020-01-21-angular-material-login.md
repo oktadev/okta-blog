@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a Beautiful App + Login with Angular Material"
-author: holgerschmitz
+author: holger-schmitz
 description: "This tutorial shows you how to build a beautiful login form with Angular Material."
 tags: [angular, angularmaterial, login, websecurity]
 tweets:

@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a .NET App Quickly with Docker"
-author: charlieholland
+author: charlie-holland
 description: "Learn to containerize your .NET Framework app with Docker."
 tags: [docker, .net, .net framework, windows container]
 tweets:

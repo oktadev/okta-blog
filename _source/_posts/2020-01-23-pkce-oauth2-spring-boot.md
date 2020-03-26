@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Use PKCE with OAuth 2.0 and Spring Boot for Better Security"
-author: dogeared
+author: micah-silverman
 description: "PKCE guards against replay attacks with authorization codes, even for confidential clients."
 tags: [oauth, oauth2, Java, Spring Boot, Spring Security]
 tweets:

@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Create and Verify PASETO Tokens in Java"
-author: bdemers
+author: brian-demers
 description: "Tutorial: Learn how to create and parse PASETO tokens in Java with JPaseto"
 tags: [security, token, paseto, java, jpaseto, tutorials]
 tweets:

@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: '5 Tips for Building your Java API'
-author: bdemers
+author: brian-demers
 tags: [spring, jaxrs, java, rest, tips, dropwizard]
 ---
 

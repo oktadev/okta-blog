@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "User Account Linking in Alexa with ASP.NET Web API"
-author: quorralyne
+author: heather-downing
 description: "This post covers the steps to building on an existing REST API written in C# to support an Alexa skill and link accounts to existing users managed by Okta."
 tags: [ aspnet, csharp, dotnet, webapi, restapi, alexa, alexaskillskit, alexaaccountlinking, accountlinking, identitymanagement, okta ]
 tweets:

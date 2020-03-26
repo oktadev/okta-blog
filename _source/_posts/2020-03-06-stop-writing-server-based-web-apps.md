@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Stop Writing Server-Based Web Apps"
-author: reverentgeek
+author: david-neal
 description: "Stop writing server-based web apps and switch to the JAMstack architecture!"
 tags: [jamstack, web, architecture, javascript, api, cms, asp.net, java, php, python]
 tweets:

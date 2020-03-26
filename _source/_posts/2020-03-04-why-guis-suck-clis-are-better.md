@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Why GUIs Suck (and CLIs are Better)"
-author: leebrandt
+author: lee-brandt
 description: "I think command line interfaces are way easier to use that graphical user interfaces."
 tags: [CLI, GUI]
 tweets:

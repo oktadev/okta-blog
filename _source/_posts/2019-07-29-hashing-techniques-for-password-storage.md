@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Hashing Techniques for Password Storage"
-author: william_dawson
+author: william-dawson
 description: "A brief look at password hashing functions and some practical recommendations."
 tags: [security, hashing, passwords]
 tweets:

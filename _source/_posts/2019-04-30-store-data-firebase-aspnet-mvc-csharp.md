@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Use Firebase with Your ASP.NET MVC App"
-author: quorralyne
+author: heather-downing
 description: "Learn how to store user non-identifiable data in Firebase using Okta and ASP.NET MVC"
 tags: [ aspnet, csharp, dotnet, mvc, firebase, realtimedatabase, nosql, identitymanagement, okta ]
 tweets:

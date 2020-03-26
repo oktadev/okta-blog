@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'Build Reactive APIs with Spring WebFlux'
-author: mraible
+author: matt-raible
 description: "You've heard that reactive programming can help you scale? But how do you implement it? Using Spring WebFlux, of course! This article shows you how."
 tags: [reactive, reactive api, reactive programming, project reactor, spring webflux, springframework, spring boot, spring security, oidc]
 tweets:

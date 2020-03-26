@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a Single-Page App with Go and Vue"
-author: kcorreia
+author: kleber-correia
 description: "Learn how to build comprehensive single-page apps using Go and Vue."
 tags: [oauth, security, go, vue, mongodb]
 Tweets:

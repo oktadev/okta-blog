@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Tutorial: Build a Basic CRUD App with Node.js"
-author: rdegges
+author: randall-degges
 description: "Learn how to securely store, update, and display user data in a simple Node.js / Express.js app."
 tags: [node, express, openidconnect, oidc, user management]
 tweets:

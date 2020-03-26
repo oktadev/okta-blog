@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'Simple Authentication with Rails and OmniAuth'
-author: avanbeek
+author: andrew-van-beek
 description: "Learn how to easily add user authentication into Rails apps using OmniAuth, devise, and Okta."
 tags: [ruby, rails, devise, omniauth, security]
 tweets:

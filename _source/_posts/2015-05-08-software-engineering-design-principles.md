@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: Okta Software Engineering Design Principles
-author: jon_todd
+author: jon-todd
 tags: [software_engineering, architecture, design_principles]
 ---
 

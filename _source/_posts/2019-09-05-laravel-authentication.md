@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a Simple Laravel App with Authentication"
-author: krasimir
+author: krasimir-hristozov
 description: "Let's build a simple Laravel app and add authentication with a custom identity provider."
 tags: [ laravel, authentication, php ]
 tweets:

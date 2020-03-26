@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Learn JavaScript in 2019"
-author: reverentgeek
+author: david-neal
 description: "There's never been a better time to be a programmer, and JavaScript is a strategically important language to learn. Make it your goal to learn more in 2019!"
 tags: [javascript, web, programming, developer, software]
 tweets:

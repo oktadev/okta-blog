@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'Secure your SPA with Spring Boot and OAuth'
-author: bdemers
+author: brian-demers
 tags: [oauth, oauth2, oauth2.0, oauth 2.0, spring, spring boot, spring security]
 ---
 

@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a Health Tracking App with React, GraphQL, and User Authentication"
-author: mraible
+author: matt-raible
 description: "This article shows you how to build a health tracking app with React, GraphQL, TypeORM, and User Authentication."
 tags: [health, react, graphql, typeorm, javascript, typescript, authentication]
 tweets:

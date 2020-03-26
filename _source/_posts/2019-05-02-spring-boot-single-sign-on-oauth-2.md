@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Easy Single Sign-On with Spring Boot and OAuth 2.0"
-author: dogeared
+author: micah-silverman
 description: "In this post, we'll look at how you can integrate single sign-on into your custom apps easily"
 tags: [ oauth, security, oidc, spring boot, spring security, sso ]
 tweets:

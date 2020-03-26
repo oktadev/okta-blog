@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build Your First PWA with Vue and TypeScript"
-author: holgerschmitz
+author: holger-schmitz
 description: "This tutorial shows you how to build a PWA with Vue and TypeScript."
 tags: [vue, pwa, typescript]
 tweets:

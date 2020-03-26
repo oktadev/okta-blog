@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a CRUD App with ASP.NET MVC and Entity Framework"
-author: quorralyne
+author: heather-downing
 description: "This post walks through setting up a user managed CRUD app in ASP.NET MVC with Entity Framework."
 tags: [ aspnet, entityframework, okta, dotnet, crud, usermanagement ]
 tweets:

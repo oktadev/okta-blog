@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a Secure CRUD App with ASP.NET Core and React"
-author: leebrandt
+author: lee-brandt
 description: "This post demonstrates how to build a secure CRUD app using ASP.NET Core API with a React front end."
 tags: [asp.net core, dotnet core, aspnet core, react, crud]
 tweets:

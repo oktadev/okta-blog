@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'Build a Basic CRUD App with Angular and Node'
-author: holgerschmitz
+author: holger-schmitz
 description: "In this tutorial, you'll learn how to build a Node API and an Angular app that can manage its data."
 tags: [crud, angular, node]
 tweets:

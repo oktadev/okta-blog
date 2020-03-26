@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build Single Sign-on for Your ASP.NET MVC App"
-author: ryanfoster
+author: ryan-foster
 description: "Learn how to use Single Sign-On (SSO) to secure your ASP.NET MVC Application."
 tags: [aspnet, asp.net, asp net, sso, singlesignon, .net mvc, auth]
 tweets:

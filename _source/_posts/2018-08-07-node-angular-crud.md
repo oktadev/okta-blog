@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a CRUD-y SPA with Node and Angular"
-author: bkelley
+author: braden-kelley
 description: "This tutorial walks you through building a simple CRUD application in Node and Angular 6."
 tags: [node, angular, crud]
 tweets:

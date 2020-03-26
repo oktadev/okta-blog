@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a Photo Gallery PWA with React, Spring Boot, and JHipster"
-author: mraible
+author: matt-raible
 description: "This post shows you how to build a photo gallery progressive web app with Spring Boot, React, and JHipster 5. It uses OAuth's authorization code for authorization and OIDC for authentication. It extracts EXIF metadata from images, and displays them on the UI in a flexible grid format like Flickr does."
 tags: [spring-boot, react, pwa, jhipster, oauth, oidc, authorization code flow, photo gallery]
 tweets:

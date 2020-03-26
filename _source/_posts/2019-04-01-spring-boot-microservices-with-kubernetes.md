@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a Microservice Architecture with Spring Boot and Kubernetes"
-author: moksamedia
+author: andrew-hughes
 description: "This tutorial shows you how to use Kubernetes to deploy a Spring Boot microservice architecture to Google Cloud and Google Kubernetes Engine (GKE)."
 tags: [java, spring boot, microservices, kubernetes, k8s]
 tweets:

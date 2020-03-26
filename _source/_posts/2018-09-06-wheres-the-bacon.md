@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Hey, Okta! Where's the Bacon?"
-author: reverentgeek
+author: david-neal
 description: "Welcome David Neal to the Okta team!"
 tags: [javascript, okta, node, nodejs, team]
 tweets:

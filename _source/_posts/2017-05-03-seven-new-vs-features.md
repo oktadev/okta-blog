@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: Seven Awesome New Features In Visual Studio 2017
-author: leebrandt
+author: lee-brandt
 tags: [visual studio, xamarin, javascript, jsx, editor config]
 ---
 

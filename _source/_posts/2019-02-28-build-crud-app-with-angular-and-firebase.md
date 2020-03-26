@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a CRUD App with Angular and Firebase"
-author: holgerschmitz
+author: holger-schmitz
 description: "This tutorial shows how to build a basic wiki-style app with Angular and Firebase."
 tags: [javascript, angular, firebase]
 tweets:

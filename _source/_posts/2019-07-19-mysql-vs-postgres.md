@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "MySQL vs PostgreSQL -- Choose the Right Database for Your Project"
-author: krasimir
+author: krasimir-hristozov
 description: "Which is better? MySQL or Postgres? In this post we'll compare the strengths and weaknesses of each."
 tags: [database, mysql, postgres, postgresql]
 tweets:

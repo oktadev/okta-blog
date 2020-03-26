@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "5 Minute Serverless Functions in Azure without an IDE"
-author: quorralyne
+author: heather-downing
 description: "Tutorial: Deploy Azure Serverless functions without an IDE"
 tags: [csharp, dotnet core, azure, serverless, oauth2, oidc]
 tweets:

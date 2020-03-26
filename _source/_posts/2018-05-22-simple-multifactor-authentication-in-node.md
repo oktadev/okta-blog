@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Simple Multi-Factor Authentication in Node"
-author: bkelley
+author: braden-kelley
 description: "This post explains multi-factor authentication and some challenges that developers face with it."
 tags: [multi-factor, authentication, developer, nodejs]
 tweets:

@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Secure Applications with Certificate Pinning"
-author: jf
+author: joel-franusic
 description: "In this short article you'll about TLS certificate pinning."
 tags: [ssl, tls, certificate pinning]
 tweets:

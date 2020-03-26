@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "The Hitchhiker's Guide to Testing Spring Boot APIs and Angular Components with WireMock, Jest, Protractor, and Travis CI"
-author: mraible
+author: matt-raible
 description: "This post shows you how to use tools like Jest, Protractor, Travis CI, and WireMock to test your Spring Boot API and Angular components."
 tags: [testing, junit, spring boot, mockito, wiremock, spring mvc test, angular, ionic, jest, protractor, jasmine, travis ci]
 tweets:

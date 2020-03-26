@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'Build a Basic CRUD App with Laravel and React'
-author: krasimir
+author: krasimir-hristozov
 description: "In this tutorial, you'll learn how to build a React app using a Laravel API to store its data."
 tags: [crud, react, php, laravel]
 tweets:

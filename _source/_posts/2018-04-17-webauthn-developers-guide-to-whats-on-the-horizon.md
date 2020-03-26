@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "WebAuthn: A Developer's Guide to What's on the Horizon"
-author: aaronpk
+author: aaron-parecki
 description: "WebAuthn (the Web Authentication API) allows browsers to make use of hardware authenticators such as the Yubikey or a mobile phone's biometrics like a thumbprint reader or facial recognition."
 tags: [webauthn,security,2fa]
 tweets:

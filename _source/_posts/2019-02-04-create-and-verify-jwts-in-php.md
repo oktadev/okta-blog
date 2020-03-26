@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'Create and Verify JWTs in PHP with OAuth 2.0'
-author: krasimir
+author: krasimir-hristozov
 description: "Learn how to create and verify JWTs in PHP and how to use them with OAuth 2.0"
 tags: [jwt, oauth, php]
 tweets:

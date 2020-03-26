@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "What Is Angular Ivy and Why Is It Awesome?"
-author: holgerschmitz
+author: holger-schmitz
 description: "This tutorial shows you how to upgrade an Angular 8 app to Angular 9 with Ivy."
 tags: [angular, ivy, angular9, angular upgrade, angular material]
 tweets:

@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build User Registration with Node, React, and Okta"
-author: leebrandt
+author: lee-brandt
 tags: [asp.net, webapi, security, oauth, oidc, react]
 tweets:
   - "Learn how to build user registration into your Node + React website: "

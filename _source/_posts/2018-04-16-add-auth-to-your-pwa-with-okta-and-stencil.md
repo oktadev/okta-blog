@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Add Auth to Your PWA with Okta and Stencil"
-author: leebrandt
+author: lee-brandt
 tags: [auth, stencil, pwa, okta]
 description: "Stencil creates a PWA out of the box. Learn how to add authentication to your PWA with Okta."
 tweets:

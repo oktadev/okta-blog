@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Angular 7: What's New and Noteworthy + OIDC Goodness"
-author: mraible
+author: matt-raible
 description: "This post explains what's new in Angular 7 and shows options for adding authentication to an Angular app. You'll also learn about OAuth 2.0, implicit flow, and authorization code flow."
 tags: [angular, angular-oauth2-oidc, oidc, oauth2, pcke]
 tweets:

@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a CRUD App with ASP.NET Core 2.2 and SQL Server"
-author: leebrandt
+author: lee-brandt
 description: "This is a step-by-step guide for creating a CRUD application using ASP.NET Core 2.2 and SQL Server."
 tags: [aspnetcore, netcore, sql server, sqlserver, mssql, mssql server]
 tweets:

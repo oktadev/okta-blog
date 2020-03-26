@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build Spring Microservices and Dockerize Them for Production"
-author: raphaeldovale
+author: raphael-do-vale
 description: "Learn how to build and package a microservices architecture with Spring Boot and Spring Cloud in this tutorial."
 tags: [java, spring security, spring boot, spring framework, spring cloud, docker, microservices, eureka]
 tweets:

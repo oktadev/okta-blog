@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Hello, Okta!"
-author: aaronpk
+author: aaron-parecki
 description: "Welcoming Aaron Parecki to the Okta family!"
 tags: [oauth,team]
 tweets:

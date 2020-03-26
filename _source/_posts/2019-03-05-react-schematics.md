@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Use Schematics with React and Add OpenID Connect Authentication in 5 Minutes"
-author: mraible
+author: matt-raible
 description: "Learn what Schematics are and how to use them with your React applications."
 tags: [schematics, react, authentication]
 tweets:

@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'Add User Authentication to Your Spring Boot App in 15 Minutes'
-author: moksamedia
+author: andrew-hughes
 description: "Spring Boot makes it fun and easy to build Java webapps. This blog post shows you how to add user authentication to a Spring Boot app."
 tags: [java, spring, spring boot, user authentication, user registration]
 tweets:

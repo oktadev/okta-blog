@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build and Secure Microservices with Spring Boot 2.0 and OAuth 2.0"
-author: mraible
+author: matt-raible
 description: "This shows how to create a secure microservices architecture with Spring Boot 2.0 and OAuth. It contains YouTube tutorials so you can learn how to do it all in 30 minutes!"
 tags: [microservices, spring-boot, spring-security, oauth, youtube, screencast]
 tweets:

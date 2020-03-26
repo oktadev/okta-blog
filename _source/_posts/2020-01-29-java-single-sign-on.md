@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build Single Sign-on in Java"
-author: joyannefoster
+author: joy-foster
 description: "This tutorial builds and connects multiple applications to a single OAuth 2.0 Resource Server."
 tags: [java, spring, sso, resource-server, spring-boot, oauth, oidc]
 tweets:

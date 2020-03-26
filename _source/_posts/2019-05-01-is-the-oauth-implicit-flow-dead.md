@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Is the OAuth 2.0 Implicit Flow Dead?"
-author: aaronpk
+author: aaron-parecki
 description: "In this post, we'll look at what's changing in the Implicit Flow and why."
 tags: [ oauth, security, implicit, pkce, javascript, vanillajs ]
 tweets:

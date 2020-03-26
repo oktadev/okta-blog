@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Use Angular Schematics to Simplify Your Life"
-author: mraible
+author: matt-raible
 description: "Learn what Schematics are and how to create your first one."
 tags: [schematics, angular, authentication]
 tweets:

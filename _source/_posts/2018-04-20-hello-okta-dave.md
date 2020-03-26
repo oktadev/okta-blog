@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Hello, Okta. It's me, Dave"
-author: drnugent
+author: dave-nugent
 description: "Welcoming Dave Nugent to the Okta team."
 tags: [javascript, okta, forwardjs, team]
 tweets:

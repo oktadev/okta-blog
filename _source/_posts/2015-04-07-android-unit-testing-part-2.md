@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: Android Unit Testing Part II&#58; Escaping Dalvik's Hold
-author: victor_ronin
+author: victor-ronin
 tags: [android, testing]
 redirect_from:
   - "/blog/2015-04-14-android-unit-testing-part-2"

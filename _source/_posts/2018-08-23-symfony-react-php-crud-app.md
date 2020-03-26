@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Tutorial: Build a Secure CRUD App with Symfony and React"
-author: krasimir
+author: krasimir-hristozov
 description: "This tutorial teaches you how to build a simple CRUD single-page application with a Symfony 4 backend API and a React/Semantic UI frontend."
 tags: [php, react, symfony, crud, semanticui]
 tweets:

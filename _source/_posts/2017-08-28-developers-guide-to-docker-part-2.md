@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: A Developer's Guide To Docker - The Dockerfile
-author: leebrandt
+author: lee-brandt
 tags: [docker, devops, developer]
 redirect_from:
   - "/blog/2017/05/10/developers-guide-to-docker-part-2"

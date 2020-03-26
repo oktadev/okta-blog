@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Use Vue.js Data Binding Options for Reactive Applications"
-author: dogeared
+author: micah-silverman
 description: ""
 tags: [javascript, vuejs, vue.js, data binding, reactive]
 tweets:

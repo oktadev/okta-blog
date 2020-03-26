@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a SPA with ASP.NET Core 2.1, Stripe, and Angular 6"
-author: leebrandt
+author: lee-brandt
 description: "This tutorial walks you through building an online ticket sales app using ASP.NET Core 2.1, Stripe, and Angular 6."
 tags: [asp.net, dotnet, core, asp.net core, dotnet core, dot net core, angular, crud]
 tweets:

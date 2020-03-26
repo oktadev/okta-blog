@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a CRUD App with Node.js and GraphQL"
-author: bkelley
+author: braden-kelley
 description: "A tutorial on building a CRUD app with Node.js and GraphQL."
 tags: [node, nodejs, typscript, api]
 tweets:

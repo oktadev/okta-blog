@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a Simple CRUD App with Flask and Python"
-author: rdegges
+author: randall-degges
 description: "This post walks you through building a simple Flask web app with user registration, login, databases, etc."
 tags: [python, flask, oidc, openid connect, user management, databases]
 tweets:

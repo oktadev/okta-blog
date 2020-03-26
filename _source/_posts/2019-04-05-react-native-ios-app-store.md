@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'Build an iOS App with React Native and Publish it to the App Store'
-author: kpenzhorn
+author: karl-penzhorn
 description: "Convert an Android React Native app to iOS and publish it in the Apple App Store."
 tags: [react native, android, ios, apple, app store]
 tweets:

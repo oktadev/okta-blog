@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: Bootiful Development with Spring Boot and Angular
-author: mraible
+author: matt-raible
 description: "This tutorial shows you how to develop a Spring Boot API and an Angular front-end that displays data from it."
 tags: [spring-boot, start.spring.io, java, angular, typescript, angular-cli]
 tweets:

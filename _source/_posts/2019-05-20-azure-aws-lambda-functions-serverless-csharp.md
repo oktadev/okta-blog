@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "AWS Lambda vs Azure Functions for C# Serverless"
-author: quorralyne
+author: heather-downing
 description: "Discover the differences when using serverless options like AWS Lambda and Azure Functions for your C# and ASP.NET microservices"
 tags: [ aspnet, csharp, dotnet, dotnetcore, mvc, aws, lambdafunctions, azure, azurefunctions, visualstudio ]
 tweets:

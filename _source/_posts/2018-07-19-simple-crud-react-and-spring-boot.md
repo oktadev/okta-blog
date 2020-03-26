@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Use React and Spring Boot to Build a Simple CRUD App"
-author: mraible
+author: matt-raible
 description: "React is one of the most popular JavaScript frameworks, and Spring Boot is wildly popular in the Java ecosystem. This article shows you how to use them in the same app, and secure it all with Okta."
 tags: [authentication, spring boot, spring boot 2.1, react, reactjs, oidc]
 tweets:

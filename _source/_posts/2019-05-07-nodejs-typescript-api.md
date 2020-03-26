@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a Node.js API with TypeScript"
-author: bkelley
+author: braden-kelley
 description: "A tutorial on building APIs with Node.js and TypeScript."
 tags: [node, nodejs, typscript, api]
 tweets:

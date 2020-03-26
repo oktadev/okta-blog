@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Secure a Node API with OAuth 2.0 Client Credentials"
-author: bkelley
+author: braden-kelley
 description: "This article shows how to secure a Node API with an OAuth 2.0 client credentials flow."
 tags: [node, jwt, express, javascript, authentication]
 tweets:

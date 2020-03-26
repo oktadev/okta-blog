@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "How to Customize Your Angular Build With Webpack"
-author: holgerschmitz
+author: holger-schmitz
 description: "This tutorial shows how to use Angular's custom webpack builder to extend and customize your build process."
 tags: [angular, webpack, typescript, javascript]
 tweets:

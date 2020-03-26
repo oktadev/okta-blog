@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "JWTs in React for Secure Authentication"
-author: bkelley
+author: braden-kelley
 description: "Learn to decode JWTs in React to help secure authentication."
 tags: [react, jwt, auth, authentication]
 tweets:

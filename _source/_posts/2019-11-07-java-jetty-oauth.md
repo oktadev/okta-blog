@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Get Started with Jetty, Java, and OAuth"
-author: moksamedia
+author: andrew-hughes
 description: "Learn how to use Java and embedded Jetty to create a simple servlet-based web service. Then see how to do it with Spring Boot."
 tags: [java, jetty, oauth2]
 tweets:

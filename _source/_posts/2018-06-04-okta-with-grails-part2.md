@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a Basic CRUD Application with Grails and Okta"
-author: moksamedia
+author: andrew-hughes
 description: "This tutorial adds secure controllers with Grails, OAuth 2.0, and Okta."
 tags: [java, groovy, grails, spring, spring-boot, OIDC, OpenID Connect]
 tweets:

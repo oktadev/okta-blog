@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'Protecting a Spring Boot App with Apache Shiro'
-author: bdemers
+author: brian-demers
 tags: [java, authentication, auth]
 ---
 

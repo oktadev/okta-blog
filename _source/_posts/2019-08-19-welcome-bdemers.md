@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'Welcome, Brian Demers'
-author: bdemers
+author: brian-demers
 description: 'Brian Demers is joining Developer Relations team'
 tags: [devrel, team, java, welcome]
 tweets:

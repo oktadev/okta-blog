@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Three Developer Tools I'm Thankful For"
-author: rdegges
+author: randall-degges
 description: "What developer tools do you use every day? To celebrate Thanksgiving, here's a list of Randall Degges' favorite developer tools. Learn why he likes them and how they can help you."
 tags: [holiday, tools, thanksgiving]
 tweets:

@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a Reactive App with Spring Boot and MongoDB"
-author: moksamedia
+author: andrew-hughes
 description: "This tutorial shows how to build a non-blocking, reactive app with Spring Boot, Spring WebFlux, and MongoDB."
 tags: [spring boot, reactive, spring webflux, mongo, mongodb]
 tweets:

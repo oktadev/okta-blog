@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'Data Persistence with Hibernate and Spring'
-author: raphaeldovale
+author: raphael-do-vale
 description: "Build a Hibernate app with and without Spring then turn it into a secure webapp."
 tags: [security, authentication, sessions, jpa, spring, spring data, rest]
 tweets: 

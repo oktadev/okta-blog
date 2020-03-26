@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a Desktop Application with Angular and Electron"
-author: holgerschmitz
+author: holger-schmitz
 description: "This tutorial shows how to build a basic desktop application with Angular and Electron."
 tags: [javascript, angular, electron]
 tweets:

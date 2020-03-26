@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Semantic Versioning Sucks! Long Live Semantic Versioning"
-author: mraible
+author: matt-raible
 description: "Semantic versioning is a mechanism to convey compatibility between releases. Learn how it works and the best way to use it in this post."
 tags: [versioning, semantic, semantic versioning]
 tweets:

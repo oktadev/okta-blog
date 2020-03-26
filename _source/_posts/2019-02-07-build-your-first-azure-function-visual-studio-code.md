@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build Your First Azure Function in Visual Studio Code"
-author: leebrandt
+author: lee-brandt
 description: "This tutorial walks you through building a simple Azure Function in C#."
 tags: [azure, functions, azure function, dotnet]
 tweets:

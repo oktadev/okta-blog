@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Secure Service-to-Service Spring Microservices with HTTPS and OAuth 2.0"
-author: mraible
+author: matt-raible
 description: "You've built a microservices architecture, but have you secured your service-to-service communication? This post shows you how."
 tags: [java, microservices, spring boot, client credentials, spring security, https]
 tweets:

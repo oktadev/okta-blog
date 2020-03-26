@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "If It Ain't TypeScript It Ain't Sexy"
-author: reverentgeek
+author: david-neal
 description: "TypeScript is taking the web by storm. Here's what you should know."
 tags: [typescript, javascript, web, programming, developer, software]
 tweets:

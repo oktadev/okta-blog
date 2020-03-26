@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'Build an iOS App with Secure Authentication in 20 Minutes'
-author: jmelberg
+author: jordan-melberg
 tags: [authentication, oidc, ios, swift, cocoapods, oauth]
 ---
 

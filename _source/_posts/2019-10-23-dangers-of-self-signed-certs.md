@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "The Dangers of Self-Signed Certificates"
-author: bdemers
+author: brian-demers
 description: "Self-Signed certificates are free, but not without cost. In this post you'll learn all about the dangers of self-signed certificates."
 tags: [security, certificates, best-practices]
 tweets:

@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Container Security: A Developer Guide"
-author: vrohilla
+author: vishal-rohilla
 description: "A short guide which explains how to properly secure containers and things to keep in mind when using containers."
 tags: [security, devops, containers]
 tweets:

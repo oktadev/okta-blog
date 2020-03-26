@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'Build and Test a React Native App with TypeScript and OAuth 2.0'
-author: kpenzhorn
+author: karl-penzhorn
 description: "Use TypeScript to build and test a React Native app with authentication."
 tags: [typescript, react native, oauth, testing, android]
 tweets:

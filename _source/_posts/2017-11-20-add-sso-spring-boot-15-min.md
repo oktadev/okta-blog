@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'Add Single Sign-On to Your Spring Boot Web App in 15 Minutes'
-author: silas-b
+author: silas-brazil
 tags: [authentication, oauth, sso, spring, java]
 redirect_from:
     - "/blog/2017/11/17/add-sso-spring-boot-15-min"

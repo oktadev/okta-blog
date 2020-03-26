@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a REST API with Node and Postgres"
-author: bkelley
+author: braden-kelley
 description: "A tutorial on building RESTful APIs with Node and Postgres."
 tags: [node, nodejs, postgres, postgresql, api, rest api]
 tweets:

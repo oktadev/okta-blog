@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Multi-Factor Authentication: 4 Challenges Faced by Developers"
-author: dogeared
+author: micah-silverman
 description: "This post explains multi-factor authentication and some challenges that developers face with it."
 tags: [multi-factor, authentication, developer]
 ---

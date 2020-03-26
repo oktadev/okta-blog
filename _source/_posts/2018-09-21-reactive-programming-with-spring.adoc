@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'Get Started with Reactive Programming in Spring'
-author: mraible
+author: matt-raible
 description: "Reactive programming is an approach to writing software that embraces asynchronous I/O. It's pretty awesome."
 tags: [reactive, reactive api, reactive programming, josh long, springframework, spring boot, spring webflux, reactor]
 tweets:

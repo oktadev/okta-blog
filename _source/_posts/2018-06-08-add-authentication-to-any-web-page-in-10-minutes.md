@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Add Authentication to Any Web Page in 10 Minutes"
-author: rdegges
+author: randall-degges
 description: "You've got a web page, you want to add authentication to. Normally you'd have to build out a backend, user management, etc., but that's hard. Today I'll show you how to do it in just 10 minutes."
 tags: [javascript, authentication, html]
 tweets:

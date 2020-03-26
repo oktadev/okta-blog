@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "5 Reasons Why You Should Give Visual Studio for Mac Another Try"
-author: quorralyne
+author: heather-downing
 description: "The newly released version of Visual Studio for Mac deserves the attention of any .NET, JS or mobile developer. Check out the features Microsoft has worked hard to bring to the community that uses Macs."
 tags: [ aspnet, csharp, dotnet, dotnetcore, mac, apple, visualstudio, vsformac, visualstudioformac ]
 tweets:

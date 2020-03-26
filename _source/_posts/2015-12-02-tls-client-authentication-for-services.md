@@ -3,7 +3,7 @@ layout: blog_post
 title: TLS Client Authentication for Internal Services
 redirect_from:
   - /blog/2015/10/29/tls-client-authentication-for-services/
-author: william_dawson
+author: william-dawson
 tags: [networking, security, architecture]
 ---
 If you're like me, the most aggravating thing is finding a Stack Overflow

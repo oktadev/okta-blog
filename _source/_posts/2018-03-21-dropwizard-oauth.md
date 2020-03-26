@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'Add Single Sign-on to Your Dropwizard Server in 15 Minutes '
-author: silas-b
+author: silas-brazil
 tags: [sso, dropwizard, spring, java, jaxrs, rest, oauth]
 description: "This post will guide you through setting up an a new Dropwizard project and securing it with OAuth!"
 tweets:

@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Debugging JVM Performance Issues at Okta"
-author: peterhimanshu
+author: peter-yaworsky
 description: "This post describes some JVM performance issues we experienced at Okta and how we solved them."
 tags: [java, jvm, performance]
 tweets:

@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build Secure Node Authentication with Passport.js and OpenID Connect"
-author: leebrandt
+author: lee-brandt
 description: "This post demonstrates how to set up OpenID Connect authentication in Node with Passport.js."
 tags: [nodejs, node, passportjs, passport.js, authentication, openid connect, oidc]
 tweets:

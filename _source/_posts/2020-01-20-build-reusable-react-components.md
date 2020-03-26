@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build Reusable React Components"
-author: leebrandt 
+author: lee-brandt 
 description: "Build a reusable star rating component in React."
 tags: [react, component, javascript, react component, react reusable]
 tweets:

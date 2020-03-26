@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: '7 Essential .NET Developer Tools for 2017'
-author: leebrandt
+author: lee-brandt
 tags: [net, tools]
 ---
 

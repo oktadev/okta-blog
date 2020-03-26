@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Secure Your ASP.NET Core App with OAuth 2.0"
-author: ryanfoster
+author: ryan-foster
 description: "Learn how to use OAuth 2.0 to secure your ASP.NET Core Application."
 tags: [aspnet, asp.net, asp net, oauth, oauth 2.0]
 tweets:

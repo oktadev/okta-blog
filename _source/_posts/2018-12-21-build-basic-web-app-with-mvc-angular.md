@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a Basic Website with ASP.NET MVC and Angular"
-author: ibrahim
+author: ibrahim-suta
 description: "This tutorial walks you through building a basic website with ASP.NET MVC and Angular."
 tags: [aspnet, aspnetmvc, dotnet, angular, mvc]
 tweets:

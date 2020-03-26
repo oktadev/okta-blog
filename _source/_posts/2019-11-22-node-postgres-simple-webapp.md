@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build A Simple Web App with Node and Postgres"
-author: nickolasfisher
+author: nickolas-fisher
 description: "A tutorial to build a simple web application with Node.js and PostgreSQL."
 tags: [node, nodejs, postgres, postgresql]
 tweets:

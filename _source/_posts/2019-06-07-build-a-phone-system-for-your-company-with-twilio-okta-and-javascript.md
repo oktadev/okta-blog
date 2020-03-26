@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a Phone System for Your Company With Twilio, Okta, and JavaScript"
-author: rdegges
+author: randall-degges
 description: "Learn how to build a modern phone system for your business using Twilio, Okta, and JavaScript!"
 tags: [ twilio, telephony, phone, javascript, security ]
 tweets:

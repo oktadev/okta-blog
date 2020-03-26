@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'Full Stack Reactive with Spring WebFlux, WebSockets, and React'
-author: mraible
+author: matt-raible
 description: "This post shows you techniques for talking to your reactive Spring WebFlux API with WebSockets and React."
 tags: [reactive, reactive api, reactive programming, spring webflux, spring boot, websockets, sse, react, oidc]
 tweets:

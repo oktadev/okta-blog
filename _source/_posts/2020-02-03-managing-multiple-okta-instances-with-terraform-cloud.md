@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Managing Multiple Okta Instances with Terraform Cloud"
-author: amarch
+author: andy-march
 description: "Learn how to utilize Terraform and Terraform Cloud to make managing Okta simpler."
 tags: [okta, terraform]
 tweets:

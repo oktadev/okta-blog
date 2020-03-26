@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build and Understand Express Middleware through Examples"
-author: leebrandt
+author: lee-brandt
 description: "This tutorial walks you through creating and understanding middleware for Express."
 tags: [Express, ExpressJS, Node, NodeJS, Middleware]
 tweets:

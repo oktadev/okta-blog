@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'Build a Simple REST API in PHP'
-author: krasimir
+author: krasimir-hristozov
 description: "Learn how to build a simple REST API with authentication in PHP."
 tags: [jwt, oauth, php]
 tweets:

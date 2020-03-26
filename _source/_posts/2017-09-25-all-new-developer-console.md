@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "The Okta Developer Console: All New, All You"
-author: robert
+author: robert-damphousse
 tags: [okta]
 ---
 

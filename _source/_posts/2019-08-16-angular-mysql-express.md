@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "How to Work with Angular and MySQL"
-author: holgerschmitz
+author: holger-schmitz
 description: "Do you need to connect to MySQL from your Angular app? This guide will help you do just that!"
 tags: [angular, mysql, express]
 tweets:

@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build Continuous Integration with Jenkins in C#"
-author: charlieholland
+author: charlie-holland
 description: "In this tutorial, you'll learn how to use continuous integration for a C# app securely using Okta + Jenkins."
 tags: [continuous integration, csharp, asp.net core, mvc, jenkins, asp.net]
 tweets:

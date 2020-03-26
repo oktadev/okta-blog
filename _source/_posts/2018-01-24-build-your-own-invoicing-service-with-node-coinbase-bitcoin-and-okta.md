@@ -1,7 +1,7 @@
 ---
 layout: "blog_post"
 title: "Build Your Own Invoicing Service with Node, Coinbase, Bitcoin, and Okta"
-author: rdegges
+author: randall-degges
 description: "In this article you'll build an invoicing web app that bills clients in Bitcoin. It's a fun way to learn more about Node, Bitcoin, the Coinbase API, and Okta (an authentication API)."
 tags: [cryptocurrency, bitcoin, coinbase, okta, node]
 tweets:

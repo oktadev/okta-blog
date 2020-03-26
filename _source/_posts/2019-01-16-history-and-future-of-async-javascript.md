@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "The History (and Future) of Asynchronous JavaScript"
-author: leebrandt
+author: lee-brandt
 description: "This post explores the history of how asynchronous calls are made in JavaScript, and how to make them in the future."
 tags: [javascript, async, promises, callbacks, await]
 tweets:

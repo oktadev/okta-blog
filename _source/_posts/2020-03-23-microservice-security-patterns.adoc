@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Security Patterns for Microservice Architectures"
-author: mraible
+author: matt-raible
 description: "Are you securing your microservice architectures by hiding them behind a firewall? That works, but there are better ways to do it."
 tags: [microservices, security, security patterns, microservice patterns]
 tweets:

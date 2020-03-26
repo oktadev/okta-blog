@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a Simple Web App with Express, React and GraphQL"
-author: bkelley
+author: braden-kelley
 description: "In this tutorial you'll use Express.js and React to build a simple web application with GraphQL and secure it using Okta."
 tags: [authentication, graphql, web, express, node]
 tweets:

@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Three Developer Tools I'm Thankful For"
-author: quorralyne
+author: heather-downing
 description: "To celebrate Thanksgiving, here's a list of Heather Downing's favorite developer tools. Learn why she likes them and how they can help you."
 tags: [holiday, developer, thanksgiving, tools]
 tweets:

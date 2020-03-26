@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Deploy Your Secure Spring Boot + Angular PWA as a Single Artifact"
-author: mraible
+author: matt-raible
 description: "This post shows you how to package your Spring Boot and Angular app into a single JAR artifact. It also shows how to switch from using OAuth's implicit flow to authorization code flow."
 tags: [spring-boot, angular, oauth, authorization code flow]
 tweets:

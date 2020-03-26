@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Why Public Key Cryptography Matters"
-author: william_dawson
+author: william-dawson
 description: "A quick look at public key cryptography, why it is important, and how it works."
 tags: [security, cryptography]
 tweets:

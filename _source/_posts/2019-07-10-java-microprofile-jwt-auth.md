@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a REST API Using Java, MicroProfile, and JWT Authentication"
-author: moksamedia
+author: andrew-hughes
 description: "This tutorial shows you how to build a REST API with MicroProfile and secure it using JWT authentication."
 tags: [java, microprofile, jwt]
 tweets:

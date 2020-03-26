@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Add Authentication to Your Vanilla JavaScript App in 20 Minutes"
-author: bparise
+author: brandon-parise
 description: "This shows how to create an app with plain ol' vanilla JavaScript and add authentication to it to secure its communication with a REST API."
 tags: [javascript, es6, vanilla javascript, vanilla js, authentication]
 tweets:

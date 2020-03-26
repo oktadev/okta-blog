@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Store ASP.NET Secrets Securely with Azure KeyVault"
-author: charlieholland
+author: charlie-holland
 description: "In this tutorial, you'll learn how to store application keys and secrets securely using Azure KeyVault"
 tags: [azure, azure keyvault, azure keyvault, asp.net security, dotnet security, security]
 tweets:

@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a CRUD App with ASP.NET Core 2.2 and Entity Framework Core"
-author: leebrandt
+author: lee-brandt
 description: "This is a step-by-step for creating a CRUD application using ASP.NET Core 2.2 and Entity Framework Core."
 tags: [aspnetcore, netcore, efcore, entityframework, entityframeworkcore]
 tweets:

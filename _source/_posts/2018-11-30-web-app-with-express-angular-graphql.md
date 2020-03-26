@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'Build a Simple Web App with Express, Angular, and GraphQL'
-author: holgerschmitz
+author: holger-schmitz
 description: 'A tutorial to build a simple web application using Express, Angular, and GraphQL.'
 tags: [express, expressjs, node, angular, graphql, web application, web]
 tweets:

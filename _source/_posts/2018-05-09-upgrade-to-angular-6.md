@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Angular 6: What's New, and Why Upgrade"
-author: mraible
+author: matt-raible
 description: "This post explains what's new in Angular 6 and how to upgrade your Angular 5 apps."
 tags: [angular, angular5, angular6, rxjs, typescript]
 tweets:

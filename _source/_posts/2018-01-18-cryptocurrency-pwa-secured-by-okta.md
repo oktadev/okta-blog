@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'Protect Your Cryptocurrency Wealth Tracking PWA with Okta'
-author: mraible
+author: matt-raible
 description: "In this article, you'll learn how to add authentication to an Ionic progressive web app (PWA). You'll also learn how to use cloud services like Okta (for authentication) and Firebase (for hosting) to make things even simpler."
 tags: [cryptocurrency, ionic, authentication, oidc, angular, okta]
 tweets:

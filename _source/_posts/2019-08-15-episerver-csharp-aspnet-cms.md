@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Secure an Episerver CMS website with Okta and C#"
-author: jeffersonhaw
+author: jefferson-haw
 description: "In this tutorial, you'll learn how to use Episerver CMS with C# securely using Okta."
 tags: [cms, csharp, asp.net, episerver]
 tweets:

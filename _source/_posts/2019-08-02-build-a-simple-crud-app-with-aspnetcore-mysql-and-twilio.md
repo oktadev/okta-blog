@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'Build a Simple CRUD App with ASP.NET Core, MySQL, and Twilio'
-author: chrisgreen
+author: chris-green
 description: 'This tutorial walks you through building simple CRUD application using Twilio, ASP.NET Core, and MySQL.'
 tags: [aspnet, aspnetcore, netcore, dotnet, mysql, crud, twilio, tutorial]
 tweets:

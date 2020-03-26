@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a Simple CRUD App with Python, Flask, and React"
-author: kcorreia
+author: kleber-correia
 description: "Create a CRUD (create, read, update, and delete) application using Python, Flask, and React."
 tags: [python, flask, react, crud, tutorial]
 tweets:

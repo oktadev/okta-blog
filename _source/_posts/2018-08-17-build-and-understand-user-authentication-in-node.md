@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build and Understand a Simple Node.js Website with User Authentication"
-author: rdegges
+author: randall-degges
 description: "Learn how to build and understand authentication in Node.js websites in this in-depth post."
 tags: [node, nodejs, authentication, auth, user management]
 tweets:

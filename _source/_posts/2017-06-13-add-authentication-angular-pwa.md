@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'Add Authentication to Your Angular PWA'
-author: mraible
+author: matt-raible
 description: "In this article, I'll show you how you can lock down a Spring Boot app, then use a modern authentication protocol, in this case, OpenID Connect (OIDC), to authenticate and gain access to its APIs."
 tweets:
   - "Want to add user authentication to a Spring Boot + Angular app? This tutorial will hook you up!"

@@ -3,7 +3,7 @@ layout: blog_post
 title: How to Build a Maven Plugin
 description: 'Tutorial: How to build a Maven plugin.'
 tags: [tutorial, maven, java, builds]
-author: bdemers
+author: brian-demers
 tweets:
 - "Learn how to build an @ASFMavenProject plugin" 
 - "Maven plugins are built with Maven plugins 🐢🐢🐢"

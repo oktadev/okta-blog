@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Spring Boot with PostgreSQL, Flyway, and JSONB"
-author: raphaeldovale
+author: raphael-do-vale
 description: "This article presents how a developer can integrate Spring Boot and PostgreSQL, using some exclusive property and NoSQL column types."
 tags: [postgresql, sql, nosql, jpa, hibernate, java, spring boot]
 tweets:

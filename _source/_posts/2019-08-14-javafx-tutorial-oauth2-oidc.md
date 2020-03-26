@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Tutorial: How to Build a JavaFX Desktop App with OIDC Authentication"
-author: moksamedia
+author: andrew-hughes
 description: "This tutorial shows you how to add OAuth 2.0 authorization and OIDC authentication in a JavaFX desktop app."
 tags: [java, javafx, oauth2, tutorial]
 tweets:

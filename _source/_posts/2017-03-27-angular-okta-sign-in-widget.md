@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: Build an Angular App with Okta's Sign-In Widget in 15 Minutes
-author: mraible
+author: matt-raible
 description: "In this article, you'll learn how to get started with Angular, and add user authentication with Okta's Sign-In Widget."
 tags: [angular, sign-in widget, okta, typescript, angular-cli]
 tweets:

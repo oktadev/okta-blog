@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "How I Learned to Love Default Implementations in C# 8.0"
-author: leebrandt
+author: lee-brandt
 description: "I originally thought that default implementtions in C# 8.0 were a bad idea, but a little digging and I think I love them."
 tags: [C#, csharp, dotnet, .net, default implementation]
 tweets:

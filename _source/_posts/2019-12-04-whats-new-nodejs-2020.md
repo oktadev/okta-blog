@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "What's New for Node.js in 2020"
-author: reverentgeek
+author: david-neal
 description: "Node.js is changing in 2020, here are the updates to be on the lookout for!"
 tags: [nodejs, node, javascript, ecmascript, es modules]
 tweets:

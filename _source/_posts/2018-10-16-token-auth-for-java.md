@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Simple Token Authentication for Java Apps"
-author: moksamedia
+author: andrew-hughes
 description: "This article explores the benefits of token authentication with JWTs for Java apps."
 tags: [jwt, token auth, token authentication, client credentials, java, spring boot]
 tweets:

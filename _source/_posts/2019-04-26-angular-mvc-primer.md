@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Angular MVC - A Primer"
-author: holgerschmitz
+author: holger-schmitz
 description: "This tutorial shows how the Model-View-Controller pattern is achieved (in an MVVM way) in Angular."
 tags: [javascript, angular, MVC, MVVM]
 tweets:

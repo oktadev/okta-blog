@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Get Started with Blazor and WebAssembly"
-author: ibrahim
+author: ibrahim-suta
 description: "This tutorial walks you through the basics of Blazor and WebAssembly."
 tags: [blazor, webassembly]
 tweets:

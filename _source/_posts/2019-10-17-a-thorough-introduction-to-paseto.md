@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "A Thorough Introduction to PASETO"
-author: rdegges
+author: randall-degges
 description: "An in-depth look at the successor to JSON Web Tokens: PASETO."
 tags: [security, json web tokens, jwts, paseto, cryptography]
 tweets:

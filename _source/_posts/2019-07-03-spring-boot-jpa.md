@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Use Spring Boot and MySQL to go Beyond Authentication"
-author: joyannefoster
+author: joy-foster
 description: "Persisting identity information after OpenID Connect login is a powerful way to leverage the standard."
 tags: [java, jpa, spring, spring boot, spring security, security]
 tweets:

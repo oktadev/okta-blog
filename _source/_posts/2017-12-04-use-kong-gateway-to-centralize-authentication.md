@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'Use Kong Gateway to Centralize Authentication'
-author: dogeared
+author: micah-silverman
 tags: [kong, api gateway, api, gateway, spring, spring boot]
 ---
 

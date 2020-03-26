@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Use Multi-factor Authentication from the Command Line"
-author: dogeared
+author: micah-silverman
 description: "This post demonstrates primary authentication, multi-factor enrollment and multi-factor enforcement with Okta - all from the command line."
 tags: [cli, bash, mfa, auth, authentication, multi-factor, multifactor]
 tweets:

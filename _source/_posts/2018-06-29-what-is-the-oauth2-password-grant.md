@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "What is the OAuth 2.0 Password Grant Type?"
-author: aaronpk
+author: aaron-parecki
 description: "The Password Grant Type is a way to get an OAuth access token given a username and password."
 tags: [oauth]
 tweets:

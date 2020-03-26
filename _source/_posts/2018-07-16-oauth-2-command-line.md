@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "OAuth 2.0 from the Command Line"
-author: aaronpk
+author: aaron-parecki
 description: "In this tutorial, I'll show you how to write a command line script which is able to complete the OAuth exchange all without any copying and pasting long strings! Why? Because it's mildly useful, but most importantly, because it's fun!"
 tags: [oauth, php]
 Tweets:
