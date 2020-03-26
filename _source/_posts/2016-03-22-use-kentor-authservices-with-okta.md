@@ -1,9 +1,11 @@
 ---
 layout: blog_post
 title: How to use KentorIT AuthServices with Okta
-author:
-- raphael-londner
+author: raphael-londner
+by: internal-contributor
+communities: [.net, security]
 tags: [saml, asp.net]
+type: awareness
 ---
 
 If you're wondering how to configure an ASP.NET application with [KentorIT's AuthServices](https://github.com/KentorIT/authservices) and Okta, you've come to the right place. But before delving into the specifics of how to make Okta work with an SAML-enabled ASP.NET application powered by KentorIT AuthServices, is is worth spending some time going over a critical, but easily fixable issue:

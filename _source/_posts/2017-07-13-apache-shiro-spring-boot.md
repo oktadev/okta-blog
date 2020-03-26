@@ -2,7 +2,10 @@
 layout: blog_post
 title: 'Protecting a Spring Boot App with Apache Shiro'
 author: brian-demers
+by: advocate
+communities: [java]
 tags: [java, authentication, auth]
+type: conversion
 ---
 
 My favorite thing about Apache Shiro is how easy it makes handling authorization. You can use a role-based access control (RBAC) model of assigning roles to users and then permissions to roles. This makes dealing with the inevitable requirements change simple. Your code does not change, just the permissions associated with the roles. In this post I want to demonstrate just how simple it is, using a Spring Boot application and walking through how I'd handle the following scenario:

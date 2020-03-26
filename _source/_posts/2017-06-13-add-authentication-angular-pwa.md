@@ -2,11 +2,14 @@
 layout: blog_post
 title: 'Add Authentication to Your Angular PWA'
 author: matt-raible
+by: advocate
+communities: [java, javascript]
 description: "In this article, I'll show you how you can lock down a Spring Boot app, then use a modern authentication protocol, in this case, OpenID Connect (OIDC), to authenticate and gain access to its APIs."
 tweets:
   - "Want to add user authentication to a Spring Boot + Angular app? This tutorial will hook you up!"
   - "Spring Boot + Angular + PWA goodness + Okta = 💙! Happy authenticating y'all!"
 tags: [pwa, progressive web app, angular, typescript, oidc, spring boot, java]
+type: conversion
 ---
 
 You're developing a Progressive Web Application (PWA), and your service worker and web app manifest are working swimmingly. You've even taken the time to deploy it to a server with HTTPS, and you're feeling pretty good about things. But wait, you don't have any way of knowing who your users are! Don't you want to provide them with an opportunity to authenticate and tell you who they are? Once you know who they are, you can give them all kinds of personalization options, inspire them to ❤️ your app, and maybe even support your work!

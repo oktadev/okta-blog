@@ -2,10 +2,13 @@
 layout: blog_post
 title: "What's in a Token? – An OpenID Connect Primer, Part 3 of 3"
 author: micah-silverman
+by: advocate
+communities: [security]
 tags: [oauth, oauth2, oauth2.0, oauth 2.0, OpenID, OpenID Connect, oidc]
 redirect_from:
   - "/blog/2017-07-25-oidc-primer-part-3"
   - "/blog/2017/07/25/oidc-primer-part-3"
+type: awareness
 ---
 
 In the previous two installments of this OpenID Connect (OIDC) series, we dug deep into the [OIDC flow types](https://developer.okta.com/blog/2017/07/25/oidc-primer-part-1) and saw [OIDC in action](https://developer.okta.com/blog/2017/07/25/oidc-primer-part-2) using a playground found at: [https://okta-oidc-fun.herokuapp.com/](https://okta-oidc-fun.herokuapp.com/).

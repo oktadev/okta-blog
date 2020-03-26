@@ -2,7 +2,10 @@
 layout: blog_post
 title: 'Add Role-Based Access Control to Your App with Spring Security and Thymeleaf'
 author: micah-silverman
+by: advocate
+communities: [java]
 tags: [oauth, oauth2, oauth2.0, oauth 2.0, OpenID, OpenID Connect, oidc, spring, spring boot, spring security, rbac]
+type: conversion
 ---
 
 User management functions are required by a wide variety of apps and APIs, and it's a common use-case to partition access to parts of an application according to roles assigned to a user. This is the basis of role-based access control (RBAC). Okta manages these roles with groups. Users can belong to one or more groups. With the Okta Spring Security integration, these groups are automatically mapped to roles that can be called out in your application to grant or deny access. This is all done using common Spring Security annotations as you'll see below.

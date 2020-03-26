@@ -2,8 +2,11 @@
 layout: blog_post
 title: "The Top 10 JavaOne 2017 Sessions for the Java Hipster"
 author: matt-raible
+by: advocate
+communities: [java]
 description: "This article contains a list of the top 10 JavaOne 2017 sessions for the Java Hipster. If you're using JHipster, chances are you're already aware of and using the latest trends and techniques in Java development."
 tags: [jhipster, java, javaone, javaone2017, springboot, angular, javascript]
+type: awareness
 ---
 
 A "hipster" is defined as a person who is exceptionally aware of or interested in the latest trends and tastes. JHipster is an open source project whose name stands for "Java Hipster." If you're using JHipster, chances are you're aware of and *using* the latest trends and techniques in Java development. Trendy things in server-side Java development include microservices, embedded app servers, deployment with containers, auto-configuration, and monitoring. JHipster supports all of these trends, embracing Spring Boot as a platform. It allows you to generate microservice architectures, it encourages deployment with Docker/Kubernetes, and supports monitoring with the Elastic Stack.

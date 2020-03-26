@@ -2,7 +2,10 @@
 layout: blog_post
 title: 'Use Kong Gateway to Centralize Authentication'
 author: micah-silverman
+by: advocate
+communities: [java]
 tags: [kong, api gateway, api, gateway, spring, spring boot]
+type: conversion
 ---
 
 A customer once asked me: "Hey – Can Okta integrate with Kong?" My first thought was: "What's Kong?" A Google result later, I was introduced to the [Kong API Gateway](https://getkong.org/) – an open-source API Gateway and Microservices management layer.

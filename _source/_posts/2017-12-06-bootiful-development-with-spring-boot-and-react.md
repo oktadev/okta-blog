@@ -2,11 +2,14 @@
 layout: blog_post
 title: 'Bootiful Development with Spring Boot and React'
 author: matt-raible
+by: advocate
+communities: [java, javascript]
 description: "This post shows how you can build a UI and an API as separate apps. You'll learn how to create REST endpoints with Spring MVC, configure Spring Boot to allow CORS, and create a React app to display its data. Finally, you'll lock it down with Okta."
 tags: [authentication, spring boot, react, okta, oidc]
 tweets:
   - "Learn how to integrate @springboot and @reactjs in this tutorial from @mraible."
   - "Want to develop an application with @java on the backend and @reactjs on the front-end? This article is for you!"
+type: conversion
 ---
 
 React has been getting a lot of positive press in the last couple years, making it an appealing frontend option for Java developers! Once you learn how it works, it makes a lot of sense and can be fun to develop with. Not only that, but it's *wicked fast!* If you've been following me, or if you've read this blog for a bit, you might remember my [Bootiful Development with Spring Boot and Angular](/blog/2017/04/26/bootiful-development-with-spring-boot-and-angular) tutorial. Today, I'll show you how to build the same application, except with React this time. Before we dive into that, let's talk some more about what React is great for, and why I chose to explore it in this post.

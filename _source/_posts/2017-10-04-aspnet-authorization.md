@@ -2,7 +2,10 @@
 layout: blog_post
 title: "User Authorization in ASP.NET Core with Okta"
 author: lee-brandt
+by: advocate
+communities: [.net]
 tags: [asp.net, aspnet core, authz, authorization]
+type: conversion
 ---
 
 Authorization is the oft-forgotten piece of identity and access management. The fact is, almost every app needs more than just "are they signed in?" for authorization. Most times, you need to not only know _who_ "they" are, but what access they are supposed to have. For instance, "are they in the administrator group?" or "are they in a group with some special privileges?" Today, you'll learn how to do this with Okta in an ASP.NET Core MVC application.

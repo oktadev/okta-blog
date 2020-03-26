@@ -2,7 +2,10 @@
 layout: blog_post
 title: 'Secure your SPA with Spring Boot and OAuth'
 author: brian-demers
+by: advocate
+communities: [java]
 tags: [oauth, oauth2, oauth2.0, oauth 2.0, spring, spring boot, spring security]
+type: conversion
 ---
 
 If you have a JavaScript single-page application (SPA) that needs to securely access resources from a Spring Boot application, you likely want to use the OAuth 2.0 implicit flow! With this flow your client will send a bearer token with each request and your server side application will verify the token with an Identity Provider (IdP). This allows your resource server to trust that your client is authorized to make the request. In OAuth terms your SPA is the client and your Spring Boot application is the Resource Server. For a more detailed explanation on the various OAuth flows take a look at our [What the Heck is OAuth](/blog/2017/06/21/what-the-heck-is-oauth) post.

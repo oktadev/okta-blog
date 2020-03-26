@@ -2,7 +2,10 @@
 layout: blog_post
 title: 'Play Zork, Learn OAuth'
 author: micah-silverman
+by: advocate
+communities: [security]
 tags: [oauth, oauth2, oauth2.0, oauth 2.0, OpenID, OpenID Connect, oidc, spring, spring boot, spring security, rbac]
+type: awareness
 ---
 
 {% img blog/okta-oauth-zork/zork.jpg alt:"Default AS" width:"150" align:"right" %}

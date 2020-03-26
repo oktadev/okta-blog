@@ -2,11 +2,14 @@
 layout: blog_post
 title: 'Secure a Spring Microservices Architecture with Spring Security, JWTs, Juiser, and Okta'
 author: matt-raible
+by: advocate
+communities: [java]
 description: "This tutorial shows you how you can use Spring Security, Okta, and a few Java libraries to secure your microservices architecture. Not only that, but I'll show you how to protect everything, so even your backend services can communicate securely!"
 tweets:
     - "You've built a microservices architecture with Spring Boot and Spring Cloud. But what about security? This tutorial shows you how to lock everything down with Spring Security. "
     - "Learn how to use Juiser + @SpringSecurity to lock down your microservices architecture and not share keys between your gateway/load balancer and backend servers (gateway + microservices). "
 tags: [spring, microservices, spring security, jwt, juiser, java, okta sign-in widget]
+type: conversion
 ---
 
 You've built a microservices architecture with Spring Boot and Spring Cloud. You're happy with the results, and you like how it adds resiliency to your application. You're also pleased with how it scales and how different teams can deploy microservices independently. But what about security?
