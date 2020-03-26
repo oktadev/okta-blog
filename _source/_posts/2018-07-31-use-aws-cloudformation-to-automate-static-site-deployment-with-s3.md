@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Use AWS CloudFormation to Automate Static Site Deployment with S3"
-author: pmcdowell
+author: patrick-mcdowell
 description: "If you're hosting a static site using Amazon S3, automating your deployment with CloudFormation can provide a lot of benefits. Let me show you how."
 tags: [aws, cloudformation, s3, deployment, devops]
 tweets:

@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Tutorial: Build a Basic CRUD App with Symfony 4 and Vue"
-author: krasimir
+author: krasimir-hristozov
 description: "This tutorial shows you how to set up a 'quick and dirty' modern application using a backend API written in Symfony 4 and a frontend in Vue.js, with a minimal dependencies and no hassle."
 tags: [php, vue, symfony, crud]
 tweets:

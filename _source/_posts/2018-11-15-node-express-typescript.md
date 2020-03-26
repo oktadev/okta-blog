@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Use TypeScript to Build a Node API with Express"
-author: reverentgeek
+author: david-neal
 description: "This tutorial walks you through building a simple and secure Node application using TypeScript, Express, and Okta."
 tags: [authentication, typescript, web, express, node]
 tweets:

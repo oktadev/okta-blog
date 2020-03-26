@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a React App with Styled Components"
-author: holgerschmitz
+author: holger-schmitz
 by: contractor
 communities: [javascript]
 description: "Learn how to use Styled Components to manage CSS in your React App."

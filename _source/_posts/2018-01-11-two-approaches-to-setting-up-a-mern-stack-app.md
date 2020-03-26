@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Two Approaches to Setting Up a MERN Stack Application"
-author: leebrandt
+author: lee-brandt
 tags: [mongo, express, node, react, mern]
 tweets:
   - "Check out two approaches to setting up a MERN stack app"

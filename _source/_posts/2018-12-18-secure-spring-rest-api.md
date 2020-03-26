@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'Create a Secure Spring REST API'
-author: raphaeldovale
+author: raphael-do-vale
 description: "This article explains how to build a Spring REST API, a resource server, and how to connect it into your security environment."
 tweets:
 - "Want to build a Spring REST API with OAuth 2.0 with @java? Learn how to build a Resource Server in this handy tutorial!"

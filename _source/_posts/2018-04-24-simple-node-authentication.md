@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Simple Node Authentication"
-author: bkelley
+author: braden-kelley
 description: "Learn how to build authentication and registration into your Node.js application with Okta."
 tags: [javascript, nodejs, authentication, security]
 tweets:

@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "How to Connect Angular and MongoDB to Build a Secure App"
-author: holgerschmitz
+author: holger-schmitz
 description: "Want to connect to MongoDB from your Angular app? This tutorial has the knowledge you need."
 tags: [angular, mongodb, express, javascript]
 tweets:

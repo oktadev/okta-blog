@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: Build Your First Progressive Web Application with Angular and Spring Boot
-author: mraible
+author: matt-raible
 description: "This article will show you how to build a PWA with a Spring Boot backend and an Angular frontend that will work offline. You'll also learn how to deploy it to Cloud Foundry!"
 tweets:
   - "Did you know that PWAs are the way of the future? Native apps that require 60MB to download? Peshaw! Just use good ol' web technologies, a service worker, and caching to develop an awesome mobile experience → "

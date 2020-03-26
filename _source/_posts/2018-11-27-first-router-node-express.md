@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build Your First Router in Node with Express"
-author: bkelley
+author: braden-kelley
 description: "Create routes with Node and Express"
 tags: [node, express, routes, tutorial]
 tweets:

@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Deploy Your ASP.NET Core Application to Azure"
-author: leebrandt
+author: lee-brandt
 description: "This post demonstrates how to deploy an ASP.NET Core application to Microsoft Azure."
 tags: [asp.net core, dotnet core, aspnet core, azure, deploy, aspnet core 2, asp.net core 2.0]
 tweets:

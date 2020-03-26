@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Java + Spring Tutorials"
-author: lindsayb
+author: lindsay-brunner
 description: "This post shares a variety of instructional Spring Boot and Java tutorials for the modern app developer."
 tags: [java, spring boot, spring, jhipster]
 tweets:

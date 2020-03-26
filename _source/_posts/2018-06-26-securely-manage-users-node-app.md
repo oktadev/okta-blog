@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "How to Securely Manage Users in Your Node App"
-author: bkelley
+author: braden-kelley
 description: "Learn how to securely store, update, and display user data in a simple Node / Express app."
 tags: [node, express, oauth, user management]
 tweets:

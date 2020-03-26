@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'Build a Basic CRUD App with Laravel and Vue'
-author: krasimir
+author: krasimir-hristozov
 description: "In this tutorial, you'll learn how to build a Vue app using a Laravel API to store its data."
 tags: [crud, vue, php, laravel]
 tweets:

@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "A Quick Guide to OAuth 2.0 with Spring Security"
-author: moksamedia
+author: andrew-hughes
 description: "Learn how to build an OAuth 2.0 Authorization Server with Spring Boot and Spring Security."
 tags: [java, spring boot, spring security, oauth2]
 tweets:

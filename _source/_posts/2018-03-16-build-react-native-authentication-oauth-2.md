@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'Build a React Native Application and Authenticate with OAuth 2.0'
-author: mraible
+author: matt-raible
 description: "Learn how to add authentication to your React Native applications with AppAuth and Okta."
 tags: [react-native, authentication, oauth, oidc, react, okta]
 tweets:

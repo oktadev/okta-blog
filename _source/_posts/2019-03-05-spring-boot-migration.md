@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Migrate Your Spring Boot App to the Latest and Greatest Spring Security and OAuth 2.0"
-author: dogeared
+author: micah-silverman
 description: "Migrate Spring Boot with OAuth 2.0 support from version 1.5.x to 2.1.x"
 tags: [java, oauth, oauth2, oidc, openid connect, spring, spring boot, spring security, learning, programming, programming languages, education]
 tweets:

@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "An Illustrated Guide to OAuth and OpenID Connect"
-author: reverentgeek
+author: david-neal
 description: "An illustrated guide to explain OAuth and OpenID Connect!"
 tags: [oauth, oidc, openid connect, security, authorization, authentication]
 tweets:

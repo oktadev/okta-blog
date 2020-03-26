@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Test Your Spring Boot Applications with JUnit 5"
-author: joyannefoster
+author: joy-foster
 description: "Learn how to use JUnit 5 to write Java-based unit and integration tests for your Spring Boot apps."
 tags: [java, testing, junit, junit5]
 tweets:

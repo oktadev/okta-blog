@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'OIDC in Action – An OpenID Connect Primer, Part 2 of 3'
-author: dogeared
+author: micah-silverman
 tags: [oauth, oauth2, oauth2.0, oauth 2.0, OpenID, OpenID Connect, oidc]
 redirect_from:
   - "/blog/2017-08-01-oidc-primer-part-2"

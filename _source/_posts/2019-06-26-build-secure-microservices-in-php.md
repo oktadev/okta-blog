@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build Secure Microservices in PHP"
-author: krasimir
+author: krasimir-hristozov
 description: "Learn how to build a microservices architecture in PHP"
 tags: [ microservices, php ]
 tweets:

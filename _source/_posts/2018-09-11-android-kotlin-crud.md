@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a Basic CRUD App in Android with Kotlin"
-author: kpenzhorn
+author: karl-penzhorn
 description: "This tutorial walks you through creating a basic CRUD application with Kotlin and Android."
 tags: [android, java, jvm, kotlin, mobile, crud, oauth, oidc]
 tweets:

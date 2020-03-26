@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Create and Verify JWTs with Node"
-author: bkelley
+author: braden-kelley
 description: "This article explains how to create and verify JWTs in Node apps."
 tags: [jwt, token auth, token authentication, node]
 tweets:

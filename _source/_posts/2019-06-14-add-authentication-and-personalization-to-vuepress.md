@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Add Authentication and Personalization to VuePress"
-author: reverentgeek
+author: david-neal
 description: "Learn how to create a VuePress web site, plus add authentication and personalization!"
 tags: [vuepress,vue,javascript,static site generator]
 tweets:

@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'Design and Develop an Android App with React Native and Publish to Google Play Store'
-author: kpenzhorn
+author: karl-penzhorn
 description: "Learn how to plan, design, create and publish a React Native app to the Google Play Store."
 tags: [android, design, react native, play store]
 tweets:

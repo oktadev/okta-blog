@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'Angular 8 + Spring Boot 2.2: Build a CRUD App Today!'
-author: mraible
+author: matt-raible
 description: "Angular and Spring Boot are wildly popular frameworks for web development. Matt Raible shows you how to use them together in the same app and how to secure it all with OIDC."
 tags: [angular, spring boot, spring boot 2, angular 8, okta, oidc]
 tweets:

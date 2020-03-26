@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Tutorial: Create and Verify JWTs in Java"
-author: moksamedia
+author: andrew-hughes
 description: "This article explores the benefits of token authentication with JWTs for Java apps."
 tags: [jwt, token auth, token authentication, java]
 tweets:

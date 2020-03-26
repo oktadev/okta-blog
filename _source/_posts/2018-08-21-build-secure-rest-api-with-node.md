@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a Simple REST API with Node and OAuth 2.0"
-author: bkelley
+author: braden-kelley
 description: "JavaScript is used everywhere on the web, but can also be used server-side. This tutorial shows you how to create a server-to-server REST API complete with OAuth 2.0 authentication."
 tags: [authentication, node, nodejs, oauth 2.0, server-to-server, machine-to-machine, client credentials flow, express, sequelize, epilogue, rest api]
 tweets:

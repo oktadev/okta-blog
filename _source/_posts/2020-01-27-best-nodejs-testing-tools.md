@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "The Best Testing Tools for Node.js"
-author: reverentgeek
+author: david-neal
 description: "The best testing tools available for Node.js"
 tags: [node, nodejs, testing, tdd, bdd, mocha, jest]
 tweets:

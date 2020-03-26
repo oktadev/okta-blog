@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'Welcome Micah Silverman'
-author: dogeared
+author: micah-silverman
 description: "We welcome not exactly newcomer Micah to the team."
 tags: [security, authentication, api]
 tweets: 

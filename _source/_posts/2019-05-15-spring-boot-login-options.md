@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'A Quick Guide to Spring Boot Login Options'
-author: moksamedia
+author: andrew-hughes
 description: "This tutorial shows you how to add login options to Spring Boot. Includes basic auth, form-based authentication, and OAuth 2.0 login."
 tags: [spring boot, java, login, oauth2, oidc]
 tweets:

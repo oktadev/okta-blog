@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a CRUD App with ASP.NET Core and TypeScript"
-author: ryanfoster
+author: ryan-foster
 description: "Learn how to build CRUD app with ASP.NET Core and TypeScript."
 tags: [aspnet, dotnet, aspnetcore, typescript]
 tweets:

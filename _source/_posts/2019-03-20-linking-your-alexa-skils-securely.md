@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Linking Your Alexa Skill Securely with Okta"
-author: jeffersonhaw
+author: jefferson-haw
 description: "This tutorial shows how to link your Alexa skills securely."
 tags: [alexa, auth, alexa skills]
 tweets:

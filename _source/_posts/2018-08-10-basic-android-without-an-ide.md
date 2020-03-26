@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'Create a Basic Android App without an IDE'
-author: kpenzhorn
+author: karl-penzhorn
 description: 'This tutorial walks you through building a basic Android app without an IDE.'
 tags: [android, mobile, okta]
 tweets:

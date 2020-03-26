@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Add Secure Authentication to your WordPress Site in 15 Minutes"
-author: aaronpk
+author: aaron-parecki
 description: "This post will show you how to secure your WordPress login with two-factor authentication by using Okta's Sign-In Widget."
 tags: [wordpress,authentication,login,plugin]
 tweets:

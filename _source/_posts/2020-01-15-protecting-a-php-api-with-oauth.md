@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Protecting a PHP API Using OAuth"
-author: krasimir
+author: krasimir-hristozov
 description: ""
 tags: [php, oauth, api]
 tweets:

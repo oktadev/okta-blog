@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "How to Have the Best Meetings in Your Life"
-author: reverentgeek
+author: david-neal
 description: "Tired of wasting time in meetings? Here's a way to have more effective meetings!"
 tags: [meetings, teams, lean, agile, collaboration]
 tweets:

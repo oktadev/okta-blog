@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a Secure Node.js App with SQL Server"
-author: reverentgeek
+author: david-neal
 description: "SQL Server is an awesome relational database. Here's how to use it from Node.js."
 tags: [node, javascript, sql server, database, programming, developer, software]
 tweets:

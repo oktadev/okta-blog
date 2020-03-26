@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Policy-Based Authorization in ASP.NET Core"
-author: leebrandt
+author: lee-brandt
 description: "This post shows how policy-based authorization works in ASP.NET Core, and how it differs from role-based authorization."
 tags: [asp.net, asp.net core, aspnetcore, policy, policy-based authorization, authorization]
 tweets:

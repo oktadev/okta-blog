@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Flask Tutorial: Simple User Registration and Login"
-author: rdegges
+author: randall-degges
 description: "This post walks you through building a simple Flask web app with user registration and login."
 tags: [python, flask, oidc, openid connect, user management]
 tweets:

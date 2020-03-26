@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "The Hardest Thing About Data Encryption"
-author: rdegges
+author: randall-degges
 description: "Key management is the hardest part about data encryption. Learn
 how to handle encryption keys properly in this short guide."
 tags: [security, cryptography]

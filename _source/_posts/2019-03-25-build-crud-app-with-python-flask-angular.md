@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a CRUD App with Python, Flask, and Angular"
-author: team_okta
+author: team-okta
 description: "This tutorial walks you through building an basic CRUD application using Python, Flask, and Angular"
 tags: [python, angular, flask, crud, angular-cli, python rest, flask rest]
 tweets:

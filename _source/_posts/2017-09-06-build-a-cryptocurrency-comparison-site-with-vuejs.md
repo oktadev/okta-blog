@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'Build a Cryptocurrency Comparison Site with Vue.js'
-author: rdegges
+author: randall-degges
 description: "In this article you'll learn how to build a simple static website using Vue.js that shows you the current prices of the top 10 cryptocurrencies as well as a lot of other data."
 tags: [vuejs, javascript, bitcoin, cryptocurrency]
 tweets:

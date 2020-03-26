@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "AWS Athena as a Data Analysis Supplement"
-author: omardarwish
+author: omar-darwish
 description: "Learn to use AWS Athena as a data analysis supplement."
 tags: [AWS, AWS Athena, Data Analysis, Security]
 tweets:

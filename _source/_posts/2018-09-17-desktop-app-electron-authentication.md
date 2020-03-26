@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'Build a Desktop App with Electron and Authentication'
-author: mraible
+author: matt-raible
 description: "Learn how to build a desktop application using Electron and React, then add authentication with OIDC."
 tags: [desktop, electron, javascript, appauth, appauthjs, authentication, oidc, oauth]
 tweets:

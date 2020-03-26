@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'Use Azure Cosmos DB with Your ASP.NET App'
-author: chrisgreen
+author: chris-green
 description: 'This tutorial walks you through building an ASP.NET 4.x application using Azure Cosmos DB for storage.'
 tags: [aspnet, dotnet, azure, cosmosdb, cosmos, tutorial]
 tweets:

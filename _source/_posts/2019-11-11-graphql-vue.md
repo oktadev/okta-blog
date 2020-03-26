@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Use Vue and GraphQL to Build a Secure App"
-author: holgerschmitz
+author: holger-schmitz
 description: "Learn how to build a secure Node.js GraphQL backend with a Vue.js frontend."
 tags: [graphql, vuejs, vue, javascript]
 tweets:

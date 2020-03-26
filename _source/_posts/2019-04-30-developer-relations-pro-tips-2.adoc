@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Pro Tips for Developer Relations, Part 2"
-author: mraible
+author: matt-raible
 description: "Some tips and tricks for being a developer advocate and helping others."
 tags: [devrel, protip, protips, developer relations, speaking]
 tweets:

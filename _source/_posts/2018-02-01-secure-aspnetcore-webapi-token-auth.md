@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "How to Secure Your .NET Web API with Token Authentication"
-author: leebrandt
+author: lee-brandt
 tags: [asp.net, dotnet, webapi, security, oauth]
 tweets:
   - "Learn how to secure your #aspnetcore API with token authentication"

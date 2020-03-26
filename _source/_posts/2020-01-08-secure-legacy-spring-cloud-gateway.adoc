@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Secure Legacy Apps with Spring Cloud Gateway"
-author: bdemers
+author: brian-demers
 description: "This tutorial shows show you how to secure legacy applications with OAuth 2.0 and Spring Cloud Gateway."
 tags: [java, spring cloud gateway, legacy, spring boot, spring cloud, oauth, oidc]
 tweets:

@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Develop a Microservices Architecture with OAuth 2.0 and JHipster"
-author: mraible
+author: matt-raible
 description: "This post shows you how to use JHipster to create a microservices architecture based on Spring Boot, Spring Security, and OAuth."
 tags: [jhipster, microservices, spring boot, spring-boot 2.0, spring security, oidc, oauth]
 tweets:

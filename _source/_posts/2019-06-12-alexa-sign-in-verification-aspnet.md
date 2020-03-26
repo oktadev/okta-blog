@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Alexa, Sign In Every Time: Voice-Only Authentication Verification in .NET"
-author: quorralyne
+author: heather-downing
 description: "Learn how to implement voice-only authentication for Alexa skills in .NET, using Okta for managing user data and access tokens."
 tags: [ aspnet, csharp, dotnet, dotnetcore, authentication, voice, webapi, okta, alexa, alexadotnet, verification]
 tweets:

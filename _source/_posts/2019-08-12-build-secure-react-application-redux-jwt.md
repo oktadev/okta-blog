@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'Build a Secure React Application with JWTs and Redux'
-author: bkelley
+author: braden-kelley
 description: 'A tutorial on building secure application with React and Redux using JWTs.'
 tags: [react, redux, JWT, react redux]
 tweets:

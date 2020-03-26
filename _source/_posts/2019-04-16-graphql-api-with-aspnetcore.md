@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'Build a GraphQL API with ASP.NET Core'
-author: ibrahim
+author: ibrahim-suta
 description: 'Build an API with GraphQL and ASP.NET Core.'
 tags: [aspnetcore, graphql, api]
 tweets:

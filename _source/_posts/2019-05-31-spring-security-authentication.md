@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Simple Authentication with Spring Security"
-author: moksamedia
+author: andrew-hughes
 description: "In this tutorial, you'll build a very simple Spring Boot app that uses auth, form-based authentication, and OAuth 2.0 / OpenID Connect."
 tags: [java, spring, spring boot, spring security, security]
 tweets:

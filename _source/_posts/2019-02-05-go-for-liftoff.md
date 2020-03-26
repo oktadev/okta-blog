@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Go for liftoff at Okta!"
-author: quorralyne
+author: heather-downing
 description: "Welcome Heather Downing to the Okta team!"
 tags: [aspnet, aspnetcore, dotnet, dotnetcore, okta, alexa, voice, mobile, team]
 tweets:

@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Decode JWTs in C# for Authorization"
-author: ryanfoster
+author: ryan-foster
 description: "Learn how to decode JWTs using C#."
 tags: [csharp, jwt, authorization, C#]
 tweets:

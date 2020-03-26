@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Deploy Your Secure Vue.js App to AWS"
-author: bparise
+author: brandon-parise
 description: "This article shows you how to create a secure Vue.js app and deploy it to AWS."
 tags: [vue.js, vue, aws, serverless]
 tweets:

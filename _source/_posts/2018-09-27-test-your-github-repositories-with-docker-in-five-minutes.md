@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Test Your GitHub Repositories with Docker in 5 Minutes"
-author: pmcdowell
+author: patrick-mcdowell
 description: "In this tutorial, you'll see how to test your repositories with nothing but Git, Docker, and a Makefile."
 tags: [docker, github]
 tweets:

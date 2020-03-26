@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a Simple CRUD App with ASP.NET Core and Vue"
-author: ibrahim
+author: ibrahim-suta
 description: "This tutorial walks you through building a basic CRUD application with ASP.NET Core and Vue.js."
 tags: [aspnet, aspnetcore, vue, vuejs, vue.js]
 tweets:

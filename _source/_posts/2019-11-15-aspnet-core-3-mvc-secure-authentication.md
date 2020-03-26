@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "ASP.NET Core 3.0 MVC Secure Authentication"
-author: leebrandt
+author: lee-brandt
 description: "Secure an ASP.NET Core 3.0 MVC app using OAuth2, OpenID Connect and Okta."
 tags: [oauth, oauth2, oidc, openid connect, aspnet core, aspnet core 3, dotnet core, dotnet core 3]
 tweets:

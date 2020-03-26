@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "The Best Travel Tips for People In Tech"
-author: quorralyne
+author: heather-downing
 description: "Are you in tech? Getting ready to travel? These travel tips will save you time and reduce stress on your next conference or work trip."
 tags: [ best travel tips, travel tips, tech travel, flying tips, best travel, airports, planes, developer travel tips, travel ]
 tweets:

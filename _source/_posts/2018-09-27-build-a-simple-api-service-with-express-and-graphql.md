@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a Simple API Service with Express and GraphQL"
-author: bkelley
+author: braden-kelley
 description: "In this tutorial you'll use Express.js to build a simple API with GraphQL and secure it using Okta."
 tags: [authentication, graphql, api, express, node]
 tweets:

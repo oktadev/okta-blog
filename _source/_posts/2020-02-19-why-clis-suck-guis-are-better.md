@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Why CLIs Suck (and GUIs are Better)"
-author: quorralyne
+author: heather-downing
 description: "Programming has come a long way over the years with how we interface with our code. Why do developers keep using command line scripts for daily tasks?"
 tags: [scripts, developer, programming, career, cli, commandline, gui]
 tweets:

@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Announcing PassProtect - Proactive Web Security"
-author: rdegges
+author: randall-degges
 description: "A look at our new developer library (and browser extension): PassProtect. PassProtect integrates with haveibeenpwned to check credentials you use against breached data lists, and notifies you when something bad happens."
 tags: [security, developer, javascript, chrome, browser]
 tweets:

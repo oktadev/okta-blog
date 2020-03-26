@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Secure Your Spring Boot Application with Multi-Factor Authentication"
-author: moksamedia
+author: andrew-hughes
 description: "This post walks through creating a Spring Boot app and enabling multi-factor authentication with Okta."
 tags: [java, spring, spring-boot, OIDC, OpenID Connect, mfa]
 tweets:

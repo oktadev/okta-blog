@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "A Quick Guide to Java on Netty"
-author: moksamedia
+author: andrew-hughes
 description: "A tutorial that builds a simple Netty application with and without Spring."
 tags: [java, spring, reactive, netty, oauth, oidc]
 tweets:

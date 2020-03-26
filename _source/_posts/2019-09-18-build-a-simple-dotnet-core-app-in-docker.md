@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a Simple .NET Core App on Docker"
-author: charlieholland
+author: charlie-holland
 description: "Learn how to containerize your secure .NET Core applications with Docker, the Okta way."
 tags: [ dotnetcore, docker, dotnet, .netcore, csharp, containerization, containers ]
 tweets:

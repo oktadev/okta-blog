@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Software Development is a Creative Endeavor"
-author: leebrandt
+author: lee-brandt
 description: "This post discusses software development as a creative and not purely technical pursuit."
 tags: [software, software development, creative work, creative jobs]
 tweets:

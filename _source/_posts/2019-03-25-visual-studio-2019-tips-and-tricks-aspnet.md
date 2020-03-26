@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Visual Studio 2019 Tips and Tricks"
-author: quorralyne
+author: heather-downing
 description: "This post explores the additional setup you need to take full adventage of the new options in Visual Studio 2019."
 tags: [ aspnet, visualstudio, vs2019, dotnet, dotnetcore, visualstudio2019, ide ]
 tweets:

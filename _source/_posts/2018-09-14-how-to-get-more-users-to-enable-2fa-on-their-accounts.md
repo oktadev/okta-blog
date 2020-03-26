@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'How to Get More Internet Users to Enable 2FA on Their Accounts'
-author: cgilsenan
+author: conor-gilsenan
 description: "Interested in ways to improve two-factor authentication for your users? We'll teach you how to grow two-factor adoption and build a more secure userbase."
 tags: [security, mfa]
 tweets:

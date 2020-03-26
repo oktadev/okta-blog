@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "i18n in Java 11, Spring Boot, and JavaScript"
-author: mraible
+author: matt-raible
 description: "Learn how to internationalize and localize your Java and Spring Boot apps."
 tags: [java, i18n, l10n, internationalization, localization, spring boot]
 tweets:

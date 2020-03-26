@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'Simple, Secure Authentication with CodeIgniter'
-author: krasimir
+author: krasimir-hristozov
 description: "Learn how to build a CodeIgniter application and add user authentication quickly and easily!"
 tags: [oauth, php, codeigniter]
 tweets:

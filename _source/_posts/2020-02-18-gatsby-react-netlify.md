@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a Secure Blog with Gatsby, React, and Netlify"
-author: mraible
+author: matt-raible
 description: "This tutorial shows how to build a secure blog app with Gatsby, React, and Netlify."
 tags: [gatsby, netlify, react, jamstack]
 tweets:

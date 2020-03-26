@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a Command Line Application with Node.js"
-author: reverentgeek
+author: david-neal
 description: "Learn how to build command line applications using Node.js"
 tags: [nodejs, cli, command line, automation, devops, tasks]
 tweets:

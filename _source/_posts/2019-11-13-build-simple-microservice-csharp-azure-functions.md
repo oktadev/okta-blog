@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a Simple Microservice with C# Azure Functions"
-author: chrisgreen
+author: chris-green
 description: "A tutorial on using Azure Functions in C# to build a simple microservice."
 tags: [azure function, microservice, c#, csharp]
 tweets:

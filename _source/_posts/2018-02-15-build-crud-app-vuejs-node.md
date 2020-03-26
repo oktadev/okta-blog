@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a Basic CRUD App with Vue.js and Node"
-author: bparise
+author: brandon-parise
 description: "This post shows you how to use build a basic CRUD application with Vue.js and Node. You'll also learn how to use Okta's Vue SDK to add authentication using OIDC."
 tags: [vue, vue.js, node, oidc, oauth 2.0, crud]
 tweets:

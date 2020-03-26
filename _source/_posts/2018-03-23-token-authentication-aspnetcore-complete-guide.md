@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Token Authentication in ASP.NET Core 2.0 - A Complete Guide"
-author: nbarbettini
+author: nate-barbettini
 description: "Everything you ever wanted to know about token authentication in ASP.NET Core 2.0 and beyond."
 tags: [asp.net, aspnetcore, dotnet, webapi, security, oauth, oidc]
 tweets:

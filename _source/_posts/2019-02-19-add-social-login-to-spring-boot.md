@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Add Social Login to Your JHipster App"
-author: moksamedia
+author: andrew-hughes
 description: "This post shows you how to add social login to your JHipster applications."
 tags: [spring, spring boot, social login, spring security, jhipster, authentication, jhipster social login]
 tweets:

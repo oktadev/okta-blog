@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Symfony 4.3 + Vue.js: PHP Apps Made Simple"
-author: krasimir
+author: krasimir-hristozov
 description: ""
 tags: [php, vue, symfony, crud]
 tweets:

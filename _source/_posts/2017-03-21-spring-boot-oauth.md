@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: Get Started with Spring Boot, OAuth 2.0, and Okta
-author: mraible
+author: matt-raible
 description: "In this tutorial you'll learn how to integrate Spring Security into a Spring Boot application, plus add authentication with OAuth using the Okta API."
 tags: [spring-boot, oauth, okta]
 ---

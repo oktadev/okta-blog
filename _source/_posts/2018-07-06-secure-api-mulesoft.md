@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Secure Your API with OAuth, Mulesoft, and Okta in 20 Minutes"
-author: tom_smith
+author: tom-smith
 description: "This article shows you how to create a secure API with OAuth, Mulesoft, and Okta."
 tags: [oauth, mulesoft, api, api security]
 tweets:

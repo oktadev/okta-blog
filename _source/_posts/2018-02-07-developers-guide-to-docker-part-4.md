@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "A Developer's Guide To Docker - Docker Swarm"
-author: leebrandt
+author: lee-brandt
 description: "In this article, you'll learn how to set up a cluster of containers using Docker Swarm and how to use Docker Machine to create VMs that have Docker already installed."
 tags: [docker, docker swarm, container, containerization]
 tweets:

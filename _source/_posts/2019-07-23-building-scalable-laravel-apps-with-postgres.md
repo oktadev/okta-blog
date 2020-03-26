@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Building Scalable Laravel Apps with PostgreSQL"
-author: krasimir
+author: krasimir-hristozov
 description: "Learn how to use Postgres while building a Laravel app"
 tags: [ laravel, postgres, postgresql, php ]
 tweets:

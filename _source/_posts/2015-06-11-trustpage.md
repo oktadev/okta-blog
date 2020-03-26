@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: The New Age of Trust
-author: vimarsh_karbhari
+author: vimarsh-karbhari
 tags: [trust, trust pages, trust relationship, product, engineering, customer success, functional design]
 
 ---

@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a CRUD App with Angular 9 and Spring Boot 2.2"
-author: mraible
+author: matt-raible
 description: "This tutorial demonstrates how to develop a secure CRUD application using Angular 9 and Spring Boot 2.2."
 tags: [angular, angular 9, spring boot, crud, typescript, kotlin]
 tweets:

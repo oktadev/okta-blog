@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "6 Simple but Powerful Habits for Effective Developers"
-author: quorralyne
+author: heather-downing
 description: "Time for New Year's Resolutions! Here are some suggestions to implement that can really improve your programming career."
 tags: [habits, developer, programming, career]
 tweets:

@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'Build a Java REST API with Java EE and OIDC'
-author: mraible
+author: matt-raible
 description: "This article shows you how to build REST API with Java EE, run it on Apache TomEE, and secure it with JWT and OIDC."
 tags: [java, java ee, rest api, jax-rs, jpa, ejb, jwt, oidc, spring security, pac4j]
 tweets:

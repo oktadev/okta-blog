@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Add CI/CD to Your Spring Boot App with Jenkins X and Kubernetes"
-author: mraible
+author: matt-raible
 description: "This post shows you how to implement continuous integration and deployment (CI/CD) with Jenkins X and Kubernetes on Google Cloud."
 tags: [spring-boot, jenkins x, kubernetes, angular, pwa, ionic, okta java sdk]
 tweets:

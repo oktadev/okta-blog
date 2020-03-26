@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Use Okta (Instead of Local Storage) to Store Your User's Data Securely"
-author: mraible
+author: matt-raible
 description: "Using an Okta Developer account will allow you to store your cryptocurrency holdings as custom profile attributes instead of using local storage. While LocalStorage is great for demos, using custom profile attributes will allow you to access your data across different devices."
 tags: [localstorage, cryptocurrency, spring-boot, java, okta-java-sdk]
 tweets:

@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Secure Your ASP.NET Web Forms Application with OpenID Connect and Okta"
-author: ibrahim
+author: ibrahim-suta
 description: "This tutorial walks you through securing your ASP.NET Web Forms application with OpenID Connect and Okta"
 tags: [aspnet, webforms, openidconnect, okta]
 tweets:

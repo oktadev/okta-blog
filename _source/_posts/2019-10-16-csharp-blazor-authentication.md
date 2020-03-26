@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Goodbye Javascript! Build an Authenticated Web App in C# with Blazor + ASP.NET Core 3.0"
-author: quorralyne
+author: heather-downing
 description: "Tutorial: Build a frontend application with C# (without Javascript)!"
 tags: []
 tweets:

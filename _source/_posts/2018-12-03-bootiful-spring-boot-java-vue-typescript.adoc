@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Bootiful Development with Spring Boot and Vue"
-author: mraible
+author: matt-raible
 description: "Vue is a lean and mean JavaScript framework. It has a smalling learning curve and is great for mobile apps. Learn how to build a Spring Boot API with Java, a Vue UI with TypeScript, and secure it all with OIDC."
 tags: [authentication, spring boot, spring boot 2.1, vuejs, vue, oidc]
 tweets:

@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Five Tools to Improve Your Java Code"
-author: bdemers
+author: brian-demers
 description: "Five great tools to reduce bugs and make your Java code more secure!"
 tags: [java, ci, builds, secure]
 tweets:

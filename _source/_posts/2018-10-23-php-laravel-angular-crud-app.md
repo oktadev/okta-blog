@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Tutorial: Build a Basic CRUD App with Laravel and Angular"
-author: krasimir
+author: krasimir-hristozov
 description: "This tutorial teaches you how to build a simple CRUD application with a Laravel backend API and an Angular frontend."
 tags: [php, angular, laravel, crud]
 tweets:

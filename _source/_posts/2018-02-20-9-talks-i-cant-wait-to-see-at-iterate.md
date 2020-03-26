@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "9 Talks I Can't Wait to See at Iterate"
-author: leebrandt
+author: lee-brandt
 description: "These are the 9 talks that I can't wait to see at the inaugural Iterate Developer Conference."
 tags: [iterate, conference, conference talks, community]
 tweets:

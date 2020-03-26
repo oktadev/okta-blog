@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Node Microservices: From Zero to Hero"
-author: nickolasfisher
+author: nickolas-fisher
 description: "Learn how to build microservices in Node using Seneca."
 tags: [node, microservices, node microservices, seneca]
 tweets:

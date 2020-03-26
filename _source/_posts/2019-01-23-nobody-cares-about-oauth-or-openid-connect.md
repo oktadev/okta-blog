@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Nobody Cares About OAuth or OpenID Connect"
-author: rdegges
+author: randall-degges
 description: "Developers don't care about OAuth or OpenID Connect. Learn why."
 tags: [web, programming, security, oauth, openid connect]
 tweets:

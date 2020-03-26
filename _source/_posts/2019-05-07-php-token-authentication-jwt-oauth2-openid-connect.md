@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Token Authentication in PHP"
-author: krasimir
+author: krasimir-hristozov
 description: "Everything you ever wanted to know about token authentication in PHP"
 tags: [ oauth, php, jwt ]
 tweets:

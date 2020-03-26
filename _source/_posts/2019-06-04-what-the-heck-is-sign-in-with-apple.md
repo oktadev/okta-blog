@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "What the Heck is Sign In with Apple?"
-author: aaronpk
+author: aaron-parecki
 description: "Sign In with Apple is based on OAuth 2.0 and OpenID Connect, and provides a privacy-friendly way for users to sign in to websites and apps"
 tags: [ oauth, appleid, oidc ]
 tweets:

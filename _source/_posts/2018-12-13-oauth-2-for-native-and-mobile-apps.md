@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "OAuth 2.0 for Native and Mobile Apps"
-author: dogeared
+author: micah-silverman
 description: "Native and Mobile apps have special requirements for using OAuth 2.0."
 tags: [oauth, oauth2, learning, programming, programming languages, education]
 tweets:

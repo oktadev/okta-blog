@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build Components in JavaScript Without a Framework"
-author: leebrandt
+author: lee-brandt
 description: "Build a JavaScript component with plain, vanilla JavaScript."
 tags: [javascript, vanilla javascript, javascript component, vanilla javascript component]
 tweets:

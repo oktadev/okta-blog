@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "A Beginner's Guide to Redux"
-author: bkelley
+author: braden-kelley
 description: "Learn the basics of Redux for React."
 tags: [react, redux, react-redux]
 tweets:

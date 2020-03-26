@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "PHP Authorization with OAuth 2.0 and Okta"
-author: krasimir
+author: krasimir-hristozov
 description: "Learn how to use groups and roles to control who has access to your application"
 tags: [ php, groups, roles, authorization, permissions ]
 tweets:

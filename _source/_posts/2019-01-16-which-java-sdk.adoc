@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Which Java SDK Should You Use?"
-author: mraible
+author: matt-raible
 description: "Are you confused about the Java SDK (aka JDK) options available to you in 2019? This article shows you the options available and provides recommendations for development and production usage."
 tags: [java, java sdk, jdk, oracle, openjdk]
 tweets:

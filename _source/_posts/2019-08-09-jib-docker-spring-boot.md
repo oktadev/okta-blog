@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Get Jibby With Java, Docker, and Spring Boot"
-author: moksamedia
+author: andrew-hughes
 description: "A quick guide to using Docker and Jib to containerize Spring Boot applications."
 tags: [docker, spring-boot, jib, java]
 tweets:

@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "The Basics of JavaScript Generators"
-author: leebrandt
+author: lee-brandt
 description: "This post defines and demonstrates JavaScript Generators and their uses."
 tags: [ javascript, javascript generators, generators]
 tweets:

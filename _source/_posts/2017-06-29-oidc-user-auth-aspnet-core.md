@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'OpenID Connect for User Authentication in ASP.NET Core'
-author: leebrandt
+author: lee-brandt
 tags: [net, oidc, authentication, user, auth]
 ---
 

@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'Tutorial: User Login and Registration in Ionic 4'
-author: mraible
+author: matt-raible
 description: "Ionic helps developers build hybrid mobile apps & PWAs. This tutorial shows you how to add user authentication and registration to an Ionic 4 app."
 tags: [ionic, typescript, angular, authentication, oidc, cordova, capacitor, android, ios]
 tweets:

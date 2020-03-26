@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Add Social Login to Your Spring Boot 2.0 App"
-author: moksamedia
+author: andrew-hughes
 description: "The primary benefits of social login are ease of use and security. It's easier for your users to log into your app if they can use credentials they've already created on a a service they trust."
 tags: [authentication, spring boot, oidc, social login]
 tweets:

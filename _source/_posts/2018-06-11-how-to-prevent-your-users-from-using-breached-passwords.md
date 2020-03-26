@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "How to Prevent Your Users from Using Breached Passwords"
-author: rdegges
+author: randall-degges
 description: "This article walks you though using PassProtect.js, a new developer library that ensures your user's won't use breached passwords. It is powered by haveibeenpwned."
 tags: [javascript, authentication, security]
 tweets:

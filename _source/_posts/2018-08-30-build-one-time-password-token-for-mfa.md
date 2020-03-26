@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a One-time Password Token for MFA with Okta"
-author: dogeared
+author: micah-silverman
 description: "Learn about the time-based one-time password algorithm using a credit-card-sized, Arduino-based game device and Okta Verify for MFA."
 tags: [auth, mfa, verify, authentication, 2fa, two factor]
 tweets:

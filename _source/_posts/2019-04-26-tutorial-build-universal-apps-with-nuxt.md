@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Tutorial: Build Universal Applications with Nuxt.js"
-author: amarch
+author: andy-march
 description: "Learn how to build a secure server-side rendered web application using Nuxt.js and Okta"
 tags: [ nuxt, vue, nodejs, ssr, okta ]
 tweets:

@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a REST API with ASP.NET Core 2.2"
-author: ibrahim
+author: ibrahim-suta
 description: "This is a step-by-step for creating a REST API application using ASP.NET Core 2.2."
 tags: [aspnetcore, netcore, rest, api]
 tweets:

@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Add Login to Your ASP.NET Core MVC App"
-author: ibrahim
+author: ibrahim-suta
 description: "This tutorial walks you through adding simple authentication and authorization to your ASP.NET Core application using Okta."
 tags: [aspnet, aspnetcore, dotnet, dotnetcore, authentication, authorization]
 tweets:

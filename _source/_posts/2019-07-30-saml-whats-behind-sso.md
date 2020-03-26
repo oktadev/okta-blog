@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "SAML: What's Behind SSO"
-author: jf
+author: joel-franusic
 description: "In this short article you'll learn what SAML is and how it works."
 tags: [saml, sso, security]
 tweets:

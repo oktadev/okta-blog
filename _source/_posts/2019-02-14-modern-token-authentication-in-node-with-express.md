@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Modern Token Authentication in Node with Express"
-author: mngan
+author: macy-ngan
 description: "Come learn all about what token authentication is and how to use it in your Node + Express apps."
 tags: [jwt, node, javascript, express, token, authentication]
 tweets:

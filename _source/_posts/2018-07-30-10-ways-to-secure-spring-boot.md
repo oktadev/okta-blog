@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "10 Excellent Ways to Secure Your Spring Boot Application"
-author: mraible
+author: matt-raible
 description: "Spring Boot is one of the most popular Java frameworks. If you're developing Spring Boot apps that handle sensitive data, you should make sure they're secure. This article gives you some tips on how to build more secure Spring Boot applications."
 tags: [spring boot, security, snyk, https, hsts, csrf, xss, csp, content security policy]
 tweets:

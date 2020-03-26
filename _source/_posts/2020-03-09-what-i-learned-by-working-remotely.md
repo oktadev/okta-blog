@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "What I Learned After Working Remotely for a Year"
-author: quorralyne
+author: heather-downing
 description: "Have to work from home suddenly? After moving from an office to a remote dev team, @quorralyne has some insight to share in her first year with Okta."
 tags: [remote, remotework, workfromhome, remotedeveloper, workingremote, workremotely, development]
 tweets:

@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Create a React Native App with Login in 10 Minutes"
-author: mraible
+author: matt-raible
 description: "This tutorial shows you how to add a login feature to a React Native application."
 tags: [react-native, react, login, javascript, mobile, oidc, pkce]
 tweets:

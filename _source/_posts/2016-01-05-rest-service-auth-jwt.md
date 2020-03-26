@@ -2,8 +2,8 @@
 layout: blog_post
 title: REST Service Authorization with JWTs
 author:
-- jon_todd
-- william_dawson
+- jon-todd
+- william-dawson
 tags: [rest, oauth, identity, security, jwt]
 ---
 

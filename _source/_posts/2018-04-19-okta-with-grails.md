@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build Server Side Authentication in Grails with OAuth 2.0 and Okta"
-author: moksamedia
+author: andrew-hughes
 description: "This is a quick tutorial demonstrating how to add authentication to a Grails application with Okta."
 tags: [java, groovy, grails, spring, spring-boot, OIDC, OpenID Connect]
 tweets:

@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Multi-Factor Authentication Sucks"
-author: rdegges
+author: randall-degges
 description: "Multi-factor authentication is slow, annoying, and frustrating. Let's talk about ways we can fix it."
 tags: [security, mfa, amfa]
 tweets:

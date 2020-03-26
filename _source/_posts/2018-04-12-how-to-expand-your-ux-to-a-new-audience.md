@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "How to Expand Your UX to a New Audience"
-author: adahl
+author: alex-dahl
 tags: [design, okta, ux, process]
 description: "Interested in expanding your UX to a new audience? So were we! Read more about how we did it here."
 tweets:

@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "How to Develop a Quarkus App with Java and OIDC Authentication"
-author: moksamedia
+author: andrew-hughes
 description: "Learn how to use Java and Quarkus to create a REST API with JAX-RS, and secure it with OAuth 2.0 and OIDC."
 tags: [java, quarkus, oidc, authentication, oauth2]
 tweets:

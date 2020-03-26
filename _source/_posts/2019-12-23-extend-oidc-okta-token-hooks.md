@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Use Okta Token Hooks to Supercharge OpenID Connect"
-author: dogeared
+author: micah-silverman
 description: "Learn how to alter OpenID Connect tokens in-flight using hooks."
 tags: [ oauth, security, oidc, spring boot, spring security, webhooks, hooks ]
 tweets:

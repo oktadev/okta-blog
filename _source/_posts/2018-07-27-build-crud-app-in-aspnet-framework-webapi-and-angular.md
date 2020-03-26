@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a CRUD App with ASP.NET Framework 4.x Web API and Angular"
-author: ibrahim
+author: ibrahim-suta
 description: "This tutorial walks you through building a simple CRUD application in ASP.NET Framework 4.x WebAPI and Angular 6."
 tags: [asp.net, dotnet, framwork, dot net, angular, crud]
 tweets:

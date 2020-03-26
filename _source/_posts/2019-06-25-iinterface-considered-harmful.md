@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "IInterface Considered Harmful"
-author: leebrandt
+author: lee-brandt
 description: "This post discusses the disadvantages of using the 'I' prefix for interfaces in static-typed languages."
 tags: [aspnetcore, netcore, interface, naming conventions]
 tweets:

@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a Simple CRUD App with ASP.NET Framework 4.x Web API and Vue"
-author: ibrahim
+author: ibrahim-suta
 description: "This tutorial walks you through creating a basic CRUD application with ASP.NET WebAPI and Vue"
 tags: [aspnet, webapi, vue, vuejs, web api, crud]
 tweets:

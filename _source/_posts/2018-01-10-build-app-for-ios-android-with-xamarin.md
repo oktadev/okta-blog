@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build an App for iOS and Android with Xamarin"
-author: nbarbettini
+author: nate-barbettini
 tags: [native, mobile, ios, android, dotnet, xamarin]
 tweets:
   - "Learn how to use Xamarin to build iOS and Android apps fast →"

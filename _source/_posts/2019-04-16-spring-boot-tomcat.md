@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'Deploy a Spring Boot Application into Tomcat'
-author: kpenzhorn
+author: karl-penzhorn
 description: "Create a Spring Boot 2.1 app with Java 11 and deploy into Tomcat 9."
 tags: [spring boot, tomcat, java]
 tweets:

@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Tutorial: Build Your First CRUD App with Symfony and Angular"
-author: krasimir
+author: krasimir-hristozov
 description: "This tutorial shows you how to set up a 'quick and dirty' modern application using a backend API written in Symfony 4 and a frontend in Angular, with a minimal dependencies and no hassle."
 tags: [php, angular, symfony, crud]
 tweets:

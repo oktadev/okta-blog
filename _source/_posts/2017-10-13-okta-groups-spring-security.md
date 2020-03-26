@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'Add Role-Based Access Control to Your App with Spring Security and Thymeleaf'
-author: dogeared
+author: micah-silverman
 tags: [oauth, oauth2, oauth2.0, oauth 2.0, OpenID, OpenID Connect, oidc, spring, spring boot, spring security, rbac]
 ---
 

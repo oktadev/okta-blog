@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'Build an Ionic App with User Authentication'
-author: mraible
+author: matt-raible
 description: "Ionic is an open source mobile SDK for developing native and progressive web applications. With Okta and OpenID Connect (OIDC) you can easily integrate authentication into an Ionic application, and never have to build it yourself again."
 tags: [ionic, authentication, oidc, angular, cordova, iphone, android, ios, okta]
 tweets:

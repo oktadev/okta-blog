@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Spring Method Security with PreAuthorize"
-author: moksamedia
+author: andrew-hughes
 description: "In this tutorial, you'll secure a Spring Boot app with Spring Security and the PreAuthorize annotation."
 tags: [java, spring, spring boot, spring security, security]
 tweets:

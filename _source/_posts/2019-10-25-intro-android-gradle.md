@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Get Familiar with Android and Gradle"
-author: mikel
+author: mikel-pascual
 description: "Interested in how Android + Gradle work together? This article will go over the basics."
 tags: [ android, mobile, gradle, user management, login ]
 tweets:

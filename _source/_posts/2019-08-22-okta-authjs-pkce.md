@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Implement the OAuth 2.0 Authorization Code with PKCE Flow"
-author: dogeared
+author: micah-silverman
 description: "This tutorial shows you how to migrate from the OAuth 2.0 Implicit flow to the more secure Authorization Code with PKCE flow."
 tags: [java, oauth2, tutorial, security, authorization, pkce]
 tweets:

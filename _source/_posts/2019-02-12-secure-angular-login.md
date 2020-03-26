@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build Secure Login for Your Angular App"
-author: holgerschmitz
+author: holger-schmitz
 description: "Build an Angular application with authentication, a step-by-step tutorial."
 tags: [angular, login, angular cli, typescript, authentication]
 tweets:

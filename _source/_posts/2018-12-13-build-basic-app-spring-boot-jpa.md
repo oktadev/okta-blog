@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'Build a Basic App with Spring Boot and JPA using PostgreSQL'
-author: moksamedia
+author: andrew-hughes
 description: "Build a resource server using Spring Boot and Spring Data JPA and implement Group-based authorization using Okta OAuth."
 tags: [security, jwt, token, authentication, sessions, jpa, spring, spring data]
 tweets: 

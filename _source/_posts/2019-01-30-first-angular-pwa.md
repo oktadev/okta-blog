@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build Your First PWA with Angular"
-author: holgerschmitz
+author: holger-schmitz
 description: "This post shows you how to build a PWA (Progressive Web Application) with Angular, Angular CLI, and Angular Material."
 tags: [angular, angular cli, angular material, pwa, angular pwa]
 tweets:

@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a CRUD API with Java and MongoDB"
-author: moksamedia
+author: andrew-hughes
 description: "Learn how to use Java and MongoDB to create a REST API. Then secure with Spring Security and OAuth 2.0."
 tags: [java, mongodb, rest, oauth2]
 tweets:

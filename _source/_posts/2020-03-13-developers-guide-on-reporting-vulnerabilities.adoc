@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "A Developer Guide to Reporting Vulnerabilities"
-author: bdemers
+author: brian-demers
 description: "This post explains how to report a vulnerability and why it's important to do so responsibly."
 tags: [security, developer, Vulnerabilities]
 tweets:

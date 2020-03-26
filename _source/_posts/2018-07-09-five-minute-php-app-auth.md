@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Add Authentication to your PHP App in 5 Minutes"
-author: aaronpk
+author: aaron-parecki
 description: "Ever found yourself building an app and needing to add authentication, dreading the thought of setting up a username and password database? In this post I'll show you how easy it is to use Okta to add authentication to a simple PHP app in 5 minutes."
 tags: [oauth, php]
 Tweets:

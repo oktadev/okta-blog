@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a Basic CRUD App with Node and React"
-author: bkelley
+author: braden-kelley
 description: "Learn how to build a simple app with Node and React: register and login users, store data in a database, etc."
 tags: [node, react, express, databases, authentication]
 Tweets:

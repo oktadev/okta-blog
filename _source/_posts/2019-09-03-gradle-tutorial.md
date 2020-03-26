@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Get Groovy with Gradle"
-author: moksamedia
+author: andrew-hughes
 description: "Tutorial: Everything you wanted to know about building a Java application with Gradle"
 tags: [java, jvm, kotlin, groovy, tutorial, gradle]
 tweets:

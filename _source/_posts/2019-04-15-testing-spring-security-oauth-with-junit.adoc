@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Upgrading Spring Security OAuth and JUnit Tests through the 👀 of a Java Hipster"
-author: mraible
+author: matt-raible
 description: "Learn how to use JUnit to test your Java apps! This is an advanced guide that tells a story about upgrading tests and the super hip testing support in Spring Security and Spring Boot."
 tags: [java, junit, testing, jhipster]
 tweets:

@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Never Build MFA Again: A Developer's Guide to Transactional MFA"
-author: jeffersonhaw
+author: jefferson-haw
 description: "Learn how to implement transactional MFA in your applications."
 tags: [transactional MFA, MFA]
 tweets:

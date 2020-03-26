@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: 'Build Simple Authentication in Express in 15 Minutes'
-author: bkelley
+author: braden-kelley
 description: 'A tutorial on building simple authentication in Express.'
 tags: [node, nodejs, express, authentication]
 tweets:

@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Spread Serverless Holiday Cheer with Lambda and API Gateway"
-author: nbarbettini
+author: nate-barbettini
 tags: [javascript, serverless, api, lambda, api-gateway]
 ---
 

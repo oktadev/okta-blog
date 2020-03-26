@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Angular Authentication with JWT"
-author: holgerschmitz
+author: holger-schmitz
 description: "This tutorial shows how to build a Node and Angular app that  uses JWT for authentication."
 tags: [angular, jwt, authentication, javascript, typescript, nodejs]
 tweets:

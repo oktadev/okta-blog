@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Use Sass with React to Build Beautiful Apps"
-author: holgerschmitz
+author: holger-schmitz
 description: "Learn how to use Sass for CSS and how you can use it in your React apps."
 tags: [react, sass, css, javascript]
 tweets:

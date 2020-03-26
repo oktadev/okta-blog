@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Learning Java as a First Language"
-author: mraible
+author: matt-raible
 description: "Start programming in Java with these awesome resources!"
 tags: [java, learning, programming, programming languages, education]
 tweets:

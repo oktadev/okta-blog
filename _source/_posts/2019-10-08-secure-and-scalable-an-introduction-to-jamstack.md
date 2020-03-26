@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Secure and Scalable: An Introduction to JAMStack"
-author: reverentgeek
+author: david-neal
 description: "Learn to build a blazing fast static web site using JAMstack with Hugo and Okta."
 tags: [jamstack, javascript, api, markup, markdown, html, css, static]
 tweets:

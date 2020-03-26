@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Use Schematics with Vue and Add Authentication in 5 Minutes"
-author: mraible
+author: matt-raible
 description: "Learn what Schematics are and how to use them with your Vue applications."
 tags: [schematics, vue, authentication]
 tweets:

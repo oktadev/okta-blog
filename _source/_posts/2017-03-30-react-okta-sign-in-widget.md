@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: Build a React Application with User Authentication in 15 Minutes
-author: leebrandt
+author: lee-brandt
 tags: [react, sign-in widget, okta, es6]
 ---
 

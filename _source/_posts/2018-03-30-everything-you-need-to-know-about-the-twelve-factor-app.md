@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Everything You Need to Know About the Twelve-Factor App"
-author: rdegges
+author: randall-degges
 description: "A breakdown of the twelve-factor app pattern and how you can use it to build more secure web services."
 tags: [twelve-factor, best practices, patterns]
 tweets:

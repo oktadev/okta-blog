@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "The Top 5 DevOps Automation Tools .NET Developers Should Know"
-author: quorralyne
+author: heather-downing
 description: "CI/CD automation, code analysis, and database versioning. Check out the top 5 tools for DevOps automation that every .NET developer should know."
 tags: [ aspnet, csharp, dotnet, dotnetcore, entityframework, SQL, webapi, okta, devops, automation, devopsautomation]
 tweets:
