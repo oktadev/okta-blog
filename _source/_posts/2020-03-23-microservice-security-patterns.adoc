@@ -56,9 +56,6 @@ ____
 
 As engineers, we're taught early on about the importance of creating well-designed software and architectures. You study it and take pride in it. Design is a natural part of building software.
 
-https://www.manning.com/books/secure-by-design[image:{% asset_path 'blog/microservice-security-patterns/secure-by-design.png' %}[alt=Secure by Design Book,width=150,align=center,role="pull-right w-150px m-x-sm fa-border"]]
-
-
 Well-known security threats should drive design decisions in security architectures. Reusable techniques and patterns provide solutions for enforcing the necessary authentication, authorization, confidentiality, data integrity, privacy, accountability, and availability, even when the system is under attack.
 
 From the InfoQ Podcast and its https://www.infoq.com/podcasts/web-security-hack-anatomy/[Johnny Xmas on Web Security & the Anatomy of a Hack] episode:
@@ -79,7 +76,9 @@ The Open Web Application Security Project (OWASP) is a nonprofit foundation that
 * Education & Training
 ****
 
-I like the example from the https://www.manning.com/books/secure-by-design[Secure by Design] book, by Dan Bergh Johnsson, Daniel Deogun, and Daniel Sawano. They show how you can develop a basic `User` object that displays a username a username on a page.
+https://www.manning.com/books/secure-by-design[image:{% asset_path 'blog/microservice-security-patterns/secure-by-design.png' %}[alt=Secure by Design Book,width=150,role="pull-right w-150px m-x-sm fa-border"]]
+
+I like the example from the https://www.manning.com/books/secure-by-design[Secure by Design] book, by Dan Bergh Johnsson, Daniel Deogun, and Daniel Sawano. They show how you can develop a basic `User` object that displays a username on a page.
 
 [source,java]
 ----
