@@ -2,7 +2,11 @@
 layout: blog_post
 title: Productionalizing ActiveMQ
 author: matt-loughran
+by: internal-contributor
+communities: java
 tags: [activemq, jvm]
+type: awareness
+
 ---
 
 This post describes our odyssey with ActiveMQ, an open-source version of the Java Messaging Service (JMS) API. We use ActiveMQ as the message broker among our app servers.

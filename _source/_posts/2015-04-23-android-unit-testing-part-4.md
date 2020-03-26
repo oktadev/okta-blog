@@ -2,7 +2,10 @@
 layout: blog_post
 title: Android Unit Testing Part IV&#58; Mocking
 author: victor-ronin
+by: internal-contributor
+communities: [java, mobile]
 tags: [android, testing]
+type: conversion
 redirect_from:
   - "/blog/2015-04-14-android-unit-testing-part-4"
 ---
