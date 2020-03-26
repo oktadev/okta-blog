@@ -2,7 +2,10 @@
 layout: blog_post
 title: "Add the Power of Webhooks to Your App with Okta's System Log"
 author: joel-franusic
+by: internal-contributor
+communities: [go]
 tags: [webhooks, go]
+type: conversion
 ---
 
 > **UPDATE**: Since this article was written we've released official webhook

@@ -1,10 +1,11 @@
 ---
 layout: blog_post
 title: REST Service Authorization with JWTs
-author:
-- jon-todd
-- william-dawson
+author: jon-todd
+by: internal-contributor
+communities: [security]
 tags: [rest, oauth, identity, security, jwt]
+type: awareness
 ---
 
 Many companies are adopting micro-services based architectures to promote

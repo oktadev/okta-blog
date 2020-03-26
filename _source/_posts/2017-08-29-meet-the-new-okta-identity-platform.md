@@ -2,11 +2,13 @@
 layout: blog_post
 title: "Meet the New Okta Identity Platform"
 author: randall-degges
+by: advocate
 description: "Okta's newly launched identity platform seamlessly handles user management, authentication, authorization, single sign-on, social login, API authentication, and everything you need to log users into your app."
 tags: [authentication, authorization, announcements]
 tweets:
     - "@rdegges on the new and improved Okta identity platform"
     - "The new Okta identity platform was released. Read @rdegges' announcement here"
+type: awareness
 ---
 
 

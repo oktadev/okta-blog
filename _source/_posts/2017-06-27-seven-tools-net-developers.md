@@ -2,7 +2,10 @@
 layout: blog_post
 title: '7 Essential .NET Developer Tools for 2017'
 author: lee-brandt
+by: advocate
+communities: [.net]
 tags: [net, tools]
+type: awareness
 ---
 
 Every good dev knows that time spent setting up the perfect environment and searching out the latest tools is time well spent. Little things make a huge difference — upgrade your IDE plugins, automate a task or two, or look for new tools and libraries that can increase your efficiency. We've taken a crack at an updated list of our favorite .NET developer tools, that can simplify your life and amplify your work.

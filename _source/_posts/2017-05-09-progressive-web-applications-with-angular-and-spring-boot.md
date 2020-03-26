@@ -2,11 +2,14 @@
 layout: blog_post
 title: Build Your First Progressive Web Application with Angular and Spring Boot
 author: matt-raible
+by: advocate
+communities: [java, javascript]
 description: "This article will show you how to build a PWA with a Spring Boot backend and an Angular frontend that will work offline. You'll also learn how to deploy it to Cloud Foundry!"
 tweets:
   - "Did you know that PWAs are the way of the future? Native apps that require 60MB to download? Peshaw! Just use good ol' web technologies, a service worker, and caching to develop an awesome mobile experience → "
   - "Eager to learn how to develop a PWA with Angular and TypeScript? We've got the 🎟 on our @oktadev blog. ✅ it! "
 tags: [spring boot, java, pwa, progressive web app, angular, typescript, angular-cli]
+type: conversion
 ---
 
 An October 2016 DoubleClick report found 53% of visits are abandoned if a mobile site takes more than 3 seconds to load. That same report said the average mobile sites load in 19 seconds. According to Alex Russell in his recent talk on the state of mobile development, one of the biggest problems in mobile today is that developers use powerful laptops and desktops to develop their mobile applications, rather than using a $200 device on a 3G connection. Using this environment is "ground truth" to the majority of web users in the world. It's cool to develop native applications, but people with slow phones and internet don't want to download a 60MB app, they just want to use the web. Progressive web applications, or PWAs, are one of the easiest ways to make web applications faster and easier to use, allowing developers to build a better internet for everyone.

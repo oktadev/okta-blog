@@ -2,10 +2,13 @@
 layout: blog_post
 title: A Developer's Guide To Docker - The Dockerfile
 author: lee-brandt
+by: advocate
+communities: [devops]
 tags: [docker, devops, developer]
 redirect_from:
   - "/blog/2017/05/10/developers-guide-to-docker-part-2"
   - "/blog/2017/10/11/developers-guide-to-docker-part-2"
+type: awareness
 ---
 
 Creating a consistent environment for development, testing, staging, and production is one of the big benefits of using containers. Not only do containers make the *entire* environment portable, they remove *environment-specific problems*, like, "Why does it work in test, but not in production?" Usually, it's a package or framework that's installed on the test machine that is not on the production server. Containers carry all those dependencies with them, minimizing the possibility for those problems. To help create a consistent container, you need an image that is configured in code that can be versioned and distributed. That's where the `Dockerfile` comes in.
