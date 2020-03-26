@@ -56,9 +56,6 @@ ____
 
 As engineers, we're taught early on about the importance of creating well-designed software and architectures. You study it and take pride in it. Design is a natural part of building software.
 
-https://www.manning.com/books/secure-by-design[image:{% asset_path 'blog/microservice-security-patterns/secure-by-design.png' %}[alt=Secure by Design Book,width=150,align=center,role="pull-right w-150px m-x-sm fa-border"]]
-
-
 Well-known security threats should drive design decisions in security architectures. Reusable techniques and patterns provide solutions for enforcing the necessary authentication, authorization, confidentiality, data integrity, privacy, accountability, and availability, even when the system is under attack.
 
 From the InfoQ Podcast and its https://www.infoq.com/podcasts/web-security-hack-anatomy/[Johnny Xmas on Web Security & the Anatomy of a Hack] episode:
@@ -79,7 +76,9 @@ The Open Web Application Security Project (OWASP) is a nonprofit foundation that
 * Education & Training
 ****
 
-I like the example from the https://www.manning.com/books/secure-by-design[Secure by Design] book, by Dan Bergh Johnsson, Daniel Deogun, and Daniel Sawano. They show how you can develop a basic `User` object that displays a username a username on a page.
+https://www.manning.com/books/secure-by-design[image:{% asset_path 'blog/microservice-security-patterns/secure-by-design.png' %}[alt=Secure by Design Book,width=150,role="pull-right w-150px m-x-sm fa-border"]]
+
+I like the example from the https://www.manning.com/books/secure-by-design[Secure by Design] book, by Dan Bergh Johnsson, Daniel Deogun, and Daniel Sawano. They show how you can develop a basic `User` object that displays a username on a page.
 
 [source,java]
 ----
@@ -333,7 +332,7 @@ image::{% asset_path 'blog/microservice-security-patterns/auth-server-one-to-one
 
 This architecture allows you to have clearly defined security boundaries. However, it's slower because it's more chatty, and it's harder to manage.
 
-My recommendation: use a one-to-many relationship until you have a plan and documentation to support a one-to-one relationship.
+My recommendation: use a many-to-one relationship until you have a plan and documentation to support a one-to-one relationship.
 
 === Use PASETO Tokens Over JWT
 
@@ -444,7 +443,7 @@ Docker containers are very popular in microservice architectures. Our friends at
 
 You might also find https://resources.whitesourcesoftware.com/blog-whitesource/top-5-docker-vulnerabilities[Top 5 Docker Vulnerabilities You Should Know] from WhiteSource useful.
 
-You should also scan your Kubernetes configuration for vulnerabilities, but there's much more than than, so I'll cover K8s security in the next section.
+You should also scan your Kubernetes configuration for vulnerabilities, but there's much more than that, so I'll cover K8s security in the next section.
 
 == 11. Know Your Cloud and Cluster Security
 
@@ -476,21 +475,21 @@ Running a service mesh like Istio _might_ allow you to offload your security to 
 
 I hope these security patterns have helped you become a more security-conscious developer. It's interesting to me that only half of my list pertains to developers that write code on a day-to-day basis.
 
-1. Be Secure by Design
-2. Scan Dependencies
-3. Use HTTPS Everywhere
-4. Use Access and Identity Tokens
-5. Encrypt and Protect Secrets
+. Be Secure by Design
+. Scan Dependencies
+. Use HTTPS Everywhere
+. Use Access and Identity Tokens
+. Encrypt and Protect Secrets
 
 The rest of them seem to apply to DevOps people, or rather DevSecOps.
 
 [start=6]
-6. Verify Security with Delivery Pipelines
-7. Slow Down Attackers
-8. Use Docker Rootless Mode
-9. Use Time Based Security
-10. Scan Docker and Kubernetes Configuration for Vulnerabilities
-11. Know Your Cloud and Cluster Security
+. Verify Security with Delivery Pipelines
+. Slow Down Attackers
+. Use Docker Rootless Mode
+. Use Time Based Security
+. Scan Docker and Kubernetes Configuration for Vulnerabilities
+. Know Your Cloud and Cluster Security
 
 Since all of these patterns are important considerations, you should make sure to keep a close relationship between your developer and DevSecOps teams. In fact, if you're doing microservices right, these people aren't on separate teams! They're on the same product team that owns the microservice from concept to production.
 
@@ -502,10 +501,12 @@ Looking for more? We have a few microservice and security-focused blogs I think 
 * link:/blog/2019/07/25/the-hardest-thing-about-data-encryption[The Hardest Thing About Data Encryption]
 * link:/blog/2019/10/23/dangers-of-self-signed-certs[The Dangers of Self-Signed Certificates]
 
-https://developer.okta.com/books/api-security[image:{% asset_path 'blog/microservice-security-patterns/api-security-book.png' %}[alt=API Security Book,width=150,align=center,role="pull-right w-150px m-x-sm fa-border"]]
+https://developer.okta.com/books/api-security[image:{% asset_path 'blog/microservice-security-patterns/api-security-book.png' %}[alt=API Security Book,width=100,role="pull-right w-100px m-x-sm fa-border"]]
 We also wrote a book! https://developer.okta.com/books/api-security/[API Security] is a guide to building and securing APIs from the developer team at Okta.
 
 If you liked this post and want notifications when we post others, please https://twitter.com/oktadev[follow @oktadev on Twitter]. We also have a https://youtube.com/c/oktadev[YouTube channel] you might enjoy. As always, please leave a comment below if you have any questions.
 
 [[acknowledgements]]
 _A huge thanks to Chris Richardson and Rob Winch for their thorough reviews and detailed feedback._
+
+TIP: I'll be giving a https://oktane20.com/agenda#566[talk on Security Patterns for Microservice Architectures at Oktane 20] next week. Oktane20 is a FREE virtual conference. https://oktane20.com/register[Register] and watch my talk at 1pm PT on April 2nd.
