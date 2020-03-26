@@ -332,7 +332,7 @@ image::{% asset_path 'blog/microservice-security-patterns/auth-server-one-to-one
 
 This architecture allows you to have clearly defined security boundaries. However, it's slower because it's more chatty, and it's harder to manage.
 
-My recommendation: use a one-to-many relationship until you have a plan and documentation to support a one-to-one relationship.
+My recommendation: use a many-to-one relationship until you have a plan and documentation to support a one-to-one relationship.
 
 === Use PASETO Tokens Over JWT
 
