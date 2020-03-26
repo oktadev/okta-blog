@@ -443,7 +443,7 @@ Docker containers are very popular in microservice architectures. Our friends at
 
 You might also find https://resources.whitesourcesoftware.com/blog-whitesource/top-5-docker-vulnerabilities[Top 5 Docker Vulnerabilities You Should Know] from WhiteSource useful.
 
-You should also scan your Kubernetes configuration for vulnerabilities, but there's much more than than, so I'll cover K8s security in the next section.
+You should also scan your Kubernetes configuration for vulnerabilities, but there's much more than that, so I'll cover K8s security in the next section.
 
 == 11. Know Your Cloud and Cluster Security
 
