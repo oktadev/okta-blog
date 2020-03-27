@@ -2,12 +2,15 @@
 layout: blog_post
 title: "Stolen Access Tokens and You"
 author: keith-casey
+by: internal-contributor
+communities: [security]
 description: "In recent weeks, we've seen a number of hacks around OAuth access tokens. As much as we'd like to blame the underlying technology, it's more out of misuse and misunderstanding than anything else."
 tags: [oauth, security]
 Tweets:
 - "Our own @caseysoftware walks us through how to handle stolen access tokens 🔓 #oauth #security"
 - "How should stolen access tokens be dealt with? @caseysoftware walks us through it ➡"
 image: blog/stolen-access-tokens/server-rack.jpg
+type: awareness
 ---
 
 What never dies, spreads rampantly, and is guaranteed to bite you? You guessed it: Stolen access tokens!

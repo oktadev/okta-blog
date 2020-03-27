@@ -2,11 +2,14 @@
 layout: blog_post
 title: "Build a Basic CRUD Application with Grails and Okta"
 author: andrew-hughes
+by: contractor
+communities: [java]
 description: "This tutorial adds secure controllers with Grails, OAuth 2.0, and Okta."
 tags: [java, groovy, grails, spring, spring-boot, OIDC, OpenID Connect]
 tweets:
     - "Add role based authorization to Grails application using Okta"
     - "OAuth2 and role based authorization with Grails and Okta"
+type: conversion
 ---
 
 Grails and Groovy can be a great alternative to Spring Boot, in some specific use cases. In this post, we'll start with that basic Grails app that already has secure authentication via Okta, and add some additional features. In this tutorial you will:

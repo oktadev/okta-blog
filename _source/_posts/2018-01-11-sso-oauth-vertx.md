@@ -2,10 +2,13 @@
 layout: blog_post
 title: 'Add Single Sign-On to Your Vert.x Server with Okta'
 author: silas-brazil
+by: contractor
+communities: [java]
 tags: [sso, vert.x, java, oauth]
 tweets:
   - Learn how to use @vertx_project with OAuth!
   - Add SSO to your @Vertx_Project with OAuth and @OktaDev
+type: conversion
 ---
 
 Vert.x has continued to gain traction as a contender to the Spring ecosystem, largely due to improved performance and its polyglot accessibility. Fortunately, securing a Vert.x server with industry-leading authentication and authorization is almost as quick and easy as it is in Spring! In just a few minutes, you can have secure single sign-on guarding your server and giving you access to a wealth of information about your users. This tutorial will walk you through that process, as you stand up a new Vert.x server and integrate it with Okta for security and user management.

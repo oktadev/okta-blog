@@ -2,12 +2,15 @@
 layout: blog_post
 title: 'Build a Basic CRUD App with Laravel and React'
 author: krasimir-hristozov
+by: contractor
+communities: [javascript, php]
 description: "In this tutorial, you'll learn how to build a React app using a Laravel API to store its data."
 tags: [crud, react, php, laravel]
 tweets:
   - "Are you looking to get started with React and Laravel? If so, this tutorial is for you!"
   - "This tutorial shows you how to build an React app with a Laravel backend, complete with authentication!"
 image: blog/featured/okta-react-headphones.jpg
+type: conversion
 ---
 
 Laravel is an amazing web application framework which regularly tops the lists of best PHP frameworks available today. This is partly because its based on PHP which runs 80% of the web today and the learning curve is relatively small (despite it being packed with advanced features, you can understand the basic concepts easily). However, the real reason for its popularity is its robust ecosystem and abundance of high-quality learning resources available for free (like this blog post!).

@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Upgrade your ASP.NET Core 2.1 App to Angular 6"
 author: lee-brandt
+by: advocate
+communities: [.net, javascript]
 description: "This tutorial walks you through building a simple CRUD application in ASP.NET Core 2.1 and Angular 6."
 tags: [asp.net, dotnet, core, asp.net core, dotnet core, dot net core, angular, crud]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Need to learn the basics of #aspnetcore 2.1 and @angular 6? We've got you covered. <3"
 - "Let @leebrandt show you how to create a basic CRUD app using #aspnetcore and @angular 6!"
 - "If you're getting started with #aspnetcore and/or @angular 6, learn how to write a basic CRUD app using both! →"
+type: awareness
 ---
 
 With the release of ASP.NET Core, there are several templates in the DotNet CLI. One of those templates is an Angular template that scaffolds a single page application built with Angular and ASP.NET Core. The problem with that template is that it scaffolds an Angular 4.2.5 project and Angular released Angular 6 in May of 2018!

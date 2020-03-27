@@ -2,12 +2,15 @@
 layout: blog_post
 title: 'Create a Basic Android App without an IDE'
 author: karl-penzhorn
+by: contractor
+communities: [mobile]
 description: 'This tutorial walks you through building a basic Android app without an IDE.'
 tags: [android, mobile, okta]
 tweets:
   - 'Build a basic @Android app without an IDE! →'
   - "Need to learn the basics @Android? Don't have an IDE? We've got you covered. <3"
   - "Let us show you how to create a basic @Android app. You don't even need an IDE! →"
+type: conversion
 ---
 
 Virtually every Android tutorial uses Android Studio to create and develop an app. This isn't great for learning since you don't see how things work, namely

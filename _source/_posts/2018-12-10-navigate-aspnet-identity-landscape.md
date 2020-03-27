@@ -2,12 +2,15 @@
 layout: blog_post
 title: "Navigating the ASP.NET Core Identity Landscape"
 author: lee-brandt
+by: advocate
+communities: [.net]
 description: "A quick look over the three most common scenarios for Identity Management in ASP.NET Core"
 tags: [aspnet, aspnetcore, identity, authentication]
 tweets:
   - "A quick look over the three most common scenarios for handling identity in #aspnetcore"
   - "Interested in the most common ways to handle identity in #aspnetcore? Check it out!"
 image: blog/featured/okta-dotnet-books-quarter.jpg
+type: awareness
 ---
 
 

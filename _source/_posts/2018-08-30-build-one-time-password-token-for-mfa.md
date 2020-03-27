@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Build a One-time Password Token for MFA with Okta"
 author: micah-silverman
+by: advocate
+communities: [security]
 description: "Learn about the time-based one-time password algorithm using a credit-card-sized, Arduino-based game device and Okta Verify for MFA."
 tags: [auth, mfa, verify, authentication, 2fa, two factor]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Like tinkering with hardware? Dig security? Get your fix with @afitnerd's post on building an Arduino based TOTP token with Okta."
 - "Check out @afitnerd's new tutorial on turning an ArduBoy game device into a token for MFA."
 image: blog/ardu-token-mfa/sharedsecret.png
+type: conversion
 ---
 
 Okta has a great multi-factor authentication (MFA) service that you can use right away with a [free developer account](https://developer.okta.com/signup/). It provides additional security by requiring a second factor after authentication and supports a variety of factor types including SMS, soft tokens like Google Authenticator, hard tokens like Yubikey and the Okta Verify soft token with push notification.

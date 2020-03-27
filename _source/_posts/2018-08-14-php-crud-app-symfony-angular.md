@@ -2,12 +2,15 @@
 layout: blog_post
 title: "Tutorial: Build Your First CRUD App with Symfony and Angular"
 author: krasimir-hristozov
+by: contractor
+communities: [php, javascript]
 description: "This tutorial shows you how to set up a 'quick and dirty' modern application using a backend API written in Symfony 4 and a frontend in Angular, with a minimal dependencies and no hassle."
 tags: [php, angular, symfony, crud]
 tweets:
 - "Learn how to use @Symfony and @Angular to create a simple CRUD application →"
 - "Create a CRUD application with @Symfony and @Angular, and add authentication with Okta! #symfony4"
 - "Look how easy it is to add authentication to a @Symfony app with Okta! #symfony4 #php"
+type: conversion
 ---
 
 Building a web application isn't supposed to be drudgery. No developer has ever said "I'd really like to spend two hours configuring webpack and TypeScript this weekend." You'd rather build cool stuff NOW and spend time thinking about your applications, not the tools you're forced to use. In a lot of cases the "cool stuff" is a dynamic, fast, secure single-page app. To achieve that, in this tutorial I'll show you how to get a basic app running with a Symfony 4 API and an Angular 6 frontend in less than an hour.

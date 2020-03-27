@@ -2,12 +2,15 @@
 layout: blog_post
 title: "Build a Single-Page App with Go and Vue"
 author: kleber-correia
+by: contractor
+communities: [go, javascript]
 description: "Learn how to build comprehensive single-page apps using Go and Vue."
 tags: [oauth, security, go, vue, mongodb]
 Tweets:
 - "Interested in @golang and @vuejs? We just published a great tutorial that walks you through building a single-page app with #golang #vuejs and @mongodb"
 - "Do you love @golang as much as we do? If so, check out our latest article! It walks you through building a single-page app with #golang, @vuejs, and @mongodb =)"
 image: blog/go-vue/vue-app.png
+type: conversion
 ---
 
 Single-Page Applications (SPAs) improve user experience by offering rich UI interactions, fast feedback, and the relief of knowing you don't need to download and install a traditional application. Browsers are now operating systems and websites are apps. While a SPA isn't always the answer, for apps that rely on snappy user interaction they are increasingly common.

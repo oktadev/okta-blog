@@ -2,11 +2,14 @@
 layout: blog_post
 title: "Add Social Login to Your Spring Boot 2.0 App"
 author: andrew-hughes
+by: contractor
+communities: [java]
 description: "The primary benefits of social login are ease of use and security. It's easier for your users to log into your app if they can use credentials they've already created on a a service they trust."
 tags: [authentication, spring boot, oidc, social login]
 tweets:
 - "Spring Boot + Okta + Social Auth in minutes! →"
 - "Enable Social Auth for you Spring Boot app with Okta"
+type: conversion
 ---
 
 We've all seen social login. It's the "Log in with Facebook" or "Log in with Twitter" buttons we see below every username and password field on the Internet. But why do these exist?

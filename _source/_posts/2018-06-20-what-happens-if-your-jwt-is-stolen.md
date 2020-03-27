@@ -2,6 +2,8 @@
 layout: blog_post
 title: "What Happens If Your JWT Is Stolen?"
 author: randall-degges
+by: advocate
+communities: [security]
 description: "What happens if a JSON Web Token is stolen or compromised? What are the security considerations you need to understand? In this post, we'll look at what JWTs are, and what happens when they're stolen or compromised."
 tags: [authentication, security, json web tokens]
 tweets:
@@ -10,6 +12,7 @@ tweets:
  - "Interested in learning more about JSON Web Tokens and their security model? Check out our latest article which discusses the topic in detail:"
  - "Interested in web #security? How about #jsonwebtokens? We've got a new article which dives in deep on both, check it out!"
  - "What happens if your #jsonwebtokens are stolen or compromised? @rdegges just wrote up a great piece about the #security implications:"
+type: awareness
 ---
 
 

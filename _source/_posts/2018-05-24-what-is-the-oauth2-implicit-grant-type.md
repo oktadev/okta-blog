@@ -2,6 +2,8 @@
 layout: blog_post
 title: "What is the OAuth 2.0 Implicit Grant Type?"
 author: aaron-parecki
+by: advocate
+communities: [security]
 description: "The Implicit Grant Type is a way for a single-page JavaScript app to get an access token without an intermediate code exchange step. It was originally created for use by JavaScript apps (which don't have a way to safely store secrets) but is only recommended in specific situations."
 tags: [oauth]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Ever wondered when you should use the #oauth2 Implicit Grant Type?"
 - "What the heck is the OAuth Implicit Grant Type?"
 - "Thinking about using the OAuth Implicit Grant Type? Read this first:"
+type: awareness
 ---
 
 The Implicit Grant Type is a way for a single-page JavaScript app to get an access token without an intermediate code exchange step. It was originally created for use by JavaScript apps (which don't have a way to safely store secrets) but is only recommended in specific situations.

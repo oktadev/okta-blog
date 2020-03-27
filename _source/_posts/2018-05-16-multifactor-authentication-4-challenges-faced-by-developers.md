@@ -2,8 +2,11 @@
 layout: blog_post
 title: "Multi-Factor Authentication: 4 Challenges Faced by Developers"
 author: micah-silverman
+by: advocate
+communities: [security]
 description: "This post explains multi-factor authentication and some challenges that developers face with it."
 tags: [multi-factor, authentication, developer]
+type: awareness
 ---
 
 Multi-factor authentication (MFA) is the most reliable way to ensure the security of your users' PII (personally identifiable information), and with Okta it's easier than ever to implement in your application! Why is MFA super-secure? It's simple: While a user may have a terrible password, many additional factors are inherently immutable. Some common second factors of authentication include a text message with a one-time use code, called SMS verification, a code that refreshes regularly in an app like Google Authenticator a push notification app like Okta Verify, or a USB hardware device that must be plugged into the user's computer, like a Yubikey.

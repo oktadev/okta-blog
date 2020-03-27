@@ -2,11 +2,13 @@
 layout: blog_post
 title: "Hosting Our First Developer Conference, Iterate"
 author: randall-degges
+by: advocate
 description: "Thinking about hosting a developer conference? In this post we'll share the story of how we put together and hosted Iterate, our first developer conference."
 tags: [conference, programming, events]
 tweets:
   - "Did you miss @iterateconf? Read @rdegges' recap of how we hosted Iterate, our first developer conference →"
   - "We had a blast hosting our first developer conference back in February: @iterateconf. Want to know how we did it? Read @rdegges' article:"
+type: awareness
 ---
 
 

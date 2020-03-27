@@ -2,12 +2,15 @@
 layout: blog_post
 title: "Build a Photo Gallery PWA with React, Spring Boot, and JHipster"
 author: matt-raible
+by: advocate
+communities: [java, javascript]
 description: "This post shows you how to build a photo gallery progressive web app with Spring Boot, React, and JHipster 5. It uses OAuth's authorization code for authorization and OIDC for authentication. It extracts EXIF metadata from images, and displays them on the UI in a flexible grid format like Flickr does."
 tags: [spring-boot, react, pwa, jhipster, oauth, oidc, authorization code flow, photo gallery]
 tweets:
 - "Have you ever wanted to build a photo gallery app like Flickr with @springboot and @reactjs? You're in luck! This tutorial shows you how to do image upload, metadata parsing, and much more! #pwa"
 - "We ❤️ Flickr! Don't you? Learn how to build a Flickr clone with @reactjs, @springboot, and @java_hipster! That expression on your face will go from 😳 to 😃 in 30 minutes!"
 image: blog/featured/okta-react-bottle-headphones.jpg
+type: conversion
 ---
 
 At its core, React is just a UI toolkit, ala GWT, but it has a _very_ healthy ecosystem around it that provides everything you need to build a kick-ass progressive web app (PWA). PWAs are cool because if they're done right, they can offer a native-like experience for your users, allowing them to install your app, and use it when it's offline.

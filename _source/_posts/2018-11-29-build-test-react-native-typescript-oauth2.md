@@ -2,6 +2,8 @@
 layout: blog_post
 title: 'Build and Test a React Native App with TypeScript and OAuth 2.0'
 author: karl-penzhorn
+by: contractor
+communities: [javascript, mobile]
 description: "Use TypeScript to build and test a React Native app with authentication."
 tags: [typescript, react native, oauth, testing, android]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Get started with React Native today! This post shows you how to build a simple app, add authentication, and test it with @fbjest. "
 - "Wanna learn how to build an app with @reactnative? You're in luck! We have just the tutorial for you."
 image: blog/featured/okta-react-skew.jpg
+type: conversion
 ---
 
 React Native is one of the most popular ways of creating mobile apps. Building on the success of React, it ties together native components for both Android and iOS using a shared JavaScript code-base. However, JavaScript has come under fire recently for not being type safe which can lead to a loss of developer trust. Enter TypeScript, which allows type annotations to be added to existing JavaScript code.

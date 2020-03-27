@@ -2,11 +2,14 @@
 layout: blog_post
 title: "Angular 6: What's New, and Why Upgrade"
 author: matt-raible
+by: advocate
+communities: [javascript]
 description: "This post explains what's new in Angular 6 and how to upgrade your Angular 5 apps."
 tags: [angular, angular5, angular6, rxjs, typescript]
 tweets:
   - "Want to see what's new in Angular 6 and how to upgrade? We've got you covered!"
   - "Like what you see in #Angular 6 and want to upgrade? This article explains steps to upgrade your apps."
+type: awareness
 ---
 
 Angular 6 is now available and it's not a drop-in replacement for Angular 5. If you've been developing with Angular since Angular 2, you likely remember that it wasn't too difficult to upgrade to Angular 4 or Angular 5. In most projects, you could change the version numbers in your `package.json` and you were on your way.

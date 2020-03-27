@@ -2,12 +2,15 @@
 layout: blog_post
 title: "Use React and Spring Boot to Build a Simple CRUD App"
 author: matt-raible
+by: advocate
+communities: [java, javascript]
 description: "React is one of the most popular JavaScript frameworks, and Spring Boot is wildly popular in the Java ecosystem. This article shows you how to use them in the same app, and secure it all with Okta."
 tags: [authentication, spring boot, spring boot 2.1, react, reactjs, oidc]
 tweets:
 - "React + Spring Boot makes for a nice development experience. Learn how to make them work together with OIDC authentication →"
 - "Spring Boot with @java + React with @javascript == 💙. Learn how to build a @springboot + @reactjs CRUD app today!"
 image: blog/featured/okta-react-bottle-headphones.jpg
+type: conversion
 ---
 
 React was designed to make it painless to create interactive UIs. Its state management is efficient and only updates components when your data changes. Component logic is written in JavaScript, which means you can keep state out of the DOM and create components that are encapsulated.
