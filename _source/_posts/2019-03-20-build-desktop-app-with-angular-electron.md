@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Build a Desktop Application with Angular and Electron"
 author: holger-schmitz
+by: contractor
+communities: [javascript]
 description: "This tutorial shows how to build a basic desktop application with Angular and Electron."
 tags: [javascript, angular, electron]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Quickly build a desktop app with @Angular and @ElectronJS!"
 - "Build your simple desktop application with @Angular and @ElectronJS! →"
 image: blog/featured/okta-angular-headphones.jpg
+type: conversion
 ---
 
 So, you have been learning all about web technologies including JavaScript, HTML, and CSS. The advantage of web technologies is, of course, that the same software can be used on many different platforms. But this advantage comes with a number of problems. Web applications have to be run inside a browser and the interoperability with the operating system is limited. Direct access to features of the operating system is usually the domain for desktop applications. They run inside their own process and can easily be added to the dock or start menu. Wouldn't it be nice if you could develop a desktop application using the tools that you are comfortable with as a web developer? This is where Electron comes into play.

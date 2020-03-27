@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Hashing Techniques for Password Storage"
 author: william-dawson
+by: internal-contributor
+communities: [security]
 description: "A brief look at password hashing functions and some practical recommendations."
 tags: [security, hashing, passwords]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Interested in #password hashing? Read @wilsdawson's breakdown:"
 - "Password hashing techniques explained!"
 image: blog/featured/okta-dotnet-bottle-headphones.jpg
+type: awareness
 ---
 
 Picture yourself a year from now. Someone just put your entire password database on Pastebin. User accounts are being hacked by the thousands and your local privacy regulator just called to have a chat. Depending on the hashing algorithm you were using to store your user passwords, you could be in a lot of trouble. As they say, an ounce of prevention is worth a pound of cure, so how does hashing work and what are the best hashing techniques for password storage?

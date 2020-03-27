@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Build a Secure Blog with Gatsby, React, and Netlify"
 author: matt-raible
+by: advocate
+communities: [javascript]
 description: "This tutorial shows how to build a secure blog app with Gatsby, React, and Netlify."
 tags: [gatsby, netlify, react, jamstack]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Blogging with Gatsby and Netlify: #JAMStack FTW!"
 - "A concise guide on how to build a secure blogging site with @gatsbyjs and @netlify. "
 image: blog/gatsby-netlify-okta/gatsby-netlify.png
+type: conversion
 ---
 
 Gatsby is a tool for creating static websites with React. It allows you to pull your data from virtually anywhere: content management systems (CMSs), Markdown files, APIs, and databases. Gatsby leverages GraphQL and webpack to combine your data and React code to generate static files for your website.

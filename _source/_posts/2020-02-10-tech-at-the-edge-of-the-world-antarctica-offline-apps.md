@@ -2,12 +2,14 @@
 layout: blog_post
 title: "Tech at the Edge of the World: Offline Applications"
 author: heather-downing
+by: advocate
 description: "Can your code really run everywhere? Even offline? Thoughts from Heather Downing's journey to a tech conference held in Antarctica."
 tags: [selfcontainedapps, wifi, internet, connectivity, developer, programming, offlineapps, antarctica]
 tweets:
 - "Should you be building self-contained application in a cloud-based world? @quorralyne explores the question."
 - "Could your code run in Antarctica? Dive into offline capabilities of software with @quorralyne."
 image: blog/offline-apps-antarctica/elephantisland.jpg
+type: awareness
 ---
 
 {% img blog/offline-apps-antarctica/antarcticaphoto.jpg alt:"Antarctic Peninsula" width:"800" %}{: .center-image }

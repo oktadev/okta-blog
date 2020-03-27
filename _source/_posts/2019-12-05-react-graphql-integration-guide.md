@@ -2,6 +2,8 @@
 layout: blog_post
 title: "A Quick Guide to Integrating React and GraphQL"
 author: terje-kolderup
+by: contractor
+communities: [javascript]
 description: "A tutorial about using a QraphQL API from React."
 tags: [react, graphql, javascript]
 tweets:
@@ -9,6 +11,7 @@ tweets:
   - "Get a quick run down of how to get GraphQL and React to work together."
   - "Here's a quick guide to integrating React and GraphQL."
 image: blog/featured/okta-react-skew.jpg
+type: conversion
 ---
 
 If your application consumes a ReST API from React, the default setup will give you ALL the data for a resource. But if you want to specify what data you need, GraphQL can help! Specifying exactly the data you want can reduce the amount of data sent over the wire, and the React applications you write can have less code filtering out useless data from data you need.

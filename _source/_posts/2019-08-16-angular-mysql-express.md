@@ -2,6 +2,8 @@
 layout: blog_post
 title: "How to Work with Angular and MySQL"
 author: holger-schmitz
+by: contractor
+communities: [javascript]
 description: "Do you need to connect to MySQL from your Angular app? This guide will help you do just that!"
 tags: [angular, mysql, express]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Need to connect your @angular app to MySQL? This tutorial shows you how."
 - "Angular is 🔥; MySQL is a tried-and-true database that developers ❤️. This tutorial shows you how to use them together."
 image: blog/featured/okta-angular-skew.jpg
+type: conversion
 ---
 
 The MySQL database has been a reliable workhorse for web applications for many years. It is the **M** in the LAMP stack, and powers a huge number of web servers across the world. 

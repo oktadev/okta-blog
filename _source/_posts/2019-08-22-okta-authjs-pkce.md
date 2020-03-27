@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Implement the OAuth 2.0 Authorization Code with PKCE Flow"
 author: micah-silverman
+by: advocate
+communities: [security]
 description: "This tutorial shows you how to migrate from the OAuth 2.0 Implicit flow to the more secure Authorization Code with PKCE flow."
 tags: [java, oauth2, tutorial, security, authorization, pkce]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Implement the OAuth 2.0 Authorization Code with PKCE flow with JavaScript and Okta"
 - "Say goodbye to Implicit and hello to PKCE for SPAs using OAuth 2.0"
 image: blog/featured/okta-vue-tile-books-mouse.jpg
+type: awareness
 ---
 
 Imagine two levers that are inversely connected. That is, as one goes up, the other goes down. One lever is User Experience and the other is Security. It's not a perfect analogy, but most developers can attest that as user experience goes up, security goes down.

@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Use Firebase with Your ASP.NET MVC App"
 author: heather-downing
+by: advocate
+communities: [.net]
 description: "Learn how to store user non-identifiable data in Firebase using Okta and ASP.NET MVC"
 tags: [ aspnet, csharp, dotnet, mvc, firebase, realtimedatabase, nosql, identitymanagement, okta ]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Check it out! Firebase + ASP.NET MVC = lightning fast! →"
 - "Hey ASP.NET devs! In this simple tutorial learn how to use Firebase for quick data →"
 image: blog/featured/okta-dotnet-skew.jpg
+type: conversion
 ---
 
 Working with databases hosted online has become easier over recent years. The emergence of Database as a Service (DaaS) specifically makes quick integrations much easier. It is important to keep application user data separate from personally identifiable information, especially in this day and age. When using a third party auth provider like Okta, user information like a name or email address can be stored by that provider directly in their system, benefitting from their oversight and protection. 

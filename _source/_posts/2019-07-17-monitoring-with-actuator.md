@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Monitor Your Java Apps with Spring Boot Actuator"
 author: jimena-garbarino
+by: contractor
+communities: [java]
 description: "Spring Boot Actuator provides out-of-the-box monitoring for your app. It's also easily extended for new functionailty."
 tags: [spring boot, actuator, openid connect, oidc]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Use Spring Boot Actuator for production strength app monitoring."
 - "With Spring Boot's extensible Actuator, you can see everything that's happening in the backround of an OpenID Connect flow."
 image: blog/featured/okta-java-skew.jpg
+type: conversion
 ---
 
 Have you worked with Spring Boot Actuator yet? It's an immensely helpful library that helps you monitor app health and interactions with the app - perfect for going to production! Spring Boot Actuator includes a built-in endpoint for tracing HTTP calls to your application - very useful for monitoring OpenID Connect (OIDC) requests - but unfortunately the default implementation does not trace body contents. In this post, I'll show you how to extend the httptrace endpoint for capturing contents and tracing the OIDC flow.

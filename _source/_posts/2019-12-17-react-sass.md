@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Use Sass with React to Build Beautiful Apps"
 author: holger-schmitz
+by: contractor
+communities: [javascript]
 description: "Learn how to use Sass for CSS and how you can use it in your React apps."
 tags: [react, sass, css, javascript]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Many say that @SassCSS is a better way to write CSS. Learn how to use it with #ReactJS in this tutorial."
 - "Sass is CSS with superpowers! Learn how to use #Sass for #CSS with @reactjs."
 image: blog/react-sass/sass-react.png
+type: conversion
 ---
 
 When you are developing web applications with React, you know that writing the JavaScript code is only half of the story. The other half is implementing the design using style sheets. When your application becomes larger, using plain CSS style sheets can become tedious and unmaintainable. Sass is one of the most popular alternatives to CSS. It extends the CSS language with variables, mixins, and many other features. It also lets you divide up the style sheets into multiple files.

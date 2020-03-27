@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Get Jibby With Java, Docker, and Spring Boot"
 author: andrew-hughes
+by: contractor
+communities: [java, devops]
 description: "A quick guide to using Docker and Jib to containerize Spring Boot applications."
 tags: [docker, spring-boot, jib, java]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Writing Spring Boot apps? Need to deploy them? This guide on using Docker and Jib should help!"
 - "Spring Boot + Jib are like peanut butter and jelly. Learn how how use them together with this timely tutorial."
 image: blog/featured/okta-java-headphones.jpg
+type: conversion
 ---
 
 Docker is a very popular system for containerizing applications. Containerization packages the executable code along with the runtime environment in deployable virtual images using a repeatable, automatable process. 

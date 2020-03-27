@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Build a CRUD App with ASP.NET Core 2.2 and SQL Server"
 author: lee-brandt
+by: advocate
+communities: [.net]
 description: "This is a step-by-step guide for creating a CRUD application using ASP.NET Core 2.2 and SQL Server."
 tags: [aspnetcore, netcore, sql server, sqlserver, mssql, mssql server]
 tweets:
@@ -9,6 +11,7 @@ tweets:
   - "If you've been looking for a step-by-step on building CRUD apps in @ASPNETCore 2.2 and @SQLServer, look no further!"
   - "Ready to dive into @ASPNETCore 2.2 and @SQLServer and don't know where to start? Start here!!"
 image: blog/featured/okta-dotnet-skew.jpg
+type: conversion
 ---
 
 I've always said that you can tell a lot about a person by the kind of music they listen to. Don't tell me you haven't had serious doubts about whether you can be friends with someone when you find out that they like a particular band or artist. In that spirit, I created _JudgeMyTaste_, an ASP.NET Core web application where people can enter their favorite band or artist so that people on the Internet can judge them openly.

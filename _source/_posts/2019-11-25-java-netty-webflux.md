@@ -2,6 +2,8 @@
 layout: blog_post
 title: "A Quick Guide to Java on Netty"
 author: andrew-hughes
+by: contractor
+communities: [java]
 description: "A tutorial that builds a simple Netty application with and without Spring."
 tags: [java, spring, reactive, netty, oauth, oidc]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Learn about reactive programming with #Nettyio and @SpringBoot"
 - "Build an app with just #Nettyio, build it again with Netty and @SpringBoot, add security.  Done 💥"
 image: blog/featured/okta-java-skew.jpg
+type: conversion
 ---
 
 Netty is a non-blocking input/output (NIO) framework that makes it relatively simple to develop low-level network servers and clients. Netty provides an incredible amount of power for developers who need to work down on the socket level, for example when developing custom communication protocols between clients and servers. It supports SSL/TLS, has both blocking and non-blocking unified APIs, and a flexible threading model. It's also fast and performant.

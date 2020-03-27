@@ -2,6 +2,8 @@
 layout: blog_post
 title: 'Build an iOS App with React Native and Publish it to the App Store'
 author: karl-penzhorn
+by: contractor
+communities: [javascript, mobile]
 description: "Convert an Android React Native app to iOS and publish it in the Apple App Store."
 tags: [react native, android, ios, apple, app store]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Learn how to build an iOS app with React Native and publish it to the App Store."
 - "You've built a React Native app, and now you need to publish it to the App Store. Follow this tutorial to learn how!"
 image: blog/featured/okta-react-headphones.jpg
+type: conversion
 ---
 
 Apple's App Store is the holy grail for mobile developers. With React Native you can develop native apps for Android and iOS using a single code-base but getting things ready for publishing can be tricky, especially if you are starting with an originally Android-only application.

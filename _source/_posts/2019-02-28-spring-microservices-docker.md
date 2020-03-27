@@ -2,12 +2,15 @@
 layout: blog_post
 title: "Build Spring Microservices and Dockerize Them for Production"
 author: raphael-do-vale
+by: contractor
+communities: [devops, java]
 description: "Learn how to build and package a microservices architecture with Spring Boot and Spring Cloud in this tutorial."
 tags: [java, spring security, spring boot, spring framework, spring cloud, docker, microservices, eureka]
 tweets:
   - "Learn how to use Spring Boot with OAuth 2.0, Cloud Config, Eureka and Docker!"
   - "Modern microservice architecture, learn how to create a complete project!"
 image: blog/featured/okta-java-tile-books-mouse.jpg
+type: conversion
 ---
 
 In this post, you'll learn about microservices architecture and how to implement it using Spring Boot. After creating some projects with the technique, you will deploy the artifacts as Docker containers and will simulate a _container orchestrator_ (such as Kubernetes) using _Docker Compose_ for simplification. The icing on the cake will be authentication integration using Spring Profiles; you will see how to enable it with a production profile.

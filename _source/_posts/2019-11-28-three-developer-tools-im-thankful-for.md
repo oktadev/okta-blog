@@ -2,12 +2,14 @@
 layout: blog_post
 title: "Three Developer Tools I'm Thankful For"
 author: heather-downing
+by: advocate
 description: "To celebrate Thanksgiving, here's a list of Heather Downing's favorite developer tools. Learn why she likes them and how they can help you."
 tags: [holiday, developer, thanksgiving, tools]
 tweets:
 - "Heather Downing (@quorralyne) really likes @visualstudiomac, @code, and @githubdesktop. What about you?"
 - "What developer tools are you thankful for this Thanksgiving?"
 image: blog/featured/okta-java-short-headphones.jpg
+type: awareness
 ---
 What a year it has been! As I consider what this holiday season means to me, I am reminded of how insanely fortunate I am to be part of Okta. Before I go any further, I absolutely must give a shout-out to my fantastic teammates [Randall](https://twitter.com/rdegges), [Lee](https://twitter.com/leebrandt), [Aaron](https://twitter.com/aaronpk), [Micah](https://twitter.com/afitnerd), [Matt](https://twitter.com/mraible), [Brian](https://twitter.com/briandemers) and [David](https://twitter.com/reverentgeek) along with our fabulous supporting crew [Brent](https://twitter.com/KaifuBrent), [Lindsay](https://twitter.com/LindsayB610), [Krishna](https://twitter.com/dalal_krishna) and [Alyssa](https://twitter.com/NoahPersian). Surrounding yourself with high caliber people makes all the difference in how you grow in your career, and I have the BEST ones around me right now!
 

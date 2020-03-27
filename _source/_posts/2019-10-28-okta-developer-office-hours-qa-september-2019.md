@@ -2,6 +2,7 @@
 layout: blog_post
 title: "Okta Developer Office Hours Q&A - September 2019 Edition"
 author: matt-raible
+by: advocate
 description: "We held developer office hours recently and answered a lot of questions!"
 tags: [okta, developer, office hours]
 tweets:
@@ -9,6 +10,7 @@ tweets:
 - "We answered quite a few developer questions in our September 2019 office hours. This blog post answers the ones we couldn't answer in real-time."
 - "This blog post recaps our @oktadev office hours in September 2019. Thanks to all who attended!"
 image: blog/okta-developer-office-hours/okta-dev-office-hours.jpg
+type: awareness
 ---
 
 On September 19, 2019, we held our first Okta Developer office hours. Our goal was to host a live Q&A with developers that use Okta. Over 150 developers attended!

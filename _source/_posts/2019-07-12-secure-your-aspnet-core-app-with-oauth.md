@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Secure Your ASP.NET Core App with OAuth 2.0"
 author: ryan-foster
+by: contractor
+communities: [.net]
 description: "Learn how to use OAuth 2.0 to secure your ASP.NET Core Application."
 tags: [aspnet, asp.net, asp net, oauth, oauth 2.0]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Check out this easy-to-follow tutorial for securing an @aspnetcore app with OAuth 2.0."
 - "This is a quick tutorial for securing an @aspnetcore app using OAuth 2.0."
 image: blog/featured/okta-dotnet-mouse-down.jpg
+type: conversion
 ---
 
 Do you ever wish you had a virtual scrap of paper you could use to write notes in the cloud? I'll show you how to build a simple ASP.NET Core app to keep track of your notes, plus how to use .NET Core's OAuth 2 authentication middleware to secure access to your app so your personal notes are kept private.

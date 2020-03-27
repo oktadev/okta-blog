@@ -2,12 +2,15 @@
 layout: blog_post
 title: "Use PKCE with OAuth 2.0 and Spring Boot for Better Security"
 author: micah-silverman
+by: advocate
+communities: [java]
 description: "PKCE guards against replay attacks with authorization codes, even for confidential clients."
 tags: [oauth, oauth2, Java, Spring Boot, Spring Security]
 tweets:
 - "Familiar with OAuth 2.0? Did you know that it's recommended to always use PKCE? It's easy with Okta's Spring Boot Starter!"
 - "Use PKCE for confidential OAuth 2.0 clients with Okta's Spring Boot Starter."
 image: blog/featured/okta-java-bottle-headphones.jpg
+type: awareness
 ---
 
 Browser and mobile feature enhancements move fast. Often times, these technologies move faster than security standards designed to protect them can keep up. OAuth 2.0 offers the best and most mature standard for modern applications. However, there hasn't been an official release of this standard since 2012. Eight years is a very long time in Internet technology years! That doesn't mean that its contributors have been sitting idly by. There is active work on the next version and in lieu of an official release, contributors will release "guidance" from time to time to keep up with evolving technology.

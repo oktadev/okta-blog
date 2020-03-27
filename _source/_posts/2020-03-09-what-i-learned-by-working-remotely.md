@@ -2,12 +2,14 @@
 layout: blog_post
 title: "What I Learned After Working Remotely for a Year"
 author: heather-downing
+by: advocate
 description: "Have to work from home suddenly? After moving from an office to a remote dev team, @quorralyne has some insight to share in her first year with Okta."
 tags: [remote, remotework, workfromhome, remotedeveloper, workingremote, workremotely, development]
 tweets:
 - "What is it like to move from working on-site to an online-only team? @quorralyne has experience."
 - "Check out @quorralyne's review of working remotely for the first time."
 image: blog/working-remotely/workingremoteBW.jpg
+type: awareness
 ---
 
 What happens when you suddenly need to work from home due to a myriad of reasons? Whether it's the daily expectation or an occasional occurrence, working remotely has it's benefits and challenges. After coming to a fully remote team at Okta, I discovered a few things about the reality of working outside of an office building that I'd like to share.

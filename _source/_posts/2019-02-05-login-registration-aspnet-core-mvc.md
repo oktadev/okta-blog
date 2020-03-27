@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Create Login and Registration in Your ASP.NET Core MVC App"
 author: chris-green
+by: contractor
+communities: [.net]
 description: "This tutorial walks you through setting up login and registration with ASP.NET Core MVC and Okta."
 tags: [aspnet, aspnetmvc, aspnetcore, dotnet, angular, mvc]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Set up login and registration in your #aspnetcore mvc app! ->"
 - "If you're looking for a quick intro to adding login to your #aspnetcore mvc app, check this out!"
 image: blog/featured/okta-dotnet-mouse-down.jpg
+type: conversion
 ---
 
 User authentication and authorization are common features in web applications, but building these mechanics has the potential to take a lot of time. Doing so requires setting up persistent storage for user information (in some type of database) and paying keen attention to potential security issues around sensitive operations like hashing passwords, password reset workflows, etc. - weeks of development time begin to add up before we ever get to the functionality that delivers value to your users.

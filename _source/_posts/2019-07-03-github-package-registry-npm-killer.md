@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Is GitHub Package Registry the npm Killer?"
 author: david-neal
+by: advocate
+communities: [javascript
 description: "GitHub has announced GitHub Package Registry. Does this spell the death for npm?"
 tags: [ npm, github, devops, package registry, private packages ]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "GitHub has announced GitHub Package Registry. Does this spell the death for npm?"
 - "GitHub Package Registry -- what does this mean for npm?"
 image: blog/github-package-registry-npm-killer/github-package-registry-npm-killer.jpg
+type: awareness
 ---
 
 GitHub recently announced a new feature, GitHub Package Registry, currently in beta. It's designed to allow GitHub users to publish and distribute packages of their software directly on GitHub instead of relying on an external system.

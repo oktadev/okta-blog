@@ -2,6 +2,8 @@
 layout: blog_post
 title: "C# WebSockets Tutorial: Build a Multiplayer Game"
 author: charlie-holland
+by: contractor
+communities: [.net]
 description: "Learn to use C# and WebSockets to build a multiplayer game."
 tags: [c#, csharp, websockets]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Tutorial: Build a multiplayer game with C# and WebSockets!"
 - "Use C#, WebSockets, ans SignalR to build a multiplayer game!"
 image: blog/featured/okta-dotnet-headphones.jpg
+type: conversion
 ---
 
 It might seem obvious, but HTTP is a transfer protocol for hypertext. It was designed — in 1989 — to allow clients to request and receive hypertext documents from a server. While the protocol is undoubtedly a revolutionary technology, modern web applications have evolved far beyond simply responding to client requests. Today, web applications push more processing onto a client that must accommodate multiple Javascript frameworks and libraries. There is a real need for a communications protocol that goes beyond the request/response model of HTTP and instead provides full-duplex communication between client and server. Today, the Websocket protocol is the defacto choice for interactive client applications. In this post, you'll learn how to use it to build a simple multiplayer game.  If anybody asks why you're playing video games with your co-workers, you can legitimately claim it's for research purposes!

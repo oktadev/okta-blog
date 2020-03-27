@@ -2,6 +2,8 @@
 layout: blog_post
 title: "SAML: What's Behind SSO"
 author: joel-franusic
+by: internal-contributor
+communities: [security]
 description: "In this short article you'll learn what SAML is and how it works."
 tags: [saml, sso, security]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Interested in upping your identity game? Check out our latest article about the #SAML protocol!"
 - "We <3 @jf and his breakdown of the #SAML protocol. Check it out!"
 image: blog/saml/saml-flow.png
+type: awareness
 ---
 
 Apple's recent announcement of a single sign-on (SSO) solution, [Sign in with Apple](/blog/2019/06/04/what-the-heck-is-sign-in-with-apple), has developers everywhere thinking about how to incorporate it into their application's infrastructure. Apple is hardly the first organization to introduce SSO—it's a security-focused methodology that has been available for years—and one of the protocols behind it is SAML.

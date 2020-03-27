@@ -2,6 +2,8 @@
 layout: blog_post
 title: 'Build a GraphQL API with ASP.NET Core'
 author: ibrahim-suta
+by: contractor
+communities: [.net]
 description: 'Build an API with GraphQL and ASP.NET Core.'
 tags: [aspnetcore, graphql, api]
 tweets:
@@ -9,6 +11,7 @@ tweets:
   - 'Learn how to build APIs with GraphQL and ASP.NET Core with this handy tutorial.'
   - 'Need to learn how to build a secure API with ASP.NET Core and GraphQL? This tutorial shows you how!'
 image: blog/featured/okta-dotnet-half.jpg
+type: conversion
 ---
 
 > "There is no Frigate like a Book To take us Lands away..." – Emily Dickinson

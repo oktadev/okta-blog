@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Five Tools to Improve Your Java Code"
 author: brian-demers
+by: advocate
+communities: [java]
 description: "Five great tools to reduce bugs and make your Java code more secure!"
 tags: [java, ci, builds, secure]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Test coverage, static analysis and more, 5 tools every Java developer should know!"
 - "Improve your Java code quality the easy way, automate it!"
 image: blog/five-tools-improve-java/stop-bad-code.png
+type: awareness
 ---
 :toc: macro
 :page-liquid:

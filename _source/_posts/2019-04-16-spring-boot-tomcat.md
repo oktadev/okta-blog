@@ -2,6 +2,8 @@
 layout: blog_post
 title: 'Deploy a Spring Boot Application into Tomcat'
 author: karl-penzhorn
+by: contractor
+communities: [java]
 description: "Create a Spring Boot 2.1 app with Java 11 and deploy into Tomcat 9."
 tags: [spring boot, tomcat, java]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Learn how to deploy your secure Spring Boot app to Tomcat 9 in this handy tutorial."
 - "Want to deploy your Spring Boot app to @TheApacheTomcat? This tutorial shows you how!"
 image: blog/featured/okta-java-bottle-headphones.jpg
+type: conversion
 ---
 
 Deploying applications is hard. Often you need console access to the server from which you pull the latest code and then manually instantiate into your container. In this tutorial you'll see an easier way using Tomcat: you'll create an authenticated web app and deploy it through the browser using the latest versions of Tomcat, Spring Boot, and Java.

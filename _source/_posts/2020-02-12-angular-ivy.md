@@ -2,6 +2,8 @@
 layout: blog_post
 title: "What Is Angular Ivy and Why Is It Awesome?"
 author: holger-schmitz
+by: contractor
+communities: [javascript]
 description: "This tutorial shows you how to upgrade an Angular 8 app to Angular 9 with Ivy."
 tags: [angular, ivy, angular9, angular upgrade, angular material]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Want faster @angular apps? Upgrade to Angular 9 with Ivy!"
 - "❤️ Angular? We do too! That's why we wrote this guide on how to upgrade to Angular 9 with Ivy."
 image: blog/angular-ivy/angular9-ivy.png
+type: conversion
 ---
 
 Over the last year or so, a new buzzword started floating around Angular forums and blogs. The word was **Ivy**. Ivy promises to make your application faster and smaller. But what exactly does this new technology do? 

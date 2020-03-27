@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Build a REST API with ASP.NET Web API"
 author: ryan-foster
+by: contractor
+communities: [.net]
 description: "Learn how to build RESTful API service with ASP.NET Web API."
 tags: [aspnet, dotnet, web api, aspnet web api, dotnet web api, webapi]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Check out this easy-to-follow tutorial for creating a RESTful API using @aspnet Web API."
 - "This is a quick tutorial for building a REST API using @aspnet Web API."
 image: blog/featured/okta-dotnet-bottle-headphones.jpg
+type: conversion
 ---
 
 Do you need to build a REST API with ASP.NET Web API?  If you're creating a new API, you should probably create it with .NET Core. But it's not always possible to use the latest and greatest technologies. If you're working in an existing ASP.NET 4.x app, or the organization you work for hasn't approved the use of .NET Core yet, you may need to build an API in .NET Framework 4.x. That is what you will learn here. You'll also learn how to access your API from another application (for machine-to-machine communication) and prevent unauthorized access to your API.

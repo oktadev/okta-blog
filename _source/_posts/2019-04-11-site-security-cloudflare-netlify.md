@@ -2,6 +2,7 @@
 layout: blog_post
 title: 'How to Configure Better Web Site Security with Cloudflare and Netlify'
 author: frederico-hakamine
+by: internal-contributor
 description: "How to improve your website security from a  D to an A+ using Cloudflare and Netlify. The best part? You don't have to spend a dime!"
 tags: [security, security headers, netlify, cloudflare, hugo]
 tweets:
@@ -9,6 +10,7 @@ tweets:
 - "Learn how to improve the security headers of your @GoHugoIO site using @Cloudflare and @Netlify."
 - "Get Your Site Security From D to A+ (Without Spending a Dime!)"
 image: blog/site-security-netlify/netlify-social.png
+type: awareness
 ---
 
 Working in the security industry and having an insecure site looks super bad. 

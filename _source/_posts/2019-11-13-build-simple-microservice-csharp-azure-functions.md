@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Build a Simple Microservice with C# Azure Functions"
 author: chris-green
+by: contractor
+communities: [.net, devops]
 description: "A tutorial on using Azure Functions in C# to build a simple microservice."
 tags: [azure function, microservice, c#, csharp]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Need a quick tutorial on microservices in C# using Azure Functions? We've got you covered!"
 - "Check out this tutorial on building microservices with C# Azure Functions!"
 image: blog/featured/okta-dotnet-mouse-down.jpg
+type: conversion
 ---
 
 I've always liked microservices because they embrace small, well-encapsulated building blocks.  They mitigate deployment hell by treating each component of a software system as its own product, with versions, testing, and releases.

@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Simple User Authentication in React"
 author: braden-kelley
+by: contractor
+communities: [javascript]
 description: "Build a React application with User Authentication and Okta."
 tags: [react, authentication, auth, oauth]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Tutorial - Simple User Authentication in @reactjs"
 - "Need to add user authentication to your @reactjs app? We've got you covered!"
 image: blog/featured/okta-react-bottle-headphones.jpg
+type: conversion
 ---
 
 In 2019, it's quite easy to find React components for pretty much everything. For example, if you want to add user authentication to your app, you can do so easily with Okta's React component. Here I'll walk you through creating a simple, fun React app that fetches random Chuck Norris jokes. I'll then show you how you can add user authentication and customize your user experience, so the jokes will replace Chuck Norris' name with their own.

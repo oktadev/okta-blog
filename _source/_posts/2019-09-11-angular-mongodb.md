@@ -2,6 +2,8 @@
 layout: blog_post
 title: "How to Connect Angular and MongoDB to Build a Secure App"
 author: holger-schmitz
+by: contractor
+communities: [javascript]
 description: "Want to connect to MongoDB from your Angular app? This tutorial has the knowledge you need."
 tags: [angular, mongodb, express, javascript]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Want to connect your @angular app to MongoDB? This tutorial shows you how."
 - "Angular is 👌; MongoDB is a NoSQL database that developers 💚️. This tutorial shows you how to connect the two with @nodejs and JavaScript."
 image: blog/featured/okta-angular-headphones.jpg
+type: conversion
 ---
 
 MongoDB is often the first suggestion when it comes time to select a NoSQL database. But what is a NoSQL database, and why would you want to use one in the first place? To answer this question, let's step back and look at SQL databases and where they shine. SQL databases are a good choice if you have well-defined data that will not change much over time. They also allow you to define complex relationships between different parts of your data and provide tools for ensuring that the data is consistent at all times. The downside? SQL databases are relatively rigid and they don't scale well with large datasets.

@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Build Secure Microservices with AWS Lambda and ASP.NET Core"
 author: chris-green
+by: contractor
+communities: [.net, devops]
 description: "This tutorial walks you through building an authentication microservice in ASP.NET Core and deploying it to AWS Lambda."
 tags: [aspnet, aspnetcore, dotnet, microservice, microservices, aws, aws lambda]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Set up secure microservices #aspnetcore and @AWS #Lambda! ->"
 - "If you're looking for a quick intro to secure microservices in #aspnetcore, check this out!"
 image: blog/featured/okta-dotnet-headphones.jpg
+type: conversion
 ---
 
 Microservices are fun to build and offer us a scalable path to overcoming problems with tightly coupled dependencies that plague monolithic applications.

@@ -2,12 +2,15 @@
 layout: blog_post
 title: "Build a Simple Laravel App with Authentication"
 author: krasimir-hristozov
+by: contractor
+communities: [php]
 description: "Let's build a simple Laravel app and add authentication with a custom identity provider."
 tags: [ laravel, authentication, php ]
 tweets:
 - "Did you know you don't have to use Laravel's built-in authentication? Check out how!"
 - "Check out how easy it is to use a custom identity provider with Laravel ➡"
 image: blog/featured/okta-php-bottle-headphones.jpg
+type: conversion
 ---
 
 PHP remains the single most popular language choice when creating the backend of a new web application. Within the PHP ecosystem, there are many options when starting a new project: you can use a content management system (CMS) like Wordpress or Drupal, or one of the many frameworks with large user bases and active communities in the PHP world (such as Symfony, CakePHP, CodeIgniter, Yii, Zend Framework). However, if you look at the PHP framework trends of the past several years, there is one framework that stands above them all - Laravel!

@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Continuous Integration with Jenkins and Java"
 author: jimena-garbarino
+by: contractor
+communities: [java, devops]
 description: "Tutorial: Learn how to install Jenkins and configure it to build Pull Requests from GitHub."
 tags: [ci, jenkins, java, sso, secrets, oauth2]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Want to learn how to to use continuously deploy your Java code changes? Use @JenkinsCI!"
 - "Use @Jenkins for CI with your Java applications!"
 image: blog/featured/okta-java-tile-books-mouse.jpg
+type: conversion
 ---
 :page-liquid:
 

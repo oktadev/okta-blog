@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Build an Application with Spring Boot and Kotlin"
 author: daniel-pereira
+by: contractor
+communities: [java]
 description: "Tutorial: Build a secure Spring Boot App with Kotlin"
 tags: [spring, oauth, oauth 2.0, kotlin, java, spring boot]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Spring + Kotlin = ❤"
 - "Haven't tried @Kotlin yet? What are you waiting for⁉"
 image: blog/featured/okta-java-short-skew.jpg
+type: conversion
 ---
 
 In 2011, JetBrains, the company behind IntelliJ, decided to create a modern language that would run inside the Java Virtual Machine and address common concerns with Java at the time like its verbosity. This project became Kotlin, a quickly growing and popular language.

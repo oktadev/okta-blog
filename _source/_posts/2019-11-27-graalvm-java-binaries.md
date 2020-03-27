@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Watch GraalVM Turn Your Java Into Binaries"
 author: brian-demers
+by: advocate
+communities: [java]
 description: "Tutorial: Learn how to build native binaries from a Java application with GraalVM's native-image tool."
 tags: [java, graalvm, cli, tutorial]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Build a native command-line application with @Java and @GraalVM 🔥"
 - "☕ @Java + @GraalVM == native binaries ❤️"
 image: blog/graalvm-java-binaries/native-image-header.png
+type: awareness
 ---
 
 There has been much buzz about GraalVM and what it means for the Java world. GraalVM is a Java distribution from Oracle that adds a bunch of features, most notably a new JIT compiler, polyglot capabilities, an LLVM runtime... and the ability to turn your Java application into a native binary.

@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Test Your Spring Boot Applications with JUnit 5"
 author: joy-foster
+by: contractor
+communities: [java]
 description: "Learn how to use JUnit 5 to write Java-based unit and integration tests for your Spring Boot apps."
 tags: [java, testing, junit, junit5]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "JUnit 5 is the same JUnit you know and love. Learn how to use it with @springboot today!"
 - "Spring Boot + Spring Security + JUnit 5 = 💚! Learn more about this awesome testing framework from the @junitteam."
 image: blog/featured/okta-java-headphones.jpg
+type: conversion
 ---
 
 In this post, you'll walk through how to build a simple Spring Boot application and test it with Junit 5. An application without testing is the proverbial Pandora's Box. What good is your application if you don't know that it will work under any condition?  Adding a suite of tests builds confidence that your application can handle anything thrown at it. When building your tests, it is important to use a modern and comprehensive suite of tools. Using a modern framework ensures that you can keep up with the changes within your language and libraries. A comprehensive suite of tools ensures that you can adequately test all areas of your application without the burden of writing your own test utilities. JUnit 5 handles both requirements well.

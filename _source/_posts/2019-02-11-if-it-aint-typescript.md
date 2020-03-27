@@ -2,6 +2,8 @@
 layout: blog_post
 title: "If It Ain't TypeScript It Ain't Sexy"
 author: david-neal
+by: advocate
+communities: [javascript]
 description: "TypeScript is taking the web by storm. Here's what you should know."
 tags: [typescript, javascript, web, programming, developer, software]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "TypeScript is taking the web by storm. Here's what you should know. #typescript"
 - "Ask your doctor if @typescriptlang is for you. @reverentgeek is the #TypeScript doctor."
 image: blog/if-it-aint-typescript/typescript-is-sexy.jpg
+type: awareness
 ---
 
 A few years ago I got "Jeep fever." I began daydreaming about owning a Jeep, driving around with the top down, and going on trips into the mountains.

@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Build Reusable React Components"
 author: lee-brandt 
+by: advocate
+communities: [javascript]
 description: "Build a reusable star rating component in React."
 tags: [react, component, javascript, react component, react reusable]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Need to get up to speed quickly on building reusable React components? We've got you covered!"
 - "Here's a quick tutorial on building reusable components in React."
 image: blog/featured/okta-react-headphones.jpg
+type: conversion
 ---
 
 Who doesn't love beer? When you drink a great beer you want to tell someone. You definitely want to be able to remind yourself of the great beers you've had. Enter Brewstr, a beer rating application that allows you to enter a beer you're drinking and give it a rating. This way, you know what to get next time since there's no way you'll remember it later.

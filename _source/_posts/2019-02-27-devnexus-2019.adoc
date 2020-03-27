@@ -2,10 +2,12 @@
 layout: blog_post
 title: "Devnexus 2019: Join the &lt;dev/>olution"
 author: matt-raible
+by: advocate
 description: "Devnexus is an awesome developer conference. We hope to see you there!"
 tags: [devnexus, java, javascript, oauth2, oidc]
 tweets:
 image: blog/devnexus-2019/DevNexus-Invite-R3Party.png
+type: awareness
 ---
 :page-liquid:
 
