@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Build Components in JavaScript Without a Framework"
 author: lee-brandt
+by: advocate
+communities: [javascript]
 description: "Build a JavaScript component with plain, vanilla JavaScript."
 tags: [javascript, vanilla javascript, javascript component, vanilla javascript component]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Frameworks? We don't need no stinking frameworks! Build your JavaScript components without them!"
 - "Build JavaScript components. Where we're going we don't NEED frameworks!"
 image: blog/featured/okta-node-bottle-headphones.jpg
+type: awareness
 ---
 
 Everyone has their favorite framework, and most developers aren't shy about sharing those opinions. I guarantee you right now two developers are arguing about their favorite frameworks. Personally, I've been using JavaScript frameworks since JQuery was introduced. I've written applications for clients using Knockout.js, Angular 1+, React (since before v15), and have made some small learning apps using Stencil and Vue.

@@ -2,6 +2,8 @@
 layout: blog_post
 title: "10 Myths About Java in 2019"
 author: matt-raible
+by: advocate
+communities: [java]
 description: "There are many myths about Java in the programming world. Read about 10 myths of the Java ecosystem and whether or not  they're true."
 tags: [java]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "True or false: @java sucks because it's heavy, its IDEs require so much configuration and JAVA_HOME"
 - "10 Myths about @java in 2019: @mraible attempts to play myth buster!"
 image: blog/java-myths-2019/java-myths-2019.png
+type: awareness
 ---
 
 Java turned *24* years old on May 23, 2019. That's pretty old for a programming language. The fact that it's still widely used and runs many of the world's largest organizations is nothing short of incredible. But it has a unique impression problem among languages in that it means two very distinct things: Java the language and Java the runtime.

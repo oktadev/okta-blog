@@ -2,6 +2,8 @@
 layout: blog_post
 title: "A Thorough Introduction to PASETO"
 author: randall-degges
+by: advocate
+communities: [security]
 description: "An in-depth look at the successor to JSON Web Tokens: PASETO."
 tags: [security, json web tokens, jwts, paseto, cryptography]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "JSON Web Tokens vs PASETO -- @rdegges breaks it down for you in his recent article."
 - "PASETO is a new type of token that aims to replace JSON Web Tokens. @rdegges did a great writeup on it. Be sure to check it out."
 image: blog/a-thorough-introduction-to-paseto/an-introduction-to-paseto.png
+type: awareness
 ---
 
 Today I'm going to introduce you to one of my favorite pieces of security technology released in the last several years: **PASETO** (*platform-agnostic security tokens*). PASETO is a relatively new protocol, designed by [Scott Arciszewski](https://paragonie.com/) in early 2018 that is quickly gaining adoption in the security community.

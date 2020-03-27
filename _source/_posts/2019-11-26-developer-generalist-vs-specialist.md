@@ -2,6 +2,7 @@
 layout: blog_post
 title: "Why Every Developer Needs to be a Generalist"
 author: heather-downing
+by: advocate
 description: "Specializing in one particular framework or area of coding may catapult you initially, but won't be sustainable in the long term. Learn why you should broaden your knowledge base in this article."
 tags: [ developer specialist, developer generalist, thought leadership, future, developer architecture, machine learning, devops, security ]
 tweets:
@@ -9,6 +10,7 @@ tweets:
 - "Developers! What does your future learning look like? This article discusses →"
 - "All software developers need to start becoming generalists →"
 image: blog/developer-generalist/OktaGeneralistVSSpecialistFuture.png
+type: awareness
 ---
 {% img blog/developer-generalist/OktaGeneralistVSSpecialistFuture.png alt:"Developer Generalist vs Specialist" width:"1000" %}{: .center-image }
 

@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Build a Node.js API with TypeScript"
 author: braden-kelley
+by: contractor
+communities: [javascript]
 description: "A tutorial on building APIs with Node.js and TypeScript."
 tags: [node, nodejs, typscript, api]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Want to build an API with @NodeJS and @TypeScript? Check this out!"
 - "Need to learn how to build an API with @NodeJS and @TypeScript? We've got you covered!"
 image: blog/featured/okta-node-bottle-headphones.jpg
+type: conversion
 ---
 
 JavaScript has been turning into more and more of a robust language and is no longer just seen in browsers. Server-side JavaScript has become quite relevant. However, one major thing that JavaScript is _not_, is a strongly typed language. Being explicit with what types to expect from function parameters or object and class properties can help prevent bugs from creeping into the code. It can also help make the code easier to understand if you know exactly what types of values you need to pass into an API call, for example.

@@ -2,12 +2,15 @@
 layout: blog_post
 title: "Build a Secure NestJS API with Postgres"
 author: ivo-katunaric
+by: contractor
+communities: [javascript]
 description: "Learn to build a secure Node.js API using NestJS, TypeScript, and Postgres!"
 tags: [nestjs, nodejs, typescript, postgres, javascript, typeorm]
 tweets:
 - "Want to learn how to build a secure API using the NestJS framework? Check out this tutorial on building an Instagram clone! @nestframework #nestjs #nodejs #typescript #postgres"
 - "Learn how to build an Instagram clone with the #NestJS framework using #Postgres! #typescript #nodejs"
 image: blog/featured/okta-node-skew.jpg
+type: conversion
 ---
 
 NestJS is a modern, progressive framework for building Node.js applications and APIs. NestJS is built on TypeScript, and is designed to use solid programming metaphors such as controllers and modules. Having automatic Swagger API documentation built-in is also a great feature.

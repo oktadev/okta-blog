@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Create and Verify PASETO Tokens in Java"
 author: brian-demers
+by: advocate
+communities: [security, java]
 description: "Tutorial: Learn how to create and parse PASETO tokens in Java with JPaseto"
 tags: [security, token, paseto, java, jpaseto, tutorials]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "JPaseto: a Java library to create and verify Platform Agnostic Security Tokens ☕"
 - "Love JJWT, but want to use PASETO? Check out JPaseto ‼️"
 image: blog/paseto-security-tokens-java/paseto-social.png
+type: awareness
 ---
 :page-liquid:
 

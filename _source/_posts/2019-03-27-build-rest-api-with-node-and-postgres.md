@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Build a REST API with Node and Postgres"
 author: braden-kelley
+by: contractor
+communities: [javascript]
 description: "A tutorial on building RESTful APIs with Node and Postgres."
 tags: [node, nodejs, postgres, postgresql, api, rest api]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Want to build a RESTful API with @NodeJS and @PostgreSQL? Check this out!"
 - "Need to learn how to build a RESTful API with @NodeJS and @PostgreSQL? We've got you covered!"
 image: blog/featured/okta-node-tile-books-mouse.jpg
+type: conversion
 ---
 
 If you haven't heard of PostgreSQL (often called Postgres), today's your lucky day. It's a robust, open source relational database that powers some of the world's largest applications. In this post, I'll show you how to create a REST API in Node that uses Postgres as a data store. I'll walk you through setting everything up, so if you're not familiar with Postgres, *don't worry*.

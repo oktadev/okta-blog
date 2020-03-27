@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Servlet Authentication with Java"
 author: joy-foster
+by: contractor
+communities: [java]
 description: "Learn how to use Okta's Authentication API with Java Servlets."
 tags: [java, servlets, authentication]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Joy explains how to add authentication to your Java Servlet applications"
 - "Still using low level Java Servlets? Checkout this post on Servlet Authentication"
 image: blog/featured/okta-java-headphones.jpg
+type: conversion
 ---
 
 It can be very satisfying to build an application "the hard way", using few conveniences. This approach helps you understand core development principles and the inner workings of everyday abstractions. That's why today, you'll build an application from the ground up using Java Servlets with a login form.

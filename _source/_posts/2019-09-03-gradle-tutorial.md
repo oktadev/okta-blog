@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Get Groovy with Gradle"
 author: andrew-hughes
+by: contractor
+communities: [java]
 description: "Tutorial: Everything you wanted to know about building a Java application with Gradle"
 tags: [java, jvm, kotlin, groovy, tutorial, gradle]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Learn how to add custom tasks to your @Gradle scripts 💻"
 - "❓Confused ❓ with how closures work with @Gradle, we have you covered ‼"
 image: blog/featured/okta-java-skew.jpg
+type: conversion
 ---
 
 In the Java world, there are two main build systems: Gradle and Maven.  A build system chiefly manages potentially complex webs of dependencies and compiles the project. It also packages the compiled project along with all the resources and meta files into the final `.war` or `.jar` file. For simple builds, the choice between Maven and Gradle is pretty much one of personal taste, or perhaps the taste of your CTO or technical manager. They both work great. However, for more complex projects, Gradle is a winner. 

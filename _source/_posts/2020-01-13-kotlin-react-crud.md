@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Build a CRUD Application with Kotlin and React"
 author: andrew-hughes
+by: contractor
+communities: [java, javascript]
 description: "This tutorial shows how to build a CRUD application with Kotlin and React."
 tags: [kotlin, react, spring boot, oauth2, oidc, authentication]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Learn how to leverage the power of @kotlin and @reactjs in this CRUD tutorial. 🚀"
 - "Once you know how to build a CRUD app, you can do almost anything. Learn how to build a secure CRUD app with @kotlin and @reactjs."
 image: blog/kotlin-react-crud/kotlin-react.png
+type: conversion
 ---
 
 In this tutorial, you're going to build a client and server application using React for the frontend and Kotlin with Spring Boot for the backend. You'll first build the app unsecured before securing it using Okta. To secure the React frontend, you'll use OAuth 2.0 login, and for the backend, you'll use a JSON Web Token and Spring Boot's resource server OAuth implementation.

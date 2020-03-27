@@ -2,6 +2,7 @@
 layout: blog_post
 title: "Software Development is a Creative Endeavor"
 author: lee-brandt
+by: advocate
 description: "This post discusses software development as a creative and not purely technical pursuit."
 tags: [software, software development, creative work, creative jobs]
 tweets:
@@ -9,6 +10,7 @@ tweets:
   - "Is software a creative or purely technical endeavor?"
   - "Should creative-types be looking at a career in software development?"
 image: blog/featured/okta-node-tile-books-mouse.jpg
+type: awareness
 ---
 
 Every time I tell someone I am a software developer, they almost inevitably reply with, "You must be super smart, then." I don't feel any smarter than most other people. Truthfully, I feel dumber than most people I meet. To be fair, I do meet a lot of software developers.

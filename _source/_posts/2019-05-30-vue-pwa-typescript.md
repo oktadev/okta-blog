@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Build Your First PWA with Vue and TypeScript"
 author: holger-schmitz
+by: contractor
+communities: [javascript]
 description: "This tutorial shows you how to build a PWA with Vue and TypeScript."
 tags: [vue, pwa, typescript]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Vue CI makes it straightforward to create a @vuejs + @typescript app and make it into a PWA. Learn how today!"
 - "I like TypeScript. You like TypeScript. Use your @typescript knowledge to create a PWA in this @vuejs tutorial."
 image: blog/featured/okta-vue-bottle-headphones.jpg
+type: conversion
 ---
 
 With the ever-increasing use of mobile devices over the last few years it has become more and more important for web developers to anticipate the need for users on these devices. The first step was the ability to cater for different screen sizes, thus creating the need for responsive user interface design. Over time the demands of the users increase and it is now becoming even more important to provide a high-quality user experience, independent of the network connectivity. Users have become accustomed to using native installable applications when they are offline. They are increasingly expecting the same from browser-based web applications.

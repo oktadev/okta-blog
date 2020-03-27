@@ -2,12 +2,14 @@
 layout: blog_post
 title: "6 Simple but Powerful Habits for Effective Developers"
 author: heather-downing
+by: advocate
 description: "Time for New Year's Resolutions! Here are some suggestions to implement that can really improve your programming career."
 tags: [habits, developer, programming, career]
 tweets:
 - "Check out these programming habits that really change the game for the New Year."
 - "What habits do you have as a developer? We've got a few suggestions."
 image: blog/powerful-dev-habits/powerful-dev-habits-social.png
+type: awareness
 ---
 
 What a year it has been! As I reflect on all I have learned in programming in 2019, there are a few exciting standouts that I wanted to share with you. By adjusting our thinking we can adopt better habits, therefore kind of setting up our own "action automation". When you consider your New Year's Resolutions as a software engineer, try a few of these suggestions out below. You might be surprised how much the incremental value adds up by doing these small things consistently.

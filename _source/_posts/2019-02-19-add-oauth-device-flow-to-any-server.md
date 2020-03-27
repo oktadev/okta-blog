@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Add the OAuth 2.0 Device Flow to any OAuth Server"
 author: aaron-parecki
+by: advocate
+communities: [javascript]
 description: "Learn how to run an OAuth 2.0 Device Flow proxy server so you can use the Device Flow with servers that don't have native support."
 tags: [oauth, oauth2, php, device, oauth2 device flow]
 image: blog/oauth-device-flow-proxy/syfy.jpg
@@ -9,6 +11,7 @@ tweets:
 - "How to use the #OAuth Device Flow on servers that don't support it"
 - "Here's a way to add the #OAuth Device Flow to servers that don't have native support"
 - "This tutorial from @aaronpk shows you how you can start using the OAuth Device Flow today with any OAuth server!" 
+type: awareness
 ---
 
 You may not have heard of the Device Flow before, but you've probably used it if you have an Apple TV, Roku or Amazon FireTV! The OAuth 2.0 Device Flow is used to log in to a device using OAuth when the device doesn't have a browser, or also when the device has limited keyboard input ability.

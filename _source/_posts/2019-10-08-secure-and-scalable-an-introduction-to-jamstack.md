@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Secure and Scalable: An Introduction to JAMStack"
 author: david-neal
+by: advocate
+communities: [javascript]
 description: "Learn to build a blazing fast static web site using JAMstack with Hugo and Okta."
 tags: [jamstack, javascript, api, markup, markdown, html, css, static]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Build a blazing fast secure and scalable web site using #JAMstack with @GoHugoIO and Okta!"
 - "Want to learn about #JAMstack? Let @reverentgeek show you how with @GoHugoIO!"
 image: blog/secure-and-scalable-an-introduction-to-jamstack/secure-and-scalable-introduction-to-jamstack.png
+type: awareness
 ---
 
 If you're a web developer, chances are you have heard the term "JAMstack." Curiously, JAMstack isn't a solution to prevent clogged printers, something to eat on toast, or a way to make music. However, by the time you finish reading this tutorial, you'll understand JAMstack and its benefits, and learn one approach to implementing JAMstack for yourself. _Let's get ready to JAM._

@@ -2,6 +2,7 @@
 layout: blog_post
 title: "Linking Your Alexa Skill Securely with Okta"
 author: jefferson-haw
+by: internal-contributor
 description: "This tutorial shows how to link your Alexa skills securely."
 tags: [alexa, auth, alexa skills]
 tweets:
@@ -9,6 +10,7 @@ tweets:
 - "Build a secure secure voice operationd with Alexa and Okta!"
 - "Learn how to build secure Alexa skills! →"
 image: blog/featured/okta-node-skew.jpg
+type: conversion
 ---
 
 We are moving toward a 'SMART' world where everything is interconnected and almost all things or devices are interactive. From a gesture-driven by an actual human being to automated interactions from another device or application, a lot of developers and even non-computer savvy users are trying to explore this space.

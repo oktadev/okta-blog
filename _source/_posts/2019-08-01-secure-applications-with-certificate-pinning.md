@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Secure Applications with Certificate Pinning"
 author: joel-franusic
+by: internal-contributor
+communities: [security]
 description: "In this short article you'll about TLS certificate pinning."
 tags: [ssl, tls, certificate pinning]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Want to improve your application's security posture? Check out our short article on TLS certificate pinning!"
 - "Learn how certificate pinning works in our new article!"
 image: blog/featured/okta-java-headphones.jpg
+type: awareness
 ---
 
 In the famous 1993 cartoon from the New Yorker, one canine sits at a PC, looking at another, and says, "On the Internet, nobody knows you're a dog." More than a quarter of a century later, digital certificates have made us more certain who we're talking to online, but there are still problems that mean we can't be 100% sure. Certificate pinning serves to close that gap by narrowing down the certificates we accept from our peers.

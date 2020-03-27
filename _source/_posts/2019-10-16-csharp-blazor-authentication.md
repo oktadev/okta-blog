@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Goodbye Javascript! Build an Authenticated Web App in C# with Blazor + ASP.NET Core 3.0"
 author: heather-downing
+by: advocate
+communities: [javascript, .net]
 description: "Tutorial: Build a frontend application with C# (without Javascript)!"
 tags: []
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Use #blazor to build your next frontend web app in C#"
 - "Build a secure web app with C# and #blazor"
 image: blog/csharp-blazor-authentication/social.png
+type: conversion
 ---
 
 Curious what the experience would be like to trade in Javascript for C# on the front end? You are about to find out!

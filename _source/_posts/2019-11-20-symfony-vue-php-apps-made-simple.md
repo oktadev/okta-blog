@@ -2,12 +2,15 @@
 layout: blog_post
 title: "Symfony 4.3 + Vue.js: PHP Apps Made Simple"
 author: krasimir-hristozov
+by: contractor
+communities: [javascript, php]
 description: ""
 tags: [php, vue, symfony, crud]
 tweets:
 - "Learn how to use @Symfony 4.3 and @VueJS to create a simple responsive application →"
 - "Create a CRUD application with @Symfony 4.3 and @VueJS, and add authentication with Okta! #symfony4"
 - "Check out how easy it is to add authentication to a @Symfony app with Okta! #symfony4 #php"
+type: conversion
 ---
 
 Today's Web users are a lot more sophisticated than just a few years ago. They expect applications to be fast, secure, and work equally well on their desktops and phones. Meeting these expectations requires a great deal of work so you can provide a reliable backend and a fully dynamic frontend, while keeping the whole system secure and scalable.

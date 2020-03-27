@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Decode JWTs in C# for Authorization"
 author: ryan-foster
+by: contractor
+communities: [.net]
 description: "Learn how to decode JWTs using C#."
 tags: [csharp, jwt, authorization, C#]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Check out this easy-to-follow tutorial for creating a CRUD app with @aspnetcore and #typescript."
 - "This is a quick tutorial for building a CRUD app using @aspnetcore and TypeScript."
 image: blog/featured/okta-dotnet-mouse-down.jpg
+type: conversion
 ---
 
 There are two main steps in securing an application: authentication and authorization. Authentication is easy enough. A user enters a username and password (maybe even a second factor) to prove (authenticate) who they are. Authorization is a little less cut and dried. There are lots of factors that go into what an authenticated user is authorized to do. First, you need some information about the user that just authenticated.

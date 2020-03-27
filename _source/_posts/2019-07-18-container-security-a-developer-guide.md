@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Container Security: A Developer Guide"
 author: vishal-rohilla
+by: internal-contributor
+communities: [devops, security]
 description: "A short guide which explains how to properly secure containers and things to keep in mind when using containers."
 tags: [security, devops, containers]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "We wrote a guide which covers a lot of things to consider when building containerized applications."
 - "Using @docker or other containers? Be sure to read our container security guide."
 image: blog/featured/okta-dotnet-headphones.jpg
+type: awareness
 ---
 
 Have you ever spent hours trying to figure out why your newly-installed database, web server, or Python library won't work? If this sounds familiar, you likely understand the joy of software containers. Forget all those fruitless Stack Exchange searches trying to solve your configuration and dependency problems. Just install a container platform and pull an image. 

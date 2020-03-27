@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Use Schematics with React and Add OpenID Connect Authentication in 5 Minutes"
 author: matt-raible
+by: advocate
+communities: [javascript]
 description: "Learn what Schematics are and how to use them with your React applications."
 tags: [schematics, react, authentication]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Do you love @reactjs, but find yourself doing the same thing over and over in new projects? Create a schematic to do it for you!"
 - "Schematics with React are pretty awesome - find out why!"
 image: blog/featured/okta-react-headphones.jpg
+type: conversion
 ---
 
 Developers love to automate things. It's what we do for a living for the most part. We create programs that take the tediousness out of tasks. I do a lot of presentations and live demos. Over the past year, I've noticed that some of my demos have too many steps to remember. I've written them down in scripts, but I've recently learned it's much cooler to automate them with tools powered by Schematics!

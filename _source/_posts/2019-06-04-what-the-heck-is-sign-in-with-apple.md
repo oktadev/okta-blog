@@ -2,11 +2,14 @@
 layout: blog_post
 title: "What the Heck is Sign In with Apple?"
 author: aaron-parecki
+by: advocate
+communities: [security]
 description: "Sign In with Apple is based on OAuth 2.0 and OpenID Connect, and provides a privacy-friendly way for users to sign in to websites and apps"
 tags: [ oauth, appleid, oidc ]
 tweets:
 - "A look behind the scenes at how Sign In with Apple works 👀"
 image: blog/sign-in-with-apple/sign-in-with-apple.jpg
+type: awareness
 ---
 
 This week at Apple's developer conference WWDC, Apple announced a new feature, "Sign In with Apple" enabling users to sign in to apps using their Apple ID. This new feature is positioned as a secure and privacy-friendly way for users to create an account in apps. Most iOS and Mac users already have an Apple ID, and this new feature lets them use that Apple ID to sign in to other apps and websites.

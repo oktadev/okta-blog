@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Build a REST API with ASP.NET Core 2.2"
 author: ibrahim-suta
+by: contractor
+communities: [.net]
 description: "This is a step-by-step for creating a REST API application using ASP.NET Core 2.2."
 tags: [aspnetcore, netcore, rest, api]
 tweets:
@@ -9,6 +11,7 @@ tweets:
   - "If you've been looking for a step-by-step on building REST APIs in ASP.NET Core 2.2, look no further!"
   - "Ready to dive into ASP.NET Core 2.2 REST APIs and don't know where to start? Start here!!"
 image: blog/featured/okta-dotnet-mouse-down.jpg
+type: conversion
 ---
 
 ASP.NET Core is entirely open source, free, has built-in DI and logging, works smoothly with a fantastic ORM and has tons of built-in features within Web API framework, and on top of that you get Microsoft support for free, maturity and flexibility of C# and ASP.NET, it's evident that ASP.NET Core is easily one of the best picks for building REST APIs.

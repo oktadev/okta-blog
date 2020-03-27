@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Add Social Login to Your JHipster App"
 author: andrew-hughes
+by: contractor
+communities: [java]
 description: "This post shows you how to add social login to your JHipster applications."
 tags: [spring, spring boot, social login, spring security, jhipster, authentication, jhipster social login]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Learn how to add social login (Facebook and Google) to your @java_hipster app today!"
 - "Adding social login and customizing your Okta sign-in page has never been easier! Learn how to do it in your @springboot app in this handy tutorial."
 image: blog/featured/okta-java-skew.jpg
+type: conversion
 ---
 
 Social login is a great way to offer your customers a simple and secure authentication method. Why force them to create and forget yet another password? The vast majority of your users will have an account with Facebook or Google, so why no go ahead and let them use one of these accounts to log in? 

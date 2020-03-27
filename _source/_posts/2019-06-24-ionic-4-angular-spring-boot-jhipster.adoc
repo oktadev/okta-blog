@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Build Mobile Apps with Angular, Ionic 4, and Spring Boot"
 author: matt-raible
+by: advocate
+communities: [java, javascript, mobile]
 description: "Learn how to use Ionic for JHipster to create a bad-ass PWA / mobile app that runs on iOS and Android. JWT, OIDC, and microservices are all supported!"
 tags: [ionic, angular, spring boot, java, jhipster, oidc, oauth, cordova, jhipster, ios, android]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Giddyup with @ionicframework + @springboot to create a PWA that you can deploy to the web, to #iOS, or to @android!"
 - "Ionic 4 + JHipster 6 => it's alive! You should try it; it'll be fun! 😋"
 image: blog/ionic-4-jhipster/ionic-jhipster-ios.png
+type: conversion
 ---
 :page-liquid:
 

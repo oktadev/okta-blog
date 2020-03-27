@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Store ASP.NET Secrets Securely with Azure KeyVault"
 author: charlie-holland
+by: contractor
+communities: [.net, devops]
 description: "In this tutorial, you'll learn how to store application keys and secrets securely using Azure KeyVault"
 tags: [azure, azure keyvault, azure keyvault, asp.net security, dotnet security, security]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Want to learn how to store application secrets securely? Use Azure KeyVault!"
 - "Use Azure KeyVault to securely store application keys and secrets."
 image: blog/featured/okta-dotnet-bottle-headphones.jpg
+type: conversion
 ---
 
 Nothing ruins your weekend quite as wholly as getting paged at 2 am on Saturday to tell you that there's been a data breach at your company. In this post, I'm going to talk about how you can reduce the risk of that happening by keeping secrets out of your source code.

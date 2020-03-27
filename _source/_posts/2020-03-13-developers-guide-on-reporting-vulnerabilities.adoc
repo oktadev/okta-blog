@@ -2,6 +2,8 @@
 layout: blog_post
 title: "A Developer Guide to Reporting Vulnerabilities"
 author: brian-demers
+by: advocate
+communities: [security]
 description: "This post explains how to report a vulnerability and why it's important to do so responsibly."
 tags: [security, developer, Vulnerabilities]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Are you reporting a vulnerability in a bug tracker? Read this first 🛑"
 - "️Vulnerability Reporting != Bug Reporting  - Here is why ‼️"
 image: blog/developers-guide-on-reporting-vulnerabilities/dev-guide-vulns.png
+type: awareness
 ---
 :page-liquid:
 

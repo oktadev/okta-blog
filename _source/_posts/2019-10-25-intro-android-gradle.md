@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Get Familiar with Android and Gradle"
 author: mikel-pascual
+by: contractor
+communities: [java]
 description: "Interested in how Android + Gradle work together? This article will go over the basics."
 tags: [ android, mobile, gradle, user management, login ]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Been confused about how to make #Gradle work for your #Android projects? Take the mystery out with this tutorial →"
 - "Working with #Gradle can be an essential part of any #Android developer's experience. Want to know more? We got you →"
 image: blog/featured/okta-android-skew.jpg
+type: conversion
 ---
 Interested in Android development? Then you should get familiar with Gradle, the only Android development build system that Google officially supports.
 

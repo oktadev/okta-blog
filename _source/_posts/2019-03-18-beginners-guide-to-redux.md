@@ -2,6 +2,8 @@
 layout: blog_post
 title: "A Beginner's Guide to Redux"
 author: braden-kelley
+by: contractor
+communities: [javascript]
 description: "Learn the basics of Redux for React."
 tags: [react, redux, react-redux]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Wondering when you should use #redux with @reactjs? Check this out!"
 - "Need to learn the basics of #redux for your @reactjs app? We've got you covered!"
 image: blog/featured/okta-react-bottle-headphones.jpg
+type: conversion
 ---
 
 React has gained a lot of popularity over the last few years, and Redux is a term often heard in combination with it. While technically separate concepts, they do work quite nicely together. React is a component-based framework, often used to create a Single-Page App (SPA), but can also be used to add any amount of independent components to any website. Redux is a state management system with a great set of dev tools useful for debugging. Today I'll show you how to create a simple app using React and Redux, and how to secure your app using Okta for authentication.

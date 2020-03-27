@@ -2,6 +2,7 @@
 layout: blog_post
 title: "Build a CRUD App with Python, Flask, and Angular"
 author: team-okta
+communities: [javascript, python]
 description: "This tutorial walks you through building an basic CRUD application using Python, Flask, and Angular"
 tags: [python, angular, flask, crud, angular-cli, python rest, flask rest]
 tweets:
@@ -9,6 +10,7 @@ tweets:
 - "Build a basic CRUD app with #Python as the API with an @Angular client! ->"
 - "If you're looking for a walk through of building a CRUD app with #Python, #Flask, and @Angular, check this out!"
 image: blog/featured/okta-angular-headphones.jpg
+type: conversion
 ---
 
 Developers all have their favorite GitHub repositories. They have software projects that they love and watch closely for the latest changes. In this tutorial, you'll create a simple CRUD application to save and to display your favorite Github open source projects. You will use Angular to implement the user interface features and Python for the backend.

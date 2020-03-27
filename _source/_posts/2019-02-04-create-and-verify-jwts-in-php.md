@@ -2,12 +2,15 @@
 layout: blog_post
 title: 'Create and Verify JWTs in PHP with OAuth 2.0'
 author: krasimir-hristozov
+by: contractor
+communities: [php]
 description: "Learn how to create and verify JWTs in PHP and how to use them with OAuth 2.0"
 tags: [jwt, oauth, php]
 tweets:
   - "JWTs + PHP = 🎂"
   - "Learn how to create JWTs in PHP!"
 image: blog/featured/okta-php-headphones.jpg
+type: conversion
 ---
 
 JSON Web Tokens (JWTs) allow you to implement stateless authentication (without the use of server-side sessions). JWTs are digitally signed with a secret key and can contain various information about the user: identity, role, permissions, etc in JSON format. This information is simply encoded and not encrypted. However, because of the digital signature, the payload cannot be modified without access to the secret key.

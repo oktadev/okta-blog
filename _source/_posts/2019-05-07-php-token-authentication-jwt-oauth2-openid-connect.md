@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Token Authentication in PHP"
 author: krasimir-hristozov
+by: contractor
+communities: [php]
 description: "Everything you ever wanted to know about token authentication in PHP"
 tags: [ oauth, php, jwt ]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Confused about token authentication in PHP? Check out this example code"
 - "A comprehensive guide to understanding #JWT authentication in #PHP"
 image: blog/featured/okta-php-headphones.jpg
+type: conversion
 ---
 
 JSON Web Tokens (JWTs) have turned into the de-facto standard for stateless authentication of mobile apps, single-page web applications, and machine-to-machine communication. They have mostly superseded the traditional authentication method (server-side sessions) because of some key benefits:

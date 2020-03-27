@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Java + Spring Tutorials"
 author: lindsay-brunner
+by: internal-contributor
+communities: [java]
 description: "This post shares a variety of instructional Spring Boot and Java tutorials for the modern app developer."
 tags: [java, spring boot, spring, jhipster]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Do you ❤️Java, Spring Boot, and learning cool new stuff? We've got you! Check out our round up of @java and @springboot tutorials covering topics like #microservices, app security, and REST vs @graphql."
 - "We've got what you need... Check out our one-stop shop for @java and #springboot tutorials, covering topics like #frontend development with @angular and @reactjs, #microservices, and web security."
 image: blog/featured/okta-java-headphones.jpg
+type: awareness
 ---
 
 Spring Boot, and the Spring framework in general, are the core tools for  the modern Java developer. They abstract away many nuances of development and architecture, allowing you to focus on building your business logic, aka, the parts of your app that will move the needle for your organization.

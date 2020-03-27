@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Build a NodeJS App with TypeScript"
 author: ivo-katunaric
+by: contractor
+communities: [javascript]
 description: "Learn to build a simple blog server using Node.js and TypeScript."
 tags: [nodejs, typescript, nestjs, secure, oauth, oidc, javascript]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Yes, you can use TypeScript with Node.js! Here's an example of building a blog application using Node.js and TypeScript with NestJS! →"
 - "Can you use TypeScript with Node.js? Absolutely! Here's one approach to building a blog application with TypeScript and NestJS! →"
 image: blog/featured/okta-node-bottle-headphones.jpg
+type: conversion
 ---
 
 As dynamically typed languages became prominent during the last decade, typeless (or should I say lawless?) programming became the norm for the backend as well as the frontend.

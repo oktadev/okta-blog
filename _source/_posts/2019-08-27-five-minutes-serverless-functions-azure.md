@@ -2,6 +2,8 @@
 layout: blog_post
 title: "5 Minute Serverless Functions in Azure without an IDE"
 author: heather-downing
+by: advocate
+communities: [.net, devops]
 description: "Tutorial: Deploy Azure Serverless functions without an IDE"
 tags: [csharp, dotnet core, azure, serverless, oauth2, oidc]
 tweets:
@@ -9,6 +11,7 @@ tweets:
  - "Look Ma, no IDE ‼️"
  - "Want to try out @Azure functions? Have 5 minutes? ⏱️"
 image: blog/featured/okta-dotnet-skew.jpg
+type: conversion
 ---
 
 Microsoft Azure makes it incredibly easy to get a basic API/microservice up and running quickly! If you are unfamiliar with building serverless architecture in the Microsoft ecosystem, using Azure Functions has become a quick way to get back-end code up and running that is easy to understand and usable for anyone. 

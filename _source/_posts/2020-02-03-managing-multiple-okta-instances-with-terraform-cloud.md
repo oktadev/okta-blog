@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Managing Multiple Okta Instances with Terraform Cloud"
 author: andy-march
+by: internal-contributor
+communities: [devops]
 description: "Learn how to utilize Terraform and Terraform Cloud to make managing Okta simpler."
 tags: [okta, terraform]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Our very own @andymarch just published an excellent new guide showing you how to use #Terraform and Terraform Cloud!"
 - "Use #Terraform and Terraform Cloud to manage @okta: it's simple!"
 image: blog/okta-terraform-cloud/terraform-plan.png
+type: conversion
 ---
 
 Congratulations, you've chosen to use [Okta](/) to solve your identity problems. Welcome to the happy sunny utopia of a managed identity solution! But wait! How do you manage your environments? Your applications all have separate production, staging, and development environments. How do you manage that in Okta without writing a ton of custom scripts?

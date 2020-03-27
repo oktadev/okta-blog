@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Build a CRUD App with ASP.NET Core 2.2 and Entity Framework Core"
 author: lee-brandt
+by: advocate
+communities: [.net]
 description: "This is a step-by-step for creating a CRUD application using ASP.NET Core 2.2 and Entity Framework Core."
 tags: [aspnetcore, netcore, efcore, entityframework, entityframeworkcore]
 tweets:
@@ -9,6 +11,7 @@ tweets:
   - "If you've been looking for a step-by-step on building CRUD apps in ASP.NET Core 2.2 and Entity Framework, look no further!"
   - "Ready to dive into ASP.NET Core 2.2 and don't know where to start? Start here!!"
 image: blog/featured/okta-dotnet-skew.jpg
+type: conversion
 ---
 
 If you're like me, you love music. Music is always streaming somewhere in my house at all times.  I especially like going to see live music, but it can be hard to know where and when live music is happening. LiveMusicFinder is a web application that allows users to enter when and where some live music is going down. This beta version is **very** rough, but I will show you how I built it with ASP.NET Core 2.2 and Entity Framework Core.

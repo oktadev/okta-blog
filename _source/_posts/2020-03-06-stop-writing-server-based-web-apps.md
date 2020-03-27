@@ -2,6 +2,7 @@
 layout: blog_post
 title: "Stop Writing Server-Based Web Apps"
 author: david-neal
+by: advocate
 description: "Stop writing server-based web apps and switch to the JAMstack architecture!"
 tags: [jamstack, web, architecture, javascript, api, cms, asp.net, java, php, python]
 tweets:
@@ -9,6 +10,7 @@ tweets:
 - ""
 - ""
 image: blog/stop-writing-server-based-web-apps/stop-writing-server-based-web-apps.jpg
+type: awareness
 ---
 
 The World-Wide Web, as we know it, started around 1993 by serving static HTML files with links to other HTML files. It didn't take long for developers to find ways of making websites more "dynamic" using technologies like Common Gateway Interface (CGI), Perl, and Python.

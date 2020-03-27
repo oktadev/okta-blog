@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Java REST API Showdown: Which is the Best Framework on the Market?"
 author: daniel-pereira
+by: contractor
+communities: [java]
 description: "A Quick Guide to creating REST APIs with popular Java frameworks: Micronaut, Quarkus, and Spring Boot."
 tags: [java, rest, api, spring boot, quarkus, micronaut]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "We created a guide for how to create REST APIs with leading Java frameworks: Micronaut, Quarkus, and Spring Boot."
 - "REST APIs are still popular! Learn how to do it in 2019 with @micronautfw, @QuarkusIO, and @springboot."
 image: blog/java-rest-api/java-rest-api-showdown.png
+type: conversion
 ---
 
 Developing services in Java, including REST APIs, wasn't always easy or productive until Spring came along and changed the landscape. Many years have passed since then, and new frameworks have emerged in the community.

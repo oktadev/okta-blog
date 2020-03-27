@@ -4,10 +4,13 @@ title: Make Java Tests Groovy With Hamcrest
 description: 'A tutorial on testing Java code with Groovy.'
 tags: [spring, oauth, oauth 2.0, java, spring boot, testing, hamcrest, groovy]
 author: brian-demers
+by: advocate
+communities: [java]
 Tweets:
 - "Make your test Groovy with @ApacheGroovy"
 - "Testing made easy with @Hamcrest and @ApacheGroovy"
 image: blog/featured/okta-java-short-skew.jpg
+type: conversion
 ---
 
 My favorite way to test Java code is with Groovy.  Specifically, writing tests in Groovy with Hamcrest.  In this post, I'll walk through how to test a simple Spring Boot application with these tools.

@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Build a .NET App Quickly with Docker"
 author: charlie-holland
+by: contractor
+communities: [.net, devops]
 description: "Learn to containerize your .NET Framework app with Docker."
 tags: [docker, .net, .net framework, windows container]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Need to learn how to containerize your .NET Framework app with Docker? We've got you covered."
 - "Quickly get up to speed on how to put your .NET Framework app in a Docker container."
 image: blog/featured/okta-dotnet-half.jpg
+type: conversion
 ---
 
 In this post, you'll build a .Net Framework application with Visual Studio on Windows 10. You'll then containerize your application so it can be reliably deployed and run on any instance of Docker for Windows.
