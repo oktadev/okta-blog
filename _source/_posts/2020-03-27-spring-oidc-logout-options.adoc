@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "OAuth2 Logout Options with Spring Boot"
+title: "OpenID Connect Logout Options with Spring Boot"
 author: brian-demers
 description: "This tutorial demonstrates the logout options you have when developing Spring applications and helps you pick the right one for you!"
 tags: [oauth, oidc, java, spring, spring boot, logout]
@@ -8,12 +8,14 @@ tweets:
 - "Logging out is just as important as logging in, here are your options for Spring Boot and OAuth2/OIDC 🔒"
 - "There are multiple options for logging out of your Spring Boot application, see which one is right for you‼️"
 - "Spring Security supports RP-Initiated logout should you be using it❓"
-image: blog/spring-odic-logout-options/spring-boot-logout-options.png
+image: blog/spring-oidc-logout-options/spring-boot-logout-options.png
 
 ---
 :page-liquid:
 
-On the Okta blog, we spend much of our time talking about logging in. That is because once you configure your application to log in, the log out just works. But there are a few things you should consider when you're thinking about your app's logout configuration. In this post, I'll walk through examples of the two logout options you have with Spring Security: the "default" session clearing logout, and RP-Initiated logout.
+On the Okta blog, we spend much of our time talking about logging in. That is because once you configure your application to log in, the log out just works. But there are a few things you should consider when you're thinking about your app's logout configuration. In this post, I'll walk through examples of the two logout options you have with Spring Security: the "default" session clearing logout, and relying party initiated logout.
+
+If you are new to OAuth 2.0 or OpenID Connect (OIDC), check out link:/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc[An Illustrated Guide to OAuth and OpenID Connect] to learn more!
 
 **Prerequisites:**
 
@@ -22,13 +24,13 @@ On the Okta blog, we spend much of our time talking about logging in. That is be
 
 == Spring Security's Default Logout
 
-By default, when logging out of a Spring application, Spring removes the current session (technically it invalidates it) along with the corresponding session cookie (typically `JSESSIONID`). Finally, Spring redirects the user to a new page (which by default is `/login?logout`). Other than removing any ID and access tokens from your application's session, nothing OAuth2/OIDC specific happens.
+By default, when logging out of a Spring application, Spring removes the current session (technically it invalidates it) along with the corresponding session cookie (typically `JSESSIONID`). Finally, Spring redirects the user to a new page (which by default is `/login?logout`). Other than removing any ID and access tokens from your application's session, nothing OAuth 2.0/OIDC specific happens.
 
 NOTE: The examples below are configured to redirect to the root page `/`.
 
 == What is RP-Initiated Logout
 
-RP-Initiated Logout is a bit of a mouthful, but the RP means relying party, which in OAuth2/OIDC terms is just your application. Simplified, this means your application triggers the end of the session with your identity provider (IdP). Some folks refer to this as "SSO Logout" because this would end the session for any applications configured for single sign-on (SSO).
+RP-Initiated Logout is a bit of a mouthful, but the RP means relying party, which in OAuth 2.0/OIDC terms is just your application. Simplified, this means your application triggers the end of the session with your identity provider (IdP). Some folks refer to this as "SSO Logout" because this would end the session for any applications configured for single sign-on (SSO).
 
 This flow does everything the above "default" logout does, but, instead of redirecting to a page with the application, it redirects to the IdP, where the IdP performs its logout action, and then finally redirects back to your application.
 
@@ -73,7 +75,7 @@ Log in to your Okta dashboard, (if you just signed up, Okta will email login ins
 
 Your app's settings should look as follows.
 
-image::{% asset_path 'blog/spring-odic-logout-options/spring-boot-oidc-settings.png' %}[alt=Spring Boot OIDC Settings,width=700,align=center]
+image::{% asset_path 'blog/spring-oidc-logout-options/spring-boot-oidc-settings.png' %}[alt=Spring Boot OIDC Settings,width=700,align=center]
 
 You will find your **Client ID** and **Client secret** on this page. Copy them into `src/main/resources/application.properties`:
 
@@ -97,11 +99,11 @@ SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OKTA_CLIENT_SECRET={client-secret-fro
 
 Start the application with `./mvnw spring-boot:run` and browse to `\http://localhost:8080/` in a private/incognito window.
 
-image::{% asset_path 'blog/spring-odic-logout-options/example-app-no-session.png' %}[alt=Example App screenshot,width=700,align=center]
+image::{% asset_path 'blog/spring-oidc-logout-options/example-app-no-session.png' %}[alt=Example App screenshot,width=700,align=center]
 
 Click the **Login** button.
 
-image::{% asset_path 'blog/spring-odic-logout-options/example-app-with-session.png' %}[alt=Example App with user logged in,width=700,align=center]
+image::{% asset_path 'blog/spring-oidc-logout-options/example-app-with-session.png' %}[alt=Example App with user logged in,width=700,align=center]
 
 
 Now the fun part. Click the **Logout** button. The app has logged you out and sent you back to `/`. However, if you press the **Login** button again, you will be automatically logged in; this is because only your application's session was deleted, not the session with Okta.
