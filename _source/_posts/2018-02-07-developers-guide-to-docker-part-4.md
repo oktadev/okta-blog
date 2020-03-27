@@ -2,11 +2,14 @@
 layout: blog_post
 title: "A Developer's Guide To Docker - Docker Swarm"
 author: lee-brandt
+by: advocate
+communities: [devops]
 description: "In this article, you'll learn how to set up a cluster of containers using Docker Swarm and how to use Docker Machine to create VMs that have Docker already installed."
 tags: [docker, docker swarm, container, containerization]
 tweets:
     - "Learn how to cluster your containers with Docker Swarm"
     - "Easily scale your containers using with Docker swarm"
+type: awareness
 ---
 
 Redundancy is a big deal when scaling websites. However, deploying and managing clusters of containers can quickly become untenable. While there are a few container orchestration tools out there like Kubernetes and Mesosphere (DC/OS), Docker has its own called Docker Swarm Mode. Swarm Mode allows you to deploy, scale, and manage clusters of Docker containers from a single command window.

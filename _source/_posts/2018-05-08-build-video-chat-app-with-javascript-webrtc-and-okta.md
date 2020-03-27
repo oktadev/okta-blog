@@ -2,11 +2,14 @@
 layout: blog_post
 title: Build a Video Chat Service with JavaScript, WebRTC, and Okta
 author: randall-degges
+by: advocate
+communities: [javascript]
 description: "This post shows how to build a video chat service with JavaScript, WebRTC, and Okta."
 tags: [video chat, JavaScript, WebRTC, Okta, chat service, saas, tutorial]
 tweets:
   - "Learn how to build a video conference service with WebRTC, JavaScript, and @okta >"
   - "Wanna build a simple video chat service with JavaScript? Read this post to find out how! >"
+type: conversion
 ---
 
 As recently as seven short years ago, building video applications on the web was a massive pain. Remember the days of using Flash and proprietary codecs (*which often required licensing*)? Yuck. In the last few years, video chat technology has dramatically improved and Flash is no longer required.

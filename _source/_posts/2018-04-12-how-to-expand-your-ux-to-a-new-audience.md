@@ -2,12 +2,15 @@
 layout: blog_post
 title: "How to Expand Your UX to a New Audience"
 author: alex-dahl
+by: internal-contributor
+communities: [design]
 tags: [design, okta, ux, process]
 description: "Interested in expanding your UX to a new audience? So were we! Read more about how we did it here."
 tweets:
   - "How do you expand your UX to a new audience? Here's how we did it at Okta."
   - "Designing for different types of users is hard. Here's how to take it step by step."
   - "What's going on inside the minds of your designers? Take a peek at how one of ours worked through a project."
+type: awareness
 ---
 
 As your business grows, you'll probably reach a point where you need to grow your audience as well. Not just acquire more customers in your target segment, but expand to more segments and new types of customers. How do you adapt your product to your new audience? How do you avoid a "least common denominator" solution that isn't great for anyone?

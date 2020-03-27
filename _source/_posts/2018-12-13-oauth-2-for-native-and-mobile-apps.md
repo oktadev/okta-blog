@@ -2,6 +2,8 @@
 layout: blog_post
 title: "OAuth 2.0 for Native and Mobile Apps"
 author: micah-silverman
+by: advocate
+communities: [mobile, security]
 description: "Native and Mobile apps have special requirements for using OAuth 2.0."
 tags: [oauth, oauth2, learning, programming, programming languages, education]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Dig into OAuth 2.0 for Native and Mobile Apps."
 - "Ever hear of PKCE? You'll want to if you need to secure the native or mobile app your building!"
 image: blog/featured/okta-node-tile-books-mouse.jpg
+type: awareness
 ---
 
 These days, when you hear someone talking about OAuth, it is likely they mean OAuth 2.0. Previous versions of the standard are deprecated.

@@ -2,11 +2,14 @@
 layout: blog_post
 title: "Add Authentication to Your Vanilla JavaScript App in 20 Minutes"
 author: brandon-parise
+by: contractor
+communities: [javascript]
 description: "This shows how to create an app with plain ol' vanilla JavaScript and add authentication to it to secure its communication with a REST API."
 tags: [javascript, es6, vanilla javascript, vanilla js, authentication]
 tweets:
  - "Having a hard time with JavaScript Framework Fatigue? Check out this tutorial that builds a calorie tracking app with good ol' JavaScript. No frameworks, no problem! 😃"
  - "Want to get your hands dirty with good ol' JavaScript? This tutorial doesn't use any JavaScript frameworks to build an app. The build process is amazing! 🤘"
+type: conversion
 ---
 
 *"Sometimes nothing is good enough"* is a phrase that software engineers don't speak or hear often. In the fast-changing world of web development, there is no shortage of bleeding-edge JavaScripts frameworks promising to make your life easier or inch out its predecessors. You may ask yourself if it is even possible to build a modern web application without one of these frameworks, let alone add secure authentication. Well, it is!

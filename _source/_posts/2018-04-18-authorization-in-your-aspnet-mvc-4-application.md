@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Use OpenID Connect for Authorization in Your ASP.NET MVC Framework 4.x App"
 author: lee-brandt
+by: advocate
+communities: [.net]
 description: "This is a quick tutorial demonstrating how to add authorization to an ASP.NET MVC Application using OpenID Connect and Okta."
 tags: [ASP.NET, ASP.NET MVC, ASP.NET MVC 4.x, OIDC, OpenID Connect]
 tweets:
@@ -9,6 +11,7 @@ tweets:
     - "Use OpenID Connect in your ASP.NET MVC 4.x Application to authorize users"
     - "Need to authorize users in your ASP.NET MVC 4.x App? Use OpenID Connect! Found out how!"
     - "Create user authorization in your ASP.NET MVC 4.x App with OpenID Connect and @OktaDev"
+type: conversion
 ---
 
 A common practice in web applications is to have a restricted area for registered users, and perhaps another for administrators. Whether this restricted access area is premium content, or simply the order history for your e-commerce site's users, it's important that it be properly secured. OpenID Connect (OIDC) makes it easy, but it can be tricky to set up in ASP.NET MVC framework. In this post, I'll show you how to create groups and use the authorization framework that comes with ASP.NET.

@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Secure a Spring Microservices Architecture with Spring Security and OAuth 2.0"
 author: matt-raible
+by: advocate
+communities: [java]
 description: "Secure a Spring microservices architecture with Spring Security and OAuth + this tutorial. No Okta SDKs required!"
 tags: [spring, spring boot, microservices, oauth 2.0, spring security, java]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Feel the heat? A lot of the 🔥 in the #Java ecosystem is coming from Spring Boot. Learn how to 🔒 it down with @SpringSecurity, OAuth 2.0, and Okta!"
 - "Spring Boot Microservices + @SpringSecurity + @oauth_2 + @okta = 😀!"
 image: blog/featured/okta-java-bottle-headphones.jpg
+type: conversion
 ---
 
 Building a microservices architecture with Spring Boot and Spring Cloud can allow your team to scale and develop software faster. It can add resilience and elasticity to your architecture that will enable it to fail gracefully and scale infinitely. All this is great, but you need continuous deployment and excellent security to ensure your system stays up-to-date, healthy, and safe for years to come.

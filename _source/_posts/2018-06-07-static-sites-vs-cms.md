@@ -2,12 +2,14 @@
 layout: blog_post
 title: "Static Sites vs CMS"
 author: randall-degges
+by: advocate
 description: "Are you trying to decide whether or not to build your website using a static site generator or a content management system? If so, you'll enjoy this."
 tags: [programming]
 tweets:
  - "Static sites or content management systems? Which do you prefer? Read the smackdown by @rdegges >:)"
  - "We love static sites! Read more about why in our latest article by @rdegges about tools like #jekyll and #hugo"
  - "Static Sites VS Content Management Systems: only one can survive!! Read our thoughts about #web development in @rdegges' new article:"
+type: awareness
 ---
 
 {% img blog/static-sites/nerd-fight.gif alt:"Nerd fight!" %}{: .center-image }

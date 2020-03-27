@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Build a Simple CRUD App with Python, Flask, and React"
 author: kleber-correia
+by: contractor
+communities: [javascript, python]
 description: "Create a CRUD (create, read, update, and delete) application using Python, Flask, and React."
 tags: [python, flask, react, crud, tutorial]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Tutorial - #Python & @ReactJS example application"
 - "Full stack CRUD application tutorial with #Python and @ReactJS"
 image: blog/featured/okta-react-skew.jpg
+type: conversion
 ---
 
 Today's modern web applications are often built with a server-side language serving data via an API and a front-end javascript framework that presents the data in an easy to use manner to the end user. Python is a dynamic language widely adopted by companies and developers. The language states on its core values that software should simple, readable making developers more productive and happier. You'll also use Flask to help you to quickly put together a ReST API. React is a declarative, efficient, and flexible JavaScript library developed at Facebook for building user interfaces. It facilitates the creation of complex, interactive, and stateful UIs from small and isolated pieces of code called components.

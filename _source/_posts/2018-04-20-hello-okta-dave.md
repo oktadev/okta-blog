@@ -2,10 +2,12 @@
 layout: blog_post
 title: "Hello, Okta. It's me, Dave"
 author: dave-nugent
+by: advocate
 description: "Welcoming Dave Nugent to the Okta team."
 tags: [javascript, okta, forwardjs, team]
 tweets:
 - "Welcome @drnugent to the @oktadev team"
+type: awareness
 redirect_to:
 - "/blog/"
 ---

@@ -2,11 +2,13 @@
 layout: blog_post
 title: "Hello, Okta!"
 author: aaron-parecki
+by: advocate
 description: "Welcoming Aaron Parecki to the Okta family!"
 tags: [oauth,team]
 tweets:
 - "Welcoming @aaronpk to the @oktadev team!"
 - "We're excited to have the one and only @aaronpk joining the Okta family! #cooldude"
+type: awareness
 ---
 
 My name is Aaron Parecki, and last week I joined Okta on the Developer Advocacy team.

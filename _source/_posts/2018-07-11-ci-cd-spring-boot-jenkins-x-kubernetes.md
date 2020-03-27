@@ -2,11 +2,14 @@
 layout: blog_post
 title: "Add CI/CD to Your Spring Boot App with Jenkins X and Kubernetes"
 author: matt-raible
+by: advocate
+communities: [java, devops]
 description: "This post shows you how to implement continuous integration and deployment (CI/CD) with Jenkins X and Kubernetes on Google Cloud."
 tags: [spring-boot, jenkins x, kubernetes, angular, pwa, ionic, okta java sdk]
 tweets:
 - "Are you running your apps in production with @kubernetesio? If so, you can automate your CI / CD with @jenkinsxio and go even faster!"
 - "Wanna try something new and cool? @jenkinsxio is a way to do CI / CD on Kubernetes with auto-deployment to staging environments. It's pretty slick!"
+type: conversion
 ---
 
 A lot has happened in the last five years of software development. What it means to build, deploy, and orchestrate software has changed drastically. There's been a move from hosting software on-premise to public cloud and shift from virtual machines (VMs) to containers. Containers are cheaper to run than VMs because they require fewer resources and run as single processes. Moving to containers has reduced costs, but created the problem of how to run containers at scale.

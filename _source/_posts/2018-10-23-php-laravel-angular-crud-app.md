@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Tutorial: Build a Basic CRUD App with Laravel and Angular"
 author: krasimir-hristozov
+by: contractor
+communitites: [javascript, php]
 description: "This tutorial teaches you how to build a simple CRUD application with a Laravel backend API and an Angular frontend."
 tags: [php, angular, laravel, crud]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Create a CRUD application with @LaravelPHP and @Angular, and add authentication with Okta! #symfony4"
 - "Look how easy it is to add authentication to a @LaravelPHP app with Okta! #laravel #php"
 image: "blog/php-laravel-angular-crud-app/image1.png"
+type: conversion
 ---
 
 Laravel is a popular PHP framework for Web application development and it's a pretty good choice if you're starting a new project today for multiple reasons:

@@ -2,12 +2,15 @@
 layout: blog_post
 title: "Build a Secure API with Spring Boot and GraphQL"
 author: andrew-hughes
+by: contractor
+communities: [java]
 description: "This post shows you how to build an GraphQL API with Spring Boot, then lock it down with Spring Security, OAuth 2.0, and Okta."
 tags: [graphql, spring boot, spring security, oauth]
 tweets:
 - "Learn how to build a secure API with @springboot and @GraphQL →"
 - "Have your heard of GraphQL as an alternative to building REST APIs? This post shows you what it is and how it works with @springboot. It's #bootiful!"
 image: blog/featured/okta-java-headphones.jpg
+type: conversion
 ---
 
 GraphQL is a data query language developed by Facebook in 2012 to solve a shortcoming of REST APIs and traditional database models. All too often, when programmers write REST API data queries, they default to retrieving entire data structures when they need only a part of it. For example, if you want to find out the number of comments on a blog post, a developer might typically retrieve the entire post and all associated fields along with all the comments and all their associated fields **only to** count the number of comments in the resulting array.

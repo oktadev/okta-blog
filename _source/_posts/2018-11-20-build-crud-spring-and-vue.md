@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Build a Simple CRUD App with Spring Boot and Vue.js"
 author: andrew-hughes
+by: contractor
+communities: [java, javascript]
 description: "Create a CRUD (create, read, update, and delete) application using Spring Boot and Vue.js."
 tags: [java, spring, spring boot, vue, crud, tutorial]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Tutorial - @SpringBoot & @VueJS example application"
 - "Client/Server application tutorial with #SpringBoot and #VuewJS"
 image: blog/featured/okta-java-short-headphones.jpg
+type: conversion
 ---
 
 In this tutorial, you're going to build a complete CRUD web application using Vue.js for the client and Spring Boot as the resource server. You'll also secure the application using OAuth 2.0 and Okta. 

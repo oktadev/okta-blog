@@ -2,12 +2,15 @@
 layout: blog_post
 title: "How to Prevent Your Users from Using Breached Passwords"
 author: randall-degges
+by: advocate
+communities: [security]
 description: "This article walks you though using PassProtect.js, a new developer library that ensures your user's won't use breached passwords. It is powered by haveibeenpwned."
 tags: [javascript, authentication, security]
 tweets:
  - "NIST recently started recommending that you don't let users use breached passwords in your web apps. In this short article @rdegges will show you how to easily implement this pattern:"
  - "Don't let your users use breached passwords when registering. PassProtect is a new JS library we've developed to help make this easy:"
  - "Use PassProtect to help prevent your users from using breached passwords.  PassProtect relies on @haveibeenpwned and helps improve web security in one line of code :)"
+type: awareness
 ---
 
 Not too long ago, the National Institute of Standards and Technology (NIST) [officially recommended](https://www.nist.gov/itl/tig/projects/special-publication-800-63) that user-provided passwords be checked against existing data breaches. Today I'm going to show you how you can easily add this functionality to any website you run using [PassProtect](https://github.com/OktaSecurityLabs/passprotect-js), an open-source developer library we created specifically for this purpose.

@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Build a Simple Web App with Express, React and GraphQL"
 author: braden-kelley
+by: contractor
+communities: javascript
 description: "In this tutorial you'll use Express.js and React to build a simple web application with GraphQL and secure it using Okta."
 tags: [authentication, graphql, web, express, node]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Check out our kick-ass tutorial! It walks you through building a simple web app with @graphql in Node and @reactjs. Stop scrolling through Twitter and learn something fun!"
 - "@graphql + @nodejs + @reactjs = 💥"
 image: blog/graphql-express/okta-node-skew.jpg
+type: conversion
 ---
 
 GraphQL and React have both become quite popular in the last few years, and it's safe to say they go together like avocado and toast. A GraphQL server can be written in Node and lets you easily create a flexible API using JavaScript classes and functions. When a frontend developer queries the server, only the information asked for gets processed. This means you can make the backend as robust as you want while keeping the frontend light by only requesting information needed for the page you're viewing.

@@ -2,11 +2,14 @@
 layout: blog_post
 title: "Use Okta (Instead of Local Storage) to Store Your User's Data Securely"
 author: matt-raible
+by: advocate
+communities: [java, javascript]
 description: "Using an Okta Developer account will allow you to store your cryptocurrency holdings as custom profile attributes instead of using local storage. While LocalStorage is great for demos, using custom profile attributes will allow you to access your data across different devices."
 tags: [localstorage, cryptocurrency, spring-boot, java, okta-java-sdk]
 tweets:
  - "Learn how to use the @okta Java SDK to store custom profile attributes to manage your cryptocurrency portfolio  →"
  - "Did you know that we provide a @java SDK for talking to our REST API? It's pretty slick. This blog post shows you how to use it to manage custom profile attributes."
+type: conversion
 ---
 
 Local Storage is a JavaScript API technically known as `localStorage` that arrived with HTML5. It allows you to store information on a user's browser quickly and easily. There are many debates on the web as to whether it's better than cookies. Some say it's faster (because it doesn't send data with every request like cookies do) and more secure.

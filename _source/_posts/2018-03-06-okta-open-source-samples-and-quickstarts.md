@@ -2,11 +2,13 @@
 layout: blog_post
 title: "Open Source Framework Samples and Quickstarts for Okta's Developer APIs"
 author: matt-raible
+by: advocate
 description: "The Okta Developer Experience Team not only creates Okta's open source SDKs, but they create samples and documentation too! This blog post shows how to use our sample apps for Angular, React, Vue.js, Express, Django, Flask, and Spring."
 tags: [java, spring, angular, angularjs, react, node, express, python, django, flask, vue]
 tweets: 
   - "Okta's DevEx Team believes in developing great documentation and easy to configure SDKs. Learn more about the awesome samples they've created →"
   - "Developers love sample applications. Open source is awesome! See how we combine the two to make a better developer experience."
+type: awareness
 ---
 
 Developers love sample applications. It's one thing to see the steps to create an application or feature; but when someone provides a working app you can just build and run it's simply fantastic. Open source is near and dear to many developers today. Many of the frameworks we use to build applications are open source. It's a great way to develop widely-used software and get contributions from your users.

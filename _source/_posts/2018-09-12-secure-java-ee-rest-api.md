@@ -2,12 +2,15 @@
 layout: blog_post
 title: 'Build a Java REST API with Java EE and OIDC'
 author: matt-raible
+by: advocate
+communities: [java]
 description: "This article shows you how to build REST API with Java EE, run it on Apache TomEE, and secure it with JWT and OIDC."
 tags: [java, java ee, rest api, jax-rs, jpa, ejb, jwt, oidc, spring security, pac4j]
 tweets:
  - "Building a Java EE REST API is pretty easy with JPA, JAX-RS, and @ApacheTomEE. Learn how to 💻 code it and 🔒 lock it down with JWT and OIDC →"
  - "We ❤ @java here @oktadev️. This tutorial shows you how to build a Java EE REST API and secure it with many different options: JWTs, @springsecurity, and Pac4J! #jwt #oidc #rest"
 image: blog/javaee-rest-api/javaee+okta=love.png
+type: conversion
 ---
 
 Java EE allows you to build Java REST APIs quickly and easily with JAX-RS and JPA. Java EE is an umbrella standards specification that describes a number of Java technologies, including EJB, JPA, JAX-RS, and many others. It was originally designed to allow portability between Java application servers, and flourished in the early 2000s. Back then, application servers were all the rage and provided by many well-known companies such as IBM, BEA, and Sun. JBoss was a startup that disrupted the status quo and showed it was possible to develop a Java EE application server as an open source project, and give it away for free. JBoss was bought by RedHat in 2006.

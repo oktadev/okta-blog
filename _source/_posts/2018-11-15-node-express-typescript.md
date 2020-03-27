@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Use TypeScript to Build a Node API with Express"
 author: david-neal
+by: advocate
+communities: [javascript]
 description: "This tutorial walks you through building a simple and secure Node application using TypeScript, Express, and Okta."
 tags: [authentication, typescript, web, express, node]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "A quick introduction to building a @nodejs application using @typescriptlang"
 - "Build a @nodejs application using @typescriptlang and #expressjs"
 image: blog/node-express-typescript/node-express-typescript.jpg
+type: conversion
 ---
 
 Like it or not, JavaScript has been helping developers power the Internet since 1995. In that time, JavaScript usage has grown from small user experience enhancements to complex full-stack applications using Node.js on the server and one of many frameworks on the client such as Angular, React, or Vue. 

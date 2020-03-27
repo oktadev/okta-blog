@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Build a Basic CRUD App in Android with Kotlin"
 author: karl-penzhorn
+by: contractor
+communities: [java, mobile]
 description: "This tutorial walks you through creating a basic CRUD application with Kotlin and Android."
 tags: [android, java, jvm, kotlin, mobile, crud, oauth, oidc]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Learn how to build a basic CRUD @android app using @kotlin!"
 - "Kotlin, Java's less verbose little cousin, and Android make building apps fun!"
 image: blog/android-kotlin-crud/header.png
+type: conversion
 ---
 
 Kotlin was recently given official Android support status by Google, but it remains difficult to understand for many developers. The best way to start is by creating a complete app yourself, which you'll do in this tutorial. In this tutorial, you'll use Spring Boot for the API that powers your Android (+ Kotlin) mobile app. Spring Boot is a great way to create a robust REST API with a minimal amount of code.

@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Build a Simple API Service with Express and GraphQL"
 author: braden-kelley
+by: contractor
+communities: [javascript]
 description: "In this tutorial you'll use Express.js to build a simple API with GraphQL and secure it using Okta."
 tags: [authentication, graphql, api, express, node]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "New article out! It walks you through building APIs with @graphql in Node. Stop scrolling through Twitter and learn something fun!"
 - "G... GRAPH... GRAPHQLLLLLLL. It's an awesome technology and makes building efficient APIs simple. Checkout our latest article on the subject:"
 image: blog/graphql-express/okta-node-skew.jpg
+type: conversion
 ---
 
 GraphQL has become an immensely popular alternative to REST APIs. The flexibility you get from using GraphQL makes it easier for developers to get any information they need for an app, and _just_ the information they need for that portion of the app. That gives you the feel of a very customized API and can help cut down on bandwidth.

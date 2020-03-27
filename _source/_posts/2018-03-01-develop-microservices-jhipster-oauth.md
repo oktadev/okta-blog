@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Develop a Microservices Architecture with OAuth 2.0 and JHipster"
 author: matt-raible
+by: advocate
+communities: [java]
 description: "This post shows you how to use JHipster to create a microservices architecture based on Spring Boot, Spring Security, and OAuth."
 tags: [jhipster, microservices, spring boot, spring-boot 2.0, spring security, oidc, oauth]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Did you know @java_hipster makes it easy to build microservice applications with @springboot and @angular? You can even use its @oauth_2 support to add SSO!"
 - "Wanna get started with @java_hipster and a microservices architecture based on @springboot and @springsecurity? We have just the 🎫! We'll even show you how to deploy it to @heroku!"
 image: blog/microservices-jhipster-oauth/kitematic.png
+type: conversion
 ---
 
 JHipster is a development platform to generate, develop, and deploy Spring Boot + Angular web applications and Spring microservices. It supports using many types of authentication: JWT, session-based, and OAuth 2.0. In its 5.0 release, it added React as a UI option. 
