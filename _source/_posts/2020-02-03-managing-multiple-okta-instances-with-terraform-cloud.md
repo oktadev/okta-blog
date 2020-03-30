@@ -71,7 +71,7 @@ provider "okta" {
 }
 ```
 
-This includes the Okta extension for Terraform and provides the three variables from our `okta.auto.tfvars` file to configure it.
+This includes the Okta provider for Terraform and provides the three variables from our `okta.auto.tfvars` file to configure it.
 
 Now, add the following to `identity.tf`:
 
@@ -86,10 +86,6 @@ resource "okta_user_schema" "dob_extension" {
 
 This will extend the Okta user schema by adding a field to store users' date of birth.
 
-To enable Terraform to use the Okta API, you need to install a provider. Download the latest binary for Darwin from the repository [here](https://github.com/articulate/terraform-provider-okta/releases) and place it in the following folder path in your directory: `terraform.d/plugins/linux_amd64`.
-
-> **NOTE**: If you are using Windows, you'll need the appropriate binary for local use, but you will need the Darwin build for later, so download that as well.
-
 To test this script, run `terraform plan` from the command line. This should print a list of the changes the Terraform will make to your Okta org:
 
 {% img blog/okta-terraform-cloud/terraform-plan.png alt:"Terraform plan" width:"800" %}{: .center-image }
@@ -99,7 +95,6 @@ Before you change anything, you'll want to version control your new configuratio
 ```console
 git init
 git add identity.tf
-git add terraform.d/plugins/darwin/linux_amd64/*
 git commit -m "Initial commit. Adding the date of birth extension"
 ```
 
