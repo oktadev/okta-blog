@@ -56,6 +56,7 @@ Visual Studio may ask you if you'd like to add the C# extension. Go ahead and ge
 {% img blog/cli-dotnet-templates/vs-extension-csharp.png alt:"C# extension for VS Code" width:"600" %}{: .center-image }
 
 ## Adding Security
+
 Fortunately, we live in a world where we do not have to come up with our own security standards and SDKs. It used to be when a company wanted to manage security for their applications, they had to come up with the entire stack themselves. Products like [Okta](https://developer.okta.com/) have made that process easy, with the entire company dedicated exclusively to your security. If you have not done so yet, sign up for a [forever-free developer account](https://developer.okta.com/signup/) and activate your unique Okta org to continue below.
 
 For this example project, we'll be leveraging the  [Okta .NET SDK](https://github.com/okta/okta-sdk-dotnet) to make setup simple and robust.
@@ -147,6 +148,7 @@ app.UseAuthorization();
 ```
 
 ## Add a Secure Controller
+
 Now that we have the basic setup, let's add a default secure controller that is already set up for authentication.
 
 Let's call our controller SecureController.cs.
@@ -223,38 +225,38 @@ Now we need to do something that might feel kind of foreign for most Windows use
 Let's go over what each of these does.
 
 * $schema
-	- The JSON schema type the system uses this to help parse the JSON file. (Side note: to see all the available attributes, you can go to the URL.)
+  - The JSON schema type the system uses this to help parse the JSON file. (Side note: to see all the available attributes, you can go to the URL.)
 * author
-	- The name of the person who created the template. Likely, it will be you, the reader.
+  - The name of the person who created the template. Likely, it will be you, the reader.
 * classifications
-	- The tags that you see when you get a list of all the templates available using "dotnet new --list".
+  - The tags that you see when you get a list of all the templates available using "dotnet new --list".
 * name
-	- This is the full name you want to be visible in the template list.
+  - This is the full name you want to be visible in the template list.
 * shortname
-	- This name is what you will call the template. In our example, we'll use dotnet new. secure-web
+  - This name is what you will call the template. In our example, we'll use dotnet new. secure-web
 * sourceName
-	- This is the symbol that will be used throughout the files to be replaced with the name of the project when calling dotnet new.
+  - This is the symbol that will be used throughout the files to be replaced with the name of the project when calling dotnet new.
 
 Now we need to tell the templating system how to change our symbols. We can do that by adding the following lines to our JSON object after "sourceName"
 
 ```json
 "symbols": {
-	"OktaDomain" : {
-		"type": "parameter",
-		"defaultValue": "https://MyOrg.okta.com",
-		"replaces":"OktaDomainSymbol"	,
-		"isRequired": true
-	},
-	"ClientId" : {
-		"type": "parameter",
-		"replaces":"ClientIdSymbol",
-		"isRequired": true
-	},
-	"ClientSecret" : {
-		"type": "parameter",
-		"replaces":"ClientSecretSymbol",
-		"isRequired": true	
-	}
+  "OktaDomain" : {
+    "type": "parameter",
+    "defaultValue": "https://MyOrg.okta.com",
+    "replaces":"OktaDomainSymbol",
+    "isRequired": true
+  },
+  "ClientId" : {
+    "type": "parameter",
+    "replaces":"ClientIdSymbol",
+    "isRequired": true
+  },
+  "ClientSecret" : {
+    "type": "parameter",
+    "replaces":"ClientSecretSymbol",
+    "isRequired": true  
+  }
 }
 ```
 
@@ -268,18 +270,18 @@ To package the template for delivering to your team, you can use NuGet Package M
 
 ```xml
 <package>
-	<metadata>
-		<id>MyOrg.SecureWeb</id>
-		<version>1.0</version>
-		<authors>Chase Q Aucoin</authors>
-		<description>A Secure Web App for MyOrg</description>
-		<packageTypes>
-			<packageType name="Template" />
-		</packageTypes>
-	</metadata>
+  <metadata>
+    <id>MyOrg.SecureWeb</id>
+    <version>1.0</version>
+    <authors>Chase Q Aucoin</authors>
+    <description>A Secure Web App for MyOrg</description>
+    <packageTypes>
+      <packageType name="Template" />
+    </packageTypes>
+  </metadata>
 <files>
-	<file src="**" exclude= "bin\**;obj\**;.vs\**;.vscode\**;.git\**;*.nuspec" target="content/" />
-	</files>
+  <file src="**" exclude= "bin\**;obj\**;.vs\**;.vscode\**;.git\**;*.nuspec" target="content/" />
+  </files>
 </package>
 ```
 
@@ -358,8 +360,8 @@ Happy secure coding!
 
 ## Learn More about ASP.NET Core and Authentication
 
-* [5 Minute Serverless Functions Without an IDE](https://developer.okta.com/blog/2019/08/27/five-minutes-serverless-functions-azure)
-* [Create Login and Registration in Your ASP.NET Core App](https://developer.okta.com/blog/2019/02/05/login-registration-aspnet-core-mvc)
-* [Build Secure Microservices with AWS Lambda and ASP.NET Core](https://developer.okta.com/blog/2019/03/21/build-secure-microservices-with-aspnet-core)
-* [Build a CRUD App with ASP.NET Core and Typescript](https://developer.okta.com/blog/2019/03/26/build-a-crud-app-with-aspnetcore-and-typescript)
-* [Build a GraphQL API with ASP.NET Core](https://developer.okta.com/blog/2019/04/16/graphql-api-with-aspnetcore)
+* [5 Minute Serverless Functions Without an IDE](/blog/2019/08/27/five-minutes-serverless-functions-azure)
+* [Create Login and Registration in Your ASP.NET Core App](/blog/2019/02/05/login-registration-aspnet-core-mvc)
+* [Build Secure Microservices with AWS Lambda and ASP.NET Core](/blog/2019/03/21/build-secure-microservices-with-aspnet-core)
+* [Build a CRUD App with ASP.NET Core and Typescript](/blog/2019/03/26/build-a-crud-app-with-aspnetcore-and-typescript)
+* [Build a GraphQL API with ASP.NET Core](/blog/2019/04/16/graphql-api-with-aspnetcore)
