@@ -4,7 +4,7 @@ title: "Baking in Security with .NET CLI Templates"
 author: chase-aucoin
 by: contractor
 communities: [.net]
-description: "Learn how to use Styled Components to manage CSS in your React App."
+description: "Dive into CLI template creation for .NET in this tutorial."
 tags: [C#, csharp, dotnet, .net, .net cli, cli templates, .net cli templates]
 tweets:
 - "Love using the .NET CLI in @code? Here's a tutorial on how to create your own CLI templates ->"
