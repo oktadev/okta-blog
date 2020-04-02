@@ -24,6 +24,10 @@ Below is the target architecture you'll be deploying:
 
 {% img blog/asa-gcp-jenkins/architecture.png alt:"architecture for ASA + GCP + Jenkins" %}{: .center-image }
 
+**Table of Contents**
+* Table of Contents
+{:toc}
+
 ## What is Okta's Advanced Server Access (ASA)?
 
 In July of 2018, Okta acquired a San Francisco-based startup working on Zero Trust access solutions named ScaleFT. Okta rebranded the ScaleFT Server Access product as Okta **Advanced Server Access (ASA).**
