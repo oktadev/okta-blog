@@ -346,7 +346,7 @@ We'll later use those Windows credentials to RDP to the VM and start the ASA enr
 
 You should see this:
 
-{% img blog/asa-gcp-jenkins/create-enrollment-token.png alt:"create enrollment token" width:"600" %}{: .center-image }
+{% img blog/asa-gcp-jenkins/create-enrollment-token.png alt:"create enrollment token" width:"238" %}{: .center-image }
 
 ## Enroll VMs with Okta ASA
 
