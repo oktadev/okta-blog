@@ -298,7 +298,7 @@ Then, you'll have to make that VM reachable from the internet over http 8080 to 
 - Create a new VM
 - Leave the default Machine type: 1vCPU + 3.75GB memory
 
-{% img blog/asa-gcp-jenkins/gcp-machine-type.png alt:"GCP machine type" width:"600" %}{: .center-image }
+{% img blog/asa-gcp-jenkins/gcp-machine-type.png alt:"GCP machine type" width:"450" %}{: .center-image }
 
 - Go to **Boot disk** > select **change** > select **Windows Server 2016 Datacenter**
 - Click on **Create**
