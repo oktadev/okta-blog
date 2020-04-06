@@ -283,7 +283,7 @@ Then, you'll have to make that VM reachable from the internet over http 8080 to 
 
 - Click on **Create Firewall Rule**
 
-{% img blog/asa-gcp-jenkins/gcp-create-firewall-rule-button.png alt:"GCP create firewall rule button" width:"600" %}{: .center-image }
+{% img blog/asa-gcp-jenkins/gcp-create-firewall-rule-button.png alt:"GCP create firewall rule button" width:"500" %}{: .center-image }
 
 - Name the rule "inbound-http-8080" | Direction: Ingress | Incoming IP ranges: 0.0.0.0/0 | select tcp port 8080 | click on **Create**
 
