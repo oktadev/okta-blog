@@ -519,7 +519,7 @@ Technically the ASA enrollment part for the gcp-jenkins VM is similar to the enr
 
 - Then, you can come back to your ASA console, and check that your server shows up in the Servers tab
 
-{% img blog/asa-gcp-jenkins/hostname.png alt:"hostname" width:"600" %}{: .center-image }
+{% img blog/asa-gcp-jenkins/hostname.png alt:"hostname" width:"450" %}{: .center-image }
 
 At this stage, you should be able to SSH into gcp-jenkins VM using ASA:
 
