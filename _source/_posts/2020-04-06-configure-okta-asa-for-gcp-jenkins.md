@@ -661,7 +661,7 @@ Get back to Jenkins.
 
 - Click on **New Item**
 
-{% img blog/asa-gcp-jenkins/new-item.png alt:"new item" width:"600" %}{: .center-image }
+{% img blog/asa-gcp-jenkins/new-item.png alt:"new item" width:"233" %}{: .center-image }
 
 - Enter Hello World as the title, and select "Freestyle project" as the type, then click **Ok**
 
