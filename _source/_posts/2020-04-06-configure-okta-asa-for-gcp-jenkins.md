@@ -616,7 +616,7 @@ Now, we'll create a service account in ASA, mapped to that Jenkins user.
 
 - Go to **Services** tab > **Add Service**
 
-{% img blog/asa-gcp-jenkins/add-service.png alt:"add service" width:"600" %}{: .center-image }
+{% img blog/asa-gcp-jenkins/add-service.png alt:"add service" width:"300" %}{: .center-image }
 
 - Enter your Jenkins user ID. In our case above, that was 112. Then click **Submit**.
 
