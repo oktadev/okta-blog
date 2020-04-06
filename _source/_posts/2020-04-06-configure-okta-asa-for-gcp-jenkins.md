@@ -687,7 +687,7 @@ Get back to Jenkins.
 - Click on **Save**
 - On the next screen, click on **Build Now**
 
-{% img blog/asa-gcp-jenkins/build-now.png alt:"build now" width:"600" %}{: .center-image }
+{% img blog/asa-gcp-jenkins/build-now.png alt:"build now" width:"204" %}{: .center-image }
 
 - Open the latest build (it should have a blue dot icon)
 
