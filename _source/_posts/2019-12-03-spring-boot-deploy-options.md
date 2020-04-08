@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Deploy Your Spring Boot App the Right Way"
 author: thiago-negri
+by: contractor
+communities: [java]
 description: "Tutorial: This tutorial walks through deploying Java applications to Azure, AWS, and a self-hosted option."
 tags: [java, spring, spring-boot, oidc, oauth, deploy, aws, azure, tomcat]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Deploy Java apps as WARs or JARs, to AWS or Azure, you pick. This guide will show you how ☕"
 - "Need a quick tutorial on how to deploy a Java application to the cloud? check this out!"
 image: blog/featured/okta-java-short-tile-books-mouse.jpg
+type: conversion
 ---
 
 Spring Boot is an awesome solution to speed up the development cycle of your app. Have an idea and want to transform it into a Spring Boot app, but don't know the best way to deploy it? Look no further, we will help you out!

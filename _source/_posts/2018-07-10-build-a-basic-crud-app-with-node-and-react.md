@@ -1,13 +1,16 @@
 ---
 layout: blog_post
 title: "Build a Basic CRUD App with Node and React"
-author: bkelley
+author: braden-kelley
+by: contractor
+communities: [javascript]
 description: "Learn how to build a simple app with Node and React: register and login users, store data in a database, etc."
 tags: [node, react, express, databases, authentication]
 Tweets:
 - "Learning @nodejs and @reactjs? Check out our new tutorial which walks you through building a simple CRUD app using the two:"
 - "Interested in #nodejs and #reactjs? We just published a new tutorial that shows you how to build a simple CRUD app using both Node and React:"
 - "Want to learn how to build modern CRUD apps using #nodejs and #reactjs? We've got you covered:"
+type: conversion
 ---
 
 There are *a lot* of JavaScript frameworks out there today. It seems like I hear about a new one every month or so. They all have their advantages and are usually there to solve some sort of problem with an existing framework. My favorite to work with so far has been React. One of the best things about it is how many open source components and libraries there are in the React ecosystem, so you have a lot to choose from. This can be really difficult if you're indecisive, but if you like the freedom to do things your way then React may be the best option for you.

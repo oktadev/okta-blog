@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Build a Command Line Application with Node.js"
-author: reverentgeek
+author: david-neal
+by: advocate
+communities: [javascript]
 description: "Learn how to build command line applications using Node.js"
 tags: [nodejs, cli, command line, automation, devops, tasks]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Can you use OAuth with a CLI application? Yes! Here's how to build one using @nodejs! #nodejs #cli #oauth #pkce"
 - "Learn how to authenticate a CLI application with #PKCE using @nodejs! #cli #oauth"
 image: blog/command-line-apps-with-nodejs/command-line-apps-with-nodejs.jpg
+type: conversion
 ---
 
 Command line applications (CLI) are often the core tools for automating tasks, such as deploying production applications, running tests, building reports, migrating data, DevOps, and the list goes on and on. If you find yourself doing the same things over and over again, chances are you can automate those steps with a script and save yourself a lot of time!

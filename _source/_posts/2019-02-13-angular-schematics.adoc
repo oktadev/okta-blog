@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Use Angular Schematics to Simplify Your Life"
-author: mraible
+author: matt-raible
+by: advocate
+communities: [javascript]
 description: "Learn what Schematics are and how to create your first one."
 tags: [schematics, angular, authentication]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Do you love @angular, but find yourself doing the same thing over and over in new projects? Create a schematic to do it for you!"
 - "Angular Schematics are pretty awesome - find out why!"
 image: blog/angular-schematics/angular-schematics.png
+type: conversion
 ---
 :page-liquid:
 

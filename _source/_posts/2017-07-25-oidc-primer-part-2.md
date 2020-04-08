@@ -1,10 +1,13 @@
 ---
 layout: blog_post
 title: 'OIDC in Action – An OpenID Connect Primer, Part 2 of 3'
-author: dogeared
+author: micah-silverman
+by: advocate
+communities: [security]
 tags: [oauth, oauth2, oauth2.0, oauth 2.0, OpenID, OpenID Connect, oidc]
 redirect_from:
   - "/blog/2017-08-01-oidc-primer-part-2"
+type: awareness
 ---
 
 In the [first installment of this OpenID Connect (OIDC) series](https://developer.okta.com/blog/2017/07/25/oidc-primer-part-1), we looked at some OIDC basics, its history, and the various flow types, scopes, and tokens involved. In this post, we'll dive into the mechanics of OIDC and see the various flows in action.

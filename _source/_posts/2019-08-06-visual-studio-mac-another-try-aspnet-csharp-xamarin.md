@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "5 Reasons Why You Should Give Visual Studio for Mac Another Try"
-author: quorralyne
+author: heather-downing
+by: advocate
+communities: [.net]
 description: "The newly released version of Visual Studio for Mac deserves the attention of any .NET, JS or mobile developer. Check out the features Microsoft has worked hard to bring to the community that uses Macs."
 tags: [ aspnet, csharp, dotnet, dotnetcore, mac, apple, visualstudio, vsformac, visualstudioformac ]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Develop .NET on a Mac? Check out the improvements to Visual Studio for Mac! →"
 - "Hey .NET devs! Learn what is new in Visual Studio for Mac and why you should try it →"
 image: blog/vs-mac-another-try/vsmaclove.png
+type: awareness
 ---
 Visual Studio has not always been as user-friendly on the Mac as it is on a Windows machine. Lately, however, the stable release of VS for Mac is really starting to feel like a simple, but luxurious cousin to Visual Studio 2019. Different, but related. Installation on a Mac is quick, simple, and allows you to get into coding right away - whether you are already familiar or an Apple-only dev getting into something new like Xamarin. 
 

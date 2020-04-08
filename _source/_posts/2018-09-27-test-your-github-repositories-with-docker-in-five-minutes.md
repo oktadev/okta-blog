@@ -1,13 +1,16 @@
 ---
 layout: blog_post
 title: "Test Your GitHub Repositories with Docker in 5 Minutes"
-author: pmcdowell
+author: patrick-mcdowell
+by: internal-contributor
+communities: [devops]
 description: "In this tutorial, you'll see how to test your repositories with nothing but Git, Docker, and a Makefile."
 tags: [docker, github]
 tweets:
 - "@Docker + @GitHub = ❤️"
 - "Check your @GitHub repo using @Docker easily!"
 image: blog/docker-github/okta-node-skew.jpg
+type: awareness
 ---
 
 

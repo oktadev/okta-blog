@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Build Secure Login for Your Angular App"
-author: holgerschmitz
+author: holger-schmitz
+by: contractor
+communities: [javascript]
 description: "Build an Angular application with authentication, a step-by-step tutorial."
 tags: [angular, login, angular cli, typescript, authentication]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Angular is awesome! And you'll probably need to secure it. This tutorial shows you how to add a secure login to your app! #angular #authentication"
 - "Have you played with the latest release of @angular? Now's your chance!"
 image: blog/featured/okta-angular-bottle-headphones.jpg
+type: conversion
 ---
 
 Single page applications (SPAs) are becoming more and more popular. Their appeal is obvious. Fast loading times gives users the feeling of responsiveness even over slow networks. At some point, a developer of a SPA has to think about authentication and authorization. But what do these two terms actually mean? Authentication deals with ensuring that a user truly is who they claim to be. This usually involves a login page in which the user provides their credentials. Once logged in, authorization deals with restricting and granting access to specific resources. In the simplest case, access to pages is restricted to users who have authenticated themselves.

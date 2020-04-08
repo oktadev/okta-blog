@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "What is the OAuth 2.0 Password Grant Type?"
-author: aaronpk
+author: aaron-parecki
+by: advocate
+communities: [security]
 description: "The Password Grant Type is a way to get an OAuth access token given a username and password."
 tags: [oauth]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Ever wondered what the #oauth2 Password Grant Type is for? We've got you covered."
 - "What the heck is the OAuth Password Grant Type?"
 - "Thinking about using the OAuth Password Grant Type? Read this first:"
+type: awareness
 ---
 
 The OAuth 2.0 Password Grant Type is a way to get an access token given a username and password. It's typically used only by a service's own mobile apps and is not usually made available to third party developers.
