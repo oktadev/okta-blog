@@ -2,6 +2,8 @@
 layout: blog_post
 title: "OAuth 2.1: How Many RFCs Does it Take to Change a Lightbulb?"
 author: lee-mcgovern
+by: external-contributor
+communities: [security]
 description: ""
 tags: [oauth, oauth2, rfc, spec]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "The OAuth working group is rolling the latest recommendations and best practices into a new spec: OAuth 2.1"
 - "Here comes #OAuth 2.1!"
 image: blog/oauth-2-1-how-many-rfcs/oauth-maze.png
+type: awareness
 ---
 
 The OAuth working group agreed last month in Singapore ([IETF 106](https://oauth.net/events/2019-11-ietf106/)) that work will begin to update the current OAuth 2.0 Framework to a potential version 2.1 encompassing all the latest recommendations and best practices around the specification. This is in part due to the maze of documentation that developers need to understand when getting started on the topic to choose the correct flow and implement the best security posture for their application landscape.

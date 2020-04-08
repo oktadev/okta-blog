@@ -1,13 +1,16 @@
 ---
 layout: blog_post
 title: 'Build a Basic CRUD App with Angular and Node'
-author: holgerschmitz
+author: holger-schmitz
+by: contractor
+communitites: [javascript]
 description: "In this tutorial, you'll learn how to build a Node API and an Angular app that can manage its data."
 tags: [crud, angular, node]
 tweets:
   - "Are you looking to get started with Angular and Node? If so, this tutorial is for you!"
   - "This tutorial shows you how to build an Angular app with a Node backend, complete with authentication!"
 image: blog/featured/okta-angular-bottle-headphones.jpg
+type: conversion
 ---
 
 In recent years, single page applications (SPAs) have become more and more popular. A SPA is a website that consists of just one page. That lone page acts as a container for a JavaScript application. The JavaScript is responsible for obtaining the content and rendering it within the container. The content is typically obtained from a web service and RESTful APIs have become the go-to choice in many situations. The part of the application making up the SPA is commonly known as the _client_ or _front-end_, while the part responsible for the REST API is known as the _server_ or _back-end_. In this tutorial, you will be developing a simple Angular single page app with a REST backend, based on Node and Express. 

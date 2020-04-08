@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Create a Blockchain Explorer in C#"
 author: terje-kolderup
+by: contractor
+communities: [.net]
 description: "Learn to build a blockchain explorer in C#."
 tags: [blockchain, C#, CSharp]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Curious about blockchain? Build a blockchain explorer in C#!"
 - "Wanna explore blockchain? Build a quick blockchain explorer using C#!"
 image: blog/featured/okta-dotnet-half.jpg
+type: conversion
 ---
 
 Blockchain technology is already central to major cryptocurrencies like Bitcoin and its applications are ever growing. A blockchain is simply a list of records, called blocks. Each block contains information about transactions - and also confirms the validity of the previous block with something called a hash function. A hash function calculates a number from all of the data in a block. It works in such a way that if any of the bytes in the block data changes, the result of the hash function will be a different number.

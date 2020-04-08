@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Easy Spring Boot Deployment with AWS Elastic Beanstalk"
 author: daniel-pereira
+by: contractor
+communities: [java, devops]
 description: "Find out how easy it is to secure and deploy your Spring Boot app with AWS Elastic Beanstalk."
 tags: [ spring boot, spring security, security, oauth2, oauth, openid connect, oidc, aws, elastic beanstalk ]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Writing Spring Boot apps? Add OpenID Connect and easy deployment with Okta and AWS ->"
 - "Okta + AWS Elastic Beanstalk are the perfect pairing for securing and deploying your Spring Boot app ->"
 image: blog/featured/okta-java-short-skew.jpg
+type: conversion
 ---
 
 Nearly all applications rely on authentication. Developers, and the companies that employ them, want to confirm who is making the request and are they who they say they are. And, this needs to happen fast enough for a good user experience. Fortunately, there are great tools to help. 

@@ -1,13 +1,16 @@
 ---
 layout: blog_post
 title: "Build a Secure CRUD App with ASP.NET Core and React"
-author: leebrandt
+author: lee-brandt
+by: advocate
+communities: [.net, javascript]
 description: "This post demonstrates how to build a secure CRUD app using ASP.NET Core API with a React front end."
 tags: [asp.net core, dotnet core, aspnet core, react, crud]
 tweets:
  - "Want to learn the basic of writing secure CRUD apps with #aspnetcore and @reactjs? Check out @leebrandt's new article! >>"
  - "Learn how to build a secure CRUD app with #aspnetcore and @reactjs from @OktaDev! <3"
  - "Interested in #aspnetcore APIs and @reactjs front-ends for secure CRUD apps? Learn it with @leebrandt and @OktaDev! >>"
+type: conversion
 ---
 
 These days it's prevalent to have a "back-end" and a "front-end" allowing two (or more) teams to work on a project. Microsoft's latest version of the ASP.NET Core framework is cross-platform and performant. Pairing it with the power and flexibility of Facebook's React framework makes it a pretty stable platform. In this tutorial, I will show you how to build a secure CRUD (Create, Read, Update, and Delete) application using these two powerful technologies.

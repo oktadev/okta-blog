@@ -1,13 +1,16 @@
 ---
 layout: blog_post
 title: "PHP Authorization with OAuth 2.0 and Okta"
-author: krasimir
+author: krasimir-hristozov
+by: contractor
+communities: [php]
 description: "Learn how to use groups and roles to control who has access to your application"
 tags: [ php, groups, roles, authorization, permissions ]
 tweets:
 - "Learn how to use groups and roles to control who can access your #PHP applications!"
 - "Now that you've got simple login working, how do you decide who can access the app? Okta's groups and roles make it easy!"
 image: blog/featured/okta-php-headphones.jpg
+type: conversion
 ---
 
 User account management, authorization, and access control can be difficult to implement for many web developers. At the same time, they are critical cornerstones of application security – any mistake can lead to data leaks, financial losses, and legal troubles.

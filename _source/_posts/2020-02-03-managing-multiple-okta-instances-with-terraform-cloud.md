@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Managing Multiple Okta Instances with Terraform Cloud"
-author: amarch
+author: andy-march
+by: internal-contributor
+communities: [devops]
 description: "Learn how to utilize Terraform and Terraform Cloud to make managing Okta simpler."
 tags: [okta, terraform]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Our very own @andymarch just published an excellent new guide showing you how to use #Terraform and Terraform Cloud!"
 - "Use #Terraform and Terraform Cloud to manage @okta: it's simple!"
 image: blog/okta-terraform-cloud/terraform-plan.png
+type: conversion
 ---
 
 Congratulations, you've chosen to use [Okta](/) to solve your identity problems. Welcome to the happy sunny utopia of a managed identity solution! But wait! How do you manage your environments? Your applications all have separate production, staging, and development environments. How do you manage that in Okta without writing a ton of custom scripts?
@@ -68,7 +71,7 @@ provider "okta" {
 }
 ```
 
-This includes the Okta extension for Terraform and provides the three variables from our `okta.auto.tfvars` file to configure it.
+This includes the Okta provider for Terraform and provides the three variables from our `okta.auto.tfvars` file to configure it.
 
 Now, add the following to `identity.tf`:
 
@@ -83,10 +86,6 @@ resource "okta_user_schema" "dob_extension" {
 
 This will extend the Okta user schema by adding a field to store users' date of birth.
 
-To enable Terraform to use the Okta API, you need to install a provider. Download the latest binary for Darwin from the repository [here](https://github.com/articulate/terraform-provider-okta/releases) and place it in the following folder path in your directory: `terraform.d/plugins/linux_amd64`.
-
-> **NOTE**: If you are using Windows, you'll need the appropriate binary for local use, but you will need the Darwin build for later, so download that as well.
-
 To test this script, run `terraform plan` from the command line. This should print a list of the changes the Terraform will make to your Okta org:
 
 {% img blog/okta-terraform-cloud/terraform-plan.png alt:"Terraform plan" width:"800" %}{: .center-image }
@@ -96,7 +95,6 @@ Before you change anything, you'll want to version control your new configuratio
 ```console
 git init
 git add identity.tf
-git add terraform.d/plugins/darwin/linux_amd64/*
 git commit -m "Initial commit. Adding the date of birth extension"
 ```
 

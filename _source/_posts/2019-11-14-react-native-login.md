@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Create a React Native App with Login in 10 Minutes"
-author: mraible
+author: matt-raible
+by: advocate
+communities: [javascript, mobile]
 description: "This tutorial shows you how to add a login feature to a React Native application."
 tags: [react-native, react, login, javascript, mobile, oidc, pkce]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Add login to your React Native application in minutes with OIDC."
 - "Need auth in your #ReactNative app? Just add auth with @okta!"
 image: blog/react-native-login/react-native-login.png
+type: conversion
 ---
 
 React Native is a mobile app development framework that allows you to use React to build native iOS and Android mobile apps. Instead of using a web view and rendering HTML and JavaScript, it converts React components to native platform components. This means you can use React Native in your existing Android and iOS projects, or you can create a whole new app from scratch.

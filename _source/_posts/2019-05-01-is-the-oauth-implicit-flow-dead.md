@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Is the OAuth 2.0 Implicit Flow Dead?"
-author: aaronpk
+author: aaron-parecki
+by: advocate
+communities: [security]
 description: "In this post, we'll look at what's changing in the Implicit Flow and why."
 tags: [ oauth, security, implicit, pkce, javascript, vanillajs ]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Learn how to do the @oauth_2 PKCE flow in #vanillajs"
 - "Some tips from @aaronpk about what's going on with the @oauth_2 Implicit Flow"
 image: blog/oauth-implicit-flow-dead/oauth-implicit-flow-dead.png
+type: awareness
 ---
 
 You may have heard some buzz recently about the OAuth 2.0 Implicit flow. The OAuth Working Group has published some new guidance around the Implicit flow and JavaScript-based apps, specifically that the Implicit flow should no longer be used. In this post we'll look at what's changing with the Implicit flow and why.

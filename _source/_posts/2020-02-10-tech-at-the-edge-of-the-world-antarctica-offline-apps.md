@@ -1,13 +1,15 @@
 ---
 layout: blog_post
 title: "Tech at the Edge of the World: Offline Applications"
-author: quorralyne
+author: heather-downing
+by: advocate
 description: "Can your code really run everywhere? Even offline? Thoughts from Heather Downing's journey to a tech conference held in Antarctica."
 tags: [selfcontainedapps, wifi, internet, connectivity, developer, programming, offlineapps, antarctica]
 tweets:
 - "Should you be building self-contained application in a cloud-based world? @quorralyne explores the question."
 - "Could your code run in Antarctica? Dive into offline capabilities of software with @quorralyne."
 image: blog/offline-apps-antarctica/elephantisland.jpg
+type: awareness
 ---
 
 {% img blog/offline-apps-antarctica/antarcticaphoto.jpg alt:"Antarctic Peninsula" width:"800" %}{: .center-image }
@@ -42,7 +44,7 @@ Whatever way you wish to handle intermittent internet, just make sure you ask th
 
 ## Plan for offline functionality for installable software
 
-Many banking mobile apps come to mind first for not providing any real benefit if you are in airplane mode. Even if my last balance was synched with a timestamp, most won't let you pass the sign-in screen to even see it. Since external auth providers (like Okta, Google, etc) provide you with a token, you can store that locally when your device is offline until the it expires (which is easily configured within your [Okta Developer account](https://developer.okta.com/signup/)) and allow a user access to their previously authenticated and downloaded data while offline. My general opinion regarding installable applications is that for it to be worth the trouble of installation, there should be some local functionality. Otherwise, go with a web site or web hosted application and save a user the trouble and memory allocation of downloading your software. ASk yiourself the question:
+Many banking mobile apps come to mind first for not providing any real benefit if you are in airplane mode. Even if my last balance was synched with a timestamp, most won't let you pass the sign-in screen to even see it. Since external auth providers (like Okta, Google, etc) provide you with a token, you can store that locally when your device is offline until the it expires (which is easily configured within your [Okta Developer account](https://developer.okta.com/signup/)) and allow a user access to their previously authenticated and downloaded data while offline. My general opinion regarding installable applications is that for it to be worth the trouble of installation, there should be some local functionality. Otherwise, go with a web site or web hosted application and save a user the trouble and memory allocation of downloading your software. Ask yourself the question:
 
 **Does the user need offline functionality for this project?**
 
