@@ -4,34 +4,31 @@ title: "Build an Incredibly Fast Website with Dapper + C#"
 author: chase-aucoin
 by: contractor
 communities: [.net]
-description: "Dive into CLI template creation for .NET in this tutorial."
-tags: [C#, csharp, dotnet, .net, dapper c#, dapper, dapper ORM]
+description: "Learn how to speed up a data-heavy website with a micro ORM like Dapper."
+tags: [C#, csharp, dotnet, .net, dapper c#, dapper, dapper ORM, ORM]
 tweets:
-- ""
-- ""
-- ""
+- "Speed up your website data with a micro ORM like #Dapper with #dotnetcore ->"
+- "Ever heard of #Dapper? Learn how to use this lightweight ORM with #dotnet in this tutorial ->"
+- "Faster websites are achievable, even with lots of data. Check out this tutorial on using #Dapper with #dotnet ->"
 type: conversion
 image: blog/featured/okta-dotnet-mouse-down.jpg
 ---
-If you have been doing .NET development professionally for any length of time, you are probably familiar with Entity Framework for data access. At the time of this post, both Entity Framework and Entity Framework Core have over 85 million downloads on Nuget so it is definitely a popular framework. 
+If you have been doing .NET development professionally for any length of time, you are probably familiar with Entity Framework for data access. At the time of this post, both Entity Framework and Entity Framework Core have over 85 million downloads on Nuget so it is definitely a popular framework.
 
-People love Entity Framework because it abstracts the way you interact with the database to make development easier. The problem, though, is that you trade that easier development experience for heavy operations and very little control over the way you interact with your data. 
+People love Entity Framework because it abstracts the way you interact with the database to make development easier. The problem, though, is that you trade that easier development experience for heavy operations and very little control over the way you interact with your data.
 
-Sometimes you need to be able to be specific about how you access data or you need a lightweight solution for getting data. Dapper was born out of this need, and today we’ll be exploring how you can use Dapper to make working with databases easy, while getting a significant boost in performance.
+Sometimes you need to be able to be specific about how you access data or you need a lightweight solution for getting data. Dapper was born out of this need, and today we'll be exploring how you can use Dapper to make working with databases easy, while getting a significant boost in performance.
 
 ## Prerequisites
 
 * [Visual Studio Code or Visual Studio 2019](https://visualstudio.microsoft.com/downloads/)
-* [SQL Server 2019 Standard or Developer Edition](https://www.microsoft.com/en-us/sql-server/sql-server-downloads)
-	- With full-text indexing installed
+* [SQL Server 2019 Standard or Developer Edition](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) - With full-text indexing installed
 * Some experience with SQL and C#
 * An [Okta Developer Account](https://developer.okta.com/signup) (free forever, to handle your OAuth needs)
 
-# First, The Data
+## First, Acquire the Data
 
-First, we'll need some data to work with. There are a plethora of options, but given that our focus today is building a performant data access service, let's use some real data—some real *big* data. 
-
-## Acquire Data
+First, we'll need some data to work with. There are a plethora of options, but given that our focus today is building a performant data access service, let's use some real data—some real *big* data.
 
 Stack Overflow makes its database publicly available and is a great option. Brent Ozar has gone to the trouble of making a few versions available.
 
@@ -43,7 +40,7 @@ Alternatively, you can get the data dump directly from [archive.org](https://arc
 
 I'm using the 1GB zip that expands to a 10GB database, but please feel free to get one of the larger ones and play with it, assuming you have the bandwidth and space available.
 
-## Setup Data
+## Setup Your Data
 
 With data in hand, now we need to attach it to our SQL Server. To do this, open up SQL Server Management Studio (referred to as SSMS going forward) on the machine that has SQL Server. I installed a local instance of SQL Server using the default configuration.
 
@@ -81,9 +78,9 @@ To see the structure of posts, run the following SQL script by right-clicking on
 
 ``` sql
 SELECT TOP(10)
-	*
+ *
 FROM
-	Posts
+ Posts
 ```
 
 ## Analyzing the Data Structure
@@ -134,7 +131,7 @@ We will also have an endpoint that can:
 ## Set Up the .NET Core 3.1 Web Project
 
 Now that we understand our business case and have our data analysis in hand, we can start putting together a useful API and website.
-We want to make sure our website is secure, but developing our own security protocols and managing them to keep our data secure and our users safe is a massive undertaking. Fortunately Okta has made that process super easy, so I’ll be using that to make sure our web application is secure. I’ll be using a security flow that is tailored for sites that are actively engaging consumers with server-side rendered pages, but there are other security flows for service-to-service APIs and client-rendered single-page applications that are just as easy to use. 
+We want to make sure our website is secure, but developing our own security protocols and managing them to keep our data secure and our users safe is a massive undertaking. Fortunately Okta has made that process super easy, so I'll be using that to make sure our web application is secure. I'll be using a security flow that is tailored for sites that are actively engaging consumers with server-side rendered pages, but there are other security flows for service-to-service APIs and client-rendered single-page applications that are just as easy to use.
 
 Create a new project in Visual Studio and start a new *ASP.NET Core Web Application*.
 
@@ -194,7 +191,8 @@ Lastly, in your appsettings.json make sure you have the following (filling in th
     "Domain": "{Domain}"
 },
 ```
-You can get your client Id and secret by logging in to [https://developer.okta.com/](https://developer.okta.com/), selecting *Applications* and clicking on the name of your application. 
+
+You can get your client Id and secret by logging in to [https://developer.okta.com/](https://developer.okta.com/), selecting *Applications* and clicking on the name of your application.
 
 Then, go to the general tab for your application and scroll to the bottom.
 
@@ -211,6 +209,7 @@ First, create a new folder in the root of the project called Services.
 I like to create my interfaces before I start creating classes. This allows me to validate my thought processes and gather any models I might need. By taking this approach, the cost to change ideas becomes very low compared to getting halfway through implementation and realizing I'm building the wrong thing.
 
 Let's add a new file to our services folder called *IQuestionService.cs*.
+
 ```csharp
 /// <summary>
 /// Interface for the Question service
@@ -240,7 +239,7 @@ I think this will meet the requirements well. At this point in a business settin
 
 ## Adding the Models
 
-Now that I’m happy with the service, I can begin creating the models.
+Now that I'm happy with the service, I can begin creating the models.
 
 Under the models folder, I will add five files:
 
@@ -249,7 +248,6 @@ Under the models folder, I will add five files:
 * Question.cs
 * Answer.cs
 * QuestionDetails.cs
-
 
 Post.cs
 
@@ -429,20 +427,19 @@ Now that we figured out the use cases and models, it's time to head back to the 
 CREATE OR ALTER VIEW PostWithUser
 AS
 SELECT
-	Posts.*,
-	PostTypes.[Type] as PostTypeName,
-	Users.Id as UserId,
-	Users.DisplayName
-FROM
-	Posts	
-	
-	INNER JOIN PostTypes
-	ON
-	Posts.PostTypeId = PostTypes.Id
+ Posts.*,
+ PostTypes.[Type] as PostTypeName,
+ Users.Id as UserId,
+ Users.DisplayName
 
-	INNER JOIN Users
-	ON
-	Posts.OwnerUserId = Users.Id
+FROM Posts
+    INNER JOIN PostTypes
+    ON
+    Posts.PostTypeId = PostTypes.Id
+
+    INNER JOIN Users
+    ON
+    Posts.OwnerUserId = Users.Id
 ```
 
 Note that in our model we have a user object that is separate from the post data. We can use Dapper to help separate this data into discrete classes.
@@ -450,6 +447,7 @@ Note that in our model we have a user object that is separate from the post data
 ## Implementing the Service
 
 Let's add a class named QuestionService.
+
 ```csharp
 public class QuestionService : IQuestionService
 {
@@ -475,14 +473,16 @@ Dapper extends the *IDbConnection* interface and lets us query our database usin
 We'll be using the built-in dependency injection in .NET to handle connection lifetime management.
 
 Add the following to your *startup.cs* file in *ConfigureServices*:
+
 ```csharp
 services.AddTransient<IDbConnection, SqlConnection>(x =>
-	new SqlConnection("Data Source=.\\;Initial Catalog=StackOverflow2010;Integrated Security=true"));
-	
+    new SqlConnection("Data Source=.\\;Initial Catalog=StackOverflow2010;Integrated Security=true"));
+
 services.AddTransient<IQuestionService, QuestionService>();
 ```
 
 Now we can inject our service into the *HomeController*:
+
 ```csharp
 private readonly ILogger<HomeController> _logger;
 IQuestionService _questionService;
@@ -492,14 +492,14 @@ public HomeController(ILogger<HomeController> logger, IQuestionService questionS
     _questionService = questionService;
     _logger = logger;
 }
-
 ```
 
 Let's do a first pass at the *AskAQuestion* method using a naive search leveraging the *SQL LIKE* function.
+
 ```csharp
 public async Task<IEnumerable<Question>> AskAQuestion(string question, int take = 10, int skip = 0)
 {
-	//enforce a hard max limit of 100 results
+    //enforce a hard max limit of 100 results
     take = Math.Min(take, 100);
 
     var sql =
@@ -514,7 +514,7 @@ public async Task<IEnumerable<Question>> AskAQuestion(string question, int take 
     ViewCount DESC
 
     OFFSET @Skip ROWS FETCH NEXT @Take ROWS ONLY;";
-        
+
     //Our query is going to map 2 models then return a third.
     //In this case it will map question and user
     //then use our mapping function to join them together.
@@ -580,6 +580,7 @@ ViewData["Title"] = "Home Page";
 ```
 
 Search.cshtml
+
 ```csharp
 @model IEnumerable<Okta.Blog.DapperExample.Models.Question>
 
@@ -595,6 +596,7 @@ Search.cshtml
 ```
 
 QuestionDetails.cshtml
+
 ```csharp
 @model Okta.Blog.DapperExample.Models.QuestionDetails
 
@@ -719,22 +721,22 @@ Let's update the query we are using in our AskAQuestion method to the following;
 
 ```csharp
 var v2sql =
-	@"SELECT *
-	FROM
-	 PostWithUser
-	
-	 INNER JOIN
-	 FREETEXTTABLE(Posts, (Body,Tags,Title), @Question) textSearch
-	 ON
-	 PostWithUser.Id = textSearch.[Key]
-	
-	WHERE
-	 [PostTypeId] = 1
-	
-	ORDER BY
-	 textSearch.Rank DESC
-	
-	OFFSET @Skip ROWS FETCH NEXT @Take ROWS ONLY;";
+    @"SELECT *
+    FROM
+    PostWithUser
+
+    INNER JOIN
+    FREETEXTTABLE(Posts, (Body,Tags,Title), @Question) textSearch
+    ON
+    PostWithUser.Id = textSearch.[Key]
+
+    WHERE
+    [PostTypeId] = 1
+
+    ORDER BY
+    textSearch.Rank DESC
+
+    OFFSET @Skip ROWS FETCH NEXT @Take ROWS ONLY;";
 ```
 
 The FREETEXTABLE is a part of the FullText service in SQL and lets us specify a table, columns, and an arbitrary set of text that it then uses to rank the members of the table. We can then sort by that rank and filter to the questions like before.
