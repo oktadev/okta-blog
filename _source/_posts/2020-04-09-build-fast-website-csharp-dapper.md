@@ -749,8 +749,6 @@ MUCH BETTER! Now the service is running really fast and is providing some great 
 
 ## Recap
 
-What a ride! I hope with some of these tools you'll be making your services faster than ever.
-
 To recap of what you've learned:
 
 * Use smaller sets of data when defining your methods
@@ -759,9 +757,11 @@ To recap of what you've learned:
 * Use multi-column indexes for double dipping performance in certain use cases
 * Okta makes it easy to add security to your websites
 
-If you are interested in learning more about how Okta can help speed up your development workflow and enhance your security, check out some of these other helpful articles.
+What a ride! I hope with some of these tools you'll be making your services faster than ever.
 
 ## Learn More About ASP.NET and Okta
+
+If you are interested in learning more about how Okta can help speed up your development workflow and enhance your security, check out some of these other helpful articles:
 
 * [ASP.NET Core 3.0 MVC Secure Authentication](/blog/2019/11/15/aspnet-core-3-mvc-secure-authentication)
 * [5 Minute Serverless Functions Without an IDE](/blog/2019/08/27/five-minutes-serverless-functions-azure)
@@ -769,3 +769,5 @@ If you are interested in learning more about how Okta can help speed up your dev
 * [Build Secure Microservices with AWS Lambda and ASP.NET Core](/blog/2019/03/21/build-secure-microservices-with-aspnet-core)
 * [Build a CRUD App with ASP.NET Core and Typescript](/blog/2019/03/26/build-a-crud-app-with-aspnetcore-and-typescript)
 * [Build a GraphQL API with ASP.NET Core](/blog/2019/04/16/graphql-api-with-aspnetcore)
+
+Want to be notified when we publish more of these? Follow [@oktadev on Twitter](https://twitter.com/oktadev), subscribe to our [YouTube channel](https://youtube.com/c/oktadev), or follow us on [LinkedIn](https://www.linkedin.com/company/oktadev/). If you have a question, please leave a comment below!
