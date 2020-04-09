@@ -36,7 +36,7 @@ In this video:
 </ul>
 
 
-## Learn More about OAuth and OpenID Connect
+## Learn More About OAuth and OpenID Connect
 
 Check out some of our other videos!
 
