@@ -7,8 +7,12 @@ show_bottom_cta: true
 
 	{% for post in paginator.posts %}
 		{% capture _post_content %}
-			<p>{{ post.content | strip_html | truncatewords:75 }}</p>
-			<p><a class="BlogPost-more" href="{{post.url}}">Read more</a></p>
+			{% if post.summary %}
+				<p>{{ post.summary | strip_html }}</p>
+			{% else %}
+				<p>{{ post.content | strip_html | truncatewords:75 }}</p>
+				<p><a class="BlogPost-more" href="{{post.url}}">Read more</a></p>
+			{% endif %}
 		{% endcapture %}
 		{% include blog_post.html post_content=_post_content %}
 	{% endfor %}
