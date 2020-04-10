@@ -11,10 +11,13 @@ tweets:
 image:
 ---
 
-In 2013 Github released its search functionality, allowing to scan code in all public repositories, and a day after the release they had to partially shut it down. It was speculated that the feature allowed any user to search for all kinds of secrets stored in Github repositories. Even if that seems long ago, as explained by the study of NC State University, secrets leakage seems to remain pervasive and constant, and happens to all kinds of developers. Secrets leakage can lead to all kinds of cyber-attacks: data loss or corruption, sensitive data breaches and cryptojacking (cryptocurrency mining using victim's cloud computer power).
+In 2013 Github released its search functionality, allowing to scan code in all public repositories, and a day after the release they had to partially shut it down. It was speculated that the shutdown was because the feature allowed any user to search for all kinds of secrets stored in Github repositories. Even if that seems long ago, secrets leakage seems to remain pervasive and constant, and happens to all kinds of developers, as explained by the study of NC State University. Secrets leakage can lead to cyber-attacks, data loss or corruption, sensitive data breaches and cryptojacking (cryptocurrency mining using victim's cloud computer power).
+
+- Real world example
+
 This year, 2020, an Amazon engineer leaked customer secrets through a public Github repository. Some of the uploaded documents contained access keys for cloud services. Although the data had been committed inadvertently, the leaked credentials were retrieved by a third party within the half hour.
 
-Today, it is widely recommended to never store secret values in code. Therefore, the next sections will demonstrate the following alternatives:
+Today, it is widely recommended to never store secret values in code. Therefore, this tutorial will demonstrate the following alternatives:
 - Using environment variables for Spring Boot secrets
 - Secrets encryption and Cloud Config
 - Secrets management and Vault
@@ -184,30 +187,163 @@ In a real environment, the config server will be secured. Spring Cloud Config Se
 
 ## Vault as a Cloud Configuration Backend
 
+- Add Vault logo
+- Clarify how secrets are stored (ecrypted)
 
-With the cloud, secrets management became much more difficult.
-Vault is a secrets management and data protection tool from Hashicorp, that provides secure storage, dynamic secret generation, data encryption and secret revocation. Secrets operations can be audited by enabling audit devices, which will send audit logs to a file, syslog or socket.
+
+With the cloud, secrets management became much more difficult. Vault is a secrets management and data protection tool from Hashicorp, that provides secure storage, dynamic secret generation, data encryption and secret revocation. Operations on secrets can be audited by enabling audit devices, which will send audit logs to a file, syslog or socket.
 As Spring Cloud Configuration Server supports Vault as a configuration backend, the next step is to better protect the application secrets by storing them in Vault.
+
 Pull the Vault docker image and start a container:
 
 ```shell
 docker pull vault
-docker run --cap-add=IPC_LOCK -e 'VAULT_DEV_ROOT_TOKEN_ID=00000000-0000-0000-0000-000000000000' -p 8200:8200 --name my-vault vault
+docker run --cap-add=IPC_LOCK \
+-e 'VAULT_DEV_ROOT_TOKEN_ID=00000000-0000-0000-0000-000000000000' \
+-p 8200:8200 \
+-v {hostPath}:/vault/logs \
+--name my-vault vault
 ```
 
-IPC_LOCK capability is required for Vault to be able lock memory and not be swapped to disk, as this behavior is enabled by default.
-As the instance is run for development, the id of the initial generated root token is set to the given value.
+IPC_LOCK capability is required for Vault to be able lock memory and not be swapped to disk, as this behavior is enabled by default. As the instance is run for development, the id of the initial generated root token is set to the given value. We are mounting `/vault/logs`, as we are going to enable the `file` audit device to inspect the interactions.
+
+Once it starts, you should notice the following logs:
+```
+...
+
+WARNING! dev mode is enabled! In this mode, Vault runs entirely in-memory
+and starts unsealed with a single unseal key. The root token is already
+authenticated to the CLI, so you can immediately begin using Vault.
+
+...
+
+The unseal key and root token are displayed below in case you want to
+seal/unseal the Vault or re-authenticate.
+
+Unseal Key: wD2mT9W56zGWrG9PYajIA47spzSLEkIMYQX7Ocio1VQ=
+Root Token: 00000000-0000-0000-0000-000000000000
+
+Development mode should NOT be used in production installations!
+
+==> Vault server started! Log data will stream in below:
+```
+It is clear Vault is running in *dev mode**. Copy the _Unseal Key_ as we are going to use it to test Vault sealing.
+Connect to the container and explore some vault commands:
+
+```shell
+docker exec -it my-vault /bin/sh
+export VAULT_TOKEN="00000000-0000-0000-0000-000000000000"
+export VAULT_ADDR="http://127.0.0.1:8200"
+vault status
+```
+The `status` command will indicate if the vault instance is sealed:
+
+```
+Key             Value
+---             -----
+Seal Type       shamir
+Initialized     true
+Sealed          false
+Total Shares    1
+Threshold       1
+Version         1.3.3
+Cluster Name    vault-cluster-a80e6cd6
+Cluster ID      769bfd8c-7c9e-5ef2-a2bd-667ae19b4180
+HA Enabled      false
+```
+As you can see, in development mode, Vault starts unsealed, meaning stored data can be decrypted/accessed.
+Enable a file audit device to watch the interactions with Vault:
+
+```shell
+vault audit enable file file_path=/vault/logs/vault_audit.log
+```
+Now store the Okta secrets for the `vault-demo-app`:
+
+```shell
+vault kv put secret/vault-demo-app,dev spring.security.oauth2.client.registration.oidc.client-id="{yourClientID}" spring.security.oauth2.client.registration.oidc.client-secret="{yourClientSecret}" spring.security.oauth2.client.provider.oidc.issuer-uri="{yourOrgUrl}"
+vault kv get secret/vault-demo-app,dev
+```
+As illustrated above, you store key-value pairs with **kv put** command, and you can check the values inserted with the **kv get** vault command.
+Check vault_audit.log, operations are logged in JSON format by default, with sensitive information hashed:
+```json
+{
+   "time":"2020-04-09T23:08:49.528995105Z",
+   "type":"response",
+   "auth":{...},
+   "request":{
+      "id":"1cc73d31-d678-88d4-0b8e-f16b3d961791",
+      "operation":"read",
+      "client_token":"...",
+      "client_token_accessor":"...",
+      "namespace":{
+         "id":"root"
+      },
+      "path":"secret/data/vault-demo-app,dev",
+      "remote_address":"127.0.0.1"
+   },
+   "response":{
+      "data":{
+         "data":{
+            "spring.security.oauth2.client.provider.oidc.issuer-uri":"hmac-sha256:d44ecf9418576aba39752cf34a253bdf960a5ac475bd5eece78a776555035e1a",
+            "spring.security.oauth2.client.registration.oidc.client-id":"hmac-sha256:d35fa23d933b5402a8c665ce4d73643506c7d13743e922e397a3cf78acde6c88",
+            "spring.security.oauth2.client.registration.oidc.client-secret":"hmac-sha256:d6c38a298b067ac8ce76c427bd060fdda8558a024ebb1a60beb9cde60d9e5db8"
+         },
+         "metadata":{
+            "created_time":"hmac-sha256:b5283ce3fbb0bb7a74c91e2e565e08d44d378d2e37946b1fa871e0c23947a6c1",
+            "deletion_time":"hmac-sha256:81566d1c06213e53b6f7cf141388772d1ab59efcc4cfa9373c32098d90bda09a",
+            "destroyed":false,
+            "version":1
+         }
+      }
+   }
+}
+```
+
+Let's assume we don't want to configure the root token in the `vault-demo-app`. Then, create a policy for granting read permissions on the just created vault secrets. Meet the Vault Web UI at http://localhost:8200, login with the root token.
+
+![vault-web-ui](../_assets/img/blog/spring-vault/vault-web-ui.png)
+
+Then go to **Policies**, and **Create ACL policy** on the top right. Create the _vault-demo-app-policy_ with the following capabilities:
+
+```
+path "secret/data/vault-demo-app" {
+  capabilities = [ "read" ]
+}
+
+path "secret/data/vault-demo-app,dev" {
+  capabilities = [ "read" ]
+}
+
+path "secret/data/application" {
+  capabilities = [ "read" ]
+}
+
+path "secret/data/application,dev" {
+  capabilities = [ "read" ]
+}
+```
+All the paths above will be requested by the config server to provide configuration for the `vault-demo-app` when it starts with the dev profile active.
 
 
+![vault-policy](../_assets/img/blog/spring-vault/vault-policy.png)
 
+Now, go back to the container command line, and create a token with the vault-demo-app-policy.
+```shell
+vault token create -policy=vault-demo-app-policy
+```
+```
+Key                  Value
+---                  -----
+token                s.4CO6wzq0M1WRUNsYviJB3wzz
+token_accessor       2lYfyQJZtGPO4gyxsLmOnQyE
+token_duration       768h
+token_renewable      true
+token_policies       ["default" "vault-demo-app-policy"]
+identity_policies    []
+policies             ["default" "vault-demo-app-policy"]
+```
 
-2. Unseal token
-3. UI
-4. Create token
-
-
-
-In the `vault-config-server`, edit `src/main/resource/application.yml` to add Vault as the config backend:
+And we are ready to update the config server. In the `vault-config-server` project, edit `src/main/resource/application.yml` to add Vault as the config backend:
 
 ```yml
 server:
@@ -228,8 +364,7 @@ logging:
     root: TRACE          
 ```
 
-We also set the logging level to TRACE, to see the interaction between the server and Vault.
-Start the `vault-config-server`:
+We also set the logging level to TRACE, to see the interaction between the server and Vault. Restart the `vault-config-server`.
 
 ```shell
 cd vault-config-server
@@ -240,36 +375,18 @@ You should see the logs below if the server was configured correctly:
 2020-04-07 01:19:10.105  INFO 14072 --- [           main] SpringBootConfigurationServerApplication : Started SpringBootConfigurationServerApplication in 4.525 seconds (JVM running for 4.859)
 ```
 
-In the `vault-demo-app` project folder, modify the file `src/main/resources/bootstrap.yml` to add the token required for requesting secrets to Vault. Set the value created during the Vault intro.
 
-```yml
-spring:
-  application:
-    name: vault-demo-app
-  cloud:
-    config:
-      token: {vaultToken}
-      uri: http://localhost:8888
-  profiles:
-    active: dev
-```
-
-In a terminal, connect to the vault instance and add the key-values for the `vault-demo-app` dev profile.
+Start the `vault-demo-app` passing the token created during the Vault intro in the environment variable `SPRING_CLOUD_CONFIG_TOKEN`:
 
 ```shell
-docker exec -it my-vault /bin/sh
-export VAULT_TOKEN="00000000-0000-0000-0000-000000000000"
-export VAULT_ADDR="http://127.0.0.1:8200"
-vault kv put secret/vault-demo-app,dev spring.security.oauth2.client.registration.oidc.client-id="{yourClientID}" spring.security.oauth2.client.registration.oidc.client-secret="{yourClientSecret}" spring.security.oauth2.client.provider.oidc.issuer-uri="{yourOrgUrl}"
+SPRING_CLOUD_CONFIG_TOKEN=s.HVrlfnWs5p8XsDhuh4AgKaKD \
+./mvnw spring-boot:run
 ```
-You can check the values inserted with the **get** vault command:
+Go to http://localhost:8080 and verify the Okta works.
 
-```shell
-vault kv get secret/vault-demo-app,dev
-```
 
-Start the application and go to http://localhost:8080, you should see the Okta login page again.
 
+- Add seal vault example
 
 ## Learn More
 
