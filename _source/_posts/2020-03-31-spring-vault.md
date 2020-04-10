@@ -11,9 +11,9 @@ tweets:
 image:
 ---
 
-In 2013 Github released a search functionality, allowing to scan code in all public repositories, and a day after the release they had to partially shut it down. It was speculated that the shutdown was because the feature allowed any user to search for all kinds of secrets stored in Github repositories. In 2014, data on 50,000 Uber drivers was stolen. It seems someone got access to the company's database using login credentials found in a Github public repository.
+In 2013 Github released a search functionality, allowing to scan code in all public repositories, and a day after the release they had to partially shut it down. It was speculated that the shutdown was because the feature allowed any user to search for all kinds of secrets stored in Github repositories. Later, in 2014, data on 50,000 Uber drivers was stolen. It seems someone got access to the company's database using login credentials found in a Github public repository.
 
-Seems long ago? Secrets leakage seems to remain pervasive and constant, and happens to all kinds of developers, as explained by the study of NC State University. And it can lead to cyber-attacks, data loss or corruption, sensitive data breaches and cryptojacking (cryptocurrency mining using victim's cloud computer power). This year, 2020, an Amazon engineer also leaked customer secrets through a public Github repository. Some of the uploaded documents contained access keys for cloud services. Although the data had been committed inadvertently, the leaked credentials were retrieved by a third party within the half hour.
+Seems long ago? Secrets leakage seems to remain pervasive and constant, and happens to all kinds of developers, as explained by the study of NC State University. And it can lead to cyber-attacks, data loss or corruption, sensitive data breaches and cryptojacking (cryptocurrency mining using victim's cloud computer power). This year, 2020, an Amazon engineer also leaked customer secrets through a public Github repository. Some of the uploaded documents contained access keys for cloud services. Although the data had been committed inadvertently, the leaked credentials were retrieved by a third party within the half-hour.
 
 Nowadays it is widely recommended to never store secret values in code. Therefore, this tutorial will demonstrate the following alternatives:
 - Using environment variables for Spring Boot secrets
@@ -24,7 +24,7 @@ Nowadays it is widely recommended to never store secret values in code. Therefor
 
 ## Using Environment Variables for Secrets
 
-Spring Boot applications can bind properties from environment variables. Let's create the `vault-demo-app` with Spring Initializr, with web, okta and cloud-config-client dependencies, some of which will be required later in the tutorial:
+Spring Boot applications can bind properties from environment variables. Let's create a `vault-demo-app` with Okta OpenID Connect authentication, using the Spring Initializr. We are adding web, okta and cloud-config-client dependencies, some of which will be required later in the tutorial:
 
 ```shell
 curl https://start.spring.io/starter.zip \
@@ -65,8 +65,8 @@ public class Application {
 }
 ```
 
-For the Okta authentication setup, register for a [free developer account](https://developer.okta.com/signup/). After the login, go to the **Dashboard** section and copy your Org URL form the top right corner.
-The go to **Applications** and create a new **Web** application.
+For the Okta authentication set up, register for a [free developer account](https://developer.okta.com/signup/). After the login, go to the **Dashboard** section and copy your Org URL from the top right corner.
+Then go to **Applications** and create a new **Web** application.
 Set the following configuration:
 
 - Name: vault-demo-app
@@ -135,7 +135,25 @@ spring:
           serachLocations: classpath://config
 ```
 
+Edit `SpringBootConfigurationServerApplication` and add `@EnableConfigServer` annotation:
 
+```java
+package com.okta.developer.vault;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.config.server.EnableConfigServer;
+
+@EnableConfigServer
+@SpringBootApplication
+public class SpringBootConfigurationServerApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(SpringBootConfigurationServerApplication.class, args);
+	}
+
+}
+```
 
 
 Start the server, as we are going to encrypt the Okta secrets using the `/encrypt` endpoint. For this example we are using a symmetric (shared) encryption key, passed through the environment variable ENCRYPT_KEY.
@@ -164,7 +182,7 @@ spring:
             client-secret: '{cipher}ecryptedClientSecret'
 ```
 
-The `client-id` and `client-secret` encrypted values must be prefixed with `{cipher}`.
+The `client-id` and `client-secret` encrypted values must be prefixed with `{cipher}`. Restart the config server.
 
 To consume the config server properties, the client application must set the server address in the bootstrap properties. In the `vault-demo-app` project folder, create the file `src/main/resources/bootstrap.yml` with the following content:
 
@@ -179,7 +197,11 @@ spring:
     active: dev
 ```
 
-Start `vault-demo-app` as before, and when requesting http://localhost:8080 it should again redirect to the Okta login.
+Start `vault-demo-app` without passing the environment variables:
+```shell
+./mvnw spring-boot:run
+```
+When requesting http://localhost:8080 it should again redirect to the Okta login.
 
 In a real environment, the config server will be secured. Spring Cloud Config Server supports asymmetric key encryption as well, with the server encrypting with the public key, and the clients decrypting with the private key. However, the documentation warns about spreading the key management process around clients.
 
@@ -382,7 +404,7 @@ You should see the logs below if the server was configured correctly:
 Start the `vault-demo-app` passing the token just created in the environment variable `SPRING_CLOUD_CONFIG_TOKEN`:
 
 ```shell
-SPRING_CLOUD_CONFIG_TOKEN=s.HVrlfnWs5p8XsDhuh4AgKaKD \
+SPRING_CLOUD_CONFIG_TOKEN=s.4CO6wzq0M1WRUNsYviJB3wzz \
 ./mvnw spring-boot:run
 ```
 Go to http://localhost:8080 and verify the Okta works.
