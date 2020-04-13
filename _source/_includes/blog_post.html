@@ -16,9 +16,9 @@
 
         <div class="BlogPost-attribution">
             {% if author.avatar %}
-            <a href="/authors/{{ post.author }}/">{% img '{{ author.avatar }}' alt:'{{ author.avatar }}' class:BlogPost-avatar %}</a>
+            <a href="/blog/authors/{{ post.author }}/">{% img '{{ author.avatar }}' alt:'{{ author.avatar }}' class:BlogPost-avatar %}</a>
             {% endif %}
-            <span class="BlogPost-author"><a href="/authors/{{ post.author }}/">{{ author.full_name }}</a></span>
+            <span class="BlogPost-author"><a href="/blog/authors/{{ post.author }}/">{{ author.full_name }}</a></span>
         </div>
 
     </header>

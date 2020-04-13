@@ -22,7 +22,7 @@ page_gen:
     data: authors
     template: author
     name: id
-    dir: authors
+    dir: blog/authors
 
 defaults:
   - scope:
