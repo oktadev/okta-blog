@@ -11,8 +11,8 @@ show_bottom_cta: true
 				<p>{{ post.summary | strip_html }}</p>
 			{% else %}
 				<p>{{ post.content | strip_html | truncatewords:75 }}</p>
-				<p><a class="BlogPost-more" href="{{post.url}}">Read more</a></p>
 			{% endif %}
+			<p><a class="BlogPost-more" href="{{post.url}}">Read more</a></p>
 		{% endcapture %}
 		{% include blog_post.html post_content=_post_content %}
 	{% endfor %}
