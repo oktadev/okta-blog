@@ -1,0 +1,28 @@
+---
+layout: master
+title: Authors
+---
+
+<section class="Blog AuthorList is-index">
+
+	<article class="BlogPost">
+		<header class="BlogPost-header">
+			<h1 class="BlogPost-title">Authors</h1>
+		</header>
+	</article>
+
+	{% assign authors = site.data.authors | sort %}
+	{% for author_hash in authors %}
+		{% assign author = author_hash[1] %}
+		{% assign slug = author_hash[0] %}
+
+        <div class="BlogPost-attribution">
+            {% if author.avatar %}
+            {% img '{{ author.avatar }}' alt:'{{ author.avatar }}' class:BlogPost-avatar %}
+            {% endif %}
+            <span class="BlogPost-author"><a href="/authors/{{ slug }}/">{{ author.full_name }}</a></span>
+        </div>
+	{% endfor %}
+
+
+</section>
