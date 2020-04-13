@@ -2,6 +2,8 @@
 layout: blog_post
 title: "OpenID Connect Logout Options with Spring Boot"
 author: brian-demers
+by: advocate
+communities: [java]
 description: "This tutorial demonstrates the logout options you have when developing Spring applications and helps you pick the right one for you!"
 tags: [oauth, oidc, java, spring, spring boot, logout]
 tweets:
@@ -9,7 +11,7 @@ tweets:
 - "There are multiple options for logging out of your Spring Boot application, see which one is right for you‼️"
 - "Spring Security supports RP-Initiated logout should you be using it❓"
 image: blog/spring-oidc-logout-options/spring-boot-logout-options.png
-
+type: conversion
 ---
 :page-liquid:
 
