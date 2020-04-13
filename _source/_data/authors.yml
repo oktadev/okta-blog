@@ -91,6 +91,12 @@ micah-silverman:
   web: https://afitnerd.com
   twitter: https://twitter.com/afitnerd
   github: https://github.com/dogeared
+  bio:
+    Micah Silverman is a Senior Security H@X0R. With 25 years of Java Experience (yup, that's from the beginning),
+    he's authored numerous articles, co-authored a Java EE book and spoken at many conferences. He's a maker, who's
+    built full size MAME arcade cabinets and repaired
+    <a href="http://afitnerd.com/2011/10/16/weekend-project-fix-dark-tower/" target="_blank">old electronic games</a>.
+    He brings his love of all things Java and Developer Advocacy to you!
 
 randall-degges:
   full_name: Randall Degges
