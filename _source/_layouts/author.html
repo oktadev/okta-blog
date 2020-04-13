@@ -29,6 +29,12 @@ layout: master
 			{% endif %}
 		</div>
 
+		{% if page.bio %}
+		    <div class="BlogPost-content AuthorPage--bio">
+		    	{{ page.bio }}
+		    </div>
+		{% endif %}
+
 	</article>
 
 	{% assign filtered_posts = site.posts | where: 'author', page.id %}
