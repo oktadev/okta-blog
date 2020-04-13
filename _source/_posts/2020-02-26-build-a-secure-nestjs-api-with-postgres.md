@@ -65,8 +65,8 @@ services:
     container_name: "instamiligram_db"
     ports:
       - "54321:5432"
-   environment:
-     POSTGRES_PASSWORD: p@ssw0rd
+    environment:
+      POSTGRES_PASSWORD: p@ssw0rd
 ```
 
 This configuration file will be used by the `docker-compose` command to create a new container named `instamiligram_db` for the Postgres database. The line `image: "postgres:11"` informs Docker of the image on which to base the new container. The configuration file also maps port 54321 to the container's port 5432, which means connections to the Postgres database from the application will use port 54321.
@@ -127,22 +127,22 @@ To configure the Node.js project to use TypeScript, create a `tsconfig.json` fil
 
 ```json
 {
- "compilerOptions": {
-   "target": "es2015",
-   "lib": ["es2015"],
-   "types": ["reflect-metadata", "node"],
-   "module": "commonjs",
-   "moduleResolution": "node",
-   "experimentalDecorators": true,
-   "emitDecoratorMetadata": true,
-   "sourceMap": true,
-   "declaration": false,
-   "allowSyntheticDefaultImports": true,
-   "esModuleInterop": true
- },
- "exclude": [
-   "node_modules"
- ]
+  "compilerOptions": {
+    "target": "es2015",
+    "lib": ["es2015"],
+    "types": ["reflect-metadata", "node"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "sourceMap": true,
+    "declaration": false,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
+  },
+  "exclude": [
+    "node_modules"
+  ]
 }
 ```
 
