@@ -250,7 +250,7 @@ I want to develop the **best user experience**. Native apps are painful to distr
 
 ## Learn More About Ionic and JHipster
 
-I've written a thing or two about JHipster and Ionic on this blog. If you'd like to see how to deploy your Ionic app to a mobile device, I recommend reading the [deploy to a mobile device](/blog/2017/05/17/develop-a-mobile-app-with-ionic-and-spring-boot#deploy-to-a-mobile-device) section of [Tutorial: Develop a Mobile App With Ionic and Spring Boot](/blog/2017/05/17/develop-a-mobile-app-with-ionic-and-spring-boot). I showed how to add OIDC authentication to an Ionic app in [Build an Ionic App with User Authentication](https://developer.okta.com/blog/2017/08/22/build-an-ionic-app-with-user-authentication).
+I've written a thing or two about JHipster and Ionic on this blog. If you'd like to see how to deploy your Ionic app to a mobile device, I recommend reading the [deploy to a mobile device](/blog/2017/05/17/develop-a-mobile-app-with-ionic-and-spring-boot#deploy-to-a-mobile-device) section of [Tutorial: Develop a Mobile App With Ionic and Spring Boot](/blog/2017/05/17/develop-a-mobile-app-with-ionic-and-spring-boot). I showed how to add OIDC authentication to an Ionic app in [Build an Ionic App with User Authentication](/blog/2017/08/22/build-an-ionic-app-with-user-authentication).
 
 You can find the source code for the application developed in this post at <https://github.com/oktadeveloper/okta-ionic-jhipster-example>.
 
@@ -258,5 +258,7 @@ See the following posts for information on building microservices with JHipster 
 
 * [Develop and Deploy Microservices with JHipster](/blog/2017/06/20/develop-microservices-with-jhipster)
 * [Use OpenID Connect Support with JHipster](/blog/2017/10/20/oidc-with-jhipster)
+
+**Update:** For a tutorial that uses JHipster 6 and Ionic 4, see [Build Mobile Apps with Angular, Ionic 4, and Spring Boot](/blog/2019/06/24/ionic-4-angular-spring-boot-jhipster).
 
 Give [@oktadev](https://twitter.com/mraible) a follow on Twitter if you liked this tutorial. If you have any questions, please leave a comment or post your question to [Stack Overflow](https://www.stackoverflow.com) with a `jhipster` tag.
