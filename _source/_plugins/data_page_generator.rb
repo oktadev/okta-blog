@@ -71,6 +71,12 @@ module Jekyll
         data['_name'] = data['name']
       end
 
+      # Use the full_name property from authors.yml as the page title.
+      # Ideally this would be controlled via `_layouts/author.html` somehow.
+      if data['full_name']
+        data['title'] = data['full_name']
+      end
+
       self.data.merge!(data)
     end
   end
