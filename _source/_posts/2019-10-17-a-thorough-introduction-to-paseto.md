@@ -22,7 +22,7 @@ If you're interested in learning more about PASETO, read on!
 
 ## What is PASETO?
 
-[PASETO](https://paseto.io) is a new standard (*currently an RFC*) that allows you to create secure and stateless tokens that can be safely shared over the web.
+[PASETO](https://paseto.io) is a new specification (*currently a draft RFC*) that allows you to create secure and stateless tokens that can be safely shared over the web.
 
 Essentially, PASETO allows you to take JSON data and condense it into a single *token* you can easily share over the internet in a safe, tamperproof way. This is useful in a number of different circumstances.
 
