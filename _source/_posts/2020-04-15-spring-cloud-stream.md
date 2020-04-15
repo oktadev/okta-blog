@@ -28,7 +28,7 @@ Spring describes **Spring Cloud Stream** as "a framework for building highly sca
 
 The simple messaging strategy you're going to use here is called **pub-sub**, or publish and subscribe. A **consumer** **subscribes** to a **topic** (generally just identified by a text name). **Publishers** push messages to the **topic**, and the platform sends the message to all **subscribed** **consumers**. A **processor** subscribes to a topic and republishes the transformed data to a new topic.
 
-{% img blog/spring-cloud-stream/messaging-network-topology.png alt:"Example Messaging Network Topology" width:"800" %}{: .center-image }
+{% img blog/spring-cloud-stream/producers-consumers-and-processor.png alt:"Producers, Consumers, and Processor" width:"800" %}{: .center-image }
 
 In this tutorial, you will use RabbitMQ in a Docker container. However, you can use Apache Kafka simply by replacing the `docker-compose.yml` file and by changing the Spring Cloud Stream binding dependency.
 
