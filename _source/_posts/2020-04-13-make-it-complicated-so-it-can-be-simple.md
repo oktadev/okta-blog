@@ -82,8 +82,8 @@ The temptation to take the quick and easy path can greatly hinder an application
 
 Check out a few more blog articles that deal with working as a developer and navigating modern projects and standards:
 
-- [Why Every Developer Needs to be a Generalist](https://developer.okta.com/blog/2019/11/26/developer-generalist-vs-specialist)
-- [Pro Tips for Developer Relations](https://developer.okta.com/blog/2019/01/28/developer-relations-pro-tips)
-- [Okta Software Engineering Design Principles](https://developer.okta.com/blog/2015/05/08/software-engineering-design-principles)
+- [Why Every Developer Needs to be a Generalist](/blog/2019/11/26/developer-generalist-vs-specialist)
+- [Pro Tips for Developer Relations](/blog/2019/01/28/developer-relations-pro-tips)
+- [Okta Software Engineering Design Principles](/blog/2015/05/08/software-engineering-design-principles)
 
 Want to be notified when we publish more of these? Follow us on [Twitter](https://twitter.com/oktadev), or subscribe to our [YouTube channel](https://youtube.com/c/oktadev). If you have a question, please leave a comment below!
