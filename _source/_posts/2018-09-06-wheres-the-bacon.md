@@ -1,13 +1,15 @@
 ---
 layout: blog_post
 title: "Hey, Okta! Where's the Bacon?"
-author: reverentgeek
+author: david-neal
+by: advocate
 description: "Welcome David Neal to the Okta team!"
 tags: [javascript, okta, node, nodejs, team]
 tweets:
 - "Welcome @reverentgeek to the @oktadev team!"
 - "Excited to have @reverentgeek join the @oktadev team!"
 - "Holy bacon, Batman! @reverentgeek joins the @oktadev team!"
+type: awareness
 ---
 
 {% img blog/wheres-the-bacon/okta-reverentgeek.jpg alt:"ReverentGeek and Okta: Two Greats that Go Great Together" width:"800" %}{: .center-image }

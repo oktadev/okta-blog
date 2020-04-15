@@ -1,13 +1,16 @@
 ---
 layout: blog_post
 title: 'Create a Secure Spring REST API'
-author: raphaeldovale
+author: raphael-do-vale
+by: contractor
+communities: [java]
 description: "This article explains how to build a Spring REST API, a resource server, and how to connect it into your security environment."
 tweets:
 - "Want to build a Spring REST API with OAuth 2.0 with @java? Learn how to build a Resource Server in this handy tutorial!"
 - "Avoid boilerplate! Create a Spring REST API and Resource Server with almost no code!"
 tags: [spring rest, spring rest api, jwt, token auth, token authentication, java, spring boot, oauth2, resource server]
 image: blog/featured/okta-java-short-tile-books-mouse.jpg
+type: conversion
 ---
 
 _"If it is useful, it will be modified."_ Those words of wisdom came from a QA teacher of mine, to explain that all software evolves when it becomes useful to someone, and for as long as it is useful. We all know this. Users ask us for new features, bug fixes and changes in domain logic every day. As any project (especially a monolith) grows it can begin to become difficult to maintain, and the barrier to entry for anyone new just gets higher and higher. In this tutorial, I'm excited to walk you through building a secure Spring REST API that tries to solve for some of these pain points using a microservices architecture.

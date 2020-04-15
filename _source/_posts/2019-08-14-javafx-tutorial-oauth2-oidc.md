@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Tutorial: How to Build a JavaFX Desktop App with OIDC Authentication"
-author: moksamedia
+author: andrew-hughes
+by: contractor
+communities: [java]
 description: "This tutorial shows you how to add OAuth 2.0 authorization and OIDC authentication in a JavaFX desktop app."
 tags: [java, javafx, oauth2, tutorial]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "This tutorial shows how to use OIDC to add authentication to your JavaFX desktop app."
 - "Chances are your JavaFX app needs authentication. This tutorial shows how to add OIDC authentication in just a few steps!"
 image: blog/featured/okta-java-tile-books-mouse.jpg
+type: conversion
 ---
 
 JavaFX, a library of user interaction controls, allows Java developers to build cross-platform desktop applications and internet application. It was intended as a replacement for Swing (if you're old like me and remember that). 

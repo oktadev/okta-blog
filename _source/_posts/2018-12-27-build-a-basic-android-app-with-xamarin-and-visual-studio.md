@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Build a Basic Android App with Xamarin and Visual Studio"
 author: jonathan-ray
+by: contractor
+communities: [.net, mobile]
 description: "This tutorial walks you through how to build a basic Android app using Visual Studio and Xamarin."
 tags: [android, xamarin, visual studio, mobile]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Learn how to build a basic Android app with Xamarin in Visual Studio. #xamarin #android"
 - "Xamarin + Visual Studio === Android <3"
 image: blog/featured/okta-android-bottle-headphones-light.jpg
+type: conversion
 ---
 
 Are you a .NET developer that has always wanted to make a mobile application? Or maybe you have tried building native mobile apps with Android or iOS but didn't like the languages? Well then, you are in luck! The .NET world has been blessed with Xamarin; a set of tools that lets you build mobile apps for Android, iOS, and Windows within Visual Studio.

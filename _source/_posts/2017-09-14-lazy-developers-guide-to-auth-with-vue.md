@@ -1,13 +1,16 @@
 ---
 layout: blog_post
 title: "The Lazy Developer's Guide to Authentication with Vue.js"
-author: mraible
+author: matt-raible
+by: advocate
+communities: [javascript]
 description: "This article shows you how to add authentication to a Vue.js application using the Okta Auth SDK and Okta API."
 tags: [authentication, auth, vue.js, vue, oidc, lazy developer]
 tweets:
 - "Are you a lazy developer that loves @vuejs? Cool! Check out our lazy developer's guide to authentication with Vue.js > "
 - "Learn how to build a PWA with @vuejs and add authentication in this quick and easy tutorial →"
 image: blog/featured/okta-vue-tile-books-mouse.jpg
+type: conversion
 ---
 
 I'll happily admit that like many of you, I'm a lazy developer. I tend to look for solutions someone else has already built before I try to build them myself. In the "old days" of the early 2000s, I used to spend a lot more time coding solutions myself. But today many solutions to coding problems are just a keyword search away. In that spirit, I approached this tutorial using keywords – looking for existing solutions first, then fitting my favorite solution on top of it. I think you'll like the results!

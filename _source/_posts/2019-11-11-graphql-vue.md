@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Use Vue and GraphQL to Build a Secure App"
-author: holgerschmitz
+author: holger-schmitz
+by: contractor
+communities: [javascript]
 description: "Learn how to build a secure Node.js GraphQL backend with a Vue.js frontend."
 tags: [graphql, vuejs, vue, javascript]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Learn how to create a secure GraphQL app with Vue and @nodejs."
 - "Vue + @GraphQL + @oauth2 with PKCE = A Match Made in Heaven!"
 image: blog/featured/okta-vue-bottle-headphones.jpg
+type: conversion
 ---
 
 When you develop a new web application, you most likely split the application into two parts. The server-side provides access control and data persistence, while the client-side is mostly presentational. The two parts have to communicate, and your first idea may be to implement a REST API. However, a number of flaws have been identified with the RESTful pattern, mostly related to the flexibility and speed of the request-response pattern. 

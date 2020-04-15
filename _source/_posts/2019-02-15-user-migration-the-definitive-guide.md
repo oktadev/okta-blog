@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "User Migration: The Definitive Guide"
-author: rdegges
+author: randall-degges
+by: advocate
+communities: [security]
 description: "This is the ultimate guide to migrating your userbase from one user management system to another."
 tags: [user migration, programming, user management]
 tweets:
@@ -9,6 +11,7 @@ tweets:
   - "Migrating your users from one system to another can be a huge pain.  @rdegges wrote a guide breaking it down, step-by-step."
   - "User migration is a huge pain. We published a new guide on the subject to make it a little less painful."
 image: blog/user-migration/user-migration.png
+type: awareness
 ---
 
 {% img blog/user-migration/user-migration.png alt:"user migration" width:"700" %}{: .center-image }

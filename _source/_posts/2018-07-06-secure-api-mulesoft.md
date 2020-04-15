@@ -1,13 +1,15 @@
 ---
 layout: blog_post
 title: "Secure Your API with OAuth, Mulesoft, and Okta in 20 Minutes"
-author: tom_smith
+author: tom-smith
+by: internal-contributor
 description: "This article shows you how to create a secure API with OAuth, Mulesoft, and Okta."
 tags: [oauth, mulesoft, api, api security]
 tweets:
  - "Got an API that needs securing? Check out our new guide to doing just that with @MuleSoft and Okta: "
  - "Our newest tutorial is something a little bit different for us - all about using Okta to secure an API through a gateway (@MuleSoft). Check it out!"
  - "Curious about #API Gateways? We've got a new blog focused on configuring @MuleSoft + Okta to secure a pre-built sample app."
+type: conversion
 ---
 
 If you're building or managing an API, you're probably using an API gateway to help you manage it. Hopefully, you're also using OAuth and an identity provider (IdP) like [Okta](https://developer.okta.com/) to secure your API through the gateway. Maybe you've also discovered that getting the "OAuth dance" working properly among the gateway, IdP, and application can be tricky.

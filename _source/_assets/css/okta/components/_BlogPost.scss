@@ -54,6 +54,14 @@
 	&-author {
 		font-size: 24px;
 		font-weight: 500;
+
+		a {
+			color: #3d3d3d;
+		}
+		a:hover {
+			color: #6d6d6d;
+			text-decoration: none;
+		}
 	}
 
 	&-avatar {
@@ -153,6 +161,14 @@
 		.img-150px {
 			height: 150px;
 			width: 150px;
+		}
+
+		.w-150 {
+			width: 150px;
+		}
+
+		.w-200 {
+			width: 200px;
 		}
 
 		/* Don't force small images in tables */

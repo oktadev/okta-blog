@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Top 10 Visual Studio Code Extensions for Node.js"
-author: reverentgeek
+author: david-neal
+by: advocate
+communities: [javascript]
 description: "Our recommendations for the essential Visual Studio Code extensions for Node.js developers."
 tags: [nodejs, vscode, javascript, extensions]
 tweets:
@@ -9,6 +11,7 @@ tweets:
  - "Are you a @nodejs developer new to VS @code? Check out the top 10 VS Code extensions you need!"
  - "VS @code is quickly becoming one of the most popular code editors. Is it good for @nodejs development? Absolutely! Here are the top 10 VS Code extensions you need!"
 image: blog/vscode-extensions-for-nodejs/vscode-extensions-for-nodejs.jpg
+type: awareness
 ---
 
 I am amazed at the adoption of Visual Studio Code by developers from all platforms and languages. According to the 2019 Stack Overflow Developer Survey, VS Code is dominating. The primary reasons I use VS Code are its great support for debugging JavaScript and Node.js code, and how easy it is to customize with free extensions available in Visual Studio Marketplace.

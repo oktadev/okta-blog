@@ -1,13 +1,16 @@
 ---
 layout: blog_post
 title: "Build a Web App with Spring Boot and Spring Security in 15 Minutes"
-author: moksamedia
+author: andrew-hughes
+by: contractor
+communities: [java]
 description: "In this tutorial, you're going to use Spring Boot to build a simple web application with a user registration system and a login system."
 tags: [authentication, spring boot, oidc, oauth2.0]
 tweets:
 - "Spring Boot + OAuth 2.0 + Okta = ❤️"
 - "Spring Boot Web apps are easy to secure with OAuth 2.0 & Okta!"
 image: blog/build-a-spring-boot-webapp/security-config.png
+type: conversion
 ---
 
 Developers know that securing web apps can be a pain. Doing it right is tough. The worst part is that "right" is a moving target. Security protocols change. Vulnerabilities are found in dependencies and patches are released. Tons of often complex boilerplate code has to be generated. The software-as-service paradigm has proliferated over the last decade, and while I love reinventing the wheel as much as the next developer (because, clearly, I'm gonna write it better than the yahoo *they* hired), security is an area where I'm happy to offload this work to specialists. Enter Okta.

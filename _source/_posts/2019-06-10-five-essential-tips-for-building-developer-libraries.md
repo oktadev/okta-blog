@@ -2,12 +2,14 @@
 layout: blog_post
 title: "5 Essential Tips for Building Developer Libraries"
 author: laura-rodriguez
+by: internal-contributor
 description: "Tips on how to build developer tools with a great developer experience based on the work we've done at Okta!"
 tags: [devex, Developer Experience, sdk, api, documentation]
 tweets:
 - "Here are five essentials tips on building developer libraries from @rod_laura's experience at @okta! #devex"
 - "Want to build better libraries for developers? Here are five essentials tips from @rod_laura's based on her experience at @okta! #devex"
 image: blog/featured/okta-vue-tile-books-mouse.jpg
+type: awareness
 ---
 
 As a software developer, it's your job to know your customers and their use cases well enough to create an elegant and functional solution. This understanding will help you succeed and ultimately enjoy watching them love and use your applications.

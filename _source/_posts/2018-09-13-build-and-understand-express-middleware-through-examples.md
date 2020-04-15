@@ -1,13 +1,16 @@
 ---
 layout: blog_post
 title: "Build and Understand Express Middleware through Examples"
-author: leebrandt
+author: lee-brandt
+by: advocate
+communities: [javascript]
 description: "This tutorial walks you through creating and understanding middleware for Express."
 tags: [Express, ExpressJS, Node, NodeJS, Middleware]
 tweets:
 - "Learn #express middleware by example with @leebrandt →"
 - "Need to build and understand #express middleware? We've got you covered. <3"
 - "Let @leebrandt show you how to create and use middleware in #Express →"
+type: awareness
 ---
 
 If you've done any significant Node development in the past seven or eight years, you've probably used [Express](https://expressjs.com) to build a web server at some point. While you can create a server in Node without using a library, it doesn't give you a lot out of the box and can be quite cumbersome to add functionality. Express is a minimalist, "unopinionated" server library and has become the de facto standard for building web apps in Node. To understand Express, you need to understand Express Middleware.

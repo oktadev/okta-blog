@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Alexa, Sign In Every Time: Voice-Only Authentication Verification in .NET"
-author: quorralyne
+author: heather-downing
+by: advocate
+communities: [.net]
 description: "Learn how to implement voice-only authentication for Alexa skills in .NET, using Okta for managing user data and access tokens."
 tags: [ aspnet, csharp, dotnet, dotnetcore, authentication, voice, webapi, okta, alexa, alexadotnet, verification]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Shouldn't voice apps use voice verification for Alexa? Absolutely! Check it out! →"
 - "Hey .NET devs! In this tutorial, you can learn how to use voice-only auth verification with Alexa →"
 image: blog/featured/okta-dotnet-skew.jpg
+type: conversion
 ---
 
 Authentication for voice, specifically Amazon's Alexa, has its limitations. The initial Account Linking process Amazon provides for identification works for many scenarios, but it is only done once (signing into the skill via the Alexa mobile app or website), and all subsequent sessions with the skill are linked - *no log-in screen presented again*. I've often been asked what the options are for verifying every time a user engages with an Alexa skill. For example; a financial institution with access to sensitive user data might want to ensure that a specific person in the household is accessing it, and not others in the home. 

@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Angular MVC - A Primer"
-author: holgerschmitz
+author: holger-schmitz
+by: contractor
+communities: [javascript]
 description: "This tutorial shows how the Model-View-Controller pattern is achieved (in an MVVM way) in Angular."
 tags: [javascript, angular, MVC, MVVM]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Take a look at common architectural patterns MVC/MVVM in @Angular!"
 - "Get the lowdown on the basics of MVC and MVVM and how @Angular implements these patterns! →"
 image: blog/featured/okta-angular-headphones.jpg
+type: conversion
 ---
 
 When designing software with a user interface, it is important to structure the code in a way that makes it easy to extend and maintain. Over time, there have been a few approaches in separating out responsibilities of the different components of an application. Although there is plenty of literature on these design patterns around, it can be very confusing for a beginner to understand the features of limitations of the different patterns and the differences between them.
