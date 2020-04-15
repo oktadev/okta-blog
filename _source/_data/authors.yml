@@ -105,6 +105,7 @@ randall-degges:
   web: https://www.rdegges.com
   twitter: https://twitter.com/rdegges
   github: https://github.com/rdegges
+  bio: "Randall Degges runs Evangelism at Okta where he works on security research, development, and education. In his spare time, Randall <a href="https://www.rdegges.com">writes articles</a> and <a href="https://speakerdeck.com/rdegges">gives talks</a> advocating for security best practices. Randall also builds and contributes to various open-source security tools. <p>Randall's realm of expertise include Python, JavaScript, and Go development, web security, cryptography, and infrastructure security. Randall has been writing software for ~20 years and has built some of the most-used API services on the internet."
 
 nate-barbettini:
   full_name: Nate Barbettini
