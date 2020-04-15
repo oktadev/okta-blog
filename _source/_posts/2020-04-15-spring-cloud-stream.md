@@ -5,7 +5,7 @@ author: andrew-hughes
 by: contractor
 community: [java]
 description: "Want to learn how to use Spring Cloud Stream? This tutorial shows you how to use them with Spring WebFlux and RabbitMQ."
-tags: [java, spring cloud, spring cloud streams, spring webflux, rabbitmq]
+tags: [java, spring cloud, spring cloud stream, spring webflux, rabbitmq]
 tweets:
 - "Do you need to publish streaming data? @springcloud stream to the rescue!"
 - "Spring Cloud Stream + Spring WebFlux + RabbitMQ = new tutorial! 👇"
@@ -17,8 +17,6 @@ type: conversion
 In this tutorial, you'll learn how to create a Spring Cloud Stream application that interacts with a messaging service, such as RabbitMQ or Apache Kafka. You're going to do this using functional, reactive code by utilizing Spring's WebFlux and by taking advantage of Spring Cloud Stream's functional binding model.
 
 You'll create an application that contains a **publisher**, a **processor**, and a **consumer**. The app will use two topics to publish a stream of integers, process the integers to calculate a running total, and consume the processed data. Initially, the messages will be simple types— strings and integers—but you'll also see how easy Spring Cloud Stream makes mapping POJOs (Plain Old Java Objects) to messages using JSON mapping.
-
-{% img blog/spring-cloud-stream/spring-cloud-stream.png alt:"Spring Cloud Stream" width:"800" %}{: .center-image }
 
 If all of that technical jargon made sense to you, feel free to skip to the requirements section. Otherwise, I'm going to take a few paragraphs to introduce the technologies.
 
@@ -32,7 +30,7 @@ The simple messaging strategy you're going to use here is called **pub-sub**, or
 
 {% img blog/spring-cloud-stream/messaging-network-topology.png alt:"Example Messaging Network Topology" width:"800" %}{: .center-image }
 
-In this tutorial, you will use RabbitMQ in a Docker container. However, you can use Apache Kafka simply by replacing the `docker-compose.yml` file and by changing the Spring Cloud Streams binding dependency.
+In this tutorial, you will use RabbitMQ in a Docker container. However, you can use Apache Kafka simply by replacing the `docker-compose.yml` file and by changing the Spring Cloud Stream binding dependency.
 
 **Functional programming** is a huge departure from the object-oriented model that dominated programming (especially Java) until the last decade. In functional programming, functions, not object instances and classes, are the main organizational unit of code execution. This decouples data and logic in a way that has benefits for applications, such as stream processing, and allows for powerful chaining and composition of functions.
 
@@ -42,7 +40,7 @@ In this tutorial, you will use RabbitMQ in a Docker container. However, you can 
 
 **Reactive** programming is a set of tools and techniques that have evolved to treat data as a continuous stream of data, like water flowing through a pipe, rather than viewing them as discrete events to handle individually. In reactive programming, you define potentially complex transformations and mappings that you apply to the stream. They sometimes return a new stream and sometimes return a reduced result. Functional programming is not necessarily reactive, but reactive programming tools almost always use functional programming paradigms.
 
-## Set Up a Spring Cloud Streams Development Environment
+## Set Up a Spring Cloud Stream Development Environment
 
 To do this tutorial, you'll need a few tools:
 
@@ -87,11 +85,11 @@ This creates a Spring Boot project configured with five additional dependencies:
 
 1. `webflux`: [Spring Boot WebFlux](https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html), the functional and reactive web framework
 2. `okta`: [Okta's Spring Boot Starter](https://github.com/okta/okta-spring-boot) that simplifies integrating OAuth 2.0 and OIDC
-3. `cloud-stream`: [Spring Cloud Stream],(https://cloud.spring.io/spring-cloud-static/spring-cloud-stream/3.0.3.RELEASE/reference/html/) the main dependency
+3. `cloud-stream`: [Spring Cloud Stream](https://cloud.spring.io/spring-cloud-static/spring-cloud-stream/3.0.3.RELEASE/reference/html/) the main dependency
 4. `amqp`: [RabbitMQ](https://www.rabbitmq.com/) binders for Spring Cloud Stream
 5. `lombok`: [Project Lombok](https://projectlombok.org/), a set of helper annotation that generates boilerplate code
 
-## Create Okta Plugin YAML File
+## Create an Okta Maven Plugin YAML File
 
 **If you already have an Okta developer account**, create a configuration file at `~/.okta/okta.yaml` with your account information. If you skip this step, the Okta Maven Plugin will create a new Okta Org for you.
 
@@ -109,7 +107,7 @@ You'll need to create an API token. From the Okta developer console, go to **API
 
 If you do not have an Okta developer account, don't worry about the `okta.yaml` file. The Okta Maven Plugin will configure it for you.
 
-## Configure the OIDC Settings
+## Configure OIDC for Your Spring Cloud Stream App
 
 You should now have an open shell and be in the project root directory. The next step is to use the [Okta Maven Plugin](https://github.com/oktadeveloper/okta-maven-plugin) to configure the OAuth 2.0 and OIDC settings. This plugin is great for tutorials like this because it will simplify signing up for an account, if you don't already have one, and will create an appropriately configured OIDC application straight from the command line.
 
@@ -137,7 +135,7 @@ Created OIDC application, client-id: 0oa30gk10KNOMD0wZ4x6
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
 [INFO] Total time:  5.099 s
-[INFO] Finished at: 2020-03-04T13:54:23-08:00
+[INFO] Finished at: 2020-04-13T13:54:23-08:00
 [INFO] ------------------------------------------------------------------------
 ```
 
@@ -161,10 +159,10 @@ And get something like this:
 
 ```bash
 ...
-2020-03-04 13:59:29.769  INFO 1664 --- [           main] o.s.i.channel.PublishSubscribeChannel    : Channel 'application.errorChannel' has 1 subscriber(s).
-2020-03-04 13:59:29.769  INFO 1664 --- [           main] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
-2020-03-04 13:59:29.842  INFO 1664 --- [           main] o.s.b.web.embedded.netty.NettyWebServer  : Netty started on port(s): 8080
-2020-03-04 13:59:29.845  INFO 1664 --- [           main] o.s.demo.DemoApplication                 : Started DemoApplication in 2.074 seconds (JVM running for 2.236)
+2020-04-13 13:59:29.769  INFO 1664 --- [           main] o.s.i.channel.PublishSubscribeChannel    : Channel 'application.errorChannel' has 1 subscriber(s).
+2020-04-13 13:59:29.769  INFO 1664 --- [           main] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
+2020-04-13 13:59:29.842  INFO 1664 --- [           main] o.s.b.web.embedded.netty.NettyWebServer  : Netty started on port(s): 8080
+2020-04-13 13:59:29.845  INFO 1664 --- [           main] o.s.demo.DemoApplication                 : Started DemoApplication in 2.074 seconds (JVM running for 2.236)
 ```
 
 Notice that the output says `Netty started on port(s): 8080`. [Netty](https://netty.io/) is the default web server for Spring WebFlux applications (not Jetty or Tomcat, which are typical for SpringMVC). Since the Spring team designed WebFlux to be asynchronous and event-driven, Netty is the obvious choice because it uses the exact same model.
@@ -216,10 +214,10 @@ Assuming all went well, you'll see some output like this:
 
 ```bash
 ...
-rabbitmq_1  | 2020-03-04 22:12:32.121 [info] <0.677.0> Management plugin: HTTP (non-TLS) listener started on port 15672
-rabbitmq_1  | 2020-03-04 22:12:32.122 [info] <0.783.0> Statistics database started.
-rabbitmq_1  | 2020-03-04 22:12:32.122 [info] <0.782.0> Starting worker pool 'management_worker_pool' with 3 processes in it
-rabbitmq_1  | 2020-03-04 22:12:32.198 [info] <0.8.0> Server startup complete; 3 plugins started.
+rabbitmq_1  | 2020-04-13 22:12:32.121 [info] <0.677.0> Management plugin: HTTP (non-TLS) listener started on port 15672
+rabbitmq_1  | 2020-04-13 22:12:32.122 [info] <0.783.0> Statistics database started.
+rabbitmq_1  | 2020-04-13 22:12:32.122 [info] <0.782.0> Starting worker pool 'management_worker_pool' with 3 processes in it
+rabbitmq_1  | 2020-04-13 22:12:32.198 [info] <0.8.0> Server startup complete; 3 plugins started.
 rabbitmq_1  |  * rabbitmq_management
 rabbitmq_1  |  * rabbitmq_management_agent
 rabbitmq_1  | * rabbitmq_web_dispatch
@@ -370,11 +368,11 @@ If all goes well, you'll see output like below, showing a running list of random
 
 ```bash
 ...
-2020-03-07 10:10:33.493  INFO 21276 --- [           main] o.s.b.web.embedded.netty.NettyWebServer  : Netty started on port(s): 8080
-2020-03-07 10:10:33.495  INFO 21276 --- [           main] o.s.demo.DemoApplication                 : Started DemoApplication in 2.336 seconds (JVM running for 2.497)
-2020-03-07 10:10:34.368  INFO 21276 --- [KyCe9nxFnKiTg-1] o.s.demo.DemoApplication                 : Current value: 56, Total: 112
-2020-03-07 10:10:35.373  INFO 21276 --- [KyCe9nxFnKiTg-1] o.s.demo.DemoApplication                 : Current value: 13, Total: 125
-2020-03-07 10:10:36.376  INFO 21276 --- [KyCe9nxFnKiTg-1] o.s.demo.DemoApplication                 : Current value: 15, Total: 140
+2020-03-14 10:10:33.493  INFO 21276 --- [           main] o.s.b.web.embedded.netty.NettyWebServer  : Netty started on port(s): 8080
+2020-03-14 10:10:33.495  INFO 21276 --- [           main] o.s.demo.DemoApplication                 : Started DemoApplication in 2.336 seconds (JVM running for 2.497)
+2020-03-14 10:10:34.368  INFO 21276 --- [KyCe9nxFnKiTg-1] o.s.demo.DemoApplication                 : Current value: 56, Total: 112
+2020-03-14 10:10:35.373  INFO 21276 --- [KyCe9nxFnKiTg-1] o.s.demo.DemoApplication                 : Current value: 13, Total: 125
+2020-03-14 10:10:36.376  INFO 21276 --- [KyCe9nxFnKiTg-1] o.s.demo.DemoApplication                 : Current value: 15, Total: 140
 ...
 ```
 
@@ -622,7 +620,7 @@ You need to do this to whitelist the OIDC Debugger redirect URI so that it can g
 
 You also need to change the **Allowed grant types**. Check the **Implicit (Hybrid)** checkbox, and check the sub-check box below it: **Allow Access Token with implicit grant type**.
 
-{% img blog/spring-cloud-stream/oidc-settings.png alt:"Okta Applications" width:"800" %}{: .center-image }
+{% img blog/spring-cloud-stream/oidc-settings.png alt:"Okta Applications" width:"700" %}{: .center-image }
 
 While you're there, take note of the **Client ID**, as you'll need it in just a moment. Or leave this window open.
 
@@ -636,7 +634,7 @@ Open [the OIDC Debugger website](https://oidcdebugger.com/). You need to fill in
 
 **Response type**: make sure you checked the `token` checkbox.
 
-{% img blog/spring-cloud-stream/oidc-debugger.png alt:"OIDC Debugger settings" width:"800" %}{: .center-image }
+{% img blog/spring-cloud-stream/oidc-debugger.png alt:"OIDC Debugger settings" width:"500" %}{: .center-image }
 
 Click **Send Request** and you should get a success page that shows you the returned access token. Copy it to the clipboard and store it in a shell variable in the shell window you're using to run HTTPie.
 
@@ -644,7 +642,7 @@ Click **Send Request** and you should get a success page that shows you the retu
 TOKEN=eyJraWQiOiJxaUNtVGFJYnVIeXBLakRpTjZ3LWU...
 ```
 
-## Test JWT Token Authentication with Your Secured Application
+## Test JWT Token Authentication
 
 Now that you've got your token, you're ready to use it on your secured endpoint. Make sure your Spring Boot application is still running, then test the endpoint using your JWT and HTTPie.
 
@@ -671,7 +669,7 @@ That's it! You created a secure Spring Cloud Stream application.
 
 The astute out there might object that the RabbitMQ server itself isn't secured. That's true, and there are various methods for securing it, [chiefly using TLS and SSL certificates](https://www.rabbitmq.com/ssl.html), but including that in this tutorial greatly expands the scope. We have a [tutorial that  demonstrates end-to-end security using Quarkus and Apache Kafka Streams](/blog/2020/04/08/kafka-streams), including how to generate all of the necessary SSL certificates and Java keyfiles.
 
-## Learn More About Reactive Programming and String Boot
+## Learn More About Reactive Programming and Spring Boot
 
 All done. You created a Spring Cloud Stream application that publishes and subscribes to multiple channels. You used Docker to quickly and easily launch a RabbitMQ messaging service. You used reactive, functional programming and saw how to use Spring's new functional binding model. You used Spring WebFlux to publish the data to a web stream and used HTTPie to stream the data from the command line. Finally, you used Okta's Spring Boot Starter and to add OAuth 2.0 and OIDC authentication to the application.
 
