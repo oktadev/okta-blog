@@ -1,7 +1,8 @@
 ---
 layout: blog_post
 title: "How to Have the Best Meetings in Your Life"
-author: reverentgeek
+author: david-neal
+by: advocate
 description: "Tired of wasting time in meetings? Here's a way to have more effective meetings!"
 tags: [meetings, teams, lean, agile, collaboration]
 tweets:
@@ -9,6 +10,7 @@ tweets:
 - "Tired of wasting time in meetings? Transform your meetings your meetings with Lean Coffee! #lean #agile #projectmanagement #teams #software #kanban"
 - "Meetings can be exasperating. Here's how to have the best meetings in your life! #lean #agile #projectmanagement #teams #software #kanban"
 image: blog/how-to-have-the-best-meetings/how-to-have-the-best-meetings.jpg
+type: awareness
 ---
 
 If I could sum up the amount of time I've wasted in meetings over the span of my career, it would be staggering! I've been in countless frustrating meetings where rabbits were chased down endless roads with no hope of return, dead horses were beaten beyond recognition, or the loudest person bullied the entire discussion with their personal agenda.

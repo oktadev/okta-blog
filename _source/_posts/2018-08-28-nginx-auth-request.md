@@ -1,13 +1,15 @@
 ---
 layout: blog_post
 title: "Use nginx to Add Authentication to Any Application"
-author: aaronpk
+author: aaron-parecki
+by: advocate
 description: "This tutorial will show you how to use the nginx auth_request module to protect any application running behind your nginx server with OAuth, without writing any code!"
 tags: [oauth, nginx, sso]
 tweets:
 - "Let @nginx handle authentication for your app so you don't have to! #oauth #oidc"
 - "Add authentication to any application with the @nginx auth_request module #oauth #oidc"
 image: blog/nginx-auth-request/nginx-auth-request-sample.jpg
+type: conversion
 ---
 
 

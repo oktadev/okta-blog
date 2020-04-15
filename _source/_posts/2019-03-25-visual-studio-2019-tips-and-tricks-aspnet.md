@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Visual Studio 2019 Tips and Tricks"
-author: quorralyne
+author: heather-downing
+by: advocate
+communities: [.net]
 description: "This post explores the additional setup you need to take full adventage of the new options in Visual Studio 2019."
 tags: [ aspnet, visualstudio, vs2019, dotnet, dotnetcore, visualstudio2019, ide ]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Explore some slick new configurations in Visual Studio 2019 with @quorralyne! →"
 - "Check out what's new in Visual Studio 2019! →"
 image: blog/featured/okta-dotnet-skew.jpg
+type: awareness
 ---
 
 Microsoft recently released the preview of Visual Studio 2019 for Windows, and it's got lots of improvements and features! After reading the release notes, I reached out to Allison Buchholtz-Au and Kendra Havens on the Visual Studio team at Microsoft to get an idea of what features should be configured immediately after downloading and installing this shiny new IDE. After they showed me a couple of quick tips, VS 2019 started to feel like the superhero that can make anyone more effective as an ASP.NET developer. Let's dive into the good stuff!

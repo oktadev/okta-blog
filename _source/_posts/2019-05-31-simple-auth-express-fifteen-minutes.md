@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: 'Build Simple Authentication in Express in 15 Minutes'
-author: bkelley
+author: braden-kelley
+by: contractor
+communities: [javascript]
 description: 'A tutorial on building simple authentication in Express.'
 tags: [node, nodejs, express, authentication]
 tweets:
@@ -9,6 +11,7 @@ tweets:
   - 'Want to build authentication in #ExpressJS? Check this out!'
   - "Need to learn how to build simple authentication in #ExpressJS? We've got you covered!"
 image: blog/featured/okta-node-tile-books-mouse.jpg
+type: conversion
 ---
 
 Building web pages with user authentication can be a huge pain. You typically need to set up some sort of database to manage users even if you're not using the database for anything else. You would then need to store their password hashes, and you almost need a degree on internet security to know the safest ways to do that.

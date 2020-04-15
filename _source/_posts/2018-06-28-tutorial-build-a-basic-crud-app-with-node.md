@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Tutorial: Build a Basic CRUD App with Node.js"
-author: rdegges
+author: randall-degges
+by: advocate
+communities: [javascript]
 description: "Learn how to securely store, update, and display user data in a simple Node.js / Express.js app."
 tags: [node, express, openidconnect, oidc, user management]
 tweets:
@@ -9,6 +11,7 @@ tweets:
  - "We just published a new #nodejs article that shows you how to build a full website with database support. Go check it out!"
  - "Want to learn #nodejs? Read through our new tutorial where we'll show you how to build your own blog with user registration, login, etc."
  - "Come check out our latest article where we show you how to build a blog using #nodejs"
+type: conversion
 ---
 
 Node.js is eating the world. Many of the largest companies are building more and more of their websites and API services with Node.js, and there's no sign of a slowdown. I've been working with Node.js since 2012 and have been excited to see the community and tooling grow and evolve — there's no better time to get started with Node.js development than right now.

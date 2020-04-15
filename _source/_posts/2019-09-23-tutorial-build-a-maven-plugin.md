@@ -3,12 +3,15 @@ layout: blog_post
 title: How to Build a Maven Plugin
 description: 'Tutorial: How to build a Maven plugin.'
 tags: [tutorial, maven, java, builds]
-author: bdemers
+author: brian-demers
+by: advocate
+communities: [java]
 tweets:
 - "Learn how to build an @ASFMavenProject plugin" 
 - "Maven plugins are built with Maven plugins 🐢🐢🐢"
 - "Build a simple @ASFMavenProject plugin that will run `git rev-parse`"
 image: blog/tutorial-build-a-maven-plugin/console-usage-example.png
+type: awareness
 ---
 
 Apache Maven is still the most popular build tool in the Java space, thanks to the popularity of its ecosystem of plugins. It's easy to find an existing plugin to do almost anything your application needs, from ensuring your source files have license headers, to validating binary compatibility between versions. Occasionally though, you need to write a custom plugin to fulfill a requirement in your product.

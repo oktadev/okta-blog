@@ -1,13 +1,16 @@
 ---
 layout: blog_post
 title: "Use React and Spring Boot to Build a Simple CRUD App"
-author: mraible
+author: matt-raible
+by: advocate
+communities: [java, javascript]
 description: "React is one of the most popular JavaScript frameworks, and Spring Boot is wildly popular in the Java ecosystem. This article shows you how to use them in the same app, and secure it all with Okta."
 tags: [authentication, spring boot, spring boot 2.1, react, reactjs, oidc]
 tweets:
 - "React + Spring Boot makes for a nice development experience. Learn how to make them work together with OIDC authentication →"
 - "Spring Boot with @java + React with @javascript == 💙. Learn how to build a @springboot + @reactjs CRUD app today!"
 image: blog/featured/okta-react-bottle-headphones.jpg
+type: conversion
 ---
 
 React was designed to make it painless to create interactive UIs. Its state management is efficient and only updates components when your data changes. Component logic is written in JavaScript, which means you can keep state out of the DOM and create components that are encapsulated.
@@ -1249,10 +1252,10 @@ class GroupEdit extends Component {
     event.preventDefault();
     const {item, csrfToken} = this.state;
 
-    await fetch('/api/group', {
+    await fetch('/api/group' + (item.id ? '/' + item.id : ''), {
       method: (item.id) ? 'PUT' : 'POST',
       headers: {
-        'X-XSRF-TOKEN': this.state.csrfToken,
+        'X-XSRF-TOKEN': csrfToken,
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
@@ -1455,6 +1458,7 @@ If you have any questions, please don't hesitate to leave a comment below, or as
 
 **Changelog:**
 
+* Feb 20, 2020: Fixed PUT request thanks to a [pull request from @fatcatdog](https://github.com/oktadeveloper/okta-spring-boot-react-crud-example/pull/13). Changes to this post can be viewed in [okta-blog#201](https://github.com/oktadeveloper/okta-blog/pull/201).
 * Apr 29, 2019: Fixed path in `@PutMapping` to be `@PutMapping("/group/{id}")`. You can see the example app changes in [okta-spring-boot-react-crud-example#12](https://github.com/oktadeveloper/okta-spring-boot-react-crud-example/pull/12); changes to this post can be viewed in [okta.github.io#2849](https://github.com/oktadeveloper/okta.github.io/pull/2849).
 * Jan 7, 2019: Fixed `yarn test` to add `CI=true` environment variable. Thanks to [Cameron Moreau for the fix](https://github.com/oktadeveloper/okta-spring-boot-react-crud-example/pull/10).
 * Oct 31, 2018: Updated to use Create React App 2.1.0, Spring Boot 2.1.0, and Spring Security 5.1.1. You can see the example app changes in [okta-spring-boot-react-crud-example#8](https://github.com/oktadeveloper/okta-spring-boot-react-crud-example/pull/8); changes to this post can be viewed in [okta.github.io#2450](https://github.com/oktadeveloper/okta.github.io/pull/2450).

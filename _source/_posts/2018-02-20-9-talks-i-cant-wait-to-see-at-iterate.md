@@ -1,12 +1,14 @@
 ---
 layout: blog_post
 title: "9 Talks I Can't Wait to See at Iterate"
-author: leebrandt
+author: lee-brandt
+by: advocate
 description: "These are the 9 talks that I can't wait to see at the inaugural Iterate Developer Conference."
 tags: [iterate, conference, conference talks, community]
 tweets:
     - "My list of 9 talks I can't wait to see at #IterateConf @OktaDev"
     - "9 Must-See Talks at @OktaDev's #IterateConf"
+type: awareness
 ---
 
 This year on February 27th my team at Okta will host our first ever developer conference, [Iterate](https://www.iterateconf.io/). It will be held in downtown San Francisco at [Bespoke](http://www.bespokesf.co/) and has an incredible lineup of speakers from around the world. I am beyond excited to see some of the things that will be discussed. In this post I'd like to share with you the nine sessions I'm most looking forward to:

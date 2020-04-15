@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "The Basics of JavaScript Generators"
-author: leebrandt
+author: lee-brandt
+by: advocate
+communities: [javascript]
 description: "This post defines and demonstrates JavaScript Generators and their uses."
 tags: [ javascript, javascript generators, generators]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "JavaScript Generators! Uh... What are they good for? We've got you covered. (Say it again) <3"
 - "Let @leebrandt show you how to build your first JavaScript Generator (and explain why they're cool)! →"
 image: blog/featured/okta-node-skew.jpg
+type: awareness
 ---
 
 JavaScript does a pretty good job of iterating over collections. But what if you don't know what the collection is, or how big it will be? What if the thing you want to iterate over doesn't have an iterator to use? JavaScript generators can help!

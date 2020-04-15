@@ -1,13 +1,16 @@
 ---
 layout: blog_post
 title: "Add Authentication to Any Web Page in 10 Minutes"
-author: rdegges
+author: randall-degges
+by: advocate
+communities: [javascript]
 description: "You've got a web page, you want to add authentication to. Normally you'd have to build out a backend, user management, etc., but that's hard. Today I'll show you how to do it in just 10 minutes."
 tags: [javascript, authentication, html]
 tweets:
  - "Have a simple website you need to add authentication to? @rdegges will show you how to do it in 10 minutes or less using only a few lines of #javascript code:"
  - "Adding user management to websites can be really difficult: you have to build a backend, etc. -- or do you? @rdegges will show you how to do it with just a few lines of #javascript"
  - "Hey you. Yah, you. Stop scrolling through Twitter and learn how to add authentication to any web page in 10 minutes flat. It'll be fun!"
+type: conversion
 ---
 
 Adding authentication to web pages can be pretty annoying.

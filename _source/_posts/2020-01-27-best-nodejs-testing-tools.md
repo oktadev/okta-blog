@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "The Best Testing Tools for Node.js"
-author: reverentgeek
+author: david-neal
+by: advocate
+communities: [javascript]
 description: "The best testing tools available for Node.js"
 tags: [node, nodejs, testing, tdd, bdd, mocha, jest]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "You *are* writing tests for Node.js, right?? Here are the best testing tools available! #tdd #bdd #testing #qa #node"
 - ""
 image: blog/best-nodejs-testing-tools/the-best-testing-tools-for-nodejs.jpg
+type: awareness
 ---
 
 Testing is an essential discipline for *any* non-trivial software project. With a dynamic language like JavaScript, testing is an absolute necessity. This post is on the best tools currently available for Node.js, but here's a quick look at some of the many benefits of testing.

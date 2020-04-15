@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Use Spring Boot and MySQL to go Beyond Authentication"
-author: joyannefoster
+author: joy-foster
+by: contractor
+communities: [java]
 description: "Persisting identity information after OpenID Connect login is a powerful way to leverage the standard."
 tags: [java, jpa, spring, spring boot, spring security, security]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Learn how to use Spring Boot + JPA + MySQL to build @java apps with Okta for authentication."
 - "Spring Boot provides a convenient way to build Java apps. Learn how to use it with JPA and MySQL in this tutorial."
 image: blog/featured/okta-java-bottle-headphones.jpg
+type: conversion
 ---
 
 In this post, we will walk through how to build a simple CRUD application using Spring Boot, MySQL, JPA/Hibernate and Okta OpenID Connect (OIDC) Single Sign-On (SSO). 

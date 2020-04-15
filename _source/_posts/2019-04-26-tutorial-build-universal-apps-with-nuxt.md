@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Tutorial: Build Universal Applications with Nuxt.js"
-author: amarch
+author: andy-march
+by: internal-contributor
+communities: [javascript]
 description: "Learn how to build a secure server-side rendered web application using Nuxt.js and Okta"
 tags: [ nuxt, vue, nodejs, ssr, okta ]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Learn how to build a secure server-side rendered web application using @nuxt_js #ssr"
 - "Build a server-side rendered @vuejs application using @nuxt_js #ssr"
 image: blog/featured/okta-vue-bottle-headphones.jpg
+type: conversion
 ---
 
 Reducing the time between a user clicking your application and the content being displayed is vital. Optimized images? Check! Minified CSS? Check! Minified JS? Check! But if your application is a single page app (or SPA) there is a large bundle of JavaScript that must reach the user before the site can be rendered.

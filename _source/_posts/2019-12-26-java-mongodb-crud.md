@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Build a CRUD API with Java and MongoDB"
-author: moksamedia
+author: andrew-hughes
+by: contractor
+communities: [java]
 description: "Learn how to use Java and MongoDB to create a REST API. Then secure with Spring Security and OAuth 2.0."
 tags: [java, mongodb, rest, oauth2]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Create a secure REST API with @java and #MongoDB in this practical tutorial."
 - "Leverage #Java and @MongoDB to create a REST API in minutes!"
 image: blog/java-mongodb-crud/java-mongodb.png
+type: conversion
 ---
 
 This tutorial leverages two technologies that are commonly used to build web services: MongoDB and Java (we'll actually use Spring Boot). MongoDB is a NoSQL database, which is a generic term for any non-relational databases and differentiates them from relational databases. Relational databases, such as SQL, MySQL, Postgres, etc..., store data in large tables with well-defined structures. These structures are strong and tight and not easily changed or customized on a per-record basis (this structure can also be a strength, depending on the use case, but we won't get too deep into that here). Further, because relational databases grew up pre-internet, they were designed to run on monolithic servers. This makes them hard to scale and sync across multiple machines.

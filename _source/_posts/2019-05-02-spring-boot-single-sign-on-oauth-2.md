@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Easy Single Sign-On with Spring Boot and OAuth 2.0"
-author: dogeared
+author: micah-silverman
+by: advocate
+communities: [security]
 description: "In this post, we'll look at how you can integrate single sign-on into your custom apps easily"
 tags: [ oauth, security, oidc, spring boot, spring security, sso ]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Single Sign-On is a snap with Spring Boot (@springboot) and OAuth 2.0 (@oauth_2) and OpenID Connect (@openid)."
 - "SSO, @openid, @oauth_2 and @springboot - it's not just word salad. Check out @afitnerd's post on easy Single Sign-On."
 image: blog/featured/okta-java-short-skew.jpg
+type: awareness
 ---
 
 Single sign-on used to be the "Holy Grail" of enterprise size companies and was usually only available companies that could afford it. Nowadays, we take SSO as a matter of course. For instance, you would think it was completely weird (and unpleasant) if you logged into GMail and then had to log in again when you went to Google Docs.

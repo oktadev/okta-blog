@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: 'Build a Simple Web App with Express, Angular, and GraphQL'
-author: holgerschmitz
+author: holger-schmitz
+by: contractor
+communities: [javascript]
 description: 'A tutorial to build a simple web application using Express, Angular, and GraphQL.'
 tags: [express, expressjs, node, angular, graphql, web application, web]
 tweets:
@@ -9,6 +11,7 @@ tweets:
   - "Like @nodejs and @typescriptlang? Then you're goind to love this tutorial! Express + Angular + GraphQL = 💜"
   - "@expressjs + @angular + @graphql = 😍! Get started using this in-depth tutorial that includes authentication."
 image: blog/featured/okta-angular-skew.jpg
+type: conversion
 ---
 
 During the past 10 years or so, the concept of REST APIs for web services has become the bread and butter for most web developers. Recently a new concept has emerged, GraphQL. GraphQL is a query language that was invented by Facebook and released to the public in 2015. During the last three years, it has created quite a stir. Some regard it as a new revolutionary way of creating web APIs. The main difference between traditional REST and GraphQL is the way queries are sent to the server. In REST APIs you will have a different endpoint for each type of resource and the response to the request is determined by the server. Using GraphQL you will typically have only a single endpoint, and the client can explicitly state which data should be returned. A single request in GraphQL can contain multiple queries to the underlying model.

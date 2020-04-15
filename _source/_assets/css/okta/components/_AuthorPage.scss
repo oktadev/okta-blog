@@ -1,0 +1,47 @@
+.AuthorPage {
+	
+	.BlogPost-title {
+		display: inline-flex;
+		align-items: center;
+
+		img {
+			width: 96px;
+			height: 96px;
+		}
+	}
+
+	&-social {
+		a {
+			color: $nobel-2;
+			font-size: 34px;
+			text-decoration: none;
+			margin-right: 8px;
+		}
+
+		a:active,
+		a:hover {
+			@include color('accent');
+		}
+
+		a + a {
+			margin-top: get-spacing('small');
+		}
+	}
+
+	&--bio {
+		margin-top: 2em;
+	}
+
+}
+
+.AuthorList {
+	
+	.BlogPost {
+		margin-bottom: 1em;
+	}
+
+	.BlogPost-attribution {
+		margin-bottom: 1em;
+	}
+
+}
