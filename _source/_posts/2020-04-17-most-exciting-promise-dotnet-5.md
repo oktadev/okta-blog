@@ -10,9 +10,11 @@ tweets:
 - "Let's talk about what's coming for .NET 5, and why it matters ->"
 - "Here are a few reasons .NET 5 should interest every C# developer ->"
 - "Check out the .NET 5 feature that is a game-changer ->"
-image: blog/featured/okta-dotnet-half.jpg
+image: blog/dotnet-5-promise/onedotnetring.png
 type: awareness
 ---
+
+{% img blog/dotnet-5-promise/onedotnetring.png alt:"The One .NET Ring" width:"600" %}{: .center-image }
 
 It's time to get jazzed about the future of the .NET ecosystem!
 
