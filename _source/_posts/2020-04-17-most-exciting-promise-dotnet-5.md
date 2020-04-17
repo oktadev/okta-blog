@@ -52,11 +52,11 @@ As the first part of this unification scheme, Microsoft's Xamarin mobile develop
 * Xamarin
 * ML.NET
 
-Wait, WPF and WinForms made it into .NET 5? Yes, [it's true](https://dotnet.microsoft.com/download/dotnet/5.0). Hello there, old friends! Nice to see them included in this runtime. The idea of using one SDK to build apps with pretty exciting stuff, if you ask me.
+Wait, WPF and WinForms made it into .NET 5? Yes, [it's true](https://dotnet.microsoft.com/download/dotnet/5.0). Hello there, old friends! Nice to see them included in this runtime. The idea of using one SDK to build apps with is pretty exciting stuff, if you ask me.
 
 ## One .NET 5 SDK to Rule Them All
 
-**Who's ready for the general availability of .NET 5 in November 2020?** I know I am! Getting started working with the [preview version](https://dotnet.microsoft.com/download/dotnet/5.0) is what we here at Okta are actively playing with, and encourage all C# developers to do the same. According to the [roadmap](https://github.com/dotnet/core/blob/master/roadmap.md), .NET Core has been rebranded as .NET 5 going forward, with one major version number incremented every year. Because .NET Framework was already on version 4.x, it was decided the jump to using 5 would unify naming of the ecosystem going forward.
+**Who's ready for the general availability of .NET 5 in November 2020?** I know I am! Getting started working with the [preview version](https://dotnet.microsoft.com/download/dotnet/5.0) is what we here at Okta are actively playing with, and encourage all C# developers to do the same. According to the [roadmap](https://github.com/dotnet/core/blob/master/roadmap.md), .NET Core has been rebranded as .NET 5 going forward, with one major version number incremented every year. Because .NET Framework was already on version 4.x, jumping to 5 would unify naming of the ecosystem going forward.
 
 **Is this end of life for the existing .NET Framework?** According to [Scott Hunter](https://devblogs.microsoft.com/dotnet/announcing-net-5-0-preview-1/#comment-4987), the traditional platform will still be supported - at least for a while. The [official support policy for .NET](https://dotnet.microsoft.com/platform/support/policy/dotnet-framework) is stated on Microsoft's website along with existing [.NET Core versions](https://dotnet.microsoft.com/platform/support/policy/dotnet-core) if you are curious about a specific version sunsetting.
 
@@ -64,7 +64,7 @@ Current [.NET Framework version 4.8](https://dotnet.microsoft.com/download/dotne
 
 ## Prepare existing apps for the future of .NET
 
-Until general release, the best way to get prepared for .NET 5 and later is to migrate your Framework apps to the currently stable .NET Core 3.1 - particularly if you want solid GA support for C# 8 and Blazor. Breaking changes possible with any major release, but the majority of the APIs should remain in place from .NET Core 3.x. Move your class libraries to .NET Standard 2.1 if possible to help future-proof your transition. When it comes to Xamarin, the compiler will move from the Mono BCL (base class library) to .NET Core BCL. More on mobile app migrations in a future blog post.
+Until general release, the best way to get prepared for .NET 5 and later is to migrate your Framework apps to the currently stable [.NET Core 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1) - particularly if you want solid GA support for C# 8 and [Blazor](https://docs.microsoft.com/en-us/aspnet/core/blazor/?view=aspnetcore-3.1). Breaking changes are possible with any major release, but the majority of the APIs should remain in place from .NET Core 3.x. Move your class libraries to [.NET Standard 2.1](https://github.com/dotnet/standard/blob/master/docs/versions/netstandard2.1.md) if possible to help future-proof your transition. When it comes to Xamarin, the compiler will move from the Mono BCL (base class library) to .NET Core BCL. More on mobile app migrations in a future blog post.
 
 The .NET 5 ecosystem is still based on all previous versions of .NET Core - it's the next logical iteration, with a dash of WinForms/WPF inclusion, faster algorithms and a bit of a rebranding. I can get behind that!
 
