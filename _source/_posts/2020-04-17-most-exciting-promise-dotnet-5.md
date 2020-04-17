@@ -58,7 +58,7 @@ Wait, WPF and WinForms made it into .NET 5? Yes, [it's true](https://dotnet.micr
 
 **Is this end of life for the existing .NET Framework?** According to [Scott Hunter](https://devblogs.microsoft.com/dotnet/announcing-net-5-0-preview-1/#comment-4987), the traditional platform will still be supported - at least for a while. The [official support policy for .NET](https://dotnet.microsoft.com/platform/support/policy/dotnet-framework) is stated on Microsoft's website along with existing [.NET Core versions](https://dotnet.microsoft.com/platform/support/policy/dotnet-core) if you are curious about a specific version sunsetting.
 
-Current [.NET Framework version 4.8](https://dotnet.microsoft.com/download/dotnet-framework) won’t evolve but some security patches will be provided for the foreseeable future.
+Current [.NET Framework version 4.8](https://dotnet.microsoft.com/download/dotnet-framework) won't evolve but some security patches will be provided for the foreseeable future.
 
 ## Prepare existing apps for the future of .NET
 
