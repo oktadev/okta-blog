@@ -11,7 +11,7 @@ tweets:
 - "Here are a few reasons .NET 5 should interest every C# developer ->"
 - "Check out the .NET 5 feature that is a game-changer ->"
 image: blog/featured/okta-dotnet-half.jpg
-type: conversion
+type: awareness
 ---
 
 It's time to get jazzed about the future of the .NET ecosystem!
