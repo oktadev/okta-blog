@@ -122,7 +122,7 @@ grep abc file1.txt -c
 Finally, you can make your search more flexible by using regular expressions in your search string. You can accomplish this by using the `-E` flag.
 
 ```bash
-grep -E “^abc” file1.txt
+grep -E "^abc" file1.txt
 ```
 
 For example, this command will only search for lines that start with the string "abc".
@@ -140,7 +140,7 @@ If you use grep in conjunction with a few other command-line utilities, you can 
 For example, you can use grep to remove the empty lines of a file. This command will find all the non-empty lines in `logfile.txt` and rewrite all the non-empty lines back to `logfile.txt`:
 
 ```bash
-grep -E “^$” -v logfile.txt > logfile.txt
+grep -E "^$" -v logfile.txt > logfile.txt
 ```
 
 You can also use grep to fill entirely new documents with data. For example, you can use this command to search for the subdomains of google.com embedded on Google's homepage, and paste all the URLs to `subdomains.txt`.
