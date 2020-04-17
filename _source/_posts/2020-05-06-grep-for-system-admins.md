@@ -10,7 +10,7 @@ tweets:
 - "Grep for System Admins, a new article by @vickieli7:"
 - "Our friend @vickieli7 just wrote an awesome guide on using grep to automate daily tasks:"
 - "grep is one of the most useful CLI tools for general hackery. Learn how to use it in our new guide:"
-image: blog/dotnet-5-promise/onedotnetring.png
+image: blog/grep-for-system-admins/person-staring-at-map.jpg
 type: awareness
 ---
 
