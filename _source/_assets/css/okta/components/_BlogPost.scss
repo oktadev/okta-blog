@@ -54,6 +54,14 @@
 	&-author {
 		font-size: 24px;
 		font-weight: 500;
+
+		a {
+			color: #3d3d3d;
+		}
+		a:hover {
+			color: #6d6d6d;
+			text-decoration: none;
+		}
 	}
 
 	&-avatar {
