@@ -28,13 +28,13 @@ Spring Boot applications can bind properties from environment variables. Let's c
 
 ```shell
 curl https://start.spring.io/starter.zip \
--d dependencies=web,okta,cloud-config-client \
--d groupId=com.okta.developer \
--d artifactId=vault-demo-app  \
--d name="Spring Boot Application" \
--d description="Demo project of a Spring Boot application with Vault protected secrets" \
--d packageName=com.okta.developer.vault \
--o vault-demo-app.zip
+  -d dependencies=web,okta,cloud-config-client \
+  -d groupId=com.okta.developer \
+  -d artifactId=vault-demo-app  \
+  -d name="Spring Boot Application" \
+  -d description="Demo project of a Spring Boot application with Vault protected secrets" \
+  -d packageName=com.okta.developer.vault \
+  -o vault-demo-app.zip
 ```
 
 Unzip the file and open the project. Modify the `Application` class to add the rest endpoint `/`:
@@ -53,14 +53,14 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 public class Application {
 
-	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
 
-	@GetMapping("/")
-	String hello(@AuthenticationPrincipal OidcUser user){
-		return String.format("Welcome, %s", user.getFullName());
-	}
+    @GetMapping("/")
+    String hello(@AuthenticationPrincipal OidcUser user) {
+        return String.format("Welcome, %s", user.getFullName());
+    }
 
 }
 ```
@@ -88,7 +88,8 @@ SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET={yourClientSecret}
 
 Go to http://localhost:8080, you should see th Okta login page:
 
-{% img blog/spring-vault/okta-login.png alt:"okta-login" %}{: .center-image }
+
+{% img blog/spring-vault/okta-login.png alt:"Okta login form" width:"503" %}{: .center-image }
 
 
 In the application logs, you should see the security filter chain should initialize an OAuth2 authentication stack:
@@ -110,13 +111,13 @@ Using Spring Initializr API, create the vault-config-server application:
 
 ```shell
 curl https://start.spring.io/starter.zip \
--d dependencies=cloud-config-server \
--d groupId=com.okta.developer \
--d artifactId=vault-config-server  \
--d name="Spring Boot Configuration Server" \
--d description="Demo project of a Spring Boot application with Vault protected secrets" \
--d packageName=com.okta.developer.vault \
--o vault-config-server.zip
+  -d dependencies=cloud-config-server \
+  -d groupId=com.okta.developer \
+  -d artifactId=vault-config-server  \
+  -d name="Spring Boot Configuration Server" \
+  -d description="Demo project of a Spring Boot application with Vault protected secrets" \
+  -d packageName=com.okta.developer.vault \
+  -o vault-config-server.zip
 ```
 
 Unzip the downloaded file. Rename `src/main/resource/application.properties` to `src/main/resource/application.yml`, end edit to add the native profile :
@@ -207,10 +208,10 @@ In a real environment, the config server will be secured. Spring Cloud Config Se
 
 ## Vault as a Cloud Configuration Backend
 
-{% img blog/spring-vault/vault-logo.png alt:"vault-logo" width:"200" %}{: .center-image }
+{% img blog/spring-vault/vault-logo.png alt:"Vault logo" width:"678" %}{: .center-image }
 
 
-With the cloud, secrets management became much more difficult. Vault is a secrets management and data protection tool from Hashicorp, that provides secure storage, dynamic secret generation, data encryption and secret revocation. Vault encrypts the secrets prior to writing them to persistent storage. The encryption key is also stored in Vault, but encrypted with a _master key_ not stored anywhere. The master key is split into shards using Shamir's Secret Sharing algorithm, and distributed among a number of operators. The Vault unseal process allows to reconstruct the master key by adding shards one at a time in any order until enough shards are present, then Vault becomes operative.
+With the cloud, secrets management became much more difficult. Vault is a secrets management and data protection tool from Hashicorp, that provides secure storage, dynamic secret generation, data encryption and secret revocation. Vault encrypts the secrets prior to writing them to persistent storage. The encryption key is also stored in Vault, but encrypted with a _master key_ not stored anywhere. The master key is split into shards using _Shamir's Secret Sharing_ algorithm, and distributed among a number of operators. The Vault unseal process allows to reconstruct the master key by adding shards one at a time in any order until enough shards are present, then Vault becomes operative.
 Operations on secrets can be audited by enabling audit devices, which will send audit logs to a file, syslog or socket.
 
 As Spring Cloud Configuration Server supports Vault as a configuration backend, the next step is to better protect the application secrets by storing them in Vault.
@@ -325,7 +326,7 @@ Check vault_audit.log, operations are logged in JSON format by default, with sen
 
 Let's assume we don't want to configure the root token in the `vault-demo-app`. Then, create a policy granting read permissions on the path where the secrets were stored. Meet the Vault Web UI at http://localhost:8200, login with the root token.
 
-{% img blog/spring-vault/vault-web-ui.png alt:"vault-web-ui" %}{: .center-image }
+{% img blog/spring-vault/vault-web-ui.png alt:"Vault web UI" width:"1523" %}{: .center-image }
 
 
 Then go to **Policies**, and **Create ACL policy** on the top right. Create the _vault-demo-app-policy_ with the following capabilities:
@@ -350,7 +351,7 @@ path "secret/data/application,dev" {
 All the paths above will be requested by the config server to provide configuration for the `vault-demo-app`, when it starts with the dev profile active.
 
 
-{% img blog/spring-vault/vault-policy.png alt:"vault-policy" %}{: .center-image }
+{% img blog/spring-vault/vault-policy.png alt:"Vault policy section" width:"1515" %}{: .center-image }
 
 Now, go back to the container command line, and create a token with the vault-demo-app-policy.
 ```shell
@@ -407,6 +408,14 @@ Start the `vault-demo-app` passing the token just created in the environment var
 SPRING_CLOUD_CONFIG_TOKEN=s.4CO6wzq0M1WRUNsYviJB3wzz \
 ./mvnw spring-boot:run
 ```
+
+
+When the `vault-demo-app` starts, it will request the configuration to the config server, which in turn will make a REST to Vault. In the config server logs, with enough logging level, you will be able to see:
+
+```
+2020-04-19 20:19:02.691 DEBUG 21168 --- [nio-8888-exec-1] o.s.web.client.RestTemplate              : HTTP GET http://127.0.0.1:8200/v1/secret/data/vault-demo-app,dev
+```
+
 Go to http://localhost:8080 and verify the Okta works.
 
 Finally, let's seal Vault. In the container command line, do:
