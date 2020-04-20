@@ -337,7 +337,7 @@ image::{% asset_path 'blog/android-authentication/android-browser-login.png' %}[
 
 It should be easy for users to authenticate into your app. Okta OIDC SDK helps you accomplish this by allowing users to use their social accounts to validate their identity..
 
-With Okta, you can add an *external Identity Provider*—such as Google, Facebook, LinkedIn or Microsoft.
+With Okta, you can add an external Identity Provider—such as Google, Facebook, LinkedIn or Microsoft.
 To achieve this, connect to the external identity providers and ask them to trust Okta for your application.   This is done in three simple steps:
 
 1. https://developer.okta.com/docs/guides/add-an-external-idp/facebook/configure-idp-in-okta/[Create an Identity Provider in Okta]
@@ -385,8 +385,8 @@ class Biometric(
    fragmentActivity: FragmentActivity,
    onSuccessListener: () -> Unit,
    onCancelListener: () -> Unit,
-   onErrorListener: (Int, String) -> Unit
-) {
+   onErrorListener: (Int, String) -> Unit) {
+
    private val mCallback: BiometricPrompt.AuthenticationCallback =
        object : BiometricPrompt.AuthenticationCallback() {
            override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
