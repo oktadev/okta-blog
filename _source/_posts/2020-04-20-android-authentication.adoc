@@ -29,7 +29,7 @@ toc::[]
 
 == (TLDR) Download the Finished App with Android Authentication
 
-If you want to follow along using a completed version of the app,clone this repository from  https://github.com/oktadeveloper/okta-oidc-android-example[GitHub] using the `simplified` branch:
+If you want to follow along using a completed version of the app, clone this repository from https://github.com/oktadeveloper/okta-oidc-android-example[GitHub] using the `simplified` branch:
 
 [source,sh]
 ----
@@ -37,7 +37,7 @@ git clone https://github.com/oktadeveloper/okta-oidc-android-example.git -b simp
 cd okta-oidc-android-example
 ----
 
-NOTE: The finished app in the `master` branch from the repository includes everything described in this blog, along with  some additional UI and functionality, testing Okta OIDC easier, and providing you with a production-level skeleton to work with when creating your own app.
+NOTE: The finished app in the `master` branch from the repository includes everything described in this blog, along with some additional UI and functionality, testing Okta OIDC easier, and providing you with a production-level skeleton to work with when creating your own app.
 
 == Create Your First Android App
 
@@ -63,7 +63,7 @@ Before adding anything else to your app, you'll need to quickly obtain the confi
 
 image::{% asset_path 'blog/android-authentication/okta-create-new-application.jpg' %}[alt=Create a new Okta application,width=700,align=center]
 
-Next, take note of the **Client ID** that's found in the **General** tab of your new Okta application entry. It's a long string of around 20 characters.
+Next, take note of the **Client ID** that's found in the **General** tab of your new Okta application. It's a long string of around 20 characters.
 
 == Add a Sign-in Button to Your Android App
 
@@ -100,7 +100,7 @@ This button will be used to authenticate using OAuth 2.0 + OpenID Connect, thank
 
 == Give Your Android App Permission to use the Internet
 
-In your `app/src/main/AndroidManifest.xml` add between the `<manifest></manifest>` tags:
+In your `app/src/main/AndroidManifest.xml` add the following XML between the `<manifest></manifest>` tags:
 
 [source,xml]
 ----
@@ -180,7 +180,7 @@ dependencies {
 ====
 
 == Configure Okta OIDC in Your Android App
-In your `MainActivity` class, add a couple of class properties anda couple of new methods,calling them from `onCreate`:
+In your `MainActivity` class, add a couple of class properties and a couple of new methods, calling them from `onCreate()`:
 
 ====
 [source,kotlin]
@@ -276,7 +276,7 @@ Now that you have a minimal configuration of Okta OIDC, it's time to add a liste
 
 == Log in Using Okta OIDC
 
-Create a `AuthenticationPayload` and call `webAuth.signIn` in `MainActivity.kt`.
+Create a payload using `AuthenticationPayload` and call `webAuth.signIn()` in `MainActivity.kt`.
 
 [source,kotlin]
 ----
@@ -366,7 +366,7 @@ The `BiometricPrompt` recently published by the Android team makes it a very fea
 
 NOTE: `BiometricPrompt` uses the available resources in each device to offer whichever options are possible. Those include Iris authentication, fingerprint authentication, PIN authentication, Pattern authentication, etc...
 
-In essence, there are two components to be taken  into account:
+In essence, there are two components to be taken into account:
 
 1. `BiometricPrompt` can be used to only allow biometrically authenticated users into your app, or into specific sections of your app
 2. You can (and should) instruct Okta OIDC SDK to store all data in a biometrically protected encryption system
@@ -478,7 +478,7 @@ private fun setupWebAuth() {
 }
 ----
 
-Now, whenever a user opens a new instance of your app, they will be able to access it using their biometric information. In the below example, a Google Pixel phone, the authentication is a  fingerprint:
+Now, whenever a user opens a new instance of your app, they will be able to access it using their biometric information. In the below example, a Google Pixel phone, the authentication is a fingerprint:
 
 image::{% asset_path 'blog/android-authentication/android-fingerprint-prompt.png' %}[alt=Android fingerprint prompt,width=400,align=center]
 
@@ -488,7 +488,7 @@ It's now easier than ever to implement OAuth 2.0 and OpenID authorization thanks
 
 By taking advantage of `BiometricPrompt` and Kotlin, we can make our apps even safer, while still creating a seamless user experience that  feels native to each manufacturer's UI style.
 
-Although the example we've created here does enough to satisfy the needs of the majority of apps, Okta OIDC SDK doesn't stop there. The https://github.com/okta/okta-oidc-android[Okta OIDC Android repository] contains  a variety of ideas and suggestions to improve user experience like:
+Although the example we've created here does enough to satisfy the needs of the majority of apps, Okta OIDC SDK doesn't stop there. The https://github.com/okta/okta-oidc-android[Okta OIDC Android repository] contains a variety of ideas and suggestions to improve user experience like:
 
 - Using your own OkHttp client
 - Using a custom UI to log in
