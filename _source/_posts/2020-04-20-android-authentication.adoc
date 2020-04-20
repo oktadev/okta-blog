@@ -488,7 +488,7 @@ It's now easier than ever to implement OAuth 2.0 and OpenID authorization thanks
 
 By taking advantage of `BiometricPrompt` and Kotlin, we can make our apps even safer, while still creating a seamless user experience that  feels native to each manufacturer's UI style.
 
-Although the example we've created here does enough to satisfy the needs of the majority of apps, Okta OIDC SDK doesn't stop there. The https://github.com/okta/okta-oidc-android[Okta OIDC Android repository] contains  a variety of ideas and suggestions to improve user experience like:
+Although the example we've created here does enough to satisfy the needs of the majority of apps, Okta OIDC SDK doesn't stop there. The https://github.com/okta/okta-oidc-android[Okta OIDC Android repository] contains a variety of ideas and suggestions to improve user experience like:
 
 - Using your own OkHttp client
 - Using a custom UI to log in
