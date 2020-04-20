@@ -329,7 +329,7 @@ private fun downloadProfile() {
 
 That's it! You now have an Android app with robust OIDC authentication!
 
-When you launch your app and click on the `SIGN IN` button, you will be greeted with OKta's authentication portal, which you can use to authenticate users into your app:
+When you launch your app and click on the **SIGN IN** button, you will be greeted with Okta's authentication portal, which you can use to authenticate users into your app:
 
 image::{% asset_path 'blog/android-authentication/android-browser-login.png' %}[alt=Android browser login prompt,width=400,align=center]
 
@@ -361,10 +361,10 @@ Now, when a user clicks your **SIGN IN** button, they'll be greeted with the log
 
 == (Optional) Biometric Login
 
-Additionally, biometrics can be used to access sessions  created by Okta OIDC.
+Additionally, biometrics can be used to access sessions created by Okta OIDC.
 The `BiometricPrompt` recently published by the Android team makes it a very feasible option, taking a lot of the complexity off your hands and offering a unified familiar & native experience for users on all variants of Android (Google devices, Samsung devices, ...).
 
-NOTE: `BiometricPrompt` uses the available resources in each device to offer whichever options are possible. Those include Iris authentication, fingerprint authentication, PIN authentication, Pattern authentication, etc...
+NOTE: `BiometricPrompt` uses the available resources in each device to offer whichever options are possible. Those include Iris authentication, fingerprint authentication, PIN authentication, Pattern authentication, etc.
 
 In essence, there are two components to be taken into account:
 
