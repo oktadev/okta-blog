@@ -180,7 +180,7 @@ dependencies {
 ====
 
 == Configure Okta OIDC in your app
-In your `MainActivity` class, add a couple of class properties anda couple of new methods,calling them from `onCreate`:
+In your `MainActivity` class, add a couple of class properties and a couple of new methods, calling them from `onCreate()`:
 
 ====
 [source,kotlin]
