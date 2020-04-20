@@ -29,7 +29,7 @@ toc::[]
 
 == (TLDR) Download the finished app with Android Authentication
 
-If you want to follow along using a completed version of the app,clone this repository from  https://github.com/oktadeveloper/okta-oidc-android-example[GitHub] using the `simplified` branch:
+If you want to follow along using a completed version of the app, clone this repository from https://github.com/oktadeveloper/okta-oidc-android-example[GitHub] using the `simplified` branch:
 
 [source,sh]
 ----
