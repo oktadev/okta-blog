@@ -276,7 +276,7 @@ Now that you have a minimal configuration of Okta OIDC, it's time to add a liste
 
 == Log in using Okta OIDC
 
-Create a `AuthenticationPayload` and call `webAuth.signIn` in `MainActivity.kt`.
+Create a payload using `AuthenticationPayload` and call `webAuth.signIn()` in `MainActivity.kt`.
 
 [source,kotlin]
 ----
