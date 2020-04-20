@@ -27,7 +27,7 @@ This post will show you a simple example of how you can use Okta OIDC SDK to cre
 
 toc::[]
 
-== (TLDR) Download the finished app with Android Authentication
+== (TLDR) Download the Finished App with Android Authentication
 
 If you want to follow along using a completed version of the app,clone this repository from  https://github.com/oktadeveloper/okta-oidc-android-example[GitHub] using the `simplified` branch:
 
@@ -39,7 +39,7 @@ cd okta-oidc-android-example
 
 NOTE: The finished app in the `master` branch from the repository includes everything described in this blog, along with  some additional UI and functionality, testing Okta OIDC easier, and providing you with a production-level skeleton to work with when creating your own app.
 
-== Creating your first Android app
+== Create Your First Android App
 
 First, you'll need to download and install https://developer.android.com/studio[Android Studio].
 Next, launch the app and navigate  to **File** → **New...** → **New Project...**. Then, create an "Empty Activity" for "Phone and Tablet". You should now see a screen similar to this:
@@ -49,12 +49,12 @@ image::{% asset_path 'blog/android-authentication/android-studio-new-project.png
 Choose a "Package name" related to a domain you own (I own akaita.com, therefore I used `com.akaita.myapplication` in the example), a **Save location** you can remember, "Kotlin", and a "Minimum API level" of `23`. Finally, click **Finish**.
 
 [#okta-oidc-config]
-== Get your Okta OIDC configuration settings
+== Get Your Okta OIDC Configuration Settings
 
 Before adding anything else to your app, you'll need to quickly obtain the configuration parameters required to configure Okta OIDC authentication:
 
 1. Log in to your Okta Developer account or https://developer.okta.com/[sign up for a **free** developer account]
-2. Once you've logged on, you'll see the Admin Dashboard. Take a note of your "Org URL" (at the top right of the screen). In my case, I see: `\https://dev-123456.okta.com`
+2. Once you've logged on, you'll see the Admin Dashboard. Take note of your "Org URL" (at the top right of the screen). In my case, I see: `\https://dev-123456.okta.com`
 3. Navigate to **Applications** → **Add Application**
 4. Choose **Native** as the platform
 5. Add a **Login redirect URIs** similar to `com.okta.dev-123456:/callback` (using your own `dev-XXXX`)
@@ -65,7 +65,7 @@ image::{% asset_path 'blog/android-authentication/okta-create-new-application.jp
 
 Next, take note of the **Client ID** that's found in the **General** tab of your new Okta application entry. It's a long string of around 20 characters.
 
-== Add a sign-in button to your Android app
+== Add a Sign-in Button to Your Android App
 
 Now that you've finished up in Okta's Admin Panel, head back to Android Studio and add a button to your `res/layout/activity_main.xml`:
 
@@ -98,7 +98,7 @@ Now that you've finished up in Okta's Admin Panel, head back to Android Studio a
 
 This button will be used to authenticate using OAuth 2.0 + OpenID Connect, thanks to the Okta OIDC SDK.
 
-== Give your Android app permission to use the Internet
+== Give Your Android App Permission to use the Internet
 
 In your `app/src/main/AndroidManifest.xml` add between the `<manifest></manifest>` tags:
 
@@ -107,14 +107,14 @@ In your `app/src/main/AndroidManifest.xml` add between the `<manifest></manifest
 <uses-permission android:name="android.permission.INTERNET" />
 ----
 
-== Add Okta OIDC SDK to your Android app
+== Add Okta OIDC SDK to Your Android App
 
-1. Add a `manifestPlaceholder` for `appAuthRedirectScheme` in `app/build.gradle`. Make sure it is consistent with your Redirect URIs. For instance, my Redirect URIs look like `com.okta.dev-123456:/callback`, therefore my `appAuthRedirectScheme` is `com.okta.dev-123456`
+1. Add a `manifestPlaceholder` for `appAuthRedirectScheme` in `app/build.gradle`. Make sure it is consistent with your Redirect URIs. For instance, my redirect URIs look like `com.okta.dev-123456:/callback`, therefore my `appAuthRedirectScheme` is `com.okta.dev-123456`
 
 2. Add the required Okta dependencies in `app/build.gradle`, and declare a Java 1.8 target in the `compileOptions` clause (this is required by the OIDC library)
 
 ====
-[source,kotlin]
+[source,groovy]
 ----
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
@@ -179,7 +179,7 @@ dependencies {
 <4> Add the dependencies required for the Okta OIDC library.
 ====
 
-== Configure Okta OIDC in your app
+== Configure Okta OIDC in Your Android App
 In your `MainActivity` class, add a couple of class properties anda couple of new methods,calling them from `onCreate`:
 
 ====
@@ -274,7 +274,7 @@ Make sure to use the values you wrote down during the link:#okta-oidc-config[Get
 
 Now that you have a minimal configuration of Okta OIDC, it's time to add a listener for the button we added previously.
 
-== Log in using Okta OIDC
+== Log in Using Okta OIDC
 
 Create a `AuthenticationPayload` and call `webAuth.signIn` in `MainActivity.kt`.
 
@@ -333,7 +333,7 @@ When you launch your app and click on the `SIGN IN` button, you will be greeted 
 
 image::{% asset_path 'blog/android-authentication/android-browser-login.png' %}[alt=Android browser login prompt,width=400,align=center]
 
-== (Optional) Adding Social login
+== (Optional) Add Social login
 
 It should be easy for users to authenticate into your app. Okta OIDC SDK helps you accomplish this by allowing users to use their social accounts to validate their identity..
 
@@ -359,7 +359,7 @@ signIn.setOnClickListener {
 
 Now, when a user clicks your **SIGN IN** button, they'll be greeted with the login page of the IDP of your choice, which will be used to authenticate users into your app.
 
-== (Optional) Biometric login
+== (Optional) Biometric Login
 
 Additionally, biometrics can be used to access sessions  created by Okta OIDC.
 The `BiometricPrompt` recently published by the Android team makes it a very feasible option, taking a lot of the complexity off your hands and offering a unified familiar & native experience for users on all variants of Android (Google devices, Samsung devices, ...).
@@ -482,7 +482,7 @@ Now, whenever a user opens a new instance of your app, they will be able to acce
 
 image::{% asset_path 'blog/android-authentication/android-fingerprint-prompt.png' %}[alt=Android fingerprint prompt,width=400,align=center]
 
-== Summary
+== Learn More About Android Auth and OIDC
 
 It's now easier than ever to implement OAuth 2.0 and OpenID authorization thanks to Okta OIDC SDK. A high effort, high maintenance chore just became a very straightforward task.
 
@@ -494,8 +494,6 @@ Although the example we've created here does enough to satisfy the needs of the 
 - Using a custom UI to log in
 - Having fine-grained control over session tokens' expiration, refresh, etc...
 - Settings to handle preference of browser client for the authentication process (Chrome, Samsung browser, Firefox, etc...)
-
-== Further learning
 
 This post has given you the foundations to set up a successful OIDC client. If you want to deepen your knowledge around modern authentication systems, check these additional resources on Android, OAuth 2.0 and OpenID Connect:
 
