@@ -37,7 +37,7 @@ git clone https://github.com/oktadeveloper/okta-oidc-android-example.git -b simp
 cd okta-oidc-android-example
 ----
 
-NOTE: The finished app in the `master` branch from the repository includes everything described in this blog, along with  some additional UI and functionality, testing Okta OIDC easier, and providing you with a production-level skeleton to work with when creating your own app.
+NOTE: The finished app in the `master` branch from the repository includes everything described in this blog, along with some additional UI and functionality, testing Okta OIDC easier, and providing you with a production-level skeleton to work with when creating your own app.
 
 == Creating your first Android app
 
