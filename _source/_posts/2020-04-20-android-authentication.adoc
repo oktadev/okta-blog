@@ -478,7 +478,7 @@ private fun setupWebAuth() {
 }
 ----
 
-Now, whenever a user opens a new instance of your app, they will be able to access it using their biometric information. In the below example, a Google Pixel phone, the authentication is a  fingerprint:
+Now, whenever a user opens a new instance of your app, they will be able to access it using their biometric information. In the below example, a Google Pixel phone, the authentication is a fingerprint:
 
 image::{% asset_path 'blog/android-authentication/android-fingerprint-prompt.png' %}[alt=Android fingerprint prompt,width=400,align=center]
 
