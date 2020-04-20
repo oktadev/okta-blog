@@ -98,7 +98,7 @@ Now that you've finished up in Okta's Admin Panel, head back to Android Studio a
 
 This button will be used to authenticate using OAuth 2.0 + OpenID Connect, thanks to the Okta OIDC SDK.
 
-== Give Your Android App Permission to use the Internet
+== Give Your Android App Permission to Use the Internet
 
 In your `app/src/main/AndroidManifest.xml` add the following XML between the `<manifest></manifest>` tags:
 
