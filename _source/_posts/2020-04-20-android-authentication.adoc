@@ -100,7 +100,7 @@ This button will be used to authenticate using OAuth 2.0 + OpenID Connect, thank
 
 == Give your Android app permission to use the Internet
 
-In your `app/src/main/AndroidManifest.xml` add between the `<manifest></manifest>` tags:
+In your `app/src/main/AndroidManifest.xml` add the following XML between the `<manifest></manifest>` tags:
 
 [source,xml]
 ----
