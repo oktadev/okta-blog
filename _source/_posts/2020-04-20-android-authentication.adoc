@@ -63,7 +63,7 @@ Before adding anything else to your app, you'll need to quickly obtain the confi
 
 image::{% asset_path 'blog/android-authentication/okta-create-new-application.jpg' %}[alt=Create a new Okta application,width=700,align=center]
 
-Next, take note of the **Client ID** that's found in the **General** tab of your new Okta application entry. It's a long string of around 20 characters.
+Next, take note of the **Client ID** that's found in the **General** tab of your new Okta application. It's a long string of around 20 characters.
 
 == Add a sign-in button to your Android app
 
