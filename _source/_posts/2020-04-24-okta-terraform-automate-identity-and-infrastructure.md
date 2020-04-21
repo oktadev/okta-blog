@@ -19,6 +19,8 @@ Many Okta customers who leverage Advanced Server Access to secure and automate i
 
 In this example, we're going to showcase the full power of Okta and Terraform to automate and secure AWS environments. To proceed with this example, you must be an [Okta Advanced Server Access](https://www.okta.com/products/advanced-server-access/) administrator, and have administrative access to an AWS account. The steps to perform here are similar across GCP and Azure as well, using their respective Providers to provision the respective infrastructure resources.
 
+**NOTE**: If you don't have an Okta ASA account yet, you can go [create one here](https://app.scaleft.com/p/signup).
+
 
 ### Create an Advanced Server Access API User
 
