@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Better Together: Using Okta & Hashicorp Terraform to Automate Identity & Infrastructure as Code"
+title: "Using Okta Advanced Server Access & Terraform to Automate Identity & Infrastructure as Code"
 author: ivan-dwyer
 by: internal-contributor
 communities: [devops]
@@ -15,55 +15,9 @@ type: conversion
 ---
 
 
-Companies who employ DevOps programs have a goal in mind--to enable velocity at scale. Getting software out the door faster and more effectively is becoming critical to remain competitive in today's fast-paced technology landscape. When speed is the name of the game, automation is key. Without the right guard rails, however, automation can be extremely dangerous.
+Many Okta customers who leverage Advanced Server Access to secure and automate identity across their dynamic infrastructure fleets use HashiCorp Terraform to declare and provision resources across AWS, GCP, and Azure. One customer built their own Terraform Provider as a wrapper to the Advanced Server Access API, which we recently had certified by the team at HashiCorp. You can read more about the announcement on the Okta Blog: <LINK TO OKTA BLOG>.
 
-Making security part of your DevOps processes, not an afterthought, puts you in a better place to effectively scale your automation. By injecting controls early on, when developers and operations teams are writing the automation, you can be confident that the guard rails are in place once the automation takes over. This practice is known as "Shifting Left".
-
-As more companies adopt these practices, [HashiCorp Terraform](https://www.terraform.io/) has quickly become one of the leading open source infrastructure automation tools. Its simple to use declarative language enables organizations to manage large-scale fleets of dynamic infrastructure, quickly provisioning and deprovisioning environments in a more elegant, version-controlled manner. This helps avoid situations of configuration drift, ensuring consistent environments as you scale up and down.
-
-Combined with [Okta Advanced Server Access](https://www.okta.com/products/advanced-server-access/) (Okta ASA), your DevOps teams have the ability to bake Identity & Access Management functions directly into your existing Infrastructure as Code as you provision resources across Amazon Web Services (AWS), Google Cloud Platform (GCP), or Microsoft Azure. In effect, you can now "Shift Identity Left".
-
-In practical terms, with [Okta and HashiCorp](https://www.okta.com/blog/2019/08/better-together-using-the-okta-integration-with-hashicorp-terraform/), you can configure and  automate the following, enabling velocity at scale without compromising on security:
-
-- Large scale cloud infrastructure environments 
-- Role-based access controls targeting dynamic infrastructure
-- The lifecycle of instance-level accounts and entitlements
-
-
-## Extending Terraform via Providers
-
-Terraform is also extendable through a plug-in framework known as Providers, which delivers a wrapper around a wide range of external APIs, making it easier to write code for various technologies. A Provider is responsible for understanding CRUD (Create, Read, Update, and Delete) API interactions. For example, the [AWS Terraform Provider](https://www.terraform.io/docs/providers/aws/index.html) includes helpers to manage the lifecycle of resources, such as creating and destroying VPCs, EC2 instances, security groups, and more. Providers are also available for users of [Google Cloud Platform](https://www.terraform.io/docs/providers/google/index.html) and [Microsoft Azure](https://www.terraform.io/docs/providers/azurerm/index.html), delivering similar functionality to provision infrastructure resources.
-
-Customers of Okta Advanced Server Access who use Terraform to automate infrastructure have an easy way to bake identity & access controls directly into their infrastructure as code. When spinning up a cloud instance across any of the IaaS platforms--AWS, GCP, or Azure--there is a short script to execute on startup that writes the local configuration and installs the Okta ASA server agent. Once the server agent is installed, it communicates with the backend API to know which user and group accounts to create, and which sudo entitlements to write. 
-
-One customer wanted to take things further, automating the initial Advanced Server Access configuration as well. In Advanced Server Access, a Project represents the authorization scope for a grouping of servers--in other words, which users have access to which servers, and what permissions they have on the machines. As every Advanced Server Access configuration is exposed as an API, customers can programmatically create Projects based on any event.
-
-The Okta customer in this case, [Splunk](https://www.splunk.com/), wanted an automated way to create an Advanced Server Access project in parallel with creating an AWS environment any time a new tenant of Splunk Cloud was created. This would enable both the infrastructure and the respective access controls to be fully automated--with Okta as the source of truth for Identity. Senior Security Engineer for Splunk, Aleksei Denisov, wanted both automation processes run via Terraform, so he wrote a Terraform Provider to interface with the Okta ASA API.
-
-{% img blog/terraform/splunk-terraform-workflow.png alt:"splunk terraform workflow" %}{: .center-image }
-
-
-In doing so, the Splunk team were able to bring key identity controls early on in the automation process, putting the right guard rails in place, while also streamlining access to environments for the Engineering & Support staff. *"I was able to fully automate access control processes by incorporating it into a build pipeline,"* said Denisov. *"This ensures that access provisioning is instant and consistent."* 
-
-Their process follows three primary steps:
-
-1. The ASA Terraform provider creates a new project, enrollment tokens, groups, and group permissions in bulk.  
-2. The AWS Terraform provider creates a new VPC with EC2 instances.
-3. EC2 instances are associated with the respective ASA project via a token enrollment mechanism.
-
-
-## Introducing the Advanced Server Access Terraform Provider
-
-In the spirit of community sharing, Aleksei went above and beyond, open sourcing his work through Splunk, enabling anyone to use this Provider across any cloud platform. To match that effort, we at Okta have added to and taken ownership of the Advanced Server Access Terraform Provider, and are pleased to announce it has been officially certified by the HashiCorp Terraform team. Thank you Splunk and HashiCorp!
-
-https://github.com/terraform-providers/terraform-provider-oktaasa 
-
-And an extra special thanks to Nicole Lam, Partner Solutions Technical Architect at Okta, for leading the effort to partner with HashiCorp and certify the Terraform Provider. Thank you Nicole!
-
-
-## Using the Advanced Server Access Terraform Provider
-
-In this example, we're going to build automation showcasing the full power of Okta and Terraform to automate and secure AWS environments. To proceed with this example, you must be an Okta Advanced Server Access administrator, and have administrative access to an AWS account. The steps to perform here are similar across GCP and Azure as well, using their respective Providers to provision the respective infrastructure resources.
+In this example, we're going to showcase the full power of Okta and Terraform to automate and secure AWS environments. To proceed with this example, you must be an [Okta Advanced Server Access](https://www.okta.com/products/advanced-server-access/) administrator, and have administrative access to an AWS account. The steps to perform here are similar across GCP and Azure as well, using their respective Providers to provision the respective infrastructure resources.
 
 
 ### Create an Advanced Server Access API User
@@ -358,11 +312,9 @@ resource "aws_instance" "ec2_instance" {
 ```
 
 
-## Enabling velocity at scale
+## Enabling Velocity at Scale
 
-This example demonstrates how seamless it is to inject Okta Identity & Access Management functions directly within your Terraform Infrastructure as Code. The real value shows when you think about this at scale. Imagine spinning up thousands of instances on demand--how would you enable your team secure access? Better question--what would happen if one of your server administrators left the organization?
-
-Okta is changing the game for secure server access in the modern cloud world--where resources are dynamic, and the surface area is ever-changing. Traditional practices of privileged access management break down in this world--the products don't scale, they don't automate well, and they quickly become bottlenecks. By making server access a core Identity use case behind its Zero Trust architecture, Okta is able to streamline the lifecycle of accounts and policies, better supporting your scalable, elastic infrastructure.
+This example demonstrates how seamless it is to inject Okta Identity & Access Management functions directly within your Terraform Infrastructure as Code. The real value shows when you think about this at scale. Imagine spinning up thousands of instances on demand--how would you enable your team secure access? Better question--what would happen if one of your server administrators left the organization? These are hard questions to answer, which only come from fully embracing the cloud operating model of automation.
 
 To learn more about Okta Advanced Server Access, and start a free 30-day trial, visit: https://www.okta.com/products/advanced-server-access/. 
 
