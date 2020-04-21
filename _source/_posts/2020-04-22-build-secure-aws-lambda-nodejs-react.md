@@ -1,45 +1,46 @@
 ---
 layout: blog_post
-title: ""
-author:
-by: advocate|contractor
-communities: [.net,java,devops,security,javascript,go,mobile,php,python,ruby]
-description: ""
-tags: []
+title: "How to Build a Secure AWS Lambda API with Node.js and React"
+author: nickolas-fisher
+by: contractor
+communities: [javascript]
+description: "Build a secure serverless API using AWS Lambda functions, Node.js, and React."
+tags: [aws lambda,lambda,serverless,node.js,javascript]
 tweets:
 - ""
 - ""
 - ""
-image:
-type: awareness|conversion
+image: blog/featured/okta-react-headphones.jpg
+type: conversion
 ---
 
-Serverless architecture with AWS Lambdas is quickly becoming a popular option for companies looking to deploy applications without the overhead of maintaining servers.  AWS Lambda functions are event-driven and serverless—triggered to process a piece of code and return a result.  AWS Lambdas can be written in most common languages today on a variety of platforms including .NET Core, Java, Go and, in the case of this post, Node.js.  
+Serverless architecture with AWS Lambdas is quickly becoming a popular option for companies looking to deploy applications without the overhead of maintaining servers. AWS Lambda functions are event-driven and serverless—triggered to process a piece of code and return a result. AWS Lambdas can be written in most common languages today on a variety of platforms including .NET Core, Java, Go and, in the case of this post, Node.js.
 
-The example in this post uses Node.JS 12.x, the latest version available on AWS to date.  You’ll be using AWS APIs to access AWS Lambdas from your application.  This post will teach you how to write your API documentation in YAML and import it into AWS APIs.  Additionally, you’ll learn how to deploy that API and enable CORS so that your application can access it.
+The example in this post uses Node.js 12.x, the latest version available on AWS to date. You'll be using AWS APIs to access AWS Lambdas from your application. This post will teach you how to write your API documentation in YAML and import it into AWS APIs. Additionally, you'll learn how to deploy that API and enable CORS so that your application can access it.
 
-For this project, you’ll be using react.js for the front end.  React.js is one of the most popular javascript front end frameworks.  React makes creating interactive UIs simple and intuitive.  To authenticate users, you’ll be using Okta's Single Sign-on Provider as well as Okta's React libraries, which make handling authentication very simple, allowing you more time to focus on your business code.  
+For this project, you'll be using React.js for the front end. React.js is one of the most popular javascript front end frameworks. React makes creating interactive UIs simple and intuitive. To authenticate users, you'll be using Okta's Single Sign-on Provider as well as Okta's React libraries, which make handling authentication very simple, allowing you more time to focus on your business code.
 
-This post outlines how to make a simple version of one of my favorite game shows as a kid, Card Sharks.  The premise of the game is simple enough: A player is shown six cards, one face-up and five face-down. The player must guess if the first face-down card is higher or lower than the current face-up card. If the player is correct they gain a point and move to the next card. If the card has the same rank, no point is awarded and the game continues. If the player is incorrect, the game is over. If the player gets all the cards correct they are allowed to reshuffle the deck and draw a fresh set of 6 cards.  At the end of the game, the player can submit their high score.
+This post outlines how to make a simple version of one of my favorite game shows as a kid, Card Sharks. The premise of the game is simple enough: A player is shown six cards, one face-up and five face-down. The player must guess if the first face-down card is higher or lower than the current face-up card. If the player is correct they gain a point and move to the next card. If the card has the same rank, no point is awarded and the game continues. If the player is incorrect, the game is over. If the player gets all the cards correct they are allowed to reshuffle the deck and draw a fresh set of 6 cards. At the end of the game, the player can submit their high score.
 
 ## Get Started with Okta
 
-First thing’s first, set up your [Okta application](https://developer.okta.com).  Log into your Okta admin portal and navigation to *Applications*.  Click the button labeled *Add Application*, select *Single-Page App,* then click *Next*.  Name your application something that will represent its role for you.  In my case, I used “Card Sharks.”  If your application uses port 8080, you can continue to use *http://localhost:8080* for your URLs.  However, if you aren't planning on specifically designating port 8080 for your application you will most likely use port 3000 for the application and will need to change these URLs to reflect that.  
+First thing's first, set up your [Okta application](https://developer.okta.com). Log into your Okta admin portal and navigation to *Applications*. Click the button labeled *Add Application*, select *Single-Page App,* then click *Next*. Name your application something that will represent its role for you. In my case, I used "Card Sharks."  If your application uses port 8080, you can continue to use `http://localhost:8080` for your URLs. However, if you aren't planning on specifically designating port 8080 for your application you will most likely use port 3000 for the application and will need to change these URLs to reflect that.
 
+{% img blog/build-secure-aws-lambda-nodejs-react/app-settings.jpg alt:"Okta Application Settings" width:"800" %}
 
+Your completed Okta set up should look similar to this.
 
- Your completed Okta set up should look similar to this.
-
-Click *Done* to review your application setup.  Make sure to grab the *Client ID* listed under *Client Credentials* as it will be needed in your react.js application.  
+Click *Done* to review your application setup. Make sure to grab the *Client ID* listed under *Client Credentials* as it will be needed in your react.js application.
 
 ## Setup AWS
 
-Next, set up AWS to handle your serverless operations.  
+Next, set up AWS to handle your serverless operations.
 
 ### Set up Lambda Functions
 
-First, navigate to [AWS Lambda Home](https://console.aws.amazon.com/lambda/home).  Click on *Functions* to see your functions' home screen.  Here you will see a button labeled *Create Function*.  Click that to start setting up your first function.   This function will be responsible for creating a standard deck of 52 cards, shuffling it, and returning 6 cards for the react.js application to use.  For the  purposes of this project, select the *Author From Scratch* option.  The blueprints and serverless app repository are available for more complex applications, but you won’t need thattoday.  Name your function something relevant to your application.  I named mine *cardsharksApi_deck_getNewDeck*.  Make sure to select the runtime as  *Node.js 12.x*.  Once you’ve clicked the  *Create Function* button, you will be brought to the function configuration screen.  This is where you can add code, triggers, and anything else you may need.  
+First, navigate to [AWS Lambda Home](https://console.aws.amazon.com/lambda/home). Click on *Functions* to see your functions' home screen. Here you will see a button labeled *Create Function*. Click that to start setting up your first function.  This function will be responsible for creating a standard deck of 52 cards, shuffling it, and returning 6 cards for the react.js application to use. For the  purposes of this project, select the *Author From Scratch* option. The blueprints and serverless app repository are available for more complex applications, but you won't need that today. Name your function something relevant to your application. I named mine *cardsharksApi_deck_getNewDeck*. Make sure to select the runtime as  *Node.js 12.x*. Once you've clicked the  *Create Function* button, you will be brought to the function configuration screen. This is where you can add code, triggers, and anything else you may need.
 
+{% img blog/build-secure-aws-lambda-nodejs-react/create-function.jpg alt:"Create Function" width:"800" %}
 
 Add the following to the *function code* section.
 
@@ -125,13 +126,13 @@ exports.handler = async(event) => {
 
 ```
 
-AWS provides a simple blank, “Hello World,” output with a response code of 200.  Keep that code, but replace your body with the `getCards` function call.  `getCards` calls `buildDeck` which creates your 52 cards—ace through King of each suit.  In this game, aces will be considered low, making their value 1.  If you wish to make them high, change the value to 14.  For an added challenge, consider how you would handle Aces being low or high. 
+AWS provides a simple blank, "Hello World," output with a response code of 200. Keep that code, but replace your body with the `getCards` function call. `getCards` calls `buildDeck` which creates your 52 cards—ace through King of each suit. In this game, aces will be considered low, making their value 1. If you wish to make them high, change the value to 14. For an added challenge, consider how you would handle Aces being low or high.
 
-Next, you need to test your function.  This is relatively easy—click the *Test* button on the top of your screen.  You should then see  a screen that says "Configure Test Event" with some JSON dummy values in it.  These values will be passed to your function in the `event` object.  Since building the deck doesn't require any input, feel free to leave this as an empty JSON object.  Name your test trigger something that is relevant to you.  I named mine *TestTrigger* as I only anticipate needing it this once.  After you’ve done this, press *Create*.  Now, when you press *Test,* you can select the Trigger from your dropdown box next to the *Test* button.  When you press *Test* again, the response will be listed after the code in the *Function Code* window.  Ideally, you should see `statusCode: 200` along with a JSON array that contains some information about six cards.  
+Next, you need to test your function. This is relatively easy—click the *Test* button on the top of your screen. You should then see  a screen that says "Configure Test Event" with some JSON dummy values in it. These values will be passed to your function in the `event` object. Since building the deck doesn't require any input, feel free to leave this as an empty JSON object. Name your test trigger something that is relevant to you. I named mine *TestTrigger* as I only anticipate needing it this once. After you've done this, press *Create*. Now, when you press *Test,* you can select the Trigger from your dropdown box next to the *Test* button. When you press *Test* again, the response will be listed after the code in the *Function Code* window. Ideally, you should see `statusCode: 200` along with a JSON array that contains some information about six cards.
 
-At this point, there are still two more functions you need to implement that will allow you to both get and save high scores.  For these, you will need to connect your AWS lambda function to the storage system of your choice.  For this application, you can stub these two functions out until you are ready to connect to your storage.
+At this point, there are still two more functions you need to implement that will allow you to both get and save high scores. For these, you will need to connect your AWS lambda function to the storage system of your choice. For this application, you can stub these two functions out until you are ready to connect to your storage.
 
-Create another function for `cardsharksApi_highScores_postHighScore`.  In the *Function Code* section of the lambda, screen add the following code.
+Create another function for `cardsharksApi_highScores_postHighScore`. In the *Function Code* section of the lambda, screen add the following code.
 
 ```javascript
 exports.handler = async (event) => {
@@ -147,7 +148,7 @@ exports.handler = async (event) => {
 };
 ```
 
-Feel free to  add whatever error-handling or data validation you need here before sending it to your repository.  Next, click on *Test* and add a new test.  For this, you will need to add some simple JSON.
+Feel free to  add whatever error-handling or data validation you need here before sending it to your repository. Next, click on *Test* and add a new test. For this, you will need to add some simple JSON.
 
 ```json
 {
@@ -156,9 +157,9 @@ Feel free to  add whatever error-handling or data validation you need here befor
 }
 ```
 
-Your react app will send your player's name along with their score to the server.  This JSON represents what the function is expecting to receive from the react.js app.  These parameters can be accessed in the `event` property provided by the boilerplate from Amazon.  You can add up to 10 cases once you’ve fleshed out your data validation to ensure that your test cases are covered. 
+Your react app will send your player's name along with their score to the server. This JSON represents what the function is expecting to receive from the react.js app. These parameters can be accessed in the `event` property provided by the boilerplate from Amazon. You can add up to 10 cases once you've fleshed out your data validation to ensure that your test cases are covered.
 
-Lastly, create a function for `cardsharksApi_highScores_getHighScores`.  Add the following code to it:
+Lastly, create a function for `cardsharksApi_highScores_getHighScores`. Add the following code to it:
 
 ```javascript
 exports.handler = async(event) => {
@@ -204,11 +205,11 @@ exports.handler = async(event) => {
 };
 ```
 
-Again, this is sending back dummy data for the application to use.  Once you've connected to your repository, you can replace this code with your data access logic.  
+Again, this is sending back dummy data for the application to use. Once you've connected to your repository, you can replace this code with your data access logic.
 
 ### Create Your YAML API
 
-With your lambda functions complete, it’s time to set up your API endpoints which will interface with your react.js application and your lambda functions.  One great thing about AWS API is that it will take a YAML definition of your API and implement it to your endpoints automatically.  If you are comfortable creating the endpoints yourself and don't wish to write out a YAML definition, you can skip this section.  However, in a real-world setting, the advantages of being able to document your API and implement it in one step makes this approach very useful.  This is doubly true when you're dealing with large APIs that many developers will need to access.
+With your lambda functions complete, it's time to set up your API endpoints which will interface with your react.js application and your lambda functions. One great thing about AWS API is that it will take a YAML definition of your API and implement it to your endpoints automatically. If you are comfortable creating the endpoints yourself and don't wish to write out a YAML definition, you can skip this section. However, in a real-world setting, the advantages of being able to document your API and implement it in one step makes this approach very useful. This is doubly true when you're dealing with large APIs that many developers will need to access.
 
 You can review my version of the YAML below.
 
@@ -217,132 +218,132 @@ openapi: 3.0.0
 # Added by API Auto Mocking Plugin
 servers:
   - description: SwaggerHub API Auto Mocking
-	url: https://virtserver.swaggerhub.com/FishbowlLLC/CardSharks/1.0.0
+    url: https://virtserver.swaggerhub.com/FishbowlLLC/CardSharks/1.0.0
 info:
   description: This is the API to backend the card sharks React app using Okta Single Sign on Provider
   version: "1.0.0"
   title: Cardsharks API
   contact:
-	email: nik@fishbowlllc.com
+    email: nik@fishbowlllc.com
   license:
-	name: Apache 2.0
-	url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
 tags:
   - name: deck
-	description: Calls for getting a new deck
+    description: Calls for getting a new deck
   - name: highscore
-	description: Calls for getting and saving high scores
+    description: Calls for getting and saving high scores
 paths:
   /deck:
-	get:
-  	tags:
-    	- deck
-  	summary: Gets deck for a new game
-  	operationId: getdeck
-  	description: |
-    	Gets a 52 card deck and shuffles it and returns 6 cards for the game
-  	responses:
-    	'200':
-      	description: 6 cards in an ordered array
-      	content:
-        	application/json:
-          	schema:
-            	type: array
-            	items:
-              	$ref: '#/components/schemas/Card'
+    get:
+      tags:
+        - deck
+      summary: Gets deck for a new game
+      operationId: getdeck
+      description: |
+        Gets a 52 card deck and shuffles it and returns 6 cards for the game
+      responses:
+        '200':
+          description: 6 cards in an ordered array
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Card'
   /highscore:
-	get:
-  	tags:
-    	- highscore
-  	summary: gets the high scores list
-  	responses:
-    	'200':
-      	description: Top 10 high scores
-      	content:
-        	application/json:
-          	schema:
-            	type: array
-            	items:
-              	$ref: '#/components/schemas/HighScore'
-	post:
-  	tags:
-    	- highscore
-  	summary: adds a score to the high scores
-  	responses:
-   	'200':
-      	description: Score Accepted
+    get:
+      tags:
+        - highscore
+      summary: gets the high scores list
+      responses:
+        '200':
+          description: Top 10 high scores
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/HighScore'
+    post:
+      tags:
+        - highscore
+      summary: adds a score to the high scores
+      responses:
+       '200':
+          description: Score Accepted
 components:
   schemas:
-	Card:
-  	type: object
-  	properties:
-    	suit:
-      	type: string
-    	rank:
-      	type: string
-      	description: the face of the card, A, 1, 2, 3, 4, 5, 6, 7, ,8 ,9, 10, J, Q, K
-      	example: K
-    	value:
-      	type: integer
-      	description: the corresponding values of each rank.  Ace = 1, J = 11, Q = 12, K = 13, numerical ranks are the same value as rank
-      	example: 13
-    	visible:
-      	type: boolean
-      	description: describes if the card is visible to the player
-	HighScore:
-  	type: object
-  	properties:
-    	name:
-      	type: string
-      	description: username of high score owner
-    	score:
-      	type: integer
+    Card:
+      type: object
+      properties:
+        suit:
+          type: string
+        rank:
+          type: string
+          description: the face of the card, A, 1, 2, 3, 4, 5, 6, 7, ,8 ,9, 10, J, Q, K
+          example: K
+        value:
+          type: integer
+          description: the corresponding values of each rank. Ace = 1, J = 11, Q = 12, K = 13, numerical ranks are the same value as rank
+          example: 13
+        visible:
+          type: boolean
+          description: describes if the card is visible to the player
+    HighScore:
+      type: object
+      properties:
+        name:
+          type: string
+          description: username of high score owner
+        score:
+          type: integer
 
 ```
 
 ### Import Swagger into AWS API
 
-Now, navigate to [Amazon API Gateway](https://console.aws.amazon.com/apigateway/main) and start setting up your API.  Click *Create API,* then select *REST API* using the *Build* button.  Name your API something relevant and click *Create API*.  You can leave the rest of the fields on the default.  
+Now, navigate to [Amazon API Gateway](https://console.aws.amazon.com/apigateway/main) and start setting up your API. Click *Create API,* then select *REST API* using the *Build* button. Name your API something relevant and click *Create API*. You can leave the rest of the fields on the default.
 
-This will direct you to your API Gateway home.  Click  *Actions* and select *Import API*.  From here, copy and paste the YAML into the definition window and click *Import*.  Your API is now set up!
+This will direct you to your API Gateway home. Click  *Actions* and select *Import API*. From here, copy and paste the YAML into the definition window and click *Import*. Your API is now set up!
 
-If you chose to skip the last section, you can click *Actions* then *Create Resource* and *Create Method* to create your endpoints and manually define them.  
+If you chose to skip the last section, you can click *Actions* then *Create Resource* and *Create Method* to create your endpoints and manually define them.
 
 ### Connect AWS Lambda to APIs
 
-Next, you’ll want to connect Lambda to your APIs. Open the method integration window by clicking *GET* under the `/deck` options   *Lambda Function* should be preselected by default but, if it isn’t, make sure to select it before continuing.  Next, enter the name of your function in the *Lambda Function* text box.  When you click *Save,* you will see a notification about adding permissions to the Lambda function.  Click *Ok* to be directed to the method execution page.  Here, you’ll notice that the method request is passed to the integration request which connects first to your lambda function and then back through the response chain to the client.  Repeat the above steps for `/highscore/GET` by mapping it to your lambda function `cardsharksApi_highScores_getHighScores` and `/highscore/POST` to `cardsharksApi_highScores_postHighScore`.
+Next, you'll want to connect Lambda to your APIs. Open the method integration window by clicking *GET* under the `/deck` options   *Lambda Function* should be preselected by default but, if it isn't, make sure to select it before continuing. Next, enter the name of your function in the *Lambda Function* text box. When you click *Save,* you will see a notification about adding permissions to the Lambda function. Click *Ok* to be directed to the method execution page. Here, you'll notice that the method request is passed to the integration request which connects first to your lambda function and then back through the response chain to the client. Repeat the above steps for `/highscore/GET` by mapping it to your lambda function `cardsharksApi_highScores_getHighScores` and `/highscore/POST` to `cardsharksApi_highScores_postHighScore`.
 
 ### Enable CORS and Deploy
 
-Now that you’ve connected AWS lambdas to the API endpoints, it’s time to deploy your API.  First, make sure to enable CORS.  Click `/deck` and select *Actions,* then *Enable CORS*.  The default options should be enough for this application, but you’ll likely want to review the full capabilities later.  Select *Enable CORS and replace existing CORS headers* in the lower right.  A window with a list of tasks will appear and, as AWS executes them, they will display a green checkmark or red X.  You’ll need to review any errors that you see.  A quick warning—when AWS creates the `OPTIONS` method it doesn’t set up the responses which usually causes CORS to fail.  To fix this, click *Options* under the `/deck` resource. 
+Now that you've connected AWS lambdas to the API endpoints, it's time to deploy your API. First, make sure to enable CORS. Click `/deck` and select *Actions,* then *Enable CORS*. The default options should be enough for this application, but you'll likely want to review the full capabilities later. Select *Enable CORS and replace existing CORS headers* in the lower right. A window with a list of tasks will appear and, as AWS executes them, they will display a green check mark or red X. You'll need to review any errors that you see. A quick warning—when AWS creates the `OPTIONS` method it doesn't set up the responses which usually causes CORS to fail. To fix this, click *Options* under the `/deck` resource.
 
- 
+{% img blog/build-secure-aws-lambda-nodejs-react/deck-options-add-response-1.jpg alt:"Options" width:"800" %}
 
+Click *Method Response* —> *Add Response*.
 
-Click *Method Response* —> *Add Response*.  
+{% img blog/build-secure-aws-lambda-nodejs-react/deck-options-add-response-2.jpg alt:"Add Response" width:"800" %}
 
+Add status code 200 and save.
 
-Add status code 200 and save.  
+{% img blog/build-secure-aws-lambda-nodejs-react/deck-options-add-response-3.jpg alt:"Status Code 200" width:"800" %}
 
+Next, return to the `/deck` resource and click *Actions* and *Enable Cors*. Repeat the workflow and the errors should be gone. Repeat this step for the `/highscore` resource.
 
+{% img blog/build-secure-aws-lambda-nodejs-react/deck-options-add-response-4.jpg alt:"Enable CORS" width:"800" %}
 
-Next, return to the `/deck` resource and click *Actions* and *Enable Cors*.  Repeat the workflow and the errors should be gone.  Repeat this step for the `/highscore` resource.  
+Once again, click *Actions* and then *Deploy API*.  For Development Stage select *[New Stage]* and give your stage a relevant name. These stages are intended to break the production code away from the testing code. Since you only have one stage, you can name this whatever you like. Click *Deploy* and your API is ready for use. You can verify this with ARC or Postman.
 
-
-
-Once again, click *Actions* and then *Deploy API*.   For Development Stage select *[New Stage]* and give your stage a relevant name.  These stages are intended to break the production code away from the testing code.  Since you only have one stage, you can name this whatever you like.  Click *Deploy* and your API is ready for use.  You can verify this with ARC or Postman.  
-
-After clicking deploy, you should land on the *Stages* page on your API.  You can open any of the stages you have created and select the `/deck/get` method.  There you will see an alert with the text *Invoke URL: {some url}*.  This URL is what your application will need to call.  
+After clicking deploy, you should land on the *Stages* page on your API. You can open any of the stages you have created and select the `/deck/get` method. There you will see an alert with the text *Invoke URL: {some url}*. This URL is what your application will need to call.
 
 ## The React Application
 
-With your API set up and ready to go, you can begin to work on the react.js application.  
+With your API set up and ready to go, you can begin to work on the react.js application.
 
 ### Setup your Application
 
-To set up your app,  use the [Create React App toolchain defined here](https://reactjs.org/docs/create-a-new-react-app.html).  This provides a quick and handy way to fire up a new react.js application.  Navigate to the parent folder where your react.js application will be.  Then, use the npx package runner with the command `npx create-react-app {folder}`.  Then, go grab a cup of tea or coffee as this process takes a  few minutes.  
+To set up your app,  use the [Create React App tool chain defined here](https://reactjs.org/docs/create-a-new-react-app.html). This provides a quick and handy way to fire up a new react.js application. Navigate to the parent folder where your react.js application will be. Then, use the npx package runner with the command `npx create-react-app {folder}`. Then, go grab a cup of tea or coffee as this process takes a  few minutes.
 
-Once it is complete, you can install the dependencies for the application.  
+Once it is complete, you can install the dependencies for the application.
 
 First, get the Okta react libraries.
 
@@ -352,7 +353,7 @@ First, get the Okta react libraries.
     npm install @okta/okta-signin-widget
 ```
 
-Next, use bootstrap for styling.  To do this, install *React-Bootstrap* as well as *Bootstrap.*  *React-Bootstrap* is used to bridge the gap between react.js and bootstrap, however, it does not ship with the bootstrap CSS so you will need to install that as well.  
+Next, use bootstrap for styling. To do this, install *React-Bootstrap* as well as *Bootstrap.*  *React-Bootstrap* is used to bridge the gap between react.js and bootstrap, however, it does not ship with the bootstrap CSS so you will need to install that as well.
 
 ```console
     npm i react-bootstrap bootstrap
@@ -366,27 +367,28 @@ npm i dotenv
 
 In your root, create a file named `.env` and add the following keys.
 
-```javascript
-REACT_APP_OKTA_CLIENTID={ yourClientId } 
-REACT_APP_OKTA_URL_BASE={ yourOktaDomain }
+```bash
+REACT_APP_OKTA_CLIENTID={yourClientId}
+REACT_APP_OKTA_URL_BASE={yourOktaDomain}
 REACT_APP_OKTA_APP_BASE_URL=http://localhost:3000
 REACT_APP_AMAZON_API_BASE=
 ```
-You can get `REACT_APP_AMAZON_API_BASE` from the base of your invoke URL from Amazon API.  You may need to change your `REACT_APP_OKTA_APP_BASE_URL` to a different port if you are developing against one other than 3000.  Note here that all of your keys start with *REACT_APP_*.  This is required for react.js to read the values.
 
-For the cards styling, you will use [this CSS playing cards library](https://github.com/selfthinker/CSS-Playing-Cards) provided by [selfthinker](https://github.com/selfthinker/CSS-Playing-Cards/commits?author=selfthinker) on GitHub.  Add the `cards.css` from this repo to your `src` directory.  If required, you can also bring in the IE and IE9 libraries.  You will also need to add the `faces` directory from the repo to your `src` directory.  
+You can get `REACT_APP_AMAZON_API_BASE` from the base of your invoke URL from Amazon API. You may need to change your `REACT_APP_OKTA_APP_BASE_URL` to a different port if you are developing against one other than 3000. Note here that all of your keys start with *REACT_APP_*. This is required for react.js to read the values.
 
-To allow *React-bootstrap* to do its job, add `import 'bootstrap/dist/css/bootstrap.min.css';` to the top of your `App.js` file.  This will give *React-bootstrap* access to the CSS libraries from bootstrap.  
+For the cards styling, you will use [this CSS playing cards library](https://github.com/selfthinker/CSS-Playing-Cards) provided by [selfthinker](https://github.com/selfthinker/CSS-Playing-Cards/commits?author=selfthinker) on GitHub. Add the `cards.css` from this repo to your `src` directory. If required, you can also bring in the IE and IE9 libraries. You will also need to add the `faces` directory from the repo to your `src` directory.
 
-Add a file to the `src` directory called `AppWithRouterAccess.jsx`.  You will implement the code for this shortly.
+To allow *react-bootstrap* to do its job, add `import 'bootstrap/dist/css/bootstrap.min.css';` to the top of your `App.js` file. This will give *react-bootstrap* access to the CSS libraries from bootstrap.
 
-Finally, add two folders, `Components` and `Pages` under your `src` folder.  In `Components` add the following files:  `Card.jsx`, `GameBoard.jsx`, `GameHome.jsx`, `GameOver.jsx`, `Header.jsx`, and `LoginForm.jsx`.  These components will be reused or enable you to compartmentalize logically separate screens from each other.
+Add a file to the `src` directory called `AppWithRouterAccess.jsx`. You will implement the code for this shortly.
 
-In pages, add the following files:  `Game.jsx`, `Home.jsx`, `Login.jsx`.  You can now work on implementing each of these pages.  
+Finally, add two folders, `Components` and `Pages` under your `src` folder. In `Components` add the following files:  `Card.jsx`, `GameBoard.jsx`, `GameHome.jsx`, `GameOver.jsx`, `Header.jsx`, and `LoginForm.jsx`. These components will be reused or enable you to compartmentalize logically separate screens from each other.
+
+In pages, add the following files:  `Game.jsx`, `Home.jsx`, `Login.jsx`. You can now work on implementing each of these pages.
 
 ### Implement the Components
 
-First you can implement the `AppWithRouterAccess.jsx` file.  
+First you can implement the `AppWithRouterAccess.jsx` file.
 
 ```javascript
 
@@ -424,9 +426,9 @@ const AppWithRouterAccess = () => {
 export default AppWithRouterAccess;
 ```
 
-This component does the major lifting between Okta and your React.js application.  Its primary responsibility is to set up your routes for your application.  Notice that the `/Game` route is labeled as a `SecureRoute`.  This enables your application to enforce authentication on that route.  Unauthenticated users won't be able to access that route.  Instead, they will be redirected to the `Login` page.  You also want to set up the route for `/implicit/callback` that Okta uses for its authentication workflow.  
+This component does the major lifting between Okta and your React.js application. Its primary responsibility is to set up your routes for your application. Notice that the `/Game` route is labeled as a `SecureRoute`. This enables your application to enforce authentication on that route. Unauthenticated users won't be able to access that route. Instead, they will be redirected to the `Login` page. You also want to set up the route for `/implicit/callback` that Okta uses for its authentication workflow.
 
-Now, shift your focus to the `Components` folder.  Start by setting up your `Header` component.
+Now, shift your focus to the `Components` folder. Start by setting up your `Header` component.
 
 ```javascript
 import React from 'react';
@@ -466,7 +468,7 @@ const Header = () => {
 export default Header;
 ```
 
-This simple component gives your users a nav bar that will be used on each page and a button that is changed from a login button to a logout button once the user is authenticated.  Again, since `/game` is a `SecureRoute` if the user clicks *Game* they will be directed to the login page.
+This simple component gives your users a nav bar that will be used on each page and a button that is changed from a login button to a logout button once the user is authenticated. Again, since `/game` is a `SecureRoute` if the user clicks *Game* they will be directed to the login page.
 
 Next, implement the ``LoginForm`` component.
 
@@ -532,11 +534,11 @@ const LoginForm = ({ baseUrl, issuer }) => {
 export default LoginForm;
 ```
 
-When the user submits the form, your application will override that action and direct the user into the Okta workflow.  This is done with ``oktaAuth.signIn`` which returns a promise that must be handled appropriately.  If the user has successfully logged in, set the `sessionToken` that allows the user to proceed authenticated.
+When the user submits the form, your application will override that action and direct the user into the Okta workflow. This is done with ``oktaAuth.signIn`` which returns a promise that must be handled appropriately. If the user has successfully logged in, set the `sessionToken` that allows the user to proceed authenticated.
 
-Now, turn your attention to the game components themselves.  The `Game` page will have 3 main stages.  When the user lands on the page, they are offered the chance to start a new game.  After this, the user enters the “gameplay” phase.  Finally, after the game is over the user is presented with the opportunity to start a new game or submit a high score.  
+Now, turn your attention to the game components themselves. The `Game` page will have 3 main stages. When the user lands on the page, they are offered the chance to start a new game. After this, the user enters the "game play" phase. Finally, after the game is over the user is presented with the opportunity to start a new game or submit a high score.
 
-Let’s start with the `Card` component that will be used in the game.  
+Let's start with the `Card` component that will be used in the game.
 
 ```javascript
 import React from 'react';
@@ -569,7 +571,7 @@ const Card = ({ card }) => {
 export default Card;
 ```
 
-If the card is listed as visible, you will display the card rank and suit based on the CSS provided by the `CSS-Playing-Cards` library.  If it is not, show the back of the card.
+If the card is listed as visible, you will display the card rank and suit based on the CSS provided by the `CSS-Playing-Cards` library. If it is not, show the back of the card.
 
 With that done you can work on the `GameHome` component.
 
@@ -622,9 +624,9 @@ const GameHome = ({ newGameClick, highScores, submitHighScore }) => {
 export default GameHome;
 ```
 
-Here, you are displaying a table with the high scores.  These high scores will be passed in as a property from the `Game` page and retrieved from the Amazon API.  You also are providing the user with a button to start a new game.
+Here, you are displaying a table with the high scores. These high scores will be passed in as a property from the `Game` page and retrieved from the Amazon API. You also are providing the user with a button to start a new game.
 
-Next, implement the `GameOver` component.  This is the screen that is shown when the player completes the game.
+Next, implement the `GameOver` component. This is the screen that is shown when the player completes the game.
 
 ```javascript
 import React from 'react';
@@ -652,9 +654,9 @@ const GameOver = ({ score, playAgain, submitHighScore }) => {
 export default GameOver;
 ```
 
-This component displays the user score and presents two buttons: one to submit the player's score and one to play again.  Both of the handlers for these functions are passed in as properties to this component from the `Game` page.
+This component displays the user score and presents two buttons: one to submit the player's score and one to play again. Both of the handlers for these functions are passed in as properties to this component from the `Game` page.
 
-Finally, the `GameBoard` itself.  This is the most complex component.
+Finally, the `GameBoard` itself. This is the most complex component.
 
 ```javascript
 import React, { Component } from 'react';
@@ -736,7 +738,7 @@ class GameBoard extends Component {
         }
         else if (push) {
             this.setState({
-                lastResult: 'A push!  Keep playing.  ',
+                lastResult: 'A push!  Keep playing. ',
                 needsNewDeck: nextCardIdx === 5
             });
         }
@@ -819,19 +821,18 @@ class GameBoard extends Component {
 
 }
 
-
 export default GameBoard;
 ```
 
-This component is presented while the player is playing.  It shows their board, which displays 6 cards—either face up or face down depending on how far through the game the player is.  Additionally, there is a display that shows the player their current card and provides controls for guessing higher or lower.  
+This component is presented while the player is playing. It shows their board, which displays 6 cards—either face up or face down depending on how far through the game the player is. Additionally, there is a display that shows the player their current card and provides controls for guessing higher or lower.
 
-If the user guesses incorrectly, they are presented with the option to leave this screen, bringing them to the `GameOver` component.  If the user successfully completes all 5 cards, they are presented with the option to continue playing or to end the game.  In both options, the guess buttons should be disabled.  
+If the user guesses incorrectly, they are presented with the option to leave this screen, bringing them to the `GameOver` component. If the user successfully completes all 5 cards, they are presented with the option to continue playing or to end the game. In both options, the guess buttons should be disabled.
 
-This is also the first time you’ll be using the Amazon APIs directly in your application.  Use the `fetch` method to call `deck\get`.  Once the results are returned, you can change the state from `loading: true` to `loading: false`.
+This is also the first time you'll be using the Amazon APIs directly in your application. Use the `fetch` method to call `deck\get`. Once the results are returned, you can change the state from `loading: true` to `loading: false`.
 
 ### Implement the Pages
 
-Let’s focus on the `Pages` folder now;  we’re going to connect everything together.
+Let's focus on the `Pages` folder now;  we're going to connect everything together.
 
 First, implement `Home.jsx`.
 
@@ -850,7 +851,6 @@ const Home = () => {
       <Header></Header>
 
       <Row>
-
         <Col sm={12} className="text-center">
           <h3>Card Sharks!</h3>
           <h4>A React Demo using Okta</h4>
@@ -869,11 +869,8 @@ const Home = () => {
               <Link to='/Game'>Play Now</Link>
             </Card.Body>
           </Card>
-
         </Col>
-
       </Row>
-
 
     </Container>
   );
@@ -881,7 +878,7 @@ const Home = () => {
 export default Home;
 ```
 
-This is a simple introduction page.  It uses the `Header` component you wrote earlier and just tells the user a little about the application.
+This is a simple introduction page. It uses the `Header` component you wrote earlier and just tells the user a little about the application.
 
 Next, you can implement the `Login` page.
 
@@ -913,9 +910,9 @@ const Login = ({ baseUrl, issuer }) => {
 export default Login;
 ````
 
-Again, this is a straight-forward page that presents the `LoginForm` to the user and checks the `authState`.  If the user is already logged in you will redirect them to the home page.  If they are not, you will allow the user to use the `LoginForm`.
+Again, this is a straight-forward page that presents the `LoginForm` to the user and checks the `authState`. If the user is already logged in you will redirect them to the home page. If they are not, you will allow the user to use the `LoginForm`.
 
-Lastly, the `Game` page.  
+Lastly, the `Game` page.
 
 ```javascript
 import React, { Component } from 'react';
@@ -1022,34 +1019,38 @@ class Game extends Component {
 export default withOktaAuth(Game);
 ```
 
-This page takes your game components from earlier and manages the state of the player.  It will also display the proper components based on the game state and contains functions that recieve or post high scores to your Amazon API.  These functions can be called by any of your components.  
+This page takes your game components from earlier and manages the state of the player. It will also display the proper components based on the game state and contains functions that receive or post high scores to your Amazon API. These functions can be called by any of your components.
 
 Finally, you need to update your `App.js` file in the `src` folder to properly start the application and display the `AppWithRouterAccess` component.
 
 ```javascript
-
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import AppWithRouterAccess from './AppWithRouterAccess';
 import 'bootstrap/dist/css/bootstrap.min.css';
- 
-const App = () => { 
+
+const App = () => {
   return (
     <Router>
       <AppWithRouterAccess/>
     </Router>
   );
 }
- 
+
 export default App;
 ```
 
 ## Test it
 
-With all your pages set up, type `npm run start` in your terminal.  You’ll be presented with your home page and the opportunity to start a new game or log in to Okta.  Click on *New Game* and you will be asked to log in using your Okta account.  Log in and give the game a shot!
+With all your pages set up, type `npm run start` in your terminal. You'll be presented with your home page and the opportunity to start a new game or log in to Okta. Click on *New Game* and you will be asked to log in using your Okta account. Log in and give the game a shot!
 
 ## Further Reading
 
+If you are interested in learning more about React.js, Node.js, or Serverless, check out some of these other great posts!
+
 * [Okta's React Guide](/code/react/)
+* [Build a Basic CRUD App with Node and React](/blog/2018/07/10/build-a-basic-crud-app-with-node-and-react)
 * [Build Reusable React Components](/blog/2020/01/20/build-reusable-react-components)
 * [AWS Lambda vs Azure Functions for C# Serverless](/blog/2019/05/20/azure-aws-lambda-functions-serverless-csharp)
+
+Want to be notified when we publish more of these? Follow [@oktadev on Twitter](https://twitter.com/oktadev), subscribe to our [YouTube channel](https://youtube.com/c/oktadev), or follow us on [LinkedIn](https://www.linkedin.com/company/oktadev/). If you have a question, please leave a comment below!
