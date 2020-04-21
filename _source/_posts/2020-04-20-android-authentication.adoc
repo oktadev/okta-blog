@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build an Android Application with Authentication"
-author: daniel-pereira
+author: mikel-pascual
 by: contractor
 communities: [mobile]
 description: "Tutorial: Build a simple Android application with authentication then add social and biometric authentication."
