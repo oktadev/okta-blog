@@ -7,14 +7,17 @@ const blogImagePath = path.join(__dirname, "..", "_source", "_assets", "img", "b
 const defaultPostFrontMatter = `---
 layout: blog_post
 title: ""
-author: 
+author:
+by: advocate|contractor
+communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
 description: ""
 tags: []
 tweets:
 - ""
 - ""
 - ""
-image: 
+image:
+type: awareness|conversion
 ---
 `
 
