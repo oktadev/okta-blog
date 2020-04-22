@@ -7,9 +7,9 @@ communities: [javascript]
 description: "Build a secure serverless API using AWS Lambda functions, Node.js, and React."
 tags: [aws lambda,lambda,serverless,node.js,javascript]
 tweets:
-- ""
-- ""
-- ""
+- "Learn how to build a secure AWS Lambda API with Node.js and React! #nodejs #react #serverless"
+- "Want to learn how to build a secure AWS Lambda API with Node.js and React? Check this out! #nodejs #react #serverless"
+- "Build an AWS Lambda API with Node.js and React, and secure it using Okta! #nodejs #react #serverless"
 image: blog/featured/okta-react-headphones.jpg
 type: conversion
 ---
@@ -348,21 +348,21 @@ Once it is complete, you can install the dependencies for the application.
 First, get the Okta react libraries.
 
 ```console
-    npm install @okta/okta-auth-js
-    npm install @okta/okta-react react-router-dom
-    npm install @okta/okta-signin-widget
+npm install @okta/okta-auth-js@3.1
+npm install @okta/okta-react react-router-dom@3.0
+npm install @okta/okta-signin-widget@3.9
 ```
 
 Next, use bootstrap for styling. To do this, install *React-Bootstrap* as well as *Bootstrap.*  *React-Bootstrap* is used to bridge the gap between react.js and bootstrap, however, it does not ship with the bootstrap CSS so you will need to install that as well.
 
 ```console
-    npm i react-bootstrap bootstrap
+npm i react-bootstrap@1.0 bootstrap@4.4
 ```
 
 Finally, you will use dotenv to store your sensitive values.
 
 ```console
-npm i dotenv
+npm i dotenv@8.2
 ```
 
 In your root, create a file named `.env` and add the following keys.
@@ -391,7 +391,6 @@ In pages, add the following files:  `Game.jsx`, `Home.jsx`, `Login.jsx`. You can
 First you can implement the `AppWithRouterAccess.jsx` file.
 
 ```javascript
-
 import React from 'react';
 import { Route, useHistory } from 'react-router-dom';
 import { Security, SecureRoute, LoginCallback } from '@okta/okta-react';
@@ -1043,6 +1042,8 @@ export default App;
 ## Test it
 
 With all your pages set up, type `npm run start` in your terminal. You'll be presented with your home page and the opportunity to start a new game or log in to Okta. Click on *New Game* and you will be asked to log in using your Okta account. Log in and give the game a shot!
+
+If you need to compare any code to the original, you can grab the source code for the Node.js project on [GitHub](https://github.com/oktadeveloper/okta-aws-lambda-node-react-example).
 
 ## Further Reading
 
