@@ -333,7 +333,7 @@ Once again, click *Actions* and then *Deploy API*.  For Development Stage select
 
 After clicking deploy, you should land on the *Stages* page on your API. You can open any of the stages you have created and select the `/deck/get` method. There you will see an alert with the text *Invoke URL: {some url}*. This URL is what your application will need to call.
 
-## The React Application
+## Build Your Frontend React.js Application
 
 With your API set up and ready to go, you can begin to work on the React.js application.
 
