@@ -1,0 +1,134 @@
+---
+layout: blog_post
+title: "How to Succeed with Angular Deployment" // 71
+// Deploy Angular to the Cloud = 61
+// The Ultimate Angular Deployment Guide = 57
+// Angular Deployment Guide for 2020 = 47
+author: matt-raible
+by: advocate
+communities: [java,javascript,devops]
+description: "You've built an Angular + Spring Boot application and now you need to deploy it. This tutorial shows you how!"
+tags: [angular, deployment, heroku, firebase, netlify, aws s3, azure]
+tweets:
+- ""
+- ""
+- ""
+image:
+type: conversion
+---
+:toc: macro
+:page-liquid:
+
+// intro
+
+**Prerequisites:**
+
+* https://nodejs.org/[Node 12]+
+* https://adoptopenjdk.net/[Java 11]+
+* An https://developer.okta.com/signup/[Okta Developer Account]
+
+== Create an Angular + Spring Boot App
+
+https://developer.okta.com/blog/2020/01/06/crud-angular-9-spring-boot-2[Build a CRUD App with Angular 9 and Spring Boot 2.2]
+https://developer.okta.com/blog/2020/03/02/angular-bootstrap[Build Beautiful Angular Apps with Bootstrap]
+
+// image from bootstrap post
+
+Clone the previous application into an `okta-angular-deployment-example` directory.
+
+[source,shell]
+----
+git clone https://github.com/oktadeveloper/okta-angular-bootstrap-example.git \
+ okta-angular-deployment-example
+----
+
+toc::[]
+
+=== Secure Your Angular + Spring Boot App with OIDC
+
+Using your https://developer.okta.com/signup[Okta developer account], log in to your dashboard, and register your Spring Boot app:
+
+1. Navigate to **Applications** > **Add Application**
+2. Select **Web** and click **Next**
+3. Give the application a name and add `http://localhost:8080/login/oauth2/code/okta` as a login redirect URI
+4. Click **Done**
+
+Create an `okta.env` file in the `notes-api` directory and copy your settings into it.
+
+[source,shell]
+----
+export OKTA_OAUTH2_ISSUER=https://{yourOktaDomain}/oauth2/default
+export OKTA_OAUTH2_CLIENT_ID={yourClientId}
+export OKTA_OAUTH2_CLIENT_SECRET={yourClientSecret}
+----
+
+Start your Spring Boot app by navigating to the `notes-api` directory, sourcing this file, and starting your app.
+
+[source,shell]
+----
+cd notes-api
+source okta.env
+./gradlew bootRun
+----
+
+Then, create a new OIDC app for Angular:
+
+1. Navigate to **Applications** > **Add Application**
+2. Select **Single-Page App** and click **Next**
+3. Give the application a name, set the login redirect URI to `http://localhost:4200/callback`
+4. Click **Done**
+
+Modify `auth-routing.module.ts` to use your Okta domain and client ID.
+
+[source,typescript]
+.notes/src/app/auth-routing.module.ts
+----
+const oktaConfig = {
+  issuer: 'https://{yourOktaDomain}/oauth2/default',
+  redirectUri: window.location.origin + '/callback',
+  clientId: '{yourClientId}',
+  pkce: true
+};
+----
+
+Now you should be able to log in with your Okta credentials and create notes to your heart's content!
+
+// image::{% asset_path 'blog/angular-bootstrap/first-note.png' %}[alt=First note,width=800,align=center]
+
+Commit your progress to Git from the `okta-angular-deployment-example` directory.
+
+[source,shell]
+----
+git commit -am "Add Okta OIDC Configuration"
+----
+
+== Prepare Your Angular + Spring Boot App for Production
+
+// change CORS settings in Spring Boot
+// Move auth-interceptor settings to environment.ts
+
+== Deploy Spring Boot to Heroku
+
+https://signup.heroku.com/login
+
+https://devcenter.heroku.com/articles/heroku-cli[Heroku CLI]
+
+
+
+== Deploy Angular to Heroku
+
+== Angular Deployment with `ng deploy`
+
+== Angular Deployment to Firebase
+
+== Angular Deployment to Netlify
+
+== Angular Deployment to AWS S3
+
+== Angular Deployment to Azure
+
+== Combine Your Angular + Spring Boot App into a Single JAR
+
+== Package Angular + Spring Boot with Docker
+
+== Learn More About Angular and Spring Boot
