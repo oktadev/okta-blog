@@ -337,7 +337,7 @@ Once again, click **Actions** and then **Deploy API**. For Development Stage sel
 
 After clicking deploy, you should land on the **Stages** page on your API. You can open any of the stages you have created and select the `/deck/get` method. There you will see an alert with the text `Invoke URL: {some url}`. This URL is what your application will need to call.
 
-## The React Application
+## Build Your Frontend React.js Application
 
 With your API set up and ready to go, you can begin to work on the React.js application.
 
@@ -388,7 +388,7 @@ Finally, add two folders, `Components` and `Pages` under your `src` folder. In `
 
 In pages, add the following files: `Game.jsx`, `Home.jsx`, `Login.jsx`. You can now work on implementing each of these pages.
 
-### Implement the React Components
+### Implement the React.js Components
 
 First you can implement the `AppWithRouterAccess.jsx` file.
 
@@ -637,7 +637,7 @@ const GameOver = ( { score, playAgain, submitHighScore } ) => {
     <div>
       <Row>
         <Col lg={12} className="text-center">
-          Game over!  Your score was <strong>{score}</strong>.
+          Game over! Your score was <strong>{score}</strong>.
         </Col>
       </Row>
       <Row>
@@ -657,6 +657,7 @@ This component displays the user score and presents two buttons: one to submit t
 
 Finally, the `GameBoard` itself. This is the most complex component.
 
+{% raw %}
 ```jsx
 import React, { Component } from "react";
 import Card from "./Card";
@@ -814,6 +815,7 @@ class GameBoard extends Component {
 
 export default GameBoard;
 ```
+{% endraw %}
 
 This component is presented while the player is playing. It shows their board, which displays 6 cards—either face up or face down depending on how far through the game the player is. Additionally, there is a display that shows the player their current card and provides controls for guessing higher or lower.
 
@@ -827,6 +829,7 @@ Let's focus on the `Pages` folder now;  we're going to connect everything togeth
 
 First, implement `Home.jsx`.
 
+{% raw %}
 ```jsx
 import React from "react";
 import { Link } from "react-router-dom";
@@ -868,11 +871,13 @@ const Home = () => {
 };
 export default Home;
 ```
+{% endraw %}
 
 This is a simple introduction page. It uses the `Header` component you wrote earlier and just tells the user a little about the application.
 
 Next, you can implement the `Login` page.
 
+{% raw %}
 ```jsx
 import React from "react";
 import { Redirect } from "react-router-dom";
@@ -900,6 +905,7 @@ const Login = ( { baseUrl, issuer } ) => {
 
 export default Login;
 ````
+{% endraw %}
 
 Again, this is a straight-forward page that presents the `LoginForm` to the user and checks the `authState`. If the user is already logged in you will redirect them to the home page. If they are not, you will allow the user to use the `LoginForm`.
 
