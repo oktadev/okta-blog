@@ -351,7 +351,7 @@ npm install @okta/okta-react react-router-dom@3.0
 npm install @okta/okta-signin-widget@3.9
 ```
 
-Next, use bootstrap for styling. To do this, install *React-Bootstrap* as well as *Bootstrap.*  *React-Bootstrap* is used to bridge the gap between React.js and bootstrap, however, it does not ship with the bootstrap CSS so you will need to install that as well.
+Next, use Bootstrap for styling. To do this, install *React-Bootstrap* as well as *Bootstrap.*  *React-Bootstrap* is used to bridge the gap between React.js and Bootstrap, however, it does not ship with the Bootstrap CSS so you will need to install that as well.
 
 ```console
 npm i react-bootstrap@1.0 bootstrap@4.4
@@ -376,7 +376,7 @@ You can get `REACT_APP_AMAZON_API_BASE` from the base of your invoke URL from Am
 
 For the cards styling, you will use [this CSS playing cards library](https://github.com/selfthinker/CSS-Playing-Cards) provided by [selfthinker](https://github.com/selfthinker/CSS-Playing-Cards/commits?author=selfthinker) on GitHub. Add the `cards.css` from this repo to your `src` directory. If required, you can also bring in the IE and IE9 libraries. You will also need to add the `faces` directory from the repo to your `src` directory.
 
-To allow *react-bootstrap* to do its job, add `import 'bootstrap/dist/css/bootstrap.min.css';` to the top of your `App.js` file. This will give *react-bootstrap* access to the CSS libraries from bootstrap.
+To allow *react-bootstrap* to do its job, add `import 'bootstrap/dist/css/bootstrap.min.css';` to the top of your `App.js` file. This will give *react-bootstrap* access to the CSS libraries from Bootstrap.
 
 Add a file to the `src` directory called `AppWithRouterAccess.jsx`. You will implement the code for this shortly.
 
@@ -384,7 +384,7 @@ Finally, add two folders, `Components` and `Pages` under your `src` folder. In `
 
 In pages, add the following files:  `Game.jsx`, `Home.jsx`, `Login.jsx`. You can now work on implementing each of these pages.
 
-### Implement the Components
+### Implement the React.js Components
 
 First you can implement the `AppWithRouterAccess.jsx` file.
 
@@ -653,6 +653,7 @@ This component displays the user score and presents two buttons: one to submit t
 
 Finally, the `GameBoard` itself. This is the most complex component.
 
+{% raw %}
 ```jsx
 import React, { Component } from "react";
 import Card from "./Card";
@@ -812,6 +813,7 @@ class GameBoard extends Component {
 
 export default GameBoard;
 ```
+{% endraw %}
 
 This component is presented while the player is playing. It shows their board, which displays 6 cards—either face up or face down depending on how far through the game the player is. Additionally, there is a display that shows the player their current card and provides controls for guessing higher or lower.
 
@@ -819,12 +821,13 @@ If the user guesses incorrectly, they are presented with the option to leave thi
 
 This is also the first time you'll be using the Amazon APIs directly in your application. Use the `fetch` method to call `deck\get`. Once the results are returned, you can change the state from `loading: true` to `loading: false`.
 
-### Implement the Pages
+### Implement the React.js Pages
 
 Let's focus on the `Pages` folder now;  we're going to connect everything together.
 
 First, implement `Home.jsx`.
 
+{% raw %}
 ```jsx
 import React from "react";
 import { Link } from "react-router-dom";
@@ -866,11 +869,13 @@ const Home = () => {
 };
 export default Home;
 ```
+{% endraw %}
 
 This is a simple introduction page. It uses the `Header` component you wrote earlier and just tells the user a little about the application.
 
 Next, you can implement the `Login` page.
 
+{% raw %}
 ```jsx
 import React from "react";
 import { Redirect } from "react-router-dom";
@@ -898,6 +903,7 @@ const Login = ( { baseUrl, issuer } ) => {
 
 export default Login;
 ````
+{% endraw %}
 
 Again, this is a straight-forward page that presents the `LoginForm` to the user and checks the `authState`. If the user is already logged in you will redirect them to the home page. If they are not, you will allow the user to use the `LoginForm`.
 
