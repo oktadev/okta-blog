@@ -30,121 +30,119 @@ First thing's first, set up your [Okta application](https://developer.okta.com).
 
 Your completed Okta set up should look similar to this.
 
-Click *Done* to review your application setup. Make sure to grab the *Client ID* listed under *Client Credentials* as it will be needed in your react.js application.
+Click *Done* to review your application setup. Make sure to grab the *Client ID* listed under *Client Credentials* as it will be needed in your React.js application.
 
-## Setup AWS
+## Configure AWS
 
 Next, set up AWS to handle your serverless operations.
 
-### Set up Lambda Functions
+### Create Lambda Functions
 
-First, navigate to [AWS Lambda Home](https://console.aws.amazon.com/lambda/home). Click on *Functions* to see your functions' home screen. Here you will see a button labeled *Create Function*. Click that to start setting up your first function.  This function will be responsible for creating a standard deck of 52 cards, shuffling it, and returning 6 cards for the react.js application to use. For the  purposes of this project, select the *Author From Scratch* option. The blueprints and serverless app repository are available for more complex applications, but you won't need that today. Name your function something relevant to your application. I named mine *cardsharksApi_deck_getNewDeck*. Make sure to select the runtime as  *Node.js 12.x*. Once you've clicked the  *Create Function* button, you will be brought to the function configuration screen. This is where you can add code, triggers, and anything else you may need.
+First, navigate to [AWS Lambda Home](https://console.aws.amazon.com/lambda/home). Click on *Functions* to see your functions' home screen. Here you will see a button labeled *Create Function*. Click that to start setting up your first function.  This function will be responsible for creating a standard deck of 52 cards, shuffling it, and returning 6 cards for the React.js application to use. For the  purposes of this project, select the *Author From Scratch* option. The blueprints and serverless app repository are available for more complex applications, but you won't need that today. Name your function something relevant to your application. I named mine *cardsharksApi_deck_getNewDeck*. Make sure to select the runtime as  *Node.js 12.x*. Once you've clicked the  *Create Function* button, you will be brought to the function configuration screen. This is where you can add code, triggers, and anything else you may need.
 
 {% img blog/build-secure-aws-lambda-nodejs-react/create-function.jpg alt:"Create Function" width:"800" %}
 
 Add the following to the *function code* section.
 
 ```javascript
-exports.handler = async(event) => {
+exports.handler = async( event ) => {
 
-    const getSuit = (suitId) => {
-        switch (suitId) {
-            case 0:
-                return 'diams';
-            case 1:
-                return 'hearts';
-            case 2:
-                return 'spades'
-            case 3:
-                return 'clubs'
-            default:
-                throw 'only 4 suits'
-        }
+  const getSuit = ( suitId ) => {
+    switch ( suitId ) {
+    case 0:
+      return "diams";
+    case 1:
+      return "hearts";
+    case 2:
+      return "spades";
+    case 3:
+      return "clubs";
+    default:
+      throw "only 4 suits";
+    }
+  };
+
+  const getRank = ( rankId ) => {
+    if ( rankId > 13 || rankId < 1 )
+      throw "invalid rank " + rankId;
+    switch ( rankId ) {
+    case 11:
+      return "J";
+    case 12:
+      return "Q";
+    case 13:
+      return "K";
+    case 1:
+      return "A";
+    default:
+      return rankId.toString();
+    }
+  };
+
+  const buildDeck = () => {
+    let deck = [];
+
+    for ( let suit = 0; suit < 3; suit++ ) {
+      for ( let value = 1; value <= 13; value++ ) {
+        deck.push( {
+          suit: getSuit( suit ),
+          rank: getRank( value ),
+          value: value,
+          visible: false
+        } );
+      }
     }
 
-    const getRank = (rankId) => {
-        if (rankId > 13 || rankId < 1)
-            throw 'invalid rank ' + rankId;
-        switch (rankId) {
-            case 11:
-                return 'J';
-            case 12:
-                return 'Q';
-            case 13:
-                return 'K';
-            case 1:
-                return 'A';
-            default:
-                return rankId.toString();
-        }
+    return deck;
+  };
+
+  const getCards = () => {
+
+    let deck = buildDeck();
+    deck.sort( ( a, b ) => 0.5 - Math.random() );
+
+    let cards = [];
+
+    for ( let i = 0; i < 6; i++ ) {
+      let card = deck[i];
+
+      if ( i == 0 )
+        card.visible = true;
+
+      card.order = i;
+
+      cards.push( card );
     }
+    return cards;
+  };
 
-    const buildDeck = () => {
-        var deck = [];
-
-        for (var suit = 0; suit < 3; suit++) {
-            for (var value = 1; value <= 13; value++) {
-                deck.push({
-                    suit: getSuit(suit),
-                    rank: getRank(value),
-                    value: value,
-                    visible: false
-                });
-            }
-        }
-
-        return deck;
-    }
-
-    const getCards = () => {
-
-        var deck = buildDeck();
-        deck.sort((a, b) => 0.5 - Math.random());
-
-        var cards = [];
-
-        for (var i = 0; i < 6; i++) {
-            var card = deck[i];
-
-            if (i == 0)
-                card.visible = true;
-
-            card.order = i;
-
-            cards.push(card);
-        }
-        return cards;
-    }
-
-    const response = {
-        statusCode: 200,
-        body: JSON.stringify(getCards())
-    };
-
-    return response;
+  const response = {
+    statusCode: 200,
+    body: JSON.stringify( getCards() )
+  };
+  return response;
 };
-
 ```
 
-AWS provides a simple blank, "Hello World," output with a response code of 200. Keep that code, but replace your body with the `getCards` function call. `getCards` calls `buildDeck` which creates your 52 cards—ace through King of each suit. In this game, aces will be considered low, making their value 1. If you wish to make them high, change the value to 14. For an added challenge, consider how you would handle Aces being low or high.
+AWS provides a simple blank, "Hello World," output with a response code of 200. Keep that code, but replace your body with the `getCards()` function call. `getCards()` calls `buildDeck()` which creates your 52 cards—ace through King of each suit. In this game, aces will be considered low, making their value 1. If you wish to make them high, change the value to 14. For an added challenge, consider how you would handle Aces being low or high.
 
-Next, you need to test your function. This is relatively easy—click the *Test* button on the top of your screen. You should then see  a screen that says "Configure Test Event" with some JSON dummy values in it. These values will be passed to your function in the `event` object. Since building the deck doesn't require any input, feel free to leave this as an empty JSON object. Name your test trigger something that is relevant to you. I named mine *TestTrigger* as I only anticipate needing it this once. After you've done this, press *Create*. Now, when you press *Test,* you can select the Trigger from your dropdown box next to the *Test* button. When you press *Test* again, the response will be listed after the code in the *Function Code* window. Ideally, you should see `statusCode: 200` along with a JSON array that contains some information about six cards.
+Next, you need to test your function. This is relatively easy—click the **Test** button on the top of your screen. You should then see  a screen that says "Configure Test Event" with some JSON dummy values in it. These values will be passed to your function in the `event` object. Since building the deck doesn't require any input, feel free to leave this as an empty JSON object. Name your test trigger something that is relevant to you. I named mine *TestTrigger* as I only anticipate needing it this once. After you've done this, press *Create*. Now, when you press **Test**, you can select the Trigger from your dropdown box next to the **Test** button. When you press **Test** again, the response will be listed after the code in the *Function Code* window. Ideally, you should see `statusCode: 200` along with a JSON array that contains some information about six cards.
 
 At this point, there are still two more functions you need to implement that will allow you to both get and save high scores. For these, you will need to connect your AWS lambda function to the storage system of your choice. For this application, you can stub these two functions out until you are ready to connect to your storage.
 
 Create another function for `cardsharksApi_highScores_postHighScore`. In the *Function Code* section of the lambda, screen add the following code.
 
 ```javascript
-exports.handler = async (event) => {
+exports.handler = async ( event ) => {
 
-    const response = {
-        statusCode: 200,
-        body: JSON.stringify({
-            player: event.player,
-            score: event.score
-        }),
-    };
-    return response;
+  const response = {
+    statusCode: 200,
+    body: JSON.stringify( {
+      player: event.player,
+      score: event.score
+    } ),
+  };
+  return response;
 };
 ```
 
@@ -157,51 +155,51 @@ Feel free to  add whatever error-handling or data validation you need here befor
 }
 ```
 
-Your react app will send your player's name along with their score to the server. This JSON represents what the function is expecting to receive from the react.js app. These parameters can be accessed in the `event` property provided by the boilerplate from Amazon. You can add up to 10 cases once you've fleshed out your data validation to ensure that your test cases are covered.
+Your React app will send your player's name along with their score to the server. This JSON represents what the function is expecting to receive from the React.js app. These parameters can be accessed in the `event` property provided by the boilerplate from Amazon. You can add up to 10 cases once you've fleshed out your data validation to ensure that your test cases are covered.
 
 Lastly, create a function for `cardsharksApi_highScores_getHighScores`. Add the following code to it:
 
 ```javascript
-exports.handler = async(event) => {
+exports.handler = async( event ) => {
 
-    const getHighScores = () => {
+  const getHighScores = () => {
 
-        var scores = [];
+    const scores = [];
 
-        scores.push({
-            player: 'Roger Rabbit',
-            score: 100
-        });
+    scores.push( {
+      player: "Roger Rabbit",
+      score: 100
+    } );
 
-        scores.push({
-            player: 'Donald Duck',
-            score: 50
-        });
+    scores.push( {
+      player: "Donald Duck",
+      score: 50
+    } );
 
-        scores.push({
-            player: 'Goofy',
-            score: 40
-        });
+    scores.push( {
+      player: "Goofy",
+      score: 40
+    } );
 
-        scores.push({
-            player: 'John Daly',
-            score: 30
-        });
+    scores.push( {
+      player: "John Daly",
+      score: 30
+    } );
 
-        scores.push({
-            player: 'Mike Tyson',
-            score: 20
-        });
+    scores.push( {
+      player: "Mike Tyson",
+      score: 20
+    } );
 
-        return scores;
+    return scores;
 
-    }
+  };
 
-    const response = {
-        statusCode: 200,
-        body: JSON.stringify(getHighScores()),
-    };
-    return response;
+  const response = {
+    statusCode: 200,
+    body: JSON.stringify( getHighScores() ),
+  };
+  return response;
 };
 ```
 
@@ -209,7 +207,7 @@ Again, this is sending back dummy data for the application to use. Once you've c
 
 ### Create Your YAML API
 
-With your lambda functions complete, it's time to set up your API endpoints which will interface with your react.js application and your lambda functions. One great thing about AWS API is that it will take a YAML definition of your API and implement it to your endpoints automatically. If you are comfortable creating the endpoints yourself and don't wish to write out a YAML definition, you can skip this section. However, in a real-world setting, the advantages of being able to document your API and implement it in one step makes this approach very useful. This is doubly true when you're dealing with large APIs that many developers will need to access.
+With your lambda functions complete, it's time to set up your API endpoints which will interface with your React.js application and your lambda functions. One great thing about AWS API is that it will take a YAML definition of your API and implement it to your endpoints automatically. If you are comfortable creating the endpoints yourself and don't wish to write out a YAML definition, you can skip this section. However, in a real-world setting, the advantages of being able to document your API and implement it in one step makes this approach very useful. This is doubly true when you're dealing with large APIs that many developers will need to access.
 
 You can review my version of the YAML below.
 
@@ -337,15 +335,15 @@ After clicking deploy, you should land on the *Stages* page on your API. You can
 
 ## The React Application
 
-With your API set up and ready to go, you can begin to work on the react.js application.
+With your API set up and ready to go, you can begin to work on the React.js application.
 
-### Setup your Application
+### Create Your Node.js Application
 
-To set up your app,  use the [Create React App tool chain defined here](https://reactjs.org/docs/create-a-new-react-app.html). This provides a quick and handy way to fire up a new react.js application. Navigate to the parent folder where your react.js application will be. Then, use the npx package runner with the command `npx create-react-app {folder}`. Then, go grab a cup of tea or coffee as this process takes a  few minutes.
+To set up your app,  use the [Create React App tool chain defined here](https://reactjs.org/docs/create-a-new-react-app.html). This provides a quick and handy way to fire up a new React.js application. Navigate to the parent folder where your React.js application will be. Then, use the npx package runner with the command `npx create-react-app {folder}`. Then, go grab a cup of tea or coffee as this process takes a  few minutes.
 
 Once it is complete, you can install the dependencies for the application.
 
-First, get the Okta react libraries.
+First, get the Okta React libraries.
 
 ```console
 npm install @okta/okta-auth-js@3.1
@@ -353,7 +351,7 @@ npm install @okta/okta-react react-router-dom@3.0
 npm install @okta/okta-signin-widget@3.9
 ```
 
-Next, use bootstrap for styling. To do this, install *React-Bootstrap* as well as *Bootstrap.*  *React-Bootstrap* is used to bridge the gap between react.js and bootstrap, however, it does not ship with the bootstrap CSS so you will need to install that as well.
+Next, use bootstrap for styling. To do this, install *React-Bootstrap* as well as *Bootstrap.*  *React-Bootstrap* is used to bridge the gap between React.js and bootstrap, however, it does not ship with the bootstrap CSS so you will need to install that as well.
 
 ```console
 npm i react-bootstrap@1.0 bootstrap@4.4
@@ -374,7 +372,7 @@ REACT_APP_OKTA_APP_BASE_URL=http://localhost:3000
 REACT_APP_AMAZON_API_BASE=
 ```
 
-You can get `REACT_APP_AMAZON_API_BASE` from the base of your invoke URL from Amazon API. You may need to change your `REACT_APP_OKTA_APP_BASE_URL` to a different port if you are developing against one other than 3000. Note here that all of your keys start with *REACT_APP_*. This is required for react.js to read the values.
+You can get `REACT_APP_AMAZON_API_BASE` from the base of your invoke URL from Amazon API. You may need to change your `REACT_APP_OKTA_APP_BASE_URL` to a different port if you are developing against one other than 3000. Note here that all of your keys start with *REACT_APP_*. This is required for React.js to read the values.
 
 For the cards styling, you will use [this CSS playing cards library](https://github.com/selfthinker/CSS-Playing-Cards) provided by [selfthinker](https://github.com/selfthinker/CSS-Playing-Cards/commits?author=selfthinker) on GitHub. Add the `cards.css` from this repo to your `src` directory. If required, you can also bring in the IE and IE9 libraries. You will also need to add the `faces` directory from the repo to your `src` directory.
 
@@ -390,24 +388,24 @@ In pages, add the following files:  `Game.jsx`, `Home.jsx`, `Login.jsx`. You can
 
 First you can implement the `AppWithRouterAccess.jsx` file.
 
-```javascript
-import React from 'react';
-import { Route, useHistory } from 'react-router-dom';
-import { Security, SecureRoute, LoginCallback } from '@okta/okta-react';
-import Home from './Pages/Home';
-import Game from './Pages/Game'
-import Login from './Pages/Login'
+```jsx
+import React from "react";
+import { Route, useHistory } from "react-router-dom";
+import { Security, SecureRoute, LoginCallback } from "@okta/okta-react";
+import Home from "./Pages/Home";
+import Game from "./Pages/Game";
+import Login from "./Pages/Login";
 
 const AppWithRouterAccess = () => {
   const history = useHistory();
   const onAuthRequired = () => {
-    history.push('/login');
+    history.push( "/login" );
   };
 
   const baseDomain = process.env.REACT_APP_OKTA_URL_BASE;
-  const issuer = baseDomain + '/oauth2/default'
+  const issuer = baseDomain + "/oauth2/default";
   const clientId = process.env.REACT_APP_OKTA_CLIENTID;
-  const redirect = process.env.REACT_APP_OKTA_APP_BASE_URL + '/implicit/callback';
+  const redirect = process.env.REACT_APP_OKTA_APP_BASE_URL + "/implicit/callback";
 
   return (
     <Security issuer={issuer}
@@ -429,40 +427,39 @@ This component does the major lifting between Okta and your React.js application
 
 Now, shift your focus to the `Components` folder. Start by setting up your `Header` component.
 
-```javascript
-import React from 'react';
-import { useOktaAuth } from '@okta/okta-react';
-
-import { Navbar, Nav, Form, Button } from 'react-bootstrap'
+```jsx
+import React from "react";
+import { useOktaAuth } from "@okta/okta-react";
+import { Navbar, Nav, Form, Button } from "react-bootstrap";
 
 const Header = () => {
-    const { authState, authService } = useOktaAuth();
+  const { authState, authService } = useOktaAuth();
 
-    if (authState.isPending) {
-        return <div>Loading...</div>;
-    }
+  if ( authState.isPending ) {
+    return <div>Loading...</div>;
+  }
 
-    const button = authState.isAuthenticated ?
-        <Button variant="secondary" onClick={() => { authService.logout() }}>Logout</Button> :
-        <Button variant="secondary" onClick={() => { authService.login() }}>Login</Button>
+  const button = authState.isAuthenticated ?
+    <Button variant="secondary" onClick={() => { authService.logout(); }}>Logout</Button> :
+    <Button variant="secondary" onClick={() => { authService.login(); }}>Login</Button>;
 
-    return (
+  return (
 
-        <Navbar bg="light" expand="lg">
-            <Navbar.Brand href="/">Card Sharks</Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="mr-auto">
-                    <Nav.Link href="/">Home</Nav.Link>
-                    <Nav.Link href="/game">New Game</Nav.Link>
-                </Nav>
-                <Form inline>
-                    {button}
-                </Form>
-            </Navbar.Collapse>
-        </Navbar>
+    <Navbar bg="light" expand="lg">
+      <Navbar.Brand href="/">Card Sharks</Navbar.Brand>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className="mr-auto">
+          <Nav.Link href="/">Home</Nav.Link>
+          <Nav.Link href="/game">New Game</Nav.Link>
+        </Nav>
+        <Form inline>
+          {button}
+        </Form>
+      </Navbar.Collapse>
+    </Navbar>
 
-    );
+  );
 };
 export default Header;
 ```
@@ -471,37 +468,37 @@ This simple component gives your users a nav bar that will be used on each page 
 
 Next, implement the ``LoginForm`` component.
 
-```javascript
-import React, { useState } from 'react';
-import OktaAuth from '@okta/okta-auth-js';
-import { useOktaAuth } from '@okta/okta-react';
-import { Form, Button, Row, Col } from 'react-bootstrap'
+```jsx
+import React, { useState } from "react";
+import OktaAuth from "@okta/okta-auth-js";
+import { useOktaAuth } from "@okta/okta-react";
+import { Form, Button, Row, Col } from "react-bootstrap";
 
-const LoginForm = ({ baseUrl, issuer }) => {
+const LoginForm = ( { baseUrl, issuer } ) => {
 
   const { authService } = useOktaAuth();
-  const [sessionToken, setSessionToken] = useState();
-  const [username, setUsername] = useState();
-  const [password, setPassword] = useState();
+  const [ sessionToken, setSessionToken ] = useState();
+  const [ username, setUsername ] = useState();
+  const [ password, setPassword ] = useState();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = ( e ) => {
     e.preventDefault();
-    const oktaAuth = new OktaAuth({ url: baseUrl, issuer: issuer });
-    oktaAuth.signIn({ username, password })
-      .then(res => setSessionToken(res.sessionToken))
-      .catch(err => console.log('Found an error', err));
+    const oktaAuth = new OktaAuth( { url: baseUrl, issuer: issuer } );
+    oktaAuth.signIn( { username, password } )
+      .then( res => setSessionToken( res.sessionToken ) )
+      .catch( err => console.log( "Found an error", err ) );
   };
 
-  const handleUsernameChange = (e) => {
-    setUsername(e.target.value);
+  const handleUsernameChange = ( e ) => {
+    setUsername( e.target.value );
   };
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
+  const handlePasswordChange = ( e ) => {
+    setPassword( e.target.value );
   };
 
-  if (sessionToken) {
-    authService.redirect({ sessionToken });
+  if ( sessionToken ) {
+    authService.redirect( { sessionToken } );
     return null;
   }
 
@@ -523,48 +520,48 @@ const LoginForm = ({ baseUrl, issuer }) => {
 
           <Button variant="primary" type="submit">
             Login
-        </Button>
+          </Button>
 
         </Form>
       </Col>
     </Row>
   );
 };
+
 export default LoginForm;
 ```
 
-When the user submits the form, your application will override that action and direct the user into the Okta workflow. This is done with ``oktaAuth.signIn`` which returns a promise that must be handled appropriately. If the user has successfully logged in, set the `sessionToken` that allows the user to proceed authenticated.
+When the user submits the form, your application will override that action and direct the user into the Okta workflow. This is done with `oktaAuth.signIn()` which returns a promise that must be handled appropriately. If the user has successfully logged in, set the `sessionToken` that allows the user to proceed authenticated.
 
 Now, turn your attention to the game components themselves. The `Game` page will have 3 main stages. When the user lands on the page, they are offered the chance to start a new game. After this, the user enters the "game play" phase. Finally, after the game is over the user is presented with the opportunity to start a new game or submit a high score.
 
 Let's start with the `Card` component that will be used in the game.
 
-```javascript
-import React from 'react';
+```jsx
+import React from "react";
+import "../cards.css";
 
-import '../cards.css';
+const Card = ( { card } ) => {
 
-const Card = ({ card }) => {
+  let content;
 
-    var content;
-
-    if (card.visible) {
-        var cardClass = "card rank-" + card.rank.toLowerCase() + " " + card.suit;
-        content =
+  if ( card.visible ) {
+    const cardClass = "card rank-" + card.rank.toLowerCase() + " " + card.suit;
+    content =
             <div className={cardClass}>
-                <div className="rank">{card.rank}</div>
-                <div className="suit"></div>
+              <div className="rank">{card.rank}</div>
+              <div className="suit"></div>
             </ div>;
-    }
-    else {
-        content = <div className="card back">*</div>
-    }
+  }
+  else {
+    content = <div className="card back">*</div>;
+  }
 
-    return (
-        <div className="playingCards faceImages">
-            {content}
-        </div>
-    );
+  return (
+    <div className="playingCards faceImages">
+      {content}
+    </div>
+  );
 };
 
 export default Card;
@@ -574,51 +571,50 @@ If the card is listed as visible, you will display the card rank and suit based 
 
 With that done you can work on the `GameHome` component.
 
-```javascript
-import React from 'react';
+```jsx
+import React from "react";
+import { Row, Col, Table, Button } from "react-bootstrap";
 
-import { Row, Col, Table, Button } from 'react-bootstrap'
+const GameHome = ( { newGameClick, highScores, submitHighScore } ) => {
 
-const GameHome = ({ newGameClick, highScores, submitHighScore }) => {
+  return (
 
-    return (
+    <div>
+      <Row>
+        <Col lg={12}>
+          <h4>Recent High Scores</h4>
+        </Col>
+      </Row>
 
-        <div>
-            <Row>
-                <Col lg={12}>
-                    <h4>Recent High Scores</h4>
-                </Col>
-            </Row>
+      <Row>
+        <Col lg={12}>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>Player</th>
+                <th>Score</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                highScores.map( ( highScore, i ) => {
+                  return (
+                    <tr key={i}>
+                      <td>{highScore.player}</td>
+                      <td>{highScore.score}</td>
+                    </tr>
+                  );
+                } )}
 
-            <Row>
-                <Col lg={12}>
-                    <Table striped bordered hover>
-                        <thead>
-                            <tr>
-                                <th>Player</th>
-                                <th>Score</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                highScores.map((highScore, i) => {
-                                    return (
-                                        <tr key={i}>
-                                            <td>{highScore.player}</td>
-                                            <td>{highScore.score}</td>
-                                        </tr>
-                                    );
-                                })}
+            </tbody>
+          </Table>
 
-                        </tbody>
-                    </Table>
-
-                    <Button variant="primary" onClick={newGameClick}> Start a new game</Button>
-                </Col>
-            </Row>
-        </div>
-    );
-}
+          <Button variant="primary" onClick={newGameClick}> Start a new game</Button>
+        </Col>
+      </Row>
+    </div>
+  );
+};
 
 export default GameHome;
 ```
@@ -627,28 +623,28 @@ Here, you are displaying a table with the high scores. These high scores will be
 
 Next, implement the `GameOver` component. This is the screen that is shown when the player completes the game.
 
-```javascript
-import React from 'react';
-import { Row, Col, Button } from 'react-bootstrap';
+```jsx
+import React from "react";
+import { Row, Col, Button } from "react-bootstrap";
 
-const GameOver = ({ score, playAgain, submitHighScore }) => {
+const GameOver = ( { score, playAgain, submitHighScore } ) => {
 
-    return (
-        <div>
-            <Row>
-                <Col lg={12} className="text-center">
+  return (
+    <div>
+      <Row>
+        <Col lg={12} className="text-center">
                     Game over!  Your score was <strong>{score}</strong>.
-                </Col>
-            </Row>
-            <Row>
-                <Col lg={12} className="text-center">
-                    <Button onClick={submitHighScore} variant="secondary">Submit High Score</Button>
-                    <Button onClick={playAgain} variant="primary">Play Again</Button>
-                </Col>
-            </Row>
-        </div>
-    );
-}
+        </Col>
+      </Row>
+      <Row>
+        <Col lg={12} className="text-center">
+          <Button onClick={submitHighScore} variant="secondary">Submit High Score</Button>
+          <Button onClick={playAgain} variant="primary">Play Again</Button>
+        </Col>
+      </Row>
+    </div>
+  );
+};
 
 export default GameOver;
 ```
@@ -657,166 +653,160 @@ This component displays the user score and presents two buttons: one to submit t
 
 Finally, the `GameBoard` itself. This is the most complex component.
 
-```javascript
-import React, { Component } from 'react';
-
-import Card from './Card'
-
-import { Row, Col, Button } from 'react-bootstrap'
-
+```jsx
+import React, { Component } from "react";
+import Card from "./Card";
+import { Row, Col, Button } from "react-bootstrap";
 
 class GameBoard extends Component {
 
-    constructor(props, context) {
-        super(props, context);
+  constructor( props, context ) {
+    super( props, context );
 
-        this.state = {
-            cards: [],
-            activeCard: {},
-            lastResult: '',
-            gameOver: false,
-            needsNewDeck: false,
-            score: 0
+    this.state = {
+      cards: [],
+      activeCard: {},
+      lastResult: "",
+      gameOver: false,
+      needsNewDeck: false,
+      score: 0
+    };
+  }
+
+  componentDidMount() {
+    this.getNewDeck();
+  }
+
+  getNewDeck() {
+    this.setState( { loading: true } );
+
+    fetch( process.env.REACT_APP_AMAZON_API_BASE + "/deck" )
+      .then( res => res.json() )
+      .then(
+        ( result ) => {
+
+          const cards = JSON.parse( result.body );
+
+          this.setState(
+            {
+              cards: cards,
+              activeCard: cards[0],
+              needsNewDeck: false,
+              loading: false
+            }
+          );
         }
+      );
+
+  }
+
+  guess( higherOrLower ) {
+
+    let correct;
+    let push;
+    let activeCard = this.state.activeCard;
+
+    let nextCardIdx = activeCard.order + 1;
+    let nextCard = this.state.cards[nextCardIdx];
+
+    if ( nextCard.value > activeCard.value && higherOrLower === "higher" ) {
+      correct = true;
+    }
+    else if ( nextCard.value < activeCard.value && higherOrLower === "lower" ) {
+      correct = true;
+    }
+    else if ( nextCard.value === activeCard.value ) {
+      push = true;
     }
 
-    componentDidMount() {
-        this.getNewDeck();
+    if ( correct ) {
+      this.setState( {
+        score: this.state.score + 1,
+        lastResult: "Correct! ",
+        needsNewDeck: nextCardIdx === 5
+      } );
+    }
+    else if ( push ) {
+      this.setState( {
+        lastResult: "A push!  Keep playing. ",
+        needsNewDeck: nextCardIdx === 5
+      } );
+    }
+    else {
+      this.setState( {
+        lastResult: "Aww, that was incorrect",
+        gameOver: true
+      } );
     }
 
-    getNewDeck = () => {
+    nextCard.visible = true;
+    this.setState( {
+      activeCard: nextCard
+    } );
+  }
 
-        this.setState({ loading: true });
+  render() {
 
-        fetch(process.env.REACT_APP_AMAZON_API_BASE + '/deck')
-            .then(res => res.json())
-            .then(
-                (result) => {
-
-                    var cards = JSON.parse(result.body);
-
-                    this.setState(
-                        {
-                            cards: cards,
-                            activeCard: cards[0],
-                            needsNewDeck: false,
-                            loading: false
-                        }
-                    )
-                }
-            )
-
-
+    if ( this.state.loading ) {
+      return <h4>Loading, please wait.</h4>;
     }
 
-    guess = (higherOrLower) => {
-
-        var correct;
-        var push;
-        var activeCard = this.state.activeCard;
-
-        var nextCardIdx = activeCard.order + 1;
-        var nextCard = this.state.cards[nextCardIdx];
-
-        if (nextCard.value > activeCard.value && higherOrLower === 'higher') {
-            correct = true;
-        }
-        else if (nextCard.value < activeCard.value && higherOrLower === 'lower') {
-            correct = true;
-        }
-        else if (nextCard.value === activeCard.value) {
-            push = true;
-        }
-
-        if (correct) {
-            this.setState({
-                score: this.state.score + 1,
-                lastResult: 'Correct! ',
-                needsNewDeck: nextCardIdx === 5
-            });
-        }
-        else if (push) {
-            this.setState({
-                lastResult: 'A push!  Keep playing. ',
-                needsNewDeck: nextCardIdx === 5
-            });
-        }
-        else {
-            this.setState({
-                lastResult: 'Aww, that was incorrect',
-                gameOver: true
-            });
-        }
-
-
-        nextCard.visible = true;
-        this.setState({
-            activeCard: nextCard
-        })
+    let leaveButton;
+    if ( this.state.gameOver || this.state.needsNewDeck ) {
+      leaveButton = <Button style={{ width: "100%" }} variant={"danger"} onClick={() => this.props.endGame( this.state.score )}>End Game</Button>;
     }
 
-    render() {
+    let newDeckButton;
+    if ( this.state.needsNewDeck ) {
+      newDeckButton = <Button style={{ width: "100%" }} variant={"primary"} onClick={() => this.getNewDeck()}>New Deck</Button>;
+    }
 
-        if (this.state.loading) {
-            return <h4>Loading, please wait.</h4>
-        }
+    let disableButtons = this.state.gameOver || this.state.needsNewDeck;
 
-        var leaveButton;
-        if (this.state.gameOver || this.state.needsNewDeck) {
-            leaveButton = <Button style={{ width: '100%' }} variant={"danger"} onClick={() => this.props.endGame(this.state.score)}>End Game</Button>
-        }
+    return (
 
-        var newDeckButton;
-        if (this.state.needsNewDeck) {
-            newDeckButton = <Button style={{ width: '100%' }} variant={"primary"} onClick={() => this.getNewDeck()}>New Deck</Button>
-        }
+      <div>
 
-        var disableButtons = this.state.gameOver || this.state.needsNewDeck;
+        <h4>Lets Play Card Sharks</h4>
 
-        return (
+        <Row>
+          {this.state.cards.map( ( card, i ) => {
+            return ( <Col key={i} sm={2}>
+              <Card card={card} />
+            </Col>
+            );
+          } )}
+        </Row>
 
-            <div>
+        <Row className="mt-3">
+          <Col sm={2}>
+            <strong>Current Card</strong>
+            <Card card={this.state.activeCard} />
+          </Col>
 
-                <h4>Lets Play Card Sharks</h4>
+          <Col sm={4}>
 
-                <Row>
-                    {this.state.cards.map((card, i) => {
-                        return (<Col key={i} sm={2}>
-                            <Card card={card} />
-                        </Col>
-                        )
-                    })}
-                </Row>
+            <strong>Higher or Lower?</strong>
+            <br></br>
 
-                <Row className="mt-3">
-                    <Col sm={2}>
-                        <strong>Current Card</strong>
-                        <Card card={this.state.activeCard} />
-                    </Col>
+            <Button style={{ width: "50%" }} variant="primary" disabled={disableButtons} onClick={() => this.guess( "higher" )}>Higher</Button> <br></br>
+            <Button style={{ width: "50%" }} variant="warning" disabled={disableButtons} onClick={() => this.guess( "lower" )}>Lower</Button>
 
-                    <Col sm={4}>
-
-                        <strong>Higher or Lower?</strong>
-                        <br></br>
-
-                        <Button style={{ width: '50%' }} variant="primary" disabled={disableButtons} onClick={() => this.guess('higher')}>Higher</Button> <br></br>
-                        <Button style={{ width: '50%' }} variant="warning" disabled={disableButtons} onClick={() => this.guess('lower')}>Lower</Button>
-
-                    </Col>
-                    <Col sm={2}>
+          </Col>
+          <Col sm={2}>
                         Current Score: {this.state.score}
-                    </Col>
-                    <Col sm={2}>
+          </Col>
+          <Col sm={2}>
                         Last Card: {this.state.lastResult}
-                        {leaveButton} <br></br>
-                        {newDeckButton}
-                    </Col>
+            {leaveButton} <br></br>
+            {newDeckButton}
+          </Col>
 
-                </Row>
+        </Row>
 
-            </div >
-        );
-    }
+      </div >
+    );
+  }
 
 }
 
@@ -835,12 +825,12 @@ Let's focus on the `Pages` folder now;  we're going to connect everything togeth
 
 First, implement `Home.jsx`.
 
-```javascript
-import React from 'react';
-import { Link } from 'react-router-dom';
+```jsx
+import React from "react";
+import { Link } from "react-router-dom";
 
-import Header from '../Components/Header'
-import { Container, Row, Col, Card } from 'react-bootstrap'
+import Header from "../Components/Header";
+import { Container, Row, Col, Card } from "react-bootstrap";
 
 const Home = () => {
 
@@ -860,10 +850,10 @@ const Home = () => {
 
       <Row >
         <Col sm={12} className="text-center">
-          <Card style={{ width: '21.5em', margin: '0 auto' }}>
+          <Card style={{ width: "21.5em", margin: "0 auto" }}>
             <Card.Header>
               Already have an Okta Account?
-              </Card.Header>
+            </Card.Header>
             <Card.Body>
               <Link to='/Game'>Play Now</Link>
             </Card.Body>
@@ -881,22 +871,22 @@ This is a simple introduction page. It uses the `Header` component you wrote ear
 
 Next, you can implement the `Login` page.
 
-```javascript
-import React from 'react';
-import { Redirect } from 'react-router-dom';
-import LoginForm from '../Components/LoginForm'
-import { useOktaAuth } from '@okta/okta-react';
-import { Container } from 'react-bootstrap'
-import Header from '../Components/Header'
+```jsx
+import React from "react";
+import { Redirect } from "react-router-dom";
+import LoginForm from "../Components/LoginForm";
+import { useOktaAuth } from "@okta/okta-react";
+import { Container } from "react-bootstrap";
+import Header from "../Components/Header";
 
-const Login = ({ baseUrl, issuer }) => {
+const Login = ( { baseUrl, issuer } ) => {
   const { authState } = useOktaAuth();
 
-  if (authState.isPending) {
+  if ( authState.isPending ) {
     return <div>Loading...</div>;
   }
   return authState.isAuthenticated ?
-    <Redirect to={{ pathname: '/' }} /> :
+    <Redirect to={{ pathname: "/" }} /> :
 
     <Container>
       <Header></Header>
@@ -913,95 +903,94 @@ Again, this is a straight-forward page that presents the `LoginForm` to the user
 
 Lastly, the `Game` page.
 
-```javascript
-import React, { Component } from 'react';
+```jsx
+import React, { Component } from "react";
 
-import GameHome from '../Components/GameHome'
-import GameBoard from '../Components/GameBoard'
-import GameOver from '../Components/GameOver'
+import GameHome from "../Components/GameHome";
+import GameBoard from "../Components/GameBoard";
+import GameOver from "../Components/GameOver";
 
-import Header from '../Components/Header'
+import Header from "../Components/Header";
 
-import { Container } from 'react-bootstrap'
-import { withOktaAuth } from '@okta/okta-react';
+import { Container } from "react-bootstrap";
+import { withOktaAuth } from "@okta/okta-react";
 
 class Game extends Component {
 
-  constructor(props, context) {
-    super(props, context);
-
+  constructor( props, context ) {
+    super( props, context );
 
     this.state = {
-      gameState: 'none',
+      gameState: "none",
       lastScore: 0,
       loading: false,
       highScores: [],
-      player: ''
-    }
+      player: ""
+    };
 
-    this.submitHighScore = this.submitHighScore.bind(this);
+    this.submitHighScore = this.submitHighScore.bind( this );
   }
 
-  componentDidMount = () => {
-    this.setState({ loading: true });
-    fetch(process.env.REACT_APP_AMAZON_API_BASE + '/highscore')
-      .then(res => res.json())
+  componentDidMount() {
+    this.setState( { loading: true } );
+    fetch( process.env.REACT_APP_AMAZON_API_BASE + "/highscore" )
+      .then( res => res.json() )
       .then(
-        (result) => {
-          this.setState({ highScores: JSON.parse(result.body) });
-        })
-      .then(() => this.props.authService.getUser())
-      .then(user => {
-        this.setState({ loading: false, player: user.email })
-      });
+        ( result ) => {
+          this.setState( { highScores: JSON.parse( result.body ) } );
+        } )
+      .then( () => this.props.authService.getUser() )
+      .then( user => {
+        this.setState( { loading: false, player: user.email } );
+      } );
   }
 
-  submitHighScore = () => {
+  submitHighScore() {
 
-    fetch(process.env.REACT_APP_AMAZON_API_BASE + '/highscore',
+    fetch( process.env.REACT_APP_AMAZON_API_BASE + "/highscore",
       {
         headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
+          "Accept": "application/json",
+          "Content-Type": "application/json"
         },
         method: "POST",
-        body: JSON.stringify({ player: this.state.player, score: this.state.lastScore })
-      })
-      .then(function (res) {
+        body: JSON.stringify( { player: this.state.player, score: this.state.lastScore } )
+      } )
+      .then( function ( res ) {
         //display message however you wish
-      })
+      } );
   }
 
-  newGameClick = () => {
+  newGameClick() {
     this.gameBoardLoaded();
   }
 
-  gameBoardLoaded = () => {
-    this.setState({ gameState: 'playing' })
+  gameBoardLoaded() {
+    this.setState( { gameState: "playing" } );
   }
 
-  endGame = (score) => {
-    this.setState({ gameState: 'finished', lastScore: score });
+  endGame( score ) {
+    this.setState( { gameState: "finished", lastScore: score } );
   }
 
   render() {
 
-    var content;
+    let content;
 
-    if (this.state.loading) {
-      content = <h3>Loading, please wait</h3>
+    if ( this.state.loading ) {
+      content = <h3>Loading, please wait</h3>;
     }
-    if (this.state.gameState === 'none') {
-      content = <GameHome newGameClick={this.newGameClick} highScores={this.state.highScores} >  </GameHome>
+    if ( this.state.gameState === "none" ) {
+      content = <GameHome newGameClick={this.newGameClick} highScores={this.state.highScores} >  </GameHome>;
     }
-    else if (this.state.gameState === 'loading') {
-      content = <div>Please wait while we load your deck...</div>
+    else if ( this.state.gameState === "loading" ) {
+      content = <div>Please wait while we load your deck...</div>;
     }
-    else if (this.state.gameState === 'playing') {
-      content = <GameBoard loaded={this.gameBoardLoaded} endGame={this.endGame}></GameBoard>
+    else if ( this.state.gameState === "playing" ) {
+      content = <GameBoard loaded={this.gameBoardLoaded} endGame={this.endGame}></GameBoard>;
     }
-    else if (this.state.gameState = 'finished') {
-      content = <GameOver score={this.state.lastScore} playAgain={this.newGameClick} submitHighScore={this.submitHighScore}></GameOver>
+    else if ( this.state.gameState === "finished" ) {
+      content = <GameOver score={this.state.lastScore} playAgain={this.newGameClick} submitHighScore={this.submitHighScore}></GameOver>;
     }
 
     return (
@@ -1015,18 +1004,18 @@ class Game extends Component {
     );
   }
 }
-export default withOktaAuth(Game);
+export default withOktaAuth( Game );
 ```
 
 This page takes your game components from earlier and manages the state of the player. It will also display the proper components based on the game state and contains functions that receive or post high scores to your Amazon API. These functions can be called by any of your components.
 
 Finally, you need to update your `App.js` file in the `src` folder to properly start the application and display the `AppWithRouterAccess` component.
 
-```javascript
-import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
-import AppWithRouterAccess from './AppWithRouterAccess';
-import 'bootstrap/dist/css/bootstrap.min.css';
+```jsx
+import React from "react";
+import { BrowserRouter as Router } from "react-router-dom";
+import AppWithRouterAccess from "./AppWithRouterAccess";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const App = () => {
   return (
@@ -1034,18 +1023,18 @@ const App = () => {
       <AppWithRouterAccess/>
     </Router>
   );
-}
+};
 
 export default App;
 ```
 
-## Test it
+## Test Your Node.js React Application
 
 With all your pages set up, type `npm run start` in your terminal. You'll be presented with your home page and the opportunity to start a new game or log in to Okta. Click on *New Game* and you will be asked to log in using your Okta account. Log in and give the game a shot!
 
 If you need to compare any code to the original, you can grab the source code for the Node.js project on [GitHub](https://github.com/oktadeveloper/okta-aws-lambda-node-react-example).
 
-## Further Reading
+## More AWS Lambda, Node.js, and React.js Resources
 
 If you are interested in learning more about React.js, Node.js, or Serverless, check out some of these other great posts!
 
