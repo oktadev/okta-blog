@@ -1,9 +1,6 @@
 ---
 layout: blog_post
-title: "How to Succeed with Angular Deployment" // 71
-// Deploy Angular to the Cloud = 61
-// The Ultimate Angular Deployment Guide = 57
-// Angular Deployment Guide for 2020 = 47
+title: "How to Succeed with Angular Deployment"
 author: matt-raible
 by: advocate
 communities: [java,javascript,devops]
@@ -18,6 +15,11 @@ type: conversion
 ---
 :toc: macro
 :page-liquid:
+
+// How to Succeed with Angular Deployment = 71
+// Deploy Angular to the Cloud = 61
+// The Ultimate Angular Deployment Guide = 57
+// Angular Deployment Guide for 2020 = 47
 
 One of the more popular combinations of frontend and backend frameworks is Angular + Spring Boot. I've written several tutorials on how to combine the two, from keeping them as separate apps, to combining them into a single artifact. But what about deployment?
 
@@ -36,11 +38,9 @@ Since this tutorial is about deployment moreso than app creation, you can start 
 * https://developer.okta.com/blog/2020/01/06/crud-angular-9-spring-boot-2[Build a CRUD App with Angular 9 and Spring Boot 2.2]
 * https://developer.okta.com/blog/2020/03/02/angular-bootstrap[Build Beautiful Angular Apps with Bootstrap]
 
-One of the slick features of this app is its full-featured data table that allows sorting, searching, and pagination. This feature is powered by NG Bootstrap and Spring Data JPA. Below are a couple screenshots.
+One of the slick features of this app is its full-featured data table that allows sorting, searching, and pagination. This feature is powered by NG Bootstrap and Spring Data JPA. Below is a screenshot.
 
 image::{% asset_path 'blog/angular-deployment/notes-list-with-sorting.png' %}[alt=Notes list with sorting,width=800,align=center]
-
-image::{% asset_path 'blog/angular-deployment/notes-list-with-pagination.png' %}[alt=Notes list with pagination,width=800,align=center]
 
 Clone the application into an `okta-angular-deployment-example` directory.
 
@@ -70,7 +70,7 @@ CAUTION: If you haven't entered a credit card for your Heroku account, you will 
 
 Click **Provision** and wait 20-30 seconds while your Okta account is created and OIDC apps are registered. Now go to your app's **Settings** tab and click the **Reveal Config Vars** button. The Config Vars displayed are the environment variables you can use to configure both Angular and Spring Boot for OIDC authentication.
 
-image::{% asset_path 'blog/angular-deployment/okta-add-on.png' %}[alt=Okta Add-On,width=475,align=center]
+image::{% asset_path 'blog/angular-deployment/heroku-config-vars.png' %}[alt=Okta Add-On,width=800,align=center]
 
 Create an `okta.env` file in the `okta-angular-deployment-example/notes-api` directory and copy the config vars into it, where `$OKTA_*` is the value from Heroku.
 
@@ -89,7 +89,7 @@ source okta.env
 ./gradlew bootRun
 ----
 
-Next, configure Angular for OIDC auth by modifying `okta-angular-deployment-example/notes/auth-routing.module.ts` to use the generated issuer, client ID, and update the callback URL.
+Next, configure Angular for OIDC auth by modifying its `auth-routing.module.ts` to use the generated issuer, client ID, and update the callback URL.
 
 [source,typescript]
 .notes/src/app/auth-routing.module.ts
@@ -126,7 +126,7 @@ Open `http://localhost:4200` in your browser.
 
 image::{% asset_path 'blog/angular-deployment/angular-home.png' %}[alt=Angular Home,width=800,align=center]
 
-Click the **Login** button. You should be logged in straight-away since you're already logged in to Okta. If you want to see the full authentication flow, log out, or try it in a private window. You can use the `$OKTA_ADMIN_EMAIL` and `$OKTA_ADMIN_PASSWORD` from your Heroku config variables for credentials.
+Click the **Login** button. You should be logged in straight-away since you're already logged in to Okta. If you want to see the full authentication flow, log out, or try it in a private window. You can use the `$OKTA_ADMIN_EMAIL` and `$OKTA_ADMIN_PASSWORD` from your Heroku config variables for credentials. Create a note to make sure everything works.
 
 image::{% asset_path 'blog/angular-deployment/first-note.png' %}[alt=First note,width=800,align=center]
 
@@ -137,7 +137,7 @@ Commit your progress to Git from the `okta-angular-deployment-example` directory
 git commit -am "Add Okta OIDC Configuration"
 ----
 
-== Prepare Your Angular + Spring Boot App for Production
+== Prepare Angular + Spring Boot for Production
 
 There are a couple things you should do to make your app ready for production.
 
@@ -155,8 +155,11 @@ There's a https://github.com/patrikerdes/gradle-use-latest-versions-plugin[Gradl
 
 [source,kotlin]
 ----
-id("se.patrikerdes.use-latest-versions") version "0.2.13"
-id("com.github.ben-manes.versions") version "0.28.0"
+plugins {
+    id("se.patrikerdes.use-latest-versions") version "0.2.13"
+    id("com.github.ben-manes.versions") version "0.28.0"
+    ...
+}
 ----
 
 Then run the following command in the `notes-api` directory to update your dependencies to the latest released versions.
@@ -170,7 +173,7 @@ You can verify everything still works by running `./gradlew bootRun` and navigat
 
 TIP: If your app fails to start, you need to run `source okta.env` first.
 
-For the Angular client, you can use https://www.npmjs.com/package/npm-check-updates[npm-check-updates] to upgrade npm dependencies. Install this package.
+For the Angular client, you can use https://www.npmjs.com/package/npm-check-updates[npm-check-updates] to upgrade npm dependencies.
 
 [source,shell]
 ----
@@ -200,9 +203,9 @@ git commit -am "Update dependencies to latest versions"
 
 There are a couple places where `localhost` is hard-coded:
 
-1. `notes-api/src/main/kotlin/.../DemoApplication.kt` has `http://localhost:4200`
-2. `notes/src/app/shared/okta/auth-interceptor.ts` has `http://localhost`
-3. `notes/src/app/note/note.service.ts` has `http://localhost:8080`
+1. `notes-api/src/main/kotlin/.../DemoApplication.kt` has `\http://localhost:4200`
+2. `notes/src/app/shared/okta/auth-interceptor.ts` has `\http://localhost`
+3. `notes/src/app/note/note.service.ts` has `\http://localhost:8080`
 
 You need to change Spring Boot's code so other origins can make CORS requests. Angular's code needs updating so access tokens will be sent to production URLs and API requests are sent to the correct endpoint.
 
