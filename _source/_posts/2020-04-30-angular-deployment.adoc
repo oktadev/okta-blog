@@ -7,34 +7,42 @@ title: "How to Succeed with Angular Deployment" // 71
 author: matt-raible
 by: advocate
 communities: [java,javascript,devops]
-description: "You've built an Angular + Spring Boot application and now you need to deploy it. This tutorial shows you how!"
+description: "Learn how to deploy your Angular + Spring Boot App to Heroku, Firebase, Netlify, AWS, and Azure."
 tags: [angular, deployment, heroku, firebase, netlify, aws s3, azure]
 tweets:
-- ""
-- ""
-- ""
+- "You've built an Angular + Spring Boot application and now you need to deploy it. This tutorial shows you how!"
+- "Deploy @angular to Heroku, Firebase, Netlify, AWS, and Azure with this in-depth tutorial."
+- "A Guide for deploying @angular and @springboot applications in 2020. 👇"
 image:
 type: conversion
 ---
 :toc: macro
 :page-liquid:
 
-// intro
+One of the more popular combinations of frontend and backend frameworks is Angular + Spring Boot. I've written several tutorials on how to combine the two, from keeping them as separate apps, to combining them into a single artifact. But what about deployment?
 
-**Prerequisites:**
+Developers ask me from time-to-time what's the best way to do Angular deployment? In this tutorial, I'll show you several options. I'll start by showing you how to deploy a Spring Boot app to Heroku. Then I'll show how to deploy a separate Angular app to Heroku.
 
-* https://nodejs.org/[Node 12]+
-* https://adoptopenjdk.net/[Java 11]+
-* An https://developer.okta.com/signup/[Okta Developer Account]
+There's lots of tutorials and knowledge in the Java community about how to deploy Spring Boot apps, so I'll leave the backend on Heroku and show other Angular deployment options, including Firebase, Netlify, AWS S3, and Azure.
+
+Finally, I'll show you how to combine your Angular + Spring Boot app into a single artifact and package it in a Docker container. You'll learn how to deploy it to Heroku using its Container Registry.
+
+toc::[]
 
 == Create an Angular + Spring Boot App
 
-https://developer.okta.com/blog/2020/01/06/crud-angular-9-spring-boot-2[Build a CRUD App with Angular 9 and Spring Boot 2.2]
-https://developer.okta.com/blog/2020/03/02/angular-bootstrap[Build Beautiful Angular Apps with Bootstrap]
+Since this tutorial is about deployment moreso than app creation, you can start with an existing Angular + Spring Boot app I created previously. It's a note-taking app that uses Kotlin and Spring Boot 2.2 on the backend and Angular 9 on the frontend. It's secured with OpenID Connect (OIDC). If you'd like to see how I built it, you can read the following tutorials:
 
-// image from bootstrap post
+* https://developer.okta.com/blog/2020/01/06/crud-angular-9-spring-boot-2[Build a CRUD App with Angular 9 and Spring Boot 2.2]
+* https://developer.okta.com/blog/2020/03/02/angular-bootstrap[Build Beautiful Angular Apps with Bootstrap]
 
-Clone the previous application into an `okta-angular-deployment-example` directory.
+One of the slick features of this app is its full-featured data table that allows sorting, searching, and pagination. This feature is powered by NG Bootstrap and Spring Data JPA. Below are a couple screenshots.
+
+image::{% asset_path 'blog/angular-deployment/notes-list-with-sorting.png' %}[alt=Notes list with sorting,width=800,align=center]
+
+image::{% asset_path 'blog/angular-deployment/notes-list-with-pagination.png' %}[alt=Notes list with pagination,width=800,align=center]
+
+Clone the application into an `okta-angular-deployment-example` directory.
 
 [source,shell]
 ----
@@ -42,58 +50,85 @@ git clone https://github.com/oktadeveloper/okta-angular-bootstrap-example.git \
  okta-angular-deployment-example
 ----
 
-toc::[]
+**Prerequisites:**
+
+* https://nodejs.org/[Node 12]+
+* https://adoptopenjdk.net/[Java 11]+
+* An https://developer.okta.com/signup/[Okta Developer Account]
 
 === Secure Your Angular + Spring Boot App with OIDC
 
-Using your https://developer.okta.com/signup[Okta developer account], log in to your dashboard, and register your Spring Boot app:
+To begin, you'll need to https://signup.heroku.com/login[create a Heroku account]. If you already have a Heroku account, log in to it. Once you're logged in, create a new app.
 
-1. Navigate to **Applications** > **Add Application**
-2. Select **Web** and click **Next**
-3. Give the application a name and add `http://localhost:8080/login/oauth2/code/okta` as a login redirect URI
-4. Click **Done**
+image::{% asset_path 'blog/angular-deployment/heroku-create-app.png' %}[alt=Create Heroku app,width=700,align=center]
 
-Create an `okta.env` file in the `notes-api` directory and copy your settings into it.
+After creating your app, click on the **Resources** tab and add the **Okta** add-on.
+
+image::{% asset_path 'blog/angular-deployment/okta-add-on.png' %}[alt=Okta Add-On,width=475,align=center]
+
+CAUTION: If you haven't entered a credit card for your Heroku account, you will get an error. This is because Heroku requires you to have a credit card on file to use any of their add-ons, even for free ones. This is part of Heroku's assurance to guard against misuse (real person, real credit card, etc.). I think this is a good security practice. Add a credit card to continue.
+
+Click **Provision** and wait 20-30 seconds while your Okta account is created and OIDC apps are registered. Now go to your app's **Settings** tab and click the **Reveal Config Vars** button. The Config Vars displayed are the environment variables you can use to configure both Angular and Spring Boot for OIDC authentication.
+
+image::{% asset_path 'blog/angular-deployment/okta-add-on.png' %}[alt=Okta Add-On,width=475,align=center]
+
+Create an `okta.env` file in the `okta-angular-deployment-example/notes-api` directory and copy the config vars into it, where `$OKTA_*` is the value from Heroku.
 
 [source,shell]
 ----
-export OKTA_OAUTH2_ISSUER=https://{yourOktaDomain}/oauth2/default
-export OKTA_OAUTH2_CLIENT_ID={yourClientId}
-export OKTA_OAUTH2_CLIENT_SECRET={yourClientSecret}
+export OKTA_OAUTH2_ISSUER=$OKTA_OAUTH2_ISSUER
+export OKTA_OAUTH2_CLIENT_ID=$OKTA_OAUTH2_CLIENT_ID_WEB
+export OKTA_OAUTH2_CLIENT_SECRET=$OKTA_OAUTH2_CLIENT_SECRET_WEB
 ----
 
 Start your Spring Boot app by navigating to the `notes-api` directory, sourcing this file, and starting your app.
 
 [source,shell]
 ----
-cd notes-api
 source okta.env
 ./gradlew bootRun
 ----
 
-Then, create a new OIDC app for Angular:
-
-1. Navigate to **Applications** > **Add Application**
-2. Select **Single-Page App** and click **Next**
-3. Give the application a name, set the login redirect URI to `http://localhost:4200/callback`
-4. Click **Done**
-
-Modify `auth-routing.module.ts` to use your Okta domain and client ID.
+Next, configure Angular for OIDC auth by modifying `okta-angular-deployment-example/notes/auth-routing.module.ts` to use the generated issuer, client ID, and update the callback URL.
 
 [source,typescript]
 .notes/src/app/auth-routing.module.ts
 ----
 const oktaConfig = {
-  issuer: 'https://{yourOktaDomain}/oauth2/default',
-  redirectUri: window.location.origin + '/callback',
-  clientId: '{yourClientId}',
+  issuer: '$OKTA_OAUTH2_ISSUER',
+  redirectUri: window.location.origin + '/authorization-code/callback',
+  clientId: '$OKTA_OAUTH2_CLIENT_ID_SPA',
   pkce: true
 };
+
+const routes: Routes = [
+  ...
+  {
+    path: 'authorization-code/callback',
+    component: OktaCallbackComponent
+  }
+];
 ----
 
-Now you should be able to log in with your Okta credentials and create notes to your heart's content!
+By default, Heroku registers a SPA app on the same port (`8080`) as a web app. This means you need to log in to your Okta dashboard and add a new redirect URI for local development. Luckily, Heroku makes this easy to do. Go to **Resources** and click on the **okta** add on. This will log you in to your Okta dashboard. Navigate to **Applications** > **Heroku Created OIDC App - browser** > **General** > **Edit**.
 
-// image::{% asset_path 'blog/angular-bootstrap/first-note.png' %}[alt=First note,width=800,align=center]
+Add `http://localhost:4200/authorization-code/callback` as a Login redirect URI and `http://localhost:4200` as a Logout redirect URI. You'll also need to add `http://localhost:4200` as a trusted origin in **API** > **Trusted Origins**.
+
+Install your Angular app's dependencies and start it.
+
+[source,shell]
+----
+npm i
+ng serve
+----
+
+Open `http://localhost:4200` in your browser.
+
+image::{% asset_path 'blog/angular-deployment/angular-home.png' %}[alt=Angular Home,width=800,align=center]
+
+Click the **Login** button. You should be logged in straight-away since you're already logged in to Okta. If you want to see the full authentication flow, log out, or try it in a private window. You can use the `$OKTA_ADMIN_EMAIL` and `$OKTA_ADMIN_PASSWORD` from your Heroku config variables for credentials.
+
+image::{% asset_path 'blog/angular-deployment/first-note.png' %}[alt=First note,width=800,align=center]
 
 Commit your progress to Git from the `okta-angular-deployment-example` directory.
 
@@ -104,12 +139,357 @@ git commit -am "Add Okta OIDC Configuration"
 
 == Prepare Your Angular + Spring Boot App for Production
 
-// change CORS settings in Spring Boot
-// Move auth-interceptor settings to environment.ts
+There are a couple things you should do to make your app ready for production.
+
+1. Make sure you're using the latest releases
+2. Configure production URLs
+3. Use PostgreSQL for the production database
+
+You're going to want to continue to develop it locally, so you'll want a production mode, as well as a development mode.
+
+=== Update Spring Boot and Angular Dependencies
+
+I'm the type of developer that likes to use the latest releases of open source libraries. I do this to take advantage of new features, performance optimizations, and security fixes.
+
+There's a https://github.com/patrikerdes/gradle-use-latest-versions-plugin[Gradle Use Latest Versions Plugin] that provides a task to update dependencies to the latest version. Configure it by adding the following to the `plugins` block at the top of `notes-api/build.gradle.kts`.
+
+[source,kotlin]
+----
+id("se.patrikerdes.use-latest-versions") version "0.2.13"
+id("com.github.ben-manes.versions") version "0.28.0"
+----
+
+Then run the following command in the `notes-api` directory to update your dependencies to the latest released versions.
+
+[source,shell]
+----
+./gradlew useLatestVersions
+----
+
+You can verify everything still works by running `./gradlew bootRun` and navigating to `http://localhost:8080/api/notes`. You should be redirected to Okta to log in, then back to your app.
+
+TIP: If your app fails to start, you need to run `source okta.env` first.
+
+For the Angular client, you can use https://www.npmjs.com/package/npm-check-updates[npm-check-updates] to upgrade npm dependencies. Install this package.
+
+[source,shell]
+----
+npm i -g npm-check-updates
+----
+
+Then run the following commands in the `notes` directory:
+
+[source,shell]
+----
+ncu -u
+npm i
+npm audit fix
+ng serve
+----
+
+Confirm you can still log in at `http://localhost:4200`.
+
+Commit all your changes to source control.
+
+[source,shell]
+----
+git commit -am "Update dependencies to latest versions"
+----
+
+=== Configure Production URLs
+
+There are a couple places where `localhost` is hard-coded:
+
+1. `notes-api/src/main/kotlin/.../DemoApplication.kt` has `http://localhost:4200`
+2. `notes/src/app/shared/okta/auth-interceptor.ts` has `http://localhost`
+3. `notes/src/app/note/note.service.ts` has `http://localhost:8080`
+
+You need to change Spring Boot's code so other origins can make CORS requests. Angular's code needs updating so access tokens will be sent to production URLs and API requests are sent to the correct endpoint.
+
+Open the root directory in your favorite IDE and configure it so it loads `notes-api` as a Gradle project. Open `DemoApplication.kt` and change the `simpleCorsFilter` bean so it configures the allowed origins from your Spring environment.
+
+[source,kotlin]
+.src/main/kotlin/com/okta/developer/notes/DemoApplication.kt
+----
+import org.springframework.beans.factory.annotation.Value
+
+@SpringBootApplication
+class DemoApplication {
+
+    @Value("#{ @environment['allowed.origins'] ?: {} }")
+    private lateinit var allowedOrigins: List<String>
+
+    @Bean
+    fun simpleCorsFilter(): FilterRegistrationBean<CorsFilter> {
+        val source = UrlBasedCorsConfigurationSource()
+        val config = CorsConfiguration()
+        config.allowCredentials = true
+        config.allowedOrigins = allowedOrigins
+        config.allowedMethods = listOf("*");
+        config.allowedHeaders = listOf("*")
+        source.registerCorsConfiguration("/**", config)
+        val bean = FilterRegistrationBean(CorsFilter(source))
+        bean.order = Ordered.HIGHEST_PRECEDENCE
+        return bean
+    }
+}
+----
+
+Define the `allowed.origins` property in `src/main/resources/application.properties`.
+
+[source,properties]
+----
+allowed.origins=http://localhost:4200
+----
+
+Angular has an https://angular.io/guide/build[environment concept] built-in. When you run `ng build --prod` to create a production build, it replaces `environment.ts` with `environment.prod.ts`.
+
+Open `environment.ts` and add an `apiUrl` variable for development.
+
+[source,typescript]
+.notes/src/environments/environment.ts
+----
+export const environment = {
+  production: false,
+  apiUrl: 'http://localhost:8080'
+};
+----
+
+Edit `environment.prod.ts` in the same directory to point to your production Heroku URL.
+
+[source,typescript]
+.notes/src/environments/environment.prod.ts
+----
+export const environment = {
+  production: false,
+  apiUrl: 'https://bootiful-angular.herokuapp.com'
+};
+----
+
+Update `auth-interceptor.ts` to use `environment.apiUrl`.
+
+[source,typescript]
+.notes/src/app/shared/okta/auth.interceptor.ts
+----
+import { environment } from '../../../environments/environment';
+
+@Injectable()
+export class AuthInterceptor implements HttpInterceptor {
+
+  ...
+
+  private async handleAccess(request: HttpRequest<any>, next: HttpHandler): Promise<HttpEvent<any>> {
+    const allowedOrigins = [environment.apiUrl];
+    ...
+  }
+}
+----
+
+Update `notes.service.ts` as well.
+
+[source,typescript]
+.notes/src/app/note/note.service.ts
+----
+import { environment } from '../../environments/environment';
+...
+
+export class NoteService {
+  ...
+  api = `${environment.apiUrl}/api/notes`;
+  ...
+
+  find(filter: NoteFilter): Observable<Note[]> {
+    ...
+
+    const userNotes = `${environment.apiUrl}/user/notes`;
+    ...
+  }
+}
+----
+
+=== Use PostgreSQL for the Production Database
+
+H2 is a SQL database that works nicely for development. In production, you're going to want something a little more robust. Personally, I like PostgreSQL, so I'll use it in this example.
+
+Similar to Angular's environments, Spring and Maven have profiles that allow you to enable different behavior for different environments.
+
+Open `notes-api/build.gradle.kts` and change the H2 dependency so PostgreSQL is used when `-Pprod` is passed in.
+
+[source,kotlin]
+----
+if (project.hasProperty("prod")) {
+    runtimeOnly("org.postgresql:postgresql")
+} else {
+    runtimeOnly("com.h2database:h2")
+}
+----
+
+At the bottom of the file, add the following code to make the `prod` profile the default when `-Pprod` is part of the `bootRun` or `bootJar` commands.
+
+[source,kotlin]
+----
+val profile = if (project.hasProperty("prod")) "prod" else "dev"
+
+tasks.bootRun {
+    args("--spring.profiles.active=${profile}")
+}
+
+tasks.bootJar {
+    rename("application-${profile}.properties", "application.properties")
+}
+----
+
+Rename `notes-api/src/main/resources/application.properties` to `application-dev.properties` and add a URL for H2 so it will persist to disk, retaining data through restarts.
+
+[source,properties]
+----
+allowed.origins=http://localhost:4200
+spring.datasource.url=jdbc:h2:file:./build/h2db/notes;DB_CLOSE_DELAY=-1
+----
+
+Create a `notes-api/src/main/docker/postgresql.yml` so you can test our your `prod` profile settings.
+
+[source,yaml]
+----
+version: '3'
+services:
+  notes-postgresql:
+    image: postgres:12.1
+    environment:
+      - POSTGRES_USER=notes
+      - POSTGRES_PASSWORD=
+    ports:
+      - 5432:5432
+----
+
+Create an `application-prod.properties` file in the same directory as `application-dev.properties`.
+You'll override these properties with environment variables when you deploy to Heroku.
+
+[source,properties]
+.notes-api/src/main/resources/application-prod.properties
+----
+allowed.origins=http://localhost:4200
+spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
+spring.jpa.hibernate.ddl-auto=update
+spring.datasource.url=jdbc:postgresql://localhost:5432/notes
+spring.datasource.username=notes
+spring.datasource.password=
+----
+
+The word `user` is a keyword in PostgreSQL, so you'll need to change `user` to `username` the `Note` entity.
+
+[source,kotlin]
+.notes-api/src/main/kotlin/.../DemoApplication.kt
+----
+data class Note(@Id @GeneratedValue var id: Long? = null,
+                var title: String? = null,
+                var text: String? = null,
+                @JsonIgnore var username: String? = null)
+----
+
+This will cause compilation errors and you'll need to rename method names and variables to fix them.
+
+.Click to see the diff
+[%collapsible]
+====
+[source,diff]
+----
+diff --git a/notes-api/src/main/kotlin/com/okta/developer/notes/DataInitializer.kt b/notes-api/src/main/kotlin/com/okta/developer/notes/DataInitializer.kt
+index 387e332..506d761 100644
+--- a/notes-api/src/main/kotlin/com/okta/developer/notes/DataInitializer.kt
++++ b/notes-api/src/main/kotlin/com/okta/developer/notes/DataInitializer.kt
+@@ -10,7 +10,7 @@ class DataInitializer(val repository: NotesRepository) : ApplicationRunner {
+     @Throws(Exception::class)
+     override fun run(args: ApplicationArguments) {
+         for (x in 0..1000) {
+-            repository.save(Note(title = "Note ${x}", user = "matt.raible@okta.com"))
++            repository.save(Note(title = "Note ${x}", username = "matt.raible@okta.com"))
+         }
+         repository.findAll().forEach { println(it) }
+     }
+diff --git a/notes-api/src/main/kotlin/com/okta/developer/notes/DemoApplication.kt b/notes-api/src/main/kotlin/com/okta/developer/notes/DemoApplication.kt
+index 6f1292c..22a5130 100644
+--- a/notes-api/src/main/kotlin/com/okta/developer/notes/DemoApplication.kt
++++ b/notes-api/src/main/kotlin/com/okta/developer/notes/DemoApplication.kt
+@@ -26,12 +26,12 @@ fun main(args: Array<String>) {
+ data class Note(@Id @GeneratedValue var id: Long? = null,
+                 var title: String? = null,
+                 var text: String? = null,
+-                @JsonIgnore var user: String? = null)
++                @JsonIgnore var username: String? = null)
+
+ @RepositoryRestResource
+ interface NotesRepository : JpaRepository<Note, Long> {
+-    fun findAllByUser(name: String, pageable: Pageable): Page<Note>
+-    fun findAllByUserAndTitleContainingIgnoreCase(name: String, title: String, pageable: Pageable): Page<Note>
++    fun findAllByUsername(name: String, pageable: Pageable): Page<Note>
++    fun findAllByUsernameAndTitleContainingIgnoreCase(name: String, title: String, pageable: Pageable): Page<Note>
+ }
+
+ @Component
+@@ -42,6 +42,6 @@ class AddUserToNote {
+     fun handleCreate(note: Note) {
+         val username: String = SecurityContextHolder.getContext().getAuthentication().name
+         println("Creating note: $note with user: $username")
+-        note.user = username
++        note.username = username
+     }
+ }
+diff --git a/notes-api/src/main/kotlin/com/okta/developer/notes/UserController.kt b/notes-api/src/main/kotlin/com/okta/developer/notes/UserController.kt
+index 0f71858..670fedd 100644
+--- a/notes-api/src/main/kotlin/com/okta/developer/notes/UserController.kt
++++ b/notes-api/src/main/kotlin/com/okta/developer/notes/UserController.kt
+@@ -15,10 +15,10 @@ class UserController(val repository: NotesRepository) {
+     fun notes(principal: Principal, title: String?, pageable: Pageable): Page<Note> {
+         println("Fetching notes for user: ${principal.name}")
+         return if (title.isNullOrEmpty()) {
+-            repository.findAllByUser(principal.name, pageable)
++            repository.findAllByUsername(principal.name, pageable)
+         } else {
+             println("Searching for title: ${title}")
+-            repository.findAllByUserAndTitleContainingIgnoreCase(principal.name, title, pageable)
++            repository.findAllByUsernameAndTitleContainingIgnoreCase(principal.name, title, pageable)
+         }
+     }
+----
+====
+
+You won't want to pre-populate your production database with a bunch of notes, so add add a `@Profile` annotation to the top of `DataInitializer` so it only runs for the `dev` profile.
+
+[source,kotlin]
+----
+import org.springframework.context.annotation.Profile
+...
+
+@Profile("dev")
+class DataInitializer(val repository: NotesRepository) : ApplicationRunner {...}
+----
+
+To test your profiles, start PostgreSQL using Docker Compose.
+
+[source,shell]
+----
+docker-compose -f src/main/docker/postgresql.yml up
+----
+
+In another terminal, run your Spring Boot app.
+
+[source,shell]
+----
+source okta.env
+./gradlew bootRun -Pprod
+----
+
+If it starts OK, confirm your Angular app can talk to it, and get ready to deploy to production!
+
+[source,shell]
+----
+git commit -am "Configure environments for production"
+----
 
 == Deploy Spring Boot to Heroku
 
-https://signup.heroku.com/login
+
 
 https://devcenter.heroku.com/articles/heroku-cli[Heroku CLI]
 
