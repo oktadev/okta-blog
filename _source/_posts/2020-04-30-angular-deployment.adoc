@@ -52,8 +52,9 @@ git clone https://github.com/oktadeveloper/okta-angular-bootstrap-example.git \
 
 **Prerequisites:**
 
-* https://nodejs.org/[Node 12]+
+* https://docs.docker.com/get-docker/[Docker]
 * https://adoptopenjdk.net/[Java 11]+
+* https://nodejs.org/[Node 12]+
 * An https://developer.okta.com/signup/[Okta Developer Account]
 
 === Secure Your Angular + Spring Boot App with OIDC
@@ -392,6 +393,7 @@ data class Note(@Id @GeneratedValue var id: Long? = null,
 
 This will cause compilation errors and you'll need to rename method names and variables to fix them.
 
+// todo adjust diff CSS
 .Click to see the diff
 [%collapsible]
 ====
@@ -492,11 +494,155 @@ git commit -am "Configure environments for production"
 
 == Deploy Spring Boot to Heroku
 
+One of the easiest ways to interact with Heroku is with the https://devcenter.heroku.com/articles/heroku-cli[Heroku CLI]. Install it before proceeding with the instructions below.
 
+Open a terminal and log in to your Heroku account.
 
-https://devcenter.heroku.com/articles/heroku-cli[Heroku CLI]
+[source,shell]
+----
+heroku login
+----
 
+Heroku expects you to have one Git repo per application. However, in this particular example, there's multiple apps in the same repo. This is called a **monorepo**, where many projects are stored in the same repository.
 
+Luckily, there's a https://elements.heroku.com/buildpacks/lstoll/heroku-buildpack-monorepo[herok-buildpack-monorepo] that allows you to deploy multiple apps from the same repo.
+
+You should already have a Heroku app that you added Okta to. Let's use that one for hosting Spring Boot. Run `heroku apps` and you'll see the one you created.
+
+[source,shell]
+----
+$ heroku apps
+=== matt.raible@okta.com Apps
+bootiful-angular
+----
+
+You can run `heroku config -a $APP_NAME` to see your Okta variables. In my case, I'll be using `bootiful-angular` for `$APP_NAME`.
+
+Associate your existing Git repo with the app on Heroku.
+
+[source,shell]
+----
+heroku git:remote -a $APP_NAME
+----
+
+Set the `APP_BASE` config variable to point to the `notes-api` directory and add the monorepo and Gradle buildpacks.
+
+[source,shell]
+----
+heroku config:set APP_BASE=notes-api
+heroku buildpacks:add https://github.com/lstoll/heroku-buildpack-monorepo
+heroku buildpacks:add heroku/gradle
+----
+
+Attach a PostgreSQL database to your app.
+
+[source,shell]
+----
+heroku addons:create heroku-postgresql
+----
+
+As part of this process, Heroku will automatically set configuration variables for `SPRING_DATASOURCE_URL`, `SPRING_DATASOURCE_USERNAME`, AND `SPRING_DATASOURCE_PASSWORD`. These values will override what you have in `application-prod.properties`.
+
+By default, https://devcenter.heroku.com/articles/deploying-gradle-apps-on-heroku[Heroku's Gradle support] runs `./gradlew build -x test`. Since you want it to run `./gradlew bootJar -Pprod`, you'll need to override it by setting a `GRADLE_TASK` config var.
+
+[source,shell]
+----
+heroku config:set GRADLE_TASK="bootJar -Pprod"
+----
+
+The `$OKTA_*` environment variables don't have the same names as the Okta Spring Boot starter expects. This is because the Okta Heroku Add-On creates two apps: a SPA and a web app. The web app's config variables end in `_WEB`. You'll have to make some changes so those variables are used for the Okta Spring Boot starter. One way is to create a `Procfile` in the `notes-api` directory.
+
+[source,shell]
+----
+web: java -Dserver.port=$PORT -Dokta.oauth2.client-id=${OKTA_OAUTH2_CLIENT_ID_WEB} -Dokta.oauth2.client-secret=${OKTA_OAUTH2_CLIENT_SECRET_WEB} -jar build/lib/*.jar
+----
+
+I think it's easier to rename the variable, so that's what I recommend. Run the following command and remove `_WEB` from the two variables that have it.
+
+[source,shell]
+----
+heroku config:edit
+----
+
+Now you're ready to deploy! Take a deep breath and witness how Heroku can deploy your Spring Boot + Kotlin app with a simple `git push`.
+
+[source,shell]
+----
+git push heroku master
+----
+
+When I ran this command, here's the output I received.
+
+[source,shell]
+----
+remote: Compressing source files... done.
+remote: Building source:
+remote:
+remote: -----> Monorepo app detected
+remote:       Copied notes-api to root of app successfully
+remote: -----> Gradle app detected
+remote: -----> Spring Boot detected
+remote: -----> Installing JDK 1.8... done
+remote: -----> Building Gradle app...
+remote: -----> executing ./gradlew bootJar -Pprod
+remote:        Downloading https://services.gradle.org/distributions/gradle-6.0.1-bin.zip
+remote:        ..........................................................................................
+remote:        > Task :compileKotlin
+remote:        > Task :compileJava NO-SOURCE
+remote:        > Task :processResources
+remote:        > Task :classes
+remote:        > Task :bootJar
+remote:
+remote:        BUILD SUCCESSFUL in 1m 28s
+remote:        3 actionable tasks: 3 executed
+remote: -----> Discovering process types
+remote:        Procfile declares types     -> (none)
+remote:        Default types for buildpack -> web
+remote:
+remote: -----> Compressing...
+remote:        Done: 91.4M
+remote: -----> Launching...
+remote:        Released v1
+remote:        https://bootiful-angular.herokuapp.com/ deployed to Heroku
+remote:
+remote: Verifying deploy... done.
+To https://git.heroku.com/bootiful-angular.git
+   a1b10c4..6e298cf  master -> master
+Execution time: 2 min. 7 s.
+----
+
+Run `heroku open` to open your app. You'll be redirected to Okta to authenticate, then back to your app. It will display a 404 error message because you have nothing mapped to `/`. Fix that by adding a `HomeController` with the following code.
+
+[source,kotlin]
+----
+package com.okta.developer.notes
+
+import org.springframework.security.core.annotation.AuthenticationPrincipal
+import org.springframework.security.oauth2.core.oidc.user.OidcUser
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RestController
+
+@RestController
+class HomeController {
+
+    @GetMapping("/")
+    fun hello(@AuthenticationPrincipal user: OidcUser): String {
+        return "Hello, ${user.fullName}"
+    }
+}
+----
+
+Commit this change and deploy it to Heroku.
+
+[source,shell]
+----
+git commit -am "Add HomeController"
+git push heroku master
+----
+
+Now when you access the app, it should say hello.
+
+image::{% asset_path 'blog/angular-deployment/heroku-hello.png' %}[alt=Hello, SUPER ADMIN,width=800,align=center]
 
 == Deploy Angular to Heroku
 
@@ -515,3 +661,7 @@ https://devcenter.heroku.com/articles/heroku-cli[Heroku CLI]
 == Package Angular + Spring Boot with Docker
 
 == Learn More About Angular and Spring Boot
+
+https://devcenter.heroku.com/articles/deploying-spring-boot-apps-to-heroku
+https://devcenter.heroku.com/articles/deploying-executable-jar-files
+https://devcenter.heroku.com/articles/deploying-gradle-apps-on-heroku
