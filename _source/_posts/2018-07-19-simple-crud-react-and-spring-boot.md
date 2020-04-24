@@ -1459,6 +1459,7 @@ If you have any questions, please don't hesitate to leave a comment below, or as
 
 **Changelog:**
 
+* Apr 23, 2020: Added link to [Build a CRUD Application with Kotlin and React](/blog/2020/01/13/kotlin-react-crud), our latest React + Spring Boot post.
 * Feb 20, 2020: Fixed PUT request thanks to a [pull request from @fatcatdog](https://github.com/oktadeveloper/okta-spring-boot-react-crud-example/pull/13). Changes to this post can be viewed in [okta-blog#201](https://github.com/oktadeveloper/okta-blog/pull/201).
 * Apr 29, 2019: Fixed path in `@PutMapping` to be `@PutMapping("/group/{id}")`. You can see the example app changes in [okta-spring-boot-react-crud-example#12](https://github.com/oktadeveloper/okta-spring-boot-react-crud-example/pull/12); changes to this post can be viewed in [okta.github.io#2849](https://github.com/oktadeveloper/okta.github.io/pull/2849).
 * Jan 7, 2019: Fixed `yarn test` to add `CI=true` environment variable. Thanks to [Cameron Moreau for the fix](https://github.com/oktadeveloper/okta-spring-boot-react-crud-example/pull/10).
