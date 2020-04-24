@@ -15,7 +15,7 @@ type: conversion
 ---
 
 
-Many Okta customers who leverage Advanced Server Access to secure and automate identity across their dynamic infrastructure fleets use HashiCorp Terraform to declare and provision resources across AWS, GCP, and Azure. One customer built their own Terraform Provider as a wrapper to the Advanced Server Access API, which we recently had certified by the team at HashiCorp. You can read more about the announcement on the Okta Blog: <LINK TO OKTA BLOG>.
+Many Okta customers who leverage Advanced Server Access to secure and automate identity across their dynamic infrastructure fleets use HashiCorp Terraform to declare and provision resources across AWS, GCP, and Azure. One customer built their own Terraform Provider as a wrapper to the Advanced Server Access API, which we recently had certified by the team at HashiCorp. You can read more about the announcement on the Okta Blog: https://www.okta.com/blog/2020/04/adapting-to-the-cloud-operating-model-using-okta-hashicorp/
 
 In this example, we're going to showcase the full power of Okta and Terraform to automate and secure AWS environments. To proceed with this example, you must be an [Okta Advanced Server Access](https://www.okta.com/products/advanced-server-access/) administrator, and have administrative access to an AWS account. The steps to perform here are similar across GCP and Azure as well, using their respective Providers to provision the respective infrastructure resources.
 
