@@ -1449,6 +1449,7 @@ You can find the example created in this tutorial on GitHub at [https://github.c
 
 We've written some other cool Spring Boot and React tutorials, check them out if you're interested.
 
+* [Build a CRUD Application with Kotlin and React](/blog/2020/01/13/kotlin-react-crud)
 * [Bootiful Development with Spring Boot and React](/blog/2017/12/06/bootiful-development-with-spring-boot-and-react)
 * [Build a React Native Application and Authenticate with OAuth 2.0](/blog/2018/03/16/build-react-native-authentication-oauth-2)
 * [Add CI/CD to Your Spring Boot App with Jenkins X and Kubernetes](/blog/2018/07/11/ci-cd-spring-boot-jenkins-x-kubernetes)
