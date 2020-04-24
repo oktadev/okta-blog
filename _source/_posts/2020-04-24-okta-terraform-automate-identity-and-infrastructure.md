@@ -22,7 +22,7 @@ In this example, we're going to showcase the full power of Okta and Terraform to
 **NOTE**: If you don't have an Okta ASA account yet, you can go [create one here](https://app.scaleft.com/p/signup).
 
 
-### Create an Advanced Server Access API User
+### Create an Okta Advanced Server Access API User
 
 In order to leverage the Okta ASA Terraform Provider, you'll need a Service User to authenticate with the API. Within your ASA Team, follow the [documentation to create a Service User](https://help.okta.com/en/prod/Content/Topics/Adv_Server_Access/docs/service-users.htm), create an API key, and copy the values for the Key ID and Key Secret. 
 
@@ -61,7 +61,7 @@ export OKTAASA_TEAM       = "<ASA Team Name>"
 
 To help you better secure and manage your secrets, HashiCorp offers a hosted solution--[Terraform Cloud](https://www.terraform.io/docs/cloud/index.html), which runs in a consistent and reliable environment, and includes easy access to shared state and secret data, access controls for approving changes to infrastructure, a private registry for sharing Terraform modules, detailed policy controls for governing the contents of Terraform configurations, and more. To learn more about the various offerings from HashiCorp, visit: https://www.hashicorp.com/products/terraform/pricing/.
 
-#### Declare Variables in input.tf
+#### Declare Terraform Variables in input.tf
 
 Additional variables that are used within the Terraform code are placed in the `input.tf` file. Copy the following code to declare the AWS variables. 
 
@@ -132,7 +132,7 @@ provider "oktaasa" {
 ```
 
 
-#### Initialize Terraform project
+#### Initialize the Terraform Project
 
 Now would be a good time to initialize the Terraform project, which will import the AWS and Okta ASA Providers, ensuring all dependencies are met. From your terminal, within the project directory, run the following command:
 
@@ -143,7 +143,7 @@ $ terraform init
 If there are no errors, at this point, you can move on to writing the Terraform code. If there are errors, pay close attention to the responses. A very common Terraform issue is with versioning--the code from this example was built for v0.12+.
 
 
-#### Create resources in main.tf
+#### Create Terraform Resources in main.tf
 
 Next, we're going to declare the resources to create across Okta ASA and AWS. First, we'll create and configure the Okta ASA Project, and create and assign an Okta Group to the Project. Copy the following code to `main.tf`. You may optionally skip the Create Group step and assign an existing Group if you want to test with existing users. 
 
@@ -239,7 +239,7 @@ resource "aws_security_group" "security_group" {
 }
 ```
 
-#### Write User Data Shell Script
+#### Write an Okta User Data Shell Script
 
 Before we spin up an EC2 instance within this newly spawned VPC, we need to create the Okta ASA installation script to be run as user data on startup. Create a new file in your project directory named: sftd-userdata.sh. This file performs a few key configuration functions, and then installs the Okta ASA Server Agent. We'll walk through the code in this file piece by piece. Note that we'll cover the included variables afterwards when we return back to `main.tf`.
 
@@ -296,7 +296,7 @@ This script is executed when the EC2 instance is instantiated, and once the Okta
 One additional function the Okta ASA Server Agent performs on startup is to configure the local OpenSSH to trust client certificates signed by Okta as a valid authentication mechanism. This is key to the underlying Zero Trust architecture, where every login request to this EC2 instance is independently authenticated and authorized, and minted a short-lived, tightly scoped credential.
 
 
-#### Spin Up EC2 Instances in main.tf
+#### Spin Up EC2 Instances Using Terraform in main.tf
 
 Let's return back to our `main.tf` file to create the EC2 instance resource with the respective shell script executed as user data on startup. Copy the following code to the end of `main.tf`.
 
@@ -324,3 +324,10 @@ To learn more about Okta Advanced Server Access, and start a free 30-day trial, 
 ## About HashiCorp
 
 HashiCorp is the leader in multi-cloud infrastructure automation software. The HashiCorp software suite enables organizations to adopt consistent workflows to provision, secure, connect, and run any infrastructure for any application. HashiCorp's open source tools Vagrant™, Packer™, Terraform, Vault, Consul, and Nomad are downloaded tens of millions of times each year and are broadly adopted by the Global 2000. Enterprise versions of these products enhance the open source tools with features that promote collaboration, operations, governance, and multi-data center functionality. For more information, visit https://www.hashicorp.com or follow HashiCorp on Twitter @HashiCorp.
+
+If you'd like to see more information like this, consider following us [on Twitter](https://twitter.com/oktadev), subscribing to our [YouTube channel](https://www.youtube.com/oktadev), or reading through some of our other DevOps articles!
+
+- [A Developer's Guide to Docker](/blog/2017/05/10/developers-guide-to-docker-part-1)
+- [Container Security: A Developer Guide](/blog/2019/07/18/container-security-a-developer-guide)
+- [Add Docker to Your Spring Boot Application](/blog/2019/12/27/spring-boot-deploy-docker)
+- [Build a Simple .NET Core App on Docker](/blog/2019/09/18/build-a-simple-dotnet-core-app-in-docker)
