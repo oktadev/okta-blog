@@ -17,9 +17,13 @@ type: conversion
 :page-liquid:
 
 // How to Succeed with Angular Deployment = 71
+// How to Succeed with Angular + Spring Boot Deployment = 68
 // Deploy Angular to the Cloud = 61
 // The Ultimate Angular Deployment Guide = 57
 // Angular Deployment Guide for 2020 = 47
+// Angular Deployment: The Ultimate Guide = 58
+// Angular + Spring Boot Deployment: The Ultimate Guide = 62
+// todo: add Spring Boot to title. reason: angular deployment is 1900, angular spring boot is 3600
 
 One of the more popular combinations of frontend and backend frameworks is Angular + Spring Boot. I've written several tutorials on how to combine the two, from keeping them as separate apps, to combining them into a single artifact. But what about deployment?
 
@@ -525,7 +529,7 @@ Associate your existing Git repo with the app on Heroku.
 heroku git:remote -a $APP_NAME
 ----
 
-Set the `APP_BASE` config variable to point to the `notes-api` directory and add the monorepo and Gradle buildpacks.
+Set the `APP_BASE` config variable to point to the `notes-api` directory. While you're there, add the monorepo and Gradle buildpacks.
 
 [source,shell]
 ----
@@ -533,6 +537,8 @@ heroku config:set APP_BASE=notes-api
 heroku buildpacks:add https://github.com/lstoll/heroku-buildpack-monorepo
 heroku buildpacks:add heroku/gradle
 ----
+
+TIP: If you're using Maven, you'll want to use the `heroku/java` buildpack.
 
 Attach a PostgreSQL database to your app.
 
@@ -645,6 +651,130 @@ Now when you access the app, it should say hello.
 image::{% asset_path 'blog/angular-deployment/heroku-hello.png' %}[alt=Hello, SUPER ADMIN,width=800,align=center]
 
 == Deploy Angular to Heroku
+
+You'll need to create another app on Heroku for the Angular frontend.
+
+[source,shell]
+----
+heroku create
+----
+
+Set the `APP_BASE` config variable and add the necessary buildpacks to the app that was just created.
+
+[source,shell]
+----
+APP_NAME=<app-name-from-heroku-create>
+heroku config:set APP_BASE=notes -a $APP_NAME
+heroku buildpacks:add https://github.com/lstoll/heroku-buildpack-monorepo -a $APP_NAME
+heroku buildpacks:add heroku/nodejs -a $APP_NAME
+----
+
+Change `notes/package.json` to have a different `start` script.
+
+[source,json]
+----
+"start": "http-server-spa dist/notes index.html $PORT",
+----
+
+Add a `heroku-postbuild` script to your `package.json`:
+
+[source,json]
+----
+"heroku-postbuild": "ng build --prod && npm install -g http-server-spa"
+----
+
+Commit your changes, add a new Git remote for this app, and deploy!
+
+[source,shell]
+----
+git commit -am "Prepare for Heroku"
+git remote add angular https://git.heroku.com/<your-app-name>.git
+git push angular master
+----
+
+When it finishes deploying, you can open your Angular app with:
+
+[source,shell]
+----
+heroku open --remote angular
+----
+
+NOTE: If you experience any issues, you can run `heroku logs --remote angular` to see your app's log files.
+
+You won't be able to log in to your app until you modify its Login redirect URI on Okta. Log in to your Okta dashboard (tip: you can do this from the first Heroku app you created, under the **Resources** tab). Go to **Applications** > **Heroku Created OIDC App - browser** > **General** > **Edit**. Add `https://<angular-app-on-heroku>.herokuapp.com/authorization-code/callback` to the Login URIs and `https://<angular-app-on-heroku>.herokuapp.com` to the Logout URIs.
+
+You should be able to log in now, but you won't be able to add any notes. This is because you need to update the allowed origins in your Spring Boot app. Run the following command to add an `ALLOWED_ORIGINS` variable in your Spring Boot app.
+
+[source,shell]
+----
+heroku config:set ALLOWED_ORIGINS=https://<angular-app-on-heroku>.herokuapp.com --remote heroku
+----
+
+Now you should be able to add a note. Pat yourself on the back for a job well done!
+
+One issue you'll experience is you'll lose your data between restarts. This is because Hibernate is configured to update your database schema each time. Change it to simply validate your schema by overriding the `ddl-auto` value in `application-prod.properties`.
+
+[source,shell]
+----
+heroku config:set SPRING_JPA_HIBERNATE_DDL_AUTO=validate --remote heroku
+----
+
+=== Make Your Angular App More Secure on Heroku
+
+You've deployed your app to Heroku, but there are a couple security issues. One is that if you access it using `http` (instead of `https`), it won't work. You'll get a blank page and an error from the Okta Angular SDK in your browser's console.
+
+The second issue is you'll get an F when you test it using https://securityheaders.com[securityheaders.com]. Heroku has a https://blog.heroku.com/using-http-headers-to-secure-your-site[blog post on using HTTP headers to secure your site] that will help you improve your score.
+
+Create a `notes/static.json` file with a secure headers configuration and redirect all HTTP request to HTTPS.
+
+[source,json]
+----
+{
+  "headers": {
+    "/**": {
+      "Content-Security-Policy": "default-src 'self'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; frame-ancestors 'none'",
+      "Referrer-Policy": "no-referrer, strict-origin-when-cross-origin",
+      "Strict-Transport-Security": "max-age=63072000; includeSubDomains",
+      "X-Content-Type-Options": "nosniff",
+      "X-Frame-Options": "DENY",
+      "X-XSS-Protection": "1; mode=block",
+      "Feature-Policy": "accelerometer 'none'; camera 'none'; microphone 'none'"
+    }
+  },
+  "https_only": true,
+  "root": "dist/notes/",
+  "routes": {
+    "/**": "index.html"
+  }
+}
+----
+
+For `static.json` to be read, you have to use the https://github.com/heroku/heroku-buildpack-static[Heroku static buildpack]. This buildpack is made for SPA applications, so you can revert the `scripts` section of your `package.json` back to what you had previously.
+
+[source,json]
+----
+"scripts": {
+  "ng": "ng",
+  "start": "ng serve",
+  "build": "ng build",
+  "test": "ng test",
+  "lint": "ng lint",
+  "e2e": "ng e2e"
+},
+----
+
+Commit your changes to Git, add the static buildpack, and redeploy your Angular app.
+
+[source,shell]
+----
+git commit -am "Configure secure headers and static buildpack"
+heroku buildpacks:add https://github.com/heroku/heroku-buildpack-static.git --remote angular
+git push angular master
+----
+
+💥 Now you have a security report you can be proud of! 😃
+
+image::{% asset_path 'blog/angular-deployment/security-headers.png' %}[alt=Security Report Summary with an A,width=800,align=center]
 
 == Angular Deployment with `ng deploy`
 
