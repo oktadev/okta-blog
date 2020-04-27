@@ -15,7 +15,7 @@ type: conversion
 ---
 
 
-Many Okta customers who leverage Advanced Server Access to secure and automate identity across their dynamic infrastructure fleets use HashiCorp Terraform to declare and provision resources across AWS, GCP, and Azure. One customer built their own Terraform Provider as a wrapper to the Advanced Server Access API, which we recently had certified by the team at HashiCorp. You can read more about the announcement on the Okta Blog: https://www.okta.com/blog/2020/04/adapting-to-the-cloud-operating-model-using-okta-hashicorp/
+Many Okta customers who leverage Advanced Server Access to secure and automate identity across their dynamic infrastructure fleets use HashiCorp Terraform to declare and provision resources across AWS, GCP, and Azure. One customer built their own Terraform Provider as a wrapper to the Advanced Server Access API, which we recently had certified by the team at HashiCorp. You can [read more about the announcement on the Okta blog](https://www.okta.com/blog/2020/04/adapting-to-the-cloud-operating-model-using-okta-hashicorp/).
 
 In this example, we're going to showcase the full power of Okta and Terraform to automate and secure AWS environments. To proceed with this example, you must be an [Okta Advanced Server Access](https://www.okta.com/products/advanced-server-access/) administrator, and have administrative access to an AWS account. The steps to perform here are similar across GCP and Azure as well, using their respective Providers to provision the respective infrastructure resources.
 
@@ -323,7 +323,7 @@ To learn more about Okta Advanced Server Access, and start a free 30-day trial, 
 
 ## About HashiCorp
 
-HashiCorp is the leader in multi-cloud infrastructure automation software. The HashiCorp software suite enables organizations to adopt consistent workflows to provision, secure, connect, and run any infrastructure for any application. HashiCorp's open source tools Vagrant™, Packer™, Terraform, Vault, Consul, and Nomad are downloaded tens of millions of times each year and are broadly adopted by the Global 2000. Enterprise versions of these products enhance the open source tools with features that promote collaboration, operations, governance, and multi-data center functionality. For more information, visit https://www.hashicorp.com or follow HashiCorp on Twitter @HashiCorp.
+HashiCorp is the leader in multi-cloud infrastructure automation software. The HashiCorp software suite enables organizations to adopt consistent workflows to provision, secure, connect, and run any infrastructure for any application. HashiCorp's open source tools Vagrant™, Packer™, Terraform, Vault, Consul, and Nomad are downloaded tens of millions of times each year and are broadly adopted by the Global 2000. Enterprise versions of these products enhance the open source tools with features that promote collaboration, operations, governance, and multi-data center functionality. For more information, visit <https://www.hashicorp.com> or [follow @HashiCorp on Twitter](https://twitter.com/HashiCorp].
 
 If you'd like to see more information like this, consider following us [on Twitter](https://twitter.com/oktadev), subscribing to our [YouTube channel](https://www.youtube.com/oktadev), or reading through some of our other DevOps articles!
 
