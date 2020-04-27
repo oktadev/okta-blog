@@ -115,6 +115,14 @@ micah-silverman:
     <a href="http://afitnerd.com/2011/10/16/weekend-project-fix-dark-tower/" target="_blank">old electronic games</a>.
     He brings his love of all things Java and Developer Advocacy to you!
 
+ivan-dwyer:
+  full_name: Ivan Dwyer
+  display_name: Ivan Dwyer
+  avatar: avatar-ivan-dwyer.jpg
+  twitter: https://twitter.com/fortyfivan
+  github: https://github.com/fortyfivan
+  bio: ""
+
 randall-degges:
   full_name: Randall Degges
   display_name: Randall Degges
@@ -476,11 +484,11 @@ chase-aucoin:
   twitter: https://twitter.com/ChaseAucoin
 
 nicolas-triballier:
-  full_name: Nicolas Triballier
-  display_name: Nicolas Triballier
+  full_name: Nico Triballier
+  display_name: Nico Triballier
   avatar: avatar-nicolas-triballier.jpeg
   twitter: https://twitter.com/nycotri
-  github: https://github.com/nicolastriballier-okta
+  github: https://github.com/nicotriballier
   linkedin: https://www.linkedin.com/in/nicolastriballier/
 
 chris-gustafson:
