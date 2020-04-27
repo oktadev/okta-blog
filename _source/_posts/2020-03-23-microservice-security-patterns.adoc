@@ -519,5 +519,3 @@ If you liked this post and want notifications when we post others, please https:
 
 [[acknowledgements]]
 _A huge thanks to Chris Richardson and Rob Winch for their thorough reviews and detailed feedback._
-
-TIP: I gave a https://oktane20.com/agenda#566[talk on Security Patterns for Microservice Architectures at Oktane20] on April 2, 2020. You can https://oktane20.com/register[register] and watch it for free until April 10.
