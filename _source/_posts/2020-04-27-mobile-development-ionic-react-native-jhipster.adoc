@@ -16,7 +16,7 @@ type: conversion
 
 Mobile development offers a lot of options. To develop native apps, you can use Java or Kotlin on Android. On iOS, you can use Objective C or Swift. There are other options, too. You can build hybrid mobile apps and Progressive Web Apps (PWAs). Hybrid mobile apps are those created with web technologies (HTML, JavaScript, and CSS) that look like native apps. PWAs have the ability to work offline and act like mobile apps too.
 
-As a web developer, I love using the technologies I know and love to create mobile apps. In this screencast, I show you how to use JHipster and its Ionic and React Native modules to create a health tracking application.
+As a web developer, I love using the technologies I know and love to create mobile apps. In https://youtu.be/vNV5P3USoLY[this screencast], I show you how to use JHipster and its Ionic and React Native modules to create a health tracking application.
 
 ++++
 <div style="text-align: center; margin-bottom: 1.25rem">
