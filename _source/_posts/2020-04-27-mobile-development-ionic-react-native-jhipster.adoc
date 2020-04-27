@@ -4,7 +4,7 @@ title: "Mobile Development with Ionic, React Native, and JHipster"
 author: matt-raible
 by: advocate
 communities: [mobile,java,javascript]
-description: "Mobile development can be difficult, unless you use JHipster and its Ionic and React Native modules."
+description: "Mobile development can be difficult unless you use JHipster and its Ionic and React Native modules."
 tags: [mobile, ionic, react native, jhipster]
 tweets:
 - "Want to learn how to develop mobile apps with web technologies? @ionicframework and @reactnative to the rescue!"
@@ -16,7 +16,7 @@ type: conversion
 
 Mobile development offers a lot of options. To develop native apps, you can use Java or Kotlin on Android. On iOS, you can use Objective C or Swift. There are other options, too. You can build hybrid mobile apps and Progressive Web Apps (PWAs). Hybrid mobile apps are those created with web technologies (HTML, JavaScript, and CSS) that look like native apps. PWAs have the ability to work offline and act like mobile apps too.
 
-As a web developer, I love using the technologies I know and love to create mobile apps. In https://youtu.be/vNV5P3USoLY[this screencast], I show you how to use JHipster and its Ionic and React Native modules to create a health tracking application.
+As a web developer, I enjoy using the technologies I know and love to create mobile apps. In https://youtu.be/vNV5P3USoLY[this screencast], I show you how to use JHipster and its Ionic and React Native modules to create a health tracking application.
 
 ++++
 <div style="text-align: center; margin-bottom: 1.25rem">
@@ -40,11 +40,11 @@ We have several blog posts and videos about mobile development JHipster - check 
 
 TIP: Click on the 📺 to go straight to a post's screencast.
 
-* https://developer.okta.com/blog/2020/04/20/android-authentication[Build an Android Application with Authentication]
+* link:/blog/2020/04/20/android-authentication[Build an Android Application with Authentication]
 * https://youtu.be/-Zs85tAwfxg[📺 Have a SPA day with JHipster, Vue.js & Okta]
-* https://developer.okta.com/blog/2019/11/14/react-native-login[Create a React Native App with Login in 10 Minutes] https://youtu.be/mkT_I5tm3Ig[📺]
-* https://developer.okta.com/blog/2019/06/24/ionic-4-angular-spring-boot-jhipster[Build Mobile Apps with Angular, Ionic 4, and Spring Boot] https://youtu.be/Rc07SUW3gWQ[📺]
-* https://developer.okta.com/blog/2019/05/23/java-microservices-spring-cloud-config[Java Microservices with Spring Cloud Config and JHipster] https://youtu.be/ez7HMO60kE8[📺]
-* https://developer.okta.com/blog/2019/04/04/java-11-java-12-jhipster-oidc[Better, Faster, Lighter Java with Java 12 and JHipster 6] https://youtu.be/Ktnvqoouulg[📺]
+* link:/blog/2019/11/14/react-native-login[Create a React Native App with Login in 10 Minutes] https://youtu.be/mkT_I5tm3Ig[📺]
+* link:/blog/2019/06/24/ionic-4-angular-spring-boot-jhipster[Build Mobile Apps with Angular, Ionic 4, and Spring Boot] https://youtu.be/Rc07SUW3gWQ[📺]
+* link:/blog/2019/05/23/java-microservices-spring-cloud-config[Java Microservices with Spring Cloud Config and JHipster] https://youtu.be/ez7HMO60kE8[📺]
+* link:/blog/2019/04/04/java-11-java-12-jhipster-oidc[Better, Faster, Lighter Java with Java 12 and JHipster 6] https://youtu.be/Ktnvqoouulg[📺]
 
 If you like this video and want to see more like it, https://twitter.com/oktadev[follow @oktadev on Twitter], https://youtube.com/c/oktadev[subscribe to our YouTube channel], or follow us https://www.linkedin.com/company/oktadev/[on LinkedIn]. As always, please leave a comment if you have any questions.
