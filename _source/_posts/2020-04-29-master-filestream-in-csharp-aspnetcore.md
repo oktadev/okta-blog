@@ -14,13 +14,13 @@ image: blog/featured/okta-dotnet-half.jpg
 type: conversion
 ---
 
-We live in a world that moves **fast**. Compared to the mid 90s through early 2000s, we have incredibly intelligent  technology. Effectively, we have super-computers in our pockets. Our *actual*, modern supercomputers would have seemed like works of fiction just two decades ago. Not only is our ability to compute fast, but so is our data - with cellular 4G averaging 18.1 Mbps and 5G coming in at an average of 111.8 Mbps, at the time of writing this.
+We live in a world that moves **fast**. Compared to the mid 90s through early 2000s, we have incredibly intelligent technology. Effectively, we have super-computers in our pockets. Our *actual*, modern supercomputers would have seemed like works of fiction just two decades ago. Not only is our ability to compute fast, but so is our data - with cellular 4G averaging 18.1 Mbps and 5G coming in at an average of 111.8 Mbps, at the time of writing this.
 
 {% img blog/filestream-csharp/01-kbsize.png alt:"Data speeds" width:"800" %}{: .center-image }
 
 With all this speed, there has been abstraction after abstraction placed on top of our data and connections to make development easier, but there is a cost to that ease. We send *a lot* of data over the wire. For all of the assets on a webpage, websites targeting desktops send almost 2.1Mb of data, while mobile sends nearly 1.9Mb. These speeds were not always this ubiquitous. Perhaps it's time to look back at how applications were able to provide relatively fast interaction with data in a world long forgotten: The world of 56Kbps.
 
-My goal is that, by the end of this article, you have a stronger understanding of some of the low level APIs that make moving large amounts of data possible. Additionally, we're going to use this knowledge to make a secure streaming service from Amazon Web Services S3 that will let us restrict data to certain roles. We'll do this using the smallest instance available on AWS,  demonstrating the power of streams to move big data with small machines.
+My goal is that, by the end of this article, you have a stronger understanding of some of the low level APIs that make moving large amounts of data possible. Additionally, we're going to use this knowledge to make a secure streaming service from Amazon Web Services S3 that will let us restrict data to certain roles. We'll do this using the smallest instance available on AWS, demonstrating the power of streams to move big data with small machines.
 
 ## Prerequisites
 
@@ -216,7 +216,7 @@ Navigate to S3 in your [AWS Console](https://s3.console.aws.amazon.com/s3/home).
 
 Click *Create bucket* on the right side.
 
-To make sure no one can get to our content by putting in a plain URL, leave the default setting,  "no public access." For certain types of files - such as CSS, certain images, etc. - public access may be warranted, but we are considering confidential information.
+To make sure no one can get to our content by putting in a plain URL, leave the default setting, "no public access." For certain types of files - such as CSS, certain images, etc. - public access may be warranted, but we are considering confidential information.
 
 {% img blog/filestream-csharp/12-bucket-setup.png alt:"S3 bucket details" width:"800" %}{: .center-image }
 
@@ -304,7 +304,7 @@ using (var fileStream = await _s3Client.GetObjectStreamAsync("your-bucket", "som
 
 I'm going to share an anecdote with you that explains a particular time this was very useful to me. I was working with a company that sent tens of millions of emails a month. Some of these emails were very large and we were hitting some massive bottlenecks with our infrastructure. We were able to write our own SMTP client to more efficiently chuck the data and manage memory, allowing us to go from emails being backed up for hours to delivering emails in milliseconds - still using the same hardware. It's never a great idea to optimize early, but understanding the low-level protocols can be a lifesaver if you are dealing with especially large volumes of data.
 
-Today we've learned how to break down large tasks into small chunks and how to build a secure streaming service. I hope this has given you a starting place for working with some lower-level  parts of the .NET framework. They can seem scary but, if you just think about them as reading and writing data, it gets a lot less daunting.
+Today we've learned how to break down large tasks into small chunks and how to build a secure streaming service. I hope this has given you a starting place for working with some lower-level parts of the .NET framework. They can seem scary but, if you just think about them as reading and writing data, it gets a lot less daunting.
 
 ## Learn More About .NET Core and AWS
 
