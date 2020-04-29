@@ -132,7 +132,7 @@ First log into the [Okta developer portal](https://developer.okta.com/) with you
 
 {% img blog/filestream-csharp/okta-add-application.png alt:"Okta Add App" width:"800" %}{: .center-image }
 
-Since this is going to be a customer-facing website I’ll use Okta’s recommended settings for **Web**.
+Since this is going to be a customer-facing website I'll use Okta's recommended settings for **Web**.
 
 {% img blog/filestream-csharp/okta-select-web-app.png alt:"Select Web for Okta App" width:"800" %}{: .center-image }
 
