@@ -128,6 +128,22 @@ Let's move to a more practical example. Cloud providers such as Azure and AWS ha
 
 I'm going to be using Okta for my security concerns. This makes it easy for me to plug into any type of .NET web application and manage users, roles, and other authentication features. I used to do all that stuff by hand but, over the years, I've been dealing with a lot of clients in banking, government, and other industries that have pretty demanding requirements around security. Okta takes one more thing off my plate, so I can focus on building business value.
 
+First log into the [Okta developer portal](https://developer.okta.com/) with your admin credentials. Select **Applications** in the menu and from your application list click **Add Application**.
+
+{% img blog/filestream-csharp/okta-add-application.png alt:"Okta Add App" width:"800" %}{: .center-image }
+
+Since this is going to be a customer-facing website I’ll use Okta’s recommended settings for **Web**.
+
+{% img blog/filestream-csharp/okta-select-web-app.png alt:"Select Web for Okta App" width:"800" %}{: .center-image }
+
+Since this is in development, leave all the urls set to the default localhost urls and name the application "Secure.Filestreams".
+
+{% img blog/filestream-csharp/okta-name-app.png alt:"Name Okta App" width:"800" %}{: .center-image }
+
+Then on the next screen, take note of the Client ID and Secret for use in the .NET project later.
+
+{% img blog/filestream-csharp/okta-clientid-secret.png alt:"Okta ClientId and ClientSecret" width:"800" %}{: .center-image }
+
 ## Creating Your .NET Core 3.1 Web Project
 
 Create a new project in Visual Studio and start a new **ASP.NET Core Web Application**.
@@ -301,6 +317,8 @@ using (var fileStream = await _s3Client.GetObjectStreamAsync("your-bucket", "som
 I'm going to share an anecdote with you that explains a particular time this was very useful to me. I was working with a company that sent tens of millions of emails a month. Some of these emails were very large and we were hitting some massive bottlenecks with our infrastructure. We were able to write our own SMTP client to more efficiently chuck the data and manage memory, allowing us to go from emails being backed up for hours to delivering emails in milliseconds - still using the same hardware. It's never a great idea to optimize early, but understanding the low-level protocols can be a lifesaver if you are dealing with especially large volumes of data.
 
 Today we've learned how to break down large tasks into small chunks and how to build a secure streaming service. I hope this has given you a starting place for working with some lower-level parts of the .NET framework. They can seem scary but, if you just think about them as reading and writing data, it gets a lot less daunting.
+
+A link to the Github repository for this tutorial can be found [here](https://github.com/chaseaucoin/Okta.Blog.FileStreams). Happy coding!
 
 ## Learn More About .NET Core and AWS
 
