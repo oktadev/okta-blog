@@ -652,6 +652,8 @@ image::{% asset_path 'blog/angular-deployment/heroku-hello.png' %}[alt=Hello, SU
 
 == Deploy Angular to Heroku
 
+An Angular app is composed of JavaScript, CSS, and HTML when built for production. It's extremely portable because it's just a set of static files. If you run `ng build --prod`, the production-ready files will be created in `dist/<app-name>`. In this section, you'll learn how you can use your `package.json` scripts to hook into Heroku's lifecycle and deploy with a simple `git push`.
+
 You'll need to create another app on Heroku for the Angular frontend.
 
 [source,shell]
@@ -774,17 +776,222 @@ git push angular master
 
 💥 Now you have a security report you can be proud of! 😃
 
-image::{% asset_path 'blog/angular-deployment/security-headers.png' %}[alt=Security Report Summary with an A,width=800,align=center]
+image::{% asset_path 'blog/angular-deployment/heroku-headers.png' %}[alt=Security Report Summary with an A,width=800,align=center]
 
 == Angular Deployment with `ng deploy`
 
-== Angular Deployment to Firebase
+In Angular CLI v8.3.0, an `ng deploy` command was introduced that allows you to automate deploying to many different cloud providers. I thought it'd be fun to try a few of these out, and see if it's possible to optimize the headers to get the same **A** rating that you were able to get with Heroku.
 
-== Angular Deployment to Netlify
+Below are the https://angular.io/guide/deployment[current providers and packages] supported by this command.
 
-== Angular Deployment to AWS S3
+|===
+|Hosting provider |npm package
+|Firebase, https://npmjs.org/package/@angular/fire[`@angular/fire`]
+|Azure, https://npmjs.org/package/@azure/ng-deploy[`@azure/ng-deploy`]
+|Now, https://npmjs.org/package/@zeit/ng-deploy[`@zeit/ng-deploy`]
+|Netlify, https://www.npmjs.com/package/@netlify-builder/deploy[`@netlify-builder/deploy`]
+|GitHub pages, https://npmjs.org/package/angular-cli-ghpages[`angular-cli-ghpages`]
+|NPM, https://npmjs.org/package/ngx-deploy-npm[`ngx-deploy-npm`]
+|AWS S3, https://www.npmjs.com/package/@jefiozie/ngx-aws-deploy[`@jefiozie/ngx-aws-deploy`]
+|===
 
-== Angular Deployment to Azure
+In the following section, I'll show you how to deploy to a few that piqued my interest.
+
+=== Angular Deployment to Firebase
+
+Create a `firebase` branch so you can make changes without affecting the work you've done for Heroku deployments.
+
+[source,shell]
+----
+git checkout -b firebase
+----
+
+Install the `@angular/fire` package.
+
+[source,shell]
+----
+cd notes
+ng add @angular/fire
+----
+
+When I first ran this command, I received the following output:
+
+[source,shell]
+----
+UPDATE package.json (1659 bytes)
+✔ Packages installed successfully.
+✖ Preparing the list of your Firebase projects
+Failed to list Firebase projects. See firebase-debug.log for more info.
+----
+
+According to https://github.com/angular/angularfire/blob/master/docs/deploy/getting-started.md[@angular/fire's documentation], it's supposed to open a web browser and guide you through the authentication flow. I'm guessing it assumes you have the https://firebase.google.com/docs/cli[Firebase CLI] installed. I installed it:
+
+[source,shell]
+----
+curl -sL https://firebase.tools | bash
+----
+
+NOTE: And tried running `ng add @angular/fire` again. It failed again, so I ran `firebase logout` and tried again. This time it worked, but when it prompted me for project, the list was empty and I was unable to go further. I tried creating a new project from the command line using `firebase init`, but when that failed, I found it easier to use a web browser.
+
+Open a browser and go to https://firebase.google.com/[firebase.google.com]. Log in to your account, go to the console, and create a new project.
+
+Run `ng add @angular/fire` again and your new project should show up in the list. Select it to continue.
+
+[source,shell]
+----
+? Please select a project: ng-notes-1337 (ng-notes-1337)
+CREATE firebase.json (300 bytes)
+CREATE .firebaserc (133 bytes)
+UPDATE angular.json (3755 bytes)
+----
+
+Now you can run `ng deploy` and everything should work.
+
+You'll need to add the project's URL as an allowed origin in your Spring Boot app on Heroku.
+Copy the printed `Hosting URL` value and run the following command.
+
+[source,shell]
+----
+heroku config:edit --remote heroku
+----
+
+Add the new URL after your existing Heroku one, separating them with a comma. For example:
+
+[source,shell]
+----
+ALLOWED_ORIGINS='https://stark-lake-39546.herokuapp.com,https://ng-notes-1337.web.app'
+----
+
+You'll also need to modify your Okta SPA app to add your Firebase URL as a Login redirect URI and Logout redirect URI. For mine, I added:
+
+* Login redirect URI: `https://ng-notes-1337.web.app/authorization-code/callback`
+* Logout redirect URI: `https://ng-notes-1337.web.app`
+
+Open your Firebase URL in your browser, log in, and you should be able to see the note you added on Heroku.
+
+=== Improve Security Headers for Firebase
+
+If you test your new Firebase site on https://securityheaders.com/[securityheaders.com], you'll get a D.
+
+image::{% asset_path 'blog/angular-deployment/netlify-headers.png' %}[alt=Netlify score from securityheaders.com,width=800,align=center]
+
+Commit your changes to your `firebase` branch.
+
+[source,shell]
+----
+git commit -am "Add Firebase deployment"
+----
+
+=== Angular Deployment to Netlify
+
+Netlify is a hosting provider for static sites that I've enjoyed using in the past. They offer continuous integration, HTML forms, AWS Lambda functions, and CMS functionality. I wrote about Netlify in link:/blog/2020/02/18/gatsby-react-netlify[Build a Secure Blog with Gatsby, React, and Netlify].
+
+Check out your `master` branch and create a new `netlify` one.
+
+[source,shell]
+----
+git checkout master
+git checkout -b netlify
+----
+
+Before running the command to add Netlify support, you'll need to [create a Netlify account](https://app.netlify.com/signup). Once you're signed in, create a new site. Netlify makes it easy to connect a site via Git, but since I want to demonstrate `ng deploy`, you'll need to create a temporary directory with an `index.html` file in it. I put "Hello, World" in the HTML file, then dragged the directory into my browser window.
+
+image::{% asset_path 'blog/angular-deployment/netlify-create-site.png' %}[alt=Netlify create site,width=650,align=center]
+
+Click on **Site Settings** to copy your **API ID** to a text editor. You'll also need a personal access token. To create one, click on your avatar in the top right > **User settings** > **Applications** and click **New access token**. Copy the generated token to your text editor.
+
+Run the command below to add Netlify deployment support.
+
+[source,shell]
+----
+ng add @netlify-builder/deploy
+----
+
+Copy and paste your API ID and personal access token when prompted, then run `ng deploy` to deploy your site.
+
+Update your Spring Boot app on Heroku to allow your Netlify app URL:
+
+[source,shell]
+----
+heroku config:edit --remote heroku
+----
+
+Make sure to append the URL to your existing ones, separating them with a comma.
+
+[source,shell]
+----
+ALLOWED_ORIGINS='https://stark-lake-39546.herokuapp.com,https://ng-notes-1337.web.app,https://relaxed-brown-0b81d8.netlify.app'
+----
+
+You'll also need to update your Okta app to whitelist the URL as a redirect.
+
+If you try to login, you'll get a `Page Not Found` error when Okta tried to redirect back to your app. This happens because Netlify doesn't know your app is a SPA that manages its own routes. To fix this, create a `_redirects` file in the `notes/src` directory with the following contents.
+
+[source,shell]
+----
+/*    /index.html   200
+----
+
+TIP: You can learn more about https://docs.netlify.com/routing/redirects/rewrites-proxies/#history-pushstate-and-single-page-apps[configuring Netlify for SPAs in their documentation].
+
+Then, modify `angular.json` to include this file in its assets.
+
+[source,json]
+----
+"assets": [
+  "src/_redirects",
+  "src/favicon.ico",
+  "src/assets"
+],
+----
+
+Run `ng deploy` again and you should be able to log in successfully.
+
+=== Improve Security Headers for Netlify
+
+If you test your new Firebase site on https://securityheaders.com/[securityheaders.com], you'll get a D. Netlify allows you to add https://docs.netlify.com/routing/headers/[custom headers] to improve your score.
+
+Create a `src/_headers` file with the following contents.
+
+[source,text]
+----
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; frame-ancestors 'none'
+  Referrer-Policy: no-referrer, strict-origin-when-cross-origin
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  Feature-Policy: accelerometer 'none'; camera 'none'; microphone 'none'
+----
+
+NOTE: You don't need to include a `Strict-Transport-Security` header because Netlify includes one by default.
+
+Modify `angular.json` to include this file in its assets.
+
+[source,json]
+----
+"assets": [
+  "src/_headers",
+  "src/_redirects",
+  "src/favicon.ico",
+  "src/assets"
+],
+----
+
+Run `ng deploy` and you should get an **A** now!
+
+image::{% asset_path 'blog/angular-deployment/netlify-headers.png' %}[alt=Netlify score from securityheaders.com,width=800,align=center]
+
+Commit your changes to the `netlify` branch.
+
+[source,shell]
+----
+git commit -am "Add Netlify deployment"
+----
+
+=== Angular Deployment to AWS S3
+
+=== Angular Deployment to Azure
 
 == Combine Your Angular + Spring Boot App into a Single JAR
 
@@ -795,3 +1002,5 @@ image::{% asset_path 'blog/angular-deployment/security-headers.png' %}[alt=Secur
 https://devcenter.heroku.com/articles/deploying-spring-boot-apps-to-heroku
 https://devcenter.heroku.com/articles/deploying-executable-jar-files
 https://devcenter.heroku.com/articles/deploying-gradle-apps-on-heroku
+
+
