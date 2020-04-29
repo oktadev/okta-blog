@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "How to Customize Your Angular Build With Webpack"
-author: holgerschmitz
+author: holger-schmitz
+by: contractor
+communities: [javascript]
 description: "This tutorial shows how to use Angular's custom webpack builder to extend and customize your build process."
 tags: [angular, webpack, typescript, javascript]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Extend the @webpack configuration in your @angular project to allow feature flags."
 - "Feature flags are a useful feature for developers. Learn how to add experimental features to your @angular app with a custom @wepack build." 
 image: blog/angular-webpack/angular-webpack.png
+type: conversion
 ---
 
 If you're a frontend dev in the world today you've probably heard of (and possibly even used) **webpack**. The Angular build process uses webpack behind the scenes to transpile TypeScript to JavaScript, transform Sass files to CSS, and many other tasks. To understand the importance of this build tool, it helps to understand why it exists. 

@@ -1,8 +1,10 @@
 ---
 layout: blog_post
 title: Okta Software Engineering Design Principles
-author: jon_todd
+author: jon-todd
+by: internal-contributor
 tags: [software_engineering, architecture, design_principles]
+type: awareness
 ---
 
 Okta has been an agile development shop since the beginning. One important

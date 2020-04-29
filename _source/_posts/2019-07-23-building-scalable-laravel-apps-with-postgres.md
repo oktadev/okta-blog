@@ -1,13 +1,16 @@
 ---
 layout: blog_post
 title: "Building Scalable Laravel Apps with PostgreSQL"
-author: krasimir
+author: krasimir-hristozov
+by: contractor
+communities: [php]
 description: "Learn how to use Postgres while building a Laravel app"
 tags: [ laravel, postgres, postgresql, php ]
 tweets:
 - "Let's look how easy it is to use #Postgres with #Laravel!"
 - "Did you know that you can use Postgres with Laravel just as easily as MySQL? Check out this guide ➡"
 image: blog/featured/okta-php-headphones.jpg
+type: conversion
 ---
 
 Laravel is one of the hottest frameworks for backend and full-stack development of Web applications today. It boasts a large number of quality features out-of-the-box, but it's still easy to learn the basics. The community is vast, and there are tons of free resources available on the Internet.

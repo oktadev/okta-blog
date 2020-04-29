@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Build a Secure REST Application Using Jersey"
 author: daniel-pereira
+by: contractor
+communities: [java]
 description: "Tutorial: Learn how to build a secure REST application with JAX-RS and Jersey."
 tags: [tutorial, java, jersey, jaxrs, oauth, REST]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Learn how to build JAX-RS application simply by adding #Java annotations💥"
 - "Build a secure JAX-RS application with Jersey and Okta!"
 image: blog/featured/okta-java-short-headphones.jpg
+type: conversion
 ---
 :page-liquid:
 :experimental:

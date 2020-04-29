@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Use MongoDB in Your C# ASP.NET Apps"
 author: terje-kolderup
+by: contractor
+communities: [.net]
 description: "Use MongoDB as a document data store for your C# ASP.NET Applications."
 tags: [mongodb, c#, csharp, asp.net, aspnet]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Want to use MongoDB as a data store for your C# ASP.NET Apps, but don't know where to start? Start here!"
 - "Get up and running quickly with MongoDB as a data store for your C# ASP.NET Applications!"
 image: blog/featured/okta-dotnet-half.jpg
+type: conversion
 ---
 
 MongoDB is a document database. Instead of storing data in tables and rows, you store documents in a structure very similar to objects in the memory of your application. The schema is flexible and dynamic. You don't need to define all fields upfront. Some MongoDB tutorials define model classes in C# and show how to read from and write to the database with them. This post takes a different approach, which also demonstrates how flexible MongoDB is. You can alter it as you wish at any time!

@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "MySQL vs PostgreSQL -- Choose the Right Database for Your Project"
-author: krasimir
+author: krasimir-hristozov
+by: contractor
+communities: [devops]
 description: "Which is better? MySQL or Postgres? In this post we'll compare the strengths and weaknesses of each."
 tags: [database, mysql, postgres, postgresql]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Wondering whether you should use #MySQL or #Postgres for your next project? Read this first!"
 - "Let's finally settle the debate between MySQL and Postgres for your next project"
 image: blog/mysql-vs-postgres/mysql-vs-postgres.png
+type: awareness
 ---
 
 The choice of a database management system is usually an afterthought when starting a new project, especially on the Web. Most frameworks come with some object-relational mapping tool (ORM) which more or less hides the differences between the different platforms and makes them all equally slow. Using the default option (MySQL in most cases) is rarely wrong, but it's worth considering. Don't fall into the trap of familiarity and comfort – a good developer must always make informed decisions among the different options, their benefits and drawbacks.

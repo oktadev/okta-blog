@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Get Started with the ELK Stack"
 author: jimena-garbarino
+by: contractor
+communities: [java]
 description: "Learn how to monitor your microservices architecture with the Elastic Stack (formerly ELK Stack)."
 tags: [security, oauth2, monitoring, microservices, elk]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Monitoring is crucial to a microservices architecture. Learn how with the Elastic Stack."
 - "Not actively monitoring your microservices architecture? You should be! Learn how with the Elastic Stack."
 image: blog/featured/okta-java-bottle-headphones.jpg
+type: conversion
 ---
 
 Good design principles require that microservices architectures are observable, and provide a centralized monitoring tool. This tool allows development teams to verify the overall system health, inspect logs and errors, and get feedback after deployments. So what is the Elastic (or ELK) Stack and why it is an excellent option to meet this need?

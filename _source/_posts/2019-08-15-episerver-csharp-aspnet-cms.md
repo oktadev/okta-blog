@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Secure an Episerver CMS website with Okta and C#"
-author: jeffersonhaw
+author: jefferson-haw
+by: internal-contributor
+communities: [.net]
 description: "In this tutorial, you'll learn how to use Episerver CMS with C# securely using Okta."
 tags: [cms, csharp, asp.net, episerver]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Hey #aspnet devs - Check out Episerver CMS + Okta to provide security for your users."
 - "Interested in using Okta with your CMS? Learn how to use Episerver + C# for effortless user sign in."
 image: blog/featured/okta-dotnet-bottle-headphones.jpg
+type: conversion
 ---
 Most developers know that building an e-Commerce website can be a major pain. You have to contend with making the front end look great even when the content is dynamic and frequently updated. From seasonal themes like Black Friday and Christmas to customization based on the user's behavior, it can be a major project to keep up. 
 

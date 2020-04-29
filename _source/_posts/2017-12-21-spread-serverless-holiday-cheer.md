@@ -1,8 +1,11 @@
 ---
 layout: blog_post
 title: "Spread Serverless Holiday Cheer with Lambda and API Gateway"
-author: nbarbettini
+author: nate-barbettini
+by: advocate
+communities: [javascript]
 tags: [javascript, serverless, api, lambda, api-gateway]
+type: conversion
 ---
 
 It's that time of year again: Christmas music on the radio, festive decorations in the workplace, and a chill in the air. Except in the Southern Hemisphere, where it's warm and balmy. And on the International Space Station, where the temperature is strictly regulated. But I digress.

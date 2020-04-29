@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Build Single Sign-on for Your ASP.NET MVC App"
-author: ryanfoster
+author: ryan-foster
+by: contractor
+communities: [.net]
 description: "Learn how to use Single Sign-On (SSO) to secure your ASP.NET MVC Application."
 tags: [aspnet, asp.net, asp net, sso, singlesignon, .net mvc, auth]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Need to build SSO (single-sign-on) into your @aspnetmvc app? Check this out!"
 - "This is a quick tutorial for build SSO into your @aspnetmvc applications!"
 image: blog/featured/okta-dotnet-half.jpg
+type: conversion
 ---
 
 So you're interested in using single sign-on (SSO) for your ASP.NET MVC apps? You've come to the right place. There are lots of reasons for using SSO for custom apps owned by the same organization. Better user experience. Less development time. Improved security. Those are all great reasons.

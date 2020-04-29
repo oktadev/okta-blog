@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Build a Basic Website with ASP.NET MVC and Angular"
-author: ibrahim
+author: ibrahim-suta
+by: contractor
+communities: [.net, javascript]
 description: "This tutorial walks you through building a basic website with ASP.NET MVC and Angular."
 tags: [aspnet, aspnetmvc, dotnet, angular, mvc]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "A simple website with @aspnet mvc and @angular. ->"
 - "If you're looking for a quick intro to building apps with @aspnet mvc and @angular, check this out!"
 image: blog/featured/okta-dotnet-mouse-down.jpg
+type: conversion
 ---
 
 ASP.NET has been around for a long time. When Microsoft introduced ASP.NET MVC, it changed the way many developers approach their codebase. There is an excellent separation of concerns, a TDD friendly framework, and easy integration with JavaScript while maintaining full control over rendered HTML. On the client side, a lot of .NET developers prefer Angular because it comes with TypeScript and it's a much closer language to C# than plain JavaScript. Angular is an excellent framework for building enterprise-level, feature rich, applications.

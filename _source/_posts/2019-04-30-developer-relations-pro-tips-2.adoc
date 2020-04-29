@@ -1,7 +1,8 @@
 ---
 layout: blog_post
 title: "Pro Tips for Developer Relations, Part 2"
-author: mraible
+author: matt-raible
+by: advocate
 description: "Some tips and tricks for being a developer advocate and helping others."
 tags: [devrel, protip, protips, developer relations, speaking]
 tweets:
@@ -9,6 +10,7 @@ tweets:
 - "Thanks to @ashleymcnamara, @berndruecker, @DaschnerS, @mariogray, @mary_grace, @sjmaple, and @tedneward for helping create this post on #DevRel #ProTips!"
 - "Is your company marketing to developers? These developer relations protips might help! #devrel #protip"
 image: blog/devrel-protips-v2/devrel-protips-2.png
+type: awareness
 ---
 :page-liquid:
 

@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Java Microservices with Spring Cloud Config and JHipster"
-author: mraible
+author: matt-raible
+by: advocate
+communities: [java]
 description: "This tutorial shows you how to build a microservices architecture with Spring Boot and Spring Cloud Config using JHipster."
 tags: [java, microservices, spring cloud config, jhipster]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Are you interested in building microservices in @java? This post shows you how to do it with @java_hipster and use @springcloud config to provide distributed configuration."
 - "Step 1: develop a microservices architecture with @java and @java_hipster. Step 2: configure with @springcloud config. Step 3: profit!"
 image: blog/java-microservices-cloud-config/java-microservices-jhipster.jpg
+type: conversion
 ---
 :page-liquid:
 

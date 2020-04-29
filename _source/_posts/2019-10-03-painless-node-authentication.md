@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Painless Node.js Authentication"
 author: ivo-katunaric
+by: contractor
+communities: [javascript]
 description: "Learn how to implement secure authentication for your Node.js applications."
 tags: [javascript, node, authentication, openid connect, oidc]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Painless authentication in @nodejs? Check out our latest article!"
 - "If you're a @nodejs developer, you might appreciate one of our newer posts on painless authentication in Node! Let us know what you think."
 image: blog/painless-node-authentication/okta-add-user.png
+type: conversion
 ---
 
 User authentication is a critical component of just about every web application. Unfortunately, while authentication is a core part of all websites, it can still be difficult to get right. Despite the Node.js community being around for a while, there still aren't a lot of simple, foolproof ways to authenticate users in Node.js applications.

@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Tutorial: Develop Apps with Secure WebSockets in Java"
 author: jimena-garbarino
+by: contractor
+communities: [java]
 description: "This tutorial shows you how to develop an application with Spring Boot and WebSockets, then secure them with Okta."
 tags: [java, websockets, spring, stomp, messaging]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Use Java, Spring, and JavaScript to develop a secure musical app that leverages WebSockets."
 - "In this tutorial, you'll build a Spring Boot app and a JavaScript client that communicate with one another via WebSockets."
 image: blog/featured/okta-java-tile-books-mouse.jpg
+type: conversion
 ---
 
 WebSockets is a modern transport layer technology that establishes a two-way communication channel between a client and a server, perfect for low-latency, high-frequency interactions. WebSockets tend to be used in collaborative, real-time or event-driven applications, where traditional client-server request-response architecture or long polling would not satisfy requirements. Use cases include stock trading and shared dashboard applications.

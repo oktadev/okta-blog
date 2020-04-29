@@ -1,12 +1,15 @@
 ---
 layout: blog_post
 title: "Simple Node Authentication"
-author: bkelley
+author: braden-kelley
+by: contractor
+communities: [javascript]
 description: "Learn how to build authentication and registration into your Node.js application with Okta."
 tags: [javascript, nodejs, authentication, security]
 tweets:
 - "Building authentication into your Node.js apps doesn't have to be hard. Check out our latest article on the subject:"
 - "Want to build standards-based, simple, straightforward authentication into your next Node app? Read our new guide:"
+type: conversion
 ---
 
 Authenticating users for Node.js/Express.js web apps can be difficult. You have to set up a database, define a user schema (or use something more flexible like NoSQL), write code to handle password hashing, etc. It's annoying.

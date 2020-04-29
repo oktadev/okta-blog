@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Build a Simple CRUD App with Java and JSF"
 author: thiago-negri
+by: contractor
+communities: [java]
 description: "Tutorial: Build a CRUD application with JSF."
 tags: [jsf, spring, oauth, oauth 2.0, java]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Want to build a JSF app with @ApacheTomEE? Check out this tutorial!"
 - "Learn how to build a Secure JSF app with @PrimeFaces 🔒"
 image: blog/featured/okta-java-short-skew.jpg
+type: conversion
 ---
 
 JavaServer Faces (JSF) is a Java framework for building Web applications, centered on components as the building blocks for the user interface. JSF benefits from a rich ecosystem of tools and vendors, as well as out of the box components and libraries that add even more power. 

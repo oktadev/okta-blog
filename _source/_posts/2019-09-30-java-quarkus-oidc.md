@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "How to Develop a Quarkus App with Java and OIDC Authentication"
-author: moksamedia
+author: andrew-hughes
+by: contractor
+communities: [java]
 description: "Learn how to use Java and Quarkus to create a REST API with JAX-RS, and secure it with OAuth 2.0 and OIDC."
 tags: [java, quarkus, oidc, authentication, oauth2]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Build a Java REST API with Quarkus and learn how to lock it down with OAuth 2.0 in this quick tutorial."
 - "If you know Java standards like JAX-RS, you know how to build an app with Quarkus!"
 image: blog/java-quarkus-oidc/java-quarkus-duke.png
+type: conversion
 ---
 
 Quarkus is a container-first Kubernetes Java framework designed to have a super-fast start-up time and low memory usage. The container-first strategy emphasizes packaging the runtime environment along with the application code, allowing both to be tightly optimized and avoiding the endless updates and configuration problems that can come along with monolithic server systems. Quarkus was built from the beginning to support compilation to native code for use with Graal/SubstrateVM but also supports the good old JVM with OpenJDK HotSpot. 

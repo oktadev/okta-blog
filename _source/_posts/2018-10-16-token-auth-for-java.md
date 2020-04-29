@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Simple Token Authentication for Java Apps"
-author: moksamedia
+author: andrew-hughes
+by: contractor
+communities: [java]
 description: "This article explores the benefits of token authentication with JWTs for Java apps."
 tags: [jwt, token auth, token authentication, client credentials, java, spring boot]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Want to learn more about OAuth 2.0, JWTs, and how they can work for token authentication? This post shows you how to do it in @java."
 - "Java + JWT = token auth. Get started today!"
 image: blog/featured/okta-java-short-skew.jpg
+type: conversion
 ---
 
 JSON Web Tokens have quickly become the standard for securing web applications, superseding older technologies like cookies and sessions. Used properly, they address a range of security concerns, including cross-site scripting attacks (XSS), man-in-the-middle attacks (MITM), and cross-site request forgery (CSRF). They also give us the benefit of inspectable metadata and strong cryptographic signatures. In this post, I'll take a deep dive into JWTs. First, I'll cover some theoretical ground explaining how they work. After that, I'll show you how to configure a Spring Boot app with Okta to use JWT authentication.

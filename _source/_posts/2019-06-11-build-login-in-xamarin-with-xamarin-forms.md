@@ -2,12 +2,15 @@
 layout: blog_post
 title: "Build Login in Xamarin with Xamarin.Forms"
 author: terje-kolderup
+by: contractor
+communities: [.net]
 description: "Learn to build a cross-platform login form for iOS, Android, and Windows using Xamarin Forms"
 tags: [xamarin,xamarin forms,ios,android]
 tweets:
 - "Learn to build a cross-platform login form for iOS, Android, and Windows using Xamarin Forms @xamarinhq #xamarin #ios #android #mobile #visualstudio #dotnet"
 - "Learn to build a login form in Xamarin with Xamarin.Forms @xamarinhq #xamarin #ios #android #mobile #visualstudio #dotnet"
 image: blog/featured/okta-dotnet-headphones.jpg
+type: conversion
 ---
 
 Chuck Norris could easily make a single app run on all of the platforms iOS, Android, and Windows - without any frameworks or tools. Most of the rest of us could probably do with some help.

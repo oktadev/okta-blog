@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "IInterface Considered Harmful"
-author: leebrandt
+author: lee-brandt
+by: advocate
+communities: [.net]
 description: "This post discusses the disadvantages of using the 'I' prefix for interfaces in static-typed languages."
 tags: [aspnetcore, netcore, interface, naming conventions]
 tweets:
@@ -9,6 +11,7 @@ tweets:
   - "If you still prefix interface types with an 'I', stop and check this out first!"
   - "There's no longer any reason to prefix interfaces with an 'I'. In fact, there is a good reason not to!!"
 image: blog/featured/okta-dotnet-skew.jpg
+type: awareness
 ---
 
 Developers have been lauded as being early adopters when it comes to technology products, but they seem to be late bloomers when it comes to dropping old habits. It took years of convincing and some guidance from Microsoft to get .NET developers to stop using Hungarian Notation in their programs, but there's is one last "comfort blanket" it left: developers still use the "I" prefix for interfaces. I want it to stop. Let it go. It's over. Hungarian Notation lost in 2003.

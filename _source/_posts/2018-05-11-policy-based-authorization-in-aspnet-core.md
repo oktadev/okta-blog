@@ -1,12 +1,15 @@
 ---
 layout: blog_post
 title: "Policy-Based Authorization in ASP.NET Core"
-author: leebrandt
+author: lee-brandt
+by: advocate
+communities: [.net]
 description: "This post shows how policy-based authorization works in ASP.NET Core, and how it differs from role-based authorization."
 tags: [asp.net, asp.net core, aspnetcore, policy, policy-based authorization, authorization]
 tweets:
  - "Want to see how policy-based authorization works in ASP.NET Core? Check it out >>"
  - "Learn how policy-based authorization in ASP.NET Core makes authorization easier and more modular! <3"
+type: conversion
 ---
 
 The authorization model in ASP.NET Core got a significant overhaul with the introduction of policy-based authorization. Authorization now uses requirements and handlers, which are decoupled from your controllers and loosely coupled to your data models. The result is a more modular, more testable authorization framework that fits into the modern ASP.NET Core approach nicely.

@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Watch GraalVM Turn Your Java Into Binaries"
-author: bdemers
+author: brian-demers
+by: advocate
+communities: [java]
 description: "Tutorial: Learn how to build native binaries from a Java application with GraalVM's native-image tool."
 tags: [java, graalvm, cli, tutorial]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Build a native command-line application with @Java and @GraalVM 🔥"
 - "☕ @Java + @GraalVM == native binaries ❤️"
 image: blog/graalvm-java-binaries/native-image-header.png
+type: awareness
 ---
 
 There has been much buzz about GraalVM and what it means for the Java world. GraalVM is a Java distribution from Oracle that adds a bunch of features, most notably a new JIT compiler, polyglot capabilities, an LLVM runtime... and the ability to turn your Java application into a native binary.
@@ -49,7 +52,7 @@ The type of application we build isn't important as long as it can be [run with 
 
 ```txt
 git clone https://github.com/oktadeveloper/okta-graalvm-example.git
-cd okta-graalvm-example/jvm
+cd okta-graalvm-example/jdk
 ```
 
 This project contains a single Java class and is limited to parsing simple dice expressions like `2d20` (roll two different twenty-sided dice). Create a new java file `src/main/java/com/okta/examples/jdk/JdkDiceApplication.java`: 

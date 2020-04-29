@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: 'Angular 8 + Spring Boot 2.2: Build a CRUD App Today!'
-author: mraible
+author: matt-raible
+by: advocate
+communities: [java, javascript]
 description: "Angular and Spring Boot are wildly popular frameworks for web development. Matt Raible shows you how to use them together in the same app and how to secure it all with OIDC."
 tags: [angular, spring boot, spring boot 2, angular 8, okta, oidc]
 tweets:
@@ -9,6 +11,7 @@ tweets:
  - "Spring Boot with @java + Angular with @typescriptlang = ❤️. Learn how to build a @springboot + @angular CRUD app today!"
  - "Are you a @java developer using Spring Boot and want to update your UI skills? This tutorial shows you how to use Angular with Spring Boot to develop a cool cars application."
 image: blog/spring-boot-2-angular-8/angular+spring-boot+security=love.jpg
+type: conversion
 ---
 
 If you've been a Java developer for more than 15 years, you probably remember when there were a plethora of Java web frameworks. It started with Struts and WebWork. Then Tapestry, Wicket, and JSF came along and championed the idea of component-based frameworks. Spring MVC was released in 2004 (in the same month as Flex 1.0 and JSF 1.0) and became the de-facto standard in Java web frameworks over the next six years.

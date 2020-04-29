@@ -1,11 +1,14 @@
 ---
 layout: blog_post
 title: "Build an App for iOS and Android with Xamarin"
-author: nbarbettini
+author: nate-barbettini
+by: advocate
+communities: [.net, mobile]
 tags: [native, mobile, ios, android, dotnet, xamarin]
 tweets:
   - "Learn how to use Xamarin to build iOS and Android apps fast →"
   - "Want to build mobile apps? Start with this short #xamarin tutorial by @nbarbettini →"
+type: conversion
 ---
 
 [Xamarin](https://www.xamarin.com/) is a cross-platform technology that makes it possible to build native applications for Android and iOS using a single, shared codebase. Like other technologies such as React Native and NativeScript, it allows development teams to spend less time writing code for both platforms.

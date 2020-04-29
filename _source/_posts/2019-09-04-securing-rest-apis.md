@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Securing REST APIs"
 author: les-hazlewood
+by: internal-contributor
+communities: [security]
 description: "A short discussion about REST API security best practices."
 tags: [rest, security, apis]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Check out these REST API security tips from @lhazlewood -- our resident REST API security expert:"
 - "Just published a REST API security article. Be sure to check it out >:D #security #apis"
 image: blog/featured/okta-java-skew.jpg
+type: awareness
 ---
 
 When machines ask each other for information online, they don't need elaborate browser interfaces or clickable buttons. They just need raw data in a machine-readable format. Today, many applications get the data they need via a REST API--a powerful way of serving up information online that underpins many modern online services.
