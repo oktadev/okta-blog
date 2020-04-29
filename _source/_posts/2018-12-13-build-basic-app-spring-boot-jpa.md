@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: 'Build a Basic App with Spring Boot and JPA using PostgreSQL'
-author: moksamedia
+author: andrew-hughes
+by: contractor
+communities: [java]
 description: "Build a resource server using Spring Boot and Spring Data JPA and implement Group-based authorization using Okta OAuth."
 tags: [security, jwt, token, authentication, sessions, jpa, spring, spring data]
 tweets: 
@@ -9,6 +11,7 @@ tweets:
 - "Spring Data makes JPA pretty darn easy. This tutorial shows you how to make it work with PostgreSQL >"
 - "Spring Boot + JPA - a match made in heaven!"
 image: blog/featured/okta-java-short-bottle-headphones.jpg
+type: conversion
 ---
 
 Every non-trivial application needs a way to save and update data: a resource server that is accessible via HTTP. Generally, this data must be secured. Java is a great language with decades of history in professional, enterprise development, and is a great choice for any application's server stack. Within the Java ecosystem, Spring makes building secure resource servers for your data simple. When coupled with Okta, you get professionally maintained OAuth and JWT technologies easily integrated into Spring Boot using Spring Security.

@@ -1,7 +1,8 @@
 ---
 layout: blog_post
 title: "Performance Testing with Apache Bench"
-author: leebrandt
+author: lee-brandt
+by: advocate
 description: "A tutorial discussing performance and load testing using Apache Bench."
 tags: [performance testing, apache bench, load testing]
 tweets:
@@ -9,6 +10,7 @@ tweets:
 - "Need a quick introduction to load performance testing with Apache Bench? We've got you covered!"
 - "Check out this quick tutorial on load performance testing with Apache Bench."
 image: blog/featured/okta-dotnet-tile-mouse.jpg
+type: awareness
 ---
 
 

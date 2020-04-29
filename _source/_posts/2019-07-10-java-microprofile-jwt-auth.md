@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Build a REST API Using Java, MicroProfile, and JWT Authentication"
-author: moksamedia
+author: andrew-hughes
+by: advocate
+communities: [java]
 description: "This tutorial shows you how to build a REST API with MicroProfile and secure it using JWT authentication."
 tags: [java, microprofile, jwt]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Are you a @java developer that likes Java EE? If so, we think you'll ❤️ MicroProfile! Check out this tutorial on how to use it to build a REST API."
 - "MicroProfile + JWT Auth => 🤗!"
 image: blog/microprofile-jwt-auth/microprofile-2.2.png
+type: conversion
 ---
 
 In this post, you will learn how to build a simple REST API using Eclipse MicroProfile and secure it using JSON Web Token (JWT) authentication. You'll also use a free developer account from Okta to configure an OAuth 2.0 / OpenID Connect (OIDC) application as the OAuth provider, with role-based authorization.

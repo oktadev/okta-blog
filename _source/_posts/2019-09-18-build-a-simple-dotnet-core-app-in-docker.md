@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Build a Simple .NET Core App on Docker"
-author: charlieholland
+author: charlie-holland
+by: contractor
+communities: [.net, devops]
 description: "Learn how to containerize your secure .NET Core applications with Docker, the Okta way."
 tags: [ dotnetcore, docker, dotnet, .netcore, csharp, containerization, containers ]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Hey .NET devs, we've got a simple #Docker tutorial for your #AspNetCore apps! →"
 - "Docker + .NET Core = <3 →"
 image: blog/featured/okta-dotnet-mouse-down.jpg
+type: conversion
 ---
 
 Wouldn't it be great if stuff just worked? Especially in the ever-changing world of software. Chasing dependency issues and debugging arcane operating system errors - not a good use of time.

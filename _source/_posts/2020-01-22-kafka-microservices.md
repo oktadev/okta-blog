@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Communicate Between Microservices with Apache Kafka"
 author: jimena-garbarino
+by: contractor
+communities: [java]
 description: "This tutorial shows you how to add asynchronous messaging between Java microservices using Apache Kafka."
 tags: [java, kafka, microservices, jhipster]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Did you know @jhipster supports #Kafka as a communications mechanism between microservices?"
 - "Microservice architectures ❤️ asynchronous messaging! Learn how to use @apachekafka to implement it. →"
 image: blog/kafka-microservices/kafka-microservices.png
+type: conversion
 ---
 
 One of the traditional approaches for communicating between microservices is through their REST APIs. However, as your system evolves and the number of microservices grows, communication becomes more complex, and the architecture might start resembling our old friend the spaghetti anti-pattern, with services depending on each other or tightly coupled, slowing down development teams. This model can exhibit low latency but only works if services are made highly available.

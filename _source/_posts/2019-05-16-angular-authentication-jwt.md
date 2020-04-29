@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Angular Authentication with JWT"
-author: holgerschmitz
+author: holger-schmitz
+by: contractor
+communities: [javascript]
 description: "This tutorial shows how to build a Node and Angular app that  uses JWT for authentication."
 tags: [angular, jwt, authentication, javascript, typescript, nodejs]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Use JWTs for authentication in @angular + @nodejs to give your app the ability to scale."
 - "Learn how to use JSON Web Tokens (JWT) to add authentication to your @angular app." 
 image: blog/featured/okta-angular-skew.jpg
+type: conversion
 ---
 
 User registration and authentication are one of the features that almost no web application can do without. Authentication usually consists of a user entering using a user name and a password and then being granted access to various resources or services. Authentication, by its very nature, relies on keeping the state of the user. This seems to contradict a fundamental property of HTTP, which is a stateless protocol.

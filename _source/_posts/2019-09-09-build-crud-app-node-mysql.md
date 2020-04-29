@@ -2,12 +2,15 @@
 layout: blog_post
 title: "Build a Simple CRUD Application with Node and MySQL"
 author: ivo-katunaric
+by: contractor
+communities: [javascript]
 description: "Learn to build a simple CRUD application using Node.js and MySQL"
 tags: [ node, nodejs, express, expressjs, mysql, crud ]
 tweets:
 - "Build a secure Yelp-style CRUD application using Node.js and MySQL ➡"
 - "Learn to build a simple CRUD application using Node.js and MySQL ➡"
 image: blog/featured/okta-node-tile-books-mouse.jpg
+type: conversion
 ---
 
 `NodeJS` + `Express` is a popular technology stack for building APIs and backend services. Often times a backend database is required. There are several popular relational databases used in both enterprise and hobby projects. MySQL's spike in popularity came with the rise of PHP during the early 2000s and today - more than 20 years after the initial release - it's used on a wide array of technology stacks.

@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Why Public Key Cryptography Matters"
-author: william_dawson
+author: william-dawson
+by: internal-contributor
+communities: [security]
 description: "A quick look at public key cryptography, why it is important, and how it works."
 tags: [security, cryptography]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Interested in #security? Read our short writeup on public key crypto:"
 - "Public key cryptography is really useful. If you'd like to learn more about it, read our writeup on the subject:"
 image: blog/why-public-key-cryptography-matters/public-key-encryption.png
+type: awareness
 ---
 
 40 years old and as relevant today as when it was first invented, public key cryptography is the unsung hero of modern cybersecurity. Most people take unknowing advantage of it many times a day. So what is it, and how does it work?
