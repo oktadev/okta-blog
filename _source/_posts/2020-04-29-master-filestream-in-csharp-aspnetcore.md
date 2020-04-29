@@ -218,7 +218,7 @@ Click *Create bucket* on the right side.
 
 To make sure no one can get to our content by putting in a plain URL, leave the default setting,  "no public access." For certain types of files - such as CSS, certain images, etc. - public access may be warranted, but we are considering confidential information.
 
-{% img blog/filestream-csharp/12-bucket setup.png alt:"S3 bucket details" width:"800" %}{: .center-image }
+{% img blog/filestream-csharp/12-bucket-setup.png alt:"S3 bucket details" width:"800" %}{: .center-image }
 
 With our bucket created, add a new file by dragging it into your S3 bucket from your file system or by clicking upload. It can be any type of file that S3 allows you to store.
 
@@ -228,7 +228,7 @@ Now that we have content, it is time to use it.
 
 In order to have an endpoint that we can download our stream from, we need to set up a new controller. Make it an empty Controller, like below, and name it *FileController*.
 
-{% img blog/filestream-csharp/10-add controller.png alt:"Add MVC Controller" width:"800" %}{: .center-image }
+{% img blog/filestream-csharp/10-add-controller.png alt:"Add MVC Controller" width:"800" %}{: .center-image }
 
 ```csharp
 [Authorize]
@@ -311,7 +311,7 @@ Today we've learned how to break down large tasks into small chunks and how to b
 If you'd like some other great .NET tips, tutorials, and information check out our other recent blogs:
 
 * [The Most Exciting Promise of .NET 5](/blog/2020/04/17/most-exciting-promise-dotnet-5)
-* [ASP.NET Core 3.0 MVC Secure Authentication](/blog/2019/11/15/aspnet-core-3-mvc-secure-authentication")
+* [ASP.NET Core 3.0 MVC Secure Authentication](/blog/2019/11/15/aspnet-core-3-mvc-secure-authentication)
 * [5 Minute Serverless Functions Without an IDE](/blog/2019/08/27/five-minutes-serverless-functions-azure)
 * [Create Login and Registration in Your ASP.NET Core App](/blog/2019/02/05/login-registration-aspnet-core-mvc)
 * [Build Secure Microservices with AWS Lambda and ASP.NET Core](/blog/2019/03/21/build-secure-microservices-with-aspnet-core)
