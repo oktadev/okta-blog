@@ -7,7 +7,7 @@ communities: [.net]
 description: "Hesitant about when to use the Filestream in C#? This is a primer that explains how to understand the concept and securely stream files hosted on AWS."
 tags: [filestream, C#, csharp, dotnet, .net, asp.net]
 tweets:
-- "When should a dev use the #filestream in #csharp? We explain the concept and how to securely stream files hosted in #aw ->."
+- "When should a dev use the #filestream in #csharp? We explain the concept and how to securely stream files hosted in #aws ->."
 - "Unsure about using the #Filestream in #dotnet? We've got a primer just waiting for you ->"
 - "Learn how to create your own secure streaming service in #dotnetcore with the #filestream and #aws ->"
 image: blog/featured/okta-dotnet-half.jpg
@@ -22,9 +22,7 @@ With all this speed, there has been abstraction after abstraction placed on top 
 
 My goal is that, by the end of this article, you have a stronger understanding of some of the low level APIs that make moving large amounts of data possible. Additionally, we're going to use this knowledge to make a secure streaming service from Amazon Web Services S3 that will let us restrict data to certain roles. We'll do this using the smallest instance available on AWS, demonstrating the power of streams to move big data with small machines.
 
-## Prerequisites
-
-To follow along with this guide you'll need
+To follow along with this guide you'll need these **prerequisites**:
 
 * Basic knowledge of .NET
 * [Visual Studio Code or Visual Studio 2019](https://visualstudio.microsoft.com/downloads/)
@@ -32,9 +30,9 @@ To follow along with this guide you'll need
 * [An AWS account (we'll be using a free tier product)](https://aws.amazon.com/free)
 * [AWS Toolkit for Visual Studio](https://aws.amazon.com/visualstudio/)
 
-## How do you eat a 1Gb file
+## How Developers Approach the C# Filestream
 
-One byte at a time! While funny - in a terrible, dad pun kind of way - it is absolutely true. A large number of developers today think of data as moving over the network in its final transactional form. For example, you as a developer input a URL and get back a JSON object, an image, a CSS file, or one of the countless other types of objects.
+How do you eat a 1Gb file? One byte at a time! While funny - in a terrible, dad pun kind of way - it is absolutely true. A large number of developers today think of data as moving over the network in its final transactional form. For example, you as a developer input a URL and get back a JSON object, an image, a CSS file, or one of the countless other types of objects.
 
 For small pieces of data - information from a database, for example - we tend to look at the data like this:
 
@@ -50,7 +48,7 @@ Streaming the data is how we are able to accommodate not just 128, but thousands
 
 Ever heard of a bucket brigade? This is when people work together, passing water in a bucket from person to person in a line, to get it to a place that needs it (like a fire). Each person only handles a small amount of the total workload, so it is a very effective use of manpower. This is, effectively, what streams do; break up a large source of data into small manageable pieces that can be loaded into memory effectively and then passed along.
 
-## Exploring the Filestream in C# Concept
+## Exploring the Filestream in C# Concepts
 
 To solidify the concept before we move on to files, let's start with something a little smaller: a few lines of text.
 
