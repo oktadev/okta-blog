@@ -515,3 +515,7 @@ If you want to learn more about Vue, PWAs, or secure authentication, check out t
 * [Build Your First Progressive Web Application with Angular and Spring Boot](/blog/2017/05/09/progressive-web-applications-with-angular-and-spring-boot)
 
 To be notified when we publish future blog posts, [follow @oktadev on Twitter](https://twitter.com/oktadev). If you prefer videos, subscribe to [our YouTube channel](https://www.youtube.com/c/oktadev).
+
+## Changelog:
+
+* May 1, 2020: Updated versions of all dependencies, including Okta libraries. This enables the use of the Authorization Code + PKCE flow, rather than the deprecated Implicit Flow. See the code changes in the [example app on Github](https://github.com/oktadeveloper/okta-vue-books-pwa-example/pull/5). Changes to this article can be viewed in [oktadeveloper/okta-blog/#275](https://github.com/oktadeveloper/okta-blog/pull/275)
