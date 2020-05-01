@@ -91,6 +91,12 @@ brian-demers:
   web: https://www.linkedin.com/in/bdemers/
   twitter: https://twitter.com/briandemers
   github: https://github.com/bdemers
+  bio:
+    Brian Demers is a Developer Advocate at Okta and a PMC member for the Apache Shiro project. He spends much of his
+    day contributing to OSS projects in the form of writing code, tutorials, blogs, and answering questions. Along with
+    typical software development, Brian also has a passion for fast builds and automation.
+    Away from the keyboard, Brian is a beekeeper and can likely be found playing board games.
+    You can find him on Twitter at <a href="https://twitter.com/briandemers">@briandemers</a>.
 
 micah-silverman:
   full_name: Micah Silverman
