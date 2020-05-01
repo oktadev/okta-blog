@@ -25,7 +25,7 @@ In this tutorial, I will show you how to develop a small PWA using the Vue frame
 To start you will need to install the Vue command line tool. I will assume that you have some knowledge of JavaScript and the Node Package Manager (npm). I will also assume you have `npm` installed on your system. Open a shell and type the command:
 
 ```bash
-npm install -g @vue/cli
+npm install -g @vue/cli@4.3.1
 ```
 
 This installs the global `vue` command. Depending on your system, you might have to run this command using `sudo`. Once the Vue command line tool has been installed you can create your first Vue application. Navigate into a directory of your choice and run the command
@@ -65,7 +65,7 @@ Before you start, implementing the components for the Book application, you will
 
 ```bash
 cd vue-books-pwa
-npm i vue-material axios vue-axios
+npm i vue-material@1.0.0-beta-13 axios@0.19.2 vue-axios@2.1.5
 ```
 
 This will install the Material Design packages for Vue as well as the axios package that you will be using to create HTTP requests to the OpenLibrary API. Because you are using TypeScript, you will also need to install the type definitions for the Vue Material library. These have to be pulled from their GitHub repository. Run the command:
@@ -371,7 +371,7 @@ Once you have finished the registration process, you will be taken to the develo
 In your application directory now run the following command.
 
 ```bash
-npm i @okta/okta-vue @types/okta__okta-vue
+npm i @okta/okta-vue@2.0.0 @types/okta__okta-vue@1.2.0
 ```
 
 This will install the Okta SDK for Vue. To set up Okta with your application, open `src/router/index.ts`. Add the following lines after the import statements.
@@ -464,7 +464,7 @@ npm run build
 This will compile the application into the `dist/` subdirectory. Next, you need to install the `http-server-spa` package by running the following command.
 
 ```bash
-npm install -g http-server-spa
+npm install -g http-server-spa@1.3.0
 ```
 
 Then start the server by running:
