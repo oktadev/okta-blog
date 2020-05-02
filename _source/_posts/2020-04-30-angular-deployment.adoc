@@ -94,6 +94,8 @@ source okta.env
 ./gradlew bootRun
 ----
 
+// todo: add note about copy/pasting them as environment variables in IntelliJ
+
 Next, configure Angular for OIDC auth by modifying its `auth-routing.module.ts` to use the generated issuer, client ID, and update the callback URL.
 
 [source,typescript]
@@ -141,6 +143,8 @@ Commit your progress to Git from the `okta-angular-deployment-example` directory
 ----
 git commit -am "Add Okta OIDC Configuration"
 ----
+
+TIP: The generated credentials are cryptic and hard to remember. Create a user on Okta that's easy to remember, or save the credentials in something like 1Password.
 
 == Prepare Angular + Spring Boot for Production
 
@@ -871,9 +875,46 @@ Open your Firebase URL in your browser, log in, and you should be able to see th
 
 === Improve Security Headers for Firebase
 
-If you test your new Firebase site on https://securityheaders.com/[securityheaders.com], you'll get a D.
+If you test your new Firebase site on https://securityheaders.com/[securityheaders.com], you'll get a D. Luckily, you can https://firebase.google.com/docs/hosting/full-config#headers[configure headers] in your `firebase.json` file. Edit this file and a `headers` key like the following:
 
-image::{% asset_path 'blog/angular-deployment/netlify-headers.png' %}[alt=Netlify score from securityheaders.com,width=800,align=center]
+[source,json]
+----
+"headers": [ {
+  "source": "/**",
+  "headers": [
+    {
+      "key": "Content-Security-Policy",
+      "value": "default-src 'self'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; frame-ancestors 'none'"
+    },
+    {
+      "key": "Referrer-Policy",
+      "value": "no-referrer, strict-origin-when-cross-origin"
+    },
+    {
+      "key": "X-Content-Type-Options",
+      "value": "nosniff"
+    },
+    {
+      "key": "X-Frame-Options",
+      "value": "DENY"
+    },
+    {
+      "key": "X-XSS-Protection",
+      "value": "1; mode=block"
+    },
+    {
+      "key": "Feature-Policy",
+      "value": "accelerometer 'none'; camera 'none'; microphone 'none'"
+    }
+  ]
+} ]
+----
+
+NOTE: You don't need to include a `Strict-Transport-Security` header because Firebase includes it by default.
+
+Run `ng deploy` and you should get an **A** now!
+
+image::{% asset_path 'blog/angular-deployment/firebase-headers.png' %}[alt=Firebase app score from securityheaders.com,width=800,align=center]
 
 Commit your changes to your `firebase` branch.
 
@@ -894,7 +935,7 @@ git checkout master
 git checkout -b netlify
 ----
 
-Before running the command to add Netlify support, you'll need to [create a Netlify account](https://app.netlify.com/signup). Once you're signed in, create a new site. Netlify makes it easy to connect a site via Git, but since I want to demonstrate `ng deploy`, you'll need to create a temporary directory with an `index.html` file in it. I put "Hello, World" in the HTML file, then dragged the directory into my browser window.
+Before running the command to add Netlify support, you'll need to https://app.netlify.com/signup[create a Netlify account]. Once you're signed in, create a new site. Netlify makes it easy to connect a site via Git, but since I want to demonstrate `ng deploy`, you'll need to create a temporary directory with an `index.html` file in it. I put "Hello, World" in the HTML file, then dragged the directory into my browser window.
 
 image::{% asset_path 'blog/angular-deployment/netlify-create-site.png' %}[alt=Netlify create site,width=650,align=center]
 
@@ -991,11 +1032,401 @@ git commit -am "Add Netlify deployment"
 
 === Angular Deployment to AWS S3
 
+Amazon Simple Storage Service (Amazon S3) is an object storage service that is a popular option for hosting static sites.
+
+Check out your `master` branch and create a new `aws` one.
+
+[source,shell]
+----
+git checkout master
+git checkout -b aws
+----
+
+Before running the command to add S3 deployment support, you'll need a few things:
+
+* An S3 Bucket
+* An AWS Region Name
+* A Secret Access Key
+* An Access Key ID
+
+to https://portal.aws.amazon.com/billing/signup[create an AWS account]. After creating an account, go to the https://s3.console.aws.amazon.com/[Amazon S3 console]. Click **Create Bucket** and give it a name you'll remember. Use the default region selected for you and click **Create Bucket**.
+
+To create the secret access key, go to your https://console.aws.amazon.com/iam/home?nc2=h_m_sc#/security_credentials[security credentials page]. Expand the **Access keys** section, and then **Create New Access Key**. Click **Show Access Key** and copy the values into a text editor.
+
+TIP: If you have trouble creating a secret access key, see https://aws.amazon.com/blogs/security/how-to-find-update-access-keys-password-mfa-aws-management-console/[this blog post].
+
+Add the `@jefiozie/ngx-aws-deploy` package to deploy to S3:
+
+[source,shell]
+----
+ng add @jefiozie/ngx-aws-deploy
+----
+
+When prompted, enter your region, bucket name, access key, and access key ID. When prompted for the folder, leave it blank.
+
+CAUTION: This process writes these raw values to your `angular.json`. For more security, use environment variables: `NG_DEPLOY_AWS_ACCESS_KEY_ID`, `NG_DEPLOY_AWS_SECRET_ACCESS_KEY`, `NG_DEPLOY_AWS_BUCKET` and `NG_DEPLOY_AWS_REGION`.
+
+After deploying your Angular app, you need to https://docs.aws.amazon.com/AmazonS3/latest/user-guide/static-website-hosting.html[configure S3 for static website hosting]. Go to your bucket > **Properties** > **Static website hosting**. Take node of the endpoint URL at the top of the card, you'll need this in a minute.
+
+Type `index.html` for the index and error document and click **Save**.
+
+image::{% asset_path 'blog/angular-deployment/aws-static-website.png' %}[alt=AWS static website,width=550,align=center]
+
+By default, Amazon S3 blocks public access to your buckets. Go to the **Permissions** tab. Click the **Edit** button, clear **Block all public access**, and click **Save**.
+
+The last step you need to do to make it public is add a bucket policy. Go to **Permissions** > **Bucket Policy** and paste the following into the editor, replacing `{your-bucket-name}` with your bucket's name.
+
+[source,json]
+----
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "PublicReadGetObject",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": [
+                "s3:GetObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::{your-bucket-name}/*"
+            ]
+        }
+    ]
+}
+----
+
+At this point, you could navigate to https://<bucket-name>.s3.amazonaws.com/index.html in your browser, and the application will load. However, there's no HTTP to HTTPS redirect or resolution of `index.html` by default. You can use https://aws.amazon.com/premiumsupport/knowledge-center/cloudfront-https-requests-s3/[use CloudFront to solve these issues].
+
+Open the https://console.aws.amazon.com/cloudfront/[CloudFront console] and choose **Create Distribution**. Under the Web section, click the **Get Started** button.
+Click in the **Origin Domain Name** field and select your S3 bucket.
+
+Set the **Viewer Protocol Policy** to `Redirect HTTP to HTTPS`, allow all HTTP methods, and enter `index.html` as the **Default Root Object**. Scroll to the bottom and click **Create Distribution**. When the Status column changes from `In Progress` to `Deployed`, navigate to the domain name in your browser.
+
+NOTE: After you create your distribution, it can take 20 minutes for it to deploy.
+
+Once your distribution is deployed, update your Spring Boot app on Heroku to allow your CloudFront URL:
+
+[source,shell]
+----
+heroku config:edit --remote heroku
+----
+
+Make sure to append the URL to your existing ones, separating them with a comma.
+
+[source,shell]
+----
+ALLOWED_ORIGINS='https://stark-lake-39546.herokuapp.com,https://ng-notes-1337.web.app,https://relaxed-brown-0b81d8.netlify.app,https://d2kytj28ukuxfr.cloudfront.net'
+----
+
+Update your Okta SPA app to whitelist the URL as a redirect too.
+
+If you try to log in, you'll get a 403 when redirecting back to the site. To fix this, edit your distribution > **Error pages**. Create two custom error responses for `404` and `403`. Return a path of `/index.html` and a `200: OK` response code.
+
+Now you should be able to authenticate to your Angular app on AWS successfully!
+
+=== Improve Security Headers for AWS CloudFront + S3
+
+If you test your new CloudFront + S3 site on https://securityheaders.com/[securityheaders.com], you'll get an F. To solve this, you can use https://aws.amazon.com/blogs/networking-and-content-delivery/adding-http-security-headers-using-lambdaedge-and-amazon-cloudfront/[Lambda@Edge to add security headers].
+
+Go to the https://us-west-2.console.aws.amazon.com/lambda/home[Lambda Console] and select the `US-East-1 N` region from a drop-down list in the top right. Click **Create Function** to create a new function.
+
+Choose **Author from scratch** and name it `securityHeaders`. Under Permissions, select **Create a new role from AWS Policy templates**. Name the role `securityHeaders-role` and select `Basic Lambda@Edge permissions (for CloudFront trigger)`. Click **Create function**.
+
+In the Function code section, set `index.js` to have the following JavaScript.
+
+[source,js]
+----
+exports.handler = (event, context, callback) => {
+
+  // get response
+  const response = event.Records[0].cf.response;
+  const headers = response.headers;
+
+  // set headers
+  headers['content-security-policy'] = [{key: 'Content-Security-Policy', value: "default-src 'self'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; frame-ancestors 'none'"}];
+  headers['referrer-policy'] = [{key: 'Referrer-Policy', value: 'no-referrer, strict-origin-when-cross-origin'}];
+  headers['strict-transport-security'] = [{key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubdomains'}];
+  headers['x-content-type-options'] = [{key: 'X-Content-Type-Options', value: 'nosniff'}];
+  headers['x-frame-options'] = [{key: 'X-Frame-Options', value: 'DENY'}];
+  headers['x-xss-protection'] = [{key: 'X-XSS-Protection', value: '1; mode=block'}];
+  headers['feature-policy'] = [{key: 'Feature-Policy', value: "accelerometer 'none'; camera 'none'; microphone 'none'"}];
+
+  // return modified response
+  callback(null, response);
+};
+----
+
+Click **Save** and add a trigger. Select **CloudFront** and **Deploy to Lambda@Edge**. For the distribution, use the ID of your CloudFront distribution. Set the event to be **Origin response**. Select the "I acknowledge..." checkbox and click **Deploy**.
+
+Go back to your CloudFront Console and wait for the deploy to complete.
+
+Try your CloudFront domain again on https://securityheaders.com[securityheaders.com]. You should get an **A** this time.
+
+image::{% asset_path 'blog/angular-deployment/aws-headers.png' %}[alt=AWS score from securityheaders.com,width=800,align=center]
+
+_Phew! AWS certainly doesn't make things easy._
+
+Commit your changes to the `aws` branch.
+
+[source,shell]
+----
+git commit -am "Add AWS S3 deployment"
+----
+
+NOTE: If you committed the changes in your `angular.json` file, you should delete your access key in **My Account** > **Security Credentials**.
+
 === Angular Deployment to Azure
+
+Microsoft Azure is a cloud computing service from Microsoft. I've never used it before writing this post, but I sure hope it's easier than AWS!
+
+Check out your `master` branch and create a new `azure` one.
+
+[source,shell]
+----
+git checkout master
+git checkout -b azure
+----
+
+Add the Azure deployment plugin for Angular:
+
+[source,shell]
+----
+ng add @azure/ng-deploy
+----
+
+This process gave me a URL to login to Microsoft. I have a Microsoft account and I was able to use that to sign-in. After I did, I was prompted to https://azure.com/free[create a free Azure account].
+
+After creating my account (which required a phone number _and_ a credit card), I tried installing `@azure/ng-deploy` again.
+
+I received the same error message about not having any active subscriptions. I clicked around the Azure portal a bunch, and ended up upgrading my account to a pay-as-you-go subscription. I chose **No technical support** because it was free. The Developer plan is $29/month at the time of this writing.
+
+When the `ng add` process failed again, I decided to give up. The `@azure/ng-deploy` schematic failed my 10 minute test.
+
+== Create a Docker Container for Your Angular App
+
+**Prerequisites:**
+
+* https://docs.docker.com/install/[Docker]
+* https://nodejs.org/[Node.js] 12+
+* https://adoptopenjdk.net/[Java] 8+
+
+Create a `Dockerfile` that uses the latest version of Node and nginx as a web server.
+
+[source,docker]
+.notes/Dockerfile
+----
+FROM node:14.1-alpine AS builder
+
+WORKDIR /opt/web
+COPY package.json package-lock.json ./
+RUN npm install
+
+ENV PATH="./node_modules/.bin:$PATH"
+
+COPY . ./
+RUN ng build --prod
+
+FROM nginx:1.17-alpine
+COPY nginx.config /etc/nginx/conf.d/default.conf
+COPY --from=builder /opt/web/dist/notes /usr/share/nginx/html
+----
+
+You'll need to create the `nginx.config` file to make nginx SPA-aware.
+
+[source,config]
+.notes/nginx.config
+----
+server {
+    listen   80;
+    server_name  _;
+
+    root /usr/share/nginx/html;
+    index index.html;
+
+    location / {
+        try_files $uri /index.html;
+    }
+}
+----
+
+Make sure your Docker daemon is running with `docker ps`. Then run the following command to build your Docker image. The `ng-notes` value can be whatever you want to name your image.
+
+[source,shell]
+----
+docker build -t ng-notes .
+----
+
+If it builds successfully, you'll see messages like the following:
+
+[source,shell]
+----
+Successfully built 382b9cd7d345
+Successfully tagged ng-notes:latest
+----
+
+You can run it locally on port 4200 using the `docker run` command.
+
+[source,shell]
+----
+docker run -p 4200:80 ng-notes
+----
+
+Since this runs the production build, you'll need to add `http://localhost:4200` as an allowed origin in your Spring Boot app on Heroku. Run the following command and add it to the end of the existing values.
+
+[source,shell]
+----
+heroku config:edit --remote heroku
+----
+
+IMPORTANT: One advantage of doing this is you can run your local Angular app against your production backend. I've found this very useful when debugging and fixing UI issues caused by production data.
+
+To publish your image so you can deploy it, you can use Docker Hub. If you don't already have a Docker Hub account, you can https://hub.docker.com/signup[create one].
+
+Once you have an account, log in and push your image.
+
+[source,shell]
+----
+docker login
+docker image tag ng-notes mraible/ng-notes
+docker push mraible/ng-notes
+----
+
+This will tag it as `latest` by default. If you want to tag and push a particular version, you can do:
+
+[source,shell]
+----
+docker image tag ng-notes mraible/ng-notes:1.0
+docker push mraible/ng-notes
+----
+
+IMPORTANT: Your image will be public by default. If you navigate to your image on Docker Hub in a browser, you can go to its **Settings** tab and make it private.
+
+== Docker on Heroku
+
+Heroku has a https://devcenter.heroku.com/articles/container-registry-and-runtime[couple slick features when it comes to Docker images]. If your project has a `Dockerfile`, you can deploy your app directly using the Heroku Container Registry.
+
+First, log in to the Container Registry.
+
+[source,shell]
+----
+heroku container:login
+----
+
+Then, create a new app.
+
+[source,shell]
+----
+heroku create
+----
+
+Add the Git URL as a new remote to your app.
+
+[source,shell]
+----
+git remote add docker https://git.heroku.com/<your-app-name>.git
+----
+
+You'll need to update `nginx.config` so it reads from a `$PORT` environment variable if it's set, otherwise default it to 80. You can use https://michalzalecki.com/nginx-listen-on-port-docker/[`envsubst` to do this at runtime]. However, the default `envsubst` doesn't allow default variables. The good news is https://github.com/a8m/envsubst[a8m/envsubst] on GitHub does!
+
+Replace your `nginx.config` with the following configuration that defaults to 80 and escapes the `$uri` variable so it's not replaced with a blank value.
+
+[source,config]
+.notes/nginx.config
+----
+server {
+    listen       ${PORT:-80};
+    server_name  _;
+
+    root /usr/share/nginx/html;
+    index index.html;
+
+    location / {
+        try_files $$uri /index.html;
+    }
+}
+----
+
+You'll also need to update your `Dockerfile` so it uses the aforementioned `envsubstr`.
+
+[source,docker]
+.notes/Dockerfile
+----
+FROM node:14.1-alpine AS builder
+
+WORKDIR /opt/web
+COPY package.json package-lock.json ./
+RUN npm install
+
+ENV PATH="./node_modules/.bin:$PATH"
+
+COPY . ./
+RUN ng build --prod
+
+FROM nginx:1.17-alpine
+RUN apk --no-cache add curl
+RUN curl -L https://github.com/a8m/envsubst/releases/download/v1.1.0/envsubst-`uname -s`-`uname -m` -o envsubst && \
+    chmod +x envsubst && \
+    mv envsubst /usr/local/bin
+COPY ./nginx.config /etc/nginx/nginx.template
+CMD ["/bin/sh", "-c", "envsubst < /etc/nginx/nginx.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
+COPY --from=builder /opt/web/dist/notes /usr/share/nginx/html
+----
+
+Then, push your Docker image to Heroku's Container Registry.
+
+[source,shell]
+----
+heroku container:push web --remote docker
+----
+
+Once the push process has completed, release the image of your app:
+
+[source,shell]
+----
+heroku container:release web --remote docker
+----
+
+And open the app in your browser:
+
+[source,shell]
+----
+heroku open --remote docker
+----
+
+You'll need to add your app's URI in Okta and as an allowed origin for the backend with `heroku config:edit`.
+
+See Heroku's https://devcenter.heroku.com/articles/container-registry-and-runtime[Container Registry & Runtime (Docker Deploys)] for more information.
+
+
 
 == Combine Your Angular + Spring Boot App into a Single JAR
 
+In the previous sections, you learned how to deploy your Angular and Spring Boot apps separately. Now I'll show you how to combine them into a single JAR for production. You'll still be able to run them independently in development, but deploying them to production will be easier because you won't have to worry about CORS. I'll also convert the OAuth flows so they all happen server-side, which is more secure because the access token won't be stored in the browser.
+
+TIP: Most client-side OAuth libraries keep access tokens in local storage. However, there is a https://gitlab.com/jimdigriz/oauth2-worker[oauth2-worker] project that allows you to store them in a web worker.
+
+Check out your `master` branch and create a new `jar` one.
+
+[source,shell]
+----
+git checkout master
+git checkout -b jar
+----
+
+https://developer.okta.com/blog/2020/03/27/spring-oidc-logout-options
+
+// Deploy JAR to CF
+
+
 == Package Angular + Spring Boot with Docker
+
+
+
+// Heroku Docker
+// CF Docker https://docs.cloudfoundry.org/adminguide/docker.html
+// Google Cloud and Kubernetes
+
 
 == Learn More About Angular and Spring Boot
 
@@ -1003,4 +1434,5 @@ https://devcenter.heroku.com/articles/deploying-spring-boot-apps-to-heroku
 https://devcenter.heroku.com/articles/deploying-executable-jar-files
 https://devcenter.heroku.com/articles/deploying-gradle-apps-on-heroku
 
-
+https://developer.okta.com/blog/2018/07/03/deploy-vue-app-aws
+https://developer.okta.com/blog/2018/07/31/use-aws-cloudformation-to-automate-static-site-deployment-with-s3
