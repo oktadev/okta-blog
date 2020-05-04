@@ -57,12 +57,12 @@
   <link rel="mask-icon" href="/assets-jekyll/favicon/safari-pinned-tab.svg" color="#21313a">
   <meta name="msapplication-config" content="/assets-jekyll/favicon/browserconfig.xml">
   <meta name="theme-color" content="#ffffff">
+  <link rel="canonical" href="{{ site.external_domain }}{{ page.url }}" />
   {% if page.layout == "blog_post" %}
   <meta property="og:type"               content="article" />
   <meta property="og:url"                content="{{ site.external_domain }}{{ page.url }}" />
   <meta property="og:title"              content="{{ page.title }}" />
   <meta property="og:description"        content="{{ page.description }}" />
-  <link rel="canonical" href="{{ site.external_domain }}{{ page.url }}" />
 
   <!-- Add BlogPosting schema -->
   {% if page.image contains "blog" %}

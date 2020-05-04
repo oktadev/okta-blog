@@ -42,6 +42,14 @@ Below are 11 patterns I recommend to secure microservice architectures.
 [role="no-title"]
 toc::[]
 
+TIP: https://youtu.be/xPlmRSWqSso[Watch this blog post as a presentation on YouTube]. 👇
+
+++++
+<div style="text-align: center; margin-bottom: 1.25rem">
+<iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/xPlmRSWqSso" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+++++
+
 == 1. Be Secure by Design
 
 Secure code is the best code. Secure by design means that you bake security into your software design from the beginning. If you have user input, sanitize the data and remove malicious characters.
@@ -511,5 +519,3 @@ If you liked this post and want notifications when we post others, please https:
 
 [[acknowledgements]]
 _A huge thanks to Chris Richardson and Rob Winch for their thorough reviews and detailed feedback._
-
-TIP: I gave a https://oktane20.com/agenda#566[talk on Security Patterns for Microservice Architectures at Oktane20] on April 2, 2020. You can https://oktane20.com/register[register] and watch it for free until April 10.
