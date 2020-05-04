@@ -8,7 +8,7 @@ description: "Storing secrets in your code is a bad idea. Learn how to use Sprin
 tags: [spring vault, oidc, java, spring, spring boot, vault, hashicorp, spring cloud vault]
 tweets:
 - "Learn how to secure your secrets with @springcloud vault and @HashiCorp Vault!"
-- "Securing your secrets is a must if you want to have to be secure by design. This tutorial shows you how!"
+- "Securing your secrets is a must if you want to be secure by design. This tutorial shows you how!"
 - "Please secure your secrets. Fight for your users!"
 image: blog/spring-vault/spring-vault.png
 type: conversion
