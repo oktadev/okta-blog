@@ -790,13 +790,27 @@ Below are the https://angular.io/guide/deployment[current providers and packages
 
 |===
 |Hosting provider |npm package
-|Firebase, https://npmjs.org/package/@angular/fire[`@angular/fire`]
-|Azure, https://npmjs.org/package/@azure/ng-deploy[`@azure/ng-deploy`]
-|Now, https://npmjs.org/package/@zeit/ng-deploy[`@zeit/ng-deploy`]
-|Netlify, https://www.npmjs.com/package/@netlify-builder/deploy[`@netlify-builder/deploy`]
-|GitHub pages, https://npmjs.org/package/angular-cli-ghpages[`angular-cli-ghpages`]
-|NPM, https://npmjs.org/package/ngx-deploy-npm[`ngx-deploy-npm`]
-|AWS S3, https://www.npmjs.com/package/@jefiozie/ngx-aws-deploy[`@jefiozie/ngx-aws-deploy`]
+
+|Firebase
+|https://npmjs.org/package/@angular/fire[`@angular/fire`]
+
+|Azure
+|https://npmjs.org/package/@azure/ng-deploy[`@azure/ng-deploy`]
+
+|Now
+|https://npmjs.org/package/@zeit/ng-deploy[`@zeit/ng-deploy`]
+
+|Netlify
+|https://www.npmjs.com/package/@netlify-builder/deploy[`@netlify-builder/deploy`]
+
+|GitHub pages
+|https://npmjs.org/package/angular-cli-ghpages[`angular-cli-ghpages`]
+
+|NPM
+|https://npmjs.org/package/ngx-deploy-npm[`ngx-deploy-npm`]
+
+|AWS S3
+|https://www.npmjs.com/package/@jefiozie/ngx-aws-deploy[`@jefiozie/ngx-aws-deploy`]
 |===
 
 In the following section, I'll show you how to deploy to a few that piqued my interest.
@@ -868,8 +882,8 @@ ALLOWED_ORIGINS='https://stark-lake-39546.herokuapp.com,https://ng-notes-1337.we
 
 You'll also need to modify your Okta SPA app to add your Firebase URL as a Login redirect URI and Logout redirect URI. For mine, I added:
 
-* Login redirect URI: `https://ng-notes-1337.web.app/authorization-code/callback`
-* Logout redirect URI: `https://ng-notes-1337.web.app`
+* Login redirect URI: `\https://ng-notes-1337.web.app/authorization-code/callback`
+* Logout redirect URI: `\https://ng-notes-1337.web.app`
 
 Open your Firebase URL in your browser, log in, and you should be able to see the note you added on Heroku.
 
@@ -1232,7 +1246,18 @@ COPY nginx.config /etc/nginx/conf.d/default.conf
 COPY --from=builder /opt/web/dist/notes /usr/share/nginx/html
 ----
 
-TIP: When I was working on this file, I found it handy to comment out the `ng build` line and use `RUN mkdir -p dist/notes && echo "Hello, World" > dist/notes/index.html` instead to skip the lengthy Angular build process.
+[NOTE]
+====
+When I was working on this file, I found it handy to comment out the `RUN ng build --prod` line and use the following instead.
+
+[source,shell]
+----
+RUN mkdir -p dist/notes
+RUN echo "Hello, World" > dist/notes/index.html
+----
+
+This allows you to skip the lengthy Angular build process.
+====
 
 You'll need to create the `nginx.config` file to make nginx SPA-aware.
 
@@ -1274,22 +1299,25 @@ You can run it locally on port 4200 using the `docker run` command.
 docker run -p 4200:80 ng-notes
 ----
 
-If you find these `docker` commands hard to remember like I did, add a couple scripts to your `package.json` file.
+[NOTE]
+====
+If you find these `docker` commands hard to remember, you can add a couple scripts to your `package.json` file.
 
 [source,json]
 ----
 "build-docker": "docker build -t ng-notes .",
 "docker": "docker run -p 4200:80 ng-notes"
 ----
+====
 
-Since this runs the production build, you'll need to add `http://localhost:4200` as an allowed origin in your Spring Boot app on Heroku. Run the following command and add it to the end of the existing values.
+Since this runs the production build, you'll need to add `\http://localhost:4200` as an allowed origin in your Spring Boot app on Heroku. Run the following command and add it to the end of the existing values.
 
 [source,shell]
 ----
 heroku config:edit --remote heroku
 ----
 
-IMPORTANT: One advantage of doing this is you can run your local Angular app against your production backend. I've found this very useful when debugging and fixing UI issues caused by production data.
+TIP: One advantage of doing this is you can run your local Angular app against your production backend. I've found this very useful when debugging and fixing UI issues caused by production data.
 
 To publish your image so you can deploy it, you can use Docker Hub. If you don't already have a Docker Hub account, you can https://hub.docker.com/signup[create one].
 
@@ -1443,7 +1471,7 @@ heroku container:push web --remote docker
 heroku container:release web --remote docker
 ----
 
-Now you should get an A!
+Now you should get an **A** !
 
 image::{% asset_path 'blog/angular-deployment/nginx-headers.png' %}[alt=Nginx in Docker score from securityheaders.com,width=800,align=center]
 
