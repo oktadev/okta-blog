@@ -86,3 +86,4 @@ Want to read more security content? Check out these other security resources:
 - [Transport Layer Security](/books/api-security/tls/)
 - [What Happens If Your JWT is Stolen?](/blog/2018/06/20/what-happens-if-your-jwt-is-stolen)
 - [An OpenID Connect Primer](/blog/2017/07/25/oidc-primer-part-1)
+- Our new [Okta Security Site](https://sec.okta.com/)

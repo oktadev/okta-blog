@@ -87,4 +87,4 @@ Last time I checked, becoming a certificate authority for a single domain costs 
 
 Self-signed certificates are not always a bad idea. I use them for development and automated testing of services that require TLS. In these cases, the chain of trust starts and ends me. The tool [mkcert](https://mkcert.dev/) makes setting up your development environment trivial by generating a certificate and adding it to your local trust stores automatically with a single command. 
 
-Feel free to leave comments below. To make sure you stay up to date with our latest developer guides and tips, follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube Channel](https://www.youtube.com/c/oktadev)!
+Feel free to leave comments below. To make sure you stay up to date with our latest developer guides and tips, follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube Channel](https://www.youtube.com/c/oktadev)! We've also got a new [security site](https://sec.okta.com/) you should check out if you're interested in other security-focused articles.
