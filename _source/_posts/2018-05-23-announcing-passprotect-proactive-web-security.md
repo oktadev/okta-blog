@@ -63,4 +63,4 @@ If you'd like to get PassProtect for your website, please check out our [GitHub 
 
 Be safe out there! &lt;3
 
-**PS**: If you've had a chance to play around with [PassProtect](https://www.passprotect.io) please let me know what you think!  Leave a comment down below or shoot me [an email](mailto:randall.degges@okta.com).
+**PS**: If you've had a chance to play around with [PassProtect](https://www.passprotect.io) please let me know what you think!  Leave a comment down below or shoot me [an email](mailto:randall.degges@okta.com). We also released a new [security site](https://sec.okta.com/) where we're publishing other things like this, so be sure to check that out.
