@@ -1232,6 +1232,8 @@ COPY nginx.config /etc/nginx/conf.d/default.conf
 COPY --from=builder /opt/web/dist/notes /usr/share/nginx/html
 ----
 
+TIP: When I was working on this file, I found it handy to comment out the `ng build` line and use `RUN mkdir -p dist/notes && echo "Hello, World" > dist/notes/index.html` instead to skip the lengthy Angular build process.
+
 You'll need to create the `nginx.config` file to make nginx SPA-aware.
 
 [source,config]
@@ -1270,6 +1272,14 @@ You can run it locally on port 4200 using the `docker run` command.
 [source,shell]
 ----
 docker run -p 4200:80 ng-notes
+----
+
+If you find these `docker` commands hard to remember like I did, add a couple scripts to your `package.json` file.
+
+[source,json]
+----
+"build-docker": "docker build -t ng-notes .",
+"docker": "docker run -p 4200:80 ng-notes"
 ----
 
 Since this runs the production build, you'll need to add `http://localhost:4200` as an allowed origin in your Spring Boot app on Heroku. Run the following command and add it to the end of the existing values.
@@ -1398,7 +1408,44 @@ You'll need to add your app's URI in Okta and as an allowed origin for the backe
 
 See Heroku's https://devcenter.heroku.com/articles/container-registry-and-runtime[Container Registry & Runtime (Docker Deploys)] for more information.
 
+=== Improve Security Headers for Nginx in Docker
 
+If you test your new Nginx in Docker site on https://securityheaders.com/[securityheaders.com], you'll get an F. To solve this, you can modify your `nginx.config` to add security headers.
+
+[source,config]
+----
+server {
+    listen       ${PORT:-80};
+    server_name  _;
+
+    root /usr/share/nginx/html;
+    index index.html;
+
+    location / {
+        try_files $$uri /index.html;
+    }
+
+    add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; frame-ancestors 'none'";
+    add_header Referrer-Policy "no-referrer, strict-origin-when-cross-origin";
+    add_header Strict-Transport-Security "max-age=63072000; includeSubDomains";
+    add_header X-Content-Type-Options nosniff;
+    add_header X-Frame-Options DENY;
+    add_header X-XSS-Protection "1; mode=block";
+    add_header Feature-Policy "accelerometer 'none'; camera 'none'; microphone 'none'";
+}
+----
+
+After updating this file, run the following commands:
+
+[source,shell]
+----
+heroku container:push web --remote docker
+heroku container:release web --remote docker
+----
+
+Now you should get an A!
+
+image::{% asset_path 'blog/angular-deployment/nginx-headers.png' %}[alt=Nginx in Docker score from securityheaders.com,width=800,align=center]
 
 == Combine Your Angular + Spring Boot App into a Single JAR
 
@@ -1421,11 +1468,29 @@ https://developer.okta.com/blog/2020/03/27/spring-oidc-logout-options
 
 == Package Angular + Spring Boot with Docker
 
+[source,kotlin]
+----
+plugins {
+    ...
+    id("com.google.cloud.tools.jib") version "2.2.0"
+}
+----
 
+java -jar build/libs/*.jar
+
+tasks.jibDockerBuild {
+    dependsOn("bootJar")
+}
+
+./gradlew jibDockerBuild -Pprod --image=bootiful-angular
+
+docker run --publish=8080:8080 bootiful-angular
+
+// todo: warn about using `build` vs. `bootJar` and tests
 
 // Heroku Docker
 // CF Docker https://docs.cloudfoundry.org/adminguide/docker.html
-// Google Cloud and Kubernetes
+// Google Cloud and Kubernetes OR KNative
 
 
 == Learn More About Angular and Spring Boot
