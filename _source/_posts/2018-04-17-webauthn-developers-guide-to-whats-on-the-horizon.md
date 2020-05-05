@@ -56,3 +56,5 @@ The spec itself is currently a W3C "Candidate Recommendation", which is the seco
 * [Web authentication and Windows Hello](https://docs.microsoft.com/en-us/microsoft-edge/dev-guide/device/web-authentication)
 * [FIDO2 Project](https://fidoalliance.org/fido2/)
 * Learn more about [Okta's plans to support WebAuthn](https://www.okta.com/blog/2018/04/its-a-new-world-with-webauthn-passwordless-authentication-goes-primetime/)
+
+If you're looking for more security-focused information like this, you might want to check out our new [security site](https://sec.okta.com/), where we're publishing lots of other interesting security pieces.

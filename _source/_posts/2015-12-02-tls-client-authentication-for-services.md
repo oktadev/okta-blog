@@ -422,3 +422,5 @@ you implement these authentication concepts in your applications.
 2. [Common openssl commands](https://www.sslshopper.com/article-most-common-openssl-commands.html)
 3. [Dropwizard https configuration manual](http://www.dropwizard.io/0.7.1/docs/manual/configuration.html#man-configuration-https)
 4. [Jersey client documentation](https://jersey.java.net/documentation/latest/client.html#d0e5128)
+
+**PS**: If you'd like to read more in-depth security-focused articles, you might enjoy our new [security site](https://sec.okta.com).
