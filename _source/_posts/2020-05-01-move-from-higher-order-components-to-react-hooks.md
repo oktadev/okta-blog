@@ -397,7 +397,7 @@ You can see, I've removed the `withAuth` HOC and replaced it with the `useOktaAu
 
 The `useEffect()` call checks for authentication and updates the state with the user's claims. Then there's just a `return()` if the `userInfo` isn't there yet, and a `render()` when there IS user information to display. That's a LOT cleaner, don't you think?
 
-## Learn More
+## Learn More about React
 
 All this doesn't mean that Higher-Order Components aren't still useful or supported. There's no need to go rambling through a large, existing codebase to change all of your HOCs to React Hooks. But in places where you might be wrapping your React components in two, three, or more HOCs, you might start by refactoring those into React Hooks.
 
