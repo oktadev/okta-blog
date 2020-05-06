@@ -1514,12 +1514,92 @@ tasks.jibDockerBuild {
 
 docker run --publish=8080:8080 bootiful-angular
 
+Copy `notes-api/okta.env` to `src/main/docker/.env`.
+
+Change it to:
+
+[source,shell]
+----
+OKTA_OAUTH2_ISSUER=https://dev-210914.okta.com/oauth2/default
+OKTA_OAUTH2_CLIENT_ID=0oaa7psy3dzvqsPjk4x6
+OKTA_OAUTH2_CLIENT_SECRET=FJcSFpTC6NHENPPtb7RRWk6sGwPzYa7d7xPcsWsi
+----
+
+./gradlew jibDockerBuild -Pprod
+docker run --publish=8080:8080 bootiful-angular
+
+
+cd src/main/docker
+docker-compose -f src/main/docker/app.yml up
+
 // todo: warn about using `build` vs. `bootJar` and tests
 
+Deploy to Docker hub by renaming task from jibDockerBuild to jib and running
+
+ ./gradlew jib -Pprod
+
 // Heroku Docker
+
+[source,shell]
+----
+heroku create
+git remote add jib https://git.heroku.com/enigmatic-woodland-19325.git
+
+// attach old or create PostreSQL and Okta
+heroku addons:create heroku-postgresql --remote jib
+
+heroku config:get DATABASE_URL --remote jib
+heroku config:set SPRING_DATASOURCE_URL=<value-after-@-from-last-command> --remote jib
+heroku config:set SPRING_DATASOURCE_USERNAME=<username-value-from-last-command> --remote jib
+heroku config:set SPRING_DATASOURCE_PASSWORD=<password-value-from-last-command> --remote jib
+heroku config:set SPRING_JPA_HIBERNATE_DDL_AUTO=validate --remote jib
+
+// screenshot + commands to match
+
+heroku addons:create okta --remote jib
+
+
+// See config with
+heroku config --remote jib
+
+Remove _WEB from Okta
+
+docker tag hub.docker.com/mraible/bootiful-angular registry.heroku.com/enigmatic-woodland-19325/web
+docker push registry.heroku.com/enigmatic-woodland-19325/web
+heroku container:release web --remote jib
+
+
+Add server.port=${PORT:8080} to application-prod.properties and run  ./gradlew jibDockerBuild -Pprod
+----
+
 // CF Docker https://docs.cloudfoundry.org/adminguide/docker.html
 // Google Cloud and Kubernetes OR KNative
 
+https://docs.spring.io/spring-security/site/docs/5.3.1.RELEASE/reference/html5/#headers
+
+
+        http.headers()
+                .contentSecurityPolicy("script-src 'self'; report-to /csp-report-endpoint/")
+                .and()
+                .referrerPolicy(ReferrerPolicyHeaderWriter.ReferrerPolicy.SAME_ORIGIN)
+                .and()
+                .featurePolicy("accelerometer 'none'; camera 'none'; microphone 'none'")
+
+// todo: try logout
+
+
+./gradlew jib
+
+or
+
+docker image tag bootiful-angular mraible/bootiful-angular
+docker push mraible/bootiful-angular
+
+KNative: https://docs.google.com/document/d/1SLEga2V6N_UaxPcEhDku7gViRJflmtFGljgz-OLUNUQ/edit?ts=5eb1f757
+
+https://skaffold.dev/
+
+https://spring.io/blog/2020/01/27/creating-docker-images-with-spring-boot-2-3-0-m1
 
 == Learn More About Angular and Spring Boot
 
