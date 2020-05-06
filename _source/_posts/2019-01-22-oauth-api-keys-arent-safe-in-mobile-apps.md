@@ -138,3 +138,5 @@ If you'd like to dig deeper into these topics, here are a few resources:
 * [What is the OAuth 2.0 Authorization Code Grant Type?](https://developer.okta.com/blog/2018/04/10/oauth-authorization-code-grant-type)
  
 If you liked this post, you should [follow us on Twitter](https://twitter.com/oktadev)! We also have a [YouTube channel](https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q) where we publish screencasts and other videos.
+
+**PS**: We've also recently built a new [security site](https://sec.okta.com/) where we're publishing all sorts of in-depth security articles. If that sounds interesting to you, please check it out!

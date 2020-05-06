@@ -52,7 +52,7 @@ The type of application we build isn't important as long as it can be [run with 
 
 ```txt
 git clone https://github.com/oktadeveloper/okta-graalvm-example.git
-cd okta-graalvm-example/jvm
+cd okta-graalvm-example/jdk
 ```
 
 This project contains a single Java class and is limited to parsing simple dice expressions like `2d20` (roll two different twenty-sided dice). Create a new java file `src/main/java/com/okta/examples/jdk/JdkDiceApplication.java`: 

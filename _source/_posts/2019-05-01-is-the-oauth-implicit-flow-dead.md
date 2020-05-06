@@ -397,6 +397,4 @@ If you'd like to dig deeper into these topics, here are a few resources:
 * [Interactive demo of Implicit](https://www.oauth.com/playground/implicit.html)
 * [Why API Keys aren't Safe in Mobile Apps](/blog/2019/01/22/oauth-api-keys-arent-safe-in-mobile-apps)
 
-Like what you learned today? Follow us on [Twitter](https://twitter.com/oktadev), and subscribe to our [YouTube channel](https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q) for more awesome content!
-
-
+Like what you learned today? Follow us on [Twitter](https://twitter.com/oktadev), and subscribe to our [YouTube channel](https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q) for more awesome content! We've also recently launched a new [security site](https://sec.okta.com/) where we're publishing in-depth security-focused articles.
