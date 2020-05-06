@@ -45,7 +45,7 @@ This will create a new folder called `react-styled-calendar` and initialize a Re
 
 ```bash
 cd react-styled-calendar
-npm install -E moment@2.24.0
+npm install -E moment@2.25.3
 ```
 
 Now open your favorite editor, create a file `src/Calendar.js`, and create a new calendar component by pasting the code below into the file.
@@ -55,6 +55,7 @@ import React, { Component } from 'react';
 import moment from 'moment';
 
 export class Calendar extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -77,15 +78,15 @@ createDaysOfMonth(refDate) {
   const today = moment();
 
   for (let w=0; w<firstWeekday; w++) {
-    calendarDays.push(<div/>); // empty days
+    calendarDays.push(<div key={Math.random()}/>); // empty days
   }
 
   for (let d=1; d<lastDate; d++) {
-    calendarDays.push(<div today={date.date(d).isSame(today, 'day')}>{d}</div>);
+    calendarDays.push(<div key={d} today={date.date(d).isSame(today, 'day')}>{d}</div>);
   }
 
   while (calendarDays.length % 7 !== 0) {
-    calendarDays.push(<div/>);
+    calendarDays.push(<div key={Math.random()}/>);
   }
 
   return calendarDays;
@@ -166,14 +167,14 @@ Open your browser, navigate to <https://developer.okta.com>, follow the sign-in 
 
 Select **Applications** in the top menu and create your first application by clicking the **Add Application** button. On the screen that appears next, select **Single-Page App** and click **Next**.
 
-You will see a screen with settings. Make sure the port is set to 3000 and that the return URL is set to `http://localhost:3000/implicit/callback`. This is the port that your React application uses to run the development server. When you're done, click on **Done**.
+You will see a screen with settings. Make sure the port is set to 3000 and that the return URL is set to `http://localhost:3000/callback`. This is the port that your React application uses to run the development server. When you're done, click on **Done**.
 
 The resulting screen will provide you with a client ID, which you will need to copy and paste into your application in the following steps.
 
 Now open your terminal and install the libraries that we need to enable authentication in the calendar application.
 
 ```bash
-npm install -E @okta/okta-react@2.0.0 react-router-dom@5.1.2
+npm install -E @okta/okta-react@3.0.1 react-router-dom@5.1.2
 ```
 
 Now open `src/App.js` and update its contents to match the following code.
@@ -190,10 +191,10 @@ function App() {
       <Router>
         <Security issuer='https://{YourOktaDomain}/oauth2/default'
                   clientId='{ClientId}'
-                  redirectUri={window.location.origin + '/implicit/callback'}
+                  redirectUri={window.location.origin + '/callback'}
                pkce={true}>
           <SecureRoute path='/' exact={true} component={Calendar}/>
-          <Route path='/implicit/callback' component={LoginCallback}/>
+          <Route path='/callback' component={LoginCallback}/>
         </Security>
       </Router>
   );
@@ -209,7 +210,7 @@ In the code above, `{ClientId}` is the client ID that you obtained from the Okta
 Now, it is time to add some style to your application. In this section, I'll show you how to install and use React Styled Components. First, install the `styled-components` package to your project. Open your terminal in the project root folder and run the following command.
 
 ```bash
-npm install -E styled-components@5.0.1
+npm install -E styled-components@5.1.0
 ```
 
 Now create a new file `src/CalendarComponents.js` and create the basic components that will serve as container elements for your calendar.
@@ -341,3 +342,7 @@ If you want to learn more about creating React applications, styling them, and m
 The code for this tutorial is available at [@oktadeveloper/okta-react-styled-components-example](https://github.com/oktadeveloper/okta-react-styled-components-example) on GitHub.
 
 If you liked this tutorial and want to be notified when we publish more, follow [@oktadev on Twitter](https://twitter.com/oktadev), subscribe to [our YouTube channel](https://youtube.com/c/oktadev), or [follow us on LinkedIn](https://www.linkedin.com/company/oktadev/). If you have a question, please leave a comment below.
+
+**Changelog:**
+
+* May 6, 2020: Updated to use the v3.0.1 version of the Okta React SDK. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-react-styled-components-example/pull/2). Changes to this article can be viewed in https://github.com/oktadeveloper/okta-blog/pull/197[oktadeveloper/okta-blog#197].
