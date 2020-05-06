@@ -345,4 +345,4 @@ If you liked this tutorial and want to be notified when we publish more, follow 
 
 **Changelog:**
 
-* May 6, 2020: Updated to use the v3.0.1 version of the Okta React SDK. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-react-styled-components-example/pull/2). Changes to this article can be viewed in https://github.com/oktadeveloper/okta-blog/pull/197[oktadeveloper/okta-blog#197].
+* May 6, 2020: Updated to use the v3.0.1 version of the Okta React SDK. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-react-styled-components-example/pull/2). Changes to this article can be viewed in [oktadeveloper/okta-blog#284](https://github.com/oktadeveloper/okta-blog/pull/284).
