@@ -132,7 +132,7 @@ If you don't already have one, you'll need a free (forever) Okta developer accou
 
 Choose **Single-Page App** from the platform choices and click **Next**. Give your application a name and make sure to change all the URIs to use port 3000 instead of port 8080. Make sure **Authorization Code** is checked in the **Grant type allowed** section, then click **Done**. When the application is created, you'll be on the application settings page. Make sure to copy your **Client ID**, you'll need it in just a minute.
 
-{% img blog/hoc-hooks/okta-app-settings.png alt:"Okta App Settings" width:"800" %}{: .center-image }
+{% img blog/hoc-hooks/okta-app-settings.png alt:"Okta App Settings" width:"700" %}{: .center-image }
 
 Back in your code editor, add a new file in the `src` folder called `config.js` with the following contents:
 
@@ -141,7 +141,7 @@ export default {
   oidc: {
     clientId: '<yourClientID>',
     issuer: '<yourOktaOrgURL>/oauth2/default',
-    redirectUri: 'http://localhost:3000/implicit/callback',
+    redirectUri: 'http://localhost:3000/callback',
     scopes: ['openid', 'profile', 'email'],
     pkce: true
   }
@@ -236,7 +236,7 @@ function App() {
         <Route path="/" exact component={Home} />
         <Route path="/login" component={Login} />
         <SecureRoute path="/profile" exact component={Profile} />
-        <Route path="/implicit/callback" component={ImplicitCallback} />
+        <Route path="/callback" component={ImplicitCallback} />
       </Security>
     </Router>
   );
@@ -245,7 +245,7 @@ function App() {
 export default App;
 ```
 
-Here, you've added some components from the `@okta/okta-react` package to secure your application. The `Security` tag takes the `config.js` contents and spreads it into parameters. It also wires up the `customAuthHandler` (above the component) to handle what to do when there is a need for authentication (like when users try to navigate to a secured route with having logged in). The profile `Route` was changed to a `SecureRoute` component and a route for `/implicit/callback` has been added and is being handled by the `ImplicitCallback` component from the `okta-react` package.
+Here, you've added some components from the `@okta/okta-react` package to secure your application. The `Security` tag takes the `config.js` contents and spreads it into parameters. It also wires up the `customAuthHandler` (above the component) to handle what to do when there is a need for authentication (like when users try to navigate to a secured route with having logged in). The profile `Route` was changed to a `SecureRoute` component and a route for `/callback` has been added and is being handled by the `ImplicitCallback` component from the `okta-react` package.
 
 ## Compose Using Higher-Order Components
 
@@ -314,7 +314,6 @@ export default withAuth(class Profile extends Component {
 
 Here, you imported the `withAuth` HOC from the `okta-react` package and wrapped the `Profile` component. This gives you access to the `auth` prop so you can get things like the `isAuthenticated()` and `getUser()` functions. (I've separated some of the repeated code into a `checkAuthentication()` function to reduce code duplication inside the component.) This will check for an authenticated user and get that user's token information. Then it will get all the user's claims and add them to the state. Finally, in the `render()` function it maps the claims to an unordered list for display.
 
-
 This is all great, but if I need to add another HOC, things start to get a little messy. Particularly when it comes to opening and closing parentheses and curly braces. You could move the wrapping to the bottom with:
 
 ```js
@@ -328,7 +327,25 @@ That will clean up the punctuation, but removes the signal right at the top that
 To use React Hooks, there are only a few small things to change. First, update to the latest version of Okta's React SDK:
 
 ```sh
-npm install @okta/okta-react@2.0.0 --save
+npm install @okta/okta-react@3.0.1 --save
+```
+
+As part of this upgrade, you'll need to change `ImplicitCallback` to `LoginCallback` in your `src/App.js`.
+
+```jsx
+import { Security, SecureRoute, LoginCallback } from "@okta/okta-react";
+...
+
+function App() {
+  return (
+    <Router>
+      <Security {...config.oidc} onAuthRequired={customAuthHandler}>
+        ...
+        <Route path="/callback" component={LoginCallback} />
+      </Security>
+    </Router>
+  );
+}
 ```
 
 Now change the `profile.js` component to use the React Hooks version of the `withAuth` Higher-Order Component. Replace the code for the profile page with:
@@ -376,13 +393,15 @@ const Profile = () => {
 export default Profile;
 ```
 
-You can see, I've removed the `withAuth` HOC and replaced it with the `useOktaAuth` hook. I've also brought in the `useEffect` and `useState` hooks. The `useEffect` lets you act on side effects within your component and the `useState` allows you to use component state inside of a functional component (not a class component). You'll also notice I was able to remove the `checkAuthentication()` helper method. Using the React Hooks, there won't be the chunks of repeated code that made me break that function out.
+You can see, I've removed the `withAuth` HOC and replaced it with the `useOktaAuth()` hook. I've also brought in the `useEffect()` and `useState()` hooks. The `useEffect()` lets you act on side effects within your component and the `useState()` allows you to use component state inside of a functional component (not a class component). You'll also notice I was able to remove the `checkAuthentication()` helper method. Using the React Hooks, there won't be the chunks of repeated code that made me break that function out.
 
 The `useEffect()` call checks for authentication and updates the state with the user's claims. Then there's just a `return()` if the `userInfo` isn't there yet, and a `render()` when there IS user information to display. That's a LOT cleaner, don't you think?
 
 ## Learn More
 
-All this doesn't mean that Higher-Order Components aren't still useful or supported. There's no need to go rambling through a large, existing codebase to change all of your HOCs to React Hooks. But in places where you might be wrapping your React components in two, three, or more HOCs, you might start by refactoring those into React Hooks. 
+All this doesn't mean that Higher-Order Components aren't still useful or supported. There's no need to go rambling through a large, existing codebase to change all of your HOCs to React Hooks. But in places where you might be wrapping your React components in two, three, or more HOCs, you might start by refactoring those into React Hooks.
+
+You can find the source code for this example [on GitHub](https://github.com/oktadeveloper/okta-react-hooks-example).
 
 I find the useability and composability of React Hooks to be much more compelling than HOCs. What do you think?
 
@@ -394,3 +413,7 @@ If you want to learn more about React or Okta, check out these great posts!
 
 
 Also, don't forget to follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://youtube.com/c/oktadev) channel for more great content!
+
+**Changelog:**
+
+* May 6, 2020: Updated to use the v3.0.1 version of the Okta React SDK and add a GitHub repo. Changes to this article can be viewed in [oktadeveloper/okta-blog#285](https://github.com/oktadeveloper/okta-blog/pull/285).
