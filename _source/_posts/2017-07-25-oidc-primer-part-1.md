@@ -211,4 +211,4 @@ If you want to jump ahead, check out the example at: [https://okta-oidc-fun.hero
 
 And, the source code is at: [https://github.com/oktadeveloper/okta-oidc-flows-example](https://github.com/oktadeveloper/okta-oidc-flows-example)
 
-The whole series is live now. Part 2 is [here](/blog/2017/07/25/oidc-primer-part-2). Part 3 is [here](/blog/2017/08/01/oidc-primer-part-3).
+The whole series is live now. Part 2 is [here](/blog/2017/07/25/oidc-primer-part-2). Part 3 is [here](/blog/2017/08/01/oidc-primer-part-3). If you'd like to see other security-focused articles like this, you might want to check out our new [security site](https://sec.okta.com) where we're publishing in-depth articles for infosec people.

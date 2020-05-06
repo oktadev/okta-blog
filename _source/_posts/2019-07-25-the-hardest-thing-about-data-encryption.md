@@ -113,4 +113,4 @@ Most developers will at some point in their career need to encrypt data. If you 
 
 And finally, if you need help managing user accounts or user authentication and authorization, you may want to [check us out](https://developer.okta.com/). Our API service lets you store users securely, log them in, reset their passwords, handles social login and single sign-on, etc. It's quite nifty.
 
-Be sure to [tweet at us](https://twitter.com/oktadev) if you're interested in more stuff like this. If you have any ideas for future articles, tech talks, [screencasts](https://www.youtube.com/c/oktadev), etc., let us know!
+Be sure to [tweet at us](https://twitter.com/oktadev) if you're interested in more stuff like this. If you have any ideas for future articles, tech talks, [screencasts](https://www.youtube.com/c/oktadev), etc., let us know! And, if you're interested in other security-focused articles, please check out our new [security site](https://sec.okta.com/).

@@ -77,3 +77,5 @@ You can learn more about OAuth 2.0 on [OAuth.com](https://www.oauth.com/oauth2-s
 * [Build Secure Node Authentication with Passport.js and OpenID Connect](/blog/2018/05/18/node-authentication-with-passport-and-oidc)
 
 Check out [Okta's OIDC/OAuth 2.0 API](/docs/api/resources/oidc) for specific information on how we support OAuth. And as always, follow us on Twitter [@oktadev](https://twitter.com/oktadev) for more great content.
+
+**PS**: If you're interested in other interesting security articles, please check out our new [security site](https://sec.okta.com/)!
