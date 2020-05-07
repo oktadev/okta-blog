@@ -1,12 +1,15 @@
 ---
 layout: blog_post
 title: "Build a CRUD App with ASP.NET Framework 4.x Web API and Angular"
-author: ibrahim
+author: ibrahim-suta
+by: contractor
+communities: [.net, javascript]
 description: "This tutorial walks you through building a simple CRUD application in ASP.NET Framework 4.x WebAPI and Angular 6."
 tags: [asp.net, dotnet, framwork, dot net, angular, crud]
 tweets:
 - "Learn how to build a simple CRUD app using @ASPNET Framework and @angular 6! →"
 - "Need to learn the basics of @aspnet framework 4 and @angular 6? We've got you covered. <3"
+type: conversion
 ---
 
 Even with all the hype around ASP.NET Core, many .NET developers continue to develop applications with ASP.NET 4.x. The ASP.NET 4.X framework is still being developed, and will be supported for a long time to come. It's a battle-tested web framework that has existed for over 15 years and is supported by a mature ecosystem.

@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Better, Faster, Lighter Java with Java 12 and JHipster 6"
-author: mraible
+author: matt-raible
+by: advocate
+communities: [java]
 description: "Stay hip with the latest Java and Spring Boot releases by using JHipster 6! This post shows you how to get started."
 tags: [java, spring boot, java11, java12, jhipster]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "JHipster 6 runs on Java 11 and Java 12! How cool is that? All thanks to the power of @springboot 2.1. 👌"
 - "JHipster 6 integrates @springboot, @springsecurity, and @oauth_2 - a powerful combination!"
 image: blog/java-12-jhipster-6/better-faster-java-with-jhipster.png
+type: conversion
 ---
 :page-liquid:
 

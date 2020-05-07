@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: 'A Quick Guide to Spring Boot Login Options'
-author: moksamedia
+author: andrew-hughes
+by: contractor
+communities: [java]
 description: "This tutorial shows you how to add login options to Spring Boot. Includes basic auth, form-based authentication, and OAuth 2.0 login."
 tags: [spring boot, java, login, oauth2, oidc]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "You've built a @SpringBoot app, but you still need to secure it. Try this tutorial to see your different options."
 - "Spring Boot greatly simplifies @java development. @SpringSecurity does the same for login. Try both today!"
 image: blog/featured/okta-java-short-headphones.jpg
+type: conversion
 ---
 
 In this post, you're going to work through various options for implementing a login feature using Spring Boot 2.1. You'll start with the most simple, basic auth, which you'd likely never want to use except for perhaps an internal backend tool, and move on to a simple form-based authentication page. Next, you'll customize the default, auto-generated form by overriding some default templates and controllers. Finally, you'll move on to adding Single Sign-on using OAuth 2.0. You'll see how to allow the user to sign in using Github and Okta. 

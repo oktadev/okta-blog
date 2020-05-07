@@ -1,13 +1,16 @@
 ---
 layout: blog_post
 title: "Announcing PassProtect - Proactive Web Security"
-author: rdegges
+author: randall-degges
+by: advocate
+communities: [javascript, security]
 description: "A look at our new developer library (and browser extension): PassProtect. PassProtect integrates with haveibeenpwned to check credentials you use against breached data lists, and notifies you when something bad happens."
 tags: [security, developer, javascript, chrome, browser]
 tweets:
 - "We built a thing. It's called PassProtect. Learn more here!"
 - "We just released our new open source browser extension and developer library: PassProtect. It's powered by @troyhunt's @haveibeenpwned service. Check it out!"
 - "Want to know when the credentials you use everyday have been exposed in a data breach? Check out PassProtect, our newest open source project:"
+type: awareness
 ---
 
 If you're reading this article you probably care about web security. You probably use a password manager to manage your passwords, you've probably got [multi-factor authentication](https://2fanotifier.org/) setup for all of your services, and you're probably already subscribed to [Have I Been Pwned?](https://haveibeenpwned.com/) so you're alerted when one of your logins have been involved in a data breach.

@@ -1,13 +1,16 @@
 ---
 layout: blog_post
 title: "AWS Athena as a Data Analysis Supplement"
-author: omardarwish
+author: omar-darwish
+by: internal-contributor
+communities: [security]
 description: "Learn to use AWS Athena as a data analysis supplement."
 tags: [AWS, AWS Athena, Data Analysis, Security]
 tweets:
 - "Need to be able to analyze security logs archived in S3? We've got you covered!"
 - "Do data analysis beyond the 'hot' caching window. Analyze security logs archived in S3!"
 image: blog/aws-athena-data-analysis-supplement/aws-athena-featured-image.png
+type: awareness
 ---
 
 As part of a security investigation, you may be tasked with determining whether a specific API action occurred throughout your cloud deployment within some distant date range. This would normally be straightforward to determine, by using either the provided CloudTrail querying console or a Security Information and Event Management platform (SIEM) which is set to consume these logs such as Splunk or Elasticsearch. For most data analysis solutions, the amount of data ingested or stored becomes cost-prohibitive beyond a certain threshold. A [common](https://docs.splunk.com/Documentation/Splunk/8.0.0/Indexer/Bucketsandclusters) [solution](https://www.elastic.co/blog/hot-warm-architecture-in-elasticsearch-5-x) to this problem is to have a rolling window of "hot" or "warm" caching for recently produced data. This data is queryable on demand and is fastest to be analyzed. However, data that is older than this threshold is evicted from the SIEM and archived in a storage solution such as S3 (perhaps with object lifecycle management). This data, therefore, becomes no longer queryable within the SIEM.

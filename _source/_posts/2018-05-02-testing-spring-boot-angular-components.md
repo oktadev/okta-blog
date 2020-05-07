@@ -1,12 +1,15 @@
 ---
 layout: blog_post
 title: "The Hitchhiker's Guide to Testing Spring Boot APIs and Angular Components with WireMock, Jest, Protractor, and Travis CI"
-author: mraible
+author: matt-raible
+by: advocate
+communities: [java, javascript]
 description: "This post shows you how to use tools like Jest, Protractor, Travis CI, and WireMock to test your Spring Boot API and Angular components."
 tags: [testing, junit, spring boot, mockito, wiremock, spring mvc test, angular, ionic, jest, protractor, jasmine, travis ci]
 tweets:
   - "If you're not writing tests, you're testing in production. 🛑 and learn how to test your @springboot and @ionicframework apps >"
   - "This testing guide shows you some techniques for testing your Java and Angular components when using @okta >"
+type: conversion
 ---
 
 Writing apps with Spring Boot and Ionic (which is built on Angular) can be fun because both frameworks offer a good developer experience (DX). You change a file, save it, and the app automatically reloads with your changes. This feature is often called hot-reload and it's a blissful way to develop. It's so nice, it can cause you to forget about automating your tests.

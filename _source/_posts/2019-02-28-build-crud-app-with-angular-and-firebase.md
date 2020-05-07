@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Build a CRUD App with Angular and Firebase"
-author: holgerschmitz
+author: holger-schmitz
+by: contractor
+communities: [javascript]
 description: "This tutorial shows how to build a basic wiki-style app with Angular and Firebase."
 tags: [javascript, angular, firebase]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Quickly build a wiki-style app with @Angular and @Firebase!"
 - "Build your own wiki with @Angular and @Firebase! →"
 image: blog/featured/okta-angular-headphones.jpg
+type: conversion
 ---
 
 Storage as a Service (SaaS) is becoming ever more popular with many businesses. The advantages are clear. Instead of maintaining your own backend server you can outsource the service to a different provider. This can result in a significant increase in productivity, as well as a reduction in development and maintenance costs. In addition, the worry about server security is offloaded to the storage provider. SaaS is an option whenever the server part of your application can be reduced to storage of object data, optionally with access control. There are a number of different SaaS providers available. Arguably, one of the biggest players in the field is Google with the Firebase service.

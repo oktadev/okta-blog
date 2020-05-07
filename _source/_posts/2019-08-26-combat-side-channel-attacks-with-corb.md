@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Combat Side-Channel Attacks with Cross-Origin Read Blocking"
 author: tom-abbott
+by: internal-contributor
+communities: [security]
 description: "Find out what those CORB errors mean and how CORB protects your application from hardware-layer vulnerabilities."
 tags: [CORB, appsec, spectre, vulnerabilities, security, meltdown]
 tweets:
@@ -9,6 +11,7 @@ tweets:
   - "Check out how CORB protects against side-channel attacks. Because software-layer attacks weren't enough to think about!"
   - "Take 10 minutes to learn what CORB is and how it helps protect your applications and users."
 image: blog/corb/corb.png
+type: awareness
 ---
 
 As if developers didn't have a big enough task securing web applications from software-layer attacks, they now have to contend with another threat: hardware-layer vulnerabilities. 

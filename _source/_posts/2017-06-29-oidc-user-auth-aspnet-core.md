@@ -1,8 +1,11 @@
 ---
 layout: blog_post
 title: 'OpenID Connect for User Authentication in ASP.NET Core'
-author: leebrandt
+author: lee-brandt
+by: advocate
+communities: [.net, security]
 tags: [net, oidc, authentication, user, auth]
+type: conversion
 ---
 
 In the age of the "personalized web experience", authentication and user management is a given, and it's easier than ever to tap into third-party authentication providers like Facebook, Twitter, and Google. And it's not just the wild, wild web that needs it. Businesses need ways to secure their APIs, and identify users logged into their apps.

@@ -1,13 +1,4 @@
-benjamin_wesson:
-  full_name: Benjamin Wesson
-  display_name: Benjamin
-  avatar: 'https://avatars2.githubusercontent.com/u/12162125?v=3&s=460'
-  email: benjamin.wesson@okta.com
-  web: https://developer.okta.com
-  twitter: https://twitter.com/benjaminwesson
-  github: https://github.com/benjaminwesson-okta
-
-victor_ronin:
+victor-ronin:
   full_name: Victor Ronin
   display_name: Victor
   avatar: avatar-victor_ronin.png
@@ -15,7 +6,7 @@ victor_ronin:
   web: http://victorronin.com/en/
   github: https://github.com/vronin
 
-jon_todd:
+jon-todd:
   full_name: Jon Todd
   display_name: Jon
   avatar: avatar-jon_todd.jpg
@@ -23,21 +14,14 @@ jon_todd:
   twitter: https://twitter.com/JonToddDotCom
   github: https://github.com/jontodd
 
-hector_aguilar:
-  full_name: Hector Aguilar
-  display_name: Hector
-  avatar: avatar-hector_aguilar.jpg
-  email: haguilar@okta.com
-  github: https://github.com/haguilar-okta
-
-matt_loughran:
+matt-loughran:
   full_name: Matt Loughran
   display_name: Matt Loughran
   avatar: avatar-mloughran.png
   email: matt.loughran@okta.com
   github: https://github.com/mattloughran-okta
 
-vimarsh_karbhari:
+vimarsh-karbhari:
   full_name: Vimarsh Karbhari
   display_name: Vimarsh
   avatar: avatar-vimarsh_karbhari.jpg
@@ -46,7 +30,7 @@ vimarsh_karbhari:
   twitter: https://twitter.com/VimarshApi
   github: https://github.com/vimarshkarbhari-okta
 
-william_dawson:
+william-dawson:
   full_name: William Dawson
   display_name: Wils Dawson
   avatar: avatar-william_dawson.jpg
@@ -55,7 +39,7 @@ william_dawson:
   github: https://github.com/wdawson
   linkedin: https://linkedin.com/in/wilsdawson
 
-karl_mcguinness:
+karl-mcguinness:
   full_name: Karl McGuinness
   display_name: Karl McGuinness
   avatar: avatar-karl.png
@@ -64,7 +48,7 @@ karl_mcguinness:
   twitter: https://twitter.com/jankytweet
   github: https://github.com/mcguinness
 
-raphael_londner:
+raphael-londner:
   full_name: Raphael Londner
   display_name: Raphael
   avatar: avatar-raphael.jpg
@@ -73,13 +57,7 @@ raphael_londner:
   twitter: https://twitter.com/rlondner
   github: https://github.com/rlondner
 
-okta_generic_blogger:
-  full_name: Okta Staff
-  display_name: Okta Staff
-  avatar: avatar-okta_logo.jpg
-  email: eng_docs@okta.com
-
-mraible:
+matt-raible:
   full_name: Matt Raible
   display_name: Matt Raible
   avatar: avatar-matt_raible.jpg
@@ -87,8 +65,16 @@ mraible:
   web: http://raibledesigns.com
   twitter: https://twitter.com/mraible
   github: https://github.com/mraible
+  bio:
+    Matt Raible is a well-known figure in the Java community and has been building web applications for most of his adult life.
+    For over 20 years, he has helped developers learn and adopt open source frameworks and use them effectively.
+    He's a web developer, Java Champion, and Developer Advocate at Okta.
+    Matt has been a speaker at many conferences worldwide, including Devoxx Belgium, Devoxx France, Jfokus, and Devnexus.
+    He is the author of <a href="https://www.infoq.com/minibooks/jhipster-mini-book">The JHipster Mini-Book</a>, Spring Live, and contributed to Pro JSP.
+    He is frequent contributor to open source and a member of the JHipster development team.
+    You can find him online at <a href="https://raibledesigns.com">raibledesigns.com</a>.
 
-leebrandt:
+lee-brandt:
   full_name: Lee Brandt
   display_name: Lee Brandt
   avatar: avatar-leebrandt.jpg
@@ -97,7 +83,7 @@ leebrandt:
   twitter: https://twitter.com/leebrandt
   github: https://github.com/leebrandt
 
-bdemers:
+brian-demers:
   full_name: Brian Demers
   display_name: Brian Demers
   avatar: avatar-bdemers.jpg
@@ -106,23 +92,38 @@ bdemers:
   twitter: https://twitter.com/briandemers
   github: https://github.com/bdemers
 
-dogeared:
+micah-silverman:
   full_name: Micah Silverman
   display_name: Micah Silverman
   avatar: avatar-dogeared.jpg
   web: https://afitnerd.com
   twitter: https://twitter.com/afitnerd
   github: https://github.com/dogeared
+  bio:
+    Micah Silverman is a Senior Security H@X0R. With 25 years of Java Experience (yup, that's from the beginning),
+    he's authored numerous articles, co-authored a Java EE book and spoken at many conferences. He's a maker, who's
+    built full size MAME arcade cabinets and repaired
+    <a href="http://afitnerd.com/2011/10/16/weekend-project-fix-dark-tower/" target="_blank">old electronic games</a>.
+    He brings his love of all things Java and Developer Advocacy to you!
 
-rdegges:
+ivan-dwyer:
+  full_name: Ivan Dwyer
+  display_name: Ivan Dwyer
+  avatar: avatar-ivan-dwyer.jpg
+  twitter: https://twitter.com/fortyfivan
+  github: https://github.com/fortyfivan
+  bio: ""
+
+randall-degges:
   full_name: Randall Degges
   display_name: Randall Degges
   avatar: avatar-rdegges.jpg
   web: https://www.rdegges.com
   twitter: https://twitter.com/rdegges
   github: https://github.com/rdegges
+  bio: "Randall Degges runs Evangelism at Okta where he works on security research, development, and education. In his spare time, Randall <a href='https://www.rdegges.com'>writes articles</a> and <a href='https://speakerdeck.com/rdegges'>gives talks</a> advocating for security best practices. Randall also builds and contributes to various open-source security tools. <p>Randall's realm of expertise include Python, JavaScript, and Go development, web security, cryptography, and infrastructure security. Randall has been writing software for ~20 years and has built some of the most-used API services on the internet."
 
-nbarbettini:
+nate-barbettini:
   full_name: Nate Barbettini
   display_name: Nate Barbettini
   avatar: avatar-nbarbettini.jpg
@@ -130,21 +131,21 @@ nbarbettini:
   twitter: https://twitter.com/nbarbettini
   github: https://github.com/nbarbettini
 
-alexsalazar:
+alex-salazar:
   full_name: Alex Salazar
   display_name: Alex Salazar
   avatar: avatar-alex_salazar.jpg
   email: alex.salazar@okta.com
   twitter: https://twitter.com/SalaTzar
 
-robert:
+robert-damphousse:
   full_name: Robert Damphousse
   display_name: Robert Damphousse
   avatar: avatar-robert.png
   email: robert.damphousse@okta.com
   twitter: https://twitter.com/robertjd_
 
-jf:
+joel-franusic:
   full_name: Joël Franusic
   display_name: Joël Franusic
   avatar: avatar-jf.jpg
@@ -153,21 +154,21 @@ jf:
   github: https://github.com/jpf
   web: http://joel.franusic.com
 
-silas-b:
+silas-brazil:
   full_name: Silas Brazil
   display_name: Silas Brazil
   avatar: avatar-silas-b.jpg
   github: https://github.com/silas-b
   web: https://www.linkedin.com/in/silas-brazil
 
-jmelberg:
+jordan-melberg:
   full_name: Jordan Melberg
   display_name: Jordan Melberg
   avatar: avatar-jmelberg.jpg
   email: jordan.melberg@okta.com
   github: https://github.com/jmelberg
 
-bparise:
+brandon-parise:
   full_name: Brandon Parise
   display_name: Brandon Parise
   avatar: avatar-brandon_parise.jpg
@@ -175,7 +176,7 @@ bparise:
   web: https://modernup.io/
   github: https://github.com/bparise
 
-aaronpk:
+aaron-parecki:
   full_name: Aaron Parecki
   display_name: Aaron Parecki
   avatar: avatar-aaronpk.jpg
@@ -183,8 +184,9 @@ aaronpk:
   web: https://aaronparecki.com/
   twitter: https://twitter.com/aaronpk
   github: https://github.com/aaronpk
+  bio: "Aaron Parecki is a Senior Security Architect at Okta. He is the author of <a href=\"https://oauth2simplified.com/\">OAuth 2.0 Simplified</a>, and maintains <a href=\"https://oauth.net/\">oauth.net</a>. He regularly writes and gives talks about <a href=\"https://aaronparecki.com/oauth/\">OAuth</a> and online security. He is an editor of several internet specs, and is the co-founder of <a href=\"https://indieweb.org/\">IndieWebCamp</a>, a conference focusing on data ownership and online identity. Aaron has spoken at conferences around the world about OAuth, data ownership, quantified self, and home automation, and his work has been featured in Wired, Fast Company and more."
 
-adahl:
+alex-dahl:
   full_name: Alex Dahl
   display_name: Alex Dahl
   avatar: avatar-adahl.jpg
@@ -192,14 +194,14 @@ adahl:
   web: https://alexdahl.com
   github: https://github.com/alexdahl
 
-moksamedia:
+andrew-hughes:
   full_name: Andrew Hughes
   display_name: Andrew Hughes
   avatar: avatar-moksamedia.jpg
   github: https://github.com/moksamedia
   twitter: https://twitter.com/oktadev
 
-drnugent:
+dave-nugent:
   full_name: Dave Nugent
   display_name: Dave Nugent
   avatar: avatar-drnugent.jpg
@@ -208,7 +210,7 @@ drnugent:
   twitter: https://twitter.com/drnugent
   github: https://github.com/drnugent
 
-bkelley:
+braden-kelley:
   full_name: Braden Kelley
   display_name: Braden Kelley
   avatar: avatar-bkelley.jpg
@@ -216,7 +218,7 @@ bkelley:
   github: https://github.com/redbmk
   twitter: https://twitter.com/oktadev
 
-team_okta:
+team-okta:
   full_name: Team Okta
   display_name: Team Okta
   avatar: avatar-oktadev.png
@@ -224,41 +226,41 @@ team_okta:
   github: https://github.com/oktadeveloper
   twitter: https://twitter.com/oktadev
 
-tom_smith:
+tom-smith:
   full_name: Tom Smith
   display_name: Tom Smith
   avatar: avatar-tom_smith.jpg
   email: tom.smith@okta.com
   github: https://github.com/tom-smith-okta
 
-krasimir:
+krasimir-hristozov:
   full_name: Krasimir Hristozov
   display_name: Krasimir Hristozov
   avatar: avatar-krasimir.jpg
   twitter: https://twitter.com/oktadev
 
-ibrahim:
+ibrahim-suta:
   full_name: Ibrahim Šuta
   display_name: Ibrahim Šuta
   avatar: avatar-isuta.png
 
-chrisgreen:
+chris-green:
   full_name: Chris Green
   display_name: Chris Green
   avatar: avatar-chrisgreen.jpg
   twitter: https://twitter.com/oktadev
 
-pmcdowell:
+patrick-mcdowell:
   full_name: Patrick McDowell
   display_name: Patrick McDowell
   avatar: avatar-pmcdowell.jpg
 
-kpenzhorn:
+karl-penzhorn:
   full_name: Karl Penzhorn
   display_name: Karl Penzhorn
   avatar: avatar-kpenzhorn.jpg
 
-reverentgeek:
+david-neal:
   full_name: David Neal
   display_name: David Neal
   avatar: avatar-reverentgeek.jpg
@@ -266,7 +268,7 @@ reverentgeek:
   twitter: https://twitter.com/reverentgeek
   github: https://github.com/reverentgeek
 
-cgilsenan:
+conor-gilsenan:
   full_name: Conor Gilsenan
   display_name: Conor Gilsenan
   avatar: avatar-cgilsenan.jpg
@@ -274,7 +276,7 @@ cgilsenan:
   twitter: https://twitter.com/conorgil
   github: https://github.com/conorgil
 
-avanbeek:
+andrew-van-beek:
   full_name: Andrew Van Beek
   display_name: Andrew Van Beek
   avatar: avatar-avanbeek.jpg
@@ -282,7 +284,7 @@ avanbeek:
   twitter: https://twitter.com/andrewvanbeek1
   github: https://github.com/andrewvanbeek-okta
 
-keith_casey:
+keith-casey:
   full_name: Keith Casey
   display_name: Keith Casey
   avatar: avatar-keith-casey.jpg
@@ -290,7 +292,7 @@ keith_casey:
   twitter: https://twitter.com/caseysoftware
   web: http://caseysoftware.com/
 
-kcorreia:
+kleber-correia:
   full_name: Kleber Correia
   display_name: Kleber Correia
   avatar: avatar-kcorreia.jpg
@@ -298,7 +300,7 @@ kcorreia:
   twitter: https://twitter.com/klebervirgilio
   web: https://medium.com/@klebervirgilio
 
-holgerschmitz:
+holger-schmitz:
   full_name: Holger Schmitz
   display_name: Holger Schmitz
   avatar: avatar-holger_schmitz.jpg
@@ -315,28 +317,28 @@ jonathan-ray:
   web: http://notjustphysics.com
   github: https://github.com/jonathan-ray
 
-joyannefoster:
+joy-foster:
   full_name: Joy Foster
   display_name: Joy Foster
   avatar: avatar-joyanne-foster.jpg
   github: https://github.com/joyannefoster
   twitter: https://twitter.com/oktadev
 
-raphaeldovale:
+raphael-do-vale:
   full_name: Raphael do Vale
   display_name: Raphael do Vale
   avatar: avatar-raphaeldovale.jpg
   email: raphael@dovale.net
   github: https://github.com/raphaeldovale
 
-mngan:
+macy-ngan:
   full_name: Macy Ngan
   display_name: Macy Ngan
   email: designbymacy@gmail.com
   avatar: avatar-mngan.jpg
   github: https://github.com/maisykiwi
 
-quorralyne:
+heather-downing:
   full_name: Heather Downing
   display_name: Heather Downing
   avatar: avatar-quorralyne.jpg
@@ -344,18 +346,18 @@ quorralyne:
   twitter: https://twitter.com/quorralyne
   github: https://github.com/quorralyne
 
-ryanfoster:
+ryan-foster:
   full_name: Ryan Foster
   display_name: Ryan Foster
   avatar: avatar-ryanfoster.png
   twitter: https://twitter.com/oktadev
 
-jeffersonhaw:
+jefferson-haw:
   full_name: Jefferson Haw
   display_name: Jefferson Haw
   avatar: avatar-jeffhaw.jpeg
 
-sudobinbash:
+frederico-hakamine:
   full_name: Frederico Hakamine
   display_name: Frederico Hakamine
   avatar: avatar-sudobinbash.png
@@ -364,7 +366,7 @@ sudobinbash:
   twitter: https://twitter.com/sudobinbash
   github: https://github.com/sudobinbash
 
-amarch:
+andy-march:
   full_name: Andy March
   display_name: Andy March
   avatar: avatar-amarch.jpg
@@ -373,7 +375,7 @@ amarch:
   twitter: https://twitter.com/andymarch
   web: https://andymarch.co.uk
 
-lindsayb:
+lindsay-brunner:
   full_name: Lindsay Brunner
   display_name: Lindsay Brunner
   avatar: avatar-lindsayb.png
@@ -381,13 +383,13 @@ lindsayb:
   github: https://github.com/lindsayb610
   twitter: https://twitter.com/lindsayb610
 
-peterhimanshu:
+peter-yaworsky:
   full_name: Peter Yaworsky and Himanshu Ghai
   display_name: Peter Yaworsky and Himanshu Ghai
   avatar: avatar-oktadev.png
   email: peter.yaworsky@okta.com
 
-charlieholland:
+charlie-holland:
   full_name: Charlie Holland
   display_name: Charlie Holland
   avatar: avatar-charlie-holland.jpeg
@@ -404,7 +406,7 @@ terje-kolderup:
   avatar: avatar-terje-kolderup.jpg
   twitter: https://twitter.com/oktadev
 
-vrohilla:
+vishal-rohilla:
   full_name: Vishal Rohilla
   display_name: Vishal Rohilla
   avatar: avatar-vrohilla.jpeg
@@ -444,13 +446,13 @@ thiago-negri:
   avatar: avatar-thiago-negri.jpg
   github: https://github.com/thiago-negri
 
-mikel:
+mikel-pascual:
   full_name: Mikel Pascual
   display_name: Mikel Pascual
   avatar: avatar-mikel.jpg
   twitter: https://twitter.com/oktadev
 
-nickolasfisher:
+nickolas-fisher:
   full_name: Nickolas Fisher
   display_name: Nickolas Fisher
   avatar: avatar-nik.jpg
@@ -460,8 +462,27 @@ lee-mcgovern:
   display_name: Lee McGovern
   avatar: avatar-lee-mcgovern.jpg
 
-omardarwish:
+omar-darwish:
   full_name: Omar Darwish
   display_name: Omar Darwish
   avatar: avatar-omardarwish.jpg
   twitter: https://twitter.com/ohmarzing
+
+chase-aucoin:
+  full_name: Chase Aucoin
+  display_name: Chase Aucoin
+  avatar: avatar-chase.png
+  twitter: https://twitter.com/ChaseAucoin
+
+nicolas-triballier:
+  full_name: Nico Triballier
+  display_name: Nico Triballier
+  avatar: avatar-nicolas-triballier.jpeg
+  twitter: https://twitter.com/nycotri
+  github: https://github.com/nicotriballier
+  linkedin: https://www.linkedin.com/in/nicolastriballier/
+
+chris-gustafson:
+  full_name: "Chris Gustafson"
+  display_name: "Chris Gustafson"
+  avatar: avatar-chris-gustafson.jpeg

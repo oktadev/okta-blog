@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Spring Method Security with PreAuthorize"
-author: moksamedia
+author: andrew-hughes
+by: contractor
+communities: [java]
 description: "In this tutorial, you'll secure a Spring Boot app with Spring Security and the PreAuthorize annotation."
 tags: [java, spring, spring boot, spring security, security]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Confused on when to use HttpSecurity vs PreAuthorize with @SpringSecurity, check out this post!"
 - "Andrew explains how to secure a @springboot app with a couple of lines of code."
 image: blog/featured/okta-java-bottle-headphones.jpg
+type: conversion
 ---
 
 This tutorial will explore two ways to configure authentication and authorization in Spring Boot using Spring Security. One method is to create a `WebSecurityConfigurerAdapter` and use the fluent API to override the default settings on the `HttpSecurity` object. Another is to use the `@PreAuthorize` annotation on controller methods, known as method-level security or expression-based security. The latter will be the main focus of this tutorial. However, I will present some `HttpSecurity` code and ideas by way of contrast.

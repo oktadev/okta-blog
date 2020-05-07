@@ -1,13 +1,16 @@
 ---
 layout: blog_post
 title: "Build Secure Microservices in PHP"
-author: krasimir
+author: krasimir-hristozov
+by: contractor
+communities: [php]
 description: "Learn how to build a microservices architecture in PHP"
 tags: [ microservices, php ]
 tweets:
 - "Let's build some microservices in #PHP!"
 - "Did you know you can use PHP to build a #microservices architecture? Let's take a look!"
 image: blog/featured/okta-php-headphones.jpg
+type: conversion
 ---
 
 The history of software is a history of improving architectures - from the underlying hardware, OS and virtualization platforms, programming languages and frameworks, to the architecture of the applications we build. The microservice architecture in PHP is a relatively new improvement that's emerged from the desire of fast-paced companies like Netflix and Amazon to improve their software continually, experiment with different ideas, ship early and ship often. This is difficult to achieve in a traditional web application built as a monolith - one single, huge code base, running in the same process. PHP applications (especially successful ones) tend to grow over time, which makes them harder to maintain, and with a monolith rather than microservices, you have to re-deploy the entire application for every single change.

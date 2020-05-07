@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Build Continuous Integration with Jenkins in C#"
-author: charlieholland
+author: charlie-holland
+by: contractor
+communities: [.net, devops]
 description: "In this tutorial, you'll learn how to use continuous integration for a C# app securely using Okta + Jenkins."
 tags: [continuous integration, csharp, asp.net core, mvc, jenkins, asp.net]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Hey #aspnet devs - want to learn how to continuously deploy your C# code changes? Use @JenkinsCI!"
 - "Use @Jenkins to continuously deploy your C# apps."
 image: blog/featured/okta-dotnet-bottle-headphones.jpg
+type: conversion
 ---
 **"It works on my machine."**
 

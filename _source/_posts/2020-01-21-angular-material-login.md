@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Build a Beautiful App + Login with Angular Material"
-author: holgerschmitz
+author: holger-schmitz
+by: contractor
+communities: [javascript]
 description: "This tutorial shows you how to build a beautiful login form with Angular Material."
 tags: [angular, angularmaterial, login, websecurity]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Want Login? This guide shows you how to create a secure login form with Angular Material."
 - "❤️ Angular? We do too! That's why we wrote this guide on how to build a login screen with Angular Material."
 image: blog/angular-material-login/angular-material-login.png
+type: conversion
 ---
 
 Usability is a key aspect to consider when creating a web application, and that means designing a clean, easy-to-understand user interface. Leveraging common design languages can help make that goal a reality with their recognizable components that many users will understand right away. However, unlike desktop apps where the operating system provides a set of uniform widgets, there has historically been no common design language to lean on for web app developers. 

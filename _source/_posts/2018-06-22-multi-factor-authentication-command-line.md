@@ -1,12 +1,15 @@
 ---
 layout: blog_post
 title: "Use Multi-factor Authentication from the Command Line"
-author: dogeared
+author: micah-silverman
+by: advocate
+communities: [security]
 description: "This post demonstrates primary authentication, multi-factor enrollment and multi-factor enforcement with Okta - all from the command line."
 tags: [cli, bash, mfa, auth, authentication, multi-factor, multifactor]
 tweets:
  - "Want to get close to the metal and use multi-factor authentication form the command line? This tutorial from @afitnerd is for you!"
  - "Authenticate, enroll and use multi-factor from the command line. With ASCII QR Codes. What?!? Check out this tutorial from @afitnerd →"
+type: conversion
 ---
 
 Multi-factor authentication is an important tool in your security arsenal. If your password is compromised, your account can still be protected by using high quality second factors, such as Authy, Google Authenticator, or Okta Verify. In this tutorial, I'll show you how to authenticate, enroll in multi-factor authentication with Okta Verify, and process push notifications – all from the command line using a [bash](https://www.gnu.org/software/bash/) shell script.

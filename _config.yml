@@ -17,6 +17,20 @@ plugins:
   - jekyll-include-cache
   - jekyll-asciidoc
 
+page_gen:
+  - index_files: true
+    data: authors
+    template: author
+    name: id
+    dir: blog/authors
+
+defaults:
+  - scope:
+      path: ""
+      type: "authors"
+    values:
+      layout: "author"
+
 source: _source
 destination: dist
 

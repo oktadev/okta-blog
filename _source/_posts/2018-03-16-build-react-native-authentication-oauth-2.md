@@ -1,13 +1,16 @@
 ---
 layout: blog_post
 title: 'Build a React Native Application and Authenticate with OAuth 2.0'
-author: mraible
+author: matt-raible
+by: advocate
+communities: [javascript, mobile]
 description: "Learn how to add authentication to your React Native applications with AppAuth and Okta."
 tags: [react-native, authentication, oauth, oidc, react, okta]
 tweets:
   - "React Native is 🔥! Learn how to add Authentication with OAuth 2.0 and AppAuth in this 😎 tutorial →"
   - "React Native provides a way for you to develop native apps with web technologies. See how to add authentication to your React Native apps with this handy tutorial."
   - "The React Native + OAuth 2.0 Tutorial you've been looking is live on the @okta developer blog!"
+type: conversion
 redirect_from:
   - "/blog/2018/03/16/build-react-native-authentication-oauth-2.0"
 image: blog/react-native-app-auth/appauth-rules.png
