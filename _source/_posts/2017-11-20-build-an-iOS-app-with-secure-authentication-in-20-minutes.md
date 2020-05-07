@@ -1,8 +1,11 @@
 ---
 layout: blog_post
 title: 'Build an iOS App with Secure Authentication in 20 Minutes'
-author: jmelberg
+author: jordan-melberg
+by: internal-contributor
+communities: [mobile]
 tags: [authentication, oidc, ios, swift, cocoapods, oauth]
+type: conversion
 ---
 
 What does it take to build a successful mobile application in today's ever-changing market? There are (what seems like an infinite) number of design, build, and test cycles performed, just to release your app into the hands of a user.

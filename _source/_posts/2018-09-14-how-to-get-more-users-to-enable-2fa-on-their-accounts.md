@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: 'How to Get More Internet Users to Enable 2FA on Their Accounts'
-author: cgilsenan
+author: conor-gilsenan
+by: external-contributor
+communities: [security]
 description: "Interested in ways to improve two-factor authentication for your users? We'll teach you how to grow two-factor adoption and build a more secure userbase."
 tags: [security, mfa]
 tweets:
@@ -9,6 +11,7 @@ tweets:
  - "We love two-factor! Learn how @conorgil is helping push for 2fa adoption in our latest post:"
  - "Multi-factor authentication is a great security tool, but it only works if users enable it! Learn how to increase user adoption of 2fa in our latest article, written by the one-and-only @conorgil:"
 image: blog/2fa-notifier/2fa-enabled.png
+type: awareness
 ---
 
 If you are reading this article on the Okta Developer blog, chances are high that you are already quite familiar with two-factor authentication (2FA) and how it helps keep hackers out of user accounts even if they're using compromised passwords.

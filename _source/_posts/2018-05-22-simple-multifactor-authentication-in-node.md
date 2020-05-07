@@ -1,12 +1,15 @@
 ---
 layout: blog_post
 title: "Simple Multi-Factor Authentication in Node"
-author: bkelley
+author: braden-kelley
+by: contractor
+communities: [javascript]
 description: "This post explains multi-factor authentication and some challenges that developers face with it."
 tags: [multi-factor, authentication, developer, nodejs]
 tweets:
 - "Who knew how easy adding multi-factor authentication to your #Node app is! #mfa #javascript"
 - "Learn how to quickly add multi-factor authentication to your #Node app! #mfa #javascript"
+type: conversion
 ---
 
 If you're building a web application, chances are you're going to want to serve different content depending on the user. Authenticating users can be difficult for a number of reasons. The simplest route is to allow users to sign in with a username and password. The problem with this is, no matter how strongly you hash passwords, there's no stopping someone from guessing that your user's password is `hunter2`, `letmein`, or `correct horse battery staple`.

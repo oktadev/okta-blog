@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Nobody Cares About OAuth or OpenID Connect"
-author: rdegges
+author: randall-degges
+by: advocate
+communities: [security]
 description: "Developers don't care about OAuth or OpenID Connect. Learn why."
 tags: [web, programming, security, oauth, openid connect]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Do you care about #oauth or #openidconnect?"
 - "Developers don't care about #oauth or #openidconnect anymore. Here's why."
 image: blog/nobody-cares/nobody-cares-about-oauth-or-oidc.png
+type: awareness
 ---
 
 {% img blog/nobody-cares/nobody-cares-about-oauth-or-oidc.png alt:"Nobody cares about OAuth or OIDC (a small comic)." width:"800" %}{: .center-image }

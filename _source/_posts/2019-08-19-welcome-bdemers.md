@@ -1,12 +1,14 @@
 ---
 layout: blog_post
 title: 'Welcome, Brian Demers'
-author: bdemers
+author: brian-demers
+by: advocate
 description: 'Brian Demers is joining Developer Relations team'
 tags: [devrel, team, java, welcome]
 tweets:
   - '@briandemers is joining the @OktaDev team! 💥'
 image: blog/featured/okta-java-bottle-headphones.jpg
+type: awareness
 ---
 
 I'm excited to announce that I've joined Okta's Developer Relations team!  I've been working on Okta's awesome Developer Experience team for the last couple years so I'm not exactly a new face around here. 😉

@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Modern Token Authentication in Node with Express"
-author: mngan
+author: macy-ngan
+by: contractor
+communities: [javascript]
 description: "Come learn all about what token authentication is and how to use it in your Node + Express apps."
 tags: [jwt, node, javascript, express, token, authentication]
 tweets:
@@ -9,6 +11,7 @@ tweets:
   - "Token auth in Node + Express doesn't have to be hard. Our new guide breaks it down for you step-by-step:"
   - "Token auth. Token Auth? TOKEN AUTH?! Come learn about token auth in @nodejs and Express.js!"
 image: blog/node-token-auth/token-authentication-flow.png
+type: conversion
 ---
 
 Token authentication is the hottest way to authenticate users to your web applications nowadays. There's a lot of interest in token authentication because it *can* be faster than traditional session-based authentication in some scenarios, and also allows you some additional flexibility. In this post, I'm going to teach you all about token authentication: what it is, how it works, why you should use it, and how you can use it in your Node applications. Let's get to it!

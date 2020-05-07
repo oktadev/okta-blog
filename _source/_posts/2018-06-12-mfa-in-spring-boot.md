@@ -1,12 +1,15 @@
 ---
 layout: blog_post
 title: "Secure Your Spring Boot Application with Multi-Factor Authentication"
-author: moksamedia
+author: andrew-hughes
+by: contractor
+communities: [java]
 description: "This post walks through creating a Spring Boot app and enabling multi-factor authentication with Okta."
 tags: [java, spring, spring-boot, OIDC, OpenID Connect, mfa]
 tweets:
  - "Add Multi-Factor Authentication to your Spring Boot app with Okta, no code needed:"
  - "Don't let hackers steal your credentials! Enable MFA for your Spring Boot app with OAuth 2.0 and Okta:"
+type: conversion
 ---
 
 OAuth 2.0 has quickly become an industry standard for third party authentication for web applications. It's a super secure strategy, when implemented properly, but getting it right can be hard. Fortunately, you don't have to go it alone. Okta has done it for you. This is one place where it's definitely not worth re-inventing the wheel.

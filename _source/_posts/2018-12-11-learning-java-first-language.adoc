@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Learning Java as a First Language"
-author: mraible
+author: matt-raible
+by: advocate
+communities: [java]
 description: "Start programming in Java with these awesome resources!"
 tags: [java, learning, programming, programming languages, education]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Java before JavaScript!"
 - "Want to get into programming, but don't know where to start? Start with @java!"
 image: blog/featured/okta-java-short-headphones.jpg
+type: awareness
 ---
 :page-liquid:
 

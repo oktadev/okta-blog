@@ -1,13 +1,16 @@
 ---
 layout: blog_post
 title: 'Design and Develop an Android App with React Native and Publish to Google Play Store'
-author: kpenzhorn
+author: karl-penzhorn
+by: contractor
+communities: [javascript, mobile]
 description: "Learn how to plan, design, create and publish a React Native app to the Google Play Store."
 tags: [android, design, react native, play store]
 tweets:
 - "Design an Android app and publish it to the app store in this complete and in-depth tutorial!"
 - "Want to get started developing Android apps with React Native? This tutorial is for you!"
 image: blog/featured/okta-android-skew.jpg
+type: conversion
 ---
 
 As mobile app usage is expected to continue to grow, now is as good a time as any to get into the market. Android is by far the most popular OS worldwide and the dominant way to get Android apps to phone users is the Google Play Store. In this tutorial, you'll build a React Native app and I'll walk you through everything from how to pick a design, as well as setting up your React Native environment, tips for getting the most out of your editor, and publishing it on Google Play.

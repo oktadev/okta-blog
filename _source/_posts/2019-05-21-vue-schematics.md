@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Use Schematics with Vue and Add Authentication in 5 Minutes"
-author: mraible
+author: matt-raible
+by: advocate
+communities: [javascript]
 description: "Learn what Schematics are and how to use them with your Vue applications."
 tags: [schematics, vue, authentication]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Do you love @vuejs, but find yourself doing the same thing over and over in new projects? Create a schematic to do it for you!"
 - "Schematics with Vue are pretty awesome - find out why!"
 image: blog/featured/okta-vue-bottle-headphones.jpg
+type: conversion
 ---
 
 Schematics is a tool from the Angular team that allows you to manipulate projects with code. You can create files, update existing files, and add dependencies to any project that has a `package.json` file. That's right, Schematics aren't only for Angular projects! 

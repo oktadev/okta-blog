@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Create and Verify JWTs with Node"
-author: bkelley
+author: braden-kelley
+by: contractor
+communities: [javascript]
 description: "This article explains how to create and verify JWTs in Node apps."
 tags: [jwt, token auth, token authentication, node]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Tutorial - Create and Verify JSON Web Tokens with @Nodejs"
 - "Learn how to create and verify JWTs with @Nodejs"
 image: blog/featured/okta-node-tile-books-mouse.jpg
+type: conversion
 ---
 
 Authentication on the internet has evolved quite a bit over the years. There are many ways to do it, but what worked well enough in the 90s doesn't quite cut it today. In this tutorial, I'll briefly cover some older, simpler forms of authentication, then show you how a more modern and more secure approach. By the end of this post, you'll be able to create and verify JWTs yourself in Node. I'll also show you how you can leverage Okta to do it all for you behind the scenes.

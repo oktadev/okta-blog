@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Build Your First Azure Function in Visual Studio Code"
-author: leebrandt
+author: lee-brandt
+by: advocate
+communities: [.net]
 description: "This tutorial walks you through building a simple Azure Function in C#."
 tags: [azure, functions, azure function, dotnet]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Need to learn the basics of @AzureFunctions in #csharp? We've got you covered. <3"
 - "Let @leebrandt show you how to build and deploy your first @AzureFunctions! →"
 image: blog/featured/okta-dotnet-books-quarter.jpg
+type: awareness
 ---
 
 Inevitably it happens. You go to one of those bars that has three trillion beers on tap, and you stare hopelessly at the wall of taps trying to decide what to order. Panic no more! Hop Roulette is here to save you from embarrassment when the bartender asks, "What'll it be?" Hop Roulette is a simple Azure Function that returns a random beer from an API. What use is this? It gives me a fun way to show you how to create your first Azure Function without making it a boring old "Hello World" example!

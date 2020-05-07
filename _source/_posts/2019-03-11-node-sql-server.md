@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Build a Secure Node.js App with SQL Server"
-author: reverentgeek
+author: david-neal
+by: advocate
+communities: [javascript]
 description: "SQL Server is an awesome relational database. Here's how to use it from Node.js."
 tags: [node, javascript, sql server, database, programming, developer, software]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Yes, you can use SQL Server with Node.js! Let @reverentgeek show you how! @nodejs @SQLServer #nodejs #sqlserver"
 - "Like @SQLServer? Want to learn @nodejs? Here's how you can get started using Node.js and SQL Server together! #nodejs #sqlserver"
 image: blog/node-sql-server/node-sql-server.jpg
+type: conversion
 ---
 
 I am a long-time relational database nerd, specifically SQL Server. At times in my career, I've focused on database design, deployments, migrations, administration, query optimization, and carefully crafting stored procedures, triggers, and views.

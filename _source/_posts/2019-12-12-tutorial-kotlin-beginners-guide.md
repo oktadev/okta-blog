@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Kotlin: A Beginner's Guide and Tutorial"
 author: jimena-garbarino
+by: contractor
+communities: [java]
 description: "Tutorial: Learn the basics of Kotlin by building an app and find out why Java developers love Kotlin!"
 tags: [kotlin, java, tutorial, oauth2, oidc, guide]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Learn the basics of @Kotlin and build a secure app with @SpringBoot 🛠️"
 - "Haven't tried @Kotlin yet? Check out this tutorial!"
 image: blog/tutorial-kotlin-beginners-guide/kotlin-logo-social.png
+type: conversion
 ---
 
 Kotlin is a modern, statically typed language within the JVM. Kotlin is a cross-platform, multi-purpose, free and open-source language developed by JetBrains under the Apache 2.0 license and has constructs for both Object Oriented and Functional programming styles, which can be mixed. It can be used for web development, server and client, and mobile development, using most Java IDEs.

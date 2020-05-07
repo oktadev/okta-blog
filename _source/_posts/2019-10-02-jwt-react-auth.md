@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "JWTs in React for Secure Authentication"
-author: bkelley
+author: braden-kelley
+by: contractor
+communities: [javascript]
 description: "Learn to decode JWTs in React to help secure authentication."
 tags: [react, jwt, auth, authentication]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Learn the basics of JWTs and how they work in React."
 - "Want to learn how to use JWTs in React for authorization decisions? Check this out!"
 image: blog/featured/okta-react-skew.jpg
+type: conversion
 ---
 
 

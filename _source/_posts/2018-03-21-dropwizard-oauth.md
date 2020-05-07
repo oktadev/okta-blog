@@ -1,13 +1,15 @@
 ---
 layout: blog_post
 title: 'Add Single Sign-on to Your Dropwizard Server in 15 Minutes '
-author: silas-b
-tags: [sso, dropwizard, spring, java]
+author: silas-brazil
+by: contractor
+communities: [java]
+tags: [sso, dropwizard, spring, java, jaxrs, rest, oauth]
 description: "This post will guide you through setting up an a new Dropwizard project and securing it with OAuth!"
-tags: [java, jaxrs, dropwizard, rest, oauth]
 tweets:
 - "Secure your Dropwizard application with Okta and OAuth 2.0"
 - "Create a secure Dropwizard application with Okta and OAuth 2.0"
+type: conversion
 ---
 
 Dropwizard is recognized as the pioneer in turn-key Java API frameworks, and rivals Spring Boot for ease of adoption. Whether you're interested in trying it out for the first time, or already have a mature platform built on top of Dropwizard, you can add secure authentication to your site in a matter of minutes. By combining Dropwizard's production-ready essential libraries and Okta's identity platform, you can construct a fully secured internet-facing web service with little effort. Read on to see how!

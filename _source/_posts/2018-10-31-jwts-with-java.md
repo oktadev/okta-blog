@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Tutorial: Create and Verify JWTs in Java"
-author: moksamedia
+author: andrew-hughes
+by: contractor
+communities: [java]
 description: "This article explores the benefits of token authentication with JWTs for Java apps."
 tags: [jwt, token auth, token authentication, java]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Tutorial - JSON Web Tokens with @Java"
 - "Learn how to create JWTs with Java and #JJWT"
 image: blog/featured/okta-java-short-headphones.jpg
+type: conversion
 ---
 
 Java support for JWT (JSON Web Tokens) used to require a lot of work: extensive customization, hours lost resolving dependencies, and pages of code just to assemble a simple JWT. Not anymore! 

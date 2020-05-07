@@ -1,13 +1,16 @@
 ---
 layout: blog_post
 title: "Add Secure Authentication to your WordPress Site in 15 Minutes"
-author: aaronpk
+author: aaron-parecki
+by: advocate
+communities: [php]
 description: "This post will show you how to secure your WordPress login with two-factor authentication by using Okta's Sign-In Widget."
 tags: [wordpress,authentication,login,plugin]
 tweets:
 - "Secure your WordPress with two-factor authentication 🔐 #wordpress #2fa"
 - "Add secure authentication to your WordPress site with Okta! 🔑 #wordpress"
 image: blog/okta-wordpress-sign-in/wordpress-mfa.jpg
+type: conversion
 ---
 
 Do you run a WordPress site and want to avoid managing a separate list of user accounts? Have you ever wanted to add two-factor authentication to WordPress? Typically WordPress keeps its own database of usernames and passwords, but if you run multiple websites, I'm sure you're familiar with the pain of keeping lists of users in sync. Wouldn't it be great if you could manage all your users in one place, letting them log in to all your websites using the same password?

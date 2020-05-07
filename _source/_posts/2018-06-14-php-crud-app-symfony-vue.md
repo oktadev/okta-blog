@@ -1,13 +1,16 @@
 ---
 layout: blog_post
 title: "Tutorial: Build a Basic CRUD App with Symfony 4 and Vue"
-author: krasimir
+author: krasimir-hristozov
+by: contractor
+communities: [javascript, php]
 description: "This tutorial shows you how to set up a 'quick and dirty' modern application using a backend API written in Symfony 4 and a frontend in Vue.js, with a minimal dependencies and no hassle."
 tags: [php, vue, symfony, crud]
 tweets:
 - "Learn how to use @Symfony and @VueJS to create a simple CRUD application →"
 - "Create a CRUD application with @Symfony and @VueJS, and add authentication with Okta! #symfony4"
 - "Look how easy it is to add authentication to a @Symfony app with Okta! #symfony4 #php"
+type: conversion
 ---
 
 If you're a web developer in 2018, then you already know that the expectations are high and the tools are many. Users want progressive web applications and seamless experiences across every device. The focus is shifting from monolithic code to APIs built as microservices and consumed by multiple frontends, and finding our way through the ecosystem of ever-changing tools can be a daunting task even for the most experienced of us.

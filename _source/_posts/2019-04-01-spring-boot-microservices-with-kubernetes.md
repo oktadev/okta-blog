@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Build a Microservice Architecture with Spring Boot and Kubernetes"
-author: moksamedia
+author: andrew-hughes
+by: contractor
+communities: [java, devops]
 description: "This tutorial shows you how to use Kubernetes to deploy a Spring Boot microservice architecture to Google Cloud and Google Kubernetes Engine (GKE)."
 tags: [java, spring boot, microservices, kubernetes, k8s]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Using @kubernetesio to deploy your microservices architecture is all the rage. Check out this post to learn how to do it!"
 - "Spring Boot + Kubernetes + @googlecloud = 💙! Learn how to use k8s to deploy your @springboot microservices in this step-by-step tutorial."
 image: blog/featured/okta-java-skew.jpg
+type: conversion
 ---
 
 In this tutorial, you're going to use Kubernetes to deploy a Spring Boot microservice architecture to Google Cloud, specifically the Google Kubernetes Engine (GKE). You're also going to use Istio to create a service mesh layer and to create a public gateway. The whole thing is going to be secured using Okta OAuth JWT authentication.

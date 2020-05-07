@@ -1,13 +1,15 @@
 ---
 layout: blog_post
 title: "Pro Tips for Developer Relations"
-author: mraible
+author: matt-raible
+by: advocate
 description: "Are you in developer advocacy or a frequent conference speaker? Read this post for tips and tricks for making your life a lot easier."
 tags: [devrel, protip, protips, developer relations, speaking]
 tweets:
 - "Are you a conference speaker or in Developer Relations? Learn from these experts on how to make your life easier!"
 - "Check out these #DevRel Pro Tips from @mraible, @aaronpk, @ChloeCondon, @brunoborges, @dblevins, @quorralyne, @monkchips, @_JamesWard, @starbuxman, @leebrandt, @myfear, @mhartington, @rdegges, @saturnism, and @trisha_gee!"
 image: blog/devrel-protips/devrel-cycle.png
+type: awareness
 ---
 :page-liquid:
 

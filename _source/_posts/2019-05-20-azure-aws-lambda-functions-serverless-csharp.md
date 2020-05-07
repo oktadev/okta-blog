@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "AWS Lambda vs Azure Functions for C# Serverless"
-author: quorralyne
+author: heather-downing
+by: advocate
+communities: [.net, devops]
 description: "Discover the differences when using serverless options like AWS Lambda and Azure Functions for your C# and ASP.NET microservices"
 tags: [ aspnet, csharp, dotnet, dotnetcore, mvc, aws, lambdafunctions, azure, azurefunctions, visualstudio ]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Deciding between AWS Lambda or Azure Functions for your C# microservices? Check it out! →"
 - "Hey .NET devs! In this review, you can learn the differences between using AWS Lambda and Azure Functions for C# microservices →"
 image: blog/featured/okta-dotnet-skew.jpg
+type: conversion
 ---
 
 As a C# developer, I became interested in how using a serverless function could complement existing projects I had done in ASP.NET 4.x. Enhancing ecosystems by using it for new requirements - without starting over from scratch - really had appeal. AWS Lambda came along first, with Azure Functions emerging onto the scene a couple of years later. In this post, we will briefly examine my experience getting started on both after using the .NET framework for many years.
