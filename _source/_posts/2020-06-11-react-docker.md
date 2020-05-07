@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "React + Docker with Security in 10 Minutes"
-author: mraible
+author: matt-raible
 by: contractor
 communities: [javascript]
 description: "This tutorial shows you how to package a React app with Docker and make it secure in 10 minutes."
@@ -43,7 +43,7 @@ Log in to your Okta developer account (you [created one](https://developer.okta.
 1. Go to **Applications** in the top menu 
 2. Select **Add Application** > **Single-Page App** and click **Next**
 3. On the settings screen, give your app a name like `React Docker`
-4. Make sure the ports are set to `3000` and the **Login redirect URI is `http://localhost:3000/callback`
+4. Make sure the ports are set to `3000` and the **Login redirect URI** is `http://localhost:3000/callback`
 5. Click **Done**
 
 The resulting screen will provide you with a client ID.
@@ -232,13 +232,13 @@ To fix this, you to modify your Okta app to add your Heroku URL as a Login redir
 
 You should now be able to log in and see your app running on Heroku! You can verify its security headers are A-OK on <https://securityheaders.com>.
 
-{% img blog/react-docker/headers-buildback.png alt:"Security headers with nodejs and static buildbacks" width:"800" %}{: .center-image }
+{% img blog/react-docker/headers-buildpack.png alt:"Security headers with Node.js and static buildpacks" width:"800" %}{: .center-image }
 
 In this deployment example, buildpacks do all the work for you. However, not every cloud provider has buildpacks. This is where Docker comes in.
 
 ## Deploy Your Docker + React App to Heroku
 
-Heroku has a https://devcenter.heroku.com/articles/container-registry-and-runtime[couple slick features when it comes to Docker images]. If your project has a `Dockerfile`, you can deploy your app directly using the Heroku Container Registry.
+Heroku has a [couple slick features when it comes to Docker images](https://devcenter.heroku.com/articles/container-registry-and-runtime). If your project has a `Dockerfile`, you can deploy your app directly using the Heroku Container Registry.
 
 First, log in to the Container Registry.
 
@@ -313,7 +313,7 @@ heroku container:push web --remote docker
 heroku container:release web --remote docker
 ```
 
-Now you should get an **A** !
+Now you should get an **A**!
 
 {% img blog/react-docker/headers-docker-nginx.png alt:"Security headers with Docker + Nginx" width:"800" %}{: .center-image }
 
@@ -336,6 +336,8 @@ Then someone else could pull and run it using:
 ```shell
 docker run -p 3000:80 <your-username>/react-docker
 ```
+
+You can find the source code for this example on GitHub at 
 
 The Okta developer blog and YouTube channel has more information on Docker and React.
 
