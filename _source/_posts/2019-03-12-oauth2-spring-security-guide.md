@@ -583,4 +583,4 @@ If you have any questions about this post, please add a comment below. For more 
 
 **Changelog:**
 
-* May 7, 2020: Updated to use Spring Boot 2.2.7 and [rename `redirect-uri-template` to `redirect-uri`](https://github.com/oktadeveloper/okta-spring-boot-authz-server-example/issues/2). See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-spring-boot-authz-server-example/pull/3). Changes to this article can be viewed in [oktadeveloper/okta-blog#287](https://github.com/oktadeveloper/okta-blog/pull/287).
+* May 7, 2020: Updated to use Spring Boot 2.2.7 and [rename `redirect-uri-template` to `redirect-uri`](https://github.com/oktadeveloper/okta-spring-boot-authz-server-example/issues/2). See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-spring-boot-authz-server-example/pull/3). Changes to this article can be viewed in [oktadeveloper/okta-blog#286](https://github.com/oktadeveloper/okta-blog/pull/286).
