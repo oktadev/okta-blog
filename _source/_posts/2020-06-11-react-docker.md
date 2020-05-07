@@ -7,10 +7,10 @@ communities: [javascript]
 description: "This tutorial shows you how to package a React app with Docker and make it secure in 10 minutes."
 tags: [docker, react, websecurity]
 tweets:
-- ""
-- ""
-- ""
-image:
+- "Learn how to use Docker to containerize your React app and deploy it to @heroku!"
+- "🔥 Tutorial: Learn how to combine @reactjs + @docker and deploy to @heroku!"
+- "🚀 @Heroku is awesome for production! Especially with React + Docker. 👇"
+image: blog/react-docker/react-docker-security.png
 type: conversion
 ---
 
