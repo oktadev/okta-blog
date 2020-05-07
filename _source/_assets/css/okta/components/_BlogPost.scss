@@ -364,6 +364,34 @@
 	#disqus {
 		margin-top: get-spacing('medium');
 	}
+
+	#markdown-toc {
+		border: 1px solid silver;
+		padding: 1em;
+		margin-bottom: 1.5em;
+		list-style-type: none;
+
+		ul {
+			list-style-type: none;
+		}
+
+		> li {
+			margin-left: 1.75em;
+		}
+
+		> li:first-child::before {
+			content: "Table of Contents";
+			color: #7a2518;
+			font-size: 1.375em;
+			display: block;
+			margin-bottom: 20px;
+			margin-left: -1.1em;
+		}
+	}
+
+	.hide {
+		display: none
+	}
 }
 
 @include media('<860px') {

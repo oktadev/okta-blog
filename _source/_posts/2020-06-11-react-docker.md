@@ -24,7 +24,11 @@ Docker is the de facto standard to build and share containerized applications. Y
 
 * [Node 12](https://nodejs.org/)+
 * [Docker](https://docs.docker.com/install/)
-* An [Okta Developer Account](https://developer.okta.com/signup/))
+* An [Okta Developer Account](https://developer.okta.com/signup/)
+
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
 
 ## Create a React App
 
@@ -83,7 +87,7 @@ I'll admit, it's a very simple app, but it'll do for demonstrating how to contai
 
 You might ask, "Why Docker? Doesn't that complicate things"?
 
-Yes, I agree. Doing it with Docker is more complicating than doing a `firebase deploy` or `git push` for Heroku. However, it also gives you more control in case you _really_ want to complicate things and manage your app with Kubernetes.
+Yes, I agree. Doing it with Docker is more complicating than doing a `firebase deploy` or `git push` for Heroku. However, it also gives you more control in case you _really_ want to complicate things and manage your app with Kubernetes. 😛
 
 ## Create a Dockerfile and Nginx Configuration
 
@@ -165,7 +169,7 @@ You'll be likely be logged in automatically.
 
 **TIP:** If you want to see an example that doesn't log you in right away, see our [Okta React + Okta Hosted Login Example](https://github.com/okta/samples-js-react/tree/master/okta-hosted-login).
 
-Pretty slick, eh?! You dockerized your React app in just a few minutes.
+Pretty slick, eh?! You dockerized your React app in just a few minutes. 🎉
 
 ## Deploy Your React App to Heroku
 
@@ -180,7 +184,7 @@ heroku login
 heroku create
 ```
 
-You should now have a new `heroku` git remote. You can confirm this with `git remote -v`.
+You should now have a new `heroku` Git remote repository. You can confirm this with `git remote -v`.
 
 Create a `static.json` file in your root directory with security headers and redirect all HTTP request to HTTPS.
 
@@ -228,7 +232,7 @@ You'll be redirected to Okta and likely see the following error:
 The 'redirect_uri' parameter must be an absolute URI that is whitelisted in the client app settings.
 ```
 
-To fix this, you to modify your Okta app to add your Heroku URL as a Login redirect URI. For example, `https://gentle-peak-37809.herokuapp.com/callback`.
+To fix this, you need to modify your Okta app to add your Heroku URL as a **Login redirect URI**. For example, `https://gentle-peak-37809.herokuapp.com/callback`.
 
 You should now be able to log in and see your app running on Heroku! You can verify its security headers are A-OK on <https://securityheaders.com>.
 
@@ -238,7 +242,7 @@ In this deployment example, buildpacks do all the work for you. However, not eve
 
 ## Deploy Your Docker + React App to Heroku
 
-Heroku has a [couple slick features when it comes to Docker images](https://devcenter.heroku.com/articles/container-registry-and-runtime). If your project has a `Dockerfile`, you can deploy your app directly using the Heroku Container Registry.
+Heroku has a couple slick features when it comes to Docker images. If your project has a `Dockerfile`, you can deploy your app directly using the [Heroku Container Registry](https://devcenter.heroku.com/articles/container-registry-and-runtime).
 
 First, log in to the Container Registry.
 
@@ -317,11 +321,66 @@ Now you should get an **A**!
 
 {% img blog/react-docker/headers-docker-nginx.png alt:"Security headers with Docker + Nginx" width:"800" %}{: .center-image }
 
-## Learn More About React and Docker
+## Use Buildpacks to Build Your Docker Images
 
-In this tutorial, you learned how to use Docker to containerize your React application. You can easily share your Docker containers by deploying them to a registry, like Docker Hub.
+You learned two ways to deploy your React app to Heroku. The first is to utilize buildpacks and `git push`. The second is to use Heroku's Container Registry and `heroku container:push` + `heroku push:release`. 
 
-If you don't already have a Docker Hub account, you can [create one](https://hub.docker.com/signup).
+[Cloud Native Buildpacks](https://buildpacks.io/) is an initiative that was started by Pivotal and Heroku in early 2018. It has a [`pack` CLI](https://github.com/buildpacks/pack) that allows you to build Docker images using buildpacks.
+
+To try it out, you'll first need to [install `pack`](https://buildpacks.io/docs/install-pack/). If you're on a Mac or Linux, you can use Homebrew. 
+
+```shell
+brew tap buildpack/tap
+brew install pack
+```
+
+If you're on Windows, you can [install its executable](https://github.com/buildpacks/pack/releases/download/v0.10.0/pack-v0.10.0-windows.zip).
+
+In the previous buildpacks example, I used Heroku's Node.js buildpack and their static buildpack.
+
+The Heroku static buildpack isn't a "Cloud Native" buildpack. It uses the old (pre-cloud-native) API. That means it doesn't work with `pack` out of the box.
+
+Luckly, Heroku does offer a [cnb-shim](https://github.com/heroku/cnb-shim) you can use to make it work.
+
+```shell
+# Clone the static buildpack in your home directory
+cd ~
+git clone https://github.com/heroku/heroku-buildpack-static.git
+cd heroku-buildpack-static
+
+# Install cnb-shim
+curl -L https://github.com/heroku/cnb-shim/releases/download/v0.2/cnb-shim-v0.2.tgz | tar xz
+
+cat > buildpack.toml << TOML
+[buildpack]
+id = "heroku.static"
+version = "0.1"
+name = "Static"
+
+[[stacks]]
+id = "heroku-18"
+TOML
+
+bin/install buildpack.toml https://github.com/heroku/heroku-buildpack-static/archive/v3.tar.gz
+```
+
+Now you can build a Docker image that uses the same buildpacks as you used on Heroku:
+
+```shell
+cd ~/react-docker
+pack build react-pack --builder heroku/buildpacks \
+  --buildpack ~/heroku-buildpack-static
+```
+
+Once the process completes, you should be able to run it.
+
+```shell
+docker run -p 3000:80 react-pack
+```
+
+## Deploy Your Docker Image to Docker Hub
+
+You can easily share your Docker containers by deploying them to a registry, like Docker Hub. If you don't already have a Docker Hub account, you can [create one](https://hub.docker.com/signup).
 
 Once you have an account, log in and push your image.
 
@@ -337,13 +396,22 @@ Then someone else could pull and run it using:
 docker run -p 3000:80 <your-username>/react-docker
 ```
 
-You can find the source code for this example on GitHub at 
+**NOTE:** You can use `react-docker` or `react-pack` in the above command.
+
+## Learn More About React and Docker
+
+In this tutorial, you learned how to use Docker to containerize your React application. You can do this manually with `docker build` or use Heroku's Container Registry to push and release projects with a `Dockerfile`. You can also use the `pack` command to leverage Cloud Native + Heroku buildpacks when building a container.
+
+You can find the source code for this example on GitHub at [oktadeveloper/okta-react-docker-example](https://github.com/oktadeveloper/okta-react-docker-example).
 
 The Okta developer blog and YouTube channel has more information on Docker and React.
 
 * [Build Reusable React Components](https://developer.okta.com/blog/2020/01/20/build-reusable-react-components)
 * [How to Move from Consuming Higher-Order Components to React Hooks](https://developer.okta.com/blog/2020/05/01/move-from-higher-order-components-to-react-hooks)
+* [Build a CRUD Application with Kotlin and React](https://developer.okta.com/blog/2020/01/13/kotlin-react-crud)
 * [📺 A Developer's Guide to Docker](https://youtu.be/t5yqLJfbnqM)
 
 If you liked this tutorial, please follow [@oktadev on Twitter](https://twitter.com/oktadevs) or [subscribe to our YouTube channel](https://youtube.com/c/oktadev). If you have any questions, please leave a comment below or [ping me on Twitter](https://twitter.com/mraible).
+
+_A huge thanks goes to Heroku's [Joe Kutner](https://twitter.com/codefinger) for his review and detailed feedback._
 
