@@ -121,7 +121,7 @@ To add OIDC login support to your Angular 9 app, you'll first need an https://de
 
 1. Navigate to **Applications** > **Add Application**
 2. Select **Single-Page App** and click **Next**
-3. Provide a name (e.g., `Angular 9`) and change the Login redirect URI to `http://localhost:4200/implicit/callback`
+3. Provide a name (e.g., `Angular 9`) and change the Login redirect URI to `http://localhost:4200/callback`
 4. Click **Done**
 
 Your app's settings should resemble the following.
