@@ -1190,33 +1190,6 @@ git commit -am "Add AWS S3 deployment"
 
 NOTE: If you committed the changes in your `angular.json` file, you should delete your access key in **My Account** > **Security Credentials**.
 
-=== Angular Deployment to Azure
-
-Microsoft Azure is a cloud computing service from Microsoft. I've never used it before writing this post, but I sure hope it's easier than AWS!
-
-Check out your `master` branch and create a new `azure` one.
-
-[source,shell]
-----
-git checkout master
-git checkout -b azure
-----
-
-Add the Azure deployment plugin for Angular:
-
-[source,shell]
-----
-ng add @azure/ng-deploy
-----
-
-This process gave me a URL to login to Microsoft. I have a Microsoft account and I was able to use that to sign-in. After I did, I was prompted to https://azure.com/free[create a free Azure account].
-
-After creating my account (which required a phone number _and_ a credit card), I tried installing `@azure/ng-deploy` again.
-
-I received the same error message about not having any active subscriptions. I clicked around the Azure portal a bunch, and ended up upgrading my account to a pay-as-you-go subscription. I chose **No technical support** because it was free. The Developer plan is $29/month at the time of this writing.
-
-When the `ng add` process failed again, I decided to give up. The `@azure/ng-deploy` schematic failed my 10 minute test.
-
 == Create a Docker Container for Your Angular App
 
 **Prerequisites:**
