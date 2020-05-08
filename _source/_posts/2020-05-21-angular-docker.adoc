@@ -1,18 +1,22 @@
 ---
 layout: blog_post
-title: ""
-author:
-by: advocate|contractor
-communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
-description: ""
-tags: []
+title: "Angular Docker"
+author: matt-raible
+by: advocate
+communities: [java,javascript,devops]
+description: "Use Docker to build & deploy an Angular app! Includes how to combine Angular + Spring Boot into a JAR, dockerize it, and deploy to KNative + Cloud Foundry."
+tags: [angular, docker, heroku, jarnotwar, spring boot, knative, cloudfoundry, buildpacks]
 tweets:
-- ""
-- ""
-- ""
+- "A Quick Guide to #Docker with #Angular and Spring Boot. 👇"
+- "Angular + Spring Boot + Docker: learn how to create an image with a Dockerfile, with #jib, and using @buildpacks_io!"
+- "Combine @angular + @springboot in a single JAR, the use Jib to build a Docker image."
 image:
-type: awareness|conversion
+type: conversion
 ---
+:toc: macro
+:page-liquid:
+
+Finally, I'll show you how to combine your Angular + Spring Boot app into a single artifact and package it in a Docker container. You'll learn how to deploy it to Heroku using its Container Registry.
 
 == Create a Docker Container for Your Angular App
 
