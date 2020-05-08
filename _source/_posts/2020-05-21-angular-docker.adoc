@@ -402,6 +402,75 @@ https://skaffold.dev/
 
 https://spring.io/blog/2020/01/27/creating-docker-images-with-spring-boot-2-3-0-m1
 
+
+== KNative
+
+boom! https://bootiful-angular.default.35.184.138.10.nip.io/home
+
+https://docs.google.com/document/d/1SLEga2V6N_UaxPcEhDku7gViRJflmtFGljgz-OLUNUQ/edit#
+
+== Cloud Foundry
+
+cf push -o mraible/bootiful-angular ba
+cf cs elephantsql turtle ba-psql
+cf bs ba ba-psql
+cf env ba  ## this will give u the credentials for the PostgresSQL instance; note them.
+cf set-env ba SPRING_DATASOURCE_DRIVER_CLASS_NAME org.postgresql.Driver
+cf set-env ba SPRING_DATASOURCE_URL jdbc:postgresql://drona.db.elephantsql.com:5432/rdtfyrue
+cf set-env ba SPRING_DATASOURCE_USERNAME rdtfyrue
+cf set-env ba SPRING_DATASOURCE_PASSWORD mNgdNG7HxUvzNyMCkGm3NFfNIfL0nv6e
+cf set-env ba OKTA_OAUTH2_ISSUER https://dev-210914.okta.com/oauth2/default
+cf set-env ba OKTA_OAUTH2_CLIENT_ID 0oaa7psy3dzvqsPjk4x6
+cf set-env ba OKTA_OAUTH2_CLIENT_SECRET FJcSFpTC6NHENPPtb7RRWk6sGwPzYa7d7xPcsWsi
+cf restage ba
+
+
+App at http://ba.cfapps.io/home
+
+u can also just use the manifest but make sure to replace the credentials with environment variables using cf set-env
+
+applications:
+- name: ba
+disk_quota: 1G
+docker:
+image: mraible/bootiful-angular
+env:
+OKTA_OAUTH2_CLIENT_ID: 0oaa7psy3dzvqsPjk4x6
+OKTA_OAUTH2_CLIENT_SECRET: FJcSFpTC6NHENPPtb7RRWk6sGwPzYa7d7xPcsWsi
+OKTA_OAUTH2_ISSUER: https://dev-210914.okta.com/oauth2/default
+SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+SPRING_DATASOURCE_PASSWORD: mNgdNG7HxUvzNyMCkGm3NFfNIfL0nv6e
+SPRING_DATASOURCE_URL: jdbc:postgresql://drona.db.elephantsql.com:5432/rdtfyrue
+SPRING_DATASOURCE_USERNAME: rdtfyrue
+instances: 1
+memory: 1G
+routes:
+- route: http://ba.cfapps.io
+services:
+- ba-psql
+stack: cflinuxfs3
+
+basically all of those environment variables should probably be externally specified, non-version controlled environment variable, so its not much gain to use the manifest.yml itself in this case
+
+that YML would live in manifest.yml
+
+and then in the same directory u could run cf push
+
+
+and it would do the same thing
+
+in this case im not binding the DB to the app it because ur using a docker container, so its too late for the platform to reconfigure itself based on environment variables
+
+if it were a regular .jar or node app or whatever u could cf push -p my.jar and then if u had done cf bs ba ba-psql then the jar in the app would be tampered with a little to inject some code to automatically hydrate a DataSource based on the environment variables that are injected after u bind a data service
+
+u might also wanna do
+cf login
+
+before u run the shell script or the manifest.yml
+
+
+tada! its in production and im going to focus on something else :)
+
 == Learn More About Angular and Spring Boot
 
 https://devcenter.heroku.com/articles/deploying-spring-boot-apps-to-heroku
