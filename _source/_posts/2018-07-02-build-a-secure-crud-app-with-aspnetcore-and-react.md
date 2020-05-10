@@ -7,9 +7,9 @@ communities: [.net, javascript]
 description: "This post demonstrates how to build a secure CRUD app using ASP.NET Core API with a React front end."
 tags: [asp.net core, dotnet core, aspnet core, react, crud]
 tweets:
- - "Want to learn the basic of writing secure CRUD apps with #aspnetcore and @reactjs? Check out @leebrandt's new article! >>"
+ - "Want to learn the basic of writing secure CRUD apps with #aspnetcore and @reactjs? Check out @leebrandt's new article!"
  - "Learn how to build a secure CRUD app with #aspnetcore and @reactjs from @OktaDev! <3"
- - "Interested in #aspnetcore APIs and @reactjs front-ends for secure CRUD apps? Learn it with @leebrandt and @OktaDev! >>"
+ - "Interested in #aspnetcore APIs and @reactjs front-ends for secure CRUD apps? Learn it with @leebrandt and @OktaDev!"
 type: conversion
 ---
 
