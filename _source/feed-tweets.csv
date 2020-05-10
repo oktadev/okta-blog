@@ -9,8 +9,8 @@ layout: null
 {%- for post in posts -%}
   {%- assign tags = post.tags | join: ' ' -%}
   {%- capture postDate %}{{post.date | date: '%s'}}{% endcapture -%}
-{% if post.tweets and post.tweets[tweetIndex] and postDate > twoYearsAgo -%}
-  {%- capture dayAsSeconds %}{{ 86400 | times: forloop.index | minus: 9244800}}{% endcapture -%}
+{% if post.image and post.tweets and post.tweets[tweetIndex] and postDate > twoYearsAgo -%}
+  {%- capture dayAsSeconds %}{{ 86400 | times: forloop.index | minus: 10627200 }}{% endcapture -%}
   {%- capture publishDate %}{{ site.time | date: '%s' | plus: dayAsSeconds }}{% endcapture -%}
 {{publishDate | date: '%Y/%m/%d 09:00' }},"{{ post.tweets[tweetIndex] }} { from the archives }
     {%- for tag in post.tags limit:3 -%}
