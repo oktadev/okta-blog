@@ -1,0 +1,22 @@
+---
+layout: null
+---
+{%- assign twoYearsAgo = '11-05-2018 09:00:00' | date: '%s' -%}
+{%- assign tweetIndex = 2 -%}
+{%- capture linebreak %}
+{% endcapture -%}
+{%- assign posts = site.posts | reverse -%}
+{%- for post in posts -%}
+  {%- assign tags = post.tags | join: ' ' -%}
+  {%- capture postDate %}{{post.date | date: '%s'}}{% endcapture -%}
+{% if post.tweets and post.tweets[tweetIndex] and postDate > twoYearsAgo -%}
+  {%- capture dayAsSeconds %}{{ 86400 | times: forloop.index | minus: 9244800}}{% endcapture -%}
+  {%- capture publishDate %}{{ site.time | date: '%s' | plus: dayAsSeconds }}{% endcapture -%}
+{{publishDate | date: '%Y/%m/%d 09:00' }},"{{ post.tweets[tweetIndex] }} { from the archives }
+    {%- for tag in post.tags limit:3 -%}
+      {{ tag | remove: ' ' | remove: '-' | replace: '.', 'dot' | prepend: ' #' }}
+    {%- endfor -%}",{{ site.url | replace: 'http', 'https' | replace: '0.0.0.0:4000', 'developer.okta.com'}}{{ post.url }}{{linebreak}}
+{%- else -%}
+  {%- continue -%}
+{%- endif %}
+{%- endfor -%}
