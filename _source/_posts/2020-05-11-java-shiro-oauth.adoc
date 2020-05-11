@@ -10,7 +10,7 @@ tweets:
 - "Learn how to build a secure #Java application with @ApacheShiro and OAuth 2.0🔒"
 - "Build a secure #Java app with @ApacheShiro and OAuth 2.0🔥"
 - "Build a #Java JAX-RS application with @ApacheShiro and OAuth 2.0‼️"
-image:
+image: blog/java-shiro-oauth/okta-shiro-social.png
 type: conversion
 ---
 :page-liquid:
@@ -30,7 +30,7 @@ In the OAuth 2.0 world, REST services are typically resource servers. Overly sim
 
 == Create a new JAX-RS project
 
-NOTE: You can see the completed example on https://TODO[GitHub].
+NOTE: You can see the completed example on https://github.com/oktadeveloper/okta-shiro-jaxrs-example[GitHub].
 
 There are a few ways to create a new Maven based project. I usually use my https://www.jetbrains.com/idea/[IDE], but you can also  generate one on the https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html[command line]. Whichever way you decide, start with a `pom.xml` file that looks like this:
 
@@ -64,8 +64,8 @@ Next, add the dependencies:
     <dependencies>
         <dependency>
             <groupId>com.okta.shiro</groupId>
-            <artifactId>okta-shiro-core</artifactId>
-            <version>0.1.0-SNAPSHOT</version>
+            <artifactId>okta-shiro-plugin</artifactId>
+            <version>0.1.0</version>
         </dependency>
         <dependency>
             <groupId>javax.ws.rs</groupId>
@@ -75,12 +75,12 @@ Next, add the dependencies:
         <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-jaxrs</artifactId>
-            <version>1.5.2</version>
+            <version>1.5.3</version>
         </dependency>
         <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-servlet-plugin</artifactId>
-            <version>1.5.2</version>
+            <version>1.5.3</version>
             <scope>runtime</scope>
         </dependency>
 
@@ -240,7 +240,7 @@ oktaJwtRealm.issuer = https://{yourOktaDomain}/oauth2/default
 
 TIP: If you have resources that require anonymous access, use `authcBearer[permissive]`—just make sure all of your endpoints are annotated correctly!
 
-== Add A `web.xml`
+== Add a `web.xml`
 
 You might be asking yourself, "really, a `web.xml` file?" Technically you don't need one—you could instead configure the https://maven.apache.org/plugins/maven-war-plugin/war-mojo.html#failOnMissingWebXml[Maven War Plugin to not require a web.xml].
 
@@ -257,11 +257,11 @@ Or, just add an empty `web.xml` to `src/main/webapp`:
 ----
 == Run the Secure REST Application
 
-You could build the project with `mvn package`. Simply grab the war file from the `target` directory, copy it to your favorite container, and start it up. Instead, we're going to use the Jetty Maven Plugin. From the project directory, run:
+You could build the project with `./mvnw package`. Simply grab the war file from the `target` directory, copy it to your favorite container, and start it up. Instead, we're going to use the Jetty Maven Plugin. From the project directory, run:
 
 [source,sh]
 ----
-mvn jetty:run
+./mvnw jetty:run
 ----
 
 This command starts a server running on port `8000`. Make a request using curl:
@@ -337,7 +337,7 @@ And just like that, you have made an authenticated request to your JAX-RS applic
 
 == Learn More About Secure Applications
 
-In this tutorial, I've shown you how to secure a simple JAX-RS application with Apache Shiro and Okta. This same resource server technique can be used with other /blog/2020/01/08/secure-legacy-spring-cloud-gateway[servlet based web applications too].
+In this tutorial, I've shown you how to secure a simple JAX-RS application with Apache Shiro and Okta. This same resource server technique can be used with other link:/blog/2020/01/08/secure-legacy-spring-cloud-gateway[servlet based web applications too].
 
 Check out these related blog posts to learn more about building secure web applications.
 link:/blog/2019/12/30/java-jersey-jaxrs[Build a Secure REST Application Using Jersey]
