@@ -340,8 +340,9 @@ And just like that, you have made an authenticated request to your JAX-RS applic
 In this tutorial, I've shown you how to secure a simple JAX-RS application with Apache Shiro and Okta. This same resource server technique can be used with other link:/blog/2020/01/08/secure-legacy-spring-cloud-gateway[servlet based web applications too].
 
 Check out these related blog posts to learn more about building secure web applications.
-link:/blog/2019/12/30/java-jersey-jaxrs[Build a Secure REST Application Using Jersey]
-link:/blog/2017/07/13/apache-shiro-spring-boot[Protecting a Spring Boot App with Apache Shiro]
-link:/blog/2020/01/09/java-rest-api-showdown[Java REST API Showdown]
+
+- link:/blog/2019/12/30/java-jersey-jaxrs[Build a Secure REST Application Using Jersey]
+- link:/blog/2017/07/13/apache-shiro-spring-boot[Protecting a Spring Boot App with Apache Shiro]
+- link:/blog/2020/01/09/java-rest-api-showdown[Java REST API Showdown]
 
 If you like this blog post and want to see more like it, follow https://twitter.com/oktadev[@oktadev on Twitter], subscribe to https://youtube.com/c/oktadev[our YouTube channel], or follow us https://www.linkedin.com/company/oktadev/[on LinkedIn]. As always, please leave a comment below if you have any questions.
