@@ -329,6 +329,8 @@ In this post, you learned two ways to deploy your React app to Heroku. The first
 
 [Cloud Native Buildpacks](https://buildpacks.io/) is an initiative that was started by Pivotal and Heroku in early 2018. It has a [`pack` CLI](https://github.com/buildpacks/pack) that allows you to build Docker images using buildpacks.
 
+{% img blog/react-docker/joe-kutner.jpg alt:"Joe Kutner" %}{: .BlogPost-avatar .pull-right .img-150px }
+
 My good friend, [Joe Kutner](https://twitter.com/codefinger), is a Software Architect at Heroku and has been instrumental in making Cloud Native Buildpacks a reality. Joe was formerly the curator of the Java experience at Heroku, is an active committer on the JHipster project, authored [The Healthy Programmer](http://healthyprog.com/), and is a founding member of the Cloud Native Buildpacks core team. His advice when it comes to Docker is "don't use a `Dockerfile` if you don't have to". 
 
 Joe was a big help in figuring out how to create a Docker image with buildpacks, so I credit him with the instructions below.
@@ -348,7 +350,7 @@ The Heroku static buildpack isn't a "Cloud Native" buildpack. It uses the old (p
 
 Luckily, Heroku does offer a [cnb-shim](https://github.com/heroku/cnb-shim) you can use to make it work. Joe created a URL--https://cnb-shim.herokuapp.com/v1/heroku-community/static-- for static buildpack after converting it with `cnb-shim`. 
 
-You do have to make one change before you can build and run the Docker image locally. **Remove the `"https_only": true," line from `static.json`**.
+You do have to make one change before you can build and run the Docker image locally. **Remove the `"https_only": true,"` line from `static.json`**.
 
 Then, use the following command to build a Docker image with Node.js and the static buildpack (a.k.a., the same buildpacks you used on Heroku).
 
@@ -356,7 +358,7 @@ Then, use the following command to build a Docker image with Node.js and the sta
 pack build react-pack --builder heroku/buildpacks --buildpack heroku/nodejs,https://cnb-shim.herokuapp.com/v1/heroku-community/static
 ```
 
-**TIP**: You can use `pack set-default-builder heroku/buildpacks` if you want to want to get rid of the `--builder` argument.
+**TIP:** You can use `pack set-default-builder heroku/buildpacks` if you want to want to get rid of the `--builder` argument.
 
 Once the process completes, you should be able to run it.
 
