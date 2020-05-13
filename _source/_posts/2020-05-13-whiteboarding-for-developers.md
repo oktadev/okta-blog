@@ -122,8 +122,8 @@ Finally, I hope these thoughts and tips will both show that whiteboarding is nec
 ## Learn More
 Read more about Developer Career topics:
 
-* [Why Every Developer Needs to be a Generalist](https://developer.okta.com/blog/2019/11/26/developer-generalist-vs-specialist)
-* [Pro Tips for Developer Relations](https://developer.okta.com/blog/2019/01/28/developer-relations-pro-tips)
-* [Container Security: A Developer Guide](https://developer.okta.com/blog/2019/07/18/container-security-a-developer-guide)
+* [Why Every Developer Needs to be a Generalist](/blog/2019/11/26/developer-generalist-vs-specialist)
+* [Pro Tips for Developer Relations](/blog/2019/01/28/developer-relations-pro-tips)
+* [Container Security: A Developer Guide](/blog/2019/07/18/container-security-a-developer-guide)
 
 Want to be notified when we publish more of these? Follow us on [Twitter](https://twitter.com/oktadev), subscribe to our [YouTube channel](https://youtube.com/c/oktadev), or follow us on [LinkedIn](https://www.linkedin.com/company/oktadev). If you have a question, please leave a comment below!
