@@ -16,15 +16,135 @@ type: conversion
 :toc: macro
 :page-liquid:
 
-Finally, I'll show you how to combine your Angular + Spring Boot app into a single artifact and package it in a Docker container. You'll learn how to deploy it to Heroku using its Container Registry.
+Building modern apps with Angular and Spring Boot is a common practice these days. In fact, if I use Google's Keyword Planner to look up popular search terms, it's one of the most popular combinations. The results in the list below are average monthly searches and not limited by location.
 
-== Create a Docker Container for Your Angular App
+- `angular spring boot`: 3600
+- `react spring boot`: 1000
+- `angular express`: 1900
+- `angular aspnet`: 210
+- `angular flask`: 320
+- `angular symfony`: 390
+
+This tutorial is the fourth and final in a series on Angular and Spring Boot in 2020. In the first one, I showed how to create a secure notes app with Angular and Spring Boot + Kotlin. The second showed how to add Bootstrap for CSS and create a sortable, searchable, and pageable data table. The third showed you how to deploy your apps separate to Heroku. It also showed how it's possible to use `ng deploy` to deploy to Firebase, Netlify, and AWS.
+
+1. link:/blog/2020/01/06/crud-angular-9-spring-boot-2[Build a CRUD App with Angular 9 and Spring Boot 2.2]
+2. link:/blog/2020/03/02/angular-bootstrap[Build Beautiful Angular Apps with Bootstrap]
+3. //todo
+
+Today, I'll show you how to use Docker to create an image for your Angular app and deploy it to Heroku. Then, I'll show how to combine Angular and Spring Boot into the same JAR artifact for deployment. You'll learn how to Dockerize the combined apps using Jib and Cloud Native Buildpacks. Finally, I'll show you how to deploy your Docker image to Heroku, KNative on Google Cloud, and Cloud Foundry.
+
+I'd like to thank Benoit Sautel for his help with Gradle + Kotlin, Ray Tsang for his help with Jib, James Ward for his help with KNative, and Josh Long his assistance with Docker + Cloud Foundry.
+
+Docker is the most popular way to build and share containers. _Dockerizing_ involves packaging your app, and you can include web servers to serve up your app. This is important when containerizing an Angular app because its artifacts are just JavaScript, CSS, and HTML. That is, the production app is static files that will need to be served up by some sort of webserver. As an added bonus, you can configure the webserver to send security headers that make your app more secure.
+
+toc::[]
+
+== Create an Angular + Spring Boot App
+
+To begin, clone the GitHub repo from the previous tutorial in this series.
+
+// todo: remove jar and docker branches from angular-deployment
+
+[source,shell]
+----
+git clone https://github.com/oktadeveloper/okta-angular-deployment-example.git \
+  angular-spring-boot-docker
+----
 
 **Prerequisites:**
 
 * https://docs.docker.com/install/[Docker]
 * https://nodejs.org/[Node.js] 12+
 * https://adoptopenjdk.net/[Java] 8+
+* An https://developer.okta.com/signup/[Okta Developer Account]
+
+=== Secure Your Angular + Spring Boot App with OpenID Connect
+
+OAuth 2.0 was finalized in 2012 and has since become the industry-standard protocol for authorization. In 2014, OpenID Connect (OIDC) extended OAuth, adding federated identity to delegated authorization. Together, these two layers offer a standard specification that developers can write code against in a way that will work across multiple identity providers.
+
+To begin adding OIDC to Angular and Spring Boot, you'll need to https://signup.heroku.com/login[create a Heroku account]. If you already have a Heroku account, https://id.heroku.com/login[log in to it]. Once you're logged in, create a new app. I named mine `bootiful-angular`.
+
+image::{% asset_path 'blog/angular-deployment/heroku-create-app.png' %}[alt=Create Heroku app,width=700,align=center]
+
+After creating your app, click on the **Resources** tab and add the **Okta** add-on.
+
+image::{% asset_path 'blog/angular-deployment/okta-add-on.png' %}[alt=Okta Add-On,width=475,align=center]
+
+CAUTION: If you haven't entered a credit card for your Heroku account, you will get an error. This is because Heroku requires you to have a credit card on file to use any of their add-ons, even for free ones. This is part of Heroku's assurance to guard against misuse (real person, real credit card, etc.). I think this is a good security practice. Add a credit card to continue.
+
+Click **Provision** and wait 20-30 seconds while your Okta account is created and OIDC apps are registered. Now go to your app's **Settings** tab and click the **Reveal Config Vars** button. The variables displayed are the environment variables you can use to configure both Angular and Spring Boot for OIDC authentication.
+
+image::{% asset_path 'blog/angular-deployment/heroku-config-vars.png' %}[alt=Okta Add-On,width=800,align=center]
+
+Create an `okta.env` file in the `angular-spring-boot-docker/notes-api` directory and copy the variable values into it, where `$OKTA_*` is the value from Heroku.
+
+[source,shell]
+----
+export OKTA_OAUTH2_ISSUER=$OKTA_OAUTH2_ISSUER
+export OKTA_OAUTH2_CLIENT_ID=$OKTA_OAUTH2_CLIENT_ID_WEB
+export OKTA_OAUTH2_CLIENT_SECRET=$OKTA_OAUTH2_CLIENT_SECRET_WEB
+----
+
+[NOTE]
+====
+If you're on Windows without https://docs.microsoft.com/en-us/windows/wsl/install-win10[Windows Subsystem for Linux] installed, create an `okta.bat` file and use `SET` instead of `export`.
+====
+
+Start your Spring Boot app by navigating to the `notes-api` directory, sourcing this file, and starting your app.
+
+[source,shell]
+----
+source okta.env
+./gradlew bootRun
+----
+
+For Windows users, the commands will be:
+
+[source,shell]
+----
+okta.bat
+gradlew
+----
+
+Next, configure Angular for OIDC authentication by modifying its `auth-routing.module.ts` to use the generated issuer and client ID.
+
+[source,typescript]
+.notes/src/app/auth-routing.module.ts
+----
+const oktaConfig = {
+ issuer: '$OKTA_OAUTH2_ISSUER',
+ redirectUri: window.location.origin + '/callback',
+ clientId: '$OKTA_OAUTH2_CLIENT_ID_SPA',
+ pkce: true
+};
+----
+
+By default, Heroku registers a SPA app on the same port (`8080`) as a web app. This means you need to log in to your Okta dashboard and add a new redirect URI for local development. Luckily, Heroku makes this easy to do. Go to **Resources** and click on the **okta** addon. This will log you into your Okta dashboard. Navigate to **Applications** > **Heroku Created OIDC App - browser** > **General** > **Edit**.
+
+Add `http://localhost:4200/callback` as a Login redirect URI and `http://localhost:4200` as a Logout redirect URI. You'll also need to add `http://localhost:4200` as a trusted origin in **API** > **Trusted Origins**.
+
+Install your Angular app's dependencies and start it.
+
+[source,shell]
+----
+npm i
+ng serve
+----
+
+Open `http://localhost:4200` in your browser.
+
+image::{% asset_path 'blog/angular-deployment/angular-home.png' %}[alt=Angular Home,width=800,align=center]
+
+Click the **Login** button in the top right corner. You should be logged in without seeing a login form because you're already logged in to Okta. If you want to see the full authentication flow, log out, or try it in a private window. You can use the `$OKTA_ADMIN_EMAIL` and `$OKTA_ADMIN_PASSWORD` from your Heroku config variables for credentials. Create a note to make sure everything works.
+
+Commit your progress to Git from the top-level `angular-spring-boot-docker` directory.
+
+[source,shell]
+----
+git commit -am "Add Okta OIDC Configuration"
+----
+
+== Create a Docker Container for Your Angular App
 
 Create a `Dockerfile` that uses the latest version of Node and nginx as a web server.
 
