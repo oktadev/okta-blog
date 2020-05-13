@@ -119,8 +119,9 @@ It's like that with whiteboarding. It's scary. It's also scary for the person yo
 
 Finally, I hope these thoughts and tips will both show that whiteboarding is necessary and that it's nothing to fear. Done well, you can have an effective tool to improve your project, solution, or even career. Developers are unique people with unique skills. Adding this collection of skills might allow you to bridge the gap from what you understand to something everybody can understand.
 
-## Learn More
-Read more about Developer Career topics:
+## Learn More About Developer Career Topics
+
+If you liked this post, you might like some of our other developer-related topics:
 
 * [Why Every Developer Needs to be a Generalist](/blog/2019/11/26/developer-generalist-vs-specialist)
 * [Pro Tips for Developer Relations](/blog/2019/01/28/developer-relations-pro-tips)
