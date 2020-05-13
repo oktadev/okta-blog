@@ -103,7 +103,7 @@ For Windows users, the commands will be:
 [source,shell]
 ----
 okta.bat
-gradlew
+gradlew bootRun
 ----
 
 Next, configure Angular for OIDC authentication by modifying its `auth-routing.module.ts` to use the generated issuer and client ID.
@@ -169,7 +169,7 @@ COPY --from=builder /opt/web/dist/notes /usr/share/nginx/html
 
 [NOTE]
 ====
-When I was working on this file, I found it handy to comment out the `RUN ng build --prod` line and use the following instead.
+When I was trying to get everything to work, I found it handy to comment out the `RUN ng build --prod` line and use the following instead.
 
 [source,shell]
 ----
@@ -180,7 +180,7 @@ RUN echo "Hello, World" > dist/notes/index.html
 This allows you to skip the lengthy Angular build process.
 ====
 
-You'll need to create the `nginx.config` file to make nginx SPA-aware.
+This will build your project and add Nginx as a web server. You'll need to create the `nginx.config` file to make Nginx SPA-aware.
 
 [source,config]
 .notes/nginx.config
@@ -220,26 +220,137 @@ You can run it locally on port 4200 using the `docker run` command.
 docker run -p 4200:80 ng-notes
 ----
 
-[NOTE]
-====
-If you find these `docker` commands hard to remember, you can add a couple scripts to your `package.json` file.
+Add these Docker commands as scripts to your `package.json` file.
 
 [source,json]
 ----
-"build-docker": "docker build -t ng-notes .",
-"docker": "docker run -p 4200:80 ng-notes"
+"docker": "docker build -t ng-notes .",
+"ng-notes": "docker run -p 4200:80 ng-notes"
 ----
-====
+
+The `docker run` command will serve up the production version of the Angular app, which has its backend configured to point to a production URL on Heroku.
+
+source,typescript]
+.notes/src/environments/environment.prod.ts
+----
+export const environment = {
+  production: true,
+  apiUrl: 'https://bootiful-angular.herokuapp.com'
+};
+----
+
+You'll need to deploy your Spring Boot app to a similar public URL for your Angular + Docker container to work in production.
+
+=== Deploy Spring Boot to Heroku
+
+One of the easiest ways to interact with Heroku is with the Heroku CLI. https://devcenter.heroku.com/articles/heroku-cli[Install it] before proceeding with the instructions below.
+
+[source,shell]
+----
+brew tap heroku/brew && brew install heroku
+----
+
+Open a terminal and log in to your Heroku account.
+
+[source,shell]
+----
+heroku login
+----
+
+You should already have a Heroku app that you added Okta to. Let's use it for hosting Spring Boot. Run `heroku apps` and you'll see the one you created.
+
+[source,shell]
+----
+$ heroku apps
+=== matt.raible@okta.com Apps
+bootiful-angular
+----
+
+You can run `heroku config -a $APP_NAME` to see your Okta variables. In my case, I'll be using `bootiful-angular` for `$APP_NAME`.
+
+Associate your existing Git repo with the app on Heroku.
+
+[source,shell]
+----
+heroku git:remote -a $APP_NAME
+----
+
+Set the `APP_BASE` config variable to point to the `notes-api` directory. While you're there, add the monorepo and Gradle buildpacks.
+
+[source,shell]
+----
+heroku config:set APP_BASE=notes-api
+heroku buildpacks:add https://github.com/lstoll/heroku-buildpack-monorepo
+heroku buildpacks:add heroku/gradle
+----
+
+Attach a PostgreSQL database to your app.
+
+[source,shell]
+----
+heroku addons:create heroku-postgresql
+----
+
+As part of this process, Heroku will automatically set configuration variables for `SPRING_DATASOURCE_URL`, `SPRING_DATASOURCE_USERNAME`, AND `SPRING_DATASOURCE_PASSWORD`. These values will override what you have in `application-prod.properties`.
+
+By default, https://devcenter.heroku.com/articles/deploying-gradle-apps-on-heroku[Heroku's Gradle support] runs `./gradlew build -x test`. Since you want it to run `./gradlew bootJar -Pprod`, you'll need to override it by setting a `GRADLE_TASK` config var.
+
+[source,shell]
+----
+heroku config:set GRADLE_TASK="bootJar -Pprod"
+----
+
+The `$OKTA_*` environment variables don't have the same names as the Okta Spring Boot starter expects. This is because the Okta Heroku Add-On creates two apps: a SPA and a web app. The web app's config variables end in `_WEB`. You'll have to make some changes so those variables are used for the Okta Spring Boot starter. Run the following command and remove `_WEB` from the two variables that have it.
+
+[source,shell]
+----
+heroku config:edit
+----
+
+Now you're ready to deploy! Heroku makes this easy with a simple `git push`.
+
+[source,shell]
+----
+git push heroku master
+----
+
+Run `heroku open` to open your app. You'll be redirected to Okta to authenticate, then back to your Spring Boot app.
+
+Now, you'll need to configure your Angular app to use your Heroku-deployed Spring Boot app for its production URL.
+
+source,typescript]
+.notes/src/environments/environment.prod.ts
+----
+export const environment = {
+  production: true,
+  apiUrl: 'https://<your-heroku-app>.herokuapp.com'
+};
+----
 
 Since this runs the production build, you'll need to add `\http://localhost:4200` as an allowed origin in your Spring Boot app on Heroku. Run the following command and add it to the end of the existing values.
 
 [source,shell]
 ----
-heroku config:edit --remote heroku
+heroku config:set ALLOWED_ORIGINS=http://localhost:4200 --remote heroku
 ----
 
 TIP: One advantage of doing this is you can run your local Angular app against your production backend. I've found this very useful when debugging and fixing UI issues caused by production data.
 
+Now you should be able to rebuild your Angular Docker container and run it.
+
+[source,shell]
+----
+npm run docker
+npm run ng-notes
+----
+
+Open your browser to `http://localhost:4200`, log in, and confirm you can add notes.
+
+[screenshot]
+
+Verify the data made it to Heroku by going to `\https://<your-heroku-app>.herokuapp.com/user/notes`.
+
+////
 To publish your image so you can deploy it, you can use Docker Hub. If you don't already have a Docker Hub account, you can https://hub.docker.com/signup[create one].
 
 Once you have an account, log in and push your image.
@@ -260,12 +371,13 @@ docker push mraible/ng-notes
 ----
 
 IMPORTANT: Your image will be public by default. If you navigate to your image on Docker Hub in a browser, you can go to its **Settings** tab and make it private.
+////
 
-== Docker on Heroku
+== Deploy Angular + Docker to Heroku
 
 Heroku has a https://devcenter.heroku.com/articles/container-registry-and-runtime[couple slick features when it comes to Docker images]. If your project has a `Dockerfile`, you can deploy your app directly using the Heroku Container Registry.
 
-First, log in to the Container Registry.
+First, make sure you're in the `notes` directory, then log in to the Container Registry.
 
 [source,shell]
 ----
@@ -353,13 +465,23 @@ And open the app in your browser:
 heroku open --remote docker
 ----
 
-You'll need to add your app's URI in Okta and as an allowed origin for the backend with `heroku config:edit`.
+You'll need to add the new app's URL as an allowed origin in your Spring Boot app on Heroku. Copy the printed `Hosting URL` value and run the following command.
 
-See Heroku's https://devcenter.heroku.com/articles/container-registry-and-runtime[Container Registry & Runtime (Docker Deploys)] for more information.
+[source,shell]
+----
+heroku config:edit --remote heroku
+----
+
+Add the new URL after your existing `localhost` one, separating them with a comma. For example:
+
+[source,shell]
+----
+ALLOWED_ORIGINS='http://localhost:4200,https://<angular-docker-app>.herokuapp.com'
+----
 
 === Improve Security Headers for Nginx in Docker
 
-If you test your new Nginx in Docker site on https://securityheaders.com/[securityheaders.com], you'll get an F. To solve this, you can modify your `nginx.config` to add security headers.
+If you test your freshly-deployed Angular app with https://securityheaders.com/[securityheaders.com], you'll get an **F**. To solve this, modify your `nginx.config` to add security headers.
 
 [source,config]
 ----
@@ -392,23 +514,265 @@ heroku container:push web --remote docker
 heroku container:release web --remote docker
 ----
 
-Now you should get an **A** !
+Now you should get an **A**!
 
+// todo: new screenshot because new app
 image::{% asset_path 'blog/angular-deployment/nginx-headers.png' %}[alt=Nginx in Docker score from securityheaders.com,width=800,align=center]
+
+Commit your changes to Git.
+
+[source,shell]
+----
+git commit -am "Add Docker for Angular"
+----
 
 == Combine Your Angular + Spring Boot App into a Single JAR
 
 In the previous sections, you learned how to deploy your Angular and Spring Boot apps separately. Now I'll show you how to combine them into a single JAR for production. You'll still be able to run them independently in development, but deploying them to production will be easier because you won't have to worry about CORS. I'll also convert the OAuth flows so they all happen server-side, which is more secure because the access token won't be stored in the browser.
 
-TIP: Most client-side OAuth libraries keep access tokens in local storage. However, there is a https://gitlab.com/jimdigriz/oauth2-worker[oauth2-worker] project that allows you to store them in a web worker.
+NOTE: Most client-side OAuth libraries keep access tokens in local storage. However, there is a https://gitlab.com/jimdigriz/oauth2-worker[oauth2-worker] project that allows you to store them in a web worker. There's also folks that think https://pragmaticwebsecurity.com/articles/oauthoidc/localstorage-xss.html[avoiding LocalStorage for tokens is the wrong solution].
 
-Check out your `master` branch and create a new `jar` one.
+=== Update Your Angular App's Authentication Mechanism
+
+Create a new `AuthService` service that will communicate with your Spring Boot API for authentication logic.
+
+====
+[source,typescript]
+.notes/src/app/shared/auth.service.ts
+----
+import { Injectable } from '@angular/core';
+import { Location } from '@angular/common';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+import { User } from './user';
+import { map } from 'rxjs/operators';
+
+const headers = new HttpHeaders().set('Accept', 'application/json');
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthService {
+  $authenticationState = new BehaviorSubject<boolean>(false);
+
+  constructor(private http: HttpClient, private location: Location) {
+  }
+
+  getUser(): Observable<User> {
+    return this.http.get<User>(`${environment.apiUrl}/user`, {headers}).pipe(
+      map((response: User) => {
+        if (response !== null) {
+          this.$authenticationState.next(true);
+          return response;
+        }
+      })
+    );
+  }
+
+  isAuthenticated(): Promise<boolean> {
+    return this.getUser().toPromise().then((user: User) => { // <1>
+      return user !== undefined;
+    }).catch(() => {
+      return false;
+    })
+  }
+
+  login(): void {
+    location.href =
+      `${location.origin}${this.location.prepareExternalUrl('oauth2/authorization/okta')}`; // <2>
+  }
+
+  logout(): void {
+    const redirectUri = `${location.origin}${this.location.prepareExternalUrl('/')}`;
+
+    this.http.post(`${environment.apiUrl}/api/logout`, {}).subscribe((response: any) => { // <3>
+      location.href = response.logoutUrl + '?id_token_hint=' + response.idToken
+        + '&post_logout_redirect_uri=' + redirectUri;
+    });
+  }
+}
+----
+<.> Talk to the `/users` endpoint to determine authenticated status. A username will be return if the user is logged in.
+<.> When the user clicks a login button, redirect them to a Spring Security endpoint to do the OAuth dance.
+<.> Logout using the `/api/logout` endpoint, which returns the Okta Logout API URL and a valid ID token.
+====
+
+Create a `user.ts` file in the same directory, to hold your `User` model.
+
+[source,typescript]
+.notes/src/app/shared/user.ts
+----
+export class User {
+  sub: number;
+  fullName: string;
+}
+----
+
+Update `app.component.ts` to use your new `AuthService` in favor of `OktaAuthService`.
+
+[source,typescript]
+.notes/src/app/app.component.ts
+----
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from './shared/auth.service';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
+})
+export class AppComponent implements OnInit {
+  title = 'Notes';
+  isAuthenticated: boolean;
+  isCollapsed = true;
+
+  constructor(public auth: AuthService) {
+  }
+
+  async ngOnInit() {
+    this.isAuthenticated = await this.auth.isAuthenticated();
+    this.auth.$authenticationState.subscribe(
+      (isAuthenticated: boolean)  => this.isAuthenticated = isAuthenticated
+    );
+  }
+}
+----
+
+Change the buttons in `app.component.html` to reference the `auth` service instead of `oktaAuth`.
+
+[source,html]
+.notes/src/app/app.component.html
+----
+<button *ngIf="!isAuthenticated" (click)="auth.login()"
+        class="btn btn-outline-primary" id="login">Login</button>
+<button *ngIf="isAuthenticated" (click)="auth.logout()"
+        class="btn btn-outline-secondary" id="logout">Logout</button>
+----
+
+Update `home.component.ts` to use `AuthService` too.
+
+[source,typescript]
+.notes/src/app/home/home.component.ts
+----
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../shared/auth.service';
+
+@Component({
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss']
+})
+export class HomeComponent implements OnInit {
+  isAuthenticated: boolean;
+
+  constructor(public auth: AuthService) {
+  }
+
+  async ngOnInit() {
+    this.isAuthenticated = await this.auth.isAuthenticated();
+  }
+}
+----
+
+Delete `notes/src/app/auth-routing.module.ts`.
+
+Modify `app.module.ts` to remove the `AuthRoutingModule` import, add `HomeComponent` as a declaration, and import `HttpClientModule`.
+
+[source,typescript]
+.notes/src/app/app.module.ts
+----
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { NoteModule } from './note/note.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HomeComponent } from './home/home.component';
+import { HttpClientModule } from '@angular/common/http';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    HomeComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    NoteModule,
+    NgbModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+----
+
+Add the route for `HomeComponent` to `app-routing.module.ts`.
+
+[source,typescript]
+.notes/src/app/app-routing.module.ts
+----
+import { HomeComponent } from './home/home.component';
+
+const routes: Routes = [
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  {
+    path: 'home',
+    component: HomeComponent
+  }
+];
+----
+
+Change both `environments.ts` and `environments.prod.ts` to use a blank `apiUrl`.
+
+[source,typescript]
+----
+apiUrl: ''
+----
+
+Create a `src/proxy.config.js` file to proxy certain requests to your Spring Boot API on `http://localhost:8080`.
+
+[source,javascript]
+----
+const PROXY_CONFIG = [
+  {
+    context: ['/user', '/api', '/oauth2', '/login'],
+    target: 'http://localhost:8080',
+    secure: false,
+    logLevel: "debug"
+  }
+]
+
+module.exports = PROXY_CONFIG;
+----
+
+Add this file as a `proxyConfig` option in `angular.json`.
+
+[source,json]
+----
+"serve": {
+  "builder": "@angular-devkit/build-angular:dev-server",
+  "options": {
+    "browserTarget": "notes:build",
+    "proxyConfig": "src/proxy.conf.js"
+  },
+  ...
+},
+----
+
+Remove Okta's Angular SDK and OktaDev Schematics from your Angular project.
 
 [source,shell]
 ----
-git checkout master
-git checkout -b jar
+npm uninstall @okta/okta-angular @oktadev/schematics
 ----
+
+=== Configure Spring Boot to Host an Angular SPA
+
+=== Modify Gradle to Build a Single JAR
 
 https://developer.okta.com/blog/2020/03/27/spring-oidc-logout-options
 
