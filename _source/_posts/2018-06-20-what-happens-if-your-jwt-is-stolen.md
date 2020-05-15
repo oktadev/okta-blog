@@ -201,3 +201,5 @@ There's a lot of complexity involved in being proactive about your security, but
 Happy hacking,
 
 -Randall
+
+**PS**: Since writing this article, we've built a new [security site](https://sec.okta.com/) where we're writing about all sorts of in-depth security topics. If that sounds interesting, please check it out.

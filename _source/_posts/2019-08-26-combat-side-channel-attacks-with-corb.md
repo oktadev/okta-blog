@@ -82,5 +82,5 @@ For more information about browser development and security, check out these oth
 * [10 Excellent Ways to Secure Your Spring Boot Application](/blog/2018/07/30/10-ways-to-secure-spring-boot)
 * [Build a Web App with Spring Boot and Spring Security in 15 Minutes](/blog/2018/09/26/build-a-spring-boot-webapp)
 
-Leave a comment below, find more from the Okta team on [Twitter](https://twitter.com/oktadev), and watch us on [YouTube](https://www.youtube.com/c/oktadev)!
+Leave a comment below, find more from the Okta team on [Twitter](https://twitter.com/oktadev), and watch us on [YouTube](https://www.youtube.com/c/oktadev)! We've also just launched a new [security site](https://sec.okta.com/), where we're publishing other useful security information like this. Be sure to check it out!
 

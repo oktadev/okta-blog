@@ -138,4 +138,4 @@ You can explore the code or just click the friendly purple button to deploy your
 
 In the [final installment](/blog/2017/08/01/oidc-primer-part-3), we dig into the various types of tokens and how to validate them.
 
-The whole series is live now. Part 1 is [here](/blog/2017/07/25/oidc-primer-part-1). Part 3 is [here](/blog/2017/08/01/oidc-primer-part-3).
+The whole series is live now. Part 1 is [here](/blog/2017/07/25/oidc-primer-part-1). Part 3 is [here](/blog/2017/08/01/oidc-primer-part-3). If you enjoyed this, you might also want to check out our new [security site](https://sec.okta.com) where we're publishing lots of in-depth infosec articles.
