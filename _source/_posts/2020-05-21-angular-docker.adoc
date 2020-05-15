@@ -850,6 +850,8 @@ class SecurityConfiguration : WebSecurityConfigurerAdapter() {
 }
 ----
 
+TIP: See https://docs.spring.io/spring-security/site/docs/current/reference/html5/#headers[Spring Security's headers] documentation to see default security headers and other options.
+
 With Kotlin, you can say that parameters and return values are optional by adding `?` to their type. Update the `user()` method in `UserController.kt` to make `OidcUser` optional. It will be `null` when the user is not authenticated, that's why this change is needed.
 
 [source,kotlin]
@@ -1103,6 +1105,8 @@ Run `docker login` to log in to your account, then use the `jib` task to build *
 ./gradlew jib -Pprod
 ----
 
+Isn't it cool how Jib makes it so you don't need a `Dockerfile`!? 👍
+
 == Run Your Spring Boot + Angular Container on Heroku
 
 To deploy this container to Heroku, create a new Heroku app and add it as a Git remote.
@@ -1181,107 +1185,396 @@ Once you've verified it starts OK, set the Hibernate configuration so it only va
 heroku config:set SPRING_JPA_HIBERNATE_DDL_AUTO=validate --remote jib
 ----
 
-== Run Your Spring Boot + Angular Container on KNative
+== Run Your Spring Boot + Angular Container on Knative
 
-// CF Docker https://docs.cloudfoundry.org/adminguide/docker.html
-// Google Cloud and Kubernetes OR KNative
+Heroku is awesome, but sometimes people want more control over their infrastructure. Enter KNative. It's like Heroku in that it's a Platform as a Service (PaaS). You could also call it Infrastructure as a Service (Iaas) because it offers a number of services you can install with a bit of YAML and `kubectl` commands.
 
-https://docs.spring.io/spring-security/site/docs/5.3.1.RELEASE/reference/html5/#headers
+The https://knative.dev/[Knative website] says it'll make your developers more productive.
 
+> Knative components build on top of Kubernetes, abstracting away the complex details and enabling developers to focus on what matters. Built by codifying the best practices shared by successful real-world implementations, Knative solves the "boring but difficult" parts of deploying and managing cloud native services so you don't have to.
 
-        http.headers()
-                .contentSecurityPolicy("script-src 'self'; report-to /csp-report-endpoint/")
-                .and()
-                .referrerPolicy(ReferrerPolicyHeaderWriter.ReferrerPolicy.SAME_ORIGIN)
-                .and()
-                .featurePolicy("accelerometer 'none'; camera 'none'; microphone 'none'")
+// todo: picture of James
 
-// todo: try logout
+My friend, https://twitter.com/_JamesWard[James Ward], works for Google Cloud and has a lot of experience with Knative. He was instrumental in getting this app deployed to Google Cloud. Thanks, James!
 
+You'll need a Google Cloud account for this section. Go to https://cloud.google.com/[cloud.google.com] and click **Get started for free**.
 
-./gradlew jib
+Once you have an account, go to your https://console.cloud.google.com/[Google Cloud Console] and create a new project.
 
-or
+Then, click on the Terminal icon in the top right to open a Cloud Shell terminal for your project.
 
-docker image tag bootiful-angular mraible/bootiful-angular
-docker push mraible/bootiful-angular
+Enable Cloud and Container APIs:
 
-KNative: https://docs.google.com/document/d/1SLEga2V6N_UaxPcEhDku7gViRJflmtFGljgz-OLUNUQ/edit?ts=5eb1f757
+[source,shell]
+----
+gcloud services enable \
+  cloudapis.googleapis.com \
+  container.googleapis.com \
+  containerregistry.googleapis.com
+----
 
-https://skaffold.dev/
+Then set your default zone and region:
 
-https://spring.io/blog/2020/01/27/creating-docker-images-with-spring-boot-2-3-0-m1
+[source,shell]
+----
+gcloud config set compute/zone us-central1-c
+gcloud config set compute/region us-central1
+----
 
+And create a Kubernetes cluster:
 
-boom! https://bootiful-angular.default.35.184.138.10.nip.io/home
+[source,shell]
+----
+gcloud beta container clusters create knative \
+  --addons=HorizontalPodAutoscaling,HttpLoadBalancing \
+  --machine-type=n1-standard-4 \
+  --cluster-version=1.15 \
+  --enable-stackdriver-kubernetes --enable-ip-alias \
+  --enable-autoscaling --min-nodes=5 --num-nodes=5 --max-nodes=10 \
+  --enable-autorepair \
+  --scopes cloud-platform
+----
 
-https://docs.google.com/document/d/1SLEga2V6N_UaxPcEhDku7gViRJflmtFGljgz-OLUNUQ/edit#
+Next, set up a cluster administrator and install Istio.
+
+[source,shell]
+----
+kubectl create clusterrolebinding cluster-admin-binding \
+  --clusterrole=cluster-admin \
+  --user=$(gcloud config get-value core/account)
+
+kubectl apply -f \
+https://github.com/knative/serving/raw/v0.14.0/third_party/istio-1.5.1/istio-crds.yaml
+
+while [[ $(kubectl get crd gateways.networking.istio.io -o jsonpath='{.status.conditions[?(@.type=="Established")].status}') != 'True' ]]; do
+  echo "Waiting on Istio CRDs"; sleep 1
+done
+
+kubectl apply -f \
+https://github.com/knative/serving/raw/v0.14.0/third_party/istio-1.5.1/istio-minimal.yaml
+----
+
+Now, you should be able to install Knative!
+
+[source,shell]
+----
+kubectl apply --selector knative.dev/crd-install=true -f \
+ https://github.com/knative/serving/releases/download/v0.14.0/serving.yaml
+
+kubectl apply -f \
+ https://github.com/knative/serving/releases/download/v0.14.0/serving.yaml
+
+while [[ $(kubectl get svc istio-ingressgateway -n istio-system \
+  -o 'jsonpath={.status.loadBalancer.ingress[0].ip}') == '' ]]; do
+  echo "Waiting on external IP"; sleep 1
+done
+----
+
+You'll need a domain to enable HTTPS, so set that up and point it to the cluster's IP address.
+
+[source,shell]
+----
+export IP_ADDRESS=$(kubectl get svc istio-ingressgateway -n istio-system \
+  -o 'jsonpath={.status.loadBalancer.ingress[0].ip}')
+echo $IP_ADDRESS
+
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-domain
+  namespace: knative-serving
+data:
+  $IP_ADDRESS.nip.io: ""
+EOF
+----
+
+Install https://cert-manager.io/[cert-manager] to automatically provision and manage TLS certificates in Kubernetes.
+
+[source,shell]
+----
+kubectl apply --validate=false -f \
+ https://github.com/jetstack/cert-manager/releases/download/v0.14.3/cert-manager.yaml
+
+kubectl wait --for=condition=Available -n cert-manager deployments/cert-manager-webhook
+----
+
+And configure free TSL certificate issuing with https://letsencrypt.org/[Let's Encrypt].
+
+[source,shell]
+----
+kubectl apply -f - <<EOF
+apiVersion: cert-manager.io/v1alpha2
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-http01-issuer
+spec:
+  acme:
+    privateKeySecretRef:
+      name: letsencrypt
+    server: https://acme-v02.api.letsencrypt.org/directory
+    solvers:
+    - http01:
+       ingress:
+         class: istio
+EOF
+
+kubectl apply -f \
+https://github.com/knative/serving/releases/download/v0.14.0/serving-cert-manager.yaml
+
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-certmanager
+  namespace: knative-serving
+data:
+ issuerRef: |
+    kind: ClusterIssuer
+    name: letsencrypt-http01-issuer
+EOF
+
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-network
+  namespace: knative-serving
+data:
+  autoTLS: Enabled
+  httpProtocol: Enabled
+EOF
+----
+
+Phew! That was a lot of `kubectl` and YAML, don't you think?! The good news is you're ready to deploy PostgreSQL and your Spring Boot app.
+
+The following command can deploy everything, but you'll need to change the `<...>` placeholders to match your values first.
+
+====
+[source,shell]
+----
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pgdata
+  annotations:
+    volume.alpha.kubernetes.io/storage-class: default
+spec:
+  accessModes: [ReadWriteOnce]
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: postgres
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        service: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:10.1
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: bootiful-angular
+            - name: POSTGRES_USER
+              value: bootiful-angular
+            - name: POSTGRES_PASSWORD
+              value: <your-db-password>
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: pgdata
+              subPath: data
+      volumes:
+        - name: pgdata
+          persistentVolumeClaim:
+            claimName: pgdata
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pgservice
+spec:
+  ports:
+  - port: 5432
+    name: pgservice
+  clusterIP: None
+  selector:
+    service: postgres
+---
+apiVersion: serving.knative.dev/v1alpha1
+kind: Service
+metadata:
+  name: bootiful-angular
+spec:
+  template:
+    spec:
+      containers:
+        - image: <your-username>/bootiful-angular
+          env:
+          - name: SPRING_DATASOURCE_URL
+            value: jdbc:postgresql://pgservice:5432/bootiful-angular
+          - name: SPRING_DATASOURCE_USERNAME
+            value: bootiful-angular
+          - name: SPRING_DATASOURCE_PASSWORD
+            value: <your-db-password>
+          - name: OKTA_OAUTH2_ISSUER
+            value: <your-okta-issuer>
+          - name: OKTA_OAUTH2_CLIENT_ID
+            value: <your-okta-client-id>
+          - name: OKTA_OAUTH2_CLIENT_SECRET
+            value: <your-okta-client-secret>
+EOF
+----
+
+Once the deployment has completed, run the command below to change it so Hibernate doesn't try to recreate your schema on restart.
+
+[source,shell]
+----
+kubectl apply -f - <<EOF
+apiVersion: serving.knative.dev/v1alpha1
+kind: Service
+metadata:
+  name: bootiful-angular
+spec:
+  template:
+    spec:
+      containers:
+        - image: <your-username>/bootiful-angular
+          env:
+          - name: SPRING_DATASOURCE_URL
+            value: jdbc:postgresql://pgservice:5432/bootiful-angular
+          - name: SPRING_DATASOURCE_USERNAME
+            value: bootiful-angular
+          - name: SPRING_DATASOURCE_PASSWORD
+            value: <your-db-password>
+          - name: OKTA_OAUTH2_ISSUER
+            value: <your-okta-issuer>
+          - name: OKTA_OAUTH2_CLIENT_ID
+            value: <your-okta-client-id>
+          - name: OKTA_OAUTH2_CLIENT_SECRET
+            value: <your-okta-client-secret>
+          - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+            value: validate
+EOF
+----
+
+If everything works correctly, you should have a running app at a URL similar to the following:
+
+💥 <https://bootiful-angular.default.35.184.138.10.nip.io/>
+
+You'll need to add this URL (+ `/login/oauth2/code/okta`) as a **Login redirect URI** on Okta in order to log in.
+
+// todo: screenshot of redirect URI on Okta
+
+Then, you'll be able to login to your app running on Knative! Add a note or two to prove it all works.
+
+// todo: screenshot of a couple notes
 
 == Run Your Spring Boot + Angular Container on Cloud Foundry
 
-cf push -o mraible/bootiful-angular ba
-cf cs elephantsql turtle ba-psql
-cf bs ba ba-psql
-cf env ba  ## this will give u the credentials for the PostgresSQL instance; note them.
-cf set-env ba SPRING_DATASOURCE_DRIVER_CLASS_NAME org.postgresql.Driver
-cf set-env ba SPRING_DATASOURCE_URL jdbc:postgresql://drona.db.elephantsql.com:5432/rdtfyrue
-cf set-env ba SPRING_DATASOURCE_USERNAME rdtfyrue
-cf set-env ba SPRING_DATASOURCE_PASSWORD mNgdNG7HxUvzNyMCkGm3NFfNIfL0nv6e
-cf set-env ba OKTA_OAUTH2_ISSUER https://dev-210914.okta.com/oauth2/default
-cf set-env ba OKTA_OAUTH2_CLIENT_ID 0oaa7psy3dzvqsPjk4x6
-cf set-env ba OKTA_OAUTH2_CLIENT_SECRET FJcSFpTC6NHENPPtb7RRWk6sGwPzYa7d7xPcsWsi
-cf restage ba
+Did you know you can https://docs.cloudfoundry.org/adminguide/docker.html[run Docker containers on Cloud Foundry]? It's pretty slick.
 
+Josh Long showed me how to do this.
 
-App at http://ba.cfapps.io/home
+If you'd like to test it out, you'll need a https://run.pivotal.io/[Pivotal Web Services] account. You'll also need to install the https://docs.cloudfoundry.org/cf-cli/install-go-cli.html[Cloud Foundry CLI]. If you're using Homebrew, you can use `brew install cloudfoundry/tap/cf-cli`.
 
-u can also just use the manifest but make sure to replace the credentials with environment variables using cf set-env
+Apps deployed to Cloud Foundry (CF) with the `cf push` command run in standard CF Linux containers. With Docker support enabled, CF can also deploy and manage apps running in Docker containers.
 
-applications:
-- name: ba
-disk_quota: 1G
-docker:
-image: mraible/bootiful-angular
-env:
-OKTA_OAUTH2_CLIENT_ID: 0oaa7psy3dzvqsPjk4x6
-OKTA_OAUTH2_CLIENT_SECRET: FJcSFpTC6NHENPPtb7RRWk6sGwPzYa7d7xPcsWsi
-OKTA_OAUTH2_ISSUER: https://dev-210914.okta.com/oauth2/default
-SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
-SPRING_DATASOURCE_PASSWORD: mNgdNG7HxUvzNyMCkGm3NFfNIfL0nv6e
-SPRING_DATASOURCE_URL: jdbc:postgresql://drona.db.elephantsql.com:5432/rdtfyrue
-SPRING_DATASOURCE_USERNAME: rdtfyrue
-instances: 1
-memory: 1G
-routes:
-- route: http://ba.cfapps.io
-services:
-- ba-psql
-stack: cflinuxfs3
+To enable Docker support, run:
 
-basically all of those environment variables should probably be externally specified, non-version controlled environment variable, so its not much gain to use the manifest.yml itself in this case
+[source,shell]
+----
+cf enable-feature-flag diego_docker
+----
 
-that YML would live in manifest.yml
+Then, run the following commands, where `secure-notes` is a unique name for your app.
 
-and then in the same directory u could run cf push
-
-
-and it would do the same thing
-
-in this case im not binding the DB to the app it because ur using a docker container, so its too late for the platform to reconfigure itself based on environment variables
-
-if it were a regular .jar or node app or whatever u could cf push -p my.jar and then if u had done cf bs ba ba-psql then the jar in the app would be tampered with a little to inject some code to automatically hydrate a DataSource based on the environment variables that are injected after u bind a data service
-
-u might also wanna do
+[source,shell]
+----
 cf login
 
-before u run the shell script or the manifest.yml
+# Deploy the image from Docker Hub
+cf push -o <your-username>/bootiful-angular secure-notes
 
+# Create a PostgreSQL instance
+cf cs elephantsql turtle secure-notes-psql
 
-tada! its in production and im going to focus on something else :)
+# Bind the app to the PostgreSQL instance
+cf bs secure-notes secure-notes-psql
+
+# Display the credentials from the PostgreSQL instance
+cf env secure-notes
+----
+
+At this point, you'll need to set a number of environment variables so your app can connect to PostgreSQL and Okta. Substitute your values in the `<...>` placeholders before running the command below.
+
+[source,shell]
+----
+export APP_NAME=<your-app-name>
+cf set-env $APP_NAME SPRING_DATASOURCE_DRIVER_CLASS_NAME org.postgresql.Driver
+cf set-env $APP_NAME SPRING_DATASOURCE_URL <postgresql-jdbc-url>
+cf set-env $APP_NAME SPRING_DATASOURCE_USERNAME <postgresql-username>
+cf set-env $APP_NAME SPRING_DATASOURCE_PASSWORD <postgresql-passord>
+cf set-env $APP_NAME OKTA_OAUTH2_ISSUER <your-okta-issuer>
+cf set-env $APP_NAME OKTA_OAUTH2_CLIENT_ID <your-okta-client-id>
+cf set-env $APP_NAME OKTA_OAUTH2_CLIENT_SECRET <your-okta-client-id>
+cf restage $APP_NAME
+----
+
+Your app, running in Docker, should now be available at `\http://<your-app-name>.cfapps.io`.
+
+You'll need to add this URL (+ `/login/oauth2/code/okta`) as a **Login redirect URI** on Okta in order to log in.
+
+// todo: screenshot of it running with a note added
+
+You can also just use a `manifest.yml` to make it so you don't have to type all the commands above.
+
+[source,yaml]
+----
+applications:
+- name: ba
+  disk_quota: 1G
+  docker:
+    image: <your-username>/bootiful-angular
+  env:
+    OKTA_OAUTH2_CLIENT_ID: <your-okta-client-id>
+    OKTA_OAUTH2_CLIENT_SECRET: <your-okta-client-secret>
+    OKTA_OAUTH2_ISSUER: <your-okta-issuer>
+    SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+    SPRING_DATASOURCE_PASSWORD: <postgresql-password>
+    SPRING_DATASOURCE_URL: <postgresql-jdbc-url>
+    SPRING_DATASOURCE_USERNAME: <postgresql-username>
+instances: 1
+  memory: 1G
+  routes:
+    - route: http://<your-app-name>.cfapps.io
+  services:
+    - <your-app-name>-psql
+  stack: cflinuxfs3
+----
+
+Since most of these environment variables should probably be externally specified, its not much gain to use the `manifest.yml` in this case. Storing secrets in source control is a bad idea!
+
+CAUTION: If you do decide to store everything in `manifest.yml`, make sure to add it to `.gitignore`.
+
+With a `manifest.yml` in place, you can simply run `cf push` and it'll do the same thing as the aforementioned `cf` commands.
 
 == Use Cloud Native Buildpacks to Create Spring Boot Images
 
 Show pack CLI
+
+https://skaffold.dev/
+
+https://spring.io/blog/2020/01/27/creating-docker-images-with-spring-boot-2-3-0-m1
 
 Spring Boot 2.3
 
