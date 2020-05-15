@@ -1569,40 +1569,13 @@ CAUTION: If you do decide to store everything in `manifest.yml`, make sure to ad
 
 With a `manifest.yml` in place, you can simply run `cf push` and it'll do the same thing as the aforementioned `cf` commands.
 
-== Use Cloud Native Buildpacks to Create Spring Boot Images
+== Use Cloud Native Buildpacks to Build Docker Images
 
 https://buildpacks.io/[Cloud Native Buildpacks] is an initiative that was started by Pivotal and Heroku in early 2018. It has a https://github.com/buildpacks/pack[`pack` CLI] that allows you to build Docker images using buildpacks.
 
-To begin, https://buildpacks.io/docs/install-pack/[install `pack`]. If you're on a Mac or Linux, you can use Homebrew. If you're on Windows, you can [install its executable](https://github.com/buildpacks/pack/releases/download/v0.10.0/pack-v0.10.0-windows.zip).
+Unfortunately, `pack` doesn't have great support for monorepos (especially in sub-directories) yet. I was unable to make it work with this app structure.
 
-[source,shell]
-----
-brew tap buildpack/tap
-brew install pack
-----
-
-When you deployed Spring Boot to Heroku earlier, you used Heroku's Gradle buildpack. You can use it with Cloud Native Buildpacks too!
-
-You'll need to include `heroku/nodejs` along with `heroku/java` because the Gradle process calls Node to build Angular.
-
-Run the following command to create an image:
-
-[source,shell]
-----
-pack build mraible/bootiful-angular \
-  --builder heroku/buildpacks \
-  --buildpack heroku/java,heroku/nodejs \
-  --env GRADLE_TASK='bootJar -Pprod'
-----
-
-If you setup the Docker Compose `.env` file and symlinked it in the `notes-api` directory, you should be able to run this image and login at `http://localhost:8080`.
-
-[source,shell]
-----
-docker-compose -f src/main/docker/app.yml up
-----
-
-Using `pack` is pretty cool, but the command is really long, and difficult to memorize. Spring Boot 2.3 to the rescue!
+On the upside, Spring Boot 2.3's built in support for creating Docker images works splendidly!
 
 == Easy Docker Images with Spring Boot 2.3
 
