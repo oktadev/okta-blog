@@ -316,6 +316,8 @@ git push heroku master
 
 Run `heroku open` to open your app. You'll be redirected to Okta to authenticate, then back to your Spring Boot app.
 
+// todo: is server.port=${PORT:8080} needed?
+
 Now, you'll need to configure your Angular app to use your Heroku-deployed Spring Boot app for its production URL.
 
 source,typescript]
@@ -770,18 +772,229 @@ Remove Okta's Angular SDK and OktaDev Schematics from your Angular project.
 npm uninstall @okta/okta-angular @oktadev/schematics
 ----
 
+At this point, your Angular app doesn't contain any Okta-specific code for authentication. Instead, it'll rely on your Spring Boot app to provide that.
+
 === Configure Spring Boot to Host an Angular SPA
+
+In your Spring Boot app, you'll need to change a number of things. You'll need to configure it to build your Angular app when you pass in `-Pprod`, you'll need to configure its routes so it's SPA-aware and routes all 404s to `index.html`, and you'll need to configure your security settings to allow HTML, CSS, and JavaScript to be anonymously accessed.
+
+To begin, delete `src/main/kotlin/com/okta/developer/notes/HomeController.kt`. You'll no longer need this because your Angular app will be served up at the `/` path.
+
+Next, create a `RouteController.kt` that routes all requests to `index.html`.
+
+[source,kotlin]
+.notes-api/src/main/kotlin/com/okta/developer/notes/RouteController.kt
+----
+package com.okta.developer.notes
+
+import org.springframework.stereotype.Controller
+import org.springframework.web.bind.annotation.RequestMapping
+import javax.servlet.http.HttpServletRequest
+
+@Controller
+class RouteController {
+
+    @RequestMapping(value = ["/{path:[^\\.]*}"])
+    fun redirect(request: HttpServletRequest): String {
+        return "forward:/"
+    }
+}
+----
+
+Modify `SecurityConfiguration.kt` to allow anonymous access to static web files, the `/user` info endpoint, and to add additional security headers.
+
+[source,kotlin]
+.notes-api/src/main/kotlin/com/okta/developer/notes/SecurityConfiguration.kt
+----
+package com.okta.developer.notes
+
+import org.springframework.security.config.annotation.web.builders.HttpSecurity
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository
+import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter
+import org.springframework.security.web.util.matcher.RequestMatcher
+
+@EnableWebSecurity
+class SecurityConfiguration : WebSecurityConfigurerAdapter() {
+
+    override fun configure(http: HttpSecurity) {
+        //@formatter:off
+        http
+            .authorizeRequests()
+                .antMatchers("/**/*.{js,html,css}").permitAll()
+                .antMatchers("/", "/user").permitAll()
+                .anyRequest().authenticated()
+                .and()
+            .oauth2Login()
+                .and()
+            .oauth2ResourceServer().jwt()
+
+        http.requiresChannel()
+                .requestMatchers(RequestMatcher {
+                    r -> r.getHeader("X-Forwarded-Proto") != null
+                }).requiresSecure()
+
+        http.csrf()
+                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+
+        http.headers()
+                .contentSecurityPolicy("script-src 'self'; report-to /csp-report-endpoint/")
+                .and()
+                .referrerPolicy(ReferrerPolicyHeaderWriter.ReferrerPolicy.SAME_ORIGIN)
+                .and()
+                .featurePolicy("accelerometer 'none'; camera 'none'; microphone 'none'")
+
+        //@formatter:on
+    }
+}
+----
+
+With Kotlin, you can say that parameters and return values are optional by adding `?` to their type. Update the `user()` method in `UserController.kt` to make `OidcUser` optional. It will be `null` when the user is not authenticated, that's why this change is needed.
+
+[source,kotlin]
+.notes-api/src/main/kotlin/com/okta/developer/notes/UserController.kt
+----
+@GetMapping("/user")
+fun user(@AuthenticationPrincipal user: OidcUser?): OidcUser? {
+    return user;
+}
+----
+
+Previously, Angular handled logout. Add a `LogoutController` that will handle expiring the session, as well as sending information back to Angular so it can logout from Okta.
+
+[source,kotlin]
+.notes-api/src/main/kotlin/com/okta/developer/notes/LogoutController.kt
+----
+package com.okta.developer.notes
+
+import org.springframework.http.ResponseEntity
+import org.springframework.security.core.annotation.AuthenticationPrincipal
+import org.springframework.security.oauth2.client.registration.ClientRegistration
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository
+import org.springframework.security.oauth2.core.oidc.OidcIdToken
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RestController
+import javax.servlet.http.HttpServletRequest
+
+@RestController
+class LogoutController(val clientRegistrationRepository: ClientRegistrationRepository) {
+
+    val registration: ClientRegistration = clientRegistrationRepository.findByRegistrationId("okta");
+
+    @PostMapping("/api/logout")
+    fun logout(request: HttpServletRequest,
+               @AuthenticationPrincipal(expression = "idToken") idToken: OidcIdToken): ResponseEntity<*> {
+        val logoutUrl = this.registration.providerDetails.configurationMetadata["end_session_endpoint"]
+        val logoutDetails: MutableMap<String, String> = HashMap()
+        logoutDetails["logoutUrl"] = logoutUrl.toString()
+        logoutDetails["idToken"] = idToken.tokenValue
+        request.session.invalidate()
+        return ResponseEntity.ok().body<Map<String, String>>(logoutDetails)
+    }
+}
+----
+
+NOTE: In link:/blog/2020/03/27/spring-oidc-logout-options[OpenID Connect Logout Options with Spring Boot], Brian Demers describes this as RP-Initiated Logout. He also shows how you can use Spring Security's `OidcClientInitiatedLogoutSuccessHandler`. I tried this technique but decided against it because it doesn't allow me to redirect back to my Angular app in dev mode. I also encounted some CORS errors that I was unable to solve.
+
+When you access the `/user/notes` endpoint with Angular, the `${principal.name}` expression correctly resolves to the user's email. However, when you access this endpoint after logging in directly to Spring Boot, it resolves to the `sub` claim. To make these values consistent, add the following property to `application-dev.properties` and `application-prod.properties`.
+
+[source,properties]
+.notes-api/src/main/resources/application-dev.properties
+----
+spring.security.oauth2.client.provider.okta.user-name-attribute=preferred_username
+----
+
+You'll also need to make it possible to override the port with a `PORT` environment variable in `application-prod.properties`.
+
+[source,properties]
+----
+spring.security.oauth2.client.provider.okta.user-name-attribute=preferred_username
+server.port=${PORT:8080}
+----
+
+You can remove the `allowed.origins` property from both files since Angular will proxy the request in development (eliminating the need for CORS) and there won't be cross-domain requests in production.
 
 === Modify Gradle to Build a Single JAR
 
-https://developer.okta.com/blog/2020/03/27/spring-oidc-logout-options
+Now that your Spring Boot app is ready to serve up your Angular app, you need to modify your Gradle configuration to build your Angular app and package it in the JAR.
 
-// Deploy JAR to CF
+Start by importing `NpmTask` and adding the Node Gradle plugin.
 
+[source,kotlin]
+.notes/build.gradle.kts
+----
+import com.moowork.gradle.node.npm.NpmTask
+
+plugins {
+    ...
+    id("com.github.node-gradle.node") version "2.2.3"
+    ...
+}
+----
+
+Then, define the location of your Angular app, and configuration for the Node plugin.
+
+[source,kotlin]
+.notes/build.gradle.kts
+----
+val spa = "${projectDir}/../notes";
+
+node {
+    version = "12.16.2"
+    nodeModulesDir = file(spa)
+}
+----
+
+Add a `buildWeb` task:
+
+[source,kotlin]
+.notes/build.gradle.kts
+----
+val buildWeb = tasks.register<NpmTask>("buildNpm") {
+    dependsOn(tasks.npmInstall)
+    setNpmCommand("run", "build")
+    setArgs(listOf("--", "--prod"))
+    inputs.dir("${spa}/src")
+    inputs.dir(fileTree("${spa}/node_modules").exclude("${spa}/.cache"))
+    outputs.dir("${spa}/dist")
+}
+----
+
+And modify the `processRecources` task to build Angular when `-Pprod` is passed in.
+
+[source,kotlin]
+.notes/build.gradle.kts
+----
+tasks.processResources {
+    rename("application-${profile}.properties", "application.properties")
+    if (profile == "prod") {
+        dependsOn(buildWeb)
+        from("${spa}/dist/notes") {
+            into("static")
+        }
+    }
+}
+----
+
+Now you should be able to build both apps using `./gradlew bootJar -Pprod`. Once it's built, run it with the following commands to ensure everything works.
+
+[source,shell]
+----
+docker-compose -f src/main/docker/postgresql.yml up -d
+java -jar build/libs/*.jar
+----
+
+Congrats! You modified your Angular and Spring Boot apps to be packaged together and implemented the most secure form of OAuth 2.0 to boot! 🎊
 
 == Package Angular + Spring Boot with Docker
 
+Since everything is done via Gradle now, you can use plugins to build a Docker container. https://github.com/GoogleContainerTools/jib[Jib] builds optimized Docker images without the need for deep mastery of Docker best-practices. It reads your Gradle/Maven build files for its metadata.
+
+To add Jib support, add its Gradle plugin.
+
 [source,kotlin]
+.notes/build.gradle.kts
 ----
 plugins {
     ...
@@ -789,73 +1002,186 @@ plugins {
 }
 ----
 
-java -jar build/libs/*.jar
+Then, at the end of this file, add `jib` configuration to specify your image name and the active Spring profile.
 
-tasks.jibDockerBuild {
-dependsOn("bootJar")
+[source,kotlin]
+----
+jib {
+    to {
+        image = "<your-username>/bootiful-angular"
+    }
+    container {
+        environment = mapOf("SPRING_PROFILES_ACTIVE" to profile)
+    }
 }
+----
 
-./gradlew jibDockerBuild -Pprod --image=bootiful-angular
+Run the following command to build a Docker image with Jib.
 
-docker run --publish=8080:8080 bootiful-angular
+[source,shell]
+----
+./gradlew jibDockerBuild -Pprod
+----
+
+TIP: If you want to override the image name in `build.gradle.kts`, you can pass in an `--image` parameter. For example, `./gradlew jibDockerBuild -Pprod --image=bootiful-ng9`.
+
+== Run Your Spring Boot Docker App with Docker Compose
+
+In theory, you should be able to run the following command to run your app.
+
+[source,shell]
+----
+docker run --publish=8080:8080 <your-username>/bootiful-angular
+----
+
+However, Spring Boot won't start because you haven't configured the Okta environment variables.
+
+You can https://docs.docker.com/compose/compose-file/#env_file[use Docker Compose and its `env_file` option] to specify environment variables.
 
 Copy `notes-api/okta.env` to `src/main/docker/.env`.
 
-Change it to:
+Change it to remove `export ` at the beginning of each line. It should resemble something like the following:
 
 [source,shell]
 ----
 OKTA_OAUTH2_ISSUER=https://dev-210914.okta.com/oauth2/default
-OKTA_OAUTH2_CLIENT_ID=0oaa7psy3dzvqsPjk4x6
-OKTA_OAUTH2_CLIENT_SECRET=FJcSFpTC6NHENPPtb7RRWk6sGwPzYa7d7xPcsWsi
+OKTA_OAUTH2_CLIENT_ID=0oaa7psy...
+OKTA_OAUTH2_CLIENT_SECRET=FJcSFpTC6N...
 ----
 
-./gradlew jibDockerBuild -Pprod
-docker run --publish=8080:8080 bootiful-angular
+Create `src/main/docker/app.yml` file that configures your app to set environment variables and leverage your existing PostreSQL container. Make sure to replace the `<your-username>` placeholder and make the image match what's in your `build.gradle.kts` file.
 
+[source,yaml]
+----
+version: '2'
+services:
+  boot-app:
+    image: <your-username>/bootiful-angular
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://notes-postgresql:5432/notes
+      - OKTA_OAUTH2_ISSUER=${OKTA_OAUTH2_ISSUER}
+      - OKTA_OAUTH2_CLIENT_ID=${OKTA_OAUTH2_CLIENT_ID}
+      - OKTA_OAUTH2_CLIENT_SECRET=${OKTA_OAUTH2_CLIENT_SECRET}
+    ports:
+      - 8080:8080
+    depends_on:
+      - notes-postgresql
+  notes-postgresql:
+    extends:
+      file: postgresql.yml
+      service: notes-postgresql
+----
 
+Docker Compose expects the `.env` file to be in the directory you run `docker-compose` from, so you have two choices:
+
+1. Navigate to the `src/main/docker` directory before running `docker-compose`, or
+2. Create a symlink to `.env` in your root directory: `ln -s src/main/docker/.env`
+
+If you choose option #1, run:
+
+[source,shell]
+----
 cd src/main/docker
+docker-compose -f app.yml up
+----
+
+Option #2 looks like:
+
+[source,shell]
+----
 docker-compose -f src/main/docker/app.yml up
+----
 
-// todo: warn about using `build` vs. `bootJar` and tests
+== Deploy Your Spring Boot + Angular Container to Docker Hub
 
-Deploy to Docker hub by renaming task from jibDockerBuild to jib and running
+Jib makes it incredibly easy to deploy your container to Docker Hub. If you don't already have a Docker Hub account, you can [create one](https://hub.docker.com/signup).
 
- ./gradlew jib -Pprod
+Run `docker login` to log in to your account, then use the `jib` task to build *and* deploy your image.
 
-// Heroku Docker
+[source,shell]
+----
+./gradlew jib -Pprod
+----
+
+== Run Your Spring Boot + Angular Container on Heroku
+
+To deploy this container to Heroku, create a new Heroku app and add it as a Git remote.
 
 [source,shell]
 ----
 heroku create
-git remote add jib https://git.heroku.com/enigmatic-woodland-19325.git
+git remote add jib https://git.heroku.com/<your-new-app>.git
+----
 
-// attach old or create PostreSQL and Okta
+At this point, you can use the PostgreSQL and Okta addons you already configured. If you'd like to do this, use `addons:attach` instead of `addons:create` in the following commands. Since both addons are free, I'm just going to show how to create new ones.
+
+Add PostgreSQL to this app and configure it for Spring Boot using the following commands:
+
+[source,shell]
+----
 heroku addons:create heroku-postgresql --remote jib
-
 heroku config:get DATABASE_URL --remote jib
 heroku config:set SPRING_DATASOURCE_URL=<value-after-@-from-last-command> --remote jib
 heroku config:set SPRING_DATASOURCE_USERNAME=<username-value-from-last-command> --remote jib
 heroku config:set SPRING_DATASOURCE_PASSWORD=<password-value-from-last-command> --remote jib
-heroku config:set SPRING_JPA_HIBERNATE_DDL_AUTO=validate --remote jib
+----
 
-// screenshot + commands to match
+// todo: screenshot + commands to match
 
+Add Okta to your app.
+
+[source,shell]
+----
 heroku addons:create okta --remote jib
+----
 
+To see your database and Okta environment variables, run:
 
-// See config with
+[source,shell]
+----
 heroku config --remote jib
+----
 
-Remove _WEB from Okta
+Modify the Okta environment variables to remove the `_WEB` on the two keys that have it.
 
-docker tag hub.docker.com/mraible/bootiful-angular registry.heroku.com/enigmatic-woodland-19325/web
+[source,shell]
+----
+heroku config:edit --remote jib
+----
+
+Run the commands below to deploy the image you deployed to Docker Hub. Be sure to replace the `<>` placeholders with your username and app name.
+
+[source,shell]
+----
+docker tag hub.docker.com/<your-username>/bootiful-angular registry.heroku.com/<heroku-app>/web
+docker push registry.heroku.com/<heroku-app>/web
+heroku container:release web --remote jib
+----
+
+For example, I used:
+
+[source,shell]
+----
+docker tag hub.docker.com/mraiblez/bootiful-angular registry.heroku.com/enigmatic-woodland-19325/web
 docker push registry.heroku.com/enigmatic-woodland-19325/web
 heroku container:release web --remote jib
-
-
-Add server.port=${PORT:8080} to application-prod.properties and run  ./gradlew jibDockerBuild -Pprod
 ----
+
+You can watch the logs to see if it started successfully using:
+
+[source,shell]
+----
+heroku logs --tail --remote jib
+----
+
+Once you've verified it starts OK, set the Hibernate configuration so it only validates the schema.
+
+[source,shell]
+----
+heroku config:set SPRING_JPA_HIBERNATE_DDL_AUTO=validate --remote jib
+----
+
+== Run Your Spring Boot + Angular Container on KNative
 
 // CF Docker https://docs.cloudfoundry.org/adminguide/docker.html
 // Google Cloud and Kubernetes OR KNative
@@ -887,13 +1213,11 @@ https://skaffold.dev/
 https://spring.io/blog/2020/01/27/creating-docker-images-with-spring-boot-2-3-0-m1
 
 
-== KNative
-
 boom! https://bootiful-angular.default.35.184.138.10.nip.io/home
 
 https://docs.google.com/document/d/1SLEga2V6N_UaxPcEhDku7gViRJflmtFGljgz-OLUNUQ/edit#
 
-== Cloud Foundry
+== Run Your Spring Boot + Angular Container on Cloud Foundry
 
 cf push -o mraible/bootiful-angular ba
 cf cs elephantsql turtle ba-psql
@@ -955,6 +1279,12 @@ before u run the shell script or the manifest.yml
 
 tada! its in production and im going to focus on something else :)
 
+== Use Cloud Native Buildpacks to Create Spring Boot Images
+
+Show pack CLI
+
+Spring Boot 2.3
+
 == Learn More About Angular and Spring Boot
 
 https://devcenter.heroku.com/articles/deploying-spring-boot-apps-to-heroku
@@ -963,3 +1293,4 @@ https://devcenter.heroku.com/articles/deploying-gradle-apps-on-heroku
 
 https://developer.okta.com/blog/2018/07/03/deploy-vue-app-aws
 https://developer.okta.com/blog/2018/07/31/use-aws-cloudformation-to-automate-static-site-deployment-with-s3
+https://developer.okta.com/blog/2019/08/09/jib-docker-spring-boot
