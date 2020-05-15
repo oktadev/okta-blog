@@ -372,7 +372,9 @@ the mix unnecessarily.
 Finally, if you're interested in web security and all sorts of other interesting
 problems in the authentication space, you should consider signing up for an [Okta
 Developer Account][]. Our API service stores user accounts for your web apps,
-mobile apps, and API services, and makes web security fun again.
+mobile apps, and API services, and makes web security fun again. Or, if you're in the
+mood to read some other interesting security articles, we've got a new [security site](https://sec.okta.com/)
+where we publish lots of stuff like this.
 
 If you have any questions, feel free to hit me up on Twitter [@rdegges][].
 

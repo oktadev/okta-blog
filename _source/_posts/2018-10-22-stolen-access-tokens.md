@@ -61,3 +61,5 @@ As much as we'd like to blame our tools or the technology, it's not their fault.
 To protect ourselves, our systems, and our customers, we need to prepare for the worst and hope for the best.
 
 {% img blog/stolen-access-tokens/looking-good.jpg alt:"looking good" width:"800" %}{: .center-image }
+
+**PS**: Since writing this article, we've released a new [security site](https://sec.okta.com/) where we're publishing lots of in-depth security-focused articles like this. Please check it out if that's interesting to you!

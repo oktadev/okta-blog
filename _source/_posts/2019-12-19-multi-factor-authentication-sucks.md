@@ -240,3 +240,4 @@ If you enjoyed this post, you might want to [follow us](https://twitter.com/okta
 - [OAuth 2.1: How Many RFCs Does it Take to Change a Lightbulb?](/blog/2019/12/13/oauth-2-1-how-many-rfcs)
 - [What's New for Node.js in 2020?](/blog/2019/12/04/whats-new-nodejs-2020)
 - [The Dangers of Self-Signed Certificates](/blog/2019/10/23/dangers-of-self-signed-certs)
+- Anything from the [Okta Security Site](https://sec.okta.com/)

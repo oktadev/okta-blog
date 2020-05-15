@@ -333,5 +333,6 @@ If you want to keep learning, here are some more links from the Okta blog to kee
 - [7 Ways an OAuth Access Token is like a Hotel Key Card](/blog/2019/06/05/seven-ways-an-oauth-access-token-is-like-a-hotel-key-card)
 - [What the Heck is Sign In with Apple?](/blog/2019/06/04/what-the-heck-is-sign-in-with-apple)
 - [What's Going On with the Implicit Flow?](https://www.youtube.com/watch?v=CHzERullHe8) (video)
+- Our new [Okta Security Site](https://sec.okta.com/)
 
 If you have any questions about this post, please add a comment below. For more awesome content, follow  [@oktadev](https://twitter.com/oktadev) on Twitter, like us [on Facebook](https://www.facebook.com/oktadevelopers/), or subscribe to [our YouTube channel](https://www.youtube.com/c/oktadev).
