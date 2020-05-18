@@ -121,7 +121,7 @@ To add OIDC login support to your Angular 9 app, you'll first need an https://de
 
 1. Navigate to **Applications** > **Add Application**
 2. Select **Single-Page App** and click **Next**
-3. Provide a name (e.g., `Angular 9`) and change the Login redirect URI to `http://localhost:4200/implicit/callback`
+3. Provide a name (e.g., `Angular 9`) and change the Login redirect URI to `http://localhost:4200/callback`
 4. Click **Done**
 
 Your app's settings should resemble the following.
@@ -965,5 +965,6 @@ If you like this blog post and want to see more like it, follow https://twitter.
 
 **Changelog:**
 
+* May 18, 2020: Updated to remove `/implicit` from Login redirect URL for Angular. See the code changes in the https://github.com/oktadeveloper/okta-spring-boot-2-angular-9-example/pull/6[example app on GitHub]. Changes to this article can be viewed in https://github.com/oktadeveloper/okta-blog/pull/296[oktadeveloper/okta-blog#296].
 * Feb 19, 2020: Updated to use Angular CLI 9.0.2 (with Angular 9.0.1). See the code changes in the https://github.com/oktadeveloper/okta-spring-boot-2-angular-9-example/pull/2[example app on GitHub]. Changes to this article can be viewed in https://github.com/oktadeveloper/okta-blog/pull/197[oktadeveloper/okta-blog#197].
 * Jan 30, 2020: Updated to use Spring Boot 2.2.4 and Angular CLI 9.0 RC11 (with Angular 9.0 RC11). See the code changes in the https://github.com/oktadeveloper/okta-spring-boot-2-angular-9-example/pull/1[example app on GitHub]. Changes to this article can be viewed in https://github.com/oktadeveloper/okta-blog/pull/175[oktadeveloper/okta-blog#175].
