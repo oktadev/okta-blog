@@ -10,7 +10,7 @@ tweets:
 - "Learn how to migrate your CI builds to GitHub Actions 🛠️"
 - "How I migrated from Travis CI to GitHub Actions, one less service to worry about💥"
 - "A Travis CI fan migrates to GitHub, and likes it😄"
-image:
+image: blog/travis-ci-to-github-actions/travis-to-github.png
 type: awareness
 ---
 :page-liquid:
@@ -77,7 +77,7 @@ git checkout -b github-actions-test
 
 GitHub will look at all of the YAML files in the `.github/workflows` directory in your project, I named mine `build.yml`.
 
-NOTE: Why do all of these services still use the `yml` extension? The https://yaml.org/faq.html[yaml.org FAQ] even recommends `yaml`! Is anyone out there still supporting DOS 8.3 file names 😜
+NOTE: Why do all of these services still use the `yml` extension? The https://yaml.org/faq.html[yaml.org FAQ] even recommends `yaml`! Is anyone out there still supporting DOS 8.3 file names? 😜
 
 To keep this simple, I'm going to use a template for an Apache Maven projects on the first pass to make sure everything is working and then circle back and set up a matrix build with my custom build scripts.
 
