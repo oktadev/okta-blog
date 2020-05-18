@@ -1269,4 +1269,4 @@ If you have any questions about this post, please add a comment below. For more 
 
 **Changelog:**
 
-* May 18, 2020: Upgraded to Okta React 3.0.1 and removed `/implicit` from Login redirect URL. See the code changes in the https://github.com/oktadeveloper/okta-kotlin-react-crud-example/pull/3[example app on GitHub]. Changes to this article can be viewed in https://github.com/oktadeveloper/okta-blog/pull/297[oktadeveloper/okta-blog#297].
+* May 18, 2020: Upgraded to Okta React 3.0.1 and removed `/implicit` from Login redirect URI. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-kotlin-react-crud-example/pull/3). Changes to this article can be viewed in [oktadeveloper/okta-blog#297](https://github.com/oktadeveloper/okta-blog/pull/297).
