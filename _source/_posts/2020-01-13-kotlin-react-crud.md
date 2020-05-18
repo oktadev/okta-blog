@@ -924,7 +924,7 @@ If you haven't already, head over to [developer.okta.com](http://developer.okta.
 * Select **Single-Page App** and click **Next**
 * Change the name to be "Kotlin React App"
 * Change the **Base URI** to `http://localhost:3000`
-* Change the **Login redirect URIs** to have `http://localhost:3000/implicit/callback` 
+* Change the **Login redirect URIs** to have `http://localhost:3000/callback` 
 * Update the **Logout redirect URIs** to have `http://localhost:3000`
 
 {% img blog/kotlin-react-crud/okta-app-settings.png alt:"Okta App Settings" width:"700" %}{: .center-image }
@@ -1006,7 +1006,7 @@ The first step to adding Okta OAuth 2.0 login to your frontend React application
 Use Yarn to add the project dependency to your React client.
 
 ```bash
-yarn add @okta/okta-react@1.3.1
+yarn add @okta/okta-react@3.0.1
 ```
 
 Now update `src/App.js` to match the following. Fill in your **Client ID** and your **Issuer URL** in the Security component properties.
@@ -1016,7 +1016,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Home from './Home';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { Security, SecureRoute, ImplicitCallback } from '@okta/okta-react';
+import { Security, SecureRoute, LoginCallback } from '@okta/okta-react';
 import CoffeeShopsList from './CoffeeShopsList';
 import CoffeeShopEdit from './CoffeeShopEdit';
 import { withAuth } from '@okta/okta-react';
@@ -1103,9 +1103,9 @@ class App extends Component {
       <Router>
         <Security issuer='https://{yourOktaUrl}/oauth2/default'
               clientId='{yourClientId}'
-              redirectUri={window.location.origin + '/implicit/callback'}
+              redirectUri={window.location.origin + '/callback'}
               pkce={true}>
-          <Route path='/implicit/callback' component={ImplicitCallback} />
+          <Route path='/callback' component={LoginCallback} />
           <AuthWrapper />
         </Security>
       </Router>
@@ -1266,3 +1266,7 @@ If you want to keep learning, take a look at these related posts:
 - [Build a Simple CRUD App with Spring Boot and Vue.js](/blog/2018/11/20/build-crud-spring-and-vue)
 
 If you have any questions about this post, please add a comment below. For more awesome content, follow  [@oktadev](https://twitter.com/oktadev) on Twitter, like us [on Facebook](https://www.facebook.com/oktadevelopers/), or subscribe to [our YouTube channel](https://www.youtube.com/c/oktadev).
+
+**Changelog:**
+
+* May 18, 2020: Upgraded to Okta React 3.0.1 and removed `/implicit` from Login redirect URL. See the code changes in the https://github.com/oktadeveloper/okta-kotlin-react-crud-example/pull/3[example app on GitHub]. Changes to this article can be viewed in https://github.com/oktadeveloper/okta-blog/pull/297[oktadeveloper/okta-blog#297].
