@@ -190,7 +190,7 @@ Then, create a new OIDC app for Angular:
 
 1. Navigate to **Applications** > **Add Application**
 2. Select **Single-Page App** and click **Next**
-3. Give the application a name, set the login redirect URI to `http://localhost:4200/implicit/callback`
+3. Give the application a name and set the login redirect URI to `http://localhost:4200/callback`
 4. Click **Done**
 
 Modify `auth-routing.module.ts` to use your Okta domain and client ID.
@@ -200,7 +200,7 @@ Modify `auth-routing.module.ts` to use your Okta domain and client ID.
 ----
 const oktaConfig = {
   issuer: 'https://{yourOktaDomain}/oauth2/default',
-  redirectUri: window.location.origin + '/implicit/callback',
+  redirectUri: window.location.origin + '/callback',
   clientId: '{yourClientId}',
   pkce: true
 };
@@ -1014,3 +1014,7 @@ If you want to learn more about Angular or Spring Boot, I recommend these blog p
 * link:/blog/2019/04/04/java-11-java-12-jhipster-oidc[Better, Faster, Lighter Java with Java 12 and JHipster 6]
 
 If you have questions, please leave a comment below. If you liked this tutorial, follow https://twitter.com/oktadev[@oktadev on Twitter] and subscribe to https://youtube.com/c/oktadev[our YouTube channel].
+
+**Changelog:**
+
+* May 18, 2020: Updated to remove `/implicit` from Login redirect URI. See the code changes in the https://github.com/oktadeveloper/okta-angular-bootstrap-example/pull/4[example app on GitHub]. Changes to this article can be viewed in https://github.com/oktadeveloper/okta-blog/pull/298[oktadeveloper/okta-blog#298].
