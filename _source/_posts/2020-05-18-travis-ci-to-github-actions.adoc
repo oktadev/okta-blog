@@ -15,17 +15,17 @@ type: awareness
 ---
 :page-liquid:
 
-A colleague recently pointed out that I was still configuring Travis-CI on new GitHub repos and suggested I used GitHub Actions instead. I had given Actions the ol' five-minute test when it was still in beta but ran into a few problems and gave up. After all, I've been a fan of Travis-CI for a while and I already had enough new things to learn at the time.
+Recently, a colleague pointed out that I was still configuring Travis-CI on new GitHub repos and suggested I used GitHub Actions instead. I had given Actions the ol' five-minute test when it was still in beta, but ran into a few problems and gave up. After all, I've been a fan of Travis-CI for a while and I had enough new things to learn at the time.
 
-Still, assuming GitHub Actions lives up to the hype, it would mean one less external service to worry about with all the usual concerns like downtime, access control, etc. In this post, I'm going to walk through migrating an existing repository to GitHub Actions and sharing what I learn as I go.
+Still, if GitHub Actions lives up to the hype, it would mean one less external service to worry about with all the usual concerns like downtime, access control, etc. In this post, I'm going to walk through migrating an existing repository to GitHub Actions and share what I learn as I go.
 
 == The Travis-CI Config
 
-I'm going to use the https://github.com/oktadeveloper/okta-maven-plugin[Okta Maven Plugin] for my repository.  If you are a Java developer, it can get you setup with Okta in 30 seconds, check out the project's https://github.com/oktadeveloper/okta-maven-plugin/blob/master/README.md[readme]. Even though I'm using a Java project, you could modify these steps for any project.
+I'm going to use the https://github.com/oktadeveloper/okta-maven-plugin[Okta Maven Plugin] for my repository.  If you are a Java developer, it can get you set up with Okta in 30 seconds, check out the project's https://github.com/oktadeveloper/okta-maven-plugin/blob/master/README.md[readme]. Even though I'm using a Java project, it's possible to modify these steps for any project.
 
-My original `.travis.yml` configures a simple matrix build.  Matrix builds contain multiple jobs that run in parallel, with different configurations. These can be as complex as you need; run a build on multiple operating systems, against different versions of tools, and with different environment variables. A matrix build that defines two operating systems, three environment variables, and two versions of Java would result in 12 individual builds (`2 x 3 x 2`).
+My original `.travis.yml` configures a simple matrix build.  Matrix builds contain multiple jobs that run in parallel with different configurations. These can be as complex as you need; run a build on multiple operating systems, against different versions of tools, and with different environment variables. A matrix build that defines two operating systems, three environment variables, and two versions of Java would result in 12 individual builds (`2 x 3 x 2`).
 
-My project expands into just two builds, one for each Java 8 and 11:
+My project expands into just two builds, one for each Java (8 and 11):
 
 ====
 [source,yaml]
@@ -68,14 +68,14 @@ My build scripts do have a few references to Travis-CI environment variables lik
 
 == First Steps to GitHub Actions
 
-The first step is to create a branch in your project; I called mine "github-actions-test":
+The first step is to create a branch in your project. I called mine "github-actions-test":
 
 [source,sh]
 ----
 git checkout -b github-actions-test
 ----
 
-GitHub will look at all of the YAML files in the `.github/workflows` directory in your project, I named mine `build.yml`.
+GitHub will look at all of the YAML files in the `.github/workflows` directory in your project. I named mine, `build.yml`.
 
 NOTE: Why do all of these services still use the `yml` extension? The https://yaml.org/faq.html[yaml.org FAQ] even recommends `yaml`! Is anyone out there still supporting DOS 8.3 file names? 😜
 
@@ -128,14 +128,14 @@ image::{% asset_path 'blog/travis-ci-to-github-actions/github-actions-build.png'
 
 Of course, if you create a pull request the build status will be reported there as well.
 
-My build was all green so I'll update the `run` attribute with my custom script:
+My build was all green, so I'll update the `run` attribute with my custom script:
 
 [source,yaml]
 ----
 run: source ./src/ci/before_install.sh && ./src/ci/build.sh
 ----
 
-NOTE: My `before_install.sh` script just sets environment variables, so it needs to be run in the same context block as my `build.sh`, I'll cover a few other options for environment variables below.
+NOTE: My `before_install.sh` script just sets environment variables, so it needs to be run in the same context block as my `build.sh`. I'll cover a few other options for environment variables below.
 
 Commit and push the changes again.
 
@@ -143,7 +143,7 @@ Woot! Another successful build! 🟢
 
 == Matrix Builds with GitHub Actions
 
-Matrix builds are configured a little differently in Actions than Travis CI, and it took some head-scratching before I understood the differences between the two. With Travis CI the configuration is declaraitive vs GitHub Actions which uses an https://help.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions[expression syntax] for everything; variables are defined in a `matrix` element which are then used in "expressions" throughout your configuration. To build against multiple versions of Java I needed to define `strategy.matrix.java = [8, 11]` and then use the expression {% raw %}`${{ matrix.java }}`{% endraw %} where I previously had hard coded "1.8":
+Matrix builds are configured a little differently in Actions than Travis CI, and it took some head-scratching before I understood the differences between the two. With Travis CI the configuration is declarative, unlike  GitHub Actions which uses an https://help.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions[expression syntax] for everything. Variables are defined in a `matrix` element which are then used in "expressions" throughout your configuration. To build against multiple versions of Java I needed to define `strategy.matrix.java = [8, 11]` and then use the expression {% raw %}`${{ matrix.java }}`{% endraw %} where I previously had hard coded "1.8":
 
 ====
 [source,yaml]
@@ -176,13 +176,13 @@ jobs:
 {% endraw %}
 ----
 <1> The `strategy` node defines the matrix options, similar to Travis CI. You can also define multiple operating systems here
-<2> Define the versions of Java to support
-<3> Add a user-friendly name or the default name will be "build (8)" and "build (11)"
-<4> Update the display name to be user-friendly
-<5> Use the `matrix.java` expression to set the version of java installed by the `setup-java` action
+<2> Defines the versions of Java to support
+<3> Adds a user-friendly name; otherwise the default name will be "build (8)" and "build (11)"
+<4> Updates the display name to be user-friendly
+<5> Uses the `matrix.java` expression to set the version of java installed by the `setup-java` action
 ====
 
-Once again, commit and push to your branch. Then head over to the "Actions" tab on your GitHub project to see the matrix build result.
+Once again, commit and push to your branch. Then, head over to the "Actions" tab on your GitHub project to see the matrix build result.
 
 image::{% asset_path 'blog/travis-ci-to-github-actions/github-actions-matrix.png' %}[alt=GitHub Actions matrix build screenshot,width=600,align=center]
 
@@ -212,9 +212,9 @@ NOTE: This action does the same thing as the original bash script under the cove
 
 == Replace Travis CI Environment Variables
 
-I mentioned before that my bash scripts used a few `TRAVIS_*` environment variables. They also default to reasonable values where possible, which allows for running the script locally or via GitHub Actions. To keep things focused in this post, I'll walk through setting the Travis CI environment variables and tease the implementation-specific bits out of my build in a future post.
+I mentioned before that my bash scripts used a few `TRAVIS_*` environment variables. They also default to reasonable values where possible, which allows for running the script locally, or via GitHub Actions. To keep things focused in this post, I'll walk through setting the Travis CI environment variables and tease the implementation-specific bits out of my build in a future post.
 
-There are two ways to set environment variables with GitHub Actions: declare them directly in the yaml file or use a special syntax to output them to the console.
+There are two ways to set environment variables with GitHub Actions: declare them directly in the YAML file or use a special syntax to output them to the console.
 
 Declare them globally for your whole job:
 
@@ -237,7 +237,7 @@ steps:
     run: echo "my env var: ${SOME_ENV_VAR_NAME}"
 ----
 
-You can also write a script to output a specific output format: `::set-env name=<var-name>::<value>`. In practice, that looks like this:
+You can also write a script to output a specific format: `::set-env name=<var-name>::<value>`. In practice, that looks like this:
 
 [source,yaml]
 ----
@@ -321,7 +321,7 @@ While it's possible to use the Travis CI environment variables, I don't recommen
 
 == Learn More About CI and Secure Applications
 
-Overall I'm happy with GitHub Actions: I was able to migrate my build with minimal effort, the GitHub Marketplace has a lot of potential, and the ability to https://help.github.com/en/actions/building-actions[define actions] I can use across multiple repositories has me excited. Going forward I'll be migrating my other projects to Actions.
+Overall I'm happy with GitHub Actions. I was able to migrate my build with minimal effort. The GitHub Marketplace has a lot of potential. I can use the ability to https://help.github.com/en/actions/building-actions[define actions] across multiple repositories, which has me excited. Going forward, I'll be migrating my other projects to Actions.
 
 If you want to learn more about CI or building secure applications, check out these links:
 
