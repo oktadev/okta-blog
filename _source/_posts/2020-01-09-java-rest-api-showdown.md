@@ -264,7 +264,7 @@ To develop your application using Quarkus you only need Maven installed, there a
 Let's start creating your app! Go to the directory you want to create it in and execute the following command:
 
 ```bash
-mvn io.quarkus:quarkus-maven-plugin:1.1.1.Final:create \
+mvn io.quarkus:quarkus-maven-plugin:1.4.2.Final:create \
     -DprojectGroupId=com.okta.rest \
     -DprojectArtifactId=quarkus \
     -DclassName="com.okta.rest.quarkus.HelloResource" \
@@ -468,9 +468,9 @@ Micronaut and Quarkus are growing in popularity and gaining momentum inside the 
 
 Performance is the most often highlighted comparison point between these three frameworks. If you're looking for fast startup in a serverless environment, or the ability to create native images with GraalVM, Micronaut and Quarkus will likely work well for you. Just for fun, the startup times for each of these apps are as follows (based on the average from three attempts):
 
-* Micronaut: 1003ms
-* Quarkus: 1278ms
-* Spring Boot: 1653ms
+* Micronaut: 905ms
+* Quarkus: 1261ms
+* Spring Boot: 1433ms
 
 In the end, you'll be able to productively develop a secure application, regardless of the choice you make.
 
@@ -485,6 +485,9 @@ Do you want to learn more about Java, REST APIs, and secure applications? Here a
 
 For more posts like this one, follow [@oktadev on Twitter](https://twitter.com/oktadev). We also regularly publish screencasts to [our YouTube channel](https://youtube.com/c/oktadev)!
 
+<a name="changelog"></a>
 **Changelog:**
 
+* May 20, 2020: Upgraded to Micronaut 1.3.5, 
+Quarkus 1.4.2, and Spring Boot 2.3.0. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-java-rest-api-comparison-example/pull/5). Changes to this article can be viewed in [oktadeveloper/okta-blog#301](https://github.com/oktadeveloper/okta-blog/pull/301).
 * Jan 30, 2020: Updated to optimize Micronaut based on [feedback from the Micronaut team](https://github.com/oktadeveloper/okta-java-rest-api-comparison-example/pull/2). Also re-calculated startup times based on an average of three attempts. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-java-rest-api-comparison-example/pull/3). Changes to this article can be viewed in [oktadeveloper/okta-blog#176](https://github.com/oktadeveloper/okta-blog/pull/176).
