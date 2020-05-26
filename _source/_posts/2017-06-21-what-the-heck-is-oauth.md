@@ -414,4 +414,4 @@ If you'd like to learn more about OAuth and OIDC, we suggest the following posts
 * [OIDC in Action – An OpenID Connect Primer, Part 2 of 3](/blog/2017/07/25/oidc-primer-part-2)
 * [What's in a Token? – An OpenID Connect Primer, Part 3 of 3](/blog/2017/08/01/oidc-primer-part-3)
 
-If you're passionate about OAuth 2.0 and OIDC like we are, give us a [follow on Twitter](https://twitter.com/oktadev)!
+If you're passionate about OAuth 2.0 and OIDC like we are, give us a [follow on Twitter](https://twitter.com/oktadev) or check out our new [security site](https://sec.okta.com) where we're publishing in-depth articles on security topics.

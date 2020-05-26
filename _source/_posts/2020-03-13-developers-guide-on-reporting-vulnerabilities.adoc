@@ -101,3 +101,5 @@ This post showed you the importance of handling vulnerabilities differently than
 * link:/blog/2020/01/23/pkce-oauth2-spring-boot[Use PKCE with OAuth 2.0 and Spring Boot for Better Security]
 
 If you have questions, please leave a comment below. If you liked this tutorial, follow https://twitter.com/oktadev[@oktadev] on Twitter, follow us https://www.linkedin.com/company/oktadev/[on LinkedIn], or subscribe to https://www.youtube.com/c/oktadev[our YouTube channel].
+
+**PS**: We've just recently launched a new [security site](https://sec.okta.com/) where we're publishing in-depth security articles and guides. If you're interested in infosec, please check it out. =)

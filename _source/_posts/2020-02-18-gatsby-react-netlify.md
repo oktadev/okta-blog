@@ -107,7 +107,7 @@ module.exports = {
 
 Then create a `static/admin` directory and a `config.yml` file in it.
 
-`.static/admin/config.yml`
+`static/admin/config.yml`
 ```yaml
 backend:
   name: test-repo

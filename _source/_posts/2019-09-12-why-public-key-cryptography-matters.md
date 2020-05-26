@@ -71,3 +71,5 @@ For more history on the fascinating world of public key cryptography, Stephen Le
 * [Why JWTs Suck as Session Tokens](/blog/2017/08/17/why-jwts-suck-as-session-tokens)
 
 Finally, be sure to follow us on [Twitter](https://twitter.com/oktadev), [YouTube](https://www.youtube.com/c/oktadev), and [Facebook](https://www.facebook.com/oktadevelopers/) if you'd like to see when we publish more articles like this. And please tell us what you'd like to us to write about next!
+
+And, if you're in the mood to read through some other security articles, our new [security site](https://sec.okta.com/) has a bunch.

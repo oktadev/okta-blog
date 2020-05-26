@@ -77,3 +77,5 @@ Has this article piqued your interest in REST APIs and authentication? Here is s
 - [Build a REST API Using Java, MicroProfile, and JWT Authentication ](https://developer.okta.com/blog/2019/07/10/java-microprofile-jwt-auth)
 - [Create a Secure Spring REST API ](https://developer.okta.com/blog/2018/12/18/secure-spring-rest-api)
 - [Why JWTs Suck as Session Tokens ](https://developer.okta.com/blog/2017/08/17/why-jwts-suck-as-session-tokens)
+
+We've also got a dedicated [security site](https://sec.okta.com/) where we're publishing in-depth security articles and guides that you might find interesting.
