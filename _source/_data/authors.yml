@@ -6,6 +6,15 @@ victor-ronin:
   web: http://victorronin.com/en/
   github: https://github.com/vronin
 
+vickie-li:
+  full_name: Vickie Li
+  display_name: Vickie
+  avatar: avatar-vickie-li.png
+  email: vickieli101@gmail.com
+  twitter: https://twitter.com/vickieli7
+  web: https://medium.com/@vickieli
+  bio: "Vickie Li is a professional investigator of nerdy stuff, with a primary focus on web security. She began her career as a web developer and fell in love with security in the process. Now, she spends her days hunting for vulnerabilities, writing, and blogging about her adventures hacking the web."
+
 jon-todd:
   full_name: Jon Todd
   display_name: Jon
@@ -91,6 +100,12 @@ brian-demers:
   web: https://www.linkedin.com/in/bdemers/
   twitter: https://twitter.com/briandemers
   github: https://github.com/bdemers
+  bio:
+    Brian Demers is a Developer Advocate at Okta and a PMC member for the Apache Shiro project. He spends much of his
+    day contributing to OSS projects in the form of writing code, tutorials, blogs, and answering questions. Along with
+    typical software development, Brian also has a passion for fast builds and automation.
+    Away from the keyboard, Brian is a beekeeper and can likely be found playing board games.
+    You can find him on Twitter at <a href="https://twitter.com/briandemers">@briandemers</a>.
 
 micah-silverman:
   full_name: Micah Silverman
@@ -456,6 +471,8 @@ nickolas-fisher:
   full_name: Nickolas Fisher
   display_name: Nickolas Fisher
   avatar: avatar-nik.jpg
+  github: https://protect-us.mimecast.com/s/8s1FCNk7glTZRNMZSmBsNp?domain=github.com
+  web: https://protect-us.mimecast.com/s/tsGACOYJjmINGA2NcvbIl_?domain=profile.fishbowlllc.com
 
 lee-mcgovern:
   full_name: Lee McGovern

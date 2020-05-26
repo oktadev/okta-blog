@@ -162,8 +162,8 @@ Go back to the Okta developer console and follow the steps below:
 * Click on **Add Application**
 * Select **Native** and click **Next**
 * Enter `Ionic FTW!` for the Name
-* Add Login redirect URIs: `http://localhost:8100/implicit/callback` and `dev.localhost.ionic:/callback`
-* Click **Done**, then **Edit** and add Logout redirect URIs: `http://localhost:8100/implicit/logout` and `dev.localhost.ionic:/logout`
+* Add Login redirect URIs: `http://localhost:8100/callback` and `dev.localhost.ionic:/callback`
+* Click **Done**, then **Edit** and add Logout redirect URIs: `http://localhost:8100/logout` and `dev.localhost.ionic:/logout`
 * Click **Save**
 
 You'll also need to add a trusted origin for `http://localhost:8100`. Navigate to **API** > **Trusted Origins** > **Add Origin**. Use the following values:
@@ -424,4 +424,5 @@ Give https://twitter.com/oktadev[@oktadev] a follow on Twitter if you liked this
 [[changelog]]
 **Changelog:**
 
+* May 20, 2020: Updated to remove `/implicit` from redirect URIs since auth code flow is used. Changes to this post can be viewed in https://github.com/oktadeveloper/okta-blog/pull/302[okta-blog#302]. Updates to the example application are in https://github.com/oktadeveloper/okta-ionic4-jhipster-example/pull/10[okta-ionic4-jhipster-example#10].
 * Oct 30, 2019: Updated to use JHipster 6.4.1 and Ionic for JHipster 4.3.0. Changes to this post can be viewed in https://github.com/oktadeveloper/okta-blog/pull/64[okta-blog#64]. Updates to the example application are in https://github.com/oktadeveloper/okta-ionic4-jhipster-example/pull/7[okta-ionic4-jhipster-example#7].
