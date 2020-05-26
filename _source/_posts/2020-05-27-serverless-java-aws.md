@@ -182,7 +182,7 @@ aws iam attach-role-policy --role-name lambda-ex --policy-arn arn:aws:iam::aws:p
 ```
 ## Download the Project from GitHub
 
-Download the code from [the project's GitHub repository](https://github.com/oktadeveloper/okta-java-serverless-aws).
+Download the code from [the project's GitHub repository](https://github.com/oktadeveloper/okta-java-serverless-aws-example).
 
 The `build.gradle` file has a few notable features I want to point out. First, notice the `buildZip` task:
 ```groovy
@@ -616,7 +616,7 @@ testinput
 
 All done. In this tutorial you created a simple serverless function using Amazon Web Services, Java, and Gradle. You saw how to simply integrate AWS deployment with Gradle script. You also saw how to use Okta to secure the serverless function with JSON Web Tokens, OAuth, and OpenID Connect.
 
-You can find the source code for this tutorial on GitHub at https://github.com/oktadeveloper/okta-java-serverless-aws
+You can find the source code for this tutorial on GitHub at https://github.com/oktadeveloper/okta-java-serverless-aws-example
 
 If you liked this tutorial, chances are you'll like some of our other ones:
 
