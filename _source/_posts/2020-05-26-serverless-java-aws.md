@@ -1,32 +1,32 @@
 ---
 layout: blog_post
 title: "Serverless Java with Amazon Web Services"
-author: Andrew Hughes
-description: ""
-tags: []
+author: andrew-hughes
+by: contractor
+communities: [java]
+description: "The cloud is maturing from virtual machines being a discrete unit of work to virtual functions. In this post, we explore serverless with Java and AWS"
+tags: [aws, amazon web services, oauth2, security, serverless, java]
 tweets:
-- ""
-- ""
-- ""
-image: 
+- "Do you already use Java on AWS EC2? Maybe serverless is right for you. Move from machine to function with this tutorial."
+- "Wanna write Serverless functions with Java? If the answer is, 'Yes, please!' you want to read this post!"
+- "Serverless is the next iteration in cloud management. Read all about how you can write serverless functions in Java on AWS in this tutorial."
+image: blog/featured/okta-java-skew.jpg
+type: conversion
 ---
-GitHub: https://github.com/moksamedia/okta-java-serverless-aws
 
-## Java Serverless
+Serverless is the next iteration in cloud management. First, we let go of having physical hardware servers and moved all of our servers into the cloud because, hey, why bother managing all that hardware? This created cloud infrastructure providers that resulted in behemoths like Amazon and Google. Now, they're saying, why bother managing a server at all? What you really want to do is run code, right? Serverless is an architecture where code is run in a managed service container that is totally isolated from server-level concerns like operating systems, web servers, and updates.
 
-Serverless is the next iteration in cloud management. First, we let go of having physical hardware servers and moved all of our servers into the cloud--because, hey, why bother managing all that hardware? This created cloud infrastructure providers that resulted in behemoths like Apple and Google. Now, they're saying, why bother managing a server at all? What you really want to do is run code, right? Serverless is a service architecture where code is run in a managed service container that is totally isolated from server-level concerns like operating systems, web servers, and updates.
-
-In truth, this creates a whole host of trade-off. The promised benefits are simplicity, automatic scaling, and low cost. The idea is that, to create an application, all you have to do is upload your code and you're off! Because the service provider is managing provisioning for you automatically, scaling is fast and transparent. And because you're only paying for time you actually use--instead of paying a fixed cost for time you're only using a fraction of--you save money. Sounds perfect. Indeed, it sounds like a great sell to managers corporate executives. But while in some use cases, serverless is fantastic, it's not that simple.
+In truth, this creates a whole host of trade-offs. The promised benefits are simplicity, automatic scaling, and low cost. The idea is that to create an application, all you have to do is upload your code and you're off! Because the service provider is managing provisioning for you automatically, scaling is fast and transparent. And because you're only paying for time you actually use - instead of paying a fixed cost - you save money. Sounds perfect. Indeed, it sounds like a great sell to managers and corporate executives. But while in some use cases, serverless is fantastic, it's not that simple.
 
 For example, Amazon AWS is a fantastic platform in some ways, but I doubt too many people have accused it of being "simple." It's an expert platform made for technical specialists and engineered to provide maximum control. This results in a bewildering array of options and documentation that sometimes leaves me aching for a simple command prompt and a few "sudo apt-get install" commands. More than a few startups have simply traded their Linux gurus for AWS gurus.
 
-The benefit of simplicity can be offset by the cost of learning how to interact with the service provider's system. Instead of interacting with well known and proven technologies like Linux and Apache or Ngix, you're working with a new system like Amazon or Google's cloud infrastructure. Serverless functions run as private functions that have to go through Gateway APIs to make them public, adding another level of complexity. As the complexity of the serverless application grows, the complexity of these proprietary interactions grows. This has two effects: 1) your team is having to become an expert in a totally new system, often every bit as complex as the system they already knew; and 2) you're becoming increasingly locked into whatever cloud provider you chose just as the benefits of even using a serverless environment diminish (a bit like one of those finger-trap toys).
+The benefit of simplicity can be offset by the cost of learning how to interact with the service provider's system. Instead of interacting with well known and proven technologies like Linux and Apache or Nginx, you're working with a new system like Amazon or Google's cloud infrastructure. Serverless functions run as private functions that have to go through Gateway APIs to make them public, adding another level of complexity. As the complexity of the serverless application grows, the complexity of these proprietary interactions grows. This has two effects: 1) your team is having to become an expert in a totally new system, often every bit as complex as the system they already knew; and 2) you're becoming increasingly locked into whatever cloud provider you chose just as the benefits of even using a serverless environment diminish (a bit like one of those finger-trap toys).
 
-What are ideal use-cases for serverless? My thought is: discrete units of code that are not likely to grow greatly in complexity but that have unpredictable or intermittent usage (thus maximizing benefit from the pay-as-you-go model) or have the potential to vary greatly in demand (thus benefiting from the great scaling capacity of serverless technologies).
+What are the ideal use-cases for serverless? My thought is: discrete units of code that are not likely to grow greatly in complexity but that have unpredictable or intermittent usage (thus maximizing the benefit from the pay-as-you-go model) or have the potential to vary greatly in demand (thus benefiting from the great scaling capacity of serverless technologies).
 
-Serverless functions should also be stateless (there's no disk to write to) and have relatively short running times. If you need to write to disk, serverless is out--although, with databases, cloud logging, and cloud file repositories, it's hard to imagine too many places where this is a huge problem. Further, serverless systems are optimized for short-running code. You start to lose the cost-benefit if your code runs for long and most of the providers have maximum execution times between 300 and 900 seconds.
+Serverless functions should also be stateless (there's no disk to write to) and have relatively short running times. If you need to write to disk, serverless is out - although, with databases, cloud logging, and cloud file repositories, it's hard to imagine too many places where this is a huge problem. Further, serverless systems are optimized for short-running code. You start to lose the cost-benefit if your code runs for long and most of the providers have maximum execution times between 300 and 900 seconds.
 
-## Java Serverless Options
+## Choose Between Java Serverless Options
 
 Broadly speaking, two main options for running a serverless code base are: 1) to use a commercial function-as-service (FaaS) provider, or 2) use an open-source serverless platform and deploy it in one of the many options for deploying containerized code. The example application you're going to write in this tutorial uses the first option, specifically Amazon AWS Lambda. But before you get started, I'm going to quickly look at a few of the other options.
 
@@ -36,7 +36,7 @@ One of the major differences between FaaS providers is their Java support. Some 
  - Microsoft Azure - Java 7, Java 8, and Java 11 (Java 13 in technical preview)
  - IBM Cloud Functions - Java 8
 
-The pricing on all of these services are very similar. I looked up the various pricing pages and used their calculators before finding this helpful page: the [Serverless Cost Calculator](http://serverlesscalc.com/). Assuming 3 million executions per month, 512 MB of memory, and 1 second execution time, the estimated cost for the providers would be:
+The pricing on all of these services is very similar. I looked up the various pricing pages and used their calculators before finding this helpful page: the [Serverless Cost Calculator](http://serverlesscalc.com/). Assuming 3 million executions per month, 512 MB of memory, and 1 second execution time, the estimated cost for the providers would be:
 
 - Amazon AWS Lambda - $18.74
 - Google Cloud Functions - $25.15
@@ -53,7 +53,7 @@ I'll just mention a few possible solutions here. We'll take a look at some of th
 - Oracle Fn
 - Micronaut
 
-Finally, I'll just point out that there are hybrid/meta solutions like Serverless.com that bridge open-source and pay-for-service model with managing deployment to multiple systems.
+Finally, I'll just point out that there are hybrid/meta solutions like Serverless.com that bridge open-source and pay-for-service models with managing deployment to multiple systems.
 
 In this project, you're going to create a simple Amazon AWS Lambda function. You're going to create an API Gateway for the function to make it publicly accessible via HTTP requests. Finally, you're going to secure the function using Okta and JSON Web Token authentication.
 
@@ -63,9 +63,9 @@ AWS is a good introduction to these kinds of services because it highlights some
 
 In this tutorial, you'll need a few tools installed.
 
-- **Java 11**: This tutorial uses Java 11. OpenJDK 11 will work just as well. You can find instructions on the [OpenJDK website](https://openjdk.java.net/install/). You can install OpenJDK using [Homebrew](https://brew.sh/). Alternatively, [SDKMAN](https://sdkman.io/) is another great option for installing and managing Java versions.
-- **Okta Developer Account**: You’ll be using Okta as an OAuth/OIDC provider to add JWT authentication and authorization to the application. You can go to [our developer site](https://developer.okta.com/signup/) and sign up for a free developer account.
-- **HTTPie**: This is a powerful command-line HTTP request utility that you'll use to test the WebFlux server. Install it according to [the docs on their site](https://httpie.org/doc#installation).
+- **Java 11**: This tutorial uses Java 11. OpenJDK 11 works well. You can find instructions on the [OpenJDK website](https://openjdk.java.net/install/). You can install OpenJDK using [Homebrew](https://brew.sh/). Alternatively, [SDKMAN](https://sdkman.io/) is another great option for installing and managing Java versions.
+- **Okta Developer Account**: You'll be using Okta as an OAuth/OIDC provider to add JWT authentication and authorization to the application. You can go to [our developer site](https://developer.okta.com/signup/) and sign up for a free developer account.
+- **HTTPie**: This is a powerful command-line HTTP request utility that you'll use to test the server. Install it according to [the docs on their site](https://httpie.org/doc#installation).
 - **Amazon Web Services** account with billing activated. The costs for this account should be minimal, if not free, but AWS required you to have billing activated to use the Lambda service. Instructions on how to set up an AWS account are below.
 
 ## Sign Up for AWS Account with Billing
@@ -92,9 +92,7 @@ For part of this tutorial, you will use the AWS Command Line Interface (CLI). Fo
 
 {% img blog/serverless-java-aws/image1.png alt:"Creating Access Keys" width:"800" %}{: .center-image }
 
-
 Save access key ID and access key somewhere (you'll need them in just a moment)
-
 
 ## Install and Configure AWS CLI
 
@@ -146,7 +144,9 @@ The lambda must be executed with a role that defines its permissions. Execute th
 
 Create the role:
 ```bash
-aws iam create-role --role-name lambda-ex --assume-role-policy-document '{"Version": "2012-10-17","Statement": [{ "Effect": "Allow", "Principal": {"Service": "lambda.amazonaws.com"}, "Action": "sts:AssumeRole"}]}'
+aws iam create-role --role-name lambda-ex \
+--assume-role-policy-document \
+'{"Version": "2012-10-17","Statement": [{ "Effect": "Allow", "Principal": {"Service": "lambda.amazonaws.com"}, "Action": "sts:AssumeRole"}]}'
 ```
 
 It should output something like this:
@@ -182,7 +182,7 @@ aws iam attach-role-policy --role-name lambda-ex --policy-arn arn:aws:iam::aws:p
 ```
 ## Download the Project from GitHub
 
-Download the code from [the project's GitHub repository](https://need.a.link).
+Download the code from [the project's GitHub repository](https://github.com/oktadeveloper/okta-java-serverless-aws).
 
 The `build.gradle` file has a few notable features I want to point out. First, notice the `buildZip` task:
 ```groovy
@@ -193,8 +193,9 @@ task buildZip(type: Zip) {
         from configurations.runtimeClasspath
     }
 }
+build.dependsOn buildZip
 ```
-This task creates the Zip file that AWS lambda requires for deployment. The output of this task is what you'll upload to the AWS servers.
+This task creates the Zip file that AWS lambda requires for deployment. The output of this task is what you'll upload to the AWS servers. There's also a line that defines the `buildZip` task as a dependency on the `build` task. This insures that the Zip file for deployment is built when the `build` task is run.
 
 There also a `deploy` task that uses the Gradle AWS plugin to allow us to upload the zipped project using Gradle.
 ```groovy
@@ -207,6 +208,7 @@ task deploy(type: AWSLambdaUpdateFunctionCodeTask) {
 You won't necessarily need the deploy task for this tutorial, but it was super handy for me while writing this tutorial and I thought I'd leave it in there to show you how to integrate deploying the lambda into Gradle.
 
 Finally, looking at the dependencies, you'll notice two dependencies for the Okta JWT Verifier, which is what you'll use to validate JSON Web Tokens. To learn more, take a look at [the Okta JWT Verifier for Java GitHub page](https://github.com/okta/okta-jwt-verifier-java).
+
 ```groovy
 dependencies {
     ....
@@ -229,9 +231,7 @@ The code in `src/main/java/com/okta/serverless/awslambda` includes three classes
 ```java
 package com.okta.serverless.awslambda;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
+...
 
 public class Config {
 
@@ -260,13 +260,11 @@ public class Config {
         this.audience = prop.getProperty("okta.oauth.audience");
         this.connectionTimeoutSeconds = Long.parseLong(prop.getProperty("okta.oauth.connectionTimeoutSeconds"));
         this.readTimeoutSeconds = Long.parseLong(prop.getProperty("okta.oauth.readTimeoutSeconds"));
-
     }
-
 }
 ```
 
-`LambdaInput.java` is even simpler. It has one string property named `input.` We are using this because AWS Lambda requires input and output to be JSON (unless you use the RequestStreamHandler, which allows you to deal with the input and output streams directly), and because Gson, our JSON parser, parses input JSON directly into Java object instances.
+`LambdaInput.java` is even simpler. It has one string property named `input.` We are using this because AWS Lambda requires input and output to be JSON (unless you use the RequestStreamHandler, which allows you to deal with the input and output streams directly) and because Gson, our JSON parser, parses input JSON directly into Java object instances.
 
 The file below really only needs the `public String input` property, the `toString()` is just handy for debugging but totally unnecessary.
 
@@ -275,7 +273,9 @@ The file below really only needs the `public String input` property, the `toStri
 package com.okta.serverless.awslambda;
 
 public class LambdaInput {
+
     public String input = "";
+
     @Override
     public String toString() {
         return "LambdaInput{input='" + input + "'}";
@@ -286,6 +286,7 @@ public class LambdaInput {
 The last class, where all the action is, is `Handler.java`. It contains one method, `handleRequest()`, which is the method executed by the AWS Lambda service. Notice that the class uses two AWS-specific classes for input and output: `APIGatewayProxyRequestEvent` and `APIGatewayProxyResponseEvent`. The AWS API Gateway, which is what you'll use to expose the lambda to the world, is very picky about the format of the event objects it sends and receives. Using these predefined classes saves a lot of headaches.
 
 The flow of the code if pretty simple. In the constructor, the Config class and the JWT verifier are initialized. Notice the line showing you how to get the logger from the context.
+
 ```java
  LambdaLogger logger = context.getLogger();
 ```
@@ -305,22 +306,8 @@ The code handles two exceptions: a JSON parsing exception and a JWT verification
 
 ```java
 package com.okta.serverless.awslambda;
-import com.amazonaws.services.lambda.runtime.Context;
-import com.amazonaws.services.lambda.runtime.LambdaLogger;
-import com.amazonaws.services.lambda.runtime.RequestHandler;
-import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
-import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonParseException;
-import com.okta.jwt.AccessTokenVerifier;
-import com.okta.jwt.Jwt;
-import com.okta.jwt.JwtVerificationException;
-import com.okta.jwt.JwtVerifiers;
 
-import java.io.IOException;
-import java.time.Duration;
-import java.util.Map;
+...
 
 public class Handler implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
 
@@ -414,9 +401,17 @@ public class Handler implements RequestHandler<APIGatewayProxyRequestEvent, APIG
 }
 ```
 
+Build the application using the following command:
+
+```bash
+./gradlew build
+```
+
+Remember that because of the `buildZip` task and the dependency defined on the `build` task, the `build` command will also build the Zip file required for deployment to AWS.
+
 ## Configure Okta JWT Auth
 
-You're going to use Okta as your OAuth & OpenID Connect (OIDC) provider. OAuth and OIDC are open standards that together provide a complete authentication and authorization system. Okta provides an implementation of these standards that you'll use to add JSON Web Token (JWT) authentication to the serverless function.
+You're going to use Okta as your OAuth 2.0 & OpenID Connect (OIDC) provider. OAuth 2.0 and OIDC are open standards that together provide a complete authentication and authorization system. Okta provides an implementation of these standards that you'll use to add JSON Web Token (JWT) authentication to the serverless function.
 
 You should have already signed up for a free developer account with Okta. Navigate to the developer dashboard at [https://developer.okta.com](https://developer.okta.com). If this is your first time logging in, you may need to click the **Admin** button.
 
@@ -432,8 +427,6 @@ Give the app a name. I named mine `Okta Serverless Lambda`.
 
 Under **Login redirect URIs**, add a new URI: `https://oidcdebugger.com/debug`
 
-Under **Grant types allowed**, check Implicit (Hybrid).
-
 The rest of the default values will work.
 
 Click **Done**.
@@ -441,9 +434,9 @@ Click **Done**.
 
 {% img blog/serverless-java-aws/image5.png alt:"Okta OIDC Application" width:"600" %}{: .center-image }
 
-Leave the page open or take note of the Client ID. You’ll need it in a bit when you generate a token.
+Leave the page open or take note of the Client ID. You'll need it in a bit when you generate a token.
 
-Open `src/main/resources/config.java` and fill in the correct value for `okta.oauth.issuer` using your Okta developer URI. It will look something like `dev-123456.okta.com`. You can find it by going to your Okta developer dashboard and, from the top menu, selecting **API** and **Authorization servers**. You want the **Issuer URI** for the **default** authorization server in the table.
+Open `src/main/resources/config.properties` and fill in the correct value for `okta.oauth.issuer` using your Okta developer URI. It will look something like `dev-123456.okta.com`. You can find it by going to your Okta developer dashboard and, from the top menu, selecting **API** and **Authorization servers**. You want the **Issuer URI** for the **default** authorization server in the table.
 
 ```properties
 okta.oauth.issuer=https://{yourOktaUrl}/oauth2/default
@@ -452,7 +445,7 @@ okta.oauth.connectionTimeoutSeconds=10
 okta.oauth.readTimeoutSeconds=10
 ```
 
-You might notice that you don't need any of the OIDC application values within lambda function itself, only the issuer URI. That's because you don't need an OIDC application to verify tokens, but you do need one to create tokens.
+You might notice that you don't need any of the OIDC application values within lambda function itself, only the issuer URI. That's because you don't need an OIDC application to verify tokens, but you do need one to create tokens. The JWT validator retrieves the public key used to sign the JWT using a well-known endpoint with your issue value as a base.
 
 ## Create the Lambda
 
@@ -470,7 +463,7 @@ You **also need to fill in the Role ARN** from the step above (where you created
 ```bash
 aws lambda create-function --function-name stripSpaces \
 --zip-file fileb://build/distributions/okta-serverless-lambda-1.0-SNAPSHOT.zip \
---handler com.okta.lambdatest.Handler::handleRequest \
+--handler com.okta.serverless.awslambda.Handler::handleRequest \
 --runtime java11 \
 --role arn:aws:iam::273214351825:role/lambda-ex \
 --timeout 30 \
@@ -505,13 +498,11 @@ You should get some output that looks like this:
 
 Currently, your lambda has no way of talking with the outside world. Further, it's written using some custom input and output objects that are specific to the AWS API Gateway. The next step is to create an AWS API Gateway REST API and assign it to proxy the lambda. This next step is much simpler to perform on the AWS console.
 
-The API Gateway allows you to define publicly visible input paths to your lambda function. Of course, there are a bazillion various options and configurations, including complex mapping, versioning, staging, etc... That's all well beyond the scope of this tutorial, but there is a (sometimes bewildering) cornucopia of documentation on the AWS website about it. In truth, AWS can be a little daunting if you don't use it regularly. However, it's super well documented, has a very active community, and generally the quality of online resources for using it are high.
+The API Gateway allows you to define publicly visible input paths to your lambda function. Of course, there are a bazillion various options and configurations, including complex mapping, versioning, staging, etc... That's all well beyond the scope of this tutorial, but there is a (sometimes bewildering) cornucopia of documentation on the AWS website about it. In truth, AWS can be a little daunting if you don't use it regularly. However, it's super well documented, has a very active community, and generally, the quality of online resources for using it are high.
 
-Open your AWS console and navigate to your lambda's page. From the top menu, select **Services** and enter **Lambda**. Click on the **stripSpaces** lambda listed in the **Functions** table.
+Open your AWS console and navigate to your lambda's page. Make sure you're in the right region, `us-west-2`, if you followed the tutorial.. From the top menu, select **Services** and enter **Lambda**. Click on the **stripSpaces** lambda listed in the **Functions** table.
 
 Click **Add Trigger**.
-
-
 
 {% img blog/serverless-java-aws/image3.png alt:"Adding a Trigger" width:"800" %}{: .center-image }
 
@@ -526,10 +517,7 @@ Update the following fields:
 
 {% img blog/serverless-java-aws/image2.png alt:"Adding a Trigger, Step 2" width:"800" %}{: .center-image }
 
-You should see a page that looks like this:
-
-
-
+click **Add**. You should see a page that looks like this:
 {% img blog/serverless-java-aws/image4.png alt:"API Gateway" width:"800" %}{: .center-image }
 
 Notice at the bottom is the public URI for your API endpoint.
@@ -564,17 +552,50 @@ Follow the below steps to continue:
 
 - Set the **Authorize URI** to: https://{yourOktaDomain}/oauth2/default/v1/authorize
 - Copy your **Client ID** from the Okta OIDC application you created above and fill it in under Client ID
--  Add something for **State**. It doesn’t matter what. Just can’t be blank. In production code, this is used to protect against cross-site request forgery attacks (CSRF).
+-  Add something for **State**. It doesn't matter what. Just can't be blank. In production code, this is used to protect against cross-site request forgery attacks (CSRF).
+- Leave the default of **code** selected for **Response type**. Make sure neither **token** nor **id_token** are checked.
 - Scroll down. Click **Send Request**
 
-
 {% img blog/serverless-java-aws/image6.png alt:"OIDC Debugger" width:"400" %}{: .center-image }
+
+After you authenticate to your Okta org, Okta will redirect back and you'll see the Authorization code shown in the browser:
+
+{% img blog/serverless-java-aws/image7.png alt:"OIDC Debugger" width:"400" %}{: .center-image }
+
+You'll also see instructions for how to exchange the code for tokens. You'll can use HTTPie for this. See the command below. Don't forget to fill in the values in brackets: the **authorization code**, your **Okta domain**, your OIDC app **client ID**, and your OIDC app **client secret**.
+
+```bash
+http -f https://{yourOktaDomain}/oauth2/default/v1/token \
+grant_type=authorization_code \
+code=p48uzYGwqG19EeqvagWU \
+client_id={clientId} \
+client_secret={clientSecret} \
+redirect_uri=https://oidcdebugger.com/debug
+```
+
+You should get JSON response that includes an access token and an ID token.
+
+```json
+HTTP/1.1 200 OK
+Cache-Control: no-cache, no-store
+Connection: keep-alive
+...
+
+{
+	"access_token": "eyJraWQiOiJycGZWTzd4R2hDWmlvUXdrWWha...",
+	"expires_in": 3600,
+	"id_token": "eyJraWQiOiJycGZWTzd4R2hDWmlvUXdrWWhaSkph...",
+	"scope": "openid",
+	"token_type": "Bearer"
+}
+```
 
 Copy the resulting JWT Access Token to the clipboard, and in the terminal where you are running your HTTPie commands, save the token value to a shell variable, like so:
 
 ```bash
 TOKEN=eyJraWQiOiJxMm5rZmtwUDRhMlJLV2REU2JfQ...
 ```
+
 ## Test the Protected Serverless Function
 
 Now, with a valid JWT, you can use it to make a request to the Lambda.
@@ -595,8 +616,8 @@ testinput
 
 All done. In this tutorial you created a simple serverless function using Amazon Web Services, Java, and Gradle. You saw how to simply integrate AWS deployment with Gradle script. You also saw how to use Okta to secure the serverless function with JSON Web Tokens, OAuth, and OpenID Connect.
 
-You can find the source code for this tutorial on GitHub at https://need.a.link
+You can find the source code for this tutorial on GitHub at https://github.com/oktadeveloper/okta-java-serverless-aws
 
-If you liked this tutorial, chances are you’ll like some of our other ones:
+If you liked this tutorial, chances are you'll like some of our other ones:
 
 If you have any questions, please leave a comment below. You can also follow us @oktadev on Twitter. We have a popular YouTube channel too—check it out!
