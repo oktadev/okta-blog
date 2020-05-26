@@ -18,29 +18,55 @@
     <nav class="Header-nav PrimaryNav">
       <ul class="menu">
         <li class="first expanded">
-          <a href="{{ site.external_domain }}/product/">Product</a>
+          <a href="/docs/"{{ active_documentation }}>Docs</a>
           <ul class="menu">
-            <li class="first leaf"><a href="{{ site.external_domain }}/product/">Overview</a></li>
-            <li class="leaf"><a href="{{ site.external_domain }}/product/authentication/">Authentication</a></li>
-            <li class="leaf"><a href="{{ site.external_domain }}/product/authorization/">Authorization</a></li>
-            <li class="last leaf"><a href="{{ site.external_domain }}/product/user-management/">User Management</a></li>
+            <li class="first leaf">
+              <a href="/docs/">Get Started</a>
+            </li>
+            <li class="leaf">
+              <a href="/docs/concepts/">Concepts</a>
+            </li>
+            <li class="leaf">
+              <a href="/docs/guides/">Guides</a>
+            </li>
+            <li class="last leaf">
+              <a href="/docs/reference/">Reference</a>
+            </li>
+          </ul>
+        </li>
+        <li class="expanded">
+          <a href="{{ site.external_domain }}/product/">Use Cases</a>
+          <ul class="menu">
+            <li class="first leaf">
+              <span class="menu-item--header nolink" tabindex="0">Embed auth into your app</span>
+            </li>
+            <li class="leaf">
+              <a href="{{ site.external_domain }}/product/">Overview</a>
+            </li>
+            <li class="leaf">
+              <a href="{{ site.external_domain }}/product/authentication/">Authentication</a>
+            </li>
+            <li class="leaf">
+              <a href="{{ site.external_domain }}/product/authorization/">Authorization</a>
+            </li>
+            <li class="leaf">
+              <a href="{{ site.external_domain }}/product/user-management/">User Management</a>
+            </li>
+            <li class="leaf menu-item--rule">
+              <span class="menu-link--rule nolink" tabindex="0">Horizontal Rule</span>
+            </li>
+            <li class="leaf">
+              <span class="menu-item--header nolink" tabindex="0">Publish an integration</span>
+            </li>
+            <li class="last leaf">
+              <a href="{{ site.external_domain }}/integrate-with-okta/">Overview</a>
+            </li>
           </ul>
         </li>
         <li class="leaf">
           <a href="{{ site.external_domain }}/pricing/">Pricing</a>
         </li>
-        <li class="leaf">
-          <a href="/blog/"{% if page.url contains "/blog/" %} class="active"{% endif %}>Blog</a>
-        </li>
-        <li class="expanded">
-          <a href="/docs/"{{ active_documentation }}>Docs</a>
-          <ul class="menu">
-            <li class="first leaf"><a href="/docs/">Get Started</a></li>
-            <li class="first leaf"><a href="/docs/concepts/">Concepts</a></li>
-            <li class="first leaf"><a href="/docs/guides/">Guides</a></li>
-            <li class="last leaf"><a href="/docs/reference/">Reference</a></li>
-          </ul>
-        </li>
+        <li class="leaf"><a href="/blog/"{% if page.url contains "/blog/" %} class="active" {% endif %}>Blog</a></li>
         <li class="last expanded">
           <span class="nolink">Support</span>
           <ul class="menu">
@@ -74,8 +100,7 @@
         <a href="{{ site.external_domain }}/signup/" class="Button--red">Sign up</a>
       </div>
 
-      <a class="SearchIcon" href="#" data-search-toggle></a>
-
+      <button class="SearchIcon" data-search-toggle></button>
     </nav>
 
   </div>
