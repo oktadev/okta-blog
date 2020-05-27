@@ -28,8 +28,8 @@ toc::[]
 
 Since this tutorial is more about deployment than app creation, you can start with an existing Angular + Spring Boot app that I created previously. It's a note-taking app that uses Kotlin and Spring Boot 2.2 on the backend and Angular 9 on the frontend. It's secured with OpenID Connect (OIDC). If you'd like to see how I built it, you can read the following tutorials:
 
-* https://developer.okta.com/blog/2020/01/06/crud-angular-9-spring-boot-2[Build a CRUD App with Angular 9 and Spring Boot 2.2]
-* https://developer.okta.com/blog/2020/03/02/angular-bootstrap[Build Beautiful Angular Apps with Bootstrap]
+* link:/blog/2020/01/06/crud-angular-9-spring-boot-2[Build a CRUD App with Angular 9 and Spring Boot 2.2]
+* link:/blog/2020/03/02/angular-bootstrap[Build Beautiful Angular Apps with Bootstrap]
 
 One of the slick features of this app is its full-featured data table that allows sorting, searching, and pagination. This feature is powered by NG Bootstrap and Spring Data JPA. Below is a screenshot:
 
@@ -1195,17 +1195,17 @@ You learned how to make your Angular app more secure with security headers, forc
 
 This blog post is the third in a series. The first two posts are below.
 
-1. https://developer.okta.com/blog/2020/01/06/crud-angular-9-spring-boot-2[Build a CRUD App with Angular 9 and Spring Boot 2.2]
-2. https://developer.okta.com/blog/2020/03/02/angular-bootstrap[Build Beautiful Angular Apps with Bootstrap]
+1. link:/blog/2020/01/06/crud-angular-9-spring-boot-2[Build a CRUD App with Angular 9 and Spring Boot 2.2]
+2. link:/blog/2020/03/02/angular-bootstrap[Build Beautiful Angular Apps with Bootstrap]
 
 I'll be publishing a 4th and final blog post that shows you how to containerize your apps with Docker. I'll also show you how you can combine them into a JAR and use server-side authorization code flow, which is the most secure OAuth 2.0 flow.
 
 If you liked this tutorial, we have several others on Angular and Spring Boot.
 
-- https://developer.okta.com/blog/2020/01/21/angular-material-login[Build a Beautiful App + Login with Angular Material]
-- https://developer.okta.com/blog/2020/02/12/angular-ivy[What Is Angular Ivy and Why Is It Awesome?]
-- https://developer.okta.com/blog/2019/10/30/java-oauth2[OAuth 2.0 Java Guide: Secure Your App in 5 Minutes]
-- https://developer.okta.com/blog/2019/05/15/spring-boot-login-options[A Quick Guide to Spring Boot Login Options]
-- https://developer.okta.com/blog/2019/09/17/build-a-spring-boot-kotlin-app[Build an Application with Spring Boot and Kotlin]
+- link:/blog/2020/01/21/angular-material-login[Build a Beautiful App + Login with Angular Material]
+- link:/blog/2020/02/12/angular-ivy[What Is Angular Ivy and Why Is It Awesome?]
+- link:/blog/2019/10/30/java-oauth2[OAuth 2.0 Java Guide: Secure Your App in 5 Minutes]
+- link:/blog/2019/05/15/spring-boot-login-options[A Quick Guide to Spring Boot Login Options]
+- link:/blog/2019/09/17/build-a-spring-boot-kotlin-app[Build an Application with Spring Boot and Kotlin]
 
 If you have any questions, please leave a comment below. Follow us on https://twitter.com/oktadev[Twitter], https://www.linkedin.com/company/oktadev[LinkedIn], or https://www.facebook.com/oktadevelopers/[Facebook] to be notified when we publish new tutorials. We have a popular https://youtube.com/c/oktadev[YouTube channel] too!
