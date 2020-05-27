@@ -402,7 +402,6 @@ data class Note(@Id @GeneratedValue var id: Long? = null,
 
 This will cause compilation errors and you'll need to rename method names and variables to fix them.
 
-// todo adjust diff CSS
 .Click to see the diff
 [%collapsible]
 ====
@@ -731,7 +730,7 @@ One issue you'll experience is that you're going to lose your data between resta
 heroku config:set SPRING_JPA_HIBERNATE_DDL_AUTO=validate --remote heroku
 ----
 
-=== Make Your Angular App More Secure on Heroku
+== Make Your Angular App More Secure on Heroku
 
 You've deployed your app to Heroku, but there are still a couple of security issues. The first is that if you access it using `http` (instead of `https`), it won't work. You'll get a blank page and an error from the Okta Angular SDK in your browser's console.
 
@@ -866,7 +865,7 @@ You'll also need to modify your Okta SPA app to add your Firebase URL as a Login
 
 Open your Firebase URL in your browser, log in, and you should be able to see the note you added on Heroku.
 
-=== Improve Security Headers for Firebase
+=== Strong Security Headers on Firebase
 
 If you test your new Firebase site on https://securityheaders.com/[securityheaders.com], you'll score a **D**. Luckily, you can https://firebase.google.com/docs/hosting/full-config#headers[configure headers] in your `firebase.json` file. Edit this file and add a `headers` key like the following:
 
@@ -981,7 +980,7 @@ Then, modify `angular.json` to include this file in its assets.
 
 Run `ng deploy` again and you should be able to log in successfully.
 
-=== Improve Security Headers for Netlify
+=== Better Security Headers on Netlify
 
 If you test your new Firebase site on https://securityheaders.com/[securityheaders.com], you'll score a **D**. Netlify allows you to add https://docs.netlify.com/routing/headers/[custom headers] to improve your score.
 
@@ -1136,7 +1135,7 @@ If you try to log in, you'll get a 403 when redirecting back to the site. To fix
 
 Now you should be able to authenticate to your Angular app on AWS successfully!
 
-=== Improve Security Headers for AWS CloudFront + S3
+=== Awesome Security Headers with AWS CloudFront + S3
 
 If you test your new CloudFront + S3 site on https://securityheaders.com/[securityheaders.com], you'll get an **F**. To solve this, you can use https://aws.amazon.com/blogs/networking-and-content-delivery/adding-http-security-headers-using-lambdaedge-and-amazon-cloudfront/[Lambda@Edge to add security headers].
 
