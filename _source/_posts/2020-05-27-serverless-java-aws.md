@@ -26,11 +26,16 @@ What are the ideal use-cases for serverless? My thought is: discrete units of co
 
 Serverless functions should also be stateless (there's no disk to write to) and have relatively short running times. If you need to write to disk, serverless is out - although, with databases, cloud logging, and cloud file repositories, it's hard to imagine too many places where this is a huge problem. Further, serverless systems are optimized for short-running code. You start to lose the cost-benefit if your code runs for long and most of the providers have maximum execution times between 300 and 900 seconds.
 
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+
 ## Choose Between Java Serverless Options
 
 Broadly speaking, two main options for running a serverless code base are: 1) to use a commercial function-as-service (FaaS) provider, or 2) use an open-source serverless platform and deploy it in one of the many options for deploying containerized code. The example application you're going to write in this tutorial uses the first option, specifically Amazon AWS Lambda. But before you get started, I'm going to quickly look at a few of the other options.
 
 One of the major differences between FaaS providers is their Java support. Some commercial FaaS providers and the flavors of Java they currently support are:
+
  - Amazon AWS Lambda - Java 8 and Java 11
  - Google Cloud Functions - Java 8 in alpha and Java 11 on App Engine public beta
  - Microsoft Azure - Java 7, Java 8, and Java 11 (Java 13 in technical preview)
@@ -59,9 +64,7 @@ In this project, you're going to create a simple Amazon AWS Lambda function. You
 
 AWS is a good introduction to these kinds of services because it highlights some of the trade-offs in anything-as-service. Often when you offload complexity to a vendor, you either lose flexibility or you simply shift complexity from a system you know to a system you don't. In this case, AWS is incredibly powerful, and once you get to know it, it can be great. But it's definitely an expert system in its own right and sometimes daunting if you're not familiar with it. Fortunately, it's very well documented and there's a huge user base, so answers are generally easy to find.
 
-## Requirements
-
-In this tutorial, you'll need a few tools installed.
+**Prerequisites**:
 
 - **Java 11**: This tutorial uses Java 11. OpenJDK 11 works well. You can find instructions on the [OpenJDK website](https://openjdk.java.net/install/). You can install OpenJDK using [Homebrew](https://brew.sh/). Alternatively, [SDKMAN](https://sdkman.io/) is another great option for installing and managing Java versions.
 - **Okta Developer Account**: You'll be using Okta as an OAuth/OIDC provider to add JWT authentication and authorization to the application. You can go to [our developer site](https://developer.okta.com/signup/) and sign up for a free developer account.
@@ -72,7 +75,7 @@ In this tutorial, you'll need a few tools installed.
 
 The first thing you need to do is create an Amazon AWS account and activate billing. There are detailed instructions on [the Amazon Web Services website](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/). The steps are outlined briefly below:
 
-- Go to the [Amazon Web Services home page](https://aws.amazon.com/).
+- Go to the [Amazon Web Services home page](https://aws.amazon.com/)
 - Click **Create an AWS Account**
 - Enter your account information and click **Continue**
 - Choose **Personal** or **Professional** and enter the necessary information (either way works)
@@ -86,32 +89,35 @@ Account activation usually only takes a few minutes but can take up to 24 hours.
 ## Create AWS Access Keys
 
 For part of this tutorial, you will use the AWS Command Line Interface (CLI). For this to work, you need to generate access keys.
-- From the AWS dashboard, go to **Your account (your name)** and select **My Security Credentials**.
+
+- From the AWS dashboard, go to **Your account (your name)** and select **My Security Credentials**
 - Expand **Access keys (access key ID and secret access key)** tab
 - Click on **Create New Access Key**
 
-{% img blog/serverless-java-aws/image1.png alt:"Creating Access Keys" width:"800" %}{: .center-image }
+{% img blog/serverless-java-aws/create-access-keys.png alt:"Creating Access Keys" width:"800" %}{: .center-image }
 
-Save access key ID and access key somewhere (you'll need them in just a moment)
+Save your access key ID and access key somewhere (you'll need them in just a moment).
 
 ## Install and Configure AWS CLI
 
-The AWS CLI is incredibly full featured. You can do nearly everything from the CLI that you can do from the dashboard. You could probably spend an entire career learning how to use all the features. You're going to install AWS CLI version 2 (version 1 is still supported but outdated). To install the CLI, follow the instructions for your operating system from [the AWS documentation](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html), or use the commands below.
+The AWS CLI is incredibly full featured. You can do nearly everything from the CLI that you can do from the dashboard. You could probably spend an entire career learning how to use all the features. You're going to install AWS CLI version 2 (version 1 is still supported, but outdated). To install the CLI, follow the instructions for your operating system from [the AWS documentation](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html), or use the commands below.
 
 On a Mac, you should be able to run the following commands from a shell to install the AWS CLI:
+
 ```bash
 $ curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
 $ sudo installer -pkg AWSCLIV2.pkg -target /
 ```
 
 And on Linux:
+
 ```bash
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 unzip awscliv2.zip
 sudo ./aws/install
 ```
 
-Windows users should just [download the graphical installer here](Download%20the%20AWS%20CLI%20MSI%20installer%20for%20Windows%20%2864-bit%29%20at%20https://awscli.amazonaws.com/AWSCLIV2.msi). No command-line for you!
+Windows users should just [download the graphical installer here](https://awscli.amazonaws.com/AWSCLIV2.msi). No command-line for you!
 
 Once the CLI has been properly installed, you need to configure it. This is where you need the access keys you generated above.
 
@@ -126,11 +132,14 @@ Default output format [None]:
 ```
 
 You can test your configuration by running:
+
 ```bash
- aws sts get-caller-identity
+aws sts get-caller-identity
 ```
+
 You should see something like:
-```bash
+
+```json
 {
     "UserId": "12345123451",
     "Account": "12345123451",
@@ -143,6 +152,7 @@ You should see something like:
 The lambda must be executed with a role that defines its permissions. Execute the commands below to create a role named `lambda-ex` and attach the predefined `AWSLambdaBasicExecutionRole` role policy.
 
 Create the role:
+
 ```bash
 aws iam create-role --role-name lambda-ex \
 --assume-role-policy-document \
@@ -150,6 +160,7 @@ aws iam create-role --role-name lambda-ex \
 ```
 
 It should output something like this:
+
 ```json
 {
     "Role": {
@@ -177,14 +188,17 @@ It should output something like this:
 Notice the field `Role.Arn` (something like this `arn:aws:iam::273214351825:role/lambda-ex`). Save this value somewhere. You're going to need it a little later.
 
 Attach the role policy:
+
 ```bas
 aws iam attach-role-policy --role-name lambda-ex --policy-arn arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
 ```
+
 ## Download the Project from GitHub
 
-Download the code from [the project's GitHub repository](https://github.com/oktadeveloper/okta-java-serverless-aws-example).
+Download the code from [this tutorials's GitHub repository](https://github.com/oktadeveloper/okta-java-serverless-aws-example).
 
 The `build.gradle` file has a few notable features I want to point out. First, notice the `buildZip` task:
+
 ```groovy
 task buildZip(type: Zip) {
     from compileJava
@@ -195,9 +209,11 @@ task buildZip(type: Zip) {
 }
 build.dependsOn buildZip
 ```
+
 This task creates the Zip file that AWS lambda requires for deployment. The output of this task is what you'll upload to the AWS servers. There's also a line that defines the `buildZip` task as a dependency on the `build` task. This insures that the Zip file for deployment is built when the `build` task is run.
 
 There also a `deploy` task that uses the Gradle AWS plugin to allow us to upload the zipped project using Gradle.
+
 ```groovy
 task deploy(type: AWSLambdaUpdateFunctionCodeTask) {
     functionName = lambdaName
@@ -239,7 +255,6 @@ public class Config {
     public final String audience;
     public final Long connectionTimeoutSeconds;
     public final Long readTimeoutSeconds;
-
 
     Config() throws IOException {
 
@@ -288,19 +303,19 @@ The last class, where all the action is, is `Handler.java`. It contains one meth
 The flow of the code if pretty simple. In the constructor, the Config class and the JWT verifier are initialized. Notice the line showing you how to get the logger from the context.
 
 ```java
- LambdaLogger logger = context.getLogger();
+LambdaLogger logger = context.getLogger();
 ```
 These log events show up in the CloudWatch logs and can be helpful debugging.
 
 The general flow of the code is:
 
-- Get the request body
-- Use Gson to parse the request body to the `LambdaInput` object
-- Get the `Authorization` header and remove the `Bearer : ` part of the header to extract the token
-- Verify the JWT using the Okta JWT Verifier
-- Strip all whitespace from the input string
-- Populate the `APIGatewayProxyResponseEvent` object
-- Return the response
+1. Get the request body
+2. Use Gson to parse the request body to the `LambdaInput` object
+3. Get the `Authorization` header and remove the `Bearer : ` part of the header to extract the token
+4. Verify the JWT using the Okta JWT Verifier
+5. Strip all whitespace from the input string
+6. Populate the `APIGatewayProxyResponseEvent` object
+7. Return the response
 
 The code handles two exceptions: a JSON parsing exception and a JWT verification exception.
 
@@ -324,9 +339,9 @@ public class Handler implements RequestHandler<APIGatewayProxyRequestEvent, APIG
         // Initialize the Okta JWT verifier
         this.jwtVerifier = JwtVerifiers.accessTokenVerifierBuilder()
                 .setIssuer(this.config.issuer)
-                .setAudience(this.config.audience)            // defaults to 'api://default'
+                .setAudience(this.config.audience) // defaults to 'api://default'
                 .setConnectionTimeout(Duration.ofSeconds(this.config.connectionTimeoutSeconds)) // defaults to 1s
-                .setReadTimeout(Duration.ofSeconds(this.config.readTimeoutSeconds))       // defaults to 1s
+                .setReadTimeout(Duration.ofSeconds(this.config.readTimeoutSeconds)) // defaults to 1s
                 .build();
     }
 
@@ -386,8 +401,7 @@ public class Handler implements RequestHandler<APIGatewayProxyRequestEvent, APIG
 
             // Return the result
             return apiGatewayProxyResponseEvent;
-        }
-        catch (JsonParseException ex) {
+        } catch (JsonParseException ex) {
             apiGatewayProxyResponseEvent.setStatusCode(400);
             apiGatewayProxyResponseEvent.setBody("Failed to parse JSON: " + ex.getMessage());
             return apiGatewayProxyResponseEvent;
@@ -417,22 +431,17 @@ You should have already signed up for a free developer account with Okta. Naviga
 
 You need to create an OIDC application.
 
-From the top menu, click on the **Application** button. Click the **Add Application** button.
-
-Select application type **Web**.
-
-Click **Next**.
-
-Give the app a name. I named mine `Okta Serverless Lambda`.
-
-Under **Login redirect URIs**, add a new URI: `https://oidcdebugger.com/debug`
+1. From the top menu, click on the **Application** button. Click the **Add Application** button.
+2. Select application type **Web**.
+3. Click **Next**.
+4. Give the app a name. I named mine `Okta Serverless Lambda`.
+5. Under **Login redirect URIs**, add a new URI: `https://oidcdebugger.com/debug`
 
 The rest of the default values will work.
 
 Click **Done**.
 
-
-{% img blog/serverless-java-aws/image5.png alt:"Okta OIDC Application" width:"600" %}{: .center-image }
+{% img blog/serverless-java-aws/okta-oidc-application.png alt:"Okta OIDC Application" width:"700" %}{: .center-image }
 
 Leave the page open or take note of the Client ID. You'll need it in a bit when you generate a token.
 
@@ -494,7 +503,7 @@ You should get some output that looks like this:
 }
 ```
 
-## Create API Gateway
+## Create an AWS API Gateway
 
 Currently, your lambda has no way of talking with the outside world. Further, it's written using some custom input and output objects that are specific to the AWS API Gateway. The next step is to create an AWS API Gateway REST API and assign it to proxy the lambda. This next step is much simpler to perform on the AWS console.
 
@@ -504,27 +513,27 @@ Open your AWS console and navigate to your lambda's page. Make sure you're in th
 
 Click **Add Trigger**.
 
-{% img blog/serverless-java-aws/image3.png alt:"Adding a Trigger" width:"800" %}{: .center-image }
+{% img blog/serverless-java-aws/add-trigger.png alt:"Adding a Trigger" width:"800" %}{: .center-image }
 
 Select **API Gateway** from the drop-down.
 
 Update the following fields:
+
 - **API**: `Create an API`
 - **API type**: `REST API`
 - **Security**: `Open`
 
+{% img blog/serverless-java-aws/trigger-configuration.png alt:"Adding a Trigger, Step 2" width:"800" %}{: .center-image }
 
+Click **Add**. You should see a page that looks like this:
 
-{% img blog/serverless-java-aws/image2.png alt:"Adding a Trigger, Step 2" width:"800" %}{: .center-image }
-
-click **Add**. You should see a page that looks like this:
-{% img blog/serverless-java-aws/image4.png alt:"API Gateway" width:"800" %}{: .center-image }
+{% img blog/serverless-java-aws/api-gateway.png alt:"API Gateway" width:"800" %}{: .center-image }
 
 Notice at the bottom is the public URI for your API endpoint.
 
 The general format for the API URIs is: `https://{restapi_id}.execute-api.{region}.amazonaws.com/{stage_name}/`.
 
-## Test the URL
+## Test Your API Gateway URL
 
 You can test the endpoint by making a request using HTTPie. In the command below, **replace `{yourGatewayApi}` with the URI for the API Gateway you just created**. It should look something like this: `abcd342x2.execute-api.us-west-2.amazonaws.com/default`
 
@@ -540,27 +549,28 @@ This should fail with:
 HTTP/1.1 403 Forbidden
 ...
 ```
+
 Your request requires a valid JSON Web Token issued by your Okta authorization server.
 
 ## Generate a JWT Token
 
 Now you're going to use the OpenID Connect Debugger to generate a valid JWT that you can use to make a request against your serverless function.
 
-Open [https://oidcdebugger.com/](https://oidcdebugger.com/)
+Open [https://oidcdebugger.com/](https://oidcdebugger.com/).
 
 Follow the below steps to continue:
 
-- Set the **Authorize URI** to: https://{yourOktaDomain}/oauth2/default/v1/authorize
+- Set the **Authorize URI** to: `https://{yourOktaDomain}/oauth2/default/v1/authorize`
 - Copy your **Client ID** from the Okta OIDC application you created above and fill it in under Client ID
 -  Add something for **State**. It doesn't matter what. Just can't be blank. In production code, this is used to protect against cross-site request forgery attacks (CSRF).
 - Leave the default of **code** selected for **Response type**. Make sure neither **token** nor **id_token** are checked.
-- Scroll down. Click **Send Request**
+- Scroll down. Click **Send Request**.
 
-{% img blog/serverless-java-aws/image6.png alt:"OIDC Debugger" width:"400" %}{: .center-image }
+{% img blog/serverless-java-aws/oidc-debugger.png alt:"OIDC Debugger" width:"400" %}{: .center-image }
 
 After you authenticate to your Okta org, Okta will redirect back and you'll see the Authorization code shown in the browser:
 
-{% img blog/serverless-java-aws/image7.png alt:"OIDC Debugger" width:"400" %}{: .center-image }
+{% img blog/serverless-java-aws/authorization-code.png alt:"Authorization Code from OIDC Debugger" width:"400" %}{: .center-image }
 
 You'll also see instructions for how to exchange the code for tokens. You'll can use HTTPie for this. See the command below. Don't forget to fill in the values in brackets: the **authorization code**, your **Okta domain**, your OIDC app **client ID**, and your OIDC app **client secret**.
 
@@ -603,21 +613,28 @@ Now, with a valid JWT, you can use it to make a request to the Lambda.
 ```bash
 http POST  https://g8ot0krnve.execute-api.us-west-2.amazonaws.com/default/stripSpaces input="test input" "Authorization: Bearer $TOKEN"
 ```
+
 You should see a successful reply:
+
 ```bash
 HTTP/1.1 200 OK
 ...
 
 testinput
-
 ```
 
-## Wrapping Up
+## Learn More about AWS and Java
 
-All done. In this tutorial you created a simple serverless function using Amazon Web Services, Java, and Gradle. You saw how to simply integrate AWS deployment with Gradle script. You also saw how to use Okta to secure the serverless function with JSON Web Tokens, OAuth, and OpenID Connect.
+All done. In this tutorial you created a simple serverless function using Amazon Web Services, Java, and Gradle. You saw how to simply integrate AWS deployment with a Gradle script. You also saw how to use Okta to secure the serverless function with JSON Web Tokens, OAuth, and OpenID Connect.
 
-You can find the source code for this tutorial on GitHub at https://github.com/oktadeveloper/okta-java-serverless-aws-example
+You can find the source code for this tutorial on GitHub at [oktadeveloper/okta-java-serverless-aws-example](https://github.com/oktadeveloper/okta-java-serverless-aws-example).
 
 If you liked this tutorial, chances are you'll like some of our other ones:
 
-If you have any questions, please leave a comment below. You can also follow us @oktadev on Twitter. We have a popular YouTube channel too—check it out!
+- [How to Build a Secure AWS Lambda API with Node.js and React](/blog/2020/04/22/build-secure-aws-lambda-nodejs-react)
+- [Easy Spring Boot Deployment with AWS Elastic Beanstalk](/blog/2019/08/07/deploy-a-spring-boot-app-with-aws-elastic-beanstalk)
+- [Secure Secrets With Spring Cloud Config and Vault](/blog/2020/05/04/spring-vault)
+- [A Quick Guide to Spring Cloud Stream](/blog/2020/04/15/spring-cloud-stream)
+- [Five Tools to Improve Your Java Code](/blog/2019/12/20/five-tools-improve-java)
+
+If you have any questions, please leave a comment below. You can also follow us [@oktadev](https://twitter.com/oktadev) on Twitter. We have a [popular YouTube channel](https://youtube.com/c/oktadev) too—check it out!
