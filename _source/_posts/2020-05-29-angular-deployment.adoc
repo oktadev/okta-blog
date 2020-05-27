@@ -123,7 +123,7 @@ const routes: Routes = [
 
 By default, Heroku registers an SPA app on the same port (`8080`) as a web app. This means you need to log in to your Okta dashboard and add a new redirect URI for local development. Luckily, Heroku makes this easy to do. Go to **Resources** and click on the **okta** add on. This will log you into your Okta dashboard. Navigate to **Applications** > **Heroku Created OIDC App - browser** > **General** > **Edit**.
 
-Add `http://localhost:4200/callback` as a Login redirect URI and `http://localhost:4200` as a Logout redirect URI. You'll also need to add `http://localhost:4200` as a trusted origin in **API** > **Trusted Origins**.
+Add `\http://localhost:4200/callback` as a Login redirect URI and `\http://localhost:4200` as a Logout redirect URI. You'll also need to add `http://localhost:4200` as a trusted origin in **API** > **Trusted Origins**.
 
 Install your Angular app's dependencies and start it.
 
@@ -173,6 +173,13 @@ plugins {
 }
 ----
 
+For compatibility with Spring Boot 2.3, you'll need to update the Gradle Wrapper to use Gradle 6.3+.
+
+[source,shell]
+----
+./gradlew wrapper --gradle-version=6.4 --distribution-type=bin
+----
+
 Then run the following command in the `notes-api` directory to update your dependencies to the latest released versions.
 
 [source,shell]
@@ -189,13 +196,20 @@ For the Angular client, you can use https://www.npmjs.com/package/npm-check-upda
 [source,shell]
 ----
 npm i -g npm-check-updates
+ncu -u
+----
+
+At the time of this writing, this will upgrade Angular to version 9.1.9 and TypeScript to version 3.9.3. Angular 9 supports TypeScript versions >=3.6.4 and <3.9.0, so you'll need to change `package.json` to specify TypeScript 3.8.3.
+
+[source,json]
+----
+"typescript": "~3.8.3"
 ----
 
 Then run the following commands in the `notes` directory:
 
 [source,shell]
 ----
-ncu -u
 npm i
 npm audit fix
 ng serve
@@ -485,6 +499,8 @@ To test your profiles, start PostgreSQL using Docker Compose.
 docker-compose -f src/main/docker/postgresql.yml up
 ----
 
+CAUTION: If you have PostreSQL installed and running locally, you'll need to stop the process for Docker Compose to work.
+
 In another terminal, run your Spring Boot app.
 
 [source,shell]
@@ -547,8 +563,6 @@ heroku buildpacks:add https://github.com/lstoll/heroku-buildpack-monorepo
 heroku buildpacks:add heroku/gradle
 ----
 
-TIP: If you're using Maven, you'll want to use the `heroku/java` buildpack.
-
 Attach a PostgreSQL database to your app.
 
 [source,shell]
@@ -556,7 +570,7 @@ Attach a PostgreSQL database to your app.
 heroku addons:create heroku-postgresql
 ----
 
-As part of this process, Heroku will automatically set configuration variables for `SPRING_DATASOURCE_URL`, `SPRING_DATASOURCE_USERNAME`, AND `SPRING_DATASOURCE_PASSWORD`. These values will override what you have in `application-prod.properties`.
+As part of this process, Heroku will create a `DATASOURCE_URL` configuration variable. It will also automatically detect Spring Boot and set variables for `SPRING_DATASOURCE_URL`, `SPRING_DATASOURCE_USERNAME`, AND `SPRING_DATASOURCE_PASSWORD`. These values will override what you have in `application-prod.properties`.
 
 By default, https://devcenter.heroku.com/articles/deploying-gradle-apps-on-heroku[Heroku's Gradle support] runs `./gradlew build -x test`. Since you want it to run `./gradlew bootJar -Pprod`, you'll need to override it by setting a `GRADLE_TASK` config var.
 
@@ -739,6 +753,7 @@ The second issue is that you'll score an **F** when you test it using https://se
 Create a `notes/static.json` file with the configuration for secure headers and redirect all HTTP requests to HTTPS.
 
 [source,json]
+.notes/static.json
 ----
 {
   "headers": {
@@ -763,6 +778,7 @@ Create a `notes/static.json` file with the configuration for secure headers and 
 For `static.json` to be read, you have to use the https://github.com/heroku/heroku-buildpack-static[Heroku static buildpack]. This buildpack is made for SPA applications, so you can revert the `scripts` section of your `package.json` back to what you had previously.
 
 [source,json]
+.notes/package.json
 ----
 "scripts": {
   "ng": "ng",
@@ -778,6 +794,7 @@ Commit your changes to Git, add the static buildpack, and redeploy your Angular 
 
 [source,shell]
 ----
+git add static.json
 git commit -am "Configure secure headers and static buildpack"
 heroku buildpacks:add https://github.com/heroku/heroku-buildpack-static.git --remote angular
 git push angular master
@@ -912,6 +929,7 @@ Commit your changes to your `firebase` branch.
 
 [source,shell]
 ----
+git add .
 git commit -am "Add Firebase deployment"
 ----
 
@@ -1019,6 +1037,7 @@ Commit your changes to the `netlify` branch.
 
 [source,shell]
 ----
+git add .
 git commit -am "Add Netlify deployment"
 ----
 
