@@ -75,7 +75,7 @@ With `pipenv` installed, create a directory for your backend code:
 mkdir kudos_oss && cd kudos_oss
 ```
 
-The command above will create a Python 3 virtual environment. Now you can install Flask by running the following command:
+The command below will create a Python 3 virtual environment and install Flask:
 
 ```bash
 pipenv install flask==1.0.2
