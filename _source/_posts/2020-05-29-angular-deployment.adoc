@@ -123,7 +123,7 @@ const routes: Routes = [
 
 By default, Heroku registers an SPA app on the same port (`8080`) as a web app. This means you need to log in to your Okta dashboard and add a new redirect URI for local development. Luckily, Heroku makes this easy to do. Go to **Resources** and click on the **okta** add on. This will log you into your Okta dashboard. Navigate to **Applications** > **Heroku Created OIDC App - browser** > **General** > **Edit**.
 
-Add `\http://localhost:4200/callback` as a Login redirect URI and `\http://localhost:4200` as a Logout redirect URI. You'll also need to add `http://localhost:4200` as a trusted origin in **API** > **Trusted Origins**.
+Add `\http://localhost:4200/callback` as a Login redirect URI and `\http://localhost:4200` as a Logout redirect URI. You'll also need to add `\http://localhost:4200` as a trusted origin in **API** > **Trusted Origins**.
 
 Install your Angular app's dependencies and start it.
 
