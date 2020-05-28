@@ -1096,7 +1096,9 @@ When prompted, enter your region, bucket name, access key, and access key ID. Wh
 
 CAUTION: This process writes these raw values to your `angular.json`. For a more secure setup, use environment variables: `NG_DEPLOY_AWS_ACCESS_KEY_ID`, `NG_DEPLOY_AWS_SECRET_ACCESS_KEY`, `NG_DEPLOY_AWS_BUCKET` and `NG_DEPLOY_AWS_REGION`.
 
-After deploying your Angular app, you need to https://docs.aws.amazon.com/AmazonS3/latest/user-guide/static-website-hosting.html[configure S3 for static website hosting]. Go to your bucket > **Properties** > **Static website hosting**. Take note of the endpoint URL at the top of the card, you'll need this in a minute.
+Run `ng deploy` to deploy your Angular app to your AWS S3 bucket.
+
+Next, you need to https://docs.aws.amazon.com/AmazonS3/latest/user-guide/static-website-hosting.html[configure S3 for static website hosting]. Go to your bucket > **Properties** > **Static website hosting**. Take note of the endpoint URL at the top of the card, you'll need this in a minute.
 
 Type `index.html` for the index and error document and click **Save**.
 
@@ -1125,6 +1127,8 @@ The last step you need to do to make it public is add a bucket policy. Go to **P
     ]
 }
 ----
+
+Click **Save** to continue.
 
 At this point, you could navigate to `\https://<bucket-name>.s3.amazonaws.com/index.html` in your browser, and the application will load. However, there's no HTTP to HTTPS redirect or resolution of `index.html` by default. You can https://aws.amazon.com/premiumsupport/knowledge-center/cloudfront-https-requests-s3/[use CloudFront to solve these issues].
 
