@@ -1213,7 +1213,7 @@ WARNING: If you committed the changes in your `angular.json` file, you should de
 
 In this tutorial, you learned how to upgrade Angular and Spring Boot to their latest versions and make them production-ready. You used the https://devcenter.heroku.com/articles/okta[Okta add-on for Heroku] to add OAuth 2.0 + OIDC to both apps, then deployed them to Heroku. After you got them working on Heroku with PostgreSQL, you learned how to deploy the Angular app to Firebase, Netlify, and AWS.
 
-You learned how to make your Angular app more secure with security headers, force HTTPS, and make each cloud provider SPA-aware.
+You learned how to make your Angular app more secure with security headers, force HTTPS, and make each cloud provider SPA-aware. You can find the source code for the completed example in the https://github.com/oktadeveloper/okta-angular-deployment-example[@oktadeveloper/okta-angular-deployment-example] repository.
 
 This blog post is the third in a series. The first two posts are below.
 
