@@ -298,6 +298,15 @@
 		.highlight .x { color: $eclipse-2; } /* Other */
 		.highlight .w { color: $eclipse-2; } /* Text Whitespace */
 
+		// diff enhancements
+		.highlight .gd {
+			background-color: #ffeef0;
+		}
+
+		.highlight .gi {
+			background-color: #e6ffed;
+		}
+
 		p, li {
 			code {
 				@include padding(0 xx-small);
