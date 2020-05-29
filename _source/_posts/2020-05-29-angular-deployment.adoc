@@ -10,7 +10,7 @@ tweets:
 - "You've built an Angular + Spring Boot application and now you need to deploy it. This tutorial shows you how!"
 - "Deploy @angular to Heroku, Firebase, Netlify, AWS, and Azure with this in-depth tutorial."
 - "A Guide for deploying @angular and @springboot applications in 2020. 👇"
-image:
+image: blog/angular-deployment/angular-deployment.png
 type: conversion
 ---
 :toc: macro
@@ -21,6 +21,8 @@ One of the more popular combinations of frontend and backend frameworks is Angul
 Developers ask me from time-to-time, "What's the best way to do Angular  deployment?" In this tutorial, I'll show you several options. I'll start by showing you how to deploy a Spring Boot app to Heroku. Then, I'll show how to deploy a separate Angular app to Heroku.
 
 There are lots of tutorials and information in the Java community on how to deploy Spring Boot apps, so I'll leave the Spring Boot API on Heroku and show other Angular deployment options, including Firebase, Netlify, and AWS S3.
+
+image::{% asset_path 'blog/angular-deployment/angular-deployment.png' %}[alt=Angular Deployment with a Side of Spring Boot,width=800,align=center]
 
 toc::[]
 
