@@ -90,7 +90,7 @@ export OKTA_OAUTH2_CLIENT_SECRET=$OKTA_OAUTH2_CLIENT_SECRET_WEB
 If you're on Windows without https://docs.microsoft.com/en-us/windows/wsl/install-win10[Windows Subsystem for Linux] installed, create an `okta.bat` file and use `SET` instead of `export`.
 ====
 
-Start your Spring Boot app by navigating to the `notes-api` directory, sourcing this file, and starting your app.
+Start your Spring Boot app by navigating to the `notes-api` directory, sourcing this file, and running `bootRun`.
 
 [source,shell]
 ----
@@ -146,7 +146,7 @@ git commit -am "Add Okta OIDC Configuration"
 
 == Create a Docker Container for Your Angular App
 
-Create a `Dockerfile` that uses the latest version of Node and nginx as a web server.
+Create a `Dockerfile` that uses Node and Nginx as a web server.
 
 [source,docker]
 .notes/Dockerfile
@@ -1616,12 +1616,12 @@ The built-in Docker support provided by Spring Boot provides a great way to get 
 
 This lengthy tutorial showed you a lot of options when it comes to deploying your Angular and Spring Boot apps with Docker:
 
-* Angular + `Dockerfile`
-* Angular and Spring Boot in a JAR
-* Docker images with Jib
-* Docker images with Buildpacks
+* Build Angular containers with `Dockerfile`
+* Combine Angular and Spring Boot in a JAR
+* Build Docker images with Jib
+* Build Docker images with Buildpacks
 
-You can find the source code for this example on GitHub at https://github.com/oktadeveloper/okta-angular-docker-example[oktadeveloper/okta-angular-docker-example].
+You can find the source code for this example on GitHub at https://github.com/oktadeveloper/okta-angular-spring-boot-docker-example[oktadeveloper/okta-angular-spring-boot-docker-example].
 
 To learn more about Angular, Spring Boot, and Docker, see some of our other blog posts.
 
