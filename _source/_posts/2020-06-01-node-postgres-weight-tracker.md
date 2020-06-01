@@ -18,7 +18,7 @@ Did you make any resolutions this year? One resolution I seem to make *every* ye
 
 A good way I have found to keep on track with any resolution is to record progress. There's something about visualizing progress that helps me stay motivated.
 
-In this tutorial, you are going to create a modern Node.js application to keep track of weight measurements. We’ll use technologies like PostgreSQL, a new and exciting Postgres client for Node.js, hapi, Vue.js, and Okta to secure the API and provide account registration and login!
+In this tutorial, you are going to create a modern Node.js application to keep track of weight measurements. We'll use technologies like PostgreSQL, a new and exciting Postgres client for Node.js, hapi, Vue.js, and Okta to secure the API and provide account registration and login!
 
 {% img blog/node-postgres-weight-tracker/build-weight-tracker-app-demo.gif alt:"Demo" width:"800" %}{: .center-image }
 
