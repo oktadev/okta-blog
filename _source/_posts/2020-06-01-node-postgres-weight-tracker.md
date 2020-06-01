@@ -7,9 +7,9 @@ communities: [javascript]
 description: ""
 tags: [node.js, postgresql, postgres, sql, api, hapi]
 tweets:
-- ""
-- ""
-- ""
+- "Learn how to build a weight tracker web app using Node.js, @hapijs and @PostgreSQL!"
+- "Build your own weight tracker web app using Node.js, @hapijs and @PostgreSQL!"
+- "Let @reverentgeek show you how to create a Node.js web application and API using @PostgreSQL and @hapijs by building this cool weight tracker app!"
 image: blog/node-postgres-weight-tracker/nodejs-weight-tracker-featured-image.png
 type: conversion
 ---
@@ -1280,3 +1280,5 @@ If you liked this post, you may also enjoy some of my other posts related to Nod
 * [Build a Command Line Application with Node.js](/blog/2019/06/18/command-line-app-with-nodejs)
 * [Top 10 Visual Studio Code Extensions for Node.js](/blog/2019/05/08/top-vs-code-extensions-for-nodejs-developers)
 * [An Illustrated Guide to OAuth and OpenID Connect](/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc)
+
+If you have any questions, please leave a comment below. Follow us [@oktadev](https://twitter.com/oktadev) on Twitter and subscribe to our [popular YouTube channel](https://youtube.com/c/oktadev) for more great posts and tutorials!
