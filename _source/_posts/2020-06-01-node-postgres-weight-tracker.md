@@ -1268,7 +1268,7 @@ You are now ready to test your weight tracker app! You should be able to add mea
 
 ## Learn More About Building Secure Node.js Apps
 
-The entire source code for this project is available at [github.com/reverentgeek/node-weight-tracker](https://github.com/reverentgeek/node-weight-tracker). I believe this project would be a great foundation for many types of Web applications built using Node.js.
+The entire source code for this project is available at [GitHub](https://github.com/oktadeveloper/okta-nodejs-postgres-weight-tracker-example). I believe this project would be a great foundation for many types of Web applications built using Node.js.
 
 > Note: When deploying the application to a production environment, you must create a new `.env` file or use real environment variables to configure the application. Values such as the PostgreSQL connection information, `HOST_URL`, `COOKIE_ENCRYPT_PWD`, and `NODE_ENV` configuration _must_ be updated to reflect the new environment.
 
