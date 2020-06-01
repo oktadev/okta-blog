@@ -4,7 +4,7 @@ title: "Angular Docker"
 author: matt-raible
 by: advocate
 communities: [java,javascript,devops]
-description: "Use Docker to build & deploy an Angular app! Includes how to combine Angular + Spring Boot into a JAR, dockerize it, and deploy to KNative + Cloud Foundry."
+description: "Use Docker to build & deploy an Angular app! Includes how to combine Angular + Spring Boot into a JAR, dockerize it, and deploy to Knative + Cloud Foundry."
 tags: [angular, docker, heroku, jarnotwar, spring boot, knative, cloudfoundry, buildpacks]
 tweets:
 - "A Quick Guide to #Docker with #Angular and Spring Boot. 👇"
@@ -29,15 +29,24 @@ This tutorial is the fourth and final in a series on Angular and Spring Boot in 
 
 1. link:/blog/2020/01/06/crud-angular-9-spring-boot-2[Build a CRUD App with Angular 9 and Spring Boot 2.2]
 2. link:/blog/2020/03/02/angular-bootstrap[Build Beautiful Angular Apps with Bootstrap]
-3. //todo
+3. link:/blog/2020/05/29/angular-deployment[Angular Deployment with a Side of Spring Boot]
 
-Today, I'll show you how to use Docker to create an image for your Angular app and deploy it to Heroku. Then, I'll show how to combine Angular and Spring Boot into the same JAR artifact for deployment. You'll learn how to Dockerize the combined apps using Jib and Cloud Native Buildpacks. Finally, I'll show you how to deploy your Docker image to Heroku, KNative on Google Cloud, and Cloud Foundry.
-
-I'd like to thank Benoit Sautel for his help with Gradle + Kotlin, Ray Tsang for his help with Jib, James Ward for his help with KNative, and Josh Long his assistance with Docker + Cloud Foundry.
+Today, I'll show you how to use Docker to create an image for your Angular app and deploy it to Heroku. Then, I'll show how to combine Angular and Spring Boot into the same JAR artifact for deployment. You'll learn how to Dockerize the combined apps using Jib and Cloud Native Buildpacks. Finally, I'll show you how to deploy your Docker image to Heroku, Knative on Google Cloud, and Cloud Foundry.
 
 Docker is the most popular way to build and share containers. _Dockerizing_ involves packaging your app, and you can include web servers to serve up your app. This is important when containerizing an Angular app because its artifacts are just JavaScript, CSS, and HTML. That is, the production app is static files that will need to be served up by some sort of webserver. As an added bonus, you can configure the webserver to send security headers that make your app more secure.
 
 toc::[]
+
+====
+I'd like to thank many folks for their help with this post. **Benoit Sautel** for help with Gradle + Kotlin, **Ray Tsang** for help with Jib, **James Ward** for help with Knative, **Josh Long** for his assistance with Docker + Cloud Foundry, and **Joe Kutner** for his buildpacks support. Y'all rock! 🤘
+
+[.avatar-row]
+https://twitter.com/bsautel[image:{% asset_path 'blog/angular-docker/bsautel.jpg' %}[alt=Benoit Sautel,role="BlogPost-avatar img-100px"]]
+https://twitter.com/saturnism[image:{% asset_path 'blog/angular-docker/saturnism.jpg' %}[alt=Ray Tsang,role="BlogPost-avatar img-100px"]]
+https://twitter.com/_JamesWard[image:{% asset_path 'blog/angular-docker/_JamesWard.jpg' %}[alt=James Ward,role="BlogPost-avatar img-100px"]]
+https://twitter.com/starbuxman[image:{% asset_path 'blog/angular-docker/starbuxman.jpg' %}[alt=Josh Long,role="BlogPost-avatar img-100px"]]
+https://twitter.com/codefinger[image:{% asset_path 'blog/angular-docker/codefinger.jpg' %}[alt=Joe Kutner,role="BlogPost-avatar img-100px"]]
+====
 
 == Create an Angular + Spring Boot App
 
@@ -121,7 +130,7 @@ const oktaConfig = {
 
 By default, Heroku registers a SPA app on the same port (`8080`) as a web app. This means you need to log in to your Okta dashboard and add a new redirect URI for local development. Luckily, Heroku makes this easy to do. Go to **Resources** and click on the **okta** addon. This will log you into your Okta dashboard. Navigate to **Applications** > **Heroku Created OIDC App - browser** > **General** > **Edit**.
 
-Add `http://localhost:4200/callback` as a Login redirect URI and `http://localhost:4200` as a Logout redirect URI. You'll also need to add `http://localhost:4200` as a trusted origin in **API** > **Trusted Origins**.
+Add `\http://localhost:4200/callback` as a Login redirect URI and `\http://localhost:4200` as a Logout redirect URI. You'll also need to add `\http://localhost:4200` as a trusted origin in **API** > **Trusted Origins**.
 
 Install your Angular app's dependencies and start it.
 
@@ -241,6 +250,8 @@ export const environment = {
 
 You'll need to deploy your Spring Boot app to a similar public URL for your Angular + Docker container to work in production.
 
+NOTE: If you already deployed Spring Boot to Heroku (from the last tutorial), you can skip the next section and go straight to deploying your Angular Docker container to Heroku.
+
 === Deploy Spring Boot to Heroku
 
 One of the easiest ways to interact with Heroku is with the Heroku CLI. https://devcenter.heroku.com/articles/heroku-cli[Install it] before proceeding with the instructions below.
@@ -291,8 +302,6 @@ Attach a PostgreSQL database to your app.
 heroku addons:create heroku-postgresql
 ----
 
-As part of this process, Heroku will automatically set configuration variables for `SPRING_DATASOURCE_URL`, `SPRING_DATASOURCE_USERNAME`, AND `SPRING_DATASOURCE_PASSWORD`. These values will override what you have in `application-prod.properties`.
-
 By default, https://devcenter.heroku.com/articles/deploying-gradle-apps-on-heroku[Heroku's Gradle support] runs `./gradlew build -x test`. Since you want it to run `./gradlew bootJar -Pprod`, you'll need to override it by setting a `GRADLE_TASK` config var.
 
 [source,shell]
@@ -314,13 +323,20 @@ Now you're ready to deploy! Heroku makes this easy with a simple `git push`.
 git push heroku master
 ----
 
-Run `heroku open` to open your app. You'll be redirected to Okta to authenticate, then back to your Spring Boot app.
+Run `heroku open` to open your app. You'll be redirected to Okta to authenticate, then back to your Spring Boot app. You should see a screen like the one below.
 
-// todo: is server.port=${PORT:8080} needed?
+image::{% asset_path 'blog/angular-docker/heroku-hello.png' %}[alt=Hello on Heroku,width=800,align=center]
+
+By default, JPA is configured to create your database schema each time. Change it to simply validate the schema.
+
+[source,shell]
+----
+heroku config:set SPRING_JPA_HIBERNATE_DDL_AUTO=validate --remote heroku
+----
 
 Now, you'll need to configure your Angular app to use your Heroku-deployed Spring Boot app for its production URL.
 
-source,typescript]
+[source,typescript]
 .notes/src/environments/environment.prod.ts
 ----
 export const environment = {
@@ -348,32 +364,9 @@ npm run ng-notes
 
 Open your browser to `http://localhost:4200`, log in, and confirm you can add notes.
 
-[screenshot]
+image::{% asset_path 'blog/angular-docker/first-note-on-heroku.png' %}[alt=First Note on Heroku,width=800,align=center]
 
-Verify the data made it to Heroku by going to `\https://<your-heroku-app>.herokuapp.com/user/notes`.
-
-////
-To publish your image so you can deploy it, you can use Docker Hub. If you don't already have a Docker Hub account, you can https://hub.docker.com/signup[create one].
-
-Once you have an account, log in and push your image.
-
-[source,shell]
-----
-docker login
-docker image tag ng-notes mraible/ng-notes
-docker push mraible/ng-notes
-----
-
-This will tag it as `latest` by default. If you want to tag and push a particular version, you can do:
-
-[source,shell]
-----
-docker image tag ng-notes mraible/ng-notes:1.0
-docker push mraible/ng-notes
-----
-
-IMPORTANT: Your image will be public by default. If you navigate to your image on Docker Hub in a browser, you can go to its **Settings** tab and make it private.
-////
+Verify the data made it to Heroku by going to `\https://<your-heroku-app>.herokuapp.com/api/notes`.
 
 == Deploy Angular + Docker to Heroku
 
@@ -393,7 +386,7 @@ Then, create a new app.
 heroku create
 ----
 
-Add the Git URL as a new remote to your app.
+Add the Git URL as a new remote named `docker`.
 
 [source,shell]
 ----
@@ -467,6 +460,11 @@ And open the app in your browser:
 heroku open --remote docker
 ----
 
+You'll need to add your app's URL to Okta as a valid redirect URI. In your Spring Boot app on Heroku, go to **Resources** and click on the **okta** addon. This will log you into your Okta dashboard. Navigate to **Applications** > **Heroku Created OIDC App - browser** > **General** > **Edit**. Add the following redirect URIs.
+
+- Login: `\https://<angular-docker-app>.herokuapp.com/callback`
+- Logout: `\https://<angular-docker-app>.herokuapp.com`
+
 You'll need to add the new app's URL as an allowed origin in your Spring Boot app on Heroku. Copy the printed `Hosting URL` value and run the following command.
 
 [source,shell]
@@ -481,7 +479,9 @@ Add the new URL after your existing `localhost` one, separating them with a comm
 ALLOWED_ORIGINS='http://localhost:4200,https://<angular-docker-app>.herokuapp.com'
 ----
 
-=== Improve Security Headers for Nginx in Docker
+Now you should be able to log in and see the note you created earlier.
+
+=== A-Rated Security Headers for Nginx in Docker
 
 If you test your freshly-deployed Angular app with https://securityheaders.com/[securityheaders.com], you'll get an **F**. To solve this, modify your `nginx.config` to add security headers.
 
@@ -498,7 +498,7 @@ server {
         try_files $$uri /index.html;
     }
 
-    add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; frame-ancestors 'none'";
+    add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; frame-ancestors 'none'; connect-src 'self' https://*.okta.com";
     add_header Referrer-Policy "no-referrer, strict-origin-when-cross-origin";
     add_header Strict-Transport-Security "max-age=63072000; includeSubDomains";
     add_header X-Content-Type-Options nosniff;
@@ -518,19 +518,19 @@ heroku container:release web --remote docker
 
 Now you should get an **A**!
 
-// todo: new screenshot because new app
-image::{% asset_path 'blog/angular-docker/nginx-headers.png' %}[alt=Nginx in Docker score from securityheaders.com,width=800,align=center]
+image::{% asset_path 'blog/angular-docker/angular-docker-securityheaders.png' %}[alt=Nginx in Docker score from securityheaders.com,width=800,align=center]
 
 Commit your changes to Git.
 
 [source,shell]
 ----
-git commit -am "Add Docker for Angular"
+git add .
+git commit -m "Add Docker for Angular"
 ----
 
 == Combine Your Angular + Spring Boot App into a Single JAR
 
-In the previous sections, you learned how to deploy your Angular and Spring Boot apps separately. Now I'll show you how to combine them into a single JAR for production. You'll still be able to run them independently in development, but deploying them to production will be easier because you won't have to worry about CORS. I'll also convert the OAuth flows so they all happen server-side, which is more secure because the access token won't be stored in the browser.
+In the previous sections, you learned how to deploy your Angular and Spring Boot apps separately. Now I'll show you how to combine them into a single JAR for production. You'll still be able to run them independently in development, but deploying them to production will be easier because you won't have to worry about CORS (cross-origin resource sharing). I'll also convert the OAuth flows so they all happen server-side, which is more secure because the access token won't be stored in the browser.
 
 NOTE: Most client-side OAuth libraries keep access tokens in local storage. However, there is a https://gitlab.com/jimdigriz/oauth2-worker[oauth2-worker] project that allows you to store them in a web worker. There's also folks that think https://pragmaticwebsecurity.com/articles/oauthoidc/localstorage-xss.html[avoiding LocalStorage for tokens is the wrong solution].
 
@@ -907,15 +907,7 @@ When you access the `/user/notes` endpoint with Angular, the `${principal.name}`
 spring.security.oauth2.client.provider.okta.user-name-attribute=preferred_username
 ----
 
-You'll also need to make it possible to override the port with a `PORT` environment variable in `application-prod.properties`.
-
-[source,properties]
-----
-spring.security.oauth2.client.provider.okta.user-name-attribute=preferred_username
-server.port=${PORT:8080}
-----
-
-You can remove the `allowed.origins` property from both files since Angular will proxy the request in development (eliminating the need for CORS) and there won't be cross-domain requests in production.
+You can also remove the `allowed.origins` property from both files since Angular will proxy the request in development (eliminating the need for CORS) and there won't be cross-domain requests in production.
 
 === Modify Gradle to Build a Single JAR
 
@@ -935,7 +927,7 @@ plugins {
 }
 ----
 
-Then, define the location of your Angular app, and configuration for the Node plugin.
+Then, define the location of your Angular app and configuration for the Node plugin.
 
 [source,kotlin]
 .notes/build.gradle.kts
@@ -989,6 +981,14 @@ java -jar build/libs/*.jar
 
 Congrats! You modified your Angular and Spring Boot apps to be packaged together and implemented the most secure form of OAuth 2.0 to boot! 🎊
 
+Commit your changes to Git.
+
+[source,shell]
+----
+git add .
+git commit -m "Combine Angular and Spring Boot"
+----
+
 == Dockerize Angular + Spring Boot with Jib
 
 Since everything is done via Gradle now, you can use plugins to build a Docker container. https://github.com/GoogleContainerTools/jib[Jib] builds optimized Docker images without the need for deep mastery of Docker best-practices. It reads your Gradle/Maven build files for its metadata.
@@ -1036,7 +1036,7 @@ In theory, you should be able to run the following command to run your app.
 docker run --publish=8080:8080 <your-username>/bootiful-angular
 ----
 
-However, Spring Boot won't start because you haven't configured the Okta environment variables.
+However, Spring Boot won't start because you haven't configured the Okta environment variables. You could pass them in on the command line, but it's easier to specify them in a file.
 
 You can https://docs.docker.com/compose/compose-file/#env_file[use Docker Compose and its `env_file` option] to specify environment variables.
 
@@ -1092,6 +1092,14 @@ Option #2 looks like:
 [source,shell]
 ----
 docker-compose -f src/main/docker/app.yml up
+----
+
+Once you've verified everything works, commit your changes to Git.
+
+[source,shell]
+----
+git add .
+git commit -m "Add Jib to build Docker images"
 ----
 
 === Deploy Your Spring Boot + Angular Container to Docker Hub
@@ -1166,7 +1174,7 @@ For example, I used:
 
 [source,shell]
 ----
-docker tag hub.docker.com/mraiblez/bootiful-angular registry.heroku.com/enigmatic-woodland-19325/web
+docker tag hub.docker.com/mraible/bootiful-angular registry.heroku.com/enigmatic-woodland-19325/web
 docker push registry.heroku.com/enigmatic-woodland-19325/web
 heroku container:release web --remote jib
 ----
@@ -1185,23 +1193,17 @@ Once you've verified it starts OK, set the Hibernate configuration so it only va
 heroku config:set SPRING_JPA_HIBERNATE_DDL_AUTO=validate --remote jib
 ----
 
-// todo: Ask Ray if it's worth mentioning https://skaffold.dev/
-
 == Knative 💙 Spring Boot + Docker
 
-Heroku is awesome, but sometimes people want more control over their infrastructure. Enter KNative. It's like Heroku in that it's a Platform as a Service (PaaS). You could also call it Infrastructure as a Service (Iaas) because it offers a number of services you can install with a bit of YAML and `kubectl` commands.
+Heroku is awesome, but sometimes people want more control over their infrastructure. Enter Knative. It's like Heroku in that it's a Platform as a Service (PaaS). You could also call it Infrastructure as a Service (Iaas) because it offers a number of services you can install with a bit of YAML and `kubectl` commands.
 
 The https://knative.dev/[Knative website] says it'll make your developers more productive.
 
 > Knative components build on top of Kubernetes, abstracting away the complex details and enabling developers to focus on what matters. Built by codifying the best practices shared by successful real-world implementations, Knative solves the "boring but difficult" parts of deploying and managing cloud native services so you don't have to.
 
-// todo: picture of James
-
-My friend, https://twitter.com/_JamesWard[James Ward], works for Google Cloud and has a lot of experience with Knative. He was instrumental in getting this app deployed to Google Cloud. Thanks, James!
-
 You'll need a Google Cloud account for this section. Go to https://cloud.google.com/[cloud.google.com] and click **Get started for free**.
 
-Once you have an account, go to your https://console.cloud.google.com/[Google Cloud Console] and create a new project.
+Once you have an account, go to https://console.cloud.google.com/[Google Cloud Console] and create a new project.
 
 Then, click on the Terminal icon in the top right to open a Cloud Shell terminal for your project.
 
@@ -1484,8 +1486,6 @@ Then, you'll be able to login to your app running on Knative! Add a note or two 
 
 Did you know you can https://docs.cloudfoundry.org/adminguide/docker.html[run Docker containers on Cloud Foundry]? It's pretty slick.
 
-Josh Long showed me how to do this.
-
 If you'd like to test it out, you'll need a https://run.pivotal.io/[Pivotal Web Services] account. You'll also need to install the https://docs.cloudfoundry.org/cf-cli/install-go-cli.html[Cloud Foundry CLI]. If you're using Homebrew, you can use `brew install cloudfoundry/tap/cf-cli`.
 
 Apps deployed to Cloud Foundry (CF) with the `cf push` command run in standard CF Linux containers. With Docker support enabled, CF can also deploy and manage apps running in Docker containers.
@@ -1606,11 +1606,13 @@ docker-compose -f src/main/docker/app.yml up
 
 You should be able to navigate to `http://localhost:8080`, log in, and add notes.
 
+// todo: update image
 image::{% asset_path 'blog/angular-docker/spring-boot-2.3-notes-noshadow.png' %}[alt=Spring Boot 2.3 app running,width=800,align=center]
 
 Pretty neat, don't you think!? 😃
 
 The built-in Docker support provided by Spring Boot provides a great way to get started with buildpacks. Since it's an implementation of the buildpack platform specification, it's also easy to migrate to more powerful buildpack tools such as https://github.com/buildpacks/pack[`pack`] or https://github.com/pivotal/kpack[`kpack`].
+// todo: confirm with Joe
 
 == Learn More About Angular, Spring Boot, and Docker
 
@@ -1632,10 +1634,4 @@ To learn more about Angular, Spring Boot, and Docker, see some of our other blog
 - https://developer.okta.com/blog/2017/10/11/developers-guide-to-docker-part-3[A Developer's Guide To Docker - Docker Compose]
 
 https://twitter.com/oktadev[Follow @oktadev on Twitter] for more posts like this one. We also have a https://youtube.com/c/oktadev[YouTube channel] you might enjoy. As always, please leave a comment below if you have any questions!
-
-[[accolades]]
-//=== Accolades
-
-// todo: pic of Joe
-
 
