@@ -4,7 +4,7 @@ title: "Build a Weight Tracker App with Node.js and PostgreSQL"
 author: david-neal
 by: advocate
 communities: [javascript]
-description: ""
+description: "In this tutorial, you will learn how to build a secure weight tracker web application and API using Node.js, PostgreSQL, and hapi.js!"
 tags: [node.js, postgresql, postgres, sql, api, hapi]
 tweets:
 - "Learn how to build a weight tracker web app using Node.js, @hapijs and @PostgreSQL!"
