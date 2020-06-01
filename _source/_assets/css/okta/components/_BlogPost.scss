@@ -306,6 +306,15 @@
 		.highlight .x { color: $eclipse-2; } /* Other */
 		.highlight .w { color: $eclipse-2; } /* Text Whitespace */
 
+		// diff enhancements
+		.highlight .gd {
+			background-color: #ffeef0;
+		}
+
+		.highlight .gi {
+			background-color: #e6ffed;
+		}
+
 		p, li {
 			code {
 				@include padding(0 xx-small);
@@ -371,6 +380,34 @@
 
 	#disqus {
 		margin-top: get-spacing('medium');
+	}
+
+	#markdown-toc {
+		border: 1px solid silver;
+		padding: 1em;
+		margin-bottom: 1.5em;
+		list-style-type: none;
+
+		ul {
+			list-style-type: none;
+		}
+
+		> li {
+			margin-left: 1.75em;
+		}
+
+		> li:first-child::before {
+			content: "Table of Contents";
+			color: #7a2518;
+			font-size: 1.375em;
+			display: block;
+			margin-bottom: 20px;
+			margin-left: -1.1em;
+		}
+	}
+
+	.hide {
+		display: none
 	}
 }
 
