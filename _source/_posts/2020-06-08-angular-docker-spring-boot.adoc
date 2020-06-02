@@ -1627,7 +1627,6 @@ docker-compose -f src/main/docker/app.yml up
 
 You should be able to navigate to `http://localhost:8080`, log in, and add notes.
 
-// todo: update image
 image::{% asset_path 'blog/angular-docker/spring-boot-2.3-notes.png' %}[alt=Spring Boot 2.3 app running,width=800,align=center]
 
 Pretty neat, don't you think!? 😃
