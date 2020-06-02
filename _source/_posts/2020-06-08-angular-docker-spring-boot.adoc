@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Angular Docker"
+title: "Angular with Docker + ❤️ from Spring Boot and Heroku"
 author: matt-raible
 by: advocate
 communities: [java,javascript,devops]
@@ -15,6 +15,10 @@ type: conversion
 ---
 :toc: macro
 :page-liquid:
+
+// Angular with Docker + ❤️ from Spring Boot and Heroku = 61
+// Angular with Docker + Spring Boot and Heroku 💜 = 60
+// Test your title! https://user:APIH%40x0r@brentisarulebreaker.dev
 
 Building modern apps with Angular and Spring Boot is a common practice these days. In fact, if I use Google's Keyword Planner to look up popular search terms, it's one of the most popular combinations. The results in the list below are average monthly searches and not limited by location.
 
