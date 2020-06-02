@@ -641,6 +641,8 @@ export class AppComponent implements OnInit {
 }
 ----
 
+Remove `OktaAuthModule` and its related code from `app.component.spec.ts` and `home.component.spec.ts`. You'll also need to add `HttpClientTestingModule` to their `TestBed` imports.
+
 Change the buttons in `app.component.html` to reference the `auth` service instead of `oktaAuth`.
 
 [source,html]
@@ -677,7 +679,7 @@ export class HomeComponent implements OnInit {
 }
 ----
 
-Delete `notes/src/app/auth-routing.module.ts`.
+Delete `notes/src/app/auth-routing.module.ts` and `notes/src/app/shared/okta`.
 
 Modify `app.module.ts` to remove the `AuthRoutingModule` import, add `HomeComponent` as a declaration, and import `HttpClientModule`.
 
@@ -735,7 +737,7 @@ Change both `environments.ts` and `environments.prod.ts` to use a blank `apiUrl`
 apiUrl: ''
 ----
 
-Create a `src/proxy.config.js` file to proxy certain requests to your Spring Boot API on `http://localhost:8080`.
+Create a `src/proxy.conf.js` file to proxy certain requests to your Spring Boot API on `http://localhost:8080`.
 
 [source,javascript]
 ----
@@ -897,6 +899,9 @@ class LogoutController(val clientRegistrationRepository: ClientRegistrationRepos
 }
 ----
 
+// todo: add logout redirect URI instructions for :8080 and :4200 if not added to Heroku
+// todo: :4200 needs to be added if you want to run from Angular client in dev after jar
+
 NOTE: In link:/blog/2020/03/27/spring-oidc-logout-options[OpenID Connect Logout Options with Spring Boot], Brian Demers describes this as RP-Initiated Logout. He also shows how you can use Spring Security's `OidcClientInitiatedLogoutSuccessHandler`. I tried this technique but decided against it because it doesn't allow me to redirect back to my Angular app in dev mode. I also encounted some CORS errors that I was unable to solve.
 
 When you access the `/user/notes` endpoint with Angular, the `${principal.name}` expression correctly resolves to the user's email. However, when you access this endpoint after logging in directly to Spring Boot, it resolves to the `sub` claim. To make these values consistent, add the following property to `application-dev.properties` and `application-prod.properties`.
@@ -908,6 +913,8 @@ spring.security.oauth2.client.provider.okta.user-name-attribute=preferred_userna
 ----
 
 You can also remove the `allowed.origins` property from both files since Angular will proxy the request in development (eliminating the need for CORS) and there won't be cross-domain requests in production.
+
+Because there won't be any cross-domain requests, you can remove the `simpleCorsFilter` bean and `allowedOrigins` variable in `DemoApplication.kt` too.
 
 === Modify Gradle to Build a Single JAR
 
@@ -922,7 +929,7 @@ import com.moowork.gradle.node.npm.NpmTask
 
 plugins {
     ...
-    id("com.github.node-gradle.node") version "2.2.3"
+    id("com.github.node-gradle.node") version "2.2.4"
     ...
 }
 ----
@@ -971,11 +978,12 @@ tasks.processResources {
 }
 ----
 
-Now you should be able to build both apps using `./gradlew bootJar -Pprod`. Once it's built, run it with the following commands to ensure everything works.
+Now you should be able to combine both apps using `./gradlew bootJar -Pprod`. Once it's built, run it with the following commands to ensure everything works.
 
 [source,shell]
 ----
 docker-compose -f src/main/docker/postgresql.yml up -d
+source okta.env
 java -jar build/libs/*.jar
 ----
 
@@ -1000,7 +1008,7 @@ To add Jib support, add its Gradle plugin.
 ----
 plugins {
     ...
-    id("com.google.cloud.tools.jib") version "2.2.0"
+    id("com.google.cloud.tools.jib") version "2.3.0"
 }
 ----
 
@@ -1104,7 +1112,7 @@ git commit -m "Add Jib to build Docker images"
 
 === Deploy Your Spring Boot + Angular Container to Docker Hub
 
-Jib makes it incredibly easy to deploy your container to Docker Hub. If you don't already have a Docker Hub account, you can [create one](https://hub.docker.com/signup).
+Jib makes it incredibly easy to deploy your container to Docker Hub. If you don't already have a Docker Hub account, you can https://hub.docker.com/signup[create one].
 
 Run `docker login` to log in to your account, then use the `jib` task to build *and* deploy your image.
 
@@ -1133,10 +1141,14 @@ Add PostgreSQL to this app and configure it for Spring Boot using the following 
 ----
 heroku addons:create heroku-postgresql --remote jib
 heroku config:get DATABASE_URL --remote jib
-heroku config:set SPRING_DATASOURCE_URL=<value-after-@-from-last-command> --remote jib
+heroku config:set SPRING_DATASOURCE_URL=jdbc:postgres://<value-after-@-from-last-command> --remote jib
 heroku config:set SPRING_DATASOURCE_USERNAME=<username-value-from-last-command> --remote jib
 heroku config:set SPRING_DATASOURCE_PASSWORD=<password-value-from-last-command> --remote jib
+heroku config:set SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver --remote jib
 ----
+// todo: this doesn't work. It did when I first did it a couple weeks ago. WTF? This blog post says SPRING_DATASOURCE_* variables will be auto-created when you add PostgreSQL https://devcenter.heroku.com/articles/deploying-spring-boot-apps-to-heroku.
+
+NOTE: This fine-grained configuration is not necessary when Heroku knows you have a Spring Boot app. In this case, it's oblivious to your app's architecture since it's running as a container.
 
 // todo: screenshot + commands to match
 
@@ -1161,25 +1173,26 @@ Modify the Okta environment variables to remove the `_WEB` on the two keys that 
 heroku config:edit --remote jib
 ----
 
-Run the commands below to deploy the image you deployed to Docker Hub. Be sure to replace the `<>` placeholders with your username and app name.
+Run the commands below to deploy the image you deployed to Docker Hub. Be sure to replace the `<...>` placeholders with your username and app name.
 
 [source,shell]
 ----
-docker tag hub.docker.com/<your-username>/bootiful-angular registry.heroku.com/<heroku-app>/web
+docker tag <your-username>/bootiful-angular registry.heroku.com/<heroku-app>/web
 docker push registry.heroku.com/<heroku-app>/web
 heroku container:release web --remote jib
 ----
+// todo: talk to Joe and see if it's possible to deploy an image if it's not built locally. It's a real pain to upload twice on a slow connection!
 
 For example, I used:
 
 [source,shell]
 ----
-docker tag hub.docker.com/mraible/bootiful-angular registry.heroku.com/enigmatic-woodland-19325/web
+docker tag mraible/bootiful-angular registry.heroku.com/enigmatic-woodland-19325/web
 docker push registry.heroku.com/enigmatic-woodland-19325/web
 heroku container:release web --remote jib
 ----
 
-You can watch the logs to see if it started successfully using:
+You can watch the logs to see if it started successfully.
 
 [source,shell]
 ----
@@ -1191,6 +1204,13 @@ Once you've verified it starts OK, set the Hibernate configuration so it only va
 [source,shell]
 ----
 heroku config:set SPRING_JPA_HIBERNATE_DDL_AUTO=validate --remote jib
+----
+
+Since the Okta addon for Heroku configures everything for you, you should be able to open your app, click the **Login** button, and authenticate!
+
+[source,shell]
+----
+heroku open --remote jib
 ----
 
 == Knative 💙 Spring Boot + Docker
@@ -1350,7 +1370,7 @@ data:
 EOF
 ----
 
-Phew! That was a lot of `kubectl` and YAML, don't you think?! The good news is you're ready to deploy PostgreSQL and your Spring Boot app.
+_Phew!_ That was a lot of `kubectl` and YAML, don't you think?! The good news is you're ready to deploy PostgreSQL and your Spring Boot app.
 
 The following command can deploy everything, but you'll need to change the `<...>` placeholders to match your values first.
 
@@ -1469,10 +1489,12 @@ spec:
             value: validate
 EOF
 ----
+// todo: is it possible to set SPRING_JPA_HIBERNATE_DDL_AUTO=validate w/o specifying all the other variables.
 
 If everything works correctly, you should have a running app at a URL similar to the following:
 
 💥 <https://bootiful-angular.default.35.184.138.10.nip.io>
+// todo: how the fuck do you find out this URL? It seems like i have it deployed, but `kubectl get pods` only shows postgres running.
 
 You'll need to add this URL (+ `/login/oauth2/code/okta`) as a **Login redirect URI** on Okta in order to log in.
 
@@ -1496,6 +1518,7 @@ To enable Docker support, run:
 ----
 cf enable-feature-flag diego_docker
 ----
+// todo: Is this necessary? When I run it, I get "Server error, status code: 403, error code: 10003, message: You are not authorized to perform the requested action"
 
 Then, run the following commands, where `secure-notes` is a unique name for your app.
 
@@ -1511,9 +1534,6 @@ cf cs elephantsql turtle secure-notes-psql
 
 # Bind the app to the PostgreSQL instance
 cf bs secure-notes secure-notes-psql
-
-# Display the credentials from the PostgreSQL instance
-cf env secure-notes
 ----
 
 At this point, you'll need to set a number of environment variables so your app can connect to PostgreSQL and Okta. Substitute your values in the `<...>` placeholders before running the command below.
@@ -1530,6 +1550,7 @@ cf set-env $APP_NAME OKTA_OAUTH2_CLIENT_ID <your-okta-client-id>
 cf set-env $APP_NAME OKTA_OAUTH2_CLIENT_SECRET <your-okta-client-id>
 cf restage $APP_NAME
 ----
+// todo: how the hell do you get the postgresql URL from Cloud Foundry?
 
 Your app, running in Docker, should now be available at `\http://<your-app-name>.cfapps.io`.
 
@@ -1590,10 +1611,6 @@ The https://paketo.io/[Paketo] Java buildpack is used by default to create image
 
 TIP: Learn more in https://twitter.com/phillip_webb[Phil Webb's] blog post: https://spring.io/blog/2020/01/27/creating-docker-images-with-spring-boot-2-3-0-m1[Creating Docker images with Spring Boot 2.3.0.M1].
 
-// todo: Make sure Spring Boot is already upgraded to 2.3
-// ./gradlew wrapper --gradle-version=6.4 --distribution-type=bin
-// ./gradlew useLatestVersions
-
 By default, Spring Boot will use your `$artifactId:$version` for the image name. That is, `notes-api:0.0.1-SNAPSHOT`. You can override this with an `--imageName` parameter.
 
 Build and run the image with the commands below.
@@ -1607,12 +1624,14 @@ docker-compose -f src/main/docker/app.yml up
 You should be able to navigate to `http://localhost:8080`, log in, and add notes.
 
 // todo: update image
-image::{% asset_path 'blog/angular-docker/spring-boot-2.3-notes-noshadow.png' %}[alt=Spring Boot 2.3 app running,width=800,align=center]
+image::{% asset_path 'blog/angular-docker/spring-boot-2.3-notes.png' %}[alt=Spring Boot 2.3 app running,width=800,align=center]
 
 Pretty neat, don't you think!? 😃
 
 The built-in Docker support provided by Spring Boot provides a great way to get started with buildpacks. Since it's an implementation of the buildpack platform specification, it's also easy to migrate to more powerful buildpack tools such as https://github.com/buildpacks/pack[`pack`] or https://github.com/pivotal/kpack[`kpack`].
 // todo: confirm with Joe
+
+// todo: add a blurb about JHipster and Docker
 
 == Learn More About Angular, Spring Boot, and Docker
 
