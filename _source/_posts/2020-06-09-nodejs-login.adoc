@@ -10,7 +10,7 @@ tweets:
 - "Add login to your @nodejs in just a few minutes!"
 - "Do you love adding login to your Node.js apps? Probably not! Learn how to do it with an easy button from @mraible."
 - "New to Node.js? Check out how easy it is to add a login feature with @okta!"
-image: // todo
+image: blog/node-login/nodejs-login.png
 type: conversion
 ---
 
@@ -39,13 +39,13 @@ cd express-app
 npx express-generator --view=pug
 ----
 
-. Add a new OIDC App https://developer.okta.com/signup[on Okta]. Choose **Web** and use `http://localhost:3000/callback` for the login redirect; `http://localhost:3000` for the logout redirect.
+. Add a new OIDC App https://developer.okta.com/signup[on Okta]. After you log in to your dashboard, go to **Applications** > **Add Application**. Choose **Web** and use `\http://localhost:3000/callback` for the login redirect; `\http://localhost:3000` for the logout redirect.
 
 . Install Schematics CLI:
 
   npm install -g @angular-devkit/schematics-cli
 
-. Install and run OktaDev Schematics with your Okta value's for `$issuer`, `$clientId`, and `$clientSecret`:
+. Install and run OktaDev Schematics with your Okta values for `$issuer`, `$clientId`, and `$clientSecret`:
 
   npm i @oktadev/schematics
   schematics @oktadev/schematics:add-auth --issuer=$issuer --clientId=$clientId --clientSecret=$clientSecret
@@ -56,7 +56,7 @@ CAUTION: An `.env` file will be generated with your client secret in it. Make su
 
   npm start
 
-== Learn More about Node.js and JavaScript
+== Learn More About Node.js and JavaScript
 
 I hope you enjoyed this quick tour of how to add a login feature to a Node.js application. If you're looking to do more with Okta and Node.js, check out our https://github.com/okta/okta-sdk-nodejs[Node.js SDK]. It allows you to communicate with Okta APIs to manage your users and their identity.
 
