@@ -65,6 +65,7 @@ You can find the source code for this example on GitHub https://github.com/oktad
 If you liked this screencast, you might enjoy our other tutorials too.
 
 - https://youtu.be/XJpYH7K7TGM[📺 Build a Secure Node.js App with SQL Server Step-by-Step]
+- https://youtu.be/LWPIdzeiThs[📺 Build a Weight Tracker App with Node.js and PostgreSQL]
 - link:/blog/2020/04/22/build-secure-aws-lambda-nodejs-react[How to Build a Secure AWS Lambda API with Node.js and React]
 - link:/blog/2019/12/04/whats-new-nodejs-2020[What's New for Node.js in 2020]
 - link:/blog/2018/02/15/build-crud-app-vuejs-node[Build a Basic CRUD App with Vue.js and Node]
