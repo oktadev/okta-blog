@@ -23,12 +23,12 @@ If you're both a fan of JavaScript and strongly typed languages, then you're in 
 If you don't have Node installed yet, you'll need to do that first. That's the only real prerequisite for this tutorial. To see if you have it installed, try typing `node --version` in a terminal. You'll want to get a response back with something like `v8` or higher. If you get an error, you may need to install it. I recommend installing via [nvm](https://github.com/creationix/nvm). The install should look something like this:
 
 ```bash
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
 ```
 
 But if that doesn't work, head to [the docs](https://github.com/creationix/nvm#installation-and-update) to see how to get it up and running for your system.
 
-Once you have Node running, create a new directory for your chat server, then use `npm` to create a package.json file for you:
+Once you have Node running, create a new directory for your chat server, then use `npm` to create a `package.json` file for you:
 
 ```bash
 mkdir real-time-chat
@@ -52,11 +52,11 @@ Edit the `package.json` file so the `"main"` entry says `"dist/index.js"`. Then 
 You'll also need to install some dependencies:
 
 ```bash
-npm install express@4.16.4
-npm install --save-dev typescript@3.3.3333 ts-node-dev@1.0.0-pre.32 tslint@5.13.1 @types/node@11.11.3 @types/express@4.16.1
+npm install express@4.17.1
+npm install --save-dev typescript@3.9.3 ts-node-dev@1.0.0-pre.44 tslint@6.1.2 @types/node@14.0.5 @types/express@4.17.6
 ```
 
-You'll need to create some configuration files for typescript. Create a `tslint.json` file:
+You'll need to create some configuration files for TypeScript. Create a `tslint.json` file:
 
 ```json
 {
@@ -67,7 +67,7 @@ You'll need to create some configuration files for typescript. Create a `tslint.
 }
 ```
 
-and a `tsconfig.json` file:
+And a `tsconfig.json` file:
 
 ```json
 {
@@ -123,8 +123,8 @@ Another neat developer tool is Parcel. It provides a really simple way to bundle
 To set this up with React, add the following dependencies:
 
 ```bash
-npm install react@16.8.5 react-dom@16.8.5
-npm install --save-dev parcel-bundler@1.12.3 @types/parcel-bundler@1.10.2 @types/react@16.8.8 @types/react@16.8.2 @babel/core@7.3.4 @babel/preset-env@7.3.4
+npm install react@16.13.1 react-dom@16.13.1
+npm install --save-dev parcel-bundler@1.12.4 @types/parcel-bundler@1.12.1 @types/react@16.9.35 @types/react@16.9.35 @babel/core@7.10.2 @babel/preset-env@7.10.2
 ```
 
 Create a new folder for your client-side code in `src/client`:
@@ -179,7 +179,7 @@ Then create a new file `src/client/index.html`:
 
 You'll then need to create the `src/client/index.tsx` file mentioned.
 
-```typescript
+```tsx
 import React from "react";
 import ReactDOM from "react-dom";
 
@@ -193,7 +193,7 @@ ReactDOM.render(
 
 As well as `src/client/App.tsx`:
 
-```typescript
+```tsx
 import React from "react";
 
 export default () => <div>Hello world</div>;
@@ -235,8 +235,8 @@ app.listen(port, () => {
 For real-time applications, Socket.IO makes it easy to send messages back and forth between the server and any connected clients. It uses WebSockets to keep a connection open so messages are instant, but it does fall back to polling in cases where WebSockets aren't available. You'll need to add a few new dependencies for this:
 
 ```bash
-npm install immutable@4.0.0-rc.12 socket.io@2.2.0 socket.io-client@2.2.0 uuid@3.3.2
-npm install --save-dev @types/socket.io@2.1.2 @types/uuid@3.4.4 sass@1.17.3
+npm install immutable@4.0.0-rc.12 socket.io@2.3.0 socket.io-client@2.3.0 uuid@8.1.0
+npm install --save-dev @types/socket.io@2.1.8 @types/uuid@8.0.0 sass@1.26.7
 ```
 
 ### Set Up the Backend
@@ -245,7 +245,7 @@ To set up the backend, create a new file `src/socket.ts`:
 
 ```typescript
 import { Server, Socket } from "socket.io";
-import uuid from "uuid/v4";
+import { v4 as uuidv4 } from "uuid";
 
 const messageExpirationTimeMS = 10 * 1000;
 
@@ -279,7 +279,7 @@ export default (io: Server) => {
 
     socket.on("message", (value: string) => {
       const message: IMessage = {
-        id: uuid(),
+        id: uuidv4(),
         time: new Date(),
         user: defaultUser,
         value,
@@ -433,7 +433,7 @@ Your server is all ready to go now. Next, you'll need to create a couple of new 
 
 Create a `src/client/NewMessage.tsx` component that will allow you to send a new message to the server:
 
-```typescript
+```tsx
 import React, { SyntheticEvent, useState } from "react";
 import { Socket } from "socket.io";
 
@@ -470,7 +470,7 @@ This sets up a simple form so that when you hit `Enter` that will trigger the fo
 
 You'll also need a way to display the messages. Create a new `src/client/MessageList.tsx` component:
 
-```typescript
+```tsx
 import { Map } from "immutable";
 import React, { SyntheticEvent, useEffect, useState } from "react";
 
@@ -583,9 +583,9 @@ The big missing piece though is all users are just "Anonymous". You could let us
 
 Okta is a cloud service that allows developers to create, edit, and securely store user accounts and user account data, and connect them with one or multiple applications.
 
-If you don't already have one, [sign up for a forever-free developer account](https://developer.okta.com/signup/). Log in to your developer console, navigate to **Applications**, then click **Add Application**. Select **Single-Page App**, then click **Next**. You can leave all the settings the same, just change the name of your app to something meaningful. The settings should look something like this:
+If you don't already have one, [sign up for a forever-free developer account](https://developer.okta.com/signup/). Log in to your developer console, navigate to **Applications**, then click **Add Application**. Select **Single-Page App**, then click **Next**. Change the name of your app to something meaningful and the **Login redirect URI** to be `http://localhost:8080/callback`. The settings should look something like this:
 
-{% img blog/node-typescript/create-new-application-settings.png alt:"Create New Application Settings" width:"800" %}{: .center-image }
+{% img blog/node-typescript/create-new-application-settings.png alt:"Create New Application Settings" width:"700" %}{: .center-image }
 
 Click **Done** to save your app, then copy your **Client ID** and paste it as a variable into a file called `.env` in the root of your project. This will allow you to access the file in your code without needing to store credentials in source control. You'll also need to add your organization URL (without the `-admin` suffix). The file should end up looking like this:
 
@@ -611,8 +611,8 @@ OKTA_TOKEN={yourToken}
 In order for your server to read the environment variables, you'll need to use `dotenv`. You'll also need to install the Okta SDK and a JWT Verifier to ensure that the tokens users are sending are valid. Install these dependencies:
 
 ```bash
-npm install dotenv@7.0.0 @okta/jwt-verifier@0.0.14 @okta/okta-sdk-nodejs@2.0.0
-npm install --save-dev @types/dotenv@6.1.0
+npm install dotenv@8.2.0 @okta/jwt-verifier@1.0.0 @okta/okta-sdk-nodejs@3.3.1
+npm install --save-dev @types/dotenv@8.2.0
 ```
 
 You'll first need to set up `dotenv`. At the very top of your `src/index.ts` file, add the following. It should be the first thing in your code to make sure the rest of your code has access to your environment variables from `.env`:
@@ -653,32 +653,32 @@ const oktaClient = new okta.Client({
 Now inside your `export default` function, before the call to `io.on("connection", connectionHandler)`, add the following middleware:
 
 ```typescript
-  const users: Map<Socket, IUser> = new Map();
+const users: Map<Socket, IUser> = new Map();
 
-  io.use(async (socket, next) => {
-    const { token = null } = socket.handshake.query || {};
-    if (token) {
-      try {
-        const [authType, tokenValue] = token.trim().split(" ");
-        if (authType !== "Bearer") {
-          throw new Error("Expected a Bearer token");
-        }
-
-        const { claims: { sub } } = await jwtVerifier.verifyAccessToken(tokenValue);
-        const user = await oktaClient.getUser(sub);
-
-        users.set(socket, {
-          id: user.id,
-          name: [user.profile.firstName, user.profile.lastName].filter(Boolean).join(" "),
-        });
-      } catch (error) {
-        // tslint:disable-next-line:no-console
-        console.log(error);
+io.use(async (socket, next) => {
+  const { token = null } = socket.handshake.query || {};
+  if (token) {
+    try {
+      const [authType, tokenValue] = token.trim().split(" ");
+      if (authType !== "Bearer") {
+        throw new Error("Expected a Bearer token");
       }
-    }
+ 
+      const { claims: { sub } } = await jwtVerifier.verifyAccessToken(tokenValue);
+      const user = await oktaClient.getUser(sub);
 
-    next();
-  });
+      users.set(socket, {
+        id: user.id,
+        name: [user.profile.firstName, user.profile.lastName].filter(Boolean).join(" "),
+      });
+    } catch (error) {
+      // tslint:disable-next-line:no-console
+      console.log(error);
+    }
+  }
+
+  next();
+});
 ```
 
 This will check the socket handshake to see if there's a `token` attached or not. If there is, it'll use the `jwtVerifier` to make sure it's a valid token. If it is, then it'll fetch information about the user so that it can get their name. Finally, it adds the user to an es6 `Map` so that it can look up the user by the `socket` later.
@@ -705,16 +705,16 @@ socket.on("disconnect", () => {
 You'll need some more packages in order to set up authentication on the client. Add the following:
 
 ```bash
-npm install @okta/okta-react@1.2.0 react-router@5.0.0 react-router-dom@5.0.0
+npm install @okta/okta-react@3.0.1 react-router@5.2.0 react-router-dom@5.2.0
 ```
 
-Okta uses React Router to handle routes and keep things secure. You'll need to wrap the `App` component in `Router` and `Security` wrappers, then render it as a `Route`. You'll need to add an `ImplicitCallback` route as well so that Okta knows what to do after you've authenticated in the browser. Edit your `src/client/index.tsx` file to look like this:
+Okta uses React Router to handle routes and keep things secure. You'll need to wrap the `App` component in `Router` and `Security` wrappers, then render it as a `Route`. You'll need to add an `LoginCallback` route as well so that Okta knows what to do after you've authenticated in the browser. Edit your `src/client/index.tsx` file to look like this:
 
 ```typescript
-import { ImplicitCallback, Security } from "@okta/okta-react";
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import { LoginCallback, Security } from "@okta/okta-react";
 
 import App from "./App";
 
@@ -723,10 +723,10 @@ ReactDOM.render(
     <Security
       issuer={`${process.env.OKTA_ORG_URL}/oauth2/default`}
       client_id={process.env.OKTA_CLIENT_ID}
-      redirect_uri={`${window.location.origin}/implicit/callback`}
+      redirect_uri={`${window.location.origin}/callback`}
     >
       <Route path="/" exact component={App} />
-      <Route path="/implicit/callback" component={ImplicitCallback} />
+      <Route path="/callback" component={LoginCallback} />
     </Security>
   </Router>,
   document.getElementById("root"),
@@ -771,8 +771,7 @@ In your `src/client/App.tsx` file, you'll need to use the `useAuth` hook to get 
 
 ```typescript
 import { withAuth } from "@okta/okta-react";
-import { Map } from "immutable";
-import React, { SyntheticEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
 
 import { useAuth } from "./auth";
@@ -780,7 +779,7 @@ import MessageList from "./MessageList";
 import NewMessage from "./NewMessage";
 
 export default withAuth(({ auth }) => {
-  const [authenticated, user, token] = useAuth(auth);
+  const [user, token] = useAuth(auth);
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
@@ -825,4 +824,4 @@ For more examples using Okta with Node, TypeScript, or React, check out some of 
 * [Build a Basic CRUD App with Angular and Node](https://developer.okta.com/blog/2018/10/30/basic-crud-angular-and-node)
 * [Build a Simple REST API with Node and OAuth 2.0](https://developer.okta.com/blog/2018/08/21/build-secure-rest-api-with-node)
 
-If you have any questions about this post, please add a comment below. For more awesome content, follow [@oktadev](https://twitter.com/oktadev) on Twitter, or subscribe to [our YouTube channel](https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q).
+If you have any questions about this post, please add a comment below. For more awesome content, follow [@oktadev](https://twitter.com/oktadev) on Twitter, or subscribe to [our YouTube channel](https://www.youtube.com/c/oktadev).
