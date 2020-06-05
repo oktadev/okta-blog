@@ -596,7 +596,7 @@ OKTA_CLIENT_ID={yourClientId}
 
 Okta provides an API that allows you to look up user information, among many other things. Okta also has a Node library to make it really simple. For your app to authenticate with Okta so you can look up user information, such as their name, you need an API token. From your dashboard, select **Tokens** from the **API** dropdown in the header. Click **Create Token** and give it a meaningful name. It will then give you a token this one time - if you lose it you'll need to create another one.
 
-{% img blog/node-typescript/create-token.png alt:"Create Token" width:"400" %}{: .center-image }
+{% img blog/node-typescript/create-token.png alt:"Create Token" width:"600s" %}{: .center-image }
 
 Go ahead and add this to your `.env` file as `OKTA_TOKEN`, so that it now looks like this:
 
@@ -612,7 +612,6 @@ In order for your server to read the environment variables, you'll need to use `
 
 ```bash
 npm install dotenv@8.2.0 @okta/jwt-verifier@1.0.0 @okta/okta-sdk-nodejs@3.3.1
-npm install --save-dev @types/dotenv@8.2.0
 ```
 
 You'll first need to set up `dotenv`. At the very top of your `src/index.ts` file, add the following. It should be the first thing in your code to make sure the rest of your code has access to your environment variables from `.env`:
@@ -825,3 +824,8 @@ For more examples using Okta with Node, TypeScript, or React, check out some of 
 * [Build a Simple REST API with Node and OAuth 2.0](https://developer.okta.com/blog/2018/08/21/build-secure-rest-api-with-node)
 
 If you have any questions about this post, please add a comment below. For more awesome content, follow [@oktadev](https://twitter.com/oktadev) on Twitter, or subscribe to [our YouTube channel](https://www.youtube.com/c/oktadev).
+
+<a name="changelog"></a>
+**Changelog:**
+
+* Jun 5, 2020: Updated to use the latest versions of all dependendenciess. You can see the example app changes in [okta-node-express-typescript-react-example#7](https://github.com/oktadeveloper/okta-node-express-typescript-react-example/pull/7); changes to this post can be viewed in [okta-blog#315](https://github.com/oktadeveloper/okta-blog/pull/315).
