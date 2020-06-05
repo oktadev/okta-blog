@@ -635,18 +635,25 @@ import OktaJwtVerifier from "@okta/jwt-verifier";
 import okta from "@okta/okta-sdk-nodejs";
 ```
 
-Then you'll need to configure those as well:
+Then you'll need to configure them. It's best to do this in the `default export` so everything is initialized in one place.
 
 ```typescript
-const jwtVerifier = new OktaJwtVerifier({
-  clientId: process.env.OKTA_CLIENT_ID,
-  issuer: `${process.env.OKTA_ORG_URL}/oauth2/default`,
-});
+export default (io: Server) => {
+  const messages: Set<IMessage> = new Set();
+  const users: Map<Socket, IUser> = new Map();
 
-const oktaClient = new okta.Client({
-  orgUrl: process.env.OKTA_ORG_URL,
-  token: process.env.OKTA_TOKEN,
-});
+  const jwtVerifier = new OktaJwtVerifier({
+    clientId: process.env.OKTA_CLIENT_ID,
+    issuer: `${process.env.OKTA_ORG_URL}/oauth2/default`,
+  });
+
+  const oktaClient = new okta.Client({
+    orgUrl: process.env.OKTA_ORG_URL,
+    token: process.env.OKTA_TOKEN,
+  });
+
+  ...
+}
 ```
 
 Now inside your `export default` function, before the call to `io.on("connection", connectionHandler)`, add the following middleware:
@@ -732,30 +739,26 @@ ReactDOM.render(
 );
 ```
 
-You can create a new React hook to help with authentication as well. This will require you to pass in an `auth` variable, which will then be used to determine whether or not a user is authenticated, find out info about the user, and get the access token. These are then passed back into your React component for user later. Create a new file `src/client/auth.ts`:
+You can create a new React hook to help with authentication as well. You can use the Okta React SDK's `useOktaAuth()` hook to determine whether or not a user is authenticated, find out info about the user, and get the access token. These are then passed back into your React component for user later. Create a new file `src/client/auth.ts`:
 
 ```typescript
 import { useEffect, useState } from "react";
+import { useOktaAuth } from "@okta/okta-react";
 
-export const useAuth = (auth) => {
+export const useAuth = () => {
+  const { authService, authState } = useOktaAuth();
   const [authenticated, setAuthenticated] = useState(null);
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
 
   useEffect(() => {
-    auth.isAuthenticated().then((isAuthenticated) => {
-      if (isAuthenticated !== authenticated) {
-        setAuthenticated(isAuthenticated);
-      }
-    });
+    setAuthenticated(authState.isAuthenticated)
   });
 
   useEffect(() => {
     if (authenticated) {
-      auth.getUser().then(setUser);
-      auth.getAccessToken().then((accessToken) => {
-        setToken(accessToken ? `Bearer ${accessToken}` : null);
-      });
+      authService.getUser().then(setUser);
+      setToken(authState.accessToken ? `Bearer ${authState.accessToken}` : null);
     } else {
       setUser(null);
       setToken(null);
@@ -766,19 +769,19 @@ export const useAuth = (auth) => {
 };
 ```
 
-In your `src/client/App.tsx` file, you'll need to use the `useAuth` hook to get info about the user, including the token. Then whenever the token changes, you'll need to reconnect to the backend with a new socket. You'll also need to wrap the `App` with Okta's `withAuth` higher order component in order to get access to `auth` as a prop. This will allow you to create buttons to sign the user in or out. Edit your `src/client/App.tsx` file to look like this:
+In your `src/client/App.tsx` file, you'll need to use the `useAuth` hook to get info about the user, including the token. Then whenever the token changes, you'll need to reconnect to the backend with a new socket. You'll also need to import the `authService` so you can create buttons to sign the user in or out. Edit your `src/client/App.tsx` file to look like this:
 
 ```typescript
-import { withAuth } from "@okta/okta-react";
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
-
+import { useOktaAuth } from '@okta/okta-react';
 import { useAuth } from "./auth";
 import MessageList from "./MessageList";
 import NewMessage from "./NewMessage";
 
-export default withAuth(({ auth }) => {
-  const [user, token] = useAuth(auth);
+export default () => {
+  const { authService } = useOktaAuth();
+  const [user, token] = useAuth();
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
@@ -792,19 +795,19 @@ export default withAuth(({ auth }) => {
       {user ? (
         <div>
           Signed in as {user.name}
-          <button onClick={() => auth.logout()}>Sign out</button>
+          <button onClick={() => authService.logout()}>Sign out</button>
         </div>
       ) : (
         <div>
           Not signed in
-          <button onClick={() => auth.login()}>Sign in</button>
+          <button onClick={() => authService.login()}>Sign in</button>
         </div>
       )}
       <MessageList socket={socket} />
       <NewMessage socket={socket} />
     </div>
   );
-});
+};
 ```
 
 You should now be able to run `npm run dev` again and send messages in real-time and see the user who sent the message!
