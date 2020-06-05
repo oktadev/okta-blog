@@ -670,7 +670,7 @@ io.use(async (socket, next) => {
         throw new Error("Expected a Bearer token");
       }
  
-      const { claims: { sub } } = await jwtVerifier.verifyAccessToken(tokenValue);
+      const { claims: { sub } } = await jwtVerifier.verifyAccessToken(tokenValue, "api://default");
       const user = await oktaClient.getUser(sub);
 
       users.set(socket, {
@@ -739,7 +739,7 @@ ReactDOM.render(
 );
 ```
 
-You can create a new React hook to help with authentication as well. You can use the Okta React SDK's `useOktaAuth()` hook to determine whether or not a user is authenticated, find out info about the user, and get the access token. These are then passed back into your React component for user later. Create a new file `src/client/auth.ts`:
+You can create a new React hook to help with authentication as well. You can use the Okta React SDK's `useOktaAuth()` hook to get the `authState` to determine whether or not a user is authenticated and get the access token. You can also get the `authService` to get the user's information. These are then passed back into your React component for later use. Create a new file `src/client/auth.ts`:
 
 ```typescript
 import { useEffect, useState } from "react";
@@ -747,31 +747,28 @@ import { useOktaAuth } from "@okta/okta-react";
 
 export const useAuth = () => {
   const { authService, authState } = useOktaAuth();
-  const [authenticated, setAuthenticated] = useState(null);
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
 
   useEffect(() => {
-    setAuthenticated(authState.isAuthenticated)
-  });
-
-  useEffect(() => {
-    if (authenticated) {
-      authService.getUser().then(setUser);
-      setToken(authState.accessToken ? `Bearer ${authState.accessToken}` : null);
+    if (authState.isAuthenticated) {
+      if (!user) {
+        authService.getUser().then(setUser);
+      }
+      setToken(`Bearer ${authState.accessToken}`);
     } else {
       setUser(null);
       setToken(null);
     }
-  }, [authenticated]);
+  });
 
-  return [authenticated, user, token];
+  return [user, token];
 };
 ```
 
 In your `src/client/App.tsx` file, you'll need to use the `useAuth` hook to get info about the user, including the token. Then whenever the token changes, you'll need to reconnect to the backend with a new socket. You'll also need to import the `authService` so you can create buttons to sign the user in or out. Edit your `src/client/App.tsx` file to look like this:
 
-```typescript
+```tsx
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
 import { useOktaAuth } from '@okta/okta-react';
