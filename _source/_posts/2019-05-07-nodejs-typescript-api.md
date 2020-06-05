@@ -828,4 +828,4 @@ If you have any questions about this post, please add a comment below. For more 
 <a name="changelog"></a>
 **Changelog:**
 
-* Jun 5, 2020: Updated to use the latest versions of all dependendenciess. You can see the example app changes in [okta-node-express-typescript-react-example#7](https://github.com/oktadeveloper/okta-node-express-typescript-react-example/pull/7); changes to this post can be viewed in [okta-blog#315](https://github.com/oktadeveloper/okta-blog/pull/315).
+* Jun 5, 2020: Updated to use the latest versions of all dependencies. You can see the example app changes in [okta-node-express-typescript-react-example#7](https://github.com/oktadeveloper/okta-node-express-typescript-react-example/pull/7); changes to this post can be viewed in [okta-blog#315](https://github.com/oktadeveloper/okta-blog/pull/315).
