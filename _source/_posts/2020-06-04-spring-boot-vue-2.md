@@ -13,11 +13,11 @@ image:
 
 ## Use Kotlin, Spring Boot, and Vue.js to Build a Simple CRUD App
 
-You're going to build a fully-functioning CRUD application using Vue.js for the client and Spring Boot for the resource server. The Spring Boot server application will be written using Kotlin. You'll also use Okta and OAuth 2.0 to secure the application.
+You're going to build a fully-functioning client-server CRUD application using Vue.js for the client and Spring Boot for the resource server. The Spring Boot server application will be written using Kotlin. You'll also use Okta and OAuth 2.0 to secure the application.
 
-CRUD, if you don't know, is **C**reate, **R**ead, **U**pdate, and **D**elete. Once you can do this, you've got all the basics for a server application.
+CRUD, if you don't know, is **C**reate, **R**ead, **U**pdate, and **D**elete. Once you can do these operations, you've got all the basics for a server application.
 
-The example application you're going to build here is a todo app. The client side of the app is based on a project written by [Evan You](http://evanyou.me) and [the original Vue Todo App project](https://vuejs.org/v2/examples/todomvc.html). It's all been modified somewhat, but to give credit where credit is due.
+The example application you're going to build here is a todo app. The client side of the app is based on a project written by [Evan You](http://evanyou.me) and [the original Vue Todo App project](https://vuejs.org/v2/examples/todomvc.html). It's all been modified a fair amount, but to give credit where credit is due.
 
 ## Requirements
 
@@ -90,7 +90,7 @@ class SpringBootVueApplication {
 }
 ```
 
-The `Todo` class is what defines the data model. It's pretty understated. It defines three properties: 1) a string `title`, 2) a boolean `completed`, and 3) an auto-generated `id` integer value. If you're not familiar with Kotlin you might find it strange, but the `title` and the `completed` properties are declared on the first line of the class definition in the default constructor. 
+The `Todo` class is what defines the data model. It defines three properties: 1) a string `title`, 2) a boolean `completed`, and 3) an auto-generated `id` integer value. If you're not familiar with Kotlin you might find it strange, but the `title` and the `completed` properties are declared on the first line of the class definition in the default constructor. 
 
 Other than that, the `@Entity` annotation is what tell Spring that this class is a data model entity. There's also a helper `toString()` override. 
 
@@ -106,11 +106,11 @@ class Todo(var title: String, var completed: Boolean) {
 }
 ```
 
-Spring is doing so much work behind the scenes. Pretty much all of the resource server infrastructure is auto-generated. All you're doing is defining the data model and pointing Spring Boot at it. This is achingly clear in the next class, `TodoRepository`, which is the class that defines and creates the REST interface to your resource server as well as your persistence store. 
+Spring is doing a ton of work behind the scenes. Pretty much all of the resource server infrastructure is auto-generated. All you're doing is defining the data model and pointing Spring Boot at it. This is achingly clear in the next class, `TodoRepository`, which is the class that defines and creates the REST interface to your resource server as well as your persistence store. 
 
 The persistence store in this case (the class that is responsible for saving and loading your data resources from a database) uses the default store, which is an in-memory database--great for examples and testing, but would need to be overridden in production so that you can actually persist your data.
 
-The coolest part is the `@RepositoryRestResource`. Adding that to the `JpaRepository` class is all you have to do to get Spring to turn your repository into a REST interface. This annotation requires the `spring-boot-starter-data-rest` dependency. The details of the resource server can be configured extensively. Take a look at [the Spring Data REST Reference documentation](https://docs.spring.io/spring-data/rest/docs/current/reference/html/#reference) for more info.
+The coolest part is the `@RepositoryRestResource` annotation. Adding that to the `JpaRepository` class is all you have to do to get Spring to turn your repository into a REST interface. This annotation requires the `spring-boot-starter-data-rest` dependency. The details of the resource server can be configured extensively. Take a look at [the Spring Data REST Reference documentation](https://docs.spring.io/spring-data/rest/docs/current/reference/html/#reference) for more info.
 
 Now for the code. Yep. That's it.
 
@@ -131,11 +131,11 @@ class RestRepositoryConfigurator : RepositoryRestConfigurer {
 }
 ```
 
-## Rest the Resource Server
+## Test the Resource Server
 
 That's all you need to have a working REST API.
 
-Now you're going to test it using HTTPie. But first, start the server using `./gradlew bootRun`.
+Now you're going to test it using HTTPie. But first, open a shell, navigate to the `/server` sub-directory, and start the server using `./gradlew bootRun`.
 
 You should see some output that ends like this:
 ```bash
@@ -322,6 +322,10 @@ export default {
 }
 ```
 
+Open a shell in the `/client` sub-directory.
+
+Before running the client app, you need to install the dependencies: `yarn install`.
+
 Go ahead and run the client using `yarn serve`. Make sure your resource server is still running as well. If not, run it using `./gradlew bootRun`.
 
 Open a browser and navigate to [http://localhost:8080](http://localhost:8080).
@@ -344,9 +348,7 @@ The rest of the default values will work.
 
 Click **Done**.
 
-{% img blog/spring-boot-vue-2/image2.png alt:"" width:"800" %}{: .center-image }
-
-On the next screen, take note of the **Client ID**(near the bottom), as you'll need it in a bit.
+On the next screen, take note of the **Client ID** (near the bottom), as you'll need it in a bit.
 
 ## Add Authentication to Vue
 
@@ -408,13 +410,13 @@ The other route, `/implicit/callback`, is the OAuth 2.0 callback route that hand
 
 Now you need to update the `src/main.js` to use the router.
 
-Import the router into the file:
+Add the following import statement near the top of the file:
 
 ```js
 import router from './router'
 ```
 
-And update the Vue app instance to use the imported router:
+And update the Vue app instance to use the imported router, replacing the old Vue instance declaration:
 
 ```js
 new Vue({  
