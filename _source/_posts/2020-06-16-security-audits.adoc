@@ -1,0 +1,112 @@
+---
+layout: blog_post
+title: "Security Audits: Do you need them?"
+author: brian-demers
+by: advocate
+communities: [devops,java]
+description: "An overview of a recent security audit on an OSS project."
+tags: [java, devops, security, best-practices, code-audit]
+tweets:
+- "Nobody writes perfect code, how are you checking for vulnerabilities⁉️"
+- "How one OSS project deals with security audits💻"
+- "Ever wonder if you should get a security audit on your code? Check out this post ↪️"
+image: blog/security-audits/security-audits-social.png
+type: awareness
+---
+:page-liquid:
+
+I've always had mixed feelings about security reviews. My opinions range from "It's a waste of time" to "I'd really like someone to verify my code." This likely stems from the fact that various shops I've worked at have all handled them differently—from no process at all, to grepping source for keywords like "password," to detailed code analysis.
+
+Like everything in the security world, the answer isn't a yes or no, it's a spectrum that is different for every project. If you are writing a password hashing algorithm, you have different requirements than a logging framework. Same with an online banking website vs. a command-line tool. In this post, I'll walk through a recent security audit performed on a library I've been working on: https://github.com/paseto-toolkit/jpaseto[JPaseto], a library that creates and parses security tokens.
+
+image::{% asset_path 'blog/security-audits/security-audits-social.png' %}[alt=Do you need a security audit?,width=800,align=center]
+
+== Different Types of Security Reviews
+
+As I mentioned before, there are a variety of ways you could inspect our codebase. Regardless of your needs, automating your process is critical. If your process for security reviews involves running a few commands and looking at the results, it can probably be automated. Even better, include it as part of your build and CI process.
+
+In the Java world, I'm a big fan of https://spotbugs.github.io/[SpotBugs] and https://find-sec-bugs.github.io/[Find Security Bugs]. No tool is going to find all bugs, but these tools have found more issues than I would have expected and more importantly, have taught me a great deal about various types of bugs and how to avoid them.
+
+In-depth code analysis is great, but when it comes from outside your team, they are generally slow and too costly (time and money) to do against every commit. This often leaves teams to do them "as needed." The catch 22 is—if you are not a security expert—how do you know when they are needed? One option is to schedule them periodically—quarterly, for example—or some other frequency that matches the pace of your development.
+
+== Outside Audit
+
+For the first release of https://github.com/paseto-toolkit/jpaseto[JPaseto] we hired https://paragonie.com/[Paragon Initiative Enterprises] to do a security audit. They had domain expertise, as they helped author the https://paseto.io/rfc/[PASETO RFC]. The turn around was fast, and they came back with a few issues:
+
+. Constant Time Comparison
++
+This was the most critical of the issues they found. The library was making a comparison of a hashed value using Java's `Arrays.equals()` method which fails fast, because it's optimized for speed. The code should have been using a time constant comparison such as `MessageDigest.isEqual()` to prevent timing attacks.
+
+. Variable Names
++
+Typically, you don't think of variable names when talking about security issues, but an incorrectly named variable can lead to maintenance issues or improper usage in the future. In this particular case, there was a variable named `rsaSignature` that but was an EdDSA signature.
+The fix is obvious: rename the variable to `eddsaSignature`.
+
+Overall my experience with Paragon Initiative was great. They even found a typo in the project's README.md. A doc issue doesn't sound like much, but it shows their attention to detail while going through a codebase.
+
+== Vulnerabilities Happen
+
+As software developers, we know no code is bug-free, but for some reason, we think things will be different for security issues. This makes no sense because we know security is hard, and we know bugs are inevitable. Even after running automated tools on your codebase and getting a professional audit, there is still a likelihood of finding other issues. Of course, that is what happened.
+
+I'll use a simplified example to point out the problem, take a look at the following code, and see if you can spot it;
+
+[source,java]
+----
+public interface BasicMath {
+    int add(int a, int b);
+    int subtract(int b, int a);
+    int multiply(int a, int b);
+    int divide(int a, int b);
+}
+----
+
+In Java, the variable order maters. It's important to make sure all your methods use the same order. In the above example, the `subtract` methods arguments are `b, a` all of the other methods are ordered `a, b`. In isolation, this doesn' really matter, and the implementation might look like this:
+
+[source,java]
+----
+public class ExampleBasicMath {
+public int add(int a, int b) {
+return a + b;
+}
+
+    public int subtract(int b, int a) {
+        return a - b;
+    }
+
+    public int multiply(int a, int b) {
+        return a * b;
+    }
+
+    public int divide(int a, int b) {
+        return a / b;
+    }
+----
+
+This implementation is correct as the subtract method gets the order right `b - a`. However, this is NOT what the callers of this library are expecting. I would expect when calling `subtract(8, 2)` the result would be `6`, and NOT `-6`.
+
+If you replace the simple math example above with a method that methods that deals with byte arrays and hashing functions, you end up with a vulnerability: https://github.com/paseto-toolkit/jpaseto/security/advisories/GHSA-jrq3-vcxq-frff[CVE-2020-10244].
+
+== Recommendations, Should I Get a Security Audit?
+
+There is no one size fits all for security, which is why these things are difficult, but here is what I found that works for me:
+
+. Scan your codebase as part of your build (OWASP has a list of https://owasp.org/www-community/Source_Code_Analysis_Tools[Static Application Security Testing tools]). Make sure you can run them locally and in CI!
+. Get a security audit or review by experts as needed (this varies wildly between projects)
+. Be prepared to fix vulnerabilities. This simple statement implies many things:
+** You can handle inbound security issues (link:/blog/2020/03/13/developers-guide-on-reporting-vulnerabilities[outside of your bug tracker])
+** You can test and release your project quickly
+** You have a disclosure plan, i.e., register a CVE with https://cveform.mitre.org/[MITER] or other Common Numbering Authority (CNA)
+
+NOTE: A project with reported CVEs is not a bad thing; it shows they treat them appropriately. A project that doesn't report vulnerabilities is one you should avoid!
+
+== Learn More About Security
+
+In this post, I've talked about the security issues discovered during and after a security audit and hopefully given you more to think about when planning your secure coding practices.
+
+Want more security-related content for developers? Check out some of our other posts:
+
+* link:/blog/2020/03/13/developers-guide-on-reporting-vulnerabilities[A Developer Guide to Reporting Vulnerabilities]
+* link:/blog/2020/02/14/paseto-security-tokens-java[Create and Verify PASETO Tokens in Java]
+* link:/blog/2017/08/17/why-jwts-suck-as-session-tokens[Why JWTs Suck as Session Tokens]
+
+If you enjoyed this blog post and want to see more like it, follow https://twitter.com/oktadev[@oktadev] on Twitter, subscribe to https://youtube.com/c/oktadev[our YouTube channel], or follow us on https://www.linkedin.com/company/oktadev/[LinkedIn]. As always, please leave your questions and comments below—we love to hear from you!
