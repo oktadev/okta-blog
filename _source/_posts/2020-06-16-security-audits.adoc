@@ -65,9 +65,10 @@ In Java, the variable order matters. It's important to make sure all your method
 [source,java]
 ----
 public class ExampleBasicMath {
-public int add(int a, int b) {
-return a + b;
-}
+
+    public int add(int a, int b) {
+        return a + b;
+    }
 
     public int subtract(int b, int a) {
         return a - b;
