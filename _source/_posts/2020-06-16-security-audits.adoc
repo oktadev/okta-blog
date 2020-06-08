@@ -60,7 +60,7 @@ public interface BasicMath {
 }
 ----
 
-In Java, the variable order maters. It's important to make sure all your methods use the same order. In the above example, the `subtract` methods arguments are `b, a` all of the other methods are ordered `a, b`. In isolation, this doesn' really matter, and the implementation might look like this:
+In Java, the variable order matters. It's important to make sure all your methods use the same order. In the above example, the `subtract` methods arguments are `b, a` all of the other methods are ordered `a, b`. In isolation, this doesn't really matter, and the implementation might look like this:
 
 [source,java]
 ----
