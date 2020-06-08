@@ -1,0 +1,60 @@
+---
+layout: blog_post
+title: "Get Started with Micronaut, JHipster, and OAuth"
+author: matt-raible
+by: advocate
+communities: [java,javascript]
+description: "This tutorial shows you how to create an app with Micronaut and JHipster and deploy it to Heroku."
+tags: [java, micronaut, jhipster, oauth2, heroku]
+tweets:
+- ""
+- ""
+- ""
+image:
+type: conversion
+---
+:toc: macro
+:page-liquid:
+
+// intro to Micronaut
+
+// social image
+
+== Build a Micronaut App with JHipster
+
+// what you'll build
+
+toc::[]
+
+**Prerequisites:**
+
+* https://adoptopenjdk.net/[Java 11]+
+* https://nodejs.org/[Node 12]+
+* https://docs.docker.com/get-docker/[Docker]
+* An https://developer.okta.com/signup/[Okta Developer Account]
+
+=== Design a Data Model with JDL
+
+// rockets and launch schedules
+
+=== Generate a Micronaut App with Angular
+
+=== What About React and Vue.js?s
+
+== Confirm Authentication with Keycloak Works
+
+// run e2e
+
+== Prepare Micronaut for Production
+
+== Deploy Micronaut to Heroku
+
+=== Micronaut + Docker on Heroku
+
+== Discover More About Micronaut and JHipster
+
+If you have any questions, please ask them below.
+
+To be notified when we publish new blog posts, follow us on https://twitter.com/oktadev[Twitter] or https://www.linkedin.com/company/oktadev[LinkedIn].
+
+We frequently publish videos to our https://youtube.com/c/oktadev[YouTube channel]. Please https://youtube.com/c/oktadev?sub_confirmation=1[subscribe]!
