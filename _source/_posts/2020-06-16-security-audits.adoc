@@ -42,7 +42,7 @@ This was the most critical of the issues they found. The library was making a co
 Typically, you don't think of variable names when talking about security issues, but an incorrectly named variable can lead to maintenance issues or improper usage in the future. In this particular case, there was a variable named `rsaSignature` that but was an EdDSA signature.
 The fix is obvious: rename the variable to `eddsaSignature`.
 
-Overall my experience with Paragon Initiative was great. They even found a typo in the project's README.md. A doc issue doesn't sound like much, but it shows their attention to detail while going through a codebase.
+Overall my experience with Paragon Initiative was great. They even found a typo in the project's `README.md`. A doc issue doesn't sound like much, but it shows their attention to detail while going through a codebase.
 
 == Vulnerabilities Happen
 
