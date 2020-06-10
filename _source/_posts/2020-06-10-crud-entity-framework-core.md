@@ -912,6 +912,8 @@ The first thing this view does is check if the movie was found.  If the user req
 
 Otherwise, the user will be presented with a form that allows them to update or create a movie.  If the user is in update mode then the title isn't editable, but the description is.  After saving the movie, the user will be redirected to the `Movies/Index` page.
 
+You can check out the completed code [on GitHub](https://github.com/oktadeveloper/okta-dotnet-efcore-crud-example/tree/master).
+
 
 ## Run Your Entity Framework Core Application
 
