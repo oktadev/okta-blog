@@ -32,6 +32,7 @@ Let's download the source code from [GitHub](https://github.com/oktadeveloper/sq
 ```bash
 git clone https://github.com/oktadeveloper/sql-injection-in-php.git sql-injection-in-php
 cd sql-injection-in-php
+composer install
 ```
 
 After this, you can simply execute the PHP built-in server in the port 8080 (you can choose another port if you wish):
@@ -153,7 +154,7 @@ The previously shown attacks affecting the `students` table SELECT clause would 
 
 This technique seeks to retrieve information about the structure of the database using error messages returned by the database server. By using this technique, an attacker can retrieve valuable information about the database, such as if a given table exists in the database or not.
 
-For example, we could try exploiting this kind of attack via the new student form. We can introduce a student injecting SQL into the last field. First, we can try to find out if the tables 'marks' or 'teachers' exist in the database.
+For example, we could try exploiting this kind of attack via the new student form at `http://localhost:8080/manageStudent.php?action=insert`. We can introduce a student injecting SQL into the last field. First, we can try to find out if the tables 'marks' or 'teachers' exist in the database.
 To find out if the marks table exists, simply enter `Test'); select * from marks; --` in the Birth Date field.
 
 {% img blog/sql-injection-in-php/birth-date-injection.png alt:"A SQL injection string entered into the birth date field" width:"400" %}{: .center-image }  
@@ -307,7 +308,7 @@ $prepared_query->execute( $parameters );
 $result = $prepared_query->fetchAll();
 ```
 
-The safe version of the app, available at http://localhost:8080/manageStudentSafe.php, filters and sanitizes all the inputs used to build SQL queries, preventing SQL injection attacks.
+The safe version of the app, available at `http://localhost:8080/manageStudentSafe.php`, filters and sanitizes all the inputs used to build SQL queries, preventing SQL injection attacks.
 
 {% img blog/sql-injection-in-php/manage-students-form.png alt:"The manage students form with a SQL injection string entered" width:"800" %}{: .center-image }
 
