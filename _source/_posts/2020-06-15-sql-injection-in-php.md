@@ -10,7 +10,7 @@ tweets:
 - "SQL injections are one of the most common vulnerabilities found in web applications, find out how to prevent these attacks in PHP!"
 - "Learn how to protect your PHP apps from SQL injection attacks!"
 image: blog/featured/okta-php-headphones.jpg
-type: awareness|conversion
+type: awareness
 ---
 
 SQL injections are one of the most common vulnerabilities found in web applications. Today, I'm going to explain what a SQL injection attack is and take a look at an example of a simple vulnerable PHP application accessing a SQLite or MySQL database. After that, we'll look at several methods to prevent this attack, fixing the problem.
