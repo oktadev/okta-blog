@@ -221,7 +221,7 @@ But, if we repeat the process for the `qualifications` table, checking for stude
 
 Again, by using this method over and over, probably using an automated script, we'll be able to determine the whole structure of the database, finding information about all the tables and the existing columns. 
 
-#### Blind time-based SQL Injection Attacks
+#### Blind Time-based SQL Injection Attacks
 
 This kind of attack tries to infer information about the database or the database server by examining the time the database spends answering a given query. 
 
