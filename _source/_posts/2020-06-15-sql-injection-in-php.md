@@ -27,7 +27,7 @@ Make sure you have the following software installed and enabled on your system:
 
 First, we are going to set up our vulnerable example application. It's a really small self-contained PHP web application that manages a list of students from a SQLite database (also included in the app) accessed through the PDO PHP extension. 
 
-Let's download the source code from [GitHub](https://github.com/oktadeveloper/sql-injection-in-php)
+Let's download the source code from [GitHub](https://github.com/oktadeveloper/sql-injection-in-php).
 
 ```bash
 git clone https://github.com/oktadeveloper/sql-injection-in-php.git sql-injection-in-php
