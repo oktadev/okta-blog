@@ -15,7 +15,7 @@ type: awareness
 
 SQL injections are one of the most common vulnerabilities found in web applications. Today, I'm going to explain what a SQL injection attack is and take a look at an example of a simple vulnerable PHP application accessing a SQLite or MySQL database. After that, we'll look at several methods to prevent this attack, fixing the problem.
 
-## Prerequisites
+**Prerequisites**
 
 Make sure you have the following software installed and enabled on your system:
 
@@ -62,7 +62,7 @@ A SQL injection is a type of vulnerability that gives users access to the databa
 
 Using this access, an attacker can retrieve information from the database in an unauthorized way (especially from those tables that aren't typically accessible by users). Also, it is possible to insert, update, or delete records.
 
-## First steps exploiting a SQL Injection vulnerability.
+## Exploit a Simple SQL Injection Vulnerability
 
 So, how can we exploit our vulnerable application? A very good example is this classic XKCD comic strip:
 
@@ -248,7 +248,7 @@ It's actually quite easy. First, you must sanitize your inputs. Always. No excus
 
 And, as an additional note, don't rely on client-side input sanitation. An attacker could launch SQL Injection attacks emulating the calls from a browser, using unsanitized data. 
 
-### How to use prepared statements
+### How to Use Prepared Statements
 
 As stated previously, the best way to sanitize inputs when building SQL queries is by using prepared statements. 
 
@@ -440,7 +440,7 @@ It will return the whole list of students.
 So it all depends on if you design the stored procedures so they use prepared statements.
 If you do it wrong, you could still be vulnerable to an SQL Injection attack. 
 
-## Conclusion
+## Learn More About Web Security and PHP
 
 SQL injection vulnerabilities are ubiquitous in web applications. But, as you've seen, just by applying some basic techniques you can easily prevent your applications from being exploited.
 Basically, always be sure to sanitize user input carefully, using prepared statements or stored procedures.
@@ -453,10 +453,9 @@ There are several free vulnerability-scanner tools that you could use to get sur
 * [SQLSus](http://sqlsus.sourceforge.net/)
 * [Mole](https://sourceforge.net/projects/themole/files/)
 
-## Learn More About Security
-
 This post showed you the importance of protecting your application against SQL Injection vulnerabilities. Want more security-related content for developers? Check out some of our other posts:
 
+* [Add Authentication to your PHP App in 5 Minutes](/blog/2018/07/09/five-minute-php-app-auth)
 * [A Developer Guide to Reporting Vulnerabilities](/blog/2020/03/13/developers-guide-on-reporting-vulnerabilities)
 * [Securing REST APIs](/blog/2019/09/04/securing-rest-apis)
 * [Why JWTs Suck as Session Tokens](/blog/2017/08/17/why-jwts-suck-as-session-tokens)
