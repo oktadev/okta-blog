@@ -46,7 +46,7 @@ Document root is /home/okta/sql-injection-in-php
 Press Ctrl-C to quit.
 ```
 
-Now, visit the vulnerable app from your browser by navigating to `http://localhost:8080`
+Now, visit the vulnerable app from your browser by navigating to `http://localhost:8080`.
 
 {% img blog/sql-injection-in-php/manage-students.png alt:"A table of student names and birthdays" width:"800" %}{: .center-image }
 
