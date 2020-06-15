@@ -427,4 +427,4 @@ If you have any questions about this post, please add a comment below. For more 
 
 **Changelog:**
 
-* Jun 15, 2020: Updated to use the v4.0.1 version of  Okta Middleware. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-node-express-15-minute-auth-example/pull/6). Changes to this article can be viewed in [oktadeveloper/okta-blog#317](https://github.com/oktadeveloper/okta-blog/pull/317).
+* Jun 15, 2020: Updated to use the v4.0.1 version of  Okta Middleware. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-node-express-15-minute-auth-example/pull/6). Changes to this article can be viewed in [oktadeveloper/okta-blog#325](https://github.com/oktadeveloper/okta-blog/pull/325).
