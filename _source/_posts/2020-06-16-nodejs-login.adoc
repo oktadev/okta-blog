@@ -14,7 +14,7 @@ image: blog/node-login/nodejs-login.png
 type: conversion
 ---
 
-Node.js just celebrated its 11th birthday! It's pretty crazy to think it was way back in 2009 when the JavaScript Renaissance got a huge boost. In case you're not aware, the JavaScript Renaissance began in around 2004 with Ajax, increased exponentionally with jQuery in the mid-2000s with jQuery,then really took off with Node.js and a plethora of plethora of early JavaScript web frameworks, including Backbone.js, Ember.js, and AngularJS.
+Node.js just celebrated its 11th birthday on May 27! With the state of things nows, it's pretty crazy to think back to the massive JavaScript Renaissance boost of 2009. In case you're not aware, the JavaScript Renaissance began in around 2004 with Ajax, increased exponentially with jQuery in the mid-2000s, and then really took off with Node.js and a plethora of early JavaScript web frameworks; including Backbone.js, Ember.js, and AngularJS.
 
 Today, I'd like to show you the power of Node.js with a simple login example. Express.js is one of the oldest and most-used server-side MVC frameworks for Node.js. Okta happens to provide an https://github.com/okta/okta-oidc-js/tree/master/packages/oidc-middleware#readme[OIDC Middleware package] that integrates with Express to secure your app with login and logout functionality.
 
