@@ -26,8 +26,8 @@ Creating a new app in Express doesn't take a lot of code. You'll need to set up 
 mkdir new-project
 cd new-project
 npm init -y
-npm install express@4.16.4 hbs@4.0.1
-npm install --save-dev nodemon@1.18.4 standard@12.0.1
+npm install express hbs @4.17.1 hbs@4.1.1
+npm install --save-dev nodemon@2.0.4 standard@14.3.4
 ```
 
 Edit the `"scripts"` section of your `package.json` to look like this:
@@ -56,7 +56,6 @@ app.use('/static', express.static('public'));
 
 // @TODO add auth middleware
 // @TODO add registration page
-// @TODO add logout route
 
 app.use('/', require('./routes/index'));
 
@@ -182,9 +181,9 @@ npm install -g uuid-cli
 echo "APP_SECRET=`uuid`" >> .env
 ```
 
-Next, log in to your Okta developer console, navigate to **Applications**, then click **Add Application**. Select **Web**, then click **Next**.
+Next, log in to your Okta developer console, navigate to **Applications**, then click **Add Application**. Select **Web**, then click **Next**. Change all ports to be 3000 and add `http://localhost:3000/callback` as a **Login redirect URI**.
 
-{% img blog/express-auth/create-new-application-settings.png alt:"Create New Application Settings" width:"800" %}{: .center-image }
+{% img blog/express-auth/create-new-application-settings.png alt:"Create New Application Settings" width:"700" %}{: .center-image }
 
 The page you come to after creating an application has some more information you need to save to your `.env` file. Copy in the client ID and client secret.
 
@@ -193,9 +192,7 @@ OKTA_CLIENT_ID={yourClientId}
 OKTA_CLIENT_SECRET={yourClientSecret}
 ```
 
-At the time of this writing, the default application creation page does not allow you to add a Logout redirect URI, but you can add one after creating the application. After creating the application, click **Edit**, then next to **Logout redirect URIs** click **Add URI**. Add a logout redirect URI of `http://localhost:3000` and click **Save**.
-
-The last piece of information you need from Okta is an API token. In your developer console, navigate to **API** -> **Tokens**, then click on **Create Token**. You can have many tokens, so just give this one a name that reminds you what it's for, like "15 Minute Auth". You'll be given a token that you can only see right now. If you lose the token, you'll have to create another one. Add this to `.env` also.
+The last piece of information you need from Okta is an API token. In your developer console, navigate to **API** > **Tokens**, then click on **Create Token**. You can have many tokens, so just give this one a name that reminds you what it's for, like "15 Minute Auth". You'll be given a token that you can only see right now. If you lose the token, you'll have to create another one. Add this to `.env` also.
 
 ```bash
 OKTA_TOKEN={yourOktaAPIToken}
@@ -206,7 +203,7 @@ OKTA_TOKEN={yourOktaAPIToken}
 Okta provides some middleware that will give you information about whether the user is registered or not. It also gives you a login page by default at `/login`. Add the following dependencies:
 
 ```bash
-npm install dotenv@6.1.0 express-session@1.15.6 @okta/oidc-middleware@1.0.2 @okta/okta-sdk-nodejs@1.2.0
+npm install dotenv@8.2.0 express-session@1.17.1 @okta/oidc-middleware@4.0.1 @okta/okta-sdk-nodejs@3.3.1
 ```
 
 In your `index.js` page, replace the `// @TODO add auth middleware` comment with the following code:
@@ -222,11 +219,17 @@ app.use(
 
 const { ExpressOIDC } = require('@okta/oidc-middleware');
 const oidc = new ExpressOIDC({
+  appBaseUrl: process.env.HOST_URL,
   issuer: `${process.env.OKTA_ORG_URL}/oauth2/default`,
   client_id: process.env.OKTA_CLIENT_ID,
   client_secret: process.env.OKTA_CLIENT_SECRET,
-  redirect_uri: `${process.env.HOST_URL}/authorization-code/callback`,
-  scope: 'openid profile'
+  redirect_uri: `${process.env.HOST_URL}/callback`,
+  scope: 'openid profile',
+  routes: {
+    loginCallback: {
+      path: '/callback'
+    },
+  }
 });
 
 app.use(oidc.router);
@@ -240,7 +243,7 @@ require('dotenv').config();
 
 ### Create a Registration Page
 
-You should now be able to login by going to `/login`. This will redirect you to your Okta developer page, and after you sign in you'll be redirected back to the homepage.
+You should now be able to login by going to `/login` in an incognito window. This will redirect you to your Okta developer page, and after you sign in you'll be redirected back to the homepage.
 
 For people who aren't registered yet, they'll need a registration page. At the time of this writing, Okta doesn't provide a registration page out of the box, but you can build one pretty quickly. Create a new view for your route:
 
@@ -352,27 +355,11 @@ You can now have users register. If they run into an error, it will be displayed
 
 {% img blog/express-auth/register.png alt:"Register With Error" width:"800" %}{: .center-image }
 
-### Add a Logout Route
+### The Default Logout Route
 
-At the time of this writing, Okta's middleware doesn't provide a default `/logout` route. Luckily, adding one is fairly simple. In your `index.js` file, replace the `// @TODO add logout route` comment with:
+Okta's middleware also provides a `/logout` route. 
 
-```javascript
-app.get('/logout', (req, res) => {
-  if (req.userContext) {
-    const idToken = req.userContext.tokens.id_token;
-    const to = encodeURI(process.env.HOST_URL);
-    const params = `id_token_hint=${idToken}&post_logout_redirect_uri=${to}`;
-    req.logout();
-    res.redirect(
-      `${process.env.OKTA_ORG_URL}/oauth2/default/v1/logout?${params}`
-    );
-  } else {
-    res.redirect('/');
-  }
-});
-```
-
-If you're logged in, this will invalidate the token and delete the user's session. It will then redirect you back to the homepage. If you're not logged in, it just takes you back to the homepage.
+If you're logged in, hitting `http://localhosts:3000/logout` with a POST request will invalidate the token and delete the user's session. It will then redirect you back to the homepage. If you're not logged in, it just takes you back to the homepage.
 
 ### Add Links to the New Routes in Your Express App
 
@@ -410,7 +397,9 @@ Now to add the buttons. In `views/layout.hbs`, replace the `{{!-- @TODO add auth
 {%raw%}
 ```hbs
 {{#if userContext}}
-  <a class="nav-item nav-link" href="/logout">Log out</a>
+  <form method="POST" action="/logout">
+    <button type="submit" class="btn btn-link nav-item nav-link">Logout</button>
+  </form>
 {{else}}
   <a class="nav-item nav-link" href="/login">Log in</a>
   <a class="nav-item nav-link" href="/register">Register</a>
@@ -428,10 +417,14 @@ That's it! In just a few minutes, you went from an empty folder to a secure webs
 
 If you'd like to learn more about Node and Express check out some of these other posts on the Okta developer blog:
 
-- [Build and Understand Express Middleware through Examples](https://developer.okta.com/blog/2018/09/13/build-and-understand-express-middleware-through-examples)
-- [Build and Understand a Simple Node.js Website with User Authentication](https://developer.okta.com/blog/2018/08/17/build-and-understand-user-authentication-in-node)
-- [Build a Simple REST API with Node and OAuth 2.0](https://developer.okta.com/blog/2018/08/21/build-secure-rest-api-with-node)
-- [Build Secure Node Authentication with Passport.js and OpenID Connect](https://developer.okta.com/blog/2018/05/18/node-authentication-with-passport-and-oidc)
-- [Secure a Node API with OAuth 2.0 Client Credentials](https://developer.okta.com/blog/2018/06/06/node-api-oauth-client-credentials)
+- [Build and Understand Express Middleware through Examples](/blog/2018/09/13/build-and-understand-express-middleware-through-examples)
+- [Build and Understand a Simple Node.js Website with User Authentication](/blog/2018/08/17/build-and-understand-user-authentication-in-node)
+- [Build a Simple REST API with Node and OAuth 2.0](/blog/2018/08/21/build-secure-rest-api-with-node)
+- [Build Secure Node Authentication with Passport.js and OpenID Connect](/blog/2018/05/18/node-authentication-with-passport-and-oidc)
+- [Secure a Node API with OAuth 2.0 Client Credentials](/blog/2018/06/06/node-api-oauth-client-credentials)
 
-If you have any questions about this post, please add a comment below. For more awesome content, follow [@oktadev](https://twitter.com/oktadev) on Twitter, like us [on Facebook](https://www.facebook.com/oktadevelopers/), or subscribe to [our YouTube channel](https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q).
+If you have any questions about this post, please add a comment below. For more awesome content, follow [@oktadev](https://twitter.com/oktadev) on Twitter, like us [on Facebook](https://www.facebook.com/oktadevelopers/), or subscribe to [our YouTube channel](https://www.youtube.com/c/oktadev).
+
+**Changelog:**
+
+* Jun 15, 2020: Updated to use the v4.0.1 version of  Okta Middleware. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-node-express-15-minute-auth-example/pull/6). Changes to this article can be viewed in [oktadeveloper/okta-blog#325](https://github.com/oktadeveloper/okta-blog/pull/325).
