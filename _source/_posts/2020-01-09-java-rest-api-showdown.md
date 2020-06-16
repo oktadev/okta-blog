@@ -24,6 +24,16 @@ With all these choices, there is a very important question to ask: how easy it i
 
 In this tutorial, you'll create a secure REST application using Spring, Micronaut, and Quarkus to see how they differ from one another, and which one best suits your needs.
 
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+
+If you'd like, you can [watch this tutorial as a screencast](https://youtu.be/pR_MBNL7cFI). 👇
+
+<div style="text-align: center; margin-bottom: 1.25rem">
+<iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/pR_MBNL7cFI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
 ## Prerequisites for Your Java REST API
 
 This tutorial uses [Maven 3+](https://maven.apache.org). Make sure it is installed and available to use before continuing. You can certainly also use Gradle, but YMMV.
@@ -31,6 +41,7 @@ This tutorial uses [Maven 3+](https://maven.apache.org). Make sure it is install
 You're going to build apps that authenticate requests using OAuth 2.0, secured by an Okta application. Don't have an Okta account? Don't worry, it takes less than a minute to create a new one. Not only that, but Okta supports standards like JWT, OAuth 2.0, and OIDC. We provide support for well-known frameworks like Java EE, Spring Boot, and Spring Security. Heck, we even have a [Maven plugin](https://github.com/oktadeveloper/okta-maven-plugin) that automates everything for you. 
 
 There's no need to reinvent the wheel!
+
 ### Create an Okta Account for User Management
 
 Open your terminal, and execute the following command:

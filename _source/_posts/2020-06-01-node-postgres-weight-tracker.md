@@ -22,6 +22,12 @@ In this tutorial, you are going to create a modern Node.js application to keep t
 
 {% img blog/node-postgres-weight-tracker/build-weight-tracker-app-demo.gif alt:"Demo" width:"800" %}{: .center-image }
 
+By the way, this tutorial is also available on our [YouTube channel](https://www.youtube.com/watch?v=LWPIdzeiThs), if you would rather follow along by watching a video!
+
+<div style="text-align: center; margin-bottom: 1.25rem">
+<iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/LWPIdzeiThs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
 Before we begin, let's first check some requirements.
 
 * [Node.js](https://nodejs.org/) version 12.x or higher.
