@@ -10,7 +10,7 @@ tweets:
 - "A Quick Guide to #Docker with #Angular and Spring Boot. 👇"
 - "Angular + Spring Boot + Docker: learn how to create an image with a Dockerfile, with #jib, and using @buildpacks_io!"
 - "Combine @angular + @springboot in a single JAR, then use Jib to build a Docker image."
-image: blog/angular-docker/angular-spring-boot-docker-hug.png
+image: blog/angular-docker/angular-docker-spring-boot-hug.png
 type: conversion
 ---
 :toc: macro
@@ -18,15 +18,17 @@ type: conversion
 
 Building modern apps with Angular and Spring Boot is a common practice these days. In fact, if I use Google's Keyword Planner to look up popular search terms, it's one of the most popular combinations. The results in the list below are average monthly searches and not limited by location.
 
-image::{% asset_path 'blog/angular-docker/keyword-planner-angular-results.png.png' %}[alt=Keyword Planner results,width=700,align=center]
+image::{% asset_path 'blog/angular-docker/keyword-planner-angular-results.png' %}[alt=Keyword Planner results,width=375,align=center]
 
-This tutorial is the fourth and final in a series on Angular and Spring Boot in 2020. In the first one, I showed how to create a secure notes app with Angular and Spring Boot + Kotlin. The second showed how to add Bootstrap for CSS and create a sortable, searchable, and pageable data table. The third showed how to deploy apps separately to Heroku. It also outlined how it's possible to use `ng deploy` to deploy to Firebase, Netlify, and AWS.
+This tutorial is the fourth and final in a series on Angular and Spring Boot in 2020. In the first one, I showed how to create a secure notes app with Angular and Spring Boot + Kotlin. The second showed how to add Bootstrap for CSS and create a sortable, searchable, and pageable data table. The third showed how to deploy apps separately to Heroku. It also outlined how it's possible to use `ng deploy` to deploy to Firebase, Netlify, and AWS. You can find links to previous tutorials below.
 
 1. link:/blog/2020/01/06/crud-angular-9-spring-boot-2[Build a CRUD App with Angular 9 and Spring Boot 2.2]
 2. link:/blog/2020/03/02/angular-bootstrap[Build Beautiful Angular Apps with Bootstrap]
 3. link:/blog/2020/05/29/angular-deployment[Angular Deployment with a Side of Spring Boot]
 
 Today, I'll show you how to use Docker to create an image for your Angular app and deploy it to Heroku. Then, I'll show how to combine Angular and Spring Boot into the same JAR artifact for deployment. You'll learn how to Dockerize the combined apps using Jib and Cloud Native Buildpacks. Finally, I'll show you how to deploy your Docker image to Heroku, Knative on Google Cloud, and Cloud Foundry.
+
+image::{% asset_path 'blog/angular-docker/angular-docker-spring-boot-hug.png' %}[alt=Angular + Docker with a Big Hug from Spring Boot,width=800,align=center]
 
 Docker is the most popular way to build and share containers. _Dockerizing_ involves packaging your app—you can also include web servers to serve up your app. This is important when containerizing an Angular app because its artifacts are just JavaScript, CSS, and HTML; the production app is static files that will need to be served up by some sort of web server. As an added bonus, you can configure the web server to send security headers that make your app more secure.
 
@@ -144,10 +146,9 @@ git commit -am "Add Okta OIDC Configuration"
 
 == Create a Docker Container for Your Angular App
 
-Create a `Dockerfile` that uses Node and Nginx as a web server.
+Create a `notes/Dockerfile` that uses Node and Nginx as a web server.
 
 [source,docker]
-.notes/Dockerfile
 ----
 FROM node:14.1-alpine AS builder
 
@@ -228,7 +229,7 @@ Add these Docker commands as scripts to your `package.json` file.
 
 The `docker run` command will serve up the production version of the Angular app, which has its backend configured to point to a production URL on Heroku.
 
-source,typescript]
+[source,typescript]
 .notes/src/environments/environment.prod.ts
 ----
 export const environment = {
@@ -475,6 +476,7 @@ Now you should be able to log in and see the note you created earlier.
 If you test your freshly-deployed Angular app with https://securityheaders.com/[securityheaders.com], you'll get an **F**. To solve this, modify your `nginx.config` to add security headers.
 
 [source,config]
+.notes/nginx.conf
 ----
 server {
     listen       ${PORT:-80};
@@ -569,15 +571,15 @@ export class AuthService {
     })
   }
 
-  login(): void {
+  login(): void { // <2>
     location.href =
-      `${location.origin}${this.location.prepareExternalUrl('oauth2/authorization/okta')}`; // <2>
+      `${location.origin}${this.location.prepareExternalUrl('oauth2/authorization/okta')}`;
   }
 
-  logout(): void {
+  logout(): void { // <3>
     const redirectUri = `${location.origin}${this.location.prepareExternalUrl('/')}`;
 
-    this.http.post(`${environment.apiUrl}/api/logout`, {}).subscribe((response: any) => { // <3>
+    this.http.post(`${environment.apiUrl}/api/logout`, {}).subscribe((response: any) => {
       location.href = response.logoutUrl + '?id_token_hint=' + response.idToken
         + '&post_logout_redirect_uri=' + redirectUri;
     });
@@ -726,9 +728,10 @@ Change both `environments.ts` and `environments.prod.ts` to use a blank `apiUrl`
 apiUrl: ''
 ----
 
-Create a `src/proxy.conf.js` file to proxy certain requests to your Spring Boot API on `http://localhost:8080`.
+Create a `proxy.conf.js` file to proxy certain requests to your Spring Boot API on `\http://localhost:8080`.
 
 [source,javascript]
+.notes/src/proxy.conf.js
 ----
 const PROXY_CONFIG = [
   {
@@ -745,6 +748,7 @@ module.exports = PROXY_CONFIG;
 Add this file as a `proxyConfig` option in `angular.json`.
 
 [source,json]
+.notes/angular.json
 ----
 "serve": {
   "builder": "@angular-devkit/build-angular:dev-server",
@@ -895,7 +899,6 @@ NOTE: In link:/blog/2020/03/27/spring-oidc-logout-options[OpenID Connect Logout 
 When you access the `/user/notes` endpoint with Angular, the `${principal.name}` expression correctly resolves to the user's email. However, when you access this endpoint after logging in directly to Spring Boot, it resolves to the `sub` claim. To make these values consistent, add the following property to `application-dev.properties` and `application-prod.properties`.
 
 [source,properties]
-.notes-api/src/main/resources/application-dev.properties
 ----
 spring.security.oauth2.client.provider.okta.user-name-attribute=preferred_username
 ----
@@ -932,7 +935,6 @@ plugins {
 Then, define the location of your Angular app and configuration for the Node plugin.
 
 [source,kotlin]
-.notes/build.gradle.kts
 ----
 val spa = "${projectDir}/../notes";
 
@@ -945,7 +947,6 @@ node {
 Add a `buildWeb` task:
 
 [source,kotlin]
-.notes/build.gradle.kts
 ----
 val buildWeb = tasks.register<NpmTask>("buildNpm") {
     dependsOn(tasks.npmInstall)
@@ -960,7 +961,6 @@ val buildWeb = tasks.register<NpmTask>("buildNpm") {
 And modify the `processResources` task to build Angular when `-Pprod` is passed in.
 
 [source,kotlin]
-.notes/build.gradle.kts
 ----
 tasks.processResources {
     rename("application-${profile}.properties", "application.properties")
@@ -1045,7 +1045,7 @@ You can https://docs.docker.com/compose/compose-file/#env_file[use Docker Compos
 
 Copy `notes-api/okta.env` to `src/main/docker/.env`.
 
-Change it to remove `export ` at the beginning of each line. It should resemble something like the following:
+Remove `export` at the beginning of each line. It should resemble something like the following after this change:
 
 [source,shell]
 ----
@@ -1582,7 +1582,7 @@ You can also just use a `manifest.yml` to make it so you don't have to type all 
 [source,yaml]
 ----
 applications:
-- name: ba
+- name: <your-app-name>
   disk_quota: 1G
   docker:
     image: <your-username>/bootiful-angular
