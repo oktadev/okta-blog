@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Angular with Docker + ❤️ from Spring Boot and Heroku"
+title: "Angular + Docker with a Big Hug from Spring Boot"
 author: matt-raible
 by: advocate
 communities: [java,javascript,devops]
@@ -10,7 +10,7 @@ tweets:
 - "A Quick Guide to #Docker with #Angular and Spring Boot. 👇"
 - "Angular + Spring Boot + Docker: learn how to create an image with a Dockerfile, with #jib, and using @buildpacks_io!"
 - "Combine @angular + @springboot in a single JAR, then use Jib to build a Docker image."
-image:
+image: blog/angular-docker/angular-spring-boot-docker-hug.png
 type: conversion
 ---
 :toc: macro
@@ -18,12 +18,7 @@ type: conversion
 
 Building modern apps with Angular and Spring Boot is a common practice these days. In fact, if I use Google's Keyword Planner to look up popular search terms, it's one of the most popular combinations. The results in the list below are average monthly searches and not limited by location.
 
-- `angular spring boot`: 3600
-- `react spring boot`: 1000
-- `angular express`: 1900
-- `angular aspnet`: 210
-- `angular flask`: 320
-- `angular symfony`: 390
+image::{% asset_path 'blog/angular-docker/keyword-planner-angular-results.png.png' %}[alt=Keyword Planner results,width=700,align=center]
 
 This tutorial is the fourth and final in a series on Angular and Spring Boot in 2020. In the first one, I showed how to create a secure notes app with Angular and Spring Boot + Kotlin. The second showed how to add Bootstrap for CSS and create a sortable, searchable, and pageable data table. The third showed how to deploy apps separately to Heroku. It also outlined how it's possible to use `ng deploy` to deploy to Firebase, Netlify, and AWS.
 
@@ -50,7 +45,7 @@ https://twitter.com/codefinger[image:{% asset_path 'blog/angular-docker/codefing
 
 == Create an Angular + Spring Boot App
 
-To begin, clone the GitHub repo from the most recent tutorial in this series.
+To begin, clone the GitHub repo from the link:/blog/2020/05/29/angular-deployment[most recent tutorial] in this series.
 
 [source,shell]
 ----
@@ -774,7 +769,7 @@ You should still be able to run `ng serve` in your Angular app and `./gradlew bo
 
 === Configure Spring Boot to Include Your Angular SPA
 
-In your Spring Boot app, you'll need to change a number of things. You'll need to configure it to build your Angular app when you pass in `-Pprod`, you'll need to adjustconfigure its routes so it's SPA-aware and routes all 404s to `index.html`, and you'll need to modifyconfigure your security settings to allow HTML, CSS, and JavaScript to be anonymously accessed.
+In your Spring Boot app, you'll need to change a number of things. You'll need to configure Gradle to build your Angular app when you pass in `-Pprod`, you'll need to adjust its routes (so it's SPA-aware and routes all 404s to `index.html`), and you'll need to modify Spring Security to allow HTML, CSS, and JavaScript to be anonymously accessed.
 
 To begin, delete `src/main/kotlin/com/okta/developer/notes/HomeController.kt`. You'll no longer need this because your Angular app will be served up at the `/` path.
 
@@ -850,7 +845,7 @@ class SecurityConfiguration : WebSecurityConfigurerAdapter() {
 
 TIP: See https://docs.spring.io/spring-security/site/docs/current/reference/html5/#headers[Spring Security's headers] documentation to see default security headers and other options.
 
-With Kotlin, you can say that parameters and return values are optional by adding `?` to their type. Update the `user()` method in `UserController.kt` to make `OidcUser` optional. It will be `null` when the user is not authenticated, that's why this change is needed.
+With Kotlin, you can mark parameters and return values as optional by adding `?` to their type. Update the `user()` method in `UserController.kt` to make `OidcUser` optional. It will be `null` when the user is not authenticated, that's why this change is needed.
 
 [source,kotlin]
 .notes-api/src/main/kotlin/com/okta/developer/notes/UserController.kt
@@ -895,7 +890,7 @@ class LogoutController(val clientRegistrationRepository: ClientRegistrationRepos
 }
 ----
 
-NOTE: In link:/blog/2020/03/27/spring-oidc-logout-options[OpenID Connect Logout Options with Spring Boot], Brian Demers describes this as RP-Initiated Logout. He also shows how you can use Spring Security's `OidcClientInitiatedLogoutSuccessHandler`. I tried this technique but decided against it because it doesn't allow me to redirect back to my Angular app in dev mode. I also encountered some CORS errors that I was unable to solve.
+NOTE: In link:/blog/2020/03/27/spring-oidc-logout-options[OpenID Connect Logout Options with Spring Boot], Brian Demers describes this as RP-Initiated Logout. He also shows how you can configure Spring Security's `OidcClientInitiatedLogoutSuccessHandler` to logout. I tried this technique but decided against it because it doesn't allow me to redirect back to my Angular app in dev mode. I also encountered some CORS errors that I was unable to solve.
 
 When you access the `/user/notes` endpoint with Angular, the `${principal.name}` expression correctly resolves to the user's email. However, when you access this endpoint after logging in directly to Spring Boot, it resolves to the `sub` claim. To make these values consistent, add the following property to `application-dev.properties` and `application-prod.properties`.
 
