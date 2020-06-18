@@ -110,7 +110,7 @@ okta.bat
 gradlew bootRun
 ----
 
-Next, configure Angular for OIDC authentication by modifying its `auth-routing.module.ts` to use the generated issuer and client ID.
+Next, configure Angular for OIDC authentication by modifying its `auth-routing.module.ts` to use the generated issuer and **SPA** client ID.
 
 [source,typescript]
 .notes/src/app/auth-routing.module.ts
@@ -310,7 +310,7 @@ Now you're ready to deploy! Heroku makes this easy with a simple `git push`.
 
 [source,shell]
 ----
-git push heroku master
+git push heroku main:master
 ----
 
 Run `heroku open` to open your app. You'll be redirected to Okta to authenticate, then back to your Spring Boot app. You should see a screen like the one below.
@@ -321,7 +321,7 @@ By default, JPA is configured to create your database schema each time. Change i
 
 [source,shell]
 ----
-heroku config:set SPRING_JPA_HIBERNATE_DDL_AUTO=validate --remote heroku
+heroku config:set SPRING_JPA_HIBERNATE_DDL_AUTO=validate
 ----
 
 Now, you'll need to configure your Angular app to use your Heroku-deployed Spring Boot app for its production URL.
@@ -339,7 +339,7 @@ Since this runs the production build, you'll need to add `\http://localhost:4200
 
 [source,shell]
 ----
-heroku config:set ALLOWED_ORIGINS=http://localhost:4200 --remote heroku
+heroku config:set ALLOWED_ORIGINS=http://localhost:4200
 ----
 
 TIP: One advantage of doing this is that you can run your local Angular app against your production backend. I've found this very useful when debugging and fixing UI issues caused by production data.
@@ -738,7 +738,7 @@ const PROXY_CONFIG = [
     context: ['/user', '/api', '/oauth2', '/login'],
     target: 'http://localhost:8080',
     secure: false,
-    logLevel: "debug"
+    logLevel: 'debug'
   }
 ]
 
@@ -1003,7 +1003,7 @@ To add Jib support, add its Gradle plugin.
 ----
 plugins {
     ...
-    id("com.google.cloud.tools.jib") version "2.3.0"
+    id("com.google.cloud.tools.jib") version "2.4.0"
 }
 ----
 
@@ -1628,7 +1628,7 @@ Spring Boot's Maven and Gradle plugins both have new commands:
 
 The https://paketo.io/[Paketo] Java buildpack is used by default to create images.
 
-TIP: Learn more in https://twitter.com/phillip_webb[Phil Webb's] blog post: https://spring.io/blog/2020/01/27/creating-docker-images-with-spring-boot-2-3-0-m1[Creating Docker images with Spring Boot 2.3.0.M1].
+TIP: Learn more in https://twitter.com/phillip_webb[Phil Webb's] blog post: https://spring.io/blog/2020/01/27/creating-docker-images-with-spring-boot-2-3-0-m1[Creating Docker images with Spring Boot 2.3.0.M1] or his excellent https://spring.io/blog/2020/06/18/what-s-new-in-spring-boot-2-3[What's new in Spring Boot 2.3 video].
 
 By default, Spring Boot will use your `$artifactId:$version` for the image name. That is, `notes-api:0.0.1-SNAPSHOT`. You can override this with an `--imageName` parameter.
 
@@ -1668,3 +1668,8 @@ To learn more about Angular, Spring Boot, and Docker, see some of our other blog
 - https://developer.okta.com/blog/2017/10/11/developers-guide-to-docker-part-3[A Developer's Guide To Docker - Docker Compose]
 
 https://twitter.com/oktadev[Follow @oktadev on Twitter] for more posts like this one. We also have a https://youtube.com/c/oktadev[YouTube channel] you might enjoy. As always, please leave a comment below if you have any questions!
+
+[[changelog]]
+**Changelog:**
+
+* Jun 18, 2020: Updated to Spring Boot 2.3.1, Angular 9.1.11, and the latest https://elements.heroku.com/addons/okta[Okta Heroku Add-on]. See the code changes in the https://github.com/oktadeveloper/okta-angular-spring-boot-docker-example/pull/1[example app on GitHub]. Changes to this article can be viewed in https://github.com/oktadeveloper/okta-blog/pull/330[oktadeveloper/okta-blog#330].
