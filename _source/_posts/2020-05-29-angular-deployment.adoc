@@ -123,10 +123,6 @@ const routes: Routes = [
 ];
 ----
 
-By default, Heroku registers an SPA app on the same port (`8080`) as a web app. This means you need to log in to your Okta dashboard and add a new redirect URI for local development. Luckily, Heroku makes this easy to do. Go to **Resources** and click on the **okta** add on. This will log you into your Okta dashboard. Navigate to **Applications** > **Heroku Created OIDC App - browser** > **General** > **Edit**.
-
-Add `\http://localhost:4200/callback` as a Login redirect URI and `\http://localhost:4200` as a Logout redirect URI. You'll also need to add `\http://localhost:4200` as a trusted origin in **API** > **Trusted Origins**.
-
 Install your Angular app's dependencies and start it.
 
 [source,shell]
@@ -179,7 +175,7 @@ For compatibility with Spring Boot 2.3, you'll need to update the Gradle Wrapper
 
 [source,shell]
 ----
-./gradlew wrapper --gradle-version=6.4 --distribution-type=bin
+./gradlew wrapper --gradle-version=6.5 --distribution-type=bin
 ----
 
 Then run the following command in the `notes-api` directory to update your dependencies to the latest released versions.
@@ -715,7 +711,7 @@ Commit your changes, add a new Git remote for this app, and deploy!
 [source,shell]
 ----
 git commit -am "Prepare for Heroku"
-git remote add angular https://git.heroku.com/<your-app-name>.git
+git remote add angular https://git.heroku.com/$APP_NAME.git
 git push angular master
 ----
 
@@ -728,13 +724,13 @@ heroku open --remote angular
 
 NOTE: If you experience any issues, you can run `heroku logs --remote angular` to see your app's log files.
 
-You won't be able to log in to your app until you modify its Login redirect URI on Okta. Log in to your Okta dashboard (tip: you can do this from the first Heroku app you created, under the **Resources** tab). Go to **Applications** > **Heroku Created OIDC App - browser** > **General** > **Edit**. Add `https://<angular-app-on-heroku>.herokuapp.com/callback` to the Login redirect URIs and `https://<angular-app-on-heroku>.herokuapp.com` to the Logout redirect URIs.
+You won't be able to log in to your app until you modify its Login redirect URI on Okta. Log in to your Okta dashboard (tip: you can do this from the first Heroku app you created, under the **Resources** tab). Go to **Applications** > **SPA** > **General** > **Edit**. Add `https://<angular-app-on-heroku>.herokuapp.com/callback` to the Login redirect URIs and `https://<angular-app-on-heroku>.herokuapp.com` to the Logout redirect URIs.
 
 You should be able to log in now, but you won't be able to add any notes. This is because you need to update the allowed origins in your Spring Boot app. Run the following command to add an `ALLOWED_ORIGINS` variable in your Spring Boot app.
 
 [source,shell]
 ----
-heroku config:set ALLOWED_ORIGINS=https://<angular-app-on-heroku>.herokuapp.com --remote heroku
+heroku config:set ALLOWED_ORIGINS=https://$APP_NAME.herokuapp.com --remote heroku
 ----
 
 Now you should be able to add a note. Pat yourself on the back for a job well done!
@@ -796,7 +792,7 @@ Commit your changes to Git, add the static buildpack, and redeploy your Angular 
 
 [source,shell]
 ----
-git add static.json
+git add .
 git commit -am "Configure secure headers and static buildpack"
 heroku buildpacks:add https://github.com/heroku/heroku-buildpack-static.git --remote angular
 git push angular master
@@ -1233,3 +1229,8 @@ If you liked this tutorial, we have several others on Angular and Spring Boot.
 - link:/blog/2019/09/17/build-a-spring-boot-kotlin-app[Build an Application with Spring Boot and Kotlin]
 
 If you have any questions, please leave a comment below. Follow us on https://twitter.com/oktadev[Twitter], https://www.linkedin.com/company/oktadev[LinkedIn], or https://www.facebook.com/oktadevelopers/[Facebook] to be notified when we publish new tutorials. We have a popular https://youtube.com/c/oktadev[YouTube channel] too!
+
+[[changelog]]
+**Changelog:**
+
+* Jun 18, 2020: Updated to Spring Boot 2.3.1, Angular 9.1.11, and the latest https://elements.heroku.com/addons/okta[Okta Heroku Add-on]. See the code changes in the https://github.com/oktadeveloper/okta-angular-deployment-example/pull/2[example app on GitHub]. Changes to this article can be viewed in https://github.com/oktadeveloper/okta-blog/pull/328[oktadeveloper/okta-blog#328].
