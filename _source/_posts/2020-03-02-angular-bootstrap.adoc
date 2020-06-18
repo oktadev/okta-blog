@@ -1008,6 +1008,8 @@ I used the following resources to gather historical information about Angular an
 If you want to learn more about Angular or Spring Boot, I recommend these blog posts:
 
 * link:/blog/2020/01/06/crud-angular-9-spring-boot-2[Build a CRUD App with Angular 9 and Spring Boot 2.2]
+* link:/blog/2020/05/29/angular-deployment[Angular Deployment with a Side of Spring Boot]
+* link:/blog/2020/06/17/angular-docker-spring-boot[Angular + Docker with a Big Hug from Spring Boot]
 * link:/blog/2020/02/12/angular-ivy[What Is Angular Ivy and Why Is It Awesome?]
 * link:/blog/2020/01/21/angular-material-login[Build a Beautiful App + Login with Angular Material]
 * link:/blog/2020/01/31/java-graphql[How to GraphQL in Java]
