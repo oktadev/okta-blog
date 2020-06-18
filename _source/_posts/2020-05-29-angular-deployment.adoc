@@ -1222,11 +1222,12 @@ This blog post is the third in a series. The first two posts are below.
 1. link:/blog/2020/01/06/crud-angular-9-spring-boot-2[Build a CRUD App with Angular 9 and Spring Boot 2.2]
 2. link:/blog/2020/03/02/angular-bootstrap[Build Beautiful Angular Apps with Bootstrap]
 
-I'll be publishing a 4th and final blog post that shows you how to containerize your apps with Docker. I'll also show you how you can combine them into a JAR and use server-side authorization code flow, which is the most secure OAuth 2.0 flow.
+I'll be publishing a link:/blog/2020/06/17/angular-docker-spring-boot[4th and final blog post that shows you how to containerize and deploy your Angular + Spring Boot apps with Docker]. This tutorial will also show how to combine them into a JAR and use server-side authorization code flow (the most secure OAuth 2.0 flow). As icing on the cake, I'll show you how to deploy to Heroku, Knative on Google Cloud, and Cloud Foundry!
 
 If you liked this tutorial, we have several others on Angular and Spring Boot.
 
 - link:/blog/2020/01/21/angular-material-login[Build a Beautiful App + Login with Angular Material]
+- link:/blog/2020/06/17/angular-docker-spring-boot[Angular + Docker with a Big Hug from Spring Boot]
 - link:/blog/2020/02/12/angular-ivy[What Is Angular Ivy and Why Is It Awesome?]
 - link:/blog/2019/10/30/java-oauth2[OAuth 2.0 Java Guide: Secure Your App in 5 Minutes]
 - link:/blog/2019/05/15/spring-boot-login-options[A Quick Guide to Spring Boot Login Options]
