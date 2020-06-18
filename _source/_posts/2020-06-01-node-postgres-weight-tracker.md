@@ -432,6 +432,44 @@ module.exports = {
 
 In addition to registering the new `auth` plugin, this code also configures the `ejs`, `inert`, and `vision` plugins to render HTML content. Let's set up a few EJS templates.
 
+Next, update `src/index.js` to import the new `plugins` module and call the `plugins.register()` function.
+
+```js
+"use strict";
+
+const dotenv = require( "dotenv" );
+const Hapi = require( "@hapi/hapi" );
+
+const plugins = require( "./plugins" );
+const routes = require( "./routes" );
+
+const createServer = async () => {
+  const server = Hapi.server( {
+    port: process.env.PORT || 8080,
+    host: process.env.HOST || "localhost"
+  } );
+
+  await plugins.register( server );
+  server.route( routes );
+
+  return server;
+};
+
+const init = async () => {
+  dotenv.config();
+  const server = await createServer();
+  await server.start();
+  console.log( "Server running on %s", server.info.uri );
+};
+
+process.on( "unhandledRejection", ( err ) => {
+  console.log( err );
+  process.exit( 1 );
+} );
+
+init();
+```
+
 ### Add HTML Templates
 
 In the `src/templates` folder, create a new file named `layout.ejs`. The layout is the main template all views will use. Paste the following markup into `layout.ejs`.
