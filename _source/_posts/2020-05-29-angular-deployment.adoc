@@ -1233,4 +1233,4 @@ If you have any questions, please leave a comment below. Follow us on https://tw
 [[changelog]]
 **Changelog:**
 
-* Jun 18, 2020: Updated to Spring Boot 2.3.1, Angular 9.1.11 and the latest https://elements.heroku.com/addons/okta[Okta Heroku Addon]. See the code changes in the https://github.com/oktadeveloper/okta-angular-deployment-example/pull/2[example app on GitHub]. Changes to this article can be viewed in https://github.com/oktadeveloper/okta-blog/pull/327[oktadeveloper/okta-blog#327].
+* Jun 18, 2020: Updated to Spring Boot 2.3.1, Angular 9.1.11 and the latest https://elements.heroku.com/addons/okta[Okta Heroku Addon]. See the code changes in the https://github.com/oktadeveloper/okta-angular-deployment-example/pull/2[example app on GitHub]. Changes to this article can be viewed in https://github.com/oktadeveloper/okta-blog/pull/328[oktadeveloper/okta-blog#328].
