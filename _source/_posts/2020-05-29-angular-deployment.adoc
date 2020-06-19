@@ -773,7 +773,7 @@ Create a `notes/static.json` file with the configuration for secure headers and 
 }
 ----
 
-For `static.json` to be read, you have to use the https://github.com/heroku/heroku-buildpack-static[Heroku static buildpack]. This buildpack is made for SPA applications, so you can revert the `scripts` section of your `package.json` back to what you had previously.
+For `static.json` to be read, you have to use the https://github.com/heroku/heroku-buildpack-static[Heroku static buildpack]. This buildpack is made for SPA applications, so you can revert the `scripts` section of your `package.json` back to what you had previously. Add `--prod` to the `build` script since the static buildback uses this command.
 
 [source,json]
 .notes/package.json
@@ -781,7 +781,7 @@ For `static.json` to be read, you have to use the https://github.com/heroku/hero
 "scripts": {
   "ng": "ng",
   "start": "ng serve",
-  "build": "ng build",
+  "build": "ng build --prod",
   "test": "ng test",
   "lint": "ng lint",
   "e2e": "ng e2e"
