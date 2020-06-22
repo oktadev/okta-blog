@@ -465,7 +465,7 @@ Login to your AWS console and navigate to ECR.
 
 Click **Create Repository**.
 
-{% img blog/dotnet-aws-fargate/15-Create Repo.PNG alt:"Create repo" width:"800" %}{: .center-image }
+{% img blog/dotnet-aws-fargate/15-CreateRepo.PNG alt:"Create repo" width:"800" %}{: .center-image }
 
 Name your repository. In my case, I'm going with *okta-chat*. Then click **Create Repository** at the bottom of the wizard.
 
