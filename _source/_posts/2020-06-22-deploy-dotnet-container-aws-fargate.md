@@ -549,6 +549,8 @@ Whew, that was a ride! Good job on making your new chat application. What can we
 - Okta makes securing any type of .NET web application easy
 - There is no reason to have an insecure site!
 
+Check the code out on Github [here](https://github.com/Okta-Bloggers/dotnetcore-chat-app-aws-fargate-sample).
+
 ## Learn More about AWS, .NET, and Authentication
 
 If you are interested in learning more about security and .NET check out these other great articles:
