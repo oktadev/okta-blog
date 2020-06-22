@@ -113,7 +113,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #toc>ul{margin-left:.125em}
 #toc ul.sectlevel0>li>a{font-style:italic}
 #toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
-#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc ul{list-style-type:none}
 #toc a{text-decoration:none}
 #toc a:active{text-decoration:underline}
 #toctitle{color:#7a2518;font-size:1.2em}
@@ -362,7 +362,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 .show-for-print{display:inherit!important}}
 
 /* New rules added by mraible */
-.paragraph > p, .sectionbody .ulist, .admonitionblock, .quoteblock blockquote p:last-child, .olist, .ulist {
+.paragraph > p, .sectionbody .ulist, .admonitionblock, .quoteblock blockquote p:last-child, .olist, .ulist, details > summary.title {
     margin-bottom: 1.25rem;
 }
 
