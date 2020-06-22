@@ -7,9 +7,9 @@ communities: [.net]
 description: "This is a tutorial on how to secure your .NET containerized chat app with AWS Fargate and Okta."
 tags: [containers, aws, fargate, C#, csharp, dotnet, .net, asp.net]
 tweets:
-- "Do you secure your #csharp #lambda functions? Learn how to authenticate users to your #dotnetcore site hosted in #aws ->."
-- "Unsure about #OAuth + #csharp + #lambda functions in #dotnet? We've got a primer just waiting for you ->"
-- "Learn how to create your own secure #serverless functions in #csharp with Okta and #aws #lambda ->"
+- "Ever messed with AWS Fargate? Learn how to authenticate users to your #dotnetcore #container hosted in #aws ->."
+- "Unsure about #containerized #dotnet with #Fargate in #AWS? We've got a primer just waiting for you ->"
+- "Learn how to create secure .NET #containers in #AWS with Fargate ->"
 image: blog/featured/okta-dotnet-mouse-down.jpg
 type: conversion
 ---
