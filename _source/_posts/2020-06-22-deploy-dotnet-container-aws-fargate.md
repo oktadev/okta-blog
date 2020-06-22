@@ -109,9 +109,9 @@ First, set up your Okta application credentials by opening **appsettings.json** 
 
 ```json
 "OktaSettings": {
-"OktaDomain": "{yourOktaDomain}",
-"ClientId": "{yourOktaClientID}",
-"ClientSecret": "{yourOktaClientSecret}"
+  "OktaDomain": "{yourOktaDomain}",
+  "ClientId": "{yourOktaClientID}",
+  "ClientSecret": "{yourOktaClientSecret}"
 }
 ```
 
@@ -130,29 +130,29 @@ Modify the method **ConfigureServices(IServiceCollection services)** to look lik
 ```cs
 public void ConfigureServices(IServiceCollection services)
 {
-var oktaMvcOptions = new OktaMvcOptions()
-{
-OktaDomain = Configuration["OktaSettings:OktaDomain"],
-ClientId = Configuration["OktaSettings:ClientId"],
-ClientSecret = Configuration["OktaSettings:ClientSecret"],
-Scope = new List<string> { "openid", "profile", "email" },
-};
+    var oktaMvcOptions = new OktaMvcOptions()
+    {
+        OktaDomain = Configuration["OktaSettings:OktaDomain"],
+        ClientId = Configuration["OktaSettings:ClientId"],
+        ClientSecret = Configuration["OktaSettings:ClientSecret"],
+        Scope = new List<string> { "openid", "profile", "email" },
+    };
 
-services.AddAuthentication(options =>
-{
-options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-options.DefaultChallengeScheme = OktaDefaults.MvcAuthenticationScheme;
-})
-.AddCookie()
-.AddOktaMvc(oktaMvcOptions);
+    services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = OktaDefaults.MvcAuthenticationScheme;
+    })
+    .AddCookie()
+    .AddOktaMvc(oktaMvcOptions);
 
-services.AddRazorPages()
-.AddRazorPagesOptions(options =>
-{
-//options.Conventions.AuthorizePage("/Chat");
-});
-services.AddSignalR();
+    services.AddRazorPages()
+    .AddRazorPagesOptions(options =>
+    {
+        //options.Conventions.AuthorizePage("/Chat");
+    });
+    services.AddSignalR();
 }
 ```
 
@@ -163,30 +163,30 @@ Next, modify the method **Configure(IApplicationBuilder app, IWebHostEnvironment
 ```cs
 public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 {
-if (env.IsDevelopment())
-{
-app.UseDeveloperExceptionPage();
-}
-else
-{
-app.UseExceptionHandler("/Error");
-// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-app.UseHsts();
-}
+    if (env.IsDevelopment())
+    {
+        app.UseDeveloperExceptionPage();
+    }
+    else
+    {
+        app.UseExceptionHandler("/Error");
+        // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+        app.UseHsts();
+    }
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
+    app.UseHttpsRedirection();
+    app.UseStaticFiles();
 
-app.UseRouting();
+    app.UseRouting();
 
-app.UseAuthentication();
-app.UseAuthorization();
+    app.UseAuthentication();
+    app.UseAuthorization();
 
-app.UseEndpoints(endpoints =>
-{
-endpoints.MapRazorPages();
-//endpoints.MapHub<ChatHub>("/chathub");
-});
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapRazorPages();
+        //endpoints.MapHub<ChatHub>("/chathub");
+    });
 }
 ```
 
@@ -200,14 +200,14 @@ using System.Threading.Tasks;
 
 namespace Okta.Blog.Chat.Hubs
 {
-public class ChatHub : Hub
-{
-public async Task SendMessage(string message)
-{
-if(this.Context.User.Identity.IsAuthenticated)
-await Clients.All.SendAsync("ReceiveMessage", this.Context.User.Identity.Name, message);
-}
-}
+    public class ChatHub : Hub
+    {
+        public async Task SendMessage(string message)
+        {
+            if (this.Context.User.Identity.IsAuthenticated)
+                await Clients.All.SendAsync("ReceiveMessage", this.Context.User.Identity.Name, message);
+        }
+    }
 }
 ```
 
@@ -298,87 +298,89 @@ Since you have created your ChatHub.cs open **Startup.cs** and uncomment the fol
 endpoints.MapHub<ChatHub>("/chathub");
 ```
 
-Now modify the Chat.cshtml file to look like this:
+Now modify the `Chat.cshtml` file to look like this:
 
+{% raw %}
 ```html
 @page
 
 <div id="chatApp">
-<div class="container">
-<div class="row">
-<div class="col-2">Message</div>
-<div class="col-4">
-<input type="text" v-model="message" id="message" />
-<input type="button" v-on:click.stop.prevent="sendMessage" id="sendButton" value="Send Message" />
-</div>
-</div>
-</div>
-<div class="row">
-<div class="col-12">
-<hr />
-</div>
-</div>
-<div class="row">
-<div class="col-6">
-<ul id="messagesList">
-<li v-for="(item, index) in chatLog" :key="index">
-{{ item.User }} - {{ item.Message }}
-</li>
-</ul>
-</div>
-</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-2">Message</div>
+            <div class="col-4">
+                <input type="text" v-model="message" id="message" />
+                <input type="button" v-on:click.stop.prevent="sendMessage" id="sendButton" value="Send Message" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <hr />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <ul id="messagesList">
+                <li v-for="(item, index) in chatLog" :key="index">
+                    {{ item.User }} - {{ item.Message }}
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
 <script src="~/js/signalr/dist/browser/signalr.js"></script>
 <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
 <script>
-var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+    var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 
-document.addEventListener('DOMContentLoaded', function () {
-new Vue({
-el: '#chatApp',
-data: {
-isConnected: false,
-message: "",
-chatLog: []
-},
-created: function () {
-var vm = this;
-connection
-.on("ReceiveMessage", function (user, message) {
-vm.recieveMessage(user, message);
-});
+    document.addEventListener('DOMContentLoaded', function () {
+        new Vue({
+            el: '#chatApp',
+            data: {
+                isConnected: false,
+                message: "",
+                chatLog: []
+            },
+            created: function () {
+                var vm = this;
+                connection
+                    .on("ReceiveMessage", function (user, message) {
+                        vm.recieveMessage(user, message);
+                    });
 
-connection
-.start()
-.then(function () {
-vm.isConnected = true;
-})
-.catch(function (err) {
-return console.error(err.toString());
-});
+                connection
+                    .start()
+                    .then(function () {
+                        vm.isConnected = true;
+                    })
+                    .catch(function (err) {
+                        return console.error(err.toString());
+                    });
 
-},
-methods: {
-recieveMessage: function (user, message) {
-this.chatLog.push({
-User: user,
-Message: message
-})
-},
-sendMessage: function () {
-var vm = this;
-connection
-.invoke("SendMessage", vm.message)
-.then(function () { vm.message = "" })
-.catch(function (err) {
-return console.error(err.toString());
-});
-}
-}
-})
-})
+            },
+            methods: {
+                recieveMessage: function (user, message) {
+                    this.chatLog.push({
+                        User: user,
+                        Message: message
+                    })
+                },
+                sendMessage: function () {
+                    var vm = this;
+                    connection
+                        .invoke("SendMessage", vm.message)
+                        .then(function () { vm.message = "" })
+                        .catch(function (err) {
+                            return console.error(err.toString());
+                        });
+                }
+            }
+        })
+    })
 </script>
 ```
+{% endraw %}
 
 I don't want to discuss everything going on here, but I do want to highlight a few things.
 
@@ -392,9 +394,9 @@ The state is stored in the data setting for our Vue app. There are 3 properties 
 
 ```js
 data: {
-isConnected: false,
-message: "",
-chatLog: []
+    isConnected: false,
+    message: "",
+    chatLog: []
 },
 ```
 
@@ -406,19 +408,19 @@ When **sendMessage** is called we use the SignalR connection to invoke "SendMess
 
 ```js
 recieveMessage: function (user, message) {
-this.chatLog.push({
-User: user,
-Message: message
-})
+    this.chatLog.push({
+        User: user,
+        Message: message
+    })
 },
 sendMessage: function () {
-var vm = this;
-connection
-.invoke("SendMessage", vm.message)
-.then(function () { vm.message = "" })
-.catch(function (err) {
-return console.error(err.toString());
-});
+    var vm = this;
+    connection
+        .invoke("SendMessage", vm.message)
+        .then(function () { vm.message = "" })
+        .catch(function (err) {
+            return console.error(err.toString());
+        });
 }
 ```
 
@@ -429,18 +431,18 @@ Then the connection to the hub is started and if successful **isConnected** is s
 ```js
 var vm = this;
 connection
-.on("ReceiveMessage", function (user, message) {
-vm.recieveMessage(user, message);
-});
+    .on("ReceiveMessage", function (user, message) {
+        vm.recieveMessage(user, message);
+    });
 
 connection
-.start()
-.then(function () {
-vm.isConnected = true;
-})
-.catch(function (err) {
-return console.error(err.toString());
-});
+    .start()
+    .then(function () {
+        vm.isConnected = true;
+    })
+    .catch(function (err) {
+        return console.error(err.toString());
+    });
 ```
 
 Lastly, for the front end, you need to set up the SignalR client library.
@@ -501,8 +503,8 @@ For launch type select **FARGATE**.
 
 For the **Task Definition Name** I named mine **Okta-Chat**.
 
-Set the **Task memory (GB)** to .5 GB
-Set the **Task CPU** to .25
+Set the **Task memory (GB)** to .5 GB.
+Set the **Task CPU** to .25.
 
 .NET Core applications are very efficient as are containers. For many applications, you'll find you can serve a lot of requests with smaller boxes than you might typically be accustomed to.
 
@@ -549,18 +551,18 @@ Whew, that was a ride! Good job on making your new chat application. What can we
 - Okta makes securing any type of .NET web application easy
 - There is no reason to have an insecure site!
 
-Check the code out on Github [here](https://github.com/Okta-Bloggers/dotnetcore-chat-app-aws-fargate-sample).
+Check the code out on GitHub [here](https://github.com/oktadeveloper/okta-dotnetcore-aws-fargate-example).
 
 ## Learn More about AWS, .NET, and Authentication
 
 If you are interested in learning more about security and .NET check out these other great articles:
 
-- [The Most Exciting Promise of .NET 5](https://developer.okta.com/blog/2020/04/17/most-exciting-promise-dotnet-5)
-- [ASP.NET Core 3.0 MVC Secure Authentication](https://developer.okta.com/blog/2019/11/15/aspnet-core-3-mvc-secure-authentication)
-- [5 Minute Serverless Functions Without an IDE](https://developer.okta.com/blog/2019/08/27/five-minutes-serverless-functions-azure)
-- [Create Login and Registration in Your ASP.NET Core App](https://developer.okta.com/blog/2019/02/05/login-registration-aspnet-core-mvc)
-- [Build Secure Microservices with AWS Lambda and ASP.NET Core](https://developer.okta.com/blog/2019/03/21/build-secure-microservices-with-aspnet-core)
-- [Build a CRUD App with ASP.NET Core and Typescript](https://developer.okta.com/blog/2019/03/26/build-a-crud-app-with-aspnetcore-and-typescript)
-- [Build a GraphQL API with ASP.NET Core](https://developer.okta.com/blog/2019/04/16/graphql-api-with-aspnetcore)
+- [The Most Exciting Promise of .NET 5](/blog/2020/04/17/most-exciting-promise-dotnet-5)
+- [ASP.NET Core 3.0 MVC Secure Authentication](/blog/2019/11/15/aspnet-core-3-mvc-secure-authentication)
+- [5 Minute Serverless Functions Without an IDE](/blog/2019/08/27/five-minutes-serverless-functions-azure)
+- [Create Login and Registration in Your ASP.NET Core App](/blog/2019/02/05/login-registration-aspnet-core-mvc)
+- [Build Secure Microservices with AWS Lambda and ASP.NET Core](/blog/2019/03/21/build-secure-microservices-with-aspnet-core)
+- [Build a CRUD App with ASP.NET Core and Typescript](/blog/2019/03/26/build-a-crud-app-with-aspnetcore-and-typescript)
+- [Build a GraphQL API with ASP.NET Core](/blog/2019/04/16/graphql-api-with-aspnetcore)
 
 Want to be notified when we publish more awesome developer content? Follow [@oktadev on Twitter](https://twitter.com/oktadev), subscribe to our [YouTube channel](https://youtube.com/c/oktadev), or follow us on [LinkedIn](https://www.linkedin.com/company/oktadev/). If you have a question, please leave a comment below!
