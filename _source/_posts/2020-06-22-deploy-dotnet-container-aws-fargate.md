@@ -109,9 +109,9 @@ First, set up your Okta application credentials by opening **appsettings.json** 
 
 ```json
 "OktaSettings": {
-"OktaDomain": "{yourOktaDomain}",
-"ClientId": "{yourOktaClientID}",
-"ClientSecret": "{yourOktaClientSecret}"
+  "OktaDomain": "{yourOktaDomain}",
+  "ClientId": "{yourOktaClientID}",
+  "ClientSecret": "{yourOktaClientSecret}"
 }
 ```
 
@@ -150,8 +150,8 @@ public void ConfigureServices(IServiceCollection services)
     services.AddRazorPages()
     .AddRazorPagesOptions(options =>
     {
-    //options.Conventions.AuthorizePage("/Chat");
-});
+        //options.Conventions.AuthorizePage("/Chat");
+    });
     services.AddSignalR();
 }
 ```
@@ -298,8 +298,9 @@ Since you have created your ChatHub.cs open **Startup.cs** and uncomment the fol
 endpoints.MapHub<ChatHub>("/chathub");
 ```
 
-Now modify the Chat.cshtml file to look like this:
+Now modify the `Chat.cshtml` file to look like this:
 
+{% raw %}
 ```html
 @page
 
@@ -322,7 +323,7 @@ Now modify the Chat.cshtml file to look like this:
         <div class="col-6">
             <ul id="messagesList">
                 <li v-for="(item, index) in chatLog" :key="index">
-                    {% raw %}{{ item.User }} - {{ item.Message }}{% endraw %}
+                    {{ item.User }} - {{ item.Message }}
                 </li>
             </ul>
         </div>
@@ -379,6 +380,7 @@ Now modify the Chat.cshtml file to look like this:
     })
 </script>
 ```
+{% endraw %}
 
 I don't want to discuss everything going on here, but I do want to highlight a few things.
 
@@ -392,9 +394,9 @@ The state is stored in the data setting for our Vue app. There are 3 properties 
 
 ```js
 data: {
-isConnected: false,
-message: "",
-chatLog: []
+    isConnected: false,
+    message: "",
+    chatLog: []
 },
 ```
 
@@ -549,18 +551,18 @@ Whew, that was a ride! Good job on making your new chat application. What can we
 - Okta makes securing any type of .NET web application easy
 - There is no reason to have an insecure site!
 
-Check the code out on Github [here](https://github.com/Okta-Bloggers/dotnetcore-chat-app-aws-fargate-sample).
+Check the code out on GitHub [here](https://github.com/Okta-Bloggers/dotnetcore-chat-app-aws-fargate-sample).
 
 ## Learn More about AWS, .NET, and Authentication
 
 If you are interested in learning more about security and .NET check out these other great articles:
 
-- [The Most Exciting Promise of .NET 5](https://developer.okta.com/blog/2020/04/17/most-exciting-promise-dotnet-5)
-- [ASP.NET Core 3.0 MVC Secure Authentication](https://developer.okta.com/blog/2019/11/15/aspnet-core-3-mvc-secure-authentication)
-- [5 Minute Serverless Functions Without an IDE](https://developer.okta.com/blog/2019/08/27/five-minutes-serverless-functions-azure)
-- [Create Login and Registration in Your ASP.NET Core App](https://developer.okta.com/blog/2019/02/05/login-registration-aspnet-core-mvc)
-- [Build Secure Microservices with AWS Lambda and ASP.NET Core](https://developer.okta.com/blog/2019/03/21/build-secure-microservices-with-aspnet-core)
-- [Build a CRUD App with ASP.NET Core and Typescript](https://developer.okta.com/blog/2019/03/26/build-a-crud-app-with-aspnetcore-and-typescript)
-- [Build a GraphQL API with ASP.NET Core](https://developer.okta.com/blog/2019/04/16/graphql-api-with-aspnetcore)
+- [The Most Exciting Promise of .NET 5](/blog/2020/04/17/most-exciting-promise-dotnet-5)
+- [ASP.NET Core 3.0 MVC Secure Authentication](/blog/2019/11/15/aspnet-core-3-mvc-secure-authentication)
+- [5 Minute Serverless Functions Without an IDE](/blog/2019/08/27/five-minutes-serverless-functions-azure)
+- [Create Login and Registration in Your ASP.NET Core App](/blog/2019/02/05/login-registration-aspnet-core-mvc)
+- [Build Secure Microservices with AWS Lambda and ASP.NET Core](/blog/2019/03/21/build-secure-microservices-with-aspnet-core)
+- [Build a CRUD App with ASP.NET Core and Typescript](/blog/2019/03/26/build-a-crud-app-with-aspnetcore-and-typescript)
+- [Build a GraphQL API with ASP.NET Core](/blog/2019/04/16/graphql-api-with-aspnetcore)
 
 Want to be notified when we publish more awesome developer content? Follow [@oktadev on Twitter](https://twitter.com/oktadev), subscribe to our [YouTube channel](https://youtube.com/c/oktadev), or follow us on [LinkedIn](https://www.linkedin.com/company/oktadev/). If you have a question, please leave a comment below!
