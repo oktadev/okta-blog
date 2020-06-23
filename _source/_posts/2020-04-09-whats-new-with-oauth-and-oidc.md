@@ -10,7 +10,7 @@ tweets:
 - "This guide shows you how to use @apachekafka streams + @QuarkusIO apps in 2020."
 - "Learn how to leverage the power of @apachekafka in this streaming tutorial."
 - "An Introduction to Secure Kafka Applications."
-image: blog/kafka-streams/kafka-streams.png 
+image: blog/whats-new-oauth-oidc/whats-new.jpg 
 type: awareness
 comments: false
 summary: "In this video you'll learn about the latest developments in the OAuth and OpenID Connect specs from Aaron Parecki, a regular contributor to the OAuth working group. The latest additions to the specs enable richer experiences and better security for applications using OAuth."
