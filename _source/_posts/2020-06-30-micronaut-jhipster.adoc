@@ -78,7 +78,7 @@ application { // <1>
 
 // <2>
 entity Event {
-	name String required
+ name String required
   date LocalDate required
   description TextBlob required
   photo ImageBlob required,
@@ -86,7 +86,7 @@ entity Event {
 }
 
 entity Mission {
-	name String required
+ name String required
   description String
 }
 
@@ -97,14 +97,14 @@ enum EventType {
 
 // <3>
 relationship OneToOne {
-	Event{mission(name)} to Mission
+ Event{mission(name)} to Mission
 }
 
 // <4>
 paginate Event with infinite-scroll
 paginate Mission with pagination
 ----
-. Application definition that overrides the name, authentication type, production database, and test frameworks.
+. The app definition that overrides the name, authentication type, production database, and test frameworks.
 . Entity definitions with validation rules.
 . Relationships between entities.
 . Pagination rules can be defined for each entity.
@@ -121,16 +121,16 @@ Open a terminal and navigate to the `spacefan` directory you created. Run the fo
 mhipster import-jdl app.jdl
 ----
 
-This will create a plethora of files for your applications and run `npm install`. When it's finished, you'll need to start Keycloak.
+This process will create a plethora of files for your application and run `npm install`. When it's finished, you'll need to start Keycloak.
 
 [source,shell]
 ----
 docker-compose -f src/main/docker/keycloak.yml up -d
 ----
 
-TIP: If you're a Oh My Zsh fan, you can install the https://www.jhipster.tech/oh-my-zsh/[Oh My Zsh JHipster plugin] and just type `jhkeycloakup`.
+TIP: If you're an Oh My Zsh fan, you can install the https://www.jhipster.tech/oh-my-zsh/[Oh My Zsh JHipster plugin] and just type `jhkeycloakup`.
 
-Keycloak is the default OIDC engine that's used by JHipster and you can run it in a Docker container. In your project's `src/main/docker` folder, there's a Docker Compose file for Keynote, as well as default users, realms, and applications that are imported on startup.
+Keycloak is the default OIDC engine that's used by JHipster, and you can run it in a Docker container. In your project's `src/main/docker` folder, there's a Docker Compose file for Keynote, as well as default users, realms, and applications. Keycloak imports these on startup.
 
 === What About React and Vue.js?
 
@@ -169,7 +169,7 @@ jhipster import-jdl app.jdl --blueprints micronaut,vuejs
 
 === Confirm Authentication with Keycloak Works
 
-With Keycloak up and running, you should be able to login. Start your app using Maven:
+With Keycloak up and running, you should be able to log in. Start your app using Maven:
 
 [source,source]
 ----
@@ -180,7 +180,7 @@ When it finishes launching, go to `http://localhost:8080` in your favorite brows
 
 // todo: screenshot
 
-You'll be redirected to Keycloak to login. Use `admin/admin` to log in as an administrator.
+Your app will redirect you to Keycloak to log in. Use `admin/admin` to log in as an administrator.
 
 // todo: keycloak screenshot
 
@@ -192,13 +192,20 @@ Go to **Entities** > **Events** to add new events and missions.
 
 // todo: screenshot of entered data
 
-NOTE: You might notice how both events and missions have existing data. This is from https://github.com/marak/Faker.js/[Faker.js] and https://www.liquibase.org/[Liquibase]. Liquibase is used to create your database tables and Faker.js is used to create fake data in development. If you want to turn off fake data, you can open `src/main/resources/config/application-dev.yml` and search for `faker`. Remove it from the list of active profiles in Liquibase.
+NOTE: You might notice how both events and missions have existing data. This is from https://github.com/marak/Faker.js/[Faker.js] and https://www.liquibase.org/[Liquibase]. Liquibase is used to create your database tables, and Faker.js is used to create fake data in development. If you want to turn off fake data, you can open `src/main/resources/config/application-dev.yml` and search for `faker`. Remove it from the list of active profiles i Liquibase.
 
 // todo: code after removing liquibase
 
+Since you chose Protractor for testing, you can ensure all the client code works by running the following command in a second terminal window (your JHipster app should still be running in the first).
+
+[source,shell]
+----
+npm run e2e
+----
+
 == Prepare Micronaut for Production
 
-JHipster ships with profiles for development and production. In development, everything is designed to be fast for the developer. In production, everything should be fast for your users. When you build your app with the `prod` profile enabled, Micronaut is optimized with less logging and PostgreSQL. On the client side, scripts are optimized, CSS is minimized, and HTML is streamlined.
+JHipster ships with profiles for development and production. In development, everything is designed to be fast for the developer. In production, everything should be quick for your users. When you build your app with the `prod` profile enabled, Micronaut is optimized with less logging and PostgreSQL. On the client-side, scripts are optimized, CSS is minimized, and HTML is streamlined.
 
 == Deploy Micronaut to Heroku
 
@@ -215,7 +222,7 @@ jhipster heroku
 
 When prompted to add Okta, select Yes.
 
-When deployment process finishes, open your favorite browser to the URL in your console, or run `heroku open`.
+When the deployment process finishes, open your favorite browser to the URL in your console or run `heroku open`.
 
 // todo: screenshot
 
@@ -225,7 +232,7 @@ In the next section, I'll show how to deploy your container to Heroku.
 
 == Micronaut + Docker on Heroku
 
-JHipster uses https://github.com/GoogleContainerTools/jib[Jib] to build Docker images for your application. Run the following command to build a Docker image.
+JHipster uses https://github.com/GoogleContainerTools/jib[Jib] to build Docker images for your application. Run the following command to create a Docker image.
 
 [source,shell]
 ----
