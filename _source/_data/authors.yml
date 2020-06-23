@@ -69,7 +69,7 @@ raphael-londner:
 matt-raible:
   full_name: Matt Raible
   display_name: Matt Raible
-  avatar: avatar-matt_raible.jpg
+  avatar: avatar-matt-raible.jpg
   email: matt.raible@okta.com
   web: http://raibledesigns.com
   twitter: https://twitter.com/mraible
@@ -503,3 +503,11 @@ chris-gustafson:
   full_name: "Chris Gustafson"
   display_name: "Chris Gustafson"
   avatar: avatar-chris-gustafson.jpeg
+
+david-marin:
+  full_name: "David Marin"
+  display_name: "David Marin"
+  avatar: avatar-david-marin.jpg
+  github: https://github.com/davefx
+  web: https://davefx.com/en/freelance-developer/
+

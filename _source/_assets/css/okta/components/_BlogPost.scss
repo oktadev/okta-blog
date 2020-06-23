@@ -74,6 +74,14 @@
 		width: 54px;
 	}
 
+	.avatar-row {
+		text-align: center;
+
+		.BlogPost-avatar {
+			display: inline-block;
+		}
+	}
+
 	&-content {
 		@include color('charcoal');
 
