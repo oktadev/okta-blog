@@ -24,6 +24,16 @@ With all these choices, there is a very important question to ask: how easy it i
 
 In this tutorial, you'll create a secure REST application using Spring, Micronaut, and Quarkus to see how they differ from one another, and which one best suits your needs.
 
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+
+If you'd like, you can [watch this tutorial as a screencast](https://youtu.be/pR_MBNL7cFI). 👇
+
+<div style="text-align: center; margin-bottom: 1.25rem">
+<iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/pR_MBNL7cFI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
 ## Prerequisites for Your Java REST API
 
 This tutorial uses [Maven 3+](https://maven.apache.org). Make sure it is installed and available to use before continuing. You can certainly also use Gradle, but YMMV.
@@ -31,6 +41,7 @@ This tutorial uses [Maven 3+](https://maven.apache.org). Make sure it is install
 You're going to build apps that authenticate requests using OAuth 2.0, secured by an Okta application. Don't have an Okta account? Don't worry, it takes less than a minute to create a new one. Not only that, but Okta supports standards like JWT, OAuth 2.0, and OIDC. We provide support for well-known frameworks like Java EE, Spring Boot, and Spring Security. Heck, we even have a [Maven plugin](https://github.com/oktadeveloper/okta-maven-plugin) that automates everything for you. 
 
 There's no need to reinvent the wheel!
+
 ### Create an Okta Account for User Management
 
 Open your terminal, and execute the following command:
@@ -264,7 +275,7 @@ To develop your application using Quarkus you only need Maven installed, there a
 Let's start creating your app! Go to the directory you want to create it in and execute the following command:
 
 ```bash
-mvn io.quarkus:quarkus-maven-plugin:1.1.1.Final:create \
+mvn io.quarkus:quarkus-maven-plugin:1.4.2.Final:create \
     -DprojectGroupId=com.okta.rest \
     -DprojectArtifactId=quarkus \
     -DclassName="com.okta.rest.quarkus.HelloResource" \
@@ -468,9 +479,29 @@ Micronaut and Quarkus are growing in popularity and gaining momentum inside the 
 
 Performance is the most often highlighted comparison point between these three frameworks. If you're looking for fast startup in a serverless environment, or the ability to create native images with GraalVM, Micronaut and Quarkus will likely work well for you. Just for fun, the startup times for each of these apps are as follows (based on the average from three attempts):
 
-* Micronaut: 1003ms
-* Quarkus: 1278ms
-* Spring Boot: 1653ms
+* Micronaut: 905ms
+* Quarkus: 1261ms
+* Spring Boot: 1433ms
+
+I got these numbers from running each framework's Maven goals for development.
+
+- Micronaut: `./mvnw compile exec:exec`
+- Quarkus: `./mvnw compile quarkus:dev`
+- Spring Boot: `./mvnw spring-boot:run`
+
+These commands aren't optimized for speed, so I packaged each application with `./mvnw package` and started them with `java -jar`.
+
+- Micronaut: 1020ms
+- Quarkus: 670ms
+- SpringBoot: 2200ms
+
+**NOTE**: These numbers were calculated on a 2018 MacBook Pro with a 2.9 GHz 6-Core Intel Core i9 CPU and 32 GB of RAM. OpenJDK 11.0.5 was used with no `JAVA_OPTS` setting.
+
+If you're looking for even faster startup times, you can use GraalVM. Rather than running timing tests myself, I looked at each project's documentation.
+                                                                      
+- Micronaut: 12ms according to [Creating your first Micronaut Graal application](https://guides.micronaut.io/micronaut-creating-first-graal-app/guide/index.html).
+- Quarkus: 14ms according to [Quarkus and GraalVM: Booting Hibernate at Supersonic Speed, Subatomic Size](https://www.infoq.com/presentations/quarkus-graalvm-sao-paulo-2019/) on InfoQ. The [Quarkus docs](https://quarkus.io/guides/building-native-image) don't list a startup time.
+- Spring Boot: 44ms according to [Spring Graal Native 0.6.0 released](https://spring.io/blog/2020/04/09/spring-graal-native-0-6-0-released).
 
 In the end, you'll be able to productively develop a secure application, regardless of the choice you make.
 
@@ -478,6 +509,7 @@ Want to take a look at the source code? You can find it on [GitHub at okta-java-
 
 Do you want to learn more about Java, REST APIs, and secure applications? Here are some other posts from our blog that you might find useful:
 
+* [Watch GraalVM Turn Your Java Into Binaries](/blog/2019/11/27/graalvm-java-binaries)
 * [OAuth 2.0 Java Guide: Secure Your App in 5 Minutes](/blog/2019/10/30/java-oauth2)
 * [Java Microservices with Spring Boot and Spring Cloud](/blog/2019/05/22/java-microservices-spring-boot-spring-cloud)
 * [How to Develop a Quarkus App with Java and OIDC Authentication](/blog/2019/09/30/java-quarkus-oidc)
@@ -485,6 +517,10 @@ Do you want to learn more about Java, REST APIs, and secure applications? Here a
 
 For more posts like this one, follow [@oktadev on Twitter](https://twitter.com/oktadev). We also regularly publish screencasts to [our YouTube channel](https://youtube.com/c/oktadev)!
 
+<a name="changelog"></a>
 **Changelog:**
 
+* May 21, 2020: Added startup times for `java -jar` and running with GraalVM. Changes to this article can be viewed in [oktadeveloper/okta-blog#304](https://github.com/oktadeveloper/okta-blog/pull/304).
+* May 20, 2020: Upgraded to Micronaut 1.3.5, 
+Quarkus 1.4.2, and Spring Boot 2.3.0. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-java-rest-api-comparison-example/pull/5). Changes to this article can be viewed in [oktadeveloper/okta-blog#301](https://github.com/oktadeveloper/okta-blog/pull/301).
 * Jan 30, 2020: Updated to optimize Micronaut based on [feedback from the Micronaut team](https://github.com/oktadeveloper/okta-java-rest-api-comparison-example/pull/2). Also re-calculated startup times based on an average of three attempts. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-java-rest-api-comparison-example/pull/3). Changes to this article can be viewed in [oktadeveloper/okta-blog#176](https://github.com/oktadeveloper/okta-blog/pull/176).
