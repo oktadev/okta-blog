@@ -1,26 +1,26 @@
 ---
 layout: blog_post
-title: "React + Docker with Security in 10 Minutes"
+title: "Heroku + Docker with Secure React in 10 Minutes"
 author: matt-raible
 by: contractor
 communities: [javascript,devops]
-description: "This tutorial shows you how to package a React app with Docker and make it secure in 10 minutes."
-tags: [docker, react, websecurity]
+description: "This tutorial shows you how to build a React app with Docker, deploy it to Heroku, and make it secure in 10 minutes."
+tags: [heroku, docker, react, websecurity]
 tweets:
 - "Learn how to use Docker to containerize your React app and deploy it to @heroku!"
 - "🔥 Tutorial: Learn how to combine @reactjs + @docker and deploy to @heroku!"
 - "🚀 @Heroku is awesome for production! Especially with React + Docker. 👇"
-image: blog/react-docker/react-docker-security.png
+image: blog/react-docker/heroku-docker-with-secure-react.png
 type: conversion
 ---
 
 You've built a React app, but now you need to deploy it. What do you do? First, it's probably best to choose a cloud provider as they're typically low-cost and easy to deploy to.
 
-Most cloud providers offer a way to deploy a static site. A built React app is just JavaScript, HTML, and CSS. They're static files that can live on pretty much any web server. In fact, with JSX (HTML in JS) and Styled Components, you could even say _it's just JavaScript_!
+Most cloud providers offer a way to deploy a static site. Heroku has static site features, easily deploys apps with Git, and provides a CLI that developers love. A built React app is just JavaScript, HTML, and CSS. They're static files that can live on pretty much any web server. In fact, with JSX (HTML in JS) and Styled Components, you could even say _it's just JavaScript_!
 
-Docker is the de facto standard to build and share containerized applications. You can use it to package your apps and include many open source web servers to serve up your app. As an added bonus, you can configure the webserver to send security headers that make your app more secure.
+Docker is the de facto standard to build and share containerized applications. You can use it to package your apps and include many open source web servers to serve up your app. As an added bonus, you can configure the webserver to send security headers that make your app more secure. 
 
-{% img blog/react-docker/react-docker-security.png alt:"React + Docker = 💙" width:"800" %}{: .center-image }
+{% img blog/react-docker/heroku-docker-with-secure-react.png alt:"Heroku + Docker = 💜" width:"800" %}{: .center-image }
 
 **Prerequisites:**
 
@@ -89,7 +89,7 @@ I'll admit it's a very simple app, but it'll do for demonstrating how to contain
 
 You might ask, "Why Docker? Doesn't that complicate things"?
 
-Yes, I agree. Doing it with Docker is more complicated than doing a `firebase deploy` or `git push` for Heroku. However, it also gives you more control in case you _really_ want to complicate things and manage your app with Kubernetes. 😛
+Yes, I agree. Doing it with Docker is more complicated than doing a `git push` with Heroku. However, it also gives you more control in case you _really_ want to complicate things and manage your app with Kubernetes. 😛
 
 ## Create a Dockerfile and Nginx Configuration
 
@@ -422,7 +422,7 @@ heroku container:release web --remote docker
 
 I tried this and noticed that HTTPS wasn't forced. I had to add `"https_only": true` back into `static.json`, then re-push.
 
-## Learn More About React and Docker
+## Learn More About Heroku, Docker, and React
 
 In this tutorial, you learned how to use Docker to containerize your React application. You can do this manually with `docker build` or use Heroku's Container Registry to push and release projects with a `Dockerfile`. You can also use the `pack` command to leverage Cloud-Native + Heroku buildpacks when building a container.
 
