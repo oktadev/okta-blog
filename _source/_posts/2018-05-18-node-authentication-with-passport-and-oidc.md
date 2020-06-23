@@ -7,9 +7,9 @@ communities: [javascript]
 description: "This post demonstrates how to set up OpenID Connect authentication in Node with Passport.js."
 tags: [nodejs, node, passportjs, passport.js, authentication, openid connect, oidc]
 tweets:
- - "Checkout @nodejs authentication using @passportjs and OpenID Connect from @leebrandt! >>"
+ - "Checkout @nodejs authentication using @passportjs and OpenID Connect from @leebrandt!"
  - "Learn how to get OpenID Connect authentication into your @nodejs apps easier with @passportjs! <3"
- - "Make it easy to get authentication into your @nodejs apps with @passportjs and OpenID Connect! >>"
+ - "Make it easy to get authentication into your @nodejs apps with @passportjs and OpenID Connect!"
 type: conversion
 ---
 
