@@ -20,6 +20,8 @@ Most cloud providers offer a way to deploy a static site. A built React app is j
 
 Docker is the de facto standard to build and share containerized applications. You can use it to package your apps and include many open source web servers to serve up your app. As an added bonus, you can configure the webserver to send security headers that make your app more secure.
 
+{% img blog/react-docker/react-docker-security.png alt:"React + Docker = 💙" width:"800" %}{: .center-image }
+
 **Prerequisites:**
 
 * [Node 12](https://nodejs.org/)+
@@ -335,18 +337,20 @@ My good friend, [Joe Kutner](https://twitter.com/codefinger), is a Software Arch
 
 Joe was a big help in figuring out how to create a Docker image with buildpacks, so I credit him with the instructions below.
 
-To begin, [install `pack`](https://buildpacks.io/docs/install-pack/). If you're on a Mac or Linux, you can use Homebrew. If you're on Windows, you can [install its executable](https://github.com/buildpacks/pack/releases/download/v0.10.0/pack-v0.10.0-windows.zip).
+To begin, [install `pack`](https://buildpacks.io/docs/install-pack/). If you're on a Mac or Linux, you can use Homebrew.
 
 ```shell
 brew tap buildpack/tap
 brew install pack
 ```
 
+_If you're on Windows, you can [install its executable](https://github.com/buildpacks/pack/releases/download/v0.10.0/pack-v0.10.0-windows.zip)._
+
 In the previous buildpacks example, I used Heroku's Node.js and static buildpacks.
 
 The Heroku static buildpack isn't a "Cloud Native" buildpack. It uses the old (pre-cloud-native) API. That means it doesn't work with `pack` out of the box.
 
-Luckily, Heroku does offer a [cnb-shim](https://github.com/heroku/cnb-shim) you can use to make it work. Joe created a URL (https://cnb-shim.herokuapp.com/v1/heroku-community/static) for Heroku's static buildpack after converting it with `cnb-shim`. 
+Luckily, Heroku does offer a [cnb-shim](https://github.com/heroku/cnb-shim) you can use to make it work. Joe created a URL--https://cnb-shim.herokuapp.com/v1/heroku-community/static-- for Heroku's static buildpack after converting it with `cnb-shim`. 
 
 You do have to make one change before you can build and run the Docker image locally. **Remove the `"https_only": true,"` line from `static.json`**.
 
@@ -357,7 +361,7 @@ pack build react-pack --builder heroku/buildpacks \
   --buildpack heroku/nodejs,https://cnb-shim.herokuapp.com/v1/heroku-community/static
 ```
 
-**TIP:** You can use `pack set-default-builder heroku/buildpacks` if you want to want to get rid of the `--builder` argument.
+**TIP**: You can use `pack set-default-builder heroku/buildpacks` if you want to get rid of the `--builder` argument.
 
 Once the process completes, you should be able to run it.
 
@@ -435,3 +439,5 @@ The Okta developer blog and YouTube channel has more information on Docker and R
 * [📺 A Developer's Guide to Docker](https://youtu.be/t5yqLJfbnqM)
 
 If you liked this tutorial, please follow [@oktadev on Twitter](https://twitter.com/oktadevs) or [subscribe to our YouTube channel](https://youtube.com/c/oktadev). If you have any questions, please leave a comment below or [ping me on Twitter @mraible](https://twitter.com/mraible).
+
+_A huge thanks goes to Heroku's [Joe Kutner](https://twitter.com/codefinger) for his review and detailed feedback._
