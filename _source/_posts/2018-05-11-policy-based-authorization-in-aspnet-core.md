@@ -7,7 +7,7 @@ communities: [.net]
 description: "This post shows how policy-based authorization works in ASP.NET Core, and how it differs from role-based authorization."
 tags: [asp.net, asp.net core, aspnetcore, policy, policy-based authorization, authorization]
 tweets:
- - "Want to see how policy-based authorization works in ASP.NET Core? Check it out >>"
+ - "Want to see how policy-based authorization works in ASP.NET Core? Check it out"
  - "Learn how policy-based authorization in ASP.NET Core makes authorization easier and more modular! <3"
 type: conversion
 ---
