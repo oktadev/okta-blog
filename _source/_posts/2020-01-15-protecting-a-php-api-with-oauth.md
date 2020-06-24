@@ -1,13 +1,16 @@
 ---
 layout: blog_post
 title: "Protecting a PHP API Using OAuth"
-author: krasimir
+author: krasimir-hristozov
+by: contractor
+communities: [php]
 description: ""
 tags: [php, oauth, api]
 tweets:
 - "Wondering what's the difference between local and remote access token validation? Check out this post!"
 - "In this post we build a PHP API protected by OAuth, demonstrating local vs remote access token validation!"
 image: blog/featured/okta-php-bottle-headphones-close.jpg
+type: conversion
 ---
 
 REST APIs are a big part of today's Internet. Some of the everyday use cases of REST APIs are:

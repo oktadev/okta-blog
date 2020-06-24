@@ -1,13 +1,16 @@
 ---
 layout: blog_post
 title: "Build a Simple CRUD App with ASP.NET Framework 4.x Web API and Vue"
-author: ibrahim
+author: ibrahim-suta
+by: contractor
+communities: [.net, javascript]
 description: "This tutorial walks you through creating a basic CRUD application with ASP.NET WebAPI and Vue"
 tags: [aspnet, webapi, vue, vuejs, web api, crud]
 tweets:
 - "Getting started with @aspnet WebAPI and @vuejs? @ibro has you covered!"
 - "If you want to learn how to build a basic CRUD app using @aspnet WebAPI and @vuejs, check this out!"
 - "Need to get started building @aspnet WebAPI @vuejs apps? @ibro has a great tutorial to get you started!"
+type: conversion
 ---
 
 ASP.NET Web API was released in 2012. Today, it's a mature framework for building ReST-ful APIs to back any modern app. It pairs nicely with the newcomer on the client-side block, Vue In this tutorial, you'll use Vue with .NET Framework 4.7.1 Web API and Visual Studio 2017 to build a simple CRUD app to track your weight and achieve your fitness goals, but really you could use these technologies to do just about anything. 

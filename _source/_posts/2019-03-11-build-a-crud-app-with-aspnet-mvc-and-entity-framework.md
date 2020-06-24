@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Build a CRUD App with ASP.NET MVC and Entity Framework"
-author: quorralyne
+author: heather-downing
+by: advocate
+communities: [.net]
 description: "This post walks through setting up a user managed CRUD app in ASP.NET MVC with Entity Framework."
 tags: [ aspnet, entityframework, okta, dotnet, crud, usermanagement ]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Wondering what it's like to build a CRUD app in ASP.NET framework with user management that's actually easy? @quorralyne has you covered! →"
 - "Get your CRUD app going with ASP.NET, Entity Framework and Okta! →"
 image: blog/featured/okta-dotnet-skew.jpg
+type: conversion
 ---
 
 Interested in building a secure ASP.NET MVC website that allows users to handle their own data with ease? Let's walk through creating a basic application that allows the creation, reading, updating, and deletion of data (CRUD) with Entity Framework by your users while managing them easily with Okta. For a fun example, we will create a web application that lists upcoming rocket launches for space enthusiasts! You will have everything you need to get up and running by the end of this post.

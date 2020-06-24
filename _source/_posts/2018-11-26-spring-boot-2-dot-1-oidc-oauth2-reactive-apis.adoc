@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Spring Boot 2.1: Outstanding OIDC, OAuth 2.0, and Reactive API Support"
-author: mraible
+author: matt-raible
+by: advocate
+communities: [java, javascript]
 description: "In this guide, you'll learn about new features in Spring Boot 2.1. You'll also learn about Spring Security, its excellent OIDC / OAuth 2.0 support, and how to develop a reactive API with WebFlux."
 tags: [spring boot, spring boot 2, spring framework, spring security, oidc, oauth2, reactive, webflux]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "We 💚 @springboot here at @okta. Learn about its new features and refinements in this handy blog post."
 - "Learn how to use Spring Boot 2.1 with @angular, @reactjs, and @webflux in this action-packed article!"
 image: blog/featured/okta-java-skew.jpg
+type: conversion
 ---
 :page-liquid:
 

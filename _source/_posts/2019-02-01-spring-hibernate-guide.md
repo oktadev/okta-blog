@@ -1,13 +1,16 @@
 ---
 layout: blog_post
 title: 'Data Persistence with Hibernate and Spring'
-author: raphaeldovale
+author: raphael-do-vale
+by: contractor
+communities: [java]
 description: "Build a Hibernate app with and without Spring then turn it into a secure webapp."
 tags: [security, authentication, sessions, jpa, spring, spring data, rest]
 tweets: 
 - "Build a Hibernate app with and without Spring"
 - "Hibernate + Spring, from old school to new"
 image: blog/featured/okta-java-short-bottle-headphones.jpg
+type: conversion
 ---
 
 Java developers typically encounter the need to store data on a regular basis. If you've been developing for more than 15 years, you probably remember the days of JDBC in Java. Using JDBC can be tedious if you don't like writing SQL. Not only that, but there's nothing in JDBC that helps you create your database. Hibernate came along and changed everything by allowing you to map POJOs (plain ol' Java objects) to database tables. Not only that, but it had a very Java-esque API that made it easy to create CRUD POJOs. Shortly after, Spring came along and added abstractions for Hibernate that took API simplification even further. Fast forward to today, and most Java applications use both Spring and Hibernate.

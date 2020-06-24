@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Multi-Factor Authentication Sucks"
-author: rdegges
+author: randall-degges
+by: advocate
+communities: [security]
 description: "Multi-factor authentication is slow, annoying, and frustrating. Let's talk about ways we can fix it."
 tags: [security, mfa, amfa]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Is it time to get rid of multi-factor authentication?"
 - "Multi-factor authentication has a lot of problems, let's talk about how we can fix them!"
 image: blog/mfa-sucks/mfa-circle-of-life.png
+type: awareness
 ---
 
 {% img blog/mfa-sucks/mfa-circle-of-life.png alt:"multi-factor authentication circle of life" width:"600" %}{: .center-image }
@@ -237,3 +240,4 @@ If you enjoyed this post, you might want to [follow us](https://twitter.com/okta
 - [OAuth 2.1: How Many RFCs Does it Take to Change a Lightbulb?](/blog/2019/12/13/oauth-2-1-how-many-rfcs)
 - [What's New for Node.js in 2020?](/blog/2019/12/04/whats-new-nodejs-2020)
 - [The Dangers of Self-Signed Certificates](/blog/2019/10/23/dangers-of-self-signed-certs)
+- Anything from the [Okta Security Site](https://sec.okta.com/)

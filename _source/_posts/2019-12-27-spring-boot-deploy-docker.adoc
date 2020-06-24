@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Add Docker to Your Spring Boot Application"
 author: thiago-negri
+by: contractor
+communities: [java, devops]
 description: "Tutorial: Learn how to package a Spring Boot application as a Docker container."
 tags: [spring-boot, oauth, oidc, docker, deploy]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Learn how to package a @SpringBoot app with @Docker!"
 - "A @SpringBoot app + @Docker == 💕☕"
 image: blog/featured/okta-java-short-tile-books-mouse.jpg
+type: conversion
 ---
 
 :page-liquid:

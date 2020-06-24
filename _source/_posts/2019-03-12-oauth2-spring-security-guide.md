@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "A Quick Guide to OAuth 2.0 with Spring Security"
-author: moksamedia
+author: andrew-hughes
+by: contractor
+communities: [java]
 description: "Learn how to build an OAuth 2.0 Authorization Server with Spring Boot and Spring Security."
 tags: [java, spring boot, spring security, oauth2]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "This guide shows you how to setup your own authorization server with @springboot and @SpringSecurity. Hope you enjoy!"
 - "Learn how to configure OAuth 2.0 authentication with Spring Security and Spring Boot in this tutorial."
 image: blog/featured/okta-java-skew.jpg
+type: conversion
 ---
 
 When building a web application, authentication and authorization is a must. Doing it right, however, is not simple. Computer security is a true specialty. Legions of developers work day and night against equally numerous international hackers creating a continual development cycle of finding vulnerabilities, attacking them, and fixing them. Keeping up with all this solo would be painful (if not impossible).
@@ -35,7 +38,7 @@ Download the project and copy it somewhere that makes sense on your hard drive. 
 You need to add one dependency to the `build.gradle` file:
 
 ```groovy
-implementation 'org.springframework.security.oauth:spring-security-oauth2:2.3.3.RELEASE'
+implementation 'org.springframework.security.oauth:spring-security-oauth2:2.4.1.RELEASE'
 ```
 
 This adds in Spring's OAuth goodness.
@@ -78,10 +81,9 @@ Create a new class `AuthServerConfig` in the same package as your application cl
 ```java
 package com.okta.spring.AuthorizationServerApplication;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -91,14 +93,13 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 @EnableAuthorizationServer
 public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
+    private final PasswordEncoder passwordEncoder;
     @Value("${user.oauth.clientId}")
     private String ClientID;
     @Value("${user.oauth.clientSecret}")
     private String ClientSecret;
     @Value("${user.oauth.redirectUris}")
     private String RedirectURLs;
-
-   private final PasswordEncoder passwordEncoder;
     
     public AuthServerConfig(PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
@@ -218,7 +219,7 @@ Wait a bit for it to finish running. The terminal should end with something like
 **NOTE:** If you get an error about JAXB (`java.lang.ClassNotFoundException: javax.xml.bind.JAXBException`), it's because you're using Java 11. To fix this, add JAXB to your `build.gradle`.
 
 ```
-implementation 'org.glassfish.jaxb:jaxb-runtime'
+runtimeOnly 'org.glassfish.jaxb:jaxb-runtime'
 ```
 
 ## Build Your Client App
@@ -245,9 +246,10 @@ Rename the `src/main/resources/application.properties` to `application.yml` and 
 ```properties
 server:
   port: 8082
-  session:
-    cookie:
-      name: UISESSION
+  servlet:
+    session:
+      cookie:
+        name: UISESSION
 spring:
   thymeleaf:
     cache: false
@@ -261,7 +263,7 @@ spring:
             client-name: Auth Server
             scope: user_info
             provider: custom-provider
-            redirect-uri-template: http://localhost:8082/login/oauth2/code/
+            redirect-uri: http://localhost:8082/login/oauth2/code/
             client-authentication-method: basic
             authorization-grant-type: authorization_code
         provider:
@@ -274,23 +276,6 @@ spring:
 ```
 
 Notice that here you're configuring the `clientId` and `clientSecret`, as well as various URIs for your authentication server. These need to match the values in the other project.
-
-Update the `SpringBootOAuthClientApplication` class to match:
-
-```java
-package com.okta.spring.SpringBootOAuthClient;
-
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-@SpringBootApplication
-public class SpringBootOAuthClientApplication {
-
-    public static void main(String[] args) {
-        SpringApplication.run(SpringBootOAuthClientApplication.class, args);
-    }
-}
-```
 
 Create a new Java class called `WebController`:
 
@@ -595,3 +580,7 @@ If you're interested in learning more about Spring Boot, OAuth 2.0, and Spring S
 * [Build a Secure API with Spring Boot and GraphQL](/blog/2018/08/16/secure-api-spring-boot-graphql)
 
 If you have any questions about this post, please add a comment below. For more awesome content, follow  [@oktadev](https://twitter.com/oktadev)  on Twitter, or subscribe to  [our YouTube channel](https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q)!
+
+**Changelog:**
+
+* May 7, 2020: Updated to use Spring Boot 2.2.7 and [rename `redirect-uri-template` to `redirect-uri`](https://github.com/oktadeveloper/okta-spring-boot-authz-server-example/issues/2). See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-spring-boot-authz-server-example/pull/3). Changes to this article can be viewed in [oktadeveloper/okta-blog#286](https://github.com/oktadeveloper/okta-blog/pull/286).

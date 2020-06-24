@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: 'Full Stack Reactive with Spring WebFlux, WebSockets, and React'
-author: mraible
+author: matt-raible
+by: advocate
+communities: [java, javascript]
 description: "This post shows you techniques for talking to your reactive Spring WebFlux API with WebSockets and React."
 tags: [reactive, reactive api, reactive programming, spring webflux, spring boot, websockets, sse, react, oidc]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Spring WebFlux, WebSockets, and Server-sent Events! Learn how to build a React app that responds to real-time data from your reactive API."
 - "Want to learn how to go full-stack reactive with Spring WebFlux, WebSockets, and React? We've got a tutorial just for you!"
 image: blog/spring-full-stack-reactive/websockets-in-react.png
+type: conversion
 ---
 :page-liquid:
 :uri-okta-login: https://login.okta.com/?SAMLRequest=fc%2B7CsJAEAXQXvAflu1NNJUMeZBGELTx1a%2FrYILJTtyZGD%2FfSBRiYzlw77lMnD3rSj3Qc0ku0YtgrhU6S5fSXRN9PKxmS52l00nMpq6iBvJWCrfDe4ss6vStRe9aDzmGIZfo1jsgwyWDMzUyiIV9vt1AH4XGk5ClSvewUgMNa%2BYW%2FVj5jxhm9NLP67QQaSAMu64L6CYmsFSHlnzT4ZlLwTgcL6Sf8%2FeX9AU%3Dhttps://login.okta.com/?SAMLRequest=fc%2B7CsJAEAXQXvAflu1NNJUMeZBGELTx1a%2FrYILJTtyZGD%2FfSBRiYzlw77lMnD3rSj3Qc0ku0YtgrhU6S5fSXRN9PKxmS52l00nMpq6iBvJWCrfDe4ss6vStRe9aDzmGIZfo1jsgwyWDMzUyiIV9vt1AH4XGk5ClSvewUgMNa%2BYW%2FVj5jxhm9NLP67QQaSAMu64L6CYmsFSHlnzT4ZlLwTgcL6Sf8%2FeX9AU%3D

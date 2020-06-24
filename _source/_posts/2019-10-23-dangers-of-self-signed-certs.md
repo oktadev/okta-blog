@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "The Dangers of Self-Signed Certificates"
-author: bdemers
+author: brian-demers
+by: advocate
+communities: [security]
 description: "Self-Signed certificates are free, but not without cost. In this post you'll learn all about the dangers of self-signed certificates."
 tags: [security, certificates, best-practices]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Only you can prevent Self-Signed Certificates 🔥"
 - "Self-Signed certificates != trust"
 image: blog/dangers-of-self-signed-certs/no-to-self-signed.png
+type: awareness
 ---
 
 How many times have you started a new job, and the first thing you see on the company intranet is a "Your connection is not private" error message? Maybe you asked around and were directed to a wiki page. Of course, you probably had to click through the security warnings before actually viewing that page. If you are security-minded, this probably bothers you, but because you have a new job to do, you accept the warning and proceed to jump through the hoops of installing the certificate.
@@ -84,4 +87,4 @@ Last time I checked, becoming a certificate authority for a single domain costs 
 
 Self-signed certificates are not always a bad idea. I use them for development and automated testing of services that require TLS. In these cases, the chain of trust starts and ends me. The tool [mkcert](https://mkcert.dev/) makes setting up your development environment trivial by generating a certificate and adding it to your local trust stores automatically with a single command. 
 
-Feel free to leave comments below. To make sure you stay up to date with our latest developer guides and tips, follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube Channel](https://www.youtube.com/c/oktadev)!
+Feel free to leave comments below. To make sure you stay up to date with our latest developer guides and tips, follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube Channel](https://www.youtube.com/c/oktadev)! We've also got a new [security site](https://sec.okta.com/) you should check out if you're interested in other security-focused articles.

@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: 'Build a Desktop App with Electron and Authentication'
-author: mraible
+author: matt-raible
+by: advocate
+communities: [javascript]
 description: "Learn how to build a desktop application using Electron and React, then add authentication with OIDC."
 tags: [desktop, electron, javascript, appauth, appauthjs, authentication, oidc, oauth]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Build a simple desktop app with Electron and use OIDC for authentication #electronjs #oidc #typescript"
 - "Leverage OIDC and @okta to add authentication to your kick-ass desktop/@electronjs app!"
 image: blog/electron-react-appauth-js/polished-matt.png
+type: conversion
 ---
 
 Electron is a framework for building cross-platform desktop applications with web technologies like JavaScript, HTML, and CSS. It was created for GitHub's Atom editor and has achieved widespread adoption since. Electron powers several apps that I use on a daily basis: Slack, Kitematic, and Visual Studio Code to name a few.

@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: 'Use Azure Cosmos DB with Your ASP.NET App'
-author: chrisgreen
+author: chris-green
+by: contractor
+communities: [.net]
 description: 'This tutorial walks you through building an ASP.NET 4.x application using Azure Cosmos DB for storage.'
 tags: [aspnet, dotnet, azure, cosmosdb, cosmos, tutorial]
 tweets:
@@ -9,6 +11,7 @@ tweets:
   - 'Build an #aspnet application that uses @AzureCosmosDB! ->'
   - "If you're looking for a quick intro to @AzureCosmosDB with #aspnet, check this out!"
 image: blog/featured/okta-dotnet-mouse-down.jpg
+type: conversion
 ---
 
 Cosmos DB is a planet-scale database capable of holding billions of records ("documents" using Cosmos jargon) without significant detriment to performance. In this article, you will learn how to use Azure Cosmos DB - a key-value store solution - your ASP.NET app instead of a relational database.

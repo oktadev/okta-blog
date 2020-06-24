@@ -2,6 +2,8 @@
 layout: blog_post
 title: "How to GraphQL in Java"
 author: thiago-negri
+by: contractor
+communities: [java]
 description: "This tutorial shows how to build and test a GraphQL API with Java and JUnit 5."
 tags: [java, graphql, junit, junit5, spring boot]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "A quick guide to building a GraphQL API with @java and @springboot."
 - "Want @java + @graphql? You're in luck! @springboot makes it easy to build and test."
 image: blog/java-graphql/java-graphql.png
+type: conversion
 ---
 
 REST APIs are hard to design so they serve multiple clients well. As each client has their own needs in terms of data searching, filtering and which fields they want, a traditional REST API will provide a single version of an entity and the client has the responsibility of navigating through multiple endpoints and correlate the data on their side to build the data they want.

@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Never Build MFA Again: A Developer's Guide to Transactional MFA"
-author: jeffersonhaw
+author: jefferson-haw
+by: internal-contributor
+communities: [security]
 description: "Learn how to implement transactional MFA in your applications."
 tags: [transactional MFA, MFA]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "What is 'Transactional MFA' and what is it used for? Find out here!"
 - "Learn how to implement Transactional MFA in your web applications!"
 image: blog/featured/okta-node-bottle-headphones.jpg
+type: conversion
 ---
 
 Two Factor Authentication (2FA) or Multi-Factor Authentication (MFA) has been widely deployed over the last decade to end users but is, for the most part, only used during the login process. Using 2FA/MFA is a secure way of verifying who the user is before allowing them to access the desired application.

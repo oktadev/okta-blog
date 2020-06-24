@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Securing REST APIs"
 author: les-hazlewood
+by: internal-contributor
+communities: [security]
 description: "A short discussion about REST API security best practices."
 tags: [rest, security, apis]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Check out these REST API security tips from @lhazlewood -- our resident REST API security expert:"
 - "Just published a REST API security article. Be sure to check it out >:D #security #apis"
 image: blog/featured/okta-java-skew.jpg
+type: awareness
 ---
 
 When machines ask each other for information online, they don't need elaborate browser interfaces or clickable buttons. They just need raw data in a machine-readable format. Today, many applications get the data they need via a REST API--a powerful way of serving up information online that underpins many modern online services.
@@ -74,3 +77,5 @@ Has this article piqued your interest in REST APIs and authentication? Here is s
 - [Build a REST API Using Java, MicroProfile, and JWT Authentication ](https://developer.okta.com/blog/2019/07/10/java-microprofile-jwt-auth)
 - [Create a Secure Spring REST API ](https://developer.okta.com/blog/2018/12/18/secure-spring-rest-api)
 - [Why JWTs Suck as Session Tokens ](https://developer.okta.com/blog/2017/08/17/why-jwts-suck-as-session-tokens)
+
+We've also got a dedicated [security site](https://sec.okta.com/) where we're publishing in-depth security articles and guides that you might find interesting.

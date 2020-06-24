@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "What is the OAuth 2.0 Password Grant Type?"
-author: aaronpk
+author: aaron-parecki
+by: advocate
+communities: [security]
 description: "The Password Grant Type is a way to get an OAuth access token given a username and password."
 tags: [oauth]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Ever wondered what the #oauth2 Password Grant Type is for? We've got you covered."
 - "What the heck is the OAuth Password Grant Type?"
 - "Thinking about using the OAuth Password Grant Type? Read this first:"
+type: awareness
 ---
 
 The OAuth 2.0 Password Grant Type is a way to get an access token given a username and password. It's typically used only by a service's own mobile apps and is not usually made available to third party developers.
@@ -74,3 +77,5 @@ You can learn more about OAuth 2.0 on [OAuth.com](https://www.oauth.com/oauth2-s
 * [Build Secure Node Authentication with Passport.js and OpenID Connect](/blog/2018/05/18/node-authentication-with-passport-and-oidc)
 
 Check out [Okta's OIDC/OAuth 2.0 API](/docs/api/resources/oidc) for specific information on how we support OAuth. And as always, follow us on Twitter [@oktadev](https://twitter.com/oktadev) for more great content.
+
+**PS**: If you're interested in other interesting security articles, please check out our new [security site](https://sec.okta.com/)!

@@ -1,13 +1,16 @@
 ---
 layout: blog_post
 title: "Use Ionic for JHipster to Create Mobile Apps with OIDC Authentication"
-author: mraible
+author: matt-raible
+by: advocate
+communities: [java, mobile]
 description: "This article shows you how to use Ionic for JHipster to create a hybrid mobile app that runs on your phone. It supports JWT authentication, as well as OAuth 2.0 / OIDC. It even works with JHipster microservices!"
 tags: [ionic, ionicframework, jhipster, oidc, oauth, cordova, opencollective, ios, android]
 tweets:
 - "Learn how to use Ionic for JHipster to create a mobile app that works with Okta for authentication → "
 - "Did you know that the team behind @oktadev developed and maintains an Ionic Module for JHipster? It's pretty sweet. This blog post shows you how to use it to generate a mobile app. "
 - "Just when you thought @java_hipster couldn't get any better, we released an @ionicframework module that allows generating a hybrid mobile app! You should try it; it'll be fun! 😋 "
+type: conversion
 ---
 
 We 💙 Ionic, JHipster, and Java here at Okta. Ionic is a framework for building native mobile apps using web technologies. Technically, this is called a "hybrid" app because it's not using native SDKs. Hybrid mobile apps are distributed just like native apps: they can be installed on mobile devices, and they're listed in app stores. As an end user, there's a good chance you can't tell the difference between a hybrid mobile app and a native mobile app.
@@ -247,7 +250,7 @@ I want to develop the **best user experience**. Native apps are painful to distr
 
 ## Learn More About Ionic and JHipster
 
-I've written a thing or two about JHipster and Ionic on this blog. If you'd like to see how to deploy your Ionic app to a mobile device, I recommend reading the [deploy to a mobile device](/blog/2017/05/17/develop-a-mobile-app-with-ionic-and-spring-boot#deploy-to-a-mobile-device) section of [Tutorial: Develop a Mobile App With Ionic and Spring Boot](/blog/2017/05/17/develop-a-mobile-app-with-ionic-and-spring-boot). I showed how to add OIDC authentication to an Ionic app in [Build an Ionic App with User Authentication](https://developer.okta.com/blog/2017/08/22/build-an-ionic-app-with-user-authentication).
+I've written a thing or two about JHipster and Ionic on this blog. If you'd like to see how to deploy your Ionic app to a mobile device, I recommend reading the [deploy to a mobile device](/blog/2017/05/17/develop-a-mobile-app-with-ionic-and-spring-boot#deploy-to-a-mobile-device) section of [Tutorial: Develop a Mobile App With Ionic and Spring Boot](/blog/2017/05/17/develop-a-mobile-app-with-ionic-and-spring-boot). I showed how to add OIDC authentication to an Ionic app in [Build an Ionic App with User Authentication](/blog/2017/08/22/build-an-ionic-app-with-user-authentication).
 
 You can find the source code for the application developed in this post at <https://github.com/oktadeveloper/okta-ionic-jhipster-example>.
 
@@ -255,5 +258,7 @@ See the following posts for information on building microservices with JHipster 
 
 * [Develop and Deploy Microservices with JHipster](/blog/2017/06/20/develop-microservices-with-jhipster)
 * [Use OpenID Connect Support with JHipster](/blog/2017/10/20/oidc-with-jhipster)
+
+**Update:** For a tutorial that uses JHipster 6 and Ionic 4, see [Build Mobile Apps with Angular, Ionic 4, and Spring Boot](/blog/2019/06/24/ionic-4-angular-spring-boot-jhipster).
 
 Give [@oktadev](https://twitter.com/mraible) a follow on Twitter if you liked this tutorial. If you have any questions, please leave a comment or post your question to [Stack Overflow](https://www.stackoverflow.com) with a `jhipster` tag.

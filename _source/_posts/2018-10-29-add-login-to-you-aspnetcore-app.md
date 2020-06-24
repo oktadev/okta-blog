@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Add Login to Your ASP.NET Core MVC App"
-author: ibrahim
+author: ibrahim-suta
+by: contractor
+communitites: [.net]
 description: "This tutorial walks you through adding simple authentication and authorization to your ASP.NET Core application using Okta."
 tags: [aspnet, aspnetcore, dotnet, dotnetcore, authentication, authorization]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "A quick introduction to authentication with #aspnetcore. ->"
 - "Ifyou're looking for a quick auth example for #aspnetore, check this out!"
 image: blog/aspnetcore-login/okta-dotnet-books-quarter.jpg
+type: conversion
 ---
 
 One of the improvements in the latest version of ASP.NET Core (MVC ) is a new and simplified authentication integration. However, managing authentication on your own is still a considerable burden. Not only do you need to handle signup and login, but you also have to set up the database, manage security aspects of registration and login, and take care of session management. Since the integration of external auth providers has never been more comfortable, let's see an example of how to do this with an existing application by adding Okta.

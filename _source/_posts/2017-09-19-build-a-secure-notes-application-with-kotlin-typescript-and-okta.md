@@ -1,9 +1,12 @@
 ---
 layout: blog_post
 title: "Build a Secure Notes Application with Kotlin, TypeScript, and Okta"
-author: mraible
+author: matt-raible
+by: advocate
+communities: [java, javascript]
 description: "In this tutorial, you'll learn how to write a note-taking application in Kotlin and TypeScript - two of the fastest growing languages of 2017. You'll use two popular frameworks, Spring Boot and Angular, to make development super fast."
 tags: [kotlin, spring boot, typescript, angular, okta, authentication]
+type: conversion
 ---
 
 I love my job as a developer advocate at Okta. I get to learn a lot, write interesting blog posts and create example apps with cool technologies like Kotlin, TypeScript, Spring Boot, and Angular, which I'm about to demo. When it comes to writing Hello World apps with authentication, I can whip one out in a few minutes. That isn't because I'm a particularly good programmer, it's because the languages, frameworks, tools, and platforms available to developers are impressive.

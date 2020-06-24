@@ -1,13 +1,16 @@
 ---
 layout: blog_post
 title: "Add Auth to Your PWA with Okta and Stencil"
-author: leebrandt
+author: lee-brandt
+by: advocate
+communities: [javascript, mobile]
 tags: [auth, stencil, pwa, okta]
 description: "Stencil creates a PWA out of the box. Learn how to add authentication to your PWA with Okta."
 tweets:
 - "Add auth to your @stenciljs PWA with Okta"
 - "Using @stenciljs for a base PWA? Add authentcation to it!"
 - "Need a decent PWA with authentication? Checkout @stenciljs and @oktadev together!"
+type: conversion
 ---
 
 [Progressive Web Applications](/blog/2017/07/20/the-ultimate-guide-to-progressive-web-applications) (PWAs) are the newest technology on the web dev block and they've arrived just in time to solve a growing problem. Many companies are struggling to keep isolated development teams across their organization up-to-date when new features are released. Some companies are even trying to decide if it's worth the cost to develop both a web app *and* a mobile application. Not surprisingly, it's a headache most companies are looking to avoid. PWAs can give companies a lot of the features they need from a mobile app without the need to manage multiple teams and codebases.

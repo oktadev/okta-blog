@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: 'Add User Authentication to Your Spring Boot App in 15 Minutes'
-author: moksamedia
+author: andrew-hughes
+by: contractor
+communities: [java]
 description: "Spring Boot makes it fun and easy to build Java webapps. This blog post shows you how to add user authentication to a Spring Boot app."
 tags: [java, spring, spring boot, user authentication, user registration]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Get started with Spring Boot today! This post shows you how build a quick app with login, registration, and group-based access control."
 - "Wanna learn how to build a quick app with @springboot and add user authentication? You're in luck!"
 image: blog/featured/okta-java-short-bottle-headphones.jpg
+type: conversion
 ---
 
 When's the last time you had fun building a web application?  We love Spring Boot because it makes it super easy to build a rich Java web application, and it can even be pretty fun. By combining Spring, Spring Boot, and Gradle, we have a complete build system that can develop, test, run, and deploy Spring applications in minutes.

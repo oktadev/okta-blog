@@ -1,9 +1,16 @@
 <head>
   <link rel="preload" href="https://use.typekit.net/osg6paw.css" as="style" crossorigin />
   <link rel="stylesheet" href="https://use.typekit.net/osg6paw.css" crossorigin />
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-15777010-7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-15777010-7');
+  </script>
 
   <script>
-
     var searchDomain = '{{ site.external_domain }}';
     var isProduction = window.location.hostname === 'developer.okta.com';
     if (isProduction) {
@@ -50,12 +57,12 @@
   <link rel="mask-icon" href="/assets-jekyll/favicon/safari-pinned-tab.svg" color="#21313a">
   <meta name="msapplication-config" content="/assets-jekyll/favicon/browserconfig.xml">
   <meta name="theme-color" content="#ffffff">
+  <link rel="canonical" href="{{ site.external_domain }}{{ page.url }}" />
   {% if page.layout == "blog_post" %}
   <meta property="og:type"               content="article" />
   <meta property="og:url"                content="{{ site.external_domain }}{{ page.url }}" />
   <meta property="og:title"              content="{{ page.title }}" />
   <meta property="og:description"        content="{{ page.description }}" />
-  <link rel="canonical" href="{{ site.external_domain }}{{ page.url }}" />
 
   <!-- Add BlogPosting schema -->
   {% if page.image contains "blog" %}

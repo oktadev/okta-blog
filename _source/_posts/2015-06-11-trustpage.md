@@ -1,9 +1,11 @@
 ---
 layout: blog_post
 title: The New Age of Trust
-author: vimarsh_karbhari
+author: vimarsh-karbhari
+by: internal-contributor
+communities: [security]
 tags: [trust, trust pages, trust relationship, product, engineering, customer success, functional design]
-
+type: awareness
 ---
 
 I recently read an excellent article about how amazing products shape the **trust relationship** with customers. I think great products are the _first step_ in building a trust relationship. And like other aspects of the product that are derived from the product but are not physically part of it, the trust relationship is now more important than ever before.
@@ -57,3 +59,5 @@ Realize that many of your customers will probably check your trust page _and_ ca
 Designing and developing the Trust Page has taught me much in the last few months. I'd be happy to hear from you on this topic, so please feel free to send comments or questions to <vimarsh.karbhari@okta.com>.
 
 _The Trust Page is the work of an amazing team that includes Tim Gu, Shawn Gupta, Nathan Tate, Wendy Liao, and myself._
+
+And if you'd like to see more of what we're up to in the security space, be sure to check out our new [security site](https://sec.okta.com/) where we publish in-depth articles on a variety of subjects.

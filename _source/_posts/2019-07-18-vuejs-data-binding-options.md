@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Use Vue.js Data Binding Options for Reactive Applications"
-author: dogeared
+author: micah-silverman
+by: advocate
+communities: [javascript]
 description: ""
 tags: [javascript, vuejs, vue.js, data binding, reactive]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - ""
 - ""
 image: blog/featured/okta-vue-bottle-headphones.jpg
+type: conversion
 ---
 Vue.js is known as a "progressive framework for building user interfaces". There's a lot to unpack in this simple statement. It's easy to get started with Vue.js, with a minimal feature set, and then layer in more of the framework as you need it.
 

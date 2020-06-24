@@ -1,12 +1,15 @@
 ---
 layout: blog_post
 title: "OAuth 2.0 from the Command Line"
-author: aaronpk
+author: aaron-parecki
+by: advocate
+communities: [security]
 description: "In this tutorial, I'll show you how to write a command line script which is able to complete the OAuth exchange all without any copying and pasting long strings! Why? Because it's mildly useful, but most importantly, because it's fun!"
 tags: [oauth, php]
 Tweets:
 - "Who knew @OAuth_2 from the command line could work so well! 👾"
 - "Why yes, @aaronpk *did* just embed an HTTP server in a PHP command line tool. #oauth2"
+type: awareness
 ---
 
 So you've found yourself writing a command line script and needing to talk to an API that uses OAuth 2.0? The typical approaches to getting an OAuth access token from a command line script usually involve copying and pasting the authorization code into the terminal. But we can do better!
