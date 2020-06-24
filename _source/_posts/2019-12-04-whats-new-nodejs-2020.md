@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "What's New for Node.js in 2020"
-author: reverentgeek
+author: david-neal
+by: advocate
+communities: [javascript]
 description: "Node.js is changing in 2020, here are the updates to be on the lookout for!"
 tags: [nodejs, node, javascript, ecmascript, es modules]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "2020 is almost here! What's in store for Node.js in the new year? #nodejs #wasm"
 - "Can you believe it's almost 2020? Here's what to look forward to in Node.js! #nodejs #wasm"
 image: blog/whats-new-nodejs-2020/whats-new-nodejs-2020.jpg
+type: awareness
 ---
 
 In 2019, Node.js turned 10 years old, and the number of packages available on `npm` crossed one million. Downloads for Node.js itself continues to rise, growing 40% year over year. Another significant milestone is Node.js recently joined the OpenJS Foundation, which promises to improve project health and sustainability, as well as improve collaboration with the JavaScript community at large.

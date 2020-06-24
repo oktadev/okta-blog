@@ -1,13 +1,15 @@
 ---
 layout: blog_post
 title: 'Welcome Micah Silverman'
-author: dogeared
+author: micah-silverman
+by: advocate
 description: "We welcome not exactly newcomer Micah to the team."
 tags: [security, authentication, api]
 tweets: 
 - "@afitnerd <3 @OktaDev! Psyched to join the DevRel team! Want to play a game?"
 - "I'm psyched to bring my love of APIs, OAuth & OIDC to the @OktaDev DevRel team!"
 image: blog/featured/okta-java-short-bottle-headphones.jpg
+type: awareness
 ---
 
 <style type="text/css">

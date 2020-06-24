@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: 'Build a Secure React Application with JWTs and Redux'
-author: bkelley
+author: braden-kelley
+by: contractor
+communities: [javascript]
 description: 'A tutorial on building secure application with React and Redux using JWTs.'
 tags: [react, redux, JWT, react redux]
 tweets:
@@ -9,6 +11,7 @@ tweets:
   - 'Want to build secure @reactjs and #redux apps using JWTs? Check this out!'
   - "Need to learn how to use JWTS in @reactjs and #redux? We've got you covered!"
 image: blog/featured/okta-node-bottle-headphones.jpg
+type: conversion
 ---
 
 If you've worked with React at all, chances are you've at least heard of Redux. But you may not know what it is, how it fits in with React, or how to use it in your app. It can sometimes be complicated to set up but can be a very useful addition to a React app depending on your use cases.

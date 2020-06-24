@@ -1,13 +1,16 @@
 ---
 layout: blog_post
 title: 'Simple, Secure Authentication with CodeIgniter'
-author: krasimir
+author: krasimir-hristozov
+by: contractor
+communities: [php]
 description: "Learn how to build a CodeIgniter application and add user authentication quickly and easily!"
 tags: [oauth, php, codeigniter]
 tweets:
   - "CodeIgniter + Okta = 🔐"
   - "Learn how to quickly add user login to a CodeIgniter application! →"
 image: blog/featured/okta-php-headphones.jpg
+type: conversion
 ---
 
 CodeIgniter is a simple, lightweight PHP framework that remains a popular option for many developers. It might lack the sophisticated architecture and advanced features of Symfony or Laravel, but it compensates with a small footprint and a shallow learning curve.

@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Node Microservices: From Zero to Hero"
-author: nickolasfisher
+author: nickolas-fisher
+by: contractor
+communities: [javascript]
 description: "Learn how to build microservices in Node using Seneca."
 tags: [node, microservices, node microservices, seneca]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Check out this tutorial on building microservices in Node!"
 - "Need to learn how to create microservices in Node quickly? Check this out!"
 image: blog/featured/okta-node-skew.jpg
+type: conversion
 ---
 
 Node is one of the premier frameworks for microservice architecture today. The microservice pattern allows developers to compartmentalize individual components of a larger application infrastructure. Because each component runs independently, you can upgrade or modify components without impacting the larger application. Each component exposes an interface to external consumers who are blind to any internal logic the service does.

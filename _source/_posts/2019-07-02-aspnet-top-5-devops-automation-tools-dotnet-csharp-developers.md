@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "The Top 5 DevOps Automation Tools .NET Developers Should Know"
-author: quorralyne
+author: heather-downing
+by: advocate
+communities: [.net]
 description: "CI/CD automation, code analysis, and database versioning. Check out the top 5 tools for DevOps automation that every .NET developer should know."
 tags: [ aspnet, csharp, dotnet, dotnetcore, entityframework, SQL, webapi, okta, devops, automation, devopsautomation]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Shouldn't there be more #devops #automation in the life of a #DOTNET dev? You bet! Check it out! →"
 - "Hey .NET devs! Check out the Top 5 #DevOps #Automation tools you absolutely need to know! →"
 image: blog/aspnet-devops-top-5-automation-tools/devops-automation.png
+type: awareness
 ---
 
 Not too long ago, deployments were done by hand - manually pushed to a physical server somewhere in a building your company owned. The software engineering world has come a long way since then, and we have more options than ever get our code and data live, automatically. Here are a few tools every C#/.NET developer should know that can help with that process, vetted by some of the best software leaders in the business. Be sure to check each one out if you aren't already using their awesome power.

@@ -1,11 +1,14 @@
 ---
 layout: blog_post
 title: "Build a Secure To-Do App with Vue, ASP.NET Core, and Okta"
-author: nbarbettini
+author: nate-barbettini
+by: advocate
+communities: [.net, javascript]
 tags: [vue.js, vue, oidc, dotnet, aspnetcore]
 tweets: 
   - "ICYMI: @nbarbettini shows how to build a to-do app with #vuejs and #aspnetcore step-by-step"
   - "In-depth tutorial on building full-stack #vuejs and #aspnetcore apps by our own @nbarbettini"
+type: conversion
 ---
 
 I love lists. I keep everything I need to do (too many things, usually) in a big to-do list, and the list helps keep me sane throughout the day. It's like having a second brain!

@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Why Public Key Cryptography Matters"
-author: william_dawson
+author: william-dawson
+by: internal-contributor
+communities: [security]
 description: "A quick look at public key cryptography, why it is important, and how it works."
 tags: [security, cryptography]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Interested in #security? Read our short writeup on public key crypto:"
 - "Public key cryptography is really useful. If you'd like to learn more about it, read our writeup on the subject:"
 image: blog/why-public-key-cryptography-matters/public-key-encryption.png
+type: awareness
 ---
 
 40 years old and as relevant today as when it was first invented, public key cryptography is the unsung hero of modern cybersecurity. Most people take unknowing advantage of it many times a day. So what is it, and how does it work?
@@ -68,3 +71,5 @@ For more history on the fascinating world of public key cryptography, Stephen Le
 * [Why JWTs Suck as Session Tokens](/blog/2017/08/17/why-jwts-suck-as-session-tokens)
 
 Finally, be sure to follow us on [Twitter](https://twitter.com/oktadev), [YouTube](https://www.youtube.com/c/oktadev), and [Facebook](https://www.facebook.com/oktadevelopers/) if you'd like to see when we publish more articles like this. And please tell us what you'd like to us to write about next!
+
+And, if you're in the mood to read through some other security articles, our new [security site](https://sec.okta.com/) has a bunch.

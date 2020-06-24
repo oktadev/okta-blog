@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Build Your First PWA with Angular"
-author: holgerschmitz
+author: holger-schmitz
+by: contractor
+communities: [javascript]
 description: "This post shows you how to build a PWA (Progressive Web Application) with Angular, Angular CLI, and Angular Material."
 tags: [angular, angular cli, angular material, pwa, angular pwa]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Get started building your first Angular PWA today. It's pretty darn easy thanks to @angularcli!"
 - "TypeScript + Angular + PWA == a web developers dream. Start living your dream today!"
 image: blog/featured/okta-angular-headphones.jpg
+type: conversion
 ---
 
 During the last two years, everybody started talking about Progressive Web Applications, or PWAs for short. But what is this new type of application, and how can it make your life as an Angular developer better? To understand what PWAs are all about, and how you can build them in Angular, let's consider the following scenario. You are out and about in an area with little or no network reception. You are using a cool web app to search for a good book to read. Traditional web applications only work while you are online. Every time you lose the network the application will stall. What's more, a typical app will load all of its scripts before starting up. This means that you might have to wait a minute or more for the first page to load. In conditions like this, you will quickly give up and abandon the application altogether.

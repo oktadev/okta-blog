@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: 'Simple Authentication with Rails and OmniAuth'
-author: avanbeek
+author: andrew-van-beek
+by: internal-contributor
+communities: [ruby]
 description: "Learn how to easily add user authentication into Rails apps using OmniAuth, devise, and Okta."
 tags: [ruby, rails, devise, omniauth, security]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Need a simpler way to manage users for your @rails applications? Try @oktadev! We just published an article showcasing how to make things work with #omniauth"
 - "Wire your @rails apps up to use #openidconnect with #omniauth and @oktadev"
 image: blog/omniauth/app.png
+type: conversion
 ---
 
 Today I'm going to show you how to authenticate users into your Rails applications using the latest best-practices and a hosted authentication/authorization provider which makes managing users simple. Specifically, you'll learn how to integrate Rails and [Okta](https://developer.okta.com/) to create, manage, and secure users with [OpenID Connect](/blog/2017/07/25/oidc-primer-part-1).

@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Get to Know Entity Framework and PostgreSQL"
 author: terje-kolderup
+by: contractor
+communities: [.net]
 description: "Learn to build a simple CRUD app using PostgreSQL as the Database and Entity Framework Core for talking to the data store."
 tags: [efcore, entity framework core, postgresql, postgres]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Need to learn the basics of using Entity Framework Core with PostgreSQL? We have you covered."
 - "Check out this post on using Entity Framework Core with PostgreSQL!"
 image: blog/featured/okta-dotnet-tile-mouse.jpg
+type: conversion
 ---
 
 Entity Framework is one of the most pervasive Object-Relational Mappers (ORMs) for ASP.NET. An ORM maps an application's object entities to relational entities in a database, and allows developers to build and edit the database schema from the code. Furthermore, Entity Framework's design makes it particularly friendly for PostgreSQL developers.

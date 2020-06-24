@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Combat Side-Channel Attacks with Cross-Origin Read Blocking"
 author: tom-abbott
+by: internal-contributor
+communities: [security]
 description: "Find out what those CORB errors mean and how CORB protects your application from hardware-layer vulnerabilities."
 tags: [CORB, appsec, spectre, vulnerabilities, security, meltdown]
 tweets:
@@ -9,6 +11,7 @@ tweets:
   - "Check out how CORB protects against side-channel attacks. Because software-layer attacks weren't enough to think about!"
   - "Take 10 minutes to learn what CORB is and how it helps protect your applications and users."
 image: blog/corb/corb.png
+type: awareness
 ---
 
 As if developers didn't have a big enough task securing web applications from software-layer attacks, they now have to contend with another threat: hardware-layer vulnerabilities. 
@@ -79,5 +82,5 @@ For more information about browser development and security, check out these oth
 * [10 Excellent Ways to Secure Your Spring Boot Application](/blog/2018/07/30/10-ways-to-secure-spring-boot)
 * [Build a Web App with Spring Boot and Spring Security in 15 Minutes](/blog/2018/09/26/build-a-spring-boot-webapp)
 
-Leave a comment below, find more from the Okta team on [Twitter](https://twitter.com/oktadev), and watch us on [YouTube](https://www.youtube.com/c/oktadev)!
+Leave a comment below, find more from the Okta team on [Twitter](https://twitter.com/oktadev), and watch us on [YouTube](https://www.youtube.com/c/oktadev)! We've also just launched a new [security site](https://sec.okta.com/), where we're publishing other useful security information like this. Be sure to check it out!
 

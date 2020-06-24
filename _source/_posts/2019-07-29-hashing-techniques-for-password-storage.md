@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Hashing Techniques for Password Storage"
-author: william_dawson
+author: william-dawson
+by: internal-contributor
+communities: [security]
 description: "A brief look at password hashing functions and some practical recommendations."
 tags: [security, hashing, passwords]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Interested in #password hashing? Read @wilsdawson's breakdown:"
 - "Password hashing techniques explained!"
 image: blog/featured/okta-dotnet-bottle-headphones.jpg
+type: awareness
 ---
 
 Picture yourself a year from now. Someone just put your entire password database on Pastebin. User accounts are being hacked by the thousands and your local privacy regulator just called to have a chat. Depending on the hashing algorithm you were using to store your user passwords, you could be in a lot of trouble. As they say, an ounce of prevention is worth a pound of cure, so how does hashing work and what are the best hashing techniques for password storage?
@@ -57,3 +60,5 @@ Interested in more developer-focused security content? Check out some of our oth
 - [Simple Node Authentication](https://developer.okta.com/blog/2018/04/24/simple-node-authentication)
 - [How to Prevent Your Users from Using Breached Passwords](https://developer.okta.com/blog/2018/06/11/how-to-prevent-your-users-from-using-breached-passwords)
 - [Announcing PassProtect - Proactive Web Security ](https://developer.okta.com/blog/2018/05/23/announcing-passprotect-proactive-web-security)
+
+We've also got a new [security site](https://sec.okta.com/) where we're exclusively publishing security-focused articles and guides that you might find interesting.

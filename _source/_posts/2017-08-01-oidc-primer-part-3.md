@@ -1,11 +1,14 @@
 ---
 layout: blog_post
 title: "What's in a Token? – An OpenID Connect Primer, Part 3 of 3"
-author: dogeared
+author: micah-silverman
+by: advocate
+communities: [security]
 tags: [oauth, oauth2, oauth2.0, oauth 2.0, OpenID, OpenID Connect, oidc]
 redirect_from:
   - "/blog/2017-07-25-oidc-primer-part-3"
   - "/blog/2017/07/25/oidc-primer-part-3"
+type: awareness
 ---
 
 In the previous two installments of this OpenID Connect (OIDC) series, we dug deep into the [OIDC flow types](https://developer.okta.com/blog/2017/07/25/oidc-primer-part-1) and saw [OIDC in action](https://developer.okta.com/blog/2017/07/25/oidc-primer-part-2) using a playground found at: [https://okta-oidc-fun.herokuapp.com/](https://okta-oidc-fun.herokuapp.com/).
@@ -447,4 +450,4 @@ It took some time, but here is what I consider to be the important takeaways:
 
 All the code used in this series can be found on [github](https://github.com/oktadeveloper/okta-oidc-flows-example). You can use the OIDC sample app to exercise the various flows and scopes discussed throughout these posts. It's at: [https://okta-oidc-fun.herokuapp.com/](https://okta-oidc-fun.herokuapp.com/). The entire final OIDC spec can be found [here](http://openid.net/specs/openid-connect-core-1_0.html). And you can learn more about OAuth 2.0 at [oauth.com](https://www.oauth.com/).
 
-The whole series is live now. Part 1 is [here](https://developer.okta.com/blog/2017/07/25/oidc-primer-part-1). Part 2 is [here](https://developer.okta.com/blog/2017/07/25/oidc-primer-part-2).
+The whole series is live now. Part 1 is [here](https://developer.okta.com/blog/2017/07/25/oidc-primer-part-1). Part 2 is [here](https://developer.okta.com/blog/2017/07/25/oidc-primer-part-2). If you're looking for other security-focused articles, you may want to check out our new [security site](https://sec.okta.com), where we're publishing lots of other in-depth security pieces.

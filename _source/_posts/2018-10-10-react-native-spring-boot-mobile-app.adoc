@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: 'Build a Mobile App with React Native and Spring Boot'
-author: mraible
+author: matt-raible
+by: advocate
+communities: [java, javascript, mobile]
 description: "In this tutorial, you'll learn how to build a Spring Boot API and a React Native app. You'll also see how to deploy the API to Cloud Foundry and Google Kubernetes Engine."
 tags: [react native, spring boot, spring boot api, java, typescript, javascript, cloud foundry, kubernetes, google cloud, jhipster, ignite jhipster]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Did you know that @java_hipster can generate Spring Boot APIs and mobile apps? Get 'yer learn on with React Native and Spring Boot today!"
 - "Learn how to build a @reactnative app that talks to a @springboot API in this quick-n-easy tutorial. It also shows how to deploy to @cloudfoundry + @googlecloud with @kubernetesio!"
 image: blog/featured/okta-java-skew.jpg
+type: conversion
 ---
 :page-liquid:
 :experimental:

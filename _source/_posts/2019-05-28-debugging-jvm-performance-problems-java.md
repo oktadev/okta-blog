@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Debugging JVM Performance Issues at Okta"
-author: peterhimanshu
+author: peter-yaworsky
+by: internal-contributor
+communities: [java]
 description: "This post describes some JVM performance issues we experienced at Okta and how we solved them."
 tags: [java, jvm, performance]
 tweets:
@@ -10,6 +12,7 @@ tweets:
 image: blog/featured/okta-java-headphones.jpg
 redirect_from:
     - "/blog/2019/05/28/jvm-performance"
+type: awareness
 ---
 
 Our customers here at Okta expect a highly-available service that is always there when they need it. We've worked hard to design a service architecture that allows us to deploy code and do maintenance without disrupting our customers in any way.
