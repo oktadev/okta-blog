@@ -51,7 +51,7 @@ The example project contains two main sub-directories:
 - `client`: contains the Vue.js client
 - `server`: contains the Spring Boot Kotlin resource server
 
-First, you're going to take a look at the resource server and make sure that it’s all working.
+First, you're going to take a look at the resource server and make sure that it's all working.
 
 ## Build a Spring Boot Resource Server with Kotlin
 
@@ -121,7 +121,7 @@ class Todo(var title: String, var completed: Boolean) {
 }
 ```
 
-Spring is doing a lot of work behind the scenes. Pretty much all of the resource server’s infrastructure is auto-generated. You’re simply defining the data model and pointing Spring Boot to it. This is achingly clear in the next class, `TodoRepository`, which is the class that defines and creates the REST interface for your resource server as well as your persistence store.
+Spring is doing a lot of work behind the scenes. Pretty much all of the resource server's infrastructure is auto-generated. You're simply defining the data model and pointing Spring Boot to it. This is achingly clear in the next class, `TodoRepository`, which is the class that defines and creates the REST interface for your resource server as well as your persistence store.
 
 The persistence store in this case (the class that is responsible for saving and loading your data resources from a database) uses the default store, which is an in-memory database. It is great for examples and testing but needs to be overridden in production so that you can actually persist your data.
 
@@ -135,7 +135,7 @@ Now for the code:
 interface TodoRepository:JpaRepository<Todo, Long>
 ```
 
-Yep, that’s it!
+Yep, that's it!
 
 The last file is `RestRepositoryConfigurator`. This file overrides `RepositoryRestConfigurer` and is used to configure the REST repository. Specifically, it configures it to expose IDs for the `Todo` class. This tells Spring that when it returns Todo objects, it should return the object ID with it as well. Doing this makes it a lot easier to implement the CRUD methods on the client-side.
 
@@ -188,7 +188,7 @@ Connection: keep-alive
 }
 ```
 
-The `profile` link refers to the ALPS (Application-Level Profile Semantics). Take a look at [the Spring docs](https://docs.spring.io/spring-data/rest/docs/current/reference/html/#metadata.alps) on it. It’s a way to describe the available resources exposed by the REST API.
+The `profile` link refers to the ALPS (Application-Level Profile Semantics). Take a look at [the Spring docs](https://docs.spring.io/spring-data/rest/docs/current/reference/html/#metadata.alps) on it. It's a way to describe the available resources exposed by the REST API.
 
 The `todos` link is the endpoint generated from the Todo class.
 
@@ -317,7 +317,7 @@ Content-Type: application/hal+json
 
 ## Test the Vue.js Client App
 
-I'm not going to go into a ton of detail on the Vue.js client app. A lot of this was covered in [the previous tutorial](https://developer.okta.com/blog/2018/11/20/build-crud-spring-and-vue) and is largely the same. I will explicitly show you how to modify the unsecured client app (and server) to use Okta OAuth.
+I'm not going to go into a ton of detail on the Vue.js client app. A lot of this was covered in [the previous tutorial](/blog/2018/11/20/build-crud-spring-and-vue) and is largely the same. I will explicitly show you how to modify the unsecured client app (and server) to use Okta OAuth.
 
 The Vue module that is the heart of the app is `src/components/Todos.vue`. This is what you see and what controls the application flow.
 
@@ -353,7 +353,7 @@ Open a shell in the `/client` sub-directory.
 
 Before running the client app, install the dependencies: `yarn install`.
 
-Go ahead and run the client using `yarn serve`. Make sure your resource server is still running, as well. If it’s not, run it using `./gradlew bootRun`.
+Go ahead and run the client using `yarn serve`. Make sure your resource server is still running, as well. If it's not, run it using `./gradlew bootRun`.
 
 Open a browser and navigate to `http://localhost:8080`.
 
@@ -363,7 +363,7 @@ Try it out! You can edit existing todos, delete them, and create new ones.
 
 ## Create an OIDC Application for Vue Authentication
 
-You should have already signed up for a free Okta developer account. The next step is to create an OpenID Connect (OIDC) application. Once you’ve logged into your Okta developer dashboard, click on the **Application** top-menu item, and then on the **Add Application** button.
+You should have already signed up for a free Okta developer account. The next step is to create an OpenID Connect (OIDC) application. Once you've logged into your Okta developer dashboard, click on the **Application** top-menu item, and then on the **Add Application** button.
 
 Select application type **Single-Page App**.
 
@@ -428,7 +428,7 @@ router.beforeEach(Vue.prototype.$auth.authRedirectGuard());
 export default router;
 ```
 
-Next, replace `{yourClientId}` with the Client ID from the OIDC app you just created. You’ll also need to change `{yourOktaDomain}` to your Okta developer domain—something like `dev-123456.okta.com`. Make sure to remove the `{...}` placeholders and just use the raw values.
+Next, replace `{yourClientId}` with the Client ID from the OIDC app you just created. You'll also need to change `{yourOktaDomain}` to your Okta developer domain—something like `dev-123456.okta.com`. Make sure to remove the `{...}` placeholders and just use the raw values.
 
 The Okta Vue authentication plugin injects an `authClient` object into your Vue instance which can be accessed by calling `this.$auth` anywhere inside this instance.
 
@@ -514,7 +514,7 @@ Next, update the `src/App.vue` module to match the following:
 
 ```
 
-These changes demonstrate a couple of things. First, the code creates and updates a property, `activeUser`, that passes information to the Todos module about the currently active user (if there is one, or null if there isn’t). It also adds a logout link to the footer.
+These changes demonstrate a couple of things. First, the code creates and updates a property, `activeUser`, that passes information to the Todos module about the currently active user (if there is one, or null if there isn't). It also adds a logout link to the footer.
 
 The last thing you need to do is update the `src/Api.js` file to add the access token to each request.
 
@@ -572,7 +572,7 @@ export default {
 
 These changes take the access token from the Okta Vue Auth module and inject it into the API request methods.
 
-## Test Your Vue App’s OAuth Flow
+## Test Your Vue App's OAuth Flow
 
 At this point, you can run the client application and it will force you to log in.
 
@@ -660,16 +660,16 @@ git clone -b auth https://github.com/oktadeveloper/okta-kotlin-spring-boot-vue-e
 
 This tutorial covered quite a lot. You built a Vue.js client application and a Spring Boot REST service, using them to demonstrate a fully functioning CRUD application. You also added authentication using Okta and the Okta Vue SDK.
 
-If you’d like to dig a little deeper, take a look at [the Okta Vue SDK project](https://github.com/okta/okta-oidc-js/tree/master/packages/okta-vue).
+If you'd like to dig a little deeper, take a look at [the Okta Vue SDK project](https://github.com/okta/okta-oidc-js/tree/master/packages/okta-vue).
 
-The Spring Boot REST service used Spring Data’s JPA implementation to persist data based on a Java class. Spring Data and JPA is a very complex area, and [the Spring docs on it](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/) are a great place to learn more.
+The Spring Boot REST service used Spring Data's JPA implementation to persist data based on a Java class. Spring Data and JPA is a very complex area, and [the Spring docs on it](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/) are a great place to learn more.
 
 Okta also has a number of other great related tutorials.
 
--   [Build a CRUD App with Angular 9 and Spring Boot 2.2](https://developer.okta.com/blog/2020/01/06/crud-angular-9-spring-boot-2)
--   [Build a Basic CRUD App with Vue.js and Node](https://developer.okta.com/blog/2018/02/15/build-crud-app-vuejs-node)
-- [Build a CRUD Application with Kotlin and React](https://developer.okta.com/blog/2020/01/13/kotlin-react-crud)
--   [Build a Web App with Spring Boot and Spring Security in 15 Minutes](https://developer.okta.com/blog/2018/09/26/build-a-spring-boot-webapp)
--   [10 Excellent Ways to Secure Your Spring Boot Application](https://developer.okta.com/blog/2018/07/30/10-ways-to-secure-spring-boot)
+-   [Build a CRUD App with Angular 9 and Spring Boot 2.2](/blog/2020/01/06/crud-angular-9-spring-boot-2)
+-   [Build a Basic CRUD App with Vue.js and Node](/blog/2018/02/15/build-crud-app-vuejs-node)
+- [Build a CRUD Application with Kotlin and React](/blog/2020/01/13/kotlin-react-crud)
+-   [Build a Web App with Spring Boot and Spring Security in 15 Minutes](/blog/2018/09/26/build-a-spring-boot-webapp)
+-   [10 Excellent Ways to Secure Your Spring Boot Application](/blog/2018/07/30/10-ways-to-secure-spring-boot)
 
 If you have any questions about this post, please add a comment below. For more awesome content, follow [@oktadev](https://twitter.com/oktadev) on Twitter, like us [on Facebook](https://www.facebook.com/oktadevelopers/), or subscribe to [our YouTube channel](https://www.youtube.com/oktadev).
