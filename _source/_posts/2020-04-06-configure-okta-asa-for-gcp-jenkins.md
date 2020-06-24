@@ -24,7 +24,7 @@ Below is the target architecture you'll be deploying:
 
 {% img blog/asa-gcp-jenkins/architecture.png alt:"architecture for ASA + GCP + Jenkins" %}{: .center-image }
 
-**Table of Contents**
+**Table of Contents**{: .hide }
 * Table of Contents
 {:toc}
 
