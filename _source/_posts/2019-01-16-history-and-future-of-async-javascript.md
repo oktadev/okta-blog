@@ -1,13 +1,16 @@
 ---
 layout: blog_post
 title: "The History (and Future) of Asynchronous JavaScript"
-author: leebrandt
+author: lee-brandt
+by: advocate
+communities: [javascript]
 description: "This post explores the history of how asynchronous calls are made in JavaScript, and how to make them in the future."
 tags: [javascript, async, promises, callbacks, await]
 tweets:
   - "A look at the history (and future) of asynchronous #JavaScript"
   - "Want to learn more about asynchronous #JavaScript? Check it out!"
 image: blog/featured/okta-node-skew.jpg
+type: awareness
 ---
 
 Everyone knows that JavaScript is eating the world. The problem is, there are lots of developers responsible for building software with JavaScript without a particularly deep knowledge of the language. It is easy to learn the basics and be productive, but newer programmers have a tendency to misuse some of JavaScript. Asynchronous JavaScript is particularly misunderstood. In this post, I will show you the most common ways to make asynchronous JavaScript calls and when to use each one. There are a lot of idiosyncrasies when using JavaScript in the browser, so for the purposes of this post, I will be discussing JavaScript on the server using Node.

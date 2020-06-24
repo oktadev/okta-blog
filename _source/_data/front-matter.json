@@ -1,0 +1,25 @@
+{
+  "bys": [
+    "advocate",
+    "contractor",
+    "internal-contributor",
+    "external-contributor"
+  ],
+    "communities": [
+    ".net",
+    "design",
+    "go",
+    "java",
+    "javascript",
+    "mobile",
+    "php",
+    "python",
+    "ruby",
+    "security",
+    "devops"
+  ],
+  "types": [
+    "awareness",
+    "conversion"
+  ]
+}

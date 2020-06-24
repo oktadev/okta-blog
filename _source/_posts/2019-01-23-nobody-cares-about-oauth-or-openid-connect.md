@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Nobody Cares About OAuth or OpenID Connect"
-author: rdegges
+author: randall-degges
+by: advocate
+communities: [security]
 description: "Developers don't care about OAuth or OpenID Connect. Learn why."
 tags: [web, programming, security, oauth, openid connect]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Do you care about #oauth or #openidconnect?"
 - "Developers don't care about #oauth or #openidconnect anymore. Here's why."
 image: blog/nobody-cares/nobody-cares-about-oauth-or-oidc.png
+type: awareness
 ---
 
 {% img blog/nobody-cares/nobody-cares-about-oauth-or-oidc.png alt:"Nobody cares about OAuth or OIDC (a small comic)." width:"800" %}{: .center-image }
@@ -134,3 +137,5 @@ This is one of the reasons why, here at [Okta](https://developer.okta.com/), eve
 While OAuth and OIDC are certainly useful and important, the reality of the situation today is that almost nobody cares about OAuth and OIDC. Developers don't want more OAuth and OIDC libraries and documentation in their lives: they want less of it.
 
 What about you? Do you care about OAuth and OIDC? Or do you just want to focus on authentication and authorization and not bother getting involved with standards? What do you see as the future of web authentication and authorization? Drop us a [tweet](https://twitter.com/oktadev) and let us know, or leave a comment below.
+
+**PS**: If you enjoyed this, you might want to check out our new [security site](https://sec.okta.com/), where we're publishing in-depth security-focused articles.

@@ -1,8 +1,11 @@
 ---
 layout: blog_post
 title: Android Unit Testing Part III&#58; Disintegration
-author: victor_ronin
+author: victor-ronin
+by: internal-contributor
+communities: [java, mobile]
 tags: [android, testing]
+type: conversion
 redirect_from:
   - "/blog/2015-04-07-android-unit-testing-part-3"
   - "/blog/2015-04-23-android-unit-testing-part-3"

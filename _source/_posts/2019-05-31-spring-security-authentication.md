@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Simple Authentication with Spring Security"
-author: moksamedia
+author: andrew-hughes
+by: contractor
+communities: [java]
 description: "In this tutorial, you'll build a very simple Spring Boot app that uses auth, form-based authentication, and OAuth 2.0 / OpenID Connect."
 tags: [java, spring, spring boot, spring security, security]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Dig this new post from Andrew on Simple Authentication with @springboot and Spring Security."
 - "Andrew explains how to go from basic authentication all the way to OpenID Connect in his new @springboot tutorial."
 image: blog/featured/okta-java-bottle-headphones.jpg
+type: conversion
 ---
 
 Authentication is vital to all but the most basic web applications. Who is making the request, wanting data, or wanting to update or delete data? Can you be sure that the request is coming from the stated user or agent? Answering this question with certainty is hard in today's computer security environment. Fortunately, there is absolutely no reason to reinvent the wheel.

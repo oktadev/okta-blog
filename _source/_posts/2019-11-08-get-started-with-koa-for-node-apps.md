@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Get Started with Koa.js for Node Applications"
 author: ivo-katunaric
+by: contractor
+communities: [javascript]
 description: "Koa.js is a modern server framework from the creators of Express. Learn how to get started with Koa.js by building a fun facial recognition app!"
 tags: [nodejs, node, koa, api, authentication, machine learning]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Learn how to build a fun facial recognition web app using Node.js and Koa!"
 - "Koa.js is a modern server framework from the creators of Express. Learn how to get started with Koa.js by building a fun facial recognition app!"
 image: blog/featured/okta-node-tile-books-mouse.jpg
+type: conversion
 ---
 
 Ever since JavaScript made its giant leap from frontend to backend more than 10 years ago, Express has been the go-to library for writing server-side javascript and  virtually synonymous with Node.js. It was (and in many aspects it still is) a modern and simple approach backend APIs. Declarative tree-like structure of routes, native support for middleware, asynchronous request processing and a miniature memory footprint all make Express very robust for a backend.

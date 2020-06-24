@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Build a CRUD App with ASP.NET Core and TypeScript"
-author: ryanfoster
+author: ryan-foster
+by: contractor
+communities: [.net, javascript]
 description: "Learn how to build CRUD app with ASP.NET Core and TypeScript."
 tags: [aspnet, dotnet, aspnetcore, typescript]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Check out this easy-to-follow tutorial for creating a CRUD app with @aspnetcore and #typescript."
 - "This is a quick tutorial for building a CRUD app using @aspnetcore and TypeScript."
 image: blog/featured/okta-dotnet-mouse-down.jpg
+type: conversion
 ---
 
 There are a lot of things for .NET developers to love about TypeScript. It has strong typing that .NET Developers are used to and the ability to use the latest JavaScript features. Since it is just a superset of JavaScript, the cost to switch is almost nothing. Getting Visual Studio to transpile the TypeScript when it builds your ASP.NET Core app is pretty simple as well.

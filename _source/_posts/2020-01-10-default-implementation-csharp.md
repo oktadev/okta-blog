@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "How I Learned to Love Default Implementations in C# 8.0"
-author: leebrandt
+author: lee-brandt
+by: advocate
+communities: [.net]
 description: "I originally thought that default implementtions in C# 8.0 were a bad idea, but a little digging and I think I love them."
 tags: [C#, csharp, dotnet, .net, default implementation]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Keep your implementations out of my interfaces. Wait, that's cool!"
 - "Protecting your future self by using default implementations in C# 8.0!"
 image: blog/featured/okta-dotnet-half.jpg
+type: awareness
 ---
 
 If you haven't heard, C# 8.0 ships with a new feature that allows you to add default implementations to interfaces. If you're like me, you may be thinking, "Why? Why would I want to add implementations to interfaces? Isn't that what abstract classes are for? Doesn't that go against everything that interfaces stand for?"

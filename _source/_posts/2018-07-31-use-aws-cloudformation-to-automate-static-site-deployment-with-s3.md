@@ -1,13 +1,15 @@
 ---
 layout: blog_post
 title: "Use AWS CloudFormation to Automate Static Site Deployment with S3"
-author: pmcdowell
+author: patrick-mcdowell
+by: internal-contributor
 description: "If you're hosting a static site using Amazon S3, automating your deployment with CloudFormation can provide a lot of benefits. Let me show you how."
 tags: [aws, cloudformation, s3, deployment, devops]
 tweets:
 - "If you're deploying static sites on @awscloud, check out our new tutorial which shows you how to use @awscloudformer to make things really nice!"
 - "We just published an awesome new @awscloud tutorial that walks you through automating static site deployment with #s3 and @awscloudformer."
 - "We've been working on a new math formula, what do you think? Static sites + @awscloud + @awscloudformer + #s3 = <333"
+type: awareness
 ---
 
 Getting started with [CloudFormation](https://aws.amazon.com/cloudformation/) can be intimidating, but once you get the hang of it, automating tasks is easy. While CloudFormation might seem like overkill for something as simple as deploying a static site (for example you could just copy HTML files to a S3 bucket using the Amazon Console or from [the CLI](https://aws.amazon.com/cli/)), if your shop uses continuous integration and you have multiple deployments happening at the same time, it's more efficient for you to automate deployment.

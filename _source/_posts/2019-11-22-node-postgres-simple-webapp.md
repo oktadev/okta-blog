@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Build A Simple Web App with Node and Postgres"
-author: nickolasfisher
+author: nickolas-fisher
+by: contractor
+communities: [javascript]
 description: "A tutorial to build a simple web application with Node.js and PostgreSQL."
 tags: [node, nodejs, postgres, postgresql]
 tweets:
@@ -9,6 +11,7 @@ tweets:
   - "Need to learn the basics of building web apps with @nodejs and @PostgreSQL? We've got you covered!"
   - "Get a quick run-down on creating web apps with @nodejs and @PostgreSQL!"
 image: blog/featured/okta-node-tile-books-mouse.jpg
+type: conversion
 ---
 
 Node.js boasts high performance and scalability for web, mobile, or desktop applications. It is one of the fastest-growing and best-supported javascript frameworks available today, and its microservice patterns has made it a hit for modern enterprise applications. PostgreSQL has also risen in popularity, to compete with MySql. The two technologies partner well as a foundation for modern, microservices-based applications.

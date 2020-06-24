@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Use Okta Token Hooks to Supercharge OpenID Connect"
-author: dogeared
+author: micah-silverman
+by: advocate
+communities: [security]
 description: "Learn how to alter OpenID Connect tokens in-flight using hooks."
 tags: [ oauth, security, oidc, spring boot, spring security, webhooks, hooks ]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Want to give your OpenID Connect app super powers? Use Okta Token Hooks."
 - "Okta Token Hooks gives your OpenID Connect app a big boost"
 image: blog/token-hooks/crochet.png
+type: awareness
 ---
 
 OpenID Connect (OIDC) and OAuth 2.0 are already recognized as powerful tools for incorporating authentication and authorization into modern web applications.

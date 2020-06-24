@@ -1,13 +1,16 @@
 ---
 layout: blog_post
 title: "Why OAuth API Keys and Secrets Aren't Safe in Mobile Apps"
-author: aaronpk
+author: aaron-parecki
+by: advocate
+communities: [mobile, security]
 description: "Let's take a look at two ways it's possible to hack secret API keys out of mobile apps."
 tags: [oauth, api, secret, keys, mobile, apps]
 tweets:
 - "Keep API keys out of mobile apps! #oauth #api #security"
 - "Here are two ways to hack API keys out of mobile apps #security"
 image: blog/oauth-api-keys-mobile-apps/no-mobile-api-keys.jpg
+type: awareness
 ---
 
 It's pretty common for mobile apps to access backend API services to fetch data. It's also pretty common for APIs to require secret keys in order to access them. So how do you securely include API keys in a mobile app? Well, the short answer is you don't. The long answer is the rest of this blog post.
@@ -135,3 +138,5 @@ If you'd like to dig deeper into these topics, here are a few resources:
 * [What is the OAuth 2.0 Authorization Code Grant Type?](https://developer.okta.com/blog/2018/04/10/oauth-authorization-code-grant-type)
  
 If you liked this post, you should [follow us on Twitter](https://twitter.com/oktadev)! We also have a [YouTube channel](https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q) where we publish screencasts and other videos.
+
+**PS**: We've also recently built a new [security site](https://sec.okta.com/) where we're publishing all sorts of in-depth security articles. If that sounds interesting to you, please check it out!
