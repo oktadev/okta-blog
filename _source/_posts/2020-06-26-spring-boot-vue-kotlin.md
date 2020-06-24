@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a CRUD App with Vue.js, Spring Boot, and Kotlin"
-author: Andrew Hughes
+author: andrew-hughes
 by: contractor
 communities: [java,javascript]
 description: "Create a CRUD (create, read, update, and delete) application using Spring Boot and Vue.js."
@@ -38,9 +38,9 @@ The example application you're going to build here is a todo app. The client-sid
 * Table of Contents
 {:toc}
 
-## Download the Vue + Spring Boot Example Application
+## Create a Vue + Spring Boot Application
 
-Go ahead and download the example application from [the project GitHub repository](https://github.com/oktadeveloper/okta-kotlin-spring-boot-vue-example).
+Rather than creating an app from scratch, go ahead and download the example application from [this tutorial's GitHub repository](https://github.com/oktadeveloper/okta-kotlin-spring-boot-vue-example).
 
 ```bash
 git clone https://github.com/oktadeveloper/okta-kotlin-spring-boot-vue-example.git
@@ -53,7 +53,7 @@ The example project contains two main sub-directories:
 
 First, you're going to take a look at the resource server and make sure that it’s all working.
 
-## Create a Spring Boot Resource Server with Kotlin
+## Build a Spring Boot Resource Server with Kotlin
 
 The Kotlin resource server is pretty simple. Spring has done a great job reducing boilerplate code. There are four Kotlin source files in the project, all in the `com.okta.springbootvue` package:
 
@@ -148,7 +148,7 @@ class RestRepositoryConfigurator : RepositoryRestConfigurer {
 }
 ```
 
-## Test the Resource Server
+## Test the Spring Boot Resource Server
 
 That's all you need to create a working REST API.
 
@@ -383,7 +383,7 @@ On the next screen, take note of the **Client ID** (near the bottom) as you'll n
 
 To configure Vue.js to use Okta as an OAuth 2.0 and OIDC provider, you're going to use the `okta-vue` module. This greatly simplifies integrating Okta authentication into your client application. You can take a look at [the project GitHub page](https://github.com/okta/okta-oidc-js/tree/master/packages/okta-vue) for more info.
 
-Stop your client Vue.js application. Open a shell and, from the `/client` sub-directory of the example project, use Yarn to install `okta-vue`.
+Stop your client Vue.js application. Open a shell and, from the `client` sub-directory of the example project, use Yarn to install `okta-vue`.
 
 ```bash
 yarn add @okta/okta-vue@2.0.0
@@ -426,7 +426,6 @@ let router = new Router({
 router.beforeEach(Vue.prototype.$auth.authRedirectGuard());
 
 export default router;
-
 ```
 
 Next, replace `{yourClientId}` with the Client ID from the OIDC app you just created. You’ll also need to change `{yourOktaDomain}` to your Okta developer domain—something like `dev-123456.okta.com`. Make sure to remove the `{...}` placeholders and just use the raw values.
@@ -505,7 +504,6 @@ Next, update the `src/App.vue` module to match the following:
   }
 
   export default app
-
 </script>
 
 <style>
@@ -570,7 +568,6 @@ export default {
     return this.execute('DELETE', 'todos/' + id)
   }
 }
-
 ```
 
 These changes take the access token from the Okta Vue Auth module and inject it into the API request methods.
@@ -653,7 +650,7 @@ Connection: keep-alive
 
 That's pretty much it. If you go back to the todo app, you'll see that it's still working with the protected resource server.
 
-You can check out the `auth` branch of the example project to see the finished, fully authenticated code.
+You can check out the `auth` branch of the [example project](https://github.com/oktadeveloper/okta-kotlin-spring-boot-vue-example) to see the finished, fully authenticated code.
 
 ```bash
 git clone -b auth https://github.com/oktadeveloper/okta-kotlin-spring-boot-vue-example.git
