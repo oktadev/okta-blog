@@ -1,12 +1,15 @@
 ---
 layout: blog_post
 title: "Build a Health Tracking App with React, GraphQL, and User Authentication"
-author: mraible
+author: matt-raible
+by: advocate
+communities: [javascript]
 description: "This article shows you how to build a health tracking app with React, GraphQL, TypeORM, and User Authentication."
 tags: [health, react, graphql, typeorm, javascript, typescript, authentication]
 tweets:
 - "Want to see how to integrate @reactjs with @graphql? This tutorial is for you!"
 - "In this tutorial, you'll learn how to integrate @reactjs with @graphql and #TypeORM. Learn a bunch today!"
+type: conversion
 ---
 
 I think you'll like the story I'm about to tell you. I'm going to show you how to build a GraphQL API with Vesper framework, TypeORM, and MySQL. These are Node frameworks, and I'll use TypeScript for the language. For the client, I'll use React, reactstrap, and Apollo Client to talk to the API. Once you have this environment working, and you add secure user authentication, I believe you'll love the experience!

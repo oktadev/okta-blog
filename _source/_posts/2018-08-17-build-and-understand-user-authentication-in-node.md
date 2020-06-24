@@ -1,13 +1,16 @@
 ---
 layout: blog_post
 title: "Build and Understand a Simple Node.js Website with User Authentication"
-author: rdegges
+author: randall-degges
+by: advocate
+communities: [javascript]
 description: "Learn how to build and understand authentication in Node.js websites in this in-depth post."
 tags: [node, nodejs, authentication, auth, user management]
 tweets:
 - "Are you a @NodeJS developer? Read this post to actually understand how web authentication works!"
 - "Like building web apps in @nodejs? @rdegges just published a tutorial that walks you through building and understanding web authentication."
 - "Check out @rdegges' new tutorial that helps you truly understand user authentication in a @nodejs web app."
+type: conversion
 ---
 
 Building websites with user authentication and management (login, registration, password reset, etc.), can be a huge pain. As a developer there are a million little things you need to worry about:

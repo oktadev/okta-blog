@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Kafka with Java: Build a Secure, Scalable Messaging App"
 author: daniel-pereira
+by: contractor
+communities: [java]
 description: "This tutorial shows you how to develop a Java application with Kafka and secure it with OAuth 2.0 and OIDC."
 tags: [java, kafka, spring boot, messaging]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Kafka is all the rage for messaging! Try it in your @java apps today."
 - "Tutorial: use #Java + #Kafka to implement asynchronous messaging."
 image: blog/kafka-java/java-kafka.png
+type: conversion
 ---
 
 Today's users expect your app to be accessible from their computer, mobile phone, tablet, or any other device! This transition to Software as a Service (SaaS) as the norm requires developers to effectively integrate with robust tools that scale to handle thousands (or even millions) of requests every second. Apache Kafka is one of the most effective tools for handling those high throughput environments.

@@ -1,13 +1,16 @@
 ---
 layout: blog_post
 title: "Build a SPA with ASP.NET Core 2.1, Stripe, and Angular 6"
-author: leebrandt
+author: lee-brandt
+by: advocate
+communities: [.net, javascript]
 description: "This tutorial walks you through building an online ticket sales app using ASP.NET Core 2.1, Stripe, and Angular 6."
 tags: [asp.net, dotnet, core, asp.net core, dotnet core, dot net core, angular, crud]
 tweets:
 - "Build a ticket sales app using @stripe, #aspnetcore 2.1, and @angular 6! →"
 - "Need to learn the basics of #aspnetcore 2.1, @stripe, and @angular 6? We've got you covered. <3"
 - "Let @leebrandt show you how to sell tickets online using #aspnetcore, @stripe, and @angular 6! →"
+type: conversion
 ---
 
 Buying things on the Internet has become a daily activity and is a feature many new projects require. In this tutorial, I will show you how to build an app to sell tickets using an Angular 6 single page app (SPA) using an ASP.NET Core 2.1 backend API. You'll build both the Angular and ASP.NET Core applications and run them from within VS Code. Let's get to it!

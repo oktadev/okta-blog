@@ -1,13 +1,16 @@
 ---
 layout: blog_post
 title: 'Build a Basic CRUD App with Laravel and Vue'
-author: krasimir
+author: krasimir-hristozov
+by: contractor
+communities: [javascript, php]
 description: "In this tutorial, you'll learn how to build a Vue app using a Laravel API to store its data."
 tags: [crud, vue, php, laravel]
 tweets:
   - "Are you looking to get started with Laravel and Vue? If so, this tutorial is for you!"
   - "This tutorial shows you how to build a Vue app with a Laravel backend, complete with authentication!"
 image: blog/featured/okta-vue-tile-books-mouse.jpg
+type: conversion
 ---
 
 Laravel is one of the most popular web frameworks today because of its elegance, simplicity, and readability. It also boasts one of the largest and most active developer communities. The Laravel community has produced a ton of valuable educational resources, including this one! In this tutorial, you'll build a trivia game as two separate projects: a Laravel API and a Vue frontend (using vue-cli). This approach offers some important benefits:

@@ -1,13 +1,16 @@
 ---
 layout: blog_post
 title: "7 Ways an OAuth Access Token is like a Hotel Key Card"
-author: aaronpk
+author: aaron-parecki
+by: advocate
+communities: [security]
 description: "Learn 7 things OAuth 2.0 access tokens have in common with a hotel key card."
 tags: [ oauth, accesstoken ]
 tweets:
 - "Here's 7 ways an #oauth access token is like a hotel key card"
 - "Learn 7 things OAuth access tokens have in common with a hotel key card"
 image: blog/hotel-key-card/hotel-clerk.jpg
+type: awareness
 ---
 
 What do OAuth 2.0 access tokens and hotel key cards have in common? It turns out quite a lot! A hotel key card is essentially a physical counterpart to an OAuth access token.

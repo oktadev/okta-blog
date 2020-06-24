@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Implement the OAuth 2.0 Authorization Code with PKCE Flow"
-author: dogeared
+author: micah-silverman
+by: advocate
+communities: [security]
 description: "This tutorial shows you how to migrate from the OAuth 2.0 Implicit flow to the more secure Authorization Code with PKCE flow."
 tags: [java, oauth2, tutorial, security, authorization, pkce]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Implement the OAuth 2.0 Authorization Code with PKCE flow with JavaScript and Okta"
 - "Say goodbye to Implicit and hello to PKCE for SPAs using OAuth 2.0"
 image: blog/featured/okta-vue-tile-books-mouse.jpg
+type: awareness
 ---
 
 Imagine two levers that are inversely connected. That is, as one goes up, the other goes down. One lever is User Experience and the other is Security. It's not a perfect analogy, but most developers can attest that as user experience goes up, security goes down.
@@ -330,5 +333,6 @@ If you want to keep learning, here are some more links from the Okta blog to kee
 - [7 Ways an OAuth Access Token is like a Hotel Key Card](/blog/2019/06/05/seven-ways-an-oauth-access-token-is-like-a-hotel-key-card)
 - [What the Heck is Sign In with Apple?](/blog/2019/06/04/what-the-heck-is-sign-in-with-apple)
 - [What's Going On with the Implicit Flow?](https://www.youtube.com/watch?v=CHzERullHe8) (video)
+- Our new [Okta Security Site](https://sec.okta.com/)
 
 If you have any questions about this post, please add a comment below. For more awesome content, follow  [@oktadev](https://twitter.com/oktadev) on Twitter, like us [on Facebook](https://www.facebook.com/oktadevelopers/), or subscribe to [our YouTube channel](https://www.youtube.com/c/oktadev).

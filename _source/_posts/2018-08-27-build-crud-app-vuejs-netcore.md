@@ -1,13 +1,16 @@
 ---
 layout: blog_post
 title: "Build a Simple CRUD App with ASP.NET Core and Vue"
-author: ibrahim
+author: ibrahim-suta
+by: contractor
+communities: [.net, javascript]
 description: "This tutorial walks you through building a basic CRUD application with ASP.NET Core and Vue.js."
 tags: [aspnet, aspnetcore, vue, vuejs, vue.js]
 tweets:
 - "Wanna build an app using #aspnetcore and @vuejs? We've got you covered!"
 - "If you need to learn more about using #aspnetcore and @vuejs to build application, check this out!"
 - "Need to learn the basics of building a CRUD app with #aspnetcore and @vuejs? Check out @ibrahimsuta's latest post!"
+type: conversion
 ---
 
 Keeping an eye on your daily calorie intake can be crucial to healthy lifestyle. There are a ton of apps on the market that will help you do this, but may be bloated with extra features or just full of ads. The app we'll build today is a bare-bones stand-in for any of those, as a demonstration of these technologies, and a great stand-in if simple calorie tracking is all you really need.

@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Build Your First Router in Node with Express"
-author: bkelley
+author: braden-kelley
+by: contractor
+communities: [javascript]
 description: "Create routes with Node and Express"
 tags: [node, express, routes, tutorial]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Tutorial - Build your first router with @nodejs and @expressjs"
 - "Understand @ExpressJS routes in @nodejs"
 image: blog/featured/okta-node-bottle-headphones.jpg
+type: conversion
 ---
 
 If you've done any web development with Node in the last few years, you've probably used Express. Even if you haven't used it directly, many frameworks meant to make web development even simpler are still built on Express.

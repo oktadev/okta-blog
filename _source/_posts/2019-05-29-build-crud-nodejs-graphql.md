@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Build a CRUD App with Node.js and GraphQL"
-author: bkelley
+author: braden-kelley
+by: contractor
+communities: [javascript]
 description: "A tutorial on building a CRUD app with Node.js and GraphQL."
 tags: [node, nodejs, typscript, api]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Want to build a CRUD app with @NodeJS and @GraphQL? Check this out!"
 - "Need to learn how to build a CRUD app with @NodeJS and @GraphQL? We've got you covered!"
 image: blog/featured/okta-node-skew.jpg
+type: conversion
 ---
 
 There are so many options when it comes to building out a simple CRUD (Create, Read, Update, Delete) app. The most refreshing data access layer to work with recently by far has been GraphQL. It's great because the developer can use a simple, strongly typed language to define models and their relationships, then provide functions to define how each piece should be resolved. The user can then pick and choose which pieces they want and the GraphQL server pulls together just the information necessary to service the request.

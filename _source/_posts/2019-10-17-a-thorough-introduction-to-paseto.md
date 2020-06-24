@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "A Thorough Introduction to PASETO"
-author: rdegges
+author: randall-degges
+by: advocate
+communities: [security]
 description: "An in-depth look at the successor to JSON Web Tokens: PASETO."
 tags: [security, json web tokens, jwts, paseto, cryptography]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "JSON Web Tokens vs PASETO -- @rdegges breaks it down for you in his recent article."
 - "PASETO is a new type of token that aims to replace JSON Web Tokens. @rdegges did a great writeup on it. Be sure to check it out."
 image: blog/a-thorough-introduction-to-paseto/an-introduction-to-paseto.png
+type: awareness
 ---
 
 Today I'm going to introduce you to one of my favorite pieces of security technology released in the last several years: **PASETO** (*platform-agnostic security tokens*). PASETO is a relatively new protocol, designed by [Scott Arciszewski](https://paragonie.com/) in early 2018 that is quickly gaining adoption in the security community.
@@ -19,7 +22,7 @@ If you're interested in learning more about PASETO, read on!
 
 ## What is PASETO?
 
-[PASETO](https://paseto.io) is a new standard (*currently an RFC*) that allows you to create secure and stateless tokens that can be safely shared over the web.
+[PASETO](https://paseto.io) is a new specification (*currently a draft RFC*) that allows you to create secure and stateless tokens that can be safely shared over the web.
 
 Essentially, PASETO allows you to take JSON data and condense it into a single *token* you can easily share over the internet in a safe, tamperproof way. This is useful in a number of different circumstances.
 
@@ -563,3 +566,5 @@ Have any thoughts, comments, or suggestions? Please leave a comment below or hit
 
 - [The Hardest Thing About Data Encryption](/blog/2019/07/25/the-hardest-thing-about-data-encryption)
 - [Why Public Key Cryptography Matters](/blog/2019/09/12/why-public-key-cryptography-matters)
+
+Or visit our new [security site](https://sec.okta.com/) where we're publishing lots of in-depth security articles.

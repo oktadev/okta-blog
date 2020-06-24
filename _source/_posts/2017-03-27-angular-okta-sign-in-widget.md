@@ -1,12 +1,15 @@
 ---
 layout: blog_post
 title: Build an Angular App with Okta's Sign-In Widget in 15 Minutes
-author: mraible
+author: matt-raible
+by: advocate
+communities: [javascript]
 description: "In this article, you'll learn how to get started with Angular, and add user authentication with Okta's Sign-In Widget."
 tags: [angular, sign-in widget, okta, typescript, angular-cli]
 tweets:
   - "Okta's Sign-In Widget makes it easy to add authentication to an Angular 6 app. See how in this tutorial from @mraible:"
   - "Build an Angular App with Okta's Sign-In Widget in 15 minutes with the new and improved @AngularCli 6.0!"
+type: conversion
 ---
 
 AngularJS reigned as king of JavaScript MVC frameworks for several years. However, when the Angular team announced they would not provide backwards compatibility for their next version, there was a bit of a stir in its community, giving opportunities for frameworks like React and Vue.js to flourish. Fast forward a few years and both Angular 2 and Angular 4 have been released. Many developers are trying its TypeScript and finding the experience a pleasant one. [According to JAXenter](https://jaxenter.com/technology-trends-2017-top-frameworks-131993.html), it's doing a pretty good job, and holding strong as the third most popular UI framework, behind React and HTML5.

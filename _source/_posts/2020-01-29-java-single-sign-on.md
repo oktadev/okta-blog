@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Build Single Sign-on in Java"
-author: joyannefoster
+author: joy-foster
+by: contractor
+communities: [java]
 description: "This tutorial builds and connects multiple applications to a single OAuth 2.0 Resource Server."
 tags: [java, spring, sso, resource-server, spring-boot, oauth, oidc]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Different applications need different levels of access, implementing this is easy with Okta & @SpringBoot💥"
 - "Have multiple #Java services? Need to control access and use SSO? Check out this post ⬇️"
 image: blog/java-single-sign-on/no-email-scope-message-tanya.png
+type: conversion
 ---
 
 In modern app development, you quite frequently have a single resource server that provides data to multiple client applications. These applications may share a similar set of users, but need to enforce different permissions. For example, it's possible that not all users of the first application should be allowed to access the second (think of, for example, an admin console application versus a client or user application). How would you implement this? 

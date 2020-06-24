@@ -1,13 +1,16 @@
 ---
 layout: blog_post
 title: "Build Secure Node Authentication with Passport.js and OpenID Connect"
-author: leebrandt
+author: lee-brandt
+by: advocate
+communities: [javascript]
 description: "This post demonstrates how to set up OpenID Connect authentication in Node with Passport.js."
 tags: [nodejs, node, passportjs, passport.js, authentication, openid connect, oidc]
 tweets:
- - "Checkout @nodejs authentication using @passportjs and OpenID Connect from @leebrandt! >>"
+ - "Checkout @nodejs authentication using @passportjs and OpenID Connect from @leebrandt!"
  - "Learn how to get OpenID Connect authentication into your @nodejs apps easier with @passportjs! <3"
- - "Make it easy to get authentication into your @nodejs apps with @passportjs and OpenID Connect! >>"
+ - "Make it easy to get authentication into your @nodejs apps with @passportjs and OpenID Connect!"
+type: conversion
 ---
 
 Building local or social login in Node can be simple with Passport.js. There are over 500 strategies already built that make it easy to wire up identity providers. But what do you do if your identity provider doesn't already have a pre-built strategy? Do you have to build all that stuff yourself? Absolutely not! You can use generic strategies for Passport.js that make it easy to use your provider of choice without having to write all the plumbing yourself. In this tutorial we'll walk through how to use my identity provider of choice (Okta) with the generic `passport-openidconnect` package to build secure Node authentication and user management!

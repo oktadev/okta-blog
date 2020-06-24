@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: 'Build a Simple CRUD App with ASP.NET Core, MySQL, and Twilio'
-author: chrisgreen
+author: chris-green
+by: contractor
+communities: [.net]
 description: 'This tutorial walks you through building simple CRUD application using Twilio, ASP.NET Core, and MySQL.'
 tags: [aspnet, aspnetcore, netcore, dotnet, mysql, crud, twilio, tutorial]
 tweets:
@@ -9,6 +11,7 @@ tweets:
   - 'Build an #aspnetcore application that uses @MySQL and @Twilio! ->'
   - "If you're looking for a quick intro to @MySQL with #aspnetcore, check this out!"
 image: blog/featured/okta-dotnet-headphones.jpg
+type: conversion
 ---
 
 In this article, we'll be building an MVC task management form with .NET Core 2.2. We'll also be showing how to integrate with a MySQL database from MVC, and how to use Twilio to send SMS messages to your app that will add new tasks to your list.

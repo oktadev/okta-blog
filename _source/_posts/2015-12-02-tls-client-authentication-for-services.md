@@ -1,10 +1,13 @@
 ---
 layout: blog_post
+author: william-dawson
+by: internal-contributor
+communities: [security]
 title: TLS Client Authentication for Internal Services
 redirect_from:
   - /blog/2015/10/29/tls-client-authentication-for-services/
-author: william_dawson
 tags: [networking, security, architecture]
+type: awareness
 ---
 If you're like me, the most aggravating thing is finding a Stack Overflow
 question that exactly describes the issue you are facing, only to scroll down
@@ -419,3 +422,5 @@ you implement these authentication concepts in your applications.
 2. [Common openssl commands](https://www.sslshopper.com/article-most-common-openssl-commands.html)
 3. [Dropwizard https configuration manual](http://www.dropwizard.io/0.7.1/docs/manual/configuration.html#man-configuration-https)
 4. [Jersey client documentation](https://jersey.java.net/documentation/latest/client.html#d0e5128)
+
+**PS**: If you'd like to read more in-depth security-focused articles, you might enjoy our new [security site](https://sec.okta.com).

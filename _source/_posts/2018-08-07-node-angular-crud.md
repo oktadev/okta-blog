@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Build a CRUD-y SPA with Node and Angular"
-author: bkelley
+author: braden-kelley
+by: contractor
+communities: [javascript]
 description: "This tutorial walks you through building a simple CRUD application in Node and Angular 6."
 tags: [node, angular, crud]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Need to learn the basics of @nodejs and @angular 6? @bradenkelley has got you covered. <3"
 - "Let @bradenkelley show you how to create a CRUD-y SPA using @nodejs and @angular 6!"
 - "If you're getting started with @nodejs and/or @angular 6, learn how to write a CRUD-y SPA using both! →"
+type: conversion
 ---
 
 Even before the release of Angular 6, Angular had gone through some changes over the years. The biggest one was the jump from AngularJS (v1.x) to Angular (v2+), which included a lot of breaking syntax changes and made TypeScript the default language instead of JavaScript. TypeScript is actually a superset of JavaScript, but it allows you to have strongly typed functions and variables, and it will get compiled down to JavaScript so that it can still run in your browser. Given the popularity of of Angular and Node, it wouldn't be shocking if you were considering this stack for your next project.

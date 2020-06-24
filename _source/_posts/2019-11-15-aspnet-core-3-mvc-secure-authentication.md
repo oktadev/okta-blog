@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "ASP.NET Core 3.0 MVC Secure Authentication"
-author: leebrandt
+author: lee-brandt
+by: advocate
+communities: [.net]
 description: "Secure an ASP.NET Core 3.0 MVC app using OAuth2, OpenID Connect and Okta."
 tags: [oauth, oauth2, oidc, openid connect, aspnet core, aspnet core 3, dotnet core, dotnet core 3]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Check out this simple tutorial for setting up OAuth2 and OpenID Connect in your ASP.NET Core 3.0 MVC app!"
 - "Set up authentication in ASP.NET Core 3.0 MVC!"
 image: blog/featured/okta-dotnet-bottle-headphones.jpg
+type: conversion
 ---
 
 On September 23rd, Microsoft announced the third major release of its .NET Core framework. This new release boasts better performance, support for Windows Desktop apps, improved support for Docker containers, and more. Naturally, I was excited to see this new release and get authentication hooked into it with Okta! I put together this  tutorial to demonstrate how to quickly and securely set up user management with Okta and OIDC (OpenID Connect) in an ASP.NET Core 3.0 application.

@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "Secure Reactive Microservices with Spring Cloud Gateway"
-author: mraible
+author: matt-raible
+by: advocate
+communities: [java, devops]
 description: "This tutorial shows you how to build a reactive microservices architecture with Spring Cloud Gateway."
 tags: [java, reactive, spring cloud gateway, microservices, spring boot, spring cloud]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Want to learn how to use Java and Spring to develop a reactive microservices architecture with Spring Cloud Gateway? This tutorial from @mraible shows you how!"
 - "Java + Spring Cloud Gateway + Spring WebFlux = ❤️. A tutorial with VWs from @mraible. 😃"
 image: blog/spring-cloud-gateway/spring-cloud-gateway-social.png
+type: conversion
 ---
 :page-liquid:
 

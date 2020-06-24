@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: 'Tutorial: User Login and Registration in Ionic 4'
-author: mraible
+author: matt-raible
+by: advocate
+communities: [javascript, mobile]
 description: "Ionic helps developers build hybrid mobile apps & PWAs. This tutorial shows you how to add user authentication and registration to an Ionic 4 app."
 tags: [ionic, typescript, angular, authentication, oidc, cordova, capacitor, android, ios]
 tweets:
@@ -9,6 +11,7 @@ tweets:
  - "Do you ❤️ Ionic? We do too! This tutorial shows you how you can create an @ionicframework 4 app and add user authentication in just a few commands."
  - "We recommend using @ionicframework 4 with OIDC to add SSO to your mobile apps. Learn how today!"
 image: blog/ionic-4-login/ionic-ios-okta.png
+type: conversion
 ---
 
 Ionic allows you to develop <abbr title="Progressive Web Applications">PWAs</abbr> and hybrid mobile apps. PWAs are web applications that run in a browser and allow for offline capabilities via service workers. They can be installed on desktops and mobile devices, just like you install apps on your smartphone. Hybrid mobile apps are like native mobile apps, except they're built using web technologies.

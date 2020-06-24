@@ -1,13 +1,16 @@
 ---
 layout: blog_post
 title: 'Build Simple Login in PHP'
-author: krasimir
+author: krasimir-hristozov
+by: contractor
+communities: [javascript, php]
 description: "In this tutorial, you'll learn how to build a React app using a Laravel API to store its data."
 tags: [crud, react, php, laravel]
 tweets:
   - "Are you looking to get started with React and Laravel? If so, this tutorial is for you!"
   - "This tutorial shows you how to build an React app with a Laravel backend, complete with authentication!"
 image: blog/featured/okta-php-headphones.jpg
+type: conversion
 ---
 
 Building a user authentication system for your Web application from scratch can be a deceptively tricky job. It seems easy at first, but there are so many details you have to consider - hashing the passwords properly, securing the user sessions, providing a way to reset forgotten passwords. Most modern frameworks offer boilerplate code for dealing with all of these issues but even if you're not using a framework, do not despair. In this article, I'll show you how to build a PHP application from scratch (with just a single dependence on an external library - DotEnv, so we can store our secrets in a .env file outside the code repository). The application will provide user login/logout, new user registration, and a 'Forgot Password' form by taking advantage of Okta's simple OAuth 2.0 API.

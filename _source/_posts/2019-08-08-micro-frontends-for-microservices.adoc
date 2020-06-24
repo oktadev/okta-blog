@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "How to Win at UI Development in the World of Microservices"
-author: mraible
+author: matt-raible
+by: advocate
+communities: [design]
 description: "Adopting a microservice architecture for your backend can be useful to scale teams of developers. But what about the UI? Learn about micro frontends and more!"
 tags: [microservices, micro frontends, UI, UX, web development]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Web frameworks have been around for 20+ years. How do you use them in the world of microservices?"
 - "Let your UI developers use the frameworks they ❤️ by adopting micro front ends. @mraible shows you how!"
 image: blog/micro-frontends/win-at-ui-development.png
+type: awareness
 ---
 :page-liquid:
 

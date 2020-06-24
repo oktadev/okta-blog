@@ -2,6 +2,8 @@
 layout: blog_post
 title: "Configure .NET Authentication in OWIN"
 author: jonathan-ray
+by: contractor
+communities: [.net]
 description: "This tutorial walks you through how to configure authentication in an ASP.NET web app using OWIN and Okta."
 tags: [authentication, asp.net core, web app, owin]
 tweets: 
@@ -9,6 +11,7 @@ tweets:
 - "Learn how to configure authentication in ASP.NET with OWIN. #aspnet #owin"
 - "ASP.NET + OWIN + OKTA === <3"
 image: blog/featured/okta-dotnet-tile-mouse.jpg
+type: conversion
 ---
 
 The Open Web Interface for .NET (OWIN) is a standard that defines the interface between a web application and a web server. Prior to this standard in .NET, there was a tight coupling between .NET applications and Internet Information Server (IIS), which led to great difficulties when trying to expand to different web application/server technologies. The introduction of OWIN has created an abstraction between application and server that completely decouples one from the other. Thanks to this the whole process is a lot easier, whether you want to use .NET applications with an alternative web server, or you want to use an alternative web application technology with IIS. This standard was an integral part of the creation of ASP.NET Core as it streamlines the dependencies required on both sides.

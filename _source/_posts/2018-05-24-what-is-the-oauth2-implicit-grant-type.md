@@ -1,7 +1,9 @@
 ---
 layout: blog_post
 title: "What is the OAuth 2.0 Implicit Grant Type?"
-author: aaronpk
+author: aaron-parecki
+by: advocate
+communities: [security]
 description: "The Implicit Grant Type is a way for a single-page JavaScript app to get an access token without an intermediate code exchange step. It was originally created for use by JavaScript apps (which don't have a way to safely store secrets) but is only recommended in specific situations."
 tags: [oauth]
 tweets:
@@ -9,6 +11,7 @@ tweets:
 - "Ever wondered when you should use the #oauth2 Implicit Grant Type?"
 - "What the heck is the OAuth Implicit Grant Type?"
 - "Thinking about using the OAuth Implicit Grant Type? Read this first:"
+type: awareness
 ---
 
 The Implicit Grant Type is a way for a single-page JavaScript app to get an access token without an intermediate code exchange step. It was originally created for use by JavaScript apps (which don't have a way to safely store secrets) but is only recommended in specific situations.
@@ -111,4 +114,4 @@ You can learn more about OAuth 2.0 on [OAuth.net](https://oauth.net/2/grant-type
 * [Token Authentication in ASP.NET Core 2.0 - A Complete Guide](/blog/2018/03/23/token-authentication-aspnetcore-complete-guide)
 * [Secure your SPA with Spring Boot and OAuth](/blog/2017/10/27/secure-spa-spring-boot-oauth)
 
-Or hit up [Okta's OIDC/OAuth 2.0 API](/docs/api/resources/oidc) for specific information on how we support OAuth. And as always, follow us on Twitter [@oktadev](https://twitter.com/oktadev) for more great content.
+Or hit up [Okta's OIDC/OAuth 2.0 API](/docs/api/resources/oidc) for specific information on how we support OAuth. And as always, follow us on Twitter [@oktadev](https://twitter.com/oktadev) for more great content. We've also recently built a new [security site](https://sec.okta.com/) where we're publishing lots of other information like this, so please check it out if that's up your alley.
