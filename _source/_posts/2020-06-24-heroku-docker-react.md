@@ -2,7 +2,7 @@
 layout: blog_post
 title: "Heroku + Docker with Secure React in 10 Minutes"
 author: matt-raible
-by: contractor
+by: advocate
 communities: [javascript,devops]
 description: "This tutorial shows you how to build a React app with Docker, deploy it to Heroku, and make it secure in 10 minutes."
 tags: [heroku, docker, react, websecurity]
@@ -42,7 +42,7 @@ cd react-docker
 npm install
 ```
 
-This is a React app that uses Styled Components for its CSS and is secured by OpenID Connect (aka OIDC). You can read about how it was created in [Build a React App with Styled Components](https://developer.okta.com/blog/2020/03/16/react-styled-components).
+This is a React app that uses Styled Components for its CSS and is secured by OpenID Connect (aka OIDC). You can read about how it was created in [Build a React App with Styled Components](/blog/2020/03/16/react-styled-components).
 
 Log into your Okta developer account (you [created one](https://developer.okta.com/signup/), right?) to register this app and enable OIDC authentication.
 
@@ -432,9 +432,9 @@ You can find the source code for this example on GitHub at [oktadeveloper/okta-r
 
 The Okta developer blog and YouTube channel has more information on Docker and React.
 
-* [Build Reusable React Components](https://developer.okta.com/blog/2020/01/20/build-reusable-react-components)
-* [How to Move from Consuming Higher-Order Components to React Hooks](https://developer.okta.com/blog/2020/05/01/move-from-higher-order-components-to-react-hooks)
-* [Build a CRUD Application with Kotlin and React](https://developer.okta.com/blog/2020/01/13/kotlin-react-crud)
+* [Build Reusable React Components](/blog/2020/01/20/build-reusable-react-components)
+* [How to Move from Consuming Higher-Order Components to React Hooks](/blog/2020/05/01/move-from-higher-order-components-to-react-hooks)
+* [Build a CRUD Application with Kotlin and React](/blog/2020/01/13/kotlin-react-crud)
 * [📺 Build a Secure Blog with Gatsby, React, and Netlify](https://youtu.be/T5a5nmbV_g4)
 * [📺 A Developer's Guide to Docker](https://youtu.be/t5yqLJfbnqM)
 
