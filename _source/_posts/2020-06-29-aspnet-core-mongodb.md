@@ -3,7 +3,7 @@ layout: blog_post
 title: "Build a Basic CRUD App with ASP.NET Core 3.0 and MongoDB"
 author: lee-brandt
 by: advocate
-communities: [.net,mongodb]
+communities: [.net]
 description: "A quick introduction to ASP.NET Core with MongoDB as a data store."
 tags: [aspnet, dotnet, mongodb]
 tweets:
