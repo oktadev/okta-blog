@@ -1,8 +1,8 @@
 ---
 layout: blog_post
-title: "Build a Basic CRUD App with ASP.NET Core 3.0 and MongoDB"
+title: "’"
 author: lee-brandt
-by: advocate|contractor
+by: advocate
 communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
 description: ""
 tags: []
