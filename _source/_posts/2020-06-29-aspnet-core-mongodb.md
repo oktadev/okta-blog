@@ -364,7 +364,7 @@ Lastly, you'll need to add authentication using Okta so that the application can
 
 In the **Application Settings**, name the application "SuggestMe" then change the **Base URIs** to `http://localhost:5000/`, the **Login redirect URIs** to `http://localhost:5000/signin-oidc` and the **Logout redirect URIs** to `http://localhost:5000/signout-callback-oidc`. All the other default values should be fine.
 
-{% img blog/aspnet-core-mongodb/okta-app-settings.png alt:"Okta App Settings" width:"800" %}{: .center-image }
+{% img blog/aspnet-core-mongodb/okta-app-settings.png alt:"Okta App Settings" width:"700" %}{: .center-image }
 
 When you click **Done**, you should be directed to the application settings page. On the **General** tab at the bottom, you'll see a box with a **ClientId** and **ClientSecret**. Copy those to a new section in `appsettings.json` below the database settings you added earlier:
 
