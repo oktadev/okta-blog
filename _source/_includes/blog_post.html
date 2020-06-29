@@ -27,6 +27,20 @@
         {{ include.post_content }}
     </div>
 
+    {% if page.layout != 'blog_index' and page.layout != 'author' and author.bio %}
+        <div class="BlogPost-author-bio">
+            <div class="BlogPost-attribution">
+                {% if author.avatar %}
+                <a href="/blog/authors/{{ post.author }}/">{% img '{{ author.avatar }}' alt:'{{ author.avatar }}' class:BlogPost-avatar %}</a>
+                {% endif %}
+                <span class="BlogPost-author"><a href="/blog/authors/{{ post.author }}/">{{ author.full_name }}</a></span>
+            </div>
+    
+            <p>{{ author.bio }}</p>
+        </div>
+    {% endif %}
+
+
     {% if page.layout != 'blog_index' and page.layout != 'author' and post.comments != false %}
     <div id="disqus">
         <div id="disqus_thread"></div>
