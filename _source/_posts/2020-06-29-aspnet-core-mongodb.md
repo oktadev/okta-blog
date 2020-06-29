@@ -52,7 +52,6 @@ Once you've signed up for a free MongoDB cluster (I just used my Google account)
 Add your database connection information to the `appsettings.json` file in the root of your application. After the `Logging` section of the JSON document, add:
 
 ```json
-,
 "DatabaseSettings": {
     "ConnectionString": "{MongoDBConnectionString}",
     "DatabaseName": "SuggestMe"
@@ -391,26 +390,26 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DockerPipelineExample.Controllers
 {
-  public class AccountController : Controller
-  {
-    public IActionResult Login()
+    public class AccountController : Controller
     {
-      if(!HttpContext.User.Identity.IsAuthenticated)
-      {
-        return Challenge(OpenIdConnectDefaults.AuthenticationScheme);
-      }
-      return RedirectToAction("Index", "Home");
-    }
+        public IActionResult Login()
+        {
+            if(!HttpContext.User.Identity.IsAuthenticated)
+            {
+              return Challenge(OpenIdConnectDefaults.AuthenticationScheme);
+            }
+            return RedirectToAction("Index", "Home");
+        }
 
-    public IActionResult Logout()
-    {
-      return new SignOutResult(new[]
-      {
-        OpenIdConnectDefaults.AuthenticationScheme,
-        CookieAuthenticationDefaults.AuthenticationScheme
-      });
+        public IActionResult Logout()
+        {
+            return new SignOutResult(new[]
+            {
+              OpenIdConnectDefaults.AuthenticationScheme,
+              CookieAuthenticationDefaults.AuthenticationScheme
+            });
+        }
     }
-  }
 }
 ```
 
@@ -421,19 +420,19 @@ Finally, you'll add navigation so that users can get to all this cool stuff! In 
 ```html
 @if (User.Identity.IsAuthenticated)
 {
-  <ul class="navbar-nav">
-    <li>
-      <span class="navbar-text">Hello, @User.Identity.Name</span> &nbsp;
-      <a onclick="document.getElementById('logout_form').submit();" style="cursor: pointer;">Log out</a>
-    </li>
-  </ul>
-  <form asp-controller="Account" asp-action="Logout" method="post" id="logout_form"></form>
+    <ul class="navbar-nav">
+        <li>
+            <span class="navbar-text">Hello, @User.Identity.Name</span> &nbsp;
+            <a onclick="document.getElementById('logout_form').submit();" style="cursor: pointer;">Log out</a>
+        </li>
+    </ul>
+    <form asp-controller="Account" asp-action="Logout" method="post" id="logout_form"></form>
 }
 else
 {
-  <ul class="navbar-nav">
-    <li><a asp-controller="Account" asp-action="Login">Log in</a></li>
-  </ul>
+    <ul class="navbar-nav">
+        <li><a asp-controller="Account" asp-action="Login">Log in</a></li>
+    </ul>
 }
 ```
 
