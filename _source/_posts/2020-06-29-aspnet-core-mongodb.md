@@ -367,7 +367,7 @@ In the **Application Settings**, name the application "SuggestMe" then change th
 
 {% img blog/aspnet-core-mongodb/okta-app-settings.png alt:"Okta App Settings" width:"800" %}{: .center-image }
 
-When you click **Done**, you should be directed to the application settings page. On the **General** tab at the bottom, you’ll see a box with a **ClientId** and **ClientSecret**. Copy those to a new section in `appsettings.json` below the database settings you added earlier:
+When you click **Done**, you should be directed to the application settings page. On the **General** tab at the bottom, you'll see a box with a **ClientId** and **ClientSecret**. Copy those to a new section in `appsettings.json` below the database settings you added earlier:
 
 ```json
 "Okta": {
@@ -416,7 +416,7 @@ namespace DockerPipelineExample.Controllers
 
 This adds actions for logging in and logging out that can then be used by the application to facilitate authentication with Okta. 
 
-Finally, you’ll add navigation so that users can get to all this cool stuff! In the `Views/Shared` folder add a file called `_LoginPartial.cshtml`. This will be the partial view that contains navigation and display elements for authentication routes:
+Finally, you'll add navigation so that users can get to all this cool stuff! In the `Views/Shared` folder add a file called `_LoginPartial.cshtml`. This will be the partial view that contains navigation and display elements for authentication routes:
 
 ```html
 @if (User.Identity.IsAuthenticated)
