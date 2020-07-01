@@ -5,7 +5,7 @@ author: karl-penzhorn
 by: contractor
 communities: [javascript, mobile]
 description: "Use TypeScript to build and test a React Native app with authentication."
-tags: [typescript, react native, oauth, testing, android]
+tags: [typescript, react-native, oauth, testing, android]
 tweets:
 - "You've heard about React Native, but haven't tried it yet? Now's your chance! As a bonus, this tutorial also shows you how to test it. "
 - "Get started with React Native today! This post shows you how to build a simple app, add authentication, and test it with @fbjest. "

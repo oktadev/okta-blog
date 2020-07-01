@@ -5,7 +5,7 @@ author: lee-brandt
 by: advocate
 communities: [javascript]
 description: "Build a reusable star rating component in React."
-tags: [react, component, javascript, react component, react reusable]
+tags: [react, component, javascript, react-component, react-reusable]
 tweets:
 - "Want to learn how to build reusable React components? Check this out!"
 - "Need to get up to speed quickly on building reusable React components? We've got you covered!"

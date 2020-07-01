@@ -4,7 +4,7 @@ title: "Secure Your API with OAuth, Mulesoft, and Okta in 20 Minutes"
 author: tom-smith
 by: internal-contributor
 description: "This article shows you how to create a secure API with OAuth, Mulesoft, and Okta."
-tags: [oauth, mulesoft, api, api security]
+tags: [oauth, mulesoft, api, api-security]
 tweets:
  - "Got an API that needs securing? Check out our new guide to doing just that with @MuleSoft and Okta: "
  - "Our newest tutorial is something a little bit different for us - all about using Okta to secure an API through a gateway (@MuleSoft). Check it out!"

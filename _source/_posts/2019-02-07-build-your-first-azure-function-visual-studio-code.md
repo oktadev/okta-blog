@@ -5,7 +5,7 @@ author: lee-brandt
 by: advocate
 communities: [.net]
 description: "This tutorial walks you through building a simple Azure Function in C#."
-tags: [azure, functions, azure function, dotnet]
+tags: [azure, functions, azure-function, dotnet]
 tweets:
 - "Build your first @AzureFunctions in #CSharp in #vscode! →"
 - "Need to learn the basics of @AzureFunctions in #csharp? We've got you covered. <3"

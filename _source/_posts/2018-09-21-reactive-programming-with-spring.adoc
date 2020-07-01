@@ -5,7 +5,7 @@ author: matt-raible
 by: advocate
 communities: [java, javascript]
 description: "Reactive programming is an approach to writing software that embraces asynchronous I/O. It's pretty awesome."
-tags: [reactive, reactive api, reactive programming, josh long, springframework, spring boot, spring webflux, reactor]
+tags: [reactive, reactive-api, reactive-programming, josh-long, springframework, spring-boot, spring-webflux, reactor]
 tweets:
 - "Learn all about reactive programming, reactive streams, and how @projectreactor helps you create reactive systems! →"
 - "Do you have a lot of data that needs streaming? Reactive programming can help!"

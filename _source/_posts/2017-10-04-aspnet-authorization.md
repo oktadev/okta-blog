@@ -4,7 +4,7 @@ title: "User Authorization in ASP.NET Core with Okta"
 author: lee-brandt
 by: advocate
 communities: [.net]
-tags: [asp.net, aspnet core, authz, authorization]
+tags: [asp-dot-net, aspnet-core, authz, authorization]
 type: conversion
 ---
 

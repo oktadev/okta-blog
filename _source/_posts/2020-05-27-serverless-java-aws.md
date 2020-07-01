@@ -5,7 +5,7 @@ author: andrew-hughes
 by: contractor
 communities: [java]
 description: "The cloud is maturing from virtual machines being a discrete unit of work to virtual functions. In this post, we explore serverless with Java and AWS"
-tags: [aws, amazon web services, oauth2, security, serverless, java]
+tags: [aws, amazon-web-services, oauth2, security, serverless, java]
 tweets:
 - "Do you already use Java on AWS EC2? Maybe serverless is right for you. Move from machine to function with this tutorial."
 - "Wanna write Serverless functions with Java? If the answer is, 'Yes, please!' you want to read this post!"

@@ -4,7 +4,7 @@ title: "Build a Secure To-Do App with Vue, ASP.NET Core, and Okta"
 author: nate-barbettini
 by: advocate
 communities: [.net, javascript]
-tags: [vue.js, vue, oidc, dotnet, aspnetcore]
+tags: [vue-dot-js, vue, oidc, dotnet, aspnetcore]
 tweets: 
   - "ICYMI: @nbarbettini shows how to build a to-do app with #vuejs and #aspnetcore step-by-step"
   - "In-depth tutorial on building full-stack #vuejs and #aspnetcore apps by our own @nbarbettini"

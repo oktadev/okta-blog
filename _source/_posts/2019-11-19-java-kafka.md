@@ -5,7 +5,7 @@ author: daniel-pereira
 by: contractor
 communities: [java]
 description: "This tutorial shows you how to develop a Java application with Kafka and secure it with OAuth 2.0 and OIDC."
-tags: [java, kafka, spring boot, messaging]
+tags: [java, kafka, spring-boot, messaging]
 tweets:
 - "Learn how to integrate @apachekafka in your Java apps and secure everything with @oauth_2."
 - "Kafka is all the rage for messaging! Try it in your @java apps today."

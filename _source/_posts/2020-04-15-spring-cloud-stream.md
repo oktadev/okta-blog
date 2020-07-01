@@ -5,7 +5,7 @@ author: andrew-hughes
 by: contractor
 community: [java]
 description: "Want to learn how to use Spring Cloud Stream? This tutorial shows you how to use them with Spring WebFlux and RabbitMQ."
-tags: [java, spring cloud, spring cloud stream, spring webflux, rabbitmq]
+tags: [java, spring-cloud, spring-cloud-stream, spring-webflux, rabbitmq]
 tweets:
 - "Do you need to publish streaming data? @springcloud stream to the rescue!"
 - "Spring Cloud Stream + Spring WebFlux + RabbitMQ = new tutorial! 👇"

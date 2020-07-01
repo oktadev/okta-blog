@@ -5,7 +5,7 @@ author: david-neal
 by: advocate
 communities: [javascript]
 description: "GitHub has announced GitHub Package Registry. Does this spell the death for npm?"
-tags: [ npm, github, devops, package registry, private packages ]
+tags: [npm, github, devops, package-registry, private-packages]
 tweets:
 - "Is GitHub Package Registry the npm killer??"
 - "GitHub has announced GitHub Package Registry. Does this spell the death for npm?"

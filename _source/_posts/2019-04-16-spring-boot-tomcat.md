@@ -5,7 +5,7 @@ author: karl-penzhorn
 by: contractor
 communities: [java]
 description: "Create a Spring Boot 2.1 app with Java 11 and deploy into Tomcat 9."
-tags: [spring boot, tomcat, java]
+tags: [spring-boot, tomcat, java]
 tweets:
 - "Do you love @springboot, but you're still using Tomcat to run all your apps? This guide shows slight tweaks you can make to convert your app from a JAR to a WAR so it works on Tomcat."
 - "Learn how to deploy your secure Spring Boot app to Tomcat 9 in this handy tutorial."

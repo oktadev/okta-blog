@@ -5,7 +5,7 @@ author: andrew-hughes
 by: contractor
 communities: [java]
 description: "This tutorial shows how to build a non-blocking, reactive app with Spring Boot, Spring WebFlux, and MongoDB."
-tags: [spring boot, reactive, spring webflux, mongo, mongodb]
+tags: [spring-boot, reactive, spring-webflux, mongo, mongodb]
 tweets:
 - "Learning how to build a non-blocking, reactive API with Spring WebFlux and MongoDB in this handy tutorial."
 - "Use MongoDB with Spring WebFlux and Spring Boot to build a highly scalable app!"

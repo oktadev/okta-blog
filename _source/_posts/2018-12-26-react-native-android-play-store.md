@@ -5,7 +5,7 @@ author: karl-penzhorn
 by: contractor
 communities: [javascript, mobile]
 description: "Learn how to plan, design, create and publish a React Native app to the Google Play Store."
-tags: [android, design, react native, play store]
+tags: [android, design, react-native, play-store]
 tweets:
 - "Design an Android app and publish it to the app store in this complete and in-depth tutorial!"
 - "Want to get started developing Android apps with React Native? This tutorial is for you!"

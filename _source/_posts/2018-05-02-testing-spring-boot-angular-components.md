@@ -5,7 +5,7 @@ author: matt-raible
 by: advocate
 communities: [java, javascript]
 description: "This post shows you how to use tools like Jest, Protractor, Travis CI, and WireMock to test your Spring Boot API and Angular components."
-tags: [testing, junit, spring boot, mockito, wiremock, spring mvc test, angular, ionic, jest, protractor, jasmine, travis ci]
+tags: [testing, junit, spring-boot, mockito, wiremock, spring-mvc-test, angular, ionic, jest, protractor, jasmine, travis-ci]
 tweets:
   - "If you're not writing tests, you're testing in production. 🛑 and learn how to test your @springboot and @ionicframework apps >"
   - "This testing guide shows you some techniques for testing your Java and Angular components when using @okta >"

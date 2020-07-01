@@ -5,7 +5,7 @@ author: braden-kelley
 by: contractor
 communities: [javascript]
 description: "This article explains how to create and verify JWTs in Node apps."
-tags: [jwt, token auth, token authentication, node]
+tags: [jwt, token-auth, token-authentication, node]
 tweets:
 - "JWTs + @Nodejs = 🎂"
 - "Tutorial - Create and Verify JSON Web Tokens with @Nodejs"

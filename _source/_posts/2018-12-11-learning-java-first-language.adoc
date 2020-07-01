@@ -5,7 +5,7 @@ author: matt-raible
 by: advocate
 communities: [java]
 description: "Start programming in Java with these awesome resources!"
-tags: [java, learning, programming, programming languages, education]
+tags: [java, learning, programming, programming-languages, education]
 tweets:
 - "You've heard of Java, but did you ever think it'd be the first programming language you used? Probably not. Oh well, this tutorial is pretty cool. Check it out!"
 - "Java before JavaScript!"

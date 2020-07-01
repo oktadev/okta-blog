@@ -5,7 +5,7 @@ author: brian-demers
 by: advocate
 communities: [security]
 description: "This post explains how to report a vulnerability and why it's important to do so responsibly."
-tags: [security, developer, Vulnerabilities]
+tags: [security, developer, vulnerabilities]
 tweets:
 - "Are you a developer? Do you know how reporting a vulnerability is different from a regular bug? 🐛"
 - "Are you reporting a vulnerability in a bug tracker? Read this first 🛑"

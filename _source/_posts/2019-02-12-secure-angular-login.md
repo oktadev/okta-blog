@@ -5,7 +5,7 @@ author: holger-schmitz
 by: contractor
 communities: [javascript]
 description: "Build an Angular application with authentication, a step-by-step tutorial."
-tags: [angular, login, angular cli, typescript, authentication]
+tags: [angular, login, angular-cli, typescript, authentication]
 tweets:
 - "Learn how to build an Angular application with authentication in this step-by-step tutorial. #angular"
 - "Angular is awesome! And you'll probably need to secure it. This tutorial shows you how to add a secure login to your app! #angular #authentication"

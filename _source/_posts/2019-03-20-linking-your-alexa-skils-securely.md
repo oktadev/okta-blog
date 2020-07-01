@@ -4,7 +4,7 @@ title: "Linking Your Alexa Skill Securely with Okta"
 author: jefferson-haw
 by: internal-contributor
 description: "This tutorial shows how to link your Alexa skills securely."
-tags: [alexa, auth, alexa skills]
+tags: [alexa, auth, alexa-skills]
 tweets:
 - "Learn how to link you Alexa skills securely! →"
 - "Build a secure secure voice operationd with Alexa and Okta!"

@@ -5,7 +5,7 @@ author: matt-raible
 by: advocate
 communities: [mobile,java,javascript]
 description: "Mobile development can be difficult unless you use JHipster and its Ionic and React Native modules."
-tags: [mobile, ionic, react native, jhipster]
+tags: [mobile, ionic, react-native, jhipster]
 tweets:
 - "Want to learn how to develop mobile apps with web technologies? @ionicframework and @reactnative to the rescue!"
 - "Mobile app development can be difficult. Learn how to create rapid prototypes with @jhipster and its Ionic and React Native mobile support."

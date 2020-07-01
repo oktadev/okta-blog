@@ -24,6 +24,11 @@ page_gen:
     name: id
     dir: blog/authors
 
+collections:
+  tags:
+    output: true
+    permalink: /blog/tags/:path/
+
 defaults:
   - scope:
       path: ""

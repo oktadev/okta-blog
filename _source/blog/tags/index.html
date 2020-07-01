@@ -1,0 +1,29 @@
+---
+layout: master
+title: Tags
+---
+
+<section class="Blog TagList is-index">
+
+	<article class="BlogPost">
+		<header class="BlogPost-header">
+			<h1 class="BlogPost-title">Tags</h1>
+		</header>
+	</article>
+
+	{% assign rawtags = "" %}
+	{% for post in site.posts %}
+	  {% assign ttags = post.tags | join:'|' | append:'|' %}
+	  {% assign rawtags = rawtags | append:ttags %}
+	{% endfor %}
+	{% assign rawtags = rawtags | split:'|' | uniq | sort %}
+
+	<ul>
+	{% for tag in rawtags %}
+		{% if tag != "" %}
+			<li><a href="/blog/tags/{{ tag }}">{{ tag }}</a></li>
+		{% endif %}
+	{% endfor %}
+	</ul>
+
+</section>

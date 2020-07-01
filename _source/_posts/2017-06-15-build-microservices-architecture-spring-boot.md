@@ -5,7 +5,7 @@ author: matt-raible
 by: advocate
 communities: [java]
 description: "This article shows you how to build a microservices architecture with Spring Boot, Netflix Eureka, Feign, and Hystrix."
-tags: [microservices, spring boot, spring cloud, netflix eureka, java]
+tags: [microservices, spring-boot, spring-cloud, netflix-eureka, java]
 tweets:
   - "Want to see how to build a microservices architecture with Spring Boot, Netflix Eureka, Feign, and Hystrix? We have just the 🎟!"
   - "Do you like good 🍺? If so, you'll 💙 this tutorial that shows you how to build a microservices architecture for microbrews!"

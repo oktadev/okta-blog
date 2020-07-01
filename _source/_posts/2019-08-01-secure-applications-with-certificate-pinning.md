@@ -5,7 +5,7 @@ author: joel-franusic
 by: internal-contributor
 communities: [security]
 description: "In this short article you'll about TLS certificate pinning."
-tags: [ssl, tls, certificate pinning]
+tags: [ssl, tls, certificate-pinning]
 tweets:
 - "TLS certificate pinning can help prevent man-in-the-middle attacks. Learn how:"
 - "Want to improve your application's security posture? Check out our short article on TLS certificate pinning!"

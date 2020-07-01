@@ -4,7 +4,7 @@ title: 'Play Zork, Learn OAuth'
 author: micah-silverman
 by: advocate
 communities: [security]
-tags: [oauth, oauth2, oauth2.0, oauth 2.0, OpenID, OpenID Connect, oidc, spring, spring boot, spring security, rbac]
+tags: [oauth, oauth2, oauth2-dot-0, oauth-2-dot-0, openid, openid-connect, oidc, spring, spring-boot, spring-security, rbac]
 type: awareness
 ---
 
