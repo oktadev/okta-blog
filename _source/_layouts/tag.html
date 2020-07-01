@@ -12,20 +12,18 @@ layout: master
 		</header>
 	</article>
 
-	{% for post in site.posts %}
-		{% if post.tags contains page.tag %}
+	{% for post in page.posts %}
 
-			{% capture _post_content %}
-				{% if post.summary %}
-					<p>{{ post.summary | strip_html }}</p>
-				{% else %}
-					<p>{{ post.content | strip_html | truncatewords:75 }}</p>
-				{% endif %}
-				<p><a class="BlogPost-more" href="{{post.url}}">Read more</a></p>
-			{% endcapture %}
-			{% include blog_post.html post_content=_post_content %}
+		{% capture _post_content %}
+			{% if post.summary %}
+				<p>{{ post.summary | strip_html }}</p>
+			{% else %}
+				<p>{{ post.content | strip_html | truncatewords:75 }}</p>
+			{% endif %}
+			<p><a class="BlogPost-more" href="{{post.url}}">Read more</a></p>
+		{% endcapture %}
+		{% include blog_post.html post_content=_post_content %}
 
-		{% endif %}
 	{% endfor %}
 
 </section>

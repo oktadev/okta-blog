@@ -24,10 +24,9 @@ page_gen:
     name: id
     dir: blog/authors
 
-collections:
-  tags:
-    output: true
-    permalink: /blog/tags/:path/
+tag_page_layout: tag
+tag_page_dir: blog/tags
+tag_permalink_style: pretty
 
 defaults:
   - scope:
