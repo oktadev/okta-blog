@@ -5,7 +5,7 @@ author: brian-demers
 by: advocate
 communities: [devops,java]
 description: "This post walks through migrating a build from Travis CI to GitHub Actions."
-tags: [travis-ci, github actions, java, ci]
+tags: [travis-ci, github-actions, java, ci]
 tweets:
 - "Learn how to migrate your CI builds to GitHub Actions 🛠️"
 - "How I migrated from Travis CI to GitHub Actions, one less service to worry about💥"

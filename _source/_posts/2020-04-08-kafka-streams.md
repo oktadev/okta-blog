@@ -5,7 +5,7 @@ author: andrew-hughes
 by: contractor
 community: [java]
 description: "Learn how to build secure apps with Kafka and Quarkus."
-tags: [kafka, kafka streams, quarkus, java]
+tags: [kafka, kafka-streams, quarkus, java]
 tweets:
 - "This guide shows you how to use @apachekafka streams + @QuarkusIO apps in 2020."
 - "Learn how to leverage the power of @apachekafka in this streaming tutorial."

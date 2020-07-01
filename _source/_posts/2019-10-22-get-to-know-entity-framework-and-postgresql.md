@@ -5,7 +5,7 @@ author: terje-kolderup
 by: contractor
 communities: [.net]
 description: "Learn to build a simple CRUD app using PostgreSQL as the Database and Entity Framework Core for talking to the data store."
-tags: [efcore, entity framework core, postgresql, postgres]
+tags: [efcore, entity-framework-core, postgresql, postgres]
 tweets:
 - "Want to learn to build a simple CRUD app using PostgreSQL and Etity Framework Core? Check this out!"
 - "Need to learn the basics of using Entity Framework Core with PostgreSQL? We have you covered."

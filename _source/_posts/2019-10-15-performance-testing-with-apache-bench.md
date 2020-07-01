@@ -4,7 +4,7 @@ title: "Performance Testing with Apache Bench"
 author: lee-brandt
 by: advocate
 description: "A tutorial discussing performance and load testing using Apache Bench."
-tags: [performance testing, apache bench, load testing]
+tags: [performance-testing, apache-bench, load-testing]
 tweets:
 - "Learn the basics of load performance testing with Apache Bench!"
 - "Need a quick introduction to load performance testing with Apache Bench? We've got you covered!"

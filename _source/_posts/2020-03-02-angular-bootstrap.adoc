@@ -5,7 +5,7 @@ author: matt-raible
 by: advocate
 communities: [javascript]
 description: "Angular + Spring Boot = 💚! Learn how to add Bootstrap to the mix and configure searching, sorting, and pagination with NG Bootstrap and Spring Data JPA."
-tags: [angular, bootstrap, ng-bootstrap, spring boot, spring data jpa]
+tags: [angular, bootstrap, ng-bootstrap, spring-boot, spring-data-jpa]
 tweets:
 - "Add Bootstrap to your Angular application and make it look beautiful! #css #sass"
 - "Use Bootstrap and Spring Data JPA to build a searchable, sortable, and pageable data table!"

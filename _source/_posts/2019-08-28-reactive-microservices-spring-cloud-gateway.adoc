@@ -5,7 +5,7 @@ author: matt-raible
 by: advocate
 communities: [java, devops]
 description: "This tutorial shows you how to build a reactive microservices architecture with Spring Cloud Gateway."
-tags: [java, reactive, spring cloud gateway, microservices, spring boot, spring cloud]
+tags: [java, reactive, spring-cloud-gateway, microservices, spring-boot, spring-cloud]
 tweets:
 - "Reactive programming is 🔥 and so are API Gateways! This tutorial shows how to build a microservices architecture with Spring Cloud Gateway and Spring WebFlux."
 - "Want to learn how to use Java and Spring to develop a reactive microservices architecture with Spring Cloud Gateway? This tutorial from @mraible shows you how!"

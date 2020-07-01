@@ -8,7 +8,7 @@ description: "In this article, I'll show you how you can lock down a Spring Boot
 tweets:
   - "Want to add user authentication to a Spring Boot + Angular app? This tutorial will hook you up!"
   - "Spring Boot + Angular + PWA goodness + Okta = 💙! Happy authenticating y'all!"
-tags: [pwa, progressive web app, angular, typescript, oidc, spring boot, java]
+tags: [pwa, progressive-web-app, angular, typescript, oidc, spring-boot, java]
 type: conversion
 ---
 

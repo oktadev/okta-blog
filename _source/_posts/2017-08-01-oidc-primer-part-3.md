@@ -4,7 +4,7 @@ title: "What's in a Token? – An OpenID Connect Primer, Part 3 of 3"
 author: micah-silverman
 by: advocate
 communities: [security]
-tags: [oauth, oauth2, oauth2.0, oauth 2.0, OpenID, OpenID Connect, oidc]
+tags: [oauth, oauth2, oauth2-dot-0, oauth-2-dot-0, openid, openid-connect, oidc]
 redirect_from:
   - "/blog/2017-07-25-oidc-primer-part-3"
   - "/blog/2017/07/25/oidc-primer-part-3"

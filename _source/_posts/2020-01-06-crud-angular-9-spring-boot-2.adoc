@@ -5,7 +5,7 @@ author: matt-raible
 by: advocate
 communities: [javascript, java]
 description: "This tutorial demonstrates how to develop a secure CRUD application using Angular 9 and Spring Boot 2.2."
-tags: [angular, angular 9, spring boot, crud, typescript, kotlin]
+tags: [angular, angular-9, spring-boot, crud, typescript, kotlin]
 tweets:
 - "Learn how to connect @angular and @springboot in 2020!"
 - "Check out this tutorial on how to build secure apps with @angular and @springboot."

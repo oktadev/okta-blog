@@ -5,7 +5,7 @@ author: matt-raible
 by: advocate
 communities: [java]
 description: "Play Framework is a key component of Lightbend's Lagom microservices framework. This article shows you how to integrate play-pac4j and use its OIDC support to authenticate with Okta."
-tags: [authentication, play, play framework, java, pac4j, play-pac4j, oidc, oauth]
+tags: [authentication, play, play-framework, java, pac4j, play-pac4j, oidc, oauth]
 type: conversion
 ---
 

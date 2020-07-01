@@ -5,7 +5,7 @@ author: matt-raible
 by: advocate
 communities: [java]
 description: "You've built a microservices architecture, but have you secured your service-to-service communication? This post shows you how."
-tags: [java, microservices, spring boot, client credentials, spring security, https]
+tags: [java, microservices, spring-boot, client-credentials, spring-security, https]
 tweets:
 - "Secure your service-to-service microservices using HTTPS and @oauth_2's client credentials."
 - "Learn how to secure your Docker-based microservices architecture using HTTPS and @SpringSecurity."

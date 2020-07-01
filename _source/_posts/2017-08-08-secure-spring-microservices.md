@@ -8,7 +8,7 @@ description: "This tutorial shows you how you can use Spring Security, Okta, and
 tweets:
     - "You've built a microservices architecture with Spring Boot and Spring Cloud. But what about security? This tutorial shows you how to lock everything down with Spring Security. "
     - "Learn how to use Juiser + @SpringSecurity to lock down your microservices architecture and not share keys between your gateway/load balancer and backend servers (gateway + microservices). "
-tags: [spring, microservices, spring security, jwt, juiser, java, okta sign-in widget]
+tags: [spring, microservices, spring-security, jwt, juiser, java, okta-sign-in-widget]
 type: conversion
 ---
 

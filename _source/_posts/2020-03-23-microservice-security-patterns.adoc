@@ -5,7 +5,7 @@ author: matt-raible
 by: advocate
 communities: [security]
 description: "Are you securing your microservice architectures by hiding them behind a firewall? That works, but there are better ways to do it."
-tags: [microservices, security, security patterns, microservice patterns]
+tags: [microservices, security, security-patterns, microservice-patterns]
 tweets:
 - "Learn how to secure your microservice architecture using these 11 patterns."
 - "Want to lock down your microservice architecture from intruders? @mraible has some patterns for you!"

@@ -4,7 +4,7 @@ title: "Everything You Need to Know About the Twelve-Factor App"
 author: randall-degges
 by: advocate
 description: "A breakdown of the twelve-factor app pattern and how you can use it to build more secure web services."
-tags: [twelve-factor, best practices, patterns]
+tags: [twelve-factor, best-practices, patterns]
 tweets:
 - "Want to build more secure web services? Read @rdegges' article on the twelve-factor app and learn how:"
 - "Familiar with the twelve-factor app? If not, you'll want to read this:"

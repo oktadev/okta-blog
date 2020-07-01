@@ -4,7 +4,7 @@ title: "Software Development is a Creative Endeavor"
 author: lee-brandt
 by: advocate
 description: "This post discusses software development as a creative and not purely technical pursuit."
-tags: [software, software development, creative work, creative jobs]
+tags: [software, software-development, creative-work, creative-jobs]
 tweets:
   - "Think software development is a purely technical pursuit? Think again!"
   - "Is software a creative or purely technical endeavor?"

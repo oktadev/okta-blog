@@ -5,7 +5,7 @@ author: david-neal
 by: advocate
 communities: [javascript]
 description: "Learn how to create a VuePress web site, plus add authentication and personalization!"
-tags: [vuepress,vue,javascript,static site generator]
+tags: [vuepress, vue, javascript, static-site-generator]
 tweets:
 - "#vuepress #vue"
 - "#vuepress #vue"

@@ -5,7 +5,7 @@ author: omar-darwish
 by: internal-contributor
 communities: [security]
 description: "Learn to use AWS Athena as a data analysis supplement."
-tags: [AWS, AWS Athena, Data Analysis, Security]
+tags: [aws, aws-athena, data-analysis, security]
 tweets:
 - "Need to be able to analyze security logs archived in S3? We've got you covered!"
 - "Do data analysis beyond the 'hot' caching window. Analyze security logs archived in S3!"

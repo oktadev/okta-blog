@@ -5,7 +5,7 @@ author: micah-silverman
 by: advocate
 communities: [javascript]
 description: ""
-tags: [javascript, vuejs, vue.js, data binding, reactive]
+tags: [javascript, vuejs, vue-dot-js, data-binding, reactive]
 tweets:
 - ""
 - ""

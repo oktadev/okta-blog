@@ -5,7 +5,7 @@ author: matt-raible
 by: advocate
 communities: [java,javascript,devops]
 description: "Use Docker to build & deploy an Angular app! Includes how to combine Angular + Spring Boot into a JAR, dockerize it, and deploy to Knative + Cloud Foundry."
-tags: [angular, docker, heroku, jarnotwar, spring boot, knative, cloudfoundry, buildpacks]
+tags: [angular, docker, heroku, jarnotwar, spring-boot, knative, cloudfoundry, buildpacks]
 tweets:
 - "A Quick Guide to #Docker with #Angular and Spring Boot. 👇"
 - "Angular + Spring Boot + Docker: learn how to create an image with a Dockerfile, with #jib, and using @buildpacks_io!"

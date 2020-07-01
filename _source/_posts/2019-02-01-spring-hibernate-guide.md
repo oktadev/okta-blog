@@ -5,7 +5,7 @@ author: raphael-do-vale
 by: contractor
 communities: [java]
 description: "Build a Hibernate app with and without Spring then turn it into a secure webapp."
-tags: [security, authentication, sessions, jpa, spring, spring data, rest]
+tags: [security, authentication, sessions, jpa, spring, spring-data, rest]
 tweets: 
 - "Build a Hibernate app with and without Spring"
 - "Hibernate + Spring, from old school to new"

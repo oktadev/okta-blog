@@ -5,7 +5,7 @@ author: matt-raible
 by: advocate
 communities: [java, javascript, mobile]
 description: "In this tutorial, you'll learn how to build a Spring Boot API and a React Native app. You'll also see how to deploy the API to Cloud Foundry and Google Kubernetes Engine."
-tags: [react native, spring boot, spring boot api, java, typescript, javascript, cloud foundry, kubernetes, google cloud, jhipster, ignite jhipster]
+tags: [react-native, spring-boot, spring-boot-api, java, typescript, javascript, cloud-foundry, kubernetes, google-cloud, jhipster, ignite-jhipster]
 tweets:
 - "You've heard of React Native and how you can use it to develop mobile apps, right? This handy tutorial shows you how to use it with a Spring Boot API."
 - "Did you know that @java_hipster can generate Spring Boot APIs and mobile apps? Get 'yer learn on with React Native and Spring Boot today!"

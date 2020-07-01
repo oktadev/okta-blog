@@ -5,7 +5,7 @@ author: randall-degges
 by: advocate
 communities: [javascript]
 description: "This post shows how to build a video chat service with JavaScript, WebRTC, and Okta."
-tags: [video chat, JavaScript, WebRTC, Okta, chat service, saas, tutorial]
+tags: [video-chat, javascript, webrtc, okta, chat-service, saas, tutorial]
 tweets:
   - "Learn how to build a video conference service with WebRTC, JavaScript, and @okta >"
   - "Wanna build a simple video chat service with JavaScript? Read this post to find out how! >"
