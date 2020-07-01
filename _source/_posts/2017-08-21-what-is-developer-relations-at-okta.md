@@ -4,7 +4,7 @@ title: 'What is Developer Relations at Okta?'
 author: matt-raible
 by: advocate
 description: "In this post, we introduce you to the Developer Relations team at Okta and give you a behind the scenes glimpse into how a large, successful company builds an authentic, high-value developer relations program from scratch."
-tags: [devrel, developer relations, okta, developers, stormpath]
+tags: [devrel, developer-relations, okta, developers, stormpath]
 type: awareness
 ---
 

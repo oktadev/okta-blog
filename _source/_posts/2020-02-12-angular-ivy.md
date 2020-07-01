@@ -5,7 +5,7 @@ author: holger-schmitz
 by: contractor
 communities: [javascript]
 description: "This tutorial shows you how to upgrade an Angular 8 app to Angular 9 with Ivy."
-tags: [angular, ivy, angular9, angular upgrade, angular material]
+tags: [angular, ivy, angular9, angular-upgrade, angular-material]
 tweets:
 - "Angular Ivy is part of Angular 9 and reduces the size of generated JavaScript. Find out how to use it in this tutorial."
 - "Want faster @angular apps? Upgrade to Angular 9 with Ivy!"

@@ -5,7 +5,7 @@ author: lee-brandt
 by: advocate
 communities: [.net]
 description: "This post discusses the disadvantages of using the 'I' prefix for interfaces in static-typed languages."
-tags: [aspnetcore, netcore, interface, naming conventions]
+tags: [aspnetcore, netcore, interface, naming-conventions]
 tweets:
   - "Still using the 'I' to prefix interfaces? Check this out before you do!"
   - "If you still prefix interface types with an 'I', stop and check this out first!"

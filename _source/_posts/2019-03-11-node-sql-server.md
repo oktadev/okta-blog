@@ -5,7 +5,7 @@ author: david-neal
 by: advocate
 communities: [javascript]
 description: "SQL Server is an awesome relational database. Here's how to use it from Node.js."
-tags: [node, javascript, sql server, database, programming, developer, software]
+tags: [node, javascript, sql-server, database, programming, developer, software]
 tweets:
 - "Can you build a @nodejs application with @SQLServer? Yes, you can! #nodejs #sqlserver"
 - "Yes, you can use SQL Server with Node.js! Let @reverentgeek show you how! @nodejs @SQLServer #nodejs #sqlserver"

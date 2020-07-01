@@ -5,7 +5,7 @@ author: thiago-negri
 by: contractor
 communities: [java]
 description: "This tutorial shows how to build and test a GraphQL API with Java and JUnit 5."
-tags: [java, graphql, junit, junit5, spring boot]
+tags: [java, graphql, junit, junit5, spring-boot]
 tweets:
 - "Learn how to build a @GraphQL API with @Java in this concise tutorial."
 - "A quick guide to building a GraphQL API with @java and @springboot."

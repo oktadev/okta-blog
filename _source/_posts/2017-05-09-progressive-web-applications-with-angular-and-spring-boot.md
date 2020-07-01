@@ -8,7 +8,7 @@ description: "This article will show you how to build a PWA with a Spring Boot b
 tweets:
   - "Did you know that PWAs are the way of the future? Native apps that require 60MB to download? Peshaw! Just use good ol' web technologies, a service worker, and caching to develop an awesome mobile experience → "
   - "Eager to learn how to develop a PWA with Angular and TypeScript? We've got the 🎟 on our @oktadev blog. ✅ it! "
-tags: [spring boot, java, pwa, progressive web app, angular, typescript, angular-cli]
+tags: [spring-boot, java, pwa, progressive-web-app, angular, typescript, angular-cli]
 type: conversion
 ---
 

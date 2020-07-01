@@ -5,7 +5,7 @@ author: charlie-holland
 by: contractor
 communities: [.net, devops]
 description: "In this tutorial, you'll learn how to store application keys and secrets securely using Azure KeyVault"
-tags: [azure, azure keyvault, azure keyvault, asp.net security, dotnet security, security]
+tags: [azure, azure-keyvault, asp-dot-net-security, dotnet-security, security]
 tweets:
 - "Learn how to store application keys and secrets securely using @Azure #KeyVault"
 - "Want to learn how to store application secrets securely? Use Azure KeyVault!"

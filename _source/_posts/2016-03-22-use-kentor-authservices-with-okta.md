@@ -4,7 +4,7 @@ title: How to use KentorIT AuthServices with Okta
 author: raphael-londner
 by: internal-contributor
 communities: [.net, security]
-tags: [saml, asp.net]
+tags: [saml, asp-dot-net]
 type: awareness
 ---
 

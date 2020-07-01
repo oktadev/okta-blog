@@ -5,7 +5,7 @@ author: karl-penzhorn
 by: contractor
 communities: [javascript, mobile]
 description: "Convert an Android React Native app to iOS and publish it in the Apple App Store."
-tags: [react native, android, ios, apple, app store]
+tags: [react-native, android, ios, apple, app-store]
 tweets:
 - "This tutorial shows you how to build an iOS app with React Native and publish it to Apple's App Store."
 - "Learn how to build an iOS app with React Native and publish it to the App Store."

@@ -4,7 +4,7 @@ title: "5 Essential Tips for Building Developer Libraries"
 author: laura-rodriguez
 by: internal-contributor
 description: "Tips on how to build developer tools with a great developer experience based on the work we've done at Okta!"
-tags: [devex, Developer Experience, sdk, api, documentation]
+tags: [devex, developer-experience, sdk, api, documentation]
 tweets:
 - "Here are five essentials tips on building developer libraries from @rod_laura's experience at @okta! #devex"
 - "Want to build better libraries for developers? Here are five essentials tips from @rod_laura's based on her experience at @okta! #devex"

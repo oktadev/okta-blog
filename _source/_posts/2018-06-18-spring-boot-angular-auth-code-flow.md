@@ -5,7 +5,7 @@ author: matt-raible
 by: advocate
 communities: [java, javascript]
 description: "This post shows you how to package your Spring Boot and Angular app into a single JAR artifact. It also shows how to switch from using OAuth's implicit flow to authorization code flow."
-tags: [spring-boot, angular, oauth, authorization code flow]
+tags: [spring-boot, angular, oauth, authorization-code-flow]
 tweets:
  - "Want to see how to combine your @springboot API and your @angular UI in a single JAR artifact? This tutorial is for you!"
  - "Building an @angular SPA and authentication with @oauth_2's implicit flow is cool, but it's even cooler (and more secure) to use authorization code flow. Learn how in this post from @mraible →"

@@ -5,7 +5,7 @@ author: daniel-pereira
 by: contractor
 communities: [java]
 description: "Tutorial: Learn how to build a secure REST application with JAX-RS and Jersey."
-tags: [tutorial, java, jersey, jaxrs, oauth, REST]
+tags: [tutorial, java, jersey, jaxrs, oauth, rest]
 tweets:
 - "Build a REST app with Jersey and JAX-RS, code is on GitHub!"
 - "Learn how to build JAX-RS application simply by adding #Java annotations💥"

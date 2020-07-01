@@ -5,7 +5,7 @@ author: matt-raible
 by: advocate
 communities: [java]
 description: "Stay hip with the latest Java and Spring Boot releases by using JHipster 6! This post shows you how to get started."
-tags: [java, spring boot, java11, java12, jhipster]
+tags: [java, spring-boot, java11, java12, jhipster]
 tweets:
 - "Stay up-to-date with @Java and @JavaScript by using JHipster!"
 - "JHipster 6 runs on Java 11 and Java 12! How cool is that? All thanks to the power of @springboot 2.1. 👌"

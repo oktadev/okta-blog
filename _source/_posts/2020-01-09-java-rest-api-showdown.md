@@ -5,7 +5,7 @@ author: daniel-pereira
 by: contractor
 communities: [java]
 description: "A Quick Guide to creating REST APIs with popular Java frameworks: Micronaut, Quarkus, and Spring Boot."
-tags: [java, rest, api, spring boot, quarkus, micronaut]
+tags: [java, rest, api, spring-boot, quarkus, micronaut]
 tweets:
 - "Learn how to create REST APIs with @micronautfw, @QuarkusIO, and @springboot."
 - "We created a guide for how to create REST APIs with leading Java frameworks: Micronaut, Quarkus, and Spring Boot."

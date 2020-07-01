@@ -5,7 +5,7 @@ author: nate-barbettini
 by: advocate
 communities: [.net]
 description: "Everything you ever wanted to know about token authentication in ASP.NET Core 2.0 and beyond."
-tags: [asp.net, aspnetcore, dotnet, webapi, security, oauth, oidc]
+tags: [asp-dot-net, aspnetcore, dotnet, webapi, security, oauth, oidc]
 tweets:
  - "Confused about token authentication in #aspnetcore? @nbarbettini breaks it down step by step →"
  - "A comprehensive guide to understanding token authentication in #aspnetcore →"

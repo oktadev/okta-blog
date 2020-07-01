@@ -5,7 +5,7 @@ author: micah-silverman
 by: advocate
 communities: [security]
 description: "In this post, we'll look at how you can integrate single sign-on into your custom apps easily"
-tags: [ oauth, security, oidc, spring boot, spring security, sso ]
+tags: [oauth, security, oidc, spring-boot, spring-security, sso]
 tweets:
 - "Want SSO with your Spring Boot app in minutes? @afitnerd shows you how!"
 - "Single Sign-On is a snap with Spring Boot (@springboot) and OAuth 2.0 (@oauth_2) and OpenID Connect (@openid)."

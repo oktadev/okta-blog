@@ -1,6 +1,6 @@
 {% assign author = site.data.authors[post.author] %}
 
-<article class="BlogPost{% if page.layout == 'blog_index' or page.layout == 'author' %} is-excerpt{% endif %}">
+<article class="BlogPost{% if page.layout != 'blog_post' %} is-excerpt{% endif %}">
 
     <header class="BlogPost-header">
 
@@ -27,7 +27,7 @@
         {{ include.post_content }}
     </div>
 
-    {% if page.layout != 'blog_index' and page.layout != 'author' and author.bio %}
+    {% if page.layout == 'blog_post' and author.bio %}
         <div class="BlogPost-author-bio">
             <div class="BlogPost-attribution">
                 {% if author.avatar %}
@@ -40,8 +40,7 @@
         </div>
     {% endif %}
 
-
-    {% if page.layout != 'blog_index' and page.layout != 'author' and post.comments != false %}
+    {% if page.layout == 'blog_post' and post.comments != false %}
     <div id="disqus">
         <div id="disqus_thread"></div>
         <script type="text/javascript">

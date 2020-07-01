@@ -5,7 +5,7 @@ author: charlie-holland
 by: contractor
 communities: [.net, devops]
 description: "Learn how to containerize your secure .NET Core applications with Docker, the Okta way."
-tags: [ dotnetcore, docker, dotnet, .netcore, csharp, containerization, containers ]
+tags: [dotnetcore, docker, dotnet, dot-netcore, csharp, containerization, containers]
 tweets:
 - "Ever wonder what you can with #Docker + #AspNetCore? Check it out! →"
 - "Hey .NET devs, we've got a simple #Docker tutorial for your #AspNetCore apps! →"

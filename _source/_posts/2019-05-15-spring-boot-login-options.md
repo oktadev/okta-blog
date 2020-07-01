@@ -5,7 +5,7 @@ author: andrew-hughes
 by: contractor
 communities: [java]
 description: "This tutorial shows you how to add login options to Spring Boot. Includes basic auth, form-based authentication, and OAuth 2.0 login."
-tags: [spring boot, java, login, oauth2, oidc]
+tags: [spring-boot, java, login, oauth2, oidc]
 tweets:
 - "Learn how to add login to your @springboot app in this 10-minute tutorial."
 - "You've built a @SpringBoot app, but you still need to secure it. Try this tutorial to see your different options."

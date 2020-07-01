@@ -5,7 +5,7 @@ author: holger-schmitz
 by: contractor
 communities: [javascript]
 description: "This tutorial shows how the Model-View-Controller pattern is achieved (in an MVVM way) in Angular."
-tags: [javascript, angular, MVC, MVVM]
+tags: [javascript, angular, mvc, mvvm]
 tweets:
 - "Learn how to implement MVVM/MVC with @Angular! →"
 - "Take a look at common architectural patterns MVC/MVVM in @Angular!"

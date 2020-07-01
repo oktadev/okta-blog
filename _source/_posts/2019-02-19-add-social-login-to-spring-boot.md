@@ -5,7 +5,7 @@ author: andrew-hughes
 by: contractor
 communities: [java]
 description: "This post shows you how to add social login to your JHipster applications."
-tags: [spring, spring boot, social login, spring security, jhipster, authentication, jhipster social login]
+tags: [spring, spring-boot, social-login, spring-security, jhipster, authentication, jhipster-social-login]
 tweets:
 - "Want to learn how to add social login to your @springboot app? This tutorial has you covered!"
 - "Learn how to add social login (Facebook and Google) to your @java_hipster app today!"
