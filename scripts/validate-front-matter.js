@@ -71,6 +71,21 @@ function validateTypes(file, type) {
   }
 }
 
+function validateTags(file, tags) {
+  var invalidTags = [];
+  for(var i = 0; i < tags.length; i++) {
+    if(!tags[i].match(/^[a-z0-9-]+$/) || tags[i].match(/--/)) {
+      invalidTags.push(tags[i]);
+    }
+  }
+  if(invalidTags.length > 0) {
+    throw new Error(file +
+      " contains invalid tags: " +
+      chalk.red(invalidTags.join(", ")) +
+      " Only lowercase letters, numbers, and hyphens are allowed in tags.");
+  }
+}
+
 readdir("_source/_posts", (err, files) => {
   if (err) throw err;
 
@@ -87,6 +102,7 @@ readdir("_source/_posts", (err, files) => {
     validateBy(files[i], content.attributes.by);
     validateComms(files[i], content.attributes.communities);
     validateTypes(files[i], content.attributes.type);
+    validateTags(files[i], content.attributes.tags);
   }
 
   for (let i = 0; i < Object.keys(frontMatter).length; i++) {
