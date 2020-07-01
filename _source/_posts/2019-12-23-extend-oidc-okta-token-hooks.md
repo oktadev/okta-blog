@@ -5,7 +5,7 @@ author: micah-silverman
 by: advocate
 communities: [security]
 description: "Learn how to alter OpenID Connect tokens in-flight using hooks."
-tags: [ oauth, security, oidc, spring boot, spring security, webhooks, hooks ]
+tags: [oauth, security, oidc, spring-boot, spring-security, webhooks, hooks]
 tweets:
 - "Want in-flight updates to your OpenID Connect tokens without losing security? Check out Okta Token Hooks!"
 - "Want to give your OpenID Connect app super powers? Use Okta Token Hooks."

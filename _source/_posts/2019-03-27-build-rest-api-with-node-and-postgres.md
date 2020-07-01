@@ -5,7 +5,7 @@ author: braden-kelley
 by: contractor
 communities: [javascript]
 description: "A tutorial on building RESTful APIs with Node and Postgres."
-tags: [node, nodejs, postgres, postgresql, api, rest api]
+tags: [node, nodejs, postgres, postgresql, api, rest-api]
 tweets:
 - "Learn to build a RESTful API with @NodeJS and @PostgreSQL!"
 - "Want to build a RESTful API with @NodeJS and @PostgreSQL? Check this out!"

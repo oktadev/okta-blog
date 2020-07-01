@@ -5,7 +5,7 @@ author: andrew-hughes
 by: contractor
 communities: [java, javascript]
 description: "This tutorial shows how to build a CRUD application with Kotlin and React."
-tags: [kotlin, react, spring boot, oauth2, oidc, authentication]
+tags: [kotlin, react, spring-boot, oauth2, oidc, authentication]
 tweets:
 - "This guide shows you how to build @kotlin + @reactjs apps in 2020."
 - "Learn how to leverage the power of @kotlin and @reactjs in this CRUD tutorial. 🚀"

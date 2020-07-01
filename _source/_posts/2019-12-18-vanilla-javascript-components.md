@@ -5,7 +5,7 @@ author: lee-brandt
 by: advocate
 communities: [javascript]
 description: "Build a JavaScript component with plain, vanilla JavaScript."
-tags: [javascript, vanilla javascript, javascript component, vanilla javascript component]
+tags: [javascript, vanilla-javascript, javascript-component, vanilla-javascript-component]
 tweets:
 - "Wanna learn how to make components without a JavaScript framework? Check this out!"
 - "Frameworks? We don't need no stinking frameworks! Build your JavaScript components without them!"

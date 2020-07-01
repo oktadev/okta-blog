@@ -1,0 +1,29 @@
+---
+layout: master
+---
+
+<section class="Blog TagPage is-index">
+
+	<article class="BlogPost">
+		<header class="BlogPost-header">
+			<h1 class="BlogPost-title">
+				Articles tagged <span>{{ page.tag }}</span>
+			</h1>
+		</header>
+	</article>
+
+	{% for post in page.posts %}
+
+		{% capture _post_content %}
+			{% if post.summary %}
+				<p>{{ post.summary | strip_html }}</p>
+			{% else %}
+				<p>{{ post.content | strip_html | truncatewords:75 }}</p>
+			{% endif %}
+			<p><a class="BlogPost-more" href="{{post.url}}">Read more</a></p>
+		{% endcapture %}
+		{% include blog_post.html post_content=_post_content %}
+
+	{% endfor %}
+
+</section>

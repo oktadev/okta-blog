@@ -5,7 +5,7 @@ author: ivan-dwyer
 by: internal-contributor
 communities: [devops]
 description: "An in-depth look at the new Okta Terraform provider."
-tags: [terraform, devops, okta, advanced server access, asa, aws]
+tags: [terraform, devops, okta, advanced-server-access, asa, aws]
 tweets:
 - "Did you know we have a shiny-new @hashicorp Terraform provider? You should check it out!"
 - "Automate your infrastructure as code using our new @hashicorp Terraform provider >:D"

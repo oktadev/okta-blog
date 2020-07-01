@@ -5,7 +5,7 @@ author: andrew-hughes
 by: contractor
 communities: [java]
 description: "This post shows you how to build an GraphQL API with Spring Boot, then lock it down with Spring Security, OAuth 2.0, and Okta."
-tags: [graphql, spring boot, spring security, oauth]
+tags: [graphql, spring-boot, spring-security, oauth]
 tweets:
 - "Learn how to build a secure API with @springboot and @GraphQL →"
 - "Have your heard of GraphQL as an alternative to building REST APIs? This post shows you what it is and how it works with @springboot. It's #bootiful!"

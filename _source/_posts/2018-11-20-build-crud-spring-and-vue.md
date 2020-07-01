@@ -5,7 +5,7 @@ author: andrew-hughes
 by: contractor
 communities: [java, javascript]
 description: "Create a CRUD (create, read, update, and delete) application using Spring Boot and Vue.js."
-tags: [java, spring, spring boot, vue, crud, tutorial]
+tags: [java, spring, spring-boot, vue, crud, tutorial]
 tweets:
 - "Build a Spring Boot + Vue.js app!"
 - "Tutorial - @SpringBoot & @VueJS example application"

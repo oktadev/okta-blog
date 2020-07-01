@@ -5,7 +5,7 @@ author: lee-brandt
 by: advocate
 communities: [javascript]
 description: "Simple example for moving from consuming Higher-Order Components to React Hooks."
-tags: [react, higher-order components, react hooks]
+tags: [react, higher-order-components, react-hooks]
 tweets:
 - "Need to understand the difference between consuming React Hooks and Higher-Order Components in React? Check this out!"
 - "Here's a quick tutorial on changing from consuming Higher-Order Components to Hooks in React!"

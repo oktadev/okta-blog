@@ -5,7 +5,7 @@ author: matt-raible
 by: advocate
 communities: [java, javascript]
 description: "In this guide, you'll learn about new features in Spring Boot 2.1. You'll also learn about Spring Security, its excellent OIDC / OAuth 2.0 support, and how to develop a reactive API with WebFlux."
-tags: [spring boot, spring boot 2, spring framework, spring security, oidc, oauth2, reactive, webflux]
+tags: [spring-boot, spring-boot-2, spring-framework, spring-security, oidc, oauth2, reactive, webflux]
 tweets:
 - "Spring Boot 2.1: Outstanding OIDC, OAuth 2.0, and Reactive API support > "
 - "We 💚 @springboot here at @okta. Learn about its new features and refinements in this handy blog post."

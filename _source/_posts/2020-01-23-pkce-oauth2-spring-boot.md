@@ -5,7 +5,7 @@ author: micah-silverman
 by: advocate
 communities: [java]
 description: "PKCE guards against replay attacks with authorization codes, even for confidential clients."
-tags: [oauth, oauth2, Java, Spring Boot, Spring Security]
+tags: [oauth, oauth2, java, spring-boot, spring-security]
 tweets:
 - "Familiar with OAuth 2.0? Did you know that it's recommended to always use PKCE? It's easy with Okta's Spring Boot Starter!"
 - "Use PKCE for confidential OAuth 2.0 clients with Okta's Spring Boot Starter."

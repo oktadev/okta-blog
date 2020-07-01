@@ -8,7 +8,7 @@ description: "This article explains how to build a Spring REST API, a resource s
 tweets:
 - "Want to build a Spring REST API with OAuth 2.0 with @java? Learn how to build a Resource Server in this handy tutorial!"
 - "Avoid boilerplate! Create a Spring REST API and Resource Server with almost no code!"
-tags: [spring rest, spring rest api, jwt, token auth, token authentication, java, spring boot, oauth2, resource server]
+tags: [spring-rest, spring-rest-api, jwt, token-auth, token-authentication, java, spring-boot, oauth2, resource-server]
 image: blog/featured/okta-java-short-tile-books-mouse.jpg
 type: conversion
 ---

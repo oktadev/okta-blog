@@ -5,7 +5,7 @@ author: heather-downing
 by: advocate
 communities: [.net]
 description: "Why all C# developers should be paying attention to this upgrade release in November 2020."
-tags: [dotnet 5, .net 5, C#, csharp, dotnet, .net, .net core]
+tags: [dotnet-5, dot-net-5, c-sharp, csharp, dotnet, dot-net, dot-net-core]
 tweets:
 - "Let's talk about what's coming for .NET 5, and why it matters ->"
 - "Here are a few reasons .NET 5 should interest every C# developer ->"

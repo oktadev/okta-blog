@@ -5,7 +5,7 @@ author: raphael-do-vale
 by: contractor
 communities: [devops, java]
 description: "Learn how to build and package a microservices architecture with Spring Boot and Spring Cloud in this tutorial."
-tags: [java, spring security, spring boot, spring framework, spring cloud, docker, microservices, eureka]
+tags: [java, spring-security, spring-boot, spring-framework, spring-cloud, docker, microservices, eureka]
 tweets:
   - "Learn how to use Spring Boot with OAuth 2.0, Cloud Config, Eureka and Docker!"
   - "Modern microservice architecture, learn how to create a complete project!"

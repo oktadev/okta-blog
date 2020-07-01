@@ -5,7 +5,7 @@ author: andrew-hughes
 by: contractor
 communities: [java]
 description: "The primary benefits of social login are ease of use and security. It's easier for your users to log into your app if they can use credentials they've already created on a a service they trust."
-tags: [authentication, spring boot, oidc, social login]
+tags: [authentication, spring-boot, oidc, social-login]
 tweets:
 - "Spring Boot + Okta + Social Auth in minutes! →"
 - "Enable Social Auth for you Spring Boot app with Okta"

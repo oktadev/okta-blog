@@ -4,7 +4,7 @@ title: 'OIDC in Action – An OpenID Connect Primer, Part 2 of 3'
 author: micah-silverman
 by: advocate
 communities: [security]
-tags: [oauth, oauth2, oauth2.0, oauth 2.0, OpenID, OpenID Connect, oidc]
+tags: [oauth, oauth2, oauth2-dot-0, oauth-2-dot-0, openid, openid-connect, oidc]
 redirect_from:
   - "/blog/2017-08-01-oidc-primer-part-2"
 type: awareness

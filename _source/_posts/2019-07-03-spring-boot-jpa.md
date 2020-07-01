@@ -5,7 +5,7 @@ author: joy-foster
 by: contractor
 communities: [java]
 description: "Persisting identity information after OpenID Connect login is a powerful way to leverage the standard."
-tags: [java, jpa, spring, spring boot, spring security, security]
+tags: [java, jpa, spring, spring-boot, spring-security, security]
 tweets:
 - "Want to use Spring Boot and MySQL together? This tutorial shows you how!"
 - "Learn how to use Spring Boot + JPA + MySQL to build @java apps with Okta for authentication."

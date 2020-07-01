@@ -5,7 +5,7 @@ author: braden-kelley
 by: contractor
 communities: [javascript]
 description: "Learn how to securely store, update, and display user data in a simple Node / Express app."
-tags: [node, express, oauth, user management]
+tags: [node, express, oauth, user-management]
 tweets:
  - "New blog live! Simple, secure way to store, update, and display user data in your #Node #ExpressJS app."
  - "Ever wonder how to store and work with user data securely in #expressjs? We've got you covered! #node"

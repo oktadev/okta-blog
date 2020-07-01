@@ -5,7 +5,7 @@ author: andrew-hughes
 by: contractor
 communities: [java]
 description: "In this tutorial, you'll secure a Spring Boot app with Spring Security and the PreAuthorize annotation."
-tags: [java, spring, spring boot, spring security, security]
+tags: [java, spring, spring-boot, spring-security, security]
 tweets:
 - "Learn how to use method-based security with @SpringSecurity in this tutorial."
 - "Confused on when to use HttpSecurity vs PreAuthorize with @SpringSecurity, check out this post!"

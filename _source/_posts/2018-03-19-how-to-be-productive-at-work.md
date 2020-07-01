@@ -4,7 +4,7 @@ title: "How to Achieve Massive Productivity at Work"
 author: matt-raible
 by: advocate
 description: "You learn a lot about productivity when you're a remote developer. This post explains how I achieve massive productivity and wow my co-workers with how much I get done."
-tags: [productivity, efficiency, remote, planning, devrel, developer advocate, life, work-life balance]
+tags: [productivity, efficiency, remote, planning, devrel, developer-advocate, life, work-life-balance]
 tweets:
  - "Tips for productivity and happiness at work →"
  - "Developers love to be productive and get stuff done. This post shows how @mraible achieves massive productivity in his role as a Developer Advocate at Okta."

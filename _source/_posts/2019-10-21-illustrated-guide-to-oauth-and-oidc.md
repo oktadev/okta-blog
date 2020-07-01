@@ -5,7 +5,7 @@ author: david-neal
 by: advocate
 communities: [security]
 description: "An illustrated guide to explain OAuth and OpenID Connect!"
-tags: [oauth, oidc, openid connect, security, authorization, authentication]
+tags: [oauth, oidc, openid-connect, security, authorization, authentication]
 tweets:
 - "Want to learn about OAuth and OpenID Connect? Try this entertaining illustrated guide from @reverentgeek! #OAuth #OIDC #SSO #security"
 - "What is OAuth 2.0 and OpenID Connect? Check out this entertaining illustrated guide from @reverentgeek! #OAuth #OIDC #SSO #security"

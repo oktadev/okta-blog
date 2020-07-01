@@ -5,7 +5,7 @@ author: matt-raible
 by: advocate
 communities: [java, mobile]
 description: "This tutorial will show you how to build a Spring Boot API and an Ionic app, and then how to deploy the finished product to your iOS or Android-based mobile device."
-tags: [spring boot, java, pwa, progressive web app, ionic, typescript, ios, android]
+tags: [spring-boot, java, pwa, progressive-web-app, ionic, typescript, ios, android]
 type: conversion
 ---
 

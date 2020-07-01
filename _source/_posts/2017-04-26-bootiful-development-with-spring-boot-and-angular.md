@@ -5,7 +5,7 @@ author: matt-raible
 by: advocate
 communities: [java, javascript]
 description: "This tutorial shows you how to develop a Spring Boot API and an Angular front-end that displays data from it."
-tags: [spring-boot, start.spring.io, java, angular, typescript, angular-cli]
+tags: [spring-boot, start-spring-io, java, angular, typescript, angular-cli]
 tweets:
   - "Want to see how to develop a Spring Boot API and and Angular 5 UI that talks to it? We have a tutorial for that! "
   - "Bootiful Development with Spring Boot and Angular: two beautiful frameworks, working together in harmony ❤️ "

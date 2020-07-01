@@ -5,7 +5,7 @@ author: lindsay-brunner
 by: internal-contributor
 communities: [java]
 description: "This post shares a variety of instructional Spring Boot and Java tutorials for the modern app developer."
-tags: [java, spring boot, spring, jhipster]
+tags: [java, spring-boot, spring, jhipster]
 tweets:
 - "The Java ecosystem is 🔥! Learn how to build and secure your @java and @springboot apps, add a frontend, or build microservices right here!"
 - "Do you ❤️Java, Spring Boot, and learning cool new stuff? We've got you! Check out our round up of @java and @springboot tutorials covering topics like #microservices, app security, and REST vs @graphql."

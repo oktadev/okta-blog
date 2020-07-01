@@ -5,7 +5,7 @@ author: micah-silverman
 by: advocate
 communities: [mobile, security]
 description: "Native and Mobile apps have special requirements for using OAuth 2.0."
-tags: [oauth, oauth2, learning, programming, programming languages, education]
+tags: [oauth, oauth2, learning, programming, programming-languages, education]
 tweets:
 - "Every wonder what the special sauce for auth with native and mobile apps is? (It's OAuth and PKCE)"
 - "Dig into OAuth 2.0 for Native and Mobile Apps."

@@ -5,7 +5,7 @@ author: matt-raible
 by: advocate
 communities: [java, devops]
 description: "This post shows you how to implement continuous integration and deployment (CI/CD) with Jenkins X and Kubernetes on Google Cloud."
-tags: [spring-boot, jenkins x, kubernetes, angular, pwa, ionic, okta java sdk]
+tags: [spring-boot, jenkins-x, kubernetes, angular, pwa, ionic, okta-java-sdk]
 tweets:
 - "Are you running your apps in production with @kubernetesio? If so, you can automate your CI / CD with @jenkinsxio and go even faster!"
 - "Wanna try something new and cool? @jenkinsxio is a way to do CI / CD on Kubernetes with auto-deployment to staging environments. It's pretty slick!"

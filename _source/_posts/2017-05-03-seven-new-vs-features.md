@@ -4,7 +4,7 @@ title: Seven Awesome New Features In Visual Studio 2017
 author: lee-brandt
 by: advocate
 communities: [.net]
-tags: [visual studio, xamarin, javascript, jsx, editor config]
+tags: [visual-studio, xamarin, javascript, jsx, editor-config]
 type: awareness
 ---
 
