@@ -14,17 +14,18 @@ image:
 type: conversion
 ---
 
-**Table of Contents**{: .hide }
-* Table of Contents
-{:toc}
-
-## Introduction
-
 Java is one of the most mature and persistent development languages that exist. Recently it entered into a 6-month release schedule which enabled to deliver more frequent updates to the language.
 One of that changes was the modular system that is available since Java 9.
 
 The Modular system came to address a recurring concern on Java apps: 'how to hide classes from libraries that are not meant to be used outside or just by specific applications?'
-We know that we have the visibility modifiers: public, private, protected and default, but those are not enough to provide external visibility. It is common for a class to live inside a package and be used throughout the library but it may be a class not meant for external use. Therefore it has public visibility but on the other side it shouldn't be available for applications depending on that library. This is the situation in which the Modular System can help.
+We know that we have the visibility modifiers: public, private, protected and default, but those are not enough to provide external visibility. It is common for a class to live inside a package and be used throughout the library, but it may be a class not meant for external use. Therefore, it has public visibility but on the other side it shouldn't be available for applications depending on that library. This is the situation in which the Modular System can help.
+
+
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+
+## Introduction 
 
 On Java 8 and backwards the JDK was a single unit and it was needed to install it entirely even if you were just using a couple JDK classes. So starting on Java 9 there was a huge change on JDK classes so that the entire JDK was modularized. Various modules were created to organize the contents of the JDK, some examples are `java.base`, `java.sql`, `java.xml` and so on. To have an idea there are a total of 60 modules in Java 14 JDK.
 
@@ -36,7 +37,7 @@ On Java 8 and backwards the JDK was a single unit and it was needed to install i
 
 The modularization also enabled the possibility of reducing the Java runtime to include, let's say, just the `java.base` if your application depends just on this module. By using the `jlink` tool, that is bundled with the JDK, you can create a micro runtime  with just the JDK modules you need.
 
-In this article we'll be covering how to develop a simple application with two modules: the `application` module that contains the web-facing classes and the `persistence` module that contains data access layer.
+In this article we'll be covering how to develop a simple application with two modules: the `application` module that contains the web-facing classes and the `persistence` module that contains data access layer. We'll also be using a couple dependencies to illustrate how to use those on a modular application: `spring-boot-starter-data-mongodb` and `okta-spring-boot-starter`
 
 To go through this article you should have at least some basic understanding of Spring Boot, Maven, REST webservices principles and Docker installed.
 
@@ -76,7 +77,7 @@ Let's create this project folder structure manually to better understand how it 
 
 ### How to tie up the three pom.xml files on Maven?
 
-First, let's define the root pom.xml. It will contain the common <parent> indication to `spring-boot-started-parent` and also two entries on <module> section, that are the name of the directories for the modules we are developing. Please note that those are specific to Maven and have nothing to do with the Java modules that we'll be working later on.
+First, let's define the root pom.xml. It will contain the common `<parent>` indication to `spring-boot-started-parent` and two entries on `<module>` section, that are the name of the directories for the modules we are developing. Please note that those are specific to Maven and specify sub-projects and have nothing to do with the Java modules that we'll be working later on.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -227,8 +228,8 @@ public interface BirdRepository extends MongoRepository<Bird, String> {
 }
 ```
 
-At last for the persistence module we need to create a class in a separate package to externalize entity operations (this will be needed later when we add Java modules)
-This class will be stored on `persistence/src/main/java/com/okta/developer/animals/service/BirdPersistence.java`
+At last for the persistence module we'll be creating a service class to expose the persistence operations.
+This class will be stored on `persistence/src/main/java/com/okta/developer/animals/bird/BirdPersistence.java`
 
 ```java
 package com.okta.developer.animals.service;
@@ -322,6 +323,117 @@ public class BirdController {
 
 ```
 
+At this point the application is functional and can be run. First start a mongodb instance using the following docker command:
+```bash
+docker run -p 27017:27017 mongo:3.6-xenial
+```
+Then go to the project root and run:
+```bash
+mvn install && mvn spring-boot:run -pl application
+```
 
+If everything went correctly you'll be able to navigate to `localhost:8080/bird` and see a JSON output.
 
+## Making the application secure
+
+Let's tune our app and make it secure so we start depending on another external library before moving on to adding Java modules.
+
+Add the following dependency to your `application/pom.xml` file:
+```xml
+<dependency>
+    <groupId>com.okta.spring</groupId>
+    <artifactId>okta-spring-boot-starter</artifactId>
+    <version>1.3.0</version>
+</dependency>
+```
+
+### Register an application on Okta
+
+To begin, sign up for a [forever-free Okta developer account](https://developer.okta.com/signup/).
+
+Once you're signed in to Okta, register your client application.
+
+* In the top menu, click on **Applications**
+* Click on **Add Application**
+* Select **Web** and click **Next**
+* Enter `Spring Boot with Java Modules` for the **Name** (this value doesn't matter, so feel free to change it)
+* Change the Login redirect URI to be `http://localhost:8080/login/oauth2/code/okta`
+* Click **Done**
+
+### Configure the app with Okta information
+
+Create a file `application/src/main/resources/application.properties` with the following content:
+
+```
+okta.oauth2.issuer=https://{orgUrl}/oauth2/default
+okta.oauth2.clientId={clientId}
+okta.oauth2.clientSecret={clientSecret} 
+```
+
+You can find {clientId} and {clientSecret} in your application setup:  
+
+{% img blog/spring-boot-with-modules/okta-app.png alt:"Okta app setup" width:"800" %}{: .center-image }
+
+The {orgUrl} you can find on Okta dashboard:  
+
+{% img blog/spring-boot-with-modules/org-url.png alt:"Org Url" width:"800" %}{: .center-image }
+
+Now if you navigate to `localhost:8080/bird` you'll get a login page appearing.
+
+## Using Java modules
+
+Now it is time to modularize the app. This is achieved by placing a file `module-info.java` on source root for each module. We'll be doing this for our two modules `application` and `persistence`. There are two ways to modularize a Java app: top-down and bottom-up. In this tutorial we'll be showing the bottom-up approach, that is modularizing the libraries before the app.
+
+### Modularize `persistence` library
+
+Create a module declaration file `persistence/src/main/java/module-info.java` with the following content:
+
+```java
+module com.okta.developer.modules.persistence {
+
+    requires java.annotation;
+    requires spring.beans;
+    requires spring.context;
+    requires spring.data.commons;
+    requires spring.data.mongodb;
+
+}
+```
+
+Each `requires` keyword signalize that this module will be depending on some other module.
+Spring, on version 5, is not modularized yet so its JAR files doesn't have the `module-info.java`. 
+When you have a dependency on the `modulepath` (former classpath for non modular applications) like this they will be available as `automatic modules`.
+
+An `automatic module` gets its name from the property `Automatic-Module-Name` inside `MANIFEST.MF` or from the filename itself if that is absent.
+
+On Spring 5 the team was nice enough to at least put the `Automatic-Module-Name` for all the libraries. So those are the names we are using on our persistence app dependencies: `spring.beans`, `spring.context`, `spring.data.commons`, `spring.data.mongodb`.
+
+That is enough to cover all the classes being used on this module.
+
+### Modularize `application` app
+
+Create a module declaration file `persistence/src/main/java/module-info.java` with the following content:
+
+```java
+module spring.boot.with.modules.app {
+
+    requires spring.boot.with.modules.persistence;
+
+    requires spring.web;
+    requires spring.boot;
+    requires spring.boot.autoconfigure;
+
+}
+```
+
+Looks similar to the first one, but besides the Spring dependencies we also have the `spring.boot.with.modules.persistence` dependency. That is the other module we have developed.
+
+## Running the app
+
+Go to the project root and run 
+```bash
+mvn install && mvn spring-boot:run -pl application
+```
+
+Again, if everything went correctly you'll be able to navigate to `localhost:8080/bird` and see a JSON output.
 
