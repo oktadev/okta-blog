@@ -57,22 +57,14 @@ Let's create this project folder structure manually to better understand how it 
 ├── application
 │   ├── pom.xml
 │   └── src
-│       ├── main
-│       │   ├── java
-│       │   └── resources
-│       └── test
+│       └── main
 │           ├── java
 │           └── resources
 ├── persistence
-│   ├── pom.xml
 │   └── src
-│       ├── main
-│       │   ├── java
-│       │   └── resources
-│       └── test
-│           ├── java
-│           └── resources
-├── pom.xml
+│       └── main
+│           └── java
+└── pom.xml
 ```
 
 ### How to tie up the three pom.xml files on Maven?
@@ -96,7 +88,7 @@ First, let's define the root pom.xml. It will contain the common `<parent>` indi
     <packaging>pom</packaging>
 
     <properties>
-    	<java.version>9</java.version>
+    	<java.version>11</java.version>
     </properties>
 
     <modules>
@@ -118,21 +110,29 @@ The `application` module will have a pom.xml like below, pointing to the parent 
         <groupId>com.okta.developer</groupId>
         <artifactId>spring-boot-with-modules</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <artifactId>spring-boot-with-modules-app</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
 
     <dependencies>
-    	<dependency>
-    		<groupId>org.springframework.boot</groupId>
-    		<artifactId>spring-boot-starter-web</artifactId>
-    	</dependency>
-    	<dependency>
-    		<groupId>com.okta</groupId>
-    		<artifactId>spring-boot-with-modules-persistence</artifactId>
-    	</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.okta.developer</groupId>
+            <artifactId>spring-boot-with-modules-persistence</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
 ```
@@ -145,25 +145,23 @@ At last we have the `persistence` module which will have a pom.xml like the one 
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>ocom.okta.developer</groupId>
+        <groupId>com.okta.developer</groupId>
         <artifactId>spring-boot-with-modules</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <artifactId>spring-boot-with-modules-persistence</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
 
     <dependencies>
-    	<dependency>
-    		<groupId>org.springframework.boot</groupId>
-    		<artifactId>spring-boot-data-mongo</artifactId>
-    	</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
 ```
 
-This project structure should be compiling fine if you go to the project root and execute `mvn verify`. Please note that Maven uses the JDK defined by the environment variable JAVA_HOME. So please use JAVA_HOME poiting to a Java 9+ JDK.
+This project structure should be compiling fine if you go to the project root and execute `mvn compile`. Please note that Maven uses the JDK defined by the environment variable JAVA_HOME. So please use JAVA_HOME poiting to a Java 9+ JDK.
 
 Please don't confuse Maven modules with Java Modules. Maven modules are just a separation into sub-projects. 
 
@@ -232,13 +230,12 @@ At last for the persistence module we'll be creating a service class to expose t
 This class will be stored on `persistence/src/main/java/com/okta/developer/animals/bird/BirdPersistence.java`
 
 ```java
-package com.okta.developer.animals.service;
+package com.okta.developer.animals.bird;
 
-import com.okta.developer.animals.bird.Bird;
-import com.okta.developer.animals.bird.BirdRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Component
@@ -249,6 +246,14 @@ public class BirdPersistence {
     @Autowired
     public BirdPersistence(BirdRepository birdRepository) {
         this.birdRepository = birdRepository;
+    }
+
+    @PostConstruct
+    void postConstruct(){
+        Bird sampleBird = new Bird();
+        sampleBird.setSpecie("Hummingbird");
+        sampleBird.setSize("small");
+        save(sampleBird);
     }
 
     public void save(Bird bird) {
@@ -292,7 +297,7 @@ This class will be stored on `application/src/main/java/com/okta/developer/BirdC
 package com.okta.developer;
 
 import com.okta.developer.animals.bird.Bird;
-import com.okta.developer.animals.service.BirdPersistence;
+import com.okta.developer.animals.bird.BirdPersistence;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -332,7 +337,10 @@ Then go to the project root and run:
 mvn install && mvn spring-boot:run -pl application
 ```
 
-If everything went correctly you'll be able to navigate to `localhost:8080/bird` and see a JSON output.
+If everything went correctly you'll be able to navigate to `localhost:8080/bird` and see a JSON output like the following:
+```json
+[{"id":"5f03ff7277a08a55ae73c8b9","specie":"Hummingbird","size":"small"}]
+```
 
 ## Making the application secure
 
@@ -378,7 +386,7 @@ The {orgUrl} you can find on Okta dashboard:
 
 {% img blog/spring-boot-with-modules/org-url.png alt:"Org Url" width:"800" %}{: .center-image }
 
-Now if you navigate to `localhost:8080/bird` you'll get a login page appearing.
+Now if you restart the app and navigate to `localhost:8080/bird` you'll get a login page appearing.
 
 ## Using Java modules
 
@@ -397,6 +405,8 @@ module com.okta.developer.modules.persistence {
     requires spring.data.commons;
     requires spring.data.mongodb;
 
+    exports com.okta.developer.animals.bird;
+
 }
 ```
 
@@ -406,18 +416,18 @@ When you have a dependency on the `modulepath` (former classpath for non modular
 
 An `automatic module` gets its name from the property `Automatic-Module-Name` inside `MANIFEST.MF` or from the filename itself if that is absent.
 
-On Spring 5 the team was nice enough to at least put the `Automatic-Module-Name` for all the libraries. So those are the names we are using on our persistence app dependencies: `spring.beans`, `spring.context`, `spring.data.commons`, `spring.data.mongodb`.
+On Spring 5 the team was nice enough to put the `Automatic-Module-Name` for all the libraries. So those are the names used on our persistence app dependencies: `spring.beans`, `spring.context`, `spring.data.commons`, `spring.data.mongodb`.
 
-That is enough to cover all the classes being used on this module.
+The `exports` keyword means that all classes on that package will be available for modules that uses this one.
 
 ### Modularize `application` app
 
-Create a module declaration file `persistence/src/main/java/module-info.java` with the following content:
+Create a module declaration file `application/src/main/java/module-info.java` with the following content:
 
 ```java
-module spring.boot.with.modules.app {
+module com.okta.developer.modules.app {
 
-    requires spring.boot.with.modules.persistence;
+    requires com.okta.developer.modules.persistence;
 
     requires spring.web;
     requires spring.boot;
@@ -426,7 +436,7 @@ module spring.boot.with.modules.app {
 }
 ```
 
-Looks similar to the first one, but besides the Spring dependencies we also have the `spring.boot.with.modules.persistence` dependency. That is the other module we have developed.
+This one is similar to the first one but besides the Spring dependencies we also have the `com.okta.developer.modules.persistence` dependency. That is the other module we have developed.
 
 ## Running the app
 
@@ -435,5 +445,5 @@ Go to the project root and run
 mvn install && mvn spring-boot:run -pl application
 ```
 
-Again, if everything went correctly you'll be able to navigate to `localhost:8080/bird` and see a JSON output.
+Again, if everything went correctly you'll be able, after logging in, to navigate to `localhost:8080/bird` and see a JSON output.
 
