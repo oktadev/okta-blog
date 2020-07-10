@@ -17,13 +17,13 @@ type: conversion
 Java is one of the most mature and persistent development languages that exist. Recently it entered into a 6-month release schedule which enabled to deliver more frequent updates to the language.
 One of those changes was the modular system that is available since Java 9.
 
-The Modular system adds two fundamental capabilities when building Java apps:
+The Java Platform Module System (JPMS) system adds two fundamental capabilities when building Java apps:
 - **Reliable configuration** - to replace the brittle, error-prone class-path mechanism with a means for program components to declare explicit dependences upon one another, along with
 - **Strong encapsulation** - to allow a component to declare which of its public types are accessible to other components, and which are not.
 
 Packages may be grouped into modules that serve as building blocks in the construction of very large programs. The declaration of a module specifies which other modules (and thus packages, and thus classes and interfaces) are required to compile and run code.
 
-We know that we have the visibility modifiers: public, private, protected, and default, but those are not enough to provide external visibility. It is common for a class to live inside a package and be used throughout the library, but it may be a class not meant for external use. Therefore, it has public visibility but on the other side, it shouldn't be available for applications depending on that library. This is the situation in which the Java Platform Module System (JPMS) can help.
+We know that we have the visibility modifiers: public, private, protected, and default, but those are not enough to provide external visibility. It is common for a class to live inside a package and be used throughout the library, but it may be a class not meant for external use. Therefore, it has public visibility but on the other side, it shouldn't be available for applications depending on that library. This is the situation in which the JPMS can help.
 
 
 **Table of Contents**{: .hide }
