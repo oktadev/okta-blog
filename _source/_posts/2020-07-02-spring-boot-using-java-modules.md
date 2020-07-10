@@ -17,8 +17,13 @@ type: conversion
 Java is one of the most mature and persistent development languages that exist. Recently it entered into a 6-month release schedule which enabled to deliver more frequent updates to the language.
 One of those changes was the modular system that is available since Java 9.
 
-The Modular system came to address a recurring concern on Java apps: 'how to hide classes from libraries that are not meant to be used outside or just by specific applications?'
-We know that we have the visibility modifiers: public, private, protected and default, but those are not enough to provide external visibility. It is common for a class to live inside a package and be used throughout the library, but it may be a class not meant for external use. Therefore, it has public visibility but on the other side, it shouldn't be available for applications depending on that library. This is the situation in which the Modular System can help.
+The Modular system adds two fundamental capabilities when building Java apps:
+- **Reliable configuration** - to replace the brittle, error-prone class-path mechanism with a means for program components to declare explicit dependences upon one another, along with
+- **Strong encapsulation** - to allow a component to declare which of its public types are accessible to other components, and which are not.
+
+Packages may be grouped into modules that serve as building blocks in the construction of very large programs. The declaration of a module specifies which other modules (and thus packages, and thus classes and interfaces) are required to compile and run code.
+
+We know that we have the visibility modifiers: public, private, protected, and default, but those are not enough to provide external visibility. It is common for a class to live inside a package and be used throughout the library, but it may be a class not meant for external use. Therefore, it has public visibility but on the other side, it shouldn't be available for applications depending on that library. This is the situation in which the Java Platform Module System (JPMS) can help.
 
 
 **Table of Contents**{: .hide }
@@ -27,11 +32,11 @@ We know that we have the visibility modifiers: public, private, protected and de
 
 ## Introduction 
 
-Starting on Java 9 the JDK went under a major refactoring to modularize its content. Various modules were created to organize the contents, some examples are `java.base`, `java.sql`, `java.xml` and others. To have an idea there are a total of 60 modules in Java 14 JDK.
+Starting on Java 9 the JDK went under a major refactoring to modularize its content. Various modules were created to organize the contents, some examples are `java.base`, `java.sql`, `java.xml`, and others. To have an idea there are a total of 60 modules in Java 14 JDK.
 
 `java.base` has the fundamental classes like `Object`, `String`, `Integer`, `Double`, etc
 
-`java.sql` has classes related to accessing the JDBC API like `ResultSet` , `Connection` and others
+`java.sql` has classes related to accessing the JDBC API like `ResultSet`, `Connection` and others
 
 `java.xml` has classes related to XML manipulation like `XMLStreamReader`, `XMLStreamWriter` and others 
 
@@ -100,7 +105,31 @@ First, let's define the root `pom.xml`. It will contain the common `<parent>` in
 </project>
 ```
 
-The `application` module will have a pom.xml like below, pointing to the parent pom.xml that was described above. It will also have a dependency on `spring-boot-starter-web` because we'll be creating some REST endpoints on it and also a dependency on our 'persistence' module that will be described next.
+The `persistence` module which will have a `pom.xml` like the one below, also pointing to the parent `pom.xml` that was first defined. This one will have a dependency on `spring-data-mongo` as we'll be saving our data to a Mongo DB.
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.okta.developer</groupId>
+        <artifactId>spring-boot-with-modules</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <artifactId>spring-boot-with-modules-persistence</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>
+```
+
+At last, the `application` module will have a `pom.xml` like below, pointing to the parent `pom.xml` that was described above. It will also have a dependency on `spring-boot-starter-web` because we'll be creating some REST endpoints on it and a dependency on our 'persistence' module that will be described next.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -138,31 +167,7 @@ The `application` module will have a pom.xml like below, pointing to the parent 
 </project>
 ```
 
-At last, we have the `persistence` module which will have a `pom.xml` like the one below, also pointing to the parent pom.xml that was first defined. This one will have a dependency on `spring-data-mongo` as we'll be saving our data to a Mongo DB.
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>com.okta.developer</groupId>
-        <artifactId>spring-boot-with-modules</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
-    </parent>
-    <artifactId>spring-boot-with-modules-persistence</artifactId>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-mongodb</artifactId>
-        </dependency>
-    </dependencies>
-
-</project>
-```
-
-This project structure is enough for compiling if you go to the project root and run `mvn compile`. 
+To compile the project run `mvn compile` from the project root.
 
 **NOTE:** Please don't confuse Maven modules with Java Modules. 
 
@@ -390,7 +395,7 @@ The {yourOktaDomain} you can find on Okta dashboard:
 
 {% img blog/spring-boot-with-modules/org-url.png alt:"Okta Domain" width:"800" %}{: .center-image }
 
-Now if you restart the app and navigate to `http://localhost:8080/bird` you'll get a login page appearing.
+Now if you restart the app and navigate to `http://localhost:8080/bird` in an incognito/private browser window you'll get a login page appearing.
 
 ## Using Java Modules
 
@@ -415,13 +420,16 @@ module com.okta.developer.modules.persistence {
 
 Each `requires` keyword signalize that this module will be depending on some other module.
 Spring, on version 5, is not modularized yet so its JAR files don't have the `module-info.java`. 
-When you have a dependency on the `modulepath` (former classpath for non-modular applications) like this they will be available as `automatic modules`.
+When you have a dependency on the `modulepath` (formerly the classpath for non-modular applications) like this they will be available as `automatic modules`.
 
-An `automatic module` gets its name from the property `Automatic-Module-Name` inside `MANIFEST.MF` or from the `JAR` filename itself if that is absent.
+An `automatic module` derives its name using a two-step process:
+- if the JAR defines the `Automatic-Module-Name` header in its `MANIFEST.MF, then that property defines the module's name
+- otherwise, the JAR file name is used to determine the name
+The second approach is intrinsically unstable, so no modules with a dependency on such an automatic module should be published. 
 
-On Spring 5 the team was nice enough to put the `Automatic-Module-Name` for all the libraries. So those are the names used on our persistence app dependencies: `spring.beans`, `spring.context`, `spring.data.commons`, `spring.data.mongodb`.
+On Spring 5 the team was nice enough to put the `Automatic-Module-Name` for all the libraries. So those are the names used on our persistence app dependencies declared on its `module-info.java`: `spring.beans`, `spring.context`, `spring.data.commons`, `spring.data.mongodb`.
 
-The `exports` keyword exports all classes in the package. When another module uses a `requires` clause referencing this one it will have access to those classes. 
+The `exports` keyword exports all classes in that package. When another module uses a `requires` clause referencing that package it will have access to the package classes. 
 
 In this example, the module is exporting all classes under `com.okta.developer.animals.bird` package.
 
@@ -456,10 +464,10 @@ Again, if everything went correctly you'll be able, after logging in, to navigat
 
 ## Learning More About Java Modular System 
 
-The Java Modular System is an excellent addition to the Java ecosystem, it helps organize and isolate classes that were otherwise exposed without need. By looking at the application `module-info.java` it is possible to have a blueprint of its dependencies. 
+The Java Modular System is an excellent addition to the Java ecosystem, it helps organize and isolate classes that were otherwise exposed without need. By looking at the application `module-info.java` it is possible to have a blueprint of the application dependencies. 
 
 The topic is broad and if you want to learn more this [talk by Alex Buckley](https://www.youtube.com/watch?v=22OW5t_Mbnk) is an excellent start. 
 
-In case you have an existing Spring Boot application and want to make it use the modular system then this [talk by Jaap Coomans](https://www.youtube.com/watch?v=hxsCYxZ1gXU) covers it nicely.
+In case you have an existing Spring Boot application and want to make it use the modular system then this other [talk by Jaap Coomans](https://www.youtube.com/watch?v=hxsCYxZ1gXU) covers it nicely.
 
 If you have any questions about this post, please add a comment below. For more awesome content, follow @oktadev on Twitter, like us on Facebook, or subscribe to our YouTube channel.
