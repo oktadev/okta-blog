@@ -260,6 +260,7 @@ public class BirdPersistence {
 
     @PostConstruct
     void postConstruct(){
+        birdRepository.deleteAll(); //Clean up DB so there is no leftover data between runs
         Bird sampleBird = new Bird();
         sampleBird.setSpecie("Hummingbird");
         sampleBird.setSize("small");
