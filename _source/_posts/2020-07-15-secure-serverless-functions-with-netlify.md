@@ -30,7 +30,7 @@ To complete this tutorial, you need the following.
 
 * [Node.js](https://nodejs.org/) version 12 or higher
 * A free [Netlify account](https://app.netlify.com/signup)
-* A free [Okta developer account](https://developer.okta.com/signup/)
+* A free [Okta developer account](/signup/)
 * A good code editor, such as [Visual Studio Code](https://code.visualstudio.com/)
 
 ## Create Your Serverless Project
@@ -78,7 +78,7 @@ Open your project in your editor of choice. The next step is to add a couple of 
 
 Adding security, such as account registration, logins, password policies, and profile management, to any application is no trivial task. And getting any part of it wrong can have awful consequences for you and your customers. That's where a service like Okta makes your life as a developer so much easier!
 
-To complete the next steps, you must create a free Okta developer account. Go to [developer.okta.com](https://developer.okta.com/) and click the [Sign Up](https://developer.okta.com/signup/) button. Or, click **Login** if you already have an account.
+To complete the next steps, you must create a free Okta developer account. Go to [Okta Developer homepage](/) and click the [Sign Up](/signup/) button. Or, click **Login** if you already have an account.
 
 {% img blog/secure-serverless-functions-with-netlify/okta-00-sign-up.jpg alt:"Okta Sign Up" width:"800" %}{: .center-image }
 
@@ -546,9 +546,9 @@ Go to the Netlify dashboard and click on the **Deploys** menu. You can watch the
 
 I hope you've enjoyed learning about creating secure serverless functions with Netlify and Okta as much as I have! Here are some other great posts that may interest you.
 
-* [Build a Secure Blog with Gatsby, React, and Netlify](https://developer.okta.com/blog/2020/02/18/gatsby-react-netlify)
-* [How to Configure Better Web Site Security with Cloudflare and Netlify](https://developer.okta.com/blog/2019/04/11/site-security-cloudflare-netlify)
-* [An Illustrated Guide to OAuth and OpenID Connect](https://developer.okta.com/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc)
-* [Stop Writing Server-Based Web Apps](https://developer.okta.com/blog/2020/03/06/stop-writing-server-based-web-apps)
+* [Build a Secure Blog with Gatsby, React, and Netlify](/blog/2020/02/18/gatsby-react-netlify)
+* [How to Configure Better Web Site Security with Cloudflare and Netlify](/blog/2019/04/11/site-security-cloudflare-netlify)
+* [An Illustrated Guide to OAuth and OpenID Connect](/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc)
+* [Stop Writing Server-Based Web Apps](/blog/2020/03/06/stop-writing-server-based-web-apps)
 
 If you liked this blog post and want to see more like it, follow [@oktadev](https://twitter.com/oktadev) on Twitter, subscribe to the [OktaDev YouTube channel](https://youtube.com/c/oktadev), or follow [OktaDev on LinkedIn](https://www.linkedin.com/company/oktadev/)!
