@@ -7,9 +7,9 @@ communities: [devops,javascript]
 description: "Learn to build and deploy secure serverless functions using Node.js, JavaScript, and Netlify!"
 tags: [nodejs,serverless,lambda,faas,javascript,parcel,netlify]
 tweets:
-- ""
-- ""
-- ""
+- "Learn to build and deploy serverless functions with JavaScript and @Netlify! #nodejs #javascript #netlify #serverless"
+- "Learn to build and deploy a secure serverless function with @Netlify and Okta! #nodejs #javascript #netlify #serverless"
+- "This step-by-step tutorial walks you through building and deploying a secure serverless function using @Netlify! #nodejs #javascript #netlify #serverless"
 image: blog/secure-serverless-functions-with-netlify/build-and-deploy-secure-serverless-functions-with-netlify.jpg
 type: conversion
 ---
