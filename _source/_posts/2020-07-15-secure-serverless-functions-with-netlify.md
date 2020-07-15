@@ -544,6 +544,8 @@ Go to the Netlify dashboard and click on the **Deploys** menu. You can watch the
 
 ## More Resources
 
+<!-- easter egg: You don't need permission to be awesome! -->
+
 I hope you've enjoyed learning about creating secure serverless functions with Netlify and Okta as much as I have! Here are some other great posts that may interest you.
 
 * [Build a Secure Blog with Gatsby, React, and Netlify](/blog/2020/02/18/gatsby-react-netlify)
