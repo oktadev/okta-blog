@@ -127,9 +127,10 @@ This post walked you through using Okta Event Hooks to automatically push user p
 
 With Event Hooks, calls are asynchronous, so you can add them without disrupting the process flow of the triggering event. However, if you would prefer a synchronous hook, that will pause a process until a response is received, I'd recommend reviewing [Okta's Inline Hooks](https://developer.okta.com/docs/concepts/inline-hooks/) capabilities.
 If you'd like to learn more about Okta Hooks or you're interested in learning how you can add Okta authentication to your Node.js application, these posts are helpful:
-[Use Okta Token Hooks to Supercharge OpenID Connect](https://developer.okta.com/blog/2019/12/23/extend-oidc-okta-token-hooks) 
-[Node.js Login with Express and OIDC](https://developer.okta.com/blog/2020/06/16/nodejs-login)
-[Painless Node.js Authentication](https://developer.okta.com/blog/2019/10/03/painless-node-authentication)
+
+* [Use Okta Token Hooks to Supercharge OpenID Connect](https://developer.okta.com/blog/2019/12/23/extend-oidc-okta-token-hooks) 
+* [Node.js Login with Express and OIDC](https://developer.okta.com/blog/2020/06/16/nodejs-login)
+* [Painless Node.js Authentication](https://developer.okta.com/blog/2019/10/03/painless-node-authentication)
 
 If you like this content, be sure to follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube Channel](https://youtube.com/c/oktadev) for updates on new posts and videos.
 
