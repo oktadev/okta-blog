@@ -14,29 +14,29 @@ image: blog/featured/okta-node-skew.jpg
 type: awareness
 ---
  
-Okta is an identity platform focused on making authentication easy to build with minimal code, and you’ll often hear us say that by using Okta you’ll never have to build authentication again.
+Okta is an identity platform focused on making authentication easy to build with minimal code, and you'll often hear us say that by using Okta you'll never have to build authentication again.
  
-A lot of companies benefit from using our platform, which allows them to easily prompt for multi-factor authentication (MFA) based on contextual policies, offer self-service password resets and registration, and of course authentication, including federation to enterprise identity providers and social media accounts. (If you’re interested in learning more, we have a ton of resources, including quick start guides in several languages on our [developer site](https://developer.okta.com/docs/).)
+A lot of companies benefit from using our platform, which allows them to easily prompt for multi-factor authentication (MFA) based on contextual policies, offer self-service password resets and registration, and of course authentication, including federation to enterprise identity providers and social media accounts. (If you're interested in learning more, we have a ton of resources, including quick start guides in several languages on our [developer site](https://developer.okta.com/docs/).)
 
 When it comes to authentication flows, you may want to trigger secondary steps after particular events in Okta, including generating tickers, sending an email, or initating some process in a user lifecycle flow. 
  
 Syncing Okta user updates to additional user stores is a common requirement. The good news is, this is easy to do with Okta Event Hooks. Whether the system requiring an update is a third-party CRM tool or a company-maintained database, Okta Event Hooks give you the option to push user information updates every time an account or profile is created, updated, or deleted.
  
-The following guide will show you in less than 15 minutes how to create and use an event hook to add a user to a database after they’re created in Okta.
+The following guide will show you in less than 15 minutes how to create and use an event hook to add a user to a database after they're created in Okta.
  
-But first let’s address a few key questions you may be wondering.
+But first let's address a few key questions you may be wondering.
 
 ## What Are Event Hooks?
  
-If you're familiar with webhooks, then you’ll recognize event hooks as similar in functionality, but with a specific tie to events that occur in Okta. Essentially, Okta Event Hooks are outbound calls from Okta that extend the steps and/or functionality of selected Okta events..
+If you're familiar with webhooks, then you'll recognize event hooks as similar in functionality, but with a specific tie to events that occur in Okta. Essentially, Okta Event Hooks are outbound calls from Okta that extend the steps and/or functionality of selected Okta events..
  
 The calls take the form of HTTPS REST calls that pass a JSON object containing event information to a URL that you specify, kicking off a process flow in a codebase you maintain and host.
  
-Event hooks require a web service with an internet-accessible endpoint.In this example we’ll use Glitch, a simple to use app-hosting platform to both host and run our custom process flow. If you’re interested in learning more, review our (Event Hooks Page)[https://developer.okta.com/docs/concepts/event-hooks/], which also includes a [list of eligible event hook triggers](https://developer.okta.com/docs/reference/api/event-types/?q=event-hook-eligible).
+Event hooks require a web service with an internet-accessible endpoint.In this example we'll use Glitch, a simple to use app-hosting platform to both host and run our custom process flow. If you're interested in learning more, review our (Event Hooks Page)[https://developer.okta.com/docs/concepts/event-hooks/], which also includes a [list of eligible event hook triggers](https://developer.okta.com/docs/reference/api/event-types/?q=event-hook-eligible).
  
-OK,let’s get started.
+OK,let's get started.
  
-All the code is already written for you, all you have to do is copy the application I created, create an event hook and API token, and you’re ready for testing. I’m using Node.js, but if a different language is preferred you can simply convert the steps I’m using to the language of your choice.
+All the code is already written for you, all you have to do is copy the application I created, create an event hook and API token, and you're ready for testing. I'm using Node.js, but if a different language is preferred you can simply convert the steps I'm using to the language of your choice.
 
 ## Using Event Hooks in Okta
 
@@ -44,7 +44,7 @@ All the code is already written for you, all you have to do is copy the applicat
 
 {% img blog/easy-user-sync-hooks/glitch-remix.png alt:"remix" width:"773" %}{: .center-image }
 
-Remixing will create a name and URL that you’ll be able to use for testing. For example:
+Remixing will create a name and URL that you'll be able to use for testing. For example:
 Glitch app name: exclusive-peppermint-neighborhood
 Glitch app URL: https://exclusive-peppermint-neighborhood.glitch.me/getUsers
 
@@ -56,7 +56,7 @@ Add `/getUsers` to your URL and you should see the following JSON output for Tes
 
 **Create Event Hook in Okta**
 
-We will point the event hook to the `/userTransfer` endpoint, as I’ve created a POST Request to receive the data from Okta, send a response, and initiate the database insert process.
+We will point the event hook to the `/userTransfer` endpoint, as I've created a POST Request to receive the data from Okta, send a response, and initiate the database insert process.
 
 ```javascript
 app.post("/userTransfer", (request, response) => {
@@ -69,7 +69,7 @@ app.post("/userTransfer", (request, response) => {
 
 In your Okta tenant, navigate to **Workflow > Event Hooks** in the Admin Portal and select Create Event Hook.
 
-Give the hook a name and enter your Glitch base url + `/userTransfer` as the URL. For **Subscribe to events**, select **User created** from the dropdown as that’s what we’ll be using for this example and select **Save & continue**. If you require a hook for a different event, you can review available options in our [Event Hooks Catalog](https://developer.okta.com/docs/reference/api/event-types/?q=event-hook-eligible).  
+Give the hook a name and enter your Glitch base url + `/userTransfer` as the URL. For **Subscribe to events**, select **User created** from the dropdown as that's what we'll be using for this example and select **Save & continue**. If you require a hook for a different event, you can review available options in our [Event Hooks Catalog](https://developer.okta.com/docs/reference/api/event-types/?q=event-hook-eligible).  
 
 {% img blog/easy-user-sync-hooks/event-hook-create.png alt:"create event hook" width:"773" %}{: .center-image }
 
@@ -95,7 +95,7 @@ Okta will automatically prompt you for verification upon saving. Since the code 
 
 For event hooks, Okta will send the [Log Event Object](https://developer.okta.com/docs/reference/api/system-log/#logevent-object), which includes transactional information, including base information (first name, last name, email) about the user being created (the event log target). 
 
-If more additional information is needed about the user, we’ll need to request it from Okta. In this example, we’re going to use an API key for simplicity; however, in a production environment, you may want to consider setting up a [Client Credential Flow Application](https://developer.okta.com/docs/guides/implement-client-creds/overview/) with the **okta.users.read** grant enabled. 
+If more additional information is needed about the user, we'll need to request it from Okta. In this example, we're going to use an API key for simplicity; however, in a production environment, you may want to consider setting up a [Client Credential Flow Application](https://developer.okta.com/docs/guides/implement-client-creds/overview/) with the **okta.users.read** grant enabled. 
 
 To create the API token, navigate to **Security > API  > Tokens**, and  select **Create Token**.
 
@@ -111,7 +111,7 @@ Return to your Glitch app and select the .env file. You will see two variable fi
 
 Now everything should be enabled for testing. You can create a user manually in the admin portal, using [Self-Service Registration](https://developer.okta.com/blog/2018/02/06/build-user-registration-with-node-react-and-okta) (if enabled on your tenant) or by using the [Create User API Requests](https://developer.okta.com/docs/reference/api/users/#create-user).
 
-In this example, we’ll create a user using the Create User Without Credentials Request from our [Okta Postman Environment](https://developer.okta.com/code/rest/). My user will have the following values, but you may create yours with whatever values you prefer.
+In this example, we'll create a user using the Create User Without Credentials Request from our [Okta Postman Environment](https://developer.okta.com/code/rest/). My user will have the following values, but you may create yours with whatever values you prefer.
 
 {% img blog/easy-user-sync-hooks/postman.png alt:"postman" width:"773" %}{: .center-image }
 
@@ -119,14 +119,14 @@ If the API request is successful (indicated by a 200 response), return to your G
  
 {% img blog/easy-user-sync-hooks/get-users-2.png alt:"get users" width:"773" %}{: .center-image }
 
-That’s it! You’ve successfully used Okta Event Hooks and synced your user’s Okta cloud profile to a SQLite database. 
+That's it! You've successfully used Okta Event Hooks and synced your user's Okta cloud profile to a SQLite database. 
 
 ## Continue Developing with Okta and Event Hooks
 
 This post walked you through using Okta Event Hooks to automatically push user profiles to a third party user store (like a database) at the time of user creation. However, following this step-by-step guide of creating, verifying and testing Okta Event Hooks you could build out extended capabilities for any of the [eligible event hook triggers](https://developer.okta.com/docs/reference/api/event-types/?q=event-hook-eligible) to include additional processes required for your application.
 
-With Event Hooks, calls are asynchronous, so you can add them without disrupting the process flow of the triggering event. However, if you would prefer a synchronous hook, that will pause a process until a response is received, I’d recommend reviewing [Okta’s Inline Hooks](https://developer.okta.com/docs/concepts/inline-hooks/) capabilities.
-If you’d like to learn more about Okta Hooks or you’re interested in learning how you can add Okta authentication to your Node.js application, these posts are helpful:
+With Event Hooks, calls are asynchronous, so you can add them without disrupting the process flow of the triggering event. However, if you would prefer a synchronous hook, that will pause a process until a response is received, I'd recommend reviewing [Okta's Inline Hooks](https://developer.okta.com/docs/concepts/inline-hooks/) capabilities.
+If you'd like to learn more about Okta Hooks or you're interested in learning how you can add Okta authentication to your Node.js application, these posts are helpful:
 [Use Okta Token Hooks to Supercharge OpenID Connect](https://developer.okta.com/blog/2019/12/23/extend-oidc-okta-token-hooks) 
 [Node.js Login with Express and OIDC](https://developer.okta.com/blog/2020/06/16/nodejs-login)
 [Painless Node.js Authentication](https://developer.okta.com/blog/2019/10/03/painless-node-authentication)
