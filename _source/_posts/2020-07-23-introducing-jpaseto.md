@@ -72,7 +72,7 @@ JPaseto is available on [Maven Central](https://search.maven.org/search?q=jpaset
 ```groovy
 compile 'dev.paseto:jpaseto-api:0.5.0'
 runtime 'dev.paseto:jpaseto-impl:0.5.0',
-        'dev.paseto:jpaseto-jackson:0.5.0'
+        'dev.paseto:jpaseto-jackson:0.5.0',
         'dev.paseto:jpaseto-bouncy-castle:0.5.0'
 ```
 
