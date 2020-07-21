@@ -10,7 +10,7 @@ tweets:
 - "PASETO, like JWT but better, get started with PASETO with #Java with JPaseto‼️"
 - "JPaseto is a new security token library for #Java and JVM languages🔒"
 - "If you like JWTs, you will love PASETO ❤️ #Java developers checkout out JPaseto ⬇️"
-image:
+image: blog/introducing-jpaseto/jpaseto-social.png
 type: awareness
 ---
 
