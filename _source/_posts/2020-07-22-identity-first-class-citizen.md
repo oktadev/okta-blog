@@ -65,8 +65,8 @@ So, that's what I mean when I say that Identity must now be a _first class archi
 
 Read more about Architectural topics: 
 
--   [Why Every Developer Needs to be a Generalist](https://developer.okta.com/blog/2019/11/26/developer-generalist-vs-specialist)
--   [Tech at the Edge of the World: Offline Applications](https://developer.okta.com/blog/2020/02/10/tech-at-the-edge-of-the-world-antarctica-offline-apps)
--   [Make It Complicated, So It Can Be Simple](https://developer.okta.com/blog/2020/04/13/make-it-complicated-so-it-can-be-simple)
+-   [Why Every Developer Needs to be a Generalist](/blog/2019/11/26/developer-generalist-vs-specialist)
+-   [Tech at the Edge of the World: Offline Applications](/blog/2020/02/10/tech-at-the-edge-of-the-world-antarctica-offline-apps)
+-   [Make It Complicated, So It Can Be Simple](/blog/2020/04/13/make-it-complicated-so-it-can-be-simple)
 
 Want to be notified when we publish more of these? Follow us on [Twitter](https://twitter.com/oktadev), subscribe to our [YouTube channel](https://youtube.com/c/oktadev), or follow us on [LinkedIn](https://www.linkedin.com/company/oktadev) If you have a question, please leave a comment below!
