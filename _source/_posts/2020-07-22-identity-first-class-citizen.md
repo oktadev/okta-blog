@@ -11,7 +11,7 @@ tweets:
 - "When architecting software, make sure to make identity a first-class citizen!"
 - "Identity is no longer an afterthought or part of something else in software systems. Make it a first-class citizen!"
 image: blog/featured/okta-vue-tile-books-mouse.jpg
-type: awareness|conversion
+type: awareness
 ---
 
 When I decided to transition away from being a Principal Enterprise Architect into a specialized identity engineering role, a number of my colleagues asked me why.   My answer has always been this: 
