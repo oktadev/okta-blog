@@ -582,6 +582,7 @@ You are providing the Login button for users as well as a small landing page.
 
 Next, you can add `history.ejs` to your `pages` folder.
 
+{%raw%}
 ```html
 <div id="history">
   <h3>Historical Readings</h3>
@@ -623,6 +624,7 @@ Next, you can add `history.ejs` to your `pages` folder.
 
 <%- exposeLocalsToBrowser() %>
 ```
+{%endraw%}
 
 In this section, you present a table to the user with the gardenData information. Take note of the `<%- exposeLocalsToBrowser() %>` piece of code. This is provided by sails.js and provides a number of features. First, it will make your model available using `window.SAILS_LOCALS`. Second,it provides some protection against Cross-Site Scripting attacks by escaping untrusted data.
 
@@ -647,6 +649,7 @@ This is where you will find all your client-side javascript for this page. Paras
 
 Add a new file under `views/pages` called `dashboard.ejs` and add the following code.
 
+{%raw%}
 ```html
 <div id="dashboard">
   <div class="row">
@@ -813,6 +816,7 @@ Add a new file under `views/pages` called `dashboard.ejs` and add the following 
   }
 </style>
 ```
+{%endraw%}
 
 Next, under `assets/js/pages` add a new file for `dashboard.page.js` and add this code.
 
