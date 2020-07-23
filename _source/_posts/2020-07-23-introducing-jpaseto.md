@@ -121,7 +121,7 @@ If you're using PASETOs in any projects, we'd love to hear about it!
 
 # Learn More About PASETO
 
-This post has given you an introduction to the PASETO specification and shown you how easy and intuitive the JPaseto library is to use. If you want to learn more about security tokens in Java, check out some of our other posts below!
+This post has given you an introduction to the PASETO specification and demonstrated how easy and intuitive the JPaseto library is to use. If you want to learn more about security tokens in Java, check out some of our other posts below!
 
 * [JPaseto GitHub Project](https://github.com/paseto-toolkit/jpaseto)
 * [A Thorough Introduction to PASETO](/blog/2019/10/17/a-thorough-introduction-to-paseto)
