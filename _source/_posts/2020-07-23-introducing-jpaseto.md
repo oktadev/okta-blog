@@ -16,7 +16,7 @@ type: awareness
 
 PASETO is a new security token format designed to be easy to use and free from the issues inherent with JSON Web Token (JWT) related specifications. Platform Agnostic SEcurity TOkens (PASETO) is a draft RFC spec created by [Scott Arciszewski](https://paragonie.com/). PASETO reduces the scope of the Javascript Object Signing and Encryption (JOSE) family of specs (of which JWT is a part of), while still providing the functions that secure applications need.  
 
-> PASTEO is everything you love about JOSE (JWT, JWE, JWS) without any of the many design deficits that plague the JOSE standards.
+> PASETO is everything you love about JOSE (JWT, JWE, JWS) without any of the many design deficits that plague the JOSE standards.
 
 Today, I'm going to introduce you to [JPaseto](https://github.com/paseto-toolkit/jpaseto), a new Java developer library we've built that makes it easy to work with PASETOs in your own applications.
 
