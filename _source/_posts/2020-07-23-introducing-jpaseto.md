@@ -4,12 +4,12 @@ title: "Introducing JPaseto: Security Tokens For Java"
 author: brian-demers
 by: advocate
 communities: [security,java]
-description: ""
+description: "JPaseto is a PASETO security token library for Java, learn more in this post."
 tags: [java, paseto, security-tokens, security, tokens]
 tweets:
 - "PASETO, like JWT but better, get started with PASETO with #Java with JPaseto‼️"
 - "JPaseto is a new security token library for #Java and JVM languages🔒"
-- "If you like JWTs, you will love PASETO ❤️ #Java developers checkout out JPaseto ⬇️"
+- "If you like JWTs, you will love PASETO ❤️ #Java developers check out JPaseto ⬇️"
 image: blog/introducing-jpaseto/jpaseto-social.png
 type: awareness
 ---
