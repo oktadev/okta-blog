@@ -14,7 +14,7 @@ image: blog/introducing-jpaseto/jpaseto-social.png
 type: awareness
 ---
 
-PASETO is a new security token format designed to be easy to use and free from the issues inherent with JSON Web Token (JWT) related specifications. Platform Agnostic SEcurity TOkens (PASETO) is a draft RFC spec created by [Scott Arciszewski](https://paragonie.com/). PASETO reduces the scope of the Javascript Object Signing and Encryption (JOSE) family of specs (of which JWT is a part of), while still providing the functions that secure applications need.  
+PASETO is a new security token format designed to be easy to use and free from the issues inherent with JSON Web Token (JWT) related specifications. Platform Agnostic SEcurity TOkens (PASETO) is a draft RFC spec created by [Scott Arciszewski](https://paragonie.com/). PASETO reduces the scope of the JavaScript Object Signing and Encryption (JOSE) family of specs (which JWT is a part of), while still providing the functions that secure applications need.  
 
 > PASETO is everything you love about JOSE (JWT, JWE, JWS) without any of the many design deficits that plague the JOSE standards.
 
@@ -40,14 +40,14 @@ PASETOs were designed to improve upon the design of JWTs, making them more crypt
 
 The [PASETO spec](https://paseto.io/) defines two types of tokens: local and public. Local tokens are always symmetrically encrypted with a shared secret key which means no one can view the contents of a local PASETO unless they have the correct secret key. Public tokens are readable by anyone and are validated with a public key. There is no "none" option; you cannot have a security token without security!
 
-Similar to JWTs, a PASETO token is a set of dot-separated base64 encoded data formatted as:
+Similar to JWTs, a PASETO token is a set of dot-separated base64url encoded data formatted as:
 
 ```txt
 version.purpose.payload.footer
 ```
 
 * version: Allows for incremental improvements the token format, (current versions are "v1" and "v2")
-  * v1: Uses strong cryptographic primitives that are more wildly available today
+  * v1: Uses strong cryptographic primitives that are more widely available today
   * v2: Uses newer and stronger cryptographic primitives, but are supported by fewer cryptographic libraries
 * purpose: A short string describing the token format "local" or "public"
   * local: The payload of the token is encrypted and is only viewable by parties that have the shared-key
@@ -121,7 +121,7 @@ If you're using PASETOs in any projects, we'd love to hear about it!
 
 # Learn More About PASETO
 
-This post has given you an introduction to the PASETO specification and showed you how easy and intuitive the JPaseto library is to use. If you want to learn more about security tokens in Java, check out some of our other posts below!
+This post has given you an introduction to the PASETO specification and demonstrated how easy and intuitive the JPaseto library is to use. If you want to learn more about security tokens in Java, check out some of our other posts below!
 
 * [JPaseto GitHub Project](https://github.com/paseto-toolkit/jpaseto)
 * [A Thorough Introduction to PASETO](/blog/2019/10/17/a-thorough-introduction-to-paseto)
