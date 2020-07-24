@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Build a Spring Boot application using Java Modules"
+title: "Build a Spring Boot Application Using Java Modules"
 author: bruno-leite
 by: contractor
 communities: [java]
