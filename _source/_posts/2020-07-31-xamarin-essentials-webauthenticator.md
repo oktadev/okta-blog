@@ -43,7 +43,7 @@ Next, it's time to secure your users login!
 
 I will use Okta to easily and securely implement user authentication so that I don't have to implement it from scratch or roll my own identity management. Okta supports user authentication, multi-factor authentication, social authentication as well as all OpenID connect flows out of the box—so it can take care of all the scenarios you might ever need.
 
-In the sample app, I will use Okta's browser-based OpenID Connect flow to securely authenticate the user via the native browser installed on the device. Using an external browser is the most secure way to authenticate and allows you to log in automatically if you are already signed in the browser. Also, you won’t need to store the 'client secret'` in your mobile app. When you log in, the browser will redirect you back to your Xamarin app using the redirect URI and pass the requested token as a parameter.
+In the sample app, I will use Okta's browser-based OpenID Connect flow to securely authenticate the user via the native browser installed on the device. Using an external browser is the most secure way to authenticate and allows you to log in automatically if you are already signed in the browser. Also, you won't need to store the 'client secret'` in your mobile app. When you log in, the browser will redirect you back to your Xamarin app using the redirect URI and pass the requested token as a parameter.
 
 {% img blog/xamarin-essentials-webauthenticator/03-oidc-app-flow.png alt:"OIDC app flow" width:"800" %}{: .center-image }
 
@@ -261,6 +261,6 @@ Okta's OpenID Connect Primer in three parts:
 
 - [Part 1: Identity, Claims, and Tokens](https://developer.okta.com/blog/2017/07/25/oidc-primer-part-1)
 - [Part 2: OIDC in Action](https://developer.okta.com/blog/2017/07/25/oidc-primer-part-2)
-- [Part 3: What’s in a Token?](https://developer.okta.com/blog/2017/08/01/oidc-primer-part-3)
+- [Part 3: What's in a Token?](https://developer.okta.com/blog/2017/08/01/oidc-primer-part-3)
 
 Make sure to follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube Channel](https://youtube.com/c/oktadev) so that you never miss any awesome content!
