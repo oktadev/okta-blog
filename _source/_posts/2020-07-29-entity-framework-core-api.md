@@ -5,7 +5,7 @@ author: nickolas-fisher
 by: contractor
 communities: [.net]
 description: "Learn how to build secure APIs using Entity Framework Core."
-tags: [efcore, entity framework core]
+tags: [efcore]
 tweets:
 - "Learn how to build secure APIs using #EFCore."
 - "Want to get up to speed on #EFCore quickly? Check out this tutorial!"
