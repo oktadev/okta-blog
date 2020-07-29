@@ -14,7 +14,7 @@ image: blog/featured/okta-dotnet-skew.jpg
 type: conversion
 ---
 
-.NET Core version 3.1 just came out as of writing this article. It includes a new version of Entity Framework (EF) Core, the next generation of Microsoft's tried and tested object relational mapper (ORM). Entity Framework has been used alongside ASP.NET for years and has developed a reputation for being an essential tool in any developer's toolbox for .NET Framework, and now .NET Core. .NET Core now also includes a built-in dependency injection system and class templating for controllers. These features make developing REST APIs remarkably easy. 
+.NET Core version 3.1 just came out as of writing this article. It includes a new version of [Entity Framework (EF) Core](https://docs.microsoft.com/en-us/ef/core/), the next generation of Microsoft's tried and tested object relational mapper (ORM). Entity Framework has been used alongside ASP.NET for years and has developed a reputation for being an essential tool in any developer's toolbox for .NET Framework, and now .NET Core. .NET Core now also includes a built-in dependency injection system and class templating for controllers. These features make developing REST APIs remarkably easy. 
 
 Coupling the new .NET Core features with Okta provides a secure REST API in no time at all. Okta can be used as an authentication server that issues a JWT. Microsoft's ASP.NET Core provides middleware for validating the token. 
 
