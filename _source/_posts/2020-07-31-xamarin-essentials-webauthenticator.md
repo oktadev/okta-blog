@@ -5,7 +5,7 @@ author: giorgi-dalakishvili
 by: contractor
 communities: [.net]
 description: "Learn how to use the WebAuthenticator class inside of Xamarin Essentials with Okta."
-tags: [xamarin, .net, webauthenticator, webauthn, csharp]
+tags: [xamarin, aspnet, dotnet, webauthenticator, webauthn, csharp]
 tweets:
 - "Learn how to build Xamarin apps with the WebAuthenticator class in Xamarin Essentials"
 - "Want to get up to speed on #Xamarin Essentials with WebAuthenticator quickly? Check out this tutorial!"
