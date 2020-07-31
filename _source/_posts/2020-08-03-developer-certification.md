@@ -19,7 +19,7 @@ So, when the Okta certification team asked me to help them build a cool develope
  
 Before I tell you more about the new exam and the role I played, I want to remind you about the three well-known certifications Okta already has. The Okta Certified Professional, Administrator, and Consultant certifications have been around for almost four years. You can learn more about these three certifications at [https://www.okta.com/certification](https://www.okta.com/certification). They've gained quite a bit of attention in four short years from employers and identity experts around the globe. In fact, all three of these certifications are ranked 1st, 2nd, and 6th highest-paying IT certifications worldwide according to [Certification Magazine's 2020 Highest Paying IT Certification](http://certmag.com/salary-survey-2020-new-salary-survey-75/).
  
-On August 3, 2020, Okta is releasing its first-ever certification for developers who use Okta, the [Okta Developer Certification](https://www.okta.com/okta-developer-exam-study-guide).
+Today, Okta is releasing its first-ever certification for developers who use Okta, the [Okta Developer Certification](https://www.okta.com/resources/developer-exam-study-guide/).
  
 The new Okta Developer Certification was designed and built by developers for developers. It is a two-part exam.
 
@@ -41,4 +41,4 @@ You have 60 minutes to complete Part I and 90 minutes to complete Part II. When 
 
 The release of the new Okta Developer Exam is timely. For Okta, providing developers with the right tools and services is a strong priority. The Developer Exam experience is topnotch. But, don't take my word for it. Take the exam and use the feedback feature to let us know what you think. 
 
-If you are a developer who uses Okta on a regular basis, I encourage you to pursue the Okta Developer Certification. You're already building these skills and using them for your work—why not make it official on your resume and LinkedIn profile? The developer exam covers real-world relevant topics. Learn more about the new Okta Developer Exam [here](https://www.okta.com/okta-developer-exam-study-guide), and contact the Okta Certification team at certification@okta.com if you have any questions.
+If you are a developer who uses Okta on a regular basis, I encourage you to pursue the Okta Developer Certification. You're already building these skills and using them for your work—why not make it official on your resume and LinkedIn profile? The developer exam covers real-world relevant topics. Learn more about the new Okta Developer Exam [here](https://www.okta.com/resources/developer-exam-study-guide/), and contact the Okta Certification team at certification@okta.com if you have any questions.
