@@ -250,7 +250,7 @@ That's it!
 
 ## Learn More About Xamarin, OpenID Connect, and Okta
 
-I hope the tutorial was interesting to you and that you enjoyed it. You can get the [full source code of the project from GitHub](https://github.com/Giorgi/OktaAuth/). For more Xamarin and Okta articles check out these posts:
+I hope the tutorial was interesting to you and that you enjoyed it. You can get the [full source code of the project from GitHub](https://github.com/oktadeveloper/xamarin-essentials-webauthenticator-sample). For more Xamarin and Okta articles check out these posts:
 
 - [OAuth 2.0 for Native and Mobile Apps](https://developer.okta.com/blog/2018/12/13/oauth-2-for-native-and-mobile-apps)
 - [Build Login in Xamarin with Xamarin.Forms](https://developer.okta.com/blog/2019/06/11/build-login-in-xamarin-with-xamarin-forms/)
