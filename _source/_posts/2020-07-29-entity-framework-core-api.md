@@ -20,7 +20,7 @@ Coupling the new .NET Core features with Okta provides a secure REST API in no t
 
 In this tutorial, you will create a simple REST API to serve a client application for a lending library. The client application will need to add library patrons, provide lists of available books, and let the server know when a book is checked out or checked in. You'll use SQL Server for your database connected to your application with EF Core. You will learn how to build a REST API with ASP.NET Core, build a database with Code First principles, and secure it using Okta.
 
-## Secure You Entity Framework Core Application
+## Secure Your Entity Framework Core Application
 
 The first thing you need to do is set up Okta for use as an authorization server. In your Okta Developer Console, create a new application. Click **Add Application** and select the **Service** option. Give your application a meaningful name (I named mine *LibraryAPI*) and click **Done**. The next screen will show your *Client Id* and *Client Secret*. Make sure to note these—you'll need them in your application.
 
