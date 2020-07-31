@@ -3,13 +3,10 @@ layout: blog_post
 title: Announcing the new Okta Developer Certification
 author: micah-silverman
 by: advocate
-communities: []
 description: "Okta has released a Developer Certification to compliment its award-winning IT certifications."
 tags: [developer, devops, certification, it]
 tweets:
-- ""
-- ""
-- ""
+- "Looking for a developer certification like no other? The new Okta Developer Certification app has you apply your knowledge by using the Okta API."
 image: blog/developer_cert/logo.png
 type: awareness
 ---
