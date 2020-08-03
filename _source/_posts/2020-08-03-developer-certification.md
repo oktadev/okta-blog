@@ -25,7 +25,7 @@ The new Okta Developer Certification was designed and built by developers for de
 
 In Part I, exam takers are presented with 45 discrete option multiple-choice (DOMC) questions. Those questions focus on knowledge a developer should have in respect to Okta Customer Identity products. 
 
-If you've ever sat for a developer certification exam, you may have had the experience of having to dredge up reference material from memory. This is not that. Instead, Part II is a web app that guides you through the practical application of Okta's APIs. You complete use cases and tasks in the form of API calls against an Okta org that's created just for you during the exam. This is why I was eager to build the app for the certification team. I wanted developers to have an experience that would make the exam delightful and not just a box to check on a resume.
+Part II is a web app that guides you through the practical application of Okta's APIs. If you've ever sat for a developer certification exam, you may have had the experience of having to dredge up reference material from memory. This is not that. Instead, you complete use cases and tasks in the form of API calls against an Okta org that's created just for you during the exam. This is why I was eager to build the app for the certification team. I wanted developers to have an experience that would make the exam delightful and not just a box to check on a resume.
 
 A use case begins with some general instructions that apply to all the tasks in that use case. 
 
