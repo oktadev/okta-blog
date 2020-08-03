@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: Announcing the new Okta Developer Certification
+title: Announcing the New Okta Developer Certification
 author: micah-silverman
 by: advocate
 description: "Okta has released a Developer Certification to compliment its award-winning IT certifications."
