@@ -694,6 +694,8 @@ The error page just informs the user that an error has occurred and they shouldn
 
 You can navigate back to your home page and see the fruits of your labor. The to-do list now correctly calls the server and requests the full list of to-do items. Of course, the server doesn't have any yet, so click **New Item** and add a thing to do. Then click on the checkbox to see your new item marked as complete. You can verify this by checking the database directly via SQL shell.
 
+You can download the code for this tutorial directly from the [GitHub repository](https://github.com/oktadeveloper/okta-node-postgres-todo-example).
+
 ## Learn More About Node and Postgres
 
 If you want to learn more about PostgreSQL, Node or Visual Studio, check out our other blog posts.
