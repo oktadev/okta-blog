@@ -14,13 +14,15 @@ image: blog/java-arm-performance/java-performance-social.png
 type: awareness
 ---
 
-Arm processors have been in the news lately, and it's causing confusion and worries about processor performance for some folks. After Apple announced its plan to switch to Arm-based processors, I heard people (incorrectly!) speculating the performance would be similar to a Raspberry Pi. Java on Arm is nothing new, but we are seeing increased Arm investment from cloud vendors. Amazon recently updated its ARM offerings, and Microsoft is working on porting the JVM to Arm64 for Windows (no doubt for future Azure support).
+Arm processors have been in the news lately, and it's causing confusion and worries about processor performance for some folks. After Apple announced its plan to switch to Arm-based processors, I heard people (incorrectly!) speculating the performance would be similar to a Raspberry Pi. Java on Arm is nothing new, but we are seeing increased Arm investment from cloud vendors. Amazon recently updated its Arm offerings, and Microsoft is working on porting the JVM to Arm64 for Windows (no doubt for future Azure support).
 
 In this post, I'll share the Java benchmarks I took on various AWS EC2 instances, and, just for fun, on my laptop. 
 * Amazon a1.large (ARMv8 Cortex-A72, 2 Cores, 4GB RAM)
 * Amazon m6g.medium (ARMv8 Neoverse-N1, 1 Core, 4GB RAM)
 * Amazon t3.medium (Intel Xeon Platinum 8259CL, 1 Core / 2 Threads, 4GB RAM)
 * Apple MacBook Pro (Intel i9 2.4GHz, 8 Core / 16 Threads, 64GB RAM)
+
+**NOTE:** The Arm trademark was previously written in all caps, "ARM", but is now referred to as "Arm".
 
 ## A Note About Benchmarks
 
@@ -50,7 +52,11 @@ The Spark alternating least squares (ALS) benchmark is one of the few tests wher
 
 In the Spark Naive Bayes algorithm test, the m6g.medium was 8% faster than the t3.
 
-**Winner:** m6g.medium. this was almost too close to call, but in the words of Meat Loaf,  "[Two Out of Three Ain't Bad.](https://youtu.be/k5hWWe-ts2s)"
+**Winner:** m6g.medium. This was almost too close to call, but in the words of Meat Loaf, "Two Out of Three Ain't Bad."
+
+<div style="text-align: center; margin-bottom: 1.25rem">
+<iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/k5hWWe-ts2s" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 ## Processing Power
 
@@ -99,7 +105,7 @@ At the end of the day, which system you pick may come down to a balance of price
 
 ## Conclusion
 
-The overall winner of these benchmarks is my MacBook Pro! Joking aside, the difference between Amazon's second-generation Arm processors and the _equivalent_ Intel processor wasn't what I expected when I started writing this post. If I had to pick between t3.medium and the m6g.medium, I'd say the overall winner of this shadow is the m6g.medium.
+The overall winner of these benchmarks is my MacBook Pro! Joking aside, the difference between Amazon's second-generation Arm processors and the _equivalent_ Intel processor wasn't what I expected when I started writing this post. If I had to pick between t3.medium and the m6g.medium, I'd say the overall winner of this showdown is the Arm m6g.medium.
 
 As I mentioned at the start of this post, all of this info needs to be taken with a grain of salt.  Your Java applications will perform differently than these benchmarks, you will need to make your own conclusion to figure out if switching to Arm is right for you. The biggest challenge in switching from x86_64 to Arm64 is making sure your native dependencies are available—but this is much less of an issue nowadays as both Java and Linux distros have been supporting Arm for years.
 
