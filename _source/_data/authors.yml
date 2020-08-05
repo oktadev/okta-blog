@@ -511,3 +511,23 @@ david-marin:
   github: https://github.com/davefx
   web: https://davefx.com/en/freelance-developer/
 
+heather-wallander:
+  full_name: "Heather Wallander"
+  display_name: "Heather Wallander"
+  avatar: avatar-heather-wallander.png
+  bio: "Heather Wallander is a Solution Engineer at Okta, specializing in Customer Identity Use Cases. After beginning her career in sales and marketing, she moved into software development, before finding the best of both worlds in Solutions Engineering. Heather has a bachelor's in Marketing and master's in Information Systems. She joined Okta in February 2019."
+
+bruno-leite:
+  full_name: "Bruno Leite"
+  display_name: "Bruno Leite"
+  avatar: avatar-bruno-leite.jpg
+  github: https://github.com/brunocleite
+  web: http://www.brunoleite.co
+
+giorgi-dalakishvili:
+  full_name: "Giorgi Dalakishvili"
+  display_name: "Giorgi Dalakishvili"
+  avatar: avatar-giorgi-dalakishvili.jpg
+  github: https://github.com/Giorgi/
+  twitter: https://twitter.com/GioDalakishvili
+  linkedin: https://www.linkedin.com/in/giorgidalakishvili/
