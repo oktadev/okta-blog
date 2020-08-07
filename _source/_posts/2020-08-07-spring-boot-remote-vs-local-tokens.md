@@ -4,16 +4,15 @@ title: "JWT vs Opaque Access Tokens: Use Both With Spring Boot"
 author: brian-demers
 by: advocate
 communities: [java]
-description: ""
-tags: []
+description: "Tutorial: Learn how to use JWT and opaque access with Spring Boot."
+tags: [java, spring, spring-boot, security, oauth, jwt]
 tweets:
-- ""
-- ""
-- ""
-image: 
+- "JWTs are fast and stale, Opaque tokens are slow and secure. Use both for the best of both worlds. #SpringBoot 🌎"
+- "Learn how to use JWT and opaque access tokens in the same app with @SpringBoot 💥"
+- "Use JWTs for reads (fast) and opaque (secure) tokens for writes with your #SpringBoot application 🔒"
+image: blog/spring-boot-remote-vs-local-tokens/spring-jwt-and-opaque.png
 type: conversion
 ---
-
 The topic of validating an OAuth 2.0 access tokens comes up frequently on the Okta developer blog. Often we talk about how to validate JSON Web Token (JWT) based access tokens; however, this is NOT part of the OAuth 2.0 specification. JWTs are so commonly used that Spring Security supported them before adding support for remotely validating tokens (which is part of the OAuth 2.0 specification.)
 
 In this post, you will build a simple application that takes advantage of both types of validation.
@@ -27,7 +26,7 @@ In this post, you will build a simple application that takes advantage of both t
 Whether you should validate access tokens locally (e.g., a JWT) or remotely (per spec) is a question of how much security you need. Often, people jump to, "I need all of the securities!" This statement simply isn't true—how much security you need should be balanced with other factors like ease of use, cost, and performance.
 
 > There is no such thing as perfect security, only varying levels of insecurity. 
-> - Salman Rushdie
+>    - Salman Rushdie
 
 The biggest downside to validating a token locally is that your token is, by definition, stale. It is a snapshot of the moment in time when your identity provider (IdP) created the token. The further away you get from that moment, the more likely that token is no longer valid: it could have been revoked, the user could have logged out, or the application that created the token disabled.
 
@@ -59,11 +58,7 @@ Check **Implicit (Hybrid)**
 
 Click **Done**
 
-[IMAGE]
-
-Make a note of the **Client ID**, and **Client secret** you will need them for the next steps.
-
-## Create a New Spring Boot Application
+{% img blog/spring-boot-remote-vs-local-tokens/okta-app-creation.jpeg alt:"Create an Okta application screenshot" width:"600" %}
 
 Head over to [start.spring.io](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.2.6.RELEASE&packaging=jar&jvmVersion=1.8&groupId=com.okta.example&artifactId=spring-token-example&name=spring-token-example&description=Demo%20project%20for%20Spring%20Boot&packageName=com.okta.example&dependencies=security,web) and click the **Generate** button.
 
@@ -143,11 +138,11 @@ import org.springframework.security.authentication.AuthenticationServiceExceptio
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.util.Assert;
 
-//  An {@link AuthenticationManagerResolver} that returns a {@link AuthenticationManager}
-//  instances based upon the type of {@link HttpServletRequest} passed into
-//  {@link #resolve(HttpServletRequest)}.
-//  @author Josh Cummings
-//  @since 5.2
+/**  An {@link AuthenticationManagerResolver} that returns a {@link AuthenticationManager}
+*  instances based upon the type of {@link HttpServletRequest} passed into
+*  {@link #resolve(HttpServletRequest)}.
+*  @author Josh Cummings
+*/  @since 5.2
 public class RequestMatchingAuthenticationManagerResolver
         implements AuthenticationManagerResolver<HttpServletRequest> {
 
