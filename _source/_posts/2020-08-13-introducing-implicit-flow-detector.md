@@ -14,7 +14,7 @@ image: blog/introducing-implicit-flow-detector/implicit-flow-detector.png
 type: awareness
 ---
 
-{% img blog/introducing-implicit-flow-detector/implicit-flow-detector.png alt:"implicit flow detector" %}
+{% img blog/introducing-implicit-flow-detector/implicit-flow-detector.png alt:"implicit flow detector" width:"400" %}
 
 OpenID Connect (OIDC) and OAuth 2.0 are the best current standards for securing authentication and authorization in web-based applications. But, OAuth 2.0 (on which OpenID Connect is built), has been around for quite a while. Developments in browser technologies as well as security service providers have outpaced the standards. As a result, certain ways of using the standards are no longer recommended.
 
@@ -23,6 +23,8 @@ The good news is that extensions to these standards provide a much more secure w
 In this post, I get into some of the mechanics of OAuth 2.0, a bit about the standards process, and ways to mitigate your risk.
 
 The TL;DR is the [Implicit Flow Detector](https://implicitdetector.io/) is a browser extension that alerts you when the websites you navigate to are using a deprecated part of OIDC and OAuth 2.0.
+
+{% img blog/introducing-implicit-flow-detector/implicit-detected.png alt:"implicit flow detector" %}
 
 ## A Ridiculously Short Overview of OAuth 2.0 and OpenID Connect
 
@@ -111,6 +113,8 @@ As developers and security professionals, we need to be vigilant and employ best
 The [Implicit Flow Detector](https://implicitdetector.io/) is a browser extension (available for Google Chrome and its variants as well as Firefox) that alerts you when the websites you navigate to are using a deprecated part of OAuth 2.0.
 
 It provides a list of websites that are using the Implicit flow and even shows you the tokens it has captured.
+
+{% img blog/introducing-implicit-flow-detector/implicit-detected.png alt:"implicit flow detector" %}
 
 While the Implicit Flow Detector extension stops there, a malicious browser extension *could* make use of the captured tokens to gain access to your data and, in some cases, even make changes to that data.
 
