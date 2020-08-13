@@ -98,7 +98,7 @@ But, it puts providers like Okta, Google and others in a bit of a gray area in i
 
 1. Making PKCE the default
 2. Updating documentation to address the concerns of using the Implicit flow
-3. Making easy to switch Implicit flow apps
+3. Making it easy to switch Implicit flow apps
 
 The OAuth 2.1 specification was recently adopted by the OAuth Working Group and will take some time to be released. It seeks to consolidate a number of OAuth 2.0 extensions into the specification (including PKCE) and to completely eliminate the Implicit flow, among other outdated flows.
 
