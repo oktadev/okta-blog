@@ -1,47 +1,54 @@
 ---
 layout: blog_post
-title: "Spring Cloud Gateway OAuth2 Patterns"
+title: "OAuth 2.0 Patterns with Spring Cloud Gateway"
 author: jimena-garbarino
 by: contractor
 communities: [java]
-description: ""
+description: "Tutorial: Learn how to implement real world use cases with Spring Boot and Spring Cloud Gateway."
 tags: [spring gateway, oidc, java, spring, spring boot, spring cloud gateway]
 tweets:
-- ""
-- ""
-- ""
-image:
-type: awareness|conversion
+- "Learn how to configure @SpringCloud Gateway with common authentication patterns #OAuth2 🔒"
+- "Gateways, REST APIs, Microservices.  Learn how to securely put them all together with @SpringCloud Gateway 💥"
+- "Different types of applications require different types of security. This posts walks through common patterns with @SpringCloud Gateway 🌱"
+image: /blog/spring-gateway-patterns/spring-cloud-gateway-patterns.png
+type: conversion
 ---
 
-Spring Cloud Gateway is the Reactive API Gateway of the Spring Ecosystem, built on Spring Boot, WebFlux and Project Reactor. Its job is to proxy and route requests to services, and provide cross cutting concerns such as security, monitoring and resilience. As Reactive models gain popularity, there is a chance that your microservices architecture becomes a mix of Spring MVC blocking applications and Spring WebFlux non-blocking applications.
+Spring Cloud Gateway is the Reactive API Gateway of the Spring Ecosystem, built on Spring Boot, WebFlux, and Project Reactor. Its job is to proxy and route requests to services and to provide cross-cutting concerns such as security, monitoring, and resilience. As Reactive models gain popularity, there is a chance that your microservices architecture becomes a mix of Spring MVC blocking applications and Spring WebFlux non-blocking applications.
 
-In this tutorial you will use Spring Cloud Gateway for routing to traditional Servlet API microservices, and you will learn the required configuration for three common OAuth2 patterns, using Okta as authorization server:
+In this tutorial, you will use Spring Cloud Gateway for routing to traditional Servlet API microservices, and you will learn the required configuration for these three common OAuth2 patterns, using Okta as authorization server:
 
-- Spring Cloud Gateway OpenID Connect Authentication
-- Cart Microservice Authorization by Token Relay
-- Pricing Microservice Client Credentials Grant
+- **OpenID Connect Authentication** - the pattern used for end-user authentication.
+- **Token Relay** - when an OAuth2 consumer service or application, like the API gateway, acts as a client and forwards the incoming token to outgoing resource requests.
+- **Client Credentials Grant** - the pattern to use when the authorized requestor is another service. In this case, we talk about machine to machine, m2m, or service to service authorization.
 
-**Prerequisites**: [Java 8](https://adoptopenjdk.net/)+, cURL
+**Prerequisites**:
+- [Java 11](https://adoptopenjdk.net/)+
+- cURL
 
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
 
-## Pattern 1: Authentication with Authorization Code Flow
+## Pattern 1: OpenID Connect Authentication
 
 OpenID Connect defines a mechanism for End-User authentication based on the OAuth2 authorization code flow. In this pattern, the Authorization Server returns an Authorization Code to the application, which can then exchange it for an ID Token and an Access Token directly. The Authorization Server authenticates the application with a ClientId and ClientSecret before the exchange happens. As you can see in the diagram below, OpenID and OAuth2 patterns make extensive use of HTTP redirections, some of which have been omitted for clarity.
 
-{% img blog/spring-gateway/authorization-code-flow.png alt:"Okta OAuth Code Flow" width:"600" %}{: .center-image }
+{% img blog/spring-gateway-patterns/authorization-code-flow.png alt:"Okta OAuth Code Flow" width:"600" %}{: .center-image }
 
-
-For testing this OAuth2 pattern, let's create the API Gateway with service discovery.
+For testing this OAuth2 pattern, create the API Gateway with service discovery.
 First, create a base folder for all the projects:
 
 ```shell
 mkdir oauth2-patterns
 cd oauth2-patterns
 ```
-With Spring Initializr, create an Eureka server:
 
-```
+### Create a Eureka Discovery Service
+
+With [Spring Initializr](https://start.spring.io/), create an Eureka server:
+
+```shell
 curl https://start.spring.io/starter.zip -d dependencies=cloud-eureka-server \
 -d groupId=com.okta.developer \
 -d artifactId=discovery-service  \
@@ -53,17 +60,20 @@ curl https://start.spring.io/starter.zip -d dependencies=cloud-eureka-server \
 ```
 
 Unzip the file:
-```
+
+```shell
 unzip eureka.zip -d eureka
 cd eureka
 ```
-Edit the `pom.xml` and add the following dependency:
+As described in [Spring Cloud Netflix documentation](https://github.com/spring-cloud/spring-cloud-netflix/blob/master/docs/src/main/asciidoc/spring-cloud-netflix.adoc#jdk-11-support), the JAXB modules, which the Eureka server depends upon, were removed in JDK 11. If you are running Eureka server with JDK 11, edit the `pom.xml` and add the following dependency:
+
 ```xml
 <dependency>
   <groupId>org.glassfish.jaxb</groupId>
   <artifactId>jaxb-runtime</artifactId>
 </dependency>
 ```
+
 Edit `EurekaServiceApplication` to add `@EnableEurekaServer` annotation:
 
 ```java
@@ -80,10 +90,8 @@ public class EurekaServiceApplication {
     public static void main(String[] args) {
         SpringApplication.run(EurekaServiceApplication.class, args);
     }
-
 }
 ```
-
 
 Rename `src/main/resources/application.properties` to `application.yml` and add the following content:
 
@@ -107,7 +115,10 @@ Start the service:
 ./mvnw spring-boot:run
 ```
 
-Go to http://localhost:8761 and you should see the Eureka home.
+Go to `http://localhost:8761` and you should see the Eureka home.
+
+### Create a Spring Cloud Gateway Application
+
 Now let's create an API Gateway with Spring Cloud Gateway, using Spring Initializr again.
 
 ```shell
@@ -124,7 +135,7 @@ curl https://start.spring.io/starter.zip \
 Unzip the project:
 
 ```
-unzip api-gateway.zip
+unzip api-gateway.zip -d api-gateway
 cd api-gateway
 ```
 Edit `SpringCloudGatewayApplication` to add `@EnableEurekaClient` annotation.
@@ -146,7 +157,7 @@ public class SpringCloudGatewayApplication {
 }
 ```
 
-Add a package `controller` and the controller `src/main/java/com.okta.developer.gateway.controller.GreetingController`. The controller will allow to test the login without having configured any routes yet.
+Add a package `controller` and the controller class `src/main/java/com/okta/developer/gateway/controller/GreetingController.java`. The controller will allow us to test the login without having configured any routes yet.
 
 ```java
 package com.okta.developer.gateway.controller;
@@ -161,7 +172,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class GreetingController {
-
 
     @RequestMapping("/greeting")
     public String greeting(@AuthenticationPrincipal OidcUser oidcUser, Model model,
@@ -210,7 +220,7 @@ logging:
     reactor.netty: DEBUG
 ```
 
-Add `src/main/java/com.okta.developer.gateway.OktaOAuth2WebSecurity` to make the API Gateway a resource server with login enabled:
+Add `src/main/java/com/okta/developer/gateway/OktaOAuth2WebSecurity.java` to make the API Gateway a resource server with login enabled:
 
 ```java
 package com.okta.developer.gateway;
@@ -226,20 +236,18 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 public class OktaOAuth2WebSecurity {
 
     @Bean
-    public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http)
-    {
-         http.authorizeExchange()
+    public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
+        http.csrf().disable()
+                .authorizeExchange()
                 .anyExchange()
                 .authenticated()
                 .and().oauth2Login()
-                .and().csrf().disable()
-                .oauth2ResourceServer()
-                .jwt();
+                .and().oauth2ResourceServer().jwt();
         return http.build();
     }
 }
 ```
-For this example, csrf is disabled.
+To keep things simple in this example, [CSRF](https://docs.spring.io/spring-security/site/docs/5.0.x/reference/html/csrf.html) is disabled.
 
 Now we need to create an authorization client in Okta. Log in to your Okta Developer account (or [sign up](https://developer.okta.com/signup/) if you don't have an account).
 
@@ -257,30 +265,30 @@ OKTA_OAUTH2_CLIENT_SECRET={yourOktaClientSecret} \
 ./mvnw spring-boot:run
 ```
 
-Go to http://localhost:8080/greeting. The gateway will redirect to Okta login page:
+Go to `http://localhost:8080/greeting`. The gateway will redirect to Okta login page:
 
-{% img blog/spring-gateway/okta-login.png alt:"Okta login form" width:"500" %}{: .center-image }
+{% img blog/spring-gateway-patterns/okta-login.png alt:"Okta login form" width:"500" %}{: .center-image }
 
 After the login, the idToken and accessToken will be displayed in the browser.
 
 ```
-idToken: eyJraWQiOiIwYVM4bk4tM241emZYRDJfMU1yYUhzYURUZ0trVWZ4aWNaQXZDc0Fwb2lzIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiIwMHUxaDcwc2YwdHJSc2JMUzM1NyIsIm5hbWUiOiJKaW1lbmEgR2FyYmFyaW5vIiwiZW1haWwiOiJqaW1lbmFAdG9wdGFsLmNvbSIsInZlciI6MSwiaXNzIjoiaHR0cHM6Ly9kZXYtNjQwNDI5Lm9rdGEuY29tL29hdXRoMi9kZWZhdWx0IiwiYXVkIjoiMG9hNGc1ZzYzYWZTa01qZ3QzNTciLCJpYXQiOjE1OTM0NTUxMjEsImV4cCI6MTU5MzQ1ODcyMSwianRpIjoiSUQuWTZHdVFsWElSeU03U1FNNFRmN2tLdUV0MnlySW84U0l5eUVoMFVfaEpvUSIsImFtciI6WyJwd2QiXSwiaWRwIjoiMDBvMWg3MHNidmRMRjlpczYzNTciLCJub25jZSI6IlphUjZCT25OcGJ5X1dZSUQyRkNjeDJCUzR5ZExsNjJWcldVdEFaWDYwZmciLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJqaW1lbmFAdG9wdGFsLmNvbSIsImF1dGhfdGltZSI6MTU5MzQ1MzUzNSwiYXRfaGFzaCI6ImYtUU9KdWVqUzF1MHNRaDJ4ZWJQUlEifQ.QNgw3EuOXdi-Pq8ZoNmWGTYlOU-Wz608ieAXEEWmk5KgRbdCJdQGBH35ALc_fO-2CLmDamoI2tbOWdz79vcmDfOv-tlztXBS-At3M20ZPRSF39mHVs0vHKqmNIgdo5E6Dw0Yl_vqWdIZukEj6zjSVOpR1znHqWf0Bln_C7w9S9OOE8Z7yclHE7R5fzPVSEdT_1TpW9MRlcQKEmmTrskhsSem1wXEOceE7qlhebw-NhAGOnZD0Vr6WklRjaIMZ5zI-pKioJI9ysN7bByJJ9O9DpmsSswNfDtlIVqq-DbUu15Vze-D4pHTkO8GbYC1xh7YUxuN39viK8nBzxiBEwqx2w
+idToken: eyJraWQiOiIw...
 
-
-accessToken: eyJraWQiOiIwYVM4bk4tM241emZYRDJfMU1yYUhzYURUZ0trVWZ4aWNaQXZDc0Fwb2lzIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULnAxbElmR0ZpU3drM29kTjZZdEI3VmxBV1A2NllEWGpsNjlkYmJqY0VnN2suZDFBNzVkcitzWTE3MFZzeUFkKzNEQnhkbTlFT080QXdQUjNkVStkdXFpRT0iLCJpc3MiOiJodHRwczovL2Rldi02NDA0Mjkub2t0YS5jb20vb2F1dGgyL2RlZmF1bHQiLCJhdWQiOiJhcGk6Ly9kZWZhdWx0IiwiaWF0IjoxNTkzNDU1MTIxLCJleHAiOjE1OTM0NTg3MjEsImNpZCI6IjBvYTRnNWc2M2FmU2tNamd0MzU3IiwidWlkIjoiMDB1MWg3MHNmMHRyUnNiTFMzNTciLCJzY3AiOlsicHJvZmlsZSIsIm9mZmxpbmVfYWNjZXNzIiwiZW1haWwiLCJwaG9uZSIsIm9wZW5pZCIsImFkZHJlc3MiXSwic3ViIjoiamltZW5hQHRvcHRhbC5jb20ifQ.biSKfFmBupiu7b8vViyVrqRDprxj70bb3xhcFujRV37xknnF2gxgyX3iteEbHVdQpCbnJrLMZ6mqKDxhhnPnOMfgZWXGKYk92PzJ6EoNF99Ui7-3ynZMx3glwYHiLERHZsGkHX88jhYD8IP-5QUQ7phXD8sALp-Di2AvpJVTRam3NmiEZe8hnkUwGNMq7jsPPL953ldvF38fjMMEG6ReHu7wW4yQnVYHskpLHQnZdRNiOxq8QgJ-V6MpWzKSdEI5QCwoOpervMPTvNi0UfSUIMjdvNnCqGCwXZwg6UdCYUyVLRIz9nOzh4yMCEdWD4DHDe6ggiY4rhCI8g2DOpjJWQ
-
+accessToken: eyJraWQiOi...
 ```
 
 ## Pattern 2: Token Relay to Service
 
 A Token Relay happens when an OAuth2 consumer, for example the API Gateway, acts as a Client and forwards the accessToken to the routed service.
 
-{% img blog/spring-gateway/token-relay.png alt:"Token Relay Flow" width:"600" %}{: .center-image }
+{% img blog/spring-gateway-patterns/token-relay.png alt:"Token Relay Flow" width:"600" %}{: .center-image }
 
-Let's create a cart service.
+### Create a REST API Service
+
+Let's create a shopping cart service.
 
 ```shell
-curl https://start.spring.io/starter.zip -d dependencies=web,data-jpa,h2,cloud-eureka,okta,security \
+curl https://start.spring.io/starter.zip -d dependencies=web,data-jpa,h2,cloud-eureka,okta,security,lombok \
 -d groupId=com.okta.developer \
 -d artifactId=cart-service  \
 -d name="Cart Service" \
@@ -295,7 +303,8 @@ Unzip the file:
 unzip cart-service.zip -d cart-service
 cd cart-service
 ```
-Edit `pom.xml` and add [Jackson Datatype Money](https://github.com/zalando/jackson-datatype-money) dependency. For this tutorial, we will use [JavaMoney](https://javamoney.github.io/ri.html) for currency. We are also going to need oauth2-autoconfigure for later.
+
+Edit `pom.xml` and add [Jackson Datatype Money](https://github.com/zalando/jackson-datatype-money) dependency. For this tutorial, we will use [JavaMoney](https://javamoney.github.io/ri.html) for currency. 
 
 ```xml
 <dependency>
@@ -303,142 +312,10 @@ Edit `pom.xml` and add [Jackson Datatype Money](https://github.com/zalando/jacks
   <artifactId>jackson-datatype-money</artifactId>
   <version>1.1.1</version>
 </dependency>
-<dependency>
-  <groupId>org.springframework.security.oauth.boot</groupId>
-  <artifactId>spring-security-oauth2-autoconfigure</artifactId>
-</dependency>
 ```
 
-Create the `Cart` and `LineItem` model classes under `src/main/java/com.okta.developer.cartservice.model` package:
-
-```java
-package com.okta.developer.cartservice.model;
-
-
-import javax.money.MonetaryAmount;
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-
-@Entity
-public class Cart {
-
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer id;
-
-    private String customerId;
-    @Convert(converter=MonetaryAmountConverter.class)
-    private MonetaryAmount total;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<LineItem> lineItems = new ArrayList<>();
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
-    }
-
-    public List<LineItem> getLineItems() {
-        return lineItems;
-    }
-
-    public void setLineItems(List<LineItem> lineItems) {
-        this.lineItems = lineItems;
-    }
-
-    public MonetaryAmount getTotal() {
-        return total;
-    }
-
-    public void setTotal(MonetaryAmount total) {
-        this.total = total;
-    }
-
-    public void addLineItem(LineItem lineItem) {
-        this.lineItems.add(lineItem);
-    }
-}
-```
-
-```java
-package com.okta.developer.cartservice.model;
-
-import javax.money.MonetaryAmount;
-import javax.persistence.*;
-
-@Entity
-public class LineItem {
-
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer id;
-
-
-    private String productName;
-    private Integer quantity;
-    @Convert(converter=MonetaryAmountConverter.class)
-    private MonetaryAmount price;
-
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public MonetaryAmount getPrice() {
-        return price;
-    }
-
-    public void setPrice(MonetaryAmount price) {
-        this.price = price;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-}
-```
-
-Add a `CartRepository` under `src/main/java/com.okta.developer.cartservice.repository`:
-
-```java
-package com.okta.developer.cartservice.repository;
-
-import com.okta.developer.cartservice.model.Cart;
-import org.springframework.data.repository.CrudRepository;
-
-public interface CartRepository extends CrudRepository<Cart, Integer> {
-}
-```
-
-Add a `MonetaryAmountConverter` for mapping the `MonetaryAmount` type to the database, under `src/main/java/com.okta.developer.cartservice.model`:
+Before creating the entities for the service, add a `MonetaryAmountConverter` for mapping the `MonetaryAmount` type to the database. The conversion to and from BigDecimal for persistence allows using the built-in Hibernate BigDecimal to JDBC numeric mapping.
+Add `src/main/java/com/okta/developer/cartservice/model/MonetaryAmountConverter.java`:
 
 ```java
 package com.okta.developer.cartservice.model;
@@ -452,7 +329,6 @@ import java.math.BigDecimal;
 public class MonetaryAmountConverter implements AttributeConverter<MonetaryAmount, BigDecimal> {
 
     private final CurrencyUnit USD = Monetary.getCurrency("USD");
-
 
     @Override
     public BigDecimal convertToDatabaseColumn(MonetaryAmount monetaryAmount) {
@@ -475,7 +351,96 @@ public class MonetaryAmountConverter implements AttributeConverter<MonetaryAmoun
 }
 ```
 
-Add a `CartController` under `src/main/java/com.okta.developer.cartservice.controller`:
+Create the `Cart` and `LineItem` model classes under `src/main/java/com/okta/developer/cartservice/model` package:
+
+```java
+package com.okta.developer.cartservice.model;
+
+
+import lombok.Data;
+
+import javax.money.MonetaryAmount;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Data
+public class Cart {
+
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Integer id;
+
+    private String customerId;
+    @Convert(converter=MonetaryAmountConverter.class)
+    private MonetaryAmount total;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<LineItem> lineItems = new ArrayList<>();
+
+
+    public void addLineItem(LineItem lineItem) {
+        this.lineItems.add(lineItem);
+    }
+}
+```
+
+```java
+package com.okta.developer.cartservice.model;
+
+import lombok.Data;
+
+import javax.money.MonetaryAmount;
+import javax.persistence.*;
+
+@Entity
+@Data
+public class LineItem {
+
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Integer id;
+
+    private String productName;
+
+    private Integer quantity;
+
+    @Convert(converter=MonetaryAmountConverter.class)
+    private MonetaryAmount price;
+}
+```
+
+Add a `CartRepository` under `src/main/java/com/okta/developer/cartservice/repository/CartRepository.java`:
+
+```java
+package com.okta.developer.cartservice.repository;
+
+import com.okta.developer.cartservice.model.Cart;
+import org.springframework.data.repository.CrudRepository;
+
+public interface CartRepository extends CrudRepository<Cart, Integer> {
+}
+```
+
+Create the `CartNotFoundException` under `src/main/java/com/okta/developer/cartservice/controller/CartNotFoundException.java` for mapping the API 404 in the `CartController` we will create after:
+
+```java
+package com.okta.developer.cartservice.controller;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus(HttpStatus.NOT_FOUND)
+public class CartNotFoundException extends RuntimeException {
+
+    public CartNotFoundException(String message) {
+        super(message);
+    }
+}
+```
+
+Add a `CartController` under `src/main/java/com/okta/developer/cartservice/controller/CartController.java`:
 
 ```java
 package com.okta.developer.cartservice.controller;
@@ -487,7 +452,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class CartController {
-
 
     @Autowired
     private CartRepository repository;
@@ -506,28 +470,10 @@ public class CartController {
 }
 ```
 
-Create the `CartNotFoundException` under `src/main/java/com.okta.developer.cartservice.controller` for mapping the API 404:
-
-```java
-package com.okta.developer.cartservice.controller;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
-
-@ResponseStatus(HttpStatus.NOT_FOUND)
-public class CartNotFoundException extends RuntimeException {
-
-    public CartNotFoundException(String message) {
-        super(message);
-    }
-}
-```
-
-Configure the Jackson Money Datatype module. Add a `WebConfig` class under `src/main/java/com.okta.developer.cartservice`:
+Configure the Jackson Money Datatype module. Add a `WebConfig` class under `src/main/java/com/okta/developer/cartservice`:
 
 ```java
 package com.okta.developer.cartservice;
-
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -543,6 +489,7 @@ public class WebConfig implements WebMvcConfigurer {
     }
 }
 ```
+
 Edit `CartServiceApplication` and add `@EnableEurekaClient`:
 
 ```java
@@ -584,9 +531,9 @@ Start the `cart-service`:
 ./mvnw spring-boot:run
 ```
 
+### Route the REST API Through Spring Cloud Gateway
 
-
-Go to the `api-gateway` and add a route for the cart service, edit `SpringCloudGatewayApplication`:
+Go to the `api-gateway` project and add a route for the cart service, edit `SpringCloudGatewayApplication`:
 
 ```java
 package com.okta.developer.gateway;
@@ -607,7 +554,6 @@ public class SpringCloudGatewayApplication {
         SpringApplication.run(SpringCloudGatewayApplication.class, args);
     }
 
-
     @Bean
     public RouteLocator routeLocator(RouteLocatorBuilder builder, TokenRelayGatewayFilterFactory filterFactory) {
         return builder.routes()
@@ -616,7 +562,6 @@ public class SpringCloudGatewayApplication {
                         .uri("lb://cart"))
                 .build();
     }
-
 }
 ```
 
@@ -625,37 +570,40 @@ public class SpringCloudGatewayApplication {
 Restart the gateway with:
 ```shell
 OKTA_OAUTH2_ISSUER={yourOktaIssuer} \
-OKTA_OAUTH2_CLIENT_ID={yourOktaClientId} \
-OKTA_OAUTH2_CLIENT_SECRET={yourOktaClientSecret} \
+OKTA_OAUTH2_CLIENT_ID={clientId} \
+OKTA_OAUTH2_CLIENT_SECRET={clientSecret} \
 ./mvnw spring-boot:run
 ```
 
-Got to http://localhost:8080/greeting and copy the **accessToken**. Then use the accessToken to make requests to the cart API through the gateway.
+Go to `http://localhost:8080/greeting` and copy the **accessToken**. Then use the accessToken to make requests to the cart API through the gateway.
 
 ```shell
+export ACCESS_TOKEN={accessToken}
+
+# Add an item to the cart
 curl \
-  -d '{"customerId": "uijoon@mail.com", "lineItems": [{ "productName": "jeans", "quantity": 1}]}' \
-  -H "Authorization: Bearer {accessToken}" \
+  -d '{"customerId": "uijoon@example.com", "lineItems": [{ "productName": "jeans", "quantity": 1}]}' \
+  -H "Authorization: Bearer ${ACCESS_TOKEN}" \
   -H 'Content-Type: application/json' \
   -H 'Accept: application/json' \
   http://localhost:8080/cart
-```
-```shell
+
+# Return the contents of the cart
 curl \
   -H 'Accept: application/json' \
-  -H "Authorization: Bearer {accessToken}" \
+  -H "Authorization: Bearer ${ACCESS_TOKEN}" \
   http://localhost:8080/cart/1
 ```
 
-## Pattern 3: Service to Service Client Credentials Grant
+## Pattern 3: Service-to-Service Client Credentials Grant
 
-In this authorization pattern, the application requests an accessToken using only its client credentials. This flow is suitable for machine-to-machine (M2M) or service-to-service authorizations.
+In this authorization pattern, the application requests an access token using only its own client credentials. This flow is suitable for machine-to-machine (M2M) or service-to-service authorizations.
 
+{% img blog/spring-gateway-patterns/credentials-grant.png alt:"Credentials Grant Flow" width:"800" %}{: .center-image }
 
-{% img blog/spring-gateway/credentials-grant.png alt:"Credentials Grant Flow" width:"800" %}{: .center-image }
+### Create a Micro Service
 
-
-For service to service authorization, create a `pricing` Spring Boot service with Spring Initializr:
+For service-to-service authorization, create a `pricing` Spring Boot service with Spring Initializr:
 
 ```shell
 curl https://start.spring.io/starter.zip -d dependencies=web,cloud-eureka,okta,security,lombok \
@@ -674,7 +622,6 @@ unzip pricing-service.zip -d pricing-service
 cd pricing-service
 ```
 
-
 Edit `pom.xml` and add Jackson Datatype Money dependency again.
 
 ```xml
@@ -685,7 +632,7 @@ Edit `pom.xml` and add Jackson Datatype Money dependency again.
 </dependency>
 ```
 
-Create the `Cart` and `LineItem` model classes under `src/main/java/com.okta.developer.pricing.model` package:
+Create the `src/main/java/com/okta/developer/pricing/model/Cart.java` and `src/main/java/com/okta/developer/pricing/model/LineItem.java` model classes:
 
 ```java
 package com.okta.developer.pricing.model;
@@ -733,7 +680,7 @@ public class LineItem {
 }
 ```
 
-Create the `src/main/java/com.okta.developer.pricing.service` package. Create a `PricingService` interface and a `BasePricingService` implementation to calculate prices for the `LineItem`.
+Create the `src/main/java/com/okta/developer/pricing/service/PricingService.java` interface and a `src/main/java/com/okta/developer/pricing/service/DefaultPricingService` implementation to calculate prices for the `LineItem`.
 
 ```java
 package com.okta.developer.pricing.service;
@@ -745,6 +692,7 @@ public interface PricingService {
     Cart price(Cart cart);
 }
 ```
+
 ```java
 package com.okta.developer.pricing.service;
 
@@ -758,15 +706,13 @@ import javax.money.MonetaryAmount;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-
 @Service
-public class BasePricingService implements PricingService {
+public class DefaultPricingService implements PricingService {
 
     private final CurrencyUnit USD = Monetary.getCurrency("USD");
 
     @Override
     public Cart price(Cart cart) {
-
 
         MonetaryAmount total = Monetary.getDefaultAmountFactory()
                 .setCurrency(USD)
@@ -790,7 +736,8 @@ public class BasePricingService implements PricingService {
     }
 }
 ```
-Create the `PricingController` under the package `src/main/java/com.okta.developer.pricing.controller`:
+
+Create a `PricingController` to handle the pricing request. Add the class  `src/main/java/com/okta/developer/pricing/controller/PricingController.java`:
 
 ```java
 package com.okta.developer.pricing.controller;
@@ -814,15 +761,13 @@ public class PricingController {
         Cart priced = pricingService.price(cart);
         return priced;
     }
-
 }
 ```
 
-Configure the Jackson Money Module in a `src/main/java/com.okta.developer.pricing.WebConfig` class:
+Configure the Jackson Money Module in a `src/main/java/com/okta/developer/pricing/WebConfig.java` class:
 
 ```java
 package com.okta.developer.pricing;
-
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -836,8 +781,34 @@ public class WebConfig implements WebMvcConfigurer {
     public MoneyModule moneyModule(){
         return new MoneyModule().withDefaultFormatting();
     }
-
 }
+```
+
+### Secure the Micro Service using OAuth 2.0 Scopes
+
+Protect the pricing endpoint by requiring a custom scope `pricing` in the accessToken. One way to do it is with `HttpSecurity` configuration. Add a `src/main/java/com/okta/developer/pricing/WebSecurity.java` class with the following:
+
+```java
+package com.okta.developer.pricing;
+
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
+
+@EnableWebSecurity
+public class WebSecurity extends WebSecurityConfigurerAdapter {
+
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests(authorizeRequests -> authorizeRequests
+                        .mvcMatchers("/pricing/**").hasAuthority("SCOPE_pricing")
+                        .anyRequest().authenticated()
+                )
+                .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
+    }
+}
+
 ```
 
 Add `@EnableEurekaClient` to `PricingServiceApplication`:
@@ -880,6 +851,7 @@ Start the service:
 ```shell
 ./mvnw spring-boot:run
 ```
+
 Let's try the pricing API without an accessToken:
 
 ```shell
@@ -889,123 +861,150 @@ curl -v\
   -H 'Accept: application/json' \
   http://localhost:8082/pricing/price
 ```
-With the `-v` verbose flag, you should see the request is rejected with 401.
+With the `-v` verbose flag, you should see the request is rejected with 401 (Unauthorized).
+
+### Update the REST API to Call the Micro Service 
 
 Now we are going to configure `cart-service` to use the client credentials grant flow to request pricing.
 
 First create a new authorization client in Okta.
 
-1. From the **Applications** page, choose **Add Application**.
-2. On the Create New Application page, select **Service**.
-3. Name your app _Cart Service_ and click **Done**.
+1. From the **Applications** page, choose **Add Application**
+2. On the Create New Application page, select **Service**
+3. Name your app _Cart Service_ and click **Done**
 
 Copy the new client ID, and client secret.
-Edit `com.okta.developer.cartservice.WebConfig` to add a `RestTemplate` for calling the pricing API.
+
+Create a custom scope to restrict what the `cart-service` accessToken can access. From the menu bar select **API** -> **Authorization Servers**. Edit the authorization server by clicking on the edit pencil, then click **Scopes** -> **Add Scope**. Fill out the name field with `pricing` and press Create.
+
+{% img blog/spring-gateway-patterns/pricing-scope.png alt:"Client Credentials Activity" width:"600" %}{: .center-image }
+
+We need to configure the OAuth2 client in the `cart-service` application, for calling the `pricing-service`. `OAuth2RestTemplate` is not available in Spring Security 5.3.x. According to Spring Security OAuth [migration guides](https://github.com/spring-projects/spring-security/wiki/OAuth-2.0-Migration-Guide), the way to do this is by using RestTemplate interceptors or WebClient exchange filter functions. Since Spring 5, `RestTemplate` is in [maintenance mode](https://docs.spring.io/spring/docs/5.2.7.RELEASE/javadoc-api/org/springframework/web/client/RestTemplate.html), using WebClient (which supports sync, async, and streaming scenarios) is the suggested approach. So let's configure a `WebClient` for the pricing call.
+
+First, add the `spring-webflux` starter dependency to the `cart-service` `pom.xml`:
+
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-webflux</artifactId>
+</dependency>
+```
+
+**IMPORTANT:** Adding both `spring-boot-starter-web` and `spring-boot-starter-webflux` modules results in Spring Boot auto-configuring Spring MVC, not WebFlux. This allows Spring MVC applications to use the reactive WebClient.
+
+Create `src/main/java/com/okta/developer/cartservice/WebClientConfig.java`:
 
 ```java
 package com.okta.developer.cartservice;
 
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.cloud.client.loadbalancer.reactive.ReactorLoadBalancerExchangeFilterFunction;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.security.oauth2.client.OAuth2RestTemplate;
-import org.springframework.security.oauth2.client.token.grant.client.ClientCredentialsResourceDetails;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.zalando.jackson.datatype.money.MoneyModule;
+import org.springframework.http.codec.json.Jackson2JsonDecoder;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+import org.springframework.security.oauth2.client.web.OAuth2AuthorizedClientRepository;
+import org.springframework.security.oauth2.client.web.reactive.function.client.ServletOAuth2AuthorizedClientExchangeFilterFunction;
+import org.springframework.web.reactive.function.client.ExchangeStrategies;
+import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
-public class WebConfig implements WebMvcConfigurer {
+public class WebClientConfig {
+
+    @Autowired
+    private ReactorLoadBalancerExchangeFilterFunction lbFunction;
 
     @Autowired
     private ObjectMapper objectMapper;
 
     @Bean
-    public MoneyModule moneyModule(){
-        return new MoneyModule().withDefaultFormatting();
-    }
+    public WebClient webClient(ClientRegistrationRepository clientRegistrations,
+                               OAuth2AuthorizedClientRepository auth2AuthorizedClients){
 
-    @Bean
-    @LoadBalanced
-    @Lazy
-    protected RestTemplate restTemplate() {
-        RestTemplate restTemplate =  new OAuth2RestTemplate(oAuthDetails());
-        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-        converter.setObjectMapper(objectMapper);
-        restTemplate.getMessageConverters().add(0, converter);
-        return restTemplate;
-    }
+        ExchangeStrategies exchangeStrategies = ExchangeStrategies.builder()
+                .codecs(configurer ->
+                        configurer.defaultCodecs().jackson2JsonDecoder(new Jackson2JsonDecoder(objectMapper)))
+                .build();
 
-    @Bean
-    @ConfigurationProperties("pricing.oauth2.client")
-    protected ClientCredentialsResourceDetails oAuthDetails() {
-        return new ClientCredentialsResourceDetails();
+        ServletOAuth2AuthorizedClientExchangeFilterFunction oauth2 =
+                new ServletOAuth2AuthorizedClientExchangeFilterFunction(clientRegistrations, auth2AuthorizedClients);
+
+        oauth2.setDefaultClientRegistrationId("pricing-client");
+
+        return WebClient.builder().apply(oauth2.oauth2Configuration())
+                .exchangeStrategies(exchangeStrategies)
+                .filter(lbFunction).baseUrl("http://pricing/pricing/price").build();
     }
 }
 ```
 
-Edit the cart-service `application.yml` and add the following:
+In the code above, we set a custom json decoder, from the `objectMapper` that includes the `MoneyModule`, so the monetary amounts are correctly serialized and deserialized. Also, we set  `pricing-client` as the default OAuth 2.0 `registrationId`. For service discovery, a [`ReactorLoadBalancerExchangeFilterFunction`](https://cloud.spring.io/spring-cloud-commons/reference/html/#webflux-with-reactive-loadbalancer) must be added to the `WebClient`. 
+
+Let's now configure the OAuth 2.0 client registration. Edit the cart-service `application.yml` and add security.oauth2 properties. The `cart-service` is a resource server and an OAuth 2.0 client at the same time. The final configuration must be:
 
 ```yml
-pricing:
-  oauth2:
-    client:
-      grantType: client_credentials
-      accessTokenUri: {yourOktaIssuer}/v1/token
-      scope: pricing
-```
+server:
+  port: 8081
 
-Add the `PricingService` under `src/main/java/com.okta.developer.cartservice.service` package:
+spring:
+  application:
+    name: cart
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: {yourOktaIssuer}
+      client:
+        registration:
+          pricing-client:
+            provider: okta
+            authorization-grant-type: client_credentials
+            scope: pricing
+            client-id: {clientId}
+            client-secret: {clientSecret}
+        provider:
+          okta:
+            issuer-uri: {yourOktaIssuer}
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
+
+logging:
+  level:
+    com.okta.developer: DEBUG
+    org.springframework.web: DEBUG
+
+```
+Note the `Ribbon` loadbalancer has been disabled, otherwise the `ReactorLoadBalancer` auto-configuration will fail.
+
+Also, note the requested scope for the client_credentials grant is `pricing`, the custom scope. Then, the accessTokens for this client will only have access to the `pricing-service`. Adding a custom scope for the client_credentials flow is a best practice.
+
+Spring Boot will auto-configure the application as an OAuth2 client because of the `client.registration` presence in the YAML. Add a `src/main/java/com/okta/developer/cartservice/WebSecurity.java` class to override the auto-configuration, and configure the application as an OAuth 2.0 resource server:
 
 ```java
-package com.okta.developer.cartservice.service;
+package com.okta.developer.cartservice;
 
-import com.okta.developer.cartservice.model.Cart;
-import com.okta.developer.cartservice.model.LineItem;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 
-@Service
-public class PricingService {
+@Configuration
+public class WebSecurity extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private RestTemplate restTemplate;
-
-    public Cart price(Cart cart){
-        try {
-            HttpEntity httpEntity = new HttpEntity(cart);
-            ResponseEntity<Cart> response = restTemplate
-                    .exchange("http://pricing/pricing/price", HttpMethod.POST, httpEntity,
-                            Cart.class);
-
-            Cart priced = response.getBody();
-
-            for (int i = 0; i < priced.getLineItems().size(); i++) {
-                LineItem pricedLineItem = priced.getLineItems().get(i);
-                LineItem lineItem = cart.getLineItems().get(i);
-                lineItem.setPrice(pricedLineItem.getPrice());
-            }
-
-            cart.setTotal(priced.getTotal());
-
-
-            return cart;
-        } catch (Exception e){
-            throw new PricingException(e);
-        }
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests(authorize -> authorize
+                        .anyRequest().authenticated()
+                )
+                .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
     }
 }
 ```
+
+Create the class `src/main/java/com/okta/developer/cartservice/service/PricingException.java` to return `HttpStatus.INTERNAL_SERVER_ERROR` (HTTP status 500) when the cart cannot be priced due to an unexpected error.
 
 ```java
 package com.okta.developer.cartservice.service;
@@ -1022,6 +1021,58 @@ public class PricingException extends RuntimeException {
 }
 ```
 
+Add a PricingService for the pricing implementation. Create the class `src/main/java/com/okta/developer/cartservice/service/PricingService.java`:
+
+```java
+package com.okta.developer.cartservice.service;
+
+import com.okta.developer.cartservice.model.Cart;
+import com.okta.developer.cartservice.model.LineItem;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
+
+@Service
+public class PricingService {
+
+    private static final Logger logger = LoggerFactory.getLogger(PricingService.class);
+
+    @Autowired
+    private WebClient webClient;
+
+    public Cart price(Cart cart){
+        try {
+
+            Mono<Cart> response = webClient
+                    .post()
+                    .bodyValue(cart)
+                    .retrieve().bodyToMono(Cart.class);
+
+            Cart priced = response.block();
+
+            for (int i = 0; i < priced.getLineItems().size(); i++) {
+                LineItem pricedLineItem = priced.getLineItems().get(i);
+                LineItem lineItem = cart.getLineItems().get(i);
+                lineItem.setPrice(pricedLineItem.getPrice());
+            }
+
+            cart.setTotal(priced.getTotal());
+
+
+            return cart;
+        } catch (Exception e){
+            logger.error("Could not price cart:", e);
+            throw new PricingException(e);
+        }
+    }
+}
+```
+
+Note that the 'WebClient' is making a synchronous call, as we invoke `response.block()` to get the pricing result. This is the expected approach for non-reactive applications.
+
 Modify the `CartController` to request pricing when creating a cart:
 
 ```java
@@ -1035,7 +1086,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class CartController {
-
 
     @Autowired
     private CartRepository repository;
@@ -1062,27 +1112,32 @@ public class CartController {
 Restart the cart-service:
 
 ```shell
-PRICING_OAUTH2_CLIENT_CLIENTID={serviceClientId} \
-PRICING_OAUTH2_CLIENT_CLIENTSECRET={serviceClientSecret} \
+SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_PRICINGCLIENT_CLIENTID={serviceClientId} \
+SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_PRICINGCLIENT_CLIENTSECRET={serviceClientSecret} \
 ./mvnw spring-boot:run
 ```
 
-Create a cart trough the API Gateway again, make sure to have a valid accessToken from http://localhost:8080/greeting:
+## Putting it All Together
+
+Create a cart through the API Gateway again, make sure to have a valid accessToken from `http://localhost:8080/greeting`:
 
 ```shell
-curl \
+export ACCESS_TOKEN={accessToken}
+
+curl -v\
   -d '{"customerId": "uijoon@mail.com", "lineItems": [{ "productName": "jeans", "quantity": 1}]}' \
-  -H "Authorization: Bearer {accessToken}" \
+  -H "Authorization: Bearer ${ACCESS_TOKEN}" \
   -H 'Content-Type: application/json' \
   -H 'Accept: application/json' \
   http://localhost:8080/cart
 ```
+
 You should get a priced cart as response:
 
 ```json
 {
    "id":1,
-   "customerId":"uijoon@mail.com",
+   "customerId":"uijoon@example.com",
    "total":{
       "amount":86.20,
       "currency":"USD",
@@ -1101,19 +1156,21 @@ You should get a priced cart as response:
       }
    ]
 }
-```      
-If you see the System Log in Okta Dashboard, you will find an entry indicating the Cart Service requested an access token:
+```
 
-{% img blog/spring-gateway/client-credential-activity.png alt:"Client Credentials Activity" width:"900" %}{: .center-image }
+Take a look at the **System Log** in the Okta Dashboard and you will see an entry indicating the Cart Service requested an access token:
 
-## Learn More
+{% img blog/spring-gateway-patterns/client-credential-activity.png alt:"Client Credentials Activity" width:"900" %}{: .center-image }
 
-In this tutorial you learned how to create an API Gateway with Spring Cloud Gateway, and how configure three common OAuth2 patterns using Okta Spring Boot Starter and Spring Security: code flow, token relay and client credentials grant. You can find all the code at [Github](https://github.com/indiepopart/spring-cloud-gateway)
+## Learn More About Building Secure Applications
+
+In this tutorial, you learned how to create an API Gateway with Spring Cloud Gateway, and how to configure three common OAuth2 patterns (1. code flow, 2. token relay and 3. client credentials grant) using Okta Spring Boot Starter and Spring Security. . You can find all the code at [Github](https://github.com/oktadeveloper/okta-spring-cloud-gateway-example)
 To continue learning about Spring Cloud Gateway features and OAuth2 authorization patterns, check also the following links:
+s
+- [Secure Reactive Microservices with Spring Cloud Gateway](/blog/2019/08/28/reactive-microservices-spring-cloud-gateway)
+- [Secure Legacy Apps with Spring Cloud Gateway](/blog/2020/01/08/secure-legacy-spring-cloud-gateway)
+- [Secure Server-to-Server Communication with Spring Boot and OAuth 2.0](/blog/2018/04/02/client-creds-with-spring-boot)
+- [Secure Service-to-Service Spring Microservices with HTTPS and OAuth 2.0](/blog/2019/03/07/spring-microservices-https-oauth2)
+- [Use Okta Token Hooks to Supercharge OpenID Connect](/blog/2019/12/23/extend-oidc-okta-token-hooks)
 
-- [Secure Reactive Microservices with Spring Cloud Gateway](https://developer.okta.com/blog/2019/08/28/reactive-microservices-spring-cloud-gateway)
-- [Secure Legacy Apps with Spring Cloud Gateway](https://developer.okta.com/blog/2020/01/08/secure-legacy-spring-cloud-gateway)
-- [Secure Server-to-Server Communication with Spring Boot and OAuth 2.0](https://developer.okta.com/blog/2018/04/02/client-creds-with-spring-boot)
-- [Secure Service-to-Service Spring Microservices with HTTPS and OAuth 2.0](https://developer.okta.com/blog/2019/03/07/spring-microservices-https-oauth2)
-- [Use Okta Token Hooks to Supercharge OpenID Connect](https://developer.okta.com/blog/2019/12/23/extend-oidc-okta-token-hooks)
-- [Building a Gateway](https://spring.io/guides/gs/gateway/)
+If you like this blog post and want to see more like it, follow[@oktadev on Twitter](https://twitter.com/oktadev), subscribe to [our YouTube channel](https://youtube.com/c/oktadev), or follow us [on LinkedIn](https://www.linkedin.com/company/oktadev/). As always, please leave a comment below if you have any questions.
