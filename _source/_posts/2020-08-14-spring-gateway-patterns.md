@@ -1164,7 +1164,7 @@ Take a look at the **System Log** in the Okta Dashboard and you will see an entr
 
 ## Learn More About Building Secure Applications
 
-In this tutorial, you learned how to create an API Gateway with Spring Cloud Gateway, and how to configure three common OAuth2 patterns (1. code flow, 2. token relay and 3. client credentials grant) using Okta Spring Boot Starter and Spring Security. . You can find all the code at [Github](https://github.com/oktadeveloper/okta-spring-cloud-gateway-example)
+In this tutorial, you learned how to create an API Gateway with Spring Cloud Gateway, and how to configure three common OAuth2 patterns (1. code flow, 2. token relay and 3. client credentials grant) using Okta Spring Boot Starter and Spring Security. . You can find all the code at [GitHub](https://github.com/oktadeveloper/okta-spring-cloud-gateway-example)
 To continue learning about Spring Cloud Gateway features and OAuth2 authorization patterns, check also the following links:
 s
 - [Secure Reactive Microservices with Spring Cloud Gateway](/blog/2019/08/28/reactive-microservices-spring-cloud-gateway)
