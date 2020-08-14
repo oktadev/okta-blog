@@ -56,6 +56,7 @@ Once you've reached the app creation page, you'll want to select the **Single-Pa
 - **Name**: The name of your app.
 - **Base URIs**: The URLs that your app will run under. For instance, the app I'm going to secure in this guide will run on localhost port 8080, so I'll leave the default value of `http://localhost:8080` alone. If my website were running as `https://www.coolsite.com`, I'd use that value instead. You can have as many Base URI values as you need (you can have multiple URIs in there for development, staging, production, etc.).
 - **Login Redirect URIs**: The URLs that your app should redirect back to once a user has authenticated. For 99% of you, this should be the same value as the Base URI (e.g., `http://localhost:8080`). If you do change this from the default value, you will need to go to the **API** -> **Trusted Origins** dropdown and add your new URI as a trusted origin. This lets your browser-based app access the Okta API from this location.
+- **Grant type allowed**: Select **Implicit**. To use authorization code flow with PKCE, see [the Sign-In Widget's documentation](http://developer.okta.com/code/javascript/okta_sign-in_widget/#sign-in-and-display-user-s-email).
 
 Once you've got all the settings specified, click **Done** to create your new app.
 
@@ -347,5 +348,6 @@ Until next time!
 <a name="changelog"></a>
 **Changelog:**
 
+* Aug 5, 2020: Specify implicit flow as a grant type that needs to be allowed. Implicit is required for v2.x of the Sign-In Widget. The latest version supports authorization code flow with PKCE. See [okta-blog#363](https://github.com/oktadeveloper/okta-blog/pull/363) for changes.
 * Nov 16, 2019: Added screencast of this tutorial. See [okta-blog#85](https://github.com/oktadeveloper/okta-blog/pull/85) for changes.
 * Oct 31, 2019: Removed Trusted Origin (CORS) section since it's no longer needed. Changes to this post can be viewed in [okta-blog#69](https://github.com/oktadeveloper/okta-blog/pull/69).
