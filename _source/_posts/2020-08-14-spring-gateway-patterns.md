@@ -5,7 +5,7 @@ author: jimena-garbarino
 by: contractor
 communities: [java]
 description: "Tutorial: Learn how to implement real world use cases with Spring Boot and Spring Cloud Gateway."
-tags: [spring gateway, oidc, java, spring, spring boot, spring cloud gateway]
+tags: [spring-gateway, oidc, java, spring, spring-boot, spring-cloud-gateway]
 tweets:
 - "Learn how to configure @SpringCloud Gateway with common authentication patterns #OAuth2 🔒"
 - "Gateways, REST APIs, Microservices.  Learn how to securely put them all together with @SpringCloud Gateway 💥"
