@@ -10,7 +10,7 @@ tweets:
 - "Learn how to configure @SpringCloud Gateway with common authentication patterns #OAuth2 🔒"
 - "Gateways, REST APIs, Microservices.  Learn how to securely put them all together with @SpringCloud Gateway 💥"
 - "Different types of applications require different types of security. This posts walks through common patterns with @SpringCloud Gateway 🌱"
-image: /blog/spring-gateway-patterns/spring-cloud-gateway-patterns.png
+image: blog/spring-gateway-patterns/spring-cloud-gateway-patterns.png
 type: conversion
 ---
 
