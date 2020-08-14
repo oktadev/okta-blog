@@ -21,7 +21,8 @@
   },
   "pre-push": [
     "dev-restore",
-    "markdown-lint"
+    "markdown-lint",
+    "validate-front-matter"
   ],
   "repository": {
     "type": "git",
