@@ -5,7 +5,7 @@ author: jonathan-ray
 by: contractor
 communities: [.net, mobile]
 description: "This tutorial walks you through how to build a basic Android app using Visual Studio and Xamarin."
-tags: [android, xamarin, visual studio, mobile]
+tags: [android, xamarin, visual-studio, mobile]
 tweets:
 - "Wanna learn how to build Android apps with Xamarin in Visual Studio? Check out this post! #android #xamarin"
 - "Learn how to build a basic Android app with Xamarin in Visual Studio. #xamarin #android"

@@ -5,7 +5,7 @@ author: matt-raible
 by: advocate
 communities: [java,javascript,devops]
 description: "Learn how to deploy your Angular + Spring Boot App to Heroku, Firebase, Netlify, and AWS."
-tags: [angular, deployment, heroku, firebase, netlify, aws s3]
+tags: [angular, deployment, heroku, firebase, netlify, aws-s3]
 tweets:
 - "You've built an Angular + Spring Boot application and now you need to deploy it. This tutorial shows you how!"
 - "Deploy @angular to Heroku, Firebase, Netlify, and AWS with this in-depth tutorial."
@@ -25,6 +25,14 @@ There are lots of tutorials and information in the Java community on how to depl
 image::{% asset_path 'blog/angular-deployment/angular-deployment.png' %}[alt=Angular Deployment with a Side of Spring Boot,width=800,align=center]
 
 toc::[]
+
+You can also https://youtu.be/Hx9SbQ1ANLk[watch this tutorial as a screencast]. 👇
+
+++++
+<div style="text-align: center; margin-bottom: 1.25rem">
+<iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/Hx9SbQ1ANLk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+++++
 
 == Create an Angular + Spring Boot App
 

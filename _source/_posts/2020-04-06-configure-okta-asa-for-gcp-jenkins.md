@@ -5,7 +5,7 @@ author: nicolas-triballier
 by: internal-contributor
 communities: [devops]
 description: "Learn how to configure Okta's Advanced Server Access (ASA) product for GCP + Jenkins."
-tags: [devops, google cloud, gcp, asa, okta]
+tags: [devops, google-cloud, gcp, asa, okta]
 tweets:
 - "Using @googlecloud? Check out our new tutorial on using @okta's advanced server access product with it!"
 - "@okta + @googlecloud + #jenkins = win"
@@ -24,7 +24,7 @@ Below is the target architecture you'll be deploying:
 
 {% img blog/asa-gcp-jenkins/architecture.png alt:"architecture for ASA + GCP + Jenkins" %}{: .center-image }
 
-**Table of Contents**
+**Table of Contents**{: .hide }
 * Table of Contents
 {:toc}
 

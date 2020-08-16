@@ -5,7 +5,7 @@ author: tom-abbott
 by: internal-contributor
 communities: [security]
 description: "Find out what those CORB errors mean and how CORB protects your application from hardware-layer vulnerabilities."
-tags: [CORB, appsec, spectre, vulnerabilities, security, meltdown]
+tags: [corb, appsec, spectre, vulnerabilities, security, meltdown]
 tweets:
   - "Have you ever wondered why you started seeing CORB errors? Find out all about Cross-Origin Read Blocking!"
   - "Check out how CORB protects against side-channel attacks. Because software-layer attacks weren't enough to think about!"

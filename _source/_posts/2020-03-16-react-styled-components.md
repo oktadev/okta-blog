@@ -5,7 +5,7 @@ author: holger-schmitz
 by: contractor
 communities: [javascript]
 description: "Learn how to use Styled Components to manage CSS in your React App."
-tags: [react, styled components, css, javascript]
+tags: [react, styled-components, css, javascript]
 tweets:
 - "Use Styled Components with @reactjs to scope your styles and create CSS directly in JavaScript!"
 - "Styled Components offer a nice way to manage your CSS when writing @reactjs application. Check out this tutorial! 👉"

@@ -5,7 +5,7 @@ author: ryan-foster
 by: contractor
 communities: [.net]
 description: "Learn how to use Single Sign-On (SSO) to secure your ASP.NET MVC Application."
-tags: [aspnet, asp.net, asp net, sso, singlesignon, .net mvc, auth]
+tags: [aspnet, asp-dot-net, asp-net, sso, singlesignon, dot-net-mvc, auth]
 tweets:
 - "If you need to build single sign-on (sso) into your @aspnetmvc app, check out this post!"
 - "Need to build SSO (single-sign-on) into your @aspnetmvc app? Check this out!"

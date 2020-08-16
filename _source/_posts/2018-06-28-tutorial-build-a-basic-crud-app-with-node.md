@@ -5,7 +5,7 @@ author: randall-degges
 by: advocate
 communities: [javascript]
 description: "Learn how to securely store, update, and display user data in a simple Node.js / Express.js app."
-tags: [node, express, openidconnect, oidc, user management]
+tags: [node, express, openidconnect, oidc, user-management]
 tweets:
  - "Learning #nodejs? Check out our new article which walks you through building a full #expressjs application."
  - "We just published a new #nodejs article that shows you how to build a full website with database support. Go check it out!"

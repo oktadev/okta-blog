@@ -4,7 +4,7 @@ title: "Why GUIs Suck (and CLIs are Better)"
 author: lee-brandt
 by: advocate
 description: "I think command line interfaces are way easier to use that graphical user interfaces."
-tags: [CLI, GUI]
+tags: [cli, gui]
 tweets:
 - "Think GUIs are better than CLIs? Think again!"
 - "A quick run-down of whay CLIs are better than GUIs."

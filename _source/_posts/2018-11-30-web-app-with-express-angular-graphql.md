@@ -5,7 +5,7 @@ author: holger-schmitz
 by: contractor
 communities: [javascript]
 description: 'A tutorial to build a simple web application using Express, Angular, and GraphQL.'
-tags: [express, expressjs, node, angular, graphql, web application, web]
+tags: [express, expressjs, node, angular, graphql, web-application, web]
 tweets:
   - "Get started with @expressjs, @angular, and @graphql in this handy tutorial!"
   - "Like @nodejs and @typescriptlang? Then you're goind to love this tutorial! Express + Angular + GraphQL = 💜"

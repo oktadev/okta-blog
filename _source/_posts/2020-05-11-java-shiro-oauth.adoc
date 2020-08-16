@@ -5,7 +5,7 @@ author: brian-demers
 by: advocate
 communities: [security,java]
 description: "This tutorial will show you how to build a secure Java application with Apache Shiro and OAuth 2.0."
-tags: [java, oauth, apache shiro, jax-rs]
+tags: [java, oauth, apache-shiro, jax-rs]
 tweets:
 - "Learn how to build a secure #Java application with @ApacheShiro and OAuth 2.0🔒"
 - "Build a secure #Java app with @ApacheShiro and OAuth 2.0🔥"

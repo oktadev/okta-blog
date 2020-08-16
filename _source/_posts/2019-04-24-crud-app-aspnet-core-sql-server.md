@@ -5,7 +5,7 @@ author: lee-brandt
 by: advocate
 communities: [.net]
 description: "This is a step-by-step guide for creating a CRUD application using ASP.NET Core 2.2 and SQL Server."
-tags: [aspnetcore, netcore, sql server, sqlserver, mssql, mssql server]
+tags: [aspnetcore, netcore, sql-server, sqlserver, mssql, mssql-server]
 tweets:
   - "Need a step-by-step for creating a CRUD app in @ASPNETCore 2.2 and @SQLServer? We've got you covered!"
   - "If you've been looking for a step-by-step on building CRUD apps in @ASPNETCore 2.2 and @SQLServer, look no further!"

@@ -5,7 +5,7 @@ author: braden-kelley
 by: contractor
 communities: [javascript]
 description: 'A tutorial on building secure application with React and Redux using JWTs.'
-tags: [react, redux, JWT, react redux]
+tags: [react, redux, jwt, react-redux]
 tweets:
   - 'Learn to build secure @reactjs, #redux, and JWTs!'
   - 'Want to build secure @reactjs and #redux apps using JWTs? Check this out!'

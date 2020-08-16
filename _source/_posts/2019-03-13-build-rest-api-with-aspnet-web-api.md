@@ -5,7 +5,7 @@ author: ryan-foster
 by: contractor
 communities: [.net]
 description: "Learn how to build RESTful API service with ASP.NET Web API."
-tags: [aspnet, dotnet, web api, aspnet web api, dotnet web api, webapi]
+tags: [aspnet, dotnet, web-api, aspnet-web-api, dotnet-web-api, webapi]
 tweets:
 - "If you need to learn how to build a REST API with @aspnet Web API, check out this post!"
 - "Check out this easy-to-follow tutorial for creating a RESTful API using @aspnet Web API."

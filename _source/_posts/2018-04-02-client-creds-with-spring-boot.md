@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: Secure Server-to-Server Communication with Spring Boot and OAuth 2.0
-tags: spring, oauth, oauth 2.0, java, spring boot, client credentials
+tags: [spring, oauth, oauth-2-dot-0, java, spring-boot, client-credentials]
 author: brian-demers
 by: advocate
 communities: [java]

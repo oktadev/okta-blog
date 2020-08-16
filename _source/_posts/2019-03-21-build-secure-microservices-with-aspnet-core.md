@@ -5,7 +5,7 @@ author: chris-green
 by: contractor
 communities: [.net, devops]
 description: "This tutorial walks you through building an authentication microservice in ASP.NET Core and deploying it to AWS Lambda."
-tags: [aspnet, aspnetcore, dotnet, microservice, microservices, aws, aws lambda]
+tags: [aspnet, aspnetcore, dotnet, microservice, microservices, aws, aws-lambda]
 tweets:
 - "Need to learn how to build secure microservices in #aspnetcore? We've got you covered!"
 - "Set up secure microservices #aspnetcore and @AWS #Lambda! ->"

@@ -5,7 +5,7 @@ author: lee-brandt
 by: advocate
 communities: [javascript]
 description: "This post defines and demonstrates JavaScript Generators and their uses."
-tags: [ javascript, javascript generators, generators]
+tags: [javascript, javascript-generators, generators]
 tweets:
 - "Build your first JavaScript Generator and find out what you can do with them! →"
 - "JavaScript Generators! Uh... What are they good for? We've got you covered. (Say it again) <3"

@@ -5,7 +5,7 @@ author: andrew-hughes
 by: contractor
 communities: [java]
 description: "This article explores the benefits of token authentication with JWTs for Java apps."
-tags: [jwt, token auth, token authentication, client credentials, java, spring boot]
+tags: [jwt, token-auth, token-authentication, client-credentials, java, spring-boot]
 tweets:
 - "Curious about token authentication in Java? We just published an interesting post which shows you how to use it with JWT!"
 - "Want to learn more about OAuth 2.0, JWTs, and how they can work for token authentication? This post shows you how to do it in @java."

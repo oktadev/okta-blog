@@ -4,7 +4,7 @@ title: "The Best Travel Tips for People In Tech"
 author: heather-downing
 by: advocate
 description: "Are you in tech? Getting ready to travel? These travel tips will save you time and reduce stress on your next conference or work trip."
-tags: [ best travel tips, travel tips, tech travel, flying tips, best travel, airports, planes, developer travel tips, travel ]
+tags: [best-travel-tips, travel-tips, tech-travel, flying-tips, best-travel, airports, planes, developer-travel-tips, travel]
 tweets:
 - "Are you a software engineer jet-setting to a destination? Check out these travel tips →"
 - "Developers! We've got the BEST travel tips for you →"

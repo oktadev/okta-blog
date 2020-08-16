@@ -5,7 +5,7 @@ author: charlie-holland
 by: contractor
 communities: [.net, devops]
 description: "In this tutorial, you'll learn how to use continuous integration for a C# app securely using Okta + Jenkins."
-tags: [continuous integration, csharp, asp.net core, mvc, jenkins, asp.net]
+tags: [continuous-integration, csharp, asp-dot-net-core, mvc, jenkins, asp-dot-net]
 tweets:
 - "Learn how to deploy C# code continuously with @JenkinsCI and securely using @Okta + ASP.NET Core MVC"
 - "Hey #aspnet devs - want to learn how to continuously deploy your C# code changes? Use @JenkinsCI!"

@@ -4,7 +4,7 @@ title: "9 Talks I Can't Wait to See at Iterate"
 author: lee-brandt
 by: advocate
 description: "These are the 9 talks that I can't wait to see at the inaugural Iterate Developer Conference."
-tags: [iterate, conference, conference talks, community]
+tags: [iterate, conference, conference-talks, community]
 tweets:
     - "My list of 9 talks I can't wait to see at #IterateConf @OktaDev"
     - "9 Must-See Talks at @OktaDev's #IterateConf"

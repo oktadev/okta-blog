@@ -5,7 +5,7 @@ author: randall-degges
 by: advocate
 communities: [security]
 description: "This is the ultimate guide to migrating your userbase from one user management system to another."
-tags: [user migration, programming, user management]
+tags: [user-migration, programming, user-management]
 tweets:
   - "Need to migrate your users from one user management system to another? We just published the definitive guide on the subject:"
   - "Migrating your users from one system to another can be a huge pain.  @rdegges wrote a guide breaking it down, step-by-step."

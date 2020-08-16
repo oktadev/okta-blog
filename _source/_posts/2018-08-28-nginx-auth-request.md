@@ -16,6 +16,8 @@ type: conversion
 
 Ever found yourself wanting to put an application behind a login form, but dreading writing all that code to deal with OAuth 2.0 or passwords? In this tutorial, I'll show you how to use the nginx `auth_request` module to protect any application running behind your nginx server with OAuth 2.0, without writing any code! Vouch, a microservice written in Go, handles the OAuth dance to any number of different auth providers so you don't have to.
 
+**Tip:** If you want to add login (and URL based authorization) to more apps via a UI, integrate with more complex apps like Oracle or SAP, or replace legacy Single Sign-On on-prem, check the [Okta Access Gateway](https://www.okta.com/products/access-gateway/).
+
 ## Why Authenticate at the Web Server?
 
 Imagine you use nginx to run a small private wiki for your team. At first, you probably start out with adding a wiki user account for each person. It's not too bad, adding new accounts for new hires, and removing them when they leave.

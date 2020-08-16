@@ -4,7 +4,7 @@ title: "Add Authentication to Your Xamarin App with OpenID Connect"
 author: team-okta
 communities: [.net, mobile]
 description: "This tutorial shows you how to build secure authentication with Xamarin Forms and OpenID Connect."
-tags: [xamarin, xamarin authentication, xamarin and openid connect]
+tags: [xamarin, xamarin-authentication, xamarin-and-openid-connect]
 tweets:
   - "You love #Xamarin, but hate building #authentication, right? No worries, we've got you!"
   - "Building with #Xamarin? Add Okta and you can have working, secure, production-ready authentication and user management in under 30 minutes."

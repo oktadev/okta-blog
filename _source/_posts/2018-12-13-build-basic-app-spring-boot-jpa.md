@@ -5,7 +5,7 @@ author: andrew-hughes
 by: contractor
 communities: [java]
 description: "Build a resource server using Spring Boot and Spring Data JPA and implement Group-based authorization using Okta OAuth."
-tags: [security, jwt, token, authentication, sessions, jpa, spring, spring data]
+tags: [security, jwt, token, authentication, sessions, jpa, spring, spring-data]
 tweets: 
 - "Want to learn how to build an app with @springboot and JPA? This tutorial is for you!"
 - "Spring Data makes JPA pretty darn easy. This tutorial shows you how to make it work with PostgreSQL >"

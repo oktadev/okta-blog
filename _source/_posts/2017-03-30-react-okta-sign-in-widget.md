@@ -4,7 +4,7 @@ title: Build a React Application with User Authentication in 15 Minutes
 author: lee-brandt
 by: advocate
 communities: [javascript]
-tags: [react, sign-in widget, okta, es6]
+tags: [react, sign-in-widget, okta, es6]
 type: conversion
 ---
 

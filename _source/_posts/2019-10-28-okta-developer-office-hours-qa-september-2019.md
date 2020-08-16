@@ -4,7 +4,7 @@ title: "Okta Developer Office Hours Q&A - September 2019 Edition"
 author: matt-raible
 by: advocate
 description: "We held developer office hours recently and answered a lot of questions!"
-tags: [okta, developer, office hours]
+tags: [okta, developer, office-hours]
 tweets:
 - "Did you miss our developer office hours in September? Good news: we recorded it!"
 - "We answered quite a few developer questions in our September 2019 office hours. This blog post answers the ones we couldn't answer in real-time."

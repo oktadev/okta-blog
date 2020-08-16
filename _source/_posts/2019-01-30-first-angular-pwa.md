@@ -5,7 +5,7 @@ author: holger-schmitz
 by: contractor
 communities: [javascript]
 description: "This post shows you how to build a PWA (Progressive Web Application) with Angular, Angular CLI, and Angular Material."
-tags: [angular, angular cli, angular material, pwa, angular pwa]
+tags: [angular, angular-cli, angular-material, pwa, angular-pwa]
 tweets:
 - "Want to learn how to build an @angular PWA? This tutorial has you covered!"
 - "Get started building your first Angular PWA today. It's pretty darn easy thanks to @angularcli!"

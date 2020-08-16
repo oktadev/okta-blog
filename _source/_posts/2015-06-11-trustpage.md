@@ -4,7 +4,7 @@ title: The New Age of Trust
 author: vimarsh-karbhari
 by: internal-contributor
 communities: [security]
-tags: [trust, trust pages, trust relationship, product, engineering, customer success, functional design]
+tags: [trust, trust-pages, trust-relationship, product, engineering, customer-success, functional-design]
 type: awareness
 ---
 

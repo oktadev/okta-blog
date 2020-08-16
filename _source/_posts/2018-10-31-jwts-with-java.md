@@ -5,7 +5,7 @@ author: andrew-hughes
 by: contractor
 communities: [java]
 description: "This article explores the benefits of token authentication with JWTs for Java apps."
-tags: [jwt, token auth, token authentication, java]
+tags: [jwt, token-auth, token-authentication, java]
 tweets:
 - "JWTs + Java = 🎂"
 - "Tutorial - JSON Web Tokens with @Java"

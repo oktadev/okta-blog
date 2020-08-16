@@ -5,7 +5,7 @@ author: matt-raible
 by: advocate
 communities: [java,javascript,devops]
 description: "Use Docker to build & deploy an Angular app! Includes how to combine Angular + Spring Boot into a JAR, dockerize it, and deploy to Knative + Cloud Foundry."
-tags: [angular, docker, heroku, jarnotwar, spring boot, knative, cloudfoundry, buildpacks]
+tags: [angular, docker, heroku, jarnotwar, spring-boot, knative, cloudfoundry, buildpacks]
 tweets:
 - "A Quick Guide to #Docker with #Angular and Spring Boot. 👇"
 - "Angular + Spring Boot + Docker: learn how to create an image with a Dockerfile, with #jib, and using @buildpacks_io!"
@@ -44,6 +44,14 @@ https://twitter.com/_JamesWard[image:{% asset_path 'blog/angular-docker/_JamesWa
 https://twitter.com/starbuxman[image:{% asset_path 'blog/angular-docker/starbuxman.jpg' %}[alt=Josh Long,role="BlogPost-avatar img-100px"]]
 https://twitter.com/codefinger[image:{% asset_path 'blog/angular-docker/codefinger.jpg' %}[alt=Joe Kutner,role="BlogPost-avatar img-100px"]]
 ====
+
+NOTE: You can also https://youtu.be/BKepFaIwCvo[watch this tutorial as a screencast]!
+
+++++
+<div style="text-align: center; margin-bottom: 1.25rem">
+<iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/BKepFaIwCvo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+++++
 
 == Create an Angular + Spring Boot App
 

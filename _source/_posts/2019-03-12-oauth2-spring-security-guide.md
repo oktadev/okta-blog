@@ -5,7 +5,7 @@ author: andrew-hughes
 by: contractor
 communities: [java]
 description: "Learn how to build an OAuth 2.0 Authorization Server with Spring Boot and Spring Security."
-tags: [java, spring boot, spring security, oauth2]
+tags: [java, spring-boot, spring-security, oauth2]
 tweets:
 - "Learn how to create an @oauth_2 authorization server with Spring Boot and Spring Security."
 - "This guide shows you how to setup your own authorization server with @springboot and @SpringSecurity. Hope you enjoy!"

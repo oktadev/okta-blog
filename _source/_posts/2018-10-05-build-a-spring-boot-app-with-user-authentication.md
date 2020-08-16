@@ -5,7 +5,7 @@ author: andrew-hughes
 by: contractor
 communities: [java]
 description: "Spring Boot makes it fun and easy to build Java webapps. This blog post shows you how to add user authentication to a Spring Boot app."
-tags: [java, spring, spring boot, user authentication, user registration]
+tags: [java, spring, spring-boot, user-authentication, user-registration]
 tweets:
 - "Build a @springboot webapp and add user authentication and registration in this handy tutorial."
 - "Get started with Spring Boot today! This post shows you how build a quick app with login, registration, and group-based access control."
