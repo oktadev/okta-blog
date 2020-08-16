@@ -5,7 +5,7 @@ author: brandon-parise
 by: contractor
 communities: [javascript]
 description: "This shows how to create an app with plain ol' vanilla JavaScript and add authentication to it to secure its communication with a REST API."
-tags: [javascript, es6, vanilla javascript, vanilla js, authentication]
+tags: [javascript, es6, vanilla-javascript, vanilla-js, authentication]
 tweets:
  - "Having a hard time with JavaScript Framework Fatigue? Check out this tutorial that builds a calorie tracking app with good ol' JavaScript. No frameworks, no problem! 😃"
  - "Want to get your hands dirty with good ol' JavaScript? This tutorial doesn't use any JavaScript frameworks to build an app. The build process is amazing! 🤘"

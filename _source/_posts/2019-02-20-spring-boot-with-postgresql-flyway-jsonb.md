@@ -5,7 +5,7 @@ author: raphael-do-vale
 by: contractor
 communities: [java]
 description: "This article presents how a developer can integrate Spring Boot and PostgreSQL, using some exclusive property and NoSQL column types."
-tags: [postgresql, sql, nosql, jpa, hibernate, java, spring boot]
+tags: [postgresql, sql, nosql, jpa, hibernate, java, spring-boot]
 tweets:
 - "In doubt how to integrate Spring Boot and PostgreSQL? This article is for you!"
 - "Use PostgreSQL as a NoSQL database with Spring Boot!"

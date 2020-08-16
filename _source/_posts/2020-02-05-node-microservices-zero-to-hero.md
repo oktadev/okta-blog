@@ -5,7 +5,7 @@ author: nickolas-fisher
 by: contractor
 communities: [javascript]
 description: "Learn how to build microservices in Node using Seneca."
-tags: [node, microservices, node microservices, seneca]
+tags: [node, microservices, node-microservices, seneca]
 tweets:
 - "Learn how to build microservices in Node with Seneca."
 - "Check out this tutorial on building microservices in Node!"

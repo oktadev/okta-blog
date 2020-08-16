@@ -5,7 +5,7 @@ author: mikel-pascual
 by: contractor
 communities: [java]
 description: "Interested in how Android + Gradle work together? This article will go over the basics."
-tags: [ android, mobile, gradle, user management, login ]
+tags: [android, mobile, gradle, user-management, login]
 tweets:
 - "Mobile devs! Thinking about #Android + #Gradle and what it can do for you? Check it out →"
 - "Been confused about how to make #Gradle work for your #Android projects? Take the mystery out with this tutorial →"

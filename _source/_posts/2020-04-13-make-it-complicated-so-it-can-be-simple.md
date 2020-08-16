@@ -4,7 +4,7 @@ title: "Make It Complicated, So It Can Be Simple"
 author: chris-gustafson
 by: internal-contributor
 description: "Managing complexity in Agile projects can make simplicity possible."
-tags: [agile, lean, process, project management]
+tags: [agile, lean, process, project-management]
 image: blog/featured/okta-angular-headphones.jpg
 type: awareness
 ---

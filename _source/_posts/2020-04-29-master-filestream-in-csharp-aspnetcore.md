@@ -5,7 +5,7 @@ author: chase-aucoin
 by: contractor
 communities: [.net]
 description: "Hesitant about when to use the Filestream in C#? This is a primer that explains how to understand the concept and securely stream files hosted on AWS."
-tags: [filestream, C#, csharp, dotnet, .net, asp.net]
+tags: [filestream, c-sharp, csharp, dotnet, dot-net, asp-dot-net]
 tweets:
 - "When should a dev use the #filestream in #csharp? We explain the concept and how to securely stream files hosted in #aws ->."
 - "Unsure about using the #Filestream in #dotnet? We've got a primer just waiting for you ->"

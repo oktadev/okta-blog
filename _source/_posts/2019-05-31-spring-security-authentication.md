@@ -5,7 +5,7 @@ author: andrew-hughes
 by: contractor
 communities: [java]
 description: "In this tutorial, you'll build a very simple Spring Boot app that uses auth, form-based authentication, and OAuth 2.0 / OpenID Connect."
-tags: [java, spring, spring boot, spring security, security]
+tags: [java, spring, spring-boot, spring-security, security]
 tweets:
 - "Go from basic, to form based, to OpenID Connect authentication with @SpringSecurity."
 - "Dig this new post from Andrew on Simple Authentication with @springboot and Spring Security."

@@ -5,7 +5,7 @@ author: lee-brandt
 by: advocate
 communities: [devops]
 description: "In this article, you'll learn how to set up a cluster of containers using Docker Swarm and how to use Docker Machine to create VMs that have Docker already installed."
-tags: [docker, docker swarm, container, containerization]
+tags: [docker, docker-swarm, container, containerization]
 tweets:
     - "Learn how to cluster your containers with Docker Swarm"
     - "Easily scale your containers using with Docker swarm"

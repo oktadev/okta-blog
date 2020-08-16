@@ -5,7 +5,7 @@ author: terje-kolderup
 by: contractor
 communities: [.net]
 description: "Learn to build a cross-platform login form for iOS, Android, and Windows using Xamarin Forms"
-tags: [xamarin,xamarin forms,ios,android]
+tags: [xamarin, xamarin-forms, ios, android]
 tweets:
 - "Learn to build a cross-platform login form for iOS, Android, and Windows using Xamarin Forms @xamarinhq #xamarin #ios #android #mobile #visualstudio #dotnet"
 - "Learn to build a login form in Xamarin with Xamarin.Forms @xamarinhq #xamarin #ios #android #mobile #visualstudio #dotnet"

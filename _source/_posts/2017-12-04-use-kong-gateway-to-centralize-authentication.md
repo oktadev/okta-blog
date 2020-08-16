@@ -4,7 +4,7 @@ title: 'Use Kong Gateway to Centralize Authentication'
 author: micah-silverman
 by: advocate
 communities: [java]
-tags: [kong, api gateway, api, gateway, spring, spring boot]
+tags: [kong, api-gateway, api, gateway, spring, spring-boot]
 type: conversion
 ---
 

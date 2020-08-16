@@ -5,7 +5,7 @@ author: jefferson-haw
 by: internal-contributor
 communities: [security]
 description: "Learn how to implement transactional MFA in your applications."
-tags: [transactional MFA, MFA]
+tags: [transactional-mfa, mfa]
 tweets:
 - "Ever needed an extra layer of security arouns particularly sensitive parts of your application? Check this out!"
 - "What is 'Transactional MFA' and what is it used for? Find out here!"
