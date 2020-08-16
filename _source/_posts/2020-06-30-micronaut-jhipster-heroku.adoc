@@ -4,7 +4,7 @@ title: "Build a Secure Micronaut and Angular App with JHipster"
 author: matt-raible
 by: advocate
 communities: [java,javascript]
-description: "This tutorial shows you how to create an Angular and Java app with Micronaut and JHipster and deploy it to Heroku."
+description: "This tutorial shows you how to create a secure Micronaut and Angular app with Java + JHipster and deploy it to Heroku."
 tags: [java, micronaut, jhipster, oauth2, heroku]
 tweets:
 - "Want to learn how to create a secure @angular and @micronautfw app with @jhipster? @mraible has a tutorial for that!"
@@ -18,19 +18,19 @@ type: conversion
 
 Micronaut is a new framework for developing JVM applications, including APIs and microservices. It uses ahead-of-time (AOT) compilation to compute the information that your application needs before runtime, removing the need for reflection. The result is a significant decrease in runtime overhead and startup time, and a substantial increase in application throughput. Micronaut is a direct competitor to Spring Boot from the folks that invented Grails. Its design and runtime efficiency make it ideal for deployment in modern, resource-constrained environments (like serverless).
 
-JHipster is a full-stack development platform for generating, developing, and deploying modern web applications and microservice architectures. JHipster traditionally only had a Spring Boot backend implementation. However, other backend implementations have recently been added, including Micronaut!
+JHipster is a full-stack development platform for generating, developing, and deploying modern web applications and microservice architectures. Its first version used AngularJS for the frontend; its latest version uses Angular 10. JHipster traditionally only had a Spring Boot backend implementation. However, other backend implementations have recently been added, including Micronaut!
 
 JHipster has a concept called _blueprints_. Blueprints allow you to override default behavior in its application generator. Popular JHipster blueprints include https://github.com/jhipster/jhipster-vuejs[Vue.js] and https://github.com/jhipster/jhipster-kotlin[Kotlin].
 
-Today, I'd like to show you how to use the new and shiny https://github.com/jhipster/generator-jhipster-micronaut[Micronaut blueprint]. It supports Micronaut 2.0 and deploying to Heroku, plus adding Okta in one command. I figured it'd make for an excellent blog post!
+Today, I'd like to show you how to use the new and shiny https://github.com/jhipster/generator-jhipster-micronaut[Micronaut blueprint for JHipster]. It supports Micronaut 2.0 and deploying to Heroku, plus adding Okta in one command. I figured it'd make for an excellent blog post!
 
-image::{% asset_path 'blog/jhipster-micronaut/micronaut-jhipster.png' %}[alt=Build a Secure Micronaut and Angular App with JHipster,width=800,align=center]
+image::{% asset_path 'blog/micronaut-jhipster/micronaut-jhipster.png' %}[alt=Build a Secure Micronaut and Angular App with JHipster,width=800,align=center]
+
+toc::[]
 
 == Build a Micronaut app with JHipster
 
 JHipster has its own domain language called JDL (JHipster Domain Language). JDL can be used to describe an app, entities, relationships between entities, and even deployments. In this tutorial, I'll show you how to build a simple app that allows you to record space launches and add images to the event. It will look similar to NASA's https://www.nasa.gov/launchschedule/[Launches and Landings].
-
-toc::[]
 
 **Prerequisites:**
 
@@ -169,7 +169,7 @@ Then you'll need to import the JDL and specify both Micronaut and Vue.js as blue
 jhipster import-jdl app.jdl --blueprints micronaut,vuejs
 ----
 
-=== Confirm authentication with Keycloak works
+=== Confirm Authentication with Keycloak works
 
 With Keycloak up and running, you should be able to log in. Start your app using Maven:
 
@@ -180,23 +180,19 @@ With Keycloak up and running, you should be able to log in. Start your app using
 
 When it finishes launching, go to `http://localhost:8080` in your favorite browser and click the **sign in** link.
 
-image::{% asset_path 'blog/jhipster-micronaut/homepage.png' %}[alt=JHipster Homepage,width=800,align=center]
-
+image::{% asset_path 'blog/micronaut-jhipster/homepage.png' %}[alt=JHipster Homepage,width=800,align=center]
 
 Your app will redirect you to Keycloak to log in. Use `admin/admin` to log in as an administrator.
 
-image::{% asset_path 'blog/jhipster-micronaut/keycloak.png' %}[alt=Keycloak Login,width=800,align=center]
-
+image::{% asset_path 'blog/micronaut-jhipster/keycloak-login.png' %}[alt=Keycloak Login,width=800,align=center]
 
 You can browse through the Administration section by clicking on the **Administration** menu.
 
-image::{% asset_path 'blog/jhipster-micronaut/admin-metrics.png' %}[alt=Admin Metrics,width=800,align=center]
-
+image::{% asset_path 'blog/micronaut-jhipster/admin-metrics.png' %}[alt=Admin Metrics,width=800,align=center]
 
 Go to **Entities** > **Space Events** to add new events and missions.
 
-image::{% asset_path 'blog/jhipster-micronaut/space-events.png' %}[alt=Space Events,width=800,align=center]
-
+image::{% asset_path 'blog/micronaut-jhipster/space-events.png' %}[alt=Space Events,width=800,align=center]
 
 NOTE: You might notice how both space events and missions have existing data. This is from https://github.com/marak/Faker.js/[Faker.js] and https://www.liquibase.org/[Liquibase]. Liquibase is used to create your database tables, and Faker.js is used to create fake data in development. If you want to turn off fake data, you can open `src/main/resources/application-dev.yml` and search for `faker`. Remove it from the list of active profiles for Liquibase.
 
@@ -249,12 +245,11 @@ This process can take a while to complete. When I tried it, it took seven minute
 
 When the deployment process finishes, open your favorite browser to the URL in your console or run `heroku open`.
 
-image::{% asset_path 'blog/jhipster-micronaut/app-on-heroku.png' %}[alt=App running on Heroku,width=800,align=center]
+image::{% asset_path 'blog/micronaut-jhipster/app-on-heroku.png' %}[alt=App running on Heroku,width=800,align=center]
 
 You should be able to log in using the email and password you provided. Okta will prompt you to change your password and set a security question (for password recovery).
 
-image::{% asset_path 'blog/jhipster-micronaut/heroku-authenticated.png' %}[alt=Heroku after authentication,width=800,align=center]
-
+image::{% asset_path 'blog/micronaut-jhipster/heroku-authenticated.png' %}[alt=Heroku after authentication,width=800,align=center]
 
 You can also deploy your JHipster app as a Docker container! In https://developer.okta.com/blog/2020/06/17/angular-docker-spring-boot#heroku-spring-boot-docker[Angular + Docker with a Big Hug from Spring Boot], I showed you how to deploy Spring Boot to Heroku as a container. I also showed how you can deploy that same image to Knative on Google Cloud and Cloud Foundry. Once you have a JHipster + Micronaut image built, you can use those same instructions to deploy to those platforms.
 
@@ -384,23 +379,21 @@ heroku open --remote docker
 
 If you test your Dockerized Angular + Micronaut app on https://securityheaders.com[securityheaders.com], you'll see it scores an **A**!
 
-image::{% asset_path 'blog/jhipster-micronaut/security-headers.png' %}[alt=Security Header Score (A) for Heroku Docker container,width=800,align=center]
+image::{% asset_path 'blog/micronaut-jhipster/security-headers.png' %}[alt=Security Header Score (A) for Heroku Docker container,width=800,align=center]
 
-
-If you want to log in to this app, you'll need to add login and logout redirect URIs to your Okta **Web** app. To access it, open [dashboard.heroku.com](https://dashboard.heroku.com) in a new private window. Log in and go to $docker-app-name > Resources > okta. After you're redirected to Okta, you should see your developer dashboard. If you don't, log out of Okta and try again. Then, go to **Applications** > **Web** > **General** > **Edit**.
+If you want to log in to this app, you'll need to add login and logout redirect URIs to your Okta **Web** app. To access it, open https://dashboard.heroku.com[dashboard.heroku.com] in a private window. Log in and go to $docker-app-name > Resources > okta. After you're redirected to Okta, you should see your developer dashboard. If you don't, log out of Okta and try again. Then, go to **Applications** > **Web** > **General** > **Edit**.
 
 For example, I added the following to mine:
 
-* Login redirect URI: `https://infinite-crag-99454.herokuapp.com/oauth2/callback/oidc`
-* Logout redirect URI: `https://infinite-crag-99454.herokuapp.com/logout`
+* Login redirect URI: `\https://infinite-crag-99454.herokuapp.com/oauth2/callback/oidc`
+* Logout redirect URI: `\https://infinite-crag-99454.herokuapp.com/logout`
 
-image::{% asset_path 'blog/jhipster-micronaut/redirect-uris.png' %}[alt=Redirect URIs after updating,width=650,align=center]
+image::{% asset_path 'blog/micronaut-jhipster/redirect-uris.png' %}[alt=Redirect URIs after updating,width=650,align=center]
 
-
-If you make save these changes and try to log in again, you'll likely receive an error message:
+If you make save these changes and try to log in to your app again, you'll likely receive an error message:
 
 ----
-"Internal Server Error: Unable to sync user with idp."
+Internal Server Error: Unable to sync user with idp.
 ----
 
 This happens when you try to log in with the super admin that the Okta add-on creates. Try logging in using a private window and it should work as expected.
@@ -417,10 +410,10 @@ If you're interested in a performance comparison of Spring Boot and Micronaut in
 
 I hope you liked this hip tutorial! Here are some other ones that you might enjoy.
 
-- https://developer.okta.com/blog/2020/01/09/java-rest-api-showdown[Java REST API Showdown: Which is the Best Framework on the Market?] https://youtu.be/pR_MBNL7cFI[📺]
-* link:/blog/2019/05/23/java-microservices-spring-cloud-config[Java Microservices with Spring Cloud Config and JHipster] https://youtu.be/ez7HMO60kE8[📺]
-* link:/blog/2019/04/04/java-11-java-12-jhipster-oidc[Better, Faster, Lighter Java with Java 12 and JHipster 6] https://youtu.be/Ktnvqoouulg[📺]
-- https://developer.okta.com/blog/2020/04/27/mobile-development-ionic-react-native-jhipster[📺 Mobile Development with Ionic, React Native, and JHipster]
+- link:/blog/2020/01/09/java-rest-api-showdown[Java REST API Showdown: Which is the Best Framework on the Market?]
+- link:/blog/2019/05/23/java-microservices-spring-cloud-config[Java Microservices with Spring Cloud Config and JHipster]
+- link:/blog/2019/04/04/java-11-java-12-jhipster-oidc[Better, Faster, Lighter Java with Java 12 and JHipster 6]
+- link:/blog/2020/04/27/mobile-development-ionic-react-native-jhipster[Mobile Development with Ionic, React Native, and JHipster]
 
 If you have any questions, please ask them in the comments below.
 
