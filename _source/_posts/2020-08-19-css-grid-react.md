@@ -28,7 +28,7 @@ In this tutorial, I will show you how to create a single page application that u
 * Table of Contents
 {:toc}
 
-## Creating a Unicode Browser App with React
+## Create a Unicode Browser App with React
 
 I will assume that you have some familiarity with JavaScript and that you have a recent version of Node installed on your computer. You will first create a React project using the `npx` command that comes with the Node installation. In a terminal, navigate into a directory of your choice and run the following command.
 
@@ -205,7 +205,7 @@ Once the application has finished compiling, it should automatically open your b
 
 The layout of the user interface is not very nice, of course, because you have not yet applied any styling to it.
 
-## Creating a Responsive Layout with CSS Grid
+## Add a Responsive Layout with CSS Grid
 
 In this section, I will show you how to create a responsive layout using a CSS Grid Layout. In your IDE, create a new file `src/Unicode.css` and paste the following style into it.
 
