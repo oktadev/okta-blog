@@ -10,7 +10,7 @@ tweets:
 - "Learn how to use CSS Grid to build a responsive @reactjs app in this quick tutorial."
 - "Create a SPA that uses CSS grids to create a responsive layout without using media queries!"
 - "CSS Grid is a technique in CSS that allows web developers to create complex responsive web design layouts more easily. Learn how to this technique when building a React app."
-image:
+image: blog/css-grid-react/css-grid-layout.png
 type: conversion
 ---
 
@@ -20,9 +20,13 @@ After dropping the use of tables, the first solution was to use the CSS `float` 
 
 Along came flexbox to help with some of these problems. It made it a lot easier to create a responsive row or column-based layouts. While flexbox is a huge step forward, it doesn't adequately address all the needs of front-end designers. Designers for print media usually work with a grid system that organizes content on a page. And the need for a method of arranging content in a 2-dimensional space that uses the same concepts that have been used by print designers for many years was recognized.
 
-The CSS grid layout allows you to specify a grid system on your web page and place content inside the grid cells in a responsive manner. Elements inside the grid can span multiple rows or columns while maintaining the correct row heights and gutter spacings. The CSS grid is not supposed to replace flexbox but to work alongside it to create truly professional layouts.
+The CSS grid layout allows you to specify a grid system on your web page and place content inside the grid cells in a responsive manner. Elements inside the grid can span multiple rows or columns while maintaining the correct row heights and gutter spacings. The CSS grid is not supposed to replace flexbox but to woOn smaller screensrk alongside it to create truly professional layouts.
 
 In this tutorial, I will show you how to create a single page application that uses CSS grids to create a responsive layout without using media queries. The application will be a simple Unicode character browser implemented with React.
+
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
 
 ## Creating a Unicode Browser App with React
 
@@ -197,7 +201,6 @@ npm start
 
 Once the application has finished compiling, it should automatically open your browser to `http://localhost:3000`. You will see something like the image below.
 
-
 {% img blog/css-grid-react/react-css-grid-unicode-unstyled.png alt:"The Unicode browser without any styling" width:"800" %}{: .center-image }
 
 The layout of the user interface is not very nice, of course, because you have not yet applied any styling to it.
@@ -286,13 +289,11 @@ import './Unicode.css'
 
 Now you can run `npm start` again to test the application. In your browser, you should see something as shown in the image below.
 
-
 {% img blog/css-grid-react/react-css-grid-unicode-large.png alt:"The styled Unicode browser on large screens" width:"800" %}{: .center-image }
 
 On smaller screens, the number of columns in the grid decreases, and the two cells on the right will automatically be placed below the search results.
 
-
-{% img blog/css-grid-react/react-css-grid-unicode-large.png alt:"The styled Unicode browser on small screens" width:"500" %}{: .center-image }
+{% img blog/css-grid-react/react-css-grid-unicode-large.png alt:"The styled Unicode browser on small screens" width:"800" %}{: .center-image }
 
 Note that this behavior has been achieved without the use of media queries.
 
@@ -302,17 +303,13 @@ When developing web applications, you will at some point be faced with the need 
 
 You need to register for a free account at [developer.okta.com](https://developer.okta.com/). Simply select **Create Free Account** and complete the registration process. Once complete, you will be directed to your Okta developer dashboard. Here you can register your application by navigating to **Applications** > **Add Application**. On the next screen, choose **Single Page App** and click **Next**.
 
-
 {% img blog/css-grid-react/okta-create-spa-choice.png alt:"Register a new singe-page app with Okta" width:"800" %}{: .center-image }
 
 The following screen lets you edit the application's settings. Make sure that the port number is 3000 and also change the base URI to `http://localhost:3000/`. Then set the Login Redirect URI to `http://localhost:3000/callback`. Port 3000 is used by the React development server to serve your application. 
 
-
 {% img blog/css-grid-react/okta-react-settings.png alt:"Settings for the React single-page app" width:"700" %}{: .center-image }
 
-Click **Done** and you should now see a **Client ID**, which you will need to paste into your JavaScript code.
-
-
+Click **Done** and you should see a **Client ID**, which you will need to paste into your JavaScript code.
 
 Next, open the terminal in your project's base directory and install the Okta React SDK and React Router by running the following commands.
 
