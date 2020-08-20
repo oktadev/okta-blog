@@ -20,7 +20,7 @@ After dropping the use of tables, the first solution was to use the CSS `float` 
 
 Along came flexbox to help with some of these problems. It made it a lot easier to create a responsive row or column-based layouts. While flexbox is a huge step forward, it doesn't adequately address all the needs of front-end designers. Designers for print media usually work with a grid system that organizes content on a page. And the need for a method of arranging content in a 2-dimensional space that uses the same concepts that have been used by print designers for many years was recognized.
 
-The CSS grid layout allows you to specify a grid system on your web page and place content inside the grid cells in a responsive manner. Elements inside the grid can span multiple rows or columns while maintaining the correct row heights and gutter spacings. The CSS grid is not supposed to replace flexbox but to woOn smaller screensrk alongside it to create truly professional layouts.
+The CSS grid layout allows you to specify a grid system on your web page and place content inside the grid cells in a responsive manner. Elements inside the grid can span multiple rows or columns while maintaining the correct row heights and gutter spacings. The CSS grid is not supposed to replace flexbox but to work alongside it to create truly professional layouts.
 
 In this tutorial, I will show you how to create a single page application that uses CSS grids to create a responsive layout without using media queries. The application will be a simple Unicode character browser implemented with React.
 
