@@ -9,7 +9,7 @@ tags: [css-grid, css, react, responsive]
 tweets:
 - "Learn how to use CSS Grid to build a responsive @reactjs app in this quick tutorial."
 - "Create a SPA that uses CSS grids to create a responsive layout without using media queries!"
-- "CSS Grid is a technique in CSS that allows web developers to create complex responsive web design layouts more easily. Learn how to this technique when building a React app."
+- "CSS Grid is a technique in CSS that allows web developers to create complex responsive web design layouts more easily. Learn how to use this technique when building a React app."
 image: blog/css-grid-react/css-grid-layout.png
 type: conversion
 ---
