@@ -22,7 +22,7 @@ In gaming, use cases tend to depend on the project itself. A single-player game 
 
 With XR use cases, the concept is similar to what is described above for gaming—especially if the project is a VR game—however professional XR projects open up a whole new area of interest. Professional projects such as ArchViz, or simulations done for security or scientific application, need to protect the intellectual property within the project itself, and the user identity, just like games. However, more is potentially needed to handle authorization to specific aspects of the project results, as well as professional requirements to integrate or federate with other technologies used by these professionals.
 
-The level of effort to build identity security from scratch is massive. Just to build a secure store for identity, authentication with basic username/password, authorization via OAuth, and basic security policy, it takes a large team months. When you account for keeping the tech up to date with new standards, compliance with standards such as PCI, compliance with GDPR, complex multi-factor authentication, and complex authorization rules, it becomes apparent that the work is not a one-time effort and it is not easy. Rather than spend countless development cycles focusing on identity security—when the team should be focused on the core project itself—it is much easier and more secure to leave it to the experts. Okta is the single best identity platform on the market today and represents the best of bread solution for developers, including Game/XR developers creating within Unity.
+The level of effort to build identity security from scratch is massive. Just to build a secure store for identity, authentication with basic username/password, authorization via OAuth, and basic security policy, it takes a large team months. When you account for keeping the tech up to date with new standards, compliance with standards such as PCI, compliance with GDPR, complex multi-factor authentication, and complex authorization rules, it becomes apparent that the work is not a one-time effort and it is not easy. Rather than spend countless development cycles focusing on identity security—when the team should be focused on the core project itself—it is much easier and more secure to leave it to the experts. Okta is the most advanced identity platform on the market today and represents the best of class solution for developers, including Game/XR developers creating within Unity.
 
 ## Prerequisites
 
@@ -33,7 +33,6 @@ The level of effort to build identity security from scratch is massive. Just to 
 
 ## Downloads
 
-- A video of the steps described in this blog: [Native](https://okta.box.com/s/c706hapjpjd6bm6iiqvt7ftjnau49bpv) / [OAuth](https://okta.box.com/s/scwaciwpawtrxl4olitd7p5obv2dd2me).
 - Example code: [Native](https://okta.box.com/s/icfm80lmv7kmht45oxvyh9uf5gb5jnp8) / [OAuth](https://okta.box.com/s/jipk6x7gmpx7tfp1y6bigtbcwx2cvsml).
 - The Okta SDK Unity Package can be downloaded [here.](https://okta.box.com/s/m5q2ucervn03cbzu5dpgzx2vxmeg3xph).
 
@@ -43,12 +42,12 @@ Follow along with our companion videos.
 
 NATIVE: [https://youtu.be/9C5xaaLt7Q4](https://youtu.be/9C5xaaLt7Q4)
 <div style="text-align: center">
-<iframe width="600" height="338" src="https://www.youtube.com/embed/ciDl0-Wtfvo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="600" height="338" src="https://www.youtube.com/embed/9C5xaaLt7Q4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 OAUTH: [https://youtu.be/ciDl0-Wtfvo](https://youtu.be/ciDl0-Wtfvo)
 <div style="text-align: center">
-<iframe width="600" height="338" src="https://www.youtube.com/embed/9C5xaaLt7Q4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="600" height="338" src="https://www.youtube.com/embed/ciDl0-Wtfvo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 ## Core Concepts
@@ -59,7 +58,7 @@ The decision that needs to be addressed first is the balancing act that every se
 
 When a project accepts authorization from another product, one that is not a security product like Okta, there is a huge risk with that trust. Risk that users are not being challenged properly with MFA, risk that standards and technology get out of date from what is standard in the security industry, and risk that user data is not being secured and passed correctly and safely. This is the risk represented by delegating security to a game store.
 
-The most secure option would be to leverage OAuth2/OIDC either in the engine or externally in the project's launcher. OAuth2/OIDC is the industry standard best practice for authorization/authentication. OAuth specification defines multiple different flows, or grants, but the most recommended for security is Auth Code with PKCE. You can read more about OAuth2 here. The complaint typically with OAuth, especially within a game engine directly, is that it traditionally leverages a browser and a hosted login experience. Okta provides a hosted login experience that is fully customizable via HTML/CSS and Unity is able to pop up a browser and receive tokens from it after authentication. How to do this will be described in this blog. What needs to be considered is if that user experience is acceptable for the project. The browser can also be embedded with different Unity browser plugins, found in the asset store, which might make the experience better because the user will not need to leave the game to interact with an external browser. OAuth is considered more secure because users are putting their credentials into a trusted browser and a trusted, secure, login page. Furthermore, the access token that is returned at the end of the authorization process is retrieved by code not running in a browser which means intercepting it is difficult to impossible.
+The most secure option would be to leverage OAuth2/OIDC either in the engine or externally in the project's launcher. OAuth2/OIDC is the industry standard best practice for authorization/authentication. OAuth specification defines multiple different flows, or grants, but the most recommended for security is Auth Code with PKCE. You can read more about OAuth2 [here](https://developer.okta.com/docs/concepts/auth-overview/). The complaint typically with OAuth, especially within a game engine directly, is that it traditionally leverages a browser and a hosted login experience. Okta provides a hosted login experience that is fully customizable via HTML/CSS and Unity is able to pop up a browser and receive tokens from it after authentication. How to do this will be described in this blog. What needs to be considered is if that user experience is acceptable for the project. The browser can also be embedded with different Unity browser plugins, found in the asset store, which might make the experience better because the user will not need to leave the game to interact with an external browser. OAuth is considered more secure because users are putting their credentials into a trusted browser and a trusted, secure, login page. Furthermore, the access token that is returned at the end of the authorization process is retrieved by code not running in a browser which means intercepting it is difficult to impossible.
 
 Okta also supports a native UI experience both in engine or externally. This is a better user experience but considered potentially less secure because the project's code is now required to accept a password from a user, properly handle it in a secure way from start to finish, and be secure enough that it can't be exploited by bad actors or rogue software. Essentially you take all of the risk onto yourself to handle the information from the user with care. This concept also requires a bit more work in UI development because the UI will be entirely built in engine and Okta would be interacted with via API only. This option will be reviewed in this blog as well.
 
@@ -563,7 +562,7 @@ To further enhance the example, code could be added to check a user's authentica
 
 Identity security is a very complex, but increasingly required, aspect of most game/XR projects today. The resource commitment required to build out all of the functionality needed, and then maintain and grow that functionality, is massive. When it's done incorrectly it can be devastating. Leaving identity security to the experts and leveraging the best of breed Okta Identity Platform for all identity security needs in your project will save countless hours and ensure that intellectual property and customer accounts are properly secured.
 
-To expand on the ideas discussed in this blog, I recommend further reading on securely storing access tokens using vaults, such as [HashiCorp Vault](https://www.vaultproject.io/), and authorizing users to Network Engines such as [Photon](https://www.photonengine.com/pun). Stay tuned to developer.okta.com/blog for further discussions on these tops and more.
+To expand on the ideas discussed in this blog, I recommend further reading on securely storing access tokens using vaults, such as [HashiCorp Vault](https://www.vaultproject.io/), and authorizing users to Network Engines such as [Photon](https://www.photonengine.com/pun). Stay tuned to developer.okta.com/blog for further discussions on these topics and more.
 
 ## Learn More About C# and Okta
 
