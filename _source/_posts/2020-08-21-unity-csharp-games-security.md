@@ -53,7 +53,7 @@ Before we jump into Unity, it is important to understand what options exist to h
 
 The decision that needs to be addressed first is the balancing act that every security team must make between what is most secure and what has the best user experience. If the decision is that the project is not storing sensitive user data, then it is reasonable to focus on user experience. However, if there is even a slight risk that a data breach would negatively affect individual consumers, security must take the front seat.
 
-When a project accepts authorization from another product, one that is not a security product like Okta, there is a huge risk with that trust. Risk that users are not being challenged properly with MFA, risk that standards and technology get out of date from what is standard in the security industry, and risk that user data is not being secured and passed correctly and safely. This is the risk represented by delegating security to a game store. 
+When a project accepts authorization from another product, one that is not a security product like Okta, there is a huge risk with that trust. Risk that users are not being challenged properly with MFA, risk that standards and technology get out of date from what is standard in the security industry, and risk that user data is not being secured and passed correctly and safely. This is the risk represented by delegating security to a game store.
 
 The most secure option would be to leverage OAuth2/OIDC either in the engine or externally in the project’s launcher. OAuth2/OIDC is the industry standard best practice for authorization/authentication. OAuth specification defines multiple different flows, or grants, but the most recommended for security is Auth Code with PKCE. You can read more about OAuth2 here. The complaint typically with OAuth, especially within a game engine directly, is that it traditionally leverages a browser and a hosted login experience. Okta provides a hosted login experience that is fully customizable via HTML/CSS and Unity is able to pop up a browser and receive tokens from it after authentication. How to do this will be described in this blog. What needs to be considered is if that user experience is acceptable for the project. The browser can also be embedded with different Unity browser plugins, found in the asset store, which might make the experience better because the user will not need to leave the game to interact with an external browser. OAuth is considered more secure because users are putting their credentials into a trusted browser and a trusted, secure, login page. Furthermore, the access token that is returned at the end of the authorization process is retrieved by code not running in a browser which means intercepting it is difficult to impossible.
 
@@ -164,24 +164,24 @@ public async void Login()
    {
       OktaDomain = OktaDomain,
    });
- 
+
    var authnOptions = new AuthenticateOptions()
    {
       Username = Username.text.ToString(),
       Password = Password.text.ToString(),
    };
- 
+
    try
    {
       var authnResponse = await client.AuthenticateAsync(authnOptions);
- 
+
       Debug.Log("Authentication Status: " + authnResponse.AuthenticationStatus);
       if (authnResponse.AuthenticationStatus == "SUCCESS")
       {
          //Store the token
          Debug.Log(authnResponse.SessionToken);
          isAuthenticated = true;
- 
+
          OpenPanel(initiallyOpen);
       }
       else
