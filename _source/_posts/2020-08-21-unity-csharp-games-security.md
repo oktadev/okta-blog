@@ -18,7 +18,7 @@ Unity is a cross-platform game engine developed by [Unity Technologies](https://
 
 Identity security is a key concept that is mostly missing in Unity. In fact, most engines today do not provide solutions for securing identity, authenticating users, and authorizing users. The industry has instead traditionally relied on custom-built solutions and/or delegated auth from other products, like game stores. As the industry advances beyond anonymous consumption of video games, into massively interconnected online projects, or professional XR use cases such as ArchViz and simulation, new requirements have appeared for authentication and authorization.
 
-In gaming, use cases tend to depend on the project itself. A single-player game really only needs to focus on protecting its own intellectual property from theft. Using a game store’s authorization—as is common today—is more than enough for this use case. Even the introduction of microtransactions can stay secure with just a store if these transactions are being handled by that store. However, once the project gets to a point where a user’s client needs to authenticate a user and authorize that user to one or multiple servers, the solutions provided by stores fall short. It gets even more complicated when users are actually making purchases or entering personal information into your game client directly. Once the game gets to a more complex level of interconnectivity, and once users are trusting you with private information and financial information, proper identity security is paramount.
+In gaming, use cases tend to depend on the project itself. A single-player game really only needs to focus on protecting its own intellectual property from theft. Using a game store's authorization—as is common today—is more than enough for this use case. Even the introduction of microtransactions can stay secure with just a store if these transactions are being handled by that store. However, once the project gets to a point where a user's client needs to authenticate a user and authorize that user to one or multiple servers, the solutions provided by stores fall short. It gets even more complicated when users are actually making purchases or entering personal information into your game client directly. Once the game gets to a more complex level of interconnectivity, and once users are trusting you with private information and financial information, proper identity security is paramount.
 
 With XR use cases, the concept is similar to what is described above for gaming—especially if the project is a VR game—however professional XR projects open up a whole new area of interest. Professional projects such as ArchViz, or simulations done for security or scientific application, need to protect the intellectual property within the project itself, and the user identity, just like games. However, more is potentially needed to handle authorization to specific aspects of the project results, as well as professional requirements to integrate or federate with other technologies used by these professionals.
 
@@ -55,9 +55,9 @@ The decision that needs to be addressed first is the balancing act that every se
 
 When a project accepts authorization from another product, one that is not a security product like Okta, there is a huge risk with that trust. Risk that users are not being challenged properly with MFA, risk that standards and technology get out of date from what is standard in the security industry, and risk that user data is not being secured and passed correctly and safely. This is the risk represented by delegating security to a game store.
 
-The most secure option would be to leverage OAuth2/OIDC either in the engine or externally in the project’s launcher. OAuth2/OIDC is the industry standard best practice for authorization/authentication. OAuth specification defines multiple different flows, or grants, but the most recommended for security is Auth Code with PKCE. You can read more about OAuth2 here. The complaint typically with OAuth, especially within a game engine directly, is that it traditionally leverages a browser and a hosted login experience. Okta provides a hosted login experience that is fully customizable via HTML/CSS and Unity is able to pop up a browser and receive tokens from it after authentication. How to do this will be described in this blog. What needs to be considered is if that user experience is acceptable for the project. The browser can also be embedded with different Unity browser plugins, found in the asset store, which might make the experience better because the user will not need to leave the game to interact with an external browser. OAuth is considered more secure because users are putting their credentials into a trusted browser and a trusted, secure, login page. Furthermore, the access token that is returned at the end of the authorization process is retrieved by code not running in a browser which means intercepting it is difficult to impossible.
+The most secure option would be to leverage OAuth2/OIDC either in the engine or externally in the project's launcher. OAuth2/OIDC is the industry standard best practice for authorization/authentication. OAuth specification defines multiple different flows, or grants, but the most recommended for security is Auth Code with PKCE. You can read more about OAuth2 here. The complaint typically with OAuth, especially within a game engine directly, is that it traditionally leverages a browser and a hosted login experience. Okta provides a hosted login experience that is fully customizable via HTML/CSS and Unity is able to pop up a browser and receive tokens from it after authentication. How to do this will be described in this blog. What needs to be considered is if that user experience is acceptable for the project. The browser can also be embedded with different Unity browser plugins, found in the asset store, which might make the experience better because the user will not need to leave the game to interact with an external browser. OAuth is considered more secure because users are putting their credentials into a trusted browser and a trusted, secure, login page. Furthermore, the access token that is returned at the end of the authorization process is retrieved by code not running in a browser which means intercepting it is difficult to impossible.
 
-Okta also supports a native UI experience both in engine or externally. This is a better user experience but considered potentially less secure because the project's code is now required to accept a password from a user, properly handle it in a secure way from start to finish, and be secure enough that it can’t be exploited by bad actors or rogue software. Essentially you take all of the risk onto yourself to handle the information from the user with care. This concept also requires a bit more work in UI development because the UI will be entirely built in engine and Okta would be interacted with via API only. This option will be reviewed in this blog as well.
+Okta also supports a native UI experience both in engine or externally. This is a better user experience but considered potentially less secure because the project's code is now required to accept a password from a user, properly handle it in a secure way from start to finish, and be secure enough that it can't be exploited by bad actors or rogue software. Essentially you take all of the risk onto yourself to handle the information from the user with care. This concept also requires a bit more work in UI development because the UI will be entirely built in engine and Okta would be interacted with via API only. This option will be reviewed in this blog as well.
 
 In order to help visualize the difference between these concepts, this blog will show you how to build for Native UI and OAuth via browser in engine. These same concepts can also be applied to external solutions, such as a launcher. developer.okta.com contains countless guides and blogs that can assist further with the external use case.
 
@@ -77,7 +77,7 @@ Make sure all libraries are selected and click **Import**. This will create a Pl
 
 {% img blog/unity-csharp-security/3-unity-plugins.png alt:"Unity import package" width:"800" %}{: .center-image }
 
-Next, click on the **Asset Store** tab in the editor and search for `Unity Samples: UI.` This example asset was created by Unity Technologies as a learning asset, teaching best practices for building UI’s inside of Unity. For this guide, we will leverage this UI to build our login experience.
+Next, click on the **Asset Store** tab in the editor and search for `Unity Samples: UI.` This example asset was created by Unity Technologies as a learning asset, teaching best practices for building UI's inside of Unity. For this guide, we will leverage this UI to build our login experience.
 
 Click **Import** and import all of the assets in the package.
 
@@ -114,7 +114,7 @@ Next, a new menu will be needed for the Auth Menu. The simplest way to create th
 5. Rename the `Settings` object to `Next`
 6. Drag in 2 of the InputField prefabs and rename them to `Username` and `Password` respectively.
 7. Expand the `Password` object and click on the InputField object. In the Inspector, scroll down to Content Type and change to Password.
-8. Change `Username’s` position PosY to 70, and change `Password’s` PosY to 0.
+8. Change `Username's` position PosY to 70, and change `Password's` PosY to 0.
 9. Expand the `Username` object, expand the InputField, select Placeholder, and change the text to `Username`. Do this for the `Password` object next.
 10. With `AuthMenu` still selected, click the checkbox in the inspector to disable it. This will make the `AuthMenu` disappear.
 
@@ -204,11 +204,11 @@ Make sure `MenuManager` is selected and notice the new properties in the `PanelM
 1. Drag the `AuthMenu` object from the project hierarchy to the `authMenu` property in the inspector.
 2. Drag the InputField from the `Username` object in the project hierarchy to the `Username` property in the inspector.
 3. Drag the InputField from the `Password` object in the project hierarchy to the `Password` property in the inspector.
-4. Enter the Okta domain from the Okta developer org “{yourOktaDomain}”.
+4. Enter the Okta domain from the Okta developer org "{yourOktaDomain}".
 
 {% img blog/unity-csharp-security/8-unity-panelmanager.png alt:"Unity import package" width:"800" %}{: .center-image }
 
-Now, wire the `Next` button’s OnClick event to the `Login()` method in `PanelManager.cs`. Click the `Next` button object in the hierarchy window, find the **On Click ()** section in the inspector windows and change the dropdown to **PanelManager** > **Login()**.
+Now, wire the `Next` button's OnClick event to the `Login()` method in `PanelManager.cs`. Click the `Next` button object in the hierarchy window, find the **On Click ()** section in the inspector windows and change the dropdown to **PanelManager** > **Login()**.
 
 {% img blog/unity-csharp-security/9-unity-panelmanager-login.png alt:"Unity import package" width:"800" %}{: .center-image }
 
@@ -514,19 +514,19 @@ Click on **Applications** > **Add Application** and choose **Web**.
 
 {% img blog/unity-csharp-security/15-okta-webapp.png alt:"Okta add web app" width:"800" %}{: .center-image }
 
-This application is the representation of your OAuth2 client within Okta. Give the application a name and trust the local IP/Port that your client will be using to interact with Okta. By default, the sample code is set to `http://127.0.0.1:51772` where the IP is the client’s local IP address.
+This application is the representation of your OAuth2 client within Okta. Give the application a name and trust the local IP/Port that your client will be using to interact with Okta. By default, the sample code is set to `http://127.0.0.1:51772` where the IP is the client's local IP address.
 
 {% img blog/unity-csharp-security/16-okta-ipaddress.png alt:"Okta add web app" width:"800" %}{: .center-image }
 
 Click **Done**.
 
-The next menu will be the General tab for the application’s settings menu. At the bottom of General, there is a section containing a `Client ID` and `Client Secret`. Copy these and paste them into the inspector for the `OktaOAuth2` GameObject in Unity.
+The next menu will be the General tab for the application's settings menu. At the bottom of General, there is a section containing a `Client ID` and `Client Secret`. Copy these and paste them into the inspector for the `OktaOAuth2` GameObject in Unity.
 
 {% img blog/unity-csharp-security/17-okta-clientidsecret.png alt:"Okta add web app" width:"800" %}{: .center-image }
 
 {% img blog/unity-csharp-security/18-unity-clientidsecret.png alt:"Okta add web app" width:"800" %}{: .center-image }
 
-For the three endpoint URL’s, go back to Okta. In the top menu click **API** > **Authorization Servers**.
+For the three endpoint URL's, go back to Okta. In the top menu click **API** > **Authorization Servers**.
 
 {% img blog/unity-csharp-security/19-okta-authserver.png alt:"Okta add web app" width:"800" %}{: .center-image }
 
@@ -544,15 +544,15 @@ Fully log out of Okta and close the browser if possible before testing. Make sur
 
 {% img blog/unity-csharp-security/23-unity-claims.png alt:"Okta add web app" width:"800" %}{: .center-image }
 
-The great thing about authenticating via OAuth2 and Okta’s hosted login widget is that the level of effort to build out the UI to support complex concepts like MFA is no longer required. Okta handles every aspect of authentication freeing up developers to focus on the project itself. Best of all, this hosted login experience can be fully customized. Everything from the domain of the page to its HTML and CSS is exposed within Okta so that users stay within your branded echo system.
+The great thing about authenticating via OAuth2 and Okta's hosted login widget is that the level of effort to build out the UI to support complex concepts like MFA is no longer required. Okta handles every aspect of authentication freeing up developers to focus on the project itself. Best of all, this hosted login experience can be fully customized. Everything from the domain of the page to its HTML and CSS is exposed within Okta so that users stay within your branded echo system.
 
 {% img blog/unity-csharp-security/24-okta-signinpage-custom.png alt:"Okta add web app" width:"800" %}{: .center-image }
 
-To further enhance the example, code could be added to check a user’s authentication state on start of every scene or before secure actions are allowed. This is easily done by calling the `userinfoCall()` method from the example code. Simply save the access token on the user's first login to a secure location, such as a vault, and check if there is a token on `Start()`. If a token exists, send it to the `userinfoCall()` method from the sample code and act on the results. If there is no token, or if the existing token is not valid, call `doOAuth()`.
+To further enhance the example, code could be added to check a user's authentication state on start of every scene or before secure actions are allowed. This is easily done by calling the `userinfoCall()` method from the example code. Simply save the access token on the user's first login to a secure location, such as a vault, and check if there is a token on `Start()`. If a token exists, send it to the `userinfoCall()` method from the sample code and act on the results. If there is no token, or if the existing token is not valid, call `doOAuth()`.
 
 ## Conclusion
 
-Identity security is a very complex, but increasingly required, aspect of most game/XR projects today. The resource commitment required to build out all of the functionality needed, and then maintain and grow that functionality, is massive. When it’s done incorrectly it can be devastating. Leaving identity security to the experts and leveraging the best of breed Okta Identity Platform for all identity security needs in your project will save countless hours and ensure that intellectual property and customer accounts are properly secured.
+Identity security is a very complex, but increasingly required, aspect of most game/XR projects today. The resource commitment required to build out all of the functionality needed, and then maintain and grow that functionality, is massive. When it's done incorrectly it can be devastating. Leaving identity security to the experts and leveraging the best of breed Okta Identity Platform for all identity security needs in your project will save countless hours and ensure that intellectual property and customer accounts are properly secured.
 
 To expand on the ideas discussed in this blog, I recommend further reading on securely storing access tokens using vaults, such as [HashiCorp Vault](https://www.vaultproject.io/), and authorizing users to Network Engines such as [Photon](https://www.photonengine.com/pun). Stay tuned to developer.okta.com/blog for further discussions on these tops and more.
 
