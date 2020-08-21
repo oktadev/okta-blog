@@ -65,11 +65,13 @@ In order to help visualize the difference between these concepts, this blog will
 
 Get started by creating a new project in Unity Hub. Select **3D** and give the project a name.
 
+
 {% img blog/unity-csharp-security/1-unity-start.png alt:"Start Unity Project" width:"1000" %}{: .center-image }
 
 Unity will take a moment to set everything up and open the project. Once open, click **Assets** > **Import Package** and select the `OktaSDK.unitypackage` file. The Okta Auth SDK will be used for the Native UI design. The SDK is not required for OAuth. A [Okta SDK Unity Package](https://okta.box.com/s/m5q2ucervn03cbzu5dpgzx2vxmeg3xph) has been provided with this guide to simplify this process.
 
 > Note: The [Okta SDK for .NET](https://github.com/okta/okta-sdk-dotnet) and the [Okta Auth SDK for .NET](https://github.com/okta/okta-auth-dotnet) can be found on GitHub and NuGet. However, Unity does not work well with NuGet and compiling from source should not be necessary. If manual installation is desired, there are numerous dependencies that NuGet would normally add to a project with the SDK. These dependencies will need to be manually downloaded and added to Unity. [NuGet Gallery](https://www.nuget.org/) is recommended for this.
+
 
 {% img blog/unity-csharp-security/2-unity-import.png alt:"Unity import package" width:"1000" %}{: .center-image }
 
@@ -80,6 +82,7 @@ Make sure all libraries are selected and click **Import**. This will create a Pl
 Next, click on the **Asset Store** tab in the editor and search for `Unity Samples: UI.` This example asset was created by Unity Technologies as a learning asset, teaching best practices for building UI's inside of Unity. For this guide, we will leverage this UI to build our login experience.
 
 Click **Import** and import all of the assets in the package.
+
 
 {% img blog/unity-csharp-security/4-unity-samplesui.png alt:"Unity import package" width:"1000" %}{: .center-image }
 
@@ -102,6 +105,7 @@ The UI sample asset does not come with any type of input field. We will need inp
 5. Click the **GameObject** menu > **UI** > **InputField**
 6. Position the new InputField where the label element was
 7. Switch the gizmo to scale and resize the InputField to fill out the box
+
 
 {% img blog/unity-csharp-security/6-unity-username.png alt:"Unity import package" width:"1000" %}{: .center-image }
 
@@ -205,6 +209,7 @@ Make sure `MenuManager` is selected and notice the new properties in the `PanelM
 2. Drag the InputField from the `Username` object in the project hierarchy to the `Username` property in the inspector.
 3. Drag the InputField from the `Password` object in the project hierarchy to the `Password` property in the inspector.
 4. Enter the Okta domain from the Okta developer org "{yourOktaDomain}".
+
 
 {% img blog/unity-csharp-security/8-unity-panelmanager.png alt:"Unity import package" width:"1000" %}{: .center-image }
 
