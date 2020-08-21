@@ -39,13 +39,10 @@ The level of effort to build identity security from scratch is massive. Just to 
 
 ## Videos
 
-Follow along with our companion videos. Choose from Native or OAuth flows.
+Follow along with our companion videos.
 
 NATIVE: [https://youtu.be/9C5xaaLt7Q4](https://youtu.be/9C5xaaLt7Q4)
-<iframe width="100%" height="240" src="https://youtu.be/9C5xaaLt7Q4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
 OAUTH: [https://youtu.be/ciDl0-Wtfvo](https://youtu.be/ciDl0-Wtfvo)
-<iframe width="100%" height="240" src="https://youtu.be/ciDl0-Wtfvo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Core Concepts
 
