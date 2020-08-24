@@ -5,7 +5,7 @@ author: giorgi-dalakishvili
 by: contractor
 communities: [.net]
 description: "Learn how to use the WebAuthenticator class inside of Xamarin Essentials with Okta."
-tags: [graphql, aspnet, dotnet, dotnet core, csharp]
+tags: [graphql, aspnet, dotnet, dotnetcore, csharp]
 tweets:
 - "Learn how to build .NET Core Apps with GraphQL in a snap ->"
 - "C# devs! Want to get up to speed on #GraphQL quickly? Check out this tutorial!"
