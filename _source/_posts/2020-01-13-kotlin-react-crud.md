@@ -18,6 +18,11 @@ In this tutorial, you're going to build a client and server application using Re
 
 This tutorial covers a lot of ground. It also uses a lot of technologies. Because of this, it doesn't dive too deep into any one of them and assumes a basic familiarity with React, Kotlin, Spring Boot, and REST APIs.
 
+If you'd prefer to watch a video, you can [watch this tutorial as a screencast](https://youtu.be/PR6Gw4Ca-sE).
+<div style="text-align: center; margin-bottom: 1.25rem">
+<iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/PR6Gw4Ca-sE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
 ## Install Kotlin and React Project Dependencies
 
 You'll need to install a few things before you get started.
