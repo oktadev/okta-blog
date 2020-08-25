@@ -305,9 +305,9 @@ The code for this tutorial is available on GitHub in the [@oktadeveloper/okta-re
 
 If you want to learn more about React and other front-end frameworks, please check out the following links.
 
-* [Use Sass with React to Build Beautiful Apps](https://developer.okta.com/blog/2019/12/17/react-sass)
-* [Build a React App with Styled Components](https://developer.okta.com/blog/2020/03/16/react-styled-components)
-* [Build Beautiful Angular Apps with Bootstrap](https://developer.okta.com/blog/2020/03/02/angular-bootstrap)
-* [Use Vue and GraphQL to Build a Secure App](https://developer.okta.com/blog/2019/11/11/graphql-vue)
+* [Use Sass with React to Build Beautiful Apps](/blog/2019/12/17/react-sass)
+* [Build a React App with Styled Components](/blog/2020/03/16/react-styled-components)
+* [Build Beautiful Angular Apps with Bootstrap](/blog/2020/03/02/angular-bootstrap)
+* [Use Vue and GraphQL to Build a Secure App](/blog/2019/11/11/graphql-vue)
 
 Please leave a comment below if you have any questions! If you liked this tutorial, [follow @oktadev](https://twitter.com/oktadev) on Twitter to be notified when we publish new ones. We also have a [YouTube channel](https://youtube.com/c/oktadev) you might like.
