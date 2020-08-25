@@ -10,7 +10,7 @@ tweets:
 - "Learn how to use functional components in @reactjs in this quick tutorial."
 - "⚛️ React Hooks will let you embrace your inner functional programmer. Learn how to use them!"
 - "Use @reactjs hooks with @okta for authentication! It's sooo simple!"
-image:
+image: blog/react-hooks/react-hooks.png
 type: conversion
 ---
 
