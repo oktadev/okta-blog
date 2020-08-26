@@ -8,7 +8,7 @@ description: "This tutorial shows you how to use React Hooks to build a simple, 
 tags: [reactjs, reacthooks, javascript]
 tweets:
 - "Learn how to use functional components in @reactjs in this quick tutorial."
-- "⚛️ React Hooks will let you embrace your inner functional programmer. Learn how to use them!"
+- "⚛️ React Hooks will let you embrace your inner functional programmer. Learn how to use them today!"
 - "Use @reactjs hooks with @okta for authentication! It's sooo simple!"
 image: blog/react-hooks/react-hooks.png
 type: conversion
@@ -26,15 +26,15 @@ In this tutorial, I will be showing you how to create a simple React application
 
 In the following, I will assume that you have some knowledge of JavaScript and that you have Node installed on your system. You do not need any experience with React, and I will be explaining all the major concepts. A typical Node installation comes together with two command-line tools, `npm` and `npx`. 
 
-`npm` is used for installing packages into a project, and `npx` is used to run node commands in the command line. The beauty of `npx` is that the commands don't necessarily need to be installed on your system. `npx` will first look in your current project folder if a command is installed there. When it can't find it on your computer, it will look in the [npmjs.com](https://npmjs.com) repository, load the latest version of the command script and run it, without installing it locally. This feature can be used to create a skeleton React application in just a few key presses. Open a terminal in a folder of your choice and run the following command.
+`npm` is used for installing packages into a project, and `npx` is used to run Node commands from the command line. The beauty of `npx` is that the commands don't necessarily need to be installed on your system. `npx` will first look in your current project folder to see if a command is installed there. When it can't find it on your computer, it will look in the [npmjs.com](https://npmjs.com) repository, load the latest version of the command script and run it, without installing it locally. This feature can be used to create a skeleton React application in just a few key presses. Open a terminal in a folder of your choice and run the following command.
 
 ```bash
 npx create-react-app react-books-with-hooks
 ```
 
-This will create a new folder `react-books-with-hooks` and initialize it with a basic React application. You can now open up your favorite IDE in the newly created folder. Inside the project, you will see a `src/` folder with the main application component, `src/App.js`.
+This will create a new folder `react-books-with-hooks` and initialize it with a basic React application. You can now open up the project in your favorite IDE. Inside the project, you will see a `src` folder with the main application component, `App.js`.
 
-When you look inside this file, you can see that it contains a single `function App()`. This function returns an element, and it uses an extended JavaScript syntax, known as JSX, to define the component. JSX allows you to write HTML style template syntax straight into your JavaScript file. The React toolchain is set up to convert this mix of JavaScript and HTML into pure JavaScript that renders the HTML element.
+When you look inside this file, you can see that it contains a single `function App()`. This function returns an element, and it uses an extended JavaScript syntax, known as JSX, to define the component. JSX allows you to write HTML-style template syntax straight into your JavaScript file. The React toolchain is set up to convert this mix of JavaScript and HTML into pure JavaScript that renders the HTML element.
 
 You can define your own React components simply by writing a function that returns a JSX element. Try it out. Create a new file, `src/Search.js`, and paste the following code into it.
 
@@ -65,7 +65,7 @@ export function Search() {
 }
 ```
 
-This is all that is needed to create a component. Of course, it doesn't yet do anything and only displays an empty table. But you can already use the `Search` component in the application. Open up `src/App.js` again and add the following import to the top of the file.
+This is all you need to create a component. Of course, it doesn't yet do anything and only displays an empty table. But you can already use the `Search` component in the application. Open up `src/App.js` again and add the following import to the top of the file.
 
 ```js
 import { Search } from './Search';
@@ -129,9 +129,9 @@ const resultList = (results || []).map((book) =>
 );
 ```
 
-The first line calls `React.useState()` to obtain a stateful variable. `useState()` returns an array with two entries. The first entry is the current value of the state variable. This will be undefined until you update the state. The second entry is a function that you can call to update the state. In the example above, I have called the state variable `results` and the callback `setResults()`. 
+The first line calls `React.useState()` to obtain a stateful variable. `useState()` returns an array with two entries. The first entry is the current value of the state variable. This will be `undefined` until you update the state. The second entry is a function that you can call to update the state. In the example above, I have called the state variable `results` and the callback `setResults()`. 
 
-After obtaining the state, the code above defined an event handler. This simply calls the `searchBooks()` function and, once a response from the server is received, calls the `setResults()` callback to update the state. You do not have to worry about telling React to re-render the component. When you update the state, React will automatically check which parts of the application have changed and re-render them. Finally, a `resultList` is created that represents the search results in an array of HTML table rows.
+After obtaining the state, the code above defines an event handler. This simply calls the `searchBooks()` function and, once a response from the server is received, calls the `setResults()` callback to update the state. You do not have to worry about telling React to re-render the component. When you update the state, React will automatically check which parts of the application have changed and re-render them. Finally, a `resultList` is created that represents the search results in an array of HTML table rows.
 
 You can now add the `handleSearch()` event handler to the input element. Modify the `<input>` element that is part of the returned JSX code to match the code below.
 
@@ -159,11 +159,11 @@ This is the place where you register your application by selecting **Application
 
 {% img blog/react-hooks/okta-create-spa-choice.png alt:"Register a new single-page app with Okta" width:"800" %}{: .center-image }
 
-On the following screen, you can edit the application settings. For React applications running in developer mode, the port number should be 3000. You also need to change the base URI to `http://localhost:3000`. Finally, set the **Login redirect URI** to `http://localhost:3000/callback`. Once you have completed the form, you should be given a **Client ID**. This needs to be pasted into your JavaScript code.
+On the following screen, you can edit the application settings. For React applications running in developer mode, the port number should be 3000. You also need to change the base URI to `http://localhost:3000`. Finally, set the **Login redirect URI** to `http://localhost:3000/callback`. Once you have completed the form, you will be given a **Client ID**. This needs to be pasted into your JavaScript code.
 
 {% img blog/react-hooks/okta-react-settings.png alt:"Settings for the React single-page app" width:"700" %}{: .center-image }
 
-To make use of Okta in your JavaScript code, open the terminal in your project directory, and install the Okta React SDK with the React router by running the following commands.
+To make use of Okta in your React app, open the terminal in your project directory, and install the Okta React SDK with the React router by running the following commands.
 
 ```bash
 npm install -E @okta/okta-react@3.0.4 react-router-dom@5.2.0
@@ -177,7 +177,7 @@ import { LoginCallback, SecureRoute, Security } from '@okta/okta-react';
 import { Home } from './Home';
 ```
 
-The router is responsible for looking at the route part of the URL and selecting the right React component to render. To add the router to your application, replace the component returned by in the `render()` function with the code below.
+The router is responsible for looking at the route part of the URL and selecting the right React component to render. To add the router to your application, replace the component returned in the `render()` function with the code below.
 
 ```jsx
 <div className="App">
@@ -198,7 +198,7 @@ The router is responsible for looking at the route part of the URL and selecting
 </div>
 ```
 
-Here `{YourOktaDomain}` is your Okta domain. You can find this on the Okta dashboard tab. `{ClientId}` is the client ID that you obtained earlier when you registered the application. I have added a reference to a `Home` component. Implement this by creating a new file `src/Home.js` and pasting the following code into it.
+Here `{YourOktaDomain}` is your Okta developer domain. You can find this on the Okta dashboard tab. `{ClientId}` is the client ID that you obtained earlier when you registered the application. I have added a reference to a `Home` component. Implement this by creating a new file `src/Home.js` and pasting the following code into it.
 
 ```jsx
 import React from 'react';
@@ -220,7 +220,7 @@ export function Home() {
 
 ## Add Some Finishing Touches
 
-You have created a functioning application but it doesn't look very nice yet. Of course, styling web applications is done using CSS style sheets. You might have noticed the import of `App.css` at the top of the `App.js` file. React configures your application so that CSS files can be directly imported into the component JavaScript files. The styles will then automatically be applied to the component. You can add some styling by opening the file `src/App.css` and replacing its contents with the following code.
+You have created a functioning application, but it doesn't look very nice yet. Of course, styling web applications is done using Cascading Style Sheets (CSS). You might have noticed the import of `App.css` at the top of the `App.js` file. React configures your application so that CSS files can be directly imported into the component JavaScript files. The styles will then automatically be applied to the component. You can add some styling by opening the `src/App.css` file and replacing its contents with the following code.
 
 ```css
 .App header {
@@ -283,7 +283,7 @@ h1 {
 }
 ```
 
-Congratulations! You have successfully created a React application that uses Hooks to manage state inside the components. You can run the following command again if it isn't still running.
+Congratulations! You have successfully created a React app that uses Hooks to manage state inside its components. You can run the following command again if it isn't still running.
 
 ```bash
 npm start
