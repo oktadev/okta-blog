@@ -169,7 +169,7 @@ To make use of Okta in your React app, open the terminal in your project directo
 npm install -E @okta/okta-react@3.0.4 react-router-dom@5.2.0
 ```
 
-In the file `src/App.js`, add the imports for these two packages to the top of the file.
+In `src/App.js`, add the imports for these two packages to the top of the file.
 
 ```js
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
