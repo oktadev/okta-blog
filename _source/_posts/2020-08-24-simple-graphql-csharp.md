@@ -370,11 +370,10 @@ Now you have a secure GraphQL API!
 
 ## Learn More About GraphQL, ASP.NET Core, and Okta
 
-I hope the tutorial was interesting to you and that you enjoyed it. You can get the [full source code of the project from GitHub](https://github.com/Giorgi/OktaGraphQL). For more GraphQL, ASP.NET Core and Okta articles check out these posts:
+I hope the tutorial was interesting to you and that you enjoyed it. You can get the [full source code of the project from GitHub](https://github.com/oktadeveloper/okta-graphql-dotnet-example). For more GraphQL, ASP.NET Core and Okta articles check out these posts:
 
-- [Build a GraphQL API with ASP.NET Core](https://developer.okta.com/blog/2019/04/16/graphql-api-with-aspnetcore)
-- [Build Awesome APIs with Entity Framework Core](https://developer.okta.com/blog/2020/07/29/entity-framework-core-api)
-- [Token Authentication in ASP.NET Core 2.0 - A Complete Guide](https://developer.okta.com/blog/2018/03/23/token-authentication-aspnetcore-complete-guide)
-- [Okta ASP.NET middleware](https://github.com/okta/okta-aspnet)
+- [Build a GraphQL API with ASP.NET Core](/blog/2019/04/16/graphql-api-with-aspnetcore)
+- [Build Awesome APIs with Entity Framework Core](/blog/2020/07/29/entity-framework-core-api)
+- [Token Authentication in ASP.NET Core 2.0 - A Complete Guide](/blog/2018/03/23/token-authentication-aspnetcore-complete-guide)
 
 Make sure to follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube Channel](https://youtube.com/c/oktadev) so that you never miss any awesome content!
