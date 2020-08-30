@@ -8,8 +8,6 @@ description: "Implement a Spring Boot application that combines Database and SAM
 tags: [spring-boot, saml, okta, java, spring, auth, saml2]
 type: conversion
 ---
-## Introduction
-
 **Spring Boot** is a very common and well-supported suite of tools for developing web applications in Java. **Database 
 authentication**, in which credentials identifying authorized users are stored in a database accessible by the application,
 is maybe the most common and simple method of authenticating users. **SAML** is a well-supported and open standard for 
