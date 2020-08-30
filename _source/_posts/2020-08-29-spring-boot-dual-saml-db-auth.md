@@ -8,10 +8,6 @@ description: "Implement a Spring Boot application that combines Database and SAM
 tags: [spring-boot, saml, okta, java, spring, auth, saml2]
 type: conversion
 ---
-# okta-saml-spring-boot
-
-A Spring Boot application combining standard database authentication with SAML 2.0 authentication via Okta ( https://www.okta.com/ )
-
 ## Introduction
 
 **Spring Boot** is a very common and well-supported suite of tools for developing web applications in Java. **Database 
