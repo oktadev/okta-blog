@@ -3,9 +3,9 @@ layout: blog_post
 title: Combine Okta, SAML 2.0 and Database Authentication with Spring Boot
 author: joe-cavazos
 by: advocate
-communities: [java,security,okta,user,auth,spring]
+communities: [java,security]
 description: "Implement a Spring Boot application that combines Database and SAML authentication using Okta"
-tags: [spring-boot, saml, okta]
+tags: [spring-boot, saml, okta, java, spring, auth, saml2]
 type: conversion
 ---
 # okta-saml-spring-boot
