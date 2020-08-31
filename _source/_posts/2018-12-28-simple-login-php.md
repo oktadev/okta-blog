@@ -386,6 +386,7 @@ class OktaApiService
             'client_id' => $this->clientId,
             'redirect_uri' => $this->redirectUri,
             'state' => $state,
+            'scope' => 'openid',
         ]);
         return $url;
     }
@@ -464,6 +465,7 @@ The method `buildAuthorizeUrl()` uses a call to the metadata URL to get the auth
             'client_id' => $this->clientId,
             'redirect_uri' => $this->redirectUri,
             'state' => $state,
+            'scope' => 'openid',
         ]);
 ```
 
