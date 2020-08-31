@@ -353,7 +353,7 @@ view('home', $data);
 
 Let's also build the `OktaApiService` and add the methods we need (`buildAuthorizeUrl()` and `authorizeUser()`):
 
-`/src/services/OktaApiService.php`
+`/src/Services/OktaApiService.php`
 
 ```php
 <?php
@@ -625,7 +625,7 @@ The first handler simply loads the `register` view when the **Register** link is
 
 The second handler delegates to the user controller when the form is submitted:
 
-`/src/controllers/UserController.php`
+`/src/Controllers/UserController.php`
 
 ```php
 <?php
