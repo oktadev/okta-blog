@@ -678,4 +678,4 @@ If you have any questions about this post, please add a comment below. For more 
 <a name="changelog"></a>
 **Changelog**:
 
-* Aug 31, 2020: Updated GitHub repo to have proper starter files and fixed logout in Vue. You can see the changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-kotlin-spring-boot-vue-example/pull/4). Changes to this article can be viewed in [oktadeveloper/okta-blog#369](https://github.com/oktadeveloper/okta-blog/pull/369).
+* Aug 31, 2020: Updated GitHub repo to have proper starter files and fixed logout in Vue. You can see the changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-kotlin-spring-boot-vue-example/pull/4). Changes to this article can be viewed in [oktadeveloper/okta-blog#392](https://github.com/oktadeveloper/okta-blog/pull/392).
