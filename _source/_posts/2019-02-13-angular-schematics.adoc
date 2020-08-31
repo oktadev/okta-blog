@@ -582,7 +582,7 @@ After you run these commands, you'll have the Okta Angular SDK installed and con
 
 You can find the source code for the example schematic in this post on GitHub at https://github.com/oktadeveloper/okta-angular-schematics-example[oktadeveloper/okta-angular-schematics-example].
 
-In the coming months, I hope to add more Schematics that allow easy integration with our https://github.com/okta/okta-oidc-js/tree/master/packages/okta-react[React] and https://github.com/okta/okta-oidc-js/tree/master/packages/okta-vue[Vue] SDKs.
+In the coming months, I hope to add more Schematics that allow easy integration with our https://github.com/okta/okta-oidc-js/tree/master/packages/okta-react[React] and https://github.com/okta/okta-vue[Vue] SDKs.
 
 **Update:** OktaDev Schematics now has support for React, Vue, and Ionic! See the following blog posts for more information.
 

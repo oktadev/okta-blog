@@ -381,7 +381,7 @@ On the next screen, take note of the **Client ID** (near the bottom) as you'll n
 
 ## Add Authentication to Vue
 
-To configure Vue.js to use Okta as an OAuth 2.0 and OIDC provider, you're going to use the `okta-vue` module. This greatly simplifies integrating Okta authentication into your client application. You can take a look at [the project GitHub page](https://github.com/okta/okta-oidc-js/tree/master/packages/okta-vue) for more info.
+To configure Vue.js to use Okta as an OAuth 2.0 and OIDC provider, you're going to use the `okta-vue` module. This greatly simplifies integrating Okta authentication into your client application. You can take a look at [the project GitHub page](https://github.com/okta/okta-vue) for more info.
 
 Stop your client Vue.js application. Open a shell and, from the `client` sub-directory of the example project, use Yarn to install `okta-vue`.
 
@@ -660,7 +660,7 @@ git clone -b auth https://github.com/oktadeveloper/okta-kotlin-spring-boot-vue-e
 
 This tutorial covered quite a lot. You built a Vue.js client application and a Spring Boot REST service, using them to demonstrate a fully functioning CRUD application. You also added authentication using Okta and the Okta Vue SDK.
 
-If you'd like to dig a little deeper, take a look at [the Okta Vue SDK project](https://github.com/okta/okta-oidc-js/tree/master/packages/okta-vue).
+If you'd like to dig a little deeper, take a look at [the Okta Vue SDK project](https://github.com/okta/okta-vue).
 
 The Spring Boot REST service used Spring Data's JPA implementation to persist data based on a Java class. Spring Data and JPA is a very complex area, and [the Spring docs on it](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/) are a great place to learn more.
 
