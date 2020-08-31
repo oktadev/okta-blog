@@ -97,7 +97,7 @@ Next, we need to find the authorization endpoint and token endpoint for your OAu
 
 {% img blog/oauth-implicit-flow-dead/default-authorization-server.png alt:"Default authorization server" width:"800" %}{: .center-image }
 
-Copy the Issuer URI from that authorization server. Your authorization endpoint will be that URI with `/v1/auth` appended, and the token endpoint will end with `/v1/token`. 
+Copy the Issuer URI from that authorization server. Your authorization endpoint will be that URI with `/v1/authorize` appended, and the token endpoint will end with `/v1/token`. 
 
 For example, if your Issuer URI is `https://{yourOktaDomain}/oauth2/default`, then your authorization endpoint will be `https://{yourOktaDomain}/oauth2/defalut/v1/authorize` and your token endpoint will be `https://{yourOktaDomain}/oauth2/default/v1/token`. Enter those two values in the JavaScript config object created in the previous step.
 
