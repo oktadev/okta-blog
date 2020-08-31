@@ -550,7 +550,7 @@ As is almost always the case, you'll need to pick the approach that makes the mo
 
 ## Learn More About Vue.js and Secure User Management
 
-Okta's written a Vue.js integration that makes integrating with Okta for secure auth a snap. It's part of our open-source javascript [OpenID Connect](https://github.com/okta/okta-oidc-js) library. You can go directly to the [Vue.js](https://github.com/okta/okta-oidc-js/tree/master/packages/okta-vue) integration as well.
+Okta's written a Vue.js integration that makes integrating with Okta for secure auth a snap. It's part of our open-source javascript [OpenID Connect](https://github.com/okta/okta-oidc-js) library. You can go directly to the [Vue.js](https://github.com/okta/okta-vue) integration as well.
 
 At Okta, we say: friends don't let friends build auth! If you're working on a project that requires secure, reliable authentication and authorization, get a free developer account from [Okta](https://developer.okta.com/signup).
 
