@@ -353,7 +353,7 @@ view('home', $data);
 
 Let's also build the `OktaApiService` and add the methods we need (`buildAuthorizeUrl()` and `authorizeUser()`):
 
-`/src/services/OktaApiService.php`
+`/src/Services/OktaApiService.php`
 
 ```php
 <?php
@@ -386,6 +386,7 @@ class OktaApiService
             'client_id' => $this->clientId,
             'redirect_uri' => $this->redirectUri,
             'state' => $state,
+            'scope' => 'openid',
         ]);
         return $url;
     }
@@ -464,6 +465,7 @@ The method `buildAuthorizeUrl()` uses a call to the metadata URL to get the auth
             'client_id' => $this->clientId,
             'redirect_uri' => $this->redirectUri,
             'state' => $state,
+            'scope' => 'openid',
         ]);
 ```
 
@@ -623,7 +625,7 @@ The first handler simply loads the `register` view when the **Register** link is
 
 The second handler delegates to the user controller when the form is submitted:
 
-`/src/controllers/UserController.php`
+`/src/Controllers/UserController.php`
 
 ```php
 <?php
