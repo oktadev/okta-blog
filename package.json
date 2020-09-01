@@ -1,5 +1,5 @@
 {
-  "name": "@oktadeveloper/okta.github.io",
+  "name": "@oktadeveloper/okta-blog",
   "version": "1.0.0",
   "description": "The Okta Developer Blog",
   "files": [
@@ -26,14 +26,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/oktadeveloper/okta.github.io.git"
+    "url": "git+https://github.com/oktadeveloper/okta-blog.git"
   },
   "author": "Joel Franusic <joel.franusic@okta.com>",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/oktadeveloper/okta.github.io/issues"
+    "url": "https://github.com/oktadeveloper/okta-blog/issues"
   },
-  "homepage": "https://github.com/oktadeveloper/okta.github.io#readme",
+  "homepage": "https://github.com/oktadeveloper/okta-blog#readme",
   "devDependencies": {
     "chalk": "2.4.2",
     "cross-env": "5.2.0",
