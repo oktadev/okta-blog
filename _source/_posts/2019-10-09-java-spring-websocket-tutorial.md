@@ -540,7 +540,7 @@ Congrats! You've successfully connected a Spring Boot Application with WebSocket
 I hope you enjoyed this WebSocket experiment as much as I did.
 You can find all this tutorial's code [on GitHub](https://github.com/oktadeveloper/okta-java-websockets-example).
 
-To continue learning about WebSockets related technologies and Spring Framework's support, check out our related blog posts:
+To continue learning about WebSocket-related technologies and Spring Framework's support, check out our related blog posts:
 
 * [Full Stack Reactive with Spring WebFlux, WebSockets, and React](/blog/2018/09/25/spring-webflux-websockets-react)
 * [A Quick Guide to Spring Boot Login Options](/blog/2019/05/15/spring-boot-login-options)
