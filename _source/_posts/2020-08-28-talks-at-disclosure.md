@@ -9,7 +9,7 @@ tags: [disclosure]
 tweets:
 - "Check out the five talks I can't wait to see at Disclosure 2020!"
 - "Trying to decide which talks to attend at Disclosure 2020? Check out the 5 I can't wait to see!"
-- "Attending Discolsure 2020? Check out these 5 talks!"
+- "Attending Disclosure 2020? Check out these 5 talks!"
 image:
 type: awareness
 ---
