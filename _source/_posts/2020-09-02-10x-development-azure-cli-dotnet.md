@@ -22,7 +22,7 @@ While graphical interfaces are very convenient and user-friendly, they are not i
 
 ### Command-Line? Discover Why
 
-With .NET Core and Azure Microsoft aiming to gain a bigger share in the software development industry, non-Windows operating system’s ban policy adopted in the past by the Redmond giant gave way to a new era where different mainstream operating systems and devices (like Linux, macOS, iOS and Android) are embraced as allied, instead of fought against as competitors in the software business.
+With .NET Core and Azure Microsoft aiming to gain a bigger share in the software development industry, non-Windows operating system's ban policy adopted in the past by the Redmond giant gave way to a new era where different mainstream operating systems and devices (like Linux, macOS, iOS and Android) are embraced as allied, instead of fought against as competitors in the software business.
 
 In addition to the graphical-first approach that characterized .NET Framework, .NET Core and Azure offer complete command-line-oriented tooling, including a built-in Linux integration ([WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10), Windows Subsystem for Linux).
 
@@ -163,7 +163,7 @@ namespace okta_cli_app
 }
 ```
 
-Now the application is fully equipped with the Okta middleware to manage Authentication and Authorization. However, there isn’t any part of the application using it, yet.
+Now the application is fully equipped with the Okta middleware to manage Authentication and Authorization. However, there isn't any part of the application using it, yet.
 
 Whenever you put an *Authorize* attribute declaration on a Controller or Action, The ASP.NET Core runtime verifies that a user is logged in and has been granted the necessary authority. If not, you are redirected to the Okta login page.
 
@@ -238,7 +238,7 @@ Finally, add two links to the top bar of the UI, with the following razor code i
 The application is now ready to provide its services, enriched with a state-of-the-art security framework, in conjunction with a first-class Cloud-based authentication/authorization provider as Okta. You have probably realized that something is missing: I have done nothing (yet) to inform the provider that my brand new application, **okta-cli-app**, is going to ask it to manage authentication and authorization matters on its behalf.
 To fix this I need to set up a proper configuration in Okta and bind my ASP.NET Core project to it.
 
-If you haven’t yet got an Okta developer account, please [sign up](https://developer.okta.com/) and grab one, it’s quick and free. You will need one to perform the next step.
+If you haven't yet got an Okta developer account, please [sign up](https://developer.okta.com/) and grab one, it's quick and free. You will need one to perform the next step.
 
 Login to your Okta developer account and create a new application.
 
@@ -289,15 +289,15 @@ Point your browser to `http://localhost:5000` once again and you should see the 
 
 {% img blog/10x-azure-cli/image8.png alt:"" width:"800" %}{: .center-image }
 
-You can now click on Sign In and get redirected to the Okta login page. Once logged in, you’ll see the top bar changing.
+You can now click on Sign In and get redirected to the Okta login page. Once logged in, you'll see the top bar changing.
 
 {% img blog/10x-azure-cli/image9.png alt:"" width:"800" %}{: .center-image }
 
-> Even though this post is about using the command line tooling rather than the IDE’s plugins or the portal user experience, I haven’t done so when creating the Okta application. It’s worth mentioning here that Okta services are offered through the portal, a Web API interface and an SDK (Okta.Sdk) - but the new [Okta CLI](https://github.com/oktadeveloper/okta-cli) tool has just been released! This allows DevOps engineers to fully automate the Okta account and application setting management and integrate Okta configurations in the CI/CD pipelines.
+> Even though this post is about using the command line tooling rather than the IDE's plugins or the portal user experience, I haven't done so when creating the Okta application. It's worth mentioning here that Okta services are offered through the portal, a Web API interface and an SDK (Okta.Sdk) - but the new [Okta CLI](https://github.com/oktadeveloper/okta-cli) tool has just been released! This allows DevOps engineers to fully automate the Okta account and application setting management and integrate Okta configurations in the CI/CD pipelines.
 
 ## The Azure CLI Cloud Deployment Process
 
-Microsoft Azure allows us to setup and configure everything right from the Azure Portal. While this is very convenient while learning, it’s not ideal when the same sequences of operations need to be repeated. Modern DevOps aim to make faster infrastructure configuration and application deployment. The availability of a tooling system that allows you to script these operations on automated and streamlined workflows is necessary in order to achieve better performance. I am now going to demonstrate how you can deploy the application we just created to Azure, using the Azure Command Line Interface (Azure CLI, a.k.a **az**).
+Microsoft Azure allows us to setup and configure everything right from the Azure Portal. While this is very convenient while learning, it's not ideal when the same sequences of operations need to be repeated. Modern DevOps aim to make faster infrastructure configuration and application deployment. The availability of a tooling system that allows you to script these operations on automated and streamlined workflows is necessary in order to achieve better performance. I am now going to demonstrate how you can deploy the application we just created to Azure, using the Azure Command Line Interface (Azure CLI, a.k.a **az**).
 
 ```powershell
 az login
@@ -330,7 +330,7 @@ az webapp create -g okta-cli-rg -p okta-cli-plan -n okta-cli-app
 
 {% img blog/10x-azure-cli/image12.png alt:"" width:"800" %}{: .center-image }
 
-Your application is now deployed to the Cloud and available to the world at the address `https://okta-cli-app.azurewebsites.net/`. But before trying it, don’t forget that you need to align the URLs in your Okta application to the new address. You do that simply replacing the Okta application page, the old `http://localhost:5000` with the new  `https://okta-cli-app.azurewebsites.net/` in all the fields that contain it (should be three).
+Your application is now deployed to the Cloud and available to the world at the address `https://okta-cli-app.azurewebsites.net/`. But before trying it, don't forget that you need to align the URLs in your Okta application to the new address. You do that simply replacing the Okta application page, the old `http://localhost:5000` with the new  `https://okta-cli-app.azurewebsites.net/` in all the fields that contain it (should be three).
 
 You can now open the browser and surf to `https://okta-cli-app.azurewebsites.net/`. Or, if you prefer, automate this step as well with another console command.
 
