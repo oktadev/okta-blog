@@ -997,4 +997,4 @@ And as always, we'd love to have you follow us for more cool content and updates
 <a name="changelog"></a>
 **Changelog**:
 
-* Sep 1, 2020: Updated to use Angular 10. Changes to this article can be viewed in [oktadeveloper/okta-blog#398](https://github.com/oktadeveloper/okta-blog/pull/398).
+* Sep 1, 2020: Updated to use Angular 10. Changes to this article can be viewed in [oktadeveloper/okta-blog#400](https://github.com/oktadeveloper/okta-blog/pull/400).
