@@ -27,6 +27,10 @@ To complete this tutorial, there are a few things you will need:
 
 You will start by creating the backend in Python.
 
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+
 ## Set Up Your Python + Angular Environment
 
 For this tutorial, you're going to use Python 3.6.4. You can check your current Python version by running the following command:
@@ -324,6 +328,26 @@ class Service(object):
 ```
 
 There are two things to notice here, first, all operations causing side effects are using the `user_id`. This is because you want to make sure that actions like favoriting, unfavoriting, or listing the GitHub projects are done for the correct user. The last is the service object is not interacting directly with the `MongoRepository` class it is "adapting" the Repository abstract class with the concrete class `MongoRepository`, which will be used to persist data to MongoDB.
+
+## Install MongoDB
+
+Install the MongoDB database from the mongodb.com servers, via Homebrew, or just run it with Docker. 
+
+The [MongoDB documentation pages](https://docs.mongodb.com/manual/installation/) provide excellent install instructions specific to your operating system.
+
+You can install and run MongoDB using Homebrew like so:
+
+```shell
+brew tap mongodb/brew
+brew install mongodb-community@4.4
+brew services run mongodb-community@4.4
+```
+
+You can also use Docker:
+
+```shell
+docker run -d -it -p 27017:27017 mongo
+```
 
 ## Define Your Python API Middleware
 
