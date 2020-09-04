@@ -6,8 +6,6 @@ This is the source code repository for [Okta's developer blog](https://developer
 - If you have questions or need help with Okta's APIs or SDKs, please post to [StackOverflow](https://stackoverflow.com/questions/tagged/okta). If you think you've encountered a bug in one of our SDKs, please create a GitHub issue for that SDK.
 - If you are looking for Okta's developer documentation, that has moved to [@okta/okta-developer-docs](https://github.com/okta/okta-developer-docs).
 
-{:toc}
-
 ## Contribute
 
 If you'd like to contribute to the blog, please [send us a pull request](#how-to-create-a-pull-request).
