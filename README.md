@@ -98,6 +98,8 @@ Next, you'll want to build the Docker image. To do this, run the following comma
 docker build . -t okta-blog
 ```
 
+There's also a `make build` command you can use.
+
 What this command does is:
 
 1. Download a Linux system image
@@ -116,6 +118,8 @@ Here's the command you'll want to run:
 ```bash
 docker run -p 4000:4000 -v $PWD:/app -it okta-blog npm start
 ```
+
+You can use `make develop` as a shortcut.
 
 What this command does is:
 
