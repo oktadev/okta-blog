@@ -47,7 +47,7 @@ Open Visual Studio and select *New Project*. Under the *Web* section select *ASP
 
 Right-click on your project name and select **Properties**. Under the *Web* section set your *Project Url* to *localhost:3000*.
 
-{% img blog/aspnet-migration-dotnetcore/image3.png alt:"" width:"800" %}{: .center-image }
+{% img blog/aspnet-migration-dotnetcore/image3.png alt:"" width:"500" %}{: .center-image }
 
 Install Okta's ASP.NET library with the package command ```Install-Package Okta.AspNet -Version 1.5.0```.
 
