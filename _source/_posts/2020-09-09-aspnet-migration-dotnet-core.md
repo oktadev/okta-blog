@@ -27,7 +27,7 @@ Your IDE of choice (I used Visual Studio 2019)
 
 ## Create your Okta application
 
-For this application, you will use Okta for your authentication.  The `Okta.AspNetCore` makes implementing secure authentication in your application easier than ever.  All you need to do is set up a new application on Okta’s developer website and configure the authentication in your project on startup, and Okta handles the rest.  
+For this application, you will use Okta for your authentication.  The `Okta.AspNetCore` makes implementing secure authentication in your application easier than ever.  All you need to do is set up a new application on Okta's developer website and configure the authentication in your project on startup, and Okta handles the rest.  
 
 Log in to your Okta Developer Console and click on **Applications**. Click on the **Add Application** button and select **Web**. On the next page, give your application a meaningful name. I named my application *Conversion App*. Change your URIs from *localhost:8080* to *localhost:3000*.
 
