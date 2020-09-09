@@ -18,12 +18,12 @@ Ah, migration! Let's say you have an ASP.NET application that has been running f
 
 ### Requirements
 
-A computer with .NET Framework and .NET Core-compatible operating system
-A modern internet browser
-An [Okta Developer account](https://developer.okta.com/signup/)
-Your IDE of choice (I used Visual Studio 2019)
-[.NET Core 3.1 SDK](https://dotnet.microsoft.com/download)
-[ASP.NET](https://dotnet.microsoft.com/apps/aspnet)
+- A computer with .NET Framework and .NET Core-compatible operating system
+- A modern internet browser
+- An [Okta Developer account](https://developer.okta.com/signup/)
+- Your IDE of choice (I used Visual Studio 2019)
+- The [.NET Core 3.1 SDK](https://dotnet.microsoft.com/download)
+- [ASP.NET](https://dotnet.microsoft.com/apps/aspnet)
 
 ## Create your Okta application
 
