@@ -351,9 +351,9 @@ Then create an `index.html` page in `src/main/resources/static`:
 
 First, create a `src/main/resources/static/js` folder in your project for the JavaScript files.
 
-Add `Tone.js` to `src/main/resources/static/js`. **Tone.js** is a JavaScript framework to create interactive music in the browser; it will be used to play, stop and restart the music loops. [Download Tone.js from Github](https://github.com/Tonejs/Tone.js#installation). 
+Add `Tone.js` to `src/main/resources/static/js`. **Tone.js** is a JavaScript framework to create interactive music in the browser; it will be used to play, stop and restart the music loops. [Download Tone.js from GitHub](https://github.com/Tonejs/Tone.js#installation). 
 
-Add `NexusUI` also to `src/main/resources/static/js`.**NexusUI** is a framework for building web audio instruments, such as dials and sliders, in the browser. In this example, we will create simple circular buttons, each one to play a different loop. [Download NexusUI from Github](https://nexus-js.github.io/ui/api/#intro).
+Add `NexusUI` also to `src/main/resources/static/js`.**NexusUI** is a framework for building web audio instruments, such as dials and sliders, in the browser. In this example, we will create simple circular buttons, each one to play a different loop. [Download NexusUI from GitHub](https://nexus-js.github.io/ui/api/#intro).
 
 Add an `auth.js` script to handle client authentication with the [Okta Authentication SDK](https://developer.okta.com/code/javascript/okta_auth_sdk/). Use the **Client ID** you copied from the SPA application in the Okta developer console, and also your Org URL. If the client has not authenticated, it will be redirected to the Okta login page. After login and redirect to "/", the ID token and access token will be parsed from the URL and added to the token manager.
 
@@ -478,7 +478,7 @@ button2.on('change', function(v) {
 });
 ```
 
-In the code above, `button1` is set to play `/loops/loop-chill-1.wav` and `button2` will play `/loops/loop-drum-1.wav`. Optionally, configure the behavior for buttons 3 to 9, each one should play a different loop when toggled on. You can get the loops from the [Github repo of this tutorial](https://github.com/oktadeveloper/okta-java-websockets-example/tree/master/src/main/resources/static/loops).To use your own music files, place them in the `src/main/resources/static/loops` folder. In addition to loop `restart` and `stop`, the `on change` handler will send the `toggle` event to the **loops topic** through the server message broker.
+In the code above, `button1` is set to play `/loops/loop-chill-1.wav` and `button2` will play `/loops/loop-drum-1.wav`. Optionally, configure the behavior for buttons 3 to 9, each one should play a different loop when toggled on. You can get the loops from the [GitHub repo of this tutorial](https://github.com/oktadeveloper/okta-java-websockets-example/tree/master/src/main/resources/static/loops). To use your own music files, place them in the `src/main/resources/static/loops` folder. In addition to loop `restart` and `stop`, the `on change` handler will send the `toggle` event to the **loops topic** through the server message broker.
 
 ## Run and Test the Java Application with WebSockets
 
@@ -538,9 +538,9 @@ Congrats! You've successfully connected a Spring Boot Application with WebSocket
 ## Learn More About WebSockets and Spring Boot
 
 I hope you enjoyed this WebSocket experiment as much as I did.
-You can find all this tutorial's code [on Github](https://github.com/oktadeveloper/okta-java-websockets-example).
+You can find all this tutorial's code [on GitHub](https://github.com/oktadeveloper/okta-java-websockets-example).
 
- To continue learning about Okta's WebSockets related technologies and Spring Framework's support, check out our related blog posts:
+To continue learning about WebSocket-related technologies and Spring Framework's support, check out our related blog posts:
 
 * [Full Stack Reactive with Spring WebFlux, WebSockets, and React](/blog/2018/09/25/spring-webflux-websockets-react)
 * [A Quick Guide to Spring Boot Login Options](/blog/2019/05/15/spring-boot-login-options)

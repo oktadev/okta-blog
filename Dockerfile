@@ -18,7 +18,7 @@ ENV LANGUAGE en_US.UTF-8
 
 # Install Node
 WORKDIR /node
-RUN curl -sL https://deb.nodesource.com/setup_13.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
 RUN apt-get install -y nodejs
 
 # Ruby setup
