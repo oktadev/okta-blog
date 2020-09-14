@@ -686,7 +686,7 @@ If you're using a SPA for your UI, you'll want to configure CORS as well. You ca
 [source,java]
 ----
 @Bean
-CorsWebFilter corsWebFilter() {
+CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration corsConfig = new CorsConfiguration();
     corsConfig.setAllowedOrigins(List.of("*"));
     corsConfig.setMaxAge(3600L);
@@ -695,8 +695,7 @@ CorsWebFilter corsWebFilter() {
 
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
     source.registerCorsConfiguration("/**", corsConfig);
-
-    return new CorsWebFilter(source);
+    return source;
 }
 ----
 
@@ -705,11 +704,28 @@ Make sure your imports match the ones below.
 [source,java]
 ----
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.reactive.CorsWebFilter;
+import org.springframework.web.cors.reactive.CorsConfigurationSource;
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 ----
 
 Spring Cloud Gateway's documentation explains how to configure CORS with https://cloud.spring.io/spring-cloud-gateway/multi/multi__cors_configuration.html[YAML] or with https://www.baeldung.com/spring-webflux-cors#global[`WebFluxConfigurer`]. Unfortunately, I was unable to get either one to work.
+
+With this CORS configuration, you'll be able to access `\http://localhost:8080/cars` from a SPA app on another server or port. If you want to provide access to `/fave-cars`, you'll need to modify the `faveCars()` method to add an `Authorization` header.
+
+[source,java]
+----
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
+import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
+...
+
+GetMapping("/fave-cars")
+public Flux<car> faveCars(@RegisteredOAuth2AuthorizedClient("okta") OAuth2AuthorizedClient authorizedClient) {
+    return carClient.build().get().uri("lb://car-service/cars")
+            .header("Authorization", "Bearer " + authorizedClient.getAccessToken().getTokenValue())
+            .retrieve().bodyToFlux(Car.class)
+            .filter(this::isFavorite);
+}
+----
 
 == Test Your Gateway with WebTestClient and JWT
 
@@ -1015,3 +1031,8 @@ To learn more about microservices and reactive programming with Java and Spring,
 * link:/blog/2018/09/24/reactive-apis-with-spring-webflux[Build Reactive APIs with Spring WebFlux]
 
 If you liked this tutorial, follow https://twitter.com/oktadev[@oktadev] on Twitter. We also publish screencasts to https://youtube.com/c/oktadev[our YouTube channel] on a regular basis.
+
+[[changelog]]
+**Changelog:**
+
+* Sep 1, 2020: Fixed CORS configuration and added code changes necessary to access `/fave-cars`. Changes to this post can be viewed in https://github.com/oktadeveloper/okta-blog/pull/398[okta-blog#398]. Updates to the example application are in https://github.com/oktadeveloper/java-microservices-examples/pull/9[java-microservices-examples#9].

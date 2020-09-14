@@ -389,7 +389,7 @@ Click **login**, enter the credentials you used to signup with Okta, and you'll 
 
 ## Learn More about Vue, Schematics, and Secure Authentication
 
-I hope you've enjoyed learning how to create Schematics for Vue. I found the API fairly easy to use and was pleasantly surprised by its testing support too. If you want to learn more about Okta's Vue SDK, see [its docs](https://github.com/okta/okta-oidc-js/tree/master/packages/okta-vue).
+I hope you've enjoyed learning how to create Schematics for Vue. I found the API fairly easy to use and was pleasantly surprised by its testing support too. If you want to learn more about Okta's Vue SDK, see [its docs](https://github.com/okta/okta-vue).
 
 You can find the example schematic for this tutorial [on GitHub](https://github.com/oktadeveloper/vue-schematics-example).
 
