@@ -5,7 +5,7 @@ author: aaron-parecki
 by: advocate
 communities: [security]
 description: "The Authorization Code Grant Type is used by both web apps and native apps to get an access token after a user authorizes an app. This post is the first part of a series where we explore the frequently used OAuth 2.0 grant types."
-tags: [oauth]
+tags: [oauth, what-is-oauth]
 tweets:
 - "What is the #oauth2 Authorization Code Grant Type? Read @aaronpk's article here:"
 - "Ever wondered exactly what the #oauth2 Authorization Code Grant Type was for? Now you can stop wondering! ;)"

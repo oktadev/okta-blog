@@ -5,7 +5,7 @@ author: aaron-parecki
 by: advocate
 communities: [security]
 description: "The Password Grant Type is a way to get an OAuth access token given a username and password."
-tags: [oauth]
+tags: [oauth, what-is-oauth]
 tweets:
 - "What is the #oauth2 Password Grant Type? Read @aaronpk's article here:"
 - "Ever wondered what the #oauth2 Password Grant Type is for? We've got you covered."
