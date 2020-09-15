@@ -284,7 +284,7 @@ the correct answer for **all** of the sequences that will show up on this checkl
     You did it!
     Reward yourself by <a href="https://oeis.org/wiki/Welcome">learning more about The On-Line Encyclopedia of Integer Sequences</a> ®
     and why Donald Knuth says you can use it to
-    <a href="https://youtu.be/BxQw4CdxLr8?t=1187">“You can compute your way into the literature”</a>.
+    <a href="https://youtu.be/BxQw4CdxLr8?t=1187">"You can compute your way into the literature"</a>.
   </div>
   <textarea id="editor">def answer(a, b, c):
     return True
