@@ -157,10 +157,10 @@ pyEditor = window.CodeMirror.fromTextArea(document["editor"], {
 {% img blog/reintroducing-joel-franusic/joel-franusic-ibm-729.jpg alt:"Joël Franusic standing in front of two IBM 729 reel-to-reel tape machines for the IBM 1401" width:"800" %}{: .center-image }
 
 Hi my name is Joël Franusic and I'm happy to announce that I am,
-once again, a developer evangelist at Okta, focusing on the Python and Go communities.
+once again, a developer advocate at Okta, focusing on the Python and Go communities.
 
 (Why do I say "once again"? well, 6 years ago I started at Okta as a
-developer evenagelst, but over the course of time I've had a series
+developer advocate, but over the course of time I've had a series
 of other jobs at Okta, including: "Software Engineer", "Technical Marketing
 Manager", and "Product Marketing Manager")
 
@@ -179,9 +179,9 @@ is truly great: short, inspiring and so lofty it could never be
 achieved.
 
 Microsoft used to have a mission statement like this: "A computer on every desk and in every home."
-This mission statement probably seemed unachieveable
+This mission statement probably seemed unachievable
 when it was first announced by Bill Gates in 1980. Thirty years later, it's
-clear that this mission statement wasn't lofy enough!
+clear that this mission statement wasn't lofty enough!
 
 One day, as I was reflecting on mission statements that sound impossible, I
 started thinking of mission statements to jokingly propose to a friend of
@@ -197,7 +197,7 @@ programmer" - this is now what I consider my personal mission statement to be.
 Hi, I'm Joël Franusic and my personal mission is to "make all
 software, from all time, instantly available to any programmer".
 
-There are a lot of ways to intrepret this mission
+There are a lot of ways to interpret this mission
 statement, which I like. I want this mission statement to be
 flexible and able to grow and change over time.
 That said, let me break down how I'm thinking about this mission statement
@@ -209,7 +209,7 @@ point where it's nearly perfect, or at least its inadequacies are well
 understood. When software reaches this level of perfection, it
 doesn't really make sense to re-write it. So why should we have to?
 It should be trivial to use a code from any programming language in
-any other programming language. Most programming langauges have
+any other programming language. Most programming languages have
 limited support for this type of functionality, though it usually
 involves bindings into code written in C. Why should it end there? I want to be able to
 use, for example, Haskell code from Python, Java from Lua, or
@@ -220,12 +220,12 @@ view here is that a programmer should be able to write code that goes into
 production
 as soon as they lift their finger off of the keyboard. I don't want
 to wait for a compile to finish, for tests to pass, for an
-intrepreter to reload my code. All of those things, especially
+interpreter to reload my code. All of those things, especially
 testing, are important, but they should happen automatically and
 complete within milliseconds.
 
 For the last part of the missions statement: "for use by any programmer":
-My opinion is that *any* programmer should be able to leveage code written by
+My opinion is that *any* programmer should be able to leverage code written by
 another programmer, no matter what the skill level or programming language
 either programmer has. This distinction is important to me because nearly
 everything I've describe above is already possible, but only for very
@@ -233,19 +233,19 @@ experienced programmers. As William Gibson famously said: "The future is
 already here — it's just not very evenly distributed."
 
 
-# That all sounds great, but how what are you going to do about it?
+# That all sounds great, but what are you going to do about it?
 
 Even if you agree that the things I want to do are worthwhile, it's
 still fair to ask what that means in concrete terms.
 
 One of things things that I'm passionate about is working on making software
 development more "instantly available". There are many problems to solve in this
-area. For example, much of software development today involves unneccessary waiting. As
+area. For example, much of software development today involves unnecessary waiting. As
 programmers, we spend a lot of time waiting for software to install, tests to
 pass, a deploy to finish. The list goes on and on.
 
 It doesn't have to be this way though. We can and should make better tools for
-ourselves and eachother.
+ourselves and each other.
 
 As an example of one way we can make better tools. I created a tool that lets
 you [edit the code of the Okta Sign-In Widget with instant feedback, from inside
@@ -260,7 +260,7 @@ The goal of this game is to write a Python function (`answer()`) that takes
 three numbers of a sequence as input (we label these `a`, `b`, and `c`) and
 returns the next number in that sequence.
 
-For example, let's imagine that the `answer()` fucntion is given part of this
+For example, let's imagine that the `answer()` function is given part of this
 integer sequence as input:
 
 <p style="height: 150px">
@@ -284,7 +284,7 @@ the correct answer for **all** of the sequences that will show up on this checkl
     You did it!
     Reward yourself by <a href="https://oeis.org/wiki/Welcome">learning more about The On-Line Encyclopedia of Integer Sequences</a> ®
     and why Donald Knuth says you can use it to
-    <a href="https://youtu.be/BxQw4CdxLr8?t=1187">"You can compute your way into the literature"</a>.
+    <a href="https://youtu.be/BxQw4CdxLr8?t=1187">“You can compute your way into the literature”</a>.
   </div>
   <textarea id="editor">def answer(a, b, c):
     return True
@@ -307,7 +307,7 @@ stopped typing for a bit.
 Perhaps you played the game, perhaps you didn't. But in either case, the reason
 for me including this game in this blog post might not be apparent. Well, I
 included the game above to show that not only is it fairly easy to run
-a non-JavaScript interepreter in the browser, it can be a lot of fun when you do.
+a non-JavaScript interpreter in the browser, it can be a lot of fun when you do.
 
 For this game, I wanted to make a something that:
 
@@ -318,7 +318,7 @@ For this game, I wanted to make a something that:
 
 If you want to see how all of this works, just use the "View Source"
 functionality of your browser. The entire game is written in Python and I plan
-on writing an in-depth explaination of the code behind this game in a subsequent
+on writing an in-depth explanation of the code behind this game in a subsequent
 post.
 
 
