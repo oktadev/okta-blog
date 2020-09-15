@@ -179,7 +179,7 @@ achieved.
 
 Microsoft used to have a mission statement like this: "A computer on every desk and in every home."
 This mission statement probably seemed unachievable
-when it was first announced by Bill Gates in 1980. Thirty years later, it's
+when it was first announced by Bill Gates in 1980. Forty years later, it's
 clear that this mission statement wasn't lofty enough!
 
 One day, as I was reflecting on mission statements that sound impossible, I
@@ -227,7 +227,7 @@ For the last part of the missions statement: "for use by any programmer":
 My opinion is that *any* programmer should be able to leverage code written by
 another programmer, no matter what the skill level or programming language
 either programmer has. This distinction is important to me because nearly
-everything I've describe above is already possible, but only for very
+everything I've described above is already possible, but only for very
 experienced programmers. As William Gibson famously said: "The future is
 already here — it's just not very evenly distributed."
 
@@ -246,7 +246,7 @@ pass, a deploy to finish. The list goes on and on.
 It doesn't have to be this way though. We can and should make better tools for
 ourselves and each other.
 
-As an example of one way we can make better tools. I created a tool that lets
+As an example of one way we can make better tools. I created one that lets
 you [edit the code of the Okta Sign-In Widget with instant feedback, from inside
 your web browser](https://developer.okta.com/live-widget/). However, that tool uses JavaScript, and since I'm focusing
 on Python and Go, I wanted to make an example of running Python from inside of
@@ -259,7 +259,7 @@ The goal of this game is to write a Python function (`answer()`) that takes
 three numbers of a sequence as input (we label these `a`, `b`, and `c`) and
 returns the next number in that sequence.
 
-For example, let's imagine that the `answer()` function is given part of this
+For example, let's imagine that the `answer(a, b, c)` function is given part of this
 integer sequence as input:
 
 <p style="height: 150px">
@@ -268,14 +268,19 @@ integer sequence as input:
   </a>      
 </p>
 
-In this case, `answer` would be called with the first three numbers of the sequence, like so:
-`answer(9, 9, 9)` and in this case the correct answer would be `9`. In this scenario the solution would look something like this:
+In this case, `answer()` would be called with the first three numbers of the sequence, like so:
+`answer(9, 9, 9)`  — in this case the correct answer would be `9` and the code
+to "solve" this sequence might look something like this:
 
     def answer(a, b, c):
         return 9
 
 To win this game, your job will be to write a function that will be able to give
-the correct answer for **all** of the sequences that will show up on this checklist:
+the correct answer for **all** of the sequences that will show up on the
+checklist below. The checklist will update as you solve for each sequence.
+Update the Python code below to start playing!
+
+Sequence checklist:
 
   <ul id="messages"></ul>
   <div id="error" class="alert error"></div>
@@ -283,7 +288,7 @@ the correct answer for **all** of the sequences that will show up on this checkl
     You did it!
     Reward yourself by <a href="https://oeis.org/wiki/Welcome">learning more about The On-Line Encyclopedia of Integer Sequences</a> ®
     and why Donald Knuth says you can use it to
-    <a href="https://youtu.be/BxQw4CdxLr8?t=1187">"You can compute your way into the literature"</a>.
+    <a href="https://youtu.be/BxQw4CdxLr8?t=1187">"compute your way into the literature"</a>.
   </div>
   <textarea id="editor">def answer(a, b, c):
     return True
@@ -295,9 +300,7 @@ document.addEventListener("DOMContentLoaded", function(){
 });
 </script>
 
-Edit the code above to play!
-
-No need to press a "save" button or anything. Your code will run once you've
+Edit the code above to play. No need to press a "save" button or anything. Your code will run once you've
 stopped typing for a bit.
 
 
@@ -310,7 +313,7 @@ a non-JavaScript interpreter in the browser, it can be a lot of fun when you do.
 
 For this game, I wanted to make a something that:
 
-* Involves writing some mildly-complex code, something more than "hello world".
+* Involves writing some mildly-complex code, something just a little bit more complicated than "hello world".
 * Runs a soon as you stop typing.
 * Teaches the player something new.
 * Shows that it's fairly easy, and fun, to run Python directly from a browser.
