@@ -156,58 +156,58 @@ pyEditor = window.CodeMirror.fromTextArea(document["editor"], {
 
 {% img blog/reintroducing-joel-franusic/joel-franusic-ibm-729.jpg alt:"Joël Franusic standing in front of two IBM 729 reel-to-reel tape machines for the IBM 1401" width:"800" %}{: .center-image }
 
-Hi my name is Joël Franusic and I&rsquo;m happy to announce that I am,
+Hi my name is Joël Franusic and I'm happy to announce that I am,
 once again, a developer evangelist at Okta, focusing on the Python and Go communities.
 
-(Why do I say &ldquo;once again&rdquo;? well, 6 years ago I started at Okta as a
-developer evenagelst, but over the course of time I&rsquo;ve had a series
-of other jobs at Okta, including: &ldquo;Software Engineer&rdquo;, &ldquo;Technical Marketing
-Manager&rdquo;, and &ldquo;Product Marketing Manager&rdquo;)
+(Why do I say "once again"? well, 6 years ago I started at Okta as a
+developer evenagelst, but over the course of time I've had a series
+of other jobs at Okta, including: "Software Engineer", "Technical Marketing
+Manager", and "Product Marketing Manager")
 
 The best way that I can think of to introduce myself is by sharing
-my &ldquo;personal mission statement&rdquo; - before I go into what my
+my "personal mission statement" - before I go into what my
 mission statement is, I want to give some background on why I have
 one in the first place.
 
-It&rsquo;s common for corporations to have a &ldquo;mission statement&rdquo; - a short
+It's common for corporations to have a "mission statement" - a short
 statement on what they view as their goals.
 
 People often mock corporate mission statements, and for
-good reason. Mission statements are frequently are long, vague, and uninspiring.
+good reason. Mission statements are frequently long, vague, and uninspiring.
 But not always! Sometimes a company will create a mission statement that
 is truly great: short, inspiring and so lofty it could never be
 achieved.
 
 Microsoft used to have a mission statement like this: "A computer on every desk and in every home."
 This mission statement probably seemed unachieveable
-when it was first announced by Bill Gates in 1980. Thirty years later, it&rsquo;s
-clear that this mission statement wasn&rsquo;t lofy enough!
+when it was first announced by Bill Gates in 1980. Thirty years later, it's
+clear that this mission statement wasn't lofy enough!
 
 One day, as I was reflecting on mission statements that sound impossible, I
-started thinking of mission statements to jokinly propose to a friend of
-mine. In the process, I stubled across a mission statement that I couldn&rsquo;t
+started thinking of mission statements to jokingly propose to a friend of
+mine. In the process, I stumbled across a mission statement that I couldn't
 stop thinking about:
 
-&ldquo;Make all software, from all time, instantly available for use by any
-programmer&rdquo; - this is now what I consider my personal mission statement to be.
+"Make all software, from all time, instantly available for use by any
+programmer" - this is now what I consider my personal mission statement to be.
 
 
 # My personal mission statement
 
-Hi, I&rsquo;m Joël Franusic and my personal mission is to &ldquo;make all
-software, from all time, instantly available to any programmer&rdquo;.
+Hi, I'm Joël Franusic and my personal mission is to "make all
+software, from all time, instantly available to any programmer".
 
 There are a lot of ways to intrepret this mission
 statement, which I like. I want this mission statement to be
 flexible and able to grow and change over time.
-That said, let me break down how I&rsquo;m thinking about this mission statement
+That said, let me break down how I'm thinking about this mission statement
 right now:
 
-Let&rsquo;s start with the first part of the mission statement: &ldquo;Make all software,
-from all time&rdquo;: My thinking here is that, given enough time, software can be refined to the
-point where it&rsquo;s nearly perfect, or at least its inadequacies are well
+Let's start with the first part of the mission statement: "Make all software,
+from all time": My thinking here is that, given enough time, software can be refined to the
+point where it's nearly perfect, or at least its inadequacies are well
 understood. When software reaches this level of perfection, it
-doesn&rsquo;t really make sense to re-write it. So why should we have to?
+doesn't really make sense to re-write it. So why should we have to?
 It should be trivial to use a code from any programming language in
 any other programming language. Most programming langauges have
 limited support for this type of functionality, though it usually
@@ -215,41 +215,41 @@ involves bindings into code written in C. Why should it end there? I want to be 
 use, for example, Haskell code from Python, Java from Lua, or
 Fortran from Go.
 
-Now, for the next part of the mission statement: &ldquo;instantly available&rdquo;: My
+Now, for the next part of the mission statement: "instantly available": My
 view here is that a programmer should be able to write code that goes into
 production
-as soon as they lift their finger off of the keyboard. I don&rsquo;t want
+as soon as they lift their finger off of the keyboard. I don't want
 to wait for a compile to finish, for tests to pass, for an
 intrepreter to reload my code. All of those things, especially
 testing, are important, but they should happen automatically and
 complete within milliseconds.
 
-For the last part of the missions statement: &ldquo;for use by any programmer&rdquo;:
+For the last part of the missions statement: "for use by any programmer":
 My opinion is that *any* programmer should be able to leveage code written by
 another programmer, no matter what the skill level or programming language
 either programmer has. This distinction is important to me because nearly
-everything I&rsquo;ve describe above is already possible, but only for very
-experienced programmers. As William Gibson famously said: &ldquo;The future is
-already here — it&rsquo;s just not very evenly distributed.&rdquo;
+everything I've describe above is already possible, but only for very
+experienced programmers. As William Gibson famously said: "The future is
+already here — it's just not very evenly distributed."
 
 
-# That all sounds great, but how what are you doing to do about it?
+# That all sounds great, but how what are you going to do about it?
 
-Even if you agree that the things I want to do are worthwhile, it&rsquo;s
+Even if you agree that the things I want to do are worthwhile, it's
 still fair to ask what that means in concrete terms.
 
-One of things things that I&rsquo;m passionate about is working on making software
-development more &ldquo;instantly available&rdquo;. There are many problems to solve in this
+One of things things that I'm passionate about is working on making software
+development more "instantly available". There are many problems to solve in this
 area. For example, much of software development today involves unneccessary waiting. As
 programmers, we spend a lot of time waiting for software to install, tests to
 pass, a deploy to finish. The list goes on and on.
 
-It doesn&rsquo;t have to be this way though. We can and should make better tools for
+It doesn't have to be this way though. We can and should make better tools for
 ourselves and eachother.
 
 As an example of one way we can make better tools. I created a tool that lets
-you <a href=&ldquo;<https://developer.okta.com/live-widget/>&rdquo;>edit the code of the Okta Sign-In Widget with instant feedback, from inside
-your web browser</a>. However, that tool uses JavaScript, and since I&rsquo;m focusing
+you [edit the code of the Okta Sign-In Widget with instant feedback, from inside
+your web browser](https://developer.okta.com/live-widget/). However, that tool uses JavaScript, and since I'm focusing
 on Python and Go, I wanted to make an example of running Python from inside of
 the browser. So, I wrote a game for you to play and I have included this game below:
 
@@ -260,7 +260,7 @@ The goal of this game is to write a Python function (`answer()`) that takes
 three numbers of a sequence as input (we label these `a`, `b`, and `c`) and
 returns the next number in that sequence.
 
-For example, let&rsquo;s imagine that the `answer()` fucntion is given part of this
+For example, let's imagine that the `answer()` fucntion is given part of this
 integer sequence as input:
 
 <p style="height: 150px">
@@ -298,35 +298,35 @@ document.addEventListener("DOMContentLoaded", function(){
 
 Edit the code above to play!
 
-No need to press a &ldquo;save&rdquo; button or anything. Your code will run once you&rsquo;ve
+No need to press a "save" button or anything. Your code will run once you've
 stopped typing for a bit.
 
 
-# &ldquo;That&rsquo;s interesting, I guess, why should I care?&rdquo;
+# "That's interesting, I guess. Why should I care?"
 
-Perhaps you played the game, perhaps you didn&rsquo;t. But in either case, the reason
+Perhaps you played the game, perhaps you didn't. But in either case, the reason
 for me including this game in this blog post might not be apparent. Well, I
 included the game above to show that not only is it fairly easy to run
 a non-JavaScript interepreter in the browser, it can be a lot of fun when you do.
 
 For this game, I wanted to make a something that:
 
--   Involves writing some mildly-complex code, something more than &ldquo;hello world&rdquo;.
--   Runs a soon as you stop typing.
--   Teaches the player something new.
--   Shows that it&rsquo;s fairly easy, and fun, to run Python directly from a browser.
+* Involves writing some mildly-complex code, something more than "hello world".
+* Runs a soon as you stop typing.
+* Teaches the player something new.
+* Shows that it's fairly easy, and fun, to run Python directly from a browser.
 
-If you want to see how all of this works, just use the &ldquo;View Source&rdquo;
+If you want to see how all of this works, just use the "View Source"
 functionality of your browser. The entire game is written in Python and I plan
 on writing an in-depth explaination of the code behind this game in a subsequent
 post.
 
 
-# That&rsquo;s all for now
+# That's all for now
 
-In closing, I hope you found my &ldquo;personal mission statement&rdquo; to be as thought
+In closing, I hope you found my "personal mission statement" to be as thought
 provoking as I have found it to be and I hope that you had as much fun playing
 my little game as I did making it.
 
-I&rsquo;d love to hear from you in the comments below, or [on Twitter](https://twitter.com/jf).
+I'd love to hear from you in the comments below, or [on Twitter](https://twitter.com/jf).
 
