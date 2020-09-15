@@ -178,7 +178,7 @@ But not always! Sometimes a company will create a mission statement that
 is truly great: short, inspiring and so lofty it could never be
 achieved.
 
-Microsoft used to have a mission statement like this: “A computer on every desk and in every home.”
+Microsoft used to have a mission statement like this: "A computer on every desk and in every home."
 This mission statement probably seemed unachieveable
 when it was first announced by Bill Gates in 1980. Thirty years later, it&rsquo;s
 clear that this mission statement wasn&rsquo;t lofy enough!
@@ -284,7 +284,7 @@ the correct answer for **all** of the sequences that will show up on this checkl
     You did it!
     Reward yourself by <a href="https://oeis.org/wiki/Welcome">learning more about The On-Line Encyclopedia of Integer Sequences</a> ®
     and why Donald Knuth says you can use it to
-    <a href="https://youtu.be/BxQw4CdxLr8?t=1187">“You can compute your way into the literature”</a>.
+    <a href="https://youtu.be/BxQw4CdxLr8?t=1187">"You can compute your way into the literature"</a>.
   </div>
   <textarea id="editor">def answer(a, b, c):
     return True
