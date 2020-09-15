@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Build a CRUD App with Python, Flask, and Angular"
-author: team-okta
+author: matt-raible
 communities: [javascript, python]
 description: "This tutorial walks you through building an basic CRUD application using Python, Flask, and Angular"
 tags: [python, angular, flask, crud, angular-cli, python-rest, flask-rest]
@@ -26,6 +26,10 @@ To complete this tutorial, there are a few things you will need:
 * A free-forever Okta account
 
 You will start by creating the backend in Python.
+
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
 
 ## Set Up Your Python + Angular Environment
 
@@ -59,7 +63,7 @@ pyenv global 3.6.4
 Ensure you are using the correct Python version by adding the pyenv shims path to your `$PATH`.
 
 ```bash
-export PATH="$(pyenv root)/shims:$PATH"
+export PATH="$(pyenv root)/shims:$HOME/local/bin:$PATH"
 ```
 
 Even though Python offers a rich standard library making it possible to develop the backend without third-party libraries, we're going to use well-known Python libraries to help you focus on the features requirements instead of spending time reinventing the wheel.
@@ -67,7 +71,7 @@ Even though Python offers a rich standard library making it possible to develop 
 You will use pipenv to manage the project's dependencies. 
 
 ```bash
-pip install --user pipenv
+python -m pip install --user pipenv
 ```
 
 Your environment is prepared to run Python code, and you are now ready to work on the backend.
@@ -135,10 +139,11 @@ DELETE /kudos/:id
 ```
 
 Favoriting a GitHub project basically means a client makes HTTP POST calls to your Python server, which has some expectation of the calls:
-The request body or payload must be JSON
-The payload should have four properties, the GitHub project `id`, `full_name` , `description`, and `html_url`.
-Only the GitHub project `id` is a required property. Which means, for any `POST /kudos` where the `id` is not given the server must reject the call
-All requests must be authenticated
+
+- The request body or payload must be JSON
+- The payload should have four properties, the GitHub project `id`, `full_name` , `description`, and `html_url`.
+- Only the GitHub project `id` is a required property. Which means, for any `POST /kudos` where the `id` is not given the server must reject the call
+- All requests must be authenticated
 
 Your Python backend will have to represent two data schemas, one being the incoming request payload and the other, the document your server will persist on the database. They will be called `GithubRepoSchema` and `KudoSchema` respectively.
 
@@ -164,7 +169,7 @@ touch app/kudo/__init__.py
 
 The commands you've just run created the app directory as well as another directory within it called `kudo`  which now has three files: `schema.py`, `service.py`, and `__init__.py`.
 
-The schema will have two responsibilities: represent the data and serve as reference to validate incoming request payload. There's a very useful package called [marshmallow] (https://marshmallow.readthedocs.io/en/3.0/), which is an ORM/ODM/framework-agnostic library for serializing/deserializing complex data types, such as objects, to and from native Python data types.
+The schema will have two responsibilities: represent the data and serve as reference to validate incoming request payload. There's a very useful package called [marshmallow](https://marshmallow.readthedocs.io/en/3.0/), which is an ORM/ODM/framework-agnostic library for serializing/deserializing complex data types, such as objects, to and from native Python data types.
 
 Install marshmallow by running the following command:
 
@@ -172,7 +177,7 @@ Install marshmallow by running the following command:
 pipenv install marshmallow==2.16.3
 ```
 
-Then, Copy and paste the following classes into the `schema.py`:
+Then, Copy and paste the following classes into the `app/kudo/schema.py`:
 
 ```python
 from marshmallow import Schema, fields
@@ -324,6 +329,26 @@ class Service(object):
 
 There are two things to notice here, first, all operations causing side effects are using the `user_id`. This is because you want to make sure that actions like favoriting, unfavoriting, or listing the GitHub projects are done for the correct user. The last is the service object is not interacting directly with the `MongoRepository` class it is "adapting" the Repository abstract class with the concrete class `MongoRepository`, which will be used to persist data to MongoDB.
 
+## Install MongoDB
+
+Install the MongoDB database from the mongodb.com servers, via Homebrew, or just run it with Docker. 
+
+The [MongoDB documentation pages](https://docs.mongodb.com/manual/installation/) provide excellent install instructions specific to your operating system.
+
+You can install and run MongoDB using Homebrew like so:
+
+```shell
+brew tap mongodb/brew
+brew install mongodb-community@4.4
+brew services run mongodb-community@4.4
+```
+
+You can also use Docker:
+
+```shell
+docker run -d -it -p 27017:27017 mongo
+```
+
 ## Define Your Python API Middleware
 
 The requests made to your REST API use JSON Web Token (JWT) to let the backend know the request is authorized. How does it work?
@@ -345,6 +370,7 @@ pipenv install flask==1.0.2
 Then, go ahead and create the necessary files:
 
 ```bash
+mkdir -p app/http/api
 touch app/http/api/__init__.py
 touch app/http/api/endpoints.py
 touch app/http/api/middlewares.py
@@ -363,7 +389,7 @@ def login_required(f):
    def wrap(*args, **kwargs):
        authorization = request.headers.get("authorization", None)
        if not authorization:
-           return json.dumps({'error': 'no authorization token provied'}), 401, {'Content-type': 'application/json'}
+           return json.dumps({'error': 'no authorization token provided'}), 401, {'Content-type': 'application/json'}
 
        try:
            token = authorization.split(' ')[1]
@@ -377,7 +403,7 @@ def login_required(f):
    return wrap
 ```
 
-If you're happy with the code above, paste it into the `middlewares.py` file.
+If you're happy with the code above, paste it into the `app/http/api/middlewares.py` file.
 
 You are using a module called `g` provided by Flask, which is a global context shared across the request life cycle. The middleware is checking whether or not the request is valid and if it is valid, the middleware will extract the authenticated user details and persist them in the global context.
 
@@ -389,7 +415,7 @@ Your end goal is to implement a web application using Angular, which will run on
 pipenv install flask_cors==3.0.7
 ```
 
-The HTTP handlers should be easy now since you have already done the important pieces of the backend, it's just a matter of putting everything together. Go ahead and paste the content below into the `app/http/api/endpoints.py` file
+The HTTP handlers should be easy now since you have already done the important pieces of the backend, it's just a matter of putting everything together. Go ahead and paste the content below into the `app/http/api/endpoints.py` file.
 
 ```python
 from .middlewares import login_required
@@ -443,17 +469,17 @@ FLASK_APP=$PWD/app/http/api/endpoints.py FLASK_ENV=development pipenv run python
 
 ## Create Your Angular App
 
-To create your Angular Client-Side App, you will use Angular's awesome [`ng-cli`](https://cli.angular.io/) tool to bypass all the JavaScript build process hassle.
+To create your Angular Client-Side App, you will use Angular's awesome [CLI](https://cli.angular.io/) tool to bypass all the TypeScript-to-JavaScript build process hassle.
 
-Installing [`ng-cli`](https://cli.angular.io)  is quite simple. You'll use [`npm`](https://www.npmjs.com/get-npm), make sure you either have it installed or use the dependency manager of your preference.
+Installing [Angular CLI](https://cli.angular.io) is quite simple. You'll use [`npm`](https://www.npmjs.com/get-npm), make sure you either have it installed or use the dependency manager of your preference.
 
-To install `ng-cli`, run the command above. For more install options check this Angular quickstart https://angular.io/guide/quickstart#install-cli out.
+To install Angular CLI, run the command below.
 
 ```bash
-npm install -g @angular/cli@7.3.5
+npm install -g @angular/cli@10
 ```
 
-Navigate to the `app/http` directory and use `ng-cli` to create an Angular application:
+Navigate to the `app/http` directory and use `ng new` to create an Angular application:
 
 ```bash
 cd app/http
@@ -471,8 +497,6 @@ cd web-app
 ng serve --open --port 8080
 ```
 
-Running `ng server --open` will start a web server listening to the port 8080. Open this URL in your browser: `http://localhost:8080/` Your browser should load an Angular app and render the AppComponent created automatically by `ng-cli`.
-
 {% img blog/python-angular/angular-new-app.png alt:"Angular New App" width:"800" %}{: .center-image }
 
 Your goal now is to use Material Design to create a simple and beautiful UI. Thankfully, Angular has a mature library to help you in this journey, [Angular Material](https://material.angular.io/) has translated Material Design concepts into Angular components.
@@ -480,16 +504,42 @@ Your goal now is to use Material Design to create a simple and beautiful UI. Tha
 Run the following command to install what you will need:
 
 ```bash
-npm install --save @angular/material@7.3.5 @angular/cdk@7.3.5 @angular/animations@7.2.10
-```
-
-Now configure your project to use it:
-
-```bash
 ng add @angular/material
 ```
 
-And the last step, remove all content in the `src/app/app.component.html` and paste the following content in:
+When prompted, accept the defaults. 
+
+Add the Angular Material components you'll need as imports in `src/app/app.module.ts`:
+
+```ts
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { HomeComponent } from './home/home.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+
+@NgModule({
+  ...
+  imports: [
+    ...
+    BrowserAnimationsModule,
+    MatCardModule,
+    MatButtonModule,
+    MatToolbarModule,
+    MatTabsModule,
+    MatGridListModule,
+    MatIconModule,
+    MatInputModule
+  ],
+  ...
+})
+export class AppModule { }
+```
+
+And the last step, remove all content in the `app/http/web-app/src/app/app.component.html` and paste the following content in:
 
 ```html
 <router-outlet></router-outlet>
@@ -513,7 +563,7 @@ Select the **Single-Page App** platform option.
 
 The default application settings should be the same as those pictured.
 
-{% img blog/python-angular/okta-app-settings.png alt:"Okta App Settings" width:"800" %}{: .center-image }
+{% img blog/python-angular/okta-app-settings.png alt:"Okta App Settings" width:"700" %}{: .center-image }
 
 With your token OpenID Connect application in place, you can now move forward and secure the routes that require authentication.
 
@@ -534,7 +584,7 @@ Your Angular application will have two routes:
 To install [`@okta/okta-angular`](https://www.npmjs.com/package/@okta/okta-angular) run the command:
 
 ```bash
-npm install --save @okta/okta-angular
+npm install @okta/okta-angular@2.2.0
 ```
 
 Now go ahead and paste the following content into the `src/app/app-routing.module.ts` file.
@@ -544,8 +594,15 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
+import { OKTA_CONFIG, OktaAuthModule, OktaCallbackComponent, OktaAuthGuard } from '@okta/okta-angular';
+import { HttpClientModule } from '@angular/common/http';
 
-import { OktaAuthModule, OktaCallbackComponent, OktaAuthGuard } from '@okta/okta-angular';
+const oktaConfig = {
+  issuer: 'https://{yourOktaDomain}/oauth2/default',
+  clientId: '{yourClientId}',
+  redirectUri: window.location.origin + '/callback',
+  scope: 'openid profile email'
+}
 
 const routes: Routes = [
  { path: '', component: LoginComponent },
@@ -554,23 +611,24 @@ const routes: Routes = [
    component: HomeComponent,
    canActivate: [OktaAuthGuard],
  },
- { path: 'implicit/callback', component: OktaCallbackComponent },
+ { path: 'callback', component: OktaCallbackComponent },
 ];
 
 @NgModule({
  imports: [
    RouterModule.forRoot(routes),
-   OktaAuthModule.initAuth({
-     issuer: {yourOktaDomain},
-     clientId: {yourClientId},
-     redirectUri: 'http://localhost:8080/implicit/callback',
-     scope: 'openid profile email'
-   })
+   HttpClientModule,
+   OktaAuthModule
+ ],
+ providers: [
+   { provide: OKTA_CONFIG, useValue: oktaConfig }
  ],
  exports: [RouterModule]
 })
 export class AppRoutingModule { }
 ```
+
+**Make sure to replace** `{yourOktaDomain}` and `{yourClientId}` with the values from the app you created on Okta.
 
 For the moment, don't worry about the `Login` and `Home` components being imported. You will work on them soon. Focus on the `OktaAuthModule`, `OktaCallbackComponent`, and `OktaAuthGuard` components.
 
@@ -684,76 +742,76 @@ import { GithubClientService } from '../gb-client.service';
 import { ApiClientService } from '../api-client.service';
 
 @Component({
- selector: 'app-home',
- templateUrl: './home.component.html',
- styleUrls: ['./home.component.scss']
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
 
- selectedTab: Number;
- repos: Array<any>;
- kudos: Array<any>;
+  selectedTab: Number;
+  repos: Array<any>;
+  kudos: Array<any>;
 
- constructor(
-   private oktaAuth: OktaAuthService,
-   private githubClient: GithubClientService,
-   private apiClient: ApiClientService
- ) {
-   this.selectedTab = 0;
-   this.repos = [];
-   this.kudos = [];
- }
+  constructor(
+    private oktaAuth: OktaAuthService,
+    private githubClient: GithubClientService,
+    private apiClient: ApiClientService
+  ) {
+    this.selectedTab = 0;
+    this.repos = [];
+    this.kudos = [];
+  }
 
- async ngOnInit() {
-   this.apiClient.getKudos().then( (kudos) => {
-     this.kudos = kudos;
-   } )
- }
+  async ngOnInit() {
+    this.apiClient.getKudos().then( (kudos) => {
+      this.kudos = kudos;
+    } )
+  }
 
- async logout(event) {
-   event.preventDefault();
-   await this.oktaAuth.logout('/');
- }
+  async logout(event) {
+    event.preventDefault();
+    await this.oktaAuth.logout('/');
+  }
 
- onSearch = (event) => {
-   const target = event.target;
-   if (!target.value || target.length < 3) { return; }
-   if (event.which !== 13) { return; }
+  onSearch = (event) => {
+    const target = event.target;
+    if (!target.value || target.length < 3) { return; }
+    if (event.which !== 13) { return; }
 
-   this.githubClient
-     .getJSONRepos(target.value)
-     .then((response) => {
-       target.blur();
-       this.selectedTab = 1;
-       this.repos = response.items;
-     })
- }
+    this.githubClient
+      .getJSONRepos(target.value)
+      .then((response) => {
+        target.blur();
+        this.selectedTab = 1;
+        this.repos = response.items;
+      })
+  }
 
- onKudo(event, repo) {
-   event.preventDefault();
-   this.updateBackend(repo);
- }
+  onKudo(event, repo) {
+    event.preventDefault();
+    this.updateBackend(repo);
+  }
 
- updateState(repo) {
-   if (this.isKudo(repo)) {
-     this.kudos = this.kudos.filter( r => r['id'] !== repo.id );
-   } else {
-     this.kudos = [repo, ...this.kudos];
-   }
- }
+  updateState(repo) {
+    if (this.isKudo(repo)) {
+      this.kudos = this.kudos.filter( r => r['id'] !== repo.id );
+    } else {
+      this.kudos = [repo, ...this.kudos];
+    }
+  }
 
- isKudo(repo) {
-   return this.kudos.find( r => r['id'] === repo.id );
- }
+  isKudo(repo) {
+    return this.kudos.find( r => r['id'] === repo.id );
+  }
 
- updateBackend = (repo) => {
-   if (this.isKudo(repo)) {
-     this.apiClient.deleteKudo(repo);
-   } else {
-     this.apiClient.createKudo(repo);
-   }
-   this.updateState(repo);
- }
+  updateBackend = (repo) => {
+    if (this.isKudo(repo)) {
+      this.apiClient.deleteKudo(repo);
+    } else {
+      this.apiClient.createKudo(repo);
+    }
+    this.updateState(repo);
+  }
 }
 ```
 
@@ -762,49 +820,49 @@ Then paste the following content into the `src/app/home/home.component.html`.
 {% raw %}
 ```html
 <mat-toolbar color="primary">
- <input matInput (keyup)="onSearch($event)" placeholder="Search for your OOS project on Github + Press Enter">
- <button mat-button (click)="logout($event)">LOGOUT</button>
+  <input matInput (keyup)="onSearch($event)" placeholder="Search for your OOS project on Github + Press Enter">
+  <button mat-button (click)="logout($event)">LOGOUT</button>
 </mat-toolbar>
 
 <mat-tab-group mat-align-tabs="center" [selectedIndex]="selectedTab" dynamicHeight>
-   <mat-tab label="KUDO">
-     <mat-grid-list cols="4">
-         <mat-grid-tile *ngFor="let repo of kudos" rowHeight='200px' >
-             <mat-card class="card">
-               <mat-card-header class="title">
-                 <mat-card-title>{{repo.full_name}}</mat-card-title>
-               </mat-card-header>
-               <mat-card-content>
-                 {{repo.description}}
-               </mat-card-content>
-               <mat-card-actions>
-                 <button mat-icon-button [color]="isKudo(repo) ? 'accent' : 'primary'" (click)="onKudo($event, repo)">
-                   <mat-icon >favorite</mat-icon>
-                 </button>
-               </mat-card-actions>
-             </mat-card>
-         </mat-grid-tile>
-     </mat-grid-list>
-   </mat-tab>
-   <mat-tab label="SEARCH">
-     <mat-grid-list cols="4">
-         <mat-grid-tile *ngFor="let repo of repos" rowHeight='200px' >
-             <mat-card class="card">
-               <mat-card-header class="title">
-                 <mat-card-title>{{repo.full_name}}</mat-card-title>
-               </mat-card-header>
-               <mat-card-content>
-                 {{repo.description}}
-               </mat-card-content>
-               <mat-card-actions>
-                 <button mat-icon-button [color]="isKudo(repo) ? 'accent' : 'primary'" (click)="onKudo($event, repo)">
-                   <mat-icon >favorite</mat-icon>
-                 </button>
-               </mat-card-actions>
-             </mat-card>
-         </mat-grid-tile>
-     </mat-grid-list>
-   </mat-tab>
+  <mat-tab label="KUDO">
+    <mat-grid-list cols="4">
+      <mat-grid-tile *ngFor="let repo of kudos" rowHeight='200px'>
+        <mat-card class="card">
+          <mat-card-header class="title">
+            <mat-card-title>{{repo.full_name}}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            {{repo.description}}
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-icon-button [color]="isKudo(repo) ? 'accent' : 'primary'" (click)="onKudo($event, repo)">
+              <mat-icon>favorite</mat-icon>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </mat-tab>
+  <mat-tab label="SEARCH">
+    <mat-grid-list cols="4">
+      <mat-grid-tile *ngFor="let repo of repos" rowHeight='200px'>
+        <mat-card class="card">
+          <mat-card-header class="title">
+            <mat-card-title>{{repo.full_name}}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            {{repo.description}}
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-icon-button [color]="isKudo(repo) ? 'accent' : 'primary'" (click)="onKudo($event, repo)">
+              <mat-icon>favorite</mat-icon>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </mat-tab>
 </mat-tab-group>
 ```
 {% endraw %}
@@ -825,19 +883,19 @@ Then, paste the following content into the `src/app/gb-client.service.ts` file:
 import { Injectable } from '@angular/core';
 
 @Injectable({
- providedIn: 'root'
+  providedIn: 'root'
 })
 export class GithubClientService {
 
- constructor() { }
+  constructor() { }
 
- getJSONRepos(query) {
-   return fetch('https://api.github.com/search/repositories?q=' + query).then(response => response.json());
- }
+  getJSONRepos(query) {
+    return fetch('https://api.github.com/search/repositories?q=' + query).then(response => response.json());
+  }
 
- getJSONRepo(id) {
-   return fetch('https://api.github.com/repositories/' + id).then(response => response.json());
- }
+  getJSONRepo(id) {
+    return fetch('https://api.github.com/repositories/' + id).then(response => response.json());
+  }
 }
 ```
 
@@ -857,107 +915,60 @@ import { OktaAuthService } from '@okta/okta-angular';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
- providedIn: 'root'
+  providedIn: 'root'
 })
 export class ApiClientService {
- constructor(private oktaAuth: OktaAuthService, private http: HttpClient) {
- }
+  constructor(private oktaAuth: OktaAuthService, private http: HttpClient) {
+  }
 
- createKudo(repo) {
-   return this.perform('post', '/kudos', repo);
- }
+  createKudo(repo) {
+    return this.perform('post', '/kudos', repo);
+  }
 
- deleteKudo(repo) {
-   return this.perform('delete', `/kudo/${repo.id}`);
- }
+  deleteKudo(repo) {
+    return this.perform('delete', `/kudo/${repo.id}`);
+  }
 
- updateKudo(repo) {
-   return this.perform('put', `/kudos/${repo.id}`, repo);
- }
+  updateKudo(repo) {
+    return this.perform('put', `/kudos/${repo.id}`, repo);
+  }
 
- getKudos() {
-   return this.perform('get', '/kudos');
- }
+  getKudos() {
+    return this.perform('get', '/kudos');
+  }
 
- getKudo(repo) {
-   return this.perform('get', `/kudo/${repo.id}`);
- }
+  getKudo(repo) {
+    return this.perform('get', `/kudo/${repo.id}`);
+  }
 
- async perform (method, resource, data = {}) {
-   const accessToken = await this.oktaAuth.getAccessToken();
-   const url = `http://localhost:4433${resource}`;
+  async perform(method, resource, data = {}) {
+    const accessToken = await this.oktaAuth.getAccessToken();
+    const url = `http://localhost:4433${resource}`;
 
-   const httpOptions = {
-     headers: new HttpHeaders({
-       'Content-Type':  'application/json',
-       'Authorization': `Bearer ${accessToken}`
-     })
-   };
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${accessToken}`
+      })
+    };
 
-   switch (method) {
-     case 'delete':
-       return this.http.delete(url, httpOptions).toPromise();
-     case 'get':
-       return this.http.get(url, httpOptions).toPromise();
-     default:
-       return this.http[method](url, data, httpOptions).toPromise();
-   }
- }
+    switch (method) {
+      case 'delete':
+        return this.http.delete(url, httpOptions).toPromise();
+      case 'get':
+        return this.http.get(url, httpOptions).toPromise();
+      default:
+        return this.http[method](url, data, httpOptions).toPromise();
+    }
+  }
 }
 ```
 
-Lastly, you will need to make sure your Angular application is properly importing all modules. In order to do so, make sure your `src/app/app.module.ts` file looks like this:
+Now you can run both the Angular frontend and Python backend together to see the final result. 
 
-```typescript
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
-
-
-import {
- MatToolbarModule,
- MatButtonModule,
- MatIconModule,
- MatCardModule,
- MatTabsModule,
- MatGridListModule
-} from '@angular/material';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { HomeComponent } from './home/home.component';
-@NgModule({
- declarations: [
-   AppComponent,
-   LoginComponent,
-   HomeComponent
- ],
- imports: [
-   BrowserModule,
-   BrowserAnimationsModule,
-   AppRoutingModule,
-   HttpClientModule,
-   MatToolbarModule,
-   MatButtonModule,
-   MatIconModule,
-   MatCardModule,
-   MatTabsModule,
-   MatGridListModule
- ],
- providers: [],
- bootstrap: [AppComponent]
-})
-export class AppModule { }
-```
-
-Now you can run both the Angular frontend and Python backend together to see the final result:
-
-To start the Python REST API run:
+If you need to start the Python REST API run:
 
 ```bash
-cd kudos_oss &&
 FLASK_APP=$PWD/app/http/api/endpoints.py FLASK_ENV=development pipenv run python -m flask run --port 4433
 ```
 
@@ -967,11 +978,13 @@ Then start the Angular application:
 cd app/http/web-app && ng serve --open --port 8080
 ```
 
-As you might have noticed, your Python REST API is listening to the port 4433 while the Angular application is being served by a process on port 8080. All you need to do is to open this URL `http://localhost:8080` in your browser.
+As you might have noticed, your Python REST API is listening to the port 4433 while the Angular application is being served by a process on port 8080. 
 
 ## Learn More About Angular, Python, and Flask
 
 In this tutorial, I have guided you through the development of a single page web application using Angular and Python. Using just a few lines of code you were able to implement user authentication for the client and the server. Angular makes use of TypeScript which is a superset of the JavaScript language and adds type information.
+
+You can find the source code for this example on GitHub in the [oktadeveloper/okta-python-angular-crud-example](https://github.com/oktadeveloper/okta-python-angular-crud-example) repository.
 
 If you're ready to learn more about Angular we have some other resources for you to check out:
 
@@ -980,3 +993,8 @@ If you're ready to learn more about Angular we have some other resources for you
 * [Build a Simple CRUD App with Python, Flask, and React](/blog/2018/12/20/crud-app-with-python-flask-react)
 
 And as always, we'd love to have you follow us for more cool content and updates from our team. You can find us on Twitter [@oktadev](https://twitter.com/OktaDev), on [Facebook](https://www.facebook.com/oktadevelopers/), and [LinkedIn](https://www.linkedin.com/company/oktadev/).
+
+<a name="changelog"></a>
+**Changelog**:
+
+* Sep 1, 2020: Updated to use Angular 10. Changes to this article can be viewed in [oktadeveloper/okta-blog#400](https://github.com/oktadeveloper/okta-blog/pull/400).

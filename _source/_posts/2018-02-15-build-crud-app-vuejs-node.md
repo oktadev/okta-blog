@@ -18,7 +18,7 @@ I've danced the JavaScript framework shuffle for years starting with jQuery, the
 
 This tutorial will take you step by step through scaffolding a Vue.js project, offloading secure authentication to [Okta's OpenID Connect API (OIDC)](/docs/api/resources/oidc), locking down protected routes, and performing CRUD operations through a backend REST API server. This tutorial uses the following technologies but doesn't require intimate knowledge to follow along:
 
-- Vue.js with [vue-cli](https://github.com/vuejs/vue-cli), [vue-router](https://github.com/vuejs/vue-router), and [Okta Vue SDK](https://github.com/okta/okta-oidc-js/tree/master/packages/okta-vue)
+- Vue.js with [vue-cli](https://github.com/vuejs/vue-cli), [vue-router](https://github.com/vuejs/vue-router), and [Okta Vue SDK](https://github.com/okta/okta-vue)
 - Node with [Express](https://github.com/expressjs/express), [Okta JWT Verifier](https://github.com/okta/okta-oidc-js/tree/master/packages/jwt-verifier), [Sequelize](https://github.com/sequelize/sequelize), and [Finale](https://github.com/tommybananas/finale)
 
 ## About Vue.js
@@ -29,7 +29,7 @@ Vue.js is a robust but simple JavaScript framework. It has one of the lowest bar
 
 This tutorial covers two primary builds, a frontend web app and backend REST API server. The frontend will be a single page application (SPA) with a homepage, login and logout, and a posts manager.
 
-[Okta's OpenID Connect (OIDC)](/docs/api/resources/oidc) will handle our web app's authentication through the use of [Okta's Vue SDK](https://github.com/okta/okta-oidc-js/tree/master/packages/okta-vue). If an unauthenticated user navigates to the posts manager, the web app should attempt to authenticate the user.
+[Okta's OpenID Connect (OIDC)](/docs/api/resources/oidc) will handle our web app's authentication through the use of [Okta's Vue SDK](https://github.com/okta/okta-vue). If an unauthenticated user navigates to the posts manager, the web app should attempt to authenticate the user.
 
 The server will run [Express](https://www.expressjs.com/) with [Sequelize](http://docs.sequelizejs.com/) and [Finale](https://github.com/tommybananas/finale). At a high level, with Sequelize and Finale you can quickly generate dynamic REST endpoints with just a few lines of code.
 

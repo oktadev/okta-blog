@@ -17,6 +17,12 @@ The topic of validating an OAuth 2.0 access tokens comes up frequently on this b
 
 In this post, you will build a simple application that takes advantage of both types of validation.
 
+If you would rather follow along by watching a video, check out our [YouTube channel](https://www.youtube.com/watch?v=8Z7giG2-GZM).
+
+<div style="text-align: center; margin-bottom: 1.25rem">
+<iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/8Z7giG2-GZM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
 **Prerequisites**
 * [Java 8+](https://adoptopenjdk.net/)
 * [A free Okta Developer account](https://developer.okta.com/signup)
