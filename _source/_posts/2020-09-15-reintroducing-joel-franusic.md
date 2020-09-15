@@ -7,10 +7,9 @@ communities: [python]
 description: "Joël Franusic shares his personal mission statement, with an live example"
 tags: [python, brython]
 tweets:
-- ""
-- ""
-- ""
-image:
+- "Reintroducing @jf! Learn more about his personal mission statement and try your hand at a simple Python game he wrote."
+- "What does a developement tool with instant feedback look like? @jf explains in this blog post."
+image: blog/reintroducing-joel-franusic/sequence-game.png
 type: awareness
 ---
 
@@ -165,11 +164,11 @@ of other jobs at Okta, including: "Software Engineer", "Technical Marketing
 Manager", and "Product Marketing Manager")
 
 The best way that I can think of to introduce myself is by sharing
-my "personal mission statement" - before I go into what my
+my "personal mission statement" — before I go into what my
 mission statement is, I want to give some background on why I have
 one in the first place.
 
-It's common for corporations to have a "mission statement" - a short
+It's common for corporations to have a "mission statement" — a short
 statement on what they view as their goals.
 
 People often mock corporate mission statements, and for
@@ -189,7 +188,7 @@ mine. In the process, I stumbled across a mission statement that I couldn't
 stop thinking about:
 
 "Make all software, from all time, instantly available for use by any
-programmer" - this is now what I consider my personal mission statement to be.
+programmer" — this is now what I consider my personal mission statement to be.
 
 
 # My personal mission statement
