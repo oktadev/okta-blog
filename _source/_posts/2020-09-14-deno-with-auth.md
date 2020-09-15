@@ -14,7 +14,7 @@ image: "blog/first-deno-with-auth/social-image.png"
 type: conversion
 ---
 
-The creator of Node.js, Ryan Dahl has authored a new framework for designing web applications. He went back and fixed some mistakes he made in hindsight,  taking advantage of new technologies that were not available at the time he originally wrote Node. The result is [Deno](https://deno.land) (pronounced DEH-no), a framework for writing "Node-like" web applications in TypeScript. Here, I will walk you through creating a basic web application with authentication.
+The creator of Node.js, Ryan Dahl has authored a new framework for designing web applications. He went back and fixed some mistakes he made in hindsight, taking advantage of new technologies that were not available at the time he originally wrote Node. The result is [Deno](https://deno.land) (pronounced DEH-no), a framework for writing "Node-like" web applications in TypeScript. Here, I will walk you through creating a basic web application with authentication.
 
 You can find almost all the information you need at the Deno website—along with information on all the third-party libraries that are currently available for Deno. That is really the biggest drawback to the framework right now. It just hit version 1.0 on May 13th of 2020, so even though there are quite a few essential libraries, there are not nearly as many libraries as there are for Node. For those who are proficient in Node however, the transition to Deno should be pretty easy.
 
@@ -82,7 +82,6 @@ console.log('running on port 3000');
 You'll notice some more `import` statements which bring  in some third-party libraries. Here, I am using [dejs](https://deno.land/x/dejs) which is an [EJS]() port for Deno. I've also included some utility classes from the Opine library for manipulating directory names. I will explain what the three files imported locally are in a moment. For now, just know that you're importing them.
 
 The line below the instantiation of the `opine()` app creates a reference to the local directory. The three lines below use this to set the view engine to DEJS for processing the HTML-like files, similar to the way EJS does for Node. The next section has been changed slightly to render one of those HTML template files, and the last two lines bring in some external routes. One thing of note is that the `/users` route has an `ensureAuthenticated()` middleware function. This will force users to log in before being allowed to visit the page. You'll create that middleware shortly.
-
 
 ## Fill In Your Deno Application
 
@@ -162,7 +161,7 @@ If you don't already have an Okta account, you can get a free developer account 
 
 Click on **Applications** in the menu, then **Add Application**. This will take you to the application wizard. Choose **Web** for your platform, then click **Next**. The next page is the **Application Settings** page. Give your application a name (I named mine DenoExample). Change all the URLs to use port `3000` instead of `8080`, then change the **Login Redirect URIs** to `http://localhost:3000/auth/callback`. This is a route you'll be implementing shortly. Finally, click **Done** to finish creating the application in Okta.
 
-{% img blog/first-deno-with-auth/okta-app-settings.png alt:"Okta App Settings" width:"800" %}{: .center-image }
+{% img blog/first-deno-with-auth/okta-app-settings.png alt:"Okta App Settings" width:"700" %}{: .center-image }
 
 Once you're on the page for your newly-created application, make sure you're on the **General Settings** tab and scroll to the bottom until you see a **Client Credentials** section. You'll be using these values momentarily, so keep this window open.
 
@@ -185,7 +184,7 @@ import { config } from 'https://deno.land/x/dotenv/mod.ts';
 
 export const ensureAuthenticated = async (req:any, res:any, next:any) => {
   const user = req.app.locals.user;
-  if(!user){
+  if (!user) {
     const reqUrl = req.originalUrl;
     const {issuer, clientId, redirectUrl, state} = config();
     const authUrl = `${issuer}/v1/authorize?client_id=${clientId}&response_type=code&scope=openid%20email%20profile&redirect_uri=${encodeURIComponent(redirectUrl)}&state=${state}:${reqUrl}`;
@@ -209,42 +208,41 @@ const auth = new Router();
 
 // users routes
 auth.get('/callback', async (req, res) => {
- const { issuer, clientId, clientSecret, redirectUrl, state } = config();
+  const { issuer, clientId, clientSecret, redirectUrl, state } = config();
  
- if (req.query.state.split(':')[0] !== state) {
-   res.send('State code does not match.').sendStatus(400);
- }
+  if (req.query.state.split(':')[0] !== state) {
+    res.send('State code does not match.').sendStatus(400);
+  }
  
- const tokenUrl: string = `${issuer}/v1/token`;
- const code: string = req.query.code;
+  const tokenUrl: string = `${issuer}/v1/token`;
+  const code: string = req.query.code;
  
- const headers = new Headers();
- headers.append('Accept', 'application/json');
- headers.append('Authorization', `Basic ${btoa(clientId + ':' + clientSecret)}`);
- headers.append('Content-Type', 'application/x-www-form-urlencoded');
+  const headers = new Headers();
+  headers.append('Accept', 'application/json');
+  headers.append('Authorization', `Basic ${btoa(clientId + ':' + clientSecret)}`);
+  headers.append('Content-Type', 'application/x-www-form-urlencoded');
  
- const response = await fetch(tokenUrl, {
-   method: 'POST',
-   headers: headers,
-   body: `grant_type=authorization_code&redirect_uri=${encodeURIComponent(redirectUrl)}&code=${code}`
- });
+  const response = await fetch(tokenUrl, {
+    method: 'POST',
+    headers: headers,
+    body: `grant_type=authorization_code&redirect_uri=${encodeURIComponent(redirectUrl)}&code=${code}`
+  });
  
- const data = await response.json();
- if (response.status !== 200) {
-   res.send(data);
- }
- const user = parseJwt(data.id_token);
- req.app.locals.user = user;
- req.app.locals.isAuthenticated = true;
- res.location(req.query.state.split(':')[1] || '/').sendStatus(302);
+  const data = await response.json();
+  if (response.status !== 200) {
+    res.send(data);
+  }
+  const user = parseJwt(data.id_token);
+  req.app.locals.user = user;
+  req.app.locals.isAuthenticated = true;
+  res.location(req.query.state.split(':')[1] || '/').sendStatus(302);
 });
 
-
-function parseJwt (token:string) {
+function parseJwt(token:string) {
   const base64Url = token.split('.')[1];
   const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
   const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
   }).join(''));
 
   return JSON.parse(jsonPayload);
@@ -267,10 +265,9 @@ You can now run the application from the terminal again with:
 deno run -A index.ts
 ```
 
-{% img blog/first-deno-with-auth/app-profile-page.png alt:"Profile Page" width:"800" %}{: .center-image }
+{% img blog/first-deno-with-auth/app-profile-page.png alt:"Profile Page" width:"600" %}{: .center-image }
 
-Once it's running you will be able to click on the profile link on the home page and will be redirected to Okta's hosted login page. Once you've logged in, you'll be directed back to the profile page and you'll see your ID token's properties displayed in a list
-
+Once it's running you will be able to click on the profile link on the home page and will be redirected to Okta's hosted login page. Once you've logged in, you'll be directed back to the profile page and you'll see your ID token's properties displayed in a list.
 
 ## Learn More About Deno and Node.js
 
