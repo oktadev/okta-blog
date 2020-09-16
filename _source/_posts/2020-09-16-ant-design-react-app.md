@@ -70,7 +70,7 @@ Finally, you will want to use `dotenv` to store your sensitive values in the `.e
 npm i dotenv@8.2.0
 ```
 
-After `dotenv` is completed you can add a new file to your root directory called `.env`.  Add the following code to it.  `REACT_APP_OKTA_URL_BASE` is the same that you use to log in to create your application.  `REACT_APP_OKTA_CLIENTID` is the ClientId that you obtained after creating your application on Okta’s developer console.
+After `dotenv` is completed you can add a new file to your root directory called `.env`.  Add the following code to it.  `REACT_APP_OKTA_URL_BASE` is the same that you use to log in to create your application.  `REACT_APP_OKTA_CLIENTID` is the ClientId that you obtained after creating your application on Okta's developer console.
 
 ```json
 REACT_APP_OKTA_CLIENTID={yourClientId}
