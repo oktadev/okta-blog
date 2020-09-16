@@ -30,7 +30,7 @@ Ant provides many common components you will need to develop any website. This i
 
 Okta aims to make its SSO service as simple as possible for developers. They have taken on most of the middleware logic with their suite of packages for React. Before you can build your application you will need to set up an application in Okta's developer console. Navigation to your developer's console and log in. Click on **Applications** and click on **Add Application**. On the next page select *Single-Page App* and click **Next**. 
 
-{% img blog/ant-design-react-app/okta-app-spa.png alt:"Okta SPA App" width:"800" %}{: .center-image }
+{% img blog/ant-design-react-app/okta-app-spa.png alt:"Okta SPA App" width:"700" %}{: .center-image }
 
 In the next section, you will configure your application settings. Give your application a meaningful name. I named my application *Transactions* but you can name yours whatever you like. Next, you should change the references to `localhost:8080` to `localhost:3000` as that is the default development server for React. Click **Done** and take note of your *Client ID* on the next page. You will need this in your application. 
 
