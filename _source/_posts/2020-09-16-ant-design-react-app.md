@@ -692,7 +692,7 @@ Honestly, there is far more to Ant Design than what you have read here. One coul
 
 ## Learn More About JavaScript and React
 
-If you have questions about this post, please post them to the comments below. If you have questions about Okta, please submit them to the [Okta Developer Forum](https://devforum.okta.com/). If you enjoyed this post, you might also enjoyt these related posts:
+If you'd like the final version of this code, you can clone it from [GitHub](https://github.com/oktadeveloper/okta-ant-design-react-example). If you have questions about this post, please post them to the comments below. If you have questions about Okta, please submit them to the [Okta Developer Forum](https://devforum.okta.com/). If you enjoyed this post, you might also enjoy these related posts:
 
 - [Build Your First Deno App with Authentication](/blog/2020/09/14/deno-with-auth)
 - [Build a Simple React Application Using Hooks](/blog/2020/08/26/react-hooks)
