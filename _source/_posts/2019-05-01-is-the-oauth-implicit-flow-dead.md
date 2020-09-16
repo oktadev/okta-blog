@@ -99,7 +99,7 @@ Next, we need to find the authorization endpoint and token endpoint for your OAu
 
 Copy the Issuer URI from that authorization server. Your authorization endpoint will be that URI with `/v1/authorize` appended, and the token endpoint will end with `/v1/token`. 
 
-For example, if your Issuer URI is `https://{yourOktaDomain}/oauth2/default`, then your authorization endpoint will be `https://{yourOktaDomain}/oauth2/defalut/v1/authorize` and your token endpoint will be `https://{yourOktaDomain}/oauth2/default/v1/token`. Enter those two values in the JavaScript config object created in the previous step.
+For example, if your Issuer URI is `https://{yourOktaDomain}/oauth2/default`, then your authorization endpoint will be `https://{yourOktaDomain}/oauth2/default/v1/authorize` and your token endpoint will be `https://{yourOktaDomain}/oauth2/default/v1/token`. Enter those two values in the JavaScript config object created in the previous step.
 
 ### Set Up the HTML Structure
 
