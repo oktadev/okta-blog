@@ -5,7 +5,7 @@ author: nickolas-fisher
 by: contractor
 communities: [javascript]
 description: "A tutorial showing how to use ANT design principles in a React application."
-tags: [javascript, react, ant design]
+tags: [javascript, react, ant-design]
 tweets:
 - "Want a quick example of applying ANT design principles in React? Check this out!"
 - "Check out this run down of using ANT design principles in React!"
