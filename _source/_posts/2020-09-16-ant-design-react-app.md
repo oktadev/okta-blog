@@ -192,7 +192,7 @@ import React from 'react';
 import { useOktaAuth } from '@okta/okta-react';
 import { Layout, Menu } from 'antd'
 
-const {Header} = Layout;
+const { Header } = Layout;
 
 const SiteHeader = (props) => {
   const {authState, authService} = useOktaAuth();
