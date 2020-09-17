@@ -28,6 +28,14 @@ image::{% asset_path 'blog/micronaut-jhipster/micronaut-jhipster.png' %}[alt=Bui
 
 toc::[]
 
+NOTE: You can also https://youtu.be/zg2UtuD3-RE[watch this tutorial as a screencast]. 🤓
+
+++++
+<div style="text-align: center; margin-bottom: 1.25rem">
+<iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/zg2UtuD3-RE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+++++
+
 == Build a Micronaut app with JHipster
 
 JHipster has its own domain language called JDL (JHipster Domain Language). JDL can be used to describe an app, entities, relationships between entities, and even deployments. In this tutorial, I'll show you how to build a simple app that allows you to record space launches and add images to the event. It will look similar to NASA's https://www.nasa.gov/launchschedule/[Launches and Landings].
