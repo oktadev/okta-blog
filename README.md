@@ -8,7 +8,7 @@ This is the source code repository for [Okta's developer blog](https://developer
 
 ## Contribute
 
-If you'd like to contribute to the blog, please send us a pull request.
+If you'd like to contribute to the blog, please [send us a pull request](#how-to-create-a-pull-request).
 
 This site is built using [Jekyll](http://jekyllrb.com/). Blog post updates, bug fixes, and PRs are all welcome! You can create articles using Markdown (it's quite simple).
 
@@ -16,11 +16,69 @@ This site is built using [Jekyll](http://jekyllrb.com/). Blog post updates, bug 
 
 This blog depends on both Ruby and Node currently. It has a number of dependencies.
 
-To simplify the running of the blog, we're using Docker. This means that before you try to contribute to this site, you should have [Docker](https://www.docker.com/) installed and working.
+To begin, fork this repo to your personal GitHub, then clone it:
 
-### Getting Set Up
+```bash
+git clone git@github.com:<your-username>/okta-blog.git
+```
 
-Once you have Docker installed and working, the next step to clone this GitHub repo:
+Or, if you have access to push to this repo, you can clone it directly.
+
+```bash
+git clone git@github.com:oktadeveloper/okta-blog.git
+```
+
+Then, install its dependencies.
+
+```bash
+gem install bundler
+bundle install
+npm i
+```
+
+If you have issues with this setup, see [setting up your environment](https://github.com/oktadeveloper/okta-blog-archive/wiki/Setting-Up-Your-Environment) or [use Docker](#docker-instructions).
+
+Now you can build and start the site.
+
+```
+npm start
+```
+
+Visit http://localhost:4000 in your browser.
+
+To simplify the running of the blog, you can also [use Docker](#docker-instructions). 
+
+### How to Create a Pull Request
+
+First, you'll want to create a branch. The name of the branch should contain your post's keywords for readability. For example:
+
+```bash
+git checkout -b angular-spring-boot
+```
+
+Then, create the Markdown file and images directory for your post.
+
+```bash
+npm run post create angular-spring-boot
+```
+
+A page for your blog post will be created in `_source/_posts`. Modify this file to have your blog post's content.
+
+Start and view in your browser.
+
+```
+npm start
+```
+
+Your browser will automatically refresh the page when you make changes. 
+
+Please review our [Markdown standards](#markdown-standards) for conventions we use in posts. 
+
+### Docker Instructions
+
+To begin, you should have [Docker](https://www.docker.com/) installed and working. 
+
+Then, clone this GitHub repo, or your fork:
 
 ```bash
 git clone git@github.com:oktadeveloper/okta-blog.git
@@ -32,13 +90,15 @@ Once you've cloned the repository, change into the `okta-blog` directory to get 
 cd okta-blog
 ```
 
-### Build the Docker Image
+#### Build the Docker Image
 
 Next, you'll want to build the Docker image. To do this, run the following command:
 
 ```bash
 docker build . -t okta-blog
 ```
+
+There's also a `make build` command you can use.
 
 What this command does is:
 
@@ -49,7 +109,7 @@ The resulting image will allow you to quickly and easily run the blog on your la
 
 **NOTE**: If you modify any of the blog software's dependencies (the Node or Ruby dependencies, specifically), you'll need to re-run that `docker build . -t okta-blog` command from before. This way you'll re-create the Docker image with all the updated dependencies installed!
 
-### Run the Blog
+#### Run the Blog
 
 Now that you've got the Docker image setup, all you need to do is run the Docker image to start the blog locally.
 
@@ -58,6 +118,8 @@ Here's the command you'll want to run:
 ```bash
 docker run -p 4000:4000 -v $PWD:/app -it okta-blog npm start
 ```
+
+You can use `make develop` as a shortcut.
 
 What this command does is:
 
@@ -69,14 +131,50 @@ What this command does is:
 
 After that, all you have to do is open your browser and visit http://localhost:4000 to visit the site!
 
+## Markdown Standards
+
+- For directories and filenames, surround with back ticks (e.g. `filename.txt` or `/src/component/dummy.file`)
+- For code snippets that are only a few words. Inline back ticks (e.g. Run `npm install` from the command line)
+- For button or link names surround with two asterisks (e.g. Then click **Done**
+- When adding function names inline, add the parentheses and back ticks (e.g. This calls the `render()` method)
+- http://localhost links should be wrapped in back ticks (e.g. `http://localhost:3000`)
+- Links that start will developer.okta.com should be relative (e.g. instead of `https://developer.okta.com/docs/whatever.html`, just use `/docs/whatever.html`)
+- Code with {{ variable }} needs a "raw" wrapper. For example:
+
+<pre>
+{% raw %}
+```html
+&lt;span>{{ title }} app is running!&lt;/span>
+```
+{% endraw %}
+</pre>
+
+For Markdown images, the macro looks as follows:
+
+```
+{% img blog/<post-images-dir>/<image-file-name> alt:"<text for screen readers>" width:"800" %}{: .center-image }
+```
+
+For AsciiDoc:
+
+```
+image::{% asset_path 'blog/post-images-dir>/<image-file-name>' %}[alt=text for screen readers,width=800,align=center]
+```
+
 ## Utilities
 
 There are a number of scripts available to assist with content creation.
 
+**NOTE**: If you're using Docker, prefix the commands below with:
+
+```
+docker run -v $PWD:/app -it okta-blog
+```
+
 ### Create a New Post
 
 ```bash
-docker run -v $PWD:/app -it okta-blog npm run post create [post-name] [format] [date]
+npm run post create [post-name] [format] [date]
 ```
 
 Creates a new post under `_source/_posts` with the given name and populates it the file with a blank front matter template. Also creates a folder with the same name for images under `_source/_assets/img/blog`. **Format** can be `md` (default), `adoc`, or any file extension. If **date** is not specified, it will default to today's date.
@@ -84,13 +182,13 @@ Creates a new post under `_source/_posts` with the given name and populates it t
 Example:
 
 ```bash
-docker run -v $PWD:/app -it okta-blog npm run post create build-crud-app-with-nodejs
+npm run post create build-crud-app-with-nodejs
 ```
 
 ### Stamp a Post
 
 ```bash
-docker run -v $PWD:/app -it okta-blog npm run post stamp [date]
+npm run post stamp [date]
 ```
 
 Finds the latest blog post and updates the post date to the date specified. **Date** should be in ISO format (e.g. 2019-08-31). If no **date** is specified, today's date is used.
@@ -98,7 +196,7 @@ Finds the latest blog post and updates the post date to the date specified. **Da
 ### Faster Rendering for Development
 
 ```bash
-docker run -v $PWD:/app -it okta-blog npm run dev
+npm run dev
 ```
 
 This command removes all posts from the local development environment except those dated within the last two weeks.
@@ -108,5 +206,5 @@ This command removes all posts from the local development environment except tho
 Deleted posts are restored automatically before the push occurs. However, you can manually restore all deleted posts using the following.
 
 ```bash
-docker run -v $PWD:/app -it okta-blog npm run dev-restore
+npm run dev-restore
 ```

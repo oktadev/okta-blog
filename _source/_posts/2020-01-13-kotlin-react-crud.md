@@ -18,6 +18,11 @@ In this tutorial, you're going to build a client and server application using Re
 
 This tutorial covers a lot of ground. It also uses a lot of technologies. Because of this, it doesn't dive too deep into any one of them and assumes a basic familiarity with React, Kotlin, Spring Boot, and REST APIs.
 
+If you'd prefer to watch a video, you can [watch this tutorial as a screencast](https://youtu.be/PR6Gw4Ca-sE).
+<div style="text-align: center; margin-bottom: 1.25rem">
+<iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/PR6Gw4Ca-sE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
 ## Install Kotlin and React Project Dependencies
 
 You'll need to install a few things before you get started.
@@ -36,7 +41,7 @@ You'll need to install a few things before you get started.
 
 To get the party started, you're going to use the [Spring Initializr](https://start.spring.io/). It's a great resource that makes getting started with Spring Boot projects super simple. If you want to dig into the options, take a look at [the Spring Initializr GitHub page](https://github.com/spring-io/initializr).
 
-Open [this link to a pre-configured project](https://start.spring.io/#!type=gradle-project&language=kotlin&platformVersion=2.2.2.RELEASE&packaging=jar&jvmVersion=11&groupId=com.okta.kotlin&artifactId=resourceserver&name=ResourceServer&description=rest%20api%20for%20react%20app&packageName=com.okta.kotlin&dependencies=web,data-jpa,data-rest,h2) for this tutorial.
+Open [this link to a pre-configured project](https://start.spring.io/#!type=gradle-project&language=kotlin&platformVersion=2.3.2.RELEASE&packaging=jar&jvmVersion=11&groupId=com.okta.kotlin&artifactId=resourceserver&name=ResourceServer&description=rest%20api%20for%20react%20app&packageName=com.okta.kotlin&dependencies=web,data-jpa,data-rest,h2) for this tutorial.
 
 Take a moment to peruse the pre-selected options. Note a feature that I really like: you can explore the project online using the **Explore** button at the bottom of the page.
 
@@ -138,8 +143,8 @@ package com.okta.kotlin
 import org.springframework.data.repository.CrudRepository  
 import org.springframework.data.rest.core.annotation.RepositoryRestResource  
   
-@RepositoryRestResource(collectionResourceRel = "coffeeshops", path = "coffeeshops")  
-interface CoffeeShopRepository : CrudRepository <CoffeeShopModel, Long >{  
+@RepositoryRestResource(collectionResourceRel = "coffeeshops", path = "coffeeshops")
+interface CoffeeShopRepository : CrudRepository<CoffeeShopModel, Long> {
 }
 ```
 
@@ -497,13 +502,13 @@ const CoffeeShop = (props) => (
       <div className="subtitle-container">
         <div>Cost: ${props.priceOfCoffee} / cup</div>
         <div>Internet Reliability: {props.internetReliability} / 5 </div>
-        <div>{ props.powerAccessible ? "Power Accessible" : "Power NOT Accessible"} </div>
+        <div>{props.powerAccessible ? 'Power Accessible' : 'Power NOT Accessible'} </div>
       </div>
       <div>{props.address}</div>
       <div>{props.phone}</div>
     </div>
     <div className="coffeeshop-footer">
-      <Button color="secondary" tag={Link} to={"/coffee-shops/" + props.id}>Edit</Button>
+      <Button color="secondary" tag={Link} to={'/coffee-shops/' + props.id}>Edit</Button>
       <Button color="danger" onClick={() => props.remove(props.id)}>Delete</Button>
     </div>
   </div>
@@ -567,7 +572,7 @@ class CoffeeShopsList extends Component {
           <h3 className="coffee-shops-title">Coffee Shops</h3>
           <Button color="success" tag={Link} to="/coffee-shops/new">Add New</Button>
         </div>
-        { errorMessage ?
+        {errorMessage ?
           <div className="d-flex flex-row justify-content-center">
             <Alert color="warning" style={{flex:1, maxWidth:'80%'}}>
               {errorMessage}
@@ -575,10 +580,10 @@ class CoffeeShopsList extends Component {
           </div> : null
         }
         <div className="d-flex flex-row flex-container flex-wrap justify-content-center">
-          { coffeeShops.map( coffeeShop =>
+          {coffeeShops.map( coffeeShop =>
             <CoffeeShop {...coffeeShop} remove={this.remove.bind(this)} key={coffeeShop.id}/>
           )}
-          { !coffeeShops || coffeeShops.length === 0 ? <p>No coffee shops!</p> : null}
+          {!coffeeShops || coffeeShops.length === 0 ? <p>No coffee shops!</p> : null}
         </div>
       </div>
     );
@@ -696,7 +701,7 @@ class CoffeeShopEdit extends Component {
               <FormGroup className="col-md-4 mb-3">
                 <Label for="powerAccessible">Power Accessible?</Label>
                 <Input type="select" name="powerAccessible" id="powerAccessible"
-                       value={item.powerAccessible ? 'true' : 'false'}
+                       value={item.powerAccessible === 'true' ? 'true' : 'false'}
                        onChange={this.handleChange}>
                   <option value="true">Yes</option>
                   <option value="false">No</option>
@@ -780,17 +785,17 @@ class Api {
 
   async update(item) {
     return await fetch(`${this.BASE_URL}/${item.id}`, {
-      method:'PUT',
+      method: 'PUT',
       headers: this.createHeaders(),
-      body: JSON.stringify(item),
+      body: JSON.stringify(item)
     });
   }
 
   async create(item) {
     return await fetch(this.BASE_URL, {
-      method:'POST',
+      method: 'POST',
       headers: this.createHeaders(),
-      body: JSON.stringify(item),
+      body: JSON.stringify(item)
     });
   }
 }
@@ -867,8 +872,8 @@ a.app-link:hover {
 }
 
 .coffeeshop-footer {
-  padding-top:8px;
-  margin-top:8px;
+  padding-top: 8px;
+  margin-top: 8px;
   border-top: 1px solid #282c34;
 }
 
@@ -987,7 +992,7 @@ Stop and restart the resource server: `./gradlew bootRun`.
 You can test that it requires a JWT by opening a shell and running a simple request using [HTTPie](https://httpie.org/):
 
 ```bash
-http :8080/coffee-shops
+http :8080/api/coffeeshops
 ```
 
 You'll get a 401 / Unauthorized:
@@ -1006,7 +1011,7 @@ The first step to adding Okta OAuth 2.0 login to your frontend React application
 Use Yarn to add the project dependency to your React client.
 
 ```bash
-yarn add @okta/okta-react@3.0.1
+yarn add @okta/okta-react@3.0.4
 ```
 
 Now update `src/App.js` to match the following. Fill in your **Client ID** and your **Issuer URL** in the Security component properties.
@@ -1019,47 +1024,46 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Security, SecureRoute, LoginCallback } from '@okta/okta-react';
 import CoffeeShopsList from './CoffeeShopsList';
 import CoffeeShopEdit from './CoffeeShopEdit';
-import { withAuth } from '@okta/okta-react';
+import { withOktaAuth } from '@okta/okta-react';
 import Api from './Api';
 import NavBar from "./NavBar";
 
-const AuthWrapper = withAuth(class WrappedRoutes extends Component {
+const AuthWrapper = withOktaAuth(class WrappedRoutes extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { authenticated: null, user: null, api: new Api() };
+    this.state = {authenticated: null, user: null, api: new Api()};
     this.checkAuthentication = this.checkAuthentication.bind(this);
   }
 
   async checkAuthentication() {
-    const authenticated = await this.props.auth.isAuthenticated();
+    const authenticated = await this.props.authState.isAuthenticated;
     if (authenticated !== this.state.authenticated) {
       if (authenticated) {
-        const user = await this.props.auth.getUser();
-        let accessToken = await this.props.auth.getAccessToken();
-        this.setState({ authenticated, user, api: new Api(accessToken) });
-      }
-      else {
-        this.setState({ authenticated, user:null, api: new Api() });
+        const user = await this.props.authService.getUser();
+        let accessToken = await this.props.authService.getAccessToken();
+        this.setState({authenticated, user, api: new Api(accessToken)});
+      } else {
+        this.setState({authenticated, user: null, api: new Api()});
       }
     }
   }
 
   async componentDidMount() {
-    this.checkAuthentication();
+    await this.checkAuthentication();
   }
 
   async componentDidUpdate() {
-    this.checkAuthentication();
+    await this.checkAuthentication();
   }
 
   async login() {
     if (this.state.authenticated === null) return; // do nothing if auth isn't loaded yet
-    this.props.auth.login('/');
+    await this.props.authService.login('/');
   }
 
   async logout() {
-    this.props.auth.logout('/');
+    await this.props.authService.logout('/');
   }
 
   render() {
@@ -1080,16 +1084,18 @@ const AuthWrapper = withAuth(class WrappedRoutes extends Component {
         <Route
           path='/'
           exact={true}
-          render={(props) => <Home {...props} authenticated={authenticated} user={user} api={api} navbar={navbar} />}
+          render={(props) => <Home {...props} authenticated={authenticated} user={user} api={api} navbar={navbar}/>}
         />
         <SecureRoute
           path='/coffee-shops'
           exact={true}
-          render={(props) => <CoffeeShopsList {...props} authenticated={authenticated} user={user} api={api} navbar={navbar}/>}
+          render={(props) => <CoffeeShopsList {...props} authenticated={authenticated} user={user} api={api}
+                                              navbar={navbar}/>}
         />
         <SecureRoute
           path='/coffee-shops/:id'
-          render={(props) => <CoffeeShopEdit {...props} authenticated={authenticated} user={user} api={api} navbar={navbar}/>}
+          render={(props) => <CoffeeShopEdit {...props} authenticated={authenticated} user={user} api={api}
+                                             navbar={navbar}/>}
         />
       </Switch>
     )
@@ -1105,8 +1111,8 @@ class App extends Component {
               clientId='{yourClientId}'
               redirectUri={window.location.origin + '/callback'}
               pkce={true}>
-          <Route path='/callback' component={LoginCallback} />
-          <AuthWrapper />
+          <Route path='/callback' component={LoginCallback}/>
+          <AuthWrapper/>
         </Security>
       </Router>
     )
@@ -1120,7 +1126,7 @@ The `Security` component is where the Okta OAuth configuration happens. **You ne
 
 You'll also notice that I chose to centralize all the security logic in a wrapper component called `AuthWrapper`. This allows you to handle all authentication-related logic in one place and pass down the authentication state as properties. It also allows you to pass down the `Api` module with the access token to the child components. This keeps a lot of the security logic out of the route/view components and avoids some repeated code, which I like.
 
-However, the `withAuth()` function supplied by the Okta React SDK can be applied to any React component (that is a child of the `Security` component). Thus, it's also possible not to use a wrapper class like this and inject the `auth` prop into the various routes directly. Ultimately, in an app in production, the auth state would likely be moved to a global state using something like MobX or Redux.
+However, the `withOktaAuth()` function supplied by the Okta React SDK can be applied to any React component (that is a child of the `Security` component). Thus, it's also possible not to use a wrapper class like this and inject the `authState` prop into the various routes directly. Ultimately, in an app in production, the `authState` would likely be moved to a global state using something like MobX or Redux.
 
 Two more files need to be updated, the home page and the navigation bar.
 
@@ -1143,7 +1149,7 @@ class Home extends Component {
       <div className="app">
         {this.props.navbar}
         <Container fluid>
-          { this.props.authenticated ?
+          {this.props.authenticated ?
             <div>
               <p>Welcome, {this.props.user.name}</p>
               <Button color="secondary">
@@ -1202,7 +1208,7 @@ class NavBar extends Component {
           <NavItem>
             <NavLink href="https://github.com/oktadeveloper/okta-kotlin-react-crud-example">GitHub</NavLink>
           </NavItem>
-          { !isAuthenticated ?
+          {!isAuthenticated ?
             <NavItem>
               <Button color="secondary" outline onClick={login}>Login</Button>
             </NavItem> :
@@ -1269,4 +1275,6 @@ If you have any questions about this post, please add a comment below. For more 
 
 **Changelog:**
 
+* Sep 3, 2020: Fixed the power accessible attribute to render correctly. Thanks to [Katie Levy](https://github.com/katielevy1) for the [pull request](https://github.com/oktadeveloper/okta-kotlin-react-crud-example/pull/6)!
+* Aug 13, 2020: Upgraded to Spring Boot 2.3.2 and Okta React 3.0.4. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-kotlin-react-crud-example/pull/5). Changes to this article can be viewed in [oktadeveloper/okta-blog#369](https://github.com/oktadeveloper/okta-blog/pull/369).
 * May 18, 2020: Upgraded to Okta React 3.0.1 and removed `/implicit` from Login redirect URI. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-kotlin-react-crud-example/pull/3). Changes to this article can be viewed in [oktadeveloper/okta-blog#297](https://github.com/oktadeveloper/okta-blog/pull/297).
