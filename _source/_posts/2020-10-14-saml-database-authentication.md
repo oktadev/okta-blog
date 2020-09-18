@@ -48,15 +48,15 @@ You will need to sign up for a **FREE** trial account at [okta.com/free-trial](h
 
 Still, maybe to support legacy systems or because you have strange security requirements, you may need to allow users to authenticate using either SAML or database credentials. The process to combine SAML 2.0 with DB auth in Spring Boot is what we'll tackle here!
 
-### The Application
+### How to Combine Database and SAML Authentication in Spring Boot
 
 To get started, clone the [repository](https://github.com/cavazosjoe/okta-saml-spring-boot) for this tutorial:
 
-```shell script
+```sh
 git clone https://github.com/cavazosjoe/okta-saml-spring-boot
 ```
 
-To start, look at the Maven POM file located at `/pom.xml`.
+First look at the Maven POM file located at `/pom.xml`.
 
 This application inherits from the `spring-boot-starter-parent` parent project. This will provide you with Spring Boot's dependency and plugin management:
 
@@ -217,7 +217,7 @@ public class IndexController {
 
 Within `IndexController`, you are checking whether the username matches a particular pattern and redirecting accordingly.
 
-### SAML Flow
+### Authenticating with SAML
 
 The `WebSecurityConfig` class, which extends the `WebSecurityConfigurerAdapter` parent, defines much of the security settings, including:
 - The filter chains to handle SAML requests and responses
@@ -283,7 +283,7 @@ public class SamlResponseController {
 
 At this point, the user should be successfully authenticated with the app!
 
-### Database Flow
+### Authenticating with the Database
 
 If the username matches another pattern, the user will be redirected to a standard-looking form login page:
 
