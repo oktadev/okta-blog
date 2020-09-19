@@ -397,7 +397,7 @@ cd kotlin-spring-boot
 If you already have an Okta account, see the Create a Web Application in Okta sidebar below. Otherwise, we created a Maven plugin that configures a free Okta developer account + an OIDC app (in under a minute!).
 
 ```txt
-./mvnw com.okta:okta-maven-plugin:setup
+./mvnw com.okta:okta-maven-plugin:register
 ```
 
 You should see the following output:

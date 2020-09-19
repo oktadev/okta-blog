@@ -120,7 +120,7 @@ If you don't have an Okta developer account already, execute the https://github.
 
 [source,sh]
 ----
-./mvnw com.okta:okta-maven-plugin:setup
+./mvnw com.okta:okta-maven-plugin:register
 ----
 
 You should see the following output:

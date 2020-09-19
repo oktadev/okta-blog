@@ -120,7 +120,7 @@ mv src/main/resources/application.properties src/main/resources/application.yml
 Now run the Okta Maven Plugin.
 
 ```bash
-mvn com.okta:okta-maven-plugin:setup
+mvn com.okta:okta-maven-plugin:register
 ```
 
 Follow the prompts to either create a new account or log in to your existing account. You should see some lines like this:

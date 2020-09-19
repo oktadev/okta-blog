@@ -365,7 +365,7 @@ Okta offers a very handy Maven plugin to set up your app's security quickly and 
 Then run the Okta Maven plugin from your app's folder:
 
 ```shell
-./mvnw com.okta:okta-maven-plugin:setup
+./mvnw com.okta:okta-maven-plugin:register
 ```
 
 Answer a few questions (name, email, and company), and it will generate a new Okta account, register a new OIDC application, and add the correct properties into your `application.properties` file.

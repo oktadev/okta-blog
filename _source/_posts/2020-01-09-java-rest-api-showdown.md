@@ -47,7 +47,7 @@ There's no need to reinvent the wheel!
 Open your terminal, and execute the following command:
 
 ```bash
-mvn com.okta:okta-maven-plugin:setup
+mvn com.okta:okta-maven-plugin:register
 ```
 
 You will be asked to input the following information:
