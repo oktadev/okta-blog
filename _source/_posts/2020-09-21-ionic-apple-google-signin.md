@@ -243,7 +243,7 @@ It's pretty cool that you can add Sign in with Apple via Okta, don't you think?!
  
 But what if you want to allow people to sign up for an account and you want to manage your users? The good news is you can configure Okta as your main login screen with buttons to sign in with Apple, Google, and many other identity providers. 
 
-**TIP**: To see how to enable user registration, see [Tutorial: User Login and Registration in Ionic > Add User Registration](https://developer.okta.com/blog/2019/06/20/ionic-4-tutorial-user-authentication-and-registration#add-user-registration).
+**TIP**: To see how to enable user registration, see [Tutorial: User Login and Registration in Ionic > Add User Registration](/blog/2019/06/20/ionic-4-tutorial-user-authentication-and-registration#add-user-registration).
 
 ## What about Okta's Angular SDK and Sign-In Widget?
 
@@ -294,8 +294,8 @@ Wait until `https://<id.domain.name>` resolves in your browser before continuing
 
 The OpenID Connect specification requires a `./well-known/openid-configuration` endpoint with metadata about your app's endpoints. You should be able to see yours at:
  
- ```
- https://<id.domain.name>/oauth2/default/.well-known/openid-configuration`
+```
+https://<id.domain.name>/oauth2/default/.well-known/openid-configuration
 ```
 
 You might notice that it has your Okta `dev-*` domain, rather than your custom domain name.
@@ -449,9 +449,9 @@ Some other resources you might like:
 
 - [Apple's Sign in with Apple Guidelines](https://developer.apple.com/app-store/review/guidelines/#sign-in-with-apple)
 - [Thanks to Capacitor, I've fallen in love with mobile development again](https://ionicframework.com/blog/thanks-to-capacitor-ive-fallen-in-love-with-mobile-development-again/)
-- [What the Heck is Sign In with Apple?](https://developer.okta.com/blog/2019/06/04/what-the-heck-is-sign-in-with-apple)
-- [Build Mobile Apps with Angular, Ionic 4, and Spring Boot](https://developer.okta.com/blog/2019/06/24/ionic-4-angular-spring-boot-jhipster)
-- [Mobile Development with Ionic, React Native, and JHipster](https://developer.okta.com/blog/2020/04/27/mobile-development-ionic-react-native-jhipster)
-- [The Hitchhiker's Guide to Testing Spring Boot APIs and Angular Components with WireMock, Jest, Protractor, and Travis CI](https://developer.okta.com/blog/2018/05/02/testing-spring-boot-angular-components)
+- [What the Heck is Sign In with Apple?](/blog/2019/06/04/what-the-heck-is-sign-in-with-apple)
+- [Build Mobile Apps with Angular, Ionic 4, and Spring Boot](/blog/2019/06/24/ionic-4-angular-spring-boot-jhipster)
+- [Mobile Development with Ionic, React Native, and JHipster](/blog/2020/04/27/mobile-development-ionic-react-native-jhipster)
+- [The Hitchhiker's Guide to Testing Spring Boot APIs and Angular Components with WireMock, Jest, Protractor, and Travis CI](/blog/2018/05/02/testing-spring-boot-angular-components)
 
 If you liked this post, follow [@oktadev](https://twitter.com/oktadev) on Twitter to see when we publish in-depth tutorials on Java, JavaScript, .NET, Python, PHP, and many others. We also have [a YouTube channel](https://youtube.com/oktadev). You should [subscribe](https://youtube.com/c/oktadev?sub_confirmation=1)! 😊
