@@ -63,7 +63,7 @@ On the Create New Application page, select **Native**. Name your app `Ionic Soci
   * `http://localhost:8100/logout`
   * `com.okta.dev-133337:/logout`
 * Grant type allowed: 
-  - [x] &nbsp;**Authorization Code**
+  - [x] **Authorization Code**
   - [x] **Refresh Token**
 * Click **Done**
 
