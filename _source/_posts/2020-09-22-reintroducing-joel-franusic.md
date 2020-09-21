@@ -158,7 +158,7 @@ pyEditor = window.CodeMirror.fromTextArea(document["editor"], {
 Hi, my name is Joël Franusic and I'm happy to announce that I am,
 once again, a developer advocate at Okta, focusing on the Python and Go communities.
 
-(Why do I say "once again"? Because 6 years ago, I started my Okta career as a
+(Why do I say "once again"? Because six years ago, I started my Okta career as a
 developer advocate but over the course of time I worked in a series
 of other roles including: "Software Engineer", "Technical Marketing
 Manager", and "Product Marketing Manager")
@@ -169,7 +169,7 @@ This blog post has two parts:
 2.  An example of how to run Python from inside of a web browser - which is an example of how I'm putting my personal mission statement into action
 
 
-# Introducing myself
+## Introducing myself
 
 The best way that I can think of to introduce myself is by sharing
 my "personal mission statement".  Before I do that, though, 
@@ -197,7 +197,7 @@ stop thinking about:
 programmer" — this is now what I consider my personal mission statement to be.
 
 
-# My personal mission statement:
+## My personal mission statement:
 
 There are a lot of ways to interpret this mission
 statement-which I like. I want this mission statement to be
@@ -229,7 +229,7 @@ experienced programmers. As William Gibson famously said, "The future is
 already here — it's just not very evenly distributed."
 
 
-# That all sounds great, but what are you going to do about it?
+## That all sounds great, but what are you going to do about it?
 
 Even if you agree that the things I want to do are worthwhile, it's
 still fair to ask what that means in concrete terms.
@@ -250,7 +250,7 @@ on Python and Go, I wanted to make an example of running Python from inside of
 the browser. So, I wrote a game for you to play which I have included below:
 
 
-# Running Python in a Web Browser
+## Running Python in a Web Browser
 
 This is a simple game where the goal is to write a Python function (`answer()`) that takes
 three numbers of a sequence as input (we label these `a`, `b`, and `c`) and
@@ -301,7 +301,7 @@ Edit the code above to play. No need to press a "save" button or anything. Your 
 stopped typing for a bit.
 
 
-# "That's interesting, I guess. Why should I care?"
+## "That's interesting, I guess. Why should I care?"
 
 Perhaps you played the game, perhaps you didn't. But in either case, the reason
 I included this game in this blog post might not be apparent. I
@@ -321,7 +321,7 @@ on writing an in-depth explanation of the code behind this game in a subsequent
 post.
 
 
-# That's all for now
+## That's all for now
 
 In closing, I hope you found my "personal mission statement" to be as thought
 provoking as I do and I hope that you had as much fun playing
