@@ -4,7 +4,7 @@ title: "Reintroducing Joël Franusic"
 author: joel-franusic
 by: advocate
 communities: [python]
-description: "Joël Franusic shares his personal mission statement, with an live example"
+description: "Joël Franusic shares his personal mission statement, with a live example."
 tags: [python, brython]
 tweets:
 - "Reintroducing @jf! Learn more about his personal mission statement and try your hand at a simple Python game he wrote."
@@ -328,4 +328,3 @@ provoking as I do and I hope that you had as much fun playing
 my little game as I did making it.
 
 I'd love to hear from you in the comments below, or [on Twitter](https://twitter.com/jf).
-
