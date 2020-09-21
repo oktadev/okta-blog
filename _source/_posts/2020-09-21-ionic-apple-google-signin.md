@@ -145,7 +145,7 @@ public async getUserInfo(): Promise<void> {
 }
 ```
 
-It's rendered in `src/app/tab1/tab1.page.html`:
+Your user information will be rendered in `src/app/tab1/tab1.page.html`:
 
 {% raw %}
 ```html
@@ -205,7 +205,7 @@ Make a note of your Team ID in the upper-right corner of your Apple developer da
 Open your Okta developer console in a new tab and navigate to **Users** > **Social & Identity Providers** > **Add Identity Provider** > **Add Apple**. 
 
 - **Name**: `Apple`
-- **Client ID**: `com.okta.developer.ionic` ( Services ID from Apple)
+- **Client ID**: `com.okta.developer.ionic` (your Services ID from Apple)
 - **Client Secret Signing Key**: upload the `.p8` file you downloaded
 - **Key ID** and **Team ID**: available in your last tab
 - **Scopes**: defaults (`name`, `email`, `openid`) are fine
@@ -233,7 +233,7 @@ and you'll be redirected to Apple to sign in.
 
 Log in, and you should be redirected back to your app. 
 
-**NOTE**: If you receive an error about `Missing fields: 'firstName','lastName'`, you'll need to remove the app from your Apple ID. On Mac, go to **System Preferences** > **Apple ID** > **Password & Security** > Apps Using Your Apple ID > **Edit**. Go to **Ionic Social** and click **Stop Using Apple ID**. This error happens because Apple sends the name only the very first time you log in. 
+**NOTE**: If you receive an error about `Missing fields: 'firstName','lastName'`, you'll need to remove the app from your Apple ID. On a Mac, go to **System Preferences** > **Apple ID** > **Password & Security** > Apps Using Your Apple ID > **Edit**. Go to **Ionic Social** and click **Stop Using Apple ID**. This error happens because Apple sends the name only the very first time you log in. 
 
 Click **Get User Details**, and your info will be fetched from Apple via Okta.
 
@@ -280,7 +280,7 @@ Click **Verify** > **Next** on Okta.
 
 For the **Certificate** field, copy/paste the contents of `tls.cert`. 
 
-_On a Mac, you can use `cat tls.cert | pbcopy` in a terminal to copy the file to your clipboard._
+> On a Mac, you can use `cat tls.cert | pbcopy` in a terminal to copy the file to your clipboard.
 
 Put the contents of `private.key` in the **Private key** box. Click **Next**.
 
@@ -306,7 +306,7 @@ You need to update your authorization server to use your custom domain to fix th
 
 {% img blog/ionic-social-login/as-custom-url.png alt:"Authorization Server Custom URL" width:"700" %}{: .center-image }
 
-Try `/openid-configuration` again; it should have your custom domain now.
+Try `./well-known/openid-configuration` again; it should have your custom domain now.
 
 ### Configure Apple to Allow Your Custom Domain
 
