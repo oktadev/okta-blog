@@ -21,35 +21,38 @@ type: awareness
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.37.0/codemirror.css">
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.37.0/theme/neat.css" integrity="sha256-WMLC5bxpwvLiouYZo3maC9cKh1TBNxBNqrSjnlP0JQM=" crossorigin="anonymous" />
 <style type="text/css">
-  ul {
+  .jf-game > ul {
     list-style: none;
   }
-li:before {
-  margin: 0 0.25em;
-}
+
+  .jf-game > li:before {
+    margin: 0 0.25em;
+  }
+
   li.pass:before {
     content: "\2611"
   }
+
   li.fail:before {
     content: "\2610"
   }
   
-  .alert {
+  .jf-game > .alert {
     border-radius: 4px;
     padding: 12px 20px 12px 20px;
     display: none;
   }
   
-  .alert > code {
+  .jf-game > .alert > code {
     font-size: 16px;
   }
   
-  .error {
+  .jf-game > .error {
     background-color: rgb(255, 243, 205);
     color: rgb(113, 100, 4);
   }
   
-  .success {
+  .jf-game > .success {
     background-color: rgb(212, 237, 218);
     color: rgb(21, 87, 36);
   }
@@ -279,6 +282,7 @@ Update the Python code below to start playing!
 
 Sequence checklist:
 
+<div class="jf-game">
   <ul id="messages"></ul>
   <div id="error" class="alert error"></div>
   <div id="success" class="alert success">
@@ -291,6 +295,7 @@ Sequence checklist:
     return True
 
 play(answer)</textarea>
+</div>
 <script type="text/javascript">
 document.addEventListener("DOMContentLoaded", function(){
     brython(1)
