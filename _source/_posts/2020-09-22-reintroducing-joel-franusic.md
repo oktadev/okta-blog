@@ -165,7 +165,7 @@ Manager", and "Product Marketing Manager")
 
 This blog post has two parts:
 An introduction to myself and my personal mission statement
-An example of how to run Python from inside of a web browser - which is an example of how I’m putting my personal mission statement into action
+An example of how to run Python from inside of a web browser - which is an example of how I'm putting my personal mission statement into action
 
 
 # Introducing myself
@@ -213,7 +213,7 @@ limited support for this type of functionality, though it usually
 involves bindings into code written in C. Why should it end there? I want to be able to use, Haskell code from Python, Java from Lua, or
 Fortran from Go, and so on.
 
-Now, for the next part of the mission statement: "instantly available". I  believe that a programmer’s code should go into production as soon as they lift their finger off the keyboard. They shouldn’t have
+Now, for the next part of the mission statement: "instantly available". I  believe that a programmer's code should go into production as soon as they lift their finger off the keyboard. They shouldn't have
 to wait for a compile to finish, for tests to pass, or for an
 interpreter to reload their code. All of those things, especially
 testing, are important, but they should happen automatically and
