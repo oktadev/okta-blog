@@ -164,8 +164,9 @@ of other roles including: "Software Engineer", "Technical Marketing
 Manager", and "Product Marketing Manager")
 
 This blog post has two parts:
-An introduction to myself and my personal mission statement
-An example of how to run Python from inside of a web browser - which is an example of how I'm putting my personal mission statement into action
+
+1.  An introduction to myself and my personal mission statement
+2.  An example of how to run Python from inside of a web browser - which is an example of how I'm putting my personal mission statement into action
 
 
 # Introducing myself
@@ -237,12 +238,12 @@ One of things that I'm passionate about is making software
 development more "instantly available". There are many problems that need solving in this
 area. For example, much of software development today involves unnecessary waiting. As
 programmers, we spend a lot of time waiting for software to install, tests to
-pass, a deploy to finish-the list goes on and on. 
+pass, a deploy to finish-the list goes on and on.
 
 It doesn't have to be this way, though. We can and should make better tools for
 ourselves and each other.
 
-One example of something I've made is a page that lets 
+One example of something I've made is a page that lets
 you [edit the code of the Okta Sign-In Widget with instant feedback, from inside
 your web browser](https://developer.okta.com/live-widget/). However, it uses JavaScript and, since I'm focusing
 on Python and Go, I wanted to make an example of running Python from inside of
