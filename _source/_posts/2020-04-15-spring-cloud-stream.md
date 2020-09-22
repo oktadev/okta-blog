@@ -120,10 +120,18 @@ mv src/main/resources/application.properties src/main/resources/application.yml
 Now run the Okta Maven Plugin.
 
 ```bash
-mvn com.okta:okta-maven-plugin:setup
+mvn com.okta:okta-maven-plugin:register
 ```
 
-Follow the prompts to either create a new account or log in to your existing account. You should see some lines like this:
+Follow the prompts to either create a new account or log in to your existing account. 
+
+Then, create an app on Okta and configure Spring Boot to use it.
+
+```bash
+mvn com.okta:okta-maven-plugin:spring-boot
+```
+
+You should see some lines like this:
 
 ```bash
 Current OrgUrl: https://dev-447850.okta.com

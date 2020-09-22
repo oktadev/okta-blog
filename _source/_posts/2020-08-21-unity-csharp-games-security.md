@@ -33,8 +33,8 @@ The level of effort to build identity security from scratch is massive. Just to 
 
 ## Downloads
 
-- Example code: [Native](https://okta.box.com/s/icfm80lmv7kmht45oxvyh9uf5gb5jnp8) / [OAuth](https://okta.box.com/s/jipk6x7gmpx7tfp1y6bigtbcwx2cvsml).
-- The Okta SDK Unity Package can be downloaded [here.](https://okta.box.com/s/m5q2ucervn03cbzu5dpgzx2vxmeg3xph).
+- Example code: [Native](https://github.com/nickgamb/Okta_Unity/blob/master/PanelManager.cs) / [OAuth](https://github.com/nickgamb/Okta_Unity/blob/master/OktaOAuth2.cs).
+- The Okta SDK Unity Package can be downloaded [here.](https://github.com/nickgamb/Okta_Unity/blob/master/OktaSDK.unitypackage).
 
 ## Videos
 
