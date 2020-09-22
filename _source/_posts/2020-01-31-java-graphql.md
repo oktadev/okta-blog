@@ -370,10 +370,16 @@ Okta offers a very handy Maven plugin to set up your app's security quickly and 
 Then run the Okta Maven plugin from your app's folder:
 
 ```shell
-./mvnw com.okta:okta-maven-plugin:setup
+./mvnw com.okta:okta-maven-plugin:register
 ```
 
-Answer a few questions (name, email, and company), and it will generate a new Okta account, register a new OIDC application, and add the correct properties into your `application.properties` file.
+Answer a few questions (name, email, and company), and it will generate a new Okta developer account for you.
+
+Run the following command to register a new OIDC application, and add the correct properties into your `application.properties` file.
+
+```shell
+./mvnw com.okta:okta-maven-plugin:spring-boot
+```
 
 If you start your app again, you'll notice that you can't run GraphQL queries anymore. That's because you're not authenticated.
 
