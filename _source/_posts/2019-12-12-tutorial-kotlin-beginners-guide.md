@@ -412,7 +412,17 @@ OrgUrl: https://dev-123456.okta.com
 Check your email address to verify your account.
 
 Writing Okta SDK config to: /home/indiepopart/.okta/okta.yaml
+```
 
+Then, run the following command to configure your Spring Boot app with Okta.
+
+```
+./mvnw com.okta:okta-maven-plugin:spring-boot
+```
+
+This should result in:
+
+```
 Configuring a new OIDC, almost done:
 Created OIDC application, client-id: ***
 ```
