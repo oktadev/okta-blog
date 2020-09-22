@@ -20,6 +20,11 @@ GraphQL was developed by Facebook to overcome the shortcomings they found with R
 
 In this tutorial, I'll show you how to use Java and Spring Boot to build a GraphQL API. I'll also show how to test your GraphQL API using Java's most popular testing library: JUnit 5.
 
+If you'd prefer to watch a video, you can [watch this tutorial as a screencast](https://youtu.be/y_OjfgZa58k).
+<div style="text-align: center; margin-bottom: 1.25rem">
+<iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/y_OjfgZa58k" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
 ## Create a GraphQL API with Java and Spring Boot
 
 Let's start with an initialized app by going to [Spring Initializr](https://start.spring.io/) and defining your app data as follows:
