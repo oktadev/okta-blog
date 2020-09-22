@@ -116,11 +116,11 @@ unzip simple-app.zip -d simple-app
 cd simple-app
 ----
 
-If you don't have an Okta developer account already, execute the https://github.com/oktadeveloper/okta-maven-plugin[Okta Maven Plugin] to create one (for free!) and configure the authentication in the app:
+If you don't have an Okta developer account already, execute the https://github.com/oktadeveloper/okta-maven-plugin[Okta Maven Plugin] to create one (for free!):
 
 [source,sh]
 ----
-./mvnw com.okta:okta-maven-plugin:setup
+./mvnw com.okta:okta-maven-plugin:register
 ----
 
 You should see the following output:
@@ -136,15 +136,26 @@ OrgUrl: ***
 Check your email address to verify your account.
 
 Writing Okta SDK config to: /home/indiepopart/.okta/okta.yaml
-
-Configuring a new OIDC, almost done:
-Created OIDC application, client-id: ***
 ----
 
 Check your email and follow the instructions to activate your Okta account.
 
-The Maven plugin will generate the OIDC client ID, secret, and issuer URL in `src/main/resources/application.properties`. As we are going to use a public GitHub repository for the CI test, copy the credentials somewhere else, and delete them from the properties file.
+Then, create a new OIDC app on Okta and configure your app to use it.
 
+[source,sh]
+----
+./mvnw com.okta:okta-maven-plugin:spring-boot
+----
+
+You should see something like the following:
+
+[source,txt]
+----
+Configuring a new OIDC, almost done:
+Created OIDC application, client-id: ***
+----
+
+The Maven plugin will generate the OIDC client ID, secret, and issuer URL in `src/main/resources/application.properties`. As we are going to use a public GitHub repository for the CI test, copy the credentials somewhere else, and delete them from the properties file.
 
 If you already have an Okta Developer account, sign in and create a new application:
 - From the Applications page, choose **Add Application**.
