@@ -521,7 +521,7 @@ For more posts like this one, follow [@oktadev on Twitter](https://twitter.com/o
 **Changelog:**
 
 * Sep 23, 2020: Upgraded to Micronaut 2.0.2, 
-Quarkus 1.8.1, and Spring Boot 2.3.4. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-java-rest-api-comparison-example/pull/7). Changes to this post can be viewed in [oktadeveloper/okta-blog#410](https://github.com/oktadeveloper/okta-blog/pull/410).
+Quarkus 1.8.1, and Spring Boot 2.3.4. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-java-rest-api-comparison-example/pull/7). Changes to this post can be viewed in [oktadeveloper/okta-blog#423](https://github.com/oktadeveloper/okta-blog/pull/423).
 * May 21, 2020: Added startup times for `java -jar` and running with GraalVM. Changes to this article can be viewed in [oktadeveloper/okta-blog#304](https://github.com/oktadeveloper/okta-blog/pull/304).
 * May 20, 2020: Upgraded to Micronaut 1.3.5, 
 Quarkus 1.4.2, and Spring Boot 2.3.0. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-java-rest-api-comparison-example/pull/5). Changes to this article can be viewed in [oktadeveloper/okta-blog#301](https://github.com/oktadeveloper/okta-blog/pull/301).
