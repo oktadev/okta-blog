@@ -316,7 +316,7 @@ Now, run the app and you should be able to manage your expenses:
 
 {% img blog/efcore-pii/image5.png alt:"Run project with tracker" width:"800" %}{: .center-image }
 
-## Store a User’s Personally Identifiable Information in Okta
+## Store a User's Personally Identifiable Information in Okta
 
 The sample website already supports user authentication but all the user PII is stored in SQL Server database. Instead of that, I will store users' personal information in Okta and secure the web app. Okta supports user authentication, multi-factor authentication, social authentication, as well as all OpenID Connect flows out of the box—it can take care of all the scenarios you might ever need.
 
@@ -529,7 +529,7 @@ services.AddAuthentication().AddOkta(options =>
 
 You have now configured the app to use the Okta Sign-In widget. Before running the app let's get rid of the `Use a local account to log in.` section from the login page.
 
-In Visual Studio, right-click on the project, click **Add**, click **New Scaffolded Item...**, click **Identity** on the left side of the window and select **Identity** again. In the new window check **Account\Login**, select **ApplicationDbContext (ExpenseTracker.Data)** in *Data context class* (even though you aren’t using it any more) and click **Add**:
+In Visual Studio, right-click on the project, click **Add**, click **New Scaffolded Item...**, click **Identity** on the left side of the window and select **Identity** again. In the new window check **Account\Login**, select **ApplicationDbContext (ExpenseTracker.Data)** in *Data context class* (even though you aren't using it any more) and click **Add**:
 
 {% img blog/efcore-pii/image10.png alt:"Add Identity" width:"800" %}{: .center-image }
 
@@ -545,7 +545,7 @@ That's it! We now have a web app that uses Okta to securely store users and thei
 
 ## Learn More About ASP.NET Core and Okta
 
-I hope the tutorial was interesting to you and that you enjoyed it. You can get the [full source code of the project from GitHub](https://github.com/Giorgi/OktaSecurePii/). For more Entity Framework Core and Okta articles check out these posts:
+I hope the tutorial was interesting to you and that you enjoyed it. You can get the [full source code of the project from GitHub](https://github.com/oktadeveloper/okta-efcore-pii-sample-dotnetcore). For more Entity Framework Core and Okta articles check out these posts:
 
 - [Build a CRUD App with ASP.NET Core 2.2 and Entity Framework Core](https://developer.okta.com/blog/2019/04/03/build-a-crud-app-with-aspnet-22-and-entity-framework)
 - [ASP.NET Core 3.0 MVC Secure Authentication](https://developer.okta.com/blog/2019/11/15/aspnet-core-3-mvc-secure-authentication)
