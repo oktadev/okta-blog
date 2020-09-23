@@ -396,8 +396,8 @@ cd kotlin-spring-boot
 ## Secure your Application with OpenID Connect
 If you already have an Okta account, see the Create a Web Application in Okta sidebar below. Otherwise, we created a Maven plugin that configures a free Okta developer account + an OIDC app (in under a minute!).
 
-```txt
-./mvnw com.okta:okta-maven-plugin:setup
+```bash
+./mvnw com.okta:okta-maven-plugin:register
 ```
 
 You should see the following output:
@@ -412,7 +412,17 @@ OrgUrl: https://dev-123456.okta.com
 Check your email address to verify your account.
 
 Writing Okta SDK config to: /home/indiepopart/.okta/okta.yaml
+```
 
+Then, run the following command to configure your Spring Boot app with Okta.
+
+```bash
+./mvnw com.okta:okta-maven-plugin:spring-boot
+```
+
+This should result in:
+
+```
 Configuring a new OIDC, almost done:
 Created OIDC application, client-id: ***
 ```

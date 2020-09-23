@@ -47,7 +47,7 @@ There's no need to reinvent the wheel!
 Open your terminal, and execute the following command:
 
 ```bash
-mvn com.okta:okta-maven-plugin:setup
+mvn com.okta:okta-maven-plugin:register
 ```
 
 You will be asked to input the following information:
@@ -57,9 +57,13 @@ You will be asked to input the following information:
 * Email
 * Company
 
-Once you've answered the questions, you'll receive an email to activate your brand new account. With the account activated, you're ready to go!
+Once you've answered the questions, you'll receive an email to activate your brand new account. After activating your account, run the following command:
 
-The Maven plugin creates an application for you with auth code flow and Spring Security's redirect URI for Okta.
+```bash
+mvn com.okta:okta-maven-plugin:spring-boot
+```
+
+This command creates an application for you with auth code flow and Spring Security's redirect URI for Okta.
 
 {% img blog/java-rest-api/okta-maven-app.png alt:"Okta Maven-generated application" width:"700" %}{: .center-image }
 
