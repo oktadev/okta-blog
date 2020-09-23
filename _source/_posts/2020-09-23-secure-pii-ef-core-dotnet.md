@@ -14,7 +14,7 @@ image: blog/featured/okta-dotnet-books-quarter.jpg
 type: conversion
 ---
 
-When the products we develop collect sensitive data, it's essential to secure and safeguard it to protect user privacy and the user's identity. Personally identifiable information (PII) is any data that can be used to identify a *specific individual*, such as name, email address, phone number, US Social Security number, birth date, and so on. Yet companies also need to store user-related data that is not as sensitive as PII. In this tutorial, you will learn how to use [Entity Framework Core](https://docs.microsoft.com/en-us/ef/) together with Okta for storing user's non-sensitive data and PII.
+When the products we develop collect sensitive data, it's essential to secure and safeguard it to protect user privacy and the user's identity. [Personally identifiable information](https://en.wikipedia.org/wiki/Personal_data) (PII) is any data that can be used to identify a *specific individual*, such as name, email address, phone number, US Social Security number, birth date, and so on. Yet companies also need to store user-related data that is not as sensitive as PII. In this tutorial, you will learn how to use [Entity Framework Core](https://docs.microsoft.com/en-us/ef/) together with Okta for storing user's non-sensitive data and PII.
 
 Entity Framework Core is an open-source, cross-platform object-relational mapper (ORM) that allows .NET developers to work with a database using .NET objects. With EF Core, you no longer need to write SQL queries and commands manually. Instead, you query data with strongly typed LINQ (Language Integrated Query) queries and EF Core automatically tracks any changes you make to the result of the query.
 
@@ -25,7 +25,7 @@ To continue you will need:
 - [.NET Core 3.1 SDK](https://dotnet.microsoft.com/download/dotnet-core)
 - An [Okta Developer account](https://developer.okta.com/) (free forever, to handle your OAuth needs)
 
-## Create an ASP.NET Core web app with Entity Framework Core
+## Create an ASP.NET Core MVC Web App with Entity Framework Core
 
 Let's build a web app for tracking personal expenses. Fire up Visual Studio and create a new project by clicking **File>New Project** select **ASP.NET Core Web Application**, and click **Next**. Name the app *ExpenseTracker* and click **Create**. On the next window, select **Web Application (Model-View-Controller)**. As we need to create and store user accounts, click **Change** under *Authentication* on the right side of the window, select **Individual User Accounts** and click **OK**. Now, click **Create** and Visual Studio will create a new web project with Entity Framework Core and ASP.NET Core Identity.
 
@@ -334,7 +334,7 @@ Next, create a new application. Click **Applications** in the top menu and then 
 
 On the next screen, you will see `Client Id` and `Client Secret` of the application. You will need these to configure the Okta middleware, so take note of them:
 
-{% img blog/efcore-pii/image9.png alt:"Okta client id" width:"800" %}{: .center-image }
+{% img blog/efcore-pii/image9.png alt:"Okta client id" width:"600" %}{: .center-image }
 
 In Visual Studio, open the `appsettings.Development.json` file and add a new section `Okta` below the `Logging` section and put the details of your app and token:
 
@@ -547,8 +547,8 @@ That's it! We now have a web app that uses Okta to securely store users and thei
 
 I hope the tutorial was interesting to you and that you enjoyed it. You can get the [full source code of the project from GitHub](https://github.com/oktadeveloper/okta-efcore-pii-sample-dotnetcore). For more Entity Framework Core and Okta articles check out these posts:
 
-- [Build a CRUD App with ASP.NET Core 2.2 and Entity Framework Core](https://developer.okta.com/blog/2019/04/03/build-a-crud-app-with-aspnet-22-and-entity-framework)
-- [ASP.NET Core 3.0 MVC Secure Authentication](https://developer.okta.com/blog/2019/11/15/aspnet-core-3-mvc-secure-authentication)
+- [Build a CRUD App with ASP.NET Core 2.2 and Entity Framework Core](/blog/2019/04/03/build-a-crud-app-with-aspnet-22-and-entity-framework)
+- [ASP.NET Core 3.0 MVC Secure Authentication](/blog/2019/11/15/aspnet-core-3-mvc-secure-authentication)
 - [Okta .NET management SDK](https://github.com/okta/okta-sdk-dotnet)
 
 Make sure to follow us on [Twitter](https://twitter.com/oktadev), subscribe to our [YouTube Channel](https://youtube.com/c/oktadev) and check out our [Twitch](https://www.twitch.tv/oktadev) channel so that you never miss any awesome content!
