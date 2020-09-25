@@ -14,7 +14,7 @@ image: blog/rubyonrails6/railstrain.png
 type: conversion
 ---
 
-A couple of things have changed in the Rails world since we published our [last blog post on Rails](/blog/2018/09/18/simple-authentication-with-rails-and-omniauth). For one, Rails 6.0 was released on August 16, 2019 (Yay progress!), and, for another, Omniauth had a [CRSF](https://owasp.org/www-community/attacks/csrf) vulnerability reported (not so great). Does this make you a bit anxious? Don’t worry! Today we will be going over how to create a Rails app from scratch with the new Rails release and go over how to protect ourselves from the CRSF vulnerability.  We are also going to throw in some CRUD action, as well. Last but not least, we will use Okta to take care of authentication and user management in our Rails App.
+A couple of things have changed in the Rails world since we published our [last blog post on Rails](/blog/2018/09/18/simple-authentication-with-rails-and-omniauth). For one, Rails 6.0 was released on August 16, 2019 (Yay progress!), and, for another, Omniauth had a [CRSF](https://owasp.org/www-community/attacks/csrf) vulnerability reported (not so great). Does this make you a bit anxious? Don't worry! Today we will be going over how to create a Rails app from scratch with the new Rails release and go over how to protect ourselves from the CRSF vulnerability.  We are also going to throw in some CRUD action, as well. Last but not least, we will use Okta to take care of authentication and user management in our Rails App.
 
 To get rocking and rolling with this tutorial you will need:
 
@@ -69,7 +69,7 @@ rails g devise:install
 rails g devise User
 ```
 
-Nice! We have Devise setup. Now let’s do the session and omniauth pieces:
+Nice! We have Devise setup. Now let's do the session and omniauth pieces:
 
 ```sh
 rails generate active_record:session_migration
@@ -212,7 +212,7 @@ Nice!
 
 ## Add CRUD and Auth to Your Ruby on Rails App
 
-It’s time to add the page that allows us to do CRUD operations. In this case, we are going to add a form where a user can edit their profile information, specifically their favorite gemstone. In views/pages/account.html.erb, copy and paste this code:
+It's time to add the page that allows us to do CRUD operations. In this case, we are going to add a form where a user can edit their profile information, specifically their favorite gemstone. In views/pages/account.html.erb, copy and paste this code:
 
 ```ruby
 <%= javascript_pack_tag 'account_js' %>
@@ -226,7 +226,7 @@ It’s time to add the page that allows us to do CRUD operations. In this case, 
 </form>
 ```
 
-It looks like there’s a form, but where do we get data from? More importantly, where do we submit data from our form back into Okta’s backend? The answer is a js file!
+It looks like there's a form, but where do we get data from? More importantly, where do we submit data from our form back into Okta's backend? The answer is a js file!
 
 Go to javascript/packs and create a new file called **account_js.js**.  Make sure it is named properly because we reference it in our account.html.erb. In that file copy and paste this code:
 
@@ -310,14 +310,14 @@ OKTA_REDIRECT_URI: "http://localhost:3000/users/auth/oktaoauth/callback"
 
 ## Setup Okta as your Rails App External Auth Provider
 
-Next, let’s go into Okta to get our information.(totally stole this from another blog)
+Next, let's go into Okta to get our information.(totally stole this from another blog)
 
-Dealing with user authentication in web apps is a huge pain for every developer. This is where Okta shines: it helps you secure your web applications with minimal effort. To get started, you’ll need to create an OpenID Connect application in Okta. Sign up for a forever-free developer account (or log in if you already have one).
+Dealing with user authentication in web apps is a huge pain for every developer. This is where Okta shines: it helps you secure your web applications with minimal effort. To get started, you'll need to create an OpenID Connect application in Okta. Sign up for a forever-free developer account (or log in if you already have one).
 
 {% img blog/rubyonrails6/image5.png alt:"Okta signup" width:"800" %}{: .center-image }
 
-Once you’ve logged in and land on the dashboard page, copy down the Org URL pictured below. You will need this later.
-On this main page find and copy your okta url. Copy and use for the value in your yml called OKTA_URL. Also for the value OKTA_ISSUER in your application.yml take your okta url and add /oauth2/default. The okta issuer should look something like `https://{yourOktaDomain}/oktaoauth2/default`.
+Once you've logged in and land on the dashboard page, copy down the Org URL pictured below. You will need this later.
+On this main page find and copy your okta url. Copy and use for the value in your yml called OKTA_URL. Also for the value OKTA_ISSUER in your application.yml take your okta url and add /oauth2/default. The okta issuer should look something like `https://{yourOktaDomain}/oauth2/default`.
 
 {% img blog/rubyonrails6/image6.png alt:"Okta org URL" width:"800" %}{: .center-image }
 
@@ -371,7 +371,7 @@ We are going to make sure it is read and write the profile master is Okta:
 
 {% img blog/rubyonrails6/image17.png alt:"Okta gemstone custom attribute form" width:"800" %}{: .center-image }
 
-All set! This is looking good. It’s time to try out your application and have fun!
+All set! This is looking good. It's time to try out your application and have fun!
 
 ## Final Result
 
