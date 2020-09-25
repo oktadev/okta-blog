@@ -60,7 +60,7 @@ It should look like this now:
 
 Now, hit save in your editor.
 
-Next, go to your terminal and do some Rails magic:
+Next, go to your terminal and do some Rails magic to install all your new gems, create a database for active record, install devise into your Rails app, and create a user model:
 
 ```sh
 bundle install
@@ -83,21 +83,34 @@ rails g controller pages home account
 rails g controller Sessions new create destroy
 ```
 
-Now, lets run the migrations in our db:
+Now, let's run the migrations in our db:
 
 ```sh
 rake db:migrate
 ```
 
-Next, lets create the Omniauth Controller:
+Next, let's create the Omniauth Controller:
 
 ```sh
-cd cd app/controllers
+cd app/controllers
 mkdir users
 touch users/omniauth_callbacks_controller.rb
 ```
 
-That's enough terminal commands for now. Time to add some code!  Go to the session controller, in controllers/sessions_controller.rb, and add replace with this code for a logout method:
+That's enough terminal commands for now. Time to add some code!  
+Add the Omniauth callback in the file controllers/users/omniauth_callbacks_controller.rb:
+
+```ruby
+class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+  def oktaoauth
+     @user = User.from_omniauth(request.env["omniauth.auth"])
+      session[:oktastate] = request.env["omniauth.auth"]["uid"]
+     redirect_to root_path
+  end
+end
+```
+
+Next, go to the session controller, in controllers/sessions_controller.rb, and add replace with this code for a logout method:
 
 ```ruby
 class SessionsController < ApplicationController
@@ -134,24 +147,12 @@ class PagesController < ApplicationController
 end
 ```
 
-Next, add the Omniauth callback in the file omniauth_callbacks_controller.rb:
-
-```ruby
-class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  def oktaoauth
-     @user = User.from_omniauth(request.env["omniauth.auth"])
-      session[:oktastate] = request.env["omniauth.auth"]["uid"]
-     redirect_to root_path
-  end
-end
-```
-
 Go to the models/users.rb file and add a method:
 
 ```ruby
 devise :omniauthable, omniauth_providers: [:oktaoauth]
   def self.from_omniauth(auth)
-    user = User.find_or_create_by(email: auth["info"]["email"]) do |user|
+    user = User.find_or_create_by(email: auth['info']['email']) do |user|
       user.provider = auth['provider']
       user.uid = auth['uid']
       user.email = auth['info']['email']
@@ -163,10 +164,19 @@ It should look something like this:
 
 {% img blog/rubyonrails6/image3.png alt:"Rails user.rb" width:"800" %}{: .center-image }
 
-In routes.rb to modify Devise routes, we have to make some adjustments as below:
+In routes.rb to replace your routes, we have to make some adjustments as below:
 
 ```ruby
-devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+Rails.application.routes.draw do
+  get 'sessions/new'
+  get 'sessions/create'
+  get 'sessions/destroy'
+  root 'pages#home'
+  get 'pages/account'
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+end
+
 ```
 
 Next, our Application Controller :
@@ -177,7 +187,7 @@ protect_from_forgery with: :exception
 
   def user_is_logged_in?
     if !session[:oktastate]
-      print("this is not logged in")
+      print("user is not logged in")
       redirect_to user_oktaoauth_omniauth_authorize_path
     end
   end
@@ -198,13 +208,12 @@ Next, let's edit some of our views. Go to pages views/pages/home.html.erb and ad
 ```ruby
 <h1>Pages#home</h1>
 <p>Find me in app/views/pages/home.html.erb</p>
-<%= link_to 'Sign in via Okta', user_oktaoauth_omniauth_authorize_path, method: :post %>
 <% if @current_user %>
 <h1><%=@current_user.email %></h1>
 <%= link_to "Edit your account", "/pages/account", class: "item" %>
 <%= link_to "logout", ENV['OKTA_URL'] + "/login/signout?fromURI=http://localhost:3000/sessions/destroy", class: "item" %>
-else
-<%= link_to "Sign In", sessions_new_path %>
+<% else %>
+<%= link_to 'Sign in via Okta', user_oktaoauth_omniauth_authorize_path, method: :post %>
 <% end %>
 ```
 
@@ -216,6 +225,15 @@ It's time to add the page that allows us to do CRUD operations. In this case, we
 
 ```ruby
 <%= javascript_pack_tag 'account_js' %>
+<% if @current_user %>
+<h1><%=@current_user.email %></h1>
+<%= link_to "home", :root, class: "item" %>
+<%= link_to "Edit your account", "/pages/account", class: "item" %>
+<%= link_to "logout", ENV['OKTA_URL'] + "/login/signout?fromURI=http://localhost:3000/sessions/destroy", class: "item" %>
+<% else %>
+<%= link_to 'Sign in via Okta', user_oktaoauth_omniauth_authorize_path, method: :post %>
+<% end %>
+
 <form id="accountForm">
      <h1>Your Favorite Gemstone </h1>
 
@@ -232,39 +250,43 @@ Go to javascript/packs and create a new file called **account_js.js**.  Make sur
 
 ```js
 document.addEventListener("DOMContentLoaded", async function () {
-  var response = await fetch(`${process.env.OKTA_URL}/api/v1/users/me`, {
-    credentials: "include",
-    method: "get",
-    headers: { "Content-Type": "application/json" }
-  });
-
-  var userdata = await response.json();
-  console.log(userdata.profile);
-  document.getElementById("gemname").value = userdata.profile.gemstone
-  var wordInput = document.getElementById("gemname");
-  var form_el = document.getElementById("accountForm");
-  form_el.addEventListener("submit", function (evt) {
-    evt.preventDefault();
-    submitData();
-  });
-
-  function submitData() {
-    console.log("do something with " + wordInput.value);
-    var body = {
-      profile: {
-        gemstone: wordInput.value,
-      },
-    };
-    fetch(`${process.env.OKTA_URL}/api/v1/users/me`, {
+    var response = await fetch(`${process.env.OKTA_URL}/api/v1/users/me`, {
       credentials: "include",
-      method: "post",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    }).then((response) => {
-      console.log(response);
+      method: "get",
+      headers: { "Content-Type": "application/json" }
     });
-  }
-});
+  
+    var userdata = await response.json();
+    console.log(userdata.profile);
+    document.getElementById("gemname").value = userdata.profile.gemstone
+    var wordInput = document.getElementById("gemname");
+    var form_el = document.getElementById("accountForm");
+    form_el.addEventListener("submit", function (evt) {
+      evt.preventDefault();
+      submitData();
+    });
+  
+    function submitData() {
+      console.log("do something with " + wordInput.value);
+      var body = {
+        profile: {
+          gemstone: wordInput.value,
+        },
+      };
+      fetch(`${process.env.OKTA_URL}/api/v1/users/me`, {
+        credentials: "include",
+        method: "post",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      }).then((response) => {
+        console.log(response);
+        if(response.status == 200) {
+          window.location.reload()
+        }
+      });
+    }
+  });
+
 ```
 
 Last but not least, we need to add initializers in `config/initializers/devise.rb`:
@@ -283,7 +305,7 @@ require 'omniauth-oktaoauth'
                 :strategy_class => OmniAuth::Strategies::Oktaoauth)
 ```
 
-Now, lets generate our application YAML:
+Okay it is time to generate our application YAML:
 
 ```sh
 bundle exec figaro install
@@ -310,14 +332,14 @@ OKTA_REDIRECT_URI: "http://localhost:3000/users/auth/oktaoauth/callback"
 
 ## Setup Okta as your Rails App External Auth Provider
 
-Next, let's go into Okta to get our information.(totally stole this from another blog)
+Next, let's go into Okta to get our information.
 
 Dealing with user authentication in web apps is a huge pain for every developer. This is where Okta shines: it helps you secure your web applications with minimal effort. To get started, you'll need to create an OpenID Connect application in Okta. Sign up for a forever-free developer account (or log in if you already have one).
 
 {% img blog/rubyonrails6/image5.png alt:"Okta signup" width:"800" %}{: .center-image }
 
 Once you've logged in and land on the dashboard page, copy down the Org URL pictured below. You will need this later.
-On this main page find and copy your okta url. Copy and use for the value in your yml called OKTA_URL. Also for the value OKTA_ISSUER in your application.yml take your okta url and add /oauth2/default. The okta issuer should look something like `https://{yourOktaDomain}/oauth2/default`.
+On this main page find and copy your okta url.  Copy and use for the value in your yml called OKTA_URL.  Also for the value OKTA_ISSUER in your application.yml take your okta url and add /oauth2/default. The okta issuer should look something like `https://{your org}.{your domain of okta or oktapreview}.com/oauth2/{your Oauth Server Id which can be a GUID or "default"}`.  An example would be like "https://my-cool-company.okta.com/oauth2/default", where "my-cool-company" is the Org, "okta" is the domain, and "default" is the server Id.
 
 {% img blog/rubyonrails6/image6.png alt:"Okta org URL" width:"800" %}{: .center-image }
 
@@ -331,9 +353,9 @@ Next, click the Web platform option (since our blog project is a web app).
 
 On the settings page, enter the following values:
 
-- Name: Rails 6
-- Base URIs: `http://localhost:3000`
-- Login redirect URIs: `http://localhost:3000/users/auth/oktaoauth/callback`
+Name: Rails 6
+Base URIs: `http://localhost:3000`
+Login redirect URIs: `http://localhost:3000/users/auth/oktaoauth/callback`
 
 After this is done, you should have something like this:
 
@@ -347,7 +369,7 @@ On the next page, find your client ID and Sec, and copy that to your rails appli
 
 {% img blog/rubyonrails6/image11.png alt:"Okta client ID and secret" width:"500" %}{: .center-image }
 
-The last thing is to add the custom attribute of gemstone. In Okta go to User/Directory > Profile Editor:
+Finally, our application user's profile actually needs a custom value. Since Okta is an extensible Identity provider let's extend it to add the custom attribute of "gemstone". In your Okta dashboard, go to User/Directory > Profile Editor:
 
 {% img blog/rubyonrails6/image12.png alt:"Okta profile editor" width:"800" %}{: .center-image }
 
@@ -367,15 +389,31 @@ Next, find your custom attribute and click the pencil button next to it:
 
 {% img blog/rubyonrails6/image16.png alt:"Okta gemstone custom attribute" width:"800" %}{: .center-image }
 
-We are going to make sure it is read and write the profile master is Okta:
+We need to make sure our users can edit it, so we are going to give the attribute the "read and write permission" in the Okta Profile Editor:
 
 {% img blog/rubyonrails6/image17.png alt:"Okta gemstone custom attribute form" width:"800" %}{: .center-image }
 
-All set! This is looking good. It's time to try out your application and have fun!
+All set! This is looking good. It's time to try out your application and have fun!  Go to the console and run:
+
+```sh
+rails s
+```
 
 ## Final Result
 
-You can get the [full source code of the project from GitHub](https://github.com/oktadeveloper/okta-efcore-pii-sample-dotnetcore).
+Your result should look something like the images below.
+
+{% img blog/rubyonrails6/image18.png alt:"Final localhost" width:"800" %}{: .center-image }
+
+{% img blog/rubyonrails6/image19.png alt:"Final Okta login" width:"800" %}{: .center-image }
+
+{% img blog/rubyonrails6/image20.png alt:"Final logged in user" width:"800" %}{: .center-image }
+
+{% img blog/rubyonrails6/image21.png alt:"Final logged in favorite gemstone" width:"800" %}{: .center-image }
+
+You can get the [full source code of the project from GitHub](https://github.com/oktadeveloper/okta-ruby-rails6-crud-sample).
+
+Happy coding!
 
 ## Learn More About Ruby on Rails and OAuth
 
