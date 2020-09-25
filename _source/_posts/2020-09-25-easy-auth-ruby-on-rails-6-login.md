@@ -317,7 +317,7 @@ Dealing with user authentication in web apps is a huge pain for every developer.
 {% img blog/rubyonrails6/image5.png alt:"Okta signup" width:"800" %}{: .center-image }
 
 Once you’ve logged in and land on the dashboard page, copy down the Org URL pictured below. You will need this later.
-On this main page find and copy your okta url. Copy and use for the value in your yml called OKTA_URL. Also for the value OKTA_ISSUER in your application.yml take your okta url and add /oauth2/default. The okta issuer should look something like `https://{yourdomain}.oktaoauth2/default`.
+On this main page find and copy your okta url. Copy and use for the value in your yml called OKTA_URL. Also for the value OKTA_ISSUER in your application.yml take your okta url and add /oauth2/default. The okta issuer should look something like `https://{yourOktaDomain}/oktaoauth2/default`.
 
 {% img blog/rubyonrails6/image6.png alt:"Okta org URL" width:"800" %}{: .center-image }
 
