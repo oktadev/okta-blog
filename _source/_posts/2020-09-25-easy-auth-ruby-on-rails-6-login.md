@@ -110,7 +110,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 end
 ```
 
-Next, go to the session controller, in controllers/sessions_controller.rb, and add replace with this code for a logout method:
+Next, go to the session controller, in controllers/sessions_controller.rb, and replace with this code for a logout method:
 
 ```ruby
 class SessionsController < ApplicationController
