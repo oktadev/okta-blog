@@ -167,7 +167,7 @@ As an example, for an ASP.NET Core (including pre 3.1 versions), the code to be 
 
 - An extension method for the Service Collection (ConfigureNonBreakingSameSiteCookies in the following snippet)
 
-```C#
+```csharp
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 
@@ -307,7 +307,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
 - The inclusion of a couple of required calls in the Startup code:
 
-```C#
+```csharp
 public void ConfigureServices(IServiceCollection services)
 {
    // Add this
