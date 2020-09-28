@@ -478,4 +478,4 @@ If you'd like to learn more about ASP.NET Core, check out some of our other kill
 - [Decode JWTs in C# for Authorization](https://developer.okta.com/blog/2019/06/26/decode-jwt-in-csharp-for-authorization)
 - [Create a Blockchain Explorer in C#](https://developer.okta.com/blog/2019/08/13/create-a-blockchain-explorer-in-csharp)
 
-We are always posting new content. If you like this content, be sure to [follow us on Twitter](https://twitter.com/oktadev) and subscribe to [our YouTube Channel](https://youtube.com/c/oktadev).
+We are always posting new content. If you like this content, be sure to [follow us on Twitter](https://twitter.com/oktadev), subscribe to [our YouTube Channel](https://youtube.com/c/oktadev), and [follow us on Twitch](https://www.twitch.tv/oktadev).
