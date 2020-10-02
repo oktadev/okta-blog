@@ -184,7 +184,7 @@ Now, let's start building our PHP authorizer. We'll create a working folder to m
 
 ```bash
 cd ~
-git clone https://github.com/davefx/php-jwt-okta-lambda-auth-validator.git
+git clone https://github.com/oktadeveloper/php-jwt-okta-lambda-auth-validator.git
 cd php-jwt-okta-lambda-auth-validator
 cp ~/php-7-bin/bin/php ./bin
 ```
