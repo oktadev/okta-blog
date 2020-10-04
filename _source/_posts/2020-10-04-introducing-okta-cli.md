@@ -16,7 +16,7 @@ communities: [
     "devops"
 ]
 description: "Use the Okt CLI to get started in under 5 minutes!"
-tags: [security, oauth, oauth2, oidc, "openid connect"]
+tags: [security, oauth, oauth2, oidc, openid-connect]
 tweets:
 - ""
 - ""
