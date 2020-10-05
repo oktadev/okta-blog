@@ -7,10 +7,10 @@ communities: [php]
 description: ""
 tags: [php, aws, api-gateway, lambda]
 tweets:
-- ""
-- ""
-- ""
-image: blog/
+- "Learn how to validate JWTs in an #AWS #Lambda authorizer in PHP!"
+- "Protect your APIs using AWS API Gateway and a Lambda authorizer in PHP ➡"
+- "Validate your Okta access tokens in PHP using a Lambda authorizer 🔐"
+image: blog/featured/okta-php-headphones.jpg
 type: conversion
 ---
 
