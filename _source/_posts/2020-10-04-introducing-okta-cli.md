@@ -18,10 +18,10 @@ communities: [
 description: "Use the Okt CLI to get started in under 5 minutes!"
 tags: [security, oauth, oauth2, oidc, openid-connect]
 tweets:
-- ""
-- ""
-- ""
-image: "blog/"
+- "Add an Okta integration for your custom app in less than 5 minutes with the Okta CLI"
+- "Do you spend your day on the command line? The Okta CLI is for you!"
+- "Name your language and framework. The Okta CLI will get you going in 5 minutes or less!"
+image: "blog/featured/okta-java-short-tile-books-mouse.jpg"
 type: conversion
 ---
 
@@ -227,11 +227,78 @@ You're asked to enter your Org URL and an API token. This information is then st
 
 ### Configuring Your Existing Application
 
-_need to fill this in_
+Let's say you have a Spring Boot Project you've been working on. You could easily integrate Okta into your project by doing the following:
+
+1. Add the Okta Spring Boot integration to your project's `pom.xml` file:
+
+```xml
+<dependency>
+    <groupId>com.okta.spring</groupId>
+    <artifactId>okta-spring-boot-starter</artifactId>
+    <version>1.4.0</version>
+</dependency>
+```
+
+2. Put some placeholders in `src/main/resources/application.properties`:
+
+```properties
+okta.oauth2.issuer=${CLI_OKTA_ISSUER}
+okta.oauth2.client-id=${CLI_OKTA_CLIENT_ID}
+okta.oauth2.client-secret=${CLI_OKTA_CLIENT_SECRET}
+```
+
+3. Create a metadata file in your project at: `.okta/sample-config.yaml`:
+
+```yaml
+oauthClient:
+  redirectUris:
+    - http://localhost:8080/login/oauth2/code/okta
+  applicationType: web
+```
+
+4. Run `okta start`:
+
+```bash
+Configuring a new OIDC Application, almost done:
+Created OIDC application, client-id: 0oa6mv2tHQ1IPbG2r5d5
+```
+
+You can see that the placeholders in your `src/main/resources/application.properties` file have been replaced:
+
+```bash
+cat src/main/resources/application.properties
+
+okta.oauth2.issuer=https://dev-159750.okta.com/oauth2/default
+okta.oauth2.client-id=0oa6mv2tHQ1IPbG2r5d5
+okta.oauth2.client-secret=tgIdHYX4EvRUlt0HnuRV-y_9qlr9C1IM4C9Z-g17
+```
+
+At this point, you could fire up your app as normal and have it fully integrated with Okta for authentication:
+
+```bash
+./mvnw spring-boot:run
+```
+
+The important bits to set up a project for use with the Okta CLI are:
+
+1. Add the `OKTA_CLI_` placeholder values to the configuration files that make sense for your language and framework
+2. Add the `.okta/sample-config.yaml` file with the right application type for your language and framework
+3. Run `okta start` to provision and Okta app and update all the placeholders in your config file(s).
+
+> The easiest way to see what configuration you need for your language and framework is to visit the official samples found in the [okta-samples](https://github.com/okta-samples) GitHub org.
+
+Currently, the available placeholder values are:
+
+| Placeholder            | Description                                                                                              |
+|------------------------|----------------------------------------------------------------------------------------------------------|
+| CLI_OKTA_ORG_URL       | The base URL to your Okta Org                                                                            |
+| CLI_OKTA_ISSUER        | The URL to your Okta OAuth 2.0 [Authorization Server](https://developer.okta.com/docs/concepts/auth-servers/) |
+| CLI_OKTA_CLIENT_ID     | The client id set by Okta for [web](https://developer.okta.com/docs/guides/implement-auth-code/overview/), [native](https://developer.okta.com/docs/guides/implement-auth-code-pkce/overview/), [browser](https://developer.okta.com/docs/guides/implement-auth-code-pkce/overview/) and [service](https://developer.okta.com/docs/guides/implement-client-creds/overview/) type apps                                 |
+| CLI_OKTA_CLIENT_SECRET | The client secret set by Okta for [web](https://developer.okta.com/docs/guides/implement-auth-code/overview/) and [service](https://developer.okta.com/docs/guides/implement-client-creds/overview/) type apps                                              |
 
 ## Adding Samples for Okta CLI
 
-It's [Hacktoberfest]() and we'd love your contributions! If you want to setup a new sample, create a new repo that has the naming convention: `okta-<language and or framework name>-sample`. Ideally, it'd be a language and framework that we don't already have. But, if you want to submit a variation on an existing sample, we'd accept that too - just give it a unique name.
+It's [Hacktoberfest](https://hacktoberfest.digitalocean.com/) and we'd love your contributions! If you want to setup a new sample, create a new repo that has the naming convention: `okta-<language and or framework name>-sample`. Ideally, it'd be a language and framework that we don't already have. But, if you want to submit a variation on an existing sample, we'd accept that too - just give it a unique name.
 
 Since Hacktoberfest runs off merged pull requests, we'll create the sample in the [okta-samples](https://github.com/okta-samples) GitHub org. You can then put up a pull request to it.
 
@@ -241,8 +308,12 @@ I hope you enjoyed this little tour of the Okta CLI. Watch for new developer blo
 
 If you want to learn more about Okta, OAuth 2.0 and/or OpenID Connect, check out these posts:
 
-*
-*
-*
+* [API Access Management with Okta](https://developer.okta.com/docs/concepts/api-access-management/)
+* [What the Heck is OAuth?](/blog/2017/06/21/what-the-heck-is-oauth)
+* [Nobody Cares About OAuth or OpenID Connect](/blog/2019/01/23/nobody-cares-about-oauth-or-openid-connect)
+* [Implement the OAuth 2.0 Authorization Code with PKCE Flow](/blog/2019/08/22/okta-authjs-pkce)
+* [What is the OAuth 2.0 Grant Type?](/blog/2018/06/29/what-is-the-oauth2-password-grant)
+* [OAuth 2.0 From the Command Line](/blog/2018/07/16/oauth-2-command-line)
+* [Build a Secure Node.js App with SQL Server](/blog/2019/03/11/node-sql-server)
 
 Follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube Channel](https://youtube.com/c/oktadev) so you never miss any of our awesome content!
