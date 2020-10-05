@@ -4,7 +4,7 @@ title: "Validating Okta Access Tokens in PHP using AWS API Gateway and Lambda Au
 author: david-marin
 by: contractor
 communities: [php]
-description: ""
+description: "In this post we'll cover how you can use Okta as the authentication and authorization layer of your REST API hosted in AWS Lambda, validating Okta access tokens using a Lambda authorizer function implemented in PHP."
 tags: [php, aws, api-gateway, lambda]
 tweets:
 - "Learn how to validate JWTs in an #AWS #Lambda authorizer in PHP!"
