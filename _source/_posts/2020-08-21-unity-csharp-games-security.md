@@ -174,8 +174,10 @@ public async void Login()
 
    var authnOptions = new AuthenticateOptions()
    {
-      Username = Username.text.ToString(),
-      Password = Password.text.ToString(),
+         //Explicitly passing UserAgent with the client OS description. Passing UserAgent explicitly is required for Mac/iOS/Android but not for Windows.
+         UserAgent = System.Runtime.InteropServices.RuntimeInformation.OSDescription,
+         Username = Username.text.ToString(),
+         Password = Password.text.ToString(),
    };
 
    try
@@ -200,7 +202,7 @@ public async void Login()
    catch (System.Exception ex)
     {
       Debug.Log(ex.Message);
-     }
+    }
  }
 ```
 
