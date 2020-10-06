@@ -4,7 +4,7 @@ title: "Use the Okta CLI to Quickly Build Secure Angular Apps"
 author: matt-raible
 by: advocate
 communities: [javascript]
-description: "This 2 minute video shows you how to use the Okta CLI to make secure Angular apps possible in minutes."
+description: "This 2-minute video shows you how to use the Okta CLI to make secure Angular apps possible in minutes."
 tags: [javascript, angular, typescript, authentication]
 tweets:
 - "Want to learn how to create a secure @angular in minutes? @mraible has a screencast for that!"
@@ -29,7 +29,7 @@ For those that would rather read than watch, please read on.
 
 == Install the Okta CLI
 
-You can find the website for the Okta CLI at https://cli.okta.com/[cli.okta.com]. This site has instructions for how to use common package managers on MacOS, Windows, and Linux. You can also use cURL:
+You can find the website for the Okta CLI at https://cli.okta.com/[cli.okta.com]. This site has instructions on how to use common package managers on macOS, Windows, and Linux. You can also use cURL:
 
 [source,shell]
 ----
@@ -106,4 +106,3 @@ If you like Angular and Okta, you might like these posts:
 - 📺 https://www.youtube.com/watch?v=BKepFaIwCvo&list=PLshTZo9V1-aE4lo3ByFQWex5b-QXeyX-P[OktaDev Angular Playlist on YouTube]
 
 Be sure to follow us **@oktadev** on https://twitter.com/oktadev[Twitter], https://youtube.com/oktadev[YouTube] and https://www.twitch.tv/oktadev[Twitch]. We're accustomed to publishing fantastic content!
-
