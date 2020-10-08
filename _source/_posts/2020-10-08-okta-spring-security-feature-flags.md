@@ -269,7 +269,7 @@ Click **Add Rule** in the **Set Targeting Rules** section. Here, we want to have
 
 {% img blog/okta-split-spring-security/split-targetting-rules.png alt:"split targetting rules" width:"600" %}
 
-This now makes it read like an english sentence: "If the user has an attribute called groups and the groups list contains the value BETA_TESTER, then serve ‘on' for the treatment"
+This now makes it read like an english sentence: "If the user has an attribute called groups and the groups list contains the value BETA_TESTER, then serve 'on' for the treatment"
 
 Click **Save Changes**
 
