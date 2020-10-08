@@ -251,11 +251,11 @@ Getting setup with a free developer account for Split is as easy as 1, 2, 3:
 
 Treatments allow you to define settings and behaviors for what you want to test. For my example, we want to setup a treatment that will return **on** or **off** depending on whether or not you are part of the beta tester group.
 
-To start, click **DE** in the upper left. Choose **Admin Settings** and **API Keys**. Copy the value for **sdk** Type in the **prod-default** Environment. You’ll need this in the Spring Boot app shortly.
+To start, click **DE** in the upper left. Choose **Admin Settings** and **API Keys**. Copy the value for **sdk** Type in the **prod-default** Environment. You'll need this in the Spring Boot app shortly.
 
 {% img blog/okta-split-spring-security/split-api-key.png alt:"split api key" width:"600" %}
 
-> NOTE: If you’re new to using Split and/or on the free tier, the button in the upper left will say `DE` for **default**. If you’ve set up multiple workspaces, then the button will be labeled with the first two letters of the workspace name.
+> NOTE: If you're new to using Split and/or on the free tier, the button in the upper left will say `DE` for **default**. If you've set up multiple workspaces, then the button will be labeled with the first two letters of the workspace name.
 
 Next, Click **Splits** on the left-hand side and click **Create Split**. Give it a **Name**. Leave the other defaults and click **Create**.
 
@@ -269,7 +269,7 @@ Click **Add Rule** in the **Set Targeting Rules** section. Here, we want to have
 
 {% img blog/okta-split-spring-security/split-targetting-rules.png alt:"split targetting rules" width:"600" %}
 
-This now makes it read like an english sentence: “If the user has an attribute called groups and the groups list contains the value BETA_TESTER, then serve ‘on’ for the treatment”
+This now makes it read like an english sentence: "If the user has an attribute called groups and the groups list contains the value BETA_TESTER, then serve ‘on' for the treatment"
 
 Click **Save Changes**
 
@@ -291,7 +291,7 @@ Edit the `pom.xml` file in the project. Add the following dependency:
 
 This brings the Split Java SDK into scope for the project.
 
-Next, add a configuration to the project to make the Split Java Client available to the application. Here’s `SplitConfig.java`:
+Next, add a configuration to the project to make the Split Java Client available to the application. Here's `SplitConfig.java`:
 
 ```java
 @Configuration
@@ -323,7 +323,7 @@ split:
   api-key: <your Split API Key>
 ```
 
-> Notice that it’s using the `@Value` annotation to pull in the Split API Key from the environment. This is a best practice. You should never hardcode an API Key into an application nor commit it in a git repo. In this case, `application.yml` is listed in the `.gitignore` file to ensure it’s not added to the git repo.
+> Notice that it's using the `@Value` annotation to pull in the Split API Key from the environment. This is a best practice. You should never hardcode an API Key into an application nor commit it in a git repo. In this case, `application.yml` is listed in the `.gitignore` file to ensure it's not added to the git repo.
 
 This is the key line that sets up the Split Client for use elsewhere in the code:
 
@@ -331,7 +331,7 @@ This is the key line that sets up the Split Client for use elsewhere in the code
 SplitFactory splitFactory = SplitFactoryBuilder.build(splitApiKey, config);
 ```
 
-Let’s set up a new template called `home-beta.html` (It’s mostly copypasta from the original template and should be located in: `src/main/resources/templates`):
+Let's set up a new template called `home-beta.html` (It's mostly copypasta from the original template and should be located in: `src/main/resources/templates`):
 
 ```html
 <html xmlns:th="http://www.w3.org/1999/xhtml">
@@ -351,7 +351,7 @@ Let’s set up a new template called `home-beta.html` (It’s mostly copypasta f
 </html>
 ```
 
-The last piece of the puzzle is in the `HomeController`. I want to have the app render the new `home-beta` template if the authenticated user is in the `BETA_TESTER` group. Here’s the updated controller:
+The last piece of the puzzle is in the `HomeController`. I want to have the app render the new `home-beta` template if the authenticated user is in the `BETA_TESTER` group. Here's the updated controller:
 
 ```java
 @Controller
@@ -386,7 +386,7 @@ The first thing to notice is that I am injecting the `SplitClient` using constru
 
 The real magic happens with the `splitClient.getTreatment` call. The first parameter is the username provided by Spring Security for the authenticated user.
 
-> Note that in much of the Split documentation, this first parameter is referred to as a `key`. Don’t confuse this with the API Key, which should NEVER be used as the first parameter to the `getTreatment` call.
+> Note that in much of the Split documentation, this first parameter is referred to as a `key`. Don't confuse this with the API Key, which should NEVER be used as the first parameter to the `getTreatment` call.
 
 The second parameter is the name of the treatment in Split that we want to target.
 
@@ -410,9 +410,9 @@ Pretty cool, eh?
 
 ### How to Repeat the Beta / Release Cycle
 
-With this architecture in place, it’s now very easy to set up a new beta cycle. The steps would be something like this:
+With this architecture in place, it's now very easy to set up a new beta cycle. The steps would be something like this:
 
-1. Copy the `home-beta.html` template to `home.html` (now that it’s ready for production)
+1. Copy the `home-beta.html` template to `home.html` (now that it's ready for production)
 2. Create a new `home-beta.html` template
 3. Set the default rule back to **off** in Split
 4. Redeploy the app
@@ -424,11 +424,11 @@ You could do this over and over again and never touch the controller code. The o
 
 This approach also lends itself to changing who is in your beta test program without having to change your code.
 
-In a real application, you’d be working with a database or an Identity Management system where you could add and remove users from the **BETA_TESTER** group. With Okta, you can easily manage who belongs to the group from the admin console or via the Okta Management API. Those users would always see the latest and greatest beta while ordinary users would see only the current release.
+In a real application, you'd be working with a database or an Identity Management system where you could add and remove users from the **BETA_TESTER** group. With Okta, you can easily manage who belongs to the group from the admin console or via the Okta Management API. Those users would always see the latest and greatest beta while ordinary users would see only the current release.
 
 ## Learn More About Building Secure Applications
 
-I hope you’ve seen how useful it can be to set up different experiences for different users using Okta, Split and the native functionality built into Spring Security.
+I hope you've seen how useful it can be to set up different experiences for different users using Okta, Split and the native functionality built into Spring Security.
 
 To continue learning about authentication, authorization and feature flags and experimentation, check out these links:
 
