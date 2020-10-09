@@ -26,7 +26,7 @@ In this post, I start with setting up an Okta org and configuring an OpenID Conn
 
 ## Get Started with Okta
 
-OpenID Connect (OIDC) rides on top of OAuth 2.0 for a modern Single Sign-on, authentication and authorization standard. Okta provides these standards as a service. Don't know anything about these standards yet? Good news - You don't have to! By following some simple instructions to provision and Okta org and setup a hosted instance of OIDC, you can easily integrate a Spring Boot app with just configuration. Let's get started with 3 easy steps:
+OpenID Connect (OIDC) rides on top of OAuth 2.0 for a modern Single Sign-on, authentication and authorization standard. Okta provides these standards as a service. Don't know anything about these standards yet? Good news - You don't have to! By following some simple instructions to provision an Okta org and setup a hosted instance of OIDC, you can easily integrate a Spring Boot app with just configuration. Let's get started with 3 easy steps:
 
 > If you're interested in learning more about OIDC and OAuth 2.0, [here](https://developer.okta.com/blog/2017/07/25/oidc-primer-part-1) and [here](https://oauth.com) are good places to start. Look for more links to posts on OIDC and OAuth 2.0 at the end of this post.
 
@@ -44,7 +44,7 @@ Click **Users** on the menu bar at the top. Here, you'll see the user already cr
 
 Click **Add Person**. This will bring you to the input form for adding a new user:
 
-{% img blog/okta-split-spring-security/new-user.png alt:"New User" width:"600" %}{
+{% img blog/okta-split-spring-security/new-user.png alt:"New User" width:"600" %}
 
 Change the **Password** field to **Set by admin** and uncheck **User must change password on first login**. Create the following users by filling out the form and clicking on **Save and Add Another** for each:
 
