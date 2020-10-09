@@ -241,7 +241,7 @@ Best of all, you could repeat this process, creating new beta experiences to be 
 
 Getting setup with a free developer account for Split is as easy as 1, 2, 3:
 
-1. Go to: https://split.io, click: Free Account
+1. Go to: <https://split.io>, click: Free Account
 2. Fill out the registration form and click: SIGN UP
 3. Follow the link you receive in email and set a password.
 
