@@ -55,7 +55,7 @@ OKTA_AUDIENCE='api://default'
 PORT=3000
 ```
 
-Replace `{yourClientId}` with the **Client ID** from your Okta application’s settings page. Replace `{yourOktaOrgUrl}` with your Okta organization URL. This can be found on your Okta Developer Dashboard with the label **Org URL**.
+Replace `{yourClientId}` with the **Client ID** from your Okta application's settings page. Replace `{yourOktaOrgUrl}` with your Okta organization URL. This can be found on your Okta Developer Dashboard with the label **Org URL**.
 
 To provide data to the client you will need data on your server. For this, add a new file called `sample-data.json` and add the following.
 
@@ -99,7 +99,7 @@ To provide data to the client you will need data on your server. For this, add a
 }
 ```
 
-There’s nothing special about this data, but it gives you something to work with.
+There's nothing special about this data, but it gives you something to work with.
 
 Next, add a file called `server.js`. The code for this file follows.
 
