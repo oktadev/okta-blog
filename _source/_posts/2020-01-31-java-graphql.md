@@ -20,6 +20,11 @@ GraphQL was developed by Facebook to overcome the shortcomings they found with R
 
 In this tutorial, I'll show you how to use Java and Spring Boot to build a GraphQL API. I'll also show how to test your GraphQL API using Java's most popular testing library: JUnit 5.
 
+If you'd prefer to watch a video, you can [watch this tutorial as a screencast](https://youtu.be/y_OjfgZa58k).
+<div style="text-align: center; margin-bottom: 1.25rem">
+<iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/y_OjfgZa58k" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
 ## Create a GraphQL API with Java and Spring Boot
 
 Let's start with an initialized app by going to [Spring Initializr](https://start.spring.io/) and defining your app data as follows:
@@ -365,10 +370,16 @@ Okta offers a very handy Maven plugin to set up your app's security quickly and 
 Then run the Okta Maven plugin from your app's folder:
 
 ```shell
-./mvnw com.okta:okta-maven-plugin:setup
+./mvnw com.okta:okta-maven-plugin:register
 ```
 
-Answer a few questions (name, email, and company), and it will generate a new Okta account, register a new OIDC application, and add the correct properties into your `application.properties` file.
+Answer a few questions (name, email, and company), and it will generate a new Okta developer account for you.
+
+Run the following command to register a new OIDC application, and add the correct properties into your `application.properties` file.
+
+```shell
+./mvnw com.okta:okta-maven-plugin:spring-boot
+```
 
 If you start your app again, you'll notice that you can't run GraphQL queries anymore. That's because you're not authenticated.
 
