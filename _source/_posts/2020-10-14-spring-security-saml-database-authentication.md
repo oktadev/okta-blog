@@ -10,7 +10,7 @@ tweets:
 - "This quick tutorial shows how to develop a secure @SpringSecurity app and add authentication with SAML."
 - "Spring Security + SAML = ❤️!"
 - "Combine @SpringSecurity, @okta, SAML 2.0, and database authentication with Spring Boot!"
-image: blog/spring-security-saml-db-auth/
+image: blog/spring-security-saml-db-auth/spring-security-saml.png
 type: conversion
 ---
 
