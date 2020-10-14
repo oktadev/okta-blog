@@ -23,11 +23,11 @@ However, what if you want to combine both database and SAML authentication metho
 **Prerequisites**
 * [Java 11](https://adoptopenjdk.net)
 
+> **Acknowledgment**: Much of the groundwork for the implementation of SAML 2.0 authentication used in this project was developed by [Vincenzo De Notaris](https://github.com/vdenotaris) and can be found in [this project on GitHub](https://github.com/vdenotaris/spring-boot-security-saml-sample). For this project, some changes have been made to support dual DB + SAML authentication and use Okta as the SAML identity provider rather than SSOCircle.
+
 **Table of Contents**{: .hide }
 * Table of Contents
 {:toc}
-
-> **Acknowledgment**: Much of the groundwork for the implementation of SAML 2.0 authentication used in this project was developed by [Vincenzo De Notaris](https://github.com/vdenotaris) and can be found in [this project on GitHub](https://github.com/vdenotaris/spring-boot-security-saml-sample). For this project, some changes have been made to support dual DB + SAML authentication and use Okta as the SAML identity provider rather than SSOCircle.
 
 ## SAML Authentication with Spring Security
 
@@ -273,7 +273,7 @@ public class IndexController {
 
 Within `IndexController`, you are checking whether the username matches a particular pattern and redirecting accordingly.
 
-### Authenticating with SAML
+### Authenticate with SAML and Spring Security
 
 The `WebSecurityConfig` class, which extends the `WebSecurityConfigurerAdapter` parent, defines much of the security settings, including:
 
@@ -339,7 +339,7 @@ public class SamlResponseController {
 
 At this point, the user should be successfully authenticated with the app!
 
-### Authenticating with the Database
+### Authenticate with a Database and Spring Security
 
 If the username matches another pattern, the user is redirected to a standard-looking form login page:
 
