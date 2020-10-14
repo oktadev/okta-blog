@@ -47,13 +47,13 @@ In case you need to support legacy systems or because you have strange security 
 
 Please complete the following ten steps to see a working example.
 
-**Step 1:** Clone the [okta-spring-boot-saml-db-example repository](https://github.com/oktadeveloper/okta-spring-boot-saml-db-example):
+**Step 1:** Clone the [okta-spring-security-saml-db-example repository](https://github.com/oktadeveloper/okta-spring-security-saml-db-example):
 
 ```sh
-git clone https://github.com/oktadeveloper/okta-spring-boot-saml-db-example.git
+git clone https://github.com/oktadeveloper/okta-spring-security-saml-db-example.git
 ```
 
-**Step 2:** Sign up for a free developer account at <https://developer.okta.com/signup/>. This is required to create SAML 2.0 applications in Okta.
+**Step 2:** Sign up for a free developer account at <https://developer.okta.com/signup>. This is required to create SAML 2.0 applications in Okta.
 
 **Step 3:** Log in to your Okta account at `https://your-okta-domain.okta.com`. If you see a developer dashboard like the screenshot below, click on **Developer Console** in the top left, and select **Classic UI**.
 
@@ -154,10 +154,10 @@ It's nice to see everything working, but what about the code that makes it happe
 
 ## How to Combine Database and SAML Authentication in Spring Boot
 
-To get a better understanding of how DB and SAML auth are combined in this example, clone the [repository](https://github.com/oktadeveloper/okta-spring-boot-saml-db-example) for this tutorial if you have not already:
+To get a better understanding of how DB and SAML auth are combined in this example, clone the [repository](https://github.com/oktadeveloper/okta-spring-security-saml-db-example) for this tutorial if you have not already:
 
 ```sh
-git clone https://github.com/oktadeveloper/okta-spring-boot-saml-db-example.git
+git clone https://github.com/oktadeveloper/okta-spring-security-saml-db-example.git
 ```
 
 Open the project up in your favorite IDE or editor and take a look at the Maven POM file located at `/pom.xml`.
@@ -534,7 +534,7 @@ INSERT INTO user (ID, USERNAME, PASSWORD_HASH) VALUES
 
 Much of the complexity of this project comes from the need to combine both database and SAML authentication in one app. Normally you would choose one or the other. If you want to use only SAML for authentication (which is a fine idea, especially using Okta), visit [this blog post](/blog/2017/03/16/spring-boot-saml) using the standard Spring SAML DSL extension to integrate with Okta and SAML to secure your application.
 
-The source code used in this example is [on GitHub](https://github.com/oktadeveloper/okta-spring-boot-saml-db-example).
+The source code used in this example is [on GitHub](https://github.com/oktadeveloper/okta-spring-security-saml-db-example).
 
 See a good primer on how SAML works here: [What is SAML and How Does it Work?](https://www.varonis.com/blog/what-is-saml/)
 
