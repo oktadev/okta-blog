@@ -438,9 +438,9 @@ In this post, you've seen all the major new features released in Laravel 8. Many
 
 If you'd like to learn more about integrating Okta with your Laravel and PHP applications, be sure to check out some of these resources:
 
-- [Build a Simple Laravel App with Authentication](https://developer.okta.com/blog/2019/09/05/laravel-authentication)
-- [Protecting a PHP API Using OAuth](https://developer.okta.com/blog/2020/01/15/protecting-a-php-api-with-oauth)
-- [Create and Verify JWTs in PHP with OAuth 2.0](https://developer.okta.com/blog/2019/02/04/create-and-verify-jwts-in-php)
+- [Build a Simple Laravel App with Authentication](/blog/2019/09/05/laravel-authentication)
+- [Protecting a PHP API Using OAuth](/blog/2020/01/15/protecting-a-php-api-with-oauth)
+- [Create and Verify JWTs in PHP with OAuth 2.0](/blog/2019/02/04/create-and-verify-jwts-in-php)
 
 If you like this blog post and want to see more like it, follow [@oktadev on Twitter](https://twitter.com/oktadev), subscribe to [our YouTube channel](https://youtube.com/c/oktadev), or follow us [on LinkedIn](https://www.linkedin.com/company/oktadev/). As always, please leave a comment below if you have any questions.
 
