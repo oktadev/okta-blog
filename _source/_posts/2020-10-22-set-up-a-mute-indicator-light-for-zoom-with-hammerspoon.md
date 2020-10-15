@@ -56,7 +56,7 @@ The next thing that you'll need to do is install the unofficial Hammerspoon plug
 
 Spoons are installed into their own sub-directories in the `~/.hammerspoon/Spoons/` directory.
 
-The code for my unofficial Zoom Spoon is stored on GitHub, so we’ll be using `git` to install the Zoom Spoon for Hammerspoon.
+The code for my unofficial Zoom Spoon is stored on GitHub, so we'll be using `git` to install the Zoom Spoon for Hammerspoon.
 
 Start by making sure that you have a `Spoons` directory in your Hammerspoon configuration directory:
 
@@ -115,7 +115,7 @@ If the command returned `false` like in the image above, then open Zoom, start a
 {% img blog/zoom-hammerspoon/console-zoom-inmeeting.png alt:"Image of the Hammerspoon preferences window" width:"512px" %}{: .center-image }
 
 
-If this doesn’t work, it probably means that you need to give Hammerspoon permission to control your computer. To do this, open System Preferences, and go to **Security & Privacy**>**Privacy**" >**Accessibility**, unlock the preference pane to make changes, then select the checkbox next to "Hammerspoon" to allow Hammerspoon to inspect the state of Zoom.
+If this doesn't work, it probably means that you need to give Hammerspoon permission to control your computer. To do this, open System Preferences, and go to **Security & Privacy**>**Privacy**" >**Accessibility**, unlock the preference pane to make changes, then select the checkbox next to "Hammerspoon" to allow Hammerspoon to inspect the state of Zoom.
 
 {% img blog/zoom-hammerspoon/console-zoom-inmeeting.png alt:"Image of the Hammerspoon preferences window" width:"512px" em%}{: .center-image }
 
@@ -174,7 +174,7 @@ Now that we've gotten a menu icon to show the mute status for a Zoom meeting, le
 
 The light that I'm using is called a [blink(1)](https://blink1.thingm.com/) and is [available on Amazon for about ~$30](https://www.amazon.com/ThingM-Blink-USB-RGB-BLINK1MK3/dp/B07Q8944QK/). The nice thing about this light is that it doesn't require any special drivers to get working, you just plug it in and start using it.
 
-**Win a blink(1) USB LED light!** I’m raffling off three blink(1) USB LED lights. To enter the raffle follow [@oktadev](https://twitter.com/oktadev) on Twitter and then post a tweet mentioning this blog post. On October 15th, I will search for tweets that mention this blog post that were made by people who also follow @oktadev on Twitter. Of those people, I will select three people at random and give each one a blink(1) USB LED.
+**Win a blink(1) USB LED light!** I'm raffling off three blink(1) USB LED lights. To enter the raffle follow [@oktadev](https://twitter.com/oktadev) on Twitter and then post a tweet mentioning this blog post. On October 15th, I will search for tweets that mention this blog post that were made by people who also follow @oktadev on Twitter. Of those people, I will select three people at random and give each one a blink(1) USB LED.
 
 Now, there are many ways to interface with the blink(1) light, but my programming language of choice is Python, that's what I'm going to use in this post.
 
@@ -271,7 +271,7 @@ Try it all out by reloading Zoom and starting a meeting. If it's all set up corr
 
 If you are an employee of Zoom, I have a special message for you: I wish I could have made a mute indicator light without Hammerspoon.
 
-My ideal way to integrate with Zoom would be to configure it to call a command line application every time the state changed inside of Zoom. In this dream scenario, I imagine opening up the Zoom preferences and putting the path to an executable file into a field somewhere. From then on, Zoom would call that executable file passing the event over the command line. In essence, I’d like to turn the `updateZoomStatus` Lua function in my Hammerspoon configuration into a command line script.
+My ideal way to integrate with Zoom would be to configure it to call a command line application every time the state changed inside of Zoom. In this dream scenario, I imagine opening up the Zoom preferences and putting the path to an executable file into a field somewhere. From then on, Zoom would call that executable file passing the event over the command line. In essence, I'd like to turn the `updateZoomStatus` Lua function in my Hammerspoon configuration into a command line script.
 
 ## Did it work for you?
 
