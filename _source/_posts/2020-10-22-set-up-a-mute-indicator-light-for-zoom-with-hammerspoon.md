@@ -3,7 +3,7 @@ layout: blog_post
 title: "Setup a Mute Indicator Light for Zoom with Hammerspoon"
 author: joel-franusic
 by: advocate
-communities: [python, lua]
+communities: [python]
 description: "How to add a light to your computer that will show the status of Zoom"
 tags: [python]
 tweets:
