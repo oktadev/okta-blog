@@ -44,7 +44,9 @@ Next, secure the new application with OIDC/OAuth 2.0.
 
 If you already have an Okta account, see the **Create a Web Application in Okta** sidebar below. Otherwise, we created a Maven plugin that configures a free Okta developer account + an OIDC app (in under a minute!).
 
-To use it run: `./mvnw com.okta:okta-maven-plugin:setup` to create an account and configure your Spring Boot app to work with Okta.
+To use it run: `./mvnw com.okta:okta-maven-plugin:register` to create an Okta developer account.
+
+Once that's complete, run `./mvnw com.okta:okta-maven-plugin:spring-boot` to configure your Spring Boot app to work with Okta.
 
 .Create a Web Application in Okta
 ****

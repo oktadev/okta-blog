@@ -36,24 +36,23 @@ show_bottom_cta: true
 </section>
 
 <script>
+  // NOTE: The eventData object is being used by Google Tag Manager to fire off
+  // custom events that track which type of content was being viewed so we can
+  // track content on a more fine-grained level.
+  //
+  // This data is all anonymized (obviously) and contains no sensitive data.
   var eventData = {};
 
-  gtag('event', 'View', {'event_category': 'Article', 'event_label': 'developer'});
-  gtag('event', 'View', {'event_category': 'Article', 'event_label': '{{ post.author }}'});
-
   {% if post.type %}
-    gtag('event', 'View', {'event_category': 'Article', 'event_label': '{{ post.type }}'});
     eventData.type = '{{ post.type }}';
   {% endif %}
 
   {% if post.by %}
-    gtag('event', 'View', {'event_category': 'Article', 'event_label': '{{ post.by }}'});
     eventData.by = '{{ post.by }}';
   {% endif %}
 
   eventData.communities = [];
   {% for community in post.communities %}
-    gtag('event', 'View', {'event_category': 'Article', 'event_label': '{{ community }}'});
     eventData.communities.push('{{ community }}');
   {% endfor %}
 </script>

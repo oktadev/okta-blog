@@ -74,7 +74,7 @@ If you're using the command line, you'll have to use your browser to adjust the 
 Run the following command to add a sign-in feature to your Ionic + Capacitor app. 
 
 ```shell
-ng add @oktadev/schematics --platform=capacitor
+ng add @oktadev/schematics@2.2.0 --platform=capacitor
 ```
 
 Running this command will prompt you for an issuer and client ID. If you used your browser to create an app, the client ID is displayed on your screen. You can find the issuer in your Okta dashboard at **API** > **Authorization Servers**. It usually looks something like `https://dev-133337.okta.com/oauth2/default`.
