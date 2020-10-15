@@ -47,7 +47,7 @@ There's no need to reinvent the wheel!
 Open your terminal, and execute the following command:
 
 ```bash
-mvn com.okta:okta-maven-plugin:setup
+mvn com.okta:okta-maven-plugin:register
 ```
 
 You will be asked to input the following information:
@@ -57,9 +57,13 @@ You will be asked to input the following information:
 * Email
 * Company
 
-Once you've answered the questions, you'll receive an email to activate your brand new account. With the account activated, you're ready to go!
+Once you've answered the questions, you'll receive an email to activate your brand new account. After activating your account, run the following command:
 
-The Maven plugin creates an application for you with auth code flow and Spring Security's redirect URI for Okta.
+```bash
+mvn com.okta:okta-maven-plugin:spring-boot
+```
+
+This command creates an application for you with auth code flow and Spring Security's redirect URI for Okta.
 
 {% img blog/java-rest-api/okta-maven-app.png alt:"Okta Maven-generated application" width:"700" %}{: .center-image }
 
@@ -156,7 +160,7 @@ You're ready to start developing the application!
 Go to the directory you want to create your application in and execute the following command:
 
 ```bash
-mn create-app com.okta.rest.micronaut --build maven
+mn create-app com.okta.rest.app --build maven
 ```
 
 This command will create a project with the basic structure of a Micronaut project. Micronaut uses Gradle by default, but since you're using `--build maven`, it will use Maven instead.
@@ -228,7 +232,7 @@ You're also enabling the use of JSON web tokens, or JWTs. Since you want to read
 It's time to test your service! Start your application by executing the following command:
 
 ```bash
-./mvnw compile exec:exec
+./mvnw mn:run
 ```
 
 With your app running, execute the following command:
@@ -275,7 +279,7 @@ To develop your application using Quarkus you only need Maven installed, there a
 Let's start creating your app! Go to the directory you want to create it in and execute the following command:
 
 ```bash
-mvn io.quarkus:quarkus-maven-plugin:1.4.2.Final:create \
+mvn io.quarkus:quarkus-maven-plugin:1.8.1.Final:create \
     -DprojectGroupId=com.okta.rest \
     -DprojectArtifactId=quarkus \
     -DclassName="com.okta.rest.quarkus.HelloResource" \
@@ -479,23 +483,23 @@ Micronaut and Quarkus are growing in popularity and gaining momentum inside the 
 
 Performance is the most often highlighted comparison point between these three frameworks. If you're looking for fast startup in a serverless environment, or the ability to create native images with GraalVM, Micronaut and Quarkus will likely work well for you. Just for fun, the startup times for each of these apps are as follows (based on the average from three attempts):
 
-* Micronaut: 905ms
-* Quarkus: 1261ms
-* Spring Boot: 1433ms
+* Micronaut: 474ms
+* Quarkus: 1132ms
+* Spring Boot: 1014ms
 
 I got these numbers from running each framework's Maven goals for development.
 
-- Micronaut: `./mvnw compile exec:exec`
+- Micronaut: `./mvnw mn:run`
 - Quarkus: `./mvnw compile quarkus:dev`
 - Spring Boot: `./mvnw spring-boot:run`
 
 These commands aren't optimized for speed, so I packaged each application with `./mvnw package` and started them with `java -jar`.
 
-- Micronaut: 1020ms
-- Quarkus: 670ms
-- SpringBoot: 2200ms
+- Micronaut: 596ms
+- Quarkus: 658ms
+- Spring Boot: 1878ms
 
-**NOTE**: These numbers were calculated on a 2018 MacBook Pro with a 2.9 GHz 6-Core Intel Core i9 CPU and 32 GB of RAM. OpenJDK 11.0.5 was used with no `JAVA_OPTS` setting.
+**NOTE**: These numbers were calculated on a 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 CPU and 64 GB of RAM. OpenJDK 15 was used with no `JAVA_OPTS` setting.
 
 If you're looking for even faster startup times, you can use GraalVM. Rather than running timing tests myself, I looked at each project's documentation.
                                                                       
@@ -520,6 +524,8 @@ For more posts like this one, follow [@oktadev on Twitter](https://twitter.com/o
 <a name="changelog"></a>
 **Changelog:**
 
+* Sep 23, 2020: Upgraded to Micronaut 2.0.2, 
+Quarkus 1.8.1, and Spring Boot 2.3.4. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-java-rest-api-comparison-example/pull/7). Changes to this post can be viewed in [oktadeveloper/okta-blog#423](https://github.com/oktadeveloper/okta-blog/pull/423).
 * May 21, 2020: Added startup times for `java -jar` and running with GraalVM. Changes to this article can be viewed in [oktadeveloper/okta-blog#304](https://github.com/oktadeveloper/okta-blog/pull/304).
 * May 20, 2020: Upgraded to Micronaut 1.3.5, 
 Quarkus 1.4.2, and Spring Boot 2.3.0. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-java-rest-api-comparison-example/pull/5). Changes to this article can be viewed in [oktadeveloper/okta-blog#301](https://github.com/oktadeveloper/okta-blog/pull/301).

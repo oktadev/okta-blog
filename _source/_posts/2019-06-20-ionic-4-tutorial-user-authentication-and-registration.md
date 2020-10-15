@@ -112,12 +112,12 @@ Now that you have a client ID and issuer URI, you can install Angular CLI, and a
 
 ```shell
 npm i -g @angular/cli@7.3.9
-ng add @oktadev/schematics --issuer=$issuer --clientId=$clientId
+ng add @oktadev/schematics@0.7.1 --issuer=$issuer --clientId=$clientId
 ```
 
 The video below shows how this command performs the following steps:
 
-1. Adds and installs `@oktadev/schematics` as a dev dependency
+1. Adds and installs `@oktadev/schematics` as a dependency
 2. Adds [Ionic AppAuth](https://www.npmjs.com/package/ionic-appauth) as a dependency
 3. Adds [@ionic/storage](https://ionicframework.com/docs/building/storage) as a dependency
 4. Adds services, modules, and pages to `src/app/auth`
