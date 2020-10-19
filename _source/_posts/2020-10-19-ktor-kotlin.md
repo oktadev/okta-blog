@@ -109,9 +109,9 @@ Ktor has an implementation of OAuth Client—it just needs to be configured. It'
 ```hocon
 ...
 okta {
-  orgUrl = ${OKTA_ORGURL}
-  clientId = ${OKTA_CLIENT_ID}
-  clientSecret = ${OKTA_CLIENT_SECRET}
+    orgUrl = ${OKTA_ORGURL}
+    clientId = ${OKTA_CLIENT_ID}
+    clientSecret = ${OKTA_CLIENT_SECRET}
 }
 ```
  
@@ -318,7 +318,9 @@ If you intend to logout users from Okta, as well, you'll need to use something c
 // Perform logout by cleaning cookies and start RP-initiated logout
 get("/logout") {
     val idToken = call.session?.idToken
+
     call.sessions.clear<UserSession>()
+
     val redirectLogout = when (idToken) {
         null -> "/"
         else -> URLBuilder(oktaConfig.logoutUrl).run {
@@ -327,9 +329,11 @@ get("/logout") {
             buildString()
         }
     }
+
     call.respondRedirect(redirectLogout)
 }
 ```
+
 Restart your application and try to logout. Now the application behaves as you'd expect:
  
 {% img blog/ktor-kotlin/ktor-okta-oauth2-ip-initiated-logout.png alt:"Nano Blogging Service logout behavior as expected" width:"728" %}{: .center-image }
@@ -440,15 +444,19 @@ fun Application.module(testing: Boolean = false) {
             transform(SessionTransportTransformerEncrypt(secretEncryptKey, secretAuthKey))
         }
     }
+
     // Respond for HEAD verb
     install(AutoHeadResponse)
+
     // Load each request
     install(CallLogging) {
         level = Level.INFO
         filter { call -> call.request.path().startsWith("/") }
     }
+
     // Configure ktor to use OAuth and register relevant routes
     setupAuth()
+
     // Register application routes
     setupRoutes()
 }
@@ -484,9 +492,12 @@ fun Application.setupRoutes() = routing {
             ?: throw Exception("User must be logged in first")
         val text = call.receiveParameters()["text"]?.takeIf(String::isNotBlank)
             ?: throw Exception("Invalid request - text must be provided")
+
         blogRecords.insert(actor, text)
+
         call.respondRedirect("/")
     }
+
     get("/{username?}") {
         val username = call.parameters["username"]
         call.respondHtmlTemplate(MainTemplate(call.session?.username)) {
@@ -505,6 +516,7 @@ The page-rendering function, `feedPage()`, takes three parameters: page title, l
 ### Type-Safe Views with Kotlin
  
 Kotlin syntax empowers developers to create type-safe DSL. This Nano Blogging Service is using the `kotlinx.html` library, which provides HTML-like syntax for HTML-rendering. All the views are in the `src/views.kt` file.
+
 The primary and only template `MainTemplate` includes Bootstrap CSS library, renders the top navbar menu, and provides a basic layout for the frontend:
  
 ```kotlin
@@ -566,8 +578,8 @@ View blocks such as `feedBlock()`, `sendMessageForm()` and `feedPage()` are exte
  
 ```kotlin
 /**
-* Displays feed block only
-*/
+ * Displays feed block only
+ */
 fun FlowContent.feedBlock(feedItems: List<BlogRecord>) {
     feedItems.forEach { record ->
         div("entity card m-4") {
@@ -585,9 +597,10 @@ fun FlowContent.feedBlock(feedItems: List<BlogRecord>) {
         }
     }
 }
+
 /**
-* Renders send message form
-*/
+ * Renders send message form
+ */
 fun FlowContent.sendMessageForm() {
     form("/", encType = applicationXWwwFormUrlEncoded, method = post) {
         div("mb-3") {
@@ -595,6 +608,7 @@ fun FlowContent.sendMessageForm() {
                 input(classes = "form-control", name = "text") {
                     placeholder = "Your nano message"
                     required = true
+                    autoFocus = true
                 }
                 div("input-group-append") {
                     button(classes = "btn btn-success") { +"Send! 🚀" }
@@ -603,12 +617,14 @@ fun FlowContent.sendMessageForm() {
         }
     }
 }
+
 /**
-* Renders feed page with given title and records
-*/
+ * Renders feed page with given title and records
+ */
 fun FlowContent.feedPage(title: String, records: List<BlogRecord>, canPostMessage: Boolean) {
     if (canPostMessage)
         sendMessageForm()
+
     hr { }
     h2("text-center") { +title }
     feedBlock(records.sortedByDescending(BlogRecord::createdAt))
