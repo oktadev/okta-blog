@@ -1,0 +1,114 @@
+---
+layout: blog_post
+title: "Modern Java with IntelliJ IDEA"
+author: matt-raible
+by: advocate
+communities: [java]
+description: "Are you a Java developer that hasn't tried IntelliJ IDEA? Here's some reasons you might want to check it out."
+tags: [java, intellij, idea]
+tweets:
+- ""
+- ""
+- ""
+image:
+type: awareness
+---
+:toc: macro
+:page-liquid:
+:experimental:
+
+////
+Keywords: java intellij (5400)
+Title analyzer: https://user:APIH%40x0r@brentisarulebreaker.dev/
+- Modern Java with IntelliJ IDEA - 47
+- Modern Java Development with IntelliJ IDEA - 55
+- Why I Love Java + IntelliJ IDEA - 64
+- Why I Love IntelliJ IDEA for Java Development - 65
+////
+
+If you're a Java developer like me, you like to get shit done. I like a lot of things about IntelliJ IDEA, but I find the following ones make me most productive.
+
+toc::[]
+
+Disclaimer: as a Java Champion, I get a free license to IntelliJ. If I didn't my company would gladly pay for it.
+
+== Run Your Java Apps from IntelliJ IDEA
+
+Show how to run Spring Boot, Micronaut, and Quarkus from IntelliJ.
+
+Show how to set environment variables.
+
+Spring Dashboard for Spring Boot.
+
+New Project dialog:
+
+image::{% asset_path 'blog/java-intellij-idea/new-project.png' %}[alt=New Project Dialog,width=800,align=center]
+
+When I was a junior Java developer, I always wanted to use Ant or Maven to avoid vendor lock-in. In fact, I switched to IntelliJ in 2006 when I was migrating AppFuse from Ant to Maven. The Maven support for multiple modules was so much better than Eclipse's m2e, I switched.
+
+== Debug Your Java Apps
+
+Local and remote debugging.
+
+TIP: Include link or section on debugging JavaScript apps.
+
+== My Favorite Keyboard Shortcuts in IntelliJ IDEA
+
+|===
+|Shortcut |Purpose
+
+|kbd:[Cmd+Shift+N]
+|Find files
+
+|kbd:[Cmd+E] and (recently discovered) kbd:[Cmd+Shift+E]
+|Recent files and Recent locations
+
+|kbd:[Cmd+/] and kbd:[Cmd+Shift+/]
+|Comment/uncomment a line and multiline comments
+
+|kbd:[Option+Cmd+L]
+|Reformat code
+
+|kbd:[Option+Cmd+O]
+|Optimize imports
+|===
+
+NOTE: How cool are Asciidoctor's https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/#ui-macros[UI Macros] for keyboard shortcuts?!
+
+https://plugins.jetbrains.com/plugin/7345-presentation-assistant[Presentation Assistant] for showing commands during presentations (and learning Windows/Linux commands).
+
+https://www.shortcutfoo.com/[ShortcutFoo] to learn and practice shortcuts for your favorite IDEs.
+
+== Markdown and AsciiDoc support
+
+Plugins: https://intellij-asciidoc-plugin.ahus1.de/[IntelliJ AsciiDoc Plugin]
+
+Markdown support is bundled.
+
+== Live Templates
+
+An awesome way to pre-record code snippets for demos and increased productivity. Give Java example.
+
+== Web Framework Support
+
+Why? I'm a full-stack developer, and I love JHipster.
+
+- Angular, React, and Vue
+- HTML, CSS, and Sass support is excellent
+
+Lots of React plugins, but I haven't tried any.
+
+https://plugins.jetbrains.com/plugin/9442-vue-js[Vue.js plugin] is from JetBrains.
+
+Angular is bundled.
+
+== Learn More about Java
+
+- link:/blog/2020/01/09/java-rest-api-showdown[Java REST API Showdown: Which is the Best Framework on the Market?]
+- link:/blog/2019/12/20/five-tools-improve-java[Five Tools to Improve Your Java Code]
+- link:/blog/2019/07/15/java-myths-2019[10 Myths About Java in 2019]
+- link:/blog/2019/01/16/which-java-sdk[Which Java SDK Should You Use?]
+//- link:/blog/2019/10/30/java-oauth2[OAuth 2.0 Java Guide: Secure Your App in 5 Minutes]
+//- link:/blog/2019/05/23/java-microservices-spring-cloud-config[Java Microservices with Spring Cloud Config and JHipster]
+
+Follow us on { Twitter, Facebook, LinkedIn } and watch us stream on YouTube and Twitch.
