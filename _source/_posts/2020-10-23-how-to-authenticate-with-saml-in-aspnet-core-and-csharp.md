@@ -214,7 +214,7 @@ public async Task<IActionResult> Logout()
 }
 ```
 
-This route will be mapped to a logout button in your nav and it will delete the user’s session, logging them out. This is not a Single Log Out route, which could also be supported, that would also log the user out of the Identity Provider. Often it is not desired to log a user out of the Identity Provider when logging them out of the Service Provider, because the user may be using it for other applications.
+This route will be mapped to a logout button in your nav and it will delete the user's session, logging them out. This is not a Single Log Out route, which could also be supported, that would also log the user out of the Identity Provider. Often it is not desired to log a user out of the Identity Provider when logging them out of the Service Provider, because the user may be using it for other applications.
 
 In the Assertion Consumer Service route, there is a class called `ClaimsTransform`. This is a helper class that we need to implement to help parse the claims out of the SAML Response. Create a new file in the root directory of the project called `ClaimsTransform.cs`. Add the following:
 
@@ -395,7 +395,7 @@ Lastly, add your configuration settings to `appsettings.json`. This is where you
   },
 ```
  
-In this example, you are pulling your SAML settings from the IDP’s metadata. This is a great feature of SAML that allows you to pull a config from the source rather than having to copy each setting, and the signing certificate, into your code.
+In this example, you are pulling your SAML settings from the IDP's metadata. This is a great feature of SAML that allows you to pull a config from the source rather than having to copy each setting, and the signing certificate, into your code.
 
 ## Configure An IDP
 
@@ -425,7 +425,7 @@ You will be taken to the Sign On tab of the newly created app in Okta. Click the
 
 {% img blog/how-to-authenticate-with-saml-in-aspnet-core-and-csharp/Metadata.png alt:"Metadata" width:"800" %}{: .center-image }
 
-Last, you’ll need to make sure that your user is allowed to use this app in Okta. Click on the **Assignments** tab, click the **Assign** button, and click **Assign to People**.
+Last, you'll need to make sure that your user is allowed to use this app in Okta. Click on the **Assignments** tab, click the **Assign** button, and click **Assign to People**.
 
 Click the **Assign** button next to your user, and then click **Save and Go Back**.
 
@@ -473,9 +473,9 @@ You now have an, ASP .Net Core 3.1 web application functioning as a SAML Service
 
 If you'd like to learn more about ASP.NET Core, check out some of our other killer content:
 
-- [How to Master the Filestream in C#](https://developer.okta.com/blog/2020/04/29/master-filestream-in-csharp-aspnetcore)
-- [How I Learned to Love Default Implementations in C# 8.0](https://developer.okta.com/blog/2020/01/10/default-implementation-csharp)
-- [Decode JWTs in C# for Authorization](https://developer.okta.com/blog/2019/06/26/decode-jwt-in-csharp-for-authorization)
-- [Create a Blockchain Explorer in C#](https://developer.okta.com/blog/2019/08/13/create-a-blockchain-explorer-in-csharp)
+- [How to Master the Filestream in C#](/blog/2020/04/29/master-filestream-in-csharp-aspnetcore)
+- [How I Learned to Love Default Implementations in C# 8.0](/blog/2020/01/10/default-implementation-csharp)
+- [Decode JWTs in C# for Authorization](/blog/2019/06/26/decode-jwt-in-csharp-for-authorization)
+- [Create a Blockchain Explorer in C#](/blog/2019/08/13/create-a-blockchain-explorer-in-csharp)
 
 We are always posting new content. If you like this content, be sure to [follow us on Twitter](https://twitter.com/oktadev), subscribe to [our YouTube Channel](https://youtube.com/c/oktadev), and [follow us on Twitch](https://www.twitch.tv/oktadev).
