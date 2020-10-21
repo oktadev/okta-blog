@@ -57,13 +57,13 @@ npm i socket.io@2.3.0
 
 Pug will be the template engine for your views.  Pug is simple and easy to use.  Pug was previously known as Jade but has since rebranded so if you are familiar with Jade then you should have no trouble adapting.
 
-```
+```sh
 npm i pug@3.0.0
 ```
 
 Finally, dotenv will store sensitive environment variables to keep out of your repository.
 
-```
+```sh
 npm i dotenv@8.2.0
 ```
 
@@ -216,68 +216,68 @@ const sockets = require('./socket');
 
 const start = function (options) {
   return new Promise(function (resolve, reject) {
-	process.on('unhandledRejection', (reason, p) => {
-  	console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);
-	});
+    process.on('unhandledRejection', (reason, p) => {
+      console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);
+    });
 
-	if (!options.port) {
-  	reject(new Error('no port specified'));
-	}
+    if (!options.port) {
+      reject(new Error('no port specified'));
+    }
 
-	const app = express();
-	const http = require('http').createServer(app);
-	const io = require('socket.io')(http);
+    const app = express();
+    const http = require('http').createServer(app);
+    const io = require('socket.io')(http);
 
-	var rooms = [];
+    var rooms = [];
 
-	app.use(express.static('public'));
-	app.set('views', path.join(__dirname, '/public/views'));
-	app.set('view engine', 'pug');
+    app.use(express.static('public'));
+    app.set('views', path.join(__dirname, '/public/views'));
+    app.set('view engine', 'pug');
 
-	app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(bodyParser.urlencoded({ extended: false }));
 
-	app.use(function (error, request, response, next) {
-  	console.log(error);
-  	reject(new Error('something went wrong' + error));
-  	response.status(500).send('something went wrong');
-	});
+    app.use(function (error, request, response, next) {
+      console.log(error);
+      reject(new Error('something went wrong' + error));
+      response.status(500).send('something went wrong');
+    });
 
-	const oidc = new ExpressOIDC({
-  	issuer: process.env.OKTA_BASE_URL + '/oauth2/default',
-  	client_id: process.env.OKTA_CLIENT_ID,
-  	client_secret: process.env.OKTA_CLIENT_SECRET,
-  	appBaseUrl: process.env.APP_BASE_URL,
-  	scope: 'openid profile',
-  	routes: {
-    	login: {
-      	path: '/users/login',
-    	},
-    	callback: {
-      	path: '/authorization-code/callback',
-    	},
-    	loginCallback: {
-      	afterCallback: '/dashboard',
-    	},
-  	},
-	});
+    const oidc = new ExpressOIDC({
+      issuer: process.env.OKTA_BASE_URL + '/oauth2/default',
+      client_id: process.env.OKTA_CLIENT_ID,
+      client_secret: process.env.OKTA_CLIENT_SECRET,
+      appBaseUrl: process.env.APP_BASE_URL,
+      scope: 'openid profile',
+      routes: {
+        login: {
+          path: '/users/login',
+        },
+        callback: {
+          path: '/authorization-code/callback',
+        },
+        loginCallback: {
+          afterCallback: '/dashboard',
+        },
+      },
+    });
 
-	app.use(
-  	session({
-    	secret:
-      	'asd;skdvmfebvoswmvlkmes";lvmsdlfbvmsbvoibvms"dplvmdmaspviresmpvmrae";vm"psdemr',
-    	resave: true,
-    	saveUninitialized: false,
-  	})
-	);
+    app.use(
+      session({
+        secret:
+          'asd;skdvmfebvoswmvlkmes";lvmsdlfbvmsbvoibvms"dplvmdmaspviresmpvmrae";vm"psdemr',
+        resave: true,
+        saveUninitialized: false,
+      })
+    );
 
-	app.use(oidc.router);
+    app.use(oidc.router);
 
-	routes(app, { rooms: rooms });
-	sockets(io, rooms);
+    routes(app, { rooms: rooms });
+    sockets(io, rooms);
 
-	const server = http.listen(options.port, function () {
-  	resolve(server);
-	});
+    const server = http.listen(options.port, function () {
+      resolve(server);
+    });
   });
 };
 
@@ -288,7 +288,7 @@ The `server.js` file does most of the work for the server-side of the applicatio
 
 One last thing you want to do is add a file called `.env` and add the following code.
 
-```json
+```sg
 OKTA_BASE_URL={yourOktaDomain}
 OKTA_CLIENT_ID={yourClientId}
 OKTA_CLIENT_SECRET={yourClientSecret}
@@ -317,7 +317,7 @@ html(lang='en')
     script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js", integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o", crossorigin="anonymous")
     link(href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css", rel="stylesheet", integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T", crossorigin="anonymous")
     title #{title}
-  body    
+  body
     div.d-flex.flex-column.flex-md-row.align-items-center.p-3.px-md-4.mb-3.bg-white.border-bottom.box-shadow
       h5.my-0.mr-md-auto Broadcast Yourself
       nav.my-2.my-md-0.mr-md-3
@@ -351,8 +351,8 @@ block variables
 
 block content
 
-    p Hey there, in order to access this page, please 
-      a(href="/users/login") Login here.    
+    p Hey there, in order to access this page, please
+      a(href="/users/login") Login here.
 ```
 
 The home view extends the layout page you just created and delivers a message to the user that they must log in.
@@ -370,7 +370,7 @@ block content
     .col-lg-3
       h3 Broadcasters
       if rooms.length == 0
-        span there are no broadcasters online 
+        span there are no broadcasters online
       else
         ul
           each room, i in rooms
@@ -382,8 +382,8 @@ block content
         p.lead You can broadcast your own videos here.
         hr.my-4
         p.lead Give it a try
-        a(href="Broadcast") 
-          button.btn.btn-primary Start Broadcasting    
+        a(href="Broadcast")
+          button.btn.btn-primary Start Broadcasting
 ```
 
 Finally, you can add the `broadcaster.pug` and `viewer.pug` views.  First, add the following code to `broadcaster.pug`.
@@ -435,13 +435,12 @@ block content
         input#chat-message(type=text placeholder="enter a message").form-control
       .col-lg-2
         button#chat-button.btn.btn-primary Send
-    
 
   script(src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js")
   script(src="https://webrtc.github.io/adapter/adapter-latest.js")
   script(src="..\\js\\viewer.js")
   script.
-      viewer('!{room}', '!{JSON.stringify(user)}')     
+      viewer('!{room}', '!{JSON.stringify(user)}')
 ```
 
 Of course on this file, you are including `viewer.js` instead of `broadcaster.js`.  This view also includes a form for inputting the chat message and a button for sending it.  
@@ -630,4 +629,3 @@ If you liked this post, you might also like these other posts on Node and Expres
 - [Use TypeScript to Build a Node API with Express](https://developer.okta.com/blog/2018/11/15/node-express-typescript)
 
 Follow us for more great content and updates from our team! You can find us on [Twitter](https://twitter.com/oktadev), [Facebook](https://www.facebook.com/oktadevelopers), and subscribe to our [YouTube Channel](https://youtube.com/c/oktadev). Questions? Hit us up in the comments below.
-
