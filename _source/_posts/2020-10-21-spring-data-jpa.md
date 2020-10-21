@@ -574,13 +574,6 @@ code={yourAuthCode} \
 client_id={clientId} \
 client_secret={clientSecret} \
 redirect_uri=https://oidcdebugger.com/debug
-
-http -f https://dev-447850.okta.com/oauth2/default/v1/token \  
-grant_type=authorization_code \  
-code=d7bpyp2xCswjg1ZgkToVvzWC7i24EqEqJ8-NEamfKBI \  
-client_id=0oa168nw50nxJSSmg4x7 \  
-client_secret=UWMlb3Nj1nC6F5pDys3kpG3_HP-iU_nS6aUTmb1p \  
-redirect_uri=https://oidcdebugger.com/debug
 ```
 You should get JSON response that includes an access token and an ID token.
 
