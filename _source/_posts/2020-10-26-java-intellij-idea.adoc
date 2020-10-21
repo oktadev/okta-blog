@@ -246,7 +246,7 @@ Support for Angular is bundled, and there are lots of React plugins. I've never 
 
 == Learn More about Java and IntelliJ
 
-I've heard from many developers that they prefer to use Eclipse or NetBeans because it's free. If you were a carpenter, would you look around for free tools, or would you buy new fancy tools that make you a better carpenter? 😏
+I've heard from many developers that they prefer to use Eclipse or NetBeans because they're free. If you were a carpenter, would you look around for free tools, or would you buy new fancy tools that make you a better carpenter? 😏
 
 I hope you've enjoyed reading about why I love IntelliJ! If you're curious about IDEA's support for specific Java frameworks, see the following links. Note that these are all features of the Ultimate edition.
 
