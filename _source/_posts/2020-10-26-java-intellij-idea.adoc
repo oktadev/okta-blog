@@ -7,10 +7,10 @@ communities: [java]
 description: "Are you a Java developer that hasn't tried IntelliJ IDEA? Here are some reasons you might want to check it out."
 tags: [java, intellij, idea]
 tweets:
-- ""
-- ""
-- ""
-image:
+- "Why does @mraible love @intellijidea for @java development so much?"
+- "Java + IntelliJ IDEA = ❤️"
+- "Code, run apps, debug, write articles, and be productive with @java and @intellijidea!"
+image: blog/java-intellij-idea/intellij-love.png
 type: awareness
 ---
 :toc: macro
@@ -143,6 +143,32 @@ java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -jar p
 ----
 
 TIP: IntelliJ IDEA also supports https://www.jetbrains.com/help/idea/configuring-javascript-debugger.html[debugging JavaScript apps].
+
+== Run Your Java Tests from IntelliJ IDEA
+
+When I run tests from the command line with a Java build tool, I often run all the tests.
+
+[source,shell]
+----
+# Maven
+mvn test
+# Gradle
+gradle test
+----
+
+When a test fails, I know I can run it as an individual test by adding extra parameters to the command, but I prefer to iterate on tests in IDEA.
+
+IntelliJ has excellent testing support. When you open a Java test in the editor, there will be a play icon next to your test class and individual methods. Click it and you'll get the option to run, debug, run with coverage, or edit the configuration.
+
+image::{% asset_path 'blog/java-intellij-idea/play-icon-tests.png' %}[alt=Play options for tests,width=363]
+
+I use this support a lot to run and debug individual tests.
+
+image::{% asset_path 'blog/java-intellij-idea/quarkus-test.png' %}[alt=Running a Quarkus test,width=800,align=center]
+
+You can also run them at a package level by right-clicking on the page and selecting the **Run Tests** option.
+
+TIP: You might notice I'm using https://sdkman.io/[SDKMAN] for my JDK installation. IDEA pairs great with SDKMAN (which is very useful when testing with different vendors/versions).
 
 == My Favorite Keyboard Shortcuts in IntelliJ IDEA
 
