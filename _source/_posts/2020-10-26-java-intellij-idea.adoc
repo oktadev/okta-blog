@@ -4,7 +4,7 @@ title: "Why I Love IntelliJ IDEA for Java Development"
 author: matt-raible
 by: advocate
 communities: [java]
-description: "Are you a Java developer that hasn't tried IntelliJ IDEA? Here's some reasons you might want to check it out."
+description: "Are you a Java developer that hasn't tried IntelliJ IDEA? Here are some reasons you might want to check it out."
 tags: [java, intellij, idea]
 tweets:
 - ""
@@ -28,13 +28,13 @@ Title analyzer: https://user:APIH%40x0r@brentisarulebreaker.dev/
 - Why I Love IntelliJ IDEA for Java Development - 65
 ////
 
-If you're a Java developer like me, you like to crank out code and get shit done. I like a lot of things about IntelliJ IDEA, but I thought it'd be fun to write about the ones that make me most productive. But first, a bit of my development history.
+If you're a Java developer like me, you like to crank out code and get shit done. I like many things about IntelliJ IDEA, but I thought it'd be fun to write about the ones that make me most productive. But first, a bit of my development history.
 
-When I first started doing Java development in the late 90s, I used HomeSite as my editor. HomeSite was an HTML editor originally developed by Nick Bradbury. I liked it because it defaulted to a view of your code rather than being WYSIWYG like Dreamweaver and FrontPage. It's funny to look back now and laugh about how inefficient I was: I used to google for import statements, then copy/paste them into the editor.
+When I first started doing Java development in the late 90s, I used HomeSite as my editor. HomeSite was an HTML editor initially developed by Nick Bradbury. I liked it because it defaulted to a view of your code rather than being WYSIWYG like Dreamweaver and FrontPage. It's funny to look back now and laugh about how inefficient I was: I used to google for import statements, then copy/paste them into the editor.
 
-In the early 2000s, I tried a few other IDEs, but they always seemed to be memory hogs, and never felt quite as good as HomeSite to me. Then, along came Eclipse. When I first used it, I fell in _love_. Not only did it have a native look-and-feel, but it was fast and efficient.
+In the early 2000s, I tried a few other IDEs, but they always seemed to be memory hogs and never felt quite as good as HomeSite to me. Then, along came Eclipse. When I first used it, I fell in _love_. Not only did it have a native look-and-feel, but it was fast and efficient.
 
-I stayed in love with Eclipse until I started migrating AppFuse to Maven in 2006. IntelliJ IDEA's Maven support for multiple modules was so much better than Eclipse's m2e, I switched. In 2008, I started doing more web development and found that IDEA had excellent support for HTML, JavaScript, and CSS. I haven't looked back since.
+I stayed in love with Eclipse until I started migrating AppFuse to Maven in 2006. IntelliJ IDEA's Maven support for multiple modules was so much better than Eclipse's m2e, I switched. In 2008, I started doing more web development and found that IDEA had excellent HTML, JavaScript, and CSS support. I haven't looked back since.
 
 toc::[]
 
@@ -46,7 +46,7 @@ image::{% asset_path 'blog/java-intellij-idea/idea-2020.2.3.png' %}[alt=IntelliJ
 
 == Run Your Java Apps from IntelliJ IDEA
 
-I used to prefer running my apps from the command line with Ant or Maven. Then, along came Spring Boot. Spring Boot is a plain ol' Java application with a `public static void main()`. I believe this makes it a lot easier for Java IDEs to run apps since this is a standard part of _any_ Java app.
+I used to prefer running my apps from the command line with Ant or Maven. Then, along came Spring Boot. Spring Boot is a plain ol' Java application with a `public static void main()`. This makes it a lot easier for Java IDEs to run apps since this is a standard part of _any_ Java app.
 
 In fact, if you go to **File** > **New** > **Project**, you'll see IDEA supports many popular Java frameworks like Spring Boot, Micronaut, Quarkus, and MicroProfile.
 
@@ -63,11 +63,11 @@ image::{% asset_path 'blog/java-intellij-idea/spring-boot-run.png' %}[alt=Spring
 - The hammer icon on the left will build your project
 - The play icon will run your project
 - The bug icon will run your project in debug mode
-- The far right icon will run with code coverage
+- The far-right icon will run with code coverage
 
 === Run Micronaut Apps in IntelliJ IDEA
 
-Micronaut is similar to Spring Boot in that it has a `public static void main()`. When I created a new app using IDEA's Micronaut wizard, it did not create any run configurations for me. However, when I clicked on the play icon next to the `main()` method, it allowed me to create one quite easily.
+Micronaut is similar to Spring Boot in that it has a `public static void main()`. When I created a new app using IDEA's Micronaut wizard, it did not generate any run configurations for me. However, when I clicked on the play icon next to the `main()` method, it allowed me to easily create one.
 
 image::{% asset_path 'blog/java-intellij-idea/micronaut-run.png' %}[alt=Create a Micronaut Run Configuration,width=691,align=center]
 
@@ -79,7 +79,7 @@ image::{% asset_path 'blog/java-intellij-idea/quarkus-run.png' %}[alt=Create a M
 
 === Configure Environment Variables
 
-You might be wondering, "why do I need a run configuration?" First of all, it's nice to just click a button (or use a keyboard shortcut) to start and re-start your app. Secondly, it provides a way for you to configure JVM options and environment variables.
+You might be wondering, "why do I need a run configuration?" First of all, it's nice to click a button (or use a keyboard shortcut) to start and re-start your app. Secondly, it provides a way for you to configure JVM options and environment variables.
 
 For example, if you're using Spring Boot with Okta's Spring Boot starter, you'll want to use environment variables rather than putting a client secret in your source code.
 
@@ -89,13 +89,13 @@ image::{% asset_path 'blog/java-intellij-idea/env-variables.png' %}[alt=Set envi
 
 Setting breakpoints in apps and debugging them is a valuable skill for software engineers, regardless of language.
 
-In IntelliJ IDEA, you can click in the left gutter next to the line you want to debug. Then, run your app with a debug configuration and it'll stop at your breakpoint. Then you can step into, step over, etc.
+In IntelliJ IDEA, you can click in the left gutter next to the line you want to debug. Then, run your app with a debug configuration, and it'll stop at your breakpoint. Then you can step into, step over, etc.
 
 image::{% asset_path 'blog/java-intellij-idea/micronaut-debug.png' %}[alt=Micronaut Debug,width=800,align=center]
 
 === Debug via Maven in IntelliJ IDEA
 
-If you start your app with Maven, you can debug it too. Let's use Micronaut in this example, If you run `mvndebug mn:run`, it'll wait for you to attach a remote debugger on port 8000. To create a remote debugging configuration in IntelliJ IDEA, go to **Add Configuration** > **+** > **Remote** and give it a name. Then change the port to `8000`.
+If you start your app with Maven, you can debug it too. Let's use Micronaut in this example. If you run `mvndebug mn:run`, it'll wait for you to attach a remote debugger on port 8000. To create a remote debugging configuration in IntelliJ IDEA, go to **Add Configuration** > **+** > **Remote** and give it a name. Then change the port to `8000`.
 
 image::{% asset_path 'blog/java-intellij-idea/remote-debug.png' %}[alt=Remote Debugging,width=800,align=center]
 
@@ -157,7 +157,7 @@ Below are some of the IntelliJ IDEA keyboard shortcuts I use daily.
 
 NOTE: How cool are Asciidoctor's https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/#ui-macros[UI Macros] for keyboard shortcuts?!
 
-You can also use kbd:[{commandkey} + Shift + A] to pop an actions dialog and search for commands. Heck, you can event create your own shortcuts!
+You can also use kbd:[{commandkey} + Shift + A] to pop an actions dialog and search for commands. Heck, you can even create your own shortcuts!
 
 ++++
 <div style="margin: 0 auto; max-width: 500px">
@@ -188,13 +188,13 @@ AsciiDoc is even better!
 
 I like AsciiDoc because it supports things like table of contents, code blocks with callouts, admonitions (tip, note, etc.), and I used it (along with Asciidoctor) to write the http://www.jhipster-book.com/[JHipster Mini-Book].
 
-Markdown support is bundled with IntelliJ IDEA and it works "good enough" when I have to use Markdown.
+IntelliJ IDEA bundles Markdown support, and it works "good enough" when I have to write in Markdown.
 
 I use the https://intellij-asciidoc-plugin.ahus1.de/[IntelliJ AsciiDoc Plugin] for AsciiDoc authoring. This plugin has gotten so good over the past few years, I do almost all my authoring in IDEA and only render it via build tools as a QA process.
 
 == Local History is Fantastic!
 
-IntelliJ's Local History support can be a lifesaver. I try to edit all text-based files in IDEA because of this feature. If things crash, or I want to go back to what I'd written before, local history works great for that.
+IntelliJ's Local History support can be a lifesaver. I try to edit all text-based files in IDEA because of this feature. If things crash or I want to go back to what I'd written before, local history works excellent for that.
 
 Simply right-click on a file or directory and go to **Local History** > **Show History**.
 
@@ -202,7 +202,7 @@ Simply right-click on a file or directory and go to **Local History** > **Show H
 
 An awesome way to pre-record code snippets for demos and increase your productivity is to use https://www.jetbrains.com/help/idea/using-live-templates.html[Live Templates].
 
-For Java, some built-in ones are `sout` and `fori`. You simply type those characters, hit tab, and it expands to the code you want.
+For Java, some built-in ones are `sout` and `fori`. You type those characters, hit tab, and it expands to the code you want.
 
 I use live templates for almost all my screencasts and keep them updated at https://github.com/mraible/idea-live-templates[github.com/mraible/idea-live-templates].
 
@@ -240,9 +240,9 @@ TIP: Make sure you test your templates before doing a demo because sometimes the
 
 If you're a hard-core Java developer, you might not care about web framework support. That is, unless your web framework requires Java code, like Wicket or GWT. Personally, I'm a fan of JavaScript and don't trust Java developers to write my JavaScript for me. I'm a full-stack developer, and I ❤️ https://www.jhipster.tech[JHipster].
 
-I first switched to IntelliJ IDEA in 2006 because of it's Maven multi-module support. I stuck with it because I switched to mostly frontend development in 2009. I found that IDEA's HTML, CSS, and JavaScript support is excellent. It picks up my ESLint settings automatically and _just works_.
+I first switched to IntelliJ IDEA in 2006 because of its Maven multi-module support. I stuck with it because I switched to mostly frontend development in 2009. I found that IDEA's HTML, CSS, and JavaScript support is excellent. It picks up my ESLint settings automatically and _just works_.
 
-Support for Angular is bundled and there's lots of React plugins. I've never installed any because I haven't really had a need. As far as Vue is concerned, there's a https://plugins.jetbrains.com/plugin/9442-vue-js[Vue.js plugin] from JetBrains.
+Support for Angular is bundled, and there are lots of React plugins. I've never installed any because I haven't had a need. As far as Vue is concerned, there's a https://plugins.jetbrains.com/plugin/9442-vue-js[Vue.js plugin] from JetBrains.
 
 == Learn More about Java and IntelliJ
 
