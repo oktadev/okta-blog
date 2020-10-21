@@ -65,6 +65,32 @@ image::{% asset_path 'blog/java-intellij-idea/spring-boot-run.png' %}[alt=Spring
 - The bug icon will run your project in debug mode
 - The far-right icon will run with code coverage
 
+// todo: microservices and run dashboard
+If you're doing microservices with Spring Boot, there's also a run dashboard you can use to start/stop/monitor all your services. To demonstrate what it looks like, you can clone the example code from https://developer.okta.com/blog/2019/08/28/reactive-microservices-spring-cloud-gateway[Secure Reactive Microservices with Spring Cloud Gateway] and open it in IDEA:
+
+[source,shell]
+----
+git clone https://github.com/oktadeveloper/java-microservices-examples.git
+cd java-microservices-examples/spring-cloud-gateway
+idea .
+----
+
+After downloading dependencies and initializing the project, you'll see a **Services** popup in the bottom right corner.
+
+image::{% asset_path 'blog/java-intellij-idea/spring-boot-service.png' %}[alt=Services popup,width=368,align=center]
+
+Click on it and it'll expand to give you a couple options. Click on the first one to show run configurations.
+
+image::{% asset_path 'blog/java-intellij-idea/spring-boot-show-run-configs.png' %}[alt=Show run configurations,width=368,align=center]
+
+This will show the run dashboard and you'll see all your apps listed. You can click on the **Not Started** element and click the play icon to start them all.
+
+image::{% asset_path 'blog/java-intellij-idea/spring-boot-services.png' %}[alt=Spring Boot Services,width=368,align=center]
+
+Pretty cool, eh?!
+
+image::{% asset_path 'blog/java-intellij-idea/spring-boot-services-running.png' %}[alt=Spring Boot Services running,align=center]
+
 === Run Micronaut Apps in IntelliJ IDEA
 
 Micronaut is similar to Spring Boot in that it has a `public static void main()`. When I created a new app using IDEA's Micronaut wizard, it did not generate any run configurations for me. However, when I clicked on the play icon next to the `main()` method, it allowed me to easily create one.
@@ -238,13 +264,13 @@ TIP: Make sure you test your templates before doing a demo because sometimes the
 
 == Web Framework Support
 
-If you're a hard-core Java developer, you might not care about web framework support. That is, unless your web framework requires Java code, like Wicket or GWT. Personally, I'm a fan of JavaScript and don't trust Java developers to write my JavaScript for me. I'm a full-stack developer, and I ❤️ https://www.jhipster.tech[JHipster].
+If you're a hard-core Java developer, you might not care about web framework support. That is, unless your web framework requires Java code, like Wicket or GWT. Personally, I'm a fan of JavaScript and don't trust Java developers to write my JavaScript for me. I'm a full-stack developer, and I ❤️ https://www.jhipster.tech[JHipster]! 🤓
 
 I first switched to IntelliJ IDEA in 2006 because of its Maven multi-module support. I stuck with it because I switched to mostly frontend development in 2009. I found that IDEA's HTML, CSS, and JavaScript support is excellent. It picks up my ESLint settings automatically and _just works_.
 
 Support for Angular is bundled, and there are lots of React plugins. I've never installed any because I haven't had a need. As far as Vue is concerned, there's a https://plugins.jetbrains.com/plugin/9442-vue-js[Vue.js plugin] from JetBrains.
 
-== Learn More about Java and IntelliJ
+== Learn More About Java and IntelliJ
 
 I've heard from many developers that they prefer to use Eclipse or NetBeans because they're free. If you were a carpenter, would you look around for free tools, or would you buy new fancy tools that make you a better carpenter? 😏
 
