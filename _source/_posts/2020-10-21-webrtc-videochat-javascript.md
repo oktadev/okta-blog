@@ -288,7 +288,7 @@ The `server.js` file does most of the work for the server-side of the applicatio
 
 One last thing you want to do is add a file called `.env` and add the following code.
 
-```sg
+```sh
 OKTA_BASE_URL={yourOktaDomain}
 OKTA_CLIENT_ID={yourClientId}
 OKTA_CLIENT_SECRET={yourClientSecret}
