@@ -5,7 +5,7 @@ author: nick-gamb
 by: advocate
 communities: [.net]
 description: "Learn how to authenticate with SAML in ASP.NET Core and C#."
-tags: [identitysecurity, csharp, saml, sso]
+tags: [identitysecurity, csharp, saml, sso, dotnet, aspnet, dotnetcore, aspnetcore]
 tweets:
 - "Supporting SAML in your ASP.NET Core applications does not have to be a chore. Let's take a look at how it's done."
 - "Do you need to support SAML in your ASP.NET Core applications? Let's do it in as few steps as possible!"
@@ -13,29 +13,29 @@ image: blog/featured/okta-dotnet-tile-mouse.jpg
 type: conversion
 ---
 
-[Security Assertion Markup Language]( https://en.wikipedia.org/wiki/Security_Assertion_Markup_Language), more commonly known as SAML, is an open standard for exchanging authentication and authorization data between parties. Most commonly these parties are an [Identity Provider]( https://en.wikipedia.org/wiki/Identity_provider_(SAML)) and a [Service Provider]( https://en.wikipedia.org/wiki/Service_provider_(SAML)). The primary use case for SAML has typically been to provide single sign on (SSO) for users to applications within an enterprise/workforce environment.
+[Security Assertion Markup Language]( https://en.wikipedia.org/wiki/Security_Assertion_Markup_Language), more commonly known as SAML, is an open standard for exchanging authentication and authorization data between parties. Most commonly these parties are an [Identity Provider]( https://en.wikipedia.org/wiki/Identity_provider_(SAML)) and a [Service Provider]( https://en.wikipedia.org/wiki/Service_provider_(SAML)). The primary use case for SAML has typically been to provide single sign-on (SSO) for users to applications within an enterprise/workforce environment.
 
-Up until the past few years, SAML was considered the industry standard, and proven workhorse, for passing an authenticated user into applications while allowing these applications to defer authentication to a centralized identity solution. However, with the introduction of [OpenID Connect]( https://en.wikipedia.org/wiki/OpenID_Connect), which is an authentication layer built on top of [OAuth2]( https://en.wikipedia.org/wiki/OAuth#OAuth_2.0), SAML has become outdated. Furthermore, every year seems to bring new issues with SAML – in the form of newly discovered exploits – which is giving it a reputation of not being the most secure option. That being said, SAML is still considered a relevant option for single sign on and there are still requirements for developers to support it in modern environments.  If OpenID Connect is not an option, and SAML is a requirement, this blog will cover a simple approach to add SAML 2.0 support to an ASP .NET Core 3.1 application so that it can accept authenticated users from an Identity Provider and track that users authenticated state within the .NET middleware.  
+Up until the past few years, SAML was considered the industry standard—and proven workhorse—for passing an authenticated user into applications while allowing these applications to defer authentication to a centralized identity solution. However, with the introduction of [OpenID Connect]( https://en.wikipedia.org/wiki/OpenID_Connect), which is an authentication layer built on top of [OAuth2]( https://en.wikipedia.org/wiki/OAuth#OAuth_2.0), SAML has become outdated. Furthermore, every year seems to bring new issues with SAML – in the form of newly discovered exploits – which is giving it a reputation of not being the most secure option. That being said, SAML is still considered a relevant option for single sign-on and there are still requirements for developers to support it in modern environments. If OpenID Connect is not an option, and SAML is a requirement, this blog will cover a simple approach to add SAML 2.0 support to an ASP .NET Core 3.1 application so that it can accept authenticated users from an Identity Provider and track that users authenticated state within the .NET middleware.  
 
 ## Prerequisites
 
 Install [.NET Core 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1)
 
-Install and Editor/IDE such as [Visual Studio Code](https://code.visualstudio.com/) or [Visual Studio](https://visualstudio.microsoft.com/)
+Install an Editor/IDE such as [Visual Studio Code](https://code.visualstudio.com/) or [Visual Studio](https://visualstudio.microsoft.com/)
 
 Learn about [Basic SAML Concepts](https://developer.okta.com/docs/concepts/saml/)
 
 ## Getting Started
 
-First, create an application to function as a SAML Service Provider. Open a **command shell**, `cd` to a preferred directory to create the project in, and enter the following command:
+First, create an application to function as a SAML Service Provider. Open a **command shell**, `cd` to a preferred directory to create the project in and enter the following command:
 
 ```sh
 dotnet new webapp -o Okta_SAML_Example
 ```
 
-This command will create a new web app from template and put it in a directory called Okta_SAML_Example.
+This command will create a new web app from a template and put it in a directory called Okta_SAML_Example.
 
-If this is your first-time using .NET core, you may need to trust the development certificate. To do this, use the following command and enter your admin password if prompted:
+If this is your first-time using .NET Core, you may need to trust the development certificate. To do this, use the following command and enter your admin password if prompted:
 
 ```sh
 dotnet dev-certs https –trust
@@ -47,7 +47,7 @@ Next, enter the Okta_SAML_Example directory:
 cd Okta_SAML_Example
 ```
 
-Finally, run the sample application to make sure it works:
+Finally, run the sample application to make sure that it works:
 
 ```sh
 dotnet watch run
@@ -55,7 +55,7 @@ dotnet watch run
 
 Once the application has started, navigate to <https://localhost:5001> in your preferred web browser. Using `watch run`, instead of `run` by itself, allows the compiler to detect changes in the code and recompile every time it sees them. This is very helpful when iterating on the code. Type `CTRL + C` in shell to terminate.
 
-Unlike .NET Framework, .NET Core is missing some XML and cryptology libraries that are very important when implementing SAML. Thankfully, there are some great open source solutions that exist for .NET Core 3.x which reimplements these concepts, and others, to make supporting SAML easy. After evaluating multiple such solutions, I have found that working with [https://github.com/ITfoxtec/ITfoxtec.Identity.Saml2]( https://github.com/ITfoxtec/ITfoxtec.Identity.Saml2) was the most enjoyable experience for me.
+Unlike .NET Framework, .NET Core is missing some XML and cryptology libraries that are very important when implementing SAML. Thankfully, there are some great open source solutions that exist for .NET Core 3.x, which reimplements these concepts and others to make supporting SAML easy. After evaluating multiple such solutions, I have found that working with [https://github.com/ITfoxtec/ITfoxtec.Identity.Saml2]( https://github.com/ITfoxtec/ITfoxtec.Identity.Saml2) was the most enjoyable experience for me.
 
 Add the required packages by running the following commands:
 
@@ -154,7 +154,7 @@ namespace Okta_SAML_Example.Controllers
 }
 ```
 
-Here you have created the foundation of your authenticaiton controller by referencing the required dependencies, adding the basic controller layout, and bringing in the configuration object for your routes to use.
+Here you have created the foundation of your authentication controller by referencing the required dependencies, adding the basic controller layout, and bringing in the configuration object for your routes to use.
 
 The next step is to create a route for `Login()`. Add the following code right after the `AuthController()` method.
 
@@ -169,7 +169,7 @@ public IActionResult Login(string returnUrl = null)
 }
 ```
 
-This route handles a user initiating login from your application directly. In SAML, this is called [SP Initiated](https://developer.okta.com/docs/concepts/saml/#planning-for-saml) because the authentication request is starting from your Service Provider application. You will eventually call this route from a login button in your nav. What happens during this process is a [SAML Request Assertion](https://developer.okta.com/docs/concepts/saml/#planning-for-saml) is generated and sent to the Identity Provider via a redirect to an Identity Provider URL. This assertion is just XML with basic information about the request. In SAML there is also a concept called [IDP Initiated](https://developer.okta.com/docs/concepts/saml/#planning-for-saml). This is when the user starts in an Identity Provider and clicks a link to get into your Service Provider application. The IDP Initiated flow simply bypasses the login route, and SAML Request, entirely.
+This route handles a user initiating login from your application directly. In SAML, this is called [SP Initiated](https://developer.okta.com/docs/concepts/saml/#planning-for-saml) because the authentication request is starting from your Service Provider application. You will eventually call this route from a login button in your nav. During this process, a [SAML Request Assertion](https://developer.okta.com/docs/concepts/saml/#planning-for-saml) is generated and sent to the Identity Provider via a redirect to an Identity Provider URL. This assertion is just XML with basic information about the request. In SAML there is also a concept called [IDP Initiated](https://developer.okta.com/docs/concepts/saml/#planning-for-saml). This is when the user starts in an Identity Provider and clicks a link to get into your Service Provider application. The IDP Initiated flow simply bypasses the login route, and SAML Request, entirely.
 
 Next, you will need an [Assertion Consumer Service](https://developer.okta.com/docs/concepts/saml/#planning-for-saml). This is the route that your Identity Provider will send the [SAML Response Assertion](https://developer.okta.com/docs/concepts/saml/#planning-for-saml) to. Right after the `Login()` route, add the following:
 
@@ -216,7 +216,7 @@ public async Task<IActionResult> Logout()
 
 This route will be mapped to a logout button in your nav and it will delete the user’s session, logging them out. This is not a Single Log Out route, which could also be supported, that would also log the user out of the Identity Provider. Often it is not desired to log a user out of the Identity Provider when logging them out of the Service Provider, because the user may be using it for other applications.
 
-In the Assertion Consumer Service route, there is a class called `ClaimsTransform`. This is a helper class that we need to implement to help parse the claims out of the SAML Response. Create a new file in the root directory of the project, called `ClaimsTransform.cs`. Add the following:
+In the Assertion Consumer Service route, there is a class called `ClaimsTransform`. This is a helper class that we need to implement to help parse the claims out of the SAML Response. Create a new file in the root directory of the project called `ClaimsTransform.cs`. Add the following:
 
 ```csharp
 using ITfoxtec.Identity.Saml2.Claims;
@@ -281,7 +281,7 @@ Next, you will need to modify your nav to show the login/logout buttons. You als
 ```html
 <ul class="navbar-nav flex-grow-1">
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
      </li>
     ~
 </ul>
@@ -319,7 +319,7 @@ else
  }
  ```
 
-This code shows the login button, and hides the logout and claims buttons, when the user is not logged in. It shows the logout and claims button, hiding the login button, when the user is logged in.
+This code shows the login button and hides the logout and claims buttons when the user is not logged in. It shows the logout and claims button, hiding the login button, when the user is logged in.
 
 The next step is to create the Claims page, which is a secure page that can only be accessed once a user has authenticated.
 
@@ -383,7 +383,7 @@ namespace Okta_SAML_Example.Pages
 
 This is the base model for your Claims page. The most important part here is the `[Authorize]` attribute before the class initialization that indicates that this page will require a user to authenticate. If you navigate to the claims page directly before authenticating, you will be redirected to authenticate first.
 
-Last, add your configuration settings to `appsettings.json`. This is where you are pulling your SAML configuration settings from. Open `appsettings.json` and add the following code before ``"AllowedHosts": "*"``:
+Lastly, add your configuration settings to `appsettings.json`. This is where you are pulling your SAML configuration settings from. Open `appsettings.json` and add the following code before ``"AllowedHosts": "*"``:
 
 ```json
 "Saml2": {
@@ -394,12 +394,12 @@ Last, add your configuration settings to `appsettings.json`. This is where you a
     "RevocationMode": "NoCheck"
   },
 ```
-  
+ 
 In this example, you are pulling your SAML settings from the IDP’s metadata. This is a great feature of SAML that allows you to pull a config from the source rather than having to copy each setting, and the signing certificate, into your code.
 
 ## Configure An IDP
 
-You have added all of code that is required to implement SAML support to your Service Provider application. To test, you will need an Identity Provider. [Okta](developer.okta.com) is the single best identity platform on the market and supports SAML, as well as OpenID Connect and other standards. If you have not created a free Okta developer tenant, do so at [developer.okta.com](developer.okta.com).
+You have added all of the code that is required to implement SAML support to your Service Provider application. To test, you will need an Identity Provider. [Okta](developer.okta.com) is the single best identity platform on the market and supports SAML, as well as OpenID Connect and other standards. If you have not created a free Okta developer tenant, do so at [developer.okta.com](developer.okta.com).
 
 Log in to your Okta tenant, switch to the **admin portal**, and switch to the **classic UI** if you are in the developer UI.
 
@@ -419,13 +419,13 @@ In **Audience URI**, enter `Okta_SAML_Example`.
 
 {% img blog/how-to-authenticate-with-saml-in-aspnet-core-and-csharp/Config_App.png alt:"Config App" width:"800" %}{: .center-image }
 
-Select the **I'm an Okta customer adding an internal app** radio and click **Finish**.
+Select the **I'm an Okta customer adding an internal app** radio button and click **Finish**.
 
 You will be taken to the Sign On tab of the newly created app in Okta. Click the hyperlink under **View Setup Instructions** that says **Identity Provider metadata**. This will open a new tab to your metadata. Copy the URL from this hyperlink and add it to your `appsettings.json` file in the **IdpMetadata** attribute. This will save you from having to copy all of the settings from Otka into your code.
 
 {% img blog/how-to-authenticate-with-saml-in-aspnet-core-and-csharp/Metadata.png alt:"Metadata" width:"800" %}{: .center-image }
 
-Last, you need to make sure that your user is allowed to use this app in Okta. Click on the **Assignments** tab, click the **Assign** button, and click **Assign to People**.
+Last, you’ll need to make sure that your user is allowed to use this app in Okta. Click on the **Assignments** tab, click the **Assign** button, and click **Assign to People**.
 
 Click the **Assign** button next to your user, and then click **Save and Go Back**.
 
