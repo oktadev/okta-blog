@@ -65,8 +65,7 @@ image::{% asset_path 'blog/java-intellij-idea/spring-boot-run.png' %}[alt=Spring
 - The bug icon will run your project in debug mode
 - The far-right icon will run with code coverage
 
-// todo: microservices and run dashboard
-If you're doing microservices with Spring Boot, there's also a run dashboard you can use to start/stop/monitor all your services. To demonstrate what it looks like, you can clone the example code from https://developer.okta.com/blog/2019/08/28/reactive-microservices-spring-cloud-gateway[Secure Reactive Microservices with Spring Cloud Gateway] and open it in IDEA:
+If you're doing microservices with Spring Boot, there's also a run dashboard you can use to start/stop/monitor all your services. To demonstrate what it looks like, you can clone the example code from link:/blog/2019/08/28/reactive-microservices-spring-cloud-gateway[Secure Reactive Microservices with Spring Cloud Gateway] and open it in IDEA:
 
 [source,shell]
 ----
