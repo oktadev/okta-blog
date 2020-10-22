@@ -1339,5 +1339,5 @@ And as always, we'd love to hear from you. Hit us up with questions or feedback 
 
 <a name="changelog">**Changelog:**</a>
 
-* Oct 22, 2020: Updated to use Okta React v3.0.8. You can see the changes in [the example app](https://github.com/oktadeveloper/okta-react-node-example/pull/14) or [in this blog post]().
+* Oct 22, 2020: Updated to use Okta React v3.0.8. You can see the changes in [the example app](https://github.com/oktadeveloper/okta-react-node-example/pull/14) or [in this blog post](https://github.com/oktadeveloper/okta-blog/pull/453).
 * Nov 1, 2019: Added an error snackbar to help with debugging, added some information about installing SQLite, and updated a majority of the dependencies. Changes to this post can be viewed in [okta-blog#58](https://github.com/oktadeveloper/okta-blog/pull/58).
