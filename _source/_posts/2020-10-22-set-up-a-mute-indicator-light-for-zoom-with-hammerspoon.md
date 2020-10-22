@@ -115,7 +115,9 @@ If the command returned `false` like in the image above, then open Zoom, start a
 {% img blog/zoom-hammerspoon/console-zoom-inmeeting.png alt:"Image of the Hammerspoon preferences window" width:"512px" %}{: .center-image }
 
 
-If this doesn't work, it probably means that you need to give Hammerspoon permission to control your computer. To do this, open System Preferences, and go to **Security & Privacy**>**Privacy**" >**Accessibility**, unlock the preference pane to make changes, then select the checkbox next to "Hammerspoon" to allow Hammerspoon to inspect the state of Zoom.
+If this doesn't work, it probably means that you need to give Hammerspoon permission to control your computer. To do this, open System Preferences, and go to 
+**Security & Privacy** > **Privacy** > **Accessibility**,
+unlock the preference pane to make changes, then select the checkbox next to "Hammerspoon" to allow Hammerspoon to inspect the state of Zoom.
 
 {% img blog/zoom-hammerspoon/console-zoom-inmeeting.png alt:"Image of the Hammerspoon preferences window" width:"512px" em%}{: .center-image }
 
@@ -129,12 +131,11 @@ At this point, you should be able to run the `spoon.Zoom:mute()` and `spoon.Zoom
 
 **Note:** Zoom provides a global mute and unmute hotkey out of the box! If all you care about is a global mute and unmute hotkey, I suggest using that!
 
-Because I assume that most people don't have a blink() USB LED already, I'm going to show you how to do the next best thing which is to simulate this LED in your menu bar.
+Because I assume that most people don't have a [blink(1)](https://blink1.thingm.com/) USB LED already, I'm going to show you how to do the next best thing which is to simulate this LED in your menu bar.
 
 To get this set up, use the Hammerspoon menu icon and select "Open Config" to open the `~/.hammerspoon/init.lua` file in your favorite text editor, then edit the file to look like this:
 
 ```lua
-
 -- This lets you click on the menu bar item to toggle the mute state
 zoomStatusMenuBarItem = hs.menubar.new(nil)
 zoomStatusMenuBarItem:setClickCallback(function()
@@ -165,7 +166,7 @@ end)
 
 After you've finished editing the configuration file, save it, then use the Hammerspoon menu icon to select **Reload Config**.
 
-Now it's time to test it out. After selecting "Reload Config" from the Hammerspoon menu icon, reload Zoom and start a meeting. Shortly after the meeting starts, you should see a new menu icon appear in your menu bar. The icon will be green if you are unmuted and red if you are muted. Pressing the `F5` key will toggle between the muted and unmuted states and then update the menu icon as appropriate.
+Now it's time to test it out. After selecting **Reload Config** from the Hammerspoon menu icon, reload Zoom and start a meeting. Shortly after the meeting starts, you should see a new menu icon appear in your menu bar. The icon will be green if you are unmuted and red if you are muted. Pressing the `F5` key will toggle between the muted and unmuted states and then update the menu icon as appropriate.
 
 **Note:** The status indicator light will only change if you use the Hammerspoon key (`F5` in this case). It should be possible soon to keep it in sync no matter how Zoom is muted or unmuted, just not at the time that I'm writing this.
 ## Setting up a blink(1) USB LED (and a giveaway!)
@@ -174,11 +175,11 @@ Now that we've gotten a menu icon to show the mute status for a Zoom meeting, le
 
 The light that I'm using is called a [blink(1)](https://blink1.thingm.com/) and is [available on Amazon for about ~$30](https://www.amazon.com/ThingM-Blink-USB-RGB-BLINK1MK3/dp/B07Q8944QK/). The nice thing about this light is that it doesn't require any special drivers to get working, you just plug it in and start using it.
 
-**Win a blink(1) USB LED light!** I'm raffling off three blink(1) USB LED lights. To enter the raffle follow [@oktadev](https://twitter.com/oktadev) on Twitter and then post a tweet mentioning this blog post. On October 15th, I will search for tweets that mention this blog post that were made by people who also follow @oktadev on Twitter. Of those people, I will select three people at random and give each one a blink(1) USB LED.
+**Win a blink(1) USB LED light!** I'm raffling off three blink(1) USB LED lights. To enter the raffle follow [@oktadev](https://twitter.com/oktadev) on Twitter and then post a tweet mentioning this blog post. On October 31st, I will search for tweets that mention this blog post that were made by people who also follow @oktadev on Twitter. Of those people, I will select three people at random and give each one a blink(1) USB LED.
 
 Now, there are many ways to interface with the blink(1) light, but my programming language of choice is Python, that's what I'm going to use in this post.
 
-To use the blink(1) light from Python, you'll need to install the blink1 Python SDK. I use virtualenv to keep my Python packages tidy, so let's start with that.
+To use the blink(1) light from Python, you'll need to install the [`blink1` Python SDK](https://pypi.org/project/blink1/). I use `virtualenv` to keep my Python packages tidy, so let's start with that.
 
 Start by creating a directory for this project. I'm suggesting a directory name in the command below, but you should change it to something that makes sense for you.
 
@@ -263,7 +264,7 @@ updateZoomStatus = function(event)
 end
 ```
 
-Once you've finished modifying the `updateZoomStatus` function, save the file, then use the Hammerspoon menu icon to select the "Reload Config" menu item.
+Once you've finished modifying the `updateZoomStatus()` function, save the file, then use the Hammerspoon menu icon to select the **Reload Config** menu item.
 
 Try it all out by reloading Zoom and starting a meeting. If it's all set up correctly, the blink(1) light should turn on shortly after the meeting starts!
 
@@ -271,11 +272,16 @@ Try it all out by reloading Zoom and starting a meeting. If it's all set up corr
 
 If you are an employee of Zoom, I have a special message for you: I wish I could have made a mute indicator light without Hammerspoon.
 
-My ideal way to integrate with Zoom would be to configure it to call a command line application every time the state changed inside of Zoom. In this dream scenario, I imagine opening up the Zoom preferences and putting the path to an executable file into a field somewhere. From then on, Zoom would call that executable file passing the event over the command line. In essence, I'd like to turn the `updateZoomStatus` Lua function in my Hammerspoon configuration into a command line script.
+My ideal way to integrate with Zoom would be to configure it to call a command line application every time the state changed inside of Zoom. In this dream scenario, I imagine opening up the Zoom preferences and putting the path to an executable file into a field somewhere. From then on, Zoom would call that executable file passing the event over the command line. In essence, I'd like to turn the `updateZoomStatus()` Lua function in my Hammerspoon configuration into a command line script.
 
 ## Did it work for you?
 
 As always, I'd love to hear what you thought of this post. Did it work for you? Did you run into issues? Let me know by commenting below or by reaching out to me on Twitter where I'm [@jf](https://twitter.com/jf).
+
+If you liked this post, you might also like these other posts about Python and Okta:
+
+- [Flask Tutorial: Simple User Registration and Login](/blog/2018/07/12/flask-tutorial-simple-user-registration-and-login)
+- [Build a Simple CRUD App with Python, Flask, and React](/blog/2018/12/20/crud-app-with-python-flask-react)
 
 Also, be sure to follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube Channel](https://youtube.com/c/oktadev) for updates on new posts and videos.
 
