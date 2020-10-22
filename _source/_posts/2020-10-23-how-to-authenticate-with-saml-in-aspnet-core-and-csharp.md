@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: How to authenticate with SAML in ASP.NET Core and C#
+title: How to Authenticate with SAML in ASP.NET Core and C#
 author: nick-gamb
 by: advocate
 communities: [.net]
@@ -403,33 +403,33 @@ You have added all of the code that is required to implement SAML support to you
 
 Log in to your Okta tenant, switch to the **admin portal**, and switch to the **classic UI** if you are in the developer UI.
 
-{% img blog/how-to-authenticate-with-saml-in-aspnet-core-and-csharp/Okta_Admin.png alt:"Admin Portal" width:"800" %}{: .center-image }
+{% img blog/how-to-authenticate-with-saml-in-aspnet-core-and-csharp/Okta_Admin.png alt:"Admin Portal" width:"1000" %}{: .center-image }
 
 Click **Applications**, **Add Application**, **Create New App**, and select the **SAML 2.0** radio button before clicking **Create**.
 
-{% img blog/how-to-authenticate-with-saml-in-aspnet-core-and-csharp/Create_New_App.png alt:"Create New App" width:"800" %}{: .center-image }
+{% img blog/how-to-authenticate-with-saml-in-aspnet-core-and-csharp/Create_New_App.png alt:"Create New App" width:"1000" %}{: .center-image }
 
 Give your app a name and click **Next**.
 
-{% img blog/how-to-authenticate-with-saml-in-aspnet-core-and-csharp/Name_App.png alt:"Name App" width:"800" %}{: .center-image }
+{% img blog/how-to-authenticate-with-saml-in-aspnet-core-and-csharp/Name_App.png alt:"Name App" width:"1000" %}{: .center-image }
 
 In **Single Sign on URL**, enter `https://localhost:5001/Auth/AssertionConsumerService`
 
 In **Audience URI**, enter `Okta_SAML_Example`.
 
-{% img blog/how-to-authenticate-with-saml-in-aspnet-core-and-csharp/Config_App.png alt:"Config App" width:"800" %}{: .center-image }
+{% img blog/how-to-authenticate-with-saml-in-aspnet-core-and-csharp/Config_App.png alt:"Config App" width:"1000" %}{: .center-image }
 
 Select the **I'm an Okta customer adding an internal app** radio button and click **Finish**.
 
 You will be taken to the Sign On tab of the newly created app in Okta. Click the hyperlink under **View Setup Instructions** that says **Identity Provider metadata**. This will open a new tab to your metadata. Copy the URL from this hyperlink and add it to your `appsettings.json` file in the **IdpMetadata** attribute. This will save you from having to copy all of the settings from Otka into your code.
 
-{% img blog/how-to-authenticate-with-saml-in-aspnet-core-and-csharp/Metadata.png alt:"Metadata" width:"800" %}{: .center-image }
+{% img blog/how-to-authenticate-with-saml-in-aspnet-core-and-csharp/Metadata.png alt:"Metadata" width:"1000" %}{: .center-image }
 
 Last, you'll need to make sure that your user is allowed to use this app in Okta. Click on the **Assignments** tab, click the **Assign** button, and click **Assign to People**.
 
 Click the **Assign** button next to your user, and then click **Save and Go Back**.
 
-{% img blog/how-to-authenticate-with-saml-in-aspnet-core-and-csharp/Assign_User.png alt:"Metadata" width:"800" %}{: .center-image }
+{% img blog/how-to-authenticate-with-saml-in-aspnet-core-and-csharp/Assign_User.png alt:"Metadata" width:"1000" %}{: .center-image }
 
 You are now ready to test your application.
 
@@ -441,23 +441,23 @@ Return to your command shell, type:
 dotnet watch run
 ```
 
-{% img blog/how-to-authenticate-with-saml-in-aspnet-core-and-csharp/Test_App.png alt:"Test App" width:"800" %}{: .center-image }
+{% img blog/how-to-authenticate-with-saml-in-aspnet-core-and-csharp/Test_App.png alt:"Test App" width:"1000" %}{: .center-image }
 
 Navigate to <https://localhost:5001> in a private browser window once the application is running.
 
-{% img blog/how-to-authenticate-with-saml-in-aspnet-core-and-csharp/Test_App_Index.png alt:"Test App Index" width:"800" %}{: .center-image }
+{% img blog/how-to-authenticate-with-saml-in-aspnet-core-and-csharp/Test_App_Index.png alt:"Test App Index" width:"1000" %}{: .center-image }
 
 Click **Login** and login with your user.
 
-{% img blog/how-to-authenticate-with-saml-in-aspnet-core-and-csharp/Test_App_Login.png alt:"Test App Login" width:"800" %}{: .center-image }
+{% img blog/how-to-authenticate-with-saml-in-aspnet-core-and-csharp/Test_App_Login.png alt:"Test App Login" width:"1000" %}{: .center-image }
 
 Once redirected back to your application, you will see that your nav shows that you are logged in.
 
-{% img blog/how-to-authenticate-with-saml-in-aspnet-core-and-csharp/Test_App_Logged_In.png alt:"Test App Logged In" width:"800" %}{: .center-image }
+{% img blog/how-to-authenticate-with-saml-in-aspnet-core-and-csharp/Test_App_Logged_In.png alt:"Test App Logged In" width:"1000" %}{: .center-image }
 
 Click **Claims** to see your claims within the secure page.
 
-{% img blog/how-to-authenticate-with-saml-in-aspnet-core-and-csharp/Test_App_Claims.png alt:"Test App Claims" width:"800" %}{: .center-image }
+{% img blog/how-to-authenticate-with-saml-in-aspnet-core-and-csharp/Test_App_Claims.png alt:"Test App Claims" width:"1000" %}{: .center-image }
 
 Click **Logout**.
 
