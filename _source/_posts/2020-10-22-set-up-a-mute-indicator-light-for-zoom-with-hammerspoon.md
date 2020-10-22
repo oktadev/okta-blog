@@ -68,7 +68,7 @@ Next, use `git` to check out a copy of my unofficial Zoom Spoon:
 
 ```shell
 cd ~/.hammerspoon/Spoons
-git checkout https://github.com/jpf/Zoom.spoon.git
+git clone https://github.com/jpf/Zoom.spoon.git
 ```
 ## Getting Familiar with Hammerspoon and Testing Out the Unofficial Zoom Spoon
 
