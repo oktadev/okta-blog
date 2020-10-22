@@ -96,7 +96,7 @@ Save the file, then click on the Hammerspoon menu icon, and select **Reload conf
 
 At this point, should see the Hammerspoon console, and it should look like this:
 
-{% img blog/zoom-hammerspoon/console-zoom-inmeeting.png alt:"Image of the Hammerspoon preferences window" width:"512px" %}{: .center-image }
+{% img blog/zoom-hammerspoon/console-zoom-inmeeting-micah.png alt:"Image of the Hammerspoon preferences window" width:"512px" %}{: .center-image }
 
 Now, at first glance, this console appears to be just a message log. Not so! You can also interactively run Lua in this console, which is exactly what we're going to do now.
 
