@@ -40,6 +40,23 @@
 		}
 	}
 
+	& .alert {
+		padding: 10px 20px;
+		margin-bottom: 10px;
+		border-radius: 5px;
+
+		.title {
+			font-size: 16pt;
+			font-weight: 700
+		}
+	}
+
+	& .alert-info {
+		background-color: #ebfaf4;
+		color: #12c677;
+		border: 1px solid #12c677;
+	}
+
 	&-attribution {
 		align-items: center;
 		display: flex;
@@ -55,7 +72,7 @@
 		@include color('charcoal');
 		border-top: 1px #ccc solid;
 		padding-top: 20px;
-		margin-top: 20px;	
+		margin-top: 20px;
 	}
 
 	&-author {
