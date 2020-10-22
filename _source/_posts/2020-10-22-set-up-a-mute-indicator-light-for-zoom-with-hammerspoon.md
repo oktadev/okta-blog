@@ -86,10 +86,11 @@ At this point, you should see a new icon that looks like a hammer with a spoon h
 
 When you can see the icon, click on the icon and select **Open Config** from the menu. This will open up the `~/.hammerspoon/init.lua` configuration for Hammerspoon in your favorite text editor.
 
-Once the `~/.hammerspoon/init.lua` configuration file is open, use your favorite text editor to add the following line to the file:
+Once the `~/.hammerspoon/init.lua` configuration file is open, use your favorite text editor to add the following lines to the file:
 
 ```lua
 hs.loadSpoon("Zoom")
+spoon.Zoom:start()
 ```
 
 Save the file, then click on the Hammerspoon menu icon, and select **Reload config**, then click on the the Hammerspoon menu icon again to select **Console**.
@@ -108,18 +109,15 @@ spoon.Zoom:inMeeting()
 
 If Zoom is already open, and in a meeting, this command should return `true` otherwise, it'll return `false`
 
-{% img blog/zoom-hammerspoon/console-zoom-inmeeting.png alt:"Image of the Hammerspoon preferences window" width:"512px" %}{: .center-image }
+{% img blog/zoom-hammerspoon/console-more.png alt:"Image of the Hammerspoon preferences window" width:"512px" %}{: .center-image }
 
-If the command returned `false` like in the image above, then open Zoom, start a meeting, and re-run the command. This time around, it should return `true`
-
-{% img blog/zoom-hammerspoon/console-zoom-inmeeting.png alt:"Image of the Hammerspoon preferences window" width:"512px" %}{: .center-image }
-
+If the command returned `false` like in the image above, then quit and reopen Zoom, start a meeting, and re-run the command. This time around, it should return `true`
 
 If this doesn't work, it probably means that you need to give Hammerspoon permission to control your computer. To do this, open System Preferences, and go to 
 **Security & Privacy** > **Privacy** > **Accessibility**,
 unlock the preference pane to make changes, then select the checkbox next to "Hammerspoon" to allow Hammerspoon to inspect the state of Zoom.
 
-{% img blog/zoom-hammerspoon/console-zoom-inmeeting.png alt:"Image of the Hammerspoon preferences window" width:"512px" em%}{: .center-image }
+{% img blog/zoom-hammerspoon/hammerspoon-security-privacy.png alt:"Image of the Hammerspoon preferences window" width:"512px" em%}{: .center-image }
 
 
 Once you get the `spoon.Zoom:inMeeting()` command working, two others for you to try are `spoon.Zoom:mute()` and `spoon.Zoom:unmute()` try out both while you have a live Zoom meeting running and see what happens!
@@ -285,5 +283,7 @@ If you liked this post, you might also like these other posts about Python and O
 
 Also, be sure to follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube Channel](https://youtube.com/c/oktadev) for updates on new posts and videos.
 
-Lastly, I want to thank the following people for their help with this post: [Jeff Lindsay](https://twitter.com/progrium/), [Brian Demers](https://twitter.com/briandemers), [Tyler Neylon](https://twitter.com/tylerneylon/), [Kyle Conroy](https://twitter.com/kyle_conroy)
+Lastly, I want to thank the following people for their help with this post: [Jeff Lindsay](https://twitter.com/progrium/), [Brian Demers](https://twitter.com/briandemers), [Tyler Neylon](https://twitter.com/tylerneylon/), [Kyle Conroy](https://twitter.com/kyle_conroy),
+[Matt Raible](https://twitter.com/mraible),
+[Micah Silverman](https://twitter.com/afitnerd)
 
