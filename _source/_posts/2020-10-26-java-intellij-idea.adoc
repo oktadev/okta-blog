@@ -19,18 +19,9 @@ type: awareness
 // Define unicode for Apple Command key.
 :commandkey: &#8984;
 
-////
-Keywords: java intellij (5400)
-Title analyzer: https://user:APIH%40x0r@brentisarulebreaker.dev/
-- Modern Java with IntelliJ IDEA - 47
-- Modern Java Development with IntelliJ IDEA - 55
-- Why I Love Java + IntelliJ IDEA - 64
-- Why I Love IntelliJ IDEA for Java Development - 65
-////
+If you're a Java developer like me, you like to crank out code and get shit done. I like many things about IntelliJ IDEA, but I thought it'd be fun to write about the ones that make me most productive. First, a bit of my development history.
 
-If you're a Java developer like me, you like to crank out code and get shit done. I like many things about IntelliJ IDEA, but I thought it'd be fun to write about the ones that make me most productive. But first, a bit of my development history.
-
-When I first started doing Java development in the late 90s, I used HomeSite as my editor. HomeSite was an HTML editor initially developed by Nick Bradbury. I liked it because it defaulted to a view of your code rather than being WYSIWYG like Dreamweaver and FrontPage. It's funny to look back now and laugh about how inefficient I was: I used to google for import statements, then copy/paste them into the editor.
+When I first started doing Java development in the late 90s, I used HomeSite as my editor. HomeSite was an HTML editor initially developed by Nick Bradbury. I liked it because it defaulted to a view of your code rather than being WYSIWYG like Dreamweaver and FrontPage. It's funny to look back now and laugh about how inefficient I was: I used to google for import statements, then copy/pasted them into the editor.
 
 In the early 2000s, I tried a few other IDEs, but they always seemed to be memory hogs and never felt quite as good as HomeSite to me. Then, along came Eclipse. When I first used it, I fell in _love_. Not only did it have a native look-and-feel, but it was fast and efficient.
 
@@ -56,7 +47,7 @@ If you select any of these frameworks, a multi-step wizard will guide you throug
 
 === Run Spring Boot Apps in IntelliJ IDEA
 
-If you select Spring Boot, it'll even create a run configuration for you, with the name matching your main `Application` class. In the screenshot below, the buttons are as follows:
+If you select Spring Boot, it'll even create a run configuration for you with the name matching your main `Application` class. In the screenshot below, the buttons are as follows:
 
 image::{% asset_path 'blog/java-intellij-idea/spring-boot-run.png' %}[alt=Spring Boot Run Configuration,width=263]
 
@@ -78,7 +69,7 @@ After downloading dependencies and initializing the project, you'll see a **Serv
 
 image::{% asset_path 'blog/java-intellij-idea/spring-boot-service.png' %}[alt=Services popup,width=368,align=center]
 
-Click on it and it'll expand to give you a couple options. Click on the first one to show run configurations.
+Click on it and it'll expand to give you a couple of options. Click on the first one to show run configurations.
 
 image::{% asset_path 'blog/java-intellij-idea/spring-boot-show-run-configs.png' %}[alt=Show run configurations,width=368,align=center]
 
@@ -98,9 +89,9 @@ image::{% asset_path 'blog/java-intellij-idea/micronaut-run.png' %}[alt=Create a
 
 === Run Quarkus Apps in IntelliJ IDEA
 
-Quarkus is a bit different: it has no `main()` method. You have to run the `quarkus:dev` Maven goal to start the app. The good news is you can create a run (or debug) configuration from this by right-clicking on the goal in the Maven tool window and selecting the second option.
+Quarkus is a bit different—it has no `main()` method. You have to run the `quarkus:dev` Maven goal to start the app. The good news is you can create a run (or debug) configuration from this by right-clicking on the goal in the Maven tool window and selecting the second option.
 
-image::{% asset_path 'blog/java-intellij-idea/quarkus-run.png' %}[alt=Create a Micronaut Run Configuration,width=503,align=center]
+image::{% asset_path 'blog/java-intellij-idea/quarkus-run.png' %}[alt=Create a Quarkus Run Configuration,width=503,align=center]
 
 === Configure Environment Variables
 
@@ -168,7 +159,7 @@ image::{% asset_path 'blog/java-intellij-idea/quarkus-test.png' %}[alt=Running a
 
 You can also run them at a package level by right-clicking on the page and selecting the **Run Tests** option.
 
-TIP: You might notice I'm using https://sdkman.io/[SDKMAN] for my JDK installation. IDEA pairs great with SDKMAN (which is very useful when testing with different vendors/versions).
+TIP: You might notice I'm using https://sdkman.io/[SDKMAN] for my JDK installation. IDEA pairs well with SDKMAN (which is very useful when testing with different vendors/versions).
 
 == My Favorite Keyboard Shortcuts in IntelliJ IDEA
 
@@ -291,7 +282,7 @@ TIP: Make sure you test your templates before doing a demo because sometimes the
 
 If you're a hard-core Java developer, you might not care about web framework support. That is, unless your web framework requires Java code, like Wicket or GWT. Personally, I'm a fan of JavaScript and don't trust Java developers to write my JavaScript for me. I'm a full-stack developer, and I ❤️ https://www.jhipster.tech[JHipster]! 🤓
 
-I first switched to IntelliJ IDEA in 2006 because of its Maven multi-module support. I stuck with it because I switched to mostly frontend development in 2009. I found that IDEA's HTML, CSS, and JavaScript support is excellent. It picks up my ESLint settings automatically and _just works_.
+I first switched to IntelliJ IDEA in 2006 because of its Maven multi-module support. I stuck with it because I switched to mostly front-end development in 2009. I found that IDEA's HTML, CSS, and JavaScript support is excellent. It picks up my ESLint settings automatically and _just works_.
 
 Support for Angular is bundled, and there are lots of React plugins. I've never installed any because I haven't had a need. As far as Vue is concerned, there's a https://plugins.jetbrains.com/plugin/9442-vue-js[Vue.js plugin] from JetBrains.
 
@@ -311,8 +302,6 @@ We've also written several blog posts about Java on this here blog.
 - link:/blog/2019/12/20/five-tools-improve-java[Five Tools to Improve Your Java Code]
 - link:/blog/2019/07/15/java-myths-2019[10 Myths About Java in 2019]
 - link:/blog/2019/01/16/which-java-sdk[Which Java SDK Should You Use?]
-//- link:/blog/2019/10/30/java-oauth2[OAuth 2.0 Java Guide: Secure Your App in 5 Minutes]
-//- link:/blog/2019/05/23/java-microservices-spring-cloud-config[Java Microservices with Spring Cloud Config and JHipster]
 
 If you have things you love about IntelliJ IDEA, please leave a message in the comments!
 
