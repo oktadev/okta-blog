@@ -111,7 +111,7 @@ image::{% asset_path 'blog/java-intellij-idea/micronaut-debug.png' %}[alt=Micron
 
 === Debug via Maven in IntelliJ IDEA
 
-If you start your app with Maven, you can debug it too. Let's use Micronaut in this example. If you run `mvndebug mn:run`, it'll wait for you to attach a remote debugger on port 8000. To create a remote debugging configuration in IntelliJ IDEA, go to **Add Configuration** > **+** > **Remote** and give it a name. Then change the port to `8000`.
+If you start your app with Maven, you can debug it too. Let's use Micronaut in this example. If you run `mvnDebug mn:run`, it'll wait for you to attach a remote debugger on port 8000. To create a remote debugging configuration in IntelliJ IDEA, go to **Add Configuration** > **+** > **Remote** and give it a name. Then change the port to `8000`.
 
 image::{% asset_path 'blog/java-intellij-idea/remote-debug.png' %}[alt=Remote Debugging,width=800,align=center]
 
