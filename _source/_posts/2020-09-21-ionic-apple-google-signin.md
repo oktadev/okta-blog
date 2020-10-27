@@ -48,7 +48,10 @@ Run `ionic serve` and make sure you can see the app in your browser.
 
 ## Add Authentication with OpenID Connect
 
-The easiest way to add OIDC authentication to an Ionic app is with OktaDev Schematics. Before I show you how to do that, you'll need to create an Okta developer account and register your app to get a client ID. Head on over to [developer.okta.com/signup](https://developer.okta.com/signup) if you'd like to do this in your browser. 
+The easiest way to add OIDC authentication to an Ionic app is with OktaDev Schematics. Before I show you how to do that, you'll need to create an Okta developer account and register your app to get a client ID. {% include setup/console.md.html type="native" port="8100" name="Ionic Social" %}
+
+<!--
+Head on over to [developer.okta.com/signup](https://developer.okta.com/signup) if you'd like to do this in your browser. 
 
 If you prefer the command line, install the [Okta CLI](https://github.com/oktadeveloper/okta-cli). Run `okta register` to sign up for a new account. 
 
@@ -66,6 +69,7 @@ On the Create New Application page, select **Native**. Name your app `Ionic Soci
   - [x] **Authorization Code**
   - [x] **Refresh Token**
 * Click **Done**
+-->
 
 If you're using the command line, you'll have to use your browser to adjust the redirect URIs. Your app's settings should look similar to the screenshot below.
 
