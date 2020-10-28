@@ -521,8 +521,8 @@ The source code for this project can be found on [GitHub](https://github.com/okt
 
 You might also like this related content:
 
-* [Setup a Mute Indicator Light for Zoom with Hammerspoon](https://developer.okta.com/blog/2020/10/22/set-up-a-mute-indicator-light-for-zoom-with-hammerspoon)
-* [Build a Video Chat Service with JavaScript, WebRTC, and Okta](https://developer.okta.com/blog/2020/10/21/webrtc-videochat-javascript)
-* [How to Build Securely with Blazor WebAssembly (WASM)](https://developer.okta.com/blog/2020/09/30/blazor-webassembly-wasm-dotnetcore)
+* [Setup a Mute Indicator Light for Zoom with Hammerspoon](/blog/2020/10/22/set-up-a-mute-indicator-light-for-zoom-with-hammerspoon)
+* [Build a Video Chat Service with JavaScript, WebRTC, and Okta](/blog/2020/10/21/webrtc-videochat-javascript)
+* [How to Build Securely with Blazor WebAssembly (WASM)](/blog/2020/09/30/blazor-webassembly-wasm-dotnetcore)
 
 Also, be sure to follow us on Twitter and subscribe to our YouTube Channel for updates on new posts and videos.
