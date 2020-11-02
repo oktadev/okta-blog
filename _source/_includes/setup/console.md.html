@@ -6,13 +6,22 @@ Log in to your Okta Developer account or use `okta apps create`. If you use your
 
 On the Create New Application page, select **{{ include.type | capitalize }}**. Name your app `{{include.name}}`, and configure it as follows:
 
-* Login redirect URI{% if include.type == "native" %}s{% endif %}: `http://localhost:{{ include.port }}/login/callback` {% if include.type == "native" %}
-  and `com.okta.dev-133337:/callback` (where `dev-133337.okta.com` is your Okta Org URL){% endif %}
+* Login redirect URI{% if include.type == "native" %}s{% endif %}:
+  * `http://localhost:{{ include.port }}/callback`
+{% if include.type == "native" %}
+  * `com.okta.dev-133337:/callback` (where `dev-133337.okta.com` is your Okta Org URL)
+{% endif %}
 
-* Logout redirect URI{% if include.type == "native" %}s{% endif %}: `http://localhost:{{ include.port }}` {% if include.type == "native" %}
-  and `com.okta.dev-133337:/logout`{% endif %}
+* Logout redirect URI{% if include.type == "native" %}s{% endif %}:
+  * `http://localhost:{{ include.port }}/logout`
+{% if include.type == "native" %}
+  * `com.okta.dev-133337:/logout`
+{% endif %}
 
-* Grant type{% if include.type == "native" or "web" %}s{% endif %} allowed: **Authorization Code** {% if include.type == "native" or "web" %}
-  and **Refresh Token**{% endif %}
+* Grant type{% if include.type == "native" or "web" %}s{% endif %} allowed:
+  * **Authorization Code**
+{% if include.type == "native" or "web" %}
+  * **Refresh Token**
+{% endif %}
 
 Click **Done** to continue.
