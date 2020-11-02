@@ -353,7 +353,7 @@ Since your end goal is to create a JavaScript application that will run on web b
 pipenv install flask_cors==3.0.7
 ```
 
-Next, implement your endpoints. Go ahead and paste the content above into the `app/http/api/endpoints.py` file.
+Next, implement your endpoints. Go ahead and paste the content above into the `app/http/api/endpoints.py` file. The `g.oidc_token_info['sub']` value in the code below will be the user's email address.
 
 ```python
 from flask_oidc import OpenIDConnect
@@ -373,7 +373,7 @@ CORS(app)
 @app.route("/kudos", methods=["GET"])
 @oidc.accept_token(True)
 def index():
-  return json_response(Kudo(g.user).find_all_kudos())
+  return json_response(Kudo(g.oidc_token_info['sub']).find_all_kudos())
 
 
 @app.route("/kudos", methods=["POST"])
@@ -384,14 +384,14 @@ def create():
   if github_repo.errors:
     return json_response({'error': github_repo.errors}, 422)
 
-  kudo = Kudo(g.user).create_kudo_for(github_repo)
+  kudo = Kudo(g.oidc_token_info['sub']).create_kudo_for(github_repo)
   return json_response(kudo)
 
 
 @app.route("/kudo/<int:repo_id>", methods=["GET"])
 @oidc.accept_token(True)
 def show(repo_id):
-  kudo = Kudo(g.user).find_kudo(repo_id)
+  kudo = Kudo(g.oidc_token_info['sub']).find_kudo(repo_id)
 
   if kudo:
     return json_response(kudo)
@@ -407,7 +407,7 @@ def update(repo_id):
    if github_repo.errors:
      return json_response({'error': github_repo.errors}, 422)
 
-   kudo_service = Kudo(g.user)
+   kudo_service = Kudo(g.oidc_token_info['sub'])
    if kudo_service.update_kudo_with(repo_id, github_repo):
      return json_response(github_repo.data)
    else:
@@ -417,7 +417,7 @@ def update(repo_id):
 @app.route("/kudo/<int:repo_id>", methods=["DELETE"])
 @oidc.accept_token(True)
 def delete(repo_id):
-  kudo_service = Kudo(g.user)
+  kudo_service = Kudo(g.oidc_token_info['sub'])
   if kudo_service.delete_kudo_for(repo_id):
     return json_response({})
   else:
@@ -972,11 +972,11 @@ touch src/githubClient.js
 Paste the following content in it:
 
 ```javascript
-export default {
-  getJSONRepos(query) {
-    return fetch('https://api.github.com/search/repositories?q=' + query).then(response => response.json());
-  }
+function getJSONRepos(query) {
+  return fetch('https://api.github.com/search/repositories?q=' + query).then(response => response.json());
 }
+
+export default getJSONRepos;
 ```
 
 Now, you need to create an HTTP client to make HTTP calls to the Python ReST API you implemented in the first section of this tutorial. Since all the requests made to your Python ReST API require the user to be authenticated, you will need to set the `Authorization` HTTP Header with the `accessToken` provided by Okta.
@@ -1131,8 +1131,7 @@ class Home extends React.Component {
     if (!target.value || target.length < 3) { return }
     if (event.which !== 13) { return }
 
-    githubClient
-      .getJSONRepos(target.value)
+    githubClient(target.value)
       .then((response) => {
         target.blur();
         this.setState({ ...this.state, value: 1 });
@@ -1203,3 +1202,7 @@ As we've seen, React is a powerful and straightforward JavaScript library with p
 
 As always, if you have any questions feel free to leave us a comment below. Don't forget to follow us Follow us on [Twitter](https://twitter.com/oktadev), like us on [Facebook](https://www.facebook.com/oktadevelopers), check us out on [LinkedIn](https://www.linkedin.com/company/oktadev/), and subscribe to our [YouTube channel](https://www.youtube.com/oktadev).
 
+<a name="changelog"></a>
+**Changelog:**
+
+* Nov 2, 2020: Updated to use Flask-OIDC and React 17. See the code changes in [python-flask-react-crud-example#4](https://github.com/oktadeveloper/python-flask-react-crud-example/pull/4) and the article changes in [okta-blog#386](https://github.com/oktadeveloper/okta-blog/pull/386).
