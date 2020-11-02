@@ -1205,4 +1205,4 @@ As always, if you have any questions feel free to leave us a comment below. Don'
 <a name="changelog"></a>
 **Changelog:**
 
-* Nov 2, 2020: Updated to use Flask-OIDC and React 17. See the code changes in [python-flask-react-crud-example#4](https://github.com/oktadeveloper/python-flask-react-crud-example/pull/4) and the article changes in [okta-blog#386](https://github.com/oktadeveloper/okta-blog/pull/386).
+* Nov 2, 2020: Updated to use Flask-OIDC and React 17. See the code changes in [python-flask-react-crud-example#4](https://github.com/oktadeveloper/python-flask-react-crud-example/pull/4) and the article changes in [okta-blog#458](https://github.com/oktadeveloper/okta-blog/pull/458).
