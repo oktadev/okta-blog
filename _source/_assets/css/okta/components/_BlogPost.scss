@@ -335,7 +335,7 @@
 			max-width: 100%;
 			overflow: scroll;
 			width: 100%;
-			display: block; /* allows vertical scrolling of wide tables */
+			display: block; /* allows horizontal scrolling on mobile */
 
 			thead th {
 				background: $white-smoke-4;
