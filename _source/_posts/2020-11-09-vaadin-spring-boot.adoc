@@ -225,7 +225,7 @@ public class Person {
 
 If you aren't using Lombok, omit the annotations and instead add a constructor that takes in `firstName` and `lastName`, and create getters and setters for both.
 
-NOTE: If you’re doing this tutorial in an IDE, you may need to enable annotation processing so Lombok can generate code for you. See Lombok’s instructions { https://projectlombok.org/setup/eclipse[Eclipse], https://projectlombok.org/setup/intellij[IntelliJ IDEA] } for more information.
+NOTE: If you're doing this tutorial in an IDE, you may need to enable annotation processing so Lombok can generate code for you. See Lombok's instructions { https://projectlombok.org/setup/eclipse[Eclipse], https://projectlombok.org/setup/intellij[IntelliJ IDEA] } for more information.
 
 Open `PeopleEndpoint.java` and replace the contents with the following:
 
