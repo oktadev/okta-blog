@@ -5,7 +5,7 @@ author: matt-raible
 by: advocate
 communities: [java,javascript]
 description: "A Quick Guide to building and securing a Vaadin Fusion and Spring Boot App."
-tags: [java, vaadin, spring boot, typescript]
+tags: [java, vaadin, spring-boot, typescript]
 tweets:
 - "Develop a secure app with @java and @typescript using Vaadin and Spring Boot!"
 - "Want to use @vaadin and @springboot in the same app? This guide shows you how! 👇"
