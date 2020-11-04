@@ -22,7 +22,7 @@ If you're using JWTs properly, they provide several benefits. For single-page ap
 
 {% img blog/protecting-a-laravel-api-with-jwt/architecture.jpg alt:"Traditional session-based authentication vs. JWT-based authentication" width:"800" %}{: .center-image }
 
-In this tutorial, you'll create a Laravel API that uses JWTs provided by [Okta](https://www.okta.com/) to authenticate users. You'll use custom [Laravel middleware](https://laravel.com/docs/middleware) and the [Okta JWT Verifier package](https://github.com/okta/okta-jwt-verifier-php) to verify requests and restrict access to your API to authenticated users. If you'd like to download the final codebase, [it's available on GitHub](https://github.com/karllhughes/okta-laravel-jwt). Otherwise, read on for the step-by-step process.
+In this tutorial, you'll create a Laravel API that uses JWTs provided by [Okta](https://www.okta.com/) to authenticate users. You'll use custom [Laravel middleware](https://laravel.com/docs/middleware) and the [Okta JWT Verifier package](https://github.com/okta/okta-jwt-verifier-php) to verify requests and restrict access to your API to authenticated users. If you'd like to download the final codebase, [it's available on GitHub](https://github.com/oktadeveloper/okta-laravel-jwt-example). Otherwise, read on for the step-by-step process.
 
 ## Using JWT Authentication to Secure a Laravel API
 
