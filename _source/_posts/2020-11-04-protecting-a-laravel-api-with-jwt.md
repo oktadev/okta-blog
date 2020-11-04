@@ -4,7 +4,7 @@ title: "Protecting a Laravel API with JWT"
 author: karl-hughes
 by: contractor
 communities: [php]
-description: "In this step by step tutorial you'll learn how to protect a Laravel API using JSON Web Tokens"
+description: "In this step-by-step tutorial you'll learn how to protect a Laravel API using JSON Web Tokens."
 tags: [php,jwt,laravel]
 tweets:
 - "Laravel 💙 JWT ➡ "
@@ -14,7 +14,7 @@ image: blog/featured/okta-php-headphones.jpg
 type: conversion
 ---
 
-With the [increasing popularity of single-page apps](https://w3-lab.com/web-development/single-page-applications-pros-2020) and the [growing API economy](https://www.gartner.com/smarterwithgartner/welcome-to-the-api-economy/), JSON Web Tokens (JWTs) are becoming a very popular method for authenticating users. Rather than relying on the server to store the user's state, JWTs encode information in a keyed payload stored on the client.
+With the increasing popularity of single-page apps and the growing API economy, JSON Web Tokens (JWTs) are becoming a very popular method for authenticating users. Rather than relying on the server to store the user's state, JWTs encode information in a keyed payload stored on the client.
 
 JWTs are not inherently less secure than server-side session storage. But developers should understand the tradeoffs and know what to do [if a JWT is compromised](/blog/2018/06/20/what-happens-if-your-jwt-is-stolen). You should expire JWTs frequently and always [validate them before trusting them in your application](https://developer.okta.com/docs/guides/validate-access-tokens/go/overview/).
 
