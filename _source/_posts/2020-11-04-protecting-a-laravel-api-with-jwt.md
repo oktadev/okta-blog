@@ -4,25 +4,25 @@ title: "Protecting a Laravel API with JWT"
 author: karl-hughes
 by: contractor
 communities: [php]
-description: ""
+description: "In this step by step tutorial you'll learn how to protect a Laravel API using JSON Web Tokens"
 tags: [php,jwt,laravel]
 tweets:
-- ""
-- ""
-- ""
-image:
+- "Laravel 💙 JWT ➡ "
+- "It couldn't be easier to protect a Laravel API with JWT!"
+- "Create custom middleware for your Laravel API to protect it with JWTs!"
+image: blog/featured/okta-php-headphones.jpg
 type: conversion
 ---
 
 With the [increasing popularity of single-page apps](https://w3-lab.com/web-development/single-page-applications-pros-2020) and the [growing API economy](https://www.gartner.com/smarterwithgartner/welcome-to-the-api-economy/), JSON Web Tokens (JWTs) are becoming a very popular method for authenticating users. Rather than relying on the server to store the user's state, JWTs encode information in a keyed payload stored on the client.
 
-JWTs are not  inherently less secure than server-side session storage. But developers should understand the tradeoffs and know what to do [if a JWT is compromised](/blog/2018/06/20/what-happens-if-your-jwt-is-stolen). You should expire JWTs frequently and always [validate them before trusting them in your application](https://developer.okta.com/docs/guides/validate-access-tokens/go/overview/).
+JWTs are not inherently less secure than server-side session storage. But developers should understand the tradeoffs and know what to do [if a JWT is compromised](/blog/2018/06/20/what-happens-if-your-jwt-is-stolen). You should expire JWTs frequently and always [validate them before trusting them in your application](https://developer.okta.com/docs/guides/validate-access-tokens/go/overview/).
 
 If you're using JWTs properly, they provide several benefits. For single-page applications—where much of the heavy-lifting is done in the browser—JWTs make a lot of sense. Assuming the client can decode the JWT and verify its signature, it doesn't need to make another trip back to the server to authenticate the user. JWTs also make sense for highly performant, globally-distributed server-side applications. By storing user information in the JWT, each node can authenticate the user locally rather than querying an authentication service on every request.
 
 {% img blog/protecting-a-laravel-api-with-jwt/architecture.jpg alt:"Traditional session-based authentication vs. JWT-based authentication" width:"800" %}{: .center-image }
 
-In this tutorial, you'll create a Laravel API that uses JWTs provided by [Okta](https://www.okta.com/) to authenticate users. You'll use custom [Laravel middleware](https://laravel.com/docs/middleware) and the [Okta JWT Verifier package](https://github.com/okta/okta-jwt-verifier-php) to verify requests and restrict access to your API to authenticated users. If you'd like to download the final codebase, [it's available on GitHub](https://github.com/oktadeveloper/okta-laravel-jwt-example). Otherwise, read on for the step-by-step process.
+In this tutorial, you'll create a Laravel API that uses JWTs provided by [Okta](https://developer.okta.com/) to authenticate users. You'll use custom [Laravel middleware](https://laravel.com/docs/middleware) and the [Okta JWT Verifier package](https://github.com/okta/okta-jwt-verifier-php) to verify requests and restrict access to your API to authenticated users. If you'd like to download the final codebase, [it's available on GitHub](https://github.com/oktadeveloper/okta-laravel-jwt-example). Otherwise, read on for the step-by-step process.
 
 ## Using JWT Authentication to Secure a Laravel API
 
