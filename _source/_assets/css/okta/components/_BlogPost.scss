@@ -335,13 +335,17 @@
 			max-width: 100%;
 			overflow: scroll;
 			width: 100%;
-			display: block; /* allows horizontal scrolling on mobile */
 
 			thead th {
 				background: $white-smoke-4;
 				padding: 10px 10px 10px;
 				font-weight: bold;
 			}
+		}
+
+		.table-wrapper > table {
+			max-width: 100%;
+			overflow: auto;
 		}
 	}
 
