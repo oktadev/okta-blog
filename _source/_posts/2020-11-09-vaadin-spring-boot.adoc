@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Build a Secure Vaadin Fusion App with Spring Boot"
+title: "A Quick Guide to Security with Vaadin Fusion and Spring Boot"
 author: matt-raible
 by: advocate
 communities: [java,javascript]
@@ -16,32 +16,21 @@ type: conversion
 :toc: macro
 :page-liquid:
 
-////
-Title options - scores from https://user:APIH%40x0r@brentisarulebreaker.dev/
-- Use Vaadin and Spring Boot to Build a Secure App: 61
-- Build a Secure Vaadin Fusion App with Spring Boot: 60
-- Add OIDC authentication to a Spring Boot based Vaadin Fusion application: 40
-- A Quick Guide to Security with Vaadin Fusion and Spring Boot: 64
-- Build a Secure Vaadin Fusion App with Spring Boot: 60
-- Build Secure Apps with Vaadin Fusion and Spring Boot: 60
-- A Quick Guide to Securing Vaadin and Spring Boot: 62
-////
-
 Building a web application involves a lot of moving pieces. You have a backend server handling API calls, a frontend application running business logic, and you need to somehow make sure both are in sync and secure.
 
 In this blog post, you'll learn how to use Vaadin Fusion, Spring Boot, and Okta to create a full-stack web application with authentication. Specifically, you'll learn how to:
 
-- Create a Spring Boot based Vaadin Fusion app
+- Create a Spring Boot-based Vaadin Fusion app
 - Secure server endpoints with Okta
 - Use Okta Auth JS for logging in and securing Vaadin routes
 
 image:{% asset_path 'blog/vaadin-spring-boot/marcus-hellberg.jpg' %}[alt=Marcus Hellberg,role="BlogPost-avatar pull-right img-100px"]
 
-I collaborated on this post with https://twitter.com/marcushellberg[Marcus Hellberg], Head of Community at Vaadin. Marcus and I met years ago on the conference circuit and we're both from Finland. My great grandparents were Finnish and built the sauna and cabin I grew up in in the remote woods of Montana. We share a passion for using Java and web technologies to build fast, efficient, applications.
+I collaborated on this post with https://twitter.com/marcushellberg[Marcus Hellberg], Head of Community at Vaadin. Marcus and I met years ago on the conference circuit, and we're both from Finland. My great grandparents were Finnish and built the sauna and cabin I grew up in in Montana's remote woods. Marcus and I share a passion for using Java and web technologies to build fast, efficient applications.
 
-You might notice we keep saying "Vaadin Fusion" instead of "Vaadin". I've always thought Vaadin was a web framework based on Google's GWT (Google Web Toolkit). I asked Marcus about this and he explained to me there are now two products: Vaadin Flow and Vaadin Fusion.
+You might notice we keep saying "Vaadin Fusion" instead of "Vaadin." I've always thought Vaadin was a web framework based on Google's GWT (Google Web Toolkit). I asked Marcus about this, and he explained to me there are now two products—Vaadin Flow and Vaadin Fusion.
 
-The classic Vaadin server-side Java API is now called Vaadin Flow. Vaadin Fusion is a new TypeScript frontend framework designed for Java backends. Both offer full-stack type safety and use the same set of UI components. Vaadin is no longer based on GWT, instead the components use web component standards.
+The classic Vaadin server-side Java API is now called Vaadin Flow. Vaadin Fusion is a new TypeScript frontend framework designed for Java backends. Both offer full-stack type safety and use the same set of UI components. Vaadin is no longer based on GWT. Instead, its components use web component standards.
 
 **Prerequisites**
 
@@ -52,13 +41,13 @@ toc::[]
 
 You can find the full completed source code for this tutorial on GitHub, in the https://github.com/oktadeveloper/okta-vaadin-fusion-spring-boot-example[oktadeveloper/okta-vaadin-fusion-spring-boot-example repository].
 
-== What is Vaadin Fusion?
+== What Is Vaadin Fusion?
 
-https://vaadin.com/[Vaadin Fusion] is an open-source front-end framework designed specifically for Java backends. Fusion gives you type-safe access to your backend from your client app by auto-generating TypeScript interfaces for your server Java objects. It wraps REST calls in async TypeScript methods, so you can access your backend as easily as calling any TypeScript function.
+https://vaadin.com/[Vaadin Fusion] is an open-source, front-end framework designed specifically for Java backends. Fusion gives you type-safe access to your backend from your client app by auto-generating TypeScript interfaces for your server Java objects. It wraps REST calls in async TypeScript methods, so you can access your backend as easily as calling any TypeScript function.
 
-End-to-end type checking means you catch any breaking changes build time, not in production. Oh, and there's auto-complete everywhere so you can focus on coding, not reading API docs.
+End-to-end type checking means you catch any breaking changes at build time, not in production. Oh, and there's auto-complete everywhere, so you can focus on coding, not reading API docs.
 
-Views are written in TypeScript with LitElement, a lightweight reactive component library.
+Views are written in TypeScript with LitElement, a lightweight, reactive component library.
 
 == Create a Spring Boot-based Vaadin Fusion Application
 
@@ -78,7 +67,7 @@ image::{% asset_path 'blog/vaadin-spring-boot/select-ui-stack.png' %}[alt=Select
 The two important folders in the project are:
 
 - `/frontend` - This folder contains all the frontend code
-- `/src/main/java` - This folder contains all the backend code, which is a Spring Boot app
+- `/src/main/java` - This folder includes all the backend code, which is a Spring Boot app
 
 Start the application with the following command:
 
@@ -155,7 +144,7 @@ Vaadin is configured to:
 
 By default, all server endpoints require an authenticated user. You can allow anonymous access to an endpoint or a method by adding an `@AnonymousAllowed` annotation. You can further restrict access by adding `@RolesAllowed` to an endpoint or a method.
 
-NOTE: The security configuration below assumes you are only serving a Vaadin Fusion application. If you are also serving Spring REST controllers or other non-Vaadin resources, you need to configure their access control separately, for instance adding `antMatchers("/api/**").authenticated()` if you serve REST APIs under `/api`.
+NOTE: The security configuration below assumes you are only serving a Vaadin Fusion application. Suppose you are also serving Spring REST controllers or other non-Vaadin resources. In that case, you need to configure their access control separately, for instance, adding `antMatchers("/api/**").authenticated()` if you serve REST APIs under `/api`.
 
 Create a new class `SecurityConfiguration.java` in the same package as `Application.java` with the following contents:
 
@@ -204,7 +193,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 === Create a Vaadin Endpoint for Accessing Data
 
-Now that you have the server set up for authenticating requests, add a service you can call from the client app.
+Now that you have the server set up for authenticating requests add a service you can call from the client app.
 
 First, create a `Person.java` class to use as the data model in the `com.example.application.views.people` package.
 
@@ -223,7 +212,7 @@ public class Person {
 }
 ----
 
-If you aren't using Lombok, omit the annotations and instead add a constructor that takes in `firstName` and `lastName`, and create getters and setters for both.
+If you aren't using Lombok, omit the annotations and add a constructor that takes in `firstName` and `lastName`, and create getters and setters for both.
 
 NOTE: If you're doing this tutorial in an IDE, you may need to enable annotation processing so Lombok can generate code for you. See Lombok's instructions { https://projectlombok.org/setup/eclipse[Eclipse], https://projectlombok.org/setup/intellij[IntelliJ IDEA] } for more information.
 
@@ -260,7 +249,7 @@ public class PeopleEndpoint {
 }
 ----
 
-Vaadin will make the `getPeople()` and `addPerson()` methods available as asynchronous TypeScript methods. It will also generate a TypeScript interface for `Person` so you have access to the same type-information both on the server and in the client.
+Vaadin will make the `getPeople()` and `addPerson()` methods available as asynchronous TypeScript methods. It will also generate a TypeScript interface for `Person`, so you can access the same type-information of both on the server and in the client.
 
 === Call the Spring Boot Endpoint from Vaadin Fusion
 
@@ -355,11 +344,11 @@ export class PeopleView extends LitElement {
 Here's what this code does:
 
 * Defines two internal properties: `people` and `message` to hold the component's state. Any time a property changes, the template will get re-rendered efficiently.
-* Initialized a `Binder` for handling the new person form. It keeps track of the model value, handles validations, and submits the value to the endpoint.
+* Initialized a `Binder` for handling the new-person form. It keeps track of the model value, handles validations, and submits the value to the endpoint.
 * The template:
 ** Lists all people in an unordered list (`<ul>`)
 ** Displays a form for adding new people. The form uses two Vaadin components: `vaadin-text-field` and `vaadin-button`. The fields are bound to the Binder with the help of a spread operator (`...=${field(...)}`). You can read more about forms in the https://vaadin.com/docs/v17/flow/client-side-forms/tutorial-binder.html[Vaadin documentation]
-** The Add-button calls the `add()` method, which submits the form to the backend, and adds the saved `Person` to the people array.
+** The Add button calls the `add()` method, which submits the form to the backend and adds the saved `Person` to the people array.
 * If any of the server calls fail, `message` gets populated to inform the user.
 
 === Start Your Vaadin + Spring Boot App
@@ -371,11 +360,11 @@ Start the application with the following command:
 mvn
 ----
 
-You should now be able to launch the application and see the views. However, if you try to access the People page, you'll get an error. because you aren't authenticated.
+You should now be able to launch the application and see the views. However, if you try to access the People page, you'll get an error because you aren't authenticated.
 
 image::{% asset_path 'blog/vaadin-spring-boot/people-denied.png' %}[alt=Anonymous access denied to People endpoint,width=728,align=center]
 
-You need to add a login view and authenticate the user before you can call any of the secure endpoints.
+You need to add a login view and authenticate the user before calling any of the secure endpoints.
 
 == Add a Vaadin Login Page and Restrict Access to Views
 
@@ -383,7 +372,7 @@ You are going to use a custom login screen and Okta Auth JS to authenticate user
 
 1. Create a service for handling everything auth related
 2. Create a login view
-3. Restrict view access to logged-in users, redirect unauthenticated users to the login view
+3. Restrict view access to logged-in users and redirect unauthenticated users to the login view
 
 === Create an Auth Service for Authentication
 
@@ -468,11 +457,11 @@ Here's what `auth.ts` does:
 
 * It creates an internal instance of `AuthClient` configured with your info
 * It exports the following methods:
-** `isAuthenticated` - returns a boolean indicating whether or not the user is authenticated
-** `signIn` - takes a username and password and asks the client to authenticate. The client will redirect to the redirect URI
-** `handleAuthentication` - reads the response from the redirect and saves the returned tokens
-** `getAccessToken` - returns the access token for use with server calls
-** `signOut` - signs out the user
+** `isAuthenticated` returns a boolean indicating whether or not the user is authenticated
+** `signIn` takes a username and password and asks the client to authenticate. The client will redirect to the redirect URI
+** `handleAuthentication` reads the response from the redirect and saves the returned tokens
+** `getAccessToken` returns the access token for use with server calls
+** `signOut` signs out the user
 
 === Create a Login View
 
@@ -533,7 +522,7 @@ export class LoginView extends LitElement {
 
 === Restrict View Access to Authenticated Users
 
-The final piece of the puzzle is to add an authentication guard that only allows logged in users to access the views. Any unauthenticated users should be redirected to the login page first. You also need to define logic for capturing the callback from Okta and logging out users.
+The final piece of the puzzle is to add an authentication guard that only allows logged-in users to access the views. Any unauthenticated users should be redirected to the login page first. You also need to define logic for capturing the callback from Okta and logging out users.
 
 Open `frontend/index.ts` and replace its contents with the following:
 
@@ -603,9 +592,9 @@ Here's what this code does:
 
 * `authGuard` is a Vaadin Router action that uses the auth service to check if a user is authenticated. If not, it will save the requested path and redirect to the login view
 * In the router configuration, you added three routes:
-** `login` - mapped to the login view component you created in the previous step
-** `callback` - handles the return value from Okta. If the authentication was successful, it will navigate to the path the user requested before being redirected to the login page
-** `logout` - signs out the user from the Okta Auth JS client and then destroys the Spring Security context by calling `/logout` on the server
+** `login` maps to the login view component you created in the previous step
+** `callback` handles the return value from Okta. If the authentication was successful, it will navigate to the path the user requested before being redirected to the login page
+** `logout` signs out the user from the Okta Auth JS client and then destroys the Spring Security context by calling `/logout` on the server
 * Adds the `authGuard` to `main-view` with `action: authGuard`
 
 == Consume the Secure Endpoint from the Client
@@ -725,4 +714,4 @@ If you want to know more about Spring Boot and Okta, you might find these blog p
 - link:/blog/2020/10/02/spring-session-mysql[Easy Session Sharing in Spring Boot with Spring Session and MySQL]
 - link:/blog/2020/06/26/spring-boot-vue-kotlin[Build a CRUD App with Vue.js, Spring Boot, and Kotlin]
 
-As always, if you have any questions feel free to leave us a comment below. Don't forget to follow us Follow us on https://twitter.com/oktadev[Twitter], like us on https://www.facebook.com/oktadevelopers[Facebook], check us out on https://www.linkedin.com/company/oktadev/[LinkedIn], and subscribe to our https://www.youtube.com/oktadev[YouTube channel].
+As always, if you have any questions, feel free to leave us a comment below. Don't forget to follow us on https://twitter.com/oktadev[Twitter], like us on https://www.facebook.com/oktadevelopers[Facebook], check us out on https://www.linkedin.com/company/oktadev/[LinkedIn], and subscribe to our https://www.youtube.com/oktadev[YouTube channel].
