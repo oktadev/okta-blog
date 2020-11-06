@@ -82,7 +82,7 @@ Before running the services, configure Okta as authentication provider for the s
 
 ## Add Okta OpenID Authentication
 
-You can register for a free developer account with the following simple commands using the Okta CLI, in the project root folder:
+You can register for a free developer account with the following simple commands using the [Okta CLI](https://github.com/okta/okta-cli), in the project root folder:
 
 ```shell
 okta register
@@ -97,10 +97,35 @@ You will be prompted to select the following options:
 - Type of Application: **1: Web**
 - Type of Application (again): **3: JHipster**
 
-The application configuration will be generated in the file `.okta.env`.
+The application configuration will be generated in the file `.okta.env` and it will look like this:
+```shell
+export SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET="{clientSecret}"
+export SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI="{yourOrgUrl}/oauth2/default"
+export SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID="{clientId}"
+```
 
+Edit the file `docker-compose\docker-compose.yml` and update oauth2 client properties for the services `invoice`, `notification`, `product` and `store` with the following values:
 
+```yaml
+- SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=${OKTA_OAUTH2_ISSUER}
+- SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=${OKTA_OAUTH2_CLIENT_ID}
+- SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=${OKTA_OAUTH2_CLIENT_SECRET}
+```
 
+Create a file `docker-compose\.env` and set the value of the `OKTA_OAUTH_*` environment variables for Docker Compose, copy the values from `.okta.env`:
+
+```shell
+OKTA_OAUTH2_ISSUER={yourOrgUrl}/oauth2/default
+OKTA_OAUTH2_CLIENT_ID={clientId}
+OKTA_OAUTH2_CLIENT_SECRET={clientSecret}
+```
+
+Run the services with Docker Compose:
+
+```shell
+cd docker-compose
+docker-compose up
+```
 
 ## Configure Spring Session for Session Sharing
 
