@@ -154,6 +154,7 @@ There's also a variance in this flow called the implicit flow. We'll get to that
 
 This is what it looks like on the wire.
 
+<div class="table-wrapper">
 <table>
 <tr>
 <td style="vertical-align: top"><strong>Request</strong></td>
@@ -183,6 +184,7 @@ The <code>code</code> returned is the authorization grant and <code>state</code>
 </td>
 </tr>
 </table>
+</div>
 
 After the Front Channel is done, a Back Channel Flow happens, exchanging the authorization code for an access token.
 
@@ -193,6 +195,7 @@ Client accesses a protected resource with Access Token.
 
 Below is how this looks in raw HTTP.
 
+<div class="table-wrapper">
 <table>
 <tr>
 <td style="vertical-align: top"><strong>Request</strong></td>
@@ -225,6 +228,7 @@ The response is JSON. You can be reactive or proactive in using tokens. Proactiv
 </td>
 </tr>
 </table>
+</div>
 
 Once you have an access token, you can use the access token in an Authentication header (using the `token_type` as a prefix) to make protected resource requests.
 
@@ -307,6 +311,7 @@ OIDC was made famous by Google and Microsoft, both big early adopters. Okta has 
 
 All that changes in the initial request is it contains standard scopes (like `openid` and `email`):
 
+<div class="table-wrapper">
 <table>
 <tr>
 <td style="vertical-align: top"><strong>Request</strong></td>
@@ -335,9 +340,11 @@ The <code>code</code> returned is the authorization grant and <code>state</code>
 </td>
 </tr>
 </table>
+</div>
 
 And the authorization grant for tokens response contains an ID token.
 
+<div class="table-wrapper">
 <table>
 <tr>
 <td style="vertical-align: top"><strong>Request</strong></td>
@@ -369,6 +376,7 @@ code=MsCeLvIaQm6bTrgtp7&client_id=812741506391&
 </td>
 </tr>
 </table>
+</div>
 
 You can see this is layered nicely on top of OAuth to give back an ID token as a structured token. An ID token is a JSON Web Token (JWT). A JWT (aka "jot") is much smaller than a giant XML-based SAML assertion and can be efficiently passed around between different devices. A JWT has three parts: a header, a body, and a signature. The header says what algorithm was used to sign it, the claims are in the body, and its signed in the signature.
 
