@@ -25,3 +25,5 @@ Some of the other topics covered include the differences and tradeoffs between e
 Check out the completed sketch notes below!
 
 {% img blog/oauth-sketch-notes-livestream/sketch-notes.jpg alt:"OAuth Q&A Sketch Notes" width:"800" %}{: .center-image }
+
+We are always posting new content. If you like this content, be sure to [follow us on Twitter](https://twitter.com/oktadev), subscribe to [our YouTube Channel](https://youtube.com/c/oktadev), and [follow us on Twitch](https://www.twitch.tv/oktadev).
