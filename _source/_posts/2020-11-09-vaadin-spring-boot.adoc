@@ -715,3 +715,5 @@ If you want to know more about Spring Boot and Okta, you might find these blog p
 - link:/blog/2020/06/26/spring-boot-vue-kotlin[Build a CRUD App with Vue.js, Spring Boot, and Kotlin]
 
 As always, if you have any questions, feel free to leave us a comment below. Don't forget to follow us on https://twitter.com/oktadev[Twitter], like us on https://www.facebook.com/oktadevelopers[Facebook], check us out on https://www.linkedin.com/company/oktadev/[LinkedIn], and subscribe to our https://www.youtube.com/oktadev[YouTube channel].
+
+NOTE: If you'd like to learn more about Vaadin and Okta, please join Marcus and me for a https://v.vaadin.com/vaadin-webinar-web-application-security[webinar on web app security on November 17, 2020].
