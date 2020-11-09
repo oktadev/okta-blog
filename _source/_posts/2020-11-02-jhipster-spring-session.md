@@ -119,6 +119,18 @@ OKTA_OAUTH2_ISSUER={yourOrgUrl}/oauth2/default
 OKTA_OAUTH2_CLIENT_ID={clientId}
 OKTA_OAUTH2_CLIENT_SECRET={clientSecret}
 ```
+Before running the services, the JHipster services require to assign roles to the Okta user, to be able to create and modify entities.
+
+Sin in to Okta at https://www.okta.com/login/ with your user account. Then, in the top menu, go to **Users**/**Groups** and create groups `ROLE_USER` and `ROLE_ADMIN`. The assign a user to those groups.
+
+Now, in the top menu, choose **API**/**Authorization Servers**. Edit the **default** authorization server. Go to **Claims** and **Add Claim**. Assign the following configuration:
+
+- Name: groups
+- Include in token type: ID Token, Always
+- Value type: Groups
+- Filter: Matches regex, .*
+- Include in: Any scope
+
 
 Run the services with Docker Compose:
 
@@ -127,7 +139,79 @@ cd docker-compose
 docker-compose up
 ```
 
+The JHipster registry will log the following message once it is ready:
+```
+jhipster-registry_1     | 2020-11-09 16:03:47.233  INFO 6 --- [           main] i.g.j.registry.JHipsterRegistryApp       :
+jhipster-registry_1     | ----------------------------------------------------------
+jhipster-registry_1     | 	Application 'jhipster-registry' is running! Access URLs:
+jhipster-registry_1     | 	Local: 		http://localhost:8761/
+jhipster-registry_1     | 	External: 	http://172.18.0.2:8761/
+jhipster-registry_1     | 	Profile(s): 	[composite, dev, swagger, oauth2]
+jhipster-registry_1     | ----------------------------------------------------------
+jhipster-registry_1     | 2020-11-09 16:03:47.234  INFO 6 --- [           main] i.g.j.registry.JHipsterRegistryApp       :
+jhipster-registry_1     | ----------------------------------------------------------
+jhipster-registry_1     | 	Config Server: 	Connected to the JHipster Registry running in Docker
+jhipster-registry_1     | ----------------------------------------------------------
+```
+
+You can sing in to http://localhost:8761/ with the JHipster admin user and password, to check if all services are up:
+
+{% img blog/jhipster-spring-session/jhipster-up.png alt:"JHipster dashboard" width:"600" %}{: .center-image }
+
+Once all services are up, access the store at http://localhost:8080 and sing in with the Okta user:
+
+{% img blog/spring-session/okta-login.png alt:"Okta sign in form" width:"500" %}{: .center-image }
+
+
 ## Configure Spring Session for Session Sharing
+
+The `store` application maintains a user session in memory, identified with a sessionId that is sent in a cookie to the client. If the store instance crashes, the session is lost. One way to avoid losing the session, is adding Spring Session with Redis for the session storage and sharing among `store` nodes.
+
+Before making the modifications to the `store` application, stop all services with CTRL+C and remove the containers:
+
+```shell
+cd docker-compose
+docker-compose down
+```
+
+Delete the store image:
+```
+docker rmi store
+```
+
+Edit the `store/pom.xml` and add the spring-session dependency:
+```xml
+<dependency>
+    <groupId>org.springframework.session</groupId>
+    <artifactId>spring-session-data-redis</artifactId>
+</dependency>
+<dependency>
+    <groupId>io.lettuce</groupId>
+    <artifactId>lettuce-core</artifactId>
+    <version>6.0.0.RELEASE</version>
+</dependency>
+```
+
+Enable the `session.store-type=redis` for the `dev` and `prod` profiles, adding the following configuration to `src/main/resources/config/application-dev.yml` and `src/main/resources/config/application-prod.yml`:
+
+```yml
+spring:
+  session:
+    store-type: redis
+```
+
+For this example, disable the redis store in the default configuration, so the existing tests don't require a redis instance:
+
+```yml
+spring:
+  session:
+    store-type: none
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
+```
+
+
 
 ## Load Balancing Test with HAProxy
 
