@@ -192,7 +192,7 @@ Edit the `store/pom.xml` and add the spring-session dependency:
 </dependency>
 ```
 
-Enable the `session.store-type=redis` for the `dev` and `prod` profiles, adding the following configuration to `src/main/resources/config/application-dev.yml` and `src/main/resources/config/application-prod.yml`:
+Enable the `session.store-type=redis` for the `dev` and `prod` profiles, adding the following configuration to `store/src/main/resources/config/application-dev.yml` and `store/src/main/resources/config/application-prod.yml`:
 
 ```yml
 spring:
@@ -200,7 +200,7 @@ spring:
     store-type: redis
 ```
 
-For this example, disable the redis store in the default configuration, so the existing tests don't require a redis instance:
+For this example, disable the redis store in the test configuration, so the existing tests don't require a redis instance. Edit `src/test/resources/config/application.yml` and add the following:
 
 ```yml
 spring:
@@ -210,8 +210,49 @@ spring:
     exclude:
       - org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
 ```
+Rebuild the `store` application image:
 
+```shell
+cd store
+./mvnw -ntp -Pprod verify jib:dockerBuild
+```
 
+Edit `docker-compose/docker-compose.yml` to set the redis configuration. Under the `store` service entry, add the following variables to the environment
+```yml
+- LOGGING_LEVEL_COM_JHIPSTER_DEMO_STORE=TRACE
+- SPRING_REDIS_HOST=store-redis
+- SPRING_REDIS_PASSWORD=password
+- SPRING_REDIS_PORT=6379      
+```
+
+Add the `redis` instance as a new service:
+```yml
+store-redis:
+  image: 'redis:6.0.8'
+  command: redis-server --requirepass password
+  ports:
+    - '6379:6379'
+```
+
+Run the service again with docker-compose:
+```shell
+cd docker-compose
+docker-compose up
+```
+
+Once all services are up, sing in to the `store` application with your Okta user. Then, check the redis instances has stored new session keys:
+
+```shell
+docker exec docker-compose_store-redis_1 redis-cli -a password KEYS \*
+```
+
+The output should look like this:
+```
+spring:session:sessions:21eb225f-f92e-4a9b-937b-28162fd14c20
+spring:session:index:org.springframework.session.FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME:00u1h70sf0trRsbLS357
+spring:session:sessions:expires:21eb225f-f92e-4a9b-937b-28162fd14c20
+spring:session:expirations:1604972940000
+```
 
 ## Load Balancing Test with HAProxy
 
