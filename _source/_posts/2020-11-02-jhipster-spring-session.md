@@ -14,7 +14,7 @@ image:
 type: conversion
 ---
 
-In a previous [post](https://developer.okta.com/blog/2020/10/02/spring-session-mysql), concepts like _session persistence_ and _session sharing_ were explored with a simple multi-node Spring Boot application. In today's tutorial, you will learn a similar approach for session sharing in a JHipster microservice architecture. With the help of Spring Session, Redis as the session store, and HAProxy as load balancer for the gateway, the session can be shared among mulple gateway nodes, ands is preserved when a node failure happens.
+In a previous [post](https://developer.okta.com/blog/2020/10/02/spring-session-mysql), concepts like _session persistence_ and _session sharing_ were explored with a simple multi-node Spring Boot application. In today's tutorial, you will learn a similar approach for session sharing in a JHipster microservice architecture. With the help of Spring Session, Redis as the session store, and HAProxy as the load balancer for the gateway, the session can be shared among multiple gateway nodes and is preserved when a node failure happens.
 
 **Prerequisites**:
 - [Java 11](https://adoptopenjdk.net/)
@@ -45,7 +45,7 @@ Copy `microservice-ecommerce-store-4-apps.jdl` to the project folder and run the
 ```shell
 jhipster import-jdl microservice-ecommerce-store-4-apps.jdl
 ```
-After the generation completes, you will see folders `invoice`,`notification`,`product` and `store`, one for each generated application.
+After the generation completes, you will see folders `invoice`, `notification`,`product` and `store`, one for each generated application.
 Following, create the Docker Compose configuration for all the applications using the JHipster `docker-compose` sub-generator.
 Create a folder `docker-compose` in the project root and run the sub-generator:
 
@@ -59,7 +59,7 @@ Choose the following options:
 - Type of application: Microservice application
 - Type of gateway: JHipster gateway
 - Root directory for microservices: ../ (default)
-- Choose all applications (invoice, notification, product, store) with spacebar
+- Choose all applications (invoice, notification, product, store)
 - Don't select any application for clustered databases
 - Setup monitoring: no
 - Enter admin password for JHipster registry
@@ -78,7 +78,7 @@ Go through each application folder and build the images with Maven:
 ```
 
 
-Before running the services, configure Okta as authentication provider for the store application, which will act as a gateway to the other services and provices a simple UI to manage the entities.
+Before running the services, configure Okta as the authentication provider for the store application, which will act as a gateway to the other services and provides a simple UI to manage the entities.
 
 
 ## Add Okta OpenID Authentication
@@ -122,7 +122,7 @@ OKTA_OAUTH2_CLIENT_SECRET={clientSecret}
 ```
 Before running the services, the JHipster services require to assign roles to the Okta user, to be able to create and modify entities.
 
-Sin in to Okta at https://www.okta.com/login/ with your user account. Then, in the top menu, go to **Users**/**Groups** and create groups `ROLE_USER` and `ROLE_ADMIN`. The assign a user to those groups.
+Sign in to Okta at https://www.okta.com/login/ with your user account. Then, in the top menu, go to **Users**/**Groups** and create groups `ROLE_USER` and `ROLE_ADMIN`. Then assign a user to those groups.
 
 Now, in the top menu, choose **API**/**Authorization Servers**. Edit the **default** authorization server. Go to **Claims** and **Add Claim**. Assign the following configuration:
 
@@ -155,18 +155,18 @@ jhipster-registry_1     | 	Config Server: 	Connected to the JHipster Registry ru
 jhipster-registry_1     | ----------------------------------------------------------
 ```
 
-You can sing in to http://localhost:8761/ with the JHipster admin user and password, to check if all services are up:
+You can sign in to http://localhost:8761/ with the JHipster admin user and password, to check if all services are up:
 
 {% img blog/jhipster-spring-session/jhipster-up.png alt:"JHipster dashboard" width:"600" %}{: .center-image }
 
-Once all services are up, access the store at http://localhost:8080 and sing in with the Okta user:
+Once all services are up, access the store at http://localhost:8080 and sign in with the Okta user:
 
-{% img blog/spring-session/okta-login.png alt:"Okta sign in form" width:"300" %}{: .center-image }
+{% img blog/spring-session/okta-login.png alt:"Okta sign-in form" width:"300" %}{: .center-image }
 
 
 ## Configure Spring Session for Session Sharing
 
-The `store` application maintains a user session in memory, identified with a sessionId that is sent in a cookie to the client. If the store instance crashes, the session is lost. One way to avoid losing the session, is adding Spring Session with Redis for the session storage and sharing among `store` nodes.
+The `store` application maintains a user session in memory, identified with a sessionId that is sent in a cookie to the client. If the store instance crashes, the session is lost. One way to avoid losing the session is by adding Spring Session with Redis for the session storage and sharing among `store` nodes.
 
 Before making the modifications to the `store` application, stop all services with CTRL+C and remove the containers:
 
@@ -218,7 +218,7 @@ cd store
 ./mvnw -ntp -Pprod verify jib:dockerBuild
 ```
 
-Edit `docker-compose/docker-compose.yml` to set the redis configuration. Under the `store` service entry, add the following variables to the environment:
+Edit `docker-compose/docker-compose.yml` to set the Redis configuration. Under the `store` service entry, add the following variables to the environment:
 ```yml
 - LOGGING_LEVEL_COM_JHIPSTER_DEMO_STORE=TRACE
 - SPRING_REDIS_HOST=store-redis
@@ -359,7 +359,7 @@ backend servers
     server store2 store2:8080 cookie store2
 ```
 
-In the configuration above, store1 and store2 are the backend servers to load balance with roundrobin strategy. With **option redispatch**, HAProxy will redispatch the request to another server if the selected server fails.
+In the configuration above, store1 and store2 are the backend servers to load balance with a round-robin strategy. With **option redispatch**, HAProxy will re-dispatch the request to another server if the selected server fails.
 
 HAProxy listens in port 80, then, sign in to Okta and update the client application. Add http://localhost/login/oauth2/code/oidc as **Login redirect URI**, and http://localhost as **Logout redirect URI**.
 
@@ -383,7 +383,7 @@ Create a new entity and inspect the POST request to verify that a different serv
 SERVERUSED=store1
 ```
 
-## Lean More About JHipster, Okta and Spring Session
+## Learn More About JHipster, Okta and Spring Session
 
 I hope you enjoyed this tutorial and made you understand one possible approach to session sharing in JHipster with Spring Session, which can be useful when the gateway is a stateful service. Keep learning and check the following links for more:
 
