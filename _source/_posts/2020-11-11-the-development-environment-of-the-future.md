@@ -4,6 +4,7 @@ title: "The Development Environment of the Future"
 author: joel-franusic
 by: advocate
 description: "A glimpse into the near future of programming"
+tags: [software]
 tweets:
 - "What will software development look like in the future? Okta Developer Advocate @jf has some ideas."
 - "Explore how programmers will work in the future with Okta Developer Advocate @jf"
