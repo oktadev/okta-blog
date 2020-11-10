@@ -160,7 +160,7 @@ You can sing in to http://localhost:8761/ with the JHipster admin user and passw
 
 Once all services are up, access the store at http://localhost:8080 and sing in with the Okta user:
 
-{% img blog/spring-session/okta-login.png alt:"Okta sign in form" width:"500" %}{: .center-image }
+{% img blog/spring-session/okta-login.png alt:"Okta sign in form" width:"300" %}{: .center-image }
 
 
 ## Configure Spring Session for Session Sharing
@@ -217,7 +217,7 @@ cd store
 ./mvnw -ntp -Pprod verify jib:dockerBuild
 ```
 
-Edit `docker-compose/docker-compose.yml` to set the redis configuration. Under the `store` service entry, add the following variables to the environment
+Edit `docker-compose/docker-compose.yml` to set the redis configuration. Under the `store` service entry, add the following variables to the environment:
 ```yml
 - LOGGING_LEVEL_COM_JHIPSTER_DEMO_STORE=TRACE
 - SPRING_REDIS_HOST=store-redis
@@ -240,7 +240,7 @@ cd docker-compose
 docker-compose up
 ```
 
-Once all services are up, sing in to the `store` application with your Okta user. Then, check the redis instances has stored new session keys:
+Once all services are up, sing in to the `store` application with your Okta user. Then, check Redis has stored new session keys:
 
 ```shell
 docker exec docker-compose_store-redis_1 redis-cli -a password KEYS \*
@@ -256,8 +256,138 @@ spring:session:expirations:1604972940000
 
 ## Load Balancing Test with HAProxy
 
-Load balancing in a JHipster microservices architecture is handled at the client side. The JHipster Registry is an Eureka discovery server, maintaining a dynamic list of available service instances for the service clients to do request routing and load balancing. The store service, which acts as a gateway and also as an Eureka client, requests the available instances to the JHipster registry for service routing.
+Load balancing in a JHipster microservices architecture is handled at the client side. The JHipster Registry is an Eureka discovery server, maintaining a dynamic list of available service instances, for the service clients to do request routing and load balancing. The store service, which acts as a gateway and also as an Eureka client, requests the available instances to the JHipster registry for service routing.
 
-As we want to test session sharing among multiple store nodes, we need load balancing for the store service as well, so let's run an HAProxy container.
+As we want to test session sharing among multiple store nodes, we need load balancing for the `store` service as well. Let's run an HAProxy container and two instances of the `store` service for the test.
+
+Stop all services and remove the containers before starting the modifications below.
+
+First, extract the docker-compose `store` base configuration to its own `docker-compose/store.yml` file:
+
+```yml
+version: '2'
+services:
+  store:
+    image: store
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - 'SPRING_PROFILES_ACTIVE=prod,swagger'
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+      - 'EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/eureka'
+      - 'SPRING_CLOUD_CONFIG_URI=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/config'
+      - 'SPRING_DATASOURCE_URL=jdbc:mysql://store-mysql:3306/store?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true'
+      - SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=${OKTA_OAUTH2_ISSUER}
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=${OKTA_OAUTH2_CLIENT_ID}
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=${OKTA_OAUTH2_CLIENT_SECRET}
+      - JHIPSTER_SLEEP=30
+      - JHIPSTER_REGISTRY_PASSWORD=admin
+      - LOGGING_LEVEL_COM_JHIPSTER_DEMO_STORE=TRACE
+      - SPRING_REDIS_HOST=store-redis
+      - SPRING_REDIS_PASSWORD=password
+      - SPRING_REDIS_PORT=6379
+```
+Then, edit `docker-compose\docker-compose.yml` and remove the `store` service. Instead create `store1` and `store2` services, extending the base configuration. Add the HAProxy service as well.
+
+```yml
+services:
+  store1:
+    extends:
+      file: store.yml
+      service: store
+    hostname: store1
+    ports:
+      - '8080:8080'
+  store2:
+    extends:
+      file: store.yml
+      service: store
+    hostname: store2
+    ports:
+      - '8081:8080'  
+  haproxy:
+    extends:
+      file: haproxy.yml
+      service: haproxy      
+```
+
+Create the HAProxy base configuration at `docker-compose\haproxy.yml` with the following content:
+
+```yml
+version: '2'
+services:
+  haproxy:
+    build:
+      context: .
+      dockerfile: Dockerfile-haproxy
+    image: haproxy
+    ports:
+      - 80:80
+```
+
+Create the file `docker-compose/Dockerfile-haproxy` to specify how docker must build the HAProxy image:
+
+```shell
+FROM haproxy:2.2
+COPY haproxy.cfg /usr/local/etc/haproxy/haproxy.cfg
+```
+
+Create the file `docker-compose/haprox.cfg` with the HAProxy service configuration:
+```
+global
+    debug
+    daemon
+    maxconn 2000
+
+defaults
+    mode http
+    timeout connect 5000ms
+    timeout client 50000ms
+    timeout server 50000ms
+
+frontend http-in
+    bind *:80
+    default_backend servers
+
+backend servers
+    balance roundrobin
+    cookie SERVERUSED insert indirect nocache
+    option httpchk /
+    option redispatch
+    default-server check
+    server store1 store1:8080 cookie store1
+    server store2 store2:8080 cookie store2
+```
+
+In the configuration above, store1 and store2 are the backend servers to load balance with roundrobin strategy. With **option redispatch**, HAProxy will redispatch the request to another server if the selected server fails.
+
+HAProxy listens in port 80, then, sign in to Okta and update the client application. Add http://localhost/login/oauth2/code/oidc as **Login redirect URI**, and http://localhost as **Logout redirect URI**.
+
+
+Run all services again:
+```shell
+cd docker-compose
+docker-compose up
+```
+Once all services are up, sign in to http://localhost with the Okta user and list some entity. In your browser check the **SERVERUSED** cookie:
+```
+SERVERUSED=store2
+```
+
+Stop the container of that `store` instance:
+```shell
+docker stop docker-compose_store2
+```
+Create a new entity and inspect the POST request to verify that a different server responds, without losing the session:
+```
+SERVERUSED=store1
+```
 
 ## Lean More About JHipster, Okta and Spring Session
+
+I hope you enjoyed this tutorial and made you understand one possible approach to session sharing in JHipster with Spring Session, which can be useful when the gateway is a stateful service. Keep learning and check the following links for more:
+
+- [JHipster Registry](https://www.jhipster.tech/jhipster-registry/)
+- [Spring Session](https://spring.io/projects/spring-session)
+- [JHipster OAuth2](https://www.jhipster.tech/security/#oauth2)
+
+You can find all the code for this tutorial in Gitub.
