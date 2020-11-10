@@ -14,8 +14,9 @@ image:
 type: conversion
 ---
 
+In a previous [post](https://developer.okta.com/blog/2020/10/02/spring-session-mysql), concepts like _session persistence_ and _session sharing_ were explored with a simple multi-node Spring Boot application. In today's tutorial, you will learn a similar approach for session sharing in a JHipster microservice architecture. With the help of Spring Session, Redis as the session store, and HAProxy as load balancer for the gateway, the session can be shared among mulple gateway nodes, ands is preserved when a node failure happens.
 
-Prerequisites:
+**Prerequisites**:
 - [Java 11](https://adoptopenjdk.net/)
 - [JHipster 6.10.4](https://www.jhipster.tech/installation/)
 - [Docker](https://docs.docker.com/get-docker/)
@@ -254,11 +255,11 @@ spring:session:sessions:expires:21eb225f-f92e-4a9b-937b-28162fd14c20
 spring:session:expirations:1604972940000
 ```
 
-## Load Balancing Test with HAProxy
+## Spring Session Test with HAProxy Loadbalancing
 
 Load balancing in a JHipster microservices architecture is handled at the client side. The JHipster Registry is an Eureka discovery server, maintaining a dynamic list of available service instances, for the service clients to do request routing and load balancing. The store service, which acts as a gateway and also as an Eureka client, requests the available instances to the JHipster registry for service routing.
 
-As we want to test session sharing among multiple store nodes, we need load balancing for the `store` service as well. Let's run an HAProxy container and two instances of the `store` service for the test.
+As we want to test session sharing among multiple `store` nodes, we need load balancing for the `store` service as well. Let's run an HAProxy container and two instances of the `store` service for the test.
 
 Stop all services and remove the containers before starting the modifications below.
 
@@ -390,4 +391,4 @@ I hope you enjoyed this tutorial and made you understand one possible approach t
 - [Spring Session](https://spring.io/projects/spring-session)
 - [JHipster OAuth2](https://www.jhipster.tech/security/#oauth2)
 
-You can find all the code for this tutorial in Gitub.
+You can find all the code for this tutorial in [Gitub](https://github.com/indiepopart/jhipster-spring-session).
