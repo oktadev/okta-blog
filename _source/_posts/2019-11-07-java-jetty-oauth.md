@@ -306,6 +306,7 @@ From a shell, execute the following command to download a zip file of the config
 
 ```bash
 http https://start.spring.io/starter.zip \
+  bootVersion==2.2.0.RELEASE \
   javaVersion==11 \
   dependencies==web \
   language==java \
