@@ -11,6 +11,7 @@ tweets:
 - "What is 'Transactional MFA' and what is it used for? Find out here!"
 - "Learn how to implement Transactional MFA in your web applications!"
 image: blog/featured/okta-node-bottle-headphones.jpg
+status: draft
 type: conversion
 ---
 
