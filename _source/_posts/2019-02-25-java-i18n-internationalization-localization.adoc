@@ -191,7 +191,7 @@ Go to https://start.spring.io[start.spring.io] and select **Web** and **Thymelea
 ----
 mkdir bootiful-i18n
 cd bootiful-i18n
-http https://start.spring.io/starter.zip dependencies==web,thymeleaf -d | tar xvz
+http https://start.spring.io/starter.zip bootVersion==2.1.3.RELEASE dependencies==web,thymeleaf -d | tar xvz
 ----
 
 Open the project in your favorite IDE and create `HomeController.java` in `src/main/java/com/example/demo`.

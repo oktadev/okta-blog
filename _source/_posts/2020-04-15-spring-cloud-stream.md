@@ -76,6 +76,7 @@ Open a shell and run the commands below.
 
 ```bash
 curl https://start.spring.io/starter.tgz -d dependencies=webflux,okta,cloud-stream,amqp,lombok \
+  -d bootVersion=2.2.5.RELEASE \
   -d groupId=okta.springcloudstreams \
   -d baseDir=okta-spring-cloud-streams | tar -xzvf -
 cd okta-spring-cloud-streams

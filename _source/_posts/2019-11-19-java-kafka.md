@@ -115,6 +115,7 @@ You can also generate the project using the command line. Paste the following co
 
 ```bash
 curl https://start.spring.io/starter.zip -d language=java \
+ -d bootVersion=2.2.1.RELEASE \
  -d dependencies=web,kafka \
  -d packageName=com.okta.javakafka \
  -d name=kafka-java \

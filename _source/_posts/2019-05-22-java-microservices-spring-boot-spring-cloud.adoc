@@ -51,15 +51,15 @@ I created all of these applications using https://start.spring.io[start.spring.i
 
 [source,shell]
 ----
-http https://start.spring.io/starter.zip javaVersion==11 \
+http https://start.spring.io/starter.zip bootVersion==2.2.5.RELEASE javaVersion==11 \
   artifactId==discovery-service name==eureka-service \
   dependencies==cloud-eureka-server baseDir==discovery-service | tar -xzvf -
 
-http https://start.spring.io/starter.zip \
+http https://start.spring.io/starter.zip bootVersion==2.2.5.RELEASE \
   artifactId==car-service name==car-service baseDir==car-service \
   dependencies==actuator,cloud-eureka,data-jpa,h2,data-rest,web,devtools,lombok | tar -xzvf -
 
-http https://start.spring.io/starter.zip \
+http https://start.spring.io/starter.zip bootVersion==2.2.5.RELEASE \
   artifactId==api-gateway name==api-gateway baseDir==api-gateway \
   dependencies==cloud-eureka,cloud-feign,data-rest,web,cloud-hystrix,lombok | tar -xzvf -
 ----
