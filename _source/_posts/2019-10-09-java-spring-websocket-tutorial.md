@@ -80,6 +80,7 @@ Let's get started with the application skeleton. Create a Spring Boot applicatio
 
 ```shell
 curl https://start.spring.io/starter.zip -d dependencies=websocket,okta \
+-d bootVersion=2.1.8.RELEASE \
 -d language=java \
 -d type=maven-project \
 -d groupId=com.okta.developer \
