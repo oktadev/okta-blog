@@ -50,7 +50,7 @@ Start by creating a directory to hold all your projects, for example, `spring-cl
 [source,shell]
 ----
 http https://start.spring.io/starter.zip javaVersion==11 artifactId==discovery-service \
-  name==eureka-service baseDir==discovery-service \
+  name==eureka-service baseDir==discovery-service bootVersion==2.1.7.RELEASE \
   dependencies==cloud-eureka-server | tar -xzvf -
 ----
 
@@ -94,7 +94,7 @@ Next, create an `api-gateway` project that includes a handful of Spring Cloud de
 [source,shell]
 ----
 http https://start.spring.io/starter.zip javaVersion==11 artifactId==api-gateway \
-  name==api-gateway baseDir==api-gateway \
+  name==api-gateway baseDir==api-gateway bootVersion==2.1.7.RELEASE \
   dependencies==actuator,cloud-eureka,cloud-feign,cloud-gateway,cloud-hystrix,webflux,lombok | tar -xzvf -
 ----
 
@@ -109,7 +109,7 @@ Create the `car-service` project using start.spring.io:
 [source,shell]
 ----
 http https://start.spring.io/starter.zip javaVersion==11 artifactId==car-service \
-  name==car-service baseDir==car-service \
+  name==car-service baseDir==car-service bootVersion==2.1.7.RELEASE \
   dependencies==actuator,cloud-eureka,webflux,data-mongodb-reactive,flapdoodle-mongo,lombok | tar -xzvf -
 ----
 

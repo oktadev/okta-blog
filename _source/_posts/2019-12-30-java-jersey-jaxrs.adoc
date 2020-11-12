@@ -48,7 +48,7 @@ You can also use the command line to generate the project. If you prefer this me
 
 [source,text]
 ----
-curl https://start.spring.io/starter.zip -d language=java \
+curl https://start.spring.io/starter.zip -d bootVersion=2.2.0.RELEASE -d language=java \
  -d dependencies=jersey \
  -d packageName=com.okta \
  -d name=jersey-rest \
