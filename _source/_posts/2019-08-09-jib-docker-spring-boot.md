@@ -45,7 +45,7 @@ You installed HTTPie, right? In this section, you're going to use it to command 
 From a command line:
 
 ```bash
-http https://start.spring.io/starter.zip \
+http https://start.spring.io/starter.zip bootVersion==2.1.6.RELEASE \
  dependencies==web,okta \
  groupId==com.okta.spring-docker.demo \
  packageName==com.okta.spring-docker.demo \
