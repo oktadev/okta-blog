@@ -26,7 +26,7 @@ The first thing you will need to do is create an [Okta developer account](https:
 
 {% img blog/nextjs-typescript/okta-app-settings.png alt:"Okta App Settings" width:"800" %}{: .center-image }
 
-## Create Your Web Application
+## Create Your Next.js Application
 
 Open your favorite IDE. For this tutorial, I used Visual Studio Code. Navigate to the folder where you wish to keep your application. Next, use the `create-next-app` task runner by using the command `npx create-next-app` and follow the instructions. After the runner is complete, open the folder it created for you.
 
@@ -52,7 +52,7 @@ Finally, for this tutorial, you will use Bootstrap for your CSS framework.
  npm i bootstrap@4.5.3
 ```
 
-### Convert Your Application to TypeScript
+### Convert Your Next.js Application to TypeScript
 
 The task running for creating a Next.js application does not include an option for using TypeScript. Therefore you will need to manually convert your application from JavaScript to TypeScript. The process is simple and should only take a moment.  
 
@@ -114,7 +114,7 @@ export default MyApp
 This code is the default Next.js code wrapped in a `Provider` class from next-auth. The provider class makes sharing the session between pages easier. You added the Bootstrap CSS in this file as well. This will enable you to use Bootstrap on your pages.
 
 
-### Write Your Components and Pages
+### Write Your Next.js Components and Pages
 
 Your application is set up and ready to develop. Start by adding a new folder called `Components` to the root of your directory. This will be a folder for your shared components. Add a new file called `Movies.tsx` and add the following code.
 
