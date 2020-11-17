@@ -41,7 +41,7 @@ From the command line simply enter:
 
 [source,txt]
 ----
-http https://start.spring.io/starter.zip \
+http https://start.spring.io/starter.zip bootVersion==2.2.1.RELEASE \
  dependencies==web,okta \
  groupId==com.okta.spring-docker.demo \
  packageName==com.okta.spring-docker.demo \

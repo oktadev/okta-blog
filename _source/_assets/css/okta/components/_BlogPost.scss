@@ -369,6 +369,11 @@
 				font-weight: bold;
 			}
 		}
+
+		.table-wrapper > table {
+			max-width: 100%;
+			overflow: auto;
+		}
 	}
 
 	&-more {
