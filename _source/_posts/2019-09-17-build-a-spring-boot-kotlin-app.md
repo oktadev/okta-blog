@@ -38,6 +38,8 @@ You can also use the command line to get the same result:
 
 ```bash
 curl https://start.spring.io/starter.zip \
+        -d bootVersion=2.1.7.RELEASE \
+        -d language=kotlin \
         -d language=kotlin \
         -d dependencies=web \
         -d packageName=com.okta \

@@ -38,6 +38,7 @@ Create a Maven project using the Spring Initializr's API.
 
 ```shell
 curl https://start.spring.io/starter.zip \
+ -d bootVersion=2.3.4.RELEASE \
  -d dependencies=web,okta \
  -d groupId=com.okta.developer \
  -d artifactId=webapp \
