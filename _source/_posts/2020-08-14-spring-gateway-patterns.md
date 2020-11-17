@@ -50,6 +50,7 @@ With [Spring Initializr](https://start.spring.io/), create an Eureka server:
 
 ```shell
 curl https://start.spring.io/starter.zip -d dependencies=cloud-eureka-server \
+-d bootVersion=2.3.1.RELEASE \
 -d groupId=com.okta.developer \
 -d artifactId=discovery-service  \
 -d name="Eureka Service" \
@@ -123,6 +124,7 @@ Now let's create an API Gateway with Spring Cloud Gateway, using Spring Initiali
 
 ```shell
 curl https://start.spring.io/starter.zip \
+-d bootVersion=2.3.1.RELEASE \
 -d dependencies=cloud-eureka,cloud-gateway,webflux,okta,cloud-security,thymeleaf \
 -d groupId=com.okta.developer \
 -d artifactId=api-gateway  \
@@ -289,6 +291,7 @@ Let's create a shopping cart service.
 
 ```shell
 curl https://start.spring.io/starter.zip -d dependencies=web,data-jpa,h2,cloud-eureka,okta,security,lombok \
+-d bootVersion=2.3.1.RELEASE \
 -d groupId=com.okta.developer \
 -d artifactId=cart-service  \
 -d name="Cart Service" \
@@ -607,6 +610,7 @@ For service-to-service authorization, create a `pricing` Spring Boot service wit
 
 ```shell
 curl https://start.spring.io/starter.zip -d dependencies=web,cloud-eureka,okta,security,lombok \
+-d bootVersion=2.3.1.RELEASE \
 -d groupId=com.okta.developer \
 -d artifactId=pricing-service  \
 -d name="Pricing Service" \
@@ -1164,9 +1168,10 @@ Take a look at the **System Log** in the Okta Dashboard and you will see an entr
 
 ## Learn More About Building Secure Applications
 
-In this tutorial, you learned how to create an API Gateway with Spring Cloud Gateway, and how to configure three common OAuth2 patterns (1. code flow, 2. token relay and 3. client credentials grant) using Okta Spring Boot Starter and Spring Security. . You can find all the code at [GitHub](https://github.com/oktadeveloper/okta-spring-cloud-gateway-example)
+In this tutorial, you learned how to create an API Gateway with Spring Cloud Gateway, and how to configure three common OAuth2 patterns (1. code flow, 2. token relay and 3. client credentials grant) using Okta Spring Boot Starter and Spring Security. . You can find all the code on [GitHub](https://github.com/oktadeveloper/okta-spring-cloud-gateway-example).
+
 To continue learning about Spring Cloud Gateway features and OAuth2 authorization patterns, check also the following links:
-s
+
 - [Secure Reactive Microservices with Spring Cloud Gateway](/blog/2019/08/28/reactive-microservices-spring-cloud-gateway)
 - [Secure Legacy Apps with Spring Cloud Gateway](/blog/2020/01/08/secure-legacy-spring-cloud-gateway)
 - [Secure Server-to-Server Communication with Spring Boot and OAuth 2.0](/blog/2018/04/02/client-creds-with-spring-boot)
