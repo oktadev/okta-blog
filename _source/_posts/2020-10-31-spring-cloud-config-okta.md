@@ -44,46 +44,27 @@ Let's get started!
 * Table of Contents
 {:toc}
 
-## Create an OpenID Connect Application in Okta
-
-Sign up for a free developer account at <https://developer.okta.com/signup>. This will be used to secure our microservices using OAuth 2.0 and OpenID Connect (OIDC). After signing up, log in to your Okta account at `https://your-okta-domain.okta.com`.
-
-Click **Applications** in the top nav menu.
-
-{% img blog/spring-cloud-config-okta/01.png alt:"Click the Applications button" width:"800" %}{: .center-image }
-
-Click **Add Application**.
-
-{% img blog/spring-cloud-config-okta/02.png alt:"Click Add Application" width:"800" %}{: .center-image }
-
-Select **Web** and click **Next**.
-
-{% img blog/spring-cloud-config-okta/03.png alt:"Select Web and click Next" width:"800" %}{: .center-image }
-
-In **Application Settings** fill in the following values:
-
-- **Name**: `My Spring Cloud App` (or another name of your choosing)
-- **Base URIs**: `http://localhost:8001` and `http://localhost:8002`
-- **Login Redirect URIs**: `http://localhost:8001/login/oauth2/code/okta` and `http://localhost:8002/login/oauth2/code/okta`
-- **Logout Redirect URIs**: `http://localhost:8001` and `http://localhost:8002`
-- **Group Assignments**: `Everyone` (should be selected by default)
-- **Client acting on behalf of a user**: `Authorization Code`
-
-{% img blog/spring-cloud-config-okta/04_2.png alt:"Application settings" width:"800" %}{: .center-image }
-
-Click **Done**.
-
-{% img blog/spring-cloud-config-okta/05.png alt:"Click Done" width:"800" %}{: .center-image }
-
-Take note of the values for **Client ID** and **Client secret**. These will be necessary for securing your microservices with OAuth2.
-
-{% img blog/spring-cloud-config-okta/06.png alt:"Client ID and Secret" width:"800" %}{: .center-image }
-
 ## Create a Spring Cloud Config Server
 
 First you will create a Spring Boot application that behaves as the configuration server. This application will provide configuration settings to your microservices.
 
 Go to the [Spring initializr](https://start.spring.io/):
+
+Select the following options:
+
+- **Project**: `Maven Project`
+- **Language**: `Java`
+- **Spring Boot**: `2.3.6` (**Important: this option is not selected by default**)
+
+Under **Project Metadata** fill in the following information:
+
+- **Group**: `com.okta.dev.springcloudconfig`
+- **Artifact**: `config-server`
+- **Name**: `cloud-config-server`
+- **Description**: Configuration Server
+- **Package**: `com.okta.dev.springcloudconfig.config-server`
+- **Packaging**: `Jar`
+- **Java**: `11`
 
 Select the following dependencies:
 
@@ -93,7 +74,7 @@ Select the following dependencies:
 
 Click **Generate** to download the project files. Unzip the file and import the project files into your favorite IDE.
 
-{% img blog/spring-cloud-config-okta/07.png alt:"Config Server Initializr" width:"800" %}{: .center-image }
+{% img blog/spring-cloud-config-okta/07_2.png alt:"Config Server Initializr" width:"800" %}{: .center-image }
 
 Open the project in your IDE and create a file at `/src/main/resources/application.properties` with the following key-value pairs:
 
@@ -198,11 +179,62 @@ cd /path/to/my/config-server
 
 The `native` profile tells the application to server configuration files from the filesystem directory you populated above.
 
+## Create an OpenID Connect Application in Okta
+
+Sign up for a free developer account at <https://developer.okta.com/signup>. This will be used to secure our microservices using OAuth 2.0 and OpenID Connect (OIDC). After signing up, log in to your Okta account at `https://your-okta-domain.okta.com`.
+
+Click **Applications** in the top nav menu.
+
+{% img blog/spring-cloud-config-okta/01.png alt:"Click the Applications button" width:"800" %}{: .center-image }
+
+Click **Add Application**.
+
+{% img blog/spring-cloud-config-okta/02.png alt:"Click Add Application" width:"800" %}{: .center-image }
+
+Select **Web** and click **Next**.
+
+{% img blog/spring-cloud-config-okta/03.png alt:"Select Web and click Next" width:"800" %}{: .center-image }
+
+In **Application Settings** fill in the following values:
+
+- **Name**: `My Spring Cloud App` (or another name of your choosing)
+- **Base URIs**: `http://localhost:8001` and `http://localhost:8002`
+- **Login Redirect URIs**: `http://localhost:8001/login/oauth2/code/okta` and `http://localhost:8002/login/oauth2/code/okta`
+- **Logout Redirect URIs**: `http://localhost:8001` and `http://localhost:8002`
+- **Group Assignments**: `Everyone` (should be selected by default)
+- **Client acting on behalf of a user**: `Authorization Code`
+
+{% img blog/spring-cloud-config-okta/04_2.png alt:"Application settings" width:"800" %}{: .center-image }
+
+Click **Done**.
+
+{% img blog/spring-cloud-config-okta/05.png alt:"Click Done" width:"800" %}{: .center-image }
+
+Take note of the values for **Client ID** and **Client secret**. These will be necessary for securing your microservices with OAuth2.
+
+{% img blog/spring-cloud-config-okta/06.png alt:"Client ID and Secret" width:"800" %}{: .center-image }
+
 ## Create Spring Boot Microservice #1
 
 Let's create the first of your two microservices.
 
 Open the [Spring Initializr](https://start.spring.io/).
+
+Select the following options:
+
+- **Project**: `Maven Project`
+- **Language**: `Java`
+- **Spring Boot**: `2.3.6` (**Important: this option is not selected by default**)
+
+Under **Project Metadata** fill in the following information:
+
+- **Group**: `com.okta.dev.springcloudconfig`
+- **Artifact**: `service-one`
+- **Name**: `service-one`
+- **Description**: Microservice One
+- **Package**: `com.okta.dev.springcloudconfig.service-one`
+- **Packaging**: `Jar`
+- **Java**: `11`
 
 Select the following dependencies:
 
@@ -214,7 +246,7 @@ Select the following dependencies:
 
 Click **Generate** and import the project files into your favorite IDE.
 
-{% img blog/spring-cloud-config-okta/08.png alt:"Service One Initializr" width:"800" %}{: .center-image }
+{% img blog/spring-cloud-config-okta/08_2.png alt:"Service One Initializr" width:"800" %}{: .center-image }
 
 Open the project in your IDE and create a file at `/src/main/resources/bootstrap.properties` with the following key-value pairs:
 
@@ -540,6 +572,22 @@ Refresh the page at `http://localhost:8001/secure`, and you should see the updat
 Next, you will create a second Spring Boot application, acting as a second microservice, which will also have its configuration provided by your configuration server.
 
 Open the [Spring initializr](https://start.spring.io/).
+
+Select the following options:
+
+- **Project**: `Maven Project`
+- **Language**: `Java`
+- **Spring Boot**: `2.3.6` (**Important: this option is not selected by default**)
+
+Under **Project Metadata** fill in the following information:
+
+- **Group**: `com.okta.dev.springcloudconfig`
+- **Artifact**: `service-two`
+- **Name**: `service-two`
+- **Description**: Microservice One
+- **Package**: `com.okta.dev.springcloudconfig.service-two`
+- **Packaging**: `Jar`
+- **Java**: `11`
 
 Select the following dependencies (the same list as `service-one`):
 
