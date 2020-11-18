@@ -259,7 +259,7 @@ server.start({
 
 This file does two notable things. First, it calls dotenv's `config()` function. Per the documentation, this should be placed as early in the application as possible. Second, it kicks off the server using the server file you just created.
 
-## Testing your Web API
+## Test Your GraphQL API
 
 You can now start your application using `node index.js` from the console. To test this, I like to use [Advanced Rest Client](https://chrome.google.com/webstore/detail/advanced-rest-client/hgmloofddffdnphfgcellkdfbfbjeloo?hl=en-US), but [Postman](https://www.postman.com/) is another popular option. 
 
@@ -296,8 +296,8 @@ You have successfully built your GraphQL API and integrated it into Express on y
 
 If you liked this content, check out these similar posts:
 
-* [Build a CRUD App with Node.js and GraphQL](https://developer.okta.com/blog/2019/05/29/build-crud-nodejs-graphql)
-* [Build a GraphQL API with ASP.NET Core](https://developer.okta.com/blog/2019/04/16/graphql-api-with-aspnetcore)
-* [Build a Secure GraphQL API with Node.js - URL Pending, see Leankit: https://oktadev.leankit.com/card/1025810437]()
+* [Build a CRUD App with Node.js and GraphQL](/blog/2019/05/29/build-crud-nodejs-graphql)
+* [Build a GraphQL API with ASP.NET Core](/blog/2019/04/16/graphql-api-with-aspnetcore)
+* [Develop Secure Apps with WebSockets and Node.js](/blog/2020/10/28/secure-web-apps-websockets-nodejs)
 
 For more awesome content like this, don't forget to [follow us on Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube channel](https://youtube.com/c/oktadev). If you have any questions, or you want to share what tutorial you'd like to see next, please comment below. 
