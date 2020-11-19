@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Spring Boot and Okta in 2 Minutes with the Okta CLI"
+title: "Spring Boot and Okta in 2 Minutes"
 author: matt-raible
 by: advocate
 communities: [java]
@@ -58,11 +58,11 @@ Next, open your browser to `http://localhost:8080`. You'll likely be logged in s
 
 image::{% asset_path 'blog/okta-cli-spring-boot/hello-matt.png' %}[alt=Hello Matt,width=800,align=center]
 
-If you use another browser, or an incognito window, you'll be prompted to sign in.
+If you use another browser, or an incognito window, you'll be prompted to sign in first.
 
 image::{% asset_path 'blog/okta-cli-spring-boot/okta-login.png' %}[alt=Okta Login,width=800,align=center]
 
-If you open `src/main/java/com/example/sample/Application.java`, you'll see the Java code that's used to render your name. You might appreciate how easy Spring Security makes authentication with OpenID Connect.
+If you open `src/main/java/com/example/sample/Application.java`, you'll see the Java code that's used to render your name. You might appreciate how Spring Security makes authentication with OpenID Connect easy.
 
 [source,java]
 ----
