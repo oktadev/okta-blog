@@ -377,6 +377,7 @@ Using the [Spring Initializr API](https://start.spring.io/), create a Maven proj
 
 ```shell
 curl https://start.spring.io/starter.zip -d dependencies=web,okta \
+-d bootVersion=2.1.8.RELEASE \
 -d language=kotlin \
 -d type=maven-project \
 -d groupId=com.okta.developer \

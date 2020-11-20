@@ -631,7 +631,7 @@ class GroupEdit extends Component {
     event.preventDefault();
     const {item} = this.state;
 
-    await fetch('/api/group', {
+    await fetch('/api/group' + (item.id ? '/' + item.id : ''), {
       method: (item.id) ? 'PUT' : 'POST',
       headers: {
         'Accept': 'application/json',
@@ -1459,6 +1459,7 @@ If you have any questions, please don't hesitate to leave a comment below, or as
 
 **Changelog:**
 
+* Nov 14, 2020: Fixed `app/src/GroupEdit.js` PUT request in [Add a React GroupEdit Component](/blog/2018/07/19/simple-crud-react-and-spring-boot#add-a-react-groupedit-component) section. Thanks to [@alansegar](https://github.com/alansegar)! Changes to this post can be viewed in [okta-blog#471](https://github.com/oktadeveloper/okta-blog/pull/471).
 * Apr 23, 2020: Added link to [Build a CRUD Application with Kotlin and React](/blog/2020/01/13/kotlin-react-crud), our latest React + Spring Boot post.
 * Feb 20, 2020: Fixed PUT request thanks to a [pull request from @fatcatdog](https://github.com/oktadeveloper/okta-spring-boot-react-crud-example/pull/13). Changes to this post can be viewed in [okta-blog#201](https://github.com/oktadeveloper/okta-blog/pull/201).
 * Apr 29, 2019: Fixed path in `@PutMapping` to be `@PutMapping("/group/{id}")`. You can see the example app changes in [okta-spring-boot-react-crud-example#12](https://github.com/oktadeveloper/okta-spring-boot-react-crud-example/pull/12); changes to this post can be viewed in [okta.github.io#2849](https://github.com/oktadeveloper/okta.github.io/pull/2849).

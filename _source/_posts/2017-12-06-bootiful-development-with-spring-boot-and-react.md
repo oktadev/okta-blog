@@ -38,8 +38,8 @@ To get started with Spring Boot, navigate to [start.spring.io](https://start.spr
 If you like the command-line better, you can use the following command to download a `demo.zip` file with [HTTPie](https://httpie.org/).
 
 ```
-http https://start.spring.io/starter.zip \
-dependencies==h2,data-jpa,data-rest,web -d
+http https://start.spring.io/starter.zip bootVersion==2.0.4.RELEASE \
+ dependencies==h2,data-jpa,data-rest,web -d
 ```
 
 Create a directory called `spring-boot-react-example`, with a `server` directory inside it. Expand the contents of `demo.zip` into the `server` directory.

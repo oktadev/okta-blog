@@ -380,6 +380,7 @@ Open your terminal and execute the following command:
 
 ```bash
 curl https://start.spring.io/starter.zip -d language=java \
+ -d bootVersion=2.3.4.RELEASE \
  -d dependencies=web,okta \
  -d packageName=com.okta.rest \
  -d name=spring-boot \
