@@ -648,7 +648,7 @@ http :8080/dinosaurs "Authorization: Bearer $TOKEN"
 
 You should see your list of dinosaurs. 🦖
 
-## Learn More about Spring Data and Spring Boot
+## Learn More About Spring Data and Spring Boot
 
 In this tutorial, you took a look at Spring Data in general and saw how it is an umbrella project. It encompasses a huge range of technologies that are designed to make persisting and manipulating data easy across widely divergent technologies without sacrificing technical flexibility. 
 
