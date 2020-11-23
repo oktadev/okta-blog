@@ -314,7 +314,7 @@ In this file, you are providing a simple login form to the user.  The trick is t
 Next, add a new file in the `Pages` folder called `Login.jsx`.  
 
 {% raw %}
-```javascript
+```jsx
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import LoginForm from '../Components/LoginForm'
