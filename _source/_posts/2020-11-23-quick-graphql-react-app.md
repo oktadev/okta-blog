@@ -14,7 +14,7 @@ image: blog/featured/okta-react-headphones.jpg
 type: conversion
 ---
 
-React.js is one of the most popular front-end javascript frameworks today.  For most of its life, React has connected to REST APIs to fetch or save data on a server.  GraphQL is a query language that aims to replace REST APIs by providing consumers with a clear description of the data in the API.  By combining these two technologies, you can quickly connect to an API with your React.js application.  There are many packages available for connecting to a GraphQL API.  One of the most popular is Apollo, however you can also use Axios, or even the built-in javascript `fetch` function.  For this application, you will use Axios, but I encourage you to check out Apollo or any other GraphQL/React packages available.
+React.js is one of the most popular front-end javascript frameworks today.  For most of its life, React has connected to REST APIs to fetch or save data on a server.  GraphQL is a query language that aims to replace REST APIs by providing consumers with a clear description of the data in the API.  By combining these two technologies, you can quickly connect to an API with your React.js application.  There are many packages available for connecting to a GraphQL API.  One of the most popular is Apollo, however you can also use Axios, or even the built-in JavaScript `fetch` function.  For this application, you will use Axios, but I encourage you to check out Apollo or any other GraphQL/React packages available.
 
 To secure your application, you will be using Okta's single sign-on provider.  Okta provides a great set of tools to make integrating its service into a React application as simple as installing an npm package.   
 
