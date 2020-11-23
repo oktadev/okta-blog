@@ -102,7 +102,7 @@ readdir("_source/_posts", (err, files) => {
     validateBy(files[i], content.attributes.by);
     validateComms(files[i], content.attributes.communities);
     validateTypes(files[i], content.attributes.type);
-    validateTags(files[i], content.attributes.tags);
+    //validateTags(files[i], content.attributes.tags);
   }
 
   for (let i = 0; i < Object.keys(frontMatter).length; i++) {
