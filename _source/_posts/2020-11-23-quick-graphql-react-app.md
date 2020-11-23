@@ -568,8 +568,8 @@ You have successfully consumed a GraphQL API from a React application.  You can 
 
 If you're interested in learning more about GraphQL or React, follow these links below:
 
-* [Build a secure GraphQL API with Node.js](https://developer.okta.com/blog/2020/11/18/build-a-graphql-nodejs-api)
-* [Build a Simple React Application Using Hooks](https://developer.okta.com/blog/2020/08/26/react-hooks)
-* [A Quick Guide to Integrating React and GraphQL](https://developer.okta.com/blog/2019/12/05/react-graphql-integration-guide)
+* [Build a secure GraphQL API with Node.js](/blog/2020/11/18/build-a-graphql-nodejs-api)
+* [Build a Simple React Application Using Hooks](/blog/2020/08/26/react-hooks)
+* [A Quick Guide to Integrating React and GraphQL](/blog/2019/12/05/react-graphql-integration-guide)
 
 Make sure you follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel. If you have any questions, or you want to share what tutorial you'd like to see next, please comment below.
