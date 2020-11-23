@@ -152,7 +152,7 @@ This code will tell your application to use your new `AppWithRouterAccess` page.
 
 Add a new folder to the `src` directory called `Components`.  Add a file called `Header.jsx` to this folder and add the following code:
 
-```javascript
+```jsx
 import React from 'react';
 import { useOktaAuth } from '@okta/okta-react';
 import { Navbar, Nav, Form, Button } from 'react-bootstrap'
