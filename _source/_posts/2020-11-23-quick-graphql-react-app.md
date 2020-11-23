@@ -562,7 +562,7 @@ All your code is complete and you can now test your application.  In the termina
 
 {% img blog/quick-graphql-react-app/running-app.png alt:"Running Application" width:"700" %}{: .center-image }
 
-## Learn More
+## Learn More About GraphQL and React
 
 You have successfully consumed a GraphQL API from a React application.  You can now take this application to the next level by introducing new features to it .  You can also work on building your own GraphQL API for your application!
 
@@ -573,4 +573,3 @@ If you're interested in learning more about GraphQL or React, follow these links
 * [A Quick Guide to Integrating React and GraphQL](https://developer.okta.com/blog/2019/12/05/react-graphql-integration-guide)
 
 Make sure you follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel. If you have any questions, or you want to share what tutorial you'd like to see next, please comment below.
-
