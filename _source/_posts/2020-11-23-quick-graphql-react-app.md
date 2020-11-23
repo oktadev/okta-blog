@@ -195,7 +195,7 @@ The header will be used on every page, which is why you create it as a component
 Next, you will provide a short landing page for users entering the site.  Add a new folder called `Pages` under the `src` directory, and add a file called `Home.jsx`.  Add the following code to that file:
 
 {% raw %}
-```javascript
+```jsx
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import Header from '../Components/Header'
