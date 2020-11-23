@@ -86,7 +86,7 @@ Here you have your necessary Okta information and your Okta Application Setup, a
 
 In your `src` directory, add a new file called `AppWithRouterAccess.jsx`.  Add the following code to it:
 
-```javascript
+```jsx
 import React from 'react';
 import { Route, useHistory, } from 'react-router-dom';
 import { Security, SecureRoute, LoginCallback } from '@okta/okta-react';
