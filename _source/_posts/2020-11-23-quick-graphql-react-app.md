@@ -349,7 +349,7 @@ Again, you are checking to see if the user is already logged in.  If they are, y
 
 The last step is to implement the ExchangeRate page itself.  In `Pages`, add a new file called `ExchangeRate.jsx`.
 
-```javascript
+```jsx
 import React, { Component } from 'react';
 import Header from '../Components/Header'
 import { Container, Row, Col, Table, Form, Button } from 'react-bootstrap'
