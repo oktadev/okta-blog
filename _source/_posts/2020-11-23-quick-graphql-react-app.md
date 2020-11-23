@@ -247,7 +247,7 @@ The one trick here is if the user is already authenticated, you will need to red
 
 The next step is to provide a login page for your users to use when they attempt to access the site.  First, add a new file to the `Components` folder called `LoginForm.jsx`.  The code is as follows:
 
-```javascript
+```jsx
 import React, { useState } from 'react';
 import OktaAuth from '@okta/okta-auth-js';
 import { useOktaAuth } from '@okta/okta-react';
