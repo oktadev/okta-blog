@@ -129,7 +129,7 @@ The primary job of this file is to define the routes in your application.  This 
 
 Next, you will need to update your `App.js` page with some custom code to replace the boilerplate from create-react-app.
 
-```javascript
+```jsx
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import AppWithRouterAccess from './AppWithRouterAccess';
