@@ -5,13 +5,13 @@ author: dino-bikic
 by: contractor
 communities: [mobile]
 description: "Tutorial: Build an Android app with log in and and log out features."
-tags: [oauth, oidc, kotlin, android, mobile, authentication]
+tags: []
 tweets:
 - ""
 - ""
 - ""
 image:
-type: awareness
+type: conversion
 ---
 :toc: macro
 :page-liquid:
