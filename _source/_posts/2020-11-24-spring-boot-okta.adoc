@@ -77,7 +77,7 @@ static class SimpleRestController {
 
 == Learn More about Spring Boot and Okta
 
-I hope you've enjoyed this brief intro to the Okta CLI. It's a tool for developers to make their lives easier. If you have any suggestions for improvement, please add an issuer to our https://github.com/okta/okta-cli[okta/okta-cli] repository.
+I hope you've enjoyed this brief intro to the Okta CLI. It's a tool for developers to make their lives easier. If you have any suggestions for improvement, please add an issue to our https://github.com/okta/okta-cli[okta/okta-cli] repository.
 
 If you like Spring Boot and Okta, you might like these posts:
 
