@@ -4,7 +4,7 @@ title: "Five Open Source Projects We're Thankful For In 2020"
 author: lee-brandt
 by: advocate
 communities: [devops]
-description: "A list of five open source projects that the Dev Relations team likes."
+description: "A list of five open source projects that the Okta Developer Relations team is thankful for."
 tags: [oss]
 tweets:
 - "Here are five open source projects that we're thankful for."
@@ -47,4 +47,3 @@ What are YOUR favorite open source projects? It could be a command-line tool, a 
 * [Protecting a Laravel API with JWT](/blog/2020/11/04/protecting-a-laravel-api-with-jwt)
 
 And don't forget to follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel for more great developer content!
-
