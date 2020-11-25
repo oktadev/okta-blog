@@ -14,9 +14,9 @@ image: blog/featured/okta-dotnet-mouse-down.jpg
 type: conversion
 ---
 
-As a big fan of open source, I’m loving the fact that .NET Core is cross-platform. It opens up endless possibilities, from hobby projects, experiments, and proofs of concept, to massive high-load production applications that run on cost-effective infrastructure with high security and scalability. I usually get the simplest and cheapest $5/month Ubuntu-based virtual private server (VPS) from any cloud platform provider instead of the more complex and expensive container instances or cloud computing services.
+As a big fan of open source, I'm loving the fact that .NET Core is cross-platform. It opens up endless possibilities, from hobby projects, experiments, and proofs of concept, to massive high-load production applications that run on cost-effective infrastructure with high security and scalability. I usually get the simplest and cheapest $5/month Ubuntu-based virtual private server (VPS) from any cloud platform provider instead of the more complex and expensive container instances or cloud computing services.
 
-I'm going to guide you through the steps on how to set up a .NET Core runtime environment, and how to deploy a .NET Core web application with Okta authentication, once you’ve got an Ubuntu VPS, all using nothing more than the Terminal.
+I'm going to guide you through the steps on how to set up a .NET Core runtime environment, and how to deploy a .NET Core web application with Okta authentication, once you've got an Ubuntu VPS, all using nothing more than the Terminal.
 
 ## The Benefits of Using Okta
 
@@ -38,7 +38,7 @@ Today we are going to build and run our sample application on the same machine. 
 
 ### Adding the Package Repository
 
-We need to add Microsoft’s package signing key to make the package repository trusted by the system.
+We need to add Microsoft's package signing key to make the package repository trusted by the system.
 
 Open Terminal and run the following commands:
 
@@ -186,4 +186,4 @@ If you are interested in learning more about security and .NET check out these o
 - [The Most Exciting Promise of .NET 5](/blog/2020/04/17/most-exciting-promise-dotnet-5)
 - [Goodbye Javascript! Build an Authenticated Web App in C# with Blazor + ASP.NET Core 3.0](/blog/2019/10/16/csharp-blazor-authentication)
 
-Don’t forget to [follow us on Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube channel](https://youtube.com/c/oktadev) for more great tutorials.
+Don't forget to [follow us on Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube channel](https://youtube.com/c/oktadev) for more great tutorials.
