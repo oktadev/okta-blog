@@ -396,7 +396,7 @@ dependencies {
 
 The security, Thymeleaf, and web starters are still there. However, there two new Spring starters: `oauth2-client` and `oauth2-jose`.
 
-`oauth2-client` brings in the libraries required for implementing an OAuth 2.0 client. `oauth2-jose` brings in some common libraries for signing and encryption. JOSE stands for Java Object Signing and Encryption.
+`oauth2-client` brings in the libraries required for implementing an OAuth 2.0 client. `oauth2-jose` brings in some common libraries for signing and encryption. JOSE stands for Javascript Object Signing and Encryption.
 
 The `SecurityConfiguration.java` file has been updated for OAuth login:
 
