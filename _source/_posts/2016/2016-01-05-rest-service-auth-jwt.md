@@ -14,7 +14,7 @@ challenge with breaking applications up into small services is that now each
 service needs to deal with authenticating and authorizing requests made to it.
 [Json Web Tokens (JWTs)](https://tools.ietf.org/html/rfc7519) offer a clean
 solution to this problem along with
-[TLS client authentication]({% post_url 2015-12-02-tls-client-authentication-for-services %})
+[TLS client authentication]({% post_url 2015/2015-12-02-tls-client-authentication-for-services %})
 lower down in the stack.
 
 Wils Dawson and I presented these topics to the [Java User Group](http://www.meetup.com/sfjava/)
