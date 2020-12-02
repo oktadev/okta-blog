@@ -11,7 +11,7 @@ tweets:
 - "Worrying about how updates in Laravel 8 might affect authentication in your app? Read this ➡"
 - "Learn the differences between how the three most recent #Laravel versions handle authentication"
 image: blog/featured/okta-php-headphones.jpg
-type: conversion
+type: awareness
 ---
 
 Laravel is one of the most popular PHP frameworks in use today. [Version 8 was released in September 2020](/blog/2020/10/15/whats-new-in-laravel-8), and while the bulk of the framework hasn't changed, each of the three most recent versions have included updates to the authentication pattern.
@@ -171,7 +171,7 @@ The other change in Laravel 8 that affects authentication is [the addition of an
 
 Laravel 8 made this more consistent by moving the default `User.php` file into a new subdirectory. Now a fresh Laravel 8 installation's `app/` directory looks like this:
 
-[Laravel 8 app directory structure](https://i.imgur.com/2sDKv3I.png)
+{% img blog/authentication-in-laravel-6-7-8/directory-tree.png alt:"Laravel 8 app directory structure" width:"500" %}{: .center-image }
 
 One side effect of this change is that models also have a new namespace.
 
