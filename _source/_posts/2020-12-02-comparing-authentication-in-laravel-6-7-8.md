@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Comparing Authentication in Laravel versions 6, 7, and 8"
+title: "Comparing Authentication in Laravel Versions 6, 7, and 8"
 author: karl-hughes
 by: contractor
 communities: [php]
@@ -70,7 +70,7 @@ Laravel 7 was released in March 2020, and unlike Laravel 6, it is not a long-ter
 
 Sanctum is helpful if you use Laravel as a back-end for a single-page application, or if you issue API tokens for each of your users. It extends the built-in Laravel authentication system by allowing users to create tokens with varying permission levels and authenticating single-page app users via the Laravel cookie-based session system.
 
-Once installed, you can add the `HasApiTokens` trait to any of your models to indicate the model can be authenticated using a token. In your application, call the `createToken` method with [any specific "abilities"](https://laravel.com/docs/7.x/sanctum#token-abilities) you want to attach to it like this:
+Once installed, you can add the `HasApiTokens` trait to any of your models to indicate the model can be authenticated using a token. In your application, call the `createToken()` method with [any specific "abilities"](https://laravel.com/docs/7.x/sanctum#token-abilities) you want to attach to it like this:
 
 ```php
 $token = $user->createToken('token-name', ['posts:delete'])->plainTextToken;
@@ -105,7 +105,7 @@ This creates two files:
 - `app/View/Components/LoginLink.php`
 - `resources/views/components/login-link.blade.php`
 
-The `LoginLink` class extends Laravel's `Component` class and must implement the `render` method to display the view. Any public method or property you add to the component will be available in the Blade template. For example, if you want a link's text and path to change depending on the user's logged-in state, replace the `LoginLink` class with the following:
+The `LoginLink` class extends Laravel's `Component` class and must implement the `render()` method to display the view. Any public method or property you add to the component will be available in the Blade template. For example, if you want a link's text and path to change depending on the user's logged-in state, replace the `LoginLink` class with the following:
 
 ```php
 <?php
@@ -199,4 +199,3 @@ If you are interested in learning more about Larave, PHP and Okta, check out the
 - [Validating Okta Access Tokens in PHP using AWS API Gateway and Lambda Authorizers](/blog/2020/10/05/validating-okta-access-tokens-php-aws-api-gateway-lambda)
 
 Don't forget to [follow us on Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube channel](https://youtube.com/c/oktadev) for more great tutorials.
-
