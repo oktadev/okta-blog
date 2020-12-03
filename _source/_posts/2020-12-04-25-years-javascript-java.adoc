@@ -30,7 +30,7 @@ JavaScript went through quite the transformation in 1995. It started as an idea 
 
 According to http://speakingjs.com/es5/ch04.html[How JavaScript Was Created]:
 
-> Eich wrote one [scripting language] in 10 days, in May 1995. JavaScript's first code name was Mocha, coined by Marc Andreesen. Netscape marketing later changed it to LiveScript, for trademark reasons and because the names of several products already had the prefix “Live.” In late November 1995, Navigator 2.0B3 came out and included the prototype, which continued its early existence without major changes. In early December 1995, Java's momentum had grown and the language was renamed again, to its final name, JavaScript.
+> Eich wrote one [scripting language] in 10 days, in May 1995. JavaScript's first code name was Mocha, coined by Marc Andreesen. Netscape marketing later changed it to LiveScript, for trademark reasons and because the names of several products already had the prefix "Live." In late November 1995, Navigator 2.0B3 came out and included the prototype, which continued its early existence without major changes. In early December 1995, Java's momentum had grown and the language was renamed again, to its final name, JavaScript.
 
 Yes, it's true. JavaScript started as a marketing ploy.
 
