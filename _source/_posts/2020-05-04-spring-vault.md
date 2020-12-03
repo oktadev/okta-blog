@@ -33,6 +33,7 @@ Spring Boot applications can bind property values from environment variables. To
 
 ```shell
 curl https://start.spring.io/starter.zip \
+  -d bootVersion=2.2.6.RELEASE \
   -d dependencies=web,okta,cloud-config-client \
   -d groupId=com.okta.developer \
   -d artifactId=vault-demo-app  \
@@ -132,6 +133,7 @@ Using the Spring Initializr API, create a Vault + Config Server application:
 
 ```shell
 curl https://start.spring.io/starter.zip \
+  -d bootVersion=2.2.6.RELEASE \
   -d dependencies=cloud-config-server \
   -d groupId=com.okta.developer \
   -d artifactId=vault-config-server  \

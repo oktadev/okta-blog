@@ -24,8 +24,9 @@ You can use the excellent [Spring Initializr](https://start.spring.io/) website 
 
 ```bash
 curl https://start.spring.io/starter.zip \
-  dependencies==web,okta \
-  packageName==com.okta.developer.demo -d
+  -d bootVersion=2.1.5.RELEASE \
+  -d dependencies=web,okta \
+  -d packageName=com.okta.developer.demo -d
 ```
 
 Before running your OIDC application however, you will need an Okta account. Okta is a developer service that handles storing user accounts and implementing user management (including OIDC) for you. Go ahead and register for a [free developer account](https://developer.okta.com/signup/) to continue.

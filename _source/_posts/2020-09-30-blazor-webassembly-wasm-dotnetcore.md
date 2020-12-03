@@ -36,7 +36,7 @@ Ready to go blazing fast through hooking up external authentication? Start your 
 
 ## Build a Blazor WASM Progressive Web App Project
 
-Let's start from the beginning with a fresh application. You can also use the [.NET CLI](https://docs.microsoft.com/en-us/dotnet/core/tools/) and [Okta CLI](https://github.com/oktadeveloper/okta-cli) to create your app, but for this tutorial, I will walk you through the IDE and portal steps.
+Let's start from the beginning with a fresh application. You can also use the [.NET CLI](https://docs.microsoft.com/en-us/dotnet/core/tools/) to create your app, but for this tutorial, I will walk you through the IDE and portal steps.
 
 In Visual Studio, select **Create a new project**. Then, select **Blazor App** and click **Next**.
 

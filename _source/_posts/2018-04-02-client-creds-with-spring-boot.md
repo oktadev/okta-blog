@@ -72,7 +72,8 @@ Onto the fun stuff!
 This resource server (aka: API service) is going to be overly simple and consist of a single `/mod` endpoint. Create a new project using the [Spring Initializer](https://start.spring.io/) on the command line:
 
 ```bash
-curl https://start.spring.io/starter.tgz  \
+curl https://start.spring.io/starter.tgz \
+  -d bootVersion=2.0.0.RELEASE \
   -d artifactId=creds-example-server \
   -d dependencies=security,web \
   -d language=java \
@@ -157,7 +158,8 @@ Next, you're going to create a simple command line client (you could easily dupl
 Open up a new terminal window and create a second application with the Spring Initializer:
 
 ```bash
-curl https://start.spring.io/starter.tgz  \
+curl https://start.spring.io/starter.tgz \
+  -d bootVersion=2.0.0.RELEASE \
   -d artifactId=creds-example-client \
   -d dependencies=security \
   -d language=java \
