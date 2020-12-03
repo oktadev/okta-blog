@@ -91,7 +91,7 @@ Java 8 was the next major thing to happen in JavaLand, and it wasn't released un
 
 Spring Boot led to Spring Cloud and both helped fuel the microservices boom that continues today. MicroProfile was created to help with the stagnation in the Java EE world.
 
-Recently, there's been a lot of innovation happening with new frameworks like Micronaut and Quarkus. All the major server-side Java frameworks are _going native_ with GraalVM and making themselves relevant in a serverless, subatomic-startup-time, world.
+Recently, there's been a lot of innovation happening with new frameworks like https://micronaut.io/[Micronaut] and https://quarkus.io/[Quarkus]. All the major server-side Java frameworks are _going native_ with GraalVM and making themselves relevant in a serverless, subatomic-startup-time, world.
 
 == JavaScript and Java in 2020
 
