@@ -13,34 +13,49 @@ tweets:
 image:
 type: awareness
 ---
+:toc: macro
+:page-liquid:
+:experimental:
 
 The Year is 1995...
 
 Java is born in May. So is JavaScript (but it's called Mocha).
 
-Windows 95 was released in August.
+Windows 95 is released in August.
 
-Wow! It's so crazy to look back and see so many influential software releases happen in such a short period. It's almost like when Flex, JSF, and Spring were all released in March 2004. 😜
+It's widely circulated that JavaScript first appeared on this day, December 4th.
+
+Wow! It's so crazy to look back and see so many influential software releases happen in such a short period.
+////
+It's almost like when Flex, JSF, and Spring were all released in March 2004. 😜
+////
+
 
 Congrats to both JavaScript and Java for doing so well over the last 25 years!
+
+toc::[]
 
 == A Brief History of JavaScript
 
 JavaScript went through quite the transformation in 1995. It started as an idea for a "glue language" for web designers and hobbyists, while Java was the "component language" for higher-priced programmers.
 
-According to http://speakingjs.com/es5/ch04.html[How JavaScript Was Created]:
+According to Dr. Axel Rauschmayer's "Speaking JavaScript" book, specifically http://speakingjs.com/es5/ch04.html[How JavaScript Was Created]:
 
 > Eich wrote one [scripting language] in 10 days, in May 1995. JavaScript's first code name was Mocha, coined by Marc Andreesen. Netscape marketing later changed it to LiveScript, for trademark reasons and because the names of several products already had the prefix "Live." In late November 1995, Navigator 2.0B3 came out and included the prototype, which continued its early existence without major changes. In early December 1995, Java's momentum had grown and the language was renamed again, to its final name, JavaScript.
 
-Yes, it's true. JavaScript started as a marketing ploy.
+Yes, it's true. JavaScript started as a marketing ploy. The higher-ups thought it'd be smart if it was positioned as a _companion_ to Java. 25 years later, I think https://jhipster.tech[they're excellent companions]!
 
 The JavaScript Renaissance started in the mid-2000s with jQuery. jQuery leveled the playing field so developers could write code that would work on most popular browsers, and freed developers of the browser wars burden. From there, full-fledged JavaScript frameworks like Ember.js, Backbone.js, and AngularJS took the developer world by storm.
 
-In 2009, https://nodejs.dev/learn/a-brief-history-of-nodejs[Node.js was created], as well as the first version of `npm`. JavaScript found itself well-positioned on the server.
+image::{% asset_path 'blog/25-years-javascript-java/jquery.png' %}[alt=jQuery: write less, do more,width=400,align=center]
 
-In 2013, GitHub created Electron and introduced a way to write a JavaScript-based desktop application. Some of the most often-used software developers used today (Slack and VS Code) use Electron!
+In 2009, https://nodejs.dev/learn/a-brief-history-of-nodejs[Node.js was created], as well as the first version of `npm`. Node allows you to run JavaScript outside of a browser and JavaScript found itself well-positioned on the server.
 
-Then along came React, Angular (with TypeScript), and Vue. They continue to be the dominant frameworks for writing browser-based applications.
+image::{% asset_path 'blog/25-years-javascript-java/node.png' %}[alt=Node.js: designed to build scalable network applications,align=center,width=400]
+
+In 2013, GitHub created Electron and introduced a way to write multi-platform desktop applications with JavaScript. Some of the most often-used software developers use today (Slack and VS Code) are powered by Electron!
+
+In 2014++, along came React, Angular (with TypeScript), and Vue. They continue to be the dominant frameworks for writing browser-based applications.
 
 == A Brief History of Java
 
@@ -52,21 +67,25 @@ Ben Evans published an excellent InfoQ article about https://www.infoq.com/news/
 
 > The Internet was not yet really a part of the mainstream of public consciousness.
 
+Oh my, how the times have changed!
+
 Java became popular in the late 90s with applets. Then it hit its stride in the early 2000s with server-side development. Struts became one of the first "trendy frameworks" in 2001-2002. If you had experience with it, you could get $100/hour. Or you could learn it on the job (like I did) and still make great money!
 
 Java enjoyed a glorious period from 2002-2006 with J2EE and all its web frameworks. Developers became frustrated with EJBs and Struts, and Hibernate and Spring rose to prominence as open source frameworks.
 
-image::{% asset_path 'blog/25-years-javascript-java/j2ee-without-ejb.png' %}[alt=J2EE without EJB,align=center]
+image::{% asset_path 'blog/25-years-javascript-java/j2ee-without-ejb.jpg' %}[alt=J2EE without EJB,align=center]
 
 I had a lot of fun doing "Java web framework comparison" talks, starting in 2004. Then along came JavaScript with its renaissance.
 
 It's funny to look back and see that Flex 1.0, JSF 1.0, and Spring 1.0 were all released within weeks of each other. The term, Ajax, was coined in early 2005, and JavaScript eventually took out the first two, while Spring became a powerhouse on the server.
 
-image::{% asset_path 'blog/25-years-javascript-java/history-of-web-frameworks.png' %}[alt=History of Web Frameworks,align=center]
+image::{% asset_path 'blog/25-years-javascript-java/history-of-web-frameworks-timeline.png' %}[alt=History of Web Frameworks,align=center]
 
-TIP: This timeline can be updated by creating a pull request to my https://github.com/mraible/history-of-web-frameworks-timeline[history-of-web-frameworks-timeline repository].
+NOTE: This timeline can be updated by creating a pull request to the https://github.com/mraible/history-of-web-frameworks-timeline[history-of-web-frameworks-timeline repository].
 
 Java didn't have much innovation while the JavaScript Renaissance was happening. I was a Java developer at LinkedIn in 2007-2008, then moved to full-time frontend development with GWT and jQuery at Evite in 2009.
+
+image:{% asset_path 'blog/25-years-javascript-java/spring-boot.png' %}[alt=Spring Boot,role="pull-right img-150px"]
 
 Java 8 was the next major thing to happen in JavaLand, and it wasn't released until March 18, 2014! A couple weeks later, Spring Boot 1.0 was released, on https://spring.io/blog/2014/04/01/spring-boot-1-0-ga-released[April Fools Day], no less!
 
@@ -74,7 +93,7 @@ Spring Boot led to Spring Cloud and both helped fuel the microservices boom that
 
 Recently, there's been a lot of innovation happening with new frameworks like Micronaut and Quarkus. All the major server-side Java frameworks are _going native_ with GraalVM and making themselves relevant in a serverless, subatomic-startup-time, world.
 
-== Java and JavaScript in Today's World
+== JavaScript and Java in 2020
 
 Fast forward to today and OMG - both Java and JavaScript have had a huge impact on the world and the internet!
 
@@ -106,30 +125,32 @@ Java has Kotlin, and JavaScript has TypeScript. Both intend to be improved langu
 
 While there are many developers that are perfectly happy with Java and JavaScript, there's a whole slew of folks that love Kotlin and TypeScript.
 
-Kotlin 1.0 was released in February 2010. TypeScript was first made public in October 2012.
+Kotlin 1.0 was released in February 2010. TypeScript was first made public in October 2012. They've both been around long enough to have fans. I find it interesting that neither seems to have many haters. Both Java and JavaScript have a plethora of haters!
 
-I don't see Kotlin/JS taking off, but TypeScript is definitely here to stay! I use it almost every day and love it. Keep in mind, this is mostly because I'm a type-happy developer.
+I don't see Kotlin/JS taking off, but TypeScript is definitely here to stay. Angular 2 was a major rewrite and their decision to ditch AtScript in favor of TypeScript was a wise one! I use it almost every day and appreciate it.
 
 Android has fueled the fire of Kotlin greatly, and most Android developers I know prefer it over Java.
 
 == Happy 25th to Us! 🥳
 
-The real celebration here is us as developers! If you're old like me, you've had the privilege of enjoying both JavaScript and Java for quite some time. Both are still very popular and in high-demand.
+The real celebration here is to us as developers! If you're old like me, you've had the privilege of enjoying both JavaScript and Java for quite some time. Both are still very popular and in high-demand.
 
 Even if some new, drastically-better, language comes along in 2021, there's enough vintage software to maintain for decades to come!
 
 == Learn More about Java and JavaScript
 
-I love both Java and JavaScript. It's a rare trait among developers, to love both languages. They've both served me well when using the right tool for the job. I'm also infatuated with Kotlin and TypeScript and appreciate the innovation from both languages.
+I love both Java and JavaScript. It's a rare trait among developers; to love both languages. They've both served me well when using the right tool for the job. I'm also infatuated with Kotlin and TypeScript and appreciate their continued innovation.
 
-Here are a collection of posts on this blog that show off the joy all these languages can provide.
+Here are a collection of posts on this blog that show the joy these languages can provide:
 
-- Java
-- JavaScript
-- Kotlin
-- TypeScript
+- link:/blog/2020/01/09/java-rest-api-showdown[Java REST API Comparison: Micronaut, Quarkus, and Spring Boot]
+- link:/blog/2020/08/17/micronaut-jhipster-heroku[Build a Secure Micronaut and Angular App with JHipster]
+- link:/blog/2019/12/04/whats-new-nodejs-2020[What's New for Node.js in 2020]
+- link:/blog/2020/06/16/nodejs-login[Node.js Login with Express and OIDC]
+- link:/blog/2020/01/13/kotlin-react-crud[Build a CRUD Application with Kotlin and React]
+- link:/blog/2020/01/06/crud-angular-9-spring-boot-2[Build a CRUD App with Angular 9 and Spring Boot 2.2]
 
-If you have any good stories about your experience with Java or JavaScript in the last 25 years, I'd love to hear them! Please leave a comment below.
+If you have any good stories about your experience with Java or JavaScript in the last 25 years, I'd 💙 to hear them! Please share them in the comments below.
 
 If you liked this post, please follow my team on https://twitter.com/oktadev[Twitter], like us on https://www.facebook.com/oktadevelopers[Facebook], check us out on https://www.linkedin.com/company/oktadev/[LinkedIn], and subscribe to our https://www.youtube.com/oktadev[YouTube channel].
 
