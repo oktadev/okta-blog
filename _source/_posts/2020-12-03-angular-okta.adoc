@@ -15,17 +15,17 @@ type: conversion
 ---
 :page-liquid:
 
-The Okta CLI is a new tool we've created here at Okta. It's designed to streamline the process of creating new Okta accounts, registering apps, and getting started. Wwwhhaaattt, you might say?! That's right, it's super awesome!
+The Okta CLI is a new tool we've created here at Okta. It's designed to streamline creating new Okta accounts, registering apps, and getting started. Wwwhhaaattt, you might say?! That's right, it's super awesome!
 
-To show you how much fun it is, I https://youtu.be/nizsd2yYch0[created a screencast that shows you how to use it].
+To show you how easy it is, I https://youtu.be/aMmTcLnoZzc[created a screencast that shows you how to use it with Angular].
 
 ++++
 <div style="text-align: center; margin-bottom: 1.25rem">
-<iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/nizsd2yYch0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/aMmTcLnoZzc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 ++++
 
-For those that would rather read than watch, please read on.
+For those that would rather read than watch—this is for you.
 
 == Install the Okta CLI
 
@@ -36,39 +36,26 @@ You can find the website for the Okta CLI at https://cli.okta.com/[cli.okta.com]
 curl https://raw.githubusercontent.com/oktadeveloper/okta-cli/master/cli/src/main/scripts/install.sh | bash
 ----
 
-Once you have the Okta CLI installed, you'll need https://nodejs.org/[Node.js installed] to create an Angular app. I used v14.10.1 in this screencast.
+Once you have the Okta CLI installed, you'll need https://nodejs.org/[Node.js installed] to build your Angular app. I used v14.15.0 in this screencast.
 
 == Create an Angular App
 
-To create a secure Angular app with Okta, run `okta start`. You'll need to verify your email and set a password as part of this.
-
-Then, you'll be prompted to select from a list of samples:
-
-[source,shell]
-----
-Select a sample
-> 1: Spring Boot + Okta
-> 2: Vue + Okta
-> 3: ASP.net Core 3  MVC
-> 4: Angular + Okta
-----
-
-Type `4` and **Enter** to select Angular.
+To create a secure Angular app with Okta, run `okta start angular`. You'll need to verify your email and set a password as part of this.
 
 TIP: If you already have an Okta account, you can run `okta login` first.
 
-This will download our https://github.com/okta-samples/okta-angular-sample[Okta Angular sample], register your app on Okta, and configure it by creating a `.okta.env` file with your issuer and client ID.
+This command will download our https://github.com/okta-samples/okta-angular-sample[Okta Angular sample], register your app on Okta, and configure it by creating a `.okta.env` file with your issuer and client ID.
 
 Follow the instructions that are printed out for you. To summarize:
 
 [source,shell]
 ----
-cd okta-angular-sample
+cd angular
 npm install
 npm start
 ----
 
-Next, open your browser to `http://localhost:4200`. You will see a screen like the following.
+Next, open your browser to `http://localhost:4200` in an incognito window. You will see a screen like the following:
 
 image::{% asset_path 'blog/okta-cli-angular/homepage.png' %}[alt=Angular sample homepage,width=800,align=center]
 
@@ -76,7 +63,7 @@ Click **Login** and authenticate with your credentials.
 
 image::{% asset_path 'blog/okta-cli-angular/login.png' %}[alt=Angular Login,width=800,align=center]
 
-Upon successful sign-in, you'll be returned to your app. Click on **Profile** to see your data that's retrieved using our Angular SDK's `getUser()` method.
+Upon successful sign-in, you'll be returned to your app. Click on **Profile** to see your data that's retrieved using the Okta Angular SDK's `getUser()` method.
 
 [source,typescript]
 ----
@@ -96,7 +83,7 @@ image::{% asset_path 'blog/okta-cli-angular/profile.png' %}[alt=Your ID Token Cl
 
 == Learn More about Angular and Okta
 
-I hope you've enjoyed this brief intro to the Okta CLI. It's a tool for developers to make their lives easier. If you have any suggestions for improvement, please add an issuer to our https://github.com/oktadeveloper/okta-cli[oktadeveloper/okta-cli] repository.
+I hope you've enjoyed this brief intro to the Okta CLI. It's a tool that makes developers' lives easier. If you have any suggestions for improvement, please add an issue to our https://github.com/okta/okta-cli[okta/okta-cli] repository.
 
 If you like Angular and Okta, you might like these posts:
 
@@ -105,4 +92,4 @@ If you like Angular and Okta, you might like these posts:
 - link:/blog/2019/08/16/angular-mysql-express[How to Work with Angular and MySQL]
 - 📺 https://www.youtube.com/watch?v=BKepFaIwCvo&list=PLshTZo9V1-aE4lo3ByFQWex5b-QXeyX-P[OktaDev Angular Playlist on YouTube]
 
-Be sure to follow us **@oktadev** on https://twitter.com/oktadev[Twitter], https://youtube.com/oktadev[YouTube] and https://www.twitch.tv/oktadev[Twitch]. We're accustomed to publishing fantastic content!
+Please follow us **@oktadev** on https://twitter.com/oktadev[Twitter], https://youtube.com/oktadev[YouTube] and https://www.twitch.tv/oktadev[Twitch] to stay up-to-date with our latest tools and techniques.
