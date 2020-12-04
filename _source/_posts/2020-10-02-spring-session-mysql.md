@@ -9,7 +9,7 @@ tags: [java, session, spring-boot, okta, spring-session, mysql]
 tweets:
 - "Spring Boot's OAuth 2.0 and OIDC support is awesome, but what if you want to scale up with multiple instances? Spring Session to the rescue!"
 - "Want to scale your @springboot OAuth implementation? Use Spring Session and @mysql to make it happen!"
-- "Spring Session makes it easy to distribute your session between servers. See how in this tutorial on Spring Boot + Spring Session and MySQL"
+- "Spring Session makes it easy to distribute your session between servers. See how in this tutorial on Spring Boot + Spring Session and MySQL."
 image: blog/spring-session/spring-session.png
 type: conversion
 ---
@@ -38,6 +38,7 @@ Create a Maven project using the Spring Initializr's API.
 
 ```shell
 curl https://start.spring.io/starter.zip \
+ -d bootVersion=2.3.4.RELEASE \
  -d dependencies=web,okta \
  -d groupId=com.okta.developer \
  -d artifactId=webapp \

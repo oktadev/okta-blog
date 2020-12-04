@@ -243,7 +243,7 @@ Create a new Spring Boot app that uses Java 11, Kotlin, Gradle, and has the nece
 
 [source,shell]
 ----
-http https://start.spring.io/starter.zip javaVersion==11 language==kotlin \
+http https://start.spring.io/starter.zip bootVersion==2.2.4.RELEASE javaVersion==11 language==kotlin \
 artifactId==notes-api groupId==com.okta.developer packageName==com.okta.developer.notes \
 type==gradle-project dependencies==h2,data-jpa,data-rest,okta,web -d
 ----

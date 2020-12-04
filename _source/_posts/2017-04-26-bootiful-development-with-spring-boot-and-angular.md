@@ -39,7 +39,7 @@ To get started with Spring Boot, navigate to [start.spring.io](https://start.spr
 If you like the command-line better, you can use the following command to download a `demo.zip` file with [HTTPie](https://httpie.org/).
 
 <pre>
-http https://start.spring.io/starter.zip \
+http https://start.spring.io/starter.zip bootVersion==1.5.10.RELEASE \
 dependencies==devtools,h2,data-jpa,data-rest,web -d
 </pre>
 

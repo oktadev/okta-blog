@@ -128,7 +128,7 @@ Click the **Generate Project** button and expand `eureka-service.zip` into the `
 
 > **TIP:** You could also create your project using start.spring.io's API. The following [HTTPie](https://httpie.org/) command will create the same app as the steps above:
 > ```
-> http https://start.spring.io/starter.zip artifactId==eureka-service \
+> http https://start.spring.io/starter.zip artifactId==eureka-service bootVersion==2.0.5.RELEASE \
 >    name==eureka-service dependencies==cloud-eureka-server baseDir==eureka-service | tar -xzvf -
 > ```
 
@@ -188,7 +188,7 @@ Java and web development.
 
 > **TIP:** To create this same project using start.spring.io's API, run the following:
 > ```
-> http https://start.spring.io/starter.zip artifactId==beer-catalog-service \
+> http https://start.spring.io/starter.zip artifactId==beer-catalog-service bootVersion==2.0.5.RELEASE \
 >   name==beer-catalog-service dependencies==actuator,cloud-eureka,data-jpa,h2,data-rest,web,devtools,lombok \
 >   baseDir==beer-catalog-service | tar -xzvf -
 > ```
@@ -340,7 +340,7 @@ the project in your favorite IDE.
 
 > **TIP:** To create this same project using start.spring.io's API, run the following:
 > ```
-> http https://start.spring.io/starter.zip artifactId==edge-service \
+> http https://start.spring.io/starter.zip artifactId==edge-service bootVersion==2.0.5.RELEASE \
 >   name==edge-service  dependencies==cloud-eureka,cloud-feign,cloud-zuul,data-rest,web,cloud-hystrix,lombok \
 >   baseDir==edge-service | tar -xzvf -
 > ```
