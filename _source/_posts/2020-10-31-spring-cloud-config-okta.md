@@ -208,7 +208,7 @@ In this tutorial, you have two sets of configuration files: one set for Service 
 
 Enter your config server's project directory and run the application:
 
-```shell script
+```shell
 cd /path/to/config-server
 ./mvnw spring-boot:run -Dspring-boot.run.profiles=native
 ```
@@ -549,7 +549,7 @@ public class CloudConfigServiceOneApplication {
 
 Start your application using `profile1`:
 
-```shell script
+```shell
 ./mvnw spring-boot:run -Dspring-boot.run.profiles=profile1
 ```
 
@@ -697,7 +697,7 @@ Note the different credentials for the in-memory user: `serviceTwoUser / service
 
 Run the application:
 
-```shell script
+```shell
 cd /path/to/service-two
 ./mvnw spring-boot:run -Dspring-boot.run.profiles=profile1
 ```
