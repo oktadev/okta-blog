@@ -86,7 +86,7 @@ image::{% asset_path 'blog/25-years-javascript-java/history-of-web-frameworks-ti
 
 NOTE: You can update this timeline by creating a pull request to the https://github.com/mraible/history-of-web-frameworks-timeline[history-of-web-frameworks-timeline] repository.
 
-Java didn't have much innovation while the JavaScript Renaissance was happening. I was a Java developer at LinkedIn in 2007-2008, then moved to full-time frontend development with GWT and jQuery at Evite in 2009.
+Java didn't have much innovation while the JavaScript Renaissance was happening. I was a Java developer at LinkedIn in 2007-2008, then moved to full-time frontend development with GWT and jQuery at Evite in 2009. The frontend landscape flourished for the next few years, while the Java ecosystem languished.
 
 Java 8 was the next major thing to happen in JavaLand, and Oracle didn't release it until March 18, 2014! A couple of weeks later, Spring Boot 1.0 was released on https://spring.io/blog/2014/04/01/spring-boot-1-0-ga-released[April Fools Day], no less!
 
