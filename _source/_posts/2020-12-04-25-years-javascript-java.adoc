@@ -74,7 +74,7 @@ Oh my, how the times have changed!
 
 Java became popular in the late 90s with applets. Then it hit its stride in the early 2000s with server-side development. Struts became one of the first "trendy frameworks" in 2001-2002. If you had experience with it, you could get $100/hour. Or you could learn it on the job (like I did) and still make great money!
 
-Java enjoyed a glorious period from 2002-2006 with J2EE and all its web frameworks. Developers became frustrated with EJBs and Struts, and Hibernate and Spring rose to prominence as open-source frameworks.
+Java enjoyed a glorious period from 2002-2006 with J2EE and all its web frameworks. Developers became frustrated with EJBs and Struts, causing Hibernate and Spring to rise to prominence as open-source frameworks.
 
 image::{% asset_path 'blog/25-years-javascript-java/j2ee-without-ejb.jpg' %}[alt=J2EE without EJB,align=center]
 
