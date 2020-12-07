@@ -7,10 +7,10 @@ communities: [java]
 description: "This tutorial shows how to use Spring Cloud config to manage configuration properties for multiple Spring Boot applications from a single source."
 tags: [java, spring-boot, oauth2, spring-cloud, spring-cloud-config]
 tweets:
-- "Using Spring? Excellent! Want to share your configuration between microservices. Yaassss. Learn how with this five page tutorial!"
-- "I ❤️ @springcloud! You know why? It makes #microservices easy!"
-- "I used to love @java. Then I learned about @springboot and fell in love. LATER, I found @springcloud and OMG. What are you doing Saturday night? 😍"
-image:
+- "Using Spring? Excellent! Want to share your configuration between microservices. Learn how with this five page tutorial!"
+- "We ❤️ @springcloud! You know why? It makes #microservices easy!"
+- "Learn how to use @springcloud config server to share configuration between your microservices in this quick tutorial."
+image: blog/spring-cloud-config/spring-cloud-config.png
 type: conversion
 ---
 
@@ -24,7 +24,13 @@ The benefits of adopting a microservice architecture include:
 
 Spring Boot is a very popular framework for creating microservices quickly and easily. Due to its popularity, it is also extremely well-supported with plenty of technical guides and examples online.
 
-It's easy to create several, dozens, or even hundreds of microservices for your project with Spring Boot. One speed bump with this approach, however, is the configuration of all these services. Typically in Spring Boot configuration is bundled with the application. This works fine for small, monolithic applications, but when dealing with dozens of services and potentially hundreds of configuration files, managing all of them can be a headache.
+It's easy to create several, dozens, or even hundreds of microservices for your project with Spring Boot. One speed bump with this approach, however, is the configuration of all these services. Typically in Spring Boot, configuration is bundled with the application. This works fine for small, monolithic applications, but when dealing with dozens of services and potentially hundreds of configuration files, managing all of them can be a headache.
+
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+
+## Spring Cloud Config to the Rescue!
 
 This is where **Spring Cloud Config**, a framework integrated with Spring Boot, is useful. A dedicated "config server" is brought online from which each microservice can download its configuration data. This dramatically simplifies the management of many microservices by centralizing their configuration in one location and provides the ability to "live" refresh a microservice's configuration without redeploying the service. As a bonus, Spring Cloud Config provides out-of-the-box support for storing/reading configuration from Git repositories, giving you a full audit history of changes in one location.
 
@@ -37,18 +43,13 @@ In this tutorial, you will:
 
 Let's get started!
 
-**Prerequisites**
-* [Java 11](https://adoptopenjdk.net)
-
-**Table of Contents**{: .hide }
-* Table of Contents
-{:toc}
+**Prerequisites:** [Java 11](https://adoptopenjdk.net)
 
 ## Create a Spring Cloud Config Server
 
-First you will create a Spring Boot application that behaves as the configuration server. This application will provide configuration settings to your microservices.
+First, you will create a Spring Boot application that behaves as the configuration server. This application will provide configuration settings to your microservices.
 
-Go to the [Spring initializr](https://start.spring.io/). Click [this link](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.4.0.RELEASE&packaging=jar&jvmVersion=11&groupId=com.okta.dev&artifactId=config-server&name=cloud-config-server&description=Configuration%20Server&packageName=com.okta.dev.config-server&dependencies=security,web,cloud-config-server) or go to [start.spring.io](https://start.spring.io) and select the following options in your browser:
+Click [this link](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.4.0.RELEASE&packaging=jar&jvmVersion=11&groupId=com.okta.dev&artifactId=config-server&name=cloud-config-server&description=Configuration%20Server&packageName=com.okta.dev.config-server&dependencies=security,web,cloud-config-server) or go to [start.spring.io](https://start.spring.io) and select the following options in your browser:
 
 - **Project**: `Maven Project`
 - **Language**: `Java`
@@ -66,13 +67,13 @@ Under **Project Metadata**, set the values to the following:
 
 Select the following dependencies:
 
-- **Spring Security**
-- **Spring Web**
-- **Config Server**
+- Spring Security
+- Spring Web
+- Config Server
 
 Click **Generate** to download the project files. Unzip the file and import the project files into your favorite IDE.
 
-{% img blog/spring-cloud-config-okta/initializr-config-server.png alt:"Config Server Initializr" width:"800" %}{: .center-image }
+{% img blog/spring-cloud-config/initializr-config-server.png alt:"Config Server Initializr" width:"800" %}{: .center-image }
 
 Open the project in your IDE and update `src/main/resources/application.properties` with the following key-value pairs:
 
@@ -94,25 +95,24 @@ import org.springframework.cloud.config.server.EnableConfigServer;
 
 @EnableConfigServer
 @SpringBootApplication
-public class CloudConfigServerApplication { ... 
-}
+public class CloudConfigServerApplication { ... }
 ```
 
-## Create an OpenID Connect Application in Okta
+## Create an OpenID Connect Application
 
-Sign up for a free developer account at <https://developer.okta.com/signup>. This will be used to secure your microservices using OAuth 2.0 and OpenID Connect (OIDC). After signing up, log in to your Okta account at `\https://your-okta-domain.okta.com`.
+Sign up for a free developer account at <https://developer.okta.com/signup>. This will be used to secure your microservices using OAuth 2.0 and OpenID Connect (OIDC). After signing up, log in to your Okta account at https://your-okta-domain.okta.com.
 
 Click **Applications** in the top nav menu.
 
-{% img blog/spring-cloud-config-okta/01.png alt:"Click the Applications button" width:"800" %}{: .center-image }
+{% img blog/spring-cloud-config/applications.png alt:"Click the Applications button" width:"800" %}{: .center-image }
 
 Click **Add Application**.
 
-{% img blog/spring-cloud-config-okta/02.png alt:"Click Add Application" width:"800" %}{: .center-image }
+{% img blog/spring-cloud-config/add-application.png alt:"Click Add Application" width:"800" %}{: .center-image }
 
 Select **Web** and click **Next**.
 
-{% img blog/spring-cloud-config-okta/03.png alt:"Select Web and click Next" width:"800" %}{: .center-image }
+{% img blog/spring-cloud-config/select-web.png alt:"Select Web and click Next" width:"800" %}{: .center-image }
 
 In **Application Settings** fill in the following values:
 
@@ -123,15 +123,15 @@ In **Application Settings** fill in the following values:
 - **Group Assignments**: `Everyone` (should be selected by default)
 - **Grant type allowed**: `Authorization Code`
 
-{% img blog/spring-cloud-config-okta/04_2.png alt:"Application settings" width:"800" %}{: .center-image }
+{% img blog/spring-cloud-config/application-settings.png alt:"Application settings" width:"800" %}{: .center-image }
 
 Click **Done**.
 
-{% img blog/spring-cloud-config-okta/05.png alt:"Click Done" width:"800" %}{: .center-image }
+{% img blog/spring-cloud-config/done.png alt:"Click Done" width:"800" %}{: .center-image }
 
 Take note of the values for **Client ID** and **Client secret**. These will be necessary for securing your microservices with OAuth 2.0.
 
-{% img blog/spring-cloud-config-okta/06.png alt:"Client ID and Secret" width:"800" %}{: .center-image }
+{% img blog/spring-cloud-config/client-id-and-secret.png alt:"Client ID and Secret" width:"744" %}{: .center-image }
 
 ## Configure Security for Your Microservices Architecture
 
@@ -186,8 +186,8 @@ hello:
 ```
 
 * Replace `YOUR_DOMAIN` with your Okta account's domain. It should look something like `dev-0123456`, e.g. `https://dev-0123456.okta.com/oauth2/default`,
-* Replace `YOUR_CLIENT_ID` with the value of `Client ID` noted earlier under `My Application > General > Client Credentials`.
-* Replace `YOUR_CLIENT_SECRET` with the value of `Client Secret` noted earlier under `My Application > General > Client Credentials`.
+* Replace `YOUR_CLIENT_ID` with the value of the `Client ID` you created earlier.
+* Replace `YOUR_CLIENT_SECRET` with your app's `Client secret`.
 
 Let's take a moment to discuss the naming convention for the configuration files. The filenames are important and must be in a certain pattern for your microservices to pick them up:
 
@@ -239,14 +239,14 @@ Under **Project Metadata** fill in the following information:
 
 Select the following dependencies:
 
-- **Spring Web**
-- **Okta**
-- **Config Client**
-- **Spring Boot Actuator**
+- Spring Web
+- Okta
+- Config Client
+- Spring Boot Actuator
 
 Click **Generate** and import the project files into your favorite IDE.
 
-{% img blog/spring-cloud-config-okta/initializr-service-one.png alt:"Service One Initializr" width:"800" %}{: .center-image }
+{% img blog/spring-cloud-config/initializr-service-one.png alt:"Service One Initializr" width:"800" %}{: .center-image }
 
 Open the project in your IDE and update `src/main/resources/application.properties` with the following key-value pairs:
 
@@ -271,10 +271,10 @@ public static class ApplicationSecurityConfig extends WebSecurityConfigurerAdapt
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
-                .anyRequest().authenticated()
-                .and()
-                .oauth2Login();
+            .authorizeRequests()
+            .anyRequest().authenticated()
+            .and()
+            .oauth2Login();
     }
 }
 ```
@@ -325,10 +325,10 @@ public class CloudConfigServiceOneApplication {
         @Override
         public void configure(HttpSecurity http) throws Exception {
             http
-                    .authorizeRequests()
-                    .anyRequest().authenticated()
-                    .and()
-                    .oauth2Login();
+                .authorizeRequests()
+                .anyRequest().authenticated()
+                .and()
+                .oauth2Login();
         }
     }
 
@@ -447,20 +447,20 @@ public static class ActuatorSecurityConfig extends WebSecurityConfigurerAdapter 
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
-                .antMatcher("/actuator/*")
-                .authorizeRequests()
-                .antMatchers("/actuator/*").authenticated()
-                .and()
-                .httpBasic();
+            .csrf().disable()
+            .antMatcher("/actuator/*")
+            .authorizeRequests()
+            .antMatchers("/actuator/*").authenticated()
+            .and()
+            .httpBasic();
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
-                .withUser("serviceOneUser")
-                .password("{noop}serviceOnePassword")
-                .roles("USER");
+            .withUser("serviceOneUser")
+            .password("{noop}serviceOnePassword")
+            .roles("USER");
     }
 }
 ```
@@ -501,20 +501,20 @@ public class CloudConfigServiceOneApplication {
         @Override
         public void configure(HttpSecurity http) throws Exception {
             http
-                    .csrf().disable()
-                    .antMatcher("/actuator/*")
-                    .authorizeRequests()
-                    .antMatchers("/actuator/*").authenticated()
-                    .and()
-                    .httpBasic();
+                .csrf().disable()
+                .antMatcher("/actuator/*")
+                .authorizeRequests()
+                .antMatchers("/actuator/*").authenticated()
+                .and()
+                .httpBasic();
         }
 
         @Override
         protected void configure(AuthenticationManagerBuilder auth) throws Exception {
             auth.inMemoryAuthentication()
-                    .withUser("serviceOneUser")
-                    .password("{noop}serviceOnePassword")
-                    .roles("USER");
+                .withUser("serviceOneUser")
+                .password("{noop}serviceOnePassword")
+                .roles("USER");
         }
     }
 
@@ -524,10 +524,10 @@ public class CloudConfigServiceOneApplication {
         @Override
         public void configure(HttpSecurity http) throws Exception {
             http
-                    .authorizeRequests()
-                    .anyRequest().authenticated()
-                    .and()
-                    .oauth2Login();
+                .authorizeRequests()
+                .anyRequest().authenticated()
+                .and()
+                .oauth2Login();
         }
     }
 
@@ -575,13 +575,14 @@ Refresh the page at `http://localhost:8001/secure`, and you should see the updat
 
 Next, you will create a second Spring Boot application, acting as a second microservice, which will also have its configuration provided by your configuration server.
 
-Open the [Spring initializr](https://start.spring.io/) or click [this link](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.4.0.RELEASE&packaging=jar&jvmVersion=11&groupId=com.okta.dev&artifactId=service-two&name=service-two&description=Microservice%20Two&packageName=com.okta.dev.service-two&dependencies=web,okta,cloud-config-client,actuator).
+Open the [Spring Initializr](https://start.spring.io/) or click [this link](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.4.0.RELEASE&packaging=jar&jvmVersion=11&groupId=com.okta.dev&artifactId=service-two&name=service-two&description=Microservice%20Two&packageName=com.okta.dev.service-two&dependencies=web,okta,cloud-config-client,actuator).
 
 Select the following options:
 
 - **Project**: `Maven Project`
 - **Language**: `Java`
 - **Spring Boot**: `2.4.0`
+  
 Under **Project Metadata** fill in the following information:
 
 - **Group**: `com.okta.dev`
@@ -594,10 +595,10 @@ Under **Project Metadata** fill in the following information:
 
 Select the following dependencies (the same list as `service-one`):
 
-- **Spring Web**
-- **Okta**
-- **Config Client**
-- **Spring Boot Actuator**
+- Spring Web
+- Okta
+- Config Client
+- Spring Boot Actuator
 
 Click **Generate** and import the project files into your favorite IDE.
 
@@ -710,7 +711,7 @@ Service Two Profile One
 
 You're done! You've created two microservices, secured by Okta and OAuth 2.0, which receive their configuration settings from a shared Spring Cloud Config server. Very cool! 😎
 
-## Learn more about Spring Cloud Config and Microservices
+## Learn More About Spring Cloud Config and Microservices
 
 The source code for this example is [on GitHub](https://github.com/oktadeveloper/okta-spring-cloud-config-example).
 
