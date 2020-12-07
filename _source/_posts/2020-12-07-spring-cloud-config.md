@@ -5,10 +5,10 @@ author: joe-cavazos
 by: contractor
 communities: [java]
 description: "This tutorial shows how to use Spring Cloud config to manage configuration properties for multiple Spring Boot applications from a single source."
-tags: [java, spring-boot, oauth2, spring-cloud, spring-cloud-config]
+tags: [java, spring-boot, spring-cloud, spring-cloud-config, oauth2, microservices]
 tweets:
-- "Using Spring? Excellent! Want to share your configuration between microservices. Learn how with this five page tutorial!"
-- "We ❤️ @springcloud! You know why? It makes #microservices easy!"
+- "Using Spring? Excellent! Want to share your configuration between microservices? Learn how with this tutorial!"
+- "We ❤️ @springcloud! You know why? It makes #microservice configuration easy!"
 - "Learn how to use @springcloud config server to share configuration between your microservices in this quick tutorial."
 image: blog/spring-cloud-config/spring-cloud-config.png
 type: conversion
