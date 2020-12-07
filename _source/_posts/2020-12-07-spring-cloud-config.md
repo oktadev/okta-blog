@@ -713,16 +713,19 @@ You're done! You've created two microservices, secured by Okta and OAuth 2.0, wh
 
 ## Learn More About Spring Cloud Config and Microservices
 
-The source code for this example is [on GitHub](https://github.com/oktadeveloper/okta-spring-cloud-config-example).
+This tutorial showed you how to distribute your security configuration between microservices. There's a lot more you can do with Spring Cloud Config, like encrypting the values you store, and using it with [Spring Vault](/blog/2020/05/04/spring-vault) to store your secrets in a more secure location.
 
-For in-depth examples and use cases not covered in this tutorial, see Spring's official documentation for Spring Cloud Config [here](https://cloud.spring.io/spring-cloud-config/reference/html/).
+For in-depth examples and use cases not covered in this tutorial, see [Spring's official documentation for Spring Cloud Config](https://cloud.spring.io/spring-cloud-config/reference/html/).
+
+The source code for this example is on GitHub in the [oktadeveloper/okta-spring-cloud-config-example](https://github.com/oktadeveloper/okta-spring-cloud-config-example) repository.
 
 Check out these other articles on integrating Spring Boot with Okta:
 
-- [A Quick Guide to OAuth 2.0 with Spring Security](https://developer.okta.com/blog/2019/03/12/oauth2-spring-security-guide)
-- [Easy Single Sign-On with Spring Boot and OAuth 2.0](https://developer.okta.com/blog/2019/05/02/spring-boot-single-sign-on-oauth-2)
-- [Use PKCE with OAuth 2.0 and Spring Boot for Better Security](https://developer.okta.com/blog/2020/01/23/pkce-oauth2-spring-boot)
-- [Spring Security SAML and Database Authentication](https://developer.okta.com/blog/2020/10/14/spring-security-saml-database-authentication)
+- [Secure Secrets With Spring Cloud Config and Vault](/blog/2020/05/04/spring-vault)
+- [A Quick Guide to OAuth 2.0 with Spring Security](/blog/2019/03/12/oauth2-spring-security-guide)
+- [Easy Single Sign-On with Spring Boot and OAuth 2.0](/blog/2019/05/02/spring-boot-single-sign-on-oauth-2)
+- [Use PKCE with OAuth 2.0 and Spring Boot for Better Security](/blog/2020/01/23/pkce-oauth2-spring-boot)
+- [Spring Security SAML and Database Authentication](/blog/2020/10/14/spring-security-saml-database-authentication)
 
 Please provide comments, questions, and any feedback in the comments section below.
 
