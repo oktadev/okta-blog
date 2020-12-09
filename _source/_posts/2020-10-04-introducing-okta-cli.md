@@ -29,7 +29,7 @@ Okta is an Identity Management Platform that takes all the hassle out of authent
 
 It can sometimes be a daunting task for developers to get started with Okta because of how feature rich it is.
 
-Introducing the Okta CLI - made by developers for developers. Using the CLI tool, you can go from zero to running application complete with auth (in the language and framework of your choice) in about 5 minutes. And, you don't have to wade through any web based admin consoles to do it.
+Introducing the Okta CLI - made by developers for developers. Using the CLI tool, you can go from zero to running an application complete with auth (in the language and framework of your choice) in about 5 minutes. And, you don't have to wade through any web-based admin consoles to do it.
 
 ## Set up the Okta CLI
 
