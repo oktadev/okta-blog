@@ -10,6 +10,8 @@ tweets:
   - "Want to see how to develop a Spring Boot API and and Angular 5 UI that talks to it? We have a tutorial for that! "
   - "Bootiful Development with Spring Boot and Angular: two beautiful frameworks, working together in harmony ❤️ "
 type: conversion
+update-url: /blog/2020/01/06/crud-angular-9-spring-boot-2
+update-title: "Build a CRUD App with Angular 9 and Spring Boot 2.2"
 ---
 
 To simplify development and deployment, you want everything in the same artifact, so you put your Angular app "inside" your Spring Boot app, right? But what if you could create your Angular app as a standalone app and make cross-origin requests to your API? Hey guess what, you can do both!
