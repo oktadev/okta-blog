@@ -281,7 +281,7 @@ At this point, you could fire up your app as normal and have it fully integrated
 
 The important bits to set up a project for use with the Okta CLI are:
 
-1. Add the `OKTA_CLI_` placeholder values to the configuration files that make sense for your language and framework
+1. Add the `OKTA_CLI_*` placeholder values to the configuration files that make sense for your language and framework
 2. Add the `.okta/sample-config.yaml` file with the right application type for your language and framework
 3. Run `okta start` to provision and Okta app and update all the placeholders in your config file(s).
 
