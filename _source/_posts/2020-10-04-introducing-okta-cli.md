@@ -15,12 +15,12 @@ communities: [
     "security",
     "devops"
 ]
-description: "Use the Okta CLI to get started with OAuth and Okta in under 5 minutes!"
+description: "Use the Okta CLI to get started with OAuth and Okta in under five minutes!"
 tags: [security, oauth, oauth2, oidc, openid-connect, cli]
 tweets:
-- "Add an Okta integration for your custom app in less than 5 minutes with the Okta CLI"
+- "Add an Okta integration for your custom app in less than five minutes with the Okta CLI"
 - "Do you spend your day on the command line? The Okta CLI is for you!"
-- "Name your language and framework. The Okta CLI will get you going in 5 minutes or less!"
+- "Name your language and framework. The Okta CLI will get you going in five minutes or less!"
 image: "blog/featured/okta-java-short-tile-books-mouse.jpg"
 type: conversion
 ---
@@ -29,7 +29,7 @@ Okta is an Identity Management Platform that takes all the hassle out of authent
 
 It can sometimes be a daunting task for developers to get started with Okta because of how feature rich it is.
 
-Introducing the Okta CLI - made by developers for developers. Using the CLI tool, you can go from zero to running an application complete with auth (in the language and framework of your choice) in about 5 minutes. And, you don't have to wade through any web-based admin consoles to do it.
+Introducing the Okta CLI - made by developers for developers. Using the CLI tool, you can go from zero to running an application complete with auth (in the language and framework of your choice) in about five minutes. And, you don't have to wade through any web-based admin consoles to do it.
 
 ## Set up the Okta CLI
 
@@ -51,7 +51,7 @@ brew cask install oktadeveloper/tap/okta
 
 Pretty easy, right?
 
-## Get Started in Under 5 Minutes
+## Get Started in Under Five Minutes
 
 As a developer, in order to make use of Okta, you need an Okta Organization (fondly referred to as an **org**).
 
@@ -87,7 +87,7 @@ Verification code: 189919
 New Okta Account created!
 Your Okta Domain: https://dev-159750.okta.com
 To set your password open this link:
-https://dev-159750.okta.com/reset_password/drpdRFTmBi8yQ-uIzbpx?fromURI=/
+https://dev-159750.okta.com/welcome/drp7UBGB_GVjeHp_5Jbs
 
 Select a sample
 > 1: Spring Boot + Okta
@@ -123,7 +123,7 @@ Once my email address is verified, the Okta CLI displays a unique link to set my
 
 Next, I see a list of available samples. As of this writing, there are four samples, but we are expanding that list. And, the Okta CLI automatically makes any new samples available in the list. You can register as many samples as you like with your Okta Org. I chose option 3: `ASP.net Core 4 MVC`
 
-Finally, I see information about the OIDC Application that was provisioned in my Okta Org along with instructions to run the sample app.
+Finally, I see information about the OIDC Application that was registered in my Okta Org along with instructions to run the downloaded app.
 
 I'm going to follow those instructions and run this sample:
 
@@ -152,7 +152,9 @@ info: Microsoft.Hosting.Lifetime[0]
 
 > Did you know you could run dotnet on macOS? What a world! Simply run: `brew cask install dotnet-sdk`
 
-You can browse over to: `https://localhost:5001` to see this basic app in action. **NOTE:** You'll see an SSL warning from the browser as it's likely you don't have an SSL cert installed for `localhost`. You can bypass this warning to view the app.
+You can browse over to: `https://localhost:5001` to see this basic app in action. 
+
+> **NOTE:** You may want to use an incognito or private window to login in a separate context. Also, you'll see an SSL warning from the browser as it's likely you don't have an SSL cert installed for `localhost`. You can bypass this warning to view the app.
 
 {% img blog/introducing-okta-cli/dotnet-welcome.png alt:"okta email" width:"600" %}{: .center-image }
 
@@ -160,11 +162,11 @@ Click **Sign In** and you're redirected over to Okta to authenticate. After auth
 
 {% img blog/introducing-okta-cli/dotnet-authenticated.png alt:"dotnet authenticated" width:"600" %}{: .center-image }
 
-> **NOTE:** If you didn't set your password earlier, you'll need to now. Follow the unique link shown in the Okta CLI output. In my case, it was: `https://dev-159750.okta.com/reset_password/drpdRFTmBi8yQ-uIzbpx?fromURI=/`
+> **NOTE:** If you didn't set your password earlier, you'll need to now. Follow the unique link shown in the Okta CLI output. In my case, it was: `https://dev-159750.okta.com/welcome/drp7UBGB_GVjeHp_5Jbs`
 
 ## Looking Under the Hood of the Okta CLI
 
-I don't know much at all about .NET programming. I couldn't tell you the difference between .NET Core and ASP.NET or the differences between 3 and 4 (I think there's a 5 coming?) But, in less than 5 minutes, I had a running app that I could authenticate to using Okta.
+I don't know much at all about .NET programming. I couldn't tell you the difference between .NET Core and ASP.NET or the differences between 3 and 4 (I think there's a 5 coming?) But, in less than five minutes, I had a running app that I could authenticate to using Okta.
 
 The samples architecture is the secret sauce behind this capability. If you check out where the .NET sample lives, you can see the [appsettings.json](https://github.com/okta-samples/okta-aspnet-core3-sample/blob/master/okta-aspnetcore-mvc-example/appsettings.json) template file:
 
@@ -283,9 +285,9 @@ The important bits to set up a project for use with the Okta CLI are:
 
 1. Add the `OKTA_CLI_*` placeholder values to the configuration files that make sense for your language and framework
 2. Add the `.okta/sample-config.yaml` file with the right application type for your language and framework
-3. Run `okta start` to provision and Okta app and update all the placeholders in your config file(s).
+3. Run `okta start` to provision and Okta app and update all the placeholders in your config file(s)
 
-> The easiest way to see what configuration you need for your language and framework is to visit the official samples found in the [okta-samples](https://github.com/okta-samples) GitHub org.
+> The easiest way to see what configuration you need for your language and framework is to visit the samples found in the [okta-samples](https://github.com/okta-samples) GitHub org.
 
 Currently, the available placeholder values are:
 
@@ -298,9 +300,7 @@ Currently, the available placeholder values are:
 
 ## Adding Samples for Okta CLI
 
-It's [Hacktoberfest](https://hacktoberfest.digitalocean.com/) and we'd love your contributions! If you want to setup a new sample, create a new repo that has the naming convention: `okta-<language and or framework name>-sample`. Ideally, it'd be a language and framework that we don't already have. But, if you want to submit a variation on an existing sample, we'd accept that too - just give it a unique name.
-
-Since Hacktoberfest runs off merged pull requests, we'll create the sample in the [okta-samples](https://github.com/okta-samples) GitHub org. You can then put up a pull request to it.
+We'd love your contributions! If you want to setup a new sample, create a new repo that has the naming convention: `okta-<language and or framework name>-sample`. Ideally, it'd be a language and framework that we don't already have. But, if you want to submit a variation on an existing sample, we'd accept that too - just give it a unique name.
 
 ## Learn More About Okta, OAuth 2.0, and OpenID Connect
 
