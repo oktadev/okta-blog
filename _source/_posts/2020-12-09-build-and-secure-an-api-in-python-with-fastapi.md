@@ -15,31 +15,31 @@ type: conversion
 ---
 As [Python grows in popularity](https://www.zdnet.com/article/programming-language-popularity-python-overtakes-java-as-rust-reaches-top-20/), the variety of high-quality frameworks available to developers has blossomed. In addition to steadfast options like [Django](https://www.djangoproject.com/) and [Flask](https://flask.palletsprojects.com/en/1.1.x/), there are many new options including [FastAPI](https://fastapi.tiangolo.com/).
 
-First released [in late 2018](https://github.com/tiangolo/fastapi/releases?after=0.2.0), FastAPI differentiates itself from other Python frameworks by offering a modern, fast, and succinct developer experience for building reliable [REST APIs](https://developer.okta.com/blog/2019/09/04/securing-rest-apis). While one of the newer open-source Python frameworks available, FastAPI has quickly gained a following with over [22,000 stars on GitHub](https://github.com/tiangolo/fastapi) and an active [community of maintainers](https://fastapi.tiangolo.com/fastapi-people/) working on the project.
+First released [in late 2018](https://github.com/tiangolo/fastapi/releases?after=0.2.0), FastAPI differentiates itself from other Python frameworks by offering a modern, fast, and succinct developer experience for building reliable [REST APIs](/blog/2019/09/04/securing-rest-apis). While one of the newer open-source Python frameworks available, FastAPI has quickly gained a following with over [22,000 stars on GitHub](https://github.com/tiangolo/fastapi) and an active [community of maintainers](https://fastapi.tiangolo.com/fastapi-people/) working on the project.
 
-In this post, you’ll learn more about FastAPI, and why it might be the right choice for your next project. You’ll see how to set up a new FastAPI project and use [Okta](https://www.okta.com/) to secure the API.
+In this post, you'll learn more about FastAPI, and why it might be the right choice for your next project. You'll see how to set up a new FastAPI project and use [Okta](https://www.okta.com/) to secure the API.
 
 ## What Sets FastAPI Apart?
 
 Unlike many web frameworks, FastAPI is built to support REST APIs first. As [single-page applications become increasingly common](https://w3-lab.com/web-development/single-page-applications-pros-2020/), separate backends like those created with FastAPI are an essential part of web application architecture. With this in mind, FastAPI incorporates several features meant to support HTTP API-driven application development.
 
-First, documentation is created for your application automatically. Using [OpenAPI](https://www.openapis.org/), FastAPI generates clean, interactive documentation for your application. Later in this tutorial, you’ll see how you can use this documentation to test your API’s authorization functionality.
+First, documentation is created for your application automatically. Using [OpenAPI](https://www.openapis.org/), FastAPI generates clean, interactive documentation for your application. Later in this tutorial, you'll see how you can use this documentation to test your API's authorization functionality.
 
-Next, FastAPI is, as its name suggests, [fast](https://fastapi.tiangolo.com/benchmarks/). Python has historically tended to be slower than Node or Go because of the blocking, synchronous nature of the language; in Python 3, the option to declare functions `async` changed that. Some older frameworks aren’t built to support asynchronous Python, but FastAPI does. It’s built on [Starlette](https://www.starlette.io/), a lightweight asynchronous Python server, and it takes advantage of modern features like [typing](https://docs.python.org/3/library/typing.html) to improve developer experience.
+Next, FastAPI is, as its name suggests, [fast](https://fastapi.tiangolo.com/benchmarks/). Python has historically tended to be slower than Node or Go because of the blocking, synchronous nature of the language; in Python 3, the option to declare functions `async` changed that. Some older frameworks aren't built to support asynchronous Python, but FastAPI does. It's built on [Starlette](https://www.starlette.io/), a lightweight asynchronous Python server, and it takes advantage of modern features like [typing](https://docs.python.org/3/library/typing.html) to improve developer experience.
 
 Another feature implemented by FastAPI, but not necessarily common in the Python ecosystem, is [dependency injection](https://fastapi.tiangolo.com/features/#dependency-injection). The FastAPI framework uses type hints in your function signatures to find and inject the required dependencies. This allows you to write decoupled, reusable code, making unit testing much easier as dependencies can be swapped out at runtime.
 
-Finally, while FastAPI comes with many of the features you would expect in a REST API framework (like [data validation](https://fastapi.tiangolo.com/features/#validation) and [authentication](https://fastapi.tiangolo.com/features/#security-and-authentication)), it lets you choose your ORM and database of choice. This means that FastAPI can work with your existing data models if you’re migrating from an existing Python application.
+Finally, while FastAPI comes with many of the features you would expect in a REST API framework (like [data validation](https://fastapi.tiangolo.com/features/#validation) and [authentication](https://fastapi.tiangolo.com/features/#security-and-authentication)), it lets you choose your ORM and database of choice. This means that FastAPI can work with your existing data models if you're migrating from an existing Python application.
 
-While FastAPI is an excellent option for building REST APIs in Python, it’s not perfect for every situation. If the system you’re building relies on Python 3.5 or any earlier Python framework, you won’t be able to use FastAPI. FastAPI also isn’t a great choice if you’re building a server-side web application that needs to display HTML, as it doesn’t include all the view helper functions that full-stack frameworks like Django do.
+While FastAPI is an excellent option for building REST APIs in Python, it's not perfect for every situation. If the system you're building relies on Python 3.5 or any earlier Python framework, you won't be able to use FastAPI. FastAPI also isn't a great choice if you're building a server-side web application that needs to display HTML, as it doesn't include all the view helper functions that full-stack frameworks like Django do.
 
-Now that you’re familiar with FastAPI at a high level, you’re ready to start building your first application. In the rest of this tutorial, you’ll see how to get started and secure your endpoints using Okta as your OAuth authorization server.
+Now that you're familiar with FastAPI at a high level, you're ready to start building your first application. In the rest of this tutorial, you'll see how to get started and secure your endpoints using Okta as your OAuth authorization server.
 
 ## Building a New FastAPI Project
 
-In this section, you’ll create a new FastAPI project and add a single, unprotected endpoint to your API.
+In this section, you'll create a new FastAPI project and add a single, unprotected endpoint to your API.
 
-Before you get started, make sure your computer has [Python 3.6+ installed](https://wiki.python.org/moin/BeginnersGuide/Download). FastAPI uses the typing and asynchronous features in Python, so earlier versions of the language won’t run it.
+Before you get started, make sure your computer has [Python 3.6+ installed](https://wiki.python.org/moin/BeginnersGuide/Download). FastAPI uses the typing and asynchronous features in Python, so earlier versions of the language won't run it.
 
 ### Install FastAPI
 
@@ -54,9 +54,9 @@ The dependencies will be added to your requirements.txt file.
 
 ### Create a New Endpoint
 
-For this tutorial, you’ll use a single `main.py` file that contains all your routes. You can [break this file up as your application grows](https://fastapi.tiangolo.com/tutorial/bigger-applications/), but since you’ll just be adding a couple of endpoints, you don’t need to worry about that now.
+For this tutorial, you'll use a single `main.py` file that contains all your routes. You can [break this file up as your application grows](https://fastapi.tiangolo.com/tutorial/bigger-applications/), but since you'll just be adding a couple of endpoints, you don't need to worry about that now.
 
-Create the `main.py` file in your project’s root directory and add the following:
+Create the `main.py` file in your project's root directory and add the following:
 
 ```python
 from fastapi import FastAPI
@@ -74,7 +74,7 @@ def read_root():
 
 ### Accessing Your API
 
-When using FastAPI, there are two ways you can access your API. You can use an API explorer like [Postman](https://www.postman.com/), or you can use FastAPI’s interactive documentation in your browser. This tutorial will focus on the latter.
+When using FastAPI, there are two ways you can access your API. You can use an API explorer like [Postman](https://www.postman.com/), or you can use FastAPI's interactive documentation in your browser. This tutorial will focus on the latter.
 
 To start your application, run the Uvicorn server:
 
@@ -82,25 +82,25 @@ To start your application, run the Uvicorn server:
 uvicorn main:app --reload
 ```
 
-Then, open [http://127.0.0.1:8000](http://127.0.0.1:8000) in your browser to see your “Hello, world” endpoint in action:
+Then, open [http://127.0.0.1:8000](http://127.0.0.1:8000) in your browser to see your "Hello, world" endpoint in action:
 
-![A “Hello, World” endpoint in FastAPI](https://i.imgur.com/XHwSIuy.png)
+![A "Hello, World" endpoint in FastAPI](https://i.imgur.com/XHwSIuy.png)
 
-FastAPI’s interactive documentation is available at [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs). Once you’re there, you’ll see details about each endpoint automatically. FastAPI uses type hints and context in your application to produce these docs on its own.
+FastAPI's interactive documentation is available at [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs). Once you're there, you'll see details about each endpoint automatically. FastAPI uses type hints and context in your application to produce these docs on its own.
 
 ![FastAPI interactive documentation](https://i.imgur.com/Va63heZ.png)
 
-Now that you’ve seen how easy it is to get started, you’re ready to build a more useful application. In the remainder of this tutorial, you’ll see how to create protected endpoints in FastAPI that use Okta as an authorization server.
+Now that you've seen how easy it is to get started, you're ready to build a more useful application. In the remainder of this tutorial, you'll see how to create protected endpoints in FastAPI that use Okta as an authorization server.
 
 ## Securing FastAPI with Okta
 
-To demonstrate some of the more advanced features of the FastAPI framework, I’ll show you how to build a protected endpoint that uses [the client credentials flow](https://developer.okta.com/docs/guides/implement-client-creds/overview/) to authorize access. By the end of this tutorial, you will be able to enter your Okta client ID and secret into FastAPI’s interactive docs to get an access token. You’ll see how to validate this JWT access token remotely using Okta’s [introspect](https://developer.okta.com/docs/reference/api/oidc/#introspect) endpoint and locally using the [Okta JWT Python library](https://github.com/adithyasampatoor/okta_jwt).
+To demonstrate some of the more advanced features of the FastAPI framework, I'll show you how to build a protected endpoint that uses [the client credentials flow](https://developer.okta.com/docs/guides/implement-client-creds/overview/) to authorize access. By the end of this tutorial, you will be able to enter your Okta client ID and secret into FastAPI's interactive docs to get an access token. You'll see how to validate this JWT access token remotely using Okta's [introspect](https://developer.okta.com/docs/reference/api/oidc/#introspect) endpoint and locally using the [Okta JWT Python library](https://github.com/adithyasampatoor/okta_jwt).
 
-If you’d like to run the final application, [the code is available on GitHub](https://github.com/oktadeveloper/okta-fastapi), or you can follow along for step-by-step instructions.
+If you'd like to run the final application, [the code is available on GitHub](https://github.com/oktadeveloper/okta-fastapi), or you can follow along for step-by-step instructions.
 
 ### Setting Up a New Application in Okta
 
-Before you create any endpoints in your FastAPI application, you’ll need to create a new application in Okta and get your Authorization Server’s issuer URL and audience. As you go through these steps, add the Okta environment variables to a new file in your application called `.env`. You’ll see how to use these variables later in the tutorial.
+Before you create any endpoints in your FastAPI application, you'll need to create a new application in Okta and get your Authorization Server's issuer URL and audience. As you go through these steps, add the Okta environment variables to a new file in your application called `.env`. You'll see how to use these variables later in the tutorial.
 
 To create a new server application, log in to your Okta account and go to **Applications** and click the **Add Application** button in the top left. Select **Service, Machine-to-Machine**, then click **Next**.
 
@@ -110,7 +110,7 @@ Enter a name for your application and click **Next** again.
 
 ![Entering a name for your application in Okta](https://i.imgur.com/IS1Z4jn.png)
 
-Copy the **Client ID** and **Client Secret** from this page and add them to your FastAPI application’s `.env` file as `OKTA_CLIENT_ID` and `OKTA_CLIENT_SECRET` respectively.
+Copy the **Client ID** and **Client Secret** from this page and add them to your FastAPI application's `.env` file as `OKTA_CLIENT_ID` and `OKTA_CLIENT_SECRET` respectively.
 
 Your `.env` file should look like the example below, with your `OKTA_CLIENT_ID` and `OKTA_CLIENT_SECRET` values filled out:
 
@@ -142,19 +142,19 @@ Click the **Scopes** tab and then the **Add Scopes** button.
 
 ![Adding a scope to your Okta authorization server, step 1](https://i.imgur.com/j04IktM.png)
 
-Give your scope a **Name** and **Display phrase** so you can identify it. I used `items` for the scope name since the example here is pretty generic, but it’s a good idea to be specific about the resources users will gain access to when requesting a scope.
+Give your scope a **Name** and **Display phrase** so you can identify it. I used `items` for the scope name since the example here is pretty generic, but it's a good idea to be specific about the resources users will gain access to when requesting a scope.
 
-Click **Create** when you’re finished.
+Click **Create** when you're finished.
 
 ![Adding a scope to your Okta authorization server, step 2](https://i.imgur.com/M6C1glf.png)
 
-Now that you’ve created a new application, set up a custom scope, and set your environment variables, you’re ready to call the Okta authorization server from your FastAPI application.
+Now that you've created a new application, set up a custom scope, and set your environment variables, you're ready to call the Okta authorization server from your FastAPI application.
 
 ### Retrieving an Access Token in FastAPI
 
-The client credentials authorization flow requires users to enter a client ID and secret. The authorization server will then return an access token that allows the user to access the API. When using Okta, you’ll call the [`/token` endpoint](https://developer.okta.com/docs/reference/api/oidc/#token), passing your client ID and secret in as the authorization header.
+The client credentials authorization flow requires users to enter a client ID and secret. The authorization server will then return an access token that allows the user to access the API. When using Okta, you'll call the [`/token` endpoint](https://developer.okta.com/docs/reference/api/oidc/#token), passing your client ID and secret in as the authorization header.
 
-You can [set FastAPI to call an external authentication endpoint like Okta’s](https://github.com/tiangolo/fastapi/issues/774), but it requires a bit more custom code. Because the documentation’s API call originates from the browser, you also introduce further security considerations.
+You can [set FastAPI to call an external authentication endpoint like Okta's](https://github.com/tiangolo/fastapi/issues/774), but it requires a bit more custom code. Because the documentation's API call originates from the browser, you also introduce further security considerations.
 
 The easiest way to request an access token is to use the [Python HTTPX library](https://www.python-httpx.org/) to call the Okta `/token` endpoint from your API.
 
@@ -215,13 +215,13 @@ def login(request: Request):
     )
 ```
 
-This creates a new endpoint (`/token`) in your FastAPI application that passes the request’s `Authorization` header on to your Okta authorization server. It also includes your custom scope (`’items’`).
+This creates a new endpoint (`/token`) in your FastAPI application that passes the request's `Authorization` header on to your Okta authorization server. It also includes your custom scope (`'items'`).
 
 ### Creating a Protected Endpoint
 
 Now that you have an endpoint that generates a token, you are ready to create a new endpoint that checks the token before granting access.
 
-Before you worry about token validation, create the new endpoint and `validate` function. You’ll add the logic to this function in the next step, but for testing purposes, you can simply return `True`.
+Before you worry about token validation, create the new endpoint and `validate` function. You'll add the logic to this function in the next step, but for testing purposes, you can simply return `True`.
 
 ```python
 ...
@@ -229,7 +229,7 @@ Before you worry about token validation, create the new endpoint and `validate` 
 from typing import List
 from pydantic import BaseModel
 
-…
+...
 
 # Validate the token
 def validate(token: str = Depends(oauth2_scheme)):
@@ -253,7 +253,7 @@ def read_items(valid: bool = Depends(validate)):
     ]
 ```
 
-The new `/items` endpoint includes a `response_model` definition. This allows FastAPI to generate documentation for your endpoint with a sample response. It uses FastAPI’s dependency injection pattern to call the `validate` function. In turn, that function injects the `oauth2_scheme`, which extracts the access token for you.
+The new `/items` endpoint includes a `response_model` definition. This allows FastAPI to generate documentation for your endpoint with a sample response. It uses FastAPI's dependency injection pattern to call the `validate` function. In turn, that function injects the `oauth2_scheme`, which extracts the access token for you.
 
 To view the interactive documentation, start the Uvicorn server (if you stopped it earlier), and go to `http://127.0.0.1:8000/docs`.
 
@@ -263,7 +263,7 @@ To test the authorization flow, click the grey lock in the top right corner of t
 
 ![Authorization in FastAPI documentation](https://i.imgur.com/1TD4yzg.png)
 
-Now, click **Try it out** then **Execute** to call the endpoint. FastAPI’s documentation automatically stores and injects your access token. Because the `validate` function you created above never throws an exception, the API will show you the equivalent `curl` request and respond with the list of items.
+Now, click **Try it out** then **Execute** to call the endpoint. FastAPI's documentation automatically stores and injects your access token. Because the `validate` function you created above never throws an exception, the API will show you the equivalent `curl` request and respond with the list of items.
 
 ![Response from FastAPI documentation](https://i.imgur.com/KbnDpWy.png)
 
@@ -271,7 +271,7 @@ Now that you see how the interactive documentation is generated and how access t
 
 ### Validating Access Tokens Remotely
 
-There are two ways to validate JWT access tokens generated by Okta. The first method you’ll see uses the Okta authorization server’s [`/inspect` endpoint](https://developer.okta.com/docs/reference/api/oidc/#introspect) to check the token. The advantage of this method is that you will know if the token has been revoked; the downside is that it’s slower than validating the JWT locally.
+There are two ways to validate JWT access tokens generated by Okta. The first method you'll see uses the Okta authorization server's [`/inspect` endpoint](https://developer.okta.com/docs/reference/api/oidc/#introspect) to check the token. The advantage of this method is that you will know if the token has been revoked; the downside is that it's slower than validating the JWT locally.
 
 To validate access tokens remotely, update your `validate` function, and add the following `validate_remotely` function:
 
@@ -313,7 +313,7 @@ Now, refresh the docs, generate an access token by entering your Okta client ID 
 
 ### Validating Access Tokens Locally
 
-Because access tokens are generally short-lived (an hour by default), you might [prefer to validate the tokens locally](https://developer.okta.com/docs/guides/validate-access-tokens/go/overview/). This method is slightly less secure because you can’t be sure that the access token hasn’t been revoked remotely, but on the other hand, you don’t have to use your Okta client secret to validate the token locally. Finally, local validation is significantly faster because you don’t have to make a request to the Okta authorization server with every API call. You’ll have to decide which method is most appropriate for your application.
+Because access tokens are generally short-lived (an hour by default), you might [prefer to validate the tokens locally](https://developer.okta.com/docs/guides/validate-access-tokens/go/overview/). This method is slightly less secure because you can't be sure that the access token hasn't been revoked remotely, but on the other hand, you don't have to use your Okta client secret to validate the token locally. Finally, local validation is significantly faster because you don't have to make a request to the Okta authorization server with every API call. You'll have to decide which method is most appropriate for your application.
 
 To validate the access token locally, install the [Okta JWT Python package](https://github.com/adithyasampatoor/okta_jwt):
 
@@ -322,13 +322,13 @@ pip install okta_jwt
 pip freeze > requirements.txt
 ```
 
-Next, import the package’s `validate_token` function and update the `validate` function in your `main.py` file:
+Next, import the package's `validate_token` function and update the `validate` function in your `main.py` file:
 
 ```python
 ...
 from okta_jwt.jwt import validate_token as validate_locally
 
-…
+...
 
 def validate(token: str = Depends(oauth2_scheme)):
     try:
@@ -341,15 +341,15 @@ def validate(token: str = Depends(oauth2_scheme)):
         return bool(res)
     except Exception:
         raise HTTPException(status_code=403)
-…
+...
 ```
 
 When you call the `/items` endpoint, the API will decode the JWT and validate it locally. The decoded JWTs are cached, so subsequent requests will be faster than the first one.
 
 ## Conclusion
-In this post, you’ve seen how to use FastAPI to build a REST API endpoint that uses an external authorization server to generate and validate access tokens. You’ve seen some of the key features of FastAPI in action, including dependency injection, the OpenAPI documentation, type hinting, and OAuth implementation.
+In this post, you've seen how to use FastAPI to build a REST API endpoint that uses an external authorization server to generate and validate access tokens. You've seen some of the key features of FastAPI in action, including dependency injection, the OpenAPI documentation, type hinting, and OAuth implementation.
 
-FastAPI is a great option for building secure and performant backend systems. While there’s much more to building a robust production API, including testing, handling POST and PUT endpoints, and connecting to a database for persistence, I hope this tutorial helps you get started.
+FastAPI is a great option for building secure and performant backend systems. While there's much more to building a robust production API, including testing, handling POST and PUT endpoints, and connecting to a database for persistence, I hope this tutorial helps you get started.
 
 If you want to learn more about FastAPI, I suggest the following resources:
 - [Fast API from the ground up (video)](https://www.youtube.com/watch?v=3DLwPcrE5mA)
