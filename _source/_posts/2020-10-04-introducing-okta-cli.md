@@ -71,7 +71,7 @@ okta start
 
 I want to make this a little more challenging for myself, so I am going to use a .NET sample application, since I am a Java developer. Here's the output of the above command:
 
-```bash
+```txt
 Registering for a new Okta account, if you would like to use an existing account, use 'okta login' instead.
 
 First name: Micah
