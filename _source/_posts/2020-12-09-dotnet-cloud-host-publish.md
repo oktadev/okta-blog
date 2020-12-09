@@ -16,25 +16,30 @@ type: conversion
 
 There has been a cut-throat competition between cloud hosts in the past few years - each attempting to earn the sympathy of developers and dev-ops by rolling out shiny new tools, plugins, and integrations. There are a gazillion how-to tutorials and guides in the community on using these tools. Sometimes when looking for a solution, it is hard to find the newest and simplest way. I never know if an article written last year is still valid using today's tools. In this article, I'm going to walk you through the deployment of a .NET Core 3.1 application to the major cloud hosts (Microsoft Azure App Service, AWS Beanstalk, Google Cloud App Engine) in the simplest possible way. After deployment, I'll take a few steps forward and configure Okta Authentication in the example application to show how to add a login flow at once.
 
-## What is Okta
+## How to Secure Your .NET App for Major Cloud Hosts
 
 Okta is a cloud service that allows developers to create, edit, and securely store user accounts and user account data, and connect them with one or multiple applications. Using Okta you don't have to worry about implementing sign up, login, or logout flows manually.
 
-## Prerequisites
+### Prerequisites
 
-[Okta Developer account](https://developer.okta.com/)
-[.NET Core 3.1 SDK](https://dotnet.microsoft.com/download)
+* [Okta Developer account](https://developer.okta.com/)
+* [.NET Core 3.1 SDK](https://dotnet.microsoft.com/download)
+
 Any preferred code editor, I'll be using [VS Code](https://code.visualstudio.com/) for Mac 😱.
 
 *Azure deployment:*
-[Microsoft Azure](https://azure.microsoft.com) account
-[Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
+
+* [Microsoft Azure account](https://azure.microsoft.com)
+* [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
+
 *AWS deployment:*
-[AWS account](https://aws.amazon.com)
+
+*[AWS account](https://aws.amazon.com)
 
 *Google Cloud deployment:*
-[Google Cloud](https://cloud.google.com) account
-[Google Cloud SDK](https://cloud.google.com/sdk)
+
+* [Google Cloud account](https://cloud.google.com)
+* [Google Cloud SDK](https://cloud.google.com/sdk)
 
 ## Preparing the .NET Core App for Cloud Host deployment
 
@@ -46,7 +51,7 @@ Start by cloning the repo to your local machine:
 git clone https://github.com/oktadeveloper/okta-netcore3-deploy-to-cloud-hosts-example
 ```
 
-Since there is Okta Authentication in the example application, I first need to update the related configs.
+Since there is Okta Authentication in the example application, you first need to update the related configs.
 
 Log in to your [Okta Developer account](https://login.okta.com)
 
@@ -271,7 +276,7 @@ Log in with the Cloud SDK:
 gcloud init
 ```
 
-### Deploying the App to AWS Beanstalk
+### Deploying the App to Google Cloud Engine
 
 To deploy the application enter:
 
@@ -291,7 +296,7 @@ We need to add our application's URL to Okta to be recognized as a redirect URL.
 
 Going back to the Okta Dashboard Applications page, select the App you created in the first part.
 
-{% img blog/dotnetcore-deploy-major-cloud-hosts/image17.png alt:"" width:"800" %}{: .center-image }
+{% img blog/dotnetcore-deploy-major-cloud-hosts/image17.png alt:"" width:"600" %}{: .center-image }
 
 On the General tab hit **Edit** by the General Settings section:
 
@@ -312,14 +317,16 @@ There are quite a few ways to deploy .NET Core applications to major cloud hosts
 
 ## Learn More About .NET Core Deployments
 
-- [Deploy a .NET Container with Azure DevOps](/blog/2020/10/07/dotnet-container-azure-devops)
+* [Deploy a .NET Container with Azure DevOps](/blog/2020/10/07/dotnet-container-azure-devops)
 
-- [Install .NET Core Apps on Linux in 5 Minutes](/blog/2020/11/25/how-to-install-dotnetcore-on-linux)
+* [Install .NET Core Apps on Linux in 5 Minutes](/blog/2020/11/25/how-to-install-dotnetcore-on-linux)
 
-- [Deploy a .NET Container with AWS Fargate](/blog/2020/06/22/deploy-dotnet-container-aws-fargate)
+* [Deploy a .NET Container with AWS Fargate](/blog/2020/06/22/deploy-dotnet-container-aws-fargate)
 
-- [Host ASP.NET Core on Linux with Nginx](https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-nginx?view=aspnetcore-3.1)
+* [Host ASP.NET Core on Linux with Nginx](https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-nginx?view=aspnetcore-3.1)
 
-- [Deploying an ASP.NET core application with Elastic Beanstalk](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/dotnet-core-tutorial.html)
+* [Deploying an ASP.NET core application with Elastic Beanstalk](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/dotnet-core-tutorial.html)
 
-- [Deploying .NET apps on Google Cloud](https://cloud.google.com/solutions/deploy-dotnet-applications)
+* [Deploying .NET apps on Google Cloud](https://cloud.google.com/solutions/deploy-dotnet-applications)
+
+If you like this topic, be sure to [follow us on Twitter](https://twitter.com/oktadev), subscribe to [our YouTube Channel](https://youtube.com/c/oktadev), and [follow us on Twitch](https://www.twitch.tv/oktadev).
