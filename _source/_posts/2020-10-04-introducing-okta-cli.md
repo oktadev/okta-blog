@@ -16,7 +16,7 @@ communities: [
     "devops"
 ]
 description: "Use the Okta CLI to get started with OAuth and Okta in under 5 minutes!"
-tags: [security, oauth, oauth2, oidc, openid-connect]
+tags: [security, oauth, oauth2, oidc, openid-connect, cli]
 tweets:
 - "Add an Okta integration for your custom app in less than 5 minutes with the Okta CLI"
 - "Do you spend your day on the command line? The Okta CLI is for you!"
