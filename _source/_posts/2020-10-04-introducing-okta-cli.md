@@ -123,7 +123,7 @@ Once my email address is verified, the Okta CLI displays a unique link to set my
 
 Next, I see a list of available samples. As of this writing, there are four samples, but we are expanding that list. And, the Okta CLI automatically makes any new samples available in the list. You can create as many sample as you like with your Okta Org. I chose option 3: `ASP.net Core 4 MVC`
 
-Finally, I see information about the Application that was provisioned in my Okta Org along with instructions to run the sample app.
+Finally, I see information about the OIDC Application that was provisioned in my Okta Org along with instructions to run the sample app.
 
 I'm going to follow those instructions and run this sample:
 
