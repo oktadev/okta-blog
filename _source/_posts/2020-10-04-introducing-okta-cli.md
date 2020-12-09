@@ -55,7 +55,7 @@ Pretty easy, right?
 
 As a developer, in order to make use of Okta, you need an Okta Organization (fondly referred to as an **org**).
 
-In order to integrate your appliction with Okta so that your users can authenticate, you need to provision an application within Okta.
+In order to integrate your application with Okta so that your users can authenticate, you need to register your application within Okta.
 
 In order to configure your application to work with the privisioned Okta application, you need drop in a library for the language and framework) you're using.
 
