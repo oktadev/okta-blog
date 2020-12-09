@@ -111,7 +111,7 @@ There's a lot going on here from the humble `okta start` command, so let's break
 
 First I see a one-time requirement in order to provision the Okta org.
 
-I put in some minimal information: name, email and company. In about 20 seconds, a shiny new Okta org is allocated for me and the Okta CLI shows me my Org URL (https://dev-159750.okta.com).
+I put in some minimal information: name, email and company. In about 20 seconds, a shiny new Okta org is allocated for me and the Okta CLI shows me my Org URL (`https://dev-159750.okta.com`).
 
 Next, I need to prove that I own the email address I entered. an One-Time Passcode (OTP) is sent to my email address and the Okta CLI waits for me to paste that in.
 
