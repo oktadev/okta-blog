@@ -5,7 +5,7 @@ author: greg-sinka
 by: contractor
 communities: [.net]
 description: "How to deploy a .NET Core app to AWS, Azure or Google Cloud."
-tags: [google cloud, dotnet, aspnet, csharp, dotnetcore, aspnetcore, aws, azure, deployment]
+tags: [google-cloud, dotnet, aspnet, csharp, dotnetcore, aspnetcore, aws, azure, deployment]
 tweets:
 - "Learn how to deploy an Okta #dotnetcore app to #AWS, #GoogleCloud or #Azure."
 - "Discover how to deploy and configure a secured #dotnetcore app to #GoogleCloud, #Azure or #AWS!"
