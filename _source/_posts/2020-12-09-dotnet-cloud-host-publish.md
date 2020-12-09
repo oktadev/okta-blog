@@ -251,7 +251,7 @@ On the welcome screen select *Create Application*.
 
 Choose any Region. Then add *.NET* as Language and *Flexible* as Environment.
 
-{% img blog/dotnetcore-deploy-major-cloud-hosts/image15.png alt:"" width:"700" %}{: .center-image }
+{% img blog/dotnetcore-deploy-major-cloud-hosts/image15.png alt:"" width:"512" %}{: .center-image }
 
 Open a terminal or  command prompt, go to the project folder and run:
 
