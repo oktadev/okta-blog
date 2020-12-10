@@ -25,15 +25,15 @@ image: blog/okta-cli/okta-cli.png
 type: conversion
 ---
 
-Okta is an Identity Management Platform that takes all the hassle out of authentication and authorization. It's feature packed with everything from workforce integrations for G-Suite to the latest version of OAuth 2.0 as-a-service for developers writing their own APIs.
+Okta is an Identity Management Platform that takes all the hassle out of authentication and authorization. It's feature-packed with everything from workforce integrations for G-Suite to the latest version of OAuth 2.0 as-a-service for developers writing their own APIs.
 
-It can sometimes be a daunting task for developers to get started with Okta because of how feature rich it is.
+It can sometimes be a daunting task for developers to get started with Okta because of how feature-rich it is.
 
 Introducing the Okta CLI - made by developers for developers. Using the CLI tool, you can go from zero to running an application complete with auth (in the language and framework of your choice) in about five minutes. And, you don't have to wade through any web-based admin consoles to do it.
 
 ## Set Up the Okta CLI
 
-The [Okta CLI](https://cli.okta.com) is a native command-line application that runs on MacOS, Linux, and Windows. Installation on any of these OS's is a snap, but there are some prerequisites:
+The [Okta CLI](https://cli.okta.com) is a native command-line application that runs on macOS, Linux, and Windows. Installation on any of these OS's is a snap, but there are some prerequisites:
 
 | OS      | Prerequisites                         |
 |---------|---------------------------------------|
@@ -69,7 +69,7 @@ Now, it looks like this:
 okta start
 ```
 
-I want to make this a little more challenging for myself, so I am going to use a .NET sample application, since I am a Java developer. Here's the output of the above command:
+I want to make this a little more challenging for myself, so I am going to use a .NET sample application since I am a Java developer. Here's the output of the above command:
 
 ```txt
 Registering for a new Okta account, if you would like to use an existing account, use 'okta login' instead.
@@ -111,7 +111,7 @@ There's a lot going on here from the humble `okta start` command, so let's break
 
 First I see a one-time requirement in order to provision the Okta org.
 
-I put in some minimal information: name, email and company. In about 20 seconds, a shiny new Okta org is allocated for me and the Okta CLI shows me my Org URL (`https://dev-159750.okta.com`).
+I put in some minimal information: name, email, and company. In about 20 seconds, a shiny new Okta org is allocated for me and the Okta CLI shows me my Org URL (`https://dev-159750.okta.com`).
 
 Next, I need to prove that I own the email address I entered. A One-Time Passcode (OTP) is sent to my email address and the Okta CLI waits for me to paste that in.
 
@@ -119,9 +119,9 @@ Next, I need to prove that I own the email address I entered. A One-Time Passcod
 
 Once my email address is verified, the Okta CLI displays a unique link to set my password.
 
-> **NOTE:** The order-of-operations here is not important. You can set your password before you choose a sample or afterwards. But, you should set your password in a timely fashion as that unique URL expires after 24 hours.
+> **NOTE:** The order-of-operations here is not important. You can set your password before you choose a sample or afterward. But, you should set your password in a timely fashion as that unique URL expires after 24 hours.
 
-Next, I see a list of available samples. As of this writing, there are four samples, but we are expanding that list. And, the Okta CLI automatically makes any new samples available in the list. You can register as many samples as you like with your Okta Org. 
+Next, I see a list of available samples. As of this writing, there are four samples, but we are expanding that list. And, the Okta CLI automatically makes any new samples available in the list. You can register as many samples as you like with your Okta Org.
 
 I chose option 3: `ASP.NET Core MVC + Okta`.
 
@@ -152,11 +152,11 @@ info: Microsoft.Hosting.Lifetime[0]
 ...
 ```
 
-> Did you know you could run dotnet on macOS? What a world! Simply run: `brew cask install dotnet-sdk`
+> Did you know you could run .NET on macOS? What a world! Simply run: `brew cask install dotnet-sdk`.
 
-You can browse over to: `https://localhost:5001` to see this basic app in action. 
+You can browse over to: `https://localhost:5001` to see this basic app in action.
 
-> **NOTE:** You may want to use an incognito or private window to authenticate in a separate context. Also, you'll see an certifcate warning from the browser as it's likely you don't have an TLS cert installed for `localhost`. You can bypass this warning to view the app.
+> **NOTE:** You may want to use an incognito or private window to authenticate in a separate context. Also, you'll see a certificate warning from the browser as it's likely you don't have a TLS cert installed for `localhost`. You can bypass this warning to view the app.
 
 {% img blog/introducing-okta-cli/dotnet-welcome.png alt:"okta email" width:"800" %}{: .center-image }
 
@@ -213,7 +213,7 @@ Ordinarily, you won't have to deal with the sample code on GitHub directly, but 
 
 **NOTE:** When you run `okta start`, your Okta Org URL and API Token are stored in: `~/.okta/okta.yaml`. It's the information in this file that the Okta CLI uses to perform operations on your Okta Org, like provisioning new OAuth 2.0 Clients.
 
-## More Stuff You can Do with the Okta CLI
+## More Stuff You Can Do with the Okta CLI
 
 So far, this post has shown you how to get started with the Okta CLI. What if you already have an Okta Org? What if you already have code you're working on and want to integrate it with Okta?
 
@@ -308,7 +308,7 @@ We'd love your contributions! If you want to set up a new sample, create a new r
 
 ## Watch the Okta CLI in Action
 
-We've created a few screencasts to show the Okta CLI in action. The videos below show how to use `okta start` with Spring Boot, Angular, and React Native! 
+We've created a few screencasts to show the Okta CLI in action. The videos below show how to use `okta start` with Spring Boot, Angular, and React Native!
 
 <div class="table-wrapper">
 <table>
