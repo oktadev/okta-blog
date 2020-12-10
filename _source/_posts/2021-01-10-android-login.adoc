@@ -1,11 +1,11 @@
 ---
 layout: blog_post
-title: "Android Login made easy with Okta"
+title: "Android Login Made Easy with Okta"
 author: dino-bikic
 by: contractor
 communities: [mobile]
 description: "Tutorial: Build an Android app with log in and and log out features."
-tags: []
+tags: [android, java, kotlin]
 tweets:
 - ""
 - ""
@@ -17,27 +17,26 @@ type: conversion
 :page-liquid:
 :experimental:
 
-
-Having a dedicated part of a mobile app for the authorized users became a must for a modern-day app. Users want to have a personalized experience with the apps they love, they expect to seamlessly use services on different devices and platforms, and they want to be sure that their personal data is secure.
+Having a dedicated part of a mobile app for authorized users is a must for a modern-day app. Users want to have a personalized experience with the apps they love. They expect to seamlessly use services on different devices and platforms. And, most of all, they want to be sure that their personal data is secure.
 
 Implementing a secure login process on Android can be challenging to achieve since many different moving parts need to be working in sync. On the Android side, you need to create a friendly login UI, communicate with a back-end service, securely persist the user data on the device, and maintain that data since the user expects to go through the login process only once. On top of that, you need to have a back-end app that supports the login features in the most secure way possible.
 
-Here is where the https://github.com/okta/okta-oidc-android[Okta OIDC SDK] comes to your rescue! It's a mobile SDK developed by industry-leading security experts, intending to provide a simple way for your users to login into your app. This is done by using the OAuth 2.0 and OpenID Connect technologies, which are the security industry standard. A fun guide to those technologies can be found on the https://developer.okta.com/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc[Okta blog].
+Here is where the https://github.com/okta/okta-oidc-android[Okta OIDC SDK] comes to the rescue! It's a mobile SDK developed by industry-leading security experts, intending to provide a simple way for your users to login into your app. This is done by using the OAuth 2.0 and OpenID Connect, which are the security industry's standards for easy authorization and authentication. A fun guide to these technologies can be found in link:/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc[An Illustrated Guide to OAuth and OpenID Connect].
 
-This post will show you how easy it is to set up the `Okta OIDC SDK` on Android and leave you with a working app that allows the users to securely login!
+This post will show you how easy it is to set up the **Okta OIDC SDK** on Android and leave you with a working app that allows the users to securely login!
 
 toc::[]
 
 == (TLDR) Download the Finished App with Android Login
 
-The codebase used to showcase the usage of `Okta OIDC SDK` can be cloned from https://github.com/dbikic/okta-Android-Login-example[GitHub]:
+The codebase used to showcase the usage of `Okta OIDC SDK` can be cloned from https://github.com/oktadeveloper/okta-android-login-example.git[GitHub]:
 
 [source,sh]
 ----
-git clone https://github.com/dbikic/okta-Android-Login-example
+git clone https://github.com/oktadeveloper/okta-android-login-example.git
 ----
 
-== Creating your Okta application with Okta CLI
+== Register Your Android Application with the Okta CLI
 
 Getting started with Okta is made quite straightforward with the help of the https://github.com/okta/okta-cli[Okta CLI]. It's a tool that makes creating an Okta account and an Okta application a breeze!
 
@@ -46,6 +45,7 @@ Getting started with Okta is made quite straightforward with the help of the htt
 Okta CLI is available for macOS, Linux, and Windows.
 
 ==== MacOS (via https://brew.sh/[Homebrew])
+
 [source,sh]
 ----
 brew cask install oktadeveloper/tap/okta
@@ -54,6 +54,7 @@ brew cask install oktadeveloper/tap/okta
 NOTE: https://brew.sh/[Homebrew] is a package manager for MasOS.
 
 ==== Linux (via Flatpak)
+
 [source,sh]
 ----
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
@@ -64,12 +65,14 @@ alias okta="flatpak run com.okta.developer.CLI"
 NOTE: https://flatpak.org/[Flatpak] is a utility for software deployment and package management for Linux.
 
 ==== Linux and MasOS
+
 [source,sh]
 ----
 curl https://raw.githubusercontent.com/oktadeveloper/okta-cli/master/cli/src/main/scripts/install.sh | bash
 ----
 
 ==== Windows (via Chocolatey)
+
 [source,sh]
 ----
 choco install okta --version=0.7.0
@@ -80,11 +83,14 @@ NOTE: https://chocolatey.org/[Chocolatey] is a package manager for Windows.
 === Registration
 
 To register an account with Okta, simply run the following command:
+
 [source,sh]
 ----
 okta register
 ----
-You will be prompted for a few questions:
+
+You will be prompted with a few questions:
+
 ====
 [source,sh]
 ----
@@ -111,13 +117,16 @@ https://dev-123456.okta.com/welcome/drp7UBGB_GVjeHp_5Jbs // <3>
 
 [#create-an-okta-app]
 === Creating an Okta app
+
 To create a new app, run the following command:
+
 [source,sh]
 ----
 okta apps create
 ----
 
-Again, you will be prompted for a few questions:
+Again, you will be prompted with a few questions:
+
 ====
 [source,sh]
 ----
@@ -133,7 +142,7 @@ Enter your choice [Web]: 3
 Redirect URI
 Common defaults:
  Reverse Domain name - com.okta.dev-123456:/callback
-Enter your Redirect URI [com.okta.dev-123456:/callback]: // <3> 
+Enter your Redirect URI [com.okta.dev-123456:/callback]: // <3>
 Enter your Post Logout Redirect URI [com.okta.dev-123456:/]: // <4>
 Configuring a new OIDC Application, almost done:
 Created OIDC application, client-id: ********************
@@ -141,7 +150,6 @@ Created OIDC application, client-id: ********************
 Okta application configuration:
 okta.oauth2.issuer: https://dev-123456.okta.com/oauth2/default
 okta.oauth2.client-id: ********************  // <5>
-
 ----
 <1> Name your Okta app.
 <2> Native app (mobile) is the option to select for Android applications.
@@ -150,8 +158,7 @@ okta.oauth2.client-id: ********************  // <5>
 <5> You will need this ID for the initialization of the Okta library in your application.
 ====
 
-== Creating your Android app
-
+== Create an Android Application
 
 After setting up the Okta application, it's time to create the Android app. The app we will create will consist of three screens:
 
@@ -159,7 +166,8 @@ After setting up the Okta application, it's time to create the Android app. The 
 * Login screen.
 * Home screen, which is only accessible to the logged-in users.
 
-First, you'll need to download and install the latest version of https://developer.android.com/studio[Android Studio].
+First, you'll need to download and install the latest version of https://developer.android.com/studio[Android Studio] (v4.1.1 at the time of this writing).
+
 Next, launch the app and navigate to **File** → **New...** → **New Project...**. Then, create an "Empty Activity" for "Phone and Tablet." You should now see a screen similar to this:
 
 image::{% asset_path 'blog/android-login/android-studio-new-project.png' %}[alt=Create new Android Project,width=700,align=center]
@@ -168,7 +176,7 @@ Once you input the form, click **Finish** to create the project.
 
 === Adding the Okta dependency
 
-Android apps use https://gradle.org/[Gradle] as their build tool. To add the `Okta OIDC SDK` as a dependency to your project, you will need to modify the `app/build.gradle` file:
+Android apps use https://gradle.org/[Gradle] as their build tool. To add the Okta OIDC SDK as a dependency to your project, you will need to modify the `app/build.gradle` file:
 
 ====
 [source,groovy]
@@ -193,7 +201,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         manifestPlaceholders = [
-                "appAuthRedirectScheme": "com.okta.dev-123456" // <1>
+            "appAuthRedirectScheme": "com.okta.dev-123456" // <1>
         ]
     }
     compileOptions { // <2>
@@ -229,12 +237,13 @@ dependencies {
 <3> Add the dependencies required for the Okta OIDC library.
 ====
 
-=== Application class
-In the root folder of your app's package (in the provided example, that's the folder `app/src/main/java/dev/dbikic/oktaloginexample`) create the application class. In this example, we named it `OktaLoginApplication`.
+=== Create an Application Class
 
-TIP: Application class is the entry point of your app and is used to maintain the global state of the application. The most common use for it is to initialize the third-party libraries in its onCreate() method. More info about it can be found in the https://developer.android.com/reference/android/app/Application[official documentation].
+In the root folder of your app's package (in the provided example, that's the folder `app/src/main/java/dev/dbikic/oktaloginexample`) create the application class. In this example, name it `OktaLoginApplication`.
 
-For now, just create the class and make it extend the Application class from the Android framework.
+TIP: The `Application` class is the entry point of your app and is used to maintain the global state of the application. The most common use for it is to initialize the third-party libraries in its `onCreate()` method. More info about it can be found in https://developer.android.com/reference/android/app/Application[Android's official documentation].
+
+For now, just create the class and make it extend the `Application` class from the Android framework.
 
 [source,kotlin]
 ----
@@ -245,7 +254,7 @@ import android.app.Application
 class OktaLoginApplication : Application()
 ----
 
-After creating the application class, you need to reference it in your `Android Manifest` file:
+After creating the application class, you need to reference it in your `app/src/main/AndroidManifest.xml` file:
 
 ====
 [source,xml]
@@ -267,19 +276,20 @@ After creating the application class, you need to reference it in your `Android 
 </manifest>
 ----
 <1> Reference the application class you created in the step before.
-<2> `Okta OIDC SDK` needs Internet permission to communicate with the back-end.
+<2> `Okta OIDC SDK` needs internet permission to communicate with the back-end.
 ====
 
-TIP: Android Manifest is an essential file for an app that contains basic info about the app's name, the package name, permissions, and many other things. More information about it can be found in the https://developer.android.com/guide/topics/manifest/manifest-intro[official documentation].
+TIP: `AndroidManifest.xml` is an essential file for an app that contains basic info about the app's name, the package name, permissions, and many other things. More information about it can be found in the https://developer.android.com/guide/topics/manifest/manifest-intro[official documentation].
 
 === Okta Manager
 
 When adding third-party libraries to your codebase, it's usually a good idea to create a wrapper class that will hide the actual usage. Reasons for this include:
+
 * Reusing of the common interaction with the libraries.
 * You can define all the library interactions in an interface and provide the actual implementation with dependency injection throughout your app.
 * Everything related to that library is in one place. Replacing the library with a different one is easy as you only need to change the wrapper class.
 
-Because of the reasons above, we will create a class called `OktaManager`,which will then be used in all the screens we'll create:
+Because of the reasons above, create a class called `OktaManager`,which will then be used in all the screens you create:
 
 ====
 [source,kotlin]
@@ -359,10 +369,9 @@ class OktaManager(applicationContext: Context) {
 <7> `setRequireHardwareBackedKeyStore(true)`  forces the app to require a device with encryption capabilities. This is the default configuration for Okta OIDC, and it's considered the best practice. If you want to run this code in an emulator, though, you can temporarily set it to `false`.
 ====
 
-IMPORTANT: Make sure to use the values you got when completing the link:#create-an-okta-app[Creating an Okta app] step.
+IMPORTANT: Make sure to use the values you received when completing the link:#create-an-okta-app[Creating an Okta app] step.
 
-The last step of the setup stage will be to initialize the `OktaManager`. Remember the empty `OktaLoginApplication` class? Now we need to modify it to initialize the manager when the app is created
-
+The last step of the setup stage will be to initialize the `OktaManager`. Remember the empty `OktaLoginApplication` class? Now you need to modify it to initialize the manager when the app is created
 
 [source,kotlin]
 ----
@@ -386,8 +395,7 @@ That's it! Now, let's create the screens.
 
 === Splash Activity
 
-The purpose of a splash screen is to initialize all the applications' dependencies and prepare the app for usage. We will use it to figure out if the user is authenticated and decide which screen to show next: the login screen or the home screen.
-
+The purpose of a splash screen is to initialize all the applications' dependencies and prepare the app for usage. You'll use it to figure out if the user is authenticated and decide which screen to show next: the login screen or the home screen.
 
 ====
 [source,kotlin]
@@ -425,7 +433,8 @@ class SplashActivity : AppCompatActivity() {
 
 === Login Activity
 
-Now, let's do the `LoginActivity` ! First, we create a simple layout with a button in the following directory `res/layout/activity_login.xml`:
+Now, let's do the `LoginActivity` ! First, create a simple layout with a button in `res/layout/activity_login.xml`:
+
 [source,xml]
 ----
 <?xml version="1.0" encoding="utf-8"?>
@@ -463,7 +472,7 @@ Now, let's do the `LoginActivity` ! First, we create a simple layout with a butt
 </androidx.constraintlayout.widget.ConstraintLayout>
 ----
 
-Then we create the `LoginActivity` class:
+Then, create the `LoginActivity` class:
 
 ====
 [source,kotlin]
@@ -529,23 +538,25 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
     }
 }
 ----
-<1> Register the auth callback with the `OktaManager`. 
+<1> Register the auth callback with the `OktaManager`.
 <2> Call the sign-in method when the button is clicked.
 <3> The result is an `AuthorizationStatus` object. With a simple `when` expression we can quickly figure out the status type and access its members if needed.
 <4> `showShortToast` is a simple extension method to the `Context` class for shortening the example code. It shows a short `Toast` with a custom message.
 ====
 
-The purpose of the `LoginActivity`  is to try to authenticate the user with Okta when the login button is pressed. To achieve that, we need to register the web auth callback with the `Okta OIDC SDK`, and we need to call the `signIn` method. This is enough for the SDK to open a custom Chrome tab with the login screen of the Okta application we created. Users input their credentials into the form, and when the process is finished, the appropriate method of our auth callback will be called. This allows us to gracefully handle the possible errors or handle the login success, which is, in our case, navigating to the `HomeActivity`. 
+The purpose of the `LoginActivity` is to try to authenticate the user with Okta when the login button is pressed. To achieve that, you need to register the web auth callback with the Okta OIDC SDK, and call the `signIn()` method.
 
-This how the described process looks in our example app:
+This is enough for the SDK to open a custom Chrome tab with the login screen of the Okta application. Users input their credentials into the form, and when the process is finished, the appropriate method of your auth callback will be called. This allows you to gracefully handle the possible errors or handle the login success, which is, in this case, navigating to the `HomeActivity`.
+
+This is how the described process looks in this example:
 
 image::{% asset_path 'blog/android-login/login.gif' %}[alt=Login Activity,width=400,align=center]
 
-What's cool about `Okta OIDC SDK` is that it also securely stores the user session to the app's local storage and maintains its state for us. Instead of creating a custom user management system and handling multiple edge-cases that can happen in the real world, we can concentrate on spending our time to build app features for our users.
+What's cool about the Okta OIDC SDK is that it also securely stores the user session to the app's local storage and maintains its state for you. Instead of creating a custom user management system and handling multiple edge-cases that can happen in the real world, you can concentrate on spending your time to build app features for your users.
 
 === Home activity
 
-`HomeActivity` is the part of our app which can be accessed only by authorized users. In our example, we will showcase how to fetch the user details, display the user name on the UI, and sign the user out of the app. First, create the layout file `res/layout/activity_home.xml`:
+`HomeActivity` is the part of your app which can be accessed only by authorized users. In this example, you can fetch the user details, display the user name on the UI, and sign the user out of the app. First, create the layout file in `res/layout/activity_home.xml`:
 
 [source,xml]
 ----
@@ -579,7 +590,7 @@ What's cool about `Okta OIDC SDK` is that it also securely stores the user sessi
 </LinearLayout>
 ----
 
-And then create the `HomeActivity`:
+Then, create the `HomeActivity`:
 
 ====
 [source,kotlin]
@@ -642,25 +653,24 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
 ----
 <1> Register the user profile callback with the `OktaManager`.
 <2> Sign out from the app on the sign out button.
-<3> After the user is successfully logged out from Okta, we also clear the user's data.
-<4> We navigate the user back to the `LoginActivity` after he is signed out. 
+<3> After the user is successfully logged out from Okta, clear the user's data.
+<4> Navigate the user back to the `LoginActivity` after they sign out.
 <5> This flag makes sure that all the back stack activities are cleared and that the `LoginActivity` will be the only activity in the memory.
-<6> We have fetched the user info successfully! You can check which fields we received https://developer.okta.com/docs/reference/api/oidc/#response-example-success-5[here].
+<6> You have fetched the user info successfully! You can check which fields you received https://developer.okta.com/docs/reference/api/oidc/#response-example-success-5[here].
 ====
 
-When the user clicks on the sign out button, we start the logout process, which looks like this:
+When the user clicks on the sign out button, start the logout process, which looks like this:
 
 image::{% asset_path 'blog/android-login/logout.gif' %}[alt=Home Activity,width=400,align=center]
 
-
 == Learn More About Android Login and OIDC
 
-This post showcased how easy it is to set up and use the `Okta OIDC SDK` for an Android app. The functionalities which the SDK brings to your app, like the OAuth 2.0 and OpenID authorization, are essential for a modern-day app with all the challenges like security and data privacy. Creating a custom solution for those functionalities is challenging and time-consuming since the code on the mobile part is not enough, and you also need to have a back-end app that supports those features. And maintaining two applications could bring a lot of long-term work.
+This post showcased how easy it is to set up and use the Okta OIDC SDK for an Android app. The functionalities which the SDK brings to your app, like the OAuth 2.0 authorization and Open ID authentication, are essential for a modern-day app with challenges like security and data privacy.
 
+Creating a custom solution for security and privacy is challenging and time-consuming since the code on the mobile part is not enough, and you also need to have a back-end app that supports those features. Maintaining two applications can cause a lot of long-term work.
 
-Although the example we've created here does enough to satisfy the needs of most apps, `Okta OIDC SDK` doesn't stop there. The https://github.com/okta/okta-oidc-android[Okta OIDC Android repository] contains a variety of ideas and suggestions to improve user experience such as:
+Although the example you created here does enough to satisfy the needs of most apps, the Okta OIDC SDK doesn't stop there. The https://github.com/okta/okta-oidc-android[Okta OIDC Android repository] contains a variety of ideas and suggestions to improve user experience such as:
 
-- Using your own OkHttp client
 - Using your own OkHttp client.
 - Using a custom UI to log in.
 - Add a social login for accounts that include Google, Apple, Facebook, and LinkedIn.
@@ -676,4 +686,4 @@ This post has provided you with the foundations to set up a successful OIDC clie
 - link:/blog/2019/11/14/react-native-login[Create a React Native App with Login in 10 Minutes]
 - link:/blog/2018/12/13/oauth-2-for-native-and-mobile-apps[OAuth 2.0 for Native and Mobile Apps]
 
-If you enjoyed this blog post and want to see more like it, follow https://twitter.com/oktadev[@oktadev on Twitter], subscribe to https://youtube.com/c/oktadev[our YouTube channel], or follow us on https://www.linkedin.com/company/oktadev/[LinkedIn]. 
+If you enjoyed this blog post and want to see more like it, follow https://twitter.com/oktadev[@oktadev on Twitter], subscribe to https://youtube.com/c/oktadev[our YouTube channel], or follow us on https://www.linkedin.com/company/oktadev/[LinkedIn].
