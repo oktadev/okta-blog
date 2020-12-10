@@ -127,6 +127,8 @@ The header of a JWT contains information about how the token was created.  In my
 }
 ----
 
+WARNING: A JWT signature can be disabled by setting the algorithm claim to `none`. Using the `none` algorithm should be avoided; see the link:#problems[Problems with JWT] section below.
+
 === JWT Signature
 
 The JWT specifications list a few different signing algorithms; each of these algorithms work slightly different. For simplicity's sake, there are two types of algorithms:
@@ -148,6 +150,7 @@ gbasenc --base64url | sed 's/=//'
 
 If the output matches the original signature block, the signature is valid.
 
+[#problems]
 == Problems with JWTs
 
 Fully validating a JWT is MUCH more complex than running a couple CLI commands. There are many edge cases and exploits; you should **ALWAYS** use a trusted JWT library and keep it up to date.
