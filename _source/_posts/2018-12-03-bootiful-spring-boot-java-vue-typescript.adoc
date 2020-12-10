@@ -11,6 +11,8 @@ tweets:
 - "Spring Boot with @java + Vue with @typescriptlang == 💚. Learn how to build a @springboot + @vuejs app today!"
 image: blog/featured/okta-vue-bottle-headphones.jpg
 type: conversion
+update-url: /blog/2020/06/26/spring-boot-vue-kotlin
+update-title: "Build a CRUD App with Vue.js, Spring Boot, and Kotlin"
 ---
 :page-liquid:
 

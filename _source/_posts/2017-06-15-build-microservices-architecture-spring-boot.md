@@ -11,7 +11,10 @@ tweets:
   - "Do you like good 🍺? If so, you'll 💙 this tutorial that shows you how to build a microservices architecture for microbrews!"
 type: awareness
 image: blog/microservices-spring-boot/httpie-beers.png
+update-url: /blog/2019/05/22/java-microservices-spring-boot-spring-cloud
+update-title: "Java Microservices with Spring Boot and Spring Cloud"
 ---
+
 Adopting a microservice architecture provides unique opportunities to add failover and resiliency to your systems, so
 your components can handle load spikes and errors gracefully. Microservices make change less expensive too. It can also
 be a good idea when you have a large team working on a single product. Your project can likely be broken up into components
