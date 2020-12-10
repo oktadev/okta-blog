@@ -10,6 +10,8 @@ tweets:
   - "Spring Boot + Angular + PWA goodness + Okta = 💙! Happy authenticating y'all!"
 tags: [pwa, progressive-web-app, angular, typescript, oidc, spring-boot, java]
 type: conversion
+update-url: /blog/2019/01/30/first-angular-pwa
+update-title: "Build Your First PWA with Angular"
 ---
 
 You're developing a Progressive Web Application (PWA), and your service worker and web app manifest are working swimmingly. You've even taken the time to deploy it to a server with HTTPS, and you're feeling pretty good about things. But wait, you don't have any way of knowing who your users are! Don't you want to provide them with an opportunity to authenticate and tell you who they are? Once you know who they are, you can give them all kinds of personalization options, inspire them to ❤️ your app, and maybe even support your work!

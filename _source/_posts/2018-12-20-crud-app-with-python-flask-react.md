@@ -449,11 +449,11 @@ Create a `client_secrets.json` file with your Okta settings in it.
 ```
 {% endraw %}
 
-You might be wondering, where the heck do I get the values for `{{OKTA_DOMAIN}}`, `{{CLIENT_ID}}`, and `{{CLIENT_SECRET}}`?
+You might be wondering, where the heck do I get the values for {% raw %}`{{OKTA_DOMAIN}}`, `{{CLIENT_ID}}`, and `{{CLIENT_SECRET}}`{% endraw %}?
 
 First, you'll need to create a free [Okta developer account](https://developer.okta.com/signup). After it's setup, navigate to **Applications** > **Add Application**. Choose **Web** and click **Next**. Give it a name like "Flask OIDC" and click **Done**.
 
-Replace the `{{...}}` values in `client_secrets.json` with your domain, client ID, and client secret. 
+Replace the {% raw %}`{{...}}`{% endraw %} values in `client_secrets.json` with your domain, client ID, and client secret. 
 
 Brilliant! It's all in place now! You should be able to run your ReST API with the command below:
 
