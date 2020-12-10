@@ -21,7 +21,7 @@ tweets:
 - "Add an Okta integration for your custom app in less than five minutes with the Okta CLI"
 - "Do you spend your day on the command line? The Okta CLI is for you!"
 - "Name your language and framework. The Okta CLI will get you going in five minutes or less!"
-image: "blog/featured/okta-java-short-tile-books-mouse.jpg"
+image: blog/okta-cli/okta-cli.png
 type: conversion
 ---
 
