@@ -57,7 +57,7 @@ As a developer, in order to make use of Okta, you need an Okta Organization (fon
 
 In order to integrate your application with Okta so that your users can authenticate, you need to register your application within Okta.
 
-In order to configure your application to work with the registered Okta application, you need to drop in a library for the language (and framework) you're using.
+For your application to work with the registered Okta application, you need to drop in a library for the language (and framework) you're using.
 
 Finally, you need to configure the library to work with Okta.
 
@@ -170,7 +170,7 @@ Click **Sign In** and you're redirected over to Okta to authenticate. After auth
 
 I don't know much at all about .NET programming. I couldn't tell you the difference between .NET Core and ASP.NET or the differences between 3 and 4 (was [.NET 5 just released?](/blog/2020/04/17/most-exciting-promise-dotnet-5)). However, in less than five minutes, I had a running app that I could authenticate to using Okta!
 
-The samples architecture is the secret sauce behind this capability. If you check out where the .NET sample lives, you can see the [appsettings.json](https://github.com/okta-samples/okta-aspnet-core3-sample/blob/master/okta-aspnetcore-mvc-example/appsettings.json) template file:
+The samples' architecture is the secret sauce behind this capability. If you check out where the .NET sample lives, you can see the [appsettings.json](https://github.com/okta-samples/okta-aspnet-core3-sample/blob/master/okta-aspnetcore-mvc-example/appsettings.json) template file:
 
 ```json
 {
