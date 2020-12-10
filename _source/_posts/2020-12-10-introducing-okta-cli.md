@@ -92,7 +92,7 @@ https://dev-159750.okta.com/welcome/drp7UBGB_GVjeHp_5Jbs
 Select a sample
 > 1: Spring Boot + Okta
 > 2: Vue + Okta
-> 3: ASP.net Core 3  MVC
+> 3: ASP.NET Core MVC + Okta
 > 4: Angular + Okta
 Enter your choice [Spring Boot + Okta]: 3
 Configuring a new OIDC Application, almost done:
@@ -123,7 +123,7 @@ Once my email address is verified, the Okta CLI displays a unique link to set my
 
 Next, I see a list of available samples. As of this writing, there are four samples, but we are expanding that list. And, the Okta CLI automatically makes any new samples available in the list. You can register as many samples as you like with your Okta Org. 
 
-I chose option 3: `ASP.net Core 4 MVC`.
+I chose option 3: `ASP.NET Core MVC + Okta`.
 
 Finally, I see information about the OIDC Application that was registered in my Okta Org along with instructions to run the downloaded app.
 
