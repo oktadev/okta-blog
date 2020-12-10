@@ -16,7 +16,7 @@ communities: [
     "devops"
 ]
 description: "Use the Okta CLI to get started with OAuth and Okta in under five minutes!"
-tags: [security, oauth, oauth2, oidc, openid-connect, cli]
+tags: [security, dotnet, oauth2, oidc, openid-connect, cli]
 tweets:
 - "Add an Okta integration for your custom app in less than five minutes with the Okta CLI"
 - "Do you spend your day on the command line? The Okta CLI is for you!"
@@ -31,7 +31,7 @@ It can sometimes be a daunting task for developers to get started with Okta beca
 
 Introducing the Okta CLI - made by developers for developers. Using the CLI tool, you can go from zero to running an application complete with auth (in the language and framework of your choice) in about five minutes. And, you don't have to wade through any web-based admin consoles to do it.
 
-## Set up the Okta CLI
+## Set Up the Okta CLI
 
 The [Okta CLI](https://cli.okta.com) is a native command-line application that runs on MacOS, Linux, and Windows. Installation on any of these OS's is a snap, but there are some prerequisites:
 
@@ -51,7 +51,7 @@ brew cask install oktadeveloper/tap/okta
 
 Pretty easy, right?
 
-## Get Started in Under Five Minutes
+## Get Started in Under 5 Minutes
 
 As a developer, in order to make use of Okta, you need an Okta Organization (fondly referred to as an **org**).
 
@@ -121,7 +121,9 @@ Once my email address is verified, the Okta CLI displays a unique link to set my
 
 > **NOTE:** The order-of-operations here is not important. You can set your password before you choose a sample or afterwards. But, you should set your password in a timely fashion as that unique URL expires after 24 hours.
 
-Next, I see a list of available samples. As of this writing, there are four samples, but we are expanding that list. And, the Okta CLI automatically makes any new samples available in the list. You can register as many samples as you like with your Okta Org. I chose option 3: `ASP.net Core 4 MVC`
+Next, I see a list of available samples. As of this writing, there are four samples, but we are expanding that list. And, the Okta CLI automatically makes any new samples available in the list. You can register as many samples as you like with your Okta Org. 
+
+I chose option 3: `ASP.net Core 4 MVC`.
 
 Finally, I see information about the OIDC Application that was registered in my Okta Org along with instructions to run the downloaded app.
 
@@ -154,19 +156,19 @@ info: Microsoft.Hosting.Lifetime[0]
 
 You can browse over to: `https://localhost:5001` to see this basic app in action. 
 
-> **NOTE:** You may want to use an incognito or private window to login in a separate context. Also, you'll see an SSL warning from the browser as it's likely you don't have an SSL cert installed for `localhost`. You can bypass this warning to view the app.
+> **NOTE:** You may want to use an incognito or private window to authenticate in a separate context. Also, you'll see an certifcate warning from the browser as it's likely you don't have an TLS cert installed for `localhost`. You can bypass this warning to view the app.
 
-{% img blog/introducing-okta-cli/dotnet-welcome.png alt:"okta email" width:"600" %}{: .center-image }
+{% img blog/introducing-okta-cli/dotnet-welcome.png alt:"okta email" width:"800" %}{: .center-image }
 
 Click **Sign In** and you're redirected over to Okta to authenticate. After authenticating, you're redirected back to the app and it knows who you are!
 
-{% img blog/introducing-okta-cli/dotnet-authenticated.png alt:"dotnet authenticated" width:"600" %}{: .center-image }
+{% img blog/introducing-okta-cli/dotnet-authenticated.png alt:"dotnet authenticated" width:"800" %}{: .center-image }
 
 > **NOTE:** If you didn't set your password earlier, you'll need to now. Follow the unique link shown in the Okta CLI output. In my case, it was: `https://dev-159750.okta.com/welcome/drp7UBGB_GVjeHp_5Jbs`
 
 ## Looking Under the Hood of the Okta CLI
 
-I don't know much at all about .NET programming. I couldn't tell you the difference between .NET Core and ASP.NET or the differences between 3 and 4 (I think there's a 5 coming?) But, in less than five minutes, I had a running app that I could authenticate to using Okta.
+I don't know much at all about .NET programming. I couldn't tell you the difference between .NET Core and ASP.NET or the differences between 3 and 4 (was [.NET 5 just released?](/blog/2020/04/17/most-exciting-promise-dotnet-5)). However, in less than five minutes, I had a running app that I could authenticate to using Okta!
 
 The samples architecture is the secret sauce behind this capability. If you check out where the .NET sample lives, you can see the [appsettings.json](https://github.com/okta-samples/okta-aspnet-core3-sample/blob/master/okta-aspnetcore-mvc-example/appsettings.json) template file:
 
@@ -207,9 +209,9 @@ The `directions` section is what's output to the command-line once the applicati
 
 Ordinarily, you won't have to deal with the sample code on GitHub directly, but it's useful to understand what's happening under the hood.
 
-> New to OAuth 2.0? Check out this post to get started: [An Illustrated Guide to OAuth and OpenID Connect](https://developer.okta.com/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc)
+> New to OAuth 2.0? Check out this post to get started: [An Illustrated Guide to OAuth and OpenID Connect](/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc)
 
-**Note:** When you run `okta start`, your Okta Org URL and API Token are stored in: `~/.okta/okta.yaml`. It's the information in this file that the Okta CLI uses to perform operations on your Okta Org, like provisioning new OAuth 2.0 Clients.
+**NOTE:** When you run `okta start`, your Okta Org URL and API Token are stored in: `~/.okta/okta.yaml`. It's the information in this file that the Okta CLI uses to perform operations on your Okta Org, like provisioning new OAuth 2.0 Clients.
 
 ## More Stuff You can Do with the Okta CLI
 
@@ -225,9 +227,9 @@ okta login
 
 You're asked to enter your Org URL and an API token. This information is then stored in `~/.okta/okta.yaml` and is used with other `okta` commands.
 
-> You can create an API Token by following [these instructions](https://developer.okta.com/docs/guides/create-an-api-token/overview/).
+> You can create an API Token by following [these instructions](/docs/guides/create-an-api-token/overview/).
 
-### Configuring Your Existing Application
+### Configure Your Existing Application
 
 Let's say you have a Spring Boot Project you've been working on. You could easily integrate Okta into your project by doing the following:
 
@@ -297,14 +299,38 @@ Currently, the available placeholder values are:
 | CLI_OKTA_ISSUER        | The URL to your Okta OAuth 2.0 [Authorization Server](https://developer.okta.com/docs/concepts/auth-servers/) |
 | CLI_OKTA_CLIENT_ID     | The client ID set by Okta for [web](https://developer.okta.com/docs/guides/implement-auth-code/overview/), [native](https://developer.okta.com/docs/guides/implement-auth-code-pkce/overview/), [browser](https://developer.okta.com/docs/guides/implement-auth-code-pkce/overview/) and [service](https://developer.okta.com/docs/guides/implement-client-creds/overview/) type apps                                 |
 | CLI_OKTA_CLIENT_SECRET | The client secret set by Okta for [web](https://developer.okta.com/docs/guides/implement-auth-code/overview/) and [service](https://developer.okta.com/docs/guides/implement-client-creds/overview/) type apps                                              |
+| CLI_OKTA_REVERSE_DOMAIN | The reversed domain name, commonly used for mobile application redirect schemes |
 
 ## Adding Samples for Okta CLI
 
-We'd love your contributions! If you want to setup a new sample, create a new repo that has the naming convention: `okta-<language and or framework name>-sample`. Ideally, it'd be a language and framework that we don't already have. But, if you want to submit a variation on an existing sample, we'd accept that too - just give it a unique name.
+We'd love your contributions! If you want to set up a new sample, create a new repo that has the naming convention: `okta-<language and or framework name>-sample`. Ideally, it'd be a language and framework that we don't already have. But, if you want to submit a variation on an existing sample, we'd accept that too - just give it a unique name.
+
+
+## Watch the Okta CLI in Action
+
+We've created a few screencasts to show the Okta CLI in action. The videos below show how to use `okta start` with Spring Boot, Angular, and React Native! 
+
+<div class="table-wrapper">
+<table>
+<tr>
+<td style="vertical-align: top">
+<iframe width="267" height="150" src="https://www.youtube.com/embed/dURkaz0kBSU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</td>
+<td style="vertical-align: top">
+<iframe width="267" height="150" src="https://www.youtube.com/embed/aMmTcLnoZzc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</td>
+<td style="vertical-align: top">
+<iframe width="267" height="150" src="https://www.youtube.com/embed/jUOjIw-NBJ0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</td>
+</tr>
+</table>
+</div>
+
+We'll publish more videos in the future. Check out our [Okta CLI playlist](https://www.youtube.com/watch?v=dURkaz0kBSU&list=PLshTZo9V1-aFHCxDn080fmNTigfinjdRq) to see the latest.
 
 ## Learn More About Okta, OAuth 2.0, and OpenID Connect
 
-I hope you enjoyed this little tour of the Okta CLI. Watch for new developer blog posts that make use of it. We welcome issues and PRs at the [okta-cli](https://github.com/oktadeveloper/okta-cli) GitHub repo.
+I hope you enjoyed this little tour of the Okta CLI. Watch for new developer blog posts that make use of it. We welcome issues and PRs in the [okta-cli GitHub repo](https://github.com/okta/okta-cli).
 
 If you want to learn more about Okta, OAuth 2.0 and/or OpenID Connect, check out these posts:
 
