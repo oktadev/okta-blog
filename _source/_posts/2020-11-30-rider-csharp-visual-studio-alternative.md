@@ -423,7 +423,7 @@ That's it! We saw how to build a simple web app with Rider, secure it with Okta 
 
 In this tutorial, we went through some of the features of Rider. While Rider doesn't have all the features that Visual Studio has including [IntelliCode](https://visualstudio.microsoft.com/services/intellicode/), it does offer  faster build times, built-in quick fixes and refactorings, and better git integration, among other benefits.
 
-Give Rider a try, get the [full source code of the project from GitHub](https://github.com/oktadeveloper/RiderDemo), and let us know what you think in the comments below. For more ASP.NET Core and Okta articles check out these posts:
+Give Rider a try, get the [full source code of the project from GitHub](https://github.com/oktadeveloper/RiderDemo), and let us know what you think in the comments below.
 
 ## Learn More About .NET and Okta
 
