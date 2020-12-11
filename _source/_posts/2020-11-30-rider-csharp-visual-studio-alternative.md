@@ -419,7 +419,7 @@ Now, run the project, sign in and you will be able to view and edit your Okta pr
 
 That's it! We saw how to build a simple web app with Rider, secure it with Okta Single Sign On and manage a logged in user's profile.
 
-## Learn More About ASP.NET Core and Okta
+## What You Learned
 
 In this tutorial, we went through some of the features of Rider. While Rider doesn't have all the features that Visual Studio has including [IntelliCode](https://visualstudio.microsoft.com/services/intellicode/), it does offer  faster build times, built-in quick fixes and refactorings, and better git integration, among other benefits.
 
