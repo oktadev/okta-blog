@@ -21,7 +21,7 @@ When it comes to developing .NET apps, Visual Studio has historically been the d
 
 This all changed about three years ago when [JetBrains](https://www.jetbrains.com/), the company behind [Resharper](https://www.jetbrains.com/resharper/), one of the most popular Visual Studio extensions, released a new, cross-platform, and innovative  IDE - [Rider](https://www.jetbrains.com/rider/).
 
-The Rider IDE can be used to build .NET Framework, ASP.NET, .NET Core, Xamarin, or Unity apps and comes with the power of ReSharper. It supports C#, VB.Net, F#, JavaScript, and TypeScript. It also supports ASP.Net’s Razor syntax as well as XAML, HTML, CSS, SCSS, LESS, JSON, and SQL. In this tutorial, you will see how to build a basic ASP.NET Core web application with Rider and how to secure it with Okta.
+The Rider IDE can be used to build .NET Framework, ASP.NET, .NET Core, Xamarin, or Unity apps and comes with the power of ReSharper. It supports C#, VB.Net, F#, JavaScript, and TypeScript. It also supports ASP.Net's Razor syntax as well as XAML, HTML, CSS, SCSS, LESS, JSON, and SQL. In this tutorial, you will see how to build a basic ASP.NET Core web application with Rider and how to secure it with Okta.
 
 To continue you will need:
 
@@ -72,14 +72,14 @@ Now, let's move on and add NuGet packages to secure our simple web app with Okta
 
 ## Secure ASP.NET Core Web Application with Okta
 
-In this tutorial, I will use Okta to easily secure the API, so that I don’t have to manage the intricacies of rolling over my own identity provider. Okta supports user authentication, multi-factor authentication, and social authentication, as well as all OpenID connect flows out of the box—so it can take care of all the scenarios you would ever need.
+In this tutorial, I will use Okta to easily secure the API, so that I don't have to manage the intricacies of rolling over my own identity provider. Okta supports user authentication, multi-factor authentication, and social authentication, as well as all OpenID connect flows out of the box—so it can take care of all the scenarios you would ever need.
 
-To get started, log in to your [Okta Developer Account](https://developer.okta.com/)—via the URL emailed to you after signing up—to access your org’s portal dashboard. Once you log in, make sure to note your Org URL from the upper right corner of the screen:
+To get started, log in to your [Okta Developer Account](https://developer.okta.com/) — via the URL emailed to you after signing up—to access your org's portal dashboard. Once you log in, make sure to note your Org URL from the upper right corner of the screen:
 
 {% img blog/csharp-rider/image8.png alt:"" width:"800" %}{: .center-image }
 
 Now, create a new application. Click **Applications** in the top menu, and then **Add Application**. Select **Web** and click **Next**.
-Enter a name for the app (I will use RiderWebApp), replace `8080` with your local port number (in my case it’s `44327`) and click **Done**.
+Enter a name for the app (I will use RiderWebApp), replace `8080` with your local port number (in my case it's `44327`) and click **Done**.
 
 {% img blog/csharp-rider/image9.png alt:"" width:"800" %}{: .center-image }
 
@@ -196,7 +196,7 @@ if (!HttpContext.User.Identity.IsAuthenticated)
 return RedirectToAction("Index", "Home");
 ```
 
-Finally, run the project and you will see a *Sign In* link at the top right of the web app. Click the link and you will be redirected to Okta’s Single Sign-On page for authentication. Once you log in, you will be redirected back to the app, and you will be logged in with your Okta account.
+Finally, run the project and you will see a *Sign In* link at the top right of the web app. Click the link and you will be redirected to Okta's Single Sign-On page for authentication. Once you log in, you will be redirected back to the app, and you will be logged in with your Okta account.
 
 Next, I will add a page for displaying and modifying user details.
 
@@ -208,7 +208,7 @@ To get user profile information and make changes to it, I will use the [Okta .NE
 dotnet add RiderDemo package Okta.Sdk
 ```
 
-Now open the [Okta Developer Console](https://developer.okta.com/) again, go to **API** in the menu, click **Tokens**, and click the **Create Token** button. Enter the name of the token (I will use RiderWebApp again), and click the **Create Token** button. Make sure you copy the token because you won’t be able to view it again:
+Now open the [Okta Developer Console](https://developer.okta.com/) again, go to **API** in the menu, click **Tokens**, and click the **Create Token** button. Enter the name of the token (I will use RiderWebApp again), and click the **Create Token** button. Make sure you copy the token because you won't be able to view it again:
 
 {% img blog/csharp-rider/image15.png alt:"" width:"800" %}{: .center-image }
 
