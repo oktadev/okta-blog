@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Easy Session Sharing in Spring Boot with Spring Session and MySQL"
+title: "Easy Session Sharing in Spring Boot with Spring Session and MySQL."
 author: jimena-garbarino
 by: contractor
 communities: [java,devops]
