@@ -11,6 +11,8 @@ tweets:
 - "Spring Boot with @java + React with @javascript == 💙. Learn how to build a @springboot + @reactjs CRUD app today!"
 image: blog/featured/okta-react-bottle-headphones.jpg
 type: conversion
+update-url: /blog/2020/01/13/kotlin-react-crud
+update-title: "Build a CRUD Application with Kotlin and React"
 ---
 
 React was designed to make it painless to create interactive UIs. Its state management is efficient and only updates components when your data changes. Component logic is written in JavaScript, which means you can keep state out of the DOM and create components that are encapsulated.
