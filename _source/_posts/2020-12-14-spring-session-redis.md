@@ -54,10 +54,10 @@ Update `store`, `product`, and `invoice` and `notification` config to use OAuth 
 ```
 application {
   config {
-    …
+    ...
     authenticationType oauth2,
     buildTool maven,
-    …
+    ...
   }
 }
 ```
@@ -417,7 +417,7 @@ Stop the container of that `store` instance:
 docker stop docker-compose_store2_1
 ```
 
-**TIP**: If you get a "No such container" error, run {% raw %}`docker ps --format ‘{{.Names}}’`{% endraw %} to print your container names. For example, it might be named `docker-compose_store2_1`.
+**TIP**: If you get a "No such container" error, run {% raw %}`docker ps --format '{{.Names}}'`{% endraw %} to print your container names. For example, it might be named `docker-compose_store2_1`.
 
 Create a new entity and inspect the POST request to verify that a different server responds, without losing the session:
 
