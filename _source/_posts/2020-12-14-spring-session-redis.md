@@ -19,6 +19,7 @@ Spring Boot and Spring Security have delighted developers with their APIs for qu
 If you're using Spring Security's default authorization code flow with OIDC, it'll establish a session on the server and serve up old fashion session cookies. If you want to scale your services, you'll need to share session information. This tutorial shows you how to configure a Spring Boot application to store sessions in Redis with Spring Session, so the session can be shared among multiple gateway nodes and is preserved when a node failure happens.
 
 **Prerequisites**:
+
 - [Java 11](https://adoptopenjdk.net/)
 - [JHipster 6.10.5](https://www.jhipster.tech/installation/)
 - [Docker](https://docs.docker.com/get-docker/)
@@ -31,7 +32,14 @@ If you're using Spring Security's default authorization code flow with OIDC, it'
 
 ## Build a Microservices Architecture with Spring Session and Redis
 
-Let's start by building a microservices architecture. With [JHipster Domain Languange](https://www.jhipster.tech/jdl/getting-started#deployments) (JDL) you can generate a microservices architecture from a file that describes the applications and entities.
+Let's start by building a microservices architecture. With JHipster and [JHipster Domain Languange](https://www.jhipster.tech/jdl/getting-started#deployments) (JDL) you can generate a microservices architecture from a file that describes the applications and entities.
+
+Install JHipster:
+
+```shell
+npm install -g generator-jhipster@6.10.5
+```
+
 For this tutorial, you can use the JDL sample [`microservice-ecommerce-store-4-apps`](https://github.com/jhipster/jdl-samples/blob/main/microservice-ecommerce-store-4-apps.jdl) from the JDL samples repository.
 
 Create a folder for the project:
@@ -49,7 +57,7 @@ Copy `microservice-ecommerce-store-4-apps.jdl` to the project folder and rename 
 wget https://raw.githubusercontent.com/jhipster/jdl-samples/main/microservice-ecommerce-store-4-apps.jdl -O jhipster-redis.jdl
 ```
 
-Update `store`, `product`, and `invoice` and `notification` config to use OAuth 2.0 / OIDC for authentication and Maven as the build tool (shortcut: replace `jwt` with `oauth2` and `gradle` with `maven`):
+Update `store`, `product`, `invoice`, and the `notification` configs to use OAuth 2.0 / OIDC for authentication and Maven as the build tool (shortcut: replace `jwt` with `oauth2` and `gradle` with `maven`):
 
 ```
 application {
@@ -134,7 +142,7 @@ export SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI="https://{yourOkta
 export SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID="{clientId}"
 ```
 
-Edit the file `docker-compose/docker-compose.yml` and override the default OAuth 2.0 settings for the services `invoice`, `notification`, `product` and `store` with the following values (you will need to update these properties under the `environment` key):
+Edit the file `docker-compose/docker-compose.yml` and override the default OAuth 2.0 settings for the services `invoice`, `notification`, `product`, and `store` with the following values (you will need to update these properties under the `environment` key):
 
 ```yaml
 - SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=${OKTA_OAUTH2_ISSUER}
@@ -152,7 +160,7 @@ OKTA_OAUTH2_CLIENT_ID={clientId}
 OKTA_OAUTH2_CLIENT_SECRET={clientSecret}
 ```
 
-**NOTE**: You can also set the OAuth 2.0 configuration for all the applications in a single place, using the JHipster Registry, since it's also a [Spring Cloud Config Server](/blog/2019/05/23/java-microservices-spring-cloud-config).
+**NOTE**: You can also set the OAuth 2.0 configuration for all the applications in a single place, using the JHipster Registry, since it's also a Spring Cloud Config Server. See [Java Microservices with Spring Cloud Config and JHipster](/blog/2019/05/23/java-microservices-spring-cloud-config) for more information.
 
 Run the services with Docker Compose:
 
