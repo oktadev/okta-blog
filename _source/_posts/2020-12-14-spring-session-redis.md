@@ -57,7 +57,7 @@ Copy `microservice-ecommerce-store-4-apps.jdl` to the project folder and rename 
 wget https://raw.githubusercontent.com/jhipster/jdl-samples/main/microservice-ecommerce-store-4-apps.jdl -O jhipster-redis.jdl
 ```
 
-Update `store`, `product`, `invoice`, and the `notification` configs to use OAuth 2.0 / OIDC for authentication and Maven as the build tool (shortcut: replace `jwt` with `oauth2` and `gradle` with `maven`):
+Update the `store`, `product`, `invoice`, and `notification` configs to use OAuth 2.0 / OIDC for authentication and Maven as the build tool (shortcut: replace `jwt` with `oauth2` and `gradle` with `maven`):
 
 ```
 application {
