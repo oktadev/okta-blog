@@ -43,7 +43,7 @@ Click **Done** when ready. On the next page, you will see an overview of the set
 
 ## Create a React Application for Login
 
-Now you are ready to create the React application. Open a terminal in a folder of your choice and run the following command.
+Now you are ready to create the React application. Open a terminal in a folder of your choice and run `npx`, the Node.js Package Runner included with npm.
 
 ```bash
 npx create-react-app react-login
@@ -237,7 +237,7 @@ To add authentication to the application, install the Okta libraries for React b
 npm install -E @okta/okta-react@4.1.0 @okta/okta-auth-js@4.4.0
 ```
 
-The Okta React SDK has a peer dependency on Okta Auth JS, which provides most of the heavy lifting. In previous versions, this was included. Now you have to install both packages.
+The Okta React SDK has a peer dependency on Okta Auth JS, which provides most of the heavy lifting. In previous versions of the Okta React SDK, this was included. Now you have to install both packages.
 
 Open `src/App.js` and import the components you'll need from `okta-react` and `okta-auth-js` at the top of the file.
 
@@ -319,7 +319,7 @@ Run `npm start` again to test your application. Now, when you click on **VISIT R
 
 ## Use the Okta Sign-In Widget for Login
 
-Redirecting the user to the Okta servers is appropriate in many situations. But sometimes you want to keep the user on your site without redirecting them to a server that they might not recognize. This is probably true for most public-facing web applications where you want to reach as many users as possible and reducing perceived barriers is important. The Okta Sign-In Widget allows you to embed the same user experience of the external login page into your website. To start, install the widget library using the following command.
+Redirecting the user to an Okta-hosted login page is appropriate in many situations. But sometimes you want to keep the user on your site without redirecting them to a server that they might not recognize. This is probably true for most public-facing web applications where you want to reach as many users as possible and reducing perceived barriers is important. The Okta Sign-In Widget allows you to embed the same user experience of the external login page into your website. To start, install the widget library using the following command.
 
 ```bash
 npm install -E @okta/okta-signin-widget@5.1.4
@@ -555,7 +555,7 @@ In the constructor, you will see that an `OktaAuth` object is created and assign
 
 The last thing you will notice is the fact that the `OktaSignInWidget` class is wrapped in the `withOktaAuth()` function before being exported. This adds the `authService` to the properties of the object. Remember, this widget is rendered within the `Security` widget. Inside the `signIn()` function the `authService` is used to set the application's session token and redirect the user to the protected page they wanted to visit before the sign-in was triggered.
 
-To round things up, add a bit of styling for the login form. Open `src/App.css` and paste the following code at the end of the file.
+To round things out, add a bit of styling for the login form. Open `src/App.css` and paste the following code at the end of the file.
 
 ```css
 .login-form {
@@ -589,7 +589,7 @@ In this tutorial, I have shown you three ways to implement authentication in you
 
 You can find the source code for this example in [the oktadeveloper/okta-react-login-example repository](https://github.com/oktadeveloper/okta-react-login-example) on GitHub.
 
-If you want to find out more about Okta authentication, dive into JSON Web Tokens or learn about access control in single-page JavaScript apps, check out the following links.
+If you want to find out more about Okta authentication, dive into JSON Web Tokens or learn about access control in single-page JavaScript apps, check out the following links. 
 
 * [JWTs in React for Secure Authentication](/blog/2019/10/02/jwt-react-auth)
 * [Vue Login and Access Control the Easy Way](/blog/2020/05/15/vue-login)
