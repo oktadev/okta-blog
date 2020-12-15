@@ -66,36 +66,35 @@ services.AddSession(options =>
 In `Startup.cs`, `Configure(IApplicationBuilder app, IWebHostEnvironment env)` method. Use `CookiePolicy` middleware to intercept cookies. It should be placed into the HTTP request pipeline before any components that write cookies.
 
 ```cs
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+{
+if (env.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
+else
+{
+        app.UseExceptionHandler("/Home/Error");
+        app.UseHsts();
+}
+    app.UseHttpsRedirection();
+    app.UseStaticFiles();
+    app.UseRouting();
+    app.UseAuthorization();
+    app.UseCookiePolicy();
+    app.UseForwardedHeaders(new ForwardedHeadersOptions
     {
-    if (env.IsDevelopment())
-    {
-        app.UseDeveloperExceptionPage();
-    }
-    else
-    {
-            app.UseExceptionHandler("/Home/Error");
-            app.UseHsts();
-    }
-        app.UseHttpsRedirection();
-        app.UseStaticFiles();
-        app.UseRouting();
-        app.UseAuthorization();
-        app.UseCookiePolicy();
-        app.UseForwardedHeaders(new ForwardedHeadersOptions
-        {
-            ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-        });
+        ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+    });
 
-        app.UseAuthentication();
-        app.UseEndpoints(endpoints =>
-        {
-            endpoints.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
-        });
-    }
-```
+    app.UseAuthentication();
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapControllerRoute(
+            name: "default",
+            pattern: "{controller=Home}/{action=Index}/{id?}");
+    });
+}
 
 ## Preparing the Linux Server
 
