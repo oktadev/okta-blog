@@ -6,3 +6,28 @@
 .is-signed-in {
   display: none;
 }
+
+.align-center {
+  align-items: center;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+.is-fixed {
+  position: fixed;
+}

@@ -109,9 +109,11 @@ $suva-gray-4: #8f8f8f;
 $very-light-gray: #cccccc;
 // Blacks
 $black: #000000;
+$mirage: #14222A;
 // Reds
 $jazzberry-jam: #990f69;
 $valencia: #d9534f;
+$cerise-red: #DD2864;
 // Oranges
 $burnt-orange: #ff7640;
 $light-coral: #f57f7f;
@@ -212,6 +214,10 @@ $colors:        (
                 'cerise':                 $cerise, // CTA buttons, links
 
                 'code-background':        $white-smoke-10,
+
+                // 2020-12 Nav Redesign Colors
+                'mirage': $mirage, // Nav background
+                'cerise-red': $cerise-red, // Nav CTA background
 );
 
 
