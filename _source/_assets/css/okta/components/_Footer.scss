@@ -1,43 +1,109 @@
-.Footer {
+.footer {
+
+  color: get-color('white');
+  padding: 80px 96px 80px 121px;
+  background: get-color('gable-green');
+  border-top: 1px solid get-color('cello');
+
   a {
     text-decoration: none;
+    color: get-color('white');
   }
 
-  .Wrap {
-    padding: 0;
+  ul {
+    padding-left: 0;
+    list-style: none;
   }
 
-  &-links {
-    margin-top: 28px;
+  .footer-links {
+    margin-top: 30px;
+  }
 
-    li {
-      a {
-        padding: 0;
-      }
+  .new-tab:after {
+    content: '';
+    width: 9px;
+    height: 9px;
+    margin-left: 5px;
+    margin-bottom: 10px;
+    display: inline-block;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("../../../../assets-jekyll/icons/icon-new-tab.svg");
+  }
+
+  .footer-link {
+    display: flex;
+    padding: 7px 0;
+
+    &.twitter:before,
+    &.github:before,
+    &.forum:before,
+    &.rss:before,
+    &.youtube:before {
+      content: '';
+      width: 20px;
+      height: 20px;
+      display: block;
+      margin-right: 15px;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
     }
 
-    &--github,
-    &--twitter,
-    &--forum,
-    &--rss,
-    &--youtube {
-      margin-bottom: 10px;
+    &.twitter:before {
+      background-image: url("../../../../assets-jekyll/icons/icon-twitter.svg");
     }
 
-    &:last-child {
+    &.github:before {
+      background-image: url("../../../../assets-jekyll/icons/icon-github.svg");
+    }
+
+    &.forum:before {
+      background-image: url("../../../../assets-jekyll/icons/icon-forum.svg");
+    }
+
+    &.rss:before {
+      background-image: url("../../../../assets-jekyll/icons/icon-rss.svg");
+    }
+
+    &.youtube:before {
+      background-image: url("../../../../assets-jekyll/icons/icon-youtube.svg");
+    }
+
+  }
+
+
+  .first-row {
+    font-size: 20px;
+    margin-bottom: 61px;
+    line-height: 34.2px;
+  }
+  
+  .anchor-highlight {
+    text-transform: none;
+    color: get-color('cerise');
+  }
+
+  .copyright {
+    align-self: flex-end;
+    @include font-weight('mediumbold');
+
+    @include media('<medium') {
+      display: none;
+    }
+  }
+
+  .external-url {
+
+    margin-bottom: 40px;
+
+    p {
+      margin-top: 6px;
+    }
+
+    &:last-of-type {
       margin-bottom: 0;
-    }
-  }
-
-  h4 {
-    @include font-size('h6');
-  }
-}
-
-@media (max-width: 859px) {
-  .Footer {
-    .Logo {
-      margin-left: 0;
     }
   }
 }
