@@ -54,13 +54,12 @@ services.AddAuthentication(options =>
 In `Startup.cs`, `ConfigureServices(IServiceCollection services)` method.
 
 ```cs
-            services.AddSession(options =>
-            {
-                options.Cookie.SameSite = SameSiteMode.None;
-                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-                options.Cookie.IsEssential = true;
-            });
-```
+services.AddSession(options =>
+{
+    options.Cookie.SameSite = SameSiteMode.None;
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+    options.Cookie.IsEssential = true;
+});
 
 ### Intercepting Cookies
 
