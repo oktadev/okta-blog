@@ -14,7 +14,7 @@ image: blog/featured/okta-dotnet-mouse-down.jpg
 type: conversion
 ---
 
-Google's recent approach to SameSite cookie attributes caused a bit of confusion among developers. Especially in cases where handling redirects is necessary. After doing some research in the topic I'd like this article to be a guide on how to handle SameSite cookie attributes properly in production. This guide can serve as the basis for deploying an application to any Linux based environment—such as [AWS Elastic Beanstalk](https://aws.amazon.com/elasticbeanstalk), [Google Cloud App Engine](https://cloud.google.com/appengine)—or any VPS Linux deployment [LINK]. Also I created a sample application to demonstrate redirect handling with the Okta login flow. I won't discuss the topic of [containerization](https://developer.okta.com/blog/2019/09/18/build-a-simple-dotnet-core-app-in-docker) as a possible solution, as we have resources available that give a great overview.
+Google's recent approach to SameSite cookie attributes caused a bit of confusion among developers. Especially in cases where handling redirects is necessary. After doing some research in the topic I'd like this article to be a guide on how to handle SameSite cookie attributes properly in production. This guide can serve as the basis for deploying an application to any Linux based environment—such as [AWS Elastic Beanstalk](https://aws.amazon.com/elasticbeanstalk), [Google Cloud App Engine](https://cloud.google.com/appengine)—or any VPS Linux deployment. Also I created a sample application to demonstrate redirect handling with the Okta login flow. I won't discuss the topic of [containerization](https://developer.okta.com/blog/2019/09/18/build-a-simple-dotnet-core-app-in-docker) as a possible solution, as we have resources available that give a great overview.
 
 ## What is Okta?
 
@@ -22,7 +22,7 @@ Okta is a cloud service that allows developers to create, edit, and securely sto
 
 ## Prerequisites
 
-Ubuntu 20.04 Linux machine with SSH access. You can use [Multipass](https://multipass.run) to run a virtual machine as a playground.
+An [Ubuntu 20.04](https://releases.ubuntu.com/20.04/) Linux machine with SSH access. You can use [Multipass](https://multipass.run) to run a virtual machine as a playground.
 
 ## SameSite Enforcement and the Decline of the Cookie
 
@@ -30,7 +30,7 @@ In February 2020, Google [implemented an update](https://blog.chromium.org/2019/
 
 ## Preparing the .NET Core 3.1 Application
 
-.NET Core 3.0 supports the updated SameSite values and adds an extra enum value, SameSiteMode.Unspecified to the SameSiteMode enum. This new value indicates no SameSite should be sent with the cookie. You can take a look at [this post](/blog/2020/11/25/how-to-install-dotnetcore-on-linux) to see how Okta ties into the app for authentication. The rest of this article will fopcus on teh configuration strategies to deal with SameSite specifically.
+.NET Core 3.0 supports the updated SameSite values and adds an extra enum value, SameSiteMode.Unspecified to the SameSiteMode enum. This new value indicates no SameSite should be sent with the cookie. You can take a look at [this post](/blog/2020/11/25/how-to-install-dotnetcore-on-linux) to see how Okta ties into the app for authentication. The rest of this article will focus on the configuration strategies to deal with SameSite specifically within that application.
 
 ### Setting Cookie Authentication
 
@@ -269,14 +269,10 @@ You can find this project code on [Github](https://github.com/oktadeveloper/okta
 
 ## Learn More About SameSite and .NET Core Apps on Linux
 
-*[Install .NET Core Apps on Linux in 5 Minutes](https://developer.okta.com/blog/2020/11/25/how-to-install-dotnetcore-on-linux)
-
-*[How to Deploy Your .NET Core App to Google Cloud, AWS or Azure](https://developer.okta.com/blog/2020/12/09/dotnet-cloud-host-publish)
-
-*[How to Adapt Your .NET App for SameSite](https://developer.okta.com/blog/2020/09/28/adapt-dotnet-app-for-samesite-fix)
-
-*[Host ASP.NET Core on Linux with Nginx](https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-nginx?view=aspnetcore-3.1)
-
-*[Performance Profiling of .NET Core 3 applications on Linux with dotnet-trace and PerfView](https://michaelscodingspot.com/dotnet-trace)
+- [Install .NET Core Apps on Linux in 5 Minutes](https://developer.okta.com/blog/2020/11/25/how-to-install-dotnetcore-on-linux)
+- [How to Deploy Your .NET Core App to Google Cloud, AWS or Azure](https://developer.okta.com/blog/2020/12/09/dotnet-cloud-host-publish)
+- [How to Adapt Your .NET App for SameSite](https://developer.okta.com/blog/2020/09/28/adapt-dotnet-app-for-samesite-fix)
+- [Host ASP.NET Core on Linux with Nginx](https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-nginx?view=aspnetcore-3.1)
+- [Performance Profiling of .NET Core 3 applications on Linux with dotnet-trace and PerfView](https://michaelscodingspot.com/dotnet-trace)
 
 If you like this topic, be sure to [follow us on Twitter](https://twitter.com/oktadev), subscribe to [our YouTube Channel](https://youtube.com/c/oktadev), and [follow us on Twitch](https://www.twitch.tv/oktadev).
