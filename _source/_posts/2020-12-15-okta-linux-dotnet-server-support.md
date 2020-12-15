@@ -61,6 +61,7 @@ services.AddSession(options =>
     options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
     options.Cookie.IsEssential = true;
 });
+```
 
 ### Intercepting Cookies
 
@@ -96,6 +97,7 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
             pattern: "{controller=Home}/{action=Index}/{id?}");
     });
 }
+```
 
 ## Preparing the Linux Server
 
