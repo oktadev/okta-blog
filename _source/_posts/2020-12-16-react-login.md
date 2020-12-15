@@ -221,13 +221,13 @@ This completes the basic application. You can test it by running the following c
 npm start
 ```
 
-This should build the JavaScript code and then automatically open your browser at `http://localhost:3000/`. You will see the home page and when you click the button, you will be taken to the restricted page. At this point, anybody could see the restricted page. No user authentication has been added so far.
+This should build the JavaScript code and then automatically open your browser at `http://localhost:3000/`. You will see the home page and when you click the **Visit Restricted Page** button, you will be taken to the restricted page. At this point, anybody could see the restricted page. No user authentication has been added so far.
 
 {% img blog/react-login/react-login-restricted-page.png alt:"Restricted page that should only be accessible to registered users" width:"800" %}{: .center-image }
 
 ## Adding User Login with Redirection
 
-The simplest way to add authentication to the app is to use Okta's hosted login page. When users need to sign in, they are directed away from the site to a login form on the Okta servers. On success, the user is redirected back to the application. The authentication token is passed to the application and the validity is checked. This allows the application to open up restricted content that is hidden from unauthenticated users.
+The simplest way to add authentication to the app is to use Okta's hosted login page. When users need to sign in, they are directed away from the site to a login form on the Okta servers. On success, the user is redirected back to the application. The authentication token is passed to the application, and the validity is checked. This allows the application to open up restricted content that is hidden from unauthenticated users.
 
 This sort of authentication flow is ideally suited for single sign-on situations. For example, within a corporate network, a user logs in once through the central authentication provider. After that, the user has access to all applications within the corporate environment.
 
@@ -237,7 +237,7 @@ To add authentication to the application, install the Okta libraries for React b
 npm install -E @okta/okta-react@4.1.0 @okta/okta-auth-js@4.4.0
 ```
 
-The Okta React SDK has a peer dependency on Okta Auth JS, which provides most of the heavy lifting. In previous versions of the Okta React SDK, this was included. Now you have to install both packages.
+The Okta React SDK has a peer dependency on Okta Auth JS, which provides most of the heavy lifting. In previous versions of the Okta React SDK, this was included as a transitive dependency. Now you have to install both packages.
 
 Open `src/App.js` and import the components you'll need from `okta-react` and `okta-auth-js` at the top of the file.
 
@@ -250,7 +250,7 @@ Create an `OktaAuth` instance with your settings.
 
 ```js
 const oktaAuth = new OktaAuth({
-  issuer: 'https://{YourOktaDomain}.com/oauth2/default',
+  issuer: 'https://{YourOktaDomain}/oauth2/default',
   clientId: '{ClientId}',
   redirectUri: window.location.origin + '/callback'
 });
@@ -415,7 +415,7 @@ const oktaAuth = new OktaAuth({
   redirectUri: window.location.origin + '/callback'
 });
 
-export default () => {
+function SecuredApp() {
   const history = useHistory();
 
   const onAuthRequired = function() {
@@ -432,6 +432,8 @@ export default () => {
     </Security>
   );
 }
+
+export default SecuredApp;
 ```
 
 Because you want to redirect the user to a custom route whenever authentication is required, you need to pass a function to the `onAuthRequired` property of the `Security` component. This function simply pushes the `/login` route into the router's history.
@@ -477,7 +479,7 @@ Now, when you try to navigate to the **Private** page you will be presented with
 
 Sometimes it is useful to implement a sign-in form that seamlessly integrates with your website's design and style. The widget provided by `OktaSignIn` can be styled using CSS but in some circumstances, this might not be enough. With only a little extra code, you can create your own login form. All you need to do is change the `OktaSignInWidget` to render its own form and handle the sign-in.
 
-Open `src/OktaSignInWidget` and replace the contents with the code below. Make sure to replace the `{ClientId}` placeholder.
+Open `src/OktaSignInWidget.js` and replace the contents with the code below. Make sure to replace the `{ClientId}` placeholder.
 
 ```jsx
 import React, { Component } from 'react';
