@@ -48,6 +48,7 @@ services.AddAuthentication(options =>
     options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
     options.Cookie.IsEssential = true;
 })
+```
 
 ### Setting Session State Cookies
 
