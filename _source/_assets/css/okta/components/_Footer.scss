@@ -5,6 +5,14 @@
   background: get-color('gable-green');
   border-top: 1px solid get-color('cello');
 
+  @include media('<medium') {
+    padding: 40px 44px;
+
+    .small {
+      @include font-size(12px);
+    }
+  }
+
   a {
     text-decoration: none;
     color: get-color('white');
@@ -71,13 +79,22 @@
       background-image: url("../../../../assets-jekyll/icons/icon-youtube.svg");
     }
 
+    @include media('<medium') {
+      @include font-size(16px);
+    }
+
   }
 
 
   .first-row {
-    font-size: 20px;
     margin-bottom: 61px;
     line-height: 34.2px;
+    @include font-size(20px);
+
+    @include media('<medium') {
+      padding-left: 65px;
+      @include font-size(17px);
+    }
   }
   
   .anchor-highlight {
