@@ -7,7 +7,7 @@
       padding: 0 15px;
       position: relative;
 
-      @media screen and (min-width: 720px) and (max-width: 1280px) {
+      @include media('>=small', '<medium') {
         padding: 0 7px;
       }
 
@@ -18,7 +18,7 @@
       svg {
         margin-left: 10px;
 
-        @media screen and (max-width: 1280px) {
+        @include media('<medium') {
           display: none;
         }
       }
@@ -29,7 +29,7 @@
     padding: 0 7px;
     position: relative;
 
-    @media screen and (min-width: 720px) and (max-width: 1280px) {
+    @include media('>=small', '<medium') {
       padding: 0 5px;
     }
 

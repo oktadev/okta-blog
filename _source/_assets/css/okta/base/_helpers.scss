@@ -36,14 +36,14 @@
   width: 100%;
 }
 
-.show-for-medium {
-  @media screen and (max-width: 720px) {
+.show-for-small {
+  @include media('>=small') {
     display: none;
   }
 }
 
-.hide-for-medium {
-  @media screen and (min-width: 720px) {
+.hide-for-small {
+  @include media('<small') {
     display: none;
   }
 }

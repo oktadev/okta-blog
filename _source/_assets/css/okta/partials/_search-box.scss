@@ -2,7 +2,7 @@
   margin-right: 35px;
   position: relative;
 
-  @media screen and (min-width: 720px) and (max-width: 1280px) {
+  @include media('<medium') {
     margin-right: 15px;
   }
 
@@ -15,7 +15,7 @@
     padding-left: 43px;
     color: get-color('black');
 
-    @media screen and (min-width: 720px) and (max-width: 1280px) {
+    @include media('>=small', '<medium') {
       height: 32px;
       width: 119px;
 
@@ -32,7 +32,7 @@
     height: 15px;
     position: absolute;
 
-    @media screen and (min-width: 720px) and (max-width: 1280px) {
+    @include media('>=small', '<medium') {
       top: 11px;
       left: 10px;
       width: 10px;
