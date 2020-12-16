@@ -16,30 +16,18 @@ type: conversion
 
 Almost any web app needs some sort of access control, usually implemented by user login. Choosing how user authentication is implemented depends on the type of application and its audience. In this post, I want to show you a few different ways of creating a login feature in a single-page React application using Okta.
 
-I will start with a login redirect. This is the easiest option to implement and is a good choice for some use cases. On the other hand, hosting the login form inside of the application can provide a more seamless user experience. The Okta Sign-In Widget can be used as a simple out-of-the-box login form. To have more control over the appearance of the user login, you can also implement your own form and use Okta's authentication service to verify the user's credentials.
+I will start with a login redirect. This is the easiest option to implement and is a good choice for some use cases. On the other hand, hosting the login form inside the application can provide a more seamless user experience. The Okta Sign-In Widget can be used as a simple out-of-the-box login form. To have more control over the appearance of the user login, you can also implement your own form and use Okta's authentication service to verify the user's credentials.
 
 For this tutorial, I will assume that you are familiar with JavaScript and have some knowledge of React. You should have Node and `npm` installed on your system.
 
 **Prerequisites**:
 
 - [Node 14](https://nodejs.org/)
-- [Okta CLI 0.7.1+](https://github.com/okta/okta-cli)
+- [Okta CLI 0.7.1+](https://github.com/okta/okta-cli) (optional)
 
 **Table of Contents**{: .hide }
 * Table of Contents
 {:toc}
-
-## Get a Free Okta Developer Account
-
-Before you get started, you need to sign up for a free Okta developer account. If you haven't already got one, go to [developer.okta.com](https://developer.okta.com/), click **Sign Up**, and follow the sign-up procedure. Once completed, you can log in to the Developer Console.
-
-**TIP**: You can also create an account and register apps using the [Okta CLI](https://github.com/okta/okta-cli#readme) with the `okta register` and `okta apps create` commands.
-
-In your Okta Development Console, select **Applications** from the top menu and click **Add Application**. Next, select **Single-Page App** and click **Next**. You now see a form with application settings. You can give the application any name of your choice. Both the **Base URI** and the **Logout redirect URI** should be changed to `http://localhost:3000/`.
-
-You will be testing the application using the React development server that listens on port 3000 on your local machine. For production, you would of course change this to the URI of the production server. The **Login redirect URI** should be `http://localhost:3000/callback`.
-
-Click **Done** when ready. On the next page, you will see an overview of the settings as well as a **Client ID**. Note the ID for later when you set up your React application.
 
 ## Create a React Application for Login
 
@@ -225,7 +213,19 @@ This should build the JavaScript code and then automatically open your browser a
 
 {% img blog/react-login/react-login-restricted-page.png alt:"Restricted page that should only be accessible to registered users" width:"800" %}{: .center-image }
 
-## Adding User Login with Redirection
+## Register an OpenID Connect App for Authentication
+
+Before you add a login feature, you need to sign up for a free Okta developer account. If you haven't already got one, go to [developer.okta.com](https://developer.okta.com/), click **Sign Up**, and follow the sign-up procedure. Once completed, you can log in to the Developer Console.
+
+**TIP**: You can also create an account and register apps using the [Okta CLI](https://github.com/okta/okta-cli#readme) with the `okta register` and `okta apps create` commands.
+
+In your Okta Development Console, select **Applications** from the top menu and click **Add Application**. Next, select **Single-Page App** and click **Next**. You now see a form with application settings. You can give the application any name of your choice. Both the **Base URI** and the **Logout redirect URI** should be changed to `http://localhost:3000/`.
+
+You will be testing the application using the React development server that listens on port 3000 on your local machine. For production, you would of course change this to the URI of the production server. The **Login redirect URI** should be `http://localhost:3000/callback`.
+
+Click **Done** when ready. On the next page, you will see an overview of the settings as well as a **Client ID**. Note the ID for later when you set up your React application.
+
+## Add React Login with Redirection
 
 The simplest way to add authentication to the app is to use Okta's hosted login page. When users need to sign in, they are directed away from the site to a login form on the Okta servers. On success, the user is redirected back to the application. The authentication token is passed to the application, and the validity is checked. This allows the application to open up restricted content that is hidden from unauthenticated users.
 
@@ -475,7 +475,7 @@ Now, when you try to navigate to the **Private** page you will be presented with
 
 {% img blog/react-login/react-okta-login-widget.png alt:"The Okta Sign-In Widget" width:"800" %}{: .center-image }
 
-## Creating Your Own Login Form
+## Create Your Own Login Form
 
 Sometimes it is useful to implement a sign-in form that seamlessly integrates with your website's design and style. The widget provided by `OktaSignIn` can be styled using CSS but in some circumstances, this might not be enough. With only a little extra code, you can create your own login form. All you need to do is change the `OktaSignInWidget` to render its own form and handle the sign-in.
 
@@ -585,7 +585,7 @@ Start the application again by running `npm start`. Now, try to navigate to the 
 
 Congratulations! If you have made it this far, you now have the knowledge to implement the right sign-in solution for your React application.
 
-## Learn More about React and Authentication
+## Learn More About React and Authentication
 
 In this tutorial, I have shown you three ways to implement authentication in your React application. The easiest of these three options redirects the user to a hosted sign-in page on the Okta servers. While this is a perfectly good solution in many situations, you sometimes want to host the login form on your own servers. The Okta sign-in widget lets you embed the trusted login form on your own site. If you want a sign-in form with your layout and design, you can use the `OktaAuth` class to send the username and password directly to the Okta servers for validation.
 
