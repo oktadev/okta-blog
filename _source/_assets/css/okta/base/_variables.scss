@@ -110,6 +110,7 @@ $very-light-gray: #cccccc;
 // Blacks
 $black: #000000;
 $mirage: #14222A;
+$san-juan: #2B4D63;
 // Reds
 $jazzberry-jam: #990f69;
 $valencia: #d9534f;
@@ -217,6 +218,7 @@ $colors:        (
 
                 // 2020-12 Nav Redesign Colors
                 'mirage': $mirage, // Nav background
+                'san-juan': $san-juan, // Nav mobile dropdown background
                 'cerise-red': $cerise-red, // Nav CTA background
 );
 
