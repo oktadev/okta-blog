@@ -4,12 +4,12 @@ title: "Build and Secure an API in Python with FastAPI"
 author: karl-hughes
 by: contractor
 communities: [python]
-description: "How to quickly build a REST API with FastAPI and secure it with Okta"
+description: "How to quickly build a Python REST API with FastAPI and secure it with Okta."
 tags: [python, fastapi, authentication]
 tweets:
-- "Learn how to quickly build a REST API in Python with FastAPI"
-- "Tired of the overhead it takes to build a REST API? Use FastAPI!"
-- "Quickly build out a database backed REST API with documentation using FastAPI"
+- "Learn how to quickly build a REST API in Python with FastAPI!"
+- "Tired of the overhead it takes to build a REST API with Python? Use FastAPI!"
+- "Quickly build out a database-backed Python REST API with documentation using FastAPI."
 image: blog/build-and-secure-an-api-in-python-with-fastapi/J9aTg6J.png
 type: conversion
 ---
@@ -82,7 +82,7 @@ To start your application, run the Uvicorn server:
 uvicorn main:app --reload
 ```
 
-Then, open [http://127.0.0.1:8000](http://127.0.0.1:8000) in your browser to see your "Hello, world" endpoint in action:
+Then, open `http://127.0.0.1:8000` in your browser to see your "Hello, world" endpoint in action:
 
 ![A "Hello, World" endpoint in FastAPI](https://i.imgur.com/XHwSIuy.png)
 
