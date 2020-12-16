@@ -34,6 +34,7 @@
 
   .logo {
     height: 22px;
+    flex-shrink: 0;
     max-width: 152px;
     margin-right: 39px;
 
@@ -59,6 +60,7 @@
   .cta {
     height: 44px;
     width: 134px;
+    flex-shrink: 0;
     border-radius: 4px;
     letter-spacing: 1.5px;
     text-decoration: none;
@@ -79,16 +81,14 @@
   }
 
   .nav-link {
+    cursor: pointer;
+    white-space: nowrap;
     text-decoration: none;
     color: get-color('white');
 
     &:hover {
       text-decoration: underline;
       text-decoration-width: 0.5px;
-    }
-
-    &.active {
-      color: get-color('french-rose');
     }
   }
 

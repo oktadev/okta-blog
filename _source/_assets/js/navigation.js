@@ -43,23 +43,7 @@
         }
 
         bindSearchEvents() {
-            console.log('this.$searchToggle::', this.$searchToggle)
-            let key
-            let $input = null
-            // Sync mobile search-box value with desktop search
-            // NOTE: Can't generate more than one search input at once
-            this.$mobileSearch.change(() => {
-                if (!$input) $input = this.$coveoSearchBox.find('input')
-                $input.val(this.$mobileSearch.val())
-            })
-
-            // Click search input when enter key is pressed
-            this.$mobileSearch.keypress(ev => {this.triggerSearch(ev)})
-            this.$coveoSearchBox.keypress(ev => {this.triggerSearch(ev)})
-
-            // Toggles mobile search visibility
             this.$searchToggle.click(() => {
-                console.log('$searchToggle@click')
                 if (this.searchExpanded) {
                     this.contractSearch()
                     return
@@ -69,9 +53,7 @@
         }
 
         bindSubMenuEvents() {
-            this.$menuHasChildren.click(ev => {
-                $(ev.currentTarget).toggleClass('open')
-            })
+            this.$menuHasChildren.click(this.toggleSubMenu)
         }
 
         triggerSearch(ev) {
