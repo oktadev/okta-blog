@@ -59,7 +59,7 @@ Then click on the **Windows Hello Fingerprint**, click **Set up** and click **Ge
 
 {% img blog/webauthn-csharp/image2.png alt:"Welcome to Windows Hello" width:"576" %}{: .center-image }
 
-{% img blog/webauthn-csharp/image3.png alt:"" width:"800" %}{: .center-image }
+{% img blog/webauthn-csharp/image3.png alt:"Add your fingerprint" width:"572" %}{: .center-image }
 
 Now, you are ready to add passwordless authentication to your web application.
 
