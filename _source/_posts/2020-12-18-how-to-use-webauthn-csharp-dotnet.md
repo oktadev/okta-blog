@@ -561,7 +561,7 @@ public async Task<ActionResult> SignInOptions([FromForm] string username)
 
 The `SignInOptions` method fetches the user that is trying to sign in from Okta, creates options with the credentials that the user is allowed to use, and returns them as JSON to the caller.
 
-Next, add the javascript code that will get the options and prompt the user for authentication. Create a new file `passwordless.login.js` in `wwwroot\js` and paste the following:
+Next, add the JavaScript code that will get the options and prompt the user for authentication. Create a new `passwordless.login.js` file in `wwwroot\js` and paste the following:
 
 ```js
 document.getElementById('signin-form').addEventListener('submit', handleSignInSubmit);
