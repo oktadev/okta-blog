@@ -529,7 +529,7 @@ Finally, add a `SignIn.cshtml` in `Views\Account`:
 
 Now, you are ready to add passwordless authentication. Login flow with passwordless authentication is similar to the registration flow. First, you need to initiate authentication for the user that wants to log in, and then use WebAuthn to facilitate the authentication process using the [navigator.credentials.get](https://developer.mozilla.org/en-US/docs/Web/API/CredentialsContainer/get) method.
 
-To create options for `navigator.credentials.get`, I will add a method in `AccountController` that will accept the user that initiated login and return corresponding options:
+To create options for `navigator.credentials.get`, add a method in `AccountController` that will accept the user that initiated login and return corresponding options:
 
 ```cs
 [HttpPost]
