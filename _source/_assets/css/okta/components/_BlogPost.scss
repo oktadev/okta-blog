@@ -40,6 +40,33 @@
 		}
 	}
 
+	& .alert {
+		padding: 10px 20px;
+		margin-bottom: 10px;
+		border-radius: 5px;
+
+		.close {
+			float: right;
+			font-size: 16pt;
+			cursor: pointer;
+		}
+
+		.title {
+			font-size: 16pt;
+			font-weight: 700
+		}
+
+		a {
+			font-weight: 700;
+		}
+	}
+
+	& .alert-info {
+		background-color: #ebfaf4;
+		color: #155724;
+		border: 1px solid #12c677;
+	}
+
 	&-attribution {
 		align-items: center;
 		display: flex;

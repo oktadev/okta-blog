@@ -12,6 +12,8 @@ tweets:
  - "Are you a @java developer using Spring Boot and want to update your UI skills? This tutorial shows you how to use Angular with Spring Boot to develop a cool cars application."
 image: blog/spring-boot-2-angular-8/angular+spring-boot+security=love.jpg
 type: conversion
+update-title: "Build a CRUD App with Angular 9 and Spring Boot 2.2"
+update-url: /blog/2020/01/06/crud-angular-9-spring-boot-2
 ---
 
 If you've been a Java developer for more than 15 years, you probably remember when there were a plethora of Java web frameworks. It started with Struts and WebWork. Then Tapestry, Wicket, and JSF came along and championed the idea of component-based frameworks. Spring MVC was released in 2004 (in the same month as Flex 1.0 and JSF 1.0) and became the de-facto standard in Java web frameworks over the next six years.
