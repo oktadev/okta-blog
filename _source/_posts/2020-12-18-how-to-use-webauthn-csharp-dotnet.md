@@ -20,7 +20,7 @@ In this tutorial, you will learn about how passwordless authentication works, wh
 
 To continue, you will need:
 
-- A basic knowledge of C# and Javascript
+- A basic knowledge of C# and JavaScript
 - [Visual Studio 2019](https://visualstudio.microsoft.com/vs/) or [Visual Studio Code](https://code.visualstudio.com/)
 - [.NET Core 3.1 SDK](https://dotnet.microsoft.com/download/dotnet-core)
 - Windows 10 Anniversary Update or newer and a computer with either a fingerprint reader, a Near-Infrared webcam, or a USB security key.
