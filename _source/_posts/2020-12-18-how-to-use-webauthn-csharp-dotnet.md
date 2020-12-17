@@ -477,7 +477,7 @@ You can now register a user so let's move on to signing in to passwordless accou
 
 ## Authentication with WebAuthn
 
-First, I will enable authentication using cookies in the project. Add the following in `ConfigureServices` method in `Startup` class:
+First, enable authentication using cookies in the project. Add the following in `ConfigureServices` method in `Startup` class:
 
 ```cs
 services.AddAuthentication("Cookie").AddCookie("Cookie");
