@@ -137,7 +137,7 @@ Open the `_Layout.cshtml` file in `Views\Shared` folder and add the following be
 </ul>
 ```
 
-Next, add `AccountController.cs` file in the `Controllers` folder, add `RegisterModel.cs` in the `Models` folder, and add `Register.cshtml` in the `Views\Account` folder:
+Next, add a `AccountController.cs` file in the `Controllers` folder, add `RegisterModel.cs` in the `Models` folder, and add `Register.cshtml` in the `Views\Account` folder:
 
 ```cs
 public class AccountController : Controller
