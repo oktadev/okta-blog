@@ -405,7 +405,7 @@ Do the same to add another attribute called `CredentialId`.
 
 Next, go to **API** in the menu, click **Tokens**, and click the **Create Token** button. Enter the token name (I will use *OktaWebAuthn*) and click the **Create Token** button. Make sure you copy the token because you won't be able to view it again:
 
-{% img blog/webauthn-csharp/image9.png alt:"" width:"800" %}{: .center-image }
+{% img blog/webauthn-csharp/image9.png alt:"" width:"512" %}{: .center-image }
 
 Switch to Visual Studio, open the `appsettings.json` again, and add a section for Okta:
 
