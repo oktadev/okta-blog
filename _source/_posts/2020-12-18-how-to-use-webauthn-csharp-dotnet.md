@@ -407,7 +407,7 @@ Next, go to **API** in the menu, click **Tokens**, and click the **Create Token*
 
 {% img blog/webauthn-csharp/image9.png alt:"" width:"800" %}{: .center-image }
 
-Switch to Visual Studio, open the `appsettings.json` again and add a section for Okta:
+Switch to Visual Studio, open the `appsettings.json` again, and add a section for Okta:
 
 ```json
 "Okta": {
