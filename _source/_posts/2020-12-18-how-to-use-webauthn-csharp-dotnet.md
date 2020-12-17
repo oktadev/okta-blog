@@ -708,7 +708,7 @@ Run the project again, click the **Sign In** in the menu, enter the email you si
 
 {% img blog/webauthn-csharp/image11.png alt:"" width:"570" %}{: .center-image }
 
-Swipe your finger, and you will be signed in and redirected to the profile page. To show the current user profile data, I will use Okta .NET SDK to get the current user details and display them.
+Swipe your finger, and you will be signed in and redirected to the profile page. To show the current user profile data, you can use the Okta .NET SDK to get the current user details and display them.
 
 Add a `Profile` method with the following code:
 
