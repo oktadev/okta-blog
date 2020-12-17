@@ -84,11 +84,11 @@ uvicorn main:app --reload
 
 Then, open `http://127.0.0.1:8000` in your browser to see your "Hello, world" endpoint in action:
 
-![A "Hello, World" endpoint in FastAPI](https://i.imgur.com/XHwSIuy.png)
+{% img blog/build-and-secure-an-api-in-python-with-fastapi/XHwSIuy.png alt:"A 'Hello, World' endpoint in FastAPI" %}
 
 FastAPI's interactive documentation is available at [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs). Once you're there, you'll see details about each endpoint automatically. FastAPI uses type hints and context in your application to produce these docs on its own.
 
-![FastAPI interactive documentation](https://i.imgur.com/Va63heZ.png)
+{% img blog/build-and-secure-an-api-in-python-with-fastapi/Va63heZ.png alt:"FastAPI interactive documentation" %}
 
 Now that you've seen how easy it is to get started, you're ready to build a more useful application. In the remainder of this tutorial, you'll see how to create protected endpoints in FastAPI that use Okta as an authorization server.
 
@@ -104,11 +104,11 @@ Before you create any endpoints in your FastAPI application, you'll need to crea
 
 To create a new server application, log in to your Okta account and go to **Applications** and click the **Add Application** button in the top left. Select **Service, Machine-to-Machine**, then click **Next**.
 
-![Creating a new service application in Okta](https://i.imgur.com/8EUhPMx.png)
+{% img blog/build-and-secure-an-api-in-python-with-fastapi/8EUhPMx.png alt:"Creating a new service application in Okta" %}
 
 Enter a name for your application and click **Next** again.
 
-![Entering a name for your application in Okta](https://i.imgur.com/IS1Z4jn.png)
+{% img blog/build-and-secure-an-api-in-python-with-fastapi/IS1Z4jn.png alt:"Entering a name for your application in Okta" %}
 
 Copy the **Client ID** and **Client Secret** from this page and add them to your FastAPI application's `.env` file as `OKTA_CLIENT_ID` and `OKTA_CLIENT_SECRET` respectively.
 
@@ -119,7 +119,7 @@ OKTA_CLIENT_ID=
 OKTA_CLIENT_SECRET=
 ``` 
 
-![Retrieving your client credentials in Okta](https://i.imgur.com/dSVWopB.png)
+{% img blog/build-and-secure-an-api-in-python-with-fastapi/dSVWopB.png alt:"Retrieving your client credentials in Okta" %}
 
 Next, go to **API > Authorization Servers**. Copy the **Issuer URI** and **Audience**, and add them as the `OKTA_ISSUER` and `OKTA_AUDIENCE` environment variables in your `.env` file.
 
@@ -132,21 +132,21 @@ OKTA_ISSUER="https://SOMETHING_HERE.oktapreview.com/oauth2/default"
 OKTA_AUDIENCE="api://default"
 ```
 
-![Retrieving your Okta Issuer URI](https://i.imgur.com/7VPIjKV.png)
+{% img blog/build-and-secure-an-api-in-python-with-fastapi/7VPIjKV.png alt:"Retrieving your Okta Issuer URI" %}
 
 Now that you have your environment variables, you need to create a custom scope for your authorization server. Your FastAPI application will request a token with this scope. Click the pencil icon to edit the authorization server.
 
-![Editing your Okta authorization server](https://i.imgur.com/8G5Y6dk.png)
+{% img blog/build-and-secure-an-api-in-python-with-fastapi/8G5Y6dk.png alt:"Editing your Okta authorization server" %}
 
 Click the **Scopes** tab and then the **Add Scopes** button.
 
-![Adding a scope to your Okta authorization server, step 1](https://i.imgur.com/j04IktM.png)
+{% img blog/build-and-secure-an-api-in-python-with-fastapi/j04IktM.png alt:"Adding a scope to your Okta authorization server, step 1" %}
 
 Give your scope a **Name** and **Display phrase** so you can identify it. I used `items` for the scope name since the example here is pretty generic, but it's a good idea to be specific about the resources users will gain access to when requesting a scope.
 
 Click **Create** when you're finished.
 
-![Adding a scope to your Okta authorization server, step 2](https://i.imgur.com/M6C1glf.png)
+{% img blog/build-and-secure-an-api-in-python-with-fastapi/M6C1glf.png alt:"Adding a scope to your Okta authorization server, step 2" %}
 
 Now that you've created a new application, set up a custom scope, and set your environment variables, you're ready to call the Okta authorization server from your FastAPI application.
 
@@ -257,15 +257,15 @@ The new `/items` endpoint includes a `response_model` definition. This allows Fa
 
 To view the interactive documentation, start the Uvicorn server (if you stopped it earlier), and go to `http://127.0.0.1:8000/docs`.
 
-![The FastAPI interactive documentation](https://i.imgur.com/J9aTg6J.png)
+{% img blog/build-and-secure-an-api-in-python-with-fastapi/J9aTg6J.png alt:"The FastAPI interactive documentation" %}
 
 To test the authorization flow, click the grey lock in the top right corner of the endpoint. Enter your Okta client ID and secret (you can ignore the username and password fields) and click **Authorize**.
 
-![Authorization in FastAPI documentation](https://i.imgur.com/1TD4yzg.png)
+{% img blog/build-and-secure-an-api-in-python-with-fastapi/1TD4yzg.png alt:"Authorization in FastAPI documentation" %}
 
 Now, click **Try it out** then **Execute** to call the endpoint. FastAPI's documentation automatically stores and injects your access token. Because the `validate` function you created above never throws an exception, the API will show you the equivalent `curl` request and respond with the list of items.
 
-![Response from FastAPI documentation](https://i.imgur.com/KbnDpWy.png)
+{% img blog/build-and-secure-an-api-in-python-with-fastapi/KbnDpWy.png alt:"Response from FastAPI documentation" %}
 
 Now that you see how the interactive documentation is generated and how access tokens can be used, you are ready to implement token validation.
 
@@ -346,7 +346,7 @@ def validate(token: str = Depends(oauth2_scheme)):
 
 When you call the `/items` endpoint, the API will decode the JWT and validate it locally. The decoded JWTs are cached, so subsequent requests will be faster than the first one.
 
-## Conclusion
+## Learn More About Python and REST APIs
 In this post, you've seen how to use FastAPI to build a REST API endpoint that uses an external authorization server to generate and validate access tokens. You've seen some of the key features of FastAPI in action, including dependency injection, the OpenAPI documentation, type hinting, and OAuth implementation.
 
 FastAPI is a great option for building secure and performant backend systems. While there's much more to building a robust production API, including testing, handling POST and PUT endpoints, and connecting to a database for persistence, I hope this tutorial helps you get started.
@@ -360,3 +360,5 @@ To learn more about building an app that can communicate with FastAPI, I suggest
 - [Data Visualization in Angular Using D3.js](https://blog.logrocket.com/data-visualization-angular-d3/)
 - [Building Micro Frontends](https://www.telerik.com/blogs/building-micro-frontends)
 - [Building a Response Timer to Benchmark API Performance](https://dev.to/karllhughes/building-a-response-timer-to-benchmark-api-performance-3k6k)
+
+If you like this topic, be sure to [follow OktaDev on Twitter](https://twitter.com/oktadev), subscribe to [the OktaDev YouTube Channel](https://youtube.com/c/oktadev), and [follow OktaDev on Twitch](https://www.twitch.tv/oktadev).
