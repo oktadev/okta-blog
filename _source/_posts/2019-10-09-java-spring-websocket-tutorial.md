@@ -552,3 +552,7 @@ To continue learning about WebSocket-related technologies and Spring Framework's
 * [10 Excellent Ways to Secure Your Spring Boot Application](/blog/2018/07/30/10-ways-to-secure-spring-boot)
 
 For more informative tutorials, please [follow @oktadev on Twitter](https://twitter.com/oktadev) and [subscribe to our YouTube channel](https://youtube.com/c/oktadev).
+
+**Changelog:**
+
+* Dic 17, 2020: Update spring-boot version in curl line, to 2.4.0. Update Okta javascript SDK static link in index.html, to version to 4.0.0. Update Tone.js library link. Update the javascript authentication code in auth.js, for new Okta SDK version.
