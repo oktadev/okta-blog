@@ -92,7 +92,7 @@ Next, open `appsettings.json` file and add this section:
 
 Make sure that `Enable SSL` is checked and replace `44372` with the port number that your project is configured to use:
 
-{% img blog/webauthn-csharp/image6.png alt:"" width:"800" %}{: .center-image }
+{% img blog/webauthn-csharp/image6.png alt:"" width:"512" %}{: .center-image }
 
 Finally, open `Startup.cs` file and configure the FIDO2 .NET Library in the `ConfigureServices` method:
 
