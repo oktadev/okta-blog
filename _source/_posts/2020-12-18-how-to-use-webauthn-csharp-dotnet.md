@@ -215,7 +215,7 @@ public class RegisterModel
 }
 ```
 
-To create a new credential when the user registers, you need to call [`navigator.credentials.create`](https://developer.mozilla.org/en-US/docs/Web/API/CredentialsContainer/create) Javascript method. The create method accepts a `PublicKeyCredentialCreationOptions` parameter with several required and optional fields that specify options for the requested credentials.
+To create a new credential when the user registers, you need to call [`navigator.credentials.create`](https://developer.mozilla.org/en-US/docs/Web/API/CredentialsContainer/create) JavaScript method. The `create()` method accepts a `PublicKeyCredentialCreationOptions` parameter with several required and optional fields that specify options for the requested credentials.
 
 The required fields are:
 
