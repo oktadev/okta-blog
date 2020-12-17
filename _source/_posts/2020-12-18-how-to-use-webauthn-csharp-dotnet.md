@@ -706,7 +706,7 @@ public async Task<JsonResult> SignIn([FromBody] AuthenticatorAssertionRawRespons
 
 Run the project again, click the **Sign In** in the menu, enter the email you signed up with, and click the **Sign In** button. You will see a prompt like this:
 
-{% img blog/webauthn-csharp/image11.png alt:"" width:"800" %}{: .center-image }
+{% img blog/webauthn-csharp/image11.png alt:"" width:"570" %}{: .center-image }
 
 Swipe your finger, and you will be signed in and redirected to the profile page. To show the current user profile data, I will use Okta .NET SDK to get the current user details and display them.
 
