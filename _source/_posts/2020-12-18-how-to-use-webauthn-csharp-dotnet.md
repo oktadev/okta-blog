@@ -765,7 +765,7 @@ Rerun the app, click the **Profile** button, and you will see the details of the
 
 That's it! You can register and sign with passwordless authentication and view the details of the current user.
 
-In this tutorial, we learned how to use WebAuthn in ASP.NET Core and Okta to make passwordless authentication more secure.
+In this tutorial, you learned how to use WebAuthn in ASP.NET Core and Okta to make passwordless authentication more secure.
 
 Give passwordless authentication a try, get the [full source code of the project from GitHub](https://github.com/oktadeveloper/OktaWebAuthn) and let us know what you think in the comments below.
 
