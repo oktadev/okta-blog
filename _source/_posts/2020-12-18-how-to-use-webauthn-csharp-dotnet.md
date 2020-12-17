@@ -110,7 +110,7 @@ services.AddFido2(options =>
 
 Now, you are ready to add passwordless authentication to the project. The first step is to enable users to register a new user account using passwordless authentication.
 
-## Create User Accounts with Passwordless authentication
+## Create User Accounts with Passwordless Authentication
 
 Open the `_Layout.cshtml` file in `Views\Shared` folder and add the following before the `<ul class="navbar-nav flex-grow-1">` element:
 
