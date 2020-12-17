@@ -397,7 +397,7 @@ To get started, log in to your [Okta Developer account](https://developer.okta.c
 
 Alternatively, you can install the [Okta CLI](https://cli.okta.com/) and log in to your Okta account with the `okta login` command. You can also sign up for a new account with the `okta start` command if you don't already have an Okta account.
 
-Now, I will create a custom field for storing the user's public key. Go to **Users** in the menu, click **Profile Editor**, and click the **Profile** button next to the default Okta profile. Click **Add Attribute**, fill the `Add Attribute` form and click **Save**:
+Now, create a custom field for storing the user's public key. Go to **Users** in the menu, click **Profile Editor**, and click the **Profile** button next to the default Okta profile. Click **Add Attribute**, fill the `Add Attribute` form and click **Save**:
 
 {% img blog/webauthn-csharp/image8.png alt:"" width:"800" %}{: .center-image }
 
