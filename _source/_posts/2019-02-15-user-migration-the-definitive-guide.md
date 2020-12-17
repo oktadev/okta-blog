@@ -307,7 +307,7 @@ And, if you're looking for a user management service that fits that criteria, yo
 
 ## User Migration Example
 
-If you'd like to see an example of a user migration tool, you can check out this [.NET migration program](https://github.com/oktadeveloper/okta-user-migration-dotnet) we built.
+If you'd like to see an example of a user migration tool, you can check out this [.NET migration program](https://github.com/andyclarke-okta/cvs_liveMigration) we built.
 
 This is a simple example that shows how to perform a JIT migration that moves user accounts from an LDAP server into Okta's API service. This example is specific to .NET developers, but highlights some of the strategies we've talked about above.
 
