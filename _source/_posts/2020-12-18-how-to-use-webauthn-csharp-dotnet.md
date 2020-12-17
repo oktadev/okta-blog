@@ -57,7 +57,7 @@ Click the **Start** menu, open **Settings**, click **Accounts** and click **Sign
 
 Then click on the **Windows Hello Fingerprint**, click **Set up** and click **Get started** On the next screen, swipe your finger to add your fingerprint.
 
-{% img blog/webauthn-csharp/image2.png alt:"" width:"800" %}{: .center-image }
+{% img blog/webauthn-csharp/image2.png alt:"Welcome to Windows Hello" width:"576" %}{: .center-image }
 
 {% img blog/webauthn-csharp/image3.png alt:"" width:"800" %}{: .center-image }
 
