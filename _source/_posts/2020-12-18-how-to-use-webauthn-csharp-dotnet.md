@@ -53,7 +53,7 @@ Before I start the project, let's set up fingerprint authentication with Windows
 
 Click the **Start** menu, open **Settings**, click **Accounts** and click **Sign-in Options**.
 
-{% img blog/webauthn-csharp/image1.png alt:"" width:"800" %}{: .center-image }
+{% img blog/webauthn-csharp/image1.png alt:"" width:"673" %}{: .center-image }
 
 Then click on the **Windows Hello Fingerprint**, click **Set up** and click **Get started** On the next screen, swipe your finger to add your fingerprint.
 
