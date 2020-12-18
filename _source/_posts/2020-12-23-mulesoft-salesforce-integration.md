@@ -372,7 +372,7 @@ public PageReference fetch_data() {
     HTTPResponse resp = http.send(req);
     system.debug('INSIDE CALLOUT:'+resp.getBody());
 
-    if(resp.getBody() != null) {
+    if (resp.getBody() != null) {
         Map<String, String> values = (Map<String, String>)JSON.deserialize(resp.getBody(), Map<String, String>.class);
         String append ='';
         append = values.get('FirstName') + ':' + values.get('LastName') + ':' + values.get('Email') + ':' + values.get('Company');
