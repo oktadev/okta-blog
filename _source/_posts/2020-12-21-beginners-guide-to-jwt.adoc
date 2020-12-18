@@ -10,7 +10,7 @@ tweets:
 - "Learn about the format of #JWT and how they are used to create secure applications🔒"
 - "JWTs are a key part of securing the web, learn more about them in this post📡"
 - "Still confused about what a #JWT is? this post will help‼️"
-image: blog/featured/okta-java-headphones.jpg
+image: blog/beginners-guide-to-jwt/jwt-101-social.png
 type: awareness
 ---
 :toc: macro
@@ -29,7 +29,7 @@ A JWT is a structured security token format used to encode JSON data. The main r
 - **J**SON **W**eb **S**ignature (JWS)
 - **J**SON **W**eb **E**ncryption (JWE)
 
-The data in a JWS is public, meaning anyone with the token can read the data, whereas a JWE is encrypted and private.  To read data contained within a JWE, you need both the token and a secret key.
+The data in a JWS is public—meaning anyone with the token can read the data—whereas a JWE is encrypted and private.  To read data contained within a JWE, you need both the token and a secret key.
 
 When you use a JWT, it's usually a JWS. The 'S' (the signature) is the important part and allows the token to be validated.  For the rest of this post, I will talk about the JWS format and walk through decoding an example JWT.
 
@@ -131,7 +131,7 @@ WARNING: A JWT signature can be disabled by setting the algorithm claim to `none
 
 === JWT Signature
 
-The JWT specifications list a few different signing algorithms; each of these algorithms work slightly different. For simplicity's sake, there are two types of algorithms:
+The JWT specifications list a few different signing algorithms; each of these algorithms works slightly different. For simplicity's sake, there are two types of algorithms:
 - HMAC based shared secret, these all start with the prefix `HS`, which stands for HMAC SHA)
 - Public key pair (either RSA or ECDSA keys)
 
@@ -155,9 +155,7 @@ If the output matches the original signature block, the signature is valid.
 
 Fully validating a JWT is MUCH more complex than running a couple CLI commands. There are many edge cases and exploits; you should **ALWAYS** use a trusted JWT library and keep it up to date.
 
-////
 TIP: Visit https://token.dev[token.dev] to debug JWTs from within your browser!
-////
 
 One of the biggest problems with the JWT, is the signature verification to be disabled by setting the algorithm header claim to `none`. Many JWT library vulnerabilities have been related to the `none` algorithm.
 
