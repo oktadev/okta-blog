@@ -16,15 +16,17 @@
     font-size: 16px;
   }
 
-  > .Wrap {
+  > .nav-wrapper {
     height: 70px;
+    padding: 0 50px 0 28px;
 
     @include media('>=small', '<medium') {
       height: 53px;
+      padding: 0 13px 0 15px;
     }
 
     @include media('<small') {
-      padding: 0 15px;
+      padding: 0 29px 0 22px;
     }
   }
 
