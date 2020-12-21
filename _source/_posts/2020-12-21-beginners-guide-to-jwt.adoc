@@ -7,9 +7,9 @@ communities: [security]
 description: "What is a JWT? How are they used? Find out in this post!"
 tags: [security, tokens, jwt]
 tweets:
-- "Learn about the format of #JWT and how they are used to create secure applications🔒"
-- "JWTs are a key part of securing the web, learn more about them in this post📡"
-- "Still confused about what a #JWT is? this post will help‼️"
+- "Learn about the format of #JWT and how they are used to create secure applications. 🔒"
+- "JWTs are a key part of securing the web, learn more about them in this post. 📡"
+- "Still confused about what a #JWT is? This post will help‼️"
 image: blog/beginners-guide-to-jwt/jwt-101-social.png
 type: awareness
 ---
@@ -22,7 +22,7 @@ TIP: JWT is pronounced "jot".
 
 toc::[]
 
-== What is a JWT
+== What is a JWT?
 
 A JWT is a structured security token format used to encode JSON data. The main reason to use JWT is to exchange JSON data in a way that can be cryptographically verified. There are two types of JWTs:
 
@@ -37,7 +37,7 @@ When you use a JWT, it's usually a JWS. The 'S' (the signature) is the important
 
 OAuth 2.0 identity providers (IdP) commonly use JWTs for https://www.oauth.com/oauth2-servers/access-tokens/[access tokens]. You may have seen an HTTP request with an authorization header that looks like this:
 
-[source,http]
+[source]
 ----
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiSm9lIENvZGVyIn0.5dlp7GmziL2QS06sZgK4mtaqv0_xX4oFUuTDh1zHK4U
 ----
@@ -46,7 +46,7 @@ NOTE: JWT access tokens are NOT part of the OAuth 2.0 specification, but almost 
 
 Using a JWT (actually a JWS) allows the token to be validated locally, without making an HTTP request back to the IdP, thereby increasing your application's performance.  Applications can make use of data inside the token, further reducing expensive HTTP calls and database lookups.
 
-== JWT structure
+== JWT Structure
 
 A JWS (the most common type of JWT) contains three parts separated by a dot (`.`). The first two parts (the "header" and "payload") are Base64-URL encoded JSON, and the third is a cryptographic signature.
 
@@ -81,7 +81,7 @@ Next, each of the first two sections are base64-url decoded:
 5dlp7GmziL2QS06sZgK4mtaqv0_xX4oFUuTDh1zHK4U #signature
 ----
 
-TIP: On macOS  (with "coreutils" installed, you can base64-url decode the strings on the command line with: `echo eyJhbGciOiJIUzI1NiJ9 | gbasenc -d --base64url`
+TIP: On macOS  (with "coreutils" installed), you can base64-url decode the strings on the command line with: `echo eyJhbGciOiJIUzI1NiJ9 | gbasenc -d --base64url`
 
 The last section in the JWT, the signature, is also base64-url encoded, but it's just binary data; if you try to decode it, you will end up with non-displayable characters:
 
@@ -178,13 +178,13 @@ There is nothing secure about this example because it's missing the signature; i
 
 WARNING: Avoid using the `none` algorithm.  When possible, configure your JWT library to only allow a specific list of algorithms.
 
-== Learn More about JWT
+== Learn More About JWT
 
 When used correctly, JWT can help with both authorization and transferring data between two parties.  As with all security topics, it's not a generic solution; deciding to use JWTs is often a security vs. performance trade-off.  Validating a token locally does NOT check if it has been revoked, e.g., a user has logged out or has been deleted. Keeping the life span of the token short (by setting the "expiration" claim) can help mitigate the risk.
 
 Learn more about JWTs and building secure applications with these links:
 
-- link:https://developer.okta.com/blog/2018/06/20/what-happens-if-your-jwt-is-stolen[What Happens If Your JWT Is Stolen?]
+- link:/blog/2018/06/20/what-happens-if-your-jwt-is-stolen[What Happens If Your JWT Is Stolen?]
 - link:/blog/2017/08/17/why-jwts-suck-as-session-tokens[Why JWTs Suck as Session Tokens]
 - link:/blog/2018/10/31/jwts-with-java[Create and Verify JWTs in Java]
 
