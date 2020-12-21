@@ -102,7 +102,7 @@ $ echo "5dlp7GmziL2QS06sZgK4mtaqv0_xX4oFUuTDh1zHK4U=" | gbasenc -d --base64url |
 
 === JWT Claims
 
-Once you start using JWTs you start hearing the word "claim" everywhere. A JWT claim is a key/value pair in a JSON object.  In the example above, `"name": "Joe Coder"`, the claim key is 'name' and the value is 'Joe Coder`. The value of a claim can be any JSON object.
+Once you start using JWTs you start hearing the word "claim" everywhere. A JWT claim is a key/value pair in a JSON object.  In the example above, `"name": "Joe Coder"`, the claim key is `name` and the value is `Joe Coder`. The value of a claim can be any JSON object.
 
 There are three types of claims: "registered," "public," and "private." You can find the list of registered and public claims in the https://www.iana.org/assignments/jwt/jwt.xhtml#claims[official IANA Registry].  You can also add any other custom claim to a JWT; these are known as "private claims."
 
