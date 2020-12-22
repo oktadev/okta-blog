@@ -416,7 +416,7 @@ Finally, you need to add your views. First, open your `Shared/_Layout.cshtml` fi
 </html>
 ```
 
-This view has some logic that detects if the user is logged in or not. If the user isn't logged in, you will display a `Login` button to them; if they are already logged in, you’ll display a `Logout` button.
+This view has some logic that detects if the user is logged in or not. If the user isn't logged in, you will display a `Login` button to them; if they are already logged in, you'll display a `Logout` button.
 
 Next, open your home page and add the following code to it:
 
