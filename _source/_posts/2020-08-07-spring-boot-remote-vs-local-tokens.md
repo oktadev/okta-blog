@@ -417,4 +417,4 @@ If you like this blog post and want to see more like it, follow[@oktadev on Twit
 <a name="changelog"></a>
 **Changelog**:
 
-* Dec 22, 2020: Updated post to work with Spring Boot 2.4.1 and explicitly set the OAuth scope, as Spring Security no longer provides a default value.
+* Dec 22, 2020: Updated post to work with Spring Boot 2.4.1 and explicitly set the OAuth scope, as Spring Security no longer provides a default value. (Thanks for the suggestion Wolf!)
