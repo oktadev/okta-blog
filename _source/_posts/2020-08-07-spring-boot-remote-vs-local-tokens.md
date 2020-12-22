@@ -327,7 +327,7 @@ Update your `src/main/resources/application.properties` file to include the prop
 spring.security.oauth2.client.provider.okta.issuer-uri = {yourOktaDomain}/oauth2/default
 spring.security.oauth2.client.registration.okta.client-id = {clientId}
 spring.security.oauth2.client.registration.okta.client-secret = {clientSecret}
-# As of Spring Boot 2.4, you must explicitly scope value 
+# As of Spring Boot 2.4, you must explicitly set the scope value 
 spring.security.oauth2.client.registration.okta.scope = openid
 ```
 
@@ -417,4 +417,4 @@ If you like this blog post and want to see more like it, follow[@oktadev on Twit
 <a name="changelog"></a>
 **Changelog**:
 
-* Dec 22, 2020: Updated post to work with Spring Boot 2.4.1 and explicitly set the OAuth scope, as Spring Security no longer provides a default value. (Thanks for the suggestion Wolf!)
+* Dec 22, 2020: Updated post to work with Spring Boot 2.4.1 and explicitly set the OAuth scope, as Spring Security no longer provides a default value. Thanks for the suggestion, Wolf! See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-spring-jwt-and-opaque-token-example/commit/d5b63e989f52498eda3f5773a75f3733e0f12b23). Changes to this post can be viewed in [oktadeveloper/okta-blog#508](https://github.com/oktadeveloper/okta-blog/pull/508).
