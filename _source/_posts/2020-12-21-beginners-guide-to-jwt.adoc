@@ -1,0 +1,191 @@
+---
+layout: blog_post
+title: "A Beginner's Guide to JWTs"
+author: brian-demers
+by: advocate
+communities: [security]
+description: "What is a JWT? How are they used? Find out in this post!"
+tags: [security, tokens, jwt]
+tweets:
+- "Learn about the format of #JWT and how they are used to create secure applications. 🔒"
+- "JWTs are a key part of securing the web, learn more about them in this post. 📡"
+- "Still confused about what a #JWT is? This post will help‼️"
+image: blog/beginners-guide-to-jwt/jwt-101-social.png
+type: awareness
+---
+:toc: macro
+:page-liquid:
+
+JSON Web Tokens (JWT) are used everywhere (even places they shouldn't be). This post will cover the basics of what you need to know about JWT and the related specifications in the **J**avascript **O**bject **S**igning and **E**ncryption (JOSE) family.
+
+TIP: JWT is pronounced "jot".
+
+toc::[]
+
+== What is a JWT?
+
+A JWT is a structured security token format used to encode JSON data. The main reason to use JWT is to exchange JSON data in a way that can be cryptographically verified. There are two types of JWTs:
+
+- **J**SON **W**eb **S**ignature (JWS)
+- **J**SON **W**eb **E**ncryption (JWE)
+
+The data in a JWS is public—meaning anyone with the token can read the data—whereas a JWE is encrypted and private.  To read data contained within a JWE, you need both the token and a secret key.
+
+When you use a JWT, it's usually a JWS. The 'S' (the signature) is the important part and allows the token to be validated.  For the rest of this post, I will talk about the JWS format and walk through decoding an example JWT.
+
+== How JWTs Are Used
+
+OAuth 2.0 identity providers (IdP) commonly use JWTs for https://www.oauth.com/oauth2-servers/access-tokens/[access tokens]. You may have seen an HTTP request with an authorization header that looks like this:
+
+[source]
+----
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiSm9lIENvZGVyIn0.5dlp7GmziL2QS06sZgK4mtaqv0_xX4oFUuTDh1zHK4U
+----
+
+NOTE: JWT access tokens are NOT part of the OAuth 2.0 specification, but almost all IdPs support them.
+
+Using a JWT (actually a JWS) allows the token to be validated locally, without making an HTTP request back to the IdP, thereby increasing your application's performance.  Applications can make use of data inside the token, further reducing expensive HTTP calls and database lookups.
+
+== JWT Structure
+
+A JWS (the most common type of JWT) contains three parts separated by a dot (`.`). The first two parts (the "header" and "payload") are Base64-URL encoded JSON, and the third is a cryptographic signature.
+
+Let's look at an example JWT:
+
+[source,txt]
+----
+eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiSm9lIENvZGVyIn0.5dlp7GmziL2QS06sZgK4mtaqv0_xX4oFUuTDh1zHK4U
+----
+
+Breaking this down into the individual sections we have:
+
+[source,sh]
+----
+eyJhbGciOiJIUzI1NiJ9 # header
+.
+eyJuYW1lIjoiSm9lIENvZGVyIn0 # payload
+.
+5dlp7GmziL2QS06sZgK4mtaqv0_xX4oFUuTDh1zHK4U #signature
+----
+
+TIP: If you have a JWT with more than three sections, it's probably a JWE.
+
+Next, each of the first two sections are base64-url decoded:
+
+[source,json]
+----
+{"alg":"HS256"} # header
+.
+{"name":"Joe Coder"} # payload
+.
+5dlp7GmziL2QS06sZgK4mtaqv0_xX4oFUuTDh1zHK4U #signature
+----
+
+TIP: On macOS  (with "coreutils" installed), you can base64-url decode the strings on the command line with: `echo eyJhbGciOiJIUzI1NiJ9 | gbasenc -d --base64url`
+
+The last section in the JWT, the signature, is also base64-url encoded, but it's just binary data; if you try to decode it, you will end up with non-displayable characters:
+
+[source,txt]
+----
+��i�i�￹�￹KN�f￹�￹֪�O�_￹R��￹\�+￹
+----
+
+You can use a tool like `hexdump` to view the signatures content:
+
+[source,sh]
+----
+$ echo "5dlp7GmziL2QS06sZgK4mtaqv0_xX4oFUuTDh1zHK4U=" | gbasenc -d --base64url | hexdump
+
+0000000 e5 d9 69 ec 69 b3 88 bd 90 4b 4e ac 66 02 b8 9a
+0000010 d6 aa bf 4f f1 5f 8a 05 52 e4 c3 87 5c c7 2b 85
+----
+
+=== JWT Claims
+
+Once you start using JWTs you start hearing the word "claim" everywhere. A JWT claim is a key/value pair in a JSON object.  In the example above, `"name": "Joe Coder"`, the claim key is `name` and the value is `Joe Coder`. The value of a claim can be any JSON object.
+
+There are three types of claims: "registered," "public," and "private." You can find the list of registered and public claims in the https://www.iana.org/assignments/jwt/jwt.xhtml#claims[official IANA Registry].  You can also add any other custom claim to a JWT; these are known as "private claims."
+
+WARNING: When using private claims, watch out for name collisions with the official claims.
+
+The use of registered claims is optional, but when they are present, they MUST be validated.  For example, a JWT may contain date-time fields that describe when the token is valid.
+
+- Issued At (`iat`) - The time the JWT was created
+- Expiration Time (`exp`) - The time at which the JWT is no longer valid
+- Not Before (`nfb`) - The earliest time the JWT would be valid
+
+NOTE: Timestamps are "seconds since the epoch" integer format. JWT libraries usually add up to a few minutes of leeway to these values to account for clock skew between systems.
+
+=== JWT Header
+
+The header of a JWT contains information about how the token was created.  In my example, the "algorithm" (`alg`) claim is set to `HS256`, which specifies the hashing algorithm HMAC SHA-256 is used to generate or validate the signature.
+
+[source,json]
+----
+{
+  "alg": "HS256"
+}
+----
+
+WARNING: A JWT signature can be disabled by setting the algorithm claim to `none`. Using the `none` algorithm should be avoided; see the link:#problems[Problems with JWT] section below.
+
+=== JWT Signature
+
+The JWT specifications list a few different signing algorithms; each of these algorithms works slightly different. For simplicity's sake, there are two types of algorithms:
+- HMAC based shared secret, these all start with the prefix `HS`, which stands for HMAC SHA)
+- Public key pair (either RSA or ECDSA keys)
+
+WARNING: Caution is needed when using a shared secret, as anyone with the secret can create (or forge) new JWTs. If you need to validate a JWT from an untrusted client (web-page, mobile app, etc.), use a public key pair instead.
+
+The JWT in this example (actually a JWS, remember the 'S' stands for "signature") uses the `HS256` algorithm.  To validate the JWS, calculate the HMAC of the first two parts of the token, then compare the output with the base64-url decoded signature.
+
+On the command line, you can use `openssl` to check the signature:
+
+[source,sh]
+----
+echo -n 'eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiSm9lIENvZGVyIn0' | \
+openssl dgst -sha256 -macopt hexkey:${secret_key_in_hex} -mac hmac -binary | \
+gbasenc --base64url | sed 's/=//'
+----
+
+If the output matches the original signature block, the signature is valid.
+
+[#problems]
+== Problems with JWTs
+
+Fully validating a JWT is MUCH more complex than running a couple CLI commands. There are many edge cases and exploits; you should **ALWAYS** use a trusted JWT library and keep it up to date.
+
+TIP: Visit https://token.dev[token.dev] to debug JWTs from within your browser!
+
+One of the biggest problems with the JWT, is the signature verification to be disabled by setting the algorithm header claim to `none`. Many JWT library vulnerabilities have been related to the `none` algorithm.
+
+[source,txt]
+----
+eyJhbGciOiJub25lIn0.eyJuYW1lIjoiSm9lIENvZGVyIn0.
+----
+
+When base64-url decoded this JWT contains the same information as the original example (minus the signature):
+
+[source,json]
+----
+{"alg":"none"}
+.
+{"name":"Joe Coder"}
+.
+----
+
+There is nothing secure about this example because it's missing the signature; it cannot be cryptographically verified.
+
+WARNING: Avoid using the `none` algorithm.  When possible, configure your JWT library to only allow a specific list of algorithms.
+
+== Learn More About JWT
+
+When used correctly, JWT can help with both authorization and transferring data between two parties.  As with all security topics, it's not a generic solution; deciding to use JWTs is often a security vs. performance trade-off.  Validating a token locally does NOT check if it has been revoked, e.g., a user has logged out or has been deleted. Keeping the life span of the token short (by setting the "expiration" claim) can help mitigate the risk.
+
+Learn more about JWTs and building secure applications with these links:
+
+- link:/blog/2018/06/20/what-happens-if-your-jwt-is-stolen[What Happens If Your JWT Is Stolen?]
+- link:/blog/2017/08/17/why-jwts-suck-as-session-tokens[Why JWTs Suck as Session Tokens]
+- link:/blog/2018/10/31/jwts-with-java[Create and Verify JWTs in Java]
+
+If you enjoyed this blog post and want to see more like it, follow https://twitter.com/oktadev[@oktadev on Twitter], subscribe to https://youtube.com/c/oktadev[our YouTube channel], or follow us https://www.linkedin.com/company/oktadev/[on LinkedIn]. As always, please leave your questions and comments below—we love to hear from you!
