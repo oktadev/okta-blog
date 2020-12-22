@@ -248,7 +248,7 @@ The command will generate your application skeleton and run `npm run install`
 
 Among other files, JHipster Quarkus generates a set of Docker Compose files to help you bootstrap a dev environment tailored for your freshly generated application
 This is the case for Keycloak.
-Keycloak is the default OIDC engine that’s used by JHipster, and you can run it in a Docker container.
+Keycloak is the default OIDC engine that's used by JHipster, and you can run it in a Docker container.
 
 You can start a Keycloak container configured with the appropriate users and groups via the command:
 
@@ -426,7 +426,7 @@ You can now get back to `http://localhost:8080` and test your log in/log out and
 I hope you enjoyed this tutorial on Quarkus and Jhipster.
 You can find the example created in this tutorial on [GitHub](TODO).
 
-If you’re interested in learning more about the Quarkus blueprint, see the [generator-jhipster-quarkus](https://github.com/jhipster/generator-jhipster-quarkus) project on GitHub.
+If you're interested in learning more about the Quarkus blueprint, see the [generator-jhipster-quarkus](https://github.com/jhipster/generator-jhipster-quarkus) project on GitHub.
 
 I hope you liked this hip tutorial! Here are some other ones that you might enjoy.
 
