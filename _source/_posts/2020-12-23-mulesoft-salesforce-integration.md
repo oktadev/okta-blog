@@ -14,7 +14,7 @@ image: blog/featured/okta-dotnet-bottle-headphones.jpg
 type: conversion
 ---
 
-Today, I'm going to show you how to plug [Okta](/) into a Force.com application (along with Mulesoft's API gateway) using the [OpenID Connect protocol](/blog/2017/07/25/oidc-primer-part-1) (aka 'OIDC').
+Today, I'm going to show you how to plug Okta into a Force.com application (along with Mulesoft's API gateway) using the [OpenID Connect protocol](/blog/2017/07/25/oidc-primer-part-1) (aka 'OIDC').
 
 By the end of this tutorial, your Force.com application will have user authentication backed by Okta and will be able to securely call your backend APIs through Mulesoft's API gateway. Sound good? Let's get to it!
 
@@ -24,7 +24,7 @@ By the end of this tutorial, your Force.com application will have user authentic
 
 In this tutorial, you'll be using the [Visualforce framework](https://developer.salesforce.com/docs/atlas.en-us.pages.meta/pages/pages_intro_what_is_it.htm) to build your front end and the [APEX development framework](https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_intro_what_is_apex.htm) to build your back end.
 
-{% img blog/mulesoft-salesforce/image1.png alt:"Salesforce flow" width:"800" %}{: .center-image }
+{% img blog/mulesoft-salesforce/image1.png alt:"Salesforce flow" width:"512" %}{: .center-image }
 
 ## What's an API Gateway?
 
@@ -54,7 +54,7 @@ Click **Done**.
 
 Take note of the **Client ID** and **Secret** as you will use these values shortly.
 
-{% img blog/mulesoft-salesforce/image5.png alt:"Okta client credentials" width:"800" %}{: .center-image }
+{% img blog/mulesoft-salesforce/image5.png alt:"Okta client credentials" width:"512" %}{: .center-image }
 
 ## Set Up a Salesforce Developer Instance
 
@@ -297,7 +297,7 @@ Navigate to **Setup** -> **Platform Tools** -> **Custom Code** -> **Apex Classes
 
 Navigate to **File** -> **Open Resource**.
 
-{% img blog/mulesoft-salesforce/image43.png alt:"Salesforce open resource" width:"500" %}{: .center-image }
+{% img blog/mulesoft-salesforce/image43.png alt:"Salesforce open resource" width:"351" %}{: .center-image }
 
 Search for `AuthProvider.obj` then click **Open**.
 
