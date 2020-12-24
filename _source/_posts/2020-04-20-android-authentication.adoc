@@ -510,4 +510,4 @@ If you enjoyed this blog post and want to see more like it, follow https://twitt
 
 **Changelog:**
 
-* Dec 24, 2020: Updated to Okta OIDC for Android v1.0.17. See the code changes in the https://github.com/oktadeveloper/okta-oidc-android-example/pull/2[example app on GitHub]. Changes to this article can be viewed in https://github.com/oktadeveloper/okta-blog/pull/296[oktadeveloper/okta-blog#296].
+* Dec 24, 2020: Updated to Okta OIDC for Android v1.0.17. See the code changes in the https://github.com/oktadeveloper/okta-oidc-android-example/pull/2[example app on GitHub]. Changes to this article can be viewed in https://github.com/oktadeveloper/okta-blog/pull/510[oktadeveloper/okta-blog#510].
