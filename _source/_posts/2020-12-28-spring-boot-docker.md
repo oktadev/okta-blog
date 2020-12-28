@@ -10,7 +10,7 @@ tweets:
 - "Want to create a @docker image for your @kotlin-based @springboot app? This quick tutorial will show you how!"
 - "Spring Boot 2.3.0+ has built-in support for creating Docker images with @buildpacks_io. It's pretty sweet!"
 - "Want to build @docker images for your Spring Boot apps? Learn how in this quick tutorial. 👇"
-image:
+image: blog/spring-boot-docker/spring-boot-docker.png
 type: conversion
 ---
 
