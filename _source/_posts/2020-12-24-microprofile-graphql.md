@@ -49,7 +49,7 @@ Open the starter website, [https://start.microprofile.io/](https://start.micropr
 
 Leave the **groupId** as `com.example` and the **artifactId** as `demo`. Don't check any of the **Examples for specifications**. These are great for exploring and understanding the various features of MicroProfile but they'll just complicate things for the purposes of this tutorial.
 
-{% img blog/microprofile-graphql/microprofile-starter.png alt:"MicroProfile Starter" width:"800" %}{: .center-image }
+{% img blog/microprofile-graphql/microprofile-starter.png alt:"MicroProfile Starter" width:"600" %}{: .center-image }
 
 
 Click **DOWNLOAD**.
@@ -374,7 +374,7 @@ Click **Add Claim**.
 -   **Value type**: `Groups`
 -   **Filter**: `Matches regex` `.*`
 
-{% img blog/microprofile-graphql/groups-claim.png alt:"Groups Claim" width:"800" %}{: .center-image }
+{% img blog/microprofile-graphql/groups-claim.png alt:"Groups Claim" width:"500" %}{: .center-image }
 
 Next, add a **upn** claim.
 
@@ -404,13 +404,13 @@ The **State** parameter can be any value but cannot be empty. This is used in pr
 
 **Response type** should be `code`. 
 
-{% img blog/microprofile-graphql/oidcdebugger-settings.png alt:"OIDC Debugger Settings" width:"800" %}{: .center-image }
+{% img blog/microprofile-graphql/oidcdebugger-settings.png alt:"OIDC Debugger Settings" width:"500" %}{: .center-image }
 
 Scroll down and click **Send Request**.
 
 You should see a success screen with an authorization code.
 
-{% img blog/microprofile-graphql/oidcdebugger-success.png alt:"OIDC Debugger Success" width:"800" %}{: .center-image }
+{% img blog/microprofile-graphql/oidcdebugger-success.png alt:"OIDC Debugger Success" width:"500" %}{: .center-image }
 
 You can use HTTPie to exchange this authorization code for an actual token.  Fill in the values in brackets with your values: the **authorization code**, your **Okta domain**, your OIDC app **client ID**, and your OIDC app **client secret**.
 
@@ -562,3 +562,12 @@ Now, use your token.
 http POST :9080/graphql query='{ surfReport(location:"Texas") {location,chanceOfRainPercent,windKnots,windDirection,swellHeight,swellPeriodSeconds} }' \
 "Authorization: Bearer $TOKEN"
 ```
+
+You should be able to query the GraphQL server.
+
+## All's Well That Ends Authenticated
+
+In this tutorial you created a simple sample web application using MicroProfile and OpenLiberty. You first saw how to easily bootstrap a project using the 
+MicroProfile starter before configuring the project to use GraphQL. Next, you secured the application using Okta JWT auth.
+
+If you have any questions about this post, please add a comment below. For more awesome content, follow [@oktadev](https://twitter.com/oktadev) on Twitter, like us [on Facebook](https://www.facebook.com/oktadevelopers/), or subscribe to [our YouTube channel](https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q).
