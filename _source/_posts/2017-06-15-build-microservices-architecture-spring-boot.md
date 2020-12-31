@@ -11,7 +11,10 @@ tweets:
   - "Do you like good 🍺? If so, you'll 💙 this tutorial that shows you how to build a microservices architecture for microbrews!"
 type: awareness
 image: blog/microservices-spring-boot/httpie-beers.png
+update-url: /blog/2019/05/22/java-microservices-spring-boot-spring-cloud
+update-title: "Java Microservices with Spring Boot and Spring Cloud"
 ---
+
 Adopting a microservice architecture provides unique opportunities to add failover and resiliency to your systems, so
 your components can handle load spikes and errors gracefully. Microservices make change less expensive too. It can also
 be a good idea when you have a large team working on a single product. Your project can likely be broken up into components
@@ -128,7 +131,7 @@ Click the **Generate Project** button and expand `eureka-service.zip` into the `
 
 > **TIP:** You could also create your project using start.spring.io's API. The following [HTTPie](https://httpie.org/) command will create the same app as the steps above:
 > ```
-> http https://start.spring.io/starter.zip artifactId==eureka-service \
+> http https://start.spring.io/starter.zip artifactId==eureka-service bootVersion==2.0.5.RELEASE \
 >    name==eureka-service dependencies==cloud-eureka-server baseDir==eureka-service | tar -xzvf -
 > ```
 
@@ -188,7 +191,7 @@ Java and web development.
 
 > **TIP:** To create this same project using start.spring.io's API, run the following:
 > ```
-> http https://start.spring.io/starter.zip artifactId==beer-catalog-service \
+> http https://start.spring.io/starter.zip artifactId==beer-catalog-service bootVersion==2.0.5.RELEASE \
 >   name==beer-catalog-service dependencies==actuator,cloud-eureka,data-jpa,h2,data-rest,web,devtools,lombok \
 >   baseDir==beer-catalog-service | tar -xzvf -
 > ```
@@ -340,7 +343,7 @@ the project in your favorite IDE.
 
 > **TIP:** To create this same project using start.spring.io's API, run the following:
 > ```
-> http https://start.spring.io/starter.zip artifactId==edge-service \
+> http https://start.spring.io/starter.zip artifactId==edge-service bootVersion==2.0.5.RELEASE \
 >   name==edge-service  dependencies==cloud-eureka,cloud-feign,cloud-zuul,data-rest,web,cloud-hystrix,lombok \
 >   baseDir==edge-service | tar -xzvf -
 > ```

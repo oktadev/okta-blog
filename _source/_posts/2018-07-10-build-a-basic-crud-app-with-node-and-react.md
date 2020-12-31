@@ -109,7 +109,6 @@ The default app should now be running on port 3000. Check it out at `http://loca
 
 {% img blog/node-react-crud/cra-homepage.png alt:"Create React App default homepage" width:"700" %}{: .center-image }
 
-
 ## Create a Basic Homepage in React with Material UI
 
 To keep things looking nice without writing a lot of extra CSS, you can use a UI framework. [Material UI](https://material-ui.com/) is a great framework for React that implements [Google's Material Design](https://material.io/) principles.
@@ -253,7 +252,7 @@ REACT_APP_OKTA_ORG_URL=https://{yourOktaDomain}
 The easiest way to add Authentication with Okta to a React app is to use [Okta's React SDK](https://github.com/okta/okta-oidc-js/tree/master/packages/okta-react). You'll also need to add routes, which can be done using [React Router](https://reacttraining.com/react-router/). I'll also have you start adding icons to the app (for now as an avatar icon to show you're logged in). Material UI provides Material Icons, but in another package, so you'll need to add that too. Run the following command to add these new dependencies:
 
 ```bash
-yarn add @okta/okta-react@1.2.3 react-router-dom@5.1.2 @material-ui/icons@4.5.1
+yarn add @okta/okta-react@3.0.8 react-router-dom@5.1.2 @material-ui/icons@4.5.1
 ```
 
 For routes to work properly in React, you need to wrap your whole application in a `Router`. Similarly, to allow access to authentication anywhere in the app, you need to wrap the app in a `Security` component provided by Okta. Okta also needs access to the router, so the `Security` component should be nested inside the router. You should modify your `src/index.js` file to look like the following:
@@ -270,7 +269,7 @@ import * as serviceWorker from './serviceWorker';
 
 const oktaConfig = {
   issuer: `${process.env.REACT_APP_OKTA_ORG_URL}/oauth2/default`,
-  redirect_uri: `${window.location.origin}/implicit/callback`,
+  redirect_uri: `${window.location.origin}/login/callback`,
   client_id: process.env.REACT_APP_OKTA_CLIENT_ID,
 };
 
@@ -291,7 +290,7 @@ serviceWorker.unregister();
 if (module.hot) module.hot.accept();
 ```
 
-Now in `src/App.js` you can use `Route`s. These tell the app to only render a certain component if the current URL matches the given `path`. Replace your `Home` component with a route that only renders the component when pointing at the root URL (`/`), and renders Okta's `ImplicitCallback` component for the `/implicit/callback` path.
+Now in `src/App.js` you can use `Route`s. These tell the app to only render a certain component if the current URL matches the given `path`. Replace your `Home` component with a route that only renders the component when pointing at the root URL (`/`), and renders Okta's `LoginCallback` component for the `/login/callback` path.
 
 **src/App.js**
 ```diff
@@ -300,7 +299,7 @@ Now in `src/App.js` you can use `Route`s. These tell the app to only render a ce
 @@ -1,4 +1,6 @@
  import React, { Fragment } from 'react';
 +import { Route } from 'react-router-dom';
-+import { ImplicitCallback } from '@okta/okta-react';
++import { LoginCallback } from '@okta/okta-react';
  import {
    CssBaseline,
    withStyles,
@@ -310,7 +309,7 @@ Now in `src/App.js` you can use `Route`s. These tell the app to only render a ce
      <main className={classes.main}>
 -      <Home />
 +      <Route exact path="/" component={Home} />
-+      <Route path="/implicit/callback" component={ImplicitCallback} />
++      <Route path="/login/callback" component={LoginCallback} />
      </main>
    </Fragment>
  );
@@ -329,7 +328,7 @@ import {
   ListItemText,
 } from '@material-ui/core';
 import { AccountCircle } from '@material-ui/icons';
-import { withAuth } from '@okta/okta-react';
+import { withOktaAuth } from '@okta/okta-react';
 
 class LoginButton extends Component {
   state = {
@@ -347,17 +346,17 @@ class LoginButton extends Component {
   }
 
   async checkAuthentication() {
-    const authenticated = await this.props.auth.isAuthenticated();
+    const authenticated = await this.props.authState.isAuthenticated();
     if (authenticated !== this.state.authenticated) {
-      const user = await this.props.auth.getUser();
+      const user = await this.props.authService.getUser();
       this.setState({ authenticated, user });
     }
   }
 
-  login = () => this.props.auth.login();
+  login = () => this.props.authService.login('/');
   logout = () => {
     this.handleMenuClose();
-    this.props.auth.logout();
+    this.props.authService.logout('/');
   };
 
   handleMenuOpen = event => this.setState({ menuAnchorEl: event.currentTarget });
@@ -398,7 +397,7 @@ class LoginButton extends Component {
   }
 }
 
-export default withAuth(LoginButton);
+export default withOktaAuth(LoginButton);
 ```
 
 React components have a concept of state management. Each component can be passed props (in a component like `<input type="number" value={3} />`, `type` and `number` would be considered props). They can also maintain their own state, which has some initial values and can be changed with a function called `setState`. Any time the `props` or `state` changes, the component will rerender, and if changes need to be made to the DOM they will happen then. In a component, you can access these with `this.props` or `this.state`, respectively.
@@ -417,7 +416,7 @@ class LoginButton extends Component {
 }
 ```
 
-React components also have their own lifecycle methods, which are hooks you can use to trigger actions at certain stages of the component lifecycle. Here, when the component is first mounted you'll check to see whether or not the user has been authenticated, and if so get some more details about the user, such as their name and email address. You also want to rerun this check whenever the component updates, but you need to be careful to only update the state when something is different, otherwise you'll get yourself into an infinite loop (the component updates, so you give the component new values, which updates the component, you give it new values, etc.). The `withAuth` function is a Higher Order Component (HOC) which wraps the original component and returns another one containing the `auth` prop.
+React components also have their own lifecycle methods, which are hooks you can use to trigger actions at certain stages of the component lifecycle. Here, when the component is first mounted you'll check to see whether or not the user has been authenticated, and if so get some more details about the user, such as their name and email address. You also want to rerun this check whenever the component updates, but you need to be careful to only update the state when something is different, otherwise you'll get yourself into an infinite loop (the component updates, so you give the component new values, which updates the component, you give it new values, etc.). The `withOktaAuth()` function is a Higher Order Component (HOC) which wraps the original component and returns another one containing the `auth` prop.
 
 ```javascript
 class LoginButton extends Component {
@@ -432,9 +431,9 @@ class LoginButton extends Component {
   }
 
   async checkAuthentication() {
-    const authenticated = await this.props.auth.isAuthenticated();
+    const authenticated = this.props.authState.isAuthenticated;
     if (authenticated !== this.state.authenticated) {
-      const user = await this.props.auth.getUser();
+      const user = await this.props.authService.getUser();
       this.setState({ authenticated, user });
     }
   }
@@ -442,7 +441,7 @@ class LoginButton extends Component {
   // ...
 }
 
-export default withAuth(LoginButton);
+export default withOktaAuth(LoginButton);
 ```
 
 The following functions are helper functions used later to log the user in or out, and open or close the menu. Writing the function as an arrow function ensures that `this` is referring to the instantiation of the component. Without this, if a function is called somewhere outside of the component (e.g. in an `onClick` event), you would lose access to the component and wouldn't be able to execute functions on it or access `props` or `state`.
@@ -451,10 +450,10 @@ The following functions are helper functions used later to log the user in or ou
 class LoginButton extends Component {
   // ...
 
-  login = () => this.props.auth.login();
+  login = () => this.props.authService.login('/');
   logout = () => {
     this.handleMenuClose();
-    this.props.auth.logout();
+    this.props.authService.logout('/');
   };
 
   handleMenuOpen = event => this.setState({ menuAnchorEl: event.currentTarget });
@@ -463,7 +462,7 @@ class LoginButton extends Component {
 
 All React components must have a `render()` function. This is what tells React what to display on the screen, even if it shouldn't display anything (in which case you can return `null`).
 
-When you're not sure of the authentication state yet, you can just return `null` so the button isn't rendered at all. Once Okta `this.props.auth.isAuthenticated()` returns, the value will either be `true` or `false`. If it's `false`, you'll want to provide a `Login` button. If the user is logged in, you can instead display an avatar icon that has a dropdown menu with a Logout button.
+When you're not sure of the authentication state yet, you can just return `null` so the button isn't rendered at all. You can use `this.props.authState.isAuthenticated` to determine if a user is signed in. If it's `false`, you'll want to provide a `Login` button. If the user is logged in, you can instead display an avatar icon that has a dropdown menu with a Logout button.
 
 ```javascript
 class LoginButton extends Component {
@@ -903,7 +902,7 @@ You'll also need a page to render a list of posts, and to inject the post editor
 **src/pages/PostsManager.js**
 ```jsx
 import React, { Component, Fragment } from 'react';
-import { withAuth } from '@okta/okta-react';
+import { withOktaAuth } from '@okta/okta-react';
 import { withRouter, Route, Redirect, Link } from 'react-router-dom';
 import {
   withStyles,
@@ -1051,7 +1050,7 @@ class PostsManager extends Component {
 }
 
 export default compose(
-  withAuth,
+  withOktaAuth,
   withRouter,
   withStyles(styles),
 )(PostsManager);
@@ -1100,7 +1099,7 @@ class PostsManager extends Component {
         headers: {
           'content-type': 'application/json',
           accept: 'application/json',
-          authorization: `Bearer ${await this.props.auth.getAccessToken()}`,
+          authorization: `Bearer ${await this.props.authService.getAccessToken()}`,
         },
       });
       return await response.json();
@@ -1237,11 +1236,11 @@ class PostsManager extends Component {
 }
 ```
 
-In order to get access to the Okta SDK, you need to use the `withAuth` HOC again. This time there are actually a few other HOCs to add, so you can use a utility function called `compose` from to wrap your component with multiple HOCs.
+In order to get access to the Okta SDK, you need to use the `withOktaAuth()` HOC again. This time there are actually a few other HOCs to add, so you can use a utility function called `compose` from to wrap your component with multiple HOCs.
 
 ```javascript
 export default compose(
-  withAuth,
+  withOktaAuth,
   withRouter,
   withStyles(styles),
 )(PostsManager);
@@ -1260,8 +1259,8 @@ Add the `PostsManager` page to `src/App.js`. Okta provides a `SecureRoute` compo
 @@ -1,6 +1,6 @@
  import React, { Fragment } from 'react';
  import { Route } from 'react-router-dom';
--import { ImplicitCallback } from '@okta/okta-react';
-+import { SecureRoute, ImplicitCallback } from '@okta/okta-react';
+-import { LoginCallback } from '@okta/okta-react';
++import { SecureRoute, LoginCallback } from '@okta/okta-react';
  import {
    CssBaseline,
    withStyles,
@@ -1278,7 +1277,7 @@ Add the `PostsManager` page to `src/App.js`. Okta provides a `SecureRoute` compo
      <main className={classes.main}>
        <Route exact path="/" component={Home} />
 +      <SecureRoute path="/posts" component={PostsManager} />
-       <Route path="/implicit/callback" component={ImplicitCallback} />
+       <Route path="/login/callback" component={LoginCallback} />
      </main>
    </Fragment>
 ```
@@ -1340,4 +1339,5 @@ And as always, we'd love to hear from you. Hit us up with questions or feedback 
 
 <a name="changelog">**Changelog:**</a>
 
+* Oct 22, 2020: Updated to use Okta React v3.0.8. You can see the changes in [the example app](https://github.com/oktadeveloper/okta-react-node-example/pull/14) or [in this blog post](https://github.com/oktadeveloper/okta-blog/pull/453).
 * Nov 1, 2019: Added an error snackbar to help with debugging, added some information about installing SQLite, and updated a majority of the dependencies. Changes to this post can be viewed in [okta-blog#58](https://github.com/oktadeveloper/okta-blog/pull/58).
