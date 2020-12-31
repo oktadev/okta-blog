@@ -2,8 +2,8 @@
 layout: blog_post
 title: "Create a Secure App Using MicroProfile, GraphQL, and JWT Auth"
 author: andrew-hughes
-by: advocate|contractor
-communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
+by: contractor
+communities: [java]
 description: ""
 tags: []
 tweets:
@@ -11,10 +11,8 @@ tweets:
 - ""
 - ""
 image:
-type: awareness|conversion
+type: conversion
 ---
-
-## Create a Secure App Using MicroProfile, GraphQL, and JWT Auth
 
 MicroProfile is an open-source community project whose goal is to encourage development of Java microservice solutions. It was created in 2016 in response to the changing needs of modern web development. In particular, it seeks to foster development of smaller, less monolithic services (microservices) that can run on faster release cycles that the typical, old-school Enterprise Java application. Shortly after its development, it joined the Eclipse foundation. 
 
