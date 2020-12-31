@@ -1,0 +1,38 @@
+---
+layout: blog_post
+title: "Reactive Java Microservices with Spring Boot and JHipster"
+author: matt-raible
+by: advocate
+communities: [java]
+description: "Learn how to create a reactive microservices architecture using Spring Boot and JHipster."
+tags: [java, reactive, microservices, spring-boot, kotlin, jhipster]
+tweets:
+- ""
+- ""
+- ""
+image:
+type: conversion
+---
+
+
+== Why Reactive Java?
+== Build a Java Microservices Architecture
+
+[source,shell]
+----
+npm i -g generator-jhipster@beta
+----
+
+
+== Create Docker Images for Microservice Apps
+    - Reset Docker to default or add note about RAM - http://disq.us/p/25qiap3
+== Run Your Microservices Stack with Docker Compose
+== Switch Identity Providers
+== Share Your OAuth Settings with Spring Cloud Config
+== What About Kotlin Microservices?
+== Learn More About Reactive and Microservices
+
+
+* https://developer.okta.com/blog/2019/05/22/java-microservices-spring-boot-spring-cloud[Java Microservices with Spring Boot and Spring Cloud].
+* https://developer.okta.com/blog/2019/05/23/java-microservices-spring-cloud-config[Java Microservices with Spring Cloud Config and JHipster]
+* https://developer.okta.com/blog/2019/08/28/reactive-microservices-spring-cloud-gateway[Secure Reactive Microservices with Spring Cloud Gateway]
