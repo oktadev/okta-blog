@@ -553,6 +553,7 @@ To continue learning about WebSocket-related technologies and Spring Framework's
 
 For more informative tutorials, please [follow @oktadev on Twitter](https://twitter.com/oktadev) and [subscribe to our YouTube channel](https://youtube.com/c/oktadev).
 
+<a name="changelog"></a>
 **Changelog:**
 
-* Dic 17, 2020: Update spring-boot version in curl line, to 2.4.0. Update Okta javascript SDK static link in index.html, to version to 4.0.0. Update Tone.js library link. Update the javascript authentication code in auth.js, for new Okta SDK version.
+* Dec 31, 2020: Updated Spring Boot to version 2.4.0. Updated Okta Auth JS to version 4.0.0. Update Tone.js library link. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-java-websockets-example/pull/2). Changes to this post can be viewed in [oktadeveloper/okta-blog#495](https://github.com/oktadeveloper/okta-blog/pull/495).
