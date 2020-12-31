@@ -32,7 +32,7 @@ Before you get started, you'll need to have a few things installed.
 
 - **Java 11**: This tutorial uses Java 11. OpenJDK 11 will work just as well. You can find instructions on the [OpenJDK website](https://openjdk.java.net/install/). You can install OpenJDK using [Homebrew](https://brew.sh/). Alternatively, [SDKMAN](https://sdkman.io/) is another great option for installing and managing Java versions.
 - **Maven**: The MicroProfile starter uses Maven, a dependency management utility. It can be installed according to [the instructions on their website](https://maven.apache.org/install.html). You could also use  [SDKMAN](https://sdkman.io/) or [Homebrew](https://brew.sh/).
-- **Okta Developer Account**: You’ll be using Okta as an OAuth/OIDC provider to add JWT authentication and authorization to the application. You can go to [our developer site](https://developer.okta.com/signup/) and sign up for a free developer account.
+- **Okta Developer Account**: You'll be using Okta as an OAuth/OIDC provider to add JWT authentication and authorization to the application. You can go to [our developer site](https://developer.okta.com/signup/) and sign up for a free developer account.
 - **HTTPie**: This is a powerful command-line HTTP request utility that you'll use to test the WebFlux server. Install it according to [the docs on their site](https://httpie.org/doc#installation).
 
 ## Create the Project Using the MicroProfile Starter
@@ -339,13 +339,13 @@ In this particular example, you're implementing a web service that uses a JSON W
 
 Open the [Okta developer dashboard](https://developer.okta.com/) and log in.
 
-Once you’ve logged in, you may need to click on the **Admin** button to get to the developer dashboard.
+Once you've logged in, you may need to click on the **Admin** button to get to the developer dashboard.
 
 From the top menu, click on the **Applications** item, and then click the green **Add Application** button.
 
 Select **Web** as the platform and click Next.
 
-Give the app a name. I named mine “MicroProfile”, but you can name yours whatever you like.
+Give the app a name. I named mine "MicroProfile", but you can name yours whatever you like.
 
 Under **Login redirect URIs**, add a new URI: `https://oidcdebugger.com/debug`.
 
@@ -357,7 +357,7 @@ You configured Okta as an OAuth 2.0 OIDC provider. Take not of the **Client ID**
 
 ## Add Groups and UPN Claims To Default Authorization Server
 
-To enable role-based authorization, as well as to meet MicroProfile's requirements for the JWT, you need to add two claims mappings to your default Okta authorization server: a **groups** claim and a **upn** claim. The **groups** claim mapping is what maps Okta’s groups to the role-based authorization in MicroProfile. The **upn** claim is required by MicroProfile and you’ll get an invalid token error without it. This is the “user principal name” as defined in [the documentation](https://www.eclipse.org/community/eclipse_newsletter/2017/september/article2.php).
+To enable role-based authorization, as well as to meet MicroProfile's requirements for the JWT, you need to add two claims mappings to your default Okta authorization server: a **groups** claim and a **upn** claim. The **groups** claim mapping is what maps Okta's groups to the role-based authorization in MicroProfile. The **upn** claim is required by MicroProfile and you'll get an invalid token error without it. This is the "user principal name" as defined in [the documentation](https://www.eclipse.org/community/eclipse_newsletter/2017/september/article2.php).
 
 From the top menu of the Okta developer dashboard, go to **API** and select **Authorization Servers**.
 
