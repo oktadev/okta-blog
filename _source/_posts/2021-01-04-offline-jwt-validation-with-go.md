@@ -16,7 +16,7 @@ type: conversion
 
 Modern authentication systems use and generate JSON Web Tokens (JWT). There are many different ways that JWTs are used but, in this post, we will concentrate on JWTs that are used as OIDC access tokens. When a user successfully logs in to an application using a service like Okta, an OIDC access token is generated in the form of a JWT. That token can be passed in requests to the backend. The backend can then validate that token and reject all requests with invalid or missing tokens.
 
-A common way to validate OIDC access tokens is to simply make an API request to the issuer with the access token. While this is the simplest method to use, it is far faster to validate tokens “offline”.
+A common way to validate OIDC access tokens is to simply make an API request to the issuer with the access token. While this is the simplest method to use, it is far faster to validate tokens "offline".
 
 Today, we are going to build a simple web application that uses the Okta authentication widget to log users in. An access token will be generated and sent to an API written in Go which will validate the token. Let's get started! 
 
@@ -43,7 +43,7 @@ go get github.com/dgrijalva/jwt-go
 
 A file called `go.mod` containing these dependencies will be created by the `go get` command.
 
-To use Okta authentication, you need to have a free [Okta Developer account] (https://developer.okta.com). Once you’ve done this, sign in to the developer console and select **Applications** > **Add Application**. Then select **Single-Page App** and hit **Next**. The next page is filled in with default values, most of which are sufficient for this application and don't need to be changed. *Important*: Add the URL `http://localhost:8080` to the allowed redirect URLs. Hit **Done**. 
+To use Okta authentication, you need to have a free [Okta Developer account] (https://developer.okta.com). Once you've done this, sign in to the developer console and select **Applications** > **Add Application**. Then select **Single-Page App** and hit **Next**. The next page is filled in with default values, most of which are sufficient for this application and don't need to be changed. *Important*: Add the URL `http://localhost:8080` to the allowed redirect URLs. Hit **Done**. 
 
 There are two pieces of information that you need to obtain from the Okta Developer Console. These are your Okta domain name (e.g. `dev-12345.okta.com`) and your client id (e.g. `0ab1c2defg3AB4Chi567`).
 
@@ -144,7 +144,7 @@ Next, we have created an `OktaSignIn` object named `signIn`. *Note* You need to 
 
 The `renderEl()` function displays the authentication UI and performs the authentication. If successful, a JWT access token is returned and saved. The UI is then hidden.
 
-The `onmessage()` function is called when the “Send” button is clicked to submit the message form. This function makes a POST request to an `/api/messages` endpoint that we will be creating later on. The `onmessage()` function also passes in the message text to `/api/messages/`. The request to the `/api/messages` endpoint will also include the access token in an HTTP `Authorization` header. As it is a token the header needs to specify its type as `Bearer`. When the response comes back, the messages are all displayed in the text area.
+The `onmessage()` function is called when the "Send" button is clicked to submit the message form. This function makes a POST request to an `/api/messages` endpoint that we will be creating later on. The `onmessage()` function also passes in the message text to `/api/messages/`. The request to the `/api/messages` endpoint will also include the access token in an HTTP `Authorization` header. As it is a token the header needs to specify its type as `Bearer`. When the response comes back, the messages are all displayed in the text area.
 
 ## How to Build a Simple Go Web Server
 
@@ -193,7 +193,7 @@ Consider an application which reads a JSON object from a file or a network resou
 
 ```json
 [{ "name":"John", "age":30, "car":null },
- { "name":"Jane", "age":27, "car":”Mini” }]
+ { "name":"Jane", "age":27, "car":"Mini" }]
 ```
 
 We want to use the Go JSON decoder to turn the JSON string into a list of maps.
@@ -223,7 +223,7 @@ The type assertions become:
 
 ```go
 person, err := persons[0].(map[string]interface{})
-name, err := person[“name"].(string)
+name, err := person["name"].(string)
 ```
 
 If the type assertion agrees with the actual type the `err` will be `nil`. You can omit the `err` return value, but if the type assertion fails then an exception will be thrown. Multiple type assertions can be used in the same expression:
@@ -304,7 +304,7 @@ func main() {
 
 What do these changes do? First of all, in `GetPublicKeys()` a GET request is made to the Okta API to get the signing public keys for the Okta domain stored in the $OKTA_DOMAIN environment variable. The response is a JSON object containing a list of keys. 
 
-Next, we parse the JSON object to extract one or more of the  RSA public keys that we will use to verify access tokens from Okta. The key has two components, a number (called “N”), and an exponent (called “E”). The number is base64 encoded and the exponent is usually 65537 so we just hard-code it.
+Next, we parse the JSON object to extract one or more of the  RSA public keys that we will use to verify access tokens from Okta. The key has two components, a number (called "N"), and an exponent (called "E"). The number is base64 encoded and the exponent is usually 65537 so we just hard-code it.
 
 Now we need to add some code to do the actual verification. Update your `import` section so it looks like this:
 
@@ -399,7 +399,7 @@ Now, login and try sending another message. This should send a token that gets v
 
 ## Conclusion
 
-In this post, we have learned how to authenticate with Okta to get a JWT, how to use that JWT in the `Authentication` header of an HTTP GET request, and how to perform “offline” validation of that JWT in Go.
+In this post, we have learned how to authenticate with Okta to get a JWT, how to use that JWT in the `Authentication` header of an HTTP GET request, and how to perform "offline" validation of that JWT in Go.
 
 If you like this topic, be sure to [follow us on Twitter](https://twitter.com/oktadev), subscribe to [our YouTube Channel](https://youtube.com/c/oktadev), and [follow us on Twitch](https://www.twitch.tv/oktadev).
 
