@@ -20,7 +20,7 @@ A common way to validate OIDC access tokens is to simply make an API request to 
 
 Today, we are going to build a simple web application that uses the Okta authentication widget to log users in. An access token will be generated and sent to an API written in Go which will validate the token. Let's get started! 
 
-**PS**: The code for this project can be found on [GitHub](https://github.com/oktadeveloper/okta-offline-jwt-validation-with-go).
+**PS**: The code for this project can be found on [GitHub](https://github.com/oktadeveloper/okta-offline-jwt-validation-example).
 
 ## Prerequisites to Building a Go Application
 
