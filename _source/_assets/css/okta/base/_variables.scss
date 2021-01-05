@@ -97,6 +97,7 @@ $gainsboro-8: #e4e4e4;
 $dim-gray-3: #5d5d5d;
 $eclipse-2: #3d3d3d;
 $iron: #c2c3c3;
+$loblolly: #BCC3CA;
 $lily-white: #f2f5f5;
 $mortar: #555555;
 $mystic: #dee0df;
@@ -111,6 +112,7 @@ $very-light-gray: #cccccc;
 $black: #000000;
 $mirage: #14222A;
 $san-juan: #2B4D63;
+$mine-shaft: #212121;
 // Reds
 $jazzberry-jam: #990f69;
 $valencia: #d9534f;
@@ -221,6 +223,8 @@ $colors:        (
                 'mirage': $mirage, // Nav background
                 'san-juan': $san-juan, // Nav mobile dropdown background
                 'cerise-red': $cerise-red, // Nav CTA background
+                'loblolly': $loblolly, // Nav SearchBox Suggestions hover color
+                'mine-shaft': $mine-shaft, // Nav SearchBox color
                 'french-rose': $french-rose, // Links active state
 );
 
