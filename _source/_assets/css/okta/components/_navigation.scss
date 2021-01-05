@@ -2,18 +2,18 @@
   top: 0;
   width: 100%;
   z-index: 100;
-  font-size: 14px;
   font-weight: 600;
   line-height: 24.08px;
   color: get-color('white');
   background: get-color('mirage');
+  @include font-size(14px);
 
   @include media('<medium') {
-    font-size: 12px;
+    @include font-size(12px);
   }
 
   @include media('<small') {
-    font-size: 16px;
+    @include font-size(16px);
   }
 
   > .nav-wrapper {
@@ -69,11 +69,12 @@
     color: get-color('white');
     text-transform: uppercase;
     background: get-color('cerise-red');
+    @include font-weight('bold');
 
     @include media('>=small', '<medium') {
       height: 32px;
-      font-size: 10px;
       max-width: 90px;
+      @include font-size(10px);
     }
   }
 
@@ -87,10 +88,15 @@
     white-space: nowrap;
     text-decoration: none;
     color: get-color('white');
+    @include font-weight('bold');
 
     &:hover {
       text-decoration: underline;
       text-decoration-width: 0.5px;
+    }
+
+    &.active {
+      color: get-color('cerise-red');
     }
   }
 

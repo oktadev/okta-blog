@@ -96,6 +96,7 @@ $gainsboro-8: #e4e4e4;
 // Grays
 $dim-gray-3: #5d5d5d;
 $eclipse-2: #3d3d3d;
+$dove-gray: #616161;
 $iron: #c2c3c3;
 $loblolly: #BCC3CA;
 $lily-white: #f2f5f5;
@@ -225,6 +226,7 @@ $colors:        (
                 'cerise-red': $cerise-red, // Nav CTA background
                 'loblolly': $loblolly, // Nav SearchBox Suggestions hover color
                 'mine-shaft': $mine-shaft, // Nav SearchBox color
+                'dove-gray': $dove-gray, // Nav SearchBox placeholder color
                 'french-rose': $french-rose, // Links active state
 );
 
