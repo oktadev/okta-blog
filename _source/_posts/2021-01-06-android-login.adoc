@@ -736,7 +736,7 @@ private fun navigateToHome() {
 
 == Run Your Android Application
 
-Now it's time to run the application on an emulator or on a physical device, by pressing the play icon in the top right part of the Android Studio. Your app and its login process should look similar to the video below:
+Now it's time to run the application on an emulator or on a physical device, by pressing the play icon in the top right part of Android Studio. Your app and its login process should look similar to the video below:
 
 ++++
 <div class="center-image" style="max-width: 400px; margin-bottom: 1.25rem">
