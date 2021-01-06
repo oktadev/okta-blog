@@ -584,7 +584,7 @@ And register it in the `AndroidManifest.xml`:
   package="dev.dbikic.oktaloginexample">
     ...
   <application
-    … >
+    ... >
     ...
     <activity
       android:name=".ui.LoginActivity"
@@ -711,7 +711,7 @@ And register it in the `AndroidManifest.xml`:
   package="dev.dbikic.oktaloginexample">
     ...
   <application
-    … >
+    ... >
     ...
     <activity
       android:name=".ui.HomeActivity"
