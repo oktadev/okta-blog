@@ -121,7 +121,7 @@ The Okta CLI is available for macOS, Linux, and Windows.
 
 ==== MacOS (via https://brew.sh/[Homebrew])
 
-[source,sh]
+[source,shell]
 ----
 brew install --cask oktadeveloper/tap/okta
 ----
@@ -130,7 +130,7 @@ NOTE: https://brew.sh/[Homebrew] is a package manager for macOS.
 
 ==== Linux (via Flatpak)
 
-[source,sh]
+[source,shell]
 ----
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 flatpak install com.okta.developer.CLI
@@ -141,7 +141,7 @@ NOTE: https://flatpak.org/[Flatpak] is a utility for software deployment and pac
 
 ==== Windows (via Chocolatey)
 
-[source,sh]
+[source,shell]
 ----
 choco install okta --version=0.7.1
 ----
@@ -150,16 +150,16 @@ NOTE: https://chocolatey.org/[Chocolatey] is a package manager for Windows.
 
 If you don't want to use a package manager, you can install the Okta CLI with curl and bash.
 
-[source,sh]
+[source,shell]
 ----
 curl https://raw.githubusercontent.com/oktadeveloper/okta-cli/master/cli/src/main/scripts/install.sh | bash
 ----
 
 === Register Your Android Application
 
-To register an account with Okta, simply run the following command:
+To create an Okta developer account, simply run the following command:
 
-[source,sh]
+[source,shell]
 ----
 okta register
 ----
@@ -167,7 +167,7 @@ okta register
 You will be prompted with a few questions:
 
 ====
-[source,sh]
+[source,shell]
 ----
 ➜  okta register
 First name: Dino
@@ -185,17 +185,17 @@ Your Okta Domain: https://dev-123456.okta.com
 To set your password open this link:
 https://dev-123456.okta.com/welcome/drp7UBGB_GVjeHp_5Jbs // <3>
 ----
-<1> This is your organization URL, and you will need it later.
-<2> Enter the code you've received in your email.
-<3> Click on this link to change your password so you can access the Okta Web. Note that you will need these credentials for this example.
+<1> This is your Okta domain; you will need it later.
+<2> Enter the code you receive in your email.
+<3> Click on this link to change your password. You will need these credentials for this example.
 ====
 
 [#create-an-okta-app]
 === Create an Okta OIDC App
 
-To create a new OIDC app on Okta, run the following command:
+To create a new Okta OIDC app, run the following command:
 
-[source,sh]
+[source,shell]
 ----
 okta apps create
 ----
@@ -203,7 +203,7 @@ okta apps create
 You will be prompted with a few questions:
 
 ====
-[source,sh]
+[source,shell]
 ----
 ➜  okta apps create
 Application name [dbikic]: Android Login // <1>
@@ -410,8 +410,9 @@ import dev.dbikic.oktaloginexample.ui.LoginActivity
 
 class SplashActivity : AppCompatActivity() {
 
+    // <1>
     private val oktaManager: OktaManager by lazy { (application as OktaLoginApplication).oktaManager }
- // <1>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (oktaManager.isAuthenticated()) {
