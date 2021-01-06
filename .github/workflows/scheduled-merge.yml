@@ -6,7 +6,7 @@ on:
       - edited
   schedule:
     # Will run the merge at 8am PST (1600 UTC) every day
-    - cron: 0 16 * * *
+    - cron: 0 19 * * *
 
 jobs:
   merge_schedule:
