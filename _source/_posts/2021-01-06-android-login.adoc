@@ -392,7 +392,7 @@ class OktaLoginApplication : Application() {
 
 That's it! Now, let's create the screens.
 
-== Create an Android Splash Screen
+== Add an Android Splash Screen
 
 The purpose of a splash screen is to initialize all the applications' dependencies and prepare the app for usage. You'll use it to figure out if the user is authenticated and decide which screen to show next: the login screen or the home screen.
 
@@ -472,7 +472,7 @@ Register the activity in the `AndroidManifest.xml` file:
 
 This class won't compile just yet. You'll need to create `HomeActivity` and `LoginActivity` classes before it does.
 
-== Create an Android Login Screen
+== Build an Android Login Screen
 
 Now, let's do the `LoginActivity`! First, create a simple layout with a button in `app/src/main/res/layout/activity_login.xml`:
 
