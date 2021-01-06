@@ -1,0 +1,17 @@
+name: Merge Schedule
+on:
+  pull_request:
+    types:
+      - opened
+      - edited
+  schedule:
+    # Will run the merge at 8am PST (1600 UTC) every day
+    - cron: 0 16 * * *
+
+jobs:
+  merge_schedule:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: gr2m/merge-schedule-action@v1.x
+        env:
+          GITHUB_TOKEN: $
