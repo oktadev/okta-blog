@@ -13,15 +13,17 @@ image: blog/
 type: conversion
 ---
 
-If you use Ansible for configuration management, chances are you're managing server accounts and static keys for user access in your playbooks. Even though playbooks are great for automating server configuration, user accounts change every time – i.e. people join/leave the company, passwords change, secret keys are compromised, etc.
+If you use Ansible to automate configuration management across dynamic server fleets, there's a question about identity & access management – how do you get accounts and credentials on the machines?
 
-In this tutorial, we will overcome this issue by integrating Okta and Ansible:
+A common practice is to push SSH Keys for every admin user to every server. This has major security implications, however. What happens when an administrator leaves the company? It is then up to someone to clear out those keys on each machine, oftentimes a manual process.
 
-{% img blog/okta-ansible/conceptual-diagram.png alt:"Okta working together with Ansible" width:"800" %}{: .center-image }
+Another common practice is to front your servers with an LDAP interface, configuring a local PAM module on each machine to sync local server accounts with an upstream Identity Provider. This leaves a significant operational burden, however. Do you want to run an HA middleware service blocking your ability to scale in the cloud? This is a pain point no Ops Engineer wants.
 
-In this integration, we use Okta Advanced Server Access (ASA) to manage accounts in servers, abstracting account management, and static key management from your Ansible playbooks. With this, you have a much cleaner playbook, without adding workarounds such as integrating your servers with monolith LDAP/directories, managing keys across different places, or jerry-rigging legacy privileged access solutions.
+In this tutorial, we will overcome both issues by seamlessly injecting Okta into your Ansible Infrastructure as Code to effectively [Shift Identity Left](https://www.okta.com/blog/2019/07/shift-identity-left-secure-devops-automation-with-okta/):
 
-**Note:** To run this tutorial, you need access to Okta as Administrator plus an Okta ASA account integrated. You can get an [ASA account here](https://app.scaleft.com/p/signup) and then follow [these instructions](https://help.okta.com/en/prod/Content/Topics/Adv_Server_Access/docs/setup/getting-started.htm).
+{% img blog/okta-Puppet/conceptual-diagram.png alt:"Okta working together with Ansible" width:"800" %}{: .center-image }
+
+**Note:** To follow this tutorial, you need to have an Advanced Server Access (ASA) team provisioned from your Okta Org. If you don't have an existing ASA team, you can sign up for free [here](https://app.scaleft.com/p/signupV2), which requires an Okta Administrator to [configure](https://help.okta.com/en/prod/Content/Topics/Adv_Server_Access/docs/setup/getting-started.htm).
 
 ## Download and configure playbook
 
