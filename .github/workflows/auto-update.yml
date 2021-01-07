@@ -1,6 +1,5 @@
 name: autoupdate
 on:
-  # will run on all branches
   push: {}
 jobs:
   autoupdate:
