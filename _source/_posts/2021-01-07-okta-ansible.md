@@ -66,9 +66,10 @@ The playbook installs the Okta ASA server agent binaires. It supports multiple L
 ```
 
 After installing the agent binaries, the playbook:
- - Defines the name of your server in ASA (canonical name),
- - Enrolls your server into the ASA project using the enrollment token you got in the previous section
- - Starts the ASA server agent
+
+- Defines the name of your server in ASA (canonical name)
+- Enrolls your server into the ASA project using the enrollment token you got in the previous section
+- Starts the ASA server agent
 
 Edit the `asa-ansible-example/asa-playbook.yml`. On line 3, replace `<hosts>` with the hosts you want to enroll in ASA:
 
