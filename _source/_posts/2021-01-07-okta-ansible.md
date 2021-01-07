@@ -21,7 +21,7 @@ Another common practice is to front your servers with an LDAP interface, configu
 
 In this tutorial, we will overcome both issues by seamlessly injecting Okta into your Ansible Infrastructure as Code to effectively [Shift Identity Left](https://www.okta.com/blog/2019/07/shift-identity-left-secure-devops-automation-with-okta/):
 
-{% img blog/okta-Puppet/conceptual-diagram.png alt:"Okta working together with Ansible" width:"800" %}{: .center-image }
+{% img blog/okta-ansible/conceptual-diagram.png alt:"Okta working together with Ansible" width:"800" %}{: .center-image }
 
 **Note:** To follow this tutorial, you need to have an Advanced Server Access (ASA) team provisioned from your Okta Org. If you don't have an existing ASA team, you can sign up for free [here](https://app.scaleft.com/p/signupV2), which requires an Okta Administrator to [configure](https://help.okta.com/en/prod/Content/Topics/Adv_Server_Access/docs/setup/getting-started.htm).
 
