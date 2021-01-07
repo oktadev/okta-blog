@@ -25,9 +25,50 @@ In this tutorial, we will overcome both issues by seamlessly injecting Okta into
 
 **Note:** To follow this tutorial, you need to have an Advanced Server Access (ASA) team provisioned from your Okta Org. If you don't have an existing ASA team, you can sign up for free [here](https://app.scaleft.com/p/signupV2), which requires an Okta Administrator to [configure](https://help.okta.com/en/prod/Content/Topics/Adv_Server_Access/docs/setup/getting-started.htm).
 
+## Create a project and get an enrollment token in ASA
+
+In Okta ASA, projects work as a collection of servers that share the same access and authorization controls. In a project, you define which users and groups from Okta can access your servers, when they can do so, and what they are allowed to do in the server (i.e. run only certain commands). Any changes in your project (users, group assignments, authorization) are periodically updated in your servers (providing idempotency for identity and access management).
+
+Servers enroll in your project to apply the same security configuration using an ASA agent with a project enrollment token. The ASA agent periodically checks for updates in Okta to update the server configuration.
+
+To get your servers running with Okta, lets create a project and get an enrollment token:
+
+1. Access Okta ASA as Administrator.
+2. Click **Projects** and then select or create a new project.
+3. Click **Enrollment** > **Create Enrollment Token**.
+4. Enter a name (i.e. `ansible-token`) and click **Submit**.
+5. Copy the enrollment token:
+
+{% img blog/okta-ansible/asa-get-token.png alt:"Enrollment token page" width:"800" %}{: .center-image }
+
 ## Download and configure playbook
 
 Clone our sample playbook `git clone https://github.com/okta-server-asa/asa-ansible-example.git`
+
+Optionally, review the `asa-playbook.yml` contents.
+
+The playbook installs the Okta ASA server agent binaires. It supports multiple Linux distros using the server distro family to identify the ideal installation tasks:
+
+```yaml
+  tasks:     
+    #INSTALL
+    - name: Install Debian
+      include_tasks: asa-samples/install-debian.yml
+      when: ansible_facts['os_family'] == "Debian"
+    
+    - name: Install RedHat
+      include_tasks: asa-samples/install-redhat.yml
+      when: ansible_facts['os_family'] == "RedHat"
+    
+    - name: Install Suse
+      include_tasks: asa-samples/install-suse.yml
+      when: ansible_facts['os_family'] == "Suse"
+```
+
+After installing the agent binaries, the playbook:
+ - Defines the name of your server in ASA (canonical name),
+ - Enrolls your server into the ASA project using the enrollment token you got in the previous section
+ - Starts the ASA server agent
 
 Edit the `asa-ansible-example/asa-playbook.yml`. On line 3, replace `<hosts>` with the hosts you want to enroll in ASA:
 
@@ -42,16 +83,6 @@ If you have SUSE Linux servers, install the Ansible Galaxy module for zypper: `a
 ## Test playbook
 
 Now that we have the playbook set, let's see it in action. To do this, I'll apply the playbook on a few servers to see how it works.
-
-Get an enrollment token in ASA:
-
-1. Access Okta ASA as Administrator.
-2. Click **Projects** and then select or create a new project.
-3. Click **Enrollment** > **Create Enrollment Token**.
-4. Enter a name (i.e. `ansible-token`) and click **Submit**.
-5. Copy the enrollment token
-
-{% img blog/okta-Ansible/asa-get-token.png alt:"Enrollment token page" width:"800" %}{: .center-image }
 
 Enroll servers using the ansible-playbook command `ansible-playbook asa-playbook.yml -i <inventory> --extra-vars "asa_enrollment_token=<token>"`.
 
@@ -68,15 +99,13 @@ In ASA, you will see the servers enrolled in your project:
 
 {% img blog/okta-Ansible/asa-list-servers.png alt:"ASA: Servers Enrolled" width:"800" %}{: .center-image }
 
+At this moment, your servers are enrolled in ASA. That means you can access your servers with users and groups from Okta associated with your project.
+
 ## Test access to servers with Okta
 
 Now that all servers are enrolled in Okta, let's access the servers as a user:
 
-Install the ASA agent in your workstation (required to access servers as a user):
-
-```sh
-brew install okta-advanced-server-access --cask
-```
+[Install the ASA agent in your workstation](https://www.google.com/url?q=https://help.okta.com/en/prod/Content/Topics/Adv_Server_Access/docs/sft.htm&sa=D&ust=1610060131465000&usg=AOvVaw1omaR8RXzvDBwm3OddiJVk) (required to access servers as a user): `brew install okta-advanced-server-access --cask`
 
 To setup the ASA agent, enter `sft enroll` and follow the instructions.
 
@@ -111,29 +140,6 @@ To ssh into your server, enter `sft ssh <name-of-your-server>`:
 - To grant users access to servers, ASA issues ephemeral ssh keys for the user workstation and the OS for access. The keys are issued only after ensuring both user and his/her device complies with the organization security policies.
 - The use of ephemeral keys provides many benefits. It eliminates the use of static keys and credentials for server access, ensures that both users and machines are audited before any new ssh connection, simplifies access revocation, eliminates the risk of "super account overuse", and simplifies access audit.
 
-**What does the `asa-playbook.yml` do?**
-
-The playbook installs the Okta ASA server agent and then enroll your servers into Okta ASA for remote access.
-The playbook supports multiple Linux distros using the server distro family to identify the ideal installation tasks:
-
-```yaml
-  tasks:     
-    #INSTALL
-    - name: Install Debian
-      include_tasks: asa-samples/install-debian.yml
-      when: ansible_facts['os_family'] == "Debian"
-    
-    - name: Install RedHat
-      include_tasks: asa-samples/install-redhat.yml
-      when: ansible_facts['os_family'] == "RedHat"
-    
-    - name: Install Suse
-      include_tasks: asa-samples/install-suse.yml
-      when: ansible_facts['os_family'] == "Suse"
-```
-
-The steps for enrolling the servers are the same across all Linux distros, and listed on the after the installation tasks.
-
 **Can I use this playbook with other Ansible provisioning modules?**
 
 Yes. You can use this sample with any other module available in [Ansible](https://docs.ansible.com/ansible/latest/collections/index.html) or the Ansible Galaxy. This includes provisioning modules to IaaS providers and Hypervisors, such as [AWS](https://docs.ansible.com/ansible/latest/collections/amazon/aws), [VMWare](https://docs.ansible.com/ansible/latest/collections/community/vmware), [GCP](https://docs.ansible.com/ansible/latest/collections/google/cloud), [OpenStack](https://docs.ansible.com/ansible/latest/collections/openstack/cloud), and [Azure](https://docs.ansible.com/ansible/latest/collections/azure/azcollection). To do this, use the inventory plugins available with these modules to capture the inventory of servers and tags to apply the playbook.
@@ -142,4 +148,4 @@ Yes. You can use this sample with any other module available in [Ansible](https:
 
 After testing the playbook on some hosts, you expand it to more servers. To do so, tweak the playbook. You can, for example, store the enrollment token in [Ansible's vault](https://docs.ansible.com/ansible/2.8/user_guide/vault.html), and also secure access to the Ansible controller with ASA using the same playbook. – i.e. update your `asa-playbook.yml`, changing the hosts to `local`, and then run the playbook pointing to local: `ansible-playbook  -c local -i localhost asa-playbook.yml --extra-vars "asa_enrollment_token=<local>"`.
 
-You can also turn on additional features in Okta ASA, such as setup sudo grants, time-based access, use of bastion hosts, and session recording just to name a few. All these features reduce the load on your playbooks and allow provide consistent account configuration across multiple servers.
+You can also turn on additional features in Okta ASA, such as setup sudo grants, time-based access, use of bastion hosts, and SSH session capture just to name a few. All these features reduce the load on your playbooks and allow provide consistent account configuration across multiple servers.
