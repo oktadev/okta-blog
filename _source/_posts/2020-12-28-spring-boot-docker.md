@@ -221,6 +221,59 @@ While providing a few environment variables in the command-line might be accepta
    ```
    Looks much cleaner, doesn't it?
 
+## Deploy Spring Boot + Docker to Heroku
+
+If you'd like to deploy your dockerized Spring Boot app to Heroku, you'll need to use [Heroku Buildpacks](https://jkutner.github.io/2020/05/19/spring-boot-buildpacks.html). This is because the Paketo buildpacks refuse to allocate heap on containers smaller than 1GB of RAM. A free Heroku dyno has 512MB.
+
+First, you'll need to add the following to `src/main/resources/application.properties` so Spring Boot uses Heroku's `PORT` environment variable.
+
+```properties
+server.port=${PORT:8080}
+```
+
+Then, build your image with `--builder heroku/spring-boot-buildpacks`:
+
+```bash
+./gradlew bootBuildImage --imageName=springbootdemo --builder heroku/spring-boot-buildpacks
+```
+
+Create an app on Heroku:
+
+```bash
+heroku create
+```
+
+Log in to Heroku's container registry and push your app:
+
+```bash
+heroku container:login
+docker tag springbootdemo registry.heroku.com/<your-app-name>/web
+docker push registry.heroku.com/<your-app-name>/web
+```
+
+Set your Okta app settings as environment variables:
+
+```bash
+heroku config:set \
+  OKTA_OAUTH2_ISSUER="https://{yourOktaDomain}/oauth2/default" \
+  OKTA_OAUTH2_CLIENT_ID="{clientId}" \
+  OKTA_OAUTH2_CLIENT_SECRET="{clientSecret}"
+```
+
+Next, release your container and tail the logs.
+
+```bash
+heroku container:release web
+heroku logs --tail
+```
+
+You'll need to update your Okta OIDC app to have your Heroku app's redirect URIs as well.
+
+- Login redirect URI: `https://<your-app-name>.herokuapp.com/login/oauth2/code/okta`
+- Logout redirect URI: `https://<your-app-name>.herokuapp.com`
+
+Run `heroku open` to open your app and sign in.
+
 ## Learn More About Docker, Spring Boot, and Buildpacks
 
 In this brief tutorial, you created a secure Spring Boot application and packaged it with Docker. You configured Okta as an OAuth 2.0 provider, built an image into your local Docker daemon, and learned how to run your app in Docker. This bootstrap project is a great starting point for your next cloud-native project.
@@ -229,11 +282,17 @@ You can find the source code for this example [on GitHub](https://github.com/okt
 
 See other relevant tutorials:
 
+* [Deploy a Secure Spring Boot App to Heroku][spring-boot-heroku]
 * [OAuth 2.0 Java Guide: Secure Your App in 5 Minutes][java-oauth2]
 * [Angular + Docker with a Big Hug from Spring Boot][angular-spring-docker]
 * [A Quick Guide to OAuth 2.0 with Spring Security][oauth2-spring-security-guide]
 
 Follow us for more great content and updates from our team! You can find us on [Twitter](https://twitter.com/oktadev), [Facebook](https://www.facebook.com/oktadevelopers), subscribe to our [YouTube Channel](https://youtube.com/c/oktadev) or start the conversation below!
+
+<a name="changelog"></a>
+**Changelog**:
+
+* Dec 31, 2020: Updated post to add Heroku instructions, since it requires another buildpack. Thanks for the idea, Maurizio! See the code changes in the [example on GitHub](https://github.com/oktadeveloper/okta-spring-boot-docker-buildpacks-example/pull/2). Changes to this post can be viewed in [oktadeveloper/okta-blog#514](https://github.com/oktadeveloper/okta-blog/pull/514).
 
 [install-docker]: https://docs.docker.com/get-docker/
 [java11]: https://adoptopenjdk.net/
@@ -245,3 +304,4 @@ Follow us for more great content and updates from our team! You can find us on [
 [java-oauth2]: /blog/2019/10/30/java-oauth2
 [angular-spring-docker]: /blog/2020/06/17/angular-docker-spring-boot
 [oauth2-spring-security-guide]: /blog/2019/03/12/oauth2-spring-security-guide
+[spring-boot-heroku]: /blog/2020/08/31/spring-boot-heroku
