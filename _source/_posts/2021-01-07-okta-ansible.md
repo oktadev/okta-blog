@@ -13,6 +13,8 @@ image: blog/
 type: conversion
 ---
 
+**Tip:** This tutorial is part of our series on how to integrate Okta with popular Infrastructure as a Code solutions. If you're not into Ansible, check out our [Chef](/blog/2021/??/??/okta-chef), [Puppet](/blog/2021/??/??/okta-puppet), and [Terraform](/blog/2020/04/24/okta-terraform-automate-identity-and-infrastructure) tutorials.
+
 If you use Ansible to automate configuration management across dynamic server fleets, there's a question about identity & access management – how do you get accounts and credentials on the machines?
 
 A common practice is to push SSH Keys for every admin user to every server. This has major security implications, however. What happens when an administrator leaves the company? It is then up to someone to clear out those keys on each machine, oftentimes a manual process.
@@ -136,9 +138,10 @@ To ssh into your server, enter `sft ssh <name-of-your-server>`:
 
 **What Okta ASA does for the login?**
 
-- Okta ASA secures access to Linux and Windows servers in SSH and RDP connections using a lightweight server agent. The agent works alongside native OS features such as sudo, users, and openssh to control access.
-- Because the agent is light and does not require firewalls or monolith privileged access servers, it can be easily distributed across any infrastructure (IaaS, VM, or physical) and embedded in your DevOps tools.
-- To grant users access to servers, ASA issues ephemeral ssh keys for the user workstation and the OS for access. The keys are issued only after ensuring both user and his/her device complies with the organization security policies.
+- Okta ASA secures access to Linux and Windows servers in SSH and RDP connections using the server agent (the same one that enrolled the server in your project earlier).
+- The ASA server agent, in addition to subscribing your server to a project, also works alongside native OS features such as sudo, users, and openssh to control access during runtime and to capture any login events for audit inspection.
+- Because the agent is light and does not require firewalls and monolith LDAP or privileged access servers, it can be easily distributed across any infrastructure (IaaS, VM, or physical) and embedded in your DevOps tools.
+- To grant users access to servers, ASA operates a programmable Certificate Authority service as part of its SaaS, that issues ephemeral SSH Client Certificates for each authenticated and authorized request. The keys are issued only after ensuring both user and his/her device complies with the organization security policies.
 - The use of ephemeral keys provides many benefits. It eliminates the use of static keys and credentials for server access, ensures that both users and machines are audited before any new ssh connection, simplifies access revocation, eliminates the risk of "super account overuse", and simplifies access audit.
 
 **Can I use this playbook with other Ansible provisioning modules?**
