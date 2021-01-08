@@ -1,4 +1,3 @@
-TEST
 # Okta Developer Blog
 
 This is the source code repository for [Okta's developer blog](https://developer.okta.com/blog/).
