@@ -1,20 +1,26 @@
 .footer {
-
   color: get-color('white');
-  padding: 80px 96px 80px 121px;
+  padding: 80px 96px 80px 126px;
   background: get-color('gable-green');
   border-top: 1px solid get-color('cello');
 
-  @include media('<medium') {
-    padding: 40px 44px;
-
-    .small {
-      @include font-size(12px);
-    }
-  }
 
   @include media('<small') {
     padding: 60px 46px 38px;
+  }
+
+  .column-header {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.3em;
+    margin-bottom: 30px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+
+    @include media('<small') {
+      font-size: 12px;
+      margin-bottom: 24px;
+    }
   }
 
   .wrap {
@@ -42,20 +48,28 @@
 
   .new-tab:after {
     content: '';
-    width: 9px;
-    height: 9px;
-    margin-left: 5px;
-    margin-bottom: 10px;
+    width: 1em;
+    height: 1em;
+    margin-left: .2em;
     display: inline-block;
-    background-size: contain;
-    background-position: center;
+    vertical-align: middle;
     background-repeat: no-repeat;
     background-image: url("../../../../assets-jekyll/icons/icon-new-tab.svg");
   }
 
   .footer-link {
     display: flex;
-    padding: 7px 0;
+    line-height: 19px;
+    margin-bottom: 12px;
+
+    @include media('<medium') {
+      @include font-size(16px);
+    }
+
+    @include media('<=small') {
+      line-height: 17px;
+      @include font-size(14px);
+    }
 
     &.twitter:before,
     &.github:before,
@@ -63,10 +77,10 @@
     &.rss:before,
     &.youtube:before {
       content: '';
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
       display: block;
-      margin: 3.5px 15px 3.5px 0;
+      margin-right: 16px;
       background-size: contain;
       background-position: center;
       background-repeat: no-repeat;
@@ -92,46 +106,43 @@
       background-image: url("../../../../assets-jekyll/icons/icon-youtube.svg");
     }
 
-    @include media('<medium') {
-      @include font-size(16px);
-    }
-
   }
 
 
   .first-row {
-    margin-bottom: 61px;
+    margin-bottom: 63px;
     line-height: 34.2px;
     @include font-size(20px);
 
-    @include media('<medium') {
-      padding-left: 65px;
-      @include font-size(17px);
-    }
-
     @include media('<small') {
       padding-left: 0;
-      padding-right: 42px;
       margin-bottom: 50px;
     }
   }
   
   .anchor-highlight {
+    line-height: 18px;
     text-transform: none;
+    letter-spacing: 1.5px;
+    font-family: $font-family;
     color: get-color('cerise');
   }
 
   .copyright {
+    opacity: .9;
+    font-size: 16px;
+    font-style: normal;
+    line-height: 1.7em;
     align-self: flex-end;
+    letter-spacing: .01em;
     @include font-weight('mediumbold');
 
     @include media('<1132px') {
       order: 5;
       width: 100%;
       text-align: left;
-      margin-top: 23.5px;
 
-      @include media('<=small') {
+      @include media('<=medium') {
         text-align: center;
       }
     }
@@ -158,13 +169,13 @@
         order: 3;
 
         @include media('<628px') {
-          margin-top: 60px;
+          margin-top: 27px;
         }
       }
 
       .social-links {
 
-        @include media('<=small') {
+        @include media('<=medium') {
           display: none;
         }
       }
@@ -172,7 +183,7 @@
       .social-links-small-only {
         order: 4;
         width: 100%;
-        margin-bottom: 23.5px;
+        margin: 46px 0;
 
         .footer-links--social {
           display: flex;
@@ -181,7 +192,7 @@
       }
     }
     
-    @include media('>small') {
+    @include media('>=medium') {
       .social-links-small-only {
         display: none;
       }
@@ -189,14 +200,34 @@
 
     justify-content: space-between;
 
+    .column {
+      flex: 0 0 150px;
+
+      @include media('<=small') {
+        flex: 1 0 50%;
+      }
+
+      &.external-links {
+        flex: 0 0 280px;
+      }
+
+      &.copyright {
+        flex: 0 0 180px;
+
+        @include media('<=medium') {
+          flex: auto;
+        }
+      }
+    }
+
   }
 
   .external-url {
 
-    margin-bottom: 40px;
+    margin-bottom: 35px;
 
     p {
-      margin-top: 6px;
+      margin-top: 3px;
     }
 
     &:last-of-type {
