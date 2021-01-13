@@ -18,7 +18,7 @@ type: conversion
 
 Let's start with a background on how C# 9 got here (To go straight to implementation examples, skip to the next section).
 
-The last few years in computer science, we’ve observed the rising popularity of the #FreeLunchOver concept. The idea is that CPU technology, based on electrical signals and Von Neumann architecture, has reached its intrinsic limits. As long as integrated circuits were slower than light, we knew we had work to do in improving the technology. But the time has come where, to go faster, we would need a faster medium and/or a different architecture. Scientists are all convinced that nothing can go faster than light. So, for the time being, engineers have explored the architecture path toward increasing speed. And they did exactly what the Industrial Revolution did to increase productivity - break the work into subunits, execute the subunits in parallel pipelines, and finally, assemble the resulting components. We began to see dual-core, quad-core processors... and we'll probably soon see the day where exponential notation has to be used to express the number of cores in a CPU!
+The last few years in computer science, we've observed the rising popularity of the #FreeLunchOver concept. The idea is that CPU technology, based on electrical signals and Von Neumann architecture, has reached its intrinsic limits. As long as integrated circuits were slower than light, we knew we had work to do in improving the technology. But the time has come where, to go faster, we would need a faster medium and/or a different architecture. Scientists are all convinced that nothing can go faster than light. So, for the time being, engineers have explored the architecture path toward increasing speed. And they did exactly what the Industrial Revolution did to increase productivity - break the work into subunits, execute the subunits in parallel pipelines, and finally, assemble the resulting components. We began to see dual-core, quad-core processors... and we'll probably soon see the day where exponential notation has to be used to express the number of cores in a CPU!
 
 In the software industry this trend has produced significant effects. Programming paradigms that weren't particularly relevant in sequential computing became more important, such as immutability, threading and asynchronous pipelines. Functional Programming (FP), previously relegated to academic and niche domains, gained more popularity in the commercial software arena. FP has characteristics that better adapt to parallel computing workflows than the Object Oriented Programming (OOP) that dominated programming language design for 20 years.
 
@@ -28,9 +28,9 @@ The most prominent example is probably Java, which conquered a vast share of the
 
 When functional programming began to emerge, it became essential for these big actors to offer functional languages to the public for their own VM engines. They were constrained, though, as the languages needed to be compatible with their already grown OOP babies. So, after spending some time considering the already existing FP languages (Haskell and OCaml, to mention two of the most successful), they created new languages - Scala (Java VM) and F# (.NET VM). I am personally very passionate about functional programming,, and an active F# advocate.
 
-But progress never stops! Quantum computing seems to be the next hardware architecture frontier, which will  of course invite new challenges for software engineers. These days, I am plunging into [Microsoft Quantum Development Kit](https://www.microsoft.com/en-us/quantum/development-kit) (QDK) and its associated language Q# - that’s another story for an upcoming post.
+But progress never stops! Quantum computing seems to be the next hardware architecture frontier, which will  of course invite new challenges for software engineers. These days, I am plunging into [Microsoft Quantum Development Kit](https://www.microsoft.com/en-us/quantum/development-kit) (QDK) and its associated language Q# - that's another story for an upcoming post.
 
-Back on earth, the OOP vs. FP gossip is very juicy. . In the Microsoft realm, it seems to me that there’s more effort to make C# more functional, rather than F# more object oriented. There seems to be some strong resistance in the industry against FP, maybe because FP developed a reputation as more difficult and abstract. Which is not completely undeserved, though I'd say the reward makes the effort spent in learning it absolutely worth it.
+Back on earth, the OOP vs. FP gossip is very juicy. . In the Microsoft realm, it seems to me that there's more effort to make C# more functional, rather than F# more object oriented. There seems to be some strong resistance in the industry against FP, maybe because FP developed a reputation as more difficult and abstract. Which is not completely undeserved, though I'd say the reward makes the effort spent in learning it absolutely worth it.
 
 Starting with version 7 and on with version 8 and 9, C# has seen several much welcome improvements, both in syntax and features. This post aims to collect some of those advancements, including real code examples. As a matter of fact, the title "Cheat Sheet" is a little... well, cheating. But I hope you'll enjoy it anyhow.
 
@@ -69,7 +69,7 @@ FP, on the other hand, is centered on the opposite concept, that of immutability
 
 > Sometimes we find opinions in the community that depict mutability as evil, advocating an almost religious superiority of FP over OOP. I don't personally agree with this point of view. In my experience, having more tools makes things better, not worse. If nothing else, I can always decide not to use a tool I have, while I cannot use a tool I don't have.
 >
-> Also in my experience, OOP and FP are two powerful weapons in my arsenal after the necessary familiarization period. Now it’s natural to use both in designing new software, and I find they can get along pretty well (and this is one of the reasons why I like F#).
+> Also in my experience, OOP and FP are two powerful weapons in my arsenal after the necessary familiarization period. Now it's natural to use both in designing new software, and I find they can get along pretty well (and this is one of the reasons why I like F#).
 
 One myth I would like to dispel is that C# cannot define immutable types. It can, only it's not quite made for this, so it requires some additional effort. The feature described in this section helps to avoid most of the boilerplate that was needed in previous versions.
 
@@ -442,7 +442,7 @@ namespace Cs9CheatSheet.StaticLocalFunctions.LocalClosureCapture
 
 ## Default Interface Methods
 
-Default interface methods are a new feature, and are not strictly related to the FP enrichment, but they’re a very nice to have, especially for Library authors.
+Default interface methods are a new feature, and are not strictly related to the FP enrichment, but they're a very nice to have, especially for Library authors.
 
 ### Non Breaking Interface Augmentation
 
@@ -925,7 +925,7 @@ Working with the end of an array has become as easy as working with the front.
 
 ### Null Coalescing
 
-Two new operators make easier checking on nulls:
+Two new operators make it easier checking on nulls:
 
 - **??**: Null coalescing operator. In place of the old ***a != null ? a : b*** or ***a == null ? b : a***, you can now simply write ***a ?? b***
 - **??=**   Null coalescing assignment operator. It allows write ***a ??= b*** to assign b to a only if a is null, like in the old ***a = a != null ? a : b***
@@ -1220,7 +1220,7 @@ In the above example, the namespace OldWay shows how to return derived types fro
 
 ### Enumerability By Extension
 
-Another concept borrowed from FP is "laziness." Laziness allows us to write more modular code, that is to say, implement a better separation of concerns. We can write code that produces a result, without executing it immediately, but deferring the execution to a later time when the result is effectively accessed. A textbook scenario is database query. Often our programs contain iterative or event-based workflows where we check some conditions, and based on the check we run one of multiple different queries. Without laziness, we would need to put the query code inline with the condition-check, or alternatively pre-calculate all the possible results in cached collection to be used in the iteration. With laziness, we get both. We can write the query code in one place and declare it as lazy. Somewhere else, in our codebase, we can then write the iteration accessing the data as if it were cached, when in reality the compile has hooked a call to our lazy code.
+Another concept borrowed from FP is "laziness." Laziness allows us to write more modular code, that is to say, implement a better separation of concerns. We can write code that produces a result, without executing it immediately, but deferring the execution to a later time when the result is effectively accessed. A textbook scenario is a database query. Often our programs contain iterative or event-based workflows - where we check some conditions and based on the check we run one of multiple different queries. Without laziness, we would need to put the query code inline with the condition-check, or alternatively pre-calculate all the possible results in the cached collection to be used in the iteration. With laziness, we get both. We can write the query code in one place and declare it as lazy. Somewhere else, in our codebase, we can then write the iteration accessing the data as if it were cached - when in reality the compile has hooked a call to our lazy code.
 
 Laziness in constructing collections is not new in C# — the **IEnumerable** and **IEnumerable`<T>** generic interfaces were available well before version 8 of the language.
 
@@ -1314,17 +1314,17 @@ namespace Cs9CheatSheet.FitAndFinish.EnumerableByExtension
 }
 ```
 
-In the previous code example, *EnumerableTour* implements IEnumerable but *NonEnumerableTour* doesn't. However, in the test we can see that both types allow to enumerate their cities through *foreach*. What makes this possible is the Extension class code, where *GetEnumerator* is defined as extension method for *NonEnumerableTour*. If *NonEnumerableTour* was in a NuGet library, this extensibility wouldn't have been possible previously. If you wanted it, you had to change the source code and transform *NonEnumerableTour* into *EnumerableTour*, and recompile the NuGet package (or create a derived type implementing IEnumerable)
+In the previous code example, *EnumerableTour* implements IEnumerable but *NonEnumerableTour* doesn't. However, in the test, we can see that both types allow you to enumerate their cities through *foreach*. What makes this possible is the Extension class code, where *GetEnumerator* is defined as an extension method for *NonEnumerableTour*. If *NonEnumerableTour* was in a NuGet library, this extensibility wouldn't have been possible previously. If you wanted it, you had to change the source code and transform *NonEnumerableTour* into *EnumerableTour*, and recompile the NuGet package (or create a derived type implementing IEnumerable)
 
 ------
 
 ## Asynchronous Streams
 
-Asynchronous streams is a powerful feature aimed to improve resource usage, especially in scenarios characterized by a particular type of data source, known under the name of streams. With the ever-increasing pervasiveness of networking and distribution, the new generation of applications will need to deal with increasingly sparse data.
+Asynchronous streams are a powerful feature aimed to improve resource usage, especially in scenarios characterized by a particular type of data source, known under the name of streams. With the ever-increasing pervasiveness of networking and distribution, the new generation of applications will need to deal with increasingly sparse data.
 
-Once upon a time, computers got data through perforated cards and spit out results as line-printed-paper trails. Then we passed to magnetic supports and phosphorus screens... Step by step, we came to these days where almost everything external to the unit we are programming is identified by an internet URI (Uniform Resource Identifier). It doesn't ever matter what there is behind that funny string. hat matters is that we can write something like *Web.GetSomethingFrom("some-kind-of-protocol://someone-out-there/what-we-want?color=blue&flavor=vanilla&whatnot..")* in place of the "archaic" *Console.Read()* or *File.GetLine()* or DB.Query("SELECT...").
+Once upon a time, computers got data through perforated cards and spit out results as line-printed-paper trails. Then we passed to magnetic supports and phosphorus screens... Step by step, we came to these days where almost everything external to the unit we are programming is identified by an internet URI (Uniform Resource Identifier). It doesn't ever matter what there is behind that funny string. What matters is that we can write something like *Web.GetSomethingFrom("some-kind-of-protocol://someone-out-there/what-we-want?color=blue&flavor=vanilla&whatnot..")* in place of the "archaic" *Console.Read()* or *File.GetLine()* or DB.Query("SELECT...").
 
-Every one of these data exchanges could traverse a large number of routing points, bounce through satellites and be converted several times to different means (electricity, light, radio waves, little messages tied to a carrier piegeon’s ankle, etc.).
+Every one of these data exchanges could traverse a large number of routing points, bounce through satellites, and be converted several times to different means (electricity, light, radio waves, little messages tied to a carrier pigeon's ankle, etc).
 
 Dealing with sparse and remote data sources has important implications, though. The most relevant is, indeed, asynchronism. A data exchange is more like a mail exchange than a phone call. We send a request to the URI and then... wait for an answer.
 
@@ -1342,9 +1342,9 @@ They are more like:
 
 We cannot any longer assume that the data we need is immediately available when we need it.  Instead we need to deal with the fact that someone else decides when to send it to us. Not only that, but we must also deal with the fact that the waiting times can be several orders of magnitude longer than those required by our CPU to elaborate. In other words, we cannot afford to simply wait, we must organize our programs to use the CPU in between successive packets of data. We need to make asynchronous programs.
 
-Asynchronous programming is nothing new, by the way. Starting from the lowest level, the CPU, most activity is based in interrupts. Hardware components, like network cards, used to interrupt the CPU when they have something to tell it. But while traditionally asynchronism was under control of the hardware or operating system in the machine, today control is lost in the internet sea, so that its management must involve the application itself, rather than the system that runs the application.
+Asynchronous programming is nothing new, by the way. Starting from the lowest level, the CPU, most activity is based on interrupts. Hardware components, like network cards, used to interrupt the CPU when they have something to tell it. While traditionally asynchronism was under the control of hardware or the operating system in the machine, today control is lost in the internet sea - so that its management must involve the application itself, rather than the system that runs the application.
 
-The .NET API has gone through a profound transformation along the years, making asynchronous programming progressively easier and more natural. Events were available even before .NET, and they were part of the very first C# version. In many cases, though, asynchronous programming was left to the developer code, for example running a worker thread that, in turn, cyclically polls a service checking for new data to be available.
+The .NET API has gone through a profound transformation over the years, making asynchronous programming progressively easier and more natural. Events were available even before .NET, and they were part of the very first C# version. In many cases, though, asynchronous programming was left to the developer code, for example running a worker thread that, in turn, cyclically polls a service checking for new data to be available.
 
  Later we saw the callback paradigm, where asynchronous operations were based on three functions:
 
@@ -1361,7 +1361,7 @@ Asynchronous streams add a new important feature to the *async/await* pattern. S
 - Supply a method returning the new interface type **IAsyncEnumerable<>** and containing the composite keyword **yield return await** in its code
 - In the call site, use the new **await foreach** asynchronous iteration construct
 
-The new pattern is particularly suited for scenarios where the data emitter has the characteristics of a stream. A relevant example is an Internet of Things (IoT) environment. Imagine a pool of meteorology sensors distributed across a territory, which send updates to a cloud service, either in a timely fashion, and/or when some specific condition is detected (for example, the temperature changes by at least 1 degree). This is a typical scenario for the *observer/observable* pattern, however asynchronous streams help represent it in code with similar expressivity, and probably less ceremony.
+The new pattern is particularly suited for scenarios where the data emitter has the characteristics of a stream. A relevant example is an Internet of Things (IoT) environment. Imagine a pool of meteorology sensors distributed across a territory, which send updates to a cloud service, either in a timely fashion, and/or when some specific condition is detected (for example, the temperature changes by at least 1 degree). This is a typical scenario for the *observer/observable* pattern, however, asynchronous streams help represent it in code with similar expressivity, and probably less ceremony.
 
 Here an example, followed by some explanation and a few notes.
 
@@ -1504,18 +1504,18 @@ namespace Cs9CheatSheet.AsyncStreams.WorldBank
 
 I used the WorldBank REST API for this example. It maintains a database of geographical and geopolitical information, available for free on the internet.
 
-There is an interface called IDataSource, which abstracts our model of data emitter. On the application side, the data emitter is something which offers the following services:
+There is an interface called IDataSource, which abstracts our model of data emitter. On the application side, the data emitter is something that offers the following services:
 
 - DownloadIso2CodesAsync() - Download a collection of Iso2 country codes
 - DownloadCountries(string[] iso2Codes) - Download a collection of country records, with code specified in the iso2Codes input parameter
 - DownloadCountriesStream(string[] iso2Codes) - Same as the previous method, but using the new Asynchronous Streams feature
 
-Note that the two last methods, beside having different names, have the exactly same input type but different return type:
+Note that the two last methods, besides having different names, have exactly the same input type but different return type:
 
 - DownloadCountries returns *IEnumerable<Task<>>*
 - DownloadCountriesStream returns *IAsyncEnumerable<>*
 
-Both functions return lazy values, which means that the foreach loops they implement won't be executed when the functions return. And they will be executef only when the last lines of TestBlock() and TestStream() are reached in the Tests class. These two test methods have:
+Both functions return lazy values, which means that the foreach loops they implement won't be executed when the functions return. And they will be executed only when the last lines of TestBlock() and TestStream() are reached in the Tests class. These two test methods have:
 
 - A first common part, where they download a set of ISO codes (100 in the example) and select ten of them randomly
 
@@ -1523,16 +1523,16 @@ Both functions return lazy values, which means that the foreach loops they imple
 
   Let's now concentrate on the last two lines, where the key differences are manifested:
 
-- TestBlock calls DownloadCountries and receives a *collection of Tasks*. It then executes them in parallel using the Task.WhenAll TPL API. When all the tasks complete, the collection of results is returned as array, referenced by the *countries* symbol. Finally, the last line runs a synchronous iteration on the hydrated array and does application-specific work.
+- TestBlock calls DownloadCountries and receives a *collection of Tasks*. It then executes them in parallel using the Task.WhenAll TPL API. When all the tasks complete, the collection of results is returned as an array, referenced by the *countries* symbol. Finally, the last line runs an iteration synchronously on the hydrated array and does application-specific work.
 
-- TestStream calls DownloadCountriesStream and receives an *IAsyncEnumerable*, referenced by the *countries* symbol. This is the first difference. The symbol *countries* does not hold a hydrated array of countries like with TestBlock, but a promise yet. When the last line is reached, nothing has been materialized from the data sources yet, while with TestBlock the materialization is already complete. Finally, TestStream executes an asynchronous iteration calling the new *await foreach*. This is the point where the internet is finally hit and the remote data are retrieved
+- TestStream calls DownloadCountriesStream and receives an *IAsyncEnumerable*, referenced by the *countries* symbol. This is the first difference. The symbol *countries* does not hold a hydrated array of countries like with TestBlock, but a promise. When the last line is reached, nothing has been materialized from the data sources yet, while with TestBlock the materialization is already complete. Finally, TestStream executes an asynchronous iteration calling the new *await foreach*. This is the point where the internet is finally hit and the remote data are retrieved
 
 At this point, it's worthwhile to highlight a qualifying point. In the TestBlock case, we have the opportunity to leverage the TPL, while in the TestStream case we don't. This has two potential consequences:
 
 - Performance: If the backend has already available all the countries in our selection at the time the requests come, TestBlock will get all the cities in roughly the same time required to retrieve only one of them. TestStream, on the other hand, is constrained to a sequential workflow, so the time will necessarily be the sum of the times for each of the cities in the selection
 - Memory: The block version will allocate memory for all the cities, while the stream version only needs to allocate memory for one.
 
-Therefore, if the backend has all the data, choosing between block and stream is a tradeoff between memory resources and performance. Usually in situations like this the best solution is the parallel one with pagination.
+Therefore, if the backend has all the data, choosing between block and stream is a tradeoff between memory resources and performance. Usually, in situations like this, the best solution is the parallel one with pagination.
 
 However, if the backend does not have all the data, like the meteorology sensors I mentioned above, the performance advantage of parallel execution is nil, since even if the tasks are running in parallel, only one of them will complete just after the launch.  The remaining tasks will need to wait until new data is available. In this case, the stream solution is definitely superior, as it will give the results in the same time, but with less memory use and with only one pending task during the data retrieval period.
 
@@ -1544,10 +1544,10 @@ With a db-like data source, the block workflow executes in half of the time take
 
 ## Recap
 
-With this article we have explored some of important improvements introduced into C# versions 8 and 9. What we learned:
+In this article, you have explored some of the important improvements introduced into C# versions 8 and 9. What you learned:
 
 - **Immutability**: Init-Only Properties, Records, Positional Records, Static Local Functions
-- **Default Interface Methods**: Non Breaking Interface Augmentation
+- **Default Interface Methods**: Non-Breaking Interface Augmentation
 - **Pattern Matching**: Switch Expression, Type Check Pattern, Property Pattern
 - **Compactness**: Indices and Ranges, Null Coalescing, Target Type Inference
 - **Type Extensibility**: Covariant Returns, Enumerability By Extensions
