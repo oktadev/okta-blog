@@ -16,7 +16,7 @@ type: conversion
 
 ## Introduction to C# 9 (and a bit of C# 8, too)
 
-Let's start with a background on how C# 9 got here (To go straight to implementation examples, skip to the next section).
+Let's start with a background on how C# 9 got here (implementation examples start in the next section).
 
 The last few years in computer science, we've observed the rising popularity of the #FreeLunchOver concept. The idea is that CPU technology, based on electrical signals and Von Neumann architecture, has reached its intrinsic limits. As long as integrated circuits were slower than light, we knew we had work to do in improving the technology. But the time has come where, to go faster, we would need a faster medium and/or a different architecture. Scientists are all convinced that nothing can go faster than light. So, for the time being, engineers have explored the architecture path toward increasing speed. And they did exactly what the Industrial Revolution did to increase productivity - break the work into subunits, execute the subunits in parallel pipelines, and finally, assemble the resulting components. We began to see dual-core, quad-core processors... and we'll probably soon see the day where exponential notation has to be used to express the number of cores in a CPU!
 
