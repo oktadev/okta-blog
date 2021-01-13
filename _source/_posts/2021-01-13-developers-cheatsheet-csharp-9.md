@@ -44,7 +44,7 @@ The resources used for this post are:
 
 ## The Visual Studio 2019 Sample Project
 
-To follow the examples in this article, you need [.NET 5 SDK](https://dotnet.microsoft.com/download/dotnet/5.0). I'll be using [Visual Studio 2019 CE version 16.8.3](https://visualstudio.microsoft.com/downloads/). The code examples are in a solution in this GitHub [repo](https://github.com/francotiveron/Cs9CheatSheet).
+To follow the examples in this article, you need [.NET 5 SDK](https://dotnet.microsoft.com/download/dotnet/5.0). I'll be using [Visual Studio 2019 CE version 16.8.3](https://visualstudio.microsoft.com/downloads/). The code examples are in a solution in [this GitHub repo](https://github.com/oktadeveloper/okta-csharp9-cheatsheet-examples).
 
 Please create a new Solution with a .NET Core console Project. By default, the project uses .NET Core 3.1 as target framework, with C# 8 as the language version.
 
@@ -367,7 +367,7 @@ namespace Cs9CheatSheet.Immutability.Positional
 }
 ```
 
->Note:- **OktaOptionsPositionalRecord** behaves as **OktaOptionsClass**. In other words, C# now offers syntactic sugar to add immutability boilerplate to class based types automatically. You simply have to declare your type as record instead of class. A Deconstruct method can be defined in a class type. This is also a new feature created to implement records, but can be used in non-record types.
+>Note: **OktaOptionsPositionalRecord** behaves as **OktaOptionsClass**. In other words, C# now offers syntactic sugar to add immutability boilerplate to class based types automatically. You simply have to declare your type as record instead of class. A Deconstruct method can be defined in a class type. This is also a new feature created to implement records, but can be used in non-record types.
 
 ## Static Local Functions
 
@@ -437,8 +437,6 @@ namespace Cs9CheatSheet.StaticLocalFunctions.LocalClosureCapture
     }
 }
 ```
-
-------
 
 ## Default Interface Methods
 
@@ -567,9 +565,7 @@ namespace Cs9CheatSheet.DefaultInterfaceMethods.NonBreakingInterfaceAugmentation
 }
 ```
 
->**Note**: The application code can always override the default interface implementation for Decrement when needed.
-
-------
+>Note: The application code can always override the default interface implementation for Decrement when needed.
 
 ## Pattern Matching
 
@@ -826,8 +822,6 @@ namespace Cs9CheatSheet.PatternMatching.PropertyPattern
 ```
 
 Understanding what the code does becomes much much easier, don't you agree?
-
-------
 
 ## Compactness
 
@@ -1088,8 +1082,6 @@ namespace Cs9CheatSheet.FitAndFinish.TargetTypeInference
 
 In other words, when the compile finds a new statement without a type name, it looks around if the object to be instantiated has a target symbol (a variable or a function parameter) where the type is specified. Hence the name "target type inference."
 
-------
-
 ## Type Extensibility
 
 These additions belong to the group of features that empower the use of third-party libraries. (We already saw above, the default interface methods.) In that case, the feature allows library users to supply new versions of their product by adding members to existing interfaces without forcing the user to refactor the application code. The amenities discussed in this section all facilitate users of third-party libraries to extend the library with more powerful constructs.
@@ -1222,9 +1214,9 @@ In the above example, the namespace OldWay shows how to return derived types fro
 
 Another concept borrowed from FP is "laziness." Laziness allows us to write more modular code, that is to say, implement a better separation of concerns. We can write code that produces a result, without executing it immediately, but deferring the execution to a later time when the result is effectively accessed. A textbook scenario is a database query. Often our programs contain iterative or event-based workflows - where we check some conditions and based on the check we run one of multiple different queries. Without laziness, we would need to put the query code inline with the condition-check, or alternatively pre-calculate all the possible results in the cached collection to be used in the iteration. With laziness, we get both. We can write the query code in one place and declare it as lazy. Somewhere else, in our codebase, we can then write the iteration accessing the data as if it were cached - when in reality the compile has hooked a call to our lazy code.
 
-Laziness in constructing collections is not new in C# — the **IEnumerable** and **IEnumerable`<T>** generic interfaces were available well before version 8 of the language.
+Laziness in constructing collections is not new in C# — the **IEnumerable** and **IEnumerable`<T>`** generic interfaces were available well before version 8 of the language.
 
-What is new, though, is the possibility to add this feature to existing types via type extensions. Previously, Enumerable types needed to implement **IEnumerable** or **IEnumerable`<T>**. Today, this is not strictly necessary. What *is* required is to provide a public *GetEnumerator* method returning an instance of a type that defines two public members: a *current* property and a bool *MoveNext* parameterless method.
+What is new, though, is the possibility to add this feature to existing types via type extensions. Previously, Enumerable types needed to implement **IEnumerable** or **IEnumerable`<T>`**. Today, this is not strictly necessary. What *is* required is to provide a public *GetEnumerator* method returning an instance of a type that defines two public members: a *current* property and a bool *MoveNext* parameterless method.
 
 And this method can be an extension method, so we can add enumerability to a library type (where previously the only way was to add an IEnumerable implementation which required access to the source code and recompilation of the library).
 
@@ -1314,9 +1306,7 @@ namespace Cs9CheatSheet.FitAndFinish.EnumerableByExtension
 }
 ```
 
-In the previous code example, *EnumerableTour* implements IEnumerable but *NonEnumerableTour* doesn't. However, in the test, we can see that both types allow you to enumerate their cities through *foreach*. What makes this possible is the Extension class code, where *GetEnumerator* is defined as an extension method for *NonEnumerableTour*. If *NonEnumerableTour* was in a NuGet library, this extensibility wouldn't have been possible previously. If you wanted it, you had to change the source code and transform *NonEnumerableTour* into *EnumerableTour*, and recompile the NuGet package (or create a derived type implementing IEnumerable)
-
-------
+In the previous code example, *EnumerableTour* implements IEnumerable but *NonEnumerableTour* doesn't. However, in the test, we can see that both types allow you to enumerate their cities through *foreach*. What makes this possible is the Extension class code, where *GetEnumerator* is defined as an extension method for *NonEnumerableTour*. If *NonEnumerableTour* was in a NuGet library, this extensibility wouldn't have been possible previously. If you wanted it, you had to change the source code and transform *NonEnumerableTour* into *EnumerableTour*, and recompile the NuGet package (or create a derived type implementing IEnumerable).
 
 ## Asynchronous Streams
 
@@ -1512,7 +1502,7 @@ There is an interface called IDataSource, which abstracts our model of data emit
 
 Note that the two last methods, besides having different names, have exactly the same input type but different return type:
 
-- DownloadCountries returns *IEnumerable<Task<>>*
+- DownloadCountries returns *IEnumerable`<Task<>>`*
 - DownloadCountriesStream returns *IAsyncEnumerable<>*
 
 Both functions return lazy values, which means that the foreach loops they implement won't be executed when the functions return. And they will be executed only when the last lines of TestBlock() and TestStream() are reached in the Tests class. These two test methods have:
@@ -1538,7 +1528,7 @@ However, if the backend does not have all the data, like the meteorology sensors
 
 In the previous example, this is demonstrated by creating two implementations of IDataSource: *CountriesDb* and *CountriesIoT*. *CountriesDb* behaves like a database. That is, it simulates a data source that responds immediately upon request. *CountriesIoT*, instead, simulates an IoT device, with data items available one by one at one-second time distance. (The trigger is the task started in StartFeed where a pool of semaphores is released over time, while the overridden DownloadCountryAsync awaits one of the semaphores before doing active work.) Running the tests produces the following results:
 
-{% img blog/csharp9/image1.png alt:"Test results" width:"400" %}{: .center-image }
+{% img blog/csharp9/image1.png alt:"Test results" width:"350" %}{: .center-image }
 
 With a db-like data source, the block workflow executes in half of the time taken by the stream workflow. With the IoT-like data source, on the other hand, times are comparable.
 
