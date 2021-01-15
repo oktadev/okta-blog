@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Tutorial: Puppet and Account Automation with Okta"
-author: sudobinbash
+author: frederico-hakamine
 by: contractor
 communities: [devops]
 description: "How to integrate Okta and Puppet to manage accounts in servers while abstracting account management from your catalogs"
