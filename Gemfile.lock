@@ -1,18 +1,18 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (5.2.4.3)
+    activesupport (5.2.4.4)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
-    asciidoctor (2.0.10)
+    asciidoctor (2.0.12)
     colorator (1.1.0)
     colored (1.2)
     concurrent-ruby (1.1.7)
-    em-websocket (0.5.1)
+    em-websocket (0.5.2)
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0.6.0)
     ethon (0.12.0)
@@ -20,8 +20,8 @@ GEM
     eventmachine (1.2.7)
     extras (0.3.0)
       forwardable-extended (~> 2.5)
-    fastimage (2.1.7)
-    ffi (1.13.1)
+    fastimage (2.2.1)
+    ffi (1.14.2)
     forwardable-extended (2.6.0)
     html-proofer (3.7.2)
       activesupport (>= 4.2, < 6.0)
@@ -59,10 +59,10 @@ GEM
       pathutil (>= 0.8)
       rack (~> 1.6)
       sprockets (~> 3.3, < 3.8)
-    jekyll-include-cache (0.2.0)
+    jekyll-include-cache (0.2.1)
       jekyll (>= 3.7, < 5.0)
     jekyll-paginate (1.1.0)
-    jekyll-redirect-from (0.15.0)
+    jekyll-redirect-from (0.16.0)
       jekyll (>= 3.3, < 5.0)
     jekyll-sass-converter (1.5.2)
       sass (~> 3.4)
@@ -75,7 +75,7 @@ GEM
     kramdown-parser-gfm (1.1.0)
       kramdown (~> 2.0)
     liquid (4.0.3)
-    listen (3.2.1)
+    listen (3.4.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     mercenary (0.3.6)
@@ -85,17 +85,17 @@ GEM
       mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
     nuggets (1.6.0)
-    parallel (1.17.0)
+    parallel (1.20.1)
     pathutil (0.16.2)
       forwardable-extended (~> 2.6)
     public_suffix (4.0.6)
     racc (1.5.2)
-    rack (1.6.12)
+    rack (1.6.13)
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     rexml (3.2.4)
-    rouge (3.23.0)
+    rouge (3.26.0)
     safe_yaml (1.0.5)
     sass (3.7.4)
       sass-listen (~> 4.0.0)
@@ -108,11 +108,11 @@ GEM
     thread_safe (0.3.6)
     typhoeus (0.8.0)
       ethon (>= 0.8.0)
-    tzinfo (1.2.7)
+    tzinfo (1.2.9)
       thread_safe (~> 0.1)
-    tzinfo-data (1.2019.2)
+    tzinfo-data (1.2020.6)
       tzinfo (>= 1.0.0)
-    yell (2.2.0)
+    yell (2.2.2)
 
 PLATFORMS
   ruby
@@ -126,7 +126,6 @@ DEPENDENCIES
   jekyll-redirect-from
   jekyll-tagging
   kramdown-parser-gfm
-  minitest (= 5.14.3)
   tzinfo-data
 
 BUNDLED WITH
