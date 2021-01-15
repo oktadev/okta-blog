@@ -17,15 +17,17 @@ type: conversion
 :page-liquid:
 :experimental:
 
-Java has been at the forefront of microservice architectures since they came to prominence a few years ago. It's a popular language with popular, high-quality frameworks, like Spring Boot, Spring Cloud, and Spring Security.
+Java has been at the forefront of microservice architectures since they came to prominence a few years ago. It's a popular language with well-known, high-quality frameworks, like Spring Boot, Spring Cloud, and Spring Security.
 
-Spring Boot 2.0 introduced a new web framework called Spring WebFlux. Before, Spring Boot only shipped with Spring MVC as an option. WebFlux offers a way for developers to do _reactive programming_. This basically means you can write your code with familiar syntax and, as a result, your app will use less resources and scale better.
+Spring Boot 2.0 introduced a new web framework called Spring WebFlux. Before, Spring Boot only shipped with Spring MVC as an option. WebFlux offers a way for developers to do _reactive programming_. This means you can write your code with familiar syntax and, as a result, your app will use fewer resources and scale better.
+
+toc::[]
 
 == Why Reactive Java?
 
-Reactive programming isn't for every app. The general rule of thumb I've heard is it won't help you if you have < 500 requests/second. Chances, are Spring MVC will perform as well as Spring WebFlux up to that point.
+Reactive programming isn't for every app. The general rule of thumb is it won't help you if you have < 500 requests/second. Chances are Spring MVC will perform as well as Spring WebFlux up to that point.
 
-When your traffic takes off, or you need to process things faster than 500 requests/second, you should take a look at Spring WebFlux.
+When your traffic takes off, or if you need to process things faster than 500 requests/second, you should take a look at Spring WebFlux.
 
 In this guide, I'll show you how to create a reactive microservices architecture with Spring Boot, Spring Cloud Gateway, Spring WebFlux, Java, and JHipster.
 
@@ -33,8 +35,6 @@ In this guide, I'll show you how to create a reactive microservices architecture
 
 * https://adoptopenjdk.net/[Java 11]+
 * https://docs.docker.com/engine/install/[Docker]
-
-toc::[]
 
 You can find the completed source code for this example on GitHub, in the https://github.com/oktadeveloper/java-microservices-examples[oktadeveloper/java-microservices-examples repository].
 
@@ -46,11 +46,11 @@ cd java-microservices-examples/reactive-jhipster
 
 == Build a Reactive Java Microservices Architecture
 
-JHipster is an open source project that started as an application generator, based on Yeoman. It initially allowed you to generate AngularJS and Spring apps. In the last five years, it's grown to be a platform with extensibility, a thriving community, and has saved developers many hours of pain and frustration.
+https://jhipster.tech[JHipster] is an open-source project that started as an application generator, based on Yeoman. It initially allowed you to generate AngularJS and Spring apps. In the last five years, it's become a platform with extensibility, grown a thriving community, and has saved developers many hours of pain and frustration.
 
-You see, JHipster integrates everything for you. Wanna use Angular with Spring Boot? It's got that. React? Yep. Microservices with Spring Cloud? Check!
+You see, JHipster integrates everything for you. Do you want to use Angular with Spring Boot? It's got that. React? Yep. Microservices with Spring Cloud? Check!
 
-JHipster 7 beta 0 was recently released and it packs a punch! A couple of slick features that I like are Vue support and reactive microservices with Spring WebFlux. To be fair, WebFlux and Spring Cloud Gateway have been an option since JHipster https://www.jhipster.tech/2020/03/08/jhipster-release-6.8.0.html[6.8.0 in March 2020], but now we have R2DBC support too!
+JHipster 7 beta 0 was recently released, and it packs a punch! A couple of slick features that I like are Vue support and reactive microservices with Spring WebFlux. To be fair, WebFlux and Spring Cloud Gateway have been an option since JHipster https://www.jhipster.tech/2020/03/08/jhipster-release-6.8.0.html[6.8.0 in March 2020], but now we have R2DBC support too!
 
 In this tutorial, I'll show you how to generate a microservices architecture that uses OAuth 2.0, an API gateway, and two microservices (a blog and a store). The gateway will use PostgreSQL with R2DBC, the blog will use Neo4j, and the store will use MongoDB.
 
@@ -72,7 +72,7 @@ However, there's an easier way. JHipster has its own domain language!
 
 == Define Your Reactive Java Architecture with JDL
 
-JHipster Domain Language (https://www.jhipster.tech/jdl/[JDL]) offers a way to define apps so you don't have to worry about fat-fingering your answer to the `jhipster` command's questions.
+JHipster Domain Language (https://www.jhipster.tech/jdl/[JDL]) offers a way to define apps, so you don't have to worry about fat-fingering your answer to the `jhipster` command's questions.
 
 TIP: You can also generate your JHipster apps using https://start.jhipster.tech[JHipster Online].
 
@@ -81,6 +81,7 @@ Create a new directory on your machine and navigate into it.
 [source,shell]
 ----
 take reactive-stack # mkdir reactive-stack && cd reactive-stack
+git init # initialize git, so apps aren't created with their own .git
 ----
 
 Copy the JDL below and put it into a `reactive-ms.jdl` file.
@@ -190,7 +191,7 @@ Import this architecture definition and generate `gateway`, `blog`, and `store` 
 jhipster jdl reactive-ms.jdl
 ----
 
-As part of this process, a number of Docker Compose files are generated for you. These allow you to run databases, the https://www.jhipster.tech/jhipster-registry/[JHipster Registry] (for service discovery), Keycloak (for identity), all with Docker.
+As part of this process, several Docker Compose files are generated for you. These allow you to run databases, the https://www.jhipster.tech/jhipster-registry/[JHipster Registry] (for service discovery), Keycloak (for identity), all with Docker.
 
 == Run Your Reactive Java Microservices
 
@@ -207,7 +208,7 @@ docker-compose -f src/main/docker/jhipster-registery up -d #jhregistryup
 ./gradlew
 ----
 
-Open a new terminal window, start the blog app's Neo4j database, and the app itself.
+Open a new terminal window, start the blog app's Neo4j database, and then the app itself.
 
 [source,shell]
 ----
@@ -225,19 +226,6 @@ docker-compose -f src/main/docker/mongodb.yml up -d #jhmongoup
 ./gradlew
 ----
 
-////
-[CAUTION]
-====
-To make Keycloak work, you need to add the following line to your hosts file (`/etc/hosts` on Mac/Linux, `c:\Windows\System32\Drivers\etc\hosts` on Windows).
-
-```
-127.0.0.1	keycloak
-```
-
-This is because you will access your application with a browser on your machine (which is named localhost, or `127.0.0.1`), but inside Docker, it will run in its own container, which is named `keycloak`.
-====
-////
-
 == Test Your Reactive Java Microservices
 
 Open `http://localhost:8080` in your favorite browser. You should be able to login with `admin/admin` as credentials.
@@ -254,7 +242,7 @@ NOTE: JHipster has support for https://www.cypress.io/[Cypress], but it https://
 
 == Prepare Your Reactive Java Stack for Production
 
-Keycloak is an awesome open source identity provider. It has excellent support for OAuth 2.0 and OpenID Connect (OIDC) and easily runs in a Docker container. I greatly appreciate Keycloak's ease-of-use. I also appreciate Spring Security's OAuth and OIDC support.
+Keycloak is a superb open source identity provider. It has excellent support for OAuth 2.0 and OpenID Connect (OIDC) and easily runs in a Docker container. I greatly appreciate Keycloak's ease-of-use. I also appreciate Spring Security's OAuth and OIDC support.
 
 Spring Security makes it so you only need to override three properties to switch from Keycloak to Okta!
 
@@ -268,13 +256,13 @@ When prompted, select a **Web** application, and **JHipster**. Accept the defaul
 
 // todo: screenshot of okta apps register
 
-This creates an `.okta.env` file that has the values you'll need to talk to Okta.
+This process creates a `.okta.env` file with the values you'll need to talk to Okta.
 
 === Update the JHipster Registry to Distribute OIDC Configuration
 
 Copy `.okta.env` to `.env` and remove the `export ` prefix from each of its three lines.
 
-TIP: Add `*.env` to your `.gitignore` file so you don't accidentally check in any secrets!
+TIP: Add `*.env` to your `.gitignore` file, so you don't accidentally check in any secrets!
 
 Update the `gateway/src/main/docker/jhipster-registry.yml` to read Spring Security settings from environment variables.
 
@@ -314,7 +302,7 @@ docker-compose -f src/main/docker/jhipster-registry.yml down #jhregistrydown
 docker-compose -f src/main/docker/jhipster-registry.yml up -d #jhregistryup
 ----
 
-Use kbd:[Ctrl + C] to kill all your `./gradlew` processes, and start them again.
+Use kbd:[Ctrl + C] to kill all your `./gradlew` processes and start them again.
 
 Now, when you go to `http://localhost:8080` and log in, you'll be using Okta for authentication!
 
@@ -331,7 +319,7 @@ npm run e2e
 
 == Create Docker Images for Microservice Apps
 
-The JDL you used to create this reactive stack contains Docker configuration so you can run everything with Docker Compose.
+The JDL you used to create this reactive stack contains Docker configuration, so you can run everything with Docker Compose.
 
 Stop all your apps with kbd:[Ctrl + C]. Stop all your Docker instances too.
 
@@ -342,7 +330,7 @@ docker stop $(docker ps -a -q)
 
 TIP: Bump up the memory and CPU that Docker uses in Docker > Preferences > Advanced. I have my Docker preferences set to 6 CPUs and 16GB of RAM.
 
-To run your reactive stack with Docker Compose, you can need to create Docker images for each app. Open three terminals, navigate into your three different apps in each terminal, then run the following Gradle command:
+To run your reactive stack with Docker Compose, you need to create Docker images for each app. Open three terminals, navigate into your three different apps in each terminal, then run the following Gradle command:
 
 [source,shell]
 ----
@@ -351,7 +339,7 @@ To run your reactive stack with Docker Compose, you can need to create Docker im
 
 == Run Your Microservices Stack with Docker Compose
 
-One your Docker containers are finished building, you'll want to make similar JHipster Registry configuration changes to use Okta.
+Once your Docker containers are finished building, you'll want to make similar JHipster Registry configuration changes to use Okta.
 
 === Switch Identity Providers
 
@@ -416,21 +404,29 @@ npm install -g generator-jhipster-kotlin
 
 Then, use `khipster jdl reactive-ms` to create the same stack you did above with Kotlin.
 
-NOTE: At the time of this writing, JHipster's Kotlin blueprint doesn't have support for JHipster 7. Watch the https://github.com/jhipster/jhipster-kotlin/releases[project's releases page] for updates.
+NOTE: At the time of this writing, JHipster's Kotlin blueprint doesn't support JHipster 7. Watch the https://github.com/jhipster/jhipster-kotlin/releases[project's releases page] for updates.
 
 == How Do I Deploy to the Cloud?
 
 JHipster creates a cloud-native microservices architecture that can be deployed to many cloud providers. There's specific support for AWS, Microsoft Azure, Heroku, and Google Cloud Platform.
 
-However, if you're doing microservices, you'll probably want to leverage Docker like you did in this tutorial. When your apps are containerized, they can be orchestrated with Kubernetes.
+However, if you're doing microservices, you'll probably want to leverage Docker as you did in this tutorial. When your apps are containerized, they can be orchestrated with Kubernetes.
 
 JHipster has a https://www.jhipster.tech/kubernetes/[Kubernetes] sub-generator that you can use to deploy it to the cloud. I'll cover this in a future tutorial.
+
+In the meantime, you can watch a presentation that https://twitter.com/saturnism[Ray Tsang] and I did recently that shows how to deploy JHipster microservices with Kubernetes. If you start watching from https://youtu.be/AG4z18qePEw?t=2778[46:18], you'll see Ray show how to deploy to Google Cloud using Kubernetes.
+
+++++
+<div style="text-align: center; margin-bottom: 1.25rem">
+<iframe width="700" height="394" src="https://www.youtube.com/embed/AG4z18qePEw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+++++
 
 == Learn More About Reactive Java and Microservices
 
 This tutorial isn't an in-depth guide to programming reactive Java microservices. That's because it doesn't have to be! With JHipster, you can generate high-quality reactive Java code (~70% test coverage) that's based on fantastic frameworks like Spring Boot, Spring Cloud, Spring WebFlux, and Spring Security.
 
-The Spring Cloud Gateway implementation in JHipster is largely based off what I learned when researching and writing link:/blog/2019/08/28/reactive-microservices-spring-cloud-gateway[Secure Reactive Microservices with Spring Cloud Gateway].
+The Spring Cloud Gateway implementation in JHipster is largely based on what I learned when researching and writing link:/blog/2019/08/28/reactive-microservices-spring-cloud-gateway[Secure Reactive Microservices with Spring Cloud Gateway].
 
 You can find the completed source code for this example on GitHub, in the https://github.com/oktadeveloper/java-microservices-examples[oktadeveloper/java-microservices-examples repository].
 
@@ -440,7 +436,7 @@ git clone https://github.com/oktadeveloper/java-microservices-examples.git
 cd java-microservices-examples/reactive-jhipster
 ----
 
-If you want to learn more about the nitty-gritty details of reactive programming, we have a few posts on this blog.
+If you want to learn more about reactive programming's nitty-gritty details, we have a few posts on this blog.
 
 - link:/blog/2018/09/21/reactive-programming-with-spring[Get Started with Reactive Programming in Spring]
 - link:/blog/2018/09/24/reactive-apis-with-spring-webflux[Build Reactive APIs with Spring WebFlux]
@@ -448,15 +444,19 @@ If you want to learn more about the nitty-gritty details of reactive programming
 
 I'm proud to say that parts of this series were Josh Long's initial drafts for his https://reactivespring.io/[Reactive Spring book].
 
-If you liked this post, you might like our other Java microservices and JHipster posts:
+If you liked this post, you might like some of our other Java microservices posts:
 
 * link:/blog/2019/05/22/java-microservices-spring-boot-spring-cloud[Java Microservices with Spring Boot and Spring Cloud].
 * link:/blog/2019/05/23/java-microservices-spring-cloud-config[Java Microservices with Spring Cloud Config and JHipster]
 * link:/blog/2019/08/28/reactive-microservices-spring-cloud-gateway[Secure Reactive Microservices with Spring Cloud Gateway]
-* link:/blog/2020/08/14/spring-gateway-patterns[Auth 2.0 Patterns with Spring Cloud Gateway]
+* link:/blog/2020/08/14/spring-gateway-patterns[OAuth 2.0 Patterns with Spring Cloud Gateway]
+
+We also have several tutorials that talk about JHipster specifically:
+
 * link:/blog/2020/04/27/mobile-development-ionic-react-native-jhipster[Mobile Development with Ionic, React Native, and JHipster]
 * link:/blog/2020/08/17/micronaut-jhipster-heroku[Build a Secure Micronaut and Angular App with JHipster]
 * link:/blog/2020/01/22/kafka-microservices[Communicate Between Microservices with Apache Kafka]
 * link:/blog/2019/02/21/reactive-with-spring-boot-mongodb[Build a Reactive App with Spring Boot and MongoDB]
 
 Keep in touch! If you have questions about this post, please ask them in the comments below. Follow https://twitter.com/oktadev[@oktadev on Twitter], subscribe to https://youtube.com/c/oktadev[our YouTube channel], and follow us https://www.linkedin.com/company/oktadev/[on LinkedIn].
+
