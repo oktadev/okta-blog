@@ -31,7 +31,7 @@ In Okta ASA, projects work as a collection of servers that share the same access
 
 Servers enroll in your project to apply the same security configuration using an ASA agent with a project enrollment token. The ASA agent periodically checks for updates in Okta to update the server configuration.
 
-To get your servers running with Okta, let’s create a project and get an enrollment token:
+To get your servers running with Okta, let's create a project and get an enrollment token:
 
 1. Access Okta ASA as Administrator.
 2. Click **Projects** and then select or create a new project.
