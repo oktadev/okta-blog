@@ -13,13 +13,11 @@ image: blog/
 type: conversion
 ---
 
-**Tip:** This tutorial is part of our series on how to integrate Okta with popular Infrastructure as a Code solutions. If you're not into Puppet, check out our [Chef](/blog/2021/??/??/okta-chef), [Ansible](/blog/2021/??/??/okta-ansible), and [Terraform](/blog/2020/04/24/okta-terraform-automate-identity-and-infrastructure) tutorials.
-
 If you use Puppet to automate configuration management across dynamic server fleets, there's a question about identity & access management – how do you get accounts and credentials on the machines?
 
-A common practice is to push SSH Keys for every admin user to every server. This has major security implications, however. What happens when an administrator leaves the company? It is then up to someone to clear out those keys on each machine, oftentimes a manual process.
+A common practice is to push SSH Keys for every admin user to every server. This has major security implications, however. What happens when an administrator leaves the company? It is usually up to someone to clear out those keys on each machine, oftentimes a manual process.
 
-Another common practice is to front your servers with an LDAP interface, configuring a local PAM module on each machine to sync local server accounts with an upstream Identity Provider. This leaves a significant operational burden, however. Do you want to run an HA middleware service blocking your ability to scale in the cloud? This is a pain point no Ops Engineer wants.
+Another common practice is to front your servers with an LDAP interface, configuring a local PAM module on each machine to sync local server accounts with an upstream Identity Provider. This leaves a significant operational burden, however. Do you want to run an HA middleware service blocking your ability to scale in the cloud? I doubt you do.
 
 In this tutorial, we will overcome both issues by seamlessly injecting Okta into your Puppet Infrastructure as Code to effectively [Shift Identity Left](https://www.okta.com/blog/2019/07/shift-identity-left-secure-devops-automation-with-okta/):
 
@@ -27,13 +25,13 @@ In this tutorial, we will overcome both issues by seamlessly injecting Okta into
 
 **Note:** To follow this tutorial, you need to have an Advanced Server Access (ASA) team provisioned from your Okta Org. If you don't have an existing ASA team, you can sign up for free [here](https://app.scaleft.com/p/signupV2), which requires an Okta Administrator to [configure](https://help.okta.com/en/prod/Content/Topics/Adv_Server_Access/docs/setup/getting-started.htm).
 
-## Create a project and get an enrollment token in ASA
+## Create your Puppet project and get an enrollment token in ASA
 
 In Okta ASA, projects work as a collection of servers that share the same access and authorization controls. In a project, you define which users and groups from Okta can access your servers, when they can do so, and what they are allowed to do in the server (i.e. run only certain commands). Any changes in your project (users, group assignments, authorization) are periodically updated in your servers (providing idempotency for identity and access management).
 
 Servers enroll in your project to apply the same security configuration using an ASA agent with a project enrollment token. The ASA agent periodically checks for updates in Okta to update the server configuration.
 
-To get your servers running with Okta, lets create a project and get an enrollment token:
+To get your servers running with Okta, let’s create a project and get an enrollment token:
 
 1. Access Okta ASA as Administrator.
 2. Click **Projects** and then select or create a new project.
@@ -49,7 +47,7 @@ Clone our sample code `git clone https://github.com/okta-server-asa/asa-puppet-e
 
 Optionally, review the `okta-asa-sample.pp` contents
 
-This code installs the Okta ASA server agent binaires. It supports multiple Linux distros using the server distro family to identify the ideal installation tasks:
+This code first installs the Okta ASA server agent binaires. It supports multiple Linux distros using the server distro family to identify the ideal installation tasks:
 
 ```rb
 #Class for installing ASA
@@ -72,7 +70,7 @@ class asa_setup {
 }
 ```
 
-After installing the agent binaries, the code:
+After installing the agent binaries, the `okta-asa-sample.pp` code:
 
 - Defines the name of your server in ASA (canonical name),
 - Enrolls your server into the ASA project using the enrollment token you got in the previous section
@@ -89,9 +87,9 @@ Validate the example syntax: `puppet parser validate okta-asa-sample.pp`
 
 Validate the example in the primary server (without executing the change): `puppet apply okta-asa-sample.pp --noop`
 
-## Test the sample code
+## Test the sample code of your Puppet Project
 
-Its time to test the code. To do this, I'll apply the sample on my Puppet primary server to enroll this server in Okta ASA.
+It's time to test the code. To do this, apply the sample on your Puppet primary server to enroll this server in Okta ASA.
 
 **Tip:** For this tutorial, I'm using a test environment. For use in production, we recommend tests isolated in a new puppet client before running on production clients and primary servers.
 
@@ -134,7 +132,7 @@ Now that all servers are enrolled in Okta, let's access the servers as a user:
 
 [Install the ASA agent in your workstation](https://www.google.com/url?q=https://help.okta.com/en/prod/Content/Topics/Adv_Server_Access/docs/sft.htm&sa=D&ust=1610060131465000&usg=AOvVaw1omaR8RXzvDBwm3OddiJVk) (required to access servers as a user): `brew install okta-advanced-server-access --cask`
 
-To setup the ASA agent, enter `sft enroll` and follow the instructions
+To set up the ASA agent, enter `sft enroll` and follow the instructions
 
 To see your servers, enter `sft list-servers`
 
@@ -158,13 +156,21 @@ To ssh into your server, enter `sft ssh <name-of-your-server>`:
 
 **Note:** Wait... What Okta ASA does for the login?
 
-- Okta ASA secures access to Linux and Windows servers in SSH and RDP connections using the server agent (the same one that enrolled the server in your project ealier). - The ASA server agent, in addition to subscribing your server to a project, also works alongside native OS features such as sudo, users, and openssh to control access during runtime and to capture any login events for audit inspection.
+- Okta ASA secures access to Linux and Windows servers in SSH and RDP connections using the server agent (the same one that enrolled the server in your project earlier). - The ASA server agent, in addition to subscribing your server to a project, also works alongside native OS features such as sudo, users, and openssh to control access during runtime and to capture any login events for audit inspection.
 - Because the agent is light and does not require firewalls and monolith LDAP or privileged access servers, it can be easily distributed across any infrastructure (IaaS, VM, or physical) and embedded in your DevOps tools.
-- To grant users access to servers, ASA operates a programmable Certificate Authority service as part of its SaaS, that issues ephemeral SSH Client Certificates for each authenticated and authorized request. The keys are issued only after ensuring both user and his/her device complies with the organization security policies.
+- To grant users access to servers, ASA operates a programmable Certificate Authority service as part of its SaaS, that issues ephemeral SSH Client Certificates for each authenticated and authorized request. The keys are issued only after ensuring both user and his/her device complies with the organization's security policies.
 - The use of ephemeral keys provides many benefits. It eliminates the use of static keys and credentials for server access, ensures that both users and machines are audited before any new ssh connection, simplifies access revocation, eliminates the risk of "super account overuse", and simplifies access audit.
 
 ## What's next?
 
-After testing the sample on some clients, you expand to the rest of your infrastructure and tweak the sample to take full advantage of your Puppet environment – i.e. Bolt, Hiera, secret management tools..., and best practices.
+After testing the sample on some clients, you may expand to the rest of your infrastructure and tweak the sample to take full advantage of your Puppet environment – i.e. Bolt, Hiera, secret management tools, and best practices.
 
-You can also turn on additional features in Okta ASA, such as setup sudo grants, time-based access, use of bastion hosts, and SSH session capture just to name a few. All these features reduce the load on your catalogs and allow provide consistent account configuration across multiple servers.
+You can also turn on additional features in Okta ASA, such as setup sudo grants, time-based access, use of bastion hosts, and SSH session capture just to name a few. All these features reduce the load on your catalogs and allow consistent account configuration across multiple servers.
+
+If you'd like to see more information like this, consider following us [on Twitter](https://twitter.com/oktadev), subscribing to our [YouTube channel](https://www.youtube.com/oktadev), or reading through some of our other DevOps articles!
+
+- [A Developer's Guide to Docker](/blog/2017/05/10/developers-guide-to-docker-part-1)
+- [Container Security: A Developer Guide](/blog/2019/07/18/container-security-a-developer-guide)
+- [Add Docker to Your Spring Boot Application](/blog/2019/12/27/spring-boot-deploy-docker)
+- [Build a Simple .NET Core App on Docker](/blog/2019/09/18/build-a-simple-dotnet-core-app-in-docker)
+- [Using Okta Advanced Server Access & Terraform to Automate Identity & Infrastructure as Code](/blog/2020/04/24/okta-terraform-automate-identity-and-infrastructure)
