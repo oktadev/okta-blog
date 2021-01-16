@@ -19,7 +19,7 @@ jobs:
     - name: Set up ruby and bundler
       uses: actions/setup-ruby@v1.1.2
       with:
-        version: 2.6
+        ruby-version: 2.6
 
     - name: Install ruby dependencies
       run: |
