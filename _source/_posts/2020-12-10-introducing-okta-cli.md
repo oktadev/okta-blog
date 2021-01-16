@@ -46,7 +46,7 @@ There are simple install directions at [https://cli.okta.com](https://cli.okta.c
 Here, I show you the command to install on macOS:
 
 ```bash
-brew cask install oktadeveloper/tap/okta
+brew install --cask oktadeveloper/tap/okta
 ```
 
 Pretty easy, right?
