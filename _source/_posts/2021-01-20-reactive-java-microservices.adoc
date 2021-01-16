@@ -332,9 +332,7 @@ Install the Okta CLI using the aforementioned website and come back here when yo
 
 NOTE: You can also use your browser and Okta's developer console to register an app. See https://www.jhipster.tech/security/#okta[JHipster's security documentation] for those instructions.
 
-Then, from the gateway project's directory, run `okta apps create`.
-
-When prompted, select a **Web** application, and **JHipster**. Accept the default redirect URIs.
+Then, from the gateway project's directory, run `okta apps create jhipster`. Accept the default redirect URIs.
 
 image::{% asset_path 'blog/reactive-java-microservices/okta-apps-create.png' %}[alt=Okta CLI in action,width=800,align=center]
 
@@ -491,7 +489,7 @@ If you want to learn more about Project Loom, I recommend listening to https://i
 
 This tutorial isn't an in-depth guide to programming reactive Java microservices. That's because it doesn't have to be! With JHipster, you can generate high-quality reactive Java code (~70% test coverage) that's based on fantastic frameworks like Spring Boot, Spring Cloud, Spring WebFlux, and Spring Security.
 
-JHipster also implements most of the patterns in my https://developer.okta.com/blog/2020/03/23/microservice-security-patterns[Security Patterns for Microservice Architectures]. You can add add dependency scanning with Snyk (based on https://snyk.io/blog/jhipster-security-scanning/[Brian Vermeer's blog post]), use HTTPS locally, adopt OAuth, add CI/CD, generate secure Docker containers, just to name a few.
+JHipster also implements most of the patterns in my link:/blog/2020/03/23/microservice-security-patterns[Security Patterns for Microservice Architectures]. You can add dependency scanning with Snyk (based on https://snyk.io/blog/jhipster-security-scanning/[Brian Vermeer's blog post]), use HTTPS locally, adopt OAuth, add CI/CD, and generate secure Docker containers, just to name a few.
 
 The Spring Cloud Gateway implementation in JHipster is largely based on what I learned when researching and writing link:/blog/2019/08/28/reactive-microservices-spring-cloud-gateway[Secure Reactive Microservices with Spring Cloud Gateway]. Spring Cloud Gateway makes it trivial to relay an access token between a gateway and microservices. It's just five lines of YAML:
 
