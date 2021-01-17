@@ -115,7 +115,7 @@ https://jhipster.tech[JHipster] is an open-source project that started as an app
 
 You see, JHipster integrates everything for you. Do you want to use Angular with Spring Boot? It's got that. React? Yep. Microservices with Spring Cloud? Check!
 
-JHipster 7 beta 0 was recently released, and it packs a punch! A couple of slick features that I like are Vue support and reactive microservices with Spring WebFlux. To be fair, WebFlux and Spring Cloud Gateway have been an option since JHipster https://www.jhipster.tech/2020/03/08/jhipster-release-6.8.0.html[6.8.0 in March 2020], but now we have R2DBC support too!
+JHipster 7 beta 1 was recently released, and it packs a punch! A couple of slick features that I like are Vue support and reactive microservices with Spring WebFlux. To be fair, WebFlux and Spring Cloud Gateway have been an option since JHipster https://www.jhipster.tech/2020/03/08/jhipster-release-6.8.0.html[6.8.0 in March 2020], but now we have R2DBC support too!
 
 In this tutorial, I'll show you how to generate a microservice architecture that uses OAuth 2.0, an API gateway, and two microservices (a blog and a store). The gateway will use PostgreSQL with R2DBC, the blog will use Neo4j, and the store will use MongoDB.
 
@@ -336,9 +336,14 @@ Then, from the gateway project's directory, run `okta apps create jhipster`. Acc
 
 image::{% asset_path 'blog/reactive-java-microservices/okta-apps-create.png' %}[alt=Okta CLI in action,width=800,align=center]
 
-This process creates a `.okta.env` file with the values you'll need to talk to Okta.
+This process does several things:
 
-TIP: Add `*.env` to your `.gitignore` file, so you don't accidentally check in any secrets!
+. Registers an OIDC app in Okta with JHipster's configured redirect URIs.
+. Creates `ROLE_ADMIN` and `ROLE_USER` groups and adds your user to both.
+. Creates a `groups` claim and adds it to ID tokens.
+. Creates a `.okta.env` file with the values you'll need to talk to Okta.
+
+CAUTION: Add `*.env` to your `.gitignore` file, so you don't accidentally check in any secrets!
 
 === Update the JHipster Registry to Distribute OIDC Configuration
 
@@ -385,6 +390,8 @@ export E2E_USERNAME=<your-username>
 export E2E_PASSWORD=<your-password>
 npm run e2e
 ----
+
+NOTE: Your JHipster Registry is now configured to use Okta for authentication. However, you'll need to add redirect URIs in your Okta app for `http://localhost:8761`.
 
 == Create Docker Images for Your Microservice Apps
 
@@ -443,6 +450,8 @@ docker-compose up
 TIP: You can add a `-d` to the above command to run it as a daemon. I like watching all the log messages dance with each other.
 
 image::{% asset_path 'blog/reactive-java-microservices/jhipster-colors.png' %}[alt=JHipster colors,width=800,align=center]
+
+You should be able to open `http://localhost:8080`, sign in, and access all of your microservices.
 
 == What About Kotlin Microservices?
 
