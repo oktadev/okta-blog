@@ -349,7 +349,7 @@ This process does several things:
 
 I mentioned earlier that Spring Cloud Config allows you to distribute Spring's configuration between apps. In this section, you'll configure JHipster's Spring Security settings to use Okta across all your services.
 
-Add the following YAML to `gateway/src/main/docker/central-server-config/localhost-config/application.yml`. You can find the values in the `.okta.env` file.
+Add the following YAML to `gateway/src/main/docker/central-server-config/localhost-config/application.yml`. You can find the values for each property in the `.okta.env` file.
 
 [source,yaml]
 ----
@@ -415,7 +415,7 @@ To run your reactive stack with Docker Compose, you need to create Docker images
 
 == Run Your Microservices Stack with Docker Compose
 
-Once your Docker containers are finished building, you'll want to make similar JHipster Registry configuration changes to use Okta.
+Once your Docker containers are finished building, you'll want to add your Okta settings to Spring Cloud Config in JHipster Registry.
 
 === Switch Identity Providers with Spring Cloud Config
 
