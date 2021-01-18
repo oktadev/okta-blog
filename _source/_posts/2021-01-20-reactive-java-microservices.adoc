@@ -7,17 +7,17 @@ communities: [java]
 description: "Learn how to create a reactive microservices architecture using Spring Boot and JHipster."
 tags: [java, reactive, microservices, spring-boot, kotlin, jhipster]
 tweets:
-- "Learn how to build a reactive microservices architecture using @java and @jhispter in this quick tutorial from @mraible."
+- "Learn how to build a reactive @java microservices architecture using @springboot and @jhipster in this quick tutorial from @mraible."
 - "Reactive #Java microservices are easy to create with @jhipster! Check out our 2021 guide. 👇"
-- "Want to build reactive @java microservices? @jhipster, @springboot, and @springcloud to the rescue! ⛑"
-image: blog/reactive-java-microservices/reactive-java.png
+- "Want to build reactive Java microservices? @jhipster, @springboot, and @springcloud to the rescue! ⛑"
+image: blog/reactive-java-microservices/reactive-java-microservices.png
 type: conversion
 ---
 :toc: macro
 :page-liquid:
 :experimental:
 
-Java has been at the forefront of microservice architectures since they came to prominence a few years ago. It's a popular language with well-known, high-quality frameworks, like Spring Boot, Spring Cloud, and Spring Security.
+Java has been at the forefront of microservice architectures since they came to prominence a few years ago. It's a popular language with well-known, high-quality frameworks, like Spring Boot, Spring Cloud, Spring Data, and Spring Security.
 
 Spring Boot 2.0 introduced a new web framework called Spring WebFlux. Before, Spring Boot only shipped with Spring MVC as an option. WebFlux offers a way for developers to do _reactive programming_. This means you can write your code with familiar syntax and, as a result, your app will use fewer resources and scale better.
 
@@ -92,9 +92,9 @@ public Mono<ResponseEntity<Points>> createPoints(@Valid @RequestBody Points poin
 }
 ----
 
-In this guide, I'll show you how to create a reactive microservices architecture with Spring Boot, Spring Cloud Gateway, Spring WebFlux, Java, and JHipster.
+In this guide, I'll show you how to create a reactive microservices architecture with Spring Boot, Spring Cloud Gateway, Spring Cloud Config, Spring WebFlux, Java, and JHipster.
 
-image::{% asset_path 'blog/reactive-java-microservices/reactive-java.png' %}[alt=Reactive Java,width=800,align=center]
+image::{% asset_path 'blog/reactive-java-microservices/reactive-java-microservices.png' %}[alt=Reactive Java Microservices,width=800,align=center]
 
 **Prerequisites**
 
@@ -117,7 +117,7 @@ You see, JHipster integrates everything for you. Do you want to use Angular with
 
 JHipster 7 beta 1 was recently released, and it packs a punch! A couple of slick features that I like are Vue support and reactive microservices with Spring WebFlux. To be fair, WebFlux and Spring Cloud Gateway have been an option since JHipster https://www.jhipster.tech/2020/03/08/jhipster-release-6.8.0.html[6.8.0 in March 2020], but now we have R2DBC support too!
 
-In this tutorial, I'll show you how to generate a microservice architecture that uses OAuth 2.0, an API gateway, and two microservices (a blog and a store). The gateway will use PostgreSQL with R2DBC, the blog will use Neo4j, and the store will use MongoDB.
+In this tutorial, I'll show you how to generate a microservice architecture that uses OAuth 2.0, an API gateway, and two microservices (a blog and a store). The gateway will use PostgreSQL with R2DBC, the blog will use Neo4j, and the store will use MongoDB. All persistence options are powered by Spring Data.
 
 Start by installing JHipster using npm:
 
@@ -286,6 +286,8 @@ docker-compose -f src/main/docker/jhipster-registery up -d #jhregistryup
 
 NOTE: You can run `docker-compose -f src/main/docker/jhipster-registry.yml logs --follow` to watch the logs of the JHipster Registry (or `jhregistrylogs` if you're using Oh My Zsh and have the JHipster plugin installed).
 
+The https://www.jhipster.tech/jhipster-registry/[JHipster Registry] is a Netflix Eureka server that handles service discovery. When the gateway and microservices start up, they register with Eureka. This allows communication between services using logical names, rather than IP address or host names. JHipster Registry also contains a Spring Cloud Config server that can distribute configuration between apps. You can learn more about Spring Cloud Config in link:/blog/2020/12/07/spring-cloud-config[Spring Cloud Config for Shared Microservice Configuration].
+
 Open a new terminal window, start the blog app's Neo4j database, and then the app itself.
 
 [source,shell]
@@ -295,7 +297,7 @@ docker-compose -f src/main/docker/neo4j.yml up -d #jhneo4jup
 ./gradlew
 ----
 
-Then, open another terminal window, start the store app's MongoDB database, and the app itself.
+Then, open another terminal window, start the store app's MongoDB database, and the microservice.
 
 [source,shell]
 ----
@@ -343,9 +345,9 @@ This process does several things:
 . Creates a `groups` claim and adds it to ID tokens.
 . Creates a `.okta.env` file with the values you'll need to talk to Okta.
 
-CAUTION: Add `*.env` to your `.gitignore` file, so you don't accidentally check in any secrets!
-
 === Update the JHipster Registry to Distribute OIDC Configuration
+
+I mentioned earlier that Spring Cloud Config allows you to distribute Spring's configuration between apps. In this section, you'll configure JHipster's Spring Security settings to use Okta across all your services.
 
 Add the following YAML to `gateway/src/main/docker/central-server-config/localhost-config/application.yml`. You can find the values in the `.okta.env` file.
 
@@ -364,9 +366,7 @@ spring:
             client-secret: <client-secret>
 ----
 
-Save your changes. These values will be distributed to the JHipster Registry, gateway, blog, and store apps so they use Okta for OAuth.
-
-Restart the JHipster Registry by running the following commands:
+Save your changes. These values will be distributed to the JHipster Registry, gateway, blog, and store apps. Restart the JHipster Registry by running the following commands:
 
 [source,shell]
 ----
@@ -391,7 +391,7 @@ export E2E_PASSWORD=<your-password>
 npm run e2e
 ----
 
-NOTE: Your JHipster Registry is now configured to use Okta for authentication. However, you'll need to add redirect URIs in your Okta app for `http://localhost:8761`.
+CAUTION: Your JHipster Registry is now configured to use Okta for authentication. You'll need to add redirect URIs in your Okta app for `http://localhost:8761`. After making these changes, you should be able to sign in to it.
 
 == Create Docker Images for Your Microservice Apps
 
@@ -451,7 +451,7 @@ TIP: You can add a `-d` to the above command to run it as a daemon. I like watch
 
 image::{% asset_path 'blog/reactive-java-microservices/jhipster-colors.png' %}[alt=JHipster colors,width=800,align=center]
 
-You should be able to open `http://localhost:8080`, sign in, and access all of your microservices.
+You should be able to open `http://localhost:8080`, sign in, and access all of your microservices. Pretty slick, eh?! 🤓
 
 == What About Kotlin Microservices?
 
