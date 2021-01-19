@@ -19,7 +19,7 @@ type: conversion
 
 Java has been at the forefront of microservice architectures since they came to prominence a few years ago. It's a popular language with well-known, high-quality frameworks, like Spring Boot, Spring Cloud, Spring Data, and Spring Security.
 
-Spring Boot 2.0 introduced a new web framework called Spring WebFlux. Before, Spring Boot only shipped with Spring MVC as an option. WebFlux offers a way for developers to do _reactive programming_. This means you can write your code with familiar syntax and, as a result, your app will use fewer resources and scale better.
+Spring Boot 2.0 introduced a new web framework called Spring WebFlux. Previous versions of Spring Boot only shipped with Spring MVC as an option. WebFlux offers a way for developers to do _reactive programming_. This means you can write your code with familiar syntax and, as a result, your app will use fewer resources and scale better.
 
 image::{% asset_path 'blog/reactive-java-microservices/diagram-boot-reactor.svg' %}[alt=Spring Boot 2.0,width=700,align=center]
 
@@ -111,7 +111,7 @@ cd java-microservices-examples/reactive-jhipster
 
 == Build a Reactive Java Microservices Architecture
 
-https://jhipster.tech[JHipster] is an open-source project that started as an application generator, based on Yeoman. It initially allowed you to generate AngularJS and Spring apps. In the last five years, it's become a platform with extensibility, grown a thriving community, and has saved developers many hours of pain and frustration.
+https://jhipster.tech[JHipster] is an open-source project that started as an application generator, based on https://yeoman.io[Yeoman]. It's also the https://yeoman.io/generators/[most popular Yeoman generator]. JHipster initially allowed you to generate AngularJS and Spring apps. In the last five years, it's become a platform with extensibility, grown a thriving community, and has saved developers many hours of pain and frustration.
 
 You see, JHipster integrates everything for you. Do you want to use Angular with Spring Boot? It's got that. React? Yep. Microservices with Spring Cloud? Check!
 
