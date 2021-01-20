@@ -24,7 +24,9 @@
     </header>
 
     <div class="BlogPost-content">
-        {% if page.update-url %}
+        {% if page.oie-ready == false %}
+            {% include legacy-api.html url=page.update-url %}
+        {% elsif page.update-url %}
             {% include update.html title=page.update-title url=page.update-url %}
         {% endif %}
         {{ include.post_content }}

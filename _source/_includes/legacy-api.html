@@ -1,0 +1,17 @@
+<div class="alert alert-info" role="alert">
+  <p class="title">
+    <a class="close" aria-label="Close" title="Close" onclick="this.parentElement.parentElement.style.display='none'">
+      <span aria-hidden="true">&times;</span>
+    </a>
+    Heads up... This blog post is old!
+  </p>
+  <p>This post is designed to work with the older Okta legacy API. If you're a
+    new to Okta
+    {% if include.url %}
+      please see <a href="{{ include.url }}">this post</a> instead!
+    {% else %}
+      please beware that this guide will <i>not</i> work with newly created, Okta
+      Identity Engine accounts.
+    {% endif %}
+  </p>
+</div>
