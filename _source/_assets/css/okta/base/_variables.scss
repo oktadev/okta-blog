@@ -16,7 +16,6 @@ $asset-path: "/assets";
 //-----------------------------------------------------------------------
 
 $font-family:             'proxima-nova', Helvetica, Arial, sans-serif;
-$font-family-secondary:   'ABC Whyte', Helvetica, Arial, sans-serif;
 $font-family--alt:        'museo', Helvetica, Arial, sans-serif;
 
 $font-size:     (
@@ -149,8 +148,6 @@ $puerto-rico-5: #4cbf9d;
 $screamin-green: #59ff99;
 $shamrock: #4cdb82;
 $periglacial-blue: #abadac;
-$gable-green: #16262f;
-$cello: #1f3b54;
 // Purples
 $cerise: #e22866; // intentional developer color
 $lavender-3: #f7fbfd;
@@ -205,8 +202,6 @@ $colors:        (
                 'new-gray-dark':          $eclipse-2,
 
                 'red':                    $light-coral,
-                'cello':                  $cello,
-                'gable-green':            $gable-green,
 
                 // 2017-07 Redesign Colors
                 'ebony-clay':             $midnight, // Background
