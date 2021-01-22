@@ -102,7 +102,7 @@ Ansible will run and register your servers, and return the following:
 
 In ASA, you will see the servers enrolled in your project:
 
-{% img blog/okta-Ansible/asa-list-servers.png alt:"ASA: Servers Enrolled" width:"800" %}{: .center-image }
+{% img blog/okta-ansible/asa-list-servers.png alt:"ASA: Servers Enrolled" width:"800" %}{: .center-image }
 
 At this moment, your servers are enrolled in ASA. That means you can access your servers with users and groups from Okta associated with your project.
 
