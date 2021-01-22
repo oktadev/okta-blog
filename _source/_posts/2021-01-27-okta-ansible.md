@@ -1,8 +1,8 @@
 ---
 layout: blog_post
 title: "Tutorial: Ansible and Account Automation with Okta"
-author: sudobinbash
-by: contractor
+author: frederico-hakamine
+by: internal-contributor
 communities: [devops]
 description: "How to integrate Okta and Ansible to manage accounts in servers while abstracting account management from your playbooks"
 tags: [devops]
@@ -13,13 +13,15 @@ image: blog/
 type: conversion
 ---
 
-**Tip:** This tutorial is part of our series on how to integrate Okta with popular Infrastructure as a Code solutions. If you're not into Ansible, check out our [Chef](/blog/2021/??/??/okta-chef), [Puppet](/blog/2021/??/??/okta-puppet), and [Terraform](/blog/2020/04/24/okta-terraform-automate-identity-and-infrastructure) tutorials.
+**Tip:** This tutorial is part of our series on how to integrate Okta with popular Infrastructure as a Code solution. If you're not into Ansible, check out our [Puppet](/blog/2021/01/22/okta-puppet) and [Terraform](/blog/2020/04/24/okta-terraform-automate-identity-and-infrastructure) tutorials.
 
-If you use Ansible to automate configuration management across dynamic server fleets, there's a question about identity & access management – how do you get accounts and credentials on the machines?
+I love using Ansible to deploy and manage configuration at scale. However, like any other configuration management solution, Ansible works best when playbooks don't change often. This is easy to accomplish when you manage only server artifacts and binaries, but it can get tricky if your playbooks manage user accounts and credentials that will change quite often as people join, change roles, or leave your team.
 
-A common practice is to push SSH Keys for every admin user to every server. This has major security implications, however. What happens when an administrator leaves the company? It is then up to someone to clear out those keys on each machine, oftentimes a manual process.
+To overcome this, admins would typically look at distributing SSH keys or using some sort of 3rd party LDAP/AD for login.
 
-Another common practice is to front your servers with an LDAP interface, configuring a local PAM module on each machine to sync local server accounts with an upstream Identity Provider. This leaves a significant operational burden, however. Do you want to run an HA middleware service blocking your ability to scale in the cloud? This is a pain point no Ops Engineer wants.
+Distributing SSH Keys has major maintenance implications since it requires a lot of work anytime you need to rotate keys. If you use SSH keys for user logins, the recommendation is to rotate keys often – to reduce risks in case the keys are compromised – plus every time an admin leaves the company.
+
+Integrating your infra to an AD/LDAP server – usually using a PAM module – maybe even more challenging, since this type of server is usually monolith and hosted on-prem. Getting a robust integration here is a tall order. From site-to-site VPNs (making your AD available everywhere) to adding additional servers (keeping compatibility across a variety of server distros), this is the kind of pain no Ops Engineer would like to sign up for.
 
 In this tutorial, we will overcome both issues by seamlessly injecting Okta into your Ansible Infrastructure as Code to effectively [Shift Identity Left](https://www.okta.com/blog/2019/07/shift-identity-left-secure-devops-automation-with-okta/):
 
@@ -33,7 +35,7 @@ In Okta ASA, projects work as a collection of servers that share the same access
 
 Servers enroll in your project to apply the same security configuration using an ASA agent with a project enrollment token. The ASA agent periodically checks for updates in Okta to update the server configuration.
 
-To get your servers running with Okta, lets create a project and get an enrollment token:
+To get your servers running with Okta, let's create a project and get an enrollment token:
 
 1. Access Okta ASA as Administrator.
 2. Click **Projects** and then select or create a new project.
@@ -49,7 +51,7 @@ Clone our sample playbook `git clone https://github.com/okta-server-asa/asa-ansi
 
 Optionally, review the `asa-playbook.yml` contents.
 
-The playbook installs the Okta ASA server agent binaires. It supports multiple Linux distros using the server distro family to identify the ideal installation tasks:
+The playbook installs the Okta ASA server agent binaries. It supports multiple Linux distros using the server distro family to identify the ideal installation tasks:
 
 ```yaml
   tasks:     
@@ -110,7 +112,7 @@ Now that all servers are enrolled in Okta, let's access the servers as a user:
 
 [Install the ASA agent in your workstation](https://www.google.com/url?q=https://help.okta.com/en/prod/Content/Topics/Adv_Server_Access/docs/sft.htm&sa=D&ust=1610060131465000&usg=AOvVaw1omaR8RXzvDBwm3OddiJVk) (required to access servers as a user): `brew install okta-advanced-server-access --cask`
 
-To setup the ASA agent, enter `sft enroll` and follow the instructions.
+To set up the ASA agent, enter `sft enroll` and follow the instructions.
 
 To see your servers, enter `sft list-servers`.
 
@@ -141,7 +143,7 @@ To ssh into your server, enter `sft ssh <name-of-your-server>`:
 - Okta ASA secures access to Linux and Windows servers in SSH and RDP connections using the server agent (the same one that enrolled the server in your project earlier).
 - The ASA server agent, in addition to subscribing your server to a project, also works alongside native OS features such as sudo, users, and openssh to control access during runtime and to capture any login events for audit inspection.
 - Because the agent is light and does not require firewalls and monolith LDAP or privileged access servers, it can be easily distributed across any infrastructure (IaaS, VM, or physical) and embedded in your DevOps tools.
-- To grant users access to servers, ASA operates a programmable Certificate Authority service as part of its SaaS, that issues ephemeral SSH Client Certificates for each authenticated and authorized request. The keys are issued only after ensuring both user and his/her device complies with the organization security policies.
+- To grant users access to servers, ASA operates a programmable Certificate Authority service as part of its SaaS, that issues ephemeral SSH Client Certificates for each authenticated and authorized request. The keys are issued only after ensuring both user and his/her device complies with the organization's security policies.
 - The use of ephemeral keys provides many benefits. It eliminates the use of static keys and credentials for server access, ensures that both users and machines are audited before any new ssh connection, simplifies access revocation, eliminates the risk of "super account overuse", and simplifies access audit.
 
 **Can I use this playbook with other Ansible provisioning modules?**
@@ -152,4 +154,4 @@ Yes. You can use this sample with any other module available in [Ansible](https:
 
 After testing the playbook on some hosts, you expand it to more servers. To do so, tweak the playbook. You can, for example, store the enrollment token in [Ansible's vault](https://docs.ansible.com/ansible/2.8/user_guide/vault.html), and also secure access to the Ansible controller with ASA using the same playbook. – i.e. update your `asa-playbook.yml`, changing the hosts to `local`, and then run the playbook pointing to local: `ansible-playbook  -c local -i localhost asa-playbook.yml --extra-vars "asa_enrollment_token=<local>"`.
 
-You can also turn on additional features in Okta ASA, such as setup sudo grants, time-based access, use of bastion hosts, and SSH session capture just to name a few. All these features reduce the load on your playbooks and allow provide consistent account configuration across multiple servers.
+You can also turn on additional features in Okta ASA, such as setup sudo grants, time-based access, use of bastion hosts, and SSH session capture just to name a few. All these features reduce the load on your playbooks and provide consistent account configuration across multiple servers.
