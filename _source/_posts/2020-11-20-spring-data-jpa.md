@@ -669,4 +669,4 @@ If you have any questions about this post, please add a comment below. For more 
 <a name="changelog"></a>
 **Changelog**:
 
-* Jan 26, 2021: Updated post to use Spring Boot 2.4.2 and Spring Data 2020.0. See the code changes in the [example on GitHub](https://github.com/oktadeveloper/okta-spring-data-jpa-example/pull/4). Changes to this post can be viewed in [oktadeveloper/okta-blog#514](https://github.com/oktadeveloper/okta-blog/pull/514).
+* Jan 26, 2021: Updated post to use Spring Boot 2.4.2 and Spring Data 2020.0. See the code changes in the [example on GitHub](https://github.com/oktadeveloper/okta-spring-data-jpa-example/pull/4). Changes to this post can be viewed in [oktadeveloper/okta-blog#536](https://github.com/oktadeveloper/okta-blog/pull/536).
