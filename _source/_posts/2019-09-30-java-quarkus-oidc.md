@@ -506,6 +506,7 @@ Here are some related blog posts to learn more about Java and authentication:
 
 If you have any questions about this post, please add a comment below. For more awesome content, follow  [@oktadev](https://twitter.com/oktadev) on Twitter, like us [on Facebook](https://www.facebook.com/oktadevelopers/), or subscribe to [our YouTube channel](https://www.youtube.com/c/oktadev).
 
-### Changelog
+<a name="changelog"></a>
+**Changelog**:
 
-* January 27, 2021: Update Quarkus to version 1.11.1.Final
+* Jan 27, 2021: Update Quarkus to version 1.11.1.Final
