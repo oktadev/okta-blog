@@ -1,0 +1,57 @@
+.hamburger {
+  .lines {
+    height: 12px;
+    width: 18.3px;
+    cursor: pointer;
+    position: relative;
+    border-radius: 100%;
+    transition: all 0.5s;
+
+    &_part {
+      left: 0;
+      right: 0;
+      width: 18.3px;
+      height: 1.75px;
+      position: absolute;
+      background: get-color('white');
+      transition: all 330ms cubic-bezier(0.5, 0, 0.4, 1.8);
+
+      &:nth-of-type(1) {
+        top: 0;
+      }
+
+      &:nth-of-type(2) {
+        top: 5px;
+      }
+
+      &:nth-of-type(3) {
+        top: 10px;
+      }
+    }
+  }
+
+  &.active {
+    .lines {
+      height: 21px;
+      transform-origin: center;
+      transform: rotate(180deg);
+    }
+
+    .lines .lines_part {
+      top: 10px;
+      width: 18.3px;
+
+      &:nth-of-type(1) {
+        transform: rotate(45deg);
+      }
+
+      &:nth-of-type(2) {
+        transform: rotate(-45deg);
+      }
+
+      &:nth-of-type(3) {
+        opacity: 0;
+      }
+    }
+  }
+}
