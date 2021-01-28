@@ -43,12 +43,12 @@ On my computer (a Mac), I was able to use the following command to set the shell
 Open a terminal and `cd` to an appropriate parent directory for your project. The command below uses the `quarkus-maven-plugin` to create a starter application and places it in the `oauthdemo` subdirectory.
 
 ```bash
-mvn io.quarkus:quarkus-maven-plugin:0.23.1:create \
+mvn io.quarkus:quarkus-maven-plugin:1.11.1.Final:create \
     -DprojectGroupId=com.okta.quarkus \
     -DprojectArtifactId=oauthdemo \
     -DclassName="com.okta.quarkus.jwt.TokenSecuredResource" \
     -Dpath="/secured" \
-    -Dextensions="resteasy-jsonb, jwt"
+    -Dextensions="resteasy-jsonb, smallrye-jwt"
 ```
 
 If you run the project at this point, you'll get an error because you need to define some application properties first.
@@ -60,8 +60,6 @@ Open the `src/main/resources/application.properties` file and copy and paste the
 ```properties
 mp.jwt.verify.publickey.location=https://{yourOktaDomain}/oauth2/default/v1/keys
 mp.jwt.verify.issuer=https://{yourOktaDomain}/oauth2/default
-quarkus.smallrye-jwt.auth-mechanism=MP-JWT
-quarkus.smallrye-jwt.enabled=true
 ```
 
 You'll need to fill in your Okta developer URI in two places. 
@@ -240,7 +238,7 @@ public class TokenSecuredResource {
   
     @Inject  
     @Claim("groups")  
-    private Set<String> groups;  
+    Set<String> groups;  
   
     @GET()  
     @Path("permit-all")  
@@ -333,7 +331,7 @@ To work with Lombok, add the following dependency to your `pom.xml`.
  <dependency>
     <groupId>org.projectlombok</groupId>
     <artifactId>lombok</artifactId>
-    <version>1.18.8</version>
+    <version>1.18.16</version>
     <scope>provided</scope>
 </dependency>
  ```
@@ -365,8 +363,7 @@ public class Kayak {
         this.make = make;  
         this.model = model;  
         this.length = length;  
-    }  
-      
+    }       
 }
 ```
 
@@ -508,3 +505,8 @@ Here are some related blog posts to learn more about Java and authentication:
 - [Build a Simple CRUD App with Spring Boot and Vue.js](/blog/2018/11/20/build-crud-spring-and-vue)
 
 If you have any questions about this post, please add a comment below. For more awesome content, follow  [@oktadev](https://twitter.com/oktadev) on Twitter, like us [on Facebook](https://www.facebook.com/oktadevelopers/), or subscribe to [our YouTube channel](https://www.youtube.com/c/oktadev).
+
+<a name="changelog"></a>
+**Changelog**:
+
+* Jan 28, 2021: Updated post to upgrade Quarkus to version 1.11.1.Final. See the code changes in the [example on GitHub](https://github.com/oktadeveloper/okta-quarkus-example/pull/3). Changes to this post can be viewed in [oktadeveloper/okta-blog#537](https://github.com/oktadeveloper/okta-blog/pull/537).
