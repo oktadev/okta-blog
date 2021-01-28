@@ -509,4 +509,4 @@ If you have any questions about this post, please add a comment below. For more 
 <a name="changelog"></a>
 **Changelog**:
 
-* Jan 27, 2021: Update Quarkus to version 1.11.1.Final
+* Jan 28, 2021: Updated post to upgrade Quarkus to version 1.11.1.Final. See the code changes in the [example on GitHub](https://github.com/oktadeveloper/okta-quarkus-example/pull/3). Changes to this post can be viewed in [oktadeveloper/okta-blog#537](https://github.com/oktadeveloper/okta-blog/pull/537).
