@@ -69,3 +69,15 @@ table {
   text-transform: uppercase;
   letter-spacing: 1.5px;
 }
+
+.secondary-font {
+	font-family: $font-family-secondary;
+}
+
+.small {
+	@include font-size(14px);
+}
+
+.bold {
+	@include font-weight('bold');
+}
