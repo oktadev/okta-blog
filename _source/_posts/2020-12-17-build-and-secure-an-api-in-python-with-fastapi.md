@@ -98,6 +98,8 @@ To demonstrate some of the more advanced features of the FastAPI framework, I'll
 
 If you'd like to run the final application, [the code is available on GitHub](https://github.com/oktadeveloper/okta-fastapi), or you can follow along for step-by-step instructions.
 
+To continue, please create a free [Okta developer account](/signup/) and log into your new account. Okta is an API service that allows you to store user accounts, handle user authentication & authorization, etc. We'll be using Okta through this guide to handle the security layer of the API service. 
+
 ### Setting Up a New Application in Okta
 
 Before you create any endpoints in your FastAPI application, you'll need to create a new application in Okta and get your Authorization Server's issuer URL and audience. As you go through these steps, add the Okta environment variables to a new file in your application called `.env`. You'll see how to use these variables later in the tutorial.
