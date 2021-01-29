@@ -199,6 +199,27 @@ Click  **Done**.
 
 Leave the page open or take note of the  **Client ID**. You'll need it in a bit when you generate a token.
 
+## Add Groups Claims To Default Authorization Server
+
+You're going to add a **groups** claim mappings in the JWT access token, this is what maps Okta's groups to the role-based authorization in Quarkus.
+
+From the top menu of the Okta developer dashboard, go to **API** and select **Authorization Servers**.
+
+Click on the **default** server.
+
+Select the **Claims** tab.
+
+Click **Add Claim**.
+
+- **Name**: `groups`
+- **Include in token type**: `Access Token` `Always`
+- **Value type**: `Groups`
+- **Filter**: `Matches regex` `.*`
+
+Click **Create**.
+
+{% img blog/java-quarkus-oidc/add-groups-claim.png alt:"Add Groups Claim" width:"600" %}{: .center-image }
+
 ## Update TokenSecuredResource
 
 Now update the `TokenSecuredResource` class to do two things: 
