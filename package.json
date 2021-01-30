@@ -37,7 +37,7 @@
   "devDependencies": {
     "chalk": "2.4.2",
     "cross-env": "5.2.0",
-    "front-matter": "^3.1.0",
+    "front-matter": "^4.0.2",
     "fs-extra": "^8.1.0",
     "pre-push": "0.1.1",
     "recursive-readdir": "2.2.2",
