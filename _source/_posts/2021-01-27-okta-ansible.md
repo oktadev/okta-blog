@@ -21,7 +21,7 @@ To overcome this, admins would typically look at distributing SSH keys or using 
 
 Distributing SSH Keys has major maintenance implications since it requires a lot of work anytime you need to rotate keys. If you use SSH keys for user logins, the recommendation is to rotate keys often – to reduce risks in case the keys are compromised – plus every time an admin leaves the company.
 
-Integrating your infra to an AD/LDAP server – usually using a PAM module – maybe even more challenging, since this type of server is usually monolith and hosted on-prem. Getting a robust integration here is a tall order. From site-to-site VPNs (making your AD available everywhere) to adding additional servers (keeping compatibility across a variety of server distros), this is the kind of pain no Ops Engineer would like to sign up for.
+Integrating your infra to an AD/LDAP server – usually using a PAM module – may be even more challenging, since this type of server is usually monolithic and hosted on-prem. Getting a robust integration here is a tall order. From site-to-site VPNs (making your AD available everywhere) to adding additional servers (keeping compatibility across a variety of server distros), this is the kind of pain no Ops Engineer would like to sign up for.
 
 In this tutorial, we will overcome both issues by seamlessly injecting Okta into your Ansible Infrastructure as Code to effectively [Shift Identity Left](https://www.okta.com/blog/2019/07/shift-identity-left-secure-devops-automation-with-okta/):
 
@@ -138,11 +138,11 @@ To ssh into your server, enter `sft ssh <name-of-your-server>`:
 
 ## Wait, I have questions
 
-**What Okta ASA does for the login?**
+**What is Okta ASA doing?**
 
 - Okta ASA secures access to Linux and Windows servers in SSH and RDP connections using the server agent (the same one that enrolled the server in your project earlier).
 - The ASA server agent, in addition to subscribing your server to a project, also works alongside native OS features such as sudo, users, and openssh to control access during runtime and to capture any login events for audit inspection.
-- Because the agent is light and does not require firewalls and monolith LDAP or privileged access servers, it can be easily distributed across any infrastructure (IaaS, VM, or physical) and embedded in your DevOps tools.
+- Because the agent is light and does not require firewalls and monolithic LDAP or privileged access servers, it can be easily distributed across any infrastructure (IaaS, VM, or physical) and embedded in your DevOps tools.
 - To grant users access to servers, ASA operates a programmable Certificate Authority service as part of its SaaS, that issues ephemeral SSH Client Certificates for each authenticated and authorized request. The keys are issued only after ensuring both user and his/her device complies with the organization's security policies.
 - The use of ephemeral keys provides many benefits. It eliminates the use of static keys and credentials for server access, ensures that both users and machines are audited before any new ssh connection, simplifies access revocation, eliminates the risk of "super account overuse", and simplifies access audit.
 
@@ -152,6 +152,8 @@ Yes. You can use this sample with any other module available in [Ansible](https:
 
 ## What's next?
 
-After testing the playbook on some hosts, you expand it to more servers. To do so, tweak the playbook. You can, for example, store the enrollment token in [Ansible's vault](https://docs.ansible.com/ansible/2.8/user_guide/vault.html), and also secure access to the Ansible controller with ASA using the same playbook. – i.e. update your `asa-playbook.yml`, changing the hosts to `local`, and then run the playbook pointing to local: `ansible-playbook  -c local -i localhost asa-playbook.yml --extra-vars "asa_enrollment_token=<local>"`.
+After testing the playbook on some hosts, you expand it to more servers. To do so, tweak the playbook. You can, for example, store the enrollment token in [Ansible's vault](https://docs.ansible.com/ansible/2.8/user_guide/vault.html), and also secure access to the Ansible controller with ASA using the same playbook. – i.e. update your `asa-playbook.yml`, changing the hosts to `local`, and then run the playbook pointing to local:
+
+```ansible-playbook  -c local -i localhost asa-playbook.yml --extra-vars "asa_enrollment_token=<local>"```
 
 You can also turn on additional features in Okta ASA, such as setup sudo grants, time-based access, use of bastion hosts, and SSH session capture just to name a few. All these features reduce the load on your playbooks and provide consistent account configuration across multiple servers.
