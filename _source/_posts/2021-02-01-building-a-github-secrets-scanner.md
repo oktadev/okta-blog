@@ -9,6 +9,7 @@ tags: [python]
 tweets:
 - "Learn the basics of how to scan GitHub for sensitive information."
 - "Would you know if someone checked secrets into GitHub? Learn how to build a tool to check."
+- "Have you ever scanned your GitHub repos for accidentally committed secrets? Learn how with this post!"
 image: blog/building-a-github-secrets-scanner/card.png
 type: awareness
 ---
