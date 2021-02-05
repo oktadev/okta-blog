@@ -28,7 +28,7 @@ But first let's address a few key questions you may be wondering.
 
 ## What Are Event Hooks?
  
-If you're familiar with webhooks, then you'll recognize event hooks as similar in functionality, but with a specific tie to events that occur in Okta. Essentially, Okta Event Hooks are outbound calls from Okta that extend the steps and/or functionality of selected Okta events..
+If you're familiar with webhooks, then you'll recognize event hooks as similar in functionality, but with a specific tie to events that occur in Okta. Essentially, Okta Event Hooks are outbound calls from Okta that extend the steps and/or functionality of selected Okta events.
  
 The calls take the form of HTTPS REST calls that pass a JSON object containing event information to a URL that you specify, kicking off a process flow in a codebase you maintain and host.
  
