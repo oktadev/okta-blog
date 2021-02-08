@@ -1,8 +1,8 @@
 ---
 layout: blog_post
 title: Use Okta like a Rockstar
-author: joel-franusic
-by: advocate
+author: karson-kwan
+by: internal-contributor
 communities: [security, javascript]
 description: "Use this cool Chrome extension to gain magical Okta powers"
 tags: [okta, saml, api, user-management]
@@ -10,7 +10,7 @@ tweets:
 - "Are you interested in learning how the Okta API works? Use this cool Chrome extension to make it easy!"
 - "For those about to rock with Okta. We salute you!"
 - "Learn how to simplify common administrative tasks in Okta using the rockstar Chrome extension."
-image: blog/use-okta-like-a-rockstar/image1.png
+image: blog/use-okta-like-a-rockstar/card.jpg
 type: conversion
 ---
 
@@ -156,7 +156,7 @@ Simpler and quicker workflows make rockstar a very handy tool to have when admin
 
 Now that you have an idea of some of the things that you can do with rockstar, it's time for you to install it and try it out for yourself! Here's how:
 
-- Visit the home page for rockstar: https://gabrielsroka.github.io/rockstar/
+- Visit the [home page for rockstar](https://gabrielsroka.github.io/rockstar/).
 - Click on the "rockstar" link that will send you to the Chrome Web Store
 - Follow the instructions on the Chrome Web Store to install the extension. 
   Note: You'll need to grant the extension permissions to read data from Okta domains like *.okta.com and *.oktapreview.com 
@@ -171,4 +171,4 @@ If you enjoyed reading this post, you might also like these posts from our blog:
 
 As always, if you have any questions please comment below. Never miss out on any of our awesome content by following us on [Twitter](https://twitter.com/oktadev) and subscribing to our channel on [YouTube](https://www.youtube.com/c/oktadev)!
 
-Lastly, I'd like to thank Gabriel Sroka and Karson Kwan for all of their help in writing this blog post.
+Lastly, I'd like to thank Gabriel Sroka for his help in writing this blog post.
