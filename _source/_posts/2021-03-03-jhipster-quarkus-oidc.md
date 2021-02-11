@@ -1,26 +1,28 @@
 ---
 layout: blog_post
-title: "Build a Secure Quarkus native App with JHipster"
+title: "Build a Secure Quarkus Native App with JHipster"
 author: daniel-petisme
 by: contractor
-communities: [security,java]
-description: ""
+communities: [java]
+description: "Learn how to build a Java app with Quarkus and JHipster and secure it with OpenID Connect."
 tags: [quarkus, jhipster, java]
 tweets:
-- ""
-- ""
-- ""
-image:
-type: awareness
+- "JHipster + Quarkus! 🥳"
+- "Did you know that @jhipster now supports @QuarkusIO? 🎉"
+- "🚀 Supersonic Subatomic @java with Quarkus and JHipster!"
+image: 
+type: conversion
 ---
 
-[Quarkus](https://quarkus.io/) is a Kurbernetes native, full-stack Java framework made for JVM-based applications and native compilations.
-Built since day 1 to uses on Ahead of Time (AOT) compilation, Quarkus can do agresive oprimizations (like classpath scanning, configuration loading and application bootstrap pre-configuration) during your application build time resulting on an impressing performance gap during the application runtime.
+[Quarkus](https://quarkus.io/) is a Kubernetes native, full-stack Java framework made for JVM-based applications and native compilations.
 
-As Spring or Micronaut, Quarkus takes advantage of GraalVM to transform a JVM-based application into a native executable improving again the overall performances.
-Such performances gains permits to the Java platform to be competitive in serverless, cloud and Kubernetes environments by building Supersonic Subatomic Java applications.
+Built since day one to use on Ahead of Time (AOT) compilation, Quarkus can do aggressive optimizations (like classpath scanning, configuration loading and application bootstrap pre-configuration) during your application build time resulting on an impressing performance gap during the application runtime.
 
-Quarkus is designed to uses the Java standards (like [MicroProfile](https://projects.eclipse.org/projects/technology.microprofile), [JAX-RS](https://github.com/jax-rs)) and best of bride libraries (such as [Hibernate](https://hibernate.org/), [Vert.x](https://vertx.io/)). It even has a Spring integration.
+Like Spring and Micronaut, Quarkus takes advantage of GraalVM to transform a JVM-based application into a native executable improving again the overall performances.
+
+Such performance gains allow the Java platform to be competitive in serverless, cloud, and Kubernetes environments by building Supersonic Subatomic Java applications.
+
+Quarkus is designed to uses the Java standards (like [MicroProfile](https://projects.eclipse.org/projects/technology.microprofile), [JAX-RS](https://github.com/jax-rs)) and best of breed libraries (such as [Hibernate](https://hibernate.org/) and [Vert.x](https://vertx.io/)). It even has a Spring integration.
 
 Development history has demonstrated gluing components together can be challenging and developers love when we provide them enlighted opinions, and this is where JHipster comes in.
 
@@ -28,41 +30,46 @@ Development history has demonstrated gluing components together can be challengi
 Even if the main backend technology is Spring Boot, more and more options are appearing.
 One of these is the [JHipster Quarkus blueprint](https://github.com/jhipster/generator-jhipster-quarkus).
 
-Among others, one of the key capability that explains the project success is its extensibility via blueprints.
-A blueprint act as JHipster plugin, it permits to override the code generator default behavior to produce a new "flavor".
+Among others, one of the key capability that explains the project success is its extensibility via blueprints. A blueprint act as JHipster plugin, it permits to override the code generator default behavior to produce a new "flavor".
+
 [Kotlin](https://github.com/jhipster/jhipster-kotlin) is for instance a famous JHipster blueprint.
+
 Thanks to blueprints, the possibilities are infinite, this is why JHipster even have non-Java implementation (with [Node.JS](https://github.com/jhipster/generator-jhipster-nodejs) and [.Net Core](https://github.com/jhipster/jhipster-dotnetcore)).
 
-In today's blog, we propose to go through a step-by-step tutorial on how to use JHipster, the Quarkus blueprint and Okta to build a native secured full-stack application.
+In this post, I will walk you through a step-by-step tutorial on how to use JHipster, the Quarkus blueprint, and Okta to build a native and secure full-stack application.
 
 **Table of Contents**{: .hide }
 * Table of Contents
 {:toc}
+  
+## Create a Java Application with Quarkus
 
+// todo: we should create the application with JHipster first. Maybe even show it running with Keycloak.
 
 ## Create an Okta OAuth2/OpenId Connect application
 
-In this tutorial, we'll be using Okta as OAuth2/OIDC provider.
-Okta proposes 2 solutions to configure an OIDC application.
-You can either go though the [developer console](https://developer.okta.com/) or use the [Okta CLI](https://github.com/okta/okta-cli)
-When using Spring Boot or classic JHipster, Okta CLI is recommended because it configures everything for your with 1 command which is very convenient.
+In this tutorial, you'll be using Okta as OAuth 2.0 / OIDC provider. Okta has two options for configuring an OpenID Connect (OIDC) application. You can either go though the [developer console](https://developer.okta.com/) or use the [Okta CLI](https://github.com/okta/okta-cli).
 
-Quarkus and JHipster Quarkus do not yet have this level of integration with `okta-cli`.
-**Note**: The work is in progress, feel free to give a thumbs up to show your interest:
+When using Spring Boot or classic JHipster, Okta CLI is recommended because it configures everything for your with one command which is very convenient.
+
+Quarkus and JHipster Quarkus do not yet have this level of integration with the Okta CLI.
+
+**NOTE**: The work is in progress, feel free to give a thumbs up to show your interest:
 
 * [Quarkus Integration](https://github.com/okta/okta-cli/issues/70)
 * [JHipster Quarkus Integration](https://github.com/okta/okta-cli/issues/72)
 
-Anyway, don't panic, we get your back, we'll go through each step to configure an OpenId application compatible with JHipster QUarkus.
+Anyway, don't panic, I have your back! The Okta CLI is easy to use, but you might want to use a GUI to configure things. That's why I'll go through each step to configure an OIDC application that works with JHipster Quarkus.
 
 ### Create an Okta application
+
 First of, if you don't have an Okta developer account you need to signup. Nothing fancy, firstname, lastname, email, a strong password and you're ready to go.
 
-Once logged in, you arrive on your developer console
+Once logged in, you arrive in your developer console:
 
 {% img blog/jhipster-quarkus-oidc/1-applications.png alt:"Okta developer console homepage" width:"800" %}{: .center-image }
 
-Click on **Add Application` to start the creation wizard.
+Click on **Add Application** to start the app creation wizard.
 
 {% img blog/jhipster-quarkus-oidc/2-create-application-platform.png alt:"Select Okta application platform" width:"800" %}{: .center-image }
 
@@ -83,66 +90,83 @@ Often, after a user logs out, you just want to redirect the browser to the homep
 
 Use the default values for the rest of the settings.
 
-When you're happy with your application click on `Done` to finish the creation.
-Now you'll obtain your application details
+When you're happy with your application click on **Done**. The next screen will show your application details.
 
 {% img blog/jhipster-quarkus-oidc/4-application-details.png alt:"Okta application details" width:"800" %}{: .center-image }
 
 The most important values are:
-* The client Credentials (client id and client secrets), which will permit to your future application to authenticate against Okta services in order to allow the users authentication's and authorization's flows.
+
+* The client credentials (client id and client secrets), which will permit to your future application to authenticate against Okta services in order to allow the users authentication's and authorization's flows.
 * The Okta domain from which we will derivate the Okta API urls.
 
-**Note**: We're not that crazy to exposes credentials publicly, the domain and credentials you can see have been deleted long time before you actually read this article ;-)
+**NOTE**: We're not that crazy to exposes credentials publicly, the domain and credentials you can see have been deleted long time before you actually read this article ;-)
 
-You prefer the gold old fashioned console, here you have the CLI approach (you first need to instal the CLI).
+If you'd prefer to use the Okta CLI to create an app, you'll first need to [install it](https://cili.okta.com). Then, run `okta register` to create an account. 
+
+TODO: Change values below to Daniel's below.
 
 ```shell
-# Create an application with
-# Application Type: 1- Web as application type
-# Framework: 4- Other,
-# Update the login/logout redirect URIs according to the application configuration
+$ okta register
+First name: Matt
+Last name: Raible
+Email address: matt.raible@okta.com
+Company: Okta
+Creating new Okta Organization, this may take a minute:
+OrgUrl: https://dev-3998555.okta.com
+An email has been sent to you with a verification code.
 
-$ okta apps create
+Check your email
+Verification code: 232819
+New Okta Account created!
+Your Okta Domain: https://dev-3998555.okta.com
+To set your password open this link:
+https://dev-3998555.okta.com/welcome/drpt2SjbRAPR-gvVHhnm
+```
+
+If you already have an Okta developer account, run `okta login`. Then, run `okta apps create jhipster` in your Quarkus app's directory. Accept the defaults when prompted for redirect URIs.
+
+TODO: Validate output is the same when next version of Okta CLI is released. Change email to Daniel's below.
+
+```shell
+$ okta apps create jhipster
 Application name [jhipster-quarkus-okta]:
-Type of Application
-(The Okta CLI only supports a subset of application types and properties):
-> 1: Web
-> 2: Single Page App
-> 3: Native App (mobile)
-> 4: Service (Machine-to-Machine)
-Enter your choice [Web]: 1
-Type of Application
-> 1: Okta Spring Boot Starter
-> 2: Spring Boot
-> 3: JHipster
-> 4: Other
-Enter your choice [Other]: 4
 Redirect URI
 Common defaults:
- JHipster - http://localhost:8080/login/oauth2/code/oidc
  Spring Security - http://localhost:8080/login/oauth2/code/okta
-Enter your Redirect URI [http://localhost:8080/callback]: http://localhost:8080/login/oauth2/code/oidc
-Enter your Post Logout Redirect URI [http://localhost:8080/]:
+ Quarkus OIDC - http://localhost:8080/callback
+ JHipster - http://localhost:8080/login/oauth2/code/oidc
+Enter your Redirect URI(s) [http://localhost:8080/login/oauth2/code/oidc, http://localhost:8761/login/oauth2/code/oidc]:
+Enter your Post Logout Redirect URI(s) [http://localhost:8080/, http://localhost:8761/]:
 Configuring a new OIDC Application, almost done:
-Created OIDC application, client-id: 0oa1mn09woWZZs8pJ4x7
+Created OIDC application, client-id: 0oa5ozjxyNQPPbKc65d6
+Creating Authorization Server claim 'groups':
+Adding user 'matt.raible@okta.com' to groups: [ROLE_USER, ROLE_ADMIN]
+Creating group: ROLE_USER
+Creating group: ROLE_ADMIN
 
 Okta application configuration has been written to: /Users/daniel/workspace/jhipster-quarkus-okta/.okta.env
 ```
 
-The CLI tool will create an `.okta.env` in the current directory.
+The Okta CLI will create an `.okta.env` in the current directory.
+
 ```shell
 $ cat .okta.env
-export OKTA_OAUTH2_ISSUER="https://dev-956280.okta.com/oauth2/default"
-export OKTA_OAUTH2_CLIENT_SECRET="11dvOx0N3opx8gnpL5UgRaxFFoiTLWEof9jOcSvp"
-export OKTA_OAUTH2_CLIENT_ID="0oa1mn09woWZZs8pJ4x7"
+export QUARKUS_OIDC_AUTH_SERVER_URL="https://dev-3998555.okta.com/oauth2/default"
+export QUARKUS_OIDC_CLIENT_ID="0oa5ozjxyNQPPbKc65d6"
+export QUARKUS_OIDC_CREDENTIALS_SECRET="KEJ0oNOTFEUEFHP7i1TELLING1xLm1XPRn"
+export QUARKUS_OIDC_APPLICATION_TYPE="web-app" # this is currently web-app, should it be hybrid?
+export QUARKUS_OIDC_AUTHENTICATION_REDIRECT_PATH="/login/oauth2/code/oidc"
+export JHIPSTER_OIDC_LOGOUT_URL="https://dev-3998555.okta.com/oauth2/default/v1/logout"
 ```
 
-We will use this values later.
+You will use this values later.
 
 ### Create user groups
 
 Time to create user groups.
+
 Out of the box JHipster requires 2 groups:
+
 * `ROLE_USER`: for the authenticated users.
 * `ROLE_ADMIN`: for the authenticated users with administrator privileges on the application.
 
@@ -202,13 +226,13 @@ You'll need to install few things before you get started.
 
 ```shell
 # Install Globally JHipster
-$ npm install -g generator-jhipster
+$ npm install -g generator-jhipster@6.10.5
 $ jhipster --version
 INFO! Using JHipster version installed globally
 6.10.5
 
 # Install JHipster Quarkus blueprint
-$ npm install -g generator-jhipster-quarkus
+$ npm install -g generator-jhipster-quarkus@1.0.0
 
 # The `jhipster-quarkus` command is now available
 $ jhipster-quarkus --help
