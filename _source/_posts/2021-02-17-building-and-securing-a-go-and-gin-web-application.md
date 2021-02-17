@@ -20,7 +20,7 @@ Today, we are going to build a simple web application that implements a *to-do* 
 
 ## Prerequisites to Building a Go, Gin, and Vue Application
 
-First things first, if you don’t already have Go installed on your computer you will need to [Download and install - The Go Programming Language](https://golang.org/doc/install).
+First things first, if you don't already have Go installed on your computer you will need to [Download and install - The Go Programming Language](https://golang.org/doc/install).
 
 Finally, create a project directory where all of our future code will live:
 
@@ -37,7 +37,7 @@ Next, install the Gin package into the Go workspace using this command:
 go get -u github.com/gin-gonic/gin
 ```
 
-If you haven't already got Node.js and npm installed, you’ll need them to use Vue.js. To install Node.js and npm, go to [Downloading and installing Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) and install them.
+If you haven't already got Node.js and npm installed, you'll need them to use Vue.js. To install Node.js and npm, go to [Downloading and installing Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) and install them.
 
 Once you have Node.js and npm installed, you can now install Vue.js with this command:
 
@@ -136,7 +136,7 @@ Now we can run the server. The first time it is run Go will have to resolve the 
 go run main.go
 ```
 
-We can test that it’s working using this curl command in another terminal window
+We can test that it's working using this curl command in another terminal window
 
 ```bash
 curl http://localhost:8080/api/lists
@@ -303,7 +303,7 @@ curl -i http://localhost:8080/api/lists
 
 ## How to Build a Simple Vue Application
 
-A number of files need to be created to build a Vue application. The Vue client (Vue CLI) can create the necessary files for us. Let’s use the Vue CLI to create an application called `todo-vue`.
+A number of files need to be created to build a Vue application. The Vue client (Vue CLI) can create the necessary files for us. Let's use the Vue CLI to create an application called `todo-vue`.
 
 ```bash
 vue create todo-vue
@@ -401,7 +401,7 @@ So, what has changed? The template has been modified to add the list. The `{{tod
 
 There have been two changes to the script element. An object called `appData` has been added which defines the variable `todolist` used in the template and gives it a default value. The default application now has a function called `data()` which returns the `appData` object. 
 
-Now, run the application and point a web browser at it. You should see the text “more to do” on the page.
+Now, run the application and point a web browser at it. You should see the text "more to do" on the page.
 
 ## How to Combine the Web Servers
 
@@ -615,7 +615,7 @@ npm install @okta/okta-auth-js
 npm install @okta/okta-signin-widget
 ```
 
-To use Okta authentication you need to have a free [Okta Developer account] (https://developer.okta.com). Once you’ve done this, sign in to the developer console and select **Applications** > **Add Application**. Then select **Single-Page App** and hit **Next**. The next page is filled in with default values, most of which are sufficient for this application and don't need to be changed. Add the URL `http://localhost:8080` to the allowed Login Redirect URLs. Hit **Done**. 
+To use Okta authentication you need to have a free [Okta Developer account] (https://developer.okta.com). Once you've done this, sign in to the developer console and select **Applications** > **Add Application**. Then select **Single-Page App** and hit **Next**. The next page is filled in with default values, most of which are sufficient for this application and don't need to be changed. Add the URL `http://localhost:8080` to the allowed Login Redirect URLs. Hit **Done**. 
 
 There are two pieces of information that you need to obtain from the Okta Developer Console. These are your Okta domain name and your client id. These values need to be passed into the Vue application. As these values are effectively secrets, they must not be hardcoded in the application. The way around this is to create environment variables in a file called `.env` in the `todo-vue` directory containing these values. Also add `.env` to the `.gitignore` file.
 
@@ -786,8 +786,8 @@ The Okta authentication widget makes the verification process very easy to imple
 
 If you enjoyed reading this post, you might also like these posts from our blog:
 
-- [Offline JWT Validation with Go](https://developer.okta.com/blog/2021/01/04/offline-jwt-validation-with-go)
-- [Build a Single-Page App with Go and Vue](https://developer.okta.com/blog/2018/10/23/build-a-single-page-app-with-go-and-vue)
-- [The Lazy Developer's Guide to Authentication with Vue.js](https://developer.okta.com/blog/2017/09/14/lazy-developers-guide-to-auth-with-vue)
+- [Offline JWT Validation with Go](/blog/2021/01/04/offline-jwt-validation-with-go)
+- [Build a Single-Page App with Go and Vue](/blog/2018/10/23/build-a-single-page-app-with-go-and-vue)
+- [The Lazy Developer's Guide to Authentication with Vue.js](/blog/2017/09/14/lazy-developers-guide-to-auth-with-vue)
 
 As always, if you have any questions please comment below. Never miss out on any of our awesome content by following us on [Twitter](https://twitter.com/oktadev) and subscribing to our channel on [YouTube](https://www.youtube.com/c/oktadev)!
