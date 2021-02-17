@@ -3,7 +3,7 @@ layout: blog_post
 title: Identity Security for Games in C# with Unity
 author: nick-gamb
 by: advocate
-communities: [.net]
+communities: [.net, gaming]
 description: "Learn how to build user identity management into games in C# with Unity."
 tags: [unity, games, identitysecurity, vr, ar, csharp]
 tweets:
