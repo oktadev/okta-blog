@@ -18,15 +18,15 @@ NestJs is a popular Node.js framework that is built with typescript and makes us
 
 NestJs integrates nicely with Okta's single sign-on provider. Okta makes securing a web service, such as the one you will build, quick and easy. 
 
-## Create your Okta Application with the CLI
+## Create Your Okta Application with the CLI
 
-The first thing you will need to do is sign up for an [Okta Developer's account](https://developer.okta.com/signup/) if you haven't already. his account is free forever and allows you to start building applications secured with Okta immediately. Next, you will need to create an application in Okta. To do this you will use the [Okta CLI](https://developer.okta.com/blog/2020/12/10/introducing-okta-cli). If you haven't worked with the CLI yet you can check out the [full documentation here](https://cli.okta.com/).
+The first thing you will need to do is sign up for an Okta developer account if you don't already have one. This account is free forever and allows you to start building applications secured with Okta immediately. To do this you will use the [Okta CLI](https://developer.okta.com/blog/2020/12/10/introducing-okta-cli). If you haven't worked with the CLI yet you can check out the [full documentation here](https://cli.okta.com/).
 
-Start by opening the terminal application of your choice. In the terminal, use the command `okta apps create` and give the application a meaningful name. I named mine `library-api` but you can name yours whatever you like. Select `Single Page App` as the application type. Even though you are creating an API in this tutorial, you will be using Postman as the "application" that will consume the API. This can be even more beneficial if you actually create a single-page application later. You'll be able to use this client ID and issuer in that application.
+Start by opening the terminal application of your choice. In the terminal, use the command `okta register`. This command will ask you for your name and email and then create an Okta developer account for you. If you already have an Okta developer account, you can use the `okta login` command to and follow the on-screen instructions to log in to your organization. Once the CLI is set up for your organization, run the command `okta apps create` and give the application a meaningful name. I named mine `library-api` but you can name yours whatever you like. Select `Single Page App` as the application type. Even though you are creating an API in this tutorial, you will be using Postman as the "application" that will consume the API. This can be even more beneficial if you actually create a single-page application later. You'll be able to use this client ID and issuer in that application.
 
- Since you are going to use Postman to test, enter `https://oauth.pstmn.io/v1/callback` as your **Login Redirect URL**. Set the **Logout Redirect URI** to `https://oauth.pstmn.io/`. If your organization has multiple authorization servers, you can use `default` for this tutorial. After the CLI runs for a few minutes, it will return your *Issuer* and *Client ID*. Make note of these as you will need them in your application. 
+ Since you are going to use Postman to test, enter `https://oauth.pstmn.io/v1/callback` as your **Login Redirect URL**. Set the **Logout Redirect URI** to `https://oauth.pstmn.io/`. If your organization has multiple authorization servers, you can use `default` for this tutorial. After the CLI runs, it will return your *Issuer* and *Client ID*. Make note of these as you will need them in your application. 
 
-## Create your NestJs Application
+## Create Your NestJs Application
 
 Next, you can create your Nest.js application. If you haven't installed the nest.js CLI yet then you should do that before beginning. Run the command `npm i -g @nestjs/cli@7.5.4`. Once that completes, run `nest new library-api` to create a new application called *library-api*. 
 
@@ -177,7 +177,7 @@ export class ConfigModule {}
 
 This module takes the `ConfigService` and packages it as an export. This makes it available for your `AuthModule` to use.
 
-Finally, you can write your controller. Open the `app.service.ts` and replace the existing code with the following.
+You can now create your controller. Open the `app.service.ts` and replace the existing code with the following.
 
 ```typescript
 import { Injectable } from '@nestjs/common';
