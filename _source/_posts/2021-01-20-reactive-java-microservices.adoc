@@ -17,7 +17,7 @@ type: conversion
 :page-liquid:
 :experimental:
 
-Java has been at the forefront of microservice architectures since they came to prominence a few years ago. It's a popular language with well-known, high-quality frameworks, like Spring Boot, Spring Cloud, Spring Data, and Spring Security.
+Java has been at the forefront of [microservice](https://www.okta.com/blog/2021/02/microservices/) architectures since they came to prominence a few years ago. It's a popular language with well-known, high-quality frameworks, like Spring Boot, Spring Cloud, Spring Data, and Spring Security.
 
 Spring Boot 2.0 introduced a new web framework called Spring WebFlux. Previous versions of Spring Boot only shipped with Spring MVC as an option. WebFlux offers a way for developers to do _reactive programming_. This means you can write your code with familiar syntax and, as a result, your app will use fewer resources and scale better.
 
