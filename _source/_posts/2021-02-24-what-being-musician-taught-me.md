@@ -10,7 +10,7 @@ tweets:
 - "I've been a musician for a long time now. Here's what it taught me about being a programmer."
 - "Here are some things that my time as a musician taught me about programming on a team"
 - "This is a list of things that being a musician taught me about programming."
-image: 
+image: blog/musician-programmer/MusicianDeveloper.png
 type: awareness
 ---
 
