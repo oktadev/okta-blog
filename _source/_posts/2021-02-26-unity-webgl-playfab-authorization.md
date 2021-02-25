@@ -113,7 +113,7 @@ mergeInto(LibraryManager.library,
 
 This code very simply takes an OAuth authorization request URI, passed to it from the calling C# in Unity, and passes it to a corresponding startAuth() function in the parent page's JavaScript. This `startAuth()` function will instruct the browser to open a popup and redirect to the OAuth authorization URI passed to it by the C# in Unity. The WebGL object calls the jslib which runs in the browser, allowing it to interact with the code running in the browser where the WebGL object cant.
 
-Next, create the `startAuth()` function in the JavaScript within the WebGL's parent page so that the C# can interact with it via the OAuth.jslib. To do this, start by building the WebGL project in Unity, which will generate an index.html that renders the WebGL object.
+Next, create the `startAuth()` function in the JavaScript within the WebGL's parent page so that the C# can interact with it via the `OAuth.jslib`. To do this, start by building the WebGL project in Unity, which will generate an `index.html` that renders the WebGL object.
 
 Click **File**, **Build Settings** and then click **Build**.
 
@@ -273,7 +273,7 @@ The `Redirect URI` needs to point to where the `callback.html` page will be host
 
 The `Post Logout Redirect URI` will need to point to where the `index.html` page will be hosted. Use the following URI format, again replacing `appName` with a name used later when deploying the Unity project to Azure App Services.
 
-`https://webgloauth.azurewebsites.net/callback.html`
+`https://appName.azurewebsites.net/callback.html`
 
 Finally, select the `default` authorization server if prompted.
 
