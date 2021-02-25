@@ -95,7 +95,7 @@ With the project ready, the next thing needed is a way for the [WebGL object to 
 
 To do this, a jslib is used to act as the middleman between the C# in Unity and the JavaScript in the WebGL objects parent page.
 
-Open up a preferred text editor, create a new file called `OAuth.jslib`, and save it in your project's `Assets` > `Plugins` folder. 
+Open up a preferred text editor, create a new file called `OAuth.jslib`, and save it in your project's `Assets` > `Plugins` folder.
 
 Add the following to `OAuth.jslib` and save it.
 
@@ -304,9 +304,9 @@ using Newtonsoft.Json;
 using UnityEngine.Networking;
 ```
 
-Next, create a new class called `OAuth` and declare the needed instance variables to hold the client's OAuth configuration. 
+Next, create a new class called `OAuth` and declare the needed instance variables to hold the client's OAuth configuration.
 
-> Note: The instance variables could pull from a preferred configuration solution, or be exposed to the editor for configuration if desired. 
+> Note: The instance variables could pull from a preferred configuration solution, or be exposed to the editor for configuration if desired.
 
 ```csharp
 public class OAuth2 : MonoBehaviour
@@ -326,7 +326,7 @@ public class OAuth2 : MonoBehaviour
 }
 ```
 
-Notice `DllImport` referencing the `startAuthentication()` function from the jslib at the start of the class. This is importing the jslib so that it can be called from the script. 
+Notice `DllImport` referencing the `startAuthentication()` function from the jslib at the start of the class. This is importing the jslib so that it can be called from the script.
 
 The OAuth endpoints to be used are defined in the instance variables and the URI to the `callback.html`.
 
@@ -619,7 +619,7 @@ Select `Azure App Service` and click **Next**.
 
 Click **Create New Azure App Service**.
 
-Give the app the name used when setting up the RedirectURI in the Okta CLI where the placeholder was `appName.` This example used `https://webgloauth.azurewebsites.net/`, so the app name to use in Azure is `WebGLOAuth.`
+Give the app the name used when setting up the `RedirectURI` in the Okta CLI where the placeholder was `appName.` This example used `https://webgloauth.azurewebsites.net/`, so the app name to use in Azure is `WebGLOAuth.`
 
 Select a valid subscription, click **New** to create a new resource group, click **New** to create a new hosting plan, and then click **Create**.
 
@@ -645,12 +645,10 @@ Player security is quickly becoming one of the most critical aspects of game dev
 
 To keep learning, check out some of our other great guides and tips:
 
-* [Identity Security for Games in C# with Unity
-](/blog/2020/08/21/unity-csharp-games-security)
-* [An Illustrated Guide to OAuth and OpenID Connect](/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc)
-* [Implement the OAuth 2.0 Authorization Code with PKCE Flow
-](/blog/2019/08/22/okta-authjs-pkce)
-* [What the Heck is OAuth?](/blog/2017/06/21/what-the-heck-is-oauth)
-* [Nobody Cares About OAuth or OpenID Connect](/blog/2019/01/23/nobody-cares-about-oauth-or-openid-connect)
+- [Identity Security for Games in C# with Unity](/blog/2020/08/21/unity-csharp-games-security)
+- [An Illustrated Guide to OAuth and OpenID Connect](/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc)
+- [Implement the OAuth 2.0 Authorization Code with PKCE Flow](/blog/2019/08/22/okta-authjs-pkce)
+- [What the Heck is OAuth?](/blog/2017/06/21/what-the-heck-is-oauth)
+- [Nobody Cares About OAuth or OpenID Connect](/blog/2019/01/23/nobody-cares-about-oauth-or-openid-connect)
 
 Comment below if you have any questions. Be sure to follow [@oktadev](https://twitter.com/oktadev) on Twitter, follow us on [Twitch](https://www.twitch.tv/oktadev), like us on [Facebook](https://www.facebook.com/oktadevelopers/ ) and subscribe to our [YouTube Channel](https://youtube.com/c/oktadev) for more!
