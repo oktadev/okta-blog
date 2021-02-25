@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "New DZone Refcardz: OAuth Patterns and Anti-Patterns"
+title: "New DZone Refcard: OAuth Patterns and Anti-Patterns"
 author: aaron-parecki
 by: advocate
 communities: [security]
