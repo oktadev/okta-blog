@@ -111,9 +111,9 @@ mergeInto(LibraryManager.library,
 });
 ```
 
-This code very simply takes an OAuth authorization request URI, passed to it from the calling C# in Unity, and passes it to a corresponding startAuth() function in the parent page's JavaScript. This startAuth() function will instruct the browser to open a popup and redirect to the OAuth authorization URI passed to it by the C# in Unity. The WebGL object calls the jslib which runs in the browser, allowing it to interact with the code running in the browser where the WebGL object cant.
+This code very simply takes an OAuth authorization request URI, passed to it from the calling C# in Unity, and passes it to a corresponding startAuth() function in the parent page's JavaScript. This `startAuth()` function will instruct the browser to open a popup and redirect to the OAuth authorization URI passed to it by the C# in Unity. The WebGL object calls the jslib which runs in the browser, allowing it to interact with the code running in the browser where the WebGL object cant.
 
-Next, create the startAuth() function in the JavaScript within the WebGL's parent page so that the C# can interact with it via the OAuth.jslib. To do this, start by building the WebGL project in Unity, which will generate an index.html that renders the WebGL object.
+Next, create the `startAuth()` function in the JavaScript within the WebGL's parent page so that the C# can interact with it via the OAuth.jslib. To do this, start by building the WebGL project in Unity, which will generate an index.html that renders the WebGL object.
 
 Click **File**, **Build Settings** and then click **Build**.
 
@@ -121,7 +121,7 @@ Select a preferred output folder and then click **Select Folder**.
 
 {% img blog/unity-webgl-playfab-authorization/9_build.png alt:"Build" width:"800" %}{: .center-image }
 
-Once the build process is complete, open the output folder and then open the index.html file in a preferred text editor. The contents of index.html may vary depending on if you are on Windows or Mac and depending on what version of the editor you are using. The important thing to note in what Unity generates is that there should be a `<script>` element towards the top of the HTML that contains the following:
+Once the build process is complete, open the output folder and then open the `index.html` file in a preferred text editor. The contents of `index.html` may vary depending on if you are on Windows or Mac and depending on what version of the editor you are using. The important thing to note in what Unity generates is that there should be a `<script>` element towards the top of the HTML that contains the following:
 
 ```js
 <script>
