@@ -17,6 +17,7 @@ type: awareness
 <!-- <script src="https://cdn.jsdelivr.net/npm/brython@3.8.10/brython.min.js"></script> -->
 <!-- <script src="https://cdn.jsdelivr.net/npm/brython@3.8.10/brython_stdlib.js"></script> -->
 <!-- img/blog/ultimate-guide-to-password-hashing-in-python -->
+<script src="/ultimate-guide-to-password-hashing-in-python/bcrypt.min.js"></script>
 <script src="/ultimate-guide-to-password-hashing-in-python/brython.min.js"></script>
 <script src="/ultimate-guide-to-password-hashing-in-python/brython_stdlib.js"></script>
 
@@ -132,7 +133,7 @@ Hashing is an important but often misunderstood concept in computer programming.
 ## What is a Hash?
 If you've taken a computer science course on data types, you've probably heard of hash tables and hash functions. A hash table (or hash map) is a data storage pattern that maps a calculated hash index to each given key. This allows you to look up values in a table if you know their key. Python's dictionary data type [is implemented as a hash table](https://mail.python.org/pipermail/python-list/2000-March/048085.html), so you are probably already using hash tables without knowing it.
 
-[Using a hash function to lookup values in a hash table](https://i.imgur.com/zbomC0l.png)
+![Using a hash function to lookup values in a hash table](https://i.imgur.com/zbomC0l.png)
 
 [Hash functions](https://en.wikipedia.org/wiki/Hash_function) are the way that keys are calculated. When hashing a piece of data, the hash function should be able to take an arbitrary length of data and map it to a fixed-length index that is unique to the value. In the context of hash table data storage, this allows a programmer to access stored values by knowing the keys and calling the hash function.
 
@@ -185,13 +186,18 @@ That said, plenty of legacy systems still use the algorithm, so developers are l
 First, if you simply want to hash a password using MD5, you need to convert the password string to bytes (here I'm using the [`bytes` function for Python 3+](https://docs.python.org/3/library/stdtypes.html#bytes-objects)) and then pass it into the `md5` function in the `hashlib` module:
 
 <textarea id="editor-1" class="live-code">import hashlib
+import base64
+import json
 
-def md5_hash(password):
-    hashed = hashlib.md5(bytes(password, 'utf-8'))
-    print('Hashed: ' + hashed.hexdigest())
+password = "test password"
 
-md5_hash("test password")
-</textarea>
+hashed = hashlib.md5(bytes(password, "utf-8"))
+
+result = {
+    "algorithm": "MD5",
+    "value": base64.b64encode(hashed.digest()).decode("ascii")
+}
+print(json.dumps(result, indent=4))</textarea>
 
 Output:
 
@@ -199,8 +205,11 @@ Output:
 
 Because MD5 creates a fixed-length 128-bit hash object, you have to convert it to a human-readable format if you want to `print` it. This example uses Python's [`hexdigest()` function](https://docs.python.org/3/library/hashlib.html#hashlib.hash.hexdigest), so you should get a 32-character hexadecimal string like this:
 
-```bash 
-Hashed: 2aaa8335fd030e054a98e3b2c5852b34
+``` 
+{
+    "algorithm": "MD5",
+    "value": "KqqDNf0DDgVKmOOyxYUrNA=="
+}
 ```
 
 #### With Salt
@@ -209,26 +218,46 @@ While you've seen that adding a salt to your passwords before hashing them theor
 That said, you may see a salted MD5 hash like this in legacy code:
 
 <textarea id="editor-2" class="live-code">import hashlib
+import secrets
+import base64
+import json
 
-def md5_hash(password):
-    salt = b'\xebr\x17D*t\xae\xd4\xe3S\xb6\xe2\xebP1\x8b'
-    salted_password = bytes(password) + salt
-    hashed = hashlib.md5(bytes(salted_password, 'utf-8'))
-    print('Hashed: ' + hashed.hexdigest())
+password = "test password"
 
-md5_hash("test password")
-</textarea>
+salt = secrets.token_bytes(16)
+salted_password = bytes(password, "utf-8") + salt
+hashed = hashlib.md5(salted_password)
+result = {
+    "algorithm": "MD5",
+    "salt": base64.b64encode(salt).decode("ascii"),
+    "saltOrder": "POSTFIX",
+    "value": base64.b64encode(hashed.digest()).decode("ascii"),
+}
+print(json.dumps(result, indent=4))</textarea>
 
 Output:
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code id="output-2"></code></pre></div></div>
 
-This example uses the Python [secrets module](https://docs.python.org/3/library/secrets.html) to generate a 16-character random string of hexadecimal characters that is appended to the end of the password before it is hashed.
+This example uses the Python [secrets module](https://docs.python.org/3/library/secrets.html) to generate 16 bytes of random data that is appended to the end of the password before it is hashed.
 
-The output of this salted and hashed password will be a new 32-character hex string:
+The output of this salted, hashed, and base64 encoded password should look something like this:
 
-```bash
-Hashed: f77333aa85967cc6f16bf5c55b78ab90
+```
+{
+    "algorithm": "MD5",
+    "salt": "R0lGODlhAQABAAAAADs=",
+    "saltOrder": "POSTFIX",
+    "value": "pqTUVToGARL1yM3/jthCHA=="
+}
+```
+
+Because the salt should always be a random series of bytes, you will see a different value each time you hash the password. This is _exactly_ what should happen! 
+
+However, **for example purposes only**, you can change line 8 above to the code below and get the exact same output as the example above:
+
+```
+salt = b"\x47\x49\x46\x38\x39\x61\x01\x00\x01\x00\x00\x00\x00;"
 ```
 
 ### SHA-1
@@ -240,40 +269,69 @@ Like MD5, there's still plenty of legacy systems using SHA-1 hashing algorithms 
 While the output is slightly longer (a 40-character hexadecimal string) than MD5, using SHA-1 involves roughly the same process:
 
 <textarea id="editor-3" class="live-code">import hashlib
+import base64
+import json
 
-def sha1_hash(password):
-    hashed = hashlib.sha1(bytes(password, 'utf-8'))
-    print('Hashed: ' + hashed.hexdigest())
+password = "test password"
 
-sha1_hash('test password')
-
-# Output: 2ceb02a85f6d4de6c28b2e59fda886d526dafb0d
-</textarea>
+hashed = hashlib.sha1(bytes(password, 'utf-8'))
+result = {
+    "algorithm": "SHA-1",
+    "value": base64.b64encode(hashed.digest()).decode("ascii"),
+}
+print(json.dumps(result, indent=4))</textarea>
 
 Output:
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code id="output-3"></code></pre></div></div>
+
+When hashed and base64 encoded, the password `test password` will look like this:
+
+```
+{
+    "algorithm": "SHA-1",
+    "value": "LOsCqF9tTebCiy5Z/aiG1Sba+w0="
+}
+```
+
 
 #### With Salt
 Not much changes when you add a salt to your password before applying SHA-1 hashing. It's still not significantly more secure, and the process is equivalent to doing the same in MD5:
 
 <textarea id="editor-4" class="live-code">import hashlib
 import secrets
+import base64
+import json
 
-def sha1_hash(password):
-    salt = secrets.token_hex(16)
-    salted_password = password + salt
-    hashed = hashlib.sha1(bytes(salted_password, 'utf-8'))
-    print('Hashed: ' + hashed.hexdigest())
+password = "test password"
 
-sha1_hash('test password')
-
-# Output: e9c4f41740bbe9dd5601a8938b266cd6b1d0b5b5
-</textarea>
+salt = secrets.token_bytes(16)
+salted_password = bytes(password, "utf-8") + salt
+hashed = hashlib.sha1(salted_password)
+result = {
+    "algorithm": "SHA-1",
+    "salt": base64.b64encode(salt).decode("ascii"),
+    "saltOrder": "POSTFIX",
+    "value": base64.b64encode(hashed.digest()).decode("ascii")
+}
+print(json.dumps(result, indent=4))</textarea>
 
 Output:
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code id="output-4"></code></pre></div></div>
+
+```
+{
+    "algorithm": "SHA-1",
+    "salt": "R0lGODlhAQABAAAAADs=",
+    "saltOrder": "POSTFIX",
+    "value": "1cijegMYbE7L/WkUxkHjQ+/p1M0="
+}
+```
+
+```
+salt = b"\x47\x49\x46\x38\x39\x61\x01\x00\x01\x00\x00\x00\x00;"
+```
 
 ### SHA-256
 As vulnerabilities in SHA-1 and MD5 became apparent in the late 1990s, researchers went to work on the next generation of cryptographic hashing functions. This effort resulted in the NSA's [publication of the SHA-2 algorithms in 2001](https://en.wikipedia.org/wiki/SHA-2). SHA-256 is one of these functions and is in widespread use today.
@@ -286,63 +344,109 @@ While SHA-256 has valid use cases, it is [not really meant to be used in hashing
 Despite this inherent weakness, you are still likely to see SHA-256 used for hashing passwords. The implementation is basically the same as SHA-1 using hashlib, but the output will be a 256-bit object (64-character hex):
 
 <textarea id="editor-5" class="live-code">import hashlib
+import base64
+import json
 
-def sha256_hash(password):
-    hashed = hashlib.sha256(bytes(password, 'utf-8'))
-    print('Hashed: ' + hashed.hexdigest())
+password = "test password"
 
-sha256_hash('test password')
-
-# Output: 0b47c69b1033498d5f33f5f7d97bb6a3126134751629f4d0185c115db44c094e
-</textarea>
+hashed = hashlib.sha256(bytes(password, 'utf-8'))
+result = {
+    "algorithm": "SHA-256",
+    "value": base64.b64encode(hashed.digest()).decode("ascii")
+}
+print(json.dumps(result, indent=4))</textarea>
 
 Output:
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code id="output-5"></code></pre></div></div>
+
+```
+{
+    "algorithm": "SHA-256",
+    "value": "C0fGmxAzSY1fM/X32Xu2oxJhNHUWKfTQGFwRXbRMCU4="
+}
+```
+
 
 #### With Salt
 If you are forced to use SHA-256 for some reason, adding a salt is essential. This requires attackers to have another piece of data and increases the amount of time required for brute force attacks:
 
 <textarea id="editor-6" class="live-code">import hashlib
 import secrets
+import base64
+import json
 
-def sha256_hash(password):
-    salt = secrets.token_hex(16)
-    salted_password = password + salt
-    hashed = hashlib.sha256(bytes(salted_password, 'utf-8'))
-    print('Hashed: ' + hashed.hexdigest())
+password = "test password"
 
-sha256_hash('test password')
-
-# Output: 5e64e9b16c28d478c723c8537eb5b90c1db8eef1c090c9d598d3cceb4292063e
-</textarea>
+salt = secrets.token_bytes(16)
+salted_password = bytes(password, "utf-8") + salt
+hashed = hashlib.sha256(salted_password)
+result = {
+    "algorithm": "SHA-256",
+    "salt": base64.b64encode(salt).decode("ascii"),
+    "saltOrder": "POSTFIX",
+    "value": base64.b64encode(hashed.digest()).decode("ascii")
+}
+print(json.dumps(result, indent=4))</textarea>
 
 Output:
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code id="output-6"></code></pre></div></div>
+
+```
+{
+    "algorithm": "SHA-256",
+    "salt": "R0lGODlhAQABAAAAADs=",
+    "saltOrder": "POSTFIX",
+    "value": "6ONMDzdYZltRuM8j0EaG0eUgY0ooPj/m09MqlnGJ3AQ="
+}
+```
+
+```
+salt = b"\x47\x49\x46\x38\x39\x61\x01\x00\x01\x00\x00\x00\x00;"
+```
+
 
 #### With Salt and Pepper
 I mentioned "pepper" above, which adds another layer of entropy and length to your password before hashing. Typically, pepper is stored on your server, independent of your database. Something like an environment variable is common:
 
 <textarea id="editor-7" class="live-code">import hashlib
 import secrets
+import base64
 import os
+import json
 
-def sha256_hash(password):
-    salt = secrets.token_hex(16)
-    pepper = os.getenv('PEPPER')
-    salted_and_peppered_password = pepper + password + salt
-    hashed = hashlib.sha256(bytes(salted_and_peppered_password, 'utf-8'))
-    print('Hashed: ' + hashed.hexdigest())
+DEFAULT_PEPPER = "Qk0eAAAAAAAAABoAAAAMAAAAAQABAAEAGAAAAP8A"
+password = "test password"
 
-sha256_hash('test password')
-
-# Output: 0061192d406770c0a88dfcb55d253d6b273a9ae2f3dbc0adc0f823f619b3392f
-</textarea>
+salt = secrets.token_bytes(16)
+pepper = base64.b64decode(os.getenv('PEPPER', DEFAULT_PEPPER))
+salted_and_peppered_password = bytes(password, "utf-8") + salt + pepper
+hashed = hashlib.sha256(salted_and_peppered_password)
+result = {
+    "algorithm": "SHA-256",
+    "salt": base64.b64encode(salt + pepper).decode("ascii"),
+    "saltOrder": "POSTFIX",
+    "value": base64.b64encode(hashed.digest()).decode("ascii")
+}
+print(json.dumps(result, indent=4))</textarea>
 
 Output:
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code id="output-7"></code></pre></div></div>
+
+```
+{
+    "algorithm": "SHA-256",
+    "salt": "R0lGODlhAQABAAAAADtCTR4AAAAAAAAAGgAAAAwAAAABAAEAAQAYAAAA/wA=",
+    "saltOrder": "POSTFIX",
+    "value": "gWVt3W2f5I83NLwYtyf3Ac0uomcY+bymCd6IEaJoS+8="
+}
+```
+
+```
+salt = b"\x47\x49\x46\x38\x39\x61\x01\x00\x01\x00\x00\x00\x00;"
+```
 
 Salt and pepper can be added to the beginning or end of the original password. There's no substantive difference from a security standpoint, so pick one and obviously, be consistent.
 
@@ -355,43 +459,65 @@ Still, like SHA-256, SHA-512 is primarily meant to be used to establish file aut
 Again, you can use hashlib to hash a string or password with SHA-512:
 
 <textarea id="editor-8" class="live-code">import hashlib
+import base64
+import json
 
-def sha512_hash(password):
-    hashed = hashlib.sha512(bytes(password, 'utf-8'))
-    print('Hashed: ' + hashed.hexdigest())
+password = "test password"
 
-sha512_hash('test password')
+hashed = hashlib.sha512(bytes(password, 'utf-8'))
 
-# Output: 67bdcea5115bc1f13fcce0f70be3869a5bf48fea7becddbecc178a5208dc17362e6a38b534718790fedb8aaea1d752a79f9c09a870332cb846fb80d310931d05
-</textarea>
+result = {
+    "algorithm": "SHA-512",
+    "value": base64.b64encode(hashed.digest()).decode("ascii"),
+}
+print(json.dumps(result, indent=4))</textarea>
 
 Output:
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code id="output-8"></code></pre></div></div>
+
+```
+{
+    "algorithm": "SHA-512",
+    "value": "Z73OpRFbwfE/zOD3C+OGmlv0j+p77N2+zBeKUgjcFzYuaji1NHGHkP7biq6h11Knn5wJqHAzLLhG+4DTEJMdBQ=="
+}
+```
 
 One thing to think about as you use more secure hashing algorithms like SHA-512 is the length of the hashed password. While database storage is cheap (and only getting cheaper), if you put a 64 or 100-character limit on your password field for some reason, using SHA-512 will be a problem. **[Never truncate a password](https://www.diwebsity.com/2019/08/10/password-security-standards/) before or after hashing in an attempt to fit it into your database.** Make your database fields appropriate for the length of text you need to store.
 
 #### With Salt
 Like SHA-256, if you're using SHA-512, you should definitely add a salt to reduce the risk of rainbow table attacks. Fortunately, the process is exactly the same as it is in the cases above:
 
-<textarea id="editor-9" class="live-code">
-import hashlib
+<textarea id="editor-9" class="live-code">import hashlib
 import secrets
+import base64
+import json
 
-def sha512_hash(password):
-    salt = secrets.token_hex(16)
-    salted_password = password + salt
-    hashed = hashlib.sha512(bytes(salted_password, 'utf-8'))
-    print('Hashed: ' + hashed.hexdigest())
+password = "test password"
 
-sha512_hash('test password')
-
-# Output: e99f33738138d9e4b8d6ebce0c0c80fe4f0442309b9581bd25bfd4d362ce7559b0f6353d0e42154bdbce337ee9bb2ec379c7011443e4637d89975e23cd9fa0eb
-</textarea>
+salt = secrets.token_bytes(16)
+salted_password = bytes(password, "utf-8") + salt
+hashed = hashlib.sha512(salted_password)
+result = {
+    "algorithm": "SHA-512",
+    "salt": base64.b64encode(salt).decode("ascii"),
+    "saltOrder": "POSTFIX",
+    "value": base64.b64encode(hashed.digest()).decode("ascii")
+}
+print(json.dumps(result, indent=4))</textarea>
 
 Output:
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code id="output-9"></code></pre></div></div>
+
+```
+{
+    "algorithm": "SHA-512",
+    "salt": "VzHtB0PqQ6g=",
+    "saltOrder": "POSTFIX",
+    "value": "t/i79LqHziKGcgE8xznR3QdOB/4PHSJu6ZuGjLYOQPU/XMwqFQ2EuPhxHJdnw6MZX/rIXELLpAQJoDpuu4oD0w=="
+}
+```
 
 ### Bcrypt
 The MD5 and SHA families of hash algorithms [are meant to be fast](https://crypto.stackexchange.com/a/46552), so they're primarily used to verify file signatures and certificates where delays would mean a poor user experience. While they've been used as password hashing methods in the past, this is no longer considered best practice because algorithms that can generate hashes quickly are inherently more vulnerable to hackers who calculate billions of hashes to perform brute force attacks.
@@ -403,18 +529,26 @@ Unlike the previous algorithms discussed, bcrypt requires a 22-character salt to
 
 Python doesn't include a bcrypt implementation in its standard library, so you'll need to import one. Here I'm using [bcrypt](https://pypi.org/project/bcrypt/) which I installed with [pip](https://pip.pypa.io/en/stable/):
 
-<textarea id="editor-10" class="live-code">
-# import bcrypt
-# 
-# def bcrypt_hash_salt(password):
-#     salt = bcrypt.gensalt()
-#     hashed = bcrypt.hashpw(bytes(password, 'utf-8'), salt)
-#     print('Hashed: ' + hashed.decode('utf-8'))
-# 
-# bcrypt_hash_salt('test password')
-# 
-# Output: $2b$12$PQxQ08u/mVRI/QyzEnVCsO3uCIzvmQdLHCas5cOdwsrybjCqtJzbm
-</textarea>
+<textarea id="editor-10" class="live-code">import bcrypt
+import json
+
+WORK_FACTOR = 2
+DIGEST = 3
+SPLIT_POSITION = 22
+
+password = "test password"
+
+salt = bcrypt.gensalt()
+mcf_bytes = bcrypt.hashpw(bytes(password, 'utf-8'), salt)
+mcf = mcf_bytes.decode("utf-8").split("$")
+result = {
+    "algorithm": "BCRYPT",
+    "workFactor": int(mcf[WORK_FACTOR]),
+    "salt": mcf[DIGEST][:SPLIT_POSITION],
+    "value": mcf[DIGEST][SPLIT_POSITION:],
+    # "original": mcf_bytes.decode("utf-8"),
+}
+print(json.dumps(result, indent=4))</textarea>
 
 Output:
 
@@ -446,7 +580,7 @@ When a user signs up for your service, they will typically enter a username and 
 - Return a success message to the user
 - Either log the user in immediately or ask to log in using their new password
 
-[Storing hashed passwords during user signup](https://i.imgur.com/96uDGJy.png)
+![Storing hashed passwords during user signup](https://i.imgur.com/96uDGJy.png)
 
 If you're using a SQL database, you should store the hashed password as a `BINARY(X)`, where `X` is the length of the binary generated by your hashing algorithm ([60 in bcrypt's case](https://stackoverflow.com/a/5882472/977192)). Storing the password in binary could be important as `CHAR` fields in some character encodings do not distinguish between capital and lower-case letters.
 
@@ -462,7 +596,7 @@ Once you've stored a user's hashed password, you are ready to validate it next t
 - You compare the hashed password stored in your database with the one submitted on the login page
 - If they match _exactly_ you can safely proceed with user authentication
 
-[Validating hashed passwords during login](https://i.imgur.com/XOfdffU.png)
+![Validating hashed passwords during login](https://i.imgur.com/XOfdffU.png)
 
 Many hashing libraries take care of some of these steps for you. For example, bcyrpt includes [a `checkpw` function that compares a binary plaintext password to your stored hash](https://github.com/pyca/bcrypt/#password-hashing). When available, you should use these built-in functions because they'll prevent you from making errors in your password validation logic.
 
