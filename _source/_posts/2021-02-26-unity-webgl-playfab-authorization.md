@@ -10,7 +10,7 @@ tweets:
 - "Need to authenticate users in your @unity3d WebGL project? Looking to authorize users to @AzurePlayFab? Let's build it in 20 minutes! ->"
 - "User Authorization for @unity3d WebGL and @AzurePlayFab can be easy. Lets step through it in as little as 20 minutes!->"
 - "Friends don't let friends skimp on security! Secure your players identities in your @unity3d WebGL + @AzurePlayFab project in 20 minutes or less."
-Image: blog/unity-webgl-oauth/Webgl_OAuth_Thumb.png
+Image: blog/unity-webgl-playfab-authorization/Webgl_OAuth_Thumb.png
 type: conversion
 ---
 
