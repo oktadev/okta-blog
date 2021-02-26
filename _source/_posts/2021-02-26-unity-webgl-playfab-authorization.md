@@ -20,7 +20,7 @@ As game creators, we hold a fundamental responsibility to protect and secure any
 
 In their 2020 [State of the Internet / Security](https://www.akamai.com/us/en/multimedia/documents/state-of-the-internet/soti-security-gaming-you-cant-solo-security-report-2020.pdf) report, Akamai tracked 100 Billion credential stuffing attacks from June 2018 to June 2020 and found that 10 Billion of these attacks were targeted at gamers. It is not just up to the player or the distribution platform to take security seriously. Players expect that the game companies producing the product that they are trusting their data to will also be keeping them secure.
 
-In [Identity Security for Games in C# with Unity](/blog/2020/08/21/unity-csharp-games-security), we took a look at the extreme basics of storing and authenticating users in a Unity project. That example is a great starting point for the fundamentals, providing a hello world concept within the Unity editor. I want to expand upon how the design can change depending on the build target and how to make use of a player's authorization by passing it into other back-end platforms. To do this, we will be building a [WebGL](https://docs.unity3d.com/Manual/webgl-gettingstarted.html) application in [Unity](https://unity.com/) that authenticates player's and authorizes them to [Azure Playfab](https://playfab.com/); where their player data will be stored.
+In [Identity Security for Games in C# with Unity](/blog/2020/08/21/unity-csharp-games-security), we took a look at the extreme basics of storing and authenticating users in a Unity project. That example is a great starting point for the fundamentals, providing a "hello world" concept within the Unity editor. I want to expand upon how the design can change depending on the build target and how to make use of a player's authorization by passing it into other back-end platforms. To do this, we will be building a [WebGL](https://docs.unity3d.com/Manual/webgl-gettingstarted.html) application in [Unity](https://unity.com/) that authenticates player's and authorizes them to [Azure Playfab](https://playfab.com/); where their player data will be stored. Here is a conceptual overview of what this will look like:
 
 {% img blog/unity-webgl-playfab-authorization/p_Unity_Playfab_Auth.png alt:"PlayFab SDK" width:"800" %}{: .center-image }
 
@@ -35,11 +35,13 @@ In [Identity Security for Games in C# with Unity](/blog/2020/08/21/unity-csharp-
 
 ## Build Target and Design
 
-For this project, I will be targeting [Unity WebGL](https://docs.unity3d.com/Manual/webgl-gettingstarted.html). The build target is important because different platforms will require different means of facilitating user interaction. 
+For this project, I will be targeting [Unity WebGL](https://docs.unity3d.com/Manual/webgl-gettingstarted.html). The build target is important because different platforms will require different means of facilitating user interaction.
+
+In [Identity Security for Games in C# with Unity](/blog/2020/08/21/unity-csharp-games-security ), I described both native and [OAuth](https://developer.okta.com/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc) design concepts. While building out a user interface for authentication natively in the engine might seem like the best approach because of user experience, it is not the preferred approach for security, and it typically adds much more effort for the developer. This is because it requires the developer to build out logic supporting the entire [authentication state machine](https://developer.okta.com/docs/reference/api/authn/#transaction-state); securely handling every event, every MFA state, registration, MFA enrollment, user self service (account unlock and password reset), etc.
 
 {% img blog/unity-webgl-playfab-authorization/p_state_model.png alt:"Auth Model" width:"800" %}{: .center-image }
 
-In [Identity Security for Games in C# with Unity](/blog/2020/08/21/unity-csharp-games-security ), I described both native and [OAuth](https://developer.okta.com/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc) design concepts. While building out a user interface for authentication natively in the engine might seem like the best approach because of user experience, it is not the preferred approach for security, and it typically adds much more effort for the developer. This is because it requires the developer to build out logic supporting the entire [authentication state machine](https://developer.okta.com/docs/reference/api/authn/#transaction-state); securely handling every event, every MFA state, registration, MFA enrollment, user self service (account unlock and password reset), etc. Prebuilt widgets can simplify the amount of effort in this regard. However, developers will still be asking a user to enter a password into an untrusted UI that they are responsible for and typically not able to fully keep secure. This is why OAuth is considered the best practice standard for authorization within the security industry, and utilizing a security platform's hosted login experience is considered the most secure way to handle authentication. Players will be entering their credentials into a trusted browser window and a trustworthy security platform. Best of all, developers can share the security responsibility, which is much easier and more secure than attempting to build it themselves.
+Prebuilt widgets can simplify the amount of effort in this regard. However, developers would still be asking a player to enter their password into an untrusted UI that the developer is responsible for and typically not able to fully keep secure. This is why OAuth is considered the best practice standard for authorization within the security industry, and utilizing a security platform's hosted login experience is considered the most secure way to handle authentication. Players will be entering their credentials into a trusted browser window and a trustworthy security platform. Best of all, developers can share the responsibility of keeping the login experience with the security platform, which is much easier and more secure than attempting to do it all themselves.
 
 {% img blog/unity-webgl-playfab-authorization/8_popup.png alt:"Popup" width:"800" %}{: .center-image }
 
@@ -47,13 +49,15 @@ Ok, great. But how does this relate to the build target? The browser. OAuth reli
 
 The good news is that once the target is defined and the browser interaction decided, the rest of the code should be similar across all platforms. This is thanks to the shared responsibility with a security platform's hosted login experience and a standardized authorization specification. The job of the developer is to securely provide a platform-preferred browser experience for the user and direct them to the OAuth authorize endpoint. Once the user has authenticated, the browser is closed, and an auth code is captured in client code to be exchanged for tokens behind the scenes. With tokens in hand, user authorization can be passed to all other backend cloud platforms; providing a centralized, and secure, identity security design that drastically simplifies the implementation effort.
 
+With a build target in mind, lets look at how to code this in Unity.
+
 ## Create the Project
 
 First, if you have not already done so, create a new project from `Unity Hub` with the `3D` template.
 
 {% img blog/unity-webgl-playfab-authorization/1_NewProject.png alt:"New Project" width:"800" %}{: .center-image }
 
-Next, configure the Playfab Unity SDK and Editor Extensions using the [Unity Quickstart](https://docs.microsoft.com/en-us/gaming/playfab/sdks/unity3d/quickstart) provided by PlayFab. 
+Next, configure the Playfab Unity SDK and Editor Extensions using the [Unity Quickstart](https://docs.microsoft.com/en-us/gaming/playfab/sdks/unity3d/quickstart) provided by PlayFab.
 
 {% img blog/unity-webgl-playfab-authorization/2_Playfab.png alt:"PlayFab" width:"800" %}{: .center-image }
 
@@ -67,9 +71,9 @@ Change the project to targetWebGL by, clicking **File**, **Build Settings**, **W
 
 > Note: If you did not install WebGL when you installed this copy of the editor, you would be prompted to do so now.
 
-Make sure that your newly created scene is checked in the `Scenes In Build` menu, and then close the `Build Settings` UI. 
+Make sure that your newly created scene is checked in the `Scenes In Build` menu, and then close the `Build Settings` UI.
 
-> Note: If you do not see your scene, click the **Add Open Scenes** button in the bottom right of the `Scenes In Build` menu. 
+> Note: If you do not see your scene, click the **Add Open Scenes** button in the bottom right of the `Scenes In Build` menu.
 
 Right-click in the `Scene Hierarchy` panel and click **UI**, **Button**.
 
@@ -79,7 +83,7 @@ This will be the button that triggers the authentication request.
 
 Right click the button in the `Hierarchy` panel,  click **Rename** and name the button `Sign In.`
 
-{% img blog/unity-webgl-playfab-authorization/6_RenameButton.png alt:"Rename Button" width:"800" %}{: .center-image }
+{% img blog/unity-webgl-playfab-authorization/6_RenameButton.png alt:"Rename Button" width:"400" %}{: .center-image }
 
 Expand the `Sign In` button in the `Hierarchy` panel to expose its text object and select it.
 
@@ -356,9 +360,9 @@ public void Authenticate()
 } 
 ```
 
-The first thing that `Authenticate()` does is prepare the OAuth Authorization request. This is the request sent to the jslib, and then to the JavaScript running in the browser. The player will be redirected to this URI in a browser popup. 
+The first thing that `Authenticate()` does is prepare the OAuth Authorization request. This is the request sent to the jslib, and then to the JavaScript running in the browser. The player will be redirected to this URI in a browser popup.
 
-[Authorization Code grant with PKCE ](/blog/2019/08/22/okta-authjs-pkce) is the most secure and preferred OAuth grant to use. Historically, OAuth has required a client secret to be passed in the authorization request from the client. This design worked fine for back-end services that could securely store the client secret but is flawed in the case of SPA-type applications that do not have a back end. [Proof Key for Code Exchange](https://tools.ietf.org/html/rfc7636) (PKCE) was created as a way to remove the need for the client secret altogether. A `code_verifier` is randomly generated by `Authenticate()` and then used to encrypt a `code_challenge`. The code challenge is what replaces the client secret and the code verifier is what will be used to validate the request for tokens after authentication.
+[Authorization Code grant with PKCE](/blog/2019/08/22/okta-authjs-pkce) is the most secure and preferred OAuth grant to use. Historically, OAuth has required a client secret to be passed in the authorization request from the client. This design worked fine for back-end services that could securely store the client secret but is flawed in the case of SPA-type applications that do not have a back end. [Proof Key for Code Exchange](https://tools.ietf.org/html/rfc7636) (PKCE) was created as a way to remove the need for the client secret altogether. A `code_verifier` is randomly generated by `Authenticate()` and then hashed with SHA-256 to create a `code_challenge`. The code challenge is what replaces the client secret and the code verifier is what will be used to validate the request for tokens after authentication.
 
 Next, `Authenticate()` builds the authorization request URI with all of the required parameters - including the code challenge, a randomly generated state string, and a redirect uri pointing to the `callback.html` - and passes it to the jslib `startAuthentication()` function so that it can be passed to the browser for the popup to navigate to.
 
@@ -495,7 +499,7 @@ Click the `Open ID Connect` tab and select **New Connection**
 
 {% img blog/unity-webgl-playfab-authorization/14_PlayFaboidc.png alt:"PlayFab OIDC" width:"800" %}{: .center-image }
 
-In the `New Connection` menu, name the Connection ID `Okta` and enter the `Client ID` and `Issuer` from the app set up by the Okta CLI. `Client Secret` is not used because of `PKCE `, so enter any random string into the `Client Secret` box in PlayFab. Finally, check `Ignore nonce` and click **Save Connection**.
+In the `New Connection` menu, name the Connection ID `Okta` and enter the `Client ID` and `Issuer` from the app set up by the Okta CLI. `Client Secret` is not used because of `PKCE `, so enter any random string into the `Client Secret` box in PlayFab. Finally, PlayFab is just validating an ID Token from an external authorization server so nonce is not needed here. Check `Ignore nonce` and click **Save Connection**.
 
 {% img blog/unity-webgl-playfab-authorization/15_PlayFabNewConnection.png alt:"PlayFab New Connection" width:"800" %}{: .center-image }
 
@@ -639,7 +643,7 @@ Once publishing is complete, click the `Site URL` to navigate to the application
 
 ## Conclusion
 
-Player security is quickly becoming one of the most critical aspects of game development today. More development is being done in the cloud, and more player data is being collected than ever before. While best practice for authentication and authorization is to use OAuth and a trusted security platform's hosted login experience, the design to do this changes from one target platform to another. For Unity WebGL, you were able to interact with the WebGL's parent page to render a popup that facilitated user authentication via your trusted cloud security platform, Okta. The resulting auth code was exchanged for tokens that can authorize the player to backend cloud platforms that your project is using; in this case, Azure PlayFab. Finally, you were able to host the project entirely on Azure App Services. The OAuth tokens used with PlayFab can authorize the user to other backend cloud platforms as needed, allowing for a convenient, centralized security design. The method used to facilitate browser interaction for WebGL will change with other target platforms, but the rest of the design would continue to be similar across all platforms. 
+Player security is quickly becoming one of the most critical aspects of game development today. More development is being done in the cloud, and more player data is being collected than ever before. While best practice for authentication and authorization is to use OAuth and a trusted security platform's hosted login experience, the design to do this changes from one target platform to another. For Unity WebGL, you were able to interact with the WebGL's parent page to render a popup that facilitated user authentication via your trusted cloud security platform, Okta. The resulting auth code was exchanged for tokens that can authorize the player to backend cloud platforms that your project is using; in this case, Azure PlayFab. Finally, you were able to host the project entirely on Azure App Services. The OAuth tokens used with PlayFab can authorize the user to other backend cloud platforms as needed, allowing for a convenient, centralized security design. The method used to facilitate browser interaction for WebGL will change with other target platforms, but the rest of the design would continue to be similar across all platforms.
 
 ## Learn More About OAuth and Security in Unity
 
