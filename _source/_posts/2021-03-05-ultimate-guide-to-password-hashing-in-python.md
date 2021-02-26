@@ -150,7 +150,7 @@ If an attacker gets access to your hashed passwords and figures out which algori
 
 Salts are long, randomly generated strings added to each password _before_ they're hashed and stored. Salting passwords correctly makes [rainbow tables virtually useless](https://www.lookingglasscyber.com/blog/thwart-rainbow-table-attack/) because each password will have a unique salt that the attacker does not have access to.
 
-While any long, random string added to your passwords before hashing improves security, there are a few ways to increase the effectiveness of your salts. For example, you can add a unique salt to the front and back of each password, you can increase the length of your salt, or you can add [a separately stored “pepper”'](https://en.wikipedia.org/wiki/Pepper_(cryptography)) to each password.
+While any long, random string added to your passwords before hashing improves security, there are a few ways to increase the effectiveness of your salts. For example, you can add a unique salt to the front and back of each password, you can increase the length of your salt, or you can add [a separately stored "pepper"'](https://en.wikipedia.org/wiki/Pepper_(cryptography)) to each password.
 
 Typically, salts are stored in your database alongside each user's password. The problem with this approach is that attackers who get your database probably also get your salts. This means they can re-compute rainbow tables using the stolen salts. Even if it takes longer, an attacker might be motivated enough to do it anyway.
 
@@ -158,7 +158,7 @@ In response to this problem, you can create another long, random string and stor
 
 Another way to spread out the information attackers would need to figure out your users' passwords is to apply multiple hashing algorithms to the password. For example, [in 2012, Firefox wrote about its two-step hashing process](https://blog.mozilla.org/webdev/2012/06/08/lets-talk-about-password-storage/) which uses HMAC and bcrypt:
 
-> “First, the password is hashed with an algorithm called [HMAC](https://en.wikipedia.org/wiki/HMAC), together with a local salt: `H: password -> HMAC(local_salt + password)`. The local salt is a random value that is stored only on the server, never in the database...If an attacker steals one of our password databases, they would need to also separately attack one of our web servers to get file access in order to discover this local salt value...As a second step, this hashed value (or strengthened password, as some call it) is then hashed again with a slow hashing function called bcrypt.”
+> "First, the password is hashed with an algorithm called [HMAC](https://en.wikipedia.org/wiki/HMAC), together with a local salt: `H: password -> HMAC(local_salt + password)`. The local salt is a random value that is stored only on the server, never in the database...If an attacker steals one of our password databases, they would need to also separately attack one of our web servers to get file access in order to discover this local salt value...As a second step, this hashed value (or strengthened password, as some call it) is then hashed again with a slow hashing function called bcrypt."
 
 Security almost always involves a risk and cost tradeoff. The important takeaway from salting is that **spreading out the information attackers would need to deduce your passwords improves security but increases maintenance costs.** For example, if your pepper is ever compromised, you'll need to re-hash all the passwords or ask users to change their passwords immediately.
 
@@ -168,7 +168,7 @@ Now that you understand what hashing is and how it is used in conjunction with s
 ### DIY Hashing Algorithms vs. Libraries
 While you might think it would be interesting to implement your own hash functions from scratch, this is not a good idea in practice. The [OWASP Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html) summarizes the problem:
 
-> “Writing custom cryptographic code such as a hashing algorithm is really hard and should never be done outside of an academic exercise. Any potential benefit that you might have from using an unknown or bespoke algorithm will be vastly overshadowed by the weaknesses that exist in it.”
+> "Writing custom cryptographic code such as a hashing algorithm is really hard and should never be done outside of an academic exercise. Any potential benefit that you might have from using an unknown or bespoke algorithm will be vastly overshadowed by the weaknesses that exist in it."
 
 Creating a modern, secure hash function requires quite a lot of esoteric code, and any small error could carry a critical security risk. If you're curious though, you can read the Python implementations of [MD5 here](https://blog.jpolak.org/?p=1985) and [SHA1 here](https://codereview.stackexchange.com/questions/37648/python-implementation-of-sha1).
 
@@ -322,7 +322,7 @@ Output:
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code id="output-6"></code></pre></div></div>
 
 #### With Salt and Pepper
-I mentioned “pepper” above, which adds another layer of entropy and length to your password before hashing. Typically, pepper is stored on your server, independent of your database. Something like an environment variable is common:
+I mentioned "pepper" above, which adds another layer of entropy and length to your password before hashing. Typically, pepper is stored on your server, independent of your database. Something like an environment variable is common:
 
 <textarea id="editor-7" class="live-code">import hashlib
 import secrets
@@ -396,7 +396,7 @@ Output:
 ### Bcrypt
 The MD5 and SHA families of hash algorithms [are meant to be fast](https://crypto.stackexchange.com/a/46552), so they're primarily used to verify file signatures and certificates where delays would mean a poor user experience. While they've been used as password hashing methods in the past, this is no longer considered best practice because algorithms that can generate hashes quickly are inherently more vulnerable to hackers who calculate billions of hashes to perform brute force attacks.
 
-Algorithms like [bcrypt](https://en.wikipedia.org/wiki/Bcrypt) were purpose-built to slow down this kind of attack. Bcrypt embeds a salt into each hash and implements a “cost factor” that lets developers increase the security of their hashes (by trading off a longer hash generation time). Adding a half-second delay every time to a user's login time probably won't bother your users much, but a half-second delay will slow hackers down dramatically when they're trying to generate billions of hashes.
+Algorithms like [bcrypt](https://en.wikipedia.org/wiki/Bcrypt) were purpose-built to slow down this kind of attack. Bcrypt embeds a salt into each hash and implements a "cost factor" that lets developers increase the security of their hashes (by trading off a longer hash generation time). Adding a half-second delay every time to a user's login time probably won't bother your users much, but a half-second delay will slow hackers down dramatically when they're trying to generate billions of hashes.
 
 #### Hash with Salt
 Unlike the previous algorithms discussed, bcrypt requires a 22-character salt to hash a password, so there's no option to hash without one. Fortunately, most bcrypt packages include helpers that will generate the salt for you.
@@ -423,7 +423,7 @@ Output:
 As you can see, the resulting hash from bcrypt is a little different from the hexadecimal strings generated by previous algorithms. Bcrypt uses [a very specific structure](https://en.wikipedia.org/wiki/Bcrypt#Description) for its hashes, which allows you to increase the work factor and define the hash algorithm in the hash itself. This can be useful if later versions of the bcrypt algorithm implement bug fixes or improvements.
 
 ### Choosing a Password Hashing Algorithm
-While bcrypt is a secure and appropriate option for hashing your passwords, there will always be [varying opinions](https://pthree.org/2016/06/28/lets-talk-password-hashing/) on the “best” way to implement password security on the internet. Other viable options include [Argon2](https://en.wikipedia.org/wiki/Argon2) or [scrypt](https://en.wikipedia.org/wiki/Scrypt).
+While bcrypt is a secure and appropriate option for hashing your passwords, there will always be [varying opinions](https://pthree.org/2016/06/28/lets-talk-password-hashing/) on the "best" way to implement password security on the internet. Other viable options include [Argon2](https://en.wikipedia.org/wiki/Argon2) or [scrypt](https://en.wikipedia.org/wiki/Scrypt).
 
 In any case, your password hashing algorithm should:
 
@@ -432,13 +432,13 @@ In any case, your password hashing algorithm should:
 - Work quickly enough for end-users
 - Slow down attackers who gain access to your hashed passwords
 
-There may be no such thing as a “perfect” password hashing algorithm for all time though. As computing power increases and becomes cheaper, researchers will have to continue building stronger hashing algorithms.
+There may be no such thing as a "perfect" password hashing algorithm for all time though. As computing power increases and becomes cheaper, researchers will have to continue building stronger hashing algorithms.
 
 ## Using Hashed Passwords
 Now that you understand how to hash a password properly in Python, it's time to talk about how you'll actually use these hashed passwords. In practice, there are three typical workflows you might face when dealing with hashed passwords.
 
 ### Storing Hashed Passwords
-When a user signs up for your service, they will typically enter a username and password in plaintext. When they click “submit,” the username and password are sent to your server (hopefully, over an encrypted SSL connection) where you should:
+When a user signs up for your service, they will typically enter a username and password in plaintext. When they click "submit," the username and password are sent to your server (hopefully, over an encrypted SSL connection) where you should:
 
 - Validate that the password meets your [password requirements](https://support.okta.com/help/s/article/Creating-a-Password-Policy?language=en_US)
 - Hash the password using your chosen algorithm
