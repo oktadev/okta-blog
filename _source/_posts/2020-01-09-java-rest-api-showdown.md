@@ -380,6 +380,7 @@ Open your terminal and execute the following command:
 
 ```bash
 curl https://start.spring.io/starter.zip -d language=java \
+ -d bootVersion=2.3.4.RELEASE \
  -d dependencies=web,okta \
  -d packageName=com.okta.rest \
  -d name=spring-boot \
@@ -421,7 +422,7 @@ The configuration here is very similar to the other frameworks. You annotate the
 
 Different from the other frameworks, you don't need to specify that this endpoint is authenticated since Spring already controls this information from its configurations.
 
-The last step is to add the issuer information, so  Spring Security's OIDC support can auto-discover the endpoints it needs to communicate with..
+The last step is to add the issuer information, so  Spring Security's OIDC support can auto-discover the endpoints it needs to communicate with.
 
 Edit `src/main/resources/applications.properties` and add the following configuration:
 

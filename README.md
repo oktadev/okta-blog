@@ -158,7 +158,7 @@ For Markdown images, the macro looks as follows:
 For AsciiDoc:
 
 ```
-image::{% asset_path 'blog/post-images-dir>/<image-file-name>' %}[alt=text for screen readers,width=800,align=center]
+image::{% asset_path 'blog/<post-images-dir>/<image-file-name>' %}[alt=text for screen readers,width=800,align=center]
 ```
 
 ## Utilities

@@ -12,6 +12,8 @@ tweets:
 - "Spring Boot Microservices + @SpringSecurity + @oauth_2 + @okta = 😀!"
 image: blog/featured/okta-java-bottle-headphones.jpg
 type: conversion
+update-url: /blog/2019/05/22/java-microservices-spring-boot-spring-cloud
+update-title: "Java Microservices with Spring Boot and Spring Cloud"
 ---
 
 Building a microservices architecture with Spring Boot and Spring Cloud can allow your team to scale and develop software faster. It can add resilience and elasticity to your architecture that will enable it to fail gracefully and scale infinitely. All this is great, but you need continuous deployment and excellent security to ensure your system stays up-to-date, healthy, and safe for years to come.

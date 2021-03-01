@@ -3,7 +3,7 @@ layout: blog_post
 title: Identity Security for Games in C# with Unity
 author: nick-gamb
 by: advocate
-communities: [.net]
+communities: [.net, gaming]
 description: "Learn how to build user identity management into games in C# with Unity."
 tags: [unity, games, identitysecurity, vr, ar, csharp]
 tweets:
@@ -568,6 +568,7 @@ To expand on the ideas discussed in this blog, I recommend further reading on se
 
 If you'd like to learn more about ASP.NET Core, check out some of our other killer content:
 
+- [Unity WebGL + PlayFab Authorization in 20 Minutes](/blog/2021/02/26/unity-webgl-playfab-authorization)
 - [How to Master the Filestream in C#](https://developer.okta.com/blog/2020/04/29/master-filestream-in-csharp-aspnetcore)
 - [How I Learned to Love Default Implementations in C# 8.0](https://developer.okta.com/blog/2020/01/10/default-implementation-csharp)
 - [Decode JWTs in C# for Authorization](https://developer.okta.com/blog/2019/06/26/decode-jwt-in-csharp-for-authorization)
