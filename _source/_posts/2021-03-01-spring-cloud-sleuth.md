@@ -26,7 +26,7 @@ The initial span, or **root span** is generated when a client request is receive
 
 The diagram below shows how Sleuth span and trace generation would work through a hypothetical service network.
 
-{% img blog/spring-cloud-sleuth/Spring-Cloud-Sleuth-diagram1.png alt:"Select OIDC app type" width:"800" %}{: .center-image }
+{% img blog/spring-cloud-sleuth/sleuth-example-diagram.png alt:"Select OIDC app type" width:"800" %}{: .center-image }
 
 In practice, the span and trace IDs look like the following in log entries (the bracketed section after the `INFO`). Notice how the span ID and trace ID are the same? That's because this is the root span, the beginning of the request tree identified by that particular trace ID.
 ```
@@ -68,7 +68,7 @@ cd spring-cloud-sleuth-demo
 
 The command uses a lot of the default settings. It uses Maven as the dependency manager. It uses Java as the programming language. It uses Spring Boot 2.4.3 (at the time of writing this tutorial). It creates a Jar as the build target. It specifies Java 11 (again, at the time of this tutorial).
 
-{% img blog/spring-cloud-sleuth/image3.png alt:"Spring Initializr" width:"600" %}{: .center-image }
+{% img blog/spring-cloud-sleuth/spring-initializr.png alt:"Spring Initializr" width:"600" %}{: .center-image }
 
 The most important thing it configures is four dependencies.
 
@@ -138,11 +138,11 @@ To log in, you need two things:
 
 Open your developer dashboard by opening your Okta developer URL (the Okta Org URL above). From the top menu, go to **API** and click on **Tokens**.
 
-{% img blog/spring-cloud-sleuth/image1.png alt:"Spring Initializr" width:"600" %}{: .center-image }
+{% img blog/spring-cloud-sleuth/create-token-1.png alt:"Spring Initializr" width:"600" %}{: .center-image }
 
 Click **Create Token**.
 
-{% img blog/spring-cloud-sleuth/image2.png alt:"Spring Initializr" width:"600" %}{: .center-image }
+{% img blog/spring-cloud-sleuth/create-token-2.png alt:"Spring Initializr" width:"600" %}{: .center-image }
 
 Give the token a **name**. Click **Create Token**. Copy the token value and save it in the clipboard or somewhere else. 
 
@@ -435,19 +435,19 @@ Click on the **demo** application.
 
 You'll find the **Client ID** listed there at the top. Copy this or take note of it because you'll need it in a moment.
 
-{% img blog/spring-cloud-sleuth/image4.png alt:"OIDC Client ID" width:"600" %}{: .center-image }
+{% img blog/spring-cloud-sleuth/okta-client-id.png alt:"OIDC Client ID" width:"600" %}{: .center-image }
 
 Under the **General Settings** section, click the blue **edit** link.
 
 Under the **APPLICATION** section, in the **Allowed grant types** sub-section, check the `Implicit (Hybrid)` checkbox and the `Allow Access Token with implicit grant type` checkbox.
 
-{% img blog/spring-cloud-sleuth/image6.png alt:"Allowed grant types" width:"600" %}{: .center-image }
+{% img blog/spring-cloud-sleuth/okta-grant-types.png alt:"Allowed grant types" width:"600" %}{: .center-image }
 
 Scroll down and to the **LOGIN** section. Add a **Login Redirect URI** by clicking the **+ Add URI** button. Notice that there is a login and logout redirect URI section. You need to add a login redirect URI, not a logout redirect URI.
 
 Add the OIDC debugger redirect URI: `https://oidcdebugger.com/debug`
 
-{% img blog/spring-cloud-sleuth/image5.png alt:"Redirect URI" width:"600" %}{: .center-image }
+{% img blog/spring-cloud-sleuth/okta-redirect-url.png alt:"Redirect URI" width:"600" %}{: .center-image }
 
 Click the blue **Save** button.
 
@@ -465,7 +465,7 @@ Scroll down and click **SEND REQUEST**.
 
 You should get a success page with an access token. If you're curious, you can inspect the decoded token. 
 
-{% img blog/spring-cloud-sleuth/image7.png alt:"Token Success" width:"800" %}{: .center-image }
+{% img blog/spring-cloud-sleuth/oidc-debugger.png alt:"Token Success" width:"800" %}{: .center-image }
 
 Copy the token value to the clipboard.
 
@@ -486,7 +486,7 @@ Great. At this point you should have four bash terminals going.
 
 What you're going to do is make a simple GET request to **service A** on endpoint `/a`. **Service A** will log the request and make a call to **service B** on endpoint `/b`. **Service B** will log that request and return a reply back to **service A**. **Service A** will log that it received a reply and will return the reply to your bash terminal.
 
-{% img blog/spring-cloud-sleuth/spring-cloud-sleuth-diagram2.png alt:"Spring Initializr" width:"1000" %}{: .center-image }
+{% img blog/spring-cloud-sleuth/services-request-flow-diagram.png alt:"Spring Initializr" width:"1000" %}{: .center-image }
 
 This example is a little contrived, but the point is to show you how each log even will have a unique Sleuth span value while the entire request flow will share the same trace value.
 
@@ -532,11 +532,11 @@ Take a look at the Zipkin dashboard. [http://localhost:9411](http://localhost:94
 
 Click **Run Query**. You'll have one result.
 
-{% img blog/spring-cloud-sleuth/image8.png alt:"Spring Initializr" width:"600" %}{: .center-image }
+{% img blog/spring-cloud-sleuth/zipkin-result-1.png alt:"Spring Initializr" width:"600" %}{: .center-image }
 
 Click on **Show** and you'll see a detailed summary of the request tracing and logging.
 
-{% img blog/spring-cloud-sleuth/image9.png alt:"Spring Initializr" width:"600" %}{: .center-image }
+{% img blog/spring-cloud-sleuth/zipkin-result-detail.png alt:"Spring Initializr" width:"600" %}{: .center-image }
 
 If you look at the detailed graph, you'll see three spans. The original GET request from the bash shell is the 
 first one. Withi**n that, there is a span that encompasses the GET request to service B from the side of service A
