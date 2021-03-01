@@ -49,8 +49,6 @@ Before you get started, you need to have a few things installed.
 
 **Java 11**: This project uses Java 11. OpenJDK 11 will work just as well. Instructions are found on the [OpenJDK website](https://openjdk.java.net/install/). OpenJDK can also be installed using [Homebrew](https://brew.sh/). Alternatively, [SDKMAN](https://sdkman.io/) is another great option for installing and managing Java versions.
 
-**Maven**: You need Maven installed to bootstrap the project. Install it according to the instructions on [their website](https://maven.apache.org/install.html). Or use SDKMAN or Homebrew.
-
 **Okta CLI**: You’ll be using Okta as an OAuth/OIDC provider to add JWT authentication and authorization to the application. You can go to [our developer site](https://developer.okta.com) to learn more about Okta. You need a free developer account for this tutorial. The Okta CLI is an easy way to register for a free Okta developer account, or log in to an existing one, and configure a Spring Boot app to use Okta as an auth provider. The [project GitHub page](https://github.com/okta/okta-cli) has installation instructions.
 
 **HTTPie**: This is a powerful command-line HTTP request utility that you'll use to test the WebFlux server. Install it according to [the docs on their site](https://httpie.org/doc#installation).
@@ -83,7 +81,7 @@ The demo application can be run with `./mvnw spring-boot:run`. However, it has n
 
 ## Register for a Free Okta Developer Account
 
-If you already have an Okta developer account, skip ahead to the next section titled "Log Into An Existing Okta Developer Account" and do that instead.
+**If you already have an Okta developer account**, skip ahead to the next section titled "Log Into An Existing Okta Developer Account" and do that instead.
 
 You're going to use the Okta CLI to register for a free Okta developer account. You should have already installed the Okta CLI. Open a bash shell and enter the following command.
 
@@ -131,7 +129,7 @@ The Okta CLI saves your account information in the file `~/.okta/okta.yml`. If y
 
 ## Log Into An Existing Okta Developer Account
 
-If you just registered for an account, you can skip to the next section. If you already have an account, this section will show you how to use the Okta CLI to log in.
+If you just registered for an account, you can skip to the next section. **If you already have an account**, this section will show you how to use the Okta CLI to log in.
 
 To log in, you need two things:
 
@@ -351,12 +349,12 @@ For more information on the Zipkin server, take a look at [their quick start pag
 
 There is a Spring Boot annotation, `@EnableZipkinServer`, that launches a Zipkin server for you. However, this annotation is deprecated. Instead, they suggest downloading the server as a Jar file and launching that.
 
-Open a new bash shell. Use the following command to download the latest Zipkin server as a Jar file. 
+**Open a new bash shell.** Use the following command to download the latest Zipkin server as a Jar file. 
 ```bash
 curl -sSL https://zipkin.io/quickstart.sh | bash -s io.zipkin:zipkin-server:LATEST:slim zipkin.jar
 ```
 
-Run the server and leave it running while you're working on the tutorial.
+**Run the server and leave it running** while you're working on the tutorial.
 ```bash
 java -jar zipkin.jar
 ```
