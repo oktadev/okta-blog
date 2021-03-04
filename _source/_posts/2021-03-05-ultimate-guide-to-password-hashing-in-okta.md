@@ -81,54 +81,54 @@ While security specialists bear much of the responsibility in ensuring their org
 Hashing is an important but often misunderstood concept in computer programming. In this comprehensive guide, I'll share everything you need to know about password hashing, generating hashes and salts, storing hashed passwords, and implementing password hashing in Python. Finally, I'll show you how you can use hashes to validate users locally or with a third-party authentication tool [like Okta](https://www.okta.com/).
 
 ## What is a Hash?
-If you've taken a computer science course on data types, you've probably heard of hash tables and hash functions. A hash table (or hash map) is a data storage pattern that maps a calculated hash index to each given key. This allows you to look up values in a table if you know their key. Python's dictionary data type [is implemented as a hash table](https://mail.python.org/pipermail/python-list/2000-March/048085.html), so you are probably already using hash tables without knowing it.
+If you've taken a computer science course on data types, you've probably heard of hash tables and hash functions. A hash table (or hash map) is a data storage pattern that maps a calculated hash index to each given key. This allows you to lookup values in a table if you know their key. Python's dictionary data type [is implemented as a hash table](https://mail.python.org/pipermail/python-list/2000-March/048085.html), so you are probably already using hash tables without knowing it.
 
 ![Using a hash function to lookup values in a hash table](https://i.imgur.com/zbomC0l.png)
 
-[Hash functions](https://en.wikipedia.org/wiki/Hash_function) are the way that keys are calculated. When hashing a piece of data, the hash function should be able to take an arbitrary length of data and map it to a fixed-length index that is unique to the value. In the context of hash table data storage, this allows a programmer to access stored values by knowing the keys and calling the hash function.
+[Hash functions](https://en.wikipedia.org/wiki/Hash_function) are how keys in hash tables are calculated. When hashing a piece of data, the hash function should be able to take an arbitrary length of data and map it to a fixed-length index that is unique to the value. In the context of hash table data storage, a programmer can access stored values by knowing the keys and calling the hash function.
 
 In practice, hash functions are useful for a wide variety of tasks, including compression, data storage, checksums, and password storage. In the rest of this guide, I'll focus on cryptographic hashes and their role in passwords.
 
 ### Password Hashes
 If you have users logging into your site, you likely ask them to create an account with a password. As a developer, you need a way to verify a user by their password later, but storing the password in plaintext [opens you up to massive problems if your database is ever compromised](http://web.cse.ohio-state.edu/~lin.3021/file/ISPEC15.pdf). Attackers could use the passwords to access all the other data you store for your users or gain access to other accounts the user owns, especially [if they reuse their passwords](https://www.helpnetsecurity.com/2020/05/08/reuse-passwords-enterprise/).
 
-This is where cryptographic hash functions come in. If you run a plaintext password through one of these functions, it will convert the string into a unique, irreversible, fixed-size bit array. This hashed password can then be stored in your database, and even if attackers gain access to your database, they shouldn't be able to figure out your users' passwords quickly.
+This is where cryptographic hash functions come in. If you run a plaintext password through one of these functions, it will convert the string into a unique, irreversible, fixed-size bit array. This hashed password can then be stored in your database, and even if attackers gain access to your database, they shouldn't be able to quickly figure out your users' passwords.
 
 Unfortunately, no hashing strategy is perfect. Given enough time and access, attackers can still deduce hashed passwords using [rainbow tables](https://en.wikipedia.org/wiki/Rainbow_table) or [brute force attacks](https://www.kaspersky.com/resource-center/definitions/brute-force-attack). This is why it's important to use the most up-to-date hashing algorithms and salt your passwords before you hash them. In the next section, I'll cover salting, and later in this guide, you'll learn about the various hashing algorithms available and when each might be appropriate.
 
 ### Salting Hashes
-If an attacker gets access to your hashed passwords and figures out which algorithm you used, they can look up the values of the plaintext passwords in a rainbow table. While modern hashing algorithms increase the time it takes to generate and lookup data in these tables, once attackers have your database, they can apply as much computing power as they can afford to the job.
+If an attacker gets access to your hashed passwords and figures out which algorithm you used, they can look up the hashes in a rainbow table. If you don't believe me, just google for a [hash like this](https://www.google.com/search?q=2c6c8ab6ba8b9c98a1939450eb4089ed) and see how many results come up that reveal the password to be `abc123`. While modern hashing algorithms increase the time it takes to generate and lookup data in these tables, once attackers have your database, they can apply as much computing power as they can afford to the job.
 
-Salts are long, randomly generated strings added to each password _before_ they're hashed and stored. Salting passwords correctly makes [rainbow tables virtually useless](https://www.lookingglasscyber.com/blog/thwart-rainbow-table-attack/) because each password will have a unique salt that the attacker does not have access to.
+Salts are long, randomly generated byte arrays added to each password _before_ they're hashed and stored. Salting passwords correctly makes [rainbow tables virtually useless](https://www.lookingglasscyber.com/blog/thwart-rainbow-table-attack/) because each password will have a unique salt that the attacker does not have access to.
 
-While any long, random string added to your passwords before hashing improves security, there are a few ways to increase the effectiveness of your salts. For example, you can add a unique salt to the front and back of each password, you can increase the length of your salt, or you can add [a separately stored "pepper"'](https://en.wikipedia.org/wiki/Pepper_(cryptography)) to each password.
+While any long, random byte array added to your passwords before hashing improves security, there are a few ways to increase the effectiveness of your salts. For example, you can add a unique salt to the front and back of each password, you can increase the length of your salt, or you can add [a separately stored "pepper"'](https://en.wikipedia.org/wiki/Pepper_(cryptography)) to each password.
 
 Typically, salts are stored in your database alongside each user's password. The problem with this approach is that attackers who get your database probably also get your salts. This means they can re-compute rainbow tables using the stolen salts. Even if it takes longer, an attacker might be motivated enough to do it anyway.
 
-In response to this problem, you can create another long, random string and store it in a separate location on your server (outside your database). Then, you can add this pepper to each password in addition to the salts.
+In response to this problem, you can create another long, random byte array called a "pepper" and store it in a separate location on your server (outside your database). Then, you can add this pepper to each password in addition to the salts.
 
 Another way to spread out the information attackers would need to figure out your users' passwords is to apply multiple hashing algorithms to the password. For example, [in 2012, Firefox wrote about its two-step hashing process](https://blog.mozilla.org/webdev/2012/06/08/lets-talk-about-password-storage/) which uses HMAC and bcrypt:
 
-> "First, the password is hashed with an algorithm called [HMAC](https://en.wikipedia.org/wiki/HMAC), together with a local salt: `H: password -> HMAC(local_salt + password)`. The local salt is a random value that is stored only on the server, never in the database...If an attacker steals one of our password databases, they would need to also separately attack one of our web servers to get file access in order to discover this local salt value...As a second step, this hashed value (or strengthened password, as some call it) is then hashed again with a slow hashing function called bcrypt."
+> "The local salt is a random value that is stored only on the server, never in the database...If an attacker steals one of our password databases, they would need to also separately attack one of our web servers to get file access in order to discover this local salt value...As a second step, this hashed value (or strengthened password, as some call it) is then hashed again with a slow hashing function called bcrypt."
 
-Security almost always involves a risk and cost tradeoff. The important takeaway from salting is that **spreading out the information attackers would need to deduce your passwords improves security but increases maintenance costs.** For example, if your pepper is ever compromised, you'll need to re-hash all the passwords or ask users to change their passwords immediately.
+Security almost always involves a risk and cost tradeoff. The important takeaway from salting is that **spreading out the information attackers would need to deduce your passwords improves security but increases maintenance costs.** For example, if your pepper is ever compromised, you'll need to eventually re-hash all the passwords or ask users to change their passwords immediately.
 
 ## Hashing in Python
-Now that you understand what hashing is and how it is used in conjunction with salting to securely store passwords, you are ready to get specific. In this section, I'll show you how to apply common hash functions in Python and some of the important considerations you should make when choosing a hash function.
+Now that you understand what hashing is and how it is used in conjunction with salting to store passwords securely, you are ready to get specific. In this section, I'll show you how to apply common hash functions in Python and some of the important considerations you should make when choosing a hash function.
 
 ### DIY Hashing Algorithms vs. Libraries
 While you might think it would be interesting to implement your own hash functions from scratch, this is not a good idea in practice. The [OWASP Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html) summarizes the problem:
 
 > "Writing custom cryptographic code such as a hashing algorithm is really hard and should never be done outside of an academic exercise. Any potential benefit that you might have from using an unknown or bespoke algorithm will be vastly overshadowed by the weaknesses that exist in it."
 
-Creating a modern, secure hash function requires quite a lot of esoteric code, and any small error could carry a critical security risk. If you're curious though, you can read the Python implementations of [MD5 here](https://blog.jpolak.org/?p=1985) and [SHA1 here](https://codereview.stackexchange.com/questions/37648/python-implementation-of-sha1).
+Creating a modern, secure hash function requires quite a lot of esoteric code, and any small error could carry a critical security risk. If you're curious, though, you can read the Python implementations of [MD5 here](https://blog.jpolak.org/?p=1985) and [SHA1 here](https://codereview.stackexchange.com/questions/37648/python-implementation-of-sha1).
 
 Fortunately, Python has a robust choice of libraries available that implement cryptographically secure hash functions. In the examples below, you'll see how two of them [bcrypt](https://pypi.org/project/bcrypt/) and [hashlib](https://docs.python.org/3/library/hashlib.html) work. Both are open-source and widely recommended by security professionals and software developers alike. While bcrypt is a community-maintained module, hashlib is actually part of Python's standard library.
 
-In the following sections, I'll share interactive examples of five of the most common password hashing algorithms in Python. You'll see some of the pros and cons to each approach and why some of these algorithms are no longer recommended for password hashing in 2021. All the code samples are [available in this GitHub repo](https://github.com/karllhughes/hashing-in-python) if you prefer to run the examples locally.
+I'll share interactive examples of five of the most common password hashing algorithms in Python in the following sections. All of the Python code below is running in your browser. Feel free to edit and change the code you see! As you go through the code, you'll see some of the pros and cons to each approach and why some of these algorithms are no longer recommended for password hashing in 2021. 
 
 ### MD5
-Originally created as a cryptographic hash function, the MD5 algorithm has since been found vulnerable to [collisions](https://en.wikipedia.org/wiki/Collision_resistance), making it much easier for attackers to exploit. Because of this, **MD5 is no longer recommended for password hashing.**
+Created as a general purpose cryptographic hash function, the MD5 algorithm has since been found vulnerable to [collisions](https://en.wikipedia.org/wiki/Collision_resistance), making it much easier for attackers to exploit. Because of this, **MD5 is no longer recommended for password hashing.**
 
 That said, plenty of legacy systems still use the algorithm, so developers are likely to come across it. When you do, you'll have to decide [how you want to upgrade your hashing algorithm](https://security.stackexchange.com/questions/118114/should-passwords-be-automatically-reset-when-the-underlying-method-changes), but because MD5 is still so common, I'll show you a couple of examples here.
 
@@ -153,13 +153,14 @@ Output:
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code id="output-1"></code></pre></div></div>
 
-Because MD5 creates a fixed-length 128-bit hash object, you have to convert it to a human-readable format if you want to `print` it. This example uses Python's [`hexdigest()` function](https://docs.python.org/3/library/hashlib.html#hashlib.hash.hexdigest), so you should get a 32-character hexadecimal string like this:
+Because MD5 creates a fixed-length 128-bit value, you have to convert it to a human-readable format if you want to `print` it. This example uses Python's [`json`](https://docs.python.org/3/library/json.html) and [`base64`](https://docs.python.org/3/library/base64.html) libraries to print out the hash in the format that Okta uses for loading user hashes into Okta, so you should see output that looks like this::
 
 ``` 
 {
     "algorithm": "MD5",
     "value": "KqqDNf0DDgVKmOOyxYUrNA=="
 }
+
 ```
 
 #### With Salt
@@ -189,9 +190,9 @@ Output:
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code id="output-2"></code></pre></div></div>
 
-This example uses the Python [secrets module](https://docs.python.org/3/library/secrets.html) to generate 16 bytes of random data that is appended to the end of the password before it is hashed.
+This example uses the Python [secrets module](https://docs.python.org/3/library/secrets.html) to generate  16 random bytes that are appended to the end of the password before it is hashed.
 
-The output of this salted, hashed, and base64 encoded password should look something like this:
+The output of this salted and hashed password will be a new 128-bit value that, when base64 encoded, will look something like the result below:
 
 ```
 {
@@ -200,11 +201,12 @@ The output of this salted, hashed, and base64 encoded password should look somet
     "saltOrder": "POSTFIX",
     "value": "pqTUVToGARL1yM3/jthCHA=="
 }
+
 ```
 
-Because the salt should always be a random series of bytes, you will see a different value each time you hash the password. This is _exactly_ what should happen! 
+You'll notice that the output from the sample code doesn't match the example above. In fact, every time you make a change to the code, you'll see that the output changes. This is good and exactly as expected. To get the benefits of salting your passwords, you *must* use a unique salt for each password!
 
-However, **for example purposes only**, you can change line 8 above to the code below and get the exact same output as the example above:
+That said, if you want to see how the output was generated above, you can change the salt to the same value that was used to compute the example by changing line 8 in the example above to look like this:
 
 ```
 salt = b"\x47\x49\x46\x38\x39\x61\x01\x00\x01\x00\x00\x00\x00;"
@@ -213,7 +215,7 @@ salt = b"\x47\x49\x46\x38\x39\x61\x01\x00\x01\x00\x00\x00\x00;"
 ### SHA-1
 While [SHA-1](https://en.wikipedia.org/wiki/SHA-1) creates a slightly longer hashed output (160-bit) than MD5, it is no longer considered cryptographically secure either. It's vulnerable to collisions, and in 2020, researchers estimated that anyone with $45,000 worth of cloud computing power [could successfully break SHA-1 signatures used for validating TLS certificates](https://eprint.iacr.org/2020/014.pdf).
 
-Like MD5, there's still plenty of legacy systems using SHA-1 hashing algorithms though, so it's possible you'll see it in older Python code.
+Like MD5, there's still plenty of legacy systems using SHA-1 hashing algorithms, though, so you may see it in older Python code.
 
 #### Hash Only
 While the output is slightly longer (a 40-character hexadecimal string) than MD5, using SHA-1 involves roughly the same process:
@@ -235,7 +237,7 @@ Output:
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code id="output-3"></code></pre></div></div>
 
-When hashed and base64 encoded, the password `test password` will look like this:
+When hashed with SHA-1 and encoded with base64, the password `test password` will look like this: 
 
 ```
 {
@@ -243,7 +245,6 @@ When hashed and base64 encoded, the password `test password` will look like this
     "value": "LOsCqF9tTebCiy5Z/aiG1Sba+w0="
 }
 ```
-
 
 #### With Salt
 Not much changes when you add a salt to your password before applying SHA-1 hashing. It's still not significantly more secure, and the process is equivalent to doing the same in MD5:
@@ -270,14 +271,19 @@ Output:
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code id="output-4"></code></pre></div></div>
 
+
+The output should look something like this:
+
 ```
 {
     "algorithm": "SHA-1",
-    "salt": "R0lGODlhAQABAAAAADs=",
+    "salt": "KNvRoBfEE0M=",
     "saltOrder": "POSTFIX",
-    "value": "1cijegMYbE7L/WkUxkHjQ+/p1M0="
+    "value": "edGfKGlsGJtQSRXO6rMjoNoCLqY="
 }
 ```
+
+As with the salted MD5 example above, the salt *must* be unique to each password you hash. However, if you want to get the exact same output as our example output, you can change line 8 in the example code to look like this:
 
 ```
 salt = b"\x47\x49\x46\x38\x39\x61\x01\x00\x01\x00\x00\x00\x00;"
@@ -310,6 +316,7 @@ Output:
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code id="output-5"></code></pre></div></div>
 
+The output should look like this:
 ```
 {
     "algorithm": "SHA-256",
@@ -317,9 +324,8 @@ Output:
 }
 ```
 
-
 #### With Salt
-If you are forced to use SHA-256 for some reason, adding a salt is essential. This requires attackers to have another piece of data and increases the amount of time required for brute force attacks:
+If you are forced to use SHA-256 for some reason, adding salt is essential. This requires attackers to have another piece of data and increases the amount of time required for brute force attacks:
 
 <textarea id="editor-6" class="live-code">import hashlib
 import secrets
@@ -343,6 +349,8 @@ Output:
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code id="output-6"></code></pre></div></div>
 
+The output should look something like this:
+
 ```
 {
     "algorithm": "SHA-256",
@@ -352,10 +360,11 @@ Output:
 }
 ```
 
+As with the examples above, the salt *must* be unique to each password you hash. However, if you want to get the exact same output as our example output, you can change the line in the example code where the `salt` is defined to look like this:
+
 ```
 salt = b"\x47\x49\x46\x38\x39\x61\x01\x00\x01\x00\x00\x00\x00;"
 ```
-
 
 #### With Salt and Pepper
 I mentioned "pepper" above, which adds another layer of entropy and length to your password before hashing. Typically, pepper is stored on your server, independent of your database. Something like an environment variable is common:
@@ -385,6 +394,7 @@ Output:
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code id="output-7"></code></pre></div></div>
 
+Example output:
 ```
 {
     "algorithm": "SHA-256",
@@ -392,10 +402,6 @@ Output:
     "saltOrder": "POSTFIX",
     "value": "gWVt3W2f5I83NLwYtyf3Ac0uomcY+bymCd6IEaJoS+8="
 }
-```
-
-```
-salt = b"\x47\x49\x46\x38\x39\x61\x01\x00\x01\x00\x00\x00\x00;"
 ```
 
 Salt and pepper can be added to the beginning or end of the original password. There's no substantive difference from a security standpoint, so pick one and obviously, be consistent.
@@ -425,6 +431,8 @@ print(json.dumps(result, indent=4))</textarea>
 Output:
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code id="output-8"></code></pre></div></div>
+
+The output should look like this:
 
 ```
 {
@@ -460,6 +468,7 @@ Output:
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code id="output-9"></code></pre></div></div>
 
+The output should look something like this:
 ```
 {
     "algorithm": "SHA-512",
@@ -504,7 +513,20 @@ Output:
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code id="output-10"></code></pre></div></div>
 
-As you can see, the resulting hash from bcrypt is a little different from the hexadecimal strings generated by previous algorithms. Bcrypt uses [a very specific structure](https://en.wikipedia.org/wiki/Bcrypt#Description) for its hashes, which allows you to increase the work factor and define the hash algorithm in the hash itself. This can be useful if later versions of the bcrypt algorithm implement bug fixes or improvements.
+The output should look something like this:
+
+```
+{
+    "algorithm": "BCRYPT",
+    "workFactor": 12,
+    "salt": "JRTqctXrmURv1zqEjMX8Uu",
+    "value": "6FU1hdF4DOr3vbwyEvx8JW9eSKUvvSO",
+}
+```
+
+Note that `bcrypt` encourages the best practice of creating a salt for each password by giving you the `bcrypt.gensalt()` function. However, like with our other examples, if you want to see how I got the example output above, you can have bcrypt use the same salt as you see in the example.
+
+As you can see, the resulting hash from bcrypt is a little different from the strings generated by previous algorithms. Bcrypt uses [a very specific structure](https://en.wikipedia.org/wiki/Bcrypt#Description) for its hashes, which allows you to increase the work factor and define the hash algorithm in the hash itself. This can be useful if later versions of the bcrypt algorithm implement bug fixes or improvements.
 
 ### Choosing a Password Hashing Algorithm
 While bcrypt is a secure and appropriate option for hashing your passwords, there will always be [varying opinions](https://pthree.org/2016/06/28/lets-talk-password-hashing/) on the "best" way to implement password security on the internet. Other viable options include [Argon2](https://en.wikipedia.org/wiki/Argon2) or [scrypt](https://en.wikipedia.org/wiki/Scrypt).
@@ -516,7 +538,7 @@ In any case, your password hashing algorithm should:
 - Work quickly enough for end-users
 - Slow down attackers who gain access to your hashed passwords
 
-There may be no such thing as a "perfect" password hashing algorithm for all time though. As computing power increases and becomes cheaper, researchers will have to continue building stronger hashing algorithms.
+There may be no such thing as a "perfect" password hashing algorithm for all time, though. As computing power increases and becomes cheaper, researchers will have to continue building stronger hashing algorithms.
 
 ## Using Hashed Passwords
 Now that you understand how to hash a password properly in Python, it's time to talk about how you'll actually use these hashed passwords. In practice, there are three typical workflows you might face when dealing with hashed passwords.
@@ -551,9 +573,11 @@ Once you've stored a user's hashed password, you are ready to validate it next t
 Many hashing libraries take care of some of these steps for you. For example, bcyrpt includes [a `checkpw` function that compares a binary plaintext password to your stored hash](https://github.com/pyca/bcrypt/#password-hashing). When available, you should use these built-in functions because they'll prevent you from making errors in your password validation logic.
 
 ### Importing Users with Hashed Passwords into Okta
-Finally, you may someday need to import user accounts with hashed passwords into a third-party service like [Okta's](https://www.okta.com/). User authentication often starts relatively simply, but as you start to build more complex and secure features, you'll realize that it takes a lot of work to maintain. Okta can handle password resets, forgotten passwords, enterprise SSO, JWTs, and much more for you, which makes it much easier to maintain a secure and scalable authentication process.
+Finally, you may someday need to import user accounts with hashed passwords into a third-party service like [Okta's](https://www.okta.com/). User authentication often starts relatively simply, but as you start to build more complex and secure features, you'll realize that it takes a lot of work to maintain. Okta can handle password resets, forgotten passwords, enterprise SSO, JWTs, and much more for you, making it much easier to maintain a secure and scalable authentication process.
 
 To import existing users with hashed passwords into Okta, you'll need to [make a `POST` request to their `/users` endpoint](https://developer.okta.com/docs/reference/api/users/#create-user-with-imported-hashed-password). The payload of your request should include the user's email, profile information, and details about their password and the algorithm used:
+
+Use this command to create a user in Okta named "Isaac Brock" that has a password with the value of "test password" - note that the value of the "hash" part of the payload exactly matches the example above!
 
 ```bash
 curl -v -X POST \
@@ -572,9 +596,9 @@ curl -v -X POST \
     "password" : {
       "hash": {
         "algorithm": "BCRYPT",
-        "workFactor": 10,
-        "salt": "rwh3vH166HCH/NT9XV5FYu",
-        "value": "qaMqvAPULkbiQzkTCWo5XDcvzpk8Tna"
+        "workFactor": 12,
+        "salt": "HrtURKVYwHEOR/PMBBakyu",
+        "value": "51qdkp4j1j0NoqwlXhHhCfiM1dqxUP2"
       }
     }
   }
@@ -582,6 +606,8 @@ curl -v -X POST \
 ```
 
 Okta's API will return a user ID, which you can then store in your database. Now, instead of validating a user's username and password yourself every time they log in, you can pass the request over to Okta or [use an Okta-hosted sign-on screen](https://help.okta.com/en/prod/Content/Topics/Settings/custom-okta-hosted-sign-in-page.htm). Once Okta authenticates the user, you can use their user ID to look up profile data you maintain in your own database.
+
+You can use this same pattern to create users with pre-existing hashed passwords. Just change the value of the "hash" portion of the payload to any password that was hashed using code as you saw in the examples above.
 
 ## Learn More
 While this guide takes you deep into password hashing in Python, there are still many password security topics that I haven't covered. For example, how do you set strong password requirements? Should you validate that users aren't reusing compromised passwords? What other password hashing algorithms are out there? Here are a few more resources you should check out:
