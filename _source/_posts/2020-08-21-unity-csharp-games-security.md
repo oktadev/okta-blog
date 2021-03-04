@@ -303,8 +303,9 @@ private async void doOAuth()
     string code_verifier = randomDataBase64url(32);
     string code_challenge = base64urlencodeNoPadding(sha256(code_verifier));
     const string code_challenge_method = "S256";
-    // Creates a redirect URI using an available port on the loopback address.
-    string redirectURI = string.Format("http://{0}:{1}/", IPAddress.Loopback, /*GetRandomUnusedPort()*/51772);
+    // Creates a redirect URI using the loopback address.
+    int redirectPort = 51772;
+    string redirectURI = string.Format("http://{0}:{1}/", IPAddress.Loopback, redirectPort);
     output("redirect URI: " + redirectURI);
     // Creates an HttpListener to listen for requests on that redirect URI.
     var http = new HttpListener();
