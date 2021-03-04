@@ -1,17 +1,17 @@
 ---
 layout: blog_post
-title: "The Ultimate Guide to Password Hashing in Python"
+title: The Ultimate Guide to Password Hashing in Okta
 author: karl-hughes
 by: contractor
-communities: [python]
-description: "Everything you ever wanted to know about hashing passwords in Python"
-tags: [python, password, hashing]
+communities: [security, python]
+description: "An in-depth guide that uses live Python examples to show how to hash passwords into a format that Okta recognizes."
+tags: [okta, password, md5, sha1, sha256, sha512, bcrypt, hashing, salting]
 tweets:
-- ""
-- ""
-- ""
-image:
-type: awareness
+- "You’ve heard about hashing passwords before. Now learn how to hash passwords with Python!"
+- "Follow along with this interactive guide to learn how to hash passwords with Python"
+- "Use the live Python examples in this post to learn the details of hashing passwords!"
+image: blog/ultimate-guide-to-password-hashing-in-okta/header.png
+type: conversion
 ---
 
 <!-- <script src="https://cdn.jsdelivr.net/npm/brython@3.8.10/brython.min.js"></script> -->
