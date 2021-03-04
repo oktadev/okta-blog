@@ -7,7 +7,7 @@ communities: [security, python]
 description: "An in-depth guide that uses live Python examples to show how to hash passwords into a format that Okta recognizes."
 tags: [okta, password, md5, sha1, sha256, sha512, bcrypt, hashing, salting]
 tweets:
-- "You’ve heard about hashing passwords before. Now learn how to hash passwords with Python!"
+- "You've heard about hashing passwords before. Now learn how to hash passwords with Python!"
 - "Follow along with this interactive guide to learn how to hash passwords with Python"
 - "Use the live Python examples in this post to learn the details of hashing passwords!"
 image: blog/ultimate-guide-to-password-hashing-in-okta/header.png
