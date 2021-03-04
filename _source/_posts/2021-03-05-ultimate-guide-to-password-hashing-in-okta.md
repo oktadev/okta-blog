@@ -13,10 +13,6 @@ tweets:
 image: blog/ultimate-guide-to-password-hashing-in-okta/header.png
 type: conversion
 ---
-
-<!-- <script src="https://cdn.jsdelivr.net/npm/brython@3.8.10/brython.min.js"></script> -->
-<!-- <script src="https://cdn.jsdelivr.net/npm/brython@3.8.10/brython_stdlib.js"></script> -->
-<!-- img/blog/ultimate-guide-to-password-hashing-in-python -->
 <script src="/ultimate-guide-to-password-hashing-in-python/bcrypt.min.js"></script>
 <script src="/ultimate-guide-to-password-hashing-in-python/brython.min.js"></script>
 <script src="/ultimate-guide-to-password-hashing-in-python/brython_stdlib.js"></script>
@@ -27,48 +23,12 @@ type: conversion
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.37.0/codemirror.css">
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.37.0/theme/neat.css" integrity="sha256-WMLC5bxpwvLiouYZo3maC9cKh1TBNxBNqrSjnlP0JQM=" crossorigin="anonymous" />
 <style type="text/css">
-  .jf-game > ul {
-    list-style: none;
-  }
-
-  .jf-game > li:before {
-    margin: 0 0.25em;
-  }
-
-  li.pass:before {
-    content: "\2611"
-  }
-
-  li.fail:before {
-    content: "\2610"
-  }
-  
-  .jf-game > .alert {
-    border-radius: 4px;
-    padding: 12px 20px 12px 20px;
-    display: none;
-  }
-  
-  .jf-game > .alert > code {
-    font-size: 16px;
-  }
-  
-  .jf-game > .error {
-    background-color: rgb(255, 243, 205);
-    color: rgb(113, 100, 4);
-  }
-  
-  .jf-game > .success {
-    background-color: rgb(212, 237, 218);
-    color: rgb(21, 87, 36);
-  }
-  
   .CodeMirror {
     height: auto !important;
   }
 </style>
 <script type="text/python3">
-
+# Author: Joel Franusic
 from browser import document, html, window, timer
 import sys
 
@@ -82,11 +42,6 @@ class DivOut:
 
 
 def runPy(cm):
-    ## print("cm.options.outputId")
-    ## print(cm.options.outputId)
-    ## print("cm['options']['outputId']")
-    ## print(cm['options']['outputId'])
-
     code = cm.getValue()
     sys.stdout = cm.options.stdout
     exec(code)
@@ -117,12 +72,7 @@ for editor in document.select("textarea.live-code"):
         "outputId": output_id,
         "theme": "neat",
     })
-
-# <!-- x = DivOut("output-1") -->
-# sys.stdout = x
-
 </script>
-
 
 As more of our critical work and personal functions go online, the risk of data and security breaches continues to increase. In 2019, there were [over 1400 data breaches reported](https://www.statista.com/statistics/273550/data-breaches-recorded-in-the-united-states-by-number-of-breaches-and-records-exposed/) that exposed nearly 165 million records, many of which included passwords and personal information.
 
