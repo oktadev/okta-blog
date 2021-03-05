@@ -1,3 +1,0 @@
-^\.idea|\.coverage|cover|build|dist|MANIFEST|\.tox|\.noseids$
-^.*\.(pyc|egg-info|\$py\.class)$
-^hg-checklink.*$
