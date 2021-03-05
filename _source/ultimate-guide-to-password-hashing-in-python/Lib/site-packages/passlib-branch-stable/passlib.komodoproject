@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Komodo Project File - DO NOT EDIT -->
+<project id="ab14e891-3bad-4dee-94c1-e8ad8d6ca1a9" kpf_version="5" name="passlib.komodoproject">
+<preference-set idref="ab14e891-3bad-4dee-94c1-e8ad8d6ca1a9">
+  <string relative="path" id="import_dirname"></string>
+  <string id="import_exclude_matches">__pycache__;*$py.class;*.egg-info;cover;_build;dist;build;.*;*.*~;*.bak;*.tmp;CVS;.#*;*.pyo;*.pyc;.svn;*%*;tmp*.html;.DS_Store</string>
+  <string id="import_include_matches"></string>
+  <boolean id="import_live">1</boolean>
+  <string id="spellcheckLangID">en-US</string>
+</preference-set>
+</project>
