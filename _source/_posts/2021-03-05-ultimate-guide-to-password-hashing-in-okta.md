@@ -13,10 +13,6 @@ tweets:
 image: blog/ultimate-guide-to-password-hashing-in-okta/header.png
 type: conversion
 ---
-<script src="/assets-jekyll/ultimate-guide-to-password-hashing-in-python/bcrypt.min.js"></script>
-<script src="/assets-jekyll/ultimate-guide-to-password-hashing-in-python/brython.min.js"></script>
-<script src="/assets-jekyll/ultimate-guide-to-password-hashing-in-python/brython_stdlib.js"></script>
-
 <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.37.0/codemirror.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.37.0/mode/python/python.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.37.0/addon/edit/matchbrackets.js"></script>
@@ -624,8 +620,11 @@ These blog posts are also good resources for learning about other ways to import
 As always, if you have any questions please comment below. Never miss out on any of our awesome content by following us on [Twitter](https://twitter.com/oktadev) and subscribing to our channel on [YouTube](https://www.youtube.com/c/oktadev)!
 
 And lastly, special thanks to Gabriel Sroka for his help reviewing drafts of this post.
+<script src="/assets-jekyll/ultimate-guide-to-password-hashing-in-python/bcrypt.min.js"></script>
+<script src="/assets-jekyll/ultimate-guide-to-password-hashing-in-python/brython.min.js"></script>
+<script src="/assets-jekyll/ultimate-guide-to-password-hashing-in-python/brython_stdlib.js"></script>
 <script type="text/javascript">
 document.addEventListener("DOMContentLoaded", function(){
-    brython(1)
+    brython({debug: 1, pythonpath:['/assets-jekyll/ultimate-guide-to-password-hashing-in-python/Lib/site-packages']})
 });
 </script>
