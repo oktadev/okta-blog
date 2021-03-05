@@ -203,7 +203,7 @@ This is the kind of integration pitfall developers don't want to waste time on. 
 
 In this section, you'll learn how to use Okta as an OAuth 2.0 / OIDC provider. Okta has two options for configuring an OpenID Connect (OIDC) application. You can either go through the [developer console](https://developer.okta.com/) or use the [Okta CLI](https://github.com/okta/okta-cli).
 
-### Use the Okta CLI to Configure JHipster + Okta
+### Use the Okta CLI to Configure JHipster
 
 The Okta CLI automates all the JHipster + Okta configuration for you. You can install the Okta CLI using popular package managers.
 
@@ -325,7 +325,7 @@ The Okta CLI streamlines JHipster's configuration and does several things for yo
 
 What if you dislike the command line? Don't panic; I have your back! The Okta CLI is easy to use, but you might want to use a UI to configure things. That's why I'll go through each step to configure an OIDC application that works with JHipster Quarkus.
 
-### Use Okta's Developer Console to Create an Okta App
+### Use Okta's Developer Console to Configure JHipster
 
 If you don't have an Okta developer account, you need to [sign up](https://developer.okta.com/signup). It's nothing fancy: first name, last name, email, a strong password, and you're ready to go.
 
