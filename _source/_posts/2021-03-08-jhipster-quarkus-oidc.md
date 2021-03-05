@@ -526,7 +526,7 @@ If you'd rather stay at your computer, here are some other activities you might 
 ) 
 * Go through [the excellent Quarkus guides](https://quarkus.io/guides/) 
 
-After roughly five minutes, the native executable should be ready:
+After roughly three minutes, the native executable should be ready:
 
 {% img blog/jhipster-quarkus-oidc/quarkus-native-compile.png alt:"JHipster Quarkus Native compilation" width:"800" %}{: .center-image }
 
