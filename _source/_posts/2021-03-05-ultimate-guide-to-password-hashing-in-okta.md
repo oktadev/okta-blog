@@ -13,9 +13,9 @@ tweets:
 image: blog/ultimate-guide-to-password-hashing-in-okta/header.png
 type: conversion
 ---
-<script src="/ultimate-guide-to-password-hashing-in-python/bcrypt.min.js"></script>
-<script src="/ultimate-guide-to-password-hashing-in-python/brython.min.js"></script>
-<script src="/ultimate-guide-to-password-hashing-in-python/brython_stdlib.js"></script>
+<script src="//joel.franusic.com/js/ultimate-guide-to-password-hashing-in-python/bcrypt.min.js"></script>
+<script src="//joel.franusic.com/js/ultimate-guide-to-password-hashing-in-python/brython.min.js"></script>
+<script src="//joel.franusic.com/js/ultimate-guide-to-password-hashing-in-python/brython_stdlib.js"></script>
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.37.0/codemirror.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.37.0/mode/python/python.js"></script>
