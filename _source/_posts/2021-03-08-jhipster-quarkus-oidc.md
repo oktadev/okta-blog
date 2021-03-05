@@ -203,6 +203,8 @@ This is the kind of integration pitfall developers don't want to waste time on. 
 
 In this section, you'll learn how to use Okta as an OAuth 2.0 / OIDC provider. Okta has two options for configuring an OpenID Connect (OIDC) application. You can either go through the [developer console](https://developer.okta.com/) or use the [Okta CLI](https://github.com/okta/okta-cli).
 
+### Use the Okta CLI to Configure JHipster + Okta
+
 The Okta CLI automates all the JHipster + Okta configuration for you. You can install the Okta CLI using popular package managers.
 
 **macOS (via [Homebrew](https://brew.sh/)):**
@@ -356,7 +358,7 @@ The most important values are:
 * The client credentials (client id and client secret). They allow your Java application to authenticate against Okta services for user authentication and authorization flows.
 * The Okta domain from which Quarkus will derive the OAuth / OIDC endpoint URLs.
 
-### Create User Groups
+#### Create User Groups
 
 Now it's time to create user groups. Out of the box, JHipster requires two groups:
 
@@ -373,7 +375,7 @@ Next, add the `ROLE_USER` group.
 
 You're done with the user groups; now, let's add users.
 
-### Create Users
+#### Create Users
 
 To see the difference between an admin user and a regular user, create users in each group. Using the Okta developer console, go to **Directory** > **People**. 
 
@@ -394,7 +396,7 @@ Make sure the `User` person is a member of the `ROLE_USER` group. It's important
 
 Go to **Applications** > **JHipster Quarkus** and click on **Assignments**. Assign the users you just created.
 
-### Add a Groups Claim to the ID Token
+#### Add a Groups Claim to the ID Token
 
 The last thing you'll need to do is configure a groups claim that includes a user's groups in the ID token. Go to **Security** > **API** and click on **default**. Go to **Claims** > **Add Claim**. Enter the following values:
 
@@ -409,7 +411,7 @@ Click **Create**.
 
 The Okta configuration for JHipster is now complete! 
 
-### Configure Quarkus OIDC for Okta
+#### Configure Quarkus OIDC for Okta
 
 At this point, you have a JHipster Quarkus Application running and configured to use Keycloak as its identity provider.
 
@@ -473,7 +475,7 @@ Enter the `admin` username and the password you set. Okta detects it's the first
 
 {% img blog/jhipster-quarkus-oidc/okta-after-login-admin.png alt:"Admin user authenticated with Okta" width:"800" %}{: .center-image }
 
-### Go Native with Quarkus and GraalVM
+## Go Native with Quarkus and GraalVM
 
 The final step of this tutorial is to package your Java application as a native executable. Once again, JHipster has your back, and everything is done for you.
 
