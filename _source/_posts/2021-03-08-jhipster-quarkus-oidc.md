@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Build a Secure Quarkus Native App with JHipster"
+title: "Fast Java Made Easy with Quarkus and JHipster"
 author: daniel-petisme
 by: external-contributor
 communities: [java]
@@ -22,7 +22,7 @@ Such performance gains allow the Java platform to be competitive in serverless, 
 
 Quarkus uses Java standards (like [MicroProfile](https://projects.eclipse.org/projects/technology.microprofile), [JAX-RS](https://github.com/jax-rs)) and best of breed libraries (such as [Hibernate](https://hibernate.org/) and [Vert.x](https://vertx.io/)). It even has support for [Spring](https://spring.io/)'s annotations.
 
-## Quarkus + Java Made Easy
+## Quarkus + JHipster = Fast Java Made Easy
 
 Development history has demonstrated gluing components together can be challenging. Developers love when you provide them enlightened opinions, and this is where JHipster comes in.
 
