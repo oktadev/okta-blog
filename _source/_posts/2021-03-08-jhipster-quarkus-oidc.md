@@ -317,12 +317,6 @@ The Okta CLI streamlines JHipster's configuration and does several things for yo
 3. It adds your current user to the `ROLE_ADMIN` and `ROLE_USER` groups
 4. It creates a `groups` claim in your default authorization server and adds the user's groups to it
 
-> The Okta CLI streamlines the commands so much that you can use them in a demo.
-> ```
-> okta apps create jhipster
-> ```
-> Tested with JHipster + { Spring Boot, Micronaut, Quarkus }. 🥰
-
 What if you dislike the command line? Don't panic; I have your back! The Okta CLI is easy to use, but you might want to use a UI to configure things. That's why I'll go through each step to configure an OIDC application that works with JHipster Quarkus.
 
 ### Use Okta's Developer Console to Configure JHipster
