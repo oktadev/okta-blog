@@ -54,6 +54,12 @@ You'll need to install a few things before you get started.
 
 You'll need a free Okta developer account to complete this tutorial. However, the Okta CLI will walk you through the registration process or allow you to log in using your credentials.
 
+If you would rather follow along by watching a video, check out the screencast below from our [YouTube channel](https://www.youtube.com/watch?v=1i96a_0wCFM).
+
+<div style="text-align: center; margin-bottom: 1.25rem">
+<iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/1i96a_0wCFM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
 ## Bootstrap a Spring Data JPA Project with the Okta CLI
 
 Open a shell and, in a reasonable parent folder location, and run the Okta CLI.
@@ -101,11 +107,11 @@ Create a new Java class that will update the security configuration. This file t
 ```java
 package com.example.sample;
 
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
-@Configuration
+@EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
@@ -207,8 +213,7 @@ The first step in creating prehistoric monsters is, of course, adding the requis
     <dependency>
         <groupId>org.projectlombok</groupId>
         <artifactId>lombok</artifactId>
-        <version>1.18.14</version>
-        <scope>provided</scope>
+        <provided>true</provided>
     </dependency>
 </dependencies>
 ```
@@ -373,6 +378,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 public interface DinosaurRepository extends CrudRepository<Dinosaur, Long> {
     @Override
@@ -386,7 +392,7 @@ public interface DinosaurRepository extends CrudRepository<Dinosaur, Long> {
     @Configuration
     static class RepositoryConfig implements RepositoryRestConfigurer {
         @Override
-        public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
+        public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry corsRegistry) {
             config.exposeIdsFor(Dinosaur.class);
         }
     }
@@ -480,12 +486,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 public interface DinosaurRepository extends CrudRepository<Dinosaur, Long> {
     @Configuration
     static class RepositoryConfig implements RepositoryRestConfigurer {
         @Override
-        public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
+        public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry corsRegistry) {
             config.exposeIdsFor(Dinosaur.class);
         }
     }
@@ -664,3 +671,8 @@ If you liked this post, you might like similar ones on Spring Data and Spring Bo
 - [Use Spring Boot and MySQL to go Beyond Authentication](/blog/2019/07/03/spring-boot-jpa)
 
 If you have any questions about this post, please add a comment below. For more awesome content, follow [@oktadev](https://twitter.com/oktadev) on Twitter, like us [on Facebook](https://www.facebook.com/oktadevelopers/), or subscribe to [our YouTube channel](https://www.youtube.com/oktadev). We also stream on [Twitch](https://twitch.tv/oktadev) every week.
+
+<a name="changelog"></a>
+**Changelog**:
+
+* Jan 26, 2021: Updated post to use Spring Boot 2.4.2 and Spring Data 2020.0. See the code changes in the [example on GitHub](https://github.com/oktadeveloper/okta-spring-data-jpa-example/pull/4). Changes to this post can be viewed in [oktadeveloper/okta-blog#536](https://github.com/oktadeveloper/okta-blog/pull/536).

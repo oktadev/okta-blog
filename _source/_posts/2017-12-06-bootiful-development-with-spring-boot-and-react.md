@@ -10,6 +10,8 @@ tweets:
   - "Learn how to integrate @springboot and @reactjs in this tutorial from @mraible."
   - "Want to develop an application with @java on the backend and @reactjs on the front-end? This article is for you!"
 type: conversion
+update-url: /blog/2020/01/13/kotlin-react-crud
+update-title: "Build a CRUD Application with Kotlin and React"
 ---
 
 React has been getting a lot of positive press in the last couple years, making it an appealing frontend option for Java developers! Once you learn how it works, it makes a lot of sense and can be fun to develop with. Not only that, but it's *wicked fast!* If you've been following me, or if you've read this blog for a bit, you might remember my [Bootiful Development with Spring Boot and Angular](/blog/2017/04/26/bootiful-development-with-spring-boot-and-angular) tutorial. Today, I'll show you how to build the same application, except with React this time. Before we dive into that, let's talk some more about what React is great for, and why I chose to explore it in this post.

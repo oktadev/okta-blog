@@ -4,7 +4,7 @@ title: "Easy Session Sharing in Spring Boot with Spring Session and MySQL"
 author: jimena-garbarino
 by: contractor
 communities: [java,devops]
-description: "This tutorial shows you how to configure Spring Session to distribute your session using MySQL"
+description: "This tutorial shows you how to configure Spring Session to distribute your session using MySQL."
 tags: [java, session, spring-boot, okta, spring-session, mysql]
 tweets:
 - "Spring Boot's OAuth 2.0 and OIDC support is awesome, but what if you want to scale up with multiple instances? Spring Session to the rescue!"
@@ -14,7 +14,7 @@ image: blog/spring-session/spring-session.png
 type: conversion
 ---
 
-Session management in multi-node applications presents multiple challenges. When the architecture includes a load balancer, client requests might be routed to different servers each time, and the HTTP session might be lost. In this tutorial, we will walk you through the configuration of session sharing in a multi-node Spring Boot application.
+Session management in multi-node applications presents multiple challenges. When the architecture includes a load balancer, client requests might be routed to different servers each time, and the HTTP session might be lost. In this tutorial, I'll walk you through the configuration of session sharing in a multi-node Spring Boot application.
 
 **Prerequisites:**
 
