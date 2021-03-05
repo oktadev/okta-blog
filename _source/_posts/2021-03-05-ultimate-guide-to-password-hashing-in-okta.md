@@ -13,9 +13,9 @@ tweets:
 image: blog/ultimate-guide-to-password-hashing-in-okta/header.png
 type: conversion
 ---
-<script src="//joel.franusic.com/js/ultimate-guide-to-password-hashing-in-python/bcrypt.min.js"></script>
-<script src="//joel.franusic.com/js/ultimate-guide-to-password-hashing-in-python/brython.min.js"></script>
-<script src="//joel.franusic.com/js/ultimate-guide-to-password-hashing-in-python/brython_stdlib.js"></script>
+<script src="/assets-jekyll/ultimate-guide-to-password-hashing-in-python/bcrypt.min.js"></script>
+<script src="/assets-jekyll/ultimate-guide-to-password-hashing-in-python/brython.min.js"></script>
+<script src="/assets-jekyll/ultimate-guide-to-password-hashing-in-python/brython_stdlib.js"></script>
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.37.0/codemirror.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.37.0/mode/python/python.js"></script>
@@ -125,7 +125,7 @@ Creating a modern, secure hash function requires quite a lot of esoteric code, a
 
 Fortunately, Python has a robust choice of libraries available that implement cryptographically secure hash functions. In the examples below, you'll see how two of them [bcrypt](https://pypi.org/project/bcrypt/) and [hashlib](https://docs.python.org/3/library/hashlib.html) work. Both are open-source and widely recommended by security professionals and software developers alike. While bcrypt is a community-maintained module, hashlib is actually part of Python's standard library.
 
-I'll share interactive examples of five of the most common password hashing algorithms in Python in the following sections. All of the Python code below is running in your browser. Feel free to edit and change the code you see! As you go through the code, you'll see some of the pros and cons to each approach and why some of these algorithms are no longer recommended for password hashing in 2021. 
+I'll share interactive examples of five of the most common password hashing algorithms in Python in the following sections. All of the Python code below is running in your browser. Feel free to edit and change the code you see! As you go through the code, you'll see some of the pros and cons to each approach and why some of these algorithms are no longer recommended for password hashing in 2021.
 
 ### MD5
 Created as a general purpose cryptographic hash function, the MD5 algorithm has since been found vulnerable to [collisions](https://en.wikipedia.org/wiki/Collision_resistance), making it much easier for attackers to exploit. Because of this, **MD5 is no longer recommended for password hashing.**
@@ -155,7 +155,7 @@ Output:
 
 Because MD5 creates a fixed-length 128-bit value, you have to convert it to a human-readable format if you want to `print` it. This example uses Python's [`json`](https://docs.python.org/3/library/json.html) and [`base64`](https://docs.python.org/3/library/base64.html) libraries to print out the hash in the format that Okta uses for loading user hashes into Okta, so you should see output that looks like this::
 
-``` 
+```
 {
     "algorithm": "MD5",
     "value": "KqqDNf0DDgVKmOOyxYUrNA=="
@@ -235,7 +235,7 @@ Output:
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code id="output-3"></code></pre></div></div>
 
-When hashed with SHA-1 and encoded with base64, the password `test password` will look like this: 
+When hashed with SHA-1 and encoded with base64, the password `test password` will look like this:
 
 ```
 {
@@ -613,7 +613,7 @@ While this guide takes you deep into password hashing in Python, there are still
 
 - [Passwords Evolved: Authentication Guidance for the Modern Era by Troy Hunt](https://www.troyhunt.com/passwords-evolved-authentication-guidance-for-the-modern-era/)
 - [Have I been pwned API](https://haveibeenpwned.com/API/v3)
-- [NIST Digital Identity Guidelines](https://pages.nist.gov/800-63-3/sp800-63b.html) 
+- [NIST Digital Identity Guidelines](https://pages.nist.gov/800-63-3/sp800-63b.html)
 
 To learn more about how to create users in Okta with a hashed password, see Okta's official documentation on how to [Create a User with an Imported Hashed Password](https://developer.okta.com/docs/reference/api/users/#create-user-with-imported-hashed-password).
 
