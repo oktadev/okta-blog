@@ -15,7 +15,7 @@ type: conversion
 ---
 :page-liquid:
 
-Java is a great language to use when developing a microservice architecture. In fact, some of the biggest names in our industry use it. Have you ever heard of Netflix, Amazon, or Google? What about eBay, Twitter, and LinkedIn? Yes, major companies handling incredible traffic are doing it with Java.
+Java is a great language to use when developing a [microservice](https://www.okta.com/blog/2021/02/microservices/) architecture. In fact, some of the biggest names in our industry use it. Have you ever heard of Netflix, Amazon, or Google? What about eBay, Twitter, and LinkedIn? Yes, major companies handling incredible traffic are doing it with Java.
 
 Implementing a microservices architecture in Java isn't for everyone. For that matter, implementing microservices, in general, isn't often needed. Most companies do it to scale their people, not their systems. If you're going to scale your people, hiring Java developers is one of the best ways to do it. After all, there are more developers fluent in Java than most other languages - though JavaScript seems to be catching up quickly!
 
