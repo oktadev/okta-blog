@@ -615,11 +615,11 @@ While this guide takes you deep into password hashing in Python, there are still
 - [Have I been pwned API](https://haveibeenpwned.com/API/v3)
 - [NIST Digital Identity Guidelines](https://pages.nist.gov/800-63-3/sp800-63b.html) 
 
-To learn more about how to create users in Okta with a hashed password, see Okta’s official documentation on how to [Create a User with an Imported Hashed Password](https://developer.okta.com/docs/reference/api/users/#create-user-with-imported-hashed-password).
+To learn more about how to create users in Okta with a hashed password, see Okta's official documentation on how to [Create a User with an Imported Hashed Password](https://developer.okta.com/docs/reference/api/users/#create-user-with-imported-hashed-password).
 
 These blog posts are also good resources for learning about other ways to import users into Okta:
-- [Migrate User Passwords with Okta's Password Hook](https://developer.okta.com/blog/2020/09/18/password-hook-migration)
-- [User Migration: The Definitive Guide](https://developer.okta.com/blog/2019/02/15/user-migration-the-definitive-guide)
+- [Migrate User Passwords with Okta's Password Hook](/blog/2020/09/18/password-hook-migration)
+- [User Migration: The Definitive Guide](/blog/2019/02/15/user-migration-the-definitive-guide)
 
 As always, if you have any questions please comment below. Never miss out on any of our awesome content by following us on [Twitter](https://twitter.com/oktadev) and subscribing to our channel on [YouTube](https://www.youtube.com/c/oktadev)!
 
