@@ -83,7 +83,7 @@ Hashing is an important but often misunderstood concept in computer programming.
 ## What is a Hash?
 If you've taken a computer science course on data types, you've probably heard of hash tables and hash functions. A hash table (or hash map) is a data storage pattern that maps a calculated hash index to each given key. This allows you to lookup values in a table if you know their key. Python's dictionary data type [is implemented as a hash table](https://mail.python.org/pipermail/python-list/2000-March/048085.html), so you are probably already using hash tables without knowing it.
 
-![Using a hash function to lookup values in a hash table](https://i.imgur.com/zbomC0l.png)
+{% img blog/ultimate-guide-to-password-hashing-in-okta/zbomC0l.png alt:"Using a hash function to lookup values in a hash table" %}{: .center-image }
 
 [Hash functions](https://en.wikipedia.org/wiki/Hash_function) are how keys in hash tables are calculated. When hashing a piece of data, the hash function should be able to take an arbitrary length of data and map it to a fixed-length index that is unique to the value. In the context of hash table data storage, a programmer can access stored values by knowing the keys and calling the hash function.
 
@@ -145,7 +145,7 @@ hashed = hashlib.md5(bytes(password, "utf-8"))
 
 result = {
     "algorithm": "MD5",
-    "value": base64.b64encode(hashed.digest()).decode("ascii")
+    "value": base64.b64encode(hashed.digest()).decode("ascii"),
 }
 print(json.dumps(result, indent=4))</textarea>
 
@@ -160,7 +160,6 @@ Because MD5 creates a fixed-length 128-bit value, you have to convert it to a hu
     "algorithm": "MD5",
     "value": "KqqDNf0DDgVKmOOyxYUrNA=="
 }
-
 ```
 
 #### With Salt
@@ -201,7 +200,6 @@ The output of this salted and hashed password will be a new 128-bit value that, 
     "saltOrder": "POSTFIX",
     "value": "pqTUVToGARL1yM3/jthCHA=="
 }
-
 ```
 
 You'll notice that the output from the sample code doesn't match the example above. In fact, every time you make a change to the code, you'll see that the output changes. This is good and exactly as expected. To get the benefits of salting your passwords, you *must* use a unique salt for each password!
@@ -263,7 +261,7 @@ result = {
     "algorithm": "SHA-1",
     "salt": base64.b64encode(salt).decode("ascii"),
     "saltOrder": "POSTFIX",
-    "value": base64.b64encode(hashed.digest()).decode("ascii")
+    "value": base64.b64encode(hashed.digest()).decode("ascii"),
 }
 print(json.dumps(result, indent=4))</textarea>
 
@@ -277,9 +275,9 @@ The output should look something like this:
 ```
 {
     "algorithm": "SHA-1",
-    "salt": "KNvRoBfEE0M=",
+    "salt": "R0lGODlhAQABAAAAADs=",
     "saltOrder": "POSTFIX",
-    "value": "edGfKGlsGJtQSRXO6rMjoNoCLqY="
+    "value": "1cijegMYbE7L/WkUxkHjQ+/p1M0="
 }
 ```
 
@@ -297,7 +295,7 @@ Since SHA-1 was proven insecure for SSL certificate validation, SHA-256 [has bee
 While SHA-256 has valid use cases, it is [not really meant to be used in hashing passwords](https://dusted.codes/sha-256-is-not-a-secure-password-hashing-algorithm). While collisions have not been proven, and unique salts can make rainbow tables ineffective, high-end hardware can still generate billions of SHA-256 hashes every minute. This allows attackers with access to your hashed passwords to use brute force to look for matches and decipher your users' passwords.
 
 #### Hash Only
-Despite this inherent weakness, you are still likely to see SHA-256 used for hashing passwords. The implementation is basically the same as SHA-1 using hashlib, but the output will be a 256-bit object (64-character hex):
+Despite this inherent weakness, you are still likely to see SHA-256 used for hashing passwords. The implementation is basically the same as SHA-1 using hashlib, but the output will be a base64 encoded 256-bit object:
 
 <textarea id="editor-5" class="live-code">import hashlib
 import base64
@@ -341,7 +339,7 @@ result = {
     "algorithm": "SHA-256",
     "salt": base64.b64encode(salt).decode("ascii"),
     "saltOrder": "POSTFIX",
-    "value": base64.b64encode(hashed.digest()).decode("ascii")
+    "value": base64.b64encode(hashed.digest()).decode("ascii"),
 }
 print(json.dumps(result, indent=4))</textarea>
 
@@ -460,7 +458,7 @@ result = {
     "algorithm": "SHA-512",
     "salt": base64.b64encode(salt).decode("ascii"),
     "saltOrder": "POSTFIX",
-    "value": base64.b64encode(hashed.digest()).decode("ascii")
+    "value": base64.b64encode(hashed.digest()).decode("ascii"),
 }
 print(json.dumps(result, indent=4))</textarea>
 
@@ -472,9 +470,9 @@ The output should look something like this:
 ```
 {
     "algorithm": "SHA-512",
-    "salt": "VzHtB0PqQ6g=",
+    "salt": "R0lGODlhAQABAAAAADs=",
     "saltOrder": "POSTFIX",
-    "value": "t/i79LqHziKGcgE8xznR3QdOB/4PHSJu6ZuGjLYOQPU/XMwqFQ2EuPhxHJdnw6MZX/rIXELLpAQJoDpuu4oD0w=="
+    "value": "hbLCeyPt0GQtKno0yPjby7NJqjilLH5M/pTlOxN8aNn4GiH12+wYLvCUg1HTaypcd8lLuiCNsKmwtTvKNxo0yw=="
 }
 ```
 
@@ -484,7 +482,7 @@ The MD5 and SHA families of hash algorithms [are meant to be fast](https://crypt
 Algorithms like [bcrypt](https://en.wikipedia.org/wiki/Bcrypt) were purpose-built to slow down this kind of attack. Bcrypt embeds a salt into each hash and implements a "cost factor" that lets developers increase the security of their hashes (by trading off a longer hash generation time). Adding a half-second delay every time to a user's login time probably won't bother your users much, but a half-second delay will slow hackers down dramatically when they're trying to generate billions of hashes.
 
 #### Hash with Salt
-Unlike the previous algorithms discussed, bcrypt requires a 22-character salt to hash a password, so there's no option to hash without one. Fortunately, most bcrypt packages include helpers that will generate the salt for you.
+Unlike the previous algorithms discussed, bcrypt requires a 128-bit salt (which is Radix-65 encoded as 22 characters) to hash a password, so there's no option to hash without one. Fortunately, most bcrypt packages include helpers that will generate the salt for you.
 
 Python doesn't include a bcrypt implementation in its standard library, so you'll need to import one. Here I'm using [bcrypt](https://pypi.org/project/bcrypt/) which I installed with [pip](https://pip.pypa.io/en/stable/):
 
@@ -552,7 +550,8 @@ When a user signs up for your service, they will typically enter a username and 
 - Return a success message to the user
 - Either log the user in immediately or ask to log in using their new password
 
-![Storing hashed passwords during user signup](https://i.imgur.com/96uDGJy.png)
+{% img blog/ultimate-guide-to-password-hashing-in-okta/96uDGJy.png alt:"Storing hashed passwords during user signup" %}{: .center-image }
+
 
 If you're using a SQL database, you should store the hashed password as a `BINARY(X)`, where `X` is the length of the binary generated by your hashing algorithm ([60 in bcrypt's case](https://stackoverflow.com/a/5882472/977192)). Storing the password in binary could be important as `CHAR` fields in some character encodings do not distinguish between capital and lower-case letters.
 
@@ -568,7 +567,7 @@ Once you've stored a user's hashed password, you are ready to validate it next t
 - You compare the hashed password stored in your database with the one submitted on the login page
 - If they match _exactly_ you can safely proceed with user authentication
 
-![Validating hashed passwords during login](https://i.imgur.com/XOfdffU.png)
+{% img blog/ultimate-guide-to-password-hashing-in-okta/XOfdffU.png alt:"Validating hashed passwords during login" %}{: .center-image }
 
 Many hashing libraries take care of some of these steps for you. For example, bcyrpt includes [a `checkpw` function that compares a binary plaintext password to your stored hash](https://github.com/pyca/bcrypt/#password-hashing). When available, you should use these built-in functions because they'll prevent you from making errors in your password validation logic.
 
@@ -616,6 +615,15 @@ While this guide takes you deep into password hashing in Python, there are still
 - [Have I been pwned API](https://haveibeenpwned.com/API/v3)
 - [NIST Digital Identity Guidelines](https://pages.nist.gov/800-63-3/sp800-63b.html) 
 
+To learn more about how to create users in Okta with a hashed password, see Okta’s official documentation on how to [Create a User with an Imported Hashed Password](https://developer.okta.com/docs/reference/api/users/#create-user-with-imported-hashed-password).
+
+These blog posts are also good resources for learning about other ways to import users into Okta:
+- [Migrate User Passwords with Okta's Password Hook](https://developer.okta.com/blog/2020/09/18/password-hook-migration)
+- [User Migration: The Definitive Guide](https://developer.okta.com/blog/2019/02/15/user-migration-the-definitive-guide)
+
+As always, if you have any questions please comment below. Never miss out on any of our awesome content by following us on [Twitter](https://twitter.com/oktadev) and subscribing to our channel on [YouTube](https://www.youtube.com/c/oktadev)!
+
+And lastly, special thanks to Gabriel Sroka for his help reviewing drafts of this post.
 <script type="text/javascript">
 document.addEventListener("DOMContentLoaded", function(){
     brython(1)
