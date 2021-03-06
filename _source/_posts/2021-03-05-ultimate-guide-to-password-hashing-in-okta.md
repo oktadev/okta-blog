@@ -478,7 +478,7 @@ The MD5 and SHA families of hash algorithms [are meant to be fast](https://crypt
 Algorithms like [bcrypt](https://en.wikipedia.org/wiki/Bcrypt) were purpose-built to slow down this kind of attack. Bcrypt embeds a salt into each hash and implements a "cost factor" that lets developers increase the security of their hashes (by trading off a longer hash generation time). Adding a half-second delay every time to a user's login time probably won't bother your users much, but a half-second delay will slow hackers down dramatically when they're trying to generate billions of hashes.
 
 #### Hash with Salt
-Unlike the previous algorithms discussed, bcrypt requires a 128-bit salt (which is Radix-65 encoded as 22 characters) to hash a password, so there's no option to hash without one. Fortunately, most bcrypt packages include helpers that will generate the salt for you.
+Unlike the previous algorithms discussed, bcrypt requires a 128-bit salt (which is Radix-64 encoded as 22 characters) to hash a password, so there's no option to hash without one. Fortunately, most bcrypt packages include helpers that will generate the salt for you.
 
 Python doesn't include a bcrypt implementation in its standard library, so you'll need to import one. Here I'm using [bcrypt](https://pypi.org/project/bcrypt/) which I installed with [pip](https://pip.pypa.io/en/stable/):
 
