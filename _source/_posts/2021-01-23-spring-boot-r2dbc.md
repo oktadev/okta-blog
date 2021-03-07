@@ -660,7 +660,7 @@ This tutorial provided a very basic setup for how to use reactive frameworks and
 
 For in-depth examples and use cases not covered in this tutorial, see [Spring's official documentation for R2DBC](https://docs.spring.io/spring-data/r2dbc/docs/1.2.3/reference/html).
 
-The source code for this example is on GitHub in the [oktadeveloper/URL_TBD](https://github.com/oktadeveloper/URL_TBD) repository.
+The source code for this example is on GitHub in the [oktadeveloper/okta-r2dbc](https://github.com/cavazosjoe/okta-r2dbc) repository.
 
 Check out these other articles on using reactive web with Spring Boot:
 
