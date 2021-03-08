@@ -23,7 +23,7 @@ In this application, you will create a small React application that uses Apollo 
 If you prefer to watch the demo, you can view this walk through.
 
 <div style="text-align: center; margin-bottom: 1.25rem">
-<iframe width="560" height="315" src="https://www.youtube.com/embed/gDEvCYlL_us" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/RmFU2CLdsEU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 ## Create your Okta Application
