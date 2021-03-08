@@ -53,7 +53,7 @@ You'll need to install a few things before you get started.
 - [Java 11+](https://adoptopenjdk.net/)
 - [Node.js 12+](https://nodejs.org/en/)
 - [Docker](https://docs.docker.com/get-docker/)
-- [Okta CLI](https://cli.okta.com)
+- [Okta CLI 0.8.0+](https://cli.okta.com)
 
 Install JHipster and its Quarkus blueprint using `npm`:
 
@@ -210,7 +210,7 @@ The Okta CLI automates all the JHipster + Okta configuration for you. You can in
 **macOS (via [Homebrew](https://brew.sh/)):**
 
 ```bash
-brew cask install oktadeveloper/tap/okta
+brew install --cask oktadeveloper/tap/okta
 ```
 
 **Linux (via Flatpak):**
@@ -229,7 +229,7 @@ alias okta="flatpak run com.okta.developer.CLI"
 **Windows (via Chocolatey):**
 
 ```bash
-choco install okta
+choco install okta -version 0.8.0
 ```
 
 You can also just pipe it to bash:
