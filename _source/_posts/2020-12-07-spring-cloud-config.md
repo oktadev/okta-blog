@@ -14,7 +14,7 @@ image: blog/spring-cloud-config/spring-cloud-config.png
 type: conversion
 ---
 
-The microservice architecture pattern, in which business functionality is distributed among many small atomic applications as opposed to one or two monolithic chunks, is very powerful and in wide use across large and small tech companies. Each piece has a narrow, well-defined task and communicates with other services via a shared channel (usually REST APIs).
+The [microservice](https://www.okta.com/blog/2021/02/microservices/) architecture pattern, in which business functionality is distributed among many small atomic applications as opposed to one or two monolithic chunks, is very powerful and in wide use across large and small tech companies. Each piece has a narrow, well-defined task and communicates with other services via a shared channel (usually REST APIs).
 
 The benefits of adopting a microservice architecture include:
 
