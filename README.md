@@ -133,7 +133,11 @@ After that, all you have to do is open your browser and visit http://localhost:4
 
 ## Markdown Standards
 
-To describe how to setup a new application on Okta, please use the [`cli.md`](_source/_includes/setup/cli.md) include. This will render instructions using the [Okta CLI](https://cli.okta.com) and link to instructions for the Admin Console (with screenshots). Please do not include any screenshots of the CLI or Admin Console in your post. Below are some examples:
+To describe how to setup a new application on Okta, please use the [`cli.md`](_source/_includes/setup/cli.md) or [`maven.md`](_source/_includes/setup/maven.md) includes.
+
+These will render instructions using the [Okta CLI](https://cli.okta.com) (or [Okta Maven Plugin](https://github.com/oktadeveloper/okta-maven-plugin) and link to instructions for the Admin Console (with screenshots). 
+
+Please do not include any screenshots of the CLI or Admin Console in your post. Below are some examples:
 
 Angular App:
 
@@ -162,6 +166,25 @@ Native with Ionic:
 ```
 
 In this case, the `cli.md` template creates multiple redirect URIs. To only return reversed-domain-name URIs, don't pass in any redirect URIs.
+
+Okta Spring Boot Starter with custom redirects:
+
+```md
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter"
+   loginRedirectUri="[http://localhost:8001/login/oauth2/code/okta,http://localhost:8002/login/oauth2/code/okta]"
+   logoutRedirectUri="[http://localhost:8001,http://localhost:8002]" %}
+```
+
+.NET with inline note:
+
+```md
+{% capture note %}
+> Note that the TCP port 5001 must be the same used by the application. You can see it in the messages displayed in the terminal when you start the application with **`dotnet run`**.
+{% endcapture %}
+{% include setup/cli.md type="web" note=note
+   loginRedirectUri="http://localhost:5001/authorization-code/callback" 
+   logoutRedirectUri="http://localhost:5001/signout/callback" %}
+```
 
 Other conventions:
 
