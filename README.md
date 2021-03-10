@@ -133,6 +133,38 @@ After that, all you have to do is open your browser and visit http://localhost:4
 
 ## Markdown Standards
 
+To describe how to setup a new application on Okta, please use the [`cli.md`](_source/_includes/setup/cli.md) include. This will render instructions using the [Okta CLI](https://cli.okta.com) and link to instructions for the Admin Console (with screenshots). Please do not include any screenshots of the CLI or Admin Console in your post. Below are some examples:
+
+Angular App:
+
+```md
+{% include setup/cli.md type="spa" loginRedirectUri="http://localhost:4200/callback" %}
+```
+
+React:
+
+```md
+{% include setup/cli.md type="spa" loginRedirectUri="http://localhost:3000/callback" %}
+```
+
+Vue with signup disabled:
+
+```md
+{% include setup/cli.md type="spa" loginRedirectUri="http://localhost:8080/callback" signup="false" %}
+```
+
+_See the top of [`cli.md`](_source/_includes/setup/cli.md) to see what the logic behind `signup="false"`._
+
+Native with Ionic:
+
+```md
+{% include setup/cli.md type="native" loginRedirectUri="http://localhost:8100/callback" logoutRedirectUri="http://localhost:8100/logout" %}
+```
+
+In this case, the `cli.md` template creates multiple redirect URIs. To only return reversed-domain-name URIs, don't pass in any redirect URIs.
+
+Other conventions:
+
 - For directories and filenames, surround with back ticks (e.g. `filename.txt` or `/src/component/dummy.file`)
 - For code snippets that are only a few words. Inline back ticks (e.g. Run `npm install` from the command line)
 - For button or link names surround with two asterisks (e.g. Then click **Done**

@@ -390,7 +390,7 @@ OktaAuthModule.initAuth({
 })
 ```
 
-The `{yourClientId}` placeholder should be replaced with the client ID that you obtained in the Okta dashboard. Open `src/app/app.component.ts` and replace the contents of the file with the following.
+The `{yourClientId}` placeholder should be replaced with the client ID that you obtained earlier. Open `src/app/app.component.ts` and replace the contents of the file with the following.
 
 ```ts
 import { Component, OnInit } from '@angular/core';
