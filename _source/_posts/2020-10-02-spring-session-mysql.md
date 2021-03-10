@@ -55,7 +55,8 @@ unzip web-app.zip -d web-app
 cd web-app
 ```
 
-{% include setup/maven.md.html %}
+{% include setup/maven.md %}
+
 <!--
 Run the [Okta Maven Plugin](https://github.com/oktadeveloper/okta-maven-plugin) to register a new account:
 
