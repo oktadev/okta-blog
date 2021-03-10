@@ -86,7 +86,7 @@ UI views are called "pages" in Xamarin.Forms lingo, and your app already contain
         <Entry x:Name="NameEntry" Text="Jane Doe" />
         <Button x:Name="SayHelloButton"
                 Text="Say Hello"
-                Clicked="SayHelloButtonOnClicked" />
+                Clicked="SayHelloButtonClicked" />
     </StackLayout>
 </ContentPage.Content>
 ```
