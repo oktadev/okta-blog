@@ -100,6 +100,7 @@ export default class LoginPage extends React.Component{
       clientId: '{clientId}',
       redirectUri: 'http://localhost:3000',
       authParams: {
+        issuer: 'default',
         responseType: 'id_token'
       }
     });
@@ -134,7 +135,7 @@ export default class LoginPage extends React.Component{
       clientId: '{clientId}',
       redirectUri: 'http://localhost:3000',
       authParams: {
-        issuer: 'default'
+        issuer: 'default',
         responseType: 'id_token'
       }
     });
