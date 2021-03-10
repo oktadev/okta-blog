@@ -135,9 +135,11 @@ After that, all you have to do is open your browser and visit http://localhost:4
 
 To describe how to setup a new application on Okta, please use the [`cli.md`](_source/_includes/setup/cli.md) or [`maven.md`](_source/_includes/setup/maven.md) includes.
 
-These will render instructions using the [Okta CLI](https://cli.okta.com) (or [Okta Maven Plugin](https://github.com/oktadeveloper/okta-maven-plugin) and link to instructions for the Admin Console (with screenshots). 
+These will render instructions using the [Okta CLI](https://cli.okta.com) (or [Okta Maven Plugin](https://github.com/oktadeveloper/okta-maven-plugin)) and link to instructions for the Admin Console. 
 
-Please do not include any screenshots of the CLI or Admin Console in your post. Below are some examples:
+**Please do not include any screenshots of the CLI or Admin Console in your post.**
+
+Below are some examples:
 
 Angular App:
 
@@ -157,7 +159,7 @@ Vue with signup disabled:
 {% include setup/cli.md type="spa" loginRedirectUri="http://localhost:8080/callback" signup="false" %}
 ```
 
-_See the top of [`cli.md`](_source/_includes/setup/cli.md) to see what the logic behind `signup="false"`._
+See the top of [`cli.md`](_source/_includes/setup/cli.md) to see what the logic behind `signup="false"`.
 
 Native with Ionic:
 
