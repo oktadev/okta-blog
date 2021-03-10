@@ -12,4 +12,5 @@ group :jekyll_plugins do
   gem 'jekyll-asciidoc'
   gem 'jekyll-paginate'
   gem 'jekyll-tagging'
+  gem 'jekyll-last-modified-at'
 end

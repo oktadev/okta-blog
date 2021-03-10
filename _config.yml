@@ -16,6 +16,10 @@ plugins:
   - jekyll-assets
   - jekyll-include-cache
   - jekyll-asciidoc
+  - jekyll-last-modified-at
+
+last-modified-at:
+  date-format: '%F'
 
 page_gen:
   - index_files: true

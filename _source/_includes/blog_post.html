@@ -13,7 +13,9 @@
             {{ post.title }}
             {% endif %}
         </h1>
-
+        <div class="BlogPost-last-updated">
+            Last Updated: {% last_modified_at %}
+        </div>
         <div class="BlogPost-attribution">
             {% if author.avatar %}
             <a href="/blog/authors/{{ post.author }}/">{% img '{{ author.avatar }}' alt:'{{ author.avatar }}' class:BlogPost-avatar %}</a>
