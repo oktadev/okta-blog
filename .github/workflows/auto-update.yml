@@ -1,0 +1,25 @@
+# PURPOSE
+#
+# This workflow will automatically merge in updates to pull request branches to
+# ensure that pull requests are kept up-to-date with the branch they are based
+# on.
+#
+# This helps prevent merge issues later when you're working on a PR and things
+# in the main branch change.
+#
+# NOTE: This will NOT work on PR branches that are NOT in this repo. For
+# example, if you fork our repo and write a blog post, then open a PR, this
+# action will NOT be able to automatically merge the latest changes into the PR
+# branch since it belongs to someone else.
+#
+name: autoupdate
+on:
+  push: {}
+jobs:
+  autoupdate:
+    name: autoupdate
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: docker://chinthakagodawita/autoupdate-action:v1
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"

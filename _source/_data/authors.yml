@@ -6,6 +6,12 @@ victor-ronin:
   web: http://victorronin.com/en/
   github: https://github.com/vronin
 
+greg-sinka:
+  full_name: Gergely Sinka
+  display_name: Gergely Sinka
+  avatar: avatar-greg-sinka.jpeg
+  twitter: https://twitter.com/sigewuzhere
+
 vickie-li:
   full_name: Vickie Li
   display_name: Vickie
@@ -569,3 +575,32 @@ joe-cavazos:
   web: https://jlcavazos.com
   github: https://github.com/cavazosjoe
   linkedin: https://www.linkedin.com/in/joe-cavazos-82002a66/
+
+phill-edwards:
+  full_name: Phillip Edwards
+  display_name: Phill Edwards
+  avatar: avatar-phill-edwards.jpg
+  email: phillip.edwards@toptal.com
+  web: https://dr-phill-edwards.eu
+  github: https://github.com/dr-phill-edwards
+  linkedin: https://www.linkedin.com/in/phillip-edwards-9502295/
+
+dino-bikic:
+  full_name: Dino Bikic
+  display_name: Dino Bikic
+  avatar: avatar-dino-bikic.png
+  twitter: https://twitter.com/oktadev
+
+karson-kwan:
+  full_name: Karson Kwan
+  display_name: Karson Kwan
+  avatar: avatar-karson-kwan.jpg
+  linkedin: https://www.linkedin.com/in/karsonkwan/
+
+daniel-petisme:
+  full_name: Daniel Petisme
+  display_name: Daniel Petisme
+  avatar: avatar-daniel-petisme.jpg
+  twitter: https://twitter.com/danielpetisme
+  github: https://github.com/danielpetisme
+  linkedin: https://www.linkedin.com/in/danielpetisme
