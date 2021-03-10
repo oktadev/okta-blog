@@ -4,7 +4,7 @@ on: [push, pull_request]
 jobs:
   test-and-deploy:
     name: Test & Deploy
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v2.3.4
 
