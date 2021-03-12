@@ -557,7 +557,8 @@ public class SchoolController {
         OAuth2AccessToken accessToken = authorizedClient.getAccessToken(); // <4>
         // WARNING: This is example code that should not be used in production.
         // In production, it's recommended you use a RestTemplateFactory
-        // to give each user their own instance.
+        // to give each user their own instance. With this code, an attacker
+        // can exploit a race condition and obtain the victim's authorization token.
         restTemplate.getInterceptors().add(getBearerTokenInterceptor(accessToken.getTokenValue())); // <5>
 
         return restTemplate
