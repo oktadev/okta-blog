@@ -144,19 +144,19 @@ Below are some examples:
 Angular App:
 
 ```md
-{% include setup/cli.md type="spa" framework="Angular" loginRedirectUri="http://localhost:4200/callback" %}
+{% include setup/cli.md type="spa" framework="Angular" login="http://localhost:4200/callback" %}
 ```
 
 React:
 
 ```md
-{% include setup/cli.md type="spa" framework="React" loginRedirectUri="http://localhost:3000/callback" %}
+{% include setup/cli.md type="spa" framework="React" login="http://localhost:3000/callback" %}
 ```
 
 Vue with signup disabled:
 
 ```md
-{% include setup/cli.md type="spa" loginRedirectUri="http://localhost:8080/callback" signup="false" %}
+{% include setup/cli.md type="spa" login="http://localhost:8080/callback" signup="false" %}
 ```
 
 See the top of [`cli.md`](_source/_includes/setup/cli.md) to see the logic behind `signup="false"`.
@@ -164,7 +164,7 @@ See the top of [`cli.md`](_source/_includes/setup/cli.md) to see the logic behin
 Native with Ionic:
 
 ```md
-{% include setup/cli.md type="native" loginRedirectUri="http://localhost:8100/callback" logoutRedirectUri="http://localhost:8100/logout" %}
+{% include setup/cli.md type="native" login="http://localhost:8100/callback" logout="http://localhost:8100/logout" %}
 ```
 
 In this case, the `cli.md` template creates multiple redirect URIs. To only return reversed-domain-name URIs, don't pass in any redirect URIs.
@@ -173,8 +173,8 @@ Okta Spring Boot Starter with custom redirects:
 
 ```md
 {% include setup/cli.md type="web" framework="Okta Spring Boot Starter"
-   loginRedirectUri="[http://localhost:8001/login/oauth2/code/okta,http://localhost:8002/login/oauth2/code/okta]"
-   logoutRedirectUri="[http://localhost:8001,http://localhost:8002]" %}
+   login="[http://localhost:8001/login/oauth2/code/okta,http://localhost:8002/login/oauth2/code/okta]"
+   logout="[http://localhost:8001,http://localhost:8002]" %}
 ```
 
 .NET with inline note:
@@ -184,8 +184,8 @@ Okta Spring Boot Starter with custom redirects:
 > Note that the TCP port 5001 must be the same used by the application. You can see it in the messages displayed in the terminal when you start the application with **`dotnet run`**.
 {% endcapture %}
 {% include setup/cli.md type="web" note=note framework="ASP.NET Core"
-   loginRedirectUri="http://localhost:5001/authorization-code/callback" 
-   logoutRedirectUri="http://localhost:5001/signout/callback" %}
+   login="http://localhost:5001/authorization-code/callback" 
+   logout="http://localhost:5001/signout/callback" %}
 ```
 
 <!-- Example code is from the following posts. 

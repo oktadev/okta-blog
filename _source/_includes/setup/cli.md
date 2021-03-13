@@ -5,7 +5,7 @@ Before you begin, you'll need a free Okta developer account. Install the [Okta C
 {% endif %}
 
 {%- if include.type == "spa" -%}
-{%- assign parts = include.loginRedirectUri | split: '/callback' -%}
+{%- assign parts = include.login | split: '/callback' -%}
 {%- assign baseUrl = parts[0] -%}
 {%- endif -%}
 
@@ -20,18 +20,18 @@ Single-Page App
 {%- endif -%}
 ** and press **Enter**. 
   {% if include.type == "spa" %}
-Change the Redirect URI to `{{ include.loginRedirectUri }}` and accept the default Logout Redirect URI of `{{baseUrl}}`.
+Change the Redirect URI to `{{ include.login }}` and accept the default Logout Redirect URI of `{{baseUrl}}`.
   {% elsif include.type == "web" %}
 Select **
     {%- if include.framework -%}{{ include.framework }}
     {%- else -%}Other
     {%- endif -%}**. 
-    {% if include.loginRedirectUri and include.logoutRedirectUri %}Then, change the Redirect URI to `{{ include.loginRedirectUri }}` and use `{{ include.logoutRedirectUri }}` for the Logout Redirect URI.
+    {% if include.login and include.logout %}Then, change the Redirect URI to `{{ include.login }}` and use `{{ include.logout }}` for the Logout Redirect URI.
     {% else %}Accept the default Redirect URI values provided for you.
     {% endif %}
   {% elsif include.type == "native" %}
 
-Change the Redirect URI to `[com.okta.dev-133337:/callback,{{ include.loginRedirectUri }}]` and the Logout Redirect URI to `[com.okta.dev-133337:/logout,{{ include.logoutRedirectUri }}]`. The first value is your Okta domain name, reversed so it's a unique scheme to open your app on a device.
+Change the Redirect URI to `[com.okta.dev-133337:/callback,{{ include.login }}]` and the Logout Redirect URI to `[com.okta.dev-133337:/logout,{{ include.logout }}]`. The first value is your Okta domain name, reversed so it's a unique scheme to open your app on a device.
   {% endif %}
 {% endif %}
 
