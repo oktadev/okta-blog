@@ -159,7 +159,7 @@ Vue with signup disabled:
 {% include setup/cli.md type="spa" loginRedirectUri="http://localhost:8080/callback" signup="false" %}
 ```
 
-See the top of [`cli.md`](_source/_includes/setup/cli.md) to see what the logic behind `signup="false"`.
+See the top of [`cli.md`](_source/_includes/setup/cli.md) to see the logic behind `signup="false"`.
 
 Native with Ionic:
 
