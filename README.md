@@ -144,15 +144,13 @@ Below are some examples:
 Angular App:
 
 ```md
-{% include setup/cli.md type="spa" framework="Angular" 
-   loginRedirectUri="http://localhost:4200/callback" %}
+{% include setup/cli.md type="spa" framework="Angular" loginRedirectUri="http://localhost:4200/callback" %}
 ```
 
 React:
 
 ```md
-{% include setup/cli.md type="spa" framework="React"
-   loginRedirectUri="http://localhost:3000/callback" %}
+{% include setup/cli.md type="spa" framework="React" loginRedirectUri="http://localhost:3000/callback" %}
 ```
 
 Vue with signup disabled:
