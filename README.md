@@ -188,6 +188,12 @@ Okta Spring Boot Starter with custom redirects:
    logoutRedirectUri="http://localhost:5001/signout/callback" %}
 ```
 
+Service:
+
+```md
+{% include setup/cli.md type="service" %}
+```
+
 <!-- Example code is from the following posts. 
 
 - .NET: http://localhost:4000/blog/2020/09/02/10x-development-azure-cli-dotnet
@@ -197,6 +203,7 @@ Okta Spring Boot Starter with custom redirects:
 - Angular: http://localhost:4000/blog/2019/02/12/secure-angular-login
 - React: http://localhost:4000/blog/2020/12/16/react-login
 - Vue: http://localhost:4000/blog/2020/05/15/vue-login
+- Service: http://localhost:4000/blog/2019/03/08/simple-rest-api-php
 
 -->
 

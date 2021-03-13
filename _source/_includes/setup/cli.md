@@ -12,7 +12,7 @@ Before you begin, you'll need a free Okta developer account. Install the [Okta C
 {% if include.type == "jhipster" %}
 Then, run `okta apps create jhipster`. Select the default app name, or change it as you see fit. Accept the default Redirect URI values provided for you.
 {% else %}
-Then, run `okta apps create`. Select the default app name, or change it as you see fit. Choose **
+Then, run `okta apps create{% if (include.type == "service") %} service{% endif %}`. Select the default app name, or change it as you see fit. Choose **
 {%- if include.type == "spa" -%}
 Single-Page App
 {%- else -%}
@@ -53,7 +53,10 @@ The Okta CLI streamlines configuring a JHipster app and does several things for 
 
 You will see output like the following when it's finished:
 {%- else -%}
-The Okta CLI will create an OIDC {% if include.type == "spa" %}Single-Page App{% else %}{{ include.type | capitalize }} App{% endif %} in your Okta Org. It will add the redirect URIs you specified and grant access to the Everyone group.{% if include.type == "spa" %} It will also add a trusted origin for `{{ baseUrl }}`.{% endif %} You will see output like the following when it's finished:
+The Okta CLI will create an {% if include.type == "service" %}OAuth 2.0{% else %}OIDC{% endif %} {% if include.type == "spa" %}Single-Page App{% else %}{{ include.type | capitalize }} App{% endif %} in your Okta Org.
+  {% if include.type != "service" %} It will add the redirect URIs you specified and grant access to the Everyone group.
+    {% if include.type == "spa" %} It will also add a trusted origin for `{{ baseUrl }}`.{% endif %}
+  {% endif %} You will see output like the following when it's finished:
 {%- endif -%}
    
 {% if include.type == "spa" or include.type == "native" %}
@@ -137,4 +140,6 @@ https://developer.okta.com/docs/guides/sign-into-
 {%- endif -%}
 {%- endcapture -%}
 
-**NOTE**: You can also use the Okta Admin Console to create your app. See [Create a{% if (include.framework == "Angular") %}n{% endif %} {{ oktaAppType }} App{% if (include.type == "jhipster") %} on Okta{% endif %}]({% if (include.type == "jhipster") %}{{ jhipsterDocs }}{% else %}{{ oktaDocs }}{% endif %}) for more information.
+{% comment %}The link to create an app in the admin console is excluded below because the docs use cURL, not the console. https://developer.okta.com/docs/guides/implement-oauth-for-okta-serviceapp/create-serviceapp-grantscopes/{% endcomment %}
+
+**NOTE**: You can also use the Okta Admin Console to create your app.{% if (include.type != "service") %} See [Create a{% if (include.framework == "Angular") %}n{% endif %} {{ oktaAppType }} App{% if (include.type == "jhipster") %} on Okta{% endif %}]({% if (include.type == "jhipster") %}{{ jhipsterDocs }}{% else %}{{ oktaDocs }}{% endif %}) for more information.{% endif %}
