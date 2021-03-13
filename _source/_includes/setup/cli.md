@@ -4,6 +4,11 @@ Install the [Okta CLI](https://cli.okta.com) and run `okta login`.
 Before you begin, you'll need a free Okta developer account. Install the [Okta CLI](https://cli.okta.com) and run `okta register` to sign up for a new account. If you already have an account, run `okta login`.
 {% endif %}
 
+{%- if include.type == "spa" -%}
+{%- assign parts = include.loginRedirectUri | split: '/callback' -%}
+{%- assign baseUrl = parts[0] -%}
+{%- endif -%}
+
 {% if include.type == "jhipster" %}
 Then, run `okta apps create jhipster`. Select the default app name, or change it as you see fit. Accept the default Redirect URI values provided for you.
 {% else %}
@@ -15,7 +20,7 @@ Single-Page App
 {%- endif -%}
 ** and press **Enter**. 
   {% if include.type == "spa" %}
-Change the Redirect URI to `{{ include.loginRedirectUri }}` and accept the default Logout Redirect URI.
+Change the Redirect URI to `{{ include.loginRedirectUri }}` and accept the default Logout Redirect URI of `{{baseUrl}}`.
   {% elsif include.type == "web" %}
 Select **
     {%- if include.framework -%}{{ include.framework }}
@@ -34,8 +39,23 @@ Change the Redirect URI to `[com.okta.dev-133337:/callback,{{ include.loginRedir
 {{ note }}
 {% endif %}
 
-This will result in output like the following:
+{%- if include.type == "jhipster" -%}
+The Okta CLI streamlines configuring a JHipster app and does several things for you:
 
+1. Creates an OIDC app with the correct redirect URIs: 
+  - login: `http://localhost:8080/login/oauth2/code/oidc` and `http://localhost:8761/login/oauth2/code/oidc`
+  - logout: `http://localhost:8080` and `http://localhost:8761`
+2. Creates `ROLE_ADMIN` and `ROLE_USER` groups that JHipster expects
+3. Adds your current user to the `ROLE_ADMIN` and `ROLE_USER` groups
+4. Creates a `groups` claim in your default authorization server and adds the user's groups to it
+
+**NOTE:** The `http://localhost:8761*` redirect URIs are for the JHipster Registry, which is often used when creating microservices with JHipster. The Okta CLI adds these by default. 
+
+You will see output like the following when it's finished:
+{%- else -%}
+The Okta CLI will create an OIDC {% if include.type == "spa" %}Single-Page App{% else %}{{ include.type | capitalize }} App{% endif %} in your Okta Org. It will add the redirect URIs you specified and grant access to the Everyone group.{% if include.type == "spa" %} It will also add a trusted origin for `{{ baseUrl }}`.{% endif %} You will see output like the following when it's finished:
+{%- endif -%}
+   
 {% if include.type == "spa" or include.type == "native" %}
 ```shell
 Okta application configuration:
@@ -89,6 +109,32 @@ export SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET="{clientSec
   {% endif %}
 {% endif %}
 
-<!-- Do we need to add a note about the Everyone group? -->
+{%- assign jhipsterDocs = 'https://www.jhipster.tech/security/#okta' -%}
+{%- capture oktaDocs -%}
+https://developer.okta.com/docs/guides/sign-into-
+{%- if include.type == "native" -%}mobile
+{%- else -%}{{ include.type }}
+{%- endif -%}
+{%- if {include.type != "spa" -%}-app/{% else %}/{%- endif -%}
+{%- if (include.framework) -%}
+  {%- if (include.framework contains "Spring Boot") -%}springboot
+  {%- elsif (include.framework contains "ASP.NET Core") -%}aspnetcore3
+  {%- else -%}{{include.framework | downcase | replace:' ','-'}}
+  {%- endif -%}
+{%- else -%}-
+{%- endif -%}
+/create-okta-application/
+{%- endcapture -%}
 
-**NOTE**: You can also use the Okta Admin Console to create your app. See [Create a {% if include.type == "spa" %}Single-Page{% elsif include.type == "jhipster" %}JHipster{% else %}{{ include.type | capitalize }}{% endif %} App](todo) for more information.
+{%- capture oktaAppType -%}
+{%- if (include.framework) -%}
+  {%- if (include.framework contains "Spring Boot") -%}Spring Boot
+  {%- else -%}{{ include.framework }}
+  {%- endif -%}
+{%- elsif (include.type == "spa" -%}Single-Page
+{%- elsif (include.type == "jhipster" -%}JHipster
+{%- else -%}{{ include.type | capitalize }}
+{%- endif -%}
+{%- endcapture -%}
+
+**NOTE**: You can also use the Okta Admin Console to create your app. See [Create a{% if (include.framework == "Angular") %}n{% endif %} {{ oktaAppType }} App{% if (include.type == "jhipster") %} on Okta{% endif %}]({% if (include.type == "jhipster") %}{{ jhipsterDocs }}{% else %}{{ oktaDocs }}{% endif %}) for more information.

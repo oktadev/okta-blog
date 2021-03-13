@@ -366,7 +366,7 @@ The Login Redirect URI is the location that the user will be redirected back to 
 {% img blog/angular-login/okta-settings.png alt:"Angular app on Okta" width:"800" %}{: .center-image }
 -->
 
-{% include setup/cli.md type="spa" loginRedirectUri="http://localhost:4200/callback" %}
+{% include setup/cli.md type="spa" framework="Angular" loginRedirectUri="http://localhost:4200/callback" %}
 
 To start implementing authentication in your application, you need to install the Okta Angular library. Open the terminal in the application directory and run the command:
 

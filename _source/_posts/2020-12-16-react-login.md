@@ -227,7 +227,7 @@ You will be testing the application using the React development server that list
 Click **Done** when ready. On the next page, you will see an overview of the settings as well as a **Client ID**.
 -->
 
-{% include setup/cli.md type="spa" loginRedirectUri="http://localhost:3000/callback" %}
+{% include setup/cli.md type="spa" framework="react" loginRedirectUri="http://localhost:3000/callback" %}
 
 Note the Client ID for later when you set up your React application.
 

@@ -188,6 +188,18 @@ Okta Spring Boot Starter with custom redirects:
    logoutRedirectUri="http://localhost:5001/signout/callback" %}
 ```
 
+<!-- Example code is from the following posts. 
+
+- .NET: http://localhost:4000/blog/2020/09/02/10x-development-azure-cli-dotnet
+- JHipster: http://localhost:4000/blog/2020/12/14/spring-session-redis
+- Native with Ionic: http://localhost:4000/blog/2020/09/21/ionic-apple-google-signin
+- Okta Spring Boot Starter: http://localhost:4000/blog/2020/12/07/spring-cloud-config
+- Angular: http://localhost:4000/blog/2019/02/12/secure-angular-login
+- React: http://localhost:4000/blog/2020/12/16/react-login
+- Vue: http://localhost:4000/blog/2020/05/15/vue-login
+
+-->
+
 Other conventions:
 
 - For directories and filenames, surround with back ticks (e.g. `filename.txt` or `/src/component/dummy.file`)
