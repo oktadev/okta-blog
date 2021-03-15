@@ -220,6 +220,7 @@ This component does a couple of things.  First, it checks if the user is authent
 
 You will want to implement that next.  Add a folder called `Pages` and add a file to that folder called `Home.jsx`.  This is a relatively simple application, and you will only have one page.  Add the following code to that file.
 
+{% raw %}
 ```jsx
 import React, { Component } from "react";
 import { withOktaAuth } from "@okta/okta-react";
@@ -376,6 +377,7 @@ export default withOktaAuth(class Home extends Component {
   }
 });
 ```
+{% endraw %}
 
 Here you have a `getCurrentItems()` function that gets called when the component is loaded.  This uses `fetch()` to contain the server you defined in your `.env` file.  That server isn't operational yet, but that's where your NestJS application will be.  Similarly, there is a function for `markItemAsComplete()`.  This function will also call your NestJS application and request the item selected to be marked as complete; then, it will remove the item from the table.  This is injected into the `ToDoList.jsx` component from before.  Finally, if your user isn't authenticated, you will display a small welcome page for the user.  
 
