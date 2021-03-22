@@ -555,6 +555,9 @@ public class SchoolController {
                         authentication.getName()); // <3>
 
         OAuth2AccessToken accessToken = authorizedClient.getAccessToken(); // <4>
+        // WARNING: This is example code that should not be used as-is in production.
+        // For production environments, it is recommended you use a RestTemplateFactory
+        // to give each user their own instance to avoid any potential security risks.
         restTemplate.getInterceptors().add(getBearerTokenInterceptor(accessToken.getTokenValue())); // <5>
 
         return restTemplate
