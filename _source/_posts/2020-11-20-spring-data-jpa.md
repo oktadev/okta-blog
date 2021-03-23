@@ -54,6 +54,12 @@ You'll need to install a few things before you get started.
 
 You'll need a free Okta developer account to complete this tutorial. However, the Okta CLI will walk you through the registration process or allow you to log in using your credentials.
 
+If you would rather follow along by watching a video, check out the screencast below from our [YouTube channel](https://www.youtube.com/watch?v=1i96a_0wCFM).
+
+<div style="text-align: center; margin-bottom: 1.25rem">
+<iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/1i96a_0wCFM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
 ## Bootstrap a Spring Data JPA Project with the Okta CLI
 
 Open a shell and, in a reasonable parent folder location, and run the Okta CLI.

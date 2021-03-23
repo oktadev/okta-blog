@@ -12,6 +12,8 @@ tweets:
 - "Full stack CRUD application tutorial with #Python and @ReactJS"
 image: blog/featured/okta-react-skew.jpg
 type: conversion
+changelog:
+  - 2020-11-02: Updated to use Flask-OIDC and React 17. See the code changes in [python-flask-react-crud-example#4](https://github.com/oktadeveloper/python-flask-react-crud-example/pull/4) and the article changes in [okta-blog#458](https://github.com/oktadeveloper/okta-blog/pull/458).
 ---
 
 Today's modern web applications are often built with a server-side language serving data via an API and a front-end javascript framework that presents the data in an easy to use manner to the end user. Python is a dynamic language widely adopted by companies and developers. The language states on its core values that software should simple, readable making developers more productive and happier. You'll also use Flask to help you to quickly put together a ReST API. React is a declarative, efficient, and flexible JavaScript library developed at Facebook for building user interfaces. It facilitates the creation of complex, interactive, and stateful UIs from small and isolated pieces of code called components.
@@ -1201,8 +1203,3 @@ As we've seen, React is a powerful and straightforward JavaScript library with p
 - [Build a Basic CRUD App with Node and React](/blog/2018/07/10/build-a-basic-crud-app-with-node-and-react)
 
 As always, if you have any questions feel free to leave us a comment below. Don't forget to follow us Follow us on [Twitter](https://twitter.com/oktadev), like us on [Facebook](https://www.facebook.com/oktadevelopers), check us out on [LinkedIn](https://www.linkedin.com/company/oktadev/), and subscribe to our [YouTube channel](https://www.youtube.com/oktadev).
-
-<a name="changelog"></a>
-**Changelog:**
-
-* Nov 2, 2020: Updated to use Flask-OIDC and React 17. See the code changes in [python-flask-react-crud-example#4](https://github.com/oktadeveloper/python-flask-react-crud-example/pull/4) and the article changes in [okta-blog#458](https://github.com/oktadeveloper/okta-blog/pull/458).

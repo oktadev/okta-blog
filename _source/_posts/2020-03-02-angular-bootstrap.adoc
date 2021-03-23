@@ -3,7 +3,7 @@ layout: blog_post
 title: "Build Beautiful Angular Apps with Bootstrap"
 author: matt-raible
 by: advocate
-communities: [javascript]
+communities: [javascript,java]
 description: "Angular + Spring Boot = 💚! Learn how to add Bootstrap to the mix and configure searching, sorting, and pagination with NG Bootstrap and Spring Data JPA."
 tags: [angular, bootstrap, ng-bootstrap, spring-boot, spring-data-jpa]
 tweets:
@@ -12,6 +12,8 @@ tweets:
 - "Learn how to integrate @angular and @getbootstrap in 2020 and make beautiful apps!"
 image: blog/angular-bootstrap/angular-bootstrap.png
 type: conversion
+changelog:
+  - 2020-05-18: Updated to remove `/implicit` from Login redirect URI. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-angular-bootstrap-example/pull/4). Changes to this article can be viewed in [oktadeveloper/okta-blog#298](https://github.com/oktadeveloper/okta-blog/pull/298).
 ---
 :toc: macro
 :page-liquid:
@@ -1016,7 +1018,3 @@ If you want to learn more about Angular or Spring Boot, I recommend these blog p
 * link:/blog/2019/04/04/java-11-java-12-jhipster-oidc[Better, Faster, Lighter Java with Java 12 and JHipster 6]
 
 If you have questions, please leave a comment below. If you liked this tutorial, follow https://twitter.com/oktadev[@oktadev on Twitter] and subscribe to https://youtube.com/c/oktadev[our YouTube channel].
-
-**Changelog:**
-
-* May 18, 2020: Updated to remove `/implicit` from Login redirect URI. See the code changes in the https://github.com/oktadeveloper/okta-angular-bootstrap-example/pull/4[example app on GitHub]. Changes to this article can be viewed in https://github.com/oktadeveloper/okta-blog/pull/298[oktadeveloper/okta-blog#298].

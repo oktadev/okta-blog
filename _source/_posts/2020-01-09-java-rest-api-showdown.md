@@ -12,6 +12,11 @@ tweets:
 - "REST APIs are still popular! Learn how to do it in 2019 with @micronautfw, @QuarkusIO, and @springboot."
 image: blog/java-rest-api/java-rest-api-showdown.png
 type: conversion
+changelog:
+  - 2020-09-23: Upgraded to Micronaut 2.0.2, Quarkus 1.8.1, and Spring Boot 2.3.4. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-java-rest-api-comparison-example/pull/7). Changes to this post can be viewed in [oktadeveloper/okta-blog#423](https://github.com/oktadeveloper/okta-blog/pull/423).
+  - 2020-05-21: Added startup times for `java -jar` and running with GraalVM. Changes to this article can be viewed in [oktadeveloper/okta-blog#304](https://github.com/oktadeveloper/okta-blog/pull/304).
+  - 2020-05-20: Upgraded to Micronaut 1.3.5, Quarkus 1.4.2, and Spring Boot 2.3.0. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-java-rest-api-comparison-example/pull/5). Changes to this article can be viewed in [oktadeveloper/okta-blog#301](https://github.com/oktadeveloper/okta-blog/pull/301).
+  - 2020-01-30: Updated to optimize Micronaut based on [feedback from the Micronaut team](https://github.com/oktadeveloper/okta-java-rest-api-comparison-example/pull/2). Also re-calculated startup times based on an average of three attempts. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-java-rest-api-comparison-example/pull/3). Changes to this article can be viewed in [oktadeveloper/okta-blog#176](https://github.com/oktadeveloper/okta-blog/pull/176).
 ---
 
 Developing services in Java, including REST APIs, wasn't always easy or productive until Spring came along and changed the landscape. Many years have passed since then, and new frameworks have emerged in the community.
@@ -422,7 +427,7 @@ The configuration here is very similar to the other frameworks. You annotate the
 
 Different from the other frameworks, you don't need to specify that this endpoint is authenticated since Spring already controls this information from its configurations.
 
-The last step is to add the issuer information, so  Spring Security's OIDC support can auto-discover the endpoints it needs to communicate with..
+The last step is to add the issuer information, so  Spring Security's OIDC support can auto-discover the endpoints it needs to communicate with.
 
 Edit `src/main/resources/applications.properties` and add the following configuration:
 
@@ -521,13 +526,3 @@ Do you want to learn more about Java, REST APIs, and secure applications? Here a
 * [Simple Authentication with Spring Security](/blog/2019/05/31/spring-security-authentication)
 
 For more posts like this one, follow [@oktadev on Twitter](https://twitter.com/oktadev). We also regularly publish screencasts to [our YouTube channel](https://youtube.com/c/oktadev)!
-
-<a name="changelog"></a>
-**Changelog:**
-
-* Sep 23, 2020: Upgraded to Micronaut 2.0.2, 
-Quarkus 1.8.1, and Spring Boot 2.3.4. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-java-rest-api-comparison-example/pull/7). Changes to this post can be viewed in [oktadeveloper/okta-blog#423](https://github.com/oktadeveloper/okta-blog/pull/423).
-* May 21, 2020: Added startup times for `java -jar` and running with GraalVM. Changes to this article can be viewed in [oktadeveloper/okta-blog#304](https://github.com/oktadeveloper/okta-blog/pull/304).
-* May 20, 2020: Upgraded to Micronaut 1.3.5, 
-Quarkus 1.4.2, and Spring Boot 2.3.0. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-java-rest-api-comparison-example/pull/5). Changes to this article can be viewed in [oktadeveloper/okta-blog#301](https://github.com/oktadeveloper/okta-blog/pull/301).
-* Jan 30, 2020: Updated to optimize Micronaut based on [feedback from the Micronaut team](https://github.com/oktadeveloper/okta-java-rest-api-comparison-example/pull/2). Also re-calculated startup times based on an average of three attempts. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-java-rest-api-comparison-example/pull/3). Changes to this article can be viewed in [oktadeveloper/okta-blog#176](https://github.com/oktadeveloper/okta-blog/pull/176).

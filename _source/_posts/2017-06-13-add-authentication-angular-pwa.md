@@ -12,6 +12,8 @@ tags: [pwa, progressive-web-app, angular, typescript, oidc, spring-boot, java]
 type: conversion
 update-url: /blog/2019/01/30/first-angular-pwa
 update-title: "Build Your First PWA with Angular"
+changelog:
+  - 2018-02-23: Updated to use Spring Boot 1.5.10, Angular CLI 1.6.7, and remove Stormpath SDKs. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-spring-boot-angular-pwa-example/pull/7). You can see changes to this article in [oktadeveloper/okta.github.io#1794](https://github.com/oktadeveloper/okta.github.io/pull/1794).
 ---
 
 You're developing a Progressive Web Application (PWA), and your service worker and web app manifest are working swimmingly. You've even taken the time to deploy it to a server with HTTPS, and you're feeling pretty good about things. But wait, you don't have any way of knowing who your users are! Don't you want to provide them with an opportunity to authenticate and tell you who they are? Once you know who they are, you can give them all kinds of personalization options, inspire them to ❤️ your app, and maybe even support your work!
@@ -585,6 +587,3 @@ There's also a number of excellent resources by Google and Smashing Magazine:
 * Google's [Progressive Web Apps](https://developers.google.com/web/progressive-web-apps/) homepage, [step-by-step code lab](https://codelabs.developers.google.com/codelabs/your-first-pwapp/), and [instructor-led PWA training](https://developers.google.com/web/ilt/pwa/).
 * [A Beginner's Guide To Progressive Web Apps](https://www.smashingmagazine.com/2016/08/a-beginners-guide-to-progressive-web-apps/)
 
-**Changelog:**
-
-* Feb 23, 2018: Updated to use Spring Boot 1.5.10, Angular CLI 1.6.7, and remove Stormpath SDKs. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-spring-boot-angular-pwa-example/pull/7). You can see changes to this article in [oktadeveloper/okta.github.io#1794](https://github.com/oktadeveloper/okta.github.io/pull/1794).
