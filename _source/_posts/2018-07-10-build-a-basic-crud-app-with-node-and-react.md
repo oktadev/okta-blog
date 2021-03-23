@@ -11,6 +11,9 @@ Tweets:
 - "Interested in #nodejs and #reactjs? We just published a new tutorial that shows you how to build a simple CRUD app using both Node and React:"
 - "Want to learn how to build modern CRUD apps using #nodejs and #reactjs? We've got you covered:"
 type: conversion
+changelog:
+  - 2020-10-22: Updated to use Okta React v3.0.8. You can see the changes in [the example app](https://github.com/oktadeveloper/okta-react-node-example/pull/14) or [in this blog post](https://github.com/oktadeveloper/okta-blog/pull/453).
+  - 2019-11-01: Added an error snackbar to help with debugging, added some information about installing SQLite, and updated a majority of the dependencies. Changes to this post can be viewed in [okta-blog#58](https://github.com/oktadeveloper/okta-blog/pull/58).
 ---
 
 There are *a lot* of JavaScript frameworks out there today. It seems like I hear about a new one every month or so. They all have their advantages and are usually there to solve some sort of problem with an existing framework. My favorite to work with so far has been React. One of the best things about it is how many open source components and libraries there are in the React ecosystem, so you have a lot to choose from. This can be really difficult if you're indecisive, but if you like the freedom to do things your way then React may be the best option for you.
@@ -1336,8 +1339,3 @@ If you're still aching for more content, there is a plethora of great posts on t
 * [Tutorial: Build a Basic CRUD App with Node.js](/blog/2018/06/28/tutorial-build-a-basic-crud-app-with-node)
 
 And as always, we'd love to hear from you. Hit us up with questions or feedback in the comments, or on Twitter [@oktadev](https://twitter.com/oktadev).
-
-<a name="changelog">**Changelog:**</a>
-
-* Oct 22, 2020: Updated to use Okta React v3.0.8. You can see the changes in [the example app](https://github.com/oktadeveloper/okta-react-node-example/pull/14) or [in this blog post](https://github.com/oktadeveloper/okta-blog/pull/453).
-* Nov 1, 2019: Added an error snackbar to help with debugging, added some information about installing SQLite, and updated a majority of the dependencies. Changes to this post can be viewed in [okta-blog#58](https://github.com/oktadeveloper/okta-blog/pull/58).

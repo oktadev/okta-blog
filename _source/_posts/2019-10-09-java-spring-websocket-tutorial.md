@@ -12,11 +12,19 @@ tweets:
 - "In this tutorial, you'll build a Spring Boot app and a JavaScript client that communicate with one another via WebSockets."
 image: blog/featured/okta-java-tile-books-mouse.jpg
 type: conversion
+changelog:
+  - 2020-12-31: Updated Spring Boot to version 2.4.0. Updated Okta Auth JS to version 4.0.0. Update Tone.js library link. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-java-websockets-example/pull/2). Changes to this post can be viewed in [oktadeveloper/okta-blog#495](https://github.com/oktadeveloper/okta-blog/pull/495).
 ---
 
 WebSockets is a modern transport layer technology that establishes a two-way communication channel between a client and a server, perfect for low-latency, high-frequency interactions. WebSockets tend to be used in collaborative, real-time or event-driven applications, where traditional client-server request-response architecture or long polling would not satisfy requirements. Use cases include stock trading and shared dashboard applications.
 
 In this tutorial, I'll give you a quick overview of the WebSockets protocol and how it handles messages with STOMP. Then you'll create an application that uses the WebSockets API to configure a Java/Spring Boot message broker and authenticate a JavaScript STOMP client during the WebSocket handshake. We'll add some nifty helper frameworks, so the application is actually cool and plays music loops, and also use Okta for authentication and access tokens, rather than building it ourselves.
+
+If you would rather follow along by watching a video, check out the screencast below from our [YouTube channel](https://www.youtube.com/watch?v=OJMBg2bSXIU).
+
+<div style="text-align: center; margin-bottom: 1.25rem">
+<iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/OJMBg2bSXIU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 ## The WebSocket Protocol and HTTP
 
@@ -66,7 +74,7 @@ Happily, for Java developers, Spring supports the WebSocket API, which implement
 
 ##  Spring Boot Example App - Sound Looping!
 
-For our example application, let's create a collaborative sound-looping UI, where all connected users can play and stop a set of music loops. We will use [Tone.js](https://tonejs.github.io/) and [NexusUI](https://nexus-js.github.io/ui/)  and configure a Spring Message Broker Server and JavaScript WebSocket Client. Rather than build authentication and access control yourself, register for an [Okta Developer Account](https://developer.okta.com/signup/).It's free!
+For our example application, let's create a collaborative sound-looping UI, where all connected users can play and stop a set of music loops. We will use [Tone.js](https://tonejs.github.io/) and [NexusUI](https://nexus-js.github.io/ui/)  and configure a Spring Message Broker Server and JavaScript WebSocket Client. Rather than build authentication and access control yourself, register for an [Okta Developer Account](https://developer.okta.com/signup/). It's free!
 
 Once you've logged in to Okta, go to the **Applications** section and create an application:
 
@@ -552,8 +560,3 @@ To continue learning about WebSocket-related technologies and Spring Framework's
 * [10 Excellent Ways to Secure Your Spring Boot Application](/blog/2018/07/30/10-ways-to-secure-spring-boot)
 
 For more informative tutorials, please [follow @oktadev on Twitter](https://twitter.com/oktadev) and [subscribe to our YouTube channel](https://youtube.com/c/oktadev).
-
-<a name="changelog"></a>
-**Changelog:**
-
-* Dec 31, 2020: Updated Spring Boot to version 2.4.0. Updated Okta Auth JS to version 4.0.0. Update Tone.js library link. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-java-websockets-example/pull/2). Changes to this post can be viewed in [oktadeveloper/okta-blog#495](https://github.com/oktadeveloper/okta-blog/pull/495).

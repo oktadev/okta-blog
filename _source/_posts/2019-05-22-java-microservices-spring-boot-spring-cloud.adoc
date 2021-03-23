@@ -12,10 +12,12 @@ tweets:
 - "Java + Spring Boot + Spring Cloud = 💚 for microservices by @mraible."
 image: blog/java-microservices/java-microservices.png
 type: conversion
+changelog:
+  - 2020-03-10: Updated to use Spring Boot 2.2.5 and Spring Cloud Hoxton SR3. Changes to this post can be viewed in [okta-blog#217](https://github.com/oktadeveloper/okta-blog/pull/217). Updates to the example application are in [java-microservices-examples#7](https://github.com/oktadeveloper/java-microservices-examples/pull/7).
 ---
 :page-liquid:
 
-Java is a great language to use when developing a microservice architecture. In fact, some of the biggest names in our industry use it. Have you ever heard of Netflix, Amazon, or Google? What about eBay, Twitter, and LinkedIn? Yes, major companies handling incredible traffic are doing it with Java.
+Java is a great language to use when developing a https://www.okta.com/blog/2021/02/microservices/[microservice] architecture. In fact, some of the biggest names in our industry use it. Have you ever heard of Netflix, Amazon, or Google? What about eBay, Twitter, and LinkedIn? Yes, major companies handling incredible traffic are doing it with Java.
 
 Implementing a microservices architecture in Java isn't for everyone. For that matter, implementing microservices, in general, isn't often needed. Most companies do it to scale their people, not their systems. If you're going to scale your people, hiring Java developers is one of the best ways to do it. After all, there are more developers fluent in Java than most other languages - though JavaScript seems to be catching up quickly!
 
@@ -634,8 +636,3 @@ We're big fans of Spring Boot, Spring Cloud, and microservices on this blog. Her
 * link:/blog/2019/02/28/spring-microservices-docker[Build Spring Microservices and Dockerize Them for Production]
 
 Please follow us https://twitter.com/oktadev[on Twitter @oktadev] and subscribe to https://www.youtube.com/c/oktadev[our YouTube channel] for more Spring Boot and microservices knowledge.
-
-[[changelog]]
-**Changelog:**
-
-* Mar 10, 2020: Updated to use Spring Boot 2.2.5 and Spring Cloud Hoxton SR3. Changes to this post can be viewed in https://github.com/oktadeveloper/okta-blog/pull/217[okta-blog#217]. Updates to the example application are in https://github.com/oktadeveloper/java-microservices-examples/pull/7[java-microservices-examples#7].
