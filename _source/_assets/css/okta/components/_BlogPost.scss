@@ -78,6 +78,11 @@
 		line-height: 24px;
 	}
 
+	&-last-updated {
+		position: absolute;
+		right: 85px;
+	}
+
 	&-author-bio {
 		@include color('charcoal');
 		border-top: 1px #ccc solid;
