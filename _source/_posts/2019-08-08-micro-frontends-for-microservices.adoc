@@ -15,7 +15,7 @@ type: awareness
 ---
 :page-liquid:
 
-Microservices have become a popular and effective design for scaling development teams in large companies. A microservices architecture enables you to build and deploy services independently, providing developers autonomy, enthusiasm, and a passion for their work. These benefits are realized because they feel a sense of control over their own destiny.
+https://www.okta.com/blog/2021/02/microservices/[Microservices] have become a popular and effective design for scaling development teams in large companies. A microservices architecture enables you to build and deploy services independently, providing developers autonomy, enthusiasm, and a passion for their work. These benefits are realized because they feel a sense of control over their own destiny.
 
 Allow me to demonstrate with a story about my time at LinkedIn. In early 2008, they asked me to do an analysis of Ruby on Rails versus Grails and tell them which one they should use. They had an app written in both frameworks and the CTO didn't want to support both. Both platforms allowed developers to iterate quickly and turbo-charge their productivity.
 

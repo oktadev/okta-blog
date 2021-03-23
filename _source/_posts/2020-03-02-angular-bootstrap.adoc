@@ -3,7 +3,7 @@ layout: blog_post
 title: "Build Beautiful Angular Apps with Bootstrap"
 author: matt-raible
 by: advocate
-communities: [javascript]
+communities: [javascript,java]
 description: "Angular + Spring Boot = 💚! Learn how to add Bootstrap to the mix and configure searching, sorting, and pagination with NG Bootstrap and Spring Data JPA."
 tags: [angular, bootstrap, ng-bootstrap, spring-boot, spring-data-jpa]
 tweets:

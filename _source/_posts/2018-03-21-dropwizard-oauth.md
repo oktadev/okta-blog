@@ -115,7 +115,7 @@ public class OktaOAuthConfig {
 }
 ```
 
-Now add our new model to the `com.example.DemoConfiguration` class..
+Now add our new model to the `com.example.DemoConfiguration` class.
 
 ```java
 public class DemoConfiguration extends Configuration {

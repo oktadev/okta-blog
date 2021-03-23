@@ -58,7 +58,7 @@ The last block is pretty self-explanatory. It breaks down the requests by time, 
 
 ## Guidelines for Performance Testing
 
-If you use `ab` to help gauge the performance of your web application, I have a few suggestions to make your  life easier. These rules apply to almost any performance testing scenario, regardless of whether you use Apache Bench..
+If you use `ab` to help gauge the performance of your web application, I have a few suggestions to make your  life easier. These rules apply to almost any performance testing scenario, regardless of whether you use Apache Bench.
 
 ### Automate Performance Tests
 

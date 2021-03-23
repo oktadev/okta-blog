@@ -16,11 +16,14 @@ If you're building or managing an API, you're probably using an API gateway to h
 
 I've worked with a lot of different API gateways and want to provide some guidance and tools to help you get a reference architecture up and running between an authorization server and your API gateways. I'll start with Mulesoft, but will add more gateways on a regular basis. This sample workflow will give you a working example that you can modify to suit your own use-case.
 
+<!-- disabling youtube video until we find a replacement -->
+<!--
 If you want to skip ahead, you can see sample workflow in action [on YouTube](https://youtu.be/n8r-9Gpoods):
 
 <div style="text-align: center">
 <iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/n8r-9Gpoods" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 </div>
+-->
 
 To facilitate implementing this reference architecture across many different gateways, I developed two tools: a bootstrapping tool for Okta and a web application (Node.js + Express) to illustrate the OAuth workflow. The bootstrapping tool is meant for prototyping and is not required to complete this exercise (though it will help tremendously in meeting that 20-minute time limit!). My hope is that you will find it useful in this context and perhaps others. Bug reports and pull requests are welcome via [the Okta Bootstrapper GitHub repo](https://github.com/tom-smith-okta/okta-bootstrapper).
 
