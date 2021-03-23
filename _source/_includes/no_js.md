@@ -1,1 +1,1 @@
-Javascript disabled
+JavaScript disabled
