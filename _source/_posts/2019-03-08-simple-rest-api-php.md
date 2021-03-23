@@ -610,40 +610,54 @@ The client sends the access token to the REST API server;
 The server asks Okta for some metadata that allows it to verify tokens and validates the token (alternatively, it can just ask Okta to verify the token);
 The server then provides the API resource if the token is valid, or responds with a 401 Unauthorized status code if the token is missing, expired or invalid.
 
-{% include setup/cli.md type="service" %}
+Before you proceed, you need to log into your Okta account (or [create a new one for free](https://developer.okta.com/signup/)), create your authorization server and set up your client application. 
 
-These are the credentials that your client application will need in order to authenticate. For this example, the client and server code will be in the same repository, so we will add these credentials to our `.env` file as well (make sure to replace `{yourClientId}` and `{yourClientSecret}` with the values from this page):
+Log in to your developer console, navigate to API, then to the Authorization Servers tab. Click on the link to your default server. We will copy the Issuer Uri field from this Settings tab and add it to our .env file:
 
-Add to `.env.example`:
-
-```bash
-OKTAISSUER=
-OKTACLIENTID=
-OKTASECRET=
-```
-
-Add these keys and values to `.env`:
 
 ```bash
 OKTAISSUER=https://{yourOktaDomain}/oauth2/default
-OKTACLIENTID={yourClientId}
-OKTASECRET={yourClientSecret}
 ```
 
-Log in to the Okta Admin Console, navigate to **Security** > **API**. Click on the link to your **default** Authorization Service. 
+{% img blog/php-rest-api/issuer-uri.png alt:"Find the issuer URI" width:"800" %}{: .center-image }
 
-Next click the **Edit** icon, go to the **Scopes** tab and click **Add Scope** to add a scope for the REST API. Name it `person_api` and check **Set as a default scope**.
 
-Add the scope to `.env.example`:
+You can see the Issuer URI of my test Okta account in the screenshot above. Copy your own value and put it in your `.env` file.
+
+Next click the **Edit** icon, go to the **Scopes** tab and click **Add Scope** to add a scope for the REST API. We'll title it `person_api`:
+
+{% img blog/php-rest-api/create-the-person-scope.png alt:"Create the person_api scope" width:"800" %}{: .center-image }
+
+We need to add the scope to our `.env` file as well. We'll add the following to `.env.example`:
 
 ```bash
 SCOPE=
 ```
 
-and the key with the value to `.env`:
+and the key with the value to .env:
 
 ```bash
 SCOPE=person_api
+```
+
+The next step is to create a client. Navigate to **Applications**, then click **Add Application**. Select **Service**, then click **Next**. Enter a name for your service, (e.g. People Manager), then click **Done**. This will take you to a page that has your client credentials:
+
+{% img blog/php-rest-api/view-client-credentials.png alt:"View the client credentials" width:"800" %}{: .center-image }
+
+These are the credentials that your client application will need in order to authenticate. For this example, the client and server code will be in the same repository, so we will add these credentials to our `.env` file as well (make sure to replace `{yourClientId}` and `{yourClientSecret}` with the values from this page):
+
+Add to .env.example:
+
+```bash
+OKTACLIENTID=
+OKTASECRET=
+```
+
+Add to .env:
+
+```bash
+OKTACLIENTID={yourClientId}
+OKTASECRET={yourClientSecret}
 ```
 
 ## Add Authentication to Your PHP REST API

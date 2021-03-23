@@ -116,7 +116,6 @@ I'll show you how to configure Okta as the authentication provider for the store
 
 ## Add Authentication with OpenID Connect
 
-<!--
 You can register for a free developer account with the following simple commands using the [Okta CLI](https://github.com/okta/okta-cli), in the project root folder:
 
 ```shell
@@ -142,9 +141,6 @@ export SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET="{clientSec
 export SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI="https://{yourOktaDomain}/oauth2/default"
 export SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID="{clientId}"
 ```
--->
-
-{% include setup/cli.md type="jhipster" %}
 
 Edit the file `docker-compose/docker-compose.yml` and override the default OAuth 2.0 settings for the services `invoice`, `notification`, `product`, and `store` with the following values (you will need to update these properties under the `environment` key):
 

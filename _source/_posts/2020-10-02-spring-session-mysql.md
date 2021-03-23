@@ -56,9 +56,6 @@ unzip web-app.zip -d web-app
 cd web-app
 ```
 
-{% include setup/maven.md %}
-
-<!--
 Run the [Okta Maven Plugin](https://github.com/oktadeveloper/okta-maven-plugin) to register a new account:
 
 ```shell
@@ -74,7 +71,6 @@ Then, configure your Spring application for authentication using Okta:
 ```
 
 It will set up a new OIDC application for you and write your Okta settings to your `src/main/resources/application.properties` file.
--->
 
 Create a `GreetingController` at `src/main/java/com/okta/developer/webapp/controller`:
 

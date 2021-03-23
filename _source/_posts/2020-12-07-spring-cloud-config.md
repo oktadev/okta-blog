@@ -100,7 +100,6 @@ public class CloudConfigServerApplication { ... }
 
 ## Create an OpenID Connect Application
 
-<!--
 Sign up for a free developer account at <https://developer.okta.com/signup>. This will be used to secure your microservices using OAuth 2.0 and OpenID Connect (OIDC). After signing up, log in to your Okta account at https://your-okta-domain.okta.com.
 
 Click **Applications** in the top nav menu.
@@ -133,13 +132,6 @@ Click **Done**.
 Take note of the values for **Client ID** and **Client secret**. These will be necessary for securing your microservices with OAuth 2.0.
 
 {% img blog/spring-cloud-config/client-id-and-secret.png alt:"Client ID and Secret" width:"744" %}{: .center-image }
--->
-
-{% include setup/cli.md type="web" framework="Okta Spring Boot Starter"
-   loginRedirectUri="[http://localhost:8001/login/oauth2/code/okta,http://localhost:8002/login/oauth2/code/okta]"
-   logoutRedirectUri="[http://localhost:8001,http://localhost:8002]" %}
-
-Take note of the values for **Client ID** and **Client secret**. These will be necessary for securing your microservices with OAuth 2.0.
 
 ## Configure Security for Your Microservices Architecture
 
