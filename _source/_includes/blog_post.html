@@ -6,7 +6,7 @@
 
         <time class="BlogPost-date" datetime="{{ post.date | date: '%F'}}">{{ post.date | date: "%B %-d, %Y" }}</time>
         {%- if post.changelog -%}
-        {% assign last_updated_date = post.changelog[0] | split: '=>' | first | date: "%b %-d, %Y" %}
+        {% assign last_updated_date = post.changelog[0] | split: '=>' | first | date: "%B %-d, %Y" %}
         <div class="BlogPost-last-updated">
             Last Updated: <a href="#changelog">{{ last_updated_date }}</a>
         </div>
