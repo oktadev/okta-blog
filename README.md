@@ -133,12 +133,94 @@ After that, all you have to do is open your browser and visit http://localhost:4
 
 ## Markdown Standards
 
+This section describes Markdown standards we like to use in our blog posts. These conventions also pertain to AsciiDoc, if you choose to use it. 
+
+* [Use the Okta CLI](#use-the-okta-cli-to-register-your-app)
+* [Blog Markdown Conventions](#blog-markdown-conventions)
+* [Add a Changelog](#add-a-changelog)
+
+### Use the Okta CLI to Register Your App
+
+To describe how to setup a new application on Okta, please use the [`cli.md`](_source/_includes/setup/cli.md) or [`maven.md`](_source/_includes/setup/maven.md) includes.
+
+These will render instructions using the [Okta CLI](https://cli.okta.com) (or [Okta Maven Plugin](https://github.com/oktadeveloper/okta-maven-plugin)) and link to instructions for the Admin Console. Screenshots are discouraged because they're hard to keep up-to-date.
+
+Below are some examples:
+
+Angular:
+
+```md
+{% include setup/cli.md type="spa" framework="Angular" loginRedirectUri="http://localhost:4200/callback" %}
+```
+
+React:
+
+```md
+{% include setup/cli.md type="spa" framework="React" loginRedirectUri="http://localhost:3000/callback" %}
+```
+
+Vue with signup disabled:
+
+```md
+{% include setup/cli.md type="spa" loginRedirectUri="http://localhost:8080/callback" signup="false" %}
+```
+
+See the top of [`cli.md`](_source/_includes/setup/cli.md) to see the logic behind `signup="false"`.
+
+Native with Ionic:
+
+```md
+{% include setup/cli.md type="native" loginRedirectUri="http://localhost:8100/callback" logoutRedirectUri="http://localhost:8100/logout" %}
+```
+
+In this case, the `cli.md` template creates multiple redirect URIs. To only return reversed-domain-name URIs, don't pass in any redirect URIs.
+
+Okta Spring Boot Starter with custom redirects:
+
+```md
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter"
+   loginRedirectUri="[http://localhost:8001/login/oauth2/code/okta,http://localhost:8002/login/oauth2/code/okta]"
+   logoutRedirectUri="[http://localhost:8001,http://localhost:8002]" %}
+```
+
+.NET with inline note:
+
+```md
+{% capture note %}
+> Note that the TCP port 5001 must be the same used by the application. You can see it in the messages displayed in the terminal when you start the application with **`dotnet run`**.
+{% endcapture %}
+{% include setup/cli.md type="web" note=note framework="ASP.NET Core"
+   loginRedirectUri="http://localhost:5001/authorization-code/callback" 
+   logoutRedirectUri="http://localhost:5001/signout/callback" %}
+```
+
+Service:
+
+```md
+{% include setup/cli.md type="service" %}
+```
+
+<!-- Example code is from the following posts. 
+
+- .NET: http://localhost:4000/blog/2020/09/02/10x-development-azure-cli-dotnet
+- JHipster: http://localhost:4000/blog/2020/12/14/spring-session-redis
+- Native with Ionic: http://localhost:4000/blog/2020/09/21/ionic-apple-google-signin
+- Okta Spring Boot Starter: http://localhost:4000/blog/2020/12/07/spring-cloud-config
+- Angular: http://localhost:4000/blog/2019/02/12/secure-angular-login
+- React: http://localhost:4000/blog/2020/12/16/react-login
+- Vue: http://localhost:4000/blog/2020/05/15/vue-login
+- Service: http://localhost:4000/blog/2019/03/08/simple-rest-api-php
+
+-->
+
+### Blog Markdown Conventions
+
 - For directories and filenames, surround with back ticks (e.g. `filename.txt` or `/src/component/dummy.file`)
 - For code snippets that are only a few words. Inline back ticks (e.g. Run `npm install` from the command line)
-- For button or link names surround with two asterisks (e.g. Then click **Done**
+- For button or link names surround with two asterisks (e.g. Then click **Done**)
 - When adding function names inline, add the parentheses and back ticks (e.g. This calls the `render()` method)
 - http://localhost links should be wrapped in back ticks (e.g. `http://localhost:3000`)
-- Links that start will developer.okta.com should be relative (e.g. instead of `https://developer.okta.com/docs/whatever.html`, just use `/docs/whatever.html`)
+- Links that start with developer.okta.com should be relative (e.g. instead of `https://developer.okta.com/docs/whatever.html`, just use `/docs/whatever.html`)
 - Code with {{ variable }} needs a "raw" wrapper. For example:
 
 <pre>
@@ -160,6 +242,25 @@ For AsciiDoc:
 ```
 image::{% asset_path 'blog/<post-images-dir>/<image-file-name>' %}[alt=text for screen readers,width=800,align=center]
 ```
+
+### Add a Changelog
+
+If you update a post to fix a bug or upgrade dependencies, you should add a changelog. You can add this to the front matter with a `changelog` key. 
+
+Please be sure to link to the pull request that updates the post and the pull request that updates the example app on GitHub.
+
+For example:
+
+```yaml
+---
+layout: blog_post
+...
+changelog: 
+- 2020-08-31: Updated GitHub repo to have proper starter files and fixed logout in Vue. You can see the changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-kotlin-spring-boot-vue-example/pull/4). Changes to this article can be viewed in [oktadeveloper/okta-blog#392](https://github.com/oktadeveloper/okta-blog/pull/392).
+---
+```
+
+This will render a "last updated" date at the top, and a changelog at the bottom. The list should be ordered last to first. See [this post](https://developer.okta.com/blog/2020/06/26/spring-boot-vue-kotlin) ([source](https://raw.githubusercontent.com/oktadeveloper/okta-blog/main/_source/_posts/2020-06-26-spring-boot-vue-kotlin.md)) for an example. 
 
 ## Utilities
 
