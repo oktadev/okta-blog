@@ -135,13 +135,11 @@ After that, all you have to do is open your browser and visit http://localhost:4
 
 To describe how to setup a new application on Okta, please use the [`cli.md`](_source/_includes/setup/cli.md) or [`maven.md`](_source/_includes/setup/maven.md) includes.
 
-These will render instructions using the [Okta CLI](https://cli.okta.com) (or [Okta Maven Plugin](https://github.com/oktadeveloper/okta-maven-plugin)) and link to instructions for the Admin Console. 
-
-**Please do not include any screenshots of the CLI or Admin Console in your post.**
+These will render instructions using the [Okta CLI](https://cli.okta.com) (or [Okta Maven Plugin](https://github.com/oktadeveloper/okta-maven-plugin)) and link to instructions for the Admin Console. Screenshots are discouraged because they're hard to keep up-to-date.
 
 Below are some examples:
 
-Angular App:
+Angular:
 
 ```md
 {% include setup/cli.md type="spa" framework="Angular" loginRedirectUri="http://localhost:4200/callback" %}
@@ -211,10 +209,10 @@ Other conventions:
 
 - For directories and filenames, surround with back ticks (e.g. `filename.txt` or `/src/component/dummy.file`)
 - For code snippets that are only a few words. Inline back ticks (e.g. Run `npm install` from the command line)
-- For button or link names surround with two asterisks (e.g. Then click **Done**
+- For button or link names surround with two asterisks (e.g. Then click **Done**)
 - When adding function names inline, add the parentheses and back ticks (e.g. This calls the `render()` method)
 - http://localhost links should be wrapped in back ticks (e.g. `http://localhost:3000`)
-- Links that start will developer.okta.com should be relative (e.g. instead of `https://developer.okta.com/docs/whatever.html`, just use `/docs/whatever.html`)
+- Links that start with developer.okta.com should be relative (e.g. instead of `https://developer.okta.com/docs/whatever.html`, just use `/docs/whatever.html`)
 - Code with {{ variable }} needs a "raw" wrapper. For example:
 
 <pre>
