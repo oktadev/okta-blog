@@ -79,8 +79,11 @@
 	}
 
 	&-last-updated {
-		position: absolute;
-		right: 85px;
+		margin-top: .5em;
+
+		a {
+			color: unset;
+		}
 	}
 
 	&-author-bio {

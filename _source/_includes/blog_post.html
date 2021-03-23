@@ -38,8 +38,8 @@
         <ul>
         {% for change in post.changelog %}
           {%- assign changes = change | split: '=>' -%}
-            <li>{{ changes[0] | date: "%b %-d, %Y" }}:
-                {%- assign change_text = changes[1] | markdownify | remove: '<p>'| remove: '</p>' | remove: '&#8220;' | remove: '&#8221;' | remove: '}' %}
+            <li>{{ changes[0] | date: "%B %-d, %Y" }}:
+                {%- assign change_text = changes[1] | markdownify | remove: '<p>'| remove: '</p>' | remove: '&#8220;' | remove: '&#8221;' | remove: '}' -%}
                 {{ change_text }}
             </li>
         {% endfor %}
