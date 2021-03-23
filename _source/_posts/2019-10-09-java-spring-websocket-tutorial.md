@@ -12,6 +12,8 @@ tweets:
 - "In this tutorial, you'll build a Spring Boot app and a JavaScript client that communicate with one another via WebSockets."
 image: blog/featured/okta-java-tile-books-mouse.jpg
 type: conversion
+changelog:
+  - 2020-12-31: Updated Spring Boot to version 2.4.0. Updated Okta Auth JS to version 4.0.0. Update Tone.js library link. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-java-websockets-example/pull/2). Changes to this post can be viewed in [oktadeveloper/okta-blog#495](https://github.com/oktadeveloper/okta-blog/pull/495).
 ---
 
 WebSockets is a modern transport layer technology that establishes a two-way communication channel between a client and a server, perfect for low-latency, high-frequency interactions. WebSockets tend to be used in collaborative, real-time or event-driven applications, where traditional client-server request-response architecture or long polling would not satisfy requirements. Use cases include stock trading and shared dashboard applications.
@@ -558,8 +560,3 @@ To continue learning about WebSocket-related technologies and Spring Framework's
 * [10 Excellent Ways to Secure Your Spring Boot Application](/blog/2018/07/30/10-ways-to-secure-spring-boot)
 
 For more informative tutorials, please [follow @oktadev on Twitter](https://twitter.com/oktadev) and [subscribe to our YouTube channel](https://youtube.com/c/oktadev).
-
-<a name="changelog"></a>
-**Changelog:**
-
-* Dec 31, 2020: Updated Spring Boot to version 2.4.0. Updated Okta Auth JS to version 4.0.0. Update Tone.js library link. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-java-websockets-example/pull/2). Changes to this post can be viewed in [oktadeveloper/okta-blog#495](https://github.com/oktadeveloper/okta-blog/pull/495).
