@@ -348,15 +348,25 @@ Open up your browser, navigate to `http://localhost:4200`, and click on the calc
 
 ## Add Authentication to Your Angular App
 
-In this section, I will show you how to add authentication to your application. Okta provides a simple solution to secure authentication with easy integration into Angular applications. The ready-made route guard lets you restrict access to selected routes simply by dropping it into the route specification. The application flow is as follows. Whenever a user requests a protected resource, the route guard will check if the user is logged in. If the user is not logged in the guard will redirect the user to a hosted login page on the Okta servers. Alternatively, the user may opt to click on a login link directly. In this case, the authentication service will redirect the user to the login page. Once the user is logged in, the login page will redirect the user back to a special route, usually called `implicit/callback`, in the application. This route is managed by the  Okta Callback Component. The callback component will decide where to redirect the user, depending on the original request and on the authentication status of the user.
+In this section, I will show you how to add authentication to your application. Okta provides a simple solution to secure authentication with easy integration into Angular applications. The ready-made route guard lets you restrict access to selected routes simply by dropping it into the route specification. The application flow is as follows. Whenever a user requests a protected resource, the route guard will check if the user is logged in. 
 
+If the user is not logged in the guard will redirect the user to a hosted login page on the Okta servers. Alternatively, the user may opt to click on a login link directly. In this case, the authentication service will redirect the user to the login page. Once the user is logged in, the login page will redirect the user back to a special route, usually called `/callback`, in the application. This route is managed by the `OktaCallbackComponent`. The callback component will decide where to redirect the user, depending on the original request and on the authentication status of the user.
+
+<!--
 Before you start, you will need to register a free developer account with Okta. Open your browser, navigate to [developer.okta.com](https://developer.okta.com), and click the **Create Free Account** button. In the form that appears next, enter your details. Complete your registration by clicking the **Get Started** button. 
 
 {% img blog/angular-login/create-okta-account.png alt:"Create Okta Developer Account" width:"800" %}{: .center-image }
 
-Once you have gone through the registration process you will be taken to your Okta dashboard. Select the **Applications** link in the top menu. Here you can see an overview of all the applications that you have linked to your Okta account. If you are a new member, this list will be empty. To create your first application, click on the green button that says **Add Application**. On the screen that appears next, select **Single-Page App** and click **Next**. On the next screen, you can edit the settings. The Base URI should point to the location of your application. Since you are using the standard settings for the Angular development server, this should be set to `http://localhost:4200/`. The Login Redirect URI is the location that the user will be redirected back to after a successful login. This should match the callback route in your application, so you need to set it to `http://localhost:4200/implicit/callback`. When you're done, click on the **Done** button. The resulting screen will provide you with a client ID which you need to copy and paste into your application.
+Once you have gone through the registration process you will be taken to your Okta dashboard. Select the **Applications** link in the top menu. Here you can see an overview of all the applications that you have linked to your Okta account. If you are a new member, this list will be empty. 
+
+To create your first application, click on the green button that says **Add Application**. On the screen that appears next, select **Single-Page App** and click **Next**. On the next screen, you can edit the settings. The Base URI should point to the location of your application. Since you are using the standard settings for the Angular development server, this should be set to `http://localhost:4200/`. 
+
+The Login Redirect URI is the location that the user will be redirected back to after a successful login. This should match the callback route in your application, so you need to set it to `http://localhost:4200/callback`. When you're done, click on the **Done** button. The resulting screen will provide you with a client ID which you need to copy and paste into your application.
 
 {% img blog/angular-login/okta-settings.png alt:"Angular app on Okta" width:"800" %}{: .center-image }
+-->
+
+{% include setup/cli.md type="spa" framework="Angular" loginRedirectUri="http://localhost:4200/callback" %}
 
 To start implementing authentication in your application, you need to install the Okta Angular library. Open the terminal in the application directory and run the command:
 
@@ -375,12 +385,12 @@ In the same file, in the `imports` section of the `@NgModule` annotation, add th
 ```ts
 OktaAuthModule.initAuth({
   issuer: 'https://{yourOktaDomain}/oauth2/default',
-  redirectUri: 'http://localhost:4200/implicit/callback',
+  redirectUri: 'http://localhost:4200/callback',
   clientId: '{yourClientId}'
 })
 ```
 
-The `{yourClientId}` placeholder should be replaced with the client ID that you obtained in the Okta dashboard. Open `src/app/app.component.ts` and replace the contents of the file with the following.
+The `{yourClientId}` placeholder should be replaced with the client ID that you obtained earlier. Open `src/app/app.component.ts` and replace the contents of the file with the following.
 
 ```ts
 import { Component, OnInit } from '@angular/core';
@@ -434,10 +444,10 @@ By making use of the `isAuthenticated` flag, either a `Login` or a `Logout` butt
 import { OktaCallbackComponent, OktaAuthGuard } from '@okta/okta-angular';
 ```
 
-In the code above and in the Okta dashboard settings, you have specified that `implicit/callback` route should handle the login callback. To register the `OktaCallbackComponent` with this route, add the following entry to the `routes` setting.
+In the code above and in the Okta dashboard settings, you have specified that `/callback` route should handle the login callback. To register the `OktaCallbackComponent` with this route, add the following entry to the `routes` setting.
 
 ```ts
-{ path: 'implicit/callback', component: OktaCallbackComponent }
+{ path: 'callback', component: OktaCallbackComponent }
 ```
 
 The `OktaAuthGuard` can be used to restrict access to any protected routes. To protect the `calculator` route, modify its entry by adding a `canActivate` property in the following way.
@@ -579,5 +589,4 @@ Below are some links where you can find out more about single page applications,
 The code for this tutorial can be found on GitHub at [oktadeveloper/okta-angular-calculator-example](https://github.com/oktadeveloper/okta-angular-calculator-example).
 
 Did you like this tutorial? For more cool stuff, follow us on Twitter [@oktadev](https://twitter.com/OktaDev), [Facebook](https://www.facebook.com/oktadevelopers/), and [LinkedIn](https://www.linkedin.com/company/oktadev/)!
-
 
