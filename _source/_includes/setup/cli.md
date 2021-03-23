@@ -126,6 +126,10 @@ https://developer.okta.com/docs/guides/sign-into-
 /create-okta-application/
 {%- endcapture -%}
 
+{%- if include.type == "service" -%}
+{%- assign oktaDocs = 'https://developer.okta.com/docs/guides/implement-oauth-for-okta-serviceapp/overview/' %}
+{%- endif -%}
+
 {%- capture oktaAppType -%}
 {%- if (include.framework) -%}
   {%- if (include.framework contains "Spring Boot") -%}Spring Boot
@@ -137,6 +141,4 @@ https://developer.okta.com/docs/guides/sign-into-
 {%- endif -%}
 {%- endcapture -%}
 
-{% comment %}The link to create an app in the admin console is excluded below because the docs use cURL, not the console. https://developer.okta.com/docs/guides/implement-oauth-for-okta-serviceapp/create-serviceapp-grantscopes/{% endcomment %}
-
-**NOTE**: You can also use the Okta Admin Console to create your app.{% if (include.type != "service") %} See [Create a{% if (include.framework == "Angular") %}n{% endif %} {{ oktaAppType }} App{% if (include.type == "jhipster") %} on Okta{% endif %}]({% if (include.type == "jhipster") %}{{ jhipsterDocs }}{% else %}{{ oktaDocs }}{% endif %}) for more information.{% endif %}
+**NOTE**: You can also use the Okta Admin Console to create your app. See [Create a{% if (include.framework == "Angular") %}n{% endif %} {{ oktaAppType }} App{% if (include.type == "jhipster") %} on Okta{% endif %}]({% if (include.type == "jhipster") %}{{ jhipsterDocs }}{% else %}{{ oktaDocs }}{% endif %}) for more information.
