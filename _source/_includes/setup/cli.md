@@ -81,15 +81,15 @@ Okta application configuration has been written to: /path/to/app/.okta.env
 
   {% if include.framework == "Spring Boot" %}
 Open `src/main/resources/application.properties` to see the issuer and credentials for your app.
-```shell
-spring.security.oauth2.client.provider.okta.issuer-uri=https\://dev-133337.okta.com/oauth2/default
+```properties
+spring.security.oauth2.client.provider.okta.issuer-uri=https://dev-133337.okta.com/oauth2/default
 spring.security.oauth2.client.registration.okta.client-id=0oab8eb55Kb9jdMIr5d6
 spring.security.oauth2.client.registration.okta.client-secret=NEVER-SHOW-SECRETS
 ```
   {% elsif include.framework == "Okta Spring Boot Starter" %}
 Open `src/main/resources/application.properties` to see the issuer and credentials for your app.
-```shell
-okta.oauth2.issuer=https\://dev-133337.okta.com/oauth2/default
+```properties
+okta.oauth2.issuer=https://dev-133337.okta.com/oauth2/default
 okta.oauth2.client-id=0oab8eb55Kb9jdMIr5d6
 okta.oauth2.client-secret=NEVER-SHOW-SECRETS
 ```
