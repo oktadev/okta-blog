@@ -212,7 +212,7 @@ Okta should redirect you to that view:
 
 The configuration between your Okta org and your ASA team is complete. Now let's create the GCP VMs and enroll them into ASA.
 
-## Configure a Google Cloud Platform (GCP) Project
+### Configure a Google Cloud Platform (GCP) Project
 
 - Go to the [GCP web console](https://console.cloud.google.com)
 - Create a new GCP project:
