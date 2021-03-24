@@ -13,7 +13,7 @@ tweets:
 image: blog/react-native-login/react-native-login.png
 type: conversion
 changelog:
-- 2021-03-24: Updated to use React Native 0.64 and Okta React SDK 1.10.0. You can see the changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-react-native-login-example/pulls/). Changes to this article can be viewed in [oktadeveloper/okta-blog#495](https://github.com/oktadeveloper/okta-blog/pull/495).
+- 2021-03-24: Updated to use React Native 0.64 and Okta React SDK 1.10.0. You can see the changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-react-native-login-example/pull/2). Changes to this article can be viewed in [oktadeveloper/okta-blog#495](https://github.com/oktadeveloper/okta-blog/pull/495).
 ---
 
 React Native is a mobile app development framework that allows you to use React to build native iOS and Android mobile apps. Instead of using a web view and rendering HTML and JavaScript, it converts React components to native platform components. This means you can use React Native in your existing Android and iOS projects, or you can create a whole new app from scratch.
@@ -444,7 +444,7 @@ import configFile from './auth.config';
 
 Create `auth.config.js` with your OIDC settings from Okta.
 
-```json
+```js
 export default {
   oidc: {
     clientId: '$yourClientId',
@@ -457,7 +457,7 @@ export default {
 };
 ```
 
-**NOTE:** See [Create a Native App in Okta](#create-a-native-app-in-okta) if you need Okta OIDC settings. Use `okta apps` to see your apps and `okta login` to see your domain name.
+**NOTE:** See the previous section, [Create a Native App in Okta](#create-a-native-app-in-okta), if you need Okta OIDC settings. Use `okta apps` to see your apps and `okta login` to see your domain name.
 
 In `App.js`, import `Auth`.
 
@@ -655,10 +655,10 @@ To run your app on iOS, use `npm run ios`.
 
 {% img blog/react-native-login/ios-login-process.png alt:"iOS Login Process" %}{: .center-image }
 
-To run it on Android, you'll need to modify your Gradle build file to define a redirect scheme that captures the authorization redirect. Under `android` -> `defaultConfig`, add:
+To run it on Android, you'll need to modify your Gradle build file to define a redirect scheme that captures the authorization redirect. Under `android` > `defaultConfig`, add:
 
 ```groovy
-manifestPlaceholders = [ appAuthRedirectScheme: 'com.okta.dev-###### ]
+manifestPlaceholders = [ appAuthRedirectScheme: 'com.okta.dev-######' ]
 ```
 
 Finally, start a virtual device (or plug in your phone), and run `npm run android`. 
