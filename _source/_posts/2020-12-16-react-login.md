@@ -215,18 +215,6 @@ This should build the JavaScript code and then automatically open your browser a
 
 ## Register an OpenID Connect App for Authentication
 
-<!--
-Before you add a login feature, you need to sign up for a free Okta developer account. If you haven't already got one, go to [developer.okta.com](https://developer.okta.com/), click **Sign Up**, and follow the sign-up procedure. Once completed, you can log in to the Developer Console.
-
-**TIP**: You can also create an account and register apps using the [Okta CLI](https://github.com/okta/okta-cli#readme) with the `okta register` and `okta apps create` commands.
-
-In your Okta Development Console, select **Applications** from the top menu and click **Add Application**. Next, select **Single-Page App** and click **Next**. You now see a form with application settings. You can give the application any name of your choice. Both the **Base URI** and the **Logout redirect URI** should be changed to `http://localhost:3000/`.
-
-You will be testing the application using the React development server that listens on port 3000 on your local machine. For production, you would of course change this to the URI of the production server. The **Login redirect URI** should be `http://localhost:3000/callback`.
-
-Click **Done** when ready. On the next page, you will see an overview of the settings as well as a **Client ID**.
--->
-
 {% include setup/cli.md type="spa" framework="React" loginRedirectUri="http://localhost:3000/callback" %}
 
 Note the Client ID for later when you set up your React application.
