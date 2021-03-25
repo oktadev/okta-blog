@@ -7,6 +7,8 @@ communities: [java, javascript]
 description: "This tutorial shows you how to build microservices with JHipster. You'll generate a gateway (powered by Netflix Zuul and the JHipster Gateway), a microservice (that talks to MongoDB), and use Docker Compose to run it all. Then you'll deploy it to Google Cloud using Kubernetes."
 tags: [microservices, spring-boot, jhipster, angular, java, typescript, docker, kubernetes, minikube, google-cloud]
 type: awareness
+update-url: /blog/2019/05/23/java-microservices-spring-cloud-config
+update-title: "Java Microservices with Spring Cloud Config and JHipster"
 ---
 
 JHipster is one of those open-source projects you stumble upon and immediately think, "`Of course!`" It combines three 

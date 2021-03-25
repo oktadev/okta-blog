@@ -30,8 +30,13 @@ Select **
     {% else %}Accept the default Redirect URI values provided for you.
     {% endif %}
   {% elsif include.type == "native" %}
-
-Change the Redirect URI to `[com.okta.dev-133337:/callback,{{ include.loginRedirectUri }}]` and the Logout Redirect URI to `[com.okta.dev-133337:/logout,{{ include.logoutRedirectUri }}]`. The first value is your Okta domain name, reversed so it's a unique scheme to open your app on a device.
+    {% if include.loginRedirectUri == include.logoutRedirectUri %}
+Use `{{ include.loginRedirectUri }}` for the Redirect URI and the Logout Redirect URI 
+      {% else %}
+Use `{{ include.loginRedirectUri }}` for the Redirect URI and set the Logout Redirect URI to `{{ include.logoutRedirectUri }}`
+    {%- endif -%}
+{%- if include.loginRedirectUri contains 'com.okta.' -%}
+(where `{{ include.loginRedirectUri | remove: 'com.okta.' | remove: ':/callback' | remove: '[http://localhost:8100/callback,' | remove: ']' }}.okta.com` is your Okta domain name). {% endif %}Your domain name is reversed to provide a unique scheme to open your app on a device.
   {% endif %}
 {% endif %}
 
@@ -76,15 +81,15 @@ Okta application configuration has been written to: /path/to/app/.okta.env
 
   {% if include.framework == "Spring Boot" %}
 Open `src/main/resources/application.properties` to see the issuer and credentials for your app.
-```shell
-spring.security.oauth2.client.provider.okta.issuer-uri=https\://dev-133337.okta.com/oauth2/default
+```properties
+spring.security.oauth2.client.provider.okta.issuer-uri=https://dev-133337.okta.com/oauth2/default
 spring.security.oauth2.client.registration.okta.client-id=0oab8eb55Kb9jdMIr5d6
 spring.security.oauth2.client.registration.okta.client-secret=NEVER-SHOW-SECRETS
 ```
   {% elsif include.framework == "Okta Spring Boot Starter" %}
 Open `src/main/resources/application.properties` to see the issuer and credentials for your app.
-```shell
-okta.oauth2.issuer=https\://dev-133337.okta.com/oauth2/default
+```properties
+okta.oauth2.issuer=https://dev-133337.okta.com/oauth2/default
 okta.oauth2.client-id=0oab8eb55Kb9jdMIr5d6
 okta.oauth2.client-secret=NEVER-SHOW-SECRETS
 ```

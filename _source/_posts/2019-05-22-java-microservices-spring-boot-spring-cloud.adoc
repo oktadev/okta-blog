@@ -12,6 +12,8 @@ tweets:
 - "Java + Spring Boot + Spring Cloud = 💚 for microservices by @mraible."
 image: blog/java-microservices/java-microservices.png
 type: conversion
+changelog:
+  - 2020-03-10: Updated to use Spring Boot 2.2.5 and Spring Cloud Hoxton SR3. Changes to this post can be viewed in [okta-blog#217](https://github.com/oktadeveloper/okta-blog/pull/217). Updates to the example application are in [java-microservices-examples#7](https://github.com/oktadeveloper/java-microservices-examples/pull/7).
 ---
 :page-liquid:
 
@@ -634,8 +636,3 @@ We're big fans of Spring Boot, Spring Cloud, and microservices on this blog. Her
 * link:/blog/2019/02/28/spring-microservices-docker[Build Spring Microservices and Dockerize Them for Production]
 
 Please follow us https://twitter.com/oktadev[on Twitter @oktadev] and subscribe to https://www.youtube.com/c/oktadev[our YouTube channel] for more Spring Boot and microservices knowledge.
-
-[[changelog]]
-**Changelog:**
-
-* Mar 10, 2020: Updated to use Spring Boot 2.2.5 and Spring Cloud Hoxton SR3. Changes to this post can be viewed in https://github.com/oktadeveloper/okta-blog/pull/217[okta-blog#217]. Updates to the example application are in https://github.com/oktadeveloper/java-microservices-examples/pull/7[java-microservices-examples#7].
