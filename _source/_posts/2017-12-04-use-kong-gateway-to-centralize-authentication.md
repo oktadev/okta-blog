@@ -7,7 +7,7 @@ communities: [java]
 tags: [kong, api-gateway, api, gateway, spring, spring-boot]
 type: conversion
 changelog: 
-- 2021-03-25: Updated with refreshed video and new github repo reference. Changes to this article can be viewed in [oktadeveloper/okta-blog#570](https://github.com/oktadeveloper/okta-blog/pull/570).
+- 2021-03-25: Updated with refreshed video and new GitHub repo reference. Changes to this article can be viewed in [oktadeveloper/okta-blog#570](https://github.com/oktadeveloper/okta-blog/pull/570).
 ---
 
 **NOTE:** The video and code in this post has just been updated for 2021!
@@ -40,4 +40,4 @@ I created a screencast based on [this working example](https://github.com/oktade
 
 In this demo, I use [Docker](https://www.docker.com/) to create a container for Kong and another for a [Spring Boot](https://projects.spring.io/spring-boot/) app that understands the `x-userinfo` HTTP header.
 
-The slides used in the screencast [can be found on Github](https://github.com/dogeared/centralize-auth-with-kong-and-okta).
+The slides used in the screencast [can be found on GitHub](https://github.com/dogeared/centralize-auth-with-kong-and-okta).
