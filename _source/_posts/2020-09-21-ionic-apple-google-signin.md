@@ -52,40 +52,13 @@ The easiest way to add OIDC authentication to an Ionic app is with OktaDev Schem
 
 {% include setup/cli.md type="native" loginRedirectUri="[http://localhost:8100/callback,com.okta.dev-133337:/callback]" logoutRedirectUri="[http://localhost:8100/logout,com.okta.dev-133337:/logout]" %}
 
-<!--
-Before I show you how to do that, you'll need to create an Okta developer account and register your app to get a client ID. Head on over to [developer.okta.com/signup](https://developer.okta.com/signup) if you'd like to do this in your browser. 
-
-If you prefer the command line, install the [Okta CLI](https://github.com/oktadeveloper/okta-cli). Run `okta register` to sign up for a new account. 
-
-Log in to your Okta Developer account or use `okta apps create`. If you use your browser, go to **Applications** > **Add Application**. 
-
-On the Create New Application page, select **Native**. Name your app `Ionic Social`, and configure it as follows:
- 
-* Login redirect URIs: 
-  * `http://localhost:8100/callback`
-  * `com.okta.dev-133337:/callback` (where `dev-133337.okta.com` is your Okta Org URL)
-* Logout redirect URIs:
-  * `http://localhost:8100/logout`
-  * `com.okta.dev-133337:/logout`
-* Grant type allowed: 
-  - [x] **Authorization Code**
-  - [x] **Refresh Token**
-* Click **Done**
-
-If you're using the command line, you'll have to use your browser to adjust the redirect URIs. Your app's settings should look similar to the screenshot below.
-
-{% img blog/ionic-social-login/okta-native-app.png alt:"Okta Native app settings" width:"700" %}{: .center-image }
--->
-
 Run the following command to add a sign-in feature to your Ionic + Capacitor app. 
 
 ```shell
 ng add @oktadev/schematics@2.2.0 --platform=capacitor
 ```
 
-Running this command will prompt you for an issuer and client ID. If you used your browser to create an app, the client ID is displayed on your screen. You can find the issuer in your Okta dashboard at **API** > **Authorization Servers**. It usually looks something like `https://dev-133337.okta.com/oauth2/default`.
- 
-If you used the CLI, you should have this information in your terminal. You can run `okta apps` to see your apps and `okta apps config --app=<appName>` to get your app's info.
+When prompted for your issuer and client ID, use the values in your terminal. If you closed your terminal window, you can run `okta apps` to see your apps and `okta apps config --app=<clientId>` to get your app's info.
 
 This process will install several dependencies and a plethora of files to handle OIDC authentication. 
 
