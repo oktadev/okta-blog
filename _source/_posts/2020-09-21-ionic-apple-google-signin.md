@@ -50,7 +50,7 @@ Run `ionic serve` and make sure you can see the app in your browser.
 
 The easiest way to add OIDC authentication to an Ionic app is with OktaDev Schematics. 
 
-{% include setup/cli.md type="native" loginRedirectUri="http://localhost:8100/callback" logoutRedirectUri="http://localhost:8100/logout" %}
+{% include setup/cli.md type="native" loginRedirectUri="[http://localhost:8100/callback,com.okta.dev-133337:/callback]" logoutRedirectUri="[http://localhost:8100/logout,com.okta.dev-133337:/logout]" %}
 
 <!--
 Before I show you how to do that, you'll need to create an Okta developer account and register your app to get a client ID. Head on over to [developer.okta.com/signup](https://developer.okta.com/signup) if you'd like to do this in your browser. 
