@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Test Spring Boot Applications with JUnit 5"
+title: "Test Your Spring Boot Applications with JUnit 5"
 author: joy-foster
 by: contractor
 communities: [java]
@@ -449,15 +449,7 @@ To do this, you will need to have a "Service Application" set up with Okta, add 
 
 ### Integrate Secure Authentication into Your Code
 
-There are just a few steps to add authentication to your application.
-
-Add an `openid` scope to `src/main/resources/application.properties`:
-
-```properties
-okta.oauth2.scope=openid
-```
-
-Once you have the application context configured, all you need to do is add a single dependency to your `pom.xml` file and make one more Java file.
+There are just a couple steps to add authentication to your application. All you need to do is add a single dependency to your `pom.xml` file and make one more Java file.
 
 For the dependencies, add the Okta Spring Boot starter to the `pom.xml` file in the dependencies section:
 
@@ -471,7 +463,7 @@ For the dependencies, add the Okta Spring Boot starter to the `pom.xml` file in 
 <!-- security - end -->
 ```
 
-And the last step is to update the `SpringBootRestApiApplication` to include a static configuration subclass called `OktaOAuth2WebSecurityConfigurerAdapter`. Your `SpringBootRestApiApplication.java` file should be updated to look like this:
+Then, update the `SpringBootRestApiApplication` to include a static configuration subclass called `OktaOAuth2WebSecurityConfigurerAdapter`. Your `SpringBootRestApiApplication.java` file should be updated to look like this:
 
 ```java
 package com.example.joy.myFirstSpringBoot;

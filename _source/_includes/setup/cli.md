@@ -27,7 +27,7 @@ Select **
     {%- else -%}Other
     {%- endif -%}**. 
     {% if include.loginRedirectUri and include.logoutRedirectUri %}Then, change the Redirect URI to `{{ include.loginRedirectUri }}` and use `{{ include.logoutRedirectUri }}` for the Logout Redirect URI.
-    {% else %}Accept the default Redirect URI values provided for you.
+    {% else %}Accept the default Redirect URI values provided for you.{% if include.framework contains "Spring Boot" %} That is, a Login Redirect of `http://localhost:8080/login/oauth2/code/okta` and a Logout Redirect of `http://localhost:8080`.{% endif %}
     {% endif %}
   {% elsif include.type == "native" %}
     {% if include.loginRedirectUri == include.logoutRedirectUri %}
