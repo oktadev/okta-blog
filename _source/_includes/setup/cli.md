@@ -42,7 +42,7 @@ Use `{{ include.loginRedirectUri }}` for the Redirect URI and the Logout Redirec
 Use `{{ include.loginRedirectUri }}` for the Redirect URI and set the Logout Redirect URI to `{{ include.logoutRedirectUri }}`
     {%- endif -%}
 {%- if include.loginRedirectUri contains 'com.okta.' -%}
-(where `{{ include.loginRedirectUri | remove: 'com.okta.' | remove: ':/callback' }}.okta.com` is your Okta domain name). {% endif %}Your domain name is reversed to provide a unique scheme to open your app on a device.
+(where `{{ include.loginRedirectUri | remove: 'com.okta.' | remove: ':/callback' | remove: '[http://localhost:8100/callback,' | remove: ']' }}.okta.com` is your Okta domain name). {% endif %}Your domain name is reversed to provide a unique scheme to open your app on a device.
   {% endif %}
 {% endif %}
 
