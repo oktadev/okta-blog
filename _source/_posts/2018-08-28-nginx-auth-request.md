@@ -10,9 +10,9 @@ tweets:
 - "Add authentication to any application with the @nginx auth_request module #oauth #oidc"
 image: blog/nginx-auth-request/nginx-auth-request-sample.jpg
 type: conversion
+changelog:
+  - 2019-05-17: The Lasso project was renamed to Vouch in 2019, so all references to Lasso in this post have been updated to Vouch.
 ---
-
-
 
 Ever found yourself wanting to put an application behind a login form, but dreading writing all that code to deal with OAuth 2.0 or passwords? In this tutorial, I'll show you how to use the nginx `auth_request` module to protect any application running behind your nginx server with OAuth 2.0, without writing any code! Vouch, a microservice written in Go, handles the OAuth dance to any number of different auth providers so you don't have to.
 
@@ -214,9 +214,3 @@ For more information and tutorials about OAuth 2.0, check out some of our other 
 * [What is the OAuth 2.0 Implicit Grant Type?](/blog/2018/05/24/what-is-the-oauth2-implicit-grant-type)
 
 As always, we'd love to hear from you about this post, or really anything else! Hit us up in the comments, or on Twitter [@oktadev](https://twitter.com/OktaDev)!
-
-
-**Changelog:**
-
-* May 17, 2019: The Lasso project was renamed to Vouch in 2019, so all references to Lasso in this post have been updated to Vouch
-

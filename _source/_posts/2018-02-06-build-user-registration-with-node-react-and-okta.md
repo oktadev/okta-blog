@@ -10,6 +10,8 @@ tweets:
   - "Trying to add user registration into your node+react website? Here's a cool article which shows you exactly how to do it! "
   - "Check out @leebrandt's great article on adding user management into your Node & React apps! "
 type: conversion
+changelog:
+  - 2019-09-18: Updated to use the latest versions of dependencies. You can see the example app changes in [okta-node-react-registration-example#1](https://github.com/oktadeveloper/okta-node-react-registration-example/pull/1); changes to this post can be viewed in [okta-blog#20](https://github.com/oktadeveloper/okta-blog/pull/20).
 ---
 
 Today's internet users expect a personalized experience. Developers must learn to develop websites that provide that personalized experience while keeping their user's information private. Modern web applications also tend to have a server-side API and a client-side user interface. it can be challenging to get make both ends aware of the currently logged in user. In this tutorial, I will walk you through setting up a Node API that feeds a React UI, and build a user registration that keeps the user's information private and personal.
@@ -744,7 +746,3 @@ Also, check out other articles using Okta for authentication:
 - Matt Raible's Article on [Progressive Web Apps](https://developer.okta.com/blog/2017/07/20/the-ultimate-guide-to-progressive-web-applications)
 
 As always, if you have questions, comments, or concerns about the article you can post a comment below, email me at <lee.brandt@okta.com> or post your questions to the [developer forums](https://devforum.okta.com). For more articles and tutorials, follow us on Twitter [@OktaDev](https://twitter.com/oktadev).
-
-**Changelog:**
-
-* Sep 18, 2019: Updated to use the latest versions of dependencies. You can see the example app changes in [okta-node-react-registration-example#1](https://github.com/oktadeveloper/okta-node-react-registration-example/pull/1); changes to this post can be viewed in [okta-blog#20](https://github.com/oktadeveloper/okta-blog/pull/20).
