@@ -12,6 +12,8 @@ tweets:
 - "Combine @angular + @springboot in a single JAR, then use Jib to build a Docker image."
 image: blog/angular-docker/angular-docker-spring-boot-hug.png
 type: conversion
+changelog:
+  - 2020-06-18: Updated to Spring Boot 2.3.1, Angular 9.1.11, and the latest [Okta Heroku Add-on](https://elements.heroku.com/addons/okta). See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-angular-spring-boot-docker-example/pull/1). Changes to this article can be viewed in [oktadeveloper/okta-blog#331](https://github.com/oktadeveloper/okta-blog/pull/331).
 ---
 :toc: macro
 :page-liquid:
@@ -1676,8 +1678,3 @@ To learn more about Angular, Spring Boot, and Docker, see some of our other blog
 - https://developer.okta.com/blog/2017/10/11/developers-guide-to-docker-part-3[A Developer's Guide To Docker - Docker Compose]
 
 https://twitter.com/oktadev[Follow @oktadev on Twitter] for more posts like this one. We also have a https://youtube.com/c/oktadev[YouTube channel] you might enjoy. As always, please leave a comment below if you have any questions!
-
-[[changelog]]
-**Changelog:**
-
-* Jun 18, 2020: Updated to Spring Boot 2.3.1, Angular 9.1.11, and the latest https://elements.heroku.com/addons/okta[Okta Heroku Add-on]. See the code changes in the https://github.com/oktadeveloper/okta-angular-spring-boot-docker-example/pull/1[example app on GitHub]. Changes to this article can be viewed in https://github.com/oktadeveloper/okta-blog/pull/331[oktadeveloper/okta-blog#331].
