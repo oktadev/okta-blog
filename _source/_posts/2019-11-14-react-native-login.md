@@ -59,6 +59,10 @@ If you'd rather watch a video, [I created a screencast of this tutorial](https:/
 <iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/mkT_I5tm3Ig" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+
 ## Create a React Native Application
 
 The React Native CLI is a popular way to get started with React Native development. You can create a new application using its `init` command.
