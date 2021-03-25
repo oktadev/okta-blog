@@ -352,20 +352,6 @@ In this section, I will show you how to add authentication to your application. 
 
 If the user is not logged in the guard will redirect the user to a hosted login page on the Okta servers. Alternatively, the user may opt to click on a login link directly. In this case, the authentication service will redirect the user to the login page. Once the user is logged in, the login page will redirect the user back to a special route, usually called `/callback`, in the application. This route is managed by the `OktaCallbackComponent`. The callback component will decide where to redirect the user, depending on the original request and on the authentication status of the user.
 
-<!--
-Before you start, you will need to register a free developer account with Okta. Open your browser, navigate to [developer.okta.com](https://developer.okta.com), and click the **Create Free Account** button. In the form that appears next, enter your details. Complete your registration by clicking the **Get Started** button. 
-
-{% img blog/angular-login/create-okta-account.png alt:"Create Okta Developer Account" width:"800" %}{: .center-image }
-
-Once you have gone through the registration process you will be taken to your Okta dashboard. Select the **Applications** link in the top menu. Here you can see an overview of all the applications that you have linked to your Okta account. If you are a new member, this list will be empty. 
-
-To create your first application, click on the green button that says **Add Application**. On the screen that appears next, select **Single-Page App** and click **Next**. On the next screen, you can edit the settings. The Base URI should point to the location of your application. Since you are using the standard settings for the Angular development server, this should be set to `http://localhost:4200/`. 
-
-The Login Redirect URI is the location that the user will be redirected back to after a successful login. This should match the callback route in your application, so you need to set it to `http://localhost:4200/callback`. When you're done, click on the **Done** button. The resulting screen will provide you with a client ID which you need to copy and paste into your application.
-
-{% img blog/angular-login/okta-settings.png alt:"Angular app on Okta" width:"800" %}{: .center-image }
--->
-
 {% include setup/cli.md type="spa" framework="Angular" loginRedirectUri="http://localhost:4200/callback" %}
 
 To start implementing authentication in your application, you need to install the Okta Angular library. Open the terminal in the application directory and run the command:
