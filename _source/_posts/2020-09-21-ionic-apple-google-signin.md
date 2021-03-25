@@ -12,6 +12,8 @@ tweets:
 - "This guide shows you how to add external identity providers to @okta - in this case, Apple and Google. It's pretty slick!"
 image: blog/ionic-social-login/ionic-social-login.png
 type: conversion
+changelog: 
+- 2021-03-25: Updated to use the Okta CLI and the new Okta Admin Console. Changes to this post can be viewed in [okta-blog#615](https://github.com/oktadeveloper/okta-blog/pull/615/files#diff-ff0651ccde0fe674349d27ce75abf217c00e056447f52369c04e4acad58d70d8).
 ---
 
 Apple announced a Sign in with Apple service at its WWDC developer conference in June 2019. If you're familiar with social login with Google or Facebook, it's very similar. Most of these identity services use OAuth and OpenID Connect (OIDC), and Apple's implementation is similar. 
@@ -181,7 +183,7 @@ Make a note of your Team ID in the upper-right corner of your Apple developer da
 
 ### Add Apple as an Identity Provider in Okta
 
-Open your Okta developer console in a new tab and navigate to **Users** > **Social & Identity Providers** > **Add Identity Provider** > **Add Apple**. 
+Open your Okta developer console in a new tab and navigate to **Security** > **Identity Providers** > **Add Identity Provider** > **Add Apple**. 
 
 - **Name**: `Apple`
 - **Client ID**: `com.okta.developer.ionic` (your Services ID from Apple)
@@ -190,8 +192,6 @@ Open your Okta developer console in a new tab and navigate to **Users** > **Soci
 - **Scopes**: defaults (`name`, `email`, `openid`) are fine
 
 Click **Add Identity Provider**. Click the arrow next to your new IdP, and you'll see its ID.
-
-{% img blog/ionic-social-login/apple-identity-provider.png alt:"Apple Identity Provider" width:"800" %}{: .center-image }
 
 Copy this ID and open `src/app/auth/auth.service.ts` in a text editor. Add `auth_extras` as a property to `authConfig` and add your Apple IdP's ID as an `idp` property.
 
@@ -253,7 +253,7 @@ After transferring your domain, you'll need to create an origin CA certificate.
 
 Copy the **Origin Certificate** to a `tls.cert` file on your hard drive. Copy the **Private key** to `private.key`. 
 
-In Okta, go to **Customization** > **Domain Name** > **Edit** > **Get Started**. Enter a subdomain name (e.g., `id.mattraible.com`) and click **Next**. You'll be prompted to verify domain ownership. Add the specified `TXT` record on Cloudflare via the **DNS** > **+ Add record** option. 
+In Okta, go to **Settings** > **Customization** > **Custom URL Domain** > **Edit** > **Get Started**. Enter a subdomain name (e.g., `id.mattraible.com`) and click **Next**. You'll be prompted to verify domain ownership. Add the specified `TXT` record on Cloudflare via the **DNS** > **+ Add record** option. 
 
 Click **Verify** > **Next** on Okta.
 
@@ -281,7 +281,7 @@ You might notice that it has your Okta `dev-*` domain, rather than your custom d
 
 {% img blog/ionic-social-login/openid-configuration.png alt:"OIDC configuration endpoint JSON" width:"800" %}{: .center-image }
 
-You need to update your authorization server to use your custom domain to fix this. Log in to your Okta account and go to **API** > **Authorization Servers** > **default** > **Edit**. Change the **Issuer** to use **Custom URL**. 
+You need to update your authorization server to use your custom domain to fix this. Log in to your Okta account and go to **Security** > **API** > **Authorization Servers** > **default** > **Edit**. Change the **Issuer** to use **Custom URL**. 
 
 {% img blog/ionic-social-login/as-custom-url.png alt:"Authorization Server Custom URL" width:"700" %}{: .center-image }
 
