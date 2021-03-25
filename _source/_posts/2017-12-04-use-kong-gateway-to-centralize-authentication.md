@@ -10,7 +10,7 @@ changelog:
 - 2021-03-25: Updated with refreshed video and new github repo reference. Changes to this article can be viewed in [oktadeveloper/okta-blog#570](https://github.com/oktadeveloper/okta-blog/pull/570).
 ---
 
-**NOTE:** This video and code in this post has just been updated for 2021!
+**NOTE:** The video and code in this post has just been updated for 2021!
 
 A customer once asked me: "Hey – Can Okta integrate with Kong?" My first thought was: "What's Kong?" A Google result later, I was introduced to the [Kong API Gateway](https://getkong.org/) – an open-source API Gateway and Microservices management layer.
 
