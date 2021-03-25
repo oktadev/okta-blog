@@ -1,7 +1,13 @@
+{%- capture cliLink %}
+{%- if include.adoc -%}https://cli.okta.com[Okta CLI]
+{%- else -%}[Okta CLI](https://cli.okta.com)
+{%- endif -%}
+{%- endcapture -%}
+
 {% if include.signup == "false" %}
-Install the [Okta CLI](https://cli.okta.com) and run `okta login`.
+Install the {{ cliLink }} and run `okta login`.
 {% else %}
-Before you begin, you'll need a free Okta developer account. Install the [Okta CLI](https://cli.okta.com) and run `okta register` to sign up for a new account. If you already have an account, run `okta login`.
+Before you begin, you'll need a free Okta developer account. Install the {{ cliLink }} and run `okta register` to sign up for a new account. If you already have an account, run `okta login`.
 {% endif %}
 
 {%- if include.type == "spa" -%}
@@ -27,7 +33,7 @@ Select **
     {%- else -%}Other
     {%- endif -%}**. 
     {% if include.loginRedirectUri and include.logoutRedirectUri %}Then, change the Redirect URI to `{{ include.loginRedirectUri }}` and use `{{ include.logoutRedirectUri }}` for the Logout Redirect URI.
-    {% else %}Accept the default Redirect URI values provided for you.
+    {% else %}Accept the default Redirect URI values provided for you.{% if include.framework contains "Spring Boot" %} That is, a Login Redirect of `\http://localhost:8080/login/oauth2/code/okta` and a Logout Redirect of `\http://localhost:8080`.{% endif %}
     {% endif %}
   {% elsif include.type == "native" %}
 
@@ -141,4 +147,10 @@ https://developer.okta.com/docs/guides/sign-into-
 {%- endif -%}
 {%- endcapture -%}
 
-**NOTE**: You can also use the Okta Admin Console to create your app. See [Create a{% if (include.framework == "Angular") %}n{% endif %} {{ oktaAppType }} App{% if (include.type == "jhipster") %} on Okta{% endif %}]({% if (include.type == "jhipster") %}{{ jhipsterDocs }}{% else %}{{ oktaDocs }}{% endif %}) for more information.
+{%- capture docsLink %}
+{%- if (include.type == "jhipster") -%}{{ jhipsterDocs }}
+{%- else -%}{{ oktaDocs }}
+{%- endif -%}
+{%- endcapture -%}
+
+**NOTE**: You can also use the Okta Admin Console to create your app. See {% if include.adoc %}{{ docsLink }}{% endif %}[Create a{% if (include.framework == "Angular") %}n{% endif %} {{ oktaAppType }} App{% if (include.type == "jhipster") %} on Okta{% endif %}]{% unless include.adoc %}({{ docsLink }}){% endunless %} for more information.
