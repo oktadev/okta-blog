@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Test Your Spring Boot Applications with JUnit 5"
+title: "Test Spring Boot Applications with JUnit 5"
 author: joy-foster
 by: contractor
 communities: [java]
@@ -21,6 +21,10 @@ The application used for this post will be a basic REST API with endpoints to ca
 The main advantage of using the Spring Framework is the ability to inject your dependencies, which makes it much easier to swap out implementations for various purposes, but not least of all for unit testing. Spring Boot makes it even easier by allowing you to do much of the dependency injection with annotations instead of having to bother with a complicated `applicationContext.xml` file!
 
 > NOTE: For this post, I will be using Eclipse, as it is my preferred IDE. If you are using Eclipse as well, you will need to [install a version of Oxygen](https://www.eclipse.org/downloads/packages/installer) or beyond in order to have JUnit 5 (Jupiter) test support included. 
+
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
  
 ## Create a Spring Boot App for Testing with JUnit 5
 
