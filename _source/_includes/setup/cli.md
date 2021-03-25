@@ -36,8 +36,13 @@ Select **
     {% else %}Accept the default Redirect URI values provided for you.{% if include.framework contains "Spring Boot" %} That is, a Login Redirect of `\http://localhost:8080/login/oauth2/code/okta` and a Logout Redirect of `\http://localhost:8080`.{% endif %}
     {% endif %}
   {% elsif include.type == "native" %}
-
-Change the Redirect URI to `[com.okta.dev-133337:/callback,{{ include.loginRedirectUri }}]` and the Logout Redirect URI to `[com.okta.dev-133337:/logout,{{ include.logoutRedirectUri }}]`. The first value is your Okta domain name, reversed so it's a unique scheme to open your app on a device.
+    {% if include.loginRedirectUri == include.logoutRedirectUri %}
+Use `{{ include.loginRedirectUri }}` for the Redirect URI and the Logout Redirect URI 
+      {% else %}
+Use `{{ include.loginRedirectUri }}` for the Redirect URI and set the Logout Redirect URI to `{{ include.logoutRedirectUri }}`
+    {%- endif -%}
+{%- if include.loginRedirectUri contains 'com.okta.' -%}
+(where `{{ include.loginRedirectUri | remove: 'com.okta.' | remove: ':/callback' }}.okta.com` is your Okta domain name). {% endif %}Your domain name is reversed to provide a unique scheme to open your app on a device.
   {% endif %}
 {% endif %}
 
