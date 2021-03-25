@@ -12,6 +12,9 @@ tweets:
 type: conversion
 update-url: /blog/2020/09/21/ionic-apple-google-signin
 update-title: "Ionic + Sign in with Apple and Google"
+changelog:
+  - 2018-05-07: Updated instructions for creating an AVD with Android Studio 3.0.
+  - 2018-01-11: Updated to use Ionic CLI 3.19.0 and angular-oauth2-oidc 3.1.4. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-ionic-auth-example/pull/6). Changes to this article can be viewed [in this pull request](https://github.com/oktadeveloper/okta.github.io/pull/1628).
 ---
 
 With Okta and OpenID Connect (OIDC) you can easily integrate authentication into an Ionic application, and never have to build it yourself again. OIDC allows you to authenticate directly against the [Okta API](https://developer.okta.com/product/), and this article shows you how to do just that in an Ionic application. I'll demo how to log in with OIDC redirect, using Okta's Auth SDK as well as how to use OAuth with Cordova's in-app browser; user registration is omitted as the feature is still under active development.
@@ -670,8 +673,3 @@ To learn more about Ionic, Angular, or Okta, please see the following resources:
 * [Adding Authentication to your Angular PWA](/blog/2017/06/13/add-authentication-angular-pwa)
 * [Tutorial: Develop a Mobile App With Ionic and Spring Boot](/blog/2017/05/17/develop-a-mobile-app-with-ionic-and-spring-boot)
 * [Build Your First Progressive Web Application with Angular and Spring Boot](/blog/2017/05/09/progressive-web-applications-with-angular-and-spring-boot)
-
-**Changelog:**
-
-* Mar 7, 2018: Updated instructions for creating an AVD with Android Studio 3.0.
-* Jan 11, 2018: Updated to use Ionic CLI 3.19.0 and angular-oauth2-oidc 3.1.4. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-ionic-auth-example/pull/6). Changes to this article can be viewed [in this pull request](https://github.com/oktadeveloper/okta.github.io/pull/1628).
