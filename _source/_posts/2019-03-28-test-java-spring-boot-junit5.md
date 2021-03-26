@@ -21,6 +21,10 @@ The application used for this post will be a basic REST API with endpoints to ca
 The main advantage of using the Spring Framework is the ability to inject your dependencies, which makes it much easier to swap out implementations for various purposes, but not least of all for unit testing. Spring Boot makes it even easier by allowing you to do much of the dependency injection with annotations instead of having to bother with a complicated `applicationContext.xml` file!
 
 > NOTE: For this post, I will be using Eclipse, as it is my preferred IDE. If you are using Eclipse as well, you will need to [install a version of Oxygen](https://www.eclipse.org/downloads/packages/installer) or beyond in order to have JUnit 5 (Jupiter) test support included. 
+
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
  
 ## Create a Spring Boot App for Testing with JUnit 5
 
@@ -441,37 +445,11 @@ To do this, you will need to have a "Service Application" set up with Okta, add 
 
 ### Create an OpenID Connect Application
 
-You will need to create an OpenID Connect Application in Okta to get your unique values to perform authentication.
-
-To do this, you must first log in to your Okta Developer account (or [sign up](https://developer.okta.com/signup/) if you don't have an account).
-
-Once in your Okta Developer dashboard, click on the **Applications** tab at the top of the screen and then click on the **Add Application** button.
-
-{% img blog/junit5-spring-boot/applications.png alt:"Applications Listing" width:"800" %}{: .center-image }
-
-You will see the following screen. Click on the **Service** tile and then click **Next**.
-
-{% img blog/junit5-spring-boot/new-application.png alt:"Create New Application" width:"800" %}{: .center-image }
-
-The next screen will prompt you for a name for your application. Select something that makes sense and click **Done**.
-
-The application will be created and you will be shown a screen that shows your client credentials including a Client ID and a Client secret. You can get back to this screen anytime by going to the **Applications** tab and then clicking on the name of the application you just created.
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
 
 ### Integrate Secure Authentication into Your Code
 
-There are just a few steps to add authentication to your application.
-
-Create a file called `src/main/resources/application.properties` with the following contents:
-
-```properties
-okta.oauth2.issuer=https://{yourOktaDomain}/oauth2/default
-okta.oauth2.clientId={clientId}
-okta.oauth2.clientSecret={clientSecret}
-okta.oauth2.scope=openid
-```
-
-Replace the items inside `{...}` with your values. The `{clientId}` and `{clientSecret}` values will come from the application you just created. 
-Once you have the application context configured, all you need to do is add a single dependency to your `pom.xml` file and make one more Java file.
+There are just a couple steps to add authentication to your application. All you need to do is add a single dependency to your `pom.xml` file and make one more Java file.
 
 For the dependencies, add the Okta Spring Boot starter to the `pom.xml` file in the dependencies section:
 
@@ -485,7 +463,7 @@ For the dependencies, add the Okta Spring Boot starter to the `pom.xml` file in 
 <!-- security - end -->
 ```
 
-And the last step is to update the `SpringBootRestApiApplication` to include a static configuration subclass called `OktaOAuth2WebSecurityConfigurerAdapter`. Your `SpringBootRestApiApplication.java` file should be updated to look like this:
+Then, update the `SpringBootRestApiApplication` to include a static configuration subclass called `OktaOAuth2WebSecurityConfigurerAdapter`. Your `SpringBootRestApiApplication.java` file should be updated to look like this:
 
 ```java
 package com.example.joy.myFirstSpringBoot;
@@ -520,15 +498,7 @@ public class SpringBootRestApiApplication {
 
 In order to test, you will need to be able to generate a valid token. Typically, the client application would be responsible for generating the tokens that it would use for authentication in the API. However, since you have no client application, you need a way to generate tokens in order to test the application.
 
-An easy way to achieve a token is to generate one using [OpenID Connect Debugger](https://oidcdebugger.com/). First, however, you must have a client **Web** application setup in Okta to use with OpenID Connect's implicit flow. 
-
-To do this, go back to the Okta developer console and select **Applications** > **Add Application**, but this time, select the **Web** tile.
-
-On the next screen, you will need to fill out some information. Set the name to something you will remember as your web application. Set the **Login redirect URIs** field to `https://oidcdebugger.com/debug` and **Grant Type Allowed** to **Hybrid**. Click **Done** and copy the client ID for the next step.
-
-{% img blog/junit5-spring-boot/oidc-app-settings.png alt:"OIDC Application Settings" width:"700" %}{: .center-image }
-
-Now, navigate to the [OpenID Connect debugger](https://oidcdebugger.com/) website, fill the form in like the picture below (do not forget to fill in the client ID for your recently created Okta **web** application). The `state` field must be filled but can contain any characters. The Authorize URI should begin with your domain URL (found on your Okta dashboard):
+{% include setup/oidcdebugger.md %}
 
 {% img blog/junit5-spring-boot/oidc-debugger.png alt:"OIDC Debugger" width:"475" %}{: .center-image }
 
