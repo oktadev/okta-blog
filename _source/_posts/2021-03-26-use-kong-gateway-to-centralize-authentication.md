@@ -28,7 +28,7 @@ In this case, *only* the Kong API gateway is interacting with Okta. Kong then pa
 
 I created a screencast based on [this working example](https://github.com/oktadeveloper/okta-kong-origin-example).
 
-<div style="width: 560px; margin: 0 auto">
+<div style="text-align: center; margin-bottom: 1.25rem">
   <iframe width="560" height="315" src="https://www.youtube.com/embed/G7hF017s1X8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
