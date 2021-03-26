@@ -33,11 +33,16 @@ Select **
     {%- else -%}Other
     {%- endif -%}**. 
     {% if include.loginRedirectUri and include.logoutRedirectUri %}Then, change the Redirect URI to `{{ include.loginRedirectUri }}` and use `{{ include.logoutRedirectUri }}` for the Logout Redirect URI.
-    {% else %}Accept the default Redirect URI values provided for you.{% if include.framework contains "Spring Boot" %} That is, a Login Redirect of `\http://localhost:8080/login/oauth2/code/okta` and a Logout Redirect of `\http://localhost:8080`.{% endif %}
+    {% else %}Accept the default Redirect URI values provided for you.{% if include.framework contains "Spring Boot" %} That is, a Login Redirect of `{% if include.adoc %}\{% endif %}http://localhost:8080/login/oauth2/code/okta` and a Logout Redirect of `{% if include.adoc %}\{% endif %}http://localhost:8080`.{% endif %}
     {% endif %}
   {% elsif include.type == "native" %}
-
-Change the Redirect URI to `[com.okta.dev-133337:/callback,{{ include.loginRedirectUri }}]` and the Logout Redirect URI to `[com.okta.dev-133337:/logout,{{ include.logoutRedirectUri }}]`. The first value is your Okta domain name, reversed so it's a unique scheme to open your app on a device.
+    {% if include.loginRedirectUri == include.logoutRedirectUri %}
+Use `{{ include.loginRedirectUri }}` for the Redirect URI and the Logout Redirect URI 
+      {% else %}
+Use `{{ include.loginRedirectUri }}` for the Redirect URI and set the Logout Redirect URI to `{{ include.logoutRedirectUri }}`
+    {%- endif -%}
+{%- if include.loginRedirectUri contains 'com.okta.' -%}
+(where `{{ include.loginRedirectUri | remove: 'com.okta.' | remove: ':/callback' | remove: '[http://localhost:8100/callback,' | remove: ']' }}.okta.com` is your Okta domain name). {% endif %}Your domain name is reversed to provide a unique scheme to open your app on a device.
   {% endif %}
 {% endif %}
 
@@ -49,13 +54,13 @@ Change the Redirect URI to `[com.okta.dev-133337:/callback,{{ include.loginRedir
 The Okta CLI streamlines configuring a JHipster app and does several things for you:
 
 1. Creates an OIDC app with the correct redirect URIs: 
-  - login: `http://localhost:8080/login/oauth2/code/oidc` and `http://localhost:8761/login/oauth2/code/oidc`
-  - logout: `http://localhost:8080` and `http://localhost:8761`
+  - login: `{% if include.adoc %}\{% endif %}http://localhost:8080/login/oauth2/code/oidc` and `{% if include.adoc %}\{% endif %}http://localhost:8761/login/oauth2/code/oidc`
+  - logout: `{% if include.adoc %}\{% endif %}http://localhost:8080` and `{% if include.adoc %}\{% endif %}http://localhost:8761`
 2. Creates `ROLE_ADMIN` and `ROLE_USER` groups that JHipster expects
 3. Adds your current user to the `ROLE_ADMIN` and `ROLE_USER` groups
 4. Creates a `groups` claim in your default authorization server and adds the user's groups to it
 
-**NOTE:** The `http://localhost:8761*` redirect URIs are for the JHipster Registry, which is often used when creating microservices with JHipster. The Okta CLI adds these by default. 
+{% if include.adoc %}NOTE{% else %}**NOTE**{% endif %}: The `{% if include.adoc %}\{% endif %}http://localhost:8761*` redirect URIs are for the JHipster Registry, which is often used when creating microservices with JHipster. The Okta CLI adds these by default. 
 
 You will see output like the following when it's finished:
 {%- else -%}
@@ -153,4 +158,4 @@ https://developer.okta.com/docs/guides/sign-into-
 {%- endif -%}
 {%- endcapture -%}
 
-**NOTE**: You can also use the Okta Admin Console to create your app. See {% if include.adoc %}{{ docsLink }}{% endif %}[Create a{% if (include.framework == "Angular") %}n{% endif %} {{ oktaAppType }} App{% if (include.type == "jhipster") %} on Okta{% endif %}]{% unless include.adoc %}({{ docsLink }}){% endunless %} for more information.
+{% if include.adoc %}TIP{% else %}**NOTE**{% endif %}: You can also use the Okta Admin Console to create your app. See {% if include.adoc %}{{ docsLink }}{% endif %}[Create a{% if (include.framework == "Angular") %}n{% endif %} {{ oktaAppType }} App{% if (include.type == "jhipster") %} on Okta{% endif %}]{% unless include.adoc %}({{ docsLink }}){% endunless %} for more information.
