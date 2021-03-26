@@ -29,7 +29,7 @@ In this case, *only* the Kong API gateway is interacting with Okta. Kong then pa
 I created a screencast based on [this working example](https://github.com/oktadeveloper/okta-kong-origin-example).
 
 <div style="text-align: center; margin-bottom: 1.25rem">
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/G7hF017s1X8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/G7hF017s1X8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 In this demo, I use [Docker](https://www.docker.com/) to create a container for Kong and another for a [Spring Boot](https://projects.spring.io/spring-boot/) app that understands the `x-userinfo` HTTP header.
