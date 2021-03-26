@@ -6,17 +6,9 @@ by: advocate
 communities: [java]
 tags: [kong, api-gateway, api, gateway, spring, spring-boot]
 type: conversion
-changelog: 
-- 2021-03-25: Updated with refreshed video and new GitHub repo reference. Changes to this article can be viewed in [oktadeveloper/okta-blog#570](https://github.com/oktadeveloper/okta-blog/pull/570).
-update-url: /blog/2021/03/26/use-kong-gateway-to-centralize-authentication
-update-title: "Use Kong Gateway to Centralize Authentication"
 ---
 
-**NOTE:** The video and code in this post has just been updated for 2021!
-
-A customer once asked me: "Hey – Can Okta integrate with Kong?" My first thought was: "What's Kong?" A Google result later, I was introduced to the [Kong API Gateway](https://getkong.org/) – an open-source API Gateway and Microservices management layer.
-
-Spoiler alert: You totally *can* integrate Kong with Okta using its [OpenID Connect](https://github.com/nokia/kong-oidc) plugin.
+A customer once asked me: "Hey – Can Okta integrate with Kong?" Spoiler alert: You totally *can* integrate Kong with Okta using its [OpenID Connect](https://github.com/nokia/kong-oidc) plugin.
 
 Still stuck wondering what an API gateway even is? Here's a metaphor that works for me: You know that sci-fi movie trope in which you have a centralized hub that "jumps" you to other places in the galaxy? In that kind of system all the screening and security happens at the hub. It's the same with Kong (and other API gateways).
 
