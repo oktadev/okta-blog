@@ -20,7 +20,7 @@ type: awareness
 --- introduction
 Comments about the bootifulpodcast
 Comments about RequestPostProcessor
-Comments about mocking limitations on audience, expiration, issuer
+
 
 Prerequisites:
 - [HTTPie](https://httpie.io/)
@@ -28,12 +28,6 @@ Prerequisites:
 - [Okta CLI](https://cli.okta.com/)
 
 # Mock Test in a Webflux Gateway
-Create discovery
-Create gateway x
-Test oidclogin x
-Test no auth x
-Document autoconfiguration boot test features
-Document security test features x
 
 Let's start by building and testing a Webflux API Gateway with Okta OIDC login enabled. With HTTPie and Spring Initializr create and download a Spring Boot maven project:
 
@@ -376,7 +370,7 @@ public class MongoDBSeeder {
 }
 ```
 
-Get the MongoDB dump files `listingsAndReviews.bson`, `listingsAndreviews.metadata.json` from [Github](https://github.com/huynhsamha/quick-mongo-atlas-datasets/tree/master/dump/sample_airbnb). Place the files in the location specified in the porperty `mongo-dump`, in the `application.yml`.
+Get the MongoDB dump files `listingsAndReviews.bson`, `listingsAndreviews.metadata.json` from [Github](https://github.com/huynhsamha/quick-mongo-atlas-datasets/tree/master/dump/sample_airbnb). Place the files in the location specified in the property `mongo-dump`, in the `application.yml`.
 
 Add a model class `AirbnbListing`:
 
@@ -616,34 +610,540 @@ Try the tests with:
 ./mvnw test
 ```
 
-Document mongosh
 
-** Manual WebTestClient configuration to check audience validation**
+Document mongosh?
+
+
 
 # Mock Test for an OpaqueToken Webflux Resource Server
 
 Difference with JWT validation
-Create service
+
+Now let's create a reactive microservice with OpaqueToken authentication.
+
+```shell
+http --download https://start.spring.io/starter.zip \
+  type==maven-project \
+  language==java \
+  bootVersion==2.4.3.RELEASE \
+  baseDir==theaters \
+  groupId==com.okta.developer \
+  artifactId==theaters \
+  name==theaters \
+  packageName==com.okta.developer.theaters \
+  packaging==jar \
+  javaVersion==11 \
+  dependencies==lombok,devtools,data-mongodb-reactive,webflux,flapdoodle-mongo,oauth2-resource-server,cloud-eureka
+```
+
+```shell
+unzip theaters.zip
+```
+
+Add `com.nimbusds` dependency, `spring-security-test` to the `pom.xml`, required for token introspection. Remove the `test` scope in flapdoodle:
+```xml
+<dependency>
+  <groupId>com.nimbusds</groupId>
+  <artifactId>oauth2-oidc-sdk</artifactId>
+  <version>8.19</version>
+  <scope>runtime</scope>
+</dependency>
+<dependency>
+  <groupId>org.springframework.security</groupId>
+  <artifactId>spring-security-test</artifactId>
+  <version>5.4.5</version>
+  <scope>test</scope>
+</dependency>
+<dependency>
+  <groupId>de.flapdoodle.embed</groupId>
+  <artifactId>de.flapdoodle.embed.mongo</artifactId>
+</dependency>
+```
+
+Token instrospection involves a call to the authorization server, so create an client app with OktaCLI, as illustrated for the `api-gateway`.
+- Type of Application: Web
+- Type of Application: Spring Boot
+- Redirect URI: Default
+- Post Logout Redirect URI: Default
+
+Rename `application.properties` to `application.yml` and set the following content:
+
+```yml
+server:
+  port: 8082
+
+spring:
+  application:
+    name: theater
+  data:
+    mongodb:
+      port: 27018
+      database: theaters
+  security:
+    oauth2:
+      resourceserver:
+        opaque-token:
+          introspection-uri: https://{yourOktaDomain}/oauth2/default/v1/introspect
+          client-secret: TjduFTfIYlSRH2Tq1XZMfjkhxRkeAUv9L73seNiI
+          client-id: 0oaec0y8nDy3Hi6o75d6
+
+mongo-dump: /home/indiepopart/mongodb/theaters.bson
+```
+Create the reactive version of the `MongoDBSeeder` class:
+
+```java
+package com.okta.developer.theaters;
+
+import com.mongodb.reactivestreams.client.MongoClient;
+import com.mongodb.reactivestreams.client.MongoCollection;
+import com.mongodb.reactivestreams.client.MongoDatabase;
+import de.flapdoodle.embed.mongo.MongoRestoreExecutable;
+import de.flapdoodle.embed.mongo.MongoRestoreProcess;
+import de.flapdoodle.embed.mongo.MongoRestoreStarter;
+import de.flapdoodle.embed.mongo.config.IMongoRestoreConfig;
+import de.flapdoodle.embed.mongo.config.MongoRestoreConfigBuilder;
+import de.flapdoodle.embed.mongo.config.Net;
+import de.flapdoodle.embed.mongo.distribution.Version;
+import de.flapdoodle.embed.process.runtime.Network;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.context.event.EventListener;
+import org.springframework.stereotype.Component;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
+import java.io.File;
+import java.io.IOException;
+
+@Component
+@Profile("seed")
+public class MongoDBSeeder {
+
+    private static Logger logger = LoggerFactory.getLogger(MongoDBSeeder.class);
+
+    @Value("${mongo-dump}")
+    private String mongoDump;
+
+    @Value("${spring.data.mongodb.port}")
+    private int mongoPort;
+
+    @Autowired
+    private MongoClient mongoClient;
+
+    @EventListener
+    public void seed(ContextRefreshedEvent event) {
+
+
+        Flux<String> databaseNames = Flux.from(mongoClient.listDatabaseNames());
+        databaseNames.subscribe(name -> {
+            logger.info("DB: {}", name);
+        });
+
+        restore();
+
+        databaseNames = Flux.from(mongoClient.listDatabaseNames());
+        databaseNames.subscribe(database -> {
+            logger.info("DB: {}", database);
+            if ("theaters".equalsIgnoreCase(database)){
+                MongoDatabase db = mongoClient.getDatabase(database);
+
+                Flux<String> collectionNames = Flux.from(db.listCollectionNames());
+                collectionNames.subscribe(collection -> {
+                    logger.info("Collection: {}", collection);
+                    MongoCollection mongoCollection = db.getCollection(collection);
+                    Mono<Long> count = Mono.from(mongoCollection.countDocuments());
+                    count.subscribe(c -> {
+                        logger.info("Documents count {}", c);
+                    });
+                });
+            }
+        });
+
+    }
+
+
+     public void restore() {
+        try {
+
+            File file = new File(mongoDump);
+            if (!file.exists()) {
+                throw new RuntimeException("File does not exist");
+            }
+            String name =  file.getAbsolutePath();
+
+
+            IMongoRestoreConfig mongoconfig= new MongoRestoreConfigBuilder()
+                    .version(Version.Main.PRODUCTION)
+                    .net(new Net(mongoPort, Network.localhostIsIPv6()))
+                    .db("theaters")
+                    .collection("theaters")
+                    .dropCollection(true)
+                    .dir(name)
+                    .build();
+
+            MongoRestoreExecutable mongoRestoreExecutable = MongoRestoreStarter.getDefaultInstance().prepare(mongoconfig);
+            MongoRestoreProcess mongoRestore = mongoRestoreExecutable.start();
+            mongoRestore.stop();
+        } catch (IOException e) {
+            logger.error("Unable to restore mongodb", e);
+        }
+    }
+}
+```
+Get the MongoDB dump files `theaters.bson`, `theaters.metadata.json` from [Github](https://github.com/huynhsamha/quick-mongo-atlas-datasets/tree/master/dump/sample_mflix). Place the files in the location specified in the property `mongo-dump`, in the `application.yml`.
+
+Add the model class `Location` to map some of the fields in the dataset:
+```java
+package com.okta.developer.theaters.model;
+
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Location {
+
+    private GeoJsonPoint geo;
+}
+```
+
+Add the `Theater` model class:
+
+```java
+package com.okta.developer.theaters.model;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document("theaters")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Theater {
+
+    @Id
+    private String id;
+    private Location location;
+
+}
+```
+
+Create the `TheaterRepository` interface:
+
+```java
+package com.okta.developer.theaters.repository;
+
+import com.okta.developer.theaters.model.Theater;
+import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
+
+
+public interface TheaterRepository extends ReactiveMongoRepository<Theater, String> {
+}
+```
+
+As Spring Data Rest does not support Webflux, create a `TheatersController`:
+```java
+package com.okta.developer.theaters.controller;
+
+import com.okta.developer.theaters.repository.TheaterRepository;
+import com.okta.developer.theaters.model.Theater;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
+@RestController
+public class TheaterController {
+
+    private TheaterRepository theaterRepository;
+
+    public TheaterController(TheaterRepository theaterRepository){
+        this.theaterRepository = theaterRepository;
+    }
+
+    @GetMapping("/theater")
+    public Flux<Theater> getAllTheaters(){
+        return theaterRepository.findAll();
+    }
+
+    @PostMapping("/theater")
+    @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasAuthority('theater_admin')")
+    public Mono<Theater> saveTheater(@RequestBody Theater theater){
+        return theaterRepository.save(theater);
+    }
+
+}
+```
+
+The POST `/theater` endpoint requires `theater_admin` authority to proceed with the persistence.
+Create a custom `JwtOpaqueTokenIntrospector` to parse authorities from the `groups` claim in the accessToken.
+
+```java
+package com.okta.developer.theaters.security;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.oauth2.core.DefaultOAuth2AuthenticatedPrincipal;
+import org.springframework.security.oauth2.core.OAuth2AuthenticatedPrincipal;
+import org.springframework.security.oauth2.server.resource.introspection.NimbusReactiveOpaqueTokenIntrospector;
+import org.springframework.security.oauth2.server.resource.introspection.ReactiveOpaqueTokenIntrospector;
+import reactor.core.publisher.Mono;
+
+import javax.annotation.PostConstruct;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+public class JwtOpaqueTokenIntrospector implements ReactiveOpaqueTokenIntrospector {
+
+
+    @Autowired
+    private OAuth2ResourceServerProperties oAuth2;
+    private ReactiveOpaqueTokenIntrospector delegate;
+
+
+    @PostConstruct
+    private void setUp(){
+         delegate =
+                new NimbusReactiveOpaqueTokenIntrospector(oAuth2.getOpaquetoken().getIntrospectionUri(),
+                        oAuth2.getOpaquetoken().getClientId(),
+                        oAuth2.getOpaquetoken().getClientSecret());
+    }
+
+    public Mono<OAuth2AuthenticatedPrincipal> introspect(String token) {
+        return this.delegate.introspect(token)
+                .flatMap(principal -> enhance(principal));
+    }
+
+
+    private Mono<OAuth2AuthenticatedPrincipal> enhance(OAuth2AuthenticatedPrincipal principal){
+        Collection<GrantedAuthority> authorities = extractAuthorities(principal);
+        OAuth2AuthenticatedPrincipal enhanced = new DefaultOAuth2AuthenticatedPrincipal(principal.getAttributes(), authorities);
+        return Mono.just(enhanced);
+    }
+
+
+    private Collection<GrantedAuthority> extractAuthorities(OAuth2AuthenticatedPrincipal principal) {
+        Collection<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.addAll(principal.getAuthorities());
+
+        List<String> groups = principal.getAttribute("groups");
+        groups.stream()
+                .map(SimpleGrantedAuthority::new)
+                .forEach(authorities::add);
+
+        return authorities;
+    }
+}
+```
+Add `SecurityConfiguration` class, to configure `opakeToken` for authentication.
+
+```java
+package com.okta.developer.theaters.security;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
+import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
+import org.springframework.security.config.web.server.ServerHttpSecurity;
+import org.springframework.security.oauth2.server.resource.introspection.ReactiveOpaqueTokenIntrospector;
+import org.springframework.security.web.server.SecurityWebFilterChain;
+
+
+@EnableWebFluxSecurity
+@EnableReactiveMethodSecurity
+public class SecurityConfiguration {
+
+
+    @Bean
+    public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
+        return http    .csrf().disable()
+                .authorizeExchange()
+                .anyExchange().authenticated()
+                .and()
+                .oauth2ResourceServer()
+                .opaqueToken().and().and().build();
+
+    }
+
+    @Bean
+    public ReactiveOpaqueTokenIntrospector introspector(){
+        return new JwtOpaqueTokenIntrospector();
+    }
+}
+```
+
+
+Update `TheatersApplicationTests` to disable eurkea client and the embedded MongoDB:
+
+```java
+package com.okta.developer.theaters;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+
+@SpringBootTest
+@ActiveProfiles({"test", "exclude"})
+class TheatersApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}
+```
+ Create `src/test/resources/application-test.yml` with the following content:
+
+```yml
+spring:
+  cloud:
+    discovery:
+      enabled: false
+```
+
+
+Create `src/test/resources/application-exclude.yml` with the following content:
+
+```yml
+spring:
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration
+```
+
+Now, create `TheaterControllerTest` to verify the endpoints authoization.
+
+```java
+package com.okta.developer.theaters.controller;
+
+import com.okta.developer.theaters.model.Location;
+import com.okta.developer.theaters.model.Theater;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.web.reactive.server.WebTestClient;
+
+import static org.springframework.security.test.web.reactive.server.SecurityMockServerConfigurers.mockOpaqueToken;
+import static org.springframework.web.reactive.function.BodyInserters.fromValue;
+
+@SpringBootTest
+@AutoConfigureWebTestClient
+@ActiveProfiles({"test", "seed"})
+public class TheaterControllerTest {
+
+
+    @Autowired
+    private WebTestClient client;
+
+
+    @Test
+    public void collectionGet_noAuth_returnsUnauthorized() throws Exception {
+        this.client.get().uri("/theater").exchange().expectStatus().isUnauthorized();
+    }
+
+    @Test
+    public void collectionGet_withValidOpaqueToken_returnsOk() throws Exception {
+        this.client.mutateWith(mockOpaqueToken()).get().uri("/theater").exchange().expectStatus().isOk();
+
+    }
+
+    @Test
+    public void post_withMissingAuthorities_returnsFodbidden() throws Exception{
+        Theater theater = new Theater();
+        theater.setId("123");
+        theater.setLocation(new Location());
+        this.client.mutateWith(mockOpaqueToken())
+                .post().uri("/theater").body(fromValue(theater))
+                .exchange().expectStatus().isForbidden();
+    }
+
+    @Test
+    public void post_withValidOpaqueToken_returnsCreated() throws Exception{
+        Theater theater = new Theater();
+        theater.setLocation(new Location());
+        this.client.mutateWith(mockOpaqueToken().authorities(new SimpleGrantedAuthority("theater_admin")))
+                .post().uri("/theater").body(fromValue(theater))
+                .exchange()
+                .expectStatus().isCreated()
+                .expectBody().jsonPath("$.id").isNotEmpty();
+    }
+}
+
+```
+
+The test `collectionGet_noAuth_returnsUnauthorized` verifies the access is denied if there is no token in the request.
+
+The test `collectionGet_withValidOpaqueToken_returnsOk` sets a mock opaqueToken in the request, so the controller must return 200 Ok.
+
+The test `post_withMissingAuthorities_returnsFodbidden` verifies that without the required authorities, the controller rejects the request with 403 Forbidden.
+
+The test `post_withValidOpaqueToken_returnsCreated` verifies that if `theater_admin` authority is present in the token, the create request will pass, returning the new `theater` in the response body.
+
+
+Again, try the tests with:
+
+```shell
+./mvnw test
+```
+
 Document how to find introspection uri
-Configure auhtorities
-Configure flappoodle with MongoDB sample data
-Spring DATA Rest not supported in Webflux
-Authorities extraction -> rebuild token
-Test no auth
-Test GET
-Test POST
-
-# On Mocking
-
-Why test passes with different authentication than configured (oidcLogin, jwt, opaque)
-Expiration not validated
-Audience not validated
-Issuer not validated
 
 
+# On Mocking Requests
+
+Spring Security Test documentation indicates that when testing with `WebTestClient` and `mockOpaqueToken()`, the request will pass correctly through any authentication API, and the mock authentication object will be available for the authorization mechanism to verify.
+That is probably the reason why an invalid audience, expiration or issuer in the token attributes is ignored in this kind of test.
+For example, the following `theaters` test will pass:
+
+```java
+@Test
+public void collectionGet_withInvalidOpaqueToken_returnsUnauthorized() throws Exception {
+    this.client.mutateWith(mockOpaqueToken()
+            .attributes(attrs -> attrs.put("aud", "ïnvalid"))
+            .attributes(attrs -> attrs.put("iss", "ïnvalid"))
+            .attributes(attrs -> attrs.put("ext", Instant.MIN)))
+            .get().uri("/theater").exchange().expectStatus().isOk();
+}
+```
+
+In the same way, if the `WebTestClient` mocks a different type of authentication than the expected, the test might pass as long as the controller does not inject an incompatible authentication type. For example, the `listings` service expects Jwt authentication, but the following test will pass:
+
+```java
+@Test
+public void collectionGet_withOpaqueToken_returnsOk() throws Exception {
+    this.mockMvc.perform(get("/listings").with(opaqueToken())).andExpect(status().isOk());
+}
+```
+
+Let's run an end to end test using curl, to verify the audience is enforced in both services.
+
+Create discovery
 
 
 Live example
+create eureka
+add gateway routing
+login
+inspect access token
+httpie listings
+httpie theater
 
 
 # Learn More
