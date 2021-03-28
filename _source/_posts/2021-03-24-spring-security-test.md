@@ -69,6 +69,14 @@ The OktaCLI will create the client application and configure the issuer, clientI
 Rename `application.properties` to `application.yml`, and reformat to yaml syntax:
 
 ```yml
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
 okta:
   oauth2:
     issuer: https://{yourOktaDomain}/oauth2/default
@@ -264,7 +272,7 @@ server:
 
 spring:
   application:
-    name: listings
+    name: listing
   data:
     mongodb:
       port: 27017
@@ -418,7 +426,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.security.access.prepost.PreAuthorize;
 
-@RepositoryRestResource(collectionResourceRel = "airbnb", path="listings")
+@RepositoryRestResource(collectionResourceRel = "airbnb", path="listing")
 public interface AirbnbListingRepository extends MongoRepository<AirbnbListing, String> {
 
     @Override
@@ -565,12 +573,12 @@ public class AirbnbListingMvcTest {
 
     @Test
     public void collectionGet_noAuth_returnsUnauthorized() throws Exception {
-        this.mockMvc.perform(get("/listings")).andExpect(status().isUnauthorized());
+        this.mockMvc.perform(get("/listing")).andExpect(status().isUnauthorized());
     }
 
     @Test
     public void collectionGet_withValidJwtToken_returnsOk() throws Exception {
-        this.mockMvc.perform(get("/listings").with(jwt())).andExpect(status().isOk());
+        this.mockMvc.perform(get("/listing").with(jwt())).andExpect(status().isOk());
     }
 
     @Test
@@ -578,7 +586,7 @@ public class AirbnbListingMvcTest {
         AirbnbListing listing = new AirbnbListing();
         listing.setName("test");
         String json = objectMapper.writeValueAsString(listing);
-        this.mockMvc.perform(post("/listings").content(json).with(jwt()))
+        this.mockMvc.perform(post("/listing").content(json).with(jwt()))
                 .andExpect(satus().isForbidden());
     }
 
@@ -587,7 +595,7 @@ public class AirbnbListingMvcTest {
         AirbnbListing listing = new AirbnbListing();
         listing.setName("test");
         String json = objectMapper.writeValueAsString(listing);
-        this.mockMvc.perform(post("/listings").content(json).with(jwt().authorities(new SimpleGrantedAuthority("listing_admin"))))
+        this.mockMvc.perform(post("/listing").content(json).with(jwt().authorities(new SimpleGrantedAuthority("listing_admin"))))
                 .andDo(print())
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").isNotEmpty());
@@ -598,7 +606,7 @@ public class AirbnbListingMvcTest {
 
 The test `collectionGet_noAuth_returnsUnauthorized` verifies that if no JWT token is present in the request, the service will return 404 Unauthorized.
 
-The test `collectionGet_withValidJwtToken_returnsOk` verifies that with valid JWT authentication, the `/listings` GET returns 200 Ok.
+The test `collectionGet_withValidJwtToken_returnsOk` verifies that with valid JWT authentication, the `/listing` GET returns 200 Ok.
 
 The test `save_withMissingAuhtorities_returnsForbidden` verifies that if the JWT lacks the `listing_admin` authority, the save operation is denied with 403 Forbidden.
 
@@ -631,7 +639,6 @@ http --download https://start.spring.io/starter.zip \
   artifactId==theaters \
   name==theaters \
   packageName==com.okta.developer.theaters \
-  packaging==jar \
   javaVersion==11 \
   dependencies==lombok,devtools,data-mongodb-reactive,webflux,flapdoodle-mongo,oauth2-resource-server,cloud-eureka
 ```
@@ -1106,9 +1113,9 @@ Again, try the tests with:
 Document how to find introspection uri
 
 
-# On Mocking Requests
+# On Mocking Features in Spring Security Test
 
-Spring Security Test documentation indicates that when testing with `WebTestClient` and `mockOpaqueToken()`, the request will pass correctly through any authentication API, and the mock authentication object will be available for the authorization mechanism to verify.
+Spring Security Test documentation indicates that when testing with `WebTestClient` and `mockOpaqueToken()` (or any other configurer), the request will pass correctly through any authentication API, and the mock authentication object will be available for the authorization mechanism to verify.
 That is probably the reason why an invalid audience, expiration or issuer in the token attributes is ignored in this kind of test.
 For example, the following `theaters` test will pass:
 
@@ -1128,22 +1135,182 @@ In the same way, if the `WebTestClient` mocks a different type of authentication
 ```java
 @Test
 public void collectionGet_withOpaqueToken_returnsOk() throws Exception {
-    this.mockMvc.perform(get("/listings").with(opaqueToken())).andExpect(status().isOk());
+    this.mockMvc.perform(get("/listing").with(opaqueToken())).andExpect(status().isOk());
 }
 ```
 
-Let's run an end to end test using curl, to verify the audience is enforced in both services.
+The same applies to Servlet `MockMvc` and `SecurityMockMvcRequestPostProcessors` that allow to mock OIDC Login, JWT and OpaqueToken authentication.
 
-Create discovery
+# Verify Authorization and Audience Validation
+
+Let's run an end to end test using curl, to verify the authorization, and also that the audience is enforced in both services.
+
+First, create an eureka server:
+```shell
+http --download https://start.spring.io/starter.zip \
+  type==maven-project \
+  language==java \
+  bootVersion==2.4.3.RELEASE \
+  baseDir==eureka \
+  groupId==com.okta.developer \
+  artifactId==eureka \
+  name==eureka \
+  packageName==com.okta.developer.eureka \
+  javaVersion==11 \
+  dependencies==cloud-eureka-server
+```
+
+```shell
+unzip eureka.zip
+```
+
+As described in [Spring Cloud Netflix documentation](https://github.com/spring-cloud/spring-cloud-netflix/blob/master/docs/src/main/asciidoc/spring-cloud-netflix.adoc#jdk-11-support), the JAXB modules, which the Eureka server depends upon, were removed in JDK 11. If you are running Eureka server with JDK 11, edit the `pom.xml` and add the following dependency:
+
+```xml
+<dependency>
+  <groupId>org.glassfish.jaxb</groupId>
+  <artifactId>jaxb-runtime</artifactId>
+</dependency>
+```
+
+Edit `EurekaServiceApplication` to add `@EnableEurekaServer` annotation:
+
+```java
+package com.okta.developer.eureka;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
+
+@SpringBootApplication
+@EnableEurekaServer
+public class EurekaApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(EurekaApplication.class, args);
+	}
+
+}
+```
+
+Rename `src/main/resources/application.properties` to `application.yml` and add the following content:
+
+```yml
+server:
+  port: 8761
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+```
+Start the service:
+
+```shell
+./mvnw spring-boot:run
+```
+Go to `http://localhost:8761` and you should see the Eureka home.
+
+Configure `theater` and `listing` route in the `api-gateway`. Edit `ApiGatewayApplication` to add the `RouteLocator` bean:
+
+```java
+package com.okta.developer.gateway;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.gateway.route.RouteLocator;
+import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
+import org.springframework.cloud.security.oauth2.gateway.TokenRelayGatewayFilterFactory;
+import org.springframework.context.annotation.Bean;
+
+@SpringBootApplication
+public class ApiGatewayApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(ApiGatewayApplication.class, args);
+	}
+
+	@Bean
+	public RouteLocator routeLocator(RouteLocatorBuilder builder, TokenRelayGatewayFilterFactory filterFactory) {
+		return builder.routes()
+				.route("listing", r -> r.path("/listing/**")
+						.filters(f -> f.filter(filterFactory.apply()))
+						.uri("lb://listing"))
+				.route("theater", r -> r.path("/theater/**")
+						.filters(f -> f.filter(filterFactory.apply()))
+						.uri("lb://theater"))
+				.build();
+	}
+}
+```
+
+Run the `api-gateway`:
+```shell
+./mvnw spring-boot:run
+```
+
+Go to `http://localhost:8080/userdata`, after the Okta login, you should see an output similar to this:
+```json
+{
+   "userName":"...",
+   "idToken":"...",
+   "accessToken":"..."
+}
+```
+
+Run the `theaters` and `listings` microservices with:
+```shell
+./mvnw spring-boot:run -Dspring-boot.run.profiles=seed
+```
+After both services register to the eureka server, you can test the `api-gateway` endpoints `http://localhost:8080/theater` and `http://localhost:8080/listing`.
 
 
-Live example
-create eureka
-add gateway routing
-login
-inspect access token
-httpie listings
-httpie theater
+Now, let's test authorization with a POST to the `/listing` endpoint.
+Copy the `accessToken` from the `/userdata` output and set it as an environment variable:
 
+```shell
+ACCESS_TOKEN={accessToken}
+```
+```shell
+http POST http://localhost:8080/listing name=test "Authorization:Bearer ${ACCESS_TOKEN}"
+```
+You will see the following response:
+```
+HTTP/1.1 403 Forbidden
+WWW-Authenticate: Bearer error="insufficient_scope", error_description="The request requires higher privileges than provided by the access token.", error_uri="https://tools.ietf.org/html/rfc6750#section-3.1"
+```
+
+This is because the `listings` service expects `listing_admin` authority to accept the POST request. The Okta Spring Boot Starter will automatically assign the content of the groups claim as authorities. Login to the Okta dashboard, and create `listing_admin` group, and assign your user to it.
+
+Then, add the groups claim to the access token. Go to Security > API. Choose the default authorization server. Go to Claims and add a claim. Set the following values:
+- Name: groups
+- Include in token type: Access Token
+- Value type: Groups
+- Filter: Matches regex (set filter value to **.\***)
+
+Open an incognito window, and request `/userdata` endpoint, to repeat the login and obtain a new accessToken with the groups claim. Repeat the HTTPie POST request, and now it should be accepted!
+
+Stop the `listings` service and change the expected audience in `application.yml`:
+```
+okta:
+  oauth2:
+    issuer: https://{yourOktaDomain}/oauth2/default
+    audience: api://custom
+```
+Restart the service and repeat the HTTPie POST request:
+```shell
+http POST http://localhost:8080/listing name=test "Authorization:Bearer ${ACCESS_TOKEN}"
+```
+
+You will see the following response:
+```
+HTTP/1.1 401 Unauthorized
+WWW-Authenticate: Bearer error="invalid_token", error_description="An error occurred while attempting to decode the Jwt: This aud claim is not equal to the configured audience", error_uri="https://tools.ietf.org/html/rfc6750#section-3.1"
+```
+You can verify the same in the `theaters` service.
 
 # Learn More
