@@ -200,6 +200,12 @@ Service:
 {% include setup/cli.md type="service" %}
 ```
 
+JHipster:
+
+```md
+{% include setup/cli.md type="jhipster" %}
+```
+
 <!-- Example code is from the following posts. 
 
 - .NET: http://localhost:4000/blog/2020/09/02/10x-development-azure-cli-dotnet

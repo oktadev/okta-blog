@@ -6,6 +6,8 @@ by: advocate
 communities: [javascript]
 tags: [react, sign-in-widget, okta, es6]
 type: conversion
+update-title: "A Quick Guide to React Login Options"
+update-url: https://developer.okta.com/blog/2020/12/16/react-login
 ---
 
 React has quickly become one of the most favored front-end web frameworks, and is second only to plain old HTML5, [according to JAXenter](https://jaxenter.com/technology-trends-2017-top-frameworks-131993.html). So it's no surprise that [developers are learning it](https://www.lynda.com/React-js-training-tutorials/7049-0.html), and [employers are asking for it](https://stackoverflow.com/jobs?sort=i&q=ReactJS).
