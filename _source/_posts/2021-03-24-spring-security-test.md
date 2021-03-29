@@ -1119,22 +1119,20 @@ Again, try the tests with:
 
 # On Mocking Features in Spring Security Test
 
-Spring Security Test documentation indicates that when testing with `WebTestClient` and `mockOpaqueToken()` (or any other configurer), the request will pass correctly through any authentication API, and the mock authentication object will be available for the authorization mechanism to verify.
-That is probably the reason why an invalid audience, expiration or issuer in the token attributes is ignored in this kind of test.
-For example, the following `TheaterControllerTest` test will pass:
+Spring Security Test documentation indicates that when testing with `WebTestClient` and `mockOpaqueToken()` (or any other configurer), the request will pass correctly through any authentication API, and the mock authentication object will be available for the authorization mechanism to verify. The same applies for `MockMvc`. That is probably the reason why an invalid audience, expiration or issuer in the token attributes is ignored in this kind of test.
+For example, the following `AirbnbListingMvcTest` test will pass:
 
 ```java
 @Test
-public void collectionGet_withInvalidOpaqueToken_returnsUnauthorized() throws Exception {
-    this.client.mutateWith(mockOpaqueToken()
-            .attributes(attrs -> attrs.put("aud", "ïnvalid"))
-            .attributes(attrs -> attrs.put("iss", "ïnvalid"))
-            .attributes(attrs -> attrs.put("exp", Instant.MIN)))
-            .get().uri("/theater").exchange().expectStatus().isOk();
+public void collectionGet_withInvalidJWtToken_returnsOk() throws Exception {
+    this.mockMvc.perform(get("/listing").with(jwt()
+    .jwt(jwt -> jwt.claim("exp", Instant.MIN)
+            .claim("iss", "invalid")
+            .claim("aud", "invalid")))).andExpect(status().isOk());
 }
 ```
 
-In the same way, if the `WebTestClient` mocks a different type of authentication than the expected, the test might pass as long as the controller injects an compatible authentication type. The test will pass depending on what the method under test is expecting to be in the `SecurityContextHolder`. For example, the `listings` service expects Jwt authentication, but the following `AirbnbListingMvcTest` test will pass:
+In the same way, if the `WebTestClient` or `MockMvc` mocks a different type of authentication than the expected, the test might pass as long as the controller injects an compatible authentication type. The test will pass depending on what the method under test is expecting to be in the `SecurityContextHolder`. For example, the `listings` service expects Jwt authentication, but the following `AirbnbListingMvcTest` test will pass:
 
 ```java
 @Test
@@ -1142,8 +1140,6 @@ public void collectionGet_withOpaqueToken_returnsOk() throws Exception {
     this.mockMvc.perform(get("/listing").with(opaqueToken())).andExpect(status().isOk());
 }
 ```
-
-The same applies to Servlet `MockMvc` and `SecurityMockMvcRequestPostProcessors` that allow mocking OIDC Login, JWT and OpaqueToken authentication.
 
 # Verify Authorization and Audience Validation
 
