@@ -15,7 +15,7 @@ type: conversion
 ---
 
 Integration testing in modern Spring Boot microservices has become easier since the release Spring Framework 5 and Spring Security 5.
-Spring Framework `WebTestClient` for reactive web, and `MockMvc` for servlet web, allow to test controllers without running a server, in a lightweight fashion. Both frameworks leverage Spring Test mock implementations of request and responses, allowing to verify most of the functionality of the application using targeted tests. With Spring Security 5, security test support provides new request mutators that allow to avoid simulating a grant flow or building an accessToken when verifying method security in web testing.
+Spring Framework `WebTestClient` for reactive web, and `MockMvc` for servlet web, allow testing controllers without running a server, in a lightweight fashion. Both frameworks leverage Spring Test mock implementations of requests and responses, allowing to verify most of the functionality of the application using targeted tests. With Spring Security 5, security test support provides new request mutators that allow avoiding simulating a grant flow or building an accessToken when verifying method security in web testing.
 
 In this tutorial you will explore security mocking with `SecurityMockServerConfigurers` and `SecurityMockMvcRequestPostProcessors`, and authorization tests for the following patterns:
 - Reactive WebFlux gateway with OIDC authentication
@@ -225,7 +225,7 @@ With `@AutoConfigureWebTestClient`, Spring Boot initializes a `WebTestClient`, t
 
 The test `get_noAuth_returnsRedirectLogin` verifies that the server will redirect to the OIDC Login flow if no authentication is present.
 
-The test `get_withOidcLogin_returnsOk` configures the mock request with an OidcUser, using `mockOidcLogin()`. The mock OidcUser.idToken is modified adding the `name` claim, because `UserDataController` expects it for populating the response.`mockOidcLogin()` belongs to a set of `SecurityMockServerConfigurers` that ship with Spring Security Test 5, as part of the Reactive Test Support features.
+The test `get_withOidcLogin_returnsOk` configures the mock request with an OidcUser, using `mockOidcLogin()`. The mock OidcUser.idToken is modified by adding the `name` claim, because `UserDataController` expects it for populating the response.`mockOidcLogin()` belongs to a set of `SecurityMockServerConfigurers` that ship with Spring Security Test 5, as part of the Reactive Test Support features.
 
 Run the tests with:
 
@@ -617,7 +617,7 @@ The test `collectionGet_withValidJwtToken_returnsOk` verifies that with valid JW
 
 The test `save_withMissingAuhtorities_returnsForbidden` verifies that if the JWT lacks the `listing_admin` authority, the save operation is denied with 403 Forbidden.
 
-The test `save_withValidJwtToken_returnsCreated` mocks a JWT with the required authority, and verifies the save operation succeeds and returns 201 Created.
+The test `save_withValidJwtToken_returnsCreated` mocks a JWT with the required authority and verifies the save operation succeeds and returns 201 Created.
 
 Try the tests with:
 
@@ -627,9 +627,7 @@ Try the tests with:
 
 # Testing a WebFlux Resource Server with mockOpaqueToken()
 
-Difference with JWT validation
-
-Now let's create a reactive microservice with OpaqueToken authentication.
+The OpaqueToken is validated remotely with a request to the authorization server. Let's create a reactive microservice with OpaqueToken authentication.
 
 ```shell
 http --download https://start.spring.io/starter.zip \
@@ -669,7 +667,7 @@ Add `com.nimbusds` dependency to the `pom.xml`, required for token introspection
 </dependency>
 ```
 
-Token instrospection involves a call to the authorization server, so create an client app with OktaCLI, as illustrated for the `api-gateway`.
+Token introspection involves a call to the authorization server, so create a client app with OktaCLI, as illustrated for the `api-gateway`.
 
 ```shell
 cd theaters
@@ -1145,11 +1143,11 @@ public void collectionGet_withOpaqueToken_returnsOk() throws Exception {
 }
 ```
 
-The same applies to Servlet `MockMvc` and `SecurityMockMvcRequestPostProcessors` that allow to mock OIDC Login, JWT and OpaqueToken authentication.
+The same applies to Servlet `MockMvc` and `SecurityMockMvcRequestPostProcessors` that allow mocking OIDC Login, JWT and OpaqueToken authentication.
 
 # Verify Authorization and Audience Validation
 
-Let's run an end to end test using HTTPie, to verify the authorization, and also that the audience is enforced in both services.
+Let's run an end-to-end test using HTTPie, to verify the authorization, and also that the audience is enforced in both services.
 
 First, create an eureka server:
 ```shell
@@ -1221,7 +1219,7 @@ Start the service:
 ```
 Go to `http://localhost:8761` and you should see the Eureka home.
 
-Configure `theater` and `listing` route in the `api-gateway`. Edit `ApiGatewayApplication` to add the `RouteLocator` bean:
+Configure `theater` and `listing` routes in the `api-gateway`. Edit `ApiGatewayApplication` to add the `RouteLocator` bean:
 
 ```java
 package com.okta.developer.gateway;
@@ -1276,7 +1274,7 @@ After both services register to the eureka server, you can test the `api-gateway
 
 
 Now, let's test authorization with a POST to the `/listing` endpoint.
-Copy the `accessToken` from the `/userdata` output and set it as an environment variable:
+Copy the `accessToken` value from the `/userdata` output and set it as an environment variable:
 
 ```shell
 ACCESS_TOKEN={accessToken}
@@ -1290,15 +1288,15 @@ HTTP/1.1 403 Forbidden
 WWW-Authenticate: Bearer error="insufficient_scope", error_description="The request requires higher privileges than provided by the access token.", error_uri="https://tools.ietf.org/html/rfc6750#section-3.1"
 ```
 
-This is because the `listings` service expects `listing_admin` authority to accept the POST request. The Okta Spring Boot Starter will automatically assign the content of the groups claim as authorities. Login to the Okta dashboard, and create `listing_admin` group, and assign your user to it.
+This is because the `listings` service expects `listing_admin` authority to accept the POST request. The Okta Spring Boot Starter will automatically assign the content of the `groups` claim as authorities. Login to the Okta dashboard, and create `listing_admin` group, and assign your user to it.
 
-Then, add the groups claim to the access token. Go to Security > API. Choose the default authorization server. Go to Claims and add a claim. Set the following values:
+Then, add the `groups` claim to the accessToken. Go to Security > API. Choose the default authorization server. Go to Claims and add a claim. Set the following values:
 - Name: groups
 - Include in token type: Access Token
 - Value type: Groups
 - Filter: Matches regex (set filter value to **.\***)
 
-Open an incognito window, and request `/userdata` endpoint, to repeat the login and obtain a new accessToken with the groups claim. Repeat the HTTPie POST request, and now it should be accepted!
+Open an incognito window, and request `/userdata` endpoint, to repeat the login and obtain a new accessToken with the `groups` claim. Repeat the HTTPie POST request, and now it should be accepted!
 
 Stop the `listings` service and change the expected audience in `application.yml`:
 ```
@@ -1321,8 +1319,8 @@ You can verify the same in the `theaters` service.
 
 # Learn More
 
-I hope you enjoyed this tutorial and understand more about `SecurityMockServerConfigurers` in reactive test support , and `SecurityMockMvcRequestPostProcessors` in MockMvc test support, available since Spring Security 5, how useful they can be for integration testing and what are the limitations of request and response mocking.
-Checkout the links below to learn more about Spring Security 5 and Okta authentication patterns:
+I hope you enjoyed this tutorial and understand more about `SecurityMockServerConfigurers` in reactive test support , and `SecurityMockMvcRequestPostProcessors` in MockMvc test support, available since Spring Security 5, how useful they can be for integration testing, and what are the limitations of request and response mocking. You can find all the code of this tutorial in [Github](https://github.com/indiepopart/spring-security-test)
+Check out the links below to learn more about Spring Security 5 and Okta authentication patterns:
 
 - [SecurityMockMvcRequestPostProcessors](https://docs.spring.io/spring-security/site/docs/5.4.5/reference/html5/#test-mockmvc-smmrpp)
 - [WebTestClientSupport](https://docs.spring.io/spring-security/site/docs/5.4.5/reference/html5/#test-webtestclient)
