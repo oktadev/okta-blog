@@ -11,6 +11,10 @@ tweets:
 - "Learn how to build a PWA with @vuejs and add authentication in this quick and easy tutorial →"
 image: blog/featured/okta-vue-tile-books-mouse.jpg
 type: conversion
+update-url: /blog/2020/05/15/vue-login
+update-title: "Vue Login and Access Control the Easy Way"
+changelog:
+  - 2018-11-01: Updated to use Vue CLI 2.9.6, Vue 2.5.2, and Vue Okta Auth SDK 2.1. You can see the example app changes in [okta-vue-auth-example#4](https://github.com/oktadeveloper/okta-vue-auth-example/pull/4); changes to this post can be viewed in [okta.github.io#2453](https://github.com/oktadeveloper/okta.github.io/pull/2453).
 ---
 
 I'll happily admit that like many of you, I'm a lazy developer. I tend to look for solutions someone else has already built before I try to build them myself. In the "old days" of the early 2000s, I used to spend a lot more time coding solutions myself. But today many solutions to coding problems are just a keyword search away. In that spirit, I approached this tutorial using keywords – looking for existing solutions first, then fitting my favorite solution on top of it. I think you'll like the results!
@@ -583,7 +587,3 @@ You can see the code this lazy developer created for this article [on GitHub](ht
 * [Build a Basic CRUD App with Vue.js and Node](/blog/2018/02/15/build-crud-app-vuejs-node)
 * [Tutorial: Build a Basic CRUD App with Symfony 4 and Vue](/blog/2018/06/14/php-crud-app-symfony-vue)
 * [Build a Single-Page App with Go and Vue](/blog/2018/10/23/build-a-single-page-app-with-go-and-vue)
-
-**Changelog:**
-
-Nov 1, 2018: Updated to use Vue CLI 2.9.6, Vue 2.5.2, and Vue Okta Auth SDK 2.1. You can see the example app changes in [okta-vue-auth-example#4](https://github.com/oktadeveloper/okta-vue-auth-example/pull/4); changes to this post can be viewed in [okta.github.io#2453](https://github.com/oktadeveloper/okta.github.io/pull/2453).

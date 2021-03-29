@@ -12,6 +12,8 @@ tweets:
 - "Java + Spring Cloud Gateway + Spring WebFlux = ❤️. A tutorial with VWs from @mraible. 😃"
 image: blog/spring-cloud-gateway/spring-cloud-gateway-social.png
 type: conversion
+changelog:
+  - 2020-09-01: Fixed CORS configuration and added code changes necessary to access `/fave-cars`. Changes to this post can be viewed in [okta-blog#398](https://github.com/oktadeveloper/okta-blog/pull/398). Updates to the example application are in [java-microservices-examples#9](https://github.com/oktadeveloper/java-microservices-examples/pull/9).
 ---
 :page-liquid:
 
@@ -1031,8 +1033,3 @@ To learn more about microservices and reactive programming with Java and Spring,
 * link:/blog/2018/09/24/reactive-apis-with-spring-webflux[Build Reactive APIs with Spring WebFlux]
 
 If you liked this tutorial, follow https://twitter.com/oktadev[@oktadev] on Twitter. We also publish screencasts to https://youtube.com/c/oktadev[our YouTube channel] on a regular basis.
-
-[[changelog]]
-**Changelog:**
-
-* Sep 1, 2020: Fixed CORS configuration and added code changes necessary to access `/fave-cars`. Changes to this post can be viewed in https://github.com/oktadeveloper/okta-blog/pull/398[okta-blog#398]. Updates to the example application are in https://github.com/oktadeveloper/java-microservices-examples/pull/9[java-microservices-examples#9].
