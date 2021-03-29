@@ -431,4 +431,3 @@ If you liked this tutorial, you might like these:
 - [Communicate Between Microservices with Apache Kafka](/blog/2020/01/22/kafka-microservices)
 
 If you have any questions about this post, please leave a comment below. For more hipster content, follow [@oktadev](https://twitter.com/oktadev) on Twitter, like us [on LinkedIn](https://www.linkedin.com/company/oktadev/), or subscribe to [our YouTube channel](https://www.youtube.com/oktadev).
-
