@@ -1129,7 +1129,7 @@ public void collectionGet_withInvalidOpaqueToken_returnsUnauthorized() throws Ex
     this.client.mutateWith(mockOpaqueToken()
             .attributes(attrs -> attrs.put("aud", "ïnvalid"))
             .attributes(attrs -> attrs.put("iss", "ïnvalid"))
-            .attributes(attrs -> attrs.put("ext", Instant.MIN)))
+            .attributes(attrs -> attrs.put("exp", Instant.MIN)))
             .get().uri("/theater").exchange().expectStatus().isOk();
 }
 ```
@@ -1319,7 +1319,7 @@ You can verify the same in the `theaters` service.
 
 # Learn More
 
-I hope you enjoyed this tutorial and understand more about `SecurityMockServerConfigurers` in reactive test support , and `SecurityMockMvcRequestPostProcessors` in MockMvc test support, available since Spring Security 5, how useful they can be for integration testing, and what are the limitations of request and response mocking. You can find all the code of this tutorial in [Github](https://github.com/indiepopart/spring-security-test)
+I hope you enjoyed this tutorial and understand more about `SecurityMockServerConfigurers` in reactive test support , and `SecurityMockMvcRequestPostProcessors` in MockMvc test support, available since Spring Security 5, how useful they can be for integration testing, and what are the limitations of request and response mocking. You can find all the code of this tutorial in [Github](https://github.com/indiepopart/spring-security-test).
 Check out the links below to learn more about Spring Security 5 and Okta authentication patterns:
 
 - [SecurityMockMvcRequestPostProcessors](https://docs.spring.io/spring-security/site/docs/5.4.5/reference/html5/#test-mockmvc-smmrpp)
