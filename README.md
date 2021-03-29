@@ -206,6 +206,8 @@ JHipster:
 {% include setup/cli.md type="jhipster" %}
 ```
 
+**NOTE:** If you're using AsciiDoc, you'll need to add `adoc="true"` as an include parameter.
+
 <!-- Example code is from the following posts. 
 
 - .NET: http://localhost:4000/blog/2020/09/02/10x-development-azure-cli-dotnet
