@@ -7,6 +7,8 @@ communities: [java, javascript]
 description: "In this tutorial, you'll learn how to write a note-taking application in Kotlin and TypeScript - two of the fastest growing languages of 2017. You'll use two popular frameworks, Spring Boot and Angular, to make development super fast."
 tags: [kotlin, spring-boot, typescript, angular, okta, authentication]
 type: conversion
+changelog:
+  - 2017-11-30: Updated to use Spring Boot 1.5.9, Angular 5.0, Angular CLI 1.5.5, Angular Material 5.0.0-rc.2, and Okta Sign-In Widget 2.5.0. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-kotlin-typescript-notes-example/pull/3/files). Changes to this article can be viewed [in this pull request](https://github.com/oktadeveloper/okta.github.io/pull/1516).
 ---
 
 I love my job as a developer advocate at Okta. I get to learn a lot, write interesting blog posts and create example apps with cool technologies like Kotlin, TypeScript, Spring Boot, and Angular, which I'm about to demo. When it comes to writing Hello World apps with authentication, I can whip one out in a few minutes. That isn't because I'm a particularly good programmer, it's because the languages, frameworks, tools, and platforms available to developers are impressive.
@@ -858,7 +860,3 @@ You can now log in and add a note.
 Congrats! You're well on your way to becoming a Kotlin and TypeScript developer who understands Spring Boot and Angular. All of the code used in this article is [available on GitHub](https://github.com/oktadeveloper/okta-kotlin-typescript-notes-example).
 
 If you have questions about this code or technologies you want to see in my next post, let me know on Twitter [@mraible](https://twitter.com/mraible)!
-
-**Changelog:**
-
-* Nov 30, 2017: Updated to use Spring Boot 1.5.9, Angular 5.0, Angular CLI 1.5.5, Angular Material 5.0.0-rc.2, and Okta Sign-In Widget 2.5.0. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-kotlin-typescript-notes-example/pull/3/files). Changes to this article can be viewed [in this pull request](https://github.com/oktadeveloper/okta.github.io/pull/1516).

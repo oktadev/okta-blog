@@ -12,6 +12,8 @@ tweets:
 - "I like TypeScript. You like TypeScript. Use your @typescript knowledge to create a PWA in this @vuejs tutorial."
 image: blog/featured/okta-vue-bottle-headphones.jpg
 type: conversion
+changelog:
+  - 2020-05-01: Updated versions of all dependencies, including Okta libraries. This enables the use of the Authorization Code + PKCE flow, rather than the deprecated Implicit Flow. See the code changes in the [example app on Github](https://github.com/oktadeveloper/okta-vue-books-pwa-example/pull/5). Changes to this article can be viewed in [oktadeveloper/okta-blog/#275](https://github.com/oktadeveloper/okta-blog/pull/275)
 ---
 
 With the ever-increasing use of mobile devices over the last few years it has become more and more important for web developers to anticipate the need for users on these devices. The first step was the ability to cater for different screen sizes, thus creating the need for responsive user interface design. Over time the demands of the users increase and it is now becoming even more important to provide a high-quality user experience, independent of the network connectivity. Users have become accustomed to using native installable applications when they are offline. They are increasingly expecting the same from browser-based web applications.
@@ -515,7 +517,3 @@ If you want to learn more about Vue, PWAs, or secure authentication, check out t
 * [Build Your First Progressive Web Application with Angular and Spring Boot](/blog/2017/05/09/progressive-web-applications-with-angular-and-spring-boot)
 
 To be notified when we publish future blog posts, [follow @oktadev on Twitter](https://twitter.com/oktadev). If you prefer videos, subscribe to [our YouTube channel](https://www.youtube.com/c/oktadev).
-
-## Changelog:
-
-* May 1, 2020: Updated versions of all dependencies, including Okta libraries. This enables the use of the Authorization Code + PKCE flow, rather than the deprecated Implicit Flow. See the code changes in the [example app on Github](https://github.com/oktadeveloper/okta-vue-books-pwa-example/pull/5). Changes to this article can be viewed in [oktadeveloper/okta-blog/#275](https://github.com/oktadeveloper/okta-blog/pull/275)
