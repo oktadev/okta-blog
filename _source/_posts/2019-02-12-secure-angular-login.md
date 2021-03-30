@@ -459,7 +459,7 @@ The `OktaAuthGuard` can be used to restrict access to any protected routes. To p
 
 Now, if you try to access the calculator in the application, you will be redirected to the Okta login page. Only on successful login are you going to be redirected back to the calculator. The splash screen, on the other hand, is accessible without any authentication.
 
-## Angular Authentication with the Login Widget
+## Add Angular Authentication with the Login Widget
 
 Redirecting the user to an external login page is OK for some use cases. In other cases, you don't want the user to leave your site. This is a use case for the login widget. It lets you embed the login form directly into your application. To make use of the widget you first have to install it. Open the terminal in the application directory and install the following packages.
 
