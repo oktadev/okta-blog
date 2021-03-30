@@ -167,13 +167,17 @@ Vue with signup disabled:
 
 See the top of [`cli.md`](_source/_includes/setup/cli.md) to see the logic behind `signup="false"`.
 
+Native app:
+
+```md
+{% include setup/cli.md type="native" loginRedirectUri="com.okta.dev-133337:/callback" logoutRedirectUri="com.okta.dev-133337:/callback" %}
+```
+
 Native with Ionic:
 
 ```md
-{% include setup/cli.md type="native" loginRedirectUri="http://localhost:8100/callback" logoutRedirectUri="http://localhost:8100/logout" %}
+{% include setup/cli.md type="native" loginRedirectUri="[http://localhost:8100/callback,com.okta.dev-133337:/callback]" logoutRedirectUri="[http://localhost:8100/logout,com.okta.dev-133337:/logout]" %}
 ```
-
-In this case, the `cli.md` template creates multiple redirect URIs. To only return reversed-domain-name URIs, don't pass in any redirect URIs.
 
 Okta Spring Boot Starter with custom redirects:
 
