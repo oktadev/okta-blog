@@ -6,17 +6,9 @@ by: advocate
 communities: [java]
 tags: [kong, api-gateway, api, gateway, spring, spring-boot]
 type: conversion
-changelog: 
-- 2021-03-25: Updated with refreshed video and new GitHub repo reference. Changes to this article can be viewed in [oktadeveloper/okta-blog#570](https://github.com/oktadeveloper/okta-blog/pull/570).
-update-url: /blog/2021/03/26/use-kong-gateway-to-centralize-authentication
-update-title: "Use Kong Gateway to Centralize Authentication"
 ---
 
-**NOTE:** The video and code in this post has just been updated for 2021!
-
-A customer once asked me: "Hey – Can Okta integrate with Kong?" My first thought was: "What's Kong?" A Google result later, I was introduced to the [Kong API Gateway](https://getkong.org/) – an open-source API Gateway and Microservices management layer.
-
-Spoiler alert: You totally *can* integrate Kong with Okta using its [OpenID Connect](https://github.com/nokia/kong-oidc) plugin.
+A customer once asked me: "Hey – Can Okta integrate with Kong?" Spoiler alert: You totally *can* integrate Kong with Okta using its [OpenID Connect](https://github.com/nokia/kong-oidc) plugin.
 
 Still stuck wondering what an API gateway even is? Here's a metaphor that works for me: You know that sci-fi movie trope in which you have a centralized hub that "jumps" you to other places in the galaxy? In that kind of system all the screening and security happens at the hub. It's the same with Kong (and other API gateways).
 
@@ -36,8 +28,8 @@ In this case, *only* the Kong API gateway is interacting with Okta. Kong then pa
 
 I created a screencast based on [this working example](https://github.com/oktadeveloper/okta-kong-origin-example).
 
-<div style="width: 560px; margin: 0 auto">
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/G7hF017s1X8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div style="text-align: center; margin-bottom: 1.25rem">
+  <iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/G7hF017s1X8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 In this demo, I use [Docker](https://www.docker.com/) to create a container for Kong and another for a [Spring Boot](https://projects.spring.io/spring-boot/) app that understands the `x-userinfo` HTTP header.

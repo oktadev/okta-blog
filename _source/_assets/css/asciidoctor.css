@@ -464,3 +464,8 @@ b.conum *{color:inherit!important}
 .colist td .conum[data-value] {
     margin-top: .5em;
 }
+
+/* Fix margin around sub-lists */
+ol > li > p, ol > li > .ulist {
+    margin: 5px !important;
+}

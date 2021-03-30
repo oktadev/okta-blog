@@ -12,6 +12,10 @@ tweets:
 - "Leverage OIDC and @okta to add authentication to your kick-ass desktop/@electronjs app!"
 image: blog/electron-react-appauth-js/polished-matt.png
 type: conversion
+changelog:
+  - 2019-01-11: Updated to use Electron 4.0.1 and AppAuth 1.2.0. See the example app changes in [okta-appauth-js-electron-example#4](https://github.com/oktadeveloper/okta-appauth-js-electron-example/pull/4); changes to this post can be viewed in [okta.github.io#2638](https://github.com/oktadeveloper/okta.github.io/pull/2638).
+  - 2018-11-20: Updated `flow.ts` for AppAuth 1.1.1 and changed to use its PKCE support. See the example app changes in [okta-appauth-js-electron-example#3](https://github.com/oktadeveloper/okta-appauth-js-electron-example/pull/3); changes to this post can be viewed in [okta.github.io#2495](https://github.com/oktadeveloper/okta.github.io/pull/2495).
+  - 2018-09-19: Updated to use Electron 3.0.0 and AppAuth 1.1.1. See the example app changes in [okta-appauth-js-electron-example#1](https://github.com/oktadeveloper/okta-appauth-js-electron-example/pull/1); changes to this post can be viewed in [okta.github.io#2327](https://github.com/oktadeveloper/okta.github.io/pull/2327).
 ---
 
 Electron is a framework for building cross-platform desktop applications with web technologies like JavaScript, HTML, and CSS. It was created for GitHub's Atom editor and has achieved widespread adoption since. Electron powers several apps that I use on a daily basis: Slack, Kitematic, and Visual Studio Code to name a few.
@@ -404,9 +408,3 @@ To learn more about Electron, AppAuth, React, and OIDC, check out the following 
 Got questions? Please leave a comment below, [ping me on Twitter](https://twitter.com/mraible), or ask it on our [Developer Forums](https://devforum.okta.com/).
 
 Like what you learned here? Follow [@oktadev](https://twitter.com/oktadev), like us [on Facebook](https://www.facebook.com/oktadevelopers/), follow us [on LinkedIn](https://www.linkedin.com/company/oktadev/), or [watch our videos on YouTube](https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q).
-
-**Changelog:**
-
-* Jan 11, 2019: Updated to use Electron 4.0.1 and AppAuth 1.2.0. See the example app changes in [okta-appauth-js-electron-example#4](https://github.com/oktadeveloper/okta-appauth-js-electron-example/pull/4); changes to this post can be viewed in [okta.github.io#2638](https://github.com/oktadeveloper/okta.github.io/pull/2638).
-* Nov 20, 2018: Updated `flow.ts` for AppAuth 1.1.1 and changed to use its PKCE support. See the example app changes in [okta-appauth-js-electron-example#3](https://github.com/oktadeveloper/okta-appauth-js-electron-example/pull/3); changes to this post can be viewed in [okta.github.io#2495](https://github.com/oktadeveloper/okta.github.io/pull/2495).
-* Sep 19, 2018: Updated to use Electron 3.0.0 and AppAuth 1.1.1. See the example app changes in [okta-appauth-js-electron-example#1](https://github.com/oktadeveloper/okta-appauth-js-electron-example/pull/1); changes to this post can be viewed in [okta.github.io#2327](https://github.com/oktadeveloper/okta.github.io/pull/2327).
