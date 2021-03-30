@@ -261,19 +261,11 @@ Here's how it works:
 
 (If this is all new to you, you can [learn more about OAuth here](https://developer.okta.com/blog/2017/06/21/what-the-heck-is-oauth).)
 
-{% include setup/cli.md type="service" %}
-
 ## Register the Client Application for Your REST API
 
-Once the Okta CLI is installed, register your client application.
+{% include setup/cli.md type="service" %}
 
-* Run `okta apps create`
-* Enter `Postman` for the **Name** and press enter
-* Choose `4` for the app type to create a `Service` app
-* Choose `5` to create the app using a framework of `Other`
-* Select the `default` Authorization Server and press enter  
-
-Run `cat .okta.env` (or type `.okta.env` on Windows) to see the issuer and credentials for your app. Note the **Client ID** and **Client Secret**. This is the username and password that our client application (Postman in our case) need to send to the authorization server to request an access token. You can make note these credentials now or you can come back and get them later when you need them.
+The **OKTA_OAUTH2_CLIENT_ID** and **OKTA_OAUTH2_CLIENT_SECRET** is the username and password that our client application (Postman in our case) will need to send to the authorization server to request an access token. You can make note these credentials now or you can come back and get them later when you need them.
 
 ## Create a Custom Scope
 
