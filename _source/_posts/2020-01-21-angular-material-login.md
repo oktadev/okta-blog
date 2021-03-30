@@ -12,6 +12,8 @@ tweets:
 - "❤️ Angular? We do too! That's why we wrote this guide on how to build a login screen with Angular Material."
 image: blog/angular-material-login/angular-material-login.png
 type: conversion
+changelog:
+- 2020-03-30: Updated to use Angular 11 and the Okta Auth JS 4.8.0. You can see the changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-angular-material-login-example/pull/3). Changes to this article can be viewed in [oktadeveloper/okta-blog#637](https://github.com/oktadeveloper/okta-blog/pull/637).
 ---
 
 Usability is a key aspect to consider when creating a web application, and that means designing a clean, easy-to-understand user interface. Leveraging common design languages can help make that goal a reality with their recognizable components that many users will understand right away. However, unlike desktop apps where the operating system provides a set of uniform widgets, there has historically been no common design language to lean on for web app developers. 
@@ -24,14 +26,18 @@ Many modern applications make use of single-sign-on services such as Okta. In it
 
 {% img blog/angular-material-login/login-form.png alt:"Angular Material Login" width:"450" %}{: .center-image }
 
-In this tutorial, I'll show you how to create a login form like the one above. You'll create an Angular app, use Material Design, and make it require user login. Okta provides a library specifically for Angular applications but I will be using the more low-level `okta-auth-js` library. This library allows you to have full control over your HTML and just handles communication with Okta's API. All of Okta's JavaScript libraries are built on top of `okta-auth-js`. To make the application a bit more interesting, I will be creating a small tic-tac-toe game that will be protected using Okta for authentication.
+In this tutorial, I'll show you how to create a login form like the one above. You'll create an Angular app, use Material Design, and make it require user login. Okta provides a library specifically for Angular applications, but I will be using the more low-level `okta-auth-js` library. This library allows you to have full control over your HTML and just handles communication with Okta's API. All of Okta's JavaScript libraries are built on top of `okta-auth-js`. To make the application a bit more interesting, I will be creating a small tic-tac-toe game that will be protected using Okta for authentication.
+
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
 
 ## Build an Angular Material App with Secure Login
 
 To get started, you will need to install the Angular command-line tool. I will assume that you have some familiarity with JavaScript and that you have Node installed on your system together with the Node Package Manager `npm`. Open a terminal and type the following command.
 
 ```bash
-npm install -g @angular/cli@8.3.21
+npm install -g @angular/cli@11
 ```
 
 Depending on your operating system, you might have to run this using the `sudo` command. This will install the Angular command-line tool on your system. It lets you use the `ng` command to set up and manipulate Angular applications. To create a new application navigate to a directory of your choice and run the following.
@@ -40,14 +46,15 @@ Depending on your operating system, you might have to run this using the `sudo` 
 ng new material-tic-tac-toe
 ```
 
-You will be asked two questions. Answer **Yes** to the first question. This will include and set up the router in your application. The router is responsible for letting the user navigate between different parts of the app and updating the browser's URL without actually reloading the page. For the second question, accept the default choice **CSS**. This application will use simple CSS stylesheets but you can see how easy it is to switch to a different stylesheet technology with Angular.
+You will be asked three questions. Answer **Yes** to the first two questions. This will enable stricter type checking and set up the router in your application. The router is responsible for letting the user navigate between different parts of the app and updating the browser's URL without actually reloading the page. For the third question, accept the default choice **CSS**. This application will use simple CSS stylesheets, but you can see how easy it is to switch to a different stylesheet technology with Angular.
 
 {% img blog/angular-material-login/angular-style-options.png alt:"Angular stylesheet options" width:"700" %}{: .center-image }
 
 Once the wizard has completed you should see a new folder called `material-tic-tac-toe`. Navigate into the folder and install some packages you will need for the application by running the command below.
 
 ```bash
-npm install -E @angular/material@8.2.3 @angular/flex-layout@8.0.0-beta.27 hammerjs@2.0.8 @angular/cdk@8.2.3 tic-tac-toe-minimax@1.0.8
+npm install -E @angular/material@11.2.6 @angular/flex-layout@11.0.0-beta.33 hammerjs@2.0.8 \
+  @angular/cdk@11.2.6 tic-tac-toe-minimax@1.0.8
 ```
 
 The `@angular/material` package provides the components of the Material Design, `@angular/cdk` is a component development kit that is needed for the Material components to work and `hammerjs` is a library that provides smooth animations for the component. `@angular/flex-layout` provides a flexible and responsive grid. It is independent of the Material components but is often used together with it. Finally, `tic-tac-toe-minimax` is a ready-to-go tic-tac-toe game with a computer player.
@@ -92,18 +99,18 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatToolbarModule,
-         MatMenuModule,
-         MatIconModule,
-         MatButtonModule,
-         MatTableModule,
-         MatDividerModule,
-         MatProgressSpinnerModule,
-         MatInputModule,
-         MatCardModule,
-         MatSlideToggleModule,
-         MatSelectModule,
-         MatOptionModule} from '@angular/material';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTableModule } from '@angular/material/table';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 ```
 
 Now scroll down in the same file and find the `imports` declaration. Change it to match the following.
@@ -140,10 +147,10 @@ Start with the main application component. Open `src/app/app.component.html` and
 {% raw %}
 ```html
 <mat-toolbar color="primary" class="expanded-toolbar">
-    <span>
-      <button mat-button routerLink="/">{{title}}</button>
-      <button mat-button routerLink="/"><mat-icon>home</mat-icon></button>
-    </span>
+  <span>
+    <button mat-button routerLink="/">{{title}}</button>
+    <button mat-button routerLink="/"><mat-icon>home</mat-icon></button>
+  </span>
   <div fxLayout="row" fxShow="false" fxShow.gt-sm>
     <button mat-button routerLink="/login" *ngIf="!isAuthenticated">
       <mat-icon>power_settings_new</mat-icon>
@@ -205,7 +212,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Tic Tac Toe';
-  isAuthenticated: boolean;
+  isAuthenticated = false;
+  
+  async logout(): Promise<void> {
+    // todo
+  }
 }
 ```
 
@@ -307,7 +318,7 @@ button, mat-slide-toggle {
 The actual game logic lives in `src/app/game/game.component.ts`. It is using the `tic-tac-toe-minimax` library to calculate computer moves and determine the winner. Replace the contents of the file with the code below.
 
 ```ts
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import Minimax from 'tic-tac-toe-minimax';
 const { GameStep } = Minimax;
 
@@ -316,20 +327,15 @@ const { GameStep } = Minimax;
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.css']
 })
-export class GameComponent implements OnInit {
+export class GameComponent {
 
   public gameState: Array<number | string> = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-  public winner: string;
+  public winner: string | undefined;
   public playing = false;
   public computerFirst = false;
   public difficulty: 'Easy'|'Normal'|'Hard' = 'Normal';
 
-  constructor() {}
-
-  ngOnInit() {
-  }
-
-  toggleGame(toggle: boolean) {
+  toggleGame(toggle: boolean): void {
     if (toggle === this.playing) {
       return;
     }
@@ -344,13 +350,13 @@ export class GameComponent implements OnInit {
     this.playing = toggle;
   }
 
-  makeComputerMove() {
+  makeComputerMove(): void {
     const symbols = {
       huPlayer: 'X',
       aiPlayer: 'O'
     };
 
-    const winnerMapping = {
+    const winnerMapping: {[index: string]: any} = {
       huPlayer: 'Human Wins!',
       aiPlayer: 'Computer Wins!',
       draw: 'It\'s a Draw!'
@@ -365,7 +371,7 @@ export class GameComponent implements OnInit {
     }
   }
 
-  makeHumanMove(field: number) {
+  makeHumanMove(field: number): void {
     if (!this.playing || typeof this.gameState[field] !== 'number') {
       return;
     }
@@ -373,8 +379,13 @@ export class GameComponent implements OnInit {
     this.gameState[field] = 'X';
     this.makeComputerMove();
   }
-
 }
+```
+
+**NOTE**: You will get an error about `import Minimax`. To fix it, create a `src/tic-tac-toe.d.ts` with the following code.
+
+```ts
+declare module 'tic-tac-toe-minimax';
 ```
 
 To complete the game, you will need to define the routes to the two components. 
@@ -409,22 +420,18 @@ This completes the implementation of the game. You should now be able to open a 
 ng serve
 ```
 
-Open your browser and navigate to `http://localhost:4200`. Click on the **Play** link in the top menu and you should see a fully functional tic-tac-toe game. Note that the **Login** link is not yet wired up. If you click on it nothing will happen and you can see an error message in the browser's console.
+Open your browser and navigate to `http://localhost:4200`. Click on the **Play** link in the top menu, and you should see a fully functional tic-tac-toe game. Note that the **Login** link is not yet wired up. If you click on it, nothing will happen, and you can see an error message in the browser's console.
 
 {% img blog/angular-material-login/tic-tac-toe-game.png alt:"Tic Tac Toe Game" width:"800" %}{: .center-image }
 
 ## Add Secure Sign In to Your Angular App
 
-Before you can start implementing the login page you need to register with Okta. Creating an account is simple and free. Just open a browser and navigate to <https://developer.okta.com>. Click **Create Free Account** and complete the registration process. 
+{% include setup/cli.md type="spa" framework="Angular" loginRedirectUri="http://localhost:4200/login" logoutRedirectUri="http://localhost:4200" %}
 
-When you are done you will be redirected to your Okta developer dashboard. Register a new application by going to **Applications** > **Add Application**. On the next screen, choose **Single Page App** and click **Next**.
-
-On the following screen, you can edit the application's settings. Make sure that the port number is 4200 and the base URI is `http://localhost:4200/`. Change the Login Redirect URI to `http://localhost:4200/login`. Once you are done, you should now see a **Client ID** which you will need later in your code.
-
-You will be implementing a login form as part of your application. Before continuing, a few warnings. If you decide to run a production environment in which you host your own login form, make sure that you are using the secure HTTPS protocol and you are hosting your site with a valid SSL certificate. Also, make sure to never store the login data in a session variable or the browser's storage. If you fail to take the necessary security precautions, your site may be vulnerable to attacks. As mentioned above, you will not be using any of the Angular-specific Okta libraries. Instead, install the `okta-auth-js` package by opening the terminal in the project's root folder and typing the following command.
+You will be implementing a login form as part of your application. Before continuing, a few warnings. If you decide to run a production environment in which you host your own login form, make sure that you are using the secure HTTPS protocol, and you are hosting your site with a valid SSL certificate. Also, make sure to never store the login data in a session variable or the browser's storage. If you fail to take the necessary security precautions, your site may be vulnerable to attacks. As mentioned above, you will not be using any of the Angular-specific Okta libraries. Instead, install the `okta-auth-js` package by opening the terminal in the project's root folder and typing the following command.
 
 ```bash
-npm install -E @okta/okta-auth-js@2.11.0
+npm install -E @okta/okta-auth-js@4.8.0
 ```
 
 With this, you are ready to create the authentication service. In the terminal, type the following command.
@@ -455,13 +462,13 @@ export class AuthService {
   constructor(private router: Router) {
   }
 
-  async checkAuthenticated() {
+  async checkAuthenticated(): Promise<boolean> {
     const authenticated = await this.authClient.session.exists();
     this.isAuthenticated.next(authenticated);
     return authenticated;
   }
 
-  async login(username: string, password: string) {
+  async login(username: string, password: string): Promise<void> {
     const transaction = await this.authClient.signIn({username, password});
 
     if (transaction.status !== 'SUCCESS') {
@@ -472,11 +479,11 @@ export class AuthService {
     this.authClient.session.setCookieAndRedirect(transaction.sessionToken);
   }
 
-  async logout(redirect: string) {
+  async logout(redirect: string): Promise<void> {
     try {
       await this.authClient.signOut();
       this.isAuthenticated.next(false);
-      this.router.navigate([redirect]);
+      await this.router.navigate([redirect]);
     } catch (err) {
       console.error(err);
     }
@@ -484,7 +491,7 @@ export class AuthService {
 }
 ```
 
-The `AuthService` defines a member `authClient` that is initialized to be an `OktaAuth` object. This object encapsulates the authentication, session management, and communication with the Okta servers. The `OktaAuth` constructor takes several options. The options provided here are the `issuer` and the `clientId`. In these options, you will have to replace `{YourOktaDomain}` with your Okta domain that you can find on the Okta dashboard. The `{ClientId}` needs to be replaced with the client ID you obtained when you registered your application with Okta.
+The `AuthService` defines a member `authClient` that is initialized to be an `OktaAuth` object. This object encapsulates the authentication, session management, and communication with the Okta servers. The `OktaAuth` constructor takes several options. The options provided here are the `issuer` and the `clientId`. In these options, you will have to replace `{YourOktaDomain}` with your Okta domain. The `{ClientId}` needs to be replaced with the client ID you obtained when you registered your application with Okta.
 
 The `isAuthenticated` property is a behavior subject that reflects whether the user is logged in or not. The `AuthService` also defines three asynchronous methods. The `checkAuthenticated()` method checks whether a user session exists and returns the outcome. It also updates the `isAuthenticated` subject. The `login()` method sends a sign-in request to the Okta server. On success, the user is authenticated and a session is established. The `logout()` method will sign out the user and redirect them to a specified route.
 
@@ -501,20 +508,20 @@ import { AuthService } from './auth.service';
 })
 export class AppComponent implements OnInit {
   title = 'Tic Tac Toe';
-  isAuthenticated: boolean;
+  isAuthenticated = false;
 
   constructor(public authService: AuthService) {
     this.authService.isAuthenticated.subscribe(
-      (isAuthenticated: boolean)  => this.isAuthenticated = isAuthenticated
+      (isAuthenticated: boolean) => this.isAuthenticated = isAuthenticated
     );
   }
 
-  async ngOnInit() {
+  async ngOnInit(): Promise<void> {
     this.isAuthenticated = await this.authService.checkAuthenticated();
   }
 
-  logout() {
-    this.authService.logout('/');
+  async logout(): Promise<void> {
+    await this.authService.logout('/');
   }
 }
 ```
@@ -535,7 +542,7 @@ Open `src/app/login/login.component.html` and add the following login form.
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <h2>Log In</h2>
       <mat-error *ngIf="loginInvalid">
-        The username and password were not recognised
+        The username and password were not recognized
       </mat-error>
       <mat-form-field class="full-width-input">
         <input matInput placeholder="Email" formControlName="username" required>
@@ -584,8 +591,8 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent implements OnInit {
   form: FormGroup;
-  public loginInvalid: boolean;
-  private formSubmitAttempt: boolean;
+  public loginInvalid = false;
+  private formSubmitAttempt = false;
   private returnUrl: string;
 
   constructor(
@@ -594,28 +601,27 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authService: AuthService
   ) {
-  }
-
-  async ngOnInit() {
     this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/game';
 
     this.form = this.fb.group({
       username: ['', Validators.email],
       password: ['', Validators.required]
     });
+  }
 
+  async ngOnInit(): Promise<void> {
     if (await this.authService.checkAuthenticated()) {
       await this.router.navigate([this.returnUrl]);
     }
   }
 
-  async onSubmit() {
+  async onSubmit(): Promise<void> {
     this.loginInvalid = false;
     this.formSubmitAttempt = false;
     if (this.form.valid) {
       try {
-        const username = this.form.get('username').value;
-        const password = this.form.get('password').value;
+        const username = this.form.get('username')?.value;
+        const password = this.form.get('password')?.value;
         await this.authService.login(username, password);
       } catch (err) {
         this.loginInvalid = true;
@@ -627,9 +633,9 @@ export class LoginComponent implements OnInit {
 }
 ```
 
-There is not much happening here. `ngOnInit()` sets up the form. If the user is already authenticated it requests the router to navigate to a different URL. The `onSubmit()` function handles the form submission. It extracts the values from the form elements and attempts to log in using `AuthService`.
+There is not much happening here. `ngOnInit()` sets up the form. If the user is already authenticated, it requests the router to navigate to a different URL. The `onSubmit()` function handles the form submission. It extracts the values from the form elements and attempts to log in using `AuthService`.
 
-The application is almost done. You have the authentication service and the login form in place. But you also want to prevent the user from navigating to a part of the application that they are not authorized to see. Angular uses route guards for this. Create a new service by running the following command in the terminal.
+The application is almost done. You have the authentication service and the login form in place. But, you also want to prevent the user from navigating to a part of the application that they are not authorized to see. Angular uses route guards for this. Create a new service by running the following command in the terminal.
 
 ```bash
 ng generate service AuthGuard
@@ -649,7 +655,7 @@ export class AuthGuardService implements CanActivate {
 
   constructor(public authService: AuthService, public router: Router) {}
 
-  async canActivate() {
+  async canActivate(): Promise<boolean> {
     if (!await this.authService.checkAuthenticated()) {
       await this.router.navigate(['login']);
       return false;
@@ -694,7 +700,7 @@ When you run the `ng serve` command and navigate to `http://localhost:4200` you 
 
 ### Make Angular Tests Pass With Angular Material
 
-You generated a lot of code in this tutorial. When you created components, tests were created for those components as well. The tests merely verify the components render. If you run `ng test`, most of them will fail because the tests don't have the imports for the components you added. If you'd like to see what it takes to make all the tests pass, see [this commit](https://github.com/oktadeveloper/okta-angular-material-login-example/pull/1/commits/ac79cd8dcde78e6837995befa254842d6e61e064).
+You generated a lot of code in this tutorial. When you created components, tests were created for those components as well. The tests merely verify the components render. If you run `ng test`, most of them will fail because the tests don't have the imports for the components you added. If you'd like to see what it takes to make all the tests pass, see [this commit](https://github.com/oktadeveloper/okta-angular-material-login-example/commit/20e899d0ba4f8074681548e268337bd13153f140).
 
 ## Learn More About Angular Material and Secure Login
 
