@@ -11,6 +11,8 @@ tweets:
 - "What the heck is i18n and l10n and how do I add it to my Java app? This tutorial answers these questions and more!"
 image: blog/java-i18n/duke-world.png
 type: conversion
+changelog:
+  - 2019-02-26: Fixed Spanish translation and simplified `Locale` resolution in `LoginController`. Thanks to [Daniel Fernández](https://twitter.com/danfenz/status/1100322287386062849) and [Sam Brannen](https://twitter.com/sam_brannen/status/1100339463329333250) for their help. You can see the example app changes in [okta-java-i18n-example#1](https://github.com/oktadeveloper/okta-java-i18n-example/pull/1); changes to this post can be viewed in [okta.github.io#2740](https://github.com/oktadeveloper/okta.github.io/pull/2740).
 ---
 :page-liquid:
 
@@ -583,7 +585,3 @@ We like to write about Java and Spring Boot on this here blog. Here are a few of
 * link:/blog/2018/03/01/develop-microservices-jhipster-oauth[Develop a Microservices Architecture with OAuth 2.0 and JHipster]
 
 Follow us on your favorite social network { https://twitter.com/oktadev[Twitter], https://www.linkedin.com/company/oktadev[LinkedIn], https://www.facebook.com/oktadevelopers/[Facebook], https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q[YouTube] } to be notified when we publish awesome content in the future.
-
-**Changelog:**
-
-* Feb 26, 2019: Fixed Spanish translation and simplified `Locale` resolution in `LoginController`. Thanks to https://twitter.com/danfenz/status/1100322287386062849[Daniel Fernández] and https://twitter.com/sam_brannen/status/1100339463329333250[Sam Brannen] for their help. You can see the example app changes in https://github.com/oktadeveloper/okta-java-i18n-example/pull/1[okta-java-i18n-example#1]; changes to this post can be viewed in https://github.com/oktadeveloper/okta.github.io/pull/2740[okta.github.io#2740].

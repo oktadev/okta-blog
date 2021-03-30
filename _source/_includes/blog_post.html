@@ -5,7 +5,7 @@
     <header class="BlogPost-header">
 
         <time class="BlogPost-date" datetime="{{ post.date | date: '%F'}}">{{ post.date | date: "%B %-d, %Y" }}</time>
-        {%- if post.changelog -%}
+        {%- if page.layout == 'blog_post' and post.changelog -%}
         {% assign last_updated_date = post.changelog[0] | split: '=>' | first | date: "%B %-d, %Y" %}
         <div class="BlogPost-last-updated">
             Last Updated: <a href="#changelog">{{ last_updated_date }}</a>
@@ -32,7 +32,7 @@
         {% endif %}
         {{ include.post_content }}
 
-        {%- if post.changelog -%}
+        {%- if page.layout == 'blog_post' and post.changelog -%}
         <p id="changelog"><strong>Changelog</strong>:</p>
         <ul>
         {% for change in post.changelog %}

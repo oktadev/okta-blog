@@ -12,6 +12,8 @@ tweets:
 - "Learn how to configure OAuth 2.0 authentication with Spring Security and Spring Boot in this tutorial."
 image: blog/featured/okta-java-skew.jpg
 type: conversion
+changelog:
+  - 2020-05-07: Updated to use Spring Boot 2.2.7 and [rename `redirect-uri-template` to `redirect-uri`](https://github.com/oktadeveloper/okta-spring-boot-authz-server-example/issues/2). See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-spring-boot-authz-server-example/pull/3). Changes to this article can be viewed in [oktadeveloper/okta-blog#286](https://github.com/oktadeveloper/okta-blog/pull/286).
 ---
 
 When building a web application, authentication and authorization is a must. Doing it right, however, is not simple. Computer security is a true specialty. Legions of developers work day and night against equally numerous international hackers creating a continual development cycle of finding vulnerabilities, attacking them, and fixing them. Keeping up with all this solo would be painful (if not impossible).
@@ -580,7 +582,3 @@ If you're interested in learning more about Spring Boot, OAuth 2.0, and Spring S
 * [Build a Secure API with Spring Boot and GraphQL](/blog/2018/08/16/secure-api-spring-boot-graphql)
 
 If you have any questions about this post, please add a comment below. For more awesome content, follow  [@oktadev](https://twitter.com/oktadev)  on Twitter, or subscribe to  [our YouTube channel](https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q)!
-
-**Changelog:**
-
-* May 7, 2020: Updated to use Spring Boot 2.2.7 and [rename `redirect-uri-template` to `redirect-uri`](https://github.com/oktadeveloper/okta-spring-boot-authz-server-example/issues/2). See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-spring-boot-authz-server-example/pull/3). Changes to this article can be viewed in [oktadeveloper/okta-blog#286](https://github.com/oktadeveloper/okta-blog/pull/286).
