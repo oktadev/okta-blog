@@ -261,7 +261,7 @@ Here's how it works:
 
 (If this is all new to you, you can [learn more about OAuth here](https://developer.okta.com/blog/2017/06/21/what-the-heck-is-oauth).)
 
-You probably don't want to build an OAuth 2.0 authorization server yourself, so for this tutorial, you will sign up for a forever-free Okta developer account; or sign in to `{yourOktaDomain}` if you already have an account). Install the [Okta CLI](https://cli.okta.com/) and run `okta register` to sign up for a new account. If you already have an account, run `okta login`.
+{% include setup/cli.md type="service" %}
 
 ## Register the Client Application for Your REST API
 
