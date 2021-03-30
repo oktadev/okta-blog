@@ -271,7 +271,7 @@ The **OKTA_OAUTH2_CLIENT_ID** and **OKTA_OAUTH2_CLIENT_SECRET** is the username 
 
 Now you need to set up the authorization server:
 
-* Log into the Okta Admin Console
+* Log into the Okta Admin Console (use `okta login` to get your org's URL)
 * Go to **Security** > **API**
 * Click the link for the **default** Authorization Server
 * Select the **Scopes** tab and click **Add Scope**
