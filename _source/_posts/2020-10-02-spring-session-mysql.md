@@ -480,4 +480,3 @@ Know that there are multiple options for session storage—we selected a databas
 If you liked this post, follow [@oktadev](https://twitter.com/oktadev) on Twitter to see when we publish similar ones. We have [a YouTube channel](https://youtube.com/oktadev) too! You should [subscribe](https://youtube.com/c/oktadev?sub_confirmation=1). 😊
 
 _We're also streaming on Twitch, [follow us](https://www.twitch.tv/oktadev) to be notified when we're live._
-
