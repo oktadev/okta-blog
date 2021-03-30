@@ -26,7 +26,7 @@ Single-Page App
 {%- endif -%}
 ** and press **Enter**. 
   {% if include.type == "spa" %}
-Change the Redirect URI to `{{ include.loginRedirectUri }}` and accept the default Logout Redirect URI of `{{baseUrl}}`.
+Change the Redirect URI to `{{ include.loginRedirectUri }}` and accept the default Logout Redirect URI of `{% if include.logoutRedirectUri %}{{ include.logoutRedirectUri }}{% else %}{{ baseUrl }}{% endif %}`.
   {% elsif include.type == "web" %}
 Select **
     {%- if include.framework -%}{{ include.framework }}
@@ -64,7 +64,7 @@ The Okta CLI streamlines configuring a JHipster app and does several things for 
 
 You will see output like the following when it's finished:
 {%- else -%}
-The Okta CLI will create an {% if include.type == "service" %}OAuth 2.0{% else %}OIDC{% endif %} {% if include.type == "spa" %}Single-Page App{% else %}{{ include.type | capitalize }} App{% endif %} in your Okta Org.{% if include.type != "service" %} It will add the redirect URIs you specified and grant access to the Everyone group.{% if include.type == "spa" %} It will also add a trusted origin for `{{ baseUrl }}`.{% endif %}{% endif %} You will see output like the following when it's finished:
+The Okta CLI will create an {% if include.type == "service" %}OAuth 2.0{% else %}OIDC{% endif %} {% if include.type == "spa" %}Single-Page App{% else %}{{ include.type | capitalize }} App{% endif %} in your Okta Org.{% if include.type != "service" %} It will add the redirect URIs you specified and grant access to the Everyone group.{% if include.type == "spa" %} It will also add a trusted origin for `{% if include.logoutRedirectUri %}{{ include.logoutRedirectUri }}{% else %}{{ baseUrl }}{% endif %}`.{% endif %}{% endif %} You will see output like the following when it's finished:
 {%- endif -%}
    
 {% if include.type == "spa" or include.type == "native" %}
