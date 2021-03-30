@@ -12,11 +12,17 @@ tweets:
 - "Have you played with the latest release of @angular? Now's your chance!"
 image: blog/featured/okta-angular-bottle-headphones.jpg
 type: conversion
+changelog: 
+- 2020-03-30: Updated to use the latest versions of the Okta Angular SDK.
 ---
 
 Single page applications (SPAs) are becoming more and more popular. Their appeal is obvious. Fast loading times gives users the feeling of responsiveness even over slow networks. At some point, a developer of a SPA has to think about authentication and authorization. But what do these two terms actually mean? Authentication deals with ensuring that a user truly is who they claim to be. This usually involves a login page in which the user provides their credentials. Once logged in, authorization deals with restricting and granting access to specific resources. In the simplest case, access to pages is restricted to users who have authenticated themselves.
 
 In this tutorial, I will show you how to implement secure login in a client application using Angular. Okta provides Angular-specific libraries that make it very easy to include authentication and access control.
+
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
 
 ## Build an Angular SPA with Login
 
@@ -25,7 +31,7 @@ In this tutorial, I will focus purely on client-side security. I will not delve 
 I will assume that you have installed Node on your system and that you are somewhat familiar with the node packet manager `npm`. The tutorial will be using Angular 7. To install the Angular command line tool, open a terminal and enter the command:
 
 ```bash
-npm install -g @angular/cli@7.1.4
+npm install -g @angular/cli@7
 ```
 
 This will install the global `ng` command. On some systems, Node installs global commands in a directory that is not writable by regular users. In this case, you have to run the command above using `sudo`. Next, create a new Angular application. Navigate to a directory of your choice and issue the following command.
@@ -43,7 +49,7 @@ ng add @angular/material
 This will prompt you with a few options. In the first question you can choose the color theme. I chose *Deep Purple/Amber*. For the next two questions, answer *yes* to both using gesture recognition and browser animations. On top of Material Design, I will be using Flex Layout components. Run the command:
 
 ```bash
-npm install @angular/flex-layout@7.0.0-beta.22
+npm install @angular/flex-layout@7.0.0-beta.24
 ```
 
 Next, add some general styling to the application. Open `src/style.css` and replace the contents with the following.
@@ -357,22 +363,31 @@ If the user is not logged in the guard will redirect the user to a hosted login 
 To start implementing authentication in your application, you need to install the Okta Angular library. Open the terminal in the application directory and run the command:
 
 ```bash
-npm install @okta/okta-angular@1.0.7
+npm install @okta/okta-angular@3.1.0
 ```
 
-Open `src/app/app.module.ts` and add the following import to the top of the file.
+Open `src/app/app.module.ts` and add the following imports and Okta configuration.
 
 ```ts
-import { OktaAuthModule } from '@okta/okta-angular';
+import { OKTA_CONFIG, OktaAuthModule } from '@okta/okta-angular';
+
+const oktaConfig = {
+    issuer: 'https://{yourOktaDomain}/oauth2/default',
+    clientId: '{clientId}',
+    redirectUri: window.location.origin + '/callback'
+}
 ```
 
-In the same file, in the `imports` section of the `@NgModule` annotation, add the following code.
+In the `imports` section of the `@NgModule` annotation, add `OktaAuthModule`. Provide `OKTA_CONFIG` with your Okta values too.
 
 ```ts
-OktaAuthModule.initAuth({
-  issuer: 'https://{yourOktaDomain}/oauth2/default',
-  redirectUri: 'http://localhost:4200/callback',
-  clientId: '{yourClientId}'
+@NgModule({
+  ...
+  imports: [
+    ...
+    OktaAuthModule
+  ],
+  providers: [{ provide: OKTA_CONFIG, useValue: oktaConfig }]
 })
 ```
 
@@ -392,23 +407,23 @@ export class AppComponent implements OnInit {
   isAuthenticated: boolean;
 
   constructor(public oktaAuth: OktaAuthService) {
+    // subscribe to authentication state changes
     this.oktaAuth.$authenticationState.subscribe(
-      (isAuthenticated: boolean)  => this.isAuthenticated = isAuthenticated
+      (isAuthenticated: boolean) => this.isAuthenticated = isAuthenticated
     );
   }
 
-  ngOnInit() {
-    this.oktaAuth.isAuthenticated().then((auth) => {
-      this.isAuthenticated = auth;
-    });
+  async ngOnInit() {
+    // get authentication state for immediate use
+    this.isAuthenticated = await this.oktaAuth.isAuthenticated();
   }
 
-  login() {
-    this.oktaAuth.loginRedirect();
+  async login() {
+    await this.oktaAuth.signInWithRedirect();
   }
 
-  logout() {
-    this.oktaAuth.logout('/');
+  async logout() {
+    await this.oktaAuth.signOut();
   }
 }
 ```
@@ -449,7 +464,7 @@ Now, if you try to access the calculator in the application, you will be redirec
 Redirecting the user to an external login page is OK for some use cases. In other cases, you don't want the user to leave your site. This is a use case for the login widget. It lets you embed the login form directly into your application. To make use of the widget you first have to install it. Open the terminal in the application directory and install the following packages.
 
 ```bash
-npm install @okta/okta-signin-widget@2.14.0 rxjs-compat@6.3.3
+npm install @okta/okta-signin-widget5.5.0
 ```
 
 Next, generate a component that hosts the login form. This component will not need any additional styling and the HTML template consists only of a single tag that can be inlined in the component definition.
@@ -514,8 +529,9 @@ export class LoginComponent implements OnInit {
 In `src/index.html` add the following two lined inside the `<head>` tag to include the default widget styles.
 
 ```html
-<link href="https://ok1static.oktacdn.com/assets/js/sdk/okta-signin-widget/2.14.0/css/okta-sign-in.min.css" type="text/css" rel="stylesheet"/>
-<link href="https://ok1static.oktacdn.com/assets/js/sdk/okta-signin-widget/2.14.0/css/okta-theme.css" type="text/css" rel="stylesheet"/>
+<!-- Latest CDN production JavaScript and CSS -->
+<script src="https://global.oktacdn.com/okta-signin-widget/5.5.0/js/okta-sign-in.min.js" type="text/javascript"></script>
+<link href="https://global.oktacdn.com/okta-signin-widget/5.5.0/css/okta-sign-in.min.css" type="text/css" rel="stylesheet"/>
 ```
 
 Now add the login route to the route configuration. Open `src/app/app-routing.module.ts`. Add an import for the `LoginComponent` at the top of the file.
