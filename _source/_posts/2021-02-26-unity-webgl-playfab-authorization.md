@@ -247,43 +247,7 @@ With the browser portion of the project complete, the next step is to create the
 
 ### Configure an Authorization Server
 
-Many OAuth authorization solutions exist today. [Okta](https://developer.okta.com/) is the industry-leading, best of breed, identity security platform on the market and allows for creating an unlimited number of OAuth Authorization servers quickly and easily.
-
-Okta provides the easy-to-use [Okta CLI](/blog/2020/12/10/introducing-okta-cli), which will simplify the registration and setup process. First, [Install the Okta CLI](https://cli.okta.com/) for your preferred operating system. With the CLI installed, run the following command:
-
-```sh
-okta register
-```
-
-Follow the instructions to register for a new Okta account. The CLI will handle the Okta configuration automatically. If you already have an Okta account use the following command instead:
-
-```sh
-okta login
-```
-
-> Note: `okta login` requires a valid [Okta API Token](https://developer.okta.com/docs/guides/create-an-api-token/create-the-token/) to be entered. This will be stored in the CLI's `okta.yaml` file locally.
-
-Next, run the following command to set up an OAuth app.
-
-```sh
-okta apps create
-```
-
-Give the app a name, and select option *2*, `Single Page App`, for the application type.
-
-The `Redirect URI` needs to point to where the `callback.html` page will be hosted. Use the following URI format, replacing `appName` with a name that will be used later when deploying the Unity project to Azure App Services.
-
-`https://appName.azurewebsites.net/callback.html`
-
-The `Post Logout Redirect URI` will need to point to where the `index.html` page will be hosted. Use the following URI format, again replacing `appName` with a name used later when deploying the Unity project to Azure App Services.
-
-`https://appName.azurewebsites.net/callback.html`
-
-Finally, select the `default` authorization server if prompted.
-
-The CLI will create the application and return an `Issuer` along with a `Client ID.` Make sure to take note of both which will be used when creating the OAuth script.
-
-{% img blog/unity-webgl-playfab-authorization/11_OktaCLI.png alt:"Okta CLI" width:"800" %}{: .center-image }
+{% include setup/cli.md type="spa" loginRedirectUri="https://appName.azurewebsites.net/callback.html" logoutRedirectUri="https://appName.azurewebsites.net/index.html" %}
 
 ### Create the OAuth Script
 
