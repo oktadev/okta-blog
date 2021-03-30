@@ -12,6 +12,8 @@ tweets:
 - "Angular is 🔥; MySQL is a tried-and-true database that developers ❤️. This tutorial shows you how to use them together."
 image: blog/featured/okta-angular-skew.jpg
 type: conversion
+changelog:
+- 2021-03-29: Updated to use the latest versions of Okta's JWT Verifier and Angular SDK. You can see the changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-angular-mysql-timeline-example/pull/2). Changes to this article can be viewed in [oktadeveloper/okta-blog#634](https://github.com/oktadeveloper/okta-blog/pull/634).
 ---
 
 The MySQL database has been a reliable workhorse for web applications for many years. It is the **M** in the LAMP stack, and powers a huge number of web servers across the world. 
@@ -23,6 +25,10 @@ Recently, MariaDB was created by some of the original developers of MySQL as an 
 In this tutorial, I will show you how to develop an Angular application using MySQL. Instead of the old established LAMP stack, I will use a variant of the MEAN stack, where the **M** in MEAN refers to the MySQL database, with the Express.js framework to power the backend, and Angular.js for the client. The application will create a simple timeline in which the user can add and edit events, with a simple CRUD API.
 
 I will assume that you have some familiarity with Node and the `npm` package manager and that both of these are installed on your system.
+
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
 
 ## Setting up MySQL
 
@@ -83,7 +89,7 @@ npm init
 Answer all the questions using the default answer and when asked about the entry point, set it to `src/index.js`. Next, install some libraries you will need.
 
 ```bash
-npm install --save-exact express@4.17.1 cors@2.8.5 mysql@2.17.1
+npm install --save-exact express@4.17.1 cors@2.8.5 mysql@2.18.1
 ```
 
 Next, use your favorite editor and create a file `src/index.js` and paste the following code into it.
@@ -241,16 +247,12 @@ ALTER USER 'timeline'@'localhost' IDENTIFIED WITH mysql_native_password BY 'pass
 
 In this section, I will show you how to use JWT and Okta to authenticate users to your application. User authentication is an important part of any web app, but developers often underestimate the effort required to safely implement and maintain secure authentication. With Okta, you can offload all the complexity and security considerations to an external provider. 
 
-To start, [sign up for a free developer account with Okta](https://developer.okta.com/signup/). After completing your registration you will see your Okta dashboard.
-
-To create a new application, select the **Applications** link in the top menu and click on the green **Add Application** button. Next, you will see a screen with several options. Select **Single-Page App** and click **Next**. 
-
-The next screen lets you edit the application settings. For the client you will use Angular, so make sure that the base URI points to `http://localhost:4200/`. You will also need to set the Login Redirect URI to `http://localhost:4200/implicit/callback`, where the user will be redirected after a successful login. After you click the **Done** button you will see a screen with a client ID you will need below.
+{% include setup/cli.md type="spa" framework="Angular" loginRedirectUri="http://localhost:4200/callback" %}
 
 To use Okta authentication in your server app, you need to install some additional libraries. In the terminal run the following command:
 
 ```bash
-npm install --save-exact express-bearer-token@2.4.0 @okta/jwt-verifier@1.0.0
+npm install --save-exact express-bearer-token@2.4.0 @okta/jwt-verifier@2.1.0
 ```
 
 Next, create a new file `src/auth.js` and paste the following code.
@@ -338,7 +340,7 @@ Now it's time to implement the client application, based on Angular 8 with the `
 To start, you will need to install the latest version of the Angular CLI tool. In a terminal, type the following command.
 
 ```bash
-npm install -g @angular/cli@8.1.2
+npm install -g @angular/cli@8
 ```
 
 Depending on your system, you might have to run this command using `sudo` to allow modification of system resources. Next, navigate into a directory of your choice and create a new Angular application.
@@ -362,7 +364,7 @@ ng add ngx-bootstrap@5.1.0
 To add the timeline library and Okta's Angular SDK, run the following command:
 
 ```bash
-npm install --save-exact ngx-timeline@5.0.0 @okta/okta-angular@1.2.1
+npm install --save-exact ngx-timeline@5.0.0 @okta/okta-angular@3.0.1
 ```
 
 Now start your IDE and open up the file `src/index.html`. Here, add some external CSS files inside the `<head>` tags to add styles for Bootstrap and Line Awesome:
@@ -375,7 +377,7 @@ Now start your IDE and open up the file `src/index.html`. Here, add some externa
 Open `src/app/app.component.ts` and replace the contents with the following code.
 
 ```ts
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { OktaAuthService } from '@okta/okta-angular';
 
 @Component({
@@ -383,31 +385,33 @@ import { OktaAuthService } from '@okta/okta-angular';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'timeline-client';
   isAuthenticated: boolean;
 
   constructor(public oktaAuth: OktaAuthService) {
+    // subscribe to authentication state changes
     this.oktaAuth.$authenticationState.subscribe(
-      (isAuthenticated: boolean)  => this.isAuthenticated = isAuthenticated
+      (isAuthenticated: boolean) => this.isAuthenticated = isAuthenticated
     );
   }
 
-  ngOnInit() {
-    this.oktaAuth.isAuthenticated().then((auth) => {this.isAuthenticated = auth});
+  async ngOnInit() {
+    // get authentication state for immediate use
+    this.isAuthenticated = await this.oktaAuth.isAuthenticated();
   }
 
-  login() {
-    this.oktaAuth.loginRedirect();
+  async login() {
+    await this.oktaAuth.signInWithRedirect();
   }
 
-  logout() {
-    this.oktaAuth.logout('/');
+  async logout() {
+    await this.oktaAuth.signOut();
   }
 }
 ```
 
-The `AppComponent` handles the authentication through Okta. `OktaAuthService.isAuthenticated()` initializes the `isAuthenticated` field of the component. The field is kept up to date by subscribing to the `OktaAuthService.$authenticationState` observable. `OktaAuthService.loginRedirect()` will trigger a browser redirect to the Okta login page and `OktaAuthService.logout('/')` will log out the user and navigate to the `'/'` route.
+The `AppComponent` handles the authentication through Okta. `OktaAuthService.isAuthenticated()` initializes the `isAuthenticated` field of the component. The field is kept up to date by subscribing to the `OktaAuthService.$authenticationState` observable. `OktaAuthService.signInWithRedirect()` will trigger a browser redirect to the Okta login page and `OktaAuthService.signOut()` will log out the user.
 
 Now open the template of the application component `src/app/app.component.html` and paste in the following HTML.
 
@@ -455,7 +459,13 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { HomeComponent } from './home/home.component';
 import { TimelineComponent } from './timeline/timeline.component';
 
-import { OktaAuthModule } from '@okta/okta-angular';
+import { OKTA_CONFIG, OktaAuthModule } from '@okta/okta-angular';
+
+const oktaConfig = {
+  issuer: 'https://{yourOktaDomain}/oauth2/default',
+  clientId: '{clientId}',
+  redirectUri: window.location.origin + '/callback'
+};
 
 @NgModule({
   declarations: [
@@ -473,19 +483,17 @@ import { OktaAuthModule } from '@okta/okta-angular';
     BsDatepickerModule.forRoot(),
     NgxTimelineModule,
     ModalModule.forRoot(),
-    OktaAuthModule.initAuth({
-      issuer: 'https://{yourOktaDomain}/oauth2/default',
-      redirectUri: 'http://localhost:4200/implicit/callback',
-      clientId: '{yourClientId}'
-    })
+    OktaAuthModule
   ],
-  providers: [],
+  providers: [{ provide: OKTA_CONFIG, useValue: oktaConfig }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
 ```
 
- Replace`{yourClientId}` with the client ID from your Okta dashboard and `{yourOktaDomain}` with your Okta domain. Next, create two components for the home page and the timeline page, as well as a service to connect to the server.
+Replace`{yourClientId}` with your client ID and `{yourOktaDomain}` with your Okta domain. If you closed your terminal window, you can run `okta apps` to see your apps and `okta apps config --app=<clientId>` to get your app's info.
+
+Next, create two components for the home page and the timeline page, as well as a service to connect to the server.
 
 ```bash
 ng generate component home
@@ -527,46 +535,46 @@ import { environment } from '../environments/environment';
 })
 export class ServerService {
 
-    constructor(private http: HttpClient, public oktaAuth: OktaAuthService) {
-    }
+  constructor(private http: HttpClient, public oktaAuth: OktaAuthService) {
+  }
 
-    private async request(method: string, url: string, data?: any) {
-      const token = await this.oktaAuth.getAccessToken();
+  private async request(method: string, url: string, data?: any) {
+    const token = await this.oktaAuth.getAccessToken();
 
-      const result = this.http.request(method, url, {
-        body: data,
-        responseType: 'json',
-        observe: 'body',
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-      return new Promise((resolve, reject) => {
-        result.subscribe(resolve, reject);
-      });
-    }
+    const result = this.http.request(method, url, {
+      body: data,
+      responseType: 'json',
+      observe: 'body',
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    return new Promise((resolve, reject) => {
+      result.subscribe(resolve, reject);
+    });
+  }
 
-    getEvents() {
-      return this.request('GET', `${environment.serverUrl}/event`);
-    }
+  getEvents() {
+    return this.request('GET', `${environment.serverUrl}/event`);
+  }
 
-    createEvent(event) {
-      return this.request('POST', `${environment.serverUrl}/event`, event);
-    }
+  createEvent(event) {
+    return this.request('POST', `${environment.serverUrl}/event`, event);
+  }
 
-    updateEvent(event) {
-      return this.request('PUT', `${environment.serverUrl}/event/${event.id}`, event);
-    }
+  updateEvent(event) {
+    return this.request('PUT', `${environment.serverUrl}/event/${event.id}`, event);
+  }
 
-    deleteEvent(event) {
-      return this.request('DELETE', `${environment.serverUrl}/event/${event.id}`);
-    }
+  deleteEvent(event) {
+    return this.request('DELETE', `${environment.serverUrl}/event/${event.id}`);
+  }
 }
 ```
 
 The main logic of this component resides in the `request` method, which sends a request to the server. To identify the user to the server, the request header contains a bearer token obtained from `OktaAuthService`. The method returns a `Promise` that resolves once a response from the server has been obtained. 
 
-The remainder of the `ServerService` uses the `request` method to call the server routes. The server URL is provided through the environment object, which is defined in `src/environments/environment.ts`. 
+The remainder of the `ServerService` uses the `request` method to call the server routes. The server URL is provided through the environment object, which you need to define in `src/environments/environment.ts`. 
 
 ```ts
 export const environment = {
@@ -651,10 +659,10 @@ Only a small amount of styling in `src/app/timeline/timeline.component.css`  rou
 
 The `src/app/timeline/timeline.component.ts` file contains the bulk of the application logic.
 
-```js
-import { Component, OnInit, TemplateRef } from '@angular/core';
+```ts
+import { Component, OnInit } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ServerService } from '../server.service';
 
 @Component({
@@ -777,11 +785,11 @@ const routes: Routes = [
     component: TimelineComponent,
     canActivate: [OktaAuthGuard]
   },
-  { path: 'implicit/callback', component: OktaCallbackComponent }
+  { path: 'callback', component: OktaCallbackComponent }
 ];
 ```
 
-The first entry sets the base route and links it to the `HomeComponent`. The second entry links the `timeline` route to the `TimelineComponent` and prevents unauthorized access to the route with `OktaAuthGuard`. When a user authenticates via the Okta service, they will be redirected to the `implicit/callback` route.
+The first entry sets the base route and links it to the `HomeComponent`. The second entry links the `timeline` route to the `TimelineComponent` and prevents unauthorized access to the route with `OktaAuthGuard`. When a user authenticates via the Okta service, they will be redirected to the `/callback` route.
 
 ## Run Your Angular Client Application
 
@@ -795,7 +803,6 @@ Make sure that you have also started the server as described in the previous sec
 
 I added some of my favorite historical events. You can see how this looks in the screenshot below.
 
-
 {% img blog/angular-mysql-timeline/timeline.png alt:"A timeline application using Angular and MySQL" width:"800" %}{: .center-image }
 
 ## Learn More About MySQL, Angular, and Node
@@ -806,6 +813,7 @@ You can find the code created in this tutorial on GitHub at [okta-angular-mysql-
 
 If you want to learn more about Angular, MySQL, and authentication, check out the links below.
 
+* [Use the Okta CLI to Quickly Build Secure Angular Apps](/blog/2020/12/03/angular-okta)
 * [Build a Basic CRUD App with Angular and Node](/blog/2018/10/30/basic-crud-angular-and-node)
 * [Build Secure Login for Your Angular App](/blog/2019/02/12/secure-angular-login)
 * [Build a Node.js API with TypeScript](/blog/2019/05/07/nodejs-typescript-api)
