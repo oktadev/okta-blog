@@ -8,7 +8,7 @@ tags: [native, mobile, ios, android, dotnet, xamarin]
 tweets:
   - "Learn how to use Xamarin to build iOS and Android apps fast →"
   - "Want to build mobile apps? Start with this short #xamarin tutorial by @nbarbettini →"
-type: conversion
+type: awareness
 ---
 
 [Xamarin](https://www.xamarin.com/) is a cross-platform technology that makes it possible to build native applications for Android and iOS using a single, shared codebase. Like other technologies such as React Native and NativeScript, it allows development teams to spend less time writing code for both platforms.
@@ -86,7 +86,7 @@ UI views are called "pages" in Xamarin.Forms lingo, and your app already contain
         <Entry x:Name="NameEntry" Text="Jane Doe" />
         <Button x:Name="SayHelloButton"
                 Text="Say Hello"
-                Clicked="SayHelloButtonOnClicked" />
+                Clicked="SayHelloButtonClicked" />
     </StackLayout>
 </ContentPage.Content>
 ```
