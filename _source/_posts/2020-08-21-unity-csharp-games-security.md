@@ -35,20 +35,6 @@ The level of effort to build identity security from scratch is massive. Just to 
 - Example code: [Native](https://github.com/nickgamb/Okta_Unity/blob/master/PanelManager.cs) / [OAuth](https://github.com/nickgamb/Okta_Unity/blob/master/OktaOAuth2.cs).
 - The Okta SDK Unity Package can be downloaded [here.](https://github.com/nickgamb/Okta_Unity/blob/master/OktaSDK.unitypackage).
 
-## Videos
-
-Follow along with our companion videos.
-
-NATIVE: [https://youtu.be/9C5xaaLt7Q4](https://youtu.be/9C5xaaLt7Q4)
-<div style="text-align: center">
-<iframe width="600" height="338" src="https://www.youtube.com/embed/9C5xaaLt7Q4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
-
-OAUTH: [https://youtu.be/ciDl0-Wtfvo](https://youtu.be/ciDl0-Wtfvo)
-<div style="text-align: center">
-<iframe width="600" height="338" src="https://www.youtube.com/embed/ciDl0-Wtfvo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
-
 ## Core Concepts
 
 Before we jump into Unity, it is important to understand what options exist to handle authentication and authorization of users within your project. The most common designs are in engine with native UI, in engine with OAuth via browser, external with native UI, and external with OAuth via browser. The other option, as previously mentioned, is to trust authorization from another product such as a game store.
