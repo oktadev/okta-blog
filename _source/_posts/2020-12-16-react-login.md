@@ -13,7 +13,7 @@ tweets:
 image: blog/react-login/react-login.png
 type: conversion
 changelog:
-- 2021-03-30: Updated to use Okta React SDK 5.0.0 and Auth JS 4.8.0. You can see the changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-angular-mysql-timeline-example/pull/2). Changes to this article can be viewed in [oktadeveloper/okta-blog#634](https://github.com/oktadeveloper/okta-blog/pull/634).
+- 2021-03-31: Updated to use Okta React SDK 5.0.0, Auth JS 4.8.0, and Okta Sign-In Widget 5.5.0. You can see the changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-react-login-example/pull/2). Changes to this article can be viewed in [oktadeveloper/okta-blog#619](https://github.com/oktadeveloper/okta-blog/pull/619).
 ---
 
 Almost any web app needs some sort of access control, usually implemented by user login. Choosing how user authentication is implemented depends on the type of application and its audience. In this post, I want to show you a few different ways of creating a login feature in a single-page React application using Okta.
