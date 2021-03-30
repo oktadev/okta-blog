@@ -238,27 +238,6 @@ Finally, add two links to the top bar of the UI, with the following razor code i
 The application is now ready to provide its services, enriched with a state-of-the-art security framework, in conjunction with a first-class Cloud-based authentication/authorization provider as Okta. You have probably realized that something is missing: I have done nothing (yet) to inform the provider that my brand new application, **okta-cli-app**, is going to ask it to manage authentication and authorization matters on its behalf.
 To fix this I need to set up a proper configuration in Okta and bind my ASP.NET Core project to it.
 
-<!--
-If you haven't yet got an Okta developer account, please [sign up](https://developer.okta.com/) and grab one, it's quick and free. You will need one to perform the next step.
-
-Login to your Okta developer account and create a new application.
-
-{% img blog/10x-azure-cli/image4.png alt:"" width:"800" %}{: .center-image }
-
-This is how it looks after I have filled all the necessary fields:
-
-{% img blog/10x-azure-cli/image5.png alt:"" width:"800" %}{: .center-image }
-
-> Note that the TCP port 5001 must be the same used by the application. You can see it in the messages displayed in the terminal when you start the application with **`dotnet run`**.
-
-At the bottom of the page, you see two fields containing cryptic strings, named ***Client ID*** and ***Client secret***.
-
-{% img blog/10x-azure-cli/image6.png alt:"" width:"800" %}{: .center-image }
-
-A third fundamental value you need to complete the configuration process is the Okta domain URL, which has been created for you when you signed up for your new account. You can find it on the top-right of the dashboard page.
-
-{% img blog/10x-azure-cli/image7.png alt:"" width:"800" %}{: .center-image }
--->
 {% capture note %}
 > Note that the TCP port 5001 must be the same used by the application. You can see it in the messages displayed in the terminal when you start the application with **`dotnet run`**.
 {% endcapture %}
