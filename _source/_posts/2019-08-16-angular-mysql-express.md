@@ -465,7 +465,7 @@ const oktaConfig = {
   issuer: 'https://{yourOktaDomain}/oauth2/default',
   clientId: '{clientId}',
   redirectUri: window.location.origin + '/callback'
-}
+};
 
 @NgModule({
   declarations: [
