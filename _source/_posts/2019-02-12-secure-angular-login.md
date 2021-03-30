@@ -13,7 +13,7 @@ tweets:
 image: blog/featured/okta-angular-bottle-headphones.jpg
 type: conversion
 changelog: 
-- 2020-03-30: Updated to use Angular 11, the Okta Angular SDK 3.0.1, and the Okta Sign-In Widget 5.5.0. You can see the changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-angular-calculator-example/pull/2). Changes to this article can be viewed in [oktadeveloper/okta-blog#635](https://github.com/oktadeveloper/okta-blog/pull/635).
+- 2020-03-30: Updated to use Angular 11, the Okta Angular SDK 3.0.1, and the Okta Sign-In Widget 5.5.0. You can see the changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-angular-calculator-example/pull/1). Changes to this article can be viewed in [oktadeveloper/okta-blog#610](https://github.com/oktadeveloper/okta-blog/pull/610).
 ---
 
 Single page applications (SPAs) are becoming more and more popular. Their appeal is obvious. Fast loading times gives users the feeling of responsiveness even over slow networks. At some point, a developer of a SPA has to think about authentication and authorization. But what do these two terms actually mean? Authentication deals with ensuring that a user truly is who they claim to be. This usually involves a login page in which the user provides their credentials. Once logged in, authorization deals with restricting and granting access to specific resources. In the simplest case, access to pages is restricted to users who have authenticated themselves.
