@@ -13,7 +13,7 @@ tweets:
 image: blog/featured/okta-java-bottle-headphones.jpg
 type: conversion
 changelog:
-- 2021-03-31: Updated to use the Okta CLI for a streamlined setup. See [okta-blog#643](https://github.com/oktadeveloper/okta-blog/pull/643) for a diff of this blog post.
+- 2021-03-31: Updated to use the Okta CLI for a streamlined setup. See [okta-blog#643](https://github.com/oktadeveloper/okta-blog/pull/643/files) for a diff of this blog post.
 ---
 
 This tutorial will explore two ways to configure authentication and authorization in Spring Boot using Spring Security. One method is to create a `WebSecurityConfigurerAdapter` and use the fluent API to override the default settings on the `HttpSecurity` object. Another is to use the `@PreAuthorize` annotation on controller methods, known as method-level security or expression-based security. The latter will be the main focus of this tutorial. However, I will present some `HttpSecurity` code and ideas by way of contrast.
