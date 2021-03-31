@@ -464,7 +464,7 @@ One of the great features of Okta is allowing users of your application to sign 
 
 1. Click on the **Users** menu and select **Registration**
 2. Click on the **Enable Registration** button.
-3. Change **Self-service registration** to *Enabled*.
+3. If you don't see this button, click **Edit** and change **Self-service registration** to *Enabled*.
 4. Click the **Save** button at the bottom of the form.
 
 ### Secure your Node.js application
