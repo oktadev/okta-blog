@@ -458,7 +458,7 @@ Okta doesn't by default include the groups claim in the JSON Web Token (JWT). Th
 
 To configure Okta to add the groups claim, log in to the Okta Admin Console (tip: `okta login` will provide you the URL you're looking for).
 
-From the top menu, go to **Security** > **API** and select the `default` authorization server. 
+Then, go to **Security** > **API** and select the `default` authorization server. 
 
 Click on the **Claims** tab.
 
