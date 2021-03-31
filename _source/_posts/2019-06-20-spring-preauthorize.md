@@ -13,7 +13,7 @@ tweets:
 image: blog/featured/okta-java-bottle-headphones.jpg
 type: conversion
 changelog:
-- 2021-03-31: Updated to use the Okta CLI for a streamlined setup. See [okta-blog#643](https://github.com/oktadeveloper/okta-blog/pull/643/files) for a diff of this blog post.
+- 2021-03-31: Upgraded to Spring Boot 2.4.4 and streamlined setup with the Okta CLI. See the [example changes on GitHub](https://github.com/oktadeveloper/okta-spring-preauthorize-example/pull/1) and [okta-blog#643](https://github.com/oktadeveloper/okta-blog/pull/643/files) for a diff of this blog post.
 ---
 
 This tutorial will explore two ways to configure authentication and authorization in Spring Boot using Spring Security. One method is to create a `WebSecurityConfigurerAdapter` and use the fluent API to override the default settings on the `HttpSecurity` object. Another is to use the `@PreAuthorize` annotation on controller methods, known as method-level security or expression-based security. The latter will be the main focus of this tutorial. However, I will present some `HttpSecurity` code and ideas by way of contrast.
@@ -21,10 +21,6 @@ This tutorial will explore two ways to configure authentication and authorizatio
 The first authentication method is `HttpSecurity`, which is global and is by default applied to all requests. Finer-grained control is possible, however, using pattern matching for endpoints, and the fluent API exposed by the `HttpSecurity` is quite powerful. This is where configuration options such as OAuth 2.0, Form Login, and HTTP Basic are exposed. It is a great place to set global authentication policies. 
 
 Method-level security is implemented by placing the `@PreAuthorize` annotation on controller methods (actually one of a set of annotations available, but the most commonly used). This annotation contains a [Spring Expression Language (SpEL)](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#expressions) snippet that is assessed to determine if the request should be authenticated. If access is not granted, the method is not executed and an HTTP Unauthorized is returned. In practice, using the `@PreAuthorize` annotation on a controller method is very similar to using `HttpSecurity` pattern matchers on a specific endpoint. There are some differences, however.
-
-**Table of Contents**{: .hide }
-* Table of Contents
-{:toc}
 
 ## Differentiate Between Spring Security's @PreAuthorize and HttpSecurity
 
@@ -52,11 +48,11 @@ Open a terminal and `cd` to wherever you want the project file .zip to end up. R
 curl https://start.spring.io/starter.zip \
   -d dependencies=web,security \
   -d type=gradle-project \
-  -d bootVersion=2.1.5.RELEASE \
+  -d bootVersion=2.4.4.RELEASE \
   -d groupId=com.okta.preauthorize \
   -d artifactId=application \
   -o PreAuthorizeProject.zip
-unzip PreAuthorizeProject.zip
+unzip PreAuthorizeProject.zip -d preauthorize
 ```
 
 There isn't much to the project to begin with except the `build.gradle` file and the `DemoApplication.java` class file. However, the whole project structure is there already set up for you. 
@@ -195,6 +191,9 @@ Since the app is already wide-open, I'll show you how to restrict a specific met
 In the `WebController` class, add the `@PreAuthorize` annotation to the `/restricted` endpoint, like this:
 
 ```java
+import org.springframework.security.access.prepost.PreAuthorize;
+...
+
 @PreAuthorize("isAuthenticated()")  
 @RequestMapping("/restricted")  
 @ResponseBody  
@@ -265,7 +264,7 @@ public class WebController {
 }
 ```
 
-And change the `WebSecurity` class to this:
+And change the `SecurityConfig` class to this:
 
 ```java
 @Configuration  
@@ -313,7 +312,7 @@ Update the dependencies section of your `build.gradle` file:
 
 ```groovy
 dependencies {  
-  implementation 'com.okta.spring:okta-spring-boot-starter:1.2.1'  // <-- ADDED
+  implementation 'com.okta.spring:okta-spring-boot-starter:2.0.1'  // <-- ADDED
   implementation 'org.springframework.boot:spring-boot-starter-security'  
   implementation 'org.springframework.boot:spring-boot-starter-web'  
   testImplementation 'org.springframework.boot:spring-boot-starter-test'  
@@ -333,7 +332,7 @@ okta:
 
 Don't forget to update the **client-id**, **client-secret**, and **issuer** values to match the values from your Okta developer account and OIDC app. Your Okta issuer should look something like `https://dev-123456.okta.com/oauth2/default`.
 
-Finally, update the `SecurityConfiguration.java` file:
+Finally, update the `SecurityConfig.java` file:
 
 ```java
 @Configuration  
@@ -351,7 +350,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 Notice that all you really changed here was `formLogin()` to `oauth2Login()`.
 
-Run the app: `./gradlew bootRun` (you may either need to sign out of the Okta developer dashboard or use an incognito window to see the login screen).
+Run the app: `./gradlew bootRun` (you may either need to sign out of the Okta Admin Console or use an incognito window to see the login screen).
 
 The `/` endpoint is still open, but when you go to the restricted endpoint: `http://localhost:8080/restricted`.
 
@@ -459,9 +458,7 @@ Okta doesn't by default include the groups claim in the JSON Web Token (JWT). Th
 
 To configure Okta to add the groups claim, log in to the Okta Admin Console (tip: `okta login` will provide you the URL you're looking for).
 
-From the top menu, go to **Security** > **API** and select **Authorization Servers**.
-
-Select the `default` authorization server. _Don't have one? It's because you're using an IT Trial and not a developer account!_
+From the top menu, go to **Security** > **API** and select the `default` authorization server. 
 
 Click on the **Claims** tab.
 
@@ -489,11 +486,15 @@ Update the following values (just the same as above except token type):
  - **Value type:** Groups
  - **Filter:** Matches regex, `.*`
 
+When you're finished, your claims should look like the following.
+
+{% img blog/spring-preauthorize/claims.png alt:"Claims List" width:"800" %}{: .center-image }
+
 Great! So now Okta will map all of its groups to a `groups` claim on the access token and the ID token.
 
-What happens to this groups claim on the Spring side is not necessarily obvious nor automatic. One of the benefits of the Spring Boot starter is that it automatically extracts the groups claim from the JWT and maps it to a Spring authority. Otherwise you would need to implement your own `GrantedAuthoritiesExtractor`. 
+What happens to this groups claim on the Spring side is not necessarily obvious nor automatic. One of the benefits of the Spring Boot starter is that it automatically extracts the groups claim from the JWT and maps it to a Spring authority. Otherwise, you would need to implement your own `GrantedAuthoritiesExtractor`. 
 
-FYI: the name of the groups claim can be configured using the `okta.oauth2.groupsClaim` field in the `application.yml` file. It defaults to `groups`.
+FYI: the name of the groups claim can be configured using the `okta.oauth2.groupsClaim` property in the `application.yml` file. It defaults to `groups`.
 
 ## Inspect The User Attributes With Groups
 
@@ -521,9 +522,7 @@ That's the basic idea. It'll get a little more exciting in the next step when yo
 
 Now you want to add an **Admin** group on Okta. Log into your Okta org.
 
-From the top menu, go to **Directory** and select **Groups**.
-
-Click **Add Group**.
+Go to **Directory** and select **Groups**. Click **Add Group**.
 
 In the popup:
 - **Name** the group "Admin".
@@ -561,7 +560,7 @@ You'll get a **403 / Unauthorized** whitepage error.
 
 ## Add Your User To the Admin Group
 
-Now you need to add your Okta user to the Admin group. From the menu, select **Directory** and click **Groups**. Click on the **Admin** group, then **Manage People**. Add your user.
+Now you need to add your Okta user to the Admin group. In the Okta Admin Console, select **Directory** and click **Groups**. Click on the **Admin** group, then **Manage People**. Add your user.
 
 ## Test the Admin Group Membership
 
@@ -645,22 +644,20 @@ Try adding a custom scope. Change `okta.oauth2.scopes` property in the `applicat
 okta:  
   oauth2:  
     ... 
-    scopes: openid email profile custom
+    scopes: openid, email, profile, custom
     ...
 ```
 
 Before you run the app and try this out, you need to add the custom scope to the Okta authorization server (if you run it now you'll get an error).
 
-Open your Okta developer dashboard.
-
-From the top menu, go to **Security** > **API** > `default`.
+Open your Okta Admin Console and go to **Security** > **API** > `default`.
 
 Click on the **Scopes** tab, then the **Add Scope** button.
 
  - **Name**: `custom`
- -  **Description**: `Custom test scope`
+ - **Description**: `Custom test scope`
  
-Click **Save**.
+Click **Create**.
 
 You just added a custom scope (cunningly named `custom`) to your default Okta authorization server.
 
