@@ -11,8 +11,13 @@ Before you begin, you'll need a free Okta developer account. Install the {{ cliL
 {% endif %}
 
 {%- if include.type == "spa" -%}
-{%- assign parts = include.loginRedirectUri | split: '/callback' -%}
-{%- assign baseUrl = parts[0] -%}
+  {%- assign parts = include.loginRedirectUri | split: '/callback' -%}
+  {%- assign baseUrl = parts[0] -%}
+{%- endif -%}
+
+{%- if include.type == "web" -%}
+  {%- assign parts = include.loginRedirectUri | split: '/authorization-code/callback' -%}
+  {%- assign baseUrl = parts[0] -%}
 {%- endif -%}
 
 {% if include.type == "jhipster" %}
@@ -33,7 +38,7 @@ Select **
     {%- else -%}Other
     {%- endif -%}**. 
     {% if include.loginRedirectUri and include.logoutRedirectUri %}Then, change the Redirect URI to `{{ include.loginRedirectUri }}` and use `{{ include.logoutRedirectUri }}` for the Logout Redirect URI.
-    {% elsif include.loginRedirectUri %}Then, change the Redirect URI to `{{ include.loginRedirectUri }}`. Accept the default Logout Redirect URI of `http://localhost:8080`.
+    {% elsif include.loginRedirectUri %}Then, change the Redirect URI to `{{ include.loginRedirectUri }}` and accept the default Logout Redirect URI of `{{ baseUrl }}`.
     {% else %}Accept the default Redirect URI values provided for you.{% if include.framework contains "Spring Boot" %} That is, a Login Redirect of `{% if include.adoc %}\{% endif %}http://localhost:8080/login/oauth2/code/okta` and a Logout Redirect of `{% if include.adoc %}\{% endif %}http://localhost:8080`.{% endif %}
     {% endif %}
   {% elsif include.type == "native" %}
