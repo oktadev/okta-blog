@@ -10,7 +10,7 @@ tweets:
 - "Have you ever leaked an API key online by mistake? Learn how to avoid doing that again."
 - "We've all leaked an API key online by mistake. Right? .. Right?"
 - "Here are some tips for protecting your API keys."
-image: blog/api-key-best-practices-and-examples/preview.png
+image: blog/api-key-best-practices-and-examples/card.png
 type: conversion
 ---
 
