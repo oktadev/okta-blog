@@ -841,4 +841,3 @@ If you would like to dig deeper into the topics covered in this article, the fol
 * [Build Simple Login in PHP](/blog/2018/12/28/simple-login-php)
 
 Like what you learned today? Follow us on [Twitter](https://twitter.com/oktadev), and subscribe to our [YouTube channel](https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q) for more awesome content!
-
