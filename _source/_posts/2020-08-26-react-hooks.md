@@ -304,4 +304,3 @@ If you want to learn more about React and other front-end frameworks, please che
 * [Use Vue and GraphQL to Build a Secure App](/blog/2019/11/11/graphql-vue)
 
 Please leave a comment below if you have any questions! If you liked this tutorial, [follow @oktadev](https://twitter.com/oktadev) on Twitter to be notified when we publish new ones. We also have a [YouTube channel](https://youtube.com/c/oktadev) you might like.
-
