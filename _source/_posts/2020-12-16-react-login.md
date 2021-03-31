@@ -591,4 +591,3 @@ If you want to find out more about Okta authentication, dive into JSON Web Token
 * [Build Reusable React Components](/blog/2020/01/20/build-reusable-react-components)
 
 Please leave a comment below if you have any questions. If you liked this tutorial, [follow @oktadev](https://twitter.com/oktadev) on Twitter to be notified when we publish new ones. We also have a [YouTube channel](https://www.youtube.com/c/oktadev) and a [Twitch stream](https://www.twitch.tv/oktadev) you might like.
-
