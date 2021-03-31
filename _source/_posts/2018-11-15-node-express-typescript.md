@@ -460,7 +460,7 @@ OKTA_CLIENT_SECRET={yourClientSecret}
 
 One of the great features of Okta is allowing users of your application to sign up for an account. By default, this feature is disabled, but you can easily enable it. Run `okta login` to get the URL for your Okta org. Open the result in your favorite browser and log in to the Okta Admin Console.
 
-1. Click on the **Users** menu and select **Registration**
+1. Click on the **Directory** menu and select **Self-Service Registration**
 2. Click on the **Enable Registration** button.
 3. If you don't see this button, click **Edit** and change **Self-service registration** to *Enabled*.
 4. Click the **Save** button at the bottom of the form.
