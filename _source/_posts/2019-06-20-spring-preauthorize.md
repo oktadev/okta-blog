@@ -12,6 +12,8 @@ tweets:
 - "Andrew explains how to secure a @springboot app with a couple of lines of code."
 image: blog/featured/okta-java-bottle-headphones.jpg
 type: conversion
+changelog:
+- 2021-03-31: Updated to use the Okta CLI for a streamlined setup. See [okta-blog#643](https://github.com/oktadeveloper/okta-blog/pull/643) for a diff of this blog post.
 ---
 
 This tutorial will explore two ways to configure authentication and authorization in Spring Boot using Spring Security. One method is to create a `WebSecurityConfigurerAdapter` and use the fluent API to override the default settings on the `HttpSecurity` object. Another is to use the `@PreAuthorize` annotation on controller methods, known as method-level security or expression-based security. The latter will be the main focus of this tutorial. However, I will present some `HttpSecurity` code and ideas by way of contrast.
@@ -20,9 +22,13 @@ The first authentication method is `HttpSecurity`, which is global and is by def
 
 Method-level security is implemented by placing the `@PreAuthorize` annotation on controller methods (actually one of a set of annotations available, but the most commonly used). This annotation contains a [Spring Expression Language (SpEL)](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#expressions) snippet that is assessed to determine if the request should be authenticated. If access is not granted, the method is not executed and an HTTP Unauthorized is returned. In practice, using the `@PreAuthorize` annotation on a controller method is very similar to using `HttpSecurity` pattern matchers on a specific endpoint. There are some differences, however.
 
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+
 ## Differentiate Between Spring Security's @PreAuthorize and HttpSecurity
 
-The first difference is subtle, but worth mentioning. `HttpSecurity` method rejects the request earlier, in a web request filter, before controller mapping has occurred. In contrast, the `@PreAuthorize` assessment happens later, directly before the execution of the controller method. This means that configuration in `HttpSecurity` is appied **before** `@PreAuthorize`.
+The first difference is subtle, but worth mentioning. `HttpSecurity` method rejects the request earlier, in a web request filter, before controller mapping has occurred. In contrast, the `@PreAuthorize` assessment happens later, directly before the execution of the controller method. This means that configuration in `HttpSecurity` is applied **before** `@PreAuthorize`.
 
 Second, `HttpSecurity` is tied to URL endpoints while `@PreAuthorize` is tied to controller methods **and is actually located within the code adjacent to the controller definitions**. Having all of your security in one place and defined by web endpoints has a certain neatness to it, especially in smaller projects, or for more global settings; however, as projects get larger, it may make more sense to keep the authorization policies near the code being protected, which is what the annotation-based method allows. 
 
