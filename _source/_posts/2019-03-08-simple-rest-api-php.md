@@ -831,7 +831,7 @@ That's it!
 
 ## Learn More About PHP, Secure REST APIs, and OAuth 2.0 Client Credentials Flow
 
-You can find all the code from this example on GitHub[oktadeveloper/okta-php-core-rest-api-example](https://github.com/oktadeveloper/okta-php-core-rest-api-example).
+You can find all the code from this example on GitHub, in the [oktadeveloper/okta-php-core-rest-api-example](https://github.com/oktadeveloper/okta-php-core-rest-api-example) repository.
 
 If you would like to dig deeper into the topics covered in this article, the following resources are a great starting point:
 
