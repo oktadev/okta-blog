@@ -212,7 +212,7 @@ Okta should redirect you to that view:
 
 The configuration between your Okta org and your ASA team is complete. Now let's create the GCP VMs and enroll them into ASA.
 
-## Configure a Google Cloud Platform (GCP) Project
+### Configure a Google Cloud Platform (GCP) Project
 
 - Go to the [GCP web console](https://console.cloud.google.com)
 - Create a new GCP project:
@@ -855,7 +855,7 @@ PubkeyAcceptedKeyTypes ssh-rsa-cert-v01@openssh.com
 - Terraform: [Okta ASA Terraform Provider](https://registry.terraform.io/providers/oktadeveloper/oktaasa/latest/docs), [Tutorial](https://developer.okta.com/blog/2020/04/24/okta-terraform-automate-identity-and-infrastructure)
 - Ansible: [Tutorial](https://developer.okta.com/blog/2021/02/05/okta-ansible)
 - Puppet: [Tutorial](https://developer.okta.com/blog/2021/01/22/okta-puppet)
-- Chef: [Tutorial](https://github.com/okta-server-asa/asa-chef-example)
+- Chef: [Tutorial](https://developer.okta.com/blog/2021/02/10/okta-chef)
 
 And... That's all! Have any questions? Please leave a comment below. Or, if
 you'd like to see more content like this, consider following us on
