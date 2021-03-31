@@ -34,9 +34,7 @@ Before we dive into the project, I want to also mention that Spring also provide
 
 The dependencies for this tutorial are pretty simple. You need: 1) Java 8+ installed, and 2) an Okta developer account. 
 
-If you do not have Java installed, go to [AdoptOpenJDK](https://adoptopenjdk.net/). On \*nix systems, you can also use [SDKMAN](https://sdkman.io/).  
-
-If you do not already have a free Okta developer account, go to [our website and sign up](https://developer.okta.com/signup/).
+If you do not have Java installed, go to [AdoptOpenJDK](https://adoptopenjdk.net/). On \*nix systems, you can also use [SDKMAN](https://sdkman.io/).
 
 ## Start a Sample Project Using Spring Initializr
 
@@ -295,25 +293,7 @@ Form-based authentication feels pretty creaky and old these days. More and more,
 
 Very, very briefly: OAuth 2.0 is an industry-standard authorization protocol and OIDC is another open standard on top of OAuth that adds an identity layer (authentication). Together they provide a structured way for programs to manage authentication and authorization and to communicate across networks and the internet. Neither OAuth nor OIDC, however, provide an implementation. They are just specs or protocols. That's where Okta comes in. Okta has an implementation of the OAuth 2.0 and OIDC specs that allows for programs to use their services to quickly provide login, registration, and single sign-on (or social login) services. In this tutorial, you're just going to be implementing a login function, but at the end of the tutorial, you can find links to other resources to show you how to implement social login and registration.
 
-First, sign up for a free Okta Developer account: [https://developer.okta.com/signup/](https://developer.okta.com/signup/).
-
-If this is the first time you've logged in or just registered, you may need to click the **Admin** button to get to the developer console.
-
-Next, you need to configure an OIDC application.
-
-From your Okta developer dashboard, in the top menu, click on **Applications**.
-
-{% img blog/spring-preauthorize/add-app.png alt:"Okta Dashboard" width:"800" %}{: .center-image }
-
-- Click the green **Add Application** button
-- Click **Web** application type, and **Next**
-- Give the app a Name. Any name.
-- Set **Login Redirect URIs** to `http://localhost:8080/login/oauth2/code/okta`
-- Click **Done**.
-
-{% img blog/spring-preauthorize/new-oidc-app.png alt:"OIDC Application" width:"600" %}{: .center-image }
-
-Take note of the **Client ID** and **Client Secret** at the bottom of the page. You'll need these in the next section.
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
 
 And that's it on the Okta side. 
 
@@ -373,7 +353,7 @@ You'll see the Okta login screen.
 
 {% img blog/spring-preauthorize/okta-login.png alt:"Okta Login Screen" width:"600" %}{: .center-image }
 
-Log in with your Okta credentials and you're authenticated!
+Log in with your Okta credentials, and you're authenticated!
 
 ## Inspect the OAuth 2.0 User Attributes
 
@@ -471,15 +451,13 @@ To see how this works, in the next few sections you'll add an **Admin** group in
 
 Okta doesn't by default include the groups claim in the JSON Web Token (JWT). The JWT is what Okta uses to communicate authentication and authorization information to the client app. A deeper dive into that is available in some other blog posts linked to at the end of this one.
 
-To configure Okta to add the groups claim, go to your Okta developer dashboard.
+To configure Okta to add the groups claim, log in to the Okta Admin Console (tip: `okta login` will provide you the URL you're looking for).
 
-From the top menu, go to **API** and select **Authorization Servers**.
+From the top menu, go to **Security** > **API** and select **Authorization Servers**.
 
-Select the **default** authorization server.
+Select the `default` authorization server. _Don't have one? It's because you're using an IT Trial and not a developer account!_
 
 Click on the **Claims** tab.
-
-{% img blog/spring-preauthorize/auth-server-claims.png alt:"Auth Server Claims" width:"800" %}{: .center-image }
 
 You are going to create two claim mappings. You're not creating two claims, per se, but instructing Okta to add the groups claim to both the Access Token and the ID Token. You need to do this because depending on the OAuth flow, the groups claim may be extracted from either. In our case, with the OIDC flow, it's actually the ID Token that matters, but it's best to just add them to both so as to avoid frustration in the future. The resource server flow requires the groups claim to be in the access token.
 
@@ -493,8 +471,6 @@ Update the following values (the other default values are fine):
  - **Include in token type**: Access Token
  - **Value type:** Groups
  - **Filter:** Matches regex, `.*`
-
-{% img blog/spring-preauthorize/edit-claim.png alt:"Configure Claim" width:"800" %}{: .center-image }
 
 Second, add a second claim mapping for token type **ID Token**. 
 
@@ -537,9 +513,9 @@ That's the basic idea. It'll get a little more exciting in the next step when yo
 
 ## Create An Admin Group in Okta
 
-Now you want to add an **Admin** group on Okta. Log into your Okta developer dashboard.
+Now you want to add an **Admin** group on Okta. Log into your Okta org.
 
-From the top menu, go to **Users** and select **Groups**.
+From the top menu, go to **Directory** and select **Groups**.
 
 Click **Add Group**.
 
@@ -579,7 +555,7 @@ You'll get a **403 / Unauthorized** whitepage error.
 
 ## Add Your User To the Admin Group
 
-Now you need to add your Okta user to the Admin group. From the top menu, select **Users** and click **Groups**. Click on the **Admin** group. Click **Add Members**. Search for your user in the popup and click **Add**.
+Now you need to add your Okta user to the Admin group. From the menu, select **Directory** and click **Groups**. Click on the **Admin** group, then **Manage People**. Add your user.
 
 ## Test the Admin Group Membership
 
@@ -615,7 +591,8 @@ You can also use the `@PreAuthorize` annotation to limit access based on OAuth s
 
 > Scope is a mechanism in OAuth 2.0 to limit an application's access to a user's account. An application can request one or more scopes, this information is then presented to the user in the consent screen, and the access token issued to the application will be limited to the scopes granted.
 
-If you look at the inspected `User Authorities` returned from the `/user/oauthinfo` endpoint, you'll see three authorities that begin with `SCOPE_`: 
+If you look at the inspected `User Authorities` returned from the `/user/oauthinfo` endpoint, you'll see three authorities that begin with `SCOPE_`:
+
 - SCOPE_email
 - SCOPE_openid
 - SCOPE_profile
@@ -670,19 +647,14 @@ Before you run the app and try this out, you need to add the custom scope to the
 
 Open your Okta developer dashboard.
 
-From the top menu, go to **API** and select **Authorization Servers**.
+From the top menu, go to **Security** > **API** > `default`.
 
-Select the **default** authorization server.
+Click on the **Scopes** tab, then the **Add Scope** button.
 
-Click on the **Scopes** tab.
-
-{% img blog/spring-preauthorize/add-scope.png alt:"Add New Scope" width:"800" %}{: .center-image }
-
-Click the **Add Scope** button.
  - **Name**: `custom`
  -  **Description**: `Custom test scope`
  
- Click **Create**.
+Click **Save**.
 
 You just added a custom scope (cunningly named `custom`) to your default Okta authorization server.
 
@@ -709,10 +681,11 @@ If you'd like to check out this complete project, you can [find the repo on Gith
 
 If you'd like to learn more about Spring Boot, Spring Security, or secure user management, check out any of these great tutorials:
 
--   [Get Started with Spring Boot, OAuth 2.0, and Okta](/blog/2017/03/21/spring-boot-oauth)
--   [Add Single Sign-On to Your Spring Boot Web App in 15 Minutes](/blog/2017/11/20/add-sso-spring-boot-15-min)
--   [Secure Your Spring Boot Application with Multi-Factor Authentication](/blog/2018/06/12/mfa-in-spring-boot)
--   [Build a Secure API with Spring Boot and GraphQL](/blog/2018/08/16/secure-api-spring-boot-graphql)
+- [Build a Secure Spring Data JPA Resource Server](blog/2020/11/20/spring-data-jpa)
+- [Get Started with Spring Boot, OAuth 2.0, and Okta](/blog/2017/03/21/spring-boot-oauth)
+- [Add Single Sign-On to Your Spring Boot Web App in 15 Minutes](/blog/2017/11/20/add-sso-spring-boot-15-min)
+- [Secure Your Spring Boot Application with Multi-Factor Authentication](/blog/2018/06/12/mfa-in-spring-boot)
+- [Build a Secure API with Spring Boot and GraphQL](/blog/2018/08/16/secure-api-spring-boot-graphql)
 
 If you want to dive deeper, take a look at the [Okta Spring Boot Starter GitHub Project](https://github.com/okta/okta-spring-boot).
 
