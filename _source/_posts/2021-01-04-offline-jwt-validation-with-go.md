@@ -43,10 +43,88 @@ go get github.com/dgrijalva/jwt-go
 
 A file called `go.mod` containing these dependencies will be created by the `go get` command.
 
-To use Okta authentication, you need to have a free [Okta Developer account] (https://developer.okta.com). Once you've done this, sign in to the developer console and select **Applications** > **Add Application**. Then select **Single-Page App** and hit **Next**. The next page is filled in with default values, most of which are sufficient for this application and don't need to be changed. *Important*: Add the URL `http://localhost:8080` to the allowed redirect URLs. Hit **Done**. 
+To use Okta authentication you need to have a free [Okta Developer account] (https://developer.okta.com). Once you’ve done this, sign in to the developer console. 
 
-There are two pieces of information that you need to obtain from the Okta Developer Console. These are your Okta domain name (e.g. `dev-12345.okta.com`) and your client id (e.g. `0ab1c2defg3AB4Chi567`).
+Next, create an API token. Store the value somewhere safe, but don't check it into Github! 
 
+Next, create envirnonment variables for the domain and API token replacing the placeholders with your actual values from the console:
+
+```bash
+export OKTA_DOMAIN=https://dev-123456.okta.com
+export OKTA_API_TOKEN=00...d
+```
+
+Next, install the [OKTA CLI](https://cli.okta.com). Just install the CLI. 
+
+Next, login:
+
+```bash
+okta login
+```
+
+Enter your `Okta Org URL` in the form `https://dev-123456.okta.com`. Then, enter your API token.
+
+Finally, create an Okta application:
+
+```bash
+okta apps create
+```
+
+You will be prompted for some information:
+* The application name defaults to the directory name, enter: `spa-app`.
+* Select Single Page App, option: 2.
+* Set the default redirect URI: http://localhost:8080.
+* Hit enter to select the default post logout URI: http://localhost:8080/.
+
+A new OIDC application will be created and the configuration will be displayed. Create environment variables containing the values:
+
+```bash
+export OKTA_ISSUER_URI=https://dev-123456.okta.com/oauth2/default
+export OKTA_CLIENT_ID=0...5d
+```
+
+**PS:** The redirect and logout URIs are for local testing. In a production environment a new application needs to be created using the actual domain names.
+To use Okta authentication you need to have a free [Okta Developer account] (https://developer.okta.com). Once you’ve done this, sign in to the developer console. 
+
+Next, create an API token. Store the value somewhere safe, but don't check it into Github! 
+
+Next, create envirnonment variables for the domain and API token replacing the placeholders with your actual values from the console:
+
+```bash
+export OKTA_DOMAIN=dev-123456.okta.com
+export OKTA_API_TOKEN=00...d
+```
+
+Next, install the [OKTA CLI](https://cli.okta.com). Just install the CLI. 
+
+Next, login:
+
+```bash
+okta login
+```
+
+Enter your `Okta Org URL` in the form `https://dev-123456.okta.com`. Then, enter your API token.
+
+Finally, create an Okta application:
+
+```bash
+okta apps create
+```
+
+You will be prompted for some information:
+* The application name defaults to the directory name, enter: `spa-app`.
+* Select Single Page App, option: 2.
+* Set the default redirect URI: http://localhost:8080.
+* Hit enter to select the default post logout URI: http://localhost:8080/.
+
+A new OIDC application will be created and the configuration will be displayed. Create environment variables containing the values:
+
+```bash
+export OKTA_ISSUER_URI=https://dev-123456.okta.com/oauth2/default
+export OKTA_CLIENT_ID=0...5d
+```
+
+**PS:** The redirect and logout URIs are for local testing. In a production environment a new application needs to be created using the actual domain names.
 
 ## How to Build a Web Client in Go with Okta Authentication
 
