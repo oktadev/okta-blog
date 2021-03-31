@@ -145,6 +145,25 @@ To describe how to setup a new application on Okta, please use the [`cli.md`](_s
 
 These will render instructions using the [Okta CLI](https://cli.okta.com) (or [Okta Maven Plugin](https://github.com/oktadeveloper/okta-maven-plugin)) and link to instructions for the Admin Console. Screenshots are discouraged because they're hard to keep up-to-date.
 
+The basic syntax using the Okta CLI to setup an app is:
+
+```md
+{% include setup/cli.md type="spa" %>
+```
+
+Supported values for `type`: spa, web, native, service, and jhipster
+
+Other parameters you can pass in:
+
+|Parameter |Possible values  |
+--- | --- |
+|`framework`|Angular, React, Vue, Okta Spring Boot Starter, Spring Boot, Quarkus, ASP.NET Core|
+|`loginRedirectUri`|Prints whatever you set, can be comma-delimited, or use an array for multiple values `[url1, url2]`|
+|`logoutRedirectUri`|Prints whatever you set, or defaults if not set|
+|`signup`|`false` reduces opening paragraph to one sentence|
+|`note`|Prints whatever you set. See .NET example below|
+|`adoc`|`true` required for posts written in `AsciiDoc`|
+
 Below are some examples:
 
 Angular:
