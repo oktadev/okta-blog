@@ -12,8 +12,6 @@ tweets:
 - "Build a @nodejs application using @typescriptlang and #expressjs"
 image: blog/node-express-typescript/node-express-typescript.jpg
 type: conversion
-changelog: 
-  - 2021-03-30: Updated to use CLI for creating Okta application.
 ---
 
 Like it or not, JavaScript has been helping developers power the Internet since 1995. In that time, JavaScript usage has grown from small user experience enhancements to complex full-stack applications using Node.js on the server and one of many frameworks on the client such as Angular, React, or Vue. 
@@ -447,7 +445,7 @@ You will use the `.env` for much more configuration information as the project g
 
 Adding user registration and login (authentication) to any application is not a trivial task. The good news is Okta makes this step very easy. 
 
-{% include setup/cli.md type="web" framework="Node" %}
+{% include setup/cli.md type="web" loginRedirectUri="http://localhost:8080/authorization-code/callback" %}
 
 Copy and paste the following code into your `.env` file.
 
