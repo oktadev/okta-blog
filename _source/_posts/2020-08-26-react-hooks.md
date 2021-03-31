@@ -22,6 +22,10 @@ Then React introduced Hooks. Hooks allow you to obtain data and a callback funct
 
 In this tutorial, I will be showing you how to create a simple React application using Hooks to add state to a functional component. The application is a simple search form for books by their title and uses the Open Library API to obtain real book data.
 
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+
 ## Creating a React Application with Hooks
 
 In the following, I will assume that you have some knowledge of JavaScript and that you have Node installed on your system. You do not need any experience with React, and I will be explaining all the major concepts. A typical Node installation comes together with two command-line tools, `npm` and `npx`. 
@@ -151,7 +155,7 @@ In both cases, the curly braces are used to insert the value of variables into t
 
 Real-life web applications require access control. Some parts of the application should be restricted to a limited number of users. Creating your own user management and securing your application is difficult and requires a lot of expertise. Okta allows you to set up authentication with just a few lines of code.
 
-{% include setup/cli.md type="spa" loginRedirectUri="http://localhost:3000/callback" %}
+{% include setup/cli.md type="spa" framework="React" loginRedirectUri="http://localhost:3000/callback" %}
 
 Take note of the **Client ID**. This needs to be pasted into your JavaScript code.
 
