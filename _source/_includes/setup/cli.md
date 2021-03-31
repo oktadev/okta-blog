@@ -18,13 +18,13 @@ Before you begin, you'll need a free Okta developer account. Install the {{ cliL
 {% if include.type == "jhipster" %}
 Then, run `okta apps create jhipster`. Select the default app name, or change it as you see fit. Accept the default Redirect URI values provided for you.
 {% else %}
-Then, run `okta apps create{% if (include.type == "service") %} service{% endif %}`. Select the default app name, or change it as you see fit. Choose **
+Then, run `okta apps create`. Select the default app name, or change it as you see fit. Choose **
 {%- if include.type == "spa" -%}
 Single-Page App
 {%- else -%}
 {{ include.type | capitalize }}
 {%- endif -%}
-** and press **Enter**. 
+** and press **Enter**.
   {% if include.type == "spa" %}
 Change the Redirect URI to `{{ include.loginRedirectUri }}` and accept the default Logout Redirect URI of `{% if include.logoutRedirectUri %}{{ include.logoutRedirectUri }}{% else %}{{ baseUrl }}{% endif %}`.
   {% elsif include.type == "web" %}
