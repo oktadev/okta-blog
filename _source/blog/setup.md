@@ -114,7 +114,7 @@ This will render the following HTML:
 This will render the following HTML:
 
 <div class="separator"></div>
-{% include setup/cli.md type="spa" loginRedirectUri="http://localhost:8080/callback" %}
+{% include setup/cli.md type="spa" framework="Vue" loginRedirectUri="http://localhost:8080/callback" %}
 <div class="separator"></div>
 
 ### Node + Express
