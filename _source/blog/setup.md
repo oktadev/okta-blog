@@ -1,13 +1,25 @@
 ---
 layout: blog_post
-title: Developer Blog Create App Instructions
-permalink: /blog/cli
+title: How to Create an Okta OIDC App
+description: "Use the Okta CLI to manage your Okta apps. It's so easy, it's fun!"
+permalink: /blog/setup
+image: cli/okta-cli.png
 ---
 
 <style>
-hr { border: unset; margin: 0 }
-.separator { height: 2px; background: silver }
+.BlogPost-title { margin: 0 }
+.logo { float: right; margin: 50px }
+@media screen and (max-width: 600px) {
+  .logo {
+    display: none;
+  }
+}
+.separator { height: 2px; background: #DD2864 }
 </style>
+
+This page is designed for authors of the Okta developer blog. However, these snippets of code might be useful for anyone wanting to set up Okta OIDC apps.
+
+{% img cli/okta-cli-animated.svg alt:"Okta CLI" width:"300" %}{: .logo }
 
 **Table of Contents**{: .hide }
 * Table of Contents
@@ -15,16 +27,16 @@ hr { border: unset; margin: 0 }
 
 ## Use the Okta CLI to Register Your App
 
-To describe how to setup a new application on Okta, you can use `cli.md`, `maven.md`, and `oidcdebugger.md` includes.
+To describe how to set up a new application on Okta, you can use `cli.md`, `maven.md`, and `oidcdebugger.md` includes.
 
 These will render instructions using the [Okta CLI](https://cli.okta.com) (or [Okta Maven Plugin](https://github.com/oktadeveloper/okta-maven-plugin)) and link to instructions for the Admin Console. Screenshots are discouraged because they're hard to keep up-to-date.
   
-## Basic Syntax
+## Blog Post Syntax
 
-The basic syntax using the Okta CLI to setup an app is:
+The basic syntax you will need to use the Okta CLI in your post is:
 
 {% raw %}
-```markdown
+```
 {% include setup/cli.md type="spa" loginRedirectUri="http://localhost:3000/callback" %}
 ```
 {% endraw %}
@@ -52,12 +64,21 @@ Other parameters you can pass in:
 
 ## Examples
 
-This section shows you examples for different types of apps and frameworks.
+This section shows examples for different types of apps and frameworks.
+
+* [Angular](#angular), [React](#react), [Vue](#vue)
+* [Node + Express](#node--express)
+* [Ionic](#native-with-ionic)
+* [React Native](#react-native)
+* [Spring Boot](#okta-spring-boot-starter)
+* [ASP.NET Core](#aspnet-core)
+* [Service](#service)
+* [JHipster](#jhipster)
 
 ### Angular
 
 {% raw %}
-```md
+```
 {% include setup/cli.md type="spa" framework="Angular" loginRedirectUri="http://localhost:4200/callback" %}
 ```
 {% endraw %}
@@ -71,7 +92,7 @@ This will render the following HTML:
 ### React
 
 {% raw %}
-```md
+```
 {% include setup/cli.md type="spa" framework="React" loginRedirectUri="http://localhost:3000/callback" %}
 ```
 {% endraw %}
@@ -85,7 +106,7 @@ This will render the following HTML:
 ### Vue
 
 {% raw %}
-```md
+```
 {% include setup/cli.md type="spa" loginRedirectUri="http://localhost:8080/callback" %}
 ```
 {% endraw %}
@@ -96,10 +117,24 @@ This will render the following HTML:
 {% include setup/cli.md type="spa" loginRedirectUri="http://localhost:8080/callback" %}
 <div class="separator"></div>
 
-### Native with Ionic
+### Node + Express
 
 {% raw %}
-```md
+```
+{% include setup/cli.md type="web" loginRedirectUri="http://localhost:8080/authorization-code/callback" %}
+```
+{% endraw %}
+
+This will render the following HTML:
+
+<div class="separator"></div>
+{% include setup/cli.md type="web" loginRedirectUri="http://localhost:8080/authorization-code/callback" %}
+<div class="separator"></div>
+
+### Ionic
+
+{% raw %}
+```
 {% include setup/cli.md type="native" 
    loginRedirectUri="http://localhost:8100/callback" 
    logoutRedirectUri="http://localhost:8100/logout" %}
@@ -114,10 +149,28 @@ This will render the following HTML:
    logoutRedirectUri="http://localhost:8100/logout" %}
 <div class="separator"></div>
 
+### React Native 
+
+{% raw %}
+```
+{% include setup/cli.md type="native" 
+   loginRedirectUri="com.okta.dev-133337:/callback" 
+   logoutRedirectUri="com.okta.dev-133337:/callback" %}
+```
+{% endraw %}
+
+This will render the following HTML:
+
+<div class="separator"></div>
+{% include setup/cli.md type="native" 
+   loginRedirectUri="com.okta.dev-133337:/callback" 
+   logoutRedirectUri="com.okta.dev-133337:/callback" %}
+<div class="separator"></div>
+
 ### Okta Spring Boot Starter
 
 {% raw %}
-```md
+```
 {% include setup/cli.md type="web" framework="Okta Spring Boot Starter"
 loginRedirectUri="[http://localhost:8001/login/oauth2/code/okta,http://localhost:8002/login/oauth2/code/okta]"
 logoutRedirectUri="[http://localhost:8001,http://localhost:8002]" %}
@@ -135,7 +188,7 @@ logoutRedirectUri="[http://localhost:8001,http://localhost:8002]" %}
 ### ASP.NET Core
 
 {% raw %}
-```md
+```
 {% capture note %}
 > Note that the TCP port 5001 must be the same used by the application. You can see it in the messages displayed in the terminal when you start the application with **`dotnet run`**.
 {% endcapture %}
@@ -159,7 +212,7 @@ This will render the following HTML:
 ### Service
 
 {% raw %}
-```md
+```
 {% include setup/cli.md type="service" %}
 ```
 {% endraw %}
@@ -173,7 +226,7 @@ This will render the following HTML:
 ### JHipster
 
 {% raw %}
-```md
+```
 {% include setup/cli.md type="jhipster" %}
 ```
 {% endraw %}
@@ -187,7 +240,7 @@ This will render the following HTML:
 ### Maven
 
 {% raw %}
-```md
+```
 {% include setup/maven.md %}
 ```
 {% endraw %}
@@ -201,7 +254,7 @@ This will render the following HTML:
 ### OIDC Debugger
 
 {% raw %}
-```md
+```
 {% include setup/oidcdebugger.md %}
 ```
 {% endraw %}
