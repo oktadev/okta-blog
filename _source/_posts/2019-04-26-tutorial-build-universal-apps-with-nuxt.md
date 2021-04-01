@@ -13,7 +13,7 @@ tweets:
 image: blog/featured/okta-vue-bottle-headphones.jpg
 type: conversion
 changelog:
-- 2021-03-31: Updated to use Nuxt/Auth. Setup now uses Okta CLI.
+- 2021-03-31: Updated to use Nuxt/Auth. Setup now uses Okta CLI. You can see changes made in the [example app on GitHub](https://github.com/oktadeveloper/okta-universals-apps-with-nuxt/pull/16) and [this blog post](https://github.com/oktadeveloper/okta-blog/pull/647).
 ---
 
 Reducing the time between a user clicking your application and the content being displayed is vital. Optimized images? Check! Minified CSS? Check! Minified JS? Check! But if your application is a single page app (or SPA) there is a large bundle of JavaScript that must reach the user before the site can be rendered.
