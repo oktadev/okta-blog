@@ -49,7 +49,7 @@ This will render the following HTML:
 
 ## Configuration Options
 
-Supported values for `type`: spa, web, native, service, and jhipster
+Supported values for `type`: spa, web, native, service, token, and jhipster
 
 Other parameters you can pass in:
 
@@ -264,6 +264,22 @@ This will render the following HTML:
 <div class="separator"></div>
 {% include setup/oidcdebugger.md %}
 <div class="separator"></div>
+
+### API Token
+
+{% raw %}
+```
+{% include setup/cli.md type="token" %}
+```
+{% endraw %}
+
+This will render the following HTML:
+
+<div class="separator"></div>
+{% include setup/cli.md type="token" %}
+<div class="separator"></div>
+
+## Example Blog Posts
 
 Example code is in the following posts:
 
