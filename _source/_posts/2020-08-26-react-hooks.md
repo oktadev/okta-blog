@@ -153,7 +153,7 @@ Real-life web applications require access control. Some parts of the application
 
 If you haven't done so already, register for a free account at [developer.okta.com](https://developer.okta.com/). Select **Create Free Account** and fill in the forms to complete the registration process. Once you are done and logged in, you will see your Okta Developer Console. 
 
-> **Tip**: You can also create an account using the [Okta CLI](https://github.com/oktadeveloper/okta-cli) and `okta register`. To create an app, run `okta apps create` and use the settings below.
+> **Tip**: You can also create an account using the [Okta CLI](https://github.com/okta/okta-cli) and `okta register`. To create an app, run `okta apps create` and use the settings below.
 
 This is the place where you register your application by selecting **Applications** > **Add Application**. On the next screen, choose **Single Page App** and click **Next**.
 
