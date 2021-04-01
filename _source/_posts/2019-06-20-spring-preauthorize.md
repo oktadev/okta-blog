@@ -34,7 +34,7 @@ Before we dive into the project, I want to also mention that Spring also provide
 
 ## Dependencies
 
-The dependencies for this tutorial are pretty simple. You need: 1) Java 8+ installed, and 2) an Okta developer account. 
+The dependencies for this tutorial are pretty simple. You need: 1) Java 11 installed, and 2) an Okta developer account. 
 
 If you do not have Java installed, go to [AdoptOpenJDK](https://adoptopenjdk.net/). On \*nix systems, you can also use [SDKMAN](https://sdkman.io/).
 
