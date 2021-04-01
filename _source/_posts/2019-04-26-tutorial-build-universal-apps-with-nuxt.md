@@ -475,7 +475,7 @@ CLIENT_ID="{yourClientId}"
 Remember this file contains your application's access to your OAuth provider and should not be checked into source control. To enable Nuxt to read this file you need to install a package from npm.
 
 ```bash
-npm i @nuxtjs/dotenv
+npm i @nuxtjs/dotenv@1.3.0
 ```
 
 Once that is installed add the following line to the top of `nuxt.config.js`:
@@ -489,8 +489,8 @@ You also need to enable your Nuxt application to use your identity provider as a
 In your terminal, stop the running application and use the following commands to install the packages:
 
 ```bash
-npm i @nuxtjs/auth-next
-npm install @nuxtjs/axios
+npm i @nuxtjs/auth-next@5.0.0-1616003482.75c20e6
+npm i @nuxtjs/axios@5.13.1
 ```
 
 Once they are installed, you need to configure their behavior in the `nuxt.config.js`. First, add both to the array of modules.
@@ -545,14 +545,14 @@ means that you need to tell the middleware how to authenticate the user. To do t
 
 <script>
 export default {
-    mounted: function(){
-      if(!this.$auth.loggedIn){
-        this.$auth.loginWith('okta')
-      }
-      else {
-        this.$router.push('/')
-      }
+  mounted: function(){
+    if(!this.$auth.loggedIn){
+      this.$auth.loginWith('okta')
     }
+    else {
+      this.$router.push('/')
+    }
+  }
 }
 </script>
 
@@ -560,8 +560,7 @@ export default {
 </style>
 ```
 
-The login page is requested by the middleware when an unauthenticated user tries to reach a protected page. In this case the mounted function directs the middleware to use the Okta strategy
-to log that user in.
+The login page is requested by the middleware when an unauthenticated user tries to reach a protected page. In this case the mounted function directs the middleware to use the Okta strategy to log that user in.
 
 
 Now that you have the OAuth strategy configured, you need to configure which routes require authentication. You can do this by adding the value `middleware: 'auth',` to the default export of a page. Update the script tag of `progress.vue` in the `pages` folder with the following code.
