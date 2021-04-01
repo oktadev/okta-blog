@@ -152,7 +152,7 @@ If you don't want to use a package manager, you can install the Okta CLI with cu
 
 [source,shell]
 ----
-curl https://raw.githubusercontent.com/oktadeveloper/okta-cli/master/cli/src/main/scripts/install.sh | bash
+curl https://raw.githubusercontent.com/okta/okta-cli/master/cli/src/main/scripts/install.sh | bash
 ----
 
 === Register Your Android Application

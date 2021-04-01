@@ -22,6 +22,10 @@ Then React introduced Hooks. Hooks allow you to obtain data and a callback funct
 
 In this tutorial, I will be showing you how to create a simple React application using Hooks to add state to a functional component. The application is a simple search form for books by their title and uses the Open Library API to obtain real book data.
 
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+
 ## Creating a React Application with Hooks
 
 In the following, I will assume that you have some knowledge of JavaScript and that you have Node installed on your system. You do not need any experience with React, and I will be explaining all the major concepts. A typical Node installation comes together with two command-line tools, `npm` and `npx`. 
@@ -151,17 +155,9 @@ In both cases, the curly braces are used to insert the value of variables into t
 
 Real-life web applications require access control. Some parts of the application should be restricted to a limited number of users. Creating your own user management and securing your application is difficult and requires a lot of expertise. Okta allows you to set up authentication with just a few lines of code.
 
-If you haven't done so already, register for a free account at [developer.okta.com](https://developer.okta.com/). Select **Create Free Account** and fill in the forms to complete the registration process. Once you are done and logged in, you will see your Okta Developer Console. 
+{% include setup/cli.md type="spa" framework="React" loginRedirectUri="http://localhost:3000/callback" %}
 
-> **Tip**: You can also create an account using the [Okta CLI](https://github.com/oktadeveloper/okta-cli) and `okta register`. To create an app, run `okta apps create` and use the settings below.
-
-This is the place where you register your application by selecting **Applications** > **Add Application**. On the next screen, choose **Single Page App** and click **Next**.
-
-{% img blog/react-hooks/okta-create-spa-choice.png alt:"Register a new single-page app with Okta" width:"800" %}{: .center-image }
-
-On the following screen, you can edit the application settings. For React applications running in developer mode, the port number should be 3000. You also need to change the base URI to `http://localhost:3000`. Finally, set the **Login redirect URI** to `http://localhost:3000/callback`. Once you have completed the form, you will be given a **Client ID**. This needs to be pasted into your JavaScript code.
-
-{% img blog/react-hooks/okta-react-settings.png alt:"Settings for the React single-page app" width:"700" %}{: .center-image }
+Take note of the **Client ID**. This needs to be pasted into your JavaScript code.
 
 To make use of Okta in your React app, open the terminal in your project directory, and install the Okta React SDK with the React router by running the following commands.
 
@@ -305,6 +301,7 @@ The code for this tutorial is available on GitHub in the [@oktadeveloper/okta-re
 
 If you want to learn more about React and other front-end frameworks, please check out the following links.
 
+* [A Quick Guide to React Login Options](/blog/2020/12/16/react-login)
 * [Use Sass with React to Build Beautiful Apps](/blog/2019/12/17/react-sass)
 * [Build a React App with Styled Components](/blog/2020/03/16/react-styled-components)
 * [Build Beautiful Angular Apps with Bootstrap](/blog/2020/03/02/angular-bootstrap)
