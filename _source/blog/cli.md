@@ -25,14 +25,14 @@ The basic syntax using the Okta CLI to setup an app is:
 
 {% raw %}
 ```markdown
-{% include setup/cli.md type="spa" loginRedirectUri="http://localhost:3000" %}
+{% include setup/cli.md type="spa" loginRedirectUri="http://localhost:3000/callback" %}
 ```
 {% endraw %}
 
 This will render the following HTML:
 
 <div class="separator"></div>
-{% include setup/cli.md type="spa" loginRedirectUri="http://localhost:3000" %}
+{% include setup/cli.md type="spa" loginRedirectUri="http://localhost:3000/callback" %}
 <div class="separator"></div>
 
 ## Configuration Options
