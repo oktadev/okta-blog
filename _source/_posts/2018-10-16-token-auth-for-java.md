@@ -182,7 +182,7 @@ Remember:
 
 Soon you'll be generating and validating JWTs like a pro. {% include setup/cli.md type="web" %}
 
-You'll need to make one update to your app before you continue. Run `okta login` and open the resulting URL in your browser. Log in, navigate to the **Applications** section and select your application. **Edit** its General Settings and **Client Credentials** as an allowed grant type. Click **Save**.
+You'll need to make one update to your app before you continue. Run `okta login` and open the resulting URL in your browser. Log in, navigate to the **Applications** section and select your application. **Edit** its General Settings and check **Client Credentials** as an allowed grant type. Click **Save**.
 
 ## Install HTTPie
 
