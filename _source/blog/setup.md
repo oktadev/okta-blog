@@ -291,6 +291,3 @@ Example code is in the following posts:
 - React: [react-login](/blog/2020/12/16/react-login)
 - Vue: [vue-login](/blog/2020/05/15/vue-login)
 - Service: [simple-rest-api-php](/blog/2019/03/08/simple-rest-api-php)
-
-
-
