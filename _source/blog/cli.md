@@ -96,7 +96,7 @@ This will render the following HTML:
 {% include setup/cli.md type="spa" loginRedirectUri="http://localhost:8080/callback" %}
 <div class="separator"></div>
 
-### Native with Ionic:
+### Native with Ionic
 
 {% raw %}
 ```md
