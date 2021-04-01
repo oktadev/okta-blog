@@ -107,7 +107,7 @@ This will render the following HTML:
 
 {% raw %}
 ```
-{% include setup/cli.md type="spa" loginRedirectUri="http://localhost:8080/callback" %}
+{% include setup/cli.md type="spa" framework="Vue" loginRedirectUri="http://localhost:8080/callback" %}
 ```
 {% endraw %}
 
