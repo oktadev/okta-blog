@@ -148,7 +148,7 @@ These will render instructions using the [Okta CLI](https://cli.okta.com) (or [O
 The basic syntax using the Okta CLI to setup an app is:
 
 ```md
-{% include setup/cli.md type="spa" %>
+{% include setup/cli.md type="spa" %}
 ```
 
 Supported values for `type`: spa, web, native, service, and jhipster
