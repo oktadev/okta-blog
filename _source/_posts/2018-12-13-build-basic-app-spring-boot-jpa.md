@@ -442,7 +442,7 @@ A couple things to note. First, notice that *value* is being stored as a binary 
 
 Okta is a software-as-service identity, authentication, and authorization provider. While I have definitely worked on projects where outsourcing everything to SaaS providers created more problems than it promised to solve, authentication and authorization is a place where this model makes total sense. Online security is hard. Vulnerabilities are found and servers must be updated quickly. Standards change and code needs modification. All of these changes have the potential to create new vulnerabilities. Letting Okta handle security means that you can worry about the things that make your application unique.
 
-To show you how easy it is to set up, you're going integrate Okta OAuth and add token-based authentication to the resource server. {% include setup/cli.md type="spa" %}
+To show you how easy it is to set up, you're going integrate Okta OAuth and add token-based authentication to the resource server. {% include setup/cli.md type="spa" loginRedirectUri="http://localhost:8080/callback" %}
 
 ## Configure Your Spring Boot Resource Server for Token Authentication
 
@@ -515,9 +515,7 @@ Content-Type: application/json;charset=UTF-8
 
 ## Generate an Access Token
 
-To access the server now, you need a valid access token. You can use **OpenID Connect Debugger** to help you do this.
-
-{% include setup/oidcdebugger.md %}
+To access the server now, you need a valid access token. {% include setup/oidcdebugger.md %}
 
 {% img blog/basic-app-spring-boot-jpa/oidc-debugger.png alt:"Generate an Access Token" width:"600" %}{: .center-image }
 
@@ -576,7 +574,7 @@ The payload will look a bit like this:
 }
 ```
 
-The **groups** claim carries the groups to which the user is assigned. The user you're using to sign into the developer.okta.com website will also be a member of both the "Everyone" group and the "Admin" group.
+The **groups** claim carries the groups to which the user is assigned. The user you're using to sign into the Okta Admin Console will also be a member of both the "Everyone" group and the "Admin" group.
 
 To get Spring Boot and the resource server to play nicely with group-based authorization, you need to make a few changes to the code.
 
@@ -781,7 +779,7 @@ You'll get another 403. "Saving" is going to equal an HTML POST here.
 
 However, if you use a token generated from your original, admin account, it'll work.
 
-**NOTE:** It's possible your token will be expired and you'll have to log out of developer.okta.com again and re-generate the token on the [OIDC Debugger](https://oidcdebugger.com/).
+**NOTE:** It's possible your token will be expired and you'll have to log out of the Okta Admin Console again and re-generate the token on the [OIDC Debugger](https://oidcdebugger.com/).
 
 POST a new kayak with the token generated from your admin account.
 
