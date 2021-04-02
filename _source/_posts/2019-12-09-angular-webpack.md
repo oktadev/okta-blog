@@ -13,7 +13,7 @@ tweets:
 image: blog/angular-webpack/angular-webpack.png
 type: conversion
 changelog: 
-- 2021-04-01: Updated to use the latest versions of Okta's Angular SDK. You can see the changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-angular-webpack-example/pull/2). Changes to this article can be viewed in [oktadeveloper/okta-blog#652](https://github.com/oktadeveloper/okta-blog/pull/652).
+- 2021-04-01: Updated to use Okta Angular SDK v3.0.1. You can see the changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-angular-webpack-example/pull/2). Changes to this article can be viewed in [oktadeveloper/okta-blog#652](https://github.com/oktadeveloper/okta-blog/pull/652).
 ---
 
 If you're a frontend dev in the world today you've probably heard of (and possibly even used) **webpack**. The Angular build process uses webpack behind the scenes to transpile TypeScript to JavaScript, transform Sass files to CSS, and many other tasks. To understand the importance of this build tool, it helps to understand why it exists. 
