@@ -12,7 +12,7 @@ tweets:
 - "Wanna learn how to build a quick app with @springboot and add user authentication? You're in luck!"
 image: blog/featured/okta-java-short-bottle-headphones.jpg
 type: conversion
-update-title: OAuth 2.0 Java Guide: Secure Your App in 5 Minutes
+update-title: "OAuth 2.0 Java Guide: Secure Your App in 5 Minutes"
 update-url: /blog/2019/10/30/java-oauth2
 ---
 
