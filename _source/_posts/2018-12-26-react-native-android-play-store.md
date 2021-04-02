@@ -910,7 +910,9 @@ Note: if you are not seeing any changes from your code reflected in the `react-n
 <uses-permission android:name="android.permission.INTERNET" />
 ```
 
-Next, you need to [sign up for a free Okta developer account](https://developer.okta.com/signup/). Then login and navigate to **Applications > Add Application**. Select **Native** and click **Next**. Choose a name and click **Done**. Note your **Login redirect URI** and the**Client ID** since you have to add them to your app.
+{% include setup/cli.md type="native"
+   loginRedirectUri="com.okta.dev-133337:/callback"
+   logoutRedirectUri="com.okta.dev-133337:/callback" %}
 
 Now install [react-native-app-auth](https://github.com/FormidableLabs/react-native-app-auth) and link it.
 
