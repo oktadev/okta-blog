@@ -12,6 +12,8 @@ tweets:
 - "Wanna learn how to build a quick app with @springboot and add user authentication? You're in luck!"
 image: blog/featured/okta-java-short-bottle-headphones.jpg
 type: conversion
+update-title: OAuth 2.0 Java Guide: Secure Your App in 5 Minutes
+update-url: /blog/2019/10/30/java-oauth2
 ---
 
 When's the last time you had fun building a web application?  We love Spring Boot because it makes it super easy to build a rich Java web application, and it can even be pretty fun. By combining Spring, Spring Boot, and Gradle, we have a complete build system that can develop, test, run, and deploy Spring applications in minutes.
@@ -188,19 +190,8 @@ Whew! If you get the sense that there are a lot of moving parts in all that, you
 
 Let's set up your OIDC application on Okta for OAuth 2.0 SSO!
 
-Open [developer.okta.com](https://developer.okta.com). Click on the **Applications** top menu item, and then click on **Add Application**.
-
-You should see the following screen. Click on the icon for the **Web** option. Click **Next**.
-
-{% img blog/spring-boot-user-auth/create-new-app.png alt:"Create New Application" width:"800" %}{: .center-image }
-
-You need to update a few of the initial configuration options. First, change the name to something more descriptive. I used "Okta Spring Boot Simple Web App." Next, update the **Login redirect URIs** to `http://localhost:8080/login`. Click **Done**.
-
-{% img blog/spring-boot-user-auth/oidc-app.png alt:"OIDC App Settings" width:"700" %}{: .center-image }
-
-This will take you to the new application's general configuration tab. Scroll down and note the Client ID and Client secret. You'll need these later.
-
-{% img blog/spring-boot-user-auth/client-id-and-secret.png alt:"Client ID and Secret" width:"700" %}{: .center-image }
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter"
+loginRedirectUri="http://localhost:8080/login" %}
 
 That's all you need to do to set up Okta for OAuth! Now let's return to the Spring Boot app and hook our new OIDC application into the Spring Boot application.
 
@@ -216,9 +207,9 @@ public class SpringSecurityWebAppConfig extends WebSecurityConfigurerAdapter {
     @Override  
   protected void configure(HttpSecurity http) throws Exception {  
         http.authorizeRequests()  
-                .antMatchers("/").permitAll()  
-                .antMatchers("/img/**").permitAll()  
-                .anyRequest().authenticated();  
+            .antMatchers("/").permitAll()  
+            .antMatchers("/img/**").permitAll()  
+            .anyRequest().authenticated();  
     }  
       
 }
