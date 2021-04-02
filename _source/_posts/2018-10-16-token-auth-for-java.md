@@ -180,23 +180,9 @@ Remember:
 
 ## Configure Your Okta OIDC Application for Token Authentication in Java
 
-Soon you'll be generating and validating JWTs like a pro. But first, you need to head over to [developer.okta.com](https://developer.okta.com) and create an OpenID Connect (OIDC) application. If you haven't already, register for a free developer account. Did I mention it's totally free?
+Soon you'll be generating and validating JWTs like a pro. {% include setup/cli.md type="web" %}
 
-Log into your Okta developer dashboard. Go to **Applications** and then click the **Add Application** button.
-
-Select the **Web** application type and click **Next**.
-
-{% img blog/java-token-auth/create-new-app.png alt:"Create Okta App" width:"700" %}{: .center-image }
-
-On the next page, you'll need to give your new application a catchy name. You can name it whatever you like. You'll also need to check the **Client Credentials** checkbox. This activates the `client_credentials` grant type that you're going to use in a bit.
-
-{% img blog/java-token-auth/client-credentials.png alt:"App with Client Credentials" width:"600" %}{: .center-image }
-
-Click **Done**.
-
-Take note of the **Client ID** and **Client Secret** at the bottom of the following page. You'll need these later.
-
-{% img blog/java-token-auth/client-id-secret.png alt:"Client ID and Client Secret" width:"700" %}{: .center-image }
+You'll need to make one update to your app before you continue. Run `okta login` and open the resulting URL in your browser. Log in, navigate to the **Applications** section and select your application. **Edit** its General Settings and check **Client Credentials** as an allowed grant type. Click **Save**.
 
 ## Install HTTPie
 
@@ -275,15 +261,13 @@ Let's fix it!
 
 ## Add a Custom Scope
 
-Head back over to [developer.okta.com](https://developer.okta.com). From the top menu, go to **API** and **Authorization Servers**. 
+Head back over to the Okta Admin Console. Go to **Security** > **API** and **Authorization Servers**. 
 
-Click on the **default** server from the list of servers.
+Click on the `default` server from the list of servers.
 
 Click on the **Scopes** tab, and click the **Add Scope** button.
 
 Name the scope "customScope", give it a description, and click **Create**. You'll need the name to match, but the description is arbitrary.
-
-{% img blog/java-token-auth/add-scope.png alt:"Add Custom Scope" width:"700" %}{: .center-image }
 
 ## Run the Token Request Again
 

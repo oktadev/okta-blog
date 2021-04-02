@@ -100,38 +100,11 @@ public class CloudConfigServerApplication { ... }
 
 ## Create an OpenID Connect Application
 
-Sign up for a free developer account at <https://developer.okta.com/signup>. This will be used to secure your microservices using OAuth 2.0 and OpenID Connect (OIDC). After signing up, log in to your Okta account at https://your-okta-domain.okta.com.
-
-Click **Applications** in the top nav menu.
-
-{% img blog/spring-cloud-config/applications.png alt:"Click the Applications button" width:"800" %}{: .center-image }
-
-Click **Add Application**.
-
-{% img blog/spring-cloud-config/add-application.png alt:"Click Add Application" width:"800" %}{: .center-image }
-
-Select **Web** and click **Next**.
-
-{% img blog/spring-cloud-config/select-web.png alt:"Select Web and click Next" width:"800" %}{: .center-image }
-
-In **Application Settings** fill in the following values:
-
-- **Name**: `My Spring Cloud App` (or another name of your choosing)
-- **Base URIs**: `http://localhost:8001` and `http://localhost:8002`
-- **Login Redirect URIs**: `http://localhost:8001/login/oauth2/code/okta` and `http://localhost:8002/login/oauth2/code/okta`
-- **Logout Redirect URIs**: `http://localhost:8001` and `http://localhost:8002`
-- **Group Assignments**: `Everyone` (should be selected by default)
-- **Grant type allowed**: `Authorization Code`
-
-{% img blog/spring-cloud-config/application-settings.png alt:"Application settings" width:"800" %}{: .center-image }
-
-Click **Done**.
-
-{% img blog/spring-cloud-config/done.png alt:"Click Done" width:"800" %}{: .center-image }
+{% include setup/cli.md type="web"
+   loginRedirectUri="[http://localhost:8001/login/oauth2/code/okta,http://localhost:8002/login/oauth2/code/okta]"
+   logoutRedirectUri="[http://localhost:8001,http://localhost:8002]" %}
 
 Take note of the values for **Client ID** and **Client secret**. These will be necessary for securing your microservices with OAuth 2.0.
-
-{% img blog/spring-cloud-config/client-id-and-secret.png alt:"Client ID and Secret" width:"744" %}{: .center-image }
 
 ## Configure Security for Your Microservices Architecture
 
@@ -144,7 +117,7 @@ server:
 
 okta:
   oauth2:
-    issuer: https://YOUR_DOMAIN.okta.com/oauth2/default
+    issuer: https://YOUR_OKTA_DOMAIN/oauth2/default
     clientId: YOUR_CLIENT_ID
     clientSecret: YOUR_CLIENT_SECRET
 ```
@@ -168,7 +141,7 @@ server:
 
 okta:
   oauth2:
-    issuer: https://YOUR_DOMAIN.okta.com/oauth2/default
+    issuer: https://YOUR_OKTA_DOMAIN/oauth2/default
     clientId: YOUR_CLIENT_ID
     clientSecret: YOUR_CLIENT_SECRET
 ```
@@ -410,7 +383,7 @@ server:
 
 okta:
   oauth2:
-    issuer: https://YOUR_DOMAIN.okta.com/oauth2/default
+    issuer: https://YOUR_OKTA_DOMAIN/oauth2/default
     clientId: YOUR_CLIENT_ID
     clientSecret: YOUR_CLIENT_SECRET
 
@@ -428,7 +401,7 @@ server:
 
 okta:
   oauth2:
-    issuer: https://YOUR_DOMAIN.okta.com/oauth2/default
+    issuer: https://YOUR_OKTA_DOMAIN/oauth2/default
     clientId: YOUR_CLIENT_ID
     clientSecret: YOUR_CLIENT_SECRET
 
