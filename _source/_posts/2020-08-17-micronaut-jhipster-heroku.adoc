@@ -13,7 +13,7 @@ tweets:
 image: blog/micronaut-jhipster/micronaut-jhipster.png
 type: conversion
 changelog:
-- 2021-04-01: Updated for the new Okta Admin Console. See [okta-blog#687]() to see what changed.
+- 2021-04-01: Updated for the new Okta Admin Console. See [okta-blog#657](https://github.com/oktadeveloper/okta-blog/pull/657) to see what changed.
 ---
 :toc: macro
 :page-liquid:
