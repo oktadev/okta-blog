@@ -251,15 +251,10 @@ public class OktaOAuth2WebSecurity {
 ```
 To keep things simple in this example, [CSRF](https://docs.spring.io/spring-security/site/docs/5.0.x/reference/html/csrf.html) is disabled.
 
-Now we need to create an authorization client in Okta. Log in to your Okta Developer account (or [sign up](https://developer.okta.com/signup/) if you don't have an account).
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
 
-1. From the **Applications** page, choose **Add Application**.
-2. On the Create New Application page, select **Web**.
-3. Name your app _Api Gateway_, add `http://localhost:8080/login/oauth2/code/okta` as a Login redirect URI, select **Refresh Token** (in addition to **Authorization Code**), and click **Done**.
+Use the issuer, client ID, and client secret to start the gateway:
 
-Copy the issuer (found under **API** > **Authorization Servers**), client ID, and client secret.
-
-Start the gateway with:
 ```shell
 OKTA_OAUTH2_ISSUER={yourOktaIssuer} \
 OKTA_OAUTH2_CLIENT_ID={yourOktaClientId} \
@@ -873,15 +868,11 @@ Now we are going to configure `cart-service` to use the client credentials grant
 
 First create a new authorization client in Okta.
 
-1. From the **Applications** page, choose **Add Application**
-2. On the Create New Application page, select **Service**
-3. Name your app _Cart Service_ and click **Done**
+{% include setup/cli.md type="service" %}
 
 Copy the new client ID, and client secret.
 
-Create a custom scope to restrict what the `cart-service` accessToken can access. From the menu bar select **API** -> **Authorization Servers**. Edit the authorization server by clicking on the edit pencil, then click **Scopes** -> **Add Scope**. Fill out the name field with `pricing` and press Create.
-
-{% img blog/spring-gateway-patterns/pricing-scope.png alt:"Client Credentials Activity" width:"600" %}{: .center-image }
+Create a custom scope to restrict what the `cart-service` accessToken can access. In the Okta Admin Console, go to **Security** > **API** > **Authorization Servers**. Edit the authorization server by clicking on the edit pencil, then click **Scopes** > **Add Scope**. Fill out the name field with `pricing` and press **Create**.
 
 We need to configure the OAuth2 client in the `cart-service` application, for calling the `pricing-service`. `OAuth2RestTemplate` is not available in Spring Security 5.3.x. According to Spring Security OAuth [migration guides](https://github.com/spring-projects/spring-security/wiki/OAuth-2.0-Migration-Guide), the way to do this is by using RestTemplate interceptors or WebClient exchange filter functions. Since Spring 5, `RestTemplate` is in [maintenance mode](https://docs.spring.io/spring/docs/5.2.7.RELEASE/javadoc-api/org/springframework/web/client/RestTemplate.html), using WebClient (which supports sync, async, and streaming scenarios) is the suggested approach. So let's configure a `WebClient` for the pricing call.
 
@@ -1162,15 +1153,15 @@ You should get a priced cart as response:
 }
 ```
 
-Take a look at the **System Log** in the Okta Dashboard and you will see an entry indicating the Cart Service requested an access token:
+Take a look at the **System Log** in the Okta Admin Console and you will see an entry indicating the Cart Service requested an access token:
 
 {% img blog/spring-gateway-patterns/client-credential-activity.png alt:"Client Credentials Activity" width:"900" %}{: .center-image }
 
 ## Learn More About Building Secure Applications
 
-In this tutorial, you learned how to create an API Gateway with Spring Cloud Gateway, and how to configure three common OAuth2 patterns (1. code flow, 2. token relay and 3. client credentials grant) using Okta Spring Boot Starter and Spring Security. . You can find all the code on [GitHub](https://github.com/oktadeveloper/okta-spring-cloud-gateway-example).
+In this tutorial, you learned how to create an API Gateway with Spring Cloud Gateway, and how to configure three common OAuth2 patterns (1. code flow, 2. token relay, and 3. client credentials grant) using Okta Spring Boot Starter and Spring Security. You can find [all the code on GitHub](https://github.com/oktadeveloper/okta-spring-cloud-gateway-example).
 
-To continue learning about Spring Cloud Gateway features and OAuth2 authorization patterns, check also the following links:
+To continue learning about Spring Cloud Gateway features and OAuth 2.0 authorization patterns, check also the following links:
 
 - [Secure Reactive Microservices with Spring Cloud Gateway](/blog/2019/08/28/reactive-microservices-spring-cloud-gateway)
 - [Secure Legacy Apps with Spring Cloud Gateway](/blog/2020/01/08/secure-legacy-spring-cloud-gateway)
