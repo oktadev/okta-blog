@@ -117,16 +117,9 @@ npm i @angular/flex-layout@9.0.0-beta.29
 
 ## Setting Up Okta Authentication
 
-The application uses Okta for authentication. In order to sign in to the Tic-Tac-Toe game, you will need to sign up for an account with Okta and register the application. Don't worry, registering is free and easy. Simply open your browser, navigate to <https://developer.okta.com>, and click **Create Free Account**. 
+The application uses Okta for authentication. In order to sign in to the Tic-Tac-Toe game, you will need to sign up for an account with Okta and register the application. Don't worry, registering is free and easy.
 
-After completing the registration process, you should see your Okta dashboard. 
-
-Register a new single-page application with the following steps:
-
-* Go to  **Applications** > **Add Application**, followed by **Single Page App**
-* Click **Next** to configure the application's settings
-* Change all ports from `8080` to `4200`
-* Submit the form and copy the **Client ID** from the bottom of the resulting screen
+{% include setup/cli.md type="spa" framework="Angular" loginRedirectUri="http://localhost:4200/callback" %}
 
 In your application, open `src/app/auth.service.ts`. At the top of the `AuthService` class, you should see the following code.
 
