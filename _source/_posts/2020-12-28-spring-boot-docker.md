@@ -12,6 +12,8 @@ tweets:
 - "Want to build @docker images for your Spring Boot apps? Learn how in this quick tutorial. 👇"
 image: blog/spring-boot-docker/spring-boot-docker.png
 type: conversion
+changelog:
+- 2020-12-31: Updated post to add Heroku instructions, since it requires another buildpack. Thanks for the idea, Maurizio! See the code changes in the [example on GitHub](https://github.com/oktadeveloper/okta-spring-boot-docker-buildpacks-example/pull/2). Changes to this post can be viewed in [oktadeveloper/okta-blog#514](https://github.com/oktadeveloper/okta-blog/pull/514).
 ---
 
 Those of you reading this have certainly heard of Docker. After years of hype, it has become the somewhat standard technology for everyday DevOps operations. It greatly helped to simplify deployments and testing by creating efficient, immutable images of the applications which are working in their own silo. More efficient placement of applications has made this technology central for cloud applications which is why it has gotten so much attention in recent years.
@@ -261,11 +263,6 @@ See other relevant tutorials:
 * [A Quick Guide to OAuth 2.0 with Spring Security][oauth2-spring-security-guide]
 
 Follow us for more great content and updates from our team! You can find us on [Twitter](https://twitter.com/oktadev), [Facebook](https://www.facebook.com/oktadevelopers), subscribe to our [YouTube Channel](https://youtube.com/c/oktadev) or start the conversation below!
-
-<a name="changelog"></a>
-**Changelog**:
-
-* Dec 31, 2020: Updated post to add Heroku instructions, since it requires another buildpack. Thanks for the idea, Maurizio! See the code changes in the [example on GitHub](https://github.com/oktadeveloper/okta-spring-boot-docker-buildpacks-example/pull/2). Changes to this post can be viewed in [oktadeveloper/okta-blog#514](https://github.com/oktadeveloper/okta-blog/pull/514).
 
 [install-docker]: https://docs.docker.com/get-docker/
 [java11]: https://adoptopenjdk.net/
