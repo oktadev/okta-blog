@@ -44,20 +44,10 @@ npm install
 
 This is a React app that uses Styled Components for its CSS and is secured by OpenID Connect (aka OIDC). You can read about how it was created in [Build a React App with Styled Components](/blog/2020/03/16/react-styled-components).
 
-Log into your Okta developer account (you [created one](https://developer.okta.com/signup/), right?) to register this app and enable OIDC authentication.
+{% include setup/cli.md type="spa" framework="React" 
+   loginRedirectUri="http://localhost:3000/callback" %}
 
-1. Go to **Applications** in the top menu
-2. Select **Add Application** > **Single-Page App** and click **Next**
-3. On the settings screen, give your app a name like `React Docker`
-4. Make sure the ports are set to `3000` and the **Login redirect URI** is `http://localhost:3000/callback`
-5. Click **Done**
-
-The resulting screen will provide you with a client ID.
-
-{% img blog/react-docker/okta-app-settings.png alt:"Okta App Settings" width:"700" %}{: .center-image }
-
-Copy and paste the client ID into your application's `src/App.js`.
-The value for `<yourIssuerURI>` can be found in your Okta dashboard, under **API** > **Authorization Servers**. For example, mine is `https://dev-133320.okta.com/oauth2/default`.
+Copy and paste the issuer and client ID into your application's `src/App.js`.
 
 ```jsx
 function App() {
