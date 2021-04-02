@@ -12,6 +12,8 @@ tweets:
 - "A concise guide on how to build a secure blogging site with @gatsbyjs and @netlify. "
 image: blog/gatsby-netlify-okta/gatsby-netlify.png
 type: conversion
+changelog:
+- 2021-04-02: Updated to use Okta Sign-In Widget v5.5.0. See the examples in...
 ---
 
 Gatsby is a tool for creating static websites with React. It allows you to pull your data from virtually anywhere: content management systems (CMSs), Markdown files, APIs, and databases. Gatsby leverages GraphQL and webpack to combine your data and React code to generate static files for your website.
@@ -607,27 +609,13 @@ Restart with `npm start` and you should be able to navigate to this new section.
 
 ## Register Your App with Okta
 
-To begin with Okta, you'll need to register your app, just like you did with GitHub. [Log in to your Okta developer account](http://developer.okta.com) and navigate to **Applications** > **Add Application**.
-
-* Choose **Single-Page App** and **Next**
-* Enter a name like `Gatsby Account`
-* Specify the following Login redirect URIs:
-  * `http://localhost:8000/account`
-  * `http://localhost:9000/account`
-  * `https://<your-site>.netlify.com/account`
-* Specify the following Logout redirect URIs:
-  * `http://localhost:8000`
-  * `http://localhost:9000`
-  * `https://<your-site>.netlify.com`
-* Click **Done**
-
-Your Okta application settings should resemble the screenshot below.
-
-{% img blog/gatsby-netlify-okta/okta-app-settings.png alt:"Okta app settings" width:"700" %}{: .center-image }
+{% include setup/cli.md type="spa" 
+   loginRedirectUri="http://localhost:8000/account,http://localhost:9000/account,https://<your-site>.netlify.com/account"
+   loginRedirectUri="http://localhost:8000,http://localhost:9000,https://<your-site>.netlify.com" %}
 
 ### Add Trusted Origins for Your Gatsby Sites
 
-Gatsby can run on two different ports (8000 and 9000) locally. One is for development and one is for production (invoked with `gatsby build` and `gatsby serve`). You also have your production Netlify site. Add all of these as Trusted Origins in **API** > **Trusted Origins**.
+Gatsby can run on two different ports (8000 and 9000) locally. One is for development and one is for production (invoked with `gatsby build` and `gatsby serve`). You also have your production Netlify site. Add all of these as Trusted Origins in **Security** > **API** > **Trusted Origins**.
 
 Click **Add Origin**, select **CORS** and **Redirect** for Type, and add each of the following:
 
@@ -635,16 +623,12 @@ Click **Add Origin**, select **CORS** and **Redirect** for Type, and add each of
 * `http://localhost:9000`
 * `https://<your-site>.netlify.com`
 
-When you're finished, your screen should resemble the following.
-
-{% img blog/gatsby-netlify-okta/okta-trusted-origins.png alt:"Okta trusted origins" width:"800" %}{: .center-image }
-
 ## Protect Your Gatsby Account Section with Okta
 
 Install Okta's Sign-In Widget:
 
 ```shell
-npm i @okta/okta-signin-widget@3.7.2
+npm i @okta/okta-signin-widget@5.5.0
 ```
 
 Create a `Login` component in `src/components/Login.js`:
@@ -897,7 +881,7 @@ Try `gatsby build` again and it should work this time. Run `gatsby serve` to see
 
 ## Add User Registration
 
-To give people the ability to sign-up for accounts, go to your Okta dashboard > **Users** > **Registration**, and enable it.
+To give people the ability to sign-up for accounts, go to the Okta Admin Console > **Directory** > **Self-Service Registration**, and enable it.
 
 Modify `src/components/Login.js` to add Okta's user registration feature.
 
