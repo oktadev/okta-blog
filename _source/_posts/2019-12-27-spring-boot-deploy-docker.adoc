@@ -12,6 +12,8 @@ tweets:
 - "A @SpringBoot app + @Docker == 💕☕"
 image: blog/featured/okta-java-short-tile-books-mouse.jpg
 type: conversion
+update-title: "How to Docker with Spring Boot"
+update-url: /blog/2020/12/28/spring-boot-docker
 ---
 
 :page-liquid:
