@@ -76,32 +76,10 @@ All the messages displayed are from the in-memory database. Note that at this st
 Real-world applications often require users to log in to perform some actions or access information. User management and security are much more complicated than they might seem and it can be tough to make them right. If you have done it previously, you know what I'm talking about.
  
 User management shouldn't take much of your time because that problem is solved already, right? In this tutorial, you'll be using Okta's OAuth 2.0 authorization service along with OpenID Connect (OIDC). Okta provides many features for both enterprise and personal project needs - MFA, SAML, groups, policies, social media logins, and many more. We offer solutions for different size companies - from pet projects just for yourself to big enterprises such as FedEx, Box, HubSpot, Experian, and [many others][okta-customers]. Okta helps developers implement secure authentication, handles authorization, and can act as an identity provider with a minimum effort and lines of code.
- 
-If you haven't created an Okta account yet, [sign up][okta-signup] first. It's free, no credit card required.
 
-Login to the Okta admin console. On the top menu select **Applications** → **Add Application**:
+{% include setup/cli.md type="web" 
+   loginRedirectUri="http://localhost:8080/login/authorization-callback" %}
 
-{% img blog/ktor-kotlin/okta-create-new-web-application.png alt:"Create a new application screen on Okta website" width:"1110" %}{: .center-image }
-
-Then, configure your Okta application. Don't worry, if you want to change anything it's always possible to return to this screen. At the very least, you need to set the following settings:
- 
-* **Name** - give it a meaningful name, for instance, `My Ktor nano Blogging Service`
-* **Base URIs** - put `http://localhost:8080/` there. Multiple URI can be provided; you can add more URIs if needed.
-* **Login redirect URIs** - set it to `http://localhost:8080/login/authorization-callback`. Upon successful login, the user will be redirected to URI provided with tokens in the query.
-* **Logout redirect URIs** - value `http://localhost:8080` allows you to provide a redirect URL on successful logout.
- 
-Click **Done** to finish the initial setup.
- 
-{% img blog/ktor-kotlin/okta-configure-application-for-ktor.png alt:"Configure your Okta application to work with Ktor Auth module" width:"700" %}{: .center-image }
-
-Take note of the following three values. You'll use them in your Ktor application:
- 
-* **Org URL**: Hover over **API** on the top menu bar, and select **Authorization Servers** menu item, copy the value from **Issuer URI**
- 
-* **Client ID** and **Client Secret** as below:
-
-{% img blog/ktor-kotlin/okta-client-id-and-client-secret.png alt:"Take a note of clientId and clientSecret" width:"700" %}{: .center-image }
- 
 ### Configure Ktor's OAuth 2.0 Module
  
 Ktor has an implementation of OAuth Client—it just needs to be configured. It's always good practice to never insert any keys, tokens, or credentials directly into the code. **Even for a demo project.** To inject Okta parameters from environment variables, append a new block in `resources/application.conf`:
