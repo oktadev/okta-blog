@@ -634,7 +634,7 @@ OKTACLIENTID={yourClientId}
 OKTASECRET={yourClientSecret}
 ```
 
-Log in to the Okta Admin Console (tip: run `okta login`, open URL in a browser). Navigate to **Security** > **API**. Select your **default** Authorization Service. Click the **Edit** icon, go to the **Scopes** tab and click **Add Scope** to add a scope for the REST API. Name it `person_api` and check **Set as a default scope**.
+Log in to the Okta Admin Console (tip: run `okta login`, open URL in a browser). Navigate to **Security** > **API**. Select your **default** Authorization Server. Click the **Edit** icon, go to the **Scopes** tab and click **Add Scope** to add a scope for the REST API. Name it `person_api` and check **Set as a default scope**.
 
 Add the scope to `.env.example`:
 
@@ -650,10 +650,10 @@ SCOPE=person_api
 
 ## Add Authentication to Your PHP REST API
 
-We'll use the Okta JWT Verifier library. It requires a JWT library (we'll use `spomky-labs/jose`) and a PSR-7 compliant library (we'll use `guzzlehttp/psr7`). We'll install everything through composer:
+We'll use the Okta JWT Verifier library. It requires a JWT library (we'll use `firebase/php-jwt`) and a PSR-7 compliant library (we'll use `guzzlehttp/psr7`). We'll install everything through composer:
 
 ```bash
-composer require okta/jwt-verifier spomky-labs/jose guzzlehttp/psr7
+composer require okta/jwt-verifier firebase/php-jwt guzzlehttp/psr7
 ```
 
 Now we can add the authorization code to our front controller (if using a framework, we'll do this in a middleware instead):
