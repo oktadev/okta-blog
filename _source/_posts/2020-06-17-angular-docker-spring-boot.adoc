@@ -460,7 +460,7 @@ And open the app in your browser:
 heroku open --remote docker
 ----
 
-You'll need to add your app's URL to Okta as a valid redirect URI. In your Spring Boot app on Heroku, go to **Resources** and click on the **Ookta** add-on. This will log you in to your Okta dashboard. Navigate to **Applications** > **SPA** > **General** > **Edit**. Add the following redirect URIs.
+You'll need to add your app's URL to Okta as a valid redirect URI. In your Spring Boot app on Heroku, go to **Resources** and click on the **okta** add-on. This will log you in to the Okta Admin Console. Navigate to the **Applications** applications section, and **Edit** your app's general settings. Add the following redirect URIs.
 
 - Login: `\https://<angular-docker-app>.herokuapp.com/callback`
 - Logout: `\https://<angular-docker-app>.herokuapp.com`
