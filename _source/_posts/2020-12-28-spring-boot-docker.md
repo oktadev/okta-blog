@@ -120,40 +120,13 @@ As expected, your web application will be available on `http://localhost:8080`.
 
 User management is never an easy task and, most certainly, is not the main objective of your application. Okta is an identity provider that helps you to take care of routine work such as implementing OAuth 2.0, social login, and SSO (Single Sign-On). It's very developer-friendly, and it has excellent integration with different frameworks, including Spring Boot.
 
-Start with [installing the Okta CLI tool][okta-cli] - it's a real time saver for developers.
-
-1. **Create your free developer [account with Okta][okta-signup]**, no credit card required:
-
-    ```text
-    okta register
-
-    ...(provide registration details)...
-    ...
-    To set your password open this link:
-    https://dev-xxxxxxxxxxxx.okta.com/welcome/ABCDEFG
-    ```
-    
-    Don't forget to set your password using the link above!
-
-2. Create an Okta application. In your project directory, execute:
+{% include setup/cli.md type="web" 
+   loginRedirectUri="http://localhost:8080/login/oauth2/code/okta"
+   logoutRedirectUri="http://localhost:8080" %}
    
-   ```text
-   okta apps create --redirect-uri http://localhost:8080/login/oauth2/code/okta
-   ```
+You'll need to run `source .okta.env` to set these values as environment variables. If you're on Windows, rename the file to `.okta.bat` and change `export` to `set`. These parameters need to be injected into the application to enable OAuth flows for authentication and authorization.
 
-   The Okta CLI will prompt you for an application name—choosing the default is OK. Next, select **1** (Web), then **1** (Okta Spring Boot Starter). Accept defaults, the Okta CLI will configure the default login redirect URI (`http://localhost:8080/login/oauth2/code/okta`) and logout redirect URI (`http://localhost:8080`). Don't worry, you can change these values later if something needs to be adjusted.
-
-3. When an application successfully created, its configuration is saved in the current folder, in a `.okta.env` file.
-
-   ```sh
-   cat .okta.env
-   export OKTA_OAUTH2_ISSUER="https://dev-xxxxxx.okta.com/oauth2/default"
-   export OKTA_OAUTH2_CLIENT_SECRET="yyy"
-   export OKTA_OAUTH2_CLIENT_ID="zzz"
-   ```
-   You'll need to run `source .okta.env` to set these values as environment variables. If you're on Windows, rename the file to `.okta.bat` and change `export` to `set`.  These parameters need to be injected into the application to enable OAuth flows for authentication and authorization.
-
-   **⚠️ NOTE: make sure you _never_ check in credentials to your source control system.**
+**⚠️ NOTE: Make sure you _never_ check in credentials to your source control system. ⚠️**
 
 ### Configure Spring Security to Lock Down Access
 
