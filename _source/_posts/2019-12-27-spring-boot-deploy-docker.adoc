@@ -13,7 +13,7 @@ tweets:
 image: blog/featured/okta-java-short-tile-books-mouse.jpg
 type: conversion
 changelog:
-- 2021-04-02: Updated to use Java 11 and Spring Boot 2.4.4. See [example app changes on GitHub](https://github.com/oktadeveloper/spring-boot-docker-example/pull/1). Changes to this article can be viewed in [okta-blog#687]().
+- 2021-04-02: Updated to use Java 11 and Spring Boot 2.4.4. See [example app changes on GitHub](https://github.com/oktadeveloper/spring-boot-docker-example/pull/1). Changes to this article can be viewed in [okta-blog#674](https://github.com/oktadeveloper/okta-blog/pull/674).
 ---
 :toc: macro
 :page-liquid:
