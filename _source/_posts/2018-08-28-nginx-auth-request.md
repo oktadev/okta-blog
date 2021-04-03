@@ -145,7 +145,7 @@ The easiest way to configure Vouch is to have it allow any user that can authent
 
 You'll need to choose an OAuth 2.0 provider to use to actually authenticate users. In this example we'll use Okta, since that's the easiest way to have a full OAuth/OpenID Connect server and be able to manage all your user accounts from a single dashboard.
 
-{% include setup/cli.md type="web" %}
+{% include setup/cli.md type="web" loginRedirectUri="https://login.avocado.lol/auth" logoutRedirectUri="https://login.avocado.lol" %}
 
 Now that you've registered the application in Okta, you'll have a client ID and secret which you'll need to include in the config file. You'll also need to set the URLs for your authorization endpoint, token endpoint and userinfo endpoint. These will most likely look like the below using your Okta domain.
 
