@@ -22,10 +22,7 @@ Today, we are going to create an API key for three different APIs. We will show,
 
 ## How to Obtain and Use an Okta API Token
 
-{% include setup/cli.md type="spa" loginRedirectUri="http://localhost:8080" %}
-
-Next, create an API token. Run `okta login` and open the resulting URL in your browser. Log in and go to **Security** > **API** > **Tokens**. Create a new token and store the value somewhere safe. Make sure you don't check it into GitHub! 
-
+{% include setup/cli.md type="token" %}
 
 When making an API call, the token needs to be added in an Authorization HTTP request header. The token type must be `SSWS`, which is the proprietary authentication scheme used by Okta. Replace `00...3` with the actual token.
 
@@ -33,7 +30,7 @@ When making an API call, the token needs to be added in an Authorization HTTP re
 Authorization: SSWS 00...3
 ```
 
-An API call using the API token can be made using `curl`. Replace `${OKTA_API_KEY}` with the API token and replace `${OKTA_DOMAIN}` with the domain obtained from the developer console.
+An API call using the API token can be made using `curl`. Replace `${OKTA_API_KEY}` with the API token and replace `${OKTA_DOMAIN}` with your Okta domain.
 
 ```bash
 curl -s -H "Authorization: SSWS ${OKTA_API_KEY}" https://${OKTA_DOMAIN}/api/v1/meta/types/user
