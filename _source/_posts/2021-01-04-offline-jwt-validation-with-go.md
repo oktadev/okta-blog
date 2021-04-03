@@ -187,7 +187,7 @@ So, what does this code do? The messages are stored in a slice of strings called
 
 The `Messages()` function extracts the message from the POST form data and appends it to the list of messages. It then returns the list of messages back to the requester as a JSON object.
 
-Now, we can test the application by running the server and pointing a web browser at http://localhost:8080.
+Now, we can test the application by running the server and pointing a web browser at `http://localhost:8080`.
 
 ```bash
 go run main.go
@@ -398,7 +398,7 @@ We can now test end to end. Start by  running the server:
 go run main.go
 ```
 
-Next, point a web browser at http://localhost:8080.
+Next, point a web browser at `http://localhost:8080`.
 
 Enter a message and hit the submit button. You should get an authorization error.
 
