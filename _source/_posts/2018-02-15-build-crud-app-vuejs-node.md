@@ -103,23 +103,9 @@ new Vue({
 
 ## Add Authentication with Okta
 
-Dealing with authentication in a web app is the bane of every developer's existence. That's where Okta comes in to secure your web applications with minimal code. To get started, you will need to create an OIDC application in Okta. [Sign up for a forever-free developer account](https://developer.okta.com/signup/) (or log in if you already have one).
+Dealing with authentication in a web app is the bane of every developer's existence. That's where Okta comes in to secure your web applications with minimal code. 
 
-{% img blog/vue-crud-node/okta-developer-sign-up.png alt:"Okta Developer Sign Up" width:"800" %}{: .center-image }
-
-Once logged in, create a new application by clicking "Add Application".
-
-{% img blog/vue-crud-node/add-application.png alt:"Add Application" width:"800" %}{: .center-image }
-
-Select the "Single-Page App" platform option.
-
-{% img blog/vue-crud-node/new-application-options.png alt:"New Application Options" width:"800" %}{: .center-image }
-
-The default application settings should be the same as those pictured.
-
-{% img blog/vue-crud-node/okta-application-settings.png alt:"Okta Application Settings" width:"800" %}{: .center-image }
-
-To install the Okta Vue SDK, run the following command:
+{% include setup/cli.md type="spa" framework="Vue" loginRedirectUri="http://localhost:8080/callback" %}
 
 ```
 npm i @okta/okta-vue@1.0.0
@@ -137,7 +123,7 @@ import Auth from '@okta/okta-vue'
 Vue.use(Auth, {
   issuer: 'https://{yourOktaDomain}/oauth2/default',
   client_id: '{clientId}',
-  redirect_uri: 'http://localhost:8080/implicit/callback',
+  redirect_uri: 'http://localhost:8080/callback',
   scope: 'openid profile email'
 })
 
@@ -152,7 +138,7 @@ let router = new Router({
       component: Hello
     },
     {
-      path: '/implicit/callback',
+      path: '/callback',
       component: Auth.handleCallback()
     },
     {
@@ -177,7 +163,7 @@ You'll need to replace `{yourOktaDomain}` and `{clientId}` which can be found on
 Vue.use(Auth, {
   issuer: 'https://{yourOktaDomain}/oauth2/default',
   client_id: '{clientId}',
-  redirect_uri: 'http://localhost:8080/implicit/callback',
+  redirect_uri: 'http://localhost:8080/callback',
   scope: 'openid profile email'
 })
 ```
@@ -186,7 +172,7 @@ The final step of Okta's authentication flow is redirecting the user back to you
 
 ```javascript
 {
-  path: '/implicit/callback',
+  path: '/callback',
   component: Auth.handleCallback()
 }
 ```
