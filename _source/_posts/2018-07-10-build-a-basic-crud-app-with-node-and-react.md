@@ -237,14 +237,9 @@ You would never ship your new app out to the Internet without secure [identity m
 * Secure your application with [multi-factor authentication](https://developer.okta.com/use_cases/mfa/)
 * And much more! Check out our [product documentation](https://developer.okta.com/documentation/)
 
+{% include setup/cli.md type="spa" framework="React" loginRedirectUri="http://localhost:3000/login/callback" %}
 
-If you don't already have one, [sign up for a forever-free developer account](https://developer.okta.com/signup/). Log in to your developer console, navigate to **Applications**, then click **Add Application**. Select **Single-Page App**, then click **Next**.
-
-Since Create React App runs on port 3000 by default, you should add that as a Base URI and Login Redirect URI. Your settings should look like the following:
-
-{% img blog/node-react-crud/create-new-application-settings.png alt:"Create new application settings" width:"700" %}{: .center-image }
-
-Click **Done** to save your app, then copy your **Client ID** and paste it as a variable into a file called `.env.local` in the root of your project. This will allow you to access the file in your code without needing to store credentials in source control. You'll also need to add your organization URL (without the `-admin` suffix). Environment variables (other than `NODE_ENV`) need to start with `REACT_APP_` in order for Create React App to read them, so the file should end up looking like this:
+Copy your **Client ID** and paste it as a variable into a file called `.env.local` in the root of your project. This will allow you to access the file in your code without needing to store credentials in source control. Environment variables (other than `NODE_ENV`) need to start with `REACT_APP_` in order for Create React App to read them, so the file should end up looking like this:
 
 **.env.local**
 ```bash
@@ -252,7 +247,7 @@ REACT_APP_OKTA_CLIENT_ID={clientId}
 REACT_APP_OKTA_ORG_URL=https://{yourOktaDomain}
 ```
 
-The easiest way to add Authentication with Okta to a React app is to use [Okta's React SDK](https://github.com/okta/okta-oidc-js/tree/master/packages/okta-react). You'll also need to add routes, which can be done using [React Router](https://reacttraining.com/react-router/). I'll also have you start adding icons to the app (for now as an avatar icon to show you're logged in). Material UI provides Material Icons, but in another package, so you'll need to add that too. Run the following command to add these new dependencies:
+The easiest way to add Authentication with Okta to a React app is to use [Okta's React SDK](https://github.com/okta/okta-react). You'll also need to add routes, which can be done using [React Router](https://reacttraining.com/react-router/). I'll also have you start adding icons to the app (for now as an avatar icon to show you're logged in). Material UI provides Material Icons, but in another package, so you'll need to add that too. Run the following command to add these new dependencies:
 
 ```bash
 yarn add @okta/okta-react@3.0.8 react-router-dom@5.1.2 @material-ui/icons@4.5.1
