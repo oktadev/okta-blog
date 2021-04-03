@@ -268,27 +268,9 @@ Then open your browser and navigate to `http://localhost:4200`.
 
 ## Add Authentication to Your Node + Angular App
 
-If you have ever developed web applications from scratch you will know how much work is involved just to allow users to register, verify, log on and log out of your application. Using Okta this process can be greatly simplified. To start off, you will need a developer account with Okta.
+If you have ever developed web applications from scratch you will know how much work is involved just to allow users to register, verify, log on and log out of your application. Using Okta this process can be greatly simplified. 
 
-{% img blog/angular-node/developer.okta.com.png alt:"developer.okta.com" width:"800" %}{: .center-image }
-
-In your browser, navigate to [developer.okta.com](https://developer.okta.com/) and click on **Create Free Account** and enter your details.
-
-{% img blog/angular-node/start-building.png alt:"Start building on Okta" width:"800" %}{: .center-image }
-
-Once you are done you will be taken to your developer dashboard. Click on the **Add Application** button to create a new application.
-
-{% img blog/angular-node/add-application.png alt:"Add Application" width:"800" %}{: .center-image }
-
-Start by creating a new single page application. Choose **Single Page App** and click **Next**.
-
-{% img blog/angular-node/single-page-app.png alt:"Create new Single Page App" width:"800" %}{: .center-image }
-
-On the next page, you will need to edit the default settings. Make sure that the port number is 4200. This is the default port for Angular applications.
-
-{% img blog/angular-node/my-angular-app.png alt:"My Angular App" width:"800" %}{: .center-image }
-
-That's it. You should now see a **Client ID** which you will need to paste into your TypeScript code.
+{% include setup/cli.md type="spa" framework="Angular" loginRedirectUri="http://localhost:4200/callback" %}
 
 To implement authentication into the client, install the Okta library for Angular.
 
@@ -307,7 +289,7 @@ In the list of `imports` of the `app` module, add:
 ```ts
 OktaAuthModule.initAuth({
   issuer: 'https://{yourOktaDomain}/oauth2/default',
-  redirectUri: 'http://localhost:4200/implicit/callback',
+  redirectUri: 'http://localhost:4200/callback',
   clientId: '{YourClientId}'
 })
 ```
@@ -363,7 +345,7 @@ Add another route to the `routes` array.
 
 ```ts
 {
-  path: 'implicit/callback',
+  path: 'callback',
   component: OktaCallbackComponent
 }
 ```
