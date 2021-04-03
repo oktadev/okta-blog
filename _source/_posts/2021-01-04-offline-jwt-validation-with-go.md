@@ -45,19 +45,15 @@ A file called `go.mod` containing these dependencies will be created by the `go 
 
 {% include setup/cli.md type="spa" loginRedirectUri="http://localhost:8080" %}
 
-Next, create an API token. Run `okta login` and open the resulting URL in your browser. Log in and go to **Security** > **API** > **Tokens**. Create a new token and store the value somewhere safe. Make sure you don't check it into GitHub! 
-
-Next, create environment variables for the domain, API token, issuer URI, and client ID, replacing the placeholders with your actual values from the console:
+Next, create environment variables for the domain, issuer URI, and client ID, replacing the placeholders with your actual values from the console:
 
 ```bash
 export OKTA_DOMAIN=https://dev-123456.okta.com
-export OKTA_API_TOKEN=00...d
 export OKTA_ISSUER_URI=https://dev-123456.okta.com/oauth2/default
 export OKTA_CLIENT_ID=0...5d
 ```
 
 **PS:** The redirect and logout URIs are for local testing. In a production environment a new application needs to be created using the actual domain names.
-To use Okta authentication you need to have a free [Okta Developer account] (https://developer.okta.com). Once you’ve done this, sign in to the developer console. 
 
 ## How to Build a Web Client in Go with Okta Authentication
 
