@@ -25,24 +25,9 @@ Before you start, you'll need to set up a development environment with PHP 7 and
 
 ## Create an OpenID Connect App
 
-Before we get into the code, let's set up our Okta account so it's ready when we need it. Okta is an API service that allows you to create, edit, and securely store user accounts and user account data, and connect them with one or more applications. You can [register for a forever-free developer account here](https://developer.okta.com/signup/).
+Before we get into the code, let's set up our Okta account so it's ready when we need it. Okta is an API service that allows you to create, edit, and securely store user accounts and user account data, and connect them with one or more applications.
 
-Once you're signed up, log in and visit the Okta dashboard. Be sure to take note of the **Org URL** setting at the top-right portion of the dashboard, you'll need this URL later when configuring your application.
-
-Next, set up a new application, you'll mostly use the default settings. 
-Here are the step-by-step instructions:
-
-1. Go to the **Applications** menu item and click the **Add Application** button:
-
-{% img blog/php-laravel-vue-app/add-application.png width:"200" alt:"Click Add Application" %}{: .center-image }
-
-2. Select **Single Page Application** and click **Next**.
-
-{% img blog/php-laravel-vue-app/new-spa.png alt:"Create a new SPA application" %}{: .center-image }
-
-3. Set a descriptive application name, add `http://localhost:8080/implicit/callback` as a **Login redirect URI**, and click **Done**. You can leave the rest of the settings as they are.
-
-4. Finally, copy down the value of the **Client ID** variable. This value will be used in the OpenID Connect flow later on.
+{% include setup/cli.md type="spa" framework="Vue" loginRedirectUri="http://localhost:8080/callback" %}
 
 ## Build Your Laravel and Vue CRUD Application
 
@@ -381,12 +366,12 @@ import Auth from '@okta/okta-vue'
 Vue.use(Auth, {
   issuer: 'https://{yourOktaDomain}/oauth2/default',
   client_id: '{yourClientId}',
-  redirect_uri: 'http://localhost:8080/implicit/callback',
+  redirect_uri: 'http://localhost:8080/callback',
   scope: 'openid profile email'
 })
 
 const routes = [
-  { path: '/implicit/callback', component: Auth.handleCallback() },
+  { path: '/callback', component: Auth.handleCallback() },
   { path: '/', component: Dashboard},
 ]
 
@@ -411,7 +396,7 @@ Don't forget to substitute your own Okta domain and Client ID! You also need to 
 import TriviaGame from './components/TriviaGame.vue'
 
 const routes = [
-  { path: '/implicit/callback', component: Auth.handleCallback() },
+  { path: '/callback', component: Auth.handleCallback() },
   { path: '/trivia', component: TriviaGame }
 ]
 ...
