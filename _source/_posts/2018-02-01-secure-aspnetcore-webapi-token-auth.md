@@ -73,21 +73,7 @@ Now, you should be able to fire them both up (with `dotnet run` from the command
 
 ## Set Up the App in Okta
 
-If you don't already have an account with Okta, set up your free-forever developer account at <https://developer.okta.com/signup/>. Once you've logged into the dashboard, click on the **Applications** menu item, then click **Add Application**.
-
-{% img blog/webapi-token-auth/AddApplication.png alt:"Add Application Screen" width:"800" %}{: .center-image }
-
-From the Create New Application screen choose **Service**, and click **Next**.
-
-{% img blog/webapi-token-auth/CreateServiceScreen.png alt:"Create Service Screen" width:"800" %}{: .center-image }
-
-Name the application "API Sample App", and click **Done**.
-
-{% img blog/webapi-token-auth/NameServiceScreen.png alt:"Name Service Screen" width:"800" %}{: .center-image }
-
-On the API Sample App's general settings, you will see the Client Credentials box with the client ID and client secret in it. You will use these to authenticate a client wishing to call your API.
-
-{% img blog/webapi-token-auth/ApplicationGeneralSettings.png alt:"General Settings Screen" width:"800" %}{: .center-image }
+{% include setup/cli.md type="service" %}
 
 >For each client that you'll want to have access to the API, you'll need to create an Okta application for it, and give it the Client ID and Client Secret.
 
