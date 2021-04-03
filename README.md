@@ -151,7 +151,7 @@ The basic syntax for using the Okta CLI to set up an app is:
 {% include setup/cli.md type="spa" loginRedirectUri="http://localhost:8080/callback" %}
 ```
 
-Supported values for `type`: spa, web, native, service, and jhipster
+Supported values for `type`: spa, web, native, service, token, and jhipster
 
 Other parameters you can pass in:
 
