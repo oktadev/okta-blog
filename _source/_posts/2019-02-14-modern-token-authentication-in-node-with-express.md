@@ -12,6 +12,8 @@ tweets:
   - "Token auth. Token Auth? TOKEN AUTH?! Come learn about token auth in @nodejs and Express.js!"
 image: blog/node-token-auth/token-authentication-flow.png
 type: conversion
+changelog: 
+  - 2021-04-02: Updated Okta JWT Verifier to v2.1.0 and streamlined setup with CLI. See changes in [okta-blog#987]().
 ---
 
 Token authentication is the hottest way to authenticate users to your web applications nowadays. There's a lot of interest in token authentication because it *can* be faster than traditional session-based authentication in some scenarios, and also allows you some additional flexibility. In this post, I'm going to teach you all about token authentication: what it is, how it works, why you should use it, and how you can use it in your Node applications. Let's get to it!
@@ -140,34 +142,16 @@ If you'd like to see how to build a real app using token authentication in Node,
 
 If you aren't already familiar with Okta: it's a simple API service for storing user accounts and managing user authentication and authorization.
 
-To get started, head over to [https://developer.okta.com/](/) and create an account, or log in if you've already signed up. It's free for developers.
-
-Follow the steps below to create an application in Okta. Once you've done this, I'll walk you through building the Node app and plugging in the Okta application to manage your user credentials and token authentication.
-
-1. Once you're in the Okta dashboard, you will see an *Org URL* value on the top right of your screen. Save this value somewhere for later use, then click **Application** on the navigation menu
-2. Click **Add Application**
-3. Select **Web**, then click *Next*
-4. Enter the following settings then click **Done**
-
-   {% img blog/node-token-auth/okta-create-app.png alt:"okta create app" width:"700" %}{: .center-image }
-
-5. You will be redirected to the **General Settings** page. Click **Edit**, then select the checkbox for **Client Credentials** (make sure it is checked) and click **Save**
-
-   {% img blog/node-token-auth/okta-app-settings.png alt:"okta app settings" width:"700" %}{: .center-image }
-
-6. You should see **Client ID** and **Client secret** when you scroll down, save this information somewhere for later use.
+{% include setup/cli.md type="web" loginRedirectUri="http://localhost:8080/authorization-code/callback" %}
 
 ### Add a Custom Scope
 
 Scopes define and limit what access is granted by a token. You must define custom scopes in your authorization server in Okta. To do this:
 
-1. Select **API** from the navigation menu, then click **Authorization Servers**
-2. Click the **default** link
-3. Click the **Scopes** menu
-4. Click **Add Scope**
-5. Enter `customScope` as the name, and add a description, then click **Create**
-
-   {% img blog/node-token-auth/okta-create-scope.png alt:"okta create scope" width:"700" %}{: .center-image }
+1. Run `okta login` and open the resulting link in your browser. Sign in to the Okta Admin Console and go to **Security** > **API** > **Authorization Servers**.
+2. Click on the `default` server from the list of servers.
+3. Click on the **Scopes** tab, then the **Add Scope** button.
+4. Enter `customScope` as the name, and add a description, then click **Create**.
 
 ### Install HTTPie
 
@@ -248,7 +232,7 @@ npm install express@4.16.4
 Install the [Okta JWT Verifier for Node.js](https://github.com/okta/okta-oidc-js/tree/master/packages/jwt-verifier), which you  can use to validate Okta access tokens (issued by Okta authorization servers).
 
 ```bash
-npm install @okta/jwt-verifier@0.0.14
+npm install @okta/jwt-verifier@2.1.0
 ```
 
 Create an `index.js` file in the folder then copy and paste the following code into the file:
