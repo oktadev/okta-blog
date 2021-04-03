@@ -45,7 +45,7 @@ A file called `go.mod` containing these dependencies will be created by the `go 
 
 {% include setup/cli.md type="spa" loginRedirectUri="http://localhost:8080" %}
 
-Next, create environment variables for the domain, issuer URI, and client ID, replacing the placeholders with your actual values from the console:
+Next, create environment variables for the domain, issuer URI, and client ID, replacing the placeholders with your actual values:
 
 ```bash
 export OKTA_DOMAIN=https://dev-123456.okta.com
