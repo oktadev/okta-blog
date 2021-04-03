@@ -247,7 +247,12 @@ With the browser portion of the project complete, the next step is to create the
 
 ### Configure an Authorization Server
 
-{% include setup/cli.md type="spa" loginRedirectUri="https://appName.azurewebsites.net/callback.html" logoutRedirectUri="https://appName.azurewebsites.net/index.html" %}
+{% capture note %}
+> The `appName` in the redirect URIs is just meant to be a placeholder. You should replace it with a name that will be used later when deploying the Unity project to Azure App Services.
+{% endcapture %}
+{% include setup/cli.md type="spa" note=note 
+   loginRedirectUri="https://appName.azurewebsites.net/callback.html"
+   logoutRedirectUri="https://appName.azurewebsites.net/index.html" %}
 
 ### Create the OAuth Script
 
@@ -463,7 +468,7 @@ Click the `Open ID Connect` tab and select **New Connection**
 
 {% img blog/unity-webgl-playfab-authorization/14_PlayFaboidc.png alt:"PlayFab OIDC" width:"800" %}{: .center-image }
 
-In the `New Connection` menu, name the Connection ID `Okta` and enter the `Client ID` and `Issuer` from the app set up by the Okta CLI. `Client Secret` is not used because of `PKCE `, so enter any random string into the `Client Secret` box in PlayFab. Finally, PlayFab is just validating an ID Token from an external authorization server so nonce is not needed here. Check `Ignore nonce` and click **Save Connection**.
+In the `New Connection` menu, name the Connection ID `Okta` and enter the `Client ID` and `Issuer` from the app set up by the Okta CLI. `Client Secret` is not used because of `PKCE`, so enter any random string into the `Client Secret` box in PlayFab. Finally, PlayFab is just validating an ID Token from an external authorization server so nonce is not needed here. Check `Ignore nonce` and click **Save Connection**.
 
 {% img blog/unity-webgl-playfab-authorization/15_PlayFabNewConnection.png alt:"PlayFab New Connection" width:"800" %}{: .center-image }
 
@@ -587,7 +592,7 @@ Select `Azure App Service` and click **Next**.
 
 Click **Create New Azure App Service**.
 
-Give the app the name used when setting up the `RedirectURI` in the Okta CLI where the placeholder was `appName.` This example used `https://webgloauth.azurewebsites.net/`, so the app name to use in Azure is `WebGLOAuth.`
+Give the app the name used when setting up the Redirect URI in the Okta CLI where the placeholder was `appName.` This example used `https://webgloauth.azurewebsites.net/`, so the app name to use in Azure is `WebGLOAuth.`
 
 Select a valid subscription, click **New** to create a new resource group, click **New** to create a new hosting plan, and then click **Create**.
 
