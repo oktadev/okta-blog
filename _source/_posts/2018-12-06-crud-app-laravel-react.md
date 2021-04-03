@@ -11,6 +11,8 @@ tweets:
   - "This tutorial shows you how to build an React app with a Laravel backend, complete with authentication!"
 image: blog/featured/okta-react-headphones.jpg
 type: conversion
+changelog:
+  - 2021-04-02: Updated to use Okta React v4.1.0 and streamline setup with the Okta CLI. See changes in [okta-blog#923]().
 ---
 
 Laravel is an amazing web application framework which regularly tops the lists of best PHP frameworks available today. This is partly because its based on PHP which runs 80% of the web today and the learning curve is relatively small (despite it being packed with advanced features, you can understand the basic concepts easily). However, the real reason for its popularity is its robust ecosystem and abundance of high-quality learning resources available for free (like this blog post!).
@@ -22,8 +24,6 @@ Before you start, you'll need to set up a development environment with PHP 7 and
 ## Add Okta for Authentication
 
 Well, we might be biased, but we think Okta makes [identity management](https://developer.okta.com/product/user-management/) easier, more secure, and more scalable than what you're used to. Okta is an API service that allows you to create, edit, and securely store user accounts and user account data, and connect them with one or more applications.
-
-To complete this tutorial, you'll need to [register for a forever-free developer account](https://developer.okta.com/signup/). When you're done, come back to learn more about building a secure CRUD app with Laravel and React.
 
 ## Start Your Laravel + React CRUD Application
 
@@ -43,21 +43,7 @@ Here's how to play:
 
 ## Set Up Your Okta Dev Account
 
-Let's set up your Okta account so it's ready when you need it. 
-
-Before you proceed, you need to log into your Okta account (or [create a new one for free](https://developer.okta.com/signup/)) and set up a new OIDC app. You'll mostly use the default settings. Make sure to take note of your Okta domain and the Client ID generated for the app.
-
-Here are the step-by-step instructions:
-
-Go to the Applications menu item and click the 'Add Application' button:
-
-{% img blog/php-laravel-react-app/add-application.png alt:"Add an application" width:"200" %}{: .center-image }
-
-Select 'Single Page Application' and click 'Next'.
-
-{% img blog/php-laravel-react-app/select-app-type.png alt:"Select the application type" width:"800" %}{: .center-image }
-
-Set a descriptive application name, add `http://localhost:3000/` as the Base URI, and `http://localhost:3000/implicit/callback` as the Login redirect URI, and click Done. You can leave the rest of the settings as they are.
+{% include setup/cli.md type="spa" framework="React" loginRedirectUri="http://localhost:3000/callback" logoutRedirectUri="http://localhost:3000" %}
 
 ## Set Up Laravel 
 
@@ -304,7 +290,7 @@ npm install --global create-react-app
 npx create-react-app trivia-web-client-react
 cd trivia-web-client-react
 yarn add react-router-dom@4.3.1 semantic-ui-react@0.83.0
-yarn add @okta/okta-react@1.1.4 --save
+yarn add @okta/okta-react@4.1.0 --save
 yarn start
 ```
 
@@ -449,7 +435,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
 
-import { Security, SecureRoute, ImplicitCallback } from '@okta/okta-react';
+import { Security, SecureRoute, LoginCallback } from '@okta/okta-react';
 
 import Navbar from './Navbar';
 import Home from './Home'
@@ -457,7 +443,7 @@ import Trivia from './Trivia'
 
 const config = {
   issuer: 'https://{yourOktaDomain}/oauth2/default',
-  redirect_uri: window.location.origin + '/implicit/callback',
+  redirect_uri: window.location.origin + '/callback',
   client_id: '{yourClientId}'
 }
 
@@ -472,7 +458,7 @@ class App extends Component {
             <Navbar />
             <Container text style={{ marginTop: '7em' }}>
                 <Route path="/" exact component={Home} />
-                <Route path="/implicit/callback" component={ImplicitCallback} />
+                <Route path="/callback" component={LoginCallback} />
                 <SecureRoute path="/trivia" component={Trivia} />
             </Container>
         </Security>
