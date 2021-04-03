@@ -453,7 +453,8 @@ Create a `client_secrets.json` file with your Okta settings in it.
 
 You might be wondering, where the heck do I get the values for {% raw %}`{{OKTA_DOMAIN}}`, `{{CLIENT_ID}}`, and `{{CLIENT_SECRET}}`{% endraw %}?
 
-First, you'll need to create a free [Okta developer account](https://developer.okta.com/signup). After it's setup, navigate to **Applications** > **Add Application**. Choose **Web** and click **Next**. Give it a name like "Flask OIDC" and click **Done**.
+{% include setup/cli.md type="web"
+   loginRedirectUri="http://localhost:8080/authorization-code/callback" %}
 
 Replace the {% raw %}`{{...}}`{% endraw %} values in `client_secrets.json` with your domain, client ID, and client secret. 
 
@@ -512,23 +513,10 @@ Great, now you have components like: Grid, Card, Icon, AppBar and many more read
 
 ### Add Authentication to Your React App with Okta
 
-Writing secure user authentication and building login pages are easy to get wrong and can be the downfall of a new project. Okta makes it simple to implement all the user management functionality quickly and securely. Get started by signing up for a [free developer account](https://developer.okta.com/signup/) and creating an OpenID Connect application in Okta.
+Writing secure user authentication and building login pages are easy to get wrong and can be the downfall of a new project. Okta makes it simple to implement all the user management functionality quickly and securely. 
 
-{% img blog/python-react/okta-developer-signup.png alt:"okta signup" width:"800" %}{: .center-image }
-
-Once logged in, create a new application by clicking **Add Application**.
-
-{% img blog/python-react/okta-add-application.png alt:"add application" width:"800" %}{: .center-image }
-
-Select the **Single-Page App** platform option.
-
-{% img blog/python-react/okta-choose-spa.png alt:"select spa app" width:"800" %}{: .center-image }
-
-The default application settings should be the same as those pictured.
-
-{% img blog/python-react/okta-spa-settings.png alt:"okta spa settings" width:"800" %}{: .center-image }
-
-Great! With your OIDC application in place, you can now move forward and secure the routes that requires authentication.
+{% include setup/cli.md type="spa" framework="React" signup="false" 
+   loginRedirectUri="http://localhost:3000/callback" %}
 
 ### Create Your React Routes
 
@@ -585,12 +573,12 @@ class Main extends Component {
         <Security
           issuer='https://{yourOktaDomain}/oauth2/default'
           client_id='{yourClientId}'
-          redirect_uri={window.location.origin + '/implicit/callback'}
+          redirect_uri={window.location.origin + '/callback'}
           scope={['openid', 'profile', 'email']}>
         
           <Switch>
             <Route exact path="/" component={Login} />
-            <Route path="/implicit/callback" component={LoginCallback} />
+            <Route path="/callback" component={LoginCallback} />
             <SecureRoute path="/home" component={Home} />
           </Switch>
         </Security>
