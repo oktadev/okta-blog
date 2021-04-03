@@ -353,26 +353,18 @@ You're probably asking yourself "Why Okta? Well, it's pretty cool to build a RES
 * Secure your application with [multi-factor authentication](https://developer.okta.com/use_cases/mfa/)
 * And much more! Check out our [product documentation](https://developer.okta.com/documentation/)
 
-If you don't already have one, [sign up for a forever-free developer account](https://developer.okta.com/signup/), and let's get started!
+{% include setup/cli.md type="service" %}
 
-After creating your account, log in to your developer console, navigate to **API**, then to the **Authorization Servers** tab. Click on the link to your `default` server.
-
-From this **Settings** tab, copy the `Issuer` field. You'll need to save this somewhere that your Node app can read. In your project, create a file named `.env` that looks like this:
+In your project, create a file named `.env` that looks like this:
 
 **.env**
 ```bash
 ISSUER=https://{yourOktaDomain}/oauth2/default
 ```
 
-The value for `ISSUER` should be the value from the Settings page's `Issuer URI` field.
-
-{% img blog/rest-api-node/issuer.png alt:"Higlighting the issuer URL." width:"800" %}{: .center-image }
-
 **Note**: As a general rule, you should not store this `.env` file in source control. This allows multiple projects to use the same source code without needing a separate fork. It also makes sure that your secure information is not public (especially if you're publishing your code as open source).
 
-Next, navigate to the **Scopes** tab. Click the **Add Scope** button and create a scope for your REST API. You'll need to give it a name (e.g. `parts_manager`) and you can give it a description if you like.
-
-{% img blog/rest-api-node/adding-scope.png alt:"Add scope screenshot." width:"800" %}{: .center-image }
+Run `okta login` and open the resulting URL in your browser. Sign in the Okta Admin Console, then go to **Security** > **API** and select your `default` authorization server. Navigate to the **Scopes** tab. Click the **Add Scope** button and create a scope for your REST API. You'll need to give it a name (e.g. `parts_manager`) and you can give it a description if you like.
 
 You should add the scope name to your `.env` file as well so your code can access it.
 
@@ -382,9 +374,7 @@ ISSUER=https://{yourOktaDomain}/oauth2/default
 SCOPE=parts_manager
 ```
 
-Now you need to create a client. Navigate to **Applications**, then click **Add Application**. Select **Service**, then click **Next**. Enter a name for your service, (e.g. `Parts Manager`), then click **Done**.
-
-This will take you to a page that has your client credentials. These are the credentials that Server B (the one that will consume the REST API) will need in order to authenticate. For this example, the client and server code will be in the same repository, so go ahead and add this data to your `.env` file. Make sure to replace `{yourClientId}` and `{yourClientSecret}` with the values from this page.
+The client ID and client secret are the credentials that Server B (the one that will consume the REST API) will need in order to authenticate. For this example, the client and server code will be in the same repository, so go ahead and add this data to your `.env` file. Make sure to replace `{yourClientId}` and `{yourClientSecret}` with the values in your `.okta.env` file.
 
 ```bash
 CLIENT_ID={yourClientId}
@@ -398,7 +388,7 @@ In Express, you can add middleware that will run before each endpoint. You can t
 To validate tokens, you can use Okta's middleware. You'll also need a tool called [dotenv](https://github.com/motdotla/dotenv) to load the environment variables:
 
 ```bash
-npm install dotenv@6.0.0 @okta/jwt-verifier@0.0.12
+npm install dotenv@6.0.0 @okta/jwt-verifier@2.10
 ```
 
 Now create a file named `auth.js` that will export the middleware:
