@@ -21,6 +21,10 @@ Today's modern web applications are often built with a server-side language serv
 
 In this tutorial you are going to build a JavaScript application using React in the front-end and we are also going to build a ReST API written in Python which is going to persist. Our app will be a Github open source bookmark project (a.k.a `kudo`).
 
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+
 To complete this tutorial, there are few things you will need:
 
 * macOS or Linux operating system
@@ -512,7 +516,7 @@ Running `npm start` will start a web server listening to the port 8080. Open `ht
 
 {% img blog/python-react/react-app-first-run.png alt:"React app first run" width:"800" %}{: .center-image }
 
-Your goal now is to use [Material Design](https://material.io/design/) to create a simple and beautiful UI. Thankfully, the React community has created https://material-ui.com/ which basically are the Material Design concepts translated to React components.
+Your goal now is to use [Material Design](https://material.io/design/) to create a simple and beautiful UI. Thankfully, the React community has created [Material-UI](https://material-ui.com) which basically are the Material Design concepts translated to React components.
 
 Run the following commands to install what you will need from Material Design.
 
