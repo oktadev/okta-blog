@@ -1082,7 +1082,7 @@ class Home extends React.Component {
   };
 
   componentDidMount() {
-    const accessToken = this.props.authState.accessToken;
+    const accessToken = this.props.authState.accessToken.accessToken;
     this.apiClient = new APIClient(accessToken);
     this.apiClient.getKudos().then((data) =>
       this.setState({...this.state, kudos: data})
