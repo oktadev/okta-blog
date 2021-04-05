@@ -112,7 +112,7 @@ Click `MenuManager` and make sure it is enabled in the inspector. Find the `Pane
 
 ## Okta CLI
 
-{% include setup/cli.md type="web" loginRedirectUri="http://127.0.0.1:51772" logoutRedirectUri="http://127.0.0.1:51772"%}
+{% include setup/cli.md type="web" loginRedirectUri="http://127.0.0.1:51772" logoutRedirectUri="http://127.0.0.1:51772" %}
 
 ## Native: Authenticate with Okta
 
