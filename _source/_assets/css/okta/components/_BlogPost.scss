@@ -274,6 +274,13 @@
 			margin-bottom: 20px;
 		}
 
+		#changelog::before {
+			content: "";
+			display: block;
+			height: 80px;
+			margin: -80px 0 0;
+		}
+
 		/* -------------------------- PYGMENTS */
 
 		.highlight pre { color: $eclipse-2; } /* Base Style */
