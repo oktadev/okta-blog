@@ -11,10 +11,16 @@ tweets:
   - "Don't forget to secure your #aspnetcore #api using token authentication"
 image: blog/featured/okta-dotnet-half.jpg
 type: conversion
+changelog:
+- 2021-04-05: Updated post to use .NET 5.0 and the Okta CLI. See changes in [okta-blog#678](https://github.com/oktadeveloper/okta-blog/pull/678).
 ---
 
 API security can be complex. In many cases, just because you've built an API that you want to make public, it doesn't mean that you want just anybody accessing it. In most cases, you want fine-grained control over who can access the API, but setting up that kind of user management can be a daunting task: you'd have to create your own authorization service that can create API credentials for your users and have the ability to exchange those API credentials for an access token using OAuth 2.0. I've got good news! With just a few lines of code, Okta can handle all the complicated and time-consuming security elements and let you concentrate on creating a stellar API. =)
 
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+  
 ## Understand the Basic Flow
 
 When handling authentication for a server-to-server API, you really only have two options: HTTP basic auth or OAuth 2.0 client credentials.
@@ -23,14 +29,15 @@ Because OAuth 2.0 is the most popular way to secure API services like the one we
 
 With OAuth 2.0 client credentials, authenticating a client app is two-step process: first, the client sends its API credentials (a client ID and secret) to an authorization server that returns an access token. Second, the client sends a request to the API with that access token and the API verifies it and either authorizes the call or rejects it with a `401 Unauthorized` response. In this tutorial, you'll use Okta to manage your OAuth 2.0 server and rely on Okta's default authorization server to create access tokens using API credentials (aka: client credentials) also created by Okta.
 
-## Install .NET Core 2.0
-For this tutorial, you'll be using version 2.0 of the .NET Core framework to create a .NET Core MVC application that will be the client, and a .NET core Web API that the client will call. To make sure you have .NET Core 2.0 installed, you can open a command window and run:
+## Install .NET Core 5.0
+
+For this tutorial, you'll be using version 5.0 of the .NET Core framework to create a .NET Core MVC application that will be the client, and a .NET core Web API that the client will call. To make sure you have .NET Core 5.0 installed, you can open a command window and run:
 
 ```sh
 dotnet --version
 ```
 
-Ensure that you see `2.0.0` in the output. If you don't, you can install it from [here](https://dot.net/core).
+Ensure that you see `5.0.0` (or higher) in the output. If you don't, you can install it from [here](https://dot.net/core).
 
 I will be running everything from Visual Studio Code, but it can easily be done from Visual Studio if you have access to that.
 
@@ -62,11 +69,13 @@ dotnet new mvc
 For development on the same machine, you'll also need to tell the MVC app to run on another port, because the API will be running on port 5000. To do this, go to the `Program.cs` file in the MVC application and add the `UseUrls()` method, so that your `BuildWebHost` method looks like this:
 
 ```cs
- public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
-                .UseUrls("http://localhost:5050")
-                .Build();
+public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>()
+                    .UseUrls("http://localhost:5050");
+                });
 ```
 
 Now, you should be able to fire them both up (with `dotnet run` from the command prompt, or just F5 in Visual Studio or Visual Studio Code) and see them both run independently.
@@ -77,18 +86,27 @@ Now, you should be able to fire them both up (with `dotnet run` from the command
 
 >For each client that you'll want to have access to the API, you'll need to create an Okta application for it, and give it the Client ID and Client Secret.
 
+### Add a Custom Scope
+
+Scopes define and limit what access is granted by a token. You must define custom scopes in your authorization server to use a client credentials grant type.
+
+1. Run `okta login` and open the resulting URL in your browser.
+2. Sign in to the Okta Admin Console, go to **Security** > **API** > **Authorization Servers**.
+3. Select the `default` server from the list of servers.
+4. Click on the **Scopes** tab, then the **Add Scope** button.
+5. Enter `customScope` as the name, and add a description, then click **Create**.
+
 ## Set Up Your App To Use Okta Client Credentials
 
 In this case, the client of the API is the ASP.NET MVC application. Open the `app` folder in your IDE. Open the `appsettings.Development.json` file and add your Okta client information like so:
 
-```js
+```json
 {
   "Logging": {
-    "IncludeScopes": false,
     "LogLevel": {
-      "Default": "Debug",
-      "System": "Information",
-      "Microsoft": "Information"
+      "Default": "Information",
+        "Microsoft": "Warning",
+        "Microsoft.Hosting.Lifetime": "Information"
     }
   },
   "Okta": {
@@ -99,7 +117,7 @@ In this case, the client of the API is the ASP.NET MVC application. Open the `ap
 }
 ```
 
-The `TokenUrl` property is the url to your default Authorization Server. You can find this in Okta by going to the dashboard and hovering over the API menu item in the menu bar, then choosing Authorization Servers from the drop down menu. The Issuer URI for the "default" server is the URI used for the `TokenUrl` property. The `ClientId` and `ClientSecret` properties are from the General Settings page of your API application in Okta.
+Replace the `{...}` placeholders with the values from the Okta service app you just created.
 
 In the "Models" folder of the application add a new class file called `OktaSettings.cs`. The contents of the class are:
 
@@ -121,7 +139,7 @@ This will allow you to read those configuration values into a C# object, making 
 public void ConfigureServices(IServiceCollection services)
 {
     services.Configure<OktaSettings>(Configuration.GetSection("Okta"));
-    services.AddMvc();
+    services.AddControllersWithViews();
 }
 ```
 
@@ -219,7 +237,7 @@ private async Task<OktaToken> GetNewAccessToken()
 
   var postMessage = new Dictionary<string, string>();
   postMessage.Add("grant_type", "client_credentials");
-  postMessage.Add("scope", "access_token");
+  postMessage.Add("scope", "customScope");
   var request = new HttpRequestMessage(HttpMethod.Post, this.oktaSettings.Value.TokenUrl)
   {
     Content = new FormUrlEncodedContent(postMessage)
@@ -240,9 +258,9 @@ private async Task<OktaToken> GetNewAccessToken()
 }
 ```
 
-A lot of this method is setting up the `HttpClient` to make the call to the Authorization Service. The interesting parts are the `clientCreds` value that gets the bytes of a string that has the client ID and secret concatenated with a colon between them as <CLIENT_ID>:<CLIENT_SECRET>. That value is then base64 encoded when it's added to the `Authorization` header with "Basic " in front of it. _Note that the word "basic" is NOT encoded._
+A lot of this method is setting up the `HttpClient` to make the call to the Authorization Service. The interesting parts are the `clientCreds` value that gets the bytes of a string that has the client ID and secret concatenated with a colon between them as <CLIENT_ID>:<CLIENT_SECRET>. That value is then base64 encoded when it's added to the `Authorization` header with "Basic " in front of it. Note that the word "basic" is **NOT** encoded.
 
-There are also two key-value pairs sent as `FormUrlEncodedContent`: the `grant_type` which has a value of "client_credentials", and the `scope` which has a value of "access_token". This simply tells the Authorization Server that you are sending client credentials and you want to get an access token in exchange.
+There are also two key-value pairs sent as `FormUrlEncodedContent`: the `grant_type` which has a value of "client_credentials", and the `scope` which has a value of "customScope". This simply tells the Authorization Server that you are sending client credentials and you want to get an access token in exchange.
 
 The entire contents of the `OktaTokenService` _(with using directives)_ should look like this:
 
@@ -329,13 +347,18 @@ namespace app.Services
       {
         get
         {
-          return !String.IsNullOrEmpty(this.AccessToken) && t
-his.ExpiresAt > DateTime.UtcNow.AddSeconds(30);
+          return !String.IsNullOrEmpty(this.AccessToken) && this.ExpiresAt > DateTime.UtcNow.AddSeconds(30);
         }
       }
     }
   }
 }
+```
+
+Install [Json.NET](https://www.newtonsoft.com/json) using the following command:
+
+```
+dotnet add package Newtonsoft.Json --version 13.0.1
 ```
 
 ## Register the Token Service
@@ -347,7 +370,7 @@ public void ConfigureServices(IServiceCollection services)
 {
     services.Configure<OktaSettings>(Configuration.GetSection("Okta"));
     services.AddSingleton<ITokenService, OktaTokenService>();
-    services.AddMvc();
+    services.AddControllersWithViews();
 }
 ```
 
@@ -393,7 +416,7 @@ namespace app.Services
     public async Task<IList<string>> GetValues()
     {
       List<string> values = new List<string>();
-      var token = tokenService.GetToken();
+      var token = tokenService.GetToken().Result;
       client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
       var res = await client.GetAsync("http://localhost:5000/api/values");
       if(res.IsSuccessStatusCode)
@@ -421,7 +444,7 @@ public void ConfigureServices(IServiceCollection services)
     services.Configure<OktaSettings>(Configuration.GetSection("Okta"));
     services.AddSingleton<ITokenService, OktaTokenService>();
     services.AddTransient<IApiService, SimpleApiService>();
-    services.AddMvc();
+    services.AddControllersWithViews();
 }
 ```
 
@@ -431,8 +454,9 @@ Lastly for the client application, you'll need to use the newly created services
 
 ```cs
 private readonly IApiService apiService;
-public HomeController(IApiService apiService)
+public HomeController(ILogger<HomeController> logger, IApiService apiService)
 {
+  _logger = logger;
   this.apiService = apiService;
 }
 
@@ -443,6 +467,7 @@ public async Task<IActionResult> Index()
 }
 ```
 
+// todo
 Then you just need to display those values in the view. Remove everything from the `Index.cshtml` view except the carousel and add the values to the page right below the carousel.
 
 ```html
@@ -462,9 +487,10 @@ The API is not receiving or doing anything to validate the access token yet, so 
 
 ## Get the API to Validate the Access Token
 
-There are two main ways to validate the access token: call the Okta API's `introspect` endpoint, or validate the token locally. ASP.NET already has some JWT validation stuff built in. Calling the Okta API has the advantage of being very specific, and most secure way. It does have the disadvantage that you'll need to make another API call. Using the local JWT validation built in to .NET means you don't have to call the API, but is less secure. For the purposes of the demo, it's secure enough, so you that here. In the `ConfigureServices()` method of the API project add the following _before_ the `services.AddMvc();` line.
+There are two main ways to validate the access token: call the Okta API's `introspect` endpoint, or validate the token locally. ASP.NET already has some JWT validation stuff built in. Calling the Okta API has the advantage of being very specific, and most secure way. It does have the disadvantage that you'll need to make another API call. Using the local JWT validation built in to .NET means you don't have to call the API, but is less secure. For the purposes of the demo, it's secure enough, so you that here. In the `ConfigureServices()` method of the API project add the following _before_ the `services.AddControllers();` line.
 
 ```cs
+
 services.AddAuthentication(options =>
 {
 	options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -479,7 +505,7 @@ services.AddAuthentication(options =>
 
 The second service tells the app that you want to use JWT-based authentication and the options for the JwtBearer middleware gives the authentication scheme some information it can use to validate the token is authentic. The audience comes from the Authorization Server page in Okta.
 
-Also, don't forget to tell the application to use your new authentication set up. in the `Configure()` function add the line below just before the `app.UseMvc() line.
+Also, don't forget to tell the application to use your new authentication set up. In the `Configure()` function add the line below just before the `app.UseAuthorization() line.
 
 ```cs
 app.UseAuthentication();
@@ -500,7 +526,6 @@ You can now run the API and try to hit it with a browser. You'll see a screen th
 
 {% img blog/webapi-token-auth/RunningApiWithValidation.png alt:"API failing in Browser" width:"800" %}{: .center-image }
 
-
 That's it! If you run your app you will see the application displaying the values as before. You now have an API that is protected with access tokens provided by Okta, and only the worthy shall pass.
 
 {% img blog/webapi-token-auth/ProtectedService.png alt:"App calling protected API" width:"800" %}{: .center-image }
@@ -512,3 +537,5 @@ Interested in learning more about API access management or building secure appli
 * Learn about the [.NET JwtBearer Namespace](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.authentication.jwtbearer?view=aspnetcore-2.0)
 * Read about [Angular Authentication with OIDC](/blog/2017/04/17/angular-authentication-with-oidc)
 * And how to [Build a React Application With Authentication](/blog/2017/03/30/react-okta-sign-in-widget)
+
+You can find the source code for this example on GitHub, in the [okta-dotnet-token-auth-example](https://github.com/oktadeveloper/okta-dotnet-token-auth-example) repository.
