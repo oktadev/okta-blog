@@ -212,7 +212,7 @@ Make sure `MenuManager` is selected and notice the new properties in the `PanelM
 1. Drag the `AuthMenu` object from the project hierarchy to the `authMenu` property in the inspector.
 2. Drag the InputField from the `Username` object in the project hierarchy to the `Username` property in the inspector.
 3. Drag the InputField from the `Password` object in the project hierarchy to the `Password` property in the inspector.
-4. Replace `{yourOktaDomain}` with the domain of your Okta developer org.
+4. Replace `{yourOktaDomain}` with your Okta domain.
 
 {% img blog/unity-csharp-security/8-unity-panelmanager.png alt:"Unity import package" width:"1000" %}{: .center-image }
 
