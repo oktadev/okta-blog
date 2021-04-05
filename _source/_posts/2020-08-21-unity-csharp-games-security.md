@@ -503,7 +503,7 @@ From the Okta CLI `.okta.env`, copy the **OKTA_OAUTH2_CLIENT_ID** and **OKTA_OAU
 
 {% img blog/unity-csharp-security/18-unity-clientidsecret.png alt:"Okta add web app" width:"1000" %}{: .center-image }
 
-For the three endpoint URL's, go back to Okta. In the menu click **API** > **Authorization Servers**.
+For the three endpoint URLs, go back to Okta (use `okta login` to get a link in your terminal). In the menu click **Security** > **API** > **Authorization Servers**.
 
 Click **default** to open the default authorization server. Click the **Metadata URI** link.
 
