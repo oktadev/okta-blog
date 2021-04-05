@@ -94,7 +94,7 @@ Scopes define and limit what access is granted by a token. You must define custo
 2. Sign in to the Okta Admin Console, go to **Security** > **API** > **Authorization Servers**.
 3. Select the `default` server from the list of servers.
 4. Click on the **Scopes** tab, then the **Add Scope** button.
-5. Enter `customScope` as the name, and add a description, then click **Create**.
+5. Enter `access_token` as the name, and add a description, then click **Create**.
 
 ## Set Up Your App To Use Okta Client Credentials
 
@@ -237,7 +237,7 @@ private async Task<OktaToken> GetNewAccessToken()
 
   var postMessage = new Dictionary<string, string>();
   postMessage.Add("grant_type", "client_credentials");
-  postMessage.Add("scope", "customScope");
+  postMessage.Add("scope", "access_token");
   var request = new HttpRequestMessage(HttpMethod.Post, this.oktaSettings.Value.TokenUrl)
   {
     Content = new FormUrlEncodedContent(postMessage)
@@ -260,7 +260,7 @@ private async Task<OktaToken> GetNewAccessToken()
 
 A lot of this method is setting up the `HttpClient` to make the call to the Authorization Service. The interesting parts are the `clientCreds` value that gets the bytes of a string that has the client ID and secret concatenated with a colon between them as <CLIENT_ID>:<CLIENT_SECRET>. That value is then base64 encoded when it's added to the `Authorization` header with "Basic " in front of it. Note that the word "basic" is **NOT** encoded.
 
-There are also two key-value pairs sent as `FormUrlEncodedContent`: the `grant_type` which has a value of "client_credentials", and the `scope` which has a value of "customScope". This simply tells the Authorization Server that you are sending client credentials and you want to get an access token in exchange.
+There are also two key-value pairs sent as `FormUrlEncodedContent`: the `grant_type` which has a value of "client_credentials", and the `scope` which has a value of "access_token". This simply tells the Authorization Server that you are sending client credentials and you want to get an access token in exchange.
 
 The entire contents of the `OktaTokenService` _(with using directives)_ should look like this:
 
