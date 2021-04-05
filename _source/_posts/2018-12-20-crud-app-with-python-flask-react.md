@@ -13,7 +13,7 @@ tweets:
 image: blog/featured/okta-react-skew.jpg
 type: conversion
 changelog:
-  - 2021-04-05: Updated to use the Okta CLI and Okta React SDK v5.1.0. See the code changes in [python-flask-react-crud-example#5](https://github.com/oktadeveloper/python-flask-react-crud-example/pull/5) and the article changes in [okta-blog#698](https://github.com/oktadeveloper/okta-blog/pull/698).
+  - 2021-04-05: Updated to use the Okta CLI and Okta React SDK v5.1.0. See the code changes in [python-flask-react-crud-example#8](https://github.com/oktadeveloper/python-flask-react-crud-example/pull/8) and the article changes in [okta-blog#686](https://github.com/oktadeveloper/okta-blog/pull/686).
   - 2020-11-02: Updated to use Flask-OIDC and React 17. See the code changes in [python-flask-react-crud-example#4](https://github.com/oktadeveloper/python-flask-react-crud-example/pull/4) and the article changes in [okta-blog#458](https://github.com/oktadeveloper/okta-blog/pull/458).
 ---
 
