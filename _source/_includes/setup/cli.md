@@ -31,7 +31,7 @@ Single-Page App
 {%- endif -%}
 ** and press **Enter**. 
   {% if include.type == "spa" %}
-Change the Redirect URI to `{{ include.loginRedirectUri }}` and accept the default Logout Redirect URI of `{% if include.logoutRedirectUri %}{{ include.logoutRedirectUri }}{% else %}{{ baseUrl }}{% endif %}`.
+Use `{{ include.loginRedirectUri }}` for the Redirect URI and {% if include.logoutRedirectUri %}set the Logout Redirect URI to `{{ include.logoutRedirectUri }}`{% else %}accept the default Logout Redirect URI of `{{ baseUrl }}`{% endif %}.
   {% elsif include.type == "web" %}
 Select **
     {%- if include.framework -%}{{ include.framework }}
