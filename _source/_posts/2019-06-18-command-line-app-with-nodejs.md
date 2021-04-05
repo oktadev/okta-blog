@@ -12,6 +12,8 @@ tweets:
 - "Learn how to authenticate a CLI application with #PKCE using @nodejs! #cli #oauth"
 image: blog/command-line-apps-with-nodejs/command-line-apps-with-nodejs.jpg
 type: conversion
+changelog:
+- 2021-04-05: Updated to use the Okta CLI for setup and upgrade to axios 0.21.1. Changes to this post can be viewed in [okta-blog#676](https://github.com/oktadeveloper/okta-blog/pull/676).
 ---
 
 Command line applications (CLI) are often the core tools for automating tasks, such as deploying production applications, running tests, building reports, migrating data, DevOps, and the list goes on and on. If you find yourself doing the same things over and over again, chances are you can automate those steps with a script and save yourself a lot of time!
@@ -214,7 +216,7 @@ A common scenario in automating tasks is to call an API endpoint to get data or 
 One of the most popular libraries for retrieving and sending data to an API in Node.js is `axios`. Start by adding `axios` as a dependency.
 
 ```bash
-npm install axios@0.19
+npm install axios@0.21.1
 ```
 
 Next, replace the contents of `bin/index.js` with the following code.
