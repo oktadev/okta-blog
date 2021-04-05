@@ -44,11 +44,12 @@ Select **
   {% elsif include.type == "native" %}
     {% if include.loginRedirectUri == include.logoutRedirectUri %}
 Use `{{ include.loginRedirectUri }}` for the Redirect URI and the Logout Redirect URI 
-      {% else %}
+    {% else %}
 Use `{{ include.loginRedirectUri }}` for the Redirect URI and set the Logout Redirect URI to `{{ include.logoutRedirectUri }}`
     {%- endif -%}
-{%- if include.loginRedirectUri contains 'com.okta.' -%}
-(where `{{ include.loginRedirectUri | remove: 'com.okta.' | remove: ':/callback' | remove: '[http://localhost:8100/callback,' | remove: ']' }}.okta.com` is your Okta domain name). {% endif %}Your domain name is reversed to provide a unique scheme to open your app on a device.
+    {%- if include.loginRedirectUri contains 'com.okta.' -%}
+(where `{{ include.loginRedirectUri | remove: 'com.okta.' | remove: ':/callback' | remove: '[http://localhost:8100/callback,' | remove: ']' }}.okta.com` is your Okta domain name). Your domain name is reversed to provide a unique scheme to open your app on a device.
+    {% else %}.{% endif %}
   {% endif %}
 {% endif %}
 
@@ -171,4 +172,4 @@ https://developer.okta.com/docs/guides/sign-into-
 Next, create an API token. Run `okta login` and open the resulting URL in your browser. Log in and go to **Security** > **API** > **Tokens**. Create a new token and store the value somewhere safe. Make sure you don't check it into GitHub!
 {% endif %}
 
-{% if include.adoc %}TIP{% else %}**NOTE**{% endif %}: You can also use the Okta Admin Console to create your app. See {% if include.adoc %}{{ docsLink }}{% endif %}[Create a{% if (include.framework == "Angular" or include.type == "token") %}n{% endif %} {{ oktaAppType }}{% if (include.type == "jhipster") %} on Okta{% endif %}]{% unless include.adoc %}({{ docsLink }}){% endunless %} for more information.
+{% if include.adoc %}TIP{% else %}**NOTE**{% endif %}: You can also use the Okta Admin Console to create your {% if include.type == "token" %}token{% else %}app{% endif %}. See {% if include.adoc %}{{ docsLink }}{% endif %}[Create a{% if (include.framework == "Angular" or include.type == "token") %}n{% endif %} {{ oktaAppType }}{% if (include.type == "jhipster") %} on Okta{% endif %}]{% unless include.adoc %}({{ docsLink }}){% endunless %} for more information.
