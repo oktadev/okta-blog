@@ -1190,7 +1190,7 @@ module.exports.register = async server => {
 First, install dependencies for Vue.js and other packages used for the UI.
 
 ```bash
-npm install axios@0.18 luxon@1 materialize-css@1 moment@2 vue@2 vue-datetime@latest weekstart@1
+npm install axios@0.21.1 luxon@1 materialize-css@1 moment@2 vue@2 vue-datetime@latest weekstart@1
 ```
 
 Create a new folder at the root of the project named `client`. In this folder, add a new file named `index.js`. Add the following code to this file.
