@@ -573,8 +573,8 @@ The URL is required, which would include the endpoint, but the method and JSON d
 ```javascript
 const [,, url, method, body] = process.argv
 if (!url) {
-   console.log('Usage: node client {url} [{method}] [{jsonData}]')
-   process.exit(1)
+  console.log('Usage: node client {url} [{method}] [{jsonData}]')
+  process.exit(1)
 }
 ```
 
