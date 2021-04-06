@@ -692,7 +692,13 @@ Let's get some real users in the application! Manually building authentication a
 
 {% include setup/cli.md type="web" loginRedirectUri="http://localhost:8080/authorization-code/callback" %}
 
-Copy your Okta domain into your `.env` file to replace the value for `OKTA_ORG_URL`.
+Copy your Okta values into the `.env` file to replace the `{...}` placeholders.
+
+```
+OKTA_ORG_URL=https://{yourOktaDomain}
+OKTA_CLIENT_ID={yourClientId}
+OKTA_CLIENT_SECRET={yourClientSecret}
+```
 
 Next, enable self-service registration. This will allow new users to create their own account. Run `okta login` to get the URL for your Okta org. Open the result in your favorite browser and log in to the Okta Admin Console.
 
