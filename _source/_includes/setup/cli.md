@@ -23,13 +23,14 @@ Before you begin, you'll need a free Okta developer account. Install the {{ cliL
 {% if include.type == "jhipster" %}
 Then, run `okta apps create jhipster`. Select the default app name, or change it as you see fit. Accept the default Redirect URI values provided for you.
 {% elsif include.type != "token" %}
-Then, run `okta apps create{% if (include.type == "service") %} service{% endif %}`. Select the default app name, or change it as you see fit. Choose **
-{%- if include.type == "spa" -%}
-Single-Page App
-{%- else -%}
-{{ include.type | capitalize }}
-{%- endif -%}
-** and press **Enter**. 
+Then, run `okta apps create{% if include.type == "service" %} service{% endif %}`. Select the default app name, or change it as you see fit. 
+{% if include.type != "service" %}Choose **
+  {%- if include.type == "spa" -%}Single-Page App
+  {%- else -%}
+  {{ include.type | capitalize }}
+  {%- endif -%}
+** and press **Enter**.
+{% endif %}
   {% if include.type == "spa" %}
 Use `{{ include.loginRedirectUri }}` for the Redirect URI and {% if include.logoutRedirectUri %}set the Logout Redirect URI to `{{ include.logoutRedirectUri }}`{% else %}accept the default Logout Redirect URI of `{{ baseUrl }}`{% endif %}.
   {% elsif include.type == "web" %}
@@ -109,7 +110,7 @@ okta.oauth2.client-secret=NEVER-SHOW-SECRETS
   {% elsif include.type != "token" %}
 Run `cat .okta.env` (or `type .okta.env` on Windows) to see the issuer and credentials for your app.{% if include.type == "jhipster" %} It will look like this (except the placeholder values will be populated):{% endif %}
 
-    {% if include.type == "web" %}
+    {% if include.type == "web" or "service" %}
 ```shell
 export OKTA_OAUTH2_ISSUER="https://dev-133337.okta.com/oauth2/default"
 export OKTA_OAUTH2_CLIENT_ID="0oab8eb55Kb9jdMIr5d6"
