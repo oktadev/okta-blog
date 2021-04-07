@@ -13,7 +13,7 @@ tweets:
 image: blog/spring-boot-2-angular-9/bootiful-angular.png
 type: conversion
 changelog:
-  - 2021-04-02: Changed app setup instructions to use the Okta CLI. See changes in [okta-blog#673](https://github.com/oktadeveloper/okta-blog/pull/673).
+  - 2021-04-06: Changed Okta OIDC app creation instructions to use the Okta CLI. See changes in [okta-blog#673](https://github.com/oktadeveloper/okta-blog/pull/673).
   - 2020-06-18: Added links to other blog posts in series.
   - 2020-05-18: Updated to remove `/implicit` from Login redirect URL for Angular. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-spring-boot-2-angular-9-example/pull/6). Changes to this article can be viewed in [oktadeveloper/okta-blog#296](https://github.com/oktadeveloper/okta-blog/pull/296).
   - 2020-02-19: Updated to use Angular CLI 9.0.2 (with Angular 9.0.1). See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-spring-boot-2-angular-9-example/pull/2). Changes to this article can be viewed in [oktadeveloper/okta-blog#197](https://github.com/oktadeveloper/okta-blog/pull/197).
@@ -210,9 +210,9 @@ export class AuthInterceptor implements HttpInterceptor {
 }
 ----
 
-NOTE: You might notice that tokens are only added for `http://localhost`. You'll need to modify the `allowedOrigins` array to include your production URL eventually.
+NOTE: You might notice that tokens are only added for `\http://localhost`. You'll need to modify the `allowedOrigins` array to include your production URL eventually.
 
-Start your app again using `ng serve`, open a private/incognito window to `http://localhost:4200`, and you'll see a **Login** button in the bottom left.
+Start your app again using `ng serve`, open a private/incognito window to `\http://localhost:4200`, and you'll see a **Login** button in the bottom left.
 
 image::{% asset_path 'blog/spring-boot-2-angular-9/angular-login-button.png' %}[alt=Login button,width=800,align=center]
 
@@ -256,22 +256,13 @@ image::{% asset_path 'blog/spring-boot-2-angular-9/start.spring.io.png' %}[alt=C
 
 Because you selected Okta as a dependency, you'll need to create an OIDC app for it to authenticate with Okta. You could use the client ID from your Angular app, but if you ever want to allow people to log in to your Spring Boot app, it'll need its own OIDC app.
 
-{% include setup/cli.md type="web" framework="Okta Spring Boot Starter"
-loginRedirectUri="http://localhost:8080/login/oauth2/code/okta"
-logoutRedirectUri="http://localhost:8080" %}
+In a terminal window, navigate into the `angular-spring-boot/notes-api` directory.
 
-You _could_ copy your app's OIDC settings to `src/main/resources/application.properties`:
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" install="false" %}
 
-[source,properties]
-----
-okta.oauth2.issuer=https://{yourOktaDomain}/oauth2/default
-okta.oauth2.client-id={yourClientId}
-okta.oauth2.client-secret={yourClientSecret}
-----
+Having your app's client secret in a file that might be checked in to source control is a bad idea.
 
-However, **you should never store secrets in source control**! To prevent you from checking secrets in, you can use https://github.com/awslabs/git-secrets[git-secrets].
-
-For this example, ignore `*.env` in your `notes-api/.gitignore` file.
+For this example, remove the Okta properties from `application.properties` and copy them into a new `okta.env` file. Ignore `*.env` in your `notes-api/.gitignore` file and remove the `\` (if there is one) in your issuer's URL.
 
 [source,shell]
 ----
@@ -280,9 +271,9 @@ export OKTA_OAUTH2_CLIENT_ID={yourClientId}
 export OKTA_OAUTH2_CLIENT_SECRET={yourClientSecret}
 ----
 
-Run `source .okta.env` to set your Okta settings as environment variables. If you're on Windows, edit this file to change `export` to `set`. Then rename it to `okta.bat` and run it from your terminal.
+Run `source okta.env` to set your Okta settings as environment variables. If you're on Windows, edit this file to change `export` to `set`. Then rename it to `okta.bat` and run it from your terminal.
 
-Then start your app using `./gradlew bootRun`. Open `http://localhost:8080` in a browser, and you'll be redirected to Okta to sign in.
+Start your app using `./gradlew bootRun`. Open `\http://localhost:8080` in a browser, and you'll be redirected to Okta to sign in.
 
 TIP: If you don't get prompted, it's because you're already logged in. Try it in an incognito window to see the full login flow.
 
@@ -472,7 +463,7 @@ To prevent conflicting paths with the REST endpoints created by `@RepositoryRest
 spring.data.rest.base-path=/api
 ----
 
-Restart your Spring Boot app, navigate to `http://localhost:8080/user`, and you'll see a whole plethora of details about your account. Opening `http://localhost:8080/api/notes` will show the default notes entered by the `DataInitializer` component.
+Restart your Spring Boot app, navigate to `\http://localhost:8080/user`, and you'll see a whole plethora of details about your account. Opening `\http://localhost:8080/api/notes` will show the default notes entered by the `DataInitializer` component.
 
 === Add a CORS Filter for Angular
 

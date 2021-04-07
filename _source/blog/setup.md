@@ -60,7 +60,7 @@ Other parameters you can pass in:
 |`logoutRedirectUri`|Prints whatever you set, or defaults if not set|
 |`signup`|`false` reduces opening paragraph to one sentence|
 |`note`|Prints whatever you set. See .NET example below|
-|`adoc`|`true` required for posts written in `AsciiDoc`|
+|`install`|`false` removes 'Install the Okta CLI' sentence|
 
 ## Examples
 
@@ -107,14 +107,16 @@ This will render the following HTML:
 
 {% raw %}
 ```
-{% include setup/cli.md type="spa" framework="Vue" loginRedirectUri="http://localhost:8080/callback" %}
+{% include setup/cli.md type="spa" framework="Vue"
+   loginRedirectUri="http://localhost:8080/callback" signup="false" %}
 ```
 {% endraw %}
 
 This will render the following HTML:
 
 <div class="separator"></div>
-{% include setup/cli.md type="spa" framework="Vue" loginRedirectUri="http://localhost:8080/callback" %}
+{% include setup/cli.md type="spa" framework="Vue" 
+   loginRedirectUri="http://localhost:8080/callback" signup="false" %}
 <div class="separator"></div>
 
 ### Node + Express

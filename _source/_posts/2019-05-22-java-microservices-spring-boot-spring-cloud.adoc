@@ -280,7 +280,7 @@ Open a terminal window and navigate to the `api-gateway` project.
 
 === Create a Web Application in Okta
 
-{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" adoc="true" %}
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
 
 Copy these keys and value into the `car-service` project's `application.properties` file.
 
