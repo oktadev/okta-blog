@@ -271,7 +271,7 @@ export OKTA_OAUTH2_CLIENT_ID={yourClientId}
 export OKTA_OAUTH2_CLIENT_SECRET={yourClientSecret}
 ----
 
-Run `source okta.env` to set your Okta settings as environment variables. If you're on Windows, edit this file to change `export` to `set`. Then rename it to `okta.bat` and run it from your terminal.
+Run `source okta.env` to set your Okta configuration as environment variables. If you're on Windows, edit this file to change `export` to `set`. Then rename it to `okta.bat` and run it from your terminal.
 
 Start your app using `./gradlew bootRun`. Open `\http://localhost:8080` in a browser, and you'll be redirected to Okta to sign in.
 
