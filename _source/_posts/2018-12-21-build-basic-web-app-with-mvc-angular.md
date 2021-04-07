@@ -208,7 +208,7 @@ Add the following to your `Web.config` file, inside of `<appSettings></appSettin
 <add key="okta:ClientSecret" value="{yourClientSecret}" />
 <add key="okta:OrgUri" value="https://{yourOktaDomain}/oauth2/default" />
 
-<!-- 2. Update the Okta application with these values -->
+<!-- 2. Your Okta application should alread have these values -->
 <add key="okta:RedirectUri" value="http://localhost:8080/authorization-code/callback" />
 <add key="okta:PostLogoutRedirectUri" value="http://localhost:8080/Account/PostLogout" />
 ```
