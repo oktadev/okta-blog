@@ -213,7 +213,7 @@ public class SurfController {
     public SurfConditions getSurfReport(@Name("location") String location) {
         return SurfConditions.getRandom(location);
     }
-    
+
 }
 ```
 
@@ -359,13 +359,7 @@ You configured Okta as an OAuth 2.0 OIDC provider. Take note of the **Client ID*
 
 To enable role-based authorization, as well as to meet MicroProfile's requirements for the JWT, you need to add two claims mappings to your default Okta authorization server: a **groups** claim and a **upn** claim. The **groups** claim mapping is what maps Okta's groups to the role-based authorization in MicroProfile. MicroProfile requires the **upn** claim, and you'll get an invalid token error without it. This is the "user principal name" as defined in [the documentation](https://www.eclipse.org/community/eclipse_newsletter/2017/september/article2.php).
 
-From the Okta developer dashboard's top menu, go to **API** and select **Authorization Servers**.
-
-Click on the **default** server.
-
-Select the **Claims** tab.
-
-Click **Add Claim**.
+Run `okta login` and open the resulting URL in your browser. Sign in to the Okta Admin Console and go to **Security** > **API**. Select the `default` authorization server, then go to **Claims** > **Add Claim**. Set the following values:
 
 - **Name**: `groups`
 - **Include in token type**: `Access Token` `Always`
