@@ -342,7 +342,7 @@ Spring Security makes it so you only need to override three properties to switch
 
 In production, you might not want to manage your own identity provider instance. That's where Okta comes in. We're a developer-friendly SaaS company that provides OAuth and OIDC support as a service.
 
-{% include setup/cli.md type="jhipster" adoc="true" %}
+{% include setup/cli.md type="jhipster" %}
 
 === Update the JHipster Registry to Distribute OIDC Configuration
 
