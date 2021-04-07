@@ -13,7 +13,7 @@ tweets:
 image: blog/angular-bootstrap/angular-bootstrap.png
 type: conversion
 changelog:
-  - 2021-04-06: Changed Okta OIDC app creation instructions to use the Okta CLI. See changes in [okta-blog#670](https://github.com/oktadeveloper/okta-blog/pull/670).
+  - 2021-04-07: Changed Okta OIDC app creation instructions to use the Okta CLI. See changes in [okta-blog#670](https://github.com/oktadeveloper/okta-blog/pull/670).
   - 2020-05-18: Updated to remove `/implicit` from Login redirect URI. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-angular-bootstrap-example/pull/4). Changes to this article can be viewed in [oktadeveloper/okta-blog#298](https://github.com/oktadeveloper/okta-blog/pull/298).
 ---
 :toc: macro
@@ -179,19 +179,19 @@ export OKTA_OAUTH2_CLIENT_SECRET={yourClientSecret}
 
 Run `source okta.env` to set your Okta settings as environment variables. If you're on Windows, edit this file to change `export` to `set`. Then rename it to `okta.bat` and run it from your terminal.
 
-Start your Spring Boot app by navigating to the `notes-api` directory and running Gradle's `bootRun` task.
+Start your Spring Boot app by running Gradle's `bootRun` task.
 
 [source,shell]
 ----
-cd notes-api
 ./gradlew bootRun
 ----
 
-Then, create a new OIDC app for Angular:
+Then, create a new OIDC app for Angular. Open a new terminal, and `cd` into the `notes` directory.
 
-{% include setup/cli.md type="spa" framework="Angular" loginRedirectUri="http://localhost:4200/callback" %}
+{% include setup/cli.md type="spa" install="false" framework="Angular"
+   loginRedirectUri="http://localhost:4200/callback" %}
 
-Modify `auth-routing.module.ts` to use your Okta domain and client ID.
+Modify `auth-routing.module.ts` to use your Okta issuer and client ID.
 
 [source,typescript]
 .notes/src/app/auth-routing.module.ts
