@@ -49,7 +49,7 @@ Now when you run the project, it will use the Kestrel web server instead of IIS 
 While you could invent your own security system using JWTs, that would probably be _a very bad idea_. Security systems are complex, and there are many opportunities to get something wrong. So for this tutorial, you will use OpenID Connect for authentication so you won't need to worry about generating and validating JWTs. You will just learn how to decode and use the JWTs that are used in the OpenID authentication handshake.
 
 {% include setup/cli.md type="web"
-   loginRedirectUri="http://localhost:5001/authorization-code/callback"
+   loginRedirectUri="https://localhost:5001/authorization-code/callback"
    logoutRedirectUri="https://localhost:5001/signout-callback-oidc" %}
 
 Add your Okta domain, client ID, and client secret to your `appsettings.json` file, like this:
