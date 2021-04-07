@@ -175,4 +175,4 @@ https://developer.okta.com/docs/guides/sign-into-
 Next, create an API token. Run `okta login` and open the resulting URL in your browser. Log in and go to **Security** > **API** > **Tokens**. Create a new token and store the value somewhere safe. Make sure you don't check it into GitHub!
 {% endif %}
 
-{% if adoc %}TIP{% else %}**NOTE**{% endif %}: You can also use the Okta Admin Console to create your app. See {% if adoc %}{{ docsLink }}{% endif %}[Create a{% if (include.framework == "Angular" or include.type == "token") %}n{% endif %} {{ oktaAppType }}{% if (include.type == "jhipster") %} on Okta{% endif %}]{% unless adoc %}({{ docsLink }}){% endunless %} for more information.
+{% if adoc %}TIP{% else %}**NOTE**{% endif %}: You can also use the Okta Admin Console to create your {% if include.type == "token" %}token{% else %}app{% endif %}. See {% if adoc %}{{ docsLink }}{% endif %}[Create a{% if (include.framework == "Angular" or include.type == "token") %}n{% endif %} {{ oktaAppType }}{% if (include.type == "jhipster") %} on Okta{% endif %}]{% unless adoc %}({{ docsLink }}){% endunless %} for more information.
