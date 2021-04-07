@@ -34,7 +34,7 @@ Single-Page App
 {%- endif -%}
 ** and press **Enter**. 
   {% if include.type == "spa" %}
-Change the Redirect URI to `{% if adoc %}\{% endif %}{{ include.loginRedirectUri }}` and accept the default Logout Redirect URI of `{% if adoc %}\{% endif %}{% if include.logoutRedirectUri %}{{ include.logoutRedirectUri }}{% else %}{{ baseUrl }}{% endif %}`.
+Use `{% if adoc %}\{% endif %}{{ include.loginRedirectUri }}` for the Redirect URI and {% if include.logoutRedirectUri %}set the Logout Redirect URI to `{% if adoc %}\{% endif %}{{ include.logoutRedirectUri }}`{% else %}accept the default Logout Redirect URI of `{% if adoc %}\{% endif %}{{ baseUrl }}`{% endif %}.
   {% elsif include.type == "web" %}
 Select **
     {%- if include.framework -%}{{ include.framework }}
@@ -47,11 +47,12 @@ Select **
   {% elsif include.type == "native" %}
     {% if include.loginRedirectUri == include.logoutRedirectUri %}
 Use `{{ include.loginRedirectUri }}` for the Redirect URI and the Logout Redirect URI 
-      {% else %}
+    {% else %}
 Use `{{ include.loginRedirectUri }}` for the Redirect URI and set the Logout Redirect URI to `{{ include.logoutRedirectUri }}`
     {%- endif -%}
-{%- if include.loginRedirectUri contains 'com.okta.' -%}
-(where `{{ include.loginRedirectUri | remove: 'com.okta.' | remove: ':/callback' | remove: '[http://localhost:8100/callback,' | remove: ']' }}.okta.com` is your Okta domain name). {% endif %}Your domain name is reversed to provide a unique scheme to open your app on a device.
+    {%- if include.loginRedirectUri contains 'com.okta.' -%}
+(where `{{ include.loginRedirectUri | remove: 'com.okta.' | remove: ':/callback' | remove: '[http://localhost:8100/callback,' | remove: ']' }}.okta.com` is your Okta domain name). Your domain name is reversed to provide a unique scheme to open your app on a device.
+    {% else %}.{% endif %}
   {% endif %}
 {% endif %}
 

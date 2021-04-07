@@ -138,8 +138,8 @@ This will render the following HTML:
 {% raw %}
 ```
 {% include setup/cli.md type="native" 
-   loginRedirectUri="http://localhost:8100/callback" 
-   logoutRedirectUri="http://localhost:8100/logout" %}
+   loginRedirectUri="[http://localhost:8100/callback,com.okta.dev-133337:/callback]" 
+   logoutRedirectUri="[http://localhost:8100/logout,com.okta.dev-133337:/logout]" %}
 ```
 {% endraw %}
 
@@ -147,8 +147,8 @@ This will render the following HTML:
 
 <div class="separator"></div>
 {% include setup/cli.md type="native" 
-   loginRedirectUri="http://localhost:8100/callback"
-   logoutRedirectUri="http://localhost:8100/logout" %}
+   loginRedirectUri="[http://localhost:8100/callback,com.okta.dev-133337:/callback]" 
+   logoutRedirectUri="[http://localhost:8100/logout,com.okta.dev-133337:/logout]" %}
 <div class="separator"></div>
 
 ### React Native 
