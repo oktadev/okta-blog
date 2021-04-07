@@ -13,6 +13,7 @@ tweets:
 image: blog/angular-bootstrap/angular-bootstrap.png
 type: conversion
 changelog:
+  - 2021-04-06: Changed Okta OIDC app creation instructions to use the Okta CLI. See changes in [okta-blog#670](https://github.com/oktadeveloper/okta-blog/pull/670).
   - 2020-05-18: Updated to remove `/implicit` from Login redirect URI. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-angular-bootstrap-example/pull/4). Changes to this article can be viewed in [oktadeveloper/okta-blog#298](https://github.com/oktadeveloper/okta-blog/pull/298).
 ---
 :toc: macro
@@ -167,12 +168,22 @@ In a terminal window, navigate into the `notes-api` directory.
 
 {% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
 
-Start your Spring Boot app by navigating to the `notes-api` directory, sourcing this file, and starting your app.
+Delete the Okta properties from `application.properties` and copy them into a new `okta.env` file. Remove the `\` (if there is one) in your issuer's URL.
+
+[source,shell]
+----
+export OKTA_OAUTH2_ISSUER=https://{yourOktaDomain}/oauth2/default
+export OKTA_OAUTH2_CLIENT_ID={yourClientId}
+export OKTA_OAUTH2_CLIENT_SECRET={yourClientSecret}
+----
+
+Run `source okta.env` to set your Okta settings as environment variables. If you're on Windows, edit this file to change `export` to `set`. Then rename it to `okta.bat` and run it from your terminal.
+
+Start your Spring Boot app by navigating to the `notes-api` directory and running Gradle's `bootRun` task.
 
 [source,shell]
 ----
 cd notes-api
-source .okta.env
 ./gradlew bootRun
 ----
 
