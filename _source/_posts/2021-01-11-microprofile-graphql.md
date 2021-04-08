@@ -366,8 +366,6 @@ Run `okta login` and open the resulting URL in your browser. Sign in to the Okta
 - **Value type**: `Groups`
 - **Filter**: `Matches regex` `.*`
 
-{% img blog/microprofile-graphql/groups-claim.png alt:"Groups Claim" width:"700" %}{: .center-image }
-
 Next, add a **upn** claim.
 
 Click **Add Claim**.
