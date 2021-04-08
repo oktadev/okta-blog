@@ -3,7 +3,7 @@ layout: blog_post
 title: How to Create an OIDC App on Okta
 description: "Use the Okta CLI to manage your Okta apps. It's so easy, it's fun!"
 permalink: /blog/setup
-image: cli/okta-cli.png
+image: blog/cli/okta-cli.png
 ---
 
 <style>
@@ -19,7 +19,7 @@ image: cli/okta-cli.png
 
 This page is designed for authors of the Okta developer blog. However, these snippets of code might be useful for anyone wanting to set up Okta OIDC apps.
 
-{% img cli/okta-cli-animated.svg alt:"Okta CLI" width:"300" %}{: .logo }
+{% img blog/cli/okta-cli-animated.svg alt:"Okta CLI" width:"300" %}{: .logo }
 
 **Table of Contents**{: .hide }
 * Table of Contents
