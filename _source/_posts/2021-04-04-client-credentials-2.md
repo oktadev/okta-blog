@@ -646,6 +646,32 @@ The `run()` method, by contrast, uses `WebClient` in a blocking manner. Notice t
 
 That's it for this client. You can tell by the relative simplicity of this implementation over the `RestTemplate` implementation that Spring is moving in this direction. `RestTemplate`, while still widely used, is now deprecated.
 
+Before you run it, copy the values from the `application.properties` file from the previous project to this project.
+
+`src/main/resources/application.properties`
+```properties
+spring.security.oauth2.client.registration.okta.client-id={yourClientId}
+spring.security.oauth2.client.registration.okta.client-secret={yourClientSecret}
+spring.security.oauth2.client.registration.okta.authorization-grant-type=client_credentials
+spring.security.oauth2.client.registration.okta.scope=mod_custom
+spring.security.oauth2.client.provider.okta.token-uri=https://{yourOktaUri}/oauth2/default/v1/token
+spring.main.web-application-type=none
+```
+
+You can start the WebClient-based client using the following command.
+
+```bash
+./mvnw spring-boot:run
+```
+
+You should see output like this:
+```bash
+2021-04-08 19:22:09.658  INFO 346556 --- [           main] com.example.client.DemoApplication       : Started DemoApplication in 0.613 seconds (JVM running for 0.782)
+2021-04-08 19:22:11.848  INFO 346556 --- [           main] o.s.boot.CommandLineRunner               : Welcome, 0oa2kpqtzoRHDcgZG4x7
+2021-04-08 19:22:11.849  INFO 346556 --- [or-http-epoll-7] o.s.boot.CommandLineRunner               : Schedule request response: Welcome, 0oa2kpqtzoRHDcgZG4x7
+2021-04-08 19:22:14.670  INFO 346556 --- [or-http-epoll-7] o.s.boot.CommandLineRunner               : Schedule request response: Welcome, 0oa2kpqtzoRHDcgZG4x7
+```
+
 ## Wrapping Up
 
 In this tutorial you saw two different ways to implement the OAuth 2.0 client credentials flow. You created a simple server application. You created a client using RestTemplate, a deprecated but still widely used Spring technology. And finally you created a client using the newer, asynchronous WebClient, built on Spring's WebFlux package. 
