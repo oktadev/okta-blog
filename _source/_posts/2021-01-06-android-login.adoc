@@ -115,7 +115,7 @@ Sync the project with Gradle files by clicking the **File** → **Sync Project w
 
 === Create an OpenID Connect App on Okta
 
-{% include setup/cli.md type="native" adoc="true"
+{% include setup/cli.md type="native"
    loginRedirectUri="com.okta.dev-133337:/callback"
    logoutRedirectUri="com.okta.dev-133337:/" %}
 

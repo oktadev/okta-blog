@@ -162,7 +162,7 @@ Other parameters you can pass in:
 |`logoutRedirectUri`|Prints whatever you set, or defaults if not set|
 |`signup`|`false` reduces opening paragraph to one sentence|
 |`note`|Prints whatever you set. See .NET example below|
-|`adoc`|`true` required for posts written in `AsciiDoc`|
+|`install`|`false` removes 'Install the Okta CLI' sentence|
 
 See [How to Create an OIDC App on Okta](https://developer.okta.com/blog/setup) for this feature's documentation.
 
