@@ -25,7 +25,9 @@ Before you begin, you'll need a free Okta developer account. Install the {{ cliL
 
 {% if include.type == "jhipster" %}
 Then, run `okta apps create jhipster`. Select the default app name, or change it as you see fit. Accept the default Redirect URI values provided for you.
-{% elsif include.type != "token" %}
+{% elsif include.type == "token" %}
+Next, create an API token. Run `okta login` and open the resulting URL in your browser. Log in and go to **Security** > **API** > **Tokens**. Create a new token and store the value somewhere safe. Make sure you don't check it into GitHub!
+{% else %}
 {% if include.install == "false" %}Run {% else %}Then, run{% endif %} `okta apps create{% if include.type == "service" %} service{% endif %}`. Select the default app name, or change it as you see fit.
 {% if include.type != "service" %}Choose **
   {%- if include.type == "spa" -%}Single-Page App
@@ -60,21 +62,22 @@ Use `{{ include.loginRedirectUri }}` for the Redirect URI and set the Logout Red
 {{ note }}
 {% endif %}
 
+{% capture details %}
 {%- if include.type == "jhipster" -%}
 The Okta CLI streamlines configuring a JHipster app and does several things for you:
 
 1. Creates an OIDC app with the correct redirect URIs: 
-  - login: `{% if adoc %}\{% endif %}http://localhost:8080/login/oauth2/code/oidc` and `{% if adoc %}\{% endif %}http://localhost:8761/login/oauth2/code/oidc`
-  - logout: `{% if adoc %}\{% endif %}http://localhost:8080` and `{% if adoc %}\{% endif %}http://localhost:8761`
+  - login: `http://localhost:8080/login/oauth2/code/oidc` and `http://localhost:8761/login/oauth2/code/oidc`
+  - logout: `http://localhost:8080` and `http://localhost:8761`
 2. Creates `ROLE_ADMIN` and `ROLE_USER` groups that JHipster expects
 3. Adds your current user to the `ROLE_ADMIN` and `ROLE_USER` groups
 4. Creates a `groups` claim in your default authorization server and adds the user's groups to it
 
-{% if adoc %}NOTE{% else %}**NOTE**{% endif %}: The `{% if adoc %}\{% endif %}http://localhost:8761*` redirect URIs are for the JHipster Registry, which is often used when creating microservices with JHipster. The Okta CLI adds these by default. 
+**NOTE**: The `http://localhost:8761*` redirect URIs are for the JHipster Registry, which is often used when creating microservices with JHipster. The Okta CLI adds these by default. 
 
 You will see output like the following when it's finished:
 {%- elsif include.type != "token" -%}
-The Okta CLI will create an {% if include.type == "service" %}OAuth 2.0{% else %}OIDC{% endif %} {% if include.type == "spa" %}Single-Page App{% else %}{{ include.type | capitalize }} App{% endif %} in your Okta Org.{% if include.type != "service" %} It will add the redirect URIs you specified and grant access to the Everyone group.{% if include.type == "spa" %} It will also add a trusted origin for `{% if adoc %}\{% endif %}{% if include.logoutRedirectUri %}{{ include.logoutRedirectUri }}{% else %}{{ baseUrl }}{% endif %}`.{% endif %}{% endif %} You will see output like the following when it's finished:
+The Okta CLI will create an {% if include.type == "service" %}OAuth 2.0{% else %}OIDC{% endif %} {% if include.type == "spa" %}Single-Page App{% else %}{{ include.type | capitalize }} App{% endif %} in your Okta Org.{% if include.type != "service" %} It will add the redirect URIs you specified and grant access to the Everyone group.{% if include.type == "spa" %} It will also add a trusted origin for `{% if include.logoutRedirectUri %}{{ include.logoutRedirectUri }}{% else %}{{ baseUrl }}{% endif %}`.{% endif %}{% endif %} You will see output like the following when it's finished:
 {%- endif -%}
    
 {% if include.type == "spa" or include.type == "native" %}
@@ -166,13 +169,23 @@ https://developer.okta.com/docs/guides/sign-into-
 {%- endcapture -%}
 
 {%- capture docsLink %}
-{%- if (include.type == "jhipster") -%}{{ jhipsterDocs }}
+{%- if include.type == "jhipster" -%}{{ jhipsterDocs }}
 {%- else -%}{{ oktaDocs }}
 {%- endif -%}
 {%- endcapture -%}
 
-{% if include.type == "token" %}
-Next, create an API token. Run `okta login` and open the resulting URL in your browser. Log in and go to **Security** > **API** > **Tokens**. Create a new token and store the value somewhere safe. Make sure you don't check it into GitHub!
-{% endif %}
+**NOTE**: You can also use the Okta Admin Console to create your {% if include.type == "token" %}token{% else %}app{% endif %}. See [Create a{% if (include.framework == "Angular" or include.type == "token") %}n{% endif %} {{ oktaAppType }}{% if (include.type == "jhipster") %} on Okta{% endif %}]({{ docsLink }}) for more information.
+{% endcapture %}
 
-{% if adoc %}TIP{% else %}**NOTE**{% endif %}: You can also use the Okta Admin Console to create your {% if include.type == "token" %}token{% else %}app{% endif %}. See {% if adoc %}{{ docsLink }}{% endif %}[Create a{% if (include.framework == "Angular" or include.type == "token") %}n{% endif %} {{ oktaAppType }}{% if (include.type == "jhipster") %} on Okta{% endif %}]{% unless adoc %}({{ docsLink }}){% endunless %} for more information.
+{% if include.type == "token" %}
+{% if adoc %}++++{% endif %}
+{{ details | markdownify }}
+{% if adoc %}++++{% endif %}
+{% else %}
+{% if adoc %}++++{% endif %}
+<details>
+  <summary>What does the Okta CLI do?</summary>
+{{ details | markdownify }}
+</details>
+{% if adoc %}++++{% endif %}
+{% endif %}
