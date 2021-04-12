@@ -11,6 +11,8 @@ tweets:
   - "This tutorial shows you how to build an Angular app with a Node backend, complete with authentication!"
 image: blog/featured/okta-angular-bottle-headphones.jpg
 type: conversion
+changelog:
+  - 2021-04-12: Upgraded to use Okta Angular 3.0.1. You can see the changes to the example in [okta-angular-node-example#3](https://github.com/oktadeveloper/okta-angular-node-example/pull/3) or [this blog post]().
 ---
 
 In recent years, single page applications (SPAs) have become more and more popular. A SPA is a website that consists of just one page. That lone page acts as a container for a JavaScript application. The JavaScript is responsible for obtaining the content and rendering it within the container. The content is typically obtained from a web service and RESTful APIs have become the go-to choice in many situations. The part of the application making up the SPA is commonly known as the _client_ or _front-end_, while the part responsible for the REST API is known as the _server_ or _back-end_. In this tutorial, you will be developing a simple Angular single page app with a REST backend, based on Node and Express. 
