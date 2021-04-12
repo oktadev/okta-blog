@@ -194,23 +194,9 @@ protected override void Seed(OktaAspNetMvcAngular.Data.ApplicationDbContext cont
 
 Handling the authentication is never an easy or comfortable task. If you want to quickly and easily take care of authentication for your application you're likely in the market for a solution like Okta. That's why so many developers love and use Okta, they never want to build auth again and are happy to leave it to us.
 
-To get started with Okta, sign up for a [forever-free developer account](https://developer.okta.com/signup/) or (log in if you already have one).
-
-{% img blog/mvc-angular/okta-signup.png alt:"okta signup" width:"800" %}{: .center-image }
-
-You should see the Dashboard and in the upper right corner, there should be your unique Org URL. Save it for later.
-
-{% img blog/mvc-angular/okta-org-url.png alt:"okta org url" width:"800" %}{: .center-image }
-
-Now you need to create a new application by browsing to the Applications tab and clicking Add Application, and from the first page of the wizard choose **Single-Page App**.
-
-On the settings page, enter `OktaMvcAngular` as your name value and select Implicit(Hybrid).
-
-{% img blog/mvc-angular/okta-app-settings.png alt:"okta application settings" width:"700" %}{: .center-image }
-
-Now that your application has been created copy down the Client ID and Client secret values on the following page, you'll need them soon (of course, yours will be different).
-
-{% img blog/mvc-angular/okta-client-credentials.png alt:"okta client credentials" width:"500" %}{: .center-image }
+{% include setup/cli.md type="web" 
+   loginRedirectUri="http://localhost:8080/authorization-code/callback"
+   logoutRedirectUri="http://localhost:8080/Account/PostLogout" %}
 
 It is quite easy to add authentication to ASP.NET MVC with help of Okta.
 
@@ -222,7 +208,7 @@ Add the following to your `Web.config` file, inside of `<appSettings></appSettin
 <add key="okta:ClientSecret" value="{yourClientSecret}" />
 <add key="okta:OrgUri" value="https://{yourOktaDomain}/oauth2/default" />
 
-<!-- 2. Update the Okta application with these values -->
+<!-- 2. Your Okta application should already have these values -->
 <add key="okta:RedirectUri" value="http://localhost:8080/authorization-code/callback" />
 <add key="okta:PostLogoutRedirectUri" value="http://localhost:8080/Account/PostLogout" />
 ```
