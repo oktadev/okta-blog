@@ -653,7 +653,7 @@ SCOPE=person_api
 We'll use the Okta JWT Verifier library. It requires a JWT library (we'll use `firebase/php-jwt`) and a PSR-7 compliant library (we'll use `guzzlehttp/psr7`). We'll install everything through composer:
 
 ```bash
-composer require okta/jwt-verifier firebase/php-jwt guzzlehttp/psr7
+composer require okta/jwt-verifier firebase/php-jwt guzzlehttp/psr7 mailgun/mailgun-php kriswallsmith/buzz nyholm/psr7
 ```
 
 Now we can add the authorization code to our front controller (if using a framework, we'll do this in a middleware instead):
