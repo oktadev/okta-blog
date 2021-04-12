@@ -12,7 +12,7 @@ tweets:
 image: blog/featured/okta-react-headphones.jpg
 type: conversion
 changelog:
-  - 2021-04-02: Updated to use Okta React v4.1.0 and streamline setup with the Okta CLI. See changes in [okta-blog#923]().
+  - 2021-04-02: Updated to use Okta React v4.1.0 and streamline setup with the Okta CLI. See changes in [okta-blog#681](https://github.com/oktadeveloper/okta-blog/pull/681).
 ---
 
 Laravel is an amazing web application framework which regularly tops the lists of best PHP frameworks available today. This is partly because its based on PHP which runs 80% of the web today and the learning curve is relatively small (despite it being packed with advanced features, you can understand the basic concepts easily). However, the real reason for its popularity is its robust ecosystem and abundance of high-quality learning resources available for free (like this blog post!).
