@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'jekyll-assets', '2.3.2'
+gem 'jekyll-assets', '3.0.12'
 gem 'jekyll-redirect-from'
 gem 'jekyll-include-cache'
 gem 'html-proofer', '3.19.0'
