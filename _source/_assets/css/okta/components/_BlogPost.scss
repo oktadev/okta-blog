@@ -390,6 +390,9 @@
 			max-width: 100%;
 			overflow: auto;
 		}
+
+		// fix cursor for summary
+		summary { cursor: pointer }
 	}
 
 	&-more {
