@@ -260,7 +260,7 @@ In a terminal window, navigate into the `angular-spring-boot/notes-api` director
 
 {% include setup/cli.md type="web" framework="Okta Spring Boot Starter" install="false" %}
 
-Having your app's client secret in a file that might be checked in to source control is a bad idea.
+Having your app's client secret in an `application.properties` file that might be checked in to source control is a bad idea.
 
 For this example, remove the Okta properties from `application.properties` and copy them into a new `okta.env` file. Ignore `*.env` in your `notes-api/.gitignore` file and remove the `\` (if there is one) in your issuer's URL.
 

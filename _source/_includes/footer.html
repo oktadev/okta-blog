@@ -84,3 +84,5 @@
     {% if layout.js %}
       {% js '{{layout.js}}' %}
     {% endif %}
+    <!-- Fix <details> for IE/Edge -->
+    <script src="//cdn.jsdelivr.net/npm/details-polyfill@1/index.min.js" async></script>

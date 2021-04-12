@@ -239,6 +239,20 @@ This will render the following HTML:
 {% include setup/cli.md type="jhipster" %}
 <div class="separator"></div>
 
+### API Token
+
+{% raw %}
+```
+{% include setup/cli.md type="token" %}
+```
+{% endraw %}
+
+This will render the following HTML:
+
+<div class="separator"></div>
+{% include setup/cli.md type="token" %}
+<div class="separator"></div>
+
 ### Maven
 
 {% raw %}
@@ -265,20 +279,6 @@ This will render the following HTML:
 
 <div class="separator"></div>
 {% include setup/oidcdebugger.md %}
-<div class="separator"></div>
-
-### API Token
-
-{% raw %}
-```
-{% include setup/cli.md type="token" %}
-```
-{% endraw %}
-
-This will render the following HTML:
-
-<div class="separator"></div>
-{% include setup/cli.md type="token" %}
 <div class="separator"></div>
 
 ## Example Blog Posts
