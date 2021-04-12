@@ -13,7 +13,7 @@ tweets:
 image: blog/featured/okta-java-bottle-headphones.jpg
 type: conversion
 changelog:
-- 2021-04-03: Updated to Spring Boot 2.4 and Okta CLI for setup. See changes in [okta-blog#23432](). 
+- 2021-04-03: Updated to Spring Boot 2.4 and Okta CLI for setup. See this post's changes in [okta-blog#688](https://github.com/oktadeveloper/okta-blog/pull/688); the example app's changes can be found in [okta-spring-boot-tomcat-example#2](https://github.com/oktadeveloper/okta-spring-boot-tomcat-example/pull/2).
 ---
 
 Deploying applications is hard. Often you need console access to the server from which you pull the latest code and then manually instantiate into your container. In this tutorial you'll see an easier way using Tomcat: you'll create an authenticated web app and deploy it through the browser using the latest versions of Tomcat, Spring Boot, and Java.
@@ -124,25 +124,13 @@ Let's add authentication with Okta. Why Okta? Because you don't want to worry ab
 
 {% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
 
-Create a file in your project at `src/main/resources/application.yml` and put your Okta values inside:
-
-```yaml
-okta:  
-  oauth2:
-    issuer: https://{yourOktaDomain}/oauth2/default  
-    client-id: {clientId}
-    client-secret: {clientSecret}
-```
-
-Delete your `application.properties` file to prevent conflicts. 
-
 Now add the Okta Spring Boot Starter library as a dependency in your `pom.xml`.
 
 ```xml
 <dependency>
     <groupId>com.okta.spring</groupId>
     <artifactId>okta-spring-boot-starter</artifactId>
-    <version>1.1.0</version>
+    <version>2.0.1</version>
 </dependency>
 ```
 
@@ -153,8 +141,8 @@ package com.example.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -169,9 +157,8 @@ public class DemoApplication {
 
     @GetMapping
     @ResponseBody
-    public String currentUserName(Authentication authentication) {
-    	DefaultOidcUser userDetails = (DefaultOidcUser) authentication.getPrincipal();
-    	return "Hello, " + userDetails.getFullName();
+    public String currentUserName(@AuthenticationPrincipal OidcUser user) {
+        return "Hello, " + user.getFullName();
     }
 }
 ```
@@ -240,10 +227,10 @@ public class DemoApplication extends SpringBootServletInitializer {
 }
 ```
 
-Now clean and package your application with the following command:
+Now package your application with the following command:
 
 ```bash
-./mvnw clean package
+./mvnw package
 ```
 
 You should see a message like the following:
@@ -291,7 +278,7 @@ If you scroll up you should see something like `/demo-0.0.1-SNAPSHOT` listed in 
 
 This is because the redirect URL is now wrong in our Okta app configuration - everything should be prepended with `demo-0.0.1-SNAPSHOT`. That name is a bit cumbersome. To change it rename your WAR file to `demo.war` (you can do this permanently by adding `<finalName>demo</finalName>` to the build section of your `pom.xml`). Now click **Undeploy** next to your app name in the manager window, and redeploy the WAR. Now the app should be under `/demo`.
 
-Now in your Okta application config prepend all the URLs with `/demo`, e.g. `http://localhost:8080/demo/login/oauth2/code/okta` (you do this by clicking **Edit** and then **Save**). Now clicking on your `/demo` app in the manager (or browsing to `http://localhost:8080/demo`) should show you the welcome screen as before.
+Run `okta login` and open the resulting URL in your browser. Log in and go to the **Applications** section. Edit your application's general settings and prepend all the URLs with `/demo`, e.g. `http://localhost:8080/demo/login/oauth2/code/okta`. Now clicking on your `/demo` app in the manager (or browsing to `http://localhost:8080/demo`) should show you the welcome screen as before.
 
 **Hot Tip:** To ensure your local development setup matches the machine you are deploying to, make sure the embedded Tomcat version is the same as your external server by adding the following to your `pom.xml`:
 
