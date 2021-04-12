@@ -50,8 +50,7 @@ You can create your own rules, but here's the general gist of the game:
 Once the `laravel` command is installed globally via composer, you'll use it to create a new Laravel project, and start the development PHP server from its directory:
 
 ```bash
-composer global require laravel/installer
-laravel new trivia-web-service
+composer create-project laravel/laravel="5.6.*" trivia-web-service
 cd trivia-web-service
 php artisan serve
 ```
@@ -65,7 +64,7 @@ CREATE USER 'trivia'@'localhost' identified by 'trivia';
 GRANT ALL on trivia.* to 'trivia'@'localhost';
 quit
 ```
- 
+
 You now need to insert the database configuration variables into the .env file in your main project directory:
 
 `.env`
@@ -114,6 +113,8 @@ At this point, you may notice that you already have a model class, `app/Player.p
 `app/Player.php`
 
 ```php
+...
+
 class Player extends Model
 {
     protected $fillable = ['name', 'answers', 'points'];
@@ -246,7 +247,7 @@ class PlayerController extends Controller
 You have to enable CORS so you can access your API from the frontend application:
 
 ```bash
-composer require barryvdh/laravel-cors
+composer require fruitcake/laravel-cors
 ```
 
 `app/Http/Kernel.php`
@@ -254,13 +255,13 @@ composer require barryvdh/laravel-cors
 ```php
 protected $middlewareGroups = [
     'web' => [
-		...
-		\Barryvdh\Cors\HandleCors::class,
+        ...
+        \Fruitcake\Cors\HandleCors::class,
     ],
 
     'api' => [
         ...
-		\Barryvdh\Cors\HandleCors::class,
+        \Fruitcake\Cors\HandleCors::class,
     ],
 ];
 ```
@@ -346,9 +347,9 @@ It doesn't look very nice with the default browser font. Let's improve it by loa
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
 ```
 
-## Add Authentication to the Vue Frontend 
+## Add Authentication to the Vue Frontend
 
-Great! Now you can add your menu and routing, and implement a protected 'Trivia Game' route 
+Great! Now you can add your menu and routing, and implement a protected 'Trivia Game' route
 that requires authentication:
 
 `main.js`
@@ -655,7 +656,7 @@ Next, replace the 'Add Player' button placeholder with a form to add a new playe
 `components/TriviaGame.vue`
 
 ```html
-Replace 
+Replace
 <a class="button is-primary">Add Player</a>
 with:
 <player-form @completed="addPlayer"></player-form>
@@ -874,7 +875,7 @@ export default {
             try {
                 const response = await axios.get(TRIVIA_ENDPOINT, {
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded' 
+                        'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 })
                 this.question = response.data[0]
