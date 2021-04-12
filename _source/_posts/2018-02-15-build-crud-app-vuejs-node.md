@@ -197,7 +197,7 @@ For the main menu, you'll want to change the visibility of certain menu items ba
 - Not Authenticated: Show only *Login*
 - Authenticated: Show only *Logout*
 
-You can toggle the visibility of these menu items using the `v-if` directive in Vue.js that checks the value of `activeUser` on the component.  When the component is loaded (which calls `created()`) or when a route changes we want to refresh the `activeUser`.
+You can toggle the visibility of these menu items using the `v-if` directive in Vue.js that checks the existence of `activeUser` on the component.  When the component is loaded (which calls `created()`) or when a route changes we want to refresh the `activeUser`.
 
 Open `./src/App.vue` and copy/paste the following code.
 
