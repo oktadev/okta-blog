@@ -50,8 +50,7 @@ Here's how to play:
 Install the `laravel` command globally on your system through composer. Then create a new Laravel project, navigate to it and start the development PHP server:
 
 ```bash
-composer global require laravel/installer
-laravel new trivia-web-service
+composer create-project laravel/laravel="5.6.*" trivia-web-service
 cd trivia-web-service
 php artisan serve
 ```
