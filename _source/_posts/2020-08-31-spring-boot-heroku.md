@@ -502,9 +502,7 @@ Okta can also take care of the registration process, which can be easily enabled
  
 {% img blog/spring-boot-heroku/heroku-okta-configuration.png alt:"Locate Okta configuration within Heroku dashboard" width:"800" %}{: .center-image }
 
-Navigate to **Users** > **Registration** and click **Enable Registration**. A registration configuration form allows some level of flexibility. For example, you can require new users to provide their first and last name.
- 
-{% img blog/spring-boot-heroku/okta-enable-registration-configuration.png alt:"Okta enabled registration" width:"700" %}{: .center-image }
+Navigate to **Directory** > **Self-Service Registration** and click **Enable Registration**. A registration configuration form allows some level of flexibility. For example, you can require new users to provide their first and last name.
 
 After you save the configuration, open a new incognito browser window and try to log in. This time, the Okta login form will have a link for user registration:
  
