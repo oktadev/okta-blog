@@ -30,17 +30,17 @@ OpenID Connect (OIDC) rides on top of OAuth 2.0 for a modern Single Sign-on, aut
 
 > If you're interested in learning more about OIDC and OAuth 2.0, [here](https://developer.okta.com/blog/2017/07/25/oidc-primer-part-1) and [here](https://oauth.com) are good places to start. Look for more links to posts on OIDC and OAuth 2.0 at the end of this post.
 
-### Register for an Okta Org
+### Register for an Okta Org and Create an OIDC App
 
-Head on over to: [https://developer.okta.com/signup](https://developer.okta.com/signup). Fill out the form and click **Get Started**.
-
-You'll get an email from Okta to confirm your address. Click on **ACTIVATE MY ACCOUNT**. You'll next see an onboarding page in your Okta Org. You can skip this for now.
-
-Let's add a few users and groups for use later in the Spring Boot app.
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter"
+  loginRedirectUri="http://localhost:8080/login/oauth2/code/okta"
+  logoutRedirectUri="http://localhost:8080" %}
 
 #### Add Users to your Okta Org
 
-Click **Users** on the menu bar at the top. Here, you'll see the user already created for you with the name and email you submitted to create the Okta org.
+Head on over to http://{yourOktaDomain} and login.
+
+Click **Directory > People** on the menu on the left. Here, you'll see the user already created for you with the name and email you submitted to create the Okta org.
 
 Click **Add Person**. This will bring you to the input form for adding a new user:
 
@@ -60,11 +60,11 @@ Next, you'll add some groups and assign some users to those groups.
 
 #### Add Groups to your Okta Org
 
-Choose **Users > Groups** from the top level menu. Here, you'll see the built in `Everyone` group. As you might imagine, every current and new user is automatically added to this group.
+Choose **Directory > Groups** from the top level menu. Here, you'll see the built in `Everyone` group. As you might imagine, every current and new user is automatically added to this group.
 
 Click **Add Group**. This will bring you to the input form for adding a new group:
 
-{% img blog/okta-split-spring-security/new-user.png alt:"New User" width:"600" %}
+{% img blog/okta-split-spring-security/new-group.png alt:"New User" width:"600" %}
 
 Enter **BETA_TESTER** in both the **Name** and **Group Description** fields. Click **Add Group**.
 
@@ -72,21 +72,12 @@ Click the link to the newly created **BETA_TESTER** group. Click **Manage People
 
 Now, you're Okta org is configured with five users (the Belcher family), 3 of whom belong to the **BETA_TESTER** group.
 
-### Create an OIDC App in your Okta Org
 
-Next up, you'll create an OIDC app that the Spring Boot app uses below. A deep dive into how OIDC works is outside the scope of this post, but check the links at the bottom if you're interested in learning more about OIDC.
-
-Click **Applications** from the top menu bar.
-
-Click **Add Application**. Choose **Web** from the available app types and click **Next**. Update the **Name** field. Change the **Login redirect URIs** to: `http://localhost:8080/login/oauth2/code/okta`. Leave all the other fields as their defaults and click **Done** at the bottom.
-
-At the top of the **General** tab, you'll see the **Client Credentials** section at the top. Copy the values for **Client ID** and **Client secret**. You'll use these values below to configure Spring Boot.
-
-### Configure the OIDC App to Return Groups
+### Configure the OIDC App to Return Groups Claim
 
 The last Okta configuration step is to make sure that the list of groups a user belongs to is returned when a user authenticates. You'll see below that this integrates very easily with Spring Security.
 
-Click **API > Authorization Servers** from the top menu bar. Click the **default** link under the list of **Authorization Servers** (it should be the only one right now).
+Click **Security > API** from the top menu bar. Click the **default** link under the list of **Authorization Servers** (it should be the only one right now).
 
 Click the **Claims** tab. Click **Add Claim**:
 
@@ -123,7 +114,7 @@ For our purposes (and to keep things simple), you just need:
 
 {% img blog/okta-split-spring-security/spring-initializr.png alt:"Initializr" width:"600" %}
 
-Spring Initializr even makes it easy to load a pre-configured project from a [direct link](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.3.4.RELEASE&packaging=jar&jvmVersion=11&groupId=com.okta.examples&artifactId=okta-split-example&name=okta-split-example&description=Feature%20Flags%20with%20Okta%2C%20Split%20and%20Spring%20Security&packageName=com.okta.examples.okta_split_example&dependencies=web,thymeleaf,okta).
+Spring Initializr even makes it easy to load a pre-configured project from a [direct link](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.3.9.RELEASE&packaging=jar&jvmVersion=11&groupId=com.okta.examples&artifactId=okta-split-example&name=okta-split-example&description=Feature%20Flags%20with%20Okta%2C%20Split%20and%20Spring%20Security&packageName=com.okta.examples.okta_split_example&dependencies=web,thymeleaf,okta).
 
 And, you can download the project from the command line with:
 
@@ -131,7 +122,7 @@ And, you can download the project from the command line with:
 curl -G \
 --data 'type=maven-project' \
 --data 'language=java' \
---data 'bootVersion=2.3.4.RELEASE' \
+--data 'bootVersion=2.3.9.RELEASE' \
 --data 'baseDir=okta-split-example' \
 --data 'groupId=com.okta.examples' \
 --data 'artifactId=okta-split-example' \
@@ -151,7 +142,7 @@ You can also find the completed application over on the [Okta Developer GitHub r
 
 ### Integrate with Okta
 
-In order for this Spring Boot app to connect to your Okta org you need to set up an `src/main/resources/application.yml` file with just three configuration parameters:
+In order for this Spring Boot app to connect to your Okta org you need to rename `src/main/resources/application.properties` to `src/main/resources/application.yml`, and just set the three configuration parameters you got before, when creating the client app with Okta CLI:
 
 ```yaml
 okta:
@@ -242,7 +233,7 @@ Best of all, you could repeat this process, creating new beta experiences to be 
 Getting setup with a free developer account for Split is as easy as 1, 2, 3:
 
 1. Go to: <https://split.io>, click: Free Account
-2. Fill out the registration form and click: SIGN UP
+2. Fill out the registration form and click: CREATE FREE ACCOUNT
 3. Follow the link you receive in email and set a password.
 
 {% img blog/okta-split-spring-security/split.png alt:"split" width:"600" %}
