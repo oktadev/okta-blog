@@ -12,6 +12,8 @@ tweets:
 - "Learn how to authenticate a CLI application with #PKCE using @nodejs! #cli #oauth"
 image: blog/command-line-apps-with-nodejs/command-line-apps-with-nodejs.jpg
 type: conversion
+changelog:
+- 2021-04-05: Updated to use the Okta CLI for setup and upgrade to axios 0.21.1. Changes to this post can be viewed in [okta-blog#676](https://github.com/oktadeveloper/okta-blog/pull/676).
 ---
 
 Command line applications (CLI) are often the core tools for automating tasks, such as deploying production applications, running tests, building reports, migrating data, DevOps, and the list goes on and on. If you find yourself doing the same things over and over again, chances are you can automate those steps with a script and save yourself a lot of time!
@@ -214,7 +216,7 @@ A common scenario in automating tasks is to call an API endpoint to get data or 
 One of the most popular libraries for retrieving and sending data to an API in Node.js is `axios`. Start by adding `axios` as a dependency.
 
 ```bash
-npm install axios@0.19
+npm install axios@0.21.1
 ```
 
 Next, replace the contents of `bin/index.js` with the following code.
@@ -306,23 +308,9 @@ Proof Key for Code Exchange (PKCE) is a better solution for mobile and native ap
 
 ### Create an Okta Application
 
-To get started, go to [developer.okta.com](https://developer.okta.com) and [sign up for a free developer account](https://developer.okta.com/signup/).
+{% include setup/cli.md type="native" loginRedirectUri="http://localhost:8080/callback" logoutRedirectUri="http://localhost:8080" %}
 
-{% img blog/command-line-apps-with-nodejs/okta-01-sign-up.png alt:"Okta Sign Up" width:"800" %}{: .center-image }
-
-Once you are signed in to your account, click on **Applications** and then click **Add Application**.
-
-{% img blog/command-line-apps-with-nodejs/okta-02-create-app.png alt:"Create application" width:"715" %}{: .center-image }
-
-Choose **Native** as the type of application, and then click **Next**.
-
-{% img blog/command-line-apps-with-nodejs/okta-03-native-app.png alt:"Create a native application" width:"800" %}{: .center-image }
-
-Next, name your application something like `My CLI App`. Change the **Login redirect URIs** value to `http://localhost:8080/callback`, and then click **Done**.
-
-{% img blog/command-line-apps-with-nodejs/okta-04-app-settings.png alt:"Application settings" width:"741" %}{: .center-image }
-
-Create a file named `.env` in the root of your CLI project. Open this file and add the following information.
+Create a file named `.env` in the root of your Node.js CLI project. Open this file and add the following information.
 
 ```bash
 OKTA_ORG_URL=https://{yourOktaOrgUrl}
@@ -330,18 +318,6 @@ OKTA_CLIENT_ID={yourClientID}
 OKTA_SCOPES="openid profile email"
 OKTA_REDIRECT_PORT=8080
 ```
-
-Now, if you're not already at the **General Settings** page, click on **Applications** and then click on the name of the application you just created.
-
-{% img blog/command-line-apps-with-nodejs/okta-05-select-app.png alt:"Select your application" width:"639" %}{: .center-image }
-
-Click on the **General** tab, scroll down to the **Client Credentials** section, and copy your application's **Client ID**. Replace `{yourClientID}` in the `.env` file with your application's **Client ID** value.
-
-{% img blog/command-line-apps-with-nodejs/okta-06-client-id.png alt:"Your application Client ID" width:"785" %}{: .center-image }
-
-Next, click on the **Dashboard** link. At the top of the dashboard on the right side of the page you should find your Okta **Org URL**. Copy this value and put this in your `.env` file.
-
-{% img blog/command-line-apps-with-nodejs/okta-07-org-url.png alt:"Your Okta Org URL" width:"785" %}{: .center-image }
 
 ### Update the Node.js Command Line Application
 
@@ -538,11 +514,11 @@ pkce-login
 
 In this tutorial, you have learned the basics for creating command line applications using Node.js. You also have a valuable authentication module you can easily reuse with any OAuth 2.0 PKCE flow. You can find all the source code for this tutorial on [GitHub](https://github.com/oktadeveloper/okta-node-cli-example).
 
-* [OAuth 2.0 from the Command Line](https://developer.okta.com/blog/2018/07/16/oauth-2-command-line)
-* [Use Multi-factor Authentication from the Command Line](https://developer.okta.com/blog/2018/06/22/multi-factor-authentication-command-line)
-* [Authorization Code with PKCE Flow](https://developer.okta.com/authentication-guide/auth-overview/#authorization-code-flow)
-* [Implementing the Authorization Code Flow with PKCE](https://developer.okta.com/authentication-guide/implementing-authentication/auth-code-pkce/)
-* [Build a Secure Node.js App with SQL Server](https://developer.okta.com/blog/2019/03/11/node-sql-server)
+* [OAuth 2.0 from the Command Line](/blog/2018/07/16/oauth-2-command-line)
+* [Use Multi-factor Authentication from the Command Line](/blog/2018/06/22/multi-factor-authentication-command-line)
+* [Authorization Code with PKCE Flow](/authentication-guide/auth-overview/#authorization-code-flow)
+* [Implementing the Authorization Code Flow with PKCE](/authentication-guide/implementing-authentication/auth-code-pkce/)
+* [Build a Secure Node.js App with SQL Server](/blog/2019/03/11/node-sql-server)
 * [Okta Node.js SDK](https://github.com/okta/okta-sdk-nodejs)
 
 If you liked learning about Node.js CLI applications and authentication, chances are you'll like some of our other posts. Please [follow @oktadev on Twitter](https://twitter.com/oktadev) to be notified when we publish new blog posts. You can also [subscribe to our YouTube channel](https://www.youtube.com/c/oktadev) for our screencasts!
