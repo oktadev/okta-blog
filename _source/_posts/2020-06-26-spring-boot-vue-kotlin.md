@@ -365,19 +365,7 @@ Try it out! You can edit existing todos, delete them, and create new ones.
 
 ## Create an OIDC Application for Vue Authentication
 
-You should have already signed up for a free Okta developer account. The next step is to create an OpenID Connect (OIDC) application. Once you've logged into your Okta developer dashboard, click on the **Application** top-menu item, and then on the **Add Application** button.
-
-Select application type **Single-Page App**.
-
-Click **Next**.
-
-Give the app a name. I named mine `Vue Client`. Change the **Login redirect URI** to be `http://localhost:8080/callback`. Since you're using OAuth 2.0's authorization code flow, there's no reason to have `/implicit` in your redirect URL.
-
-The rest of the default values will work.
-
-Click **Done**.
-
-On the next screen, take note of the **Client ID** (near the bottom) as you'll need it in a bit.
+{% include setup/cli.md type="spa" framework="Vue" loginRedirectUri="http://localhost:8080/callback" %}
 
 {% img blog/spring-boot-vue/oidc-app-settings.png alt:"Okta OIDC application settings" width:"700" %}{: .center-image }
 
