@@ -58,8 +58,7 @@ hgroup,
 main,
 menu,
 nav,
-section,
-summary {
+section {
 	display: block;
 }
 
@@ -166,10 +165,10 @@ h1 {
 //-----------------------------------------------------------------------
 mark {
 	// scss-lint:disable ColorVariable
-	
+
 	background: #ff0;
 	color: #000;
-	
+
 	// scss-lint:enable ColorVariable
 }
 

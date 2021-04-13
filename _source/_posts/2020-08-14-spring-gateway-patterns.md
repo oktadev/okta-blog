@@ -251,15 +251,10 @@ public class OktaOAuth2WebSecurity {
 ```
 To keep things simple in this example, [CSRF](https://docs.spring.io/spring-security/site/docs/5.0.x/reference/html/csrf.html) is disabled.
 
-Now we need to create an authorization client in Okta. Log in to your Okta Developer account (or [sign up](https://developer.okta.com/signup/) if you don't have an account).
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
 
-1. From the **Applications** page, choose **Add Application**.
-2. On the Create New Application page, select **Web**.
-3. Name your app _Api Gateway_, add `http://localhost:8080/login/oauth2/code/okta` as a Login redirect URI, select **Refresh Token** (in addition to **Authorization Code**), and click **Done**.
+Use the issuer, client ID, and client secret from the generated `.okta.env` file to start the gateway:
 
-Copy the issuer (found under **API** > **Authorization Servers**), client ID, and client secret.
-
-Start the gateway with:
 ```shell
 OKTA_OAUTH2_ISSUER={yourOktaIssuer} \
 OKTA_OAUTH2_CLIENT_ID={yourOktaClientId} \
@@ -512,9 +507,9 @@ public class CartServiceApplication {
 
 }
 ```
-Rename `src/main/resources/application.propeties` to `application.yml` and add the following values:
+Rename `src/main/resources/application.properties` to `application.yml` and add the following values:
 
-```yml
+```yaml
 server:
   port: 8081
 
@@ -869,21 +864,13 @@ With the `-v` verbose flag, you should see the request is rejected with 401 (Una
 
 ### Update the REST API to Call the Micro Service 
 
-Now we are going to configure `cart-service` to use the client credentials grant flow to request pricing.
+Now we are going to configure `cart-service` to use the client credentials grant flow to request pricing. First, create a new authorization client in Okta.
 
-First create a new authorization client in Okta.
+{% include setup/cli.md type="service" %}
 
-1. From the **Applications** page, choose **Add Application**
-2. On the Create New Application page, select **Service**
-3. Name your app _Cart Service_ and click **Done**
+Create a custom scope to restrict what the `cart-service` accessToken can access. In the Okta Admin Console, go to **Security** > **API** > **Authorization Servers**. Edit the `default` authorization server by clicking on the edit pencil, then click **Scopes** > **Add Scope**. Fill out the name field with `pricing` and press **Create**.
 
-Copy the new client ID, and client secret.
-
-Create a custom scope to restrict what the `cart-service` accessToken can access. From the menu bar select **API** -> **Authorization Servers**. Edit the authorization server by clicking on the edit pencil, then click **Scopes** -> **Add Scope**. Fill out the name field with `pricing` and press Create.
-
-{% img blog/spring-gateway-patterns/pricing-scope.png alt:"Client Credentials Activity" width:"600" %}{: .center-image }
-
-We need to configure the OAuth2 client in the `cart-service` application, for calling the `pricing-service`. `OAuth2RestTemplate` is not available in Spring Security 5.3.x. According to Spring Security OAuth [migration guides](https://github.com/spring-projects/spring-security/wiki/OAuth-2.0-Migration-Guide), the way to do this is by using RestTemplate interceptors or WebClient exchange filter functions. Since Spring 5, `RestTemplate` is in [maintenance mode](https://docs.spring.io/spring/docs/5.2.7.RELEASE/javadoc-api/org/springframework/web/client/RestTemplate.html), using WebClient (which supports sync, async, and streaming scenarios) is the suggested approach. So let's configure a `WebClient` for the pricing call.
+We need to configure the OAuth 2.0 client in the `cart-service` application, for calling the `pricing-service`. `OAuth2RestTemplate` is not available in Spring Security 5.3.x. According to Spring Security OAuth [migration guides](https://github.com/spring-projects/spring-security/wiki/OAuth-2.0-Migration-Guide), the way to do this is by using RestTemplate interceptors or WebClient exchange filter functions. Since Spring 5, `RestTemplate` is in [maintenance mode](https://docs.spring.io/spring/docs/5.2.7.RELEASE/javadoc-api/org/springframework/web/client/RestTemplate.html), using WebClient (which supports sync, async, and streaming scenarios) is the suggested approach. So let's configure a `WebClient` for the pricing call.
 
 First, add the `spring-webflux` starter dependency to the `cart-service` `pom.xml`:
 
@@ -945,7 +932,9 @@ public class WebClientConfig {
 
 In the code above, we set a custom json decoder, from the `objectMapper` that includes the `MoneyModule`, so the monetary amounts are correctly serialized and deserialized. Also, we set  `pricing-client` as the default OAuth 2.0 `registrationId`. For service discovery, a [`ReactorLoadBalancerExchangeFilterFunction`](https://cloud.spring.io/spring-cloud-commons/reference/html/#webflux-with-reactive-loadbalancer) must be added to the `WebClient`. 
 
-Let's now configure the OAuth 2.0 client registration. Edit the cart-service `application.yml` and add security.oauth2 properties. The `cart-service` is a resource server and an OAuth 2.0 client at the same time. The final configuration must be:
+Let's now configure the OAuth 2.0 client registration. Edit the cart-service `application.yml` and add `security.oauth2` properties. The values for the `{...}` placeholders should be in the `.okta.env` file you generated earlier. 
+
+The `cart-service` is a resource server and an OAuth 2.0 client at the same time. The final configuration must be:
 
 ```yml
 server:
@@ -1075,7 +1064,7 @@ public class PricingService {
 }
 ```
 
-Note that the 'WebClient' is making a synchronous call, as we invoke `response.block()` to get the pricing result. This is the expected approach for non-reactive applications.
+Note that the `WebClient` is making a synchronous call, as we invoke `response.block()` to get the pricing result. This is the expected approach for non-reactive applications.
 
 Modify the `CartController` to request pricing when creating a cart:
 
@@ -1113,7 +1102,7 @@ public class CartController {
 }
 ```
 
-Restart the cart-service:
+Restart the cart-service. You should be able to find the values for the client ID and client secret in `.okta.env`.
 
 ```shell
 SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_PRICINGCLIENT_CLIENTID={serviceClientId} \
@@ -1162,20 +1151,21 @@ You should get a priced cart as response:
 }
 ```
 
-Take a look at the **System Log** in the Okta Dashboard and you will see an entry indicating the Cart Service requested an access token:
+Take a look at the **System Log** in the Okta Admin Console and you will see an entry indicating the Cart Service requested an access token:
 
 {% img blog/spring-gateway-patterns/client-credential-activity.png alt:"Client Credentials Activity" width:"900" %}{: .center-image }
 
 ## Learn More About Building Secure Applications
 
-In this tutorial, you learned how to create an API Gateway with Spring Cloud Gateway, and how to configure three common OAuth2 patterns (1. code flow, 2. token relay and 3. client credentials grant) using Okta Spring Boot Starter and Spring Security. . You can find all the code on [GitHub](https://github.com/oktadeveloper/okta-spring-cloud-gateway-example).
+In this tutorial, you learned how to create an API Gateway with Spring Cloud Gateway, and how to configure three common OAuth 2.0 patterns (1. code flow, 2. token relay, and 3. client credentials grant) using Okta Spring Boot Starter and Spring Security. You can find [all the code on GitHub](https://github.com/oktadeveloper/okta-spring-cloud-gateway-example).
 
-To continue learning about Spring Cloud Gateway features and OAuth2 authorization patterns, check also the following links:
+To continue learning about Spring Cloud Gateway features and OAuth 2.0 authorization patterns, check also the following links:
 
+- [Reactive Java Microservices with Spring Boot and JHipster](/blog/2021/01/20/reactive-java-microservices)
 - [Secure Reactive Microservices with Spring Cloud Gateway](/blog/2019/08/28/reactive-microservices-spring-cloud-gateway)
 - [Secure Legacy Apps with Spring Cloud Gateway](/blog/2020/01/08/secure-legacy-spring-cloud-gateway)
 - [Secure Server-to-Server Communication with Spring Boot and OAuth 2.0](/blog/2018/04/02/client-creds-with-spring-boot)
 - [Secure Service-to-Service Spring Microservices with HTTPS and OAuth 2.0](/blog/2019/03/07/spring-microservices-https-oauth2)
 - [Use Okta Token Hooks to Supercharge OpenID Connect](/blog/2019/12/23/extend-oidc-okta-token-hooks)
 
-If you like this blog post and want to see more like it, follow[@oktadev on Twitter](https://twitter.com/oktadev), subscribe to [our YouTube channel](https://youtube.com/c/oktadev), or follow us [on LinkedIn](https://www.linkedin.com/company/oktadev/). As always, please leave a comment below if you have any questions.
+If you like this blog post and want to see more like it, follow [@oktadev on Twitter](https://twitter.com/oktadev), subscribe to [our YouTube channel](https://youtube.com/c/oktadev), or follow us [on LinkedIn](https://www.linkedin.com/company/oktadev/). As always, please leave a comment below if you have any questions.
