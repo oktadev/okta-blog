@@ -48,8 +48,8 @@ Select **
     {% if include.loginRedirectUri == include.logoutRedirectUri %}
 Use `{{ include.loginRedirectUri }}` for the Redirect URI and the Logout Redirect URI 
     {% else %}
-Use `{{ include.loginRedirectUri }}` for the Redirect URI and set the Logout Redirect URI to `{{ include.logoutRedirectUri }}`
-    {%- endif -%}
+Use `{{ include.loginRedirectUri }}` for the Redirect URI and set the Logout Redirect URI to `{{ include.logoutRedirectUri }}` 
+    {% endif %}
     {%- if include.loginRedirectUri contains 'com.okta.' -%}
 (where `{{ include.loginRedirectUri | remove: 'com.okta.' | remove: ':/callback' | remove: '[http://localhost:8100/callback,' | remove: ']' }}.okta.com` is your Okta domain name). Your domain name is reversed to provide a unique scheme to open your app on a device.
     {% else %}.{% endif %}
