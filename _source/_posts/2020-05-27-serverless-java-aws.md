@@ -434,10 +434,10 @@ You're going to use Okta as your OAuth 2.0 & OpenID Connect (OIDC) provider. OAu
 Open `src/main/resources/config.properties` and fill in the correct value for `okta.oauth.issuer` using your Okta developer URI. It will look something like `dev-123456.okta.com`. 
 
 ```properties
-okta.oauth2.issuer=https://{yourOktaUrl}/oauth2/default
-okta.oauth2.audience=api://default
-okta.oauth2.connectionTimeoutSeconds=10
-okta.oauth2.readTimeoutSeconds=10
+okta.oauth.issuer=https://{yourOktaUrl}/oauth2/default
+okta.oauth.audience=api://default
+okta.oauth.connectionTimeoutSeconds=10
+okta.oauth.readTimeoutSeconds=10
 ```
 
 You might notice that you don't need any of the OIDC application values within lambda function itself, only the issuer URI. That's because you don't need an OIDC application to verify tokens, but you do need one to create tokens. The JWT validator retrieves the public key used to sign the JWT using a well-known endpoint with your issue value as a base.
@@ -546,7 +546,7 @@ Now you're going to use the OpenID Connect Debugger to generate a valid JWT that
 
 {% img blog/serverless-java-aws/oidc-debugger.png alt:"OIDC Debugger" width:"400" %}{: .center-image }
 
-After you authenticate to your Okta org, Okta will redirect back and you'll see the Authorization code shown in the browser:
+Scroll down and click **Send Request**. After you authenticate to your Okta org, Okta will redirect back and you'll see the Authorization code shown in the browser:
 
 {% img blog/serverless-java-aws/authorization-code.png alt:"Authorization Code from OIDC Debugger" width:"400" %}{: .center-image }
 
