@@ -5,11 +5,13 @@ author: braden-kelley
 by: contractor
 communities: [javascript]
 description: "JavaScript is used everywhere on the web, but can also be used server-side. This tutorial shows you how to create a server-to-server REST API complete with OAuth 2.0 authentication."
-tags: [authentication, node, nodejs, oauth-2-dot-0, server-to-server, machine-to-machine, client-credentials-flow, express, sequelize, epilogue, rest-api]
+tags: [authentication, node, nodejs, oauth-2-dot-0, server-to-server, machine-to-machine, client-credentials-flow, express, sequelize, finale, rest-api]
 tweets:
 - "Learn how to easily build a secure REST API in @nodejs with OAuth 2.0 Client Credentials."
 - "Need a secure server-to-server REST API? It's simple to do with @nodejs and Okta."
 type: conversion
+changelog:
+- 2021-04-06: Updated to use Okta JWT Verifier v2.1.0 and Finale instead of Epilogue. You can see the changes in [the example app](https://github.com/oktadeveloper/okta-node-rest-api-example/pull/1) or [in this blog post](https://github.com/oktadeveloper/okta-blog/pull/683).
 ---
 
 JavaScript is used everywhere on the web - nearly every web page will include at least some JavaScript, and even if it doesn't, your browser probably has some sort of extension that injects bits of JavaScript code on to the page anyway. It's hard to avoid in 2018.
@@ -93,16 +95,21 @@ The `promisify` function of `util` lets you take a function that expects a callb
 
 In order for this to work, you need to install the dependencies that you `require` at the top of the file. Add them using `npm install`. This will automatically save some metadata to your `package.json` file and install them locally in a `node_modules` folder.
 
-**Note**: You should never commit `node_modules` to source control because it tends to become bloated quickly, and the `package-lock.json` file will keep track of the exact versions you used to that if you install this on another machine they get the same code.
+**NOTE**: You should never commit `node_modules` to source control because it tends to become bloated quickly, and the `package-lock.json` file will keep track of the exact versions you used to that if you install this on another machine they get the same code.
 
 ```bash
-$ npm install express@4.16.3 util@0.11.0
+npm install express@4.17.1 util@0.12.3
 ```
 
-For some quick linting, install `standard` as a dev dependency, then run it to make sure your code is up to par.
+For some quick linting, install `standard` as a dev dependency. 
 
 ```bash
-$ npm install --save-dev standard@11.0.1
+npm install -D standard@16.0.3
+```
+
+Then, run it to make sure your code is up to par.
+
+```bash
 $ npm test
 
 > rest-api@1.0.0 test /Users/bmk/code/okta/apps/rest-api
@@ -144,7 +151,7 @@ Content-Security-Policy: default-src 'self'
 X-Content-Type-Options: nosniff
 Content-Type: text/html; charset=utf-8
 Content-Length: 139
-Date: Thu, 16 Aug 2018 01:34:53 GMT
+Date: Thu, 06 Apr 2021 20:38:15 GMT
 Connection: keep-alive
 
 <!DOCTYPE html>
@@ -166,14 +173,14 @@ $ curl localhost:3000 -i
 curl: (7) Failed to connect to localhost port 3000: Connection refused
 ```
 
-## Build Your REST API with Node, Express, Sequelize, and Epilogue
+## Build Your REST API with Node, Express, Sequelize, and Finale
 
-Now that you have a working Express server, you can add a REST API. This is actually much simpler than you might think. The easiest way I've seen is by using [Sequelize](http://docs.sequelizejs.com/) to define your database schema, and [Epilogue](https://github.com/dchester/epilogue) to create some REST API endpoints with near-zero boilerplate.
+Now that you have a working Express server, you can add a REST API. This is actually much simpler than you might think. The easiest way I've seen is by using [Sequelize](http://docs.sequelizejs.com/) to define your database schema, and [Finale](https://github.com/tommybananas/finale) to create some REST API endpoints with near-zero boilerplate.
 
 You'll need to add those dependencies to your project. Sequelize also needs to know how to communicate with the database. For now, use SQLite as it will get us up and running quickly.
 
 ```bash
-npm install sequelize@4.38.0 epilogue@0.7.1 sqlite3@4.0.2
+npm install sequelize@6.6.2 finale-rest@1.0.6 sqlite3@5.0.2
 ```
 
 Create a new file `database.js` with the following code. I'll explain each part in more detail below.
@@ -181,12 +188,11 @@ Create a new file `database.js` with the following code. I'll explain each part 
 **database.js**
 ```javascript
 const Sequelize = require('sequelize')
-const epilogue = require('epilogue')
+const finale = require('finale-rest')
 
 const database = new Sequelize({
   dialect: 'sqlite',
-  storage: './test.sqlite',
-  operatorsAliases: false
+  storage: './test.sqlite'
 })
 
 const Part = database.define('parts', {
@@ -197,9 +203,9 @@ const Part = database.define('parts', {
 })
 
 const initializeDatabase = async (app) => {
-  epilogue.initialize({ app, sequelize: database })
+  finale.initialize({ app, sequelize: database })
 
-  epilogue.resource({
+  finale.resource({
     model: Part,
     endpoints: ['/parts', '/parts/:id']
   })
@@ -214,7 +220,7 @@ Now you just need to import that file into your main app and run the initializat
 
 **index.js**
 ```diff
-@@ -2,10 +2,14 @@ const express = require('express')
+@@ -2,10 +2,13 @@ const express = require('express')
  const bodyParser = require('body-parser')
  const { promisify } = require('util')
 
@@ -225,7 +231,6 @@ Now you just need to import that file into your main app and run the initializat
 
  const startServer = async () => {
 +  await initializeDatabase(app)
-+
    const port = process.env.SERVER_PORT || 3000
    await promisify(app.listen).bind(app)(port)
    console.log(`Listening on port ${port}`)
@@ -290,8 +295,7 @@ The `Sequelize` function creates a database. This is where you configure details
 ```javascript
 const database = new Sequelize({
   dialect: 'sqlite',
-  storage: './test.sqlite',
-  operatorsAliases: false
+  storage: './test.sqlite'
 })
 ```
 
@@ -306,9 +310,9 @@ const Part = database.define('parts', {
 })
 ```
 
-Epilogue requires access to your Express `app` in order to add endpoints. However, `app` is defined in another file. One way to deal with this is to export a function that takes the app and does something with it. In the other file when we import this script, you would run it like `initializeDatabase(app)`.
+Finale requires access to your Express `app` in order to add endpoints. However, `app` is defined in another file. One way to deal with this is to export a function that takes the app and does something with it. In the other file when we import this script, you would run it like `initializeDatabase(app)`.
 
-Epilogue needs to initialize with both the `app` and the `database`. You then define which REST endpoints you would like to use. The `resource` function will include endpoints for the `GET`, `POST`, `PUT`, and `DELETE` verbs, mostly automagically.
+Finale needs to initialize with both the `app` and the `database`. You then define which REST endpoints you would like to use. The `resource` function will include endpoints for the `GET`, `POST`, `PUT`, and `DELETE` verbs, mostly automagically.
 
 To actually create the database, you need to run `database.sync()`, which returns a Promise. You'll want to wait until it's finished before starting your server.
 
@@ -316,9 +320,9 @@ The `module.exports` command says that the `initializeDatabase` function can be 
 
 ```javascript
 const initializeDatabase = async (app) => {
-  epilogue.initialize({ app, sequelize: database })
+  finale.initialize({ app, sequelize: database })
 
-  epilogue.resource({
+  finale.resource({
     model: Part,
     endpoints: ['/parts', '/parts/:id']
   })
@@ -353,26 +357,18 @@ You're probably asking yourself "Why Okta? Well, it's pretty cool to build a RES
 * Secure your application with [multi-factor authentication](https://developer.okta.com/use_cases/mfa/)
 * And much more! Check out our [product documentation](https://developer.okta.com/documentation/)
 
-If you don't already have one, [sign up for a forever-free developer account](https://developer.okta.com/signup/), and let's get started!
+{% include setup/cli.md type="service" %}
 
-After creating your account, log in to your developer console, navigate to **API**, then to the **Authorization Servers** tab. Click on the link to your `default` server.
-
-From this **Settings** tab, copy the `Issuer` field. You'll need to save this somewhere that your Node app can read. In your project, create a file named `.env` that looks like this:
+In your project, create a file named `.env` that looks like this:
 
 **.env**
 ```bash
 ISSUER=https://{yourOktaDomain}/oauth2/default
 ```
 
-The value for `ISSUER` should be the value from the Settings page's `Issuer URI` field.
+**NOTE**: As a general rule, you should not store this `.env` file in source control. This allows multiple projects to use the same source code without needing a separate fork. It also makes sure that your secure information is not public (especially if you're publishing your code as open source).
 
-{% img blog/rest-api-node/issuer.png alt:"Higlighting the issuer URL." width:"800" %}{: .center-image }
-
-**Note**: As a general rule, you should not store this `.env` file in source control. This allows multiple projects to use the same source code without needing a separate fork. It also makes sure that your secure information is not public (especially if you're publishing your code as open source).
-
-Next, navigate to the **Scopes** tab. Click the **Add Scope** button and create a scope for your REST API. You'll need to give it a name (e.g. `parts_manager`) and you can give it a description if you like.
-
-{% img blog/rest-api-node/adding-scope.png alt:"Add scope screenshot." width:"800" %}{: .center-image }
+Run `okta login` and open the resulting URL in your browser. Sign in the Okta Admin Console, then go to **Security** > **API** and select your `default` authorization server. Navigate to the **Scopes** tab. Click the **Add Scope** button and create a scope for your REST API. You'll need to give it a name (e.g. `parts_manager`) and you can give it a description if you like.
 
 You should add the scope name to your `.env` file as well so your code can access it.
 
@@ -382,9 +378,7 @@ ISSUER=https://{yourOktaDomain}/oauth2/default
 SCOPE=parts_manager
 ```
 
-Now you need to create a client. Navigate to **Applications**, then click **Add Application**. Select **Service**, then click **Next**. Enter a name for your service, (e.g. `Parts Manager`), then click **Done**.
-
-This will take you to a page that has your client credentials. These are the credentials that Server B (the one that will consume the REST API) will need in order to authenticate. For this example, the client and server code will be in the same repository, so go ahead and add this data to your `.env` file. Make sure to replace `{yourClientId}` and `{yourClientSecret}` with the values from this page.
+The client ID and client secret are the credentials that Server B (the one that will consume the REST API) will need in order to authenticate. For this example, the client and server code will be in the same repository, so go ahead and add this data to your `.env` file. Make sure to replace `{yourClientId}` and `{yourClientSecret}` with the values in your `.okta.env` file.
 
 ```bash
 CLIENT_ID={yourClientId}
@@ -398,7 +392,7 @@ In Express, you can add middleware that will run before each endpoint. You can t
 To validate tokens, you can use Okta's middleware. You'll also need a tool called [dotenv](https://github.com/motdotla/dotenv) to load the environment variables:
 
 ```bash
-npm install dotenv@6.0.0 @okta/jwt-verifier@0.0.12
+npm install dotenv@8.2.0 @okta/jwt-verifier@2.1.0
 ```
 
 Now create a file named `auth.js` that will export the middleware:
@@ -420,7 +414,7 @@ module.exports = async (req, res, next) => {
     const [authType, token] = authorization.trim().split(' ')
     if (authType !== 'Bearer') throw new Error('Expected a Bearer token')
 
-    const { claims } = await oktaJwtVerifier.verifyAccessToken(token)
+    const { claims } = await oktaJwtVerifier.verifyAccessToken(token, 'api://default')
     if (!claims.scp.includes(process.env.SCOPE)) {
       throw new Error('Could not verify the proper scope')
     }
@@ -431,7 +425,7 @@ module.exports = async (req, res, next) => {
 }
 ```
 
-This function first checks that the `authorization` header is on the request and throws an error otherwise. If it exists, it should look like `Bearer {token}` where `{token}` is a [JWT](https://www.jsonwebtoken.io/) string. This will throw another error if the header doesn't start with `Bearer `. Then we send the token to [Okta's JWT Verifier](https://github.com/okta/okta-oidc-js/tree/master/packages/jwt-verifier) to validate the token. If the token is invalid, the JWT verifier will throw an error. Otherwise, it will return an object with some information. You can then verify that the claims include the scope that you're expecting.
+This function first checks that the `authorization` header is on the request and throws an error otherwise. If it exists, it should look like `Bearer {token}` where `{token}` is a [JWT](https://www.jsonwebtoken.io/) string. This will throw another error if the header doesn't start with `Bearer `. Then we send the token to [Okta's JWT Verifier](https://github.com/okta/okta-oidc-js/tree/master/packages/jwt-verifier) to validate the token. If the token or audience is invalid, the JWT verifier will throw an error. Otherwise, it will return an object with some information. You can then verify that the claims include the scope that you're expecting.
 
 If everything is successful, it calls the `next()` function without any parameters, which tells Express that it's OK to move on to the next function in the chain (either another middleware or the final endpoint). If you pass a string into the `next` function, Express treats it as an error that will be passed back to the client, and will not proceed in the chain.
 
@@ -466,100 +460,95 @@ $ npm test && node .
 
 1. An authorization header is required
 
-```bash
-$ curl localhost:3000/parts
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<title>Error</title>
-</head>
-<body>
-<pre>You must send an Authorization header</pre>
-</body>
-</html>
-```
+        $ curl localhost:3000/parts
+        
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+        <meta charset="utf-8">
+        <title>Error</title>
+        </head>
+        <body>
+        <pre>You must send an Authorization header</pre>
+        </body>
+        </html>
 
 2. A Bearer token is required in the authorization header
 
-```bash
-$ curl localhost:3000/parts -H 'Authorization: Basic asdf:1234'
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<title>Error</title>
-</head>
-<body>
-<pre>Expected a Bearer token</pre>
-</body>
-</html>
-```
+        $ curl localhost:3000/parts -H 'Authorization: Basic asdf:1234'
+        
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+        <meta charset="utf-8">
+        <title>Error</title>
+        </head>
+        <body>
+        <pre>Expected a Bearer token</pre>
+        </body>
+        </html>
 
 3. The Bearer token is valid
 
-```bash
-$ curl localhost:3000/parts -H 'Authorization: Bearer asdf'
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<title>Error</title>
-</head>
-<body>
-<pre>Jwt cannot be parsed</pre>
-</body>
-</html>
-```
+        $ curl localhost:3000/parts -H 'Authorization: Bearer asdf'
+        
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+        <meta charset="utf-8">
+        <title>Error</title>
+        </head>
+        <body>
+        <pre>Jwt cannot be parsed</pre>
+        </body>
+        </html>
 
 ### Create a Test Client in Node
 
 You have now disabled access to the app for someone without a valid token, but how do you get a token and use it? I'll show you how to write a simple client in Node, which will also help you test that a valid token works.
 
 ```bash
-npm install btoa@1.2.1 request-promise@4.2.2
+npm install axios@0.21.1
 ```
 
 **client.js**
 ```javascript
 require('dotenv').config()
-const request = require('request-promise')
-const btoa = require('btoa')
+const axios = require('axios')
 
 const { ISSUER, CLIENT_ID, CLIENT_SECRET, SCOPE } = process.env
 
-const [,, uri, method, body] = process.argv
-if (!uri) {
+const [,, url, method, body] = process.argv
+if (!url) {
   console.log('Usage: node client {url} [{method}] [{jsonData}]')
   process.exit(1)
 }
 
 const sendAPIRequest = async () => {
-  const token = btoa(`${CLIENT_ID}:${CLIENT_SECRET}`)
   try {
-    const auth = await request({
-      uri: `${ISSUER}/v1/token`,
-      json: true,
-      method: 'POST',
-      headers: {
-        authorization: `Basic ${token}`
+    const auth = await axios({
+      url: `${ISSUER}/v1/token`,
+      method: 'post',
+      auth: {
+        username: CLIENT_ID,
+        password: CLIENT_SECRET
       },
-      form: {
+      params: {
         grant_type: 'client_credentials',
         scope: SCOPE
       }
     })
 
-    const response = await request({
-      uri,
-      method,
-      body,
+    const response = await axios({
+      url,
+      method: method ?? 'get',
+      data: (body) ? JSON.parse(body) : null,
       headers: {
-        authorization: `${auth.token_type} ${auth.access_token}`
+        authorization: `${auth.data.token_type} ${auth.data.access_token}`
       }
     })
 
-    console.log(response)
+    console.log(response.data)
   } catch (error) {
     console.log(`Error: ${error.message}`)
   }
@@ -582,8 +571,8 @@ Next, since this will be run from the command line, you can use `process` again 
 The URL is required, which would include the endpoint, but the method and JSON data are optional. The default method is `GET`, so if you're just fetching data you can leave that out. You also wouldn't need any payload in that case. If the arguments don't seem right, then this will exit the program with an error message and an exit code of `1`, signifying an error.
 
 ```javascript
-const [,, uri, method, body] = process.argv
-if (!uri) {
+const [,, url, method, body] = process.argv
+if (!url) {
   console.log('Usage: node client {url} [{method}] [{jsonData}]')
   process.exit(1)
 }
@@ -612,15 +601,14 @@ Basic authorization isn't inherently secure because it's so easy to decode, whic
 For OAuth 2.0, you also need to specify the grant type, which in this case is `client_credentials` since you're planning to talk between two machines. You also need to specify the scope. There are a lot of other options that could be added here, but this is all we need for this demo.
 
 ```javascript
-const token = btoa(`${CLIENT_ID}:${CLIENT_SECRET}`)
-const auth = await request({
-  uri: `${ISSUER}/v1/token`,
-  json: true,
-  method: 'POST',
-  headers: {
-    authorization: `Basic ${token}`
+const auth = await axios({
+  url: `${ISSUER}/v1/token`,
+  method: 'post',
+  auth: {
+    username: CLIENT_ID,
+    password: CLIENT_SECRET
   },
-  form: {
+  params: {
     grant_type: 'client_credentials',
     scope: SCOPE
   }
@@ -632,12 +620,12 @@ Once you're authenticated, you'll get an access token that you can send along to
 The response from the REST API is then printed to the screen.
 
 ```javascript
-const response = await request({
-  uri,
-  method,
-  body,
+const response = await axios({
+  url,
+  method: method ?? 'get',
+  data: (body) ? JSON.parse(body) : null,
   headers: {
-    authorization: `${auth.token_type} ${auth.access_token}`
+    authorization: `${auth.data.token_type} ${auth.data.access_token}`
   }
 })
 
@@ -647,7 +635,7 @@ console.log(response)
 Go ahead and test it out now. Again, start the app with `npm test && node .`, then try out some commands like the following:
 
 ```bash
-$ node client http://localhost:3000/parts | json
+$ node client http://localhost:3000/parts
 [
   {
     "id": 1,
@@ -665,7 +653,7 @@ $ node client http://localhost:3000/parts post '{
   "modelNumber": 1,
   "name": "Banana Bread",
   "description": "Bread made from bananas"
-}' | json
+}'
 {
   "id": 2,
   "partNumber": "ban-bd",
@@ -676,7 +664,7 @@ $ node client http://localhost:3000/parts post '{
   "createdAt": "2018-08-17T00:23:23.341Z"
 }
 
-$ node client http://localhost:3000/parts | json
+$ node client http://localhost:3000/parts
 [
   {
     "id": 1,
@@ -698,10 +686,10 @@ $ node client http://localhost:3000/parts | json
   }
 ]
 
-$ node client http://localhost:3000/parts/1 delete | json
+$ node client http://localhost:3000/parts/1 delete 
 {}
 
-$ node client http://localhost:3000/parts | json
+$ node client http://localhost:3000/parts
 [
   {
     "id": 2,
