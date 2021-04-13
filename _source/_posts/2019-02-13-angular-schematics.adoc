@@ -60,19 +60,15 @@ ng add @oktadev/schematics
 
 TIP: Make sure you are in an Angular project directory before you run this command. Also, make sure your project is checked into source control before you run it.
 
-This will prompt you for an OIDC issuer and client ID. To get those values, https://developer.okta.com/signup/[create an Okta Developer account].
+This will prompt you for an OIDC issuer and client ID.
 
-image::{% asset_path 'blog/angular-schematics/signup.png' %}[alt=Sign Up for a Developer Account,width=500,align=center]
+{% include setup/cli.md type="spa" framework="Angular" loginRedirectUri="http://localhost:4200/callback" %}
 
-Once you've verified your email, log in to your account, and navigate to **Applications** > **Add Application**, select **Single-Page App**, and click **Next**. Give your app a name you'll remember, change port `8080` to `4200` in the base and redirect URIs, and click **Done**. Your settings should look similar to the screenshot below.
-
-image::{% asset_path 'blog/angular-schematics/oidc-app-settings.png' %}[alt=OIDC App Settings,width=700,align=center]
-
-Copy the **Client ID** from this screen and save it in a temporary file. Click on **Dashboard** and you'll find an **Org URL** in the top right corner. Copy this value into the file as well. If you haven't run the `ng add @oktadev/schematics` command, do it now. For the issuer URL, use your Org URL + `/oauth2/default`. You can see a screenshot of my values and the process below.
+If you haven't run the `ng add @oktadev/schematics` command, do it now. For the issuer URL and client ID, use the values from the app you just created. You can see a screenshot of my values and the process below.
 
 image::{% asset_path 'blog/angular-schematics/ng-add-@oktadev-schematics.png' %}[alt="ng add @oktadev/schematics",width=800,align=center]
 
-Now you can run your app with `ng serve`, navigate to `http://localhost:4200`, and you'll see a login button at the bottom. Click on it to authenticate with Okta. When you're redirected back to your app, it'll be replaced with logout button.
+Now you can run your app with `ng serve`, navigate to `\http://localhost:4200`, and you'll see a login button at the bottom. Click on it to authenticate with Okta. When you're redirected back to your app, it'll be replaced with logout button.
 
 image::{% asset_path 'blog/angular-schematics/login-with-arrow.png' %}[alt="Login button",width=800,align=center]
 

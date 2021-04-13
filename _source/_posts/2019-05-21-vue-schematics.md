@@ -359,13 +359,11 @@ While that process completes, create an OIDC app on Okta.
 
 ### Create an OpenID Connect App on Okta
 
-Log in to your Okta Developer account (or https://developer.okta.com/signup/[sign up] if you don't have an account) and navigate to **Applications** > **Add Application**. Click **Single-Page App**, click **Next**, and give the app a name you'll remember, and click **Done**.
+Go back to the terminal window where you created the `vb` app. Navigate into your app's directory.
 
-The next screen should look similar to the following:
+{% include setup/cli.md type="spa" framework="Vue" loginRedirectUri="http://localhost:8080/callback" %}
 
-{% img blog/vue-schematics/okta-oidc-settings.png alt:"Okta OIDC Settings" width:"700" %}{: .center-image }
-
-Go back to the terminal window where you created the `vb` app. Navigate into the directory and run the app to make sure it starts on port 8080. 
+Run the app to make sure it starts on port 8080. 
 
 ```shell
 cd vb
@@ -377,11 +375,11 @@ npm run serve
 Stop the process (Ctrl+C) and add OIDC authentication to your app with the following commands:
 
 ```shell
-npm i @oktadev/schematics@0.7.2
+npm i -D @oktadev/schematics@3.4.1
 schematics @oktadev/schematics:add-auth
 ```
 
-When prompted, enter your issuer (it can be found in Okta's dashboard under **API** > **Authorization Servers**) and client ID. When the installation completes, run `npm run serve` and marvel at your Vue app with authentication!
+When prompted, enter your issuer and client ID from the app you just created. When the installation completes, run `npm run serve` and marvel at your Vue app with authentication!
 
 {% img blog/vue-schematics/vue-with-authentication.png alt:"Vue with Authentication" width:"700" %}{: .center-image }
 

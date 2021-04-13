@@ -32,13 +32,11 @@ Why Okta? Because friends don't let friends write authentication! Okta has Authe
 
 ### Create an OIDC App on Okta
 
-Log in to your Okta Developer account (or [sign up](https://developer.okta.com/signup/) if you don't have an account) and navigate to **Applications** > **Add Application**. Click **Single-Page App** and click **Next**. Give the app a name you'll remember, change the port from `8080` to `3000`, and click **Done**.
+Go back to the terminal window where you created the `rs` app. Navigate into the `rs directory.
 
-The next screen should look similar to the following:
+{% include setup/cli.md type="spa" framework="React" loginRedirectUri="http://localhost:3000/callback" %}
 
-{% img "blog/react-schematics/app-settings.png" alt:"Okta OIDC App Settings" width:"700" %}{: .center-image }
-
-Go back to the terminal window where you created the `rs` app. Navigate into the directory and run the app to make sure it starts on port 3000. 
+Run the app to make sure it starts on port 3000. 
 
 ```shell
 cd rs
@@ -48,7 +46,7 @@ npm start
 Stop the process (Ctrl+C) and add OIDC authentication to your app with the following commands:
 
 ```shell
-npm i @oktadev/schematics
+npm i -D @oktadev/schematics@3.4.1
 schematics @oktadev/schematics:add-auth
 ```
 
