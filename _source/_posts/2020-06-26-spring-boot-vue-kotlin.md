@@ -420,7 +420,7 @@ Next, replace `{yourClientId}` with the Client ID from the OIDC app you just cre
 
 The Okta Vue authentication plugin injects an `authClient` object into your Vue instance which can be accessed by calling `this.$auth` anywhere inside this instance.
 
-There are only two routes. The home route is the todo app itself. The `meta: { requiresAuth: true } }` property turns on authentication for that route.
+There are only two routes. The home route is the todo app itself. The `meta: { requiresAuth: true }` property turns on authentication for that route.
 
 The other route, `/callback`, is the OAuth 2.0 callback route that handles a successful authentication from the Okta servers.
 
