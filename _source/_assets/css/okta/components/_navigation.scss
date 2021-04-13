@@ -112,6 +112,11 @@
       width: 20px;
       height: 20px;
 
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+
       svg path {
         fill: get-color('white');
       }

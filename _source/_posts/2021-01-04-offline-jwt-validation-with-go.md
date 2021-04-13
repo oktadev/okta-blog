@@ -43,10 +43,17 @@ go get github.com/dgrijalva/jwt-go
 
 A file called `go.mod` containing these dependencies will be created by the `go get` command.
 
-To use Okta authentication, you need to have a free [Okta Developer account] (https://developer.okta.com). Once you've done this, sign in to the developer console and select **Applications** > **Add Application**. Then select **Single-Page App** and hit **Next**. The next page is filled in with default values, most of which are sufficient for this application and don't need to be changed. *Important*: Add the URL `http://localhost:8080` to the allowed redirect URLs. Hit **Done**. 
+{% include setup/cli.md type="spa" loginRedirectUri="http://localhost:8080" %}
 
-There are two pieces of information that you need to obtain from the Okta Developer Console. These are your Okta domain name (e.g. `dev-12345.okta.com`) and your client id (e.g. `0ab1c2defg3AB4Chi567`).
+Next, create environment variables for the domain, issuer URI, and client ID, replacing the placeholders with your actual values:
 
+```bash
+export OKTA_DOMAIN=https://dev-123456.okta.com
+export OKTA_ISSUER_URI=https://dev-123456.okta.com/oauth2/default
+export OKTA_CLIENT_ID=0...5d
+```
+
+**PS:** The redirect and logout URIs are for local testing. In a production environment a new application needs to be created using the actual domain names.
 
 ## How to Build a Web Client in Go with Okta Authentication
 
@@ -180,7 +187,7 @@ So, what does this code do? The messages are stored in a slice of strings called
 
 The `Messages()` function extracts the message from the POST form data and appends it to the list of messages. It then returns the list of messages back to the requester as a JSON object.
 
-Now, we can test the application by running the server and pointing a web browser at http://localhost:8080.
+Now, we can test the application by running the server and pointing a web browser at `http://localhost:8080`.
 
 ```bash
 go run main.go
@@ -391,7 +398,7 @@ We can now test end to end. Start by  running the server:
 go run main.go
 ```
 
-Next, point a web browser at http://localhost:8080.
+Next, point a web browser at `http://localhost:8080`.
 
 Enter a message and hit the submit button. You should get an authorization error.
 
