@@ -367,8 +367,6 @@ Try it out! You can edit existing todos, delete them, and create new ones.
 
 {% include setup/cli.md type="spa" framework="Vue" loginRedirectUri="http://localhost:8080/callback" %}
 
-{% img blog/spring-boot-vue/oidc-app-settings.png alt:"Okta OIDC application settings" width:"700" %}{: .center-image }
-
 ## Add Authentication to Vue
 
 To configure Vue.js to use Okta as an OAuth 2.0 and OIDC provider, you're going to use the `okta-vue` module. This greatly simplifies integrating Okta authentication into your client application. You can take a look at [the project GitHub page](https://github.com/okta/okta-vue) for more info.
