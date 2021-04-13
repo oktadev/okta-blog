@@ -226,7 +226,7 @@ You'll be redirected to Okta and likely see the following error:
 The 'redirect_uri' parameter must be an absolute URI that is whitelisted in the client app settings.
 ```
 
-To fix this, you'll need to modify your Okta app to add your Heroku URL as a **Login redirect URI**. For example, `https://gentle-peak-37809.herokuapp.com/callback`.
+To fix this, you'll need to modify your Okta app to add your Heroku URL as a **Login redirect URI**. For example, `https://gentle-peak-37809.herokuapp.com/callback`. Run `okta login` and open the resulting URL in your browser. Sign in to the Okta Admin Console and edit your app's general settings in the **Applications** section. 
 
 You should now be able to log in and see your app running on Heroku! You can verify its security headers are A-OK on <https://securityheaders.com>.
 
