@@ -35,8 +35,8 @@ Download and install [SQL Server Developer Edition](https://www.microsoft.com/en
 
 ### Install SQL Server on Mac or Linux
 
-1. Install [Docker](https://docs.docker.com/docker-for-mac/install/)
-21. Run the following in a terminal. This will download the latest version of SQL Server 2017 for Linux and create a new container named `sqlserver`. 
+1. Install [Docker](https://docs.docker.com/docker-for-mac/install/).
+2. Run the following in a terminal. This will download the latest version of SQL Server 2017 for Linux and create a new container named `sqlserver`. 
 
 ```bash
 docker pull microsoft/mssql-server-linux:2017-latest
@@ -690,39 +690,22 @@ Now navigate your browser to `http://localhost:8080/api/events`. If everything i
 
 Let's get some real users in the application! Manually building authentication and user profile management for any application is no trivial task. And, getting it wrong can have disastrous results. Okta to the rescue!
 
-To complete this step, you'll need an Okta developer account. Go to the [Okta Developer Portal](https://developer.okta.com/) and sign up for a forever free Okta account.
+{% include setup/cli.md type="web" loginRedirectUri="http://localhost:8080/authorization-code/callback" %}
 
-{% img blog/node-sql-server/okta-01-sign-up.jpg alt:"Okta Sign Up" width:"800" %}{: .center-image }
+Copy your Okta values into the `.env` file to replace the `{...}` placeholders.
 
-After creating your account, click the **Applications** link at the top, and then click **Add Application**.
+```
+OKTA_ORG_URL=https://{yourOktaDomain}
+OKTA_CLIENT_ID={yourClientId}
+OKTA_CLIENT_SECRET={yourClientSecret}
+```
 
-{% img blog/node-sql-server/okta-02-add-app.jpg alt:"Add Application" width:"800" %}{: .center-image }
+Next, enable self-service registration. This will allow new users to create their own account. Run `okta login` to get the URL for your Okta org. Open the result in your favorite browser and log in to the Okta Admin Console.
 
-Next, choose a **Web Application** and click **Next**.
-
-{% img blog/node-sql-server/okta-03-create-web-app.jpg alt:"Add Web Application" width:"800" %}{: .center-image }
-
-Enter a name for your application, such as **Node-SQL**. Then, click **Done** to finish creating the application.
-
-{% img blog/node-sql-server/okta-04-app-settings.jpg alt:"Application Settings" width:"800" %}{: .center-image }
-
-Near the bottom of the application page you will find a section titled **Client Credentials**. Copy the Client ID and Client secret values and paste them into your `.env` file to replace `{yourClientId}` and `{yourClientSecret}`, respectively.
-
-{% img blog/node-sql-server/okta-05-client-credentials.jpg alt:"Client Credentials" width:"800" %}{: .center-image }
-
-Click on the **Dashboard** link. On the right side of the page, you should find your Org URL. Copy this value into your `.env` file to replace the value for `OKTA_ORG_URL`.
-
-{% img blog/node-sql-server/okta-06-org-url.jpg alt:"Your org URL" width:"800" %}{: .center-image }
-
-Next, enable self-service registration. This will allow new users to create their own account. Click on the **Users** menu and select **Registration**.
-
-{% img blog/node-sql-server/okta-07-users-registration.jpg alt:"User registration" width:"800" %}{: .center-image }
-
-1. Click on the **Edit** button.
-1. Change Self-service registration to Enabled.
-1. Click the **Save** button at the bottom of the form.
-
-{% img blog/node-sql-server/okta-08-enable-self-service-registration.jpg alt:"Enable self-service registration" width:"800" %}{: .center-image }
+1. Click on the **Directory** menu and select **Self-Service Registration**.
+2. Click on the **Enable Registration** button.
+3. If you don't see this button, click **Edit** and change **Self-service registration** to *Enabled*.
+4. Click the **Save** button at the bottom of the form.
 
 ## Build a UI with Embedded JavaScript and Vue.js
 
@@ -1207,7 +1190,7 @@ module.exports.register = async server => {
 First, install dependencies for Vue.js and other packages used for the UI.
 
 ```bash
-npm install axios@0.18 luxon@1 materialize-css@1 moment@2 vue@2 vue-datetime@latest weekstart@1
+npm install axios@0.21.1 luxon@1 materialize-css@1 moment@2 vue@2 vue-datetime@latest weekstart@1
 ```
 
 Create a new folder at the root of the project named `client`. In this folder, add a new file named `index.js`. Add the following code to this file.
