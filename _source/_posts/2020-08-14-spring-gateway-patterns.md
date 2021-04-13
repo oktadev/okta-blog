@@ -507,9 +507,9 @@ public class CartServiceApplication {
 
 }
 ```
-Rename `src/main/resources/application.propeties` to `application.yml` and add the following values:
+Rename `src/main/resources/application.properties` to `application.yml` and add the following values:
 
-```yml
+```yaml
 server:
   port: 8081
 
@@ -868,8 +868,6 @@ Now we are going to configure `cart-service` to use the client credentials grant
 
 {% include setup/cli.md type="service" %}
 
-Copy the new client ID, and client secret.
-
 Create a custom scope to restrict what the `cart-service` accessToken can access. In the Okta Admin Console, go to **Security** > **API** > **Authorization Servers**. Edit the `default` authorization server by clicking on the edit pencil, then click **Scopes** > **Add Scope**. Fill out the name field with `pricing` and press **Create**.
 
 We need to configure the OAuth 2.0 client in the `cart-service` application, for calling the `pricing-service`. `OAuth2RestTemplate` is not available in Spring Security 5.3.x. According to Spring Security OAuth [migration guides](https://github.com/spring-projects/spring-security/wiki/OAuth-2.0-Migration-Guide), the way to do this is by using RestTemplate interceptors or WebClient exchange filter functions. Since Spring 5, `RestTemplate` is in [maintenance mode](https://docs.spring.io/spring/docs/5.2.7.RELEASE/javadoc-api/org/springframework/web/client/RestTemplate.html), using WebClient (which supports sync, async, and streaming scenarios) is the suggested approach. So let's configure a `WebClient` for the pricing call.
@@ -934,7 +932,9 @@ public class WebClientConfig {
 
 In the code above, we set a custom json decoder, from the `objectMapper` that includes the `MoneyModule`, so the monetary amounts are correctly serialized and deserialized. Also, we set  `pricing-client` as the default OAuth 2.0 `registrationId`. For service discovery, a [`ReactorLoadBalancerExchangeFilterFunction`](https://cloud.spring.io/spring-cloud-commons/reference/html/#webflux-with-reactive-loadbalancer) must be added to the `WebClient`. 
 
-Let's now configure the OAuth 2.0 client registration. Edit the cart-service `application.yml` and add security.oauth2 properties. The `cart-service` is a resource server and an OAuth 2.0 client at the same time. The final configuration must be:
+Let's now configure the OAuth 2.0 client registration. Edit the cart-service `application.yml` and add `security.oauth2` properties. The values for the `{...}` placeholders should be in the `.okta.env` file you generated earlier. 
+
+The `cart-service` is a resource server and an OAuth 2.0 client at the same time. The final configuration must be:
 
 ```yml
 server:
@@ -1064,7 +1064,7 @@ public class PricingService {
 }
 ```
 
-Note that the 'WebClient' is making a synchronous call, as we invoke `response.block()` to get the pricing result. This is the expected approach for non-reactive applications.
+Note that the `WebClient` is making a synchronous call, as we invoke `response.block()` to get the pricing result. This is the expected approach for non-reactive applications.
 
 Modify the `CartController` to request pricing when creating a cart:
 
@@ -1157,7 +1157,7 @@ Take a look at the **System Log** in the Okta Admin Console and you will see an 
 
 ## Learn More About Building Secure Applications
 
-In this tutorial, you learned how to create an API Gateway with Spring Cloud Gateway, and how to configure three common OAuth2 patterns (1. code flow, 2. token relay, and 3. client credentials grant) using Okta Spring Boot Starter and Spring Security. You can find [all the code on GitHub](https://github.com/oktadeveloper/okta-spring-cloud-gateway-example).
+In this tutorial, you learned how to create an API Gateway with Spring Cloud Gateway, and how to configure three common OAuth 2.0 patterns (1. code flow, 2. token relay, and 3. client credentials grant) using Okta Spring Boot Starter and Spring Security. You can find [all the code on GitHub](https://github.com/oktadeveloper/okta-spring-cloud-gateway-example).
 
 To continue learning about Spring Cloud Gateway features and OAuth 2.0 authorization patterns, check also the following links:
 
