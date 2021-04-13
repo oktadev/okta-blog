@@ -145,73 +145,26 @@ To describe how to setup a new application on Okta, please use the [`cli.md`](_s
 
 These will render instructions using the [Okta CLI](https://cli.okta.com) (or [Okta Maven Plugin](https://github.com/oktadeveloper/okta-maven-plugin)) and link to instructions for the Admin Console. Screenshots are discouraged because they're hard to keep up-to-date.
 
-Below are some examples:
-
-Angular:
+The basic syntax for using the Okta CLI to set up an app is:
 
 ```md
-{% include setup/cli.md type="spa" framework="Angular" loginRedirectUri="http://localhost:4200/callback" %}
+{% include setup/cli.md type="spa" loginRedirectUri="http://localhost:8080/callback" %}
 ```
 
-React:
+Supported values for `type`: spa, web, native, service, token, and jhipster
 
-```md
-{% include setup/cli.md type="spa" framework="React" loginRedirectUri="http://localhost:3000/callback" %}
-```
+Other parameters you can pass in:
 
-Vue with signup disabled:
+|Parameter |Possible values  |
+--- | --- |
+|`framework`|Angular, React, Vue, Okta Spring Boot Starter, Spring Boot, Quarkus, ASP.NET Core|
+|`loginRedirectUri`|Prints whatever you set, can be comma-delimited, or use an array for multiple values `[url1, url2]`|
+|`logoutRedirectUri`|Prints whatever you set, or defaults if not set|
+|`signup`|`false` reduces opening paragraph to one sentence|
+|`note`|Prints whatever you set. See .NET example below|
+|`install`|`false` removes 'Install the Okta CLI' sentence|
 
-```md
-{% include setup/cli.md type="spa" loginRedirectUri="http://localhost:8080/callback" signup="false" %}
-```
-
-See the top of [`cli.md`](_source/_includes/setup/cli.md) to see the logic behind `signup="false"`.
-
-Native with Ionic:
-
-```md
-{% include setup/cli.md type="native" loginRedirectUri="http://localhost:8100/callback" logoutRedirectUri="http://localhost:8100/logout" %}
-```
-
-In this case, the `cli.md` template creates multiple redirect URIs. To only return reversed-domain-name URIs, don't pass in any redirect URIs.
-
-Okta Spring Boot Starter with custom redirects:
-
-```md
-{% include setup/cli.md type="web" framework="Okta Spring Boot Starter"
-   loginRedirectUri="[http://localhost:8001/login/oauth2/code/okta,http://localhost:8002/login/oauth2/code/okta]"
-   logoutRedirectUri="[http://localhost:8001,http://localhost:8002]" %}
-```
-
-.NET with inline note:
-
-```md
-{% capture note %}
-> Note that the TCP port 5001 must be the same used by the application. You can see it in the messages displayed in the terminal when you start the application with **`dotnet run`**.
-{% endcapture %}
-{% include setup/cli.md type="web" note=note framework="ASP.NET Core"
-   loginRedirectUri="http://localhost:5001/authorization-code/callback" 
-   logoutRedirectUri="http://localhost:5001/signout/callback" %}
-```
-
-Service:
-
-```md
-{% include setup/cli.md type="service" %}
-```
-
-<!-- Example code is from the following posts. 
-
-- .NET: http://localhost:4000/blog/2020/09/02/10x-development-azure-cli-dotnet
-- JHipster: http://localhost:4000/blog/2020/12/14/spring-session-redis
-- Native with Ionic: http://localhost:4000/blog/2020/09/21/ionic-apple-google-signin
-- Okta Spring Boot Starter: http://localhost:4000/blog/2020/12/07/spring-cloud-config
-- Angular: http://localhost:4000/blog/2019/02/12/secure-angular-login
-- React: http://localhost:4000/blog/2020/12/16/react-login
-- Vue: http://localhost:4000/blog/2020/05/15/vue-login
-- Service: http://localhost:4000/blog/2019/03/08/simple-rest-api-php
-
--->
+See [How to Create an OIDC App on Okta](https://developer.okta.com/blog/setup) for this feature's documentation.
 
 ### Blog Markdown Conventions
 

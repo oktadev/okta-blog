@@ -11,7 +11,7 @@ tweets:
 - "Get up to speed on using #csharp9 and #csharp8 in this post"
 - "Wondering how C# 9 stacks up after C#8? We've got you covered with this cheat sheet!"
 image: blog/featured/okta-dotnet-books-quarter.jpg
-type: conversion
+type: awareness
 ---
 
 ## Introduction to C# 9 (and a bit of C# 8, too)

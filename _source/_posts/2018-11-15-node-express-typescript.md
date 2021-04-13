@@ -443,21 +443,9 @@ You will use the `.env` for much more configuration information as the project g
 
 ## Easily Add Authentication to Node and Express
 
-Adding user registration and login (authentication) to any application is not a trivial task. The good news is Okta makes this step very easy. To begin, create a free developer account with Okta. First, navigate to [developer.okta.com](https://developer.okta.com/) and click the **Create Free Account** button, or click the [Sign Up](https://developer.okta.com/signup/) button.
+Adding user registration and login (authentication) to any application is not a trivial task. The good news is Okta makes this step very easy. 
 
-{% img blog/node-express-typescript/add-application-00.jpg alt:"Sign up for free account" width:"800" %}{: .center-image }
-
-After creating your account, click the **Applications** link at the top, and then click **Add Application**.
-
-{% img blog/node-express-typescript/add-application-01.jpg alt:"Create application" width:"500" %}{: .center-image }
-
-Next, choose a **Web Application** and click **Next**.
-
-{% img blog/node-express-typescript/add-application-02.jpg alt:"Create a web application" width:"800" %}{: .center-image }
-
-Enter a name for your application, such as *Guitar Inventory*. Verify the port number is the same as configured for your local web application. Then, click **Done** to finish creating the application.
-
-{% img blog/node-express-typescript/add-application-03.jpg alt:"Application settings" width:"800" %}{: .center-image }
+{% include setup/cli.md type="web" loginRedirectUri="http://localhost:8080/authorization-code/callback" %}
 
 Copy and paste the following code into your `.env` file.
 
@@ -468,22 +456,14 @@ OKTA_CLIENT_ID={yourClientId}
 OKTA_CLIENT_SECRET={yourClientSecret}
 ```
 
-In the Okta application console, click on your new application's **General** tab, and find near the bottom of the page a section titled "Client Credentials." Copy the **Client ID** and **Client secret** values and paste them into your `.env` file to replace `{yourClientId}` and `{yourClientSecret}`, respectively.
-
-{% img blog/node-express-typescript/add-application-04.jpg alt:"Client credentials" width:"800" %}{: .center-image }
-
-
 ### Enable self-service registration
 
-One of the great features of Okta is allowing users of your application to sign up for an account. By default, this feature is disabled, but you can easily enable it. First, click on the **Users** menu and select **Registration**.
+One of the great features of Okta is allowing users of your application to sign up for an account. By default, this feature is disabled, but you can easily enable it. Run `okta login` to get the URL for your Okta org. Open the result in your favorite browser and log in to the Okta Admin Console.
 
-{% img blog/node-express-typescript/self-service-registration-01.jpg alt:"User registration" width:"500" %}{: .center-image }
-
-1. Click on the **Edit** button.
-2. Change **Self-service registration** to *Enabled*.
-3. Click the **Save** button at the bottom of the form.
-
-{% img blog/node-express-typescript/self-service-registration-02.jpg alt:"Enable self-registration" width:"800" %}{: .center-image }
+1. Click on the **Directory** menu and select **Self-Service Registration**
+2. Click on the **Enable Registration** button.
+3. If you don't see this button, click **Edit** and change **Self-service registration** to *Enabled*.
+4. Click the **Save** button at the bottom of the form.
 
 ### Secure your Node.js application
 
