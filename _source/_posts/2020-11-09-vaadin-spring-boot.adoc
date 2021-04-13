@@ -109,23 +109,10 @@ Make sure your IDE imports the dependencies, or re-run `mvn`.
 
 === Register an OpenID Connect Application
 
-Create a free Okta developer account on https://developer.okta.com/signup[developer.okta.com] if you don't already have one.
+{% include setup/cli.md type="spa" adoc="true"
+   loginRedirectUri="http://localhost:8080/callback" %}
 
-Once logged in, go to **Applications** > **Add Application** and select **Single-Page App**.
-
-image::{% asset_path 'blog/vaadin-spring-boot/select-spa.png' %}[alt=Select Single-Page App,width=800,align=center]
-
-Configure the app settings and click **Done** to create the app:
-
-image::{% asset_path 'blog/vaadin-spring-boot/spa-settings.png' %}[alt=Single-Page App Settings,width=800,align=center]
-
-- **Name**: Vaadin Fusion
-- **Base URIs**: `http://localhost:8080`
-- **Login redirect URIs**: `http://localhost:8080/callback`
-- **Logout redirect URIs**: `http://localhost:8080`
-- **Grant type allowed**: Authorization Code
-
-Store the issuer in `src/main/resources/application.properties` by adding the following property:
+You only need the issuer in `src/main/resources/application.properties`; you can delete the client ID and secret for tighter security.
 
 [source,properties]
 ----
