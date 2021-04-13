@@ -32,7 +32,7 @@ NOTE: https://github.com/oktadeveloper/schematics[OktaDev Schematics] was used i
 
 == Create an Express App and Add Login in 5 Steps
 
-Create a new project with https://expressjs.com/en/starter/generator.html[express-generator] and pug for the view.
+**Step 1**: Create a new project with https://expressjs.com/en/starter/generator.html[express-generator] and pug for the view.
 
 [source,shell]
 ----
@@ -41,18 +41,16 @@ cd express-app
 npx express-generator --view=pug
 ----
 
-{% include setup/cli.md type="web" adoc="true"
-   loginRedirectUri="http://localhost:3000/callback"
-   logoutRedirectUri="http://localhost:3000" %}
+**Step 2**: {% include setup/cli.md type="web" list="true" loginRedirectUri="http://localhost:3000/callback" logoutRedirectUri="http://localhost:3000" %}
 
-Install Schematics CLI:
+**Step 3**: Install Schematics CLI:
 
 [source,shell]
 ----
 npm install -g @angular-devkit/schematics-cli
 ----
 
-Install and run OktaDev Schematics with your Okta values for `$issuer`, `$clientId`, and `$clientSecret`:
+**Step 4**: Install and run OktaDev Schematics with your Okta values for `$issuer`, `$clientId`, and `$clientSecret`:
 
 [source,shell]
 ----
@@ -62,7 +60,7 @@ schematics @oktadev/schematics:add-auth --issuer=$issuer --clientId=$clientId --
 
 CAUTION: An `.env` file will be generated with your client secret in it. Make sure to add `*.env` to `.gitignore` and don't check it into source control!
 
-Start your app and authenticate with Okta! 🚀
+**Step 5**: Start your app and authenticate with Okta! 🚀
 
 [source,shell]
 ----
