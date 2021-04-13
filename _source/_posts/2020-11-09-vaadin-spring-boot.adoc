@@ -112,7 +112,7 @@ Make sure your IDE imports the dependencies, or re-run `mvn`.
 {% include setup/cli.md type="spa" adoc="true"
    loginRedirectUri="http://localhost:8080/callback" %}
 
-Store the issuer in `src/main/resources/application.properties` by adding the following property:
+You only need the issuer in `src/main/resources/application.properties`; you can delete the client ID and secret for tighter security.
 
 [source,properties]
 ----
