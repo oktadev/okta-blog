@@ -13,7 +13,7 @@ tweets:
 image: blog/featured/okta-android-skew.jpg
 type: conversion
 changelog:
-  - 2020-12-24: Updated to Okta OIDC for Android v1.0.17. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-oidc-android-example/pull/2). Changes to this article can be viewed in [oktadeveloper/okta-blog#510](https://github.com/oktadeveloper/okta-blog/pull/510).
+- 2020-12-24: Updated to Okta OIDC for Android v1.0.17. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-oidc-android-example/pull/2). Changes to this article can be viewed in [oktadeveloper/okta-blog#510](https://github.com/oktadeveloper/okta-blog/pull/510).
 ---
 :toc: macro
 :page-liquid:
@@ -41,8 +41,7 @@ cd okta-oidc-android-example
 
 == Create Your First Android App
 
-First, you'll need to download and install https://developer.android.com/studio[Android Studio].
-Next, launch the app and navigate  to **File** → **New...** → **New Project...**. Then, create an "Empty Activity" for "Phone and Tablet". You should now see a screen similar to this:
+First, you'll need to download and install https://developer.android.com/studio[Android Studio]. Next, launch the app and navigate  to **File** → **New...** → **New Project...**. Then, create an "Empty Activity" for "Phone and Tablet". You should now see a screen similar to this:
 
 image::{% asset_path 'blog/android-authentication/android-studio-new-project.png' %}[alt=Create new Android Project,width=700,align=center]
 
