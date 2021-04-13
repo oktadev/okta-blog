@@ -76,32 +76,11 @@ All the messages displayed are from the in-memory database. Note that at this st
 Real-world applications often require users to log in to perform some actions or access information. User management and security are much more complicated than they might seem and it can be tough to make them right. If you have done it previously, you know what I'm talking about.
  
 User management shouldn't take much of your time because that problem is solved already, right? In this tutorial, you'll be using Okta's OAuth 2.0 authorization service along with OpenID Connect (OIDC). Okta provides many features for both enterprise and personal project needs - MFA, SAML, groups, policies, social media logins, and many more. We offer solutions for different size companies - from pet projects just for yourself to big enterprises such as FedEx, Box, HubSpot, Experian, and [many others][okta-customers]. Okta helps developers implement secure authentication, handles authorization, and can act as an identity provider with a minimum effort and lines of code.
- 
-If you haven't created an Okta account yet, [sign up][okta-signup] first. It's free, no credit card required.
 
-Login to the Okta admin console. On the top menu select **Applications** → **Add Application**:
+{% include setup/cli.md type="web" 
+   loginRedirectUri="http://localhost:8080/login/authorization-callback"
+   logoutRedirectUri="http://localhost:8080" %}
 
-{% img blog/ktor-kotlin/okta-create-new-web-application.png alt:"Create a new application screen on Okta website" width:"1110" %}{: .center-image }
-
-Then, configure your Okta application. Don't worry, if you want to change anything it's always possible to return to this screen. At the very least, you need to set the following settings:
- 
-* **Name** - give it a meaningful name, for instance, `My Ktor nano Blogging Service`
-* **Base URIs** - put `http://localhost:8080/` there. Multiple URI can be provided; you can add more URIs if needed.
-* **Login redirect URIs** - set it to `http://localhost:8080/login/authorization-callback`. Upon successful login, the user will be redirected to URI provided with tokens in the query.
-* **Logout redirect URIs** - value `http://localhost:8080` allows you to provide a redirect URL on successful logout.
- 
-Click **Done** to finish the initial setup.
- 
-{% img blog/ktor-kotlin/okta-configure-application-for-ktor.png alt:"Configure your Okta application to work with Ktor Auth module" width:"700" %}{: .center-image }
-
-Take note of the following three values. You'll use them in your Ktor application:
- 
-* **Org URL**: Hover over **API** on the top menu bar, and select **Authorization Servers** menu item, copy the value from **Issuer URI**
- 
-* **Client ID** and **Client Secret** as below:
-
-{% img blog/ktor-kotlin/okta-client-id-and-client-secret.png alt:"Take a note of clientId and clientSecret" width:"700" %}{: .center-image }
- 
 ### Configure Ktor's OAuth 2.0 Module
  
 Ktor has an implementation of OAuth Client—it just needs to be configured. It's always good practice to never insert any keys, tokens, or credentials directly into the code. **Even for a demo project.** To inject Okta parameters from environment variables, append a new block in `resources/application.conf`:
@@ -120,18 +99,18 @@ To start your application from IntelliJ IDEA or any other IDE, these environment
 {% img blog/ktor-kotlin/intellj-idea-provide-env-variables-for-okta.png alt:"Take a note of clientId and clientSecret" width:"590" %}{: .center-image }
 
 Then, create a `src/auth-settings.kt` file to contain all Okta-configuration related functions.
- 
-You could also create an `okta.env` file with the following code:
- 
-```shell
+
+You should have an `.okta.env` file with the following code:
+
+```bash
 export OKTA_ORGURL=https://{yourOktaDomain}/oauth2/default
 export OKTA_CLIENT_ID={yourClientId}
 export OKTA_CLIENT_SECRET={yourClientSecret}
 ```
  
-Next, run `source okta.env` before running your app. 
+To set these values as environment variables, run `source .okta.env` before starting your app. 
  
-_If you're on Windows, name the file `okta.bat` and use `SET` instead of `export`._
+_If you're on Windows, rename the file to `okta.bat` and change `export` to `set`._
  
 Add a generic configuration class for Okta services in `src/auth-settings.kt`.
  
@@ -340,17 +319,13 @@ Restart your application and try to logout. Now the application behaves as you'd
  
 ### Manage Users With Okta
 
-The Nano Blogging Service is more fun when different people can log in! You can create additional users from the Okta Developer Console. From the top menu bar, click on **Users**, then **Add Person**. You'll be presented with a dialog to add a new user:
+The Nano Blogging Service is more fun when different people can log in! You can create additional users from the Okta Admin Console. Run `okta login` in a terminal and open the resulting URL in your browser. Sign in and go to **Directory** > **Users** > **Add Person**. 
 
-{% img blog/ktor-kotlin/okta-add-person.png alt:"Add additional accounts to Okta" width:"700" %}{: .center-image }
+You'll be presented with a dialog to add a new user. Fill in the form, set the password, and check user must change password.
 
 ### Enable User Registration
  
-Okta also provides a self-sign up service. You can enable it by heading to the Okta Developer Console, hovering over the **Users** top menu item, and selecting **Registration** from the sub-menu. Okta will show a single button you need to click to activate the feature:
- 
-{% img blog/ktor-kotlin/enable-okta-user-registrations.png alt:"Enable self-signup with Okta" width:"766" %}{: .center-image }
-
-If desired, tune the default options and save.
+Okta also provides a self-sign up service. You can enable it by heading to **Directory** > **Self-Service Registration**. You'll see a single button you need to click to activate the feature. If desired, tune the default options and save.
  
 Then, when you try to sign in to your service, you'll see a **"Sign up"** link:
 
@@ -466,7 +441,7 @@ val ApplicationCall.session: UserSession?
     get() = sessions.get<UserSession>()
 ```
  
-Your application module configures the session handler to keep data in encrypted cookies and enable logging, which is very useful for debugging. Two of the functions - `setupAuth()` and `setupRoutes()`- configure OAuth 2.0 and setup web service routes.
+Your application module configures the session handler to keep data in encrypted cookies and enable logging, which is very useful for debugging. Two of the functions - `setupAuth()` and `setupRoutes()` - configure OAuth 2.0 and setup web service routes.
  
 ### Ktor Service Routes
  
@@ -635,7 +610,7 @@ fun FlowContent.feedPage(title: String, records: List<BlogRecord>, canPostMessag
  
 Congratulations on finishing this tutorial! You built a Kotlin and Ktor-based Nano Blogging Service secured with Auth 2.0.
 
-The source code for this tutorial is available on GitHub in the [oktadeveloper/okta-kotlin-ktor-example repository](project-repository).
+The source code for this tutorial is available on GitHub in the [oktadeveloper/okta-kotlin-ktor-example repository][project-repository].
  
 If you liked this post, you might like these others too:
  
