@@ -6,10 +6,8 @@
 {%- endcapture -%}
 
 {% if include.install != "false" %}
-  {% if include.signup == "false" %}
-Install the {{ cliLink }} and run `okta login`.
-  {% else %}
-Before you begin, you'll need a free Okta developer account. Install the {{ cliLink }} and run `okta register` to sign up for a new account. If you already have an account, run `okta login`.
+  {% if include.signup == "false" %}Install the {{ cliLink }} and run `okta login`.
+  {% else %}Before you begin, you'll need a free Okta developer account. Install the {{ cliLink }} and run `okta register` to sign up for a new account. If you already have an account, run `okta login`.
   {% endif %}
 {% endif %}
 
