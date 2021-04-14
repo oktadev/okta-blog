@@ -466,19 +466,9 @@ You need to run the first command only once to install the `http-server-spa` com
 
 ## Add Authentication to your Angular PWA
 
-A complete application will have to have some user authentication to restrict access to some of the information contained within the application. Okta allows you to implement authentication in a quick, easy, and safe way. In this section I will show you how to implement authentication using the Okta libraries for Angular. If you haven't done so already, register a developer account with Okta.
+A complete application will have to have some user authentication to restrict access to some of the information contained within the application. Okta allows you to implement authentication in a quick, easy, and safe way. In this section I will show you how to implement authentication using the Okta libraries for Angular. 
 
-{% img blog/first-angular-pwa/developer.okta.com.png alt:"developer.okta.com" width:"800" %}{: .center-image }
-
-Open your browser and navigate to [developer.okta.com](https://developer.okta.com/). Click on **Create Free Account**.  On the next screen enter your details and click **Get Started**. You will be taken to your Okta developer dashboard. Each application that uses the Okta authentication service needs to be registered in the dashboard. Click on **Add Application** to create a new application.
-
-{% img blog/first-angular-pwa/okta-applications.png alt:"Okta Applications" width:"800" %}{: .center-image }
-
-The PWA that you are creating falls under the single page application category. Choose **Single Page App** and click **Next**.
-
-{% img blog/first-angular-pwa/new-app.png alt:"New Okta Application" width:"800" %}{: .center-image }
-
-On the next page, you will be shown the settings for the application. You can leave the default settings untouched and click on **Done**. On the following screen you will be presented with a **Client ID**. This is needed in your application.
+{% include setup/cli.md type="spa" framework="Angular" loginRedirectUri="http://localhost:4200/callback" logoutRedirectUri="http://localhost:4200" %}
 
 To add authentication to your PWA, first install the Okta library for Angular.
 
@@ -497,7 +487,7 @@ Add the `OktaAuthModule` to the list of `imports` of the `app`.
 ```ts
 OktaAuthModule.initAuth({
   issuer: 'https://{yourOktaDomain}/oauth2/default',
-  redirectUri: 'http://localhost:8080/implicit/callback',
+  redirectUri: 'http://localhost:8080/callback',
   clientId: '{yourClientId}'
 })
 ```
@@ -556,10 +546,10 @@ Finally, you need to register the route that will be used for the login request.
 import { OktaCallbackComponent, OktaAuthGuard } from '@okta/okta-angular';
 ```
 
-Add the `implicit/callback` route to the `routes` array.
+Add the `callback` route to the `routes` array.
 
 ```ts
-{ path: 'implicit/callback', component: OktaCallbackComponent }
+{ path: 'callback', component: OktaCallbackComponent }
 ```
 
 This is the route that the Okta authorization service will return to, once authentication is completed. The next step is to protect the `search` and the `details` routes from unauthorized access, add the following setting to both routes.
@@ -575,7 +565,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'search', component: SearchComponent, canActivate: [OktaAuthGuard] },
   { path: 'details', component: DetailsComponent, canActivate: [OktaAuthGuard] },
-  { path: 'implicit/callback', component: OktaCallbackComponent }
+  { path: 'callback', component: OktaCallbackComponent }
 ];
 ```
 
