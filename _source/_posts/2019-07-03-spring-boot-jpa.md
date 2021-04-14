@@ -51,20 +51,11 @@ Before we can dive into the code, we will want to first get our Okta configurati
 Once you have your developer account, we will need to set up your web application, authorization server, group, and users!  
 
 ### Setup Your Okta OIDC Application
-Navigate to **Applications** in the admin console and click: **Add Application**. Choose **Web** and click **Next**. Populate the fields with these values:
 
-|Field                  |Value              		                    |
-|-----------------------|-----------------------------------------------|
-|**Name**               |Beyond Authentication Application              |
-|**Base URIs**  	    |http://localhost:8080                          |
-|**Login redirect URIs**| http://localhost:8080/login/oauth2/code/okta  |
-
-
-Click **Done**.
-Scroll down and copy the `Client ID` and `Client Secret`. You'll use those values shortly.
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
 
 ### Setup Your Okta Authorization Server
-Next, you'll set up an Authorization Server with custom claims and access policies. This drives whether or not Okta will issue a token when one is requested. Navigate to **API** > **Authorization Servers**. Click **Add Authorization Server**. Fill in the values as follows:
+Next, you'll set up an Authorization Server with custom claims and access policies. This drives whether or not Okta will issue a token when one is requested. Run `okta login` and open the returned URL in your browser. Sign in and go to **Security** > **API** > **Authorization Servers**. Click **Add Authorization Server**. Fill in the values as follows:
 
 |Field          |Value              		            |
 |---------------|---------------------------------------|
@@ -72,7 +63,7 @@ Next, you'll set up an Authorization Server with custom claims and access polici
 |**Audience**  	|api://beyondauthenticationapplication  |
 |**Description**| Beyond Authentication Application     |
 
-Click **Done**. Click the **Claims** tab. Click **Add Claim**. Fill in the fields with these values and click **Create** (leave those not mentioned as their defaults):
+Click **Create**. Click the **Claims** tab. Click **Add Claim**. Fill in the fields with these values and click **Create** (leave those not mentioned as their defaults):
 
 |Field                      		|Value              		            |
 |-----------------------------------|---------------------------------------|
@@ -93,7 +84,7 @@ Next, click on **Add Claim** again. Fill in the fields with these values and cli
 |**Filter Value**           | .*                |
 
 
-Click the **Access Policies** tab. Click **Add** Policy. Fill in the fields with these values and click **Create Policy** 
+Click the **Access Policies** tab. Click **Add** Policy. Fill in the fields with these values and click **Create Policy**.
 
 |Field                  |Value              		                    |
 |-----------------------|-----------------------------------------------|
@@ -110,7 +101,7 @@ Click the **Settings** tab and copy the **Issuer URL**. You'll make use of this 
 
 ### Create an Okta Admin Group for Your Spring Boot Application
 
-In order to complete this application, we need to set up an "Admin" group for our application. To do this, within your Okta developer console, click on **Users** > **Groups** and then click on **Add Group**. Enter the following values:
+In order to complete this application, we need to set up an "Admin" group for our application. To do this, within the Okta Admin Console, click on **Directory** > **Groups** and then click on **Add Group**. Enter the following values:
 
 |Field                  |Value              |
 |-----------------------|-------------------|
@@ -119,7 +110,7 @@ In order to complete this application, we need to set up an "Admin" group for ou
 
 ### Create Okta Users for Your Application
 
-Finally, we need to create two users. The first will be an ordinary user and the second will be an admin user. From the developers console, click on **Users** > **People** and then click on **Add Person**. Fill out the form with the information for the ordinary (non-admin) user using the table below.  Repeat this for the Admin user, also using the table below.
+Finally, we need to create two users. The first will be an ordinary user and the second will be an admin user. Click on **Directory** > **People** and then click on **Add Person**. Fill out the form with the information for the ordinary (non-admin) user using the table below.  Repeat this for the Admin user, also using the table below.
 
 |                           | Ordinary User           | Admin User              | Comments                                                                                                                           |
 |---------------------------|-------------------------|-------------------------|------------------------------------------------------------------------------------------------------------------------------------|
@@ -305,7 +296,7 @@ spring.datasource.password={dbPassword}
 spring.jpa.hibernate.ddl-auto=create
 ```
 
-The first section of the properties file is the Okta configuration. Earlier, you copied a few items including your Okta Web Application's *client id*, *client secret*, and *authorization server issuer URL*. Paste those values into the `application.properties` file.
+The first section of the properties file is the Okta configuration.
 
 The next section is the MySQL configuration. Replace the values inside the `{}` with the appropriate database name, user, and password. Note, you will have to replace the whole data source URL if you are not running MySQL locally.
 
