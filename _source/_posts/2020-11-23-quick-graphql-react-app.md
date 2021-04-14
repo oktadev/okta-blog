@@ -26,11 +26,9 @@ The first thing you need to do is sign up for an Everbase account and option an 
 
 ## Set Up Authentication for Your React Application
 
-Next, you will need to set up a new Okta Application from your account administration page.  Log in to your developer's console and click **Applications**, and then click **Add Application**.  In the *Create New Application* section on the next page, select *Single Page App* and click **Next**.  On the *Application Settings* page, give your application a meaningful name.  I named mine *Exchange Rates*, but you can call yours whatever you want.  Because React will launch on port 3000, by default, you will want to change your URLs to `localhost:3000`.  Then click done.
+{% include setup/cli.md type="spa" framework="React" loginRedirectUri="http://localhost:3000/implicit/callback" %}
 
-{% img blog/quick-graphql-react-app/okta-app-settings.png alt:"Okta App Settings" width:"700" %}{: .center-image }
-
-Make note of your *Client ID* on the *General Settings* tab as you will need it in your application.
+Make note of your *Client ID* in the OktaCLI output, as you will need it in your application.
 
 ## Scaffold Your React Application
 
@@ -39,6 +37,7 @@ Next, you can start to frame out your web application.  To start, access the *cr
 First, you will use bootstrap for the HTML framework.  To make bootstrap easier to use with React, you will also include the react-bootstrap package.
 
 ```console
+cd exchange-rates
 npm i bootstrap@4.5.0
 npm i react-bootstrap@1.0.1
 ```
@@ -75,7 +74,7 @@ First, you can add a file to the root of your application named `.env`.  Add the
 
 ```properties
 REACT_APP_OKTA_CLIENTID={yourOktaClientId}
-REACT_APP_OKTA_URL_BASE={yourOktaDomain}
+REACT_APP_OKTA_URL_BASE=https://{yourOktaDomain}
 REACT_APP_OKTA_APP_BASE_URL=http://localhost:3000
 REACT_APP_EVERBASE_API_KEY={yourEverbaseApiKey}
 ```
@@ -269,7 +268,7 @@ const LoginForm = ({ baseUrl, issuer }) => {
   };
 
   const handleUsernameChange = (e) => {
-    setUsername(e.target.value); 
+    setUsername(e.target.value);
   };
 
   const handlePasswordChange = (e) => {
@@ -558,7 +557,7 @@ The second task when the user changes the dropdown is to obtain some data about 
 
 ## Test Your GraphQL React Application
 
-All your code is complete and you can now test your application.  In the terminal, use `npm start` to kickoff your application.  You should be presented with the Home page upon navigating to `localhost:3000`.  Click on **Exchange Rates**, and you will be presented with the login page.  Enter your Okta credentials and explore the exchange rates.
+All your code is complete and you can now test your application.  In the terminal, use `npm start` to kickoff your application.  You should be presented with the Home page upon navigating to `localhost:3000`.  Click on **Login Here**, and you will be presented with the login page.  Enter your Okta credentials and explore the exchange rates.
 
 {% img blog/quick-graphql-react-app/running-app.png alt:"Running Application" width:"700" %}{: .center-image }
 
