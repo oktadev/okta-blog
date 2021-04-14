@@ -46,24 +46,14 @@ cd react-calculator
 
 Any serious web application will need some sort of user authentication. Implementing your own not only takes time and effort but can also introduce security risks if you don't know exactly what you are doing. Okta lets you set up authentication with just a few commands.
 
-If you don't already have an account with Okta, you need to register for a free account. Open your browser and navigate to <https://developer.okta.com>. Click on **Create Free Account** and complete the registration process. 
-
-Once you are done you can see your Okta developer dashboard. Click on **Applications** > **Add Application** to register a new application. On the next screen, choose **Single Page App** and click **Next**.
-
-{% img blog/react-sass/okta-spa.png alt:"Creating a single-page app" width:"800" %}{: .center-image }
-
-The following screen lets you edit the application's settings. Under **Allowed grant types**, check the box **Authorization Code**. Then make sure that the port number is 3000. Change the base URI to `http://localhost:3000/` and set the Login Redirect URI to `http://localhost:3000/implicit/callback`.
-
-Once you are done, you will see a **Client ID** which you will need in a minute. 
-
-{% img blog/react-sass/okta-settings.png alt:"The application settings on your Okta dashboard" width:"700" %}{: .center-image }
+{% include setup/cli.md type="spa" framework="React" loginRedirectUri="http://localhost:3000/callback" %}
 
 ## Set Up Authentication in Your React Sass App
 
 Okta has created a tool to add authentication to React applications in seconds. It uses the Angular Schematics command-line tool to inject code into your skeleton application. Install the Schematics CLI on your system by running the following command in your terminal.
 
 ```bash
-npm i -g @angular-devkit/schematics-cli@0.803.20
+npm i -g @angular-devkit/schematics-cli@11
 ```
 
 **TIP:** Depending on your system, you might need to run this command using `sudo`. 
@@ -73,7 +63,7 @@ You might be asking why I am telling you to use an Angular tool when you are dev
 Install OktaDev Schematics:
 
 ```bash
-npm i -E @oktadev/schematics@1.1.1
+npm i -D @oktadev/schematics@3.4.1
 ```
 
 Now, add Okta for authentication to your React application by running the command below.
