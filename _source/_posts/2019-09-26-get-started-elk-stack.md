@@ -262,17 +262,9 @@ You can follow the instructions above for creating the microservices images, or 
 
 By default, the microservices architecture authenticates against Keycloak. Update the settings to use Okta as the authentication provider:
 
-First of all, go to Okta for a [free developer account](https://developer.okta.com/signup/). 
+{% include setup/cli.md type="jhipster" %}
 
-Once you log in, click **Your Org**, and it will take you to the **Developer Console**. Go to the **Applications** section and add a new **Web Application**. Set the following authentication settings:
-- Name: give a name for your application
-- Base URIs: `http://localhost:8761` and `http://localhost:8080`
-- Login redirect URIs: `http://localhost:8080/login/oauth2/code/oidc` and  `http://localhost:8761/login/oauth2/code/oidc`
-- Grant Type Allowed: Authorization Code and Refresh Token
-
-> For simplicity, this tutorial only creates Web App, and its credentials will be used for all the services. In a real environment, each service must identify itself with its own credentials, and you should create one Web App or Service for each one of them in the Okta console.
-
-Copy the **Client ID** and **Client secret**, as we will use it for the application's setup. Find the **Org URL** at the top right corner in the Okta Dashboard.
+> For simplicity, this tutorial only creates a Web App, and its credentials will be used for all the services. In a real environment, each service must identify itself with its own credentials, and you should create one Web App or Service for each one of them in the Okta console.
 
 Create a `docker-compose/.env` file with the following content:
 
@@ -291,14 +283,6 @@ SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=${OIDC_CLIENT_SECR
 ```
 
 The same authentication must be set up for the JHipster Registry. Edit `docker-compose/jhipster-registry.yml` and set the same values as the environment section of the `gateway-app`.
-
-JHipster applications require the specific user roles `ROLE_USER` and `ROLE_ADMIN` as claims in the ID Token. In the Okta Developer Console, go to **Users** > **Groups** and create a group for each JHipster role, and add users to each group.
-
-Now go to **API** > **Authorization Servers**, select the **default** server and **Add Claim** with the following settings:
-1. Name: groups
-2. Include in token type: ID Token, Always
-3. Value type: Groups
-4. Filter: Matches regex, set the Regex to `.*`
 
 ### Enable Debug Logs and Zipkin
 
