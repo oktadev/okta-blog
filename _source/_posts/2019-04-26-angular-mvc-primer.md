@@ -496,13 +496,8 @@ You can see `(click)` handlers in various places directly referring to the metho
 
 A good application is not complete without proper user authentication. In this section, you will learn how to quickly add authentication to your existing Angular application. Okta provides single sign-on authentication which can be plugged into the app with just a few lines of code.
 
-To start off, you will need a free developer account with Okta. In your favorite browser, open https://developer.okta.com, locate **Create Free Account** in the center of the page and click it. Simply fill in the form that appears with your details, accept the terms & conditions, and submit it by pressing **Get Started**. Once you have completed the registration you will be taken to the Okta dashboard. Here you can see an overview of all the applications registered with the Okta service.
-
-{% img blog/angular-mvvm-pattern/applications-developer.okta.com.png alt:"Okta Applications" width:"800" %}{: .center-image }
-
-Click on **Add Application** to register a new application. On the next screen that appears you will be given a choice of the type of application. The **Single-Page Application** is the right choice for your Angular app. On the page that follows, you will be shown the application settings. You will need to change the port number to 4200 when you are testing your application with `ng serve`.
-
-{% img blog/angular-mvvm-pattern/new-app-developer.okta.com.png alt:"New Okta Application" width:"800" %}{: .center-image }
+{% include setup/cli.md type="spa" framework="Angular"
+loginRedirectUri="http://localhost:4200/callback" %}
 
 That's it. Now you should be seeing a Client ID which you will need later on. Now you are ready to include the authentication service into your code. Okta provides a convenient library for Angular. You can install it by running the following command in your application root directory.
 
@@ -521,7 +516,7 @@ Further down, in the same file add the following in the list of `imports`.
 ```ts
     OktaAuthModule.initAuth({
       issuer: 'https://{yourOktaDomain}/oauth2/default',
-      redirectUri: 'http://localhost:4200/implicit/callback',
+      redirectUri: 'http://localhost:4200/callback',
       clientId: '{clientId}'
     })
 ```
@@ -537,10 +532,10 @@ import { OktaCallbackComponent, OktaAuthGuard } from '@okta/okta-angular';
 Next, add another route to the array of routes.
 
 ```ts
-{ path: 'implicit/callback', component: OktaCallbackComponent }
+{ path: 'callback', component: OktaCallbackComponent }
 ```
 
-The `implicit/callback` route will be called by Okta when the user has completed the login process. The `OktaCallbackComponent` handles the result and redirects the user to the page that requested the authentication process. To guard individual routes, you can now simply add `OktaAuthGuard` to that route, like this.
+The `callback` route will be called by Okta when the user has completed the login process. The `OktaCallbackComponent` handles the result and redirects the user to the page that requested the authentication process. To guard individual routes, you can now simply add `OktaAuthGuard` to that route, like this.
 
 ```ts
 { path: 'notes', component: NotesComponent, canActivate: [OktaAuthGuard] }
