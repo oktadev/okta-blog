@@ -264,19 +264,7 @@ See how much simpler Spring Boot was to use than Netty?
 
 Next, you will secure the application using OAuth 2.0 login. This might sound complicated, but don't worry. Spring and Okta have conspired to make it pretty darn simple! 
 
-Okta is a SaaS (software-as-service) authentication and authorization provider. We provide free accounts to developers so you can develop OIDC apps without fuss. Head over to [developer.okta.com](https://developer.okta.com/signup/) and sign up for an account. 
-
-After you've verified your email, log in and perform the following steps (if it's your first time to log in, you may need to click the yellow **Admin** button to get to the developer dashboard):
-
-- Go to **Application** > **Add Application**.
-- Select application type **Web** and click **Next**.
-- Give the app a name. I named mine "WebFlux OAuth".
-- Under **Login redirect URIs** change the value to `http://localhost:8080/login/oauth2/code/okta`. The rest of the default values will work.
-- Click **Done**.
-
-{% img blog/java-netty-webflux/new-okta-app.png alt:"New Okta application screen shot" width:"800" %}{: .center-image }
-
-Take note of the **Client ID** and **Client Secret** at the bottom. You'll need them in a moment.
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
 
 ## Secure Your App with OAuth 2.0
 
@@ -293,9 +281,7 @@ dependencies {
 }
 ```
 
-Next, add the following properties to the `src/main/resources/application.properties` file. You need to replace the values in brackets with your own Okta domain and client ID. 
-
-You can find your Issuer URI by opening your Okta developer dashboard and going to **API** > **Authorization Servers** and looking in the table at the default server. The client ID and secret come from the OIDC application you created just a moment ago.
+Next, make sure following properties are in the `src/main/resources/application.properties` file. The values in brackets should be filled in with values from the Okta CLI.
 
 ```properties
 okta.oauth2.issuer={yourIssuerUri}
