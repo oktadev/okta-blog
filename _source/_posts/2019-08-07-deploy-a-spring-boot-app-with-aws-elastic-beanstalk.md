@@ -249,24 +249,11 @@ Remember you created a user and put the credentials inside your code? This strat
 
 Handling identity management is not a trivial task, and you'll want to use a service instead of "rolling your own".
 
-Okta is an excellent identity management service, which provides an identity provider, authentication, authorization and user security out of the box. Let's configure your application to use it.
+Okta is an excellent identity management service, which provides an identity provider, authentication, authorization and user security out of the box. 
 
-* [Create an Okta account](https://developer.okta.com/signup)
-* Login into your account
-* Click **Applications**
-* Click **Add Application**
-
-{% img blog/spring-boot-aws/okta-aws-ebs-05.png alt:"web app" width:"800" %}{: .center-image }
-
-* Select **Web** and click on the **Next** button.
-* Fill in the following options into the form:
-
-```
-Name: hello-world
-Base URIs: http://localhost:8080/, ${BEANSTALK_URL}
-Login redirect URLs: http://localhost:8080/login/oauth2/code/okta, ${BEANSTALK_URI}/login/oauth2/code/okta
-Grant Type allowed: Client Credentials. Authorization Code
-```
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" 
+   loginRedirectUri="http://localhost:8080/login/oauth2/code/okta,${BEANSTALK_URI}/login/oauth2/code/okta"
+   logoutRedirectUri="http://localhost:8080,${BEANSTALK_URI}"%}
 
 Change `${BEANSTALK_URL}` to your AWS environment URL. For instance, my value is `HelloWorld-env.t3z2mwuzhi.us-east-1.elasticbeanstalk.com`.
 
@@ -274,7 +261,7 @@ Great! You whitelisted your local and production environments. If you make calls
 
 ## Secure The Application With Okta and OAuth 2.0
 
-With your application in Okta, you need to change the code to start using it. Okta handle the authentication for you from now on.
+With your application in Okta, you need to change the code to start using it. Okta handles the authentication for you from now on.
 
 Replace the Spring Security dependency inside your `pom.xml` file with the okta dependency, which itself includes Spring Security. Put the following code inside the `<dependencies>` tag:
 
@@ -286,7 +273,7 @@ Replace the Spring Security dependency inside your `pom.xml` file with the okta 
 </dependency>
 ```
 
-The library will handle the communication between your application and Okta. All that you have to do is identify your Okta information. Set the following environment variables locally:
+The library will handle the communication between your application and Okta. All that you have to do is identify your Okta information. Set the following environment variables locally (removing the values from `src/main/resources/application.properties` to tighten security):
 
 ```bash
 OKTA_OAUTH2_ISSUER={ORG_URL}/oauth2/default
@@ -295,17 +282,6 @@ OKTA_OAUTH2_CLIENT_SECRET={CLIENT_SECRET}
 ```
 
 Great! You whitelisted your local and production environments. If you make calls to your Okta application from those places, it will permit the request.
-
-Your `{ORG_URL}` will be visible in your Okta dashboard, just click on `Dashboard` in the menu. You will see the Org URL in the right upper corner.
-
-You can find `{CLIENT_ID}` and `{CLIENT_SECRET}` in your Okta application:
-
-* In your Okta's menu, go to `Applications`
-* Select the `hello-world` application
-* Click on the `General` tab
-* Scroll down to `Client Credentials`
-
-There you'll see both the client id and secret.
 
 With these changes, you now authenticate with OpenID Connect. When the user goes to the homepage, your application will redirect her to your Okta login page, then back to webpage.
 > OpenID Connect is a thin layer on top of the OAuth 2.0 authorization framework and is focused on identity and authentication.
@@ -329,7 +305,7 @@ This still passes authentication information to Thymeleaf using the model, but m
 
 > **NOTE:** Since you are using Okta to authenticate, you don't need your old configuration anymore. Go ahead and delete the `SecurityConfiguration` class.
 
-Let's run the application! Start it again and go to **http://localhost:8080/**. Notice you're redirected to the Okta login page:
+Let's run the application! Start it again and go to `http://localhost:8080`. Notice you're redirected to the Okta login page:
 
 {% img blog/spring-boot-aws/okta-aws-ebs-06.png alt:"Okta login page" width:"400" %}{: .center-image }
 
