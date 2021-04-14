@@ -132,64 +132,33 @@ To switch to Okta, you'll first need to create an OIDC app. If you don't have an
 
 > **Why Okta instead of Keycloak?**
 >
-> Keycloak works great in development, and Okta has free multi-factor authentication, email support, and excellent performance for production. A developer account gets you 1000 monthly active users for free! You can see other free features and our transparent pricing at https://developer.okta.com/pricing/[developer.okta.com/pricing].
+> Keycloak works great in development, and Okta has free multi-factor authentication, email support, and excellent performance for production. A developer account gets you 15000 monthly active users for free! You can see other free features and our transparent pricing at https://developer.okta.com/pricing/[developer.okta.com/pricing].
 
-Log in to your Okta Developer account.
+{% include setup/cli.md type="jhipster" signup="false" %}
 
-* In the top menu, click on **Applications**
-* Click on **Add Application**
-* Select **Web** and click **Next**
-* Enter `JHipster FTW!` for the Name (this value doesn't matter, so feel free to change it)
-* Change the Login redirect URI to be `http://localhost:8080/login/oauth2/code/oidc`
-* Click **Done**, then **Edit** and add `http://localhost:8080` as a Logout redirect URI
-* Click **Save**
-
-These are the steps you'll need to complete for JHipster. Start your JHipster app using a command like the following:
+Start your JHipster app using a command like the following:
 
 [source,shell]
 ----
-SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=https://{yourOktaDomain}/oauth2/default \
-  SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=$clientId \
-  SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=$clientSecret ./gradlew
+source .okta.env
+./gradlew
 ----
-
-TIP: The above command can be painful to type, so I encourage you to copy/paste, or set the values as environment variables. You can also configure them in a properties/YAML file in Spring Boot, but you should link:/blog/2018/07/30/10-ways-to-secure-spring-boot#8-store-secrets-securely[never store secrets in source control].
 
 === Create a Native App for Ionic
 
 You'll also need to create a Native app for Ionic. The reason for this is because Ionic for JHipster is configured to use https://oauth.net/2/pkce/[PKCE] (Proof Key for Code Exchange). The current Spring Security OIDC support in JHipster still requires a client secret. PKCE does not.
 
-Go back to the Okta developer console and follow the steps below:
+{% include setup/cli.md type="native"
+   loginRedirectUri="dev.localhost.ionic:/callback,http://localhost:8100/callback"
+   logoutRedirectUri="dev.localhost.ionic:/logout,http://localhost:8100/logout" %}
 
-* In the top menu, click on **Applications**
-* Click on **Add Application**
-* Select **Native** and click **Next**
-* Enter `Ionic FTW!` for the Name
-* Add Login redirect URIs: `http://localhost:8100/callback` and `dev.localhost.ionic:/callback`
-* Click **Done**, then **Edit** and add Logout redirect URIs: `http://localhost:8100/logout` and `dev.localhost.ionic:/logout`
-* Click **Save**
-
-You'll also need to add a trusted origin for `http://localhost:8100`. Navigate to **API** > **Trusted Origins** > **Add Origin**. Use the following values:
+You'll also need to add a trusted origin for `http://localhost:8100`. Run `okta login`, open the URL in a browser, sign in to the Okta Admin Console, and navigate to **Security** > **API** > **Trusted Origins** > **Add Origin**. Use the following values:
 
 * Name: `http://localhost:8100`
 * Origin URL: `http://localhost:8100`
 * Type: Check **both** CORS and Redirect
 
 Click **Save**.
-
-NOTE: You didn't need to add a trusted origin for the `JHipster FTW!` app because one is automatically created for you when the OIDC app is a web app.
-
-You'll need the client ID from your Native app, so keep your browser tab open or copy/paste it somewhere.
-
-=== Create Groups and Add Them as Claims to the ID Token
-
-In order to login to your JHipster app, you'll need to adjust your Okta authorization server to include a `groups` claim.
-
-On Okta, navigate to **Users** > **Groups**. Create `ROLE_ADMIN` and `ROLE_USER` groups and add your account to them.
-
-Navigate to **API** > **Authorization Servers**, click the **Authorization Servers** tab and edit the **default** one. Click the **Claims** tab and **Add Claim**. Name it "groups" or "roles" and include it in the ID Token. Set the value type to "Groups" and set the filter to be a Regex of `.*`. Click **Create**.
-
-image::{% asset_path 'blog/java-12-jhipster-6/add-claim.png' %}[alt=Add Claim,width=600,align=center]
 
 Navigate to `http://localhost:8080`, click **sign in** and you'll be redirected to Okta to log in.
 
@@ -303,13 +272,9 @@ NOTE: When using Keycloak, this change is not necessary.
 
 In order to authentication successfully with your Ionic app, you have to do a bit more configuration in Okta. Since the Ionic client will only send an access token to JHipster, you need to 1) add a `groups` claim to the access token and 2) add a couple more claims so the user's name will be available in JHipster.
 
-Navigate to **API** > **Authorization Servers**, click the **Authorization Servers** tab and edit the **default** one. Click the **Claims** tab and **Add Claim**. Name it "groups" and include it in the Access Token. Set the value type to "Groups" and set the filter to be a Regex of `.*`. Click **Create**.
+In the Okta Admin Console, go to **Security** > **API** > **Authorization Servers**, click the **Authorization Servers** tab and edit the **default** one. Click the **Claims** tab and **Add Claim**. Name it "groups" and include it in the Access Token. Set the value type to "Groups" and set the filter to be a Regex of `.*`. Click **Create**.
 
 Add another claim, name it `given_name`, include it in the access token, use `Expression` in the value type, and set the value to `user.firstName`. Optionally, include it in the `profile` scope. Perform the same actions to create a `family_name` claim and use expression `user.lastName`.
-
-When you are finished, your claims should look as follows.
-
-image::{% asset_path 'blog/ionic-4-jhipster/claims.png' %}[alt=Default Authorization Server Claims,width=800,align=center]
 
 Run the following commands to start your Ionic app.
 
