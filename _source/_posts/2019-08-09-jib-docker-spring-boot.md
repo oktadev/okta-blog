@@ -12,6 +12,8 @@ tweets:
 - "Spring Boot + Jib are like peanut butter and jelly. Learn how how use them together with this timely tutorial."
 image: blog/featured/okta-java-headphones.jpg
 type: conversion
+changelog:
+- 2021-04-13: Updated to Spring Boot 2.4.4.
 ---
 
 Docker is a very popular system for containerizing applications. Containerization packages the executable code along with the runtime environment in deployable virtual images using a repeatable, automatable process. 
@@ -45,7 +47,7 @@ You installed HTTPie, right? In this section, you're going to use it to command 
 From a command line:
 
 ```bash
-http https://start.spring.io/starter.zip bootVersion==2.1.6.RELEASE \
+http https://start.spring.io/starter.zip bootVersion==2.4.4.RELEASE \
  dependencies==web,okta \
  groupId==com.okta.spring-docker.demo \
  packageName==com.okta.spring-docker.demo \
@@ -69,13 +71,13 @@ This fully functioning Spring Boot app defines an empty Spring Boot application 
 
 To add Jib to the Gradle project, simply add the plugin to the `build.gradle` file. If you want to dig in deeper, take a look at [the Introducing Jib blog post](https://cloudplatform.googleblog.com/2018/07/introducing-jib-build-java-docker-images-better.html) or [Jib's GitHub page](https://github.com/GoogleContainerTools/jib).
 
-Add `id 'com.google.cloud.tools.jib' version '1.3.0'` to the `plugins` closure at the top of the `build.gradle` file, like so:
+Add `id 'com.google.cloud.tools.jib' version '3.0.0'` to the `plugins` closure at the top of the `build.gradle` file, like so:
 
 ```groovy
 plugins {  
-    id 'org.springframework.boot' version '2.1.5.RELEASE'  
+    id 'org.springframework.boot' version '2.4.4.RELEASE'  
     id 'java'  
-    id 'com.google.cloud.tools.jib' version '1.3.0'  // <-- ADD ME
+    id 'com.google.cloud.tools.jib' version '3.0.0'  // <-- ADD ME
 }
 ```
 
@@ -200,33 +202,9 @@ The next step is to add JSON Web Token (JWT) authentication using OAuth 2.0 and 
 
 ## Create an OIDC Application
 
-Create an OIDC application on Okta using your developer account. If you don't have one, [signup](https://developer.okta.com/signup) and return to this tutorial after activating your account.
-
-Sign in to the Okta developer console. If this is your first time to log in, you may need to click the **Admin** button in the upper right-hand corner to get to the developer console.
-
-Next, you will create an OpenID Connect (OIDC) application. OAuth 2.0 along with OpenID Connect is the protocol spec Okta implements to allow your application to handle authentication and authorization securely with the Okta servers.
-
-Click on the **Application** top menu. Click the **Add Application** button.
-
-Select application type **Web**. 
-
-Click **Next**.
-
-Give the app a name. I named mine `Spring Boot Docker`. The [OIDC Debugger website](https://oidcdebugger.com/debug) allows you to create access tokens you can use to access your app with HTTPie. You need to add a login redirect URI and allow implicit flow for this website to work.
-
-Under **Login redirect URIs**, add a new URI: `https://oidcdebugger.com/debug`.
-
-Under **Grant type allowed**, check the box next to **Implicit (Hybrid)**.
-
-The rest of the default values will work.
-
-Click **Done**.
-
-Leave the page open and take note of the **Client ID**. You'll need it in a moment.
-
-You'll also want to know the **Issuer URI** from Okta. If you go to **API** in the top menu and click on **Authorization Servers**, you'll see the **default** auth server. By default, all your OIDC apps are added to this auth server. The Issuer URI will be something like this: `https://dev-123456.okta.com/oauth2/default`. 
-
-You won't need to do anything with it since this tutorial uses the Okta Spring Boot Starter and default values. The **audience** value, `api://default`, can be customized for more complex or custom applications.
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter"
+loginRedirectUri="https://oidcdebugger.com/debug"
+logoutRedirectUri="https://oidcdebugger.com" %}
 
 ## Configure Spring Boot App for OAuth
 
@@ -321,13 +299,7 @@ Content-Length: 0
 
 Success! Of sorts. You still need to get a valid token. Fortunately, OpenID Connect debugger allows you to do that easily (remember when you added this URL to the list of authorized redirect URLs in your OIDC app on Okta?).
 
-In a browser, go to [https://oidcdebugger.com](https://oidcdebugger.com/).
-
-Update the following values:
-
-* **Authorize URI**: https://{yourOktaDomain}/oauth2/default/v1/authorize
-* **Client ID**: {yourClientID}
-* **State**: Any value really, I used `This is the state`
+{% include setup/oidcdebugger.md %}
 
 Scroll down and click **Send Request**.
 
@@ -370,7 +342,7 @@ You can find the source code for this example [on GitHub](https://github.com/okt
 
 Going forward, you could explore how to deploy Spring Boot apps to microservices, how to add Role-based authentication, or how to integrate a Spring Boot REST API with a JavaScript frontend like Vue or Angular. 
 
-* [Build Spring Microservices and Dockerize Them for Production](/blog/2019/02/28/spring-microservices-docker)
+* [How to Docker with Spring Boot](/blog/2020/12/28/spring-boot-docker)
 * [Java Microservices with Spring Boot and Spring Cloud](/blog/2019/05/22/java-microservices-spring-boot-spring-cloud)
 * [Spring Method Security with PreAuthorize](/blog/2019/06/20/spring-preauthorize)
 * [Build a Simple CRUD App with Spring Boot and Vue.js](/blog/2018/11/20/build-crud-spring-and-vue)
