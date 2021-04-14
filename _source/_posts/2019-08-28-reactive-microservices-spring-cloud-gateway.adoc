@@ -13,6 +13,7 @@ tweets:
 image: blog/spring-cloud-gateway/spring-cloud-gateway-social.png
 type: conversion
 changelog:
+  - 2020-04-13: Updated to Spring Boot 2.4. Changes to this post can be viewed in [okta-blog#324234](). Updates to the example application are in [java-microservices-examples#13241]()
   - 2020-09-01: Fixed CORS configuration and added code changes necessary to access `/fave-cars`. Changes to this post can be viewed in [okta-blog#398](https://github.com/oktadeveloper/okta-blog/pull/398). Updates to the example application are in [java-microservices-examples#9](https://github.com/oktadeveloper/java-microservices-examples/pull/9).
 ---
 :page-liquid:
@@ -52,7 +53,7 @@ Start by creating a directory to hold all your projects, for example, `spring-cl
 [source,shell]
 ----
 http https://start.spring.io/starter.zip javaVersion==11 artifactId==discovery-service \
-  name==eureka-service baseDir==discovery-service bootVersion==2.1.7.RELEASE \
+  name==eureka-service baseDir==discovery-service bootVersion==2.2.4.RELEASE \
   dependencies==cloud-eureka-server | tar -xzvf -
 ----
 
@@ -96,7 +97,7 @@ Next, create an `api-gateway` project that includes a handful of Spring Cloud de
 [source,shell]
 ----
 http https://start.spring.io/starter.zip javaVersion==11 artifactId==api-gateway \
-  name==api-gateway baseDir==api-gateway bootVersion==2.1.7.RELEASE \
+  name==api-gateway baseDir==api-gateway bootVersion==2.2.4.RELEASE \
   dependencies==actuator,cloud-eureka,cloud-feign,cloud-gateway,cloud-hystrix,webflux,lombok | tar -xzvf -
 ----
 
@@ -111,7 +112,7 @@ Create the `car-service` project using start.spring.io:
 [source,shell]
 ----
 http https://start.spring.io/starter.zip javaVersion==11 artifactId==car-service \
-  name==car-service baseDir==car-service bootVersion==2.1.7.RELEASE \
+  name==car-service baseDir==car-service bootVersion==2.2.4.RELEASE \
   dependencies==actuator,cloud-eureka,webflux,data-mongodb-reactive,flapdoodle-mongo,lombok | tar -xzvf -
 ----
 
@@ -611,13 +612,13 @@ To use it run: `./mvnw com.okta:okta-maven-plugin:setup` to create an account an
 
 .Create a Web Application in Okta
 ****
-Log in to your Okta Developer account (or https://developer.okta.com/signup/[sign up] if you don't have an account).
+Log in to the Okta Admin Console (or https://developer.okta.com/signup/[sign up] if you don't have an account).
 
-1. From the **Applications** page, choose **Add Application**.
-2. On the Create New Application page, select **Web**.
-3. Give your app a memorable name, add `http://localhost:8080/login/oauth2/code/okta` as a Login redirect URI, select **Refresh Token** (in addition to **Authorization Code**), and click **Done**.
+1. From the **Applications** section, choose **Add Application**.
+2. On the Create New Application page, choose **Web** and select **OpenID Connect**.
+3. Give your app a memorable name, add `http://localhost:8080/login/oauth2/code/okta` as a Login redirect URI, select **Refresh Token** (in addition to **Authorization Code**), and click **Create**.
 
-Copy the issuer (found under **API** > **Authorization Servers**), client ID, and client secret into `application.properties` for both projects.
+Copy the issuer (found under **Security** > **API** > **Authorization Servers**), client ID, and client secret into `application.properties` for both projects.
 
 [source,properties]
 ----
@@ -634,7 +635,7 @@ Next, add the https://github.com/okta/okta-spring-boot[Okta Spring Boot starter]
 <dependency>
     <groupId>com.okta.spring</groupId>
     <artifactId>okta-spring-boot-starter</artifactId>
-    <version>1.2.1</version>
+    <version>2.0.1</version>
 </dependency>
 <dependency>
     <groupId>org.springframework.cloud</groupId>
@@ -809,7 +810,7 @@ Add the Okta Spring Boot starter to `car-service/pom.xml`:
 <dependency>
     <groupId>com.okta.spring</groupId>
     <artifactId>okta-spring-boot-starter</artifactId>
-    <version>1.2.1</version>
+    <version>2.0.1</version>
 </dependency>
 ----
 
@@ -1026,6 +1027,7 @@ cd java-microservices-examples/spring-cloud-gateway
 
 To learn more about microservices and reactive programming with Java and Spring, check out these posts.
 
+* link:/blog/2021/01/20/reactive-java-microservices[Reactive Java Microservices with Spring Boot and JHipster]
 * link:/blog/2019/05/22/java-microservices-spring-boot-spring-cloud[Java Microservices with Spring Boot and Spring Cloud]
 * link:/blog/2019/05/23/java-microservices-spring-cloud-config[Java Microservices with Spring Cloud Config and JHipster]
 * link:/blog/2019/08/09/jib-docker-spring-boot[Get Jibby With Java, Docker, and Spring Boot]
