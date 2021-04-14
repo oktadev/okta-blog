@@ -583,6 +583,8 @@ Restart the app with `mvn package tomee:run`. The app will look a bit better now
 At the moment, anyone can access our awesome Book application and change the database.
 To prevent that, let's add a security layer to our application with the Spring Security library and authenticate users through Okta.
 
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
+
 First, [register for a forever-free developer account today!](https://developer.okta.com/signup/) When you're finished, complete the steps below to create an OIDC app.
 
 1. Log in to your developer account at [developer.okta.com](https://developer.okta.com/)
@@ -593,7 +595,7 @@ First, [register for a forever-free developer account today!](https://developer.
     - `http://localhost:8080/login/oauth2/code/okta`
 5. Click **Done**
 
-Now, create the file `src/main/resources/application.properties` with your **Client ID** and **Client Secret**, you can find these on the **General** tab of the app you just created.
+In `src/main/resources/application.properties`, adjust the property names to match those below.
 
 ```properties
 okta.client-id={clientId}
@@ -601,7 +603,7 @@ okta.client-secret={clientSecret}
 okta.issuer-uri=https://{yourOktaDomain}/oauth2/default
 ```
 
-Let's add Spring Security as a dependency in your `pom.xml` file:
+Add Spring Security as a dependency in your `pom.xml` file:
 
 ```xml
 <properties>
