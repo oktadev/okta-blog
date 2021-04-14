@@ -381,19 +381,7 @@ You're going to use OAuth 2.0 to make sure only authenticated users can see your
 
 ### Create an Okta Account
 
-If you don't already have an Okta account, [go ahead and create one](https://developer.okta.com/signup). After completing registration, go through the following steps:
-
-* Login into your account
-* Go to  **Applications** > **Add Application**. You will be redirected to the following page:
-
-{% img blog/kafka-java/okta-applications.png alt:"Okta application page" width:"800" %}{: .center-image }
-
-* Select **Web** and click **Next** 
-* Fill in the following options in the form:
-    - Name: `Bootiful Kafka`
-    - Base URIs: `http://localhost:8080`
-    - Login redirect URLs: `http://localhost:8080/login/oauth2/code/okta`
-* Click **Done**
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
 
 Now that you have your Okta application, you can use it to authenticate users in your Java + Kafka app.
 
@@ -409,7 +397,7 @@ Let's start by adding Okta's library to your project. Open your `pom.xml` and ad
 </dependency>
 ```
 
-This library will integrate with the Okta app you just created. It will also add Spring Security to your current application. Configure it with the following variables in `src/main/resources/application.properties`:
+This library will integrate with the Okta app you just created. It will also add Spring Security to your current application. The Okta CLI should have filled in your Okta settings in `src/main/resources/application.properties`:
 
 ```properties
 okta.oauth2.issuer: https://{yourOktaDomain}/oauth2/default
@@ -426,18 +414,6 @@ okta.oauth2.client-secret: {yourClientSecret}
 > export OKTA_OAUTH2_CLIENT_ID={yourClientID}
 > export OKTA_OAUTH2_CLIENT_SECRET={yourClientSecret}
 > ```
-
-You can find `{yourClientID}` and `{yourClientSecret}` in the Okta UI's applications page. To access it, follow the steps below:
-
-* In your Okta menu, go to **Applications**
-* Select the **Bootiful Kafka** application
-* Click on the **General** tab
-
-You should see both values inside the Client Credentials area.
-
-{% img blog/kafka-java/client-credentials.png alt:"Okta Client Credentials" width:"700" %}{: .center-image }
-
-The value `{yourOktaDomain}` for will be visible in your Okta dashboard, just click on the Dashboard on the menu. You will see the Org URL in the right upper corner.
 
 That's it!
 
