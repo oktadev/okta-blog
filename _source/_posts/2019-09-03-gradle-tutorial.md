@@ -48,9 +48,9 @@ You'll need to install a few things for this tutorial (as well as sign up for an
 
 **Gradle:** typically with a Gradle build you don't actually have to install it. Gradle provides a feature called the Gradle wrapper that includes a script to download the correct Gradle version to build the project automatically. However, in this tutorial, since it's a tutorial about Gradle, you might go ahead and install it. Just for fun. Gradle can be installed with homebrew, [SDKMAN](https://sdkman.io/sdks#gradle), or via download. They have [instructions on the Gradle website](https://gradle.org/install/). 
 
-**Okta Developer Account**: for the authentication portion of the sample application, you'll need a free Okta developer account. You'll be using Okta as an OAuth / OIDC (OpenID Connect) provider. If you don't have one, please go to [the Okta sign-up page](https://developer.okta.com/signup/) and sign up. Note: The first time you log in, you'll need to click the **Admin** button to get to the developer console.
+**Okta Developer Account**: for the authentication portion of the sample application, you'll need a free Okta developer account. You'll be using Okta as an OAuth / OIDC (OpenID Connect) provider. If you don't have one, please go to [the Okta sign-up page](https://developer.okta.com/signup/) and sign up. Note: The first time you log in, you'll need to click the **Admin** button to get to the Okta Admin Console.
 
-**HTTPie**: You're going to use a great command line utility to run a few HTTP requests from the command line. If you don't already have it installed, head over to  [their website](https://httpie.org/) and install it.
+**HTTPie**: You're going to use a great command line utility to run a few HTTP requests from the command line. If you don't already have it installed, head over to [their website](https://httpie.org/) and install it.
 
 ## Download the Sample Project
 
@@ -507,27 +507,11 @@ The Spring Boot plugin's `bootJar` and `bootWar` tasks inherit from the `Jar` an
 
 Now that you're an advanced Gradle ninja (or, at least, hopefully, not intimidated by the Gradle DSL), it's time to go back to the original Spring Boot project.
 
-Go to your [Okta developer dashboard](https://developer.okta.com/) to create an OpenID Connect application.
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter"
+loginRedirectUri="https://oidcdebugger.com/debug"
+logoutRedirectUri="https://oidcdebugger.com" %}
 
-Click on the **Application** top menu. Click the **Add Application** button.
-
-Select application type **Web**. 
-
-Click **Next**.
-
-Give the app a name. I named mine "Spring Boot Gradle Demo".
-
-Under **Login redirect URIs** add the value: `https://oidcdebugger.com/debug`.
-
-Under **Grant type allowed**, click the checkbox next to **Implicit (Hybrid)**.
-
-The rest of the default values will work.
-
-{% img blog/gradle-tutorial/create-okta-application.png alt:"Create a new Okta Application" width:"800" %}{: .center-image }
-
-Click **Done**.
-
-Leave the page open of take note of the **Client ID**. You'll need it in a moment to generate a JWT.
+Take note of your **issuer** and **client ID**. You'll need it in a moment to generate a JWT.
 
 ## Update the Spring Boot App
 
@@ -559,20 +543,15 @@ Create a `gradle.properties` file in the project root:
 oauthIssuer={yourIssuerUri}
 ```
 
-You need to fill in the two values. The **Client ID** is from the OIDC app you just created. The **Issuer URI** will look like this: `https://dev-123456.oktapreview.com/oauth2/default` and can be found in the Okta developer dashboard. Go to **API** and select **Authorization Servers**. Look in the table for the **default** authorization server and the **Issuer URI** value.
+You need to fill in the two values. The **issuer** and **client ID** are from the OIDC app you just created. 
 
 ## Generate a Token Using OIDC Debugger
 
-Use the [OIDC Debugger](https://oidcdebugger.com/) to generate a token for your OIDC application.
-
-You will need to fill in the:
-- **Authorize URI** to match your Okta developer URI
-- **Client ID** to match the OIDC app Client ID
-- **State** to be anything, just not blank. In production, **state** helps prevent cross-site forgery requests and should be a CSRF Token. 
+{% include setup/oidcdebugger.md %}
 
 {% img blog/gradle-tutorial/oidc-debugger.png alt:"Configure the OIDC Debugger" width:"600" %}{: .center-image }
 
-Once you've done that, scroll down and click **Send Request**.
+Scroll down and click **Send Request**.
 
 You should see the success screen.
 
