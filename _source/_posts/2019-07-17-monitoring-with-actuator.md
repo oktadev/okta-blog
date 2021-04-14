@@ -12,6 +12,8 @@ tweets:
 - "With Spring Boot's extensible Actuator, you can see everything that's happening in the backround of an OpenID Connect flow."
 image: blog/featured/okta-java-skew.jpg
 type: conversion
+changelog:
+- 2021-04-14: Updated to remove Spring Boot version from cURL command so this post can be evergreen. See changes in [okta-blog#234adsraer]().
 ---
 
 Have you worked with Spring Boot Actuator yet? It's an immensely helpful library that helps you monitor app health and interactions with the app - perfect for going to production! Spring Boot Actuator includes a built-in endpoint for tracing HTTP calls to your application - very useful for monitoring OpenID Connect (OIDC) requests - but unfortunately the default implementation does not trace body contents. In this post, I'll show you how to extend the httptrace endpoint for capturing contents and tracing the OIDC flow.
@@ -24,18 +26,17 @@ You can use the excellent [Spring Initializr](https://start.spring.io/) website 
 
 ```bash
 curl https://start.spring.io/starter.zip \
-  -d bootVersion=2.1.5.RELEASE \
   -d dependencies=web,okta \
   -d packageName=com.okta.developer.demo -d
 ```
 
-Before running your OIDC application however, you will need an Okta account. Okta is a developer service that handles storing user accounts and implementing user management (including OIDC) for you. Go ahead and register for a [free developer account](https://developer.okta.com/signup/) to continue.
+Before running your OIDC application however, you will need an Okta account. Okta is a developer service that handles storing user accounts and implementing user management (including OIDC) for you. 
 
-Once you login to your Okta account, go to the Dashboard and then to the **Applications** section. Add a new Web application, and then in the General section get the client credentials: **Client ID** and **Client Secret**. 
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" 
+   loginRedirectUri="http://localhost:8080/authorization-code/callback" 
+   logoutRedirectUri="http://localhost:8080" %}
 
-You will need the **Issuer** which is the organization URL as well, which you can find at the top right corner in the Dashboard home. **Note**: By default, the built-in `Everyone` Okta group is assigned to this application, so any users in your Okta org will be able to authenticate to it.
-
-With your Client ID, Client Secret. and the Issuer in place, start your application by passing the credentials through the command line:
+Remove the values from your `application.properties` and start your app with them on the command line for tighter security.
 
 ```bash
 OKTA_OAUTH2_REDIRECTURI=/authorization-code/callback \
