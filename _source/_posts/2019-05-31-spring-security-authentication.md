@@ -408,25 +408,13 @@ Vincenzo De Notari has [an example Service Provider implementation](https://gith
 
 ## Add OAuth 2.0 + OpenID Connect Authentication
 
-Once you're in the [developer.okta.com](https://developer.okta.com) dashboard, create an OIDC Application:
-
- - From top-menu, click on **Applications**
-
-{% img blog/spring-boot-authentication/dashboard-applications.png alt:"Add OIDC App" width:"800" %}{: .center-image }
-
- - Click green **Add Applications** button
- - Click **Web** application type, and **Next**
- - Give the app a **Name**. Any name.
- - Set **Login Redirect URIs** to `http://localhost:8080/login/oauth2/code/okta`
- - Click **Done**.
-
-Take note of the **Client ID** and **Client Secret** at the bottom of the page. You'll need these in a bit.
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
 
 Great! That's all you have to do to configure Okta as an OIDC provider.
 
 Open the `oauth-okta` directory from the example repository.
 
-Before you do anything else, you need to update the `src/main/resources/application.yml` file. You need to fill in three values:
+Make sure the `src/main/resources/application.yml` file has the following three values:
 
  1. Okta URL, something like `https://dev-123456.okta.com/oauth2/default`
  2. Client ID (from the OIDC app you just created)
