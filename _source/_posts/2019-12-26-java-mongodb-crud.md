@@ -373,29 +373,11 @@ OAuth 2.0 is an authorization protocol (verifying what the client or user is all
 
 They are not, however, implementations. That's where Okta comes in. Okta will be the identity provider and your Spring Boot app will be the client.
 
-You should have already signed up for a free developer account at Okta. Navigate to the developer dashboard at [https://developer.okta.com](https://developer.okta.com). If this is your first time logging in, you may need to click the **Admin** button.
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" 
+   loginRedirectUri="https://oidcdebugger.com/debug" 
+   logoutRedirectUri="https://oidcdebugger.com" %}
 
-To configure JSON Web Token (JWT) authentication and authorization, you need to create an OIDC application. 
-
-From the top menu, click on the  **Applications** button. Click the  **Add Application**  button.
-
-Select application type  **Web** and click  **Next**.
-
-Give the app a name. I named mine "Spring Boot Mongo".
-
-Under  **Login redirect URIs**, add a new URI: `https://oidcdebugger.com/debug`.
-
-Under **Grant types allowed**, check **Implicit (Hybrid)**.
-
-The rest of the default values will work.
-
-Click  **Done**.
-
-Leave the page open or take note of the  **Client ID**. You'll need it in a bit when you generate a token.
-
-To test the REST API, you're going to use the [OpenID Connect Debugger](https://oidcdebugger.com/) to generate a token. This is why you need to add the login redirect URI and allow the implicit grant type.
-
-{% img blog/java-mongodb-crud/oidc-settings.png alt:"OIDC Settings" width:"700" %}{: .center-image }
+To test the REST API, you're going to use the [OpenID Connect Debugger](https://oidcdebugger.com/) to generate a token. This is why you needed to add the login redirect URI.
 
 ## Configure Spring Boot for OAuth 2.0
 
@@ -409,12 +391,10 @@ dependencies {
 }
 ```
 
-Next, open your `src/main/resources/application.properties` file and add your Okta Issuer URI to it. The Issuer URI can be found by opening your Okta developer dashboard. From the top menu, select **API** and **Authorization Servers**. Your Issuer URI can be found in the panel in the row for the default authorization server.
-
-{% img blog/java-mongodb-crud/issuer.png alt:"Authorization Server Issuer" width:"800" %}{: .center-image }
+Make sure your `src/main/resources/application.properties` file has your Okta Issuer URI in it. You can delete the client ID and secret to tighten up security.
 
 ```properties
-spring.jackson.date-format=MM-dd-yyyy  
+spring.jackson.date-format=MM-dd-yyyy
 okta.oauth2.issuer=https://{yourOktaUrl}/oauth2/default
 ```
 
@@ -461,20 +441,11 @@ This is the expected response. You're REST API is now protected and requires a v
 
 To access your now-protected server, you need a valid JSON Web Token. [The OIDC Debugger](https://oidcdebugger.com/) is a handy page that will allow you to generate a JWT. 
 
-Open [the OIDC Debugger](https://oidcdebugger.com/).
+{% include setup/oidcdebugger.md %}
 
-You will need to fill in the following values.
+Scroll down to the bottom and click **Send Request**.
 
-- **Authorization URI**: `https://{yourOktaUrl}/oauth2/default/v1/authorize`
-- **Client ID**: the Client ID from your Okta OIDC application
-- **State**: just fill in any non-blank value (this is used in production to help protect against cross-site forgery attacks)
-- **Response type**: check box for **token**
-
-{% img blog/java-mongodb-crud/oidc-debugger.png alt:"OIDC Debugger" width:"700" %}{: .center-image }
-
-The rest of the default values should work. Scroll down to the bottom and click **Send Request**.
-
-If all went well, you will see your brand new access token.
+If all went well, you will see your brand-new access token.
 
 {% img blog/java-mongodb-crud/access-token.png alt:"OAuth 2.0 Access Token" width:"800" %}{: .center-image }
 
