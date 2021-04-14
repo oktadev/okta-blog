@@ -238,15 +238,13 @@ The `graphiql` option creates a separate route to present the developer with a c
 
 ## Authentication with Okta
 
-Almost every web application will need some sort of user management and authentication, but implementation and security can be tricky. Fortunately, Okta provides a simple and easy way to add authentication to your application with just a few lines of code. To get started, register for a [free developer account at Okta](https://developer.okta.com/signup/).
+Almost every web application will need some sort of user management and authentication, but implementation and security can be tricky. Fortunately, Okta provides a simple and easy way to add authentication to your application with just a few lines of code. 
 
-Once registered, you can go to the Okta developer dashboard and register all your applications with the Okta sign-in service. To create a new application, select the **Application** link in the top menu and then click on **Add Application**. 
+{% include setup/cli.md type="spa" framework="Vue"
+   loginRedirectUri="http://localhost:8080/callback"
+   logoutRedirectUri="http://localhost:8080" %}
 
-This will take you to a screen where you can choose the type of application. Choose **Single-Page App** and click on **Next**. On the following screen, select `Authorization Code` for **Grant type allowed** and click **Done** to finalize the set-up.
-
-{% img blog/graphql-vue-olympics/okta-settings.png alt:"Okta application settings" width:"750" %}{: .center-image }
-
-On the screen that appears now, you can see an overview of the application settings. At the bottom of the screen, you can see the generated **Client ID**. You will need this next. In the base directory of the server project, create a file `auth.js` with the following content:
+In the base directory of the server project, create a file `auth.js` with the following content:
 
 ```js
 const OktaJwtVerifier = require('@okta/jwt-verifier');
@@ -271,7 +269,7 @@ module.exports = async function oktaAuth(req, res, next) {
 };
 ```
 
-In the code above, replace `{yourClientId}` with the client ID from your application settings on the Okta website. `{yourOktaDomain}` should be your Okta domain. 
+In the code above, replace `{yourClientId}` with the client ID from your application settings created with the Okta CLI. `{yourOktaDomain}` should be your Okta domain. 
 
 The module in `auth.js` defines the `oktaAuth` middleware that queries the authorization bearer token from the HTTP header and verifies it. If the token is valid, the `next()` function is called to continue processing the request. When the authentication fails, a 401 code is returned to the client.
 
@@ -341,7 +339,7 @@ Vue.use(BootstrapVue);
 Vue.use(Auth, {
   issuer: 'https://{yourOktaDomain}/oauth2/default',
   client_id: '{yourClientId}',
-  redirect_uri: 'http://localhost:8080/implicit/callback',
+  redirect_uri: 'http://localhost:8080/callback',
   pkce: true
 });
 
@@ -629,7 +627,7 @@ const router = new Router({
       beforeEnter: authGuard
     },
     {
-      path: '/implicit/callback',
+      path: '/callback',
       component: Auth.handleCallback()
     }
   ]
