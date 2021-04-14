@@ -364,11 +364,8 @@ Open a browser and navigate to `http://localhost:8080`. You can search for a boo
 
 In many situations, you will want to restrict access to parts of your application to users that are registered. You could start implementing your own user registration and sign-in mechanism. This is not only cumbersome but can leave you with security risks if the user registration is not tested properly. Fortunately, Okta provides a single sign-on service that lets you add safe user authentication with little effort. In this section, I will be showing you how to restrict access to the `/search` and `/details` routes to registered users.
 
-To start, you need to create an account with Okta. Visit [developer.okta.com](https://developer.okta.com/) and click the **Sign Up** button. On the next screen, enter your details and click on **Get Started**. 
-
-Once you have finished the registration process, you will be taken to the developer dashboard. Each application that you want to use with Okta authentication must be registered and will receive its own client ID. Click on **Add Application** and, on the next screen, select **Single Page Application**. When you click on **Next** you will see a screen with settings. Change the default value for **Login redirect URIs** to `http://localhost:8080/callback`. You can leave all the other defaults. After clicking **Done**, scroll down and make note of the **client_id** value. You'll need it shortly.
-
-{% img blog/vue-pwa/create-new-app.png alt:"Create New Okta Application" width:"800" %}{: .center-image }
+{% include setup/cli.md type="spa" framework="Vue"
+loginRedirectUri="http://localhost:8080/callback" %}
 
 In your application directory now run the following command.
 
@@ -388,7 +385,7 @@ Vue.use(Auth, {
 });
 ```
 
-The `Vue.use(Auth, ...)` statement sets up Okta. Replace the value of **{yourOktaDomain}** with the domain name of your Okta org and **{yourClientId}** with the **client_id** you saved earlier.
+The `Vue.use(Auth, ...)` statement sets up Okta. Replace the value of **{yourOktaDomain}** with the domain name of your Okta org and **{yourClientId}** with the **client_id** you created earlier.
 
 In the `routes` array, add the following entry.
 
