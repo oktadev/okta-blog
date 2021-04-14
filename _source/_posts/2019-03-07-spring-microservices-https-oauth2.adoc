@@ -35,15 +35,7 @@ This project requires two OpenID Connect apps on Okta, one for development and o
 
 === Create OpenID Connect Apps on Okta
 
-You can register for a https://developer.okta.com/signup/[free developer account] that will allow you to have up to 1000 monthly active users for $0. That should be plenty for this example.
-
-Why Okta? Because authentication is no fun to write. Okta has Authentication and User Management APIs that allow you to develop your apps faster. Our API and SDKs make it easy for you to authenticate, manage, and secure your users in minutes.
-
-After creating your account, create a new Web Application in Okta's dashboard (**Applications** > **Add Application**). Give the app a name you'll remember, duplicate the existing Login redirect URI and make it use HTTPS. Click **Done**.
-
-The result should look similar to the screenshot below.
-
-image::{% asset_path 'blog/microservices-service-to-service-security/oidc-web-app.png' %}[alt=OIDC App Settings,width=700,align=center]
+{% include setup/cli.md type="web" loginRedirectUri="http://localhost:8080/authorization-code/callback,https://localhost:8080/authorization-code/callback" logoutRedirectUri="http://localhost:8080,https://localhost:8080" %}
 
 Create another app for production. I called mine `Prod Microservices`.
 
