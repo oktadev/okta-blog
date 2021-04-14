@@ -54,33 +54,33 @@ cd okta-oidc-android
 
 Next:
 
-1. Sign up for a free [Okta developer account](https://developer.okta.com/signup/)
-2. Create a new **Application** for **Native Android**
-3. Create a *config.json* file similar to this one in the *app* module's `/app/res/raw` folder:
+{% include setup/cli.md type="native" %}
 
-    ```json
-    {
-    "client_id": "{clientId}",
-    "redirect_uri": "{redirectUri}",
-    "end_session_redirect_uri": "{endSessionUri}",
-    "scopes": [
-        "openid",
-        "profile",
-        "offline_access"
-    ],
-    "discovery_uri": "https://{yourOktaDomain}"
-    }
-    ```
+Create a *config.json* file similar to this one in the *app* module's `/app/res/raw` folder:
 
-4. Set a *URI Scheme* unique to your app in the *app* module's `/app/build.gradle`:
+```json
+{
+  "client_id": "{clientId}",
+  "redirect_uri": "{redirectUri}",
+  "end_session_redirect_uri": "{endSessionUri}",
+  "scopes": [
+    "openid",
+    "profile",
+    "offline_access"
+  ],
+  "discovery_uri": "https://{yourOktaDomain}"
+}
+```
 
-    ```groovy
-    android.defaultConfig.manifestPlaceholders = [
-        "appAuthRedirectScheme": "com.okta.example"
-    ]
-    ```
+Set a *URI Scheme* unique to your app in the *app* module's `/app/build.gradle`:
 
-5. Add your Org URL (found in the upper right of the console home page) to your /local.properties file at the root of the project:
+```groovy
+android.defaultConfig.manifestPlaceholders = [
+    "appAuthRedirectScheme": "com.okta.dev-133337"
+]
+```
+
+Add your Okta domain to your `/local.properties` file at the root of the project:
 
 ```properties
 authn.orgUrl="https://dev-######.okta.com"
