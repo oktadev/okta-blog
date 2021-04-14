@@ -12,6 +12,8 @@ tweets:
 - "Learn how to use JSON Web Tokens (JWT) to add authentication to your @angular app." 
 image: blog/featured/okta-angular-skew.jpg
 type: conversion
+changelog:
+- 2021-04-14: Updated to Okta Angular v3 and Okta JWT Verifier v2. You can see the changes in [the example app]() or [this blog post]().
 ---
 
 User registration and authentication are one of the features that almost no web application can do without. Authentication usually consists of a user entering using a user name and a password and then being granted access to various resources or services. Authentication, by its very nature, relies on keeping the state of the user. This seems to contradict a fundamental property of HTTP, which is a stateless protocol.
@@ -690,15 +692,10 @@ Another big topic that I have completely avoided covers token expiration and ref
 
 ## Build Secure JWT Authentication in Angular and Express
 
-Okta provides authentication services which can be easily integrated into your application. The Okta service is based on JWT and it takes care of all the issues related to security and user experience. You don't need to store passwords, generate tokens yourself, or think about automatically refreshing them. To start off, you will need a developer account with Okta.
+Okta provides authentication services which can be easily integrated into your application. The Okta service is based on JWT and it takes care of all the issues related to security and user experience. You don't need to store passwords, generate tokens yourself, or think about automatically refreshing them. 
 
-In your browser, navigate to [developer.okta.com](https://developer.okta.com/), click on **Create Free Account**, and enter your details. You will receive an activation email to finish creating your account. Once you are done, you will be taken to your developer dashboard. Click on the **Add Application** button to create a new application. Start by creating a new single page application. Choose **Single Page App** and click **Next**
-
-{% img blog/jwt-angular/new-app.png alt:"New Okta Application" width:"800" %}{: .center-image }
-
-On the next page, you will need to edit the default settings. Make sure that the port number is 4200. This is the default port for Angular applications. Then click **Done**.
-
-{% img blog/jwt-angular/angular-spa-okta-settings.png alt:"Settings for the new Angular SPA" width:"800" %}{: .center-image }
+{% include setup/cli.md type="spa" framework="Angular"
+loginRedirectUri="http://localhost:4200/callback" %}
 
 That's it. You should now see a **Client ID** which you will need to paste into your JavaScript code.
 
@@ -708,7 +705,7 @@ The server that uses authentication using the Okta service does not need to impl
 
 ```bash
 npm install -E cors@2.8.5 nodemon@1.18.10 express@4.16.4 \
-  @okta/jwt-verifier@0.0.14 body-parser@1.18.3 express-bearer-token@2.2.0
+  @okta/jwt-verifier@2.1.0 body-parser@1.18.3 express-bearer-token@2.2.0
 ```
 
 The main application file `index.js` is the same as `jwt-server/index.js`. The authentication middleware `auth.js` looks slightly different because it now uses Okta.
@@ -726,7 +723,7 @@ function oktaAuth(req, res, next) {
     return res.status(403).send({ auth: false, message: 'No token provided' });
   }
 
-  oktaJwtVerifier.verifyAccessToken(req.token).then(function(jwt) {
+  oktaJwtVerifier.verifyAccessToken(req.token, 'api://default').then(function(jwt) {
     req.userId = jwt.claims.uid;
     req.userEmail = jwt.claims.sub;
     next();
@@ -738,7 +735,7 @@ function oktaAuth(req, res, next) {
 module.exports = oktaAuth;
 ```
 
-Here, `{yourClientId}` is the client ID from the application that you created earlier in the Okta dashboard. The router implementation in `profile.js` only contains a single route. I have removed the `/register` and `/login` routes and only kept the `/profile` route.
+Here, `{yourClientId}` is the client ID from the application that you created earlier with the Okta CLI. The router implementation in `profile.js` only contains a single route. I have removed the `/register` and `/login` routes and only kept the `/profile` route.
 
 ```js
 var express = require('express');
