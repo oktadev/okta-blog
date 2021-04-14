@@ -80,31 +80,9 @@ Before you run this command, you'll need to create an OpenID Connect (OIDC) app 
 
 ### Create an OpenID Connect App in Okta
 
-To integrate Okta's Identity Cloud for user authentication, you'll need to [signup](https://developer.okta.com/signup/) for a developer account.
-
-Log in to your Okta developer account and navigate to **Applications > Add Application**.
-
-{% img blog/ionic-4-login/add-application.png alt:"Applications > Add Application" width:"575" %}{: .center-image }
-
-Select **Native** and click **Next**.
-
-{% img blog/ionic-4-login/new-native-app.png alt:"New Native Application" width:"700" %}{: .center-image }
-
-Enter a name for your application, such as `Ionic 4 App`. Add `http://localhost:8100/implicit/callback` as a Login redirect URI. Click **Done** to finish creating the application.
-
-{% img blog/ionic-4-login/ionic-4-login-redirect-uris.png alt:"Add name and Login redirect URI" width:"700" %}{: .center-image }
-
-Click **Edit** and add Logout redirect URIs, where the first should be your reversed Okta domain name, followed by `:/logout` and the second is `http://localhost:8100/implicit/logout`. Click **Save**.
-
-{% img blog/ionic-4-login/ionic-4-logout-redirect-uris.png alt:"Add Logout redirect URIs" width:"700" %}{: .center-image }
-
-Near the bottom of your application's settings, you will find a section titled **Client Credentials**. Copy the Client ID and paste it somewhere handy. You will need this soon.
-
-{% img blog/ionic-4-login/ionic-4-client-credentials.png alt:"Copy the client ID" width:"700" %}{: .center-image }
-
-Navigate to **API** > **Authorization Servers** and copy your issuer URI.
-
-{% img blog/ionic-4-login/issuer-uri.png alt:"Issuer URI" width:"600" %}{: .center-image }
+{% include setup/cli.md type="native"
+loginRedirectUri="[http://localhost:8100/callback,com.okta.dev-133337:/callback]"
+logoutRedirectUri="[http://localhost:8100/logout,com.okta.dev-133337:/logout]" %}
 
 ### Use OktaDev Schematics to Add User Login
 
@@ -112,7 +90,7 @@ Now that you have a client ID and issuer URI, you can install Angular CLI, and a
 
 ```shell
 npm i -g @angular/cli@7.3.9
-ng add @oktadev/schematics@0.7.1 --issuer=$issuer --clientId=$clientId
+ng add @oktadev/schematics@3.4.1 --issuer=$issuer --clientId=$clientId
 ```
 
 The video below shows how this command performs the following steps:
@@ -153,17 +131,11 @@ After you're redirected back to your app, you can click the **User Info** button
 
 ## Add User Registration
 
-Next, enable user registration. This will allow new users to create their own account. Click on the **Users** menu and select **Registration**.
-
-{% img blog/ionic-4-login/user-registration.png alt:"User Registration" width:"600" %}{: .center-image }
+Next, enable user registration. This will allow new users to create their own account. Run `okta login`, open the returned URL in your browser, sign in and click on **Directory** > **Self-Service Registration**.
 
 Click **Enable Registration**.
 
-{% img blog/ionic-4-login/enable-registration.png alt:"Enable Registration" width:"800" %}{: .center-image }
-
 On the subsequent page, click **Save** to complete the process of enabling user registration.
-
-{% img blog/ionic-4-login/registration-settings.png alt:"Save Registration Settings" width:"800" %}{: .center-image }
 
 Now if you go back to your app, sign out, then sign in again, you'll see a signup link at the bottom of the login form.
 
