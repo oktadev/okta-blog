@@ -12,6 +12,8 @@ tweets:
 - "Haven't tried @Kotlin yet? Check out this tutorial!"
 image: blog/tutorial-kotlin-beginners-guide/kotlin-logo-social.png
 type: conversion
+changelog:
+- 2020-04-14: Updated to use Spring Boot 2.4.4 and use the Okta CLI. You can see [changes in the example on GitHub](); changes in this article are in [okta-blog#2342q34]().
 ---
 
 Kotlin is a modern, statically typed language within the JVM. Kotlin is a cross-platform, multi-purpose, free and open-source language developed by JetBrains under the Apache 2.0 license and has constructs for both Object Oriented and Functional programming styles, which can be mixed. It can be used for web development, server and client, and mobile development, using most Java IDEs.
@@ -377,7 +379,7 @@ Using the [Spring Initializr API](https://start.spring.io/), create a Maven proj
 
 ```shell
 curl https://start.spring.io/starter.zip -d dependencies=web,okta \
--d bootVersion=2.1.8.RELEASE \
+-d bootVersion=2.4.4.RELEASE \
 -d language=kotlin \
 -d type=maven-project \
 -d groupId=com.okta.developer \
@@ -395,55 +397,10 @@ cd kotlin-spring-boot
 ```
 
 ## Secure your Application with OpenID Connect
+
 If you already have an Okta account, see the Create a Web Application in Okta sidebar below. Otherwise, we created a Maven plugin that configures a free Okta developer account + an OIDC app (in under a minute!).
 
-```bash
-./mvnw com.okta:okta-maven-plugin:register
-```
-
-You should see the following output:
-
-```
-First name: Jimena
-Last name: Garbarino
-Email address: ***
-Company: ***
-Creating new Okta Organization, this may take a minute:
-OrgUrl: https://dev-123456.okta.com
-Check your email address to verify your account.
-
-Writing Okta SDK config to: /home/indiepopart/.okta/okta.yaml
-```
-
-Then, run the following command to configure your Spring Boot app with Okta.
-
-```bash
-./mvnw com.okta:okta-maven-plugin:spring-boot
-```
-
-This should result in:
-
-```
-Configuring a new OIDC, almost done:
-Created OIDC application, client-id: ***
-```
-
-Check your email and follow the instructions to activate your Okta account.
-
-> **If you already have an Okta Developer account**
-> 
-> Log in and create a new Application:
-> - From the **Applications** page, choose **Add Application**.
-> - On the Create New Application page, select **Web**.
-> - Give your app a memorable name, add `http://localhost:8080/login/oauth2/code/okta` as a Login redirect URI.
-> 
-> Copy the issuer (found under **API** > **Authorization Servers**), client ID, and client secret into `src/main/resources/application.properties`.
-> 
-```properties
-okta.oauth2.issuer=$issuer
-okta.oauth2.client-id=$clientId
-okta.oauth2.client-secret=$clientSecret
-```
+{% include setup/maven.md %}
 
 Edit `KotlinSpringBootApplication` located in the package `com.okta.developer` to add a controller mapping that will print a welcome message in the browser window.
 
