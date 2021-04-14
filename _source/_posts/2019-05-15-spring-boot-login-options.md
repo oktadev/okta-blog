@@ -529,23 +529,7 @@ Now you're going to add a second OAuth provider: Okta.
 
 ## Add OAuth 2.0 Login with Okta to Your Spring Boot App
 
-First, go to [developer.okta.com](https://developer.okta.com) and sign up for a free developer account, if you don't already have one.
-
-Once you have an account, to create an OAuth/OIDC app, open your Okta developer dashboard. Click on the **Applications** top menu item, and then click on **Add Application**.
-
-Select **Web** as the platform and click **Next**.
-
-Give the app a name. I named mine "Spring Boot Login", but you can name yours whatever you like.
-
-Change the **Login redirect URIs** to `http://localhost:8080/login/oauth2/code/okta`.
-
-The other defaults are fine.
-
-{% img blog/spring-boot-login-options/oidc-settings.png alt:"Okta OIDC App Settings" width:"690" %}{: .center-image }
-
-Click **Done**. 
-
-Take note of the **Client ID** and **Client Secret** on the next page.
+{% include setup/cli.md type="web" framework="Spring Security" %}
 
 Update the `application.yml` file for Okta:
 
@@ -577,10 +561,10 @@ This time you'll be given a choice of OAuth providers. This screen is auto-gener
 {% img blog/spring-boot-login-options/spring-security-oauth-login.png alt:"OAuth Selection" width:"400" %}{: .center-image }
 
 Click **Okta** and you'll be taken to the Okta login page (usual caveat about logging out and/or incognito apply).
-
+
 {% img blog/spring-boot-login-options/okta-login.png alt:"Okta Login" width:"450" %}{: .center-image }
 
-Log in successfully and you'll see our success page.
+Log in successfully, and you'll see our success page.
 
 {% img blog/spring-boot-login-options/secured-page-success.png alt:"Secured Page Success" width:"400" %}{: .center-image }
 
@@ -623,23 +607,15 @@ You should be able to log in via Okta. This time you won't be given a choice of 
 
 ## Enable User Registration
 
-Log into your [developer.okta.com](https://developer.okta.com) account.
-
-Hover over **Users** and click on **Registration**.
-
-{% img blog/spring-boot-login-options/user-registration.png alt:"Self-service Registration" width:"700" %}{: .center-image }
+Run `okta login` and open the returned URL in youb browser. Log in and go to **Directory** > **Self-Service Registration**.
 
 Enable registration. Also, enable the **Show "Sign Up" link in the sign-in page...** option. This causes the registration link to be shown in the hosted login page.
-
-{% img blog/spring-boot-login-options/enable-registration.png alt:"Enable Registration Settings" width:"600" %}{: .center-image }
 
 Log in again, using an incognito window. This time you'll notice the user has the option of registering as a new user.
 
 {% img blog/spring-boot-login-options/okta-login-with-signup.png alt:"Okta Login with Signup link" width:"500" %}{: .center-image }
 
 Enter your email address, password, and name; set up a few security questions, and you're done! You registered a new user for your application using Okta.
-
-There's a lot more you can do with Okta's Self-Service Registration options. All of this can be configured and customized. Take a look at [their docs](https://help.okta.com/en/prod/Content/Topics/Directory/eu-self-service.htm) to dig deeper.
 
 The final product for this using the Okta Spring Boot Starter and with the GitHub OAuth removed is found in the `oauth-okta-starter` directory.
 
