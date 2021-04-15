@@ -12,6 +12,8 @@ tweets:
 - "Schematics with Vue are pretty awesome - find out why!"
 image: blog/featured/okta-vue-bottle-headphones.jpg
 type: conversion
+changelog:
+- 2021-04-14: Updated to use Vue CLI 4.5 and OktaDev Schematics v3.4.1. You can see the changes to this post in [okta-blog#707](https://github.com/oktadeveloper/okta-blog/pull/707); example app changes are in [okta-vue-schematics-example#1]().
 ---
 
 Schematics is a tool from the Angular team that allows you to manipulate projects with code. You can create files, update existing files, and add dependencies to any project that has a `package.json` file. That's right, Schematics aren't only for Angular projects! 
@@ -24,6 +26,10 @@ See [The Baseline Costs of JavaScript Frameworks](https://blog.uncommon.is/the-b
 
 Bootstrap is a popular CSS framework, and Vue has support for it via [BootstrapVue](https://bootstrap-vue.js.org/). In this tutorial, you'll learn how to create a schematic that integrates BootstrapVue. It's a straightforward example, and I'll include unit and integrating testing tips.
 
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+
 ## Schematics: Manipulate Projects with Code
 
 Angular DevKit is part of the [Angular CLI project on GitHub](https://github.com/angular/angular-cli). DevKit provides libraries that can be used to manage, develop, deploy, and analyze your code. DevKit has a `schematics-cli` command line tool that you can use to create your own Schematics.
@@ -31,7 +37,7 @@ Angular DevKit is part of the [Angular CLI project on GitHub](https://github.com
 To create a Schematics project, first install the Schematics CLI:
 
 ```shell
-npm i -g @angular-devkit/schematics-cli@0.13.4
+npm i -g @angular-devkit/schematics-cli@0.1102.9
 ```
 
 Then run `schematics` to create a new empty project. Name it `bvi` as an abbreviation for Bootstrap Vue Installer.
@@ -105,7 +111,7 @@ You can use [Schematics Utilities](https://nitayneeman.github.io/schematics-util
 Start by opening a terminal window and installing `schematic-utilities` in the `bvi` project you created.
 
 ```shell
-npm i schematics-utilities
+npm i schematics-utilities@2.0.2
 ```
 
 Change `src/bvi/index.ts` to add `bootstrap` and `bootstrap-vue` as dependencies with an `addDependencies()` function. Call this method from the main function.
@@ -116,8 +122,8 @@ import { addPackageJsonDependency, NodeDependency, NodeDependencyType } from 'sc
 
 function addDependencies(host: Tree): Tree {
   const dependencies: NodeDependency[] = [
-    { type: NodeDependencyType.Default, version: '4.3.1', name: 'bootstrap' },
-    { type: NodeDependencyType.Default, version: '2.0.0-rc.13', name: 'bootstrap-vue' }
+    { type: NodeDependencyType.Default, version: '4.6.0', name: 'bootstrap' },
+    { type: NodeDependencyType.Default, version: '2.21.2', name: 'bootstrap-vue' }
   ];
   dependencies.forEach(dependency => addPackageJsonDependency(host, dependency));
   return host;
@@ -184,8 +190,8 @@ import { normalize } from 'path';
 
 function addDependencies(host: Tree): Tree {
   const dependencies: NodeDependency[] = [
-    { type: NodeDependencyType.Default, version: '4.3.1', name: 'bootstrap' },
-    { type: NodeDependencyType.Default, version: '2.0.0-rc.13', name: 'bootstrap-vue' }
+    { type: NodeDependencyType.Default, version: '4.6.0', name: 'bootstrap' },
+    { type: NodeDependencyType.Default, version: '2.21.2', name: 'bootstrap-vue' }
   ];
   dependencies.forEach(dependency => addPackageJsonDependency(host, dependency));
   return host;
@@ -236,16 +242,17 @@ Create `vue-pkg.json` in the same directory as `index_spec.ts`.
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "vue": "^2.6.6"
+    "core-js": "^3.6.5",
+    "vue": "^2.6.11"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.4.0",
-    "@vue/cli-plugin-eslint": "^3.4.0",
-    "@vue/cli-service": "^3.4.0",
-    "babel-eslint": "^10.0.1",
-    "eslint": "^5.8.0",
-    "eslint-plugin-vue": "^5.0.0",
-    "vue-template-compiler": "^2.5.21"
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^6.2.2",
+    "vue-template-compiler": "^2.6.11"
   }
 }
 ```
@@ -286,7 +293,7 @@ You can verify your schematic works by creating a new Vue project with Vue CLI's
 Start by installing Vue CLI if you don't already have it. 
 
 ```shell
-npm i -g @vue/cli@3.4.1
+npm i -g @vue/cli@4.5.12
 ```
 
 Run `vue create test` and select the **default** preset.
@@ -359,7 +366,7 @@ While that process completes, create an OIDC app on Okta.
 
 ### Create an OpenID Connect App on Okta
 
-Go back to the terminal window where you created the `vb` app. Navigate into your app's directory.
+Go back to the terminal window where you created the `vb` app.
 
 {% include setup/cli.md type="spa" framework="Vue" loginRedirectUri="http://localhost:8080/callback" %}
 

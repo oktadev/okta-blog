@@ -12,16 +12,22 @@ tweets:
 - "Schematics with React are pretty awesome - find out why!"
 image: blog/featured/okta-react-headphones.jpg
 type: conversion
+changelog:
+- 2021-04-14: Updated to use React 17 and OktaDev Schematics v3.4.1. You can see the changes to this post in [okta-blog#707](https://github.com/oktadeveloper/okta-blog/pull/707); example app changes are in [okta-react-schematics-example#1]().
 ---
 
 Developers love to automate things. It's what we do for a living for the most part. We create programs that take the tediousness out of tasks. I do a lot of presentations and live demos. Over the past year, I've noticed that some of my demos have too many steps to remember. I've written them down in scripts, but I've recently learned it's much cooler to automate them with tools powered by Schematics!
 
 Schematics is a library from the Angular CLI project that allows you to manipulate projects with code. You can create/update files and add dependencies to any project that has a `package.json` file. That's right, Schematics aren't just for Angular projects! 
 
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+
 Do you have a minute? I'd love to show you how can use a Schematic I wrote to add authentication to a React app. You'll need Node.js 10+ installed; then run:
 
 ```bash
-npx create-react-app rs --typescript
+npx create-react-app rs --template typescript
 ```
 
 {% img "blog/react-schematics/create-react-app.png" alt:"Create React app with TypeScript" width:"800" %}{: .center-image }
@@ -32,7 +38,7 @@ Why Okta? Because friends don't let friends write authentication! Okta has Authe
 
 ### Create an OIDC App on Okta
 
-Go back to the terminal window where you created the `rs` app. Navigate into the `rs directory.
+Go back to the terminal window where you created the `rs` app.
 
 {% include setup/cli.md type="spa" framework="React" loginRedirectUri="http://localhost:3000/callback" %}
 
@@ -46,11 +52,17 @@ npm start
 Stop the process (Ctrl+C) and add OIDC authentication to your app with the following commands:
 
 ```shell
+# Add the Schematics CLI
+npm install -g @angular-devkit/schematics-cli@0.1102.9
+
+# Add OktaDev's Schematics project
 npm i -D @oktadev/schematics@3.4.1
+
+# Configure your app to use OIDC for auth
 schematics @oktadev/schematics:add-auth
 ```
 
-When prompted, enter your issuer (it can be found in Okta's dashboard under **API** > **Authorization Servers**) and client ID. When the installation completes, run `npm start` and marvel at your React app with OIDC authentication!
+When prompted, enter the issuer and client ID from the OIDC app you just created. When the installation completes, run `npm start` and marvel at your React app with OIDC authentication!
 
 {% img "blog/react-schematics/react-okta.png" alt:"React + Okta = 💙" width:"800" %}{: .center-image }
 
@@ -71,7 +83,7 @@ Angular DevKit is part of the [Angular CLI project on GitHub](https://github.com
 To create a Schematics project, first install the Schematics CLI:
 
 ```shell
-npm i -g @angular-devkit/schematics-cli@0.13.4
+npm i -g @angular-devkit/schematics-cli@0.1102.9
 ```
 
 Then run `schematics` to create a new empty project. Name it `rsi` as an abbreviation for ReactStrap Installer.
@@ -143,7 +155,7 @@ These are the steps you will automate with the `rsi` schematic.
 You can use [Schematics Utilities](https://nitayneeman.github.io/schematics-utilities/) to automate adding dependencies, among other things. Start by opening a terminal window and installing `schematic-utilities` in the `rsi` project you created.
 
 ```shell
-npm i schematics-utilities@1.1.1
+npm i schematics-utilities@2.0.2
 ```
 
 Change `src/rsi/index.ts` to add `bootstrap` and `reactstrap` as dependencies with an `addDependencies()` function. Call this method from the main `rsi()` function.
@@ -154,8 +166,8 @@ import { addPackageJsonDependency, NodeDependency, NodeDependencyType } from 'sc
 
 function addDependencies(host: Tree): Tree {
   const dependencies: NodeDependency[] = [
-    { type: NodeDependencyType.Default, version: '4.3.1', name: 'bootstrap' },
-    { type: NodeDependencyType.Default, version: '7.1.0', name: 'reactstrap' }
+    { type: NodeDependencyType.Default, version: '4.6.0', name: 'bootstrap' },
+    { type: NodeDependencyType.Default, version: '8.9.0', name: 'reactstrap' }
   ];
   dependencies.forEach(dependency => addPackageJsonDependency(host, dependency));
   return host;
@@ -226,8 +238,8 @@ import { normalize } from 'path';
 
 function addDependencies(host: Tree): Tree {
   const dependencies: NodeDependency[] = [
-    { type: NodeDependencyType.Default, version: '4.3.1', name: 'bootstrap' },
-    { type: NodeDependencyType.Default, version: '7.1.0', name: 'reactstrap' }
+    { type: NodeDependencyType.Default, version: '4.6.0', name: 'bootstrap' },
+    { type: NodeDependencyType.Default, version: '8.9.0', name: 'reactstrap' }
   ];
   dependencies.forEach(dependency => addPackageJsonDependency(host, dependency));
   return host;
@@ -279,9 +291,9 @@ Create `react-pkg.json` in the same directory as `index_spec.ts`.
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react": "^16.8.3",
-    "react-dom": "^16.8.3",
-    "react-scripts": "2.1.5"
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3"
   }
 }
 ```
