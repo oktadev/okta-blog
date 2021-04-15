@@ -53,7 +53,7 @@ Any serious web application will need some sort of user authentication. Implemen
 Okta has created a tool to add authentication to React applications in seconds. It uses the Angular Schematics command-line tool to inject code into your skeleton application. Install the Schematics CLI on your system by running the following command in your terminal.
 
 ```bash
-npm i -g @angular-devkit/schematics-cli@11
+npm i -g @angular-devkit/schematics-cli@0.1102.9
 ```
 
 **TIP:** Depending on your system, you might need to run this command using `sudo`. 
