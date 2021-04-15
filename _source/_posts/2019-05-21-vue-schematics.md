@@ -13,7 +13,7 @@ tweets:
 image: blog/featured/okta-vue-bottle-headphones.jpg
 type: conversion
 changelog:
-- 2021-04-14: Updated to use Vue CLI 4.5 and OktaDev Schematics v3.4.1. You can see the changes to this post in [okta-blog#707](https://github.com/oktadeveloper/okta-blog/pull/707); example app changes are in [okta-vue-schematics-example#1]().
+- 2021-04-14: Updated to use Vue CLI 4.5 and OktaDev Schematics v3.4.1. You can see the changes to this post in [okta-blog#707](https://github.com/oktadeveloper/okta-blog/pull/707); example app changes are in [vue-schematics-example#1](https://github.com/oktadeveloper/vue-schematics-example/pull/1).
 ---
 
 Schematics is a tool from the Angular team that allows you to manipulate projects with code. You can create files, update existing files, and add dependencies to any project that has a `package.json` file. That's right, Schematics aren't only for Angular projects! 
