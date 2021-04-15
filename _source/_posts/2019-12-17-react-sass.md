@@ -63,7 +63,7 @@ You might be asking why I am telling you to use an Angular tool when you are dev
 Install OktaDev Schematics:
 
 ```bash
-npm i -D @oktadev/schematics@3.4.1
+npm i -D -E @oktadev/schematics@3.4.1
 ```
 
 Now, add Okta for authentication to your React application by running the command below.
