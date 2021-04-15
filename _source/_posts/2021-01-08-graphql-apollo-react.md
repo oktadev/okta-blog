@@ -28,19 +28,16 @@ If you prefer to watch the demo, you can view this walk through.
 
 ## Create your Okta Application
 
-The first thing you will need a free developer account from Okta. if you don't have one you can [sign up for one here.](https://developer.okta.com/signup/). Once you have completed that navigate to your developer's console and click on **Applications** and then **Add Application**. Select **Single Page App** and click **Next**.   
+{% include setup/cli.md type="spa" framework="React" loginRedirectUri="http://localhost:3000/callback" %}
 
-Give your application a meaningful name. You will also need to change your URIs to *localhost:3000* as this is the default in React.
-
-{% img blog/graphql-apollo-react/okta-app-settings.png alt:"Okta App Settings" width:"800" %}{: .center-image }
-
-Click on **Done**. On the application management page, you will be presented with your *Client id*. Make note of this as you will need it in your application.
+The OktaCLI will present your the *Client id*. Make note of this as you will need it in your application.
 
 ## Create Your Apollo and React Application
 
 Next, you will create your web application. Navigate to the parent directory where your application will be stored and use the command `npx create-react-app apollo-demo`. After your application is finished scaffolding you will need to install the required dependencies. First, you will be using bootstrap and react-bootstrap because it makes creating web pages simple.
 
 ```console
+cd apollo-demo
 npm i bootstrap@4.5.3
 npm i react-bootstrap@1.4.0
 ```
@@ -72,6 +69,8 @@ REACT_APP_OKTA_CLIENTID={yourClientId}
 REACT_APP_OKTA_URL_BASE={yourOktaDomain}
 REACT_APP_OKTA_APP_BASE_URL=http://localhost:3000
 ```
+
+**Note**: The automatic install of peer dependencies was explicitly removed with NPM 3, and reintroduced in NPM v7. Check your NPM version and find out if you have to install peer dependencies manually.
 
 Now you want to start building your application by editing the `App.js` file. Open `App.js` and replace the code with the following.
 
