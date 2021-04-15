@@ -12,7 +12,10 @@ tweets:
 - "Angular Schematics are pretty awesome - find out why!"
 image: blog/angular-schematics/angular-schematics.png
 type: conversion
+changelog:
+- 2021-04-15: Updated to use Angular 11 and OktaDev Schematics v3.4.1. You can see the changes to this post in [okta-blog#707](https://github.com/oktadeveloper/okta-blog/pull/707); example app changes are in [okta-angular-schematics-example#2](https://github.com/oktadeveloper/okta-angular-schematics-example/pull/2).
 ---
+:toc: macro
 :page-liquid:
 
 When I first started to learn Angular (it was called Angular 2 at the time), I was appalled by the number of files you needed to create to get a basic "Hello, World" example working. As Angular matured, a lot of this pain went away thanks to Angular CLI. Angular CLI is a command-line tool that generates a basic Angular project for you. In its 7.0 release, it started asking you questions about your application. Based on your responses, it chooses to add routing and determines a stylesheet format.
@@ -27,11 +30,13 @@ If you'd rather watch a video, I https://youtu.be/ANwZIt3Ni2s[created a screenca
 </div>
 ++++
 
+toc::[]
+
 To see Schematics in action, install Angular CLI:
 
 [source,shell]
 ----
-npm install -g @angular/cli@7.3.0
+npm install -g @angular/cli@11
 ----
 
 Then create a new Angular project:
@@ -39,6 +44,9 @@ Then create a new Angular project:
 [source,shell]
 ----
 $ ng new my-cool-app
+? Do you want to enforce stricter type checking and stricter bundle budgets in the workspace?
+  This setting helps improve maintainability and catch bugs ahead of time.
+  For more information, see https://angular.io/strict Yes
 ? Would you like to add Angular routing? Yes
 ? Which stylesheet format would you like to use? (Use arrow keys)
 ❯ CSS
@@ -55,24 +63,21 @@ Want to see something even cooler? You can add https://developer.okta.com[Okta] 
 
 [source,shell]
 ----
-ng add @oktadev/schematics
+cd my-cool-app
+ng add @oktadev/schematics@3.4.1
 ----
 
 TIP: Make sure you are in an Angular project directory before you run this command. Also, make sure your project is checked into source control before you run it.
 
-This will prompt you for an OIDC issuer and client ID. To get those values, https://developer.okta.com/signup/[create an Okta Developer account].
+This will prompt you for an OIDC issuer and client ID. Open a new terminal window to continue.
 
-image::{% asset_path 'blog/angular-schematics/signup.png' %}[alt=Sign Up for a Developer Account,width=500,align=center]
+{% include setup/cli.md type="spa" framework="Angular" loginRedirectUri="http://localhost:4200/callback" %}
 
-Once you've verified your email, log in to your account, and navigate to **Applications** > **Add Application**, select **Single-Page App**, and click **Next**. Give your app a name you'll remember, change port `8080` to `4200` in the base and redirect URIs, and click **Done**. Your settings should look similar to the screenshot below.
-
-image::{% asset_path 'blog/angular-schematics/oidc-app-settings.png' %}[alt=OIDC App Settings,width=700,align=center]
-
-Copy the **Client ID** from this screen and save it in a temporary file. Click on **Dashboard** and you'll find an **Org URL** in the top right corner. Copy this value into the file as well. If you haven't run the `ng add @oktadev/schematics` command, do it now. For the issuer URL, use your Org URL + `/oauth2/default`. You can see a screenshot of my values and the process below.
+If you haven't run the `ng add @oktadev/schematics` command, do it now. For the issuer URL and client ID, use the values from the OIDC app you just created. You can see a screenshot of my values and the process below.
 
 image::{% asset_path 'blog/angular-schematics/ng-add-@oktadev-schematics.png' %}[alt="ng add @oktadev/schematics",width=800,align=center]
 
-Now you can run your app with `ng serve`, navigate to `http://localhost:4200`, and you'll see a login button at the bottom. Click on it to authenticate with Okta. When you're redirected back to your app, it'll be replaced with logout button.
+Now you can run your app with `ng serve`, navigate to `\http://localhost:4200`, and you'll see a login button at the bottom. Click on it to authenticate with Okta. When you're redirected back to your app, it'll be replaced with logout button.
 
 image::{% asset_path 'blog/angular-schematics/login-with-arrow.png' %}[alt="Login button",width=800,align=center]
 
@@ -100,7 +105,7 @@ To create a Schematics project, first install the Schematics CLI:
 
 [source,shell]
 ----
-npm i -g @angular-devkit/schematics-cli@0.13.1
+npm i -g @angular-devkit/schematics-cli@0.1102.9
 ----
 
 Then run `schematics` to create a new blank project:
@@ -113,14 +118,14 @@ This will create a number of files for you.
 
 [source,shell]
 ----
-CREATE /my-component/README.md (639 bytes)
-CREATE /my-component/package.json (539 bytes)
-CREATE /my-component/tsconfig.json (656 bytes)
-CREATE /my-component/.gitignore (191 bytes)
-CREATE /my-component/.npmignore (64 bytes)
-CREATE /my-component/src/collection.json (231 bytes)
-CREATE /my-component/src/my-component/index.ts (318 bytes)
-CREATE /my-component/src/my-component/index_spec.ts (474 bytes)
+CREATE my-component/README.md (639 bytes)
+CREATE my-component/.gitignore (191 bytes)
+CREATE my-component/.npmignore (64 bytes)
+CREATE my-component/package.json (569 bytes)
+CREATE my-component/tsconfig.json (656 bytes)
+CREATE my-component/src/collection.json (231 bytes)
+CREATE my-component/src/my-component/index.ts (318 bytes)
+CREATE my-component/src/my-component/index_spec.ts (503 bytes)
 ----
 
 There's a `package.json` that handles your project's dependencies. There's also a `src/collection.json` that defines the metadata for your project. If you look at `collection.json`, you'll see the following:
@@ -321,40 +326,45 @@ Modify `src/my-component/index.ts` so you can get your generated project's path,
 ----
 import {
   apply,
+  chain,
   MergeStrategy,
   mergeWith,
   move,
   Rule,
   SchematicContext,
+  SchematicsException,
   template,
   Tree,
   url
 } from '@angular-devkit/schematics';
 import { join, normalize } from 'path';
-import { getWorkspace } from '@schematics/angular/utility/config';
+import { getWorkspace } from '@schematics/angular/utility/workspace';
 
-export function setupOptions(host: Tree, options: any): Tree {
-  const workspace = getWorkspace(host);
+export async function setupOptions(host: Tree, options: any): Promise<Tree> {
+  const workspace = await getWorkspace(host);
   if (!options.project) {
-    options.project = Object.keys(workspace.projects)[0];
+    options.project = workspace.projects.keys().next().value;
   }
-  const project = workspace.projects[options.project];
+  const project = workspace.projects.get(options.project);
+  if (!project) {
+    throw new SchematicsException(`Invalid project name: ${options.project}`);
+  }
 
   options.path = join(normalize(project.root), 'src');
   return host;
 }
 
 export function myComponent(_options: any): Rule {
-  return (tree: Tree, _context: SchematicContext) => {
-    setupOptions(tree, _options);
+  return async (tree: Tree, _context: SchematicContext) => {
+    await setupOptions(tree, _options);
 
     const movePath = normalize(_options.path + '/');
     const templateSource = apply(url('./files/src'), [
       template({..._options}),
       move(movePath)
     ]);
-    const rule = mergeWith(templateSource, MergeStrategy.Overwrite);
-    return rule(tree, _context);
+
+    return chain([mergeWith(templateSource, MergeStrategy.Overwrite)]);
   };
 }
 ----
@@ -367,7 +377,7 @@ To test this that reads from a workspace and gets the project information, you'l
 
 [source,shell]
 ----
-npm i -D @schematics/angular@7.3.0
+npm i -D @schematics/angular@11
 ----
 
 Then modify `src/index_spec.ts` to have workspace options, app-generation options, and schema options.
@@ -379,8 +389,6 @@ import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/te
 import * as path from 'path';
 
 describe('my-component', () => {
-
-  const collectionPath = path.join(__dirname, '../collection.json');
   const schematicRunner = new SchematicTestRunner(
     'schematics',
     path.join(__dirname, './../collection.json'),
@@ -402,17 +410,17 @@ describe('my-component', () => {
 
   let appTree: UnitTestTree;
 
-  beforeEach(() => { // <4>
-    appTree = schematicRunner.runExternalSchematic('@schematics/angular', 'workspace', workspaceOptions);
-    appTree = schematicRunner.runExternalSchematic('@schematics/angular', 'application', appOptions, appTree);
+  beforeEach(async () => { // <4>
+    appTree = await schematicRunner.runExternalSchematicAsync('@schematics/angular', 'workspace', workspaceOptions).toPromise();
+    appTree = await schematicRunner.runExternalSchematicAsync('@schematics/angular', 'application', appOptions, appTree).toPromise();
   });
 
-  it('works', () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
-    runner.runSchematicAsync('my-component', schemaOptions, appTree).toPromise().then(tree => {
+  it('works', (done) => {
+    schematicRunner.runSchematicAsync('my-component', schemaOptions, appTree).toPromise().then(tree => {
       const appComponent = tree.readContent('/projects/schematest/src/app/app.component.ts'); // <5>
       expect(appComponent).toContain(`name = '${schemaOptions.name}'`); // <6>
-    });
+      done();
+    }, done.fail);
   });
 });
 ----
@@ -431,7 +439,7 @@ Before publishing your Schematics to npm, it's a good idea to do some basic manu
 
 [source,shell]
 ----
-ng new my-test-app --routing --style css
+ng new my-test-app --strict --routing --style css
 ----
 
 Then run `npm link /path/to/schematics`. I created mine in the same directory as my Schematics project, so the command I ran was:
@@ -451,55 +459,18 @@ Run your schematic with the `ng g` command.
 ng g my-component:my-component
 ----
 
-When I tried this, it prompted me for my name, but then failed to overwrite the templates.
+It will prompt you for your name, then overwrite the existing files.
 
 [source,shell]
 ----
 ? What is your name? Matt
-ERROR! src/app/app.component.html already exists.
-ERROR! src/app/app.component.ts already exists.
-The Schematic workflow failed. See above.
+UPDATE src/app/app.component.html (119 bytes)
+UPDATE src/app/app.component.ts (206 bytes)
 ----
 
-As you can see, my test passes, but it doesn't work in the real world. To fix this, open `my-component/src/index.ts` and add a `forEach()` after `move(movePath)`.
+Run `ng serve`. You should see your name displayed when you open `\http://localhost:4200` in your browser.
 
-[source,ts]
-----
-import { FileEntry, forEach } from '@angular-devkit/schematics';
-
-...
-
-export function myComponent(_options: any): Rule {
-  return (tree: Tree, _context: SchematicContext) => {
-    setupOptions(tree, _options);
-
-    const movePath = normalize(_options.path + '/');
-    const templateSource = apply(url('./files/src'), [
-      template({..._options}),
-      move(movePath),
-      // fix for https://github.com/angular/angular-cli/issues/11337
-      forEach((fileEntry: FileEntry) => {
-        if (tree.exists(fileEntry.path)) {
-          tree.overwrite(fileEntry.path, fileEntry.content);
-        }
-        return fileEntry;
-      }),
-    ]);
-    const rule = mergeWith(templateSource, MergeStrategy.Overwrite);
-    return rule(tree, _context);
-  };
-}
-----
-
-Run `npm run build` in your `my-component` directory to rebuild your Schematics. Then run the `ng g` command again. Everything should work this time.
-
-[source,shell]
-----
-$ ng g my-component:my-component
-? What is your name? Matt
-UPDATE src/app/app.component.html (109 bytes)
-UPDATE src/app/app.component.ts (207 bytes)
-----
+image::{% asset_path 'blog/angular-schematics/hello-matt.png' %}[alt="Login button",width=721,align=center]
 
 === Publish Your Schematics to npm
 
@@ -582,7 +553,7 @@ After you run these commands, you'll have the Okta Angular SDK installed and con
 
 You can find the source code for the example schematic in this post on GitHub at https://github.com/oktadeveloper/okta-angular-schematics-example[oktadeveloper/okta-angular-schematics-example].
 
-In the coming months, I hope to add more Schematics that allow easy integration with our https://github.com/okta/okta-oidc-js/tree/master/packages/okta-react[React] and https://github.com/okta/okta-vue[Vue] SDKs.
+In the coming months, I hope to add more Schematics that allow easy integration with our https://github.com/okta/okta-react[React] and https://github.com/okta/okta-vue[Vue] SDKs.
 
 **Update:** OktaDev Schematics now has support for React, Vue, and Ionic! See the following blog posts for more information.
 
@@ -592,6 +563,7 @@ In the coming months, I hope to add more Schematics that allow easy integration 
 
 We like to write about Angular on this here blog. Here are some of our recent Angular posts:
 
+* link:/blog/2020/12/03/angular-okta[Use the Okta CLI to Quickly Build Secure Angular Apps]
 * link:/blog/2019/01/30/first-angular-pwa[Build Your First PWA with Angular]
 * link:/blog/2018/12/21/build-basic-web-app-with-mvc-angular[Build a Basic Website with ASP.NET MVC and Angular]
 * link:/blog/2018/12/04/angular-7-oidc-oauth2-pkce[Angular 7: What's New and Noteworthy + OIDC Goodness]
