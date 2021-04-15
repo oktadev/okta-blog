@@ -22,6 +22,10 @@ In this post, you are going to use Okta and Spring Boot to implement single sign
 
 The first step, before you dive into the code, is to get the user authentication configurations in place. As mentioned, you'll be using Okta as the OAuth 2.0 and OIDC (OpenID Connect) provider. With Okta you can manage users and groups, as well as easily implement features like social login and multi-factor authentication.
 
+If you haven't already, head over to [register](https://developer.okta.com/signup) and create a **free** Okta developer account. Look for an email with instructions to complete the initialization of your Okta account.
+
+Once you have an account, log in because you need to set up your web applications, users, resource server, and authorization server!  You may need to click the yellow **Admin** button on your first login to get to the developer's console.
+
 ## Create Two OpenID Connect Applications
 
 The first step is to create two OIDC applications. OpenID Connect is an authentication protocol built on top of OAuth 2.0, which is an authorization protocol. Each OIDC application defines an authentication provider endpoint for each web application instance. 
