@@ -253,7 +253,7 @@ Finds the latest blog post and updates the post date to the date specified. **Da
 npm run dev
 ```
 
-This command removes all posts from the local development environment except those dated within the last two weeks.
+This command removes all posts from the local development environment except those dated within the last two weeks. If you pass in a file name (or comma-separated list of filenames), it'll keep those too.
 
 ### Restoring Deleted Posts Before Pushing to GitHub
 
