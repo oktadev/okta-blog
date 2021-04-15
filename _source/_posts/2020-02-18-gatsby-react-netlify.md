@@ -840,7 +840,7 @@ Try `gatsby build` again, and it should work this time. Run `gatsby serve` to se
 
 ## Add User Registration
 
-To give people the ability to sign-up for accounts, go to the Okta Admin Console > **Directory** > **Self-Service Registration**, and enable it.
+To give people the ability to sign-up for accounts, you have to enable self-service registration in the Okta Admin Console. Run `okta login` and open the returned URL in a browser. Sign in and go to > **Directory** > **Self-Service Registration** to enable this feature.
 
 Modify `src/components/Login.js` to add Okta's user registration feature.
 
