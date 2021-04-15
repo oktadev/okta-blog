@@ -36,7 +36,7 @@ The Okta CLI will present you with a *Client ID*. Make note of this as you will 
 
 Next, you will create your web application. Navigate to the parent directory where your application will be stored and use the command `npx create-react-app apollo-demo`. After your application is finished scaffolding you will need to install the required dependencies. First, you will be using bootstrap and react-bootstrap because it makes creating web pages simple.
 
-```console
+```shell
 cd apollo-demo
 npm i bootstrap@4.5.3
 npm i react-bootstrap@1.4.0
@@ -44,27 +44,27 @@ npm i react-bootstrap@1.4.0
 
 Next, you will need to get Okta's core javascript and react packages. With these packages, setting up your authentication with Okta only takes a few short minutes.
 
-```console
+```shell
 npm i @okta/okta-auth-js@4.4.0
 npm i @okta/okta-react@4.1.0
 ```
 
 You will need the `graphql` and `apollo-client` packages to connect to the graphQL API that you will use for your data.
 
-```console
+```shell
 npm i @apollo/client@3.3.4
 npm i graphql@15.4.0
 ```
 
 Finally, you will use dotenv to store your sensitive data during development.
 
-```console
+```shell
 npm i dotenv@8.2.0
 ```
 
 With dotenv installed, you can create a new file in the root of your application called .env and add the following code to it.
 
-```javascript
+```shell
 REACT_APP_OKTA_CLIENTID={yourClientId}
 REACT_APP_OKTA_URL_BASE={yourOktaDomain}
 REACT_APP_OKTA_APP_BASE_URL=http://localhost:3000
@@ -74,7 +74,7 @@ REACT_APP_OKTA_APP_BASE_URL=http://localhost:3000
 
 Now you want to start building your application by editing the `App.js` file. Open `App.js` and replace the code with the following.
 
-```javascript
+```jsx
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import AppWithRouterAccess from './AppWithRouterAccess';
@@ -105,7 +105,7 @@ Most of this should look fairly familiar. You are importing the bootstrap `CSS` 
 
 Create a new file in your `src` directory called `AppWithRouterAccess.jsx` and add the following code.
 
-```javascript
+```jsx
 import React from 'react';
 import { Route } from 'react-router-dom';
 import { Security, SecureRoute, LoginCallback } from '@okta/okta-react';
@@ -141,7 +141,7 @@ Here you are creating a new instance of `OktaAuth` and passing it into your `Sec
 Now you can focus on creating your pages and components. First, add two new folders to your `src` directory; `Pages` and `Components`. In `Pages`, add a new file called `Home.jsx`. Add the following code to it.
 
 {% raw %}
-```javascript
+```jsx
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 
@@ -209,7 +209,7 @@ This page serves two major needs. First, it provides a landing page for your use
 
 Next, you can implement the code for the `Blastoff` page. Add a new file to your `Pages` directory called `Blastoff.jsx` and add the following code.
 
-```javascript
+```jsx
 import React, { Component } from 'react';
 
 import Header from '../Components/Header'
@@ -281,7 +281,7 @@ This page is the showcase of your application. Users will land on this page and 
 
 Next, add a new file to your `Components` directory and add a file called `Histories.jsx`. The code for that component is as follows.
 
-```javascript
+```jsx
 import { gql, useQuery } from '@apollo/client';
 
 import { Container } from 'react-bootstrap'
@@ -343,7 +343,7 @@ This component does the heavy lifting for displaying the histories to the user. 
 
 For a detailed history, add a new file called `History.jsx` to the `Components` folder and add the following code.
 
-```javascript
+```jsx
 import { gql, useQuery } from '@apollo/client';
 import { Container, Row } from 'react-bootstrap'
 
@@ -452,7 +452,7 @@ Again, you obtain the `loading`, `error`, and `data` values from the `useQuery` 
 
 Finally, in your components folder, add a file called `Header.jsx`. This file will provide links for your users as well as the logic for a login/logout button.
 
-```javascript
+```jsx
 import React from 'react';
 import { useOktaAuth } from '@okta/okta-react';
 
