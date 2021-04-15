@@ -1,10 +1,10 @@
-Run the [Okta Maven Plugin](https://github.com/oktadeveloper/okta-maven-plugin) to register a new account:
+Run the [Okta Maven Plugin](https://github.com/oktadeveloper/okta-maven-plugin) from your app's folder:
 
 ```shell
 ./mvnw com.okta:okta-maven-plugin:register
 ```
 
-If you already have an Okta account registered, use `login` instead of `register`.
+Answer a few questions (name, email, and company), and it will generate a new Okta developer account for you. If you already have an Okta account registered, use `login` instead of `register`.
 
 Then, configure your Spring Boot application to use Okta for authentication:
 
