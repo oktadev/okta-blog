@@ -13,7 +13,7 @@ tweets:
 image: blog/gatsby-netlify-okta/gatsby-netlify.png
 type: conversion
 changelog:
-- 2021-04-14: Updated to use Gatsby CLI 3.3.0 and Okta Sign-In Widget v5.5.0. See the example app changes in []() and this posts changes in [okta-blog#671](https://github.com/oktadeveloper/okta-blog/pull/671);
+- 2021-04-14: Updated to use Gatsby CLI 3.3 and Okta Sign-In Widget v5.5. See the example app changes in [gatsby-netlify-okta-example#3](https://github.com/oktadeveloper/gatsby-netlify-okta-example/pull/3) and this post's changes in [okta-blog#671](https://github.com/oktadeveloper/okta-blog/pull/671).
 ---
 
 Gatsby is a tool for creating static websites with React. It allows you to pull your data from virtually anywhere: content management systems (CMSs), Markdown files, APIs, and databases. Gatsby leverages GraphQL and webpack to combine your data and React code to generate static files for your website.
@@ -256,7 +256,7 @@ If you see an error the first time it loads, you can ignore it. It happens becau
 In a terminal window, run `git pull origin main` and you'll see your project is updated with the post you created.
 
 ```shell
-git pull origin main
+$ git pull origin main
 remote: Enumerating objects: 5, done.
 remote: Counting objects: 100% (5/5), done.
 remote: Compressing objects: 100% (3/3), done.
@@ -291,38 +291,38 @@ class BlogRoll extends React.Component {
     return (
       <div className="columns is-multiline">
         {posts &&
-        posts.map(({ node: post }) => (
-          <div className="is-parent column is-6" key={post.id}>
-            <article
-              className={`blog-list-item tile is-child box notification ${
-                post.frontmatter.featuredpost ? 'is-featured' : ''
-              }`}
-            >
-              <header>
-                <p className="post-meta">
-                  <Link
-                    className="title has-text-primary is-size-4"
-                    to={post.frontmatter.path}
-                  >
-                    {post.frontmatter.title}
-                  </Link>
-                  <span> &bull; </span>
-                  <span className="subtitle is-size-5 is-block">
+          posts.map(({ node: post }) => (
+            <div className="is-parent column is-6" key={post.id}>
+              <article
+                className={`blog-list-item tile is-child box notification ${
+                  post.frontmatter.featuredpost ? 'is-featured' : ''
+                }`}
+              >
+                <header>
+                  <p className="post-meta">
+                    <Link
+                      className="title has-text-primary is-size-4"
+                      to={post.frontmatter.path}
+                    >
+                      {post.frontmatter.title}
+                    </Link>
+                    <span> &bull; </span>
+                    <span className="subtitle is-size-5 is-block">
                       {post.frontmatter.date}
                     </span>
+                  </p>
+                </header>
+                <p>
+                  {post.excerpt}
+                  <br />
+                  <br />
+                  <Link className="button" to={post.frontmatter.path}>
+                    Keep Reading →
+                  </Link>
                 </p>
-              </header>
-              <p>
-                {post.excerpt}
-                <br />
-                <br />
-                <Link className="button" to={post.frontmatter.path}>
-                  Keep Reading →
-                </Link>
-              </p>
-            </article>
-          </div>
-        ))}
+              </article>
+            </div>
+          ))}
       </div>
     )
   }
@@ -361,7 +361,7 @@ const query = () => (
   />
 )
 
-export default query;
+export default query
 ```
 
 Create a new page at `src/pages/blog.js` to serve as the index page for blogs.
@@ -403,7 +403,7 @@ const index = () => {
     </>)
 }
 
-export default index;
+export default index
 ```
 
 Restart your Gatsby app using `npm start` and navigate to `http://localhost:8000`.
@@ -674,7 +674,7 @@ class Login extends React.Component {
     this.signIn.remove();
     const tokens = await this.signIn.showSignInToGetTokens();
     await this.signIn.authClient.tokenManager.setTokens(tokens);
-     window.location.reload();
+    window.location.reload();
   }
 
   render() {
@@ -847,9 +847,7 @@ Modify `src/components/Login.js` to add Okta's user registration feature.
 ```js
 const config = {
   ...
-  authParams: {
-    ...
-  },
+  authParams: {...},
   features: {
     registration: true
   }
