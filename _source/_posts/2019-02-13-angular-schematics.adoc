@@ -13,7 +13,7 @@ tweets:
 image: blog/angular-schematics/angular-schematics.png
 type: conversion
 changelog:
-- 2021-04-14: Updated to use Angular 11 and OktaDev Schematics v3.4.1. You can see the changes to this post in [okta-blog#707](https://github.com/oktadeveloper/okta-blog/pull/707); example app changes are in [okta-angular-schematics-example#1]().
+- 2021-04-15: Updated to use Angular 11 and OktaDev Schematics v3.4.1. You can see the changes to this post in [okta-blog#707](https://github.com/oktadeveloper/okta-blog/pull/707); example app changes are in [okta-angular-schematics-example#2](https://github.com/oktadeveloper/okta-angular-schematics-example/pull/2).
 ---
 :toc: macro
 :page-liquid:
@@ -44,6 +44,9 @@ Then create a new Angular project:
 [source,shell]
 ----
 $ ng new my-cool-app
+? Do you want to enforce stricter type checking and stricter bundle budgets in the workspace?
+  This setting helps improve maintainability and catch bugs ahead of time.
+  For more information, see https://angular.io/strict Yes
 ? Would you like to add Angular routing? Yes
 ? Which stylesheet format would you like to use? (Use arrow keys)
 ❯ CSS
@@ -60,12 +63,13 @@ Want to see something even cooler? You can add https://developer.okta.com[Okta] 
 
 [source,shell]
 ----
+cd my-cool-app
 ng add @oktadev/schematics@3.4.1
 ----
 
 TIP: Make sure you are in an Angular project directory before you run this command. Also, make sure your project is checked into source control before you run it.
 
-This will prompt you for an OIDC issuer and client ID.
+This will prompt you for an OIDC issuer and client ID. Open a new terminal window to continue.
 
 {% include setup/cli.md type="spa" framework="Angular" loginRedirectUri="http://localhost:4200/callback" %}
 
@@ -114,14 +118,14 @@ This will create a number of files for you.
 
 [source,shell]
 ----
-CREATE /my-component/README.md (639 bytes)
-CREATE /my-component/package.json (539 bytes)
-CREATE /my-component/tsconfig.json (656 bytes)
-CREATE /my-component/.gitignore (191 bytes)
-CREATE /my-component/.npmignore (64 bytes)
-CREATE /my-component/src/collection.json (231 bytes)
-CREATE /my-component/src/my-component/index.ts (318 bytes)
-CREATE /my-component/src/my-component/index_spec.ts (474 bytes)
+CREATE my-component/README.md (639 bytes)
+CREATE my-component/.gitignore (191 bytes)
+CREATE my-component/.npmignore (64 bytes)
+CREATE my-component/package.json (569 bytes)
+CREATE my-component/tsconfig.json (656 bytes)
+CREATE my-component/src/collection.json (231 bytes)
+CREATE my-component/src/my-component/index.ts (318 bytes)
+CREATE my-component/src/my-component/index_spec.ts (503 bytes)
 ----
 
 There's a `package.json` that handles your project's dependencies. There's also a `src/collection.json` that defines the metadata for your project. If you look at `collection.json`, you'll see the following:
@@ -322,40 +326,45 @@ Modify `src/my-component/index.ts` so you can get your generated project's path,
 ----
 import {
   apply,
+  chain,
   MergeStrategy,
   mergeWith,
   move,
   Rule,
   SchematicContext,
+  SchematicsException,
   template,
   Tree,
   url
 } from '@angular-devkit/schematics';
 import { join, normalize } from 'path';
-import { getWorkspace } from '@schematics/angular/utility/config';
+import { getWorkspace } from '@schematics/angular/utility/workspace';
 
-export function setupOptions(host: Tree, options: any): Tree {
-  const workspace = getWorkspace(host);
+export async function setupOptions(host: Tree, options: any): Promise<Tree> {
+  const workspace = await getWorkspace(host);
   if (!options.project) {
-    options.project = Object.keys(workspace.projects)[0];
+    options.project = workspace.projects.keys().next().value;
   }
-  const project = workspace.projects[options.project];
+  const project = workspace.projects.get(options.project);
+  if (!project) {
+    throw new SchematicsException(`Invalid project name: ${options.project}`);
+  }
 
   options.path = join(normalize(project.root), 'src');
   return host;
 }
 
 export function myComponent(_options: any): Rule {
-  return (tree: Tree, _context: SchematicContext) => {
-    setupOptions(tree, _options);
+  return async (tree: Tree, _context: SchematicContext) => {
+    await setupOptions(tree, _options);
 
     const movePath = normalize(_options.path + '/');
     const templateSource = apply(url('./files/src'), [
       template({..._options}),
       move(movePath)
     ]);
-    const rule = mergeWith(templateSource, MergeStrategy.Overwrite);
-    return rule(tree, _context);
+
+    return chain([mergeWith(templateSource, MergeStrategy.Overwrite)]);
   };
 }
 ----
@@ -380,8 +389,6 @@ import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/te
 import * as path from 'path';
 
 describe('my-component', () => {
-
-  const collectionPath = path.join(__dirname, '../collection.json');
   const schematicRunner = new SchematicTestRunner(
     'schematics',
     path.join(__dirname, './../collection.json'),
@@ -403,17 +410,17 @@ describe('my-component', () => {
 
   let appTree: UnitTestTree;
 
-  beforeEach(() => { // <4>
-    appTree = schematicRunner.runExternalSchematic('@schematics/angular', 'workspace', workspaceOptions);
-    appTree = schematicRunner.runExternalSchematic('@schematics/angular', 'application', appOptions, appTree);
+  beforeEach(async () => { // <4>
+    appTree = await schematicRunner.runExternalSchematicAsync('@schematics/angular', 'workspace', workspaceOptions).toPromise();
+    appTree = await schematicRunner.runExternalSchematicAsync('@schematics/angular', 'application', appOptions, appTree).toPromise();
   });
 
-  it('works', () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
-    runner.runSchematicAsync('my-component', schemaOptions, appTree).toPromise().then(tree => {
+  it('works', (done) => {
+    schematicRunner.runSchematicAsync('my-component', schemaOptions, appTree).toPromise().then(tree => {
       const appComponent = tree.readContent('/projects/schematest/src/app/app.component.ts'); // <5>
       expect(appComponent).toContain(`name = '${schemaOptions.name}'`); // <6>
-    });
+      done();
+    }, done.fail);
   });
 });
 ----
@@ -432,7 +439,7 @@ Before publishing your Schematics to npm, it's a good idea to do some basic manu
 
 [source,shell]
 ----
-ng new my-test-app --routing --style css
+ng new my-test-app --strict --routing --style css
 ----
 
 Then run `npm link /path/to/schematics`. I created mine in the same directory as my Schematics project, so the command I ran was:
@@ -452,55 +459,18 @@ Run your schematic with the `ng g` command.
 ng g my-component:my-component
 ----
 
-When I tried this, it prompted me for my name, but then failed to overwrite the templates.
+It will prompt you for your name, then overwrite the existing files.
 
 [source,shell]
 ----
 ? What is your name? Matt
-ERROR! src/app/app.component.html already exists.
-ERROR! src/app/app.component.ts already exists.
-The Schematic workflow failed. See above.
+UPDATE src/app/app.component.html (119 bytes)
+UPDATE src/app/app.component.ts (206 bytes)
 ----
 
-As you can see, my test passes, but it doesn't work in the real world. To fix this, open `my-component/src/index.ts` and add a `forEach()` after `move(movePath)`.
+Run `ng serve`. You should see your name displayed when you open `\http://localhost:4200` in your browser.
 
-[source,ts]
-----
-import { FileEntry, forEach } from '@angular-devkit/schematics';
-
-...
-
-export function myComponent(_options: any): Rule {
-  return (tree: Tree, _context: SchematicContext) => {
-    setupOptions(tree, _options);
-
-    const movePath = normalize(_options.path + '/');
-    const templateSource = apply(url('./files/src'), [
-      template({..._options}),
-      move(movePath),
-      // fix for https://github.com/angular/angular-cli/issues/11337
-      forEach((fileEntry: FileEntry) => {
-        if (tree.exists(fileEntry.path)) {
-          tree.overwrite(fileEntry.path, fileEntry.content);
-        }
-        return fileEntry;
-      }),
-    ]);
-    const rule = mergeWith(templateSource, MergeStrategy.Overwrite);
-    return rule(tree, _context);
-  };
-}
-----
-
-Run `npm run build` in your `my-component` directory to rebuild your Schematics. Then run the `ng g` command again. Everything should work this time.
-
-[source,shell]
-----
-$ ng g my-component:my-component
-? What is your name? Matt
-UPDATE src/app/app.component.html (109 bytes)
-UPDATE src/app/app.component.ts (207 bytes)
-----
+image::{% asset_path 'blog/angular-schematics/hello-matt.png' %}[alt="Login button",width=721,align=center]
 
 === Publish Your Schematics to npm
 
