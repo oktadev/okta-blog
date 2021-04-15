@@ -73,7 +73,7 @@ This will prompt you for an OIDC issuer and client ID. Open a new terminal windo
 
 {% include setup/cli.md type="spa" framework="Angular" loginRedirectUri="http://localhost:4200/callback" %}
 
-If you haven't run the `ng add @oktadev/schematics` command, do it now. For the issuer URL and client ID, use the values from the app you just created. You can see a screenshot of my values and the process below.
+If you haven't run the `ng add @oktadev/schematics` command, do it now. For the issuer URL and client ID, use the values from the OIDC app you just created. You can see a screenshot of my values and the process below.
 
 image::{% asset_path 'blog/angular-schematics/ng-add-@oktadev-schematics.png' %}[alt="ng add @oktadev/schematics",width=800,align=center]
 
