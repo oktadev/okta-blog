@@ -13,7 +13,7 @@ tweets:
 image: blog/gatsby-netlify-okta/gatsby-netlify.png
 type: conversion
 changelog:
-- 2021-04-02: Updated to use Okta Sign-In Widget v5.5.0. See the examples in...
+- 2021-04-14: Updated to use Gatsby CLI 3.3.0 and Okta Sign-In Widget v5.5.0. See the example app changes in []() and this posts changes in [okta-blog#671](https://github.com/oktadeveloper/okta-blog/pull/671);
 ---
 
 Gatsby is a tool for creating static websites with React. It allows you to pull your data from virtually anywhere: content management systems (CMSs), Markdown files, APIs, and databases. Gatsby leverages GraphQL and webpack to combine your data and React code to generate static files for your website.
@@ -23,6 +23,10 @@ JAM - JavaScript, APIs, and Markup - apps are delivered by pre-rendering files a
 Netlify is a hosting company for static sites that offers continuous integration, HTML forms, AWS Lambda functions, and even content management.
 
 {% img blog/gatsby-netlify-okta/gatsby-netlify.png alt:"Gatsby + Netlify" width:"800" %}{: .center-image }
+
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
 
 In this tutorial, I'll show you how to use Gatsby to create a blog that integrates with Netlify CMS for content. The app you build will support authoring posts in Markdown and adding/editing posts from your browser or via Git! Finally, I'll show you how to secure a section of your app with Okta.
 
@@ -43,7 +47,7 @@ If you'd prefer to watch a video, you can [watch this tutorial as a screencast](
 To create a Gatsby site, you'll need to install the Gatsby CLI. This tool gets you up and running with a Gatsby app in no time. It also runs a development server and builds your Gatsby application for production.
 
 ```shell
-npm install -g gatsby-cli
+npm install -g gatsby-cli@3.3.0
 ```
 
 ## Create a New Project with Gatsby
@@ -96,7 +100,7 @@ Netlify CMS is a single-page React app too! Its features include custom-styled p
 You can install Netlify CMS and the Gatsby plugin for it using `npm`:
 
 ```
-npm i netlify-cms-app@2.11.20 gatsby-plugin-netlify-cms@4.1.40
+npm i netlify-cms-app@2.14.45 gatsby-plugin-netlify-cms@5.3.0
 ```
 
 In `gatsby-config.js`, register the Netlify CMS plugin:
@@ -160,7 +164,7 @@ git init
 git add .
 git commit -m "Add project to Git"
 git remote add origin git@github.com:${user}/${repo}.git
-git push origin master
+git push origin main
 ```
 
 Now you can publish your Gatsby site straight from GitHub using [Netlify's create a new site page](https://app.netlify.com/start).
@@ -205,6 +209,7 @@ Modify `static/admin/config.yml` to use your GitHub repo:
 backend:
   name: github
   repo: your-username/your-repo-name
+  branch: main
 ```
 
 In my case, I used:
@@ -213,6 +218,7 @@ In my case, I used:
 backend:
   name: github
   repo: oktadeveloper/gatsby-netlify-okta-example
+  branch: main
 ```
 
 Save `config.yml`, commit the change, and push it to your GitHub repo.
@@ -220,7 +226,7 @@ Save `config.yml`, commit the change, and push it to your GitHub repo.
 ```
 git add .
 git commit -m "Add GitHub Backend"
-git push origin master
+git push origin main
 ```
 
 When your changes finish deploying on Netlify (it should take around 30 seconds), navigate to your site's `/admin/` endpoint. You'll be prompted to log in with GitHub.
@@ -247,18 +253,18 @@ Now if you go to your site's `/admin/` endpoint and log in with GitHub, you'll b
 
 If you see an error the first time it loads, you can ignore it. It happens because no blogs exist. Add a new one and it'll go away. For the path, use something like `/blog/first-post`.
 
-In a terminal window, run `git pull origin master` and you'll see your project is updated with the post you created.
+In a terminal window, run `git pull origin main` and you'll see your project is updated with the post you created.
 
 ```shell
-git pull origin master
+git pull origin main
 remote: Enumerating objects: 5, done.
 remote: Counting objects: 100% (5/5), done.
 remote: Compressing objects: 100% (3/3), done.
 remote: Total 4 (delta 1), reused 0 (delta 0), pack-reused 0
 Unpacking objects: 100% (4/4), done.
 From github.com:oktadeveloper/gatsby-netlify-okta-example
- * branch            master     -> FETCH_HEAD
-   c1b8722..421a113  master     -> origin/master
+ * branch            main     -> FETCH_HEAD
+   c1b8722..421a113  main     -> origin/main
 Updating c1b8722..421a113
 Fast-forward
  blog/1st-post.md | 6 ++++++
@@ -285,38 +291,38 @@ class BlogRoll extends React.Component {
     return (
       <div className="columns is-multiline">
         {posts &&
-          posts.map(({ node: post }) => (
-            <div className="is-parent column is-6" key={post.id}>
-              <article
-                className={`blog-list-item tile is-child box notification ${
-                  post.frontmatter.featuredpost ? 'is-featured' : ''
-                }`}
-              >
-                <header>
-                  <p className="post-meta">
-                    <Link
-                      className="title has-text-primary is-size-4"
-                      to={post.frontmatter.path}
-                    >
-                      {post.frontmatter.title}
-                    </Link>
-                    <span> &bull; </span>
-                    <span className="subtitle is-size-5 is-block">
+        posts.map(({ node: post }) => (
+          <div className="is-parent column is-6" key={post.id}>
+            <article
+              className={`blog-list-item tile is-child box notification ${
+                post.frontmatter.featuredpost ? 'is-featured' : ''
+              }`}
+            >
+              <header>
+                <p className="post-meta">
+                  <Link
+                    className="title has-text-primary is-size-4"
+                    to={post.frontmatter.path}
+                  >
+                    {post.frontmatter.title}
+                  </Link>
+                  <span> &bull; </span>
+                  <span className="subtitle is-size-5 is-block">
                       {post.frontmatter.date}
                     </span>
-                  </p>
-                </header>
-                <p>
-                  {post.excerpt}
-                  <br />
-                  <br />
-                  <Link className="button" to={post.frontmatter.path}>
-                    Keep Reading →
-                  </Link>
                 </p>
-              </article>
-            </div>
-          ))}
+              </header>
+              <p>
+                {post.excerpt}
+                <br />
+                <br />
+                <Link className="button" to={post.frontmatter.path}>
+                  Keep Reading →
+                </Link>
+              </p>
+            </article>
+          </div>
+        ))}
       </div>
     )
   }
@@ -330,7 +336,7 @@ BlogRoll.propTypes = {
   }),
 };
 
-export default () => (
+const query = () => (
   <StaticQuery
     query={graphql`
       query BlogRollQuery {
@@ -354,6 +360,8 @@ export default () => (
     render={(data, count) => <BlogRoll data={data} count={count} />}
   />
 )
+
+export default query;
 ```
 
 Create a new page at `src/pages/blog.js` to serve as the index page for blogs.
@@ -363,7 +371,7 @@ import React from 'react'
 
 import BlogRoll from '../components/BlogRoll'
 
-export default class BlogIndexPage extends React.Component {
+class BlogIndexPage extends React.Component {
   render() {
     return (
       <React.Fragment>
@@ -377,6 +385,8 @@ export default class BlogIndexPage extends React.Component {
     )
   }
 }
+
+export default BlogIndexPage
 ```
 
 Then add a link to it in `src/pages/index.js`:
@@ -385,13 +395,15 @@ Then add a link to it in `src/pages/index.js`:
 import React from 'react'
 import { Link } from 'gatsby'
 
-export default () => {
+const index = () => {
   return (
     <>
       Hello world!
       <p><Link to="/blog">View Blog</Link></p>
     </>)
 }
+
+export default index;
 ```
 
 Restart your Gatsby app using `npm start` and navigate to `http://localhost:8000`.
@@ -399,19 +411,20 @@ Restart your Gatsby app using `npm start` and navigate to `http://localhost:8000
 You'll receive an error because your project doesn't have Markdown support.
 
 ```bash
-Generating development JavaScript bundle failed
+ ERROR #85923  GRAPHQL
 
-/Users/mraible/blog/gatsby-netlify-okta/src/components/BlogRoll.js
-  62:9  error  Cannot query field "allMarkdownRemark" on type "Query"  graphql/template-strings
+There was an error in your GraphQL query:
 
-✖ 1 problem (1 error, 0 warnings)
+Cannot query field "allMarkdownRemark" on type "Query".
+...
+File: src/components/BlogRoll.js:62:9
 
-File: src/components/BlogRoll.js
+failed extract queries from components - 0.104s
 ```
 
 ## Add Markdown Support to Gatsby
 
-Gatsby's [Add Markdown Pages docs](https://www.gatsbyjs.org/docs/adding-markdown-pages/) show the process that it uses to create pages from Markdown files:
+Gatsby's [Add Markdown Pages docs](https://www.gatsbyjs.com/docs/how-to/routing/adding-markdown-pages/) show the process that it uses to create pages from Markdown files:
 
 1. Read files into Gatsby from the filesystem
 2. Transform Markdown to HTML and frontmatter to data
@@ -542,7 +555,7 @@ Commit your changes and verify everything works in production.
 ```shell
 git add .
 git commit -m "Add /blog and Markdown support"
-git push origin master
+git push origin main
 ```
 
 ## Add an Account Section
@@ -582,7 +595,7 @@ Add a link to the account page in `src/pages/index.js`:
 import React from 'react'
 import { Link } from 'gatsby'
 
-export default () => {
+const index = () => {
   return (
     <>
       Hello world!
@@ -590,6 +603,8 @@ export default () => {
       <p><Link to="/account">My Account</Link></p>
     </>)
 }
+
+export default index
 ```
 
 Since this section will have dynamic content that shouldn't be rendered statically, you need to exclude it from the build. Add the following JavaScript to the bottom of `gatsby-node.js` to indicate that `/account` is a client-only route.
@@ -610,33 +625,25 @@ Restart with `npm start` and you should be able to navigate to this new section.
 ## Register Your App with Okta
 
 {% include setup/cli.md type="spa" 
-   loginRedirectUri="http://localhost:8000/account,http://localhost:9000/account,https://<your-site>.netlify.com/account"
-   loginRedirectUri="http://localhost:8000,http://localhost:9000,https://<your-site>.netlify.com" %}
+   loginRedirectUri="http://localhost:8000/account,http://localhost:9000/account,https://<your-site>.netlify.app/account"
+   logoutRedirectUri="http://localhost:8000,http://localhost:9000,https://<your-site>.netlify.app" %}
 
-### Add Trusted Origins for Your Gatsby Sites
-
-Gatsby can run on two different ports (8000 and 9000) locally. One is for development and one is for production (invoked with `gatsby build` and `gatsby serve`). You also have your production Netlify site. Add all of these as Trusted Origins in **Security** > **API** > **Trusted Origins**.
-
-Click **Add Origin**, select **CORS** and **Redirect** for Type, and add each of the following:
-
-* `http://localhost:8000`
-* `http://localhost:9000`
-* `https://<your-site>.netlify.com`
+Gatsby can run on two different ports (8000 and 9000) locally. One is for development and one is for production (invoked with `gatsby build` and `gatsby serve`). You also have your production Netlify site. That's why you need all the redirect URIs and trusted origins. 
 
 ## Protect Your Gatsby Account Section with Okta
 
 Install Okta's Sign-In Widget:
 
 ```shell
-npm i @okta/okta-signin-widget@5.5.0
+npm i @okta/okta-signin-widget@5.5.2
 ```
 
 Create a `Login` component in `src/components/Login.js`:
 
 ```jsx
-import OktaSignIn from '@okta/okta-signin-widget';
-import '@okta/okta-signin-widget/dist/css/okta-sign-in.min.css';
-import React from 'react';
+import OktaSignIn from '@okta/okta-signin-widget'
+import '@okta/okta-signin-widget/dist/css/okta-sign-in.min.css'
+import React from 'react'
 
 const config = {
   baseUrl: '<okta-org-url>',
@@ -645,14 +652,14 @@ const config = {
   redirectUri: typeof window !== 'undefined' && window.location.origin + '/account',
   el: '#signIn',
   authParams: {
-    pkce: true,
-    responseType: ['token', 'id_token']
+    issuer: '<okta-org-url>/oauth2/default',
+    scopes: ['openid', 'email', 'profile']
   }
 };
 
 export const signIn = typeof window !== 'undefined' && new OktaSignIn(config);
 
-export default class Login extends React.Component {
+class Login extends React.Component {
   constructor(props) {
     super(props);
 
@@ -664,40 +671,10 @@ export default class Login extends React.Component {
   }
 
   async componentDidMount() {
-    const authClient = this.signIn.authClient;
-    const session = await authClient.session.get();
-    console.log('session.status', session.status);
-    // Session exists, show logged in state.
-    if (session.status === 'ACTIVE') {
-      // clear parameters from browser window
-      window.location.hash = '';
-      // set username in state
-      this.setState({user: session.login});
-      localStorage.setItem('isAuthenticated', 'true');
-      // get access and ID tokens
-      authClient.token.getWithoutPrompt({
-        scopes: ['openid', 'email', 'profile'],
-      }).then((tokens) => {
-        tokens.forEach(token => {
-          if (token.idToken) {
-            authClient.tokenManager.add('idToken', token);
-          }
-          if (token.accessToken) {
-            authClient.tokenManager.add('accessToken', token);
-          }
-        });
-
-        // Say hello to the person who just signed in
-        authClient.tokenManager.get('idToken').then(idToken => {
-          console.log(`Hello, ${idToken.claims.name} (${idToken.claims.email})`);
-          window.location.reload();
-        });
-      }).catch(error => console.error(error));
-      return;
-    } else {
-      this.signIn.remove();
-    }
-    this.signIn.renderEl({el: '#signIn'})
+    this.signIn.remove();
+    const tokens = await this.signIn.showSignInToGetTokens();
+    await this.signIn.authClient.tokenManager.setTokens(tokens);
+     window.location.reload();
   }
 
   render() {
@@ -706,6 +683,8 @@ export default class Login extends React.Component {
     )
   }
 }
+
+export default Login
 ```
 
 Replace the placeholders near the top of this file with your Okta app settings.
@@ -715,6 +694,10 @@ const config = {
   baseUrl: '<okta-org-url>',
   clientId: '<okta-client-id>',
   ...
+  authParams: {
+    issuer: '<okta-org-url>/oauth2/default',
+    ...
+  }
 };
 ```
 
@@ -722,13 +705,17 @@ For example:
 
 ```js
 const config = {
-  baseUrl: 'https://dev-133320.okta.com',
+  baseUrl: 'https://dev-133337.okta.com',
   clientId: '0oa2ee3nvkHIe8vzX357',
   ...
+  authParams: {
+    issuer: 'https://dev-133337.okta.com/oauth2/default',
+    ...
+  }
 };
 ```
 
-Modify `src/pages/account.js` to include an `Account` component that uses `Login` to get ID tokens and logout.
+Modify `src/pages/account.js` to include an `Account` component that uses `signIn.authClient` to get ID tokens and logout.
 
 ```jsx
 import React from 'react'
@@ -738,14 +725,6 @@ import Login, { signIn } from '../components/Login'
 
 const Home = () => <p>Account Information</p>;
 const Settings = () => <p>Settings</p>;
-
-const isAuthenticated = () => {
-  if (typeof window !== 'undefined') {
-    return localStorage.getItem('isAuthenticated') === 'true';
-  } else {
-    return false;
-  }
-};
 
 class Account extends React.Component {
   constructor(props) {
@@ -762,7 +741,6 @@ class Account extends React.Component {
     } else {
       // Token has expired
       this.setState({user: false});
-      localStorage.setItem('isAuthenticated', 'false');
     }
   }
 
@@ -770,14 +748,13 @@ class Account extends React.Component {
     signIn.authClient.signOut().catch((error) => {
       console.error('Sign out error: ' + error)
     }).then(() => {
-      localStorage.setItem('isAuthenticated', 'false');
       this.setState({user: false});
       navigate('/');
     });
   }
 
   render() {
-    if (!isAuthenticated()) {
+    if (!this.state.user) {
       return (
         <Login/>
       );
@@ -806,6 +783,19 @@ class Account extends React.Component {
 export default Account
 ```
 
+To prevent Gatsby from trying to server-side render the Sign-In Widget, disable the feature in `gatsby-config.js`:
+
+```json
+module.exports = {
+  plugins: [
+    ...
+  ],
+  flags: {
+    DEV_SSR: false
+  }
+}
+```
+
 Restart your app with `npm start`, open `http://localhost:8000` in a private window, and click on **My Account**. You'll be prompted to log in.
 
 {% img blog/gatsby-netlify-okta/okta-signin.png alt:"Okta Sign-In" width:"800" %}{: .center-image }
@@ -819,42 +809,11 @@ Enter your credentials and click **Sign In** to browse the account section. You 
 To test building your app for production, run `gatsby build`. You'll get an error because Okta's Sign-In Widget doesn't expect to be compiled for server-side rendering.
 
 ```shell
-failed Building static HTML for pages - 1.730s
+failed Building static HTML for pages - 0.792s
 
- ERROR #95312 
+ ERROR #95313
 
-"window" is not available during server side rendering.
-
-See our docs page for more info on this error: https://gatsby.dev/debug-html
-
-  12 | 
-  13 | (function (){
-> 14 |   var isChrome = 'chrome' in window && window.navigator.userAgent.indexOf('Edge') < 0;
-     | ^
-  15 |   if ('u2f' in window || !isChrome) {
-  16 |     return;
-  17 |   }
-
-
-  WebpackError: ReferenceError: window is not defined
-  
-  - u2f-api-polyfill.js:14 
-    node_modules/u2f-api-polyfill/u2f-api-polyfill.js:14:1
-  
-  - u2f-api-polyfill.js:754 Object../node_modules/u2f-api-polyfill/u2f-api-polyfill.js
-    node_modules/u2f-api-polyfill/u2f-api-polyfill.js:754:2
-  
-  - okta-sign-in.entry.js:3 webpackUniversalModuleDefinition
-    node_modules/@okta/okta-signin-widget/dist/js/okta-sign-in.entry.js:3:104
-  
-  - okta-sign-in.entry.js:10 Object../node_modules/@okta/okta-signin-widget/dist/js/okta-sign-in.entry.js
-    node_modules/@okta/okta-signin-widget/dist/js/okta-sign-in.entry.js:10:2
-  
-  - Login.js:1 Module../src/components/Login.js
-    src/components/Login.js:1:1
-  
-  - account.js:1 Module../src/pages/account.js
-    src/pages/account.js:1:1
+Building static HTML failed
 ```
 
 To fix this, you can exclude it from the compilation process. Modify the webpack build to exclude it from compilation by configuring webpack. Add the JavaScript below to the bottom of `gatsby-node.js`.
@@ -877,7 +836,7 @@ exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
 };
 ```
 
-Try `gatsby build` again and it should work this time. Run `gatsby serve` to see if the production build works on `http://localhost:9000`. Rejoice when it does!
+Try `gatsby build` again, and it should work this time. Run `gatsby serve` to see if the production build works on `http://localhost:9000`. Rejoice when it does!
 
 ## Add User Registration
 
@@ -889,8 +848,7 @@ Modify `src/components/Login.js` to add Okta's user registration feature.
 const config = {
   ...
   authParams: {
-    pkce: true,
-    responseType: ['token', 'id_token']
+    ...
   },
   features: {
     registration: true
