@@ -13,7 +13,7 @@ tweets:
 image: blog/featured/okta-react-headphones.jpg
 type: conversion
 changelog:
-- 2021-04-14: Updated to use React 17 and OktaDev Schematics v3.4.1. You can see the changes to this post in [okta-blog#707](https://github.com/oktadeveloper/okta-blog/pull/707); example app changes are in [okta-react-schematics-example#1]().
+- 2021-04-15: Updated to use React 17 and OktaDev Schematics v3.4.1. You can see the changes to this post in [okta-blog#707](https://github.com/oktadeveloper/okta-blog/pull/707); example app changes are in [react-schematics-example#1](https://github.com/oktadeveloper/react-schematics-example/pull/1).
 ---
 
 Developers love to automate things. It's what we do for a living for the most part. We create programs that take the tediousness out of tasks. I do a lot of presentations and live demos. Over the past year, I've noticed that some of my demos have too many steps to remember. I've written them down in scripts, but I've recently learned it's much cooler to automate them with tools powered by Schematics!
@@ -38,8 +38,6 @@ Why Okta? Because friends don't let friends write authentication! Okta has Authe
 
 ### Create an OIDC App on Okta
 
-Go back to the terminal window where you created the `rs` app.
-
 {% include setup/cli.md type="spa" framework="React" loginRedirectUri="http://localhost:3000/callback" %}
 
 Run the app to make sure it starts on port 3000. 
@@ -52,7 +50,7 @@ npm start
 Stop the process (Ctrl+C) and add OIDC authentication to your app with the following commands:
 
 ```shell
-# Add the Schematics CLI
+# Install the Schematics CLI
 npm install -g @angular-devkit/schematics-cli@0.1102.9
 
 # Add OktaDev's Schematics project
@@ -221,18 +219,26 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import * as serviceWorker from './serviceWorker';
+import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root')
+);
 
-serviceWorker.unregister();
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
 ```
 
 Modify the `rsi()` function in `src/rsi/index.ts` to copy these templates and overwrite existing files.
 
 ```typescript
-import { Rule, SchematicContext, Tree, apply, url, template, move, forEach, FileEntry, mergeWith, MergeStrategy } from '@angular-devkit/schematics';
+import { Rule, SchematicContext, Tree, apply, url, template, move, mergeWith, MergeStrategy } from '@angular-devkit/schematics';
 import { addPackageJsonDependency, NodeDependency, NodeDependencyType } from 'schematics-utilities';
 import { normalize } from 'path';
 
@@ -252,14 +258,7 @@ export function rsi(_options: any): Rule {
     const movePath = normalize('./src');
     const templateSource = apply(url('./templates/src'), [
       template({..._options}),
-      move(movePath),
-      // fix for https://github.com/angular/angular-cli/issues/11337
-      forEach((fileEntry: FileEntry) => {
-        if (tree.exists(fileEntry.path)) {
-          tree.overwrite(fileEntry.path, fileEntry.content);
-        }
-        return fileEntry;
-      }),
+      move(movePath)
     ]);
     const rule = mergeWith(templateSource, MergeStrategy.Overwrite);
     return rule(tree, _context);
@@ -309,18 +308,19 @@ import packageJson from './react-pkg.json';
 const collectionPath = path.join(__dirname, '../collection.json');
 
 describe('rsi', () => {
-  it('works', () => {
+  it('works', (done) => {
     const tree = new UnitTestTree(new HostTree);
     tree.create('/package.json', JSON.stringify(packageJson));
 
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    runner.runSchematic('rsi', {}, tree);
-
-    expect(tree.files.length).toEqual(3);
-    expect(tree.files.sort()).toEqual(['/package.json', '/src/App.js', '/src/index.js']);
-
-    const mainContent = tree.readContent('/src/index.js');
-    expect(mainContent).toContain(`import 'bootstrap/dist/css/bootstrap.min.css'`);
+    runner.runSchematicAsync('rsi', {}, tree).toPromise().then(tree => {
+      expect(tree.files.length).toEqual(3);
+      expect(tree.files.sort()).toEqual(['/package.json', '/src/App.js', '/src/index.js']);
+      
+      const mainContent = tree.readContent('/src/index.js');
+      expect(mainContent).toContain(`import 'bootstrap/dist/css/bootstrap.min.css'`);
+      done();
+    }, done.fail);
   });
 });
 ```
@@ -345,9 +345,9 @@ npm link ../rsi
 Run `schematics rsi:rsi` and you should see files being updated.
 
 ```shell
-UPDATE /package.json (530 bytes)
-UPDATE /src/App.js (620 bytes)
-UPDATE /src/index.js (294 bytes)
+UPDATE package.json (861 bytes)
+UPDATE src/App.js (620 bytes)
+UPDATE src/index.js (546 bytes)
 ```
 
 Run `npm install` followed by `npm start` and bask in the glory of your React app with Bootstrap installed!
@@ -358,7 +358,7 @@ Run `npm install` followed by `npm start` and bask in the glory of your React ap
 
 Angular CLI is based on Schematics, as are its PWA and Angular Material modules. I won't go into Angular-specific Schematics here, you can read [Use Angular Schematics to Simplify Your Life](/blog/2019/02/13/angular-schematics) for that.
 
-This tutorial includes information on how to add prompts, how to publish your Schematic, and it references the [OktaDev Schematics](https://github.com/oktadeveloper/schematics) project that I helped develop. This project's continuous integration uses a [`test-app.sh`](https://github.com/oktadeveloper/schematics/blob/master/test-app.sh) script that creates projects with each framework's respective CLI. For example, here's the script that tests creating a new Create React App's project, and installing the schematic.
+This tutorial includes information on how to add prompts, how to publish your Schematic, and it references the [OktaDev Schematics](https://github.com/oktadeveloper/schematics) project that I helped develop. This project's continuous integration uses a [`test-app.sh`](https://github.com/oktadeveloper/schematics/blob/main/test-app.sh) script that creates projects with each framework's respective CLI. For example, here's the script that tests creating a new Create React App's project, and installing the schematic.
 
 ```bash
 elif [ "$1" == "react" ] || [ "$1" == "r" ]
@@ -374,7 +374,7 @@ This project has support for TypeScript-enabled React projects as well.
 
 ## Learn More about React, Schematics, and Secure Authentication
 
-I hope you've enjoyed learning how to create Schematics for React. I found the API fairly easy to use and was delighted by its testing support too. If you want to learn more about Okta's React SDK, see [its docs](https://github.com/okta/okta-oidc-js/tree/master/packages/okta-react).
+I hope you've enjoyed learning how to create Schematics for React. I found the API fairly easy to use and was delighted by its testing support too. If you want to learn more about Okta's React SDK, see [its docs](https://github.com/okta/okta-react).
 
 You can find the example schematic for this tutorial [on GitHub](https://github.com/oktadeveloper/react-schematics-example).
 
