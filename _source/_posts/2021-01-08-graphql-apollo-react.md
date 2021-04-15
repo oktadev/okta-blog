@@ -30,7 +30,7 @@ If you prefer to watch the demo, you can view this walk through.
 
 {% include setup/cli.md type="spa" framework="React" loginRedirectUri="http://localhost:3000/callback" %}
 
-The Okta CLI will present your with a *Client ID*. Make note of this as you will need it in your application.
+The Okta CLI will present you with a *Client ID*. Make note of this as you will need it in your application.
 
 ## Create Your Apollo and React Application
 
