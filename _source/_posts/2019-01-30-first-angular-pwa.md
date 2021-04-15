@@ -20,6 +20,10 @@ This is where progressive web applications come into play. PWAs leverage a numbe
 
 In this tutorial, I will show you how to create a complete progressive web app in Angular 7. The application will allow the user to search for book titles using the [OpenLibrary](http://openlibrary.org) service. I will be using a Material Design library, Angular Material, to give the application layout a professional appearance and make it responsive.
 
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+
 ## Create Your Single Page Application with Angular
 
 Start by creating a single page application with Angular 7. I will assume that you have Node installed on your system. To begin you will need to install the Angular command line tool. Open a shell and enter the following command.
@@ -210,7 +214,7 @@ export class AppComponent {
   }
 
   onSearch() {
-    if (!this.searchForm.valid) return;
+    if (!this.searchForm.valid) { return; }
     this.router.navigate(['search'], { queryParams: {query: this.searchForm.get('search').value}});
   }
 }
@@ -473,26 +477,40 @@ A complete application will have to have some user authentication to restrict ac
 To add authentication to your PWA, first install the Okta library for Angular.
 
 ```bash
-npm install @okta/okta-angular@1.0.7 --save-exact
+npm install @okta/okta-angular@3.1.0 --save-exact
 ```
 
-Open `app.module.ts` and import the `OktaAuthModule`.
+Open `app.module.ts` and import `OKTA_CONFIG` and `OktaAuthModule`.
 
 ```ts
-import { OktaAuthModule } from '@okta/okta-angular';
+import { OKTA_CONFIG, OktaAuthModule } from '@okta/okta-angular';
 ```
 
-Add the `OktaAuthModule` to the list of `imports` of the `app`.
+Add an `oktaConfig` variable and update its `issuer` and `clientId` properties to match the OIDC app you just created.
 
 ```ts
-OktaAuthModule.initAuth({
+const oktaConfig = {
   issuer: 'https://{yourOktaDomain}/oauth2/default',
-  redirectUri: 'http://localhost:8080/callback',
-  clientId: '{yourClientId}'
+  clientId: '{clientId}',
+  redirectUri: window.location.origin + '/callback'
+}
+```
+
+Add the `OktaAuthModule` to the list of `imports` and provide the Okta configuration.
+
+```ts
+@NgModule({
+  imports: [
+    ...
+    OktaAuthModule
+  ],
+  providers: [
+    { provide: OKTA_CONFIG, useValue: oktaConfig }
+  ],
 })
 ```
 
-The `{yourClientId}` has to be replaced by the client ID that you obtained when registering your application. Next, open `app.component.ts`, and import the service.
+Next, open `app.component.ts`, and import the service.
 
 ```ts
 import { OktaAuthService } from '@okta/okta-angular';
@@ -510,7 +528,7 @@ constructor(private formBuilder: FormBuilder,
             private router: Router,
             public oktaAuth: OktaAuthService) {
   this.oktaAuth.$authenticationState.subscribe(
-    (isAuthenticated: boolean)  => this.isAuthenticated = isAuthenticated
+    (isAuthenticated: boolean) => this.isAuthenticated = isAuthenticated
   );
 }
 ```
@@ -524,12 +542,12 @@ this.oktaAuth.isAuthenticated().then((auth) => {this.isAuthenticated = auth});
 You want the application to be able to react to login and logout requests. To do this, implement the `login()` and `logout()` methods as follows.
 
 ```ts
-login() {
-  this.oktaAuth.loginRedirect();
+async login() {
+  await this.oktaAuth.signInWithRedirect();
 }
 
-logout() {
-  this.oktaAuth.logout('/');
+async logout() {
+  await this.oktaAuth.signOut();
 }
 ```
 
@@ -691,7 +709,10 @@ import { CachingInterceptor } from './cache/caching-interceptor.service';
 Update the `providers` section to include the services
 
 ```ts
-providers: [{ provide: HTTP_INTERCEPTORS, useClass: CachingInterceptor, multi: true }],
+providers: [
+  ...
+  { provide: HTTP_INTERCEPTORS, useClass: CachingInterceptor, multi: true }
+],
 ```
 
 With these changes, the application will cache the most recent requests and their responses. This means that you can navigate back from the details page and still see the search results in offline mode. 
