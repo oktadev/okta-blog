@@ -26,7 +26,7 @@ The first step, before you dive into the code, is to get the user authentication
 
 The first step is to create two OIDC applications. OpenID Connect is an authentication protocol built on top of OAuth 2.0, which is an authorization protocol. Each OIDC application defines an authentication provider endpoint for each web application instance. 
 
-In the Okta admin console, navigate to **Applications** and click **Add Application**. Choose **Web**, select **OpenID Connect** and click **Create**. Populate the fields with these values:
+In the Okta Admin Console, navigate to **Applications** and click **Add Application**. Choose **Web**, select **OpenID Connect** and click **Create**. Populate the fields with these values:
 
 |Field                  |Value              		                    |
 |-----------------------|-----------------------------------------------|
@@ -75,7 +75,7 @@ Once you have the user created, you can click on the user name, then click on **
 
 Now you need to create an OIDC application for your resource server. This will configure access to the REST API. 
 
-In the Okta admin console, navigate to **Applications** and click **Add Application**. Choose **OAuth Service** and click **Create**. Populate the fields with these values:
+In the Okta Admin Console, navigate to **Applications** and click **Add Application**. Choose **OAuth Service** and click **Create**. Populate the fields with these values:
 
 |Field                  |Value              		     |
 |-----------------------|--------------------------------|
@@ -407,7 +407,7 @@ Got it? Time to try it out.
 
 ## Test Your Java Single Sign-On
 
-In the next few steps, you will be logging in and out of different Okta accounts on the two different applications. Using an incognito window will avoid the need to log out of the Okta admin console or the single sign-on account.
+In the next few steps, you will be logging in and out of different Okta accounts on the two different applications. Using an incognito window will avoid the need to log out of the Okta Admin Console or the single sign-on account.
 
 Open a new incognito browser window and enter the URL `http://localhost:8080`. This is the URL to the first application `OIDC App 1`. 
 
