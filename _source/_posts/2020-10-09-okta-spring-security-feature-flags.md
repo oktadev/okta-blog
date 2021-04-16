@@ -140,7 +140,7 @@ You can also find the completed application over on the [Okta Developer GitHub r
 
 ### Integrate with Okta
 
-In order for this Spring Boot app to connect to your Okta org you need to rename `src/main/resources/application.properties` to `src/main/resources/application.yml`, and just set the three configuration parameters you got before when creating the client app with Okta CLI:
+In order for this Spring Boot app to connect to your Okta org you need to rename `src/main/resources/application.properties` to `src/main/resources/application.yml`, and just set the three configuration parameters you got before when creating the client app with the Okta CLI:
 
 ```yaml
 okta:
