@@ -26,6 +26,10 @@ This tutorial is a modified and updated version of the "Quarkus - Using JWT RBAC
 
 Let's get started!
 
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+
 ## Install Quarkus Tutorial Prerequisites
 
 You'll need to install a few things before you get started.
@@ -183,9 +187,9 @@ Next, we'll add OAuth 2.0 support to the application.
 
 ## Create an OIDC Application in Okta to Test Your Quarkus Service
 
-{% include setup/cli.md type="web" 
-loginRedirectUri="https://oidcdebugger.com/debug"
-logoutRedirectUri="https://oidcdebugger.com" %}
+{% include setup/cli.md type="web" signup="false"
+   loginRedirectUri="https://oidcdebugger.com/debug" 
+   logoutRedirectUri="https://oidcdebugger.com" %}
 
 ## Add Groups Claims To Default Authorization Server
 
