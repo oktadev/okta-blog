@@ -28,6 +28,10 @@ In true Android fashion, you can configure most aspects of Gradle's behavior by 
 
 This article will introduce you to the essential aspects of what Gradle does and how you can configure it I'll also introduce you to a couple more advanced Gradle concepts.
 
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+
 Your App will also use Okta to safely and easily authenticate users, so you can focus on your business while Okta gives you the security you need, plus services like:
 
 * User [Authentication](https://developer.okta.com/product/authentication/) and [Authorization](https://developer.okta.com/product/authorization/)
@@ -52,35 +56,33 @@ git clone https://github.com/okta/okta-oidc-android
 cd okta-oidc-android
 ```
 
-Next:
+{% include setup/cli.md type="native" loginRedirectUri="com.okta.dev-133337:/callback" logoutRedirectUri="com.okta.dev-133337:/logout" %}
 
-1. Sign up for a free [Okta developer account](https://developer.okta.com/signup/)
-2. Create a new **Application** for **Native Android**
-3. Create a *config.json* file similar to this one in the *app* module's `/app/res/raw` folder:
+Create a *config.json* file similar to this one in the *app* module's `/app/res/raw` folder:
 
-    ```json
-    {
-    "client_id": "{clientId}",
-    "redirect_uri": "{redirectUri}",
-    "end_session_redirect_uri": "{endSessionUri}",
-    "scopes": [
-        "openid",
-        "profile",
-        "offline_access"
-    ],
-    "discovery_uri": "https://{yourOktaDomain}"
-    }
-    ```
+```json
+{
+  "client_id": "{clientId}",
+  "redirect_uri": "{yourReversedOktaDomain}:/callback",
+  "end_session_redirect_uri": "{yourReversedOktaDomain}:/logout",
+  "scopes": [
+    "openid",
+    "profile",
+    "offline_access"
+  ],
+  "discovery_uri": "https://{yourOktaDomain}/oauth2/default"
+}
+```
 
-4. Set a *URI Scheme* unique to your app in the *app* module's `/app/build.gradle`:
+Set a *URI Scheme* unique to your app in the *app* module's `/app/build.gradle`:
 
-    ```groovy
-    android.defaultConfig.manifestPlaceholders = [
-        "appAuthRedirectScheme": "com.okta.example"
-    ]
-    ```
+```groovy
+android.defaultConfig.manifestPlaceholders = [
+    "appAuthRedirectScheme": "{yourReversedOktaDomain}"
+]
+```
 
-5. Add your Org URL (found in the upper right of the console home page) to your /local.properties file at the root of the project:
+Add your Okta domain to your `/local.properties` file at the root of the project:
 
 ```properties
 authn.orgUrl="https://dev-######.okta.com"
