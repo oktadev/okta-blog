@@ -270,8 +270,6 @@ Next, you will secure the application using OAuth 2.0 login. This might sound co
 
 {% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
 
-Take note of your **client ID** and **client secret**. You'll need them in a moment.
-
 ## Secure Your App with OAuth 2.0
 
 Once you've created the OIDC application on Okta, you need to make a few updates in the project. **If you want to skip ahead the finished project for this part of the tutorial can be found in the `webflux-oauth2login` sub-directory, but I'm going to show you how to modify the `webflux-hello-world` to add login**. 
