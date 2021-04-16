@@ -20,6 +20,10 @@ Netty's asynchronous, non-blocking I/O model is designed for highly scalable arc
 
 All of this power, however, comes at the cost of complexity. Non-blocking code is typically harder to read,to test, and to maintain, although this has improved greatly as the asynchronous paradigm has matured. Since Netty works at the socket level, it also requires a deeper understanding of the nuts and bolts of things like thread loops, byte buffers, and memory management.
 
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+  
 The Netty.io team has done an admirable job of making Netty easy to use for all its power, but it's still necessarily more complicated than higher-level libraries (such as Spring Boot WebFlux). So why use it? 
 
 Netty is designed to make the implementation of custom network protocols relatively easy. HTTP is great, but its a general-purpose protocol, basically well-suited to most things. But if you're consistently passing custom, structured data back and forth between servers and clients (large files, streaming media, real-time game data, etc...), you can do better. Netty allows you to write your own network protocol tailored to your specific requirements, optimizing the traffic flow for your specific situation, without the unnecessary overhead of something like HTTP or FTP. 
@@ -265,6 +269,8 @@ See how much simpler Spring Boot was to use than Netty?
 Next, you will secure the application using OAuth 2.0 login. This might sound complicated, but don't worry. Spring and Okta have conspired to make it pretty darn simple! 
 
 {% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
+
+Take note of your **client ID** and **client secret**. You'll need them in a moment.
 
 ## Secure Your App with OAuth 2.0
 
