@@ -358,7 +358,7 @@ Add `Tone.js` to `src/main/resources/static/js`. **Tone.js** is a JavaScript fra
 
 Add `NexusUI` also to `src/main/resources/static/js`.**NexusUI** is a framework for building web audio instruments, such as dials and sliders, in the browser. In this example, we will create simple circular buttons, each one to play a different loop. [Download NexusUI from GitHub](https://nexus-js.github.io/ui/api/#intro).
 
-Add an `auth.js` script to handle client authentication with the [Okta Authentication SDK](https://developer.okta.com/code/javascript/okta_auth_sdk/). Use the **Client ID** you copied from the SPA application your created, and also your Okta domain. If the client has not authenticated, it will be redirected to the Okta login page. After login and redirect to "/", the ID token and access token will be parsed from the URL and added to the token manager.
+Add an `auth.js` script to handle client authentication with the [Okta Authentication SDK](https://developer.okta.com/code/javascript/okta_auth_sdk/). Use the **Client ID** you copied from the SPA application you created, and also your Okta domain. If the client has not authenticated, it will be redirected to the Okta login page. After login and redirect to "/", the ID token and access token will be parsed from the URL and added to the token manager.
 
 ```javascript
 var authClient = new OktaAuth({
