@@ -384,7 +384,7 @@ Now that you have a CRUD application up and running, the last step is to make su
 
 You're going to use Okta to authenticate your users, so let's start by creating an account.
 
-{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" loginRedirectUri="https://oidcdebugger.com/debug" logoutRedirectUri="https://oidcdebugger.com" %}
+{% include setup/cli.md type="web" loginRedirectUri="https://oidcdebugger.com/debug" logoutRedirectUri="https://oidcdebugger.com" %}
 
 Now that you have your Okta application you can use it to authenticate inside your app.
 
