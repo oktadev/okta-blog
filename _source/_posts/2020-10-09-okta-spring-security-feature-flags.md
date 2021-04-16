@@ -32,15 +32,13 @@ OpenID Connect (OIDC) rides on top of OAuth 2.0 for a modern Single Sign-on, aut
 
 ### Register for an Okta Org and Create an OIDC App
 
-{% include setup/cli.md type="web" framework="Okta Spring Boot Starter"
-  loginRedirectUri="http://localhost:8080/login/oauth2/code/okta"
-  logoutRedirectUri="http://localhost:8080" %}
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
 
 #### Add Users to your Okta Org
 
-Head on over to http://{yourOktaDomain} and login.
+Run `okta login` and open the resulting URL in your browser. Sign in to the Okta Admin Console.
 
-Click **Directory > People** on the menu on the left. Here, you'll see the user already created for you with the name and email you submitted to create the Okta org.
+Then, go to **Directory** > **People**. Here, you'll see the user already created for you with the name and email you submitted to create the Okta org.
 
 Click **Add Person**. This will bring you to the input form for adding a new user:
 
@@ -60,7 +58,7 @@ Next, you'll add some groups and assign some users to those groups.
 
 #### Add Groups to your Okta Org
 
-Choose **Directory > Groups** from the top level menu. Here, you'll see the built in `Everyone` group. As you might imagine, every current and new user is automatically added to this group.
+Navigate to **Directory** > **Groups**. Here, you'll see the built-in `Everyone` group. As you might imagine, every current and new user is automatically added to this group.
 
 Click **Add Group**. This will bring you to the input form for adding a new group:
 
@@ -77,7 +75,7 @@ Now, you're Okta org is configured with five users (the Belcher family), 3 of wh
 
 The last Okta configuration step is to make sure that the list of groups a user belongs to is returned when a user authenticates. You'll see below that this integrates very easily with Spring Security.
 
-Click **Security > API** from the top menu bar. Click the **default** link under the list of **Authorization Servers** (it should be the only one right now).
+Go to **Security** > **API** and select the **default** authorization server (it should be the only one right now).
 
 Click the **Claims** tab. Click **Add Claim**:
 
@@ -142,7 +140,7 @@ You can also find the completed application over on the [Okta Developer GitHub r
 
 ### Integrate with Okta
 
-In order for this Spring Boot app to connect to your Okta org you need to rename `src/main/resources/application.properties` to `src/main/resources/application.yml`, and just set the three configuration parameters you got before, when creating the client app with Okta CLI:
+In order for this Spring Boot app to connect to your Okta org you need to rename `src/main/resources/application.properties` to `src/main/resources/application.yml`, and just set the three configuration parameters you got before when creating the client app with Okta CLI:
 
 ```yaml
 okta:
