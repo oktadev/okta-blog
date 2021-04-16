@@ -13,6 +13,7 @@ tweets:
 image: blog/featured/okta-java-short-headphones.jpg
 type: conversion
 ---
+:toc: macro
 :page-liquid:
 :experimental:
 
@@ -24,6 +25,8 @@ In this tutorial you'll create a TODO list service that will perform all four CR
 
 * Java 8+ - Install with https://sdkman.io/[SDKMAN] or directly from https://adoptopenjdk.net/[AdoptOpenJDK]
 * An https://developer.okta.com/signup[Okta account] - More on that below
+
+toc::[]
 
 == Create Your Jersey REST Application
 
@@ -381,8 +384,6 @@ After you execute the command the task is going to be deleted. If you list your 
 Now that you have a CRUD application up and running, the last step is to make sure only authenticated users can have access to it.
 
 == Secure Your Jersey REST Application
-
-You're going to use Okta to authenticate your users, so let's start by creating an account.
 
 {% include setup/cli.md type="web" loginRedirectUri="https://oidcdebugger.com/debug" logoutRedirectUri="https://oidcdebugger.com" %}
 
