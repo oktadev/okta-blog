@@ -16,6 +16,10 @@ type: conversion
 
 In the Java world, there are two main build systems: Gradle and Maven.  A build system chiefly manages potentially complex webs of dependencies and compiles the project. It also packages the compiled project along with all the resources and meta files into the final `.war` or `.jar` file. For simple builds, the choice between Maven and Gradle is pretty much one of personal taste, or perhaps the taste of your CTO or technical manager. They both work great. However, for more complex projects, Gradle is a winner. 
 
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+
 ## Pros and Cons of Building with Gradle
 
 I personally love Gradle; I hate XML and spent several years working on a large, complex Java/Groovy project that would have been impossible without Gradle. Aside from the lack of XML, Gradle offers flexibility and build speed, using build files written in Groovy or Kotlin. 
@@ -60,7 +64,7 @@ Please go ahead and download or clone [the example project from the GitHub page]
 
 ```bash
 git clone https://github.com/oktadeveloper/okta-spring-boot-gradle-example.git -b start
-cd reponame
+cd okta-spring-boot-gradle-example
 ```
 
 ## Get to Know `build.gradle`
@@ -507,9 +511,9 @@ The Spring Boot plugin's `bootJar` and `bootWar` tasks inherit from the `Jar` an
 
 Now that you're an advanced Gradle ninja (or, at least, hopefully, not intimidated by the Gradle DSL), it's time to go back to the original Spring Boot project.
 
-{% include setup/cli.md type="web" framework="Okta Spring Boot Starter"
-loginRedirectUri="https://oidcdebugger.com/debug"
-logoutRedirectUri="https://oidcdebugger.com" %}
+{% include setup/cli.md type="web" signup="false" 
+   loginRedirectUri="http://localhost:8080/login/oauth2/code/okta,https://oidcdebugger.com/debug"
+   logoutRedirectUri="http://localhost:8080" %}
 
 Take note of your **issuer** and **client ID**. You'll need it in a moment to generate a JWT.
 
@@ -543,7 +547,7 @@ Create a `gradle.properties` file in the project root:
 oauthIssuer={yourIssuerUri}
 ```
 
-You need to fill in the two values. The **issuer** and **client ID** are from the OIDC app you just created. 
+You need to replace `{yourIssuerUri}` with your Okta issuer. 
 
 ## Generate a Token Using OIDC Debugger
 
@@ -722,7 +726,7 @@ I would never, ever condone this, but if you need to run a build and want to ski
 
 Like all things Gradle, the `Test` task is highly customizable. You can set test-specific system properties, configure JVM args, change heap sizes, include or exclude specifics tests, etc... Take a look at [the docs for the Test task ](https://docs.gradle.org/current/dsl/org.gradle.api.tasks.testing.Test.html) on the Gradle page.
 
-You can also check out the final state of the project on the [GitHub page](https://github.com/oktadeveloper/okta-spring-boot-gradle-example) on the `master` branch.
+You can also check out the final state of the project on the [GitHub page](https://github.com/oktadeveloper/okta-spring-boot-gradle-example) on the `main` branch.
 
 ## Wrapping Up
 
