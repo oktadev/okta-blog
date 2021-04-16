@@ -11,6 +11,8 @@ tweets:
   - "This tutorial shows you how to build a Vue app with a Laravel backend, complete with authentication!"
 image: blog/featured/okta-vue-tile-books-mouse.jpg
 type: conversion
+changelog:
+- 2021-04-15: Updated to use Okta Vue 3.1.0 and the Okta CLI for OIDC app creation. See changes in [okta-blog#679](https://github.com/oktadeveloper/okta-blog/pull/679). Changes to the example app can be viewed in [okta-php-laravel-vue-crud-example#20](https://github.com/oktadeveloper/okta-php-laravel-vue-crud-example/pull/20). 
 ---
 
 Laravel is one of the most popular web frameworks today because of its elegance, simplicity, and readability. It also boasts one of the largest and most active developer communities. The Laravel community has produced a ton of valuable educational resources, including this one! In this tutorial, you'll build a trivia game as two separate projects: a Laravel API and a Vue frontend (using vue-cli). This approach offers some important benefits:
@@ -286,7 +288,7 @@ You will install `vue-cli` and create a new Vue.js project using the default con
 npm install -g @vue/cli
 vue create trivia-web-client-vue
 cd trivia-web-client-vue
-yarn add --save vue-router axios @okta/okta-vue
+yarn add --save vue-router axios @okta/okta-vue@3.0.1
 yarn serve
 ```
 
@@ -303,8 +305,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 Vue.config.productionTip = false
-
-
 Vue.use(VueRouter)
 
 import Dashboard from './components/Dashboard.vue';
@@ -356,23 +356,24 @@ that requires authentication:
 ```js
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Dashboard from './components/Dashboard.vue'
+import { OktaAuth } from '@okta/okta-auth-js'
+import OktaVue, { LoginCallback } from '@okta/okta-vue'
+
+const oktaAuth = new OktaAuth({
+  issuer: 'https://{yourOktaDomain}/oauth2/default',
+  clientId: '{yourClientId}',
+  redirectUri: window.location.origin + '/callback',
+  scopes: ['openid', 'profile', 'email']
+})
+Vue.use(OktaVue, { oktaAuth })
 
 Vue.config.productionTip = false
 Vue.use(VueRouter)
 
-import Dashboard from './components/Dashboard.vue'
-import Auth from '@okta/okta-vue'
-
-Vue.use(Auth, {
-  issuer: 'https://{yourOktaDomain}/oauth2/default',
-  client_id: '{yourClientId}',
-  redirect_uri: 'http://localhost:8080/callback',
-  scope: 'openid profile email'
-})
-
 const routes = [
-  { path: '/callback', component: Auth.handleCallback() },
-  { path: '/', component: Dashboard},
+  { path: '/callback', component: LoginCallback },
+  { path: '/', component: Dashboard },
 ]
 
 const router = new VueRouter({
@@ -396,7 +397,7 @@ Don't forget to substitute your own Okta domain and Client ID! You also need to 
 import TriviaGame from './components/TriviaGame.vue'
 
 const routes = [
-  { path: '/callback', component: Auth.handleCallback() },
+  { path: '/callback', component: LoginCallback },
   { path: '/trivia', component: TriviaGame }
 ]
 ...
@@ -424,8 +425,8 @@ const routes = [
                     <div class="navbar-menu">
                         <div class="navbar-item">
                             <router-link to="/" class="navbar-item">Home</router-link>
-                            <router-link v-if='authenticated' to="/trivia" class="navbar-item">Trivia Game</router-link>
-                            <a class="button is-light" v-if='authenticated' v-on:click='logout' id='logout-button'> Logout </a>
+                            <router-link v-if='authState.isAuthenticated' to="/trivia" class="navbar-item">Trivia Game</router-link>
+                            <a class="button is-light" v-if='authState.isAuthenticated' v-on:click='logout' id='logout-button'> Logout </a>
                             <a class="button is-light" v-else v-on:click='login' id='login-button'> Login </a>
                         </div>
                     </div>
@@ -438,37 +439,13 @@ const routes = [
 
 <script>
 export default {
-
-    data: function () {
-        return {
-            authenticated: false
-        }
-    },
-
-    created () {
-        this.isAuthenticated()
-    },
-
-    watch: {
-        // Everytime the route changes, check for auth status
-        '$route': 'isAuthenticated'
-    },
-
     methods: {
-        async isAuthenticated () {
-            this.authenticated = await this.$auth.isAuthenticated()
-        },
-
-        login () {
-            this.$auth.loginRedirect('/')
+        async login () {
+            await this.$auth.signInWithRedirect()
         },
 
         async logout () {
-            await this.$auth.logout()
-            await this.isAuthenticated()
-
-            // Navigate back to home
-            this.$router.push({ path: '/' })
+            await this.$auth.signOut()
         }
     }
 }
@@ -538,7 +515,7 @@ export default {
         }
     },
     async created () {
-        axios.defaults.headers.common['Authorization'] = `Bearer ${await this.$auth.getAccessToken()}`
+        axios.defaults.headers.common['Authorization'] = `Bearer ${this.$auth.getAccessToken()}`
         try {
             const response = await axios.get(API_BASE_URL + '/players')
             this.players = response.data.data
@@ -654,14 +631,21 @@ Next, replace the 'Add Player' button placeholder with a form to add a new playe
 
 `components/TriviaGame.vue`
 
+Replace:
+
 ```html
-Replace 
 <a class="button is-primary">Add Player</a>
+```
+
 with:
+
+```html
 <player-form @completed="addPlayer"></player-form>
+```
 
 Add to the <script> section:
 
+```js
 import PlayerForm from './PlayerForm.vue'
 
 export default {
@@ -713,7 +697,7 @@ export default {
             this.postPlayer()
         },
         async postPlayer() {
-            axios.defaults.headers.common['Authorization'] = `Bearer ${await this.$auth.getAccessToken()}`
+            axios.defaults.headers.common['Authorization'] = `Bearer ${this.$auth.getAccessToken()}`
             axios.post(API_BASE_URL + '/players', this.$data)
                 .then(response => {
                     this.name = ''
@@ -855,7 +839,7 @@ export default {
     },
     async created () {
         this.getQuestion()
-        axios.defaults.headers.common['Authorization'] = `Bearer ${await this.$auth.getAccessToken()}`
+        axios.defaults.headers.common['Authorization'] = `Bearer ${this.$auth.getAccessToken()}`
         try {
             const response = await axios.get(API_BASE_URL + '/players')
             this.players = response.data.data
@@ -868,7 +852,7 @@ export default {
         async getQuestion() {
             delete axios.defaults.headers.common.Authorization
             this.doGetQuestion()
-            axios.defaults.headers.common['Authorization'] = `Bearer ${await this.$auth.getAccessToken()}`
+            axios.defaults.headers.common['Authorization'] = `Bearer ${this.$auth.getAccessToken()}`
         },
         async doGetQuestion() {
             try {
