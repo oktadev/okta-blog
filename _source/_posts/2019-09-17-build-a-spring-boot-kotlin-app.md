@@ -13,7 +13,7 @@ tweets:
 image: blog/featured/okta-java-short-skew.jpg
 type: conversion
 changelog:
-- 2021-04-14: Updated to use Spring Boot 2.4 and Okta CLI. See blog changes in [okta-blog#23q34](). Example app changes can be viewed in [this PR]().
+- 2021-04-16: Updated to use Spring Boot 2.4 and Okta CLI. See blog changes in [okta-blog#727](https://github.com/oktadeveloper/okta-blog/pull/727). Example app changes can be viewed in [this PR](https://github.com/oktadeveloper/okta-spring-boot-kotlin-example/pull/1).
 ---
 
 In 2011, JetBrains, the company behind IntelliJ, decided to create a modern language that would run inside the Java Virtual Machine and address common concerns with Java at the time like its verbosity. This project became Kotlin, a quickly growing and popular language.
@@ -21,6 +21,10 @@ In 2011, JetBrains, the company behind IntelliJ, decided to create a modern lang
 Google then announced official support for Kotlin on Android, further accelerating its adoption. Many companies started to replace Java with Kotlin as their main language to take advantage of the new features it provides. Kotlin is now an increasingly important language for developers inside the JVM ecosystem to know and understand.
 
 In this tutorial, you will build a Spring Boot application from scratch, using Kotlin as the main language. You will learn how Kotlin works with Spring and how to integrate the code with other Java libraries. By the end, you will have a secure Spring application running in Kotlin that authenticates users via OAuth 2.0.
+
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
 
 ## Create the Kotlin Application with Spring Initializr
 
@@ -40,8 +44,6 @@ You can also use the command line to get the same result:
 
 ```bash
 curl https://start.spring.io/starter.zip \
-        -d bootVersion=2.4.4.RELEASE \
-        -d language=kotlin \
         -d language=kotlin \
         -d dependencies=web \
         -d packageName=com.okta \
@@ -253,7 +255,7 @@ This dependency adds both Okta and Spring Security to your project. They make it
 
 {% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
 
-Now that you have your Okta application, you can use it to authenticate users in your Kotlin app.
+Now that you have your Okta OIDC application, you can use it to authenticate users in your Kotlin app.
 
 The last step is to modify your `greet` endpoint to pull the name from the authenticated user. Go to the `GreetController` class and apply the following changes:
 
