@@ -20,6 +20,10 @@ By default, Spring Boot creates applications with embedded web servers, which me
 
 In this tutorial, you will build a simple web service with Jetty embedded. After that, you will build the same web service in Spring Boot and Jetty. Finally, you'll add JWT (JSON Web Token) authentication and authorization to the web service using method-level security with Okta as the OAuth/OIDC provider.
 
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+
 ## Install the Project Dependencies
 
 You'll need to install a few things before you get started.
@@ -585,9 +589,7 @@ HTTP/1.1 403 Forbidden
 
 ## Generate a JWT Using the OIDC Debugger
 
-To access the protected endpoints, you need to generate a JWT. To do this, you can use the [OIDC Debugger](https://oidcdebugger.com/). You'll need the Client ID from the OIDC app you created earlier, as well as your base Okta URI (the same as the base URI in the Issuer URI).
-
-{% include setup/oidcdebugger.md %}
+To access the protected endpoints, you need to generate an access token JWT. {% include setup/oidcdebugger.md %}
 
 {% img blog/java-jetty/oidc-debugger.png alt:"OIDC Debugger Configuration" width:"650" %}{: .center-image }
 
