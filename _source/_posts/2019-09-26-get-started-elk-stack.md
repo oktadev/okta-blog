@@ -23,6 +23,10 @@ In this tutorial post, you will learn how to ...
 * Enable monitoring with JHipster Console
 * Configure OpenID Connect authentication for microservices
 
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+
 ## The Evolution of the Elastic Stack
 
 The acronym ELK stands for *Elasticsearch, Logstash, and Kibana*, three open-source projects that form a powerful stack for log ingestion and visualization, log search, event analysis, and helpful visual metrics for monitoring applications.
@@ -260,7 +264,7 @@ You can follow the instructions above for creating the microservices images, or 
 
 ### Setup Okta OpenID Connect (OIDC) Authentication for Your Microservices
 
-By default, the microservices architecture authenticates against Keycloak. Update the settings to use Okta as the authentication provider:
+By default, the microservices architecture authenticates against Keycloak. However, you can easily change it to use Okta.
 
 {% include setup/cli.md type="jhipster" %}
 
@@ -273,6 +277,8 @@ OIDC_CLIENT_ID=<client_id>
 OIDC_CLIENT_SECRET=<client_secret>
 RESOURCE_ISSUER_URI=<org_url>/oauth2/default
 ```
+
+The values should come from the `.okta.env` file the Okta CLI created. 
 
 Edit `docker-compose/docker-compose.yml` and update the `SECURITY_*` settings for the services `blog-app`, `gateway-app`, and `store-app`:
 
