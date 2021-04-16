@@ -445,7 +445,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.oktaAuth = new OktaAuth({
-      issuer: 'https://{yourOktaDomain}.com/oauth2/default',
+      issuer: 'https://{yourOktaDomain}/oauth2/default',
       clientId: '{yourClientId}',
       redirectUri: window.location.origin + '/callback'
     });
