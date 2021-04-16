@@ -29,8 +29,6 @@ If you deploy Okta to handle your social login, when Linkedin decides to update 
 
 In this tutorial we're going to demonstrate how to use Okta social login with a Spring app written in Java. In particular, we're going to use Google and Facebook. We're also going to demonstrate how to use a custom, self-hosted login page.
 
-We're going to assume that you already have a free developer.okta.com account, and have created an OAuth 2.0 / OpenID Connect application that we can use to configure social login. 
-
 The default application settings are fine to get us started. We'll need to make a few changes.
 
 ## Get Started: Download and Configure Your Spring Boot Example App
