@@ -27,7 +27,7 @@ You will also need to ensure that your API is protected by proper authentication
 {% include setup/cli.md type="service" %}
 
 
-Next, sign in to https://{yourOktaDomain}, with your account user and password. Click on **Security > API** in the left menu and checkout the **Authorization Servers**. Okta will add an authorization for you named *default*. This is the one you will be using for this tutorial. Click on **Default** and then select **Scopes**. Click on **Add Scope** and name it *api*.  You can use *api* for the display name as well and give it a meaningful description.  For now you don't need to check the *User Consent*, *Default Scope*, or *Metadata Publish* options.  Click **Create** to finalize the scope.  Click on the **Settings** tab and note your *Issuer* URL. You will need this in your application as well.  
+Next, run `okta login` and open the resulting URL in your browser. Sign in to the Okta Admin Console with your account user and password. Click on **Security** > **API** in the left menu and check out the **Authorization Servers**. Okta will add an authorization for you named *default*. This is the one you will be using for this tutorial. Click on **default** and then select **Scopes**. Click on **Add Scope** and name it *api*.  You can use *api* for the display name as well and give it a meaningful description.  For now, you don't need to check the *User Consent*, *Default Scope*, or *Metadata Publish* options.  Click **Create** to finalize the scope.  Click on the **Settings** tab and note your *Issuer* URL. You will need this in your application as well.  
 
 ## Create your Web Application
 
