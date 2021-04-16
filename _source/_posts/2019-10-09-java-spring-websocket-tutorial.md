@@ -228,7 +228,7 @@ public class WebSocketAuthenticationConfig implements WebSocketMessageBrokerConf
 
 The `JwtDecoder` will parse and decode the token. To verify the signature, it will retrieve and cache the signing key from the issuer.
 
-Create a `src/main/resources/application.yml` to hold your Okta issuer. This endpoint will be used to validate JWTs. You can delete the `application.properties` file in the same directory after you copy the issuer from it (removing any `\` characters).
+Create a `src/main/resources/application.yml` to hold your Okta issuer. This endpoint will be used to validate JWTs.
 
 ```yaml
 okta:
