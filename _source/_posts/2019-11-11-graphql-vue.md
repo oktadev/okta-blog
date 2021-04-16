@@ -22,6 +22,10 @@ GraphQL replaces the multiple endpoints of a REST server with a single endpoint.
 
 In this tutorial, I will show you how to implement a Node-based server using GraphQL and a client using Vue. Vue has been growing in importance over the last few years as a serious contender to Angular and React. I will also show you how to secure both the client and server using Okta's authentication and authorization service using OAuth and OpenID Connect (OIDC).
 
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+
 ## Develop a GraphQL Server with Node.js and Express
 
 In this tutorial, you will build a simple search tool for Olympic sporting events. I will assume you have some familiarity with JavaScript and that Node is installed on your system. 
