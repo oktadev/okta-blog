@@ -6,6 +6,8 @@ by: advocate
 communities: [javascript]
 description: "In this article, you'll see how build a simple web application with Angular CLI, a tool for Angular development. You'll also create an application with search and edit features, then add authentication."
 tags: [angular, authentication, oidc, openid-connect, okta, typescript, angular-cli]
+update-url: /blog/2019/02/12/secure-angular-login
+update-title: "Build Secure Login for Your Angular App"
 tweets:
   - "Build a simple Angular 6 app and add authentication with @oktadev!"
   - "Have you heard about OpenID Connect (OIDC) and how you can use it for authentication with @oktadev? This tutorial shows you how to do it in a 20 minutes →"
