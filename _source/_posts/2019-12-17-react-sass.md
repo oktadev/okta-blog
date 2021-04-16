@@ -72,9 +72,9 @@ Now, add Okta for authentication to your React application by running the comman
 schematics @oktadev/schematics:add-auth
 ```
 
-You will be asked for your issuer's URL. This can be found at **API** > **Authorization Servers** in your Okta dashboard. . 
+You will be asked for your issuer's URL and client ID. You should have these from the OIDC app you created earlier. 
 
-You will also need the application's client ID which you received when earlier when setting up your application. Once the questions have been answered, the schematic will insert all the necessary code into your application to provide the authentication flow. Pretty neat, don't you think?
+Once the questions have been answered, the schematic will insert all the necessary code into your application to provide the authentication flow. Pretty neat, don't you think?
 
 ## Implement a React Calculator with Sass
 
