@@ -20,9 +20,7 @@ In this tutorial, you will learn how to create a small chat room web application
 
 ## Create Your Okta App
 
-To use Okta for authentication, you will first need to set up a new application. (You will need a free [Okta Developer account](https://developer.okta.com/signup/) if you don't already have one.) Head to the Okta Developer Console and select **Applications** then **Add Application**. On the next page, select **Web** and click **Next**. On the **Application Settings** page, give your application a meaningful name. I called my **SocketDemo**. For this application, you can leave everything else the same, as you will use port 8080 in your application. Click **Done** and you will be redirected to the settings page.
-
-{% img blog/secure-web-apps-websockets-nodejs/okta-app-settings.png alt:"Application Settings" width:"800" %}{: .center-image }
+{% include setup/cli.md type="web" loginRedirectUri="http://localhost:8080/authorization-code/callback" %}
 
 Make note of your **Client ID** and your **Client Secret**, since you will need this in your application.
 
@@ -397,7 +395,7 @@ Next, add a page called `dashboard.pug` to the `views` folder for authenticated 
 extends layout
 
 block variables
-  - var title = 'Let's chat about something'
+  - var title = "Let's chat about something"
 
 block content
   .row
