@@ -43,18 +43,9 @@ Before we continue to deployment options, let's make sure our app is secure.
 
 Okta has a specific library for Spring Boot to make it easy to add OAuth 2.0 authentication to your app.
 
-First, [register for a forever-free developer account today!](https://developer.okta.com/signup/) When you're finished, complete the steps below to create an app.
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
 
-1. Log in to your developer account at [developer.okta.com](https://developer.okta.com/)
-2. Navigate to **Applications** and click on **Add Application**
-3. Select **Web** and click **Next**
-4. Give the application a name (e.g. `Spring Boot Awesome App`)
-5. Add the following as Login redirect URI:
-    - `http://localhost:8080/login/oauth2/code/okta`
-6. Click **Done**
-
-
-First, include Okta as a dependency in the `pom.xml`:
+Then, include Okta as a dependency in the `pom.xml`:
 
 ```xml
 <dependency>
@@ -68,15 +59,13 @@ First, include Okta as a dependency in the `pom.xml`:
 </dependency>
 ```
 
-Now create the file `src/main/resources/application.properties` with your app settings:
+Verify the file `src/main/resources/application.properties` has your app settings:
 
 ```
 okta.oauth2.issuer=<your_org_url>/oauth2/default
 okta.oauth2.clientId=<app_client_id>
 okta.oauth2.clientSecret=<app_client_secret>
 ```
-
-You can find your **Client ID** and **Client Secret** in the Okta dashboard, on the **General** tab of the app you just created. Your **Org URL** is displayed at the top left of the **Dashboard**.
 
 And we are done! Simple as that, your app is now secured with OAuth 2.0.
 
@@ -136,7 +125,7 @@ $ mvn azure-webapp:deploy
 
 After that, your app will be deployed to Azure.
 
-Now, add your app login endpoint to the app you created in Okta, so you can login to it. To do that, go to your org panel, click **Applications** on the top bar, select the app you created, click **General** tab, click **Edit** of General Settings, and the following URI to "Login redirect URIs" as follows (your app name is what you defined in `pom.xml` file for the tag `appName`):
+Now, add your app login endpoint to the app you created in Okta, so you can login to it. To do that, run `okta login` and open the resulting URL in your browser. Sign in to the Okta Admin Console and go to the **Applications** section. Select the app you created, **Edit** its General Settings, and add the following URI to "Login redirect URIs" as follows (your app name is what you defined in `pom.xml` file for the tag `appName`):
 
 ```txt
 https://<your_app_name>.azurewebsites.net/login/oauth2/code/okta
