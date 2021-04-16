@@ -129,7 +129,7 @@ What this command does is:
 - `okta-blog` - This is telling Docker to run the `okta-blog` image you created earlier using that `docker build` command. The `-t` option you specified earlier when running `docker build` assigned a name tag to the image so you could easily reference it.
 - `npm start` - This is the actual command you're telling Docker to run to launch the blog sofware. Docker will start the container up and then run this command inside the container to launch the Jekyll blog.
 
-After that, all you have to do is open your browser and visit http://localhost:4000 to visit the site!
+After that, all you have to do is open your browser and visit `http://localhost:4000` to visit the site!
 
 ## Markdown Standards
 
@@ -251,9 +251,10 @@ Finds the latest blog post and updates the post date to the date specified. **Da
 
 ```bash
 npm run dev
+npm start
 ```
 
-This command removes all posts from the local development environment except those dated within the last two weeks.
+This command removes all posts from the local development environment except those dated within the last two weeks. If you pass in a file name (or comma-separated list of filenames), it'll keep those too.
 
 ### Restoring Deleted Posts Before Pushing to GitHub
 
