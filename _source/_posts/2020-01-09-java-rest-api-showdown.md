@@ -56,7 +56,7 @@ This command creates an application for you with auth code flow and Spring Secur
 To remember it better, you can create the same app manually:
 
 * Go to the [Okta's developer homepage](https://developer.okta.com/) and log in to your account.
-* Go to **Applications** > **Add Application** > **Web**, select **OpenID Connect**, and click **Create**.
+* Go to the **Applications** section > **Add Application** > **Web**, select **OpenID Connect**, and click **Create**.
 
 Before you continue, make the following changes in the application:
 
@@ -83,7 +83,17 @@ You've registered your app with Okta and can now generate a token to gain access
 
 Your requests will be validated using a token. To generate this token, you will use OpenID Connect Debugger. This website will provide you an easy way to generate credentials for the users on your Okta application.
 
-{% include setup/oidcdebugger.md %}
+Go to the <https://oidcdebugger.com> and fill in the following information:
+
+* Authorize URI: `https://{yourOktaDomain}/oauth2/default/v1/authorize`
+* Redirect URI: `https://oidcdebugger.com/debug`
+* Client ID: `{yourOktaClientId}`
+* Scope: `openid email profile`
+* State: `dev`
+* Nonce: (keep the default value)
+* Response type: `token`
+
+You can find the value for `{yourOktaDomain}` in the right upper corner of your account's homepage.
 
 After you complete all the fields, click **Send Request**. You'll be redirected to your Okta login page.
 
