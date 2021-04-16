@@ -12,7 +12,7 @@ tweets:
 - "Want to add social login to your @springboot app? This tutorial shows you how!"
 type: conversion
 changelog:
-- 2021-04-15: Updated to use Spring Boot 2.4 and the Okta CLI for OIDC app creation. See changes to this blog post in [okta-blog#222](); changes in the example can be viewed in [okta-spring-social-example#1](https://github.com/oktadeveloper/okta-spring-social-example/pull/1).
+- 2021-04-15: Updated to use Spring Boot 2.4 and the Okta CLI for OIDC app creation. See changes to this blog post in [okta-blog#765](https://github.com/oktadeveloper/okta-blog/pull/765); changes in the example can be viewed in [okta-spring-social-example#1](https://github.com/oktadeveloper/okta-spring-social-example/pull/1).
 ---
 
 We've all seen social login. It's the "Log in with Facebook" or "Log in with Twitter" buttons we see below every username and password field on the Internet. But why do these exist?
