@@ -56,9 +56,7 @@ git clone https://github.com/okta/okta-oidc-android
 cd okta-oidc-android
 ```
 
-{% include setup/cli.md type="native"
-loginRedirectUri="com.okta.dev-133337:/callback"
-logoutRedirectUri="com.okta.dev-133337:/logout" %}
+{% include setup/cli.md type="native" loginRedirectUri="com.okta.dev-133337:/callback" logoutRedirectUri="com.okta.dev-133337:/logout" %}
 
 Create a *config.json* file similar to this one in the *app* module's `/app/res/raw` folder:
 
