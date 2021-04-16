@@ -13,7 +13,7 @@ tweets:
 image: blog/kotlin-react-crud/kotlin-react.png
 type: conversion
 changelog:
-  - 2021-04-15: Updated to streamline setup with the Okta CLI. Changes to this article can be viewed in [okta-blog#1111]();
+  - 2021-04-16: Updated to streamline setup with the Okta CLI. Changes to this article can be viewed in [okta-blog#766](https://github.com/oktadeveloper/okta-blog/pull/766);
   - 2020-09-03: Fixed the power accessible attribute to render correctly. Thanks to [Katie Levy](https://github.com/katielevy1) for the [pull request](https://github.com/oktadeveloper/okta-kotlin-react-crud-example/pull/6)!
   - 2020-08-13: Upgraded to Spring Boot 2.3.2 and Okta React 3.0.4. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-kotlin-react-crud-example/pull/5). Changes to this article can be viewed in [oktadeveloper/okta-blog#369](https://github.com/oktadeveloper/okta-blog/pull/369).
   - 2020-05-18: Upgraded to Okta React 3.0.1 and removed `/implicit` from Login redirect URI. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-kotlin-react-crud-example/pull/3). Changes to this article can be viewed in [oktadeveloper/okta-blog#297](https://github.com/oktadeveloper/okta-blog/pull/297).
