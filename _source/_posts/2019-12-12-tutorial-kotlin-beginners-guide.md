@@ -13,7 +13,7 @@ tweets:
 image: blog/tutorial-kotlin-beginners-guide/kotlin-logo-social.png
 type: conversion
 changelog:
-- 2020-04-14: Updated to use Spring Boot 2.4.4 and use the Okta CLI. You can see [changes in the example on GitHub](); changes in this article are in [okta-blog#2342q34]().
+- 2020-04-14: Updated to use Spring Boot 2.4.5 and use the Okta CLI. You can see [changes in the example on GitHub](https://github.com/oktadeveloper/kotlin-spring-boot-tutorial/pull/1); changes in this article are in [okta-blog#715](https://github.com/oktadeveloper/okta-blog/pull/715).
 ---
 
 Kotlin is a modern, statically typed language within the JVM. Kotlin is a cross-platform, multi-purpose, free and open-source language developed by JetBrains under the Apache 2.0 license and has constructs for both Object Oriented and Functional programming styles, which can be mixed. It can be used for web development, server and client, and mobile development, using most Java IDEs.
@@ -379,7 +379,7 @@ Using the [Spring Initializr API](https://start.spring.io/), create a Maven proj
 
 ```shell
 curl https://start.spring.io/starter.zip -d dependencies=web,okta \
--d bootVersion=2.4.4.RELEASE \
+-d bootVersion=2.4.5.RELEASE \
 -d language=kotlin \
 -d type=maven-project \
 -d groupId=com.okta.developer \
@@ -391,7 +391,7 @@ curl https://start.spring.io/starter.zip -d dependencies=web,okta \
 ```
 Unzip the file:
 
-```txt
+```shell
 unzip kotlin-spring-boot.zip -d kotlin-spring-boot
 cd kotlin-spring-boot
 ```
@@ -432,7 +432,8 @@ fun main(args: Array<String>) {
 As you can see, in the `hello()` function, the authenticated user is passed in the `authenticationToken`. The `@AuthenticationPrincipal` annotation from Spring Security helps to resolve the principal to the expected principal type. The welcome message is built using **String interpolation**, a Kotlin idiom for variable substitution inside strings.
 
 Run the application with the following command:
-```txt
+
+```shell
 ./mvnw spring-boot:run
 ```
 Browse to `http://localhost:8080` and the application should start an OAuth 2.0 authentication code flow, redirecting to the Okta login page.
@@ -451,6 +452,7 @@ You now have a secure application with just a few lines of Kotlin and the help o
 
 I hope this blog post helped you grasp how succinct and expressive Kotlin is and why developers are loving it. You can find all the tutorial code in repositories [kotlin-hello-world](https://github.com/oktadeveloper/kotlin-hello-world-example) and [kotlin-spring-boot](https://github.com/oktadeveloper/kotlin-spring-boot-tutorial) on GitHub. To learn more about Kotlin, check out the following links:
 
+- [Build a CRUD Application with Kotlin and React](/blog/2020/01/13/kotlin-react-crud)
 - [Build a Basic CRUD App in Android with Kotlin](/blog/2018/09/11/android-kotlin-crud)
 - [Build an Application with Spring Boot and Kotlin](/blog/2019/09/17/build-a-spring-boot-kotlin-app)
 - [Kotlin Reference](https://kotlinlang.org/docs/reference/)
