@@ -46,9 +46,8 @@ Pro Tip: In a production system, you wouldn't want to ever delete a log history,
 **MySQL** - You must have installed a local instance of MySQL or have access to a remote instance of MySQL. For this exercise, I recommend that you have a fresh empty database prepared and have the username and password for that database handy. They will be required in the `application.properties` file later.  If you don't have MySQL setup locally already, follow the instructions from the [MySQL Website](https://dev.mysql.com/doc/mysql-getting-started/en/).
 
 ## Setup your Okta OIDC Application, Authorization Server, groups and users
-Before we can dive into the code, we will want to first get our Okta configuration in place. If you haven't already, head on over to [developer.okta.com](https://developer.okta.com/signup) to create yourself a free-forever developer account. Look for the email to complete the initialization of your Okta org.
 
-Once you have your developer account, we will need to set up your web application, authorization server, group, and users!  
+Before we can dive into the code, we will want to first get our Okta configuration in place. 
 
 ### Setup Your Okta OIDC Application
 
