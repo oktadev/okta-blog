@@ -247,7 +247,7 @@ Click **Create**.
 
 ## Generate A JSON Web Token
 
-Because the example app is an API, it expects the request to come with a valid token and will not directly provide a way for the user to log in. There is no login redirect flow. How, then, do you get a token? OpenID Connect Debugger to the rescue! 
+Because the example app is an API, it expects the request to come with a valid token and will not directly provide a way for the user to log in. There is no login redirect flow. How, then, do you get a token? 
 
 {% include setup/oidcdebugger.md %}
 
