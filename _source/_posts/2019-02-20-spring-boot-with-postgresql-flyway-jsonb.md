@@ -411,7 +411,7 @@ The server returns a 401 HTTP code, which means you are unauthorized. Now, let's
 
 First, you'll need to create a new web application in Okta to use this service:
 
-{% include setup/cli.md type="web" loginRedirectUri="https://oidcdebugger.com/debug" logoutRedirectUri="https://oidcdebugger.com" %}
+{% include setup/cli.md type="web" loginRedirectUri="https://oidcdebugger.com/debug" logoutRedirectUri="https://oidcdebugger.com" install="false" %}
 
 {% include setup/oidcdebugger.md %}
 
