@@ -26,7 +26,7 @@ The first thing you need to do is sign up for an Everbase account and option an 
 
 ## Set Up Authentication for Your React Application
 
-{% include setup/cli.md type="spa" framework="React" %}
+{% include setup/cli.md type="spa" framework="React" loginRedirectUri="http://localhost:3000/callback"%}
 
 Make note of your *Client ID* in the Okta CLI output, as you will need it in your application.
 
