@@ -24,11 +24,10 @@ You will also need to ensure that your API is protected by proper authentication
 
 ## Set up Your Okta Authentication Server
 
-The first thing you need to do is sign up for an [Okta Developer Account](https://developer.okta.com/signup/) if you don't already have one. After you've completed the sign up, you will need to login and click on **Applications**. Click **Add Application** and select **Service Machine-To-Machine** and then **Next**. Give your application a meaningful name(I called mine GraphQL), and click **Done**. On the next page, note your *Client ID* and *Client secret* as you will need these in your application.
+{% include setup/cli.md type="service" %}
 
-{% img blog/graphql-node-api/okta-app-settings.png alt:"Okta App Settings" width:"800" %}{: .center-image }
 
-Next, click on **API** in the header and click on **Authorization Servers**. Okta will add an authorization for you named *default*. This is the one you will be using for this tutorial. Click on **Default** and then select **Scopes**. Click on **Add Scope** and name it *api*.  You can use *api* for the display name as well and give it a meaningful description.  For now you don't need to check the *User Consent*, *Default Scope*, or *Metadata Publish* options.  Click **Create** to finalize the scope.  Click on the **Settings** tab and note your *Issuer* URL. You will need this in your application as well.  
+Next, run `okta login` and open the resulting URL in your browser. Sign in to the Okta Admin Console with your account user and password. Click on **Security** > **API** in the left menu and check out the **Authorization Servers**. Okta will add an authorization for you named *default*. This is the one you will be using for this tutorial. Click on **default** and then select **Scopes**. Click on **Add Scope** and name it *api*.  You can use *api* for the display name as well and give it a meaningful description.  For now, you don't need to check the *User Consent*, *Default Scope*, or *Metadata Publish* options.  Click **Create** to finalize the scope.  Click on the **Settings** tab and note your *Issuer* URL. You will need this in your application as well.  
 
 ## Create your Web Application
 
@@ -157,7 +156,7 @@ const start = function (options) {
                                 gender: String
                                 ip_address: String
                             }
-                            
+
                             type Employees {
                                 employees: [Employee]
                             }          
@@ -261,7 +260,7 @@ This file does two notable things. First, it calls dotenv's `config()` function.
 
 ## Test Your GraphQL API
 
-You can now start your application using `node index.js` from the console. To test this, I like to use [Advanced Rest Client](https://chrome.google.com/webstore/detail/advanced-rest-client/hgmloofddffdnphfgcellkdfbfbjeloo?hl=en-US), but [Postman](https://www.postman.com/) is another popular option. 
+You can now start your application using `node index.js` from the console. To test this, I like to use [Advanced Rest Client](https://chrome.google.com/webstore/detail/advanced-rest-client/hgmloofddffdnphfgcellkdfbfbjeloo?hl=en-US), but [Postman](https://www.postman.com/) is another popular option.
 
 First, ensure your authorization is working correctly.  Create a new POST request targeting the `GraphQL` endpoint.  Set your `Content-Type` to `application/graphql`.  Add the following code to your body:
 
@@ -278,7 +277,7 @@ First, ensure your authorization is working correctly.  Create a new POST reques
 }
 ```
 
- Submit the request, and you should receive a `401` back from the server. 
+ Submit the request, and you should receive a `401` back from the server.
 
 {% img blog/graphql-node-api/api-call-unauthorized.png alt:"API Call Unauthorized" width:"800" %}{: .center-image }
 
@@ -300,4 +299,4 @@ If you liked this content, check out these similar posts:
 * [Build a GraphQL API with ASP.NET Core](/blog/2019/04/16/graphql-api-with-aspnetcore)
 * [Develop Secure Apps with WebSockets and Node.js](/blog/2020/10/28/secure-web-apps-websockets-nodejs)
 
-For more awesome content like this, don't forget to [follow us on Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube channel](https://youtube.com/c/oktadev). If you have any questions, or you want to share what tutorial you'd like to see next, please comment below. 
+For more awesome content like this, don't forget to [follow us on Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube channel](https://youtube.com/c/oktadev). If you have any questions, or you want to share what tutorial you'd like to see next, please comment below.
