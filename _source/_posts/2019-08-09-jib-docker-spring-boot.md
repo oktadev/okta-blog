@@ -13,7 +13,7 @@ tweets:
 image: blog/featured/okta-java-headphones.jpg
 type: conversion
 changelog:
-- 2021-04-13: Updated to Spring Boot 2.4.4.
+- 2021-04-17: Updated to Spring Boot 2.4.5 and streamline setup with the Okta CLI. See changes to this post in [okta-blog#731](https://github.com/oktadeveloper/okta-blog/pull/731); example app changes can be viewed in [okta-spring-boot-docker-example#3](https://github.com/oktadeveloper/okta-spring-boot-docker-example/pull/3).
 ---
 
 Docker is a very popular system for containerizing applications. Containerization packages the executable code along with the runtime environment in deployable virtual images using a repeatable, automatable process. 
@@ -26,9 +26,13 @@ In this tutorial, you will build a simple Spring Boot REST API and use Jib to do
 
 Let's get started!
 
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+
 ## Install Dependencies
 
-For this tutorial, you need to install a few dependencies. First, you'll need **Java**. I've written the tutorial for Java 11, but it should be backward compatible with Java 8. If you don't have Java installed, go to [the AdoptOpenJDK website](https://adoptopenjdk.net/) and install it. On a Mac, you can also use [Homebrew](https://brew.sh/). 
+For this tutorial, you need to install a few dependencies. First, you'll need **Java**. I've written the tutorial for Java 11, but it should be backward compatible with Java 11. If you don't have Java installed, go to [the AdoptOpenJDK website](https://adoptopenjdk.net/) and install it. On a Mac, you can also use [Homebrew](https://brew.sh/). 
 
 The next tool you'll need is **HTTPie**, a simple command-line HTTP client. Please follow instructions on [their website](https://httpie.org/) to install it.
 
@@ -47,7 +51,7 @@ You installed HTTPie, right? In this section, you're going to use it to command 
 From a command line:
 
 ```bash
-http https://start.spring.io/starter.zip bootVersion==2.4.4.RELEASE \
+http https://start.spring.io/starter.zip bootVersion==2.4.5.RELEASE \
  dependencies==web,okta \
  groupId==com.okta.spring-docker.demo \
  packageName==com.okta.spring-docker.demo \
@@ -74,10 +78,11 @@ To add Jib to the Gradle project, simply add the plugin to the `build.gradle` fi
 Add `id 'com.google.cloud.tools.jib' version '3.0.0'` to the `plugins` closure at the top of the `build.gradle` file, like so:
 
 ```groovy
-plugins {  
-    id 'org.springframework.boot' version '2.4.4.RELEASE'  
-    id 'java'  
+plugins {
+    id 'org.springframework.boot' version '2.4.5'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'com.google.cloud.tools.jib' version '3.0.0'  // <-- ADD ME
+    id 'java'
 }
 ```
 
@@ -167,7 +172,7 @@ And see your application image in the local Docker registry:
 
 ```bash
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-demo                0.0.1-SNAPSHOT      490d12302a6d        49 years ago        146MB
+demo                0.0.1-SNAPSHOT      490d12302a6d        51 years ago        267MB
 ```
 
 To run your Spring Boot app, use the following command:
@@ -200,21 +205,20 @@ Sweet! So, at this point, you've created a simple Spring Boot application with a
 
 The next step is to add JSON Web Token (JWT) authentication using OAuth 2.0 and OpenID Connect (OIDC). The provider you're going to use for this tutorial is Okta.
 
+Stop your app and open a terminal window to its directory.
+
 ## Create an OIDC Application
 
-{% include setup/cli.md type="web" framework="Okta Spring Boot Starter"
-loginRedirectUri="https://oidcdebugger.com/debug"
-logoutRedirectUri="https://oidcdebugger.com" %}
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
 
 ## Configure Spring Boot App for OAuth
 
-First, rename the `src/main/resources/application.properties` file to `application.yml`. Then add in the following values (filling in your **Client ID** and **Okta URL**):
+First, confirm your `src/main/resources/application.properties` has your Okta values in it.
 
-```yaml
-okta:  
-  oauth2:  
-    issuer: https://{yourOktaDomain}/oauth2/default  
-    client-id: {yourClientID}
+```properties
+okta.oauth2.issuer=https://{yourOktaDomain}/oauth2/default
+okta.oauth2.client-id={yourClientId}
+okta.oauth2.client-secret={yourClientSecret}
 ```
 
 If you were not using the Okta Spring Boot Starter, this configuration would be a little more extensive, but because you're using the starter, it sets many defaults for you and simplifies setup.
@@ -234,29 +238,24 @@ protected void configure(HttpSecurity http) throws Exception {
 Finally, change your `WebController.java` file to match the following:
 
 ```java
-package com.okta.springdocker.demo;  
-  
-import org.springframework.security.core.annotation.AuthenticationPrincipal;  
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;  
-import org.springframework.web.bind.annotation.RequestMapping;  
-import org.springframework.web.bind.annotation.ResponseBody;  
-import org.springframework.web.bind.annotation.RestController;  
-  
-import java.security.Principal;  
-  
-@RestController  
-public class WebController {  
-  
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class WebController {
+
     @RequestMapping("/")
-    public String home(@AuthenticationPrincipal JwtAuthenticationToken jwtAuthenticationToken) {  
-        return "Welcome " + jwtAuthenticationToken.getName() + "!";  
-    }  
-  
+    public String home(@AuthenticationPrincipal JwtAuthenticationToken jwtAuthenticationToken) {
+        return "Welcome " + jwtAuthenticationToken.getName() + "!";
+    }
+
     @RequestMapping("/info")
-    public String info(@AuthenticationPrincipal JwtAuthenticationToken jwtAuthenticationToken) {  
-        return jwtAuthenticationToken.toString();  
-    }  
-  
+    public String info(@AuthenticationPrincipal JwtAuthenticationToken jwtAuthenticationToken) {
+        return jwtAuthenticationToken.toString();
+    }
+
 }
 ``` 
 
