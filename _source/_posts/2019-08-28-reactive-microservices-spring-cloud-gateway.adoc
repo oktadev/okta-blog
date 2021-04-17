@@ -13,7 +13,7 @@ tweets:
 image: blog/spring-cloud-gateway/spring-cloud-gateway-social.png
 type: conversion
 changelog:
-  - 2020-04-16: Updated to Spring Boot 2.4. Changes to this post can be viewed in [okta-blog#729](https://github.com/oktadeveloper/okta-blog/pull/729). Updates to the example application are in [java-microservices-examples#23]()
+  - 2021-04-17: Updated to Spring Boot 2.3. Changes to this post can be viewed in [okta-blog#729](https://github.com/oktadeveloper/okta-blog/pull/729). Updates to the example application are in [java-microservices-examples#19](https://github.com/oktadeveloper/java-microservices-examples/pull/19).
   - 2020-09-01: Fixed CORS configuration and added code changes necessary to access `/fave-cars`. Changes to this post can be viewed in [okta-blog#398](https://github.com/oktadeveloper/okta-blog/pull/398). Updates to the example application are in [java-microservices-examples#9](https://github.com/oktadeveloper/java-microservices-examples/pull/9).
 ---
 :page-liquid:
@@ -56,7 +56,7 @@ Start by creating a directory to hold all your projects, for example, `spring-cl
 [source,shell]
 ----
 http https://start.spring.io/starter.zip javaVersion==11 artifactId==discovery-service \
-  name==eureka-service baseDir==discovery-service bootVersion==2.4.5.RELEASE \
+  name==eureka-service baseDir==discovery-service bootVersion==2.3.10.RELEASE \
   dependencies==cloud-eureka-server | tar -xzvf -
 ----
 
@@ -90,7 +90,7 @@ Next, create an `api-gateway` project that includes a handful of Spring Cloud de
 [source,shell]
 ----
 http https://start.spring.io/starter.zip javaVersion==11 artifactId==api-gateway \
-  name==api-gateway baseDir==api-gateway bootVersion==2.4.5.RELEASE \
+  name==api-gateway baseDir==api-gateway bootVersion==2.3.10.RELEASE \
   dependencies==actuator,cloud-eureka,cloud-feign,cloud-gateway,cloud-hystrix,webflux,lombok | tar -xzvf -
 ----
 
@@ -105,7 +105,7 @@ Create the `car-service` project using start.spring.io:
 [source,shell]
 ----
 http https://start.spring.io/starter.zip javaVersion==11 artifactId==car-service \
-  name==car-service baseDir==car-service bootVersion==2.4.5.RELEASE \
+  name==car-service baseDir==car-service bootVersion==2.3.10.RELEASE \
   dependencies==actuator,cloud-eureka,webflux,data-mongodb-reactive,flapdoodle-mongo,lombok | tar -xzvf -
 ----
 
@@ -303,12 +303,10 @@ Modify the `src/test/java/.../CarServiceApplicationTests.java` class in the `car
 ----
 package com.example.carservice;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
@@ -317,7 +315,6 @@ import java.time.Month;
 import java.util.Collections;
 import java.util.UUID;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties = {"spring.cloud.discovery.enabled = false"})
 public class CarServiceApplicationTests {
@@ -708,15 +705,13 @@ If you configured CORS in your gateway, you can test it works with WebTestClient
 ----
 package com.example.apigateway;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.ReactiveJwtDecoder;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
@@ -727,7 +722,6 @@ import java.util.function.Consumer;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties = {"spring.cloud.discovery.enabled = false"})
 public class ApiGatewayApplicationTests {
@@ -839,8 +833,7 @@ The tests you added in the `car-service` project will no longer work now that yo
 ----
 package com.example.carservice;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -848,7 +841,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.ReactiveJwtDecoder;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
@@ -861,7 +853,6 @@ import java.util.function.Consumer;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties = {"spring.cloud.discovery.enabled = false"})
 public class CarServiceApplicationTests {
