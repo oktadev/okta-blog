@@ -173,18 +173,14 @@ This will render the following HTML:
 
 {% raw %}
 ```
-{% include setup/cli.md type="web" framework="Okta Spring Boot Starter"
-loginRedirectUri="[http://localhost:8001/login/oauth2/code/okta,http://localhost:8002/login/oauth2/code/okta]"
-logoutRedirectUri="[http://localhost:8001,http://localhost:8002]" %}
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
 ```
 {% endraw %}
 
 This will render the following HTML:
 
 <div class="separator"></div>
-{% include setup/cli.md type="web" framework="Okta Spring Boot Starter"
-loginRedirectUri="[http://localhost:8001/login/oauth2/code/okta,http://localhost:8002/login/oauth2/code/okta]"
-logoutRedirectUri="[http://localhost:8001,http://localhost:8002]" %}
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
 <div class="separator"></div>
 
 ### ASP.NET Core
