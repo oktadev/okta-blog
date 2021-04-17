@@ -91,13 +91,13 @@ Or, from the command line, execute:
 ./mvnw spring-boot:run
 ```
 
-If you go to **http://localhost:8080/** in your web browser, you will see the following message:
+If you go to `http://localhost:8080/` in your web browser, you will see the following message:
 
 ```
 Hello, World!
 ```
 
-If you want a custom message, you can add the `name` parameter. For instance, **http://localhost:8080/?name=Daniel** will return:
+If you want a custom message, you can add the `name` parameter. For instance, `http://localhost:8080/?name=Daniel` will return:
 
 ```
 Hello, Daniel
@@ -118,7 +118,7 @@ Spring Security handles authentication, authorization, and other security aspect
 
 That's it! When you add Spring Security as a dependency, it enables security by default. When you try to access your endpoints, you'll have to log in before continuing.
 
-Let's test it. Run the application, then go to **http://localhost:8080/**. You will see the following result:
+Let's test it. Run the application, then go to `http://localhost:8080/`. You will see the following result:
 
 {% img blog/spring-boot-aws/okta-aws-ebs-01.png alt:"Login Page" width:"400" %}{: .center-image }
 
@@ -174,7 +174,7 @@ public class HelloWorldController {
 
 The `Principal` interface stores the name of the current user. Spring Security takes care of the dirty work: you only need to add it as an argument, and the method receives the correct value.
 
-To see this change, stop the application and run it again. If you access **http://localhost:8080/**, it will ask you to log in again. Use `john.doe` as the username `secret` as the password. After submitting the information, you will see the following text:
+To see this change, stop the application and run it again. If you access `http://localhost:8080/`, it will ask you to log in again. Use `john.doe` as the username `secret` as the password. After submitting the information, you will see the following text:
 
 ```
 Hello, john.doe!
@@ -356,7 +356,7 @@ If you want to take a look at the code, you can find the repository with the exa
 Would you like to learn more about Security, OAuth 2.0, and Spring in general? We recommend these posts:
 
 * [How to Docker with Spring Boot](/blog/2020/12/28/spring-boot-docker)
-* [Simple Authentication with Spring Security ](https://developer.okta.com/blog/2019/05/31/spring-security-authentication)
-* [Easy Single Sign-On with Spring Boot and OAuth 2.0](https://developer.okta.com/blog/2019/05/02/spring-boot-single-sign-on-oauth-2)
+* [Simple Authentication with Spring Security ](/blog/2019/05/31/spring-security-authentication)
+* [Easy Single Sign-On with Spring Boot and OAuth 2.0](/blog/2019/05/02/spring-boot-single-sign-on-oauth-2)
 
 As always, leave comments below and don't forget to follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel.
