@@ -152,7 +152,6 @@ I've also defined the property: `groovy.version` in the `<properties>` section o
 <properties>
     <groovy.version>2.5.8</groovy.version>
 </properties>
-
 ```
 ## Add Dependencies for Groovy, Hamcrest and TestNG
 
@@ -336,14 +335,12 @@ Now that we have tested our application, we can go ahead and start it.
 
 {% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
 
-Make sure your Okta app's values are in `src/main/resources/application.yml`.
+Make sure your Okta app's values are in `src/main/resources/application.properties`.
 
-```yaml
-okta:
-  oauth2:
-    issuer: https://{yourOktaDomain}/oauth2/default
-    client-id: {clientId}
-    client-secret: {clientSecret}
+```properties
+okta.oauth2.issuer=https://{yourOktaDomain}/oauth2/default
+okta.oauth2.client-id={yourClientId}
+okta.oauth2.client-secret={yourClientSecret}
 ```
 
 Simply run `./mvnw`, open a new Incognito window and browse to `http://localhost:8080/`.  You will be prompted to log in -- use your new Okta credentials.
