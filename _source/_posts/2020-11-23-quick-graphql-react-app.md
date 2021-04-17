@@ -18,7 +18,11 @@ React.js is one of the most popular front-end javascript frameworks today.  For 
 
 To secure your application, you will be using Okta's single sign-on provider.  Okta provides a great set of tools to make integrating its service into a React application as simple as installing an npm package.   
 
-In React, you will learn to build an application using the public GraphQL API provided by [Everbase](https://www.everbase.co/editor).  The data in this API contains some information regarding exchange rates in various currencies, as well as information about countries in which those currencies are used.  For this application, you will allow the user to convert his/hermoney into another currency.  Then you will show the user some information about what countries accept that currency.  
+In React, you will learn to build an application using the public GraphQL API provided by [Everbase](https://www.everbase.co/editor).  The data in this API contains some information regarding exchange rates in various currencies, as well as information about countries in which those currencies are used.  For this application, you will allow the user to convert his/her money into another currency.  Then you will show the user some information about what countries accept that currency.  
+
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
 
 ## Set Up GraphQL Server as a Service
 
@@ -45,7 +49,7 @@ npm i react-bootstrap@1.0.1
 As mentioned before, you will use the promise based Axios for your HTTP client.
 
 ```console
-npm i axios@0.19.2
+npm i axios@0.21.1
 ```
 
 Dotenv will store your environment variables.  You can add the `.env` file to your gitignore for security.
@@ -103,8 +107,7 @@ const AppWithRouterAccess = () => {
   const restoreOriginalUri = async (_oktaAuth, originalUri) => {
     history.replace(toRelativeUrl(originalUri, window.location.origin));
   };
-
-
+  
   const baseDomain = process.env.REACT_APP_OKTA_URL_BASE;
   const issuer = baseDomain + '/oauth2/default'
   const clientId = process.env.REACT_APP_OKTA_CLIENTID;
@@ -156,10 +159,11 @@ export default App;
 
 This code will tell your application to use your new `AppWithRouterAccess` page.  You are also importing bootstrap here, as react-bootstrap requires the CSS to be imported.  This only needs to be imported once.  
 
-### Header Component
+### Add a Header Component
 
 Add a new folder to the `src` directory called `Components`.  Add a file called `Header.jsx` to this folder and add the following code:
 
+{% raw %}
 ```jsx
 import React from 'react';
 import { useOktaAuth } from '@okta/okta-react';
@@ -195,10 +199,11 @@ const Header = () => {
 
 export default Header;
 ```
+{% endraw %}
 
 The header will be used on every page, which is why you create it as a component.  The component itself is fairly simple.  There are a couple navigation links to the pages you will implement shortly.  There is also a button that will change between Login or Logout, depending on the authentication status of the user.  
 
-### Home Page
+### Create a Home Page
 
 Next, you will provide a short landing page for users entering the site.  Add a new folder called `Pages` under the `src` directory, and add a file called `Home.jsx`.  Add the following code to that file:
 
@@ -251,7 +256,7 @@ export default Home;
 
 The one trick here is if the user is already authenticated, you will need to redirect that user to the `ExchangeRate` route defined earlier.
 
-### Login Page and Login Form
+### Create a Login Page and Login Form
 
 The next step is to provide a login page for your users to use when they attempt to access the site.  First, add a new file to the `Components` folder called `LoginForm.jsx`.  The code is as follows:
 
@@ -353,7 +358,7 @@ export default Login;
 
 Again, you are checking to see if the user is already logged in.  If they are, you can redirect them to the ExchangeRates page, otherwise present the Login Form.  
 
-### Exchange Rate Page
+### Add an Exchange Rate Page
 
 The last step is to implement the ExchangeRate page itself.  In `Pages`, add a new file called `ExchangeRate.jsx`.
 
@@ -572,7 +577,9 @@ All your code is complete and you can now test your application.  In the termina
 
 ## Learn More About GraphQL and React
 
-You have successfully consumed a GraphQL API from a React application.  You can now take this application to the next level by introducing new features to it .  You can also work on building your own GraphQL API for your application!
+You have successfully consumed a GraphQL API from a React application. You can now take this application to the next level by introducing new features to it. You can also work on building your own GraphQL API for your application!
+
+You can find the example code for this tutorial on GitHub, in the [okta-graphql-api-react-example](https://github.com/oktadeveloper/okta-graphql-api-react-example) repository.
 
 If you're interested in learning more about GraphQL or React, follow these links below:
 
