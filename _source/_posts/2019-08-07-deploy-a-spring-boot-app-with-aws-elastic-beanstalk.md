@@ -70,7 +70,7 @@ The template is an HTML page Spring MVC uses to render the information in the us
 
 You define a Thymeleaf HTML page to receive all attributes defined in the `model` object.
 
-Inside `src\main\resources\templates`, create the file `hello-world.html`:
+Inside `src/main/resources/templates`, create the file `hello-world.html`:
 
 ```html
 <!DOCTYPE html>
@@ -257,19 +257,19 @@ Okta is an excellent identity management service, which provides an identity pro
 
 Change `${BEANSTALK_URL}` to your AWS environment URL. For instance, my value is `HelloWorld-env.t3z2mwuzhi.us-east-1.elasticbeanstalk.com`.
 
-Great! You whitelisted your local and production environments. If you make calls to your Okta application from them, it will permit the request.
+Great! You granted access to your local and production environments. If you make calls to your Okta application from them, it will permit the request.
 
 ## Secure The Application With Okta and OAuth 2.0
 
 With your application in Okta, you need to change the code to start using it. Okta handles the authentication for you from now on.
 
-Replace the Spring Security dependency inside your `pom.xml` file with the okta dependency, which itself includes Spring Security. Put the following code inside the `<dependencies>` tag:
+Replace the Spring Security dependency inside your `pom.xml` file with the Okta Spring Boot starter, which itself includes Spring Security. Put the following code inside the `<dependencies>` tag:
 
 ```xml
 <dependency>
     <groupId>com.okta.spring</groupId>
     <artifactId>okta-spring-boot-starter</artifactId>
-    <version>1.2.1</version>
+    <version>2.0.1</version>
 </dependency>
 ```
 
@@ -281,9 +281,8 @@ OKTA_OAUTH2_CLIENT_ID={CLIENT_ID}
 OKTA_OAUTH2_CLIENT_SECRET={CLIENT_SECRET}
 ```
 
-Great! You whitelisted your local and production environments. If you make calls to your Okta application from those places, it will permit the request.
-
 With these changes, you now authenticate with OpenID Connect. When the user goes to the homepage, your application will redirect her to your Okta login page, then back to webpage.
+
 > OpenID Connect is a thin layer on top of the OAuth 2.0 authorization framework and is focused on identity and authentication.
 
 With OpenID Connect, you need to change the way you receive the authenticated user. Go to the `HelloWorldController` class and update the code:
@@ -342,7 +341,7 @@ The last step is to update the application to the latest version. Go inside your
 ./mvnw package -DskipTests
 ```
 
-This command generates a JAR file with the current version of your application. Go to the AWS Elastic Beanstalk dashboard, and click on the `Upload and deploy` button. Select the file aven created (such as `hello-word-0.0.1-SNAPSHOT.jar`), and click on the `Deploy` button.
+This command generates a JAR file with the current version of your application. Go to the AWS Elastic Beanstalk dashboard, and click on the `Upload and deploy` button. Select the file Maven created (such as `hello-world-0.0.1-SNAPSHOT.jar`), and click on the `Deploy` button.
 
 To make sure it is working, click on the AWS Elastic Beanstalk URL. It will redirect you to the Okta's login if you haven't logged in. When you enter valid credentials, it will redirect you to the Hello World page! In my case, the result will be:
 
@@ -356,6 +355,7 @@ If you want to take a look at the code, you can find the repository with the exa
 
 Would you like to learn more about Security, OAuth 2.0, and Spring in general? We recommend these posts:
 
+* [How to Docker with Spring Boot](/blog/2020/12/28/spring-boot-docker)
 * [Simple Authentication with Spring Security ](https://developer.okta.com/blog/2019/05/31/spring-security-authentication)
 * [Easy Single Sign-On with Spring Boot and OAuth 2.0](https://developer.okta.com/blog/2019/05/02/spring-boot-single-sign-on-oauth-2)
 
