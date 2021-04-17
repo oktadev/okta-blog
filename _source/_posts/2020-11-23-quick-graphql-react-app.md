@@ -26,7 +26,7 @@ The first thing you need to do is sign up for an Everbase account and option an 
 
 ## Set Up Authentication for Your React Application
 
-{% include setup/cli.md type="spa" framework="React" loginRedirectUri="http://localhost:3000/implicit/callback" %}
+{% include setup/cli.md type="spa" framework="React" %}
 
 Make note of your *Client ID* in the Okta CLI output, as you will need it in your application.
 
@@ -63,9 +63,9 @@ npm i react-router-dom@5.2.0
 Finally, you will need to install the necessary Okta-React packages to make integration to Okta as easy as possible.
 
 ```console
-npm i @okta/okta-auth-js@3.0.0
-npm i @okta/okta-react@3.0.1
-npm i @okta/okta-signin-widget@4.1.0
+npm i @okta/okta-auth-js@4.8.0
+npm i @okta/okta-react@5.1.1
+npm i @okta/okta-signin-widget@5.5.3
 ```
 
 ## Build Your GraphQL React Application
@@ -89,6 +89,7 @@ In your `src` directory, add a new file called `AppWithRouterAccess.jsx`.  Add t
 import React from 'react';
 import { Route, useHistory, } from 'react-router-dom';
 import { Security, SecureRoute, LoginCallback } from '@okta/okta-react';
+import { OktaAuth, toRelativeUrl } from '@okta/okta-auth-js';
 
 import ExchangeRates from './Pages/ExchangeRate'
 import Home from './Pages/Home'
@@ -98,25 +99,33 @@ const AppWithRouterAccess = () => {
   const history = useHistory();
   const onAuthRequired = () => {
       history.push('/login');
+  };  
+  const restoreOriginalUri = async (_oktaAuth, originalUri) => {
+    history.replace(toRelativeUrl(originalUri, window.location.origin));
   };
+
 
   const baseDomain = process.env.REACT_APP_OKTA_URL_BASE;
   const issuer = baseDomain + '/oauth2/default'
   const clientId = process.env.REACT_APP_OKTA_CLIENTID;
-  const redirect = process.env.REACT_APP_OKTA_APP_BASE_URL + '/implicit/callback';
+  const redirect = process.env.REACT_APP_OKTA_APP_BASE_URL + '/callback';
 
   const loggedIn = true;
 
+  const config = {
+    issuer: issuer,
+    clientId: clientId,
+    redirectUri: redirect
+  };
+
+  const oktaAuth = new OktaAuth(config);
+
   return (
-    <Security issuer={issuer}
-        clientId={clientId}
-        redirectUri={redirect}
-        onAuthRequired={onAuthRequired}
-        pkce={true} >
+    <Security oktaAuth={oktaAuth} restoreOriginalUri={restoreOriginalUri}>
         <Route path='/' exact={true} component={Home} />
         <SecureRoute path='/ExchangeRates' component={ExchangeRates} />
         <Route path='/login' render={() => <Login baseUrl={baseDomain} issuer={issuer} />} />
-        <Route path='/implicit/callback' component={LoginCallback} />
+        <Route path='/callback' component={LoginCallback} />
     </Security>
   );
 };
@@ -124,7 +133,7 @@ const AppWithRouterAccess = () => {
 export default AppWithRouterAccess;
 ```
 
-The primary job of this file is to define the routes in your application.  This file is also where you will set up your Okta client and integrate it into your application.  You will notice the `ExchangeRates` route is defined as `SecureRoute`.  This way, the application will enforce authentication on that route.  You also need to define a route for `/implicit/callback` to ensure that Okta's login redirect URI has a place to land.  
+The primary job of this file is to define the routes in your application.  This file is also where you will set up your Okta client and integrate it into your application.  You will notice the `ExchangeRates` route is defined as `SecureRoute`.  This way, the application will enforce authentication on that route.  You also need to define a route for `/callback` to ensure that Okta's login redirect URI has a place to land.  
 
 Next, you will need to update your `App.js` page with some custom code to replace the boilerplate from create-react-app.
 
@@ -157,15 +166,15 @@ import { useOktaAuth } from '@okta/okta-react';
 import { Navbar, Nav, Form, Button } from 'react-bootstrap'
 
 const Header = () => {
-  const { authState, authService } = useOktaAuth();
+  const { oktaAuth, authState } = useOktaAuth();
 
   if (authState.isPending) {
     return <div>Loading...</div>;
   }
 
   const button = authState.isAuthenticated ?
-    <Button variant="secondary" onClick={() => { authService.logout() }}>Logout</Button> :
-    <Button variant="secondary" onClick={() => { authService.login() }}>Login</Button>
+    <Button variant="secondary" onClick={() => { oktaAuth.signOut() }}>Logout</Button> :
+    <Button variant="secondary" onClick={() => { oktaAuth.onAuthRequired() }}>Login</Button>
 
   return (
     <Navbar bg="light" expand="lg">
@@ -254,7 +263,7 @@ import { Form, Button, Row, Col } from 'react-bootstrap'
 
 const LoginForm = ({ baseUrl, issuer }) => {
 
-  const { authService } = useOktaAuth();
+  const { oktaAuth } = useOktaAuth();
   const [sessionToken, setSessionToken] = useState();
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
@@ -276,7 +285,7 @@ const LoginForm = ({ baseUrl, issuer }) => {
   };
 
   if (sessionToken) {
-    authService.redirect({ sessionToken });
+    oktaAuth.signInWithRedirect({ sessionToken });
     return null;
   }
 
