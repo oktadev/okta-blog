@@ -13,10 +13,11 @@ tweets:
 image: blog/spring-cloud-gateway/spring-cloud-gateway-social.png
 type: conversion
 changelog:
-  - 2020-04-13: Updated to Spring Boot 2.4. Changes to this post can be viewed in [okta-blog#324234](). Updates to the example application are in [java-microservices-examples#13241]()
+  - 2020-04-16: Updated to Spring Boot 2.4. Changes to this post can be viewed in [okta-blog#729](https://github.com/oktadeveloper/okta-blog/pull/729). Updates to the example application are in [java-microservices-examples#23]()
   - 2020-09-01: Fixed CORS configuration and added code changes necessary to access `/fave-cars`. Changes to this post can be viewed in [okta-blog#398](https://github.com/oktadeveloper/okta-blog/pull/398). Updates to the example application are in [java-microservices-examples#9](https://github.com/oktadeveloper/java-microservices-examples/pull/9).
 ---
 :page-liquid:
+:toc: macro
 
 So you wanna go full reactive, eh? Great! Reactive programming is an increasingly popular way to make your applications more efficient. Instead of making a call to a resource and waiting on a response, reactive applications asynchronously receive a response. This allows them to free up processing power, only perform processing when necessary, and scale more effectively than other systems.
 
@@ -38,6 +39,8 @@ If you'd rather watch a video, https://youtu.be/iuH_B1FutRo[I created a screenca
 </div>
 ++++
 
+toc::[]
+
 == Spring Cloud Gateway vs. Zuul
 
 Zuul is Netflix's API gateway. First released in 2013, Zuul was not originally reactive, but Zuul 2 is a ground-up rewrite to make it reactive. Unfortunately, Spring Cloud https://github.com/spring-cloud/spring-cloud-netflix/issues/1498[does not support Zuul 2] and it likely never will.
@@ -53,7 +56,7 @@ Start by creating a directory to hold all your projects, for example, `spring-cl
 [source,shell]
 ----
 http https://start.spring.io/starter.zip javaVersion==11 artifactId==discovery-service \
-  name==eureka-service baseDir==discovery-service bootVersion==2.2.4.RELEASE \
+  name==eureka-service baseDir==discovery-service bootVersion==2.4.5.RELEASE \
   dependencies==cloud-eureka-server | tar -xzvf -
 ----
 
@@ -78,16 +81,6 @@ server.port=8761
 eureka.client.register-with-eureka=false
 ----
 
-To make the `discovery-service` run on Java 11+, add a dependency on JAXB.
-
-[source,xml]
-----
-<dependency>
-    <groupId>org.glassfish.jaxb</groupId>
-    <artifactId>jaxb-runtime</artifactId>
-</dependency>
-----
-
 Start the project using `./mvnw spring-boot:run` or by running it in your IDE.
 
 == Create a Spring Cloud Gateway Project
@@ -97,7 +90,7 @@ Next, create an `api-gateway` project that includes a handful of Spring Cloud de
 [source,shell]
 ----
 http https://start.spring.io/starter.zip javaVersion==11 artifactId==api-gateway \
-  name==api-gateway baseDir==api-gateway bootVersion==2.2.4.RELEASE \
+  name==api-gateway baseDir==api-gateway bootVersion==2.4.5.RELEASE \
   dependencies==actuator,cloud-eureka,cloud-feign,cloud-gateway,cloud-hystrix,webflux,lombok | tar -xzvf -
 ----
 
@@ -112,7 +105,7 @@ Create the `car-service` project using start.spring.io:
 [source,shell]
 ----
 http https://start.spring.io/starter.zip javaVersion==11 artifactId==car-service \
-  name==car-service baseDir==car-service bootVersion==2.2.4.RELEASE \
+  name==car-service baseDir==car-service bootVersion==2.4.5.RELEASE \
   dependencies==actuator,cloud-eureka,webflux,data-mongodb-reactive,flapdoodle-mongo,lombok | tar -xzvf -
 ----
 
@@ -454,7 +447,7 @@ public class ApiGatewayApplication {
 }
 ----
 
-After making these code changes, you should be able to start all three Spring Boot apps and hit `http://localhost:8080/cars`.
+After making these code changes, you should be able to start all three Spring Boot apps and hit `\http://localhost:8080/cars`.
 
 [source,shell]
 ----
@@ -553,7 +546,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 ----
 
-Restart your gateway app to see the `http://localhost:8080/fave-cars` endpoint only returns the ID Buzz.
+Restart your gateway app to see the `\http://localhost:8080/fave-cars` endpoint only returns the ID Buzz.
 
 image::{% asset_path 'blog/spring-cloud-gateway/fave-cars.png' %}[alt=I.D. Buzz,align=center]
 
@@ -586,7 +579,7 @@ class CarsFallback {
 }
 ----
 
-First, restart your gateway and confirm `http://localhost:8080/cars` works. Then shut down the car service, try again, and you'll see it now returns an empty array. Restart the car service and you'll see the list populated again.
+First, restart your gateway and confirm `\http://localhost:8080/cars` works. Then shut down the car service, try again, and you'll see it now returns an empty array. Restart the car service and you'll see the list populated again.
 
 You've built a resilient and reactive microservices architecture with Spring Cloud Gateway and Spring WebFlux. Now let's see how to secure it!
 
@@ -600,33 +593,9 @@ OAuth 2.0 is an authorization framework for delegated access to APIs. OIDC (or O
 
 You can use OAuth 2.0 and OIDC without a cloud identity provider by building your own server or by using an open-source implementation. However, wouldn't you rather just use something that's _always on_, like Okta?
 
-If you already have an Okta account, see the **Create a Web Application in Okta** sidebar below. Otherwise, we created a Maven plugin that configures a free Okta developer account + an OIDC app (in under a minute!).
+In a terminal window, go to your `api-gateway` project's directory.
 
-To use it run: `./mvnw com.okta:okta-maven-plugin:setup` to create an account and configure your Spring Boot app to work with Okta.
-
-++++
-<div style="text-align: center">
-<script id="asciicast-264402" src="https://asciinema.org/a/264402.js" async></script>
-</div>
-++++
-
-.Create a Web Application in Okta
-****
-Log in to the Okta Admin Console (or https://developer.okta.com/signup/[sign up] if you don't have an account).
-
-1. From the **Applications** section, choose **Add Application**.
-2. On the Create New Application page, choose **Web** and select **OpenID Connect**.
-3. Give your app a memorable name, add `http://localhost:8080/login/oauth2/code/okta` as a Login redirect URI, select **Refresh Token** (in addition to **Authorization Code**), and click **Create**.
-
-Copy the issuer (found under **Security** > **API** > **Authorization Servers**), client ID, and client secret into `application.properties` for both projects.
-
-[source,properties]
-----
-okta.oauth2.issuer=$issuer
-okta.oauth2.client-id=$clientId
-okta.oauth2.client-secret=$clientSecret
-----
-****
+{% include setup/maven.md %}
 
 Next, add the https://github.com/okta/okta-spring-boot[Okta Spring Boot starter] and Spring Cloud Security to your gateway's `pom.xml`:
 
@@ -643,7 +612,7 @@ Next, add the https://github.com/okta/okta-spring-boot[Okta Spring Boot starter]
 </dependency>
 ----
 
-This is all you need to do to add OIDC login with Okta! Restart your Gateway app and navigate to `http://localhost:8080/fave-cars` in your browser to be redirected to Okta for user authorization.
+This is all you need to do to add OIDC login with Okta! Restart your gateway app and navigate to `\http://localhost:8080/fave-cars` in your browser to be redirected to Okta for user authorization.
 
 image::{% asset_path 'blog/spring-cloud-gateway/okta-sign-in.png' %}[alt=Okta Sign In,align=center]
 
@@ -1004,7 +973,7 @@ public RouteLocator customRouteLocator(RouteLocatorBuilder builder,
 
 NOTE: This relay factory does not https://github.com/spring-cloud/spring-cloud-security/issues/175[automatically refresh access tokens] (yet).
 
-Restart your API gateway and you should be able to view `http://localhost:8080/cars` and have everything work as expected.
+Restart your API gateway and you should be able to view `\http://localhost:8080/cars` and have everything work as expected.
 
 Pretty sweet, don't you think?!
 
