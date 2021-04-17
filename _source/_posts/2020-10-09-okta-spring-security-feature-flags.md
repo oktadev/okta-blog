@@ -112,7 +112,7 @@ For our purposes (and to keep things simple), you just need:
 
 {% img blog/okta-split-spring-security/spring-initializr.png alt:"Initializr" width:"600" %}
 
-Spring Initializr even makes it easy to load a pre-configured project from a [direct link](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.3.9.RELEASE&packaging=jar&jvmVersion=11&groupId=com.okta.examples&artifactId=okta-split-example&name=okta-split-example&description=Feature%20Flags%20with%20Okta%2C%20Split%20and%20Spring%20Security&packageName=com.okta.examples.okta_split_example&dependencies=web,thymeleaf,okta).
+Spring Initializr even makes it easy to load a pre-configured project from a [direct link](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.3.4.RELEASE&packaging=jar&jvmVersion=11&groupId=com.okta.examples&artifactId=okta-split-example&name=okta-split-example&description=Feature%20Flags%20with%20Okta%2C%20Split%20and%20Spring%20Security&packageName=com.okta.examples.okta_split_example&dependencies=web,thymeleaf,okta).
 
 And, you can download the project from the command line with:
 
@@ -120,7 +120,7 @@ And, you can download the project from the command line with:
 curl -G \
 --data 'type=maven-project' \
 --data 'language=java' \
---data 'bootVersion=2.3.9.RELEASE' \
+--data 'bootVersion=2.3.4.RELEASE' \
 --data 'baseDir=okta-split-example' \
 --data 'groupId=com.okta.examples' \
 --data 'artifactId=okta-split-example' \
