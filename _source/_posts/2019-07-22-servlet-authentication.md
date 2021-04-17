@@ -26,6 +26,10 @@ Let's get started!
 
 > NOTE: Throughout this post, I'll use Eclipse, as it is my preferred IDE. However, you can use any IDE or editor you please.
 
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+  
 ## Create an Unsecured JSP Application
 
 To get started, we'll use a simple application I wrote that shares secret family recipes. The code that powers this app can be found on my [GitHub](https://github.com/oktadeveloper/servlet-authn-example/tree/StarterBranch).
@@ -40,7 +44,7 @@ Once you run it, you'll be able to view the application at `http://localhost:808
 
 Uh oh, now anyone can view my top-secret Eggplant Parmesan recipe! What should we do now? Let's secure the application!
 
-## Create User Accounts in Your Okta Developer Console
+## Create User Accounts in the Okta Admin Console
 
 Before we implement user authentication in this application, we need to create some users inside Okta that we can later use to log into the app.
 
@@ -221,7 +225,7 @@ And replace it with this:
 </servlet-mapping>
 ```
 
-Replace `{yourOktaDomain}` with your own Okta organization URL (which can be found at the top-right hand side of your Okta developer dashboard).
+Replace `{yourOktaDomain}` with your own Okta organization URL (which can be found at the top-right hand side of your Okta Admin Console dashboard).
 
 ### Create an `OktaFilter` Class to Confirm Authentication
 
