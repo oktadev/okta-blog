@@ -22,6 +22,10 @@ This expectation is met by Progressive Web Applications (or PWAs). A PWA is a no
 
 In this tutorial, I will show you how to develop a small PWA using the Vue framework. Vue is a framework that has been around for some time. It has recently gained in popularity as developers have come to realize that Vue strikes a good balance between a low-level hackability and high-level over-design. The application will allow the user to browse through a catalog of books. It will be making use of the OpenLibrary API to provide the data.
 
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+
 ## Create Your Vue Application
 
 To start you will need to install the Vue command line tool. I will assume that you have some knowledge of JavaScript and the Node Package Manager (npm). I will also assume you have `npm` installed on your system. Open a shell and type the command:
@@ -63,11 +67,11 @@ A `.vue` file can contain three sections identified by XML tags: `<template>`, `
 * `<style>` - contains any CSS that will be applied specifically to that component
 * `<script lang="ts">` - contains the component's logic implemented in TypeScript code
 
-Before you start, implementing the components for the Book application, you will need to install some additional libraries that will be using throughout this tutorial. Navigate into the newly created `vuew-books-pwa` directory and run the following command.
+Before you start, implementing the components for the Book application, you will need to install some additional libraries that will be using throughout this tutorial. Navigate into the newly created `vue-books-pwa` directory and run the following command.
 
 ```bash
 cd vue-books-pwa
-npm i vue-material@1.0.0-beta-13 axios@0.19.2 vue-axios@2.1.5
+npm i vue-material@1.0.0-beta-13 axios@0.21.1 vue-axios@3.2.4
 ```
 
 This will install the Material Design packages for Vue as well as the axios package that you will be using to create HTTP requests to the OpenLibrary API. Because you are using TypeScript, you will also need to install the type definitions for the Vue Material library. These have to be pulled from their GitHub repository. Run the command:
@@ -364,8 +368,7 @@ Open a browser and navigate to `http://localhost:8080`. You can search for a boo
 
 In many situations, you will want to restrict access to parts of your application to users that are registered. You could start implementing your own user registration and sign-in mechanism. This is not only cumbersome but can leave you with security risks if the user registration is not tested properly. Fortunately, Okta provides a single sign-on service that lets you add safe user authentication with little effort. In this section, I will be showing you how to restrict access to the `/search` and `/details` routes to registered users.
 
-{% include setup/cli.md type="spa" framework="Vue"
-loginRedirectUri="http://localhost:8080/callback" %}
+{% include setup/cli.md type="spa" framework="Vue" loginRedirectUri="http://localhost:8080/callback" %}
 
 In your application directory now run the following command.
 
