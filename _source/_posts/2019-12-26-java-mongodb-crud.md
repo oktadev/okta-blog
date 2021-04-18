@@ -12,6 +12,8 @@ tweets:
 - "Leverage #Java and @MongoDB to create a REST API in minutes!"
 image: blog/java-mongodb-crud/java-mongodb.png
 type: conversion
+changelog:
+- 2021-04-16: Updated to use Spring Boot 2.4.5 and the Okta CLI for setup. See the example app's changes in [okta-java-mongodb-example#1](https://github.com/oktadeveloper/okta-java-mongodb-example/pull/1); changes to this post can be viewed in [okta-blog#713](https://github.com/oktadeveloper/okta-blog/pull/713);
 ---
 
 This tutorial leverages two technologies that are commonly used to build web services: MongoDB and Java (we'll actually use Spring Boot). MongoDB is a NoSQL database, which is a generic term for any non-relational databases and differentiates them from relational databases. Relational databases, such as SQL, MySQL, Postgres, etc..., store data in large tables with well-defined structures. These structures are strong and tight and not easily changed or customized on a per-record basis (this structure can also be a strength, depending on the use case, but we won't get too deep into that here). Further, because relational databases grew up pre-internet, they were designed to run on monolithic servers. This makes them hard to scale and sync across multiple machines.
@@ -21,6 +23,10 @@ NoSQL databases like MongoDB were developed, to a large degree, to fit the needs
 Spring Boot is an easy to use web application framework from Spring that can be used to create enterprise web services and web applications. They've done an admirable job simplifying the underlying complexity of the Spring framework, while still exposing all of its power. And no XML required! Spring Boot can be deployed in a traditional WAR format or can be run stand-alone using embedded Tomcat (the default), Jetty, or Undertow. With Spring you get the benefit of literally decades of proven enterprise Java expertise - Spring has run thousands of productions applications - combined with the simplicity of a modern, "just work" web framework, incredible depth of features, and great community support.
 
 {% img blog/java-mongodb-crud/duke-cheers-to-mongodb.png alt:"Duke raises a glass to MongoDB" width:"800" %}{: .center-image }
+
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
 
 In this tutorial, you will create a simple Java class file to model your data, you will store this data in a MongoDB database, and you will expose the data with a REST API. To do this, you will use Spring Boot and Spring Data.
 
@@ -41,13 +47,20 @@ You'll need to install a few things before you get started.
 
 To create a skeleton project, you can use Spring Initializr. It's a great way to quickly configure a starter for a Spring Boot project. 
 
-Open [this link to view and download your pre-configured starter project on Spring Initializr](https://start.spring.io/#!type=gradle-project&language=java&platformVersion=2.2.2.RELEASE&packaging=jar&jvmVersion=11&groupId=com.okta.mongodb&artifactId=MongoDbOAuth&name=MongoDbOAuth&description=Demo%20project%20using%20MongoDB%20and%20OAuth%202.0&packageName=com.okta.mongodb.mongodbouth&dependencies=flapdoodle-mongo,web,data-mongodb,data-rest,okta,lombok).
+Open [this link to view and download your pre-configured starter project on Spring Initializr](https://start.spring.io/#!type=gradle-project&language=java&platformVersion=2.4.5.RELEASE&packaging=jar&jvmVersion=11&groupId=com.okta.mongodb&artifactId=MongoDbOAuth&name=MongoDbOAuth&description=Demo%20project%20using%20MongoDB%20and%20OAuth%202.0&packageName=com.okta.mongodb.mongodbouth&dependencies=flapdoodle-mongo,web,data-mongodb,data-rest,okta,lombok). In case this link stops working, select these options on [start.spring.io](https://start.spring.io):
+
+- Build tool: Gradle
+- Language: Java
+- Spring Boot Version: 2.4.5
+- Group: `com.okta.mongodb`
+- Artifact: `MongoDbOAuth`
+- Package: `com.okta.mongodb.mongodbouth`
 
 Take a look at the settings if you like. You can even preview the project by clicking the **Explore** button at the bottom of the page.
 
 Once you're ready, click the green **Generate** button at the bottom of the page to download the starter project to your computer.
 
-The starter for this project is a Spring Boot 2.2.2 project that uses Java as the application language and Gradle as the build system (there are other options for both). We've covered Gradle in-depth in a few other posts (see below), so we won't go into too much detail here, except to say that you won't need to install anything for Gradle to work because of the Gradle wrapper, which includes a version of Gradle with the project.
+The starter for this project is a Spring Boot 2.4.5 project that uses Java as the application language and Gradle as the build system (there are other options for both). We've covered Gradle in-depth in a few other posts (see below), so we won't go into too much detail here, except to say that you won't need to install anything for Gradle to work because of the Gradle wrapper, which includes a version of Gradle with the project.
 
 The included dependencies in this project are:
 
@@ -68,17 +81,15 @@ You're doing number one because you won't be configuring the JWT OAuth until lat
 The `dependencies {}` block should look like this: 
 
 ```groovy
-dependencies {  
-    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'  
-    implementation 'org.springframework.boot:spring-boot-starter-data-rest'  
-    implementation 'org.springframework.boot:spring-boot-starter-web'  
-    //implementation 'com.okta.spring:okta-spring-boot-starter:1.3.0'  
-    compileOnly 'org.projectlombok:lombok'  
-    annotationProcessor 'org.projectlombok:lombok'  
-    testImplementation('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-    }
-    implementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'  
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    //implementation 'com.okta.spring:okta-spring-boot-starter:2.0.1'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
 }
 ```
 
@@ -373,29 +384,9 @@ OAuth 2.0 is an authorization protocol (verifying what the client or user is all
 
 They are not, however, implementations. That's where Okta comes in. Okta will be the identity provider and your Spring Boot app will be the client.
 
-You should have already signed up for a free developer account at Okta. Navigate to the developer dashboard at [https://developer.okta.com](https://developer.okta.com). If this is your first time logging in, you may need to click the **Admin** button.
+To configure JSON Web Token (JWT) authentication and authorization, you need to create an OIDC application.
 
-To configure JSON Web Token (JWT) authentication and authorization, you need to create an OIDC application. 
-
-From the top menu, click on the  **Applications** button. Click the  **Add Application**  button.
-
-Select application type  **Web** and click  **Next**.
-
-Give the app a name. I named mine "Spring Boot Mongo".
-
-Under  **Login redirect URIs**, add a new URI: `https://oidcdebugger.com/debug`.
-
-Under **Grant types allowed**, check **Implicit (Hybrid)**.
-
-The rest of the default values will work.
-
-Click  **Done**.
-
-Leave the page open or take note of the  **Client ID**. You'll need it in a bit when you generate a token.
-
-To test the REST API, you're going to use the [OpenID Connect Debugger](https://oidcdebugger.com/) to generate a token. This is why you need to add the login redirect URI and allow the implicit grant type.
-
-{% img blog/java-mongodb-crud/oidc-settings.png alt:"OIDC Settings" width:"700" %}{: .center-image }
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
 
 ## Configure Spring Boot for OAuth 2.0
 
@@ -404,17 +395,15 @@ Now you need to update the Spring Boot application to use JWT authentication. Fi
 ```groovy
 dependencies {  
     ...
-    implementation 'com.okta.spring:okta-spring-boot-starter:1.3.0'  <-- UNCOMMENT ME
+    implementation 'com.okta.spring:okta-spring-boot-starter:2.0.1'  <-- UNCOMMENT ME
     ... 
 }
 ```
 
-Next, open your `src/main/resources/application.properties` file and add your Okta Issuer URI to it. The Issuer URI can be found by opening your Okta developer dashboard. From the top menu, select **API** and **Authorization Servers**. Your Issuer URI can be found in the panel in the row for the default authorization server.
-
-{% img blog/java-mongodb-crud/issuer.png alt:"Authorization Server Issuer" width:"800" %}{: .center-image }
+Make sure your `src/main/resources/application.properties` file has your Okta Issuer URI in it. You can delete the client ID and secret to tighten up security.
 
 ```properties
-spring.jackson.date-format=MM-dd-yyyy  
+spring.jackson.date-format=MM-dd-yyyy
 okta.oauth2.issuer=https://{yourOktaUrl}/oauth2/default
 ```
 
@@ -459,22 +448,11 @@ This is the expected response. You're REST API is now protected and requires a v
 
 ## Generate a Token Using the OpenID Connect Debugger
 
-To access your now-protected server, you need a valid JSON Web Token. [The OIDC Debugger](https://oidcdebugger.com/) is a handy page that will allow you to generate a JWT. 
+To access your now-protected server, you need a valid access token. {% include setup/oidcdebugger.md %}
 
-Open [the OIDC Debugger](https://oidcdebugger.com/).
+Scroll down to the bottom and click **Send Request**.
 
-You will need to fill in the following values.
-
-- **Authorization URI**: `https://{yourOktaUrl}/oauth2/default/v1/authorize`
-- **Client ID**: the Client ID from your Okta OIDC application
-- **State**: just fill in any non-blank value (this is used in production to help protect against cross-site forgery attacks)
-- **Response type**: check box for **token**
-
-{% img blog/java-mongodb-crud/oidc-debugger.png alt:"OIDC Debugger" width:"700" %}{: .center-image }
-
-The rest of the default values should work. Scroll down to the bottom and click **Send Request**.
-
-If all went well, you will see your brand new access token.
+If all went well, you will see your brand-new access token.
 
 {% img blog/java-mongodb-crud/access-token.png alt:"OAuth 2.0 Access Token" width:"800" %}{: .center-image }
 

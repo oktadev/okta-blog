@@ -12,6 +12,8 @@ tweets:
 - "If you know Java standards like JAX-RS, you know how to build an app with Quarkus!"
 image: blog/java-quarkus-oidc/java-quarkus-duke.png
 type: conversion
+changelog:
+- 2021-01-28: Updated post to upgrade Quarkus to version 1.11.1.Final. See the code changes in the [example on GitHub](https://github.com/oktadeveloper/okta-quarkus-example/pull/3). Changes to this post can be viewed in [oktadeveloper/okta-blog#537](https://github.com/oktadeveloper/okta-blog/pull/537).
 ---
 
 Quarkus is a container-first Kubernetes Java framework designed to have a super-fast start-up time and low memory usage. The container-first strategy emphasizes packaging the runtime environment along with the application code, allowing both to be tightly optimized and avoiding the endless updates and configuration problems that can come along with monolithic server systems. Quarkus was built from the beginning to support compilation to native code for use with Graal/SubstrateVM but also supports the good old JVM with OpenJDK HotSpot. 
@@ -23,6 +25,10 @@ In this tutorial, you'll learn how to create a simple REST endpoint using Java a
 This tutorial is a modified and updated version of the "Quarkus - Using JWT RBAC" tutorial on [the Quarkus website.](https://quarkus.io/guides/jwt-guide), the main difference being that this tutorial will use Okta as the OAuth provider and the OIDC Debugger to generate tokens for ad hoc testing (instead of rolling the whole thing yourself).
 
 Let's get started!
+
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
 
 ## Install Quarkus Tutorial Prerequisites
 
@@ -64,7 +70,7 @@ mp.jwt.verify.issuer=https://{yourOktaDomain}/oauth2/default
 
 You'll need to fill in your Okta developer URI in two places. 
 
-To find your developer URI, open your Okta developer dashboard and navigate to **API** > **Authorization Servers**. Look at the row for the `default` auth server where you'll see the **Issuer URI**. 
+To find your Okta domain, open the Okta Admin Console and navigate to **Security** > **API** > **Authorization Servers**. Look at the row for the `default` auth server where you'll see the **Issuer URI**. 
 
 That domain is your Okta URI that you'll need to populate in place of `{yourOktaDomain}`.
 
@@ -181,29 +187,15 @@ Next, we'll add OAuth 2.0 support to the application.
 
 ## Create an OIDC Application in Okta to Test Your Quarkus Service
 
-Head over to your Okta developer dashboard - if this is your first time logging in, you may need to click the **Admin** button.
-
-From the top menu, click on the  **Application** button and then click **Add Application**.
-
-Select application type **Web** and click **Next**.
-
-Give the app a name. I named mine "Quarkus Demo".
-
-Under  **Login redirect URIs**, add a new URI: `https://oidcdebugger.com/debug`.
-
-Under **Grant types allowed**, check **Implicit (Hybrid)**.
-
-The rest of the default values will work.
-
-Click  **Done**.
-
-Leave the page open or take note of the  **Client ID**. You'll need it in a bit when you generate a token.
+{% include setup/cli.md type="web" signup="false"
+   loginRedirectUri="https://oidcdebugger.com/debug" 
+   logoutRedirectUri="https://oidcdebugger.com" %}
 
 ## Add Groups Claims To Default Authorization Server
 
 You're going to add a **groups** claim mappings in the JWT access token, this is what maps Okta's groups to the role-based authorization in Quarkus.
 
-From the top menu of the Okta developer dashboard, go to **API** and select **Authorization Servers**.
+Run `okta login` and open the returned URL in a browser. Sign in to the Okta Admin Console and go to **Security** > **API** and select **Authorization Servers**.
 
 Click on the **default** server.
 
@@ -217,8 +209,6 @@ Click **Add Claim**.
 - **Filter**: `Matches regex` `.*`
 
 Click **Create**.
-
-{% img blog/java-quarkus-oidc/add-groups-claim.png alt:"Add Groups Claim" width:"600" %}{: .center-image }
 
 ## Update TokenSecuredResource
 
@@ -304,18 +294,13 @@ Not authorized
 
 ## Generate an OAuth 2.0 Access Token to Test Authentication in Quarkus
 
-Open the [OpenID Connect Debugger](https://oidcdebugger.com/). You're going to use this page to generate a JWT access token that you can use to authenticate.
+{% include setup/oidcdebugger.md %}
 
 {% img blog/java-quarkus-oidc/oidc-debugger.png alt:"OIDC Debugger" width:"650" %}{: .center-image }
 
-Follow the below steps to continue:
+Scroll down and click **Send Request**.
 
-1. Set the **Authorize URI** to: `https://{yourOktaDomain}/oauth2/default/v1/authorize`
-2. Copy your **Client ID** from the Okta OIDC application you created above and fill it in under **Client ID**
-3. Change the scope to be `openid email profile`
-4. Add something for **State**. It doesn't matter what. Just can't be blank
-5. Scroll down. Click **Send**
-6. Copy the resulting JWT Access Token to the clipboard, and in the terminal where you are running your HTTPie commands, save the token value to a shell variable, like so:
+Copy the resulting JWT Access Token to the clipboard, and in the terminal where you are running your HTTPie commands, save the token value to a shell variable, like so:
 
 ```bash
 TOKEN=eyJraWQiOiJxMm5rZmtwUDRhMlJLV2REU2JfQ...
@@ -526,8 +511,3 @@ Here are some related blog posts to learn more about Java and authentication:
 - [Build a Simple CRUD App with Spring Boot and Vue.js](/blog/2018/11/20/build-crud-spring-and-vue)
 
 If you have any questions about this post, please add a comment below. For more awesome content, follow  [@oktadev](https://twitter.com/oktadev) on Twitter, like us [on Facebook](https://www.facebook.com/oktadevelopers/), or subscribe to [our YouTube channel](https://www.youtube.com/c/oktadev).
-
-<a name="changelog"></a>
-**Changelog**:
-
-* Jan 28, 2021: Updated post to upgrade Quarkus to version 1.11.1.Final. See the code changes in the [example on GitHub](https://github.com/oktadeveloper/okta-quarkus-example/pull/3). Changes to this post can be viewed in [oktadeveloper/okta-blog#537](https://github.com/oktadeveloper/okta-blog/pull/537).

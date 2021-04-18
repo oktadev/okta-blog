@@ -14,15 +14,15 @@ image: blog/featured/okta-java-skew.jpg
 type: conversion
 ---
 
-**Table of Contents**{: .hide }
-* Table of Contents
-{:toc}
-
 Okta is an Identity and Access Management platform. The TL;DR: you offload the responsibility for secure authentication and authorization to Okta so you can focus on the business logic of the app you're building.
 
 Okta and Spring Boot already go together like peanut butter and chocolate. Add in feature flags care of [Split](https://split.io), and you can test new capabilities for your app without having to redeploy. That's testing in production the smart way! And, you can leverage Okta's groups to easily manage who should see the new stuff and who sees the old stuff.
 
 In this post, I start with setting up an Okta org and configuring an OpenID Connect app. Next, I integrate Okta into a simple Spring Boot and Spring Security app. Finally, I add feature flags to deliver a new UI experience for select users - those that belong to a particular group.
+
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
 
 ## Get Started with Okta
 
@@ -30,21 +30,19 @@ OpenID Connect (OIDC) rides on top of OAuth 2.0 for a modern Single Sign-on, aut
 
 > If you're interested in learning more about OIDC and OAuth 2.0, [here](https://developer.okta.com/blog/2017/07/25/oidc-primer-part-1) and [here](https://oauth.com) are good places to start. Look for more links to posts on OIDC and OAuth 2.0 at the end of this post.
 
-### Register for an Okta Org
+### Register for an Okta Org and Create an OIDC App
 
-Head on over to: [https://developer.okta.com/signup](https://developer.okta.com/signup). Fill out the form and click **Get Started**.
-
-You'll get an email from Okta to confirm your address. Click on **ACTIVATE MY ACCOUNT**. You'll next see an onboarding page in your Okta Org. You can skip this for now.
-
-Let's add a few users and groups for use later in the Spring Boot app.
+{% include setup/cli.md type="web" loginRedirectUri="http://localhost:8080/login/oauth2/code/okta" logoutRedirectUri="http://localhost:8080" %}
 
 #### Add Users to your Okta Org
 
-Click **Users** on the menu bar at the top. Here, you'll see the user already created for you with the name and email you submitted to create the Okta org.
+Run `okta login` and open the resulting URL in your browser. Sign in to the Okta Admin Console.
+
+Then, go to **Directory** > **People**. Here, you'll see the user already created for you with the name and email you submitted to create the Okta org.
 
 Click **Add Person**. This will bring you to the input form for adding a new user:
 
-{% img blog/okta-split-spring-security/new-user.png alt:"New User" width:"600" %}
+{% img blog/okta-split-spring-security/new-user.png alt:"New User" width:"600" %}{: .center-image }
 
 Change the **Password** field to **Set by admin** and uncheck **User must change password on first login**. Create the following users by filling out the form and clicking on **Save and Add Another** for each:
 
@@ -60,11 +58,11 @@ Next, you'll add some groups and assign some users to those groups.
 
 #### Add Groups to your Okta Org
 
-Choose **Users > Groups** from the top level menu. Here, you'll see the built in `Everyone` group. As you might imagine, every current and new user is automatically added to this group.
+Navigate to **Directory** > **Groups**. Here, you'll see the built-in `Everyone` group. As you might imagine, every current and new user is automatically added to this group.
 
 Click **Add Group**. This will bring you to the input form for adding a new group:
 
-{% img blog/okta-split-spring-security/new-user.png alt:"New User" width:"600" %}
+{% img blog/okta-split-spring-security/new-group.png alt:"New User" width:"600" %}{: .center-image }
 
 Enter **BETA_TESTER** in both the **Name** and **Group Description** fields. Click **Add Group**.
 
@@ -72,25 +70,16 @@ Click the link to the newly created **BETA_TESTER** group. Click **Manage People
 
 Now, you're Okta org is configured with five users (the Belcher family), 3 of whom belong to the **BETA_TESTER** group.
 
-### Create an OIDC App in your Okta Org
 
-Next up, you'll create an OIDC app that the Spring Boot app uses below. A deep dive into how OIDC works is outside the scope of this post, but check the links at the bottom if you're interested in learning more about OIDC.
-
-Click **Applications** from the top menu bar.
-
-Click **Add Application**. Choose **Web** from the available app types and click **Next**. Update the **Name** field. Change the **Login redirect URIs** to: `http://localhost:8080/login/oauth2/code/okta`. Leave all the other fields as their defaults and click **Done** at the bottom.
-
-At the top of the **General** tab, you'll see the **Client Credentials** section at the top. Copy the values for **Client ID** and **Client secret**. You'll use these values below to configure Spring Boot.
-
-### Configure the OIDC App to Return Groups
+### Configure the OIDC App to Return Groups Claim
 
 The last Okta configuration step is to make sure that the list of groups a user belongs to is returned when a user authenticates. You'll see below that this integrates very easily with Spring Security.
 
-Click **API > Authorization Servers** from the top menu bar. Click the **default** link under the list of **Authorization Servers** (it should be the only one right now).
+Go to **Security** > **API** and select the **default** authorization server (it should be the only one right now).
 
 Click the **Claims** tab. Click **Add Claim**:
 
-{% img blog/okta-split-spring-security/groups-claim.png alt:"Groups" width:"600" %}
+{% img blog/okta-split-spring-security/groups-claim.png alt:"Groups" width:"600" %}{: .center-image }
 
 Fill the form in with the following (leave anything not named as default):
 
@@ -121,7 +110,7 @@ For our purposes (and to keep things simple), you just need:
 | Thymeleaf  | Server-side Java templating engine                   |
 | Okta       | Easy integration with Okta; includes Spring Security |
 
-{% img blog/okta-split-spring-security/spring-initializr.png alt:"Initializr" width:"600" %}
+{% img blog/okta-split-spring-security/spring-initializr.png alt:"Initializr" width:"800" %}{: .center-image }
 
 Spring Initializr even makes it easy to load a pre-configured project from a [direct link](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.3.4.RELEASE&packaging=jar&jvmVersion=11&groupId=com.okta.examples&artifactId=okta-split-example&name=okta-split-example&description=Feature%20Flags%20with%20Okta%2C%20Split%20and%20Spring%20Security&packageName=com.okta.examples.okta_split_example&dependencies=web,thymeleaf,okta).
 
@@ -151,7 +140,7 @@ You can also find the completed application over on the [Okta Developer GitHub r
 
 ### Integrate with Okta
 
-In order for this Spring Boot app to connect to your Okta org you need to set up an `src/main/resources/application.yml` file with just three configuration parameters:
+In order for this Spring Boot app to connect to your Okta org you need to rename `src/main/resources/application.properties` to `src/main/resources/application.yml`, and just set the three configuration parameters you got before when creating the OIDC app with the Okta CLI:
 
 ```yaml
 okta:
@@ -223,7 +212,7 @@ Restart the application, navigate once again to `http://localhost:8080` and logi
 
 Amongst a number of default roles and scopes, you should see that she has the `BETA_TESTER` role.
 
-{% img blog/okta-split-spring-security/home-template.png alt:"Groups" width:"600" %}
+{% img blog/okta-split-spring-security/home-template.png alt:"Groups" width:"600" %}{: .center-image }
 
 At this point, the Spring Boot + Spring Security application is fully functional (such as it is).
 
@@ -242,10 +231,10 @@ Best of all, you could repeat this process, creating new beta experiences to be 
 Getting setup with a free developer account for Split is as easy as 1, 2, 3:
 
 1. Go to: <https://split.io>, click: Free Account
-2. Fill out the registration form and click: SIGN UP
+2. Fill out the registration form and click: CREATE FREE ACCOUNT
 3. Follow the link you receive in email and set a password.
 
-{% img blog/okta-split-spring-security/split.png alt:"split" width:"600" %}
+{% img blog/okta-split-spring-security/split.png alt:"split" width:"600" %}{: .center-image }
 
 ### Create the Treatment in Split
 
@@ -253,13 +242,13 @@ Treatments allow you to define settings and behaviors for what you want to test.
 
 To start, click **DE** in the upper left. Choose **Admin Settings** and **API Keys**. Copy the value for **sdk** Type in the **prod-default** Environment. You'll need this in the Spring Boot app shortly.
 
-{% img blog/okta-split-spring-security/split-api-key.png alt:"split api key" width:"600" %}
+{% img blog/okta-split-spring-security/split-api-key.png alt:"split api key" width:"600" %}{: .center-image }
 
 > NOTE: If you're new to using Split and/or on the free tier, the button in the upper left will say `DE` for **default**. If you've set up multiple workspaces, then the button will be labeled with the first two letters of the workspace name.
 
 Next, Click **Splits** on the left-hand side and click **Create Split**. Give it a **Name**. Leave the other defaults and click **Create**.
 
-{% img blog/okta-split-spring-security/split-treatment-create.png alt:"split treatment create" width:"600" %}
+{% img blog/okta-split-spring-security/split-treatment-create.png alt:"split treatment create" width:"600" %}{: .center-image }
 
 Next, click **Add Rules** on the **Targeting Rules** tab. Split automatically adds **on** and **off** treatment definitions and sets **off** as the default.
 
@@ -267,11 +256,11 @@ For the use-case in this example, we want to add a group for which the treatment
 
 Click **Add Rule** in the **Set Targeting Rules** section. Here, we want to have the treatment return **on** if the user is in the group of beta testers. To accomplish this, enter **groups** in the **Add attribute** field. From the **Select matcher** dropdown, choose **Set > has any of** and enter **BETA_TESTER** in the field. Change the **serve** dropdown to **on**.
 
-{% img blog/okta-split-spring-security/split-targetting-rules.png alt:"split targetting rules" width:"600" %}
+{% img blog/okta-split-spring-security/split-targetting-rules.png alt:"split targetting rules" width:"600" %}{: .center-image }
 
 This now makes it read like an english sentence: "If the user has an attribute called groups and the groups list contains the value BETA_TESTER, then serve 'on' for the treatment"
 
-Click **Save Changes**
+Click **Save Changes**.
 
 Click **Confirm** on the summary screen.
 
@@ -396,7 +385,7 @@ The last line of the controller method now returns the **home-beta** template if
 
 Fire up the app and try to login as **linda** in an incognito window. You should see the same home template as before. Kill that incognito window, open another one and login as **louise**. You should see the new beta template.
 
-{% img blog/okta-split-spring-security/beta-experience.png alt:"beta experience" width:"600" %}
+{% img blog/okta-split-spring-security/beta-experience.png alt:"beta experience" width:"600" %}{: .center-image }
 
 ### Make Your New Functionality Generally Available
 
