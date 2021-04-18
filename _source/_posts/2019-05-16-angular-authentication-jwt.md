@@ -13,14 +13,18 @@ tweets:
 image: blog/featured/okta-angular-skew.jpg
 type: conversion
 changelog:
-- 2021-04-14: Updated to Okta Angular v3 and Okta JWT Verifier v2. You can see the changes in [the example app]() or [this blog post]().
+- 2021-04-18: Updated to use Okta JWT Verifier v2. You can see the changes in [the example app](https://github.com/oktadeveloper/angular-jwt-authentication-example/pull/2) or [this blog post](https://github.com/oktadeveloper/okta-blog/pull/741) on GitHub.
 ---
 
-User registration and authentication are one of the features that almost no web application can do without. Authentication usually consists of a user entering using a user name and a password and then being granted access to various resources or services. Authentication, by its very nature, relies on keeping the state of the user. This seems to contradict a fundamental property of HTTP, which is a stateless protocol.
+User registration and authentication are one of the features that almost no web application can do without. Authentication usually consists of a user entering using a username and a password and then being granted access to various resources or services. Authentication, by its very nature, relies on keeping the state of the user. This seems to contradict a fundamental property of HTTP, which is a stateless protocol.
 
 JSON Web Tokens (JWTs) provide one way to solve this issue. Your Angular app can talk to a backend that produces a token. The Angular app can then pass that token in an `Authorization` header to the backend to prove they're authenticated. The backend should verify the JWT and grant access based on its validity. 
 
 Another way to solve this issue is with session-based authentication and cookies. In this scenario, the backend will produce what's called a "session cookie." This cookie provides a mechanism for the server to prove the user is authenticated. 
+
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
 
 ## Session vs JWT Authentication in Angular 
 
@@ -694,8 +698,7 @@ Another big topic that I have completely avoided covers token expiration and ref
 
 Okta provides authentication services which can be easily integrated into your application. The Okta service is based on JWT and it takes care of all the issues related to security and user experience. You don't need to store passwords, generate tokens yourself, or think about automatically refreshing them. 
 
-{% include setup/cli.md type="spa" framework="Angular"
-loginRedirectUri="http://localhost:4200/callback" %}
+{% include setup/cli.md type="spa" framework="Angular" loginRedirectUri="http://localhost:4200/callback" %}
 
 That's it. You should now see a **Client ID** which you will need to paste into your JavaScript code.
 
