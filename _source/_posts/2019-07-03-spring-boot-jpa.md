@@ -12,6 +12,8 @@ tweets:
 - "Spring Boot provides a convenient way to build Java apps. Learn how to use it with JPA and MySQL in this tutorial."
 image: blog/featured/okta-java-bottle-headphones.jpg
 type: conversion
+changelog:
+- 2021-04-18: Upgraded to use Spring Boot 2.4.5 and streamline setup with the Okta CLI. You can see changes to this blog post in [okta-blog#736](https://github.com/oktadeveloper/okta-blog/pull/736); changes to the example app can be viewed in [okta-spring-boot-mysql-example#3](https://github.com/oktadeveloper/okta-spring-boot-mysql-example/pull/3).
 ---
 
 In this post, we will walk through how to build a simple CRUD application using Spring Boot, MySQL, JPA/Hibernate and Okta OpenID Connect (OIDC) Single Sign-On (SSO). 
@@ -25,6 +27,10 @@ The application you will build will have two main parts. The first is the authen
 - **Login Date/Time** -  This is the time at which the user actually had to enter their credentials. There can be more than one token issued against the same original login. This could be the time the user logged into this application, the Okta console, or another application tied to the same developer account (since this is an SSO example).
 - **Token Date/Time** - When the user starts a session with the application described in this post, a new token is issued by Okta. This token is valid for a certain amount of time and is reused across page refreshes until it expires
 - **Last View Date/Time** - This is the last time the application was viewed. If you refresh the page, this time will update, while the *Token Date/Time* and *Login Date/Time* should remain the same.
+
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
 
 ## Summary of CRUD actions
 **C**RUD - Create
@@ -42,18 +48,22 @@ CRU**D** - Delete
 Admin users will have the option to delete any of the user events in the system. 
 Pro Tip: In a production system, you wouldn't want to ever delete a log history, particularly a log regarding authentication or authorization actions.  If this were production code and you had a requirement to *delete* log entries in order to hide them from ordinary users, you would likely want to implement this by setting a `deleted` flag on that record and only displaying records that are not flagged as deleted.
 
-## Prerequisites
-**MySQL** - You must have installed a local instance of MySQL or have access to a remote instance of MySQL. For this exercise, I recommend that you have a fresh empty database prepared and have the username and password for that database handy. They will be required in the `application.properties` file later.  If you don't have MySQL setup locally already, follow the instructions from the [MySQL Website](https://dev.mysql.com/doc/mysql-getting-started/en/).
+**Prerequisites**:
 
-## Setup your Okta OIDC Application, Authorization Server, groups and users
+* Java 11+ - You can install it from [adoptopenjdk.net](https://adoptopenjdk.net/).
+* MySQL - You must have installed a local instance of MySQL or have access to a remote instance of MySQL. For this exercise, I recommend that you have a fresh empty database prepared and have the username and password for that database handy. They will be required in the `application.properties` file later.  If you don't have MySQL setup locally already, follow the instructions from the [MySQL Website](https://dev.mysql.com/doc/mysql-getting-started/en/).
 
-Before we can dive into the code, we will want to first get our Okta configuration in place. 
+## Configure your Okta OIDC Application, Authorization Server, Groups, and Users
 
-### Setup Your Okta OIDC Application
+Before you dive into the code, you will want to first get your Okta configuration in place. 
 
-{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
+### Set Up Your Okta OIDC Application
 
-### Setup Your Okta Authorization Server
+{% include setup/cli.md type="web" loginRedirectUri="http://localhost:8080/login/oauth2/code/okta" logoutRedirectUri="http://localhost:8080" %}
+
+Take note of the values in the generated `.okta.env` file. You'll use those values shortly.
+
+### Add an Okta Authorization Server
 Next, you'll set up an Authorization Server with custom claims and access policies. This drives whether or not Okta will issue a token when one is requested. Run `okta login` and open the returned URL in your browser. Sign in and go to **Security** > **API** > **Authorization Servers**. Click **Add Authorization Server**. Fill in the values as follows:
 
 |Field          |Value              		            |
@@ -146,7 +156,7 @@ curl -s https://start.spring.io/starter.zip \
     > BeyondAuthentication.zip
 ```
 
-Create a folder named: `BeyondAuthentication`, switch into it and unzip the resulting file.You'll see the whole project has been setup for you. Let's take a look at the `pom.xml` file, which has all the dependencies for the project.
+Create a folder named: `BeyondAuthentication`, switch into it and unzip the resulting file. You'll see the whole project has been setup for you. Let's take a look at the `pom.xml` file, which has all the dependencies for the project.
 
 The file should be set up as follows
 
@@ -158,7 +168,7 @@ The file should be set up as follows
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.6.RELEASE</version>
+        <version>2.4.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.okta.examples.jpa</groupId>
@@ -168,7 +178,7 @@ The file should be set up as follows
     <description>Demo project for Spring Boot</description>
 
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>11</java.version>
     </properties>
 
     <dependencies>
@@ -187,7 +197,7 @@ The file should be set up as follows
         <dependency>
             <groupId>com.okta.spring</groupId>
             <artifactId>okta-spring-boot-starter</artifactId>
-            <version>1.2.1</version>
+            <version>2.0.1</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
@@ -506,7 +516,7 @@ Play around with the delete button from the admin's view and try refreshing the 
 
 I hope you enjoyed reading this post. 
 
-Full source-code is available [on GitHub](https://github.com/oktadeveloper/okta-spring-boot-mysql-example).
+Full source-code is available on GitHub, in the [okta-spring-boot-mysql-example](https://github.com/oktadeveloper/okta-spring-boot-mysql-example) repository.
 
 To learn more about the Okta OIDC and Single Sign-On (SSO), check out these links:
 
