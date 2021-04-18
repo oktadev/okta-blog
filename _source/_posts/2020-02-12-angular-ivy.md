@@ -30,6 +30,10 @@ With all these massive changes behind the scenes, you might be scared and wonder
 
 In this tutorial, I'll show you how to upgrade an existing application from Angular 8 to Angular 9. By upgrading, the application will automatically use the new Ivy rendering engine. You'll start with the Angular 8 app from [Build a Beautiful App + Login with Angular Material](/blog/2020/01/21/angular-material-login).
 
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+
 ## Install the Angular Material Tic-Tac-Toe Game
 
 For this tutorial, I will assume that you have some knowledge of TypeScript and Angular and that you have Git and Node 10.13+ installed on your system. 
@@ -40,11 +44,14 @@ To start, clone the Tic-Tac-Toe application from GitHub. Open your terminal in a
 git clone https://github.com/oktadeveloper/okta-angular-material-login-example.git okta-angular-ivy-example
 ```
 
-This will create a new folder `okta-angular-ivy-example`. Navigate into that folder and install all the JavaScript dependencies.
+This will create a new folder `okta-angular-ivy-example`. Navigate into that folder, check out the starting point, and install all the JavaScript dependencies.
 
 ```bash
+git checkout ea7e0f1 # Angular 8 version
 npm install
 ```
+
+> **NOTE**: The Angular Material blog post was recently updated to use Angular 11. That's why you need to checkout the commit with the Angular 8 version.
 
 Now that you have installed all the packages, you can build the application. This will give you a *before* snapshot of the build-size for the Angular 8 project. Run the following command in the terminal.
 
@@ -56,7 +63,7 @@ After the terminal completes the build, take a look at the files in `dist/materi
 
 ## Upgrading to Angular 9 with Ivy
 
-To start, install the latest version of the Angular CLI tool. In your terminal, run the command below.
+To start, install Angular CLI v9. In your terminal, run the command below.
 
 ```bash
 npm install -g @angular/cli@9.0.1
@@ -117,16 +124,11 @@ npm i @angular/flex-layout@9.0.0-beta.29
 
 ## Setting Up Okta Authentication
 
-The application uses Okta for authentication. In order to sign in to the Tic-Tac-Toe game, you will need to sign up for an account with Okta and register the application. Don't worry, registering is free and easy. Simply open your browser, navigate to <https://developer.okta.com>, and click **Create Free Account**. 
+The application uses Okta for authentication. In order to sign in to the Tic-Tac-Toe game, you will need to sign up for an account with Okta and register the application. Don't worry, registering is free and easy.
 
-After completing the registration process, you should see your Okta dashboard. 
-
-Register a new single-page application with the following steps:
-
-* Go to  **Applications** > **Add Application**, followed by **Single Page App**
-* Click **Next** to configure the application's settings
-* Change all ports from `8080` to `4200`
-* Submit the form and copy the **Client ID** from the bottom of the resulting screen
+{% include setup/cli.md type="spa" framework="Angular" 
+   loginRedirectUri="http://localhost:4200/login"
+   loginRedirectUri="http://localhost:4200" %}
 
 In your application, open `src/app/auth.service.ts`. At the top of the `AuthService` class, you should see the following code.
 

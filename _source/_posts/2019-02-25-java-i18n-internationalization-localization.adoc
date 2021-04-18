@@ -349,39 +349,11 @@ TIP: If you don't have `svn` installed, go https://github.com/okta/samples-java-
 
 === Create an OIDC App on Okta
 
-If you already have an Okta Developer account, log in to it. If you don't, create one at https://developer.okta.com/signup/[developer.okta.com/signup]. After you're logged in to your Okta dashboard, complete the following steps:
+{% include setup/cli.md type="web" loginRedirectUri="http://localhost:8080/authorization-code/callback" %}
 
-. From the **Applications** page, choose **Add Application**.
-. On the Create New Application page, select **Web**.
-. Give your app a memorable name, then click **Done**.
+I recommend adding `*.env` to `.gitignore`. Then, run `source .okta.env` before you start your app.
 
-Your settings should look similar to the ones below.
-
-image::{% asset_path 'blog/java-i18n/bootiful-i18n.png' %}[alt="OIDC Web App on Okta",width=700,align=center]
-
-You can specify your issuer (found under **API** > **Authorization Servers**), client ID, and client secret in `custom-login/src/main/resources/application.yml` as follows:
-
-[source,yaml]
-----
-okta:
-  oauth2:
-    issuer: https://{yourOktaDomain}/oauth2/default
-    client-id: {yourClientID}
-    client-secret: {yourClientSecret}
-----
-
-However, it's more secure if you store these values in environment variables and keep them out of source control (especially if your code is public).
-
-[source,shell]
-----
-export OKTA_OAUTH2_ISSUER=https://{yourOktaDomain}/oauth2/default
-export OKTA_OAUTH2_CLIENT_ID={yourClientID}
-export OKTA_OAUTH2_CLIENT_SECRET={yourClientSecret}
-----
-
-TIP: I recommend adding the above exports to a `.okta.env` file in the root of your project and adding `*.env` to `.gitignore`. Then run `source .okta.env` before you start your app.
-
-After making these changes, you can start the app using `./mvnw`. Open your browser to `http://localhost:8080`, click **Login** and you should be able to authenticate. If you still have your browser set to use Spanish first, you'll see that the Sign-In Widget automatically renders in Spanish.
+Start your app using `./mvnw`. Open your browser to `http://localhost:8080`, click **Login** and you should be able to authenticate. If you still have your browser set to use Spanish first, you'll see that the Sign-In Widget automatically renders in Spanish.
 
 image::{% asset_path 'blog/java-i18n/sign-in-widget-es.png' %}[alt="Sign-In Widget in Spanish",width=800,align=center]
 
