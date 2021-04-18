@@ -14,6 +14,7 @@ image: blog/testing-jhipster-6/social.png
 type: conversion
 ---
 :page-liquid:
+:toc: macro
 
 Using unit and integration tests to verify your code quality is an excellent way to show you care about your code. I recently did a bunch of work in the popular JHipster open source project to upgrade it to use the latest release of Spring Security.
 
@@ -22,6 +23,8 @@ Spring Security 5.1+ adds OAuth 2.0 and OIDC as first-class citizens that you ca
 I added OAuth 2.0 support to JHipster in the fall of 2017. The experience influenced me greatly. I learned a ton about Keycloak, Docker Compose, and how to switch between identity providers (IdPs).
 
 I spent the last month upgrading https://www.jhipster.tech[JHipster] to use Spring Security 5.1 (the default in Spring Boot 2.1). I experienced some frustrations along the way, shook my fist at Travis CI, and rejoiced when I figured out solutions. I also learned quite a bit in the process. I'm going to share those experiences with you today.
+
+toc::[]
 
 == Logout with OAuth 2.0 and OIDC
 
@@ -520,7 +523,7 @@ Start by installing a beta of JHipster 6:
 
 [source,shell]
 ----
-npm install -g generator-jhipster@beta
+npm install -g generator-jhipster@6
 ----
 
 NOTE: The `npm` command is part of https://nodejs.org[Node.js]. You'll need Node 10.x to install JHipster and run useful commands.
@@ -567,7 +570,7 @@ Then start your application using Maven:
 ./mvnw
 ----
 
-When startup completes, open `http://localhost:8080`, and click **sign in**. You'll be redirected to Keycloak, where you can enter `admin/admin` to log in.
+When startup completes, open `\http://localhost:8080`, and click **sign in**. You'll be redirected to Keycloak, where you can enter `admin/admin` to log in.
 
 === Why Okta instead of Keycloak?
 
@@ -589,7 +592,7 @@ source .okta.env
 ./mvnw
 ----
 
-Navigate to `http://localhost:8080` and use your Okta credentials to log in.
+Navigate to `\http://localhost:8080` and use your Okta credentials to log in.
 
 image::{% asset_path 'blog/testing-jhipster-6/authenticated-by-okta.png' %}[alt=Authenticated by Okta,width=800,align=center]
 
@@ -611,7 +614,7 @@ Then run the following Maven command:
 ./mvnw -Pprod clean test sonar:sonar -Dsonar.host.url=http://localhost:9001
 ----
 
-Once the process completes, navigate to `http://localhost:9001/projects` and you'll see your project's report.
+Once the process completes, navigate to `\http://localhost:9001/projects` and you'll see your project's report.
 
 image::{% asset_path 'blog/testing-jhipster-6/sonar-report.png' %}[alt=Sonar Report,width=800,align=center]
 
