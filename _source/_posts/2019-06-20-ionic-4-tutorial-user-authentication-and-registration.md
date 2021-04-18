@@ -88,6 +88,14 @@ Before you run this command, you'll need to create an OpenID Connect (OIDC) app 
 loginRedirectUri="[http://localhost:8100/callback,com.okta.dev-133337:/callback]"
 logoutRedirectUri="[http://localhost:8100/logout,com.okta.dev-133337:/logout]" %}
 
+You'll also need to add a trusted origin for `http://localhost:8100`. Run `okta login`, open the URL in a browser, sign in to the Okta Admin Console, and navigate to **Security** > **API** > **Trusted Origins** > **Add Origin**. Use the following values:
+
+* Name: `http://localhost:8100`
+* Origin URL: `http://localhost:8100`
+* Type: Select **both** CORS and Redirect
+
+Click **Save**.
+
 ### Use OktaDev Schematics to Add User Login
 
 Now that you have a client ID and issuer URI, you can install Angular CLI, and add a user login feature using `ng add`.
