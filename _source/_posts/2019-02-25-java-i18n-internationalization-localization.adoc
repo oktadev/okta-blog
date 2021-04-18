@@ -349,8 +349,7 @@ TIP: If you don't have `svn` installed, go https://github.com/okta/samples-java-
 
 === Create an OIDC App on Okta
 
-{% include setup/cli.md type="web"
-loginRedirectUri="http://localhost:8080/authorization-code/callback" %}
+{% include setup/cli.md type="web" loginRedirectUri="http://localhost:8080/authorization-code/callback" %}
 
 I recommend adding `*.env` to `.gitignore`. Then, run `source .okta.env` before you start your app.
 
