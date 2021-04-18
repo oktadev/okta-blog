@@ -12,6 +12,8 @@ tweets:
 - "Need to add user authentication to your @reactjs app? We've got you covered!"
 image: blog/featured/okta-react-bottle-headphones.jpg
 type: conversion
+update-title: "A Quick Guide to React Login Options"
+update-url: /blog/2020/12/16/react-login
 ---
 
 In 2019, it's quite easy to find React components for pretty much everything. For example, if you want to add user authentication to your app, you can do so easily with Okta's React component. Here I'll walk you through creating a simple, fun React app that fetches random Chuck Norris jokes. I'll then show you how you can add user authentication and customize your user experience, so the jokes will replace Chuck Norris' name with their own.
@@ -220,6 +222,8 @@ Now that you have a functional web app, you can add some personalization by allo
 * And much more! Check out our [product documentation](https://developer.okta.com/documentation/)
 
 {% include setup/cli.md type="spa" framework="React" loginRedirectUri="http://localhost:3000/callback" %}
+
+Run `okta login` and open the returned URL in your browser. Sign in to the Okta Admin Console, find your app in the **Applications** section, and edit its general settings. Enable the **Hybrid (Implicit)** grant type and **Save**.
 
 Copy your **Client ID** and paste it as a variable into a file called `.env.local` in the root of your project. This will allow you to access the file in your code without needing to store credentials in source control. You'll also need to add your organization URL (without the `-admin` suffix). Environment variables (other than `NODE_ENV`) need to start with `REACT_APP_` in order for Create React App to read them, so the file should end up looking like this:
 
