@@ -268,7 +268,7 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: 'implicit/callback',
+    path: 'callback',
     component: OktaCallbackComponent
   }
 ];
