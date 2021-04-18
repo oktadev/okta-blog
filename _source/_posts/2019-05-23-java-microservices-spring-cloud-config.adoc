@@ -328,7 +328,7 @@ You might be wondering why you should use Okta instead of Keycloak? Keycloak wor
 
 == Configure Your OpenID Connect Settings with Spring Cloud Config
 
-Rather than modifying each of your apps for Okta, you can use Spring Cloud Config in JHipster Registry to do it. Open `docker-compose/central-server-config/application.yml` and add your Okta settings. Copy your OIDC settings from the `.okta.env` the Okta CLI generated.
+Rather than modifying each of your apps for Okta, you can use Spring Cloud Config in JHipster Registry to do it. Open `docker-compose/central-server-config/application.yml` and add your Okta settings. Copy your OIDC settings from the `.okta.env` file the Okta CLI generated.
 
 [source,yaml]
 ----
