@@ -611,7 +611,7 @@ You should be able to log in via Okta. This time you won't be given a choice of 
 
 ## Enable User Registration
 
-Run `okta login` and open the returned URL in youb browser. Log in and go to **Directory** > **Self-Service Registration**.
+Run `okta login` and open the returned URL in your browser. Log in to the Okta Admin Console and go to **Directory** > **Self-Service Registration**.
 
 Enable registration. Also, enable the **Show "Sign Up" link in the sign-in page...** option. This causes the registration link to be shown in the hosted login page.
 
