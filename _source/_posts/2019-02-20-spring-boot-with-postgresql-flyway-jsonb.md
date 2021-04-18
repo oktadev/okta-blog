@@ -380,7 +380,7 @@ These properties are going to tell Spring and Okta where to find the OAuth 2.0 i
 
 ... Issuer, client ID, what am I talking about? 
 
-{% include setup/cli.md type="services" %}
+{% include setup/cli.md type="service" %}
 
 Copy and paste the _Client ID_ in to your `application.properties` file.
 
