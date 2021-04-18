@@ -84,7 +84,7 @@ Okta application configuration:
 Issuer:    https://dev-133337.okta.com/oauth2/default
 Client ID: 0oab8eb55Kb9jdMIr5d6
 ```
-{% elsif include.type contains "web" or include.type == "jhipster"  %}
+{% elsif include.type contains "web" or include.type == "jhipster" or include.type == "service"  %}
   {% if include.framework contains "Spring Boot" %}
 ```shell
 Okta application configuration has been written to: 
