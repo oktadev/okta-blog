@@ -282,7 +282,7 @@ dependencies {
 }
 ```
 
-Rename `src/main/resources/application.properties` to `application.yml` and adjust things to look as follows:
+Create a new configuration file called `src/main/resources/application.yml`:
 
 ```yaml
 okta:
