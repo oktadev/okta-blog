@@ -7,11 +7,13 @@ communities: [javascript, mobile]
 description: "Ionic helps developers build hybrid mobile apps & PWAs. This tutorial shows you how to add user authentication and registration to an Ionic 4 app."
 tags: [ionic, typescript, angular, authentication, oidc, cordova, capacitor, android, ios]
 tweets:
- - "Ionic 4 is 🔥! Learn how to build an @ionicframework v4 app with user authentication and registration."
- - "Do you ❤️ Ionic? We do too! This tutorial shows you how you can create an @ionicframework 4 app and add user authentication in just a few commands."
- - "We recommend using @ionicframework 4 with OIDC to add SSO to your mobile apps. Learn how today!"
+- "Ionic 4 is 🔥! Learn how to build an @ionicframework v4 app with user authentication and registration."
+- "Do you ❤️ Ionic? We do too! This tutorial shows you how you can create an @ionicframework 4 app and add user authentication in just a few commands."
+- "We recommend using @ionicframework 4 with OIDC to add SSO to your mobile apps. Learn how today!"
 image: blog/ionic-4-login/ionic-ios-okta.png
 type: conversion
+changelog:
+- 2021-04-18: Updated to streamline setup with the Okta CLI. Changes to this post can be viewed in [okta-blog#738](https://github.com/oktadeveloper/okta-blog/pull/738).
 ---
 
 Ionic allows you to develop <abbr title="Progressive Web Applications">PWAs</abbr> and hybrid mobile apps. PWAs are web applications that run in a browser and allow for offline capabilities via service workers. They can be installed on desktops and mobile devices, just like you install apps on your smartphone. Hybrid mobile apps are like native mobile apps, except they're built using web technologies.
@@ -23,6 +25,10 @@ If you don't want to code along, feel free to grab the [source code from GitHub]
 <div style="text-align: center">
 <iframe width="600" height="338" style="max-width: 100%" src="https://www.youtube.com/embed/MBAUKQGNx5Y" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 </div>
+
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
 
 ## Get Started with Ionic 4
 
@@ -80,31 +86,17 @@ Before you run this command, you'll need to create an OpenID Connect (OIDC) app 
 
 ### Create an OpenID Connect App in Okta
 
-To integrate Okta's Identity Cloud for user authentication, you'll need to [signup](https://developer.okta.com/signup/) for a developer account.
+{% include setup/cli.md type="native"
+loginRedirectUri="[http://localhost:8100/callback,com.okta.dev-133337:/callback]"
+logoutRedirectUri="[http://localhost:8100/logout,com.okta.dev-133337:/logout]" %}
 
-Log in to your Okta developer account and navigate to **Applications > Add Application**.
+You'll also need to add a trusted origin for `http://localhost:8100`. Run `okta login`, open the URL in a browser, sign in to the Okta Admin Console, and navigate to **Security** > **API** > **Trusted Origins** > **Add Origin**. Use the following values:
 
-{% img blog/ionic-4-login/add-application.png alt:"Applications > Add Application" width:"575" %}{: .center-image }
+* Name: `http://localhost:8100`
+* Origin URL: `http://localhost:8100`
+* Type: Select **both** CORS and Redirect
 
-Select **Native** and click **Next**.
-
-{% img blog/ionic-4-login/new-native-app.png alt:"New Native Application" width:"700" %}{: .center-image }
-
-Enter a name for your application, such as `Ionic 4 App`. Add `http://localhost:8100/implicit/callback` as a Login redirect URI. Click **Done** to finish creating the application.
-
-{% img blog/ionic-4-login/ionic-4-login-redirect-uris.png alt:"Add name and Login redirect URI" width:"700" %}{: .center-image }
-
-Click **Edit** and add Logout redirect URIs, where the first should be your reversed Okta domain name, followed by `:/logout` and the second is `http://localhost:8100/implicit/logout`. Click **Save**.
-
-{% img blog/ionic-4-login/ionic-4-logout-redirect-uris.png alt:"Add Logout redirect URIs" width:"700" %}{: .center-image }
-
-Near the bottom of your application's settings, you will find a section titled **Client Credentials**. Copy the Client ID and paste it somewhere handy. You will need this soon.
-
-{% img blog/ionic-4-login/ionic-4-client-credentials.png alt:"Copy the client ID" width:"700" %}{: .center-image }
-
-Navigate to **API** > **Authorization Servers** and copy your issuer URI.
-
-{% img blog/ionic-4-login/issuer-uri.png alt:"Issuer URI" width:"600" %}{: .center-image }
+Click **Save**.
 
 ### Use OktaDev Schematics to Add User Login
 
@@ -153,17 +145,11 @@ After you're redirected back to your app, you can click the **User Info** button
 
 ## Add User Registration
 
-Next, enable user registration. This will allow new users to create their own account. Click on the **Users** menu and select **Registration**.
-
-{% img blog/ionic-4-login/user-registration.png alt:"User Registration" width:"600" %}{: .center-image }
+Next, enable user registration. This will allow new users to create their own account. Run `okta login`, open the returned URL in your browser, sign in and click on **Directory** > **Self-Service Registration**.
 
 Click **Enable Registration**.
 
-{% img blog/ionic-4-login/enable-registration.png alt:"Enable Registration" width:"800" %}{: .center-image }
-
 On the subsequent page, click **Save** to complete the process of enabling user registration.
-
-{% img blog/ionic-4-login/registration-settings.png alt:"Save Registration Settings" width:"800" %}{: .center-image }
 
 Now if you go back to your app, sign out, then sign in again, you'll see a signup link at the bottom of the login form.
 

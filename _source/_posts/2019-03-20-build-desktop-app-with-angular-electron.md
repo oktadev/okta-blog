@@ -342,11 +342,7 @@ If you did everything right, the application should compile and then you should 
 
 You may want to restrict access to your desktop application to users that are registered. Okta allows you to quickly set up secure authentication with full user control. This means that you can freely decide who can use your application and who can't.
 
-To start, you have to register a free developer account with Okta. In your browser navigate to `https://developer.okta.com` and follow the sign-in link, fill in the form that appears next, and click on the `Get Started` button. After you have completed the registration process you can navigate to your Okta dashboard. Select `Applications` in the top menu and create your first application. To do this, click on the green button that says "Add Application".
-
-On the screen that appears next, select `Native` and click on `Next`. The next screen allows you to edit the settings. The Login Redirect URI is the location that receives the authentication token after a successful login. This should match the Redirect URI in your application. In this example, set it to `http://localhost:8000`. When you're done, click on the `Done` button. The resulting screen will provide you with a client ID which you need to paste into your application.
-
-{% img blog/angular-electron-browser/new-native-app.png alt:"Okta Native Application Settings" width:"800" %}{: .center-image }
+{% include setup/cli.md type="native" loginRedirectUri="http://localhost:8000" logoutRedirectUri="http://localhost:8000" %}
 
 I will be using the AppAuth library from Google which allows authentication through OIDC and OAuth 2.0. You can install the library with the following command.
 
