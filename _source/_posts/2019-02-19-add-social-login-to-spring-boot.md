@@ -172,7 +172,7 @@ Once you've generated your SSL certs, you'll need to give the certificate and pr
 
 ## Customize the Hosted Sign-In Page
 
-Once you have configured the custom Okta domain name, from the Okta Admin Console, click on **Settings** > **Customization** and edit **Sign-In Page**.
+Once you have configured the custom Okta domain name, from the Okta Admin Console, click on **Settings** > **Customization** > **Custom Sign In**.
 
 Now that you have a custom domain name, you can edit the Okta sign-in page, which allows you to add the social login links.
 
@@ -218,11 +218,9 @@ Okta [has some great documentation](https://developer.okta.com/authentication-gu
 
 ## Configure Facebook and Google as Identity Providers
 
-Log into your developer.okta.com dashboard and navigate to **Users** > **Social Identity and Providers**. 
+Run `okta login` and open the returned URL in your browser. Sign in to to the Okta Admin Console and navigate to **Security** > **Identity Providers**. 
 
 From the **Add Identity Providers** dropdown, choose **Facebook**.
-
-{% img blog/spring-boot-social-login/add-facebook-idp.png alt:"Add Identity Provider - Facebook" width:"600" %}{: .center-image }
 
 Pick a name. Enter your client ID and client secret values. Everything else can stay the same. Click **Add Identity Provider**.
 
@@ -230,14 +228,12 @@ Do this again for Google, using the client ID and client secret from your Google
 
 The Okta Identity Providers page should now look like this. Keep track of the two **IdP IDs** because you'll want them in a moment.
 
-{% img blog/spring-boot-social-login/identity-providers.png alt:"Your Identity Providers" width:"800" %}{: .center-image }
-
 **NOTE:** The access token obtained from the social IdP is stored in Okta and can be used to make subsequent requests to the IdP on the user's behalf (with consent of course). Also, Okta automatically updates social provider updates, protecting your apps from provider deprecation.
 ## Customize Your Hosted Sign-In Page
 
 The last thing you need to do is to add the social login IdPs to the Okta Sign-in Widget on your customized sign-in page. 
 
-Go to your Okta developer dashboard. Select **Customization** from the top menu, and below that: **Signin page**. 
+In the Okta Admin Console, go to **Settings** > **Customization** > **Custom Sign In**. 
 
 On this page, you need to add the identity provider definitions to the `config` variable. You'll also need the IdP IDs from above, as well as your custom Okta domain and the OIDC Application client ID.
 
