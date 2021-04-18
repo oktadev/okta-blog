@@ -12,11 +12,17 @@ tweets:
 - "With Spring Boot's extensible Actuator, you can see everything that's happening in the backround of an OpenID Connect flow."
 image: blog/featured/okta-java-skew.jpg
 type: conversion
+changelog:
+- 2021-04-17: Upgraded to Spring Boot 2.4 and streamlined setup with the Okta CLI. See changes in [okta-blog#734](https://github.com/oktadeveloper/okta-blog/pull/734); example app changes can be viewed in [this pull request](https://github.com/oktadeveloper/okta-spring-boot-custom-actuator-example/pull/1).
 ---
 
 Have you worked with Spring Boot Actuator yet? It's an immensely helpful library that helps you monitor app health and interactions with the app - perfect for going to production! Spring Boot Actuator includes a built-in endpoint for tracing HTTP calls to your application - very useful for monitoring OpenID Connect (OIDC) requests - but unfortunately the default implementation does not trace body contents. In this post, I'll show you how to extend the httptrace endpoint for capturing contents and tracing the OIDC flow.
 
 Let's get started!
+
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
 
 ## Create an OpenID Connect App with Spring Initializr and Okta
 
@@ -24,18 +30,18 @@ You can use the excellent [Spring Initializr](https://start.spring.io/) website 
 
 ```bash
 curl https://start.spring.io/starter.zip \
-  -d bootVersion=2.1.5.RELEASE \
+  -d bootVersion=2.4.5.RELEASE \
   -d dependencies=web,okta \
-  -d packageName=com.okta.developer.demo -d
+  -d packageName=com.okta.developer.demo -d baseDir=demo | tar -xzvf -
 ```
 
-Before running your OIDC application however, you will need an Okta account. Okta is a developer service that handles storing user accounts and implementing user management (including OIDC) for you. Go ahead and register for a [free developer account](https://developer.okta.com/signup/) to continue.
+Open a terminal window and navigate to the `demo` directory where you expanded this project.
 
-Once you login to your Okta account, go to the Dashboard and then to the **Applications** section. Add a new Web application, and then in the General section get the client credentials: **Client ID** and **Client Secret**. 
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" 
+   loginRedirectUri="http://localhost:8080/authorization-code/callback" 
+   logoutRedirectUri="http://localhost:8080" %}
 
-You will need the **Issuer** which is the organization URL as well, which you can find at the top right corner in the Dashboard home. **Note**: By default, the built-in `Everyone` Okta group is assigned to this application, so any users in your Okta org will be able to authenticate to it.
-
-With your Client ID, Client Secret. and the Issuer in place, start your application by passing the credentials through the command line:
+Remove the values from your `application.properties` and start your app with them on the command line for tighter security.
 
 ```bash
 OKTA_OAUTH2_REDIRECTURI=/authorization-code/callback \
@@ -79,6 +85,32 @@ To enable the httptrace endpoint, edit the `src/main/resources/application.prope
 
 ```properties
 management.endpoints.web.exposure.include=info,health,httptrace
+```
+
+To make it so HTTP tracing works with Spring Boot 2.2+, you have to [add a `HttpTraceRepository` bean](https://juplo.de/actuator-httptrace-does-not-work-with-spring-boot-2-2/). Add it to your `DemoApplication` class.
+
+```java
+package com.okta.developer.demo;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
+import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+
+@SpringBootApplication
+public class DemoApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(DemoApplication.class, args);
+    }
+
+    @Bean
+    public HttpTraceRepository httpTraceRepository() {
+        return new InMemoryHttpTraceRepository();
+    }
+
+}
 ```
 
 You can test the out-of-the-box actuator features running the application browsing to [/hello/greeting](http://localhost:8080/hello/greeting), and logging in.
@@ -251,7 +283,7 @@ public class ContentTraceManager {
 
 For modeling the trace with additional data, compose a custom `ContentTrace` class with the built-in `HttpTrace` information, adding properties for storing the body contents.
 
-```java	
+```java    
 public class ContentTrace {
 
     protected HttpTrace httpTrace;
@@ -501,6 +533,13 @@ public class CustomHttpTraceRepository implements HttpTraceRepository {
 }
 ```
 
+Delete the `HttpTraceRepository` bean you defined in `DemoApplication`. If you don't do this, you'll get the following error:
+
+```
+Parameter 0 of method httpTraceFilter in o.s.b.a.a.t.h.HttpTraceAutoConfiguration$ServletTraceFilterConfiguration 
+required a single bean, but 2 were found:
+```
+
 
 ## Inspect OpenID Connect HTTP Trace
 
@@ -588,11 +627,12 @@ You should now see OIDC calls in the trace as well as the request and response c
 
 All of the code in this post can be found on GitHub in the [okta-spring-boot-custom-actuator-example](https://github.com/oktadeveloper/okta-spring-boot-custom-actuator-example) repository.
 
-## Learn More
+## Learn More About Spring Boot
 
 That's all there is to it! You just learned how to configure and extend the `httptrace` actuator endpoint for monitoring your OIDC application. For more insights about Spring Boot Actuator, Spring Boot in general, or user authentication, check out the links below:
 
-* [Java Microservices with Spring Boot and Spring Cloud](https://developer.okta.com/blog/2019/05/22/java-microservices-spring-boot-spring-cloud_)
+* [Spring Boot and Okta in 2 Minutes](/blog/2020/11/24/spring-boot-okta)
+* [Java Microservices with Spring Boot and Spring Cloud](/blog/2019/05/22/java-microservices-spring-boot-spring-cloud_)
 * [Spring Boot Actuator Endpoints](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html)
 * [Implementing Custom Endpoints](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html#production-ready-endpoints-custom)
 * [Okta Authentication Quickstart Guides Java Spring](https://developer.okta.com/quickstart/#/okta-sign-in-page/java/spring)
