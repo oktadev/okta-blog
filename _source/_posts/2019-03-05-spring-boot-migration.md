@@ -160,7 +160,7 @@ All that's required is a `clientId`, a `clientSecret` and a `tokenInfoUri`.
 
 Okta uses JWTs for access tokens. This means that you *could* validate the JWT locally be (a) obtaining the public key that matches the private key used to sign it and (b) parsing the values out of the payload of the JWT (like, when it expires).
 
-However, with Spring Boot 1.5, that requires additional configuration and additional code. So, to keep everything as simple as possible, this version of the Resource Server uses an [Introspect}(https://oauth.net/2/token-introspection/) request instead. The impact of this choice, though, is that the Resource Server makes an API call to Okta every time it gets a request in order for Okta to validate the access token.
+However, with Spring Boot 1.5, that requires additional configuration and additional code. So, to keep everything as simple as possible, this version of the Resource Server uses an [Introspect](https://oauth.net/2/token-introspection/) request instead. The impact of this choice, though, is that the Resource Server makes an API call to Okta every time it gets a request in order for Okta to validate the access token.
 
 You'll see in the other examples that JWT handling is built in and easier to configure and manage. Also, it's worth noting that previous versions of the Okta Spring Boot Starter included support for validating and parsing JWT access tokens, so if you must use Spring Boot 1.5.x, take a look at the matching version of the [Okta Spring Boot Starter](https://github.com/okta/okta-spring-boot/tree/okta-spring-boot-parent-0.6.1).
 
