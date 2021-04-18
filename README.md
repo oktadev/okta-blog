@@ -198,9 +198,11 @@ image::{% asset_path 'blog/<post-images-dir>/<image-file-name>' %}[alt=text for 
 
 To add a table of contents, use the following:
 
+```
 **Table of Contents**{: .hide }
 * Table of Contents
 {:toc}
+```
   
 For AciiDoc, add the following just after the front matter:
 
