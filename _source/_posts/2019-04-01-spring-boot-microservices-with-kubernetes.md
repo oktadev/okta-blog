@@ -26,6 +26,10 @@ The last piece of the microservice architecture is **Google Cloud and GKE**. Thi
 
 We're going to assume you're familiar with Spring Boot and Java. If not, take a look at the end of the tutorial for some links to get you started.
 
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+  
 ## Requirements for Spring Boot and Kubernetes
 
 **HTTPie**: Install HTTPie from [their website](https://httpie.org/) so that we can run HTTP requests easily from the terminal.
@@ -730,19 +734,17 @@ Take note of the **Client ID** and **Client Secret**. You'll need them in a minu
 Add the following dependencies to your `build.gradle`:
 
 ```groovy
-
 compile 'org.springframework.security:spring-security-oauth2-client'
 compile 'org.springframework.security:spring-security-oauth2-resource-server'
-
 ```
 
-Make sure the Okta CLI added the following to your `src/main/resources/application.properties` file:
+Copy your issuer from the `.okta.env` file the Okta CLI created and add it to your `src/main/resources/application.properties`:
 
 ```properties
 spring.security.oauth2.resourceserver.jwt.issuer-uri=https://{yourOktaDomain}/oauth2/default
 ```
 
-This tells Spring where it needs to go to authenticate the JSON web token (JWT) that you're going to generate in a moment. You can delete the client ID and secret for tighter security.
+This tells Spring where it needs to go to authenticate the JSON web token (JWT) that you're going to generate in a moment.
 
 Finally, you need to add a new Java class called `SecurityConfiguration.java`:
 
