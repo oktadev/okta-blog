@@ -342,7 +342,7 @@ If you did everything right, the application should compile and then you should 
 
 You may want to restrict access to your desktop application to users that are registered. Okta allows you to quickly set up secure authentication with full user control. This means that you can freely decide who can use your application and who can't.
 
-{% include setup/cli.md type="native" framework="" loginRedirectUri="http://localhost:8000" logoutRedirectUri="http://localhost:8000" %}
+{% include setup/cli.md type="native" loginRedirectUri="http://localhost:8000" logoutRedirectUri="http://localhost:8000" %}
 
 I will be using the AppAuth library from Google which allows authentication through OIDC and OAuth 2.0. You can install the library with the following command.
 
