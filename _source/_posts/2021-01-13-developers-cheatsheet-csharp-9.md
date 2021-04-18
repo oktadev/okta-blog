@@ -22,15 +22,15 @@ The last few years in computer science, we've observed the rising popularity of 
 
 In the software industry this trend has produced significant effects. Programming paradigms that weren't particularly relevant in sequential computing became more important, such as immutability, threading and asynchronous pipelines. Functional Programming (FP), previously relegated to academic and niche domains, gained more popularity in the commercial software arena. FP has characteristics that better adapt to parallel computing workflows than the Object Oriented Programming (OOP) that dominated programming language design for 20 years.
 
-The first mainstream OOP language was C++, born as an OOP extension to the former procedural C. C++ has become an incredibly rich language without losing its fundamental trait, that is being an unmanaged language, which means it is close to the machine. With time, managed languages began to appear, where some aspects of the machine management, like memory allocation and especially deallocation and collection, have been promoted from "developer concern" to "machine concern." As these features are not easy to implement in hardware, language creators invented the Virtual Machine (VM) concept. The VM is actually a piece of software itself that effectively makes available to the developer a different machine than the bare hardware. With time, VMs have become integral components of modern Operating Systems (OSs).
+The first mainstream OOP language was C++, born as an OOP extension to the former procedural C. C++ has become an incredibly rich language without losing its fundamental trait, that is being an unmanaged language, which means it is close to the machine. With time, managed languages began to appear, where some aspects of the machine management, like memory allocation and especially deallocation and collection, have been promoted from "developer concern" to "machine concern". As these features are not easy to implement in hardware, language creators invented the Virtual Machine (VM) concept. The VM is actually a piece of software itself that effectively makes available to the developer a different machine than the bare hardware. With time, VMs have become integral components of modern Operating Systems (OSs).
 
 The most prominent example is probably Java, which conquered a vast share of the market with its free-to-use policy. There was a time where the big actors tried to ride the Java horse to their own advantage. But eventually Microsoft decided to create its own managed software framework, and .NET and C# were born.
 
-When functional programming began to emerge, it became essential for these big actors to offer functional languages to the public for their own VM engines. They were constrained, though, as the languages needed to be compatible with their already grown OOP babies. So, after spending some time considering the already existing FP languages (Haskell and OCaml, to mention two of the most successful), they created new languages - Scala (Java VM) and F# (.NET VM). I am personally very passionate about functional programming,, and an active F# advocate.
+When functional programming began to emerge, it became essential for these big actors to offer functional languages to the public for their own VM engines. They were constrained, though, as the languages needed to be compatible with their already grown OOP babies. So, after spending some time considering the already existing FP languages (Haskell and OCaml, to mention two of the most successful), they created new languages - Scala (Java VM) and F# (.NET VM). I am personally very passionate about functional programming, and an active F# advocate.
 
-But progress never stops! Quantum computing seems to be the next hardware architecture frontier, which will  of course invite new challenges for software engineers. These days, I am plunging into [Microsoft Quantum Development Kit](https://www.microsoft.com/en-us/quantum/development-kit) (QDK) and its associated language Q# - that's another story for an upcoming post.
+But progress never stops! Quantum computing seems to be the next hardware architecture frontier, which will of course invite new challenges for software engineers. These days, I am plunging into [Microsoft Quantum Development Kit](https://www.microsoft.com/en-us/quantum/development-kit) (QDK) and its associated language Q# - that's another story for an upcoming post.
 
-Back on earth, the OOP vs. FP gossip is very juicy. . In the Microsoft realm, it seems to me that there's more effort to make C# more functional, rather than F# more object oriented. There seems to be some strong resistance in the industry against FP, maybe because FP developed a reputation as more difficult and abstract. Which is not completely undeserved, though I'd say the reward makes the effort spent in learning it absolutely worth it.
+Back on earth, the OOP vs. FP gossip is very juicy. In the Microsoft realm, it seems to me that there's more effort to make C# more functional, rather than F# more object oriented. There seems to be some strong resistance in the industry against FP, maybe because FP developed a reputation as more difficult and abstract. Which is not completely undeserved, though I'd say the reward makes the effort spent in learning it absolutely worth it.
 
 Starting with version 7 and on with version 8 and 9, C# has seen several much welcome improvements, both in syntax and features. This post aims to collect some of those advancements, including real code examples. As a matter of fact, the title "Cheat Sheet" is a little... well, cheating. But I hope you'll enjoy it anyhow.
 
@@ -69,7 +69,7 @@ FP, on the other hand, is centered on the opposite concept, that of immutability
 
 > Sometimes we find opinions in the community that depict mutability as evil, advocating an almost religious superiority of FP over OOP. I don't personally agree with this point of view. In my experience, having more tools makes things better, not worse. If nothing else, I can always decide not to use a tool I have, while I cannot use a tool I don't have.
 >
-> Also in my experience, OOP and FP are two powerful weapons in my arsenal after the necessary familiarization period. Now it's natural to use both in designing new software, and I find they can get along pretty well (and this is one of the reasons why I like F#).
+> Also in my experience, OOP and FP are two powerful weapons in my arsenal. After the necessary familiarization period, now it's natural to use both in designing new software, and I find they can get along pretty well (and this is one of the reasons why I like F#).
 
 One myth I would like to dispel is that C# cannot define immutable types. It can, only it's not quite made for this, so it requires some additional effort. The feature described in this section helps to avoid most of the boilerplate that was needed in previous versions.
 
@@ -159,7 +159,7 @@ A new type of declaration named **record** makes it easier to work with complex 
 
 - Record variables are object references like class types
 - Equality is by value, like struct types
-- Immutability features (copy constructor/cloning, deconstructor,  deep equality logic) are created for us by the compiler
+- Immutability features (copy constructor/cloning, deconstructor, deep equality logic) are created for us by the compiler
 
 ```c#
 using Xunit;
@@ -761,7 +761,7 @@ In the above, observe how:
 - Readability improves significantly from the "traditional" way, compared to the new expressive pattern matching flavors
 - We need to write much less when using pattern matching, which both saves time and reduces errors. (After all, there is no code more correct that the one we don't write!)
 
-The last example **CascadeSwitchExpression** is not equivalent to the example before that, as it also raises validation exceptions. Rather, it's an example showing how to nest switch expressions.
+The last example **CascadeSwitchExpression** is not equivalent to the examples before that, as it also raises validation exceptions. Rather, it's an example showing how to nest switch expressions.
 
 ### Property Pattern
 
@@ -825,7 +825,9 @@ Understanding what the code does becomes much much easier, don't you agree?
 
 ## Compactness
 
-Many of the new features you saw go towards a language that is not only more powerful, but that also removes boilerplate and adds more expressiveness.### Indices and Ranges
+Many of the new features you saw go towards a language that is not only more powerful, but that also removes boilerplate and adds more expressiveness. This chapter shows more of them.
+
+### Indices and Ranges
 
 Slicing an indexed collection of items (array) can be done using the new back-indexing (**^**) and range (**..**) operators
 
@@ -922,7 +924,7 @@ Working with the end of an array has become as easy as working with the front.
 Two new operators make it easier checking on nulls:
 
 - **??**: Null coalescing operator. In place of the old ***a != null ? a : b*** or ***a == null ? b : a***, you can now simply write ***a ?? b***
-- **??=**   Null coalescing assignment operator. It allows write ***a ??= b*** to assign b to a only if a is null, like in the old ***a = a != null ? a : b***
+- **??=**: Null coalescing assignment operator. It allows write ***a ??= b*** to assign b to a only if a is null, like in the old ***a = a != null ? a : b***
 
 ```c#
 using System.Collections.Generic;
@@ -1031,11 +1033,11 @@ namespace Cs9CheatSheet.NullCoalescing.Operators
 }
 ```
 
-Null coalescing operators are really helpful with the "null billion dollar mistake". Usually in C#, checking for nulls populates a great deal of our source files. The new operators do not get rid of null, but they make it much less annoying to deal with it.
+Null coalescing operators are really helpful with the "null billion dollar mistake". Usually in C#, checking for nulls populates a great deal of our source files. The new operators do not get rid of null, but they make it much less annoying to deal with.
 
 ### Target Type Inference
 
-Target type inference moves us further towards writing less boilerplate. The compiler's type inference power has been increased so that we don't need to specify the type in a new statement if the new instance is meant to be referenced by a typed variable. Un the following example you can observe three different cases
+Target type inference moves us further towards writing less boilerplate. The compiler's type inference power has been increased so that we don't need to specify the type in a new statement if the new instance is meant to be referenced by a typed symbol. In the following example you can observe three different cases
 
 ```c#
 using Xunit;
@@ -1080,15 +1082,15 @@ namespace Cs9CheatSheet.FitAndFinish.TargetTypeInference
 2. The type of the newly instantiated object is already clear by the called function (Double) declaration
 3. Similar to 1, but with property initialization
 
-In other words, when the compile finds a new statement without a type name, it looks around if the object to be instantiated has a target symbol (a variable or a function parameter) where the type is specified. Hence the name "target type inference."
+In other words, when the compiler finds a new statement without a type name, it looks around if the object to be instantiated has a target symbol (or a function parameter) where the type is specified. Hence the name "target type inference."
 
 ## Type Extensibility
 
-These additions belong to the group of features that empower the use of third-party libraries. (We already saw above, the default interface methods.) In that case, the feature allows library users to supply new versions of their product by adding members to existing interfaces without forcing the user to refactor the application code. The amenities discussed in this section all facilitate users of third-party libraries to extend the library with more powerful constructs.
+These additions belong to the group of features that empower the use of third-party libraries. (We already saw one above, the default interface methods). In that case, the feature allows library users to supply new versions of their product by adding members to existing interfaces without forcing the user to refactor the application code. The amenities discussed in this section all facilitate users of third-party libraries to extend the library with more powerful constructs.
 
 ### Covariant Returns
 
-The very native extension pattern in OOP is inheritance. Type members can be declared virtual when defining a type, allowing the user to override them in derived types. Traditionally, though, method overrides need to maintain the same signature of the base. Covariant returns means that we can now define overridden methods with different return types than the base ones, provided that the override return type is derived from the base return type. Returning derived types from overrides was possible even before, but it required the call site to perform a cast or a type checking. Well, not anymore.
+The very native extension pattern in OOP is inheritance. Members can be declared virtual when defining a type, allowing the user to override them in derived types. Traditionally, though, method overrides need to maintain the same signature of the base's. Covariant returns means that we can now define overridden methods with different return types than the base ones, provided that the override return type is derived from the base return type. Returning derived types from overrides was possible even before, but it required the call site to perform a cast or a type check. Well, not anymore.
 
 ```c#
 using System;
@@ -1212,13 +1214,13 @@ In the above example, the namespace OldWay shows how to return derived types fro
 
 ### Enumerability By Extension
 
-Another concept borrowed from FP is "laziness." Laziness allows us to write more modular code, that is to say, implement a better separation of concerns. We can write code that produces a result, without executing it immediately, but deferring the execution to a later time when the result is effectively accessed. A textbook scenario is a database query. Often our programs contain iterative or event-based workflows - where we check some conditions and based on the check we run one of multiple different queries. Without laziness, we would need to put the query code inline with the condition-check, or alternatively pre-calculate all the possible results in the cached collection to be used in the iteration. With laziness, we get both. We can write the query code in one place and declare it as lazy. Somewhere else, in our codebase, we can then write the iteration accessing the data as if it were cached - when in reality the compile has hooked a call to our lazy code.
+Another concept borrowed from FP is "laziness". Laziness allows us to write more modular code, that is to say, implement a better separation of concerns. We can write code that produces a result, without executing it immediately, but deferring the execution to a later time when the result is effectively accessed. A textbook scenario is a database query. Often our programs contain iterative or event-based workflows - where we check some conditions and based on the check we run one of multiple different queries. Without laziness, we would need to put the query code inline with the condition-check, or alternatively pre-calculate all the possible results in the cached collection to be used in the iteration. With laziness, we get both. We can write the query code in one place and declare it as lazy. Somewhere else, in our codebase, we can then write the iteration accessing the data as if it were cached - when in reality the compile has hooked a call to our lazy code.
 
 Laziness in constructing collections is not new in C# — the **IEnumerable** and **IEnumerable`<T>`** generic interfaces were available well before version 8 of the language.
 
-What is new, though, is the possibility to add this feature to existing types via type extensions. Previously, Enumerable types needed to implement **IEnumerable** or **IEnumerable`<T>`**. Today, this is not strictly necessary. What *is* required is to provide a public *GetEnumerator* method returning an instance of a type that defines two public members: a *current* property and a bool *MoveNext* parameterless method.
+What is new, though, is the possibility to add this feature to existing types via type extensions. Previously, Enumerable types needed to implement **IEnumerable** or **IEnumerable`<T>`**. Today, this is not strictly necessary. What *is* required is to provide a public *GetEnumerator* method returning an instance of a type that defines two public members: a *Current* property and a bool *MoveNext* parameterless method.
 
-And this method can be an extension method, so we can add enumerability to a library type (where previously the only way was to add an IEnumerable implementation which required access to the source code and recompilation of the library).
+And this *GetEnumerator* method can be an extension method, so we can add enumerability to a library type (where previously the only way was to add an IEnumerable implementation which required access to the source code and recompilation of the library).
 
 ```c#
 using System;
@@ -1330,21 +1332,21 @@ They are more like:
 - Do something else
 - When some event occurs, react to it (elaborate) and write the relative piece of output
 
-We cannot any longer assume that the data we need is immediately available when we need it.  Instead we need to deal with the fact that someone else decides when to send it to us. Not only that, but we must also deal with the fact that the waiting times can be several orders of magnitude longer than those required by our CPU to elaborate. In other words, we cannot afford to simply wait, we must organize our programs to use the CPU in between successive packets of data. We need to make asynchronous programs.
+We cannot any longer assume that the data we need is immediately available when we need it. Instead we need to deal with the fact that someone else decides when to send it to us. Not only that, but we must also deal with the fact that the waiting times can be several orders of magnitude longer than those required by our CPU to elaborate. In other words, we cannot afford to simply wait, we must organize our programs to use the CPU in between successive packets of data. We need to make asynchronous programs.
 
-Asynchronous programming is nothing new, by the way. Starting from the lowest level, the CPU, most activity is based on interrupts. Hardware components, like network cards, used to interrupt the CPU when they have something to tell it. While traditionally asynchronism was under the control of hardware or the operating system in the machine, today control is lost in the internet sea - so that its management must involve the application itself, rather than the system that runs the application.
+Asynchronous programming is nothing new, by the way. Starting from the lowest level, the CPU, most activity is based on interrupts. Hardware components, like network cards, use to interrupt the CPU when they have something to tell it. While traditionally asynchronism was under the control of hardware or the operating system in the machine, today control is lost in the internet sea - so that its management must involve the application itself, rather than the system that runs the application.
 
 The .NET API has gone through a profound transformation over the years, making asynchronous programming progressively easier and more natural. Events were available even before .NET, and they were part of the very first C# version. In many cases, though, asynchronous programming was left to the developer code, for example running a worker thread that, in turn, cyclically polls a service checking for new data to be available.
 
  Later we saw the callback paradigm, where asynchronous operations were based on three functions:
 
-1. Begin to start the asynchronous operation and register a completion callback
-2. Callback passed to the system in the Begin Call. The system calls it when a relevant event occurs
-3. End to be called by our code (usually at the end of the callback) to inform the system that the transaction is complete
+1. Begin, to start the asynchronous operation and register a completion callback
+2. Callback, passed to the system in the Begin Call. The system calls it back when a relevant event occurs
+3. End, to be called by our code (usually at the end of the callback) to inform the system that the transaction is complete
 
 The Task Parallel Library (TPL) was also created to ease multitasking, relieving the developer from the burden of thread management, as threads are expensive and therefore a limited resource.
 
-The latest improvement is the *async/await* pattern. We are now able to write asynchronous workflows almost as a regular code block, while the compiler takes charge of transforming that into separate blocks with interruption and continuations, then put them into automatically created tasks, and schedule them in a coordinated way using a managed thread pool.
+The latest improvement is the *async/await* pattern. We are now able to write asynchronous workflows almost as a regular code blocks, while the compiler takes charge of transforming them into separate blocks with interruption and continuations, then put them into automatically created tasks, and schedule them in a coordinated way using a managed thread pool.
 
 Asynchronous streams add a new important feature to the *async/await* pattern. Syntactically, the feature is quite easy to use. You simply need to:
 
@@ -1502,8 +1504,8 @@ There is an interface called IDataSource, which abstracts our model of data emit
 
 Note that the two last methods, besides having different names, have exactly the same input type but different return type:
 
-- DownloadCountries returns *IEnumerable`<Task<>>`*
-- DownloadCountriesStream returns *IAsyncEnumerable<>*
+- DownloadCountries returns *IEnumerable<Task<T>>*
+- DownloadCountriesStream returns *IAsyncEnumerable<T>*
 
 Both functions return lazy values, which means that the foreach loops they implement won't be executed when the functions return. And they will be executed only when the last lines of TestBlock() and TestStream() are reached in the Tests class. These two test methods have:
 
@@ -1515,7 +1517,7 @@ Both functions return lazy values, which means that the foreach loops they imple
 
 - TestBlock calls DownloadCountries and receives a *collection of Tasks*. It then executes them in parallel using the Task.WhenAll TPL API. When all the tasks complete, the collection of results is returned as an array, referenced by the *countries* symbol. Finally, the last line runs an iteration synchronously on the hydrated array and does application-specific work.
 
-- TestStream calls DownloadCountriesStream and receives an *IAsyncEnumerable*, referenced by the *countries* symbol. This is the first difference. The symbol *countries* does not hold a hydrated array of countries like with TestBlock, but a promise. When the last line is reached, nothing has been materialized from the data sources yet, while with TestBlock the materialization is already complete. Finally, TestStream executes an asynchronous iteration calling the new *await foreach*. This is the point where the internet is finally hit and the remote data are retrieved
+- TestStream calls DownloadCountriesStream and receives an *IAsyncEnumerable*, referenced by the *countries* symbol. This is the first difference. The symbol *countries* does not hold a hydrated array of countries like with TestBlock, but a promise. When the last line is reached, nothing has been materialized from the data sources yet, while with TestBlock the materialization is already complete. Finally, TestStream executes an asynchronous iteration calling the new *await foreach*. This is the point where the internet is finally hit and the remote data is retrieved
 
 At this point, it's worthwhile to highlight a qualifying point. In the TestBlock case, we have the opportunity to leverage the TPL, while in the TestStream case we don't. This has two potential consequences:
 
@@ -1526,7 +1528,7 @@ Therefore, if the backend has all the data, choosing between block and stream is
 
 However, if the backend does not have all the data, like the meteorology sensors I mentioned above, the performance advantage of parallel execution is nil, since even if the tasks are running in parallel, only one of them will complete just after the launch.  The remaining tasks will need to wait until new data is available. In this case, the stream solution is definitely superior, as it will give the results in the same time, but with less memory use and with only one pending task during the data retrieval period.
 
-In the previous example, this is demonstrated by creating two implementations of IDataSource: *CountriesDb* and *CountriesIoT*. *CountriesDb* behaves like a database. That is, it simulates a data source that responds immediately upon request. *CountriesIoT*, instead, simulates an IoT device, with data items available one by one at one-second time distance. (The trigger is the task started in StartFeed where a pool of semaphores is released over time, while the overridden DownloadCountryAsync awaits one of the semaphores before doing active work.) Running the tests produces the following results:
+In the previous example, this is demonstrated by creating two implementations of IDataSource: *CountriesDb* and *CountriesIoT*. *CountriesDb* behaves like a database. That is, it simulates a data source that responds immediately upon request. *CountriesIoT*, instead, simulates an IoT device, with data items available one by one at one-second time distance. (The trigger is the task started in StartFeed where a pool of semaphores are released over time, while the overridden DownloadCountryAsync awaits one of the semaphores before doing active work). Running the tests produces the following results:
 
 {% img blog/csharp9/image1.png alt:"Test results" width:"350" %}{: .center-image }
 
