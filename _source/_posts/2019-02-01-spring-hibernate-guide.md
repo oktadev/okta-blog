@@ -577,7 +577,7 @@ This will enable your REST endpoints to only accept authorized users.
 
 {% include setup/cli.md type="service" %}
 
-Paste your _Client ID_ and enter it on into the `application.properties` file (just change `${clientId}` variable).
+Copy your _Client ID_ and paste it into the `application.properties` file (just change `${clientId}` variable).
 
 Now, start the application again. It'll be locked and you will be unable to make any requests as all of them are now protected. You just need to acquire a _token_ to connect. An easy way to achieve a token is to generate one using [OpenID Connect <debugger/>](https://oidcdebugger.com/).
 
