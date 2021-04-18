@@ -517,7 +517,7 @@ Navigate to `http://localhost:8080` and click the **Login** link.
 
 If your browser bypasses the login page and goes straight to the `/securedPage` endpoint, open an incognito browser and try it again.
 
-First, you will need to authorize the Spring Boot Login application to use your Github account for OAuth login.
+First, you will need to authorize the Spring Boot Login application to use your GitHub account for OAuth login.
 
 {% img blog/spring-boot-login-options/github-authorize.png alt:"Authorize Login on GitHub" width:"600" %}{: .center-image }
 
