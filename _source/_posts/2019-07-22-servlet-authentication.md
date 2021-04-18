@@ -26,6 +26,10 @@ Let's get started!
 
 > NOTE: Throughout this post, I'll use Eclipse, as it is my preferred IDE. However, you can use any IDE or editor you please.
 
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+  
 ## Create an Unsecured JSP Application
 
 To get started, we'll use a simple application I wrote that shares secret family recipes. The code that powers this app can be found on my [GitHub](https://github.com/oktadeveloper/servlet-authn-example/tree/StarterBranch).
@@ -40,19 +44,22 @@ Once you run it, you'll be able to view the application at `http://localhost:808
 
 Uh oh, now anyone can view my top-secret Eggplant Parmesan recipe! What should we do now? Let's secure the application!
 
-## Create User Accounts in Your Okta Developer Console
+## Create User Accounts in the Okta Admin Console
 
 Before we implement user authentication in this application, we need to create some users inside Okta that we can later use to log into the app.
 
 If you haven't already, head on over to [developer.okta.com](https://developer.okta.com) to create a free-forever developer account.
 
-Once you have your developer account, log into the developer console and click on **Users** > **People** and then click **Add Person**. Fill out the form and fill in some basic information. These user accounts you're creating will be used later on.
+Once you have your developer account, log into the Okta Admin Console and click on **Directory** > **People** and then click **Add Person**. Fill out the form and fill in some basic information. These user accounts you're creating will be used later on.
 
-{% img blog/servlet-authentication/add-person.png alt:"Add User screenshot" width:"800" %}{: .center-image }
+- First Name: `Marty`
+- Last Name: `McFly`
+- Username/Email: `MartyMcFly@gmail.com`
+- Set password as an admin
 
-As you can see in the picture above, I've chosen to create Marty McFly as a user. I figure if my secret recipes somehow become public, he can always go back to 1955 and tell my grandmother not to trust me with them!
+I've chosen to create Marty McFly as a user. I figure if my secret recipes somehow become public, he can always go back to 1955 and tell my grandmother not to trust me with them!
 
-> NOTE: You can import multiple users from CSV files by selecting the **More Actions** menu button in the **Users** > **People** section of the developer console.
+> NOTE: You can import multiple users from CSV files by selecting the **More Actions** menu button in the **Directory** > **People** section of the Okta Admin Console.
 
 ## Protect Your Application Using Servlet Login 
 
@@ -218,7 +225,7 @@ And replace it with this:
 </servlet-mapping>
 ```
 
-Replace `{yourOktaDomain}` with your own Okta organization URL (which can be found at the top-right hand side of your Okta developer dashboard).
+Replace `{yourOktaDomain}` with your own Okta organization URL (which can be found at the top-right hand side of your Okta Admin Console dashboard).
 
 ### Create an `OktaFilter` Class to Confirm Authentication
 
@@ -594,7 +601,7 @@ Create the following file `src/main/webapp/WEB-INF/jsp/user-profile.jsp`:
 
 ```xml
 <jsp:include page="./includes/header.jsp" />
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <body id="samples">
   <jsp:include page="./includes/menu.jsp" />
   <div id="content" class="container">
@@ -625,7 +632,7 @@ Create the following file `src/main/webapp/WEB-INF/jsp/user-profile.jsp`:
 
 As you may have guessed, this file displays the user's profile information.
 
-To change the top navbar to include the **Logout** and **My Profile** button, update the `src/main/webapp/WEB-INF/jsp/includes/menu.jsp ` to the following content:
+To change the top navbar to include the **Logout** and **My Profile** button, update the `src/main/webapp/WEB-INF/jsp/includes/menu.jsp` to the following content:
 
 ```xml
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
