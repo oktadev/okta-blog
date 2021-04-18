@@ -14,12 +14,15 @@ image: blog/java-microservices-cloud-config/java-microservices-jhipster.jpg
 type: conversion
 ---
 :page-liquid:
+:toc: macro
 
 Developing a microservice architecture with Java and Spring Boot is quite popular these days. It's definitely one of the most popular combinations in the Java ecosystem. If you need any proof, just look at all of the similar frameworks that have cropped up in the last few years: MicroProfile, Micronaut, and Quarkus, just to name a few.
 
 Spring Boot provided a much-needed spark to the Spring ecosystem when it was first released in 2014. Instead of making Java developers configure all aspects of their Spring beans, it provided "starters" that contained pre-configured beans with the default settings. This led to less Java code, and also provided the ability to override the defaults via an `application.properties` file. Yes, there are many ways to modify the defaults in a Spring Boot application, but I'll skip over that for now.
 
 In a link:/blog/2019/05/22/java-microservices-spring-boot-spring-cloud[previous tutorial on Java Microservices with Spring Boot and Spring Cloud], I showed how you can use OAuth 2.0 and OpenID Connect to secure everything. One of the problems with this example is that you have to configure the OIDC properties in each application. This can be a real pain if you have hundreds of microservices. Yes, you could define them as environment variables and this would solve the problem. However, if you have different microservices stacks using different OIDC client IDs, this approach will be difficult.
+
+toc::[]
 
 == Java Microservices with Spring Cloud Config
 
@@ -321,18 +324,11 @@ You might be wondering why you should use Okta instead of Keycloak? Keycloak wor
 
 === Create a Web Application in Okta
 
-Log in to your Okta Developer account (or https://developer.okta.com/signup/[sign up] if you don't have an account).
-
-1. From the **Applications** page, choose **Add Application**.
-2. On the Create New Application page, select **Web**.
-3. Give your app a memorable name, add `http://localhost:8080/login/oauth2/code/oidc` as a Login redirect URI, select **Refresh Token** (in addition to **Authorization Code**), and click **Done**.
-4. To configure Logout to work in JHipster, **Edit** your app, add `http://localhost:8080` as a Logout redirect URI, then click **Save**.
+{% include setup/cli.md type="jhipster" %}
 
 == Configure Your OpenID Connect Settings with Spring Cloud Config
 
-Rather than modifying each of your apps for Okta, you can use Spring Cloud Config in JHipster Registry to do it. Open `docker-compose/central-server-config/application.yml` and add your Okta settings.
-
-The client ID and secret are available on your app settings page. You can find the issuer under **API** > **Authorization Servers**.
+Rather than modifying each of your apps for Okta, you can use Spring Cloud Config in JHipster Registry to do it. Open `docker-compose/central-server-config/application.yml` and add your Okta settings. Copy your OIDC settings from the `.okta.env` the Okta CLI generated.
 
 [source,yaml]
 ----
@@ -357,26 +353,6 @@ Restart all your containers for this configuration to take effect.
 ----
 docker-compose restart
 ----
-
-Before you can log in, you'll need to add redirect URIs for JHipster Registry, ensure your user is in a `ROLE_ADMIN` group and that groups are included in the ID token.
-
-Log in to your Okta dashboard, edit your OIDC app, and add the following Login redirect URI:
-
-* `http://localhost:8761/login/oauth2/code/oidc`
-
-You'll also need to add a Logout redirect URI:
-
-* `http://localhost:8761`
-
-Then, click **Save**.
-
-=== Create Groups and Add Them as Claims to the ID Token
-
-JHipster is configured by default to work with two types of users: administrators and users. Keycloak is configured with users and groups automatically, but you need to do some one-time configuration for your Okta organization.
-
-Create a `ROLE_ADMIN` group (**Users** > **Groups** > **Add Group**) and add your user to it. Navigate to **API** > **Authorization Servers**, and click on the the `default` server. Click the **Claims** tab and **Add Claim**. Name it `groups`, and include it in the ID Token. Set the value type to `Groups` and set the filter to be a Regex of `.*`. Click **Create**.
-
-image::{% asset_path 'blog/java-12-jhipster-6/add-claim.png' %}[alt=Add Claim,width=600,align=center]
 
 Now when you hit `http://localhost:8761` or `http://localhost:8080`, you'll be prompted to log in with Okta!
 
