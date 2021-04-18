@@ -24,6 +24,10 @@ In this tutorial, you'll first build an OAuth 2.0 web application and authentica
 
 Let's get started!
 
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+
 ## Create an OAuth 2.0 Server
 
 Start by going to the [Spring Initializr](https://start.spring.io/) and creating a new project with the following settings:
@@ -411,7 +415,9 @@ You can stop both server and client Spring Boot apps.
 
 Okta is a SaaS (software-as-service) authentication and authorization provider. We provide free accounts to developers so they can develop OIDC apps with no fuss. 
 
-{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
+{% include setup/cli.md type="web" loginRedirectUri="http://localhost:8080/login/oauth2/code/okta" logoutRedirectUri="http://localhost:8080" %}
+
+You'll need to use the values from the generated `.okta.env` to configure OIDC in your Spring Boot apps.
 
 ## Create a New Spring Boot App
 
