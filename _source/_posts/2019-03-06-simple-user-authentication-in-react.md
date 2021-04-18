@@ -223,7 +223,7 @@ Now that you have a functional web app, you can add some personalization by allo
 
 {% include setup/cli.md type="spa" framework="React" loginRedirectUri="http://localhost:3000/callback" %}
 
-Run `okta login` and open the returned URL in your browser. Sign in to the Okta Admin Console, find your app in the **Applications** section, and edit its general settings. Enable the **Implicit (Hybrid)** grant type, selecdt allow access token, and **Save**.
+Run `okta login` and open the returned URL in your browser. Sign in to the Okta Admin Console, find your app in the **Applications** section, and edit its general settings. Enable the **Implicit (Hybrid)** grant type, select allow access token, and **Save**.
 
 Copy your **Client ID** and paste it as a variable into a file called `.env.local` in the root of your project. This will allow you to access the file in your code without needing to store credentials in source control. You'll also need to add your organization URL (without the `-admin` suffix). Environment variables (other than `NODE_ENV`) need to start with `REACT_APP_` in order for Create React App to read them, so the file should end up looking like this:
 
