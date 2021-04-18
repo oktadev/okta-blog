@@ -16,6 +16,7 @@ changelog:
   - 2019-05-10: Updated to use JHipster 6.0 GA release and embed screencast. Changes to this post can be viewed in [okta.github.io#2869](https://github.com/oktadeveloper/okta.github.io/pull/2869).
 ---
 :page-liquid:
+:toc: macro
 
 There's a lot going on in the Java ecosystem lately. Now that major Java versions are released every six months, it can be difficult to keep up. Personally, I develop the majority of my Java applications using Spring Boot. Because of this, I was stuck on Java 8 until Spring Boot 2.1 was released last October.
 
@@ -32,6 +33,8 @@ If you'd rather watch a video, https://youtu.be/Ktnvqoouulg[I created a screenca
 <iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/Ktnvqoouulg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 ++++
+
+toc::[]
 
 == How Does JHipster Make Java and JavaScript Development Easier?
 
