@@ -13,6 +13,7 @@ tweets:
 image: blog/kotlin-react-crud/kotlin-react.png
 type: conversion
 changelog:
+  - 2021-04-16: Updated to streamline setup with the Okta CLI. Changes to this article can be viewed in [okta-blog#766](https://github.com/oktadeveloper/okta-blog/pull/766);
   - 2020-09-03: Fixed the power accessible attribute to render correctly. Thanks to [Katie Levy](https://github.com/katielevy1) for the [pull request](https://github.com/oktadeveloper/okta-kotlin-react-crud-example/pull/6)!
   - 2020-08-13: Upgraded to Spring Boot 2.3.2 and Okta React 3.0.4. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-kotlin-react-crud-example/pull/5). Changes to this article can be viewed in [oktadeveloper/okta-blog#369](https://github.com/oktadeveloper/okta-blog/pull/369).
   - 2020-05-18: Upgraded to Okta React 3.0.1 and removed `/implicit` from Login redirect URI. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-kotlin-react-crud-example/pull/3). Changes to this article can be viewed in [oktadeveloper/okta-blog#297](https://github.com/oktadeveloper/okta-blog/pull/297).
@@ -26,6 +27,10 @@ If you'd prefer to watch a video, you can [watch this tutorial as a screencast](
 <div style="text-align: center; margin-bottom: 1.25rem">
 <iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/PR6Gw4Ca-sE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
+
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
 
 ## Install Kotlin and React Project Dependencies
 
@@ -928,17 +933,9 @@ OpenID Connect (or, OIDC) is an authentication protocol built on top of OAuth 2.
 
 To do this, you need to create an OIDC application in your Okta account. This configures and activates the OIDC application that your frontend application and backend resources server will interact with when verifying authentication and authorization.
 
-If you haven't already, head over to [developer.okta.com](http://developer.okta.com) to sign up for a free account. Once you have an account, open the developer dashboard and create an OpenID Connect (OIDC) application by clicking on the **Applications** top-menu item, and then on the **Add Application** button. 
+{% include setup/cli.md type="spa" framework="React" signup="false" loginRedirectUri="http://localhost:3000/callback" %}
 
-* Select **Single-Page App** and click **Next**
-* Change the name to be "Kotlin React App"
-* Change the **Base URI** to `http://localhost:3000`
-* Change the **Login redirect URIs** to have `http://localhost:3000/callback` 
-* Update the **Logout redirect URIs** to have `http://localhost:3000`
-
-{% img blog/kotlin-react-crud/okta-app-settings.png alt:"Okta App Settings" width:"700" %}{: .center-image }
-
-You'll need your **Client ID** in a moment.
+You'll need your **issuer** and **client ID** in a moment.
 
 ## Configure the Resource Server for JWT Authentication
 

@@ -13,7 +13,7 @@
     "markdown-lint": "node scripts/lint",
     "find-missing-slashes": "node scripts/find-missing-slashes",
     "prep-for-deploy": "bash scripts/prep-for-deploy.sh",
-    "dev": "node scripts/dev-clean && npm run start",
+    "dev": "node scripts/dev-clean",
     "dev-restore": "node scripts/dev-restore",
     "post": "node scripts/post",
     "clean-post": "node scripts/dev-chars",
