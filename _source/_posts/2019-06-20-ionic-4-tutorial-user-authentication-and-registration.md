@@ -24,6 +24,10 @@ If you don't want to code along, feel free to grab the [source code from GitHub]
 <iframe width="600" height="338" style="max-width: 100%" src="https://www.youtube.com/embed/MBAUKQGNx5Y" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 </div>
 
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+
 ## Get Started with Ionic 4
 
 To set up your environment to develop with Ionic, complete the following steps:
@@ -90,7 +94,7 @@ Now that you have a client ID and issuer URI, you can install Angular CLI, and a
 
 ```shell
 npm i -g @angular/cli@7.3.9
-ng add @oktadev/schematics@3.4.1 --issuer=$issuer --clientId=$clientId
+ng add @oktadev/schematics@0.7.1 --issuer=$issuer --clientId=$clientId
 ```
 
 The video below shows how this command performs the following steps:
