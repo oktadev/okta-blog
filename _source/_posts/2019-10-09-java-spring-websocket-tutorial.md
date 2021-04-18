@@ -74,13 +74,9 @@ Happily, for Java developers, Spring supports the WebSocket API, which implement
 
 ##  Spring Boot Example App - Sound Looping!
 
-For our example application, let's create a collaborative sound-looping UI, where all connected users can play and stop a set of music loops. We will use [Tone.js](https://tonejs.github.io/) and [NexusUI](https://nexus-js.github.io/ui/)  and configure a Spring Message Broker Server and JavaScript WebSocket Client. Rather than build authentication and access control yourself, register for an [Okta Developer Account](https://developer.okta.com/signup/). It's free!
+For our example application, let's create a collaborative sound-looping UI, where all connected users can play and stop a set of music loops. We will use [Tone.js](https://tonejs.github.io/) and [NexusUI](https://nexus-js.github.io/ui/) and configure a Spring Message Broker Server and JavaScript WebSocket Client. Rather than build authentication and access control yourself, you'll be using an Okta developer account. It's free!
 
-Once you've logged in to Okta, go to the **Applications** section and create an application:
-
-- Choose **SPA** (Single Page Application) and click **Next**
-- On the next page, add `http://localhost:8080` as a Login redirect URI
-- Copy the **Client ID** from the General Settings
+{% include setup/cli.md type="spa" loginRedirectUri="http://localhost:8080" logoutRedirectUri="http://localhost:8080" %}
 
 ## Create the Message Broker Server Application in Spring Boot
 
@@ -240,8 +236,6 @@ okta:
     issuer: https://{yourOktaDomain}/oauth2/default
 ```
 
-**TIP:** The value you should use in place of `https://{yourOktaDomain}` can be found on your Okta dashboard, in the top right.
-
 Finally, to serve the JavaScript client from the same application, configure Spring Security to allow unauthenticated access to the static resources:
 
 ```java
@@ -364,7 +358,7 @@ Add `Tone.js` to `src/main/resources/static/js`. **Tone.js** is a JavaScript fra
 
 Add `NexusUI` also to `src/main/resources/static/js`.**NexusUI** is a framework for building web audio instruments, such as dials and sliders, in the browser. In this example, we will create simple circular buttons, each one to play a different loop. [Download NexusUI from GitHub](https://nexus-js.github.io/ui/api/#intro).
 
-Add an `auth.js` script to handle client authentication with the [Okta Authentication SDK](https://developer.okta.com/code/javascript/okta_auth_sdk/). Use the **Client ID** you copied from the SPA application in the Okta developer console, and also your Org URL. If the client has not authenticated, it will be redirected to the Okta login page. After login and redirect to "/", the ID token and access token will be parsed from the URL and added to the token manager.
+Add an `auth.js` script to handle client authentication with the [Okta Authentication SDK](https://developer.okta.com/code/javascript/okta_auth_sdk/). Use the **issuer** and **client ID** from the SPA application you created. If the client has not authenticated, it will be redirected to the Okta login page. After login and redirect to "/", the ID token and access token will be parsed from the URL and added to the token manager.
 
 ```javascript
 var authClient = new OktaAuth({
