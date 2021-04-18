@@ -721,7 +721,7 @@ There's obviously a ton more that can be done with GKE and Istio. In practices, 
 
 ## Create an OpenID Connect App on Okta
 
-{% include setup/cli.md type="web" framework="Spring Security" loginRedirectUri="https://oidcdebugger.com/debug" logoutRedirectUri="https://oidcdebugger.com" %}
+{% include setup/cli.md type="web" loginRedirectUri="http://localhost:8080/authorization-code/callback,https://oidcdebugger.com/debug" logoutRedirectUri="https://oidcdebugger.com" %}
 
 Take note of the **Client ID** and **Client Secret**. You'll need them in a minute when you use the OIDC Debugger to generate a JSON web token.
 
