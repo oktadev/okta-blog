@@ -15,7 +15,7 @@ jobs:
         id: preview
         with:
           site_name: "okta-blog"
-
+          max_timeout: 300
       - uses: colbyfayock/applitools-eyes-action@main
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
