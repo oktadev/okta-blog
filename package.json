@@ -17,7 +17,10 @@
     "dev-restore": "node scripts/dev-restore",
     "post": "node scripts/post",
     "clean-post": "node scripts/dev-chars",
-    "validate-front-matter": "node ./scripts/validate-front-matter"
+    "validate-front-matter": "node ./scripts/validate-front-matter",
+    "cypress": "cypress open",
+    "e2e": "npm run e2e:cypress",
+    "e2e:cypress": "cypress run --browser chrome --record ${CYPRESS_ENABLE_RECORD:-false}"
   },
   "pre-push": [
     "dev-restore",
@@ -35,8 +38,10 @@
   },
   "homepage": "https://github.com/oktadeveloper/okta-blog#readme",
   "devDependencies": {
+    "@applitools/eyes-cypress": "^3.20.4",
     "chalk": "4.1.0",
     "cross-env": "7.0.3",
+    "cypress": "^7.1.0",
     "front-matter": "^4.0.2",
     "fs-extra": "^9.1.0",
     "pre-push": "0.1.1",
