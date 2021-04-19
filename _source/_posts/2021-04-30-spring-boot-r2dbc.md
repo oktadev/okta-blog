@@ -14,17 +14,17 @@ image:
 type: conversion
 ---
 
-Intro here
-
-**Table of Contents**{: .hide }
-* Table of Contents
-  {:toc}
-
 Reactive APIs are a powerful way to handle and serve large amounts of data and large numbers of requests in a web application. They rely on a "server-side event" model in which the client (e.g. your browser) subscribes to "events" on the server, and the server "pushes" events to the client as they become available.
 
 For simple CRUD applications this is not very useful. However, in situations with millions of "subscribers" it can offer improved performance versus the standard "request-response" paradigm.
 
 Spring Boot 2.0 provided reactive web technology by integrating with [WebFlux](https://spring.io/guides/gs/reactive-rest-service/), a framework built on top of [Project Reactor](https://projectreactor.io/). Using WebFlux you can create reactive APIs easily in Spring Boot. However, because most Spring Boot applications are CRUD-ish and are backed by relational databases, reactive APIs may not provide much benefit because the underlying database transactions (querying, updating, etc) are synchronous/blocking.
+
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+  
+## What is R2DBC?
 
 [R2DBC](https://r2dbc.io/) is an API which provides reactive, non-blocking APIs for relational databases. Using this, you can have your reactive APIs in Spring Boot read and write information to the database in a reactive/asynchronous way.
 
@@ -37,13 +37,13 @@ Let's get started!
 
 **Prerequisites:** [Java 11](https://adoptopenjdk.net)
 
-## Create the Spring Boot Project
+## Create a Spring Boot Project
 
-Click [this link](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.4.2.RELEASE&packaging=jar&jvmVersion=11&groupId=com.okta.dev&artifactId=okta-r2dbc&name=okta-r2dbc&description=Spring%20Boot%20App%20for%20Okta%20%2B%20R2DBC&packageName=com.okta.dev.oktar2dbc&dependencies=lombok,data-jpa,data-r2dbc,webflux,okta,h2) or go to [start.spring.io](https://start.spring.io) and select the following options in your browser:
+Click [this link](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.4.5.RELEASE&packaging=jar&jvmVersion=11&groupId=com.okta.dev&artifactId=okta-r2dbc&name=okta-r2dbc&description=Spring%20Boot%20App%20for%20Okta%20%2B%20R2DBC&packageName=com.okta.dev.oktar2dbc&dependencies=lombok,data-jpa,data-r2dbc,webflux,okta,h2) or go to [start.spring.io](https://start.spring.io) and select the following options in your browser:
 
 - **Project**: `Maven Project`
 - **Language**: `Java`
-- **Spring Boot**: `2.4.2`
+- **Spring Boot**: `2.4.5`
 
 Under **Project Metadata**, set the values to the following:
 
@@ -70,42 +70,12 @@ Click **Generate** to download the project files. Unzip the file and import the 
 
 ## Create an OpenID Connect Application
 
-Sign up for a free developer account at <https://developer.okta.com/signup>. This will be used to secure your application using OAuth 2.0 and OpenID Connect (OIDC). After signing up, log in to your Okta account at https://your-okta-domain.okta.com.
-
-Click **Applications** in the top nav menu.
-
-{% img blog/spring-boot-r2dbc/applications.png alt:"Click the Applications button" width:"800" %}{: .center-image }
-
-Click **Add Application**.
-
-{% img blog/spring-boot-r2dbc/add-application.png alt:"Click Add Application" width:"800" %}{: .center-image }
-
-Select **Web** and click **Next**.
-
-{% img blog/spring-boot-r2dbc/select-web.png alt:"Select Web and click Next" width:"800" %}{: .center-image }
-
-In **Application Settings** fill in the following values:
-
-- **Name**: `My R2DBC App` (or another name of your choosing)
-- **Base URIs**: `http://localhost:8080`
-- **Login Redirect URIs**: `http://localhost:8080/login/oauth2/code/okta`
-- **Logout Redirect URIs**: `http://localhost:8080`
-- **Group Assignments**: `Everyone` (should be selected by default)
-- **Grant type allowed**: `Authorization Code`
-
-{% img blog/spring-boot-r2dbc/application-settings.png alt:"Application settings" width:"800" %}{: .center-image }
-
-Click **Done**.
-
-{% img blog/spring-boot-r2dbc/done.png alt:"Click Done" width:"800" %}{: .center-image }
-
-Take note of the values for **Okta domain**, **Client ID** and **Client secret**. These will be necessary for securing your microservices with OAuth 2.0.
-
-{% img blog/spring-boot-r2dbc/client-id-and-secret.png alt:"Client ID and Secret" width:"744" %}{: .center-image }
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
 
 ## Configure and Secure Your Reactive Spring Boot Application
 
 Open your IDE and edit your application's configuration file at `src/main/resources/application.properties`:
+
 ```properties
 okta.oauth2.issuer=https://MY_OKTA_DOMAIN.okta.com/oauth2/default
 okta.oauth2.clientId=CLIENT_ID
@@ -115,7 +85,7 @@ spring.data.r2dbc.repositories.enabled=true
 spring.r2dbc.url=r2dbc:h2:mem://./testdb
 ```
 
-Replace `MY_OKTA_DOMAIN`, `CLIENT_ID`, and `CLIENT_SECRET` with the values recorded above.
+Make sure `MY_OKTA_DOMAIN`, `CLIENT_ID`, and `CLIENT_SECRET` are replaced with values from the Okta CLI.
 
 Open the Java class at `com.okta.dev.oktar2dbc.OktaR2dbcApplication` and add the `@EnableWebFlux` and `@EnableR2dbcRepositories` annotations to the main class:
 
@@ -124,9 +94,9 @@ Open the Java class at `com.okta.dev.oktar2dbc.OktaR2dbcApplication` and add the
 @EnableR2dbcRepositories
 @SpringBootApplication
 public class OktaR2dbcApplication {
-	public static void main(String[] args) {
-		SpringApplication.run(OktaR2dbcApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(OktaR2dbcApplication.class, args);
+    }
 }
 ```
 
@@ -144,11 +114,11 @@ import javax.persistence.GenerationType;
 
 @Data
 public class UserEntity {
-  @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
-  private Long id;
-  private String email;
-  private String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
+    private String email;
+    private String name;
 }
 ```
 
@@ -174,6 +144,7 @@ The `R2dbcRepository` interface abstracts away much of the complexity of managin
 A thorough explanation of these reactive types is outside the scope of this tutorial. For a more thorough introduction you can check out the official documentation [here](https://projectreactor.io/docs/core/release/reference/#mono). For now it is enough to know that these reactive types represent data that is changing or not-yet-whole, and it is the responsibility of the caller to "react" to the results as they become available.
 
 Next you will create an OAuth-enabled `UserDetailsService` which will manage our user authentication and security with OAuth2. Create a file at `com.okta.dev.oktar2dbc.domain.UserDetails`:
+
 ```java
 package com.okta.dev.oktar2dbc.domain;
 
@@ -181,47 +152,47 @@ package com.okta.dev.oktar2dbc.domain;
 
 public class UserDetails implements OidcUser {
 
-  private final String email;
-  private final OidcIdToken oidcIdToken;
-  private final Map<String, Object> claims = new HashMap<>();
-  private final Map<String, Object> attributes = new HashMap<>();
+    private final String email;
+    private final OidcIdToken oidcIdToken;
+    private final Map<String, Object> claims = new HashMap<>();
+    private final Map<String, Object> attributes = new HashMap<>();
 
-  public UserDetails(String email, OidcUserRequest oidcUserRequest) {
-    this.email = email;
-    this.claims.putAll(oidcUserRequest.getIdToken().getClaims());
-    this.attributes.putAll(oidcUserRequest.getClientRegistration().getProviderDetails().getConfigurationMetadata());
-    this.oidcIdToken = oidcUserRequest.getIdToken();
-  }
+    public UserDetails(String email, OidcUserRequest oidcUserRequest) {
+        this.email = email;
+        this.claims.putAll(oidcUserRequest.getIdToken().getClaims());
+        this.attributes.putAll(oidcUserRequest.getClientRegistration().getProviderDetails().getConfigurationMetadata());
+        this.oidcIdToken = oidcUserRequest.getIdToken();
+    }
 
-  @Override
-  public Map<String, Object> getClaims() {
-    return new HashMap<>(claims);
-  }
+    @Override
+    public Map<String, Object> getClaims() {
+        return new HashMap<>(claims);
+    }
 
-  @Override
-  public OidcUserInfo getUserInfo() {
-    return new OidcUserInfo(getClaims());
-  }
+    @Override
+    public OidcUserInfo getUserInfo() {
+        return new OidcUserInfo(getClaims());
+    }
 
-  @Override
-  public OidcIdToken getIdToken() {
-    return oidcIdToken;
-  }
+    @Override
+    public OidcIdToken getIdToken() {
+        return oidcIdToken;
+    }
 
-  @Override
-  public Map<String, Object> getAttributes() {
-    return new HashMap<>(attributes);
-  }
+    @Override
+    public Map<String, Object> getAttributes() {
+        return new HashMap<>(attributes);
+    }
 
-  @Override
-  public Collection<? extends GrantedAuthority> getAuthorities() {
-    return Collections.singletonList(new SimpleGrantedAuthority("USER"));
-  }
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.singletonList(new SimpleGrantedAuthority("USER"));
+    }
 
-  @Override
-  public String getName() {
-    return email;
-  }
+    @Override
+    public String getName() {
+        return email;
+    }
 }
 ```
 
@@ -236,8 +207,8 @@ package com.okta.dev.oktar2dbc.domain;
 
 import java.util.Map;
 
-public class DbUserService implements OAuth2UserService<OidcUserRequest, OidcUser>, 
-        ReactiveUserDetailsService {
+public class DbUserService implements OAuth2UserService<OidcUserRequest, OidcUser>,
+    ReactiveUserDetailsService {
     private static final String CLAIM_NAME = "name";
     private static final String CLAIM_EMAIL = "email";
 
@@ -272,7 +243,6 @@ public class DbUserService implements OAuth2UserService<OidcUserRequest, OidcUse
         return null; // not used
     }
 }
-
 ```
 
 The `DbUserService` handles requests from OAuth2 to automatically load users into the database. The user's information will be created or updated on each login via the reactive connections provided by `UserRepository`.
@@ -412,17 +382,17 @@ package com.okta.dev.oktar2dbc;
 @EnableR2dbcRepositories
 @SpringBootApplication
 public class OktaR2dbcApplication {
-	public static void main(String[] args) {
-		SpringApplication.run(OktaR2dbcApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(OktaR2dbcApplication.class, args);
+    }
 
-	@Bean // added
-	public ConnectionFactoryInitializer connectionFactoryInitializer(ConnectionFactory connectionFactory) {
-		ConnectionFactoryInitializer initializer = new ConnectionFactoryInitializer();
-		initializer.setConnectionFactory(connectionFactory);
-		initializer.setDatabasePopulator(new ResourceDatabasePopulator(new ClassPathResource("schema.sql")));
-		return initializer;
-	}
+    @Bean // added
+    public ConnectionFactoryInitializer connectionFactoryInitializer(ConnectionFactory connectionFactory) {
+        ConnectionFactoryInitializer initializer = new ConnectionFactoryInitializer();
+        initializer.setConnectionFactory(connectionFactory);
+        initializer.setDatabasePopulator(new ResourceDatabasePopulator(new ClassPathResource("schema.sql")));
+        return initializer;
+    }
 }
 ```
 
@@ -481,16 +451,16 @@ Open the initialization SQL file at `src/main/resources/schema.sql` and add the 
 
 ```sql
 CREATE TABLE USER_ENTITY (
-  id BIGINT PRIMARY KEY AUTO_INCREMENT,
-  email VARCHAR2,
-  name VARCHAR2
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    email VARCHAR2,
+    name VARCHAR2
 );
 
 CREATE TABLE HEARTBEAT_ENTITY (
-  id BIGINT PRIMARY KEY AUTO_INCREMENT,
-  timestamp BIGINT NOT NULL,
-  username VARCHAR2 NOT NULL,
-  text VARCHAR2
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    timestamp BIGINT NOT NULL,
+    username VARCHAR2 NOT NULL,
+    text VARCHAR2
 );
 ```
 
@@ -552,11 +522,11 @@ To enable scheduling, you must also add the `@EnableScheduling` annotation to a 
 @EnableR2dbcRepositories
 @SpringBootApplication
 public class OktaR2dbcApplication {
-	public static void main(String[] args) {
-		SpringApplication.run(OktaR2dbcApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(OktaR2dbcApplication.class, args);
+    }
 
-	// other code omitted
+    // other code omitted
 }
 ```
 
@@ -571,23 +541,23 @@ package com.okta.dev.oktar2dbc;
 public class ApplicationRouter {
 
     // other code omitted
-    
+
     @Bean
     public RouterFunction<ServerResponse> route() {
         return RouterFunctions
-                .route(RequestPredicates.GET("/index"), request -> pageResponse(indexHtml))
-                .andRoute(RequestPredicates.GET("/"), request -> pageResponse(indexHtml))
-                .andRoute(RequestPredicates.GET("/protected"), request -> pageResponse(protectedHtml))
-                .andRoute(RequestPredicates.GET("/heartbeats"), request -> {
-                    Flux<Long> interval = Flux.interval(Duration.ofSeconds(1));
-                    Flux<HeartbeatEntity> heartbeatEntityFlux = heartbeatRepository.findAll();
-                    Flux<HeartbeatEntity> zipped = Flux.zip(heartbeatEntityFlux, interval, (key, value) -> key);
+            .route(RequestPredicates.GET("/index"), request -> pageResponse(indexHtml))
+            .andRoute(RequestPredicates.GET("/"), request -> pageResponse(indexHtml))
+            .andRoute(RequestPredicates.GET("/protected"), request -> pageResponse(protectedHtml))
+            .andRoute(RequestPredicates.GET("/heartbeats"), request -> {
+                Flux<Long> interval = Flux.interval(Duration.ofSeconds(1));
+                Flux<HeartbeatEntity> heartbeatEntityFlux = heartbeatRepository.findAll();
+                Flux<HeartbeatEntity> zipped = Flux.zip(heartbeatEntityFlux, interval, (key, value) -> key);
 
-                    return ServerResponse
-                            .ok()
-                            .contentType(MediaType.TEXT_EVENT_STREAM)
-                            .body(zipped, HeartbeatEntity.class);
-                });
+                return ServerResponse
+                    .ok()
+                    .contentType(MediaType.TEXT_EVENT_STREAM)
+                    .body(zipped, HeartbeatEntity.class);
+            });
     }
 }
 ```
@@ -606,7 +576,7 @@ Open the protected HTML page at `src/main/resources/pages/protected.html` and mo
 <head>
     <meta charset="UTF-8">
     <title>R2DBC Example - Protected</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script type="text/javascript">
         $(function() {
             var cnx = new EventSource('http://localhost:8080/heartbeats');
@@ -660,7 +630,7 @@ This tutorial provided a very basic setup for how to use reactive frameworks and
 
 For in-depth examples and use cases not covered in this tutorial, see [Spring's official documentation for R2DBC](https://docs.spring.io/spring-data/r2dbc/docs/1.2.3/reference/html).
 
-The source code for this example is on GitHub in the [oktadeveloper/okta-r2dbc](https://github.com/cavazosjoe/okta-r2dbc) repository.
+The source code for this example is on GitHub in the [oktadeveloper/okta-spring-boot-r2dbc-example](https://github.com/oktadeveloper/okta-spring-boot-r2dbc-example) repository.
 
 Check out these other articles on using reactive web with Spring Boot:
 
