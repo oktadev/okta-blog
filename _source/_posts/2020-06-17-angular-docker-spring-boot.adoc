@@ -70,7 +70,6 @@ git clone https://github.com/oktadeveloper/okta-angular-deployment-example.git \
 * https://docs.docker.com/install/[Docker]
 * https://nodejs.org/[Node.js] 12+
 * https://adoptopenjdk.net/[Java] 8+
-* An https://developer.okta.com/signup/[Okta Developer Account]
 
 === Secure Your Angular + Spring Boot App with OpenID Connect
 
@@ -141,7 +140,7 @@ npm i
 ng serve
 ----
 
-Open `http://localhost:4200` in your browser.
+Open `\http://localhost:4200` in your browser.
 
 image::{% asset_path 'blog/angular-docker/angular-home.png' %}[alt=Angular Home,width=800,align=center]
 
@@ -362,7 +361,7 @@ npm run docker
 npm run ng-notes
 ----
 
-Open your browser to `http://localhost:4200`, log in, and confirm you can add notes.
+Open your browser to `\http://localhost:4200`, log in, and confirm you can add notes.
 
 image::{% asset_path 'blog/angular-docker/first-note-on-heroku.png' %}[alt=First Note on Heroku,width=800,align=center]
 
@@ -460,7 +459,7 @@ And open the app in your browser:
 heroku open --remote docker
 ----
 
-You'll need to add your app's URL to Okta as a valid redirect URI. In your Spring Boot app on Heroku, go to **Resources** and click on the **Ookta** add-on. This will log you in to your Okta dashboard. Navigate to **Applications** > **SPA** > **General** > **Edit**. Add the following redirect URIs.
+You'll need to add your app's URL to Okta as a valid redirect URI. In your Spring Boot app on Heroku, go to **Resources** and click on the **okta** add-on. This will log you in to the Okta Admin Console. Navigate to the **Applications** section, and **Edit** your app's general settings. Add the following redirect URIs.
 
 - Login: `\https://<angular-docker-app>.herokuapp.com/callback`
 - Logout: `\https://<angular-docker-app>.herokuapp.com`
@@ -1650,7 +1649,7 @@ Build and run the image with the commands below.
 docker-compose -f src/main/docker/app.yml up
 ----
 
-You should be able to navigate to `http://localhost:8080`, log in, and add notes.
+You should be able to navigate to `\http://localhost:8080`, log in, and add notes.
 
 image::{% asset_path 'blog/angular-docker/spring-boot-2.3-notes.png' %}[alt=Spring Boot 2.3 app running,width=800,align=center]
 

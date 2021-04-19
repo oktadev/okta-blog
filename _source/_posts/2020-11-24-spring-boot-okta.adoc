@@ -33,7 +33,7 @@ You can find the website for the Okta CLI at https://cli.okta.com/[cli.okta.com]
 
 [source,shell]
 ----
-curl https://raw.githubusercontent.com/oktadeveloper/okta-cli/master/cli/src/main/scripts/install.sh | bash
+curl https://raw.githubusercontent.com/okta/okta-cli/master/cli/src/main/scripts/install.sh | bash
 ----
 
 Once you have the Okta CLI installed, you'll need https://adoptopenjdk.net/[Java 11 installed] to run your Spring Boot app.

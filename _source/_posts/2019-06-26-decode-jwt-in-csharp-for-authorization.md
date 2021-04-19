@@ -48,23 +48,11 @@ Now when you run the project, it will use the Kestrel web server instead of IIS 
 
 While you could invent your own security system using JWTs, that would probably be _a very bad idea_. Security systems are complex, and there are many opportunities to get something wrong. So for this tutorial, you will use OpenID Connect for authentication so you won't need to worry about generating and validating JWTs. You will just learn how to decode and use the JWTs that are used in the OpenID authentication handshake.
 
-To keep things simple, you will use a [forever-free developer account](https://developer.okta.com/signup/) from Okta to quickly set up an OpenID Connect authentication server. Sign in to your Okta account if you already have one or [sign up now](https://developer.okta.com/signup/) if you don't.
+{% include setup/cli.md type="web"
+   loginRedirectUri="https://localhost:5001/authorization-code/callback"
+   logoutRedirectUri="https://localhost:5001/signout-callback-oidc" %}
 
-Once you're signed in to Okta, register your client application.
-
-* In the top menu, click on **Applications**
-* Click on **Add Application**
-* Select **Web** and click **Next**
-* Enter `DecodeJWTs` for the **Name** 
-* Change the **Base URIs** to the exact URL that your application runs on locally, including the trailing backslash. This should be `https://localhost:5001/` if you followed the instructions above (make sure it is https).
-* Change the first of the **Login redirect URIs** to have the same scheme, host, and port number as above. It should still end with `authorization-code/callback`.
-* Click **Done**
-
-On the next screen, you will see an overview of settings. You need to add one more thing that wasn't on the previous screen, so click the **Edit** button at the top of the **General Settings** section of the page.
-
-Next to **Logout redirect URIs** click **Add URI** and enter a URL like `https://localhost:5001/signout-callback-oidc` where the scheme, hostname, and port are the same as the other URLs on the page. Then click **Save**.
-
-Below the **General Settings** section, you'll see the **Client Credentials** section. Note the **Client ID** and the **Client Secret** on the next page and add them to your `appsettings.json` file, like this:
+Add your Okta domain, client ID, and client secret to your `appsettings.json` file, like this:
 
 ```json
 "Okta": {
@@ -73,8 +61,6 @@ Below the **General Settings** section, you'll see the **Client Credentials** se
   "OktaDomain": "https://{yourOktaDomain}"
 }
 ```
-
-Your Okta Domain is the **Org URL** displayed in the top left corner of the main Okta **Dashboard** page.
 
 (Note that in order to keep these secrets out of source control you should move the `ClientId` and `ClientSecret` settings to your **User Secrets** file before you commit. You can skip this step for now since this is just a tutorial.)
 
