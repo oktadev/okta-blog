@@ -98,14 +98,15 @@ We are going to use Jenkins to automate the build of a simple Java application w
 [source,sh]
 ----
 curl https://start.spring.io/starter.zip -d dependencies=web,okta \
--d language=java \
--d type=maven-project \
--d groupId=com.okta.developer \
--d artifactId=simpleapp  \
--d name="Simple Application" \
--d description="Demo project for Jenkins CI test" \
--d packageName=com.okta.developer.simpleapp \
--o simple-app.zip
+ -d bootVersion=2.2.5.RELEASE \
+ -d language=java \
+ -d type=maven-project \
+ -d groupId=com.okta.developer \
+ -d artifactId=simpleapp  \
+ -d name="Simple Application" \
+ -d description="Demo project for Jenkins CI test" \
+ -d packageName=com.okta.developer.simpleapp \
+ -o simple-app.zip
 ----
 
 Unzip the file:
@@ -178,7 +179,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class GreetingController {
-
 
     @GetMapping("/greeting")
     public String greet(@AuthenticationPrincipal OidcUser user){

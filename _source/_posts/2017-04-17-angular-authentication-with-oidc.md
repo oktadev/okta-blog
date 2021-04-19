@@ -6,10 +6,18 @@ by: advocate
 communities: [javascript]
 description: "In this article, you'll see how build a simple web application with Angular CLI, a tool for Angular development. You'll also create an application with search and edit features, then add authentication."
 tags: [angular, authentication, oidc, openid-connect, okta, typescript, angular-cli]
+update-url: /blog/2019/02/12/secure-angular-login
+update-title: "Build Secure Login for Your Angular App"
 tweets:
   - "Build a simple Angular 6 app and add authentication with @oktadev!"
   - "Have you heard about OpenID Connect (OIDC) and how you can use it for authentication with @oktadev? This tutorial shows you how to do it in a 20 minutes →"
 type: conversion
+changelog:
+  - 2018-01-07: Updated to lock down the version numbers and provide a link for those wanting to use Angular 7. See the article changes in [okta.github.io#2628](https://github.com/oktadeveloper/okta.github.io/pull/2628).
+  - 2018-05-08: Updated to use Angular CLI 6.0, Angular 6.0, and Okta Sign-In Widget 2.8.0. See the code changes in [okta-angular-openid-connect-example#5](https://github.com/oktadeveloper/okta-angular-openid-connect-example/pull/5) and the article changes in [okta.github.io#2030](https://github.com/oktadeveloper/okta.github.io/pull/2030).
+  - 2017-11-30: Updated to use Angular CLI 1.5.5 and angular-oauth2-oidc 3.0.1. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-angular-openid-connect-example/pull/3/files). Changes to this article can be viewed [in this pull request](https://github.com/oktadeveloper/okta.github.io/pull/1517).
+  - 2017-09-28: Updated "create an OIDC app" instructions for the [Okta Developer Console](/blog/2017/09/25/all-new-developer-console).
+  - 2017-08-31: Updated to use Angular CLI 1.3.2 and angular-oauth2-oidc 2.0.12. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-angular-openid-connect-example/pull/2/files).
 ---
 
 Angular (formerly called Angular 2.0) is quickly becoming one of the most powerful ways to build a modern single-page app. A core strength is Angular's focus on building reusable components, which help you decouple the various concerns in your application. Take authentication, for example: it can be painful to build, but once you wrap it in a component, the authentication logic can be reused throughout your application.
@@ -1095,11 +1103,3 @@ To learn more about security in Angular, see [Angular's Security documentation](
 <div style="max-width: 560px; margin: 0 auto">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Kb56GzQ2pSk" frameborder="0" allowfullscreen></iframe>
 </div>
-
-**Changelog:**
-
-* Jan 7, 2018: Updated to lock down the version numbers and provide a link for those wanting to use Angular 7. See the article changes in [okta.github.io#2628](https://github.com/oktadeveloper/okta.github.io/pull/2628).
-* May 8, 2018: Updated to use Angular CLI 6.0, Angular 6.0, and Okta Sign-In Widget 2.8.0. See the code changes in [okta-angular-openid-connect-example#5](https://github.com/oktadeveloper/okta-angular-openid-connect-example/pull/5) and the article changes in [okta.github.io#2030](https://github.com/oktadeveloper/okta.github.io/pull/2030).
-* Nov 30, 2017: Updated to use Angular CLI 1.5.5 and angular-oauth2-oidc 3.0.1. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-angular-openid-connect-example/pull/3/files). Changes to this article can be viewed [in this pull request](https://github.com/oktadeveloper/okta.github.io/pull/1517).
-* Sep 28, 2017: Updated "create an OIDC app" instructions for the [Okta Developer Console](/blog/2017/09/25/all-new-developer-console).
-* Aug 31, 2017: Updated to use Angular CLI 1.3.2 and angular-oauth2-oidc 2.0.12. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-angular-openid-connect-example/pull/2/files).

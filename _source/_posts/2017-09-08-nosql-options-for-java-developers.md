@@ -9,6 +9,8 @@ tags: [nosql, java, redis, mongodb, cassandra, neo4j, postgresql, spring-boot, s
 redirect_from:
   - "/blog/2017/10/10/nosql-options-for-java-developers-part-i"
 type: awareness
+changelog:
+  - 2017-10-10: Updated to link to [Part II blog post](/blog/2017/10/10/nosql-options-for-java-developers-part-ii) with answers from experts.
 ---
 
 The Java community is one I know and love, so even though a NoSQL database is rarely tied to a language I'm writing this article for you, Java developers around the world. In this article, I'll show you several options for NoSQL databases. After exploring all the options, I'll narrow the choices down to the top five based on Indeed Jobs, GitHub stars, and Stack Overflow tags. Then I'll let you know if they're supported by Spring Data and Spring Boot. 
@@ -203,7 +205,3 @@ Hackernoon has an [Infographic of the most popular NoSQL databases](https://hack
 JAXenter published the results of their annual survey of [top database trends](https://jaxenter.com/top-databases-2017-132912.html) on March 30, 2017. They list Elasticsearch and Solr as databases. They also include Apache Spark and Hadoop. MongoDB, Cassandra, Redis, and Neo4j are the most interesting "NoSQL" databases. Hazelcast is listed as the top in-memory data grid, over CouchDB and Oracle.
 
 {% img blog/nosql-for-java/jaxenter-top-databases.png alt:"JAXenter Top Database Trends" width:"645" %}{: .center-image }
-
-**Changelog:**
-
-* Oct 10, 2017: Updated to link to [Part II blog post](/blog/2017/10/10/nosql-options-for-java-developers-part-ii) with answers from experts.

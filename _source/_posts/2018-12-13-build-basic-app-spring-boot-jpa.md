@@ -12,6 +12,8 @@ tweets:
 - "Spring Boot + JPA - a match made in heaven!"
 image: blog/featured/okta-java-short-bottle-headphones.jpg
 type: conversion
+update-url: /blog/2020/11/20/spring-data-jpa
+update-title: "Build a Secure Spring Data JPA Resource Server"
 ---
 
 Every non-trivial application needs a way to save and update data: a resource server that is accessible via HTTP. Generally, this data must be secured. Java is a great language with decades of history in professional, enterprise development, and is a great choice for any application's server stack. Within the Java ecosystem, Spring makes building secure resource servers for your data simple. When coupled with Okta, you get professionally maintained OAuth and JWT technologies easily integrated into Spring Boot using Spring Security.
@@ -440,19 +442,7 @@ A couple things to note. First, notice that *value* is being stored as a binary 
 
 Okta is a software-as-service identity, authentication, and authorization provider. While I have definitely worked on projects where outsourcing everything to SaaS providers created more problems than it promised to solve, authentication and authorization is a place where this model makes total sense. Online security is hard. Vulnerabilities are found and servers must be updated quickly. Standards change and code needs modification. All of these changes have the potential to create new vulnerabilities. Letting Okta handle security means that you can worry about the things that make your application unique.
 
-To show you how easy it is to set up, you're going integrate Okta OAuth and add token-based authentication to the resource server. If you haven't already, head over to [developer.okta.com](http://developer.okta.com) and sign up for a free account. Once you have an account, open the developer dashboard and create an OpenID Connect (OIDC) application by clicking on the **Application** top-menu item, and then on the **Add Application** button.
-
-{% img blog/basic-app-spring-boot-jpa/create-app.png alt:"Select OIDC app type" width:"800" %}{: .center-image }
-
-Select **Single-Page App**.
-
-{% img blog/basic-app-spring-boot-jpa/app-settings.png alt:"Configure OIDC application settings" width:"700" %}{: .center-image }
-
-The default application settings are great, except that you need to add a **Login Redirect URI**: `a`. You're going to use this in a moment to retrieve a test token.
-
-Also, note your **Client ID**, as you'll need that in a moment.
-
-{% img blog/basic-app-spring-boot-jpa/general-settings.png alt:"Note your Client ID" width:"700" %}{: .center-image }
+To show you how easy it is to set up, you're going integrate Okta OAuth and add token-based authentication to the resource server. {% include setup/cli.md type="spa" loginRedirectUri="http://localhost:8080/callback" %}
 
 ## Configure Your Spring Boot Resource Server for Token Authentication
 
@@ -525,27 +515,11 @@ Content-Type: application/json;charset=UTF-8
 
 ## Generate an Access Token
 
-To access the server now, you need a valid access token. You can use **OpenID Connect Debugger** to help you do this. In another window, open [oidcdebugger.com](https://oidcdebugger.com/).
-
-**Authorize URI**: `https://{yourOktaUrl}/oauth2/default/v1/authorize`, with `{yourOktaUrl}` replaced with your actual Okta preview URL.
-
-**Redirect URI**: do not change. This is the value you added to your OIDC application above.
-
-**Client ID**: from the OIDC application you just created.
-
-**Scope**: `openid profile email`.
-
-**State**: any value you want to pass through the OAuth redirect process. I set it to `{}`.
-
-**Nonce**: can be left alone. Nonce means "number used once" and is a simple security measure used to prevent the same request being used multiple times.
-
-**Response Type**: `token`.
-
-**Response mode**: `form_post`.
+To access the server now, you need a valid access token. {% include setup/oidcdebugger.md %}
 
 {% img blog/basic-app-spring-boot-jpa/oidc-debugger.png alt:"Generate an Access Token" width:"600" %}{: .center-image }
 
-Click **Send Request**. If you are not logged into developer.okta.com, then you'll be required to log in. If you are (as is likely) already logged in, then the token will be generated for your signed-in identity.
+Click **Send Request**. If you are not logged into Okta, then you'll be required to log in. If you are (as is likely) already logged in, then the token will be generated for your signed-in identity.
 
 {% img blog/basic-app-spring-boot-jpa/access-token-success.png alt:"Access Token success" width:"500" %}{: .center-image }
 
@@ -569,7 +543,9 @@ Up until now, the authorization scheme has been pretty binary. Does the request 
 
 A **role** is a collection of collection of permissions that a user can inherit. A **group** is a collection of users to which a set of standard permissions are assigned. However, in the scope of tokens and how you're using Spring Security with JPA, the implementation is exactly the same; they're both passed from the OAuth OIDC application as a string "authority" to Spring, so for the moment they're essentially interchangeable. The difference would be in what is protected and how they are defined.
 
-To use group-based authorization with Okta, you need to add a "groups" claim to your access token. Create an `Admin` group (**Users** > **Groups** > **Add Group**) and add your user to it. You can use the account you signed up with, or create a new user (**Users** > **Add Person**). Navigate to **API** > **Authorization Servers**, click the **Authorization Servers** tab and edit the default one. Click the **Claims** tab and **Add Claim**. Name it "groups", and include it in the access token. Set the value type to "Groups" and set the filter to be a Regex of `.*`.
+To use group-based authorization with Okta, you need to add a "groups" claim to your access token. Using the Okta Admin Console (run `okta login` and open the URL in a browser), create an `Admin` group (**Directory** > **Groups** > **Add Group**) and add your user to it. You can use the account you signed up with, or create a new user (**Directory** > **People** > **Add Person**). 
+
+Navigate to **Security** > **API** > and select the `default` authorization server. Click the **Claims** tab and **Add Claim**. Name it "groups", and include it in the access token. Set the value type to "Groups" and set the filter to be a Regex of `.*`.
 
 Create a new access token using [OIDC Debugger](https://oidcdebugger.com/). Take a look at your decoded token by going to [jsonwebtoken.io](https://www.jsonwebtoken.io/) and entering in your generated access token.
 
@@ -598,7 +574,7 @@ The payload will look a bit like this:
 }
 ```
 
-The **groups** claim carries the groups to which the user is assigned. The user you're using to sign into the developer.okta.com website will also be a member of both the "Everyone" group and the "Admin" group.
+The **groups** claim carries the groups to which the user is assigned. The user you're using to sign into the Okta Admin Console will also be a member of both the "Everyone" group and the "Admin" group.
 
 To get Spring Boot and the resource server to play nicely with group-based authorization, you need to make a few changes to the code.
 
@@ -700,15 +676,15 @@ http :8080/kayaks 'Authorization: Bearer $TOKEN'
 
 ## Create a Non-Admin User
 
-To demonstrate group-based authorization, you need to create a new user on Okta that isn't an admin. Go to the [developer.okta.com](https://developer.okta.com) dashboard.
+To demonstrate group-based authorization, you need to create a new user on Okta that isn't an admin. Go to the Okta Admin Console.
 
-From the top-menu, select **Users** and **People**.
+Navigate to **Directory** > **People**.
 
 Click the **Add Person** button.
 
 Give the user a **First Name**, **Last Name**, and **Username** (which will also be the **Primary Email**). The values do not matter, and you won't need to be able to check the email. You simply need to know the email address/username and password so you can log in to  Okta in a minute.
 
-**Password**: change the drop down to **Set by admin**.
+**Password**: change the dropdown to **Set by admin**.
 
 Assign the user a password.
 
@@ -718,7 +694,7 @@ You've just created a user that is NOT a member of the *Admin* group but is a me
 
 ## Test Group-based Authorization in Your Spring Boot App
 
-Log out of your Okta developer dashboard.
+Log out of the Okta Admin Console.
 
 Return to the [OIDC Debugger](https://oidcdebugger.com) and generate a new token.
 
@@ -803,7 +779,7 @@ You'll get another 403. "Saving" is going to equal an HTML POST here.
 
 However, if you use a token generated from your original, admin account, it'll work.
 
-**NOTE:** It's possible your token will be expired and you'll have to log out of developer.okta.com again and re-generate the token on the [OIDC Debugger](https://oidcdebugger.com/).
+**NOTE:** It's possible your token will be expired and you'll have to log out of the Okta Admin Console again and re-generate the token on the [OIDC Debugger](https://oidcdebugger.com/).
 
 POST a new kayak with the token generated from your admin account.
 

@@ -4,7 +4,7 @@ title: 'Deploy a Spring Boot Application into Tomcat'
 author: karl-penzhorn
 by: contractor
 communities: [java]
-description: "Create a Spring Boot 2.1 app with Java 11 and deploy into Tomcat 9."
+description: "Create a Spring Boot app with Java 11 and deploy into Tomcat 9."
 tags: [spring-boot, tomcat, java]
 tweets:
 - "Do you love @springboot, but you're still using Tomcat to run all your apps? This guide shows slight tweaks you can make to convert your app from a JAR to a WAR so it works on Tomcat."
@@ -12,6 +12,8 @@ tweets:
 - "Want to deploy your Spring Boot app to @TheApacheTomcat? This tutorial shows you how!"
 image: blog/featured/okta-java-bottle-headphones.jpg
 type: conversion
+changelog:
+- 2021-04-03: Updated to Spring Boot 2.4 and Okta CLI for setup. See this post's changes in [okta-blog#688](https://github.com/oktadeveloper/okta-blog/pull/688); the example app's changes can be found in [okta-spring-boot-tomcat-example#2](https://github.com/oktadeveloper/okta-spring-boot-tomcat-example/pull/2).
 ---
 
 Deploying applications is hard. Often you need console access to the server from which you pull the latest code and then manually instantiate into your container. In this tutorial you'll see an easier way using Tomcat: you'll create an authenticated web app and deploy it through the browser using the latest versions of Tomcat, Spring Boot, and Java.
@@ -88,13 +90,10 @@ OpenJDK 64-Bit Server VM 18.9 (build 11.0.2+9, mixed mode)
 
 The most popular way to start a Spring project is with [Spring Initializr](https://start.spring.io/).
 
-{% img blog/spring-boot-tomcat/spring-initializr.png alt:"Spring Initializr" width:"800" %}{: .center-image }
-
 Navigate to start.spring.io in your favorite web browser, then choose your project options:
 
-- Leave as Maven, Java, and the latest stable Spring Boot (2.1.4)
+- Leave as Maven, Java, and the latest stable Spring Boot (2.4.4)
 - Change the group and artifact if you wish
-- Click on **More options** and select `Java 11`
 - In the _Dependencies_ box, type and choose `Web`, `Security` and `Devtools`. They should appear as _Dependencies selected_ on the right
 
 Now click **Generate Project** and a zip file will download with the project inside. Simply unzip and enter the directory from the command line. If you `ls` you'll see five files and one directory (`src`).
@@ -123,29 +122,7 @@ You can authenticate using "user" for a username and the password that's been pr
 
 Let's add authentication with Okta. Why Okta? Because you don't want to worry about managing your users and hashing their passwords, do you? Friends don't let friends write authentication - let the experts at Okta do it for you instead! After all, Okta's API is built with Java and Spring Boot too!
 
-Once you've [signed up](https://developer.okta.com/signup/) for a free account, go to **Applications** on your dashboard. Click **Add Application**, select **Web**, and click **Next**.
-
-You should now be in the Application Settings page. Replace the **Login Redirect URIs** field with the following:
-
-```
-http://localhost:8080/login/oauth2/code/okta
-```
-
-Click **Done** at the bottom. Copy your **Client ID** and **Client secret** from the Client Credentials section and keep them somewhere safe. Now right at the top click the **API** tab (next to **Applications**) and then **Authorization Servers**. Make note of the **Issuer URI** which looks like:
-
-```
-https://{yourOktaDomain}/oauth2/default
-```
-
-Create a file in your project at `src/main/resources/application.yml` and put those values inside:
-
-```yaml
-okta:  
-  oauth2:
-    issuer: https://{yourOktaDomain}/oauth2/default  
-    client-id: {clientId}
-    client-secret: {clientSecret}
-```
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
 
 Now add the Okta Spring Boot Starter library as a dependency in your `pom.xml`.
 
@@ -153,7 +130,7 @@ Now add the Okta Spring Boot Starter library as a dependency in your `pom.xml`.
 <dependency>
     <groupId>com.okta.spring</groupId>
     <artifactId>okta-spring-boot-starter</artifactId>
-    <version>1.1.0</version>
+    <version>2.0.1</version>
 </dependency>
 ```
 
@@ -164,8 +141,8 @@ package com.example.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -180,9 +157,8 @@ public class DemoApplication {
 
     @GetMapping
     @ResponseBody
-    public String currentUserName(Authentication authentication) {
-    	DefaultOidcUser userDetails = (DefaultOidcUser) authentication.getPrincipal();
-    	return "Hello, " + userDetails.getFullName();
+    public String currentUserName(@AuthenticationPrincipal OidcUser user) {
+        return "Hello, " + user.getFullName();
     }
 }
 ```
@@ -251,10 +227,10 @@ public class DemoApplication extends SpringBootServletInitializer {
 }
 ```
 
-Now clean and package your application with the following command:
+Now package your application with the following command:
 
 ```bash
-./mvnw clean package
+./mvnw package
 ```
 
 You should see a message like the following:
@@ -302,7 +278,7 @@ If you scroll up you should see something like `/demo-0.0.1-SNAPSHOT` listed in 
 
 This is because the redirect URL is now wrong in our Okta app configuration - everything should be prepended with `demo-0.0.1-SNAPSHOT`. That name is a bit cumbersome. To change it rename your WAR file to `demo.war` (you can do this permanently by adding `<finalName>demo</finalName>` to the build section of your `pom.xml`). Now click **Undeploy** next to your app name in the manager window, and redeploy the WAR. Now the app should be under `/demo`.
 
-Now in your Okta application config prepend all the URLs with `/demo`, e.g. `http://localhost:8080/demo/login/oauth2/code/okta` (you do this by clicking **Edit** and then **Save**). Now clicking on your `/demo` app in the manager (or browsing to `http://localhost:8080/demo`) should show you the welcome screen as before.
+Run `okta login` and open the resulting URL in your browser. Log in and go to the **Applications** section. Edit your application's general settings and prepend all the URLs with `/demo`, e.g. `http://localhost:8080/demo/login/oauth2/code/okta`. Now clicking on your `/demo` app in the manager (or browsing to `http://localhost:8080/demo`) should show you the welcome screen as before.
 
 **Hot Tip:** To ensure your local development setup matches the machine you are deploying to, make sure the embedded Tomcat version is the same as your external server by adding the following to your `pom.xml`:
 
@@ -314,7 +290,7 @@ Now in your Okta application config prepend all the URLs with `/demo`, e.g. `htt
 
 ## Learn More About Tomcat, Spring Boot, and Java 11
 
-Well done - you've remotely deployed a Spring Boot 2.1 application to Tomcat 9, all backed by Java 11!
+Well done - you've remotely deployed a Spring Boot 2.4 application to Tomcat 9, all backed by Java 11!
 
 I hope you found this tutorial useful. You can find the GitHub repo for this example at [oktadeveloper/okta-spring-boot-tomcat-example](https://github.com/oktadeveloper/okta-spring-boot-tomcat-example).
 

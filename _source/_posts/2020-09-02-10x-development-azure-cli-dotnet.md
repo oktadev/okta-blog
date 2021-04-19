@@ -238,27 +238,15 @@ Finally, add two links to the top bar of the UI, with the following razor code i
 The application is now ready to provide its services, enriched with a state-of-the-art security framework, in conjunction with a first-class Cloud-based authentication/authorization provider as Okta. You have probably realized that something is missing: I have done nothing (yet) to inform the provider that my brand new application, **okta-cli-app**, is going to ask it to manage authentication and authorization matters on its behalf.
 To fix this I need to set up a proper configuration in Okta and bind my ASP.NET Core project to it.
 
-If you haven't yet got an Okta developer account, please [sign up](https://developer.okta.com/) and grab one, it's quick and free. You will need one to perform the next step.
-
-Login to your Okta developer account and create a new application.
-
-{% img blog/10x-azure-cli/image4.png alt:"" width:"800" %}{: .center-image }
-
-This is how it looks after I have filled all the necessary fields:
-
-{% img blog/10x-azure-cli/image5.png alt:"" width:"800" %}{: .center-image }
-
+{% capture note %}
 > Note that the TCP port 5001 must be the same used by the application. You can see it in the messages displayed in the terminal when you start the application with **`dotnet run`**.
+{% endcapture %}
 
-At the bottom of the page, you see two fields containing cryptic strings, named ***Client ID*** and ***Client secret***.
+{% include setup/cli.md type="web" note=note framework="ASP.NET Core"
+   loginRedirectUri="http://localhost:5001/authorization-code/callback" 
+   logoutRedirectUri="http://localhost:5001/signout/callback" %}
 
-{% img blog/10x-azure-cli/image6.png alt:"" width:"800" %}{: .center-image }
-
-A third fundamental value you need to complete the configuration process is the Okta domain URL, which has been created for you when you signed up for your new account. You can find it on the top-right of the dashboard page.
-
-{% img blog/10x-azure-cli/image7.png alt:"" width:"800" %}{: .center-image }
-
-Insert these three values in the **appsettings.json** file in the ASP.NET Core project:
+Insert your Okta domain, client ID, and client secret in the **appsettings.json** file in the ASP.NET Core project:
 
 ```json
 {
@@ -293,7 +281,7 @@ You can now click on Sign In and get redirected to the Okta login page. Once log
 
 {% img blog/10x-azure-cli/image9.png alt:"" width:"800" %}{: .center-image }
 
-> Even though this post is about using the command line tooling rather than the IDE's plugins or the portal user experience, I haven't done so when creating the Okta application. It's worth mentioning here that Okta services are offered through the portal, a Web API interface and an SDK (Okta.Sdk) - but the new [Okta CLI](https://github.com/oktadeveloper/okta-cli) tool has just been released! This allows DevOps engineers to fully automate the Okta account and application setting management and integrate Okta configurations in the CI/CD pipelines.
+> Even though this post is about using the command line tooling rather than the IDE's plugins or the portal user experience, I haven't done so when creating the Okta application. It's worth mentioning here that Okta services are offered through the portal, a Web API interface and an SDK (Okta.Sdk) - but the new [Okta CLI](https://github.com/okta/okta-cli) tool has just been released! This allows DevOps engineers to fully automate the Okta account and application setting management and integrate Okta configurations in the CI/CD pipelines.
 
 ## The Azure CLI Cloud Deployment Process
 
@@ -368,3 +356,4 @@ If you are interested in learning more about security and the world of Azure and
 - [Baking in Security with .NET CLI Templates](/blog/2020/04/01/cli-dotnet-templates-dotnet-core-templates)
 
 Make sure to follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube Channel](https://youtube.com/c/oktadev) so that you never miss any awesome content!
+

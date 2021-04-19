@@ -8,6 +8,8 @@ tags: [authentication, oauth, sso, spring, java]
 redirect_from:
     - "/blog/2017/11/17/add-sso-spring-boot-15-min"
 type: conversion
+update-url: /blog/2019/10/30/java-oauth2
+update-title: "OAuth 2.0 Java Guide: Secure Your App in 5 Minutes"
 ---
 
 Need a secure web server right now? With Spring Boot and Okta, you can spin up an enterprise-quality REST server with complete user identity and authorization management in less than 20 minutes. Out of the box, Spring Boot and its Starter packages supply a near instant production-ready Tomcat server, and Okta hardens your APIs with a variety of OAuth flows just as fast. This tutorial will walk you through the complete process. The cherry on top will be using Okta to add fully featured client authentication and user administration with just a few lines of code and config! By the end of this tutorial, your secured Spring Boot server will be able to serve web content or function as a backend API, but only to users who have registered with you. Ready? Let's go!

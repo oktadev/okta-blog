@@ -12,6 +12,8 @@ tweets:
 - "Haven't tried @Kotlin yet? Check out this tutorial!"
 image: blog/tutorial-kotlin-beginners-guide/kotlin-logo-social.png
 type: conversion
+changelog:
+- 2020-04-14: Updated to use Spring Boot 2.4.5 and use the Okta CLI. You can see [changes in the example on GitHub](https://github.com/oktadeveloper/kotlin-spring-boot-tutorial/pull/1); changes in this article are in [okta-blog#715](https://github.com/oktadeveloper/okta-blog/pull/715).
 ---
 
 Kotlin is a modern, statically typed language within the JVM. Kotlin is a cross-platform, multi-purpose, free and open-source language developed by JetBrains under the Apache 2.0 license and has constructs for both Object Oriented and Functional programming styles, which can be mixed. It can be used for web development, server and client, and mobile development, using most Java IDEs.
@@ -377,6 +379,7 @@ Using the [Spring Initializr API](https://start.spring.io/), create a Maven proj
 
 ```shell
 curl https://start.spring.io/starter.zip -d dependencies=web,okta \
+-d bootVersion=2.4.5.RELEASE \
 -d language=kotlin \
 -d type=maven-project \
 -d groupId=com.okta.developer \
@@ -388,61 +391,16 @@ curl https://start.spring.io/starter.zip -d dependencies=web,okta \
 ```
 Unzip the file:
 
-```txt
+```shell
 unzip kotlin-spring-boot.zip -d kotlin-spring-boot
 cd kotlin-spring-boot
 ```
 
 ## Secure your Application with OpenID Connect
+
 If you already have an Okta account, see the Create a Web Application in Okta sidebar below. Otherwise, we created a Maven plugin that configures a free Okta developer account + an OIDC app (in under a minute!).
 
-```bash
-./mvnw com.okta:okta-maven-plugin:register
-```
-
-You should see the following output:
-
-```
-First name: Jimena
-Last name: Garbarino
-Email address: ***
-Company: ***
-Creating new Okta Organization, this may take a minute:
-OrgUrl: https://dev-123456.okta.com
-Check your email address to verify your account.
-
-Writing Okta SDK config to: /home/indiepopart/.okta/okta.yaml
-```
-
-Then, run the following command to configure your Spring Boot app with Okta.
-
-```bash
-./mvnw com.okta:okta-maven-plugin:spring-boot
-```
-
-This should result in:
-
-```
-Configuring a new OIDC, almost done:
-Created OIDC application, client-id: ***
-```
-
-Check your email and follow the instructions to activate your Okta account.
-
-> **If you already have an Okta Developer account**
-> 
-> Log in and create a new Application:
-> - From the **Applications** page, choose **Add Application**.
-> - On the Create New Application page, select **Web**.
-> - Give your app a memorable name, add `http://localhost:8080/login/oauth2/code/okta` as a Login redirect URI.
-> 
-> Copy the issuer (found under **API** > **Authorization Servers**), client ID, and client secret into `src/main/resources/application.properties`.
-> 
-```properties
-okta.oauth2.issuer=$issuer
-okta.oauth2.client-id=$clientId
-okta.oauth2.client-secret=$clientSecret
-```
+{% include setup/maven.md %}
 
 Edit `KotlinSpringBootApplication` located in the package `com.okta.developer` to add a controller mapping that will print a welcome message in the browser window.
 
@@ -474,7 +432,8 @@ fun main(args: Array<String>) {
 As you can see, in the `hello()` function, the authenticated user is passed in the `authenticationToken`. The `@AuthenticationPrincipal` annotation from Spring Security helps to resolve the principal to the expected principal type. The welcome message is built using **String interpolation**, a Kotlin idiom for variable substitution inside strings.
 
 Run the application with the following command:
-```txt
+
+```shell
 ./mvnw spring-boot:run
 ```
 Browse to `http://localhost:8080` and the application should start an OAuth 2.0 authentication code flow, redirecting to the Okta login page.
@@ -493,6 +452,7 @@ You now have a secure application with just a few lines of Kotlin and the help o
 
 I hope this blog post helped you grasp how succinct and expressive Kotlin is and why developers are loving it. You can find all the tutorial code in repositories [kotlin-hello-world](https://github.com/oktadeveloper/kotlin-hello-world-example) and [kotlin-spring-boot](https://github.com/oktadeveloper/kotlin-spring-boot-tutorial) on GitHub. To learn more about Kotlin, check out the following links:
 
+- [Build a CRUD Application with Kotlin and React](/blog/2020/01/13/kotlin-react-crud)
 - [Build a Basic CRUD App in Android with Kotlin](/blog/2018/09/11/android-kotlin-crud)
 - [Build an Application with Spring Boot and Kotlin](/blog/2019/09/17/build-a-spring-boot-kotlin-app)
 - [Kotlin Reference](https://kotlinlang.org/docs/reference/)

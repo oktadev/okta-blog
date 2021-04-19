@@ -11,6 +11,8 @@ tweets:
 - "What the heck is i18n and l10n and how do I add it to my Java app? This tutorial answers these questions and more!"
 image: blog/java-i18n/duke-world.png
 type: conversion
+changelog:
+  - 2019-02-26: Fixed Spanish translation and simplified `Locale` resolution in `LoginController`. Thanks to [Daniel Fernández](https://twitter.com/danfenz/status/1100322287386062849) and [Sam Brannen](https://twitter.com/sam_brannen/status/1100339463329333250) for their help. You can see the example app changes in [okta-java-i18n-example#1](https://github.com/oktadeveloper/okta-java-i18n-example/pull/1); changes to this post can be viewed in [okta.github.io#2740](https://github.com/oktadeveloper/okta.github.io/pull/2740).
 ---
 :page-liquid:
 
@@ -191,7 +193,7 @@ Go to https://start.spring.io[start.spring.io] and select **Web** and **Thymelea
 ----
 mkdir bootiful-i18n
 cd bootiful-i18n
-http https://start.spring.io/starter.zip dependencies==web,thymeleaf -d | tar xvz
+http https://start.spring.io/starter.zip bootVersion==2.1.3.RELEASE dependencies==web,thymeleaf -d | tar xvz
 ----
 
 Open the project in your favorite IDE and create `HomeController.java` in `src/main/java/com/example/demo`.
@@ -347,39 +349,11 @@ TIP: If you don't have `svn` installed, go https://github.com/okta/samples-java-
 
 === Create an OIDC App on Okta
 
-If you already have an Okta Developer account, log in to it. If you don't, create one at https://developer.okta.com/signup/[developer.okta.com/signup]. After you're logged in to your Okta dashboard, complete the following steps:
+{% include setup/cli.md type="web" loginRedirectUri="http://localhost:8080/authorization-code/callback" %}
 
-. From the **Applications** page, choose **Add Application**.
-. On the Create New Application page, select **Web**.
-. Give your app a memorable name, then click **Done**.
+I recommend adding `*.env` to `.gitignore`. Then, run `source .okta.env` before you start your app.
 
-Your settings should look similar to the ones below.
-
-image::{% asset_path 'blog/java-i18n/bootiful-i18n.png' %}[alt="OIDC Web App on Okta",width=700,align=center]
-
-You can specify your issuer (found under **API** > **Authorization Servers**), client ID, and client secret in `custom-login/src/main/resources/application.yml` as follows:
-
-[source,yaml]
-----
-okta:
-  oauth2:
-    issuer: https://{yourOktaDomain}/oauth2/default
-    client-id: {yourClientID}
-    client-secret: {yourClientSecret}
-----
-
-However, it's more secure if you store these values in environment variables and keep them out of source control (especially if your code is public).
-
-[source,shell]
-----
-export OKTA_OAUTH2_ISSUER=https://{yourOktaDomain}/oauth2/default
-export OKTA_OAUTH2_CLIENT_ID={yourClientID}
-export OKTA_OAUTH2_CLIENT_SECRET={yourClientSecret}
-----
-
-TIP: I recommend adding the above exports to a `.okta.env` file in the root of your project and adding `*.env` to `.gitignore`. Then run `source .okta.env` before you start your app.
-
-After making these changes, you can start the app using `./mvnw`. Open your browser to `http://localhost:8080`, click **Login** and you should be able to authenticate. If you still have your browser set to use Spanish first, you'll see that the Sign-In Widget automatically renders in Spanish.
+Start your app using `./mvnw`. Open your browser to `http://localhost:8080`, click **Login** and you should be able to authenticate. If you still have your browser set to use Spanish first, you'll see that the Sign-In Widget automatically renders in Spanish.
 
 image::{% asset_path 'blog/java-i18n/sign-in-widget-es.png' %}[alt="Sign-In Widget in Spanish",width=800,align=center]
 
@@ -583,7 +557,3 @@ We like to write about Java and Spring Boot on this here blog. Here are a few of
 * link:/blog/2018/03/01/develop-microservices-jhipster-oauth[Develop a Microservices Architecture with OAuth 2.0 and JHipster]
 
 Follow us on your favorite social network { https://twitter.com/oktadev[Twitter], https://www.linkedin.com/company/oktadev[LinkedIn], https://www.facebook.com/oktadevelopers/[Facebook], https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q[YouTube] } to be notified when we publish awesome content in the future.
-
-**Changelog:**
-
-* Feb 26, 2019: Fixed Spanish translation and simplified `Locale` resolution in `LoginController`. Thanks to https://twitter.com/danfenz/status/1100322287386062849[Daniel Fernández] and https://twitter.com/sam_brannen/status/1100339463329333250[Sam Brannen] for their help. You can see the example app changes in https://github.com/oktadeveloper/okta-java-i18n-example/pull/1[okta-java-i18n-example#1]; changes to this post can be viewed in https://github.com/oktadeveloper/okta.github.io/pull/2740[okta.github.io#2740].

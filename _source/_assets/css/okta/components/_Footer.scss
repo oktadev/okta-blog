@@ -1,43 +1,237 @@
-.Footer {
+.footer {
+  color: get-color('white');
+  padding: 80px 96px 80px 126px;
+  background: get-color('gable-green');
+  border-top: 1px solid get-color('cello');
+
+
+  @include media('<small') {
+    padding: 60px 46px 38px;
+  }
+
+  .column-header {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.3em;
+    margin-bottom: 30px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+
+    @include media('<small') {
+      font-size: 12px;
+      margin-bottom: 24px;
+    }
+  }
+
+  .wrap {
+    margin: 0 auto;
+    max-width: 1440px;
+  }
+
   a {
     text-decoration: none;
+    color: get-color('white');
   }
 
-  .Wrap {
-    padding: 0;
+  ul {
+    padding-left: 0;
+    list-style: none;
   }
 
-  &-links {
-    margin-top: 28px;
+  .footer-links {
+    margin-top: 30px;
 
-    li {
-      a {
-        padding: 0;
+    @include media('<small') {
+      margin-top: 17px;
+    }
+  }
+
+  .new-tab:after {
+    content: '';
+    width: 1em;
+    height: 1em;
+    margin-left: .2em;
+    display: inline-block;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+    background-image: url("../../../../assets-jekyll/icons/icon-new-tab.svg");
+  }
+
+  .footer-link {
+    display: flex;
+    line-height: 19px;
+    margin-bottom: 12px;
+
+    @include media('<medium') {
+      @include font-size(16px);
+    }
+
+    @include media('<=small') {
+      line-height: 17px;
+      @include font-size(14px);
+    }
+
+    &.twitter:before,
+    &.github:before,
+    &.forum:before,
+    &.rss:before,
+    &.youtube:before {
+      content: '';
+      width: 18px;
+      height: 18px;
+      display: block;
+      margin-right: 16px;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    &.twitter:before {
+      background-image: url("../../../../assets-jekyll/icons/icon-twitter.svg");
+    }
+
+    &.github:before {
+      background-image: url("../../../../assets-jekyll/icons/icon-github.svg");
+    }
+
+    &.forum:before {
+      background-image: url("../../../../assets-jekyll/icons/icon-forum.svg");
+    }
+
+    &.rss:before {
+      background-image: url("../../../../assets-jekyll/icons/icon-rss.svg");
+    }
+
+    &.youtube:before {
+      background-image: url("../../../../assets-jekyll/icons/icon-youtube.svg");
+    }
+
+  }
+
+
+  .first-row {
+    margin-bottom: 63px;
+    line-height: 34.2px;
+    @include font-size(20px);
+
+    @include media('<small') {
+      padding-left: 0;
+      margin-bottom: 50px;
+    }
+  }
+  
+  .anchor-highlight {
+    line-height: 18px;
+    text-transform: none;
+    letter-spacing: 1.5px;
+    font-family: $font-family;
+    color: get-color('cerise');
+  }
+
+  .copyright {
+    opacity: .9;
+    font-size: 16px;
+    font-style: normal;
+    line-height: 1.7em;
+    align-self: flex-end;
+    letter-spacing: .01em;
+    @include font-weight('mediumbold');
+
+    @include media('<1132px') {
+      order: 5;
+      width: 100%;
+      text-align: left;
+
+      @include media('<=medium') {
+        text-align: center;
+      }
+    }
+  }
+
+  .flex-justify {
+
+    display: flex;
+    flex-direction: row;
+
+    @include media('<1132px') {
+
+      flex-wrap: wrap;
+
+      .contact-links {
+        order: 1;
+      }
+
+      .info-links {
+        order: 2;
+      }
+
+      .external-links {
+        order: 3;
+
+        @include media('<628px') {
+          margin-top: 27px;
+        }
+      }
+
+      .social-links {
+
+        @include media('<=medium') {
+          display: none;
+        }
+      }
+
+      .social-links-small-only {
+        order: 4;
+        width: 100%;
+        margin: 46px 0;
+
+        .footer-links--social {
+          display: flex;
+          justify-content: space-between;
+        }
+      }
+    }
+    
+    @include media('>=medium') {
+      .social-links-small-only {
+        display: none;
       }
     }
 
-    &--github,
-    &--twitter,
-    &--forum,
-    &--rss,
-    &--youtube {
-      margin-bottom: 10px;
+    justify-content: space-between;
+
+    .column {
+      flex: 0 0 150px;
+
+      @include media('<=small') {
+        flex: 1 0 50%;
+      }
+
+      &.external-links {
+        flex: 0 0 280px;
+      }
+
+      &.copyright {
+        flex: 0 0 180px;
+
+        @include media('<=medium') {
+          flex: auto;
+        }
+      }
     }
 
-    &:last-child {
+  }
+
+  .external-url {
+
+    margin-bottom: 35px;
+
+    p {
+      margin-top: 3px;
+    }
+
+    &:last-of-type {
       margin-bottom: 0;
-    }
-  }
-
-  h4 {
-    @include font-size('h6');
-  }
-}
-
-@media (max-width: 859px) {
-  .Footer {
-    .Logo {
-      margin-left: 0;
     }
   }
 }

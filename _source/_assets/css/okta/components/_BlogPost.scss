@@ -40,6 +40,33 @@
 		}
 	}
 
+	& .alert {
+		padding: 10px 20px;
+		margin-bottom: 10px;
+		border-radius: 5px;
+
+		.close {
+			float: right;
+			font-size: 16pt;
+			cursor: pointer;
+		}
+
+		.title {
+			font-size: 16pt;
+			font-weight: 700
+		}
+
+		a {
+			font-weight: 700;
+		}
+	}
+
+	& .alert-info {
+		background-color: #ebfaf4;
+		color: #155724;
+		border: 1px solid #12c677;
+	}
+
 	&-attribution {
 		align-items: center;
 		display: flex;
@@ -51,11 +78,19 @@
 		line-height: 24px;
 	}
 
+	&-last-updated {
+		margin-top: .5em;
+
+		a {
+			color: unset;
+		}
+	}
+
 	&-author-bio {
 		@include color('charcoal');
 		border-top: 1px #ccc solid;
 		padding-top: 20px;
-		margin-top: 20px;	
+		margin-top: 20px;
 	}
 
 	&-author {
@@ -239,6 +274,14 @@
 			margin-bottom: 20px;
 		}
 
+		/* Fix links to anchors in blog posts */
+		#changelog::before, h2::before, h3::before, h4::before {
+			content: "";
+			display: block;
+			height: 80px;
+			margin: -80px 0 0;
+		}
+
 		/* -------------------------- PYGMENTS */
 
 		.highlight pre { color: $eclipse-2; } /* Base Style */
@@ -342,6 +385,14 @@
 				font-weight: bold;
 			}
 		}
+
+		.table-wrapper > table {
+			max-width: 100%;
+			overflow: auto;
+		}
+
+		// fix cursor for summary
+		summary { cursor: pointer }
 	}
 
 	&-more {

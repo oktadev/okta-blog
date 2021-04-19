@@ -1,6 +1,6 @@
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
 @import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400";
-article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}
+article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}
 audio,canvas,video{display:inline-block}
 audio:not([controls]){display:none;height:0}
 [hidden],template{display:none}
@@ -362,7 +362,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 .show-for-print{display:inherit!important}}
 
 /* New rules added by mraible */
-.paragraph > p, .sectionbody .ulist, .admonitionblock, .quoteblock blockquote p:last-child, .olist, .ulist, details > summary.title {
+.paragraph > p, .sectionbody .ulist, .admonitionblock, .quoteblock blockquote p:last-child, .olist, .ulist, details, details > summary.title {
     margin-bottom: 1.25rem;
 }
 
@@ -463,4 +463,9 @@ b.conum *{color:inherit!important}
 
 .colist td .conum[data-value] {
     margin-top: .5em;
+}
+
+/* Fix margin around sub-lists */
+ol > li > p, ol > li > .ulist {
+    margin: 5px !important;
 }

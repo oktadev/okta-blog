@@ -1,0 +1,125 @@
+.navigation {
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  font-weight: 600;
+  line-height: 24.08px;
+  color: get-color('white');
+  background: get-color('mirage');
+  @include font-size(14px);
+
+  @include media('<medium') {
+    @include font-size(12px);
+  }
+
+  @include media('<small') {
+    @include font-size(16px);
+  }
+
+  > .nav-wrapper {
+    height: 70px;
+    padding: 0 50px 0 28px;
+
+    @include media('>=small', '<medium') {
+      height: 53px;
+      padding: 0 13px 0 15px;
+    }
+
+    @include media('<small') {
+      padding: 0 29px 0 22px;
+    }
+  }
+
+  .header-nav {
+    width: 100%;
+  }
+
+  .logo {
+    height: 22px;
+    width: 157px;
+    flex-shrink: 0;
+    margin-right: 39px;
+
+    @include media('>=small', '<medium') {
+      width: 101px;
+      margin-right: 15px;
+    }
+
+    @include media('<small') {
+      margin-right: 0;
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+
+      path {
+        fill: get-color('white');
+      }
+    }
+  }
+
+  .cta {
+    height: 44px;
+    width: 134px;
+    flex-shrink: 0;
+    border-radius: 4px;
+    letter-spacing: 1.5px;
+    text-decoration: none;
+    color: get-color('white');
+    text-transform: uppercase;
+    background: get-color('cerise-red');
+    @include font-weight('bold');
+
+    @include media('>=small', '<medium') {
+      height: 32px;
+      max-width: 90px;
+      @include font-size(10px);
+    }
+  }
+
+  .menu,
+  .sub-menu {
+    list-style-type: none;
+  }
+
+  .nav-link {
+    cursor: pointer;
+    white-space: nowrap;
+    text-decoration: none;
+    color: get-color('white');
+    @include font-weight('bold');
+
+    &:hover {
+      text-decoration: underline;
+      text-decoration-width: 0.5px;
+    }
+
+    &.active {
+      color: get-color('cerise-red');
+    }
+  }
+
+  .mobile-controls {
+    margin-right: 0;
+    margin-left: auto;
+
+    .hamburger {
+      margin-left: 20px;
+    }
+
+    .search-toggle {
+      width: 20px;
+      height: 20px;
+
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      svg path {
+        fill: get-color('white');
+      }
+    }
+  }
+}

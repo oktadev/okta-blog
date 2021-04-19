@@ -1,0 +1,15 @@
+<div class="alert alert-info" role="alert">
+  <p class="title">
+    <a class="close" aria-label="Close" title="Close"
+       onclick="this.parentElement.parentElement.style.display='none'">
+      <span aria-hidden="true">&times;</span>
+    </a>
+    Heads up... this blog post is old!
+  </p>
+  <p>For an updated version of this blog post, {% if include.title %}see {% endif %}
+    <a href="{{ include.url }}">
+      {% if include.title %}{{ include.title }}</a>.
+      {% else %}click here</a>.
+      {% endif %}
+  </p>
+</div>
