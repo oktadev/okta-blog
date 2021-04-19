@@ -12,11 +12,19 @@ tweets:
 - "In this tutorial, you'll build a Spring Boot app and a JavaScript client that communicate with one another via WebSockets."
 image: blog/featured/okta-java-tile-books-mouse.jpg
 type: conversion
+changelog:
+  - 2020-12-31: Updated Spring Boot to version 2.4.0. Updated Okta Auth JS to version 4.0.0. Update Tone.js library link. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-java-websockets-example/pull/2). Changes to this post can be viewed in [oktadeveloper/okta-blog#495](https://github.com/oktadeveloper/okta-blog/pull/495).
 ---
 
 WebSockets is a modern transport layer technology that establishes a two-way communication channel between a client and a server, perfect for low-latency, high-frequency interactions. WebSockets tend to be used in collaborative, real-time or event-driven applications, where traditional client-server request-response architecture or long polling would not satisfy requirements. Use cases include stock trading and shared dashboard applications.
 
 In this tutorial, I'll give you a quick overview of the WebSockets protocol and how it handles messages with STOMP. Then you'll create an application that uses the WebSockets API to configure a Java/Spring Boot message broker and authenticate a JavaScript STOMP client during the WebSocket handshake. We'll add some nifty helper frameworks, so the application is actually cool and plays music loops, and also use Okta for authentication and access tokens, rather than building it ourselves.
+
+If you would rather follow along by watching a video, check out the screencast below from our [YouTube channel](https://www.youtube.com/watch?v=OJMBg2bSXIU).
+
+<div style="text-align: center; margin-bottom: 1.25rem">
+<iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/OJMBg2bSXIU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 ## The WebSocket Protocol and HTTP
 
@@ -66,13 +74,9 @@ Happily, for Java developers, Spring supports the WebSocket API, which implement
 
 ##  Spring Boot Example App - Sound Looping!
 
-For our example application, let's create a collaborative sound-looping UI, where all connected users can play and stop a set of music loops. We will use [Tone.js](https://tonejs.github.io/) and [NexusUI](https://nexus-js.github.io/ui/)  and configure a Spring Message Broker Server and JavaScript WebSocket Client. Rather than build authentication and access control yourself, register for an [Okta Developer Account](https://developer.okta.com/signup/).It's free!
+For our example application, let's create a collaborative sound-looping UI, where all connected users can play and stop a set of music loops. We will use [Tone.js](https://tonejs.github.io/) and [NexusUI](https://nexus-js.github.io/ui/) and configure a Spring Message Broker Server and JavaScript WebSocket Client. Rather than build authentication and access control yourself, you'll be using an Okta developer account. It's free!
 
-Once you've logged in to Okta, go to the **Applications** section and create an application:
-
-- Choose **SPA** (Single Page Application) and click **Next**
-- On the next page, add `http://localhost:8080` as a Login redirect URI
-- Copy the **Client ID** from the General Settings
+{% include setup/cli.md type="spa" loginRedirectUri="http://localhost:8080" logoutRedirectUri="http://localhost:8080" %}
 
 ## Create the Message Broker Server Application in Spring Boot
 
@@ -232,8 +236,6 @@ okta:
     issuer: https://{yourOktaDomain}/oauth2/default
 ```
 
-**TIP:** The value you should use in place of `https://{yourOktaDomain}` can be found on your Okta dashboard, in the top right.
-
 Finally, to serve the JavaScript client from the same application, configure Spring Security to allow unauthenticated access to the static resources:
 
 ```java
@@ -356,7 +358,7 @@ Add `Tone.js` to `src/main/resources/static/js`. **Tone.js** is a JavaScript fra
 
 Add `NexusUI` also to `src/main/resources/static/js`.**NexusUI** is a framework for building web audio instruments, such as dials and sliders, in the browser. In this example, we will create simple circular buttons, each one to play a different loop. [Download NexusUI from GitHub](https://nexus-js.github.io/ui/api/#intro).
 
-Add an `auth.js` script to handle client authentication with the [Okta Authentication SDK](https://developer.okta.com/code/javascript/okta_auth_sdk/). Use the **Client ID** you copied from the SPA application in the Okta developer console, and also your Org URL. If the client has not authenticated, it will be redirected to the Okta login page. After login and redirect to "/", the ID token and access token will be parsed from the URL and added to the token manager.
+Add an `auth.js` script to handle client authentication with the [Okta Authentication SDK](https://developer.okta.com/code/javascript/okta_auth_sdk/). Use the **issuer** and **client ID** from the SPA application you created. If the client has not authenticated, it will be redirected to the Okta login page. After login and redirect to "/", the ID token and access token will be parsed from the URL and added to the token manager.
 
 ```javascript
 var authClient = new OktaAuth({
@@ -552,8 +554,3 @@ To continue learning about WebSocket-related technologies and Spring Framework's
 * [10 Excellent Ways to Secure Your Spring Boot Application](/blog/2018/07/30/10-ways-to-secure-spring-boot)
 
 For more informative tutorials, please [follow @oktadev on Twitter](https://twitter.com/oktadev) and [subscribe to our YouTube channel](https://youtube.com/c/oktadev).
-
-<a name="changelog"></a>
-**Changelog:**
-
-* Dec 31, 2020: Updated Spring Boot to version 2.4.0. Updated Okta Auth JS to version 4.0.0. Update Tone.js library link. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-java-websockets-example/pull/2). Changes to this post can be viewed in [oktadeveloper/okta-blog#495](https://github.com/oktadeveloper/okta-blog/pull/495).

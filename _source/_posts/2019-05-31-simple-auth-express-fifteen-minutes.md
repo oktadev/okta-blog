@@ -12,6 +12,8 @@ tweets:
   - "Need to learn how to build simple authentication in #ExpressJS? We've got you covered!"
 image: blog/featured/okta-node-tile-books-mouse.jpg
 type: conversion
+changelog:
+  - 2020-06-15: Updated to use the v4.0.1 version of  Okta Middleware. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-node-express-15-minute-auth-example/pull/6). Changes to this article can be viewed in [oktadeveloper/okta-blog#325](https://github.com/oktadeveloper/okta-blog/pull/325).
 ---
 
 Building web pages with user authentication can be a huge pain. You typically need to set up some sort of database to manage users even if you're not using the database for anything else. You would then need to store their password hashes, and you almost need a degree on internet security to know the safest ways to do that.
@@ -424,7 +426,3 @@ If you'd like to learn more about Node and Express check out some of these other
 - [Secure a Node API with OAuth 2.0 Client Credentials](/blog/2018/06/06/node-api-oauth-client-credentials)
 
 If you have any questions about this post, please add a comment below. For more awesome content, follow [@oktadev](https://twitter.com/oktadev) on Twitter, like us [on Facebook](https://www.facebook.com/oktadevelopers/), or subscribe to [our YouTube channel](https://www.youtube.com/c/oktadev).
-
-**Changelog:**
-
-* Jun 15, 2020: Updated to use the v4.0.1 version of  Okta Middleware. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-node-express-15-minute-auth-example/pull/6). Changes to this article can be viewed in [oktadeveloper/okta-blog#325](https://github.com/oktadeveloper/okta-blog/pull/325).

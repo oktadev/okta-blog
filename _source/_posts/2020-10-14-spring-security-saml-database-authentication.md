@@ -12,6 +12,8 @@ tweets:
 - "Combine @SpringSecurity, @okta, SAML 2.0, and database authentication with Spring Boot!"
 image: blog/spring-security-saml-db-auth/spring-security-saml.png
 type: conversion
+changelog:
+- 2021-04-13: Updated to for the new Okta Admin Console. You can see the changes in [okta-blog#705](https://github.com/oktadeveloper/okta-blog/pull/705).
 ---
 
 Spring Boot is a ubiquitous and well-supported suite of tools for developing web applications in Java. Database authentication, in which credentials identifying authorized users are stored in a database accessible by the application, is maybe the most common and straightforward method of authenticating users. SAML is a well-supported open standard for handling authentication between identity providers and service providers.
@@ -55,11 +57,7 @@ git clone https://github.com/oktadeveloper/okta-spring-security-saml-db-example.
 
 **Step 2:** Sign up for a free developer account at <https://developer.okta.com/signup>. This is required to create SAML 2.0 applications in Okta.
 
-**Step 3:** Log in to your Okta account at `https://your-okta-domain.okta.com`. If you see a developer dashboard like the screenshot below, click on **Developer Console** in the top left, and select **Classic UI**.
-
-{% img blog/spring-security-saml-db-auth/classic-ui.png alt:"Classic UI" width:"800" %}{: .center-image }
-
-Click **Admin**.
+**Step 3:** Log in to your Okta account at `https://your-okta-domain.okta.com`. If you see a dashboard like the screenshot below, click on **Admin** in the top right.
 
 {% img blog/spring-security-saml-db-auth/admin-button.png alt:"Click on the Admin button" width:"800" %}{: .center-image }
 
@@ -68,13 +66,13 @@ Click **Admin**.
 * **Platform:** `Web`
 * **Sign On Method:** `SAML 2.0`
 
-{% img blog/spring-security-saml-db-auth/new-saml-app.png alt:"Select SAML 2.0" width:"800" %}{: .center-image }
+{% img blog/spring-security-saml-db-auth/new-saml-app.png alt:"Select SAML 2.0" width:"685" %}{: .center-image }
 
 Click **Create**.
 
 Enter an **App name** like `Spring Boot DB/SAML` (or whatever you'd like). Click **Next**.
 
-{% img blog/spring-security-saml-db-auth/create-saml-integration.png alt:"Name your Okta application" width:"800" %}{: .center-image }
+{% img blog/spring-security-saml-db-auth/create-saml-integration.png alt:"Name your Okta application" width:"736" %}{: .center-image }
 
 Enter the following SAML Settings:
 
@@ -91,23 +89,21 @@ Select the following two options:
 * **I'm an Okta customer adding an internal app**
 * **This is an internal app that we have created**
 
-{% img blog/spring-security-saml-db-auth/okta-support-questions.png alt:"Specify your app's use case" width:"800" %}{: .center-image }
+{% img blog/spring-security-saml-db-auth/okta-support-questions.png alt:"Specify your app's use case" width:"731" %}{: .center-image }
 
 Then, click **Finish**.
 
 **Step 5:** Navigate to **Assignments** > **Assign to People**.
 
-{% img blog/spring-security-saml-db-auth/assign-to-people.png alt:"Navigate to Assign To People" width:"800" %}{: .center-image }
-
 **Step 6:** Assign to your account with the custom username `samluser@oktaauth.com`.
 
-{% img blog/spring-security-saml-db-auth/assign-username.png alt:"Assign your application to yourself, with the custom username provided" width:"800" %}{: .center-image }
+{% img blog/spring-security-saml-db-auth/assign-username.png alt:"Assign your application to yourself, with the custom username provided" width:"688" %}{: .center-image }
 
 **Step 7:** Navigate to **Sign On** and copy the following values to your `/src/main/resources/application.properties` file:
 
 * `saml.metadataUrl` — Right-click and copy the URL from the **Identity Provider metadata** link below the **View Setup Instructions** button.
 
-{% img blog/spring-security-saml-db-auth/saml-app-settings.png alt:"Copy the value for Identity Provider Issuer" width:"800" %}{: .center-image }
+{% img blog/spring-security-saml-db-auth/saml-app-settings.png alt:"Copy the value for Identity Provider Issuer" width:"746" %}{: .center-image }
 
 * `saml.idp` — Click the **View Setup Instructions** button and copy the value in **(2) Identity Provider Issuer**.
 

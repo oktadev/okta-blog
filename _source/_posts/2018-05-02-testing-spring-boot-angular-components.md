@@ -10,6 +10,8 @@ tweets:
   - "If you're not writing tests, you're testing in production. 🛑 and learn how to test your @springboot and @ionicframework apps >"
   - "This testing guide shows you some techniques for testing your Java and Angular components when using @okta >"
 type: conversion
+changelog:
+  - 2018-06-13: Updated to replace [serve](https://www.npmjs.com/package/serve) with node-http-server and fixed typo in Travis script. See the code changes in [oktadeveloper/okta-ionic-crypto-java-sdk-example#12](https://github.com/oktadeveloper/okta-ionic-crypto-java-sdk-example/pull/12). You can see changes to this article in [oktadeveloper/okta.github.io#2123](https://github.com/oktadeveloper/okta.github.io/pull/2123).
 ---
 
 Writing apps with Spring Boot and Ionic (which is built on Angular) can be fun because both frameworks offer a good developer experience (DX). You change a file, save it, and the app automatically reloads with your changes. This feature is often called hot-reload and it's a blissful way to develop. It's so nice, it can cause you to forget about automating your tests.
@@ -1531,7 +1533,3 @@ If you're looking for a Spring Boot + Angular (or React) example app with lots o
 If you'd like to learn more about topics like Spring Boot, Angular, React, and JHipster, give us a follow [@oktadev](https://twitter.com/oktadev). If you have any questions about this post, please leave a comment below.
 
 **Update:** To see how to change this app to use OAuth 2.0's authorization code flow and package as a JAR, see [Deploy Your Secure Spring Boot + Angular PWA as a Single Artifact](/blog/2018/06/18/spring-boot-angular-auth-code-flow).
-
-**Changelog:**
-
-* Jun 13, 2018: Updated to replace [serve](https://www.npmjs.com/package/serve) with node-http-server and fixed typo in Travis script. See the code changes in [oktadeveloper/okta-ionic-crypto-java-sdk-example#12](https://github.com/oktadeveloper/okta-ionic-crypto-java-sdk-example/pull/12). You can see changes to this article in [oktadeveloper/okta.github.io#2123](https://github.com/oktadeveloper/okta.github.io/pull/2123)

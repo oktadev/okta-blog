@@ -213,7 +213,7 @@ public class SurfController {
     public SurfConditions getSurfReport(@Name("location") String location) {
         return SurfConditions.getRandom(location);
     }
-    
+
 }
 ```
 
@@ -345,31 +345,13 @@ You've now got a working MicroProfile GraphQL app. The next step is to use Okta 
 
 ## Create an OpenID Connect Application
 
-You should have already signed up for a free developer account with Okta. If you haven't, please do so now by going to their website: [https://developer.okta.com/signup](https://developer.okta.com/signup/). You're going to use Okta to add JSON Web Token (JWT) authentication to your app.
-
-**TIP**: You can also install the [Okta CLI](https://cli.okta.com) and run `okta register` to create an account.
-
 Okta implements two standards that allow you to do this. First, Okta is an OAuth 2.0 provider. OAuth 2.0 is an authorization standard, meaning that it enables your application to verify user permissions. OpenID Connect (OIDC) is an authentication standard, meaning that it allows your application to verify the identity of the user or client service. Together they provide a full specification for authentication and authorization--everything you need for web security. As you will see, Okta implements this standard in a way that allows you to quickly and easily integrate these technologies into your application.
 
 In this particular example, you're implementing a web service that uses a JSON Web Token to verify the identity of web clients making requests. Each request is required to contain a valid web token in an authentication header. The web token will be issued by Okta (you'll do this manually via the OIDC Debugger) and will also be validated by Okta using the MicroProfile JWT feature.
 
-If you're using the Okta CLI, run `okta apps create`. Then select **1** for Web, **2** for Other, and enter `https://oidcdebugger.com/debug` as the redirect URI. If you prefer to add a new application in your browser, continue following the steps below.
-
-Open the [Okta developer dashboard](https://developer.okta.com/) and log in.
-
-Once you've logged in, you may need to click on the **Admin** button to get to the developer dashboard.
-
-From the top menu, click on the **Applications** item, and then click the green **Add Application** button.
-
-Select **Web** as the platform and click **Next**.
-
-Give the app a name. I named mine "MicroProfile", but you can call yours whatever you like.
-
-Under **Login redirect URIs**, add a new URI: `https://oidcdebugger.com/debug`.
-
-{% img blog/microprofile-graphql/add-oidc-app.png alt:"Add Okta OIDC App" width:"700" %}{: .center-image }
-
-Click **Done**.
+{% include setup/cli.md type="web" 
+  loginRedirectUri="https://oidcdebugger.com/debug"
+  logoutRedirectUri="http://localhost:8080" %}
 
 You configured Okta as an OAuth 2.0 OIDC provider. Take note of the **Client ID** because you'll need it in a moment.
 
@@ -377,20 +359,12 @@ You configured Okta as an OAuth 2.0 OIDC provider. Take note of the **Client ID*
 
 To enable role-based authorization, as well as to meet MicroProfile's requirements for the JWT, you need to add two claims mappings to your default Okta authorization server: a **groups** claim and a **upn** claim. The **groups** claim mapping is what maps Okta's groups to the role-based authorization in MicroProfile. MicroProfile requires the **upn** claim, and you'll get an invalid token error without it. This is the "user principal name" as defined in [the documentation](https://www.eclipse.org/community/eclipse_newsletter/2017/september/article2.php).
 
-From the Okta developer dashboard's top menu, go to **API** and select **Authorization Servers**.
-
-Click on the **default** server.
-
-Select the **Claims** tab.
-
-Click **Add Claim**.
+Run `okta login` and open the resulting URL in your browser. Sign in to the Okta Admin Console and go to **Security** > **API**. Select the `default` authorization server, then go to **Claims** > **Add Claim**. Set the following values:
 
 - **Name**: `groups`
 - **Include in token type**: `Access Token` `Always`
 - **Value type**: `Groups`
 - **Filter**: `Matches regex` `.*`
-
-{% img blog/microprofile-graphql/groups-claim.png alt:"Groups Claim" width:"700" %}{: .center-image }
 
 Next, add a **upn** claim.
 
@@ -407,18 +381,7 @@ Click **Create**.
 
 Every request to the secured API will require a valid JWT. Typically, the JWT is generated when a user signs in via a client application. In this case, there is no client application. Instead, you are going to use the OpenID Connect Debugger to generate a token. This web application allows you to perform a request for a JWT against Okta servers and inspect the results.
 
-Open [https://oidcdebugger.com](https://oidcdebugger.com/).
-
-Your **Authorization URI** is based on your developer account URI and will look like  
-`https://dev-123456.okta.com/oauth2/default/v1/authorize`. However, you need to replace the `dev-123456` with your own URI (just look at your dashboard URI).
-
-The **Redirect URI** stays the same. This is the URI you entered into the Okta OIDC application settings.
-
-Copy and paste the **Client ID** from the Okta OIDC application into the **Client ID** field.
-
-The **State** parameter can be any value but cannot be empty. This is used in production to help protect against cross-site forgery requests.
-
-**Response type** should be `code`.
+{% include setup/oidcdebugger.md responseType="code" %}
 
 {% img blog/microprofile-graphql/oidcdebugger-settings.png alt:"OIDC Debugger Settings" width:"500" %}{: .center-image }
 
