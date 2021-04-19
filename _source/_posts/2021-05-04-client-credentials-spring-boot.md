@@ -1,9 +1,9 @@
 ---
 layout: blog_post
-title: "Client Credentials Redux"
+title: "Secure Server-to-Server Communication with Spring Boot and OAuth 2.0"
 author: andrew-hughes
 by: contractor
-communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
+communities: [java]
 description: ""
 tags: []
 tweets:
@@ -11,24 +11,24 @@ tweets:
 - ""
 - ""
 image:
-type: awareness|conversion
+type: conversion
 ---
 
-
-
-## Secure Server-to-Server Communication with Spring Boot and OAuth 2.0 
-
-The **client credentials grant** is used when two servers need to communicate with each other outside of the context of a user. This is a very common scenario that is often overlooked by tutorials and documentation online. This grant type is in contrast to the more common **authorization code grant** type, which is used when an application needs to authenticate a user and retrieve an authorization token, typically a JWT, that represents the user's identity within the application and defines the resources the user can access and the actions the user can perform.
+The **client credentials grant** is used when two servers need to communicate with each other outside of the context of a user. This is a very common scenario that is often overlooked by tutorials and documentation online. This grant type is in contrast to the more common **authorization code grant** type, which is used when an application needs to authenticate a user and retrieve an authorization token, typically a JWT, that represents the user's identity within the application and defines the resources the user can access, and the actions the user can perform.
 
 The OAuth 2.0 docs describe the client credentials grant in this way:
 
 > The Client Credentials grant type is used by clients to obtain an access token outside of the context of a user. This is typically used by clients to access resources about themselves rather than to access a user's resources.
 
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+  
 In this tutorial, you are going to learn about how to allow services to securely interoperate even when there is not an authenticated user. Fortunately, this grant type is simpler than the other, user-focused grant types. It is often used for processes such as CRON jobs, scheduled tasks, and other types of heavy background data processing.
 
 You will create a simple resource server that will be secured using Okta as an OAuth 2.0 and OpenID Connect (OIDC) provider. After that, you will create a Spring Boot-based command-line client that uses Spring's `RestTemplate` to make authenticated requests to the secure server. You will see how to authenticate the client with Okta using the client credentials grant and how to exchange the client credentials for a JSON Web Token (JWT), which will be used in the requests to the secure server. `RestTemplate` is deprecated, and while still widely used, should probably not be used for new code. Instead the WebFlux-based class, `WebClient` should be used. In the next part of the tutorial, you will implement the same OAuth 2.0 client credentials grant using Spring `WebClient`.
 
-## Client Credentials Grant Flow
+## What is the Client Credentials Grant Flow?
 
 The goal of the OAuth 2.0 client credentials grant is to allow two automated services to interact securely. It does this primarily by replacing the old scheme, HTTP Basic, with a token-based authentication scheme that greatly reduces the number of requests that expose sensitive access credentials.
 
@@ -51,21 +51,7 @@ Another major benefit is that the tokens should expire and can be scoped. Passwo
 
 **HTTPie**: This is a powerful command-line HTTP request utility that you'll use to test the WebFlux server. Install it according to [the docs on their site](https://httpie.org/doc#installation).
 
-**Okta CLI**: The Okta CLI is a simple way to use Okta as an OAuth 2. 0 and Open ID Connect provider. You can sign up for a free Okta developer account, log in to an existing account, and create OIDC applications. You'll use it in this tutorial to configure Okta as your OAuth 2.0 and OIDC provider. Take a look at [the project GitHub page](https://github.com/okta/okta-cli) for installation instructions.
-
-If you'd like to learn more about the Okta developer account, check out [their website](https://developer.okta.com).
-
-Once you have the Okta CLI installed (you should be able to run `okta` from a Bash shell and see the help information), you need to either register for a new account or log in to an existing account using the CLI. 
-
-To log in to an existing account:
-```bash
-okta login
-```
-
-To register for a new, free Okta developer account:
-```bash
-okta register
-```
+**Okta CLI**: The Okta CLI is a simple way to use Okta as an OAuth 2. 0 and Open ID Connect provider. You can sign up for a free Okta developer account, log in to an existing account, and create OIDC applications. You'll use it in this tutorial to configure Okta as your OAuth 2.0 and OIDC provider.
 
 ## Intro to Spring Security 5 Core Classes
 
@@ -113,7 +99,7 @@ Open a BASH shell and navigate to the base project directory. Run the command be
 
 ```
 curl https://start.spring.io/starter.tgz \
-  -d bootVersion=2.4.3 \
+  -d bootVersion=2.4.5 \
   -d artifactId=secure-server \
   -d dependencies=oauth2-resource-server,web,security,okta \
   -d language=java \
@@ -185,50 +171,20 @@ Notice that to specify a required scope using the `PreAuthorize` annotation, you
 
 The application code is in place. However, you still need to configure the Spring Boot application to use Okta as the OAuth 2.0 and OIDC provider. You also need to create an OIDC application on the Okta servers. 
 
-## Create An Okta OIDC Application Using The Okta CLI
+## Create An Okta OIDC Application
 
-Okta has created the Okta CLI which makes this process super easy. You should have already installed the Okta CLI and registered a new account or logged into your existing account. If you have not, please do so now.
+{% include setup/cli.md type="service" %}
 
-Use the Okta CLI to configure an OIDC application on the Okta servers and add the appropriate properties to the `application.properties` file. 
+Open `src/main/resources/application.properties`. It should look like the following (with you own values for the issuer, client ID, and client secret).
 
-From the secure server project directory, run the following command.
-```bash
-okta apps create
-```
-Select **4: Service (Machine-to-Machine)**.
-Select **1: Okta Spring Boot Starter**.
-
-You should see output like this following.
-```bash
-Application name [secure-server]: 
-Type of Application
-(The Okta CLI only supports a subset of application types and properties):
-> 1: Web
-> 2: Single Page App
-> 3: Native App (mobile)
-> 4: Service (Machine-to-Machine)
-Enter your choice [Web]: 4
-Framework of Application
-> 1: Okta Spring Boot Starter
-> 2: Spring Boot
-> 3: JHipster
-> 4: Other
-Enter your choice [Other]: 1
-Configuring a new OIDC Application, almost done:
-Created OIDC application, client-id: 0oa7km6o1AEDdbuUq4x7
-
-Okta application configuration has been written to: /home/andrewcarterhughes/Development/okta/client-credentials/QA1/secure-server/src/main/resources/application.properties
-```
-
-Open `src/main/resources/application.properties`. It should look like the following (with you own values for the issuer, client ID, and client secret.
 ```properties
-#Tue Mar 23 13:54:35 PDT 2021
 okta.oauth2.issuer=https\://dev-123456.okta.com/oauth2/default
 okta.oauth2.client-secret=292yu98y2983e28ue928u39e82ue982ue982
 okta.oauth2.client-id=0oa7km6o1AEDdbuUq4x7
 ```
 
 Add a line to the `applications.properties` file. This changes the server port to 8081.
+
 ```properties
 server.port=8081
 ```
@@ -259,25 +215,15 @@ HTTP/1.1 401
 
 Because we are using the custom scope `mod_custom` in the `@Preauthorize` annotation, you need to add this custom scope to your Okta authorization server. Open your Okta developer dashboard. You may need to click the **Admin** button to get to the developer dashboard.
 
-From the menu on the left, select **Security**. From the sub-menu, select **API**. 
-
-{% img blog/client-credentials-2/add-scope-api-menu.png alt:"API Menu" width:"400" %}{: .center-image }
+Run `okta login` and sign in to the Okta Admin Console. Go to **Security** > **API**. 
 
 Select the **Default** authorization server by clicking on **default** in the table.
 
-{% img blog/client-credentials-2/add-scope-auth-servers.png alt:"Select Auth Server" width:"800" %}{: .center-image }
-
-Select the **Scopes** tab.
-
-{% img blog/client-credentials-2/add-scope-scopes-tab.png alt:"Scopes Tab" width:"800" %}{: .center-image }
-
-Click **Add Scope**.
-
-{% img blog/client-credentials-2/add-scope-popup.png alt:"Add Scope Popup" width:"800" %}{: .center-image }
+Select the **Scopes** tab. Click **Add Scope**.
 
 Give the scope the following **Name**: `mod_custom`.
 
-Give the scope whatever **Display Name** and **Description** you would like--or leave it blank.
+Give the scope whatever **Display Name** and **Description** you would like--or leave it blank. Click **Create** to continue.
 
 ## Create A RestTemplate Command Line Application
 
@@ -285,7 +231,7 @@ Next you are going to create a command-line application that makes an authorized
 
 ```bash
 curl https://start.spring.io/starter.tgz \
-  -d bootVersion=2.4.3 \
+  -d bootVersion=2.4.5 \
   -d artifactId=client \
   -d dependencies=oauth2-client,web \
   -d language=java \
@@ -407,7 +353,6 @@ public class DemoApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
-
 	}
 
 	// Inject the OAuth authorized client service and authorized client manager
@@ -522,7 +467,7 @@ Run this command from a Bash shell from the project root directory.
 
 ```bash
 curl https://start.spring.io/starter.tgz \
-  -d bootVersion=2.4.3 \
+  -d bootVersion=2.4.5 \
   -d artifactId=client \
   -d dependencies=oauth2-client,web,webflux \
   -d language=java \
@@ -611,7 +556,6 @@ public class DemoApplication implements CommandLineRunner {
 
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
-
     }
 
     @Autowired
@@ -674,6 +618,9 @@ You should see output like this:
 
 ## Wrapping Up
 
-In this tutorial you saw two different ways to implement the OAuth 2.0 client credentials flow. You created a simple server application. You created a client using RestTemplate, a deprecated but still widely used Spring technology. And finally you created a client using the newer, asynchronous WebClient, built on Spring's WebFlux package. 
+In this tutorial you saw two different ways to implement the OAuth 2.0 client credentials flow. You created a simple server application. You created a client using RestTemplate, a deprecated but still widely used Spring technology. And, finally you created a client using the newer, asynchronous WebClient, built on Spring's WebFlux package. 
+
+// todo: Add GitHub repo
+// todo: add links to related blog posts
 
 If you have any questions about this post, please add a comment below. For more awesome content, follow [@oktadev](https://twitter.com/oktadev) on Twitter, like us [on Facebook](https://www.facebook.com/oktadevelopers/), or subscribe to [our YouTube channel](https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q).
