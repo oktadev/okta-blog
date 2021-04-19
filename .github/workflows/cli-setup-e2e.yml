@@ -23,4 +23,3 @@ jobs:
           APPLITOOLS_BATCH_ID: ${{ github.sha }}
           appName: Okta Blog
           baseUrl: ${{ steps.preview.outputs.url }}
-          depth: 2
