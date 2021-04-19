@@ -11,7 +11,7 @@ tweets:
 - "Follow along with this interactive guide to learn how to hash passwords with Python"
 - "Use the live Python examples in this post to learn the details of hashing passwords!"
 image: blog/ultimate-guide-to-password-hashing-in-okta/header.png
-type: conversion
+type: awareness
 ---
 <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.37.0/codemirror.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.37.0/mode/python/python.js"></script>

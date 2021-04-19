@@ -24,6 +24,10 @@ In this tutorial, you'll first build an OAuth 2.0 web application and authentica
 
 Let's get started!
 
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+
 ## Create an OAuth 2.0 Server
 
 Start by going to the [Spring Initializr](https://start.spring.io/) and creating a new project with the following settings:
@@ -409,15 +413,11 @@ You can stop both server and client Spring Boot apps.
 
 ## Create an OpenID Connect Application
 
-Okta is a SaaS (software-as-service) authentication and authorization provider. We provide free accounts to developers so they can develop OIDC apps with no fuss. Head over to [developer.okta.com](https://developer.okta.com/signup/) and sign up for an account. After you've verified your email, log in and perform the following steps:
+Okta is a SaaS (software-as-service) authentication and authorization provider. We provide free accounts to developers so they can develop OIDC apps with no fuss. 
 
-* Go to **Application** > **Add Application**.
-* Select application type **Web** and click **Next**.
-* Give the app a name. I named mine "Spring Boot OAuth".
-* Under **Login redirect URIs** change the value to `http://localhost:8080/login/oauth2/code/okta`. The rest of the default values will work.
-* Click **Done**.
+{% include setup/cli.md type="web" loginRedirectUri="http://localhost:8080/login/oauth2/code/okta" logoutRedirectUri="http://localhost:8080" %}
 
-Leave the page open of take note of the **Client ID** and **Client Secret**. You'll need them in a moment.
+You'll need to use the values from the generated `.okta.env` to configure OIDC in your Spring Boot apps.
 
 ## Create a New Spring Boot App
 
@@ -441,7 +441,7 @@ implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5:3.0.4.RELE
 
 Also while you're there, notice the dependency `com.okta.spring:okta-spring-boot-starter:1.1.0`. This is the Okta Spring Boot Starter. It's a handy project that makes integrating Okta with Spring Boot nice and easy. For more info, take a look at [the project's GitHub](https://github.com/okta/okta-spring-boot). 
 
-Change the `src/main/resources/application.properties` to `application.yml` and add the following:
+Change the `src/main/resources/application.properties` to `application.yml` and make sure it has the following configuration:
 
 ```yaml
 server:
@@ -455,8 +455,6 @@ spring:
   thymeleaf:
     cache: false
 ```
-
-Remember when I said you'll need your **ClientID** and **Client Secret** above. Well, the time has come. You need to fill them into the file, as well as your Okta issuer URL. It's gonna look something like this: `dev-123456.okta.com`. You can find it under **API** > **Authorization Servers**.
 
 You also need two similar template files in the `src/main/resources/templates` directory. The `index.html` template file is exactly the same, and can be copied over if you like. The `securedPage.html` template file is slightly different because of the way the authentication information is returned from Okta as compared to the simple authentication server you built earlier.
 

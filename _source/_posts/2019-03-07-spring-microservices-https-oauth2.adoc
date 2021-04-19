@@ -14,12 +14,15 @@ image: blog/microservices-service-to-service-security/boot-cloud-okta.jpg
 type: conversion
 ---
 :page-liquid:
+:toc: macro
 
 Building a microservices architecture is possible with minimal code if you use Spring Boot, Spring Cloud, and Spring Cloud Config. Package everything up in Docker containers and you can run everything using Docker Compose. If you're communicating between services, you can ensure your services are somewhat secure by not exposing their ports in your `docker-compose.yml` file.
 
 But what happens if someone accidentally exposes the ports of your microservice apps? Will they still be secure or can anyone access their data?
 
 In this post, I'll show you how to use HTTPS and OAuth 2.0 to secure service-to-service communication.
+
+toc::[]
 
 == Develop a Microservices Stack with Spring Boot, Spring Cloud, and Spring Cloud Config
 
@@ -35,19 +38,18 @@ This project requires two OpenID Connect apps on Okta, one for development and o
 
 === Create OpenID Connect Apps on Okta
 
-You can register for a https://developer.okta.com/signup/[free developer account] that will allow you to have up to 1000 monthly active users for $0. That should be plenty for this example.
+{% include setup/cli.md type="web" loginRedirectUri="http://localhost:8080/authorization-code/callback,https://localhost:8080/authorization-code/callback" logoutRedirectUri="http://localhost:8080,https://localhost:8080" %}
 
-Why Okta? Because authentication is no fun to write. Okta has Authentication and User Management APIs that allow you to develop your apps faster. Our API and SDKs make it easy for you to authenticate, manage, and secure your users in minutes.
-
-After creating your account, create a new Web Application in Okta's dashboard (**Applications** > **Add Application**). Give the app a name you'll remember, duplicate the existing Login redirect URI and make it use HTTPS. Click **Done**.
-
-The result should look similar to the screenshot below.
-
-image::{% asset_path 'blog/microservices-service-to-service-security/oidc-web-app.png' %}[alt=OIDC App Settings,width=700,align=center]
+Copy the generated `.okta.env` to `.okta.dev.env`.
 
 Create another app for production. I called mine `Prod Microservices`.
 
-In the project you cloned, modify `config/school-ui.properties` to have the settings from your dev app.
+[source,shell]
+----
+okta apps create
+----
+
+In the project you cloned, modify `config/school-ui.properties` to have the settings from the first app you created.
 
 [source,properties]
 ----
@@ -109,7 +111,7 @@ docker-compose up -d
 
 TIP: You can use https://kitematic.com/[Kitematic] to watch the logs of each app as it starts up.
 
-Navigate to `http://localhost:8080` in your favorite browser. You should be able to log in and see a list of school classes after doing so.
+Navigate to `\http://localhost:8080` in your favorite browser. You should be able to log in and see a list of school classes after doing so.
 
 image::{% asset_path 'blog/microservices-service-to-service-security/school-ui.png' %}[alt=School UI,width=800,align=center]
 
@@ -262,7 +264,7 @@ source ../https.env
 mvn spring-boot:run
 ----
 
-Then confirm you can access it at `https://localhost:8761`.
+Then confirm you can access it at `\https://localhost:8761`.
 
 image::{% asset_path 'blog/microservices-service-to-service-security/secure-discovery.png' %}[alt=Secure Eureka Server,width=800,align=center]
 
@@ -286,7 +288,7 @@ eureka.instance.health-check-url=https://${eureka.hostname}:${server.port}/actua
 eureka.instance.home-page-url=https://${eureka.hostname}${server.port}/
 ----
 
-Also, change the Eureka address in each `application.properties` (and in `bootstrap.yml`) to be `https://localhost:8761/eureka`.
+Also, change the Eureka address in each `application.properties` (and in `bootstrap.yml`) to be `\https://localhost:8761/eureka`.
 
 NOTE: The `application.properties` in the `school-ui` project doesn't have a port specified. You'll need to add `server.port=8080`.
 
@@ -298,7 +300,7 @@ source ../https.env
 ./mvnw spring-boot:start
 ----
 
-Confirm it all works at `https://localhost:8080`. Then kill everything with `killall java`.
+Confirm it all works at `\https://localhost:8080`. Then kill everything with `killall java`.
 
 == Using HTTPS with Docker Compose
 
@@ -379,7 +381,7 @@ Run `mvn clean install` to rebuild all your Docker images with HTTPS enabled for
 docker-compose up -d
 ----
 
-Now all your apps are running in Docker with HTTPS! Prove it at `https://localhost:8080`.
+Now all your apps are running in Docker with HTTPS! Prove it at `\https://localhost:8080`.
 
 NOTE: If your apps do not start up or can't talk to each other, make sure your hostname matches what you have in `.env`.
 
