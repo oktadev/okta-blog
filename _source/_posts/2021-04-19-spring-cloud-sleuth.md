@@ -65,15 +65,15 @@ Spring has a great project called Spring Initializr. Why no "e"? Because it's co
 Open a bash shell and run the command below. This will download the project as a compressed tarball, untar it, and navigate you into the project directory.
 
 ```bash
-curl https://start.spring.io/starter.tgz -d \
-dependencies=web,cloud-starter-sleuth,okta,cloud-starter-zipkin \
--d baseDir=spring-cloud-sleuth-demo | tar -xzvf -
+curl https://start.spring.io/starter.tgz \
+ -d dependencies=web,cloud-starter-sleuth,okta,cloud-starter-zipkin \
+ -d baseDir=spring-cloud-sleuth-demo | tar -xzvf -
 cd spring-cloud-sleuth-demo
 ```
 
-The command uses a lot of the default settings. It uses Maven as the dependency manager. It uses Java as the programming language. It uses Spring Boot 2.4.3 (at the time of writing this tutorial). It creates a Jar as the build target. It specifies Java 11 (again, at the time of this tutorial).
+The command uses a lot of the default settings. It uses Maven as the dependency manager. It uses Java as the programming language. It uses Spring Boot 2.4.5 (the current release at the time of writing this tutorial). It creates a JAR as the build target. It specifies Java 11 (again, at the time of this tutorial).
 
-{% img blog/spring-cloud-sleuth/spring-initializr.png alt:"Spring Initializr" width:"600" %}{: .center-image }
+{% img blog/spring-cloud-sleuth/spring-initializr.png alt:"Spring Initializr" width:"715" %}{: .center-image }
 
 The most important thing it configures is four dependencies.
 
@@ -84,7 +84,7 @@ The most important thing it configures is four dependencies.
 
 The demo application can be run with `./mvnw spring-boot:run`. However, it has no endpoints defined and doesn't do anything except start. Before you make it do something more exciting, first you need to configure Okta and JWT auth.
 
-## Configure the Spring Boot App for OIDC Authentication
+## Configure Spring Boot for OIDC Authentication
 
 OIDC is an authentication protocol that, along with OAuth 2.0, provides a spec for a complete authentication and authorization protocol. This is the protocol that Okta and Spring implement to provide the secure, standards-compliant JSON web token (JWT) authentication solution that you'll use in this tutorial. Creating an OIDC application on Okta configures Okta as an authentication provider for your Spring Boot application.
 
@@ -95,8 +95,7 @@ Open a bash shell and navigate to the demo project root directory.
 Open your `src/main/resources/application.properties` file. You should see something like the following.
 
 ```properties
-#Sun Feb 21 08:38:48 PST 2021
-okta.oauth2.issuer=https\://dev-123456.okta.com//oauth2/default
+okta.oauth2.issuer=https\://dev-123456.okta.com/oauth2/default
 okta.oauth2.client-secret={yourClientSecret}
 okta.oauth2.client-id={yourClientId}
 ```
@@ -112,26 +111,19 @@ These two properties will allow you to specify the application name and port fro
 
 ## Create a Security Configuration Class
 
-To configure the Spring Boot application as a resource server, create a `SecurityConguration` class. The following class tells Spring Boot to authenticate all requests and use JWT-based auth for the resource server.
+To configure the Spring Boot application as a resource server, create a `SecurityConfiguration` class. The following class tells Spring Boot to authenticate all requests and use JWT-based auth for the resource server.
 
 `src/main/java/com/example/demo/SecurityConfiguration.java`
 ```java
-package com.example.demo;  
-  
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;  
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;  
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;  
-  
-@EnableWebSecurity  
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {  
-  
-    @Override  
-  protected void configure(HttpSecurity http) throws Exception {  
-        http  
-                .authorizeRequests(authorizeRequests -> authorizeRequests.anyRequest().authenticated())  
-                .oauth2ResourceServer().jwt();  
-  }  
-  
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+            .authorizeRequests(authorizeRequests -> authorizeRequests.anyRequest().authenticated())
+            .oauth2ResourceServer().jwt();
+    }
+
 }
 ```
 
@@ -220,7 +212,7 @@ The logging statements are important. This is where the Sleuth span and trace ma
 
 In endpoint `a`, notice that the code grabs the JWT token from the header as a request param and uses Spring's RestTemplate to make a request to endpoint `b` including the token in the request. Both endpoints will require this token for authentication, so this is important. It's also important that you use Spring's RestTemplate **and that you inject it as a bean** because this allows Spring Cloud Sleuth to automatically include the Sleuth trace ID in the request, which is the main point here, tracking request flow across different services.
 
-If you don't inject the RestTemplate as a bean but instead instantiate it directly in the method, or if you use a different HTTP client, you will need to manually add the Sleuth trace ID.
+If you don't inject the `RestTemplate` as a bean but instead instantiate it directly in the method, or if you use a different HTTP client, you will need to manually add the Sleuth trace ID.
 
 ## Launch A Zipkin Server
 
@@ -228,7 +220,7 @@ Before you start the two instances of the Spring Boot app, you need to launch yo
 
 For more information on the Zipkin server, take a look at [their quick start page](https://github.com/openzipkin/zipkin#quick-start). 
 
-There is a Spring Boot annotation, `@EnableZipkinServer`, that launches a Zipkin server for you. However, this annotation is deprecated. Instead, they suggest downloading the server as a Jar file and launching that.
+There is a Spring Boot annotation, `@EnableZipkinServer`, that launches a Zipkin server for you. However, this annotation is deprecated. Instead, they suggest downloading the server as a JAR file and launching that.
 
 **Open a new bash shell.** Use the following command to download the latest Zipkin server as a Jar file. 
 ```bash
@@ -245,11 +237,13 @@ You'll see some output on the console ending with the following.
 2021-02-21 10:19:20:587 [armeria-boss-http-*:9411] INFO Server - Serving HTTP at /0:0:0:0:0:0:0:0%0:9411 - http://127.0.0.1:9411/
 ```
 
-There's nothing to see yet, but you can open the Zipkin dashboard in a browser: [http://localhost:9411](http://localhost:9411)
+There's nothing to see yet, but you can open the Zipkin dashboard in a browser: `http://localhost:9411`.
+
+{% img blog/spring-cloud-sleuth/zipkin-dashboard.png alt:"Zipkin dashboard" width:"715" %}{: .center-image }
 
 ## Launch The App Instances
 
-Now you're ready to launch the instances of your app. You need to run the following commands in two separate bash shells. Notice that you're using the environment variables to pass the application name and port to the Spring Boot app. 
+Now you're ready to launch the instances of your app. You need to run the following commands in two separate shells. Notice that you're using the environment variables to pass the application name and port to the Spring Boot app. 
 
 Service A:
 ```bash
