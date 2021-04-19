@@ -1,9 +1,9 @@
 ---
 layout: blog_post
 title: "Spring Cloud Sleuth"
-author: "Andrew Hughes"
-by: advocate|contractor
-communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
+author: andrew-hughes
+by: contractor
+communities: [java]
 description: "Spring Cloud Sleuth"
 tags: []
 tweets:
@@ -11,14 +11,18 @@ tweets:
 - ""
 - ""
 image:
-type: awareness|conversion
+type: conversion
 ---
-
-## Spring Cloud Sleuth
 
 In this tutorial you're going to see how Spring Cloud Sleuth can be integrated into a Spring Boot application. The Spring Boot application will be secured using Okta as an OAuth 2.0 & OIDC provider. You'll use the Okta CLI to configure Okta and Spring Boot. You'll also download and run a Zipkin server that will collect the Spring Cloud Sleuth entires and visualize them.
 
 Spring Cloud Sleuth allows you to aggregate and track log entries as requests move through a distributed software system. In a monolithic system, it's relatively easy to track requests as they move through the codebase. You can generally just filter by the thread ID. But in a distributed system, a single client request may sprawl across any number of discrete cloud services, and any given service may have multiple instances handling different parts of the request. How do you use logs in this situation? How do you trace a request flow across a service mesh?
+
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+  
+## What is Spring Cloud Sleuth?
 
 Spring Cloud Sleuth's solution is to inject **span** and **trace** IDs into log entries. A **trace** ID is the unique identifier that an entire request flow will share. It's like the glue that sticks all of the log entries together. A **span** is more local and is defined for each request received for each request sent event. They define particular interaction points. 
 
@@ -29,33 +33,34 @@ The diagram below shows how Sleuth span and trace generation would work through 
 {% img blog/spring-cloud-sleuth/sleuth-example-diagram.png alt:"Select OIDC app type" width:"800" %}{: .center-image }
 
 In practice, the span and trace IDs look like the following in log entries (the bracketed section after the `INFO`). Notice how the span ID and trace ID are the same? That's because this is the root span, the beginning of the request tree identified by that particular trace ID.
+
 ```
 service1.log:2016-02-26 11:15:47.561  INFO [service1,2485ec27856c56f4,2485ec27856c56f4] 68058 --- [nio-8081-exec-1] i.s.c.sleuth.docs.service1.Application   : Hello from service1. Calling service2
 ```
+
 These are the Sleuth span and trace IDs associated with the service name.
+
 ```
 [service1,2485ec27856c56f4,2485ec27856c56f4]
 [SERVICE NAME,TRACE,SPAN]
 ```
+
 Once you have all these nifty log entries with IDs in them, you need a log aggregation and analytics tool to make sense of them. You can use any of the freely available tools: Kibana, Splunk, Logstash, etc., if you want. In this tutorial, you'll use Zipkin. Zipkin is a Java-based distributed tracing system that is designed for just this use case and works seamlessly with Spring Cloud Sleuth.
 
 In this tutorial, you're going to create a simple, example Spring Boot service that has two endpoints. You're going to run two different instances of this service and use HTTPie to make a request to one instance of the service. This service will make a request to the second instance of the service, which will return a reply to the first service, which will return a reply to your original request. This request process will be logged and the Sleuth log entries automatically pushed to a local Zipkin server, and you will be able to visualize the request flow using the Zipkin server. 
 
 The point of the example is to demonstrate how to integrate Spring Cloud Sleuth and how Spring Cloud Sleuth allows you to track request flow across different services. Also how the whole process can be secured using Okta and JSON Web Tokens.
 
-## Requirements
 
 Before you get started, you need to have a few things installed.
 
-**Java 11**: This project uses Java 11. OpenJDK 11 will work just as well. Instructions are found on the [OpenJDK website](https://openjdk.java.net/install/). OpenJDK can also be installed using [Homebrew](https://brew.sh/). Alternatively, [SDKMAN](https://sdkman.io/) is another great option for installing and managing Java versions.
+- **Java 11**: This project uses Java 11. OpenJDK 11 will work just as well. Instructions are found on the [OpenJDK website](https://openjdk.java.net/install/). OpenJDK can also be installed using [Homebrew](https://brew.sh/). Alternatively, [SDKMAN](https://sdkman.io/) is another great option for installing and managing Java versions.
+- **Okta CLI**: You'll be using Okta as an OAuth/OIDC provider to add JWT authentication and authorization to the application. You can go to [our developer site](https://developer.okta.com) to learn more about Okta. You need a free developer account for this tutorial. The Okta CLI is an easy way to register for a free Okta developer account, or log in to an existing one, and configure a Spring Boot app to use Okta as an auth provider. The [project GitHub page](https://github.com/okta/okta-cli) has installation instructions.
+- **HTTPie**: This is a powerful command-line HTTP request utility that you'll use to test the Spring Boot server. Install it according to [the docs on their site](https://httpie.org/doc#installation).
 
-**Okta CLI**: You’ll be using Okta as an OAuth/OIDC provider to add JWT authentication and authorization to the application. You can go to [our developer site](https://developer.okta.com) to learn more about Okta. You need a free developer account for this tutorial. The Okta CLI is an easy way to register for a free Okta developer account, or log in to an existing one, and configure a Spring Boot app to use Okta as an auth provider. The [project GitHub page](https://github.com/okta/okta-cli) has installation instructions.
+## Bootstrap a Spring Boot App Using the Spring Initializr
 
-**HTTPie**: This is a powerful command-line HTTP request utility that you'll use to test the WebFlux server. Install it according to [the docs on their site](https://httpie.org/doc#installation).
-
-## Bootstrap The Spring Boot App Using The Spring Initializr
-
-Spring has a great project called Spring Initializr. Why no "e"? Because it's cool, that's why. Joking aside, it's pretty great. You can go to [the website](https://start.spring.io/) and quickly configure a starter project. You can browse the project online before you download it. You can get a link you can share and save for the configured project. And you can even use a REST API, which is what you'll do below.
+Spring has a great project called Spring Initializr. Why no "e"? Because it's cool, that's why. Joking aside, it's pretty great. You can go to [start.spring.io](https://start.spring.io/) and quickly configure a starter project. You can browse the project online before you download it. You can get a link you can share and save for the configured project. And you can even use a REST API, which is what you'll do below.
 
 Open a bash shell and run the command below. This will download the project as a compressed tarball, untar it, and navigate you into the project directory.
 
@@ -72,150 +77,26 @@ The command uses a lot of the default settings. It uses Maven as the dependency 
 
 The most important thing it configures is four dependencies.
 
- - Spring Web - adds Spring MVC for building RESTful web applications using Tomcat as the default server
- - Spring Cloud Sleuth - adds the basic dependencies to write Sleuth-compatible log entries
- - Zipkin Client - adds the ability to write Sleuth entries to a Zipkin client
- - Okta Spring Boot Starter - adds [Okta's Spring Boot Starter](https://github.com/okta/okta-spring-boot), which helps configure Spring Boot for use with Okta as an OIDC and OAuth 2.0 provider
+- Spring Web - adds Spring MVC for building RESTful web applications using Tomcat as the default server
+- Spring Cloud Sleuth - adds the basic dependencies to write Sleuth-compatible log entries
+- Zipkin Client - adds the ability to write Sleuth entries to a Zipkin client
+- Okta Spring Boot Starter - adds [Okta's Spring Boot Starter](https://github.com/okta/okta-spring-boot), which helps configure Spring Boot for use with Okta as an OIDC and OAuth 2.0 provider
 
 The demo application can be run with `./mvnw spring-boot:run`. However, it has no endpoints defined and doesn't do anything except start. Before you make it do something more exciting, first you need to configure Okta and JWT auth.
 
-## Register for a Free Okta Developer Account
-
-**If you already have an Okta developer account**, skip ahead to the next section titled "Log Into An Existing Okta Developer Account" and do that instead.
-
-You're going to use the Okta CLI to register for a free Okta developer account. You should have already installed the Okta CLI. Open a bash shell and enter the following command.
-
-```bash
-okta register
-```
-
-Enter your **first name**, **last name**, **email address**, and **company**. 
-
-```bash
-First name: {yourFirstName}
-Last name: {yourLastName}
-Email address: {yourEmailAddress}
-Company: {yourCompany}
-```
-
-Wait for the verification code at the email address you provided and enter it into the prompt.
-
-```bash
-Creating new Okta Organization, this may take a minute:
-OrgUrl: https://dev-123456.okta.com
-An email has been sent to you with a verification code.
-Check your email
-```
-
-You will see your new Okta domain. Open the link to set your password.
-
-```bash
-Verification code: 123456
-New Okta Account created!
-Your Okta Domain: https://dev-123456.okta.com
-To set your password open this link:
-https://dev-1234567.okta.com/welcome/drpr09_U3esRwCKBToQB
-```
-
-You should be registered.
-
-You can type `okta login` and you should see something like the following:
-```bash
-Okta Org already configured: https://dev-123456.okta.com/
-```
-
-The Okta CLI saves your account information in the file `~/.okta/okta.yml`. If you need to manually log out or reset your API token, you can edit this file and delete it or login again.
-
-
-## Log Into An Existing Okta Developer Account
-
-If you just registered for an account, you can skip to the next section. **If you already have an account**, this section will show you how to use the Okta CLI to log in.
-
-To log in, you need two things:
-
- 1. Your Okta Org URL, something like `https://dev-1234567.okta.com`
- 2. An API token (which I'll show you how to generate)
-
-Open your developer dashboard by opening your Okta developer URL (the Okta Org URL above). From the top menu, go to **API** and click on **Tokens**.
-
-{% img blog/spring-cloud-sleuth/create-token-1.png alt:"Spring Initializr" width:"600" %}{: .center-image }
-
-Click **Create Token**.
-
-{% img blog/spring-cloud-sleuth/create-token-2.png alt:"Spring Initializr" width:"600" %}{: .center-image }
-
-Give the token a **name**. Click **Create Token**. Copy the token value and save it in the clipboard or somewhere else. 
-
-Open a bash shell and use the Okta CLI to login.
-
-```bash
-okta login
-```
-
-You'll need to enter your Okta Org URL and the API token.
-
-```bash
-Okta Org URL: {yourOktaOrgUri}
-Enter your Okta API token, for more information see: https://bit.ly/get-okta-api-token
-Okta API token: {yourApiToken}
-```
-
-You should be all logged in.
-
-You can type `okta login` again and you should see something like the following:
-```bash
-Okta Org already configured: https://dev-123456.okta.com/
-```
-
-The Okta CLI saves your account information in the file `~/.okta/okta.yml`. If you need to manually log out or reset your API token, you can edit this file and delete it or login again.
-
-## Configure the Spring Boot App for Okta OIDC
-
-Now you can use the Okta CLI to add the necessary configuration properties to the `application.properties` file in the Spring Boot application.
-
-Open a bash shell and navigate to the demo project root directory.
+## Configure the Spring Boot App for OIDC Authentication
 
 OIDC is an authentication protocol that, along with OAuth 2.0, provides a spec for a complete authentication and authorization protocol. This is the protocol that Okta and Spring implement to provide the secure, standards-compliant JSON web token (JWT) authentication solution that you'll use in this tutorial. Creating an OIDC application on Okta configures Okta as an authentication provider for your Spring Boot application.
 
-Create and configure an Okta OpenID Connect (OIDC) application using the following command.
+Open a bash shell and navigate to the demo project root directory.
 
-```bash
-okta apps create
-```
-
-Type **enter** to use the default OIDC application name (`demo`). Select **1: Web** to create an OIDC application configured for a web application. Select **1: Okta Spring Boot Starter** to configure your Spring Boot application that is using Okta's Spring Boot starter. When asked about the **Redirect URI** and the **Post Logout Redirect URI**, just press **Enter** to accept the default.
-
-```bash
-Application name [demo]: 
-Type of Application
-(The Okta CLI only supports a subset of application types and properties):
-> 1: Web
-> 2: Single Page App
-> 3: Native App (mobile)
-> 4: Service (Machine-to-Machine)
-Enter your choice [Web]: 1
-Type of Application
-> 1: Okta Spring Boot Starter
-> 2: Spring Boot
-> 3: JHipster
-> 4: Other
-Enter your choice [Other]: 1
-Redirect URI
-Common defaults:
- Spring Security - http://localhost:8080/login/oauth2/code/okta
- JHipster - http://localhost:8080/login/oauth2/code/oidc
-Enter your Redirect URI [http://localhost:8080/login/oauth2/code/okta]: 
-Enter your Post Logout Redirect URI [http://localhost:8080/]: 
-Configuring a new OIDC Application, almost done:
-Created OIDC application, client-id: u9239u09r3208402u093
-
-Okta application configuration has been written to: /home/andrewcarterhughes/Development/okta/spring-cloud-sleuth/demo/src/main/resources/application.properties
-```
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
 
 Open your `src/main/resources/application.properties` file. You should see something like the following.
+
 ```properties
 #Sun Feb 21 08:38:48 PST 2021
-okta.oauth2.issuer=https\://dev-123456.okta.com//oauth2/default  
+okta.oauth2.issuer=https\://dev-123456.okta.com//oauth2/default
 okta.oauth2.client-secret={yourClientSecret}
 okta.oauth2.client-id={yourClientId}
 ```
@@ -404,62 +285,7 @@ This is expected. You need to include a valid JWT.
 
 ## Create A Valid JWT With OIDC Debugger
 
-The [OpenID Connect debugger](https://oidcdebugger.com/) is an easy way to test JWT auth systems and generate test tokens. Open [the project page](https://oidcdebugger.com/).
-
-You need to fill in a few values.
-
-**Authorize URI**: this value is build from your Okta Org URI, and looks like this: 
-```
-https://{yourOktaOrgUri}/oauth2/default/v1/authorize
-```
-Or with a dummy org:
- ```
- https://dev-123456.okta.com/oauth2/default/v1/authorize
- ```
-
-You can also find it by opening your Okta developer dashboard, from the top menu selecting **API->Authorization Servers**, and clicking on the `default` server link. Click on the **Metadata URL**. This will request some JSON that includes the `authorization_endpoint` field.
-
-**Redirect URI**: this default value should be `https://oidcdebugger.com/debug`, which is what you want.
-
-**Client ID**: you need to add the Okta OIDC app client ID. There are a number of ways to find this value.
-
- 1. You can find this in your Spring Boot `application.properties` file. 
- 2. You can also find it by typing `okta apps` from a bash shell. You'll see a list of the Okta OIDC apps with the Client ID and the app name listed.
- 3. Alternatively, you can open the Okta developer dashboard and find it there. 
-
-Because you need to add the OIDC debugger redirect URI to the OIDC application, use option 3. In a separate browser window, leaving this page open, open your Okta developer dashboard. 
-
-Click on **Applications** from the top menu.
-
-Click on the **demo** application.
-
-You'll find the **Client ID** listed there at the top. Copy this or take note of it because you'll need it in a moment.
-
-{% img blog/spring-cloud-sleuth/okta-client-id.png alt:"OIDC Client ID" width:"600" %}{: .center-image }
-
-Under the **General Settings** section, click the blue **edit** link.
-
-Under the **APPLICATION** section, in the **Allowed grant types** sub-section, check the `Implicit (Hybrid)` checkbox and the `Allow Access Token with implicit grant type` checkbox.
-
-{% img blog/spring-cloud-sleuth/okta-grant-types.png alt:"Allowed grant types" width:"600" %}{: .center-image }
-
-Scroll down and to the **LOGIN** section. Add a **Login Redirect URI** by clicking the **+ Add URI** button. Notice that there is a login and logout redirect URI section. You need to add a login redirect URI, not a logout redirect URI.
-
-Add the OIDC debugger redirect URI: `https://oidcdebugger.com/debug`
-
-{% img blog/spring-cloud-sleuth/okta-redirect-url.png alt:"Redirect URI" width:"600" %}{: .center-image }
-
-Click the blue **Save** button.
-
-Go back to the OIDC debugger page and paste the **Client ID** into the corresponding field.
-
-**Scope**: this should default to `openid`, which is fine.
-
-**State**: add any text in here, it cannot be blank. In production, this value is used to help discourage cross-site forgery attacks.
-
-**Nonce**: this will be a randomly generated default value. Leave it as it is.
-
-**Response type**: make sure `code` and `token` are checked.
+{% include setup/oidcdebugger.md responseType="code** and **token" %}
 
 Scroll down and click **SEND REQUEST**.
 
@@ -528,7 +354,7 @@ All of these log entries have the Sleuth span and trace IDs injected into them, 
 
 Notice how the first ID is the same for all three entries. That's the Sleuth trace ID that ties the entire request sequence together. Also notice that for the entries for service A, the span and trace IDs are actually the same. That's because this is the initial Sleuth logging event that kicks off the request tree, so that ID is the ID of the root span, which becomes the trace ID for the rest of the tree.
 
-Take a look at the Zipkin dashboard. [http://localhost:9411](http://localhost:9411)
+Take a look at the Zipkin dashboard at `http://localhost:9411`.
 
 Click **Run Query**. You'll have one result.
 
@@ -538,16 +364,12 @@ Click on **Show** and you'll see a detailed summary of the request tracing and l
 
 {% img blog/spring-cloud-sleuth/zipkin-result-detail.png alt:"Spring Initializr" width:"600" %}{: .center-image }
 
-If you look at the detailed graph, you'll see three spans. The original GET request from the bash shell is the 
-first one. Withi**n that, there is a span that encompasses the GET request to service B from the side of service A
-and a third span that encompasses service B receiving the GET request.
+If you look at the detailed graph, you'll see three spans. The original GET request from the bash shell is the first one. Within that, there is a span that encompasses the GET request to service B from the side of service A and a third span that encompasses service B receiving the GET request.
 
-## Conclusion
+## Learn More About Spring and Spring Boot
 
-In this tutorial you learned a little about Spring Cloud Sleuth and how it can be used to trace requests through
-service meshes built with Spring Boot. You created an example application that you started two instances of
-and used Spring Cloud Sleuth to track an example request through the service network. You secured the services
-using Okta JWT OAuth 2.0 and OIDC. You ran a local Zipkin server that allowed you to visualize the Sleuth
-span and trace entries in your logs.
+In this tutorial you learned a little about Spring Cloud Sleuth and how it can be used to trace requests through service meshes built with Spring Boot. You created an example application that you started two instances of and used Spring Cloud Sleuth to track an example request through the service network. You secured the services  using Okta JWT OAuth 2.0 and OIDC. You ran a local Zipkin server that allowed you to visualize the Sleuth span and trace entries in your logs.
+
+// todo: add blog posts
 
 If you have any questions about this post, please add a comment below. For more awesome content, follow [@oktadev](https://twitter.com/oktadev) on Twitter, like us [on Facebook](https://www.facebook.com/oktadevelopers/), or subscribe to [our YouTube channel](https://www.youtube.com/oktadev).
