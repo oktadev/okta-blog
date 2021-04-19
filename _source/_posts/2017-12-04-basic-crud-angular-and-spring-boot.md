@@ -13,6 +13,9 @@ image: blog/featured/okta-angular-headphones.jpg
 type: conversion
 update-url: /blog/2020/01/06/crud-angular-9-spring-boot-2
 update-title: "Build a CRUD App with Angular 9 and Spring Boot 2.2"
+changelog:
+  - 2018-04-09: Updated to use Okta Angular 1.0.0, Spring Boot 2.0.1, and Angular CLI 1.7.4 (with Angular 5.2.9). See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-spring-boot-2-angular-5-example/pull/5). Changes to this article can be viewed in [oktadeveloper/okta.github.io#1938](https://github.com/oktadeveloper/okta.github.io/pull/1938).
+  - 2018-03-05: Updated to use Spring Boot 2.0 and Angular CLI 1.7.2 (with Angular 5.2.7). See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-spring-boot-2-angular-5-example/pull/2). Changes to this article can be viewed in [oktadeveloper/okta.github.io#1806](https://github.com/oktadeveloper/okta.github.io/pull/1806).
 ---
 
 Technology moves fast these days. It can be challenging to keep up with the latest trends as well as new releases of your favorite projects. I'm here to help! Spring Boot and Angular are two of my favorite projects, so I figured I'd write y'all a guide to show you how to build and secure a basic app using their latest and greatest releases.
@@ -1084,8 +1087,3 @@ If you're using Angular 7, 8, or 9, we have tutorials for those too!
 * [Build a CRUD App with Angular 9 and Spring Boot 2.2](/blog/2020/01/06/crud-angular-9-spring-boot-2)
 
 If you have any questions, please don't hesitate to leave a comment below, or ask us on our [Okta Developer Forums](https://devforum.okta.com/). Follow us [on Twitter](https://twitter.com/oktadev) if you want to be notified when we publish new blog posts.
-
-**Changelog:**
-
-* Apr 9, 2018: Updated to use Okta Angular 1.0.0, Spring Boot 2.0.1, and Angular CLI 1.7.4 (with Angular 5.2.9). See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-spring-boot-2-angular-5-example/pull/5). Changes to this article can be viewed in [oktadeveloper/okta.github.io#1938](https://github.com/oktadeveloper/okta.github.io/pull/1938).
-* Mar 5, 2018: Updated to use Spring Boot 2.0 and Angular CLI 1.7.2 (with Angular 5.2.7). See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-spring-boot-2-angular-5-example/pull/2). Changes to this article can be viewed in [oktadeveloper/okta.github.io#1806](https://github.com/oktadeveloper/okta.github.io/pull/1806).

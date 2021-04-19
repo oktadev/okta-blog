@@ -12,6 +12,8 @@ tweets:
 - "Build a server-side rendered @vuejs application using @nuxt_js #ssr"
 image: blog/featured/okta-vue-bottle-headphones.jpg
 type: conversion
+changelog:
+- 2021-03-31: Updated to use Nuxt/Auth. Setup now uses Okta CLI. You can see changes made in the [example app on GitHub](https://github.com/oktadeveloper/okta-universals-apps-with-nuxt/pull/16) and [this blog post](https://github.com/oktadeveloper/okta-blog/pull/647).
 ---
 
 Reducing the time between a user clicking your application and the content being displayed is vital. Optimized images? Check! Minified CSS? Check! Minified JS? Check! But if your application is a single page app (or SPA) there is a large bundle of JavaScript that must reach the user before the site can be rendered.
@@ -460,35 +462,20 @@ You could build everything yourself, we only need email address and password aft
 
 Okta to the rescue! Okta provides a secure, simple and standards-based identity source for your application. No more writing registration forms!
 
-First go to [developer.okta.com/signup](https://developer.okta.com/signup/) which will guide you through getting a free developer tenant on Okta. Your tenant will have a name such as dev-1234.okta.com make a note of this address we'll need it later.
+{% include setup/cli.md type="spa" loginRedirectUri="http://localhost:3000/login" %}
 
-Once you have signed in as an administrator select `Applications` from the menu at the top of the page, then `Add application`.
-
-As you are working as a universal application you'll select `Web` here. This determines if a client secret is generated for the application. Single page applications do not have secure storage for this secret so one is not generated if you select "Single-Page App".
-
-{% img blog/build-universal-apps-with-nuxt/image2.png alt:"Okta create new app" width:"800" %}{: .center-image }
-
-On the next screen, you need to provide a few details about the application you are creating. The key values are Base URIs and Login Redirect URIs. The former tells Okta where to expect authentication attempts from, and the later tells Okta where it is allowed to send users to after authentication. For your development environment, add `http://localhost:3000` as the base URI and `http://localhost:3000/auth/callback` as the login redirect URI. Click done!
-
-{% img blog/build-universal-apps-with-nuxt/image3.png alt:"Okta application settings" width:"747" %}{: .center-image }
-
-This next page shows you the configuration of your application. You'll need the two values shown at the very bottom of this page, Client ID and Client Secret.
-
-{% img blog/build-universal-apps-with-nuxt/image8.png alt:"Okta client credentials" width:"519" %}{: .center-image }
-
-You'll put them in an `.env` file in the root of your project, your OAUTH_ISSUER will contain your tenant name followed by `/oauth2/v1`
+To start implementing authentication for your new application you'll need to copy these values into an `.env` file in the root of your project. This will tell the application how to contact your new Okta account.
 
 ```bash
 SECRET_KEY="sufficiently long random string to encrypt cookies"
-OAUTH_ISSUER="https://{yourOktaDomain}/oauth2/v1/"
+OAUTH_ISSUER="{yourIssuer}"
 CLIENT_ID="{yourClientId}"
-CLIENT_SECRET="{yourClientSecret}t"
 ```
 
 Remember this file contains your application's access to your OAuth provider and should not be checked into source control. To enable Nuxt to read this file you need to install a package from npm.
 
 ```bash
-npm i @nuxtjs/dotenv
+npm i @nuxtjs/dotenv@1.3.0
 ```
 
 Once that is installed add the following line to the top of `nuxt.config.js`:
@@ -499,44 +486,90 @@ require('dotenv').config()
 
 You also need to enable your Nuxt application to use your identity provider as a source of users. To do this you'll use another npm package to make the application OAuth aware.
 
-In your terminal, stop the running application and use the following command to install the library:
+In your terminal, stop the running application and use the following commands to install the packages:
 
 ```bash
-npm i nuxt-oauth
+npm i @nuxtjs/auth-next@5.0.0-1616003482.75c20e6
+npm i @nuxtjs/axios@5.13.1
 ```
 
-> Note: there is an official [Nuxt Community Auth module](https://auth.nuxtjs.org/) which supports OAuth. However, as of this writing, it does not include a nonce on requests for tokens. Therefore, it is not standards compliant.
-
-Once that is installed, you need to configure its behavior in the `nuxt.config.js`. First, add `nuxt-oauth`  to the array of modules.
+Once they are installed, you need to configure their behavior in the `nuxt.config.js`. First, add both to the array of modules.
 
 ```javascript
-  modules: [
-    ['nuxt-oauth']
+    modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/auth-next'
   ],
 ```
 
-Then add a new `oauth` section to configure the OAuth library.
+Then add a new `auth` section to configure the OAuth library.
 
 ```javascript
-  oauth: {
-    sessionName: 'WidgetCoSession',
-    secretKey: process.env.SECRET_KEY,
-    oauthHost: process.env.OAUTH_ISSUER,
-    oauthClientID: process.env.CLIENT_ID,
-    oauthClientSecret: process.env.CLIENT_SECRET,
-    scopes: ['openid', 'profile'],
+  auth:{
+    strategies:{
+      okta:{
+        scheme: 'oauth2',
+        endpoints: {
+          authorization: process.env.OAUTH_ISSUER+"/v1/authorize",
+          token: process.env.OAUTH_ISSUER+"/v1/token",
+          userInfo: process.env.OAUTH_ISSUER+"/v1/userinfo",
+          logout: process.env.OAUTH_ISSUER+"/v1/logout"
+        },
+        token: {
+          property: 'access_token',
+          type: 'Bearer',
+          maxAge: 1800,
+        },
+        responseType: 'code',
+        grantType: 'authorization_code',
+        clientId: process.env.CLIENT_ID,
+        scope: ['openid', 'profile', 'email'],
+        codeChallengeMethod: 'S256',
+        autoLogout: true,
+        }
+    }
   },
 ```
 
-This implementation requires a Vuex store. Nuxt will not create the store by default, you must create an empty `index.vue` file in the `store` folder. Once Nuxt detects this file it will include the correct dependencies for you.
+This implementation requires a Vuex store. Nuxt will not create the store by default, you must create an empty `index.js` file in the `store` folder. Once Nuxt detects this file it will include the correct dependencies for you.
 
-Now that you have OAuth configured, you need to configure which routes require authentication. You can do this by adding the value `authenticated: true` to the default export of a page. Update the script tag of `progress.vue` in the `pages` folder with the following code.
+The Nuxt/Auth middleware allows you to have multiple strategies configured at once. So you can support local login as well as integrating with OAuth identity providers like Okta. This
+means that you need to tell the middleware how to authenticate the user. To do this create a new page of `login.vue` in the `pages` folder with the following code.
+
+```javascript
+<template>
+  <div>
+    Redirecting you to Okta to login
+  </div>
+</template>
+
+<script>
+export default {
+  mounted: function(){
+    if(!this.$auth.loggedIn){
+      this.$auth.loginWith('okta')
+    }
+    else {
+      this.$router.push('/')
+    }
+  }
+}
+</script>
+
+<style>
+</style>
+```
+
+The login page is requested by the middleware when an unauthenticated user tries to reach a protected page. In this case the mounted function directs the middleware to use the Okta strategy to log that user in.
+
+
+Now that you have the OAuth strategy configured, you need to configure which routes require authentication. You can do this by adding the value `middleware: 'auth',` to the default export of a page. Update the script tag of `progress.vue` in the `pages` folder with the following code.
 
 ```javascript
 <script>
 const axios = require('axios'); 
 export default {
-  authenticated: true,
+  middleware: 'auth',
   asyncData ({ params }) {
     return axios.get('http://localhost:3000/status.json')
     .then((res) => {

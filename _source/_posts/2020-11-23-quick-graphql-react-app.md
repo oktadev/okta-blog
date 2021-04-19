@@ -18,7 +18,11 @@ React.js is one of the most popular front-end javascript frameworks today.  For 
 
 To secure your application, you will be using Okta's single sign-on provider.  Okta provides a great set of tools to make integrating its service into a React application as simple as installing an npm package.   
 
-In React, you will learn to build an application using the public GraphQL API provided by [Everbase](https://www.everbase.co/editor).  The data in this API contains some information regarding exchange rates in various currencies, as well as information about countries in which those currencies are used.  For this application, you will allow the user to convert his/hermoney into another currency.  Then you will show the user some information about what countries accept that currency.  
+In React, you will learn to build an application using the public GraphQL API provided by [Everbase](https://www.everbase.co/editor).  The data in this API contains some information regarding exchange rates in various currencies, as well as information about countries in which those currencies are used.  For this application, you will allow the user to convert his/her money into another currency.  Then you will show the user some information about what countries accept that currency.  
+
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
 
 ## Set Up GraphQL Server as a Service
 
@@ -26,11 +30,9 @@ The first thing you need to do is sign up for an Everbase account and option an 
 
 ## Set Up Authentication for Your React Application
 
-Next, you will need to set up a new Okta Application from your account administration page.  Log in to your developer's console and click **Applications**, and then click **Add Application**.  In the *Create New Application* section on the next page, select *Single Page App* and click **Next**.  On the *Application Settings* page, give your application a meaningful name.  I named mine *Exchange Rates*, but you can call yours whatever you want.  Because React will launch on port 3000, by default, you will want to change your URLs to `localhost:3000`.  Then click done.
+{% include setup/cli.md type="spa" framework="React" loginRedirectUri="http://localhost:3000/callback"%}
 
-{% img blog/quick-graphql-react-app/okta-app-settings.png alt:"Okta App Settings" width:"700" %}{: .center-image }
-
-Make note of your *Client ID* on the *General Settings* tab as you will need it in your application.
+Make note of your *Client ID* in the Okta CLI output, as you will need it in your application.
 
 ## Scaffold Your React Application
 
@@ -39,6 +41,7 @@ Next, you can start to frame out your web application.  To start, access the *cr
 First, you will use bootstrap for the HTML framework.  To make bootstrap easier to use with React, you will also include the react-bootstrap package.
 
 ```console
+cd exchange-rates
 npm i bootstrap@4.5.0
 npm i react-bootstrap@1.0.1
 ```
@@ -46,7 +49,7 @@ npm i react-bootstrap@1.0.1
 As mentioned before, you will use the promise based Axios for your HTTP client.
 
 ```console
-npm i axios@0.19.2
+npm i axios@0.21.1
 ```
 
 Dotenv will store your environment variables.  You can add the `.env` file to your gitignore for security.
@@ -64,9 +67,9 @@ npm i react-router-dom@5.2.0
 Finally, you will need to install the necessary Okta-React packages to make integration to Okta as easy as possible.
 
 ```console
-npm i @okta/okta-auth-js@3.0.0
-npm i @okta/okta-react@3.0.1
-npm i @okta/okta-signin-widget@4.1.0
+npm i @okta/okta-auth-js@4.8.0
+npm i @okta/okta-react@5.1.1
+npm i @okta/okta-signin-widget@5.5.3
 ```
 
 ## Build Your GraphQL React Application
@@ -75,7 +78,7 @@ First, you can add a file to the root of your application named `.env`.  Add the
 
 ```properties
 REACT_APP_OKTA_CLIENTID={yourOktaClientId}
-REACT_APP_OKTA_URL_BASE={yourOktaDomain}
+REACT_APP_OKTA_URL_BASE=https://{yourOktaDomain}
 REACT_APP_OKTA_APP_BASE_URL=http://localhost:3000
 REACT_APP_EVERBASE_API_KEY={yourEverbaseApiKey}
 ```
@@ -90,6 +93,7 @@ In your `src` directory, add a new file called `AppWithRouterAccess.jsx`.  Add t
 import React from 'react';
 import { Route, useHistory, } from 'react-router-dom';
 import { Security, SecureRoute, LoginCallback } from '@okta/okta-react';
+import { OktaAuth, toRelativeUrl } from '@okta/okta-auth-js';
 
 import ExchangeRates from './Pages/ExchangeRate'
 import Home from './Pages/Home'
@@ -99,25 +103,32 @@ const AppWithRouterAccess = () => {
   const history = useHistory();
   const onAuthRequired = () => {
       history.push('/login');
+  };  
+  const restoreOriginalUri = async (_oktaAuth, originalUri) => {
+    history.replace(toRelativeUrl(originalUri, window.location.origin));
   };
-
+  
   const baseDomain = process.env.REACT_APP_OKTA_URL_BASE;
   const issuer = baseDomain + '/oauth2/default'
   const clientId = process.env.REACT_APP_OKTA_CLIENTID;
-  const redirect = process.env.REACT_APP_OKTA_APP_BASE_URL + '/implicit/callback';
+  const redirect = process.env.REACT_APP_OKTA_APP_BASE_URL + '/callback';
 
   const loggedIn = true;
 
+  const config = {
+    issuer: issuer,
+    clientId: clientId,
+    redirectUri: redirect
+  };
+
+  const oktaAuth = new OktaAuth(config);
+
   return (
-    <Security issuer={issuer}
-        clientId={clientId}
-        redirectUri={redirect}
-        onAuthRequired={onAuthRequired}
-        pkce={true} >
+    <Security oktaAuth={oktaAuth} restoreOriginalUri={restoreOriginalUri}>
         <Route path='/' exact={true} component={Home} />
         <SecureRoute path='/ExchangeRates' component={ExchangeRates} />
         <Route path='/login' render={() => <Login baseUrl={baseDomain} issuer={issuer} />} />
-        <Route path='/implicit/callback' component={LoginCallback} />
+        <Route path='/callback' component={LoginCallback} />
     </Security>
   );
 };
@@ -125,7 +136,7 @@ const AppWithRouterAccess = () => {
 export default AppWithRouterAccess;
 ```
 
-The primary job of this file is to define the routes in your application.  This file is also where you will set up your Okta client and integrate it into your application.  You will notice the `ExchangeRates` route is defined as `SecureRoute`.  This way, the application will enforce authentication on that route.  You also need to define a route for `/implicit/callback` to ensure that Okta's login redirect URI has a place to land.  
+The primary job of this file is to define the routes in your application.  This file is also where you will set up your Okta client and integrate it into your application.  You will notice the `ExchangeRates` route is defined as `SecureRoute`.  This way, the application will enforce authentication on that route.  You also need to define a route for `/callback` to ensure that Okta's login redirect URI has a place to land.  
 
 Next, you will need to update your `App.js` page with some custom code to replace the boilerplate from create-react-app.
 
@@ -148,25 +159,26 @@ export default App;
 
 This code will tell your application to use your new `AppWithRouterAccess` page.  You are also importing bootstrap here, as react-bootstrap requires the CSS to be imported.  This only needs to be imported once.  
 
-### Header Component
+### Add a Header Component
 
 Add a new folder to the `src` directory called `Components`.  Add a file called `Header.jsx` to this folder and add the following code:
 
+{% raw %}
 ```jsx
 import React from 'react';
 import { useOktaAuth } from '@okta/okta-react';
 import { Navbar, Nav, Form, Button } from 'react-bootstrap'
 
 const Header = () => {
-  const { authState, authService } = useOktaAuth();
+  const { oktaAuth, authState } = useOktaAuth();
 
   if (authState.isPending) {
     return <div>Loading...</div>;
   }
 
   const button = authState.isAuthenticated ?
-    <Button variant="secondary" onClick={() => { authService.logout() }}>Logout</Button> :
-    <Button variant="secondary" onClick={() => { authService.login() }}>Login</Button>
+    <Button variant="secondary" onClick={() => { oktaAuth.signOut() }}>Logout</Button> :
+    <Button variant="secondary" onClick={() => { oktaAuth.onAuthRequired() }}>Login</Button>
 
   return (
     <Navbar bg="light" expand="lg">
@@ -187,10 +199,11 @@ const Header = () => {
 
 export default Header;
 ```
+{% endraw %}
 
 The header will be used on every page, which is why you create it as a component.  The component itself is fairly simple.  There are a couple navigation links to the pages you will implement shortly.  There is also a button that will change between Login or Logout, depending on the authentication status of the user.  
 
-### Home Page
+### Create a Home Page
 
 Next, you will provide a short landing page for users entering the site.  Add a new folder called `Pages` under the `src` directory, and add a file called `Home.jsx`.  Add the following code to that file:
 
@@ -243,7 +256,7 @@ export default Home;
 
 The one trick here is if the user is already authenticated, you will need to redirect that user to the `ExchangeRate` route defined earlier.
 
-### Login Page and Login Form
+### Create a Login Page and Login Form
 
 The next step is to provide a login page for your users to use when they attempt to access the site.  First, add a new file to the `Components` folder called `LoginForm.jsx`.  The code is as follows:
 
@@ -255,7 +268,7 @@ import { Form, Button, Row, Col } from 'react-bootstrap'
 
 const LoginForm = ({ baseUrl, issuer }) => {
 
-  const { authService } = useOktaAuth();
+  const { oktaAuth } = useOktaAuth();
   const [sessionToken, setSessionToken] = useState();
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
@@ -269,7 +282,7 @@ const LoginForm = ({ baseUrl, issuer }) => {
   };
 
   const handleUsernameChange = (e) => {
-    setUsername(e.target.value); 
+    setUsername(e.target.value);
   };
 
   const handlePasswordChange = (e) => {
@@ -277,7 +290,7 @@ const LoginForm = ({ baseUrl, issuer }) => {
   };
 
   if (sessionToken) {
-    authService.redirect({ sessionToken });
+    oktaAuth.signInWithRedirect({ sessionToken });
     return null;
   }
 
@@ -345,7 +358,7 @@ export default Login;
 
 Again, you are checking to see if the user is already logged in.  If they are, you can redirect them to the ExchangeRates page, otherwise present the Login Form.  
 
-### Exchange Rate Page
+### Add an Exchange Rate Page
 
 The last step is to implement the ExchangeRate page itself.  In `Pages`, add a new file called `ExchangeRate.jsx`.
 
@@ -558,13 +571,15 @@ The second task when the user changes the dropdown is to obtain some data about 
 
 ## Test Your GraphQL React Application
 
-All your code is complete and you can now test your application.  In the terminal, use `npm start` to kickoff your application.  You should be presented with the Home page upon navigating to `localhost:3000`.  Click on **Exchange Rates**, and you will be presented with the login page.  Enter your Okta credentials and explore the exchange rates.
+All your code is complete and you can now test your application.  In the terminal, use `npm start` to kickoff your application.  You should be presented with the Home page upon navigating to `localhost:3000`.  Click on **Login Here**, and you will be presented with the login page.  Enter your Okta credentials and explore the exchange rates.
 
 {% img blog/quick-graphql-react-app/running-app.png alt:"Running Application" width:"700" %}{: .center-image }
 
 ## Learn More About GraphQL and React
 
-You have successfully consumed a GraphQL API from a React application.  You can now take this application to the next level by introducing new features to it .  You can also work on building your own GraphQL API for your application!
+You have successfully consumed a GraphQL API from a React application. You can now take this application to the next level by introducing new features to it. You can also work on building your own GraphQL API for your application!
+
+You can find the example code for this tutorial on GitHub, in the [okta-graphql-api-react-example](https://github.com/oktadeveloper/okta-graphql-api-react-example) repository.
 
 If you're interested in learning more about GraphQL or React, follow these links below:
 

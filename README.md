@@ -129,16 +129,51 @@ What this command does is:
 - `okta-blog` - This is telling Docker to run the `okta-blog` image you created earlier using that `docker build` command. The `-t` option you specified earlier when running `docker build` assigned a name tag to the image so you could easily reference it.
 - `npm start` - This is the actual command you're telling Docker to run to launch the blog sofware. Docker will start the container up and then run this command inside the container to launch the Jekyll blog.
 
-After that, all you have to do is open your browser and visit http://localhost:4000 to visit the site!
+After that, all you have to do is open your browser and visit `http://localhost:4000` to visit the site!
 
 ## Markdown Standards
 
+This section describes Markdown standards we like to use in our blog posts. These conventions also pertain to AsciiDoc, if you choose to use it. 
+
+* [Use the Okta CLI](#use-the-okta-cli-to-register-your-app)
+* [Blog Markdown Conventions](#blog-markdown-conventions)
+* [Add a Changelog](#add-a-changelog)
+
+### Use the Okta CLI to Register Your App
+
+To describe how to setup a new application on Okta, please use the [`cli.md`](_source/_includes/setup/cli.md) or [`maven.md`](_source/_includes/setup/maven.md) includes.
+
+These will render instructions using the [Okta CLI](https://cli.okta.com) (or [Okta Maven Plugin](https://github.com/oktadeveloper/okta-maven-plugin)) and link to instructions for the Admin Console. Screenshots are discouraged because they're hard to keep up-to-date.
+
+The basic syntax for using the Okta CLI to set up an app is:
+
+```md
+{% include setup/cli.md type="spa" loginRedirectUri="http://localhost:8080/callback" %}
+```
+
+Supported values for `type`: spa, web, native, service, token, and jhipster
+
+Other parameters you can pass in:
+
+|Parameter |Possible values  |
+--- | --- |
+|`framework`|Angular, React, Vue, Okta Spring Boot Starter, Spring Boot, Quarkus, ASP.NET Core|
+|`loginRedirectUri`|Prints whatever you set, can be comma-delimited, or use an array for multiple values `[url1, url2]`|
+|`logoutRedirectUri`|Prints whatever you set, or defaults if not set|
+|`signup`|`false` reduces opening paragraph to one sentence|
+|`note`|Prints whatever you set. See .NET example below|
+|`install`|`false` removes 'Install the Okta CLI' sentence|
+
+See [How to Create an OIDC App on Okta](https://developer.okta.com/blog/setup) for this feature's documentation.
+
+### Blog Markdown Conventions
+
 - For directories and filenames, surround with back ticks (e.g. `filename.txt` or `/src/component/dummy.file`)
 - For code snippets that are only a few words. Inline back ticks (e.g. Run `npm install` from the command line)
-- For button or link names surround with two asterisks (e.g. Then click **Done**
+- For button or link names surround with two asterisks (e.g. Then click **Done**)
 - When adding function names inline, add the parentheses and back ticks (e.g. This calls the `render()` method)
 - http://localhost links should be wrapped in back ticks (e.g. `http://localhost:3000`)
-- Links that start will developer.okta.com should be relative (e.g. instead of `https://developer.okta.com/docs/whatever.html`, just use `/docs/whatever.html`)
+- Links that start with developer.okta.com should be relative (e.g. instead of `https://developer.okta.com/docs/whatever.html`, just use `/docs/whatever.html`)
 - Code with {{ variable }} needs a "raw" wrapper. For example:
 
 <pre>
@@ -160,6 +195,46 @@ For AsciiDoc:
 ```
 image::{% asset_path 'blog/<post-images-dir>/<image-file-name>' %}[alt=text for screen readers,width=800,align=center]
 ```
+
+To add a table of contents, use the following:
+
+```
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+```
+  
+For AciiDoc, add the following just after the front matter:
+
+```
+:page-liquid:
+:toc: macro
+```
+
+Then, add the following wherever you'd like the table of contents to appear:
+
+```
+toc::[]
+```
+
+### Add a Changelog
+
+If you update a post to fix a bug or upgrade dependencies, you should add a changelog. You can add this to the front matter with a `changelog` key. 
+
+Please be sure to link to the pull request that updates the post and the pull request that updates the example app on GitHub.
+
+For example:
+
+```yaml
+---
+layout: blog_post
+...
+changelog: 
+- 2020-08-31: Updated GitHub repo to have proper starter files and fixed logout in Vue. You can see the changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-kotlin-spring-boot-vue-example/pull/4). Changes to this article can be viewed in [oktadeveloper/okta-blog#392](https://github.com/oktadeveloper/okta-blog/pull/392).
+---
+```
+
+This will render a "last updated" date at the top, and a changelog at the bottom. The list should be ordered last to first. See [this post](https://developer.okta.com/blog/2020/06/26/spring-boot-vue-kotlin) ([source](https://raw.githubusercontent.com/oktadeveloper/okta-blog/main/_source/_posts/2020-06-26-spring-boot-vue-kotlin.md)) for an example. 
 
 ## Utilities
 
@@ -197,9 +272,10 @@ Finds the latest blog post and updates the post date to the date specified. **Da
 
 ```bash
 npm run dev
+npm start
 ```
 
-This command removes all posts from the local development environment except those dated within the last two weeks.
+This command removes all posts from the local development environment except those dated within the last two weeks. If you pass in a file name (or comma-separated list of filenames), it'll keep those too.
 
 ### Restoring Deleted Posts Before Pushing to GitHub
 

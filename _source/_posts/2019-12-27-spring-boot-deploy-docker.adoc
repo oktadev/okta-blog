@@ -12,8 +12,10 @@ tweets:
 - "A @SpringBoot app + @Docker == 💕☕"
 image: blog/featured/okta-java-short-tile-books-mouse.jpg
 type: conversion
+changelog:
+- 2021-04-02: Updated to use Java 11 and Spring Boot 2.4.4. See [example app changes on GitHub](https://github.com/oktadeveloper/spring-boot-docker-example/pull/1). Changes to this article can be viewed in [okta-blog#674](https://github.com/oktadeveloper/okta-blog/pull/674).
 ---
-
+:toc: macro
 :page-liquid:
 :experimental:
 
@@ -23,9 +25,11 @@ image::{% asset_path 'blog/spring-boot-deploy-docker/app-docker-host.png' %}[alt
 
 In this tutorial, you'll see how to leverage Docker to deploy your Spring Boot application.
 
+toc::[]
+
 **Prerequisites:**
 
-* Java 8+ - Install with https://sdkman.io/[SDKMAN] or directly from https://adoptopenjdk.net/[AdoptOpenJDK]
+* Java 11+ - Install with https://sdkman.io/[SDKMAN] or directly from https://adoptopenjdk.net/[AdoptOpenJDK]
 * Docker - I recommend https://www.docker.com/products/docker-desktop[Docker Desktop]
 * An https://developer.okta.com/signup[Okta account] - More on that below
 
@@ -41,7 +45,7 @@ From the command line simply enter:
 
 [source,txt]
 ----
-http https://start.spring.io/starter.zip bootVersion==2.2.1.RELEASE \
+http https://start.spring.io/starter.zip bootVersion==2.4.4.RELEASE \
  dependencies==web,okta \
  groupId==com.okta.spring-docker.demo \
  packageName==com.okta.spring-docker.demo \
@@ -115,7 +119,7 @@ You may compile and run your app with:
 java -jar target/demo-0.0.1-SNAPSHOT.jar
 ----
 
-Then if you hit `http://localhost:8080` you should see a "Welcome!" message.
+Then if you hit `\http://localhost:8080` you should see a "Welcome!" message.
 
 == Run Your Spring Boot App as a Docker Container
 
@@ -130,7 +134,7 @@ For your Spring Boot app, you'll use a simple `Dockerfile` file:
 ====
 [source,dockerfile]
 ----
-FROM openjdk:8-jdk-alpine // <.>
+FROM openjdk:11 // <.>
 
 COPY target/demo-0.0.1-SNAPSHOT.jar app.jar // <.>
 
@@ -139,7 +143,7 @@ EXPOSE 8080  // <.>
 ENTRYPOINT ["java", "-jar", "/app.jar"] // <.>
 ----
 
-<1> You'll start your Dockerfile with a `FROM` declaration that defines a source container image to build upon. In this way you can leverage an existing container definition that contains JDK 8.
+<1> You'll start your Dockerfile with a `FROM` declaration that defines a source container image to build upon. In this way you can leverage an existing container definition that contains JDK 11.
 <2> The second instruction is `COPY`. Here you are telling Docker to copy a local file into the container, in this case, your built application will be available in the container as `/app.jar`.
 <3> The `EXPOSE` part shows you that the app will listen on port 8080. Although it is not required to make the Docker container work properly, it acts as documentation for future readers.
 <4> The last command, `ENTRYPOINT`, tells Docker what it should execute when you run that container. As you are building a Spring Boot application, this is a simple `java -jar` of your app.
@@ -188,21 +192,9 @@ Now you know the basics of using Docker containers to run your app! In the futur
 
 Next, we will secure the app with Okta and understand how we can pass sensitive data to the container.
 
-
 == Secure Your Spring Boot and Docker App
 
-You'll need a **free developer account with Okta**. Okta is a SaaS (software-as-service) identity management provider. We make it easy to add features like single sign-on, social login, and OAuth 2.0 to your application. Sign up for an account on https://developer.okta.com/signup/[our website] if you haven't already.
-
-Complete the steps below to create an OpenID Connect (OIDC) app.
-
-1. Log in to your developer account at https://developer.okta.com/[developer.okta.com]
-2. Navigate to **Applications** and click on **Add Application**
-3. Select **Web** and click **Next**
-4. Give the application a name (.e.g., `Java Spring Boot Docker`)
-5. Add the following as Login redirect URI: `http://localhost:8080/login/oauth2/code/okta`
-6. Click **Done**
-
-Okta requires some properties to work correctly, we will send those through Docker as environment variables.
+{% include setup/cli.md type="web" adoc="true" framework="Okta Spring Boot Starter" %}
 
 Change the `DemoApplication` class, replacing `.authorizeRequests().anyRequest().permitAll()` with `.authorizeRequests().anyRequest().authenticated()`. This will tell Spring that all the endpoints of your app will require an authenticated user.
 
@@ -216,7 +208,7 @@ protected void configure(HttpSecurity http) throws Exception {
 
 Let's give it a try!
 
-First compile and build your container. For the build process to work correctly, you will need to provide your Okta information as part of the command line, replacing `<org_url>`, `<client_id>` and `<client_secret>`. You will find those values in your Okta account. The `org_url` is shown at the top right corner of the dashboard. The `client_id` and `client_secret` are shown in your app settings.
+First compile and build your container.
 
 [source,text]
 ----
@@ -230,7 +222,9 @@ Then build the container:
 docker build . -t okta:spring_boot_docker
 ----
 
-In order to run the container now, you will pass your Okta info to the container as environment variables. This is done by using the `-e` command line parameter. Like so:
+The Okta CLI added your Okta settings to `src/main/resources/application.properties`. However, you might want to check this file into source control. Therefore, it's a good idea to remove the `okta.oauth2.*` properties from this file and use environment variables instead.
+
+To pass Okta info to the container as environment variables, you can use the `-e` command line parameter. Like so:
 
 [source,text]
 ----
@@ -241,12 +235,12 @@ docker run --publish=8080:8080 \
  okta:spring_boot_docker
 ----
 
-Now if you hit `http://localhost:8080` you will see a login form, and after providing your username and password you should be able to see the welcome page again. A dependency and a couple of properties are it takes to secure your application with OIDC/OAuth 2.0!
+Now if you hit `\http://localhost:8080` you will see a login form, and after providing your username and password you should be able to see the welcome page again. A dependency and a couple of properties are all it takes to secure your application with OIDC/OAuth 2.0!
 
 == Learn More About Spring, Docker, and Security!
 
 In this tutorial, you learned how to build a Docker container for your Spring Boot app by
-writing the Dockerfile manually. There's also a Maven plugin that can prepare the container for you. It's called Jib and we cover it in more detail at link:/blog/2019/08/09/jib-docker-spring-boot[Get Jibby With Java, Docker, and Spring Boot].
+writing the Dockerfile manually. There's also a Maven plugin that can prepare the container for you. It's called Jib and we cover it in more detail at link:/blog/2019/08/09/jib-docker-spring-boot[Get Jibby With Java, Docker, and Spring Boot]. Finally, Spring Boot 2.3 added built-in support for building Docker containers. Learn more in link:/blog/2020/12/28/spring-boot-docker[How to Docker with Spring Boot].
 
 Other than that, we have more resources for you to continue learning about Java, Docker, Deployment, and OAuth 2.0:
 

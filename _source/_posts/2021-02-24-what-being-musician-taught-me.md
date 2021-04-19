@@ -17,7 +17,7 @@ type: awareness
 I've been a musician most of my life. I was in bands when I was in junior high up until I joined the Army at 19. I started writing software a few years after getting out of the military and kinda put music to the side. Recently, I've started to play in bands again, and something struck me about the dynamics of playing with other musicians and how that prepared me for writing software on a team. I've been writing software professionally now for over twenty years. There are many parallels, so I thought I would share some of those lessons hoping that it might help other programmers work more effectively in a team. Writing software, after all, is a team sport.
 
 <div style="text-align: center; margin-bottom: 1.25rem">
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Rf58Fxzp0GQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Z0ZvIxZOAUU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 ## Practice Your Craft

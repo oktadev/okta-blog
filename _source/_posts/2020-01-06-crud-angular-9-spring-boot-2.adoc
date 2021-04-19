@@ -12,6 +12,12 @@ tweets:
 - "Build secure applications with @angular and @springboot in our 2020 howto guide."
 image: blog/spring-boot-2-angular-9/bootiful-angular.png
 type: conversion
+changelog:
+  - 2021-04-06: Changed Okta OIDC app creation instructions to use the Okta CLI. See changes in [okta-blog#673](https://github.com/oktadeveloper/okta-blog/pull/673).
+  - 2020-06-18: Added links to other blog posts in series.
+  - 2020-05-18: Updated to remove `/implicit` from Login redirect URL for Angular. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-spring-boot-2-angular-9-example/pull/6). Changes to this article can be viewed in [oktadeveloper/okta-blog#296](https://github.com/oktadeveloper/okta-blog/pull/296).
+  - 2020-02-19: Updated to use Angular CLI 9.0.2 (with Angular 9.0.1). See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-spring-boot-2-angular-9-example/pull/2). Changes to this article can be viewed in [oktadeveloper/okta-blog#197](https://github.com/oktadeveloper/okta-blog/pull/197).
+  - 2020-01-30: Updated to use Spring Boot 2.2.4 and Angular CLI 9.0 RC11 (with Angular 9.0 RC11). See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-spring-boot-2-angular-9-example/pull/1). Changes to this article can be viewed in [oktadeveloper/okta-blog#175](https://github.com/oktadeveloper/okta-blog/pull/175).
 ---
 :toc: macro
 :page-liquid:
@@ -117,22 +123,9 @@ OpenID Connect (also called OIDC) is an identity later based on the OAuth 2.0 sp
 
 Okta has Authentication and User Management APIs that reduce development time with instant-on, scalable user infrastructure. Okta's intuitive API and expert support make it easy for developers to authenticate, manage, and secure users + roles in any application.
 
-To add OIDC login support to your Angular 9 app, you'll first need an https://developer.okta.com/signup[free Okta developer account]. After you've created your account and logged in to your Okta dashboard, create a new OIDC app using the following steps:
+{% include setup/cli.md type="spa" framework="Angular" loginRedirectUri="http://localhost:4200/callback" %}
 
-1. Navigate to **Applications** > **Add Application**
-2. Select **Single-Page App** and click **Next**
-3. Provide a name (e.g., `Angular 9`) and change the Login redirect URI to `http://localhost:4200/callback`
-4. Click **Done**
-
-Your app's settings should resemble the following.
-
-image::{% asset_path 'blog/spring-boot-2-angular-9/angular9-oidc-settings.png' %}[alt=Angular OIDC App Settings,width=700,align=center]
-
-At the bottom of the screen, you'll see your app's Client ID. You might also notice that **Use PKCE** is selected. This setting provides the maximum level of security you can currently have for single-page apps when using OIDC for auth.
-
-TIP: To learn more about PKCE (pronounced "pixy"), see link:/blog/2019/08/22/okta-authjs-pkce[Implement the OAuth 2.0 Authorization Code with PKCE Flow].
-
-Copy your client ID and your issuer URI (from **API** > **Authorization Servers**) into the following command.
+Copy your client ID and your issuer URI into the following command.
 
 [source,shell]
 ----
@@ -217,9 +210,9 @@ export class AuthInterceptor implements HttpInterceptor {
 }
 ----
 
-NOTE: You might notice that tokens are only added for `http://localhost`. You'll need to modify the `allowedOrigins` array to include your production URL eventually.
+NOTE: You might notice that tokens are only added for `\http://localhost`. You'll need to modify the `allowedOrigins` array to include your production URL eventually.
 
-Start your app again using `ng serve`, open a private/incognito window to `http://localhost:4200`, and you'll see a **Login** button in the bottom left.
+Start your app again using `ng serve`, open a private/incognito window to `\http://localhost:4200`, and you'll see a **Login** button in the bottom left.
 
 image::{% asset_path 'blog/spring-boot-2-angular-9/angular-login-button.png' %}[alt=Login button,width=800,align=center]
 
@@ -263,29 +256,13 @@ image::{% asset_path 'blog/spring-boot-2-angular-9/start.spring.io.png' %}[alt=C
 
 Because you selected Okta as a dependency, you'll need to create an OIDC app for it to authenticate with Okta. You could use the client ID from your Angular app, but if you ever want to allow people to log in to your Spring Boot app, it'll need its own OIDC app.
 
-Log in to your Okta dashboard, then:
+In a terminal window, navigate into the `angular-spring-boot/notes-api` directory.
 
-* Go to **Applications** > **Add Application**
-* Select **Web** and click **Next**
-* Give it a name like `Spring Boot 2.2` and change the Login redirect URI to `http://localhost:8080/login/oauth2/code/okta`
-* Click **Done**
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" install="false" %}
 
-Your app's settings should look as follows.
+Having your app's client secret in an `application.properties` file that might be checked in to source control is a bad idea.
 
-image::{% asset_path 'blog/spring-boot-2-angular-9/spring-boot-oidc-settings.png' %}[alt=Spring Boot OIDC Settings,width=700,align=center]
-
-You _could_ copy your app's OIDC settings to `src/main/resources/application.properties`:
-
-[source,properties]
-----
-okta.oauth2.issuer=https://{yourOktaDomain}/oauth2/default
-okta.oauth2.client-id={yourClientId}
-okta.oauth2.client-secret={yourClientSecret}
-----
-
-However, **you should never store secrets in source control**! To prevent you from checking secrets in, you can use https://github.com/awslabs/git-secrets[git-secrets].
-
-For this example, copy your settings into a new `okta.env` file and ignore `*.env` in your `notes-api/.gitignore` file.
+For this example, remove the Okta properties from `application.properties` and copy them into a new `okta.env` file. Ignore `*.env` in your `notes-api/.gitignore` file and remove the `\` (if there is one) in your issuer's URL.
 
 [source,shell]
 ----
@@ -294,9 +271,9 @@ export OKTA_OAUTH2_CLIENT_ID={yourClientId}
 export OKTA_OAUTH2_CLIENT_SECRET={yourClientSecret}
 ----
 
-After replacing the `{...}` placeholders with your values, run `source okta.env` to set these environment variables.
+Run `source okta.env` to set your Okta configuration as environment variables. If you're on Windows, edit this file to change `export` to `set`. Then rename it to `okta.bat` and run it from your terminal.
 
-Then start your app using `./gradlew bootRun`. Open `http://localhost:8080` in a browser, and you'll be redirected to Okta to sign in.
+Start your app using `./gradlew bootRun`. Open `\http://localhost:8080` in a browser, and you'll be redirected to Okta to sign in.
 
 TIP: If you don't get prompted, it's because you're already logged in. Try it in an incognito window to see the full login flow.
 
@@ -486,7 +463,7 @@ To prevent conflicting paths with the REST endpoints created by `@RepositoryRest
 spring.data.rest.base-path=/api
 ----
 
-Restart your Spring Boot app, navigate to `http://localhost:8080/user`, and you'll see a whole plethora of details about your account. Opening `http://localhost:8080/api/notes` will show the default notes entered by the `DataInitializer` component.
+Restart your Spring Boot app, navigate to `\http://localhost:8080/user`, and you'll see a whole plethora of details about your account. Opening `\http://localhost:8080/api/notes` will show the default notes entered by the `DataInitializer` component.
 
 === Add a CORS Filter for Angular
 
@@ -970,10 +947,3 @@ This blog post sparked a 4-part series on Angular and Spring Boot. Check out the
 * link:/blog/2020/03/02/angular-bootstrap[Build Beautiful Angular Apps with Bootstrap]
 * link:/blog/2020/05/29/angular-deployment[Angular Deployment with a Side of Spring Boot]
 * link:/blog/2020/06/17/angular-docker-spring-boot[Angular + Docker with a Big Hug from Spring Boot]
-
-**Changelog:**
-
-* Jun 18, 2020: Added links to other blog posts in series.
-* May 18, 2020: Updated to remove `/implicit` from Login redirect URL for Angular. See the code changes in the https://github.com/oktadeveloper/okta-spring-boot-2-angular-9-example/pull/6[example app on GitHub]. Changes to this article can be viewed in https://github.com/oktadeveloper/okta-blog/pull/296[oktadeveloper/okta-blog#296].
-* Feb 19, 2020: Updated to use Angular CLI 9.0.2 (with Angular 9.0.1). See the code changes in the https://github.com/oktadeveloper/okta-spring-boot-2-angular-9-example/pull/2[example app on GitHub]. Changes to this article can be viewed in https://github.com/oktadeveloper/okta-blog/pull/197[oktadeveloper/okta-blog#197].
-* Jan 30, 2020: Updated to use Spring Boot 2.2.4 and Angular CLI 9.0 RC11 (with Angular 9.0 RC11). See the code changes in the https://github.com/oktadeveloper/okta-spring-boot-2-angular-9-example/pull/1[example app on GitHub]. Changes to this article can be viewed in https://github.com/oktadeveloper/okta-blog/pull/175[oktadeveloper/okta-blog#175].

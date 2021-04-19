@@ -12,12 +12,14 @@ tweets:
 - "Want to build reactive Java microservices? @jhipster, @springboot, and @springcloud to the rescue! ⛑"
 image: blog/reactive-java-microservices/reactive-java-microservices.png
 type: conversion
+changelog:
+- 2021-03-25: Upgraded to JHipster 7.0.0 from beta 1. You can see the changes in the [example app on GitHub](https://github.com/oktadeveloper/java-microservices-examples/pull/17). Changes to this article can be viewed in [oktadeveloper/okta-blog#627](https://github.com/oktadeveloper/okta-blog/pull/627).
 ---
 :toc: macro
 :page-liquid:
 :experimental:
 
-Java has been at the forefront of [microservice](https://www.okta.com/blog/2021/02/microservices/) architectures since they came to prominence a few years ago. It's a popular language with well-known, high-quality frameworks, like Spring Boot, Spring Cloud, Spring Data, and Spring Security.
+Java has been at the forefront of https://www.okta.com/blog/2021/02/microservices/[microservice] architectures since they came to prominence a few years ago. It's a popular language with well-known, high-quality frameworks, like Spring Boot, Spring Cloud, Spring Data, and Spring Security.
 
 Spring Boot 2.0 introduced a new web framework called Spring WebFlux. Previous versions of Spring Boot only shipped with Spring MVC as an option. WebFlux offers a way for developers to do _reactive programming_. This means you can write your code with familiar syntax and, as a result, your app will use fewer resources and scale better.
 
@@ -115,7 +117,7 @@ https://jhipster.tech[JHipster] is an open-source project that started as an app
 
 You see, JHipster integrates everything for you. Do you want to use Angular with Spring Boot? It's got that. React? Yep. Microservices with Spring Cloud? Check!
 
-JHipster 7 beta 1 was recently released, and it packs a punch! A couple of slick features that I like are Vue support and reactive microservices with Spring WebFlux. To be fair, WebFlux and Spring Cloud Gateway have been an option since JHipster https://www.jhipster.tech/2020/03/08/jhipster-release-6.8.0.html[6.8.0 in March 2020], but now we have R2DBC support too!
+JHipster 7 was recently released, and it packs a punch! A couple of slick features that I like are Vue support and reactive microservices with Spring WebFlux. To be fair, WebFlux and Spring Cloud Gateway have been an option since JHipster https://www.jhipster.tech/2020/03/08/jhipster-release-6.8.0.html[6.8.0 in March 2020], but now we have R2DBC support too!
 
 In this tutorial, I'll show you how to generate a microservice architecture that uses OAuth 2.0, an API gateway, and two microservices (a blog and a store). The gateway will use PostgreSQL with R2DBC, the blog will use Neo4j, and the store will use MongoDB. All persistence options are powered by Spring Data.
 
@@ -123,7 +125,7 @@ Start by installing JHipster using npm:
 
 [source,shell]
 ----
-npm i -g generator-jhipster@beta
+npm i -g generator-jhipster@7.0.0
 ----
 
 After installing JHipster, you can run the following command to answer a whole slew of questions and create an app.
@@ -166,7 +168,7 @@ application {
     clientFramework vue // <5>
     prodDatabaseType postgresql
     serviceDiscoveryType eureka
-    testFrameworks [protractor]
+    testFrameworks [cypress] // <6>
   }
   entities Blog, Post, Tag, Product
 }
@@ -176,7 +178,7 @@ application {
     baseName blog
     reactive true
     packageName com.okta.developer.blog
-    applicationType microservice // <6>
+    applicationType microservice // <7>
     authenticationType oauth2
     buildTool gradle
     databaseType neo4j
@@ -243,7 +245,7 @@ paginate Product with pagination
 microservice Product with store
 microservice Blog, Post, Tag with blog
 
-deployment { // <7>
+deployment { // <8>
   deploymentType docker-compose
   appsFolders [gateway, blog, store]
   dockerRepositoryName "mraible"
@@ -254,6 +256,7 @@ deployment { // <7>
 <.> The gateway and microservice apps must use the same authentication type.
 <.> Use Gradle, because a lot of y'all love it.
 <.> Vue support is new in JHipster 7, let's use it!
+<.> JHipster 7 supports Cypress! It seems to be more reliable than Protractor.
 <.> Make sure and specify `microservice` as the application type for the blog and store apps.
 <.> JDL allows you to create Docker Compose and Kubernetes deployments too!
 ====
@@ -327,11 +330,9 @@ image::{% asset_path 'blog/reactive-java-microservices/keycloak-login-success.pn
 
 Make sure you can add a new blog, edit existing posts, and add new products.
 
-To prove everything works in an automated fashion, you can run `npm run e2e` in the gateway project's directory. This will run a number of end-to-end tests with https://www.protractortest.org/[Protractor].
+To prove everything works in an automated fashion, you can run `npm run e2e` in the gateway project's directory. This will run a number of end-to-end tests with https://www.cypress.io/[Cypress].
 
 image::{% asset_path 'blog/reactive-java-microservices/e2e-success.png' %}[alt=Protractor tests success,width=800,align=center]
-
-NOTE: JHipster has support for https://www.cypress.io/[Cypress], but it https://github.com/jhipster/generator-jhipster/issues/12686[doesn't work with Okta] yet.
 
 == Prepare Your Reactive Java Stack for Production
 
@@ -339,22 +340,9 @@ Keycloak is a superb open source identity provider. It has excellent support for
 
 Spring Security makes it so you only need to override three properties to switch from Keycloak to Okta!
 
-In production, you might not want to manage your own identity provider instance. That's where Okta comes in. We're a developer-friendly SaaS company that provides OAuth and OIDC support as a service. You can create a developer account and use it for free. Our https://cli.okta.com[Okta CLI] makes it super easy.
+In production, you might not want to manage your own identity provider instance. That's where Okta comes in. We're a developer-friendly SaaS company that provides OAuth and OIDC support as a service.
 
-Install the Okta CLI using the aforementioned website and come back here when you're done. If you don't have an Okta developer account, run `okta register`.
-
-NOTE: You can also use your browser and Okta's developer console to register an app. See https://www.jhipster.tech/security/#okta[JHipster's security documentation] for those instructions.
-
-Then, from the gateway project's directory, run `okta apps create jhipster`. Accept the default redirect URIs.
-
-image::{% asset_path 'blog/reactive-java-microservices/okta-apps-create.png' %}[alt=Okta CLI in action,width=800,align=center]
-
-This process does several things:
-
-. Registers an OIDC app in Okta with JHipster's configured redirect URIs.
-. Creates `ROLE_ADMIN` and `ROLE_USER` groups and adds your user to both.
-. Creates a `groups` claim and adds it to ID tokens.
-. Creates a `.okta.env` file with the values you'll need to talk to Okta.
+{% include setup/cli.md type="jhipster" %}
 
 === Update the JHipster Registry to Distribute OIDC Configuration
 
@@ -397,12 +385,10 @@ If you're feeling lucky, you can set your Okta credentials as environment variab
 
 [source,shell]
 ----
-export E2E_USERNAME=<your-username>
-export E2E_PASSWORD=<your-password>
+export CYPRESS_E2E_USERNAME=<your-username>
+export CYPRESS_E2E_PASSWORD=<your-password>
 npm run e2e
 ----
-
-CAUTION: Your JHipster Registry is now configured to use Okta for authentication. You'll need to add redirect URIs in your Okta app for `http://localhost:8761`. After making these changes, you should be able to sign in to it.
 
 == Create Docker Images for Your Microservice Apps
 

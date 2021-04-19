@@ -10,7 +10,7 @@ tweets:
 - "Are you interested in learning how the Okta API works? Use this cool Chrome extension to make it easy!"
 - "For those about to rock with Okta. We salute you!"
 - "Learn how to simplify common administrative tasks in Okta using the rockstar Chrome extension."
-image: blog/use-okta-like-a-rockstar/card.jpg
+image: blog/use-okta-like-a-rockstar/card.png
 type: conversion
 ---
 

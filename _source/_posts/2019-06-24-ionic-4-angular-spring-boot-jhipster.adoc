@@ -12,8 +12,13 @@ tweets:
 - "Ionic 4 + JHipster 6 => it's alive! You should try it; it'll be fun! 😋"
 image: blog/ionic-4-jhipster/ionic-jhipster-ios.png
 type: conversion
+changelog:
+  - 2021-04-18: Updated to use the Okta CLI to streamline setup. See changes to this post in [okta-blog#737](https://github.com/oktadeveloper/okta-blog/pull/737).
+  - 2020-05-20: Updated to remove `/implicit` from redirect URIs since auth code flow is used. Changes to this post can be viewed in [okta-blog#302](https://github.com/oktadeveloper/okta-blog/pull/302). Updates to the example application are in [okta-ionic4-jhipster-example#10](https://github.com/oktadeveloper/okta-ionic4-jhipster-example/pull/10).
+  - 2019-10-30: Updated to use JHipster 6.4.1 and Ionic for JHipster 4.3.0. Changes to this post can be viewed in [okta-blog#64](https://github.com/oktadeveloper/okta-blog/pull/64). Updates to the example application are in [okta-ionic4-jhipster-example#7](https://github.com/oktadeveloper/okta-ionic4-jhipster-example/pull/7).
 ---
 :page-liquid:
+:toc: macro
 
 I'm a big fan of Ionic. I started using it several years ago when it was based on AngularJS. As a developer, I really liked it because I knew Angular. I found didn't have to learn much more to be a productive developer with Ionic.
 
@@ -24,6 +29,8 @@ Technically, this is called a "hybrid" app because it's not using native SDKs. H
 Not only that, but Ionic supports PWAs! This means you can deploy the same app to the web that you package up and ship to an app store. Maximum discoverability FTW!
 
 If you know me, you'll know I'm a big fan of Java, Spring Boot, and JHipster as well. If you don't know what JHipster is, I'm sorry. That's my fault. I've been doing my best to spread the word, but you somehow missed it. It's the best thing ever! If you know me from AppFuse, or you're familiar with Ruby on Rails, it's that times 10. JHipster is an application generator, and platform, for building Java apps with JavaScript frontends.
+
+toc::[]
 
 Spring Boot is the only backend framework currently supported, with .NET and Node.js implementations currently in development. On the frontend, Angular, React, Vue, React Native, and Ionic are all supported.
 
@@ -129,66 +136,35 @@ To switch to Okta, you'll first need to create an OIDC app. If you don't have an
 
 > **Why Okta instead of Keycloak?**
 >
-> Keycloak works great in development, and Okta has free multi-factor authentication, email support, and excellent performance for production. A developer account gets you 1000 monthly active users for free! You can see other free features and our transparent pricing at https://developer.okta.com/pricing/[developer.okta.com/pricing].
+> Keycloak works great in development, and Okta has free multi-factor authentication, email support, and excellent performance for production. A developer account gets you 15000 monthly active users for free! You can see other free features and our transparent pricing at https://developer.okta.com/pricing/[developer.okta.com/pricing].
 
-Log in to your Okta Developer account.
+{% include setup/cli.md type="jhipster" signup="false" %}
 
-* In the top menu, click on **Applications**
-* Click on **Add Application**
-* Select **Web** and click **Next**
-* Enter `JHipster FTW!` for the Name (this value doesn't matter, so feel free to change it)
-* Change the Login redirect URI to be `http://localhost:8080/login/oauth2/code/oidc`
-* Click **Done**, then **Edit** and add `http://localhost:8080` as a Logout redirect URI
-* Click **Save**
-
-These are the steps you'll need to complete for JHipster. Start your JHipster app using a command like the following:
+Start your JHipster app using a command like the following:
 
 [source,shell]
 ----
-SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=https://{yourOktaDomain}/oauth2/default \
-  SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=$clientId \
-  SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=$clientSecret ./gradlew
+source .okta.env
+./gradlew
 ----
-
-TIP: The above command can be painful to type, so I encourage you to copy/paste, or set the values as environment variables. You can also configure them in a properties/YAML file in Spring Boot, but you should link:/blog/2018/07/30/10-ways-to-secure-spring-boot#8-store-secrets-securely[never store secrets in source control].
 
 === Create a Native App for Ionic
 
 You'll also need to create a Native app for Ionic. The reason for this is because Ionic for JHipster is configured to use https://oauth.net/2/pkce/[PKCE] (Proof Key for Code Exchange). The current Spring Security OIDC support in JHipster still requires a client secret. PKCE does not.
 
-Go back to the Okta developer console and follow the steps below:
+{% include setup/cli.md type="native" install="false"
+   loginRedirectUri="dev.localhost.ionic:/callback,http://localhost:8100/callback"
+   logoutRedirectUri="dev.localhost.ionic:/logout,http://localhost:8100/logout" %}
 
-* In the top menu, click on **Applications**
-* Click on **Add Application**
-* Select **Native** and click **Next**
-* Enter `Ionic FTW!` for the Name
-* Add Login redirect URIs: `http://localhost:8100/callback` and `dev.localhost.ionic:/callback`
-* Click **Done**, then **Edit** and add Logout redirect URIs: `http://localhost:8100/logout` and `dev.localhost.ionic:/logout`
-* Click **Save**
+You'll also need to add a trusted origin for `\http://localhost:8100`. Run `okta login`, open the URL in a browser, sign in to the Okta Admin Console, and navigate to **Security** > **API** > **Trusted Origins** > **Add Origin**. Use the following values:
 
-You'll also need to add a trusted origin for `http://localhost:8100`. Navigate to **API** > **Trusted Origins** > **Add Origin**. Use the following values:
-
-* Name: `http://localhost:8100`
-* Origin URL: `http://localhost:8100`
+* Name: `\http://localhost:8100`
+* Origin URL: `\http://localhost:8100`
 * Type: Check **both** CORS and Redirect
 
 Click **Save**.
 
-NOTE: You didn't need to add a trusted origin for the `JHipster FTW!` app because one is automatically created for you when the OIDC app is a web app.
-
-You'll need the client ID from your Native app, so keep your browser tab open or copy/paste it somewhere.
-
-=== Create Groups and Add Them as Claims to the ID Token
-
-In order to login to your JHipster app, you'll need to adjust your Okta authorization server to include a `groups` claim.
-
-On Okta, navigate to **Users** > **Groups**. Create `ROLE_ADMIN` and `ROLE_USER` groups and add your account to them.
-
-Navigate to **API** > **Authorization Servers**, click the **Authorization Servers** tab and edit the **default** one. Click the **Claims** tab and **Add Claim**. Name it "groups" or "roles" and include it in the ID Token. Set the value type to "Groups" and set the filter to be a Regex of `.*`. Click **Create**.
-
-image::{% asset_path 'blog/java-12-jhipster-6/add-claim.png' %}[alt=Add Claim,width=600,align=center]
-
-Navigate to `http://localhost:8080`, click **sign in** and you'll be redirected to Okta to log in.
+Navigate to `\http://localhost:8080`, click **sign in** and you'll be redirected to Okta to log in.
 
 image::{% asset_path 'blog/ionic-4-jhipster/okta-login.png' %}[alt=Sign In with Okta,width=800,align=center]
 
@@ -300,13 +276,9 @@ NOTE: When using Keycloak, this change is not necessary.
 
 In order to authentication successfully with your Ionic app, you have to do a bit more configuration in Okta. Since the Ionic client will only send an access token to JHipster, you need to 1) add a `groups` claim to the access token and 2) add a couple more claims so the user's name will be available in JHipster.
 
-Navigate to **API** > **Authorization Servers**, click the **Authorization Servers** tab and edit the **default** one. Click the **Claims** tab and **Add Claim**. Name it "groups" and include it in the Access Token. Set the value type to "Groups" and set the filter to be a Regex of `.*`. Click **Create**.
+In the Okta Admin Console, go to **Security** > **API** > **Authorization Servers**, click the **Authorization Servers** tab and edit the **default** one. Click the **Claims** tab and **Add Claim**. Name it "groups" and include it in the Access Token. Set the value type to "Groups" and set the filter to be a Regex of `.*`. Click **Create**.
 
 Add another claim, name it `given_name`, include it in the access token, use `Expression` in the value type, and set the value to `user.firstName`. Optionally, include it in the `profile` scope. Perform the same actions to create a `family_name` claim and use expression `user.lastName`.
-
-When you are finished, your claims should look as follows.
-
-image::{% asset_path 'blog/ionic-4-jhipster/claims.png' %}[alt=Default Authorization Server Claims,width=800,align=center]
 
 Run the following commands to start your Ionic app.
 
@@ -380,7 +352,7 @@ Log in to your Ionic app, tap **Entities** and view the list of photos.
 
 image::{% asset_path 'blog/ionic-4-jhipster/simulator-photos.png' %}[alt=Ionic on Simulator,width=800,align=center]
 
-Add a photo in the JHipster app at `http://localhost:8080`.
+Add a photo in the JHipster app at `\http://localhost:8080`.
 
 image::{% asset_path 'blog/ionic-4-jhipster/jhipster-new-photo.png' %}[alt=Add Photo in JHipster App,width=800,align=center]
 
@@ -420,9 +392,3 @@ I've written a few other posts on Ionic, JHipster, and Angular. Check them out i
 * link:/blog/2018/10/10/react-native-spring-boot-mobile-app[Build a Mobile App with React Native and Spring Boot]
 
 Give https://twitter.com/oktadev[@oktadev] a follow on Twitter if you liked this tutorial. You might also want to https://www.youtube.com/c/oktadev[subscribe to our YouTube channel]. If you have any questions, please leave a comment or post your question to https://www.stackoverflow.com[Stack Overflow] with a `jhipster` tag.
-
-[[changelog]]
-**Changelog:**
-
-* May 20, 2020: Updated to remove `/implicit` from redirect URIs since auth code flow is used. Changes to this post can be viewed in https://github.com/oktadeveloper/okta-blog/pull/302[okta-blog#302]. Updates to the example application are in https://github.com/oktadeveloper/okta-ionic4-jhipster-example/pull/10[okta-ionic4-jhipster-example#10].
-* Oct 30, 2019: Updated to use JHipster 6.4.1 and Ionic for JHipster 4.3.0. Changes to this post can be viewed in https://github.com/oktadeveloper/okta-blog/pull/64[okta-blog#64]. Updates to the example application are in https://github.com/oktadeveloper/okta-ionic4-jhipster-example/pull/7[okta-ionic4-jhipster-example#7].
