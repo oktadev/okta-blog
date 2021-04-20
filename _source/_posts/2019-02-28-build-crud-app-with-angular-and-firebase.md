@@ -48,9 +48,11 @@ Next, you will need to obtain the information for using the service in your appl
 
 ## Add User Authentication to Your Angular + Firebase App
 
-The client will be implemented with user authentication from Okta. So, before you start writing any client code, you should register your application with Okta. If you don't have a developer account yet, go on and [register for a free account at](http://developer.okta.com/signup). Once you have registered, you will be taken to the Okta dashboard. Here you can add a new application that should use Okta authentication by clicking on the **Add Application** button. The page that appears lets you choose between different types of application. Choose **Single Page Application** which will take you to the settings page. You need to modify the defaults because Angular uses port 4200 as the default port of its testing server. Your settings should look like this.
+The client will be implemented with user authentication from Okta. 
 
-{% img blog/firebase-angular-wiki/okta-settings.png alt:"Okta: Settings" width:"800" %}{: .center-image }
+{% include setup/cli.md type="spa" framework="Angular"
+   loginRedirectUri="http://localhost:4200/callback"
+   logoutRedirectUri="http://localhost:4200" %}
 
 ## Set Up Your Angular Client
 
@@ -72,7 +74,7 @@ This will create a directory with the name `WikiClient`, add some barebones appl
 ng add @oktadev/schematics
 ```
 
-You will be asked about the issuer URL and the client ID of your application. To set them, simply copy and paste the values obtained from the Okta console. The command will add the latest Okta packages for Angular and set up the basic configuration to use Okta authentication in your application.
+You will be asked about the issuer URL and the client ID of your application. To set them, simply copy and paste the values obtained from the Okta CLI. The command will add the latest Okta packages for Angular and set up the basic configuration to use Okta authentication in your application.
 
 ## Add Visual Design to Your Angular + Firebase Application
 
@@ -266,7 +268,7 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: 'implicit/callback',
+    path: 'callback',
     component: OktaCallbackComponent
   }
 ];

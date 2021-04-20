@@ -12,6 +12,8 @@ tweets:
 - "Need to add user authentication to your @reactjs app? We've got you covered!"
 image: blog/featured/okta-react-bottle-headphones.jpg
 type: conversion
+update-title: "A Quick Guide to React Login Options"
+update-url: /blog/2020/12/16/react-login
 ---
 
 In 2019, it's quite easy to find React components for pretty much everything. For example, if you want to add user authentication to your app, you can do so easily with Okta's React component. Here I'll walk you through creating a simple, fun React app that fetches random Chuck Norris jokes. I'll then show you how you can add user authentication and customize your user experience, so the jokes will replace Chuck Norris' name with their own.
@@ -219,13 +221,11 @@ Now that you have a functional web app, you can add some personalization by allo
 * Secure your application with [multi-factor authentication](https://developer.okta.com/use_cases/mfa/)
 * And much more! Check out our [product documentation](https://developer.okta.com/documentation/)
 
-If you don't already have one, [sign up for a forever-free developer account](https://developer.okta.com/signup/). Log in to your developer console, navigate to **Applications**, then click **Add Application**. Select **Single-Page App**, then click **Next**.
+{% include setup/cli.md type="spa" framework="React" loginRedirectUri="http://localhost:3000/callback" %}
 
-Since Create React App runs on port 3000 by default, you should add that as a Base URI and Login Redirect URI. Your settings should look like the following:
+Run `okta login` and open the returned URL in your browser. Sign in to the Okta Admin Console, find your app in the **Applications** section, and edit its general settings. Enable the **Implicit (Hybrid)** grant type, select allow access token, and **Save**.
 
-{% img blog/simple-user-auth-react/okta-app-settings.png alt:"Okta app settings" width:"800" %}{: .center-image }
-
-Click **Done** to save your app, then copy your **Client ID** and paste it as a variable into a file called `.env.local` in the root of your project. This will allow you to access the file in your code without needing to store credentials in source control. You'll also need to add your organization URL (without the `-admin` suffix). Environment variables (other than `NODE_ENV`) need to start with `REACT_APP_` in order for Create React App to read them, so the file should end up looking like this:
+Copy your **Client ID** and paste it as a variable into a file called `.env.local` in the root of your project. This will allow you to access the file in your code without needing to store credentials in source control. You'll also need to add your organization URL (without the `-admin` suffix). Environment variables (other than `NODE_ENV`) need to start with `REACT_APP_` in order for Create React App to read them, so the file should end up looking like this:
 
 ```bash
 REACT_APP_OKTA_ORG_URL=https://{yourOktaDomain}
@@ -234,13 +234,13 @@ REACT_APP_OKTA_CLIENT_ID={yourClientId}
 
 You may need to restart your server before it will recognize these changes. You can find the running instance and then hit `ctrl-c` to close it. Then run it again with `yarn start`.
 
-The easiest way to add Authentication with Okta to a React app is to use [Okta's React SDK](https://github.com/okta/okta-oidc-js/tree/master/packages/okta-react). You'll also need to add routes, which can be done using [React Router](https://reacttraining.com/react-router/). Go ahead and add these dependencies:
+The easiest way to add Authentication with Okta to a React app is to use [Okta's React SDK](https://github.com/okta/okta-react). You'll also need to add routes, which can be done using [React Router](https://reacttraining.com/react-router/). Go ahead and add these dependencies:
 
 ```bash
 yarn add @okta/okta-react@1.2.0 react-router-dom@4.3.1
 ```
 
-Now in order to use Okta in your React app, you'll need to wrap the app in a provider. In your `src/index.js`, instead of rendering the `<App />` component by itself, you'll need to render a `<Router>` component. This uses React Router to control different URL paths in your app. Next, you'll need to include the `<Security>` component as a child. This allows Okta to add an `auth` object to the context, which can be read from children in the React tree. Then you'll need a couple `Route`s to let the router know what to display for each route. For the default route, you'll display `App`, so everything should look the same as it did before. But you'll also add an `/implicit/callback` route to let Okta handle the OAuth callback. Replace the call to `ReactDOM.render` with the following:
+Now in order to use Okta in your React app, you'll need to wrap the app in a provider. In your `src/index.js`, instead of rendering the `<App />` component by itself, you'll need to render a `<Router>` component. This uses React Router to control different URL paths in your app. Next, you'll need to include the `<Security>` component as a child. This allows Okta to add an `auth` object to the context, which can be read from children in the React tree. Then you'll need a couple `Route`s to let the router know what to display for each route. For the default route, you'll display `App`, so everything should look the same as it did before. But you'll also add an `/callback` route to let Okta handle the OAuth callback. Replace the call to `ReactDOM.render` with the following:
 
 ```javascript
 import { BrowserRouter as Router, Route } from 'react-router-dom';
@@ -251,10 +251,10 @@ ReactDOM.render(
     <Security
       issuer={`${process.env.REACT_APP_OKTA_ORG_URL}/oauth2/default`}
       client_id={process.env.REACT_APP_OKTA_CLIENT_ID}
-      redirect_uri={`${window.location.origin}/implicit/callback`}
+      redirect_uri={`${window.location.origin}/callback`}
     >
       <Route path="/" exact component={App} />
-      <Route path="/implicit/callback" component={ImplicitCallback} />
+      <Route path="/callback" component={ImplicitCallback} />
     </Security>
   </Router>,
   document.getElementById('root')
@@ -428,5 +428,3 @@ For more examples using Okta with React, check out some of these other posts, or
 * [Build a Basic CRUD App with Node and React](/blog/2018/07/10/build-a-basic-crud-app-with-node-and-react)
 
 If you have any questions about this post, please add a comment below. For more awesome content, follow [@oktadev](https://twitter.com/oktadev) on Twitter, like us [on Facebook](https://www.facebook.com/oktadevelopers/), or subscribe to [our YouTube channel](https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q).
-
-
