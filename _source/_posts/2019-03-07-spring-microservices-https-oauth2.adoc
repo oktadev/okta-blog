@@ -13,7 +13,7 @@ tweets:
 image: blog/microservices-service-to-service-security/boot-cloud-okta.jpg
 type: conversion
 changelog:
-- 2021-04-20: Updated code for `RestTemplate` so there are no thread-safety issues between clients. See [okta-blog#773](https://github.com/oktadeveloper/okta-blog/pull/773) to see what changed.
+- 2021-04-20: Updated code for `RestTemplate` so there are no thread-safety issues between clients. See [okta-blog#773](https://github.com/oktadeveloper/okta-blog/pull/773) to see what changed. Changes to the example app can be viewed in [okta-spring-microservices-https-example#1](https://github.com/oktadeveloper/okta-spring-microservices-https-example/pull/1).
 ---
 :page-liquid:
 :toc: macro
@@ -537,8 +537,8 @@ public class SchoolController {
     private final OAuth2AuthorizedClientService authorizedClientService;
     private final RestTemplate restTemplate;
 
-    public SchoolController(OAuth2AuthorizedClientService clientService,
-                            RestTemplate restTemplate) { // <1>
+    public SchoolController(OAuth2AuthorizedClientService clientService, // <1>
+                            RestTemplate restTemplate) {
         this.authorizedClientService = clientService;
         this.restTemplate = restTemplate;
     }
@@ -550,16 +550,17 @@ public class SchoolController {
 
     @GetMapping("/classes")
     @PreAuthorize("hasAuthority('SCOPE_profile')")
-    public ResponseEntity<List<TeachingClassDto>> listClasses(@AuthenticationPrincipal OAuth2AuthenticationToken authentication) { // <2>
+    public ResponseEntity<List<TeachingClassDto>> listClasses(
+        @AuthenticationPrincipal OAuth2AuthenticationToken authentication) { // <2>
 
         OAuth2AuthorizedClient authorizedClient =
             this.authorizedClientService.loadAuthorizedClient(
                 authentication.getAuthorizedClientRegistrationId(),
                 authentication.getName()); // <3>
 
-        OAuth2AccessToken accessToken = authorizedClient.getAccessToken();// <4>
+        OAuth2AccessToken accessToken = authorizedClient.getAccessToken(); // <4>
         HttpHeaders headers = new HttpHeaders() {{
-            set("Authorization", "Bearer " + accessToken.getTokenValue()); // <4>
+            set("Authorization", "Bearer " + accessToken.getTokenValue()); // <5>
         }};
 
         return restTemplate
@@ -569,10 +570,11 @@ public class SchoolController {
     }
 }
 ----
-<1> Create a `BearerTokenResolver` to resolve the access token
-<2> Inject a `RestTemplateBuilder` into the constructor
-<3> Get the access token from the `bearerTokenResolver`
-<4> Add the access token to the `Authorization` header
+<.> Add an `OAuth2AuthorizedClientService` dependency to the constructor
+<.> Inject an `OAuth2AuthenticationToken` into the `listClasses()` method
+<.> Create an `OAuth2AuthorizedClient` from the `authentication`
+<.> Get the access token from the authorized client
+<.> Add the access token to the `Authorization` header
 ====
 {% endraw %}
 
