@@ -205,33 +205,19 @@ So obviously in a real application, you'd need to implement some things like a d
 
 ## Create An Okta OpenID Connect Application
 
-Okta is a great way to quickly add single sign-on to your application using OAuth 2.0 and OpenID Connect (OIDC). The first step is to sign up for a free developer account. Head over to [https://developer.okta.com](https://developer.okta.com/) and register. 
+Okta is a great way to quickly add single sign-on to your application using OAuth 2.0 and OpenID Connect (OIDC). 
 
-Once you've logged in, you may need to click on the **Admin** button to get to the developer dashboard.
+{% include setup/cli.md type="web"
+   loginRedirectUri="https://oidcdebugger.com/debug"
+   logoutRedirectUri="https://oidcdebugger.com" %}
 
-From the top menu, click on the  **Applications** item, and then click  **Add Application**.
-
-Select  **Web**  as the platform and click  **Next**.
-
-Give the app a name. I named mine "MicroProfile", but you can name yours whatever you like.
-
-Under **Login redirect URIs**, add a new URI: `https://oidcdebugger.com/debug`.
-
-Check the box next to **Implicit (Hybrid)** in the **Grant type allowed** section. You need to do this to allow the `oidcdebugger.com` website to get an access token.
-
-The other defaults are fine.
-
-{% img blog/microprofile-jwt-auth/oidc-web-app.png alt:"Okta OIDC App" width:"680" %}{: .center-image }
-
-Click **Done**.
-
-That's it! You've now configured Okta as an OAuth 2.0 OIDC provider. Take note of the **Client ID** value because you'll need that in a sec.
+That's it! You've now configured Okta as an OAuth 2.0 OIDC provider. 
 
 ## Add Groups and UPN Claims To Default Authorization Server
 
 You need to add two claims mappings to your default authorization server on Okta, to enable role-based authorization and meet MicroProfile's claims requirements.
 
-From the top menu of the Okta developer dashboard, go to **API** and select **Authorization Servers**.
+Run `okta login` and open the returned URL in your browser. Sign in and go to **Security** > **API** and select **Authorization Servers**.
 
 Click on the **default** server.
 
@@ -248,8 +234,6 @@ Click **Add Claim**.
 
 Click **Create**.
 
-{% img blog/microprofile-jwt-auth/add-groups-claim.png alt:"Add Groups Claim" width:"600" %}{: .center-image }
-
 Next, add a **upn** claim. 
 
 Click **Add Claim**.
@@ -263,20 +247,9 @@ Click **Create**.
 
 ## Generate A JSON Web Token
 
-Because the example app is an API, it expects the request to come with a valid token and will not directly provide a way for the user to log in. There is no login redirect flow. How, then, do you get a token? OpenID Connect Debugger to the rescue! 
+Because the example app is an API, it expects the request to come with a valid token and will not directly provide a way for the user to log in. There is no login redirect flow. How, then, do you get a token? 
 
-Open [https://oidcdebugger.com/](https://oidcdebugger.com/) and fill in the values for your OIDC application.
-
-Your **Authorization URI** is based on your developer account URI and will look like   
-`https://dev-123456.okta.com/oauth2/default`. However, you need to replace the `dev-123456` with your own URI (just look at your dashboard URI).
-
-The **Redirect URI** stays the same. This is the URI you entered into the Okta OIDC application settings.
-
-Copy and paste the **Client ID** from the Okta OIDC application into the **Client ID** field.
-
-The **State** parameter can be any value, but can't be empty. I entered `123`. Leave the other fields the same.
-
-{% img blog/microprofile-jwt-auth/oidcdebugger.png alt:"OIDC Debugger" width:"600" %}{: .center-image }
+{% include setup/oidcdebugger.md %}
 
 Scroll down and click **Send Request**.
 
