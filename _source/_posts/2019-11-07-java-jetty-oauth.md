@@ -20,6 +20,10 @@ By default, Spring Boot creates applications with embedded web servers, which me
 
 In this tutorial, you will build a simple web service with Jetty embedded. After that, you will build the same web service in Spring Boot and Jetty. Finally, you'll add JWT (JSON Web Token) authentication and authorization to the web service using method-level security with Okta as the OAuth/OIDC provider.
 
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+
 ## Install the Project Dependencies
 
 You'll need to install a few things before you get started.
@@ -28,9 +32,9 @@ You'll need to install a few things before you get started.
 
 **HTTPie**: This is a simple command-line utility for making HTTP requests. You'll use this to test the REST application. Check out [the installation instructions on their website](https://httpie.org/doc#installation).
 
-**Okta Developer Account**: You'll use Okta as an OAuth/OIDC provider to add JWT authentication and authorization to the application. Go to [their website](https://developer.okta.com/signup/) and sign up for one of their free developer accounts, if you haven't already.
+**Okta Developer Account**: You'll use Okta as an OAuth/OIDC provider to add JWT authentication and authorization to the application. Go to [developer.okta.com](https://developer.okta.com/signup/) and sign up for one of their free developer accounts, if you haven't already.
 
-**Gradle**: This is an optional install. If you download the project for this tutorial from the repo, you can run the project using the Gradle wrapper and don't need to install Gradle. . If you want to build the project from scratch, you'll need to [install Gradle](https://gradle.org/install/).
+**Gradle**: This is an optional install. If you download the project for this tutorial from the repo, you can run the project using the Gradle wrapper and don't need to install Gradle. If you want to build the project from scratch, you'll need to [install Gradle](https://gradle.org/install/).
 
 ## Build a Simple Web Service With Java and Jetty
 
@@ -271,32 +275,10 @@ So far things are going pretty great. In the next section, you will recreate the
 
 Now let's take a little field trip over to Okta and set things up for OAuth/OpenID Connect (OIDC). Together, they are a set of open standards for implementing secure authorization and authentication. In this tutorial, Okta will act as the identity provider, and your Spring Boot app will be the client.
 
-You should have already signed up for a free developer account with Okta. Navigate to the developer dashboard at [https://developer.okta.com](https://developer.okta.com). If this is your first time logging in, you may need to click the **Admin** button.
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" loginRedirectUri="https://oidcdebugger.com/debug,http://localhost:8080/login/oauth2/code/okta" 
+   logoutRedirectUri="http://localhost:8080" %}
 
-To configure JWT authentication and authorization, you need to create an OIDC application. 
-
-From the top menu, click on the **Application** button. Click the **Add Application** button.
-
-Select application type **Web**.
-
-Click **Next**.
-
-Give the app a name. I named mine "Spring Boot Jetty".
-
-Under  **Login redirect URIs**, add two new URIs:
-
-* `https://oidcdebugger.com/debug` 
-* `http://localhost:8080/login/oauth2/code/okta`
-
-Under **Grant types allowed**, check **Implicit (Hybrid)**.
-
-The rest of the default values will work.
-
-Click **Done**.
-
-Leave the page open or take note of the **Client ID**. You'll need it in a bit when you generate a token.
-
-> **NOTE:** You will use the oidcdebugger.com redirect URI and implicit grant type to create an access token you can use from the command line with HTTPie. The second URI is the default redirect URI that Spring Security uses for Okta when using its OAuth login feature.
+> **NOTE:** You will use the oidcdebugger.com redirect URI to create an access token you can use from the command line with HTTPie. The second URI is the default redirect URI that Spring Security uses for Okta when using its OAuth login feature.
 
 ## Create a Spring Boot Project with Jetty
 
@@ -455,17 +437,10 @@ You now have a Spring Boot application that runs on an embedded Jetty container.
 
 You signed up for Okta and created the OIDC application. Now it's time to configure the Spring Boot app to use OAuth/OIDC for authentication and authorization.
 
-First, add your Issuer URI to the `src/main/resources/application.properties` file. You need to replace `{yourOktaUrl}` with your actual Okta URL. If you go to https://developer.okta.com and navigate to **API** and **Authorization Servers**, you'll see the Issuer URI for the `default` authorization server.
-
-{% img blog/java-jetty/issuer-uri.png alt:"Issuer URI" width:"800" %}{: .center-image }
+First, confirm your Issuer URI, client ID, and client secret are in your `src/main/resources/application.properties` file. 
 
 ```properties
 okta.oauth2.issuer=https://{yourOktaUrl}/oauth2/default
-```
-
-While you're in that file, add the client ID and client secret from the "Spring Boot Jetty" app you created earlier. 
-
-```properties
 okta.oauth2.clientId={clientId}
 okta.oauth2.clientSecret={clientSecret}
 ```
@@ -614,15 +589,7 @@ HTTP/1.1 403 Forbidden
 
 ## Generate a JWT Using the OIDC Debugger
 
-To access the protected endpoints, you need to generate a JWT. To do this, you can use the [OIDC Debugger](https://oidcdebugger.com/). You'll need the Client ID from the OIDC app you created earlier, as well as your base Okta URI (the same as the base URI in the Issuer URI).
-
-Open the [OIDC Debugger](https://oidcdebugger.com/).
-
-Update the **Authorization URI** to: `https://{yourOktaUri}/oauth2/default/v1/authorize`
-
-Update the **Client ID** to the Client ID from your OIDC application.
-
-Put something in the **State** field. For the purposes of this tutorial, this can be anything. This value is used to help protect against cross-site forgery requests.
+To access the protected endpoints, you need to generate an access token JWT. {% include setup/oidcdebugger.md %}
 
 {% img blog/java-jetty/oidc-debugger.png alt:"OIDC Debugger Configuration" width:"650" %}{: .center-image }
 

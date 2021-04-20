@@ -84,7 +84,7 @@ Okta application configuration:
 Issuer:    https://dev-133337.okta.com/oauth2/default
 Client ID: 0oab8eb55Kb9jdMIr5d6
 ```
-{% elsif include.type contains "web" or "jhipster"  %}
+{% elsif include.type contains "web" or include.type == "jhipster" or include.type == "service"  %}
   {% if include.framework contains "Spring Boot" %}
 ```shell
 Okta application configuration has been written to: 
@@ -113,7 +113,7 @@ okta.oauth2.client-secret=NEVER-SHOW-SECRETS
   {% elsif include.type != "token" %}
 Run `cat .okta.env` (or `type .okta.env` on Windows) to see the issuer and credentials for your app.{% if include.type == "jhipster" %} It will look like this (except the placeholder values will be populated):{% endif %}
 
-    {% if include.type == "web" or "service" %}
+    {% if include.type == "web" or include.type == "service" %}
 ```shell
 export OKTA_OAUTH2_ISSUER="https://dev-133337.okta.com/oauth2/default"
 export OKTA_OAUTH2_CLIENT_ID="0oab8eb55Kb9jdMIr5d6"

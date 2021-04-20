@@ -196,6 +196,27 @@ For AsciiDoc:
 image::{% asset_path 'blog/<post-images-dir>/<image-file-name>' %}[alt=text for screen readers,width=800,align=center]
 ```
 
+To add a table of contents, use the following:
+
+```
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+```
+  
+For AciiDoc, add the following just after the front matter:
+
+```
+:page-liquid:
+:toc: macro
+```
+
+Then, add the following wherever you'd like the table of contents to appear:
+
+```
+toc::[]
+```
+
 ### Add a Changelog
 
 If you update a post to fix a bug or upgrade dependencies, you should add a changelog. You can add this to the front matter with a `changelog` key. 
