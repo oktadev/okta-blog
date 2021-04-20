@@ -97,7 +97,7 @@ This project has an aggregator `pom.xml` in its root directory that will allow y
 
 [source,shell]
 ----
-mvn clean install
+mvn install
 ----
 
 TIP: If you don't have Maven installed, you can install it with https://sdkman.io/[SDKMAN!] `sdk install maven`
@@ -297,7 +297,7 @@ At this point, you should be able to start all your apps by running the followin
 [source,shell]
 ----
 source ../https.env
-./mvnw spring-boot:start
+./mvnw spring-boot:run
 ----
 
 Confirm it all works at `\https://localhost:8080`. Then kill everything with `killall java`.
@@ -374,7 +374,7 @@ services:
 
 You can make sure it's working by running `docker-compose config` from your root directory.
 
-Run `mvn clean install` to rebuild all your Docker images with HTTPS enabled for Eureka registration. Then start all everything.
+Run `mvn install` to rebuild all your Docker images with HTTPS enabled for Eureka registration. Then start all everything.
 
 [source,shell]
 ----
@@ -588,7 +588,7 @@ At this point, you can choose to run all your apps individually with `./mvnw spr
 
 [source,shell]
 ----
-mvn clean install
+mvn install
 docker-compose down
 docker-compose up -d
 ----
