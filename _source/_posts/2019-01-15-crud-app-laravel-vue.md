@@ -12,7 +12,7 @@ tweets:
 image: blog/featured/okta-vue-tile-books-mouse.jpg
 type: conversion
 changelog:
-- 2021-04-15: Updated to use Okta Vue 3.1.0 and the Okta CLI for OIDC app creation. See changes in [okta-blog#679](https://github.com/oktadeveloper/okta-blog/pull/679). Changes to the example app can be viewed in [okta-php-laravel-vue-crud-example#20](https://github.com/oktadeveloper/okta-php-laravel-vue-crud-example/pull/20). 
+- 2021-04-15: Updated to use Okta Vue 3.1.0 and the Okta CLI for OIDC app creation. See changes in [okta-blog#679](https://github.com/oktadeveloper/okta-blog/pull/679). Changes to the example app can be viewed in [okta-php-laravel-vue-crud-example#20](https://github.com/oktadeveloper/okta-php-laravel-vue-crud-example/pull/20).
 ---
 
 Laravel is one of the most popular web frameworks today because of its elegance, simplicity, and readability. It also boasts one of the largest and most active developer communities. The Laravel community has produced a ton of valuable educational resources, including this one! In this tutorial, you'll build a trivia game as two separate projects: a Laravel API and a Vue frontend (using vue-cli). This approach offers some important benefits:
@@ -289,7 +289,8 @@ You will install `vue-cli` and create a new Vue.js project using the default con
 npm install -g @vue/cli
 vue create trivia-web-client-vue
 cd trivia-web-client-vue
-yarn add --save vue-router axios @okta/okta-vue@3.0.1
+yarn add --save vue-router axios @okta/okta-vue@3.1.0
+npm install --save @okta/okta-auth-js@4.8.0 @okta/okta-vue vue-router axios
 yarn serve
 ```
 
@@ -535,7 +536,7 @@ export default {
 You need to secure your backend API so it only allows requests that include a valid Okta token. You will install the Okta JWT Verifier package and add a custom middleware for API authentication:
 
 ```bash
-composer require okta/jwt-verifier spomky-labs/jose guzzlehttp/psr7
+composer require okta/jwt-verifier:"^0.2" spomky-labs/jose:"^7.1" guzzlehttp/psr7:"^1.4"
 php artisan make:middleware AuthenticateWithOkta
 ```
 
