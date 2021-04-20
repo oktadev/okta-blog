@@ -13,7 +13,7 @@ tweets:
 image: blog/microservices-service-to-service-security/boot-cloud-okta.jpg
 type: conversion
 changelog:
-- 2021-04-20: Updated code for `RestTemplate` so there are no thread-safety issues between clients. See [okta-blog#221]() to see what changed.
+- 2021-04-20: Updated code for `RestTemplate` so there are no thread-safety issues between clients. See [okta-blog#773](https://github.com/oktadeveloper/okta-blog/pull/773) to see what changed.
 ---
 :page-liquid:
 :toc: macro
