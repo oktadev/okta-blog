@@ -12,7 +12,7 @@ tweets:
 image: blog/featured/okta-react-headphones.jpg
 type: conversion
 changelog:
-  - 2021-04-16: Updated to use Okta React v4.1.0 and streamline setup with the Okta CLI. See changes in [okta-blog#681](https://github.com/oktadeveloper/okta-blog/pull/681); example app changes are in [okta-php-trivia-react#1](https://github.com/oktadeveloper/okta-php-trivia-react/pull/1);
+  - 2021-04-16: Updated to use Okta React v4.1.0 and streamline setup with the Okta CLI. Updated Laravel CORS library from barryvdh to fruitcake. See changes in [okta-blog#681](https://github.com/oktadeveloper/okta-blog/pull/681); example app changes are in [okta-php-trivia-react#1](https://github.com/oktadeveloper/okta-php-trivia-react/pull/1);
 ---
 
 Laravel is an amazing web application framework which regularly tops the lists of best PHP frameworks available today. This is partly because its based on PHP which runs 80% of the web today and the learning curve is relatively small (despite it being packed with advanced features, you can understand the basic concepts easily). However, the real reason for its popularity is its robust ecosystem and abundance of high-quality learning resources available for free (like this blog post!).
@@ -45,7 +45,7 @@ Here's how to play:
 
 {% include setup/cli.md type="spa" framework="React" loginRedirectUri="http://localhost:3000/callback" %}
 
-## Set Up Laravel 
+## Set Up Laravel
 
 Install the `laravel` command globally on your system through composer. Then create a new Laravel project, navigate to it and start the development PHP server:
 
@@ -251,26 +251,35 @@ The API supports methods for retrieving all players or a specific player, adding
 We also need to enable CORS so we can access our API from the frontend application:
 
 ```bash
-composer require barryvdh/laravel-cors
+composer require fruitcake/laravel-cors
 ```
 
 `app/Http/Kernel.php`
 
 ```php
-protected $middlewareGroups = [
-    'web' => [
+protected $middleware = [
         ...
-        \Barryvdh\Cors\HandleCors::class,
-    ],
-
-    'api' => [
-        ...
-        \Barryvdh\Cors\HandleCors::class,
-    ],
+        \Fruitcake\Cors\HandleCors::class,
 ];
 ```
 
-You can add some dummy data to the database or use the Faker library to automate the process of generating test data. Once you have some data, you can access these URLs:
+Publish the CORS library config:
+
+```bash
+php artisan vendor:publish --tag="cors"
+```
+
+Then edit the config file created:
+
+`config/cors.php`
+
+```php
+  ...
+  'paths' => ['api/*'],
+  ...
+```
+
+You can add some placeholder data to the database or use the Faker library to automate the process of generating test data. Once you have some data, you can access these URLs:
 
 * http://127.0.0.1:8000/api/players
 * http://127.0.0.1:8000/api/players/1
@@ -295,7 +304,7 @@ yarn start
 
 The default React application should now load on `http://localhost:3000`.
 
-## Add Authentication and Basic Routing to React 
+## Add Authentication and Basic Routing to React
 
 We will start with the most basic React application possible. Let's delete everything except the `index.js` and `App.js` files from the `/src` folder, and change their contents like this:
 
@@ -450,7 +459,7 @@ class App extends Component {
       redirectUri: window.location.origin + '/callback'
     });
   }
-  
+
   render() {
     return (
         <Router>
@@ -577,7 +586,7 @@ export default withOktaAuth(class Trivia extends Component {
 We need to secure our backend API so it uses the Okta token to allow only authorized requests. We need to install the JWT Verifier package and add a custom middleware for API authentication:
 
 ```bash
-composer require okta/jwt-verifier spomky-labs/jose guzzlehttp/psr7
+composer require okta/jwt-verifier:"^0.2" spomky-labs/jose:"^7.1" guzzlehttp/psr7:"^1.4"
 php artisan make:middleware AuthenticateWithOkta
 ```
 
@@ -818,7 +827,7 @@ import DeletePlayerButton from './DeletePlayerButton';
    onDelete(id) {
         let players = this.state.players;
         let index = players.findIndex(player => player.id === id)
-        players.splice(index, 1)       
+        players.splice(index, 1)
         this.setState({
             players: players
         })
