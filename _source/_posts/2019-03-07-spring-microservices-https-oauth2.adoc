@@ -12,6 +12,8 @@ tweets:
 - "Spring Security is awesome! Learn how it makes it possible to secure your microservice architecture's server-to-server communication."
 image: blog/microservices-service-to-service-security/boot-cloud-okta.jpg
 type: conversion
+changelog:
+- 2021-04-20: Updated code for `RestTemplate` so there are no thread-safety issues between clients. See [okta-blog#221]() to see what changed.
 ---
 :page-liquid:
 :toc: macro
@@ -205,6 +207,8 @@ mkcert -install
 mkcert localhost 127.0.0.1 ::1 `hostname` discovery
 ----
 
+TIP: I would recommend including your computer's IP address in the list above too. It seems to be necessary to get the `school-ui` project to connect to the config server when running outside of Docker.
+
 If this generates files with a number in them, rename the files so they don't have a number.
 
 [source,shell]
@@ -374,7 +378,7 @@ services:
 
 You can make sure it's working by running `docker-compose config` from your root directory.
 
-Run `mvn install` to rebuild all your Docker images with HTTPS enabled for Eureka registration. Then start all everything.
+Run `mvn clean install` to rebuild all your Docker images with HTTPS enabled for Eureka registration. Then start all everything.
 
 [source,shell]
 ----
@@ -499,6 +503,7 @@ TIP: You could create a service app on Okta that uses client credentials, but th
 
 The last step you'll need to do is modify `SchoolController` (in the `school-ui` project) to add an OAuth 2.0 access token to the request it makes to `school-server`.
 
+{% raw %}
 .Add an AccessToken to RestTemplate
 ====
 [source,java]
@@ -506,33 +511,36 @@ The last step you'll need to do is modify `SchoolController` (in the `school-ui`
 package com.okta.developer.docker_microservices.ui.controller;
 
 import com.okta.developer.docker_microservices.ui.dto.TeachingClassDto;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.oauth2.server.resource.web.BearerTokenResolver;
-import org.springframework.security.oauth2.server.resource.web.DefaultBearerTokenResolver;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
 @RequestMapping("/")
 public class SchoolController {
 
-    private final BearerTokenResolver bearerTokenResolver = new DefaultBearerTokenResolver(); // <1>
+    private final OAuth2AuthorizedClientService authorizedClientService;
     private final RestTemplate restTemplate;
 
-    public SchoolController(RestTemplateBuilder restTemplateBuilder) { // <2>
-        this.restTemplate = restTemplateBuilder.build();
+    public SchoolController(OAuth2AuthorizedClientService clientService,
+                            RestTemplate restTemplate) { // <1>
+        this.authorizedClientService = clientService;
+        this.restTemplate = restTemplate;
     }
 
     @RequestMapping("")
@@ -542,16 +550,22 @@ public class SchoolController {
 
     @GetMapping("/classes")
     @PreAuthorize("hasAuthority('SCOPE_profile')")
-    public ResponseEntity<List<TeachingClassDto>> listClasses(HttpServletRequest request) {
+    public ResponseEntity<List<TeachingClassDto>> listClasses(@AuthenticationPrincipal OAuth2AuthenticationToken authentication) { // <2>
 
-        String token = bearerTokenResolver.resolve(request); // <3>
+        OAuth2AuthorizedClient authorizedClient =
+            this.authorizedClientService.loadAuthorizedClient(
+                authentication.getAuthorizedClientRegistrationId(),
+                authentication.getName()); // <3>
+
+        OAuth2AccessToken accessToken = authorizedClient.getAccessToken();// <4>
         HttpHeaders headers = new HttpHeaders() {{
-            set("Authorization", "Bearer " + token); // <4>
+            set("Authorization", "Bearer " + accessToken.getTokenValue()); // <4>
         }};
 
         return restTemplate
             .exchange("https://school-service/class", HttpMethod.GET, new HttpEntity<String>(headers),
-                new ParameterizedTypeReference<List<TeachingClassDto>>() { });
+                new ParameterizedTypeReference<List<TeachingClassDto>>() {
+                });
     }
 }
 ----
@@ -560,6 +574,7 @@ public class SchoolController {
 <3> Get the access token from the `bearerTokenResolver`
 <4> Add the access token to the `Authorization` header
 ====
+{% endraw %}
 
 That's it! Since the `school-ui` and the `school-service` use the same OIDC app settings, the server will recognize and validate the access token (which is also a JWT), and allow access.
 
@@ -567,10 +582,12 @@ At this point, you can choose to run all your apps individually with `./mvnw spr
 
 [source,shell]
 ----
-mvn install
+mvn clean install
 docker-compose down
 docker-compose up -d
 ----
+
+NOTE: If your `school-ui` and `school-service` won't start after several attempts, add a `hostname` property to the `config` service in `docker-compose.yml` that matches the hostname you put in `.env`.
 
 == Use HTTP Basic Auth for Secure Microservice Communication with Eureka and Spring Cloud Config
 
