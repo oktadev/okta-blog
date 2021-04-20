@@ -506,39 +506,33 @@ The last step you'll need to do is modify `SchoolController` (in the `school-ui`
 package com.okta.developer.docker_microservices.ui.controller;
 
 import com.okta.developer.docker_microservices.ui.dto.TeachingClassDto;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.ClientHttpRequestExecution;
-import org.springframework.http.client.ClientHttpRequestInterceptor;
-import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.springframework.security.oauth2.core.OAuth2AccessToken;
+import org.springframework.security.oauth2.server.resource.web.BearerTokenResolver;
+import org.springframework.security.oauth2.server.resource.web.DefaultBearerTokenResolver;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.IOException;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
 @RequestMapping("/")
 public class SchoolController {
 
-    private final OAuth2AuthorizedClientService authorizedClientService;
+    private final BearerTokenResolver bearerTokenResolver = new DefaultBearerTokenResolver(); // <1>
     private final RestTemplate restTemplate;
 
-    public SchoolController(OAuth2AuthorizedClientService clientService,
-                            RestTemplate restTemplate) { // <1>
-        this.authorizedClientService = clientService;
-        this.restTemplate = restTemplate;
+    public SchoolController(RestTemplateBuilder restTemplateBuilder) { // <2>
+        this.restTemplate = restTemplateBuilder.build();
     }
 
     @RequestMapping("")
@@ -548,38 +542,23 @@ public class SchoolController {
 
     @GetMapping("/classes")
     @PreAuthorize("hasAuthority('SCOPE_profile')")
-    public ResponseEntity<List<TeachingClassDto>> listClasses(
-            @AuthenticationPrincipal OAuth2AuthenticationToken authentication) { // <2>
+    public ResponseEntity<List<TeachingClassDto>> listClasses(HttpServletRequest request) {
 
-        OAuth2AuthorizedClient authorizedClient =
-                this.authorizedClientService.loadAuthorizedClient(
-                        authentication.getAuthorizedClientRegistrationId(),
-                        authentication.getName()); // <3>
-
-        OAuth2AccessToken accessToken = authorizedClient.getAccessToken(); // <4>
-        // WARNING: This is example code that should not be used as-is in production.
-        // For production environments, it is recommended you use a RestTemplateFactory
-        // to give each user their own instance to avoid any potential security risks.
-        restTemplate.getInterceptors().add(getBearerTokenInterceptor(accessToken.getTokenValue())); // <5>
+        String token = bearerTokenResolver.resolve(request); // <3>
+        HttpHeaders headers = new HttpHeaders() {{
+            set("Authorization", "Bearer " + token); // <4>
+        }};
 
         return restTemplate
-                .exchange("https://school-service/class", HttpMethod.GET, null,
-                        new ParameterizedTypeReference<List<TeachingClassDto>>() {});
-    }
-
-    private ClientHttpRequestInterceptor getBearerTokenInterceptor(String accessToken) {
-        return (request, bytes, execution) -> {
-            request.getHeaders().add("Authorization", "Bearer " + accessToken);
-            return execution.execute(request, bytes);
-        };
+            .exchange("https://school-service/class", HttpMethod.GET, new HttpEntity<String>(headers),
+                new ParameterizedTypeReference<List<TeachingClassDto>>() { });
     }
 }
 ----
-<1> Add an `OAuth2AuthorizedClientService` dependency to the constructor
-<2> Inject an `OAuth2AuthenticationToken` into the `listClasses()` method
-<3> Create an `OAuth2AuthorizedClient` from the `authentication`
-<4> Get the access token from the authorized client
-<5> Add the access token to the `Authorization` header
+<1> Create a `BearerTokenResolver` to resolve the access token
+<2> Inject a `RestTemplateBuilder` into the constructor
+<3> Get the access token from the `bearerTokenResolver`
+<4> Add the access token to the `Authorization` header
 ====
 
 That's it! Since the `school-ui` and the `school-service` use the same OIDC app settings, the server will recognize and validate the access token (which is also a JWT), and allow access.
