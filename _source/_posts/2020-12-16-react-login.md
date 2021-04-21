@@ -12,6 +12,8 @@ tweets:
 - "A quick guide to login options with @reactjs + @okta. 👇 💙"
 image: blog/react-login/react-login.png
 type: conversion
+changelog:
+- 2021-03-31: Updated to use Okta React SDK 5.0.0, Auth JS 4.8.0, and Okta Sign-In Widget 5.5.0. You can see the changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-react-login-example/pull/2). Changes to this article can be viewed in [oktadeveloper/okta-blog#619](https://github.com/oktadeveloper/okta-blog/pull/619).
 ---
 
 Almost any web app needs some sort of access control, usually implemented by user login. Choosing how user authentication is implemented depends on the type of application and its audience. In this post, I want to show you a few different ways of creating a login feature in a single-page React application using Okta.
@@ -23,7 +25,7 @@ For this tutorial, I will assume that you are familiar with JavaScript and have 
 **Prerequisites**:
 
 - [Node 14](https://nodejs.org/)
-- [Okta CLI 0.7.1+](https://github.com/okta/okta-cli) (optional)
+- [Okta CLI](https://github.com/okta/okta-cli)
 
 **Table of Contents**{: .hide }
 * Table of Contents
@@ -209,21 +211,15 @@ This completes the basic application. You can test it by running the following c
 npm start
 ```
 
-This should build the JavaScript code and then automatically open your browser at `http://localhost:3000/`. You will see the home page and when you click the **Visit Restricted Page** button, you will be taken to the restricted page. At this point, anybody could see the restricted page. No user authentication has been added so far.
+This should build the JavaScript code and then automatically open your browser at `http://localhost:3000`. You will see the home page and when you click the **Visit Restricted Page** button, you will be taken to the restricted page. At this point, anybody could see the restricted page. No user authentication has been added so far.
 
 {% img blog/react-login/react-login-restricted-page.png alt:"Restricted page that should only be accessible to registered users" width:"800" %}{: .center-image }
 
 ## Register an OpenID Connect App for Authentication
 
-Before you add a login feature, you need to sign up for a free Okta developer account. If you haven't already got one, go to [developer.okta.com](https://developer.okta.com/), click **Sign Up**, and follow the sign-up procedure. Once completed, you can log in to the Developer Console.
+{% include setup/cli.md type="spa" framework="React" loginRedirectUri="http://localhost:3000/callback" %}
 
-**TIP**: You can also create an account and register apps using the [Okta CLI](https://github.com/okta/okta-cli#readme) with the `okta register` and `okta apps create` commands.
-
-In your Okta Development Console, select **Applications** from the top menu and click **Add Application**. Next, select **Single-Page App** and click **Next**. You now see a form with application settings. You can give the application any name of your choice. Both the **Base URI** and the **Logout redirect URI** should be changed to `http://localhost:3000/`.
-
-You will be testing the application using the React development server that listens on port 3000 on your local machine. For production, you would of course change this to the URI of the production server. The **Login redirect URI** should be `http://localhost:3000/callback`.
-
-Click **Done** when ready. On the next page, you will see an overview of the settings as well as a **Client ID**. Note the ID for later when you set up your React application.
+Note the Client ID for later when you set up your React application.
 
 ## Add React Login with Redirection
 
@@ -234,16 +230,17 @@ This sort of authentication flow is ideally suited for single sign-on situations
 To add authentication to the application, install the Okta libraries for React by running the command below.
 
 ```bash
-npm install -E @okta/okta-react@4.1.0 @okta/okta-auth-js@4.4.0
+npm install -E @okta/okta-react@5.0.0 @okta/okta-auth-js@4.8.0
 ```
 
 The Okta React SDK has a peer dependency on Okta Auth JS, which provides most of the heavy lifting. In previous versions of the Okta React SDK, this was included as a transitive dependency. Now you have to install both packages.
 
-Open `src/App.js` and import the components you'll need from `okta-react` and `okta-auth-js` at the top of the file.
+Open `src/App.js` and import the components you'll need from `okta-react`, `okta-auth-js`, and `react-router-dom` at the top of the file.
 
 ```js
 import { LoginCallback, SecureRoute, Security } from '@okta/okta-react';
-import { OktaAuth } from '@okta/okta-auth-js';
+import { OktaAuth, toRelativeUrl } from '@okta/okta-auth-js';
+import { useHistory } from 'react-router-dom';
 ```
 
 Create an `OktaAuth` instance with your settings.
@@ -258,28 +255,41 @@ const oktaAuth = new OktaAuth({
 
 Here, `{YourOktaDomain}` is the Okta developer domain that you can find on your Okta dashboard. `{ClientId}` is the ID that was generated earlier when you registered the application with the Okta service.
 
-If you created an app with the Okta CLI, the values you need to specify for the `issuer` and `clientId` are printed out for you. For example:
+Replace the `function App() {` line with:
 
-```bash
-Okta application configuration:
-Issuer:    https://dev-133320.okta.com/oauth2/default
-Client ID: 0oa5qedkihI7QcSoi357
+```js
+const App = () => {
+  const history = useHistory();
+  const restoreOriginalUri = async (_oktaAuth, originalUri) => {
+    history.replace(toRelativeUrl(originalUri, window.location.origin));
+  };
 ```
 
-Modify the elements within the `BrowserRouter` component to match the code below.
+Replace the `<BrowserRouter>` element and replace it with the code below. Make sure to remove its import too!
 
 ```jsx
-<BrowserRouter>
-  <Security oktaAuth={oktaAuth}>
-    <Header/>
-    <Route path='/' exact={true} component={Home}/>
-    <SecureRoute path='/private' exact={true} component={Private}/>
-    <Route path='/callback' component={LoginCallback}/>
-  </Security>
-</BrowserRouter>
+<Security oktaAuth={oktaAuth} restoreOriginalUri={restoreOriginalUri}>
+  <Header/>
+  <Route path='/' exact={true} component={Home}/>
+  <SecureRoute path='/private' exact={true} component={Private}/>
+  <Route path='/callback' component={LoginCallback}/>
+</Security>
 ```
 
 You can see that the routes are now all contained within the `Security` component. This component makes the authentication service available to all its children. The `SecureRoute` component replaces `Route` for components that require authentication. You will also notice a new route on the `/callback` path. The `LoginCallback` component attached to this route handles the callback from the Okta servers once the user has logged on successfully.
+
+Open `src/index.js` and wrap `<App />` with a `<Router>` component. The `useHistory()` function is only available in components that are contained within the `BrowserRouter` component. 
+
+```jsx
+import { BrowserRouter as Router } from 'react-router-dom';
+
+ReactDOM.render(
+  <React.StrictMode>
+    <Router><App /></Router>
+  </React.StrictMode>,
+  document.getElementById('root')
+);
+```
 
 This is already enough to require authentication whenever the user wants to see the restricted page. To see how the authentication service can be used to create context-dependent content, open `src/Header.js`. Add the following import to the top of the file.
 
@@ -291,10 +301,10 @@ Next, add code to create a sign-in or logout button depending on the current sta
 
 ```jsx
 function Header() {
- const { oktaAuth, authState } = useOktaAuth();
+  const { oktaAuth, authState } = useOktaAuth();
 
-  const login = () => { oktaAuth.signInWithRedirect(); }
-  const logout = () => { oktaAuth.signOut(); }
+  const login = async () => { await oktaAuth.signInWithRedirect(); }
+  const logout = async () => { await oktaAuth.signOut(); }
 
   const userText = authState.isAuthenticated
     ? <button onClick={ logout }>Logout</button>
@@ -322,7 +332,7 @@ Run `npm start` again to test your application. Now, when you click on **VISIT R
 Redirecting the user to an Okta-hosted login page is appropriate in many situations. But sometimes you want to keep the user on your site without redirecting them to a server that they might not recognize. This is probably true for most public-facing web applications where you want to reach as many users as possible and reducing perceived barriers is important. The Okta Sign-In Widget allows you to embed the same user experience of the external login page into your website. To start, install the widget library using the following command.
 
 ```bash
-npm install -E @okta/okta-signin-widget@5.1.4
+npm install -E @okta/okta-signin-widget@5.5.0
 ```
 
 The Sign-In Widget does not come packaged as a React component. Instead, it comes as a JavaScript class that can be attached to a plain DOM element. To be able to use the widget, you need to wrap it inside a React component. Create a new file `src/OktaSignInWidget.js` and paste the following code into it.
@@ -354,7 +364,7 @@ export default class OktaSignInWidget extends Component {
 };
 ```
 
-I am using a class component here because it makes it easier to perform actions during the component's lifecycle. The `wrapper` property is a React reference to the wrapper div for the widget. When the component is displayed, the `OktaSignIn` object is created and attached to the wrapper. The component expects three properties `onSuccess`, `onError`, and `baseUrl`.  `onSuccess()` and `onError()` are callbacks that will be called when the login has been successful or when an error occurred. The property `baseUrl` is the URL of your application.
+I am using a class component here because it makes it easier to perform actions during the component's lifecycle. The `wrapper` property is a React reference to the wrapper div for the widget. When the component is displayed, the `OktaSignIn` object is created and attached to the wrapper. The component expects three properties `onSuccess`, `onError`, and `baseUrl`. `onSuccess()` and `onError()` are callbacks that will be called when the login has been successful or when an error occurred. The property `baseUrl` is the URL of your application.
 
 The `OktaSignInWidget` component can be used on a login page. Create a new file `src/Login.js`. Paste the code below into the file. Make sure you change `{YourOktaDomain}` to match your Okta domain.
 
@@ -394,20 +404,21 @@ export default Login;
 
 The `Login` component obtains the authentication state and the `oktaAuth` instance through a call to `useOktaAuth()`. It then defines the `onSuccess` and `onError` callbacks. `onSuccess` checks the result of the sign-in and sets the session token on the authentication service. By calling the `signInWithRedirect()` method, the page is redirected to whatever page the user wanted to navigate before the login page showed.
 
-The component returned by the `Login` function depends on the authentication state. If the user is authenticated, the component will redirect the user back to the home page. Otherwise, the `OktaSignInWidget` is shown.
+The component returned by the `Login` function depends on the authentication state. If the user is authenticated, the component will redirect the user back to the home page. Otherwise, the `OktaSignInWidget` is shown. Update `App.js` to add an `onAuthRequired` property to its `<Security>` component.
 
-To make the application redirect the user to the login page when they try to access a protected route, you need to split up the main application. Extract the `Security` component and all its children into a separate component by creating a new file `src/SecuredApp.js`. Add the following code into this file and change the `{...}` placeholders to match your settings.
+Because you want to redirect the user to a custom route whenever authentication is required, you need to pass a function to the `onAuthRequired` property of the `Security` component. This function simply pushes the `/login` route into the router's history. Update your `App.js` to import `Login`, add `onAuthRequired`, and add a `/login` route.
 
 ```jsx
 import React from 'react';
+import './App.css';
 import Header from './Header';
 import Home from './Home';
 import Login from './Login';
 import Private from './Private';
-import { useHistory } from 'react-router';
 import { Route } from 'react-router-dom';
 import { LoginCallback, SecureRoute, Security } from '@okta/okta-react';
-import { OktaAuth } from '@okta/okta-auth-js';
+import { OktaAuth, toRelativeUrl } from '@okta/okta-auth-js';
+import { useHistory } from 'react-router-dom';
 
 const oktaAuth = new OktaAuth({
   issuer: 'https://{YourOktaDomain}/oauth2/default',
@@ -415,47 +426,28 @@ const oktaAuth = new OktaAuth({
   redirectUri: window.location.origin + '/callback'
 });
 
-function SecuredApp() {
+const App = () => {
   const history = useHistory();
-
+  const restoreOriginalUri = async (_oktaAuth, originalUri) => {
+    history.replace(toRelativeUrl(originalUri, window.location.origin));
+  };
   const onAuthRequired = function() {
     history.push('/login')
   }
 
   return (
-    <Security oktaAuth={oktaAuth} onAuthRequired={onAuthRequired} >
-      <Header />
-      <Route path='/' exact={true} component={Home}/>
-      <Route path='/login' exact={true} component={Login}/>
-      <SecureRoute path='/private' component={Private}/>
-      <Route path='/callback' component={LoginCallback}/>
-    </Security>
-  );
-}
-
-export default SecuredApp;
-```
-
-Because you want to redirect the user to a custom route whenever authentication is required, you need to pass a function to the `onAuthRequired` property of the `Security` component. This function simply pushes the `/login` route into the router's history.
-
-Now you can see the reason for splitting the component out into a separate file. The `useHistory()` function is only available in components that are contained within the `BrowserRouter` component. This means that it is not available in the main `App` component and must be separated out.
-
-The main application component can now be simplified. Edit `src/App.js` to match the code below.
-
-```jsx
-import React from 'react';
-import './App.css';
-import SecuredApp from './SecuredApp';
-import { BrowserRouter as Router } from 'react-router-dom';
-
-function App() {
-  return (
     <div className="App">
       <div className="page">
         <div className="content">
-          <Router>
-            <SecuredApp/>
-          </Router>
+          <Security oktaAuth={oktaAuth}
+                    restoreOriginalUri={restoreOriginalUri}
+                    onAuthRequired={onAuthRequired}>
+            <Header/>
+            <Route path='/' exact={true} component={Home}/>
+            <Route path='/login' exact={true} component={Login}/>
+            <SecureRoute path='/private' exact={true} component={Private}/>
+            <Route path='/callback' component={LoginCallback}/>
+          </Security>
         </div>
       </div>
     </div>
@@ -465,7 +457,7 @@ function App() {
 export default App;
 ```
 
-This renders the `SecuredApp` component within the router. Now run the application again with the following command.
+Now run the application again with the following command.
 
 ```bash
 npm start

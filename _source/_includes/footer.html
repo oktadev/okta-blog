@@ -1,6 +1,6 @@
 <footer class="footer">
     <div class="row first-row">
-        <p><i>Need support?</i> Contact <a href="mailto:developers@okta.com" target="_blank" rel="noopener noreferrer"><u><b>developers@okta.com</b></u></a> or ask on the <a href="https://devforum.okta.com/" class="anchor-highlight">forum.</a></p>
+        <p><i>Need support?</i> Ask on the <a href="https://devforum.okta.com/" class="anchor-highlight">forum.</a></p>
     </div>
     <div class="row flex-justify">
         <div class="column social-links">
@@ -27,10 +27,10 @@
         <div class="column contact-links">
             <h4 class="column-header">Contact & Legal</h4>
             <ul class="footer-links">
-                <li><a class="footer-link" href="https://developer.okta.com/contact/">Contact our team</a></li>
-                <li><a class="footer-link" href="https://developer.okta.com/contact-sales-enterprise/">Contact sales</a></li>
+                <li><a class="footer-link" href="https://www.okta.com/contact/">Contact our team</a></li>
+                <li><a class="footer-link" href="https://www.okta.com/contact-sales/">Contact sales</a></li>
                 <li><a class="footer-link" href="https://developer.okta.com/terms/">Terms & conditions</a></li>
-                <li><a class="footer-link" href="https://developer.okta.com/privacy/">Privacy policy</a></li>
+                <li><a class="footer-link" href="https://www.okta.com/privacy-policy/">Privacy policy</a></li>
             </ul>
         </div>
 
@@ -84,3 +84,5 @@
     {% if layout.js %}
       {% js '{{layout.js}}' %}
     {% endif %}
+    <!-- Fix <details> for IE/Edge -->
+    <script src="//cdn.jsdelivr.net/npm/details-polyfill@1/index.min.js" async></script>

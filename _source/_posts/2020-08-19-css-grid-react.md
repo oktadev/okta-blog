@@ -301,15 +301,8 @@ Note that this behavior has been achieved without the use of media queries.
 
 When developing web applications, you will at some point be faced with the need to provide user authentication. There are ways to implement this yourself, but they are difficult and require a lot of experience in order to ensure they are safe. With Okta, you can avoid these problems and you can set up authentication with just a few lines of code. In addition, Okta provides a single sign-on service, which means that a single user account can be used for multiple applications.
 
-You need to register for a free account at [developer.okta.com](https://developer.okta.com/). Simply select **Create Free Account** and complete the registration process. Once complete, you will be directed to your Okta developer dashboard. Here you can register your application by navigating to **Applications** > **Add Application**. On the next screen, choose **Single Page App** and click **Next**.
-
-{% img blog/css-grid-react/okta-create-spa-choice.png alt:"Register a new singe-page app with Okta" width:"800" %}{: .center-image }
-
-The following screen lets you edit the application's settings. Make sure that the port number is 3000 and also change the base URI to `http://localhost:3000/`. Then set the Login Redirect URI to `http://localhost:3000/callback`. Port 3000 is used by the React development server to serve your application. 
-
-{% img blog/css-grid-react/okta-react-settings.png alt:"Settings for the React single-page app" width:"700" %}{: .center-image }
-
-Click **Done** and you should see a **Client ID**, which you will need to paste into your JavaScript code.
+{% include setup/cli.md type="spa" framework="React"
+   loginRedirectUri="http://localhost:3000/callback" %}
 
 Next, open the terminal in your project's base directory and install the Okta React SDK and React Router by running the following commands.
 

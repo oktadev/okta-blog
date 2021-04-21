@@ -26,6 +26,10 @@ In this tutorial you will learn how to:
 - Enable Kafka integration for communicating microservices
 - Set up Okta as the authentication provider
 
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+
 ## What is Kafka?
 
 **Apache Kafka** is a distributed streaming platform. It was initially conceived as a message queue and open-sourced by LinkedIn in 2011. Its community evolved Kafka to provide key capabilities:
@@ -189,36 +193,14 @@ You will generate the images later, but first, let's add some security and Kafka
 
 This microservices architecture is set up to authenticate against Keycloak. Let's update the settings to use Okta as the authentication provider.
 
-First of all, go to Okta and get a [free developer account](https://developer.okta.com/signup/). 
-
-After you've activated your account, log in and go to **Applications** > **New Application**. Click **Web** and **Next**. Set the following application settings:
-
-- Name: `JHipster Kafka`
-- Login redirect URIs: 
-  - `http://localhost:8080/login/oauth2/code/oidc`
-  - `http://localhost:8761/login/oauth2/code/oidc`
-- Logout redirect URIs:
-  - `http://localhost:8080`
-  - `http://localhost:8761`
-- Grant Type Allowed: **Authorization Code** and **Refresh Token**
-
-Click **Done** to continue. Copy the **Client ID** and **Client secret**, as you will need them to configure your JHipster application. You can find the **Org URL** at the top right corner of your Okta Dashboard.
-
-JHipster applications require the specific user roles **ROLE_USER** and **ROLE_ADMIN** to be included as claims in the ID Token. In the Okta Developer Console, go to **Users** > **Groups** and create a group for each JHipster role, then add users to each group.
-
-Now go to **API** > **Authorization Servers**, select the `default` server, and **Add Claim** with the following settings:
-
-1. Name: `groups`
-2. Include in token type: ID Token, Always
-3. Value type: Groups
-4. Filter: Matches regex, set the Regex to be `.*`
+{% include setup/cli.md type="jhipster" %}
 
 In the project, create a `docker-compose/.env` file and add the following variables. For the values, use the settings from the Okta web application you created:
 
 ```bash
 OIDC_CLIENT_ID={yourClientId}
 OIDC_CLIENT_SECRET={yourClientSecret}
-OIDC_ISSUER_URI={yourOrgUrl}/oauth2/default
+OIDC_ISSUER_URI={yourIssuer}
 ```
 
 Edit `docker-compose/docker-compose.yml` and update the `SPRING_SECURITY_*` settings for the services `store-app`, `alert-app` and `gateway-app`:
@@ -776,11 +758,12 @@ This tutorial showed how a Kafka-centric architecture allows decoupling microser
 - [JHipster: OAuth2 and OpenID Connect](https://www.jhipster.tech/security/#-oauth2-and-openid-connect)
 - [Apache Kafka Introduction](https://kafka.apache.org/intro)
 
-There are also a few tutorials on Kafka and microservices that you might enjoy on this blog:
+There are also a few tutorials Kafka, microservices, and JHipster that you might enjoy on this blog:
 
 - [Kafka with Java: Build a Secure, Scalable Messaging App](/blog/2019/11/19/java-kafka)
 - [Java Microservices with Spring Cloud Config and JHipster](/blog/2019/05/23/java-microservices-spring-cloud-config)
 - [Secure Reactive Microservices with Spring Cloud Gateway](/blog/2019/08/28/reactive-microservices-spring-cloud-gateway)
+- [Reactive Java Microservices with Spring Boot and JHipster](/blog/2021/01/20/reactive-java-microservices)
 
 You can find all the code for this tutorial [on GitHub](https://github.com/oktadeveloper/okta-kafka-microservices-example).
 
