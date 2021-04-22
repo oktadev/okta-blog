@@ -5,7 +5,7 @@ author: phillip-edwards
 by: contractor
 communities: [go]
 description: "How to get started with Elasticsearch in Go"
-tags: [go, elastic search]
+tags: [go, elasticsearch]
 tweets:
 - "Have you used Elasticsearch in Go yet? Learn how with this post"
 - "Get up to speed with Elasticsearch and Go with this easy tutorial"
