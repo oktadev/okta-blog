@@ -170,8 +170,8 @@ We are going to build a user interface in the form of a simple console-based men
 package main
 
 import (
-	"bufio"
-	"fmt"
+    "bufio"
+    "fmt"
     "os"
 ) 
 
@@ -212,9 +212,9 @@ Now, run the program and try entering a few options.
 go run Elastic.go
 ```
 
-You should only see one option: “0) Exit”
+You should only see one option: "0) Exit"
 
-Exit from the program by pressing “0” and hitting the “Enter” key.
+Exit from the program by pressing "0" and hitting the "Enter" key.
 
 ## How to Read Data from STAPI and Store it in Elasticsearch from Go
 
@@ -334,7 +334,7 @@ You can now verify that there is some data in the `stsc` index by pointing a web
 
 Loading documents into Elasticsearch was quite complex due to the data conversions that were required. Getting and searching for documents is much simpler.
 
-The changes that we’ll be making require some new imports, so let’s start by updating our import statement:
+The changes that we’ll be making require some new imports, so let's start by updating our import statement:
 
 ```go
 import (
@@ -455,11 +455,11 @@ After obtaining the key and value from the user, the function constructs a data 
 
 Run the program and try some match and prefix searches. For example:
 
-For option 3 (“Search spacecraft by key and value”) try:
+For option 3 ("Search spacecraft by key and value") try:
 Enter key: `name`
 Enter value: `enterprise`
 
-For option 4 (“Search by spacecraft key and prefix”) try:
+For option 4 ("Search by spacecraft key and prefix") try:
 Enter key: `registry`
 Enter value: `ncc`
 
