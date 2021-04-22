@@ -290,7 +290,7 @@ However, we all know that Zoomers lose interest and click away from your
 website if it takes longer than a few Planck time units to load, so we need a
 better solution.
 
-And now, presenting… a better solution. Data filtering! The cure to all of
+And now, presenting... a better solution. Data filtering! The cure to all of
 life's performance issues.
 
 The `sqlalchemy-oso` library is built on top of Oso's data filtering feature.
@@ -354,7 +354,7 @@ index f2a17d0..1fa9573 100644
 +def index(db: Session = Depends(get_authorized_db)):
 ```
 
-Save the file, reload [localhost:8080][], and… no bears. They're still happily
+Save the file, reload [localhost:8080][], and... no bears. They're still happily
 growling away in the database, but we haven't added any Oso rules permitting
 access. Let's change that.
 
@@ -368,7 +368,7 @@ allow(_: User, "index", _: Bear);
 ```
 
 Save the file, reload [localhost:8080][], and you should see every bear again.
-But something else is missing… the `Owner` column is empty! When we serialize
+But something else is missing... the `Owner` column is empty! When we serialize
 bear records in the back end, we include each bear's owner's email — a piece of
 data that comes from our SQLAlchemy-backed `User` model. Since `User` is a
 subclass of the `Base` SQLAlchemy class we registered via `sqlalchemy-oso`'s
@@ -405,7 +405,7 @@ need to create some for yourself if you want to see some.
 The index view is now nice and private, but it feels _wrong_ to prevent our
 fellow bear enthusiasts from viewing polar bears, the sweetest and most
 mild-mannered of all bears. To right that wrong, we can register the `Species`
-enum as a constant so that we can reference it in our policy…
+enum as a constant so that we can reference it in our policy...
 
 ```diff
 diff --git a/app/main.py b/app/main.py
@@ -419,7 +419,7 @@ index 1fa9573..6abb06d 100644
 +oso.register_constant(Species, "Species")
 ```
 
-…and then update said policy:
+...and then update said policy:
 
 ```diff
 diff --git a/app/policy.polar b/app/policy.polar
