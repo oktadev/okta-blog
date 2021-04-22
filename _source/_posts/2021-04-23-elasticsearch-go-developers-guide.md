@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: Elasticsearch in Go: A Developer's Guide
+title: "Elasticsearch in Go: A Developer's Guide"
 author: phillip-edwards
 by: contractor
 communities: [go]
