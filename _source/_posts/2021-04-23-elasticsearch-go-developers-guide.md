@@ -92,7 +92,7 @@ We need a fairly large set of data to load into Elasticsearch. This web site [ST
 
 ### A brief introduction to data types in Go
 
-If you’re new to Go, this section covers topics that will be helpful to understand before you move forward. If you’re already familiar with Go, you can skip ahead to the next section.
+If you're new to Go, this section covers topics that will be helpful to understand before you move forward. If you're already familiar with Go, you can skip ahead to the next section.
 
 The STAPI site and the results of Elasticsearch searches are sent to clients as JSON objects. The Go APIs receive JSON objects like maps and lists. Map and list values can be of type nil, int, float, string, list, and map. Go is a compiled language and it is also strongly typed. Map keys are always strings. The values of any map or list can be a mixture of types, so the values of a map or list can't be given an explicit type in the code.
 
@@ -254,7 +254,7 @@ func main() {
 }
 ```
 
-The code isn’t ready to run yet. We still need to write the `LoadData()` function. For that function, we are going to read all of the spacecraft data from the STAPI site. The site only allows up to 100 entries to be read at once, so the data is spread over 13 pages. This means that we need to read each page in turn. Create a file called `LoadData.go` containing the following Go code:
+The code isn't ready to run yet. We still need to write the `LoadData()` function. For that function, we are going to read all of the spacecraft data from the STAPI site. The site only allows up to 100 entries to be read at once, so the data is spread over 13 pages. This means that we need to read each page in turn. Create a file called `LoadData.go` containing the following Go code:
 
 ```go
 package main
@@ -334,7 +334,7 @@ You can now verify that there is some data in the `stsc` index by pointing a web
 
 Loading documents into Elasticsearch was quite complex due to the data conversions that were required. Getting and searching for documents is much simpler.
 
-The changes that we’ll be making require some new imports, so let's start by updating our import statement:
+The changes that we'll be making require some new imports, so let's start by updating our import statement:
 
 ```go
 import (
@@ -376,7 +376,7 @@ func Print(spacecraft map[string]interface{}) {
 
 The function takes account of the fact that some of the fields can be `nil` and that type assertions are required.
 
-Documents can be requested by specifying the index and the document identifier. Let’s add another menu item to `Elastic.go` to get a spacecraft. The menu calls a function called `Get()` passing it to the reader. Next, add the function:
+Documents can be requested by specifying the index and the document identifier. Let's add another menu item to `Elastic.go` to get a spacecraft. The menu calls a function called `Get()` passing it to the reader. Next, add the function:
 
 ```go
 func Get(reader *bufio.Scanner) {
@@ -395,7 +395,7 @@ The document is returned in a JSON object which is decoded into a map. The actua
 
 Elasticsearch supports a number of different types of searches. Each search has a query type and a list of key, value pairs of fields to match. The result is a list of hits, each given a value indicating how good the match was. A match search looks for work matches. The search values should always be in lowercase. A name match for `uss` would match all spacecraft with the word `uss` in the name in any case including `USS`. A prefix search matches any word which starts with the specified string.
  
-Now, we will add searches to `Elastic.go`. First of all, let’s update the `main()` function to add searches to the menu.
+Now, we will add searches to `Elastic.go`. First of all, let's update the `main()` function to add searches to the menu.
 
 ```go
 func main() {
