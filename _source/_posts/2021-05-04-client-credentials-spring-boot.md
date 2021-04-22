@@ -618,11 +618,18 @@ You should see output like this:
 2021-04-08 19:22:14.670  INFO 346556 --- [or-http-epoll-7] o.s.boot.CommandLineRunner               : Schedule request response: Welcome, 0oa2kpqtzoRHDcgZG4x7
 ```
 
-## Wrapping Up
+## Learn More About Spring Boot and Spring Security
 
 In this tutorial you saw two different ways to implement the OAuth 2.0 client credentials flow. You created a simple server application. You created a client using RestTemplate, a deprecated but still widely used Spring technology. And, finally you created a client using the newer, asynchronous WebClient, built on Spring's WebFlux package. 
 
-// todo: Add GitHub repo
-// todo: add links to related blog posts
+You can find the source code for this example in our [okta-spring-boot-client-credentials-example](https://github.com/oktadeveloper/okta-spring-boot-client-credentials-example) repository.
 
-If you have any questions about this post, please add a comment below. For more awesome content, follow [@oktadev](https://twitter.com/oktadev) on Twitter, like us [on Facebook](https://www.facebook.com/oktadevelopers/), or subscribe to [our YouTube channel](https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q).
+If you liked this post, there's a good chance you might like some of our other ones.
+
+- [Build a Secure Spring Data JPA Resource Server](/blog/2020/11/20/spring-data-jpa)
+- [Spring Boot and Okta in 2 Minutes](/blog/2020/11/24/spring-boot-okta)
+- [How to Docker with Spring Boot](/blog/2020/12/28/spring-boot-docker)
+- [Scaling Secure Applications with Spring Session and Redis](/blog/2020/12/14/spring-session-redis)
+- [Spring Cloud Config for Shared Microservice Configuration](/blog/2020/12/07/spring-cloud-config)
+
+If you have any questions about this post, please add a comment below. For more awesome content, follow [@oktadev](https://twitter.com/oktadev) on Twitter, like us [on Facebook](https://www.facebook.com/oktadevelopers/), or subscribe to [our YouTube channel](https://www.youtube.com/oktadev).
