@@ -169,16 +169,16 @@ The second inner class, `RequestController`, defines a REST endpoint at the cont
 
 Notice that to specify a required scope using the `PreAuthorize` annotation, you use a Spring Expression Language snippet (SpEL): `hasAuthority('SCOPE_mod_custom')`. Spring automatically prepends "SCOPE_" in front of the required scope name, such that the actual required scope is "mod_custom" not "SCOPE_mod_custom."
 
-The application code is in place. However, you still need to configure the Spring Boot application to use Okta as the OAuth 2.0 and OIDC provider. You also need to create an OIDC application on the Okta servers. 
+The application code is in place. However, you still need to configure the Spring Boot application to use Okta as the OAuth 2.0 and OIDC provider. You also need to create an OIDC application on Okta. 
 
 ## Create An Okta OIDC Application
 
 {% include setup/cli.md type="service" %}
 
-Open `src/main/resources/application.properties`. It should look like the following (with you own values for the issuer, client ID, and client secret).
+Copy the values from the generated `.okta.env` file into `src/main/resources/application.properties`. It should look like the following (with you own values for the issuer, client ID, and client secret) when you're finished.
 
 ```properties
-okta.oauth2.issuer=https\://dev-123456.okta.com/oauth2/default
+okta.oauth2.issuer=https://dev-123456.okta.com/oauth2/default
 okta.oauth2.client-secret=292yu98y2983e28ue928u39e82ue982ue982
 okta.oauth2.client-id=0oa7km6o1AEDdbuUq4x7
 ```
@@ -213,11 +213,9 @@ HTTP/1.1 401
 
 ## Add A Custom Scope To Okta Auth Server
 
-Because we are using the custom scope `mod_custom` in the `@Preauthorize` annotation, you need to add this custom scope to your Okta authorization server. Open your Okta developer dashboard. You may need to click the **Admin** button to get to the developer dashboard.
+Because we are using the custom scope `mod_custom` in the `@Preauthorize` annotation, you need to add this custom scope to your Okta authorization server. Run `okta login` and open the resulting URL in your browser. Sign in to the Okta Admin Console. You may need to click the **Admin** button to get to your dashboard.
 
-Run `okta login` and sign in to the Okta Admin Console. Go to **Security** > **API**. 
-
-Select the **Default** authorization server by clicking on **default** in the table.
+Go to **Security** > **API**. Select the **Default** authorization server by clicking on **default** in the table.
 
 Select the **Scopes** tab. Click **Add Scope**.
 
@@ -228,6 +226,8 @@ Give the scope whatever **Display Name** and **Description** you would like--or 
 ## Create A RestTemplate Command Line Application
 
 Next you are going to create a command-line application that makes an authorized request to the secure server using `RestTemplate`. Use the Spring Initializr to download a bootstrapped application with the following command, run from the root directory for the project as a whole.
+
+// todo: what does the last part of ^^ mean?
 
 ```bash
 curl https://start.spring.io/starter.tgz \
@@ -240,7 +240,7 @@ curl https://start.spring.io/starter.tgz \
 | tar -xzvf - && cd client-resttemplate
 ```
 
-Create a new class to hold the OAuth configuration.
+Open this project in your IDE and a new class to hold the OAuth configuration.
 
 `src/main/java/com/example/client/OAuthClientConfiguration.java`
 ```java
@@ -314,7 +314,7 @@ public class OAuthClientConfiguration {
 
 In the context of a servlet, much of what this file does would be accomplished automatically by Spring auto-configuration. However, since this is a command-line utility and no servlet is going to be created, you have to recreate some of the OAuth configuration. This is what the file above accomplishes. 
 
-The `oktaClientRegistration` method loads the properties for the client and provider from the `application.properties` file and creates an Okta client registration using those properties. 
+The `oktaClientRegistration()` method loads the properties for the client and provider from the `application.properties` file and creates an Okta client registration using those properties. 
 
 The other methods create an `InMemoryOAuth2AuthorizedClientService` that contains this client registration and creates an `InMemoryOAuth2AuthorizedClientService`, both of which are injected into a `AuthorizedClientServiceOAuth2AuthorizedClientManager`.  This is the high-level controller class that orchestrates the OAuth 2.0 client credentials grant request. There's a lot going on in this and we don't have time or space to unpack it all here. I will point out that `AuthorizedClientServiceOAuth2AuthorizedClientManager` is a class specifically designed to be used outside of the context of a HttpServletRequest.
 
@@ -378,7 +378,7 @@ public class DemoApplication implements CommandLineRunner {
 		OAuth2AuthorizedClient authorizedClient = this.authorizedClientServiceAndManager.authorize(authorizeRequest);
 
 		// Get the token from the authorized client object
-		OAuth2AccessToken accessToken = authorizedClient.getAccessToken();
+		OAuth2AccessToken accessToken = Objects.requireNonNull(authorizedClient).getAccessToken();
 
 		logger.info("Issued: " + accessToken.getIssuedAt().toString() + ", Expires:" + accessToken.getExpiresAt().toString());
 		logger.info("Scopes: " + accessToken.getScopes().toString());
@@ -391,7 +391,7 @@ public class DemoApplication implements CommandLineRunner {
 		// Add the JWT to the RestTemplate headers
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Authorization", "Bearer " + accessToken.getTokenValue());
-		HttpEntity request = new HttpEntity(headers);
+        HttpEntity request = new HttpEntity(headers);
 
 		// Make the actual HTTP GET request
 		RestTemplate restTemplate = new RestTemplate();
@@ -426,15 +426,17 @@ spring.security.oauth2.client.registration.okta.client-id={yourClientId}
 spring.security.oauth2.client.registration.okta.client-secret={yourClientSecret}
 spring.security.oauth2.client.registration.okta.authorization-grant-type=client_credentials
 spring.security.oauth2.client.registration.okta.scope=mod_custom
-spring.security.oauth2.client.provider.okta.token-uri=https://{yourOktaUri}/oauth2/default/v1/token
+spring.security.oauth2.client.provider.okta.token-uri=https://{yourOktaDomain}/oauth2/default/v1/token
 spring.main.web-application-type=none
 ```
-The last property, `spring.main.web-application-type=none`, tells Spring Boot not to launch any kind of web service. Since this is a command-line app, there's no reason to launch the default Tomcat servlet.
+The last property, `spring.main.web-application-type=none`, tells Spring Boot not to launch any kind of web service. Since this is a command-line app, there's no reason to launch the default Tomcat container.
 
 With that all in place, you can now try it out. Make sure your server is running (`./mvnw spring-boot:run`) and then, in a separate shell, run the client.
+
 ```bash
 ./mvnw spring-boot:run
 ```
+
 If all went well, the client will show you some output that looks like the following (I've omitted most of the token, but you'll see it as a bit block of characters in your console).
 ```bash
 ...
@@ -451,11 +453,11 @@ If all went well, the client will show you some output that looks like the follo
 [INFO] ------------------------------------------------------------------------
 ```
 
-One thing I want to point out is that this client is going to request a new token on every request. This is less than ideal because the token request sequence is the most vulnerable from a security perspective. A way around this would be to persist the token between requests. You could persist the token yourself and handle the refresh logic within the `run()` method or you could implement a `OAuth2AuthorizedClientService` that persists the token instead of using the default in-memory implementation.
+One thing I want to point out is that this client is going to request a new token on every request. This is less than ideal because the token request sequence is the most vulnerable from a security perspective. A way around this would be to persist the token between requests. You could persist the token yourself and handle the refresh logic within the `run()` method, or you could implement a `OAuth2AuthorizedClientService` that persists the token instead of using the default in-memory implementation.
 
-## Create A WebClient-Based Application
+## Create a WebClient-Based Application
 
-In this section, you're going to implement a command-line client using the newer, currently recommended WebClient API. WebClient is part of Spring's WebFlux package. This is Spring's reactive, non-blocking API, which you can read more about on [their website](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html). If you're reading this and you don't already have some idea of what non-blocking, asynchronous, or reactive coding is about, please tell me what rock you've been hiding under because it's probably nice and quiet and peaceful.
+In this section, you're going to implement a command-line client using the newer, currently recommended WebClient API. WebClient is part of Spring's WebFlux package. This is Spring's reactive, non-blocking API, which you can read more about in [their documentation](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html). If you're reading this and you don't already have some idea of what non-blocking, asynchronous, or reactive coding is about, please tell me what rock you've been hiding under because it's probably nice and quiet and peaceful.
 
 It's important to realize when using WebFlux within the Java servlet framework that you are mixing two different threading paradigms. Spring does a good job of handling this gracefully, but there are places (as you'll see below) where you need to be aware of WebClient's non-blocking nature and deliberately block it to wait for a response.
 
@@ -476,7 +478,7 @@ curl https://start.spring.io/starter.tgz \
 | tar -xzvf - && cd client-webclient
 ```
 
-Create a new class to hold the OAuth configuration.
+Open the project in your favorite IDE and create a new class to hold the OAuth configuration.
 
 `src/main/java/com/example/client/OAuthClientConfiguration.java`
 ```java
@@ -529,7 +531,7 @@ public class OAuthClientConfiguration {
 }
 ```
 
-This file, like the corresponding file in the previous client, loads the Okta client registration and packages it in an in-memory client registration repository (`InMemoryReactiveClientRegistrationRepository`). This repository is specifically a reactive repository suitable for use with the `WebClient` class. This is used to build a reactive authorized client manager, which is packaged in an OAuth 2.0 filter that handles the client credentials grant exchage. Here the `WebClient` is packaged as a bean with the filter in place and every request that uses this bean will have this filter. In the previous example, the client credentials exchange was performed explicitly in the command line runner method.
+This file, like the corresponding file in the previous client, loads the Okta client registration and packages it in an in-memory client registration repository (`InMemoryReactiveClientRegistrationRepository`). This repository is specifically a reactive repository suitable for use with the `WebClient` class. This is used to build a reactive authorized client manager, which is packaged in an OAuth 2.0 filter that handles the client credentials grant exchange. Here the `WebClient` is packaged as a bean with the filter in place and every request that uses this bean will have this filter. In the previous example, the client credentials exchange was performed explicitly in the command line runner method.
 
 Update the `DemoApplication` class to match the following.
 
