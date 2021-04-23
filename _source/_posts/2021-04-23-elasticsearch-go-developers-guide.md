@@ -85,7 +85,7 @@ curl http://localhost:9200
 
 You should see a JSON object containing details of the server.
 
-## How to Find and Understand How to Handle Data in Go 
+## How to Find and Understand How to Handle Data in Go
 
 We need a fairly large set of data to load into Elasticsearch. This web site [STAPI, a Star Trek API](http://stapi.io) contains huge amounts of data from the Star Trek universe. We will use the spacecraft data as our dataset for this application. It is always a good idea to know what the data looks like. Enter the URL http://stapi.co/api/v1/rest/spacecraft/search?pageNumber=0&pageSize=100&pretty into a web browser. You should see a JSON object containing page information and a list of spacecraft information. There are over 1200 spacecraft in total.
 **PS:** Bookmark this link or keep the page open for future reference.
@@ -94,7 +94,7 @@ We need a fairly large set of data to load into Elasticsearch. This web site [ST
 
 If you're new to Go, this section covers topics that will be helpful to understand before you move forward. If you're already familiar with Go, you can skip ahead to the next section.
 
-The STAPI site and the results of Elasticsearch searches are sent to clients as JSON objects. The Go APIs receive JSON objects like maps and lists. Map and list values can be of type nil, int, float, string, list, and map. Go is a compiled language and it is also strongly typed. Map keys are always strings. The values of any map or list can be a mixture of types, so the values of a map or list can't be given an explicit type in the code.
+The STAPI site and the results of Elasticsearch searches are sent to clients as JSON objects. The Go APIs receive JSON objects like maps and lists. Map and list values can be of type `nil`, `int`, `float`, `string`, `list`, and `map`. Go is a compiled language and it is also strongly typed. Map keys are always strings. The values of any map or list can be a mixture of types, so the values of a map or list can't be given an explicit type in the code.
 
 Go allows maps and lists to have values of any type by declaring the type as an interface:
 
@@ -103,7 +103,7 @@ var vessels []interface{}
 var craft map[string]interface{}
 ```
 
-This leads to another issue. It is impossible for the compiler to determine what the actual type of the value is. This can only be determined at runtime, making it important to know what the data structure is. If you know the type, you can use a type assertion that tells the compiler what the actual type is. In our example, `vessels` is a list of maps and `craft` is a map containing a number of attributes including a name which is a string. 
+This leads to another issue. It is impossible for the compiler to determine what the actual type of the value is. This can only be determined at runtime, making it important to know what the data structure is. If you know the type, you can use a type assertion that tells the compiler what the actual type is. In our example, `vessels` is a list of maps and `craft` is a map containing a number of attributes including a name which is a string.
 
 The type assertions become:
 
@@ -173,7 +173,7 @@ import (
     "bufio"
     "fmt"
     "os"
-) 
+)
 
 func Exit() {
 	fmt.Println("Goodbye!")
@@ -218,7 +218,7 @@ Exit from the program by pressing "0" and hitting the "Enter" key.
 
 ## How to Read Data from STAPI and Store it in Elasticsearch from Go
 
-We are going to add a menu item to load the data from STAPI and store it in Elastic search. 
+We are going to add a menu item to load the data from STAPI and store it in Elastic search.
 
 First of all, we need to make some changes to `Elastic.go`. We need an import statement and create an instance of the Elasticsearch client.
 
@@ -228,7 +228,7 @@ import (
     "fmt"
     "os"
     "github.com/elastic/go-elasticsearch/v8"
-) 
+)
 
 var es, _ = elasticsearch.NewDefaultClient()
 ```
@@ -394,7 +394,7 @@ The document is returned in a JSON object which is decoded into a map. The actua
 ## How to Search for Documents in Go
 
 Elasticsearch supports a number of different types of searches. Each search has a query type and a list of key, value pairs of fields to match. The result is a list of hits, each given a value indicating how good the match was. A match search looks for work matches. The search values should always be in lowercase. A name match for `uss` would match all spacecraft with the word `uss` in the name in any case including `USS`. A prefix search matches any word which starts with the specified string.
- 
+
 Now, we will add searches to `Elastic.go`. First of all, let's update the `main()` function to add searches to the menu.
 
 ```go
