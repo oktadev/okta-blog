@@ -1,0 +1,227 @@
+---
+layout: blog_post
+title: "Git to the Cloud with K8s and Spring Boot"
+author: matt-raible
+by: advocate
+communities: [devops,java]
+description: "Giddyup and go into the cloud!"
+tags: []
+tweets:
+- ""
+- ""
+- ""
+image:
+type: conversion
+---
+:page-liquid:
+:toc: macro
+
+// intro
+
+toc::[]
+
+== A Brief Intro to Kubernetes (K8s)
+
+== Create a Kubernetes-Ready Microservices Architecture
+
+// clone last app
+
+== Generate Kubernetes Deployment Descriptors
+
+[source,shell]
+----
+mkdir k8s
+jhipster k8s
+
+microservices
+../
+select all
+
+No to prometheus
+
+clustered? Yes
+
+Admin password? admin
+namespace? default
+repo name? gcr.io/wise-name-333
+docker push
+
+Enable Istio? No because easier
+
+service type?
+
+LoadBalancer
+
+dynamic storage? Yes
+a specific storage? empty
+----
+
+== Deploy to Google Cloud (aka GCP)
+
+[source,shell]
+----
+Add env vars for Okta
+
+Build images
+
+Run kubectl-apply.sh -f
+
+kubectl get svc
+----
+
+
+
+Add LoadBalancer IP to Okta
+
+kubectl get pods
+
+was e2-medium
+
+gcloud compute instances list
+
+gcloud compute instances stop gke-jhipster-default-pool-b55a18ad-3ng3
+
+gcloud compute instances set-machine-type gke-jhipster-default-pool-b55a18ad-3ng3 --zone=us-central1-a --machine-type=n1-standard-4
+
+
+
+gcloud container clusters create jhipster \
+--zone us-central1-a \
+--machine-type n1-standard-4 \
+--enable-autorepair \
+--enable-autoupgrade
+WARNING: Starting in January 2021, clusters will use the Regular release channel by default when `--cluster-version`, `--release-channel`, `--no-enable-autoupgrade`, and `--no-enable-autorepair` flags are not specified.
+WARNING: Currently VPC-native is not the default mode during cluster creation. In the future, this will become the default mode and can be disabled using `--no-enable-ip-alias` flag. Use `--[no-]enable-ip-alias` flag to suppress this warning.
+WARNING: Starting with version 1.18, clusters will have shielded GKE nodes by default.
+WARNING: Your Pod address range (`--cluster-ipv4-cidr`) can accommodate at most 1008 node(s).
+WARNING: Starting with version 1.19, newly created clusters and node-pools will have COS_CONTAINERD as the default node image when no image type is specified.
+
+
+EXTERNAL_IP=$(kubectl get svc gateway -ojsonpath="{.status.loadBalancer.ingress[0].ip}")
+curl $EXTERNAL_IP:8080
+
+
+=== Add HTTPS
+
+gcloud compute addresses create gateway-ingress-ip --global
+
+=== make sure it worked
+
+gcloud compute addresses describe gateway-ingress-ip --global \
+--format='value(address)'
+
+Create k8s/ingress.yml
+
+----
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: gateway
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: "gateway-ingress-ip"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /*
+        backend:
+          serviceName: gateway
+          servicePort: 8080
+----
+
+kubectl get ingress gateway
+
+
+EXTERNAL_IP=$(kubectl get ingress gateway -ojsonpath="{.status.loadBalancer.ingress[0].ip}")
+DOMAIN="${EXTERNAL_IP}.xip.io"
+curl $DOMAIN
+
+echo $DOMAIN
+
+
+k8s/certificate.yml
+
+EXTERNAL_IP=$(kubectl get ingress gateway -ojsonpath="{.status.loadBalancer.ingress[0].ip}")
+DOMAIN="${EXTERNAL_IP}.xip.io"
+
+cat << EOF > certificate.yml
+apiVersion: networking.gke.io/v1beta2
+kind: ManagedCertificate
+metadata:
+  name: gateway-certificate
+spec:
+  domains:
+  # Replace the value with your domain name
+  - ${DOMAIN}
+EOF
+
+
+Add certificate to ingress.yml
+
+networking.gke.io/managed-certificates: "gateway-certificate"
+
+Deploy both files:
+
+kubectl apply -f certificate.yml
+kubectl apply -f ingress.yml
+
+Check status:
+
+kubectl describe managedcertificate gateway-certificate
+
+
+=== Force HTTPS
+
+kubectl patch gateway-k8s/gateway-deployment.yml -p "{\"spec\": {\"template\": {\"metadata\": { \"labels\": {  \"redeploy\": \"$(date +%s)\"}}}}}"
+
+// Restart
+
+kubectl get deployments
+
+kubectl rollout restart deployment gateway
+
+kubectl logs gateway-db46684b5-9w22q --tail=-1
+
+34.95.101.174.xip.io
+
+
+
+https://cloud.google.com/load-balancing/docs/https/setting-up-http-https-redirect#partial-http-lb
+
+gcloud compute forwarding-rules create http-content-rule \
+--address=34.95.101.174 \
+--global \
+--target-http-proxy=http-lb-proxy \
+--ports=80
+
+Use `kubectl get svc` to get IP
+
+kubectl scale deployments/gateway --replicas=0
+
+
+gcloud container clusters delete jhipster --zone=us-central1-a
+
+
+So much more! Secrets, encryption, oh my.
+
+== Keeping Kubernetes Secrets
+
+=== Current State of Secret Management
+https://twitter.com/daniel_bilar/status/1379845799086022661?s=21
+
+=== JHipster Registry Encryption
+
+=== Spring Vault
+
+=== Volume Mounted Secrets (configtree)
+
+=== Git with Kubeseal
+
+https://dev.to/stack-labs/store-your-kubernetes-secrets-in-git-thanks-to-kubeseal-hello-sealedsecret-2i6h
+
+== Continuous Integration and Delivery
+
+== Learn More About Java Microservices and Kubernetes
+
+
+
