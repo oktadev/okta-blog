@@ -206,6 +206,8 @@ So much more! Secrets, encryption, oh my.
 
 == Keeping Kubernetes Secrets
 
+Describe most, show one. Talk to Ray.
+
 === Current State of Secret Management
 https://twitter.com/daniel_bilar/status/1379845799086022661?s=21
 
@@ -220,6 +222,8 @@ https://twitter.com/daniel_bilar/status/1379845799086022661?s=21
 https://dev.to/stack-labs/store-your-kubernetes-secrets-in-git-thanks-to-kubeseal-hello-sealedsecret-2i6h
 
 == Continuous Integration and Delivery
+
+== K9s
 
 == Learn More About Java Microservices and Kubernetes
 
