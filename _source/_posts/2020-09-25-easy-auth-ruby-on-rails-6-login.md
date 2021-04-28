@@ -334,64 +334,21 @@ OKTA_REDIRECT_URI: "http://localhost:3000/users/auth/oktaoauth/callback"
 
 Next, let's go into Okta to get our information.
 
-Dealing with user authentication in web apps is a huge pain for every developer. This is where Okta shines: it helps you secure your web applications with minimal effort. To get started, you'll need to create an OpenID Connect application in Okta. Sign up for a forever-free developer account (or log in if you already have one).
+Dealing with user authentication in web apps is a huge pain for every developer. This is where Okta shines: it helps you secure your web applications with minimal effort. 
 
-{% img blog/rubyonrails6/image5.png alt:"Okta signup" width:"800" %}{: .center-image }
+{% include setup/cli.md type="web" 
+   loginRedirectUri="http://localhost:3000/users/auth/oktaoauth/callback"
+   logoutRedirectUri="http://localhost:3000" %}
 
-Once you've logged in and land on the dashboard page, copy down the Org URL pictured below. You will need this later.
-On this main page find and copy your okta url.  Copy and use for the value in your yml called OKTA_URL.  Also for the value OKTA_ISSUER in your application.yml take your okta url and add /oauth2/default. The okta issuer should look something like `https://{your org}.{your domain of okta or oktapreview}.com/oauth2/{your Oauth Server Id which can be a GUID or "default"}`.  An example would be like "https://my-cool-company.okta.com/oauth2/default", where "my-cool-company" is the Org, "okta" is the domain, and "default" is the server Id.
+Finally, our application user's profile actually needs a custom value. Since Okta is an extensible Identity provider let's extend it to add the custom attribute of "gemstone". Run `okta login` and open the resulting URL in your browser. Log in to the Okta Admin Console and go to **Directory** > **Profile Editor**.
 
-{% img blog/rubyonrails6/image6.png alt:"Okta org URL" width:"800" %}{: .center-image }
+Find the Default User Schema and click the **Profile** button.
 
-Then create a new application by browsing to the Applications tab and clicking Add Application.
+Click **Add Attribute** and enter `gemstone` for the display name and variable name. Click **Save**.
 
-{% img blog/rubyonrails6/image7.png alt:"Okta application page" width:"800" %}{: .center-image }
+Next, find your custom attribute and click the pencil button next to it.
 
-Next, click the Web platform option (since our blog project is a web app).
-
-{% img blog/rubyonrails6/image8.png alt:"Okta Web app" width:"800" %}{: .center-image }
-
-On the settings page, enter the following values:
-
-Name: Rails 6
-Base URIs: `http://localhost:3000`
-Login redirect URIs: `http://localhost:3000/users/auth/oktaoauth/callback`
-
-After this is done, you should have something like this:
-
-{% img blog/rubyonrails6/image9.png alt:"Okta application settings" width:"800" %}{: .center-image }
-
-Click the button at the bottom of the screen:
-
-{% img blog/rubyonrails6/image10.png alt:"Okta application settings done" width:"800" %}{: .center-image }
-
-On the next page, find your client ID and Sec, and copy that to your rails application.yml file:
-
-{% img blog/rubyonrails6/image11.png alt:"Okta client ID and secret" width:"500" %}{: .center-image }
-
-Finally, our application user's profile actually needs a custom value. Since Okta is an extensible Identity provider let's extend it to add the custom attribute of "gemstone". In your Okta dashboard, go to User/Directory > Profile Editor:
-
-{% img blog/rubyonrails6/image12.png alt:"Okta profile editor" width:"800" %}{: .center-image }
-
-Find the Default User Schema and click the profile button:
-
-{% img blog/rubyonrails6/image13.png alt:"Okta default user schema" width:"800" %}{: .center-image }
-
-Once there click add attribute:
-
-{% img blog/rubyonrails6/image14.png alt:"Okta add attribute" width:"800" %}{: .center-image }
-
-Then name the new custom attribute gemstone and the variable gemstone. For easy use just try to copy what is on the image below and then click Save:
-
-{% img blog/rubyonrails6/image15.png alt:"Okta attribute form" width:"800" %}{: .center-image }
-
-Next, find your custom attribute and click the pencil button next to it:
-
-{% img blog/rubyonrails6/image16.png alt:"Okta gemstone custom attribute" width:"800" %}{: .center-image }
-
-We need to make sure our users can edit it, so we are going to give the attribute the "read and write permission" in the Okta Profile Editor:
-
-{% img blog/rubyonrails6/image17.png alt:"Okta gemstone custom attribute form" width:"800" %}{: .center-image }
+We need to make sure our users can edit it, so select **Read-Write** for the User permission.
 
 All set! This is looking good. It's time to try out your application and have fun!  Go to the console and run:
 
