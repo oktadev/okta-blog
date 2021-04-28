@@ -26,6 +26,27 @@ toc::[]
 
 // clone last app
 
+gcloud auth configure-docker
+
+
+https://developer.okta.com/blog/2020/12/07/spring-cloud-config#refresh-the-configuration-in-your-spring-cloud-config-server
+
+https://github.com/bitnami-labs/sealed-secrets/blob/main/docs/GKE.md
+
+https://developer.okta.com/blog/2020/05/04/spring-vault
+
+curl -X POST http://admin:admin@localhost:8761/config/encrypt -d payload
+
+=== Register an OIDC App for Auth
+
+
+=== Run in Minikube
+
+[source,shell]
+----
+minikube start
+----
+
 == Generate Kubernetes Deployment Descriptors
 
 [source,shell]
