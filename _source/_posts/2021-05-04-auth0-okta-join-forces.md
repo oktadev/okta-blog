@@ -14,7 +14,7 @@ image: blog/auth0-okta-join-forces/auth0-okta-join-forces.png
 type: awareness
 ---
 
-Yesterday, Okta announced that we have finalized the acquisition of Auth0. You are probably looking at this blog post wondering what happens next for both companies. The post you are looking for, with a lot more details and information, is on the [Auth0 blog](https://auth0.com/blog/developers-explore-okta-auth0). Please read it for more details and information, including ways to join us as we explore what the future holds;
+Yesterday, Okta announced that we have finalized the acquisition of Auth0. You are probably looking at this blog post wondering what happens next for both companies. The post you are looking for, with a lot more details and information, is on the [Auth0 blog](https://auth0.com/blog/developers-explore-okta-auth0). Please read it for more details and information, including ways to join us as we explore what the future holds.
 
 TL;DR: Over the next couple of weeks, the Okta and Auth0 teams will begin meeting and planning for the second half of this year. We want to do this as transparently as possible, so we'll be providing ways for you to ask questions and learn alongside us, including a series of live streams where folks from both teams will be on Twitch learning together.
 
