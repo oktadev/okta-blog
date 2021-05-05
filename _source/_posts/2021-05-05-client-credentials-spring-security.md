@@ -1,20 +1,20 @@
 ---
 layout: blog_post
-title: "Secure Server-to-Server Communication with Spring Boot and OAuth 2.0"
+title: "How to Use Client Credentials Flow with Spring Security"
 author: andrew-hughes
 by: contractor
 communities: [java]
-description: ""
-tags: []
+description: "Learn how to use OAuth 2.0's client credentials grant to communicate between apps secured by Spring Security."
+tags: [java, spring-security, spring-boot, oauth2, client-credentials-flow]
 tweets:
-- ""
-- ""
-- ""
-image:
+- "Want to developer secure server-to-server communication with @SpringSecurity? Use @oauth2's client credentials flow!"
+- "Learn how to use Spring's RestTemplate and WebClient with the OAuth 2.0 client credential flow."
+- "How to use OAuth 2.0 for server-to-server applications. 👇"
+image: blog/client-credentials-spring-security/client-credentials-flow.png
 type: conversion
 ---
 
-The **client credentials grant** is used when two servers need to communicate with each other outside of the context of a user. This is a very common scenario that is often overlooked by tutorials and documentation online. This grant type is in contrast to the more common **authorization code grant** type, which is used when an application needs to authenticate a user and retrieve an authorization token, typically a JWT, that represents the user's identity within the application and defines the resources the user can access, and the actions the user can perform.
+The **client credentials grant** is used when two servers need to communicate with each other outside the context of a user. This is a very common scenario—and yet, it's often overlooked by tutorials and documentation online. In contrast, the **authorization code grant** type is more common, for when an application needs to authenticate a user and retrieve an authorization token, typically a JWT, that represents the user's identity within the application and defines the resources the user can access, and the actions the user can perform.
 
 The OAuth 2.0 docs describe the client credentials grant in this way:
 
@@ -24,44 +24,47 @@ The OAuth 2.0 docs describe the client credentials grant in this way:
 * Table of Contents
 {:toc}
   
-In this tutorial, you are going to learn about how to allow services to securely interoperate even when there is not an authenticated user. Fortunately, this grant type is simpler than the other, user-focused grant types. It is often used for processes such as CRON jobs, scheduled tasks, and other types of heavy background data processing.
+In this tutorial, you will learn about how to allow services to securely interoperate even when there is not an authenticated user, using the client credentials grant.
 
-You will create a simple resource server that will be secured using Okta as an OAuth 2.0 and OpenID Connect (OIDC) provider. After that, you will create a Spring Boot-based command-line client that uses Spring's `RestTemplate` to make authenticated requests to the secure server. You will see how to authenticate the client with Okta using the client credentials grant and how to exchange the client credentials for a JSON Web Token (JWT), which will be used in the requests to the secure server. `RestTemplate` is deprecated, and while still widely used, should probably not be used for new code. Instead the WebFlux-based class, `WebClient` should be used. In the next part of the tutorial, you will implement the same OAuth 2.0 client credentials grant using Spring `WebClient`.
+Fortunately, this grant type is more straightforward than the other user-focused grant types. It is often used for processes such as CRON jobs, scheduled tasks, and other types of heavy background data processing.
 
-## What is the Client Credentials Grant Flow?
+You will create a simple resource server that will be secured using Okta as an OAuth 2.0 and OpenID Connect (OIDC) provider. After that, you will create a Spring Boot-based command-line client that uses Spring's `RestTemplate` to make authenticated requests to the secure server. You will see how to authenticate the client with Okta using the client credentials grant and how to exchange the client credentials for a JSON Web Token (JWT), which will be used in the requests to the secure server. 
+
+`RestTemplate` is deprecated, and while still widely used, should probably not be used for new code. Instead, the WebFlux-based class, `WebClient` should be used. In the next part of the tutorial, you will implement the same OAuth 2.0 client credentials grant using Spring `WebClient`.
+
+## What Is the Client Credentials Grant Flow?
 
 The goal of the OAuth 2.0 client credentials grant is to allow two automated services to interact securely. It does this primarily by replacing the old scheme, HTTP Basic, with a token-based authentication scheme that greatly reduces the number of requests that expose sensitive access credentials.
 
-The primary problem with HTTP basic is that it sends the username and password with every request. This means that each and every request between each and every service is a major potential security risk. Did the headers get leaked in a log file? Did somebody forget to force HTTPS? One mistake and credentials are compromised. Further, because usernames and passwords often don't have expiration dates, and because many people will (sadly) reuse these credentials across services, such a leak can expose a hole the size of a barn in a system's security barrier.
+The primary problem with HTTP Basic is that it sends the username and password with every request. This means that each and every request between each and every service is a major potential security risk. Did the headers get leaked in a log file? Did somebody forget to force HTTPS? One mistake and credentials are compromised. Further, because usernames and passwords often don't have expiration dates, and because many people will (sadly) reuse these credentials across services, such a leak can expose a hole the size of a barn in a system's security barrier.
 
-{% img blog/client-credentials-2/http-basic-sequence.png alt:"HTTP Basic Sequence" width:"800" %}{: .center-image }
+{% img blog/client-credentials-spring-security/http-basic-sequence.png alt:"HTTP Basic Sequence" width:"700" %}{: .center-image }
 
-OAuth 2.0, in contrast, mitigates this risk by having the client (the service initiating the request) request an access token from an authorization server. This access token is then used in the request to the other service
-for authentication and authorization. The primary benefit here is that the service credentials are only exposed when a new token must be requested or refreshed. Further, this request is performed in a far more controlled manner, happening between the client and the authorization server, instead of, in essence, every server having to act as an authorization server, with the increased security risk this poses, since, ideally a single authorization server can be hardened far more effectively than an entire network of services. 
+OAuth 2.0, in contrast, mitigates this risk by having the client (the service initiating the request) request an access token from an authorization server. This access token is then used in the request to the other service for authentication and authorization. The primary benefit here is that the service credentials are only exposed when a new token must be requested or refreshed. 
+
+Further, this request is performed in a far more controlled manner, since it happens between the client and the authorization server.With HTTP Basic, in essence, every server has to act as an authorization server, with the increased security risk this poses. (Ideally a single authorization server can be hardened far more effectively than an entire network of services.) 
 
 The same is true when the service that receives the request validates the token. It makes a request to the authorization server, sending only the token, not exposing the username and password of the client. 
 
-{% img blog/client-credentials-2/client-credentials-sequence.png alt:"Client Credentials Sequence" width:"800" %}{: .center-image }
+{% img blog/client-credentials-spring-security/client-credentials-sequence.png alt:"Client Credentials Sequence" width:"700" %}{: .center-image }
 
 Another major benefit is that the tokens should expire and can be scoped. Passwords only expire when they are changed. Tokens have an expiration built into them. Further, the scope of the token and the authenticated identity of the token holder can be used to restrict the actions that the token holder is allowed to perform. 
 
-## Install Dependencies
+**Prerequisites**:
 
-**Java 11**: This project uses Java 12. OpenJDK 12 will work just as well. Instructions are found on the [OpenJDK website](https://openjdk.java.net/install/). OpenJDK can also be installed using [Homebrew](https://brew.sh/). Alternatively, [SDKMAN](https://sdkman.io/) is another great option for installing and managing Java versions.
-
-**HTTPie**: This is a powerful command-line HTTP request utility that you'll use to test the WebFlux server. Install it according to [the docs on their site](https://httpie.org/doc#installation).
-
-**Okta CLI**: The Okta CLI is a simple way to use Okta as an OAuth 2. 0 and Open ID Connect provider. You can sign up for a free Okta developer account, log in to an existing account, and create OIDC applications. You'll use it in this tutorial to configure Okta as your OAuth 2.0 and OIDC provider.
+- **Java 11**: This project uses Java 12. OpenJDK 12 will work just as well. Instructions are found on the [OpenJDK website](https://openjdk.java.net/install/). OpenJDK can also be installed using [Homebrew](https://brew.sh/). Alternatively, [SDKMAN](https://sdkman.io/) is another excellent option for installing and managing Java versions.
+- **HTTPie**: This is a powerful command-line HTTP request utility that you'll use to test the WebFlux server. Install it according to [the docs on their site](https://httpie.org/doc#installation).
+- **Okta CLI**: The Okta CLI is a simple way to use Okta as an OAuth 2. 0 and Open ID Connect provider. You can sign up for a free Okta developer account, log in to an existing account, and create OIDC applications. You'll use it in this tutorial to configure Okta as your OAuth 2.0 and OIDC provider.
 
 ## Intro to Spring Security 5 Core Classes
 
-Spring Security 5 changed how a lot of the OAuth flow is handled. The client credentials grant was no exception. The old method used Spring's `RestTemplate` and `OAuth2RestTemplate`. While you can still use `RestTemplate`, `OAuth2RestTemplate` is gone and does not work with Spring Security 5. The preferred method in Spring Security 5 is to use the `WebClient`, which is part of the `WebFlux` package.
+Spring Security 5 changed how a lot of the OAuth flow is handled. The client credentials grant was no exception—the old method used Spring's `RestTemplate` and `OAuth2RestTemplate`. While you can still use `RestTemplate`, `OAuth2RestTemplate` is gone and does not work with Spring Security 5. The preferred method in Spring Security 5 is to use the `WebClient`, which is part of the `WebFlux` package.
 
 I'm going to take a moment to introduce some of the main OAuth Spring Security classes. If you already feel comfortable with OAuth 2.0 and Spring Security 5, or just want to see the code, feel free to skip ahead to the next section. 
 
 In the examples below, you'll see that to configure client credentials need to configure Spring by overriding some of these classes through Bean definitions. If you want to get a more detailed look at these classes, take a look at [the Spring docs on the subject](https://docs.spring.io/spring-security/site/docs/5.4.5/reference/html5/#oauth2Client-core-interface-class).
 
-**ClientRegistration**: represents a client registered with OAuth 2.0 or Open ID Connect (OIDC). It holds all of the basic information about the client, such as client id, client secret, grant type, and the various URIs. Client registrations are typically loaded automatically from an `application.properties` file. Spring auto-configuration looks for properties with the schema `spring.security.oauth2.client.registration.[registrationId]` and creates a `ClientRegistration` instance within a `ClientRegistrationRepository.` As you will see, in the command line runner version of this, we have to re-create some of this logic manually because it is not being auto-configured for us outside of the scope of a web service environment.
+**ClientRegistration**: represents a client registered with OAuth 2.0 or OpenID Connect (OIDC). It holds all of the basic information about the client, such as client id, client secret, grant type, and the various URIs. Client registrations are typically loaded automatically from an `application.properties` file. Spring auto-configuration looks for properties with the schema `spring.security.oauth2.client.registration.[registrationId]` and creates a `ClientRegistration` instance within a `ClientRegistrationRepository.` As you will see, in the command line runner version of this, we have to re-create some of this logic manually because it is not being auto-configured for us outside of the scope of a web service environment.
 
 **ClientRegistrationRepository**: this is a container class that holds `ClientRegistrations`. 
 
@@ -82,11 +85,11 @@ public class OAuth2AuthorizedClient implements Serializable {
 
 **OAuth2AuthorizedClientManager**: is the manager class that contains the logic to handle the authorization flow. Most importantly, it authorizes and re-authorizes OAuth 2.0 clients using an `OAuth2AuthorizedClientProvider`. It also delegates persistence of the authorized clients and calls success or failure handlers when client authorization succeeds or fails.
 
-**OAuth2AuthorizedClientProvider**: represents an OAuth 2.0 provider and handles the actual request logic for different grant types and OAuth 2.0 providers. They can be autoconfigured based on property values (`spring.security.oauth2.client.provider.[provider name]`). In the case of this tutorial, you will be using Okta as your provider, so you'll see properties with the prefix `spring.security.oauth2.client.provider.okta.` that are auto-configuring an associated `OAuth2AuthorizedClientProvider`.
+**OAuth2AuthorizedClientProvider**: represents an OAuth 2.0 provider and handles the actual request logic for different grant types and OAuth 2.0 providers. They can be auto-configured based on property values (`spring.security.oauth2.client.provider.[provider name]`). In the case of this tutorial, you will be using Okta as your provider, so you'll see properties with the prefix `spring.security.oauth2.client.provider.okta.` that are auto-configuring an associated `OAuth2AuthorizedClientProvider`.
 
 Now for the code!
 
-## Build a Simple, Secure Resource Server
+## Build a Secure OAuth 2.0 Resource Server with Spring Security
 
 In this section, you're going to make a simple resource server for the clients to call. To bootstrap the project, you're going to use [the Spring Initializr](http://start.spring.io/). It's a great way to create a preconfigured Spring Boot project. Here you're going to access it via the REST API, but it also has a pretty slick web interface.
 
@@ -97,7 +100,7 @@ Make a root project directory for the three different applications:
 
 Open a BASH shell and navigate to the base project directory. Run the command below to retrieve the pre-configured starter project for the server using the Spring Initializr REST API.
 
-```
+```shell
 curl https://start.spring.io/starter.tgz \
   -d bootVersion=2.4.5 \
   -d artifactId=secure-server \
@@ -109,12 +112,12 @@ curl https://start.spring.io/starter.tgz \
 ```
 
 This defines four dependencies:
-- Spring Boot OAuth 2.0 resource server,
-- Spring Boot web starter, 
-- Spring security, and 
-- the Okta Spring Boot starter. 
+- Spring Boot OAuth 2.0 resource server
+- Spring Boot web starter
+- Spring security
+- The Okta Spring Boot starter 
 
-The Okta Spring Boot starter is a project that simplifies OAuth 2.0 and Open ID Connect (OIDC) configuration with Spring Boot and Okta. Take a look at [the project GitHub page](https://github.com/okta/okta-spring-boot) for more information.
+The Okta Spring Boot starter is a project that simplifies OAuth 2.0 and OpenID Connect (OIDC) configuration with Spring Boot and Okta. Take a look at [the Okta Spring Boot Starter on GitHub](https://github.com/okta/okta-spring-boot) for more information.
 
 From within the `secure-server` project, open the `DemoApplication` class file and replace it with the following contents.
 
@@ -165,17 +168,17 @@ public class DemoApplication {
 
 This class does a few important things. In the `SecurityConfig` inner class, it configures Spring Boot as an OAuth 2.0 resource server using JWTs and requires that all requests are authenticated. It also enables using the `@PreAuthorize` annotation by including the `@EnableGlobalMethodSecurity(prePostEnabled = true)` annotation. 
 
-The second inner class, `RequestController`, defines a REST endpoint at the context root and secures this endpoint using the `@PreAuthorize` annotation. The security requries that the authorized JWT has the custom scope "mod_custom."
+The second inner class, `RequestController`, defines a REST endpoint at the context root and secures this endpoint using the `@PreAuthorize` annotation. The security requires that the authorized JWT has the custom scope "mod_custom."
 
 Notice that to specify a required scope using the `PreAuthorize` annotation, you use a Spring Expression Language snippet (SpEL): `hasAuthority('SCOPE_mod_custom')`. Spring automatically prepends "SCOPE_" in front of the required scope name, such that the actual required scope is "mod_custom" not "SCOPE_mod_custom."
 
 The application code is in place. However, you still need to configure the Spring Boot application to use Okta as the OAuth 2.0 and OIDC provider. You also need to create an OIDC application on Okta. 
 
-## Create An Okta OIDC Application
+## Create an OIDC Application
 
 {% include setup/cli.md type="service" %}
 
-Copy the values from the generated `.okta.env` file into `src/main/resources/application.properties`. It should look like the following (with you own values for the issuer, client ID, and client secret) when you're finished.
+Copy the values from the generated `.okta.env` file into `src/main/resources/application.properties`. It should look like the following (with your own values for the issuer, client ID, and client secret) when you're finished.
 
 ```properties
 okta.oauth2.issuer=https://dev-123456.okta.com/oauth2/default
@@ -189,14 +192,16 @@ Add a line to the `applications.properties` file. This changes the server port t
 server.port=8081
 ```
 
-## Test The Secure Server
+## Test Your Secure Server
 
 You now have a fully functioning server application. You can run it with the following command.
+
 ```bash
 ./mvnw spring-boot:run
 ```
 
 Once that finishes starting, you can run a request using HTTPie.
+
 ```bash
 http :8081/secure
 ```
@@ -211,7 +216,7 @@ HTTP/1.1 401
 
 ```
 
-## Add A Custom Scope To Okta Auth Server
+## Add a Custom Scope to Your Authorization Server
 
 Because we are using the custom scope `mod_custom` in the `@Preauthorize` annotation, you need to add this custom scope to your Okta authorization server. Run `okta login` and open the resulting URL in your browser. Sign in to the Okta Admin Console. You may need to click the **Admin** button to get to your dashboard.
 
@@ -221,13 +226,11 @@ Select the **Scopes** tab. Click **Add Scope**.
 
 Give the scope the following **Name**: `mod_custom`.
 
-Give the scope whatever **Display Name** and **Description** you would like--or leave it blank. Click **Create** to continue.
+Give the scope whatever **Display Name** and **Description** you would like, or leave it blank. Click **Create** to continue.
 
-## Create A RestTemplate Command Line Application
+## Create a RestTemplate Command-Line Application
 
-Next you are going to create a command-line application that makes an authorized request to the secure server using `RestTemplate`. Use the Spring Initializr to download a bootstrapped application with the following command, run from the root directory for the project as a whole.
-
-// todo: what does the last part of ^^ mean?
+Next, you will create a command-line application that makes an authorized request to the secure server using `RestTemplate`. Use the Spring Initializr to download a bootstrapped application with the following command, run from the root directory for the project as a whole.
 
 ```bash
 curl https://start.spring.io/starter.tgz \
@@ -316,7 +319,7 @@ In the context of a servlet, much of what this file does would be accomplished a
 
 The `oktaClientRegistration()` method loads the properties for the client and provider from the `application.properties` file and creates an Okta client registration using those properties. 
 
-The other methods create an `InMemoryOAuth2AuthorizedClientService` that contains this client registration and creates an `InMemoryOAuth2AuthorizedClientService`, both of which are injected into a `AuthorizedClientServiceOAuth2AuthorizedClientManager`.  This is the high-level controller class that orchestrates the OAuth 2.0 client credentials grant request. There's a lot going on in this and we don't have time or space to unpack it all here. I will point out that `AuthorizedClientServiceOAuth2AuthorizedClientManager` is a class specifically designed to be used outside of the context of a HttpServletRequest.
+The other methods create an `InMemoryOAuth2AuthorizedClientService` that contains this client registration and creates an `InMemoryOAuth2AuthorizedClientService`, both of which are injected into a `AuthorizedClientServiceOAuth2AuthorizedClientManager`. This is the high-level controller class that orchestrates the OAuth 2.0 client credentials grant request. A lot is going on in this, and we won't unpack it all here. I will point out that `AuthorizedClientServiceOAuth2AuthorizedClientManager` is a class specifically designed to be used outside of the context of a HttpServletRequest.
 
 From [the Spring Docs](https://docs.spring.io/spring-security/site/docs/5.4.5/reference/html5/#oauth2Client-authorized-manager-provider):
 
@@ -410,13 +413,17 @@ public class DemoApplication implements CommandLineRunner {
 
 This file is the standard Spring Boot application file that starts the framework. It uses an inner class that extends `WebSecurityConfigurerAdapter` to configure Spring Boot for OAuth 2.0 client. The bulk of the code is in the `run()` method, which is what is defined by the `CommandLineRunner` interface and is what is executed once Spring Boot is fully loaded.
 
-The `run()` method does two main things: 1) it uses the client ID and client secret to retrieve a JWT, and 2) it uses that JWT to make an authorized HTTP request using `RestTemplate`. `OAuth2AuthorizeRequest` and `AuthorizedClientServiceOAuth2AuthorizedClientManager` are the classes used to configure the request for authentication with Okta's servers and to make the actual request.
+The `run()` method does two main things: 
+1. It uses the client ID and client secret to retrieve a JWT
+2. It uses that JWT to make an authorized HTTP request using `RestTemplate` 
 
-Before you can test the code, you need to add some properties to the `application.properties` file. **You need to fill in three values below**: 
+`OAuth2AuthorizeRequest` and `AuthorizedClientServiceOAuth2AuthorizedClientManager` are the classes used to configure the request for authentication with Okta's servers and to make the actual request.
 
- 1. the client ID for your OIDC application, 
- 2. the client secret for your OIDC application, 
- 3. your own Okta URI in the `token-uri`.
+Before you can test the code, add some properties to the `application.properties` file. **You need to fill in three values below**: 
+
+ 1. the client ID for your OIDC application 
+ 2. the client secret for your OIDC application 
+ 3. your own Okta URI in the `token-uri`
 
 All of these values can be taken from the `application.properties` file for the secure server project above. 
 
@@ -431,7 +438,7 @@ spring.main.web-application-type=none
 ```
 The last property, `spring.main.web-application-type=none`, tells Spring Boot not to launch any kind of web service. Since this is a command-line app, there's no reason to launch the default Tomcat container.
 
-With that all in place, you can now try it out. Make sure your server is running (`./mvnw spring-boot:run`) and then, in a separate shell, run the client.
+With that all in place, you can now try it out. Make sure your server is running (`./mvnw spring-boot:run`) and then run the client in a separate shell.
 
 ```bash
 ./mvnw spring-boot:run
@@ -453,7 +460,7 @@ If all went well, the client will show you some output that looks like the follo
 [INFO] ------------------------------------------------------------------------
 ```
 
-One thing I want to point out is that this client is going to request a new token on every request. This is less than ideal because the token request sequence is the most vulnerable from a security perspective. A way around this would be to persist the token between requests. You could persist the token yourself and handle the refresh logic within the `run()` method, or you could implement a `OAuth2AuthorizedClientService` that persists the token instead of using the default in-memory implementation.
+One thing I want to point out is that this client is going to request a new token on every request. This is less than ideal because the token request sequence is the most vulnerable from a security perspective. A way around this would be to persist the token between requests. You could persist the token yourself and handle the refresh logic within the `run()` method, or you could implement an `OAuth2AuthorizedClientService` that persists the token instead of using the default in-memory implementation.
 
 ## Create a WebClient-Based Application
 
@@ -463,7 +470,7 @@ It's important to realize when using WebFlux within the Java servlet framework t
 
 In this client, you will use two different methods to run tasks. First, you will use the `CommandLineRunner` interface, just as you did above. This will demonstrate using `WebClient` in a blocking context. Second, you will use `WebClient` to make requests using the `@Scheduled` annotation. This annotation allows for a variety of scheduling options, including CRON-style scheduling. It also allows the use of `WebClient` in all its non-blocking glory.
 
-Here is the command to download the starter for the webclient-based client from the Spring Initializr. The only difference between this bootstrapped project and the previous one is the addition of a new dependency. The dependency `webflux` is necessary to add support for the `WebClient` class.
+Here is the command to download the starter for the WebClient-based client from the Spring Initializr. The only difference between this bootstrapped project, and the previous one, is the addition of a new dependency. The dependency `webflux` is necessary to add support for the `WebClient` class.
 
 Run this command from a Bash shell from the project root directory.
 
@@ -525,13 +532,12 @@ public class OAuthClientConfiguration {
         return WebClient.builder()
                 .filter(oauth)
                 .build();
-
     }
 
 }
 ```
 
-This file, like the corresponding file in the previous client, loads the Okta client registration and packages it in an in-memory client registration repository (`InMemoryReactiveClientRegistrationRepository`). This repository is specifically a reactive repository suitable for use with the `WebClient` class. This is used to build a reactive authorized client manager, which is packaged in an OAuth 2.0 filter that handles the client credentials grant exchange. Here the `WebClient` is packaged as a bean with the filter in place and every request that uses this bean will have this filter. In the previous example, the client credentials exchange was performed explicitly in the command line runner method.
+Like the corresponding file in the previous client, this file loads the Okta client registration and packages it in an in-memory client registration repository (`InMemoryReactiveClientRegistrationRepository`). This repository is specifically a reactive repository suitable for use with the `WebClient` class. This is used to build a reactive authorized client manager, which is packaged in an OAuth 2.0 filter that handles the client credentials grant exchange. Here the `WebClient` is packaged as a bean with the filter in place, and every request that uses this bean will have this filter. In the previous example, the client credentials exchange was performed explicitly in the command line runner method.
 
 Update the `DemoApplication` class to match the following.
 
@@ -620,9 +626,9 @@ You should see output like this:
 
 ## Learn More About Spring Boot and Spring Security
 
-In this tutorial you saw two different ways to implement the OAuth 2.0 client credentials flow. You created a simple server application. You created a client using RestTemplate, a deprecated but still widely used Spring technology. And, finally you created a client using the newer, asynchronous WebClient, built on Spring's WebFlux package. 
+In this tutorial, you saw two different ways to implement the OAuth 2.0 client credentials flow. You created a simple server application. You created a client using RestTemplate, a deprecated but still widely used Spring technology. Finally, you created a client using the newer, asynchronous `WebClient`, built on Spring's WebFlux package. 
 
-You can find the source code for this example in our [okta-spring-boot-client-credentials-example](https://github.com/oktadeveloper/okta-spring-boot-client-credentials-example) repository.
+You can find the source code for this example in our [okta-spring-boot-client-credentials-example](https://github.com/oktadev/okta-spring-boot-client-credentials-example) repository.
 
 If you liked this post, there's a good chance you might like some of our other ones.
 
