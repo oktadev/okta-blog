@@ -10,6 +10,8 @@ Tweets:
 - "Stop scrolling through twitter and spend a few minutes learning how you can better architect secure server-to-server APIs services with Spring Boot and #oauth"
 - "Curious about architecting server-to-server APIs using OAuth and Spring Boot? Read @briandemers' new article:"
 type: conversion
+update-title: "How to Use Client Credentials Flow with Spring Security"
+update-url: /blog/2021/05/05/client-credentials-spring-security
 ---
 
 Most OAuth 2.0 guides are focused around the context of a user, i.e., login to an application using Google, Github, Okta, etc., then do something on behalf of that user. While useful, these guides ignore server-to-server communication where there is no user and you only have one service connecting to another one.
