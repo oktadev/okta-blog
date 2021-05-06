@@ -1273,7 +1273,7 @@ I would like to point out that the [combined PR](https://github.com/oktadevelope
 
 I hope you've enjoyed this (lengthy) tour of how to switch from using OAuth 2.0's implicit flow with Angular to authorization code flow with Spring Security and Spring Boot.
 
-You can find the source code for this completed application on GitHub at https://github.com/oktadeveloper/okta-spring-boot-angular-auth-code-flow-example.
+You can find the source code for this completed application on GitHub at <https://github.com/oktadev/okta-spring-boot-angular-auth-code-flow-example>.
 
 [JHipster](https://www.jhipster.tech) uses this same setup for its OAuth 2.0/OIDC support. I [helped write it](/blog/2017/10/20/oidc-with-jhipster), that's how I know! I especially like how Spring Boot and Spring Security allow you to switch OAuth providers simply by overriding environment variables.
 
