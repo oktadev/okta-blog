@@ -3,7 +3,7 @@ name: CLI Setup
 on: [pull_request]
 
 env:
-  DEPLOY_HOST: "oktadev-content-staging.netlify.app"
+  DEPLOY_HOST: "okta-blog.netlify.app"
 
 jobs:
   test:
