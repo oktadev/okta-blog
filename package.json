@@ -38,15 +38,15 @@
   },
   "homepage": "https://github.com/oktadev/okta-blog#readme",
   "devDependencies": {
-    "@applitools/eyes-cypress": "^3.20.4",
-    "cypress": "^7.1.0",
+    "@applitools/eyes-cypress": "^3.21.0",
     "chalk": "4.1.1",
     "cross-env": "7.0.3",
+    "cypress": "^7.2.0",
     "front-matter": "^4.0.2",
-    "fs-extra": "^9.1.0",
+    "fs-extra": "^10.0.0",
     "pre-push": "0.1.1",
     "recursive-readdir": "2.2.2",
     "simple-git": "^2.38.0",
-    "yargs": "^17.0.0"
+    "yargs": "^17.0.1"
   }
 }
