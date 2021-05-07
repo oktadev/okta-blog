@@ -1,25 +1,26 @@
 name: CLI Setup
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+on: [pull_request]
+
+env:
+  DEPLOY_HOST: "oktadev-content-staging.netlify.app"
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: Waiting for 200 from the Netlify Preview
-        uses: jakepartusch/wait-for-netlify-action@v1.2
-        id: preview
+      - name: Waiting for Netlify Deploy
+        uses: fountainhead/action-wait-for-check@v1.0.0
         with:
-          site_name: "okta-blog"
-          max_timeout: 300
+          token: ${{ secrets.GITHUB_TOKEN }}
+          checkName: "Pages changed"
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Storing Preview URL in Environment
+        run: echo "DEPLOY_HOST=deploy-preview-${{ github.event.pull_request.number }}--${{ env.DEPLOY_HOST }}" >> $GITHUB_ENV
       - uses: colbyfayock/applitools-eyes-action@main
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           APPLITOOLS_API_KEY: ${{ secrets.APPLITOOLS_API_KEY }}
           APPLITOOLS_BATCH_ID: ${{ github.sha }}
           appName: Okta Blog
-          baseUrl: ${{ steps.preview.outputs.url }}
+          baseUrl: "https://${{ env.DEPLOY_HOST }}"
