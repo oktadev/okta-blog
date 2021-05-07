@@ -13,7 +13,7 @@ jobs:
         uses: fountainhead/action-wait-for-check@v1.0.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          checkName: "Pages changed"
+          checkName: "Pages changed - okta-blog"
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - name: Storing Preview URL in Environment
         run: echo "DEPLOY_HOST=deploy-preview-${{ github.event.pull_request.number }}--${{ env.DEPLOY_HOST }}" >> $GITHUB_ENV
