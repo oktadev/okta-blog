@@ -1,6 +1,7 @@
 ---
 layout: blog_post
-title: "Git to the Cloud with K8s and Spring Boot"
+title: "Git Yer Java Microservices to the Cloud with K8s and Spring Boot"
+# title: "Git to the Cloud with K8s and Spring Boot"
 # title: "Git to Google Cloud with K8s and Spring Boot"
 author: matt-raible
 by: advocate
@@ -16,6 +17,7 @@ type: conversion
 ---
 :page-liquid:
 :toc: macro
+:experimental:
 
 When your business or application is successful, it needs to scale. Not just technology-wise, but human-wise. When you're growing rapidly, it can be difficult to hire developers fast enough. Using a microservices architecture for your apps can allow you to divide up ownership, responsibilities, and scale teams with your code.
 
@@ -23,7 +25,7 @@ Spring Boot and Spring Cloud were some of the pioneering frameworks in Javaland.
 
 Today, I'd like to show you how to build a __reactive__ microservice architecture with Spring Boot, Spring Cloud, and JHipster. Why reactive? Because Spring Cloud Gateway is now the default for JHipster 7, even if you choose to build your microservices with Spring MVC.
 
-Spring Cloud Gateway is a library for building an API Gateway on top of Spring WebFlux. They make it easy too! You only need to integrate OAuth too. You just need to add default `TokenRelay` filter.
+Spring Cloud Gateway is a library for building an API Gateway on top of Spring WebFlux. It makes it easy to integrate OAuth in to communicate between microservices. You just need to add a `TokenRelay` filter.
 
 [source,yaml]
 ----
@@ -34,9 +36,10 @@ spring:
         - TokenRelay
 ----
 
-CAUTION: Netflix Zuul is no longer supported by Spring Cloud. There is an https://github.com/spring-cloud/spring-cloud-gateway/issues/36[open issue] to add Spring MVC/Servlet support.
+CAUTION: Netflix Zuul is no longer supported by Spring Cloud. There is an https://github.com/spring-cloud/spring-cloud-gateway/issues/36[open issue] to add Spring MVC/Servlet support to Spring Cloud Gateway.
 
 **Prerequisites**
+
 - https://sdkman.io/[Java 11]+
 - https://nodejs.org/[Node.js]
 - https://docs.docker.com/get-docker/[Docker]
@@ -46,11 +49,13 @@ toc::[]
 
 == A Brief Intro to Kubernetes (K8s)
 
-Kubernetes is an open source project from Google that provides an API for deploying your apps and making them talk with each other. You use Docker containers and YAML to make it all work. The YAML can be hideous, but that's where JHipster comes in. It can generate the YAML for you so you don't have to!
+Kubernetes is an open source project from Google that provides an API for deploying your apps and making them talk with each other. It helps automate deployments, updates, and managing your apps and services with limited downtime. You use Docker containers and YAML to make it all work.
+
+The YAML can be hideous, but that's where JHipster comes in. It can generate the YAML for you!
 
 == Create a Kubernetes-Ready Microservices Architecture
 
-I showed you how to build https://developer.okta.com/blog/2021/01/20/reactive-java-microservices[reactive Java microservices with Spring Boot and JHipster] in a previous post. Today I'll show you how to generate K8s deployment descriptors, use Spring Cloud Config with Git, encrypt your secrets, and make it all work on Google Cloud. https://cloud.google.com/kubernetes-engine/[GKE] to be specific.
+I showed you how to build https://developer.okta.com/blog/2021/01/20/reactive-java-microservices[Reactive Java microservices with Spring Boot and JHipster] in a previous post. Today I'll show you how to generate K8s deployment descriptors, use Spring Cloud Config with Git, encrypt your secrets, and make it all work on Google Cloud (https://cloud.google.com/kubernetes-engine/[GKE] to be specific).
 
 Start by cloning the JHipster 7 { Vue, Spring Boot, WebFlux } app from GitHub:
 
@@ -59,15 +64,6 @@ Start by cloning the JHipster 7 { Vue, Spring Boot, WebFlux } app from GitHub:
 git clone https://github.com/oktadeveloper/java-microservices-examples.git
 cd java-microservices-examples/reactive-jhipster
 ----
-
-This project has four directories:
-
-- `gateway`: a Spring Boot + Spring Cloud Gateway project configured for OIDC login. Also available as an OAuth 2.0 resource server. It contains a front end application that's built with Vue. It's a monolith. We're working on https://github.com/jhipster/generator-jhipster/issues/10189[micro frontends support].
-- `blog`: a Spring Boot + WebFlux microservice that talks to a Neo4j database.
-- `store`: a Spring Boot + WebFlux microservice that uses MongoDB.
-- `docker-compose`: a set of Docker files that describe how to run all containers together.
-
-Once you've configured OIDC, you'll use Docker Compose to run everything.
 
 [TIP]
 ====
@@ -78,6 +74,17 @@ If you just want to see the completed project, just cd into the project's `jhips
 cd ../jhipster-k8s
 ----
 ====
+
+This project has four directories:
+
+- `gateway`: a Spring Boot + Spring Cloud Gateway project configured for OpenID Connect (OIDC) login. It's also configured as an OAuth 2.0 resource server. It contains a front end application that's built with Vue.
+- `blog`: a Spring Boot + WebFlux microservice that talks to a Neo4j database.
+- `store`: a Spring Boot + WebFlux microservice that uses MongoDB.
+- `docker-compose`: a set of Docker files that describe how to run all containers together.
+
+NOTE: The SPA app on the gateway is currently a monolith. The JHipster team is still working on https://github.com/jhipster/generator-jhipster/issues/10189[micro frontends support].
+
+Once you've configured OIDC, you'll use Docker Compose to run everything.
 
 Now that you have the project cloned, use JHipster to add Kubernetes support.
 
@@ -92,11 +99,13 @@ npm i -g generator-jhipster@7
 
 Before the JHipster 7.0.0 release, I tested this microservice example with Kubernetes and Google Cloud. Ray Tsang's https://spring-gcp.saturnism.me/[Spring Boot on GCP Guides] where a https://twitter.com/mraible/status/1372964263237718026[huge help]!
 
+// todo: move this somewhere else as it's kinda in the way
+
 ++++
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">I re-created this example with the latest code from <a href="https://twitter.com/jhipster?ref_src=twsrc%5Etfw">@jhipster</a>&#39;s main branch this week and deployed it to <a href="https://twitter.com/googlecloud?ref_src=twsrc%5Etfw">@googlecloud</a> with <a href="https://twitter.com/kubernetesio?ref_src=twsrc%5Etfw">@kubernetesio</a>. <br><br>I&#39;m happy to report I was able to get everything working! <a href="https://twitter.com/saturnism?ref_src=twsrc%5Etfw">@saturnism</a>&#39;s Spring Boot on GCP docs was a big help. 🙏<a href="https://t.co/NBGj0OAOxM">https://t.co/NBGj0OAOxM</a> <a href="https://t.co/k1mm4e1fr8">https://t.co/k1mm4e1fr8</a></p>&mdash; Matt Raible (@mraible) <a href="https://twitter.com/mraible/status/1372964263237718026?ref_src=twsrc%5Etfw">March 19, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 ++++
 
-https://spring-gcp.saturnism.me/getting-started/google-cloud-platform[Sign up for GCP], log in, and create a project. Open a https://console.cloud.google.com/[console] in your browser. A GCP project contains all cloud services and resources--such as virtual machines, network, load balancers--that you might use.
+https://spring-gcp.saturnism.me/getting-started/google-cloud-platform[Sign up for Google Cloud Platform (GCP)], log in, and create a project. Open a https://console.cloud.google.com/[console] in your browser. A GCP project contains all cloud services and resources--such as virtual machines, network, load balancers--that you might use.
 
 TIP: You can also download and install the https://cloud.google.com/sdk/[`gcloud` CLI] if you want to run things locally.
 
@@ -139,34 +148,23 @@ jhipster k8s
 
 You'll be prompted with a number of questions. Answer them as I did below.
 
-Make sure to set the Docker repository name to `gcr.io/YOUR_GCP_PROJECT_ID`.
+- Type of application: **Microservice application**
+- Root directory: **../**
+- Which applications? <select all>
+- Set up monitoring? **No**
+- Which applications with clustered databases? select **store**
+- Admin password for JHipster Registry: <generate one>
+- Kubernetes namespace: **default**
+- Docker repository name: `gcr.io/YOUR_GCP_PROJECT_ID`
+- Command to push Docker image: `docker push`
+- Enable Istio? **No**
+- Kubernetes service type? **LoadBalancer**
+- Use dynamic storage provisioning? **Yes**
+- Use a specific storage class? <leave empty>
 
-[source,shell]
-----
-microservices
-../
-select all
+image::{% asset_path 'blog/reactive-java-kubernetes/jhipster-k8s.png' %}[alt=JHipster K8s command with answers,width=800,align=center]
 
-No to prometheus
-
-clustered? Yes
-
-Admin password? admin
-namespace? default
-repo name? gcr.io/wise-name-333
-docker push
-
-Enable Istio? No because easier
-
-service type?
-
-LoadBalancer
-
-dynamic storage? Yes
-a specific storage? empty
-----
-
-Notice that I'm using `gcr.io/jhipster7` for my GCP project.
+Notice that I'm using `gcr.io/jhipster7` for my Docker repository name.
 
 After I answered these questions, my `k8s/.yo-rc.json` file had the following contents:
 
@@ -198,9 +196,9 @@ Create Docker images for each app. In the {`gateway`, `blog`, `store` } director
 ./gradlew -Pprod bootJar jibDockerBuild
 ----
 
-TIP: You might have to run `gcloud auth configure-docker` for Jib to publish to your GCP container registry.
-
 === Register an OIDC App for Auth
+
+You've built Docker images for your microservices, but you haven't seen them running. First, you'll need to configure Okta for authentication and authorization.
 
 {% include setup/cli.md type="jhipster" %}
 
@@ -232,9 +230,20 @@ docker-compose up
 
 You can see if everything started up OK at `\http://localhost:8761`. You'll need to sign in with your Okta credentials.
 
-// todo: screenshot
-
 Once all is green, go to `\http://localhost:8080` and you should be able to add blogs, posts, tags, and products.
+
+You can also automate testing that everything works. Set your Okta credentials as environment variables and run end-to-end tests (from the gateway directory).
+
+[source,shell]
+----
+export CYPRESS_E2E_USERNAME=<your-username>
+export CYPRESS_E2E_PASSWORD=<your-password>
+npm run e2e
+----
+
+Proof it worked for me:
+
+image::{% asset_path 'blog/reactive-java-kubernetes/cypress-e2e.png' %}[alt=Cypress end-to-end tests,width=800,align=center]
 
 === Why Not Istio?
 
@@ -245,31 +254,41 @@ creators of Istio. I like how they'd eventually like to make services meshes so 
 
 If you'd like to see how to use JHipster with Istio, see https://dev.to/deepu105/how-to-set-up-java-microservices-with-istio-service-mesh-on-kubernetes-5bkn[How to set up Java microservices with Istio service mesh on Kubernetes] by JHipster co-lead https://twitter.com/deepu105[Deepu K Sasidharan].
 
-== Plain Text Secrets? Uggh!
+=== Plain Text Secrets? Uggh!
 
 You might notice I used a secret in plain text in the `application.yml` file. This is a bad practice! I hope you didn't check everything into source control yet!!
 
 == Encrypt / Decrypt Your Spring Cloud Configuration
 
-The JHipster Registry has an encryption mechanism you can use to encrypt your secrets. That way, it's a bit safer to store them in public repositories. Create a `docker-compose/.env` file and specify an `ENCRYPT_KEY` in it. Make sure `*.env` is in a `.gitignore` file while you're at it!
+The JHipster Registry has an encryption mechanism you can use to encrypt your secrets. That way, it's a bit safer to store them in public repositories. Create a `docker-compose/.env` file and specify an `ENCRYPT_KEY` in it. Make sure `*.env` is in your `.gitignore` file while you're at it!
 
 [source,dotenv]
 ----
 ENCRYPT_KEY=really-long-string-of-random-charters-that-you-can-keep-safe
 ----
 
+[TIP]
+====
+You can use JShell to generate a UUID you can use for your encrypt key.
+
+[source,shell]
+----
+jhsell
+
+UUID.randomUUID()
+----
+
+image::{% asset_path 'blog/reactive-java-kubernetes/jshell-uuid.png' %}[alt=JShell UUID,width=780,align=center]
+
+You can quit by typing `/exit`.
+====
+
 Then, update `docker-compose.yml` to set this value as an environment variable.
 
 [source,yaml]
 ----
 jhipster-registry:
-  image: jhipster/jhipster-registry:v6.7.1
-  volumes:
-    - ./central-server-config:/central-config
-  # By default the JHipster Registry runs with the "dev" and "native"
-  # Spring profiles.
-  # "native" profile means the filesystem is used to store data, see
-  # http://cloud.spring.io/spring-cloud-config/spring-cloud-config.html
+  ...
   environment:
     - _JAVA_OPTIONS=-Xmx512m -Xms256m
     - JHIPSTER_SLEEP=20
@@ -279,39 +298,28 @@ jhipster-registry:
     - ENCRYPT_KEY=${ENCRYPT_KEY}
 ----
 
-=== Change Spring Cloud Config Server to use Git
+Stop all your containers using kbd:[Ctrl + C] or run `docker-compose down`. Start all your containers again.
 
-Want to use Git instead of the filesystem to store your configuration? You're in luck! Just use values like the following in additional environment variables.
-
-[source,yaml]
+[source,shell]
 ----
-jhipster-registry:
-  ...
-  environment:
-    ...
-    - SPRING_CLOUD_CONFIG_SERVER_COMPOSITE_0_TYPE=git
-    - SPRING_CLOUD_CONFIG_SERVER_COMPOSITE_0_URI=https://github.com/mraible/reactive-java-ms-config/
-    - SPRING_CLOUD_CONFIG_SERVER_COMPOSITE_0_SEARCH_PATHS=config
-    - SPRING_CLOUD_CONFIG_SERVER_COMPOSITE_0_LABEL=main
+docker-compose up
 ----
-
-TIP: If you want to make it so you don't need to restart the Spring Cloud Config server when you `git push`, see https://developer.okta.com/blog/2020/12/07/spring-cloud-config#refresh-the-configuration-in-your-spring-cloud-config-server[Refresh the Configuration in Your Spring Cloud Config Server].
 
 === Encrypt Your OIDC Client Secret
 
-You can encrypt your client secret by logging into `http://localhost:8761` and going to the **Cloud Config** section.
+You can encrypt your client secret by logging into `http://localhost:8761` and going to **Configuration** > **Encryption**.
 
-Copy and paste your client secret from `application.yml` and click **Encrypt**.
+Copy and paste your client secret from `application.yml` (or `gateway/.okta.env`) and click **Encrypt**.
 
-// todo: screenshot
+image::{% asset_path 'blog/reactive-java-kubernetes/registry-encrypt.png' %}[alt=JHipster Registry Encrypt Feature,width=800,align=center]
 
-Then, copy the encrypted value back in to `application.yml`.
+Then, copy the encrypted value back in to `application.yml`. Make sure to wrap it in quotes!
 
 You can also use curl:
 
 [source,shell]
 ----
-curl -X POST http://admin:*****@localhost:8761/config/encrypt -d your-client-secret
+curl -X POST http://admin:admin@localhost:8761/config/encrypt -d your-client-secret
 ----
 
 If you use curl, make sure to add `{cipher}` to the beginning of the string. For example:
@@ -321,19 +329,68 @@ If you use curl, make sure to add `{cipher}` to the beginning of the string. For
 client-secret: "{cipher}1b12934716c32d360c85f651a0793df2777090c..."
 ----
 
-Stop and restart the JHipster Registry for the new values to take effect.
+Restart the JHipster Registry for the new values to take effect.
 
 [source,shell]
 ----
-docker-compose -f src/main/docker/jhipster-registry.yml down #jhregistrydown
-docker-compose -f src/main/docker/jhipster-registry.yml up -d #jhregistryup
+docker-compose stop jhipster-registry
+docker-compose start jhipster-registry
 ----
 
 Verify everything still works at `http://localhost:8080`.
 
+TIP: If you want to make it so you don't need to restart the Spring Cloud Config server when you `git push`, see https://developer.okta.com/blog/2020/12/07/spring-cloud-config#refresh-the-configuration-in-your-spring-cloud-config-server[Refresh the Configuration in Your Spring Cloud Config Server].
+
+== Change Spring Cloud Config Server to use Git
+
+You might want to store your app's configuration externally. That way, you don't have to redeploy everything to change values. Good news! Spring Cloud Config makes it easy to switch to Git instead of the filesystem to store your configuration.
+
+In `docker-compose.yml`, replace the following variables:
+
+[source,yaml]
+----
+- SPRING_CLOUD_CONFIG_SERVER_COMPOSITE_0_TYPE=native
+- SPRING_CLOUD_CONFIG_SERVER_COMPOSITE_0_SEARCH_LOCATIONS=file:./central-config
+----
+
+With values for a GitHub repo.
+
+[source,yaml]
+----
+- SPRING_CLOUD_CONFIG_SERVER_COMPOSITE_0_TYPE=git
+- SPRING_CLOUD_CONFIG_SERVER_COMPOSITE_0_URI=https://github.com/mraible/reactive-java-ms-config/
+- SPRING_CLOUD_CONFIG_SERVER_COMPOSITE_0_SEARCH_PATHS=config
+- SPRING_CLOUD_CONFIG_SERVER_COMPOSITE_0_LABEL=main
+----
+
+Make sure to change the URI to your repo, or you'll be using my OIDC app!
+
+See Spring Cloud Config's https://cloud.spring.io/spring-cloud-config/multi/multi__spring_cloud_config_server.html#_git_backend[Git Backend docs] for more information.
+
 == Deploy to Google Cloud (aka GCP)
 
 Now it's time to go to the moon! Errr... cloud.
+
+You created Docker images earlier to run with Docker Compose. Those images were deployed to your local Docker registry. For Google Cloud and its Kubernetes engine (GKE), you'll need to publish your images to your project's registry. Thankfully, this is easy to do with Jib.
+
+Navigate to the `gateway` directory and run:
+
+[source,shell]
+----
+./gradlew bootJar -Pprod jib -Djib.to.image=gcr.io/jhipster7/gateway
+----
+
+Repeat the process for `blog` and `store`. You can run these processes in parallel to speed things up. Make sure to change the image name at the end of each command.
+
+[source,shell]
+----
+cd ../blog
+./gradlew bootJar -Pprod jib -Djib.to.image=gcr.io/jhipster7/blog
+cd ../store
+./gradlew bootJar -Pprod jib -Djib.to.image=gcr.io/jhipster7/store
+----
+
+TIP: You might have to run `gcloud auth configure-docker` for Jib to publish to your GCP container registry.
 
 In the `k8s` directory, apply all the deployment descriptors to deploy all your images.
 
