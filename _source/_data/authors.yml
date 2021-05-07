@@ -244,7 +244,7 @@ team-okta:
   display_name: Team Okta
   avatar: avatar-oktadev.png
   email: devrel@okta.com
-  github: https://github.com/oktadeveloper
+  github: https://github.com/oktadev
   twitter: https://twitter.com/oktadev
 
 tom-smith:
@@ -604,3 +604,11 @@ daniel-petisme:
   twitter: https://twitter.com/danielpetisme
   github: https://github.com/danielpetisme
   linkedin: https://www.linkedin.com/in/danielpetisme
+
+ali-spivak:
+  full_name: Ali Spivak
+  display_name: Ali Spivak
+  avatar: avatar-alispivak.jpg
+  twitter: https://twitter.com/alispivak
+  github: https://github.com/alispivak
+  linkedin: https://www.linkedin.com/in/alispivak
