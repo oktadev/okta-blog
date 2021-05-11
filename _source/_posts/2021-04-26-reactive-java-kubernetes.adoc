@@ -125,6 +125,7 @@ gcloud components install kubectl
 
 Run the following command to create a cluster for your apps.
 
+[[create-cluster]]
 [source,shell]
 ----
 gcloud container clusters create CLUSTER_NAME \
@@ -134,7 +135,7 @@ gcloud container clusters create CLUSTER_NAME \
 --enable-autoupgrade
 ----
 
-See GCP's https://cloud.google.com/compute/docs/regions-zones/[zones] and https://cloud.google.com/compute/docs/machine-types/[machine-types] for other options. I found the `n1-standard-4` to be the minimum for JHipster.
+I called mine `reactive-ms`. See GCP's https://cloud.google.com/compute/docs/regions-zones/[zones] and https://cloud.google.com/compute/docs/machine-types/[machine-types] for other options. I found the `n1-standard-4` to be the minimum for JHipster.
 
 == Generate Kubernetes Deployment Descriptors
 
@@ -399,7 +400,27 @@ In the `k8s` directory, apply all the deployment descriptors to deploy all your 
 bash kubectl-apply.sh -f
 ----
 
-You can monitor the progress of your deployments with `kubectl get pods`.
+TIP: If you get an error about connecting to the server at `127.0.0.1:64317`, it's because you haven't <<create-cluster,created a cluster>> yet.
+
+You can monitor the progress of your deployments with `kubectl get pods`. You'll likely see a number of pods have restarted several times. This is because there's no Keycloak instance deployed and it's trying to connect.
+
+=== Configure Your Kubernetes Cluster for OIDC
+
+First, I'm going to show you the _wrong_ way to configure your deployments to work with Okta. I'm showing you this way because it's fast and it's fun to see things running. Why is it wrong? Because you're storing secrets in files that might be checked into source control.
+
+Edit `k8s/registry-k8s/jhipster-registry.yml` and add your OIDC settings to the `env` key. You should be able to get these values from `gateway/.okta.env`.
+
+[source,yaml]
+----
+- name: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI
+  value: "https://{yourOktaDomain}/oauth2/default"
+- name: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID
+  value: "{yourClientId}"
+- name: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET
+  value: "{yourClientSecret}"
+----
+
+Add these same values to the `*-deployment.yml` files in `blog-k8s`, `gateway-k8s`, and `store-k8s`. Run `./kubectl-apply.sh -f` again.
 
 Once everything is up and running, get the external IP of your gateway.
 
@@ -408,9 +429,7 @@ Once everything is up and running, get the external IP of your gateway.
 kubectl get svc gateway
 ----
 
-You'll need to add this IP address as a valid redirect to your Okta OIDC app. Run `okta login`, open the returned URL in your browser, and sign in to the Okta Admin Console. Go to the **Applications** section, find your application, and edit it. Duplicate the existing `localhost` URLs, replacing `localhost` with the IP address and using HTTPS.
-
-// note about the JHipster Registry running headless/not exposed
+You'll need to add the external IP address as a valid redirect to your Okta OIDC app. Run `okta login`, open the returned URL in your browser, and sign in to the Okta Admin Console. Go to the **Applications** section, find your application, and edit it. Duplicate the existing `localhost` URLs, replacing `localhost` with the IP address. For example, `http://34.71.48.244:8080/login/oauth2/code/oidc` for the login redirect URI and `http://34.71.48.244:8080` for the logout redirect URI.
 
 You can use the following command to set your gateway's IP address as a variable you can curl.
 
@@ -420,9 +439,15 @@ EXTERNAL_IP=$(kubectl get svc gateway -ojsonpath="{.status.loadBalancer.ingress[
 curl $EXTERNAL_IP:8080
 ----
 
+Open `\http://$EXTERNAL_IP:8080` in a browser, and you should be able to sign in.
+
+image::{% asset_path 'blog/reactive-java-kubernetes/gke-first-login.png' %}[alt=First log in on GKE,width=652,align=center]
+
+Great! Now you know things work, let's integrate better security, starting with HTTPS.
+
 === Add HTTPS
 
-If you can use HTTPS do it. It's one of the easiest ways to secure things, especially free certificates these days.
+You should always use HTTPS. It's one of the easiest ways to secure things, especially free certificates these days.
 
 You'll need an external IP you can assign TLS (the official name for HTTPS) certificate too.
 
@@ -613,3 +638,5 @@ posts:
 - Quarkus
 - Jib
 - How to Docker
+
+https://www.jhipster.tech/kubernetes/
