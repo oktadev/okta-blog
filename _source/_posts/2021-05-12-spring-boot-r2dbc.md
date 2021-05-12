@@ -628,7 +628,7 @@ Congratulations! You've created a Spring Boot application using R2DBC and writte
 
 ## Learn More About R2DBC and Reactive Web Technologies
 
-This tutorial provided a very basic setup for how to use reactive frameworks and techniques with Spring Boot.  For in-depth examples and use cases not covered in this tutorial, see [Spring's official documentation for R2DBC](https://docs.spring.io/spring-data/r2dbc/docs/1.2.3/reference/html).
+This tutorial provided a very basic setup for how to use reactive frameworks and techniques with Spring Boot.  For in-depth examples and use cases not covered in this tutorial, see [Spring's official documentation for R2DBC](https://docs.spring.io/spring-data/r2dbc/docs/current/reference/html/).
 
 The source code for this example is on GitHub in the [oktadev/okta-spring-boot-r2dbc-example](https://github.com/oktadev/okta-spring-boot-r2dbc-example) repository.
 
