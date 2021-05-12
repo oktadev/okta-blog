@@ -13,8 +13,9 @@ tweets:
 image: blog/reactive-java-microservices/reactive-java-microservices.png
 type: conversion
 changelog:
-- 2021-04-28: Upgraded to JHipster 7.0.1. You can see the changes in the [example app on GitHub](https://github.com/oktadeveloper/java-microservices-examples/pull/20). Changes to this article can be viewed in [oktadeveloper/okta-blog#779](https://github.com/oktadeveloper/okta-blog/pull/779).
-- 2021-03-25: Upgraded to JHipster 7.0.0 from beta 1. You can see the changes in the [example app on GitHub](https://github.com/oktadeveloper/java-microservices-examples/pull/17). Changes to this article can be viewed in [oktadeveloper/okta-blog#627](https://github.com/oktadeveloper/okta-blog/pull/627).
+- 2021-05-12: Update org name to oktadev on GitHub and added recommended Docker preferences of 6GB of memory. See [oktadev/okta-blog#791](https://github.com/oktadev/okta-blog/pull/791) for specific changes.
+- 2021-04-28: Upgraded to JHipster 7.0.1. You can see the changes in the [example app on GitHub](https://github.com/oktadev/java-microservices-examples/pull/20). Changes to this article can be viewed in [oktadev/okta-blog#779](https://github.com/oktadev/okta-blog/pull/779).
+- 2021-03-25: Upgraded to JHipster 7.0.0 from beta 1. You can see the changes in the [example app on GitHub](https://github.com/oktadev/java-microservices-examples/pull/17). Changes to this article can be viewed in [oktadev/okta-blog#627](https://github.com/oktadev/okta-blog/pull/627).
 ---
 :toc: macro
 :page-liquid:
@@ -104,11 +105,11 @@ image::{% asset_path 'blog/reactive-java-microservices/reactive-java-microservic
 * https://adoptopenjdk.net/[Java 11]+
 * https://docs.docker.com/engine/install/[Docker]
 
-You can find the completed source code for this example on GitHub, in the https://github.com/oktadeveloper/java-microservices-examples/tree/main/reactive-jhipster[oktadeveloper/java-microservices-examples repository].
+You can find the completed source code for this example on GitHub, in the https://github.com/oktadev/java-microservices-examples/tree/main/reactive-jhipster[oktadeveloper/java-microservices-examples repository].
 
 [source,shell]
 ----
-git clone https://github.com/oktadeveloper/java-microservices-examples.git
+git clone https://github.com/oktadev/java-microservices-examples.git
 cd java-microservices-examples/reactive-jhipster
 ----
 
@@ -438,6 +439,10 @@ spring:
 
 === Prove Your Reactive Java Stack Works
 
+Before you start everything with Docker, make sure you have adequate resources configured. The default is 2GB of memory and at least 6GB is recommended. Go to **Docker Desktop** > **Preferences** > **Resources** to configure. You can see my settings in the screenshot below.
+
+image::{% asset_path 'blog/reactive-java-microservices/docker-preferences.png' %}[alt=Docker Preferences,width=700,align=center]
+
 In the `docker-compose` directory, run the following command to start all your containers.
 
 [source,shell]
@@ -509,11 +514,11 @@ spring:
         - TokenRelay
 ----
 
-You can find the completed source code for this example on GitHub, in the https://github.com/oktadeveloper/java-microservices-examples/tree/main/reactive-jhipster[oktadeveloper/java-microservices-examples repository].
+You can find the completed source code for this example on GitHub, in the https://github.com/oktadev/java-microservices-examples/tree/main/reactive-jhipster[oktadev/java-microservices-examples repository].
 
 [source,shell]
 ----
-git clone https://github.com/oktadeveloper/java-microservices-examples.git
+git clone https://github.com/oktadev/java-microservices-examples.git
 cd java-microservices-examples/reactive-jhipster
 ----
 
