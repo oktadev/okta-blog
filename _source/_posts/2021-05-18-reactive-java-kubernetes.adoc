@@ -102,7 +102,9 @@ Before the JHipster 7.0.0 release, I tested this microservice example with Kuber
 // todo: move this somewhere else as it's kinda in the way
 
 ++++
+<div style="max-width: 500px; margin: 0 auto 1.25rem">
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">I re-created this example with the latest code from <a href="https://twitter.com/jhipster?ref_src=twsrc%5Etfw">@jhipster</a>&#39;s main branch this week and deployed it to <a href="https://twitter.com/googlecloud?ref_src=twsrc%5Etfw">@googlecloud</a> with <a href="https://twitter.com/kubernetesio?ref_src=twsrc%5Etfw">@kubernetesio</a>. <br><br>I&#39;m happy to report I was able to get everything working! <a href="https://twitter.com/saturnism?ref_src=twsrc%5Etfw">@saturnism</a>&#39;s Spring Boot on GCP docs was a big help. 🙏<a href="https://t.co/NBGj0OAOxM">https://t.co/NBGj0OAOxM</a> <a href="https://t.co/k1mm4e1fr8">https://t.co/k1mm4e1fr8</a></p>&mdash; Matt Raible (@mraible) <a href="https://twitter.com/mraible/status/1372964263237718026?ref_src=twsrc%5Etfw">March 19, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
 ++++
 
 https://spring-gcp.saturnism.me/getting-started/google-cloud-platform[Sign up for Google Cloud Platform (GCP)], log in, and create a project. Open a https://console.cloud.google.com/[console] in your browser. A GCP project contains all cloud services and resources--such as virtual machines, network, load balancers--that you might use.
@@ -135,7 +137,7 @@ gcloud container clusters create CLUSTER_NAME \
 --enable-autoupgrade
 ----
 
-I called mine `reactive-ms`. See GCP's https://cloud.google.com/compute/docs/regions-zones/[zones] and https://cloud.google.com/compute/docs/machine-types/[machine-types] for other options. I found the `n1-standard-4` to be the minimum for JHipster.
+I called my cluster `reactive-ms`. See GCP's https://cloud.google.com/compute/docs/regions-zones/[zones] and https://cloud.google.com/compute/docs/machine-types/[machine-types] for other options. I found the `n1-standard-4` to be the minimum for JHipster.
 
 == Generate Kubernetes Deployment Descriptors
 
@@ -615,10 +617,12 @@ In my opinion, no. They're just unencrypted base64-encoded strings stored in YAM
 Having secrets in your source code is a bad idea. The good news is most people (where people are my followers) manage secrets externally.
 
 ++++
+<div style="max-width: 500px; margin: 0 auto 1.25rem">
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">What&#39;s your favorite way to protect secrets in your <a href="https://twitter.com/kubernetesio?ref_src=twsrc%5Etfw">@kubernetesio</a> YAML files?</p>&mdash; Matt Raible (@mraible) <a href="https://twitter.com/mraible/status/1387439868444397568?ref_src=twsrc%5Etfw">April 28, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
 ++++
 
-TIP: Watch https://www.youtube.com/watch?v=cQAEK9PBY8U[Kubernetes Secrets in 5 Minutes] if you want to learn more about Kubernetes Secrets.
+NOTE: Watch https://www.youtube.com/watch?v=cQAEK9PBY8U[Kubernetes Secrets in 5 Minutes] if you want to learn more about Kubernetes Secrets.
 
 === The Current State of Secret Management in Kubernetes
 
@@ -642,7 +646,7 @@ This is pretty slick, but I like to remain cloud-agnostic. Also, I like how the 
 https://bitnami.com/[Bitnami] has a https://github.com/bitnami-labs/sealed-secrets[Sealed Secrets] Apache-licensed open source project. Its README explains how it works.
 
 > **Problem**: "I can manage all my K8s config in git, except Secrets."
-
+>
 > **Solution**: Encrypt your Secret into a SealedSecret, which is safe to store - even to a public repository. The SealedSecret can be decrypted only by the controller running in the target cluster and nobody else (not even the original author) is able to obtain the original Secret from the SealedSecret.
 
 https://dev.to/stack-labs/store-your-kubernetes-secrets-in-git-thanks-to-kubeseal-hello-sealedsecret-2i6h[Store your Kubernetes Secrets in Git thanks to Kubeseal. Hello SealedSecret!] by https://twitter.com/aurelievache[Aurélie Vache] provides an excellent overview of how to use it.
@@ -676,7 +680,7 @@ Run the following command with the name retrieved to get the `tls.crt` and `tls.
 kubectl get secret $NAME -o yaml -n kube-system
 ----
 
-In this example, name should be `sealed-secrets-keypddlc`. Copy the raw value of `tls.cert` and decode it. You can use the command line:
+In this example, the `$NAME` should be `sealed-secrets-keypddlc`. Copy the raw value of `tls.cert` and decode it. You can use the command line:
 
 [source,shell]
 ----
@@ -698,7 +702,7 @@ brew install kubeseal
 
 For other platforms, see https://github.com/bitnami-labs/sealed-secrets/releases/tag/v0.16.0[the release notes].
 
-The major item you need to encrypt in this example is the `ENCRYPT_KEY` you used to encrypt the OIDC client secret. Run the following command to do this, where the key/value pair comes from your `docker-compose/.env` file.
+The major item you need to encrypt in this example is the `ENCRYPT_KEY` you used to encrypt the OIDC client secret. Run the following command to do this, where the value comes from your `docker-compose/.env` file.
 
 [source,shell]
 ----
@@ -724,9 +728,11 @@ kubectl apply -f sealed-secrets.yml
 kubectl get sealedsecret
 ----
 
-Now, remove all the OIDC variables you set in your `k8s/**/*-deployment.yml` files.
+Now, remove all the OIDC variables you set in your `k8s/\**/*-deployment.yml` files.
 
-In `k8s/registry-k8s/jhipster-registry.yml`, add a number of `SPRING_CLOUD_CONFIG_SERVER_1_*` variables to point to GitHub and add the `ENCRYPT_KEY` that reads from the secret you created earlier. Make sure to adjust the GitHub repo to make one you created. As an alternative, you can put your OIDC settings in `k8s/registry-k8s/application-configmap.yml` if you'd rather not store your configuration in Git.
+=== Configure JHipster Registry to use the Sealed Secret
+
+In `k8s/registry-k8s/jhipster-registry.yml`, add a number of `SPRING_CLOUD_CONFIG_SERVER_1_*` variables to point to GitHub and add the `ENCRYPT_KEY` that reads from the secret you created earlier. Make sure to adjust the GitHub repo to the one you created.
 
 [source,yaml]
 ----
@@ -796,26 +802,28 @@ gcloud container clusters delete <cluster-name> --zone=us-central1-a
 
 Using an external key management solution like https://www.hashicorp.com/products/vault[HashiCorp Vault] is also recommended. The JHipster Registry doesn't have native support for Vault in its current release, but https://github.com/jhipster/jhipster-registry/issues/433[that could change soon].
 
-In the meantime, I recommend reading https://developer.okta.com/blog/2020/05/04/spring-vault[Secure Secrets With Spring Cloud Config and Vault]
-
-== Continuous Integration and Delivery of JHipster Microservices
-
-This tutorial doesn't mention continuous integration and delivery of your reactive microservice architecture. I plan to cover that in a future post.
+In the meantime, I recommend reading https://developer.okta.com/blog/2020/05/04/spring-vault[Secure Secrets With Spring Cloud Config and Vault].
 
 == Monitor Your Kubernetes Cluster with K9s and KDash
 
-image::{% asset_path 'blog/reactive-java-kubernetes/k9s.png' %}[alt=K9s,role="BlogPost-avatar pull-right img-100px"]
+image::{% asset_path 'blog/reactive-java-kubernetes/k9s.png' %}[alt=K9s,role="BlogPost-avatar pull-right img-150px"]
 Using `kubectl` to monitor your Kubernetes cluster can get tiresome. That's where https://github.com/derailed/k9s[K9s] can be useful. It provides a terminal UI to interact with your Kubernetes clusters. K9s was created by my good friend https://twitter.com/kitesurfer[Fernand Galiana]. He's also created a commercial version called https://k9salpha.io/[K9sAlpha].
 
-There's also KDash, from JHipster co-lead, https://twitter.com/deepu105[Deepu K Sasidharan]. It's a simple K8s terminal dashboard built with Rust. Deepu recently https://twitter.com/deepu105/status/1383017556546584578[released an MVP of the project].
+// todo: ask Fernand for an animated GIF
+
+There's also https://github.com/kdash-rs/kdash[KDash], from JHipster co-lead, https://twitter.com/deepu105[Deepu K Sasidharan]. It's a simple K8s terminal dashboard built with Rust. Deepu recently https://twitter.com/deepu105/status/1383017556546584578[released an MVP of the project].
+
+== Continuous Integration and Delivery of JHipster Microservices
+
+This tutorial doesn't mention continuous integration and delivery of your reactive microservice architecture. I plan to cover that in a future post. If you have a solution you like, please leave a comment.
 
 == Learn More About Java Microservices and Kubernetes
 
 This blog post showed you how to deploy your reactive Java microservices to production using Kubernetes. JHipster did much of the heavy lifting for you since it generated all the YAML-based deployment descriptors. Since no one really likes writing YAML, I'm calling that a win!
 
-You learned how to JHipster Registry to encrypt your secrets and configure Git as a configuration source. Bitnami's Sealed Secrets is a nice companion to encrypt the secrets in your Kubernetes deployment descriptors.
+You learned how to use JHipster Registry to encrypt your secrets and configure Git as a configuration source for Spring Cloud Config. Bitnami's Sealed Secrets is a nice companion to encrypt the secrets in your Kubernetes deployment descriptors.
 
-You can find the source code for this example on GitHub, in our https://github.com/oktadeveloper/java-microservices-examples[Java microservices examples repo].
+You can find the source code for this example on GitHub, in our https://github.com/oktadeveloper/java-microservices-examples[Java microservices examples repository].
 
 [source,shell]
 ----
@@ -835,4 +843,4 @@ If you enjoyed this post, I think you'll like these others as well.
 
 If you have any questions, please ask them in the comments below.
 
-To be notified when we publish new blog posts, follow us on https://twitter.com/oktadev[Twitter] or https://www.linkedin.com/company/oktadev[LinkedIn]. We frequently publish videos to our https://youtube.com/c/oktadev[YouTube channel] too. Please https://youtube.com/c/oktadev?sub_confirmation=1[subscribe]!
+To be notified when we publish new blog posts, follow us on https://twitter.com/oktadev[Twitter] or https://www.linkedin.com/company/oktadev[LinkedIn]. We frequently publish videos to our https://youtube.com/c/oktadev[YouTube channel] too. https://youtube.com/c/oktadev?sub_confirmation=1[Subscribe today]!
