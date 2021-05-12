@@ -1,7 +1,7 @@
 {%- if page.path contains '.adoc' -%}{% assign adoc = true %}{%- endif -%}
 {%- capture pluginLink %}
-{%- if adoc -%}https://github.com/oktadeveloper/okta-maven-plugin[Okta Maven Plugin]
-{%- else -%}[Okta Maven Plugin](https://github.com/oktadeveloper/okta-maven-plugin)
+{%- if adoc -%}https://github.com/oktadev/okta-maven-plugin[Okta Maven Plugin]
+{%- else -%}[Okta Maven Plugin](https://github.com/oktadev/okta-maven-plugin)
 {%- endif -%}
 {%- endcapture -%}
 {%- capture docsLink %}
