@@ -224,6 +224,10 @@ spring:
             client-secret: <client-secret>
 ----
 
+Before you start everything with Docker, make sure you have adequate resources configured. The default is 2GB of memory and at least 6GB is recommended. Go to **Docker Desktop** > **Preferences** > **Resources** to configure. You can see mine in the screenshot below.
+
+image::{% asset_path 'blog/reactive-java-kubernetes/docker-preferences.png' %}[alt=Docker Preferences,width=800,align=center]
+
 Then, in the `docker-compose` directory, start your engines!
 
 [source,shell]
