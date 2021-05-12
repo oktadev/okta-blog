@@ -57,7 +57,7 @@ The YAML can be hideous, but that's where JHipster comes in. It can generate the
 
 I showed you how to build https://developer.okta.com/blog/2021/01/20/reactive-java-microservices[Reactive Java microservices with Spring Boot and JHipster] in a previous post. Today I'll show you how to generate K8s deployment descriptors, use Spring Cloud Config with Git, encrypt your secrets, and make it all work on Google Cloud (https://cloud.google.com/kubernetes-engine/[GKE] to be specific).
 
-Start by cloning the JHipster 7 { Vue, Spring Boot, WebFlux } app from GitHub:
+Start by cloning the JHipster 7 { Vue, Spring Boot, WebFlux } reactive microservices project from GitHub:
 
 [source,shell]
 ----
@@ -224,7 +224,7 @@ spring:
             client-secret: <client-secret>
 ----
 
-Before you start everything with Docker, make sure you have adequate resources configured. The default is 2GB of memory and at least 6GB is recommended. Go to **Docker Desktop** > **Preferences** > **Resources** to configure. You can see mine in the screenshot below.
+Before you start everything with Docker, make sure you have adequate resources configured. The default is 2GB of memory and at least 6GB is recommended. Go to **Docker Desktop** > **Preferences** > **Resources** to configure. You can see my resource settings in the screenshot below.
 
 image::{% asset_path 'blog/reactive-java-kubernetes/docker-preferences.png' %}[alt=Docker Preferences,width=800,align=center]
 
@@ -618,7 +618,7 @@ Congratulations, now you have everything running on GKE, using HTTPS! However, y
 
 In my opinion, no. They're just unencrypted base64-encoded strings stored in YAML files. You probably want to check in the `k8s` directory you created.
 
-Having secrets in your source code is a bad idea. The good news is most people (where people are my followers) manage secrets externally.
+Having secrets in your source code is a bad idea. The good news is most people (where most people == my followers) manage secrets externally.
 
 ++++
 <div style="max-width: 500px; margin: 0 auto 1.25rem">
@@ -631,19 +631,6 @@ NOTE: Watch https://www.youtube.com/watch?v=cQAEK9PBY8U[Kubernetes Secrets in 5 
 === The Current State of Secret Management in Kubernetes
 
 I recently noticed a tweet from https://twitter.com/daniel_bilar/status/1379845799086022661[Daniel Jacob Bilar] that links to a talk from FOSDEM 2021 on the https://fosdem.org/2021/schedule/event/kubernetes_secret_management/[current state of secret management within Kubernetes]. It's an excellent overview of the various options.
-
-=== Google Cloud Secret Manager
-
-Google Cloud has a https://spring-gcp.saturnism.me/app-dev/cloud-services/secret-management[Secret Manager] you can use to store your secrets. There's even a https://cloud.spring.io/spring-cloud-static/spring-cloud-gcp/current/reference/html/#secret-manager[Spring Boot starter] to make it convenient to retrieve these values in your app.
-
-For example, you could store your database password in a properties file.
-
-[source,properties]
-----
-spring.datasource.password=${sm://my-db-password}
-----
-
-This is pretty slick, but I like to remain cloud-agnostic. Also, I like how the JHipster Registry allows me to store encrypted secrets in Git.
 
 === Store Secrets in Git with Sealed Secrets and Kubeseal
 
@@ -780,7 +767,26 @@ To login, use `admin` with the `registry-admin-password` in `jhipster-registry.y
 
 image::{% asset_path 'blog/reactive-java-kubernetes/port-forwarded-registry.png' %}[alt=Port-forwarding the Registry to localhost,width=800,align=center]
 
-=== Scale Your JHipster Microservices
+=== Google Cloud Secret Manager
+
+Google Cloud has a https://spring-gcp.saturnism.me/app-dev/cloud-services/secret-management[Secret Manager] you can use to store your secrets. There's even a https://cloud.spring.io/spring-cloud-static/spring-cloud-gcp/current/reference/html/#secret-manager[Spring Boot starter] to make it convenient to retrieve these values in your app.
+
+For example, you could store your database password in a properties file.
+
+[source,properties]
+----
+spring.datasource.password=${sm://my-db-password}
+----
+
+This is pretty slick, but I like to remain cloud-agnostic. Also, I like how the JHipster Registry allows me to store encrypted secrets in Git.
+
+=== Use Spring Vault for External Secrets
+
+Using an external key management solution like https://www.hashicorp.com/products/vault[HashiCorp Vault] is also recommended. The JHipster Registry doesn't have native support for Vault in its current release, but https://github.com/jhipster/jhipster-registry/issues/433[that could change soon].
+
+In the meantime, I recommend reading https://developer.okta.com/blog/2020/05/04/spring-vault[Secure Secrets With Spring Cloud Config and Vault].
+
+== Scale Your JHipster Microservices
 
 You can scale your instances using the `kubectl scale` command.
 
@@ -803,12 +809,6 @@ If you leave everything running on Google Cloud, you will be charged for usage. 
 gcloud container clusters delete <cluster-name> --zone=us-central1-a
 ----
 ====
-
-=== Spring Vault
-
-Using an external key management solution like https://www.hashicorp.com/products/vault[HashiCorp Vault] is also recommended. The JHipster Registry doesn't have native support for Vault in its current release, but https://github.com/jhipster/jhipster-registry/issues/433[that could change soon].
-
-In the meantime, I recommend reading https://developer.okta.com/blog/2020/05/04/spring-vault[Secure Secrets With Spring Cloud Config and Vault].
 
 == Monitor Your Kubernetes Cluster with K9s and KDash
 
