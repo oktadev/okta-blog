@@ -756,6 +756,8 @@ In `k8s/registry-k8s/jhipster-registry.yml`, add a number of `SPRING_CLOUD_CONFI
       key: ENCRYPT_KEY
 ----
 
+TIP: You should be able to encrypt other secrets, like your the database passwords, using a similar technique.
+
 Now, restart all your deployments.
 
 [source,shell]
