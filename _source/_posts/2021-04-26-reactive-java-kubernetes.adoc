@@ -429,7 +429,9 @@ Once everything is up and running, get the external IP of your gateway.
 kubectl get svc gateway
 ----
 
-You'll need to add the external IP address as a valid redirect to your Okta OIDC app. Run `okta login`, open the returned URL in your browser, and sign in to the Okta Admin Console. Go to the **Applications** section, find your application, and edit it. Duplicate the existing `localhost` URLs, replacing `localhost` with the IP address. For example, `http://34.71.48.244:8080/login/oauth2/code/oidc` for the login redirect URI and `http://34.71.48.244:8080` for the logout redirect URI.
+You'll need to add the external IP address as a valid redirect to your Okta OIDC app. Run `okta login`, open the returned URL in your browser, and sign in to the Okta Admin Console. Go to the **Applications** section, find your application, and edit it.
+
+Add the standard JHipster redirect URIs using the IP address. For example, `\http://34.71.48.244:8080/login/oauth2/code/oidc` for the login redirect URI and `\http://34.71.48.244:8080` for the logout redirect URI.
 
 You can use the following command to set your gateway's IP address as a variable you can curl.
 
@@ -441,7 +443,7 @@ curl $EXTERNAL_IP:8080
 
 Open `\http://$EXTERNAL_IP:8080` in a browser, and you should be able to sign in.
 
-image::{% asset_path 'blog/reactive-java-kubernetes/gke-first-login.png' %}[alt=First log in on GKE,width=652,align=center]
+image::{% asset_path 'blog/reactive-java-kubernetes/gke-first-login.png' %}[alt=First log in on GKE,width=800,align=center]
 
 Great! Now you know things work, let's integrate better security, starting with HTTPS.
 
