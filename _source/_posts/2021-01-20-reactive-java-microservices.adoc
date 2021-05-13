@@ -31,6 +31,14 @@ image::{% asset_path 'blog/reactive-java-microservices/diagram-boot-reactor.svg'
 
 toc::[]
 
+You can also https://youtu.be/clkEUHWT9-M[watch this tutorial as a screencast].
+
+++++
+<div style="text-align: center; margin-bottom: 1.25rem">
+<iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/clkEUHWT9-M" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+++++
+
 == Why Reactive Java?
 
 Reactive programming isn't for every app. The general rule of thumb is it won't help you if you have < 500 requests/second. Chances are Spring MVC will perform as well as Spring WebFlux up to that point. When your traffic takes off, or if you need to process things faster than 500 requests/second, you should take a look at Spring WebFlux.
