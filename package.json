@@ -41,7 +41,7 @@
     "fs-extra": "^10.0.0",
     "pre-push": "0.1.1",
     "recursive-readdir": "2.2.2",
-    "simple-git": "^2.38.0",
+    "simple-git": "^2.39.0",
     "yargs": "^17.0.1"
   }
 }
