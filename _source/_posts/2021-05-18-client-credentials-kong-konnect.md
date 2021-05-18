@@ -128,7 +128,7 @@ To set extra OIDC plugin parameters, use the Kong Konnect control plane to:
 2. Enter **Issuer_Header** in the field: **Config.Upstream Headers Names**.
 3. Click Update.
 
-Then, consume the route one more time, and you'll notice it injected a brand-new header into our request. 
+Let's consume the route one more time and inject a brand-new header into our request. 
 
 {% img blog/client-credentials-kong/oidcroute-get-with-header.png alt:"HTTPie request to :8000/oidcroute/get with injected header" width:"800" %}{: .center-image }
 
