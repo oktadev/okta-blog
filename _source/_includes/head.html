@@ -48,11 +48,11 @@
   <link rel="mask-icon" href="/assets-jekyll/favicon/safari-pinned-tab.svg" color="#21313a">
   <meta name="msapplication-config" content="/assets-jekyll/favicon/browserconfig.xml">
   <meta name="theme-color" content="#ffffff">
-  {% if page.canonical-url %}
+  {% if page.canonical-url -%}
   <link rel="canonical" href="{{ page.canonical-url }}" />
-  {% else %}
+  {%- else -%}
   <link rel="canonical" href="{{ site.external_domain }}{{ page.url }}" />
-  {% endif %}
+  {%- endif -%}
   {% if page.layout == "blog_post" %}
   <meta property="og:type"               content="article" />
   <meta property="og:url"                content="{{ site.external_domain }}{{ page.url }}" />
