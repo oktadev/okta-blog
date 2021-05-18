@@ -812,11 +812,22 @@ There's also https://github.com/kdash-rs/kdash[KDash], from JHipster co-lead, ht
 
 This tutorial doesn't mention continuous integration and delivery of your reactive microservice architecture. I plan to cover that in a future post. If you have a solution you like, please leave a comment.
 
+== Spring on Google Cloud Platform
+
+JHipster uses Docker container to run all its databases in this example. However, there are a number of Google Cloud services you can use as alternatives. See the https://spring.io/projects/spring-cloud-gcp[Spring Cloud GCP project on GitHub] for more information.
+
+I didn't mention Testcontainers in this post. However, https://atomfrede.gitlab.io/2019/05/jhipster-with-testcontainers/[JHipster does support using them]. Testcontainers also has a https://www.testcontainers.org/modules/gcloud/[GCloud Module].
+
 == Learn More About Java Microservices and Kubernetes
 
 This blog post showed you how to deploy your reactive Java microservices to production using Kubernetes. JHipster did much of the heavy lifting for you since it generated all the YAML-based deployment descriptors. Since no one really likes writing YAML, I'm calling that a win!
 
 You learned how to use JHipster Registry to encrypt your secrets and configure Git as a configuration source for Spring Cloud Config. Bitnami's Sealed Secrets is a nice companion to encrypt the secrets in your Kubernetes deployment descriptors.
+
+For more information about storing your secrets externally, these recent knowledge drops might help.
+
+* https://twitter.com/kelseyhightower/status/1393062669754667017[Kelsey Hightower's Vault on Cloud Run Tutorial]
+* https://twitter.com/jstrachan/status/1393213646340337670[James Strachan's Helm Post Renderer]
 
 You can find the source code for this example on GitHub, in our https://github.com/oktadeveloper/java-microservices-examples[Java microservices examples repository].
 
