@@ -4,14 +4,15 @@ title: "Implement Client Credentials with Kong Konnect and Okta"
 author: claudio-acquaviva
 by: external-contributor
 communities: [devops,security]
-description: ""
-tags: []
+description: "Learn how to set up client credentials flow for application authentication with Kong and Okta using Kong's OpenID Connect plugin."
+tags: [kong, api-gateway, oidc, client-credentials]
 tweets:
 - ""
 - ""
 - ""
 image:
 type: conversion
+canonical-url: https://konghq.com/blog/kong-and-okta-client-credentials/
 ---
 
 Using Kong's [OpenID Connect (OIDC) plugin](https://docs.konghq.com/hub/kong-inc/openid-connect/), Kong and Okta work together to solve three significant application development challenges:
