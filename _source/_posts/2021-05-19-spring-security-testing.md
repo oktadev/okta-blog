@@ -7,10 +7,10 @@ communities: [java]
 description: "Simplify testing your apps secured with Spring Security by using Spring Security Test."
 tags: [spring-security, testing, junit, webtestclient, mockmvc]
 tweets:
-- ""
-- ""
-- ""
-image:
+- "Learn how to test your @SpringSecurity configuration using Spring Security Test."
+- "Testing your Spring application's that are secured with Spring Security is a whole lot easier with Spring Security Test!"
+- "Test your @java and @springsecurity apps that use JWT and OAuth. 👇"
+image: blog/spring-security-test/spring-security-testing.png
 type: conversion
 ---
 
