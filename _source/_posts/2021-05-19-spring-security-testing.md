@@ -3,9 +3,9 @@ layout: blog_post
 title: "Better Testing with Spring Security Test"
 author: jimena-garbarino
 by: contractor
-communities: [security,java]
-description: "Simplify your Web Testing with Spring Security Test"
-tags: []
+communities: [java]
+description: "Simplify testing your apps secured with Spring Security by using Spring Security Test."
+tags: [spring-security, testing, junit, webtestclient, mockmvc]
 tweets:
 - ""
 - ""
@@ -14,26 +14,27 @@ image:
 type: conversion
 ---
 
-Integration testing in modern Spring Boot microservices has become easier since the release of Spring Framework 5 and Spring Security 5. Spring Framework `WebTestClient` for reactive web, and `MockMvc` for servlet web, allow for testing controllers in a lightweight fashion without running a server. Both frameworks leverage Spring Test mock implementations of requests and responses, allowing you to verify most of the application functionality using targeted tests.
+Integration testing in modern Spring Boot microservices has become easier since the release of Spring Framework 5 and Spring Security 5. Spring Framework's `WebTestClient` for reactive web, and `MockMvc` for servlet web, allow for testing controllers in a lightweight fashion without running a server. Both frameworks leverage Spring Test mock implementations of requests and responses, allowing you to verify most of the application functionality using targeted tests.
 
 With Spring Security 5, security test support provides new request mutators that avoid simulating a grant flow or building an access token when verifying method security in web testing.
 
 In this tutorial, you will explore security mocking with `SecurityMockServerConfigurers` and `SecurityMockMvcRequestPostProcessors`, as well as authorization tests for the following patterns:
 
 - Reactive WebFlux gateway with OIDC authentication
-- Servlet MVC REST Api with JWT authorization
-- Reactive WebFlux REST Api with OpaqueToken authorization
+- Servlet MVC REST API with JWT authorization
+- Reactive WebFlux REST API with OpaqueToken authorization
 
 **Prerequisites**:
+
 - [HTTPie](https://httpie.io/)
 - [Java 11+](https://openjdk.java.net/install/index.html)
-- [Okta CLI](https://cli.okta.com/)
+- [Okta CLI](https://cli.okta.com)
 
 **Table of Contents**{: .hide }
 * Table of Contents
 {:toc}
 
-# Testing a WebFlux Gateway with `mockOidcLogin()`
+## Test a WebFlux Gateway with `mockOidcLogin()`
 
 Let's start by building and testing a Webflux API Gateway with Okta OIDC login enabled. With HTTPie and Spring Initializr, create and download a Spring Boot Maven project:
 
@@ -48,17 +49,15 @@ http -d https://start.spring.io/starter.zip type==maven-project \
   packageName==com.okta.developer.gateway \
   javaVersion==11 \
   dependencies==cloud-eureka,cloud-gateway,webflux,okta,lombok
-```
-```shell
+
 unzip api-gateway.zip
-```
-```shell
+
 cd api-gateway
 ```
 
 {% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
 
-Rename `src/main/resources/application.properties` to `application.yml`, and reformat to yaml syntax (making sure to remove any `\` escape characters):
+Rename `src/main/resources/application.properties` to `application.yml`, and reformat to YAML syntax (making sure to remove any `\` escape characters in your Okta issuer):
 
 ```yaml
 spring:
@@ -82,7 +81,7 @@ eureka:
       defaultZone: ${SERVICE_URL_DEFAULT_ZONE}
 ```
 
-Add Spring Security Test dependency to the `pom.xml`:
+Add the Spring Security Test dependency to the `pom.xml`:
 
 ```xml
 <dependency>
@@ -175,7 +174,7 @@ eureka:
     register-with-eureka: false
     fetch-registry: false
 ```
-Update the class `ApiGatewayApplicationTests` to activate `test` profile:
+Update the class `ApiGatewayApplicationTests` to activate the `test` profile:
 
 ```java
 package com.okta.developer.gateway;
@@ -195,8 +194,7 @@ class ApiGatewayApplicationTests {
 }
 ```
 
-
-Create the package `com.okta.developer.gateway.controller` under `src/test/java`. Add the first security tests with `WebTestClient` and `mockOidcLogin()`:
+Create the `com.okta.developer.gateway.controller` package under `src/test/java`. Add the first security tests with `WebTestClient` and `mockOidcLogin()`:
 
 ```java
 package com.okta.developer.gateway.controller;
@@ -269,8 +267,7 @@ http --download https://start.spring.io/starter.zip \
   packageName==com.okta.developer.listings \
   javaVersion==11 \
   dependencies==okta,lombok,web,data-mongodb,data-rest,cloud-eureka
-```
-```shell
+
 unzip listings.zip
 ```
 
@@ -284,10 +281,10 @@ Again, add the `spring-security-test` dependency and Testcontainers' [MongoDB Mo
   <scope>test</scope>
 </dependency>
 <dependency>
-    <groupId>org.testcontainers</groupId>
-    <artifactId>mongodb</artifactId>
-    <version>1.15.3</version>
-    <scope>test</scope>
+  <groupId>org.testcontainers</groupId>
+  <artifactId>mongodb</artifactId>
+  <version>1.15.3</version>
+  <scope>test</scope>
 </dependency>
 ```
 
@@ -314,7 +311,9 @@ eureka:
       defaultZone: ${SERVICE_URL_DEFAULT_ZONE}
 ```
 
-Create the package `com.okta.developer.listings.model` under `src/main/java`. Add a model class `AirbnbListing`:
+Make sure to replace `{yourOktaDomain}` with your Okta domain.
+
+Create the `com.okta.developer.listings.model` package under `src/main/java`. Add a model class `AirbnbListing`:
 
 ```java
 package com.okta.developer.listings.model;
@@ -348,7 +347,7 @@ public class AirbnbListing {
 }
 ```
 
-Create the package `com.okta.developer.listings.repository` under `src/main/java`. Add the listing repository `AirbnbListingRepository`:
+Create the package `com.okta.developer.listings.repository` under `src/main/java`. Add a `AirbnbListingRepository` repository:
 
 ```java
 package com.okta.developer.listings.repository;
@@ -368,7 +367,7 @@ public interface AirbnbListingRepository extends MongoRepository<AirbnbListing, 
 }
 ```
 
-The annotation `@RepositoryRestResource` directs Spring MVC to create the RESTful endpoints at the specified `path`. The `save()` operation is overridden to configure authorization, requiring the authority `listing_admin`.
+The annotation `@RepositoryRestResource` directs Spring MVC to create RESTful endpoints at the specified path. The `save()` operation is overridden to configure authorization, requiring the authority `listing_admin`.
 
 Create the package `com.okta.developer.listings.config` under `src/main/java`. Add a `RestConfiguration` class for tweaking the Spring Data Rest responses:
 
@@ -413,26 +412,26 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private OktaOAuth2Properties oktaOAuth2Properties;
+    private final OktaOAuth2Properties oktaOAuth2Properties;
 
+    public SecurityConfiguration(OktaOAuth2Properties oktaOAuth2Properties) {
+        this.oktaOAuth2Properties = oktaOAuth2Properties;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
         http.authorizeRequests()
                 .anyRequest()
                 .authenticated()
                 .and()
                 .oauth2ResourceServer().jwt();
-
-
+        
         Okta.configureResourceServer401ResponseBody(http);
     }
 }
 ```
 
-Update `ListingsApplicationTests` to disable the eureka client and use Testcontainers for MongoDB:
+Update `ListingsApplicationTests` to enable the `test` profile that disables the Eureka client:
 
 ```java
 package com.okta.developer.listings;
@@ -442,7 +441,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest
-@ActiveProfiles({"test"})
+@ActiveProfiles("test")
 class ListingsApplicationTests {
 
     @Test
@@ -491,7 +490,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@ActiveProfiles({"test"})
+@ActiveProfiles("test")
 public class AirbnbListingMvcTest {
 
     @Autowired
@@ -561,9 +560,10 @@ Try the tests with:
 ```shell
 ./mvnw test
 ```
-**Note** if you see _MongoSocketReadException: Prematurely reached end of stream_ in the test logs, you can ignore that for now. It might be because the mongo testcontainer shuts down before the context.
 
-# Testing a WebFlux Resource Server with `mockOpaqueToken()`
+**NOTE:** If you see _MongoSocketReadException: Prematurely reached end of stream_ in the test logs, you can ignore that for now. It might be because the MongoDB Testcontainer shuts down before the context.
+
+## Test a WebFlux Resource Server with `mockOpaqueToken()`
 
 The OpaqueToken is validated remotely with a request to the authorization server. Create a reactive microservice with OpaqueToken authentication.
 
@@ -579,13 +579,11 @@ http --download https://start.spring.io/starter.zip \
   packageName==com.okta.developer.theaters \
   javaVersion==11 \
   dependencies==lombok,devtools,data-mongodb-reactive,webflux,oauth2-resource-server,cloud-eureka
-```
 
-```shell
 unzip theaters.zip
 ```
 
-Add `com.nimbusds` dependency to the `pom.xml`, required for token introspection, and add the  `spring-security-test` dependency. Remove the `test` scope in flapdoodle:
+Add the Nimbus `oauth2-oidc-sdk` dependency to the `pom.xml`, required for token introspection, and add the  `spring-security-test` dependency. 
 
 ```xml
 <dependency>
@@ -601,10 +599,10 @@ Add `com.nimbusds` dependency to the `pom.xml`, required for token introspection
   <scope>test</scope>
 </dependency>
 <dependency>
-    <groupId>org.testcontainers</groupId>
-    <artifactId>mongodb</artifactId>
-    <version>1.15.3</version>
-    <scope>test</scope>
+  <groupId>org.testcontainers</groupId>
+  <artifactId>mongodb</artifactId>
+  <version>1.15.3</version>
+  <scope>test</scope>
 </dependency>
 ```
 
@@ -642,7 +640,7 @@ eureka:
       defaultZone: ${SERVICE_URL_DEFAULT_ZONE}
 ```
 
-Create the package `com.okta.developer.theaters.model` under `src/main/java`. Add the model class `Location` to map some of the fields in the dataset:
+Create the `com.okta.developer.theaters.model` package under `src/main/java`. Add the model class `Location` to map some of the fields in the dataset:
 
 ```java
 package com.okta.developer.theaters.model;
@@ -697,7 +695,7 @@ public interface TheaterRepository extends ReactiveMongoRepository<Theater, Stri
 }
 ```
 
-As Spring Data Rest does not support WebFlux, create a `TheatersController` in `com.okta.developer.theaters.controller` package:
+Create a `TheatersController` in `com.okta.developer.theaters.controller` package:
 
 ```java
 package com.okta.developer.theaters.controller;
@@ -846,7 +844,7 @@ import org.testcontainers.utility.DockerImageName;
 import java.util.List;
 
 @SpringBootTest
-@ActiveProfiles({"test"})
+@ActiveProfiles("test")
 class TheatersApplicationTests {
 
     private static final MongoDBContainer mongoDBContainer = new MongoDBContainer(DockerImageName.parse("mongo:bionic"))
@@ -858,8 +856,7 @@ class TheatersApplicationTests {
         mongoDBContainer.setPortBindings(List.of("27017:27017"));
         mongoDBContainer.start();
     }
-
-
+    
     @Test
     void contextLoads() {
     }
@@ -880,7 +877,7 @@ spring:
       enabled: false
 ```
 
-Create the package `com.okta.developer.theaters.controller` under `src/test/java`. Now, create `TheaterControllerTest` to verify the endpoints authorization.
+Create the package `com.okta.developer.theaters.controller` under `src/test/java`. Now, create `TheaterControllerTest` to verify the endpoints' authorization.
 
 ```java
 package com.okta.developer.theaters.controller;
@@ -906,7 +903,7 @@ import static org.springframework.web.reactive.function.BodyInserters.fromValue;
 
 @SpringBootTest
 @AutoConfigureWebTestClient
-@ActiveProfiles({"test"})
+@ActiveProfiles("test")
 public class TheaterControllerTest {
 
     @Autowired
@@ -962,7 +959,7 @@ public class TheaterControllerTest {
 
 The test `collectionGet_noAuth_returnsUnauthorized` verifies that access is denied if there is no token in the request.
 
-The test `collectionGet_withValidOpaqueToken_returnsOk` sets a mock opaqueToken in the request, so the controller must return 200 Ok.
+The test `collectionGet_withValidOpaqueToken_returnsOk` sets a mock opaque token in the request, so the controller must return 200 OK.
 
 The test `post_withMissingAuthorities_returnsFodbidden` verifies that without the required authorities, the controller rejects the request with 403 Forbidden.
 
@@ -1016,9 +1013,7 @@ http --download https://start.spring.io/starter.zip \
   packageName==com.okta.developer.eureka \
   javaVersion==11 \
   dependencies==cloud-eureka-server
-```
 
-```shell
 unzip eureka.zip
 ```
 
@@ -1058,7 +1053,7 @@ eureka:
       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
 ```
 
-Configure `theater` and `listing` routes in the `api-gateway`. Edit `ApiGatewayApplication` to add the `RouteLocator` bean:
+Configure `theater` and `listing` routes in the `api-gateway` project. Edit `ApiGatewayApplication` to add the `RouteLocator` bean:
 
 ```java
 package com.okta.developer.gateway;
@@ -1148,9 +1143,21 @@ services:
       - SPRING_DATA_MONGODB_HOST=mongo
 ```
 
-Get the MongoDB dump files `theaters.bson`, `theaters.metadata.json` from [GitHub](https://github.com/huynhsamha/quick-mongo-atlas-datasets/tree/master/dump/sample_mflix). Also get `listingsAndReviews.bson`, `listingsAndreviews.metadata.json` from [Github](https://github.com/huynhsamha/quick-mongo-atlas-datasets/tree/master/dump/sample_airbnb).
+Get the MongoDB dump files `theaters.bson`, `theaters.metadata.json` from [GitHub](https://github.com/huynhsamha/quick-mongo-atlas-datasets/tree/master/dump/sample_mflix). 
 
-Place the files in some location and update `{mongoDataPath}` in the `docker-compose.yml` file.
+```shell
+http -d https://github.com/huynhsamha/quick-mongo-atlas-datasets/blob/master/dump/sample_mflix/theaters.bson?raw=true
+http -d https://github.com/huynhsamha/quick-mongo-atlas-datasets/blob/master/dump/sample_mflix/theaters.metadata.json?raw=true
+```
+
+Also get `listingsAndReviews.bson` and `listingsAndreviews.metadata.json` from [GitHub](https://github.com/huynhsamha/quick-mongo-atlas-datasets/tree/master/dump/sample_airbnb).
+
+```shell
+http -d https://github.com/huynhsamha/quick-mongo-atlas-datasets/blob/master/dump/sample_airbnb/listingsAndReviews.bson?raw=true
+http -d https://github.com/huynhsamha/quick-mongo-atlas-datasets/blob/master/dump/sample_airbnb/listingsAndReviews.metadata.json?raw=true
+```
+
+Place the files in some location and update `{mongoDataPath}` to use it in the `docker-compose.yml` file.
 
 Create a file `docker/initdb.sh` with the following script:
 
@@ -1187,8 +1194,7 @@ Go to `http://localhost:8080/userdata` after the Okta login, and you should see 
 
 Test the `api-gateway` endpoints `http://localhost:8080/theater` and `http://localhost:8080/listing` with your browser.
 
-Now, let's test authorization with a POST to the `/listing` endpoint.
-Copy the `accessToken` value from the `/userdata` output and set it as an environment variable:
+Now, let's test authorization with a POST to the `/listing` endpoint. Copy the `accessToken` value from the `/userdata` output and set it as an environment variable:
 
 ```shell
 ACCESS_TOKEN={accessToken}
@@ -1199,12 +1205,14 @@ http POST http://localhost:8080/listing name=test "Authorization:Bearer ${ACCESS
 You will see the following response:
 ```
 HTTP/1.1 403 Forbidden
-WWW-Authenticate: Bearer error="insufficient_scope", error_description="The request requires higher privileges than provided by the access token.", error_uri="https://tools.ietf.org/html/rfc6750#section-3.1"
+WWW-Authenticate: Bearer error="insufficient_scope", 
+ error_description="The request requires higher privileges than provided by the access token.", 
+ error_uri="https://tools.ietf.org/html/rfc6750#section-3.1"
 ```
 
 This is because the `listings` service expects `listing_admin` authority to accept the POST request. The Okta Spring Boot Starter will automatically assign the content of the `groups` claim as authorities. Login to the Okta Admin Console (running `okta login` will get you the URL), create a `listing_admin` group (**Directory** > **Groups**), and assign your user to it.
 
-Then, add the `groups` claim to the access token. Go to **Security** > **API**. Choose the `default` authorization server. Go to **Claims**, and add a claim. Set the following values:
+Then, add the `groups` claim to the access token. Go to **Security** > **API**. Select the `default` authorization server. Go to **Claims**, and add a claim. Set the following values:
 
 - Name: `groups`
 - Include in token type: `Access Token`
@@ -1215,7 +1223,7 @@ Open an incognito window, and request the `/userdata` endpoint, to repeat the si
 
 _If it doesn't work, you can use [token.dev](https://token.dev) to view the contents of your access token._
 
-Stop the `services with CTRL-C and change the expected audience in the `listings` `application.yml`:
+Stop the services with CTRL-C and change the expected audience in the `listings` project's `application.yml`:
 
 ```yaml
 okta:
@@ -1225,6 +1233,11 @@ okta:
 ```
 
 Rebuild the `listings` service image.
+
+```shell
+cd listings
+./mvnw spring-boot:build-image
+```
 
 Restart the services and repeat the HTTPie POST request:
 
@@ -1236,23 +1249,25 @@ You will see the following response:
 
 ```
 HTTP/1.1 401 Unauthorized
-WWW-Authenticate: Bearer error="invalid_token", error_description="An error occurred while attempting to decode the Jwt: This aud claim is not equal to the configured audience", error_uri="https://tools.ietf.org/html/rfc6750#section-3.1"
+WWW-Authenticate: Bearer error="invalid_token", 
+ error_description="An error occurred while attempting to decode the Jwt: This aud claim is not equal to the configured audience",
+ error_uri="https://tools.ietf.org/html/rfc6750#section-3.1"
 ```
 
 You can verify the same in the `theaters` service.
 
-# Learn More About Spring Security
+# Learn More About Spring Security and OAuth
 
 I hope you enjoyed this tutorial and understand more about `SecurityMockServerConfigurers` in reactive test support and `SecurityMockMvcRequestPostProcessors` in the MockMvc test support (available since Spring Security 5). You can see how useful these can be for integration testing, as well as the limitations of request and response mocking.
 
-You can find all the code of this tutorial on GitHub, in the [okta-spring-security-test-example](https://github.com/oktadev/okta-spring-security-test-example) repository.
+You can find all the code from this tutorial on GitHub, in the [okta-spring-security-test-example](https://github.com/oktadev/okta-spring-security-test-example) repository.
 
 Check out the links below to learn more about Spring Security and OAuth 2.0 patterns:
 
-- [SecurityMockMvcRequestPostProcessors documentation](https://docs.spring.io/spring-security/site/docs/5.4.5/reference/html5/#test-mockmvc-smmrpp)
-- [WebTestClientSupport documentation](https://docs.spring.io/spring-security/site/docs/5.4.5/reference/html5/#test-webtestclient)
-- [Security Patterns for Microservice Architectures](/blog/2020/03/23/microservice-security-patterns)
+- [Spring Security's SecurityMockMvcRequestPostProcessors documentation](https://docs.spring.io/spring-security/site/docs/5.4.5/reference/html5/#test-mockmvc-smmrpp)
+- [Spring Security's WebTestClientSupport documentation](https://docs.spring.io/spring-security/site/docs/5.4.5/reference/html5/#test-webtestclient)
 - [OAuth 2.0 Patterns with Spring Cloud Gateway](/blog/2020/08/14/spring-gateway-patterns)
 - [JWT vs Opaque Access Tokens: Use Both With Spring Boot](/blog/2020/08/07/spring-boot-remote-vs-local-tokens)
+- [Security Patterns for Microservice Architectures](/blog/2020/03/23/microservice-security-patterns)
 
 If you'd like to see more information like this, consider following us [on Twitter](https://twitter.com/oktadev) and subscribing to our [YouTube channel](https://www.youtube.com/oktadev). We've also been streaming [on Twitch](https://twitch.tv/oktadev) a bit lately.
