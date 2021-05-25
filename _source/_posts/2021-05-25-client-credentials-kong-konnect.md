@@ -7,10 +7,10 @@ communities: [devops,security]
 description: "Learn how to set up client credentials flow for application authentication with Kong and Okta using Kong's OpenID Connect plugin."
 tags: [kong, api-gateway, oidc, client-credentials]
 tweets:
-- ""
-- ""
-- ""
-image:
+- "Client credentials made easy with Kong and Okta."
+- "Check out our latest tutorial on using client credentials with Kong and Okta."
+- "Using Kong for your API gateway? Learn how to integrate it with @okta!"
+image: blog/client-credentials-kong/kong-okta-integration-topology.jpg
 type: conversion
 canonical-url: https://konghq.com/blog/kong-and-okta-client-credentials/
 ---
@@ -32,6 +32,8 @@ This series will show you how to implement service authentication and authorizat
 * Authorization code for user authentication
 * Integral introspection for token validation
 * Access control based on Okta's groups and planes
+
+You can also [watch this tutorial as a screencast](https://youtu.be/-zRVWD3aXwE).
 
 <div style="text-align: center; margin-bottom: 1.25rem">
 <iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/-zRVWD3aXwE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -136,13 +138,13 @@ Kong Konnect and Okta should now be protecting your applications and APIs!
 
 [Start a free Kong Konnect trial](https://konghq.com/kong-konnect/) or [contact Kong support](https://support.konghq.com/support/s/) if you have any questions as you're getting set up.
 
-## Learn More about Kong Konnect and Okta
+## Learn More About Kong Konnect and Okta
 
 Once you've set up Konnect and Okta, you may find these other tutorials helpful:
 
 - [3 Ways Kong Helps With API Gateway Governance](https://konghq.com/blog/api-gateway-governance)
 - [Getting Started with Kong Mesh and Open Policy Agent](https://konghq.com/blog/kong-service-mesh-and-opa-policy/)
 - [Protect Your APIs With Kong Konnect and Fastly (Signal Sciences)](https://konghq.com/blog/kong-konnect-fastly/)
-- [Use Kong Gateway to Centralize Authentication](https://developer.okta.com/blog/2021/03/26/use-kong-gateway-to-centralize-authentication)
+- [Use Kong Gateway to Centralize Authentication](/blog/2021/03/26/use-kong-gateway-to-centralize-authentication)
 
 If you have any questions about this post, please leave a comment below. To be notified when we post new content, please follow [@oktadev](https://twitter.com/oktadev) on Twitter, like us [on LinkedIn](https://www.linkedin.com/company/oktadev/), or subscribe to [our YouTube channel](https://www.youtube.com/oktadev).
