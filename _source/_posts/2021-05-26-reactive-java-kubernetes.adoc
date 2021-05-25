@@ -93,42 +93,6 @@ If you don't have JHipster installed, install it.
 npm i -g generator-jhipster@7
 ----
 
-== Create a Container Registry on Google Cloud
-
-Before the JHipster 7.0.0 release, I tested this microservice example with Kubernetes and Google Cloud. I found many solutions in Ray Tsang's https://spring-gcp.saturnism.me/[Spring Boot on GCP Guides]. https://twitter.com/mraible/status/1372964263237718026[Thanks, Ray]!
-
-To start with Google Cloud, you'll need an account and a project. https://spring-gcp.saturnism.me/getting-started/google-cloud-platform[Sign up for Google Cloud Platform (GCP)], log in, and create a project. Open a https://console.cloud.google.com/[console] in your browser. A GCP project contains all cloud services and resources--such as virtual machines, network, load balancers--that you might use.
-
-TIP: You can also download and install the https://cloud.google.com/sdk/[`gcloud` CLI] if you want to run things locally.
-
-Enable the Google Kubernetes Engine API:
-
-[source,shell]
-----
-gcloud services enable container.googleapis.com containerregistry.googleapis.com
-----
-
-Install `kubectl` CLI:
-
-[source,shell]
-----
-gcloud components install kubectl
-----
-
-Run the following command to create a cluster for your apps.
-
-[[create-cluster]]
-[source,shell]
-----
-gcloud container clusters create CLUSTER_NAME \
---zone us-central1-a \
---machine-type n1-standard-4 \
---enable-autorepair \
---enable-autoupgrade
-----
-
-I called my cluster `reactive-ms`. See GCP's https://cloud.google.com/compute/docs/regions-zones/[zones] and https://cloud.google.com/compute/docs/machine-types/[machine-types] for other options. I found the `n1-standard-4` to be the minimum for JHipster.
-
 == Generate Kubernetes Deployment Descriptors
 
 Navigate to the `reactive-jhipster` directory. Create a `k8s` directory, cd into it, and run JHipster's https://www.jhipster.tech/kubernetes/[Kubernetes sub-generator].
@@ -149,7 +113,7 @@ You'll be prompted with a number of questions. Answer them as I did below.
 - Which applications with clustered databases? select **store**
 - Admin password for JHipster Registry: <generate one>
 - Kubernetes namespace: **default**
-- Docker repository name: `gcr.io/YOUR_GCP_PROJECT_ID`
+- Docker repository name: <leave empty>
 - Command to push Docker image: `docker push`
 - Enable Istio? **No**
 - Kubernetes service type? **LoadBalancer**
@@ -157,8 +121,6 @@ You'll be prompted with a number of questions. Answer them as I did below.
 - Use a specific storage class? <leave empty>
 
 image::{% asset_path 'blog/reactive-java-kubernetes/jhipster-k8s.png' %}[alt=JHipster K8s command with answers,width=800,align=center]
-
-Notice that I'm using `gcr.io/jhipster7` for my Docker repository name.
 
 After I answered these questions, my `k8s/.yo-rc.json` file had the following contents:
 
@@ -170,11 +132,11 @@ After I answered these questions, my `k8s/.yo-rc.json` file had the following co
     "directoryPath": "../",
     "clusteredDbApps": ["store"],
     "serviceDiscoveryType": "eureka",
-    "dockerRepositoryName": "gcr.io/jhipster7",
+    "dockerRepositoryName": "",
     "dockerPushCommand": "docker push",
     "kubernetesNamespace": "default",
     "kubernetesServiceType": "LoadBalancer",
-    "kubernetesUseDynamicStorage": false,
+    "kubernetesUseDynamicStorage": true,
     "kubernetesStorageClassName": "",
     "ingressDomain": "",
     "monitoring": "no",
@@ -242,15 +204,6 @@ npm run e2e
 Proof it worked for me:
 
 image::{% asset_path 'blog/reactive-java-kubernetes/cypress-e2e.png' %}[alt=Cypress end-to-end tests,width=800,align=center]
-
-=== Why Not Istio?
-
-I didn't use Istio in this example because I didn't want to complicate things. Learning Kubernetes is hard enough without learning another system on top of it. Istio acts as a network between your containers that's able to do networky things like authentication, authorization, monitoring, and retries. I like to think of it as AOP for containers.
-
-I recently listened to The New Stack's Podcast episode, https://thenewstack.io/which-comes-first-istio-or-kubernetes/[Which Comes First: Istio or Kubernetes?]. It talks to https://www.linkedin.com/in/varuntalwar/[Varun Talwar] and https://www.linkedin.com/in/zack-butcher-339a2180[Zack Butcher],
-creators of Istio. I like how they'd eventually like to make services meshes so boring that everyone uses them and developers don't have to worry about it.
-
-If you'd like to see how to use JHipster with Istio, see https://dev.to/deepu105/how-to-set-up-java-microservices-with-istio-service-mesh-on-kubernetes-5bkn[How to set up Java microservices with Istio service mesh on Kubernetes] by JHipster co-lead https://twitter.com/deepu105[Deepu K Sasidharan].
 
 === Plain Text Secrets? Uggh!
 
@@ -365,9 +318,92 @@ Make sure to change the URI to your repo, or you'll be using my OIDC app!
 
 See Spring Cloud Config's https://cloud.spring.io/spring-cloud-config/multi/multi__spring_cloud_config_server.html#_git_backend[Git Backend docs] for more information.
 
+== Deploy to minikube
+
+If you have Docker installed, there's a good chance you can run Kubernetes locally with https://minikube.sigs.k8s.io/docs/start/[minikube].
+
+[source,shell]
+----
+minikube start — docker-env
+----
+
+After this command executes, it'll print out a message so you know which cluster and namespace are being used.
+
+[source,shell]
+----
+🏄  Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default
+----
+
+=== Configure Your Kubernetes Cluster for OIDC
+
+First, I'm going to show you the _wrong_ way to configure your deployments to work with Okta. I'm showing you this way because it's fast, and it's fun to see things running. Why is it wrong? Because you're storing secrets in files that might be checked into source control.
+
+Edit `k8s/registry-k8s/jhipster-registry.yml` and add your OIDC settings to the `env` key. You should be able to get these values from `gateway/.okta.env`.
+
+[source,yaml]
+----
+- name: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI
+  value: "https://{yourOktaDomain}/oauth2/default"
+- name: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID
+  value: "{yourClientId}"
+- name: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET
+  value: "{yourClientSecret}"
+----
+
+Add these same values to the `*-deployment.yml` files in `blog-k8s`, `gateway-k8s`, and `store-k8s`.
+
+Run `./kubectl-apply.sh -f` to deploy all your apps and their service dependencies.
+
+Once everything is up and running, get the external IP of your gateway.
+
+[source,shell]
+----
+kubectl get svc gateway -n default
+----
+
+
 == Deploy to Google Cloud (aka GCP)
 
 Now it's time to go to the moon! Errr... cloud.
+
+- start
+== Create a Container Registry on Google Cloud
+
+Before the JHipster 7.0.0 release, I tested this microservice example with Kubernetes and Google Cloud. I found many solutions in Ray Tsang's https://spring-gcp.saturnism.me/[Spring Boot on GCP Guides]. https://twitter.com/mraible/status/1372964263237718026[Thanks, Ray]!
+
+To start with Google Cloud, you'll need an account and a project. https://spring-gcp.saturnism.me/getting-started/google-cloud-platform[Sign up for Google Cloud Platform (GCP)], log in, and create a project. Open a https://console.cloud.google.com/[console] in your browser. A GCP project contains all cloud services and resources--such as virtual machines, network, load balancers--that you might use.
+
+TIP: You can also download and install the https://cloud.google.com/sdk/[`gcloud` CLI] if you want to run things locally.
+
+Enable the Google Kubernetes Engine API:
+
+[source,shell]
+----
+gcloud services enable container.googleapis.com containerregistry.googleapis.com
+----
+
+Install `kubectl` CLI:
+
+[source,shell]
+----
+gcloud components install kubectl
+----
+
+Run the following command to create a cluster for your apps.
+
+[[create-cluster]]
+[source,shell]
+----
+gcloud container clusters create CLUSTER_NAME \
+--zone us-central1-a \
+--machine-type n1-standard-4 \
+--enable-autorepair \
+--enable-autoupgrade
+----
+
+I called my cluster `reactive-ms`. See GCP's https://cloud.google.com/compute/docs/regions-zones/[zones] and https://cloud.google.com/compute/docs/machine-types/[machine-types] for other options. I found the `n1-standard-4` to be the minimum for JHipster.
+
+-end
 
 You created Docker images earlier to run with Docker Compose. Those images were deployed to your local Docker registry. For Google Cloud and its Kubernetes engine (GKE), you'll need to publish your images to your project's registry. Thankfully, this is easy to do with Jib.
 
@@ -399,11 +435,11 @@ bash kubectl-apply.sh -f
 
 TIP: If you get an error about connecting to the server at `127.0.0.1:64317`, it's because you haven't <<create-cluster,created a cluster>> yet.
 
-You can monitor the progress of your deployments with `kubectl get pods`. You'll likely see a number of pods have restarted several times. This is because there's no Keycloak instance deployed and it's trying to connect.
+You can monitor the progress of your deployments with `kubectl get pods -n default`. You'll likely see a number of pods have restarted several times. This is because there's no Keycloak instance deployed and it's trying to connect.
 
 === Configure Your Kubernetes Cluster for OIDC
 
-First, I'm going to show you the _wrong_ way to configure your deployments to work with Okta. I'm showing you this way because it's fast and it's fun to see things running. Why is it wrong? Because you're storing secrets in files that might be checked into source control.
+First, I'm going to show you the _wrong_ way to configure your deployments to work with Okta. I'm showing you this way because it's fast, and it's fun to see things running. Why is it wrong? Because you're storing secrets in files that might be checked into source control.
 
 Edit `k8s/registry-k8s/jhipster-registry.yml` and add your OIDC settings to the `env` key. You should be able to get these values from `gateway/.okta.env`.
 
@@ -417,13 +453,15 @@ Edit `k8s/registry-k8s/jhipster-registry.yml` and add your OIDC settings to the 
   value: "{yourClientSecret}"
 ----
 
+eval $(minikube docker-env)
+
 Add these same values to the `*-deployment.yml` files in `blog-k8s`, `gateway-k8s`, and `store-k8s`. Run `./kubectl-apply.sh -f` again.
 
 Once everything is up and running, get the external IP of your gateway.
 
 [source,shell]
 ----
-kubectl get svc gateway
+kubectl get svc gateway -n default
 ----
 
 You'll need to add the external IP address as a valid redirect to your Okta OIDC app. Run `okta login`, open the returned URL in your browser, and sign in to the Okta Admin Console. Go to the **Applications** section, find your application, and edit it.
@@ -434,7 +472,7 @@ You can use the following command to set your gateway's IP address as a variable
 
 [source,shell]
 ----
-EXTERNAL_IP=$(kubectl get svc gateway -ojsonpath="{.status.loadBalancer.ingress[0].ip}")
+EXTERNAL_IP=$(kubectl get svc gateway -ndefault -ojsonpath="{.status.loadBalancer.ingress[0].ip}")
 curl $EXTERNAL_IP:8080
 ----
 
@@ -466,7 +504,7 @@ Then, create a `k8s/ingress.yml` file:
 
 [source,yaml]
 ----
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: gateway
@@ -477,19 +515,22 @@ spec:
   - http:
       paths:
       - path: /*
+        pathType: Prefix
         backend:
-          serviceName: gateway
-          servicePort: 8080
+          service:
+            name: gateway
+            port:
+              number: 8080
 ----
 
 Deploy it and make sure it worked.
 
 [source,shell]
 ----
-kubectl apply -f ingress.yml
+kubectl apply -f ingress.yml -n default
 
 # wait until this command displays an IP address
-kubectl get ingress gateway
+kubectl get ingress gateway -n default
 ----
 
 In order to use a TLS certificate, you must have a fully qualified domain name and configure it to point to the IP address. If you don't have a real domain, you can use https://nip.io/[nip.io].
@@ -577,7 +618,8 @@ Run the following commands to start a rolling restart of gateway instances.
 
 [source,shell]
 ----
-kubectl rollout restart deployment gateway
+kubectl rollout restart -n default deployment gateway
+# all kubectl rollout restart -n default deploy
 ----
 
 TIP: Run `kubectl get deployments` to see your deployment names.
@@ -749,7 +791,7 @@ You can use port-forwarding to see the JHipster Registry locally.
 
 [source,shell]
 ----
-kubectl port-forward jhipster-registry-0 8761:8761
+kubectl port-forward svc/jhipster-registry -n default 8761
 ----
 
 To login, use `admin` with the `registry-admin-password` in `jhipster-registry.yml`.
@@ -818,6 +860,14 @@ JHipster uses Docker container to run all its databases in this example. However
 
 I didn't mention Testcontainers in this post. However, https://atomfrede.gitlab.io/2019/05/jhipster-with-testcontainers/[JHipster does support using them]. Testcontainers also has a https://www.testcontainers.org/modules/gcloud/[GCloud Module].
 
+== Why Not Istio?
+
+I didn't use Istio in this example because I didn't want to complicate things. Learning Kubernetes is hard enough without learning another system on top of it. Istio acts as a network between your containers that's able to do networky things like authentication, authorization, monitoring, and retries. I like to think of it as AOP for containers.
+
+If you'd like to see how to use JHipster with Istio, see https://dev.to/deepu105/how-to-set-up-java-microservices-with-istio-service-mesh-on-kubernetes-5bkn[How to set up Java microservices with Istio service mesh on Kubernetes] by JHipster co-lead https://twitter.com/deepu105[Deepu K Sasidharan].
+
+Fernand Galiana recommends checking out BPF (Berkley Packet Filter) and https://cilium.io/[Cilium]. Cilium is open source software for transparently providing and securing the network and API connectivity between application services deployed using Linux container management platforms such as Kubernetes.
+
 == Learn More About Java Microservices and Kubernetes
 
 This blog post showed you how to deploy your reactive Java microservices to production using Kubernetes. JHipster did much of the heavy lifting for you since it generated all the YAML-based deployment descriptors. Since no one really likes writing YAML, I'm calling that a win!
@@ -850,3 +900,6 @@ If you enjoyed this post, I think you'll like these others as well.
 If you have any questions, please ask them in the comments below.
 
 To be notified when we publish new blog posts, follow us on https://twitter.com/oktadev[Twitter] or https://www.linkedin.com/company/oktadev[LinkedIn]. We frequently publish videos to our https://youtube.com/c/oktadev[YouTube channel] too. https://youtube.com/c/oktadev?sub_confirmation=1[Subscribe today]!
+
+
+https://cilium.io/
