@@ -10,7 +10,7 @@ tweets:
 - "Client credentials made easy with Kong and Okta."
 - "Check out our latest tutorial on using client credentials with Kong and Okta."
 - "Using Kong for your API gateway? Learn how to integrate it with @okta!"
-image: blog/client-credentials-kong/kong-okta-integration-topology.jpg
+image: blog/client-credentials-kong/client-credentials-kong.png
 type: conversion
 canonical-url: https://konghq.com/blog/kong-and-okta-client-credentials/
 ---
