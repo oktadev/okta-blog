@@ -916,3 +916,5 @@ If you enjoyed this post, I think you'll like these others as well.
 If you have any questions, please ask them in the comments below.
 
 To be notified when we publish new blog posts, follow us on https://twitter.com/oktadev[Twitter] or https://www.linkedin.com/company/oktadev[LinkedIn]. We frequently publish videos to our https://youtube.com/c/oktadev[YouTube channel] too. https://youtube.com/c/oktadev?sub_confirmation=1[Subscribe today]!
+
+_A huge thanks goes to https://twitter.com/kitesurfer[Fernand Galiana] for his review and detailed feedback._
