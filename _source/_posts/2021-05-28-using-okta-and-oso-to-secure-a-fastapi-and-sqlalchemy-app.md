@@ -34,9 +34,9 @@ Our app allows authenticated users to register their own bears and view the bear
 
 ## Setting up Okta
 
-<Okta CLI setup instructions for ‘Single-Page App’ mode>
+<Okta CLI setup instructions for 'Single-Page App' mode>
 
-Once your new Okta application is created, the Okta CLI will print out the app’s `Issuer` and `Client ID` properties:
+Once your new Okta application is created, the Okta CLI will print out the app's `Issuer` and `Client ID` properties:
 
 ```console
 $ okta apps create
@@ -49,7 +49,7 @@ Issuer:        https://<YOUR OKTA DOMAIN>/oauth2/default
 ```
 
 
-Create a file named `.env` in the project’s root directory with the following contents:
+Create a file named `.env` in the project's root directory with the following contents:
 
 ```ini
 CLIENT_ID=<YOUR CLIENT ID>
@@ -112,7 +112,7 @@ First, after pressing Ctrl+C to exit FastAPI, we're going to install the `oso` a
 pip3 install oso sqlalchemy-oso
 ```
 
-Once pip finishes pipping, open up `app/main.py` using your favorite text editor and make the changes that you see below. The following is a Git diff of the change — if you’re following along, add the lines that start with a `+` symbol to your local copy of `app/main.py`:
+Once pip finishes pipping, open up `app/main.py` using your favorite text editor and make the changes that you see below. The following is a Git diff of the change — if you're following along, add the lines that start with a `+` symbol to your local copy of `app/main.py`:
 
 ```diff
 diff --git a/app/main.py b/app/main.py
@@ -220,7 +220,7 @@ Oso is deny-by-default, and we currently have an empty policy file. In the next 
 
 ### Our first `allow()` rule
 
-For our first foray into writing a policy, we’re going to use Polar, Oso’s declarative programming language, to add a rule that prevents banned users from creating new bears.
+For our first foray into writing a policy, we're going to use Polar, Oso's declarative programming language, to add a rule that prevents banned users from creating new bears.
 
 Open up `app/policy.polar` and add the following rule:
 
@@ -235,9 +235,9 @@ The rule works by matching against the inputs provided from the application:
 - The action is the string literal "create".
 - `_bear` - an instance of the `BearBase` class.
 
-And we are checking that the provided user’s `is_banned` field is false.
+And we are checking that the provided user's `is_banned` field is false.
 We don't yet need to check anything further about the `bear` resource,
-so we prefix it with an underscore to indicate that it won’t be referenced in the body of the rule.
+so we prefix it with an underscore to indicate that it won't be referenced in the body of the rule.
 
 **NOTE:** To learn more about Polar syntax, head on over to [the Writing Policies guide][learn/policies] in [the Oso documentation][docs.osohq.com].
 
@@ -248,7 +248,7 @@ Save the file, flip back to [localhost:8080][], and you should once again be abl
 `oso.is_allowed()` worked perfectly for securing the `create()` endpoint, but it's not the best tool for the job when it comes to securing `index()`. The difference is that `create()` operates over a single record while `index()` operates over a potentially very large collection. If performance weren't an issue, we could load the collection from the database and iterate over it,
 calling `oso.is_allowed()` on every record to filter out unauthorized entries. However, we all know that Zoomers lose interest and click away from your website if it takes longer than a few Planck time units to load, so we need a better solution.
 
-And now, presenting… a better solution. Data filtering! The cure to all of life's performance issues.
+And now, presenting... a better solution. Data filtering! The cure to all of life's performance issues.
 
 The `sqlalchemy-oso` library is built on top of Oso's data filtering feature. In a nutshell, the logic engine at the core of the Oso library can turn your authorization policy into a set of constraints similar to the `WHERE` clauses used to filter records when querying a relational database. The `sqlalchemy-oso` library then applies those constraints directly to your app's SQLAlchemy queries. In this way, only authorized records are loaded from the database in an efficient database operation instead of loading all records and then iterating over the collection to determine the authorized subset.
 
@@ -300,7 +300,7 @@ index f2a17d0..1fa9573 100644
 +def index(db: Session = Depends(get_authorized_db)):
 ```
 
-Save the file, reload [localhost:8080][], and… no bears. They're still happily growling away in the database, but we haven't added any Oso rules permitting access. Let's change that.
+Save the file, reload [localhost:8080][], and... no bears. They're still happily growling away in the database, but we haven't added any Oso rules permitting access. Let's change that.
 
 ### Fleshing out our authorization policy
 
@@ -310,7 +310,7 @@ To start off, let's add a rule to `app/policy.polar` that permits all users to l
 allow(_: User, "index", _: Bear);
 ```
 
-Save the file, reload [localhost:8080][], and you should see every bear again. But something else is missing… the `Owner` column is empty! When we serialize bear records in the back end, we include each bear's owner's email — a piece of data that comes from our SQLAlchemy-backed `User` model. Access to `User` data is now protected by Oso because `User` is a subclass of the `Base` SQLAlchemy class we registered via `sqlalchemy-oso`'s `register_models()` method. Let's add one more blanket `allow()` rule, this time permitting users to view user data at the `index()` endpoint:
+Save the file, reload [localhost:8080][], and you should see every bear again. But something else is missing... the `Owner` column is empty! When we serialize bear records in the back end, we include each bear's owner's email — a piece of data that comes from our SQLAlchemy-backed `User` model. Access to `User` data is now protected by Oso because `User` is a subclass of the `Base` SQLAlchemy class we registered via `sqlalchemy-oso`'s `register_models()` method. Let's add one more blanket `allow()` rule, this time permitting users to view user data at the `index()` endpoint:
 
 ```polar
 allow(_: User, "index", _: User);
@@ -335,7 +335,7 @@ index ff90780..0a1a77d 100644
 
 Save, reload, and confirm you now cannot see anyone else's bears. You'll need to create some for yourself if you want to see some.
 
-The index view is now nice and private, but it feels _wrong_ to prevent our fellow bear enthusiasts from viewing polar bears, the sweetest and most mild-mannered of all bears. To right that wrong, we can register the `Species` enum as a constant so that we can reference it in our policy…
+The index view is now nice and private, but it feels _wrong_ to prevent our fellow bear enthusiasts from viewing polar bears, the sweetest and most mild-mannered of all bears. To right that wrong, we can register the `Species` enum as a constant so that we can reference it in our policy...
 
 ```diff
 diff --git a/app/main.py b/app/main.py
@@ -349,7 +349,7 @@ index 1fa9573..6abb06d 100644
 +oso.register_constant(Species, "Species")
 ```
 
-…and then update said policy:
+...and then update said policy:
 
 ```diff
 diff --git a/app/policy.polar b/app/policy.polar
