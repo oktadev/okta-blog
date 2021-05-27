@@ -9,7 +9,7 @@ tags: [oso, authorization]
 tweets:
 - "Learn how to add simple authorization to your app with Oso and Okta"
 - "Check out this blog post to learn how to easily secure your FastAPI app with Oso and Okta"
-- "Easily add role based access to your FastAPI app with Oso and Okta"
+- "Easily add role-based access to your FastAPI app with Oso and Okta"
 image: blog/using-okta-and-oso-to-secure-a-fastapi-and-sqlalchemy-app/card.png
 type: conversion
 ---
