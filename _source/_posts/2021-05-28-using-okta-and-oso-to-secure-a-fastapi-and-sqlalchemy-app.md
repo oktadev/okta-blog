@@ -455,7 +455,7 @@ index 0000000..b458ddc
 +    bear.name = "Smokey";
 ```
 
-## Summary
+## Learn More About Oso and Okta
 
 We started out with a very fast and SQL-y application built on FastAPI and SQLAlchemy. We created and configured a new Okta application to handle identity management and authentication for our app. Then we used Oso to add efficient, fine-grained authorization to our back end API.
 
