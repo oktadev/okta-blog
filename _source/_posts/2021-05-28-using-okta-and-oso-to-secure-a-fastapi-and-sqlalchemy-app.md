@@ -34,7 +34,7 @@ Our app allows authenticated users to register their own bears and view the bear
 
 ## Setting up Okta
 
-<Okta CLI setup instructions for 'Single-Page App' mode>
+{% include setup/cli.md type="spa" %}
 
 Once your new Okta application is created, the Okta CLI will print out the app's `Issuer` and `Client ID` properties:
 
