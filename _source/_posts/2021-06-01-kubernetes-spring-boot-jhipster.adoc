@@ -1,33 +1,31 @@
 ---
 layout: blog_post
-title: "Git Yer Java Microservices to the Cloud with K8s and Spring Boot"
-# title: "Git to the Cloud with K8s and Spring Boot"
-# title: "Git to Google Cloud with K8s and Spring Boot"
+title: "How to Kubernetes with Spring Boot and JHipster"
 author: matt-raible
 by: advocate
-communities: [devops,java]
-description: "Giddyup and go into the cloud!"
-tags: []
+communities: [java,devops]
+description: "Giddyup and go to the cloud with Kubernetes, Spring Boot, and JHipster!"
+tags: [kubernetes, google-cloud, gke, spring-boot, jhipster, k9s]
 tweets:
-- ""
-- ""
-- ""
-image:
+- "Avoid YAML and use JHipster to deploy your @springboot apps with @kubernetesio."
+- "Dislike YAML? Me too! This 20-page Kubernetes tutorial only has 60 lines of YAML and you only need to write 36 of them. 😏"
+- "JHipsters make it easy to create reactive @java microservices and deploy them with @kubernetesio. Learn more in this tutorial! 👇"
+image: blog/reactive-java-kubernetes/reactive-java-k8s.png
 type: conversion
 ---
 :page-liquid:
 :toc: macro
 :experimental:
 
-When your business or application is successful, it needs to scale. Not just technology-wise, but human-wise. When you're growing rapidly, it can be difficult to hire developers fast enough. Using a microservices architecture for your apps can allow you to divide up ownership, responsibilities, and scale teams along with your code.
+When your business or application is successful, it needs to scale. Not just technology-wise, but human-wise. When you're growing rapidly, it can be difficult to hire developers fast enough. Using a microservices architecture for your apps can allow you to divide up ownership and responsibilities, and scale teams along with your code.
 
 Kubernetes is an open-source platform for managing containerized workloads and services. Kubernetes traces its lineage https://kubernetes.io/blog/2015/04/borg-predecessor-to-kubernetes/[directly from Borg], Google's long-rumored internal container-oriented cluster-management system.
 
-Spring Boot and Spring Cloud were some of the pioneering frameworks in Javaland. However, even they stood on the shoulders of giants when they leveraged Netflix open source projects to embrace and extend. In 2018, https://netflixtechblog.com/netflix-oss-and-spring-boot-coming-full-circle-4855947713a0[Netflix OSS announced they'd come full circle], and adopted Spring Boot.
+Spring Boot and Spring Cloud were some of the pioneering frameworks in Javaland. However, even they stood on the shoulders of giants when they leveraged Netflix's open-source projects to embrace and extend. In 2018, https://netflixtechblog.com/netflix-oss-and-spring-boot-coming-full-circle-4855947713a0[Netflix OSS announced they'd come full circle], and adopted Spring Boot.
 
 Today, I'd like to show you how to build and deploy (with Kubernetes) a __reactive__ microservice architecture with Spring Boot, Spring Cloud, and JHipster. Why reactive? Because Spring Cloud Gateway is now the default for JHipster 7, even if you choose to build your microservices with Spring MVC.
 
-Spring Cloud Gateway is a library for building an API Gateway on top of Spring WebFlux. It makes it easy to integrate OAuth in to communicate between microservices. You just need to add a `TokenRelay` filter.
+Spring Cloud Gateway is a library for building an API Gateway on top of Spring WebFlux. It easily integrates with OAuth to communicate between microservices. You just need to add a `TokenRelay` filter.
 
 [source,yaml]
 ----
@@ -38,7 +36,9 @@ spring:
         - TokenRelay
 ----
 
-CAUTION: Netflix Zuul is no longer supported by Spring Cloud. There is an https://github.com/spring-cloud/spring-cloud-gateway/issues/36[open issue] to add Spring MVC/Servlet support to Spring Cloud Gateway. It's scheduled to be implemented before the end of 2021.
+CAUTION: Spring Cloud no longer supports Netflix Zuul. An https://github.com/spring-cloud/spring-cloud-gateway/issues/36[open issue] adds Spring MVC/Servlet support to Spring Cloud Gateway. It's scheduled for implementation before the end of 2021.
+
+image::{% asset_path 'blog/reactive-java-kubernetes/reactive-java-k8s.png' %}[alt=Reactive Java Kubernetes,width=800,align=center]
 
 **Prerequisites**
 
@@ -51,13 +51,13 @@ toc::[]
 
 == A Brief Intro to Kubernetes (K8s)
 
-Kubernetes is an open source project from Google that provides an API for deploying your apps and making them talk with each other. It helps automate deployments, updates, and managing your apps and services with limited downtime. You use Docker containers and YAML to make it all work.
+Kubernetes is an open-source project from Google that provides an API for deploying your apps and making them talk with each other. It helps automate deployments and updates, and manages your apps and services with limited downtime. You use Docker containers and YAML to make it all work.
 
-The YAML can be hideous, but that's where JHipster comes in. It can generate the YAML for you!
+The YAML can be burdensome, but that's where JHipster comes in. It can generate the YAML for you!
 
 == Create a Kubernetes-Ready Microservices Architecture
 
-I showed you how to build link:/blog/2021/01/20/reactive-java-microservices[Reactive Java microservices with Spring Boot and JHipster] in a previous post. Today I'll show you how to generate K8s deployment descriptors, use Spring Cloud Config with Git, encrypt your secrets, and make it all work on Google Cloud (https://cloud.google.com/kubernetes-engine/[GKE] to be specific).
+I showed you how to build link:/blog/2021/01/20/reactive-java-microservices[Reactive Java microservices with Spring Boot and JHipster] in a previous post. Today, I'll show you how to generate K8s deployment descriptors, use Spring Cloud Config with Git, encrypt your secrets, and make it all work on Google Cloud (https://cloud.google.com/kubernetes-engine/[GKE] to be specific).
 
 Start by cloning the JHipster 7 { Vue, Spring Boot, WebFlux } reactive microservices project from GitHub:
 
@@ -79,10 +79,10 @@ cd ../jhipster-k8s
 
 This project has four directories:
 
-- `gateway`: a Spring Boot + Spring Cloud Gateway project configured for OpenID Connect (OIDC) login. It's also configured as an OAuth 2.0 resource server. It contains a front end application that's built with Vue.
-- `blog`: a Spring Boot + WebFlux microservice that talks to a Neo4j database.
-- `store`: a Spring Boot + WebFlux microservice that uses MongoDB.
-- `docker-compose`: a set of Docker files that describe how to run all containers together.
+1. `gateway`: a Spring Boot + Spring Cloud Gateway project configured for OpenID Connect (OIDC) login. It's also configured as an OAuth 2.0 resource server. It contains a front-end application built with Vue.
+2. `blog`: a Spring Boot + WebFlux microservice that talks to a Neo4j database.
+3. `store`: a Spring Boot + WebFlux microservice that uses MongoDB.
+4. `docker-compose`: a set of Docker files that describe how to run all containers together.
 
 NOTE: The SPA app on the gateway is currently a monolith. The JHipster team is still working on https://github.com/jhipster/generator-jhipster/issues/10189[micro frontends support].
 
@@ -95,7 +95,7 @@ npm i -g generator-jhipster@7
 
 == Generate Kubernetes Deployment Descriptors
 
-Navigate to the `reactive-jhipster` directory. Create a `k8s` directory, cd into it, and run JHipster's https://www.jhipster.tech/kubernetes/[Kubernetes sub-generator].
+Navigate to the `reactive-jhipster` directory. Next, create a `k8s` directory, cd into it, and run JHipster's https://www.jhipster.tech/kubernetes/[Kubernetes sub-generator].
 
 [source,shell]
 ----
@@ -104,7 +104,7 @@ cd k8s
 jhipster k8s
 ----
 
-You'll be prompted with a number of questions. Answer them as I did below.
+You'll be prompted with several questions. Answer them as I did below:
 
 - Type of application: **Microservice application**
 - Root directory: **../**
@@ -112,7 +112,7 @@ You'll be prompted with a number of questions. Answer them as I did below.
 - Set up monitoring? **No**
 - Which applications with clustered databases? select **store**
 - Admin password for JHipster Registry: <generate one>
-- Kubernetes namespace: **default**
+- Kubernetes namespace: **demo**
 - Docker repository name: <your docker hub username>
 - Command to push Docker image: `docker push`
 - Enable Istio? **No**
@@ -137,7 +137,7 @@ After I answered these questions, my `k8s/.yo-rc.json` file had the following co
     "jwtSecretKey": "NDFhMGY4NjF...",
     "dockerRepositoryName": "mraible",
     "dockerPushCommand": "docker push",
-    "kubernetesNamespace": "default",
+    "kubernetesNamespace": "demo",
     "kubernetesServiceType": "LoadBalancer",
     "kubernetesUseDynamicStorage": true,
     "kubernetesStorageClassName": "",
@@ -148,7 +148,7 @@ After I answered these questions, my `k8s/.yo-rc.json` file had the following co
 }
 ----
 
-I could show you how to get everything working with Docker Compose, but I already showed you link:/blog/2021/01/20/reactive-java-microservices#run-your-microservices-stack-with-docker-compose[how to do that in the previous tutorial]. Today, I'd like to show you how to run things locally with https://minikube.sigs.k8s.io/docs/[Minikube].
+I already showed you how to get everything working with Docker Compose link:/blog/2021/01/20/reactive-java-microservices#run-your-microservices-stack-with-docker-compose[ in the previous tutorial]. So today, I'd like to show you how to run things locally with https://minikube.sigs.k8s.io/docs/[Minikube].
 
 == Install Minikube to Run Kubernetes Locally
 
@@ -156,25 +156,27 @@ If you have Docker installed, you can run Kubernetes locally with Minikube. Run 
 
 [source,shell]
 ----
-minikube --memory 20000 --cpus 10 start
+minikube --cpus 8 start
 ----
 
-This command will start Minikube with 20 GB of RAM and 10 CPUs. The default, 16 GB RAM and two CPUS, did not work for me.
+INFO: If this doesn't work, use `brew install minikube`, or see https://minikube.sigs.k8s.io/docs/start/[Minikube's installation instructions].
+
+This command will start Minikube with 16 GB of RAM and 8 CPUs. Unfortunately, the default, which is 16 GB RAM and two CPUs, did not work for me.
 
 _You can skip ahead to creating your Docker images while you wait for this to complete._
 
-After this command executes, it'll print out a message, and notify you which cluster and namespace are being used.
+After this command executes, it'll print out a message and notify you which cluster and namespace are being used.
 
 [source,shell]
 ----
 🏄  Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default
 ----
 
-TIP: You can stop Minikube with `minikube stop` and start all over with `minikube delete`.
+TIP: You can stop Minikube with `minikube stop` and start over with `minikube delete`.
 
-== Create Docker Images
+== Create Docker Images with Jib
 
-Now, you need to build Docker images for each app. In the {`gateway`, `blog`, `store` } directories, run the following Gradle command (where `<image-name>` is `gateway`, `store`, or `blog`.
+Now, you need to build Docker images for each app. In the {`gateway`, `blog`, `store` } directories, run the following Gradle command (where `<image-name>` is `gateway`, `store`, or `blog`).
 
 This command should also be in the window where you ran `jhipster k8s`, so you can copy them from there.
 
@@ -212,11 +214,11 @@ Make sure to add this `imagePullPolicy` to the following files:
 
 == Register an OIDC App for Auth
 
-You've built Docker images for your microservices, but you haven't seen them running. First, you'll need to configure Okta for authentication and authorization.
+You've now built Docker images for your microservices, but you haven't seen them running. First, you'll need to configure Okta for authentication and authorization.
 
 {% include setup/cli.md type="jhipster" %}
 
-JHipster ships with https://www.jhipster.tech/jhipster-registry/[JHipster Registry]. It acts as a Eureka service for service discovery, and contains a Spring Cloud Config server for distributing your configuration settings.
+JHipster ships with https://www.jhipster.tech/jhipster-registry/[JHipster Registry]. It acts as a Eureka service for service discovery and contains a Spring Cloud Config server for distributing your configuration settings.
 
 Update `k8s/registry-k8s/application-configmap.yml` to contain your OIDC settings from the `.okta.env` file the Okta CLI just created. The Spring Cloud Config server reads from this file and shares the values with the gateway and microservices.
 
@@ -253,25 +255,25 @@ Then, in the `k8s` directory, start your engines!
 ./kubectl-apply.sh -f
 ----
 
-You can see if everything start up using the following command.
+You can see if everything starts up using the following command.
 
 [source,shell]
 ----
-kubectl get pods -n default
+kubectl get pods -n demo
 ----
 
 You can use the name of a pod with `kubectl logs` to tail its logs.
 
 [source,shell]
 ----
-kubectl logs <pod-name> --tail=-1 -n default
+kubectl logs <pod-name> --tail=-1 -n demo
 ----
 
 You can use port-forwarding to see the JHipster Registry.
 
 [source,shell]
 ----
-kubectl port-forward svc/jhipster-registry -n default 8761
+kubectl port-forward svc/jhipster-registry -n demo 8761
 ----
 
 Open a browser and navigate to `\http://localhost:8761`. You'll need to sign in with your Okta credentials.
@@ -280,12 +282,12 @@ Once all is green, use port-forwarding to see the gateway app.
 
 [source,shell]
 ----
-kubectl port-forward svc/gateway -n default 8080
+kubectl port-forward svc/gateway -n demo 8080
 ----
 
-Then, go to `\http://localhost:8080` and you should be able to add blogs, posts, tags, and products.
+Then, go to `\http://localhost:8080`, and you should be able to add blogs, posts, tags, and products.
 
-You can also automate testing that everything works. Set your Okta credentials as environment variables and run end-to-end tests using Cypress (from the gateway directory).
+You can also automate testing to ensure that everything works. Set your Okta credentials as environment variables and run end-to-end tests using Cypress (from the gateway directory).
 
 [source,shell]
 ----
@@ -300,7 +302,7 @@ image::{% asset_path 'blog/reactive-java-kubernetes/cypress-e2e.png' %}[alt=Cypr
 
 === Plain Text Secrets? Uggh!
 
-You might notice I used a secret in plain text in the `application-configmap.yml` file. This is a bad practice! I hope you didn't check everything into source control yet!!
+You may notice that I used a secret in plain text in the `application-configmap.yml` file. Secrets in plain text are a bad practice! I hope you didn't check everything into source control yet!!
 
 == Encrypt / Decrypt Your Spring Cloud Configuration
 
@@ -320,7 +322,7 @@ You can use JShell to generate a UUID you can use for your encrypt key.
 
 [source,shell]
 ----
-jhsell
+jshell
 
 UUID.randomUUID()
 ----
@@ -343,14 +345,14 @@ You can encrypt your client secret by logging into `http://localhost:8761` and g
 
 [source,shell]
 ----
-kubectl port-forward svc/jhipster-registry -n default 8761
+kubectl port-forward svc/jhipster-registry -n demo 8761
 ----
 
 Copy and paste your client secret from `application-configmap.yml` (or `.okta.env`) and click **Encrypt**.
 
 image::{% asset_path 'blog/reactive-java-kubernetes/registry-encrypt.png' %}[alt=JHipster Registry Encrypt Feature,width=800,align=center]
 
-Then, copy the encrypted value back in to `application-configmap.yml`. Make sure to wrap it in quotes!
+Then, copy the encrypted value back into `application-configmap.yml`. Make sure to wrap it in quotes!
 
 You can also use curl:
 
@@ -371,12 +373,12 @@ Apply these changes and restart all deployments.
 [source,shell]
 ----
 ./kubectl-apply.sh -f
-kubectl rollout restart deploy -n default
+kubectl rollout restart deploy -n demo
 ----
 
 Verify everything still works at `\http://localhost:8080`.
 
-TIP: If you want to make it so you don't need to restart the Spring Cloud Config server when you update its configuration, see link:/blog/2020/12/07/spring-cloud-config#refresh-the-configuration-in-your-spring-cloud-config-server[Refresh the Configuration in Your Spring Cloud Config Server].
+TIP: If you don't want to restart the Spring Cloud Config server when you update its configuration, see link:/blog/2020/12/07/spring-cloud-config#refresh-the-configuration-in-your-spring-cloud-config-server[Refresh the Configuration in Your Spring Cloud Config Server].
 
 === Change Spring Cloud Config Server to use Git
 
@@ -423,6 +425,16 @@ First, stop Minikube if you were running it previously.
 minikube stop
 ----
 
+You can also use `kubectl` commands to switch clusters.
+
+[source,shell]
+----
+kubectl config get-contexts
+kubectl config use-context XXX
+----
+
+The cool kids use `kubectx` and `kubens` to set the default context and namespace. You can learn how to install and use them via the https://github.com/ahmetb/kubectx[kubectx GitHub project].
+
 === Create a Container Registry on Google Cloud
 
 Before the JHipster 7.0.0 release, I tested this microservice example with Kubernetes and Google Cloud. I found many solutions in Ray Tsang's https://spring-gcp.saturnism.me/[Spring Boot on GCP Guides]. https://twitter.com/mraible/status/1372964263237718026[Thanks, Ray]!
@@ -454,7 +466,7 @@ gcloud container clusters create CLUSTER_NAME \
 
 I called my cluster `reactive-ms`. See GCP's https://cloud.google.com/compute/docs/regions-zones/[zones] and https://cloud.google.com/compute/docs/machine-types/[machine-types] for other options. I found the `n1-standard-4` to be the minimum for JHipster.
 
-You created Docker images earlier to run with Minikube. Those images were deployed to Docker Hub or your local Docker registry. If you deployed to Docker Hub, you can use your deployment files as-is.
+You created Docker images earlier to run with Minikube. Then, those images were deployed to Docker Hub or your local Docker registry. If you deployed to Docker Hub, you can use your deployment files as-is.
 
 For Google Cloud and its Kubernetes engine (GKE), you can also publish your images to your project's registry. Thankfully, this is easy to do with Jib.
 
@@ -496,59 +508,58 @@ In the `k8s` directory, apply all the deployment descriptors to run all your ima
 ./kubectl-apply.sh -f
 ----
 
-You can monitor the progress of your deployments with `kubectl get pods -n default`.
+You can monitor the progress of your deployments with `kubectl get pods -n demo`.
 
 [TIP]
 ====
-If you mess up the configuration for JHipster Registry and need to deploy it, you can do it with the following commands.
+If you make a mistake configuring JHipster Registry and need to deploy it, you can do so with the following command:
 
 [source,shell]
 ----
-kubectl delete pod jhipster-registry-0 -n default
-kubectl delete pod jhipster-registry-1 -n default
-kubectl apply -f registry-k8s/jhipster-registry.yml
+kubectl apply -f registry-k8s/jhipster-registry.yml -n demo
+kubectl rollout restart statefulset/jhipster-registry -n demo
 ----
 
 You'll need to restart all your deployments if you changed any configuration settings that services need to retrieve.
 
 [source,shell]
 ----
-kubectl rollout restart deploy -n default
+kubectl rollout restart deploy -n demo
 ----
 ====
 
-== Access Your Gateway on Google Cloud
+=== Access Your Gateway on Google Cloud
 
 Once everything is up and running, get the external IP of your gateway.
 
 [source,shell]
 ----
-kubectl get svc gateway -n default
+kubectl get svc gateway -n demo
 ----
 
 You'll need to add the external IP address as a valid redirect to your Okta OIDC app. Run `okta login`, open the returned URL in your browser, and sign in to the Okta Admin Console. Go to the **Applications** section, find your application, and edit it.
 
-Add the standard JHipster redirect URIs using the IP address. For example, `\http://34.71.48.244:8080/login/oauth2/code/oidc` for the login redirect URI and `\http://34.71.48.244:8080` for the logout redirect URI.
+Add the standard JHipster redirect URIs using the IP address. For example, `\http://34.71.48.244:8080/login/oauth2/code/oidc` for the login redirect URI, and `\http://34.71.48.244:8080` for the logout redirect URI.
 
 You can use the following command to set your gateway's IP address as a variable you can curl.
 
 [source,shell]
 ----
-EXTERNAL_IP=$(kubectl get svc gateway -n default -ojsonpath="{.status.loadBalancer.ingress[0].ip}")
+EXTERNAL_IP=$(kubectl get svc gateway -n demo -ojsonpath="{.status.loadBalancer.ingress[0].ip}")
 curl $EXTERNAL_IP:8080
 ----
 
-Run `open \http://$EXTERNAL_IP:8080` and you should be able to sign in.
+Run `open \http://$EXTERNAL_IP:8080`, and you should be able to sign in.
 
 image::{% asset_path 'blog/reactive-java-kubernetes/gke-first-login.png' %}[alt=First log in on GKE,width=800,align=center]
 
-Great! Now you know things work, let's integrate better security, starting with HTTPS.
+Great! Now that you know things work, let's integrate better security, starting with HTTPS.
 
 === Add HTTPS
 
 You should always use HTTPS. It's one of the easiest ways to secure things, especially with the free certificates offered these days. Ray Tsang's https://spring-gcp.saturnism.me/deployment/kubernetes/load-balancing/external-load-balancing[External Load Balancing docs] was a big help in figuring out all these steps.
 
-You'll need a static IP you can assign your TLS (the official name for HTTPS) certificate to.
+You'll need a static IP to assign your TLS (the official name for HTTPS) certificate.
 
 [source,shell]
 ----
@@ -589,14 +600,14 @@ Deploy it and make sure it worked.
 
 [source,shell]
 ----
-kubectl apply -f ingress.yml -n default
+kubectl apply -f ingress.yml -n demo
 
 # keep running this command displays an IP address
 # (hint: up arrow recalls the last command)
-kubectl get ingress gateway -n default
+kubectl get ingress gateway -n demo
 ----
 
-In order to use a TLS certificate, you must have a fully qualified domain name and configure it to point to the IP address. If you don't have a real domain, you can use https://nip.io/[nip.io].
+To use a TLS certificate, you must have a fully qualified domain name and configure it to point to the IP address. If you don't have a real domain, you can use https://nip.io/[nip.io].
 
 Set the IP in a variable, as well as the domain.
 
@@ -643,15 +654,14 @@ Deploy both files:
 
 [source,shell]
 ----
-kubectl apply -f certificate.yml -n default
-kubectl apply -f ingress.yml -n default
+kubectl apply -f certificate.yml -f ingress.yml -n demo
 ----
 
 Check your certificate's status until it prints `Status: ACTIVE`:
 
 [source,shell]
 ----
-kubectl describe managedcertificate gateway-certificate -n default
+kubectl describe managedcertificate gateway-certificate -n demo
 ----
 
 While you're waiting, you can proceed to forcing HTTPS in the next step.
@@ -677,11 +687,11 @@ Rebuild the Docker image for the gateway project.
 ./gradlew bootJar -Pprod jib -Djib.to.image=gcr.io/<your-project-id>/gateway
 ----
 
-Run the following commands to start a rolling restart of gateway instances.
+Run the following commands to start a rolling restart of gateway instances:
 
 [source,shell]
 ----
-kubectl rollout restart deployment gateway -n default
+kubectl rollout restart deployment gateway -n demo
 ----
 
 TIP: Run `kubectl get deployments` to see your deployment names.
@@ -694,13 +704,13 @@ Update your Okta OIDC app to have `\https://${DOMAIN}/login/oauth2/code/oidc` as
 
 == Encrypt Kubernetes Secrets
 
-Congratulations, now you have everything running on GKE, using HTTPS! However, you have a lot of plain-text secrets in your K8s YAML files.
+Congratulations! Now you have everything running on GKE, using HTTPS! However, you have a lot of plain-text secrets in your K8s YAML files.
 
 "But, wait!" you might say. Doesn't https://kubernetes.io/docs/concepts/configuration/secret/[Kubernetes Secrets] solve everything?
 
-In my opinion, no. They're just unencrypted base64-encoded strings stored in YAML files. You probably want to check in the `k8s` directory you created.
+In my opinion, no. They're just unencrypted base64-encoded strings stored in YAML files. You should check in the `k8s` directory you created.
 
-Having secrets in your source code is a bad idea. The good news is most people (where most people == my followers) manage secrets externally.
+Having secrets in your source code is a bad idea. The good news is most people (where most people = my followers) manage secrets externally.
 
 ++++
 <div style="max-width: 500px; margin: 0 auto 1.25rem">
@@ -720,7 +730,7 @@ https://bitnami.com/[Bitnami] has a https://github.com/bitnami-labs/sealed-secre
 
 > **Problem**: "I can manage all my K8s config in git, except Secrets."
 >
-> **Solution**: Encrypt your Secret into a SealedSecret, which is safe to store - even to a public repository. The SealedSecret can be decrypted only by the controller running in the target cluster and nobody else (not even the original author) is able to obtain the original Secret from the SealedSecret.
+> **Solution**: Encrypt your Secret into a SealedSecret, which is safe to store - even to a public repository. The SealedSecret can be decrypted only by the controller running in the target cluster, and nobody else (not even the original author) is able to obtain the original Secret from the SealedSecret.
 
 https://dev.to/stack-labs/store-your-kubernetes-secrets-in-git-thanks-to-kubeseal-hello-sealedsecret-2i6h[Store your Kubernetes Secrets in Git thanks to Kubeseal. Hello SealedSecret!] by https://twitter.com/aurelievache[Aurélie Vache] provides an excellent overview of how to use it.
 
@@ -731,7 +741,7 @@ First, you'll need to install the Sealed Secrets CRD (Custom Resource Definition
 kubectl apply -f https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.16.0/controller.yaml
 ----
 
-Retrieve the certificate keypair that's generated by this controller.
+Retrieve the certificate keypair that this controller generates.
 
 [source,shell]
 ----
@@ -775,10 +785,7 @@ Remove the original secrets file and deploy your sealed secrets.
 [source,shell]
 ----
 rm secrets.yml
-kubectl apply -f sealed-secrets.yml
-
-# verify it's been deployed
-kubectl get sealedsecret
+kubectl apply -n demo -f sealed-secrets.yml && kubectl get -n demo sealedsecret encrypt-key
 ----
 
 === Configure JHipster Registry to use the Sealed Secret
@@ -802,14 +809,14 @@ Now, redeploy JHipster Registry and restart all your deployments.
 [source,shell]
 ----
 ./kubectl-apply.sh -f
-kubectl rollout restart deployment -n default
+kubectl rollout restart deployment -n demo
 ----
 
 You can use port-forwarding to see the JHipster Registry locally.
 
 [source,shell]
 ----
-kubectl port-forward svc/jhipster-registry -n default 8761
+kubectl port-forward svc/jhipster-registry -n demo 8761
 ----
 
 image::{% asset_path 'blog/reactive-java-kubernetes/port-forwarded-registry.png' %}[alt=Port-forwarding the Registry to localhost,width=800,align=center]
@@ -837,34 +844,36 @@ You can scale your instances using the `kubectl scale` command.
 
 [source,shell]
 ----
-kubectl scale deployments/store --replicas=2 -n default
+kubectl scale deployments/store --replicas=2 -n demo
 ----
 
-Scaling will work just fine for the microservice apps because they're set up as OAuth 2.0 resource servers, and are therefore stateless.
+Scaling will work just fine for the microservice apps because they're set up as OAuth 2.0 resource servers and are therefore stateless.
 
-However, the gateway uses Spring Security's OIDC login feature and will store the access tokens in the session. If you scale it, session's won't be shared. Single sign-on should still work, you'll just have to do the OAuth dance to get tokens if you hit a different instance.
+However, the gateway uses Spring Security's OIDC login feature and stores the access tokens in the session. So if you scale it, sessions won't be shared. Single sign-on should still work; you'll just have to do the OAuth dance to get tokens if you hit a different instance.
 
 To synchronize sessions, you can use link:/blog/2020/12/14/spring-session-redis[Spring Session and Redis] with JHipster.
 
 [CAUTION]
 ====
-If you leave everything running on Google Cloud, you will be charged for usage. I recommend removing your cluster, or scaling your instances to 0 to reduce your cost.
+If you leave everything running on Google Cloud, you will be charged for usage. Therefore, I recommend removing your cluster or deleting your namespace (`kubectl delete ns demo`) to reduce your cost.
 
 ----
 gcloud container clusters delete <cluster-name> --zone=us-central1-a
 ----
 ====
 
-== Monitor Your Kubernetes Cluster with K9s and KDash
+== Monitor Your Kubernetes Cluster with K9s
 
 image::{% asset_path 'blog/reactive-java-kubernetes/k9s.png' %}[alt=K9s,role="BlogPost-avatar pull-right img-150px"]
-Using `kubectl` to monitor your Kubernetes cluster can get tiresome. That's where https://github.com/derailed/k9s[K9s] can be useful. It provides a terminal UI to interact with your Kubernetes clusters. K9s was created by my good friend https://twitter.com/kitesurfer[Fernand Galiana]. He's also created a commercial version called https://k9salpha.io/[K9sAlpha].
+Using `kubectl` to monitor your Kubernetes cluster can get tiresome. That's where https://github.com/derailed/k9s[K9s] can be helpful. It provides a terminal UI to interact with your Kubernetes clusters. K9s was created by my good friend https://twitter.com/kitesurfer[Fernand Galiana]. He's also created a commercial version called https://k9salpha.io/[K9sAlpha].
 
-To install it on macOS, run `brew install k9s`. Then run `k9s` to start it. You can navigate to your pods, select them with kbd:[Return], and navigate back up with kbd:[Esc].
+To install it on macOS, run `brew install k9s`. Then run `k9s -n demo` to start it. You can navigate to your pods, select them with kbd:[Return], and navigate back up with kbd:[Esc].
 
 image::{% asset_path 'blog/reactive-java-kubernetes/k9s-in-action.gif' %}[alt=K9s in Action,width=800,align=center]
 
 There's also https://github.com/kdash-rs/kdash[KDash], from JHipster co-lead, https://twitter.com/deepu105[Deepu K Sasidharan]. It's a simple K8s terminal dashboard built with Rust. Deepu recently https://twitter.com/deepu105/status/1383017556546584578[released an MVP of the project].
+
+If for some reason you don't like CLI's, you can try https://www.kubernetic.com/[Kubernetic].
 
 == Continuous Integration and Delivery of JHipster Microservices
 
@@ -878,24 +887,24 @@ I didn't mention Testcontainers in this post. However, https://atomfrede.gitlab.
 
 == Why Not Istio?
 
-I didn't use Istio in this example because I didn't want to complicate things. Learning Kubernetes is hard enough without learning another system on top of it. Istio acts as a network between your containers that's able to do networky things like authentication, authorization, monitoring, and retries. I like to think of it as AOP for containers.
+I didn't use Istio in this example because I didn't want to complicate things. Learning Kubernetes is hard enough without learning another system on top of it. Istio acts as a network between your containers that can do networky things like authentication, authorization, monitoring, and retries. I like to think of it as AOP for containers.
 
 If you'd like to see how to use JHipster with Istio, see https://dev.to/deepu105/how-to-set-up-java-microservices-with-istio-service-mesh-on-kubernetes-5bkn[How to set up Java microservices with Istio service mesh on Kubernetes] by JHipster co-lead https://twitter.com/deepu105[Deepu K Sasidharan].
 
-Fernand Galiana recommends checking out BPF (Berkley Packet Filter) and https://cilium.io/[Cilium]. Cilium is open source software for transparently providing and securing the network and API connectivity between application services deployed using Linux container management platforms such as Kubernetes.
+Fernand Galiana recommends checking out BPF (Berkeley Packet Filter) and https://cilium.io/[Cilium]. Cilium is open source software for transparently providing and securing the network and API connectivity between application services deployed using Linux container management platforms such as Kubernetes.
 
-== Learn More About Java Microservices and Kubernetes
+== Learn More About Kubernetes, Spring Boot, and JHipster
 
 This blog post showed you how to deploy your reactive Java microservices to production using Kubernetes. JHipster did much of the heavy lifting for you since it generated all the YAML-based deployment descriptors. Since no one really likes writing YAML, I'm calling that a win!
 
 You learned how to use JHipster Registry to encrypt your secrets and configure Git as a configuration source for Spring Cloud Config. Bitnami's Sealed Secrets is a nice companion to encrypt the secrets in your Kubernetes deployment descriptors.
 
-For more information about storing your secrets externally, these recent knowledge drops might help.
+For more information about storing your secrets externally, these additional resources might help.
 
 * https://twitter.com/kelseyhightower/status/1393062669754667017[Kelsey Hightower's Vault on Cloud Run Tutorial]
 * https://twitter.com/jstrachan/status/1393213646340337670[James Strachan's Helm Post Renderer]
 
-You can find the source code for this example on GitHub, in our https://github.com/oktadeveloper/java-microservices-examples[Java microservices examples repository].
+You can find the source code for this example on GitHub in our https://github.com/oktadeveloper/java-microservices-examples[Java microservices examples repository].
 
 [source,shell]
 ----
@@ -903,15 +912,16 @@ git clone https://github.com/oktadeveloper/java-microservices-examples.git
 cd java-microservices-examples/jhipster-k8s
 ----
 
-See JHipster's documentation on https://www.jhipster.tech/kubernetes/[Kubernetes] and https://www.jhipster.tech/gcp/[GCP] if you'd like more succinct instructions.
+See JHipster's documentation on https://www.jhipster.tech/kubernetes/[Kubernetes] and https://www.jhipster.tech/gcp/[GCP] if you'd like more concise instructions.
 
-If you enjoyed this post, I think you'll like these others as well.
+If you enjoyed this post, I think you'll like these others as well:
 
 - link:/blog/2021/01/20/reactive-java-microservices[Reactive Java Microservices with Spring Boot and JHipster]
 - link:/blog/2020/08/17/micronaut-jhipster-heroku[Build a Secure Micronaut and Angular App with JHipster]
 - link:/blog/2021/03/08/jhipster-quarkus-oidc[Fast Java Made Easy with Quarkus and JHipster]
 - link:/blog/2020/12/28/spring-boot-docker[How to Docker with Spring Boot]
 - link:/blog/2020/03/23/microservice-security-patterns[Security Patterns for Microservice Architectures]
+- link:/blog/2019/04/01/spring-boot-microservices-with-kubernetes[Build a Microservice Architecture with Spring Boot and Kubernetes] (uses Spring Boot 2.1)
 
 If you have any questions, please ask them in the comments below.
 
