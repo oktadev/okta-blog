@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "How to Kubernetes with Spring Boot and JHipster"
+title: "How to Kubernetes to the Cloud with Spring Boot and JHipster"
 author: matt-raible
 by: advocate
 communities: [java,devops]
