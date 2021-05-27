@@ -4,7 +4,7 @@ title: "Use Okta and Oso to Secure a FastAPI + SQLAlchemy App"
 author: gabe-jackson
 by: external-contributor
 communities: [python]
-description: "How to use Oso with Okta to add authorization to a FastAPI and SQLAlchemy app"
+description: "How to use Oso with Okta to add authorization to a FastAPI and SQLAlchemy app."
 tags: [oso, authorization]
 tweets:
 - "Learn how to add simple authorization to your app with Oso and Okta"
