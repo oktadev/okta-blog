@@ -243,7 +243,7 @@ so we prefix it with an underscore to indicate that it won't be referenced in th
 
 Save the file, flip back to [localhost:8080][], and you should once again be able to create new bears (assuming you haven't set your own user's `is_banned` property to `True`). All law-abiding bear enthusiasts have had their access restored, and the koala lovers are left out in the cold. (Does it get cold in Australia? We'll investigate in a future blog.)
 
-### Dealing with list endpoints
+### Deal with List Endpoints
 
 `oso.is_allowed()` worked perfectly for securing the `create()` endpoint, but it's not the best tool for the job when it comes to securing `index()`. The difference is that `create()` operates over a single record while `index()` operates over a potentially very large collection. If performance weren't an issue, we could load the collection from the database and iterate over it,
 calling `oso.is_allowed()` on every record to filter out unauthorized entries. However, we all know that Zoomers lose interest and click away from your website if it takes longer than a few Planck time units to load, so we need a better solution.
