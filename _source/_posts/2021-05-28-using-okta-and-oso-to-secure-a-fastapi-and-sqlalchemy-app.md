@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Using Okta + Oso to secure a FastAPI + SQLAlchemy app"
+title: "Use Okta and Oso to Secure a FastAPI + SQLAlchemy App"
 author: gabe-jackson
 by: external-contributor
 communities: [python]
