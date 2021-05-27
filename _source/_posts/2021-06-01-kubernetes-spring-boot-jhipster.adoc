@@ -777,7 +777,7 @@ Next, use `kubeseal` to convert the secrets to encrypted secrets.
 
 [source,shell]
 ----
-kubeseal --cert tls.crt --format=yaml < secrets.yml > sealed-secrets.yml
+kubeseal --cert tls.crt --format=yaml -n demo < secrets.yml > sealed-secrets.yml
 ----
 
 Remove the original secrets file and deploy your sealed secrets.
