@@ -558,7 +558,7 @@ image::{% asset_path 'blog/reactive-java-kubernetes/gke-first-login.png' %}[alt=
 
 Great! Now that you know things work, let's integrate better security, starting with HTTPS.
 
-=== Add HTTPS
+=== Add HTTPS to Your Reactive Gateway
 
 You should always use HTTPS. It's one of the easiest ways to secure things, especially with the free certificates offered these days. Ray Tsang's https://spring-gcp.saturnism.me/deployment/kubernetes/load-balancing/external-load-balancing[External Load Balancing docs] was a big help in figuring out all these steps.
 
