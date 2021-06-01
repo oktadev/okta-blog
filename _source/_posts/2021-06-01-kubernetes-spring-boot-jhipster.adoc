@@ -312,7 +312,7 @@ You may notice that I used a secret in plain text in the `application-configmap.
 
 The JHipster Registry has an encryption mechanism you can use to encrypt your secrets. That way, it's safe to store them in public repositories.
 
-Add the following to the environment variables in `k8s/registry-k8s/jhipster-registry.yml`.
+Add an `ENCRYPT_KEY` to the environment variables in `k8s/registry-k8s/jhipster-registry.yml`.
 
 [source,yaml]
 ----
@@ -458,7 +458,6 @@ gcloud services enable container.googleapis.com containerregistry.googleapis.com
 
 Run the following command to create a cluster for your apps.
 
-[[create-cluster]]
 [source,shell]
 ----
 gcloud container clusters create CLUSTER_NAME \
@@ -712,9 +711,9 @@ Congratulations! Now you have everything running on GKE, using HTTPS! However, y
 
 "But, wait!" you might say. Doesn't https://kubernetes.io/docs/concepts/configuration/secret/[Kubernetes Secrets] solve everything?
 
-In my opinion, no. They're just unencrypted base64-encoded strings stored in YAML files. You should check in the `k8s` directory you created.
+In my opinion, no. They're just unencrypted base64-encoded strings stored in YAML files. There's a good chance you'll want to check in the `k8s` directory you created.
 
-Having secrets in your source code is a bad idea. The good news is most people (where most people = my followers) manage secrets externally.
+Having secrets in your source code is a bad idea! The good news is most people (where most people = my followers) manage secrets externally.
 
 ++++
 <div style="max-width: 500px; margin: 0 auto 1.25rem">
@@ -840,7 +839,9 @@ This is pretty slick, but I like to remain cloud-agnostic. Also, I like how the 
 
 === Use Spring Vault for External Secrets
 
-Using an external key management solution like https://www.hashicorp.com/products/vault[HashiCorp Vault] is also recommended. The JHipster Registry will have https://github.com/jhipster/jhipster-registry/pull/498[Vault support in its next release]. In the meantime, I recommend reading link:/blog/2020/05/04/spring-vault[Secure Secrets With Spring Cloud Config and Vault].
+Using an external key management solution like https://www.hashicorp.com/products/vault[HashiCorp Vault] is also recommended. The JHipster Registry will have https://github.com/jhipster/jhipster-registry/pull/498[Vault support in its next release].
+
+In the meantime, I recommend reading link:/blog/2020/05/04/spring-vault[Secure Secrets With Spring Cloud Config and Vault].
 
 == Scale Your Reactive Java Microservices
 
