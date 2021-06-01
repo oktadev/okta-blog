@@ -485,7 +485,7 @@ JHipster creates a cloud-native microservices architecture that can be deployed 
 
 However, if you're doing microservices, you'll probably want to leverage Docker as you did in this tutorial. When your apps are containerized, they can be orchestrated with Kubernetes.
 
-JHipster has a https://www.jhipster.tech/kubernetes/[Kubernetes] sub-generator that you can use to deploy it to the cloud. I'll cover this in a future tutorial.
+JHipster has a https://www.jhipster.tech/kubernetes/[Kubernetes] sub-generator that you can use to deploy it to the cloud. I'll cover this in a link:/blog/2021/06/01/kubernetes-spring-boot-jhipster[future tutorial].
 
 In the meantime, you can watch a presentation that https://twitter.com/saturnism[Ray Tsang] and I did recently that shows how to deploy JHipster microservices with Kubernetes. If you start watching from https://youtu.be/AG4z18qePEw?t=2778[46:18], you'll see Ray show how to deploy to Google Cloud using Kubernetes.
 
@@ -540,6 +540,7 @@ I'm proud to say that parts of this series were Josh Long's initial drafts for h
 
 If you liked this post, you might like some of our other Java microservices posts:
 
+* link:/blog/2021/06/01/kubernetes-spring-boot-jhipster[Kubernetes to the Cloud with Spring Boot and JHipster]
 * link:/blog/2019/05/22/java-microservices-spring-boot-spring-cloud[Java Microservices with Spring Boot and Spring Cloud].
 * link:/blog/2019/05/23/java-microservices-spring-cloud-config[Java Microservices with Spring Cloud Config and JHipster]
 * link:/blog/2019/08/28/reactive-microservices-spring-cloud-gateway[Secure Reactive Microservices with Spring Cloud Gateway]
