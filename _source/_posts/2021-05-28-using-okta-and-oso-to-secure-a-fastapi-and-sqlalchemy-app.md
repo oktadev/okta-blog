@@ -26,13 +26,17 @@ This post is aimed at people with some familiarity with FastAPI and SQLAlchemy. 
 
 The full example is available on [GitHub][]. Clone the repo and follow along!
 
-## Bear Management Service architecture
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+
+## Bear Management Service Architecture
 
 What, you expected TodoMVC?
 
 Our app allows authenticated users to register their own bears and view the bear population at large. It consists of two separate services: a front end through which users authenticate with Okta, and a back end that exposes an extensive API for creating and retrieving bears.
 
-## Setting up Okta
+## Set Up Okta
 
 {% include setup/cli.md type="spa" %}
 
@@ -63,17 +67,17 @@ After creating the `.env` file in the project root, symlink it into the `okta-ho
 $ ln -s ../.env okta-hosted-login/.env
 ```
 
-## Starting the front end
+## Start the React Front End
 
 In the `okta-hosted-login` directory, run `npm install` to install dependencies and then `npm start` to fire up the React front end.
 
-Once the app is up and running, navigate to [localhost:8080][] in your browser. Click the `Login` button and enter your Okta credentials when prompted. Successfully signing in should redirect you back to your front end, where you'll be greeted with your name (courtesy of Okta), a 'Create a new bear' form, and a list of bears:
+Once the app is up and running, navigate to `http://localhost:8080` in your browser. Click the `Login` button and enter your Okta credentials when prompted. Successfully signing in should redirect you back to your front end, where you'll be greeted with your name (courtesy of Okta), a 'Create a new bear' form, and a list of bears:
 
 {% img blog/using-okta-and-oso-to-secure-a-fastapi-and-sqlalchemy-app/image1.png alt:"Eureka Instances Registered" width:"800" %}{: .center-image }
 
 The list will be empty because our back end service isn't running, so let's change that.
 
-## Starting the back end
+## Start the FastAPI Back End
 
 While the React app hums happily in the background, open a new terminal and `cd` to the project's root directory. In the root, create and activate a new virtual
 environment, and then install dependencies:
@@ -89,7 +93,7 @@ Finally, start the FastAPI server:
 uvicorn app.main:app --reload --reload-dir=app
 ```
 
-If you reload [localhost:8080][], you should see the list of bears populated with a number of very good bears owned by various members of Example.com, Inc:
+If you reload `http://localhost:8080`, you should see the list of bears populated with a number of very good bears owned by various members of Example.com, Inc:
 
 {% img blog/using-okta-and-oso-to-secure-a-fastapi-and-sqlalchemy-app/image2.png alt:"Eureka Instances Registered" width:"800" %}{: .center-image }
 
@@ -97,14 +101,14 @@ Go ahead and create a few new bears of your own.
 
 Our app is now open for business... _too_ open. Every authenticated user can see everyone's bears — even users who have been banned for trying to create koalas. It's time to put a stop to the madness.
 
-## ABAC, as easy as 1-2-3 🕺
+## ABAC, As Easy as 1-2-3 🕺
 
 **Oso** is an [open source][osohq/oso]
 authorization system that we'll use to secure our app. Oso is flexible enough to support [any access control pattern your heart desires][patterns], but for this example we'll focus on [attribute-based access control (ABAC)][abac].
 
 ABAC is all about representing fine-grained or dynamic permissions based on who the user is and their relation to the resource they want to access.
 
-### The bear necessities
+### The Bear Necessities
 
 First, after pressing Ctrl+C to exit FastAPI, we're going to install the `oso` and `sqlalchemy-oso` packages:
 
@@ -218,7 +222,7 @@ If you save `app/main.py` and then try to create a new bear, the `POST` request 
 
 Oso is deny-by-default, and we currently have an empty policy file. In the next section, we'll write our first authorization rule to allow real bear lovers to create real bears.
 
-### Our first `allow()` rule
+### Add Your First `allow()` Rule
 
 For our first foray into writing a policy, we're going to use Polar, Oso's declarative programming language, to add a rule that prevents banned users from creating new bears.
 
@@ -302,7 +306,7 @@ index f2a17d0..1fa9573 100644
 
 Save the file, reload [localhost:8080][], and... no bears. They're still happily growling away in the database, but we haven't added any Oso rules permitting access. Let's change that.
 
-### Fleshing out our authorization policy
+### Flesh Out Your Authorization Policy
 
 To start off, let's add a rule to `app/policy.polar` that permits all users to list all bears:
 
