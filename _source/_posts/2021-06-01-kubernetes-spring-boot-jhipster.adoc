@@ -1,11 +1,11 @@
 ---
 layout: blog_post
-title: "How to Kubernetes to the Cloud with Spring Boot and JHipster"
+title: "Kubernetes to the Cloud with Spring Boot and JHipster"
 author: matt-raible
 by: advocate
 communities: [java,devops]
-description: "Giddyup and go to the cloud with Kubernetes, Spring Boot, and JHipster!"
-tags: [kubernetes, google-cloud, gke, spring-boot, jhipster, k9s]
+description: "Giddyup and deploy to the cloud (Minikube and Google Cloud) with Kubernetes, Spring Boot, and JHipster!"
+tags: [kubernetes, spring-boot, google-cloud, gke, minikube, jhipster, k9s]
 tweets:
 - "Avoid YAML and use JHipster to deploy your @springboot apps with @kubernetesio."
 - "Dislike YAML? Me too! This 20-page Kubernetes tutorial only has 60 lines of YAML and you only need to write 36 of them. 😏"
@@ -23,7 +23,9 @@ Kubernetes is an open-source platform for managing containerized workloads and s
 
 Spring Boot and Spring Cloud were some of the pioneering frameworks in Javaland. However, even they stood on the shoulders of giants when they leveraged Netflix's open-source projects to embrace and extend. In 2018, https://netflixtechblog.com/netflix-oss-and-spring-boot-coming-full-circle-4855947713a0[Netflix OSS announced they'd come full circle], and adopted Spring Boot.
 
-Today, I'd like to show you how to build and deploy (with Kubernetes) a __reactive__ microservice architecture with Spring Boot, Spring Cloud, and JHipster. Why reactive? Because Spring Cloud Gateway is now the default for JHipster 7, even if you choose to build your microservices with Spring MVC.
+Today, I'd like to show you how to build and deploy (with Kubernetes) a __reactive__ microservice architecture with Spring Boot, Spring Cloud, and JHipster. Why reactive? Because Spring Cloud Gateway is now the default for JHipster 7 gateways, even if you choose to build your microservices with Spring MVC.
+
+image::{% asset_path 'blog/reactive-java-kubernetes/reactive-java-k8s.png' %}[alt=Reactive Java Kubernetes,width=800,align=center]
 
 Spring Cloud Gateway is a library for building an API Gateway on top of Spring WebFlux. It easily integrates with OAuth to communicate between microservices. You just need to add a `TokenRelay` filter.
 
@@ -37,8 +39,6 @@ spring:
 ----
 
 CAUTION: Spring Cloud no longer supports Netflix Zuul. An https://github.com/spring-cloud/spring-cloud-gateway/issues/36[open issue] adds Spring MVC/Servlet support to Spring Cloud Gateway. It's scheduled for implementation before the end of 2021.
-
-image::{% asset_path 'blog/reactive-java-kubernetes/reactive-java-k8s.png' %}[alt=Reactive Java Kubernetes,width=800,align=center]
 
 **Prerequisites**
 
@@ -159,7 +159,7 @@ If you have Docker installed, you can run Kubernetes locally with Minikube. Run 
 minikube --cpus 8 start
 ----
 
-INFO: If this doesn't work, use `brew install minikube`, or see https://minikube.sigs.k8s.io/docs/start/[Minikube's installation instructions].
+CAUTION: If this doesn't work, use `brew install minikube`, or see https://minikube.sigs.k8s.io/docs/start/[Minikube's installation instructions].
 
 This command will start Minikube with 16 GB of RAM and 8 CPUs. Unfortunately, the default, which is 16 GB RAM and two CPUs, did not work for me.
 
@@ -248,7 +248,11 @@ To configure the JHipster Registry to use OIDC for authentication, modify `k8s/r
   value: prod,k8s,oauth2
 ----
 
-Then, in the `k8s` directory, start your engines!
+Now that you've configured everything, it's time to see it in action.
+
+== Start Your Spring Boot Microservices with K8s
+
+In the `k8s` directory, start your engines!
 
 [source,shell]
 ----
@@ -304,7 +308,7 @@ image::{% asset_path 'blog/reactive-java-kubernetes/cypress-e2e.png' %}[alt=Cypr
 
 You may notice that I used a secret in plain text in the `application-configmap.yml` file. Secrets in plain text are a bad practice! I hope you didn't check everything into source control yet!!
 
-== Encrypt / Decrypt Your Spring Cloud Configuration
+== Encrypt Your Secrets with Spring Cloud Config
 
 The JHipster Registry has an encryption mechanism you can use to encrypt your secrets. That way, it's safe to store them in public repositories.
 
@@ -380,7 +384,7 @@ Verify everything still works at `\http://localhost:8080`.
 
 TIP: If you don't want to restart the Spring Cloud Config server when you update its configuration, see link:/blog/2020/12/07/spring-cloud-config#refresh-the-configuration-in-your-spring-cloud-config-server[Refresh the Configuration in Your Spring Cloud Config Server].
 
-=== Change Spring Cloud Config Server to use Git
+=== Change Spring Cloud Config to use Git
 
 You might want to store your app's configuration externally. That way, you don't have to redeploy everything to change values. Good news! Spring Cloud Config makes it easy to switch to Git instead of the filesystem to store your configuration.
 
@@ -414,7 +418,7 @@ In my case, I created https://github.com/mraible/reactive-java-ms-config/[reacti
 
 See Spring Cloud Config's https://cloud.spring.io/spring-cloud-config/multi/multi__spring_cloud_config_server.html#_git_backend[Git Backend docs] for more information.
 
-== Deploy to Google Cloud (aka GCP)
+== Deploy Spring Boot Microservices to Google Cloud (aka GCP)
 
 It's nice to see things running locally on your machine, but it's even better to get to production! In this section, I'll show you how to deploy your containers to Google Cloud.
 
@@ -702,7 +706,7 @@ image::{% asset_path 'blog/reactive-java-kubernetes/httpie-302.png' %}[alt=302 i
 
 Update your Okta OIDC app to have `\https://${DOMAIN}/login/oauth2/code/oidc` as a valid redirect URI. Add `\https://${DOMAIN}.nip.io` to the sign-out redirect URIs too.
 
-== Encrypt Kubernetes Secrets
+== Encrypt Your Kubernetes Secrets
 
 Congratulations! Now you have everything running on GKE, using HTTPS! However, you have a lot of plain-text secrets in your K8s YAML files.
 
@@ -838,7 +842,7 @@ This is pretty slick, but I like to remain cloud-agnostic. Also, I like how the 
 
 Using an external key management solution like https://www.hashicorp.com/products/vault[HashiCorp Vault] is also recommended. The JHipster Registry will have https://github.com/jhipster/jhipster-registry/pull/498[Vault support in its next release]. In the meantime, I recommend reading link:/blog/2020/05/04/spring-vault[Secure Secrets With Spring Cloud Config and Vault].
 
-== Scale Your JHipster Microservices
+== Scale Your Reactive Java Microservices
 
 You can scale your instances using the `kubectl scale` command.
 
