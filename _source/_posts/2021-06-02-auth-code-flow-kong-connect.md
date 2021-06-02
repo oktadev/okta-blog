@@ -25,10 +25,10 @@ We'll go through the authorization code flow applied to user authentication proc
 * Table of Contents
 {:toc}
 
-You can also [watch this tutorial as a screencast](https://youtu.be/K1cZuiIxb_M).
+You can also [watch this tutorial as a screencast](https://youtu.be/WyjSvekzoNk).
 
 <div style="text-align: center; margin-bottom: 1.25rem">
-<iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/K1cZuiIxb_M" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/WyjSvekzoNk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 ## Kong Konnect and Okta Integration Topology
