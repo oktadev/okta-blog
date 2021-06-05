@@ -14,9 +14,9 @@ image:
 type: conversion
 ---
 
-Spring ẀebClient was added as part of the reactive web stack WebFlux in Spring Framework 5.0. WebClient allows to perform HTTP requests in reactive applications, providing a functional and fluent API based on Reactor, and enabling a declarative composition of asynchronous non-blocking requests without the need to deal with concurrency. One of its features is the support for filter registration, allowing to intercept and modify requests, which can be used for cross-cutting concerns such as authentication, as it will be demonstrated in this tutorial.
+Spring ẀebClient was added as part of the reactive web stack WebFlux in Spring Framework 5.0. WebClient allows performing HTTP requests in reactive applications, providing a functional and fluent API based on Reactor, and enabling a declarative composition of asynchronous non-blocking requests without the need to deal with concurrency. One of its features is the support for filter registration, allowing to intercept and modify requests, which can be used for cross-cutting concerns such as authentication, as it will be demonstrated in this tutorial.
 
-The WebTestClient is also an HTTP client, designed for testing applications, that wraps WebClient and provides a testing facade for verifying responses. It can be used to perform end-to-end HTTP tests, binding to a running server. It can also bind to a controller or application context, and mock requests and responses without the need of a running server. Spring Security 5 provides integration with WebTestClient, and ships with SecurityMockServerConfigurers that can be used mock authenticated users and authorized clients, to avoid authorization handshakes during test. This feature is especially useful for secured applications that access third-party OAuth2 resources, as it will be explored in the following sections.
+The WebTestClient is also an HTTP client, designed for testing applications, that wraps WebClient and provides a testing facade for verifying responses. It can be used to perform end-to-end HTTP tests, binding to a running server. It can also bind to a controller or application context, and mock requests and responses without the need of a running server. Spring Security 5 provides integration with WebTestClient, and ships with SecurityMockServerConfigurers that can be used to mock authenticated users and authorized clients, to avoid authorization handshakes during testing. This feature is especially useful for secured applications that access third-party OAuth2 resources, as it will be explored in the following sections.
 
 In this tutorial, you will learn how to:
 - Secure an application with Okta OIDC Login
@@ -176,7 +176,7 @@ public class SearchController {
 ```
 
 Independent of how the user authenticates, in this case using Okta, another client registration is in play for the search request.
-The `SearchController` requires a `github` authorized client, that is set as an attribute in the WebClient. With this parameter, Spring Security will resolve the access token for accessing the GitHub REST Api. Notice the controller autowires a `WebClient` instance that will be configured in the next section, along with the GitHub client registration. Also notice the mentioned declarative composition of the request. The URI, parameters, request attributes and response extraction are defined through method chaining.
+The `SearchController` requires a `github` authorized client, that is set as an attribute in the WebClient. With this parameter, Spring Security will resolve the access token for accessing the GitHub REST Api. Notice the controller autowires a `WebClient` instance that will be configured in the next section, along with the GitHub client registration. Also, notice the mentioned declarative composition of the request. The URI, parameters, request attributes, and response extraction are defined through method chaining.
 
 ## Access an OAuth2 Third-Party Resource with Spring WebClient
 
@@ -212,15 +212,15 @@ public class WebClientConfiguration {
 The `ServerOAuth2AuthorizedClientExchangeFilterFunction` provides a mechanism for using an `OAuth2AuthorizedClient` to make requests including a Bearer Token, and supports the following features:
 
 - **setDefaultOAuth2AuthorizedClient**: explicitly opt into using the oauth2Login to provide an access token implicitly. For this use case, the `WebClient` is used to access a third-party service, so the tokens obtained from Okta are not valid for accessing GitHub.
-- **setDefaultClientRegistrationId**: set a default ClientRegistration.registrationId. This could be a useful option, as the `WebClient` would be already initialized with the required GitHub client registration. But for some reason the integration test will not pick up the mock client registration, and a grant flow will be triggered to production GitHub. That's the reason why instead of using this feature, the `WebClient` is passed the GitHub authorized client through attributes, when invoked in the `SearchController`.
+- **setDefaultClientRegistrationId**: set a default ClientRegistration.registrationId. This could be a useful option, as the `WebClient` would be already initialized with the required GitHub client registration. But for some reason, the integration test will not pick up the mock client registration, and a grant flow will be triggered to production GitHub. That's the reason why instead of using this feature, the `WebClient` is passed the GitHub authorized client through attributes when invoked in the `SearchController`.
 
-For the Github client registration, you need GitHub account. Sign in and go to the top right user menu and choose **Settings**. Then on the left menu, choose **Developer settings**. From the left menu, select **OAuth Apps**, then click on **New OAuth App**. For the example, set the following vales:
+For the Github client registration, you need a GitHub account. Sign in and go to the top-right user menu and choose **Settings**. Then on the left menu, choose **Developer settings**. From the left menu, select **OAuth Apps**, then click on **New OAuth App**. For the example, set the following values:
 
 - Application name: search-service
 - Homepage URL: http://localhost:8080
 - Authorization callback URL: http://localhost:8080
 
-Click **Register application**. Now, in the application page, click on **Generate a new client secret**. Copy the **Client ID** and the generated **Client secret**.
+Click **Register application**. Now, on the application page, click on **Generate a new client secret**. Copy the **Client ID** and the generated **Client secret**.
 
 {% img blog/spring-webclient/github-oauth-application.png alt:"GitHub OAuth Application clientID and secret" width:"800" %}{: .center-image }
 
@@ -241,7 +241,7 @@ spring:
 
 ## Spring WebClient Testing with MockWebServer
 
-For testing code that uses the WebClient, Spring Framework documentation recommends [OkHttp MockWebServer](https://GitHub.com/square/okhttp#mockwebserver), in the WebClient chapter. This recommendation should also be included in the Integration Testing chapter, as only clients that use RestTemplate internally are mentioned in that chapter. Different aspects of Spring `WebClient` and `WebTestClient` are covered across the three references Spring Framework, Spring Boot and Spring Security and navigating through documentation is not an easy task.
+For testing code that uses the WebClient, Spring Framework documentation recommends [OkHttp MockWebServer](https://GitHub.com/square/okhttp#mockwebserver), in the WebClient chapter. This recommendation should also be included in the Integration Testing chapter, as only clients that use RestTemplate internally are mentioned in that chapter. Different aspects of Spring `WebClient` and `WebTestClient` are covered across the three references Spring Framework, Spring Boot, and Spring Security, and navigating through documentation is not an easy task.
 
 For this example, the `MockWebServer` will mock the GitHub REST Api. With this library and the help of Spring Security Test, hitting to production can be avoided, and the third-party authorization can be mock.
 
@@ -339,16 +339,16 @@ public class SearchControllerIntegrationTest {
 ```
 Let's break down what is going on in this test.
 
-The `@BeforeAll` and `@AfterAll` annotated methods start and shutdown the `MockWebServer` that will mock GitHub REST Api. The `@DynamicPropertySource` annotated method overwrites the GitHub REST Api URL, and makes point it to the mockWebServer instance.
+The `@BeforeAll` and `@AfterAll` annotated methods start and shut down the `MockWebServer` that will mock GitHub REST Api. The `@DynamicPropertySource` annotated method overwrites the GitHub REST Api URL and makes it point to the mockWebServer instance.
 
 The call to `mockWebServer.enqueue()` sets up the mock response for the third-party call.
 
 In the `WebTestClient`, the test request is configured with a mock `OidcUser` with the `mutateWith(mockOidcLogin())` call, avoiding some kind of simulation of the grant flow with the Okta authorization server.
 
-As mentioned before, independent of how the user authenticates, there is a second client registration in play for the request under test. The call `mutateWith(mockOAuth2Client("github"))` creates an OAuth2AuthorizedClient, avoiding the simulation of of a handshake with the third-party authorization server.
+As mentioned before, independent of how the user authenticates, there is a second client registration in play for the request under test. The call `mutateWith(mockOAuth2Client("github"))` creates an OAuth2AuthorizedClient, avoiding the simulation of a handshake with the third-party authorization server.
 
 
-Run th integration test with maven:
+Run the integration test with maven:
 
 ```shell
 ./mvnw test
@@ -363,11 +363,11 @@ Open an incognito window and go to http://localhost:8080/totalCount/root:%20DEBU
 
 {% img blog/spring-webclient/okta-login.png alt:"Okta Login Form" width:"400" %}{: .center-image }
 
-Once you login with your Okta user, Spring Security will trigger the GitHub authorization flow, to instantiate the authorized client required for the Api request:
+Once you sign in with your Okta user, Spring Security will trigger the GitHub authorization flow, to instantiate the authorized client required for the Api request:
 
 {% img blog/spring-webclient/github-login.png alt:"Github Login Form" width:"400" %}{: .center-image }
 
-After the GitHub Login, the you must authorize the search application for sending requests to the GitHub REST Api on your behalf:
+After the GitHub Login, then you must authorize the search application for sending requests to the GitHub REST Api on your behalf:
 
 {% img blog/spring-webclient/github-authorization.png alt:"Github Authorization Page" width:"600" %}{: .center-image }
 
@@ -379,7 +379,7 @@ After the authorization, the search result will show:
 
 ## Learn More About Reactive Spring Boot and WebClient
 
-I hope you enjoyed this tutorial and got a clear picture about WebClient testing for applications that access third-party services. As mentioned before, `WebClient` and `WebTestClient` documentation pieces are covered in the three references, Spring Framework, Spring Boot and Spring Security, so I recommend to take a thorough look at all of them. An additional aspect to explore is how to add layering, given that client registrations must be injected as controller parameters, to trigger the authorization flows when required. Keep learning about Reactive Applications with Spring Boot, and OAuth security, and checkout the following links:
+I hope you enjoyed this tutorial and got a clear picture of WebClient testing for applications that access third-party services. As mentioned before, `WebClient` and `WebTestClient` documentation pieces are covered in the three references, Spring Framework, Spring Boot, and Spring Security, so I recommend taking a thorough look at all of them. An additional aspect to explore is how to add layering, given that client registrations must be injected as controller parameters, to trigger the authorization flows when required. Keep learning about Reactive Applications with Spring Boot, and OAuth security, and check out the following links:
 
 - [How to Use Client Credentials Flow with Spring Security](https://developer.okta.com/blog/2021/05/05/client-credentials-spring-security)
 - [Reactive Java Microservices with Spring Boot and JHipster](https://developer.okta.com/blog/2021/01/20/reactive-java-microservices)
