@@ -74,7 +74,7 @@ When a user first accesses your site, he/she can use an anonymous session.  This
 
 Node.js has become wildly popular over the last 10 years.  With it, several frameworks and session management libraries have cropped up to support it.  Most frameworks use their own session management middleware.  For example, `express`, the most popular server framework for Node.js, has the accompanying `express-session` for session management.  Similarly, `koa` uses `koajs/session` for its session management.  
 
-For this article, I want to focus on `express-session`, as it is one of the most mature and widely used session management libraries available for Node.js.  For a full rundown of the `express-session` package, you can view the [readme here](https://github.com/expressjs/session#readme).  Below aresome of the highlights:
+For this article, I want to focus on `express-session`, as it is one of the most mature and widely used session management libraries available for Node.js.  For a full rundown of the `express-session` package, you can view the [readme here](https://github.com/expressjs/session#readme).  Below are some of the highlights:
 
 Registering the middleware for `express-session` is very simple.
 
