@@ -36,7 +36,7 @@ Each session has an associated session ID with it.  It is very important that th
 
 In session sniffing, an attacker can use a sniffing application such as Wireshark or a proxy to capture network traffic between a client and server.  As you've learned, that traffic will ultimately contain a request with a session cookie in it.  This cookie will have the session ID which can then be hijacked.
 
-### Man in the middle attacks
+### Man-in-the-Middle Attacks
 
 In a man-in-the-middle attack, an attacker sits between the web server and the client.  The attacker can then pass requests from the client to the server and respond without detection from either.  But along the way, the attacker has gained access to the session.
 
