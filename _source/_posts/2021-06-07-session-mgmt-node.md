@@ -185,7 +185,7 @@ Session management is a topic that you could spend days researching and understa
 - [Build A Simple Web App with Node and Postgres ](/blog/2019/11/22/node-postgres-simple-webapp)
 =======
 - [Why JWTs Suck as Session Tokens](https://developer.okta.com/blog/2017/08/17/why-jwts-suck-as-session-tokens)
-- [Build a Simple CRUD Application with Node and MySQL ](https://developer.okta.com/blog/2019/09/09/build-crud-app-node-mysql)
+- [Build a Simple CRUD Application with Node and MySQL](https://developer.okta.com/blog/2019/09/09/build-crud-app-node-mysql)
 - [Build A Simple Web App with Node and Postgres](https://developer.okta.com/blog/2019/11/22/node-postgres-simple-webapp)
 >>>>>>> 09792ab2f5da14c79e24e66657bcb257f3bb0f1c
 
