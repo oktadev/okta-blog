@@ -11,7 +11,7 @@ tweets:
 - "Learn how to manage sessions in Node!"
 - "Managing sessions in Node can be confusing. Check this out!"
 image: blog/featured/okta-node-skew.jpg
-type: conversion
+type: awareness
 ---
 
 Session Management is a pretty scary term for a lot of developers.  Most of the mechanics of session management are abstracted away from developers, to the point where they don't properly learn about it until it's necessary.  Usually, this means a late night trying to figure out a vulnerability, a bug, or how to work with a new session management library.  Hopefully, I can remove some of the magic behind session management in NodeJs and give you a good fundamental place to start.  In this article, you will learn what sessions are, how to manage them in Node.js, and some details that should help you minimize bugs and vulnerabilities.
@@ -179,8 +179,8 @@ In the above example, you are registering the `ExpressOIDC` middleware provided 
 
 Session management is a topic that you could spend days researching and understanding.  As I noted, the session management package you will use in Node.js will largely depend on your stack and your server framework.  However, by becoming familiar with implementing safe and optimized session management in one framework, you can carry that knowledge to all other Node.js frameworks.  
 
-- [Why JWTs Suck as Session Tokens ](https://developer.okta.com/blog/2017/08/17/why-jwts-suck-as-session-tokens)
-- [Build a Simple CRUD Application with Node and MySQL ](https://developer.okta.com/blog/2019/09/09/build-crud-app-node-mysql)
-- [Build A Simple Web App with Node and Postgres ](https://developer.okta.com/blog/2019/11/22/node-postgres-simple-webapp)
+- [Why JWTs Suck as Session Tokens ](/blog/2017/08/17/why-jwts-suck-as-session-tokens)
+- [Build a Simple CRUD Application with Node and MySQL ](/blog/2019/09/09/build-crud-app-node-mysql)
+- [Build A Simple Web App with Node and Postgres ](/blog/2019/11/22/node-postgres-simple-webapp)
 
 Make sure you follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel. If you have any questions, or you want to share what tutorial you'd like to see next, please comment below.
