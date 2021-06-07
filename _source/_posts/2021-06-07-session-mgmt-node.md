@@ -179,7 +179,7 @@ In the above example, you are registering the `ExpressOIDC` middleware provided 
 
 Session management is a topic that you could spend days researching and understanding.  As I noted, the session management package you will use in Node.js will largely depend on your stack and your server framework.  However, by becoming familiar with implementing safe and optimized session management in one framework, you can carry that knowledge to all other Node.js frameworks.  
 
-- [Why JWTs Suck as Session Tokens ](https://developer.okta.com/blog/2017/08/17/why-jwts-suck-as-session-tokens)
+- [Why JWTs Suck as Session Tokens](https://developer.okta.com/blog/2017/08/17/why-jwts-suck-as-session-tokens)
 - [Build a Simple CRUD Application with Node and MySQL ](https://developer.okta.com/blog/2019/09/09/build-crud-app-node-mysql)
 - [Build A Simple Web App with Node and Postgres ](https://developer.okta.com/blog/2019/11/22/node-postgres-simple-webapp)
 
