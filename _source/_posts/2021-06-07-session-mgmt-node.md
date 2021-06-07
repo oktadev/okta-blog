@@ -36,7 +36,7 @@ Each session has an associated session ID with it.  It is very important that th
 
 In session sniffing, an attacker can use a sniffing application such as Wireshark or a proxy to capture network traffic between a client and server.  As you've learned, that traffic will ultimately contain a request with a session cookie in it.  This cookie will have the session ID which can then be hijacked.
 
-### Man in the middle attacks
+### Man-in-the-Middle Attacks
 
 In a man-in-the-middle attack, an attacker sits between the web server and the client.  The attacker can then pass requests from the client to the server and respond without detection from either.  But along the way, the attacker has gained access to the session.
 
@@ -74,7 +74,7 @@ When a user first accesses your site, he/she can use an anonymous session.  This
 
 Node.js has become wildly popular over the last 10 years.  With it, several frameworks and session management libraries have cropped up to support it.  Most frameworks use their own session management middleware.  For example, `express`, the most popular server framework for Node.js, has the accompanying `express-session` for session management.  Similarly, `koa` uses `koajs/session` for its session management.  
 
-For this article, I want to focus on `express-session`, as it is one of the most mature and widely used session management libraries available for Node.js.  For a full rundown of the `express-session` package, you can view the [readme here](https://github.com/expressjs/session#readme).  Below aresome of the highlights:
+For this article, I want to focus on `express-session`, as it is one of the most mature and widely used session management libraries available for Node.js.  For a full rundown of the `express-session` package, you can view the [readme here](https://github.com/expressjs/session#readme).  Below are some of the highlights:
 
 Registering the middleware for `express-session` is very simple.
 
@@ -179,8 +179,14 @@ In the above example, you are registering the `ExpressOIDC` middleware provided 
 
 Session management is a topic that you could spend days researching and understanding.  As I noted, the session management package you will use in Node.js will largely depend on your stack and your server framework.  However, by becoming familiar with implementing safe and optimized session management in one framework, you can carry that knowledge to all other Node.js frameworks.  
 
+<<<<<<< HEAD
 - [Why JWTs Suck as Session Tokens ](/blog/2017/08/17/why-jwts-suck-as-session-tokens)
 - [Build a Simple CRUD Application with Node and MySQL ](/blog/2019/09/09/build-crud-app-node-mysql)
 - [Build A Simple Web App with Node and Postgres ](/blog/2019/11/22/node-postgres-simple-webapp)
+=======
+- [Why JWTs Suck as Session Tokens](https://developer.okta.com/blog/2017/08/17/why-jwts-suck-as-session-tokens)
+- [Build a Simple CRUD Application with Node and MySQL ](https://developer.okta.com/blog/2019/09/09/build-crud-app-node-mysql)
+- [Build A Simple Web App with Node and Postgres](https://developer.okta.com/blog/2019/11/22/node-postgres-simple-webapp)
+>>>>>>> 09792ab2f5da14c79e24e66657bcb257f3bb0f1c
 
 Make sure you follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel. If you have any questions, or you want to share what tutorial you'd like to see next, please comment below.
