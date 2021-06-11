@@ -59,6 +59,10 @@ In the Konnect ServiceHub, I have an IntrospectionRoute OIDC plugin enabled.
 
 The settings should be:
 
+- **Config.Auth Methods**
+
+    {% img blog/introspection-flow-kong-konnect/config-auth-methods.png alt:"Kong OIDC Configure.Auth Methods" width:"625" %}
+
 - **Config.Issuer**
   
     {% img blog/introspection-flow-kong-konnect/config-issuer.png alt:"OpenID Connect Config Issuer" width:"625" %}
