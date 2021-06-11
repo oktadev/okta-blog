@@ -17,8 +17,8 @@ canonical-url: https://konghq.com/blog/konnect-okta-authorization-code-flow/
 
 We'll go through the authorization code flow applied to user authentication processes in our second Kong and Okta tutorial. This series will show you how to implement service authentication and authorization for [Kong Konnect](https://konghq.com/kong-konnect/) and Okta using the [OpenID Connect (OIDC) plugin](https://konghq.com/blog/openid-connect-api-gateway). Parts 1, 3, and 4 cover:
 
-- [Implementing client credentials flow for application authentication](/blog/2021/05/25/client-credentials-kong-konnect)
-- Integral introspection for token validation (coming soon)
+- [Implement Client Credentials with Kong Konnect and Okta](/blog/2021/05/25/client-credentials-kong-konnect)
+- [Implement Introspection Flow With Kong Konnect and Okta](/blog/2021/06/11/introspection-flow-kong-konnect)
 - Access control based on Okta's groups and planes (coming soon)
 
 **Table of Contents**{: .hide }
@@ -113,4 +113,4 @@ Once you've set up Konnect and Okta authorization code flow for user authenticat
 - [Protect Your APIs With Kong Konnect and Fastly (Signal Sciences)](https://konghq.com/blog/kong-konnect-fastly/)
 - [Use Kong Gateway to Centralize Authentication](/blog/2021/03/26/use-kong-gateway-to-centralize-authentication)
 
-If you have any questions about this post, please leave a comment below. To be notified when we post new content, please follow [@oktadev](https://twitter.com/oktadev) on Twitter, like us [on LinkedIn](https://www.linkedin.com/company/oktadev/), or subscribe to [our YouTube channel](https://www.youtube.com/oktadev).
+If you have any questions about this post, please leave a comment below. To be notified when the OktaDev team posts new content, please follow [@oktadev](https://twitter.com/oktadev) on Twitter, like us [on LinkedIn](https://www.linkedin.com/company/oktadev/), or subscribe to [our YouTube channel](https://www.youtube.com/oktadev).
