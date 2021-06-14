@@ -342,7 +342,7 @@ You'd need two database dependencies - H2 driver for test runtime and fully fled
  
 That would be sufficient for Spring Boot to discover database dependencies. Note that you **don't override** beans manually to provide an additional configuration, as it would be necessary with `@SpringBootTest` annotation. `@DataJpaTest` along with `@AutoConfigureTestDatabase` automagically prepare the context for the repository component and configure the H2 database engine to mimic an actual PostgreSQL instance.
  
-Look at the database level test which is verifying behaviour of the SQL queries in repository.
+Look at the database level test which is verifying behaviour of the SQL queries in the repository.
  
 ```kotlin
 package com.example.okta.testslices.repository
