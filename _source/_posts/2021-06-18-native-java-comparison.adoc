@@ -1,0 +1,138 @@
+---
+layout: blog_post
+title: "Native Java Apps with Micronaut, Quarkus, and Spring Boot"
+author: matt-raible
+by: advocate
+communities: [java]
+description: "Learn how to create native images with Java frameworks like Micronaut, Quarkus, and Spring Boot."
+tags: [native, java, graalvm, micronaut, quarkus, spring-boot]
+tweets:
+- ""
+- ""
+- ""
+image:
+type: conversion
+---
+:page-liquid:
+:toc: macro
+:experimental:
+
+Java has had the ability to invoke native programs on an operating system for decades. Invoking native programs is often done using JNI (Java Native Interface) and JNA (Java Native Access). In the last few years, Java has also gained the ability to run JVM apps as native apps. That is, they're binary executables that have no dependency on the Java runtime.
+
+This is _huge!_ Mostly because it gives Java apps the ability to start up in milliseconds (as opposed to seconds). If you're scaling up to handle millions of requests, and using a serverless environment to save costs, this is a game changer. Developers have enjoyed using Node.js, Python, and Go on serverless environments for years. The ability to use Java (or Kotlin) opens this world up to a huge swath of the developer community.
+
+In this post, I'll show you how to run a secure, OAuth 2.0-protected, Java REST API that allows JWT authentication. I'll showcase the three leading Java frameworks: Micronaut, Quarkus, and Spring Boot. First, I'll show you how to run them with Java and access their data. Then, I'll show you how to build and test native images with each framework. I'll mention a few gotchas I ran in to along the way.
+
+The order of frameworks is intentional as I found Micronaut the easiest to use, and Spring Boot the most difficult.
+
+**Prerequisites**
+
+- https://sdkman.io/[Java 11]+
+- https://httpie.io/[HTTPie] (a better version of cURL)
+- An https://cloud.google.com/[Okta Developer] Account
+
+toc::[]
+
+== Get Started with Native Java
+
+I created a GitHub repository you can clone and run to get started with all three frameworks quickly.
+
+[source,shell]
+----
+git clone https://github.com/oktadev/native-java-examples.git
+----
+
+This project has directories with the latest versions of Micronaut, Quarkus and Spring Boot (at the time of this writing). I'll show you how I created them in individual sections below.
+
+Open the `native-java-examples` directory in your favorite IDE so you have easy access to each framework's project files.
+
+== Start a Micronaut Java API
+
+In a terminal window, cd into the `micronaut` directory and run `mn:run` to start it.
+
+[source,shell]
+----
+cd micronaut
+./mvn mn:run
+----
+
+If you open another terminal window and try to access it with HTTPie, you'll get a 401 Unauthorized error.
+
+[source,shell]
+----
+$ http :8080/hello
+
+HTTP/1.1 401 Unauthorized
+connection: keep-alive
+transfer-encoding: chunked
+----
+
+// To see them in action, you'll need to create an Okta developer account at https://developer.okta.com/signup[developer.okta.com/signup] or by running `okta register` with the https://cli.okta.com[Okta CLI].
+
+To make it so you can access this endpoint, you'll need to add a URL to your JWKS (JSON Web Key Sets) in this project's `application.yml`, and generate an OAuth 2.0 access token to access it.
+
+NOTE: If you're not sure what OIDC and OAuth 2.0 are, see https://developer.okta.com/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc[An Illustrated Guide to OAuth and OpenID Connect]
+
+=== Create an Okta Developer Account
+
+Create an OpenID Connect (OIDC) app on Okta you can use to obtain an access token.
+
+{% include setup/cli.md type="spa" loginRedirectUri="https://oidcdebugger.com/debug" logoutRedirectUri="https://oidcdebugger.com" %}
+
+Take note of the `clientId` and `issuer` values. You'll need those to get an access token and to configure each framework for JWT authentication.
+
+Open `micronaut/src/main/resources/application.yml` and change the Okta URL to match yours.
+
+[source,yaml]
+----
+micronaut:
+  application:
+    name: app
+  security:
+    enabled: true
+    token:
+      jwt:
+        enabled: true
+        signatures:
+          jwks:
+            okta:
+              url: https://{yourOktaDomain}/oauth2/default/v1/keys
+----
+
+Stop your Micronaut app with kbd:[Ctrl + C] and restart it.
+
+[source,shell]
+----
+./mvn mn:run
+----
+
+=== Generate an OAuth 2.0 Access Token
+
+{% include setup/oidcdebugger.md %}
+
+Once you have an access token, set it as a `TOKEN` environment variable in a terminal window.
+
+[source,shell]
+----
+TOKEN=eyJraWQiOiJYa2pXdjMzTDRBYU1ZSzNGM...
+----
+
+Then, use HTTPie to pass it in as a bearer token in the `Authorization` header.
+
+[source,shell]
+----
+http :8080/hello Authorization:"Bearer $TOKEN"
+----
+
+You should get a 200 response with your email in it.
+
+image::{% asset_path 'blog/native-java-comparison/httpie-bearer-token.png' %}[alt=HTTPie call to /hello with bearer token,width=800,align=center]
+
+
+
+== What About JavaFX?
+
+== Learn More About Java and GraalVM
+
+https://www.baeldung.com/java-jna-dynamic-libraries
+https://www.baeldung.com/jni
