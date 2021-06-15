@@ -46,7 +46,9 @@ This project has directories with the latest versions of Micronaut, Quarkus and 
 
 Open the `native-java-examples` directory in your favorite IDE so you have easy access to each framework's project files.
 
-== Start a Micronaut Java API
+TIP: If you just want to see how to build native images in each framework, skip to the link:/blog/2021/06/18/native-java-comparison#build-native-images-for-micronaut-quarkus-and-spring-boot[build native images for Micronaut, Quarkus, and Spring Boot] section.
+
+== Launch a Micronaut Java API
 
 In a terminal window, cd into the `micronaut` directory and run `mn:run` to start it.
 
@@ -69,13 +71,9 @@ transfer-encoding: chunked
 
 // To see them in action, you'll need to create an Okta developer account at https://developer.okta.com/signup[developer.okta.com/signup] or by running `okta register` with the https://cli.okta.com[Okta CLI].
 
-To make it so you can access this endpoint, you'll need to add a URL to your JWKS (JSON Web Key Sets) in this project's `application.yml`, and generate an OAuth 2.0 access token to access it.
+To make it so you can access this endpoint, you'll need to update the JWKS (JSON Web Key Sets) URL to yours in this project's `application.yml` and generate an OAuth 2.0 access token to access it.
 
 NOTE: If you're not sure what OIDC and OAuth 2.0 are, see https://developer.okta.com/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc[An Illustrated Guide to OAuth and OpenID Connect]
-
-=== Create an Okta Developer Account
-
-Create an OpenID Connect (OIDC) app on Okta you can use to obtain an access token.
 
 {% include setup/cli.md type="spa" loginRedirectUri="https://oidcdebugger.com/debug" logoutRedirectUri="https://oidcdebugger.com" %}
 
@@ -99,7 +97,7 @@ micronaut:
               url: https://{yourOktaDomain}/oauth2/default/v1/keys
 ----
 
-Stop your Micronaut app with kbd:[Ctrl + C] and restart it.
+Stop your Micronaut app with kbd:[Ctrl + C] and restart it with kbd:[⬆️ + Return].
 
 [source,shell]
 ----
@@ -110,6 +108,10 @@ Stop your Micronaut app with kbd:[Ctrl + C] and restart it.
 
 {% include setup/oidcdebugger.md %}
 
+image::{% asset_path 'blog/native-java-comparison/oidc-debugger.png' %}[alt=OIDC Debugger,width=600,align=center]
+
+Click **Send Request** to continue.
+
 Once you have an access token, set it as a `TOKEN` environment variable in a terminal window.
 
 [source,shell]
@@ -117,7 +119,9 @@ Once you have an access token, set it as a `TOKEN` environment variable in a ter
 TOKEN=eyJraWQiOiJYa2pXdjMzTDRBYU1ZSzNGM...
 ----
 
-Then, use HTTPie to pass it in as a bearer token in the `Authorization` header.
+=== Test Your API with HTTPie
+
+Use HTTPie to pass it in as a bearer token in the `Authorization` header.
 
 [source,shell]
 ----
@@ -126,13 +130,264 @@ http :8080/hello Authorization:"Bearer $TOKEN"
 
 You should get a 200 response with your email in it.
 
-image::{% asset_path 'blog/native-java-comparison/httpie-bearer-token.png' %}[alt=HTTPie call to /hello with bearer token,width=800,align=center]
+image::{% asset_path 'blog/native-java-comparison/httpie-micronaut-bearer-token.png' %}[alt=HTTPie call to Micronaut's /hello with bearer token,width=800,align=center]
 
+=== Build a Native Micronaut App
 
+To compile this Micronaut app into a native binary, run:
 
-== What About JavaFX?
+[source,shell]
+----
+./mvnw package -Dpackaging=native-image
+----
+
+This command will take several minutes to complete. On my 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM, it took 3 min. 7 s.
+
+Start it with `./target/app`:
+
+[source,shell]
+----
+$ ./target/app
+ __  __ _                                  _
+|  \/  (_) ___ _ __ ___  _ __   __ _ _   _| |_
+| |\/| | |/ __| '__/ _ \| '_ \ / _` | | | | __|
+| |  | | | (__| | | (_) | | | | (_| | |_| | |_
+|_|  |_|_|\___|_|  \___/|_| |_|\__,_|\__,_|\__|
+  Micronaut (v2.5.6)
+
+17:20:23.980 [main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 36ms. Server Running: http://localhost:8080
+----
+
+You can see it starts pretty darn quick (36ms)! Test it with HTTPie and an access token. You may have to generate a new JWT with https://oidcdebugger.com[oidcdebugger.com] if yours has expired.
+
+[source,shell]
+----
+http :8080/hello Authorization:"Bearer $TOKEN"
+----
+
+=== Make a Micronaut App from Scratch
+
+You might be wondering, "how did you build a secure Micronaut app"? Did I just hide the complexity? No, it only takes five steps to create the same app.
+
+1. Use https://sdkman.io[SDKMAN!] to install Micronaut's CLI:
+
+   sdk install micronaut
+
+2. Create an app using the `mn create-app` command and rename the project's directory:
+
+   mn create-app com.okta.rest.app --build maven
+   mv app micronaut
+
+3. Add Micronaut's libraries for JWT security:
++
+[source,xml]
+----
+<dependency>
+    <groupId>io.micronaut.security</groupId>
+    <artifactId>micronaut-security</artifactId>
+</dependency>
+<dependency>
+    <groupId>io.micronaut.security</groupId>
+    <artifactId>micronaut-security-jwt</artifactId>
+</dependency>
+----
+
+4. Add a `HelloController` in `src/main/java/com/okta/rest/controller`:
++
+[source,java]
+----
+package com.okta.rest.controller;
+
+import io.micronaut.http.MediaType;
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Get;
+import io.micronaut.http.annotation.Produces;
+import io.micronaut.security.annotation.Secured;
+import io.micronaut.security.rules.SecurityRule;
+
+import java.security.Principal;
+
+@Controller("/hello")
+public class HelloController {
+
+    @Get
+    @Secured(SecurityRule.IS_AUTHENTICATED)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String hello(Principal principal) {
+        return "Hello, " + principal.getName() + "!";
+    }
+
+}
+----
+
+5. Enable and configure JWT security in `src/main/resources/application.yml`:
++
+[source,yaml]
+----
+micronaut:
+  ...
+  security:
+    enabled: true
+    token:
+      jwt:
+        enabled: true
+        signatures:
+          jwks:
+            okta:
+              url: https://{yourOktaDomain}/oauth2/default/v1/keys
+----
+
+That's it! Now you can start the app or build the native image as shown above.
+
+Now let's take a look at Quarkus.
+
+== Run a Quarkus Java API
+
+Open a terminal, cd into the `quarkus` directory, and run `quarkus:dev` to start the app.
+
+[source,shell]
+----
+cd quarkus
+./mvn quarkus:dev
+----
+
+Update the URLs in `src/main/resources/application.properties` to use your Okta domain.
+
+[source,properties]
+----
+mp.jwt.verify.publickey.location=https://{yourOktaDomain}/oauth2/default/v1/keys
+mp.jwt.verify.issuer=https://{yourOktaDomain}/oauth2/default
+----
+
+=== Test Your Quarkus API with HTTPie
+
+Generate or copy your access token from OpenID Connect <debugger/> and use it to test your Quarkus API.
+
+[source,shell]
+----
+http :8080/hello Authorization:"Bearer $TOKEN"
+----
+
+You should see your email in the response.
+
+image::{% asset_path 'blog/native-java-comparison/httpie-quarkus-bearer-token.png' %}[alt=HTTPie call to Quarkus's /hello with bearer token,width=800,align=center]
+
+Did you notice that Quarkus hot-reloaded your `application.properties` file updates? Pretty slick, eh?!
+
+=== Build a Native Quarkus App
+
+To compile this Quarkus app into a native binary, run:
+
+[source,shell]
+----
+./mvnw package -Pnative
+----
+
+The native compilation step will take a bit to complete. On my 2019 MacBook Pro, it took 2 min. 56 s.
+
+Start it with `./target/quarkus-1.0.0-SNAPSHOT-runner`:
+
+[source,shell]
+----
+$ ./target/quarkus-1.0.0-SNAPSHOT-runner
+__  ____  __  _____   ___  __ ____  ______
+ --/ __ \/ / / / _ | / _ \/ //_/ / / / __/
+ -/ /_/ / /_/ / __ |/ , _/ ,< / /_/ /\ \
+--\___\_\____/_/ |_/_/|_/_/|_|\____/___/
+2021-06-15 17:35:23,886 INFO  [io.quarkus] (main) quarkus 1.0.0-SNAPSHOT native (powered by Quarkus 1.13.7.Final) started in 0.031s. Listening on: http://0.0.0.0:8080
+2021-06-15 17:35:23,888 INFO  [io.quarkus] (main) Profile prod activated.
+2021-06-15 17:35:23,889 INFO  [io.quarkus] (main) Installed features: [cdi, mutiny, resteasy, security, smallrye-context-propagation, smallrye-jwt, vertx, vertx-web]
+----
+
+Supersonic Subatomic Java! Test it with HTTPie and an access token.
+
+[source,shell]
+----
+http :8080/hello Authorization:"Bearer $TOKEN"
+----
+
+=== Create a Quarkus App from Scratch
+
+You can create the same Quarkus app used in this example in just four steps.
+
+1. Use Maven to generate a new Quarkus app with JWT support:
++
+[source,shell]
+----
+mvn io.quarkus:quarkus-maven-plugin:1.13.7.Final:create \
+    -DprojectGroupId=com.okta.rest \
+    -DprojectArtifactId=quarkus \
+    -DclassName="com.okta.rest.quarkus.HelloResource" \
+    -Dpath="/hello" \
+    -Dextensions="smallrye-jwt"
+----
+
+2. Edit `src/java/com/okta/rest/quarkus/HelloResource.java` and add user information to the `hello()` method:
++
+[source,java]
+----
+package com.okta.rest.quarkus;
+
+import io.quarkus.security.Authenticated;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.SecurityContext;
+import java.security.Principal;
+
+@Path("/hello")
+public class HelloResource {
+
+    @GET
+    @Path("/")
+    @Authenticated
+    @Produces(MediaType.TEXT_PLAIN)
+    public String hello(@Context SecurityContext context) {
+        Principal userPrincipal = context.getUserPrincipal();
+        return "Hello, " + userPrincipal.getName() + "!";
+    }
+
+}
+----
+
+3. Add your Okta endpoints to `src/main/resources/application.properties`:
++
+[source,properties]
+----
+mp.jwt.verify.publickey.location=https://{yourOktaDomain}/oauth2/default/v1/keys
+mp.jwt.verify.issuer=https://{yourOktaDomain}/oauth2/default
+----
+
+4. Add HTTPS support to the native profile at the bottom of `pom.xml` with the `quarkus.native.additional-build-args` property:
++
+[source,xml]
+----
+<properties>
+  <quarkus.package.type>native</quarkus.package.type>
+  <quarkus.native.additional-build-args>
+    --enable-url-protocols=https
+  </quarkus.native.additional-build-args>
+</properties>
+----
+
+The last step is not necessary if you're running with Maven, but it is for the native image. Quarkus https://quarkus.io/guides/native-and-ssl[includes SSL for many extensions], but not for SmallRye JWT.
+
+== Start a Spring Boot Java API
+
+=== Test Your API with HTTPie
+
+== Build Native Images for Micronaut, Quarkus, and Spring Boot
+
+=== Startup Time Comparison
+
+// What About JavaFX?
 
 == Learn More About Java and GraalVM
 
 https://www.baeldung.com/java-jna-dynamic-libraries
 https://www.baeldung.com/jni
+https://developer.okta.com/blog/2020/01/09/java-rest-api-showdown
+https://developer.okta.com/blog/2019/11/27/graalvm-java-binaries
