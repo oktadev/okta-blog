@@ -79,7 +79,7 @@ sessionService.initSessionService(store, options)
 
 To understand this call, you should understand the options that are passed in.  First is `refreshOnCheckAuth`.  This option defaults to `false`, but if set to `true`, will refresh the Redux store in the `checkAuth()` function.  The `checkAuth()` function is provided by the `sessionService` object from the `redux-react-session`.  
 
-`redirectPath` defaults to `login`.  This is the path used when the session is rejected or doesn't exist.  Suppose a new user attempts to access a secured page by browsing to the URL directly.  Because there is no session, the user will be re-routed to `login` by default, or `\home` in the example above.
+`redirectPath` defaults to `/login`.  This is the path used when the session is rejected or doesn't exist.  Suppose a new user attempts to access a secured page by browsing to the URL directly.  Because there is no session, the user will be re-routed to `/login` by default, or `/home` in the example above.
 
 Next is the `driver` option.  The two you have already learned about are `COOKIES` and `LOCALSTORAGE`, however `redux-react-session` also accepts `INDEXEDDB` or `WEBSQL`.  `IndexedDB` is a database that is built into the browser.  Applications that require a lot of client-side data storage should consider this option.  `Web SQL` is also a browser based database, however it is not supported in HTML5 and is deprecated.  `IndexedDB` is considered the default alternative to `Web SQL`.  
 
@@ -96,4 +96,3 @@ Managing sessions in React is an immense topic. In this article, you learned the
 - [Build a Secure React Application with JWTs and Redux](/blog/2019/08/12/build-secure-react-application-redux-jwt)
 
 Make sure you follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel. If you have any questions, or you want to share what tutorial you'd like to see next, please comment below.
-
