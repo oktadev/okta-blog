@@ -20,11 +20,11 @@ type: conversion
 
 Java has had the ability to invoke native programs on an operating system for decades. Invoking native programs is often done using JNI (Java Native Interface) and JNA (Java Native Access). In the last few years, Java has also gained the ability to run JVM apps as native apps. That is, they're binary executables that have no dependency on the Java runtime.
 
-This is _huge!_ Mostly because it gives Java apps the ability to start up in milliseconds (as opposed to seconds). If you're scaling up to handle millions of requests, and using a serverless environment to save costs, this is a game changer. Developers have enjoyed using Node.js, Python, and Go on serverless environments for years. The ability to use Java (or Kotlin) opens this world up to a huge swath of the developer community.
+This is _huge!_ Mostly because it gives Java apps the ability to start up in milliseconds (as opposed to seconds). If you're scaling up to handle millions of requests and using a serverless environment to save costs, this is a game-changer. Developers have enjoyed using Node.js, Python, and Go on serverless environments for years. The ability to use Java (or Kotlin) opens this world up to a massive swath of the developer community.
 
-In this post, I'll show you how to run a secure, OAuth 2.0-protected, Java REST API that allows JWT authentication. I'll showcase the three leading Java frameworks: Micronaut, Quarkus, and Spring Boot. First, I'll show you how to run them with Java and access their data. Then, I'll show you how to build and test native images with each framework. I'll mention a few gotchas I ran into along the way.
+This post will show you how to run a secure, OAuth 2.0-protected, Java REST API that allows JWT authentication. I'll showcase the three leading Java frameworks: Micronaut, Quarkus, and Spring Boot. First, I'll show you how to run them with Java and access their data. Then, I'll show you how to build and test native images with each framework. I'll mention a few gotchas I ran into along the way.
 
-// The order of frameworks is intentional as I found Micronaut the easiest to use, and Spring Boot the most difficult.
+// The order of frameworks is intentional as I found Micronaut the easiest to make work and Spring Boot the most difficult.
 
 **Prerequisites**
 
@@ -43,11 +43,11 @@ I created a GitHub repository you can clone and run to get started with all thre
 git clone https://github.com/oktadev/native-java-examples.git
 ----
 
-This project has directories with the latest versions of Micronaut, Quarkus and Spring Boot (at the time of this writing). I'll show you how I created them in individual sections below.
+This project has directories with the latest versions of Micronaut, Quarkus, and Spring Boot (at the time of this writing). I'll show you how I created them in individual sections below.
 
-Open the `native-java-examples` directory in your favorite IDE so you have easy access to each framework's project files.
+Open the `native-java-examples` directory in your favorite IDE, so you have easy access to each framework's project files.
 
-TIP: If you just want to see how to build native images in each framework, skip to the link:/blog/2021/06/18/native-java-comparison#build-native-images-for-micronaut-quarkus-and-spring-boot[build native images for Micronaut, Quarkus, and Spring Boot] section.
+TIP: If you want to see how to build native images in each framework, skip to the link:/blog/2021/06/18/native-java-comparison#build-native-images-for-micronaut-quarkus-and-spring-boot[build native images for Micronaut, Quarkus, and Spring Boot] section.
 
 == Launch a Micronaut Java API
 
@@ -120,7 +120,7 @@ Once you have an access token, set it as a `TOKEN` environment variable in a ter
 TOKEN=eyJraWQiOiJYa2pXdjMzTDRBYU1ZSzNGM...
 ----
 
-TIP: You might want to keep OpenID Connect <debugger/> open to copy your access tokens. It allows you to easily start over and regenerate a new access token if it expires.
+TIP: You might want to keep OpenID Connect <debugger/> open to copy your access tokens. It allows you to quickly start over and regenerate a new access token if it expires.
 
 === Test Your Micronaut API with HTTPie
 
@@ -144,7 +144,7 @@ To compile this Micronaut app into a native binary, run:
 ./mvnw package -Dpackaging=native-image
 ----
 
-This command will take a few minutes to complete. On my 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM, it took 3 min. 7 s.
+This command will take a few minutes to complete. My 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM took 3 min. 7 s to finish.
 
 Start it with `./target/app`:
 
@@ -401,7 +401,7 @@ public class HelloResourceTest {
 
 The last step is not necessary if you're running with Maven, but it is for the native image. Quarkus https://quarkus.io/guides/native-and-ssl[includes SSL for many extensions], but not for SmallRye JWT. The good news is https://github.com/quarkusio/quarkus/pull/17929[Quarkus will enable SSL by default for SmallRye JWT in Quarkus 2.1].
 
-Last, but certainly not least, let's look at Spring Boot.
+Last but certainly not least, let's look at Spring Boot.
 
 == Start a Spring Boot Java API
 
@@ -432,9 +432,9 @@ You should see a response like the following.
 
 image::{% asset_path 'blog/native-java-comparison/httpie-spring-boot-bearer-token.png' %}[alt=HTTPie call to Spring Boot's /hello with bearer token,width=800,align=center]
 
-But wait, doesn't Okta https://developer.okta.com/blog/2020/11/24/spring-boot-okta[have a Spring Boot starter]? Yes, we do. However, it https://github.com/okta/okta-spring-boot/issues/192[doesn't work with GraalVM yet].
+But wait, doesn't Okta https://developer.okta.com/blog/2020/11/24/spring-boot-okta[have a Spring Boot starter]? Yes, we do—however, it https://github.com/okta/okta-spring-boot/issues/192[doesn't work with GraalVM yet].
 
-However, we're calling in an expert to help us fix it! Join us next Tuesday, June 22, 2021 on https://twitch.tv/oktadev[twitch.tv/oktadev] for a session with https://twitter.com/starbuxman[Josh Long]. We'll attempt to fix things live!
+However, we're calling in an expert to help us fix it! Join us next Tuesday, June 22, 2021, on https://twitch.tv/oktadev[twitch.tv/oktadev] for a session with https://twitter.com/starbuxman[Josh Long]. We'll attempt to fix things live!
 
 === Build a Native Spring Boot App
 
@@ -567,9 +567,9 @@ You can build and test a Spring Boot native image using the steps I outlined abo
 
 == Build Native Images for Micronaut, Quarkus, and Spring Boot
 
-To recap: Micronaut, Quarkus, and Spring Boot all support building native executables with https://www.graalvm.org/[GraalVM]. Yes, there are other frameworks, but these three https://trends.google.com/trends/explore?q=micronaut,quarkus,spring%20boot[seem to be the most popular].
+To recap, Micronaut, Quarkus, and Spring Boot all support building native executables with https://www.graalvm.org/[GraalVM]. Yes, there are other frameworks, but these three https://trends.google.com/trends/explore?q=micronaut,quarkus,spring%20boot[seem to be the most popular].
 
-The commands to build each app are similar, but not quite the same.
+The commands to build each app are similar but not quite the same.
 
 - **Micronaut**: `./mvnw package -Dpackaging=native-image`
 - **Quarkus**: `./mvnw package -Pnative`
@@ -579,9 +579,9 @@ Of course, they all support Gradle too.
 
 === Startup Time Comparison
 
-Performance comparisons are hard, but I'm going to do one anyway. Since this post is all about native Java, below is the data I gathered that shows the average milliseconds to start each native executable. I ran each image three times before I started recording the numbers. I then ran each command five times.
+Performance comparisons are complex, but I'm going to do one anyway. Since this post is all about native Java, below is the data I gathered that shows the average milliseconds to start each native executable. I ran each image three times before I started recording the numbers. I then ran each command five times.
 
-_These tests were run on a 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM._
+_These numbers are from a 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM._
 
 ////
 Micronaut: (26 + 29 + 25 + 27 + 27) / 5 = 26.8ms
@@ -634,13 +634,15 @@ function drawChart() {
 </script>
 ++++
 
-I'm not certain these startup times are apples to oranges. It seems kind of strange that Spring Boot takes so much longer. Maybe it's because it's started with Docker?
+I'm not sure these startup times are apples to oranges. It seems kind of strange that Spring Boot takes so much longer. Maybe it's because it's started with Docker?
 
 == Testing Native Images
 
-When building native images, it's important to test them as part of integration testing process. This post is already long enough, so I won't explain how to test native images in this post. We'll publish a post in the future that covers this topic.
+When building native images, it's essential to test them as part of an integration testing process. This post is already long enough, so I won't explain how to test native images in this post.
 
-I do like how Quarkus generates a `NativeHelloResourceIT` that's designed specifically for this though.
+// We'll publish a post in the future that covers this topic.
+
+I do like how Quarkus generates a `NativeHelloResourceIT` that's designed specifically for this, though.
 
 [source,java]
 ----
@@ -665,7 +667,7 @@ In this post, you learned how to develop, build, and run native Java apps with M
 
 Server-side apps that serve up REST APIs aren't the only thing that's gone native in Java. https://twitter.com/gluonhq[Gluon] has done a lot of work in recent years to make JavaFX apps work on iOS and Android using GraalVM. See https://twitter.com/gail_asgteach[Gail Anderson]'s https://foojay.io/today/creating-mobile-apps-with-javafx-part-1/[Creating Mobile Apps with JavaFX – Part 1] to learn more about this emerging technology.
 
-At the beginning, I mentioned JNI and JNA. Baeldung has some tutorials about both:
+In the beginning, I mentioned JNI and JNA. Baeldung has some tutorials about both:
 
 - https://www.baeldung.com/jni[Guide to JNI (Java Native Interface)]
 - https://www.baeldung.com/java-jna-dynamic-libraries[Using JNA to Access Native Dynamic Libraries]
