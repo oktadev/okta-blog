@@ -399,7 +399,7 @@ public class HelloResourceTest {
 </properties>
 ----
 
-The last step is not necessary if you're running with Maven, but it is for the native image. Quarkus https://quarkus.io/guides/native-and-ssl[includes SSL for many extensions], but not for SmallRye JWT. The good news is https://github.com/quarkusio/quarkus/pull/17929[Quarkus will enable SSL by default for SmallRye JWT in Quarkus 2.1].
+The last step is not necessary if you're running with Maven, but it is for the native image. Quarkus https://quarkus.io/guides/native-and-ssl[includes SSL for many extensions], but not for SmallRye JWT. The good news is https://github.com/quarkusio/quarkus/pull/17929[Quarkus will enable SSL by default for SmallRye JWT in Quarkus 2.0.0.Final].
 
 Last but certainly not least, let's look at Spring Boot.
 
