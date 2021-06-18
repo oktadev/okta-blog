@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Native Java Apps with Micronaut, Quarkus, and Spring Boot"
+title: "Build Native Java Apps with Micronaut, Quarkus, and Spring Boot"
 author: matt-raible
 by: advocate
 communities: [java]
@@ -654,7 +654,11 @@ This only improved the startup time by 1.6ms (59ms on average).
 
 We also experimented with using `./mvnw package -Pnative` for Spring Boot. This allows you to create a native binary and run it with `./target/demo`. There's no need for Docker with this command. Startup times are relatively the same in my and Josh's experience.
 
-Our hypothesis is Micronaut and Quarkus do the JWKS lookup on the first request rather than at startup. That's how they achieve faster startup times. If I just take the value of the "initialization completed" time from Spring Boot, the numbers look a little more even.
+Our hypothesis is Micronaut and Quarkus do the JWKS lookup on the first request rather than at startup. That's how they achieve faster startup times.
+
+IMPORTANT: We later confirmed this hypothesis with https://github.com/JasonTypesCodes[Jason Schindler] (from Micronaut) and https://github.com/sberyozkin[Sergey Beryozkin] (from Quarkus).
+
+If I just take the value of the "initialization completed" time from Spring Boot, the numbers look a little more even.
 
 // (32 + 31 + 33 + 33 + 32) / 5 = 32.2
 ++++
