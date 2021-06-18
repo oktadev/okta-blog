@@ -1,17 +1,16 @@
 ---
 layout: blog_post
-title: "Build Native Java Apps with Micronaut, Quarkus, and Spring Boot"
-// title: "Native Java Apps with Micronaut, Quarkus, and Spring Boot"
+title: "Native Java Apps with Micronaut, Quarkus, and Spring Boot"
 author: matt-raible
 by: advocate
 communities: [java]
 description: "Learn how to create native images with Java frameworks like Micronaut, Quarkus, and Spring Boot."
 tags: [native, java, graalvm, micronaut, quarkus, spring-boot]
 tweets:
-- ""
-- ""
-- ""
-image:
+- "Did you know you can get supersonic startup times with @Java? That's right! Start an app in 10ms. 🔥 #serverless"
+- "Yo! We're (@java) back again. Remember the language you hate? We're wicked fast now! 🚀"
+- "Thanks to @micronautfw, @quarkusio, and @springboot, Java is legit again! 👏👏👏"
+image: blog/native-java-comparison/native-java.png
 type: conversion
 ---
 :page-liquid:
