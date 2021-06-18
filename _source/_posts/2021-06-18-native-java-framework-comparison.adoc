@@ -440,7 +440,7 @@ Then, start your app from your IDE or using a terminal:
 
 === Test Your Spring Boot API with HTTPie
 
-Generate an access token using oidcdebugger.com and use it to test your Spring Boot API.
+Generate an access token using ttps://oidcdebugger.com[oidcdebugger.com] and use it to test your Spring Boot API.
 
 [source,shell]
 ----
