@@ -28,5 +28,4 @@ fs.readdir( postsDir, (err, files) => {
     filesToRemove.forEach( f => fs.unlink(path.join(postsDir, f), err => console.log));
     console.log(`Files removed: ${ filesToRemove.length }`);
     console.warn(`For the love of Pete, DO NOT run: git add .`);
-    console.warn(`You'll ruin your PR and we'll mock you for it.`);
 });
