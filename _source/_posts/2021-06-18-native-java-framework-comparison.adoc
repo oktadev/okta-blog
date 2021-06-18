@@ -752,6 +752,8 @@ In the meantime, see https://medium.com/graalvm/gradle-and-maven-plugins-for-nat
 
 In this post, you learned how to develop, build, and run native Java apps with Micronaut, Quarkus, and Spring Boot. You learned how to secure them with OpenID Connect and access them with a JWT access token.
 
+If you're a Spring Boot aficionado, I recommend you watch Josh Long's https://www.youtube.com/watch?v=JsUAGJqdvaA[Spring Tips: Spring Native 0.10.0] video.
+
 You can find the source code for all the examples used in this post on GitHub in the https://github.com/oktadev/native-java-examples[native-java-examples repository].
 
 Server-side apps that serve up REST APIs aren't the only thing that's gone native in Java. https://twitter.com/gluonhq[Gluon] has done a lot of work in recent years to make JavaFX apps work on iOS and Android using GraalVM. See https://twitter.com/gail_asgteach[Gail Anderson]'s https://foojay.io/today/creating-mobile-apps-with-javafx-part-1/[Creating Mobile Apps with JavaFX – Part 1] to learn more about this emerging technology.
