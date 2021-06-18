@@ -273,7 +273,7 @@ cd quarkus
 ./mvnw quarkus:dev
 ----
 
-Update the URLs in `src/main/resources/application.properties` to use your Okta domain.
+Update the URLs in `quarkus/src/main/resources/application.properties` to use your Okta domain.
 
 [source,properties]
 ----
