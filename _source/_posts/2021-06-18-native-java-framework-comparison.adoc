@@ -46,7 +46,7 @@ This project has directories with the latest versions of Micronaut, Quarkus, and
 
 Open the `native-java-examples` directory in your favorite IDE, so you have easy access to each framework's project files.
 
-TIP: If you want to see how to build native images in each framework, skip to the link:/blog/2021/06/18/native-java-comparison#build-native-images-for-micronaut-quarkus-and-spring-boot[build native images for Micronaut, Quarkus, and Spring Boot] section.
+TIP: If you want to see how to build native images in each framework, skip to the link:#build-native-images-for-micronaut-quarkus-and-spring-boot[build native images for Micronaut, Quarkus, and Spring Boot] section.
 
 == Install a JDK with GraalVM
 
