@@ -90,7 +90,7 @@ transfer-encoding: chunked
 
 To make it so you can access this endpoint, you'll need to generate an OAuth 2.0 access token and update the JWKS (JSON Web Key Sets) URL to yours (in this project's `application.yml`).
 
-NOTE: If you're unsure what OIDC and OAuth 2.0 are, see our https://developer.okta.com/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc[Illustrated Guide to OAuth and OpenID Connect].
+NOTE: If you're unsure what OIDC and OAuth 2.0 are, see our link:/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc[Illustrated Guide to OAuth and OpenID Connect].
 
 {% include setup/cli.md type="spa" loginRedirectUri="https://oidcdebugger.com/debug" logoutRedirectUri="https://oidcdebugger.com" %}
 
@@ -452,7 +452,7 @@ You should see a response like the following.
 
 image::{% asset_path 'blog/native-java-comparison/httpie-spring-boot-bearer-token.png' %}[alt=HTTPie call to Spring Boot's /hello with bearer token,width=800,align=center]
 
-But wait, doesn't Okta https://developer.okta.com/blog/2020/11/24/spring-boot-okta[have a Spring Boot starter]? Yes, we do—however, it https://github.com/okta/okta-spring-boot/issues/192[doesn't work with GraalVM yet].
+But wait, doesn't Okta link:/blog/2020/11/24/spring-boot-okta[have a Spring Boot starter]? Yes, we do—however, it https://github.com/okta/okta-spring-boot/issues/192[doesn't work with GraalVM yet].
 
 However, we're calling in an expert to help us fix it! Join us next Tuesday, June 22, 2021, on https://twitch.tv/oktadev[twitch.tv/oktadev] for a session with https://twitter.com/starbuxman[Josh Long]. We'll attempt to fix things live!
 
@@ -687,7 +687,7 @@ function drawChart() {
 </script>
 ++++
 
-I also tested the startup time on a Linux laptop with 64 GB of RAM. I used the value the framework displays for startup time and did not make the "initialization complete" adjustment.
+I also tested the startup times on a Linux laptop with 64 GB of RAM. I used the value the framework displays for startup time and did not make the "initialization complete" adjustment for Spring Boot.
 
 ////
 Micronaut: (31 + 73 + 30 + 29 + 30) / 5 = 38.6ms
@@ -696,7 +696,7 @@ Spring Boot: (61 + 61 + 61 + 61 + 61) / 5 = 61ms
 ////
 
 ++++
-<div id="spring-boot-init"></div>
+<div id="linux-times"></div>
 <script>
 google.charts.load('current', {packages: ['corechart', 'bar']});
 google.charts.setOnLoadCallback(drawChart);
@@ -708,7 +708,7 @@ function drawChart() {
     ['Spring Boot', 61, 'green']
   ]);
   var options = {
-    title: 'Startup times of Native Java frameworks',
+    title: 'Startup times of Native Java frameworks on Linux',
     chartArea: {width: '50%'},
     hAxis: {
       title: 'Milliseconds',
@@ -718,19 +718,17 @@ function drawChart() {
       title: 'Java Framework'
     }
   };
-  var chart = new google.visualization.BarChart(document.getElementById('spring-boot-init'));
+  var chart = new google.visualization.BarChart(document.getElementById('linux-times'));
   chart.draw(data, options);
 }
 </script>
 ++++
 
-NOTE: If you disagree with these numbers and think X framework should be faster, I encourage you to clone [the repo](https://github.com/oktadev/native-java-examples) and run these tests yourself. If you get faster startup times for Spring Boot, do you get faster startup times for Micronaut and Quarkus too?
+NOTE: If you disagree with these numbers and think X framework should be faster, I encourage you to clone https://github.com/oktadev/native-java-examples[the repo] and run these tests yourself. If you get faster startup times for Spring Boot, do you get faster startup times for Micronaut and Quarkus too?
 
 == Testing Native Images
 
-When building native images, it's essential to test them as part of an integration testing process. This post is already long enough, so I won't explain how to test native images in this post.
-
-// We'll publish a post in the future that covers this topic.
+When building native images, it's essential to test them as part of an integration testing process. This post is already long enough, so I won't explain how to test native images in this post. We'll publish a post in the future that covers this topic.
 
 I do like how Quarkus generates a `NativeHelloResourceIT` that's designed specifically for this, though.
 
@@ -755,7 +753,7 @@ In the meantime, see https://medium.com/graalvm/gradle-and-maven-plugins-for-nat
 
 In this post, you learned how to develop, build, and run native Java apps with Micronaut, Quarkus, and Spring Boot. You learned how to secure them with OpenID Connect and access them with a JWT access token.
 
-You can find the source code for all the examples used in this post https://github.com/oktadev/native-java-examples[on GitHub].
+You can find the source code for all the examples used in this post on GitHub in the https://github.com/oktadev/native-java-examples[native-java-examples repository].
 
 Server-side apps that serve up REST APIs aren't the only thing that's gone native in Java. https://twitter.com/gluonhq[Gluon] has done a lot of work in recent years to make JavaFX apps work on iOS and Android using GraalVM. See https://twitter.com/gail_asgteach[Gail Anderson]'s https://foojay.io/today/creating-mobile-apps-with-javafx-part-1/[Creating Mobile Apps with JavaFX – Part 1] to learn more about this emerging technology.
 
@@ -766,8 +764,10 @@ In the beginning, I mentioned JNI and JNA. Baeldung has some tutorials about bot
 
 If you liked this post, chances are you'll like others we've published:
 
-- https://developer.okta.com/blog/2019/11/27/graalvm-java-binaries[Watch GraalVM Turn Your Java Into Binaries]
-- https://developer.okta.com/blog/2020/01/09/java-rest-api-showdown[Java REST API Showdown: Which is the Best Framework on the Market?]
-- https://developer.okta.com/blog/2020/12/28/spring-boot-docker[How to Docker with Spring Boot]
+- link:/blog/2019/11/27/graalvm-java-binaries[Watch GraalVM Turn Your Java Into Binaries]
+- link:/blog/2020/01/09/java-rest-api-showdown[Java REST API Showdown: Which is the Best Framework on the Market?]
+- link:/blog/2020/12/28/spring-boot-docker[How to Docker with Spring Boot]
+- link:/blog/2020/08/17/micronaut-jhipster-heroku[Build a Secure Micronaut and Angular App with JHipster]
+- link:/blog/2021/03/08/jhipster-quarkus-oidc[Fast Java Made Easy with Quarkus and JHipster]
 
 Got questions? Leave them in the comments below! You can also hit us up on our social channels: https://twitter.com/oktadev[@oktadev on Twitter], https://www.linkedin.com/company/oktadev[Okta for Developers on LinkedIn], https://twitch.tv/oktadev[Twitch], and https://youtube.com/oktadev[YouTube].
