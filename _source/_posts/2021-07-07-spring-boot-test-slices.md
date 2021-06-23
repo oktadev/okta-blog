@@ -8,7 +8,7 @@ description: "Spring Boot Test Slices allow you to test a specific part of your 
 tags: [spring, spring-boot, testing, unit tests, integration tests]
 tweets:
 - "Unit tests are the most valuable when they are stable, fast, and reproducible. Speed your @springboot tests up with the tips in this tutorial!"
-- "In this tutorial, you’ll learn about Spring Boot testing capabilities to optimize integration tests."
+- "In this tutorial, you'll learn about Spring Boot testing capabilities to optimize integration tests."
 - "Are you using @SpringBootTest? You can do better, and make your tests execute faster!"
 image: blog/spring-boot-test-slices/spring-boot-test-slices.png
 type: conversion
@@ -18,7 +18,7 @@ We know unit testing is a vital part of the software development process. We als
 
 Spring Boot is known to reduce boilerplate code and make development extremely efficient, but it can come with a cost when it comes down to the testing. Without prior optimization, tests can run for a considerable time—most of it is wasted on unnecessary initialization of the application, significantly delaying the feedback loop.
 
-In this tutorial, you’ll learn about Spring Boot testing capabilities to optimize integration tests.
+In this tutorial, you'll learn about Spring Boot testing capabilities to optimize integration tests.
 
 **Table of Contents**{: .hide }
 * Table of Contents
