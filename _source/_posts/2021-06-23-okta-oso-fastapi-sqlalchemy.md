@@ -13,7 +13,7 @@ tweets:
 image: blog/using-okta-and-oso-to-secure-a-fastapi-and-sqlalchemy-app/card.png
 type: conversion
 ---
-FastAPI is really fast and SQLAlchemy is really... SQL-y, but what good is a fast and SQL-y application if it isn't 🔒**secure**🔒?
+FastAPI is really fast and SQLAlchemy is really...SQL-y. But what good is a fast and SQL-y application if it isn't **secure**?
 
 In this post, we're going to show you how to secure a fast and SQL-y app!
 
@@ -22,7 +22,7 @@ First we will need some _authentication_, which is how we identify
 
 Next, we'll want to perform _authorization_, which controls **what** the user can do in our application. We'll be using [Oso][] for that, which is a batteries-included library for authorization.
 
-This post is aimed at people with some familiarity with FastAPI and SQLAlchemy. By the end, you'll be able to make sure users have access to the things they need - and only the things they need.
+This post is intended for people who have some familiarity with both FastAPI and SQLAlchemy. By the end of the post, you will know how to make sure users have access to the things they need - and only the things they need.
 
 The full example is available on [GitHub][]. Clone the repo and follow along!
 
@@ -34,13 +34,13 @@ The full example is available on [GitHub][]. Clone the repo and follow along!
 
 What, you expected TodoMVC?
 
-Our app allows authenticated users to register their own bears and view the bear population at large. It consists of two separate services: a front end through which users authenticate with Okta, and a back end that exposes an extensive API for creating and retrieving bears.
+Our app allows authenticated users to register their own bears and view the bear population at large. It consists of two separate services: (1) a front end through which users authenticate with Okta, and (2) a back end that exposes an extensive API for creating and retrieving bears.
 
 ## Set Up Okta
 
-{% include setup/cli.md type="spa" %}
+{% include setup/cli.md type="spa" framework="React" loginRedirectUri="http://localhost:8080/login/callback" logoutRedirectUri="http://localhost:8080" %}
 
-Once your new Okta application is created, the Okta CLI will print out the app's `Issuer` and `Client ID` properties:
+Once your new Okta application is created, the Okta CLI will print out its `Issuer` and `Client ID` properties:
 
 ```console
 $ okta apps create
@@ -61,7 +61,7 @@ ISSUER=https://<YOUR OKTA DOMAIN>/oauth2/default
 AUDIENCE=api://default
 ```
 
-After creating the `.env` file in the project root, symlink it into the `okta-hosted-login` sub-directory so that both the frontend and backend projects have access to the same configuration parameters:
+After creating the `.env` file in the project root, symlink it into the `okta-hosted-login` subdirectory so that both the front end and back end projects have access to the same configuration parameters:
 
 ```console
 $ ln -s ../.env okta-hosted-login/.env
@@ -75,12 +75,11 @@ Once the app is up and running, navigate to `http://localhost:8080` in your brow
 
 {% img blog/using-okta-and-oso-to-secure-a-fastapi-and-sqlalchemy-app/image1.png alt:"Eureka Instances Registered" width:"800" %}{: .center-image }
 
-The list will be empty because our back end service isn't running, so let's change that.
+The list will be empty because our back end service isn't running. Let's change that now.
 
 ## Start the FastAPI Back End
 
-While the React app hums happily in the background, open a new terminal and `cd` to the project's root directory. In the root, create and activate a new virtual
-environment, and then install dependencies:
+While the React app runs happily in the background, open a new terminal and `cd` to the project's root directory. In the root, create and activate a new virtual environment, and then install dependencies:
 
 ```console
 python3 -m venv venv && source venv/bin/activate
@@ -99,7 +98,7 @@ If you reload `http://localhost:8080`, you should see the list of bears populate
 
 Go ahead and create a few new bears of your own.
 
-Our app is now open for business... _too_ open. Every authenticated user can see everyone's bears — even users who have been banned for trying to create koalas. It's time to put a stop to the madness.
+Our app is now open for business. In fact, it's  _too_ open. Every authenticated user can see everyone's bears — even users who have been banned for trying to create koalas. It's time to put a stop to this madness.
 
 ## ABAC, As Easy as 1-2-3 🕺
 
@@ -116,7 +115,7 @@ First, after pressing Ctrl+C to exit FastAPI, we're going to install the `oso` a
 pip3 install oso sqlalchemy-oso
 ```
 
-Once pip finishes pipping, open up `app/main.py` using your favorite text editor and make the changes that you see below. The following is a Git diff of the change — if you're following along, add the lines that start with a `+` symbol to your local copy of `app/main.py`:
+Once pip finishes pipping, open up `app/main.py` using your favorite text editor and make the changes that you see below. The following is a [Git diff][] of the change — if you're following along, add the lines that start with a single `+` symbol to your local copy of `app/main.py`:
 
 ```diff
 diff --git a/app/main.py b/app/main.py
@@ -161,10 +160,10 @@ index 7dd57d0..a1e166f 100644
 +oso.load_file("app/policy.polar")
 ```
 
-Before we start filling that policy file with authorization rules, we need to register the application data types that we're going to use in our authorization policy with Oso. Registering the application types allows us to reference them in our Polar policy as [specializers][].
+Before we start filling that policy file with authorization rules, we first need to register the application data types that we're going to use in our authorization policy with Oso. Registering the application types allows us to reference them in our Polar policy as [specializers][].
 
 We're going to use the `register_models()` helper from the `sqlalchemy-oso` library to register our SQLAlchemy models with Oso in bulk. `register_models()`
-registers all descendants of a SQLAlchemy base class with Oso; otherwise, we would have to call `oso.register_class()` on each individual class that we wanted to register:
+registers all descendants of a SQLAlchemy base class with Oso; otherwise, we would have to call `oso.register_class()` for each individual class that we wanted to register:
 
 ```diff
 diff --git a/app/main.py b/app/main.py
@@ -216,7 +215,7 @@ index 796ab1e..adfc2c8 100644
      return create_bear(db, bear, request.state.user)
 ```
 
-If you save `app/main.py` and then try to create a new bear, the `POST` request will return a `403 Forbidden`. 
+If you save `app/main.py` and then try to create a new bear, the `POST` request will return a `403 Forbidden`.
 
 {% img blog/using-okta-and-oso-to-secure-a-fastapi-and-sqlalchemy-app/image3.png alt:"Eureka Instances Registered" width:"800" %}{: .center-image }
 
@@ -224,7 +223,7 @@ Oso is deny-by-default, and we currently have an empty policy file. In the next 
 
 ### Add Your First `allow()` Rule
 
-For our first foray into writing a policy, we're going to use Polar, Oso's declarative programming language, to add a rule that prevents banned users from creating new bears.
+For our first foray into writing a policy, we're going to use Polar to add a rule that prevents banned users from creating new bears.
 
 Open up `app/policy.polar` and add the following rule:
 
@@ -233,13 +232,13 @@ allow(user: User, "create", _bear: BearBase) if
     not user.is_banned;
 ```
 
-The rule works by matching against the inputs provided from the application:
+The rule works by matching the inputs provided by the application:
 
 - `user` - an instance of the `User` class.
-- The action is the string literal "create".
+- The action is the string literal `"create"`.
 - `_bear` - an instance of the `BearBase` class.
 
-And we are checking that the provided user's `is_banned` field is false.
+And then checking that the provided user's `is_banned` field is false.
 We don't yet need to check anything further about the `bear` resource,
 so we prefix it with an underscore to indicate that it won't be referenced in the body of the rule.
 
@@ -249,12 +248,12 @@ Save the file, flip back to [localhost:8080][], and you should once again be abl
 
 ### Deal with List Endpoints
 
-`oso.is_allowed()` worked perfectly for securing the `create()` endpoint, but it's not the best tool for the job when it comes to securing `index()`. The difference is that `create()` operates over a single record while `index()` operates over a potentially very large collection. If performance weren't an issue, we could load the collection from the database and iterate over it,
+`oso.is_allowed()` worked perfectly for securing the `create()` endpoint, but it's not the best tool for the job when it comes to securing `index()`. The difference is that `create()` operates over a single record, while `index()` operates over a potentially very large collection. If performance weren't an issue, we could load the collection from the database and iterate over it,
 calling `oso.is_allowed()` on every record to filter out unauthorized entries. However, we all know that Zoomers lose interest and click away from your website if it takes longer than a few Planck time units to load, so we need a better solution.
 
 And now, presenting... a better solution. Data filtering! The cure to all of life's performance issues.
 
-The `sqlalchemy-oso` library is built on top of Oso's data filtering feature. In a nutshell, the logic engine at the core of the Oso library can turn your authorization policy into a set of constraints similar to the `WHERE` clauses used to filter records when querying a relational database. The `sqlalchemy-oso` library then applies those constraints directly to your app's SQLAlchemy queries. In this way, only authorized records are loaded from the database in an efficient database operation instead of loading all records and then iterating over the collection to determine the authorized subset.
+The `sqlalchemy-oso` library is built on top of Oso's data filtering feature. In a nutshell, the logic engine at the core of the Oso library can turn your authorization policy into a set of constraints similar to the `WHERE` clauses used to filter records when querying a relational database. The `sqlalchemy-oso` library then applies those constraints directly to your app's SQLAlchemy queries. In this way, only authorized records are loaded from the database in an efficient operation instead of loading all records and then iterating over the collection to determine the authorized subset.
 
 Without further ado, let's wire up our app so that we can efficiently filter some bears.
 
@@ -314,7 +313,7 @@ To start off, let's add a rule to `app/policy.polar` that permits all users to l
 allow(_: User, "index", _: Bear);
 ```
 
-Save the file, reload [localhost:8080][], and you should see every bear again. But something else is missing... the `Owner` column is empty! When we serialize bear records in the back end, we include each bear's owner's email — a piece of data that comes from our SQLAlchemy-backed `User` model. Access to `User` data is now protected by Oso because `User` is a subclass of the `Base` SQLAlchemy class we registered via `sqlalchemy-oso`'s `register_models()` method. Let's add one more blanket `allow()` rule, this time permitting users to view user data at the `index()` endpoint:
+Save the file, reload [localhost:8080][], and you should see every bear again. But something else is missing. The `Owner` column is empty! When we serialize bear records in the back end, we include the email address for each bear's owner — a piece of data that comes from our SQLAlchemy-backed `User` model. Access to `User` data is now protected by Oso because `User` is a subclass of the `Base` SQLAlchemy class we registered via `sqlalchemy-oso`'s `register_models()` method. Let's add one more blanket `allow()` rule, this time permitting users to view user data at the `index()` endpoint:
 
 ```polar
 allow(_: User, "index", _: User);
@@ -337,9 +336,9 @@ index ff90780..0a1a77d 100644
 +    bear.owner = user;
 ```
 
-Save, reload, and confirm you now cannot see anyone else's bears. You'll need to create some for yourself if you want to see some.
+Save, reload, and confirm you can no longer see anyone else's bears. If you want to see some bears, you'll need to create them for yourself.
 
-The index view is now nice and private, but it feels _wrong_ to prevent our fellow bear enthusiasts from viewing polar bears, the sweetest and most mild-mannered of all bears. To right that wrong, we can register the `Species` enum as a constant so that we can reference it in our policy...
+The index view is now private, but it feels _wrong_ to prevent our fellow bear enthusiasts from viewing polar bears, the sweetest and most mild-mannered of all bears. To right that wrong, we can register the `Species` enum as a constant so that we can reference it in our policy:
 
 ```diff
 diff --git a/app/main.py b/app/main.py
@@ -353,7 +352,7 @@ index 1fa9573..6abb06d 100644
 +oso.register_constant(Species, "Species")
 ```
 
-...and then update said policy:
+Then, update said policy:
 
 ```diff
 diff --git a/app/policy.polar b/app/policy.polar
@@ -367,7 +366,7 @@ index f5bc0a5..2883949 100644
 +    bear.species = Species.polar;
 ```
 
-Shucks, who doesn't like pandas or bears named "Smokey":
+While we're at it, who doesn't like pandas or bears named "Smokey":
 
 ```diff
 diff --git a/app/policy.polar b/app/policy.polar
@@ -382,7 +381,7 @@ index 2883949..b458ddc 100644
 +    bear.name = "Smokey";
 ```
 
-Well, that's about all we can bear for one blog. Let's take stock and wrap up.
+Well, that's about all we can _bear_ (sorry) for one blog. Let's take stock and wrap up.
 
 ## Final diff of securing the app with Oso
 
@@ -459,25 +458,34 @@ index 0000000..b458ddc
 +    bear.name = "Smokey";
 ```
 
-## Learn More About Oso and Okta
+## Learn More About Oso, FastAPI, and Python
 
-We started out with a very fast and SQL-y application built on FastAPI and SQLAlchemy. We created and configured a new Okta application to handle identity management and authentication for our app. Then we used Oso to add efficient, fine-grained authorization to our back end API.
+In this post, we started out with a very fast and SQL-y application built on FastAPI and SQLAlchemy. We created and configured a new Okta application to handle identity management and authentication for our app. Then we used Oso to add efficient, fine-grained authorization to our back end API.
 
 The full example is available on [GitHub][].
 
-If you're up for it, here are a couple exercises for you, dear reader:
+If you're up for it, here are a couple exercises to try:
 
 - Add roles to the app using `sqlalchemy-oso`'s [built-in roles][] feature.
   Perhaps every bear lives in a sanctuary, and a user can have a particular
   role in each sanctuary, e.g., "Visitor", "Friend", or "Shepherd".
-- Add a "Delete" button next to every bear in the list and, wire it up to send
+- Add a "Delete" button next to every bear in the list, and wire up each button to send
   a DELETE request to the back end. Secure your new `delete()` handler with
   Oso, and add a rule to the policy that only allows users to delete their own
   bears.
 - Join [our slack][slack] and let us know what your favorite bear is and why
   it's the polar bear.
-- Learn more about other use cases of Oso, other languages that it supports,
+- Learn more about other use cases of Oso, other languages it supports,
   and more in [the Oso documentation][docs.osohq.com].
+
+If you liked this post, chances are you'll like these others:
+
+- [Build and Secure an API in Python with FastAPI](/blog/2020/12/17/build-and-secure-an-api-in-python-with-fastapi)
+- [The Definitive Guide to WSGI](/blog/2020/11/16/definitive-guide-to-wsgi)
+- [Build a Simple CRUD App with Python, Flask, and React](/blog/2018/12/20/crud-app-with-python-flask-react)
+- [Build a CRUD App with Python, Flask, and Angular](/blog/2019/03/25/build-crud-app-with-python-flask-angular)
+
+Don't forget to [follow @oktadev on Twitter](https://twitter.com/oktadev) and subscribe to their [YouTube channel](https://youtube.com/c/oktadev) for more excellent tutorials.
 
 [FastAPI]: https://fastapi.tiangolo.com/
 [SQLAlchemy]: https://www.sqlalchemy.org/
@@ -498,3 +506,4 @@ If you're up for it, here are a couple exercises for you, dear reader:
 [slack]: https://join-slack.osohq.com
 [specializers]: https://docs.osohq.com/python/reference/polar/polar-syntax.html#specialization
 [abac]: https://docs.osohq.com/python/learn/abac.html
+[Git diff]: https://git-scm.com/docs/git-diff
