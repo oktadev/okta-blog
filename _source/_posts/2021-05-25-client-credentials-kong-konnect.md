@@ -142,9 +142,10 @@ Kong Konnect and Okta should now be protecting your applications and APIs!
 
 Once you've set up Konnect and Okta, you may find these other tutorials helpful:
 
+- [Apply Authorization Code Flow With Kong Konnect and Okta](/blog/2021/06/02/auth-code-flow-kong-konnect)
 - [3 Ways Kong Helps With API Gateway Governance](https://konghq.com/blog/api-gateway-governance)
 - [Getting Started with Kong Mesh and Open Policy Agent](https://konghq.com/blog/kong-service-mesh-and-opa-policy/)
 - [Protect Your APIs With Kong Konnect and Fastly (Signal Sciences)](https://konghq.com/blog/kong-konnect-fastly/)
 - [Use Kong Gateway to Centralize Authentication](/blog/2021/03/26/use-kong-gateway-to-centralize-authentication)
 
-If you have any questions about this post, please leave a comment below. To be notified when we post new content, please follow [@oktadev](https://twitter.com/oktadev) on Twitter, like us [on LinkedIn](https://www.linkedin.com/company/oktadev/), or subscribe to [our YouTube channel](https://www.youtube.com/oktadev).
+If you have any questions about this post, please leave a comment below. To be notified when the OktaDev team posts new content, please follow [@oktadev](https://twitter.com/oktadev) on Twitter, like us [on LinkedIn](https://www.linkedin.com/company/oktadev/), or subscribe to [our YouTube channel](https://www.youtube.com/oktadev).
