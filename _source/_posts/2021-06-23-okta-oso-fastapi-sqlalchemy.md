@@ -10,7 +10,7 @@ tweets:
 - "Learn how to add simple authorization to your app with Oso and Okta"
 - "Check out this blog post to learn how to easily secure your FastAPI app with Oso and Okta"
 - "Easily add role-based access to your FastAPI app with Oso and Okta"
-image: blog/using-okta-and-oso-to-secure-a-fastapi-and-sqlalchemy-app/card.png
+image: blog/oso-fastapi-sqlalchemy/card.png
 type: conversion
 ---
 FastAPI is really fast and SQLAlchemy is really...SQL-y. But what good is a fast and SQL-y application if it isn't **secure**?
@@ -73,7 +73,7 @@ In the `okta-hosted-login` directory, run `npm install` to install dependencies 
 
 Once the app is up and running, navigate to `http://localhost:8080` in your browser. Click the `Login` button and enter your Okta credentials when prompted. Successfully signing in should redirect you back to your front end, where you'll be greeted with your name (courtesy of Okta), a 'Create a new bear' form, and a list of bears:
 
-{% img blog/using-okta-and-oso-to-secure-a-fastapi-and-sqlalchemy-app/image1.png alt:"Eureka Instances Registered" width:"800" %}{: .center-image }
+{% img blog/oso-fastapi-sqlalchemy/image2.png alt:"Bear Management Service" width:"800" %}{: .center-image }
 
 The list will be empty because our back end service isn't running. Let's change that now.
 
@@ -94,7 +94,7 @@ uvicorn app.main:app --reload --reload-dir=app
 
 If you reload `http://localhost:8080`, you should see the list of bears populated with a number of very good bears owned by various members of Example.com, Inc:
 
-{% img blog/using-okta-and-oso-to-secure-a-fastapi-and-sqlalchemy-app/image2.png alt:"Eureka Instances Registered" width:"800" %}{: .center-image }
+{% img blog/oso-fastapi-sqlalchemy/image1.png alt:"Bear Management Service" width:"800" %}{: .center-image }
 
 Go ahead and create a few new bears of your own.
 
@@ -217,7 +217,7 @@ index 796ab1e..adfc2c8 100644
 
 If you save `app/main.py` and then try to create a new bear, the `POST` request will return a `403 Forbidden`.
 
-{% img blog/using-okta-and-oso-to-secure-a-fastapi-and-sqlalchemy-app/image3.png alt:"Eureka Instances Registered" width:"800" %}{: .center-image }
+{% img blog/oso-fastapi-sqlalchemy/image3.png alt:"403 Forbidden" width:"800" %}{: .center-image }
 
 Oso is deny-by-default, and we currently have an empty policy file. In the next section, we'll write our first authorization rule to allow real bear lovers to create real bears.
 
