@@ -27,4 +27,5 @@ fs.readdir( postsDir, (err, files) => {
     // Delete the filtered files
     filesToRemove.forEach( f => fs.unlink(path.join(postsDir, f), err => console.log));
     console.log(`Files removed: ${ filesToRemove.length }`);
+    console.warn(`For the love of Pete, DO NOT run: git add .`);
 });
