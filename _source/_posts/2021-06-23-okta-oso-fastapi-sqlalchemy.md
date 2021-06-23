@@ -485,7 +485,7 @@ If you liked this post, chances are you'll like these others:
 - [Build a Simple CRUD App with Python, Flask, and React](/blog/2018/12/20/crud-app-with-python-flask-react)
 - [Build a CRUD App with Python, Flask, and Angular](/blog/2019/03/25/build-crud-app-with-python-flask-angular)
 
-Don't forget to [follow @oktadev on Twitter](https://twitter.com/oktadev) and subscribe to their [YouTube channel](https://youtube.com/c/oktadev) for more excellent tutorials.
+Don't forget to [follow @oktadev on Twitter](https://twitter.com/oktadev) and subscribe to their [YouTube channel](https://youtube.com/c/oktadev) for more excellent tutorials. You can follow [Oso on Twitter](https://twitter.com/osoHQ) too.
 
 [FastAPI]: https://fastapi.tiangolo.com/
 [SQLAlchemy]: https://www.sqlalchemy.org/
