@@ -5,7 +5,7 @@ author: ruslan-zaharov
 by: contractor
 communities: [java]
 description: "Spring Boot Test Slices allow you to test a specific part of your application in isolation without loading the whole Spring context."
-tags: [spring, spring-boot, testing, unit tests, integration tests]
+tags: [spring, spring-boot, testing, unit-testing, integration-testing]
 tweets:
 - "Unit tests are the most valuable when they are stable, fast, and reproducible. Speed your @springboot tests up with the tips in this tutorial!"
 - "In this tutorial, you'll learn about Spring Boot testing capabilities to optimize integration tests."
