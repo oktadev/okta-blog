@@ -124,4 +124,4 @@ Once you've set up Konnect and Okta introspection flow, you may find these other
 - ["Gateway Mode" in Kuma and Kong Mesh](https://konghq.com/blog/kuma-service-mesh-gateway-mode/)
 - [Use Kong Gateway to Centralize Authentication](/blog/2021/03/26/use-kong-gateway-to-centralize-authentication)
 
-If you have any questions about this post, please leave a comment below. To be notified when the OktaDev team posts new content, please follow [@oktadev](https://twitter.com/oktadev) on Twitter, like us [on LinkedIn](https://www.linkedin.com/company/oktadev/), or subscribe to [our YouTube channel](https://www.youtube.com/oktadev).
+If you have any questions about this post, please leave a comment below. To be notified when the OktaDev team posts new content, please follow [@oktadev](https://twitter.com/oktadev) on Twitter, like them [on LinkedIn](https://www.linkedin.com/company/oktadev/), or subscribe to [their YouTube channel](https://www.youtube.com/oktadev).
