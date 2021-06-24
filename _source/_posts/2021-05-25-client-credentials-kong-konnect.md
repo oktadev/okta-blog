@@ -29,9 +29,9 @@ The OIDC plugin enables Kong, as the [API gateway](https://konghq.com/learning-c
 
 This series will show you how to implement service authentication and authorization for [Kong Konnect](https://konghq.com/kong-konnect/) and Okta using the OIDC plugin. In this tutorial, we'll cover client credentials flow for application authentication. Parts 2-4 will cover:
 
-* Authorization code for user authentication
-* Integral introspection for token validation
-* Access control based on Okta's groups and planes
+* [Authorization code for user authentication](blog/2021/06/02/auth-code-flow-kong-konnect)
+* [Integral introspection for token validation](/blog/2021/06/11/introspection-flow-kong-konnect)
+- [Access control based on Okta's groups and planes](blog/2021/06/28/access-control-policies-kong-konnect)
 
 You can also [watch this tutorial as a screencast](https://youtu.be/-zRVWD3aXwE).
 
