@@ -87,7 +87,7 @@ We are trying to consume the route, but since we don't have any token injected i
 
 {% img blog/access-control-policies-kong-konnect/okta-login-claudio.png alt:"Okta Sign In" width:"800" %}{: .center-image }
 
-And after getting authenticated, Okta is redirecting us back to the API gateway. However, since the token doesn't have the claim inside it, the gateway says “forbidden” and won't allow us to consume the route.
+And after getting authenticated, Okta is redirecting us back to the API gateway. However, since the token doesn't have the claim inside it, the gateway says "forbidden" and won't allow us to consume the route.
 
 Let's try the other user who is a member of the Kong group. Again, we try to consume the route, getting redirected to Okta, but we're going to use the second user this time.
 
