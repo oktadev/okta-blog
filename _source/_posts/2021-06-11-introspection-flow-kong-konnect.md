@@ -19,7 +19,7 @@ In our third Kong and Okta tutorial, we'll go through the introspection flow imp
 
 - [Implement Client Credentials with Kong Konnect and Okta](/blog/2021/05/25/client-credentials-kong-konnect)
 - [Implement Introspection Flow With Kong Konnect and Okta](/blog/2021/06/11/introspection-flow-kong-konnect-konnect)
-- Access control based on Okta's groups and planes (coming soon)
+- [Access control based on Okta's groups and planes](blog/2021/06/28/access-control-policies-kong-konnect)
 
 **Table of Contents**{: .hide }
 * Table of Contents
