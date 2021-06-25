@@ -9,6 +9,7 @@ tweets:
  - "Tips for productivity and happiness at work →"
  - "Developers love to be productive and get stuff done. This post shows how @mraible achieves massive productivity in his role as a Developer Advocate at Okta."
 type: awareness
+image: blog/productivity-tips/productivity-tips.png
 ---
 
 "Productivity is all about efficiency and planning." -- Mahdi Yusuf, [Iterate](https://www.iterateconf.io/) 2018

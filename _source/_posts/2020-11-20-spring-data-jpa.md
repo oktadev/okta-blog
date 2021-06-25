@@ -12,6 +12,9 @@ tweets:
 - "Check it out! Our Quick Guide to Spring Data JPA will make your day. 😃"
 image: blog/spring-data-jpa/secure-spring-data.png
 type: conversion
+changelog:
+- 2021-06-23: Add `spring.jpa.defer-datasource-initialization=true` to `application.properties` for Spring Boot 2.5. Thanks to Pranay Singhal for [the tip](http://disq.us/p/2hktl9x)! You can see changes in this post at [okta-blog#820](https://github.com/oktadev/okta-blog/pull/820). Changes in the example can be viewed in [okta-spring-data-jpa-example#5](https://github.com/oktadev/okta-spring-data-jpa-example/pull/5).
+- 2021-01-26: Updated post to use Spring Boot 2.4.2 and Spring Data 2020.0. See the code changes in the [example on GitHub](https://github.com/oktadev/okta-spring-data-jpa-example/pull/4). Changes to this post can be viewed in [okta-blog#536](https://github.com/oktadev/okta-blog/pull/536)
 ---
 
 In this tutorial, you're going to use Spring Boot and Spring Data to build a fully functioning web service with ridiculously little effort. You're also going to use Okta to secure the web service using professional, standards-compliant OIDC JWT authentication. All of this will be bootstrapped by the Okta CLI.
@@ -415,6 +418,14 @@ INSERT INTO dinosaur (name, fangs, number_of_arms, weight_tons) VALUES
 
 Remember these are recombinant, mutated dinosaurs, not actual dinosaurs, so they have extra arms.
 
+Then, add the following property to `src/main/resources/application.properties`:
+
+```properties
+spring.jpa.defer-datasource-initialization=true
+```
+
+Thanks to Pranay Singhal for [the tip](http://disq.us/p/2hktl9x)! You can read more about why this is necessary on [Stack Overflow](https://stackoverflow.com/a/67695070/65681).
+
 ## Test Your Spring Data JPA-Powered REST API
 
 Now, try it out. Run the Spring Boot app (`Control-C` if necessary).
@@ -661,7 +672,7 @@ In this tutorial, you took a look at Spring Data in general and saw how it is an
 
 As an example of this, you used Spring Data JPA to create a simple relational database model and repository. You used Spring's `CrudRepository` class and saw how it automatically created a resource server from your data model. Finally, you used Okta's OAuth 2.0 and OIDC implementation to quickly and easily add JWT authentication to your resource server. All of this was bootstrapped by Okta's CLI.
 
-You can find the source code for this example on GitHub, in the [oktadeveloper/okta-spring-data-jpa-example](https://github.com/oktadeveloper/okta-spring-data-jpa-example). 
+You can find the source code for this example on GitHub, in the [oktadev/okta-spring-data-jpa-example](https://github.com/oktadev/okta-spring-data-jpa-example). 
 
 If you liked this post, you might like similar ones on Spring Data and Spring Boot:
 
@@ -671,8 +682,3 @@ If you liked this post, you might like similar ones on Spring Data and Spring Bo
 - [Use Spring Boot and MySQL to go Beyond Authentication](/blog/2019/07/03/spring-boot-jpa)
 
 If you have any questions about this post, please add a comment below. For more awesome content, follow [@oktadev](https://twitter.com/oktadev) on Twitter, like us [on Facebook](https://www.facebook.com/oktadevelopers/), or subscribe to [our YouTube channel](https://www.youtube.com/oktadev). We also stream on [Twitch](https://twitch.tv/oktadev) every week.
-
-<a name="changelog"></a>
-**Changelog**:
-
-* Jan 26, 2021: Updated post to use Spring Boot 2.4.2 and Spring Data 2020.0. See the code changes in the [example on GitHub](https://github.com/oktadeveloper/okta-spring-data-jpa-example/pull/4). Changes to this post can be viewed in [oktadeveloper/okta-blog#536](https://github.com/oktadeveloper/okta-blog/pull/536).
