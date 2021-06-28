@@ -1,16 +1,16 @@
 ---
 layout: blog_post
-title: "Spring WebClient for Easy Access to Third-Party OAuth 2.0 Protected Resources"
+title: "Spring WebClient for Easy Access to OAuth 2.0 Protected Resources"
 author: jimena-garbarino
 by: contractor
 communities: [java]
-description: "Simple third-party OAuth 2 services integration with Spring WebClient."
-tags: [spring-webclient, integration-testing, webtestclient, testing, oauth2, mockwebserver]
+description: "This tutorial shows how to integrate third-party secure resources with Spring WebClient."
+tags: [spring, spring-webclient, integration-testing, webtestclient, testing, oauth2, mockwebserver]
 tweets:
-- ""
-- ""
-- ""
-image:
+- "Spring ẀebClient was added as part of the reactive web stack WebFlux in Spring Framework 5.0. Learn more! 👇"
+- "Spring WebClient provides a slick API for connecting to OAuth-protected resources. 💪"
+- "Spring WebClient - it's the bees knees! 🐝"
+image: blog/spring-webclient/spring-webclient.png
 type: conversion
 ---
 
@@ -21,6 +21,7 @@ The WebTestClient is also an HTTP client designed for testing applications. It w
 Spring Security 5 provides integration with WebTestClient, and ships with SecurityMockServerConfigurers that can be used to mock authenticated users and authorized clients to avoid authorization handshakes during testing. This feature is handy for secured applications that access third-party OAuth 2.0 resources, as it will be explored in the following sections.
 
 In this tutorial, you will learn how to:
+
 - Secure an application with Okta OIDC Login
 - Access a third-party OAuth 2 resource with Spring WebClient
 - Carry out integration testing for code that uses WebClient
