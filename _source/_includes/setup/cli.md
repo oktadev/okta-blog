@@ -168,6 +168,7 @@ https://developer.okta.com/docs/guides/sign-into-
 
 {%- capture docsLink %}
 {%- if include.type == "jhipster" -%}{{ jhipsterDocs }}
+{%- elsif include.type == "token" -%}{{ tokenDocs }}
 {%- else -%}{{ oktaDocs }}
 {%- endif -%}
 {%- endcapture -%}

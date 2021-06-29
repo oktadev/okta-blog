@@ -11,6 +11,8 @@ tweets:
   - "This tutorial shows you how to build a Vue app with a Laravel backend, complete with authentication!"
 image: blog/featured/okta-vue-tile-books-mouse.jpg
 type: conversion
+changelog:
+- 2021-04-15: Updated to use Okta Vue 3.1.0 and the Okta CLI for OIDC app creation. Updated Laravel CORS library from barryvdh to fruitcake. See changes in [okta-blog#679](https://github.com/oktadeveloper/okta-blog/pull/679). Changes to the example app can be viewed in [okta-php-laravel-vue-crud-example#20](https://github.com/oktadeveloper/okta-php-laravel-vue-crud-example/pull/20).
 ---
 
 Laravel is one of the most popular web frameworks today because of its elegance, simplicity, and readability. It also boasts one of the largest and most active developer communities. The Laravel community has produced a ton of valuable educational resources, including this one! In this tutorial, you'll build a trivia game as two separate projects: a Laravel API and a Vue frontend (using vue-cli). This approach offers some important benefits:
@@ -25,24 +27,9 @@ Before you start, you'll need to set up a development environment with PHP 7 and
 
 ## Create an OpenID Connect App
 
-Before we get into the code, let's set up our Okta account so it's ready when we need it. Okta is an API service that allows you to create, edit, and securely store user accounts and user account data, and connect them with one or more applications. You can [register for a forever-free developer account here](https://developer.okta.com/signup/).
+Before we get into the code, let's set up our Okta account so it's ready when we need it. Okta is an API service that allows you to create, edit, and securely store user accounts and user account data, and connect them with one or more applications.
 
-Once you're signed up, log in and visit the Okta dashboard. Be sure to take note of the **Org URL** setting at the top-right portion of the dashboard, you'll need this URL later when configuring your application.
-
-Next, set up a new application, you'll mostly use the default settings. 
-Here are the step-by-step instructions:
-
-1. Go to the **Applications** menu item and click the **Add Application** button:
-
-{% img blog/php-laravel-vue-app/add-application.png width:"200" alt:"Click Add Application" %}{: .center-image }
-
-2. Select **Single Page Application** and click **Next**.
-
-{% img blog/php-laravel-vue-app/new-spa.png alt:"Create a new SPA application" %}{: .center-image }
-
-3. Set a descriptive application name, add `http://localhost:8080/implicit/callback` as a **Login redirect URI**, and click **Done**. You can leave the rest of the settings as they are.
-
-4. Finally, copy down the value of the **Client ID** variable. This value will be used in the OpenID Connect flow later on.
+{% include setup/cli.md type="spa" framework="Vue" loginRedirectUri="http://localhost:8080/callback" %}
 
 ## Build Your Laravel and Vue CRUD Application
 
@@ -65,8 +52,7 @@ You can create your own rules, but here's the general gist of the game:
 Once the `laravel` command is installed globally via composer, you'll use it to create a new Laravel project, and start the development PHP server from its directory:
 
 ```bash
-composer global require laravel/installer
-laravel new trivia-web-service
+composer create-project laravel/laravel="5.6.*" trivia-web-service
 cd trivia-web-service
 php artisan serve
 ```
@@ -80,7 +66,7 @@ CREATE USER 'trivia'@'localhost' identified by 'trivia';
 GRANT ALL on trivia.* to 'trivia'@'localhost';
 quit
 ```
- 
+
 You now need to insert the database configuration variables into the .env file in your main project directory:
 
 `.env`
@@ -129,6 +115,8 @@ At this point, you may notice that you already have a model class, `app/Player.p
 `app/Player.php`
 
 ```php
+...
+
 class Player extends Model
 {
     protected $fillable = ['name', 'answers', 'points'];
@@ -261,7 +249,7 @@ class PlayerController extends Controller
 You have to enable CORS so you can access your API from the frontend application:
 
 ```bash
-composer require barryvdh/laravel-cors
+composer require fruitcake/laravel-cors
 ```
 
 `app/Http/Kernel.php`
@@ -269,13 +257,13 @@ composer require barryvdh/laravel-cors
 ```php
 protected $middlewareGroups = [
     'web' => [
-		...
-		\Barryvdh\Cors\HandleCors::class,
+        ...
+        \Fruitcake\Cors\HandleCors::class,
     ],
 
     'api' => [
         ...
-		\Barryvdh\Cors\HandleCors::class,
+        \Fruitcake\Cors\HandleCors::class,
     ],
 ];
 ```
@@ -301,7 +289,8 @@ You will install `vue-cli` and create a new Vue.js project using the default con
 npm install -g @vue/cli
 vue create trivia-web-client-vue
 cd trivia-web-client-vue
-yarn add --save vue-router axios @okta/okta-vue
+yarn add --save vue-router axios @okta/okta-vue@3.1.0
+npm install --save @okta/okta-auth-js@4.8.0 @okta/okta-vue vue-router axios
 yarn serve
 ```
 
@@ -318,8 +307,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 Vue.config.productionTip = false
-
-
 Vue.use(VueRouter)
 
 import Dashboard from './components/Dashboard.vue';
@@ -361,9 +348,9 @@ It doesn't look very nice with the default browser font. Let's improve it by loa
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
 ```
 
-## Add Authentication to the Vue Frontend 
+## Add Authentication to the Vue Frontend
 
-Great! Now you can add your menu and routing, and implement a protected 'Trivia Game' route 
+Great! Now you can add your menu and routing, and implement a protected 'Trivia Game' route
 that requires authentication:
 
 `main.js`
@@ -371,23 +358,24 @@ that requires authentication:
 ```js
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Dashboard from './components/Dashboard.vue'
+import { OktaAuth } from '@okta/okta-auth-js'
+import OktaVue, { LoginCallback } from '@okta/okta-vue'
+
+const oktaAuth = new OktaAuth({
+  issuer: 'https://{yourOktaDomain}/oauth2/default',
+  clientId: '{yourClientId}',
+  redirectUri: window.location.origin + '/callback',
+  scopes: ['openid', 'profile', 'email']
+})
+Vue.use(OktaVue, { oktaAuth })
 
 Vue.config.productionTip = false
 Vue.use(VueRouter)
 
-import Dashboard from './components/Dashboard.vue'
-import Auth from '@okta/okta-vue'
-
-Vue.use(Auth, {
-  issuer: 'https://{yourOktaDomain}/oauth2/default',
-  client_id: '{yourClientId}',
-  redirect_uri: 'http://localhost:8080/implicit/callback',
-  scope: 'openid profile email'
-})
-
 const routes = [
-  { path: '/implicit/callback', component: Auth.handleCallback() },
-  { path: '/', component: Dashboard},
+  { path: '/callback', component: LoginCallback },
+  { path: '/', component: Dashboard },
 ]
 
 const router = new VueRouter({
@@ -411,7 +399,7 @@ Don't forget to substitute your own Okta domain and Client ID! You also need to 
 import TriviaGame from './components/TriviaGame.vue'
 
 const routes = [
-  { path: '/implicit/callback', component: Auth.handleCallback() },
+  { path: '/callback', component: LoginCallback },
   { path: '/trivia', component: TriviaGame }
 ]
 ...
@@ -439,8 +427,8 @@ const routes = [
                     <div class="navbar-menu">
                         <div class="navbar-item">
                             <router-link to="/" class="navbar-item">Home</router-link>
-                            <router-link v-if='authenticated' to="/trivia" class="navbar-item">Trivia Game</router-link>
-                            <a class="button is-light" v-if='authenticated' v-on:click='logout' id='logout-button'> Logout </a>
+                            <router-link v-if='authState.isAuthenticated' to="/trivia" class="navbar-item">Trivia Game</router-link>
+                            <a class="button is-light" v-if='authState.isAuthenticated' v-on:click='logout' id='logout-button'> Logout </a>
                             <a class="button is-light" v-else v-on:click='login' id='login-button'> Login </a>
                         </div>
                     </div>
@@ -453,37 +441,13 @@ const routes = [
 
 <script>
 export default {
-
-    data: function () {
-        return {
-            authenticated: false
-        }
-    },
-
-    created () {
-        this.isAuthenticated()
-    },
-
-    watch: {
-        // Everytime the route changes, check for auth status
-        '$route': 'isAuthenticated'
-    },
-
     methods: {
-        async isAuthenticated () {
-            this.authenticated = await this.$auth.isAuthenticated()
-        },
-
-        login () {
-            this.$auth.loginRedirect('/')
+        async login () {
+            await this.$auth.signInWithRedirect()
         },
 
         async logout () {
-            await this.$auth.logout()
-            await this.isAuthenticated()
-
-            // Navigate back to home
-            this.$router.push({ path: '/' })
+            await this.$auth.signOut()
         }
     }
 }
@@ -553,7 +517,7 @@ export default {
         }
     },
     async created () {
-        axios.defaults.headers.common['Authorization'] = `Bearer ${await this.$auth.getAccessToken()}`
+        axios.defaults.headers.common['Authorization'] = `Bearer ${this.$auth.getAccessToken()}`
         try {
             const response = await axios.get(API_BASE_URL + '/players')
             this.players = response.data.data
@@ -572,7 +536,7 @@ export default {
 You need to secure your backend API so it only allows requests that include a valid Okta token. You will install the Okta JWT Verifier package and add a custom middleware for API authentication:
 
 ```bash
-composer require okta/jwt-verifier spomky-labs/jose guzzlehttp/psr7
+composer require okta/jwt-verifier:"^0.2" spomky-labs/jose:"^7.1" guzzlehttp/psr7:"^1.4"
 php artisan make:middleware AuthenticateWithOkta
 ```
 
@@ -669,14 +633,21 @@ Next, replace the 'Add Player' button placeholder with a form to add a new playe
 
 `components/TriviaGame.vue`
 
+Replace:
+
 ```html
-Replace 
 <a class="button is-primary">Add Player</a>
+```
+
 with:
+
+```html
 <player-form @completed="addPlayer"></player-form>
+```
 
 Add to the <script> section:
 
+```js
 import PlayerForm from './PlayerForm.vue'
 
 export default {
@@ -728,7 +699,7 @@ export default {
             this.postPlayer()
         },
         async postPlayer() {
-            axios.defaults.headers.common['Authorization'] = `Bearer ${await this.$auth.getAccessToken()}`
+            axios.defaults.headers.common['Authorization'] = `Bearer ${this.$auth.getAccessToken()}`
             axios.post(API_BASE_URL + '/players', this.$data)
                 .then(response => {
                     this.name = ''
@@ -870,7 +841,7 @@ export default {
     },
     async created () {
         this.getQuestion()
-        axios.defaults.headers.common['Authorization'] = `Bearer ${await this.$auth.getAccessToken()}`
+        axios.defaults.headers.common['Authorization'] = `Bearer ${this.$auth.getAccessToken()}`
         try {
             const response = await axios.get(API_BASE_URL + '/players')
             this.players = response.data.data
@@ -883,13 +854,13 @@ export default {
         async getQuestion() {
             delete axios.defaults.headers.common.Authorization
             this.doGetQuestion()
-            axios.defaults.headers.common['Authorization'] = `Bearer ${await this.$auth.getAccessToken()}`
+            axios.defaults.headers.common['Authorization'] = `Bearer ${this.$auth.getAccessToken()}`
         },
         async doGetQuestion() {
             try {
                 const response = await axios.get(TRIVIA_ENDPOINT, {
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded' 
+                        'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 })
                 this.question = response.data[0]
