@@ -5,7 +5,7 @@ author: holger-schmitz
 by: contractor
 communities: [javascript]
 description: "This tutorial shows you how to create a real-time chat application using JavaScript and Socket.IO."
-tags: [socket.io, websocket, react, express, javascript]
+tags: [socketio, websocket, react, express, javascript]
 tweets:
 - "Learn how to use WebSockets and create a secure real-time chat app with @SocketIO!"
 - "Giddyup with @SocketIO and @reactjs in our latest JavaScript tutorial."
