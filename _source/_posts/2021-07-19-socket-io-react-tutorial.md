@@ -16,7 +16,7 @@ type: conversion
 
 The HTTP protocol powers the web. Traditionally, HTTP is a request-response protocol. This means that a client requests data from a server, and the server responds to that request. In this model, a server will never send data to a client without having been queried first.
 
-This approach is suitable for many use cases that the web is used for. It allows loose coupling between clients and servers without the need to keep a persistent connection. But for real-time applications, the request-response model has its drawbacks. When some state on the server changes, the client isn’t informed immediately. Within the HTTP protocol, the client needs to use regular polling to request data from the server. This is not ideal because the data will not arrive at the server in real-time, and shorter polling intervals will increase network traffic.
+This approach is suitable for many use cases that the web is used for. It allows loose coupling between clients and servers without the need to keep a persistent connection. But for real-time applications, the request-response model has its drawbacks. When some state on the server changes, the client isn't informed immediately. Within the HTTP protocol, the client needs to use regular polling to request data from the server. This is not ideal because the data will not arrive at the server in real-time, and shorter polling intervals will increase network traffic.
 
 Most modern browsers nowadays support WebSockets. The WebSocket protocol builds on top of the HTTP protocol to provide a persistent bi-directional connection between the client and the server. Websockets can be used directly using JavaScript in the browser, but the API is low-level, making it complicated to create even a simple application.
 
@@ -623,10 +623,10 @@ This tutorial shows you how to create a simple real-time chat application using 
 
 The chat application in this tutorial is split into two parts. The client makes use of React for rendering the user interface. The server uses Express to manage connections and configure the HTTP server. The use of Express shows that you can combine Socket.IO based communication with traditional REST-style APIs in the same server. If you want to learn more about any of these topics, feel free to follow the links below.
 
-* [Build a React App with Styled Components](https://developer.okta.com/blog/2020/03/16/react-styled-components)
-* [Use TypeScript to Build a Node API with Express](https://developer.okta.com/blog/2018/11/15/node-express-typescript)
-* [Develop Secure Apps with WebSockets and Node.js](https://developer.okta.com/blog/2020/10/28/secure-web-apps-websockets-nodejs)
-* [Build a Next.js Application with TypeScript](https://developer.okta.com/blog/2020/11/13/nextjs-typescript)
+* [Build a React App with Styled Components](/blog/2020/03/16/react-styled-components)
+* [Use TypeScript to Build a Node API with Express](/blog/2018/11/15/node-express-typescript)
+* [Develop Secure Apps with WebSockets and Node.js](/blog/2020/10/28/secure-web-apps-websockets-nodejs)
+* [Build a Next.js Application with TypeScript](/blog/2020/11/13/nextjs-typescript)
 
 You can find the code for this tutorial on GitHub at <https://github.com/oktadev/okta-socket-io-chat-example>.
 
