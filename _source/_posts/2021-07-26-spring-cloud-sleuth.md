@@ -72,7 +72,7 @@ cd spring-cloud-sleuth-demo
 
 The command uses a lot of the default settings. It uses Maven as the dependency manager. It uses Java as the programming language. It uses Spring Boot 2.4.5 (the current release at the time of writing this tutorial). It creates a JAR as the build target. Finally, it specifies Java 11 (again, at the time of this tutorial).
 
-{% img blog/spring-cloud-sleuth/spring-initializr.png alt:"Spring Initializr" width:"715" %}{: .center-image }
+{% img blog/spring-cloud-sleuth/spring-initializr.png alt:"Spring Initializr" width:"650" %}{: .center-image }
 
 The most important thing it configures is four dependencies.
 
@@ -128,7 +128,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 }
 ```
 
-## Make An Example Spring Cloud Sleuth App
+## Make an Example Spring Cloud Sleuth App
 
 Replace the `DemoApplication` class with the code listed below. I'll explain the code below.
 
@@ -216,7 +216,7 @@ In endpoint `a`, notice that the code grabs the JWT token from the header as a r
 
 If you don't inject the `RestTemplate` as a bean but instead instantiate it directly in the method or use a different HTTP client, you will need to manually add the Sleuth trace ID.
 
-## Launch A Zipkin Server
+## Launch a Zipkin Server
 
 Before you start the two instances of the Spring Boot app, you need to launch your Zipkin server. Because the project includes the Zipkin Client dependency (along with the Spring Cloud Sleuth dependency), Spring Boot is configured to send logging information to a Zipkin server at the default port `:9441`. This includes a graphical interface that allows you to search and view log traces.
 
@@ -247,7 +247,7 @@ There's nothing to see yet, but you can open the Zipkin dashboard in a browser: 
 {% img blog/spring-cloud-sleuth/zipkin-dashboard.png alt:"Zipkin dashboard" width:"715" %}{: .center-image }
 
 
-## Launch The App Instances
+## Launch Two App Instances
 
 Now you're ready to launch the instances of your app. First, you need to run the following commands in two separate shells. Notice that you're using the environment variables to pass the application name and port to the Spring Boot app.
 
@@ -284,7 +284,7 @@ HTTP/1.1 401
 
 This is expected. You need to include a valid JWT.
 
-## Create A Valid JWT With OIDC Debugger
+## Create a Valid JWT with OIDC Debugger
 
 {% include setup/oidcdebugger.md responseType="token" %}
 
@@ -302,7 +302,7 @@ In the bash shell that you will make the HTTP requests from, save the token valu
 TOKEN=eyJraWQiOiJJdXVaRG00RTg5WUg5U1JoeC1tbWl...
 ```
 
-## Test The Authenticated Application
+## Confirm Spring Cloud Sleuth Works
 
 Great. At this point, you should have four bash terminals going.
 
