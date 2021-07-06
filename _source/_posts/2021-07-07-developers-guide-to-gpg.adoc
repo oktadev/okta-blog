@@ -11,7 +11,7 @@ tweets:
 - "Learn how to use a GPG key to log in to GitHub 🔐"
 - "You can sign your code with a GPG key 🔏, but did you know you can authenticate too⁉️"
 
-image:
+image: blog/developers-guide-to-gpg/developers-guide-to-gpg.png
 type: awareness
 ---
 :toc: macro
