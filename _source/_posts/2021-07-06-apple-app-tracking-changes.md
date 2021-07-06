@@ -33,7 +33,7 @@ As of iOS 14.5, apps now have to explicitly request access to the advertising ID
 
 There is a fantastic gallery of these prompts from a wide variety of apps being collected at <https://www.attprompts.com>
 
-The options presented to the user are "Ask App Not to Track" and "Allow." App developers and advertisers are worried that most users will not choose "Allow," blocking advertisers’  access to this advertising ID. If the user doesn't allow this permission, when the app goes to read the advertising ID, it will get a string of zeros.
+The options presented to the user are "Ask App Not to Track" and "Allow." App developers and advertisers are worried that most users will not choose "Allow," blocking advertisers'  access to this advertising ID. If the user doesn't allow this permission, when the app goes to read the advertising ID, it will get a string of zeros.
 
 So what does it mean if an app developer isn't able to access the user's advertising ID anymore? Without the IDFA, and without any sort of login mechanism, developers of two different apps have no way to know that the same user is using both apps, or that both apps are installed on the same device. Because of that, ad networks used within apps can't track user's activity across different apps, only within a single app. This means the inability to show users "personalized" ads based on information learned about them from outside the app.
 
@@ -57,7 +57,7 @@ When using the limited version of Facebook Login, the fact that a person used Fa
 
 This introduction of the new "Limited Data Mode" gives your app a way to continue to use Facebook login while not breaking Apple's rules around cross-app tracking.
 
-Since we've seen some examples of how social login features can either intentionally or inadvertently be tracking users across apps, you might be wondering what this means if you're using Okta's own iOS SDKs. Okta's SDKs support signing in with an Okta account as well as [Sign In with Apple](https://developer.okta.com/blog/2019/06/04/what-the-heck-is-sign-in-with-apple) and other social login providers. The good news is Okta has never shared user identifiers with anyone else, so you don't need to worry about accidentally breaking Apple's rules by including the Okta SDK!
+Since we've seen some examples of how social login features can either intentionally or inadvertently be tracking users across apps, you might be wondering what this means if you're using Okta's own iOS SDKs. Okta's SDKs support signing in with an Okta account as well as [Sign In with Apple](/blog/2019/06/04/what-the-heck-is-sign-in-with-apple) and other social login providers. The good news is Okta has never shared user identifiers with anyone else, so you don't need to worry about accidentally breaking Apple's rules by including the Okta SDK!
 
 To read more about Apple's rules around user privacy, visit the official [Apple FAQ here](https://developer.apple.com/app-store/user-privacy-and-data-use/).
 
