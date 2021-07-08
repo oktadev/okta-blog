@@ -1,7 +1,7 @@
 ---
 layout: blog_post
-title: How to Update App Secrets with Jenkins CI and .NET Core
-author: nick-fisher
+title: Update App Secrets with Jenkins CI and .NET Core
+author: nickolas-fisher
 by: contractor
 communities: [.net]
 description: "Learn how to use Jenkins continuous integration platform for managing the applciation secrets and credentials in .NET Core."
@@ -22,17 +22,17 @@ In this application, you will create a .NET5 MVC web application and check it in
 
 ### What you'll need
 
-> Your favorite IDE. I will be using Visual Studio but Visual Studio Code is another great option
-> A git repository
-> .NET 5
-> Jenkins
-> A Web Browser to Access Jenkins
-> An Okta Developer Account
-> The Okta CLI tool
+- Your favorite IDE. I will be using Visual Studio but Visual Studio Code is another great option
+- A git repository
+- .NET 5
+- Jenkins
+- A Web Browser to Access Jenkins
+- An Okta Developer Account
+- The Okta CLI tool
 
 ## Create your Okta Application
 
-The first thing you want to do is create your Okta application. To do this you can use the new [Okta CLI tool](https://cli.okta.com/). Download the Okta CLI tool if you haven't already and run `okta login` to log into your account. Next run `okta apps create` and follow the prompts you receive. First, select `web` as your application type. Next, for your *Redirect URI* type in your web application's development location and append '/okta/callback' to it. For *Post Logout RedirectURI* use your same base domain and append `/signout/callback` as this is the route Okta will use by default. If you have multiple authorization services the CLI tool will prompt you to select one. For this project you can select default however in a production environment you should create a custom server. After a moment the CLI tool will return your *ClientId*. Be sure to note this as you will need it in your application.
+The first thing you want to do is create your Okta application. To do this you can use the new [Okta CLI tool](https://cli.okta.com/). Download the Okta CLI tool if you haven't already and run `okta login` to log into your account. Next run `okta apps create` and follow the prompts you receive. First, select `web` as your application type. Next, for your **Redirect URI** type in your web application's development location and append `/okta/callback` to it. For **Post Logout RedirectURI** use your same base domain and append `/signout/callback` as this is the route Okta will use by default. If you have multiple authorization services the CLI tool will prompt you to select one. For this project you can select default however in a production environment you should create a custom server. After a moment the CLI tool will return your *ClientId*. Be sure to note this as you will need it in your application.
 
 Next, navigate to your Okta admin portal. The first thing you want to do is note your *Client Secret*. Next, press **Edit** under the *General Settings* tab and scroll down to the *Login* subsection. Add a value under *Sign-in redirect URIs* with the same path as before but use `https://locahost:5001` instead of your development domain. This URI will be used when you publish and run your application with Jenkins. Similarly, under *Sign-out redirect URIs* add a value with the same route as your development route but using `https://localhost:5001`.  
 
@@ -42,7 +42,9 @@ Next, navigate to your Okta admin portal. The first thing you want to do is note
 
 Open Visual Studio and select *Create a New Project*. Use the template for *ASP.NET Core Web App(Model-View-Controller)*. Give your application a meaningful name click **Create**. Visual Studio will scaffold your application. Once it is complete you can begin making the necessary changes.
 
-First, install the *Okta.AspNetCore* package from nuget using the command `Install-Package Okta.AspNetCore -Version 3.5.0`.  
+First, install the *Okta.AspNetCore* package from nuget using the command:
+
+`Install-Package Okta.AspNetCore -Version 3.5.0`
 
 Next, modify your `Startup.cs` file with the code below.
 
@@ -104,7 +106,8 @@ namespace Okta_Jenkins
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                // The default HSTS value is 30 days. You may want to change this 
+                // for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
