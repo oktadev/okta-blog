@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Okta, SCIM and Flask"
-author: Cale Switzer
+author: cale-switzer
 by: advocate
 communities: [python]
 description: "Using a Flask SCIM server, learn more about the how & why behind how Okta implements the provisioning protocol."
