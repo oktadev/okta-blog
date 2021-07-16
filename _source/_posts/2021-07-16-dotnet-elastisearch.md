@@ -48,7 +48,7 @@ A ready application should be created, with the Okta login flow already set upâ€
 
 You can test run the application by hitting `F5` in Visual Studio or by entering `dotnet run` in your command line. A browser window will open and you should be able to log in using your Okta credentials.
 
-I have uploaded my working application to GitHub in case you get stuck: [Okta .NET Core 3 Elasticsearch Example](https://github.com/mr-sige/okta-netcore3-elasticsearch-example).
+I have uploaded my working application to GitHub in case you get stuck: [Okta .NET Core 3 Elasticsearch Example](https://github.com/oktadev/okta-dotnetcore-elasticsearch-example).
 
 ## Set Up an Elasticsearch Instance in the Cloud
 
