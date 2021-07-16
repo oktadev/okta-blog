@@ -170,7 +170,8 @@ public class FlatMapTest {
 
 }
 ```
-
+```
+```
 
 
 ## Nothing Happens Until You Subscribe
@@ -185,6 +186,10 @@ Hot publisher, generates data for each subscription. If you subscribe twice, it 
 Notion of execution context.
 Notion of a clock.
 Intermediate operators.
+
+
+
+--- Create spring boot application
 
 
 Create the class `TestUtils` with a handy function for logging the thread name, function and element:
@@ -244,7 +249,7 @@ As you can see, the `map` function executes in the _main_ thread, and the consum
 
 _Bounded elastic thread pool_:
 
-A better choice for I/O blocking work, for example, reading a file, or making a blocking network call, is a bounded elastic thread pool.
+A better choice for I/O blocking work, for example, reading a file, or making a blocking network call, is a bounded elastic thread pool. **It is provided to help with legacy blocking code if it cannot be avoided.**
 
 ```java
 
@@ -296,14 +301,89 @@ The test above should log something similar to this:
 ```
 As you can see in the code above, the flux is subscribed twice. As the `publishOn` is invoked before any operator, everything will execute in the context of a bounded elastic thread. Also notice how execution from both subscription can interleave.
 
-What might be confusing is that each subscription is assigned one bounded elastic thread for the whole execution. So in this case,_ subscription1_ executed in `boundedElastic-1` and subscription2 executed in `boundedElastic-2`. In this example, if there was only one subscription, you would see that all operators execute in the same bounded elastic thread.
+What might be confusing is that each subscription is assigned one bounded elastic thread for the whole execution. So in this case,_ subscription1_ executed in `boundedElastic-1` and subscription2 executed in `boundedElastic-2`. All operations for a given subscription execute in the same thread.
 
 The way the `Flux` was instantiated above produced a **Cold Publisher**, a publisher that generates data anew for each subscription. That's why both subscriptions above process all the values.
 
 _Fixed pool of workers_:
 
+A pool of workers tuned for parallel work, as many workers as CPU cores.
+
+```java
+@Test
+public void parallelTest() throws InterruptedException {
+
+    Flux flux = Flux.range(1, 5)
+            .publishOn(Schedulers.parallel())
+            .map(v -> debug(v, "map"));
+
+    for (int i = 0; i < 5; i++) {
+        flux.subscribe(w -> debug(w,"subscribe"));
+    }
 
 
+    Thread.sleep(5000);
+}
+```
+
+The test above will log something similar to the following lines:
+
+```
+2021-07-15 22:57:33.435 - INFO [parallel-2] - element "1" [map]
+2021-07-15 22:57:33.435 - INFO [parallel-2] - element "1" [subscribe2]
+2021-07-15 22:57:33.435 - INFO [parallel-1] - element "1" [map]
+2021-07-15 22:57:33.435 - INFO [parallel-2] - element "2" [map]
+2021-07-15 22:57:33.435 - INFO [parallel-2] - element "2" [subscribe2]
+2021-07-15 22:57:33.435 - INFO [parallel-1] - element "1" [subscribe1]
+2021-07-15 22:57:33.435 - INFO [parallel-1] - element "2" [map]
+2021-07-15 22:57:33.436 - INFO [parallel-1] - element "2" [subscribe1]
+2021-07-15 22:57:33.436 - INFO [parallel-2] - element "3" [map]
+2021-07-15 22:57:33.436 - INFO [parallel-1] - element "3" [map]
+2021-07-15 22:57:33.436 - INFO [parallel-2] - element "3" [subscribe2]
+2021-07-15 22:57:33.436 - INFO [parallel-1] - element "3" [subscribe1]
+2021-07-15 22:57:33.436 - INFO [parallel-1] - element "4" [map]
+2021-07-15 22:57:33.436 - INFO [parallel-2] - element "4" [map]
+2021-07-15 22:57:33.436 - INFO [parallel-1] - element "4" [subscribe1]
+2021-07-15 22:57:33.436 - INFO [parallel-2] - element "4" [subscribe2]
+2021-07-15 22:57:33.436 - INFO [parallel-1] - element "5" [map]
+2021-07-15 22:57:33.436 - INFO [parallel-2] - element "5" [map]
+2021-07-15 22:57:33.436 - INFO [parallel-1] - element "5" [subscribe1]
+2021-07-15 22:57:33.436 - INFO [parallel-2] - element "5" [subscribe2]
+2021-07-15 22:57:33.438 - INFO [parallel-3] - element "1" [map]
+2021-07-15 22:57:33.438 - INFO [parallel-3] - element "1" [subscribe3]
+2021-07-15 22:57:33.439 - INFO [parallel-3] - element "2" [map]
+2021-07-15 22:57:33.439 - INFO [parallel-3] - element "2" [subscribe3]
+2021-07-15 22:57:33.439 - INFO [parallel-3] - element "3" [map]
+2021-07-15 22:57:33.439 - INFO [parallel-3] - element "3" [subscribe3]
+2021-07-15 22:57:33.441 - INFO [parallel-4] - element "1" [map]
+2021-07-15 22:57:33.441 - INFO [parallel-3] - element "4" [map]
+2021-07-15 22:57:33.442 - INFO [parallel-4] - element "1" [subscribe4]
+2021-07-15 22:57:33.445 - INFO [parallel-1] - element "1" [map]
+2021-07-15 22:57:33.445 - INFO [parallel-4] - element "2" [map]
+2021-07-15 22:57:33.445 - INFO [parallel-4] - element "2" [subscribe4]
+2021-07-15 22:57:33.445 - INFO [parallel-1] - element "1" [subscribe5]
+2021-07-15 22:57:33.445 - INFO [parallel-4] - element "3" [map]
+2021-07-15 22:57:33.445 - INFO [parallel-4] - element "3" [subscribe4]
+2021-07-15 22:57:33.445 - INFO [parallel-1] - element "2" [map]
+2021-07-15 22:57:33.445 - INFO [parallel-4] - element "4" [map]
+2021-07-15 22:57:33.445 - INFO [parallel-1] - element "2" [subscribe5]
+2021-07-15 22:57:33.445 - INFO [parallel-4] - element "4" [subscribe4]
+2021-07-15 22:57:33.445 - INFO [parallel-1] - element "3" [map]
+2021-07-15 22:57:33.445 - INFO [parallel-4] - element "5" [map]
+2021-07-15 22:57:33.445 - INFO [parallel-4] - element "5" [subscribe4]
+2021-07-15 22:57:33.445 - INFO [parallel-1] - element "3" [subscribe5]
+2021-07-15 22:57:33.442 - INFO [parallel-3] - element "4" [subscribe3]
+2021-07-15 22:57:33.450 - INFO [parallel-3] - element "5" [map]
+2021-07-15 22:57:33.450 - INFO [parallel-3] - element "5" [subscribe3]
+2021-07-15 22:57:33.450 - INFO [parallel-1] - element "4" [map]
+2021-07-15 22:57:33.450 - INFO [parallel-1] - element "4" [subscribe5]
+2021-07-15 22:57:33.450 - INFO [parallel-1] - element "5" [map]
+2021-07-15 22:57:33.450 - INFO [parallel-1] - element "5" [subscribe5]
+```
+
+As you can see, different subscription executions interleave, and as I am testing with only four CPU cores, four workers seem to be available: _parallel-1_, _parallel-2_, _parallel-3_, and _parallel-4_. The `subscription5` operations, execute in _parallel-1_.
+
+Again, as you can observe, all operations for a given subscription are executed in the same thread.
 
 
 # Reactive Spring Web Flux Applications
