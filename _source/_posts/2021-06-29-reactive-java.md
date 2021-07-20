@@ -189,7 +189,7 @@ Intermediate operators.
 
 
 
---- Create spring boot application
+--- Create spring boot application with spring initializr
 
 
 Create the class `TestUtils` with a handy function for logging the thread name, function and element:
@@ -386,9 +386,145 @@ As you can see, different subscription executions interleave, and as I am testin
 Again, as you can observe, all operations for a given subscription are executed in the same thread.
 
 
-# Reactive Spring Web Flux Applications
+# Reactive Spring Web Flux REST Service
+
+In an ideal reactive scenario, all the architecture components are non-blocking, so there is no need to worry about the event loop freezing up (**reactor meltdown**).
+But sometimes, you will have to deal with legacy blocking code, or blocking libraries. So now, to continue the experiment with Reactor schedulers, create a REST service with an endpoint to return a random integer. The implementation will call Java SecureRandom blocking code.
+
+Start by creating the package `com.okta.developer.reactor.controller`, and add a `SecureRandom` class for the data:
+
+```java
+package com.okta.developer.reactor.controller;
+
+public class SecureRandom {
+
+    private String value;
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public SecureRandom(Integer value){
+        this.value = value.toString();
+    }
+}
+```
+Add the `SecureRandomService` interface under the package `com.okta.developer.reactor.service`:
+
+```java
+package com.okta.developer.reactor.service;
+
+import reactor.core.publisher.Mono;
+
+public interface SecureRandomService {
+
+    Mono<Integer> getRandomInt();
+}
+```
+
+And the implementation:
+
+```java
+package com.okta.developer.reactor.service;
+
+import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
+
+import java.security.SecureRandom;
+
+@Service
+public class SecureRandomServiceImpl implements SecureRandomService {
+
+    private SecureRandom secureRandom;
+
+    public SecureRandomServiceImpl() {
+        secureRandom = new SecureRandom();
+    }
+
+    @Override
+    public Mono<Integer> getRandomInt() {
+        return Mono.just(secureRandom.nextInt());
+    }
+}
+```
+
+Think for a moment about the `getRandomInt` implementation. It is hard to resist the temptation of just wrapping whatever in a publisher. `Mono.just(T data)` creates an `Mono` that will emit the specified item. The item is **captured at instantiation time**. This means the blocking code will be invoked on assembly time, and it might be in the context of an event loop thread.
+
+For now, let's move forward and create the `SecureRandomController` class:
+
+```java
+package com.okta.developer.reactor.controller;
+
+
+import com.okta.developer.reactor.service.SecureRandomService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Mono;
+
+@RestController
+public class SecureRandomController {
+
+    @Autowired
+    private SecureRandomService secureRandomService;
+
+
+    @GetMapping("/random")
+    public Mono<SecureRandom> getSecureRandom(){
+        return secureRandomService.getRandomInt().map(i -> new SecureRandom(i));
+    }
+}
+```
+
+Add a `SecureRandomControllerTest`:
+
+```java
+package com.okta.developer.reactor.controller;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.web.reactive.server.WebTestClient;
+
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@AutoConfigureWebTestClient
+public class SecureRandomControllerTest {
+
+    @Autowired
+    private WebTestClient webTestClient;
+
+    @Test
+    public void testGetSecureRandom() {
+
+
+        webTestClient.get()
+                .uri("/random")
+                .exchange()
+                .expectStatus().isOk();
+    }
+}
+```
+
+Run with:
+```shell
+./mvnw test -Dtest=SecureRandomControllerTest
+```
+The test should pass, but how can you make sure the REST call won't freeze up the service's event loop? With [BlockHound](https://github.com/reactor/BlockHound).
+
+
+
+
+
+
 
 --- Call a blocking service
+
+
 
 
 
