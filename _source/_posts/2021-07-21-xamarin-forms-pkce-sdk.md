@@ -23,9 +23,9 @@ To continue, you will need:
 - An [Okta Developer Account](https://developer.okta.com/) (free forever, to handle your OAuth needs)
 - An Android or iPhone device, or an emulator for testing (For the article, we show Android as an example, but this will work for either platform.)
 
-## Create a Xamarin.Forms App with Xamarin’s Community Toolkit
+## Create a Xamarin.Forms App with Xamarin's Community Toolkit
 
-[Xamarin](https://docs.microsoft.com/en-us/xamarin/) is a framework from Microsoft used to build cross-platform mobile apps from one shared source code; it’s written in C# and compiled for each platform's runtime. Xamarin.Forms is an abstraction on that, enabling developers to share the UI code as well.
+[Xamarin](https://docs.microsoft.com/en-us/xamarin/) is a framework from Microsoft used to build cross-platform mobile apps from one shared source code; it's written in C# and compiled for each platform's runtime. Xamarin.Forms is an abstraction on that, enabling developers to share the UI code as well.
 
 Xamarin.Forms is now included in Visual Studio! Create a new project by clicking **File>New Project** in Visual Studio, select **Mobile App (Xamarin.Forms)**, and click **Next**. Name the app *MovieExplorer* and click **Create**. On the next window, select **Flyout** and click **Create**.
 
@@ -74,9 +74,9 @@ In the **MovieExplorer** shared project, rename *ItemsPage.xaml* to *MoviesPage.
 </ContentPage>
 ```
 
-Note the `http://xamarin.com/schemas/2020/toolkit` namespace that is necessary in order to use components from Xamarin’s Community Toolkit.
+Note the `http://xamarin.com/schemas/2020/toolkit` namespace that is necessary in order to use components from Xamarin's Community Toolkit.
 
-The movies page consists of two tabs: One to show popular movies and a second to search for a movie. The `TabView` control from Xamarin’s Community Toolkit is a fully customizable control with lots of customization options. The popular movies tab displays items from the `PopularMovies` collection using the `CollectionView` control, and it uses `RefreshView` control for pull to refresh functionality. The layout of each movie is defined in the `MovieCell` template:
+The movies page consists of two tabs: One to show popular movies and a second to search for a movie. The `TabView` control from Xamarin's Community Toolkit is a fully customizable control with lots of customization options. The popular movies tab displays items from the `PopularMovies` collection using the `CollectionView` control, and it uses `RefreshView` control for pull to refresh functionality. The layout of each movie is defined in the `MovieCell` template:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -254,7 +254,7 @@ Next, add the markup for a second tab to the `MoviesPage.xaml`:
 </xct:TabViewItem>
 ```
 
-The `SearchBar` control is a user input control for initiating a search. I also use `UserStoppedTypingBehavior` from Xamarin’s Community Toolkit to ensure that the search command executes when the user stops typing for 500 milliseconds and he/she has entered at least three characters.
+The `SearchBar` control is a user input control for initiating a search. I also use `UserStoppedTypingBehavior` from Xamarin's Community Toolkit to ensure that the search command executes when the user stops typing for 500 milliseconds and he/she has entered at least three characters.
 
 Re-run the app and try searching for movies:
 
@@ -264,7 +264,7 @@ Finally, I will add a page to show movie details when you click on a movie on ei
 
 First, rename `ItemDetailPage.xaml` and `ItemViewModel.cs` to `MovieDetailPage.xaml` and `MovieDetailViewModel.cs`.
 
-The movie details page will display a poster image of the movie and the cast. It will also let you watch a trailer of the movie (with the help of `MediaElement` from Xamarin’s Community Toolkit):
+The movie details page will display a poster image of the movie and the cast. It will also let you watch a trailer of the movie (with the help of `MediaElement` from Xamarin's Community Toolkit):
 
 ```xml
 <?xml version="1.0" encoding="utf-8" ?>
@@ -359,13 +359,13 @@ Run the app, click on a movie, and you will be able to watch the trailer in the 
 
 Finally, it's time to secure the app with Okta!
 
-## Add Authentication with Okta’s Xamarin SDK
+## Add Authentication with Okta's Xamarin SDK
 
 I will use Okta to quickly and securely implement user authentication so that I don't have to implement it from scratch or roll it into my own identity management system. Okta supports user authentication, multi-factor authentication, social authentication, and all OpenID connect flows out of the box - it essentially takes care of any scenario you would ever need!
 
 The Authorization Code flow with PKCE requires us to generate a *code verifier* - a cryptographically secure random string and a *code challenge* created from the verifier. The app will open an external browser tab and pass the code challenge to the Okta authorization server, which then stores the challenge, authenticates the user, and redirects the user back to the app with a temporary authorization code. Next, the app requests to exchange the authorization code for tokens and passes the code verifier that is generated. The authorization server generates the code challenge from the verifier, compares it with the stored challenge, and if the two values match, Okta will return access and the ID token to the app.
 
-Okta’s Xamarin SDK implements the Authorization Code flow with PKCE so that you do not need to build it yourself.
+Okta's Xamarin SDK implements the Authorization Code flow with PKCE so that you do not need to build it yourself.
 
 To get started, I will use [Okta CLI](https://github.com/okta/okta-cli) to set up an Okta application. Run `okta apps create` if you already have an Okta account, or run `okta start` to create an account first. Note the `OrgUrl`, as you will need it in a couple of minutes. Enter `MovieExplorer` for the app name and select **3: Native App (mobile)** for the type of application. For `Redirect URI`, add `.login` to the suggested reverse domain name, and add `.logout` for the Post Logout Redirect URI.
 
@@ -387,7 +387,7 @@ Now, you need to make a platform specific configuration. Create an `OktaConfig.x
 </Okta>
 ```
 
-Make sure to replace `{ClientId}` and `{yourOktaDomain}` with the correct values. Also, `RedirectUri` and `PostLogoutRedirectUri` must match the values you’ve entered in the Okta cli when configuring the app.
+Make sure to replace `{ClientId}` and `{yourOktaDomain}` with the correct values. Also, `RedirectUri` and `PostLogoutRedirectUri` must match the values you've entered in the Okta cli when configuring the app.
 
 Next, open the `MainActivity.cs` and change the `MainActivity` class to inherit from `OktaMainActivity<App>`:
 
@@ -522,7 +522,7 @@ Run the app, click the **Login** button and sign in with your Okta credentials. 
 
 {% img blog/xamarin-pkce-sdk/image7.png alt:"" width:"800" %}{: .center-image }
 
-That's it! Okta’s Xamarin SDK simplifies using Authorization Code flow with PKCE to a couple of method calls.
+That's it! Okta's Xamarin SDK simplifies using Authorization Code flow with PKCE to a couple of method calls.
 
 ## Learn More About Xamarin, OpenID Connect, and Okta
 
