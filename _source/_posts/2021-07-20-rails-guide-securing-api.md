@@ -14,7 +14,7 @@ image: blog/rubyonrails6/railstrain.png
 type: conversion
 ---
 
-In this tutorial we are going down a different track then our last [Ruby Post](/blog/2020/09/25/easy-auth-ruby-on-rails-6-login) (bad pun intended). Instead diving into building a very simple API that, of course, we will secure with access tokens minted by our very own Okta OAuth server. We’ll make requests to this API via Postman to keep things nice and simple. Now let’s get chugging along. (OK, that’s the last pun for a bit.)
+In this tutorial we are going down a different track then our last [Ruby Post](/blog/2020/09/25/easy-auth-ruby-on-rails-6-login) (bad pun intended). Instead diving into building a very simple API that, of course, we will secure with access tokens minted by our very own Okta OAuth server. We'll make requests to this API via Postman to keep things nice and simple. Now let's get chugging along. (OK, that's the last pun for a bit.)
 
 Prerequisites for this blog post include:
 
@@ -36,7 +36,7 @@ cd okta_okta_protected_api
 
 {% img blog/rails-securing-api/image1.png alt:"" width:"800" %}{: .center-image }
 
-Now let’s install the JWT gem. Open your gemfile and add this one line:
+Now let's install the JWT gem. Open your gemfile and add this one line:
 
 ```ruby
 gem 'jwt'
@@ -52,7 +52,7 @@ Now let's run bundle install in the terminal:
 bundle install
 ```
 
-Now let's create a route. For this post, I’ll have an API that returns anime I am watching or I am excited about, so I will call it animes. Add this line to the `config/routes.rb.`
+Now let's create a route. For this post, I'll have an API that returns anime I am watching or I am excited about, so I will call it animes. Add this line to the `config/routes.rb.`
 
 ```ruby
 resources :animes, only: [:index]
@@ -130,11 +130,11 @@ But wait a second. We are still missing a couple of pieces of key logic! For one
     end
 ```
 
-Now let’s add that code to our application controller. It should now look like this:
+Now let's add that code to our application controller. It should now look like this:
 
 {% img blog/rails-securing-api/image6.png alt:"" width:"800" %}{: .center-image }
 
-Now let’s add a before_action to our controller with our new method. Add this code right under ApplicationController:
+Now let's add a before_action to our controller with our new method. Add this code right under ApplicationController:
 
 ```ruby
 before_action :require_jwt
@@ -184,7 +184,7 @@ When you go there you should see something like this:
 
 {% img blog/rails-securing-api/image7.png alt:"" width:"800" %}{: .center-image }
 
-Copy the JSON key-value for “keys” and paste it into the `keys` array variable in your code.
+Copy the JSON key-value for "keys" and paste it into the `keys` array variable in your code.
 
 For example, my end result looks like this:
 
@@ -249,7 +249,7 @@ If everything works according to plan, you should see this dialog:
 
 {% img blog/rails-securing-api/image17.png alt:"" width:"800" %}{: .center-image }
 
-All that’s left is to send our token to our API:
+All that's left is to send our token to our API:
 
 {% img blog/rails-securing-api/image18.png alt:"" width:"700" %}{: .center-image }
 
@@ -257,7 +257,7 @@ Try clicking **Send**, and you should see our data come back:
 
 {% img blog/rails-securing-api/image19.png alt:"" width:"900" %}{: .center-image }
 
-Oh yeah, it’s working! Now, what if we want to add some extra validation, like only tokens with a certain scope can hit our API?  Let’s modify our code on the application controller. We are going to replace some code with this snippet that checks for the profile scope in the token and returns a boolean if it is present in the token or not.
+Oh yeah, it's working! Now, what if we want to add some extra validation, like only tokens with a certain scope can hit our API?  Let's modify our code on the application controller. We are going to replace some code with this snippet that checks for the profile scope in the token and returns a boolean if it is present in the token or not.
 
 ```ruby
  token_payload = JWT.decode(token, nil, true, { algorithms: ['RS256'], jwks: { keys: keys } })
