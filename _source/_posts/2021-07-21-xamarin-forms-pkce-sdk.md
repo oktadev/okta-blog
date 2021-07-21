@@ -7,9 +7,9 @@ communities: [.net, mobile]
 description: "Learn how to use Xamarin with PKCE and the Okta Xamarin SDK"
 tags: [xamarin, mobile, C#, csharp, dotnet, .net]
 tweets:
-- ""
-- ""
-- ""
+- "What is PKCE? How can you use it with #Xamarin? We've got you."
+- "Check out this post on working with PKCE + #Xamarin + @oktadev!"
+- "Mobile security matters in #Xamarin. Check out this post on working with PKCE and @oktadev ->"
 image: blog/featured/okta-dotnet-half.jpg
 type: conversion
 ---
