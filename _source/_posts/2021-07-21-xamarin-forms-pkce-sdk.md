@@ -5,7 +5,7 @@ author: giorgi-dalakishvili
 by: contractor
 communities: [.net, mobile]
 description: "Learn how to use Xamarin with PKCE and the Okta Xamarin SDK"
-tags: [xamarin, mobile, C#, csharp, dotnet, .net]
+tags: [xamarin, mobile, csharp, dotnet]
 tweets:
 - "What is PKCE? How can you use it with #Xamarin? We've got you."
 - "Check out this post on working with PKCE + #Xamarin + @oktadev!"
