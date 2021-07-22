@@ -1,10 +1,10 @@
 ---
 layout: blog_post
-title: "Reactor Schedulers for Better Reactive Java Applications"
+title: "How To Not Mess Up When Doing Reactor"
 author: jimena-garbarino
 by: contractor
 communities: [java]
-description: ""
+description: "Reactor Schedulers for Better Reactive Java Applications"
 tags: []
 tweets:
 - ""
@@ -15,10 +15,23 @@ type: awareness
 ---
 
 
---- introduction to Reactor
+_introduction to Reactor_
+
+{% img blog/reactive-java/project-reactor.png alt:"Project Reactor Logo" width:"300" %}{: .center-image }
+
+- [HTTPie](https://httpie.io/)
+- [Java 11+](https://openjdk.java.net/install/index.html)
+- [Okta CLI](https://cli.okta.com)
+
+
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+
+
 # Quick Look at Reactor Execution Model
 
-## map and flatMap
+## Operators map and flatMap
 
 **map** and **flatMap** are **operators**. The data as a flow can go through transformations or intermediary steps by applying operators.
 
@@ -170,8 +183,6 @@ public class FlatMapTest {
 
 }
 ```
-```
-```
 
 
 ## Nothing Happens Until You Subscribe
@@ -189,7 +200,7 @@ Intermediate operators.
 
 
 
---- Create spring boot application with spring initializr
+_Create spring boot application with spring initializr_
 
 
 Create the class `TestUtils` with a handy function for logging the thread name, function and element:
@@ -213,9 +224,9 @@ public class TestUtils {
 
 
 
-_No execution context_:
+__No execution context__:
 
-_Single reusable thread_:
+__Single reusable thread__:
 
 ```java
 @Test
@@ -247,7 +258,7 @@ When running the test above, you will see a log similar to this:
 
 As you can see, the `map` function executes in the _main_ thread, and the consumer code passed to `subscribe` executes in the _single-1_ thread. Everything after the `publishOn` will execute in the passed scheduler.
 
-_Bounded elastic thread pool_:
+__Bounded elastic thread pool__:
 
 A better choice for I/O blocking work, for example, reading a file, or making a blocking network call, is a bounded elastic thread pool. **It is provided to help with legacy blocking code if it cannot be avoided.**
 
@@ -301,11 +312,11 @@ The test above should log something similar to this:
 ```
 As you can see in the code above, the flux is subscribed twice. As the `publishOn` is invoked before any operator, everything will execute in the context of a bounded elastic thread. Also notice how execution from both subscription can interleave.
 
-What might be confusing is that each subscription is assigned one bounded elastic thread for the whole execution. So in this case,_ subscription1_ executed in `boundedElastic-1` and subscription2 executed in `boundedElastic-2`. All operations for a given subscription execute in the same thread.
+What might be confusing is that each subscription is assigned one bounded elastic thread for the whole execution. So in this case, _subscription1_ executed in `boundedElastic-1` and _subscription2_ executed in `boundedElastic-2`. All operations for a given subscription execute in the same thread.
 
 The way the `Flux` was instantiated above produced a **Cold Publisher**, a publisher that generates data anew for each subscription. That's why both subscriptions above process all the values.
 
-_Fixed pool of workers_:
+__Fixed pool of workers__:
 
 A pool of workers tuned for parallel work, as many workers as CPU cores.
 
@@ -384,6 +395,8 @@ The test above will log something similar to the following lines:
 As you can see, different subscription executions interleave, and as I am testing with only four CPU cores, four workers seem to be available: _parallel-1_, _parallel-2_, _parallel-3_, and _parallel-4_. The `subscription5` operations, execute in _parallel-1_.
 
 Again, as you can observe, all operations for a given subscription are executed in the same thread.
+
+_Downstream and Upstream_
 
 
 # Reactive Spring Web Flux REST Service
@@ -514,30 +527,91 @@ Run with:
 ```shell
 ./mvnw test -Dtest=SecureRandomControllerTest
 ```
-The test should pass, but how can you make sure the REST call won't freeze up the service's event loop? With [BlockHound](https://github.com/reactor/BlockHound).
+The test should pass, but how can you make sure the REST call won't freeze up the service's event loop? With [BlockHound](https://github.com/reactor/BlockHound), a Java agent to detect blocking calls from non-blocking threads. Blockhound has built-in integration with Project Reactor, and supports the JUnit platform.
+
+Add the Blockhound dependency to the `pom.xml`:
+
+```xml
+<dependency>
+    <groupId>io.projectreactor.tools</groupId>
+    <artifactId>blockhound-junit-platform</artifactId>
+    <version>RELEASE</version>
+    <scope>test</scope>
+</dependency>
+```
+
+Run the test again, and you should the the following error:
+
+```
+reactor.blockhound.BlockingOperationError: Blocking call! java.io.FileInputStream#readBytes
+	at java.base/java.io.FileInputStream.readBytes(FileInputStream.java) ~[na:na]
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException:
+Error has been observed at the following site(s):
+	|_ checkpoint ⇢ HTTP GET "/random" [ExceptionHandlingWebHandler]
+Stack trace:
+		at java.base/java.io.FileInputStream.readBytes(FileInputStream.java) ~[na:na]
+		at java.base/java.io.FileInputStream.read(FileInputStream.java:279) ~[na:na]
+		at java.base/java.io.FilterInputStream.read(FilterInputStream.java:133) ~[na:na]
+		at java.base/sun.security.provider.NativePRNG$RandomIO.readFully(NativePRNG.java:424) ~[na:na]
+		at java.base/sun.security.provider.NativePRNG$RandomIO.ensureBufferValid(NativePRNG.java:526) ~[na:na]
+		at java.base/sun.security.provider.NativePRNG$RandomIO.implNextBytes(NativePRNG.java:545) ~[na:na]
+		at java.base/sun.security.provider.NativePRNG.engineNextBytes(NativePRNG.java:220) ~[na:na]
+		at java.base/java.security.SecureRandom.nextBytes(SecureRandom.java:741) ~[na:na]
+		at java.base/java.security.SecureRandom.next(SecureRandom.java:798) ~[na:na]
+```
+
+As the log above shows, `SecureRandom.next` produces a call to `FileInputStream#readBytes`, which is blocking.
+The `SecureRandomService` returns a `Mono` publisher, but it is an **Impostor Reactive Service**!
+
+```java
+return Mono.just(secureRandom.nextInt());
+```
+
+The implementation above has logic upfront, first the calculation `secureRandom.nextInt` and then the assembly.
+What is the right way to wrap a blocking call? **Make the work happen on another scheduler.**
 
 
+## Blocking Encapsulation
 
+Blocking encapsulation needs to happen down into the service, as explained in the [Reactor documentation](https://projectreactor.io/docs/core/release/reference/#faq.wrap-blocking). This means the scheduler assignment must happen inside the implementation.
 
+Create the class `SecureRandomReactiveImpl`.
 
+```java
+package com.okta.developer.reactor.service;
 
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 
---- Call a blocking service
+import java.security.SecureRandom;
 
+@Service
+@Primary
+public class SecureRandomReactiveImpl implements SecureRandomService {
 
+    private SecureRandom secureRandom;
+
+    public SecureRandomReactiveImpl() {
+        secureRandom = new SecureRandom();
+    }
+
+    @Override
+    public Mono<Integer> getRandomInt() {
+        return Mono.fromCallable(secureRandom::nextInt)
+                .subscribeOn(Schedulers.boundedElastic());
+    }
+}
+```
+
+Run the test again and the BlockHound exception should not happen. Avoid the logic upfront and just assembly the pipeline, everything should be fine.
 
 
 
 ## Error Handling
 
---- On subsribe or before
-
-## Wrapping a Blocking Call
-
---- Detect the blocking call with BlockHound
---- Fix it 1
---- Fix it 2
---- Fix it 3
+_On subsribe or before_
 
 # Learn More
 
