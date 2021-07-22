@@ -47,14 +47,11 @@
         <div class="flex-row space-between align-center full-width hide-for-small">
             <ul class="menu flex-row align-center flex-auto">
                 <li class="menu-item has-children">
-                    <span class="nav-link {% if page.url contains '/blog/' %}active{% endif %}">Community <i class="fa fa-angle-down"></i></span>
+                    <span class="nav-link">Community <i class="fa fa-angle-down"></i></span>
 
                     <ul class="sub-menu">
                         <li class="menu-item">
                             <a href="https://devforum.okta.com/" class="nav-link">Forum</a>
-                        </li>
-                        <li class="menu-item {% if page.url contains '/blog/' %}active{% endif %}">
-                            <a href="/blog" class="nav-link">Blog</a>
                         </li>
                         <li class="menu-item">
                             <a href="https://toolkit.okta.com/" class="nav-link">Toolkit</a>
@@ -73,6 +70,9 @@
                             </div>
                         </li>
                     </ul>
+                </li>
+                <li class="menu-item {% if page.url contains '/blog/' %}active{% endif %}">
+                    <a href="/blog" class="nav-link">Blog</a>
                 </li>
                 <li class="menu-item {% if page.url contains '/pricing/' %}active{% endif %}">
                     <a href="{{ site.external_domain }}/pricing/" class="nav-link">Pricing</a>
