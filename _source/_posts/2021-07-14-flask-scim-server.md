@@ -29,7 +29,7 @@ At a very high level, the SCIM (System for Cross-Identity Management) protocol e
 2.  Create a new virtualenv in the root folder with `virtualenv env`
 3.  Run the virtual environment with `source env/bin/activate`
 4.  Install necessary Python packages with ```pip install -r requirements.txt```
-5.  Create a new Postgres database ```scim``` at ```postgresql://localhost/scim```. Enter the psql shell by opening a new terminal tab and typing ```psql postgres```. Create the DB with ```CREATE DATABASE scim;``` (Run ```\l``` to double check the database has been created)
+5.  Create a new Postgres database named `scim`. Enter the `psql` shell by opening a new terminal tab and typing `psql postgres`. Create the DB with `CREATE DATABASE scim;` (Run `\l` to double-check the database has been created)
 6.  Go back to the terminal tab that is in the flask app root. Run the following commands to create migrations and tables in the ```scim``` database:
     - ```python manage.py db init```
     - ```python manage.py db migrate```
