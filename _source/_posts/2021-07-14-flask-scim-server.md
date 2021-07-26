@@ -479,7 +479,7 @@ PATCH /scim/v2/Groups/b446521a-a65b-4c0b-a5ee-0a15e8e3e908
  ```http
  200 OK
  ```
- ```
+ ```json
  {
     "displayName": "Droids",
     "id": "b446521a-a65b-4c0b-a5ee-0a15e8e3e908",
