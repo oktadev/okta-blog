@@ -476,7 +476,7 @@ PATCH /scim/v2/Groups/b446521a-a65b-4c0b-a5ee-0a15e8e3e908
 }
 ```
  - *SCIM Server Response:*
- ```
+ ```http
  200 OK
  ```
  ```
