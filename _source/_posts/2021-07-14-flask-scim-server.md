@@ -506,7 +506,7 @@ PATCH /scim/v2/Groups/b446521a-a65b-4c0b-a5ee-0a15e8e3e908
 }
  ```
  
- - And with this, you should now see your group in the scim database after running `select * from groups;`:
+And with this, you should now see your group in the scim database after running `select * from groups;`:
  
 {% img blog/flask-scim-server/scim_12.png alt:"Database Groups Image" width:"800" %}{: .center-image }
  
