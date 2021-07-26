@@ -26,7 +26,7 @@ At a very high level, the SCIM (System for Cross-Identity Management) protocol e
 {% img blog/flask-scim-server/flask_postgres.png alt:"PostgreSQL and Flask Logos Image" width:"500" %}
 
 1.  Clone the repo found [here](https://github.com/Tennyx/flask-scim-server), open terminal and `cd` into the project root.
-2.  Create a new virtualenv in the root folder with ```virtualenv env```
+2.  Create a new virtualenv in the root folder with `virtualenv env`
 3.  Run the virtual environment with ```source env/bin/activate```
 4.  Install necessary Python packages with ```pip install -r requirements.txt```
 5.  Create a new Postgres database ```scim``` at ```postgresql://localhost/scim```. Enter the psql shell by opening a new terminal tab and typing ```psql postgres```. Create the DB with ```CREATE DATABASE scim;``` (Run ```\l``` to double check the database has been created)
