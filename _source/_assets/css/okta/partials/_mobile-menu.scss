@@ -1,3 +1,34 @@
+.navigation .menu--slideout {
+  @include media('<small') {
+    display: none;
+    position: fixed;
+    top: 70px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-width: none;
+    margin: 0;
+    padding: 0 0 20px;
+    background-color: get-color('white');
+    z-index: -1;
+    overflow-y: auto;
+    &.open {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin: 20px 0 0;
+    }
+
+    .flex-row {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .nav-link {
+      color: get-color('shark');
+    }
+  }
+}
+
 .mobile-menu {
   margin: 0;
   padding: 20px;

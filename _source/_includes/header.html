@@ -29,82 +29,88 @@
             </svg>
         </a>
 
-        {% if page.url contains '/search/' %}
-        {% else %}
-            <div class="search-wrapper menu-dropdown-wrapper mobile-search-container" data-search-bar>
-                <!-- Search box  -->
-                <div class="SearchBox search-box flex" data-pipeline="developer-okta-com">
-                    <div class="CoveoOmnibox"></div>
-                    <div class="CoveoSearchButton hide">Search</div>
-                    <div class="CoveoAnalytics"></div>
+        <div class="menu--slideout">
+            {% if page.url contains '/search/' %}
+            {% else %}
+                <div class="search-wrapper" data-search-bar>
+                    <!-- Search box  -->
+                    <div class="SearchBox search-box flex" data-pipeline="developer-okta-com">
+                        <div class="search--form">
+                            <div class="CoveoOmnibox"></div>
+                            <div class="CoveoSearchButton hide-for-small">Search</div>
+                        </div>
+                        <div class="CoveoAnalytics"></div>
 
-                    {% include partials/icons.html icon="search" class='hide-for-small' %}
+                        {% include partials/icons.html icon="search" class='hide-for-small' %}
+                    </div>
+                    <!-- end Search box  -->
                 </div>
-                <!-- end Search box  -->
+            {% endif %}
+
+            <div class="flex-row space-between align-center full-width">
+                <ul class="menu flex-row align-center flex-auto">
+                    <li class="menu-item has-children">
+                        <span class="nav-link">Community <i class="fa fa-angle-down"></i></span>
+
+                        <ul class="sub-menu">
+                            <li class="menu-item">
+                                <a href="https://devforum.okta.com/" class="nav-link">Forum</a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="https://toolkit.okta.com/" class="nav-link">Toolkit</a>
+                            </li>
+                            <li class="menu-item">
+                                <div class="social-links flex-row space-between align-center">
+                                    <a href="http://github.com/{{ site.github_username }}" class="social">
+                                        {% include partials/icons.html icon="github" %}
+                                    </a>
+                                    <a href="http://twitter.com/{{ site.twitter_username }}" class="social">
+                                        {% include partials/icons.html icon="twitter" %}
+                                    </a>
+                                    <a href="https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q/featured" class="social">
+                                        {% include partials/icons.html icon="youtube" %}
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="menu-item {% if page.url contains '/blog/' %}active{% endif %}">
+                        <a href="/blog" class="nav-link">Blog</a>
+                    </li>
+                    <li class="menu-item {% if page.url contains '/pricing/' %}active{% endif %}">
+                        <a href="{{ site.external_domain }}/pricing/" class="nav-link">Pricing</a>
+                    </li>
+                </ul>
+                <ul class="menu external-links flex-row align-center">
+                    <li class="menu-item">
+                        <a href="https://www.okta.com/" class="nav-link" target="_blank" rel="noopener noreferrer">
+                            Okta.com{% include partials/icons.html icon="external-link" %}
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="https://login.okta.com/" class="nav-link" target="_blank" rel="noopener noreferrer">
+                            Admin Console{% include partials/icons.html icon="external-link" %}
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{{ site.external_domain }}/signup/" class="cta flex align-center justify-center">
+                            Sign up
+                        </a>
+                    </li>
+                </ul>
             </div>
-        {% endif %}
-
-        <div class="flex-row space-between align-center full-width hide-for-small">
-            <ul class="menu flex-row align-center flex-auto">
-                <li class="menu-item has-children">
-                    <span class="nav-link">Community <i class="fa fa-angle-down"></i></span>
-
-                    <ul class="sub-menu">
-                        <li class="menu-item">
-                            <a href="https://devforum.okta.com/" class="nav-link">Forum</a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="https://toolkit.okta.com/" class="nav-link">Toolkit</a>
-                        </li>
-                        <li class="menu-item">
-                            <div class="social-links flex-row space-between align-center">
-                                <a href="http://github.com/{{ site.github_username }}" class="social">
-                                    {% include partials/icons.html icon="github" %}
-                                </a>
-                                <a href="http://twitter.com/{{ site.twitter_username }}" class="social">
-                                    {% include partials/icons.html icon="twitter" %}
-                                </a>
-                                <a href="https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q/featured" class="social">
-                                    {% include partials/icons.html icon="youtube" %}
-                                </a>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-                <li class="menu-item {% if page.url contains '/blog/' %}active{% endif %}">
-                    <a href="/blog" class="nav-link">Blog</a>
-                </li>
-                <li class="menu-item {% if page.url contains '/pricing/' %}active{% endif %}">
-                    <a href="{{ site.external_domain }}/pricing/" class="nav-link">Pricing</a>
-                </li>
-            </ul>
-            <ul class="menu external-links flex-row align-center">
-                <li class="menu-item">
-                    <a href="https://www.okta.com/" class="nav-link" target="_blank" rel="noopener noreferrer">
-                        Okta.com{% include partials/icons.html icon="external-link" %}
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="https://login.okta.com/" class="nav-link" target="_blank" rel="noopener noreferrer">
-                        Admin Console{% include partials/icons.html icon="external-link" %}
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="{{ site.external_domain }}/signup/" class="cta flex align-center justify-center">
-                        Sign up
-                    </a>
-                </li>
-            </ul>
         </div>
 
         <div class="flex-row space-between align-center full-width show-for-small">
             <div class="mobile-controls flex-row align-center">
-                {% if page.url contains '/search/' %}
-                {% else %}
-                    <div class="search-toggle">
-                        {% include partials/icons.html icon="search" %}
-                    </div>
-                {% endif %}
+                {% comment %}
+                    {% if page.url contains '/search/' %}
+                    {% else %}
+                        <div class="search-toggle">
+                            {% include partials/icons.html icon="search" %}
+                        </div>
+                    {% endif %}
+                {% endcomment %}
 
                 <div class="hamburger">
                     <div class="lines">

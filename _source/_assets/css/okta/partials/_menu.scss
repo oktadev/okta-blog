@@ -7,8 +7,11 @@
       padding: 0 15px;
       position: relative;
 
-      @include media('>=small', '<medium') {
+      @include media('>small', '<medium') {
         padding: 0 7px;
+      }
+      @include media('<=small') {
+        padding: 0;
       }
 
       &:last-of-type {
@@ -61,18 +64,20 @@
   }
 
   .sub-menu {
-    left: 50%;
-    top: 15px;
-    opacity: 0;
-    padding: 10px 0;
-    min-width: 120px;
-    border-radius: 4px;
-    position: absolute;
-    visibility: hidden;
-    transform: translateX(-50%);
-    background: get-color('white');
-    transition: all 200ms ease-in-out;
-    box-shadow: rgba(get-color('black'), 0.3) 0 2px 10px;
+    @include media('>small') {
+      left: 50%;
+      top: 15px;
+      opacity: 0;
+      padding: 10px 0;
+      min-width: 120px;
+      border-radius: 4px;
+      position: absolute;
+      visibility: hidden;
+      transform: translateX(-50%);
+      background: get-color('white');
+      transition: all 200ms ease-in-out;
+      box-shadow: rgba(get-color('black'), 0.3) 0 2px 10px;
+    }
 
     &:before {
       content: '';

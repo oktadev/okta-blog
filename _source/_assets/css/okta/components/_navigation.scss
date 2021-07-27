@@ -5,7 +5,7 @@
   font-weight: 600;
   line-height: 24.08px;
   color: get-color('white');
-  background: get-color('mirage');
+  background: get-color('resolution-blue');
   @include font-size(14px);
 
   @include media('<medium') {
@@ -60,21 +60,65 @@
   }
 
   .cta {
-    height: 44px;
-    width: 134px;
+    padding: 7px 12px;
     flex-shrink: 0;
     border-radius: 4px;
-    letter-spacing: 1.5px;
     text-decoration: none;
     color: get-color('white');
-    text-transform: uppercase;
-    background: get-color('cerise-red');
+    text-transform: none;
+    border: 1px solid get-color('white');
+    background: transparent;
     @include font-weight('bold');
 
     @include media('>=small', '<medium') {
       height: 32px;
       max-width: 90px;
       @include font-size(10px);
+    }
+  }
+
+  .menu--slideout {
+    display: flex;
+    align-items: center;
+    flex: 1 0 auto;
+  }
+
+  .search-wrapper {
+    background: get-color('white');
+    height: 38px;
+    border-radius: 4px;
+    @include media('<=small') {
+      border: 1px solid get-color('alto');
+      margin: 16px;
+    }
+    .SearchBox .search--form {
+      display: flex;
+    }
+    .CoveoOmnibox.magic-box {
+      flex-grow: 0;
+      width: 100%;
+    }
+    .CoveoSearchButton {
+      color: get-color('resolution-blue');
+      border: none;
+      height: auto;
+      width: 94px;
+      line-height: 1em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-left: 2px solid get-color('resolution-blue');
+      box-sizing: content-box;
+      font-size: 14px;
+      font-weight: 600;
+      @include media('<=small') {
+        display: none;
+      }
+    }
+    .CoveoSearchInterface.search-box .search-icon {
+      path {
+        fill: get-color('resolution-blue');
+      }
     }
   }
 
