@@ -131,7 +131,7 @@ Install-Package ConfigCat.Client
 ### Getting the Feature Flag Value
 
 In the HomeController.cs add the following lines:
-Run the ConfigCat client. The client will automatically poll and download the latest feature flag values every 60 seconds. You can [customize this polling interval](https://configcat.com/docs/sdk-reference/csharp#auto-polling-default) if you’d like to.
+Run the ConfigCat client. The client will automatically poll and download the latest feature flag values every 60 seconds. You can [customize this polling interval](https://configcat.com/docs/sdk-reference/csharp#auto-polling-default) if you'd like to.
 
 ```cs
 var client = new ConfigCatClient("YOUR-SDK-KEY");
@@ -180,7 +180,7 @@ And my `Index.cshtml`.
 
 ## Targeting Users with Different Features in .NET Core
 
-Sometimes, our product managers want to be able to set different features for different user groups. In these cases, the feature flag value depends on certain properties of our logged-in users. For example, I'd like to turn on Okta’s Twitter feed only for users whose email addresses end with `@okta.com`. Let’s see how this will look in the code.
+Sometimes, our product managers want to be able to set different features for different user groups. In these cases, the feature flag value depends on certain properties of our logged-in users. For example, I'd like to turn on Okta's Twitter feed only for users whose email addresses end with `@okta.com`. Let's see how this will look in the code.
 
 First, we need access to the email address of each logged-in user. Since I'm using Okta authentication, I can access this via `HttpContext`.
 
@@ -188,7 +188,7 @@ First, we need access to the email address of each logged-in user. Since I'm usi
 var userEmail = HttpContext.User.Claims.Where(claim => claim.Type == "email").Select(claim => claim.Value).FirstOrDefault();
 ```
 
-Then, we’ll make a user object and add the email address as a property.
+Then, we'll make a user object and add the email address as a property.
 
 ```cs
 var user = new User(userEmail) {Email = userEmail};
@@ -202,7 +202,7 @@ Finally, let's pass the user object to the `GetValue()` call for an evaluation.
 var twitterFeedVisible = client.GetValue("twitterFeedVisible", false, user);
 ```
 
->NOTE: *Don’t worry about data privacy; because the feature flag evaluation is on the client-side, sensitive user information will never leave your system.*
+>NOTE: *Don't worry about data privacy; because the feature flag evaluation is on the client-side, sensitive user information will never leave your system.*
 
 On the [ConfigCat Dashboard](https://app.configcat.com), click the `TARGET SPECIFIC USERS` button and add a targeting rule. In this case, the rule is: if the email address of the logged-in user contains `@okta.com`, the Twitter feed feature should be enabled.
 
