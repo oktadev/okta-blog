@@ -17,6 +17,8 @@ type: awareness
 
 _introduction to Reactor_
 
+Reactive programming vs Reactive Systems.
+
 {% img blog/reactive-java/project-reactor.png alt:"Project Reactor Logo" width:"300" %}{: .center-image }
 
 - [HTTPie](https://httpie.io/)
@@ -31,9 +33,28 @@ _introduction to Reactor_
 
 # Quick Look at Reactor Execution Model
 
-## Operators map and flatMap
+Reactor is an API for doing asynchronous programming, where you describe your data processing as a flow of operators, composing a data processing pipeline. It is based on the Reactive Streams specification.
 
-**map** and **flatMap** are **operators**. The data as a flow can go through transformations or intermediary steps by applying operators.
+Using the assembly line analogy, the initial data flow from a source, the `Publisher`, goes through transformation steps and eventually the result is pushed to a consumer, the `Subscriber`. A `Publisher`, produces data, and a  `Subscriber`, listens to it.
+
+Reactor also supports flow control via backpressure, so a `Subscriber` can signal the volume it can consume.
+
+
+#### Nothing Happens Until You Subscribe
+
+In general, when you instantiate a Flux you are describing an asynchronous processing pipeline. When combining or composing operators, no processing happens, you are describing the intent. This is called **assembly time**.
+
+Only when you `subscribe` you are triggering the data flow through that pipeline. The `subscribe` call emits a signal back to the source, and the source starts emitting data that flows through the pipeline. This is called **execution time** or **subscription time**.
+
+A **cold publisher** generates data for each subscription. Then, if you subscribe twice, it will generate the data twice. All the examples that follow below will instantiate cold publishers.
+
+On the other hand, a **hot publisher** starts emitting data immediately or on the first subscription. Late subscribers receive data emitted after they subscribe. For the hot family of publishers, something does indeed happen before you subscribe.
+
+#### Operators `map` and `flatMap`
+
+Operators are like workstations in an assembly line. They allow to describe transformations or intermediary steps along the processing chain. Each operator is a decorator, it wraps the previous `Publisher` into a new instance. To avoid mistakes, **the preferred way of using operators is to chain the calls**. Apply the next operator to the last operator's result.
+
+`map` and `flatMap` are **operators**. You might be familiar with the concept of these operations, from functional programming, or from Java Streams. In the reactive world, they have their own semantics.
 
 The **map** method transforms the emitted items by applying a **synchronous function** to each item, in a 1-to-1 basis. Check the example below:
 
@@ -68,7 +89,7 @@ public class MapTest {
 In the code above, a flux is created from a range of integers from 1 to 5, and the map operator is passed a transformation function that formats with leading zeros. Notice the return type of the transform method is not a publisher and the transformation is synchronous, meaning it is a simple method call. The transformation function must not introduce latency.
 
 
-The **flatMap** method transforms the emitted items **asynchronously** into **Publishers**, then flatten these inner publishers into a single **Flux** through merging, which allow them to interleave. This operator does not necessarily preserve original ordering. The mapper function passed to flatMap transforms the input sequence into N sequences. This operator is suitable for running an asynchronous task for each item.
+The `flatMap` method transforms the emitted items **asynchronously** into **Publishers**, then flatten these inner publishers into a single `Flux` through merging, which allow them to interleave. This operator does not necessarily preserve original ordering. The mapper function passed to `flatMap` transforms the input sequence into N sequences.**This operator is suitable for running an asynchronous task for each item.**
 
 In the example below, a list of words is mapped to its phonetic through the Dictionary API, using flatMap.
 
@@ -183,21 +204,18 @@ public class FlatMapTest {
 
 }
 ```
+There a rich vocabulary of operators for `Flux` and `Mono` you can find in the reference documentation. There is also a handy guide for choosing the right operator: ["Which operator do I need?"](https://projectreactor.io/docs/core/release/reference/#which-operator).
 
-
-## Nothing Happens Until You Subscribe
-
-In general.
-When you instantiate a Flux you are describing a processing pipeline.
-When you subscribe you are triggering the data flow through that pipeline.
-
-Hot publisher, generates data for each subscription. If you subscribe twice, it will generate the data twice.
-
-## Reactor schedulers and Work Stealing
+# Reactor Schedulers for Switching the Thread
 Notion of execution context.
 Notion of a clock.
 Intermediate operators.
 
+
+What `subscribeOn` does is it changes the thread where the sources actually starts generating data. Changes the root of the chain. Affects lines above and below the call.
+`publishOn` it modifies the context for the steps below it.
+
+_Downstream and Upstream_
 
 
 _Create spring boot application with spring initializr_
@@ -224,9 +242,9 @@ public class TestUtils {
 
 
 
-__No execution context__:
+#### No execution context
 
-__Single reusable thread__:
+#### Single reusable thread
 
 ```java
 @Test
@@ -258,7 +276,7 @@ When running the test above, you will see a log similar to this:
 
 As you can see, the `map` function executes in the _main_ thread, and the consumer code passed to `subscribe` executes in the _single-1_ thread. Everything after the `publishOn` will execute in the passed scheduler.
 
-__Bounded elastic thread pool__:
+#### Bounded elastic thread pool
 
 A better choice for I/O blocking work, for example, reading a file, or making a blocking network call, is a bounded elastic thread pool. **It is provided to help with legacy blocking code if it cannot be avoided.**
 
@@ -316,7 +334,7 @@ What might be confusing is that each subscription is assigned one bounded elasti
 
 The way the `Flux` was instantiated above produced a **Cold Publisher**, a publisher that generates data anew for each subscription. That's why both subscriptions above process all the values.
 
-__Fixed pool of workers__:
+#### Fixed pool of workers
 
 A pool of workers tuned for parallel work, as many workers as CPU cores.
 
@@ -396,10 +414,14 @@ As you can see, different subscription executions interleave, and as I am testin
 
 Again, as you can observe, all operations for a given subscription are executed in the same thread.
 
-_Downstream and Upstream_
+#### A Note on Work Stealing
+
+Most operators run on the same thread they receive data from. In some instances, operators combine data coming from two threads, in that case project reactor applies an optimization called **work stealing**. This kind of operators share an internal queue, where threads can offer work. When a thread detects there is already another thread actively working on that queue, it will offer the work and exit, and the active thread steals the work.
+Which operators?
 
 
-# Reactive Spring Web Flux REST Service
+
+# Reactive Spring WebFlux Services
 
 In an ideal reactive scenario, all the architecture components are non-blocking, so there is no need to worry about the event loop freezing up (**reactor meltdown**).
 But sometimes, you will have to deal with legacy blocking code, or blocking libraries. So now, to continue the experiment with Reactor schedulers, create a REST service with an endpoint to return a random integer. The implementation will call Java SecureRandom blocking code.
@@ -571,7 +593,7 @@ The implementation above has logic upfront, first the calculation `secureRandom.
 What is the right way to wrap a blocking call? **Make the work happen on another scheduler.**
 
 
-## Blocking Encapsulation
+# Encapsulation of Blocking Calls
 
 Blocking encapsulation needs to happen down into the service, as explained in the [Reactor documentation](https://projectreactor.io/docs/core/release/reference/#faq.wrap-blocking). This means the scheduler assignment must happen inside the implementation.
 
@@ -609,11 +631,9 @@ Run the test again and the BlockHound exception should not happen. Avoid the log
 
 
 
-## Error Handling
-
-_On subsribe or before_
-
 # Learn More
+
+SteVierifier out of scope. Error handling, out of scope.
 
 - [Avoiding Reactor Meltdown](https://www.youtube.com/watch?v=xCu73WVg8Ps)
 - [A Look at Reactor Execution Model](https://www.youtube.com/watch?v=sNgTTcG-fEU)
