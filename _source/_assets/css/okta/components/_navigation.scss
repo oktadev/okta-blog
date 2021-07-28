@@ -8,7 +8,7 @@
   background: get-color('resolution-blue');
   @include font-size(16px);
 
-  @include media('<medium') {
+  @include media('<large') {
     @include font-size(12px);
   }
 
@@ -20,16 +20,13 @@
     height: 87px;
     padding: 0 50px;
 
-    @include media('<x-large') {
+    @include media('<large') {
       height: 70px;
       padding: 0 35px;
     }
-    @include media('<=medium') {
-      padding: 0 16px;
-    }
-
     @include media('<small') {
       height: 60px;
+      padding: 0 16px;
     }
   }
 
@@ -43,9 +40,9 @@
     flex-shrink: 0;
     margin-right: 48px;
 
-    @include media('>=small', '<medium') {
+    @include media('>=small', '<large') {
       width: 101px;
-      margin-right: 15px;
+      margin-right: 22px;
     }
 
     @include media('<small') {
@@ -69,6 +66,7 @@
     text-decoration: none;
     color: get-color('white');
     text-transform: none;
+    white-space: nowrap;
     border: 1px solid get-color('white');
     background: transparent;
     @include font-weight('bold');
