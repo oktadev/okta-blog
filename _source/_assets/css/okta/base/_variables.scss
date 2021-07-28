@@ -108,6 +108,7 @@ $night-rider: #333333;
 $nobel: #999999;
 $nobel-2: #9a9a9a;
 $shady-lady: #979797;
+$storm-gray: #6E6E78;
 $suva-gray: #888888;
 $suva-gray-4: #8f8f8f;
 $very-light-gray: #cccccc;
@@ -240,6 +241,7 @@ $colors:        (
                 // 2021-07 Nav Redesign
                 'resolution-blue': $resolution-blue, //Nav background
                 'shark': $shark,                     //Text dark color
+                'storm-gray': $storm-gray,           //Text color
                 'alto': $alto,                       //Border color
 );
 
@@ -261,6 +263,7 @@ $gutter-width:  20px;
 
 $breakpoints:   (
                 'xx-small':               320px,
+                'x-smaller':              375px,
                 'x-small':                480px,
                 'small':                  768px,
                 'medium-small':           900px,

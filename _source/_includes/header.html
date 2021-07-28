@@ -41,7 +41,7 @@
                         </div>
                         <div class="CoveoAnalytics"></div>
 
-                        {% include partials/icons.html icon="search" class='hide-for-small' %}
+                        {% include partials/icons.html icon="search" %}
                     </div>
                     <!-- end Search box  -->
                 </div>
@@ -103,14 +103,9 @@
 
         <div class="flex-row space-between align-center full-width show-for-small">
             <div class="mobile-controls flex-row align-center">
-                {% comment %}
-                    {% if page.url contains '/search/' %}
-                    {% else %}
-                        <div class="search-toggle">
-                            {% include partials/icons.html icon="search" %}
-                        </div>
-                    {% endif %}
-                {% endcomment %}
+                <a href="{{ site.external_domain }}/signup/" class="cta flex align-center justify-center">
+                    Sign up
+                </a>
 
                 <div class="hamburger">
                     <div class="lines">
@@ -121,61 +116,6 @@
                 </div>
             </div>
 
-            <ul class="mobile-menu menu-dropdown-wrapper">
-                <li class="menu-item separator flex-row justify-center">
-                    <a href="{{ site.external_domain }}/signup/" class="cta flex align-center justify-center">
-                        Sign up
-                    </a>
-                </li>
-                <li class="menu-item has-children">
-                    <a href="#" class="nav-link flex-row align-center space-between">
-                        Community <i class="fa fa-angle-right"></i>
-                    </a>
-
-                    <ul class="sub-menu">
-                        <li class="menu-item">
-                            <a href="https://devforum.okta.com/" class="nav-link">Forum</a>
-                        </li>
-                        <li class="menu-item {% if page.url contains '/blog/' %}active{% endif %}">
-                            <a href="/blog" class="nav-link">Blog</a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="https://toolkit.okta.com/" class="nav-link">Toolkit</a>
-                        </li>
-                        <li class="menu-item">
-                            <div class="social-links flex-row align-center">
-                                <a href="http://github.com/{{ site.github_username }}" class="social">
-                                    {% include partials/icons.html icon="github" %}
-                                </a>
-                                <a href="http://twitter.com/{{ site.twitter_username }}" class="social">
-                                    {% include partials/icons.html icon="twitter" %}
-                                </a>
-                                <a href="https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q/featured" class="social">
-                                    {% include partials/icons.html icon="youtube" %}
-                                </a>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-                <li class="menu-item">
-                    <a href="{{ site.external_domain }}/pricing/" class="nav-link">Pricing</a>
-                </li>
-                <li class="menu-item">
-                    <a href="https://login.okta.com/" class="nav-link" target="_blank" rel="noopener noreferrer">Admin Console</a>
-                </li>
-                <li class="menu-item">
-                    <a href="#" class="nav-link" target="_blank" rel="noopener noreferrer">Guides</a>
-                </li>
-                <li class="menu-item">
-                    <a href="#" class="nav-link" target="_blank" rel="noopener noreferrer">Concept</a>
-                </li>
-                <li class="menu-item">
-                    <a href="#" class="nav-link" target="_blank" rel="noopener noreferrer">Reference</a>
-                </li>
-                <li class="menu-item">
-                    <a href="#" class="nav-link" target="_blank" rel="noopener noreferrer">Languages & SDKs</a>
-                </li>
-            </ul>
         </div>
     </div>
 </nav>

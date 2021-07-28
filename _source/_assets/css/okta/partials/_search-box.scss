@@ -12,9 +12,10 @@
   }
 
   @include media('<=small') {
-    max-width: none;
+    max-width: 100%;
+    height: auto;
     border: 1px solid get-color('alto');
-    margin: 16px;
+    margin: 0 0 29px;
   }
 
   &.menu-item {
@@ -39,9 +40,11 @@
     position: absolute;
     color: get-color('mine-shaft');
 
-
     path {
       fill: get-color('resolution-blue');
+      @include media('<=small') {
+        fill: get-color('shark');
+      }
     }
   }
 
@@ -139,7 +142,7 @@
 }
 
 .mobile-search-container {
-  @include media('<small') {
+  @include media('<=small') {
     padding: 16px;
 
     .search-box {

@@ -12,7 +12,7 @@
     @include font-size(12px);
   }
 
-  @include media('<small') {
+  @include media('<=small') {
     @include font-size(16px);
   }
 
@@ -24,9 +24,11 @@
       height: 70px;
       padding: 0 35px;
     }
-    @include media('<small') {
-      height: 60px;
+    @include media('<=small') {
       padding: 0 16px;
+    }
+    @include media('<=x-smaller') {
+      height: 60px;
     }
   }
 
@@ -40,12 +42,12 @@
     flex-shrink: 0;
     margin-right: 48px;
 
-    @include media('>=small', '<large') {
+    @include media('>small', '<large') {
       width: 101px;
       margin-right: 22px;
     }
 
-    @include media('<small') {
+    @include media('<=small') {
       margin-right: 0;
     }
 
@@ -72,10 +74,23 @@
     @include font-weight('bold');
     @include font-size(14px);
 
-    @include media('>=small', '<medium') {
-      height: 32px;
-      max-width: 90px;
-      @include font-size(10px);
+    @include media('<=small') {
+      margin: 0;
+      font-size: 1rem;
+      border: none;
+      padding: 0;
+
+      &::after {
+        font-family: fontawesome;
+        content: '\f061';
+        font-size: 10px;
+        font-weight: normal;
+        right: 0;
+        margin-left: 5px;
+      }
+    }
+    @include media('<=x-smaller') {
+      display: none;
     }
   }
 
@@ -112,7 +127,7 @@
     margin-left: auto;
 
     .hamburger {
-      margin-left: 20px;
+      margin-left: 30px;
     }
 
     .search-toggle {

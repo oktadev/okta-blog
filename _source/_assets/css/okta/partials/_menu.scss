@@ -4,7 +4,8 @@
 
   &.external-links {
     .menu-item {
-      padding: 0 15px;
+      padding: 0;
+      margin: 0 0 0 30px;
       position: relative;
 
       @include media('<=small') {
@@ -26,7 +27,8 @@
   }
 
   .menu-item {
-    padding: 0 30px 0 0;
+    padding: 0;
+    margin: 0 30px 0 0;
     position: relative;
 
     &.SearchBar {
@@ -34,19 +36,21 @@
     }
 
     &.has-children {
-      .fa-angle-down {
-        margin-left: 3px;
-        transition: all 200ms ease-in-out;
-      }
-
-      &:hover {
+      @include media('>small') {
         .fa-angle-down {
-          transform: rotate(180deg);
+          margin-left: 3px;
+          transition: all 200ms ease-in-out;
         }
 
-        .sub-menu {
-          opacity: 1;
-          visibility: visible;
+        &:hover {
+          .fa-angle-down {
+            transform: rotate(180deg);
+          }
+
+          .sub-menu {
+            opacity: 1;
+            visibility: visible;
+          }
         }
       }
     }
@@ -66,23 +70,27 @@
       background: get-color('white');
       transition: all 200ms ease-in-out;
       box-shadow: rgba(get-color('black'), 0.3) 0 2px 10px;
-    }
-
-    &:before {
-      content: '';
-      left: 50%;
-      top: -10px;
-      display: block;
-      position: absolute;
-      transform: translateX(-50%);
-      border-left: solid 20px transparent;
-      border-right: solid 20px transparent;
-      border-bottom: solid 20px get-color('white');
+    
+      &:before {
+        content: '';
+        left: 50%;
+        top: -10px;
+        display: block;
+        position: absolute;
+        transform: translateX(-50%);
+        border-left: solid 20px transparent;
+        border-right: solid 20px transparent;
+        border-bottom: solid 20px get-color('white');
+      }
     }
 
     .menu-item {
       padding: 0 15px;
       line-height: 28px;
+      @include media('<=small') {
+        padding: 0;
+        line-height: inherit;
+      }
 
       &.active .nav-link {
         text-decoration: underline;
@@ -99,6 +107,10 @@
     padding: 10px 0 5px;
     line-height: initial;
     border-top: 2px solid get-color('black');
+
+    @include media('<=small') {
+      display: none;
+    }
 
     .social {
       svg {
