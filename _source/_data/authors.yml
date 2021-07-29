@@ -113,6 +113,18 @@ brian-demers:
     Away from the keyboard, Brian is a beekeeper and can likely be found playing board games.
     You can find him on Twitter at <a href="https://twitter.com/briandemers">@briandemers</a>.
 
+xinxin-zhu:
+  full_name: Xinxin Zhu
+  display_name: Xinxin Zhu
+  avatar: avatar-xinxinzhu.jpg
+  email: xinxinzhu@api7.ai
+  github: https://github.com/starsz
+  bio:
+    Xinxin Zhu is a System Engineer at API7.AI and a committer for the Apache APISIX project.He is an open source lover and
+    a golang fans.Now, he is working on control plane of Apache APISIX such as writing code, reviewing code and answering questions
+    in the community.You can find him on Twitter at <a href="https://twitter.com/starszcan">@starszcan</a>,
+    he is a very funny persion. :)
+
 micah-silverman:
   full_name: Micah Silverman
   display_name: Micah Silverman
