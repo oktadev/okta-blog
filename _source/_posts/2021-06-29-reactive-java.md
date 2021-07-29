@@ -33,22 +33,14 @@ Reactive programming vs Reactive Systems.
 
 # Quick Look at Reactor Execution Model
 
-Reactor is an API for doing asynchronous programming, where you describe your data processing as a flow of operators, composing a data processing pipeline. It is based on the Reactive Streams specification.
-
-Using the assembly line analogy, the initial data flow from a source, the `Publisher`, goes through transformation steps and eventually the result is pushed to a consumer, the `Subscriber`. A `Publisher`, produces data, and a  `Subscriber`, listens to it.
-
-Reactor also supports flow control via backpressure, so a `Subscriber` can signal the volume it can consume.
+Reactor is an API for doing asynchronous programming, where you describe your data processing as a flow of operators, composing a data processing pipeline. It is based on the Reactive Streams specification. Using the assembly line analogy, the initial data flow from a source, the `Publisher`, goes through transformation steps and eventually the result is pushed to a consumer, the `Subscriber`. A `Publisher`, produces data, and a  `Subscriber`, listens to it. Reactor also supports flow control via backpressure, so a `Subscriber` can signal the volume it can consume.
 
 
 #### Nothing Happens Until You Subscribe
 
-In general, when you instantiate a Flux you are describing an asynchronous processing pipeline. When combining or composing operators, no processing happens, you are describing the intent. This is called **assembly time**.
+In general, when you instantiate a `Publisher` (a `Flux` or a `Mono`) you are describing an asynchronous processing pipeline. When combining or composing operators, no processing happens, you are describing the intent. This is called **assembly time**. Only when you `subscribe` you are triggering the data flow through that pipeline. The `subscribe` call emits a signal back to the source, and the source starts emitting data that flows through the pipeline. This is called **execution time** or **subscription time**.
 
-Only when you `subscribe` you are triggering the data flow through that pipeline. The `subscribe` call emits a signal back to the source, and the source starts emitting data that flows through the pipeline. This is called **execution time** or **subscription time**.
-
-A **cold publisher** generates data for each subscription. Then, if you subscribe twice, it will generate the data twice. All the examples that follow below will instantiate cold publishers.
-
-On the other hand, a **hot publisher** starts emitting data immediately or on the first subscription. Late subscribers receive data emitted after they subscribe. For the hot family of publishers, something does indeed happen before you subscribe.
+A **cold publisher** generates data for each subscription. Then, if you subscribe twice, it will generate the data twice. All the examples that follow below will instantiate cold publishers. On the other hand, a **hot publisher** starts emitting data immediately or on the first subscription. Late subscribers receive data emitted after they subscribe. For the hot family of publishers, something does indeed happen before you subscribe.
 
 #### Operators `map` and `flatMap`
 
@@ -56,17 +48,9 @@ Operators are like workstations in an assembly line. They allow to describe tran
 
 `map` and `flatMap` are **operators**. You might be familiar with the concept of these operations, from functional programming, or from Java Streams. In the reactive world, they have their own semantics.
 
-The **map** method transforms the emitted items by applying a **synchronous function** to each item, in a 1-to-1 basis. Check the example below:
+The **map** method transforms the emitted items by applying a **synchronous function** to each item, in a 1-to-1 basis.  Check the example below:
 
 ```java
-package com.okta.developer;
-
-import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import reactor.core.publisher.Flux;
-
-
 public class MapTest {
 
     private static Logger logger = LoggerFactory.getLogger(OperatorsTest.class);
@@ -86,6 +70,8 @@ public class MapTest {
 }
 ```
 
+Note: You can find this test and all the code in this tutorial in [Github](https://github.com/indiepopart/reactive-java-demo)
+
 In the code above, a flux is created from a range of integers from 1 to 5, and the map operator is passed a transformation function that formats with leading zeros. Notice the return type of the transform method is not a publisher and the transformation is synchronous, meaning it is a simple method call. The transformation function must not introduce latency.
 
 
@@ -94,23 +80,6 @@ The `flatMap` method transforms the emitted items **asynchronously** into **Publ
 In the example below, a list of words is mapped to its phonetic through the Dictionary API, using flatMap.
 
 ```java
-package com.okta.developer;
-
-
-import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
-
-import java.util.ArrayList;
-import java.util.List;
-
 @SpringBootTest
 public class FlatMapTest {
 
@@ -207,28 +176,16 @@ public class FlatMapTest {
 There a rich vocabulary of operators for `Flux` and `Mono` you can find in the reference documentation. There is also a handy guide for choosing the right operator: ["Which operator do I need?"](https://projectreactor.io/docs/core/release/reference/#which-operator).
 
 # Reactor Schedulers for Switching the Thread
-Notion of execution context.
-Notion of a clock.
-Intermediate operators.
+
+Project Reactor provides the tools to fine tune the asynchronous processing in terms of threads and execution context.
+The `Scheduler` is an abstraction on top of the `ExecutionService`, that allows to submit a task immediately, after a delay or at a fixed time rate. Various default schedulers are provided, they will be exampled below. The execution context is defined by the `Scheduler` selection.
+
+Schedulers are selected through `subscribeOn` and `publishOn` operators, they provide the means to switch the execution context. What `subscribeOn` does is it changes the thread where the sources actually starts generating data. Changes the root of the chain, affecting the preceding operators, _upstream_ in the chain. It might also affect subsequent operators, unless `publishOn` is also used. `publishOn` switches the context for the subsequent operators in the pipeline description, _downstream_ in the chain.
 
 
-What `subscribeOn` does is it changes the thread where the sources actually starts generating data. Changes the root of the chain. Affects lines above and below the call.
-`publishOn` it modifies the context for the steps below it.
-
-_Downstream and Upstream_
-
-
-_Create spring boot application with spring initializr_
-
-
-Create the class `TestUtils` with a handy function for logging the thread name, function and element:
+The sheduler examples ahead will use `TestUtils.debug` for logging the thread name, function and element:
 
 ```java
-package com.okta.developer;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class TestUtils {
 
     public static Logger logger = LoggerFactory.getLogger(TestUtils.class);
@@ -239,9 +196,6 @@ public class TestUtils {
     }
 }
 ```
-
-
-
 #### No execution context
 
 #### Single reusable thread
@@ -336,7 +290,7 @@ The way the `Flux` was instantiated above produced a **Cold Publisher**, a publi
 
 #### Fixed pool of workers
 
-A pool of workers tuned for parallel work, as many workers as CPU cores.
+`Schedulers.parallel()` provides a pool of workers tuned for parallel work, as many workers as CPU cores.
 
 ```java
 @Test
@@ -414,9 +368,18 @@ As you can see, different subscription executions interleave, and as I am testin
 
 Again, as you can observe, all operations for a given subscription are executed in the same thread.
 
+#### Using both `publishOn` and `subscribeOn`
+
+As the `subscribe` call accepts a consumer, when the `publishOn` and `subscribeOn` operators are used, it might be confusing at first understanding that the consumer will execute in the context selected by `publishOn`, as it defines the scheduler for downstream processing, which includes the consumer execution. Check the following example:
+
+
+
+
+
 #### A Note on Work Stealing
 
 Most operators run on the same thread they receive data from. In some instances, operators combine data coming from two threads, in that case project reactor applies an optimization called **work stealing**. This kind of operators share an internal queue, where threads can offer work. When a thread detects there is already another thread actively working on that queue, it will offer the work and exit, and the active thread steals the work.
+
 Which operators?
 
 
@@ -424,34 +387,46 @@ Which operators?
 # Reactive Spring WebFlux Services
 
 In an ideal reactive scenario, all the architecture components are non-blocking, so there is no need to worry about the event loop freezing up (**reactor meltdown**).
-But sometimes, you will have to deal with legacy blocking code, or blocking libraries. So now, to continue the experiment with Reactor schedulers, create a REST service with an endpoint to return a random integer. The implementation will call Java SecureRandom blocking code.
+But sometimes, you will have to deal with legacy blocking code, or blocking libraries.
 
-Start by creating the package `com.okta.developer.reactor.controller`, and add a `SecureRandom` class for the data:
+So now, let's experiment with Reactor Schedulers. Create a secured REST service with an endpoint to return a random integer. The implementation will call Java `SecureRandom` blocking code. Start by downloading a Spring Boot maven project using [Spring Initializr](https://start.spring.io/). You can do it with the following `HTTPie` line:
 
-```java
-package com.okta.developer.reactor.controller;
-
-public class SecureRandom {
-
-    private String value;
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    public SecureRandom(Integer value){
-        this.value = value.toString();
-    }
-}
+```shell
+http -d https://start.spring.io/starter.zip type==maven-project \
+  language==java \
+  bootVersion==2.5.3 \
+  baseDir==reactive-service \
+  groupId==com.okta.developer.reactive \
+  artifactId==reactive-service \
+  name==reactive-service \
+  packageName==com.okta.developer.reactive \
+  javaVersion==11 \
+  dependencies==webflux,okta
 ```
-Add the `SecureRandomService` interface under the package `com.okta.developer.reactor.service`:
+Unzip the project:
+
+```shell
+unzip reactor-service.zip
+cd reactive-service
+```
+
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
+
+Modify the `pom.xml` to add `spring-security-test` dependency:
+
+```xml
+<dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-test</artifactId>
+    <version>5.4.5</version>
+    <scope>test</scope>
+</dependency>
+```
+
+Create the package `com.okta.developer.reactive.service`, and add the `SecureRandomService`:
 
 ```java
-package com.okta.developer.reactor.service;
+package com.okta.developer.reactive.service;
 
 import reactor.core.publisher.Mono;
 
@@ -461,10 +436,10 @@ public interface SecureRandomService {
 }
 ```
 
-And the implementation:
+And the implementation `SecureRandomServiceImpl`:
 
 ```java
-package com.okta.developer.reactor.service;
+package com.okta.developer.reactive.service;
 
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
@@ -489,13 +464,34 @@ public class SecureRandomServiceImpl implements SecureRandomService {
 
 Think for a moment about the `getRandomInt` implementation. It is hard to resist the temptation of just wrapping whatever in a publisher. `Mono.just(T data)` creates an `Mono` that will emit the specified item. The item is **captured at instantiation time**. This means the blocking code will be invoked on assembly time, and it might be in the context of an event loop thread.
 
-For now, let's move forward and create the `SecureRandomController` class:
+For now, let's move forward and create the package `com.okta.developer.reactive.controller`, and add a `SecureRandom` class for the data:
 
 ```java
-package com.okta.developer.reactor.controller;
+package com.okta.developer.reactive.controller;
 
+public class SecureRandom {
 
-import com.okta.developer.reactor.service.SecureRandomService;
+    private String value;
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public SecureRandom(Integer value){
+        this.value = value.toString();
+    }
+}
+```
+Create the `SecureRandomController` class:
+
+```java
+package com.okta.developer.reactive.controller;
+
+import com.okta.developer.reactive.service.SecureRandomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -518,13 +514,15 @@ public class SecureRandomController {
 Add a `SecureRandomControllerTest`:
 
 ```java
-package com.okta.developer.reactor.controller;
+package com.okta.developer.reactive.controller;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.reactive.server.WebTestClient;
+
+import static org.springframework.security.test.web.reactive.server.SecurityMockServerConfigurers.mockOidcLogin;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureWebTestClient
@@ -537,10 +535,11 @@ public class SecureRandomControllerTest {
     public void testGetSecureRandom() {
 
 
-        webTestClient.get()
-                .uri("/random")
-                .exchange()
-                .expectStatus().isOk();
+        webTestClient.mutateWith(mockOidcLogin())
+            .get()
+            .uri("/random")
+            .exchange()
+            .expectStatus().isOk();
     }
 }
 ```
