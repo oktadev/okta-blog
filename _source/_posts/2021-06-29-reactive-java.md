@@ -38,7 +38,7 @@ Reactor is an API for doing asynchronous programming, where you describe your da
 
 #### Nothing Happens Until You Subscribe
 
-In general, when you instantiate a `Publisher` (a `Flux` or a `Mono`) you are describing an asynchronous processing pipeline. When combining or composing operators, no processing happens, you are describing the intent. This is called **assembly time**. Only when you `subscribe` you are triggering the data flow through that pipeline. The `subscribe` call emits a signal back to the source, and the source starts emitting data that flows through the pipeline. This is called **execution time** or **subscription time**.
+In general, when you instantiate a `Publisher` (a `Flux` or a `Mono`) you are describing an asynchronous processing pipeline. When combining operators, no processing happens, you are describing the intent. This is called **assembly time**. Only when you `subscribe` you are triggering the data flow through that pipeline. The `subscribe` call emits a signal back to the source, and the source starts emitting data that flows through the pipeline. This is called **execution time** or **subscription time**.
 
 A **cold publisher** generates data for each subscription. Then, if you subscribe twice, it will generate the data twice. All the examples that follow below will instantiate cold publishers. On the other hand, a **hot publisher** starts emitting data immediately or on the first subscription. Late subscribers receive data emitted after they subscribe. For the hot family of publishers, something does indeed happen before you subscribe.
 
@@ -178,9 +178,9 @@ There a rich vocabulary of operators for `Flux` and `Mono` you can find in the r
 # Reactor Schedulers for Switching the Thread
 
 Project Reactor provides the tools to fine tune the asynchronous processing in terms of threads and execution context.
-The `Scheduler` is an abstraction on top of the `ExecutionService`, that allows to submit a task immediately, after a delay or at a fixed time rate. Various default schedulers are provided, they will be exampled below. The execution context is defined by the `Scheduler` selection.
+The `Scheduler` is an abstraction on top of the `ExecutionService`, that allows to submit a task immediately, after a delay or at a fixed time rate. Various default schedulers are provided, and they will be exampled below. The execution context is defined by the `Scheduler` selection.
 
-Schedulers are selected through `subscribeOn` and `publishOn` operators, they switch the execution context. What `subscribeOn` does is it changes the thread where the source actually starts generating data. It changes the root of the chain, affecting the preceding operators, _upstream_ in the chain. It might also affect subsequent operators, unless `publishOn` is also used. `publishOn` switches the context for the subsequent operators in the pipeline description, _downstream_ in the chain.
+Schedulers are selected through `subscribeOn` and `publishOn` operators, they switch the execution context. `subscribeOn` changes the thread where the source actually starts generating data. It changes the root of the chain, affecting the preceding operators, _upstream_ in the chain; and also affects subsequent operators.`publishOn` switches the context for the subsequent operators in the pipeline description, _downstream_ in the chain, overriding the scheduler assigned with `subscribeOn` if that was the case.
 
 
 The sheduler examples ahead will use `TestUtils.debug` for logging the thread name, function and element:
@@ -197,6 +197,37 @@ public class TestUtils {
 }
 ```
 #### No execution context
+
+`Schedulers.immediate()` can be seen as the no-op scheduler, the pipeline executes in the current thread.
+
+```java
+@Test
+public void immediateTest() throws InterruptedException {
+    Flux.range(1, 5)
+            .map(v -> debug(v, "map"))
+            .subscribeOn(Schedulers.immediate())
+            .subscribe(w -> debug(w,"subscribe"));
+
+
+    Thread.sleep(5000);
+}
+```
+
+The test above will log something similar to:
+
+```
+2021-07-29 09:36:05.905 - INFO [main] - element "1" [map]
+2021-07-29 09:36:05.906 - INFO [main] - element "1" [subscribe]
+2021-07-29 09:36:05.906 - INFO [main] - element "2" [map]
+2021-07-29 09:36:05.906 - INFO [main] - element "2" [subscribe]
+2021-07-29 09:36:05.906 - INFO [main] - element "3" [map]
+2021-07-29 09:36:05.907 - INFO [main] - element "3" [subscribe]
+2021-07-29 09:36:05.907 - INFO [main] - element "4" [map]
+2021-07-29 09:36:05.907 - INFO [main] - element "4" [subscribe]
+2021-07-29 09:36:05.907 - INFO [main] - element "5" [map]
+2021-07-29 09:36:05.907 - INFO [main] - element "5" [subscribe]
+```
+Everything executes in the _main_ thread.
 
 #### Single reusable thread
 
@@ -282,7 +313,7 @@ The test above should log something similar to this:
 2021-07-15 00:41:51.452 - INFO [boundedElastic-1] - element "c.txt" [map]
 2021-07-15 00:41:51.453 - INFO [boundedElastic-1] - element "A line in file c.txt" [subscribe1]
 ```
-As you can see in the code above, the flux is subscribed twice. As the `publishOn` is invoked before any operator, everything will execute in the context of a bounded elastic thread. Also notice how execution from both subscription can interleave.
+As you can see in the code above, the flux is subscribed twice. As the `publishOn` is invoked before any operator, everything will execute in the context of a bounded elastic thread. Also notice how the execution from both subscriptions can interleave.
 
 What might be confusing is that each subscription is assigned one bounded elastic thread for the whole execution. So in this case, _subscription1_ executed in `boundedElastic-1` and _subscription2_ executed in `boundedElastic-2`. All operations for a given subscription execute in the same thread.
 
@@ -398,7 +429,7 @@ The log should look like the following lines:
 ...
 ```
 
-As you can see, the first `map` operator executes in the _boundedElastic-*_ thread, and the second `map` operator and the `subscribe` consumer execute in the _parallel-1_ thread. Notice it the `subscribeOn` operator is invoked after `publishOn`, but it affects the root of the chain and the operators preceding `publishOn` anyways.
+As you can see, the first `map` operator executes in the _boundedElastic-*_ thread, and the second `map` operator and the `subscribe` consumer execute in the _parallel-1_ thread. Notice that the `subscribeOn` operator is invoked after `publishOn`, but it affects the root of the chain and the operators preceding `publishOn` anyways.
 
 A probably simplified [marble diagam](https://projectreactor.io/docs/core/release/reference/#howtoReadMarbles) for the example above may look like:
 
