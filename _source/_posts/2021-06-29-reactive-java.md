@@ -180,7 +180,7 @@ There a rich vocabulary of operators for `Flux` and `Mono` you can find in the r
 Project Reactor provides the tools to fine tune the asynchronous processing in terms of threads and execution context.
 The `Scheduler` is an abstraction on top of the `ExecutionService`, that allows to submit a task immediately, after a delay or at a fixed time rate. Various default schedulers are provided, they will be exampled below. The execution context is defined by the `Scheduler` selection.
 
-Schedulers are selected through `subscribeOn` and `publishOn` operators, they provide the means to switch the execution context. What `subscribeOn` does is it changes the thread where the sources actually starts generating data. Changes the root of the chain, affecting the preceding operators, _upstream_ in the chain. It might also affect subsequent operators, unless `publishOn` is also used. `publishOn` switches the context for the subsequent operators in the pipeline description, _downstream_ in the chain.
+Schedulers are selected through `subscribeOn` and `publishOn` operators, they switch the execution context. What `subscribeOn` does is it changes the thread where the source actually starts generating data. It changes the root of the chain, affecting the preceding operators, _upstream_ in the chain. It might also affect subsequent operators, unless `publishOn` is also used. `publishOn` switches the context for the subsequent operators in the pipeline description, _downstream_ in the chain.
 
 
 The sheduler examples ahead will use `TestUtils.debug` for logging the thread name, function and element:
@@ -412,16 +412,6 @@ cd reactive-service
 
 {% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
 
-Modify the `pom.xml` to add `spring-security-test` dependency:
-
-```xml
-<dependency>
-    <groupId>org.springframework.security</groupId>
-    <artifactId>spring-security-test</artifactId>
-    <version>5.4.5</version>
-    <scope>test</scope>
-</dependency>
-```
 
 Create the package `com.okta.developer.reactive.service`, and add the `SecureRandomService`:
 
@@ -511,8 +501,19 @@ public class SecureRandomController {
 }
 ```
 
-Add a `SecureRandomControllerTest`:
+Add `spring-security-test` dependency to the pom:
 
+```xml
+<dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-test</artifactId>
+    <version>5.4.5</version>
+    <scope>test</scope>
+</dependency>
+```
+
+
+Add a `SecureRandomControllerTest`:
 ```java
 package com.okta.developer.reactive.controller;
 
@@ -520,16 +521,19 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 import static org.springframework.security.test.web.reactive.server.SecurityMockServerConfigurers.mockOidcLogin;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureWebTestClient
+@ActiveProfiles("test")
 public class SecureRandomControllerTest {
 
     @Autowired
     private WebTestClient webTestClient;
+
 
     @Test
     public void testGetSecureRandom() {
@@ -544,11 +548,12 @@ public class SecureRandomControllerTest {
 }
 ```
 
+
 Run with:
 ```shell
 ./mvnw test -Dtest=SecureRandomControllerTest
 ```
-The test should pass, but how can you make sure the REST call won't freeze up the service's event loop? With [BlockHound](https://github.com/reactor/BlockHound), a Java agent to detect blocking calls from non-blocking threads. Blockhound has built-in integration with Project Reactor, and supports the JUnit platform.
+The test should pass, but **how can you make sure the REST call won't freeze up the service's event loop?** With [BlockHound](https://github.com/reactor/BlockHound), a Java agent to detect blocking calls from non-blocking threads. Blockhound has built-in integration with Project Reactor, and supports the JUnit platform.
 
 Add the Blockhound dependency to the `pom.xml`:
 
@@ -559,6 +564,20 @@ Add the Blockhound dependency to the `pom.xml`:
     <version>RELEASE</version>
     <scope>test</scope>
 </dependency>
+```
+
+
+It has been reported that when [`spring-security` is enabled, BlockHound does not detect](https://github.com/reactor/BlockHound/issues/173) blocking calls.
+
+Disable security for the test profile. Add the file `src/test/resources/application-test.yml` with the following content:
+
+```
+spring:
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.security.oauth2.client.reactive.ReactiveOAuth2ClientAutoConfiguration
+      - org.springframework.boot.autoconfigure.security.oauth2.resource.reactive.ReactiveOAuth2ResourceServerAutoConfiguration
+      - org.springframework.boot.autoconfigure.security.reactive.ReactiveSecurityAutoConfiguration
 ```
 
 Run the test again, and you should the the following error:
@@ -589,7 +608,7 @@ return Mono.just(secureRandom.nextInt());
 ```
 
 The implementation above has logic upfront, first the calculation `secureRandom.nextInt` and then the assembly.
-What is the right way to wrap a blocking call? **Make the work happen on another scheduler.**
+What is the right way to wrap a blocking call? **Make the work happen in another scheduler.**
 
 
 # Encapsulation of Blocking Calls
@@ -599,7 +618,7 @@ Blocking encapsulation needs to happen down into the service, as explained in th
 Create the class `SecureRandomReactiveImpl`.
 
 ```java
-package com.okta.developer.reactor.service;
+package com.okta.developer.reactive.service;
 
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -627,6 +646,25 @@ public class SecureRandomReactiveImpl implements SecureRandomService {
 ```
 
 Run the test again and the BlockHound exception should not happen. Avoid the logic upfront and just assembly the pipeline, everything should be fine.
+
+
+Finally, let's do an end to end test. Run the application with maven:
+
+```shell
+./mvnw spring-boot:run
+```
+
+Go to [http://localhost:8080/random](http://localhost:8080/random) and you should see the Okta sign in page:
+
+{% img blog/java-spring-websockets/okta-login.png alt:"Loop Me" width:"800" %}{: .center-image }
+
+Sign in with your Okta account and you should see an response similar to this:
+
+```json
+{
+value: "-611020335"
+}
+```
 
 
 
