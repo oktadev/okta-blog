@@ -44,9 +44,9 @@ A **cold publisher** generates data for each subscription. Then, if you subscrib
 
 #### Operators `map` and `flatMap`
 
-Operators are like workstations in an assembly line. They allow to describe transformations or intermediary steps along the processing chain. Each operator is a decorator, it wraps the previous `Publisher` into a new instance. To avoid mistakes, **the preferred way of using operators is to chain the calls**. Apply the next operator to the last operator's result.
+Operators are like workstations in an assembly line. They allow to describe transformations or intermediary steps along the processing chain. Each operator is a decorator, it wraps the previous `Publisher` into a new instance. To avoid mistakes, **the preferred way of using operators is to chain the calls**. Apply the next operator to the last operator's result. Some operators are instance methods and others are static methods.
 
-`map` and `flatMap` are **operators**. You might be familiar with the concept of these operations, from functional programming, or from Java Streams. In the reactive world, they have their own semantics.
+`map` and `flatMap` are instance method **operators**. You might be familiar with the concept of these operations, from functional programming, or from Java Streams. In the reactive world, they have their own semantics.
 
 The **map** method transforms the emitted items by applying a **synchronous function** to each item, in a 1-to-1 basis.  Check the example below:
 
@@ -372,16 +372,37 @@ Again, as you can observe, all operations for a given subscription are executed 
 
 As the `subscribe` call accepts a consumer, when the `publishOn` and `subscribeOn` operators are used, it might be confusing at first understanding that the consumer will execute in the context selected by `publishOn`, as it defines the scheduler for downstream processing, which includes the consumer execution. Check the following example:
 
+```java
+@Test
+public void subscribeOnWithPublishOnTest() throws InterruptedException {
+    Flux.range(1, 3)
+            .map(v -> debug(v, "map1"))
+            .publishOn(Schedulers.parallel())
+            .map(v -> debug(v * 100, "map2"))
+            .subscribeOn(Schedulers.boundedElastic())
+            .subscribe(w -> debug(w,"subscribe"));
 
+    Thread.sleep(5000);
+}
+```
 
+The log should look like the following lines:
 
+```
+2021-07-29 08:40:30.583 - INFO [boundedElastic-1] - element "1" [map1]
+2021-07-29 08:40:30.584 - INFO [parallel-1] - element "100" [map2]
+2021-07-29 08:40:30.585 - INFO [parallel-1] - element "100" [subscribe]
+2021-07-29 08:40:30.585 - INFO [boundedElastic-1] - element "2" [map1]
+2021-07-29 08:40:30.585 - INFO [parallel-1] - element "200" [map2]
+2021-07-29 08:40:30.585 - INFO [parallel-1] - element "200" [subscribe]
+...
+```
 
-#### A Note on Work Stealing
+As you can see, the first `map` operator executes in the _boundedElastic-*_ thread, and the second `map` operator and the `subscribe` consumer execute in the _parallel-1_ thread. Notice it the `subscribeOn` operator is invoked after `publishOn`, but it affects the root of the chain and the operators preceding `publishOn` anyways.
 
-Most operators run on the same thread they receive data from. In some instances, operators combine data coming from two threads, in that case project reactor applies an optimization called **work stealing**. This kind of operators share an internal queue, where threads can offer work. When a thread detects there is already another thread actively working on that queue, it will offer the work and exit, and the active thread steals the work.
+A probably simplified [marble diagam](https://projectreactor.io/docs/core/release/reference/#howtoReadMarbles) for the example above may look like:
 
-Which operators?
-
+{% img blog/reactive-java/marble-diagram.png alt:"Marble Diagram" width:"800" %}{: .center-image }
 
 
 # Reactive Spring WebFlux Services
@@ -656,7 +677,7 @@ Finally, let's do an end to end test. Run the application with maven:
 
 Go to [http://localhost:8080/random](http://localhost:8080/random) and you should see the Okta sign in page:
 
-{% img blog/java-spring-websockets/okta-login.png alt:"Loop Me" width:"800" %}{: .center-image }
+{% img blog/reactive-java/okta-login.png alt:"Okta Login Page" width:"800" %}{: .center-image }
 
 Sign in with your Okta account and you should see an response similar to this:
 
