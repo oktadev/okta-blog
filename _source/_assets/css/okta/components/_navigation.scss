@@ -3,6 +3,7 @@
   width: 100%;
   z-index: 100;
   font-weight: 600;
+  font-family: $font-family-secondary;
   line-height: 24.08px;
   color: get-color('white');
   background: get-color('resolution-blue');
@@ -63,6 +64,7 @@
 
   .cta {
     padding: 7px 12px;
+    margin-left: 5px;
     flex-shrink: 0;
     border-radius: 4px;
     text-decoration: none;
@@ -110,7 +112,7 @@
     white-space: nowrap;
     text-decoration: none;
     color: get-color('white');
-    @include font-weight('bold');
+    font-weight: 500;
 
     &:hover {
       text-decoration: underline;

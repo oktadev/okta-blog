@@ -78,7 +78,9 @@
                         <a href="/blog" class="nav-link">Blog</a>
                     </li>
                     <li class="menu-item {% if page.url contains '/pricing/' %}active{% endif %}">
-                        <a href="{{ site.external_domain }}/pricing/" class="nav-link">Pricing</a>
+                        <a href="{{ site.external_domain }}/pricing/" class="nav-link external-link">
+                            Pricing{% include partials/icons.html icon="external-link" %}
+                        </a>
                     </li>
                 </ul>
                 <ul class="menu external-links flex-row align-center">
@@ -94,8 +96,22 @@
                     </li>
                     <li class="menu-item">
                         <a href="{{ site.external_domain }}/signup/" class="cta flex align-center justify-center">
-                            Sign up
+                            Sign Up
                         </a>
+                    </li>
+                </ul>
+                <ul class="menu show-for-small">
+                    <li class="menu-item">
+                        <a href="{{ site.external_domain }}/docs/guides/" class="nav-link" target="_blank" rel="noopener noreferrer">Guides</a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{{ site.external_domain }}/docs/concepts/" class="nav-link" target="_blank" rel="noopener noreferrer">Concept</a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{{ site.external_domain }}/docs/reference/" class="nav-link" target="_blank" rel="noopener noreferrer">Reference</a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{{ site.external_domain }}/code/" class="nav-link" target="_blank" rel="noopener noreferrer">Languages & SDKs</a>
                     </li>
                 </ul>
             </div>
@@ -104,7 +120,7 @@
         <div class="flex-row space-between align-center full-width show-for-small">
             <div class="mobile-controls flex-row align-center">
                 <a href="{{ site.external_domain }}/signup/" class="cta flex align-center justify-center">
-                    Sign up
+                    Sign Up
                 </a>
 
                 <div class="hamburger">

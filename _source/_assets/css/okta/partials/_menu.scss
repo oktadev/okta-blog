@@ -2,10 +2,10 @@
   margin: 0;
   padding: 0;
 
-  &.external-links {
+  .external-links {
     .menu-item {
       padding: 0;
-      margin: 0 0 0 30px;
+      margin: 0 0 0 25px;
       position: relative;
 
       @include media('<=small') {
@@ -17,12 +17,16 @@
       }
 
       &.active {
-        color: get-color('french-rose');
+        text-decoration: underline;
       }
+    }
+  }
 
-      svg {
-        margin-left: 10px;
-      }
+  .external-links .menu-item, .external-link {
+    svg {
+      margin-left: 4px;
+      width: 12px;
+      height: 12px;
     }
   }
 
@@ -40,6 +44,7 @@
         .fa-angle-down {
           margin-left: 3px;
           transition: all 200ms ease-in-out;
+          font-weight: bold;
         }
 
         &:hover {
@@ -86,6 +91,7 @@
 
     .menu-item {
       padding: 0 15px;
+      margin: 0;
       line-height: 28px;
       @include media('<=small') {
         padding: 0;
@@ -109,10 +115,15 @@
     border-top: 2px solid get-color('black');
 
     @include media('<=small') {
-      display: none;
+      border-top: none;
+      flex-direction: row !important;
+      justify-content: flex-start;
     }
 
     .social {
+      @include media('<=small') {
+        margin-right: 10px;
+      }
       svg {
         width: 18px;
 

@@ -16,7 +16,7 @@ $asset-path: "/assets";
 //-----------------------------------------------------------------------
 
 $font-family:             'proxima-nova', Helvetica, Arial, sans-serif;
-$font-family-secondary:   'ABC Whyte', Helvetica, Arial, sans-serif;
+$font-family-secondary:   'ABC Whyte', $font-family;
 $font-family--alt:        'museo', Helvetica, Arial, sans-serif;
 
 $font-size:     (
@@ -102,6 +102,7 @@ $dove-gray: #616161;
 $iron: #c2c3c3;
 $loblolly: #BCC3CA;
 $lily-white: #f2f5f5;
+$mischka-2: #D7D7DC;
 $mortar: #555555;
 $mystic: #dee0df;
 $night-rider: #333333;
@@ -242,6 +243,7 @@ $colors:        (
                 'resolution-blue': $resolution-blue, //Nav background
                 'shark': $shark,                     //Text dark color
                 'storm-gray': $storm-gray,           //Text color
+                'mischka-2': $mischka-2,             //Text light gray color
                 'alto': $alto,                       //Border color
 );
 
