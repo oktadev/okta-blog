@@ -445,7 +445,8 @@ In Spring WebFlux, it is assumed applications don't block, so non-blocking serve
 In an ideal reactive scenario, all the architecture components are non-blocking, so there is no need to worry about the event loop freezing up (**reactor meltdown**). But sometimes, you will have to deal with legacy blocking code, or blocking libraries.
 
 
-So now, let's experiment with Reactor Schedulers in a Reactive Java application. Create a secured webflux REST service with an endpoint to return a random integer. The implementation will call Java `SecureRandom` blocking code. Start by downloading a Spring Boot maven project using [Spring Initializr](https://start.spring.io/). You can do it with the following `HTTPie` line:
+So now, let's experiment with Reactor Schedulers in a Reactive Java application. Create a Spring WebFlux service with Okta security. The service will expose an endpoint to return a random integer.
+The implementation will call Java `SecureRandom` blocking code. Start by downloading a Spring Boot maven project using [Spring Initializr](https://start.spring.io/). You can do it with the following `HTTPie` line:
 
 ```shell
 http -d https://start.spring.io/starter.zip type==maven-project \
@@ -462,7 +463,7 @@ http -d https://start.spring.io/starter.zip type==maven-project \
 Unzip the project:
 
 ```shell
-unzip reactor-service.zip
+unzip reactive-service.zip
 cd reactive-service
 ```
 
@@ -726,7 +727,7 @@ value: "-611020335"
 
 # Learn More
 
-I hope you enjoyed this post, and get a better understanding of Reactor Schedulers and on how to encapsulate blocking code the right way, to avoid freezing the event loop in your reactive java application. There are important Reactor topics that could not be covered in this post, like error handling, work-stealing and `StepVerifier`. To continue learning, check out the links below:
+I hope you enjoyed this post, and get a better understanding of Reactor Schedulers and on how to encapsulate blocking code the right way, to avoid freezing up the event loop in your Reactive Java application. There are important Reactor topics that could not be covered in this post, like error handling, work-stealing and `StepVerifier`. To continue learning, check out the links below:
 
 - [Avoiding Reactor Meltdown](https://www.youtube.com/watch?v=xCu73WVg8Ps)
 - [Secure Reactive Microservices with Spring Cloud Gateway](https://developer.okta.com/blog/2019/08/28/reactive-microservices-spring-cloud-gateway)
