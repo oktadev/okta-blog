@@ -18,8 +18,8 @@ canonical-url: https://konghq.com/blog/introspection-flow-konnect-okta/
 In our third Kong and Okta tutorial, we'll go through the introspection flow implementation. This series will show you how to implement service authentication and authorization for [Kong Konnect](https://konghq.com/kong-konnect/) and Okta using the [OpenID Connect](https://konghq.com/blog/openid-connect-api-gateway) ([OIDC](https://docs.konghq.com/hub/kong-inc/openid-connect/)) plugin. Parts 1, 2 and 4 cover:
 
 - [Implement Client Credentials with Kong Konnect and Okta](/blog/2021/05/25/client-credentials-kong-konnect)
-- [Implement Introspection Flow With Kong Konnect and Okta](/blog/2021/06/11/introspection-flow-kong-konnect-konnect)
-- [Access control based on Okta's groups and planes](blog/2021/06/28/access-control-policies-kong-konnect)
+- [Authorization Code for user authentication](/blog/2021/06/02/auth-code-flow-kong-konnect)
+- [Access control based on Okta's groups and planes](/blog/2021/06/28/access-control-policies-kong-konnect)
 
 **Table of Contents**{: .hide }
 * Table of Contents
