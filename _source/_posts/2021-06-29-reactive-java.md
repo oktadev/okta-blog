@@ -1,10 +1,10 @@
 ---
 layout: blog_post
-title: "How To Not Mess Up When Doing Reactor"
+title: "How to Prevent Reactive Java Applications from Stalling"
 author: jimena-garbarino
 by: contractor
 communities: [java]
-description: "Reactor Schedulers for Better Reactive Java Applications"
+description: "Reactor Schedulers for Spring Reactive Java Applications"
 tags: []
 tweets:
 - ""
@@ -13,13 +13,10 @@ tweets:
 image:
 type: awareness
 ---
+Project Reactor is a Java framework from Pivotal that implements the [Reactive Streams](https://www.reactive-streams.org/) specification, an initiative to provide a standard for asynchronous stream processing with non-blocking back pressure for the JVM and JavaScript runtimes. It is the foundation of the reactive stack in the Spring ecosystem and WebFlux applications.
+In this post some core Reactor concepts are summarized, to introduce the Scheduler abstraction and its utility to encapsulate blocking code and prevent java reactive applications from stalling.
 
-
-_introduction to Reactor_
-
-Reactive programming vs Reactive Systems.
-
-{% img blog/reactive-java/project-reactor.png alt:"Project Reactor Logo" width:"300" %}{: .center-image }
+**Prerequisites:**
 
 - [HTTPie](https://httpie.io/)
 - [Java 11+](https://openjdk.java.net/install/index.html)
@@ -31,9 +28,14 @@ Reactive programming vs Reactive Systems.
 {:toc}
 
 
-# Quick Look at Reactor Execution Model
+# Reactor Execution Model
 
-Reactor is an API for doing asynchronous programming, where you describe your data processing as a flow of operators, composing a data processing pipeline. It is based on the Reactive Streams specification. Using the assembly line analogy, the initial data flow from a source, the `Publisher`, goes through transformation steps and eventually the result is pushed to a consumer, the `Subscriber`. A `Publisher`, produces data, and a  `Subscriber`, listens to it. Reactor also supports flow control via backpressure, so a `Subscriber` can signal the volume it can consume.
+Reactor is an API for doing asynchronous programming, where you describe your data processing as a flow of operators, composing a data processing pipeline.
+
+{% img blog/reactive-java/project-reactor.png alt:"Project Reactor Logo" width:"300" %}{: .center-image }
+
+
+Using the assembly line analogy, the initial data flows from a source, the `Publisher`, goes through transformation steps and eventually the result is pushed to a consumer, the `Subscriber`. A `Publisher`, produces data, and a  `Subscriber`, listens to it. Reactor also supports flow control via backpressure, so a `Subscriber` can signal the volume it can consume.
 
 
 #### Nothing Happens Until You Subscribe
@@ -48,7 +50,7 @@ Operators are like workstations in an assembly line. They allow to describe tran
 
 `map` and `flatMap` are instance method **operators**. You might be familiar with the concept of these operations, from functional programming, or from Java Streams. In the reactive world, they have their own semantics.
 
-The **map** method transforms the emitted items by applying a **synchronous function** to each item, in a 1-to-1 basis.  Check the example below:
+The **map** method transforms the emitted items by applying a **synchronous function** to each item, in a 1-to-1 basis. Check the example below:
 
 ```java
 public class MapTest {
@@ -75,7 +77,7 @@ Note: You can find this test and all the code in this tutorial in [Github](https
 In the code above, a flux is created from a range of integers from 1 to 5, and the map operator is passed a transformation function that formats with leading zeros. Notice the return type of the transform method is not a publisher and the transformation is synchronous, meaning it is a simple method call. The transformation function must not introduce latency.
 
 
-The `flatMap` method transforms the emitted items **asynchronously** into **Publishers**, then flatten these inner publishers into a single `Flux` through merging, which allow them to interleave. This operator does not necessarily preserve original ordering. The mapper function passed to `flatMap` transforms the input sequence into N sequences.**This operator is suitable for running an asynchronous task for each item.**
+The `flatMap` method transforms the emitted items **asynchronously** into **Publishers**, then flatten these inner publishers into a single `Flux` through merging, and the items can interleave. This operator does not necessarily preserve original ordering. The mapper function passed to `flatMap` transforms the input sequence into N sequences. **This operator is suitable for running an asynchronous task for each item.**
 
 In the example below, a list of words is mapped to its phonetic through the Dictionary API, using flatMap.
 
@@ -173,12 +175,12 @@ public class FlatMapTest {
 
 }
 ```
-There a rich vocabulary of operators for `Flux` and `Mono` you can find in the reference documentation. There is also a handy guide for choosing the right operator: ["Which operator do I need?"](https://projectreactor.io/docs/core/release/reference/#which-operator).
+There is a rich vocabulary of operators for `Flux` and `Mono` you can find in the reference documentation. There is also a handy guide for choosing the right operator: ["Which operator do I need?"](https://projectreactor.io/docs/core/release/reference/#which-operator).
 
 # Reactor Schedulers for Switching the Thread
 
-Project Reactor provides the tools to fine tune the asynchronous processing in terms of threads and execution context.
-The `Scheduler` is an abstraction on top of the `ExecutionService`, that allows to submit a task immediately, after a delay or at a fixed time rate. Various default schedulers are provided, and they will be exampled below. The execution context is defined by the `Scheduler` selection.
+Project Reactor provides the tools for fine-tuning the asynchronous processing in terms of threads and execution context.
+The `Scheduler` is an abstraction on top of the `ExecutionService`, which allows to submit a task immediately, after a delay or at a fixed time rate. Various default schedulers are provided, and they will be exampled below. The execution context is defined by the `Scheduler` selection.
 
 Schedulers are selected through `subscribeOn` and `publishOn` operators, they switch the execution context. `subscribeOn` changes the thread where the source actually starts generating data. It changes the root of the chain, affecting the preceding operators, _upstream_ in the chain; and also affects subsequent operators.`publishOn` switches the context for the subsequent operators in the pipeline description, _downstream_ in the chain, overriding the scheduler assigned with `subscribeOn` if that was the case.
 
@@ -315,7 +317,7 @@ The test above should log something similar to this:
 ```
 As you can see in the code above, the flux is subscribed twice. As the `publishOn` is invoked before any operator, everything will execute in the context of a bounded elastic thread. Also notice how the execution from both subscriptions can interleave.
 
-What might be confusing is that each subscription is assigned one bounded elastic thread for the whole execution. So in this case, _subscription1_ executed in `boundedElastic-1` and _subscription2_ executed in `boundedElastic-2`. All operations for a given subscription execute in the same thread.
+What might be confusing is that each subscription is assigned one bounded elastic thread for the whole execution. So in this case, "subscription1" executed in _boundedElastic-1_ and "subscription2" executed in _boundedElastic-2_. All operations for a given subscription execute in the same thread.
 
 The way the `Flux` was instantiated above produced a **Cold Publisher**, a publisher that generates data anew for each subscription. That's why both subscriptions above process all the values.
 
@@ -429,19 +431,21 @@ The log should look like the following lines:
 ...
 ```
 
-As you can see, the first `map` operator executes in the _boundedElastic-*_ thread, and the second `map` operator and the `subscribe` consumer execute in the _parallel-1_ thread. Notice that the `subscribeOn` operator is invoked after `publishOn`, but it affects the root of the chain and the operators preceding `publishOn` anyways.
+As you can see, the first `map` operator executes in the _boundedElastic-1_ thread, and the second `map` operator and the `subscribe` consumer execute in the _parallel-1_ thread. Notice that the `subscribeOn` operator is invoked after `publishOn`, but it affects the root of the chain and the operators preceding `publishOn` anyways.
 
 A probably simplified [marble diagam](https://projectreactor.io/docs/core/release/reference/#howtoReadMarbles) for the example above may look like:
 
 {% img blog/reactive-java/marble-diagram.png alt:"Marble Diagram" width:"800" %}{: .center-image }
 
 
-# Reactive Spring WebFlux Services
+# Reactive Java Spring Services
 
-In an ideal reactive scenario, all the architecture components are non-blocking, so there is no need to worry about the event loop freezing up (**reactor meltdown**).
-But sometimes, you will have to deal with legacy blocking code, or blocking libraries.
+In Spring WebFlux, it is assumed applications don't block, so non-blocking servers use a small fixed-size thread pool to handle request, named **event loop** workers.
 
-So now, let's experiment with Reactor Schedulers. Create a secured REST service with an endpoint to return a random integer. The implementation will call Java `SecureRandom` blocking code. Start by downloading a Spring Boot maven project using [Spring Initializr](https://start.spring.io/). You can do it with the following `HTTPie` line:
+In an ideal reactive scenario, all the architecture components are non-blocking, so there is no need to worry about the event loop freezing up (**reactor meltdown**). But sometimes, you will have to deal with legacy blocking code, or blocking libraries.
+
+
+So now, let's experiment with Reactor Schedulers in a Reactive Java application. Create a secured webflux REST service with an endpoint to return a random integer. The implementation will call Java `SecureRandom` blocking code. Start by downloading a Spring Boot maven project using [Spring Initializr](https://start.spring.io/). You can do it with the following `HTTPie` line:
 
 ```shell
 http -d https://start.spring.io/starter.zip type==maven-project \
@@ -465,7 +469,7 @@ cd reactive-service
 {% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
 
 
-Create the package `com.okta.developer.reactive.service`, and add the `SecureRandomService`:
+Create the package `com.okta.developer.reactive.service`, and add the `SecureRandomService` interface:
 
 ```java
 package com.okta.developer.reactive.service;
@@ -504,7 +508,7 @@ public class SecureRandomServiceImpl implements SecureRandomService {
 }
 ```
 
-Think for a moment about the `getRandomInt` implementation. It is hard to resist the temptation of just wrapping whatever in a publisher. `Mono.just(T data)` creates an `Mono` that will emit the specified item. The item is **captured at instantiation time**. This means the blocking code will be invoked on assembly time, and it might be in the context of an event loop thread.
+Think for a moment about the `getRandomInt` implementation. It is hard to resist the temptation of just wrapping whatever in a publisher. `Mono.just(T data)` creates an `Mono` that will emit the specified item. But the item is **captured at instantiation time**. This means the blocking code will be invoked on assembly time, and it might be in the context of an event loop thread.
 
 For now, let's move forward and create the package `com.okta.developer.reactive.controller`, and add a `SecureRandom` class for the data:
 
@@ -665,7 +669,7 @@ What is the right way to wrap a blocking call? **Make the work happen in another
 
 # Encapsulation of Blocking Calls
 
-Blocking encapsulation needs to happen down into the service, as explained in the [Reactor documentation](https://projectreactor.io/docs/core/release/reference/#faq.wrap-blocking). This means the scheduler assignment must happen inside the implementation.
+Blocking encapsulation needs to happen down into the service, as explained in the [Reactor documentation](https://projectreactor.io/docs/core/release/reference/#faq.wrap-blocking). This means the scheduler assignment must also happen inside the implementation.
 
 Create the class `SecureRandomReactiveImpl`.
 
@@ -722,8 +726,10 @@ value: "-611020335"
 
 # Learn More
 
-SteVierifier out of scope. Error handling, out of scope.
+I hope you enjoyed this post, and get a better understanding on Reactor Schedulers and on how to encapsulate blocking code the right way, to avoid freezing the event loop in your reactive java application. There are important Reactor topics that could not be covered in this post, like error handling, work stealing and `StepVerifier`. To continue learning, check out the links below:
 
 - [Avoiding Reactor Meltdown](https://www.youtube.com/watch?v=xCu73WVg8Ps)
-- [A Look at Reactor Execution Model](https://www.youtube.com/watch?v=sNgTTcG-fEU)
-- []()
+- [Secure Reactive Microservices with Spring Cloud Gateway](https://developer.okta.com/blog/2019/08/28/reactive-microservices-spring-cloud-gateway)
+- [Build a Reactive App with Spring Boot and MongoDB](https://developer.okta.com/blog/2019/02/21/reactive-with-spring-boot-mongodb)
+- [Reactive Java Microservices with Spring Boot and JHipster](https://developer.okta.com/blog/2021/01/20/reactive-java-microservices)
+- [Reactor 3 Reference Guide](https://projectreactor.io/docs/core/release/reference/)
