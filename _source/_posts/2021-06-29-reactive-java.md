@@ -72,7 +72,7 @@ public class MapTest {
 }
 ```
 
-Note: You can find this test and all the code in this tutorial in [Github](https://github.com/indiepopart/reactive-java-demo)
+Note: You can find this test and all the code in this tutorial in [Github](https://github.com/indiepopart/reactive-service)
 
 In the code above, a flux is created from a range of integers from 1 to 5, and the map operator is passed a transformation function that formats with leading zeros. Notice the return type of the transform method is not a publisher and the transformation is synchronous, meaning it is a simple method call. The transformation function must not introduce latency.
 
@@ -83,6 +83,7 @@ In the example below, a list of words is mapped to its phonetic through the Dict
 
 ```java
 @SpringBootTest
+@ActiveProfiles("test")
 public class FlatMapTest {
 
     private static Logger logger = LoggerFactory.getLogger(FlatMapTest.class);
@@ -91,6 +92,7 @@ public class FlatMapTest {
 
         private String word;
         private List<Phonetic> phonetics;
+        private List<Meaning> meanings;
 
         public String getWord() {
             return word;
@@ -106,6 +108,56 @@ public class FlatMapTest {
 
         public void setPhonetics(List<Phonetic> phonetics) {
             this.phonetics = phonetics;
+        }
+
+        public List<Meaning> getMeanings() {
+            return meanings;
+        }
+
+        public void setMeanings(List<Meaning> meanings) {
+            this.meanings = meanings;
+        }
+    }
+
+    public static class Meaning {
+        private String partOfSpeech;
+        private List<Definition> definitions;
+
+        public String getPartOfSpeech() {
+            return partOfSpeech;
+        }
+
+        public void setPartOfSpeech(String partOfSpeech) {
+            this.partOfSpeech = partOfSpeech;
+        }
+
+        public List<Definition> getDefinitions() {
+            return definitions;
+        }
+
+        public void setDefinitions(List<Definition> definitions) {
+            this.definitions = definitions;
+        }
+    }
+
+    public static class Definition {
+        private String definition;
+        private String example;
+
+        public String getDefinition() {
+            return definition;
+        }
+
+        public void setDefinition(String definition) {
+            this.definition = definition;
+        }
+
+        public String getExample() {
+            return example;
+        }
+
+        public void setExample(String example) {
+            this.example = example;
         }
     }
 
@@ -158,6 +210,7 @@ public class FlatMapTest {
         words.add("ballon");
         Flux.fromStream(words.stream())
                 .flatMap(w -> getPhonetic(w))
+                .subscribeOn(Schedulers.boundedElastic())
                 .subscribe(y -> logger.info(y));
 
         Thread.sleep(5000);
@@ -735,4 +788,4 @@ I hope you enjoyed this post, and get a better understanding of Reactor Schedule
 - [Reactive Java Microservices with Spring Boot and JHipster](https://developer.okta.com/blog/2021/01/20/reactive-java-microservices)
 - [Reactor 3 Reference Guide](https://projectreactor.io/docs/core/release/reference/)
 
-You can find all the code in this tutorial in [Github](https://github.com/indiepopart/reactive-java)
+You can find all the code in this tutorial in [Github](https://github.com/indiepopart/reactive-service)
