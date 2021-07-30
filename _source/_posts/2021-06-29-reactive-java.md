@@ -13,7 +13,7 @@ tweets:
 image:
 type: awareness
 ---
-Project Reactor is a Java framework from Pivotal that implements the [Reactive Streams](https://www.reactive-streams.org/) specification, an initiative to provide a standard for asynchronous stream processing with non-blocking back pressure for the JVM and JavaScript runtimes. It is the foundation of the reactive stack in the Spring ecosystem and WebFlux applications.
+Project Reactor is a Java framework from Pivotal that implements the [Reactive Streams](https://www.reactive-streams.org/) specification, an initiative to provide a standard for asynchronous stream processing with non-blocking backpressure for the JVM and JavaScript runtimes. It is the foundation of the reactive stack in the Spring ecosystem and WebFlux applications.
 In this post some core Reactor concepts are summarized, to introduce the Scheduler abstraction and its utility to encapsulate blocking code and prevent java reactive applications from stalling.
 
 **Prerequisites:**
@@ -35,7 +35,7 @@ Reactor is an API for doing asynchronous programming, where you describe your da
 {% img blog/reactive-java/project-reactor.png alt:"Project Reactor Logo" width:"300" %}{: .center-image }
 
 
-Using the assembly line analogy, the initial data flows from a source, the `Publisher`, goes through transformation steps and eventually the result is pushed to a consumer, the `Subscriber`. A `Publisher`, produces data, and a  `Subscriber`, listens to it. Reactor also supports flow control via backpressure, so a `Subscriber` can signal the volume it can consume.
+Using the assembly line analogy, the initial data flow from a source, the `Publisher`, goes through transformation steps and eventually the result is pushed to a consumer, the `Subscriber`. A `Publisher`, produces data, and a  `Subscriber`, listens to it. Reactor also supports flow control via backpressure, so a `Subscriber` can signal the volume it can consume.
 
 
 #### Nothing Happens Until You Subscribe
@@ -46,9 +46,9 @@ A **cold publisher** generates data for each subscription. Then, if you subscrib
 
 #### Operators `map` and `flatMap`
 
-Operators are like workstations in an assembly line. They allow to describe transformations or intermediary steps along the processing chain. Each operator is a decorator, it wraps the previous `Publisher` into a new instance. To avoid mistakes, **the preferred way of using operators is to chain the calls**. Apply the next operator to the last operator's result. Some operators are instance methods and others are static methods.
+Operators are like workstations in an assembly line. They allow describing transformations or intermediary steps along the processing chain. Each operator is a decorator, it wraps the previous `Publisher` into a new instance. To avoid mistakes, **the preferred way of using operators is to chain the calls**. Apply the next operator to the last operator's result. Some operators are instance methods and others are static methods.
 
-`map` and `flatMap` are instance method **operators**. You might be familiar with the concept of these operations, from functional programming, or from Java Streams. In the reactive world, they have their own semantics.
+`map` and `flatMap` are instance method **operators**. You might be familiar with the concept of these operations, from functional programming, or Java Streams. In the reactive world, they have their own semantics.
 
 The **map** method transforms the emitted items by applying a **synchronous function** to each item, in a 1-to-1 basis. Check the example below:
 
@@ -180,12 +180,12 @@ There is a rich vocabulary of operators for `Flux` and `Mono` you can find in th
 # Reactor Schedulers for Switching the Thread
 
 Project Reactor provides the tools for fine-tuning the asynchronous processing in terms of threads and execution context.
-The `Scheduler` is an abstraction on top of the `ExecutionService`, which allows to submit a task immediately, after a delay or at a fixed time rate. Various default schedulers are provided, and they will be exampled below. The execution context is defined by the `Scheduler` selection.
+The `Scheduler` is an abstraction on top of the `ExecutionService`, which allows submitting a task immediately, after a delay or at a fixed time rate. Various default schedulers are provided, and they will be exampled below. The execution context is defined by the `Scheduler` selection.
 
 Schedulers are selected through `subscribeOn` and `publishOn` operators, they switch the execution context. `subscribeOn` changes the thread where the source actually starts generating data. It changes the root of the chain, affecting the preceding operators, _upstream_ in the chain; and also affects subsequent operators.`publishOn` switches the context for the subsequent operators in the pipeline description, _downstream_ in the chain, overriding the scheduler assigned with `subscribeOn` if that was the case.
 
 
-The sheduler examples ahead will use `TestUtils.debug` for logging the thread name, function and element:
+The scheduler examples ahead will use `TestUtils.debug` for logging the thread name, function and element:
 
 ```java
 public class TestUtils {
@@ -315,7 +315,7 @@ The test above should log something similar to this:
 2021-07-15 00:41:51.452 - INFO [boundedElastic-1] - element "c.txt" [map]
 2021-07-15 00:41:51.453 - INFO [boundedElastic-1] - element "A line in file c.txt" [subscribe1]
 ```
-As you can see in the code above, the flux is subscribed twice. As the `publishOn` is invoked before any operator, everything will execute in the context of a bounded elastic thread. Also notice how the execution from both subscriptions can interleave.
+As you can see in the code above, the flux is subscribed twice. As the `publishOn` is invoked before any operator, everything will execute in the context of a bounded elastic thread. Also, notice how the execution from both subscriptions can interleave.
 
 What might be confusing is that each subscription is assigned one bounded elastic thread for the whole execution. So in this case, "subscription1" executed in _boundedElastic-1_ and "subscription2" executed in _boundedElastic-2_. All operations for a given subscription execute in the same thread.
 
@@ -440,7 +440,7 @@ A probably simplified [marble diagam](https://projectreactor.io/docs/core/releas
 
 # Reactive Java Spring Services
 
-In Spring WebFlux, it is assumed applications don't block, so non-blocking servers use a small fixed-size thread pool to handle request, named **event loop** workers.
+In Spring WebFlux, it is assumed applications don't block, so non-blocking servers use a small fixed-size thread pool to handle requests, named **event loop** workers.
 
 In an ideal reactive scenario, all the architecture components are non-blocking, so there is no need to worry about the event loop freezing up (**reactor meltdown**). But sometimes, you will have to deal with legacy blocking code, or blocking libraries.
 
@@ -508,7 +508,7 @@ public class SecureRandomServiceImpl implements SecureRandomService {
 }
 ```
 
-Think for a moment about the `getRandomInt` implementation. It is hard to resist the temptation of just wrapping whatever in a publisher. `Mono.just(T data)` creates an `Mono` that will emit the specified item. But the item is **captured at instantiation time**. This means the blocking code will be invoked on assembly time, and it might be in the context of an event loop thread.
+Think for a moment about the `getRandomInt` implementation. It is hard to resist the temptation of just wrapping whatever in a publisher. `Mono.just(T data)` creates a `Mono` that will emit the specified item. But the item is **captured at instantiation time**. This means the blocking code will be invoked on assembly time, and it might be in the context of an event loop thread.
 
 For now, let's move forward and create the package `com.okta.developer.reactive.controller`, and add a `SecureRandom` class for the data:
 
@@ -609,7 +609,7 @@ Run with:
 ```shell
 ./mvnw test -Dtest=SecureRandomControllerTest
 ```
-The test should pass, but **how can you make sure the REST call won't freeze up the service's event loop?** With [BlockHound](https://github.com/reactor/BlockHound), a Java agent to detect blocking calls from non-blocking threads. Blockhound has built-in integration with Project Reactor, and supports the JUnit platform.
+The test should pass, but **how can you make sure the REST call won't freeze up the service's event loop?** With [BlockHound](https://github.com/reactor/BlockHound), a Java agent to detect blocking calls from non-blocking threads. Blockhound has built-in integration with Project Reactor and supports the JUnit platform.
 
 Add the Blockhound dependency to the `pom.xml`:
 
@@ -636,7 +636,7 @@ spring:
       - org.springframework.boot.autoconfigure.security.reactive.ReactiveSecurityAutoConfiguration
 ```
 
-Run the test again, and you should the the following error:
+Run the test again, and you should the following error:
 
 ```
 reactor.blockhound.BlockingOperationError: Blocking call! java.io.FileInputStream#readBytes
@@ -704,7 +704,7 @@ public class SecureRandomReactiveImpl implements SecureRandomService {
 Run the test again and the BlockHound exception should not happen. Avoid the logic upfront and just assembly the pipeline, everything should be fine.
 
 
-Finally, let's do an end to end test. Run the application with maven:
+Finally, let's do an end-to-end test. Run the application with maven:
 
 ```shell
 ./mvnw spring-boot:run
@@ -714,7 +714,7 @@ Go to [http://localhost:8080/random](http://localhost:8080/random) and you shoul
 
 {% img blog/reactive-java/okta-login.png alt:"Okta Login Page" width:"800" %}{: .center-image }
 
-Sign in with your Okta account and you should see an response similar to this:
+Sign in with your Okta account and you should see a response similar to this:
 
 ```json
 {
@@ -726,7 +726,7 @@ value: "-611020335"
 
 # Learn More
 
-I hope you enjoyed this post, and get a better understanding on Reactor Schedulers and on how to encapsulate blocking code the right way, to avoid freezing the event loop in your reactive java application. There are important Reactor topics that could not be covered in this post, like error handling, work stealing and `StepVerifier`. To continue learning, check out the links below:
+I hope you enjoyed this post, and get a better understanding of Reactor Schedulers and on how to encapsulate blocking code the right way, to avoid freezing the event loop in your reactive java application. There are important Reactor topics that could not be covered in this post, like error handling, work-stealing and `StepVerifier`. To continue learning, check out the links below:
 
 - [Avoiding Reactor Meltdown](https://www.youtube.com/watch?v=xCu73WVg8Ps)
 - [Secure Reactive Microservices with Spring Cloud Gateway](https://developer.okta.com/blog/2019/08/28/reactive-microservices-spring-cloud-gateway)
