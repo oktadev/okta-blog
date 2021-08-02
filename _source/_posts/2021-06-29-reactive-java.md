@@ -13,7 +13,13 @@ tweets:
 image:
 type: awareness
 ---
-Project Reactor is a Java framework from Pivotal that implements the [Reactive Streams](https://www.reactive-streams.org/) specification, an initiative to provide a standard for asynchronous stream processing with non-blocking backpressure for the JVM and JavaScript runtimes. It is the foundation of the reactive stack in the Spring ecosystem and WebFlux applications.
+
+Modern applications must work smoothly on high loads and a high number of concurrent users. Traditional Java applications run blocking code and a common approach for scaling is to increase the number of available threads, but when latency comes into the picture, many of these additional threads sit idle, wasting resources.
+
+A different approach that increases efficiency is writing asynchronous, non-blocking code that lets the execution switch to another task while the asynchronous process completes.
+
+Project Reactor is a Java framework from Pivotal that implements the [Reactive Streams](https://www.reactive-streams.org/) specification, an initiative to provide a standard for asynchronous stream processing with non-blocking backpressure for the JVM and JavaScript runtimes. It is the foundation of the reactive stack in the Spring ecosystem and WebFlux applications. Some studies suggest that performance differences are negligible in Spring applications unless it makes more than 500 API requests per second. It is not mandatory to do asynchronous programming, but it is the right tool for some specific use cases.
+
 In this post some core Reactor concepts are summarized, to introduce the Scheduler abstraction and its utility to encapsulate blocking code and prevent java reactive applications from stalling.
 
 **Prerequisites:**
@@ -55,15 +61,14 @@ The **map** method transforms the emitted items by applying a **synchronous func
 ```java
 public class MapTest {
 
-    private static Logger logger = LoggerFactory.getLogger(OperatorsTest.class);
+    private static Logger logger = LoggerFactory.getLogger(MapTest.class);
 
     @Test
-    public void mapTest() throws InterruptedException {
+    public void mapTest() {
         Flux.range(1, 5)
                 .map(v -> transform(v))
                 .subscribe(y -> logger.info(y));
 
-        Thread.sleep(5000);
     }
 
     private String transform(Integer i){
@@ -230,6 +235,7 @@ public class FlatMapTest {
 ```
 There is a rich vocabulary of operators for `Flux` and `Mono` you can find in the reference documentation. There is also a handy guide for choosing the right operator: ["Which operator do I need?"](https://projectreactor.io/docs/core/release/reference/#which-operator).
 
+
 # Reactor Schedulers for Switching the Thread
 
 Project Reactor provides the tools for fine-tuning the asynchronous processing in terms of threads and execution context.
@@ -257,14 +263,14 @@ public class TestUtils {
 
 ```java
 @Test
-public void immediateTest() throws InterruptedException {
+public void immediateTest() {
+
+    logger.info("Schedulers.immediate()");
+
     Flux.range(1, 5)
             .map(v -> debug(v, "map"))
             .subscribeOn(Schedulers.immediate())
             .subscribe(w -> debug(w,"subscribe"));
-
-
-    Thread.sleep(5000);
 }
 ```
 
@@ -289,6 +295,9 @@ Everything executes in the _main_ thread.
 ```java
 @Test
 public void singleTest() throws InterruptedException {
+
+    logger.info("Schedulers.single()");
+
 
     Flux.range(1, 5)
             .map(v -> debug(v, "map"))
@@ -316,14 +325,18 @@ When running the test above, you will see a log similar to this:
 
 As you can see, the `map` function executes in the _main_ thread, and the consumer code passed to `subscribe` executes in the _single-1_ thread. Everything after the `publishOn` will execute in the passed scheduler.
 
+You may have noticed there is a `Thread.sleep` call at the end of the test. As part of the work is passed to another thread, the `sleep` call makes the application to exit later, so the worker thread can complete the task.
+
 #### Bounded elastic thread pool
 
 A better choice for I/O blocking work, for example, reading a file, or making a blocking network call, is a bounded elastic thread pool. **It is provided to help with legacy blocking code if it cannot be avoided.**
 
 ```java
-
 @Test
 public void boundedElasticTest() throws InterruptedException {
+
+    logger.info("Schedulers.boundedElastic()");
+
 
     List<String> words = new ArrayList<>();
     words.add("a.txt");
@@ -338,7 +351,6 @@ public void boundedElasticTest() throws InterruptedException {
 
     Thread.sleep(5000);
 }
-
 
 public String scanFile(String filename){
 
@@ -382,13 +394,18 @@ The way the `Flux` was instantiated above produced a **Cold Publisher**, a publi
 @Test
 public void parallelTest() throws InterruptedException {
 
+    logger.info("Schedulers.parallel()");
+
+
     Flux flux = Flux.range(1, 5)
             .publishOn(Schedulers.parallel())
             .map(v -> debug(v, "map"));
 
-    for (int i = 0; i < 5; i++) {
-        flux.subscribe(w -> debug(w,"subscribe"));
-    }
+    flux.subscribe(w -> debug(w,"subscribe1"));
+    flux.subscribe(w -> debug(w,"subscribe2"));
+    flux.subscribe(w -> debug(w,"subscribe3"));
+    flux.subscribe(w -> debug(w,"subscribe4"));
+    flux.subscribe(w -> debug(w,"subscribe5"));
 
 
     Thread.sleep(5000);
@@ -690,7 +707,7 @@ spring:
       - org.springframework.boot.autoconfigure.security.reactive.ReactiveSecurityAutoConfiguration
 ```
 
-Run the test again, and you should the following error:
+Run the test again, and you should see the following error:
 
 ```
 reactor.blockhound.BlockingOperationError: Blocking call! java.io.FileInputStream#readBytes
