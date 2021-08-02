@@ -19,6 +19,10 @@ From a developer's perspective, CORS is often a cause of much grief when it bloc
 
 **NOTE**: The code for this project can be found on [GitHub](https://github.com/oktadev/okta-go-cors-example).
 
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+
 ## Prerequisites to Building a Go Application
 
 First things first, if you don't already have Go installed on your computer you will need to [download and install the Go Programming Language](https://golang.org/doc/install).
@@ -51,11 +55,10 @@ First of all, create a directory called `frontend` and create a file called `fro
     <head>
         <meta charset="UTF-8" />
         <title>Fixing Common Issues with CORS</title>
-        <script src="control.js" defer></script>
     </head>
     <body>
         <h1>Fixing Common Issues with CORS</h1>
-        <div class="centred">
+        <div>
             <textarea id="messages" name="messages" rows="10" cols="50">Messages</textarea><br/>
             <form id="form1">
                 <input type="button" value="Get v1" onclick="onGet('v1')"/>
@@ -74,7 +77,7 @@ Next, create a file called `frontend/control.js` containing the following JavaSc
 function onGet(version) {
     const url = "http://localhost:8000/api/" + version + "/messages";
     var headers = {}
-
+    
     fetch(url, {
         method : "GET",
         mode: 'cors',
@@ -180,15 +183,13 @@ Next, point a web browser at `http://localhost:8080` to display the web page. We
 
 Next, click on the **Send v1** button. You will get a JavaScript error displayed in the console:
 
-```
-Access to fetch at 'http://localhost:8000/api/v1/messages' from origin 'http://localhost:8080' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
-```
+> Access to fetch at 'http://localhost:8000/api/v1/messages' from origin 'http://localhost:8080' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
 
 The message says that the browser has blocked the request because of a CORS policy. It suggests two solutions. The second suggestion is to change the `mode` from `cors` to `no-cors` in the JavaScript fetch request. This is not an option as the browser always deletes the response data when in `no-cors` mode to prevent data from being read by an unauthorized client.
 
 The solution to the issue is for the server to set a response header that allows the browser to make cross-domain requests to it.
 
-```
+```http
 Access-Control-Allow-Origin: http://localhost:8080
 ```
 
@@ -298,16 +299,14 @@ Now, restart the servers and load the web page. Make sure that the developer con
 
 You will see a slightly different CORS error in the console:
 
-```
-Access to fetch at 'http://localhost:8000/api/v1/messages/0' from origin 'http://localhost:8080' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
-```
+> Access to fetch at 'http://localhost:8000/api/v1/messages/0' from origin 'http://localhost:8080' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
 
 This is saying that a preflight check was made, and that it didn't set the `Access-Control-Allow-Origin` header.
 
 Now, look at the console output from the API server:
 
 ```txt
-[GIN] 2020/12/01 - 11:10:09 | 404 |         447ns |             ::1 | OPTIONS  "/api/v1/messages/0"
+[GIN] 2020/12/01 - 11:10:09 | 404 |  447ns |  ::1 | OPTIONS  "/api/v1/messages/0"
 ```
 
 So, what is happening here? JavaScript is trying to make a PUT request. This is not allowed by CORS policy. In the GET example, the browser made the request and blocked the response. In this case, the browser refuses to make the PUT request. Instead, it sent an OPTIONS request to the same URI. It will only send the PUT if the OPTIONS request returns the correct CORS header. This is called a preflight request. As the server doesn't know what method the OPTIONS preflight request is for, it specifies the method in a request header:
@@ -337,9 +336,7 @@ Notice that the OPTIONS handler is only set for the `v2` URI as we don't want to
 
 Now, restart the server and send a message using the `Put v2` button. We get yet another CORS error!
 
-```txt
-Access to fetch at 'http://localhost:8000/api/v2/messages/0' from origin 'http://localhost:8080' has been blocked by CORS policy: Method PUT is not allowed by Access-Control-Allow-Methods in preflight response.
-```
+> Access to fetch at 'http://localhost:8000/api/v2/messages/0' from origin 'http://localhost:8080' has been blocked by CORS policy: Method PUT is not allowed by Access-Control-Allow-Methods in preflight response.
 
 This is saying that the preflight check needs another header to stop the PUT request from being blocked.
 
@@ -368,9 +365,7 @@ var headers = { "X-Token": "abcd1234" }
 
 Now, make sure that the servers are running and load or reload the web page. Type in a message and click the `Put v1` button. You will see a CORS error in the developer console.
 
-```txt
-Access to fetch at 'http://localhost:8000/api/v2/messages/0' from origin 'http://localhost:8080' has been blocked by CORS policy: Request header field x-token is not allowed by Access-Control-Allow-Headers in preflight response.
-```
+> Access to fetch at 'http://localhost:8000/api/v2/messages/0' from origin 'http://localhost:8080' has been blocked by CORS policy: Request header field x-token is not allowed by Access-Control-Allow-Headers in preflight response.
 
 Any header which is not CORS safe-listed causes a preflight request. This also contains a request header that specifies the header that needs to be allowed:
 
@@ -412,14 +407,14 @@ Next, replace the first `then` block in the `onPut`  function in `frontend/contr
 
 ```javascript
 .then((response) => {
-        if (!response.ok) {
-            throw new Error(response.error)
-        }
-        response.headers.forEach(function(val, key) {
-            document.getElementById('headers').value += '\n' + key + ': ' + val; 
-        });
-        return response.json();
-    })
+    if (!response.ok) {
+        throw new Error(response.error)
+    }
+    response.headers.forEach(function(val, key) {
+        document.getElementById('headers').value += '\n' + key + ': ' + val; 
+    });
+    return response.json();
+})
 ```
 
 Finally, set a custom header in `rest/server.go`:
@@ -435,7 +430,6 @@ func PutMessage(c *gin.Context) {
 	}
 	c.Header("X-Custom", "123456789")
 	c.JSON(http.StatusOK, gin.H{"messages": messages})
-
 }
 ```
 
@@ -483,9 +477,7 @@ fetch(url, {
 
 Now, make sure that the client and server are running and reload the web page. Send a message as before. You will get another CORS error in the developer console:
 
-```txt
-Access to fetch at 'http://localhost:8000/api/v2/messages/0' from origin 'http://localhost:8080' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: The value of the 'Access-Control-Allow-Credentials' header in the response is '' which must be 'true' when the request's credentials mode is 'include'.
-```
+> Access to fetch at 'http://localhost:8000/api/v2/messages/0' from origin 'http://localhost:8080' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: The value of the 'Access-Control-Allow-Credentials' header in the response is '' which must be 'true' when the request's credentials mode is 'include'.
 
 The fix for this is to add another header to both the `OptionMessage()`, and `PutMessage()` functions in `cors/server.go` as the header needs to be present in both the preflight request and the actual request:
 
