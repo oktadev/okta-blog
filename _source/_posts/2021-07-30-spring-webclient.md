@@ -5,7 +5,7 @@ author: jimena-garbarino
 by: contractor
 communities: [java]
 description: "This tutorial shows how to integrate third-party secure resources with Spring WebClient."
-tags: [spring, spring-webclient, integration-testing, webtestclient, testing, oauth2, mockwebserver]
+tags: [spring, spring-webclient, java, integration-testing, webtestclient, testing, oauth2, mockwebserver]
 tweets:
 - "Spring ẀebClient was added as part of the reactive web stack WebFlux in Spring Framework 5.0. Learn more! 👇"
 - "Spring WebClient provides a slick API for connecting to OAuth-protected resources. 💪"
