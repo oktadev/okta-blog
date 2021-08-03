@@ -19,6 +19,7 @@ Content negotiation allows for an HTTP server to respond to different types of c
 In this post, I'll walk through building a simple Java MicroProfile application and explain how content negotiation works.
 
 == Prerequisites
+
 - https://adoptopenjdk.net/[Java 11+]
 - https://maven.apache.org/download.cgi[Apache Maven]
 - https://httpie.io/docs#installation[HTTPie]
@@ -489,7 +490,7 @@ public class TextDiceTreeMessageBodyWriter implements MessageBodyWriter<ResultTr
 }
 ----
 
-<.> Add a `Produces` annotation to the class to mark the `MediaType's it supports.
+<.> Add a `Produces` annotation to the class to mark the `MediaType` it supports.
 <.> This example keeps things simple and only supports the `ResultTree` class.
 <.> Calling `Dice.debug` will turn the result into text.
 <.> Write the string to the response stream.
@@ -529,7 +530,7 @@ Using the User-Agent header for content negotiation might not be your first choi
 
 TIP: If you are using Jackson to unmarshal JSON consider adding the `@JsonIgnoreProperties(ignoreUnknown = true)` annotation to your client code to handle additive changes in REST APIs gracefully.
 
-One of my favorite examples of using the User-Agent for content negotiation is adding descriptive help to a REST server. I learned this trick from the https://github.com/spring-io/start.spring.io[Spring Initializer project], which returns different results if you use HTTPie or curl: `http https://start.spring.io`.
+One of my favorite examples of using the User-Agent for content negotiation is adding descriptive help to a REST server. I learned this trick from the https://github.com/spring-io/start.spring.io[Spring Initializer project], which returns different results if you use HTTPie or curl: `https://start.spring.io`.
 
 
 To detect the user agent, add an enum that contains basic user-agent parsing logic.
