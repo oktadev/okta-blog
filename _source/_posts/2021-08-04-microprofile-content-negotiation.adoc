@@ -10,7 +10,7 @@ tweets:
 - "Languages and media-types and compression, Oh My‼️ Return the correct bits from your JAX-RS services‼️"
 - "Do does your #Java-based REST API need to support multiple languages? Multiple response types? How about compression?  Learn how in this post 🧑‍🏫"
 - "Learn how to support multiple response types and languages in your Java REST API 💥"
-image: blog/microprofile-content-negotaion/social.png
+image: blog/microprofile-content-negotiation/social.png
 type: awareness
 ---
 
