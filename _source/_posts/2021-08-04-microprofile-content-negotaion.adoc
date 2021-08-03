@@ -612,7 +612,7 @@ public class Help {
 
 <.> Resolve the base URL of the request `UriInfo`.
 <.> Parse the user-agent header and return an `Agents` enum.
-<.> Lookup the help text key, or default to `help.generic`.
+<.> Look up the help text key, or default to `help.generic`.
 <.> Get and format a string from a `ResourceBundle`.
 ====
 
@@ -741,7 +741,7 @@ Or get the result in JSON:
 
 == Learn More About Java Web Services
 
-In this post, you have learned how to build a simple MicroProfile application using Qurakus and the JAX-RS API to take advantage of content negotiation.
+In this post, you have learned how to build a simple MicroProfile application using Quarkus and the JAX-RS API to take advantage of content negotiation.
 
 There is still one big thing missing from this application, security! If you would like to see a follow-up post securing this application, let us know in the comments below. Until then, you can learn how to secure Java-based microservices with these posts:
 
