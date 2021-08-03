@@ -431,7 +431,7 @@ So far, so good!
 
 == Different Responses for Different Clients
 
-Up until now, the simple `/roll` endpoint has been returning JSON, which is excellent if you are building a client that accepts JSON, but it's not very user-friendly for text-based clients like HTTPie or curl. Two changes are needed to support a plain text response, annotate endpoint with an `@Produces` annotation and add a `MessageBodyWriter` that converts the dice parser's `ResultTree` object into text.
+Up until now, the simple `/roll` endpoint has been returning JSON, which is excellent if you are building a client that accepts JSON, but it's not very user-friendly for text-based clients like HTTPie or curl. Two changes are needed to support a plain text response: Annotate the endpoint with an `@Produces` annotation and add a `MessageBodyWriter` to convert the dice parser's `ResultTree` object into text.
 
 Add the following `@Produces` annotation to `DiceResource`, to indicate it supports both `text/plain` and `application/json`:
 
