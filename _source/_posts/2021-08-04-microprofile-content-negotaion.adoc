@@ -137,7 +137,7 @@ Enough primer, let's get on to the code!
 
 == Create a MicroProfile Project With Quarkus
 
-Most of the code below should be vendor agnostic, except where noted.Try out the example with your favorite https://start.microprofile.io/[MicroProfile vendor], and let me know how it went in the comments!
+Most of the code below should be vendor agnostic, except where noted. Try out the example with your favorite https://start.microprofile.io/[MicroProfile vendor], and let me know how it went in the comments!
 
 Create a new project:
 
@@ -187,7 +187,7 @@ public class DiceResource  {
 }
 ----
 
-Start the server either from your favorite IDE or, from the command line with:
+Start the server either from your favorite IDE or from the command line with:
 
 [source,sh]
 ----
