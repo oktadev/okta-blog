@@ -445,7 +445,7 @@ public class DiceResource  {
 
 If you make a request to the `/roll` endpoint now, you will get an ugly response due to a call to the `toString()` method on `ResultTree`. 🤢
 
-To fix this, create a new class `TextDiceTreeMessageBodyWriter.java` that implements `MessageBodyWriter<ResultTree>`, which render something a little easier on the eyes:
+To fix this, create a new class `TextDiceTreeMessageBodyWriter.java` that implements `MessageBodyWriter<ResultTree>`, which renders something a little easier on the eyes:
 
 ====
 [source,java]
