@@ -10,7 +10,7 @@ tweets:
 - "Languages and media-types and compression, Oh My‼️ Return the correct bits from your JAX-RS services‼️"
 - "Do does your #Java-based REST API need to support multiple languages? Multiple response types? How about compression?  Learn how in this post 🧑‍🏫"
 - "Learn how to support multiple response types and languages in your Java REST API 💥"
-image:
+image: blog/microprofile-content-negotaion/social.png
 type: awareness
 ---
 
@@ -23,15 +23,19 @@ In this post, I'll walk through building a simple Java MicroProfile application 
 - https://maven.apache.org/download.cgi[Apache Maven]
 - https://httpie.io/docs#installation[HTTPie]
 
-If you want to skip ahead, the source for this example is on https://github.com/oktadev/TBD[GitHub].
+If you want to skip ahead, the source for this example is on https://github.com/oktadev/quarkus-content-negotiation-example[GitHub].
 
 == What is MicroProfile?
-Around 2016, the Java EE specifications had started to stagnate and suffered from long release cycles; as a result, newer web services APIs were falling behind.  To help spur invitation, the new https://microprofile.io/[MicroProfile] project was created to manage the existing Java JAX-RS, CDI, JSON-P APIs, and other new APIs would be needed for the evolving micro-services world.  Fast forward to today, Java EE has moved to https://jakarta.ee/[Jakarta EE] under the https://www.eclipse.org/org/foundation/[Eclipse Foundation] and many MicroProfile projects have matured into Jakarta EE projects.
 
-TIP: Some projects change root packages as they move between projects, anything starting with `javax.\*` may have moved to `jakarta.*` or `org.eclipse.*`.
+Around 2016, the Java EE specifications had started to stagnate and suffered from long release cycles; as a result, newer web services APIs were falling behind. Created to spur innovation, the new https://microprofile.io/[MicroProfile] project addressed the need to manage the existing Java JAX-RS, CDI, and JSON-P APIs, along with other new APIs for the evolving micro-services world.
+
+Fast forward to today, Java EE has moved to https://jakarta.ee/[Jakarta EE] under the https://www.eclipse.org/org/foundation/[Eclipse Foundation] and many MicroProfile projects have matured into Jakarta EE projects.
+
+TIP: Some projects change root packages as they move between projects. Anything starting with `javax.\*` may have moved to `jakarta.*` or `org.eclipse.*`.
 
 == What is Content Negotiation?
-In server-driven content negotiation, the client makes a request to a server with instructions on what type of response it can handle. When possible, the server responds with the given format or returns a `406` or `415` status code otherwise.
+
+In server-driven content negotiation, the client makes a request to a server with instructions on the type of response it can handle. When possible, the server responds with the appropriate  format or returns a `406` or `415` status code.
 
 At a high level, the conversation looks like this:
 
@@ -91,7 +95,7 @@ Content-Language: en
 
 I'd like to take this opportunity to apologize for using XML in this example 🤪
 
-IMPORTANT: There is also *agent-driven* content negotiation, the client must already be aware of the server's capabilities or must determine by making a request to the server. This communication is not standardized.
+NOTE: *Agent-driven* content negotiation works differently. In this case,the client must already be aware of the server's capabilities or must determine them by making a request to the server. This communication is not standardized.
 
 == Content Negotiation Headers
 
@@ -110,7 +114,7 @@ The server's response contains headers to let the client know which options were
 - `Content-Language` - The language of the response.
 
 
-When I look at the request my browser made display this blog post it looks something like this:
+When I examine the request my browser made to display this blog post, it looks something like this:
 
 |=======
 |Accept |text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
@@ -118,17 +122,17 @@ When I look at the request my browser made display this blog post it looks somet
 |Accept-Language |en-US,en;q=0.9
 |=======
 
-My browser is telling the server, I'll take anything, but I'd prefer in order:
+My browser is telling the server: I'll take anything, but here's an ordered list of what I prefer:
 
 1. HTML, XHTML, AVIF, WebP, or APNG
 2. XML or a signed exchange
-3. Any thing else.
+3. Anything else.
 
-The browser supports `gzip`, `deflate`, and `br` compression. Finally, my language preference is US English (as in color without a "u") or any English.
+The browser supports `gzip`, `deflate`, and `br` compression. Finally, my language preference is US English (as in color spelled without a "u") or any English.
 
-IMPORTANT: There is a downside, these headers can also be used for https://coveryourtracks.eff.org/[browser tracking and finger printing].
+IMPORTANT: There is a downside. These headers can also be used for https://coveryourtracks.eff.org/[browser tracking and finger printing].
 
-Enough primer, get on to the code!
+Enough primer, let's get on to the code!
 
 == Create a MicroProfile Project With Quarkus
 
@@ -147,7 +151,7 @@ mvn io.quarkus:quarkus-maven-plugin:2.0.2.Final:create \
 cd content-negotation
 ----
 
-If you haven't guessed, this example is going to evaluate dice notation. The https://github.com/diceroll-dev/dice-parser[Dice Notation Parser] library will evaluate dice expressions such as `2d8+2` and return the results.Open up your `pom.xml` file and add the `dice-parser` dependency:
+If you haven't guessed, this example is going to evaluate dice notation. The https://github.com/diceroll-dev/dice-parser[Dice Notation Parser] library will evaluate dice expressions such as `2d8+2` and return the results. Open up your `pom.xml` file and add the `dice-parser` dependency:
 
 [source,xml]
 ----
@@ -182,7 +186,7 @@ public class DiceResource  {
 }
 ----
 
-Start the server either from your favorite IDE or from the command line with:
+Start the server either from your favorite IDE or, from the command line with:
 
 [source,sh]
 ----
@@ -191,7 +195,7 @@ mvn quarkus:dev
 
 TIP: All of the code changes you'll make _should_ hot reload, but if you don't see the changes as you continue, just kill the process and start it up again.
 
-Make sure things are working by making a request and roll a single six-sided die.
+Make sure things are working by making a request—and roll a single six-sided die.
 
 [source,sh]
 ----
@@ -221,13 +225,13 @@ Content-Type: application/json
 }
 ----
 
-Now that the app is working let's tweak some things and look at how the response changes!
+Now that the app is working, let's tweak some things and look at how the response changes!
 
 == Enable Compression for the REST Resources
 
-Compression isn't one of those features you should need to worry about; you https://eclipse-ee4j.github.io/jersey.github.io/documentation/latest/filters-and-interceptors.html#d0e9756[_could_ deal with the compression logic yourself], but most vendors have a configuration property you can tweak to turn it on.
+Compression isn't one of those features you should need to worry about. You https://eclipse-ee4j.github.io/jersey.github.io/documentation/latest/filters-and-interceptors.html#d0e9756[_could_ deal with the compression logic yourself], but most vendors have a configuration property you can tweak to turn it on.
 
-For Quarkus, add the following like to your `src/main/resources/application.properties`:
+For Quarkus, add the following line to your `src/main/resources/application.properties`:
 
 [source,properties]
 ----
@@ -332,7 +336,7 @@ de
 <.> Note the `Content-Language` header.
 ====
 
-The above approach works well for showing off the API, but it's a little limited in real-world usages as every endpoint method returns a `Response` and manages the headers directly; it would be nicer to extract this cross-cutting concern.
+The above approach works well for showing off the API, but it's a little limited in real-world usages as every endpoint method returns a `Response` and manages the headers directly. It would be nicer to extract this cross-cutting concern.
 
 Another option is to use request and response filters. The next example implements both `ContainerRequestFilter` and `ContainerResponseFilter` interfaces. Create a new class `LanguageFilter`:
 
@@ -523,7 +527,7 @@ Much better! Change the `Accept` header value to `application/json` to see for y
 
 Using the User-Agent header for content negotiation might not be your first choice. Still, it works great for a few use cases, for example, when dealing with legacy clients if they don't _correctly_ handle adding new fields to a JSON response object.
 
-TIP: If you are using Jackson to unmarshal JSON consider adding the `@JsonIgnoreProperties(ignoreUnknown = true)` annotation to your client code to gracefully handle additive changes in REST APIs.
+TIP: If you are using Jackson to unmarshal JSON consider adding the `@JsonIgnoreProperties(ignoreUnknown = true)` annotation to your client code to handle additive changes in REST APIs gracefully.
 
 One of my favorite examples of using the User-Agent for content negotiation is adding descriptive help to a REST server. I learned this trick from the [Spring Initializer project](https://github.com/spring-io/start.spring.io), which returns different results if you use HTTPie or curl: `http https://start.spring.io`.
 
@@ -551,7 +555,7 @@ public enum Agents {
         this.agentName = agentName;
     }
 
-    public static Agents parse(String userAgent) {
+    public static Agents parse(String userAgent) { // <.>
         Matcher matcher = TOOL_REGEX.matcher(userAgent);
         String name = (matcher.matches()) ? matcher.group(1) : null;
         return Arrays.stream(Agents.values())
@@ -611,7 +615,7 @@ public class Help {
 <.> Get and format a string from a `ResourceBundle`.
 ====
 
-Create the corresponding `ResoruceBundle` in `src/main/resources/messages.properties` :
+Create the corresponding `ResourceBundle` in `src/main/resources/messages.properties` :
 
 [source,properties]
 ----
@@ -639,7 +643,33 @@ help.curl = \
     \    curl {0}roll?dice=2d6 -H \"Accept: application/json\"
 ----
 
-TODO: Add translation?
+Add a German translation of this file (thanks to Google Translate), in `src/main/resources/messages_de.properties`:
+
+[source,properties]
+----
+help.generic = \
+    Willkommen beim Würfelparser!!\n\n\
+    Würfeln Sie, indem Sie eine Anfrage stellen:\n\
+    \    GET {0}roll?dice=2d6\n\
+    \    Accept: text/plain\n\n\
+    Oder rufen Sie das Ergebnis in JSON ab:\n\
+    \    GET {0}roll?dice=2d6\n\
+    \    Accept: application/json
+
+help.httpie = \
+    Willkommen beim Würfelparser!!\n\n\
+    Würfeln Sie, indem Sie eine Anfrage stellen:\n\
+    \    http {0}roll dice==2d6 \"Accept: text/plain\"\n\n\
+    Oder rufen Sie das Ergebnis in JSON ab:\n\
+    \    http {0}roll dice==2d6 \"Accept: application/json\"
+
+help.curl = \
+    Willkommen beim Würfelparser!!\n\n\
+    Würfeln Sie, indem Sie eine Anfrage stellen:\n\
+    \    curl {0}roll?dice=2d6 -H \"Accept: text/plain\"\n\n\
+    Oder rufen Sie das Ergebnis in JSON ab:\n\
+    \    curl {0}roll?dice=2d6 -H \"Accept: application/json\"
+----
 
 NOTE: You could use your favorite template framework for this instead of using a `ResourceBundle` directly.
 
@@ -668,7 +698,6 @@ public class HelpResource {
     }
 }
 ----
-
 <.> The User-Agent request header.
 <.> The `Request` object (needed to select the correct language `Variant`).
 <.> The URI of the request.
@@ -713,7 +742,7 @@ Or get the result in JSON:
 
 In this post, you have learned how to build a simple MicroProfile application using Qurakus and the JAX-RS API to take advantage of content negotiation.
 
-There is still one big thing missing from this application, security! If you would like to see a follow-up post securing this application, let us know in the comments below! Until then, you can learn how to secure Java-based microservices with these posts:
+There is still one big thing missing from this application, security! If you would like to see a follow-up post securing this application, let us know in the comments below. Until then, you can learn how to secure Java-based microservices with these posts:
 
 - link:/blog/2020/03/23/microservice-security-patterns[Security Patterns for Microservice Architectures]
 - link:/blog/2020/01/09/java-rest-api-showdown[Java REST API Showdown]
