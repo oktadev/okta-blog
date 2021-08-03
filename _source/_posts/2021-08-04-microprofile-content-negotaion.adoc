@@ -95,7 +95,7 @@ Content-Language: en
 
 I'd like to take this opportunity to apologize for using XML in this example 🤪
 
-NOTE: *Agent-driven* content negotiation works differently. In this case,the client must already be aware of the server's capabilities or must determine them by making a request to the server. This communication is not standardized.
+NOTE: *Agent-driven* content negotiation works differently. In this case, the client must already be aware of the server's capabilities or must determine them by making a request to the server. This communication is not standardized.
 
 == Content Negotiation Headers
 
