@@ -389,7 +389,7 @@ public class LanguageFilter implements ContainerRequestFilter, ContainerResponse
 <.> Set the `Content-Language` response header.
 ====
 
-NOTE: Having spent years dealing with the Servlet API, I often make incorrect assumptions about how the JAX-RS API is structured. With JAX-RS the request and response filtering are different interfaces.
+NOTE: Having spent years dealing with the Servlet API, I often make incorrect assumptions about how the JAX-RS API is structured. With JAX-RS, the request and response filtering are different interfaces.
 
 This solution works with any endpoint; test out the original `/roll` endpoint again. Dice notation allows for basic math, too; try to roll `2d8+1` (two eight-sided dice plus one).
 
