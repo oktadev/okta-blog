@@ -526,7 +526,7 @@ Much better! Change the `Accept` header value to `application/json` to see for y
 
 == Bonus: User Agent for Content Negotiation
 
-Using the User-Agent header for content negotiation might not be your first choice. Still, it works great for a few use cases, for example, when dealing with legacy clients if they don't _correctly_ handle adding new fields to a JSON response object.
+Using the User-Agent header for content negotiation might not be your first choice. Still, it works great for a few use cases, for example when dealing with legacy clients that don't _correctly_ handle adding new fields to a JSON response object.
 
 TIP: If you are using Jackson to unmarshal JSON consider adding the `@JsonIgnoreProperties(ignoreUnknown = true)` annotation to your client code to handle additive changes in REST APIs gracefully.
 
