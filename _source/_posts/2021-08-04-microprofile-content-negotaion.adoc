@@ -35,7 +35,7 @@ TIP: Some projects change root packages as they move between projects. Anything 
 
 == What is Content Negotiation?
 
-In server-driven content negotiation, the client makes a request to a server with instructions on the type of response it can handle. When possible, the server responds with the appropriate  format or returns a `406` or `415` status code.
+In server-driven content negotiation, the client makes a request to a server with instructions on the type of response it can handle. When possible, the server responds with the appropriate format or returns a `406` or `415` status code.
 
 At a high level, the conversation looks like this:
 
