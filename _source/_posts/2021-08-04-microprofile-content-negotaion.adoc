@@ -529,7 +529,7 @@ Using the User-Agent header for content negotiation might not be your first choi
 
 TIP: If you are using Jackson to unmarshal JSON consider adding the `@JsonIgnoreProperties(ignoreUnknown = true)` annotation to your client code to handle additive changes in REST APIs gracefully.
 
-One of my favorite examples of using the User-Agent for content negotiation is adding descriptive help to a REST server. I learned this trick from the [Spring Initializer project](https://github.com/spring-io/start.spring.io), which returns different results if you use HTTPie or curl: `http https://start.spring.io`.
+One of my favorite examples of using the User-Agent for content negotiation is adding descriptive help to a REST server. I learned this trick from the https://github.com/spring-io/start.spring.io[Spring Initializer project], which returns different results if you use HTTPie or curl: `http https://start.spring.io`.
 
 
 To detect the user agent, add an enum that contains basic user-agent parsing logic.
@@ -599,10 +599,10 @@ public class Help {
         Agents agent = Agents.parse(userAgent); // <.>
 
         // look up the help key
-        String helpKey = AGENT_HELP_MAP.getOrDefault(agent, "help.generic");
+        String helpKey = AGENT_HELP_MAP.getOrDefault(agent, "help.generic"); // <.>
 
         // Resource Bundle lookup/formatting
-        ResourceBundle resourceBundle = ResourceBundle.getBundle("messages", locale);
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("messages", locale); // <.>
         MessageFormat formatter = new MessageFormat(resourceBundle.getString(helpKey), locale);
         return formatter.format(new Object[] { url });
     }
