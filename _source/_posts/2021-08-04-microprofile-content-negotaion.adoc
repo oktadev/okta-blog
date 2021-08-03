@@ -573,7 +573,7 @@ public enum Agents {
 
 WARNING: User-Agent parsing is a much more complex topic; the above code works well because we are looking for a few specific clients.  This is not a general-purpose solution.
 
-Now that I have logic to figure out the user-agent, I'll create a helper class to wrap the logic of returning localized help text.  Create a new class `Help.java`:
+Now that I have logic to figure out the user-agent, I'll create a helper class to wrap the logic of returning localized help text. Create a new class `Help.java`:
 
 ====
 [source,java]
