@@ -5,7 +5,7 @@ author: matt-raible
 by: advocate
 communities: [java,devops]
 description: "Giddyup and deploy to the cloud (Minikube and Google Cloud) with Kubernetes, Spring Boot, and JHipster!"
-tags: [kubernetes, spring-boot, google-cloud, gke, minikube, jhipster, k9s]
+tags: [kubernetes, spring-boot, google-cloud, gke, minikube, jhipster, k9s, java]
 tweets:
 - "Avoid YAML and use JHipster to deploy your @springboot apps with @kubernetesio."
 - "Dislike YAML? Me too! This 20-page Kubernetes tutorial only has 60 lines of YAML and you only need to write 36 of them. 😏"
