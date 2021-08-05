@@ -5,7 +5,7 @@ author: jimena-garbarino
 by: contractor
 communities: [java]
 description: "Reactor Schedulers for Spring Reactive Java Applications"
-tags: []
+tags: [spring-boot, spring-framework, spring-security, oidc, oauth2, reactive, webflux, blockhound]
 tweets:
 - ""
 - ""
