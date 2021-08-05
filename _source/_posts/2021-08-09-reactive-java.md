@@ -77,7 +77,7 @@ public class MapTest {
 }
 ```
 
-Note: You can find this test and all the code in this tutorial in [Github](https://github.com/indiepopart/reactive-service)
+**Note:** You can find this test and all the code in this tutorial in [Github](https://github.com/indiepopart/reactive-service)
 
 In the code above, a flux is created from a range of integers from 1 to 5, and the map operator is passed a transformation function that formats with leading zeros. Notice the return type of the transform method is not a publisher and the transformation is synchronous, meaning it is a simple method call. The transformation function must not introduce latency.
 
@@ -380,7 +380,7 @@ The test above should log something similar to this:
 2021-07-15 00:41:51.452 - INFO [boundedElastic-1] - element "c.txt" [map]
 2021-07-15 00:41:51.453 - INFO [boundedElastic-1] - element "A line in file c.txt" [subscribe1]
 ```
-As you can see in the code above, the flux is subscribed twice. As the `publishOn` is invoked before any operator, everything will execute in the context of a bounded elastic thread. Also, notice how the execution from both subscriptions can interleave.
+As you can see in the code above, the `flux` is subscribed twice. As the `publishOn` is invoked before any operator, everything will execute in the context of a bounded elastic thread. Also, notice how the execution from both subscriptions can interleave.
 
 What might be confusing is that each subscription is assigned one bounded elastic thread for the whole execution. So in this case, "subscription1" executed in _boundedElastic-1_ and "subscription2" executed in _boundedElastic-2_. All operations for a given subscription execute in the same thread.
 
@@ -634,7 +634,6 @@ Add `spring-security-test` dependency to the pom:
 <dependency>
     <groupId>org.springframework.security</groupId>
     <artifactId>spring-security-test</artifactId>
-    <version>5.4.5</version>
     <scope>test</scope>
 </dependency>
 ```
@@ -661,11 +660,8 @@ public class SecureRandomControllerTest {
     @Autowired
     private WebTestClient webTestClient;
 
-
     @Test
     public void testGetSecureRandom() {
-
-
         webTestClient.mutateWith(mockOidcLogin())
             .get()
             .uri("/random")
@@ -674,7 +670,6 @@ public class SecureRandomControllerTest {
     }
 }
 ```
-
 
 Run with:
 ```shell
@@ -688,7 +683,7 @@ Add the Blockhound dependency to the `pom.xml`:
 <dependency>
     <groupId>io.projectreactor.tools</groupId>
     <artifactId>blockhound-junit-platform</artifactId>
-    <version>RELEASE</version>
+    <version>1.0.6.RELEASE</version>
     <scope>test</scope>
 </dependency>
 ```
@@ -781,7 +776,7 @@ Finally, let's do an end-to-end test. Run the application with maven:
 ./mvnw spring-boot:run
 ```
 
-Go to [http://localhost:8080/random](http://localhost:8080/random) and you should see the Okta sign in page:
+Go to `http://localhost:8080/random` and you should see the Okta sign in page:
 
 {% img blog/reactive-java/okta-login.png alt:"Okta Login Page" width:"800" %}{: .center-image }
 
@@ -789,12 +784,9 @@ Sign in with your Okta account and you should see a response similar to this:
 
 ```json
 {
-value: "-611020335"
+"value": "-611020335"
 }
 ```
-
-
-
 # Learn More
 
 I hope you enjoyed this post, and get a better understanding of Reactor Schedulers and on how to encapsulate blocking code the right way, to avoid freezing up the event loop in your Reactive Java application. There are important Reactor topics that could not be covered in this post, like error handling, work-stealing and `StepVerifier`. To continue learning, check out the links below:
