@@ -17,7 +17,7 @@ The Networking and Cryptography library (NaCl pronounced "salt") is a software l
 
 Although there are several Python and Go cryptography libraries, it is primarily a matter of personal choice which one to use. One advantage of `libsodium` is that it is available for many languages.
 
-Today, we will use `libsodium` for Python to encrypt messages and decrypt them using `libsodium` in Go. Let's get started!
+Today, we will use `libsodium` in Python to encrypt messages and decrypt them using `libsodium` in Go. Let's get started!
 
 **NOTE**: You can find the code for this project on [GitHub](https://github.com/oktadev/python-go-libsodium-example.git).
 
