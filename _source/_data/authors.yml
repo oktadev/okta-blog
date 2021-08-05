@@ -113,6 +113,20 @@ brian-demers:
     Away from the keyboard, Brian is a beekeeper and can likely be found playing board games.
     You can find him on Twitter at <a href="https://twitter.com/briandemers">@briandemers</a>.
 
+huan-liu:
+  full_name: Huan Liu
+  display_name: Huan Liu
+  avatar: avatar-huanliu.jpg
+  email: huan.liu@okta.com
+  web: https://huanliu.wordpress.com
+  github: https://github.com/drhuanliu
+  bio:
+    Huan Liu is a Director of Engineering and Sphere Head for CIAM (Customer Identity Access Management) Products.
+    His team is responsible for both the end-to-end CIAM experiences and the underlying federation protocols.
+    Prior to Okta, Huan was an Engineering Manager and Head of the Terragraph program at Facebook. He was also the 
+    co-lead of the Maveric program, which brings Facebook's ML expertise to 5G networks. Huan holds a Ph.D. degree in 
+    Electrical Engineering from Stanford University.
+
 micah-silverman:
   full_name: Micah Silverman
   display_name: Micah Silverman
