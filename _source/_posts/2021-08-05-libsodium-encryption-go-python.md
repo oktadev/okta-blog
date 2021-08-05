@@ -128,9 +128,9 @@ The files `key_alice_sk`, `key_alice_pk`, `key_bob_sk`, and `key_bob_pk` should 
 
 ## Encrypt a Message with `libsodium`
 
-The message to be encrypted is a text file containing the poem *Jabberwocky* by Lewis Carroll. The poem itself is somewhat cryptic, as the meaning of the words is open to interpretation! Rather fittingly, Jabberwocky was first published in the book *Through the Looking-Glass, and What Alice Found There*.
+The message to be encrypted is a text file containing the poem "Jabberwocky" by Lewis Carroll. The poem itself is somewhat cryptic, as the meaning of the words is open to interpretation! Rather fittingly, "Jabberwocky" was first published in the book *Through the Looking-Glass, and What Alice Found There*.
 
-Download the Jabberwocky poem to `jabberwocky.txt`:
+Download the "Jabberwocky" poem to `jabberwocky.txt`:
 
 ```bash
 curl https://raw.githubusercontent.com/oktadev/libsodium/main/Jabberwocky.txt > Jabberwocky.txt
@@ -227,7 +227,7 @@ func main() {
 
 Go is a strongly typed language, so we have to create 32-byte arrays to store the keys. The `GetKeys()` function reads Bob's private key and Alice's public key for the files. They are converted from hexadecimal strings into byte arrays and copied into the fixed-length arrays. The `Decrypt` function reads the encrypted message into a byte array. The nonce needs to be separated from the encrypted message and copied into a 24-byte array. The `box.Open()` function performs the decryption and then prints the decrypted message.
 
-Run the application to see the poem Jabberwocky restored:
+Run the application to see the poem "Jabberwocky" restored:
 
 ```bash
 go run decrypt.go
@@ -235,11 +235,11 @@ go run decrypt.go
 
 ## What is Secret Key Encryption
 
-Secret key encryption uses a single key to both encrypt and decrypt a message. It is commonly used as a faster alternative to public-key encryption. The key itself is a fixed-length random number. As there is only a single key, both the sender and recipient need a copy of it. This requires a key exchange which is often performed out of band or by using public-key encryption.
+Secret-key encryption uses a single key to both encrypt and decrypt a message. It is commonly used as a faster alternative to public-key encryption. The key itself is a fixed-length random number. As there is only a single key, both the sender and recipient need a copy of it. This requires a key exchange which is often performed out of band or by using public-key encryption.
 
 ## Encrypt a Message with `libsodium` and Secret Key
 
-We will again encrypt the poem Jabberwocky, but this time using secret key encryption. For convenience, we will again generate and store the key in a file:
+We will again encrypt the poem "Jabberwocky," but this time using secret-key encryption. For convenience, we will again generate and store the key in a file:
 
 ```sh
 gpg --gen-random 2 32 > key_secret
@@ -323,7 +323,7 @@ func main() {
 
 In this case, only the secret key is extracted from the file using the `GetKey()` function. The program reads the encrypted message from a file and extracts the nonce. Finally, the function `secretbox.Open()` decrypts the message using the nonce and the secret key.
 
-Run the program to see the Jabberwocky poem restored:
+Run the program to see the "Jabberwocky" poem restored:
 
 ```bash
 go run decryptsec.go
