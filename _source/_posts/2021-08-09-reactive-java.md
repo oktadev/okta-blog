@@ -7,9 +7,9 @@ communities: [java]
 description: "Reactor Schedulers for Spring Reactive Java Applications"
 tags: [spring-boot, spring-framework, spring-security, oidc, oauth2, reactive, webflux, blockhound]
 tweets:
-- ""
-- ""
-- ""
+- "Blocking code got you down? Unleash the #BlockHound 🐕"
+- "Don't let blocking cause a reactor meltdown. Here are some tips to find the cause ☢️"
+- "Building a #reactive #java app? Don't let blocking code stop you! 🛑"
 image:
 type: awareness
 ---
