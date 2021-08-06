@@ -16,7 +16,7 @@ type: conversion
 
 ASP.NET Web Forms framework has been the cornerstone technology of .Net for web development since the release of .Net Framework in 2002. ASP.NET Web Forms includes a layer of abstraction for developers so that you don't need to care about HTML, JavaScript, or any other front-end technology. It provides a development flow similar to building desktop apps, a way for developers to build a web page by drag and drop, an event-driven programming model, and stateful controls thanks to the built-in state management. These features incurred lots of complexity, but it was worthwhile when web development was still in its infancy.
 
-Web development has evolved a lot in recent years. Browsers have become more powerful and implement various standards that allow access to user's devices. Client-side frameworks such as React and Angular simplify client-side development and have become increasingly popular. These frameworks and other benefits are available only if you can write the front-end JavaScript code.
+Web development has evolved a lot in recent years. Browsers have become more powerful and implement various standards that allow access to users' devices. Client-side frameworks such as React and Angular simplify client-side development and have become increasingly popular. These frameworks and other benefits are available only if you can write the front-end JavaScript code.
 
 Maintaining the back end and front end in two different languages comes with a cost. There isn't much code reuse, tools and frameworks are different, and it's challenging to keep up with constantly evolving technologies.
 
