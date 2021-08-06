@@ -675,11 +675,11 @@ Now that I have finished migrating the code from WebForms to Blazor, I will secu
 
 ## Securing Your Blazor Application
 
-In this tutorial, I will use Okta to quickly secure the API in order not to have to roll my own identity provider and deal with all the tricky details. Okta supports user authentication, multi-factor authentication, social authentication, and all OpenID connect flows out of the box. These features take care of all the scenarios you might ever need.
+In this tutorial, I will use Okta to quickly secure the API in order not to have to roll my own identity provider and deal with all the tricky details. Okta supports user authentication, multi-factor authentication, social authentication, and all OpenID Connect flows out of the box. These features take care of all the scenarios you might ever need.
 
 I will use [Okta CLI](https://cli.okta.com/) to manage my Okta account and register a new application for this project.
 
-Run `okta start` if you don't have an Okta account, or run `okta login` if you already have an account.
+Run `okta start` if you don't have an Okta account, or run `okta login` if you already have one.
 
 Once you configure Okta CLI with your account, run `okta apps create` to create a new Okta application. I will use *CaloriesTracker* again as the name of the app.
 
@@ -695,7 +695,7 @@ Next, go back to Visual Studio and add `Okta.AspNetCore` package:
 dotnet add package Okta.AspNetCore
 ```
 
-Next, open the `appsettings.Development.json` file, add a new section `Okta` below the `Logging` section, and put your app's details. Copy `clientId` and `clientSecret` from the `.okta.env`:
+Next, open the `appsettings.Development.json` file, add a new section `Okta` below the `Logging` section, and put in your app's details. Copy `clientId` and `clientSecret` from the `.okta.env`:
 
 ```json
 {
@@ -738,7 +738,7 @@ Also, add the following line to the `Configure()` method after the `app.UseRouti
 app.UseAuthentication();
 ```
 
-Next, let's create `login` and `logout` pages. As Blazor uses SignalR for the client and server-side communication and Okta uses OpenID protocol that relies on HTTP, you need to perform authentication outside of the Blazor app.
+Next, let's create `login` and `logout` pages. As Blazor uses SignalR for the client and server-side communication and Okta uses the OpenID protocol that relies on HTTP, you need to perform authentication outside of the Blazor app.
 
 To solve this issue, I will create two Razor pages for these endpoints. Run the following commands in a command shell:
 
@@ -802,7 +802,7 @@ The `AuthorizeRouteView` component ensures that you can see only the pages that 
 
 After this, open the `CaloriesTracking.razor` component and add `@attribute [Authorize]` at the top of the code so that only authorized users can view it.
 
-Finally, you need a way to authenticate users. I will create a new component, `AccountControl` in the `Shared` folder and put the following code:
+Finally, you need a way to authenticate users. I will create a new component, `AccountControl` in the `Shared` folder and add in the following code:
 
 ```html
 @inject NavigationManager NavigationManager
@@ -822,11 +822,11 @@ The `AuthorizeView` view will either display a *Log out* link for the user or a 
 
 Put the component in the `MainLayout.razor` file above the *About* link and run the app. When you click the **Calories Tracker** you will see a message that you don't have access to this page:
 
-{% img blog/webforms-blazor-migration/image8.png alt:"" width:"800" %}{: .center-image }
+{% img blog/webforms-blazor-migration/image8.png alt:"Screenshot of the CaloriesTracker login screen for unauthorized user view" width:"800" %}{: .center-image }
 
 Click the **Log in** link, and the app will redirect you to Okta for authentication. When you log in, Okta sends you back to the app, where you'll be able to access the page that only authenticated users can see:
 
-{% img blog/webforms-blazor-migration/image9.png alt:"" width:"800" %}{: .center-image }
+{% img blog/webforms-blazor-migration/image9.png alt:"Screenshot of CaloriesTracker interface showing "Daily consumed and burned calories" width:"800" %}{: .center-image }
 
 That's it! You have now finished migrating a WebForms project to Blazor and secured it with Okta.
 
@@ -836,4 +836,4 @@ Give Blazor a try. Get the [complete source code of the project from GitHub](htt
 - [How to Build Securely with Blazor WebAssembly (WASM)](https://developer.okta.com/blog/2020/09/30/blazor-webassembly-wasm-dotnetcore)
 - [ASP.NET Core 3.0 MVC Secure Authentication](https://developer.okta.com/blog/2019/11/15/aspnet-core-3-mvc-secure-authentication)
 
-Make sure to follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube Channel](https://youtube.com/c/oktadev) and check out our new [Twitch](https://www.twitch.tv/oktadev) live stream so that you never miss any awesome content!
+Make sure to follow us on [Twitter](https://twitter.com/oktadev),  subscribe to our [YouTube Channel](https://youtube.com/c/oktadev), and check out our new [Twitch](https://www.twitch.tv/oktadev) live stream so that you never miss any awesome content!
