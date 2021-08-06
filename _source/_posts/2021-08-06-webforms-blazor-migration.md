@@ -315,11 +315,11 @@ Alternatively, you can create the project by running the following command in a 
 dotnet new blazorserver -o CaloriesTracker.Blazor
 ```
 
-Blazor Server hosts Razor components on the server in an ASP.NET Core app and handles UI updates over a SignalR connection. The Blazor runtime sends events from browser to server and applies UI updates to the components that the server sends back. This strategy is similar to the approach used by ASP.NET AJAX `UpdatePanel` control that handles partial page updates in response to trigger events. The main difference is that Blazor Server maintains an active connection to the server, and all the UI state stays on the server instead of `ViewState`.
+Blazor Server hosts Razor components on the server in an ASP.NET Core app and handles UI updates over a SignalR connection. The Blazor runtime sends events from browser to server and applies UI updates to the components that the server sends back. This strategy is similar to the approach used by the ASP.NET AJAX `UpdatePanel` control that handles partial page updates in response to trigger events. The main difference is that Blazor Server maintains an active connection to the server, and all the UI state stays on the server instead of `ViewState`.
 
 Let's see what you get when you create a new project:
 
-{% img blog/webforms-blazor-migration/image4.png alt:"" width:"500" %}{: .center-image }
+{% img blog/webforms-blazor-migration/image4.png alt:"screenshot of the Solution Explorer showing the CaloriesTracker.Blazor project file structure" width:"500" %}{: .center-image }
 
 Since the Blazor Server is hosted in the ASP.NET Core project, `Startup.cs` and `Program.cs` serve the same purpose. Specifically, `Startup.cs` configures services and the app's request pipeline. The *Pages* folder contains `_Host.cshtml`, which hosts the Blazor app. The `razor` files in the *Pages* folder are the Blazor pages that comprise the app. Similarly, the *Shared* folder contains shared layouts such as the app's main layout and reusable components such as the navigation menu. You can think of `MainLayout.razor` as a `Site.Master` file in the WebForms project and `NavMenu.razor` as some `ascx` component.
 
@@ -338,7 +338,7 @@ dotnet add package Microsoft.EntityFrameworkCore.Design
 dotnet add package Microsoft.EntityFrameworkCore.Sqlite
 ```
 
-Now, copy `Model.cs` file from the WebForms project to the *Data* folder in the Blazor project. Next, I need to create an initial migration and apply the migration so I will run:
+Now, copy the `Model.cs` file from the WebForms project to the *Data* folder in the Blazor project. Next, I need to create an initial migration and apply the migration, so I will run:
 
 ```sh
 dotnet ef database update
@@ -538,7 +538,7 @@ Let's go through the markup and the code. First, check if the data has been load
 
 Once the list of foods and exercises loads, the markup renders two forms: a food intake form and an exercise form. Both forms display a `select` element that shows items from a list of foods or exercises. The `select` value is bound to either the `addItemModel.FoodId` or the `addItemModel.ExerciseId` property using the `bind-Value` attribute. Both forms are bound to the `addItemModel` model, and when the form is submitted, it will invoke either the `HandleAddFoodValidSubmit` or the `HandleAddExerciseValidSubmit` method.
 
-The `OnInitialized` method runs when the component initializes, and I use it to load data for the food and exercise elements. If you need to perform asynchronous initialization, override the `OnInitializedAsync` method instead. After the data is loaded and `initialized` is set to true, Blazor will re-render the component. The `HandleAddFoodValidSubmit` and `HandleAddExerciseValidSubmit` methods handle the form submission and saving of the selected food or exercise items to the database. Switch to the browser, and you should see the two select boxes:
+The `OnInitialized` method runs when the component initializes, and I use it to load data for the food and exercise elements. If you need to perform asynchronous initialization, override the `OnInitializedAsync` method instead. After the data is loaded, and `initialized` is set to true, Blazor will re-render the component. The `HandleAddFoodValidSubmit` and `HandleAddExerciseValidSubmit` methods handle the form submission and saving of the selected food or exercise items to the database. Switch to the browser, and you should see the two select boxes:
 
 {% img blog/webforms-blazor-migration/image5.png alt:"" width:"800" %}{: .center-image }
 
