@@ -35,7 +35,7 @@ To continue, you will need:
 - [.NET Core SDK](https://dotnet.microsoft.com/download/dotnet-core)
 - An [Okta Developer Account](https://developer.okta.com/) (free forever, to handle your OAuth needs)
 
-## Overview of the WebForms Project
+## Overview of the Web Forms Project
 
 The project that I will migrate is a simple web app where I can track my daily intake of calories and calories burned by exercise. The project looks like this:
 
