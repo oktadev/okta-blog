@@ -826,7 +826,7 @@ Put the component in the `MainLayout.razor` file above the *About* link and run 
 
 Click the **Log in** link, and the app will redirect you to Okta for authentication. When you log in, Okta sends you back to the app, where you'll be able to access the page that only authenticated users can see:
 
-{% img blog/webforms-blazor-migration/image9.png alt:"Screenshot of CaloriesTracker interface showing "Daily consumed and burned calories" width:"800" %}{: .center-image }
+{% img blog/webforms-blazor-migration/image9.png alt:"Screenshot of CaloriesTracker interface showing 'Daily consumed and burned calories'" width:"800" %}{: .center-image }
 
 That's it! You have now finished migrating a WebForms project to Blazor and secured it with Okta.
 
