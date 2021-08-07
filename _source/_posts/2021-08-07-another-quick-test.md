@@ -24,7 +24,7 @@ the
 
 An image...
 
-![an alt text](blog/another-quick-test/14_okta-icon.0a1fb2e1e0.png "image title")
+![an alt text](blog/another-quick-test/1024px-full_protection_lock_symbol.svg.png "image title")
 
 and a code block
 
