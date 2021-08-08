@@ -15,7 +15,7 @@ tags:
   - tag1
   - tag2
   - tag3
-image: blog/another-quick-test/14_okta-icon.0a1fb2e1e0.png
+image: blog/another-quick-test/2560px-gnupg_logo.svg.png
 description: My description goes here...
 ---
 the
@@ -24,7 +24,7 @@ the
 
 An image...
 
-![an alt text](blog/another-quick-test/1024px-full_protection_lock_symbol.svg.png "image title")
+![](blog/another-quick-test/2560px-gnupg_logo.svg.png)
 
 and a code block
 
