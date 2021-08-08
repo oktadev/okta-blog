@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Content Manager</title>
+</head>
+<body>
+<!-- Include the script that builds the page and powers Netlify CMS -->
+<script src="https://unpkg.com/netlify-cms@^2.10.153/dist/netlify-cms.js"></script>
+
+<script>
+    var ArrayControl = createClass({
+        handleChange: function (e) {
+            const separator = this.props.field.get("separator", ", ");
+            this.props.onChange(e.target.value.split(separator));
+        },
+
+        render: function () {
+            const separator = this.props.field.get("separator", ", ");
+            var value = this.props.value;
+            return h("input", {
+                id: this.props.forID,
+                className: this.props.classNameWrapper,
+                type: "text",
+                value: value ? value.join(separator) : "",
+                onChange: this.handleChange,
+            });
+        },
+    });
+
+    var ArrayPreview = createClass({
+        render: function () {
+            return h(
+                "ul",
+                {},
+                this.props.value.map(function (val, index) {
+                    return h("li", { key: index }, val);
+                })
+            );
+        },
+    });
+
+    var schema = {
+        properties: {
+            separator: { type: "string" },
+        },
+    };
+
+    CMS.registerWidget("array", ArrayControl, ArrayPreview, schema);
+</script>
+
+</body>
+</html>

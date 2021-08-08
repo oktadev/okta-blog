@@ -1,0 +1,91 @@
+backend:
+  name: github
+  repo: oktadev/okta-blog
+  branch: main
+  auth_scope: repo # fork for external contrib
+  open_authoring: true
+publish_mode: editorial_workflow
+media_folder: '_source/_assets/img/blog/'
+public_folder: 'blog/'
+collections:
+  - name: 'blog'
+    label: 'Blog'
+    sort: "date:desc" # Default is title:asc
+    folder: '_source/_posts/'
+    create: true
+    slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
+    identifier_field: title
+    # This doesn't map correctly, this value gets added to the 'folder'
+    media_folder: '/_source/_assets/img/blog/{{slug}}'
+    public_folder: 'blog/{{slug}}'
+    editor:
+      preview: false
+    fields:
+      - name: layout
+        label: Layout
+        widget: hidden
+        default: blog_post
+
+      - name: title
+        label: Title
+        widget: string
+
+      - name: author
+        label: Author
+        # TODO: This may need to be a list in the future?
+        widget: string
+
+      - name: date
+        label: 'Publish Date (Post filename may need to be adjusted in GitHub)'
+        widget: datetime
+
+      # copied from _source/_data/front-matter.json TODO: DRY this out
+      - name: communities
+        label: Communities
+        widget: select
+        multiple: true
+        options: [ ".net",
+                   "design",
+                   "gaming",
+                   "go",
+                   "java",
+                   "javascript",
+                   "mobile",
+                   "php",
+                   "python",
+                   "ruby",
+                   "security",
+                   "devops" ]
+
+      # copied from _source/_data/front-matter.json TODO: DRY this out
+      - name: by
+        label: By
+        widget: select
+        options: [ "advocate", "contractor", "internal-contributor", "external-contributor" ]
+
+      # copied from _source/_data/front-matter.json TODO: DRY this out
+      - name: type
+        label: Type
+        widget: select
+        options: [ "awareness", "conversion" ]
+
+      - name: tags
+        label: Tags
+        widget: list
+        min: 2
+
+      - name: tweets
+        label: Tweets
+        widget: array
+
+      - name: image
+        label: 'Social Image'
+        widget: image
+
+      - name: description
+        labl: Description
+        widget: text
+
+      - name: body
+        label: Body
+        widget: 'markdown'
