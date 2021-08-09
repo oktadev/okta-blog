@@ -24,11 +24,11 @@ In this article, you will build an ASP.Net MVC web application on .Net 5 using V
 
 ### What You'll Need
 
-> [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/)
-> [.NET 5](https://dotnet.microsoft.com/download/dotnet/5.0)
-> [An Okta Developer Account](https://developer.okta.com/signup/)
-> [The Okta CLI tool](https://cli.okta.com/)
-> [An AWS Account](https://portal.aws.amazon.com/billing/signup?nc2=h_ct&src=default&redirect_url=https%3A%2F%2Faws.amazon.com%2Fregistration-confirmation#/start)
+- [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/)
+- [.NET 5](https://dotnet.microsoft.com/download/dotnet/5.0)
+- [An Okta Developer Account](https://developer.okta.com/signup/)
+- [The Okta CLI tool](https://cli.okta.com/)
+- [An AWS Account](https://portal.aws.amazon.com/billing/signup?nc2=h_ct&src=default&redirect_url=https%3A%2F%2Faws.amazon.com%2Fregistration-confirmation#/start)
 
 ## Write Your MVC Application
 
