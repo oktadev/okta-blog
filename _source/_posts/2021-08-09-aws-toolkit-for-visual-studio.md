@@ -22,7 +22,7 @@ In this article, you will build an ASP.Net MVC web application on .Net 5 using V
 * Table of Contents
 {:toc}
 
-### What you'll need
+### What You'll Need
 
 > [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/)
 > [.NET 5](https://dotnet.microsoft.com/download/dotnet/5.0)
@@ -30,7 +30,7 @@ In this article, you will build an ASP.Net MVC web application on .Net 5 using V
 > [The Okta CLI tool](https://cli.okta.com/)
 > [An AWS Account](https://portal.aws.amazon.com/billing/signup?nc2=h_ct&src=default&redirect_url=https%3A%2F%2Faws.amazon.com%2Fregistration-confirmation#/start)
 
-## Write your MVC Application
+## Write Your MVC Application
 
 Open Visual Studio 2019 and select *Create a new project*. Under Templates select *ASP.Net Core Web Application* and give your application a meaningful name. I named mine `Okta_AWSToolkit`, and my namespaces in code will reflect that.
 
@@ -273,7 +273,7 @@ Finally, add a new view for `Profile/Index.cshtml` and add the following code.
 
 There's not much going on here, we just present a page for users to understand that they are authenticated and have made it to the profile page. You can edit this page with whatever code you feel fits here.
 
-Finally, you need to edit your `Startup.cs` code to enable authenticate and configure Okta. Replace the code in this file with the following.
+Finally, you need to edit your `Startup.cs` code to enable and configure authentication with Okta. Replace the code in this file with the following.
 
 ```csharp
 using Microsoft.AspNetCore.Builder;
@@ -354,7 +354,7 @@ This file brings it all together. You have registered the Okta component using t
 
 ## Create your Okta Development Application
 
-You'll need to create an Okta application for your development environment. You can use the [Okta CLI tool](https://cli.okta.com/). Download the CLI tool and run `okta login`. This will walk you through the log in process. Once that is completed run `okta apps create` and follow the prompts on the screen. Select *web* as your application type. For your *Redirect URI*, use the web address provided from your application and append `/okta/callback` to it. For your *Post Logout RedirectURI*, use the same domain. This time, append `/signout/callback` to it. If you have multiple authorization servers you can select *default* for this application. After a moment, the CLI will write your Client Id, Client Secret, and Issuer to a file called `.okta.env` in the same directory you were working in. Take these values and add them to your `appsettings.Development.json` file.
+You'll need to create an Okta application for your development environment. You can use the [Okta CLI tool](https://cli.okta.com/). Download the CLI tool and run `okta login`. This will walk you through the login process. Once that is completed run `okta apps create` and follow the prompts on the screen. Select *web* as your application type. For your *Redirect URI*, use the web address provided from your application and append `/okta/callback` to it. For your *Post Logout RedirectURI*, use the same domain. This time, append `/signout/callback` to it. If you have multiple authorization servers you can select *default* for this application. After a moment, the CLI will write your Client Id, Client Secret, and Issuer to a file called `.okta.env` in the same directory you were working in. Take these values and add them to your `appsettings.Development.json` file.
 
 > **NOTE:** you will only need the Domain portion of your Issuer, not the full URL. You can then delete the contents of `.okta.env`.
 
@@ -376,15 +376,15 @@ Create the new user, then attach an administrator or power user policy to the us
 
 Next, right-click on your project and click **Publish to AWS Elastic Beanstalk**. This will open a new wizard to guide you through the publish process.
 
-First is the application tab. Select *Create a new application environment* and then select *Next*.
+First is the application tab. Select **Create a new application environment** and then select **Next**.
 
 {% img blog/aws-toolkit-for-visual-studio/aws-publish-to-beanstalk.png alt:"Publish to AWS Elastic Beanstalk" width:"800" %}{: .center-image }
 
-Under the *Application Environment* screen select the production version of your environment. This action will automatically populate the URL for your Elastic Beanstalk instance. You'll want to check to make sure the URL is available before moving forward.
+Under the **Application Environment** screen select the production version of your environment. This action will automatically populate the URL for your Elastic Beanstalk instance. You'll want to check to make sure the URL is available before moving forward.
 
 {% img blog/aws-toolkit-for-visual-studio/aws-application-env.png alt:"Publish to AWS Elastic Beanstalk" width:"800" %}{: .center-image }
 
-Under the *Options* tab, the only change you need to make is to use a t2.micro instance to maintain your free tier status. If you need to scale up later Amazon makes that easy through the AWS Toolkit.
+Under the **Options** tab, the only change you need to make is to use a t2.micro instance to maintain your free tier status. If you need to scale up later Amazon makes that easy through the AWS Toolkit.
 
 {% img blog/aws-toolkit-for-visual-studio/aws-ec2-config.png alt:"AWS container configuration" width:"800" %}{: .center-image }
 
@@ -396,11 +396,11 @@ Finally, on the view tab, click **Deploy** and wait a few minutes for the site t
 
 ## Create Your Okta Production Application
 
-Open your CLI again and go through the `okta apps create` wizard. However this time, instead of using the `localhost` domain provided by Visual Studio, replace the domain in your *Redirect URI* and *Post Logout RedirectURI* with the domain that AWS published your application to. After a moment the CLI will again write your details to `.okta.env` and you can replace your `appsettings.Production.json` values with these new ones. Again, only use the domain of your *Issuer* in the domain field of your appsettings file.
+Open your CLI again and go through the `okta apps create` wizard. However this time, instead of using the `localhost` domain provided by Visual Studio, replace the domain in your *Redirect URI* and *Post Logout RedirectURI* with the domain at which AWS published your application. After a moment, the CLI will again write your details to `.okta.env` and you can replace your `appsettings.Production.json` values with these new ones. Again, only use the domain of your *Issuer* in the domain field of your appsettings file.
 
 You will need to publish your application to AWS one last time to ensure that the updated `appsettings.Production.json` reaches the server. Once that is complete you should be able to log in to your application again.
 
-## Conclusions
+## Conclusion
 
 The AWS Toolkit is a powerful tool that helps you integrate with AWS Cloud services easily from Visual Studio. This article is a brief introduction to the capabilities of the tool. If you use AWS for development, I recommend exploring all the features of the AWS Toolkit for Visual Studio.
 
