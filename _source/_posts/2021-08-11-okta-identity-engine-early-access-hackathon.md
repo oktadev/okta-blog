@@ -6,7 +6,7 @@ You’re invited to participate in the Okta Identity Early Access Hackathon, whi
 
 ## Rules, Requirements, and Prizes for the OIE Hackathon
 
-Check out all the [**Hackathon details**](https://okta-hackathon-2021.devpost.com/) including rules, requirements, prizes, and how to register.  
+Check out all the [Hackathon details](https://okta-hackathon-2021.devpost.com/) including rules, requirements, prizes, and how to register.  
 
 We’ll provide early access to developer tools and documentation in pre-release for alpha testers and bold hackathon participants. This release unlocks a variety of customer identity and access management scenarios you can build into your apps, APIs, and CI/CD pipelines.
 
@@ -26,4 +26,3 @@ In fact, developers who sign up to participate will receive:
 We look forward to learning a ton by listening to your feedback and taking a close look at your working apps. [**Register now**](https://okta-hackathon-2021.devpost.com/) to build with Okta and securely connect the people and technologies that matter to you most. 
 
 Thanks! We can’t wait to see what you make. 
-
