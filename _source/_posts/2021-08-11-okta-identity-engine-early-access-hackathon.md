@@ -23,6 +23,6 @@ In fact, developers who sign up to participate will receive:
 - Documentation, guides, samples, and SDKs 
 - Access to the Okta Dev Forum for support
 
-We look forward to learning a ton by listening to your feedback and taking a close look at your working apps. [**Register now**](https://okta-hackathon-2021.devpost.com/) to build with Okta and securely connect the people and technologies that matter to you most. 
+We look forward to learning a ton by listening to your feedback and taking a close look at your working apps. [Register now](https://okta-hackathon-2021.devpost.com/) to build with Okta and securely connect the people and technologies that matter to you most. 
 
 Thanks! We can’t wait to see what you make. 
