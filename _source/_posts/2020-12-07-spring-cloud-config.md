@@ -12,7 +12,7 @@ tweets:
 - "Learn how to use @springcloud config server to share configuration between your microservices in this quick tutorial."
 image: blog/spring-cloud-config/spring-cloud-config.png
 type: conversion
-- 2021-08-10: Updated post to use Spring Boot 2.5.3 and Spring Cloud 2020.0.3. See the code changes in the [example on GitHub](https://github.com/oktadev/okta-spring-cloud-config-example/pull/3). Changes to this post can be viewed in [okta-blog#536](https://github.com/oktadev/okta-blog/pull/536)  
+- 2021-08-10: Updated post to use Spring Boot 2.5.3 and Spring Cloud 2020.0.3. See the code changes in the [example on GitHub](https://github.com/oktadev/okta-spring-cloud-config-example/pull/3). Changes to this post can be viewed in [okta-blog#536](https://github.com/oktadev/okta-blog/pull/536). 
 ---
 
 The [microservice](https://www.okta.com/blog/2021/02/microservices/) architecture pattern, in which business functionality is distributed among many small atomic applications as opposed to one or two monolithic chunks, is very powerful and in wide use across large and small tech companies. Each piece has a narrow, well-defined task and communicates with other services via a shared channel (usually REST APIs).
