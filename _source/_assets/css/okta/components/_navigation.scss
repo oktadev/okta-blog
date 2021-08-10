@@ -9,11 +9,11 @@
   background: get-color('resolution-blue');
   @include font-size(16px);
 
-  @include media('<large') {
+  @include media('<x-large') {
     @include font-size(12px);
   }
 
-  @include media('<=small') {
+  @include media('<medium') {
     @include font-size(16px);
   }
 
@@ -21,14 +21,14 @@
     height: 87px;
     padding: 0 50px;
 
-    @include media('<large') {
+    @include media('<x-large') {
       height: 70px;
       padding: 0 35px;
     }
-    @include media('<=small') {
+    @include media('<medium') {
       padding: 0 16px;
     }
-    @include media('<=x-smaller') {
+    @include media('<small') {
       height: 60px;
     }
   }
@@ -41,14 +41,14 @@
     height: 22px;
     width: 157px;
     flex-shrink: 0;
-    margin-right: 48px;
+    margin-right: 59px;
 
-    @include media('>small', '<large') {
+    @include media('>medium', '<x-large') {
       width: 101px;
       margin-right: 22px;
     }
 
-    @include media('<=small') {
+    @include media('<medium') {
       margin-right: 0;
     }
 
@@ -76,7 +76,7 @@
     @include font-weight('bold');
     @include font-size(14px);
 
-    @include media('<=small') {
+    @include media('<medium') {
       margin: 0;
       font-size: 1rem;
       border: none;
@@ -91,7 +91,7 @@
         margin-left: 5px;
       }
     }
-    @include media('<=x-smaller') {
+    @include media('<small') {
       display: none;
     }
   }

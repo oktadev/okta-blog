@@ -8,7 +8,7 @@
       margin: 0 0 0 25px;
       position: relative;
 
-      @include media('<=small') {
+      @include media('<medium') {
         padding: 0;
       }
 
@@ -40,7 +40,7 @@
     }
 
     &.has-children {
-      @include media('>small') {
+      @include media('>=medium') {
         .fa-angle-down {
           margin-left: 3px;
           transition: all 200ms ease-in-out;
@@ -62,7 +62,7 @@
   }
 
   .sub-menu {
-    @include media('>small') {
+    @include media('>=medium') {
       left: 50%;
       top: 15px;
       opacity: 0;
@@ -93,7 +93,7 @@
       padding: 0 15px;
       margin: 0;
       line-height: 28px;
-      @include media('<=small') {
+      @include media('<medium') {
         padding: 0;
         line-height: inherit;
       }
@@ -114,18 +114,18 @@
     line-height: initial;
     border-top: 2px solid get-color('black');
 
-    @include media('<=small') {
+    @include media('<medium') {
       border-top: none;
       flex-direction: row !important;
       justify-content: flex-start;
     }
 
     .social {
-      @include media('<=small') {
+      @include media('<medium') {
         margin-right: 10px;
       }
       svg {
-        width: 18px;
+        width: 20px;
 
         path {
           fill: get-color('black');

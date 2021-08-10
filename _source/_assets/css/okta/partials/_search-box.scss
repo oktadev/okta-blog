@@ -6,12 +6,12 @@
   height: 38px;
   border-radius: 4px;
 
-  @include media('>small', '<=large') {
+  @include media('>medium', '<x-large') {
     max-width: 168px;
     margin-right: 15px;
   }
 
-  @include media('<=small') {
+  @include media('<medium') {
     max-width: 100%;
     height: auto;
     border: 1px solid get-color('alto');
@@ -42,7 +42,7 @@
 
     path {
       fill: get-color('resolution-blue');
-      @include media('<=small') {
+      @include media('<medium') {
         fill: get-color('shark');
       }
     }
@@ -135,14 +135,14 @@
     box-sizing: content-box;
     font-size: 14px;
     font-weight: 600;
-    @include media('<=large') {
+    @include media('<x-large') {
       display: none;
     }
   }
 }
 
 .mobile-search-container {
-  @include media('<=small') {
+  @include media('<medium') {
     padding: 16px;
 
     .search-box {

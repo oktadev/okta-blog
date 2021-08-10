@@ -1,4 +1,4 @@
-@include media('<=small') {
+@include media('<medium') {
   .navigation .menu--slideout {
     display: none;
     position: fixed;
@@ -30,6 +30,7 @@
       display: block;
       width: 100%;
       font-size: 14px;
+      line-height: 1.5em;
 
       &:hover {
         text-decoration: none;
@@ -42,15 +43,15 @@
 
     .menu-item {
       padding: 0;
-      margin: 0;
+      margin: 0 0 9px;
       position: relative;
       width: 100%;
-      line-height: 1.9rem;
+      line-height: 1.5em;
 
       .sub-menu {
         display: none;
         padding: 0;
-        margin: 0;
+        margin: 10px 0 0;
 
         li {
           padding-left: 27px;
@@ -89,15 +90,25 @@
     .cta {
       color: get-color('shark');
       font-size: 14px;
+      font-weight: 500;
       justify-content: flex-start;
       &:after {
         display: none;
       }
     }
+    .signup-btn {
+      display: none;
+      @include media('<small') {
+        display: block;
+        .cta {
+          display: block;
+        }
+      }
+    }
   }
 }
 
-@include media('<=x-smaller') {
+@include media('<small') {
   .navigation .menu--slideout {
     top: 60px;
   }

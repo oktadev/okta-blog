@@ -1,10 +1,31 @@
+@mixin separator {
+  content: '';
+  position: absolute;
+  bottom: 37px;
+  left: 0;
+  width: 34px;
+  height: 1px;
+  background: get-color('white');
+  opacity: 0.3;
+}
+@mixin separator-full-width {
+  content: '';
+  position: absolute;
+  top: 0px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: get-color('white');
+  opacity: 0.3;
+}
+
 .footer {
   color: get-color('white');
   background: get-color('resolution-blue');
-  padding: 100px 64px;
+  padding: 94px 64px;
   font-family: $font-family-secondary;
 
-  @include media('<=large') {
+  @include media('<x-large') {
     padding: 60px 0;
   }
 
@@ -17,7 +38,7 @@
     text-transform: uppercase;
     margin: 0 0 35px;
 
-    @include media('<=large') {
+    @include media('<x-large') {
       margin-bottom: 20px;
     }
   }
@@ -40,7 +61,7 @@
   .footer-links {
     li {
       margin-top: 20px;
-      @include media('<=large') {
+      @include media('<x-large') {
         margin-top: 8px;
       }
     }
@@ -108,7 +129,7 @@
     display: flex;
     flex-direction: row;
 
-    @include media('<=large') {
+    @include media('<x-large') {
       width: 83%;
       margin: 0 auto;
       flex-wrap: wrap;
@@ -117,7 +138,7 @@
     .column {
       flex: 0 0 170px;
 
-      @include media('<=small') {
+      @include media('<medium') {
         flex: 1 0 50%;
       }
 
@@ -132,19 +153,19 @@
           margin-bottom: 17px;
           letter-spacing: .5px;
 
-          @include media('<=large') {
+          @include media('<x-large') {
             margin-bottom: 16px;
           }
         }
 
         p {
-          line-height: 2.5em;
+          line-height: 1.8em;
           color: get-color('white');
           a {
             color: get-color('white');
             text-decoration: underline;
           }
-          @include media('<=large') {
+          @include media('<x-large') {
             line-height: 1.6rem;
           }
         }
@@ -153,22 +174,15 @@
       &.social-links {
         flex: 0 0 120px;
 
-        @include media('<=large') {
+        @include media('<x-large') {
           flex: 1 0 100%;
           margin-bottom: 0;
-          padding-top: 33px;
+          padding-top: 19px;
           order: 5;
           position: relative;
 
           &::before {
-            content: '';
-            position: absolute;
-            top: 0px;
-            left: 0;
-            width: 100%;
-            height: 1px;
-            background: get-color('white');
-            opacity: 0.3;
+            @include separator-full-width;
           }
 
           .column-header {
@@ -190,9 +204,9 @@
 
       &.contact-links {
         flex: 0 0 170px;
-        @include media('<=large') {
+        @include media('<x-large') {
           flex: 1 0 50%;
-          margin-bottom: 46px;
+          margin-bottom: 29px;
           order: 3;
         }
   
@@ -202,34 +216,27 @@
       }
   
       &.info-links {
-        @include media('<=large') {
+        @include media('<x-large') {
           flex: 1 0 50%;
-          margin-bottom: 46px;
+          margin-bottom: 29px;
           padding-left: 18px;
           order: 4;
         }
   
-        @include media('<x-smaller') {
+        @include media('<small') {
           flex: 1 0 100%;
           padding-left: 0;
         }
       }
 
       &.need-support, &.external-links {
-        @include media('<=large') {
+        @include media('<x-large') {
           flex: 1 0 100% !important;
           justify-content: center;
           padding-bottom: 68px;
           position: relative;
           &::after {
-            content: '';
-            position: absolute;
-            bottom: 37px;
-            left: 0;
-            width: 34px;
-            height: 1px;
-            background: get-color('white');
-            opacity: 0.3;
+            @include separator;
           }
         }
       }
@@ -237,7 +244,7 @@
       &.external-links {
         flex: 0 0 300px;
     
-        @include media('<=large') {
+        @include media('<x-large') {
           flex: 1 0 40%;
           margin-bottom: 0;
           order: 2;
@@ -245,7 +252,7 @@
           margin-bottom: 8px;
         }
   
-        @include media('<small') {
+        @include media('<medium') {
           flex: 1 0 100%;
         }
   
@@ -254,7 +261,10 @@
           flex-direction: column;
   
           & + .external-url {
-            margin-top: 25px;
+            margin-top: 37px;
+            @include media('<x-large') {
+              margin-top: 25px;
+            }
           }
 
           a {
@@ -269,6 +279,38 @@
             letter-spacing: 0.01em;
             margin-top: 6px;
             color: get-color('mischka-2');
+          }
+        }
+      }
+
+      &.copyright {
+        color: get-color('white');
+        font-size: 1em;
+        font-weight: 500;
+        clear: both;
+        margin: 38px 0 0;
+        padding: 38px 0 0;
+        position: absolute;
+        left: auto;
+        bottom: 94px;
+
+        &::before {
+          @include separator;
+          top: 0;
+        }
+
+        @include media('<x-large') {
+          position: relative;
+          bottom: auto;
+          order: 6;
+          width: 100%;
+          min-width: 100%;
+          text-align: center;
+          margin-top: 28px;
+          padding-top: 28px;
+
+          &:before {
+            @include separator-full-width;
           }
         }
       }

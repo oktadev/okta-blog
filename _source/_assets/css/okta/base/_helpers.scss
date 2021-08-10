@@ -52,6 +52,18 @@
   }
 }
 
+.show-for-medium {
+  @include media('>=medium') {
+    display: none;
+  }
+}
+
+.hide-for-medium {
+  @include media('<medium') {
+    display: none;
+  }
+}
+
 .hide {
   display: none;
 }
