@@ -10,7 +10,7 @@ tweets:
 - "The Okta Identity Engine Early Access Hackathon is happening now. Build a top-notch app for a chance at fantastic prizes."
 - "Join @OktaDev and friends to hack on new customer identity and access management features from @Okta.  "
 - "Okta Identity Engine Early Access Hackathon closes September 14. Test drive the limited release and show us your stuff!"
-image: blog/
+image: blog/okta-identity-engine-early-access-hackathon/hackathon-social.png
 type: conversion
 ---
 
