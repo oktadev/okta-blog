@@ -122,6 +122,12 @@
     &.active {
       color: get-color('cerise-red');
     }
+
+    &[target="_blank"] {
+      svg {
+        margin-left: 4px;
+      }
+    }
   }
 
   .mobile-controls {
