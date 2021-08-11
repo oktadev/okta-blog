@@ -867,6 +867,12 @@ If you leave everything running on Google Cloud, you will be charged for usage. 
 ----
 gcloud container clusters delete <cluster-name> --zone=us-central1-a
 ----
+
+You can delete your Ingress IP address too:
+
+----
+gcloud compute addresses delete gateway-ingress-ip --global
+----
 ====
 
 == Monitor Your Kubernetes Cluster with K9s
