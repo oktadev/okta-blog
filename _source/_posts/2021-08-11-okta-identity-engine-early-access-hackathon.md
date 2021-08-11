@@ -7,9 +7,9 @@ communities: [java, javascript, .net, python, devops]
 description: "This post invites developers to participate in the Okta Identity Early Access Hackathon 2021, which began on August 3 and runs online till September 14. There are generous prizes for top-notch working apps and supportive hackers."
 tags: [hackathon, okta, okta-identity-engine, identity]
 tweets:
-- "The Okta Identity Engine Early Access Hackathon is happening now. Build a top-notch app for a chance at fantastic prizes."
-- "Join @OktaDev and friends to hack on new customer identity and access management features from @Okta.  "
-- "Okta Identity Engine Early Access Hackathon closes September 14. Test drive the limited release and show us your stuff!"
+- "The Okta Identity Engine Early Access Hackathon is happening now. Build a top-notch app for a chance at fantastic prizes. 🏆"
+- "Join @OktaDev and friends to hack on new customer identity and access management features from @Okta. 🛠️"
+- "Okta Identity Engine Early Access Hackathon closes September 14.🏁 Test drive the limited release and show us your stuff!"
 image: blog/okta-identity-engine-early-access-hackathon/hackathon-social.png
 type: conversion
 ---
