@@ -12,6 +12,8 @@ tweets:
 - "JHipsters make it easy to create reactive @java microservices and deploy them with @kubernetesio. Learn more in this tutorial! 👇"
 image: blog/reactive-java-kubernetes/reactive-java-k8s.png
 type: conversion
+changelog:
+- 2021-08-11: Fixed missing namespace parameters and Ingress definition. See the code changes in the [example on GitHub](https://github.com/oktadev/java-microservices-examples/pull/24). Changes to this post can be viewed in [okta-blog#857](https://github.com/oktadev/okta-blog/pull/857).
 ---
 :page-liquid:
 :toc: macro
@@ -548,7 +550,7 @@ You can use the following command to set your gateway's IP address as a variable
 
 [source,shell]
 ----
-EXTERNAL_IP=$(kubectl get svc gateway -n demo -ojsonpath="{.status.loadBalancer.ingress[0].ip}")
+EXTERNAL_IP=$(kubectl get svc gateway -ojsonpath="{.status.loadBalancer.ingress[0].ip}" -n demo)
 curl $EXTERNAL_IP:8080
 ----
 
@@ -591,7 +593,7 @@ spec:
   - http:
       paths:
       - path: /*
-        pathType: Prefix
+        pathType: ImplementationSpecific
         backend:
           service:
             name: gateway
@@ -616,7 +618,7 @@ Set the IP in a variable, as well as the domain.
 
 [source,shell]
 ----
-EXTERNAL_IP=$(kubectl get ingress gateway -ojsonpath="{.status.loadBalancer.ingress[0].ip}")
+EXTERNAL_IP=$(kubectl get ingress gateway -ojsonpath="{.status.loadBalancer.ingress[0].ip}" -n demo)
 DOMAIN="${EXTERNAL_IP}.nip.io"
 
 # Prove it works
@@ -703,7 +705,7 @@ Now you should get a 302 when you access your domain. https://httpie.io/[HTTPie]
 
 image::{% asset_path 'blog/reactive-java-kubernetes/httpie-302.png' %}[alt=302 in HTTPie,width=800,align=center]
 
-Update your Okta OIDC app to have `\https://${DOMAIN}/login/oauth2/code/oidc` as a valid redirect URI. Add `\https://${DOMAIN}.nip.io` to the sign-out redirect URIs too.
+Update your Okta OIDC app to have `\https://${DOMAIN}/login/oauth2/code/oidc` as a valid redirect URI. Add `\https://${DOMAIN}` to the sign-out redirect URIs too.
 
 == Encrypt Your Kubernetes Secrets
 
