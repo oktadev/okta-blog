@@ -73,7 +73,7 @@ public class MapTest {
 }
 ```
 
-**Note:** You can find this test and all the code in this tutorial in [GitHub](https://github.com/indiepopart/reactive-service)
+**Note:** You can find this test and all the code in this tutorial in [GitHub](https://github.com/indiepopart/reactive-service).
 
 In the code above, a flux is created from a range of integers from 1 to 5. The map operator is passed a transformation function that formats with leading zeros. Notice that the return type of the transform method is not a publisher and the transformation is synchronous–a simple method call. The transformation function must not introduce latency.
 
