@@ -18,7 +18,7 @@ Modern applications must work smoothly on high loads and with a high number of c
 
 A different approach increases efficiency by writing asynchronous non-blocking code that lets the execution switch to another task while the asynchronous process completes.
 
-Project Reactor is a Java framework from Pivotal that implements the [Reactive Streams](https://www.reactive-streams.org/) specification. This initiative provides a standard for asynchronous stream processing with non-blocking backpressure for the JVM and JavaScript runtimes. It is the foundation of the reactive stack in the Spring ecosystem and WebFlux applications. Some studies suggest that performance differences are negligible in Spring applications unless the application makes more than 500 API requests per second. Thus, it's not mandatory to do asynchronous programming, but it is the right approach for specific use cases.
+Project Reactor is a Java framework from VMware that implements the [Reactive Streams](https://www.reactive-streams.org/) specification. This initiative provides a standard for asynchronous stream processing with non-blocking backpressure for the JVM and JavaScript runtimes. It is the foundation of the reactive stack in the Spring ecosystem and WebFlux applications. Some studies suggest that performance differences are negligible in Spring applications unless the application makes more than 500 API requests per second. Thus, it's not mandatory to do asynchronous programming, but it is the right approach for specific use cases.
 
 In this post, we'll summarize some core Reactor concepts, introduce the Scheduler abstraction, and describe how it is used to encapsulate blocking code and prevent Java reactive applications from stalling.
 
