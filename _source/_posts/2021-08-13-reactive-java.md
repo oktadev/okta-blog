@@ -755,7 +755,6 @@ public class SecureRandomReactiveImpl implements SecureRandomService {
 
 Run the test again and the BlockHound exception should not happen. Avoid the logic up front and assemble the pipeline. Everything should be fine.
 
-
 Finally, let's do an end-to-end test. Run the application with Maven:
 
 ```shell
