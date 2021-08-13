@@ -715,7 +715,7 @@ The `SecureRandomService` returns a `Mono` publisher, but it is an **Impostor Re
 return Mono.just(secureRandom.nextInt());
 ```
 
-The implementation above has logic upfront, first the calculation `secureRandom.nextInt` and then the assembly.
+The implementation above has logic up front, first the calculation `secureRandom.nextInt()` and then the assembly.
 
 What is the right way to wrap a blocking call? **Make the work happen in another scheduler.**
 
