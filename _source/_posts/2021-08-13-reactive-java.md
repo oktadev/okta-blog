@@ -73,13 +73,13 @@ public class MapTest {
 }
 ```
 
-**Note:** You can find this test and all the code in this tutorial in [GitHub](https://github.com/indiepopart/reactive-service).
+**Note:** You can find this test and all the code in this tutorial in [GitHub]( https://github.com/oktadev/okta-reactive-service-example).
 
-In the code above, a flux is created from a range of integers from 1 to 5. The map operator is passed a transformation function that formats with leading zeros. Notice that the return type of the transform method is not a publisher and the transformation is synchronous–a simple method call. The transformation function must not introduce latency.
+In the code above, a flux is created from a range of integers from 1 to 5. The `map()` operator is passed a transformation function that formats with leading zeros. Notice that the return type of the transform method is not a publisher and the transformation is synchronous–a simple method call. The transformation function must not introduce latency.
 
-The `flatMap` method transforms the emitted items **asynchronously** into **Publishers**, then flattens these inner publishers into a single `Flux` through merging, and the items can interleave. This operator does not necessarily preserve original ordering. The mapper function passed to `flatMap` transforms the input sequence into N sequences. **This operator is suitable for running an asynchronous task for each item.**
+The `flatMap()` method transforms the emitted items **asynchronously** into **Publishers**, then flattens these inner publishers into a single `Flux` through merging, and the items can interleave. This operator does not necessarily preserve original ordering. The mapper function passed to `flatMap()` transforms the input sequence into N sequences. **This operator is suitable for running an asynchronous task for each item.**
 
-In the example below, a list of words is mapped to its phonetics through the Dictionary API, using `flatMap`.
+In the example below, a list of words is mapped to its phonetics through the Dictionary API, using `flatMap()`.
 
 ```java
 @SpringBootTest
@@ -375,7 +375,7 @@ As you can see in the code above, the `flux` is subscribed twice. As the `publis
 
 What might be confusing is that each subscription is assigned one bounded elastic thread for the whole execution. So in this case, "subscription1" executed in _boundedElastic-1_ and "subscription2" executed in _boundedElastic-2_. All operations for a given subscription execute in the same thread.
 
-The instantiation of the `Flux`  above produced a **Cold Publisher**, a publisher that generates data anew for each subscription. That's why both subscriptions above process all the values.
+The instantiation of the `Flux` above produced a **Cold Publisher**, a publisher that generates data anew for each subscription. That's why both subscriptions above process all the values.
 
 ### Fixed Pool of Workers
 
@@ -396,7 +396,6 @@ public void parallelTest() throws InterruptedException {
     flux.subscribe(w -> debug(w,"subscribe3"));
     flux.subscribe(w -> debug(w,"subscribe4"));
     flux.subscribe(w -> debug(w,"subscribe5"));
-
 
     Thread.sleep(5000);
 }
@@ -491,9 +490,9 @@ The log should look like the following lines:
 ...
 ```
 
-As you can see, the first `map` operator executes in the _boundedElastic-1_ thread, and the second `map` operator and the `subscribe` consumer execute in the _parallel-1_ thread. Notice that the `subscribeOn` operator is invoked after `publishOn`, but it affects the root of the chain and the operators preceding `publishOn` anyways.
+As you can see, the first `map` operator executes in the _boundedElastic-1_ thread, the second `map` operator and the `subscribe` consumer execute in the _parallel-1_ thread. Notice that the `subscribeOn` operator is invoked after `publishOn`, but it affects the root of the chain and the operators preceding `publishOn` anyways.
 
-A probably simplified [marble diagam](https://projectreactor.io/docs/core/release/reference/#howtoReadMarbles) for the example above might look like:
+A probably simplified [marble diagam](https://projectreactor.io/docs/core/release/reference/#howtoReadMarbles) for the example above might look like this:
 
 {% img blog/reactive-java/marble-diagram.png alt:"Marble Diagram" width:"800" %}{: .center-image }
 
@@ -505,11 +504,10 @@ In an ideal reactive scenario, all the architecture components are non-blocking,
 
 So now, let's experiment with Reactor Schedulers in a Reactive Java application. Create a Spring WebFlux service with Okta security. The service will expose an endpoint to return a random integer.
 
-The implementation will call Java `SecureRandom` blocking code. Start by downloading a Spring Boot Maven project using [Spring Initializr](https://start.spring.io/). You can do it with the following `HTTPie` line:
+The implementation will call Java `SecureRandom` blocking code. Start by downloading a Spring Boot Maven project using [Spring Initializr](https://start.spring.io/). You can do it with the following HTTPie command:
 
 ```shell
-http -d https://start.spring.io/starter.zip type==maven-project \
-  language==java \
+http -d https://start.spring.io/starter.zip \
   bootVersion==2.5.3 \
   baseDir==reactive-service \
   groupId==com.okta.developer.reactive \
@@ -663,7 +661,7 @@ Run with:
 ```shell
 ./mvnw test -Dtest=SecureRandomControllerTest
 ```
-The test should pass, but **how can you make sure the REST call won't freeze up the service's event loop?** Use [BlockHound](https://github.com/reactor/BlockHound)!.,. Blockhound is a Java agent that detects blocking calls from non-blocking threads, has built-in integration with Project Reactor, and supports the JUnit platform.
+The test should pass, but **how can you make sure the REST call won't freeze up the service's event loop?** Use [BlockHound](https://github.com/reactor/BlockHound)!. Blockhound is a Java agent that detects blocking calls from non-blocking threads, has built-in integration with Project Reactor, and supports the JUnit platform.
 
 Add the Blockhound dependency to the `pom.xml`:
 
@@ -676,7 +674,7 @@ Add the Blockhound dependency to the `pom.xml`:
 </dependency>
 ```
 
-It has been reported that when [`spring-security` is enabled, BlockHound does not detect](https://github.com/reactor/BlockHound/issues/173) blocking calls.
+It has been reported that when [Spring Security is enabled, BlockHound does not detect blocking calls](https://github.com/reactor/BlockHound/issues/173).
 
 Disable security for the test profile. Add the file `src/test/resources/application-test.yml` with the following content:
 
@@ -721,7 +719,6 @@ The implementation above has logic upfront, first the calculation `secureRandom.
 
 What is the right way to wrap a blocking call? **Make the work happen in another scheduler.**
 
-
 ## Encapsulation of Blocking Calls
 
 Blocking encapsulation needs to happen down into the service, as explained in the [Reactor documentation](https://projectreactor.io/docs/core/release/reference/#faq.wrap-blocking). The scheduler assignment must also happen inside the implementation.
@@ -756,7 +753,7 @@ public class SecureRandomReactiveImpl implements SecureRandomService {
 }
 ```
 
-Run the test again and the BlockHound exception should not happen. Avoid the logic upfront and assemble the pipeline. Everything should be fine.
+Run the test again and the BlockHound exception should not happen. Avoid the logic up front and assemble the pipeline. Everything should be fine.
 
 
 Finally, let's do an end-to-end test. Run the application with Maven:
