@@ -50,9 +50,9 @@ A **cold publisher** generates data for each subscription. Then, if you subscrib
 
 Operators are like workstations in an assembly line. They make it possible to describe transformations or intermediate steps along the processing chain. Each operator is a *decorator*, it wraps the previous `Publisher` into a new instance. To avoid mistakes, **the preferred way of using operators is to chain the calls**. Apply the next operator to the last operator's result. Some operators are instance methods and others are static methods.
 
-Both `map` and `flatMap` are instance method **operators**. You might be familiar with the concept of these operations from functional programming or Java Streams. In the reactive world, they have their own semantics.
+Both `map()` and `flatMap()` are instance method **operators**. You might be familiar with the concept of these operations from functional programming or Java Streams. In the reactive world, they have their own semantics.
 
-The `map` method transforms the emitted items by applying a **synchronous function** to each item, on a one-to-one basis. Check the example below:
+The `map()` method transforms the emitted items by applying a **synchronous function** to each item, on a one-to-one basis. Check the example below:
 
 ```java
 public class MapTest {
@@ -232,9 +232,9 @@ Project Reactor provides the tools for fine-tuning the asynchronous processing i
 
 The `Scheduler` is an abstraction on top of the `ExecutionService`, which allows submitting a task immediately, after a delay or at a fixed time rate. We'll share some examples below of the various default schedulers provided. The execution context is defined by the `Scheduler` selection.
 
-Schedulers are selected through `subscribeOn` and `publishOn` operators, they switch the execution context. `subscribeOn` changes the thread where the source actually starts generating data. It changes the root of the chain, affecting the preceding operators, _upstream_ in the chain; and also affects subsequent operators.
+Schedulers are selected through `subscribeOn()` and `publishOn()` operators, they switch the execution context. `subscribeOn()` changes the thread where the source actually starts generating data. It changes the root of the chain, affecting the preceding operators, _upstream_ in the chain; and also affects subsequent operators.
 
-Using `publishOn` switches the context for the following operators in the pipeline description, _downstream_ in the chain, overriding any the scheduler assigned with `subscribeOn`.
+Using `publishOn()` switches the context for the following operators in the pipeline description, _downstream_ in the chain, overriding any the scheduler assigned with `subscribeOn()`.
 
 The scheduler examples ahead will use `TestUtils.debug` for logging the thread name, function, and element:
 
@@ -315,9 +315,9 @@ When running the test above, you will see a log similar to this:
 2021-07-13 23:19:16.466 - INFO [single-1] - element 5 [subscribe]
 ```
 
-As you can see, the `map` function executes in the _main_ thread, and the consumer code passed to `subscribe` executes in the _single-1_ thread. Everything after the `publishOn` will execute in the passed scheduler.
+As you can see, the `map()` function executes in the _main_ thread, and the consumer code passed to `subscribe()` executes in the _single-1_ thread. Everything after the `publishOn()` will execute in the passed scheduler.
 
-You may have noticed there is a `Thread.sleep` call at the end of the test. As part of the work is passed to another thread, the `sleep` call delays the application exit, so the worker thread can complete the task.
+You may have noticed there is a `Thread.sleep()` call at the end of the test. As part of the work is passed to another thread, the `sleep()` call delays the application exit, so the worker thread can complete the task.
 
 ### Bounded Elastic Thread Pool
 
@@ -371,7 +371,7 @@ The test above should log something similar to this:
 2021-07-15 00:41:51.453 - INFO [boundedElastic-1] - element "A line in file c.txt" [subscribe1]
 ```
 
-As you can see in the code above, the `flux` is subscribed twice. As the `publishOn` is invoked before any operator, everything will execute in the context of a bounded elastic thread. Also, notice how the execution from both subscriptions can interleave.
+As you can see in the code above, the `flux()` is subscribed twice. As the `publishOn()` is invoked before any operator, everything will execute in the context of a bounded elastic thread. Also, notice how the execution from both subscriptions can interleave.
 
 What might be confusing is that each subscription is assigned one bounded elastic thread for the whole execution. So in this case, "subscription1" executed in _boundedElastic-1_ and "subscription2" executed in _boundedElastic-2_. All operations for a given subscription execute in the same thread.
 
@@ -462,7 +462,7 @@ Again, observe how all operations for a given subscription are executed in the s
 
 ### Using Both `publishOn` and `subscribeOn`
 
-When the `publishOn` and `subscribeOn` operators are used, the `subscribe` call accepts a consumer. The consumer will execute in the context selected by `publishOn`, which defines the scheduler for downstream processing, including the consumer execution. At first this might be confusing to understand, so check the following example:
+When the `publishOn()` and `subscribeOn()` operators are used, the `subscribe` call accepts a consumer. The consumer will execute in the context selected by `publishOn()`, which defines the scheduler for downstream processing, including the consumer execution. At first, this might be confusing to understand, so check the following example:
 
 ```java
 @Test
@@ -490,7 +490,7 @@ The log should look like the following lines:
 ...
 ```
 
-As you can see, the first `map` operator executes in the _boundedElastic-1_ thread, the second `map` operator and the `subscribe` consumer execute in the _parallel-1_ thread. Notice that the `subscribeOn` operator is invoked after `publishOn`, but it affects the root of the chain and the operators preceding `publishOn` anyways.
+As you can see, the first `map()` operator executes in the _boundedElastic-1_ thread, the second `map()` operator and the `subscribe()` consumer execute in the _parallel-1_ thread. Notice that the `subscribeOn()` operator is invoked after `publishOn()`, but it affects the root of the chain and the operators preceding `publishOn()` anyways.
 
 A probably simplified [marble diagam](https://projectreactor.io/docs/core/release/reference/#howtoReadMarbles) for the example above might look like this:
 
@@ -566,7 +566,7 @@ public class SecureRandomServiceImpl implements SecureRandomService {
 }
 ```
 
-Think for a moment about the `getRandomInt` implementation. It's hard to resist the temptation to wrap anything whatsoever in a publisher. `Mono.just(T data)` creates a `Mono` that will emit the specified item. But the item is **captured at instantiation time**. This will invoke the blocking code at assembly time, perhaps in the context of an event loop thread.
+Think for a moment about the `getRandomInt()` implementation. It's hard to resist the temptation to wrap anything whatsoever in a publisher. `Mono.just(T data)` creates a `Mono` that will emit the specified item. But the item is **captured at instantiation time**. This will invoke the blocking code at assembly time, perhaps in the context of an event loop thread.
 
 For now, let's move forward to create the package `com.okta.developer.reactive.controller`, and add a `SecureRandom` class for the data:
 
@@ -707,7 +707,7 @@ Stack trace:
 		at java.base/java.security.SecureRandom.next(SecureRandom.java:798) ~[na:na]
 ```
 
-As the log above shows, `SecureRandom.next` produces a call to `FileInputStream#readBytes`, which is blocking.
+As the log above shows, `SecureRandom.next()` produces a call to `FileInputStream.readBytes()`, which is blocking.
 
 The `SecureRandomService` returns a `Mono` publisher, but it is an **Impostor Reactive Service**!
 
