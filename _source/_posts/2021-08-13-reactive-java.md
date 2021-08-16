@@ -10,7 +10,7 @@ tweets:
 - "Blocking code got you down? Unleash the #BlockHound 🐕"
 - "Don't let blocking cause a reactor meltdown. Here are some tips to find the cause ☢️"
 - "Building a #reactive #java app? Don't let blocking code stop you! 🛑"
-image: blog/featured/okta-java-skew.jpg
+image: blog/reactive-java/reactive-java.png
 type: conversion
 ---
 
@@ -30,7 +30,7 @@ In this post, we'll summarize some core Reactor concepts, introduce the Schedule
 
 **Table of Contents**{: .hide }
 * Table of Contents
-  {:toc}
+{:toc}
 
 ## Reactor Execution Model
 
