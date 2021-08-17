@@ -12,6 +12,8 @@ tweets:
 - "Learn how to use @springcloud config server to share configuration between your microservices in this quick tutorial."
 image: blog/spring-cloud-config/spring-cloud-config.png
 type: conversion
+changelog:
+- 2021-08-10: Updated post to use Spring Boot 2.5.3 and Spring Cloud 2020.0.3. See the code changes in the [example on GitHub](https://github.com/oktadev/okta-spring-cloud-config-example/pull/3). Changes to this post can be viewed in [okta-blog#855](https://github.com/oktadev/okta-blog/pull/855). 
 ---
 
 The [microservice](https://www.okta.com/blog/2021/02/microservices/) architecture pattern, in which business functionality is distributed among many small atomic applications as opposed to one or two monolithic chunks, is very powerful and in wide use across large and small tech companies. Each piece has a narrow, well-defined task and communicates with other services via a shared channel (usually REST APIs).
@@ -49,11 +51,11 @@ Let's get started!
 
 First, you will create a Spring Boot application that behaves as the configuration server. This application will provide configuration settings to your microservices.
 
-Click [this link](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.4.0.RELEASE&packaging=jar&jvmVersion=11&groupId=com.okta.dev&artifactId=config-server&name=cloud-config-server&description=Configuration%20Server&packageName=com.okta.dev.config-server&dependencies=security,web,cloud-config-server) or go to [start.spring.io](https://start.spring.io) and select the following options in your browser:
+Click [this link](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.5.3&packaging=jar&jvmVersion=11&groupId=com.okta.dev&artifactId=config-server&name=cloud-config-server&description=Configuration%20Server&packageName=com.okta.dev.config-server&dependencies=security,web,cloud-config-server) or go to [start.spring.io](https://start.spring.io) and select the following options in your browser:
 
 - **Project**: `Maven Project`
 - **Language**: `Java`
-- **Spring Boot**: `2.4.0`
+- **Spring Boot**: `2.5.3`
 
 Under **Project Metadata**, set the values to the following:
 
@@ -186,19 +188,19 @@ cd /path/to/config-server
 ./mvnw spring-boot:run -Dspring-boot.run.profiles=native
 ```
 
-The `native` profile tells the application to server configuration files from the filesystem directory you populated above.
+The `native` profile tells the application to serve configuration files from the filesystem directory you populated above.
 
 ## Create Spring Boot Microservice #1
 
 Let's create the first of your two microservices.
 
-Open the [Spring Initializr](https://start.spring.io/) or [click here](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.4.0.RELEASE&packaging=jar&jvmVersion=11&groupId=com.okta.dev&artifactId=service-one&name=service-one&description=Microservice%20One&packageName=com.okta.dev.service-one&dependencies=web,okta,cloud-config-client,actuator).
+Open the [Spring Initializr](https://start.spring.io/) or [click here](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.5.3&packaging=jar&jvmVersion=11&groupId=com.okta.dev&artifactId=service-one&name=service-one&description=Microservice%20One&packageName=com.okta.dev.service-one&dependencies=web,okta,cloud-config-client,actuator).
 
 Select the following options:
 
 - **Project**: `Maven Project`
 - **Language**: `Java`
-- **Spring Boot**: `2.4.0`
+- **Spring Boot**: `2.5.3`
 
 Under **Project Metadata** fill in the following information:
 
@@ -548,13 +550,13 @@ Refresh the page at `http://localhost:8001/secure`, and you should see the updat
 
 Next, you will create a second Spring Boot application, acting as a second microservice, which will also have its configuration provided by your configuration server.
 
-Open the [Spring Initializr](https://start.spring.io/) or click [this link](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.4.0.RELEASE&packaging=jar&jvmVersion=11&groupId=com.okta.dev&artifactId=service-two&name=service-two&description=Microservice%20Two&packageName=com.okta.dev.service-two&dependencies=web,okta,cloud-config-client,actuator).
+Open the [Spring Initializr](https://start.spring.io/) or click [this link](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.5.3&packaging=jar&jvmVersion=11&groupId=com.okta.dev&artifactId=service-two&name=service-two&description=Microservice%20Two&packageName=com.okta.dev.service-two&dependencies=web,okta,cloud-config-client,actuator).
 
 Select the following options:
 
 - **Project**: `Maven Project`
 - **Language**: `Java`
-- **Spring Boot**: `2.4.0`
+- **Spring Boot**: `2.5.3`
   
 Under **Project Metadata** fill in the following information:
 
