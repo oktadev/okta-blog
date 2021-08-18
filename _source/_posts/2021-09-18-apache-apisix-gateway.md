@@ -8,7 +8,8 @@ description: "Tutorial: Learn how to configure the Apache APISIX gateway to prot
 tags: [apisix, gateway, api, security, oauth2, oidc, oss]
 tweets:
 - "Use an API gateway to secure your applications. Learn how with Apache APISIX 🔒"
-- "An API gateway can make securing your APIs easy, follow along with this post‼️"
+- "The Apache APISIX Gateway with OpenID Connect can make it easier to secure your APIs. Here's the step-by-step 👣 ‼️" #opensource  
+- Apache APISIX + Open ID Connect + Okta 👉  Learn how to replace traditional with centralized authentication at the gateway 👉 
 image: blog/apache-apisix-gateway/apisix-social.jpg
 type: conversion
 canonical-url: https://apisix.apache.org/blog/2021/08/16/Using-the-Apache-APISIX-OpenID-Connect-Plugin-for-Centralized-Authentication
@@ -51,7 +52,7 @@ Compared with the traditional authentication mode, centralized identity mode has
 1. Centralized auth simplifies the application development process, and reduces the development application workload and maintenance costs by avoiding the need to repeat the development of authentication code for each application.
 2. Centralized authentication mode improves business security. At the gateway level, it can intercept unauthenticated requests in time to protect back-end applications.
 
-## What is OpenID Connect
+## What Is OpenID Connect
 
 OpenID Connect (OIDC) is a centralized identity authentication mode. The benefit of using OpenID Connect is that users only need to register and log in with one OpenID Connect identity provider's website and use one account's password information to access different applications. [Okta](https://developer.okta.com/) is a common OpenID Connect identity provider, and the Apache APISIX OpenID Connect plugin supports OpenID.  As a result, the plugin can replace traditional authentication mode with centralized identity authentication.  In this case, we're using Okta.
 
@@ -67,9 +68,9 @@ OpenID Connect (OIDC) is a centralized identity authentication mode. The benefit
 6. APISIX sends the Access Token to the Identity Provider's User Endpoint for authentication.
 7. After passing the authentication, the User Endpoint sends the User Info to APISIX to complete  authentication.
 
-## How to Configure Okta Authentication Using the Apache APISIX OpenID Connect Plug-in
+## How to Configure Okta Authentication Using the Apache APISIX OpenID Connect Plugin
 
-Configuring Okta authentication using the Apache APISIX OpenID Connect plugin is a simple three-step process that allows you to switch from traditional authentication to centralized identity authentication mode. The following sections describe the steps to configure Okta authentication using the OpenID Connect plug-in for Apache APISIX.
+Configuring Okta authentication using the Apache APISIX OpenID Connect plugin is a three-step process that allows you to switch from traditional authentication to centralized identity authentication mode. The following sections describe the steps to configure Okta authentication using the OpenID Connect plugin for Apache APISIX.
 
 ### Prerequisites
 
@@ -103,7 +104,7 @@ Have an [Okta account](/signup/) ready for use.
 
 ### Step 2: Install Apache APISIX
 
-#### Install dependencies
+#### Install Dependencies
 
 The Apache APISIX runtime environment requires dependencies on NGINX and etcd.
 
@@ -173,7 +174,7 @@ make init
     apisix start
     ```
 
-2. Create a route and configure the OpenID Connect plugin. The following code example creates a route through the Apache APISIX Admin API, setting the upstream path to httpbin.org, a simple backend service for receiving and responding to requests. The following will use the get page of httpbin.org. Please refer to [httpbin get](http://httpbin.org/#/HTTP_Methods/get_get) for more information. For specific configuration items, please refer to the [Apache APISIX OpenID Connect Plugin](https://apisix.apache.org/docs/apisix/plugins/openid-connect/).
+2. Create a route and configure the OpenID Connect plugin. The following code example creates a route through the Apache APISIX Admin API, setting the upstream path to `httpbin.org`, a simple backend service for receiving and responding to requests. The following will use the get page of `httpbin.org`. Please refer to [`httpbin get`](http://httpbin.org/#/HTTP_Methods/get_get) for more information. For specific configuration items, please refer to the [Apache APISIX OpenID Connect Plugin](https://apisix.apache.org/docs/apisix/plugins/openid-connect/).
 
 The OpenID Connect configuration fields are listed below:
 
