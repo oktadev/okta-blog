@@ -1,4 +1,9 @@
-{% assign author = site.data.authors[post.author] %}
+{% if post.author.first %}
+{%- assign authors = post.author -%}
+{% else %}
+{%- assign authors = "" | split: "," -%}
+{%- assign authors = authors | push: post.author -%}
+{% endif %}
 
 <article class="BlogPost{% if page.layout != 'blog_post' %} is-excerpt{% endif %}">
 
@@ -19,10 +24,13 @@
             {% endif %}
         </h1>
         <div class="BlogPost-attribution">
-            {% if author.avatar %}
-            <a href="/blog/authors/{{ post.author }}/">{% img '{{ author.avatar }}' alt:'{{ author.avatar }}' class:BlogPost-avatar %}</a>
-            {% endif %}
-            <span class="BlogPost-author"><a href="/blog/authors/{{ post.author }}/">{{ author.full_name }}</a></span>
+            {% for author_id in authors %}
+                {%- assign author = site.data.authors[author_id] -%}
+                {% if author.avatar %}
+                <a href="/blog/authors/{{ author_id }}/">{% img '{{ author.avatar }}' alt:'{{ author.avatar }}' class:BlogPost-avatar %}</a>
+                {% endif %}
+                <span class="BlogPost-author"><a href="/blog/authors/{{ author_id }}/">{{ author.full_name }}</a></span>
+            {% endfor %}
         </div>
     </header>
 
@@ -46,17 +54,22 @@
         {%- endif -%}
     </div>
 
-    {% if page.layout == 'blog_post' and author.bio %}
+    {% if page.layout == 'blog_post' %}
+        {% for author_id in authors %}
+            {%- assign author = site.data.authors[author_id] -%}
+            {% if author.bio %}
         <div class="BlogPost-author-bio">
             <div class="BlogPost-attribution">
                 {% if author.avatar %}
-                <a href="/blog/authors/{{ post.author }}/">{% img '{{ author.avatar }}' alt:'{{ author.avatar }}' class:BlogPost-avatar %}</a>
+                <a href="/blog/authors/{{ author_id }}/">{% img '{{ author.avatar }}' alt:'{{ author.avatar }}' class:BlogPost-avatar %}</a>
                 {% endif %}
                 <span class="BlogPost-author"><a href="/blog/authors/{{ post.author }}/">{{ author.full_name }}</a></span>
             </div>
 
             <p>{{ author.bio }}</p>
         </div>
+            {% endif %}
+        {% endfor %}
     {% endif %}
 
     {% if page.layout == 'blog_post' and post.comments != false %}
