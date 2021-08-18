@@ -105,6 +105,23 @@ lee-brandt:
   twitter: https://twitter.com/leebrandt
   github: https://github.com/leebrandt
 
+lars-johansen:
+  full_name: Lars K. Johansen
+  display_name: Lars K. Johansen
+  avatar: avatar-lars.jpg
+  email: lars.johansen@okta.com
+  web: https://www.linkedin.com/in/larskrjo
+  twitter: https://twitter.com/larskrjo
+  github: https://github.com/larskrjo
+  bio:
+    Lars K. Johansen is a Staff Software Engineer and the lead for the Customer Federations team in the CIAM 
+    (Customer Identity Access Management) Products sphere at Okta. He has a great passion for software that 
+    involves security, scalability, efficiency, and reliability. Lars was born and raised in Oslo, Norway, and 
+    he enjoys going on hikes, playing tennis, and loves to cook and eat delicious food. Before Okta, 
+    Lars was a graduate student at Harvard University, holds a Master's Degree from The Norwegian University of 
+    Science and Technology (NTNU), and most recently wrote his Master's Thesis on the topic of Network Coding at 
+    Massachusetts Institute of Technology (MIT).
+
 brian-demers:
   full_name: Brian Demers
   display_name: Brian Demers
@@ -119,6 +136,18 @@ brian-demers:
     typical software development, Brian also has a passion for fast builds and automation.
     Away from the keyboard, Brian is a beekeeper and can likely be found playing board games.
     You can find him on Twitter at <a href="https://twitter.com/briandemers">@briandemers</a>.
+
+xinxin-zhu:
+  full_name: Xinxin Zhu
+  display_name: Xinxin Zhu
+  avatar: avatar-xinxinzhu.jpg
+  email: xinxinzhu@api7.ai
+  twitter: https://twitter.com/starszcan
+  github: https://github.com/starsz
+  bio:
+    Xinxin Zhu is a System Engineer at API7.AI and a committer for the Apache APISIX project. He is an open-source enthusiast and
+    a Golang developer. Now, he is working on the control plane of Apache APISIX writing code, reviewing code, and answering questions
+    in the community. Xinxin Zhu is a fun guy, you can find him on Twitter at <a href="https://twitter.com/starszcan">@starszcan</a> 🙂
 
 huan-liu:
   full_name: Huan Liu
