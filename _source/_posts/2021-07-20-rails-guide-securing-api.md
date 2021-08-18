@@ -214,8 +214,10 @@ To fix this, we will need to get an access token from Okta and send it to our AP
 
 The format of the URLs should be something like below:
 
-Authorization URL: `https://{{yourdomain}}.okta.com/oauth2/default/v1/authorize`
-Token URL: `https://{{yourdomain}}.okta.com/oauth2/default/v1/token`
+{% raw %}
+- Authorization URL: `https://{{yourdomain}}.okta.com/oauth2/default/v1/authorize`
+- Token URL: `https://{{yourdomain}}.okta.com/oauth2/default/v1/token`
+{% endraw %}
 
 In Postman, it should all look like the following. (If yours looks different, try to make it look like below with your own values.)
 
@@ -267,6 +269,7 @@ Oh yeah, it's working! Now, what if we want to add some extra validation, like o
 
 The application controller will now look like this:
 
+{% raw %}
 ```ruby
 class ApplicationController < ActionController::Base
     before_action :require_jwt
@@ -302,6 +305,7 @@ class ApplicationController < ActionController::Base
 
 end
 ```
+{% endraw %}
 
 For reference here is also a screenshot of my code:
 
