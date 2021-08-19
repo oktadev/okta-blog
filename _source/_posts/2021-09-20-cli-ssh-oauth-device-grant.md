@@ -151,9 +151,9 @@ PAM_EXTERN int pam_sm_setcred( pam_handle_t *pamh, int flags, int argc, const ch
 PAM_EXTERN int pam_sm_authenticate( pam_handle_t *pamh, int flags,int argc, const char **argv )
 ```
 
-The second interface handles the authentication flow, which holds all our authentication logic. The code is self explanatory, so we'll only cover the high-level steps:
+The second interface handles the authentication flow, which holds all our authentication logic. The code is self-explanatory, so we'll only cover the high-level steps:
 
-1. First, plug in your org's urls in `deviceflow.c`. Change the url based on your org name and whether you are using the org Authentication Server or a custom Authentication Server. Also, define the client ID for the Native App where you've enabled the Device Authorization grant type.
+1. First, plug in your org's URLs in `deviceflow.c`. Change the URL based on your org name and whether you are using the org Authentication Server or a custom Authentication Server. Also, define the client ID for the Native App where you've enabled the Device Authorization grant type.
 
    ```c
    #define DEVICE_AUTHORIZE_URL  "https://dev-133337.okta.com/oauth2/v1/device/authorize"
@@ -247,7 +247,7 @@ sudo ld -x --shared -o /lib/security/deviceflow.so deviceflow.o qr.o \
         -lm -lqrencode -lcurl -lssl -lcrypto
 ```
 
-The second command installs the compiled PAM module under /lib/security, which is where PAM looks for additional plugin modules.
+The second command installs the compiled PAM module under `/lib/security`, which is where PAM looks for additional plugin modules.
 
 Then we restart SSHD daemon to make sure the new PAM module is invoked:
 
