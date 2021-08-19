@@ -91,19 +91,19 @@ Follow these steps to add a new app that supports the Device Grant.
 
 1. In **Applications**->**Applications**, click **Create App Integration**. In the pop-up, choose **OIDC - OpenID Connect**, then **Native Application**. The Device Grant is only available for Native Applications.
 
-{% img blog/cli-ssh-oauth-device-grant/create-native-app.png alt:"set up a native app" width:"800" %}{: .center-image }
+   {% img blog/cli-ssh-oauth-device-grant/create-native-app.png alt:"set up a native app" width:"800" %}{: .center-image }
 
 2. In the next step, check **Device Authorization** in the **Grant type** section.
 
-{% img blog/cli-ssh-oauth-device-grant/enable-device-flow.png alt:"enable device flow" width:"800" %}{: .center-image }
-
-If you want to use a custom Authorization Server, you also need to accept the grant type in the authorization server's policy interface:
-
-1. Go to **Security**->**API**
-1. Select the authorization server you want to use (for example, default).
-1. Click the **Access Policies** tab, and edit the rule for your policy.  Make sure to select the **Device Authorization** checkbox.
-
-{% img blog/cli-ssh-oauth-device-grant/custom-as.png alt:"enable device flow on a custom Authorization Server" width:"800" %}{: .center-image }
+   {% img blog/cli-ssh-oauth-device-grant/enable-device-flow.png alt:"enable device flow" width:"800" %}{: .center-image }
+   
+   If you want to use a custom Authorization Server, you also need to accept the grant type in the authorization server's policy interface:
+   
+   1. Go to **Security**->**API**
+   1. Select the authorization server you want to use (for example, default).
+   1. Click the **Access Policies** tab, and edit the rule for your policy.  Make sure to select the **Device Authorization** checkbox.
+   
+   {% img blog/cli-ssh-oauth-device-grant/custom-as.png alt:"enable device flow on a custom Authorization Server" width:"800" %}{: .center-image }
 
 ## How to Enable an SSH Server with Device Authorization
 
