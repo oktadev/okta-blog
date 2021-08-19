@@ -224,7 +224,7 @@ The second interface handles the authentication flow, which holds all our authen
    }
    ```
 
-   In above, we set the communication type to `PAM_TEXT_INFO` to indicate that we want to send a message to the user. In the `pam_get_item` call, we retrieve the PAM conversation module `conv`, and in the following line, we just invoke the `conv` module, which writes the message to the user console.
+   In the above, we set the communication type to `PAM_TEXT_INFO` to indicate that we want to send a message to the user. In the `pam_get_item` call, we retrieve the PAM conversation module `conv`, and in the following line, we just invoke the `conv` module, which writes the message to the user console.
 
 4. We periodically issue a POST call to the token endpoint. If the POST result gives a token back, we return `PAM_SUCCESS` to allow the user to log in, or eventually, we return `PAM_AUTH_ERR` to signal authentication failure and deny user access.
 
