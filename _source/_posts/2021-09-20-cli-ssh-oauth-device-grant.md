@@ -15,7 +15,7 @@ type: conversion
 
 Even if you've never heard of the OAuth 2.0 Device Authorization Grant, formerly known as the Device Flow, you've probably seen it in action on a smart TV or other streaming device. The Device Authorization Grant is commonly used on devices with limited keyboard input ability. The process allows you to log in to an account more easily via a separate browser on your laptop, mobile phone, or other companion rich-input device.
 
-For instance, if AtkoTV is launching a streaming service; its streaming Apple TV app might present you with something like the sign-in screen below. Instead of struggling to input anything on your TV, you'd log in on your laptop or mobile phone to complete the sign-in process.
+For instance, if AtkoTV is launching a streaming service, its streaming Apple TV app might present you with something like the sign-in screen below. Instead of struggling to input anything on your TV, you'd log in on your laptop or mobile phone to complete the sign-in process.
 
 {% img blog/cli-ssh-oauth-device-grant/device-flow-on-tv.png alt:"device flow on tv" width:"800" %}{: .center-image }
 
@@ -79,7 +79,7 @@ Otherwise, we'll get a response back with the `access_token`, `refresh_token` an
 
 ## How to Enable the Device Grant in Okta
 
-<!-- Remove following section after features is GA →
+<!-- Remove following section after features is GA -->
 
 The Device Grant is an *Early Availability* feature on the Okta platform. First, you'll need to enable the feature from your org dashboard. From the left navigation pane in the Admin Console, go to **Settings** -> **Features**, locate the OAuth 2.0 Device Authorization Grant slider, and slide to enable. 
 
@@ -186,7 +186,7 @@ The second interface handles the authentication flow, which holds all our authen
 
     The `WriteMemoryCallback` function saves the callback results in a `chunk` buffer. Then, we use a helper function `getValueForKey` to extract the value fields for keys `user_code`, `device_code`, and `verification_uri`. 
 
-3. We then prompt the user to login to the activate endpoint. For a more pleasant user experience, we incorporate the URL inside a QRCode. We leveraged the code from Y2Z/qr:  Text-based QR Code® generator to generate ASCII output so that it will output properly in the command shell. 
+3. We then prompt the user to login to the activate endpoint. For a more pleasant user experience, we incorporate the URL inside a QRCode. We leveraged the code from [Y2Z/qr](https://github.com/Y2Z/qr) to generate ASCII output so that it will output properly in the command shell. 
 
     ```c
     char * qrc = getQR(activateUrl);
@@ -232,7 +232,7 @@ The second interface handles the authentication flow, which holds all our authen
    sprintf(postData, "device_code=%s&grant_type=urn:ietf:params:oauth:grant-type:device_code&client_id=%s", devicecode, CLIENT_ID);
 
    while (waitingForActivate) {
-      issuePost(tokenUrl, postData);
+      issuePost(TOKEN_URL, postData);
       // ...
    }
    ```
