@@ -13,6 +13,8 @@ tweets:
 image: blog/apache-apisix-gateway/apisix-social.jpg
 type: conversion
 canonical-url: https://apisix.apache.org/blog/2021/08/16/Using-the-Apache-APISIX-OpenID-Connect-Plugin-for-Centralized-Authentication
+redirect_from:
+- "/blog/2021/09/18/apache-apisix-gateway"
 ---
 
 [Apache APISIX](https://github.com/apache/apisix) is a dynamic, real-time, high-performance API gateway, providing rich traffic management. The project offers load balancing, dynamic upstream, canary release, circuit breaking, authentication, observability, and many useful plugins. In addition, the gateway supports dynamic plugin changes along with hot-plugging. The OpenID Connect plugin for Apache APISIX allows users to replace traditional authentication mode with centralized identity authentication mode via OpenID Connect.
