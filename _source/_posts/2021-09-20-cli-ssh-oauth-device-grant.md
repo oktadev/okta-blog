@@ -161,7 +161,7 @@ The second interface handles the authentication flow, which holds all our authen
    #define CLIENT_ID "0oa15wulqt5yqD9FP5d7"
    ```
 
-2. We first issue a POST call to our `authorize` endpoint on the Authorization Server. From the POST result, we can extract the `device_code` and `user_code`. The POST call is abstracted away as a call to a helper function `issuePost` which takes the URL as the first parameter and the POST data as the second parameter:
+2. We first issue a POST call to our `authorize` endpoint on the Authorization Server. From the POST result, we can extract the `device_code` and `user_code`. The POST call is abstracted away as a call to a helper function `issuePost`, which takes the URL as the first parameter and the POST data as the second parameter:
 
    ```c
    sprintf(postData, "client_id=%s&scope=openid profile offline_access", CLIENT_ID);
