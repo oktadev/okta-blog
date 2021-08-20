@@ -9,7 +9,7 @@ tags: [oauth, oauth2, security, mobile, oauth2-device-flow, device-flow, ssh, c]
 tweets:
 - "Here's how to do command line login for input-constrained devices, using the OAuth 2.0 Device Authorization Grant. Stream on!"
 - "Command line sign-in to input-constrained devices—check it out and tell us what you think!"
-#image: blog/cli-ssh-oauth-device-grant/social.jpg
+image: blog/cli-ssh-oauth-device-grant/social.jpg
 type: conversion
 ---
 
