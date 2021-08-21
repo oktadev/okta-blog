@@ -11,7 +11,7 @@ tweets:
 - ""
 - ""
 Image: blog/
-type: awareness|conversion
+type: awareness
 ---
 
 # Developer Day 2021: A Free Virtual Event to Celebrate the Future of Identity 
