@@ -41,7 +41,7 @@ I’m particularly excited about the diversity of our community, which we’ll s
 
 ## Register to Participate in Developer Day
 
-If you haven’t already registered for Developer Day, please head to our [Developer Day website](https://www.okta.com/developerday/) to sign up – it’s free and virtual, so you can tune in from wherever you are. And you can join our free, interactive learning sessions on August 25th by visiting the [Developer Day Labs livestream](https://developer-day.live/).
+If you haven’t already registered, please head to our [Developer Day website](https://www.okta.com/developerday/) to sign up – it’s free and virtual, so you can tune in from wherever you are. And you can join our free, interactive learning sessions on August 25th by visiting the [Developer Day Labs livestream](https://developer-day.live/).
 
 I hope to see you there!
 
