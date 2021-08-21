@@ -14,7 +14,7 @@ Image: blog/
 type: awareness
 ---
 
-# Developer Day 2021: A Free Virtual Event to Celebrate the Future of Identity 
+# Developer Day 2021: Celebrating the Future of Identity
 
 
 It’s been a big year for Okta and Auth0. Our two companies have officially joined forces over the past few months, and we are excited about the chance to shape the future of identity together. It’s great to celebrate our combined developer communities at the first Developer Day event. 
