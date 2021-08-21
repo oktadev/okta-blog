@@ -5,7 +5,7 @@ Author: ali-spivak
 by: advocate 
 communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
 description: "Announcing Developer Day 2021: Auth for All with Okta and Auth0. Check out our speaker lineup, and register now. "
-tags: [identity, authorization, authentication, developer community]
+tags: [identity, authorization, authentication, developer-community]
 tweets:
 - ""
 - ""
