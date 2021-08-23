@@ -51,6 +51,14 @@ CAUTION: Spring Cloud no longer supports Netflix Zuul. An https://github.com/spr
 
 toc::[]
 
+You can also https://youtu.be/SQFl7ggNYIE[watch this tutorial as a screencast].
+
+++++
+<div style="text-align: center; margin-bottom: 1.25rem">
+<iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/SQFl7ggNYIE" title="Kubernetes to the Cloud with Spring Boot and JHipster" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+++++
+
 == A Brief Intro to Kubernetes (K8s)
 
 Kubernetes is an open-source project from Google that provides an API for deploying your apps and making them talk with each other. It helps automate deployments and updates, and manages your apps and services with limited downtime. You use Docker containers and YAML to make it all work.
