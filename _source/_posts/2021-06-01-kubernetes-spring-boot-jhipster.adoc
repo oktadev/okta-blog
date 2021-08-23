@@ -9,7 +9,7 @@ tags: [kubernetes, spring-boot, google-cloud, gke, minikube, jhipster, k9s, java
 tweets:
 - "Avoid YAML and use JHipster to deploy your @springboot apps with @kubernetesio."
 - "Dislike YAML? Me too! This 20-page Kubernetes tutorial only has 60 lines of YAML and you only need to write 36 of them. 😏"
-- "JHipster make it easy to create reactive @java microservices and deploy them with @kubernetesio. Learn more in this tutorial! 👇"
+- "JHipster makes it easy to create reactive @java microservices and deploy them with @kubernetesio. Learn more in this tutorial! 👇"
 image: blog/reactive-java-kubernetes/reactive-java-k8s.png
 type: conversion
 changelog:
