@@ -41,5 +41,5 @@ If you haven't already registered, please head to our [Developer Day website](ht
 I hope to see you there!
 
 
->**Note:** Recordings of the Developer Day sessions will be available on the event website for several weeks after the event, so don't hesitate to register even if you can't join us synchronously in real-time. 
+>**Note:** Developer Day sessions will be available in the platform until September 17th, so don't hesitate to register even if you can't join us synchronously in real-time.
 
