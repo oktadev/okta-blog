@@ -1,25 +1,25 @@
 ---
 layout: blog_post
-title: "Developer Day 2021:  Authentication, Authorization, and Celebrating Our Diverse Developer Community"
+title: "Developer Day 2021: Celebrating the Future of Identity"
 author: ali-spivak
 by: advocate 
 communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
 description: "Announcing Developer Day 2021: Auth for All with Okta and Auth0. Check out our speaker lineup, and register now. "
 tags: [identity, authorization, authentication, developer-community, conference]
 tweets:
+"It's free, it's virtual, and you can still sign up for Developer Day on August 24th! Tune in from wherever you are to explore the future of identity. Join our free, interactive learning sessions on August 25th. "
 - ""
 - ""
 - ""
-Image: blog/free-virtual-developer-day-auth-for-all/social.png
+image: blog/free-virtual-developer-day-auth-for-all/social.png
 type: awareness
 ---
 
-# Developer Day 2021: Celebrating the Future of Identity
 
 
 It's been a big year for Okta and Auth0. Our two companies have officially joined forces over the past few months, and we are excited about the chance to shape the future of identity together. It's great to celebrate our combined developer communities at the first Developer Day event. 
 
-I look forward to exploring more ways to bring our communities together in the future in collaboration with our Auth0 counterparts. 
+I look forward to exploring more ways we can collaborate with our Auth0 counterparts and far-flung global communities through future events and activities. 
 
 On Tuesday, 8/24, Developer Day will bring our communities together under the powerful idea of "Auth for All," featuring speakers from Okta, Auth0, and the broader developer ecosystem. We'll dive into app security, OAuth, infrastructure, and more. We are also hosting a day of free, hands-on virtual labs on August 25th, giving developers a chance to learn by doing. 
 
