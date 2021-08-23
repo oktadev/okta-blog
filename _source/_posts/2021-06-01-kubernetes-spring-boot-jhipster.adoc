@@ -9,7 +9,7 @@ tags: [kubernetes, spring-boot, google-cloud, gke, minikube, jhipster, k9s, java
 tweets:
 - "Avoid YAML and use JHipster to deploy your @springboot apps with @kubernetesio."
 - "Dislike YAML? Me too! This 20-page Kubernetes tutorial only has 60 lines of YAML and you only need to write 36 of them. 😏"
-- "JHipsters make it easy to create reactive @java microservices and deploy them with @kubernetesio. Learn more in this tutorial! 👇"
+- "JHipster makes it easy to create reactive @java microservices and deploy them with @kubernetesio. Learn more in this tutorial! 👇"
 image: blog/reactive-java-kubernetes/reactive-java-k8s.png
 type: conversion
 changelog:
@@ -50,6 +50,14 @@ CAUTION: Spring Cloud no longer supports Netflix Zuul. An https://github.com/spr
 - A https://cloud.google.com/[Google Cloud] Account
 
 toc::[]
+
+You can also https://youtu.be/SQFl7ggNYIE[watch this tutorial as a screencast].
+
+++++
+<div style="text-align: center; margin-bottom: 1.25rem">
+<iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/SQFl7ggNYIE" title="Kubernetes to the Cloud with Spring Boot and JHipster" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+++++
 
 == A Brief Intro to Kubernetes (K8s)
 
