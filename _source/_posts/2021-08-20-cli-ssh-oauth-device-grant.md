@@ -42,6 +42,7 @@ We will get back a response:
   "device_code": "df1b060b-4e36-4bbe-98aa-5dcb11909f5f",
   "user_code": "DRTDNTJC",
   "verification_uri": "https://dev-133337.okta.com/activate",
+  "verification_uri_complete": "https://dev-133337.okta.com/activate?user_code=DRTDNTJC",
   "expires_in": 600,
   "interval": 5
 }
@@ -184,15 +185,16 @@ The second interface handles the authentication flow, which holds all our authen
    }
    ```
 
-    The `WriteMemoryCallback` function saves the callback results in a `chunk` buffer. Then, we use a helper function `getValueForKey` to extract the value fields for keys `user_code`, `device_code`, and `verification_uri`. 
+    The `WriteMemoryCallback` function saves the callback results in a `chunk` buffer. Then, we use a helper function `getValueForKey` to extract the value fields for keys `user_code`, `device_code`, and `verification_uri_complete`. 
 
-3. We then prompt the user to login to the activate endpoint. For a more pleasant user experience, we incorporate the URL inside a QRCode. We leveraged the code from [Y2Z/qr](https://github.com/Y2Z/qr) to generate ASCII output so that it will output properly in the command shell. 
+
+3. We then prompt the user to login to the activate endpoint. For a more pleasant user experience, we incorporate the URL inside a QRCode. We use the value field for `verification_uri_complete`, which includes `user_code` as part of the query parameters, so that a user does not have to type in the code manually. We leveraged the code from [Y2Z/qr](https://github.com/Y2Z/qr) to generate ASCII output so that it will output properly in the command shell. 
 
     ```c
     char * qrc = getQR(activateUrl);
     sprintf(prompt_message, 
-      "\n\nPlease login at %s or scan the QRCode below:\nThen input code %s\n\n%s", 
-      activateUrl, usercode, qrc);
+      "\n\nPlease login at %s or scan the QRCode below:\n\n%s", 
+      activateUrl, qrc);
     free(qrc);
     sendPAMMessage(pamh, prompt_message);
     ```
@@ -226,6 +228,7 @@ The second interface handles the authentication flow, which holds all our authen
 
    In the above, we set the communication type to `PAM_TEXT_INFO` to indicate that we want to send a message to the user. In the `pam_get_item` call, we retrieve the PAM conversation module `conv`, and in the following line, we just invoke the `conv` module, which writes the message to the user console.
 
+
 4. We periodically issue a POST call to the token endpoint. If the POST result gives a token back, we return `PAM_SUCCESS` to allow the user to log in, or eventually, we return `PAM_AUTH_ERR` to signal authentication failure and deny user access.
 
    ```c
@@ -252,7 +255,7 @@ The second command installs the compiled PAM module under `/lib/security`, which
 Then we restart SSHD daemon to make sure the new PAM module is invoked:
 
 ```sh
-sudo /etc/init.d/ssh restart`
+sudo /etc/init.d/ssh restart
 ```
 
 In the repo, we've also included a [`Dockerfile`](https://github.com/oktadev/okta-ssh-oauth-example/blob/master/Dockerfile), so you'll have a local Ubuntu container in which to try out the new SSH sign-in flow.
