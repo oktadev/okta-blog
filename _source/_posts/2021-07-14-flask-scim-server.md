@@ -35,7 +35,7 @@ At a very high level, the SCIM (System for Cross-Identity Management) protocol e
     - `python manage.py db migrate`
     - `python manage.py db upgrade`
     
-    > Feel free to hop back to your postgres tab and run ```\c scim``` to navigate into the scim db, then ```\dt``` to see your new tables: ```groups```, ```users```, ```link```. (Link is a table facilitating the many-to-many relationship between users and groups)
+    > Feel free to hop back to your postgres tab and run `\c scim` to navigate into the scim db, then `\dt` to see your new tables: `groups`, `users`, `link```. (Link is a table facilitating the many-to-many relationship between users and groups)
 
 7. Everything should be setup now to run the server locally. Finally run ```python app.py``` to do so. You should now have your SCIM server running on http://localhost:5000.
 
