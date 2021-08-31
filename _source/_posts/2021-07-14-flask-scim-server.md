@@ -191,7 +191,7 @@ GET /scim/v2/Users?filter=userName%20eq%20%22obi-wan.kenobi%40iamciam.dev%22&sta
 ```http
 200 OK
 ```
-```
+```json
 {
     "Resources": [],
     "itemsPerPage": 0,
