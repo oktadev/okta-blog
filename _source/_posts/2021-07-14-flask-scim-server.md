@@ -333,7 +333,7 @@ GET /scim/v2/Users?filter=userName%20eq%20%22c-3po%40iamciam.dev%22&startIndex=1
 }
 ```
  - *Okta Request:*
-```
+```http
 POST /scim/v2/Users
 ```
 ```
