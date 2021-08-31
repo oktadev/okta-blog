@@ -407,7 +407,7 @@ As mentioned above, assigning a group in Okta only adds the users to my SCIM ser
 ```http
 POST /scim/v2/Groups
 ```
-```
+```json
 {
     "schemas": [
         "urn:ietf:params:scim:schemas:core:2.0:Group"
