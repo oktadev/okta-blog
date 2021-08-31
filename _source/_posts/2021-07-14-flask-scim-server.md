@@ -29,20 +29,23 @@ At a very high level, the SCIM (System for Cross-Identity Management) protocol e
 2.  Create a new virtualenv in the root folder with `virtualenv env`
 3.  Run the virtual environment with `source env/bin/activate`
 4.  Install necessary Python packages with ```pip install -r requirements.txt```
-5.  Create a new Postgres database named `scim`. Enter the `psql` shell by opening a new terminal tab and typing `psql postgres`. Create the DB with `CREATE DATABASE scim;` (Run `\l` to double-check the database has been created)
-6.  Go back to the terminal tab that is in the flask app root. Run the following commands to create migrations and tables in the `scim` database:
+5.  Install [Postgres](https://www.postgresql.org/download/).
+6.  Create a new Postgres database named `scim`. Enter the `psql` shell by opening a new terminal tab and typing `psql postgres`. Create the DB with `CREATE DATABASE scim;` (Run `\list` to double-check the database has been created)
+7.  Go back to the terminal tab that is in the flask app root. Run the following commands to create migrations and tables in the `scim` database:
     - `python manage.py db init`
     - `python manage.py db migrate`
     - `python manage.py db upgrade`
     
-    > Feel free to hop back to your postgres tab and run `\c scim` to navigate into the scim db, then `\dt` to see your new tables: `groups`, `users`, `link```. (Link is a table facilitating the many-to-many relationship between users and groups)
+    > Feel free to hop back to your postgres tab and run `\c scim` to navigate into the scim db, then `\dt` to see your new tables: `groups`, `users`, `link`. (Link is a table facilitating the many-to-many relationship between users and groups)
 
-7. Everything should be setup now to run the server locally. Finally, run `python app.py` to do so. You should now have your SCIM server running on http://localhost:5000.
+8. Everything should be setup now to run the server locally. Finally, run `python app.py` to do so. You should now have your SCIM server running on http://localhost:5000.
 
 ### Set Up Ngrok to Route Requests From Okta to Localhost
 
 
 Once you have ngrok installed, run `./ngrok http 5000` to create a tunnel from ngrok to your `http://localhost:5000`. Copy the `https` Forwarding URL created by ngrok as you will need it later.
+
+{% img blog/flask-scim-server/ngrok_url.png alt:"ngrok forwarding URL" width:"800" %}{: .center-image }
 
 ### Creating and configuring your Okta Application
 
@@ -62,7 +65,7 @@ Now it's time to create a new SCIM integration in Okta. If your SCIM app(s) are 
 
     {% img blog/flask-scim-server/scim_1.png alt:"Test Api Credentials UI Image" width:"800" %}{: .center-image }
 
-    > You can navigate to `http://localhost:4040` to see the request from Okta on this request, as well as the response from the SCIM server.
+    > You can check the ngrok logs by navigating to `http://localhost:4040` to see the request from Okta as well as the response from the SCIM server.
 
     {% img blog/flask-scim-server/scim_2.png alt:"Test Api Credentials Call Image" width:"800" %}{: .center-image }
 
@@ -77,7 +80,7 @@ And **Save**.
 
 {% img blog/flask-scim-server/scim_3.png alt:"Provisioning Settings Image" width:"800" %}{: .center-image }
 
-#### Option 2: Enable SCIM Provisioning for Existing AIW App
+#### Option 2: Enable SCIM Provisioning for Existing App Integration Wizard (AIW) App
 
 > Feel free to skip over this section to **Test the SCIM Server** if you set your SCIM integration up above.
 
@@ -132,35 +135,35 @@ These endpoints trigger CRUD operations based off the requests from Okta. Some e
 
 Okta Examples:
 
-- Assigning users to Okta app (`POST` to `/scim/v2/Users`)
-- Assigning groups to Okta app (Iterative `POST`s to `/scim/v2/Users`)
-- Using Push Groups to add a new group to the Okta app (`POST` to `/scim/v2/Groups`)
+- When a user is assigned to the Okta app, Okta will make a `POST` to `/scim/v2/Users`
+- When a group is assigned to the Okta app, Okta will make iterative `POST`s to `/scim/v2/Users` with each member of the group
+- When using Push Groups to add a new group to the Okta app, Okta sends a `POST` to `/scim/v2/Groups`
 
 #### READ
 
 Okta Examples:
 
-- Importing users & groups from external app (`GET` to `/scim/v2/Users` & `GET` to `/scim/v2/Groups`)
-- Get users from external app (`GET` to `/scim/v2/Users`)
-- Get user from external app (`GET` to `/scim/v2/Users/{user_id}`)
-- Get groups from external app (`GET` to `/scim/v2/Groups`)
-- Get group from external app (`GET` to `/scim/v2/Groups/{group_id}`)
+- When importing users & groups from the external app Okta sends a `GET` to `/scim/v2/Users` and/or `GET` to `/scim/v2/Groups`
+- When getting all (or filtered) users from the external app, Okta sends a `GET` to `/scim/v2/Users`
+- When getting a sole user from the external app, Okta sends a `GET` to `/scim/v2/Users/{user_id}`
+- When getting all (or filtered) groups from the external app, Okta sends a`GET` to `/scim/v2/Groups`
+- When getting a sole group from the external app, Okta sends a`GET` to `/scim/v2/Groups/{group_id}`
 
-> With the exception of import, these READ actions are initiated by Okta prior to a CREATE, UPDATE or DELETE actions. You can think of these calls as a sync verification step.
+> With the exception of import, these actions are initiated by Okta prior to a CREATE, UPDATE or DELETE action. You can think of these calls as a sync verification step.
 
 #### UPDATE
 
 Okta Examples:
 
-- Update user attribute in Okta (`PUT` or `PATCH` to `/scim/v2/Users/{user_id}`)
-- Assign or unassign a user that already exists in external app DB (`PUT` or `PATCH` to `/scim/v2/Users/{user_id}`)
-- Change membership of pushed Okta group (`PUT` or `PATCH` to `/scim/v2/Groups/{group_id}`)
+- When updating user attributes in Okta, Okta sends a `PUT` or `PATCH` to `/scim/v2/Users/{user_id}`
+- When assigning or unassigning a user that already exists in external app DB, Okta sends a `PUT` or `PATCH` to `/scim/v2/Users/{user_id}`
+- When changing membership of a pushed Okta group, Okta sends a `PUT` or `PATCH` to `/scim/v2/Groups/{group_id}`
 
 #### DELETE
 
 Okta Examples:
 
-- Selecting "Delete the group in target app" after selecting "Unlink pushed group" in the **Push Groups** tab. (`DELETE` to `/scim/v2/Groups/{group_id}`)
+- When selecting "Delete the group in target app" after selecting "Unlink pushed group" in the **Push Groups** tab, okta sends a `DELETE` to `/scim/v2/Groups/{group_id}`
 
 Let's move on to testing the SCIM server to see some of these calls in action!
 
@@ -174,7 +177,9 @@ Let's move on to testing the SCIM server to see some of these calls in action!
 
 `if request.headers['Authorization'].split('Bearer ')[1] == '123456789':`
 
-Replace '123456789' with whatever unique value you'd like and make sure to update this in the provisioning tab of your Okta integrations.
+Replace 123456789 with whatever unique value you'd like and make sure to update this in the provisioning tab of your Okta integrations.
+
+>**Note**: This is just for convenience in testing - NEVER store sensitive credentials in source code. More info [here](https://developer.okta.com/books/api-security/api-keys/keep-keys-private/#api-keys-keep-keys-private).
 
 >Authentication exists to protect your endpoints from unwanted requests. In this guide we setup header authorization, but you can also use basic auth or OAuth. This tutorial doesn't delve too deeply into this aspect of SCIM.
 
@@ -234,6 +239,9 @@ POST /scim/v2/Users
     "active": true
 }
 ```
+
+>**Note**: The above password value is randomly generated by Okta as many external apps require this value on user creation. As the app is federated, this password cannot be used to login.
+
  - *SCIM Server Response:*
 ```http
 201 CREATED
