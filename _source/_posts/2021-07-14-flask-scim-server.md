@@ -446,7 +446,7 @@ POST /scim/v2/Groups
 }
 ```
  - *Okta Request:*
-```
+```http
 PATCH /scim/v2/Groups/b446521a-a65b-4c0b-a5ee-0a15e8e3e908
 ```
 ```
