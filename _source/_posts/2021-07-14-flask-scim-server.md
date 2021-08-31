@@ -429,7 +429,7 @@ POST /scim/v2/Groups
     ]
 ```
  - *SCIM Server Response:*
-```
+```http
 201 CREATED
 ```
 ```
