@@ -365,7 +365,7 @@ POST /scim/v2/Users
 ```http
 201 CREATED
 ```
-```
+```json
 {
     "active": true,
     "displayName": "C 3PO",
