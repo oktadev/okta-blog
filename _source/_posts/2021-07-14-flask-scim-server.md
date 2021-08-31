@@ -280,7 +280,7 @@ Let's go ahead and unassign the user we just assigned in Okta. Under **Assignmen
 
 The request/response should look like this:
  - *Okta Request:*
-```
+```http
 PATCH /scim/v2/Users/289383d9-ff3a-48bb-99ea-3048762267c7
 ```
 ```
