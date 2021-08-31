@@ -42,7 +42,7 @@ At a very high level, the SCIM (System for Cross-Identity Management) protocol e
 ### Set Up Ngrok to Route Requests From Okta to Localhost
 
 
-Once you have ngrok installed, run ```./ngrok http 5000``` to create a tunnel from ngrok to your http://localhost:5000. Copy the ```https``` Forwarding URL created by ngrok as you will need it later.
+Once you have ngrok installed, run `./ngrok http 5000` to create a tunnel from ngrok to your `http://localhost:5000`. Copy the `https` Forwarding URL created by ngrok as you will need it later.
 
 ### Creating and configuring your Okta Application
 
