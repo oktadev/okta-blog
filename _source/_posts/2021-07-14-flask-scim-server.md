@@ -235,7 +235,7 @@ POST /scim/v2/Users
 }
 ```
  - *SCIM Server Response:*
-```
+```http
 201 CREATED
 ```
 ```
