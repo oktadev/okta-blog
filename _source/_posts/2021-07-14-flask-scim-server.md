@@ -432,7 +432,7 @@ POST /scim/v2/Groups
 ```http
 201 CREATED
 ```
-```
+```json
 {
     "displayName": "Droids",
     "id": "b446521a-a65b-4c0b-a5ee-0a15e8e3e908",
