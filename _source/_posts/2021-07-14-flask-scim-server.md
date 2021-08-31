@@ -188,7 +188,7 @@ GET /scim/v2/Users?filter=userName%20eq%20%22obi-wan.kenobi%40iamciam.dev%22&sta
 >Okta will first run a GET with a userName filter query parameter to see if the user already exists in the external app, since no external ID for the user yet exists to link them to the Okta user.
 
  - *SCIM Server Response:*
-```
+```http
 200 OK
 ```
 ```
