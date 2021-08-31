@@ -238,7 +238,7 @@ POST /scim/v2/Users
 ```http
 201 CREATED
 ```
-```
+```json
 {
     "active": true,
     "displayName": "Obi-Wan Kenobi",
