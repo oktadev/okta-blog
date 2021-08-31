@@ -318,7 +318,7 @@ Under the **Assignments** tab, click **Assign** -> **Assign to Groups**. I assig
 GET /scim/v2/Users?filter=userName%20eq%20%22c-3po%40iamciam.dev%22&startIndex=1&count=100
 ```
  - *SCIM Server Response:*
-```
+```http
 200 OK
 ```
 ```
