@@ -321,7 +321,7 @@ GET /scim/v2/Users?filter=userName%20eq%20%22c-3po%40iamciam.dev%22&startIndex=1
 ```http
 200 OK
 ```
-```
+```json
 {
     "Resources": [],
     "itemsPerPage": 0,
