@@ -69,9 +69,9 @@ Now it's time to create a new SCIM integration in Okta. If your SCIM app(s) are 
 9. Click **Save**. Now your **Provisoning** tab will look a bit different.
 
 10. Click **Edit** next to **Provisioning to App** and check off:
-    - Create Users
-    - Update User Attributes
-    - Deactivate Users
+    - **Create Users**
+    - **Update User Attributes**
+    - **Deactivate Users**
     
 And **Save**.
 
