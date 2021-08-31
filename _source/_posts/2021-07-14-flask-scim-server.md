@@ -209,7 +209,7 @@ GET /scim/v2/Users?filter=userName%20eq%20%22obi-wan.kenobi%40iamciam.dev%22&sta
 ```http
 POST /scim/v2/Users
 ```
-```
+```http
 {
     "schemas": [
         "urn:ietf:params:scim:schemas:core:2.0:User"
