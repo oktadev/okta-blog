@@ -314,7 +314,7 @@ PATCH /scim/v2/Users/289383d9-ff3a-48bb-99ea-3048762267c7
 Under the **Assignments** tab, click **Assign** -> **Assign to Groups**. I assigned group **Droids**. Note that this acts similar to the above assigning of individual users. Okta will iterate through the group membership and create them in the external SCIM server - but the Group itself won't be made. That is done in **Push Groups** which we will handle later. Here is a look at the requests and responses from Okta to the SCIM server:
 
  - *Okta Request:*
-```
+```http
 GET /scim/v2/Users?filter=userName%20eq%20%22c-3po%40iamciam.dev%22&startIndex=1&count=100
 ```
  - *SCIM Server Response:*
