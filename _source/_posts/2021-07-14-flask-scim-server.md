@@ -206,7 +206,7 @@ GET /scim/v2/Users?filter=userName%20eq%20%22obi-wan.kenobi%40iamciam.dev%22&sta
 >This response tells Okta that the user does not currently exist in the database and thus informs the next call - a `POST` to create the user.
 
  - *Okta Request:*
-```
+```http
 POST /scim/v2/Users
 ```
 ```
