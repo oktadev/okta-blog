@@ -39,7 +39,7 @@ At a very high level, the SCIM (System for Cross-Identity Management) protocol e
 
 7. Everything should be setup now to run the server locally. Finally, run `python app.py` to do so. You should now have your SCIM server running on http://localhost:5000.
 
-### Setting up ngrok to route requests from Okta to localhost
+### Set Up Ngrok to Route Requests From Okta to Localhost
 
 
 Once you have ngrok installed, run ```./ngrok http 5000``` to create a tunnel from ngrok to your http://localhost:5000. Copy the ```https``` Forwarding URL created by ngrok as you will need it later.
