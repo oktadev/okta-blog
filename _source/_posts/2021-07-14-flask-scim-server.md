@@ -164,6 +164,7 @@ Okta Examples:
 
 Let's move on to testing the SCIM server to see some of these calls in action!
 
+<a name="test-the-scim-server"/>
 ### Test the SCIM Server
 >**Note**: I am using the SCIM template integration in the below steps. If you are using the AIW version, there may be subtle differences in some of the calls. More info [here](https://developer.okta.com/docs/reference/scim/scim-20/).
 
