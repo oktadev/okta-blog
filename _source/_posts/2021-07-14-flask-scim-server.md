@@ -302,7 +302,7 @@ PATCH /scim/v2/Users/289383d9-ff3a-48bb-99ea-3048762267c7
 > Okta does not delete an unassigned user but rather updates their `active` value to `false`.
 
  - *SCIM Server Response:*
-```
+```http
 204 NO CONTENT
 ```
 
