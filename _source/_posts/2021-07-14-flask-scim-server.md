@@ -283,7 +283,7 @@ The request/response should look like this:
 ```http
 PATCH /scim/v2/Users/289383d9-ff3a-48bb-99ea-3048762267c7
 ```
-```
+```json
 {
     "schemas": [
         "urn:ietf:params:scim:api:messages:2.0:PatchOp"
