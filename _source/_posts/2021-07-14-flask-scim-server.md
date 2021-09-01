@@ -117,7 +117,7 @@ You should now be set on the Okta side to start testing the SCIM server.
 
 ### What Did We Just Do?
 
-Before we go ahead and test our SCIM server, let's talk a bit about what we did in the setup steps above. Essentially we setup the following 3 components:
+Before we go ahead and test our SCIM server, let's talk a bit about what we did in the setup steps above. Essentially we set up the following 3 components:
 
 {% img blog/flask-scim-server/flow_1.png alt:"SCIM FLow IMage" width:"1000" %}{: .center-image }
 
