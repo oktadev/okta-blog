@@ -424,7 +424,7 @@ POST /scim/v2/Users
 }
 ```
 
-- There are 3 members in my **Droids** group: C-3P0, R2-D2 and BB-8. The above req/resp chain repeats for the other 2 users. Now when I run `select * from users;` in the scim database I can see the assigned users:
+- There are 3 members in my **Droids** group: C-3P0, R2-D2, and BB-8. The above req/resp chain repeats for the other 2 users. Now when I run `select * from users;` in the scim database I can see the assigned users:
 
 {% img blog/flask-scim-server/scim_11.png alt:"Database Assigned Users Image" width:"800" %}{: .center-image }
 
