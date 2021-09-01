@@ -35,13 +35,13 @@
   },
   "homepage": "https://github.com/oktadev/okta-blog#readme",
   "devDependencies": {
-    "chalk": "4.1.1",
+    "chalk": "4.1.2",
     "cross-env": "7.0.3",
     "front-matter": "^4.0.2",
     "fs-extra": "^10.0.0",
     "pre-push": "0.1.1",
     "recursive-readdir": "2.2.2",
-    "simple-git": "^2.40.0",
-    "yargs": "^17.0.1"
+    "simple-git": "^2.45.0",
+    "yargs": "^17.1.1"
   }
 }

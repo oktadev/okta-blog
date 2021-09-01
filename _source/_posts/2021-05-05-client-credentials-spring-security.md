@@ -52,9 +52,9 @@ Another major benefit is that the tokens should expire and can be scoped. Passwo
 
 **Prerequisites**:
 
-- **Java 11**: This project uses Java 12. OpenJDK 12 will work just as well. Instructions are found on the [OpenJDK website](https://openjdk.java.net/install/). OpenJDK can also be installed using [Homebrew](https://brew.sh/). Alternatively, [SDKMAN](https://sdkman.io/) is another excellent option for installing and managing Java versions.
+- **Java 11**: This project uses Java 11. OpenJDK 11 will work just as well. Instructions are found on the [OpenJDK website](https://openjdk.java.net/install/). OpenJDK can also be installed using [Homebrew](https://brew.sh/). Alternatively, [SDKMAN](https://sdkman.io/) is another excellent option for installing and managing Java versions.
 - **HTTPie**: This is a powerful command-line HTTP request utility that you'll use to test the WebFlux server. Install it according to [the docs on their site](https://httpie.org/doc#installation).
-- **Okta CLI**: The Okta CLI is a simple way to use Okta as an OAuth 2. 0 and Open ID Connect provider. You can sign up for a free Okta developer account, log in to an existing account, and create OIDC applications. You'll use it in this tutorial to configure Okta as your OAuth 2.0 and OIDC provider.
+- **Okta CLI**: The Okta CLI is a simple way to use Okta as an OAuth 2.0 and OpenID Connect provider. You can sign up for a free Okta developer account, log in to an existing account, and create OIDC applications. You'll use it in this tutorial to configure Okta as your OAuth 2.0 and OIDC provider.
 
 ## Intro to Spring Security 5 Core Classes
 
