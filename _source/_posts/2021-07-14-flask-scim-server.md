@@ -87,7 +87,7 @@ And **Save**.
 1. In your Okta dashboard, go to **Applications** -> **Applications**, then click the **Create App Integration** button. For this setup we will select **SWA - Secure Web Authentication**. Click **Next**.
 2. You can put whatever you'd like for the **App Name** and **App Login Page URL**, as we will just be loking at the SCIM functionality and not the SWA aspect of this app. Click **Finish**.
 3. In the **General** tab of the app, click **Edit** and toggle Provisioning from **None** to **SCIM**. Click **Save**.
-4. Your app should now have a **Provisioning** tab. Tab over to it and fill out the integration settings like the below image. Make the Authorization header **123456789**. You can change this later in the SCIM flask app.
+4. Your app should now have a **Provisioning** tab. Tab over to it and fill out the integration settings to match those in the image below. Make the Authorization header **123456789**. You can change this later in the SCIM flask app.
 
     {% img blog/flask-scim-server/scim_4.png alt:"AIW SCIM Settings Image" width:"800" %}{: .center-image }
 
