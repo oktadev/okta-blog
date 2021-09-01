@@ -22,7 +22,7 @@ At a very high level, the SCIM (System for Cross-Identity Management) protocol e
 - [PostgreSQL](https://www.postgresql.org/)
 - [ngrok](https://ngrok.com/)
 
-### Setting up the Flask server and Postgres DB 
+### Setting Up the Flask Server and Postgres DB 
 {% img blog/flask-scim-server/flask_postgres.png alt:"PostgreSQL and Flask Logos Image" width:"500" %}
 
 1.  Clone the repo found [here](https://github.com/Tennyx/flask-scim-server), open terminal and `cd` into the project root.
