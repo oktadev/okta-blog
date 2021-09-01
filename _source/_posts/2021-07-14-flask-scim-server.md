@@ -10,7 +10,7 @@ tweets:
 - ""
 - ""
 - ""
-image:
+image: blog/flask-scim-server/scim-flask-social.jpg
 type: awareness
 ---
 
