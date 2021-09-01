@@ -83,7 +83,7 @@ And **Save**.
 
 #### Option 2: Enable SCIM Provisioning for Existing App Integration Wizard (AIW) App
 
-> Feel free to skip over this section to **Test the SCIM Server** if you set your SCIM integration up above.
+> Feel free to skip over this section to **Test the SCIM Server** if you set up your SCIM integration above.
 
 1. In your Okta dashboard, go to **Applications** -> **Applications**, then click the **Create App Integration** button. For this setup we will select **SWA - Secure Web Authentication**. Click **Next**.
 2. You can put whatever you'd like for the **App Name** and **App Login Page URL**, as we will just be loking at the SCIM functionality and not the SWA aspect of this app. Click **Finish**.
