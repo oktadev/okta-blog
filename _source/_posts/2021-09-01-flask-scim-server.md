@@ -552,7 +552,7 @@ And with this, you should now see your group in the SCIM database after running 
  
 {% img blog/flask-scim-server/scim_12.png alt:"Database Groups Image" width:"800" %}{: .center-image }
  
- As well as a link table which displays the many-to-many relationship between the users and groups. You can see this with `select * from link;`:
+ And you can view the link table, which displays the many-to-many relationship between the users and groups. You can see this with `select * from link;`:
  
 {% img blog/flask-scim-server/scim_13.png alt:"Database Link Table Image" width:"800" %}{: .center-image }
  
