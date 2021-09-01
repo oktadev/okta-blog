@@ -95,7 +95,7 @@ And **Save**.
 
     {% img blog/flask-scim-server/scim_5.png alt:"Test Connector Configuration UI Image" width:"800" %}{: .center-image }
 
-6. At which point, you can now click **Save**.
+6. You can now click **Save**.
 
     > You can navigate to `http://localhost:4040` to see the request from Okta on this request, as well as the response from the SCIM server.
 
