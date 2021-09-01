@@ -60,7 +60,7 @@ Now it's time to create a new SCIM integration in Okta. If your SCIM app(s) are 
 4. Click **Done**.
 5. Tab over to **Provisioning** and click **Configure API Integration.**
 6. Check **Enable API integration**.
-7. In the Base URL field, paste in the ngrok url you generated above with **/scim/v2** appended to the end. In the API Token field, type **Bearer 123456789**. (Later on we will go over how to customize this auth header, but out-of-the-box, the SCIM server expects this value)
+7. In the Base URL field, paste in the ngrok url you generated above with **/scim/v2** appended to the end. In the API Token field, type **Bearer 123456789**. (Later on we will go over how to customize this auth header, but out-of-the-box, the SCIM server expects this value.)
 8. Click **Test API Credentials** and you should get a success message like the below:
 
     {% img blog/flask-scim-server/scim_1.png alt:"Test Api Credentials UI Image" width:"800" %}{: .center-image }
