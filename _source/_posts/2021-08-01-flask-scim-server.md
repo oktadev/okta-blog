@@ -558,4 +558,5 @@ And with this, you should now see your group in the scim database after running 
  
 ### In Conclusion
 
-This covers the basic functionality of SCIM integration from Okta. Other use-cases haven't been tested extensively and may need tweaking over time, but hopefully this guide helps developers to better understand Okta's SCIM functionality.
+This covers the basic functionality of SCIM integration from Okta. Other use cases haven't been tested extensively and may need tweaking over time, but hopefully, this guide helps developers to better understand Okta's SCIM functionality.
+Got questions? You can leave them in the comments below! Want to stay in touch? Follow our social channels: [@oktadev on Twitter](https://twitter.com/oktadev), [Okta for Developers on LinkedIn](https://www.linkedin.com/company/oktadev), [Twitch](https://www.twitch.tv/oktadev), and [YouTube](https://youtube.com/oktadev). 
