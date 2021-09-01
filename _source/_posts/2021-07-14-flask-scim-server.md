@@ -121,7 +121,7 @@ Before we go ahead and test our SCIM server, let's talk a bit about what we did 
 
 {% img blog/flask-scim-server/flow_1.png alt:"SCIM FLow IMage" width:"1000" %}{: .center-image }
 
-In this setup, Okta is the source of truth for user data. The SCIM server opens up four endpoints locally which Okta is able to access thanks to the routing capabilities of ngrok. These endpoints are:
+In this setup, Okta is the source of truth for user data. The SCIM server opens up four endpoints locally, which Okta is able to access thanks to the routing capabilities of ngrok. These endpoints are:
 
 - `https://localhost:5000/scim/v2/Users`
 - `https://localhost:5000/scim/v2/Users/{user_id}`
