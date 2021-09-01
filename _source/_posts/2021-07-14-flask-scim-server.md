@@ -115,7 +115,7 @@ You should now be set on the Okta side to start testing the SCIM server.
 
 {% img blog/flask-scim-server/frodo.webp alt:"AIW Provisioning Settings Image" width:"800" %}{: .center-image }
 
-### What did we just do?
+### What Did We Just Do?
 
 Before we go ahead and test our SCIM server, let's talk a bit about what we did in the setup steps above. Essentially we setup the following 3 components:
 
