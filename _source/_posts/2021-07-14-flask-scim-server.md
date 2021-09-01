@@ -171,7 +171,7 @@ Let's move on to testing the SCIM server to see some of these calls in action!
 ### Test the SCIM Server
 >**Note**: I am using the SCIM template integration in the steps below. If you are using the AIW version, there may be subtle differences in some of the calls. More info [here](https://developer.okta.com/docs/reference/scim/scim-20/).
 
-- Navigate to `http://localhost:4040` to see all the requests and responses taking place between Okta and the SCIM server. I will be truncating mine a bit in the below examples for brevity.
+- Navigate to `http://localhost:4040` to see all the requests and responses taking place between Okta and the SCIM server. I will be truncating mine a bit in the examples below for brevity.
 
 - From the section above, you saw that we setup our SCIM integration with **Bearer 123456789** in the authorization header. You can change this header to whatever you'd like in the **app.py** file at the following line of function **auth_required**:
 
