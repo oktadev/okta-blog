@@ -458,7 +458,7 @@ POST /scim/v2/Groups
             "display": "r2-d2@iamciam.dev"
         }
     ]
-```
+ }
 
  - *SCIM Server Response:*
 
