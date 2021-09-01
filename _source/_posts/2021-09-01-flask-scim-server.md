@@ -331,7 +331,7 @@ PATCH /scim/v2/Users/289383d9-ff3a-48bb-99ea-3048762267c7
 {% img blog/flask-scim-server/scim_10.png alt:"Database Inactive User Image" width:"800" %}{: .center-image }
 
 #### Assign a Group
-Under the **Assignments** tab, click **Assign** -> **Assign to Groups**. I assigned group **Droids**. Note that this behavior is similar to the way individual users were assigned above. Okta will iterate through the group membership and create the users in the external SCIM server - but the Group itself won't be made. That is done in **Push Groups** which we will handle later. Here is a look at the requests and responses from Okta to the SCIM server:
+Under the **Assignments** tab, click **Assign** -> **Assign to Groups**. I assigned group **Droids**. Note that this behavior is similar to the way individual users were assigned above. Okta will iterate through the group membership and create the users in the external SCIM server - but the Group itself won't be made. That is done in **Push Groups**, which we will handle later. Here is a look at the requests and responses from Okta to the SCIM server:
 
  - *Okta Request:*
 
