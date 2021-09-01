@@ -130,7 +130,7 @@ In this setup, Okta is the source of truth for user data. The SCIM server opens 
 - `https://localhost:5000/scim/v2/Groups/{group_id}`
 
 
-These endpoints trigger CRUD operations based off the requests from Okta. Some examples of these calls:
+These endpoints trigger [CRUD operations](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) based off the requests from Okta. Some examples of these calls:
 
 #### CREATE
 
