@@ -181,7 +181,7 @@ Replace 123456789 with whatever unique value you'd like and make sure to update 
 
 >**Note**: This is just for convenience in testing - NEVER store sensitive credentials in source code. More info [here](https://developer.okta.com/books/api-security/api-keys/keep-keys-private/#api-keys-keep-keys-private).
 
->Authentication exists to protect your endpoints from unwanted requests. In this guide we setup header authorization, but you can also use basic auth or OAuth. This tutorial doesn't delve too deeply into this aspect of SCIM.
+>Authentication exists to protect your endpoints from unwanted requests. In this guide we set up header authorization, but you can also use basic auth or OAuth. This tutorial doesn't delve too deeply into this aspect of SCIM.
 
 #### Assign a User
 Under the **Assignments** tab, click **Assign** -> **Assign to People**. I assigned user **obi-wan.kenobi@iamciam.dev**. Here is a look at the requests and responses from Okta to my SCIM server:
