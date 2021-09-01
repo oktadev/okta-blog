@@ -1,13 +1,14 @@
 ---
 layout: blog_post
-title: "Okta, SCIM and Flask"
+title: "How to Build a Flask SCIM Server Configured for Use with Okta"
 author: cale-switzer
 by: advocate
 communities: [python]
 description: "Using a Flask SCIM server, learn more about the how & why behind how Okta implements the provisioning protocol."
 tags: [scim, python, flask]
 tweets:
-- ""
+- "Want to learn how Okta implements the SCIM provisioning protocol? What better way than setting up your own SCIM server with Flask!"
+- "Take a peek under the hood to see #SCIM in action. Learn how to build a SCIM server with #Flask, #Postgres, and #Okta. #python" 
 - ""
 - ""
 image: blog/flask-scim-server/scim-flask-social.jpg
@@ -25,7 +26,7 @@ At a very high level, the SCIM (System for Cross-Identity Management) protocol e
 ### Setting Up the Flask Server and Postgres DB 
 {% img blog/flask-scim-server/flask_postgres.png alt:"PostgreSQL and Flask Logos Image" width:"500" %}
 
-1.  Clone the repo found [here](https://github.com/Tennyx/flask-scim-server), open terminal and `cd` into the project root.
+1.  Clone the repo found [here](https://github.com/oktadev/okta-scim-flask-example), open terminal and `cd` into the project root.
 2.  Create a new virtualenv in the root folder with `virtualenv env`.
 3.  Run the virtual environment with `source env/bin/activate`.
 4.  Install necessary Python packages with ```pip install -r requirements.txt```.
