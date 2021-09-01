@@ -39,7 +39,7 @@ At a very high level, the SCIM (System for Cross-Identity Management) protocol e
     
     > Feel free to hop back to your Postgres tab and run `\c scim` to navigate into the scim db, then `\dt` to see your new tables: `groups`, `users`, `link`. (Link is a table facilitating the many-to-many relationship between users and groups)
 
-8. Everything should be set up now to run the server locally. Finally, run `python app.py` to do so. You should now have your SCIM server running on http://localhost:5000.
+8. Everything should be set up now to run the server locally. Finally, run `python app.py` to do so. You should now have your SCIM server running on `http://localhost:5000`.
 
 ### Set Up Ngrok to Route Requests From Okta to Localhost
 
