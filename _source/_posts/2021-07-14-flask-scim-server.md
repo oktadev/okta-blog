@@ -50,7 +50,7 @@ Once you have ngrok installed, run `./ngrok http 5000` to create a tunnel from n
 ### Creating and Configuring Your Okta Application
 
 
-Now it's time to create a new SCIM integration in Okta. If your SCIM app(s) are already setup on the Okta side, feel free to skip ahead to [**Test the SCIM Server**](#test-the-scim-server). There are two options that will work with this server, and I will ALWAYS recommend the first, which is using an Okta SCIM template application.
+Now it's time to create a new SCIM integration in Okta. If your SCIM app(s) are already set up on the Okta side, feel free to skip ahead to [**Test the SCIM Server**](#test-the-scim-server). There are two options that will work with this server, and I will ALWAYS recommend the first, which is to use an Okta SCIM template application.
 
 #### Option 1: SCIM Template App
 
