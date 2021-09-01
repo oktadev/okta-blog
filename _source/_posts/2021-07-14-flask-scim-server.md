@@ -16,7 +16,7 @@ type: awareness
 
 At a very high level, the SCIM (System for Cross-Identity Management) protocol exists to provision and sync users and groups across various, independent systems. There is some room for nuance in the [SCIM spec](https://datatracker.ietf.org/doc/html/rfc7644). In this post we will take a look at some basic SCIM operations. We'll peek under the hood at the flow between Okta and a SCIM server built in Flask using PostgreSQL as our app database. Even if you're not a Python dev, hopefully you can take away some of the concepts in this guide for your own SCIM implementation.
 
-### What you'll need
+### What You'll Need
 
 - [virtualenv](https://docs.python.org/3/library/venv.html)
 - [PostgreSQL](https://www.postgresql.org/)
