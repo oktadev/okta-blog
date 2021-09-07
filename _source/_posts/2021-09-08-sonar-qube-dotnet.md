@@ -148,20 +148,3 @@ If you enjoyed this post, you might like related ones on this blog:
 - [Build a .NET App Quickly with Docker](/blog/2019/11/04/build-net-app-quickly-with-docker)
 
 Follow Okta Developers for more great content and updates from the team! You can find us on [Twitter](https://twitter.com/oktadev), [Facebook](https://www.facebook.com/oktadevelopers), subscribe to our [YouTube Channel](https://youtube.com/c/oktadev), or start the conversation below.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
