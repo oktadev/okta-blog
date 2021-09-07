@@ -9,7 +9,7 @@ tags: [sonarqube, csharp-9, dotnet, dotnetcore, csharp, aspnet, aspnetcore, dotn
 tweets:
 - "Learn all you need to know about #sonarqube + #dotnetcore in this new tutorial ->"
 - "Get up to speed on using #sonarqube and #dotnet in this post"
-- "Wondering how #sonarqube works with @oktadev in #dotnet? We've got you covered!"
+- "Wondering how #sonarqube works in #dotnet? We've got you covered!"
 Image: blog/featured/okta-dotnet-books-quarter.jpg
 type: awareness
 ---
