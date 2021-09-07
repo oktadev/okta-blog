@@ -1,5 +1,5 @@
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self' https://*.okta.com https://cdn.jsdelivr.net https://*.netlify.app https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://static.cloud.coveo.com https://*.typekit.net; img-src 'self' data: https://*.cloudfront.net; font-src 'self' data: https://*.typekit.net https://fonts.googleapis.com; frame-ancestors 'none'; connect-src 'self'
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-eval' https://*.okta.com https://cdn.jsdelivr.net https://*.netlify.app https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://static.cloud.coveo.com https://*.typekit.net https://fonts.googleapis.com https://cdnjs.cloudflare.com; img-src 'self' data: https://*.cloudfront.net; font-src 'self' data: https://*.typekit.net https://fonts.googleapis.com; frame-ancestors 'none'; connect-src 'self'
   Referrer-Policy: no-referrer, strict-origin-when-cross-origin
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
