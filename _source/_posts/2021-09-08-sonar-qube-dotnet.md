@@ -14,10 +14,6 @@ Image: blog/featured/okta-dotnet-books-quarter.jpg
 type: awareness
 ---
 
-
-{% img blog/reactive-java/project-reactor.png alt:"Project Reactor Logo" width:"300" %}{: .center-image }
-
-
 When it comes to code quality and code security, [SonarQube](https://www.sonarqube.org/) is your teammate! This analysis tool is pretty straightforward to use, especially with some help from Docker.
 
 In this post, I'll show you how to run a Docker container with SonarQube to analyze the code of a simple ASP.NET Core 3.0 application. Code analysis is a critical component of app development because it can identify security issues and other tricky bugs that might be overlooked until unexpected behavior impacts end-users. Let's take a look. 
