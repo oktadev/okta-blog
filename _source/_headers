@@ -4,4 +4,4 @@
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
   X-XSS-Protection: 1; mode=block
-  Permissions-Policy: geolocation=(self), microphone=(), accelerometer(), camera(), microphone()
+  Permissions-Policy: geolocation=(self), microphone=(), accelerometer=(), camera=()
