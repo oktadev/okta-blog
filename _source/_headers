@@ -1,7 +1,7 @@
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-eval' https://*.okta.com https://cdn.jsdelivr.net https://*.netlify.app https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://use.typekit.net  https://static.cloud.coveo.com; img-src 'self' data: https://*.cloudfront.net; font-src 'self' data:; frame-ancestors 'none'; connect-src 'self'
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-eval' https://*.okta.com https://cdn.jsdelivr.net https://*.netlify.app https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://use.typekit.net https://static.cloud.coveo.com; img-src 'self' data: https://*.cloudfront.net; font-src 'self' data:; frame-ancestors 'none'; connect-src 'self'
   Referrer-Policy: no-referrer, strict-origin-when-cross-origin
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
   X-XSS-Protection: 1; mode=block
-  Permissions-Policy: accelerometer(), camera(), microphone()
+  Permissions-Policy: geolocation=(self), microphone=(), accelerometer(), camera(), microphone()
