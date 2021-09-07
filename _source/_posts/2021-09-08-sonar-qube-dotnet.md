@@ -62,7 +62,7 @@ Next, we need an application to analyze with SonarQube. You can use any applicat
 Run
 
 ```sh
-$ git clone https://github.com/P-Szydziak/SampleApp-SonarQube
+$ git clone https://github.com/oktadev/dotnet-sonarqube-example
 ```
 And now we're ready to see what SonarQube can do. 
 
