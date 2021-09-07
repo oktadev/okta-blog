@@ -59,7 +59,7 @@ timezone: EST
 # This variable will prevent user from committing sitemap with local url
 production_url: "https://developer.okta.com"
 
-include: [_static, .nojekyll, .woff, .tff]
+include: [_static, .nojekyll, .woff, .tff, _headers]
 
 assets:
   compress:
