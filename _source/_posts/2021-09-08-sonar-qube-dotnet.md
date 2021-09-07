@@ -55,7 +55,7 @@ Download [the right version of the Java SDK](https://adoptopenjdk.net/) for your
 
 ### Set Up a Sample Application
 
-You can use any application you like, but a [sample app](https://github.com/P-Szydziak/SampleApp-SonarQube) comes along with this post. If you choose to work with your own project, simply skip this step.
+You can use any application you like, but a [sample app](https://github.com/oktadev/dotnet-sonarqube-example) comes along with this post. If you choose to work with your own project, simply skip this step.
 
 Next, we need an application to analyze with SonarQube. You can use any application you choose, or you can run the example app I built for this tutorial:  
 
