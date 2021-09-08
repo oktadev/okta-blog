@@ -10,7 +10,7 @@ tweets:
 - "Learn all you need to know about #sonarqube + #dotnetcore in this new tutorial ->"
 - "Get up to speed on using #sonarqube and #dotnet in this post"
 - "Wondering how #sonarqube works in #dotnet? We've got you covered!"
-image: blog/featured/okta-dotnet-books-quarter.jpg
+image: blog/sonar-qube-dotnet/sonar-qube-social.png
 type: awareness
 ---
 
