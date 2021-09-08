@@ -194,7 +194,7 @@ Build your app with AOT using the following command.
 ng build --prod
 ```
 
-If you look at the generated files in your `dist/dist/material-tic-tac-toe`, you'll see that they're **much** smaller!
+If you look at the generated files in your `dist/material-tic-tac-toe`, you'll see that they're **much** smaller!
 
 * ES5 size: 897 KB 
 * ES2015 size: 693 KB
