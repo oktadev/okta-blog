@@ -153,7 +153,7 @@ Now, take a look again at the files in `dist/material-tic-tac-toe`. In my build,
 
 <script src="https://www.gstatic.com/charts/loader.js"></script>
 <div id="angular8vs9"></div>
-<script nonce="okt@dev">
+<script>
 google.charts.load('current', {packages: ['corechart', 'bar']});
 google.charts.setOnLoadCallback(angular8vs9);
 
@@ -200,7 +200,7 @@ If you look at the generated files in your `dist/dist/material-tic-tac-toe`, you
 * ES2015 size: 693 KB
 
 <div id="angular9Aot"></div>
-<script nonce="okt@dev">
+<script>
 google.charts.setOnLoadCallback(angular9Aot);
 
 function angular9Aot() {
@@ -238,7 +238,7 @@ You might be wondering what the build-size of the Angular 8 AOT-compiled version
 These numbers show that Angular 9 shaved off 9 KB from each production build. 
 
 <div id="angular8vs9Aot"></div>
-<script nonce="okt@dev">
+<script>
 google.charts.setOnLoadCallback(angular8vs9Aot);
 
 function angular8vs9Aot() {

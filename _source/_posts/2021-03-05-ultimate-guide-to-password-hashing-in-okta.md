@@ -23,7 +23,7 @@ type: awareness
     height: auto !important;
   }
 </style>
-<script type="text/python3" nonce="okt@dev">
+<script type="text/python3">
 # Author: Joel Franusic
 from browser import document, html, window, timer
 import sys
@@ -623,7 +623,7 @@ And lastly, special thanks to Gabriel Sroka for his help reviewing drafts of thi
 <script src="/assets-jekyll/ultimate-guide-to-password-hashing-in-python/bcrypt.min.js"></script>
 <script src="/assets-jekyll/ultimate-guide-to-password-hashing-in-python/brython.min.js"></script>
 <script src="/assets-jekyll/ultimate-guide-to-password-hashing-in-python/brython_stdlib.js"></script>
-<script type="text/javascript" nonce="okt@dev">
+<script type="text/javascript">
 document.addEventListener("DOMContentLoaded", function(){
     brython({debug: 1, pythonpath:['/assets-jekyll/ultimate-guide-to-password-hashing-in-python/Lib/site-packages']})
 });
