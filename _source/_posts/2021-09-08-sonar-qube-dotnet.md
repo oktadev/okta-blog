@@ -31,7 +31,7 @@ SonarQube can help measure progress easily and validate the importance of techni
 ## Key Features of SonarQube
 
 Before we get started on the tutorial, here are some of the capabilities of SonarQube that make it useful for automating code review in .NET Core: 
-- "Quality Gate" lets you set an acceptable quality standard for merging branches and releasing applications to production.
+- **Quality Gate** lets you set an acceptable quality standard for merging branches and releasing applications to production.
 - Code analysis is presented graphically and transparently. Programmers and non-programmers alike gain visibility into coding progress. 
 - You gain the insights needed to analyze bugs, security vulnerabilities, and code duplication. 
 - Quickly prioritize code changes and improvements.
@@ -44,7 +44,7 @@ Before we get started on the tutorial, here are some of the capabilities of Sona
 
 To use SonarQube, first prepare your environment.  The requirements are pretty simple, a Java SDK for starters. We also recommend using Docker; a popular approach nowadays. If it's your first experience with Docker and you have doubts or questions,  there are many excellent online learning resources including [A Developer's Guide to Docker](/blog/2017/05/10/developers-guide-to-docker-part-1) on this blog.
 
-1. Since SonarScanner uses Java, you'll need a Java SDK (Java 11 or later) to `PATH`, and you'll add `JAVA_HOME` to your system variables.
+1. Since SonarScanner uses Java, you'll need to add a Java SDK (Java 11 or later) to `PATH`, and you'll add `JAVA_HOME` to your system variables.
 Download [the right version of the Java SDK](https://adoptopenjdk.net/) for your system. During the process, you should accept the default settings. This way all required elements are added to the system variables.
 
 2. Docker provides a popular way to run many solutions without huge effort. You can [download Docker](https://docs.docker.com/docker-for-windows/install/) and install it by following the instructions included in the link. The install process is straightforward and you should not anticipate any difficulties.
@@ -99,7 +99,7 @@ dotnet sonarscanner end /d:sonar.login=admin /d:sonar.password=admin
 
 ## Analysis Results in SonarQube 
 
-Take a look at the main view of SonarQube by going to `http://localhost:9000`. The configured Docker container is exposed on that port.This view presents general information, such as counters for bugs, vulnerabilities, and code smells or number of code duplications. It's the simplest view - no-frills metrics.
+Take a look at the main view of SonarQube by going to `http://localhost:9000`. The configured Docker container is exposed on that port. This view presents general information, such as counters for bugs, vulnerabilities, and code smells or number of code duplications. It's the simplest view - no-frills metrics.
 
 {% img blog/sonar-qube-dotnet/sonar-analysys.png alt:"Screenshot of SonarQube Analysis Results" width:"800" %}{: .center-image }
 
@@ -111,20 +111,20 @@ For example, it's possible to determine how many bugs each project file contains
 
 {% img blog/sonar-qube-dotnet/sonar-bugs-report.png alt:"Screenshot of bug pointed by SonarQube" width:"800" %}{: .center-image }
 
-The**Issues** section lets you go deeper into analysis of the source code. SonarQube reports on all possible problems: from minor issues to critical bugs. You can explore every issue in the code that you should take into consideration, along with an explanation of the issue and an estimated time for solving it.
+The **Issues** section lets you go deeper into analysis of the source code. SonarQube reports on all possible problems: from minor issues to critical bugs. You can explore every issue in the code that you should take into consideration, along with an explanation of the issue and an estimated time for solving it.
 
 {% img blog/sonar-qube-dotnet/sonar-issues-list.png alt:"Screenshot of Listed Issues In Source Code" width:"800" %}{: .center-image }
 
 ## Additional Configuration and SonarQube Customization 
 
-SonarQube will run on almost any stack. For this reason,you may notice some unwanted notifications. Pre-set rules may not work correctly in all frameworks, and may not know how to handle all file extensions. 
+SonarQube will run on almost any stack. For this reason, you may notice some unwanted notifications. Pre-set rules may not work correctly in all frameworks, and may not know how to handle all file extensions. 
 
 Adding custom rules and configuration is a straightforward process, similar to excluding files or paths in GitHub. You can apply custom rules globally for your system or locally for a single project. To be precise, you can:
 
 - Completely ignore some files or directories
-- Exclude files/directories from **Issues** detection (via specific rules or all of them),  but analyze all other aspects.
+- Exclude files/directories from **Issues** detection (via specific rules or all of them),  but analyze all other aspects
 - Exclude files/directories from **Duplications** detection but analyze all other aspects
-- exclude files/directories from **Coverage** calculations but analyze all other aspects
+- Exclude files/directories from **Coverage** calculations but analyze all other aspects
 
 In order to make adjustments, go to
 **Administration** > **General Settings** > **Analysis Scope** (global settings) or
