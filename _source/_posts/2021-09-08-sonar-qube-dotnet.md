@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "How to Write Cleaner, Safer Code with SonarQube, Docker and .NET Core"
-Author: [pawel-szydziak]
+author: pawel-szydziak
 by: contractor
 communities: [.net]
 description: "This tutorial demonstrates how to use SonarQube with .NET Core. "
@@ -10,7 +10,7 @@ tweets:
 - "Learn all you need to know about #sonarqube + #dotnetcore in this new tutorial ->"
 - "Get up to speed on using #sonarqube and #dotnet in this post"
 - "Wondering how #sonarqube works in #dotnet? We've got you covered!"
-Image: blog/featured/okta-dotnet-books-quarter.jpg
+image: blog/featured/okta-dotnet-books-quarter.jpg
 type: awareness
 ---
 
