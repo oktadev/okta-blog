@@ -42,7 +42,7 @@ Before we get started on the tutorial, here are some of the capabilities of Sona
 
 ### Install Java and Docker
 
-To use SonarQube, first prepare your environment.  The requirements are pretty simple, a Java SDK for starters. We also recommend using Docker; a popular approach nowadays. If it’s your first experience with Docker and you have doubts or questions,  there are many excellent online learning resources including [A Developer's Guide to Docker](/blog/2017/05/10/developers-guide-to-docker-part-1) on this blog.
+To use SonarQube, first prepare your environment.  The requirements are pretty simple, a Java SDK for starters. We also recommend using Docker; a popular approach nowadays. If it's your first experience with Docker and you have doubts or questions,  there are many excellent online learning resources including [A Developer's Guide to Docker](/blog/2017/05/10/developers-guide-to-docker-part-1) on this blog.
 
 1. Since SonarScanner uses Java, you'll need a Java SDK (Java 11 or later) to `PATH`, and you'll add `JAVA_HOME` to your system variables.
 Download [the right version of the Java SDK](https://adoptopenjdk.net/) for your system. During the process, you should accept the default settings. This way all required elements are added to the system variables.
