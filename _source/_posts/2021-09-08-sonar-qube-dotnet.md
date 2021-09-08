@@ -132,7 +132,7 @@ In order to make adjustments, go to
 
 You can learn more about [project administration](https://docs.sonarqube.org/latest/project-administration/narrowing-the-focus/) in the SonarQube documentation.
 
-##Code Analysis Matters
+## Code Analysis Matters
 
 We just explored how to set up SonarQube quickly and without too much effort. The solution we stepped through in this tutorial was based on .NET, however, you can easily apply it to over 20 other popular programming languages.
 
