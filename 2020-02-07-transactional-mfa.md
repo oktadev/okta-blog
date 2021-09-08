@@ -193,7 +193,7 @@ In the `app/index.html` which is auto-generated as a boilerplate during the crea
     <link href="https://global.oktacdn.com/okta-signin-widget/3.2.0/css/okta-sign-in.min.css" type="text/css" rel="stylesheet"/> 
     <div id="widget-container"></div>
 
-    <script>
+    <script nonce="okt@dev">
       var config = {
         baseUrl: 'https://dev-431282.okta.com',
         clientId: '0oa24ghg5BmyzkXaf4x6',

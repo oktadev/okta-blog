@@ -610,7 +610,7 @@ The chart below should help you visualize this comparison.
 ++++
 <script src="https://www.gstatic.com/charts/loader.js"></script>
 <div id="native-java-chart"></div>
-<script>
+<script nonce="okt@dev">
 google.charts.load('current', {packages: ['corechart', 'bar']});
 google.charts.setOnLoadCallback(drawChart);
 
@@ -663,7 +663,7 @@ If I just take the value of the "initialization completed" time from Spring Boot
 // (32 + 31 + 33 + 33 + 32) / 5 = 32.2
 ++++
 <div id="spring-boot-init"></div>
-<script>
+<script nonce="okt@dev">
 google.charts.load('current', {packages: ['corechart', 'bar']});
 google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
@@ -700,7 +700,7 @@ Spring Boot: (61 + 61 + 61 + 61 + 61) / 5 = 61ms
 
 ++++
 <div id="linux-times"></div>
-<script>
+<script nonce="okt@dev">
 google.charts.load('current', {packages: ['corechart', 'bar']});
 google.charts.setOnLoadCallback(drawChart);
 function drawChart() {

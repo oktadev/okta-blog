@@ -63,7 +63,7 @@ type: awareness
 </style>
 
     
-<script type="text/python3">
+<script type="text/python3" nonce="okt@dev">
 
 from browser import document, html, window, timer
 
@@ -296,7 +296,7 @@ Sequence checklist:
 
 play(answer)</textarea>
 </div>
-<script type="text/javascript">
+<script type="text/javascript" nonce="okt@dev">
 document.addEventListener("DOMContentLoaded", function(){
     brython(1)
 });
