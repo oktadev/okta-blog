@@ -73,24 +73,24 @@
     {% endif %}
 
     {% if page.layout == 'blog_post' and post.comments != false %}
-    <div id="disqus">
-        <div id="disqus_thread"></div>
-        <script type="text/javascript">
-            var disqus_title = "{{ page.title }}";
-            var disqus_url = '{{ page.url | prepend: site.url }}';
 
-            (function () {
-                var dsq = document.createElement('script');
-                dsq.async = true;
-                dsq.type = 'text/javascript';
-                dsq.src = '//{{ site.disqus_shortname }}.disqus.com/embed.js';
-                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-            })();
-          </script>
-          <noscript>
-              Please enable JavaScript to view the
-              <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus</a>.
-         </noscript>
-    </div>
+    <div id='discourse-comments'></div>
+
+    <script type="text/javascript">
+        window.DiscourseEmbed = {
+            discourseUrl: 'https://devforum.okta.com/',
+            discourseEmbedUrl: '{{ page.url | prepend: site.url }}'
+        };
+
+        (function() {
+            var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+            d.src = window.DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+        })();
+    </script>
+      <noscript>
+          Please enable JavaScript to view the
+          <a href="https://meta.discourse.org/t/discourse-noscript/100318" rel="nofollow">comments powered by Discourse</a>.
+     </noscript>
     {% endif %}
 </article>
