@@ -12,7 +12,7 @@ Need to decouple your web service and client? You're probably using REST endpoin
 
 ## Lay Down the Foundation – Model and DAO
 
-To keep things focused, I'll leave the Maven dependencies out of this post. You can browse the full source on [Github](http://github.com/oktadeveloper/jaxrs-spring-blog-example), the pom files should be self explanatory: one for JAX-RS, another for Spring.
+To keep things focused, I'll leave the Maven dependencies out of this post. You can browse the full source on [GitHub](https://github.com/oktadeveloper/jaxrs-spring-blog-example), the pom files should be self explanatory: one for JAX-RS, another for Spring.
 
 First up, we need to get the common bits out of the way. A simple model and DAO (Data Access Object) will be used in all of the examples to register and manage `Stormtrooper` objects.
 
