@@ -154,7 +154,7 @@ Next, open your browser to `http://localhost:8080`. You'll likely be logged in s
 
 == Learn More About Spring Boot and Spring Native
 
-We hope you learned something from this video and our experience. A huge thanks to Josh Long and https://spring.io/team/aclement[Andy Clement] for their assistance during this stream. The https://docs.spring.io/spring-native/docs/current/reference/htmlsingle/[Spring Native docs] are where you want to go to really dig in. If you prefer videos, I recommend watching https://www.youtube.com/watch?v=JsUAGJqdvaA[Josh Long’s Spring Tips: Spring Native 0.10.0 video].
+We hope you learned something from this video and our experience. A huge thanks to Josh Long and https://spring.io/team/aclement[Andy Clement] for their assistance during this stream. The https://docs.spring.io/spring-native/docs/current/reference/htmlsingle/[Spring Native docs] are where you want to go to really dig in. If you prefer videos, I recommend watching https://www.youtube.com/watch?v=JsUAGJqdvaA[Josh Long's Spring Tips: Spring Native 0.10.0 video].
 
 Check out these posts for more information about Spring Boot and Spring Native:
 
