@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Spring Native in Action with the Okta Spring Boot Starter"
-author: mraible
+author: matt-raible
 by: advocate
 communities: [java]
 description: "Spring Native makes Spring Boot apps into native images. Learn how we made the Spring Boot starter work with it."
@@ -14,9 +14,9 @@ image:
 type: conversion
 ---
 
-In the fall of 2020, the Spring team released a new experimental project that gave Spring developers hope. It was called Spring Native. Spring Native is all about converting your Spring applications to native executables. It leverages GraalVM to make it happen. This was huge because the new kids on the block, Micronaut and Quarkus, produced native executables by default.
+In the fall of 2020, the Spring team released a new experimental project that gave Spring developers hope for faster startup times. It was called Spring Native. Spring Native is all about converting your Spring applications to native executables. It leverages GraalVM to make it happen. This was huge because the new kids on the block, Micronaut and Quarkus, produced native executables by default.
 
-I was really excited about Spring Native when I first heard about it. It's first release (v0.8.3) was on Nov 23, 2020, but I started playing with it in September 2020, probably as a result of SpringOne. How do I know this? Because that's when I first tried it and [entered an issue for the Okta Spring Boot starter](https://github.com/okta/okta-spring-boot/issues/192). I was able to get things to working with Spring Security's OAuth dependencies (instead of the Okta starter) in the waning weeks of 2020.
+I was really excited about Spring Native when I first heard about it. Its first release (v0.8.3) was on Nov 23, 2020, but I started playing with it in September 2020, probably due to SpringOne. How do I know this? Because that's when I first tried it, and https://github.com/okta/okta-spring-boot/issues/192[entered an issue for the Okta Spring Boot starter]. I was able to get things working with Spring Security's OAuth dependencies (instead of the Okta starter) in the waning weeks of 2020.
 
 I wrote about link:/blog/2021/06/18/native-java-framework-comparison[how to build native Java apps with Micronaut, Quarkus, and Spring Boot] earlier this summer and included my learnings. Around the same time, I thought to myself, "it'd sure be nice if the Okta Spring Boot starter worked with Spring Native."
 
@@ -28,11 +28,11 @@ To solve this desire, I scheduled a Twitch stream with link:/blog/authors/brian-
 </div>
 ++++
 
-This stream originally aired on June 22, 2021. Since then, there's been a few Spring Boot releases, as well as several Spring Native releases. And don't forget, there was another SpringOne!
+This stream originally aired on June 22, 2021. Since then, there have been a few Spring Boot releases and several Spring Native releases. And don't forget, there was another SpringOne!
 
 == Okta Spring Boot Starter v2.2 Supports Spring Native!
 
-Today, I'm happy to announce that we've added our learnings to the Okta Spring Boot starter v2.2.0; now it only takes a couple lines to add native support to a Spring Boot application that uses Okta.
+Today, I'm happy to announce that we've added our learnings to the Okta Spring Boot starter v2.2.0; now, it only takes a couple of lines to add native support to a Spring Boot application that uses Okta.
 
 [source,java]
 ----
@@ -45,6 +45,7 @@ Or, if you'd prefer a full example:
 [source,java]
 ----
 package com.example.demo;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.nativex.hint.NativeHint;
@@ -52,6 +53,7 @@ import org.springframework.nativex.hint.NativeHint;
 @NativeHint(options = "--enable-https")
 @SpringBootApplication
 public class DemoApplication {
+
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
     }
@@ -60,7 +62,7 @@ public class DemoApplication {
 
 If you'd like to see what it takes to migrate my previously mentioned native Java + Spring Boot example from using Spring Security OAuth to the Okta starter, look no further than https://github.com/oktadev/native-java-examples/pull/5[@oktadev/native-java-examples#5].
 
-You can also try it out yourself with the Okta CLI.
+You can also try it out yourself with the https://cli.okta.com[Okta CLI]. Install it and follow along below for a quick Okta + Spring Native example.
 
 == Create a Spring Boot App
 
@@ -68,9 +70,9 @@ To create a secure Spring Boot app with Okta, run `okta start spring-boot`. You'
 
 TIP: If you already have an Okta account, you can run `okta login` first.
 
-This will download our https://github.com/okta-samples/okta-spring-boot-sample[Okta Spring Boot sample], register your app on Okta, and configure it by adding your Okta settings to `src/main/resources/application.properties`.
+This command will download our https://github.com/okta-samples/okta-spring-boot-sample[Okta Spring Boot sample], register your app on Okta, and configure it by adding your Okta settings to `src/main/resources/application.properties`.
 
-Add `@NativeHint(options = "--enable-https")` to the `Application` class as specified above. If it's already there, that means we decided to add it by default! ð
+Add `@NativeHint(options = "--enable-https")` to the main `Application` class as specified above.
 
 Next, edit your `pom.xml` and add the Spring Native version and classifier to the `<properties>` section:
 
