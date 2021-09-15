@@ -13,7 +13,7 @@ tweets:
 image: blog/native-java-comparison/native-java.png
 type: conversion
 changelog:
-- 2021-09-15: Updated to use Micronaut 3.0.1, Quarkus 2.2.2.Final, and Spring Boot 2.5.4. See changes in https://github.com/oktadev/okta-blog/pull/885[okta-blog#885].
+- 2021-09-15: Updated to use Micronaut 3.0.1, Quarkus 2.2.2.Final, and Spring Boot 2.5.4. See this post's changes in [okta-blog#885](https://github.com/oktadev/okta-blog/pull/885) and the example app changes in [native-java-examples#6](https://github.com/oktadev/native-java-examples/pull/6).
 ---
 :page-liquid:
 :toc: macro
