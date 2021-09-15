@@ -42,7 +42,7 @@ This stream originally aired on June 22, 2021. Since then, there have been a few
 
 == Okta Spring Boot Starter v2.2 Supports Spring Native!
 
-Today, I'm happy to announce that we've added our learnings to the Okta Spring Boot starter v2.2.0; now, it only takes a couple of lines to add native support to a Spring Boot application that uses Okta.
+Today, I'm happy to announce that we've added our learnings to https://github.com/okta/okta-spring-boot/releases/tag/okta-spring-boot-parent-2.2.0[Okta Spring Boot v2.2.0]; now, it only takes a couple of lines to add native support to a Spring Boot application that uses Okta.
 
 [source,java]
 ----
