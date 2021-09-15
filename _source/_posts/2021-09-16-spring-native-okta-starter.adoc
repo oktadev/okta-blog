@@ -7,9 +7,9 @@ communities: [java]
 description: "Spring Native makes Spring Boot apps into native images. Learn how we made the Spring Boot starter work with it."
 tags: [spring, spring-boot, spring-native, java]
 tweets:
-- ""
-- ""
-- ""
+- "Watch @starbuxman, @briandemers, and @mraible figure out how to add Spring Native support to the Okta Spring Boot starter."
+- 'Want to go native with the Okta Spring Boot starter? Just add @‌NativeHint(options = "--enable-https") to your main Application class!'
+- "Use Spring Native to create an app with @springboot + @okta. It's pretty slick!"
 image:
 type: conversion
 ---
