@@ -38,7 +38,7 @@ To solve this desire, I scheduled a Twitch stream with link:/blog/authors/brian-
 </div>
 ++++
 
-This stream originally aired on June 22, 2021. Since then, there have been a few Spring Boot releases and several Spring Native releases. And don't forget, there was another SpringOne!
+This stream originally aired on June 22, 2021. Since then, there have been a few Spring Boot releases and several Spring Native releases. And don't forget, there was another https://twitter.com/mraible/status/1433495423319216131[SpringOne]!
 
 == Okta Spring Boot Starter v2.2 Supports Spring Native!
 
