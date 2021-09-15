@@ -646,7 +646,7 @@ We also experimented with using `./mvnw package -Pnative` for Spring Boot. This 
 
 Our hypothesis is Micronaut and Quarkus do the JWKS lookup on the first request rather than at startup. That's how they achieve faster startup times.
 
-IMPORTANT: We later confirmed this hypothesis with https://github.com/JasonTypesCodes[Jason Schindler] (from Micronaut) and https://github.com/sberyozkin[Sergey Beryozkin] (from Quarkus).
+IMPORTANT: We later confirmed this hypothesis with https://github.com/JasonTypesCodes[Jason Schindler] (from Micronaut) and https://github.com/sberyozkin[Sergey Beryozkin] (from Quarkus). Follow https://github.com/spring-projects/spring-security/issues/9991[this Spring Security issue] to see when Spring Security adds lazy OIDC discovery support.
 
 If I just take the value of the "initialization completed" time from Spring Boot, the numbers look a little more even.
 
