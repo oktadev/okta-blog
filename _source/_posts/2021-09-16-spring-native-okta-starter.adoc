@@ -47,6 +47,7 @@ Today, I'm happy to announce that we've added our learnings to https://github.co
 [source,java]
 ----
 import org.springframework.nativex.hint.NativeHint;
+
 @NativeHint(options = "--enable-https")
 ----
 
