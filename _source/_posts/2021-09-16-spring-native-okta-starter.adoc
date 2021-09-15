@@ -155,7 +155,7 @@ Then, replace the `<build>` section with the XML below:
 </pluginRepositories>
 ----
 
-<em>Giddyup!</em>
+_Giddyup!_
 
 [source,shell]
 ----
