@@ -174,5 +174,6 @@ Check out these posts for more information about Spring Boot and Spring Native:
 - link:/blog/2021/05/12/spring-boot-r2dbc[R2DBC and Spring for Non-Blocking Database Access]
 - link:/blog/2021/07/12/spring-boot-test-slices[Faster Spring Boot Testing with Test Slices]
 - link:/blog/2021/08/13/reactive-java[How to Prevent Reactive Java Applications from Stalling]
+- link:/blog/2020/11/24/spring-boot-okta[Spring Boot and Okta in 2 Minutes]
 
 If you have any questions about this post, please add a comment below. For more interesting content, follow https://twitter.com/oktadev[@oktadev] on Twitter, connect with us https://www.linkedin.com/company/oktadev[on LinkedIn], and subscribe to https://www.youtube.com/oktadev[our YouTube channel].
