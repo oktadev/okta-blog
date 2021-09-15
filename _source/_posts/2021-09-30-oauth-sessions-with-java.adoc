@@ -1,0 +1,316 @@
+---
+layout: blog_post
+title: "Session Clustering for OAuth 2.0 Applications"
+author: brian-demers
+by: advocate
+communities: [java]
+description: "Learn how sessions are used with OAuth 2.0 and build an example with HAproxy, Redis, and Spring Boot."
+tags:  [spring-session, spring, microservices, jhipster, java, spring-boot, haproxy, oauth2, oidc, session]
+tweets:
+- "Apps using OIDC/OAuth 2.0 don't have 'special' sessions requirements, but you still need to think about them 🧠"
+- "Confused how #OAuth2 and affects your web app's sessions? Learn more and build an example with #Redis, #HAproxy, and #SpringBoot 💡"
+- "Scaling an app from 1 to N, means you need to think about load balancing, session management, and how those relate to Auth🔒"
+image:
+type: conversion
+---
+
+:toc: macro
+:page-liquid:
+:experimental:
+
+A common OAuth 2.0 question we hear is: "How do I deal with OAuth with a load-balanced application". The short answer to the question is there is nothing specific about session clustering for OAuth. The longer answer is, you likely still need to worry about cluster session management. This post will discuss how an OAuth login relates to your application's session and build a simple, secure, load-balanced application.
+
+toc::[]
+
+== Prerequisites
+
+- https://docs.docker.com/get-docker/[Docker 20.10+]
+- https://adoptopenjdk.net/?variant=openjdk11[Java 11+], use https://sdkman.io/[SDKMAN] to manage multiple Java versions!
+- https://httpie.io/download[HTTPie], a user-friendly HTTP CLI
+- https://cli.okta.com/[Okta CLI]
+
+== Sessions and OAuth 2.0 Applications
+
+An application that uses an OAuth 2.0 redirect, an https://oauth.net/2/grant-types/authorization-code/["Authorization Code Grant"], typically uses a server-side session to temporarily store the state of the login process until it completes. Let's look at a simplified OAuth login flow:
+
+image::{% asset_path 'blog/oauth-sessions-with-java/oauth-code-flow.png' %}[alt=Login Flow Sequence Diagram,width=800,align=center]
+
+1. User requests to log in - automatically when requesting a protected page or when the user clicks on a login button.
+2. Web App stores information about the current session - OAuth state info, and optionally a PKCE code verifier and/or a nonce for OpenId Connect (OIDC).
+3. Respond with a browser redirect to the authorization server.
+4. User interacts with the authorization server to provide credentials.
+5. Issue redirect with a code back to Web App.
+6. Finalize user authorization on the backend.
+7. The web app reads the previously stored OAuth data from the session.
+8. Verify the user has been authorized with the authorization server.
+9. Auth Server response with an OAuth access token.
+10. Web App stores access token in session.
+11. User is logged in.
+
+Two separate requests are made to the web application, the initial login request, and a verification step; both requests access the same session information. For your application, this means once you start scaling, you need to think about session management.
+
+== Stateless with JWTs
+
+At this point, you might be wondering if you could cram everything in a JWT and make this process stateless; removing the need for any session clustering. You _could_, but you would need to use a JWE (JSON Web Encryption) to ensure the browser didn't have access to any sensitive data. It is outside the scope of this post, but there are a whole host of reasons link:/blog/2017/08/17/why-jwts-suck-as-session-tokens[not to use JWTs as session tokens].
+
+== Load Balancer Sticky Sessions
+
+Another option to avoid session replication or clustering is to use "sticky sessions" (or "session affinity"), but this creates a fragile environment. If a web server fails or is taken out down for any reason, all users associated with that server would be essentially be logged out. Sticky sessions also violate the https://12factor.net/processes[12 Factor principles of process statelessness].
+
+IMPORTANT: Don't confuse 12 Factor's reference of "stateless" with the previous section; this specifically refers to the need for an application relay on the "state" of a server between requests, for example data cached in memory or a file. Instead, a https://12factor.net/backing-services[backing service] should be used; in the case of session storage, the example of Redis used, which is exactly what we are going to do in the next section.
+
+== Setup HAproxy and Redis
+
+To build a load-balanced application, we need a minimum of three things, a load balancer (HAproxy), shared session storage (Redis), and multiple instances of a web application (Spring Boot).
+
+If you want to skip right to the code, take a look at this https://github.com/oktadev/TODO[GitHub] repo.
+
+Create a new directory for this project:
+
+[source,sh]
+----
+mkdir oauth-sessions
+cd oauth-sessions
+----
+
+=== Configure HAproxy
+
+HAproxy is used to distribute requests between multiple `backend` applications, create a configuration file, `haproxy.cfg`, that will serve two different web apps (one on port `8081`, and another on `8082`).
+
+[source,config]
+----
+global
+    daemon
+    maxconn 2000
+
+    # send request logs to stdout, to make debugging easier
+    log stdout format raw local0
+
+defaults
+    mode http
+    log global
+    option httplog
+    timeout connect 5000ms
+    timeout client 50000ms
+    timeout server 50000ms
+
+frontend http-in
+    bind *:8080
+    default_backend webapps
+
+backend webapps
+    balance roundrobin
+
+    # `host.docker.internal` refers to host that is running Docker Desktop
+    # On Linux add `--add-host=host.docker.internal:host-gateway` to `docker run` to
+    # mimic the functionality
+    server webapp1 host.docker.internal:8081
+    server webapp2 host.docker.internal:8082
+
+----
+
+TIP: Make sure there is a trailing newline, or you may have trouble starting up HAproxy.
+
+=== Start HAproxy and Redis with Docker
+
+I'll be running the example web application directly on my laptop, but HAproxy and Redis can both run as Docker containers, create a `docker-compose.yml` file:
+
+[source,yaml]
+----
+version: '3.8'
+services:
+
+  haproxy:
+    image: docker.io/haproxy:2.4-alpine
+    volumes:
+      - ./haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+    extra_hosts:
+      # Docker Desktop uses `host.docker.internal` for the host,
+      # mimic this for linux installs, requires Docker 20.10+
+      - host.docker.internal:host-gateway
+    ports:
+      - 8080:8080
+
+  redis:
+    # Starts Redis without persistence
+    image: docker.io/redis:6.2.5-alpine
+    ports:
+      - 6379:6379
+----
+
+Start both HAproxy and Redis by running:
+
+[source,sh]
+----
+docker compose up
+----
+
+NOTE: You can stop the process by pressing `Ctrl`+`C` or running the `docker compose down` command from the same directory.
+
+== Build a Secure Spring Boot Application
+
+Now that the system dependencies are out of the way, let's move on to building a Spring Boot application.
+
+Create a new Spring Boot application by visiting https://start.spring.io[`start.spring.io`] and selecting the `Web` and `Okta` dependencies or by running the following command:
+
+[source,sh]
+----
+http https://start.spring.io/starter.tgz \
+  bootVersion==2.5.4 \
+  dependencies==web,okta \
+  groupId==com.example \
+  artifactId==webapp \
+  name=="Web Application" \
+  description=="Demo Web Application" \
+  packageName==com.example \
+  javaVersion==11 \
+| tar -xzvf -
+----
+
+To give a visual indication of which server handled the request, create a REST controller that displays the server port: `src/main/java/com/example/Endpoints.java`:
+
+[source,java]
+----
+package com.example;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class Endpoints {
+
+    @GetMapping("/")
+    String serverInfo(@Value("${server.port}") int port) {
+        return "Hello, your server port is: " + port;
+    }
+}
+----
+
+=== Start the Spring Boot Application
+
+In the previous section, HAproxy was bound to port `8080`, which is also the default port for Spring Boot; start the application on port `8081` using:
+
+[source,sh]
+----
+SERVER_PORT=8081 ./mvnw spring-boot:run
+----
+
+At this point, the Spring Boot application has NOT been configured to use Redis or OAuth, but you can still test out the server by grabbing the auto-generated password from the console output; it will look something like this:
+
+[source,txt]
+----
+Using generated security password: 4302a714-580b-4d01-91d9-5d9597ee1bb5
+----
+
+Copy the password and make a request to the Spring application:
+
+[source,sh]
+----
+http :8081/ --auth user:<your-password>
+----
+
+You will see a response containing the server port:
+
+[source,txt]
+----
+Hello, your server port is: 8081
+----
+
+Great, this means that the Spring Boot application is up and running! Now make sure you can access the server through the load balancer on port `8080`:
+
+[source,sh]
+----
+http :8080/ --auth user:<your-password>
+----
+
+You should see the same response; if you see a `503 Service Unavailable`, try the request one more time.
+
+IMPORTANT: The HAproxy configuration used in this post does NOT have health checks enabled, so it blindly will alternate requests between port `8081` and `8082`; this is intentional to simplify the configuration. Take a look at https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html[Spring Actuator] if you want to add health checks and other monitoring to your application.
+
+Stop the Spring Boot server using `Ctrl`+`C`, it's time to secure the application with OAuth 2.0.
+
+== Secure Spring Boot with OAuth 2.0
+
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
+
+Now that the application has been configured to use OAuth 2.0, start two different instances (open two different terminal windows):
+
+[source,sh]
+----
+SERVER_PORT=8081 ./mvnw spring-boot:run
+----
+
+And the second one on port `8082`:
+
+[source,sh]
+----
+SERVER_PORT=8082 ./mvnw spring-boot:run
+----
+
+Accessing the applications through the load balancer will yield odd results; open a private/incognito window to `http://localhost:8080` and try to log in. You will be redirected to Okta where you can type in your account credentials; however, after pressing the **Sign In**, you will see an error page:
+
+image::{% asset_path 'blog/oauth-sessions-with-java/oauth-login-failure.png' %}[alt=Invalid credentials authentication error shown in the browser,width=800,align=center]
+
+You can spot the problem if you think back to the sequence diagram at the beginning of this post. The initial login request (step one) happened on one instance, and the final one occurred on another (step six). Updating the application to use shared session storage will fix the problem.
+
+Let's do that!
+
+== Share Sessions with Redis
+
+If you are following along, you already have a Redis server running; all that's left is to configure the Spring Boot application to make use of it. Luckily, https://spring.io/projects/spring-session[Spring Session] makes the process painless.
+
+Open up the `pom.xml` and the following inside the `<dependencies>` block:
+
+[source,xml]
+----
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-redis</artifactId>
+</dependency>
+<dependency>
+    <groupId>org.springframework.session</groupId>
+    <artifactId>spring-session-data-redis</artifactId>
+</dependency>
+----
+
+WARNING: By defaultSpring Session configures Redis to connect to `localhost` on port `6379` and NO password, take a look at the https://docs.spring.io/spring-session/docs/current/reference/html5/guides/boot-redis.html#boot-redis-configuration[Spring Session documentation] for various configuration options.
+
+Restart the Spring Boot applications (remember one on port `8081` and another on `8082`).
+
+Open up your browser again and try to access `http://localhost:8080/`; this time, you will be able to log in without issue!
+
+Refresh the browser a few times you will see the response alternating between the ports:
+
+[source,txt]
+----
+Hello, your server port is: 8081
+----
+
+And:
+
+[source,txt]
+----
+Hello, your server port is: 8082
+----
+
+Easy enough, just a couple of dependencies to configure shared session storage! If Redis isn't your jam, Spring Session also supports link:/blog/2020/10/02/spring-session-mysql[databases], https://spring.io/projects/spring-session-hazelcast[Hazelcast], https://spring.io/projects/spring-session-data-mongodb[MongoDB], and https://spring.io/projects/spring-session-data-geode[Apache Geode].
+
+== Learn More OAuth 2.0 and Session Management
+
+This post has shown how to manage sessions for a simple load-balanced application that uses OAuth 2.0. The example used focused on the Spring Boot portion of the application, but it's far from production-ready; a few other concerns would need to be addressed:
+
+- A single HAproxy and Redis instance are single points of failure
+- Redis data is not persisted
+- Redis connections are not secured
+- Enable TLS for https://www.haproxy.com/blog/haproxy-ssl-termination/[HAproxy] and the link:/blog/2018/07/30/10-ways-to-secure-spring-boot[Spring Boot application]
+
+If you liked this post, check out this related content:
+
+- link:/blog/2018/07/30/10-ways-to-secure-spring-boot[10 Excellent Ways to Secure Your Spring Boot Application]
+- link:/blog/2017/08/17/why-jwts-suck-as-session-tokens[Why JWTs Suck as Session Tokens]
+- link:/blog/2020/10/02/spring-session-mysql[Easy Session Sharing in Spring Boot with Spring Session and MySQL]
+- link:/blog/2020/08/14/spring-gateway-patterns[OAuth 2.0 Patterns with Spring Cloud Gateway]
+-link:/blog/2020/05/04/spring-vault[Secure Secrets With Spring Cloud Config and Vault]
+
+If you have questions, please leave a comment below. If you liked this tutorial, follow https://twitter.com/oktadev[@oktadev] on Twitter, follow us https://www.linkedin.com/company/oktadev/[on LinkedIn], or subscribe to https://www.youtube.com/c/oktadev[our YouTube channel].
