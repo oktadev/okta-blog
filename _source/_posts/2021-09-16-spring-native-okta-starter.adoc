@@ -22,7 +22,7 @@ I was really excited about Spring Native when I first heard about it. Its first 
 
 toc::[]
 
-== Branching Out with Spring Native
+== Branching out with Spring Native
 
 According to VMWare Tanzu's recent https://tanzu.vmware.com/content/ebooks/the-state-of-spring-2021[State of Spring 2021 report], a lot of people know about Spring Native, but it's still early.
 
