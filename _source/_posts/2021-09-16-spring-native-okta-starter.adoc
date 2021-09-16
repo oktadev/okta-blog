@@ -16,7 +16,7 @@ type: conversion
 :page-liquid:
 :toc: macro
 
-In the fall of 2020, the Spring team released a new experimental project that gave Spring developers hope for faster startup times. It was called Spring Native. Spring Native is all about converting your Spring applications to native executables. It leverages GraalVM to make it happen. This was huge because the new kids on the block, Micronaut and Quarkus, produced native executables by default.
+In the fall of 2020, the Spring team released a new experimental Spring Native project that gave Spring developers hope for faster startup times. Spring Native is all about converting your Spring applications to native executables. It leverages GraalVM to make it happen. This announcement was huge because the new kids on the block, Micronaut and Quarkus, produced native executables by default.
 
 I was really excited about Spring Native when I first heard about it. Its first release (v0.8.3) was on Nov 23, 2020, but I started playing with it in September 2020, probably due to SpringOne. How do I know this? Because that's when I first tried it, and https://github.com/okta/okta-spring-boot/issues/192[entered an issue for the Okta Spring Boot starter]. I was able to get things working with Spring Security's OAuth dependencies (instead of the Okta starter) in the waning weeks of 2020.
 
@@ -38,7 +38,7 @@ To solve this desire, I scheduled a Twitch stream with link:/blog/authors/brian-
 </div>
 ++++
 
-This stream originally aired on June 22, 2021. Since then, there have been a few Spring Boot releases and several Spring Native releases. And don't forget, there was another https://twitter.com/mraible/status/1433495423319216131[SpringOne]!
+This stream originally aired on June 22, 2021. Since then, there have been a few Spring Boot releases and several Spring Native releases. And don't forget, there was another https://twitter.com/mraible/status/1433072410182357000[SpringOne]!
 
 == Okta Spring Boot Starter v2.1.1 Supports Spring Native!
 
