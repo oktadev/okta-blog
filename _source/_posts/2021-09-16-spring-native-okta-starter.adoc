@@ -30,7 +30,7 @@ image::{% asset_path 'blog/spring-native-okta-starter/state-of-spring-slide.png'
 
 I wrote about link:/blog/2021/06/18/native-java-framework-comparison[how to build native Java apps with Micronaut, Quarkus, and Spring Boot] earlier this summer and included my learnings. Around the same time, I thought to myself, "it'd sure be nice if the Okta Spring Boot starter worked with Spring Native."
 
-To solve this desire, I scheduled a Twitch stream with link:/blog/authors/brian-demers[Brian Demers] and https://joshlong.com/[Josh Long]. We spent 90 minutes figuring things out. You can watch our struggles, collaborations, and ultimate joy in the https://youtu.be/8vY-9tXlCW4[video below]. I added a detailed table of contents to the video's description on YouTube, so you can skip around if you like.
+To solve this desire, I scheduled a Twitch stream with link:/blog/authors/brian-demers[Brian Demers] and https://joshlong.com/[Josh Long]. We spent 90+ minutes figuring things out. You can watch our struggles, collaborations, and ultimate joy in the https://youtu.be/8vY-9tXlCW4[video below]. I added a detailed table of contents to the video's description on YouTube, so you can skip around if you like.
 
 ++++
 <div style="text-align: center; margin-bottom: 1.25rem">
