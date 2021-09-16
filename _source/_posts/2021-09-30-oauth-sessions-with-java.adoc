@@ -8,8 +8,8 @@ description: "Learn how sessions are used with OAuth 2.0 and build an example wi
 tags:  [spring-session, spring, microservices, jhipster, java, spring-boot, haproxy, oauth2, oidc, session]
 tweets:
 - "Apps using OIDC/OAuth 2.0 don't have 'special' sessions requirements, but you still need to think about them 🧠"
-- "Confused how #OAuth2 and affects your web app's sessions? Learn more and build an example with #Redis, #HAproxy, and #SpringBoot 💡"
-- "Scaling an app from 1 to N, means you need to think about load balancing, session management, and how those relate to Auth🔒"
+- "Confused how #OAuth2 and OIDC affect your web app's sessions? Learn more and build an example with #Redis, #HAproxy, and #SpringBoot 💡"
+- "Scaling an app from 1 to N means you need to think about load balancing, session management, and how those relate to Auth🔒"
 image:
 type: conversion
 ---
@@ -18,7 +18,7 @@ type: conversion
 :page-liquid:
 :experimental:
 
-A common OAuth 2.0 question we hear is: "How do I deal with OAuth with a load-balanced application". The short answer to the question is there is nothing specific about session clustering for OAuth. The longer answer is, you likely still need to worry about cluster session management. This post will discuss how an OAuth login relates to your application's session and build a simple, secure, load-balanced application.
+A common OAuth 2.0 question we get: "How do I deal with OAuth in a load-balanced application?" The short answer: There's nothing specific about session clustering for OAuth. The longer answer is—you likely still need to worry about cluster session management. This post will discuss how an OAuth login relates to your application's session. And we'll build a simple, secure, load-balanced application to demonstrate.
 
 toc::[]
 
@@ -35,8 +35,8 @@ An application that uses an OAuth 2.0 redirect, an https://oauth.net/2/grant-typ
 
 image::{% asset_path 'blog/oauth-sessions-with-java/oauth-code-flow.png' %}[alt=Login Flow Sequence Diagram,width=800,align=center]
 
-1. User requests to log in - automatically when requesting a protected page or when the user clicks on a login button.
-2. Web App stores information about the current session - OAuth state info, and optionally a PKCE code verifier and/or a nonce for OpenId Connect (OIDC).
+1. A user requests to log in - either by clicking on a login button or automatically when they request a protected page.
+2. Web App stores information about the current session - OAuth state info and optionally a PKCE code verifier and/or a nonce for OpenId Connect (OIDC).
 3. Respond with a browser redirect to the authorization server.
 4. User interacts with the authorization server to provide credentials.
 5. Issue redirect with a code back to Web App.
