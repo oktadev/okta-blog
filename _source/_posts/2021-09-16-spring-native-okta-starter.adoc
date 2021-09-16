@@ -40,9 +40,9 @@ To solve this desire, I scheduled a Twitch stream with link:/blog/authors/brian-
 
 This stream originally aired on June 22, 2021. Since then, there have been a few Spring Boot releases and several Spring Native releases. And don't forget, there was another https://twitter.com/mraible/status/1433495423319216131[SpringOne]!
 
-== Okta Spring Boot Starter v2.2 Supports Spring Native!
+== Okta Spring Boot Starter v2.1.1 Supports Spring Native!
 
-Today, I'm happy to announce that we've added our learnings to https://github.com/okta/okta-spring-boot/releases/tag/okta-spring-boot-parent-2.2.0[Okta Spring Boot v2.2.0]; now, it only takes a couple of lines to add native support to a Spring Boot application that uses Okta.
+Today, I'm happy to announce that we've added our learnings to https://github.com/okta/okta-spring-boot/releases/tag/okta-spring-boot-parent-2.1.1[Okta Spring Boot v2.1.1]; now, it only takes a couple of lines to add native support to a Spring Boot application that uses Okta.
 
 [source,java]
 ----
