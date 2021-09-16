@@ -12,6 +12,8 @@ tweets:
 - "If you know Java standards like JAX-RS, you know how to build an app with Quarkus!"
 image: blog/java-quarkus-oidc/java-quarkus-duke.png
 type: conversion
+changelog:
+- 2021-01-28: Updated post to upgrade Quarkus to version 1.11.1.Final. See the code changes in the [example on GitHub](https://github.com/oktadeveloper/okta-quarkus-example/pull/3). Changes to this post can be viewed in [oktadeveloper/okta-blog#537](https://github.com/oktadeveloper/okta-blog/pull/537).
 ---
 
 Quarkus is a container-first Kubernetes Java framework designed to have a super-fast start-up time and low memory usage. The container-first strategy emphasizes packaging the runtime environment along with the application code, allowing both to be tightly optimized and avoiding the endless updates and configuration problems that can come along with monolithic server systems. Quarkus was built from the beginning to support compilation to native code for use with Graal/SubstrateVM but also supports the good old JVM with OpenJDK HotSpot. 
@@ -23,6 +25,10 @@ In this tutorial, you'll learn how to create a simple REST endpoint using Java a
 This tutorial is a modified and updated version of the "Quarkus - Using JWT RBAC" tutorial on [the Quarkus website.](https://quarkus.io/guides/jwt-guide), the main difference being that this tutorial will use Okta as the OAuth provider and the OIDC Debugger to generate tokens for ad hoc testing (instead of rolling the whole thing yourself).
 
 Let's get started!
+
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
 
 ## Install Quarkus Tutorial Prerequisites
 
@@ -43,12 +49,12 @@ On my computer (a Mac), I was able to use the following command to set the shell
 Open a terminal and `cd` to an appropriate parent directory for your project. The command below uses the `quarkus-maven-plugin` to create a starter application and places it in the `oauthdemo` subdirectory.
 
 ```bash
-mvn io.quarkus:quarkus-maven-plugin:0.23.1:create \
+mvn io.quarkus:quarkus-maven-plugin:1.11.1.Final:create \
     -DprojectGroupId=com.okta.quarkus \
     -DprojectArtifactId=oauthdemo \
     -DclassName="com.okta.quarkus.jwt.TokenSecuredResource" \
     -Dpath="/secured" \
-    -Dextensions="resteasy-jsonb, jwt"
+    -Dextensions="resteasy-jsonb, smallrye-jwt"
 ```
 
 If you run the project at this point, you'll get an error because you need to define some application properties first.
@@ -60,13 +66,11 @@ Open the `src/main/resources/application.properties` file and copy and paste the
 ```properties
 mp.jwt.verify.publickey.location=https://{yourOktaDomain}/oauth2/default/v1/keys
 mp.jwt.verify.issuer=https://{yourOktaDomain}/oauth2/default
-quarkus.smallrye-jwt.auth-mechanism=MP-JWT
-quarkus.smallrye-jwt.enabled=true
 ```
 
 You'll need to fill in your Okta developer URI in two places. 
 
-To find your developer URI, open your Okta developer dashboard and navigate to **API** > **Authorization Servers**. Look at the row for the `default` auth server where you'll see the **Issuer URI**. 
+To find your Okta domain, open the Okta Admin Console and navigate to **Security** > **API** > **Authorization Servers**. Look at the row for the `default` auth server where you'll see the **Issuer URI**. 
 
 That domain is your Okta URI that you'll need to populate in place of `{yourOktaDomain}`.
 
@@ -183,23 +187,28 @@ Next, we'll add OAuth 2.0 support to the application.
 
 ## Create an OIDC Application in Okta to Test Your Quarkus Service
 
-Head over to your Okta developer dashboard - if this is your first time logging in, you may need to click the **Admin** button.
+{% include setup/cli.md type="web" signup="false"
+   loginRedirectUri="https://oidcdebugger.com/debug" 
+   logoutRedirectUri="https://oidcdebugger.com" %}
 
-From the top menu, click on the  **Application** button and then click **Add Application**.
+## Add Groups Claims To Default Authorization Server
 
-Select application type **Web** and click **Next**.
+You're going to add a **groups** claim mappings in the JWT access token, this is what maps Okta's groups to the role-based authorization in Quarkus.
 
-Give the app a name. I named mine "Quarkus Demo".
+Run `okta login` and open the returned URL in a browser. Sign in to the Okta Admin Console and go to **Security** > **API** and select **Authorization Servers**.
 
-Under  **Login redirect URIs**, add a new URI: `https://oidcdebugger.com/debug`.
+Click on the **default** server.
 
-Under **Grant types allowed**, check **Implicit (Hybrid)**.
+Select the **Claims** tab.
 
-The rest of the default values will work.
+Click **Add Claim**.
 
-Click  **Done**.
+- **Name**: `groups`
+- **Include in token type**: `Access Token` `Always`
+- **Value type**: `Groups`
+- **Filter**: `Matches regex` `.*`
 
-Leave the page open or take note of the  **Client ID**. You'll need it in a bit when you generate a token.
+Click **Create**.
 
 ## Update TokenSecuredResource
 
@@ -240,7 +249,7 @@ public class TokenSecuredResource {
   
     @Inject  
     @Claim("groups")  
-    private Set<String> groups;  
+    Set<String> groups;  
   
     @GET()  
     @Path("permit-all")  
@@ -285,18 +294,13 @@ Not authorized
 
 ## Generate an OAuth 2.0 Access Token to Test Authentication in Quarkus
 
-Open the [OpenID Connect Debugger](https://oidcdebugger.com/). You're going to use this page to generate a JWT access token that you can use to authenticate.
+{% include setup/oidcdebugger.md %}
 
 {% img blog/java-quarkus-oidc/oidc-debugger.png alt:"OIDC Debugger" width:"650" %}{: .center-image }
 
-Follow the below steps to continue:
+Scroll down and click **Send Request**.
 
-1. Set the **Authorize URI** to: `https://{yourOktaDomain}/oauth2/default/v1/authorize`
-2. Copy your **Client ID** from the Okta OIDC application you created above and fill it in under **Client ID**
-3. Change the scope to be `openid email profile`
-4. Add something for **State**. It doesn't matter what. Just can't be blank
-5. Scroll down. Click **Send**
-6. Copy the resulting JWT Access Token to the clipboard, and in the terminal where you are running your HTTPie commands, save the token value to a shell variable, like so:
+Copy the resulting JWT Access Token to the clipboard, and in the terminal where you are running your HTTPie commands, save the token value to a shell variable, like so:
 
 ```bash
 TOKEN=eyJraWQiOiJxMm5rZmtwUDRhMlJLV2REU2JfQ...
@@ -333,7 +337,7 @@ To work with Lombok, add the following dependency to your `pom.xml`.
  <dependency>
     <groupId>org.projectlombok</groupId>
     <artifactId>lombok</artifactId>
-    <version>1.18.8</version>
+    <version>1.18.16</version>
     <scope>provided</scope>
 </dependency>
  ```
@@ -365,8 +369,7 @@ public class Kayak {
         this.make = make;  
         this.model = model;  
         this.length = length;  
-    }  
-      
+    }       
 }
 ```
 

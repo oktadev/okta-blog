@@ -95,7 +95,7 @@ This first test uses two threads, so naturally, the t3 is about 34% faster than 
 
 The Twitter HTTP Finagle test starts a small HTTP server and creates a number of clients equal to the number of vCPU cores plus one. The HTTP server has the number of CPUs*2.  This is going to create a bit of thread contention, which likely explains these results.
 
-**Winner:** t3.medium (This one was not a fair fight.)
+**Winner:** m6g.medium (This one was not a fair fight.)
 
 ## Pricing
 

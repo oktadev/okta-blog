@@ -12,14 +12,19 @@ tweets:
 - "Spring Security is awesome! Learn how it makes it possible to secure your microservice architecture's server-to-server communication."
 image: blog/microservices-service-to-service-security/boot-cloud-okta.jpg
 type: conversion
+changelog:
+- 2021-04-20: Updated code for `RestTemplate` so there are no thread-safety issues between clients. See [okta-blog#773](https://github.com/oktadeveloper/okta-blog/pull/773) to see what changed. Changes to the example app can be viewed in [okta-spring-microservices-https-example#1](https://github.com/oktadeveloper/okta-spring-microservices-https-example/pull/1).
 ---
 :page-liquid:
+:toc: macro
 
 Building a microservices architecture is possible with minimal code if you use Spring Boot, Spring Cloud, and Spring Cloud Config. Package everything up in Docker containers and you can run everything using Docker Compose. If you're communicating between services, you can ensure your services are somewhat secure by not exposing their ports in your `docker-compose.yml` file.
 
 But what happens if someone accidentally exposes the ports of your microservice apps? Will they still be secure or can anyone access their data?
 
 In this post, I'll show you how to use HTTPS and OAuth 2.0 to secure service-to-service communication.
+
+toc::[]
 
 == Develop a Microservices Stack with Spring Boot, Spring Cloud, and Spring Cloud Config
 
@@ -35,19 +40,18 @@ This project requires two OpenID Connect apps on Okta, one for development and o
 
 === Create OpenID Connect Apps on Okta
 
-You can register for a https://developer.okta.com/signup/[free developer account] that will allow you to have up to 1000 monthly active users for $0. That should be plenty for this example.
+{% include setup/cli.md type="web" loginRedirectUri="http://localhost:8080/authorization-code/callback,https://localhost:8080/authorization-code/callback" logoutRedirectUri="http://localhost:8080,https://localhost:8080" %}
 
-Why Okta? Because authentication is no fun to write. Okta has Authentication and User Management APIs that allow you to develop your apps faster. Our API and SDKs make it easy for you to authenticate, manage, and secure your users in minutes.
-
-After creating your account, create a new Web Application in Okta's dashboard (**Applications** > **Add Application**). Give the app a name you'll remember, duplicate the existing Login redirect URI and make it use HTTPS. Click **Done**.
-
-The result should look similar to the screenshot below.
-
-image::{% asset_path 'blog/microservices-service-to-service-security/oidc-web-app.png' %}[alt=OIDC App Settings,width=700,align=center]
+Copy the generated `.okta.env` to `.okta.dev.env`.
 
 Create another app for production. I called mine `Prod Microservices`.
 
-In the project you cloned, modify `config/school-ui.properties` to have the settings from your dev app.
+[source,shell]
+----
+okta apps create
+----
+
+In the project you cloned, modify `config/school-ui.properties` to have the settings from the first app you created.
 
 [source,properties]
 ----
@@ -95,7 +99,7 @@ This project has an aggregator `pom.xml` in its root directory that will allow y
 
 [source,shell]
 ----
-mvn clean install
+mvn install
 ----
 
 TIP: If you don't have Maven installed, you can install it with https://sdkman.io/[SDKMAN!] `sdk install maven`
@@ -109,7 +113,7 @@ docker-compose up -d
 
 TIP: You can use https://kitematic.com/[Kitematic] to watch the logs of each app as it starts up.
 
-Navigate to `http://localhost:8080` in your favorite browser. You should be able to log in and see a list of school classes after doing so.
+Navigate to `\http://localhost:8080` in your favorite browser. You should be able to log in and see a list of school classes after doing so.
 
 image::{% asset_path 'blog/microservices-service-to-service-security/school-ui.png' %}[alt=School UI,width=800,align=center]
 
@@ -203,6 +207,8 @@ mkcert -install
 mkcert localhost 127.0.0.1 ::1 `hostname` discovery
 ----
 
+TIP: I would recommend including your computer's IP address in the list above too. It seems to be necessary to get the `school-ui` project to connect to the config server when running outside of Docker.
+
 If this generates files with a number in them, rename the files so they don't have a number.
 
 [source,shell]
@@ -262,7 +268,7 @@ source ../https.env
 mvn spring-boot:run
 ----
 
-Then confirm you can access it at `https://localhost:8761`.
+Then confirm you can access it at `\https://localhost:8761`.
 
 image::{% asset_path 'blog/microservices-service-to-service-security/secure-discovery.png' %}[alt=Secure Eureka Server,width=800,align=center]
 
@@ -286,7 +292,7 @@ eureka.instance.health-check-url=https://${eureka.hostname}:${server.port}/actua
 eureka.instance.home-page-url=https://${eureka.hostname}${server.port}/
 ----
 
-Also, change the Eureka address in each `application.properties` (and in `bootstrap.yml`) to be `https://localhost:8761/eureka`.
+Also, change the Eureka address in each `application.properties` (and in `bootstrap.yml`) to be `\https://localhost:8761/eureka`.
 
 NOTE: The `application.properties` in the `school-ui` project doesn't have a port specified. You'll need to add `server.port=8080`.
 
@@ -295,10 +301,10 @@ At this point, you should be able to start all your apps by running the followin
 [source,shell]
 ----
 source ../https.env
-./mvnw spring-boot:start
+./mvnw spring-boot:run
 ----
 
-Confirm it all works at `https://localhost:8080`. Then kill everything with `killall java`.
+Confirm it all works at `\https://localhost:8080`. Then kill everything with `killall java`.
 
 == Using HTTPS with Docker Compose
 
@@ -379,7 +385,7 @@ Run `mvn clean install` to rebuild all your Docker images with HTTPS enabled for
 docker-compose up -d
 ----
 
-Now all your apps are running in Docker with HTTPS! Prove it at `https://localhost:8080`.
+Now all your apps are running in Docker with HTTPS! Prove it at `\https://localhost:8080`.
 
 NOTE: If your apps do not start up or can't talk to each other, make sure your hostname matches what you have in `.env`.
 
@@ -497,6 +503,7 @@ TIP: You could create a service app on Okta that uses client credentials, but th
 
 The last step you'll need to do is modify `SchoolController` (in the `school-ui` project) to add an OAuth 2.0 access token to the request it makes to `school-server`.
 
+{% raw %}
 .Add an AccessToken to RestTemplate
 ====
 [source,java]
@@ -505,12 +512,10 @@ package com.okta.developer.docker_microservices.ui.controller;
 
 import com.okta.developer.docker_microservices.ui.dto.TeachingClassDto;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.ClientHttpRequestExecution;
-import org.springframework.http.client.ClientHttpRequestInterceptor;
-import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
@@ -523,7 +528,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -533,8 +537,8 @@ public class SchoolController {
     private final OAuth2AuthorizedClientService authorizedClientService;
     private final RestTemplate restTemplate;
 
-    public SchoolController(OAuth2AuthorizedClientService clientService,
-                            RestTemplate restTemplate) { // <1>
+    public SchoolController(OAuth2AuthorizedClientService clientService, // <1>
+                            RestTemplate restTemplate) {
         this.authorizedClientService = clientService;
         this.restTemplate = restTemplate;
     }
@@ -547,35 +551,32 @@ public class SchoolController {
     @GetMapping("/classes")
     @PreAuthorize("hasAuthority('SCOPE_profile')")
     public ResponseEntity<List<TeachingClassDto>> listClasses(
-            @AuthenticationPrincipal OAuth2AuthenticationToken authentication) { // <2>
+        @AuthenticationPrincipal OAuth2AuthenticationToken authentication) { // <2>
 
         OAuth2AuthorizedClient authorizedClient =
-                this.authorizedClientService.loadAuthorizedClient(
-                        authentication.getAuthorizedClientRegistrationId(),
-                        authentication.getName()); // <3>
+            this.authorizedClientService.loadAuthorizedClient(
+                authentication.getAuthorizedClientRegistrationId(),
+                authentication.getName()); // <3>
 
         OAuth2AccessToken accessToken = authorizedClient.getAccessToken(); // <4>
-        restTemplate.getInterceptors().add(getBearerTokenInterceptor(accessToken.getTokenValue())); // <5>
+        HttpHeaders headers = new HttpHeaders() {{
+            set("Authorization", "Bearer " + accessToken.getTokenValue()); // <5>
+        }};
 
         return restTemplate
-                .exchange("https://school-service/class", HttpMethod.GET, null,
-                        new ParameterizedTypeReference<List<TeachingClassDto>>() {});
-    }
-
-    private ClientHttpRequestInterceptor getBearerTokenInterceptor(String accessToken) {
-        return (request, bytes, execution) -> {
-            request.getHeaders().add("Authorization", "Bearer " + accessToken);
-            return execution.execute(request, bytes);
-        };
+            .exchange("https://school-service/class", HttpMethod.GET, new HttpEntity<String>(headers),
+                new ParameterizedTypeReference<List<TeachingClassDto>>() {
+                });
     }
 }
 ----
-<1> Add an `OAuth2AuthorizedClientService` dependency to the constructor
-<2> Inject an `OAuth2AuthenticationToken` into the `listClasses()` method
-<3> Create an `OAuth2AuthorizedClient` from the `authentication`
-<4> Get the access token from the authorized client
-<5> Add the access token to the `Authorization` header
+<.> Add an `OAuth2AuthorizedClientService` dependency to the constructor
+<.> Inject an `OAuth2AuthenticationToken` into the `listClasses()` method
+<.> Create an `OAuth2AuthorizedClient` from the `authentication`
+<.> Get the access token from the authorized client
+<.> Add the access token to the `Authorization` header
 ====
+{% endraw %}
 
 That's it! Since the `school-ui` and the `school-service` use the same OIDC app settings, the server will recognize and validate the access token (which is also a JWT), and allow access.
 
@@ -587,6 +588,8 @@ mvn clean install
 docker-compose down
 docker-compose up -d
 ----
+
+NOTE: If your `school-ui` and `school-service` won't start after several attempts, add a `hostname` property to the `config` service in `docker-compose.yml` that matches the hostname you put in `.env`.
 
 == Use HTTP Basic Auth for Secure Microservice Communication with Eureka and Spring Cloud Config
 

@@ -1,3 +1,17 @@
+pawel-szydziak:
+  full_name: Paweł Szydziak
+  display_name: Paweł
+  avatar: avatar-pawel-szydziak.jpg
+  email: Pawel.Szydziak@toptal.com
+  linkedin: https://www.linkedin.com/in/pawel-szydziak/
+
+joyce-morrell:
+  full_name: Joyce Morrell
+  display_name: Joyce
+  avatar: avatar-joyce-morrell.jpg
+  email: joyce.morrell@okta.com
+  linkedin: https://www.linkedin.com/in/joyce-morrell-0579a/
+
 victor-ronin:
   full_name: Victor Ronin
   display_name: Victor
@@ -5,6 +19,12 @@ victor-ronin:
   email: victor.ronin@okta.com
   web: http://victorronin.com/en/
   github: https://github.com/vronin
+
+greg-sinka:
+  full_name: Gergely Sinka
+  display_name: Gergely Sinka
+  avatar: avatar-greg-sinka.jpeg
+  twitter: https://twitter.com/sigewuzhere
 
 vickie-li:
   full_name: Vickie Li
@@ -92,6 +112,23 @@ lee-brandt:
   twitter: https://twitter.com/leebrandt
   github: https://github.com/leebrandt
 
+lars-johansen:
+  full_name: Lars K. Johansen
+  display_name: Lars K. Johansen
+  avatar: avatar-lars.jpg
+  email: lars.johansen@okta.com
+  web: https://www.linkedin.com/in/larskrjo
+  twitter: https://twitter.com/larskrjo
+  github: https://github.com/larskrjo
+  bio:
+    Lars K. Johansen is a Staff Software Engineer and the lead for the Customer Federations team in the CIAM 
+    (Customer Identity Access Management) Products sphere at Okta. He has a great passion for software that 
+    involves security, scalability, efficiency, and reliability. Lars was born and raised in Oslo, Norway, and 
+    he enjoys going on hikes, playing tennis, and loves to cook and eat delicious food. Before Okta, 
+    Lars was a graduate student at Harvard University, holds a Master's Degree from The Norwegian University of 
+    Science and Technology (NTNU), and most recently wrote his Master's Thesis on the topic of Network Coding at 
+    Massachusetts Institute of Technology (MIT).
+
 brian-demers:
   full_name: Brian Demers
   display_name: Brian Demers
@@ -106,6 +143,32 @@ brian-demers:
     typical software development, Brian also has a passion for fast builds and automation.
     Away from the keyboard, Brian is a beekeeper and can likely be found playing board games.
     You can find him on Twitter at <a href="https://twitter.com/briandemers">@briandemers</a>.
+
+xinxin-zhu:
+  full_name: Xinxin Zhu
+  display_name: Xinxin Zhu
+  avatar: avatar-xinxinzhu.jpg
+  email: xinxinzhu@api7.ai
+  twitter: https://twitter.com/starszcan
+  github: https://github.com/starsz
+  bio:
+    Xinxin Zhu is a System Engineer at API7.AI and a committer for the Apache APISIX project. He is an open-source enthusiast and
+    a Golang developer. Now, he is working on the control plane of Apache APISIX writing code, reviewing code, and answering questions
+    in the community. Xinxin Zhu is a fun guy, you can find him on Twitter at <a href="https://twitter.com/starszcan">@starszcan</a> 🙂
+
+huan-liu:
+  full_name: Huan Liu
+  display_name: Huan Liu
+  avatar: avatar-huanliu.jpg
+  email: huan.liu@okta.com
+  web: https://huanliu.wordpress.com
+  github: https://github.com/drhuanliu
+  bio:
+    Huan Liu is a Director of Engineering and Sphere Head for CIAM (Customer Identity Access Management) Products.
+    His team is responsible for both the end-to-end CIAM experiences and the underlying federation protocols.
+    Prior to Okta, Huan was an Engineering Manager and Head of the Terragraph program at Facebook. He was also the 
+    co-lead of the Maveric program, which brings Facebook's ML expertise to 5G networks. Huan holds a Ph.D. degree in 
+    Electrical Engineering from Stanford University.
 
 micah-silverman:
   full_name: Micah Silverman
@@ -238,7 +301,7 @@ team-okta:
   display_name: Team Okta
   avatar: avatar-oktadev.png
   email: devrel@okta.com
-  github: https://github.com/oktadeveloper
+  github: https://github.com/oktadev
   twitter: https://twitter.com/oktadev
 
 tom-smith:
@@ -569,3 +632,63 @@ joe-cavazos:
   web: https://jlcavazos.com
   github: https://github.com/cavazosjoe
   linkedin: https://www.linkedin.com/in/joe-cavazos-82002a66/
+
+phill-edwards:
+  full_name: Phillip Edwards
+  display_name: Phill Edwards
+  avatar: avatar-phill-edwards.jpg
+  email: phillip.edwards@toptal.com
+  web: https://dr-phill-edwards.eu
+  github: https://github.com/dr-phill-edwards
+  linkedin: https://www.linkedin.com/in/phillip-edwards-9502295/
+
+dino-bikic:
+  full_name: Dino Bikic
+  display_name: Dino Bikic
+  avatar: avatar-dino-bikic.png
+  twitter: https://twitter.com/oktadev
+
+karson-kwan:
+  full_name: Karson Kwan
+  display_name: Karson Kwan
+  avatar: avatar-karson-kwan.jpg
+  linkedin: https://www.linkedin.com/in/karsonkwan/
+
+daniel-petisme:
+  full_name: Daniel Petisme
+  display_name: Daniel Petisme
+  avatar: avatar-daniel-petisme.jpg
+  twitter: https://twitter.com/danielpetisme
+  github: https://github.com/danielpetisme
+  linkedin: https://www.linkedin.com/in/danielpetisme
+
+ali-spivak:
+  full_name: Ali Spivak
+  display_name: Ali Spivak
+  avatar: avatar-alispivak.jpg
+  twitter: https://twitter.com/alispivak
+  github: https://github.com/alispivak
+  linkedin: https://www.linkedin.com/in/alispivak
+
+gabe-jackson:
+  full_name: Gabe Jackson
+  display_name: Gabe Jackson
+  avatar: avatar-gabe-jackson.jpg
+  twitter: https://twitter.com/gabe_jackson
+  github: https://github.com/gj
+  linkedin: https://www.linkedin.com/in/gabej
+
+claudio-acquaviva:
+  full_name: Claudio Acquaviva
+  display_name: Claudio Acquaviva
+  avatar: avatar-claudio-acquaviva.jpg
+  twitter: https://twitter.com/CAcquaviva
+  github: https://github.com/CAcquaviva
+  linkedin: https://www.linkedin.com/in/claudioacquaviva
+
+cale-switzer:
+  full_name: Cale Switzer
+  display_name: Cale Switzer
+  avatar: avatar-cale-switzer.jpg
+  github: https://github.com/Tennyx
+  linkedin: https://www.linkedin.com/in/cale-switzer-380a8630

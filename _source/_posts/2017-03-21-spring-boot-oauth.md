@@ -7,6 +7,13 @@ communities: [java]
 description: "In this tutorial you'll learn how to integrate Spring Security into a Spring Boot application, plus add authentication with OAuth using the Okta API."
 tags: [spring-boot, oauth, okta]
 type: conversion
+update-url: /blog/2019/10/30/java-oauth2
+update-title: "OAuth 2.0 Java Guide: Secure Your App in 5 Minutes"
+changelog:
+  - 2018-05-24: Added `spring-security-oauth2-autoconfigure` as a dependency, which is necessary for Spring Boot 2.0. You can see the changes in this article in [this pull request](https://github.com/oktadeveloper/okta.github.io/pull/2074), and changes in the example app in [okta-spring-boot-oauth-example#4](https://github.com/oktadeveloper/okta-spring-boot-oauth-example/pull/4).
+  - 2018-02-02: Added more information to `application.yml` so it's easier to copy and paste.
+  - 2017-10-20: "Added missing `scope: openid profile email` to `application.yaml`."
+  - 2017-10-11: Updated instructions for the [Okta Developer Console](/blog/2017/09/25/all-new-developer-console).
 ---
 
 If you're building a Spring Boot application, you'll eventually need to add user authentication. You can do this with OAuth 2.0 (henceforth: OAuth). OAuth is a standard that applications can use to provide client applications with "secure delegated access". It works over HTTP and authorizes devices, APIs, servers, and applications with access tokens rather than credentials.
@@ -154,13 +161,6 @@ The source code for this tutorial and the examples in it are available [on GitHu
 This tutorial showed you how to use Spring CLI, Groovy, Spring Boot, Spring Security, and Okta to quickly prototype an OAuth client. This information is useful for those that are developing a Spring MVC application with traditional server-rendered pages. However, these days, lots of developers are using JavaScript frameworks and mobile applications to build their UIs.
 
 In a [future tutorial](/blog/2017/09/19/build-a-secure-notes-application-with-kotlin-typescript-and-okta), I'll show you how to develop one of these fancy UIs in Angular and use the access token retrieved to talk to a Spring Boot API that's secured by Spring Security and does JWT validation.
-
-**Changelog:**
-
-* May 24, 2018: Added `spring-security-oauth2-autoconfigure` as a dependency, which is necessary for Spring Boot 2.0. You can see the changes in this article in [this pull request](https://github.com/oktadeveloper/okta.github.io/pull/2074), and changes in the example app in [okta-spring-boot-oauth-example#4](https://github.com/oktadeveloper/okta-spring-boot-oauth-example/pull/4).
-* Feb 2, 2018: Added more information to `application.yml` so it's easier to copy and paste.
-* Oct 20, 2017: Added missing `scope: openid profile email` to `application.yaml`.
-* Oct 11, 2017: Updated instructions for the [Okta Developer Console](/blog/2017/09/25/all-new-developer-console).
 
 
 

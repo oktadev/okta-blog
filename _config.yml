@@ -7,7 +7,7 @@ baseurl: ""
 url: "https://developer.okta.com"
 encoding: utf-8
 twitter_username: OktaDev
-github_username:  oktadeveloper
+github_username:  oktadev
 disqus_shortname: oktadevblog
 
 plugins:
@@ -48,8 +48,8 @@ kramdown:
 permalink: /blog/:year/:month/:day/:title
 
 support_phone_number: "1-888-722-7871"
-github_base_url: "https://github.com/oktadeveloper/okta.github.io/tree/source/_source/"
-github_edit_url: "https://github.com/oktadeveloper/okta.github.io/edit/source/_source/"
+github_base_url: "https://github.com/oktadev/okta-blog/tree/source/_source/"
+github_edit_url: "https://github.com/oktadev/okta-blog/edit/source/_source/"
 get_started_url: "https://developer.okta.com/signup/"
 stack_overflow_forum_url: "http://stackoverflow.com/search?q=okta"
 
@@ -59,7 +59,7 @@ timezone: EST
 # This variable will prevent user from committing sitemap with local url
 production_url: "https://developer.okta.com"
 
-include: [_static, .nojekyll, .woff, .tff]
+include: [_static, .nojekyll, .woff, .tff, _headers]
 
 assets:
   compress:

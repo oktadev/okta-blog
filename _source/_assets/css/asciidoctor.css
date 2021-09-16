@@ -1,6 +1,6 @@
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
 @import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400";
-article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}
+article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}
 audio,canvas,video{display:inline-block}
 audio:not([controls]){display:none;height:0}
 [hidden],template{display:none}
@@ -154,6 +154,7 @@ table.tableblock #preamble>.sectionbody>.paragraph:first-of-type p{font-size:inh
 .admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #ddddd8;color:rgba(0,0,0,.6)}
 .admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
 .exampleblock>.content{border-style:solid;border-width:1px;border-color:#e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;-webkit-border-radius:4px;border-radius:4px}
+.exampleblock>.content{padding-top:0}
 .exampleblock>.content>:first-child{margin-top:0}
 .exampleblock>.content>:last-child{margin-bottom:0}
 .sidebarblock{border-style:solid;border-width:1px;border-color:#e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;-webkit-border-radius:4px;border-radius:4px}
@@ -362,8 +363,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 .show-for-print{display:inherit!important}}
 
 /* New rules added by mraible */
-.paragraph > p, .sectionbody .ulist, .admonitionblock, .quoteblock blockquote p:last-child, .olist, .ulist, details > summary.title {
-    margin-bottom: 1.25rem;
+.paragraph > p, .sectionbody .ulist, .admonitionblock, .quoteblock blockquote p:last-child, .olist, .ulist, details, details > summary.title {
+    margin: 20px 0;
 }
 
 .sect1 {
@@ -464,3 +465,9 @@ b.conum *{color:inherit!important}
 .colist td .conum[data-value] {
     margin-top: .5em;
 }
+
+/* Fix margin around sub-lists */
+ol > li > p, ol > li > .ulist {
+    margin: 5px !important;
+}
+.wrapcode div.content pre code{white-space:normal;overflow-wrap:anywhere;}

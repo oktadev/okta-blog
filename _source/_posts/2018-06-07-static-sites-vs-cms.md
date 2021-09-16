@@ -125,7 +125,7 @@ In order to use a CMS system like Drupal to manage a website, blog, etc., there 
 - How to insert code blocks and other special types of markup using the built-in web editors.
 - How to publish articles, go through a review process, and preview articles.
 - How to modify existing articles to fix issues, how to make suggested edits to other people's content / pages, etc.
-- And many other things..
+- And many other things.
 
 To successfully run a static site project, there is really almost nothing contributors need to know other than:
 

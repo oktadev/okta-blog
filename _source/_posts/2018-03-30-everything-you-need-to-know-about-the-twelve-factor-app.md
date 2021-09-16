@@ -191,7 +191,7 @@ Finally, twelve-factor authentication as I laid it out above would also create a
 Multi-factor authentication is awesome:
 
 - It allows your users to prove themselves with only a little bit of inconvenience.
-- It allows your users to add multiple "factors" to select from when logging in — this way, if you add both an SMS factor *and* a Yubikey factor you can still log into your account even if you forget your Yubikey device..
+- It allows your users to add multiple "factors" to select from when logging in — this way, if you add both an SMS factor *and* a Yubikey factor you can still log into your account even if you forget your Yubikey device.
 
 The problem with multi-factor authentication, however, is the same exact problem you'd have implementing twelve-factor authentication as well: it's annoying.
 
