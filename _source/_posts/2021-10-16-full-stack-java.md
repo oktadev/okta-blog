@@ -41,6 +41,6 @@ type: conversion
 ## Make Your React + Spring Boot App into a PWA
 ## Deploy Your React + Spring Boot App to Heroku
 ### Configure Your React + Spring Boot App for Auth0 and Analyze Your PWA Score with Lighthouse
-## Learn More about React, Spring Boot, JHipster, and OAuth
+## Learn More About React, Spring Boot, JHipster, and OAuth
 
 dev.java
