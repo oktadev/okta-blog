@@ -10,6 +10,12 @@ tweets:
   - "Learn how to integrate @springboot and @reactjs in this tutorial from @mraible."
   - "Want to develop an application with @java on the backend and @reactjs on the front-end? This article is for you!"
 type: conversion
+update-url: /blog/2020/01/13/kotlin-react-crud
+update-title: "Build a CRUD Application with Kotlin and React"
+changelog:
+  - 2018-09-11: "Updated to use Spring Boot 2.0.4 and React 16.5.0. You can see the code changes in the example app via pull requests on GitHub: [spring-boot-react-example#7](https://github.com/oktadeveloper/spring-boot-react-example/pull/7), [spring-boot-react-example#6](https://github.com/oktadeveloper/spring-boot-react-example/pull/6). Changes to this article can be viewed in [oktadeveloper/okta.github.io#2303](https://github.com/oktadeveloper/okta.github.io/pull/2303)."
+  - 2018-07-12: "Updated to use Spring Boot 2.0.3, Okta Spring Boot Starter 0.6.0, and Okta React 1.0.2. You can see the code changes in the example app via pull requests on GitHub: [spring-boot-react-example#4](https://github.com/oktadeveloper/spring-boot-react-example/pull/4), [spring-boot-react-example#5](https://github.com/oktadeveloper/spring-boot-react-example/pull/5). Changes to this article can be viewed in [oktadeveloper/okta.github.io#2189](https://github.com/oktadeveloper/okta.github.io/pull/2189)."
+  - 2018-04-10: "Updated to use Spring Boot 1.5.12, Okta Spring Boot Starter 0.4.0, and Okta React 1.0.0. You can see the code changes in the example app via pull requests on GitHub: [spring-boot-react-example#3](https://github.com/oktadeveloper/spring-boot-react-example/pull/3), [spring-boot-react-example#2](https://github.com/oktadeveloper/spring-boot-react-example/pull/2). Changes to this article can be viewed in [oktadeveloper/okta.github.io#1942](https://github.com/oktadeveloper/okta.github.io/pull/1942)."
 ---
 
 React has been getting a lot of positive press in the last couple years, making it an appealing frontend option for Java developers! Once you learn how it works, it makes a lot of sense and can be fun to develop with. Not only that, but it's *wicked fast!* If you've been following me, or if you've read this blog for a bit, you might remember my [Bootiful Development with Spring Boot and Angular](/blog/2017/04/26/bootiful-development-with-spring-boot-and-angular) tutorial. Today, I'll show you how to build the same application, except with React this time. Before we dive into that, let's talk some more about what React is great for, and why I chose to explore it in this post.
@@ -38,8 +44,8 @@ To get started with Spring Boot, navigate to [start.spring.io](https://start.spr
 If you like the command-line better, you can use the following command to download a `demo.zip` file with [HTTPie](https://httpie.org/).
 
 ```
-http https://start.spring.io/starter.zip \
-dependencies==h2,data-jpa,data-rest,web -d
+http https://start.spring.io/starter.zip bootVersion==2.0.4.RELEASE \
+ dependencies==h2,data-jpa,data-rest,web -d
 ```
 
 Create a directory called `spring-boot-react-example`, with a `server` directory inside it. Expand the contents of `demo.zip` into the `server` directory.
@@ -942,9 +948,3 @@ git clone -b okta https://github.com/oktadeveloper/spring-boot-react-example.git
 ```
 
 If you find any issues, please add a comment below, and I'll do my best to help. If you liked this tutorial, I'd love to have you [follow me on Twitter](https://twitter.com/mraible). To be notified of more articles like this one, follow [@oktadev](https://twitter.com/oktadev).
-
-**Changelog:**
-
-* Sep 11, 2018: Updated to use Spring Boot 2.0.4 and React 16.5.0. You can see the code changes in the example app via pull requests on GitHub: [master-branch#7](https://github.com/oktadeveloper/spring-boot-react-example/pull/7), [okta-branch#6](https://github.com/oktadeveloper/spring-boot-react-example/pull/6). Changes to this article can be viewed in [oktadeveloper/okta.github.io#2303](https://github.com/oktadeveloper/okta.github.io/pull/2303).
-* Jul 12, 2018: Updated to use Spring Boot 2.0.3, Okta Spring Boot Starter 0.6.0, and Okta React 1.0.2. You can see the code changes in the example app via pull requests on GitHub: [master-branch#4](https://github.com/oktadeveloper/spring-boot-react-example/pull/4), [okta-branch#5](https://github.com/oktadeveloper/spring-boot-react-example/pull/5). Changes to this article can be viewed in [oktadeveloper/okta.github.io#2189](https://github.com/oktadeveloper/okta.github.io/pull/2189).
-* Apr 10, 2018: Updated to use Spring Boot 1.5.12, Okta Spring Boot Starter 0.4.0, and Okta React 1.0.0. You can see the code changes in the example app via pull requests on GitHub: [master#3](https://github.com/oktadeveloper/spring-boot-react-example/pull/3), [okta#2](https://github.com/oktadeveloper/spring-boot-react-example/pull/2). Changes to this article can be viewed in [oktadeveloper/okta.github.io#1942](https://github.com/oktadeveloper/okta.github.io/pull/1942).

@@ -11,6 +11,8 @@ tweets:
 - "Spring Boot with @java + Vue with @typescriptlang == 💚. Learn how to build a @springboot + @vuejs app today!"
 image: blog/featured/okta-vue-bottle-headphones.jpg
 type: conversion
+update-url: /blog/2020/06/26/spring-boot-vue-kotlin
+update-title: "Build a CRUD App with Vue.js, Spring Boot, and Kotlin"
 ---
 :page-liquid:
 
@@ -39,7 +41,7 @@ If you like the command-line better, install https://httpie.org/[HTTPie] and run
 [source,bash]
 ----
 http https://start.spring.io/starter.zip dependencies==h2,lombok,data-jpa,data-rest,web \
-  packageName==com.okta.developer.demo -d
+  packageName==com.okta.developer.demo bootVersion==2.1.1.RELEASE -d
 ----
 
 Create a directory called `spring-boot-vue-example`. Expand the contents of `demo.zip` into its `server` directory.

@@ -25,8 +25,7 @@
      <meta name="robots" content="noindex,nofollow">
    {% endif %}
 
-  <link type="text/css" rel="stylesheet" href="{{ site.external_domain }}/sites/all/themes/developer/css/master.css" media="all" />
-  <link type="text/css" rel="stylesheet" href="{{ site.external_stage_domain }}/sites/all/modules/okta_coveo_search_developer/css/okta_coveo_search_developer.css?q49ktf" media="all" />
+  <link rel="stylesheet" href="https://static.cloud.coveo.com/searchui/v2.10081/5/css/CoveoFullSearch.min.css" integrity="sha512-c6ZA0d3XVIG36GHJHX+TRBINlF4+k4cDAngeqQmWzEcPys5FWvLCD/IVaUJsdmNchM+4YuCcYpaXsNsb2B8bWQ==" crossorigin="anonymous">
 
   {% css animate %}
   {% css okta %}
@@ -49,7 +48,11 @@
   <link rel="mask-icon" href="/assets-jekyll/favicon/safari-pinned-tab.svg" color="#21313a">
   <meta name="msapplication-config" content="/assets-jekyll/favicon/browserconfig.xml">
   <meta name="theme-color" content="#ffffff">
+  {% if page.canonical-url -%}
+  <link rel="canonical" href="{{ page.canonical-url }}" />
+  {%- else -%}
   <link rel="canonical" href="{{ site.external_domain }}{{ page.url }}" />
+  {%- endif -%}
   {% if page.layout == "blog_post" %}
   <meta property="og:type"               content="article" />
   <meta property="og:url"                content="{{ site.external_domain }}{{ page.url }}" />

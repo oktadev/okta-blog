@@ -16,6 +16,7 @@ $asset-path: "/assets";
 //-----------------------------------------------------------------------
 
 $font-family:             'proxima-nova', Helvetica, Arial, sans-serif;
+$font-family-secondary:   'ABC Whyte', Helvetica, Arial, sans-serif;
 $font-family--alt:        'museo', Helvetica, Arial, sans-serif;
 
 $font-size:     (
@@ -96,7 +97,9 @@ $gainsboro-8: #e4e4e4;
 // Grays
 $dim-gray-3: #5d5d5d;
 $eclipse-2: #3d3d3d;
+$dove-gray: #616161;
 $iron: #c2c3c3;
+$loblolly: #BCC3CA;
 $lily-white: #f2f5f5;
 $mortar: #555555;
 $mystic: #dee0df;
@@ -109,9 +112,14 @@ $suva-gray-4: #8f8f8f;
 $very-light-gray: #cccccc;
 // Blacks
 $black: #000000;
+$mirage: #14222A;
+$san-juan: #2B4D63;
+$mine-shaft: #212121;
 // Reds
 $jazzberry-jam: #990f69;
 $valencia: #d9534f;
+$cerise-red: #DD2864;
+$french-rose: #F64882;
 // Oranges
 $burnt-orange: #ff7640;
 $light-coral: #f57f7f;
@@ -148,6 +156,8 @@ $puerto-rico-5: #4cbf9d;
 $screamin-green: #59ff99;
 $shamrock: #4cdb82;
 $periglacial-blue: #abadac;
+$gable-green: #16262f;
+$cello: #1f3b54;
 // Purples
 $cerise: #e22866; // intentional developer color
 $lavender-3: #f7fbfd;
@@ -202,6 +212,8 @@ $colors:        (
                 'new-gray-dark':          $eclipse-2,
 
                 'red':                    $light-coral,
+                'cello':                  $cello,
+                'gable-green':            $gable-green,
 
                 // 2017-07 Redesign Colors
                 'ebony-clay':             $midnight, // Background
@@ -212,6 +224,15 @@ $colors:        (
                 'cerise':                 $cerise, // CTA buttons, links
 
                 'code-background':        $white-smoke-10,
+
+                // 2020-12 Nav Redesign Colors
+                'mirage': $mirage, // Nav background
+                'san-juan': $san-juan, // Nav mobile dropdown background
+                'cerise-red': $cerise-red, // Nav CTA background
+                'loblolly': $loblolly, // Nav SearchBox Suggestions hover color
+                'mine-shaft': $mine-shaft, // Nav SearchBox color
+                'dove-gray': $dove-gray, // Nav SearchBox placeholder color
+                'french-rose': $french-rose, // Links active state
 );
 
 

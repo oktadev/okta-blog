@@ -10,6 +10,11 @@ tweets:
   - "Want to see how to develop a Spring Boot API and and Angular 5 UI that talks to it? We have a tutorial for that! "
   - "Bootiful Development with Spring Boot and Angular: two beautiful frameworks, working together in harmony ❤️ "
 type: conversion
+update-url: /blog/2020/01/06/crud-angular-9-spring-boot-2
+update-title: "Build a CRUD App with Angular 9 and Spring Boot 2.2"
+changelog:
+  - 2018-02-07: Updated to use Spring Boot 1.5.10, Angular 5.2.0, and Angular CLI 1.6.7. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/spring-boot-microservices-example/pull/6). Changes to this article can be viewed [in this pull request](https://github.com/oktadeveloper/okta.github.io/pull/1733).
+  - 2017-11-03: Updated to use Spring Boot 1.5.8, Angular 5.0.0, and Angular CLI 1.5.0. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/spring-boot-angular-example/pull/5).
 ---
 
 To simplify development and deployment, you want everything in the same artifact, so you put your Angular app "inside" your Spring Boot app, right? But what if you could create your Angular app as a standalone app and make cross-origin requests to your API? Hey guess what, you can do both!
@@ -39,7 +44,7 @@ To get started with Spring Boot, navigate to [start.spring.io](https://start.spr
 If you like the command-line better, you can use the following command to download a `demo.zip` file with [HTTPie](https://httpie.org/).
 
 <pre>
-http https://start.spring.io/starter.zip \
+http https://start.spring.io/starter.zip bootVersion==1.5.10.RELEASE \
 dependencies==devtools,h2,data-jpa,data-rest,web -d
 </pre>
 
@@ -477,8 +482,3 @@ You can find the source code associated with this article [on GitHub](https://gi
 **Update:** To learn how to turn this application into a progressive web application that can work offline, see [Build Your First Progressive Web Application with Angular and Spring Boot](/blog/2017/05/09/progressive-web-applications-with-angular-and-spring-boot). I also wrote a [tutorial that shows how to develop an Ionic mobile app for this Spring Boot backend](/blog/2017/05/17/develop-a-mobile-app-with-ionic-and-spring-boot).
 
 **Update 2:** To see how to develop this same application with Spring Boot, React, and Okta, see [Bootiful Development with Spring Boot and React](/blog/2017/12/06/bootiful-development-with-spring-boot-and-react).
-
-**Changelog:**
-
-* Feb 7, 2018: Updated to use Spring Boot 1.5.10, Angular 5.2.0, and Angular CLI 1.6.7. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/spring-boot-microservices-example/pull/6). Changes to this article can be viewed [in this pull request](https://github.com/oktadeveloper/okta.github.io/pull/1733).
-* Nov 3, 2017: Updated to use Spring Boot 1.5.8, Angular 5.0.0, and Angular CLI 1.5.0. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/spring-boot-angular-example/pull/5).

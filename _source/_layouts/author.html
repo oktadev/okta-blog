@@ -35,6 +35,8 @@ layout: master
 		    </div>
 		{% endif %}
 
+    <h4>All Posts by {{ page.full_name }}</h4>
+
 	</article>
 
 	{% assign filtered_posts = site.posts | where: 'author', page.id %}
