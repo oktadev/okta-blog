@@ -193,7 +193,7 @@ You issuer is simply your Okta domain plus `/oauth2/default`, such as `https://d
 
 Another way to find your issuer URI is to open your Okta developer dashboard. Select **Security** and **API** from the left menu. This will show you your authorization servers. Mostly likely you only have the default authorization server that was set up for you when you signed up. This page will show you the **audience** (again, probably `api://default`) and the **Issuer URI**.
 
-<< image >>
+{% img blog/spring-boot-spa/okta-sign-in.png alt:"auth-servers.png" width:"800" %}{: .center-image }
 
 Add the issuer URI to your properties file, which should look something like below, replacing `{yourOktaDomain}` with your actual Okta domain.
 
