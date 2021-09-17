@@ -10,15 +10,16 @@ tweets:
 - ""
 - ""
 - ""
-image:
-type: awareness|conversion
+  image:
+  type: awareness|conversion
+
 ---
 
 ## Vue and Spring-Boot Single-Page Application
 
 In this tutorial you are going to create a single-page application that uses a Spring Boot resource server and a Vue front-end client. You'll see how to configure Spring Boot to use JSON Web Tokens (JWT) for authentication and authorization, with Okta as an OAuth 2. 0 and OpenID Connect (OIDC) provider. You'll also see how to bootstrap a Vue client app with the Vue CLI and how to secure it using the Okta Sign-In Widget.
 
-Okta is a computer security services company that provides a lot of great resources for securing web applications. The widget is a great way to secure front-end applications because it allows you to easily add a secure login form that is configurable for single sign-on and social sign-on with external providers such as Google, Facebook, and LinkedIn. It provides an implementation of the authorization code OAuth 2.0 flow using PKCE (Proof Key for Code Exchange). 
+Okta is a computer security services company that provides a lot of great resources for securing web applications. The widget is a great way to secure front-end applications because it allows you to easily add a secure login form that is configurable for single sign-on and social sign-on with external providers such as Google, Facebook, and LinkedIn. It provides an implementation of the authorization code OAuth 2.0 flow using PKCE (Proof Key for Code Exchange).
 
 PKCE is a modification of the authorization code flow that does not require the application to have the client secret, making it suitable for client applications where the code is essentially public. Implementing a secure authorization code flow on a front-end application requires properly handing redirects and the token exchange, which can be a little involved. Fortunately, Okta has simplified this process greatly, handling a lot of the complexity for you.
 
@@ -36,7 +37,7 @@ Before you get started, you'll need to make sure you have a few tools installed.
 
 To bootstrap the Spring Boot resource server project, you will use [the Spring Initializr](https://start.spring.io/). It's designed to help developers quickly configure and generate Spring Boot projects. There's [a great web interface](https://start.spring.io/) that's you should take a look at. However, in this project, you're going to use the REST interface to download a pre-configured project.
 
-This project will have both a Vue client and a Spring Boot server project, so you may want to make a parent directory called something like `Spring Boot SPA`. Use the following command to download and extract the starter project in the parent directory. 
+This project will have both a Vue client and a Spring Boot server project, so you may want to make a parent directory called something like `Spring Boot SPA`. Use the following command to download and extract the starter project in the parent directory.
 
 ```bash
 curl https://start.spring.io/starter.tgz \
@@ -52,11 +53,11 @@ curl https://start.spring.io/starter.tgz \
 | tar -xzvf -	
 ```
 
-The command above configures various aspects of the Spring Boot project, including the Spring Boot version and the Java version. It also configures two dependencies. 
+The command above configures various aspects of the Spring Boot project, including the Spring Boot version and the Java version. It also configures two dependencies.
 
 - The first, `web`, includes Spring MVC, Spring's standard web package.
 
-- The second, `okta`, includes Okta's Spring Boot starter. 
+- The second, `okta`, includes Okta's Spring Boot starter.
 
 You can check out [the Okta Spring Boot Starter project on GitHub](https://github.com/okta/okta-spring-boot) for more info, but briefly, it streamlines using Okta to secure Spring Boot projects. For a resource server, you would typically need to include the Spring Security OAuth Resource Server dependency, but the Okta Spring Boot starter includes this for you.
 
@@ -132,13 +133,13 @@ public class DemoApplication {
 }
 ```
 
-This example resource server defines one endpoint, `/howcaffeinatedami`, that returns a random (and hopefully humorous) string designating your developer's current caffeine level. 
+This example resource server defines one endpoint, `/howcaffeinatedami`, that returns a random (and hopefully humorous) string designating your developer's current caffeine level.
 
-There is also an inner class (at the bottom) that extends `WebSecurityConfigurerAdapter` to configure Spring Security for the application. The configuration class does three things: 
+There is also an inner class (at the bottom) that extends `WebSecurityConfigurerAdapter` to configure Spring Security for the application. The configuration class does three things:
 
-1. ensures that all requests require authentication; 
+1. ensures that all requests require authentication;
 
-2. configures Spring Boot to use the standard resource server security configuration with JSON Web Tokens (JWT); and 
+2. configures Spring Boot to use the standard resource server security configuration with JSON Web Tokens (JWT); and
 
 3. enables CORS (Cross-Origin Resource Sharing).
 
@@ -156,7 +157,7 @@ You now have the code in place for the resource server. You'll still need to con
 
 CORS is a protocol that allows for browsers and servers to explicitly allow cross-origin resource sharing. By default, Javascript running in a browser is restrained by a **same-origin policy**. This means that a Javascript application can only make calls to a server that resides on the same domain from which it was loaded. As a starting point, this makes a lot of sense from a security perspective and prevents a lot of abuse. However, this policy would be pretty restrictive if developers were not able to allow exceptions.
 
-CORS allows resource servers to explicitly enable cross-origin requests, to tell the browser what type of requests it allows and from what origins. It is a white-listing scheme in the sense that all cross-origin requests will be denied by the browser unless the server is explicitly configured to allow them. 
+CORS allows resource servers to explicitly enable cross-origin requests, to tell the browser what type of requests it allows and from what origins. It is a white-listing scheme in the sense that all cross-origin requests will be denied by the browser unless the server is explicitly configured to allow them.
 
 Notice that this protocol is mediated between the server and the browser. The client application, the Vue app in this case, doesn't really have to do anything about CORS. From the perspective of the client app, the HTTP request to the resource server will either succeed or fail. If it fails because of CORS, the request will return a `401 (Unauthorized)`.
 
@@ -176,78 +177,31 @@ Here is a general outline of a CORS request:
 - Browser sends the origin request to the server
 - Server handles original request, authenticating and authorizing it using OAuth 2.0 an OIDC before returning a reply
 
-From a developer perspective, CORS is something that needs to be configured on the server. Spring Boot makes this easy. There are two places in the Java code where CORS is configured. CORS must generally be enabled for the Spring Boot application. This is done in the `SecurityConfiguration` class in the `configure(HttpSecurity http)` method by adding the `cors()` method to the `http` configuration chain. 
+From a developer perspective, CORS is something that needs to be configured on the server. Spring Boot makes this easy. There are two places in the Java code where CORS is configured. CORS must generally be enabled for the Spring Boot application. This is done in the `SecurityConfiguration` class in the `configure(HttpSecurity http)` method by adding the `cors()` method to the `http` configuration chain.
 
 The second place is the `@CrossOrigin` annotation on the `CaffeineLevelRestController` class. This tells Spring Boot to configure CORS for all endpoints in this controller. By default, this will allow cross-origin requests from any domain. To restrict requests to only our client application domain, we could have used the annotation `@CrossOrigin(origins = "http://localhost:8080")`.
 
 Take a look at [this Spring blog post](https://spring.io/blog/2015/06/08/cors-support-in-spring-framework) for more info on Spring Boot and CORS.
 
-## Use The Okta CLI To Configure The Resource Server
+## Configure The Resource Server For Okta Auth
 
-You should already have used the Okta CLI to either register a new account or log into an existing account. If not, please do so now. If you type `okta login`, you should see a message that says something like: `Okta Org already configured: https://dev-123456.okta.com/`.
+You should already have used the Okta CLI to either register a new account or log into an existing account. If not, please do so now. From a bash shell, type `okta login`, you should see a message that says something like: `Okta Org already configured: https://dev-123456.okta.com/`. This is your Okta base domain.
 
-You are going to use the CLI to configure the Spring Boot project to use Okta for JWT authentication. The CLI will create an OpenID Connect (OIDC) application on Okta's servers that will be the authentication and authorization provider for the resource server.
+The only configuration you have to do for the resource server is to add the `okta.oauth2.issuer` property to the `application.properties` file. Spring Security and the Okta Spring Boot Starter will use the issuer endpoint to discover any other configuration it needs (except for the `aud` claim, which defaults to `api://default`).
 
-To start the configuration process, use the following command.
+You issuer is simply your Okta domain plus `/oauth2/default`, such as `https://dev-123456.okta.com/oauth2/default`.
 
-```bash
-okta apps create
-```
+Another way to find your issuer URI is to open your Okta developer dashboard. Select **Security** and **API** from the left menu. This will show you your authorization servers. Mostly likely you only have the default authorization server that was set up for you when you signed up. This page will show you the **audience** (again, probably `api://default`) and the **Issuer URI**.
 
-For `name`, type `spring-boot-spa-rest`.
+<< image >>
 
-Enter `1` to specify a `Web` application.
+Add the issuer URI to your properties file, which should look something like below, replacing `{yourOktaDomain}` with your actual Okta domain.
 
-Enter `4` to specify `Other` as the type of web application.
+`src/main/resources/application.properties`
 
-Press `enter` twice to accept the defaults for the redirect URIs.
-
-You can see the full console output below.
-
-```bash
-$: okta apps create
-Application name [spring-boot-spa]: spring-boot-spa-rest
-Type of Application
-(The Okta CLI only supports a subset of application types and properties):
-> 1: Web
-> 2: Single Page App
-> 3: Native App (mobile)
-> 4: Service (Machine-to-Machine)
-Enter your choice [Web]: 1
-Type of Application
-> 1: Okta Spring Boot Starter
-> 2: Spring Boot
-> 3: JHipster
-> 4: Other
-Enter your choice [Other]: 4
-Redirect URI
-Common defaults:
- Spring Security - http://localhost:8080/login/oauth2/code/okta
- JHipster - http://localhost:8080/login/oauth2/code/oidc
-Enter your Redirect URI [http://localhost:8080/callback]: 
-Enter your Post Logout Redirect URI [http://localhost:8080/]: 
-Configuring a new OIDC Application, almost done:
-Created OIDC application, client-id: 02b4cj4ys0G92cXYI4x7
-
-Okta application configuration has been written to: /home/andrewcarterhughes/Development/okta/2021/spring-boot-spa/spring-boot-spa/.okta.env
-```
-
-This creates a configuration file, `.okta.env` that you can source to configure the application.
-
-```bash
-source .okta.env
-```
-
-**You will need to source this file each time you open a new console** to run the application. 
-
-In a production scenario, you will need to ensure that these environment variables are loaded into the environment in which the Spring Boot application is running. **For security, it's also important that the file, and the client secret in particular, is not checked into source control or otherwise leaked.** Thus you may want to add `.okta.env` to the `.gitignore` of any similar projects you create (as I have here).
-
-The `.okta.env` file is simply a script that exports the necessary properties.
-
-```bash
-export OKTA_OAUTH2_ISSUER="https://dev-123456.okta.com/oauth2/default"
-export OKTA_OAUTH2_CLIENT_SECRET="M-alsjdfoiw932owur08u2093u0932u092jlj"
-export OKTA_OAUTH2_CLIENT_ID="02b4cj4ys0G92cXYI4x7"
+```properties
+server.port=8082
+okta.oauth2.issuer=https://{yourOktaDomain}/oauth2/default
 ```
 
 You now have a working, secure resource server. Go ahead and run the application.
@@ -279,7 +233,7 @@ Select `Manually select features`.
 
 Make sure `Router` and `Choose Vue version` are selected. `Babel` and `Linter / Formatter` were automatically selected for me as well, which is fine.
 
-Select version `3.x`. 
+Select version `3.x`.
 
 Enable `history mode for router` (type `y`).
 
@@ -360,11 +314,11 @@ Issuer:    https://{yourOktaUri}/oauth2/default
 Client ID: {clientId}
 ```
 
-The values in brackets will, of course, be your actual values. 
+The values in brackets will, of course, be your actual values.
 
 **You need to go back to the `src/okta/index.js` file and replace the `yourOktaUri` and `clientId` variables at the top of the file with your values.** The value for `yourOktaUri` is the Okta URI without any further path specifiers. It will look like this: `https://dev-123456.okta.com`
 
-One of the things that the Okta CLI does for you is to add your application's base URL to the CORS trusted origins for the Okta auth server. This is necessary because the the Okta Sign-In Widget will be making cross0-origin requests, that, as noted above, would be blocked unless CORS is properly handled. You can see this by going to your Okta developer dashboard and selected **Security** and **API** from the left-side menu and selected **Trusted Origins** from the API tab. You'll see that (in this case) `http://localhost:8080` was added as a trusted origin of type `CORS Redirect`. 
+One of the things that the Okta CLI does for you is to add your application's base URL to the CORS trusted origins for the Okta auth server. This is necessary because the the Okta Sign-In Widget will be making cross0-origin requests, that, as noted above, would be blocked unless CORS is properly handled. You can see this by going to your Okta developer dashboard and selected **Security** and **API** from the left-side menu and selected **Trusted Origins** from the API tab. You'll see that (in this case) `http://localhost:8080` was added as a trusted origin of type `CORS Redirect`.
 
 {% img blog/spring-boot-spa/trusted-origin.png alt:"Trusted origins for Okta CORS" width:"800" %}{: .center-image }
 
@@ -404,9 +358,9 @@ export default {
 </script>
 ```
 
-This file is verbatim from [the Okta documentation](https://developer.okta.com/code/vue/okta_vue_sign-in_widget/#create-a-widget-wrapper) on using the Okta Sign-In Widget with Vue. The docs are a great resource for more information. 
+This file is verbatim from [the Okta documentation](https://developer.okta.com/code/vue/okta_vue_sign-in_widget/#create-a-widget-wrapper) on using the Okta Sign-In Widget with Vue. The docs are a great resource for more information.
 
-In order for authentication to work, you need to define four routes. 
+In order for authentication to work, you need to define four routes.
 
 - `/`: A default page to handle basic control of the app.
 - `/profile`: A protected route to the current user's profile.
@@ -661,11 +615,11 @@ source .okta.env
 
 Open the app in your browser at [http://localhost:8080](http://localhost:8080).
 
-Because the app is set to secure the home page, you will immediately be directed to the Okta login screen. Log in using your Okta credentials. 
+Because the app is set to secure the home page, you will immediately be directed to the Okta login screen. Log in using your Okta credentials.
 
 {% img blog/spring-boot-spa/okta-sign-in.png alt:"Okta Sign-In Page" width:"800" %}{: .center-image }
 
-When you enter your credentials, the Okta Sign-In Widget and the Vue app will follow the OAuth 2. 0 Authorization Code flow. In this flow, the client sends the login credentials to the Okta auth server and, if authentication is successful, receives an authorization code. The client app calls the Okta token endpoint, trading this authorization code for a JWT (JSON Web Token). The standard OAuth 2.0 authorization code flow requires that the application send the client secret along with the code to the token endpoint. 
+When you enter your credentials, the Okta Sign-In Widget and the Vue app will follow the OAuth 2. 0 Authorization Code flow. In this flow, the client sends the login credentials to the Okta auth server and, if authentication is successful, receives an authorization code. The client app calls the Okta token endpoint, trading this authorization code for a JWT (JSON Web Token). The standard OAuth 2.0 authorization code flow requires that the application send the client secret along with the code to the token endpoint.
 
 However, in the context of a client-side application, putting the client secret in public, browser code would be a major security violation. Instead, Okta uses PKCE (Proof Key for Code Exchange). In this modified flow, the client generates a one-time key that is sent with the request and is associated with the authorized JWT. This is used to ensure that only the client that requested the JWT can use it.
 
@@ -684,3 +638,12 @@ You can also go to the `profile` page at http://localhost:8080/profile, which wi
 ## Conclusion
 
 In this post you saw how to use Spring Boot to create a simple resource server and Vue to create a front-end client. You saw how to use Okta to implement a secure application stack. The front-end client used the Okta Sign-In Widget to implement the OAuth 2.0 authorization code flow with PKCE for a secure token exchange. The resource server was also secured using Okta by including Okta's Spring Boot Starter, which made adding JWT auth to the project quick and easy.
+
+To learn more about OAuth 2.0 and OIDC, check out these blog posts
+
+- [Easy Single Sign-On with Spring Boot and OAuth 2.0](https://developer.okta.com/blog/2019/05/02/spring-boot-single-sign-on-oauth-2)
+- [Add Social Login to Your Spring Boot 2.0 App](https://developer.okta.com/blog/2018/07/24/social-spring-boot)
+- [Build a CRUD App with Vue.js, Spring Boot, and Kotlin](https://developer.okta.com/blog/2020/06/26/spring-boot-vue-kotlin)
+- [Use PKCE with OAuth 2.0 and Spring Boot for Better Security](https://developer.okta.com/blog/2020/01/23/pkce-oauth2-spring-boot)
+- [Migrate Your Spring Boot App to the Latest and Greatest Spring Security and OAuth 2.0](https://developer.okta.com/blog/2019/03/05/spring-boot-migration) 
+
