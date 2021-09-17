@@ -39,29 +39,29 @@ image::{% asset_path 'blog/oauth-sessions-with-java/oauth-code-flow.png' %}[alt=
 2. Web App stores information about the current session - OAuth state info and optionally a PKCE code verifier and/or a nonce for OpenId Connect (OIDC).
 3. Respond with a browser redirect to the authorization server.
 4. User interacts with the authorization server to provide credentials.
-5. Issue redirect with a code back to Web App.
+5. Authorization server issues redirect with a code back to the web app.
 6. Finalize user authorization on the backend.
 7. The web app reads the previously stored OAuth data from the session.
 8. Verify the user has been authorized with the authorization server.
 9. Auth Server response with an OAuth access token.
-10. Web App stores access token in session.
+10. Web app stores access token in session.
 11. User is logged in.
 
-Two separate requests are made to the web application, the initial login request, and a verification step; both requests access the same session information. For your application, this means once you start scaling, you need to think about session management.
+Two separate requests are made to the web application: the initial login request and a verification step. Both requests access the same session information. For your application, this means once you start scaling, you need to think about session management.
 
 == Stateless with JWTs
 
-At this point, you might be wondering if you could cram everything in a JWT and make this process stateless; removing the need for any session clustering. You _could_, but you would need to use a JWE (JSON Web Encryption) to ensure the browser didn't have access to any sensitive data. It is outside the scope of this post, but there are a whole host of reasons link:/blog/2017/08/17/why-jwts-suck-as-session-tokens[not to use JWTs as session tokens].
+At this point, you might wonder if you can cram everything in a JWT and make this process stateless; removing the need for any session clustering. You _could_, but you would need to use a JWE (JSON Web Encryption) to ensure the browser didn't have access to any sensitive data. There are a whole host of reasons link:/blog/2017/08/17/why-jwts-suck-as-session-tokens[not to use JWTs as session tokens], but those issues are outside the scope of this post.
 
 == Load Balancer Sticky Sessions
 
-Another option to avoid session replication or clustering is to use "sticky sessions" (or "session affinity"), but this creates a fragile environment. If a web server fails or is taken out down for any reason, all users associated with that server would be essentially be logged out. Sticky sessions also violate the https://12factor.net/processes[12 Factor principles of process statelessness].
+Another option to avoid session replication or clustering is to use "sticky sessions" (or "session affinity"), but this creates a fragile environment. If a web server fails or is taken down for any reason, all users associated with that server would essentially be logged out. Sticky sessions also violate the https://12factor.net/processes[12-factor principles of process statelessness].
 
-IMPORTANT: Don't confuse 12 Factor's reference of "stateless" with the previous section; this specifically refers to the need for an application relay on the "state" of a server between requests, for example data cached in memory or a file. Instead, a https://12factor.net/backing-services[backing service] should be used; in the case of session storage, the example of Redis used, which is exactly what we are going to do in the next section.
+IMPORTANT: Don't confuse 12 Factor's reference to "stateless" with what's meant by "stateless" in the previous section. There we refer specifically to the need for an application relay on the "state" of a server between requests, for example data cached in memory or a file. Instead, a https://12factor.net/backing-services[backing service] should be used. In the case of session storage, the example of Redis is used, which is exactly what we are going to do in the next section.
 
 == Setup HAproxy and Redis
 
-To build a load-balanced application, we need a minimum of three things, a load balancer (HAproxy), shared session storage (Redis), and multiple instances of a web application (Spring Boot).
+To build a load-balanced application, we need a minimum of three things—a load balancer (HAproxy), shared session storage (Redis), and multiple instances of a web application (Spring Boot).
 
 If you want to skip right to the code, take a look at this https://github.com/oktadev/TODO[GitHub] repo.
 
@@ -75,7 +75,7 @@ cd oauth-sessions
 
 === Configure HAproxy
 
-HAproxy is used to distribute requests between multiple `backend` applications, create a configuration file, `haproxy.cfg`, that will serve two different web apps (one on port `8081`, and another on `8082`).
+HAproxy is used to distribute requests between multiple `backend` applications and create a configuration file, `haproxy.cfg`, that will serve two different web apps (one on port `8081`, and another on `8082`).
 
 [source,config]
 ----
@@ -113,7 +113,7 @@ TIP: Make sure there is a trailing newline, or you may have trouble starting up 
 
 === Start HAproxy and Redis with Docker
 
-I'll be running the example web application directly on my laptop, but HAproxy and Redis can both run as Docker containers, create a `docker-compose.yml` file:
+I'll be running the example web application directly on my laptop, but HAproxy and Redis can both run as Docker containers. Create a `docker-compose.yml` file:
 
 [source,yaml]
 ----
@@ -196,7 +196,7 @@ In the previous section, HAproxy was bound to port `8080`, which is also the def
 SERVER_PORT=8081 ./mvnw spring-boot:run
 ----
 
-At this point, the Spring Boot application has NOT been configured to use Redis or OAuth, but you can still test out the server by grabbing the auto-generated password from the console output; it will look something like this:
+At this point, the Spring Boot application has NOT been configured to use Redis or OAuth, but you can still test out the server by grabbing the auto-generated password from the console output. It will look something like this:
 
 [source,txt]
 ----
@@ -226,9 +226,9 @@ http :8080/ --auth user:<your-password>
 
 You should see the same response; if you see a `503 Service Unavailable`, try the request one more time.
 
-IMPORTANT: The HAproxy configuration used in this post does NOT have health checks enabled, so it blindly will alternate requests between port `8081` and `8082`; this is intentional to simplify the configuration. Take a look at https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html[Spring Actuator] if you want to add health checks and other monitoring to your application.
+IMPORTANT: The HAproxy configuration used in this post does NOT have health checks enabled, so it will alternate requests between port `8081` and `8082`; this is intentional to simplify the configuration. Take a look at https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html[Spring Actuator] if you want to add health checks and other monitoring to your application.
 
-Stop the Spring Boot server using `Ctrl`+`C`, it's time to secure the application with OAuth 2.0.
+Stop the Spring Boot server using `Ctrl`+`C`. It's time to secure the application with OAuth 2.0.
 
 == Secure Spring Boot with OAuth 2.0
 
@@ -252,13 +252,13 @@ Accessing the applications through the load balancer will yield odd results; ope
 
 image::{% asset_path 'blog/oauth-sessions-with-java/oauth-login-failure.png' %}[alt=Invalid credentials authentication error shown in the browser,width=800,align=center]
 
-You can spot the problem if you think back to the sequence diagram at the beginning of this post. The initial login request (step one) happened on one instance, and the final one occurred on another (step six). Updating the application to use shared session storage will fix the problem.
+Think back to the sequence diagram at the beginning of this post, and see if you can spot the problem. The initial login request (step one) happened on one instance, and the final one occurred on another (step six). Updating the application to use shared session storage will fix the problem.
 
 Let's do that!
 
 == Share Sessions with Redis
 
-If you are following along, you already have a Redis server running; all that's left is to configure the Spring Boot application to make use of it. Luckily, https://spring.io/projects/spring-session[Spring Session] makes the process painless.
+If you are following along, you already have a Redis server running; now we'll configure the Spring Boot application to make use of it. Luckily, https://spring.io/projects/spring-session[Spring Session] makes the process painless.
 
 Open up the `pom.xml` and the following inside the `<dependencies>` block:
 
@@ -274,13 +274,13 @@ Open up the `pom.xml` and the following inside the `<dependencies>` block:
 </dependency>
 ----
 
-WARNING: By defaultSpring Session configures Redis to connect to `localhost` on port `6379` and NO password, take a look at the https://docs.spring.io/spring-session/docs/current/reference/html5/guides/boot-redis.html#boot-redis-configuration[Spring Session documentation] for various configuration options.
+WARNING: By default, Spring Session configures Redis to connect to `localhost` on port `6379` and NO password. Take a look at the https://docs.spring.io/spring-session/docs/current/reference/html5/guides/boot-redis.html#boot-redis-configuration[Spring Session documentation] for various configuration options.
 
 Restart the Spring Boot applications (remember one on port `8081` and another on `8082`).
 
 Open up your browser again and try to access `http://localhost:8080/`; this time, you will be able to log in without issue!
 
-Refresh the browser a few times you will see the response alternating between the ports:
+Refresh the browser a few times and you will see the response alternating between the ports:
 
 [source,txt]
 ----
@@ -298,14 +298,14 @@ Easy enough, just a couple of dependencies to configure shared session storage! 
 
 == Learn More OAuth 2.0 and Session Management
 
-This post has shown how to manage sessions for a simple load-balanced application that uses OAuth 2.0. The example used focused on the Spring Boot portion of the application, but it's far from production-ready; a few other concerns would need to be addressed:
+This post shows how to manage sessions for a simple load-balanced application that uses OAuth 2.0. Our example focused on the Spring Boot portion of the application, but it's far from production-ready. A few other concerns would need to be addressed first:
 
 - A single HAproxy and Redis instance are single points of failure
 - Redis data is not persisted
 - Redis connections are not secured
 - Enable TLS for https://www.haproxy.com/blog/haproxy-ssl-termination/[HAproxy] and the link:/blog/2018/07/30/10-ways-to-secure-spring-boot[Spring Boot application]
 
-If you liked this post, check out this related content:
+If you want to learn more, check out this related content:
 
 - link:/blog/2018/07/30/10-ways-to-secure-spring-boot[10 Excellent Ways to Secure Your Spring Boot Application]
 - link:/blog/2017/08/17/why-jwts-suck-as-session-tokens[Why JWTs Suck as Session Tokens]
