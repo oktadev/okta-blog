@@ -33,13 +33,13 @@ One of the easiest ways to get started with React is by using [Create React App]
 
 Spring Boot has a similar tool, called [Spring Initializr](https://start.spring.io/). Spring Initializer is a bit different than CRA because it's a website (and API) that you can create applications with.
 
-Today, I’ll show you how to build a Flickr clone with React and Spring Boot. However, I’m going to cheat. Rather than building everything using the aforementioned tools, I’m going to use JHipster. JHipster is an application generator that initially only supported Angular and Spring Boot. Now it supports Angular, React, and Vue for the frontend. JHipster also has support for [Kotlin, Micronaut, Quarkus, .NET, and Node.js](https://www.jhipster.tech/modules/official-blueprints/) on the backend.
+Today, I'll show you how to build a Flickr clone with React and Spring Boot. However, I'm going to cheat. Rather than building everything using the aforementioned tools, I'm going to use JHipster. JHipster is an application generator that initially only supported Angular and Spring Boot. Now it supports Angular, React, and Vue for the frontend. JHipster also has support for [Kotlin, Micronaut, Quarkus, .NET, and Node.js](https://www.jhipster.tech/modules/official-blueprints/) on the backend.
 
 In this tutorial, we'll use React since it seems to be [the most popular](https://trends.google.com/trends/explore?q=angular,react,vuejs). 
 
 ## Get Started with JHipster 7
 
-To get started with JHipster, you’ll need a fast internet connection and Node.js installed. The project recommends you use the latest LTS (Long Term Support) version, which is 14.7.6 at the time of this writing. To run the app, you’ll need to have Java 11 installed. If you have Git installed, JHipster will auto-commit your project after creating it. This will allow you to upgrade between versions.
+To get started with JHipster, you'll need a fast internet connection and Node.js installed. The project recommends you use the latest LTS (Long Term Support) version, which is 14.7.6 at the time of this writing. To run the app, you'll need to have Java 11 installed. If you have Git installed, JHipster will auto-commit your project after creating it. This will allow you to upgrade between versions.
 
 Run the following command to install JHipster:
 
@@ -87,7 +87,7 @@ Press `Enter` and JHipster will create your app in the current directory and run
 
 When you choose OAuth 2.0 and OIDC for authentication, the users are stored outside of the application, rather than in it. You need to configure an identity provider (IdP) to store your users and allow your app to retrieve information about them. By default, JHipster ships with a Keycloak file for Docker Compose. A default set of users and groups is imported at startup, and it has a client registered for your JHipster app.
 
-Here's what the keycloak.yml looks like in your app’s src/main/docker directory:
+Here's what the keycloak.yml looks like in your app's src/main/docker directory:
 
 ```yaml
 # This configuration is intended for development purpose, it's **your** responsibility to harden it for production
@@ -139,7 +139,7 @@ Open another terminal to run the Cypress tests:
 npm run e2e
 ```
 
-You’ll should see output like the following:
+You'll should see output like the following:
 
 ```shell
   (Run Finished)
@@ -154,7 +154,7 @@ You’ll should see output like the following:
 
 ## Change your Identity Provider to Auth0
 
-JHipster uses Spring Security’s OAuth 2.0 and OIDC support to configure which IdP it uses. When using Spring Security with Spring Boot, you can configure most settings in a properties files. You can even override properties with environment variables.
+JHipster uses Spring Security's OAuth 2.0 and OIDC support to configure which IdP it uses. When using Spring Security with Spring Boot, you can configure most settings in a properties files. You can even override properties with environment variables.
 
 To switch from Keycloak to Auth0, you only need to override the default properties (for Spring Security OAuth). You don't even need to write any code!
 
@@ -169,7 +169,7 @@ export JHIPSTER_SECURITY_OAUTH2_AUDIENCE=https://<your-auth0-domain>/api/v2/
 
 **WARNING:** Modify your existing `.gitignore` file to have `*.env` so you don't accidentally check in your secrets!
 
-You’ll need to create a new web application in Auth0 and fill in the `<...>` placeholders before this works. Once you’ve done that, you can run the following command to set these environment variables.
+You'll need to create a new web application in Auth0 and fill in the `<...>` placeholders before this works. Once you've done that, you can run the following command to set these environment variables.
 
 ```shell
 source ~/.auth0.env
@@ -181,7 +181,7 @@ Restart your app and _voilà_ - your app is now using Auth0!
 
 ### Create an OpenID Connect App on Auth0
 
-Log in to your Auth0 account (or [sign up](https://auth0.com/signup) if you don’t have an account). You should have a unique domain like `dev-xxx.eu.auth0.com`. 
+Log in to your Auth0 account (or [sign up](https://auth0.com/signup) if you don't have an account). You should have a unique domain like `dev-xxx.eu.auth0.com`. 
 
 Go to **Applications** > **Create Application**. Use a name like `JHipster Baby!`, select `Regular Web Applications` and click **Create**.
 
@@ -266,7 +266,7 @@ Execution time: 59 s.
 
 ## Create Entities to allow CRUD on Photos
 
-I’ve talked a lot about how to secure your application, but we haven't done anything with photos! JHipster has a JDL (JHipster Domain Language) feature that allows you to model the data in your app, and generate entities from it. You can use its [JDL Studio](https://start.jhipster.tech/jdl-studio/) to do this online and save it locally once you’ve finished.
+I've talked a lot about how to secure your application, but we haven't done anything with photos! JHipster has a JDL (JHipster Domain Language) feature that allows you to model the data in your app, and generate entities from it. You can use its [JDL Studio](https://start.jhipster.tech/jdl-studio/) to do this online and save it locally once you've finished.
 
 My data model for this app has an `Album`, `Photo`, and `Tag` entities and sets up relationships between them. Below is a screenshot of what it looks like in JDL Studio.
 
@@ -316,7 +316,7 @@ jhipster jdl flick2.jdl
 
 When prompted, type `a` to allow overwriting of existing files.
 
-This process will create Liquibase changelog files (to create your database tables), entities, repositories, Spring MVC controllers, and all the React code that’s necessary to create, read, update, and delete your entities. It’ll even generate JUnit unit tests, Jest unit tests, and Cypress end-to-end tests!
+This process will create Liquibase changelog files (to create your database tables), entities, repositories, Spring MVC controllers, and all the React code that's necessary to create, read, update, and delete your entities. It'll even generate JUnit unit tests, Jest unit tests, and Cypress end-to-end tests!
 
 After the process completes, you can restart your app (Ctrl+C the `./mvnw` process and restart it), log in, and browse through the **Entities** menu. Try adding some data to confirm everything works.
 
