@@ -318,7 +318,7 @@ When prompted, type `a` to allow overwriting of existing files.
 
 This process will create Liquibase changelog files (to create your database tables), entities, repositories, Spring MVC controllers, and all the React code that's necessary to create, read, update, and delete your entities. It'll even generate JUnit unit tests, Jest unit tests, and Cypress end-to-end tests!
 
-After the process completes, you can restart your app (Ctrl+C the `./mvnw` process and restart it), log in, and browse through the **Entities** menu. Try adding some data to confirm everything works.
+After the process completes, you can restart your app, log in, and browse through the **Entities** menu. Try adding some data to confirm everything works.
 
 By now, you can see that JHipster is pretty powerful. It recognized that you had an image property of `ImageBlob` type and created the logic necessary to upload and store images in your database! _Booyah!_
 
