@@ -4,8 +4,8 @@ title: "Full Stack Java with React, Spring Boot, and JHipster"
 author: matt-raible
 by: advocate
 communities: [java,javascript]
-description: ""
-tags: []
+description: "This tutorial shows you how to be a full stack Java developer with React and Spring Boot."
+tags: [java, full-stack, react, spring-boot, jhipster]
 tweets:
 - ""
 - ""
@@ -35,7 +35,7 @@ Spring Boot has a similar tool, called [Spring Initializr](https://start.spring.
 
 Today, I'll show you how to build a Flickr clone with React and Spring Boot. However, I'm going to cheat. Rather than building everything using the aforementioned tools, I'm going to use JHipster. JHipster is an application generator that initially only supported Angular and Spring Boot. Now it supports Angular, React, and Vue for the frontend. JHipster also has support for [Kotlin, Micronaut, Quarkus, .NET, and Node.js](https://www.jhipster.tech/modules/official-blueprints/) on the backend.
 
-In this tutorial, we'll use React since it seems to be [the most popular](https://trends.google.com/trends/explore?q=angular,react,vuejs). 
+In this tutorial, we'll use React since it seems to be [the most popular](https://trends.google.com/trends/explore?q=angular,react,vuejs) frontend framework. 
 
 ## Get Started with JHipster 7
 
@@ -158,7 +158,7 @@ JHipster uses Spring Security's OAuth 2.0 and OIDC support to configure which Id
 
 To switch from Keycloak to Auth0, you only need to override the default properties (for Spring Security OAuth). You don't even need to write any code!
 
-To see how it works, create a `.auth0.env` file with the following script:
+To see how it works, create a `.auth0.env` file with the code below to override the default OIDC settings:
 
 ```shell
 export SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=https://<your-auth0-domain>/
@@ -169,21 +169,13 @@ export JHIPSTER_SECURITY_OAUTH2_AUDIENCE=https://<your-auth0-domain>/api/v2/
 
 **WARNING:** Modify your existing `.gitignore` file to have `*.env` so you don't accidentally check in your secrets!
 
-You'll need to create a new web application in Auth0 and fill in the `<...>` placeholders before this works. Once you've done that, you can run the following command to set these environment variables.
-
-```shell
-source ~/.auth0.env
-```
-
-**NOTE:** If you're on Windows, you may need to install the [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/about) for this command to work.
-
-Restart your app and _voilà_ - your app is now using Auth0!
+You'll need to create a new web application in Auth0 and fill in the `<...>` placeholders before this works. 
 
 ### Create an OpenID Connect App on Auth0
 
 Log in to your Auth0 account (or [sign up](https://auth0.com/signup) if you don't have an account). You should have a unique domain like `dev-xxx.eu.auth0.com`. 
 
-Go to **Applications** > **Create Application**. Use a name like `JHipster Baby!`, select `Regular Web Applications` and click **Create**.
+Go to **Applications** > **Create Application**. Use a name like `JHipster Baby!`, select `Regular Web Applications`, and click **Create**.
 
 Switch to the **Settings** tab and configure your application settings:
 
@@ -192,7 +184,7 @@ Switch to the **Settings** tab and configure your application settings:
 
 Navigate to **User Management** > **Roles** and create new roles named `ROLE_ADMIN` and `ROLE_USER`.
 
-Go to **User Management** > **Users** and create a new user account. Click on the **Role** tab to assign roles to the new account.
+Go to **User Management** > **Users** and create a new user account. Click on the **Role** tab to assign the roles you just created to the new account.
 
 Next, head to **Auth Pipeline** > **Rules** > **Create**. Select the `Empty rule` template. Provide a meaningful name like `Group claims` and replace the Script content with the following.
 
@@ -220,14 +212,18 @@ function(user, context, callback) {
 ```
 Click **Save changes** to continue.
 
-Stop your JHipster app using **Ctrl+C**, set your Auth0 properties, and start your app again.
+### Run Your JHipster App with Auth0
+
+Stop your JHipster app using **Ctrl+C**, set your Auth0 properties in `.auth0.env`, and start your app again.
 
 ```shell
 source .auth0.env
 ./mvnw
 ```
 
-Open your favorite browser to `http://localhost:8080`. 
+**NOTE:** If you're on Windows, you may need to install the [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/about) for this command to work.
+
+_Voilà_ - your full stack app is now using Auth0! Open your favorite browser to `http://localhost:8080`. 
 
 {% img blog/full-stack-java/jhipster-homepage.png alt:"JHipster default homepage" width:"800" %}{: .center-image }
 
@@ -308,7 +304,7 @@ paginate Album with pagination
 paginate Photo, Tag with infinite-scroll
 ```
 
-You can generate entities and CRUD code (Java for Spring Boot; TypeScript and JSX for React) using the following command:
+You can generate entities and CRUD code (Java for Spring Boot; TypeScript and JSX for React), use the following command:
 
 ```shell
 jhipster jdl flick2.jdl
@@ -323,11 +319,370 @@ After the process completes, you can restart your app, log in, and browse throug
 By now, you can see that JHipster is pretty powerful. It recognized that you had an image property of `ImageBlob` type and created the logic necessary to upload and store images in your database! _Booyah!_
 
 ## Add Image EXIF Processing in Your Spring Boot API
-## Add a React Photo Gallery
-## Make Your Full Stack Java App into a PWA
-## Deploy Your React + Spring Boot App to Heroku
-### Configure for Auth0 and Analyze Your PWA Score with Lighthouse
-## Learn More About Full Stack Java Apps
 
-<!-- Learn More About React, Spring Boot, JHipster, and OAuth -->
-dev.java and spring.io/guides + java as a first language
+The `Photo` entity has a few properties that can be calculated by reading the EXIF (Exchangeable Image File Format) data from the uploaded photo. You might ask, how do you do that in Java?
+
+Thankfully, Drew Noakes created a [metadata-extractor](https://github.com/drewnoakes/metadata-extractor) library to do just that. Add a dependency on Drew's library to your `pom.xml`:
+
+```xml
+<dependency>
+    <groupId>com.drewnoakes</groupId>
+    <artifactId>metadata-extractor</artifactId>
+    <version>2.16.0</version>
+</dependency>
+```
+
+Then modify the `PhotoResource#createPhoto()` method to set the metadata when an image is uploaded.
+
+```java
+import com.drew.imaging.ImageMetadataReader;
+import com.drew.imaging.ImageProcessingException;
+import com.drew.metadata.Metadata;
+import com.drew.metadata.MetadataException;
+import com.drew.metadata.exif.ExifSubIFDDirectory;
+import com.drew.metadata.jpeg.JpegDirectory;
+
+import javax.xml.bind.DatatypeConverter;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+import java.time.Instant;
+import java.util.Date;
+
+public class PhotoResource {
+    ...
+
+    public ResponseEntity<Photo> createPhoto(@Valid @RequestBody Photo photo) throws Exception {
+        log.debug("REST request to save Photo : {}", photo);
+        if (photo.getId() != null) {
+            throw new BadRequestAlertException("A new photo cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+
+        try {
+            photo = setMetadata(photo);
+        } catch (ImageProcessingException ipe) {
+            log.error(ipe.getMessage());
+        }
+
+        Photo result = photoRepository.save(photo);
+        return ResponseEntity.created(new URI("/api/photos/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+            .body(result);
+    }
+
+    private Photo setMetadata(Photo photo) throws ImageProcessingException, IOException, MetadataException {
+        String str = DatatypeConverter.printBase64Binary(photo.getImage());
+        byte[] data2 = DatatypeConverter.parseBase64Binary(str);
+        InputStream inputStream = new ByteArrayInputStream(data2);
+        BufferedInputStream bis = new BufferedInputStream(inputStream);
+        Metadata metadata = ImageMetadataReader.readMetadata(bis);
+        ExifSubIFDDirectory directory = metadata.getFirstDirectoryOfType(ExifSubIFDDirectory.class);
+
+        if (directory != null) {
+            Date date = directory.getDateDigitized();
+            if (date != null) {
+                photo.setTaken(date.toInstant());
+            }
+        }
+
+        if (photo.getTaken() == null) {
+            log.debug("Photo EXIF date digitized not available, setting taken on date to now...");
+            photo.setTaken(Instant.now());
+        }
+
+        photo.setUploaded(Instant.now());
+
+        JpegDirectory jpgDirectory = metadata.getFirstDirectoryOfType(JpegDirectory.class);
+        if (jpgDirectory != null) {
+            photo.setHeight(jpgDirectory.getImageHeight());
+            photo.setWidth(jpgDirectory.getImageWidth());
+        }
+
+        return photo;
+    }
+    ...
+}
+```
+
+Since you're extracting the information, you can remove the fields from the UI and tests so the user cannot set these values.
+
+In `src/main/webapp/app/entities/photo/photo-update.tsx`, add `metadata` and `metadataRows` variables, and logic that makes them hidden when adding a photo and read-only when updating one. Find the first line of the code block below and replace that line with the following code.
+
+```ts
+const { description, image, imageContentType } = photoEntity;
+
+const metadata = (
+  <div>
+    <AvGroup>
+      <Label id="heightLabel" for="height">
+        <Translate contentKey="galleryApp.photo.height">Height</Translate>
+      </Label>
+      <AvField id="photo-height" type="number" className="form-control" name="height" readOnly />
+    </AvGroup>
+    <AvGroup>
+      <Label id="widthLabel" for="width">
+        <Translate contentKey="galleryApp.photo.width">Width</Translate>
+      </Label>
+      <AvField id="photo-width" type="number" className="form-control" name="width" readOnly />
+    </AvGroup>
+    <AvGroup>
+      <Label id="takenLabel" for="taken">
+        <Translate contentKey="galleryApp.photo.taken">Taken</Translate>
+      </Label>
+      <AvInput
+        id="photo-taken"
+        type="datetime-local"
+        className="form-control"
+        name="taken"
+        readOnly
+        value={isNew ? null : convertDateTimeFromServer(this.props.photoEntity.taken)}
+      />
+    </AvGroup>
+    <AvGroup>
+      <Label id="uploadedLabel" for="uploaded">
+        <Translate contentKey="galleryApp.photo.uploaded">Uploaded</Translate>
+      </Label>
+      <AvInput
+        id="photo-uploaded"
+        type="datetime-local"
+        className="form-control"
+        name="uploaded"
+        readOnly
+        value={isNew ? null : convertDateTimeFromServer(this.props.photoEntity.uploaded)}
+      />
+    </AvGroup>
+  </div>
+);
+const metadataRows = isNew ? '' : metadata;
+```
+
+Then, in the `return` block, remove the JSX between the `image` property and `album` property and replace it with `{metadataRows}`.
+
+```html
+    <input id="file_image" type="file" onChange={this.onBlobChange(true, 'image')} accept="image/*" />
+  </AvGroup>
+</AvGroup>
+{metadataRows}
+<AvGroup>
+  <Label for="album.title">
+    <Translate contentKey="galleryApp.photo.album">Album</Translate>
+  </Label>
+```
+
+//todo: update for Cypress
+
+In `src/test/javascript/e2e/entities/photo/photo.spec.ts`, remove the code that sets the data in these fields:
+
+```js
+photoUpdatePage.setHeightInput('5');
+expect(await photoUpdatePage.getHeightInput()).to.eq('5');
+photoUpdatePage.setWidthInput('5');
+expect(await photoUpdatePage.getWidthInput()).to.eq('5');
+photoUpdatePage.setTakenInput('01/01/2001' + protractor.Key.TAB + '02:30AM');
+expect(await photoUpdatePage.getTakenInput()).to.contain('2001-01-01T02:30');
+photoUpdatePage.setUploadedInput('01/01/2001' + protractor.Key.TAB + '02:30AM');
+expect(await photoUpdatePage.getUploadedInput()).to.contain('2001-01-01T02:30');
+```
+
+You can also remove all the getters and setters for these fields in `src/test/javascript/e2e/entities/photo/photo-update.page-object.ts`:
+
+```js
+setHeightInput(height) {
+  this.heightInput.sendKeys(height);
+}
+
+getHeightInput() {
+  return this.heightInput.getAttribute('value');
+}
+
+setWidthInput(width) {
+  this.widthInput.sendKeys(width);
+}
+
+getWidthInput() {
+  return this.widthInput.getAttribute('value');
+}
+
+setTakenInput(taken) {
+  this.takenInput.sendKeys(taken);
+}
+
+getTakenInput() {
+  return this.takenInput.getAttribute('value');
+}
+
+setUploadedInput(uploaded) {
+  this.uploadedInput.sendKeys(uploaded);
+}
+
+getUploadedInput() {
+  return this.uploadedInput.getAttribute('value');
+}
+```
+
+Stop your Maven process, run `npm webapp:build`, start Maven again, and run `npm run e2e` to make sure everything still works. 
+
+**NOTE**: If you experience authentication errors in your Cypress tests, it's likely because you've violated Auth0's [Rate Limit Policy](https://auth0.com/docs/support/policies/rate-limit-policy). As a workaround, I recommend you use Keycloak for Cypress tests. You can do this by opening a new terminal window and starting your app there (without running `source .auth0.env`).
+
+If you upload an image you took with your smartphone, the height, width, and taken values should all be populated. If they're not, chances are your image doesn't have the data in it.
+
+> Need some sample photos with EXIF data? You can download pictures of my 1966 VW Bus from [an album on Flickr](https://www.flickr.com/photos/mraible/albums/72157689027458320).
+
+## Add a React Photo Gallery
+
+You've added metadata extraction to your backend, but your photos still display in a list rather than in a grid (like Flickr). To fix that, you can use [React Photo Gallery](https://github.com/neptunian/react-photo-gallery) component. Install it using npm:
+
+```bash
+npm i react-photo-gallery@8
+```
+
+In `src/main/webapp/app/entities/photo/photo.tsx`, add an import for `Gallery`:
+
+```ts
+import Gallery from 'react-photo-gallery';
+```
+
+Then add a `photoSet` variable in the `render()` method, and the `<Gallery>` component right after the closing `</h2>`.
+
+```ts
+render() {
+  const { photoList, match } = this.props;
+  const photoSet = photoList.map(photo => ({
+    src: `data:${photo.imageContentType};base64,${photo.image}`,
+    width: photo.height > photo.width ? 3 : photo.height === photo.width ? 1 : 4,
+    height: photo.height > photo.width ? 4 : photo.height === photo.width ? 1 : 3
+  }));
+
+  return (
+    <div>
+      <h2 id="photo-heading">
+        ...
+      </h2>
+      <Gallery photos={photoSet} />
+      ...
+  );
+}
+```
+
+Since you only modified the front end code, you can run `npm start` to start an instance of webpack-dev-server that proxies requests to the backend and auto-refreshes your browser (using [Browsersync](https://browsersync.io/)) every time you change any React files.
+
+Log in and navigate to **Entities** > **Photos** in the top nav bar. You should be able to upload photos and see the results in a nice grid at the top of the list.
+
+//todo: update screenshot during QA
+
+{% img blog/full-stack-java/photo-gallery.png alt:"Gallery with Photos" width:"800" %}{: .center-image }
+
+//todo: update GitHub links
+You can also add a "lightbox" feature to the grid so you can click on photos and zoom in. The [React Photo Gallery docs](https://neptunian.github.io/react-photo-gallery/) show how to do this. I've integrated it into the example for this post, but I won't show the code here for the sake of brevity. You can see the [final `photo.tsx` with Lightbox added on GitHub](https://github.com/oktadeveloper/okta-react-photo-gallery-example/blob/master/src/main/webapp/app/entities/photo/photo.tsx) or a [diff of the changes necessary](https://github.com/oktadeveloper/okta-react-photo-gallery-example/commit/47f9ceab2b00f1d7f41d286686c9159f79decc11).
+
+## Make Your Full Stack Java App into a PWA
+
+1. Your app must be served over HTTPS
+2. Your app must register a service worker so it can cache requests and work offline
+3. Your app must have a webapp manifest with installation information and icons
+
+For HTTPS, you can [set up a certificate for localhost](https://letsencrypt.org/docs/certificates-for-localhost/) or (even better), deploy it to production! Cloud providers like Heroku will provide you with HTTPS out-of-the-box, but they won't _force_ HTTPS. To force HTTPS, open `src/main/java/com/auth0/flickr2/config/SecurityConfiguration.java` and add a rule to force a secure channel when an `X-Forwarded-Proto` header is sent.
+
+```java
+http.requiresChannel(channel -> channel
+    .requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null).requiresSecure());
+```
+
+The [workbox-webpack-plugin](https://developers.google.com/web/tools/workbox/modules/workbox-webpack-plugin) is configured already for generating a service worker, but it only works when running your app with a production profile. This is nice because it means your data isn't cached in the browser when you're developing.
+
+To register a service worker, open `src/main/webapp/index.html` and uncomment the following block of code.
+
+```html
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./service-worker.js').then(function () {
+      console.log('Service Worker Registered');
+    });
+  }
+</script>
+```
+
+The final feature &mdash; a webapp manifest &mdash; is included at `src/main/webapp/manifest.webapp`. It defines an app name, colors, and icons. You might want to adjust these to fit your app.
+
+## Deploy Your React + Spring Boot App to Heroku
+
+To deploy your app to Heroku, you'll first need to install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli). You can confirm its installed by running `heroku --version`.
+
+> If you don't have a Heroku account, go to [heroku.com](https://www.heroku.com/) and sign up. Don't worry, it's free, and chances are you'll love the experience.
+
+Run `heroku login` to log in to your account, then start the deployment process with JHipster:
+
+```
+jhipster heroku
+```
+
+This will start the [Heroku sub-generator](https://www.jhipster.tech/heroku/) that asks you a couple questions about your app: what you want to name it and whether you want to deploy it to a US region or EU. Then it'll prompt you to choose between building locally or with Git on Heroku's servers. Choose Git, so you don't have to upload a fat JAR. When prompted to use Okta for OIDC, type `N`. Then, the deployment process will begin.
+
+If you have a stable and fast internet connection, your app should be live on the internet in around six minutes!
+
+```
+remote: -----> Compressing...
+remote:        Done: 119.4M
+remote: -----> Launching...
+remote:        Released v6
+remote:        https://flickr-2.herokuapp.com/ deployed to Heroku
+remote:
+remote: Verifying deploy... done.
+
+To https://git.heroku.com/flickr-2.git
+
+ * [new branch]      HEAD -> main
+
+Your app should now be live. To view it run
+	heroku open
+And you can view the logs with this command
+	heroku logs --tail
+After application modification, redeploy it with
+	jhipster heroku
+Congratulations, JHipster execution is complete!
+Sponsored with ❤️  by @oktadev.
+Execution time: 6 min. 0 s.
+```
+
+### Configure for Auth0 and Analyze Your PWA Score with Lighthouse
+
+To configure your app to work with Auth0 on Heroku, run the following command to set your Auth0 variables on Heroku.
+
+```bash
+heroku config:set \
+  SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI="https://<your-auth0-domain>/" \
+  SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID="<your-client-id>" \
+  SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET="<your-client-secret>" \
+  JHIPSTER_SECURITY_OAUTH2_AUDIENCE="https://<your-auth0-domain>/api/v2/"
+```
+
+Then, log in to your Auth0 account, navigate to your app, and add your Heroku URLs as valid redirect URIs:
+
+- Allowed Callback URLs: `https://flickr-2.herokuapp.com/login/oauth2/code/oidc`
+- Allowed Logout URLs: `https://flickr-2.herokuapp.com`
+
+After Heroku restarts your app, open it, and log in.
+
+{% img blog/full-stack-java/app-on-heroku.png alt:"Running on Heroku!" width:"800" %}{: .center-image }
+
+Then, test it with [Lighthouse](https://developers.google.com/web/tools/lighthouse/) (using the Lighthouse tab in Chrome developer tools). Looks pretty good, eh?! 💯
+
+{% img blog/full-stack-java/lighthouse-score.png alt:"Lighthouse Score 💯" width:"800" %}{: .center-image }
+
+## Learn More About Full Stack Java Development
+
+This tutorial shows you how to streamline full stack Java development with JHipster. You developed a working application with a React frontend and a Spring Boot backend. Since you didn't learn a lot about coding in Java, React, or Spring Boot, here are some helpful resources.
+
+* [dev.java's Learn Java Tutorials](https://dev.java/learn/)
+* [Spring Guides](https://spring.io/guides)
+* [Tutorial: Intro to React](https://reactjs.org/tutorial/tutorial.html)
+
+You might also enjoy these related blog posts:
+
+- [Learning Java as a First Language](https://developer.okta.com/blog/2018/12/11/learning-java-first-language)
+- [Reactive Java Microservices with Spring Boot and JHipster](https://developer.okta.com/blog/2021/01/20/reactive-java-microservices)
+- [The Complete Guide to React User Authentication with Auth0](https://auth0.com/blog/complete-guide-to-react-user-authentication/)
+
+To see when we publish more developer topics on Auth0 and the Okta developer blog, follow [Auth0](https://twitter.com/auth0) and [OktaDev](https://twitter.com/oktadev) on Twitter.
