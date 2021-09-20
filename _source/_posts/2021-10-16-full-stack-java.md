@@ -268,7 +268,7 @@ My data model for this app has an `Album`, `Photo`, and `Tag` entities and sets 
 
 {% img blog/full-stack-java/jdl-studio.png alt:"JDL Studio" width:"800" %}{: .center-image }
 
-Copy the JDL below and save it in a `flick2.jdl` file in the root directory of your project.
+Copy the JDL below and save it in a `flickr2.jdl` file in the root directory of your project.
 
 ```
 entity Album {
@@ -307,7 +307,7 @@ paginate Photo, Tag with infinite-scroll
 You can generate entities and CRUD code (Java for Spring Boot; TypeScript and JSX for React), use the following command:
 
 ```shell
-jhipster jdl flick2.jdl
+jhipster jdl flickr2.jdl
 ```
 
 When prompted, type `a` to allow overwriting of existing files.
