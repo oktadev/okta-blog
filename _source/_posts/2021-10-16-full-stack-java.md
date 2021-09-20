@@ -683,6 +683,7 @@ You might also enjoy these related blog posts:
 
 - [Learning Java as a First Language](https://developer.okta.com/blog/2018/12/11/learning-java-first-language)
 - [Reactive Java Microservices with Spring Boot and JHipster](https://developer.okta.com/blog/2021/01/20/reactive-java-microservices)
+- [Build and Secure an API with Spring Boot and Kotlin](https://auth0.com/blog/build-and-secure-an-api-with-spring-boot/)
 - [The Complete Guide to React User Authentication with Auth0](https://auth0.com/blog/complete-guide-to-react-user-authentication/)
 
 To see when we publish more developer topics on Auth0 and the Okta developer blog, follow [Auth0](https://twitter.com/auth0) and [OktaDev](https://twitter.com/oktadev) on Twitter.
