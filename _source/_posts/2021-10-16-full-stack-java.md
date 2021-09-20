@@ -673,7 +673,9 @@ Then, test it with [Lighthouse](https://developers.google.com/web/tools/lighthou
 
 ## Learn More About Full Stack Java Development
 
-This tutorial shows you how to streamline full stack Java development with JHipster. You developed a working application with a React frontend and a Spring Boot backend. Since you didn't learn a lot about coding in Java, React, or Spring Boot, here are some helpful resources.
+This tutorial shows you how to streamline full stack Java development with JHipster. You developed a working application with a React frontend and a Spring Boot backend. You can find the app created in this tutorial on GitHub, in the [auth0-full-stack-java-example](https://github.com/oktadev/auth0-full-stack-java-example) repository.
+
+Since you didn't learn a lot about coding in Java, React, or Spring Boot, here are some helpful resources.
 
 * [dev.java's Learn Java Tutorials](https://dev.java/learn/)
 * [Spring Guides](https://spring.io/guides)
