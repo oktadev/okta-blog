@@ -212,6 +212,8 @@ function(user, context, callback) {
 ```
 Click **Save changes** to continue.
 
+**NOTE**: Want to have all these steps automated for you? Vote for [this issue](https://github.com/auth0/auth0-cli/issues/351) in the Auth0 CLI project.
+
 ### Run Your JHipster App with Auth0
 
 Stop your JHipster app using **Ctrl+C**, set your Auth0 properties in `.auth0.env`, and start your app again.
