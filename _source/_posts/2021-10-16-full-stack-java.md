@@ -16,7 +16,7 @@ type: conversion
 
 If you search for "Full Stack Java" on the internet, you'll likely find a lot of recruiting, courses, and jobs. Being a full stack developer can be exciting because you're learning and using a bunch of technologies. It also pays pretty well. Today, I'm going to show you how you can be a full stack Java developer with Spring Boot, React, and JHipster.
 
-If you haven't heard of JHipster, boy do I have a treat for you! JHipster started as a Yeoman application generator back in 2013 and has grown to become a development platform. It allows you to quickly generate, develop, and deploy modern web apps and microservice architectures. Today, I'll show you how to build a Flickr clone with it and lock it down with OAuth and OpenID Connect (OIDC).
+If you haven't heard of JHipster, boy do I have a treat for you! JHipster started as a Yeoman application generator back in 2013 and has grown to become a development platform. It allows you to quickly generate, develop, and deploy modern web apps and microservice architectures. Today, I'll show you how to build a Flickr clone with JHipster and lock it down with OAuth and OpenID Connect (OIDC).
 
 **Prerequisites:**
 
@@ -35,7 +35,7 @@ Spring Boot has a similar tool, called [Spring Initializr](https://start.spring.
 
 Today, I'll show you how to build a Flickr clone with React and Spring Boot. However, I'm going to cheat. Rather than building everything using the aforementioned tools, I'm going to use JHipster. JHipster is an application generator that initially only supported Angular and Spring Boot. Now it supports Angular, React, and Vue for the frontend. JHipster also has support for [Kotlin, Micronaut, Quarkus, .NET, and Node.js](https://www.jhipster.tech/modules/official-blueprints/) on the backend.
 
-In this tutorial, we'll use React since it seems to be [the most popular](https://trends.google.com/trends/explore?q=angular,react,vuejs) frontend framework. 
+In this tutorial, we'll use React since it seems to be [the most popular](https://trends.google.com/trends/explore?q=angular,react,vuejs) frontend framework nowadays. 
 
 ## Get Started with JHipster 7
 
@@ -87,7 +87,7 @@ Press `Enter` and JHipster will create your app in the current directory and run
 
 When you choose OAuth 2.0 and OIDC for authentication, the users are stored outside of the application, rather than in it. You need to configure an identity provider (IdP) to store your users and allow your app to retrieve information about them. By default, JHipster ships with a Keycloak file for Docker Compose. A default set of users and groups is imported at startup, and it has a client registered for your JHipster app.
 
-Here's what the keycloak.yml looks like in your app's src/main/docker directory:
+Here's what the `keycloak.yml` looks like in your app's `src/main/docker` directory:
 
 ```yaml
 # This configuration is intended for development purpose, it's **your** responsibility to harden it for production
@@ -139,7 +139,7 @@ Open another terminal to run the Cypress tests:
 npm run e2e
 ```
 
-You'll should see output like the following:
+You should see output like the following:
 
 ```shell
   (Run Finished)
@@ -264,9 +264,9 @@ Execution time: 59 s.
 
 ## Create Entities to allow CRUD on Photos
 
-I've talked a lot about how to secure your application, but we haven't done anything with photos! JHipster has a JDL (JHipster Domain Language) feature that allows you to model the data in your app, and generate entities from it. You can use its [JDL Studio](https://start.jhipster.tech/jdl-studio/) to do this online and save it locally once you've finished.
+I've talked a lot about how to secure your application, but we haven't done anything with photos! JHipster has a JDL (JHipster Domain Language) feature that allows you to model the data in your app, and generate entities from it. You can use the [JDL Studio](https://start.jhipster.tech/jdl-studio/) to do this online and save it locally once you've finished.
 
-My data model for this app has an `Album`, `Photo`, and `Tag` entities and sets up relationships between them. Below is a screenshot of what it looks like in JDL Studio.
+My data model for this app has `Album`, `Photo`, and `Tag` entities and sets up relationships between them. Below is a screenshot of what it looks like in JDL Studio.
 
 {% img blog/full-stack-java/jdl-studio.png alt:"JDL Studio" width:"800" %}{: .center-image }
 
@@ -306,7 +306,7 @@ paginate Album with pagination
 paginate Photo, Tag with infinite-scroll
 ```
 
-You can generate entities and CRUD code (Java for Spring Boot; TypeScript and JSX for React), use the following command:
+You can generate entities and [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) code (Java for Spring Boot; TypeScript and JSX for React) by using the following command:
 
 ```shell
 jhipster jdl flickr2.jdl
@@ -410,7 +410,7 @@ public class PhotoResource {
 
 Since you're extracting the information, you can remove the fields from the UI and tests so the user cannot set these values.
 
-In `src/main/webapp/app/entities/photo/photo-update.tsx`, add `metadata` and `metadataRows` variables, and logic that makes them hidden when adding a photo and read-only when updating one. Find the first line of the code block below and replace that line with the following code.
+In `src/main/webapp/app/entities/photo/photo-update.tsx`, add `metadata` and `metadataRows` variables, as well as logic that makes them hidden when adding a photo, and read-only when updating one. Find the first line of the code block below and replace that line with the following code:
 
 ```ts
 const { description, image, imageContentType } = photoEntity;
@@ -534,7 +534,7 @@ If you upload an image you took with your smartphone, the height, width, and tak
 
 ## Add a React Photo Gallery
 
-You've added metadata extraction to your backend, but your photos still display in a list rather than in a grid (like Flickr). To fix that, you can use [React Photo Gallery](https://github.com/neptunian/react-photo-gallery) component. Install it using npm:
+You've added metadata extraction to your backend, but your photos still display in a list rather than in a grid (like Flickr). To fix that, you can use the [React Photo Gallery](https://github.com/neptunian/react-photo-gallery) component. Install it using npm:
 
 ```bash
 npm i react-photo-gallery@8
@@ -568,7 +568,7 @@ render() {
 }
 ```
 
-Since you only modified the front end code, you can run `npm start` to start an instance of webpack-dev-server that proxies requests to the backend and auto-refreshes your browser (using [Browsersync](https://browsersync.io/)) every time you change any React files.
+Since you only modified the front-end code, you can run `npm start` to start an instance of webpack-dev-server that proxies requests to the backend and auto-refreshes your browser (using [Browsersync](https://browsersync.io/)) every time you change any React files.
 
 Log in and navigate to **Entities** > **Photos** in the top nav bar. You should be able to upload photos and see the results in a nice grid at the top of the list.
 
@@ -579,7 +579,7 @@ Log in and navigate to **Entities** > **Photos** in the top nav bar. You should 
 //todo: update GitHub links
 You can also add a "lightbox" feature to the grid so you can click on photos and zoom in. The [React Photo Gallery docs](https://neptunian.github.io/react-photo-gallery/) show how to do this. I've integrated it into the example for this post, but I won't show the code here for the sake of brevity. You can see the [final `photo.tsx` with Lightbox added on GitHub](https://github.com/oktadeveloper/okta-react-photo-gallery-example/blob/master/src/main/webapp/app/entities/photo/photo.tsx) or a [diff of the changes necessary](https://github.com/oktadeveloper/okta-react-photo-gallery-example/commit/47f9ceab2b00f1d7f41d286686c9159f79decc11).
 
-## Make Your Full Stack Java App into a PWA
+## Make Your Full Stack Java App Into a PWA
 
 1. Your app must be served over HTTPS
 2. Your app must register a service worker so it can cache requests and work offline
@@ -610,7 +610,7 @@ The final feature &mdash; a webapp manifest &mdash; is included at `src/main/web
 
 ## Deploy Your React + Spring Boot App to Heroku
 
-To deploy your app to Heroku, you'll first need to install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli). You can confirm its installed by running `heroku --version`.
+To deploy your app to Heroku, you'll first need to install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli). You can confirm it's installed by running `heroku --version`.
 
 > If you don't have a Heroku account, go to [heroku.com](https://www.heroku.com/) and sign up. Don't worry, it's free, and chances are you'll love the experience.
 
@@ -675,9 +675,9 @@ Then, test it with [Lighthouse](https://developers.google.com/web/tools/lighthou
 
 ## Learn More About Full Stack Java Development
 
-This tutorial shows you how to streamline full stack Java development with JHipster. You developed a working application with a React frontend and a Spring Boot backend. You can find the app created in this tutorial on GitHub, in the [auth0-full-stack-java-example](https://github.com/oktadev/auth0-full-stack-java-example) repository.
+This tutorial shows you how to streamline full-stack Java development with JHipster. You developed a working application with a React frontend and a Spring Boot backend. You can find the app created in this tutorial on GitHub, in the [auth0-full-stack-java-example](https://github.com/oktadev/auth0-full-stack-java-example) repository.
 
-Since you didn't learn a lot about coding in Java, React, or Spring Boot, here are some helpful resources.
+Since I didn't show you a lot about coding in Java, React, or Spring Boot, here are some helpful resources for that.
 
 * [dev.java's Learn Java Tutorials](https://dev.java/learn/)
 * [Spring Guides](https://spring.io/guides)
