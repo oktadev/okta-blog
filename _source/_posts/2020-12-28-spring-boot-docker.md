@@ -13,8 +13,8 @@ tweets:
 image: blog/spring-boot-docker/spring-boot-docker.png
 type: conversion
 changelog:
-- 2020-12-31: Updated post to add Heroku instructions, since it requires another buildpack. Thanks for the idea, Maurizio! See the code changes in the [example on GitHub](https://github.com/oktadev/okta-spring-boot-docker-buildpacks-example/pull/2). Changes to this post can be viewed in [oktadev/okta-blog#514](https://github.com/oktadev/okta-blog/pull/514).
 - 2021-09-22: Updated to use Spring Boot 2.5.4. Changes to this post can be viewed in [oktadev/okta-blog#893](https://github.com/oktadev/okta-blog/pull/893); example app changes are in [oktadev/okta-spring-boot-docker-buildpacks-example#4](https://github.com/oktadev/okta-spring-boot-docker-buildpacks-example/pull/4)
+- 2020-12-31: Updated post to add Heroku instructions, since it requires another buildpack. Thanks for the idea, Maurizio! See the code changes in the [example on GitHub](https://github.com/oktadev/okta-spring-boot-docker-buildpacks-example/pull/2). Changes to this post can be viewed in [oktadev/okta-blog#514](https://github.com/oktadev/okta-blog/pull/514).
 ---
 
 Those of you reading this have certainly heard of Docker. After years of hype, it has become the somewhat standard technology for everyday DevOps operations. It greatly helped to simplify deployments and testing by creating efficient, immutable images of the applications which are working in their own silo. More efficient placement of applications has made this technology central for cloud applications which is why it has gotten so much attention in recent years.
