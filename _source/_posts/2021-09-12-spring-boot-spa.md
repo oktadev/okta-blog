@@ -40,7 +40,7 @@ This project will have both a Vue client and a Spring Boot server project, so yo
 curl https://start.spring.io/starter.tgz \
 -d type=maven-project \
 -d language=java \
--d platformVersion=2.5.2.RELEASE \
+-d platformVersion=2.5.4 \
 -d jvmVersion=11 \
 -d artifactId=spring-boot-spa \
 -d baseDir=spring-boot-spa \
