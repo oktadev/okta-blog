@@ -14,7 +14,7 @@ tweets:
   type: awareness|conversion
 
 ---
-In this tutorial you are going to create a single-page application that uses a Spring Boot resource server and a Vue front-end client. You'll see how to configure Spring Boot to use JSON Web Tokens (JWT) for authentication and authorization, with Okta as an OAuth 2. 0 and OpenID Connect (OIDC) provider. You'll also see how to bootstrap a Vue client app with the Vue CLI and how to secure it using the Okta Sign-In Widget.
+In this tutorial, you are going to create a single-page application (SPA) that uses a Spring Boot resource server and a Vue front-end client. You'll see how to configure Spring Boot to use JSON Web Tokens (JWT) for authentication and authorization, with Okta as an OAuth 2. 0 and OpenID Connect (OIDC) provider. You'll also see how to bootstrap a Vue client app with the Vue CLI and how to secure it using the Okta Sign-In Widget.
 
 Okta is a computer security services company that provides a lot of great resources for securing web applications. The widget is a great way to secure front-end applications because it allows you to easily add a secure login form that is configurable for single sign-on and social sign-on with external providers such as Google, Facebook, and LinkedIn. It provides an implementation of the authorization code OAuth 2.0 flow using PKCE (Proof Key for Code Exchange).
 
