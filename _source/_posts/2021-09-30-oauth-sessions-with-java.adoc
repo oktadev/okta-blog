@@ -22,7 +22,7 @@ A common OAuth 2.0 question we get: "How do I deal with OAuth in a load-balanced
 
 toc::[]
 
-== Prerequisites
+**Prerequisites**
 
 - https://docs.docker.com/get-docker/[Docker 20.10+]
 - https://adoptopenjdk.net/?variant=openjdk11[Java 11+], use https://sdkman.io/[SDKMAN] to manage multiple Java versions!
@@ -151,11 +151,11 @@ NOTE: You can stop the process by pressing `Ctrl`+`C` or running the `docker com
 
 Now that the system dependencies are out of the way, let's move on to building a Spring Boot application.
 
-Create a new Spring Boot application by visiting https://start.spring.io[`start.spring.io`] and selecting the `Web` and `Okta` dependencies or by running the following command:
+Create a new Spring Boot application by visiting https://start.spring.io[start.spring.io] and selecting the **Web** and **Okta** dependencies or by running the following command:
 
 [source,sh]
 ----
-http https://start.spring.io/starter.tgz \
+https start.spring.io/starter.tgz \
   bootVersion==2.5.4 \
   dependencies==web,okta \
   groupId==com.example \
@@ -167,7 +167,7 @@ http https://start.spring.io/starter.tgz \
 | tar -xzvf -
 ----
 
-To give a visual indication of which server handled the request, create a REST controller that displays the server port: `src/main/java/com/example/Endpoints.java`:
+To give a visual indication of which server handled the request, create a REST controller that displays the server port in `src/main/java/com/example/Endpoints.java`:
 
 [source,java]
 ----
@@ -248,7 +248,7 @@ And the second one on port `8082`:
 SERVER_PORT=8082 ./mvnw spring-boot:run
 ----
 
-Accessing the applications through the load balancer will yield odd results; open a private/incognito window to `http://localhost:8080` and try to log in. You will be redirected to Okta where you can type in your account credentials; however, after pressing the **Sign In**, you will see an error page:
+Accessing the applications through the load balancer will yield odd results; open a private/incognito window to `\http://localhost:8080` and try to log in. You will be redirected to Okta where you can type in your account credentials; however, after pressing the **Sign In**, you will see an error page:
 
 image::{% asset_path 'blog/oauth-sessions-with-java/oauth-login-failure.png' %}[alt=Invalid credentials authentication error shown in the browser,width=800,align=center]
 
