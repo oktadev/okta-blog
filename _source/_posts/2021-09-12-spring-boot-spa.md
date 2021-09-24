@@ -168,7 +168,7 @@ If the preflight header is not handled correctly, CORS will return an error to t
 
 Here is a general outline of a CORS request:
 
-- Javascript client app makes request to resource server on different domain
+- JavaScript client app makes request to resource server on different domain
 - Browser intercepts request, flags it as requiring CORS verification, and sends the CORS preflight request to the resource server
 - Server responds to the preflight request by saying it will allow the client domain to make the type of request
 - Browser sends the origin request to the server
