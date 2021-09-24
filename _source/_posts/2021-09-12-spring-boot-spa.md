@@ -598,7 +598,7 @@ createApp(App)
 You can now run the Vue app.
 
 ```bash
-npm run server
+npm run serve
 ```
 
 ## Test the Completed Server and Client
