@@ -264,7 +264,7 @@ const yourOktaUri = '${yourOktaUri}';
 const clientId = '${clientId}';
 
 const oktaSignIn = new OktaSignIn({
-    baseUrl: `${yourOktaUri}`,
+    baseUrl: yourOktaUri,
     clientId: clientId,
     redirectUri: 'http://localhost:8080/login/callback',
     authParams: {
