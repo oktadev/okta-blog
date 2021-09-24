@@ -5,7 +5,7 @@ author: jimena-garbarino
 by: contractor
 communities: [java]
 description: ""
-tags: [java records, java, api, mongodb, rest, microservices]
+tags: [java-records, java, api, mongodb, rest, microservices]
 tweets:
 - ""
 - ""
