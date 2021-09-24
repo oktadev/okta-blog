@@ -152,7 +152,7 @@ You now have the code in place for the resource server. You'll still need to con
 
 ## Spring Boot and CORS
 
-CORS is a protocol that allows for browsers and servers to explicitly allow cross-origin resource sharing. By default, Javascript running in a browser is restrained by a **same-origin policy**. This means that a Javascript application can only make calls to a server that resides on the same domain from which it was loaded. As a starting point, this makes a lot of sense from a security perspective and prevents a lot of abuse. However, this policy would be pretty restrictive if developers were not able to allow exceptions.
+CORS is a protocol that allows for browsers and servers to explicitly allow cross-origin resource sharing. By default, JavaScript running in a browser is restrained by a **same-origin policy**. This means that a Javascript application can only make calls to a server that resides on the same domain from which it was loaded. As a starting point, this makes a lot of sense from a security perspective and prevents a lot of abuse. However, this policy would be pretty restrictive if developers were not able to allow exceptions.
 
 CORS allows resource servers to explicitly enable cross-origin requests, to tell the browser what type of requests it allows and from what origins. It is a white-listing scheme in the sense that all cross-origin requests will be denied by the browser unless the server is explicitly configured to allow them.
 
