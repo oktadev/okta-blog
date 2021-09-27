@@ -57,7 +57,7 @@ At this point, you might wonder if you can cram everything in a JWT and make thi
 
 Another option to avoid session replication or clustering is to use "sticky sessions" (or "session affinity"), but this creates a fragile environment. If a web server fails or is taken down for any reason, all users associated with that server would essentially be logged out. Sticky sessions also violate the https://12factor.net/processes[12-factor principles of process statelessness].
 
-IMPORTANT: Don't confuse 12 Factor's reference to "stateless" with what's meant by "stateless" in the previous section. There we refer specifically to the need for an application relay on the "state" of a server between requests, for example data cached in memory or a file. Instead, a https://12factor.net/backing-services[backing service] should be used. In the case of session storage, the example of Redis is used, which is exactly what we are going to do in the next section.
+IMPORTANT: Don't confuse 12 Factor's reference to "stateless" with what's meant by "stateless" in the previous section. There we refer specifically to the need for an application relay on the "state" of a server between requests, for example data cached in memory or a file. Instead, a https://12factor.net/backing-services[backing service] should be used. In the case of session storage, the example of Redis is used, which is exactly what you are going to do in the next section.
 
 == Setup HAproxy and Redis
 
@@ -145,7 +145,7 @@ Start both HAproxy and Redis by running:
 docker compose up
 ----
 
-NOTE: You can stop the process by pressing `Ctrl`+`C` or running the `docker compose down` command from the same directory.
+NOTE: You can stop the process by pressing kbd:[Ctrl + C] or running the `docker compose down` command from the same directory.
 
 == Build a Secure Spring Boot Application
 
