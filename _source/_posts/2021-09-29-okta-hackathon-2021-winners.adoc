@@ -1,8 +1,8 @@
 ---
 layout: blog_post
 title: "Announcing the Okta Identity Early Access Hackathon Winners"
-author: brian-demers
-by: advocate
+author: joyce-morrell
+by: internal-contributor
 communities: [security]
 description: "The winners of the Okta Developer Virtual Hackathon for 2021 are in!"
 tags: [hackathon, security, oie]
@@ -19,7 +19,7 @@ type: awareness
 :page-liquid:
 :toc: macro
 
-Back in early August, in partnership with DevPost, we announced the "Okta Identity Early Access Hackathon" and invited developers everywhere to "build something awesome with the Okta Identity Engine (OIE) Limited GA release."
+Back in early August, in partnership with DevPost, we announced the *Okta Identity Early Access Hackathon*, and invited developers everywhere to "build something awesome with the Okta Identity Engine (OIE) Limited GA release."
 
 Our aim was to give participants the chance to explore the new platform with its new capabilities for customer identity and access management. In exchange, we hoped to gain early stage feedback and a feel for what engaged the dev community worldwide.
 
@@ -66,11 +66,11 @@ Sameera Perera, who developed *App_builder_*, was motivated by curiosity, and by
 
 == Second Place
 
-**Name:** https://devpost.com/software/family-newsletter[BillPanda] +
+**Name:** https://devpost.com/software/family-newsletter[Bill Panda] +
 **Prize:** $5,000 USD +
 **Description:** Personal bill payment reminder system.
 
-BillPanda is one of the nicest custom-themed implementations of the https://github.com/okta/okta-signin-widget[Okta Sign-In Widget] we've seen to date, and makes use of self-registration and MFA flows. The application lets you add recurring bills, expenses, and budgets, and create projections.
+Bill Panda is one of the nicest custom-themed implementations of the https://github.com/okta/okta-signin-widget[Okta Sign-In Widget] we've seen to date, and makes use of self-registration and MFA flows. The application lets you add recurring bills, expenses, and budgets, and create projections.
 
 Marco Ledesma made Bill Panda to satisfy a personal itch. Learning about Okta auth has given him ideas for new features, and other ways to extend his project. We can't wait to see what's next for the panda, and look forward to hearing about the Laravel package mentioned by Marco for integrating Okta.
 
@@ -86,7 +86,7 @@ Marco Ledesma made Bill Panda to satisfy a personal itch. Learning about Okta au
 **Prize:** $10,000 USD +
 **Description:** Authenticated peer-to-peer communication platform
 
-Matthew Mckenzie's GooseClip submission was in a league of its own–featuring a highly polished demo video, as well as web, CLI, and mobile applications that demonstrated aspects of the project as well as its creator's technical prowess. Rooted in the Go programming language, and inspired by "a frustration at the lack of interoperability of our modern devices" GooseClip "integrates fast, secure peer-to-peer functionality" into a project in a few simple steps. It obscures the complexity of peer-to-peer networking by presenting a 2-route API, /attach and /connect.
+Matthew Mckenzie's GooseClip submission was in a league of its own. The project features a highly polished demo video, as well as web, CLI, and mobile applications that demonstrate aspects of the project as well as its creator's technical prowess. Rooted in the Go programming language, and inspired by "a frustration at the lack of interoperability of our modern devices," GooseClip "integrates fast, secure peer-to-peer functionality" into a project in a few simple steps. It obscures the complexity of peer-to-peer networking by presenting a 2-route API, /attach and /connect.
 
 Matthew has big plans to evolve GooseClip, and we plan to follow along. Here's hoping the grand prize will help this goose take flight!
 
@@ -100,9 +100,9 @@ Matthew has big plans to evolve GooseClip, and we plan to follow along. Here's h
 
 There are many roads to glory, and all developers rely on the work of those who came before them. Sometimes help comes in the form of code—libraries, building blocks, open source projects. Other times, good information and solid guidance at the right time can mean the difference between failure and success.
 
-We awarded the "most supportive hacker" prize to three individuals, based on the number of valuable and helpful responses they provided to other participants on the Okta Developer Forum's hackathons category during the Hackathon submission period.
+We awarded the "most supportive hacker" prize to three individuals, based on the number of valuable and helpful responses they provided to other participants on the Okta Developer Forum's *hackathons* category during the competition.
 
-Let's close with kudos to Lenya Hope (1st place), Monish Basaniwal (2nd place), and Chaitanya Shah  (3rd place) – who didn't let competition get in the way of generous collaboration and knowledge-sharing. Thank you all.
+Let's close with kudos to Lenya Hope (1st place), Monish Basaniwal (2nd place), and Chaitanya Shah (3rd place) – who didn't let competition get in the way of generous collaboration and knowledge-sharing. Thank you all.
 
 == What's Next for Early Access Hacks and Hackers
 
