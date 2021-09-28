@@ -89,8 +89,7 @@ public void toStringTest(){
     EndOfGame eog = getTestEndOfGame();
     logger.info(eog.toString());
 
-    assertEquals("EndOfGame[id=1, date=2018-12-12, timeOfDay=15:15, placed=1, " +
-                    "mentalState=sober, accuracy=10%, hits=1, headShots=1, " +
+    assertEquals("EndOfGame[id=1, date=2018-12-12, timeOfDay=15:15, mentalState=sober, " +
                     "damageTaken=10, damageToPlayers=10, damageToStructures=10]",
             eog.toString());
 
@@ -118,28 +117,45 @@ A `record` is implicitly final, and cannot be abstract. You cannot enhance it la
 Cannot inherit from final 'com.okta.developer.records.EndOfGame'
 ```
 
-A `record` cannot extend any class, not even its implicit superclass `Record`.
+A `record` cannot extend any class, not even its implicit superclass `Record`. It can implement interfaces.
 
 ```
 No extends clause allowed for record
 ```
 
-A `record` will not have write accessors and the implicitly declared fields are final, and not modifiable via reflection. Moreover, a `record` cannot declare instance fields outside the `record` _header_. Records embody an _immutable by default_ policy, usually applied to data carrier classes.
+A `record` will not have write accessors and the implicitly declared fields are final, and not modifiable via reflection. Moreover, a `record` cannot declare instance fields outside the `record` _header_. Records embody an _immutable by default_ policy, usually applied to data carrier classes. Read accessors can be declared explicitly, but should never silently alter the Record state. **Review Record semantics before making explicit declarations of automatic members.**
 
 ```
 Instance field is not allowed in record
 Cannot assign a value to final variable 'id'
 ```
 
+A record without any constructor declaration will be given a canonical constructor with the same signature as the header, which will assign all the private fields from the arguments. The canonical constructor can be declared explicitly in the standard syntax, or in a compact form:
 
-Constructors
-Compact constructor
+```java
+public EndOfGame {
+    Objects.requireNonNull(id);
+    Objects.requireNonNull(date);
+    Objects.requireNonNull(timeOfDay);
+    Objects.requireNonNull(mentalState);
+    Objects.requireNonNull(damageTaken);
+    Objects.requireNonNull(damageToPlayers);
+    Objects.requireNonNull(damageToStructures);
+}
+```
+
+In the compact form, the parameters are implicit, the private fields cannot be assigned inside the body and are automatically assigned **at the end**. Its purpose is to allow focusing on validation or some other value processing.
+
+
+
 Local records
+
+
 
 Other features
 Static variables and methods
 
-Example EndOfGame and unit tests
+
 
 
 
