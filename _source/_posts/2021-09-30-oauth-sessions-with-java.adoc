@@ -38,7 +38,7 @@ image::{% asset_path 'blog/oauth-sessions-with-java/oauth-code-flow.png' %}[alt=
 1. A user requests to log in - either by clicking on a login button or automatically when they request a protected page.
 2. Web App stores information about the current session - OAuth state info and optionally a PKCE code verifier and/or a nonce for OpenId Connect (OIDC).
 3. Respond with a browser redirect to the authorization server.
-4. User interacts with the authorization server to provide credentials.
+4. User interacts with the authorization server to provide credentials and confirm consent.
 5. Authorization server issues redirect with a code back to the web app.
 6. Finalize user authorization on the backend.
 7. The web app reads the previously stored OAuth data from the session.
