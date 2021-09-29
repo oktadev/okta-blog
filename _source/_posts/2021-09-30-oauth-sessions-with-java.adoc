@@ -5,12 +5,12 @@ author: brian-demers
 by: advocate
 communities: [java]
 description: "Learn how sessions are used with OAuth 2.0 and build an example with HAproxy, Redis, and Spring Boot."
-tags:  [spring-session, spring, microservices, jhipster, java, spring-boot, haproxy, oauth2, oidc, session]
+tags:  [spring-session, spring, microservices, java, spring-boot, haproxy, oauth2, oidc, session]
 tweets:
 - "Apps using OIDC/OAuth 2.0 don't have 'special' sessions requirements, but you still need to think about them 🧠"
 - "Confused how #OAuth2 and OIDC affect your web app's sessions? Learn more and build an example with #Redis, #HAproxy, and #SpringBoot 💡"
 - "Scaling an app from 1 to N means you need to think about load balancing, session management, and how those relate to Auth🔒"
-image:
+image: blog/oauth-sessions-with-java/social.png
 type: conversion
 ---
 
