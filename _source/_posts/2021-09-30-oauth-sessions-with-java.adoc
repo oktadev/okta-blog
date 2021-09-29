@@ -311,6 +311,6 @@ If you want to learn more, check out this related content:
 - link:/blog/2017/08/17/why-jwts-suck-as-session-tokens[Why JWTs Suck as Session Tokens]
 - link:/blog/2020/10/02/spring-session-mysql[Easy Session Sharing in Spring Boot with Spring Session and MySQL]
 - link:/blog/2020/08/14/spring-gateway-patterns[OAuth 2.0 Patterns with Spring Cloud Gateway]
--link:/blog/2020/05/04/spring-vault[Secure Secrets With Spring Cloud Config and Vault]
+- link:/blog/2020/05/04/spring-vault[Secure Secrets With Spring Cloud Config and Vault]
 
 If you have questions, please leave a comment below. If you liked this tutorial, follow https://twitter.com/oktadev[@oktadev] on Twitter, follow us https://www.linkedin.com/company/oktadev/[on LinkedIn], or subscribe to https://www.youtube.com/c/oktadev[our YouTube channel].
