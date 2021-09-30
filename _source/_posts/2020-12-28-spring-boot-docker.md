@@ -13,7 +13,8 @@ tweets:
 image: blog/spring-boot-docker/spring-boot-docker.png
 type: conversion
 changelog:
-- 2020-12-31: Updated post to add Heroku instructions, since it requires another buildpack. Thanks for the idea, Maurizio! See the code changes in the [example on GitHub](https://github.com/oktadeveloper/okta-spring-boot-docker-buildpacks-example/pull/2). Changes to this post can be viewed in [oktadeveloper/okta-blog#514](https://github.com/oktadeveloper/okta-blog/pull/514).
+- 2021-09-22: Updated to use Spring Boot 2.5.4. Changes to this post can be viewed in [oktadev/okta-blog#893](https://github.com/oktadev/okta-blog/pull/893); example app changes are in [oktadev/okta-spring-boot-docker-buildpacks-example#4](https://github.com/oktadev/okta-spring-boot-docker-buildpacks-example/pull/4)
+- 2020-12-31: Updated post to add Heroku instructions, since it requires another buildpack. Thanks for the idea, Maurizio! See the code changes in the [example on GitHub](https://github.com/oktadev/okta-spring-boot-docker-buildpacks-example/pull/2). Changes to this post can be viewed in [oktadev/okta-blog#514](https://github.com/oktadev/okta-blog/pull/514).
 ---
 
 Those of you reading this have certainly heard of Docker. After years of hype, it has become the somewhat standard technology for everyday DevOps operations. It greatly helped to simplify deployments and testing by creating efficient, immutable images of the applications which are working in their own silo. More efficient placement of applications has made this technology central for cloud applications which is why it has gotten so much attention in recent years.
@@ -38,10 +39,9 @@ In this tutorial, you will build and run a simple web application into the Docke
 Start by creating a Spring Boot application using [Spring Boot Initializr](https://start.spring.io/).
 This can be done via the web interface or using a handy curl command:
 
-
 ```sh
 curl https://start.spring.io/starter.tgz -d dependencies=web,okta \
-   -d bootVersion=2.4.1 \
+   -d bootVersion=2.5.4 \
    -d groupId=com.okta \
    -d artifactId=demospringboot \
    -d type=gradle-project \
@@ -50,7 +50,6 @@ curl https://start.spring.io/starter.tgz -d dependencies=web,okta \
 ```
 
 This command requests that Spring Boot Initializr generate an application that uses the Gradle build system and Kotlin programming language. It also configures dependencies on Spring Web and Okta. The created project is automatically unpacked to the `springboot-docker-demo` directory.
-
 
 Update your main application class to allow unauthenticated access in `WebSecurityConfigurerAdapter`. While in there, add a controller that welcomes the user. It's safe to put everything in a single file `src/main/kotlin/com/okta/demospringboot/DemoApplication.kt`:
 
@@ -98,7 +97,6 @@ Start your application in the project folder via the command line:
 Then, open a browser at `http://localhost:8080`. Your web application greets the guest user:
 
 {% img blog/spring-boot-docker/welcome-guest.png alt:"Webpage displaying welcome guest" width:"710" %}{: .center-image }
-
 
 ## Build a Spring Boot Docker Image
 
@@ -153,12 +151,11 @@ Rebuild the application again:
 
 The `--imageName` parameter allows specifying an image name. Without it, the name would be something like `appName:0.0.1-SNAPSHOT`.
 
-
 ### Start Spring Boot Application in Docker
 
 When your application starts, the Okta module reads environment variables to configure security in your application. Start your application with your values set:
 
-```
+```sh
 docker run -it -p8080:8080 \
     -e OKTA_OAUTH2_ISSUER="https://dev-xxxxxx.okta.com/oauth2/default" \
     -e OKTA_OAUTH2_CLIENT_SECRET="yyyyyyyyyyyyyyyyyyy" \
@@ -166,11 +163,17 @@ docker run -it -p8080:8080 \
     springbootdemo
 ```
 
-The argument `-e` allows to set an environment variable for the application running _inside_ your container and `-p` maps container's point to the `localhost`.
+The argument `-e` allows to set an environment variable for the application running _inside_ your container and `-p` maps container's ports to `localhost` ports.
 
 Now, head over to `http://localhost:8080`, and you'll be asked to log in using Okta's standard form. Enter your login credentials and, upon successful sign-in, your web browser will be redirected to the main page, displaying a welcoming message.
 
 {% img blog/spring-boot-docker/browser-welcomes-logged-in-user-via-okta.png alt:"Webpage displaying 'welcome username'" width:"744" %}{: .center-image }
+
+**TIP:** If you want to print the user's name, use `@AuthenticatedPrincipal` and `OidcUser`:
+
+```kotlin
+fun home(@AuthenticationPrincipal user: OidcUser?) = "Welcome, ${user?.fullName ?: "guest"}!"
+```
 
 Congratulations, you have created a simple Spring Boot application contextualized with Docker and secured with Spring Security + Okta.
 
@@ -212,7 +215,7 @@ Then, build your image with `--builder heroku/spring-boot-buildpacks`:
 ./gradlew bootBuildImage --imageName=springbootdemo --builder heroku/spring-boot-buildpacks
 ```
 
-Create an app on Heroku:
+Install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) and create an app on Heroku:
 
 ```bash
 heroku create
@@ -253,7 +256,7 @@ Run `heroku open` to open your app and sign in.
 
 In this brief tutorial, you created a secure Spring Boot application and packaged it with Docker. You configured Okta as an OAuth 2.0 provider, built an image into your local Docker daemon, and learned how to run your app in Docker. This bootstrap project is a great starting point for your next cloud-native project.
 
-You can find the source code for this example [on GitHub](https://github.com/oktadeveloper/okta-spring-boot-docker-buildpacks-example).
+You can find the source code for this example [on GitHub](https://github.com/oktadev/okta-spring-boot-docker-buildpacks-example).
 
 See other relevant tutorials:
 
