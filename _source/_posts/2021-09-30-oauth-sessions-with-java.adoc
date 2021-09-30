@@ -278,7 +278,7 @@ WARNING: By default, Spring Session configures Redis to connect to `localhost` o
 
 Restart the Spring Boot applications. (Remember there's one on port `8081` and another on `8082`).
 
-Open up your browser again and try to access `http://localhost:8080/`; this time, you will be able to log in without issue!
+Open up your browser again and try to access `\http://localhost:8080/`; this time, you will be able to log in without issue!
 
 Refresh the browser a few times and you will see the response alternating between the ports:
 
