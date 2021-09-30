@@ -13,7 +13,9 @@ tweets:
 image:
 type: conversion
 ---
-When defining classes for a simple aggregation of values, developers had to write constructors, accessors, `equals()`, `hashCode()` and `toString()`, an error-prone ceremony that has low value and deviates the focus from modeling immutable data. While code generators can be used to reduce boilerplate code, the goals of the `record` proposals rather focus on its semantics. With the motivation of simplifying the writing of data carrier classes, Java Records were introduced as a first preview in JDK 14. The second preview came in JDK 15 and the finalized feature came in JDK 16. A summary of the history is available in the [JDK Enhancement Proposal JEP 395](https://openjdk.java.net/jeps/395). In this post let's explore Java Records features and advantages in semantics, and apply them for building a REST API and query a Database.
+When defining classes for a simple aggregation of values, developers had to write constructors, accessors, `equals()`, `hashCode()` and `toString()`, an error-prone ceremony that has low value and deviates the focus from modeling immutable data. With the motivation of simplifying the writing of data carrier classes, Java Records were introduced as a first preview in JDK 14. The second preview came in JDK 15 and the finalized feature came in JDK 16. A summary of the history is available in the [JDK Enhancement Proposal JEP 395](https://openjdk.java.net/jeps/395). While code generators can be used to reduce boilerplate code, the goals of the `record` proposals rather focus on its semantics. In this post let's explore Java Records features and advantages, and apply them for building a REST API and querying a Database.
+
+{% img blog/java-records/openjdk-logo.png alt:"OpenJDK Logo" width:"300" %}{: .center-image }
 
 
 **Prerequisites**:
@@ -28,9 +30,7 @@ When defining classes for a simple aggregation of values, developers had to writ
 
 # The Record Keyword
 
-The `record` is a new type of declaration, a restricted form of class that acts as a transparent carrier for immutable data.
-
-While searching for a dataset for this tutorial, I came across a collection of 88 end game statistics of a single player, for a popular game. As the author included the mental state in the data, I decided to use Java Records for building a basic average query and finding out if the performance was significantly different when sober than when high. So let's start the exploration by defining a simple data carrier class `EndOfGame` as a `record`:
+The `record` is a new type of declaration, a restricted form of class that acts as a transparent carrier for immutable data. So let's start the exploration by defining a simple data type `EndOfGame` as a `record`:
 
 ```java
 import java.time.LocalDate;
@@ -40,15 +40,15 @@ public record EndOfGame(String id, LocalDate date,  LocalTime timeOfDay, String 
                         Integer damageTaken, Integer damageToPlayers, Integer damageToStructures) {
 }
 ```
-As you can see in the example above, the `record` has a name, I chose `EndOfGame`. What looks like a constructor signature is the _state description_ or _header_ declaring the _components_ of the `record`.
+As you can see in the example above, the `record` has a name, `EndOfGame` in the example above. What looks like a constructor signature is the _state description_ or _header_ declaring the _components_ of the `record`.
 
-The following members are acquired automatically in the declaration:
+The following members are acquired automatically with the declaration:
 
 - A private final field and a public read accessor for each component of the state description
-- A public _canonical_ constructor with the same signature as the state description, which initializes each field from each argument
-- Implementations of `equals()`, `hashCode()` and `toString()`
+- A public _canonical_ constructor with the same signature as the state description, which initializes each field from the corresponding argument
+- Implementation of `equals()`, `hashCode()` and `toString()`
 
-See the code fragments from `EndOfGameTest` class below to verify the automatic members are indeed available:
+The code fragments from `EndOfGameTest` class below verify the automatic members are indeed available.
 
 ```java
 private EndOfGame getTestEndOfGame(){
@@ -73,30 +73,19 @@ public void equalsTest(){
 }
 ```
 
-In the test above, `eog1` has the same state than `eog2`, so `eog1.equals(eog2)` is `true`. This also implies both instances must have the same `hashCode`.
+In the test above, `eog1` has the same state than `eog2`, so `eog1.equals(eog2)` is `true`. This also implies both instances have the same `hashCode`.
 
+A `toString()` test can illustrate what the string representation looks like:
 
-```java
-@Test
-public void toStringTest(){
-    EndOfGame eog = getTestEndOfGame();
-    logger.info(eog.toString());
-
-    assertEquals("EndOfGame[id=1, date=2018-12-12, timeOfDay=15:15, mentalState=sober, " +
-                    "damageTaken=10, damageToPlayers=10, damageToStructures=10]",
-            eog.toString());
-
-}
+```text
+EndOfGame[id=1, date=2018-12-12, timeOfDay=15:15, mentalState=sober, damageTaken=10, damageToPlayers=10, damageToStructures=10]
 ```
 
-A `toString()` test was also included to illustrate what the string representation looks like.
-
-Automatic read accessors have the same name and return type than the component:
+Automatic read accessors have the same name and return type than the component. Note there is no `get*` prefix in the read accessor name, same name as the component:
 
 ```java
 assertEquals("sober", eog.mentalState());
 ```
-Note there is no `get*` prefix in the read accessor name, same name as the component.
 
 
 # Java Record Restrictions and Rules
@@ -104,25 +93,26 @@ Note there is no `get*` prefix in the read accessor name, same name as the compo
 
 ## Inheritance, Extensibility, Immutability
 
-A `record` is implicitly final, and cannot be abstract. You cannot enhance it later by extension.
+A `record` is implicitly final, and cannot be abstract. You cannot enhance it later by extension, as the compiler will output the following error:
 
 ```
 Cannot inherit from final 'com.okta.developer.records.EndOfGame'
 ```
 
-A `record` cannot extend any class, not even its implicit superclass `Record`. It can implement interfaces.
+A `record` cannot extend any class, not even its implicit superclass `Record`. But it can implement interfaces. Using the `extends` with records clause will cause the following error:
 
 ```
 No extends clause allowed for record
 ```
 
-
-A `record` will not have write accessors and the implicitly declared fields are final, and not modifiable via reflection. Moreover, a `record` cannot declare instance fields outside the `record` _header_. Records embody an _immutable by default_ policy, usually applied to data carrier classes. Read accessors can be declared explicitly, but should never silently alter the Record state. **Review Record semantics before making explicit declarations of automatic members.**
+A `record` will not have write accessors and the implicitly declared fields are final, and not modifiable via reflection. Moreover, a `record` cannot declare instance fields outside the `record` _header_. Records embody an _immutable by default_ policy, usually applied to data carrier classes.
 
 ```
 Instance field is not allowed in record
 Cannot assign a value to final variable 'id'
 ```
+
+Read accessors can be declared explicitly, but should never silently alter the Record state. **Review Record semantics before making explicit declarations of automatic members.**
 
 A record without any constructor declaration will be given a canonical constructor with the same signature as the header, which will assign all the private fields from the arguments. The canonical constructor can be declared explicitly in the standard syntax, or in a compact form:
 
@@ -144,14 +134,16 @@ In the compact form, the parameters are implicit, the private fields cannot be a
 
 Record instances can extend `Serializable`, but the serialization and deserialization processes cannot be customized. Serialization and deserialization methods like `writeObject`,  `readObject` can be implemented, but will be ignored.
 
-Can records be used for REST API responses? `spring-web` module provides Jackson JSON encoders and decoders, and Java Record support was added to Jackson in release 2.12.
+As `spring-web` module provides Jackson JSON encoders and decoders, and Java Record support was added to Jackson in release 2.12, records can be used for REST API request and response mapping.
 
-Can records be used for database mapping? Records cannot be used with JPA/Hiberante. Spring Data modules that do not use the object mapping of the underlying data store (like JPA) do support Record, as persistence construction detection works as with other classes. For Spring Data MongoDB, the general recommendation is to _stick to immutable objects_, because they are straightforward to materialize by calling the constructor. It is also recommended to provide an all-args constructor, allowing to skip property population for optimal performance. Java Record semantics align with these guidelines.
+Records cannot be used with JPA/Hiberante. Spring Data modules that do not use the object mapping of the underlying data store (like JPA) do support Record, as persistence construction detection works as with other classes. For Spring Data MongoDB, the general recommendation is to _stick to immutable objects_, because they are straightforward to materialize by calling the constructor. It is also recommended to provide an all-args constructor, allowing to skip property population for optimal performance. Java Record semantics align with these guidelines.
 
 
 # Using Java Record with Spring WebFlux and Spring Data
 
-Let's jump ahead and build the a secured REST Api using the `EndOfGame` record, [MongoDB](https://www.mongodb.com/community) and Okta authentication. With the help of [Spring Initializr](https://start.spring.io/) create a WebFlux application, from the web UI or with [HTTPie](https://httpie.io/):
+While searching for a dataset for this tutorial, I came across a collection of 88 end game statistics of a single player, for a popular game. As the author included the mental state in the data, I decided to use Java Records for building a basic average query and finding out if the performance was significantly different when sober than when high.
+
+Let's jump ahead and build the a secured REST Api using the `EndOfGame` record, Spring Boot, [MongoDB](https://www.mongodb.com/community) and Okta authentication. With the help of [Spring Initializr](https://start.spring.io/) create a WebFlux application, from the web UI or with [HTTPie](https://httpie.io/):
 
 ```shell
 http -d https://start.spring.io/starter.zip type==maven-project \
@@ -166,9 +158,9 @@ http -d https://start.spring.io/starter.zip type==maven-project \
   dependencies==webflux,okta,data-mongodb-reactive
 ```
 
-**Note**: Although Java Records are available since release 14, the Spring Initializr Web UI only allows to select Java LTS releases (Long Term Support).
+**Note**: Although Java Records are available since release 14, the Spring Initializr Web UI only allows to select Java Long Term Support (LTS) releases.
 
-Edit `pom.xml` to add two more required dependencies for this tutorial, [MongoDB Testcontainers Module](https://www.testcontainers.org/modules/databases/mongodb/) for testing database access and `spring-security-test`:
+Extract the maven project, and edit `pom.xml` to add two more required dependencies for this tutorial, [MongoDB Testcontainers Module](https://www.testcontainers.org/modules/databases/mongodb/) for testing database access and `spring-security-test`:
 
 ```xml
 <dependency>
@@ -192,7 +184,7 @@ Rename `application.properties` to `application.yml`, and add the following cont
 ```yml
 okta:
   oauth2:
-    issuer: http://{yourOktaDomain}/oauth2/default
+    issuer: https://{yourOktaDomain}/oauth2/default
     client-secret: {clientSecret}
     client-id: {clientId}
 
@@ -208,14 +200,41 @@ logging:
 ```
 
 
-Add the `EndOfGame` record under the package `com.okta.developer.records.entity`. Annotate the `record` with `@Document(collection = "stats")` to let MongoDB map `EndOfGame` to the `stats` collection. As you can see, a record class can be annotated.
-
-
-
-Add a new entity for the mental state query `MentalStateDamage`:
+Add the `EndOfGame` record under the package `com.okta.developer.records.domain`. Annotate the `record` with `@Document(collection = "stats")` to let MongoDB map `EndOfGame` to the `stats` collection. As you can see, a record class can be annotated. The class should look like this:
 
 ```java
-package com.okta.developer.records.entity;
+package com.okta.developer.records.domain;
+
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Objects;
+
+@Document(collection = "stats")
+public record EndOfGame(String id, LocalDate date,  LocalTime timeOfDay,
+                        String mentalState, Integer damageTaken,
+                        Integer damageToPlayers, Integer damageToStructures) {
+
+    public EndOfGame {
+        Objects.requireNonNull(id);
+        Objects.requireNonNull(date);
+        Objects.requireNonNull(timeOfDay);
+        Objects.requireNonNull(mentalState);
+        Objects.requireNonNull(damageTaken);
+        Objects.requireNonNull(damageToPlayers);
+        Objects.requireNonNull(damageToStructures);
+    }
+
+}
+```
+
+
+
+Add a new record for the mental state query `MentalStateDamage`:
+
+```java
+package com.okta.developer.records.domain;
 
 public record MentalStateDamage(String mentalState,
                                 Double damageToPlayers,
@@ -229,7 +248,7 @@ Create the package `com.okta.developer.records.repository` and add `MentalStateS
 ```java
 package com.okta.developer.records.repository;
 
-import com.okta.developer.records.entity.MentalStateDamage;
+import com.okta.developer.records.domain.MentalStateDamage;
 import reactor.core.publisher.Flux;
 
 public interface MentalStateStatsRepository {
@@ -244,8 +263,8 @@ Add the implementation `MentalStateStatsRepostoryImpl` to retrieve the average d
 ```java
 package com.okta.developer.records.repository;
 
-import com.okta.developer.records.entity.EndOfGame;
-import com.okta.developer.records.entity.MentalStateDamage;
+import com.okta.developer.records.domain.EndOfGame;
+import com.okta.developer.records.domain.MentalStateDamage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
@@ -282,14 +301,14 @@ public class MentalStateStatsRepositoryImpl implements MentalStateStatsRepositor
 Create the `SatsRepository` interface, extending the `MentalStateStatsRepository`:
 
 ```java
-package com.okta.developer.records.repository;
+  package com.okta.developer.records.repository;
 
-import com.okta.developer.records.entity.EndOfGame;
-import org.springframework.data.repository.reactive.ReactiveSortingRepository;
+  import com.okta.developer.records.domain.EndOfGame;
+  import org.springframework.data.repository.reactive.ReactiveSortingRepository;
 
-public interface StatsRepository extends ReactiveSortingRepository<EndOfGame, Long>, MentalStateStatsRepository {
+  public interface StatsRepository extends ReactiveSortingRepository<EndOfGame, Long>, MentalStateStatsRepository {
 
-}
+  }
 ```
 
 The sample dataset, after the import, will create strings for the date and time values, with a custom format. Create the following converters to map `String` to `LocalDate` and `LocalTime`:
@@ -360,8 +379,8 @@ Add the `StatsController` under the `com.okta.developer.records.controller` pack
 ```java
 package com.okta.developer.records.controller;
 
-import com.okta.developer.records.entity.EndOfGame;
-import com.okta.developer.records.entity.MentalStateDamage;
+import com.okta.developer.records.domain.EndOfGame;
+import com.okta.developer.records.domain.MentalStateDamage;
 import com.okta.developer.records.repository.StatsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -391,7 +410,7 @@ The controller enables the `/endOfGame` endpoint to get all entries, and the `/m
 
 Download the test dataset from [Github](https://github.com/indiepopart/java-records/blob/main/src/test/resources/stats.json), and copy it to `src/test/resouces/stats.json`.
 
-Create the class `StatsControllerTest`, to verify the endpoints basic functionality with the help of Testcontainers:
+Create the class `StatsControllerTest` in the package `com.okta.developer.records.controller` under the test folder, to verify the endpoints basic functionality with the help of Testcontainers:
 
 
 ```java
