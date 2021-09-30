@@ -1,10 +1,10 @@
 ---
 layout: blog_post
-title: "Java Records: A Webflux and Spring Data Example"
+title: "Java Records: A WebFlux and Spring Data Example"
 author: jimena-garbarino
 by: contractor
 communities: [java]
-description: "Java Records for Spring Microservices and Database Access"
+description: "Java Records support in Spring WebFlux Microservices and Spring Data MongoDB Access"
 tags: [java-records, java, api, mongodb, rest, microservices]
 tweets:
 - ""
@@ -13,7 +13,7 @@ tweets:
 image:
 type: conversion
 ---
-When defining classes for a simple aggregation of values, developers had to write constructors, accessors, `equals()`, `hashCode()` and `toString()`, an error-prone ceremony that has low value and deviates the focus from modelling immutable data. While code generators can be used to reduce boilerplate code, the goals of the `record` proposals rather focus on its semantics. With the motivation of simplifying the writing of data carrier classes, Java Records were introduced as a first preview in JDK 14. The second preview came in JDK 15 and the finalized feature came in JDK 16. You can see a summary of the history in the [JDK Enhancement Proposal JEP 395](https://openjdk.java.net/jeps/395). In this post let's explore Java Records features and advantages in semantics, and apply them for building a REST Api and query a Database.
+When defining classes for a simple aggregation of values, developers had to write constructors, accessors, `equals()`, `hashCode()` and `toString()`, an error-prone ceremony that has low value and deviates the focus from modeling immutable data. While code generators can be used to reduce boilerplate code, the goals of the `record` proposals rather focus on its semantics. With the motivation of simplifying the writing of data carrier classes, Java Records were introduced as a first preview in JDK 14. The second preview came in JDK 15 and the finalized feature came in JDK 16. A summary of the history is available in the [JDK Enhancement Proposal JEP 395](https://openjdk.java.net/jeps/395). In this post let's explore Java Records features and advantages in semantics, and apply them for building a REST API and query a Database.
 
 
 **Prerequisites**:
@@ -99,12 +99,10 @@ assertEquals("sober", eog.mentalState());
 Note there is no `get*` prefix in the read accessor name, same name as the component.
 
 
-# Record Restrictions and Rules
+# Java Record Restrictions and Rules
 
-Some record restrictions are related to:
-- Inheritance and Extensibility
-- Immutability
-- Serialization
+
+## Inheritance, Extensibility, Immutability
 
 A `record` is implicitly final, and cannot be abstract. You cannot enhance it later by extension.
 
@@ -117,6 +115,7 @@ A `record` cannot extend any class, not even its implicit superclass `Record`. I
 ```
 No extends clause allowed for record
 ```
+
 
 A `record` will not have write accessors and the implicitly declared fields are final, and not modifiable via reflection. Moreover, a `record` cannot declare instance fields outside the `record` _header_. Records embody an _immutable by default_ policy, usually applied to data carrier classes. Read accessors can be declared explicitly, but should never silently alter the Record state. **Review Record semantics before making explicit declarations of automatic members.**
 
@@ -139,14 +138,18 @@ public EndOfGame {
 }
 ```
 
-In the compact form, the parameters are implicit, the private fields cannot be assigned inside the body and are automatically assigned **at the end**. Its purpose is to allow focusing on validation or some other value processing.
+In the compact form, the parameters are implicit, the private fields cannot be assigned inside the body and are automatically assigned **at the end**. Its purpose is to allow focusing on validation, making defensive copies of mutable values, or some other value processing.
 
-Record instances can extend `Serializable`, but the serialization and deserialization processes cannot be customized. Serialization and deserialization methods like `writeObject`,  `readObject` can be implemented, but will be ignored. What about sending records as Spring REST service responses? `spring-web` module provides Jackson JSON encoders and decoders, and Java Record support was added to Jackson in release 2.12.
+## Serialization, Encoding, Mapping
 
-What about database access?
+Record instances can extend `Serializable`, but the serialization and deserialization processes cannot be customized. Serialization and deserialization methods like `writeObject`,  `readObject` can be implemented, but will be ignored.
+
+Can records be used for REST API responses? `spring-web` module provides Jackson JSON encoders and decoders, and Java Record support was added to Jackson in release 2.12.
+
+Can records be used for database mapping? Records cannot be used with JPA/Hiberante. Spring Data modules that do not use the object mapping of the underlying data store (like JPA) do support Record, as persistence construction detection works as with other classes. For Spring Data MongoDB, the general recommendation is to _stick to immutable objects_, because they are straightforward to materialize by calling the constructor. It is also recommended to provide an all-args constructor, allowing to skip property population for optimal performance. Java Record semantics align with these guidelines.
 
 
-# Using Java Records with Spring WebFlux and Spring Data
+# Using Java Record with Spring WebFlux and Spring Data
 
 Let's jump ahead and build the a secured REST Api using the `EndOfGame` record, [MongoDB](https://www.mongodb.com/community) and Okta authentication. With the help of [Spring Initializr](https://start.spring.io/) create a WebFlux application, from the web UI or with [HTTPie](https://httpie.io/):
 
@@ -516,13 +519,19 @@ For this single player dataset, the damage taken or inflicted was not orders of 
 
 # Java Records Advantages and Disadvantages
 
-Java Records vs POJOs
+While Java Record is more concise for declaring data carrier classes, the "war on boilerplate" is a non-goal of the construct, neither is to add features like properties or annotation-driven code generation, like [Project Lombok](https://projectlombok.org/) does. Records semantics provide benefits when modeling an immutable state data type. No hidden state is allowed, as no instance fields can be defined outside the header, hence the transparent claim. Compiler generated `equals()` and `hasCode()` avoid error-prone coding. Serialization and deserialization into JSON is straightforward thanks to its canonical constructor.
+If you need to be able to alter the state or to define a hierarchy, it is not possible with records.
 
-Records are immutable, POJOs are mutable in nature.
-
-
-Java Records vs Lombok
-
-Records carry its own semantics. Immutable and final. Lombok generates code, no semantics.
 
 # Learn More
+
+I hope you enjoyed this tutorial and learned more about Java Record semantics, its benefits and limitations. Before choosing this feature, make sure to find out if your favorite frameworks provide support for it. Fortunately, at this moment Spring Boot support for Java Records was recently added in 2.5.x releases through Jackson 2.12.x. I was not able to find comments about records in Spring Data documentation. To continue learning about Java Records, Okta Security and Spring WebFlux check out the links below:
+
+- [java.lang.Record](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Record.html)
+- [Reactive Java Microservices with Spring Boot and JHipster](https://developer.okta.com/blog/2021/01/20/reactive-java-microservices)
+- [R2DBC and Spring for Non-Blocking Database Access](https://developer.okta.com/blog/2021/05/12/spring-boot-r2dbc)
+- [A Quick Guide to Spring Cloud Stream](https://developer.okta.com/blog/2020/04/15/spring-cloud-stream)
+- [How to Use Client Credentials Flow with Spring Security](https://developer.okta.com/blog/2021/05/05/client-credentials-spring-security)
+
+
+You can find all the tutorial code in [Github](https://github.com/indiepopart/java-records.git)
