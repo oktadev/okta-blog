@@ -63,7 +63,7 @@ IMPORTANT: Don't confuse 12 Factor's reference to "process statelessness" with w
 
 To build a load-balanced application, we need a minimum of three things—a load balancer (HAproxy), shared session storage (Redis), and multiple instances of a web application (Spring Boot).
 
-If you want to skip right to the code, take a look at this https://github.com/oktadev/TODO[GitHub] repo.
+If you want to skip right to the code, take a look at this https://github.com/oktadev/okta-spring-sessions-example[GitHub] repo.
 
 Create a new directory for this project:
 
