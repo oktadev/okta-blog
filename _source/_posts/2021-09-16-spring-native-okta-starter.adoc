@@ -159,7 +159,9 @@ _Giddyup!_
 
 [source,shell]
 ----
-./mvnw
+./mvnw spring-boot:build-image
+# wait until image builds
+docker run -it -p8080:8080 okta-spring-boot-sample:0.0.1-SNAPSHOT
 ----
 
 Next, open your browser to `http://localhost:8080`. You'll likely be logged in straight away and see your name printed on the screen.
