@@ -81,7 +81,7 @@ A `toString()` test can illustrate what the string representation looks like:
 EndOfGame[id=1, date=2018-12-12, timeOfDay=15:15, mentalState=sober, damageTaken=10, damageToPlayers=10, damageToStructures=10]
 ```
 
-Automatic read accessors have the same name and return type than the component. Note there is no `get*` prefix in the read accessor name, same name as the component:
+Automatic read accessors have the same name and return type as the component. Note there is no `get*` prefix in the read accessor name, the same name as the component:
 
 ```java
 assertEquals("sober", eog.mentalState());
@@ -533,18 +533,18 @@ Also, you can inspect the response in the logs for the average damage test:
    }
 ]
 ```
-For this single player dataset, the damage taken or inflicted was not orders of magnitude different when sober than when high.
+For this single-player dataset, the damage taken or inflicted was not orders of magnitude different when sober than when high.
 
 
 # Java Records Advantages and Disadvantages
 
-While Java Record is more concise for declaring data carrier classes, the "war on boilerplate" is a non-goal of the construct, neither is to add features like properties or annotation-driven code generation, like [Project Lombok](https://projectlombok.org/) does. Records semantics provide benefits when modeling an immutable state data type. No hidden state is allowed, as no instance fields can be defined outside the header, hence the transparent claim. Compiler generated `equals()` and `hasCode()` avoid error-prone coding. Serialization and deserialization into JSON is straightforward thanks to its canonical constructor.
+While Java Record is more concise for declaring data carrier classes, the "war on boilerplate" is a non-goal of the construct, neither is to add features like properties or annotation-driven code generation, like [Project Lombok](https://projectlombok.org/) does. Records semantics provide benefits when modeling an immutable state data type. No hidden state is allowed, as no instance fields can be defined outside the header, hence the transparent claim. Compiler generated `equals()` and `hashCode()` avoid error-prone coding. Serialization and deserialization into JSON are straightforward thanks to its canonical constructor.
 If you need to be able to alter the state or to define a hierarchy, it is not possible with records.
 
 
 # Learn More
 
-I hope you enjoyed this tutorial and learned more about Java Record semantics, its benefits and limitations. Before choosing this feature, make sure to find out if your favorite frameworks provide support for it. Fortunately, at this moment Spring Boot support for Java Records was recently added in 2.5.x releases through Jackson 2.12.x. I was not able to find comments about records in Spring Data documentation. To continue learning about Java Records, Okta Security and Spring WebFlux check out the links below:
+I hope you enjoyed this tutorial and learned more about Java Record semantics, its benefits, and its limitations. Before choosing this feature, make sure to find out if your favorite frameworks provide support for it. Fortunately, at this moment Spring Boot support for Java Records was recently added in 2.5.x releases through Jackson 2.12.x. I was not able to find comments about records in Spring Data documentation. To continue learning about Java Records, Okta Security and Spring WebFlux check out the links below:
 
 - [java.lang.Record](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Record.html)
 - [Reactive Java Microservices with Spring Boot and JHipster](https://developer.okta.com/blog/2021/01/20/reactive-java-microservices)
