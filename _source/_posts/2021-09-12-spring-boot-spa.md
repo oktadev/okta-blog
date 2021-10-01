@@ -179,15 +179,15 @@ Take a look at [this Spring blog post](https://spring.io/blog/2015/06/08/cors-su
 
 ## Configure The Resource Server For Okta Auth
 
-You should already have used the Okta CLI to either register a new account or log into an existing account. If not, please do so now. From a bash shell, type `okta login`, you should see a message that says something like: `Okta Org already configured: https://dev-123456.okta.com/`. This is your Okta base domain.
+You should already have used the Okta CLI to either register a new account or log into an existing account. If not, please do so now. From a bash shell, type `okta login`, you should see a message that says something like: `Okta Org already configured: https://dev-133337.okta.com/`. This is your Okta base domain.
 
 The only configuration you have to do for the resource server is to add the `okta.oauth2.issuer` property to the `application.properties` file. Spring Security and the Okta Spring Boot Starter will use the issuer endpoint to discover any other configuration it needs (except for the `aud` claim, which defaults to `api://default`).
 
-You issuer is simply your Okta domain plus `/oauth2/default`, such as `https://dev-123456.okta.com/oauth2/default`.
+You issuer is simply your Okta domain plus `/oauth2/default`, such as `https://dev-133337.okta.com/oauth2/default`.
 
 Another way to find your issuer URI is to open your Okta developer dashboard. Select **Security** and **API** from the left menu. This will show you your authorization servers. Mostly likely you only have the default authorization server that was set up for you when you signed up. This page will show you the **audience** (again, probably `api://default`) and the **Issuer URI**.
 
-{% img blog/spring-boot-spa/okta-sign-in.png alt:"auth-servers.png" width:"800" %}{: .center-image }
+{% img blog/spring-boot-spa/auth-servers.png alt:"Okta Dashboard Authorization Servers screenshot" width:"800" %}{: .center-image }
 
 Add the issuer URI to your properties file, which should look something like below, replacing `{yourOktaDomain}` with your actual Okta domain.
 
@@ -253,7 +253,7 @@ axios
 
 Create a `src/okta/index.js` file:
 
-```vue
+```js
 import OktaSignIn from '@okta/okta-signin-widget'
 import { OktaAuth } from '@okta/okta-auth-js'
 
@@ -428,6 +428,7 @@ a {
 
 Create `src/components/Home.vue` to define a home page.
 
+{% raw %}
 ```vue
 <template>
   <div id="home">
@@ -472,18 +473,19 @@ export default {
         catch (error) {
           this.caffeineLevel = `${error}`
         }
-
       }
     }
   }
 }
 </script>
 ```
+{% endraw %}
 
 The code above does a couple things worth pointing out. It demonstrates how to check if a user is authenticated, how to get the user object from the `$auth` object, and how to get the access token so it can be used in a request to a resource server.
 
 Add a `Profile` component at `src/components/Profile.vue`. This route will only be visible for users with a valid access token.
 
+{% raw %}
 ```vue
 <template>
   <div id="profile">
@@ -522,6 +524,7 @@ export default {
 }
 </script>
 ```
+{% endraw %}
 
 The `/login` route is the wrapper for the Sign-In Widget and redirects if the user is already logged in. You already created the component for this route above.
 
@@ -607,11 +610,11 @@ source .okta.env
 ./mvnw spring-boot:run
 ```
 
-Open the app in your browser at [http://localhost:8080](http://localhost:8080).
+Open the app in your browser at `http://localhost:8080`.
 
 Because the app is set to secure the home page, you will immediately be directed to the Okta login screen. Log in using your Okta credentials.
 
-{% img blog/spring-boot-spa/okta-sign-in.png alt:"Okta Sign-In Page" width:"800" %}{: .center-image }
+{% img blog/spring-boot-spa/okta-sign-in.png alt:"Okta Sign-In Page" width:"400" %}{: .center-image }
 
 When you enter your credentials, the Okta Sign-In Widget and the Vue app will follow the OAuth 2. 0 Authorization Code flow. In this flow, the client sends the login credentials to the Okta auth server and, if authentication is successful, receives an authorization code. The client app calls the Okta token endpoint, trading this authorization code for a JWT (JSON Web Token). The standard OAuth 2.0 authorization code flow requires that the application send the client secret along with the code to the token endpoint.
 
@@ -625,7 +628,7 @@ Once you've logged in you'll see the simple application screen below.
 
 Notice that it has pulled your name and email from your authentication information. It has also made an HTTP request to the Spring Boot REST server using the JWT to determine the caffeine level of your developer (the `/howcaffeinatedami` endpoint). Don't worry! Although the image above is reporting your developer's caffeine level is "not at all," never fear. I can promise you this is incorrect and simply a random response merely for mildly humorous effect.
 
-You can also go to the `profile` page at http://localhost:8080/profile, which will show you all of the claims in the authenticated token.
+You can also go to the `profile` page at `http://localhost:8080/profile`, which will show you all of the claims in the authenticated token.
 
 {% img blog/spring-boot-spa/profile-page.png alt:"Profile page" width:"800" %}{: .center-image }
 
