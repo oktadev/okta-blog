@@ -2,8 +2,8 @@
 layout: blog_post
 title: "Spring Boot Single-Page App"
 author: andrew-hughes
-by: advocate|contractor
-communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
+by: contractor
+communities: [java,javascript]
 description: ""
 tags: []
 tweets:
@@ -11,8 +11,7 @@ tweets:
 - ""
 - ""
   image:
-  type: awareness|conversion
-
+  type: conversion
 ---
 In this tutorial, you are going to create a single-page application (SPA) that uses a Spring Boot resource server and a Vue front-end client. You'll see how to configure Spring Boot to use JSON Web Tokens (JWT) for authentication and authorization, with Okta as an OAuth 2. 0 and OpenID Connect (OIDC) provider. You'll also see how to bootstrap a Vue client app with the Vue CLI and how to secure it using the Okta Sign-In Widget.
 
