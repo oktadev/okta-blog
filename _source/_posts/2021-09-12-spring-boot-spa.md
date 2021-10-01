@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Build a Single-Page App with Vue and Spring Boot"
+title: "Learn How to Build a Single-Page App with Vue and Spring Boot"
 author: andrew-hughes
 by: contractor
 communities: [java,javascript]
