@@ -1,16 +1,16 @@
 ---
 layout: blog_post
-title: "Spring Boot Single-Page App"
+title: "Build a Single-Page App with Vue and Spring Boot"
 author: andrew-hughes
 by: contractor
 communities: [java,javascript]
 description: ""
-tags: []
+tags: [vue, java, spring-boot, spring, oauth2, oidc, spa, javascript]
 tweets:
 - ""
 - ""
 - ""
-image:
+image: blog/spring-boot-spa/spring-boot-spa-social.jpg
 type: conversion
 ---
 
