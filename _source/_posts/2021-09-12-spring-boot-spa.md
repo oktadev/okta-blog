@@ -24,7 +24,7 @@ PKCE is a modification of the authorization code flow that does not require the 
 
 Before you get started, you'll need to make sure you have a few tools installed.
 
-**Okta CLI**: The Okta CLI is an easy way to create projects that use Okta for security. Follow the installation instructions on the [Okta CLI project website](https://cli.okta.com/manual/#installation). You should login to your existing account or register for a new account using the CLI before continuing with the tutorial.
+**Okta CLI**: The Okta CLI is an easy way to create projects that use Okta for security. Follow the installation instructions on the [Okta CLI project website](https://cli.okta.com/manual/#installation). You should log in to your existing account or register for a new account using the CLI before continuing with this tutorial.
 
 **Java 11**: This project uses Java 11. OpenJDK 11 will work just as well.  Instructions are found on the [OpenJDK website](https://openjdk.java.net/install/). OpenJDK can also be installed using [Homebrew](https://brew.sh/). Alternatively, [SDKMAN](https://sdkman.io/) is another excellent option for installing and managing Java versions.
 
@@ -32,7 +32,7 @@ Before you get started, you'll need to make sure you have a few tools installed.
 
 ## Create The Spring Boot Resource Server
 
-To bootstrap the Spring Boot resource server project, you will use [the Spring Initializr](https://start.spring.io/). It's designed to help developers quickly configure and generate Spring Boot projects. There's [a great web interface](https://start.spring.io/) that's you should take a look at. However, in this project, you're going to use the REST interface to download a pre-configured project.
+To bootstrap the Spring Boot resource server project, you will use [the Spring Initializr](https://start.spring.io/). It's designed to help developers quickly configure and generate Spring Boot projects. There's [a great web interface](https://start.spring.io/) that you should take a look at. However, in this project, you're going to use the REST interface to download a pre-configured project.
 
 This project will have both a Vue client and a Spring Boot server project, so you may want to make a parent directory called something like `Spring Boot SPA`. Use the following command to download and extract the starter project in the parent directory.
 
@@ -56,7 +56,7 @@ The command above configures various aspects of the Spring Boot project, includi
 
 - The second, `okta`, includes Okta's Spring Boot starter.
 
-You can check out [the Okta Spring Boot Starter project on GitHub](https://github.com/okta/okta-spring-boot) for more info, but briefly, it streamlines using Okta to secure Spring Boot projects. For a resource server, you would typically need to include the Spring Security OAuth Resource Server dependency, but the Okta Spring Boot starter includes this for you.
+You can check out [the Okta Spring Boot Starter project on GitHub](https://github.com/okta/okta-spring-boot) for more info, but briefly, it streamlines the use of Okta to secure Spring Boot projects. For a resource server, you would typically need to include the Spring Security OAuth Resource Server dependency, but the Okta Spring Boot Starter includes this for you.
 
 Now that you have the basic application in place, replace `DemoApplication.java` with the following code.
 
@@ -155,11 +155,11 @@ CORS allows resource servers to explicitly enable cross-origin requests, to tell
 
 Notice that this protocol is mediated between the server and the browser. The client application, the Vue app in this case, doesn't really have to do anything about CORS. From the perspective of the client app, the HTTP request to the resource server will either succeed or fail. If it fails because of CORS, the request will return a `401 (Unauthorized)`.
 
-In this example, the resource server resides on `http://localhost:8082` and the Vue client will be loaded from from the Vue development server at `http://localhost:8080`. Because the port number is part of the domain, these two URLs are considered different origins by the browser. When the Vue app tries to make a request to the Spring Boot resource server, the browser will throw an error unless CORS is properly configured.
+In this example, the resource server resides on `http://localhost:8082` and the Vue client will be loaded from the Vue development server at `http://localhost:8080`. Because the port number is part of the domain, these two URLs are considered different origins by the browser. When the Vue app tries to make a request to the Spring Boot resource server, the browser will throw an error unless CORS is properly configured.
 
 Note that not every request will trigger a CORS check. Certain types of simple requests are allowed, particularly requests that only allow form and text content types and the `GET`, `HEAD`, and `POST` request types. Take a look at the [Mozilla developer docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) on this for more info. However, any request with the `Content-Type` header `application-json` will always trigger a CORS check if made to a cross-origin domain.
 
-The first thing the browser will do when a suitable request is made to a resource on a different domain is to send a CORS preflight request. This is actually a totally separate request made by the browser **before** sends the actual request. The CORS preflight request essentially asks the browser if it is configured for CORS, if it will allow the type of request the client wants to send (DELETE, GET, POST, etc.), and if it will allow requests from the specific origin domain. The preflight request has nothing to do with authentication or authorization in the way we normally speak about it. It's just a quick check to see if CORS is configured and if, in theory, the server might allow the request based on the HTTP verb and the client domain.
+The first thing the browser will do when a suitable request is made to a resource on a different domain is to send a CORS preflight request. This is actually a totally separate request made by the browser **before** it sends the actual request. The CORS preflight request essentially asks the browser if it is configured for CORS, if it will allow the type of request the client wants to send (DELETE, GET, POST, etc.), and if it will allow requests from the specific origin domain. The preflight request has nothing to do with authentication or authorization in the way we normally speak about it. It's just a quick check to see if CORS is configured and if, in theory, the server might allow the request based on the HTTP verb and the client domain.
 
 If the preflight header is not handled correctly, CORS will return an error to the client application. If the preflight header does not allow the type of request or does not allow requests from the client origin, CORS will also return an error to the client. The actual, original request to the server will never be made. Only once the preflight request has been properly handled will the browser allow the request from the client app to the resource server proceed.
 
@@ -169,7 +169,7 @@ Here is a general outline of a CORS request:
 - Browser intercepts request, flags it as requiring CORS verification, and sends the CORS preflight request to the resource server
 - Server responds to the preflight request by saying it will allow the client domain to make the type of request
 - Browser sends the origin request to the server
-- Server handles original request, authenticating and authorizing it using OAuth 2.0 an OIDC before returning a reply
+- Server handles original request, authenticating and authorizing it using OAuth 2.0 and OIDC before returning a reply
 
 From a developer perspective, CORS is something that needs to be configured on the server. Spring Boot makes this easy. There are two places in the Java code where CORS is configured. CORS must generally be enabled for the Spring Boot application. This is done in the `SecurityConfiguration` class in the `configure(HttpSecurity http)` method by adding the `cors()` method to the `http` configuration chain.
 
@@ -217,7 +217,7 @@ The next step is to build the front-end, client application. The application wil
 
 The instructions below for integrating the Okta Sign-In widget with Vue are largely pulled from [this article](https://developer.okta.com/code/vue/okta_vue_sign-in_widget/#add-an-openid-connect-client-in-okta) on the Okta website, which is a great reference if you have any questions.
 
-Create the app using the Vue CLI. Run the following command from the project root directory (the directory above the spring boot project directory). It will create a new directory, `okta-app`, that will contain the client application.
+Create the app using the Vue CLI. Run the following command from the project root directory (the directory above the Spring Boot project directory). It will create a new directory, `okta-app`, which will contain the client application.
 
 ```bash
 vue create okta-app
@@ -310,7 +310,7 @@ Client ID: {clientId}
 
 The values in brackets will, of course, be your actual values.
 
-**You need to go back to the `src/okta/index.js` file and replace the `yourOktaUri` and `clientId` variables at the top of the file with your values.** The value for `yourOktaUri` is the Okta URI without any further path specifiers. It will look like this: `https://dev-123456.okta.com`
+**You need to go back to the `src/okta/index.js` file and replace the `yourOktaUri` and `clientId` variables at the top of the file with your values.** The value for `yourOktaUri` is the Okta URI without any further path specifiers. It will look like this: `https://dev-133337.okta.com`
 
 One of the things that the Okta CLI does for you is to add your application's base URL to the CORS trusted origins for the Okta auth server. This is necessary because the the Okta Sign-In Widget will be making cross0-origin requests, that, as noted above, would be blocked unless CORS is properly handled. You can see this by going to your Okta developer dashboard and selected **Security** and **API** from the left-side menu and selected **Trusted Origins** from the API tab. You'll see that (in this case) `http://localhost:8080` was added as a trusted origin of type `CORS Redirect`.
 
@@ -615,9 +615,9 @@ Because the app is set to secure the home page, you will immediately be directed
 
 When you enter your credentials, the Okta Sign-In Widget and the Vue app will follow the OAuth 2. 0 Authorization Code flow. In this flow, the client sends the login credentials to the Okta auth server and, if authentication is successful, receives an authorization code. The client app calls the Okta token endpoint, trading this authorization code for a JWT (JSON Web Token). The standard OAuth 2.0 authorization code flow requires that the application send the client secret along with the code to the token endpoint.
 
-However, in the context of a client-side application, putting the client secret in public, browser code would be a major security violation. Instead, Okta uses PKCE (Proof Key for Code Exchange). In this modified flow, the client generates a one-time key that is sent with the request and is associated with the authorized JWT. This is used to ensure that only the client that requested the JWT can use it.
+However, in the context of a client-side application, putting the client secret in public browser code would be a major security violation. Instead, Okta uses PKCE (Proof Key for Code Exchange). In this modified flow, the client generates a one-time key that is sent with the request and is associated with the authorized JWT. This is used to ensure that only the client that requested the JWT can use it.
 
-There's a great, in-depth article on the PKCE flow [on the Okta Blog by Micah Silverman](https://developer.okta.com/blog/2019/08/22/okta-authjs-pkce).
+There's a great, in-depth article on the [PKCE flow](https://developer.okta.com/blog/2019/08/22/okta-authjs-pkce) by Micah Silverman on the Okta Dev Blog.
 
 Once you've logged in you'll see the simple application screen below.
 
@@ -635,9 +635,9 @@ In this post you saw how to use Spring Boot to create a simple resource server a
 
 To learn more about OAuth 2.0 and OIDC, check out these blog posts
 
-- [Easy Single Sign-On with Spring Boot and OAuth 2.0](https://developer.okta.com/blog/2019/05/02/spring-boot-single-sign-on-oauth-2)
-- [Add Social Login to Your Spring Boot 2.0 App](https://developer.okta.com/blog/2018/07/24/social-spring-boot)
-- [Build a CRUD App with Vue.js, Spring Boot, and Kotlin](https://developer.okta.com/blog/2020/06/26/spring-boot-vue-kotlin)
-- [Use PKCE with OAuth 2.0 and Spring Boot for Better Security](https://developer.okta.com/blog/2020/01/23/pkce-oauth2-spring-boot)
-- [Migrate Your Spring Boot App to the Latest and Greatest Spring Security and OAuth 2.0](https://developer.okta.com/blog/2019/03/05/spring-boot-migration) 
+- [Easy Single Sign-On with Spring Boot and OAuth 2.0](/blog/2019/05/02/spring-boot-single-sign-on-oauth-2)
+- [Add Social Login to Your Spring Boot 2.0 App](/blog/2018/07/24/social-spring-boot)
+- [Build a CRUD App with Vue.js, Spring Boot, and Kotlin](/blog/2020/06/26/spring-boot-vue-kotlin)
+- [Use PKCE with OAuth 2.0 and Spring Boot for Better Security](/blog/2020/01/23/pkce-oauth2-spring-boot)
+- [Migrate Your Spring Boot App to the Latest and Greatest Spring Security and OAuth 2.0](/blog/2019/03/05/spring-boot-migration) 
 
