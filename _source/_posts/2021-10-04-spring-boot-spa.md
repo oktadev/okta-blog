@@ -33,7 +33,7 @@ Before you get started, you'll need to make sure you have a few tools installed.
 
 - **Vue CLI**: You'll use the Vue CLI to generate the starter Vue client project. Install it according to the [the instructions on the Vue website](https://cli.vuejs.org/guide/installation.html).
 
-## Create The Spring Boot Resource Server
+## Create the Spring Boot Resource Server
 
 To bootstrap the Spring Boot resource server project, you will use [the Spring Initializr](https://start.spring.io/). It's designed to help developers quickly configure and generate Spring Boot projects. There's [a great web interface](https://start.spring.io/) that you should take a look at. However, in this project, you're going to use the REST interface to download a pre-configured project.
 
