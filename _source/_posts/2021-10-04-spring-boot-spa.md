@@ -214,7 +214,7 @@ You should get a lot of console output that ends with the following.
 2021-09-01 11:49:42.143  INFO 370077 --- [           main] com.okta.springbootspa.DemoApplication   : Started DemoApplication in 2.021 seconds (JVM running for 2.199)
 ```
 
-## Use The Vue CLI To Bootstrap The Client App
+## Use the Vue CLI to Bootstrap the Client App
 
 The next step is to build the front-end, client application. The application will use Vue and the Okta Sign-In Widget to implement a secure client application. The Okta Sign-In Widget allows you to easily add Single Sign-On (SSO) and a secure login form to any application.
 
