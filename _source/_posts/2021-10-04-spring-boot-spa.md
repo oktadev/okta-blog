@@ -323,7 +323,7 @@ You can read more about CORS and Okta in the [Okta documentation](https://develo
 
 ## Finish The Vue Front-End Client App
 
-The next file you need to create is a wrapper for the Okta Sign-In widget.
+The next file you need to create is a wrapper for the Okta Sign-In Widget.
 
 Create a `src/components/Login.vue` file with the following content.
 
