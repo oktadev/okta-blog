@@ -42,6 +42,6 @@
     "pre-push": "0.1.1",
     "recursive-readdir": "2.2.2",
     "simple-git": "^2.46.0",
-    "yargs": "^17.1.1"
+    "yargs": "^17.2.1"
   }
 }
