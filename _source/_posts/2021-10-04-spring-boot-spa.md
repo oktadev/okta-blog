@@ -180,7 +180,7 @@ The second place is the `@CrossOrigin` annotation on the `CaffeineLevelRestContr
 
 Take a look at [this Spring blog post](https://spring.io/blog/2015/06/08/cors-support-in-spring-framework) for more info on Spring Boot and CORS.
 
-## Configure The Resource Server For Okta Auth
+## Configure the Resource Server for Okta Auth
 
 You should already have used the Okta CLI to either register a new account or log into an existing account. If not, please do so now. From a bash shell, type `okta login`, you should see a message that says something like: `Okta Org already configured: https://dev-133337.okta.com/`. This is your Okta base domain.
 
