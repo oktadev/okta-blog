@@ -315,7 +315,7 @@ The values in brackets will, of course, be your actual values.
 
 **You need to go back to the `src/okta/index.js` file and replace the `yourOktaUri` and `clientId` variables at the top of the file with your values.** The value for `yourOktaUri` is the Okta URI without any further path specifiers. It will look like this: `https://dev-133337.okta.com`
 
-One of the things that the Okta CLI does for you is to add your application's base URL to the CORS trusted origins for the Okta auth server. This is necessary because the the Okta Sign-In Widget will be making cross0-origin requests, that, as noted above, would be blocked unless CORS is properly handled. You can see this by going to your Okta developer dashboard and selected **Security** and **API** from the left-side menu and selected **Trusted Origins** from the API tab. You'll see that (in this case) `http://localhost:8080` was added as a trusted origin of type `CORS Redirect`.
+One of the things that the Okta CLI does for you is to add your application's base URL to the CORS trusted origins for the Okta auth server. This is necessary because the the Okta Sign-In Widget will be making cross-origin requests, that, as noted above, would be blocked unless CORS is properly handled. You can see this by going to your Okta developer dashboard. with **Security** and **API** selected from the left-side menu, and **Trusted Origins** selected from the API tab. You'll see that (in this case) `http://localhost:8080` was added as a trusted origin of type `CORS Redirect`.
 
 {% img blog/spring-boot-spa/trusted-origin.png alt:"Trusted origins for Okta CORS" width:"800" %}{: .center-image }
 
