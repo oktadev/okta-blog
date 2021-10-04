@@ -19,15 +19,19 @@ Okta is a computer security services company that provides a lot of great resour
 
 PKCE is a modification of the authorization code flow that does not require the application to have the client secret, making it suitable for client applications where the code is essentially public. Implementing a secure authorization code flow on a front-end application requires properly handing redirects and the token exchange, which can be a little involved. Fortunately, Okta has simplified this process greatly, handling a lot of the complexity for you.
 
-## Requirements
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+
+**Requirements**
 
 Before you get started, you'll need to make sure you have a few tools installed.
 
-**Okta CLI**: The Okta CLI is an easy way to create projects that use Okta for security. Follow the installation instructions on the [Okta CLI project website](https://cli.okta.com/manual/#installation). You should log in to your existing account or register for a new account using the CLI before continuing with this tutorial.
+- **Okta CLI**: The Okta CLI is an easy way to create projects that use Okta for security. Follow the installation instructions on the [Okta CLI project website](https://cli.okta.com/manual/#installation). You should log in to your existing account or register for a new account using the CLI before continuing with this tutorial.
 
-**Java 11**: This project uses Java 11. OpenJDK 11 will work just as well.  Instructions are found on the [OpenJDK website](https://openjdk.java.net/install/). OpenJDK can also be installed using [Homebrew](https://brew.sh/). Alternatively, [SDKMAN](https://sdkman.io/) is another excellent option for installing and managing Java versions.
+- **Java 11**: This project uses Java 11. OpenJDK 11 will work just as well.  Instructions are found on the [OpenJDK website](https://openjdk.java.net/install/). OpenJDK can also be installed using [Homebrew](https://brew.sh/). Alternatively, [SDKMAN](https://sdkman.io/) is another excellent option for installing and managing Java versions.
 
-**Vue CLI**: You'll use the Vue CLI to generate the starter Vue client project. Install it according to the [the instructions on the Vue website](https://cli.vuejs.org/guide/installation.html).
+- **Vue CLI**: You'll use the Vue CLI to generate the starter Vue client project. Install it according to the [the instructions on the Vue website](https://cli.vuejs.org/guide/installation.html).
 
 ## Create The Spring Boot Resource Server
 
@@ -37,16 +41,16 @@ This project will have both a Vue client and a Spring Boot server project, so yo
 
 ```bash
 curl https://start.spring.io/starter.tgz \
--d type=maven-project \
--d language=java \
--d platformVersion=2.5.4 \
--d jvmVersion=11 \
--d artifactId=spring-boot-spa \
--d baseDir=spring-boot-spa \
--d packageName=com.okta.springbootspa \
--d group=com.okta \
--d dependencies=web,okta \
-| tar -xzvf -	
+  -d type=maven-project \
+  -d language=java \
+  -d platformVersion=2.5.4 \
+  -d jvmVersion=11 \
+  -d artifactId=spring-boot-spa \
+  -d baseDir=spring-boot-spa \
+  -d packageName=com.okta.springbootspa \
+  -d group=com.okta \
+  -d dependencies=web,okta \
+  | tar -xzvf -	
 ```
 
 The command above configures various aspects of the Spring Boot project, including the Spring Boot version and the Java version. It also configures two dependencies.
@@ -602,10 +606,9 @@ npm run serve
 
 ## Test the Completed Server and Client
 
-Make sure your resource server is still running. Don't forget that you will need to have sourced the `.okta.env` file in the shell you use to run the Spring Boot app. Here are the commands in case you need to restart the server (which, of course, need to be run from the Spring Boot project's root directory).
+Make sure your resource server is still running. Here are the commands in case you need to restart the server (which, of course, need to be run from the Spring Boot project's root directory).
 
 ```bash
-source .okta.env
 ./mvnw spring-boot:run
 ```
 
@@ -631,7 +634,7 @@ You can also go to the `profile` page at `http://localhost:8080/profile`, which 
 
 {% img blog/spring-boot-spa/profile-page.png alt:"Profile page" width:"800" %}{: .center-image }
 
-## Conclusion
+## Learn More About Application Security
 
 In this post you saw how to use Spring Boot to create a simple resource server and Vue to create a front-end client. You saw how to use Okta to implement a secure application stack. The front-end client used the Okta Sign-In Widget to implement the OAuth 2.0 authorization code flow with PKCE for a secure token exchange. The resource server was also secured using Okta by including Okta's Spring Boot Starter, which made adding JWT auth to the project quick and easy.
 
@@ -643,3 +646,4 @@ To learn more about OAuth 2.0 and OIDC, check out these blog posts
 - [Use PKCE with OAuth 2.0 and Spring Boot for Better Security](/blog/2020/01/23/pkce-oauth2-spring-boot)
 - [Migrate Your Spring Boot App to the Latest and Greatest Spring Security and OAuth 2.0](/blog/2019/03/05/spring-boot-migration) 
 
+Follow Okta Developers for more great content and updates from the team! You can find us on [Twitter](https://twitter.com/oktadev), [Facebook](https://www.facebook.com/oktadevelopers), subscribe to our [YouTube Channel](https://youtube.com/c/oktadev), or start the conversation below.
