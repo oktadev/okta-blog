@@ -321,7 +321,7 @@ One of the things that the Okta CLI does for you is to add your application's ba
 
 You can read more about CORS and Okta in the [Okta documentation](https://developer.okta.com/docs/guides/enable-cors/overview/).
 
-## Finish the Vue Front-End Client App
+## Finish The Vue Front-End Client App
 
 The next file you need to create is a wrapper for the Okta Sign-In widget.
 
