@@ -287,7 +287,7 @@ export { oktaAuth, oktaSignIn };
 
 In the file above, **you need to replace the placeholders `${...}` with the appropriate values**. Before you can do this, however, you need to use the CLI to create the OIDC application on the Okta servers, which you will do directly below.
 
-## Create A Single-Page OIDC Application On Okta
+## Create a Single-Page OIDC Application on Okta
 
 This time you're going to create a single-page application for the front-end (instead of the web application type you used for the resource server). Enter the following command into a shell.
 
