@@ -7,7 +7,8 @@ communities: [java,javascript]
 description: ""
 tags: [vue, java, spring-boot, spring, oauth2, oidc, spa, javascript]
 tweets:
-- ""
+"Use Spring Boot to create a simple resource server and Vue to create a front-end client. Step-by-step to a secure SPA with Spring Boot, Vue and @Okta. With some CORS for starters."
+- "Everything you need to know to create a secure single-page application (SPA) with a Spring Boot resource server, a Vue front-end client, OAuth 2.0, OIDC & the @Okta Sign-In Widget "
 - ""
 - ""
 image: blog/spring-boot-spa/spring-boot-spa-social.jpg
@@ -16,7 +17,7 @@ type: conversion
 
 In this tutorial, you are going to create a single-page application (SPA) that uses a Spring Boot resource server and a Vue front-end client. You'll see how to configure Spring Boot to use JSON Web Tokens (JWT) for authentication and authorization, with Okta as an OAuth 2. 0 and OpenID Connect (OIDC) provider. You'll also see how to bootstrap a Vue client app with the Vue CLI and how to secure it using the Okta Sign-In Widget.
 
-Okta is a computer security services company that provides a lot of great resources for securing web applications. The widget is a great way to secure front-end applications because it allows you to easily add a secure login form that is configurable for single sign-on and social sign-on with external providers such as Google, Facebook, and LinkedIn. It provides an implementation of the authorization code OAuth 2.0 flow using PKCE (Proof Key for Code Exchange).
+Okta is a computer security services company that provides a lot of great resources for securing web applications. The Okta Sign-In Wdiget is a great way to secure front-end applications because it allows you to easily add a secure login form that is configurable for single sign-on and social sign-on with external providers such as Google, Facebook, and LinkedIn. It provides an implementation of the authorization code OAuth 2.0 flow using PKCE (Proof Key for Code Exchange).
 
 PKCE is a modification of the authorization code flow that does not require the application to have the client secret, making it suitable for client applications where the code is essentially public. Implementing a secure authorization code flow on a front-end application requires properly handing redirects and the token exchange, which can be a little involved. Fortunately, Okta has simplified this process greatly, handling a lot of the complexity for you.
 
