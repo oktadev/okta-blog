@@ -7,8 +7,8 @@ communities: [java,javascript]
 description: "Tutorial: Build a secure application with a Vue.js frontend and a Spring Boot backend."
 tags: [vue, java, spring-boot, spring, oauth2, oidc, spa, javascript]
 tweets:
-"Use Spring Boot to create a simple resource server and Vue to create a front-end client. Step-by-step to a secure SPA with Spring Boot, Vue and @Okta. With some CORS for starters."
-- "Everything you need to know to create a secure single-page application (SPA) with a Spring Boot resource server, a Vue front-end client, OAuth 2.0, OIDC & the @Okta Sign-In Widget "
+- "Use Spring Boot to create a simple resource server and Vue to create a front-end client. Step-by-step to a secure SPA with Spring Boot, Vue and @OktaDev. With some CORS for starters."
+- "Everything you need to know to create a secure single-page application (SPA) with a Spring Boot resource server, a Vue front-end client, OAuth 2.0, OIDC & the @OktaDev Sign-In Widget "
 image: blog/spring-boot-spa/spring-boot-spa-social.jpg
 type: conversion
 ---
