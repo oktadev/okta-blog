@@ -11,6 +11,8 @@ tweets:
 - "Everything you need to know to create a secure single-page application (SPA) with a Spring Boot resource server, a Vue front-end client, OAuth 2.0, OIDC & the @OktaDev Sign-In Widget "
 image: blog/spring-boot-spa/spring-boot-spa-social.jpg
 type: conversion
+changelog:
+- 2019-10-05: Created example [GitHub repository](https://github.com/oktadev/okta-vuejs-spa-spring-boot-example).
 ---
 
 In this tutorial, you are going to create a single-page application (SPA) that uses a Spring Boot resource server and a Vue front-end client. You'll see how to configure Spring Boot to use JSON Web Tokens (JWT) for authentication and authorization, with Okta as an OAuth 2. 0 and OpenID Connect (OIDC) provider. You'll also see how to bootstrap a Vue client app with the Vue CLI and how to secure it using the Okta Sign-In Widget.
