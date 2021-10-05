@@ -3,10 +3,9 @@ layout: blog_post
 title: Okta Developer Plan Changes
 author: ryan-stewart 
 by: internal-contributor
-communities:[.net,java,javascript,go,php,python,ruby,devops,announcement]
+communities: [.net,java,javascript,go,php,python,ruby,devops,announcement]
 description: "This announces how we are streamlining and clarifying our developer product offering in light of the Auth0 acquisition. We are sunsetting Okta's Developer Advanced plan, and providing Auth0 plans for developers seeking a fully self-service experience."
 tags: [announcement,auth0, okta, authforall]
-
 image: blog/okta-dev-plan-changes/auth0-okta-join-forces.png
 type: awareness
 ---
