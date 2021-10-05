@@ -12,9 +12,9 @@ type: awareness
 
 ## An Update on Our Developer Offering
 
-As many of you may know, Okta completed the acquisition of Auth0 in May of 2021. We’ve since been busy, working out how our products will work together to help developers provide the best experiences for their users. If you joined us for [Developer Day](https://www.youtube.com/playlist?list=PLshTZo9V1-aHrVURzggebSWeltPQ4KCex), you saw Okta and Auth0 showcase interesting projects happening at our companies and in our communities. 
+As many of you may know, Okta completed the acquisition of Auth0 in May of 2021. We've since been busy, working out how our products will work together to help developers provide the best experiences for their users. If you joined us for [Developer Day](https://www.youtube.com/playlist?list=PLshTZo9V1-aHrVURzggebSWeltPQ4KCex), you saw Okta and Auth0 showcase interesting projects happening at our companies and in our communities. 
 
-In the months since the Auth0 acquisition, one of the most important areas we’ve focused on is how to clarify and streamline our product offerings for developers. That work has led to some changes to Okta’s developer plans, announced in this post. 
+In the months since the Auth0 acquisition, one of the most important areas we've focused on is how to clarify and streamline our product offerings for developers. That work has led to some changes to Okta's developer plans, announced in this post. 
 
 ## Changes to the Okta Developer Advanced Plan
 
@@ -22,7 +22,7 @@ First, we will no longer offer the Okta Developer Advanced paid plan for new sig
 
 ## Meet Okta Developer Edition 
 
-Second, the Developer Starter free plan, now known as Okta Developer Edition, will function as a playground where developers can explore and build their projects in a full-featured, pre-production Okta environment. Okta Developer Edition includes 100 monthly active users (MAUs) and is intended for all developers, whether you’re evaluating Okta’s products or creating something for the [Okta Integration Network](https://www.okta.com/okta-integration-network/). Okta Developer Edition will remain completely free. Developers who are already using the Developer Starter free plan with a 15k user limit will continue to enjoy their current allocation of free MAU until they reach the 15k limit, at which point they will need to upgrade to a paid plan.  
+Second, the Developer Starter free plan, now known as Okta Developer Edition, will function as a playground where developers can explore and build their projects in a full-featured, pre-production Okta environment. Okta Developer Edition includes 100 monthly active users (MAUs) and is intended for all developers, whether you're evaluating Okta's products or creating something for the [Okta Integration Network](https://www.okta.com/okta-integration-network/). Okta Developer Edition will remain completely free. Developers who are already using the Developer Starter free plan with a 15k user limit will continue to enjoy their current allocation of free MAU until they reach the 15k limit, at which point they will need to upgrade to a paid plan.  
 
 We know plan changes can be disruptive, and it can be a challenge to understand potential impacts to your current and prospective projects. We believe that these changes will, in the end, clarify the differences between Okta and Auth0 developer offerings. Our goal is to give developers everything they need to explore the functionality the Okta environment provides while providing a clear path to Auth0 for developers who want a fully self-service experience.
 
