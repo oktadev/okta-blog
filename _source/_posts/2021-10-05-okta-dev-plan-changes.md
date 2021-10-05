@@ -26,6 +26,6 @@ Second, the Developer Starter free plan, now known as Okta Developer Edition, wi
 
 We know plan changes can be disruptive, and it can be a challenge to understand potential impacts to your current and prospective projects. We believe that these changes will, in the end, clarify the differences between Okta and Auth0 developer offerings. Our goal is to give developers everything they need to explore the functionality the Okta environment provides while providing a clear path to Auth0 for developers who want a fully self-service experience.
 
-*For more detailed information, please check out the [FAQ in our developer forum](https://docs.google.com/document/d/132J5L-uMStZK-DQjLTbsP4MZPGaqs_u5kX9cQmJN7Ws/edit?usp=sharing).*
+*For more detailed information, please check out the [FAQ in our developer forum](https://devforum.okta.com/t/developer-plan-changes-faq/16469).*
 
 
