@@ -9,7 +9,7 @@ tags: [announcement,auth0, okta, authforall]
 
 image: blog/okta-dev-plan-changes/auth0-okta-join-forces.png
 type: awareness
-...
+---
 
 ## An Update on Our Developer Offering
 
