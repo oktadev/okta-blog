@@ -249,10 +249,10 @@ You need to install a few dependencies. The first three are required for Okta se
 
 ```bash
 npm install --save \
-@okta/okta-signin-widget@5.12.0 \
-@okta/okta-vue@5.0.1 \
-@okta/okta-auth-js@5.5.0 \
-axios@0.22.0
+  @okta/okta-signin-widget@5.12.0 \
+  @okta/okta-vue@5.0.1 \
+  @okta/okta-auth-js@5.5.0 \
+  axios@0.22.0
 ```
 
 Create a `src/okta/index.js` file:
