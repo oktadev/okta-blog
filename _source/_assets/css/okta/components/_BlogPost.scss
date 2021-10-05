@@ -1,3 +1,12 @@
+@mixin avatar-base {
+	border-radius: 100%;
+	display: block;
+	flex-shrink: 0;
+	margin-right: get-spacing('small');
+	overflow: hidden;
+	max-width: unset;
+}
+
 .BlogPost {
 	flex-grow: 1;
 	margin: 0;
@@ -96,6 +105,7 @@
 	&-author {
 		font-size: 24px;
 		font-weight: 500;
+		padding-right: 1em;
 
 		a {
 			color: #3d3d3d;
@@ -107,13 +117,15 @@
 	}
 
 	&-avatar {
-		border-radius: 100%;
-		display: block;
-		flex-shrink: 0;
+		@include avatar-base;
 		height: 54px;
-		margin-right: get-spacing('small');
-		overflow: hidden;
 		width: 54px;
+	}
+
+	&-avatar-social {
+		@include avatar-base;
+		height: 32px;
+		width: 32px;
 	}
 
 	.avatar-row {

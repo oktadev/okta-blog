@@ -12,6 +12,9 @@ tweets:
 - "Thanks to @micronautfw, @quarkusio, and @springboot, Java is legit again! 👏👏👏"
 image: blog/native-java-comparison/native-java.png
 type: conversion
+changelog:
+- 2021-09-16: Updated to use macOS binary (`./mvnw package -Pnative`) when calculating memory usage for Spring Boot. See the updates in [okta-blog#887](https://github.com/oktadev/okta-blog/pull/887).
+- 2021-09-16: Updated to use Micronaut 3.0.1, Quarkus 2.2.2.Final, and Spring Boot 2.5.4. Also added memory usage comparison. See this post's changes in [okta-blog#885](https://github.com/oktadev/okta-blog/pull/885) and the example app changes in [native-java-examples#6](https://github.com/oktadev/native-java-examples/pull/6).
 ---
 :page-liquid:
 :toc: macro
@@ -71,7 +74,7 @@ In a terminal window, cd into the `micronaut` directory and run `mn:run` to star
 [source,shell]
 ----
 cd micronaut
-./mvn mn:run
+./mvnw mn:run
 ----
 
 If you open another terminal window and try to access it with HTTPie, you'll get a 401 Unauthorized error.
@@ -84,8 +87,6 @@ HTTP/1.1 401 Unauthorized
 connection: keep-alive
 transfer-encoding: chunked
 ----
-
-// To see them in action, you'll need to create an Okta developer account at https://developer.okta.com/signup[developer.okta.com/signup] or by running `okta register` with the https://cli.okta.com[Okta CLI].
 
 To make it so you can access this endpoint, you'll need to generate an OAuth 2.0 access token and update the JWKS (JSON Web Key Sets) URL to yours (in this project's `application.yml`).
 
@@ -119,7 +120,7 @@ Stop your Micronaut app with kbd:[Ctrl + C] and restart it with kbd:[⬆️ + Re
 
 [source,shell]
 ----
-./mvn mn:run
+./mvnw mn:run
 ----
 
 === Generate an OAuth 2.0 Access Token
@@ -161,7 +162,7 @@ To compile this Micronaut app into a native binary, run:
 ./mvnw package -Dpackaging=native-image
 ----
 
-This command will take a few minutes to complete. My 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM took 1 min. 28 s. to finish.
+This command will take a few minutes to complete. My 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM took 1 min. 38 s. to finish.
 
 Start it with `./target/app`:
 
@@ -172,12 +173,12 @@ $ ./target/app
 | |\/| | |/ __| '__/ _ \| '_ \ / _` | | | | __|
 | |  | | | (__| | | (_) | | | | (_| | |_| | |_
 |_|  |_|_|\___|_|  \___/|_| |_|\__,_|\__,_|\__|
-  Micronaut (v2.5.6)
+  Micronaut (v3.0.1)
 
-17:20:23.980 [main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 25ms. Server Running: http://localhost:8080
+09:26:51.617 [main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 23ms. Server Running: http://localhost:8080
 ----
 
-You can see it starts pretty darn quick (25ms)! Test it with HTTPie and an access token. You may have to generate a new JWT with https://oidcdebugger.com[oidcdebugger.com] if yours has expired.
+You can see it starts pretty darn quick (23ms)! Test it with HTTPie and an access token. You may have to generate a new JWT with https://oidcdebugger.com[oidcdebugger.com] if yours has expired.
 
 [source,shell]
 ----
@@ -208,6 +209,11 @@ You might be wondering, "how did you build a secure Micronaut app"? Did I just h
 <dependency>
     <groupId>io.micronaut.security</groupId>
     <artifactId>micronaut-security-jwt</artifactId>
+</dependency>
+<dependency>
+    <groupId>javax.inject</groupId>
+    <artifactId>javax.inject</artifactId>
+    <version>1</version>
 </dependency>
 ----
 
@@ -304,7 +310,7 @@ To compile this Quarkus app into a native binary, run:
 ./mvnw package -Pnative
 ----
 
-The native compilation step will take a bit to complete. On my 2019 MacBook Pro, it took 1 min. 9 s.
+The native compilation step will take a bit to complete. On my 2019 MacBook Pro, it took 1 min. 18 s.
 
 Start it with `./target/quarkus-1.0.0-SNAPSHOT-runner`:
 
@@ -314,12 +320,12 @@ __  ____  __  _____   ___  __ ____  ______
  --/ __ \/ / / / _ | / _ \/ //_/ / / / __/
  -/ /_/ / /_/ / __ |/ , _/ ,< / /_/ /\ \
 --\___\_\____/_/ |_/_/|_/_/|_|\____/___/
-2021-06-15 17:35:23,886 INFO  [io.quarkus] (main) quarkus 1.0.0-SNAPSHOT native (powered by Quarkus 1.13.7.Final) started in 0.014s. Listening on: http://0.0.0.0:8080
-2021-06-15 17:35:23,888 INFO  [io.quarkus] (main) Profile prod activated.
-2021-06-15 17:35:23,889 INFO  [io.quarkus] (main) Installed features: [cdi, mutiny, resteasy, security, smallrye-context-propagation, smallrye-jwt, vertx, vertx-web]
+2021-09-15 09:42:35,854 INFO  [io.quarkus] (main) quarkus 1.0.0-SNAPSHOT native (powered by Quarkus 2.2.2.Final) started in 0.018s. Listening on: http://0.0.0.0:8080
+2021-09-15 09:42:35,855 INFO  [io.quarkus] (main) Profile prod activated.
+2021-09-15 09:42:35,855 INFO  [io.quarkus] (main) Installed features: [cdi, resteasy, security, smallrye-context-propagation, smallrye-jwt, vertx, vertx-web]
 ----
 
-Supersonic Subatomic Java (in 14ms)! Test it with HTTPie and an access token.
+Supersonic Subatomic Java (in 18ms)! Test it with HTTPie and an access token.
 
 [source,shell]
 ----
@@ -334,7 +340,7 @@ You can create the same Quarkus app used in this example in five steps.
 +
 [source,shell]
 ----
-mvn io.quarkus:quarkus-maven-plugin:1.13.7.Final:create \
+mvn io.quarkus:quarkus-maven-plugin:2.2.2.Final:create \
     -DprojectGroupId=com.okta.rest \
     -DprojectArtifactId=quarkus \
     -DclassName="com.okta.rest.quarkus.HelloResource" \
@@ -369,7 +375,6 @@ public class HelloResource {
         Principal userPrincipal = context.getUserPrincipal();
         return "Hello, " + userPrincipal.getName() + "!";
     }
-
 }
 ----
 
@@ -406,20 +411,6 @@ public class HelloResourceTest {
 }
 ----
 
-5. Add HTTPS support to the native profile at the bottom of `pom.xml` with the `quarkus.native.additional-build-args` property:
-+
-[source,xml]
-----
-<properties>
-  <quarkus.package.type>native</quarkus.package.type>
-  <quarkus.native.additional-build-args>
-    --enable-url-protocols=https
-  </quarkus.native.additional-build-args>
-</properties>
-----
-
-The last step is not necessary if you're running with Maven, but it is for the native image. Quarkus https://quarkus.io/guides/native-and-ssl[includes SSL for many extensions], but not for SmallRye JWT. The good news is https://github.com/quarkusio/quarkus/pull/17929[Quarkus will enable SSL by default for SmallRye JWT in Quarkus 2.0.0.Final].
-
 Last but certainly not least, let's look at Spring Boot.
 
 == Start a Spring Boot Java API
@@ -440,7 +431,7 @@ Then, start your app from your IDE or using a terminal:
 
 === Test Your Spring Boot API with HTTPie
 
-Generate an access token using ttps://oidcdebugger.com[oidcdebugger.com] and use it to test your Spring Boot API.
+Generate an access token using https://oidcdebugger.com[oidcdebugger.com] and use it to test your Spring Boot API.
 
 [source,shell]
 ----
@@ -451,9 +442,9 @@ You should see a response like the following.
 
 image::{% asset_path 'blog/native-java-comparison/httpie-spring-boot-bearer-token.png' %}[alt=HTTPie call to Spring Boot's /hello with bearer token,width=800,align=center]
 
-But wait, doesn't Okta link:/blog/2020/11/24/spring-boot-okta[have a Spring Boot starter]? Yes, we do—however, it https://github.com/okta/okta-spring-boot/issues/192[doesn't work with GraalVM yet].
+But wait, doesn't Okta link:/blog/2020/11/24/spring-boot-okta[have a Spring Boot starter]? Yes, we do! When this post was first written, it https://github.com/okta/okta-spring-boot/issues/192[didn't work with GraalVM]. This has been fixed in the v2.1.1 release. See https://github.com/oktadev/native-java-examples/pull/5[this pull request] for the required changes.
 
-However, we're calling in an expert to help us fix it! Join us next Tuesday, June 22, 2021, on https://twitch.tv/oktadev[twitch.tv/oktadev] for a session with https://twitter.com/starbuxman[Josh Long]. We'll attempt to fix things live!
+We've also published a link:/blog/2021/09/16/spring-native-okta-starter[Spring Native in Action] blog post. It contains the video from our Twitch stream with https://twitter.com/starbuxman[Josh Long]. You can watch it to see what we discovered and how we fixed things. Since then, Spring Native has improved a lot. Now, you only need to enable HTTPS!
 
 === Build a Native Spring Boot App
 
@@ -464,13 +455,13 @@ To compile this Spring Boot app into a native executable, you can use the Spring
 ./mvnw spring-boot:build-image
 ----
 
-The native compilation step will take a bit to complete. On my 2019 MacBook Pro, it took 2 min. 56 s.
+The native compilation step will take a bit to complete. On my 2019 MacBook Pro, it took 2 min. 40 s.
 
 Start it using Docker:
 
 ----
-$ docker run -p 8080:8080 docker.io/library/demo:0.0.1-SNAPSHOT
-2021-06-16 02:21:24.193  INFO 1 --- [           main] o.s.nativex.NativeListener               : This application is bootstrapped with code generated with Spring AOT
+$ docker run -p 8080:8080 demo:0.0.1-SNAPSHOT
+2021-09-15 19:34:02.719  INFO 1 --- [           main] o.s.nativex.NativeListener               : This application is bootstrapped with code generated with Spring AOT
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -478,10 +469,10 @@ $ docker run -p 8080:8080 docker.io/library/demo:0.0.1-SNAPSHOT
  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
   '  |____| .__|_| |_|_| |_\__, | / / / /
  =========|_|==============|___/=/_/_/_/
- :: Spring Boot ::                (v2.5.1)
+ :: Spring Boot ::                (v2.5.4)
 ...
-2021-06-16 02:21:24.970  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2021-06-16 02:21:24.971  INFO 1 --- [           main] com.okta.rest.DemoApplication            : Started DemoApplication in 0.06 seconds (JVM running for 0.063)
+2021-09-15 19:34:03.484  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2021-09-15 19:34:03.485  INFO 1 --- [           main] com.okta.rest.DemoApplication            : Started DemoApplication in 0.773 seconds (JVM running for 0.776)
 ----
 
 Bootiful! Test your API with HTTPie and an access token.
@@ -500,7 +491,7 @@ To create the Spring Boot app used in this example, it's just five steps.
 [source,shell]
 ----
 http https://start.spring.io/starter.zip \
-     bootVersion==2.5.1 \
+     bootVersion==2.5.4 \
      dependencies==web,oauth2-resource-server,native \
      packageName==com.okta.rest \
      name==spring-boot \
@@ -514,7 +505,6 @@ http https://start.spring.io/starter.zip \
 ----
 package com.okta.rest.controller;
 
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -566,8 +556,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 ----
 import org.springframework.nativex.hint.NativeHint;
 
+@NativeHint(options = "--enable-https")
 @SpringBootApplication
-@NativeHint(options = "--enable-url-protocols=https")
 ----
 
 You can build and test a Spring Boot native image using the steps I outlined above.
@@ -588,21 +578,21 @@ Of course, they all support Gradle too.
 
 Performance comparisons are complex, but I'm going to do one anyway. Since this post is all about native Java, below is the data I gathered that shows the average milliseconds to start each native executable. I ran each image three times before I started recording the numbers. I then ran each command five times.
 
-_These numbers are from a 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM. I think it's important to note that my WiFi connection was 340 Mbps down and 246 Mbps up (according to the Speedtest app)._
+_These numbers are from a 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM. I think it's important to note that my WiFi connection was 211 Mbps down and 176 Mbps up (according to the Speedtest app)._
 
 ////
-Micronaut: (19 + 21 + 19 + 23 + 20) / 5 = 20.4ms
-Quarkus: (13 + 13 + 14 + 14 + 13) / 5 = 13.4ms
-Spring Boot (58 + 59 + 61 + 61 + 64) / 5 = 60.6ms
+Micronaut: (23 + 22 + 22 + 21 + 23) / 5 = 22.2ms
+Quarkus: (20 + 16 + 17 + 17 + 17) / 5 = 17.4ms
+Spring Boot (476 + 513 + 778 + 735 + 734) / 5 = 647.2ms
 ////
 
 .Native Java Startup times in milliseconds
 |===
 |Framework | Command executed | Milliseconds to start
 
-|Micronaut | `./target/app` | 20.4
-|Quarkus | `./target/quarkus-1.0.0-SNAPSHOT-runner` | 13.4
-|Spring Boot | `docker run -p 8080:8080 docker.io/library/demo:0.0.1-SNAPSHOT` | 60.6
+|Micronaut | `./target/app` | 22.2
+|Quarkus | `./target/quarkus-1.0.0-SNAPSHOT-runner` | 17.4
+|Spring Boot | `docker run -p 8080:8080 demo:0.0.1-SNAPSHOT` | 647.2
 |===
 
 The chart below should help you visualize this comparison.
@@ -617,9 +607,9 @@ google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
   var data = google.visualization.arrayToDataTable([
     ['Framework', 'Milliseconds to start', { role: 'style' }],
-    ['Micronaut', 20.4, 'blue'],
-    ['Quarkus', 13.4, 'red'],
-    ['Spring Boot', 60.6, 'green']
+    ['Micronaut', 22.2, 'blue'],
+    ['Quarkus', 17.4, 'red'],
+    ['Spring Boot', 647.2, 'green']
   ]);
 
   var options = {
@@ -650,17 +640,18 @@ Spring Boot's "initialization completed" time seemed to be right around 30ms. Th
 spring.security.oauth2.resourceserver.jwt.jwk-set-uri=https://dev-133337.okta.com/oauth2/default/v1/keys
 ----
 
-This only improved the startup time by 1.6ms (59ms on average).
+// (111 + 91 + 88 + 83 + 85) / 5 = 91.6ms
+This improved the startup time by over 500ms (91.6ms on average).
 
 We also experimented with using `./mvnw package -Pnative` for Spring Boot. This allows you to create a native binary and run it with `./target/demo`. There's no need for Docker with this command. Startup times are relatively the same in my and Josh's experience.
 
 Our hypothesis is Micronaut and Quarkus do the JWKS lookup on the first request rather than at startup. That's how they achieve faster startup times.
 
-IMPORTANT: We later confirmed this hypothesis with https://github.com/JasonTypesCodes[Jason Schindler] (from Micronaut) and https://github.com/sberyozkin[Sergey Beryozkin] (from Quarkus).
+IMPORTANT: We later confirmed this hypothesis with https://github.com/JasonTypesCodes[Jason Schindler] (from Micronaut) and https://github.com/sberyozkin[Sergey Beryozkin] (from Quarkus). Follow https://github.com/spring-projects/spring-security/issues/9991[this Spring Security issue] to see when Spring Security adds lazy OIDC discovery support.
 
 If I just take the value of the "initialization completed" time from Spring Boot, the numbers look a little more even.
 
-// (32 + 31 + 33 + 33 + 32) / 5 = 32.2
+// (44 + 47 + 45 + 47 + 45) / 5 = 45.6
 ++++
 <div id="spring-boot-init"></div>
 <script>
@@ -669,9 +660,9 @@ google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
   var data = google.visualization.arrayToDataTable([
     ['Framework', 'Milliseconds to start', { role: 'style' }],
-    ['Micronaut', 20.4, 'blue'],
-    ['Quarkus', 13.4, 'red'],
-    ['Spring Boot', 32.2, 'green']
+    ['Micronaut', 22.2, 'blue'],
+    ['Quarkus', 17.4, 'red'],
+    ['Spring Boot', 45.6, 'green']
   ]);
   var options = {
     title: 'Startup times of Native Java frameworks',
@@ -690,38 +681,48 @@ function drawChart() {
 </script>
 ++++
 
-I also tested the startup times on a Linux laptop with 64 GB of RAM. I used the value the framework displays for startup time and did not make the "initialization complete" adjustment for Spring Boot.
+I also tested the memory usage in MB of each app using the command below. I made sure to send an HTTP request to each one before measuring.
 
-////
-Micronaut: (31 + 73 + 30 + 29 + 30) / 5 = 38.6ms
-Quarkus: (8 + 7 + 9 + 7 + 13) / 5 = 8.1ms
-Spring Boot: (61 + 61 + 61 + 61 + 61) / 5 = 61ms
-////
+[source,shell]
+----
+ps -o pid,rss,command | grep --color <executable> | awk '{$2=int($2/1024)"M";}{ print;}'
+----
+
+I substituted `<executable>` as follows:
+
+.Native Java memory used in megabytes
+|===
+|Framework | Executable | Megabytes before request | Megabytes after request
+
+|Micronaut | `app` | 29 | 62
+|Quarkus | `runner` | 20 | 34
+|Spring Boot | `demo` | 107 | 119
+|===
 
 ++++
-<div id="linux-times"></div>
+<div id="memory-usage"></div>
 <script>
 google.charts.load('current', {packages: ['corechart', 'bar']});
 google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
   var data = google.visualization.arrayToDataTable([
-    ['Framework', 'Milliseconds to start', { role: 'style' }],
-    ['Micronaut', 38.6, 'blue'],
-    ['Quarkus', 8.1, 'red'],
-    ['Spring Boot', 61, 'green']
+    ['Framework', 'Memory (MB) usage', { role: 'style' }],
+    ['Micronaut', 62, 'blue'],
+    ['Quarkus', 34, 'red'],
+    ['Spring Boot', 119, 'green']
   ]);
   var options = {
-    title: 'Startup times of Native Java frameworks on Linux',
+    title: 'Memory usage of Native Java frameworks',
     chartArea: {width: '50%'},
     hAxis: {
-      title: 'Milliseconds',
+      title: 'Megabytes',
       minValue: 0
     },
     vAxis: {
       title: 'Java Framework'
     }
   };
-  var chart = new google.visualization.BarChart(document.getElementById('linux-times'));
+  var chart = new google.visualization.BarChart(document.getElementById('memory-usage'));
   chart.draw(data, options);
 }
 </script>
@@ -769,6 +770,7 @@ In the beginning, I mentioned JNI and JNA. Baeldung has some tutorials about bot
 
 If you liked this post, chances are you'll like others we've published:
 
+- link:/blog/2021/09/16/spring-native-okta-starter[Spring Native in Action with the Okta Spring Boot Starter]
 - link:/blog/2019/11/27/graalvm-java-binaries[Watch GraalVM Turn Your Java Into Binaries]
 - link:/blog/2020/01/09/java-rest-api-showdown[Java REST API Showdown: Which is the Best Framework on the Market?]
 - link:/blog/2020/12/28/spring-boot-docker[How to Docker with Spring Boot]
