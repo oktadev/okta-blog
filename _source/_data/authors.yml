@@ -121,12 +121,12 @@ lars-johansen:
   twitter: https://twitter.com/larskrjo
   github: https://github.com/larskrjo
   bio:
-    Lars K. Johansen is a Staff Software Engineer and the lead for the Customer Federations team in the CIAM 
-    (Customer Identity Access Management) Products sphere at Okta. He has a great passion for software that 
-    involves security, scalability, efficiency, and reliability. Lars was born and raised in Oslo, Norway, and 
-    he enjoys going on hikes, playing tennis, and loves to cook and eat delicious food. Before Okta, 
-    Lars was a graduate student at Harvard University, holds a Master's Degree from The Norwegian University of 
-    Science and Technology (NTNU), and most recently wrote his Master's Thesis on the topic of Network Coding at 
+    Lars K. Johansen is a Staff Software Engineer and the lead for the Customer Federations team in the CIAM
+    (Customer Identity Access Management) Products sphere at Okta. He has a great passion for software that
+    involves security, scalability, efficiency, and reliability. Lars was born and raised in Oslo, Norway, and
+    he enjoys going on hikes, playing tennis, and loves to cook and eat delicious food. Before Okta,
+    Lars was a graduate student at Harvard University, holds a Master's Degree from The Norwegian University of
+    Science and Technology (NTNU), and most recently wrote his Master's Thesis on the topic of Network Coding at
     Massachusetts Institute of Technology (MIT).
 
 brian-demers:
@@ -166,8 +166,8 @@ huan-liu:
   bio:
     Huan Liu is a Director of Engineering and Sphere Head for CIAM (Customer Identity Access Management) Products.
     His team is responsible for both the end-to-end CIAM experiences and the underlying federation protocols.
-    Prior to Okta, Huan was an Engineering Manager and Head of the Terragraph program at Facebook. He was also the 
-    co-lead of the Maveric program, which brings Facebook's ML expertise to 5G networks. Huan holds a Ph.D. degree in 
+    Prior to Okta, Huan was an Engineering Manager and Head of the Terragraph program at Facebook. He was also the
+    co-lead of the Maveric program, which brings Facebook's ML expertise to 5G networks. Huan holds a Ph.D. degree in
     Electrical Engineering from Stanford University.
 
 micah-silverman:
@@ -493,7 +493,8 @@ jimena-garbarino:
   full_name: Jimena Garbarino
   display_name: Jimena Garbarino
   avatar: avatar-jimena.png
-  twitter: https://twitter.com/oktadev
+  twitter: https://twitter.com/indiepopart
+  github: https://github.com/indiepopart
 
 daniel-pereira:
   full_name: Daniel Pereira
