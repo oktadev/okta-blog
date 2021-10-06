@@ -12,6 +12,7 @@ tweets:
 - "Building a #reactive #java app? Don't let blocking code stop you! 🛑"
 image: blog/reactive-java/reactive-java.png
 type: conversion
+github: https://github.com/oktadev/okta-reactive-service-example
 ---
 
 Modern applications must work smoothly on high loads and with a high number of concurrent users. Traditional Java applications run blocking code and a common approach for scaling is to increase the number of available threads. When latency comes into the picture, many of these additional threads sit idle, wasting resources.

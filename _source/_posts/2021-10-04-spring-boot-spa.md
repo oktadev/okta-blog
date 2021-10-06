@@ -11,9 +11,10 @@ tweets:
 - "Everything you need to know to create a secure single-page application (SPA) with a Spring Boot resource server, a Vue front-end client, OAuth 2.0, OIDC & the @OktaDev Sign-In Widget "
 image: blog/spring-boot-spa/spring-boot-spa-social.jpg
 type: conversion
+github: https://github.com/oktadev/okta-vuejs-spa-spring-boot-example
 ---
 
-In this tutorial, you are going to create a single-page application (SPA) that uses a Spring Boot resource server and a Vue front-end client. You'll see how to configure Spring Boot to use JSON Web Tokens (JWT) for authentication and authorization, with Okta as an OAuth 2. 0 and OpenID Connect (OIDC) provider. You'll also see how to bootstrap a Vue client app with the Vue CLI and how to secure it using the Okta Sign-In Widget.
+In this tutorial, you are going to create a single-page application (SPA) that uses a Spring Boot resource server and a Vue front-end client. You'll see how to configure Spring Boot to use JSON Web Tokens (JWT) for authentication and authorization, with Okta as an OAuth 2.0 and OpenID Connect (OIDC) provider. You'll also see how to bootstrap a Vue client app with the Vue CLI and how to secure it using the Okta Sign-In Widget.
 
 Okta is a computer security services company that provides a lot of great resources for securing web applications. The Okta Sign-In Wdiget is a great way to secure front-end applications because it allows you to easily add a secure login form that is configurable for single sign-on and social sign-on with external providers such as Google, Facebook, and LinkedIn. It provides an implementation of the authorization code OAuth 2.0 flow using PKCE (Proof Key for Code Exchange).
 
@@ -186,7 +187,7 @@ You should already have used the Okta CLI to either register a new account or lo
 
 The only configuration you have to do for the resource server is to add the `okta.oauth2.issuer` property to the `application.properties` file. Spring Security and the Okta Spring Boot Starter will use the issuer endpoint to discover any other configuration it needs (except for the `aud` claim, which defaults to `api://default`).
 
-You issuer is simply your Okta domain plus `/oauth2/default`, such as `https://dev-133337.okta.com/oauth2/default`.
+Your issuer is simply your Okta domain plus `/oauth2/default`, such as `https://dev-133337.okta.com/oauth2/default`.
 
 Another way to find your issuer URI is to open your Okta developer dashboard. Select **Security** and **API** from the left menu. This will show you your authorization servers. Mostly likely you only have the default authorization server that was set up for you when you signed up. This page will show you the **audience** (again, probably `api://default`) and the **Issuer URI**.
 
@@ -248,10 +249,10 @@ You need to install a few dependencies. The first three are required for Okta se
 
 ```bash
 npm install --save \
-@okta/okta-signin-widget \
-@okta/okta-vue \
-@okta/okta-auth-js \
-axios
+  @okta/okta-signin-widget@5.12.0 \
+  @okta/okta-vue@5.0.1 \
+  @okta/okta-auth-js@5.5.0 \
+  axios@0.22.0
 ```
 
 Create a `src/okta/index.js` file:
@@ -637,6 +638,8 @@ You can also go to the `profile` page at `http://localhost:8080/profile`, which 
 ## Learn More About Application Security
 
 In this post you saw how to use Spring Boot to create a simple resource server and Vue to create a front-end client. You saw how to use Okta to implement a secure application stack. The front-end client used the Okta Sign-In Widget to implement the OAuth 2.0 authorization code flow with PKCE for a secure token exchange. The resource server was also secured using Okta by including Okta's Spring Boot Starter, which made adding JWT auth to the project quick and easy.
+
+Check out the source for this example project on [GitHub](https://github.com/oktadev/okta-vuejs-spa-spring-boot-example). 
 
 To learn more about OAuth 2.0 and OIDC, check out these blog posts
 
