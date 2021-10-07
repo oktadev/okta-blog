@@ -16,9 +16,9 @@ type: conversion
 
 "In this tutorial, we will leverage [OpenID Connect](https://www.okta.com/openid-connect/) (OIDC) to allow our DevOps team to securely access their EKS clusters on AWS. We use  [Role Based Access Control (RBAC) ](https://www.okta.com/identity-101/what-is-role-based-access-control-rbac/)] to enforce least privilege without the need to configure AWS IAM roles. :sunglasses: "
 
-We'll highlight the steps to manually enable an OIDC provider on your EKS clusters. At the end of this tutorial, we’ll point to resources you can leverage to automate all those steps.
+We'll highlight the steps to manually enable an OIDC provider on your EKS clusters. At the end of this tutorial, we'll point to resources you can leverage to automate all those steps.
 
-Below is the target architecture you’ll be deploying:
+Below is the target architecture you'll be deploying:
 
 {% img blog/secure-access-to-eks/2.png alt:"Okta + EKS Architecture" width:"800" %}{: .center-image }
 
@@ -32,7 +32,7 @@ This tutorial will show you how to leverage OIDC to securely access Amazon Elast
 ## What You'll Need to Get Started 
 
 The prerequisites to complete this tutorial are:
--   The tutorial assumes that you're already using Okta as your identity and authorization solution. However, if you don’t have an existing Okta tenant, you can [create a new one here](https://www.okta.com/free-trial/) and follow along.   
+-   The tutorial assumes that you're already using Okta as your identity and authorization solution. However, if you don't have an existing Okta tenant, you can [create a new one here](https://www.okta.com/free-trial/) and follow along.   
     -   One or more Okta administrative user(s)
     -   One or more Okta test user(s)        
     -   Okta administrator rights       
@@ -57,19 +57,19 @@ To deploy k8s clusters on your own infrastructure, you can use EKS Anywhere. See
 
 ## Okta + EKS: how do they work together?
 
-Let’s take an EKS cluster deployed in AWS. We’ll perform the following steps:
+Let's take an EKS cluster deployed in AWS. We'll perform the following steps:
 
 -   add Okta as an OIDC provider to the EKS cluster
 -   configure the k8s API server so it prompts the user for Authentication (AuthN)
 -   configure RBAC Authorization (AuthZ), mapping Okta groups with given k8s roles
--   leverage an OIDC plugin that 1) prompts the user for AuthN in the web browser and 2) retrieves the [JSON Web Token  (JWT)](https://developer.okta.com/blog/2020/12/21/beginners-guide-to-jwt) id_token from Okta and passes it to our [kubectl (Kubernetes command-line tool)](https://kubernetes.io/docs/tasks/tools/) commands
+-   leverage an OIDC plugin that 1) prompts the user for AuthN in the web browser and 2) retrieves the [JSON Web Token  (JWT)](/blog/2020/12/21/beginners-guide-to-jwt) id_token from Okta and passes it to our [kubectl (Kubernetes command-line tool)](https://kubernetes.io/docs/tasks/tools/) commands
     
 
-Ready? Let’s get started!
+Ready? Let's get started!
 
 ## Configuration
 
-Let’s first deploy a brand new EKS cluster. We’ll do it manually from the AWS Console.
+Let's first deploy a brand new EKS cluster. We'll do it manually from the AWS Console.
 
 Note: We recommend configuring [access to the AWS Console using Okta SSO+MFA](https://docs.aws.amazon.com/singlesignon/latest/userguide/okta-idp.html)
 
@@ -99,13 +99,13 @@ Note: We recommend configuring [access to the AWS Console using Okta SSO+MFA](ht
 
 {% img blog/secure-access-to-eks/8.png alt:"AWS EKSCluster Role Creation" width:"800" %}{: .center-image }
 
--   Once your role is created, go back to the list of roles and open EKSCluster to double-check it’s properly configured:
+-   Once your role is created, go back to the list of roles and open EKSCluster to double-check it's properly configured:
 
 {% img blog/secure-access-to-eks/9.png alt:"AWS EKSCluster Role View" width:"800" %}{: .center-image }
 
 ### Create a new EKS cluster
 
-Let’s create a brand new EKS cluster.
+Let's create a brand new EKS cluster.
 
 - Go to EKS
 
@@ -131,14 +131,14 @@ Let’s create a brand new EKS cluster.
 
 {% img blog/secure-access-to-eks/15.png alt:"EKS Cluster - Review and create" width:"800" %}{: .center-image }
 
-Your EKS cluster will take a couple of minutes to start. In the meantime, let’s do the configuration on the Okta side.Then we’ll come back to the AWS Console to configure Okta as the OIDC provider for the EKS cluster.
+Your EKS cluster will take a couple of minutes to start. In the meantime, let's do the configuration on the Okta side.Then we'll come back to the AWS Console to configure Okta as the OIDC provider for the EKS cluster.
 
 ### Configure Your Okta Org
 
-In the Okta admin console, we’ll create a group of users that we’ll assign to a OIDC client, and we’ll configure the AuthZ Server to inject the list of groups into the id_token.
+In the Okta admin console, we'll create a group of users that we'll assign to a OIDC client, and we'll configure the AuthZ Server to inject the list of groups into the id_token.
 
 - Go to your Okta admin console
-- Let’s create a group. Go to the sidebar menu and select **Directory > Groups > Add Group**.
+- Let's create a group. Go to the sidebar menu and select **Directory > Groups > Add Group**.
 
 {% img blog/secure-access-to-eks/16.png alt:"Okta Admin Console - Add Group" width:"800" %}{: .center-image }
     
@@ -158,13 +158,13 @@ You should see that your user is now assigned to the eks-admins group:
 
 {% img blog/secure-access-to-eks/20.png alt:"Okta Admin Console - Assigned User" width:"800" %}{: .center-image }
 
-Now we’ll create a new OIDC client. We’ll leverage the [AuthCode + PKCE grant type](https://developer.okta.com/docs/guides/implement-grant-type/authcodepkce/main/#grant-type-flow) since the terminal to access EKS clusters will be running on the laptops of DevOps team members, and like any native app, it can’t host any secrets.
+Now we'll create a new OIDC client. We'll leverage the [AuthCode + PKCE grant type](https://developer.okta.com/docs/guides/implement-grant-type/authcodepkce/main/#grant-type-flow) since the terminal to access EKS clusters will be running on the laptops of DevOps team members, and like any native app, it can't host any secrets.
 
 -  While still in your Okta admin console, go to the sidebar menu and select  > **Applications**. On the **Applications** screen select **Create App Integration**:
 
 {% img blog/secure-access-to-eks/21.png alt:"Okta Admin Console - Add Application" width:"800" %}{: .center-image }
     
--  Select **Sign-in methodOIDC - OpenID Connect**”, **Application type Native Application**, then click Next:
+-  Select **Sign-in methodOIDC - OpenID Connect**", **Application type Native Application**, then click Next:
 
 {% img blog/secure-access-to-eks/22.png alt:"Okta Admin Console - New OIDC Native App" width:"800" %}{: .center-image }
     
@@ -178,11 +178,11 @@ Now we’ll create a new OIDC client. We’ll leverage the [AuthCode + PKCE gran
 {% img blog/secure-access-to-eks/23.png alt:"Okta Admin Console - App Configuration" width:"800" %}{: .center-image }
 
 -   Then **Save**.
--   In the **General** tab, be sure to select **Use PKCE**. Then copy the client id, we’ll need it later:
+-   In the **General** tab, be sure to select **Use PKCE**. Then copy the client id, we'll need it later:
 
 {% img blog/secure-access-to-eks/24.png alt:"Okta Admin Console - App Configuration - General Tab" width:"800" %}{: .center-image }
     
--   Now let’s create an Authorization Server. Go to the sidebar menu, select **Security > API**. Then go to **Authorizations Server** tab and select**Add Authorization Server**.
+-   Now let's create an Authorization Server. Go to the sidebar menu, select **Security > API**. Then go to **Authorizations Server** tab and select**Add Authorization Server**.
 
 {% img blog/secure-access-to-eks/25.png alt:"Okta Admin Console - Add Authorization Server" width:"800" %}{: .center-image }
 
@@ -195,11 +195,11 @@ Now we’ll create a new OIDC client. We’ll leverage the [AuthCode + PKCE gran
 
 {% img blog/secure-access-to-eks/26.png alt:"Okta Admin Console - Authorization Server Configuration" width:"800" %}{: .center-image }
 
-On the next screen, copy the **Issuer URL** from the Settings tab. We’ll need it later:
+On the next screen, copy the **Issuer URL** from the Settings tab. We'll need it later:
 
 {% img blog/secure-access-to-eks/27.png alt:"Okta Admin Console - Authorization Server Settings Tab" width:"800" %}{: .center-image }
 
-Now let’s add a custom claim “groups” in the id_token that Okta will generate, to list the groups of the connected user.
+Now let's add a custom claim "groups" in the id_token that Okta will generate, to list the groups of the connected user.
 
 -   Go to the **Claims** tab and select**Add Claim**.
 
@@ -210,12 +210,12 @@ Now let’s add a custom claim “groups” in the id_token that Okta will gener
     - **Name: groups**
     - **Include in token type: ID Token - Always**
     - **Value type: Groups**.
-    - **Filter: Starts with eks-** (This means we’ll only list the connected user’s groups whose names start with “eks-”)
+    - **Filter: Starts with eks-** (This means we'll only list the connected user's groups whose names start with "eks-")
     - **Include in: Any scope**
 
 {% img blog/secure-access-to-eks/29.png alt:"Okta Admin Console - Authorization Server - New Groups Claim" width:"800" %}{: .center-image }
         
-- Now let’s create an access policy on this AuthZ Server to drive when the AuthZ Server should mint the id_token.
+- Now let's create an access policy on this AuthZ Server to drive when the AuthZ Server should mint the id_token.
     
     - Go to the **Access Policies** tab and select**Add Policy**
 
@@ -248,7 +248,7 @@ You should see this view:
 
 {% img blog/secure-access-to-eks/34.png alt:"Okta Admin Console - Authorization Server - List Of Rules On A Policy" width:"800" %}{: .center-image }
 
-Now let’s run a test to see what our id_token will look like when the Okta AuthZ Server mints it.  
+Now let's run a test to see what our id_token will look like when the Okta AuthZ Server mints it.  
 
 - Go to the **Token Preview** tab and enter the following **Request Properties**:
     - **OAuth/OIDC client: EKS**
@@ -256,7 +256,7 @@ Now let’s run a test to see what our id_token will look like when the Okta Aut
     - **User: your user**
     - Under **Scopes**, enteropenid, email, profile, offline_access**
         
-- Then click on **Token Preview**. On the right side of the screen, you'll  see a preview of your id_token. So far it has all the claims we’re looking for, including:
+- Then click on **Token Preview**. On the right side of the screen, you'll  see a preview of your id_token. So far it has all the claims we're looking for, including:
     
     - "email": typically matches your Okta username
     - "groups": contains an array of groups the user is a member of, including "eks-admins"
@@ -267,7 +267,7 @@ The configuration on the Okta side is complete.
 
 ### Add Okta as an OIDC provider on Your EKS Cluster
 
-Now let’s get back to the AWS Console:
+Now let's get back to the AWS Console:
 
 - Open the **eks-cluster** view. Go to the **Configuration** tab, then select **Authentication**, and click on **Associate Identity Provider**.
 
@@ -286,9 +286,9 @@ Now let’s get back to the AWS Console:
     
 Note: Your EKS cluster configuration may take 5-10 minutes to update after you add the OIDC provider.
 
-Now let’s update the `kubeconfig` of the EKS cluster so the API server prompts for authentication whenever there’s an inbound kubectl request. We’ll also add an RBAC control stating that a user part of the eks-admin Okta group will have the k8s ClusterRole cluster-admin.
+Now let's update the `kubeconfig` of the EKS cluster so the API server prompts for authentication whenever there's an inbound kubectl request. We'll also add an RBAC control stating that a user part of the eks-admin Okta group will have the k8s ClusterRole cluster-admin.
 
-To update the EKS `kubeconfig` we’ll use AWS CloudShell. It’s particularly convenient to make quick updates if you [access the AWS Console with Okta SSO](https://docs.aws.amazon.com/singlesignon/latest/userguide/okta-idp.html)  and assume a given role, as we did earlier in this tutorial:
+To update the EKS `kubeconfig` we'll use AWS CloudShell. It's particularly convenient to make quick updates if you [access the AWS Console with Okta SSO](https://docs.aws.amazon.com/singlesignon/latest/userguide/okta-idp.html)  and assume a given role, as we did earlier in this tutorial:
 
 {% img blog/secure-access-to-eks/38.png alt:"AWS Console - Federated Login" width:"800" %}{: .center-image }
 
@@ -300,7 +300,7 @@ You should land on this view:
 
 {% img blog/secure-access-to-eks/40.png alt:"AWS Console - CloudShell Terminal" width:"800" %}{: .center-image }
 
-Let’s install `kubectl` ([source](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)):
+Let's install `kubectl` ([source](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)):
 
 - Download the latest release:
     
@@ -338,7 +338,7 @@ kubectl version --client
 
 {% img blog/secure-access-to-eks/42.png alt:"Terminal - Get Kubectl Version" width:"800" %}{: .center-image }
        
-- Now,let’s retrieve the list of EKS clusters in the specified region (us-west-1):
+- Now,let's retrieve the list of EKS clusters in the specified region (us-west-1):
     
 ```sh
 aws eks --region us-west-1 list-clusters
@@ -354,7 +354,7 @@ aws eks --region us-west-1 update-kubeconfig --name eks-cluster
 
 {% img blog/secure-access-to-eks/44.png alt:"Terminal - Kubeconfig Add Context" width:"800" %}{: .center-image }
         
-- Let’s see what our `kubeconfig` file looks like.
+- Let's see what our `kubeconfig` file looks like.
     
 ```sh
 kubectl config view
@@ -362,7 +362,7 @@ kubectl config view
 
 {% img blog/secure-access-to-eks/configView.png alt:"Kubeconfig View" width:"800" %}{: .center-image }
         
-- Let’s double-check the current context:
+- Let's double-check the current context:
     
 ```sh
 kubectl config current-context
@@ -444,7 +444,7 @@ Below is the text to include:
 
 This basically specifies the config of the OIDC provider. Note: Replace the Issue URL and Client ID with your own values.
 
-Once you’re done editing the file:
+Once you're done editing the file:
 
 - enter  **CTRL-O**  to save the file. 
 - then enter  **CTRL-X**  to close the file.
@@ -459,13 +459,13 @@ kubectl get pods --all-namespaces
 
 {% img blog/secure-access-to-eks/47.png alt:"Kubectl Get Pods" width:"800" %}{: .center-image }
     
-Let’s now look into how we can run a similar command from the terminal on our local machine.
+Let's now look into how we can run a similar command from the terminal on our local machine.
 
 There are two things we need to configure:
 
 - Export the `kubeconfig` file and import it to your laptop. 
     
-- Configure a kubectl oidc plugin to prompt the user for AuthN and request an id_token. We’ll use [kubelogin](https://github.com/int128/kubelogin).
+- Configure a kubectl oidc plugin to prompt the user for AuthN and request an id_token. We'll use [kubelogin](https://github.com/int128/kubelogin).
     
 From your CloudShell, enter the command:
 
@@ -477,7 +477,7 @@ echo $HOME
 
 The path to our kubeconfig file is `/home/cloudshell-user/.kube/config`, as shown above. 
 
-- Let’s download that file. Click on **Actions** at the top right of CloudShell, then click on **Download file**.
+- Let's download that file. Click on **Actions** at the top right of CloudShell, then click on **Download file**.
 
 {% img blog/secure-access-to-eks/49.png alt:"Terminal - Download File" width:"800" %}{: .center-image }
 
@@ -516,7 +516,7 @@ kubectl config get-contexts
 
 {% img blog/secure-access-to-eks/54.png alt:"Kubectl Get Contexts" width:"800" %}{: .center-image }
         
--   If you don't see a “*” in front of the desired context, run:
+-   If you don't see a "*" in front of the desired context, run:
     
 ```sh
 kubectl config use-context arn:aws:eks:us-west-1:013353681016:cluster/eks-cluster
@@ -536,7 +536,7 @@ kubectl config get-contexts
 brew install int128/kubelogin/kubelogin
 ```
 
-- Now let’s try to test the first part of the AuthN flow. un the following command. (Be sure to replace the `oidc-issuer-url` and `oidc-client-id` with your values.):
+- Now let's try to test the first part of the AuthN flow. un the following command. (Be sure to replace the `oidc-issuer-url` and `oidc-client-id` with your values.):
     
 ```sh
 kubectl oidc-login setup --oidc-issuer-url=https://nico.okta.com/oauth2/auscierlvzfBoWkKC2p7 --oidc-client-id=0oacieu408ExEjXwu2p7
@@ -556,7 +556,7 @@ You should be prompted to authenticate in your web browser against your Okta org
 
 {% img blog/secure-access-to-eks/58.png alt:"Terminal - Post Authentication Notes" width:"800" %}{: .center-image }
     
-- We’re ready to make a final test. Run:
+- We're ready to make a final test. Run:
     
 ```sh
 kubectl --user=oidc get pods --all-namespaces
@@ -570,13 +570,13 @@ Congratulations!You've successfully configured Okta as an OIDC provider to acces
 
 ### Some Extra Checks
 
-Let’s double-check that our RBAC controls are working as expected. Currently we’re a member of the eks-admins Okta group in the Universal Directory.
+Let's double-check that our RBAC controls are working as expected. Currently we're a member of the eks-admins Okta group in the Universal Directory.
 
--  Let’s remove ourselves from the eks-admins group in the Okta admin console.
+-  Let's remove ourselves from the eks-admins group in the Okta admin console.
 
 {% img blog/secure-access-to-eks/60.png alt:"Okta Admin Console - Remove User From Group" width:"800" %}{: .center-image }
     
-- Then, let’s delete the cached id_token on our laptop.
+- Then, let's delete the cached id_token on our laptop.
     
     - In your terminal, run:
         
@@ -592,7 +592,7 @@ ls
 
 {% img blog/secure-access-to-eks/61.png alt:"Terminal - Content Of The cache/oidc-login Folder" width:"800" %}{: .center-image }
            
-- That first file contains the id_token Okta minted. Let’s delete it.
+- That first file contains the id_token Okta minted. Let's delete it.
     
 ```sh
 rm 8ead66f63afa81d7300257989c391d035f386b80758a2847c99d37ecdd5610e0
@@ -606,7 +606,7 @@ ls
 
 {% img blog/secure-access-to-eks/62.png alt:"Terminal - Content Of The cache/oidc-login Folder" width:"800" %}{: .center-image }
         
-- Ok, now let’s try again to retrieve the list of pods. 
+- Ok, now let's try again to retrieve the list of pods. 
     
 ```sh
 kubectl --user=oidc get pods --all-namespaces
@@ -614,10 +614,10 @@ kubectl --user=oidc get pods --all-namespaces
 
 {% img blog/secure-access-to-eks/63.png alt:"Terminal - Kubectl Get Pods" width:"800" %}{: .center-image }
         
-As expected, we’re not authorized. Since we’re no longer a member of the eks-admins Okta group, the group is no longer injected in the id_token, and the Kubernetes API Server no longer applies the cluster-admin role.
+As expected, we're not authorized. Since we're no longer a member of the eks-admins Okta group, the group is no longer injected in the id_token, and the Kubernetes API Server no longer applies the cluster-admin role.
 
-- Once again, let’s delete the cached id_token in the `~/.kube/cache/oidc-login` folder. 
-- Let’s add ourselves again to the eks-admins Okta group.
+- Once again, let's delete the cached id_token in the `~/.kube/cache/oidc-login` folder. 
+- Let's add ourselves again to the eks-admins Okta group.
     
 We should now be able to access the list of pods as before:
 
