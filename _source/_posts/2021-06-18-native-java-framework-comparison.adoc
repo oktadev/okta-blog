@@ -647,7 +647,10 @@ If I just take the value of the "initialization completed" time from Spring Boot
 |Spring Boot | `./target/demo` | 48.2
 |===
 
+The chart below should help you visualize this comparison.
+
 ++++
+<script src="https://www.gstatic.com/charts/loader.js"></script>
 <div id="spring-boot-init"></div>
 <script>
 google.charts.load('current', {packages: ['corechart', 'bar']});
@@ -701,7 +704,7 @@ google.charts.load('current', {packages: ['corechart', 'bar']});
 google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
   var data = google.visualization.arrayToDataTable([
-    ['Framework', 'Memory (MB) usage', { role: 'style' }],
+    ['Framework', 'Memory usage (MB)', { role: 'style' }],
     ['Micronaut', 62, 'blue'],
     ['Quarkus', 35, 'red'],
     ['Spring Boot', 82, 'green']
