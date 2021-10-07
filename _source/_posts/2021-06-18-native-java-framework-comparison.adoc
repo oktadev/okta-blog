@@ -13,6 +13,7 @@ tweets:
 image: blog/native-java-comparison/native-java.png
 type: conversion
 changelog:
+- 2021-10-06: Updated to use Micronaut 3.0.3, Quarkus 2.3.0.Final, and Spring Boot 2.5.4. Also changed Spring Boot to create binary instead of Docker image for performance comparisons. See this post's changes in [okta-blog#913](https://github.com/oktadev/okta-blog/pull/913) and the example app changes in [native-java-examples#7](https://github.com/oktadev/native-java-examples/pull/7).
 - 2021-09-16: Updated to use macOS binary (`./mvnw package -Pnative`) when calculating memory usage for Spring Boot. See the updates in [okta-blog#887](https://github.com/oktadev/okta-blog/pull/887).
 - 2021-09-16: Updated to use Micronaut 3.0.1, Quarkus 2.2.2.Final, and Spring Boot 2.5.4. Also added memory usage comparison. See this post's changes in [okta-blog#885](https://github.com/oktadev/okta-blog/pull/885) and the example app changes in [native-java-examples#6](https://github.com/oktadev/native-java-examples/pull/6).
 ---
@@ -32,7 +33,7 @@ This post will show you how to run a secure, OAuth 2.0-protected, Java REST API 
 
 - https://sdkman.io/[Java 11 with GraalVM]+
 - https://httpie.io/[HTTPie] (a better version of cURL)
-- An https://cloud.google.com/[Okta Developer] Account
+- An https://developer.okta.com[Okta Developer] Account
 
 toc::[]
 
@@ -57,7 +58,7 @@ You will need a JDK with GraalVM and its `native-image` compiler. Using SDKMAN, 
 
 [source,shell]
 ----
-sdk install java 21.1.0.r11-grl
+sdk install java 21.2.0.r11-grl
 ----
 
 Add the native extension to the JDK:
@@ -195,29 +196,10 @@ You might be wondering, "how did you build a secure Micronaut app"? Did I just h
 
 2. Create an app using the `mn create-app` command and rename the project's directory:
 
-   mn create-app com.okta.rest.app --build maven
+   mn create-app com.okta.rest.app --build maven -f security-jwt
    mv app micronaut
 
-3. Add Micronaut's libraries for JWT security:
-+
-[source,xml]
-----
-<dependency>
-    <groupId>io.micronaut.security</groupId>
-    <artifactId>micronaut-security</artifactId>
-</dependency>
-<dependency>
-    <groupId>io.micronaut.security</groupId>
-    <artifactId>micronaut-security-jwt</artifactId>
-</dependency>
-<dependency>
-    <groupId>javax.inject</groupId>
-    <artifactId>javax.inject</artifactId>
-    <version>1</version>
-</dependency>
-----
-
-4. Add a `HelloController` in `src/main/java/com/okta/rest/controller`:
+3. Add a `HelloController` in `src/main/java/com/okta/rest/controller`:
 +
 [source,java]
 ----
@@ -245,7 +227,7 @@ public class HelloController {
 }
 ----
 
-5. Enable and configure JWT security in `src/main/resources/application.yml`:
+4. Enable and configure JWT security in `src/main/resources/application.yml`:
 +
 [source,yaml]
 ----
@@ -340,7 +322,7 @@ You can create the same Quarkus app used in this example in five steps.
 +
 [source,shell]
 ----
-mvn io.quarkus:quarkus-maven-plugin:2.2.2.Final:create \
+mvn io.quarkus:quarkus-maven-plugin:2.3.0.Final:create \
     -DprojectGroupId=com.okta.rest \
     -DprojectArtifactId=quarkus \
     -DclassName="com.okta.rest.quarkus.HelloResource" \
@@ -448,19 +430,21 @@ We've also published a link:/blog/2021/09/16/spring-native-okta-starter[Spring N
 
 === Build a Native Spring Boot App
 
-To compile this Spring Boot app into a native executable, you can use the Spring Boot Maven plugin:
+To compile this Spring Boot app into a native executable, you can use the `native` profile:
 
 [source,shell]
 ----
-./mvnw spring-boot:build-image
+./mvnw package -Pnative
 ----
+
+TIP: To build a native app and a Docker container, use the Spring Boot Maven plugin and `./mvnw spring-boot:build-image`.
 
 The native compilation step will take a bit to complete. On my 2019 MacBook Pro, it took 2 min. 40 s.
 
-Start it using Docker:
+Start it with `./target/demo`:
 
 ----
-$ docker run -p 8080:8080 demo:0.0.1-SNAPSHOT
+$ ./target/demo
 2021-09-15 19:34:02.719  INFO 1 --- [           main] o.s.nativex.NativeListener               : This application is bootstrapped with code generated with Spring AOT
 
   .   ____          _            __ _ _
@@ -491,7 +475,7 @@ To create the Spring Boot app used in this example, it's just five steps.
 [source,shell]
 ----
 http https://start.spring.io/starter.zip \
-     bootVersion==2.5.4 \
+     bootVersion==2.5.5 \
      dependencies==web,oauth2-resource-server,native \
      packageName==com.okta.rest \
      name==spring-boot \
@@ -570,7 +554,7 @@ The commands to build each app are similar but not quite the same.
 
 - **Micronaut**: `./mvnw package -Dpackaging=native-image`
 - **Quarkus**: `./mvnw package -Pnative`
-- **Spring Boot**: `./mvnw spring-boot:build-image`
+- **Spring Boot**: `./mvnw package -Pnative`
 
 Of course, they all support Gradle too.
 
@@ -592,7 +576,7 @@ Spring Boot (476 + 513 + 778 + 735 + 734) / 5 = 647.2ms
 
 |Micronaut | `./target/app` | 22.2
 |Quarkus | `./target/quarkus-1.0.0-SNAPSHOT-runner` | 17.4
-|Spring Boot | `docker run -p 8080:8080 demo:0.0.1-SNAPSHOT` | 647.2
+|Spring Boot | `./target/demo` | 647.2
 |===
 
 The chart below should help you visualize this comparison.
@@ -642,8 +626,6 @@ spring.security.oauth2.resourceserver.jwt.jwk-set-uri=https://dev-133337.okta.co
 
 // (111 + 91 + 88 + 83 + 85) / 5 = 91.6ms
 This improved the startup time by over 500ms (91.6ms on average).
-
-We also experimented with using `./mvnw package -Pnative` for Spring Boot. This allows you to create a native binary and run it with `./target/demo`. There's no need for Docker with this command. Startup times are relatively the same in my and Josh's experience.
 
 Our hypothesis is Micronaut and Quarkus do the JWKS lookup on the first request rather than at startup. That's how they achieve faster startup times.
 
