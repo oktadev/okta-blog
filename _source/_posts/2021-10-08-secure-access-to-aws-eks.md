@@ -360,7 +360,7 @@ aws eks --region us-west-1 update-kubeconfig --name eks-cluster
 kubectl config view
 ```
 
-{% img blog/secure-access-to-eks/image.png alt:"Kubeconfig View" width:"800" %}{: .center-image }
+{% img blog/secure-access-to-eks/configView.png alt:"Kubeconfig View" width:"800" %}{: .center-image }
         
 - Let’s double-check the current context:
     
@@ -473,17 +473,17 @@ From your CloudShell, enter the command:
 echo $HOME
 ```
 
-{% img blog/secure-access-to-eks/image.png alt:"HOME Variable" width:"800" %}{: .center-image }
+{% img blog/secure-access-to-eks/48.png alt:"HOME Variable" width:"800" %}{: .center-image }
 
 The path to our kubeconfig file is `/home/cloudshell-user/.kube/config`, as shown above. 
 
 - Let’s download that file. Click on **Actions** at the top right of CloudShell, then click on **Download file**.
 
-{% img blog/secure-access-to-eks/image.png alt:"Terminal - Download File" width:"800" %}{: .center-image }
+{% img blog/secure-access-to-eks/49.png alt:"Terminal - Download File" width:"800" %}{: .center-image }
 
 - Paste the path to your `kubeconfig` file and click on **Download**.
 
-{% img blog/secure-access-to-eks/image.png alt:"Terminal - Path To Individual File" width:"800" %}{: .center-image }
+{% img blog/secure-access-to-eks/50.png alt:"Terminal - Path To Individual File" width:"800" %}{: .center-image }
     
 You should now have a copy of the config file in your Downloads folder.  
 
@@ -495,18 +495,18 @@ You should now have a copy of the config file in your Downloads folder.
 kubectl version --client
 ```
 
-{% img blog/secure-access-to-eks/image.png alt:"Kubectl Version" width:"800" %}{: .center-image }
+{% img blog/secure-access-to-eks/51.png alt:"Kubectl Version" width:"800" %}{: .center-image }
         
 - On your Mac, replace the existing kubeconfig file with the one you downloaded from CloudShell:
     
     - Open your Finder on your Mac, then CMD-SHIFT-G.
     -   Enter ~/.kube/config then click **Go**.
 
-{% img blog/secure-access-to-eks/image.png alt:"Path To Local Kubeconfig File" width:"800" %}{: .center-image }
+{% img blog/secure-access-to-eks/52.png alt:"Path To Local Kubeconfig File" width:"800" %}{: .center-image }
         
 - Delete any existing config files and add the one from CloudShell:
 
-{% img blog/secure-access-to-eks/image.png alt:"Local Kubeconfig File" width:"800" %}{: .center-image }
+{% img blog/secure-access-to-eks/53.png alt:"Local Kubeconfig File" width:"800" %}{: .center-image }
     
 - Open a terminal on your laptop and run:
     
@@ -514,7 +514,7 @@ kubectl version --client
 kubectl config get-contexts
 ```
 
-{% img blog/secure-access-to-eks/image.png alt:"Kubectl Get Contexts" width:"800" %}{: .center-image }
+{% img blog/secure-access-to-eks/54.png alt:"Kubectl Get Contexts" width:"800" %}{: .center-image }
         
 -   If you don't see a “*” in front of the desired context, run:
     
@@ -528,7 +528,7 @@ kubectl config use-context arn:aws:eks:us-west-1:013353681016:cluster/eks-cluste
 kubectl config get-contexts
 ```
 
-{% img blog/secure-access-to-eks/image.png alt:"Kubectl Get Contexts" width:"800" %}{: .center-image }
+{% img blog/secure-access-to-eks/55.png alt:"Kubectl Get Contexts" width:"800" %}{: .center-image }
         
 - Install  [kubelogin](https://github.com/int128/kubelogin)  (the oidc helper for kubectl)
     
@@ -544,17 +544,17 @@ kubectl oidc-login setup --oidc-issuer-url=https://nico.okta.com/oauth2/auscierl
 
 You should be prompted to authenticate in your web browser against your Okta org.
 
-{% img blog/secure-access-to-eks/image.png alt:"Okta Login Page" width:"800" %}{: .center-image }
+{% img blog/secure-access-to-eks/56.png alt:"Okta Login Page" width:"800" %}{: .center-image }
 
 - After authenticating, you should be redirected to localhost:8000 in your web browser, with an **OK** response.
 
-{% img blog/secure-access-to-eks/image.png alt:"Post Authentication" width:"800" %}{: .center-image }
+{% img blog/secure-access-to-eks/57.png alt:"Post Authentication" width:"800" %}{: .center-image }
 
 - You can close this tab.
     
 - Check your terminal. You should see a confirmation that you've received an id_token from Okta:
 
-{% img blog/secure-access-to-eks/image.png alt:"Terminal - Post Authentication Notes" width:"800" %}{: .center-image }
+{% img blog/secure-access-to-eks/58.png alt:"Terminal - Post Authentication Notes" width:"800" %}{: .center-image }
     
 - We’re ready to make a final test. Run:
     
@@ -564,7 +564,7 @@ kubectl --user=oidc get pods --all-namespaces
 
 If you're not already Okta-authenticated you'll be prompted for AuthN.) You should be able to see your list of pods:
 
-{% img blog/secure-access-to-eks/image.png alt:"Terminal - Kubectl Get Pods" width:"800" %}{: .center-image }
+{% img blog/secure-access-to-eks/59.png alt:"Terminal - Kubectl Get Pods" width:"800" %}{: .center-image }
 
 Congratulations!You've successfully configured Okta as an OIDC provider to access your EKS cluster! 🎉
 
@@ -574,7 +574,7 @@ Let’s double-check that our RBAC controls are working as expected. Currently w
 
 -  Let’s remove ourselves from the eks-admins group in the Okta admin console.
 
-{% img blog/secure-access-to-eks/image.png alt:"Okta Admin Console - Remove User From Group" width:"800" %}{: .center-image }
+{% img blog/secure-access-to-eks/60.png alt:"Okta Admin Console - Remove User From Group" width:"800" %}{: .center-image }
     
 - Then, let’s delete the cached id_token on our laptop.
     
@@ -590,7 +590,7 @@ cd ~/.kube/cache/oidc-login
 ls
 ```
 
-{% img blog/secure-access-to-eks/image.png alt:"Terminal - Content Of The cache/oidc-login Folder" width:"800" %}{: .center-image }
+{% img blog/secure-access-to-eks/61.png alt:"Terminal - Content Of The cache/oidc-login Folder" width:"800" %}{: .center-image }
            
 - That first file contains the id_token Okta minted. Let’s delete it.
     
@@ -604,7 +604,7 @@ rm 8ead66f63afa81d7300257989c391d035f386b80758a2847c99d37ecdd5610e0
 ls
 ```
 
-{% img blog/secure-access-to-eks/image.png alt:"Terminal - Content Of The cache/oidc-login Folder" width:"800" %}{: .center-image }
+{% img blog/secure-access-to-eks/62.png alt:"Terminal - Content Of The cache/oidc-login Folder" width:"800" %}{: .center-image }
         
 - Ok, now let’s try again to retrieve the list of pods. 
     
@@ -612,7 +612,7 @@ ls
 kubectl --user=oidc get pods --all-namespaces
 ```
 
-{% img blog/secure-access-to-eks/image.png alt:"Terminal - Kubectl Get Pods" width:"800" %}{: .center-image }
+{% img blog/secure-access-to-eks/63.png alt:"Terminal - Kubectl Get Pods" width:"800" %}{: .center-image }
         
 As expected, we’re not authorized. Since we’re no longer a member of the eks-admins Okta group, the group is no longer injected in the id_token, and the Kubernetes API Server no longer applies the cluster-admin role.
 
@@ -621,7 +621,7 @@ As expected, we’re not authorized. Since we’re no longer a member of the eks
     
 We should now be able to access the list of pods as before:
 
-{% img blog/secure-access-to-eks/image.png alt:"Terminal - Kubectl Get Pods" width:"800" %}{: .center-image }
+{% img blog/secure-access-to-eks/64.png alt:"Terminal - Kubectl Get Pods" width:"800" %}{: .center-image }
 
 Pretty cool right? 😎
 
