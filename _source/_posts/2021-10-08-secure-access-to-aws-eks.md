@@ -4,7 +4,7 @@ title: "Secure Access to AWS EKS Clusters for Admins"
 author: nicolas-triballier
 by: advocate
 communities: [devops]
-description: "Secure Access to AWS EKS Clusters with Okta."
+description: "This tutorial is a step-by-step guide for admins on how to implement secure access to AWS EKS Clusters with Okta."
 tags: [aws, eks, devops, oidc, kubectl]
 tweets:
 - "TweetStuff!"
