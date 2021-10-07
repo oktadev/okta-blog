@@ -5,7 +5,7 @@ author: nicolas-triballier
 by: advocate
 communities: [devops]
 description: "Secure Access to AWS EKS Clusters with Okta."
-tags: [AWS, EKS, devops, OIDC, kubectl]
+tags: [aws, eks, devops, oidc, kubectl]
 tweets:
 - "TweetStuff!"
 image: blog/secure-access-to-eks/2.png
