@@ -135,7 +135,7 @@ Let's create a brand new EKS cluster.
 
 {% img blog/secure-access-to-eks/15.png alt:"EKS Cluster - Review and create" width:"800" %}{: .center-image }
 
-Your EKS cluster will take a couple of minutes to start. In the meantime, let's do the configuration on the Okta side.Then we'll come back to the AWS Console to configure Okta as the OIDC provider for the EKS cluster.
+Your EKS cluster will take a couple of minutes to start. In the meantime, let's do the configuration on the Okta side. Then we'll come back to the AWS Console to configure Okta as the OIDC provider for the EKS cluster.
 
 ### Configure Your Okta Org
 
