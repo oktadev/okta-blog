@@ -51,7 +51,7 @@ Okta, Inc. is an identity and access management company, providing cloud softwar
 
 ### What is Kubernetes?
 
-Kubernetes, also known by the abbreviation k8s, is an open-source system for automating deployment, scaling, and management of containerized applications. See  [https://kubernetes.io/](https://kubernetes.io/). 
+Kubernetes, also known by the abbreviation k8s, is an open-source container orchestration platform for automating deployment, scaling, and management of containerized applications. See  [https://kubernetes.io/](https://kubernetes.io/). 
 
 ### What is AWS EKS?
 
