@@ -537,7 +537,7 @@ kubectl config get-contexts
 
 {% img blog/secure-access-to-eks/55.png alt:"Kubectl Get Contexts" width:"800" %}{: .center-image }
         
-- Install [kubelogin](https://github.com/int128/kubelogin)  (the OIDC helper for kubectl)
+- Install [kubelogin](https://github.com/int128/kubelogin)  (the OIDC helper for kubectl). Run this for mac/Linux:
     
 ```sh
 brew install int128/kubelogin/kubelogin
