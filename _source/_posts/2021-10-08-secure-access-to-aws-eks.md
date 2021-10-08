@@ -14,7 +14,7 @@ type: conversion
  
 {% img blog/secure-access-to-eks/1.gif alt:"UX kubectl with Okta" width:"800" %}{: .center-image }
 
-In this tutorial, we will leverage [OpenID Connect](https://www.okta.com/openid-connect/) (OIDC) to allow our DevOps team to securely access their EKS clusters on AWS. We use  [Role Based Access Control (RBAC) ](https://www.okta.com/identity-101/what-is-role-based-access-control-rbac/)] to enforce least privilege without the need to configure AWS IAM roles. 😎
+In this tutorial, we will leverage [OpenID Connect](https://www.okta.com/openid-connect/) (OIDC) to allow our DevOps team to securely access their EKS clusters on AWS. We use  [Role Based Access Control (RBAC)](https://www.okta.com/identity-101/what-is-role-based-access-control-rbac/)] to enforce the least privilege required without the need to configure AWS IAM roles. 😎
 
 We'll highlight the steps to manually enable an OIDC provider on your EKS clusters. At the end of this tutorial, we'll point to resources you can leverage to automate all those steps.
 
