@@ -529,6 +529,8 @@ kubectl config use-context arn:aws:eks:us-west-1:013353681016:cluster/eks-cluste
        
 You may want to adjust the context name in the above command based on the context name in your own config file.
 
+You may want to adjust the context name in the above command based on the context name in your own config file.
+
 - Double-check that the current context is properly set.
     
 ```sh
