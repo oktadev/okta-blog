@@ -261,7 +261,7 @@ Now let's run a test to see what our `id_token` will look like when the Okta Aut
     - **User: your user**
     - Under **Scopes**, enter **openid, email, profile, offline_access**
         
-- Then click on **Token Preview**. On the right side of the screen, you'll  see a preview of your id_token. So far it has all the claims we're looking for, including:
+- Then click on **Token Preview**. On the right side of the screen, you'll  see a preview of your `id_token`. So far it has all the claims we're looking for, including:
     
     - "email": typically matches your Okta username
     - "groups": contains an array of groups the user is a member of, including "eks-admins"
