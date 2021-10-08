@@ -621,7 +621,7 @@ kubectl --user=oidc get pods --all-namespaces
 
 {% img blog/secure-access-to-eks/63.png alt:"Terminal - Kubectl Get Pods" width:"800" %}{: .center-image }
         
-As expected, we're not authorized. Since we're no longer a member of the eks-admins Okta group, the group is no longer injected in the id_token, and the Kubernetes API Server no longer applies the cluster-admin role.
+As expected, we're not authorized. Since we're no longer a member of the eks-admins Okta group, the group is no longer injected in the `id_token`, and the Kubernetes API Server no longer applies the cluster-admin role.
 
 - Once again, let's delete the cached id_token in the `~/.kube/cache/oidc-login` folder. 
 - Let's add ourselves again to the eks-admins Okta group.
