@@ -253,7 +253,7 @@ You should see this view:
 
 {% img blog/secure-access-to-eks/34.png alt:"Okta Admin Console - Authorization Server - List Of Rules On A Policy" width:"800" %}{: .center-image }
 
-Now let's run a test to see what our id_token will look like when the Okta AuthZ Server mints it.  
+Now let's run a test to see what our `id_token` will look like when the Okta AuthZ Server mints it.  
 
 - Go to the **Token Preview** tab and enter the following **Request Properties**:
     - **OAuth/OIDC client: EKS**
