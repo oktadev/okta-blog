@@ -220,7 +220,7 @@ Now let's add a custom claim "groups" in the `id_token` that Okta will generate,
 
 {% img blog/secure-access-to-eks/29.png alt:"Okta Admin Console - Authorization Server - New Groups Claim" width:"600" %}{: .center-image }
         
-- Now let's create an access policy on this AuthZ Server to drive when the AuthZ Server should mint the id_token.
+- Now let's create an access policy on this AuthZ Server to drive when the AuthZ Server should mint the `id_token`.
     
     - Go to the **Access Policies** tab and select **Add Policy**
 
