@@ -66,7 +66,7 @@ Let's take an EKS cluster deployed in AWS. We'll perform the following steps:
 -   add Okta as an OIDC provider to the EKS cluster
 -   configure the k8s API server so it prompts the user for Authentication (AuthN)
 -   configure RBAC Authorization (AuthZ), mapping Okta groups with given k8s roles
--   leverage an OIDC plugin that 1) prompts the user for AuthN in the web browser and 2) retrieves the [JSON Web Token  (JWT)](/blog/2020/12/21/beginners-guide-to-jwt) id_token from Okta and passes it to our [kubectl (Kubernetes command-line tool)](https://kubernetes.io/docs/tasks/tools/) commands
+-   leverage an OIDC plugin that 1) prompts the user for AuthN in the web browser and 2) retrieves the [JSON Web Token  (JWT)](/blog/2020/12/21/beginners-guide-to-jwt) `id_token` from Okta and passes it to our [kubectl (Kubernetes command-line tool)](https://kubernetes.io/docs/tasks/tools/) commands
     
 
 Ready? Let's get started!
