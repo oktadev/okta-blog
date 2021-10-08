@@ -107,7 +107,7 @@ Note: We recommend configuring [access to the AWS Console using Okta SSO+MFA](ht
 
 {% img blog/secure-access-to-eks/9.png alt:"AWS EKSCluster Role View" width:"800" %}{: .center-image }
 
-### Create a new EKS cluster
+### Create a New EKS Cluster
 
 Let's create a brand new EKS cluster.
 
