@@ -447,7 +447,7 @@ Below is the text to include:
         command: kubectl
 ```
 
-This basically specifies the config of the OIDC provider. Note: Replace the `oidc-issuer-url` and `oidc-client-id` with your own values.
+This basically specifies the config of the OIDC provider. Note: Replace the `oidc-issuer-url` and `oidc-client-id` with Issuer URL and Client ID we copied earlier.
 
 Once you're done editing the file:
 
