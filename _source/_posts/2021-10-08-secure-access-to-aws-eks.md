@@ -599,7 +599,7 @@ ls
 
 {% img blog/secure-access-to-eks/61.png alt:"Terminal - Content Of The cache/oidc-login Folder" width:"600" %}{: .center-image }
            
-- That first file contains the id_token Okta minted. Let's delete it.
+- That first file contains the `id_token` Okta minted. Let's delete it.
     
 ```sh
 rm 8ead66f63afa81d7300257989c391d035f386b80758a2847c99d37ecdd5610e0
