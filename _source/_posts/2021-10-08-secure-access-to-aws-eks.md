@@ -29,7 +29,7 @@ Below is the target architecture you'll be deploying:
 ## Who This Quick-Start Guide Is For
 
 This tutorial is intended to show AWS DevOps and Identity Security administrator teams how to securely access Amazon Elastic Kubernetes Service (EKS) clusters. Anyone with an interest in Identity Security best practices can learn from this guide, but it assumes at least some knowledge of:
--   k8s, API Server, RBAC Authorization, role binding
+-   Kubernetes (k8s),  k8s API Server, k8s RBAC Authorization, and k8s role binding
 -   AWS Console, EKS, AWS CloudShell
 -   Terminal on a end-user workstation (e.g. macOS, Windows, Linux)
     
