@@ -182,7 +182,7 @@ Now we'll create a new OIDC client. We'll leverage the [AuthCode + PKCE grant ty
 {% img blog/secure-access-to-eks/23.png alt:"Okta Admin Console - App Configuration" width:"800" %}{: .center-image }
 
 -   Then **Save**.
--   In the **General** tab, be sure to select **Use PKCE**. Then copy the client id, we'll need it later:
+-   In the **General** tab, be sure to select **Use PKCE**. Then copy the **Client ID**, we'll need it later:
 
 {% img blog/secure-access-to-eks/24.png alt:"Okta Admin Console - App Configuration - General Tab" width:"600" %}{: .center-image }
     
