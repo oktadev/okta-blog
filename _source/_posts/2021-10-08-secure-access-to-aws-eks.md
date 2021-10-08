@@ -31,7 +31,7 @@ Below is the target architecture you'll be deploying:
 This tutorial will show you how to leverage OIDC to securely access Amazon Elastic Kubernetes Service (EKS) clusters. It's intended for AWS DevOps and Identity Security administrator teams. Anyone with an interest in Identity Security best practices can learn from this guide, but it assumes at least some knowledge of:
 -   k8s, API Server, RBAC Authorization, role binding
 -   AWS Console, EKS, AWS CloudShell
--   Terminal on a end-user workstation (e.g. MacOS, Windows, Linux)
+-   Terminal on a end-user workstation (e.g. macOS, Windows, Linux)
     
 ## What You'll Need to Get Started 
 
