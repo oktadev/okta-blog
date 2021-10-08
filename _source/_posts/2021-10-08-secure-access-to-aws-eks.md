@@ -75,7 +75,7 @@ Ready? Let's get started!
 
 Let's first deploy a brand new EKS cluster. We'll do it manually from the AWS Console.
 
-Note: We recommend configuring [access to the AWS Console using Okta SSO+MFA](https://docs.aws.amazon.com/singlesignon/latest/userguide/okta-idp.html)
+Note: We recommend configuring [access to the AWS Console using Okta SSO+MFA](https://docs.aws.amazon.com/singlesignon/latest/userguide/okta-idp.html).
 
 ### Create a New Cluster Service Role
 
