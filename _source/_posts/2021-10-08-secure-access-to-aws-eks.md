@@ -492,7 +492,7 @@ The path to our kubeconfig file is `/home/cloudshell-user/.kube/config`, as show
     
 You should now have a copy of the config file in your Downloads folder.  
 
-- Install kubectl on your local machine. (See the [instructions to install kubectl on MacOS](https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/)).
+- Install kubectl on your local machine. (See the [instructions to install kubectl on macOS](https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/)).
     
 - Double-check that kubectl is properly installed.
     
