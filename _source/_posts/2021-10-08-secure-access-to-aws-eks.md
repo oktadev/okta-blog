@@ -168,7 +168,7 @@ Now we'll create a new OIDC client. We'll leverage the [AuthCode + PKCE grant ty
 
 {% img blog/secure-access-to-eks/21.png alt:"Okta Admin Console - Add Application" width:"800" %}{: .center-image }
     
--  Select **Sign-in method OIDC - OpenID Connect**", **Application type Native Application**, then click Next:
+-  Select **Sign-in method OIDC - OpenID Connect**, **Application type Native Application**, then click Next:
 
 {% img blog/secure-access-to-eks/22.png alt:"Okta Admin Console - New OIDC Native App" width:"800" %}{: .center-image }
     
