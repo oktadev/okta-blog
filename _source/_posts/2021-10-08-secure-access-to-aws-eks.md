@@ -470,7 +470,7 @@ There are two things we need to configure:
 
 - Export the `kubeconfig` file and import it to your laptop. 
     
-- Configure a kubectl OIDC plugin to prompt the user for AuthN and request an id_token. We'll use [kubelogin](https://github.com/int128/kubelogin).
+- Configure a kubectl OIDC plugin to prompt the user for AuthN and request an `id_token`. We'll use [kubelogin](https://github.com/int128/kubelogin).
     
 From your CloudShell, enter the command:
 
