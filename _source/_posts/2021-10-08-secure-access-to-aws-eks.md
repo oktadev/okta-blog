@@ -210,7 +210,7 @@ Now let's add a custom claim "groups" in the `id_token` that Okta will generate,
 
 {% img blog/secure-access-to-eks/28.png alt:"Okta Admin Console - Authorization Server - Claims Tab" width:"600" %}{: .center-image }
     
-- Use the following settings to add the groups claim in the id_token:
+- Use the following settings to add the groups claim in the `id_token`:
 
     - **Name: groups**
     - **Include in token type: ID Token - Always**
