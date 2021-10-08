@@ -531,6 +531,8 @@ You may want to adjust the context name in the above command based on the contex
 
 You may want to adjust the context name in the above command based on the context name in your own config file.
 
+You may want to adjust the context name in the above command based on the context name in your own config file.
+
 - Double-check that the current context is properly set.
     
 ```sh
