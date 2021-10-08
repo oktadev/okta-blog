@@ -509,7 +509,7 @@ kubectl version --client
 
 {% img blog/secure-access-to-eks/52.png alt:"Path To Local Kubeconfig File" width:"600" %}{: .center-image }
         
-- Delete any existing config files and add the one from CloudShell:
+- Rename any existing config files as a backup and add the one from CloudShell:
 
 {% img blog/secure-access-to-eks/53.png alt:"Local Kubeconfig File" width:"400" %}{: .center-image }
     
