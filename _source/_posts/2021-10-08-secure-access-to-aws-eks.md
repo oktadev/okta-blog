@@ -204,7 +204,7 @@ Now we'll create a new OIDC client. We'll leverage the [AuthCode + PKCE grant ty
 
 {% img blog/secure-access-to-eks/27.png alt:"Okta Admin Console - Authorization Server Settings Tab" width:"600" %}{: .center-image }
 
-Now let's add a custom claim "groups" in the id_token that Okta will generate, to list the groups of the connected user.
+Now let's add a custom claim "groups" in the `id_token` that Okta will generate, to list the groups of the connected user.
 
 -   Go to the **Claims** tab and select **Add Claim**.
 
