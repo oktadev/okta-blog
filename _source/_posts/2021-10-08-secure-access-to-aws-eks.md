@@ -559,7 +559,7 @@ You should be prompted to authenticate in your web browser against your Okta org
 
 - You can close this tab.
     
-- Check your terminal. You should see a confirmation that you've received an id_token from Okta:
+- Check your terminal. You should see a confirmation that you've received an `id_token` from Okta:
 
 {% img blog/secure-access-to-eks/58.png alt:"Terminal - Post Authentication Notes" width:"800" %}{: .center-image }
     
