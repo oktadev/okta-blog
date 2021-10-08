@@ -28,7 +28,7 @@ Below is the target architecture you'll be deploying:
 
 ## Who This Quick-Start Guide Is For
 
-This tutorial will show you how to leverage OIDC to securely access Amazon Elastic Kubernetes Service (EKS) clusters. It's intended for AWS DevOps and Identity Security administrator teams. Anyone with an interest in Identity Security best practices can learn from this guide, but it assumes at least some knowledge of:
+This tutorial is intended to show AWS DevOps and Identity Security administrator teams how to securely access securely access Amazon Elastic Kubernetes Service (EKS) clusters.  Anyone with an interest in Identity Security best practices can learn from this guide, but it assumes at least some knowledge of:
 -   k8s, API Server, RBAC Authorization, role binding
 -   AWS Console, EKS, AWS CloudShell
 -   Terminal on a end-user workstation (e.g. macOS, Windows, Linux)
@@ -40,7 +40,7 @@ The prerequisites to complete this tutorial are:
     -   One or more Okta administrative user(s)
     -   One or more Okta test user(s)        
     -   Okta administrator rights       
--   Workstation(s) running a supported version of MacOS, Windows, or Linux 
+-   Workstation(s) running a supported version of macOS, Windows, or Linux 
     -   Installation permissions  
     -   SSH terminal application  
     -   HTTPS web browser (recommended)
@@ -200,7 +200,7 @@ Now we'll create a new OIDC client. We'll leverage the [AuthCode + PKCE grant ty
 
 {% img blog/secure-access-to-eks/26.png alt:"Okta Admin Console - Authorization Server Configuration" width:"600" %}{: .center-image }
 
-- On the next screen, copy the **Issuer URL** from the Settings tab. We'll need it later:
+- On the next screen, copy the **Issuer URL** from the **Settings** tab. We'll need it later:
 
 {% img blog/secure-access-to-eks/27.png alt:"Okta Admin Console - Authorization Server Settings Tab" width:"600" %}{: .center-image }
 
