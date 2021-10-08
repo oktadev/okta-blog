@@ -47,7 +47,7 @@ The prerequisites to complete this tutorial are:
         
 ### What is Okta?
 
-Okta, Inc. is an identity and access management company, providing cloud software that helps companies manage and secure user authentication into applications, and for developers to build identity controls into applications, website web services, and devices. You get scalable authentication built right into your application without the development overhead, security risks, and maintenance that come from building it yourself.
+Okta, Inc. is an identity and access management company, providing cloud software that helps companies manage and secure user authentication into applications, and for developers to build identity controls into applications, websites, web services, and devices. You get scalable authentication built right into your application without the development overhead, security risks, and maintenance that come from building it yourself.
 
 ### What is Kubernetes?
 
