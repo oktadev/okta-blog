@@ -583,7 +583,7 @@ Let's double-check that our RBAC controls are working as expected. Currently we'
 
 {% img blog/secure-access-to-eks/60.png alt:"Okta Admin Console - Remove User From Group" width:"800" %}{: .center-image }
     
-- Then, let's delete the cached id_token on our laptop.
+- Then, let's delete the cached `id_token` on our laptop.
     
     - In your terminal, run:
         
