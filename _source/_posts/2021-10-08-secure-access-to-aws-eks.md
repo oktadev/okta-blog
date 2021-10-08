@@ -139,7 +139,7 @@ Your EKS cluster will take a couple of minutes to start. In the meantime, let's 
 
 ### Configure Your Okta Org
 
-In the Okta admin console, we'll create a group of users that we'll assign to a OIDC client, and we'll configure the AuthZ Server to inject the list of groups into the id_token.
+In the Okta admin console, we'll create a group of users that we'll assign to a OIDC client, and we'll configure the AuthZ Server to inject the list of groups into the `id_token`.
 
 - Go to your Okta admin console
 - Let's create a group. Go to the sidebar menu and select **Directory > Groups > Add Group**.
