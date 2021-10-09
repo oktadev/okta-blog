@@ -31,7 +31,9 @@ Fast forward to 2021:  I have more than a decade of experience wearing all sorts
 
 I now co-lead JHipster along with [Julien Dubois](https://twitter.com/juliendubois) and [Pascal Grimaud](https://twitter.com/pascalgrimaud). While I don't actively code that much for JHipster these days, somehow I still hold the number two position in terms of contributions 😉. Fun fact:  Okta was an early supporter of JHipster, and thanks to [Matt Raible](https://developer.okta.com/blog/authors/matt-raible/), Okta is now the platinum sponsor for JHipster.
 
-In 2016, I moved to the Netherlands to join a DevOps startup and helped build an analytics product, developer tooling, and Cloud and Container integrations working mostly with Java, Scala, TypeScript, and Golang. This is where my fascination for cloud and container tech began. While I was doing some sort of advocacy all along for JHipster and DevOps, in terms of writing content, conference talks, meetups, and so on, in 2020 I officially became a paid Developer Advocate for Adyen, a unicorn in the FinTech space. And as part of my OSS endeavors, I continue contributing to Java and JS communities and recently got fascinated with Rust and built a Kubernetes dashboard in Rust, called [KDash](https://kdash.cli.rs/). I'm hoping to get more involved in the Rust community as well.
+In 2016, I moved to the Netherlands to join a devops startup and helped build an analytics product, developer tooling, and cloud and container integrations. I worked mostly with Java, Scala, TypeScript, and Golang. This is where my fascination for cloud and container tech began. I had been doing some advocacy all along for JHipster and devops, in terms of writing content, conference talks, meetups, and so on, in 2020 I officially became a paid Developer Advocate for Adyen, a unicorn in the fintech space. 
+
+As part of my open-source software endeavors, I continue contributing to Java and JS communities. Recently I got fascinated with Rust and built a Kubernetes dashboard in Rust, called [KDash](https://kdash.cli.rs/). I'm hoping to get more involved in the Rust community as well.
 
 ## What are you going to do at Okta?
 
