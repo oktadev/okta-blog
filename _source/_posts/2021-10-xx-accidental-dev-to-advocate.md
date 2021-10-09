@@ -35,7 +35,7 @@ In 2016, I moved to the Netherlands to join a devops startup and helped build an
 
 As part of my open-source software endeavors, I continue contributing to Java and JS communities. Recently I got fascinated with Rust and built a Kubernetes dashboard in Rust, called [KDash](https://kdash.cli.rs/). I'm hoping to get more involved in the Rust community as well.
 
-## What are you going to do at Okta?
+## What I'll be doing at Okta 
 
 As someone who has been following Okta closely for many years, it's an honor to finally be here. Though I have dabbled with a lot of things and was fortunate to work with a lot of different technologies, my expertise is still around Java, JS, Golang, Rust, and DevOps. So I hope to use that to contribute towards those communities as much as possible while making Okta a well-known name in the DevOps space. So stay tuned for more content, talks, and OSS contributions in those areas. While here, I also hope to make the developer experience better for developers using Okta products, especially in the DevOps space.
 
