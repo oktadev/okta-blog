@@ -39,7 +39,7 @@ As part of my open-source software endeavors, I continue contributing to Java an
 
 As someone who has been following Okta closely for many years, it's an honor to finally be here. Though I have dabbled in a lot of things and was fortunate to work with a lot of different technologies, my expertise is still around Java, JS, Golang, Rust, and devops. I hope to use my skills to contribute towards those communities as much as possible while making Okta a well-known name in the devops space. Stay tuned for more content, talks, and OSS contributions in those areas. While here, I also hope to make the developer experience better for developers using Okta products, especially in the devops space.
 
-## How to get in touch?
+## How to get in touch
 
 You can find me on [Twitter](https://twitter.com/deepu105), [LinkedIn](https://www.linkedin.com/in/deepu05) or [GitHub](https://github.com/deepu105). I have an active tech blog at [deepu.tech](https://deepu.tech/blogs/), where you can find me writing about my love for Linux, why I like Rust, or my opinion on tech in general among other content. You will also find me writing technical pieces on this blog very soon.
 
