@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Spreading some Okta love to the DevOps world"
+title: "Spreading Some Okta Love to the DevOps World"
 author: deepu-sasidharan
 by: advocate
 communities: [java, javascript, go, rust, devops, announcement]
