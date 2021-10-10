@@ -19,7 +19,7 @@ So finally, I have landed at Okta on my second attempt 😉. I'm so excited abou
 
 {% img blog/hello-deepu/hello.jpg alt:"My face" width:"800" %}{: .center-image }
 
-## Who is this guy?
+## Who am I
 
 I'm from the south of India, a village in Kerala to be specific, but I grew up in Chennai since my parents moved there looking for work when I was 12. I like to call myself a software engineer with a soldering iron. That's because I never intended to be in the IT industry. I wanted to be an astronomer, but that didn't work out, so I wanted to get into robotics. To pursue that, I got myself an engineering degree in electronics and electrical engineering, but apparently, the universe had different plans. 
 
@@ -41,6 +41,6 @@ As someone who has been following Okta closely for many years, it's an honor to 
 
 ## How to get in touch
 
-You can find me on [Twitter](https://twitter.com/deepu105), [LinkedIn](https://www.linkedin.com/in/deepu05) or [GitHub](https://github.com/deepu105). I have an active tech blog at [deepu.tech](https://deepu.tech/blogs/), where you can find me writing about my love for Linux, why I like Rust, or my opinion on tech in general among other content. You will also find me writing technical pieces on this blog very soon.
+You can find me on [Twitter](https://twitter.com/deepu105), [LinkedIn](https://www.linkedin.com/in/deepu05) or [GitHub](https://github.com/deepu105). You can also write to `deepu.sasidharan@okta.com`. I have an active tech blog at [deepu.tech](https://deepu.tech/blogs/), where you can find me writing about my love for Linux, why I like Rust, or my opinion on tech in general among other content. You will also find me writing technical pieces on this blog very soon.
 
 Please do connect with me in your channel of choice and shoot me a message if you have any questions or if you just wanna chat.
