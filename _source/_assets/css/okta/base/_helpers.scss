@@ -41,13 +41,25 @@
 }
 
 .show-for-small {
-  @include media('>=small') {
+  @include media('>small') {
     display: none;
   }
 }
 
 .hide-for-small {
-  @include media('<small') {
+  @include media('<=small') {
+    display: none;
+  }
+}
+
+.show-for-medium {
+  @include media('>=medium') {
+    display: none;
+  }
+}
+
+.hide-for-medium {
+  @include media('<medium') {
     display: none;
   }
 }
@@ -57,7 +69,7 @@
 }
 
 .menu-dropdown-wrapper {
-  @include media('<small') {
+  @include media('<=small') {
     left: 0;
     top: 69px;
     opacity: 0;
