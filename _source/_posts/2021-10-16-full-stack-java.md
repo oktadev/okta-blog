@@ -96,7 +96,7 @@ JHipster will prompt you for the type of application to create and what technolo
 | Bootswatch theme? | `United` > `Dark` |
 | Enable i18n? | `Yes` |
 | Native language of application? | `English` |
-| Additional languages? | `Portuguese (Brazilian)` |
+| Additional languages? | Your choice! |
 | Additional testing frameworks? | `Cypress` |
 | Install other generators? | `No` |
 
