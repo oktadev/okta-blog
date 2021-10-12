@@ -16,12 +16,12 @@ type: conversion
 
 If you search for "Full Stack Java" on the internet, you'll likely find a lot of recruiting, courses, and jobs. Being a full stack developer can be exciting because you can create the backend and frontend of an app all by yourself. There is business logic and algorithms as well as styling, making things look good, and securing everything. It also pays pretty well. Today, I'm going to show you how you can be a full stack Java developer with Spring Boot, React, and JHipster.
 
-If you haven't heard of JHipster, boy do I have a treat for you! JHipster started as a Yeoman application generator back in 2013 and has grown to become a development platform. It allows you to quickly generate, develop, and deploy modern web apps and microservice architectures. Today, I'll show you how to build a Flickr clone with JHipster and lock it down with OAuth and OpenID Connect (OIDC).
-
 **Prerequisites:**
 
 - [Node.js 14+](https://nodejs.org/)
 - [Java 11+](https://sdkman.io)
+
+I recommend using SDKMAN to manage your OpenJDK installations. Just run `sdk install java 11.0.2-open` for Java 11 and `sdk install java 17-open` for Java 17.
 
 **Table of Contents**{: .hide }
 * Table of Contents
@@ -38,6 +38,8 @@ Today, I'll show you how to build a Flickr clone with React and Spring Boot. How
 In this tutorial, we'll use React since it seems to be [the most popular](https://trends.google.com/trends/explore?q=angular,react,vuejs) frontend framework nowadays. 
 
 ## Get Started with JHipster 7
+
+If you haven't heard of [JHipster](https://www.jhipster.tech), boy do I have a treat for you! JHipster started as a Yeoman application generator back in 2013 and has grown to become a development platform. It allows you to quickly generate, develop, and deploy modern web apps and microservice architectures. Today, I'll show you how to build a Flickr clone with JHipster and lock it down with OAuth and OpenID Connect (OIDC).
 
 To get started with JHipster, you'll need a fast internet connection and Node.js installed. The project recommends you use the latest LTS (Long Term Support) version, which is 14.7.6 at the time of this writing. To run the app, you'll need to have Java 11 installed. If you have Git installed, JHipster will auto-commit your project after creating it. This will allow you to upgrade between versions.
 
