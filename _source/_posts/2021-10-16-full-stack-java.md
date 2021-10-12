@@ -363,7 +363,7 @@ jhipster jdl flickr2.jdl
 
 When prompted, type `a` to allow overwriting of existing files.
 
-This process will create Liquibase changelog files (to create your database tables), entities, repositories, Spring MVC controllers, and all the React code that's necessary to create, read, update, and delete your entities. It'll even generate JUnit unit tests, Jest unit tests, and Cypress end-to-end tests!
+This process will create Liquibase changelog files (to create your database tables), entities, repositories, Spring MVC controllers, and all the React code necessary to create, read, update, and delete your entities. It'll even generate JUnit unit tests, Jest unit tests, and Cypress end-to-end tests!
 
 After the process completes, you can restart your app, log in, and browse through the **Entities** menu. Try adding some data to confirm everything works.
 
