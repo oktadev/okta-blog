@@ -187,9 +187,9 @@ Switch to the **Settings** tab and configure your application settings:
 
 Scroll to the bottom and click **Save Changes**.
 
-Navigate to **User Management** > **Roles** and create new roles named `ROLE_ADMIN` and `ROLE_USER`.
+In the [roles](https://manage.auth0.com/#/roles) section, create new roles named `ROLE_ADMIN` and `ROLE_USER`.
 
-Go to **User Management** > **Users** and create a new user account. Click on the **Role** tab to assign the roles you just created to the new account. 
+Create a new user account in the [users](https://manage.auth0.com/#/users) section. Click on the **Role** tab to assign the roles you just created to the new account. 
 
 _Make sure your new user's email is verified before attempting to log in!_
 
@@ -215,6 +215,43 @@ function(user, context, callback) {
   }
 
   callback(null, user, context);
+}
+```
+
+This code is adding the user's role to a custom claim (prefixed with `https://www.jhipster.tech/roles`). This claim is mapped to Spring Security authorities in `SecurityUtils.java`.
+
+```java
+public static List<GrantedAuthority> extractAuthorityFromClaims(Map<String, Object> claims) {
+    return mapRolesToGrantedAuthorities(getRolesFromClaims(claims));
+}
+
+@SuppressWarnings("unchecked")
+private static Collection<String> getRolesFromClaims(Map<String, Object> claims) {
+    return (Collection<String>) claims.getOrDefault(
+        "groups",
+        claims.getOrDefault("roles", claims.getOrDefault(CLAIMS_NAMESPACE + "roles", new ArrayList<>()))
+    );
+}
+```
+
+The `SecurityConfiguration.java` class has a bean that calls this method configure a user's roles.
+
+```java
+@Bean
+public GrantedAuthoritiesMapper userAuthoritiesMapper() {
+    return authorities -> {
+        Set<GrantedAuthority> mappedAuthorities = new HashSet<>();
+
+        authorities.forEach(authority -> {
+            // Check for OidcUserAuthority because Spring Security 5.2 returns
+            // each scope as a GrantedAuthority, which we don't care about.
+            if (authority instanceof OidcUserAuthority) {
+                OidcUserAuthority oidcUserAuthority = (OidcUserAuthority) authority;
+                mappedAuthorities.addAll(SecurityUtils.extractAuthorityFromClaims(oidcUserAuthority.getUserInfo().getClaims()));
+            }
+        });
+        return mappedAuthorities;
+    };
 }
 ```
 
