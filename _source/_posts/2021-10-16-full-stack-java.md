@@ -4,7 +4,7 @@ title: "Full Stack Java with React, Spring Boot, and JHipster"
 author: matt-raible
 by: advocate
 communities: [java,javascript]
-description: "This tutorial shows you how to be a full stack Java developer with React and Spring Boot."
+description: "This tutorial shows you how to create a slick-looking, full-stack, secure application using React, Spring Boot, and JHipster."
 tags: [java, full-stack, react, spring-boot, jhipster]
 tweets:
 - ""
