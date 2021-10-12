@@ -90,21 +90,22 @@ When you choose OAuth 2.0 and OIDC for authentication, the users are stored outs
 Here's what the `keycloak.yml` looks like in your app's `src/main/docker` directory:
 
 ```yaml
-# This configuration is intended for development purpose, it's **your** responsibility to harden it for production
+# This configuration is intended for development purpose, it's **your** responsibility
+# to harden it for production
 version: '3.8'
 services:
   keycloak:
-    image: jboss/keycloak:14.0.0
+    image: jboss/keycloak:15.0.2
     command:
       [
-        '-b',
-        '0.0.0.0',
-        '-Dkeycloak.migration.action=import',
-        '-Dkeycloak.migration.provider=dir',
-        '-Dkeycloak.migration.dir=/opt/jboss/keycloak/realm-config',
-        '-Dkeycloak.migration.strategy=OVERWRITE_EXISTING',
-        '-Djboss.socket.binding.port-offset=1000',
-        '-Dkeycloak.profile.feature.upload_scripts=enabled',
+          '-b',
+          '0.0.0.0',
+          '-Dkeycloak.migration.action=import',
+          '-Dkeycloak.migration.provider=dir',
+          '-Dkeycloak.migration.dir=/opt/jboss/keycloak/realm-config',
+          '-Dkeycloak.migration.strategy=OVERWRITE_EXISTING',
+          '-Djboss.socket.binding.port-offset=1000',
+          '-Dkeycloak.profile.feature.upload_scripts=enabled',
       ]
     volumes:
       - ./realm-config:/opt/jboss/keycloak/realm-config
@@ -124,7 +125,7 @@ Start Keycloak with the following command in a terminal window.
 [Install Docker Compose](https://docs.docker.com/compose/install/) if you don't already have it.
 
 ```shell
-docker-compose -f src/main/docker/keycloak.yml up
+docker-compose -f src/main/docker/keycloak.yml up -d
 ```
 
 You can verify everything works by starting your app with Maven:
@@ -133,7 +134,7 @@ You can verify everything works by starting your app with Maven:
 ./mvnw
 ```
 
-Open another terminal to run the Cypress tests:
+Open another terminal to run your new app's Cypress tests:
 
 ```shell
 npm run e2e
@@ -146,10 +147,10 @@ You should see output like the following:
 
        Spec                                              Tests  Passing  Failing  Pending  Skipped
   ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
-  │ ✔  administration/administration.spec.      00:08        5        5        -        -        - │
+  │ ✔  administration/administration.spec.      00:12        5        5        -        -        - │
   │    ts                                                                                          │
   └────────────────────────────────────────────────────────────────────────────────────────────────┘
-    ✔  All specs passed!                        00:08        5        5        -        -        -
+    ✔  All specs passed!                        00:12        5        5        -        -        -
 ```
 
 ## Change your Identity Provider to Auth0
@@ -182,6 +183,8 @@ Switch to the **Settings** tab and configure your application settings:
 - Allowed Callback URLs: `http://localhost:8080/login/oauth2/code/oidc`
 - Allowed Logout URLs: `http://localhost:8080/`
 
+Scroll to the bottom and click **Save Changes**.
+
 Navigate to **User Management** > **Roles** and create new roles named `ROLE_ADMIN` and `ROLE_USER`.
 
 Go to **User Management** > **Users** and create a new user account. Click on the **Role** tab to assign the roles you just created to the new account.
@@ -210,6 +213,7 @@ function(user, context, callback) {
   callback(null, user, context);
 }
 ```
+
 Click **Save changes** to continue.
 
 **NOTE**: Want to have all these steps automated for you? Vote for [this issue](https://github.com/auth0/auth0-cli/issues/351) in the Auth0 CLI project.
