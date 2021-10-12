@@ -584,7 +584,7 @@ You can also add a "lightbox" feature to the grid so you can click on photos and
 
 ## Make Your Full Stack Java App Into a PWA
 
-Progressive Web Apps, aka PWAs, are the best way for developers to make their webapps load faster and more performant. In a nutshell, PWAs are websites that use recent web standards to allow for installation on a user’s computer or device, and deliver an app-like experience to those users. To make a web app into a PWA:
+Progressive Web Apps, aka PWAs, are the best way for developers to make their webapps load faster and more performant. In a nutshell, PWAs are websites that use recent web standards to allow for installation on a user's computer or device, and deliver an app-like experience to those users. To make a web app into a PWA:
 
 1. Your app must be served over HTTPS
 2. Your app must register a service worker so it can cache requests and work offline
@@ -711,8 +711,8 @@ Since I didn't show you a lot about coding in Java, React, or Spring Boot, here 
 
 You might also enjoy these related blog posts:
 
-- [Learning Java as a First Language](https://developer.okta.com/blog/2018/12/11/learning-java-first-language)
-- [Reactive Java Microservices with Spring Boot and JHipster](https://developer.okta.com/blog/2021/01/20/reactive-java-microservices)
+- [Learning Java as a First Language](/blog/2018/12/11/learning-java-first-language)
+- [Reactive Java Microservices with Spring Boot and JHipster](/blog/2021/01/20/reactive-java-microservices)
 - [Build and Secure an API with Spring Boot and Kotlin](https://auth0.com/blog/build-and-secure-an-api-with-spring-boot/)
 - [The Complete Guide to React User Authentication with Auth0](https://auth0.com/blog/complete-guide-to-react-user-authentication/)
 
