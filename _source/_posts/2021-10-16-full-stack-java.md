@@ -386,7 +386,7 @@ By now, you can see that JHipster is pretty powerful. It recognized that you had
 
 ## Add Image EXIF Processing in Your Spring Boot API
 
-The `Photo` entity has a few properties that can be calculated by reading the EXIF (Exchangeable Image File Format) data from the uploaded photo. You might ask, how do you do that in Java?
+The `Photo` entity has a few properties that can be calculated by reading the uploaded photo's [EXIF](https://yourphotoadvisor.com/understanding-exif-data-what-it-is-and-what-to-do-with-it/) (Exchangeable Image File Format) data. You might ask, how do you do that in Java?
 
 Thankfully, Drew Noakes created a [metadata-extractor](https://github.com/drewnoakes/metadata-extractor) library to do just that. Add a dependency on Drew's library to your `pom.xml`:
 
