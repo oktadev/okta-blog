@@ -574,7 +574,7 @@ liquibase:
   contexts: dev
 ```
 
-Stop your Spring Boot backend and run `rm -r target/h2db` to clear out your database. Restart your backend.
+Stop your Spring Boot backend and run `rm -r target/h2db` to clear out your database (or just delete the `target/h2db` directory). Restart your backend.
 
 Now you should be able to upload photos and see the results in a nice grid at the top of the list.
 
@@ -583,6 +583,8 @@ Now you should be able to upload photos and see the results in a nice grid at th
 You can also add a "lightbox" feature to the grid so you can click on photos and zoom in. The [React Photo Gallery docs](https://neptunian.github.io/react-photo-gallery/) shows how to do this. I've integrated it into the example for this post, but I won't show the code here for the sake of brevity. You can see the [final `photo.tsx` with Lightbox added on GitHub](https://github.com/oktadev/auth0-full-stack-java-example/blob/main/src/main/webapp/app/entities/photo/photo.tsx) or a [diff of the necessary changes](https://github.com/oktadev/auth0-full-stack-java-example/commit/76dcf711816cb2f3455ba4b46264bf48002487f7).
 
 ## Make Your Full Stack Java App Into a PWA
+
+Progressive Web Apps, aka PWAs, are the best way for developers to make their webapps load faster and more performant. In a nutshell, PWAs are websites that use recent web standards to allow for installation on a user’s computer or device, and deliver an app-like experience to those users. To make a web app into a PWA:
 
 1. Your app must be served over HTTPS
 2. Your app must register a service worker so it can cache requests and work offline
