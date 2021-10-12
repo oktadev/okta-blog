@@ -274,7 +274,7 @@ _Voilà_ - your full stack app is now using Auth0! Open your favorite browser to
 
 {% img blog/full-stack-java/jhipster-homepage.png alt:"JHipster default homepage" width:"800" %}{: .center-image }
 
-Click **sign in** and you'll be redirected to Auth0 to log in.
+You should see your app's homepage with a link to sign in. Click **sign in** and you'll be redirected to Auth0 to log in.
 
 {% img blog/full-stack-java/auth0-login.png alt:"Auth0 Login" width:"800" %}{: .center-image }
 
@@ -293,6 +293,8 @@ export CYPRESS_E2E_USERNAME=<new-username>
 export CYPRESS_E2E_PASSWORD=<new-password>
 npm run e2e
 ```
+
+**TIP:** If you want to use a `.env` file for your environment variables, you can use [cypress-dotenv](https://www.npmjs.com/package/cypress-dotenv). You can also put these values in `cypress.json`, but since this file will be in source control, it's a bad practice to put your secrets in it.
 
 Everything should pass in around a minute.
 
