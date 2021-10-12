@@ -709,6 +709,10 @@ Then, test it with [Lighthouse](https://developers.google.com/web/tools/lighthou
 
 {% img blog/full-stack-java/lighthouse-score.png alt:"Lighthouse Score 💯" width:"800" %}{: .center-image }
 
+It's pretty darn secure too, at least according to [securityheaders.com](https://securityheaders.com).
+
+{% img blog/full-stack-java/security-headers.png alt:"Security Headers on Heroku" width:"800" %}{: .center-image }
+
 ## Learn More About Full Stack Java Development
 
 This tutorial shows you how to streamline full-stack Java development with JHipster. You developed a working application with a React frontend and a Spring Boot backend. You can find the app created in this tutorial on GitHub, in the [auth0-full-stack-java-example](https://github.com/oktadev/auth0-full-stack-java-example) repository.
