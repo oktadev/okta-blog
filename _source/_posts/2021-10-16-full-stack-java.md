@@ -21,6 +21,7 @@ If you search for "Full Stack Java" on the internet, you'll likely find a lot of
 
 - [Node.js 14+](https://nodejs.org/)
 - [Java 11+](https://sdkman.io)
+- [Docker Compose](https://docs.docker.com/compose/install/)
 
 If you're on Windows, you may need to install the [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/about) for some commands to work.
 
@@ -140,8 +141,7 @@ services:
       - 127.0.0.1:10990:10990
 ```
 
-Start Keycloak with the following command in a terminal window.
-[Install Docker Compose](https://docs.docker.com/compose/install/) if you don't already have it.
+Start Keycloak with the following command in your project's root directory.
 
 ```shell
 docker-compose -f src/main/docker/keycloak.yml up -d
