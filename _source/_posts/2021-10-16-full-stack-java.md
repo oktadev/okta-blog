@@ -178,7 +178,7 @@ You'll need to create a new web application in Auth0 and fill in the `<...>` pla
 
 Log in to your Auth0 account (or [sign up](https://auth0.com/signup) if you don't have an account). You should have a unique domain like `dev-xxx.eu.auth0.com`. 
 
-Go to **Applications** > **Create Application**. Use a name like `JHipster Baby!`, select `Regular Web Applications`, and click **Create**.
+Press the **Create Application** button in [Applications section](https://manage.auth0.com/#/applications). Use a name like `JHipster Baby!`, select `Regular Web Applications`, and click **Create**.
 
 Switch to the **Settings** tab and configure your application settings:
 
