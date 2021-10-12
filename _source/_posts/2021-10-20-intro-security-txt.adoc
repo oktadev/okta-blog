@@ -1,0 +1,90 @@
+---
+layout: blog_post
+title: "Security.txt: Make Vulnerabilities Easier to Report"
+author: brian-demers
+by: advocate
+communities: [security]
+description: "Reporting a vulnerability requires special handling, each company has a different process, a security.txt file can help!"
+tags: [securitytxt, security, vulnerabilities, github]
+tweets:
+- ""
+- ""
+- ""
+image:
+type: awareness
+---
+
+We all know that all software has bugs and that security is hard, but somehow we are still surprised when we see new vulnerabilities.
+
+In 2020, there were 18,395 vulnerabilities reported, which means about 50 new vulnerabilities are reported every day. These numbers only include what has been reported to MITRE's Common Vulnerability and Exposures (CVE) database, which means the actual value is likely much higher. Every year we add more software to the world, so these numbers will only increase. I didn't list this number here to scare you; more so, they are a fact of life, and we need to be aware of how to deal with them.
+
+== Reporting Vulnerabilities
+
+Vulnerabilities are NOT handled the same way as a typical software bug. A _properly_ handled vulnerability is reported privately to the project's maintainers, then fixed and released before any information about the vulnerability is made public. It may seem like a good idea to report a security issue on a GitHub Issues, but it isn't! Handling vulnerabilities privately may seem counter-intuitive, especially for open-source projects where everything is public, but this reduces potential exposure for everyone using the project.
+
+Okay, so if not a public issue tracker, then where do you report the issue?
+
+== Where Do You Report a Vulnerability
+
+The actual "where do you report a vulnerability" is where things get complicated; every project and company has a different process to handle vulnerabilities. Figuring who to report an issue to is often an exercise in frustration; try to browse a website, do a Google search, maybe even look on bug bounty sites like https://www.hackerone.com/[HackerOne] or https://www.bugcrowd.com/[Bugcrowd]. There is an easier way! Enter https://securitytxt.org/[`security.txt`], a https://datatracker.ietf.org/doc/html/draft-foudil-securitytxt-12[draft RFC], that aims to standardize a method for security policies to be discovered.
+
+Defining a `security.txt` is easy; create a small `.well-known/security.txt` file at the root of your domain containing your security team's contact information. There is even a form on https://securitytxt.org/[securitytxt.org] that will generate one for you in a few seconds!
+
+For example, Okta's https://www.okta.com/.well-known/security.txt is:
+
+[source,txt]
+----
+Contact: mailto:security@okta.com # <.>
+Expires: 2023-01-01T05:00:00.000Z # <.>
+
+# Optional Fields
+Preferred-Languages: en # <.>
+Policy: https://www.okta.com/vulnerability-reporting-policy/ # <.>
+Hiring: https://www.okta.com/company/careers/ # <.>
+----
+
+<.> How to contact the security team.
+<.> A date when to consider this data stale.
+<.> List of languages the security team prefers.
+<.> Link back to a reporting policy page with more details.
+<.> Even a link back to relevant job postings.
+
+The contents of the `security.txt`, is a quick summary of who to contact and where to go to find more information, not a replacement for existing security policy pages. Still, it can contain additional information such as a company's PGP keys, acknowledgments, and canonical URL information.
+
+[NOTE]
+====
+If you are familiar with link:/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc[OpenID Connect], the `.well-known` part of the above URL may look familiar to you. "Well Known URIs" are defined by https://www.rfc-editor.org/rfc/rfc8615.html[RFC-8615], and there is an official https://www.iana.org/assignments/well-known-uris/well-known-uris.xhtml[IANA registry] containing a variety of entries, everything from Tor Relay information to IoT protocols. The goal of all of these individual "well-known" endpoints is to make it easy to discover metadata about the service.
+====
+
+== Bonus: Update your Bug Tracking Templates
+
+If we as developers were in the habit of reading documentation, RTFM wouldn't be a thing, or maybe we are just busy:
+
+[quote,Joel Spolsky, 'https://www.joelonsoftware.com/2000/04/26/designing-for-people-who-have-better-things-to-do-with-their-lives/[joelonsoftware.com]']
+____
+In general, your users are trying to get something done, and they see reading the manual as a waste of time, or at the very least, as a distraction that keeps them from getting their task done.
+____
+
+If your project uses a public bug tracker (like GitHub Issues), information about handling security issues needs to be obvious to the reporter. One way to do this is to define a https://docs.github.com/en/code-security/getting-started/adding-a-security-policy-to-your-repository[`SECURITY.md`] file and create `ISSUE_TEMPLATE.md`; that way it's the first thing the reporter sees when the file an issue, for example the Spring Security https://raw.githubusercontent.com/spring-projects/spring-security/main/.github/ISSUE_TEMPLATE.md[issue template] starts with:
+
+[source,md]
+----
+<!--
+For Security Vulnerabilities, please use https://pivotal.io/security#reporting
+-->
+----
+
+TIP: What makes this so clever is the HTML comment; only the reporter sees the comment when opening an issue, and it doesn't get displayed when the markdown is rendered!
+
+== Learn More About Application Security
+
+Most folks don't know that vulnerabilities require special handling; it isn't taught in a typical university. Information about how to report security issues needs to be obvious and easily discoverable.
+
+If you want to learn more about application security, check out these great posts:
+
+- https://www.youtube.com/watch?v=aU9RsE4fcRM[https://www.youtube.com/watch?v=aU9RsE4fcRM]
+- https://sec.okta.com/articles/2021/02/stealing-oauth-tokens-open-redirects[Stealing OAuth Tokens With Open Redirects]
+- link:/blog/2020/06/15/sql-injection-in-php[SQL Injection in PHP: Practices to Avoid]
+
+
+If you have questions, please leave a comment below. If you liked this post, follow https://twitter.com/oktadev[@oktadev] on Twitter, follow us https://www.linkedin.com/company/oktadev/[on LinkedIn], or subscribe to https://www.youtube.com/c/oktadev[our YouTube channel].
