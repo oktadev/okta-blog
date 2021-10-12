@@ -31,7 +31,7 @@ I recommend using SDKMAN to manage your OpenJDK installations. Just run `sdk ins
 
 One of the easiest ways to get started with React is by using [Create React App](https://create-react-app.dev/) (CRA). You install it locally, then run `create-react-app <project>` to generate a React application with minimal dependencies. It uses webpack under-the-covers to build the project, launch a web server, and run its tests.
 
-Spring Boot has a similar tool, called [Spring Initializr](https://start.spring.io/). Spring Initializer is a bit different than CRA because it's a website (and API) that you can create applications with.
+Spring Boot has a similar tool called [Spring Initializr](https://start.spring.io/). Spring Initializer is a bit different than CRA because it's a website (and API) that you can create applications with.
 
 Today, I'll show you how to build a Flickr clone with React and Spring Boot. However, I'm going to cheat. Rather than building everything using the aforementioned tools, I'm going to use JHipster. JHipster is an application generator that initially only supported Angular and Spring Boot. Now it supports Angular, React, and Vue for the frontend. JHipster also has support for [Kotlin, Micronaut, Quarkus, .NET, and Node.js](https://www.jhipster.tech/modules/official-blueprints/) on the backend.
 
@@ -161,7 +161,7 @@ JHipster uses Spring Security's OAuth 2.0 and OIDC support to configure which Id
 
 To switch from Keycloak to Auth0, you only need to override the default properties (for Spring Security OAuth). You don't even need to write any code!
 
-To see how it works, create a `.auth0.env` file with the code below to override the default OIDC settings:
+To see how it works, create a `.auth0.env` file in the root of your project, and fill it with the code below to override the default OIDC settings:
 
 ```shell
 export SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=https://<your-auth0-domain>/
