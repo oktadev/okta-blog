@@ -105,7 +105,7 @@ Press **Enter** and JHipster will create your app in the current directory and r
 
 ### Verify Everything Works with Cypress and Keycloak
 
-When you choose OAuth 2.0 and OIDC for authentication, the users are stored outside of the application, rather than in it. You need to configure an identity provider (IdP) to store your users and allow your app to retrieve information about them. By default, JHipster ships with a Keycloak file for Docker Compose. A default set of users and groups is imported at startup, and it has a client registered for your JHipster app.
+When you choose OAuth 2.0 and OIDC for authentication, the users are stored outside of the application rather than in it. You need to configure an identity provider (IdP) to store your users and allow your app to retrieve information about them. By default, JHipster ships with a Keycloak file for Docker Compose. A default set of users and groups is imported at startup, and it has a client registered for your JHipster app.
 
 Here's what the `keycloak.yml` looks like in your app's `src/main/docker` directory:
 
@@ -174,7 +174,7 @@ You should see output like the following:
 
 ## Change your Identity Provider to Auth0
 
-JHipster uses Spring Security's OAuth 2.0 and OIDC support to configure which IdP it uses. When using Spring Security with Spring Boot, you can configure most settings in a properties files. You can even override properties with environment variables.
+JHipster uses Spring Security's OAuth 2.0 and OIDC support to configure which IdP it uses. When using Spring Security with Spring Boot, you can configure most settings in a properties file. You can even override properties with environment variables.
 
 To switch from Keycloak to Auth0, you only need to override the default properties (for Spring Security OAuth). You don't even need to write any code!
 
