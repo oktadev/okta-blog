@@ -12,6 +12,7 @@ tweets:
 - ""
 image:
 type: conversion
+github: https://github.com/oktadev/auth0-full-stack-java-example
 ---
 
 If you search for "Full Stack Java" on the internet, you'll likely find a lot of recruiting, courses, and jobs. Being a full stack developer can be exciting because you can create the backend and frontend of an app all by yourself. There is business logic and algorithms as well as styling, making things look good, and securing everything. It also pays pretty well. Today, I'm going to show you how you can be a full stack Java developer with Spring Boot, React, and JHipster.
@@ -23,11 +24,25 @@ If you search for "Full Stack Java" on the internet, you'll likely find a lot of
 
 If you're on Windows, you may need to install the [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/about) for some commands to work.
 
-I recommend using SDKMAN to manage your OpenJDK installations. Just run `sdk install java 11.0.2-open` for Java 11 and `sdk install java 17-open` for Java 17.
+I recommend using SDKMAN to manage your OpenJDK installations. Just run `sdk install java 11.0.2-open` to install Java 11 and `sdk install java 17-open` for Java 17.
+
+This tutorial won't provide the nitty-gritty details on how to write code in Java, React, or Spring Boot. That's because JHipster will write most of the code for you! However, if you're brand new to programming with these technologies, I recommend the following resources:
+
+* [Oracle's Learn Java Tutorials](https://dev.java/learn/)
+* [Spring Guides](https://spring.io/guides)
+* [Tutorial: Intro to React](https://reactjs.org/tutorial/tutorial.html)
+
+You can skip around between sections of this tutorial using the table of contents below. 
 
 **Table of Contents**{: .hide }
 * Table of Contents
 {:toc}
+
+You can also clone [the completed example](https://github.com/oktadev/auth0-full-stack-java-example) and following along that way.
+
+```
+git clone https://github.com/oktadev/auth0-full-stack-java-example
+```
 
 ## Full Stack Development with React and Spring Boot
 
@@ -648,20 +663,15 @@ If you have a stable and fast internet connection, your app should be live on th
 
 ```
 remote: -----> Compressing...
-
 remote:        Done: 120.9M
-
 remote: -----> Launching...
-
 remote:        Released v7
 remote:        https://flickr-2.herokuapp.com/ deployed to Heroku
 remote:
-
 remote: Verifying deploy... done.
 
 To https://git.heroku.com/flickr-2.git
  * [new branch]      HEAD -> main
-
 
 Your app should now be live. To view it run
 	heroku open
@@ -702,12 +712,6 @@ Then, test it with [Lighthouse](https://developers.google.com/web/tools/lighthou
 ## Learn More About Full Stack Java Development
 
 This tutorial shows you how to streamline full-stack Java development with JHipster. You developed a working application with a React frontend and a Spring Boot backend. You can find the app created in this tutorial on GitHub, in the [auth0-full-stack-java-example](https://github.com/oktadev/auth0-full-stack-java-example) repository.
-
-Since I didn't show you a lot about coding in Java, React, or Spring Boot, here are some helpful resources for that.
-
-* [dev.java's Learn Java Tutorials](https://dev.java/learn/)
-* [Spring Guides](https://spring.io/guides)
-* [Tutorial: Intro to React](https://reactjs.org/tutorial/tutorial.html)
 
 You might also enjoy these related blog posts:
 
