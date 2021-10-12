@@ -81,7 +81,7 @@ JHipster will prompt you for the type of application to create and what technolo
 | Additional testing frameworks? | `Cypress` |
 | Install other generators? | `No` |
 
-Press `Enter` and JHipster will create your app in the current directory and run `npm install` to install all the dependencies specified in `package.json`.
+Press **Enter** and JHipster will create your app in the current directory and run `npm install` to install all the dependencies specified in `package.json`.
 
 ### Verify Everything Works with Cypress and Keycloak
 
@@ -420,7 +420,7 @@ Since you're extracting the information, you can remove the fields from the UI a
 
 In `src/main/webapp/app/entities/photo/photo-update.tsx`, hide the metadata so users can't edit it. Rather than displaying the `height`, `width`, `taken`, and `uploaded` values, hide them. You can do this by searching for `photo-height`, grabbing the elements (and its following three elements) and adding them to a `metadata` variable just before the `return` block.
 
-```ts
+```tsx
 const metadata = (
   <div>
     <ValidatedField label={translate('flickr2App.photo.height')} id="photo-height" name="height" data-cy="height" type="text" />
@@ -437,7 +437,7 @@ const metadataRows = isNew ? '' : metadata;
 Then, in the `return` block, remove the JSX between the `image` property and `album` property and replace it with `{metadataRows}`.
 
 {% raw %}
-```html
+```tsx
 <ValidatedBlobField
   label={translate('flickr2App.photo.image')}
   id="photo-image"
@@ -465,13 +465,10 @@ Then, in the `return` block, remove the JSX between the `image` property and `al
 
 In `src/test/javascript/cypress/integration/entity/photo.spec.ts`, remove the code that sets the data in these fields:
 
-```js
+```ts
 cy.get(`[data-cy="height"]`).type('99459').should('have.value', '99459');
-
 cy.get(`[data-cy="width"]`).type('61514').should('have.value', '61514');
-
 cy.get(`[data-cy="taken"]`).type('2021-10-11T16:46').should('have.value', '2021-10-11T16:46');
-
 cy.get(`[data-cy="uploaded"]`).type('2021-10-11T15:23').should('have.value', '2021-10-11T15:23'););
 ```
 
@@ -503,38 +500,46 @@ In `src/main/webapp/app/entities/photo/photo.tsx`, add an import for `Gallery`:
 import Gallery from 'react-photo-gallery';
 ```
 
-Then add a `photoSet` variable in the `render()` method, and the `<Gallery>` component right after the closing `</h2>`.
+Then add the following just after `const { match } = props;`. This adds the photos to a set with source, height, and width information.
 
 ```ts
-render() {
-  const { photoList, match } = this.props;
-  const photoSet = photoList.map(photo => ({
-    src: `data:${photo.imageContentType};base64,${photo.image}`,
-    width: photo.height > photo.width ? 3 : photo.height === photo.width ? 1 : 4,
-    height: photo.height > photo.width ? 4 : photo.height === photo.width ? 1 : 3
-  }));
+const photoSet = photoList.map(photo => ({
+  src: `data:${photo.imageContentType};base64,${photo.image}`,
+  width: photo.height > photo.width ? 3 : photo.height === photo.width ? 1 : 4,
+  height: photo.height > photo.width ? 4 : photo.height === photo.width ? 1 : 3
+}));
+```
 
-  return (
-    <div>
-      <h2 id="photo-heading">
-        ...
-      </h2>
-      <Gallery photos={photoSet} />
+Next, add a `<Gallery>` component right after the closing `</h2>`.
+
+```tsx
+return (
+  <div>
+    <h2 id="photo-heading" data-cy="PhotoHeading">
       ...
-  );
-}
+    </h2>
+    <Gallery photos={photoSet} />
+    ...
+);
 ```
 
 Since you only modified the front-end code, you can run `npm start` to start an instance of webpack-dev-server that proxies requests to the backend and auto-refreshes your browser (using [Browsersync](https://browsersync.io/)) every time you change any React files.
 
-Log in and navigate to **Entities** > **Photos** in the top nav bar. You should be able to upload photos and see the results in a nice grid at the top of the list.
+Log in and navigate to **Entities** > **Photo** in the top nav bar. You will see a plethora of photos loaded by [Liquibase](https://www.liquibase.org/) and [faker.js](https://marak.github.io/faker.js/). To make a clean screenshot without this data, I modified `src/main/resources/config/application-dev.yml` to remove the "faker" context for Liquibase.
 
-//todo: update screenshot during QA
+```yaml
+liquibase:
+  # Append ', faker' to the line below if you want sample data to be loaded automatically
+  contexts: dev
+```
+
+Stop your Spring Boot backend and run `rm -r target/h2db` to clear out your database. Restart your backend.
+
+Now you should be able to upload photos and see the results in a nice grid at the top of the list.
 
 {% img blog/full-stack-java/photo-gallery.png alt:"Gallery with Photos" width:"800" %}{: .center-image }
 
-//todo: update GitHub links
-You can also add a "lightbox" feature to the grid so you can click on photos and zoom in. The [React Photo Gallery docs](https://neptunian.github.io/react-photo-gallery/) show how to do this. I've integrated it into the example for this post, but I won't show the code here for the sake of brevity. You can see the [final `photo.tsx` with Lightbox added on GitHub](https://github.com/oktadeveloper/okta-react-photo-gallery-example/blob/master/src/main/webapp/app/entities/photo/photo.tsx) or a [diff of the changes necessary](https://github.com/oktadeveloper/okta-react-photo-gallery-example/commit/47f9ceab2b00f1d7f41d286686c9159f79decc11).
+You can also add a "lightbox" feature to the grid so you can click on photos and zoom in. The [React Photo Gallery docs](https://neptunian.github.io/react-photo-gallery/) shows how to do this. I've integrated it into the example for this post, but I won't show the code here for the sake of brevity. You can see the [final `photo.tsx` with Lightbox added on GitHub](https://github.com/oktadev/auth0-full-stack-java-example/blob/main/src/main/webapp/app/entities/photo/photo.tsx) or a [diff of the necessary changes](https://github.com/oktadev/auth0-full-stack-java-example/commit/76dcf711816cb2f3455ba4b46264bf48002487f7).
 
 ## Make Your Full Stack Java App Into a PWA
 
@@ -545,8 +550,21 @@ You can also add a "lightbox" feature to the grid so you can click on photos and
 For HTTPS, you can [set up a certificate for localhost](https://letsencrypt.org/docs/certificates-for-localhost/) or (even better), deploy it to production! Cloud providers like Heroku will provide you with HTTPS out-of-the-box, but they won't _force_ HTTPS. To force HTTPS, open `src/main/java/com/auth0/flickr2/config/SecurityConfiguration.java` and add a rule to force a secure channel when an `X-Forwarded-Proto` header is sent.
 
 ```java
-http.requiresChannel(channel -> channel
-    .requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null).requiresSecure());
+@Override
+protected void configure(HttpSecurity http) throws Exception {
+    http
+        ...
+    .and()
+        .frameOptions()
+        .deny()
+    .and()
+        .requiresChannel()
+        .requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null)
+        .requiresSecure()
+    .and()
+        .authorizeRequests()
+        ...
+}
 ```
 
 The [workbox-webpack-plugin](https://developers.google.com/web/tools/workbox/modules/workbox-webpack-plugin) is configured already for generating a service worker, but it only works when running your app with a production profile. This is nice because it means your data isn't cached in the browser when you're developing.
@@ -556,8 +574,10 @@ To register a service worker, open `src/main/webapp/index.html` and uncomment th
 ```html
 <script>
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./service-worker.js').then(function () {
-      console.log('Service Worker Registered');
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('/service-worker.js').then(function () {
+        console.log('Service Worker Registered');
+      });
     });
   }
 </script>
@@ -577,22 +597,28 @@ Run `heroku login` to log in to your account, then start the deployment process 
 jhipster heroku
 ```
 
-This will start the [Heroku sub-generator](https://www.jhipster.tech/heroku/) that asks you a couple questions about your app: what you want to name it and whether you want to deploy it to a US region or EU. Then it'll prompt you to choose between building locally or with Git on Heroku's servers. Choose Git, so you don't have to upload a fat JAR. When prompted to use Okta for OIDC, type `N`. Then, the deployment process will begin.
+This will start the [Heroku sub-generator](https://www.jhipster.tech/heroku/) that asks you a couple questions about your app: what you want to name it and whether you want to deploy it to a US region or EU. Then it'll prompt you to choose between building locally or with Git on Heroku's servers. Choose Git, so you don't have to upload a fat JAR. When prompted to use Okta for OIDC, select `No`. Then, the deployment process will begin.
+
+You'll be prompted to overwrite `pom.xml`. Type `a` to allow overwriting all files.
 
 If you have a stable and fast internet connection, your app should be live on the internet in around six minutes!
 
 ```
 remote: -----> Compressing...
-remote:        Done: 119.4M
+
+remote:        Done: 120.9M
+
 remote: -----> Launching...
-remote:        Released v6
+
+remote:        Released v7
 remote:        https://flickr-2.herokuapp.com/ deployed to Heroku
 remote:
+
 remote: Verifying deploy... done.
 
 To https://git.heroku.com/flickr-2.git
-
  * [new branch]      HEAD -> main
+
 
 Your app should now be live. To view it run
 	heroku open
@@ -601,8 +627,8 @@ And you can view the logs with this command
 After application modification, redeploy it with
 	jhipster heroku
 Congratulations, JHipster execution is complete!
-Sponsored with ❤️  by @oktadev.
-Execution time: 6 min. 0 s.
+Sponsored with ❤️ by @oktadev.
+Execution time: 6 min. 19 s.
 ```
 
 ### Configure for Auth0 and Analyze Your PWA Score with Lighthouse
@@ -622,7 +648,7 @@ Then, log in to your Auth0 account, navigate to your app, and add your Heroku UR
 - Allowed Callback URLs: `https://flickr-2.herokuapp.com/login/oauth2/code/oidc`
 - Allowed Logout URLs: `https://flickr-2.herokuapp.com`
 
-After Heroku restarts your app, open it, and log in.
+After Heroku restarts your app, open it with `heroku open`, and log in.
 
 {% img blog/full-stack-java/app-on-heroku.png alt:"Running on Heroku!" width:"800" %}{: .center-image }
 
