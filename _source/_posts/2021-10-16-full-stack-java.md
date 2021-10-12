@@ -21,6 +21,8 @@ If you search for "Full Stack Java" on the internet, you'll likely find a lot of
 - [Node.js 14+](https://nodejs.org/)
 - [Java 11+](https://sdkman.io)
 
+If you're on Windows, you may need to install the [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/about) for some commands to work.
+
 I recommend using SDKMAN to manage your OpenJDK installations. Just run `sdk install java 11.0.2-open` for Java 11 and `sdk install java 17-open` for Java 17.
 
 **Table of Contents**{: .hide }
@@ -267,8 +269,6 @@ Stop your JHipster app using **Ctrl+C**, set your Auth0 properties in `.auth0.en
 source .auth0.env
 ./mvnw
 ```
-
-**NOTE:** If you're on Windows, you may need to install the [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/about) for this command to work.
 
 _Voilà_ - your full stack app is now using Auth0! Open your favorite browser to `http://localhost:8080`. 
 
