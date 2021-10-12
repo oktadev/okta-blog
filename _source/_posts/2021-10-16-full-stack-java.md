@@ -187,7 +187,9 @@ Scroll to the bottom and click **Save Changes**.
 
 Navigate to **User Management** > **Roles** and create new roles named `ROLE_ADMIN` and `ROLE_USER`.
 
-Go to **User Management** > **Users** and create a new user account. Click on the **Role** tab to assign the roles you just created to the new account.
+Go to **User Management** > **Users** and create a new user account. Click on the **Role** tab to assign the roles you just created to the new account. 
+
+_Make sure your new user's email is verified before attempting to log in!_
 
 Next, head to **Auth Pipeline** > **Rules** > **Create**. Select the `Empty rule` template. Provide a meaningful name like `Group claims` and replace the Script content with the following.
 
@@ -245,7 +247,7 @@ After entering your credentials, you'll be redirected back to your app.
 
 JHipster has Auth0 support built-in, so you can specify your credentials for Cypress tests and automate your UI testing!
 
-To do this, specify the credentials for the Auth0 user you just created and run `npm run e2e`.
+To do this, open a new terminal window, specify the credentials for the Auth0 user you just created and run `npm run e2e`.
 
 ```shell
 export CYPRESS_E2E_USERNAME=<new-username>
@@ -258,13 +260,15 @@ Everything should pass in around a minute.
 ```shell
        Spec                                              Tests  Passing  Failing  Pending  Skipped
   ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
-  │ ✔  administration/administration.spec.      00:22        5        5        -        -        - │
+  │ ✔  administration/administration.spec.      00:31        5        5        -        -        - │
   │    ts                                                                                          │
   └────────────────────────────────────────────────────────────────────────────────────────────────┘
-    ✔  All specs passed!                        00:22        5        5        -        -        -
+    ✔  All specs passed!                        00:31        5        5        -        -        -
 
-Execution time: 59 s.
+Execution time: 44 s.
 ```
+
+Shut down the process running your JHipster app - it's time to create some data handling for our Flickr clone!
 
 ## Create Entities to allow CRUD on Photos
 
@@ -414,51 +418,17 @@ public class PhotoResource {
 
 Since you're extracting the information, you can remove the fields from the UI and tests so the user cannot set these values.
 
-In `src/main/webapp/app/entities/photo/photo-update.tsx`, add `metadata` and `metadataRows` variables, as well as logic that makes them hidden when adding a photo, and read-only when updating one. Find the first line of the code block below and replace that line with the following code:
+In `src/main/webapp/app/entities/photo/photo-update.tsx`, hide the metadata so users can't edit it. Rather than displaying the `height`, `width`, `taken`, and `uploaded` values, hide them. You can do this by searching for `photo-height`, grabbing the elements (and its following three elements) and adding them to a `metadata` variable just before the `return` block.
 
 ```ts
-const { description, image, imageContentType } = photoEntity;
-
 const metadata = (
   <div>
-    <AvGroup>
-      <Label id="heightLabel" for="height">
-        <Translate contentKey="galleryApp.photo.height">Height</Translate>
-      </Label>
-      <AvField id="photo-height" type="number" className="form-control" name="height" readOnly />
-    </AvGroup>
-    <AvGroup>
-      <Label id="widthLabel" for="width">
-        <Translate contentKey="galleryApp.photo.width">Width</Translate>
-      </Label>
-      <AvField id="photo-width" type="number" className="form-control" name="width" readOnly />
-    </AvGroup>
-    <AvGroup>
-      <Label id="takenLabel" for="taken">
-        <Translate contentKey="galleryApp.photo.taken">Taken</Translate>
-      </Label>
-      <AvInput
-        id="photo-taken"
-        type="datetime-local"
-        className="form-control"
-        name="taken"
-        readOnly
-        value={isNew ? null : convertDateTimeFromServer(this.props.photoEntity.taken)}
-      />
-    </AvGroup>
-    <AvGroup>
-      <Label id="uploadedLabel" for="uploaded">
-        <Translate contentKey="galleryApp.photo.uploaded">Uploaded</Translate>
-      </Label>
-      <AvInput
-        id="photo-uploaded"
-        type="datetime-local"
-        className="form-control"
-        name="uploaded"
-        readOnly
-        value={isNew ? null : convertDateTimeFromServer(this.props.photoEntity.uploaded)}
-      />
-    </AvGroup>
+    <ValidatedField label={translate('flickr2App.photo.height')} id="photo-height" name="height" data-cy="height" type="text" />
+    <ValidatedField label={translate('flickr2App.photo.width')} id="photo-width" name="width" data-cy="width" type="text" />
+    <ValidatedField label={translate('flickr2App.photo.taken')} id="photo-taken" name="taken" data-cy="taken"
+      type="datetime-local" placeholder="YYYY-MM-DD HH:mm" />
+   <ValidatedField label={translate('flickr2App.photo.uploaded')} id="photo-uploaded" name="uploaded" data-cy="uploaded" 
+      type="datetime-local" placeholder="YYYY-MM-DD HH:mm" />
   </div>
 );
 const metadataRows = isNew ? '' : metadata;
@@ -466,71 +436,54 @@ const metadataRows = isNew ? '' : metadata;
 
 Then, in the `return` block, remove the JSX between the `image` property and `album` property and replace it with `{metadataRows}`.
 
+{% raw %}
 ```html
-    <input id="file_image" type="file" onChange={this.onBlobChange(true, 'image')} accept="image/*" />
-  </AvGroup>
-</AvGroup>
+<ValidatedBlobField
+  label={translate('flickr2App.photo.image')}
+  id="photo-image"
+  name="image"
+  data-cy="image"
+  isImage
+  accept="image/*"
+  validate={{
+    required: { value: true, message: translate('entity.validation.required') },
+  }}
+/>
 {metadataRows}
-<AvGroup>
-  <Label for="album.title">
-    <Translate contentKey="galleryApp.photo.album">Album</Translate>
-  </Label>
+<ValidatedField id="photo-album" name="albumId" data-cy="album" label={translate('flickr2App.photo.album')} type="select">
+  <option value="" key="0" />
+{albums
+    ? albums.map(otherEntity => (
+        <option value={otherEntity.id} key={otherEntity.id}>
+          {otherEntity.title}
+        </option>
+      ))
+    : null}
+</ValidatedField>
 ```
+{% endraw %}
 
-//todo: update for Cypress
-
-In `src/test/javascript/e2e/entities/photo/photo.spec.ts`, remove the code that sets the data in these fields:
+In `src/test/javascript/cypress/integration/entity/photo.spec.ts`, remove the code that sets the data in these fields:
 
 ```js
-photoUpdatePage.setHeightInput('5');
-expect(await photoUpdatePage.getHeightInput()).to.eq('5');
-photoUpdatePage.setWidthInput('5');
-expect(await photoUpdatePage.getWidthInput()).to.eq('5');
-photoUpdatePage.setTakenInput('01/01/2001' + protractor.Key.TAB + '02:30AM');
-expect(await photoUpdatePage.getTakenInput()).to.contain('2001-01-01T02:30');
-photoUpdatePage.setUploadedInput('01/01/2001' + protractor.Key.TAB + '02:30AM');
-expect(await photoUpdatePage.getUploadedInput()).to.contain('2001-01-01T02:30');
+cy.get(`[data-cy="height"]`).type('99459').should('have.value', '99459');
+
+cy.get(`[data-cy="width"]`).type('61514').should('have.value', '61514');
+
+cy.get(`[data-cy="taken"]`).type('2021-10-11T16:46').should('have.value', '2021-10-11T16:46');
+
+cy.get(`[data-cy="uploaded"]`).type('2021-10-11T15:23').should('have.value', '2021-10-11T15:23'););
 ```
 
-You can also remove all the getters and setters for these fields in `src/test/javascript/e2e/entities/photo/photo-update.page-object.ts`:
+Stop your Maven process and run `./mvwn` again. Open a new terminal window, set your Auth0 credentials, and run `npm run e2e` to make sure everything still works. 
 
-```js
-setHeightInput(height) {
-  this.heightInput.sendKeys(height);
-}
-
-getHeightInput() {
-  return this.heightInput.getAttribute('value');
-}
-
-setWidthInput(width) {
-  this.widthInput.sendKeys(width);
-}
-
-getWidthInput() {
-  return this.widthInput.getAttribute('value');
-}
-
-setTakenInput(taken) {
-  this.takenInput.sendKeys(taken);
-}
-
-getTakenInput() {
-  return this.takenInput.getAttribute('value');
-}
-
-setUploadedInput(uploaded) {
-  this.uploadedInput.sendKeys(uploaded);
-}
-
-getUploadedInput() {
-  return this.uploadedInput.getAttribute('value');
-}
+```shell
+export CYPRESS_E2E_USERNAME=<auth0-username>
+export CYPRESS_E2E_PASSWORD=<auth0-password>
+npm run e2e
 ```
 
-Stop your Maven process, run `npm webapp:build`, start Maven again, and run `npm run e2e` to make sure everything still works. 
-
-**NOTE**: If you experience authentication errors in your Cypress tests, it's likely because you've violated Auth0's [Rate Limit Policy](https://auth0.com/docs/support/policies/rate-limit-policy). As a workaround, I recommend you use Keycloak for Cypress tests. You can do this by opening a new terminal window and starting your app there (without running `source .auth0.env`).
+**NOTE**: If you experience authentication errors in your Cypress tests, it's likely because you've violated Auth0's [Rate Limit Policy](https://auth0.com/docs/support/policies/rate-limit-policy). As a workaround, I recommend you use Keycloak for Cypress tests. You can do this by opening a new terminal window and starting your app there using `./mvnw`. Then, open a second terminal window and run `npm run e2e`.  
 
 If you upload an image you took with your smartphone, the height, width, and taken values should all be populated. If they're not, chances are your image doesn't have the data in it.
 
