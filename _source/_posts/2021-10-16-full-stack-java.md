@@ -640,7 +640,7 @@ Run `heroku login` to log in to your account, then start the deployment process 
 jhipster heroku
 ```
 
-This will start the [Heroku sub-generator](https://www.jhipster.tech/heroku/) that asks you a couple questions about your app: what you want to name it and whether you want to deploy it to a US region or EU. Then it'll prompt you to choose between building locally or with Git on Heroku's servers. Choose Git, so you don't have to upload a fat JAR. When prompted to use Okta for OIDC, select `No`. Then, the deployment process will begin.
+This will start the [Heroku sub-generator](https://www.jhipster.tech/heroku/) that asks you a couple of questions about your app: what you want to name it and whether you want to deploy it to a US region or EU. Then it'll prompt you to choose between building locally or with Git on Heroku's servers. Choose Git, so you don't have to upload a fat JAR. When prompted to use Okta for OIDC, select `No`. Then, the deployment process will begin.
 
 You'll be prompted to overwrite `pom.xml`. Type `a` to allow overwriting all files.
 
