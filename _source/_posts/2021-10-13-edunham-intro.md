@@ -7,6 +7,7 @@ communities: [devops]
 description: "edunham joins Okta Developer Relations!"
 tags: [devops, advocacy]
 type: awareness
+image: blog/edunham-intro/edunham-joins-okta-social-image.png
 ---
 
 Hi, I'm edunham, and I'm an infra person. Our buzzwords include DevOps, Cloud Operations, and Site Reliability Engineering, though if you ask any two of us about the difference between those terms, you'll get at least 3 answers. Whatever name it's wearing, doing ops well requires not only the "how" of changing systems, but to the "why" of making the right changes. Although I've always loved helping spread the information that my colleagues need in order to build the systems that work best for them, I've chickened out of taking the leap into pure advocacy many times before finally diving into it here at Okta!
