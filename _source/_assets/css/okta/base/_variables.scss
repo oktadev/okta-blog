@@ -16,7 +16,7 @@ $asset-path: "/assets";
 //-----------------------------------------------------------------------
 
 $font-family:             'proxima-nova', Helvetica, Arial, sans-serif;
-$font-family-secondary:   'ABC Whyte', Helvetica, Arial, sans-serif;
+$font-family-secondary:   'ABC Whyte', $font-family;
 $font-family--alt:        'museo', Helvetica, Arial, sans-serif;
 
 $font-size:     (
@@ -95,18 +95,21 @@ $white-smoke-10: #f4f4f4; // intentional developer color
 $gainsboro-2: #dddddd;
 $gainsboro-8: #e4e4e4;
 // Grays
+$alto: #DCDCDC;
 $dim-gray-3: #5d5d5d;
 $eclipse-2: #3d3d3d;
 $dove-gray: #616161;
 $iron: #c2c3c3;
 $loblolly: #BCC3CA;
 $lily-white: #f2f5f5;
+$mischka-2: #D7D7DC;
 $mortar: #555555;
 $mystic: #dee0df;
 $night-rider: #333333;
 $nobel: #999999;
 $nobel-2: #9a9a9a;
 $shady-lady: #979797;
+$storm-gray: #6E6E78;
 $suva-gray: #888888;
 $suva-gray-4: #8f8f8f;
 $very-light-gray: #cccccc;
@@ -114,6 +117,7 @@ $very-light-gray: #cccccc;
 $black: #000000;
 $mirage: #14222A;
 $san-juan: #2B4D63;
+$shark: #1D1D21;
 $mine-shaft: #212121;
 // Reds
 $jazzberry-jam: #990f69;
@@ -144,6 +148,7 @@ $navy-blue: #007dc1;
 $pacific-blue-3: #0095e5;
 $pattens-blue: #e0eef6;
 $pattens-blue-2: #deeef6;
+$resolution-blue: #00297A;
 $solitude-4: #dbe3e7;
 $summer-sky: #46b3e9;
 $turquoise: #5ce5bc;
@@ -233,6 +238,13 @@ $colors:        (
                 'mine-shaft': $mine-shaft, // Nav SearchBox color
                 'dove-gray': $dove-gray, // Nav SearchBox placeholder color
                 'french-rose': $french-rose, // Links active state
+
+                // 2021-07 Nav Redesign
+                'resolution-blue': $resolution-blue, //Nav background
+                'shark': $shark,                     //Text dark color
+                'storm-gray': $storm-gray,           //Text color
+                'mischka-2': $mischka-2,             //Text light gray color
+                'alto': $alto,                       //Border color
 );
 
 
@@ -253,6 +265,7 @@ $gutter-width:  20px;
 
 $breakpoints:   (
                 'xx-small':               320px,
+                'x-smaller':              375px,
                 'x-small':                480px,
                 'small':                  768px,
                 'medium-small':           900px,

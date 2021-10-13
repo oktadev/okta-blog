@@ -17,7 +17,7 @@
             this.$container = $(container)
             this.$subMenus = this.$container.find('.sub-menu')
             this.$hamburguer = this.$container.find('.hamburger')
-            this.$mobileMenu = this.$container.find('.mobile-menu')
+            this.$mobileMenu = this.$container.find('.menu--slideout')
             this.$coveoSearchBox = this.$container.find('.SearchBox')
             this.$searchToggle = this.$container.find('.search-toggle')
             this.$coveoSearchButton = this.$container.find('.CoveoSearchButton')
