@@ -235,7 +235,7 @@ function(user, context, callback) {
 }
 ```
 
-This code is adding the user's role to a custom claim (prefixed with `https://www.jhipster.tech/roles`). This claim is mapped to Spring Security authorities in `SecurityUtils.java`.
+This code is adding the user's roles to a custom claim (prefixed with `https://www.jhipster.tech/roles`). This claim is mapped to Spring Security authorities in `SecurityUtils.java`.
 
 ```java
 public static List<GrantedAuthority> extractAuthorityFromClaims(Map<String, Object> claims) {
