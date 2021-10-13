@@ -251,7 +251,7 @@ private static Collection<String> getRolesFromClaims(Map<String, Object> claims)
 }
 ```
 
-The `SecurityConfiguration.java` class has a bean that calls this method configure a user's roles.
+The `SecurityConfiguration.java` class has a bean that calls this method to configure a user's roles from their OIDC data.
 
 ```java
 @Bean
