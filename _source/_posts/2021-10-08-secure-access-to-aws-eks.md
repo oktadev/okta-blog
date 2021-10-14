@@ -7,7 +7,7 @@ communities: [devops]
 description: "This tutorial is a step-by-step guide for admins on how to implement secure access to AWS EKS Clusters with Okta."
 tags: [aws, eks, devops, oidc, kubectl]
 tweets: 
-- "This tutorial shows how to use OIDC with Okta to securely access EKS clusters on AWS kubernetes k8s devops."
+- "This tutorial shows how to use OIDC with Okta to securely access EKS clusters on AWS kubernetes k8s DevOps."
 image: blog/secure-access-to-eks/2.png
 type: conversion
 ---
