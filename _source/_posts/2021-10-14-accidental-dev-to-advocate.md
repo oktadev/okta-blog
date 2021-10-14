@@ -16,7 +16,7 @@ image: blog/accidental-dev-to-advocate/deepu-joins-okta.jpeg
 
 Hello Oktaverse!
 
-So finally, I have landed at Okta on my second attempt 😉. I'm so excited about this new chapter in my career journey and can't wait to see what's in store. But first introductions.
+So finally, I have landed at Okta on my second attempt 😉. I'm so excited about this new chapter in my career journey and can't wait to see what's in store. But first, introductions.
 
 {% img blog/accidental-dev-to-advocate/hello.jpg alt:"My face" width:"800" %}{: .center-image }
 
