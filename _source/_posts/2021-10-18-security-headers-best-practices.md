@@ -5,7 +5,7 @@ author: vickie-li
 by: contractor
 communities: [security]
 description: "Security headers instruct browsers how to behave and prevent them from executing vulnerabilities that would endanger your users. Learn how to use them in this tutorial."
-tags: [security, HTTP, security headers]
+tags: [security, HTTP, security-headers]
 tweets:
 - "Want to improve your website's Security Headers score? Read on. We've published an overview of best practices that can raise your grade from F to A!"
 - "Security headers like CSP and HSTS can be quite handy for making your site more secure. Learn more in this tutorial! 👇"
