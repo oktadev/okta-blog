@@ -7,20 +7,25 @@ communities: [security]
 description: "Reporting a vulnerability requires special handling, each company has a different process, a security.txt file can help!"
 tags: [securitytxt, security, vulnerabilities, github]
 tweets:
-- ""
-- ""
-- ""
-image:
+- "Don't report security issues in a public bug tracker‼️"
+- "Confused where to report a security issue? A security.txt file can help with that ℹ️"
+- "Security.txt, a standardized way to define security policies 💻"
+image: blog/intro-security-txt/security-txt-social.png
 type: awareness
 ---
 
 We all know that all software has bugs and that security is hard, but somehow we are still surprised when we see new vulnerabilities.
 
-In 2020, there were 18,395 vulnerabilities reported, which means about 50 new vulnerabilities are reported every day. These numbers only include what has been reported to MITRE's Common Vulnerability and Exposures (CVE) database, which means the actual value is likely much higher. Every year we add more software to the world, so these numbers will only increase. I didn't list this number here to scare you; more so, they are a fact of life, and we need to be aware of how to deal with them.
+====
+Vulnerability:: A bug, flaw, weakness, or exposure of an application, system, device, or service
+that could lead to a failure of confidentiality, integrity, or availability.
+====
+
+In 2020, there were 18,395 vulnerabilities reported, which means about 50 new vulnerabilities are reported every day. These numbers only include what has been reported to MITRE's Common Vulnerability and Exposures (CVE) database, which means the actual value is likely much higher. Every year we add more software to the world, so these numbers will only increase. I didn't list this number here to scare you; more so, they are a fact of life, and we all need to be aware of how to deal with them.
 
 == Reporting Vulnerabilities
 
-Vulnerabilities are NOT handled the same way as a typical software bug. A _properly_ handled vulnerability is reported privately to the project's maintainers, then fixed and released before any information about the vulnerability is made public. It may seem like a good idea to report a security issue on a GitHub Issues, but it isn't! Handling vulnerabilities privately may seem counter-intuitive, especially for open-source projects where everything is public, but this reduces potential exposure for everyone using the project.
+Vulnerabilities are NOT handled the same way as a typical software bug. A _properly_ handled vulnerability is reported privately to the project's maintainers, then fixed and released before any information about the vulnerability is made public. It may seem like a good idea to report a security issue on GitHub Issues, but it isn't! Handling vulnerabilities privately may seem counter-intuitive, especially for open-source projects where everything is public, but this isn't just good manners, even more importantly it reduces potential exposure for everyone using the project.
 
 Okay, so if not a public issue tracker, then where do you report the issue?
 
@@ -53,7 +58,7 @@ The contents of the `security.txt`, a quick summary of who to contact and where 
 
 [NOTE]
 ====
-If you are familiar with link:/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc[OpenID Connect], the `.well-known` part of the above URL may look familiar to you. "Well Known URIs" are defined by https://www.rfc-editor.org/rfc/rfc8615.html[RFC-8615], and there is an official https://www.iana.org/assignments/well-known-uris/well-known-uris.xhtml[IANA registry] containing a variety of entries, everything from Tor Relay information to IoT protocols. The goal of all of these individual "well-known" endpoints is to make it easy to discover metadata about the service.
+If you are familiar with link:/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc[OpenID Connect], the `.well-known` part of the above URL may look familiar to you. "Well Known URIs" are defined by https://www.rfc-editor.org/rfc/rfc8615.html[RFC-8615], and there is an official https://www.iana.org/assignments/well-known-uris/well-known-uris.xhtml[IANA registry] containing a variety of entries, everything from Tor Relay information to IoT protocols. The goal of all of these individual "well-known" endpoints is to make it easy to discover metadata about a specific service.
 ====
 
 == Bonus: Update your bug tracking templates
