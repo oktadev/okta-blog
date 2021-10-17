@@ -214,7 +214,7 @@ npm install -g uuid-cli
 echo "APP_SECRET=`uuid`" >> .env
 ```
 
-Next, log in to your Okta developer console, navigate to **Applications** > **Applications**, then click **Create App Integration**. Select **OIDC** under sign-in method and then select **Web Application** under application type, then click **Next**. Change all ports to be 3000 and add `http://localhost:3000/callback` as a **Sigh-in redirect URI**. Under assignments, select "Allow everyone in your organization to access" and then click **Save**.
+Next, log in to your Okta developer console, navigate to **Applications** > **Applications**, then click **Create App Integration**. Select **OIDC** under sign-in method and then select **Web Application** under application type, then click **Next**. Change all ports to be 3000 and add `http://localhost:3000/callback` as a **Sigh-in redirect URI**. Under assignments, select **Allow everyone in your organization to access** and then click **Save**.
 
 {% img blog/express-auth/create-new-application-settings.png alt:"Create New Application Settings" width:"700" %}{: .center-image }
 
