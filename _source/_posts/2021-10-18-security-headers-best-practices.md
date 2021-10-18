@@ -24,7 +24,7 @@ Many decisions go into the process of creating a secure website. One of these de
 
 HTTP security headers are HTTP response headers designed to enhance the security of a site. They instruct browsers on how to behave and prevent them from executing vulnerabilities that would endanger your users.
 
-### Strict Transport Security
+### HTTP Strict Transport Security (HSTS)
 
 First, the Strict-Transport-Security header forces the browser to communicate with HTTPS instead of HTTP. HTTPS is the encrypted version of the HTTP protocol. Strictly using HTTPS can prevent most man-in-the-middle and session hijacking attacks.
 This header has two configuration options: "max-age" and "includeSubDomains". "max-age" is the number of seconds the browser should remember this setting. And if "includeSubDomains" is selected, the settings will apply to any subdomains of the site as well.
@@ -35,7 +35,7 @@ Strict-Transport-Security: max-age=31536000 ; includeSubDomains
 
 Ideally, this header should be set on all pages of the site to force browsers to use HTTPS.
 
-### Content-Security-Policy
+### Content-Security-Policy (CSP) 
 
 The Content-Security-Policy header controls which resource the browser is allowed to load for the page. For example, servers can restrict the scripts browsers use to a few trusted origins. This prevents some cross-site scripting attacks that load scripts from a malicious domain.
 
@@ -69,7 +69,7 @@ This header controls the XSS auditor on the user's browser. There are four optio
 X-XSS-Protection: 0 (Turns off XSS Auditor)
 X-XSS-Protection: 1 (Turns on XSS Auditor)
 
-X-XSS-Protection: 1; mode=block (Turns on XSS Auditor, prevent rendering the page when an attack is detected)
+X-XSS-Protection: 1; mode=block (Turns on XSS Auditor, prevents rendering the page when an attack is detected)
 
 X-XSS-Protection: 1; report=REPORT_URI (Sanitizes the page and sends a report to the report URL when an attack is detected)
 ```
@@ -116,9 +116,9 @@ You should consider using one of the above options as your Referrer-Policy heade
 
 ### X-Content-Type-Options
 
-This header prevents MIME-sniffing. MIME-sniffing is when browsers try to determine the the document's file type by examining its content and disregarding the server's instructions set in the Content-Type header.
+This header prevents MIME-sniffing. MIME-sniffing is when browsers try to determine the document's file type by examining its content and disregarding the server's instructions set in the Content-Type header.
 
-MIME-sniffing is a useful feature but can lead to vulnerabilities. For example, an attacker can upload a JavaScript file with the extension of an image file. When others try to view the image, their browsers detect that the file is a JavaScript file and executes it instead of rendering it as an image. Setting this header to "nosniff" will prevent MIME-sniffing.
+MIME-sniffing is a useful feature but can lead to vulnerabilities. For example, an attacker can upload a JavaScript file with the extension of an image file. When others try to view the image, their browsers detect that the file is a JavaScript file and execute it instead of rendering it as an image. Setting this header to "nosniff" will prevent MIME-sniffing.
 
 ```
 X-Content-Type-Options: nosniff
@@ -150,7 +150,7 @@ Permissions-Policy: microphone=(self "https://example.com")
 
 You can configure these directories according to your needs. It's a good idea to place some control over the features that your iframes can access.
 
-## Configuring A Security Header
+## Configuring a Security Header
 
 After you've determined which headers to use, you can configure your server to send them with HTTP responses.
 
@@ -207,7 +207,7 @@ Major cloud providers also give you options to customize the security headers yo
 ```
 
 For more information about how to configure security headers on different cloud providers, such as Heroku, Netlify, and AWS, read [Angular Deployment with a Side of Spring Boot](/blog/2020/05/29/angular-deployment).
-
+### Learn more about Security Headers
 In this post, we looked at some of the most important HTTP security headers. By using these headers on your site, you'll be able to prevent some basic attacks and improve your site's security! [securityheaders.com](https://securityheaders.com) is a good resource to help you implement the correct security headers. It can scan your website and point out which security headers you have implemented and which are still missing. You can even [try it on this site](https://securityheaders.com/?q=developer.okta.com%2Fblog&followRedirects=on). 
 
 Got questions or feedback about HTTP security headers and how to improve the security score of your webpages? Drop a comment below, we're happy to hear from you. Want to stay up to date on the latest articles, videos, and events from the Okta DevRel team? Follow our social channels: [@oktadev on Twitter](https://twitter.com/oktadev), [Okta for Developers on LinkedIn](https://www.linkedin.com/company/oktadev), [Twitch](https://www.twitch.tv/oktadev), and [YouTube](https://youtube.com/oktadev).
