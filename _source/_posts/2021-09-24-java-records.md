@@ -13,7 +13,9 @@ tweets:
 image:
 type: conversion
 ---
-When defining classes for a simple aggregation of values, developers had to write constructors, accessors, `equals()`, `hashCode()` and `toString()`, an error-prone ceremony that has low value and deviates the focus from modeling immutable data. With the motivation of simplifying the writing of data carrier classes, Java Records were introduced as a first preview in JDK 14. The second preview came in JDK 15 and the finalized feature came in JDK 16. A summary of the history is available in the [JDK Enhancement Proposal JEP 395](https://openjdk.java.net/jeps/395). While code generators can be used to reduce boilerplate code, the goals of the `record` proposals rather focus on its semantics. In this post let's explore Java Records features and advantages, and apply them for building a REST API and querying a Database.
+When defining classes for a simple aggregation of values, developers had to write constructors, accessors, `equals()`, `hashCode()` and `toString()`, an error-prone ceremony that has low value and deviates the focus from modeling immutable data. With the motivation of simplifying the writing of data carrier classes, Java Records were introduced as a first preview in JDK 14. The second preview came in JDK 15 and the finalized feature came in JDK 16. A summary of the history is available in the [JDK Enhancement Proposal JEP 395](https://openjdk.java.net/jeps/395).
+
+While code generators can be used to reduce boilerplate code, the goals of the `record` proposals rather focus on its semantics. In this post let's explore Java Records features and advantages, and apply them for building a REST API and querying a Database.
 
 {% img blog/java-records/openjdk-logo.png alt:"OpenJDK Logo" width:"300" %}{: .center-image }
 
