@@ -101,7 +101,7 @@ One of these options should be set on all pages that contain state-changing acti
 
 ### Referrer-Policy
 
-The Referrer-Policy header tells the browser when to send Referrer information. This can help prevent information leakages offsite via Referrer URLs. There are many options for this header, the most useful ones being `no-referrer`, `origin`, `origin-when-cross-origin`, and `same-origin`. Note that "referrer" is not misspelled in this header!
+The Referrer-Policy header tells the browser when to send Referrer information. This can help prevent information leakages offsite via Referrer URLs. There are many options for this header, the most useful ones being `no-referrer`, `origin`, `origin-when-cross-origin`, and `same-origin`. Note that "referrer" is not misspelled in this header like it is [in HTTP's "Referer"](https://en.wikipedia.org/wiki/HTTP_referer)!
 
 ```
 Referrer-Policy: no-referrer (Do not send referer)
