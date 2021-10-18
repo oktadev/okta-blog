@@ -261,7 +261,7 @@ public interface MentalStateStatsRepository {
 }
 ```
 
-Add the implementation `MentalStateStatsRepostoryImpl` to retrieve the average damage in each category, for each mental state:
+Add the implementation `DefaultMentalStateStatsRepository` to retrieve the average damage in each category, for each mental state:
 
 ```java
 package com.okta.developer.records.repository;
@@ -275,13 +275,12 @@ import reactor.core.publisher.Flux;
 
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 
-public class MentalStateStatsRepositoryImpl implements MentalStateStatsRepository {
-
+public class DefaultMentalStateStatsRepository implements MentalStateStatsRepository {
 
     private final ReactiveMongoTemplate mongoTemplate;
 
     @Autowired
-    public MentalStateStatsRepositoryImpl(ReactiveMongoTemplate mongoTemplate) {
+    public DefaultMentalStateStatsRepository(ReactiveMongoTemplate mongoTemplate) {
         this.mongoTemplate = mongoTemplate;
     }
 
