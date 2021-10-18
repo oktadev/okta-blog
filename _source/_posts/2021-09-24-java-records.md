@@ -234,8 +234,6 @@ public record EndOfGame(String id, LocalDate date,  LocalTime timeOfDay,
 }
 ```
 
-
-
 Add a new record for the mental state query `MentalStateDamage`:
 
 ```java
