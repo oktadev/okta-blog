@@ -61,14 +61,15 @@ $line-break:				20px								!default;
 $gutter-width:				20px								!default;
 							 
 $breakpoints:				(
-							'xx-small':			320px,
-							'x-small':			480px,
-							'small':			768px,
-							'medium':			1024px,
-							'large':			1200px,
-							'x-large':			1400px,
-							'xx-large':			1600px
-							)									!default;
+							'xx-small':   320px,
+							'x-smaller':  375px,
+							'x-small':    480px,
+							'small':      768px,
+							'medium':     1024px,
+							'large':      1200px,
+							'x-large':    1400px,
+							'xx-large':   1600px
+							)             !default;
 						 
 $spacing:					(
 							'xx-small':			10px,
