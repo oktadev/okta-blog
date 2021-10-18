@@ -12,6 +12,7 @@ tweets:
 - ""
 image:
 type: conversion
+github: https://github.com/oktadev/okta-java-records-example
 ---
 When defining classes for a simple aggregation of values, developers had to write constructors, accessors, `equals()`, `hashCode()` and `toString()`, an error-prone ceremony that has low value and deviates the focus from modeling immutable data. With the motivation of simplifying the writing of data carrier classes, Java Records were introduced as a first preview in JDK 14. The second preview came in JDK 15 and the finalized feature came in JDK 16. A summary of the history is available in the [JDK Enhancement Proposal JEP 395](https://openjdk.java.net/jeps/395).
 
@@ -30,7 +31,7 @@ While code generators can be used to reduce boilerplate code, the goals of the `
 * Table of Contents
 {:toc}
 
-# The Record Keyword
+# The `record` Keyword
 
 The `record` is a new type of declaration, a restricted form of class that acts as a transparent carrier for immutable data. So let's start the exploration by defining a simple data type `EndOfGame` as a `record`:
 
@@ -50,7 +51,7 @@ The following members are acquired automatically with the declaration:
 - A public _canonical_ constructor with the same signature as the state description, which initializes each field from the corresponding argument
 - Implementation of `equals()`, `hashCode()` and `toString()`
 
-The code fragments from `EndOfGameTest` class below verify the automatic members are indeed available.
+The code fragments from the `EndOfGameTest` class below verify the automatic members are indeed available.
 
 ```java
 private EndOfGame getTestEndOfGame(){
@@ -138,7 +139,7 @@ Record instances can extend `Serializable`, but the serialization and deserializ
 
 As `spring-web` module provides Jackson JSON encoders and decoders, and Java Record support was added to Jackson in release 2.12, records can be used for REST API request and response mapping.
 
-Records cannot be used with JPA/Hiberante. Spring Data modules that do not use the object mapping of the underlying data store (like JPA) do support Record, as persistence construction detection works as with other classes. For Spring Data MongoDB, the general recommendation is to _stick to immutable objects_, because they are straightforward to materialize by calling the constructor. It is also recommended to provide an all-args constructor, allowing to skip property population for optimal performance. Java Record semantics align with these guidelines.
+Records cannot be used with JPA/Hibernate. Spring Data modules that do not use the object mapping of the underlying data store (like JPA) do support Record, as persistence construction detection works as with other classes. For Spring Data MongoDB, the general recommendation is to _stick to immutable objects_, because they are straightforward to materialize by calling the constructor. It is also recommended to provide an all-args constructor, allowing to skip property population for optimal performance. Java Record semantics align with these guidelines.
 
 
 # Using Java Record with Spring WebFlux and Spring Data
@@ -162,7 +163,7 @@ http -d https://start.spring.io/starter.zip type==maven-project \
 
 **Note**: Although Java Records are available since release 14, the Spring Initializr Web UI only allows to select Java Long Term Support (LTS) releases.
 
-Extract the maven project, and edit `pom.xml` to add two more required dependencies for this tutorial, [MongoDB Testcontainers Module](https://www.testcontainers.org/modules/databases/mongodb/) for testing database access and `spring-security-test`:
+Extract the Maven project, and edit `pom.xml` to add two more required dependencies for this tutorial, [MongoDB Testcontainers Module](https://www.testcontainers.org/modules/databases/mongodb/) for testing database access and `spring-security-test`:
 
 ```xml
 <dependency>
@@ -245,7 +246,7 @@ public record MentalStateDamage(String mentalState,
 }
 ```
 
-Create the package `com.okta.developer.records.repository` and add `MentalStateStatsRepostory` interface:
+Create the package `com.okta.developer.records.repository` and add a `MentalStateStatsRepostory` interface:
 
 ```java
 package com.okta.developer.records.repository;
@@ -300,7 +301,7 @@ public class MentalStateStatsRepositoryImpl implements MentalStateStatsRepositor
 }
 ```
 
-Create the `SatsRepository` interface, extending the `MentalStateStatsRepository`:
+Create the `StatsRepository` interface, extending the `MentalStateStatsRepository`:
 
 ```java
   package com.okta.developer.records.repository;
@@ -346,7 +347,7 @@ public class LocalTimeConverter implements Converter<String, LocalTime> {
 }
 ```
 
-Add the class `MongoConfiguration` in the package `com.okta.developer.records.configuration`, to register the converters:
+Add a `MongoConfiguration` class in the package `com.okta.developer.records.configuration`, to register the converters:
 
 ```java
 package com.okta.developer.records.configuration;
@@ -376,7 +377,7 @@ public class MongoConfiguration extends AbstractReactiveMongoConfiguration {
     }
 }
 ```
-Add the `StatsController` under the `com.okta.developer.records.controller` package:
+Add a `StatsController` in the `com.okta.developer.records.controller` package:
 
 ```java
 package com.okta.developer.records.controller;
@@ -412,7 +413,7 @@ The controller enables the `/endOfGame` endpoint to get all entries, and the `/m
 
 Download the test dataset from [Github](https://github.com/indiepopart/java-records/blob/main/src/test/resources/stats.json), and copy it to `src/test/resouces/stats.json`.
 
-Create the class `StatsControllerTest` in the package `com.okta.developer.records.controller` under the test folder, to verify the endpoints basic functionality with the help of Testcontainers:
+Create a `StatsControllerTest` in the package `com.okta.developer.records.controller` under the `src/test` folder, to verify the endpoints basic functionality with the help of Testcontainers:
 
 
 ```java
@@ -544,7 +545,7 @@ While Java Record is more concise for declaring data carrier classes, the "war o
 If you need to be able to alter the state or to define a hierarchy, it is not possible with records.
 
 
-# Learn More
+# Learn More About Java and Spring
 
 I hope you enjoyed this tutorial and learned more about Java Record semantics, its benefits, and its limitations. Before choosing this feature, make sure to find out if your favorite frameworks provide support for it. Fortunately, at this moment Spring Boot support for Java Records was recently added in 2.5.x releases through Jackson 2.12.x. I was not able to find comments about records in Spring Data documentation. To continue learning about Java Records, Okta Security and Spring WebFlux check out the links below:
 
@@ -554,5 +555,6 @@ I hope you enjoyed this tutorial and learned more about Java Record semantics, i
 - [A Quick Guide to Spring Cloud Stream](https://developer.okta.com/blog/2020/04/15/spring-cloud-stream)
 - [How to Use Client Credentials Flow with Spring Security](https://developer.okta.com/blog/2021/05/05/client-credentials-spring-security)
 
+You can find the completed code for this tutorial code on GitHub in the [oktadev/okta-java-records-example](https://github.com/oktadev/okta-java-records-example.git) repository.
 
-You can find all the tutorial code in [Github](https://github.com/indiepopart/java-records.git)
+If you liked this tutorial, chances are you like others we publish. Please follow [@oktadev on Twitter](https://twitter.com/oktadev) and [subscribe to our YouTube channel](https://youtube.com/oktadev) to get notified when we publish new developer tutorials.
