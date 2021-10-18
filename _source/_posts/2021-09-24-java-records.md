@@ -93,6 +93,8 @@ assertEquals("sober", eog.mentalState());
 
 # Java Record Restrictions and Rules
 
+While `record` provides a more concise syntax and semantics designed to help to model data aggregates, as stated before, a `record` is a restricted form of a class. Let's have a brief look at those restrictions.
+
 
 ## Inheritance, Extensibility, Immutability
 
