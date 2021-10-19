@@ -14,7 +14,7 @@ type: awareness
 
 T-minus 3... 2... 1...
 
-I'm blasting my way into the Developer Relations world like Alice discovering Wonderland and it's fantastic cast of characters. I am so curious, and excited, and all of the feels that come with coming to Okta! Officially stepping into the Developer Avocado (er... pardon me, Advocate) role and bringing the love of .NET, voice and IOT to the party.
+I'm blasting my way into the Developer Relations world like Alice discovering Wonderland and its fantastic cast of characters. I am so curious, and excited, and all of the feels that come with coming to Okta! Officially stepping into the Developer Avocado (er... pardon me, Advocate) role and bringing the love of .NET, voice and IOT to the party.
 
 {% img blog/hello-heather/okta-heather.png alt:"My face" width:"800" %}{: .center-image }
 
