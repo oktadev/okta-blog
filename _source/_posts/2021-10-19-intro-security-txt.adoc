@@ -79,7 +79,7 @@ For Security Vulnerabilities, please use https://pivotal.io/security#reporting
 -->
 ----
 
-TIP: What makes this so clever is the HTML comment; only the reporter sees the comment when opening an issue. It doesn't get displayed when the markdown is rendered!
+TIP: What makes this so clever is the HTML comment; only the reporter sees the comment when opening an issue. It doesn't get displayed when the Markdown is rendered!
 
 == Learn more about application security
 
