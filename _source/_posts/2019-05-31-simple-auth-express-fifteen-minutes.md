@@ -47,24 +47,24 @@ Now create a new file `index.js`:
 **index.js**
 
 ```javascript
-const express = require('express')
-const path = require('path')
+const express = require('express');
+const path = require('path');
 
-const app = express()
+const app = express();
 
-app.set('views', path.join(__dirname, 'views'))
-app.set('view engine', 'hbs')
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'hbs');
 
-app.use(express.urlencoded({ extended: true }))
-app.use('/static', express.static('public'))
+app.use(express.urlencoded({ extended: true }));
+app.use('/static', express.static('public'));
 
 // @TODO add auth middleware
 // @TODO add registration page
 
-app.use('/', require('./routes/index'))
+app.use('/', require('./routes/index'));
 
-const port = process.env.PORT || 3000
-app.listen(port, () => console.log(`App listening on port ${port}`))
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log(`App listening on port ${port}`));
 ```
 
 Make a few new folders as well:
@@ -164,14 +164,14 @@ To tell the homepage to use that file when rendering, you'll also need to create
 **routes/index.js**
 
 ```javascript
-const express = require('express')
-const router = express.Router()
+const express = require('express');
+const router = express.Router();
 
 router.get('/', (req, res) => {
-  res.render('index')
-})
+  res.render('index');
+});
 
-module.exports = router
+module.exports = router;
 ```
 
 The call to `res.render('index')` tells Express to use the render the `index.hbs` view and respond with the results back to the client. You can also pass in some context, but it's not needed here just yet.
@@ -246,9 +246,9 @@ app.use(
     resave: true,
     saveUninitialized: false
   })
-)
+);
 
-const { ExpressOIDC } = require('@okta/oidc-middleware')
+const { ExpressOIDC } = require('@okta/oidc-middleware');
 const oidc = new ExpressOIDC({
   appBaseUrl: process.env.HOST_URL,
   issuer: `${process.env.OKTA_ORG_URL}/oauth2/default`,
@@ -261,15 +261,15 @@ const oidc = new ExpressOIDC({
       path: '/callback'
     }
   }
-})
+});
 
-app.use(oidc.router)
+app.use(oidc.router);
 ```
 
 Also, make sure to add the following to the very top of `index.js`. This needs to be there before any other code in order to load your environment variables, so it should be the very first line of the file:
 
 ```javascript
-require('dotenv').config()
+require('dotenv').config();
 ```
 
 ### Create a Registration Page
@@ -307,38 +307,38 @@ You'll also need a new route:
 **routes/register.js**
 
 ```javascript
-const okta = require('@okta/okta-sdk-nodejs')
-const express = require('express')
+const okta = require('@okta/okta-sdk-nodejs');
+const express = require('express');
 
-const router = express.Router()
+const router = express.Router();
 
 const client = new okta.Client({
   orgUrl: process.env.OKTA_ORG_URL,
   token: process.env.OKTA_TOKEN
-})
+});
 
 // Take the user to the homepage if they're already logged in
 router.use('/', (req, res, next) => {
   if (req.userContext) {
-    return res.redirect('/')
+    return res.redirect('/');
   }
 
-  next()
-})
+  next();
+});
 
 const fields = [
   { name: 'firstName', label: 'First Name' },
   { name: 'lastName', label: 'Last Name' },
   { name: 'email', label: 'Email', type: 'email' },
   { name: 'password', label: 'Password', type: 'password' }
-]
+];
 
 router.get('/', (req, res) => {
-  res.render('register', { fields })
-})
+  res.render('register', { fields });
+});
 
 router.post('/', async (req, res) => {
-  const { body } = req
+  const { body } = req;
 
   try {
     await client.createUser({
@@ -353,16 +353,16 @@ router.post('/', async (req, res) => {
           value: body.password
         }
       }
-    })
+    });
 
-    res.redirect('/')
+    res.redirect('/');
   } catch ({ errorCauses }) {
-    const errors = {}
+    const errors = {};
 
     errorCauses.forEach(({ errorSummary }) => {
-      const [, field, error] = /^(.+?): (.+)$/.exec(errorSummary)
-      errors[field] = error
-    })
+      const [, field, error] = /^(.+?): (.+)$/.exec(errorSummary);
+      errors[field] = error;
+    });
 
     res.render('register', {
       errors,
@@ -371,17 +371,17 @@ router.post('/', async (req, res) => {
         error: errors[field.name],
         value: body[field.name]
       }))
-    })
+    });
   }
-})
+});
 
-module.exports = router
+module.exports = router;
 ```
 
 To tie this all together, in your root `index.js` file, make sure to replace the `// @TODO add registration page` comment with the following:
 
 ```javascript
-app.use('/register', require('./routes/register'))
+app.use('/register', require('./routes/register'));
 ```
 
 You can now have users register. If they run into an error, it will be displayed with the field that caused the error.
@@ -403,8 +403,8 @@ In `routes/index.js` replace the `res.render('index')` line with the following:
 **routes/index.js**
 
 ```javascript
-const { userContext } = req
-res.render('index', { userContext })
+const { userContext } = req;
+res.render('index', { userContext });
 ```
 
 While you're at it, you can also prevent the user from seeing your greeting unless they're logged in. Change your `views/index.hbs` file to the following:
