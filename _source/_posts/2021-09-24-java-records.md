@@ -561,6 +561,7 @@ I hope you enjoyed this tutorial and learned more about Java Record semantics, i
 - [R2DBC and Spring for Non-Blocking Database Access](https://developer.okta.com/blog/2021/05/12/spring-boot-r2dbc)
 - [A Quick Guide to Spring Cloud Stream](https://developer.okta.com/blog/2020/04/15/spring-cloud-stream)
 - [How to Use Client Credentials Flow with Spring Security](https://developer.okta.com/blog/2021/05/05/client-credentials-spring-security)
+- [Better Testing with Spring Security Test](https://developer.okta.com/blog/2021/05/19/spring-security-testing)
 
 You can find the completed code for this tutorial code on GitHub in the [oktadev/okta-java-records-example](https://github.com/oktadev/okta-java-records-example.git) repository.
 
