@@ -141,7 +141,9 @@ Record instances can extend `Serializable`, but the serialization and deserializ
 
 As `spring-web` module provides Jackson JSON encoders and decoders, and Java Record support was added to Jackson in release 2.12, records can be used for REST API request and response mapping.
 
-Records cannot be used with JPA/Hibernate. Spring Data modules that do not use the object mapping of the underlying data store (like JPA) do support Record, as persistence construction detection works as with other classes. For Spring Data MongoDB, the general recommendation is to _stick to immutable objects_, because they are straightforward to materialize by calling the constructor. It is also recommended to provide an all-args constructor, allowing to skip property population for optimal performance. Java Record semantics align with these guidelines.
+**Records cannot be used as entities with JPA/Hibernate**. JPA entities must have a no-args constructor, and must not be final, two requirements that `record` will not comply, and there are more.
+
+Spring Data modules that do not use the object mapping of the underlying data store (like JPA) do support Record, as persistence construction detection works as with other classes. For Spring Data MongoDB, the general recommendation is to _stick to immutable objects_, because they are straightforward to materialize by calling the constructor. It is also recommended to provide an all-args constructor, allowing to skip property population for optimal performance. Java Record semantics align with these guidelines.
 
 
 # Using Java Record with Spring WebFlux and Spring Data
