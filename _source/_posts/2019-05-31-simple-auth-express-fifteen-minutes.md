@@ -212,7 +212,7 @@ npm install -g uuid-cli
 echo "APP_SECRET=`uuid`" >> .env
 ```
 
-Next, let us create an Okta OIDC application.
+Next, create an Okta OIDC application.
 
 {% include setup/cli.md type="web" loginRedirectUri="http://localhost:3000/callback" logoutRedirectUri="http://localhost:3000" signup="false" %}
 
