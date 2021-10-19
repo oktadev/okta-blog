@@ -214,7 +214,7 @@ echo "APP_SECRET=`uuid`" >> .env
 
 Next, let us create an Okta OIDC application.
 
-{% include setup/cli.md type="web" loginRedirectUri="http://localhost:3000/callback" logoutRedirectUri="http://localhost:3000" %}
+{% include setup/cli.md type="web" loginRedirectUri="http://localhost:3000/callback" logoutRedirectUri="http://localhost:3000" signup="false" %}
 
 Copy the client ID and client secret from `.okta.env` file created during the above step into your `.env` file.
 
