@@ -445,7 +445,7 @@ Now to add the buttons. In `views/layout.hbs`, replace the `{{!-- @TODO add auth
 
 {%endraw%}
 
-Check out the final product to make sure it works
+Check out the final product to make sure it works.
 
 {% img blog/express-auth/login-flow.gif alt:"Login Flow" width:"800" %}{: .center-image }
 
