@@ -13,7 +13,7 @@ tweets:
 image: blog/featured/okta-node-tile-books-mouse.jpg
 type: conversion
 changelog:
-  - 2021-10-18: Updated to use latest Okta dashboard screenshots and latest Okta libraries. These changes can be viewed in [oktadev/okta-blog#925](https://github.com/oktadev/okta-blog/pull/925). Code changes to the accompanied app can be seen at [oktadev/okta-node-express-15-minute-auth-example#17](https://github.com/oktadev/okta-node-express-15-minute-auth-example/pull/17).
+  - 2021-10-18: Updated to use Okta CLI and latest Okta libraries. These changes can be viewed in [oktadev/okta-blog#925](https://github.com/oktadev/okta-blog/pull/925). Code changes to the accompanied app can be seen at [oktadev/okta-node-express-15-minute-auth-example#17](https://github.com/oktadev/okta-node-express-15-minute-auth-example/pull/17).
   - 2020-06-15: Updated to use the v4.0.1 version of  Okta Middleware. See the code changes in the [example app on GitHub](https://github.com/oktadev/okta-node-express-15-minute-auth-example/pull/6). Changes to this article can be viewed in [oktadev/okta-blog#325](https://github.com/oktadev/okta-blog/pull/325).
 ---
 
