@@ -151,7 +151,7 @@ While searching for a dataset for this tutorial, I came across a collection of 8
 Let's jump ahead and build the a secured REST Api using the `EndOfGame` record, Spring Boot, [MongoDB](https://www.mongodb.com/community) and Okta authentication. With the help of [Spring Initializr](https://start.spring.io/) create a WebFlux application, from the web UI or with [HTTPie](https://httpie.io/):
 
 ```shell
-http -d https://start.spring.io/starter.zip type==maven-project \
+https -d start.spring.io/starter.zip type==maven-project \
   language==java \
   bootVersion==2.5.5 \
   baseDir==java-records \
@@ -410,7 +410,13 @@ public class StatsController {
 
 The controller enables the `/endOfGame` endpoint to get all entries, and the `/mentalStateAverageDamage` endpoint, that returns the damage in each category, in an average by mental state.
 
-Download the test dataset from [Github](https://github.com/indiepopart/java-records/blob/main/src/test/resources/stats.json), and copy it to `src/test/resouces/stats.json`.
+Download the test dataset from [Github](https://github.com/indiepopart/java-records/blob/main/src/test/resources/stats.json) with HTTPie, and copy it to `src/test/resouces/stats.json`:
+
+```shell
+https -d github.com/indiepopart/java-records/blob/main/src/test/resources/stats.json
+```
+
+
 
 Create a `StatsControllerTest` in the package `com.okta.developer.records.controller` under the `src/test` folder, to verify the endpoints basic functionality with the help of Testcontainers:
 
