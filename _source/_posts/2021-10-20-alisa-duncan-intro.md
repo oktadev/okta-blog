@@ -8,11 +8,9 @@ description: "Welcome to the Okta team, Alisa Duncan!"
 tags: [javascript, typescript, angular, advocacy, okta]
 tweets:
   - "Welcome to the @oktadev team, @alisaduncan!"
-image:
+image: blog/alisaduncan-intro/alisaduncan-joins-okta-social-image.png
 type: awareness
 ---
-
-# Flying into Okta
   
 > "Just follow your heart and keep smiling."
 >
@@ -42,4 +40,4 @@ My professional technical background is over ten years of enterprise software de
 > 
 > – <cite>[Kiki's Delivery Service](https://www.ghibli.jp/works/majo/)</cite>
   
-I'm looking forward to sharing knowledge, sparking your imagination, and hearing about your aspirations and difficulties using Okta developer tooling. Let's keep in touch so we can do so! You can find me on [Twitter](https://twitter.com/alisaduncan), [GitHub](https://github.com/alisaduncan), and [dev.to](https://dev.to/alisaduncan) at @AlisaDuncan.
+I'm looking forward to sharing knowledge, sparking your imagination, and hearing about your aspirations and difficulties using Okta developer tooling. Let's keep in touch so we can do so! You can find me on [GitHub](https://github.com/alisaduncan), [dev.to](https://dev.to/alisaduncan), and [Twitter at @AlisaDuncan](https://twitter.com/alisaduncan).
