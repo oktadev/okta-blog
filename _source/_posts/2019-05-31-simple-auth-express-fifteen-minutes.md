@@ -1,20 +1,20 @@
 ---
 layout: blog_post
-title: "Build Simple Authentication in Express in 15 Minutes"
+title: 'Build Simple Authentication in Express in 15 Minutes'
 author: braden-kelley
 by: contractor
 communities: [javascript]
-description: "A tutorial on building simple authentication in Express."
+description: 'A tutorial on building simple authentication in Express.'
 tags: [node, nodejs, express, authentication]
 tweets:
-  - "Learn to build simple authentication in #ExpressJS!"
-  - "Want to build authentication in #ExpressJS? Check this out!"
+  - 'Learn to build simple authentication in #ExpressJS!'
+  - 'Want to build authentication in #ExpressJS? Check this out!'
   - "Need to learn how to build simple authentication in #ExpressJS? We've got you covered!"
 image: blog/featured/okta-node-tile-books-mouse.jpg
 type: conversion
 changelog:
-  - 2020-06-15: Updated to use the v4.0.1 version of  Okta Middleware. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-node-express-15-minute-auth-example/pull/6). Changes to this article can be viewed in [oktadeveloper/okta-blog#325](https://github.com/oktadeveloper/okta-blog/pull/325).
-  - 2021-10-18: Updated to use latest Okta dashboard screenshots and latest Okta libraries.
+  - 2021-10-18: Updated to use latest Okta dashboard screenshots and latest Okta libraries. These changes can be viewed in [oktadev/okta-blog#925](https://github.com/oktadev/okta-blog/pull/925). Code changes to the accompanied app can be seen at [oktadev/okta-node-express-15-minute-auth-example#17](https://github.com/oktadev/okta-node-express-15-minute-auth-example/pull/17).
+  - 2020-06-15: Updated to use the v4.0.1 version of  Okta Middleware. See the code changes in the [example app on GitHub](https://github.com/oktadev/okta-node-express-15-minute-auth-example/pull/6). Changes to this article can be viewed in [oktadev/okta-blog#325](https://github.com/oktadev/okta-blog/pull/325).
 ---
 
 Building web pages with user authentication can be a huge pain. You typically need to set up some sort of database to manage users even if you're not using the database for anything else. You would then need to store their password hashes, and you almost need a degree on internet security to know the safest ways to do that.
@@ -47,24 +47,24 @@ Now create a new file `index.js`:
 **index.js**
 
 ```javascript
-const express = require("express");
-const path = require("path");
+const express = require('express')
+const path = require('path')
 
-const app = express();
+const app = express()
 
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "hbs");
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'hbs')
 
-app.use(express.urlencoded({ extended: true }));
-app.use("/static", express.static("public"));
+app.use(express.urlencoded({ extended: true }))
+app.use('/static', express.static('public'))
 
 // @TODO add auth middleware
 // @TODO add registration page
 
-app.use("/", require("./routes/index"));
+app.use('/', require('./routes/index'))
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`App listening on port ${port}`));
+const port = process.env.PORT || 3000
+app.listen(port, () => console.log(`App listening on port ${port}`))
 ```
 
 Make a few new folders as well:
@@ -81,14 +81,12 @@ Express allows for a templating engine. You already set up Handlebars (hbs) abov
 {%raw%}
 
 ```hbs
+<!doctype html>
 <html lang="en">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
     <!-- Bootstrap CSS -->
     <link
@@ -117,7 +115,7 @@ Express allows for a templating engine. You already set up Handlebars (hbs) abov
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
-            {{! @TODO add auth links }}
+            {{!-- @TODO add auth links --}}
           </div>
         </div>
       </div>
@@ -166,14 +164,14 @@ To tell the homepage to use that file when rendering, you'll also need to create
 **routes/index.js**
 
 ```javascript
-const express = require("express");
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
 
-router.get("/", (req, res) => {
-  res.render("index");
-});
+router.get('/', (req, res) => {
+  res.render('index')
+})
 
-module.exports = router;
+module.exports = router
 ```
 
 The call to `res.render('index')` tells Express to use the render the `index.hbs` view and respond with the results back to the client. You can also pass in some context, but it's not needed here just yet.
@@ -214,11 +212,11 @@ npm install -g uuid-cli
 echo "APP_SECRET=`uuid`" >> .env
 ```
 
-Next, log in to your Okta developer console, navigate to **Applications** > **Applications**, then click **Create App Integration**. Select **OIDC** under sign-in method and then select **Web Application** under application type, then click **Next**. Change all ports to be 3000 and add `http://localhost:3000/callback` as a **Sigh-in redirect URI**. Under assignments, select **Allow everyone in your organization to access** and then click **Save**.
+Next, let us create an Okta OIDC application.
 
-{% img blog/express-auth/create-new-application-settings.png alt:"Create New Application Settings" width:"700" %}{: .center-image }
+{% include setup/cli.md type="web" loginRedirectUri="http://localhost:3000/callback" %}
 
-The page you come to after creating an application has some more information you need to save to your `.env` file. Copy in the client ID and client secret.
+Copy the client ID and client secret from `.okta.env` file created during the above step into your `.env` file.
 
 ```bash
 OKTA_CLIENT_ID={yourClientId}
@@ -243,35 +241,35 @@ In your `index.js` page, replace the `// @TODO add auth middleware` comment with
 
 ```javascript
 app.use(
-  require("express-session")({
+  require('express-session')({
     secret: process.env.APP_SECRET,
     resave: true,
-    saveUninitialized: false,
+    saveUninitialized: false
   })
-);
+)
 
-const { ExpressOIDC } = require("@okta/oidc-middleware");
+const { ExpressOIDC } = require('@okta/oidc-middleware')
 const oidc = new ExpressOIDC({
   appBaseUrl: process.env.HOST_URL,
   issuer: `${process.env.OKTA_ORG_URL}/oauth2/default`,
   client_id: process.env.OKTA_CLIENT_ID,
   client_secret: process.env.OKTA_CLIENT_SECRET,
   redirect_uri: `${process.env.HOST_URL}/callback`,
-  scope: "openid profile",
+  scope: 'openid profile',
   routes: {
     loginCallback: {
-      path: "/callback",
-    },
-  },
-});
+      path: '/callback'
+    }
+  }
+})
 
-app.use(oidc.router);
+app.use(oidc.router)
 ```
 
 Also, make sure to add the following to the very top of `index.js`. This needs to be there before any other code in order to load your environment variables, so it should be the very first line of the file:
 
 ```javascript
-require("dotenv").config();
+require('dotenv').config()
 ```
 
 ### Create a Registration Page
@@ -309,38 +307,38 @@ You'll also need a new route:
 **routes/register.js**
 
 ```javascript
-const okta = require("@okta/okta-sdk-nodejs");
-const express = require("express");
+const okta = require('@okta/okta-sdk-nodejs')
+const express = require('express')
 
-const router = express.Router();
+const router = express.Router()
 
 const client = new okta.Client({
   orgUrl: process.env.OKTA_ORG_URL,
-  token: process.env.OKTA_TOKEN,
-});
+  token: process.env.OKTA_TOKEN
+})
 
 // Take the user to the homepage if they're already logged in
-router.use("/", (req, res, next) => {
+router.use('/', (req, res, next) => {
   if (req.userContext) {
-    return res.redirect("/");
+    return res.redirect('/')
   }
 
-  next();
-});
+  next()
+})
 
 const fields = [
-  { name: "firstName", label: "First Name" },
-  { name: "lastName", label: "Last Name" },
-  { name: "email", label: "Email", type: "email" },
-  { name: "password", label: "Password", type: "password" },
-];
+  { name: 'firstName', label: 'First Name' },
+  { name: 'lastName', label: 'Last Name' },
+  { name: 'email', label: 'Email', type: 'email' },
+  { name: 'password', label: 'Password', type: 'password' }
+]
 
-router.get("/", (req, res) => {
-  res.render("register", { fields });
-});
+router.get('/', (req, res) => {
+  res.render('register', { fields })
+})
 
-router.post("/", async (req, res) => {
-  const { body } = req;
+router.post('/', async (req, res) => {
+  const { body } = req
 
   try {
     await client.createUser({
@@ -348,42 +346,42 @@ router.post("/", async (req, res) => {
         firstName: body.firstName,
         lastName: body.lastName,
         email: body.email,
-        login: body.email,
+        login: body.email
       },
       credentials: {
         password: {
-          value: body.password,
-        },
-      },
-    });
+          value: body.password
+        }
+      }
+    })
 
-    res.redirect("/");
+    res.redirect('/')
   } catch ({ errorCauses }) {
-    const errors = {};
+    const errors = {}
 
     errorCauses.forEach(({ errorSummary }) => {
-      const [, field, error] = /^(.+?): (.+)$/.exec(errorSummary);
-      errors[field] = error;
-    });
+      const [, field, error] = /^(.+?): (.+)$/.exec(errorSummary)
+      errors[field] = error
+    })
 
-    res.render("register", {
+    res.render('register', {
       errors,
       fields: fields.map((field) => ({
         ...field,
         error: errors[field.name],
-        value: body[field.name],
-      })),
-    });
+        value: body[field.name]
+      }))
+    })
   }
-});
+})
 
-module.exports = router;
+module.exports = router
 ```
 
 To tie this all together, in your root `index.js` file, make sure to replace the `// @TODO add registration page` comment with the following:
 
 ```javascript
-app.use("/register", require("./routes/register"));
+app.use('/register', require('./routes/register'))
 ```
 
 You can now have users register. If they run into an error, it will be displayed with the field that caused the error.
@@ -405,8 +403,8 @@ In `routes/index.js` replace the `res.render('index')` line with the following:
 **routes/index.js**
 
 ```javascript
-const { userContext } = req;
-res.render("index", { userContext });
+const { userContext } = req
+res.render('index', { userContext })
 ```
 
 While you're at it, you can also prevent the user from seeing your greeting unless they're logged in. Change your `views/index.hbs` file to the following:
