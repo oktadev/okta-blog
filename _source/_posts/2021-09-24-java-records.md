@@ -368,7 +368,7 @@ public class LocalTimeConverter implements Converter<String, LocalTime> {
 }
 ```
 
-Add the `MongoConfiguration` class in the package `com.okta.developer.records.configuration`, to register the converters:
+Add a `MongoConfiguration` class in the package `com.okta.developer.records.configuration`, to register the converters:
 
 ```java
 package com.okta.developer.records.configuration;
@@ -399,7 +399,7 @@ public class MongoConfiguration extends AbstractReactiveMongoConfiguration {
 }
 ```
 
-Add the `StatsService` interface in the `com.okta.developer.records.service` package:
+Add a `StatsService` interface in the `com.okta.developer.records.service` package:
 
 ```java
 package com.okta.developer.records.service;
@@ -416,7 +416,7 @@ public interface StatsService {
 }
 ```
 
-Add the `DefaultStatsService` class for the implementation in the `com.okta.developer.records.service` package:
+Add a `DefaultStatsService` class for the implementation in the `com.okta.developer.records.service` package:
 
 ```java
 package com.okta.developer.records.service;
@@ -446,7 +446,7 @@ public class DefaultStatsService implements StatsService {
 }
 ```
 
-Add the `StatsController` class in the `com.okta.developer.records.controller` package:
+Add a `StatsController` class in the `com.okta.developer.records.controller` package:
 
 ```java
 package com.okta.developer.records.controller;
