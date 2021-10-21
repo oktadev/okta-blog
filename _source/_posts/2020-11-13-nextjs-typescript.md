@@ -13,7 +13,7 @@ tweets:
 image: blog/featured/okta-react-bottle-headphones.jpg
 type: conversion
 changelog:
-- 2021-10-21: Updated to use Okta CLI and React 17. You can see changes to this post in [okta-blog#925](https://github.com/oktadev/okta-blog/pull/925). Updates to the example can be viewed in [okta-nextjs-typescript-example#1](https://github.com/oktadev/okta-nextjs-typescript-example/pulls/1).
+- 2021-10-21: Updated to use Okta CLI and React 17. You can see changes to this post in [okta-blog#928](https://github.com/oktadev/okta-blog/pull/928). Updates to the example can be viewed in [okta-nextjs-typescript-example#1](https://github.com/oktadev/okta-nextjs-typescript-example/pull/1).
 github: https://github.com/oktadev/okta-nextjs-typescript-example
 ---
 
