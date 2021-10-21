@@ -51,44 +51,64 @@ The following members are acquired automatically with the declaration:
 - A public _canonical_ constructor with the same signature as the state description, which initializes each field from the corresponding argument
 - Implementation of `equals()`, `hashCode()` and `toString()`
 
-The code fragments from the `EndOfGameTest` class below verify the automatic members are indeed available.
+The tests in the `EndOfGameTest` class below verify the automatic members are indeed available:
 
 ```java
-private EndOfGame getTestEndOfGame(){
+package com.okta.developer.records.domain;
 
-    return new EndOfGame("1", LocalDate.of(2018, 12, 12),
-            LocalTime.of(15, 15), 1,
-            "sober", "10%", 1,1,
-            10, 10,10);
+
+import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+public class EndOfGameTest {
+
+    private static final Logger logger = LoggerFactory.getLogger(EndOfGameTest.class);
+
+    private EndOfGame getTestEndOfGame() {
+
+        return new EndOfGame("1", LocalDate.of(2018, 12, 12),
+                LocalTime.of(15, 15), "sober",
+                10, 10, 10);
+    }
+
+    @Test
+    public void equalsTest() {
+        EndOfGame eog1 = getTestEndOfGame();
+        EndOfGame eog2 = getTestEndOfGame();
+
+        assertTrue(eog1.equals(eog2));
+        assertEquals(eog1, eog2);
+        assertEquals(eog1.hashCode(), eog2.hashCode());
+    }
+
+    @Test
+    public void toStringTest() {
+        EndOfGame eog = getTestEndOfGame();
+        logger.info(eog.toString());
+
+        assertEquals("EndOfGame[id=1, date=2018-12-12, timeOfDay=15:15, mentalState=sober, " +
+                        "damageTaken=10, damageToPlayers=10, damageToStructures=10]",
+                eog.toString());
+    }
+
+    @Test
+    public void accessorTest() {
+        EndOfGame eog = getTestEndOfGame();
+        assertEquals("sober", eog.mentalState());
+    }
+
 }
 ```
-The automatic canonical constructor is used for creating a sample `EndOfGame`.
-
-```java
-@Test
-public void equalsTest(){
-    EndOfGame eog1 = getTestEndOfGame();
-    EndOfGame eog2 = getTestEndOfGame();
-
-    assertTrue(eog1.equals(eog2));
-    assertEquals(eog1, eog2);
-    assertEquals(eog1.hashCode(), eog2.hashCode());
-}
-```
-
-In the test above, `eog1` has the same state than `eog2`, so `eog1.equals(eog2)` is `true`. This also implies both instances have the same `hashCode`.
-
-A `toString()` test can illustrate what the string representation looks like:
-
-```text
-EndOfGame[id=1, date=2018-12-12, timeOfDay=15:15, mentalState=sober, damageTaken=10, damageToPlayers=10, damageToStructures=10]
-```
-
-Automatic read accessors have the same name and return type as the component. Note there is no `get*` prefix in the read accessor name, the same name as the component:
-
-```java
-assertEquals("sober", eog.mentalState());
-```
+The automatic canonical constructor is used for creating a sample `EndOfGame` in the method `getTestEndOfGame()`.
+In the `equalsTest()` above, `eog1` has the same state than `eog2`, so `eog1.equals(eog2)` is `true`. This also implies both instances have the same `hashCode`.
+Automatic read accessors have the same name and return type as the component. Note there is no `get*` prefix in the read accessor name, the same name as the component, as illustrated in the `accessorTest()`.
 
 
 # Java Record Restrictions and Rules
@@ -148,7 +168,7 @@ Spring Data modules that do not use the object mapping of the underlying data st
 
 # Using Java Record with Spring WebFlux and Spring Data
 
-While searching for a dataset for this tutorial, I came across a collection of 88 end game statistics of a single player, for a popular game. As the author included the mental state in the data, I decided to use Java Records for building a basic average query and finding out if the performance was significantly different when sober than when high.
+While searching for a dataset for this tutorial, I came across a collection of 87 end game statistics of a single player, for a popular game. As the author included the mental state in the data, I decided to use Java Records for building a basic average query and finding out if the performance was significantly different when sober than when high.
 
 Let's jump ahead and build the a secured REST Api using the `EndOfGame` record, Spring Boot, [MongoDB](https://www.mongodb.com/community) and Okta authentication. With the help of [Spring Initializr](https://start.spring.io/) create a WebFlux application, from the web UI or with [HTTPie](https://httpie.io/):
 
@@ -263,7 +283,7 @@ public interface MentalStateStatsRepository {
 }
 ```
 
-Add the implementation `DefaultMentalStateStatsRepository` to retrieve the average damage in each category, for each mental state:
+Add the implementation `MentalStateStatsRepositoryImpl` to retrieve the average damage in each category, for each mental state:
 
 ```java
 package com.okta.developer.records.repository;
@@ -277,12 +297,12 @@ import reactor.core.publisher.Flux;
 
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 
-public class DefaultMentalStateStatsRepository implements MentalStateStatsRepository {
+public class MentalStateStatsRepositoryImpl implements MentalStateStatsRepository {
 
     private final ReactiveMongoTemplate mongoTemplate;
 
     @Autowired
-    public DefaultMentalStateStatsRepository(ReactiveMongoTemplate mongoTemplate) {
+    public MentalStateStatsRepositoryImpl(ReactiveMongoTemplate mongoTemplate) {
         this.mongoTemplate = mongoTemplate;
     }
 
@@ -301,6 +321,8 @@ public class DefaultMentalStateStatsRepository implements MentalStateStatsReposi
 
 }
 ```
+
+**Note**: The `Impl` suffix is required for customizing individual repositories with [Spring Data](https://docs.spring.io/spring-data/mongodb/docs/current/reference/html/#repositories.single-repository-behavior)
 
 Create the `StatsRepository` interface, extending the `MentalStateStatsRepository`:
 
@@ -378,6 +400,54 @@ public class MongoConfiguration extends AbstractReactiveMongoConfiguration {
     }
 }
 ```
+
+Add a `StatsService` interface in the `com.okta.developer.records.service` package:
+
+```java
+package com.okta.developer.records.service;
+
+import com.okta.developer.records.domain.EndOfGame;
+import com.okta.developer.records.domain.MentalStateDamage;
+import reactor.core.publisher.Flux;
+
+public interface StatsService {
+
+    Flux<MentalStateDamage> queryMentalStateAverageDamage();
+
+    Flux<EndOfGame> getAll();
+}
+```
+
+Add a `DefaultStatsService` class for the implementation in the `com.okta.developer.records.service` package:
+
+```java
+package com.okta.developer.records.service;
+
+import com.okta.developer.records.domain.EndOfGame;
+import com.okta.developer.records.domain.MentalStateDamage;
+import com.okta.developer.records.repository.StatsRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
+
+@Service
+public class DefaultStatsService implements StatsService {
+
+    @Autowired
+    private StatsRepository statsRepository;
+
+    @Override
+    public Flux<MentalStateDamage> queryMentalStateAverageDamage() {
+        return statsRepository.queryMentalStateAverageDamage();
+    }
+
+    @Override
+    public Flux<EndOfGame> getAll() {
+        return statsRepository.findAll();
+    }
+}
+```
+
 Add a `StatsController` in the `com.okta.developer.records.controller` package:
 
 ```java
@@ -385,7 +455,7 @@ package com.okta.developer.records.controller;
 
 import com.okta.developer.records.domain.EndOfGame;
 import com.okta.developer.records.domain.MentalStateDamage;
-import com.okta.developer.records.repository.StatsRepository;
+import com.okta.developer.records.service.StatsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -395,16 +465,16 @@ import reactor.core.publisher.Flux;
 public class StatsController {
 
     @Autowired
-    private StatsRepository statsRepository;
+    private StatsService statsService;
 
     @GetMapping("/endOfGame")
     public Flux<EndOfGame> getAllEndOfGame(){
-        return statsRepository.findAll();
+        return statsService.getAll();
     }
 
     @GetMapping("/mentalStateAverageDamage")
     public Flux<MentalStateDamage> getMentalStateAverageDamage(){
-        return statsRepository.queryMentalStateAverageDamage();
+        return statsService.queryMentalStateAverageDamage();
     }
 
 }
@@ -418,41 +488,147 @@ Download the test dataset from [Github](https://github.com/indiepopart/java-reco
 https -d github.com/indiepopart/java-records/blob/main/src/test/resources/stats.json
 ```
 
-
-
-Create a `StatsControllerTest` in the package `com.okta.developer.records.controller` under the `src/test` folder, to verify the endpoints basic functionality with the help of Testcontainers:
+Create a `StatsControllerTest` in the package `com.okta.developer.records.controller` under the `src/test` folder, to verify the endpoints basic functionality with a web test. In this test, only the web slice is verified:
 
 
 ```java
 package com.okta.developer.records.controller;
 
+import com.okta.developer.records.domain.EndOfGame;
+import com.okta.developer.records.domain.MentalStateDamage;
+import com.okta.developer.records.service.StatsService;
+import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.web.reactive.server.WebTestClient;
+import reactor.core.publisher.Flux;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+
+import static org.mockito.BDDMockito.given;
+import static org.springframework.security.test.web.reactive.server.SecurityMockServerConfigurers.mockOidcLogin;
+
+@WebFluxTest
+public class StatsControllerTest {
+
+    private static Logger logger = LoggerFactory.getLogger(StatsControllerTest.class);
+
+    @MockBean
+    private StatsService statsService;
+
+    @Autowired
+    private WebTestClient webTestClient;
+
+    @Test
+    public void testGet_noAuth_returnsNotAuthorized(){
+
+        webTestClient
+                .get().uri("/endofgame")
+                .exchange()
+                .expectStatus().is3xxRedirection();
+    }
+
+    @Test
+    public void testGet_withOidcLogin_returnsOk(){
+
+        EndOfGame endOfGame = new EndOfGame("1", LocalDate.now(), LocalTime.now(), "happy", 1, 1, 1);
+
+        given(statsService.getAll()).willReturn(Flux.just(endOfGame));
+
+
+        webTestClient.mutateWith(mockOidcLogin())
+                .get().uri("/endOfGame")
+                .exchange()
+                .expectStatus().is2xxSuccessful()
+                .expectBody()
+                    .jsonPath("$.length()").isNumber()
+                    .jsonPath("$.length()").isEqualTo("1")
+                    .jsonPath("$[0].mentalState").isEqualTo("happy")
+                    .jsonPath("$[0].damageTaken").isNumber()
+                    .jsonPath("$[0].damageToPlayers").isNumber()
+                    .jsonPath("$[0].damageToStructures").isNumber()
+                    .jsonPath("$[0].date").isNotEmpty()
+                    .jsonPath("$[0].timeOfDay").isNotEmpty()
+                    .consumeWith(response -> logger.info(response.toString()));
+
+    }
+
+    @Test
+    public void testGetMentalStateAverageDamage_withOidcLogin_returnsOk(){
+
+        MentalStateDamage mentalStateDamage = new MentalStateDamage("happy", 0.0, 0.0, 0.0);
+
+        given(statsService.queryMentalStateAverageDamage()).willReturn(Flux.just(mentalStateDamage));
+
+        webTestClient
+                .mutateWith(mockOidcLogin())
+                .get().uri("/mentalStateAverageDamage")
+                .exchange()
+                .expectStatus().is2xxSuccessful()
+                .expectBody()
+                .jsonPath("$.length()").isEqualTo("1")
+                .jsonPath("$.[0].mentalState").isEqualTo("happy")
+                .consumeWith(response -> logger.info(response.toString()));
+    }
+
+}
+```
+The `mentalState` test above also verifies that the `MentalStateDamage` record type is correctly handled when used as response body. You should see response logs similar to this:
+
+```json
+[
+   {
+      "id":"1",
+      "date":"2021-10-21",
+      "timeOfDay":"12:02:34.233944363",
+      "mentalState":"happy",
+      "damageTaken":1,
+      "damageToPlayers":1,
+      "damageToStructures":1
+   }
+]
+```
+
+Create a `StatsRepositoryTest` in the package `com.okta.developer.records.repository` under the `src/test` folder, to verify the database slice:
+
+```java
+package com.okta.developer.records.repository;
+
+import com.okta.developer.records.configuration.MongoConfiguration;
+import com.okta.developer.records.domain.EndOfGame;
+import com.okta.developer.records.domain.MentalStateDamage;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.reactive.server.WebTestClient;
+import org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration;
+import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
+import org.springframework.context.annotation.Import;
 import org.testcontainers.containers.Container;
 import org.testcontainers.containers.MongoDBContainer;
 import org.testcontainers.utility.DockerImageName;
 import org.testcontainers.utility.MountableFile;
+import reactor.core.publisher.Flux;
 
 import java.io.IOException;
 import java.util.List;
 
-import static org.springframework.security.test.web.reactive.server.SecurityMockServerConfigurers.mockOidcLogin;
+import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
-@AutoConfigureWebTestClient
-public class StatsControllerTest {
+@DataMongoTest(excludeAutoConfiguration = EmbeddedMongoAutoConfiguration.class)
+@Import(MongoConfiguration.class)
+public class StatsRepositoryTest {
 
-    private static Logger logger = LoggerFactory.getLogger(StatsControllerTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(StatsRepositoryTest.class);
 
     @Autowired
-    private WebTestClient webTestClient;
+    private StatsRepository statsRepository;
 
     private static final MongoDBContainer mongoDBContainer = new MongoDBContainer(DockerImageName.parse("mongo:bionic"))
             .withExposedPorts(27017)
@@ -472,53 +648,36 @@ public class StatsControllerTest {
         logger.info("exit code={}", result.getExitCode());
     }
 
-    @Test
-    public void testGet_noAuth_returnsNotAuthorized(){
 
-        webTestClient
-                .get().uri("/endofgame")
-                .exchange()
-                .expectStatus().is3xxRedirection();
+    @Test
+    public void testGetAll(){
+        Flux<EndOfGame> stats = statsRepository.findAll();
+        List<EndOfGame> result = stats.collectList().block();
+
+        assertThat(result).isNotEmpty();
+        assertThat(result).size().isEqualTo(87);
     }
 
     @Test
-    public void testGet_withOidcLogin_returnsOk(){
+    public void testQueryMentalStateAverageDamage(){
+        Flux<MentalStateDamage> stats = statsRepository.queryMentalStateAverageDamage();
+        List<MentalStateDamage> result = stats.collectList().block();
 
-        webTestClient.mutateWith(mockOidcLogin())
-                .get().uri("/endOfGame")
-                .exchange()
-                .expectStatus().is2xxSuccessful()
-                .expectBody()
-                    .jsonPath("$.length()").isNumber()
-                    .jsonPath("$.length()").isEqualTo("87")
-                    .jsonPath("$[0].mentalState").isNotEmpty()
-                    .jsonPath("$[0].damageTaken").isNumber()
-                    .jsonPath("$[0].damageToPlayers").isNumber()
-                    .jsonPath("$[0].damageToStructures").isNumber()
-                    .jsonPath("$[0].date").isNotEmpty()
-                    .jsonPath("$[0].timeOfDay").isNotEmpty()
-                    .consumeWith(response -> logger.info(response.toString()));
-
-    }
-
-    @Test
-    public void testGetMentalStateAverageDamage_withOidcLogin_returnsOk(){
-        webTestClient
-                .mutateWith(mockOidcLogin())
-                .get().uri("/mentalStateAverageDamage")
-                .exchange()
-                .expectStatus().is2xxSuccessful()
-                .expectBody()
-                .jsonPath("$.length()").isEqualTo("2")
-                .consumeWith(response -> logger.info(response.toString()));
+        assertThat(result).isNotEmpty();
+        assertThat(result).size().isEqualTo(2);
+        assertThat(result.get(0).mentalState()).isEqualTo("sober");
+        assertThat(result.get(1).mentalState()).isEqualTo("high");
     }
 
     @AfterAll
     public static void tearDown(){
         mongoDBContainer.stop();
     }
+
 }
 ```
+
+`@DataMongoTest` configures the data layer for testing. For this test, I was not able to configure a [repository populator](https://docs.spring.io/spring-data/mongodb/docs/current/reference/html/#core.repository-populators), so with the help of Testcontainers a MongoDB instance is started instead. Using a container MongoDB instance requires disabling the `EmbeddedMongoAutoConfiguration`.
 
 In the `setUp()` above, the `mongoimport` tool is executed in the test container, initializing the `stats` collection with the sample dataset. If the import runs successfully, the following line should appear in the test logs:
 
@@ -527,21 +686,9 @@ In the `setUp()` above, the `mongoimport` tool is executed in the test container
 ```
 Also, you can inspect the response in the logs for the average damage test:
 
-```json
-[
-   {
-      "mentalState":"sober",
-      "damageToPlayers":604.3777777777777,
-      "damageToStructures":3373.511111111111,
-      "damageTaken":246.46666666666667
-   },
-   {
-      "mentalState":"high",
-      "damageToPlayers":557.547619047619,
-      "damageToStructures":2953.8571428571427,
-      "damageTaken":241.71428571428572
-   }
-]
+```
+MentalStateDamage[mentalState=sober, damageToPlayers=604.3777777777777, damageToStructures=3373.511111111111, damageTaken=246.46666666666667]
+MentalStateDamage[mentalState=high, damageToPlayers=557.547619047619, damageToStructures=2953.8571428571427, damageTaken=241.71428571428572]
 ```
 For this single-player dataset, the damage taken or inflicted was not orders of magnitude different when sober than when high.
 
