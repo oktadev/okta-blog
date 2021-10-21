@@ -243,7 +243,6 @@ public record EndOfGame(String id, LocalDate date,  LocalTime timeOfDay,
                         Integer damageToPlayers, Integer damageToStructures) {
 
     public EndOfGame {
-        Objects.requireNonNull(id);
         Objects.requireNonNull(date);
         Objects.requireNonNull(timeOfDay);
         Objects.requireNonNull(mentalState);
@@ -267,7 +266,7 @@ public record MentalStateDamage(String mentalState,
 }
 ```
 
-Create the package `com.okta.developer.records.repository` and add a `MentalStateStatsRepostory` interface:
+Create the package `com.okta.developer.records.repository` and add a `MentalStateStatsRepository` interface:
 
 ```java
 package com.okta.developer.records.repository;
@@ -326,14 +325,14 @@ public class MentalStateStatsRepositoryImpl implements MentalStateStatsRepositor
 Create the `StatsRepository` interface, extending the `MentalStateStatsRepository`:
 
 ```java
-  package com.okta.developer.records.repository;
+package com.okta.developer.records.repository;
 
-  import com.okta.developer.records.domain.EndOfGame;
-  import org.springframework.data.repository.reactive.ReactiveSortingRepository;
+import com.okta.developer.records.domain.EndOfGame;
+import org.springframework.data.repository.reactive.ReactiveSortingRepository;
 
-  public interface StatsRepository extends ReactiveSortingRepository<EndOfGame, Long>, MentalStateStatsRepository {
+public interface StatsRepository extends ReactiveSortingRepository<EndOfGame, String>, MentalStateStatsRepository {
 
-  }
+}
 ```
 
 The sample dataset, after the import, will create strings for the date and time values, with a custom format. Create the following converters to map `String` to `LocalDate` and `LocalTime`:
@@ -369,7 +368,7 @@ public class LocalTimeConverter implements Converter<String, LocalTime> {
 }
 ```
 
-Add a `MongoConfiguration` class in the package `com.okta.developer.records.configuration`, to register the converters:
+Add the `MongoConfiguration` class in the package `com.okta.developer.records.configuration`, to register the converters:
 
 ```java
 package com.okta.developer.records.configuration;
@@ -400,7 +399,7 @@ public class MongoConfiguration extends AbstractReactiveMongoConfiguration {
 }
 ```
 
-Add a `StatsService` interface in the `com.okta.developer.records.service` package:
+Add the `StatsService` interface in the `com.okta.developer.records.service` package:
 
 ```java
 package com.okta.developer.records.service;
@@ -417,7 +416,7 @@ public interface StatsService {
 }
 ```
 
-Add a `DefaultStatsService` class for the implementation in the `com.okta.developer.records.service` package:
+Add the `DefaultStatsService` class for the implementation in the `com.okta.developer.records.service` package:
 
 ```java
 package com.okta.developer.records.service;
@@ -447,7 +446,7 @@ public class DefaultStatsService implements StatsService {
 }
 ```
 
-Add a `StatsController` in the `com.okta.developer.records.controller` package:
+Add the `StatsController` class in the `com.okta.developer.records.controller` package:
 
 ```java
 package com.okta.developer.records.controller;
@@ -484,10 +483,10 @@ The controller enables the `/endOfGame` endpoint to get all entries, and the `/m
 Download the test dataset from [Github](https://github.com/indiepopart/java-records/blob/main/src/test/resources/stats.json) with HTTPie, and copy it to `src/test/resouces/stats.json`:
 
 ```shell
-https -d github.com/indiepopart/java-records/blob/main/src/test/resources/stats.json
+https -d raw.githubusercontent.com/indiepopart/java-records/9a60f81349cdffebbe001719256b0883493f987d/src/test/resources/stats.json
 ```
 
-Create a `StatsControllerTest` in the package `com.okta.developer.records.controller` under the `src/test` folder, to verify the endpoints basic functionality with a web test. In this test, only the web slice is verified:
+Create the `StatsControllerTest` class in the package `com.okta.developer.records.controller` under the `src/test` folder, to verify the endpoints basic functionality with a web test. In this test, only the web slice is verified:
 
 
 ```java
@@ -592,7 +591,7 @@ The `mentalState` test above also verifies that the `MentalStateDamage` record t
 ]
 ```
 
-Create a `StatsRepositoryTest` in the package `com.okta.developer.records.repository` under the `src/test` folder, to verify the database slice:
+Create the `StatsRepositoryTest` class in the package `com.okta.developer.records.repository` under the `src/test` folder, to verify the database slice:
 
 ```java
 package com.okta.developer.records.repository;
