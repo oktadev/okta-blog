@@ -13,7 +13,7 @@ tweets:
 image: blog/featured/okta-react-bottle-headphones.jpg
 type: conversion
 changelog:
-- 2021-10-21: Updated to use Okta CLI and React 17. You can see changes to this post in [okta-blog#925](https://github.com/oktadev/okta-blog/pull/925).
+- 2021-10-21: Updated to use Okta CLI and React 17. You can see changes to this post in [okta-blog#925](https://github.com/oktadev/okta-blog/pull/925). Updates to the example can be viewed in [okta-nextjs-typescript-example#1](https://github.com/oktadev/okta-nextjs-typescript-example/pulls/1).
 github: https://github.com/oktadev/okta-nextjs-typescript-example
 ---
 
@@ -73,14 +73,16 @@ Your issuer, client ID, and client secret will be stored in an `.okta.env` file 
 
 Next, you'll need to set up the authentication for external providers.
 
-Before you can implement authentication, you will need to ensure that your `.env.local` file is set up correctly. Add this file to the root of your project if one doesn't exist yet. Add the following values to it.
+Before you can implement authentication, you will need to ensure that your `.env.local` file is set up correctly. Add this file to the root of your project if one doesn't exist yet. Copy the values from `.okta.env` into it.
 
 ```JSON
 OKTA_CLIENTID={yourClientId}
 OKTA_CLIENTSECRET={yourClientSecret}
-OKTA_DOMAIN=https://{yourOktaDomain}
+OKTA_DOMAIN={yourOktaIssuer}
 NEXTAUTH_URL=http://localhost:3000
 ```
+
+**NOTE**: The `{yourOktaIssuer}` value should not have an `https://` prefix. For example, `dev-133337.okta.com/oauth2/default`. 
 
 Now, under your `pages/api` folder create a new folder called `auth` if one doesn't exist yet. Add a file called `[...nextauth].ts`. Add the following code to it.
 
@@ -213,23 +215,25 @@ export default function Header() {
     <div className="row mb-4">
       <div className="col-lg-12">
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-          <a className="navbar-brand" href="#">Home</a>
+          <div className="container-fluid">
+            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span className="navbar-toggler-icon"></span>
+            </button>
 
-          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
+            <a className="navbar-brand" href="#">Home</a>
 
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item active">
-                <a className="nav-link" href="/">Home <span className="sr-only">(current)</span></a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="dashboard">Movies</a>
-              </li>
-            </ul>
-            <div className="form-inline my-2 my-lg-0">
-              {button}
+            <div className="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                <li className="nav-item">
+                  <a className="nav-link active" href="/">Home <span className="sr-only">(current)</span></a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="dashboard">Movies</a>
+                </li>
+              </ul>
+              <form className="d-flex">
+                {button}
+              </form>
             </div>
           </div>
         </nav>
@@ -317,6 +321,18 @@ export default function Home() {
 
 Here you are giving any user a landing page to display what your site is about and using the header to provide a login button if necessary.
 
+Next, modify `styles/Home.module.css` to adjust the `.footer` styles and remove the `.footer a` block:
+
+```css
+.footer {
+  width: 100%;
+  height: 100px;
+  border-top: 1px solid #eaeaea;
+  text-align: center;
+  padding-top: 30px;
+}
+```
+
 Finally, you need to create a dashboard page. Start by creating a new file in the `pages` directory called `dashboard.tsx`. This page will need to check if the user has access to the page and display the `Unauthorized` component if not and the `Movies` component if they are. You can add the following code to it. 
 
 ```tsx
@@ -369,7 +385,9 @@ From here you can continue to build on your React components and develop your AP
 
 ## Learn More About React and TypeScript
 
-I hope you enjoyed this tutorial on using Next.js with TypeScript. You can find the source code for this example on GitHub, in the [@oktadev/okta-nextjs-typescript-example](https://github.com/oktadev/okta-nextjs-typescript-example) repository.
+I hope you enjoyed this tutorial on using Next.js with TypeScript. 
+
+You can find the source code for this example on GitHub, in the [@oktadev/okta-nextjs-typescript-example](https://github.com/oktadev/okta-nextjs-typescript-example) repository.
 
 Here are more React tutorials you might like:
 
