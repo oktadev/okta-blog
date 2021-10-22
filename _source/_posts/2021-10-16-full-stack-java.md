@@ -528,7 +528,7 @@ cy.get(`[data-cy="taken"]`).type('2021-10-11T16:46').should('have.value', '2021-
 cy.get(`[data-cy="uploaded"]`).type('2021-10-11T15:23').should('have.value', '2021-10-11T15:23'););
 ```
 
-Stop your Maven process and run `./mvwn` again. Open a new terminal window, set your Auth0 credentials, and run `npm run e2e` to make sure everything still works. 
+Stop your Maven process, run `source .auth0.env`, then `./mvwn` again. Open a new terminal window, set your Auth0 credentials, and run `npm run e2e` to make sure everything still works. 
 
 ```shell
 export CYPRESS_E2E_USERNAME=<auth0-username>
