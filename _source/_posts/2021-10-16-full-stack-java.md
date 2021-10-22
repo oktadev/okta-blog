@@ -324,7 +324,7 @@ Everything should pass in around a minute.
 Execution time: 44 s.
 ```
 
-Shut down the process running your JHipster app - it's time to create some data handling for our Flickr clone!
+Shut down the process running your JHipster app - it's time to create some data handling for your Flickr clone!
 
 ## Create Entities to allow CRUD on Photos
 
