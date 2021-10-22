@@ -250,8 +250,8 @@ Next, open `src/app/navbar/navbar.component.html` and paste the code below into 
   </div>
   <nav>
     <ul>
-      <li><a routerLink="/" routerLinkActive="active">Home</a></li>
-      <li><a routerLink="/browse" routerLinkActive="active">Browse</a></li>
+      <li><a routerLink="/">Home</a></li>
+      <li><a routerLink="/browse">Browse</a></li>
     </ul>
   </nav>
 </div>
@@ -309,7 +309,7 @@ Before you can start work on the `Browse` component, you need a service class th
 ng generate service characters
 ```
 
-This will create a new file `src/app/character.service.ts`. Open this file in your editor and replace its contents with the code below.
+This will create a new file `src/app/characters.service.ts`. Open this file in your editor and replace its contents with the code below.
 
 ```js
 import { Injectable } from '@angular/core';
@@ -444,14 +444,14 @@ export class BrowseComponent implements OnInit {
   count: number = 0;
   characters: Character[] = [];
 
-  constructor(private characterService: CharactersService) {}
+  constructor(private charactersService: CharactersService) {}
 
   async ngOnInit(): Promise<void> {
     await this.updateCharacters();
   }
 
   async updateCharacters() {
-    const result = await this.characterService.getCharacters(this.offset);
+    const result = await this.charactersService.getCharacters(this.offset);
     this.count = result.count;
     this.characters = result.characters;
   }
@@ -476,7 +476,7 @@ export class BrowseComponent implements OnInit {
 }
 ```
 
-The function `updateCharacters()` uses the `CharacterService` to obtain a list of characters from the server. The functions `onPrevious()` and `onNext()` are callbacks that can be used to page through the results. Now, open `src/app/browse/browse.component.html` and copy the following contents into it.
+The function `updateCharacters()` uses the `CharactersService` to obtain a list of characters from the server. The functions `onPrevious()` and `onNext()` are callbacks that can be used to page through the results. Now, open `src/app/browse/browse.component.html` and copy the following contents into it.
 
 {% raw %}
 ```html
@@ -565,7 +565,7 @@ import { CharacterDetail, CharactersService } from '../characters.service';
   styleUrls: ['./character.component.css']
 })
 export class CharacterComponent implements OnInit {
-  character?: CharacterDetail;
+  character!: CharacterDetail;
 
   constructor(private route: ActivatedRoute, private characterService: CharactersService) { }
 
