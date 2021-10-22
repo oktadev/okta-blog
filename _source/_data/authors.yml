@@ -699,3 +699,30 @@ cale-switzer:
   avatar: avatar-cale-switzer.jpg
   github: https://github.com/Tennyx
   linkedin: https://www.linkedin.com/in/cale-switzer-380a8630
+
+edunham: 
+  full_name: E. Dunham
+  display_name: E. Dunham
+  avatar: avatar-edunham.png
+  github: https://github.com/edunham
+  twitter: https://twitter.com/qedunham
+
+deepu-sasidharan:
+  full_name: Deepu K Sasidharan
+  display_name: Deepu K Sasidharan
+  avatar: avatar-deepu-sasidharan.jpg
+  twitter: https://twitter.com/deepu105
+  github: https://github.com/deepu105
+  linkedin: https://www.linkedin.com/in/deepu05
+  email: deepu.sasidharan@okta.com
+  web: https://deepu.tech 
+  bio:
+    Deepu is a polyglot developer and OSS aficionado. He mainly works with Java, JS, Rust, and Golang. He co-leads JHipster and created the JDL Studio and KDash.
+    He's a Developer Advocate for DevOps at Okta. He is also an international speaker and published author.
+
+alisa-duncan: 
+  full_name: Alisa Duncan
+  display_name: Alisa Duncan
+  avatar: avatar-alisa_duncan.jpeg
+  github: https://github.com/alisaduncan
+  twitter: https://twitter.com/alisaduncan
