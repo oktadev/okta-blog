@@ -30,7 +30,7 @@ In this tutorial, I will show you how to consume GraphQL in an Angular client. F
 * Table of Contents
 {:toc}
 
-## Implement a GraphQL Server with Express
+## Implement a GraphQL server with Express
 
 In this section, I will show you how to implement the GraphQL server using the Express framework. To start, open your terminal in an empty folder of your choice. This will be the folder that will contain the server project. Inside that folder, run the following command to initialize your Express project.
 
@@ -200,7 +200,7 @@ You should see this result on the right side of the screen.
 }
 ```
 
-## Create an Angular GraphQL Client
+## Create an Angular GraphQL client
 
 Angular provides a command-line tool that makes it easy for anybody to set up and maintain an Angular project. The Angular CLI tool can be installed globally using `npm` by running the following command.
 
@@ -607,7 +607,7 @@ import { CharactersService, Species } from '../characters.service';
   styleUrls: ['./species.component.css']
 })
 export class SpeciesComponent implements OnInit {
-  species?: Species;
+  species!: Species;
 
   constructor(private route: ActivatedRoute, private characterService: CharactersService) { }
 
@@ -684,7 +684,7 @@ Open your browser, navigate to `http://localhost:4200` and you should see the ho
 
 {% img blog/angular-graphql/angular-graphql.png alt:"Testing the character browser" width:"800" %}{: .center-image }
 
-## Integrate OIDC for Auth
+## Integrate OIDC for auth
 
 Every good application needs some user control. Okta lets you add user authentication easily to your application.
 
@@ -692,7 +692,7 @@ Every good application needs some user control. Okta lets you add user authentic
 
 Make a note of the `Issuer` and the `Client ID`. You will need them in the next steps.
 
-### Add JWT Authentication to the Server
+### Add JWT authentication to the server
 
 Adding authentication to the server is easy. Open a terminal in the server's project folder and install a few more dependencies by running the following command.
 
@@ -895,7 +895,7 @@ Congratulations! You have completed the implementation of an Angular app that co
 
 {% img blog/angular-graphql/angular-graphql-auth.png alt:"Running the complete application with authentication" width:"800" %}{: .center-image }
 
-## Learn More About Angular, GraphQL, and Single-Page Applications
+## Learn more about Angular, GraphQL, and single-page applications  
 
 In this tutorial, I have shown you how to create a single-page application that consumes a GraphQL API using Angular. You've seen how to create a GraphQL schema that describes the queries and the results that the server supplies.
 
