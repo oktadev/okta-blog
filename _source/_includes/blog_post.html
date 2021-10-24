@@ -74,23 +74,27 @@
 
     {% if page.layout == 'blog_post' and post.comments != false %}
 
-    <div id='discourse-comments'></div>
+    <div id="comments">
+        <div id="comment-policy" class="comment-policy">
+            <p class="comment-policy-title">Okta Developer Blog Comment Policy</p>
+            <p class="comment-policy-text">We welcome relevant and respectful comments. Off-topic comments may be removed.
+        </div>
 
-    <script type="text/javascript">
-        window.DiscourseEmbed = {
-            discourseUrl: 'https://devforum.okta.com/',
-            discourseEmbedUrl: '{{ page.url | prepend: site.url }}'
-        };
+        <script type="text/javascript">
+            window.DiscourseEmbed = {
+                discourseUrl: 'https://devforum.okta.com/',
+                discourseEmbedUrl: '{{ page.url | prepend: site.url }}'
+            };
 
-        (function() {
-            var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
-            d.src = window.DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
-        })();
-    </script>
-      <noscript>
-          Please enable JavaScript to view the
-          <a href="https://meta.discourse.org/t/discourse-noscript/100318" rel="nofollow">comments powered by Discourse</a>.
-     </noscript>
+            (function() {
+                var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+                d.src = window.DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+            })();
+        </script>
+        <noscript>
+          Please enable JavaScript to view the <a href="https://meta.discourse.org/t/discourse-noscript/100318" rel="nofollow">comments powered by Discourse</a>.
+        </noscript>
     {% endif %}
+    </div>
 </article>
