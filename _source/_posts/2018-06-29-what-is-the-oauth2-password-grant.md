@@ -16,6 +16,10 @@ type: awareness
 
 The OAuth 2.0 Password Grant Type is a way to get an access token given a username and password. It's typically used only by a service's own mobile apps and is not usually made available to third party developers.
 
+<div style="padding: 18px; border: 1px #007dc1 solid; background: #dbeffb; border-radius: 6px;">
+Update: The password grant type is prohibited in the latest <a href="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-security-topics-13#section-3.4">OAuth 2.0 Security Best Current Practice</a>. Please see <a href="https://oauth.net/2/grant-types/password/">oauth.net</a> for additional information.
+</div>
+
 This post is the third in a series where we explore frequently used OAuth 2.0 grant types. Previously we covered the [Authorization Code](/blog/2018/04/10/oauth-authorization-code-grant-type) and [Implicit](/blog/2018/05/24/what-is-the-oauth2-implicit-grant-type) grant type. If you want to back up a bit and learn more about OAuth 2.0 before we get started, check out [What the Heck is OAuth?](/blog/2017/06/21/what-the-heck-is-oauth).
 
 ## What is an OAuth 2.0 Grant Type?
@@ -63,9 +67,9 @@ The server replies with an access token in the same format as the other grant ty
 
 The Password grant requires that the application collect the user's password. This is of course the exact problem that OAuth was created to avoid in the first place. So why is the Password grant included as part of OAuth?
 
-While a service should never let a third party developer use the Password grant, it is quite reasonable for a service's own application to ask the user to enter their password. For example, if you download Twitter's mobile app, you wouldn't be surprised if the first thing it does when you launch is ask for your Twitter password. In contrast, if you download a third-party Gmail app, it should use Google's OAuth server rather than ask you to enter your Gmail password.
-
-The benefit of this grant type is that it lets the application take advantage of the rest of the benefits that OAuth provides around access tokens and token lifetimes. Instead of storing the user's password on the device, the application only has to touch the user's password for as long as it takes to get the access token, then it can store and use the access token instead.
+The original reason the Password grant was added to OAuth was to allow pre-OAuth applications to upgrade to OAuth without any user interaction. 
+When HTTP Basic Auth was commonly used, the way that worked was the browser would ask for the user's password and store it internally, then present it to the web server on every request. There are many limitations with this approach, which is why it hasn't been commonly in use in over a decade. The theory with the Password grant was to allow browsers to upgrade to OAuth seamlessly by exchanging the user's password for an access token, then continuing to use the access token in the future.
+In practice, this is not what happened, and many app developers misinterpreted the Password grant as an acceptable way to use OAuth from mobile apps. Today, the <a href="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-security-topics-13#section-3.4">OAuth 2.0 Security Best Current Practice</a> effectively removes the Password grant from OAuth.
 
 ## Learn More About OAuth and Okta
 
@@ -76,6 +80,6 @@ You can learn more about OAuth 2.0 on [OAuth.com](https://www.oauth.com/oauth2-s
 * [Secure your SPA with Spring Boot and OAuth](/blog/2017/10/27/secure-spa-spring-boot-oauth)
 * [Build Secure Node Authentication with Passport.js and OpenID Connect](/blog/2018/05/18/node-authentication-with-passport-and-oidc)
 
-Check out [Okta's OIDC/OAuth 2.0 API](/docs/api/resources/oidc) for specific information on how we support OAuth. And as always, follow us on Twitter [@oktadev](https://twitter.com/oktadev) for more great content.
+Check out [Okta's OIDC/OAuth 2.0 API](/docs/reference/api/oidc/) for specific information on how we support OAuth. And as always, follow us on Twitter [@oktadev](https://twitter.com/oktadev) for more great content.
 
 **PS**: If you're interested in other interesting security articles, please check out our new [security site](https://sec.okta.com/)!
