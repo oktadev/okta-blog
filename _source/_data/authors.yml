@@ -1,3 +1,11 @@
+ryan-stewart:
+  full_name: Ryan Stewart
+  display_name: Ryan Stewart
+  avatar: avatar-ryan-stewart.jpeg
+  web: http://ryanstewart.net
+  github: https://github.com/ryanstewart
+  bio: "Director of Product Management for CIAM Developer Platform at @okta"
+  
 pawel-szydziak:
   full_name: Paweł Szydziak
   display_name: Paweł
@@ -121,12 +129,12 @@ lars-johansen:
   twitter: https://twitter.com/larskrjo
   github: https://github.com/larskrjo
   bio:
-    Lars K. Johansen is a Staff Software Engineer and the lead for the Customer Federations team in the CIAM 
-    (Customer Identity Access Management) Products sphere at Okta. He has a great passion for software that 
-    involves security, scalability, efficiency, and reliability. Lars was born and raised in Oslo, Norway, and 
-    he enjoys going on hikes, playing tennis, and loves to cook and eat delicious food. Before Okta, 
-    Lars was a graduate student at Harvard University, holds a Master's Degree from The Norwegian University of 
-    Science and Technology (NTNU), and most recently wrote his Master's Thesis on the topic of Network Coding at 
+    Lars K. Johansen is a Staff Software Engineer and the lead for the Customer Federations team in the CIAM
+    (Customer Identity Access Management) Products sphere at Okta. He has a great passion for software that
+    involves security, scalability, efficiency, and reliability. Lars was born and raised in Oslo, Norway, and
+    he enjoys going on hikes, playing tennis, and loves to cook and eat delicious food. Before Okta,
+    Lars was a graduate student at Harvard University, holds a Master's Degree from The Norwegian University of
+    Science and Technology (NTNU), and most recently wrote his Master's Thesis on the topic of Network Coding at
     Massachusetts Institute of Technology (MIT).
 
 brian-demers:
@@ -166,8 +174,8 @@ huan-liu:
   bio:
     Huan Liu is a Director of Engineering and Sphere Head for CIAM (Customer Identity Access Management) Products.
     His team is responsible for both the end-to-end CIAM experiences and the underlying federation protocols.
-    Prior to Okta, Huan was an Engineering Manager and Head of the Terragraph program at Facebook. He was also the 
-    co-lead of the Maveric program, which brings Facebook's ML expertise to 5G networks. Huan holds a Ph.D. degree in 
+    Prior to Okta, Huan was an Engineering Manager and Head of the Terragraph program at Facebook. He was also the
+    co-lead of the Maveric program, which brings Facebook's ML expertise to 5G networks. Huan holds a Ph.D. degree in
     Electrical Engineering from Stanford University.
 
 micah-silverman:
@@ -493,7 +501,8 @@ jimena-garbarino:
   full_name: Jimena Garbarino
   display_name: Jimena Garbarino
   avatar: avatar-jimena.png
-  twitter: https://twitter.com/oktadev
+  twitter: https://twitter.com/indiepopart
+  github: https://github.com/indiepopart
 
 daniel-pereira:
   full_name: Daniel Pereira
@@ -599,8 +608,6 @@ nick-gamb:
   full_name: Nick Gamb
   display_name: Nick Gamb
   avatar: avatar-nick-gamb.png
-  twitter: https://twitter.com/nickcgamb
-  linkedin: https://www.linkedin.com/in/nickgamb/
   github: https://github.com/nickgamb
 
 ruslan-zaharov:
@@ -692,3 +699,30 @@ cale-switzer:
   avatar: avatar-cale-switzer.jpg
   github: https://github.com/Tennyx
   linkedin: https://www.linkedin.com/in/cale-switzer-380a8630
+
+edunham: 
+  full_name: E. Dunham
+  display_name: E. Dunham
+  avatar: avatar-edunham.png
+  github: https://github.com/edunham
+  twitter: https://twitter.com/qedunham
+
+deepu-sasidharan:
+  full_name: Deepu K Sasidharan
+  display_name: Deepu K Sasidharan
+  avatar: avatar-deepu-sasidharan.jpg
+  twitter: https://twitter.com/deepu105
+  github: https://github.com/deepu105
+  linkedin: https://www.linkedin.com/in/deepu05
+  email: deepu.sasidharan@okta.com
+  web: https://deepu.tech 
+  bio:
+    Deepu is a polyglot developer and OSS aficionado. He mainly works with Java, JS, Rust, and Golang. He co-leads JHipster and created the JDL Studio and KDash.
+    He's a Developer Advocate for DevOps at Okta. He is also an international speaker and published author.
+
+alisa-duncan: 
+  full_name: Alisa Duncan
+  display_name: Alisa Duncan
+  avatar: avatar-alisa_duncan.jpeg
+  github: https://github.com/alisaduncan
+  twitter: https://twitter.com/alisaduncan
