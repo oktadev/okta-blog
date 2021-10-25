@@ -101,8 +101,8 @@
         </noscript>
     </div>
     <!-- include the meta description in HTML so that it can be extracted by the Discourse embed feature -->
-    <div id="meta-description" style="display: none;" aria-hidden="true">
-      {{ page.description }}
+    <div style="display: none;" aria-hidden="true">
+      <div id="meta-description">{{ page.description }}</div>
     </div>
     {% endif %}
 
