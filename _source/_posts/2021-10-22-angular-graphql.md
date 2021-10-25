@@ -9,7 +9,7 @@ tags: [javascript, typescript, angular, graphql, nodejs, expressjs]
 tweets:
 - "Learn how to use Angular + GraphQL to build an app to get Star Wars characters and species."
 - "Angular + GraphQL is pretty easy with modern clients from @apollographql."
-- "Yassss! Angular + GraphQL are fun combo! Learn how to use them in this quick tutorial."
+- "Yassss! Angular + GraphQL are a fun combo! Learn how to use them in this quick tutorial."
 image: blog/angular-graphql/angular-graphql-social.png
 type: conversion
 github: https://github.com/oktadev/okta-angular-graphql-example
