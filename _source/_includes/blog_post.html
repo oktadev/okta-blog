@@ -73,7 +73,6 @@
     {% endif %}
 
     {% if page.layout == 'blog_post' and post.comments != false %}
-
     <a id="comments"></a>
     <div id="discourse-comments">
         <div id="comment-policy" class="comment-policy">
@@ -100,7 +99,10 @@
         <noscript>
           Please enable JavaScript to view the <a href="https://meta.discourse.org/t/discourse-noscript/100318" rel="nofollow">comments powered by Discourse</a>.
         </noscript>
-
+    </div>
+    <!-- include the meta description in HTML so that it can be extracted by the Discourse embed feature -->
+    <div id="meta-description" style="display: none;" aria-hidden="true">
+      {{ page.description }}
     </div>
     {% endif %}
 
