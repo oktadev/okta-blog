@@ -86,6 +86,17 @@ function validateTags(file, tags) {
   }
 }
 
+function validateDescription(file, description) {
+  if (!description || description.trim().length === 0) {
+    console.warn(`${file} is missing a description in its front matter.`);
+  } else {
+    // https://blog.spotibo.com/meta-description-length/
+    if (description.length > 150) {
+      console.warn(`${file} has a description that's more than 120 characters (${description.length}).`);
+    }
+  }
+}
+
 readdir("_source/_posts", (err, files) => {
   if (err) throw err;
 
@@ -99,6 +110,7 @@ readdir("_source/_posts", (err, files) => {
       throw err;
     }
 
+    validateDescription(files[i], content.attributes.description)
     validateBy(files[i], content.attributes.by);
     validateComms(files[i], content.attributes.communities);
     validateTypes(files[i], content.attributes.type);
