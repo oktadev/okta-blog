@@ -1,4 +1,5 @@
 ---
+discourse_topic_id: 16071
 layout: blog_post
 title: "How to Build a Flask SCIM Server Configured for Use with Okta"
 author: cale-switzer

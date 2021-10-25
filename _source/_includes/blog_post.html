@@ -84,7 +84,11 @@
         <script type="text/javascript">
             window.DiscourseEmbed = {
                 discourseUrl: 'https://devforum.okta.com/',
-                discourseEmbedUrl: '{{ page.url | prepend: site.url }}'
+                {% if page.discourse_topic_id %}
+                  topicId: {{ page.discourse_topic_id }}
+                {% else %}
+                  discourseEmbedUrl: '{{ page.url | prepend: site.url }}'
+                {% endif %}
             };
 
             (function() {
