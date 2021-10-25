@@ -9,7 +9,7 @@ tags: [javascript, typescript, angular, graphql, nodejs, expressjs]
 tweets:
 - "Learn how to use Angular + GraphQL to build an app to get Star Wars characters and species."
 - "Angular + GraphQL is pretty easy with modern clients from @apollographql."
-- "Yassss! Angular + GraphQL are fun combo! Learn how to use them in this quick tutorial."
+- "Yassss! Angular + GraphQL are a fun combo! Learn how to use them in this quick tutorial."
 image: blog/angular-graphql/angular-graphql-social.png
 type: conversion
 github: https://github.com/oktadev/okta-angular-graphql-example
@@ -749,7 +749,7 @@ The `bearerToken` middleware extracts the bearer token from a request header. `o
 To allow the client to access the GraphQL API, you need to also add Okta authentication to the Angular application. Open a terminal in the client's project folder and install the `okta-angular` dependency by running the following command.
 
 ```bash
-npm install -E @okta/okta-angular@4.1.0
+npm install -E @okta/okta-angular@4.1.0 @okta/okta-auth-js@5.6.0
 ```
 
 Open `src/app/app.module.ts` and create an `OktaAuth` instance by adding the following lines after the existing import statements.
