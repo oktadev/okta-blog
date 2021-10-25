@@ -90,9 +90,10 @@ function validateDescription(file, description) {
   if (!description || description.trim().length === 0) {
     console.warn(`${file} is missing a description in its front matter.`);
   } else {
-    // https://blog.spotibo.com/meta-description-length/
-    if (description.length > 120) {
-      console.warn(`${file} has a description that's more than 120 characters (${description.length}).`);
+    const min = 120;
+    const max = 160;
+    if (description.length < min || description.length > max) {
+      console.warn(`${file} has a description (${description.length} characters, 120-160 is recommended) that needs updating.`);
     }
   }
 }
