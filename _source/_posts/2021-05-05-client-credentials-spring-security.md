@@ -221,7 +221,7 @@ HTTP/1.1 401
 
 ## Add a Custom Scope to Your Authorization Server
 
-Because you are using the custom scope `mod_custom` in the `@Preauthorize` annotation, you need to add this custom scope to your Okta authorization server. Run `okta login` and open the resulting URL in your browser. Sign in to the Okta Admin Console. You may need to click the **Admin** button to get to your dashboard.
+Because we are using the custom scope `mod_custom` in the `@Preauthorize` annotation, you need to add this custom scope to your Okta authorization server. Run `okta login` and open the resulting URL in your browser. Sign in to the Okta Admin Console. You may need to click the **Admin** button to get to your dashboard.
 
 Go to **Security** > **API**. Select the **Default** authorization server by clicking on **default** in the table.
 
