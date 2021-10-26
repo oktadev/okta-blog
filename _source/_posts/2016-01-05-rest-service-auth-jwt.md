@@ -4,6 +4,7 @@ title: REST Service Authorization with JWTs
 author: jon-todd
 by: internal-contributor
 communities: [security]
+description: "Learn about authentication and authorization both at a server level with TLS and a user level with OAuth 2.0. Explained using Java and Dropwizard."
 tags: [rest, oauth, identity, security, jwt]
 type: awareness
 ---

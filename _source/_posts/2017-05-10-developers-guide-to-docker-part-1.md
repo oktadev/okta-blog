@@ -3,6 +3,7 @@ layout: blog_post
 title: A Developer's Guide To Docker - A Gentle Introduction
 author: lee-brandt
 by: advocate
+description: "Not only can adding Docker to your development environment solve that issue, but it can make it drop-dead simple to onboard new developers."
 communities: [devops]
 tags: [docker, devops, developer]
 redirect_from:

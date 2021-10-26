@@ -4,6 +4,7 @@ title: 'Add Single Sign-On to Your Spring Boot Web App in 15 Minutes'
 author: silas-brazil
 by: contractor
 communities: [java]
+description: "This tutorial will walk you through building a Spring Boot application and show you how to harden your APIs with a variety of OAuth flows."
 tags: [authentication, oauth, sso, spring, java]
 redirect_from:
     - "/blog/2017/11/17/add-sso-spring-boot-15-min"

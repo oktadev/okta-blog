@@ -3,6 +3,7 @@ layout: blog_post
 title: "Build an App for iOS and Android with Xamarin"
 author: nate-barbettini
 by: advocate
+description: "In this tutorial, you'll learn how to use Xamarin to build a basic app for both iOS and Android. Check it out, even if you've never done any app development before!"
 communities: [.net, mobile]
 tags: [native, mobile, ios, android, dotnet, xamarin]
 tweets:

@@ -5,6 +5,7 @@ tags: [spring, oauth, oauth-2-dot-0, java, spring-boot, client-credentials]
 author: brian-demers
 by: advocate
 communities: [java]
+description: "The OAuth 2.0 client credentials grant was created to help solve for the problems that HTTP Basic Auth had. Learn how it can allow two machines to communicate securely."
 Tweets:
 - "Come learn more about securing server-to-server APIs using Spring Boot and OAuth2, it'll be fun!"
 - "Stop scrolling through twitter and spend a few minutes learning how you can better architect secure server-to-server APIs services with Spring Boot and #oauth"
