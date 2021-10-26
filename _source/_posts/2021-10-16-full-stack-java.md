@@ -433,8 +433,9 @@ public class PhotoResource {
         }
 
         Photo result = photoRepository.save(photo);
-        return ResponseEntity.created(new URI("/api/photos/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+        return ResponseEntity
+            .created(new URI("/api/photos/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
 
