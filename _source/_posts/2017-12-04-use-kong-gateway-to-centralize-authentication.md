@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6328660598
+discourse_topic_id: 16803
+discourse_comment_url: https://devforum.okta.com/t/16803
 layout: blog_post
 title: 'Use Kong Gateway to Centralize Authentication'
 author: micah-silverman

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7170926011
+discourse_topic_id: 16981
+discourse_comment_url: https://devforum.okta.com/t/16981
 layout: blog_post
 title: "The History (and Future) of Asynchronous JavaScript"
 author: lee-brandt

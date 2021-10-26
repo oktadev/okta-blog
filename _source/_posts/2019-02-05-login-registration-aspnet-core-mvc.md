@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7212098800
+discourse_topic_id: 16991
+discourse_comment_url: https://devforum.okta.com/t/16991
 layout: blog_post
 title: "Create Login and Registration in Your ASP.NET Core MVC App"
 author: chris-green

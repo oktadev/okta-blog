@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6435857267
+discourse_topic_id: 16817
+discourse_comment_url: https://devforum.okta.com/t/16817
 layout: "blog_post"
 title: "Build Your Own Invoicing Service with Node, Coinbase, Bitcoin, and Okta"
 author: randall-degges

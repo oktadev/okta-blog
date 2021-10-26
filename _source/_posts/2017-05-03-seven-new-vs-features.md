@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6303255935
+discourse_topic_id: 16795
+discourse_comment_url: https://devforum.okta.com/t/16795
 layout: blog_post
 title: Seven Awesome New Features In Visual Studio 2017
 author: lee-brandt

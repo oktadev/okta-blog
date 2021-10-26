@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6300588220
+discourse_topic_id: 16781
+discourse_comment_url: https://devforum.okta.com/t/16781
 layout: blog_post
 title: "Let's Compare: JAX-RS vs Spring for REST Endpoints"
 author: brian-demers

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6307099710
+discourse_topic_id: 16799
+discourse_comment_url: https://devforum.okta.com/t/16799
 layout: blog_post
 title: The New Age of Trust
 author: vimarsh-karbhari

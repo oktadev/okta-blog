@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6542297447
+discourse_topic_id: 16838
+discourse_comment_url: https://devforum.okta.com/t/16838
 layout: blog_post
 title: "Add the Power of Webhooks to Your App with Okta's System Log"
 author: joel-franusic

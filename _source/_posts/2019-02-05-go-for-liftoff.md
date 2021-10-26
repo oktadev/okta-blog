@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7209998054
+discourse_topic_id: 16990
+discourse_comment_url: https://devforum.okta.com/t/16990
 layout: blog_post
 title: "Go for liftoff at Okta!"
 author: heather-downing

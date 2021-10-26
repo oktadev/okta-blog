@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8834610442
+discourse_topic_id: 17425
+discourse_comment_url: https://devforum.okta.com/t/17425
 layout: blog_post
 title: "Security.txt: Make Vulnerabilities Easier to Report"
 author: brian-demers

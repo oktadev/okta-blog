@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6591378122
+discourse_topic_id: 16850
+discourse_comment_url: https://devforum.okta.com/t/16850
 layout: blog_post
 title: Secure Server-to-Server Communication with Spring Boot and OAuth 2.0
 tags: [spring, oauth, oauth-2-dot-0, java, spring-boot, client-credentials]

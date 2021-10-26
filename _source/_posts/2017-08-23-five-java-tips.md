@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6300487143
+discourse_topic_id: 16775
+discourse_comment_url: https://devforum.okta.com/t/16775
 layout: blog_post
 title: '5 Tips for Building your Java API'
 author: brian-demers

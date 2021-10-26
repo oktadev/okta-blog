@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7472698363
+discourse_topic_id: 17072
+discourse_comment_url: https://devforum.okta.com/t/17072
 layout: blog_post
 title: "Alexa, Sign In Every Time: Voice-Only Authentication Verification in .NET"
 author: heather-downing

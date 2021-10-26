@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8651164461
+discourse_topic_id: 17392
+discourse_comment_url: https://devforum.okta.com/t/17392
 layout: blog_post
 title: A Quick Guide to Elasticsearch for .NET
 author: greg-sinka

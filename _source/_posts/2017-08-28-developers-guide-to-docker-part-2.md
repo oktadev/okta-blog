@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6542438160
+discourse_topic_id: 16840
+discourse_comment_url: https://devforum.okta.com/t/16840
 layout: blog_post
 title: A Developer's Guide To Docker - The Dockerfile
 author: lee-brandt

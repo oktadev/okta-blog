@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6300595232
+discourse_topic_id: 16782
+discourse_comment_url: https://devforum.okta.com/t/16782
 layout: blog_post
 title: 'Why JWTs Suck as Session Tokens'
 author: randall-degges

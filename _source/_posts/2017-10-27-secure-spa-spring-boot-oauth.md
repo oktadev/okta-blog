@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6300272837
+discourse_topic_id: 16763
+discourse_comment_url: https://devforum.okta.com/t/16763
 layout: blog_post
 title: 'Secure your SPA with Spring Boot and OAuth'
 author: brian-demers

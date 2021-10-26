@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8317132979
+discourse_topic_id: 17334
+discourse_comment_url: https://devforum.okta.com/t/17334
 layout: blog_post
 title: How to Support .NET Core SameSite + OAuth Apps on Linux
 author: greg-sinka

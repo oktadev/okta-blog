@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6307074215
+discourse_topic_id: 16798
+discourse_comment_url: https://devforum.okta.com/t/16798
 layout: blog_post
 title: Productionalizing ActiveMQ
 author: matt-loughran

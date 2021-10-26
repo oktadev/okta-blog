@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6300789194
+discourse_topic_id: 16786
+discourse_comment_url: https://devforum.okta.com/t/16786
 layout: blog_post
 title: 'Why Are Webhooks Better Than Serverless Extensibility?'
 author: randall-degges

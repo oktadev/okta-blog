@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6405825265
+discourse_topic_id: 16813
+discourse_comment_url: https://devforum.okta.com/t/16813
 layout: blog_post
 title: "Two Approaches to Setting Up a MERN Stack Application"
 author: lee-brandt

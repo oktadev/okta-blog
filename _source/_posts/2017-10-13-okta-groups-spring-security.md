@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6301041793
+discourse_topic_id: 16791
+discourse_comment_url: https://devforum.okta.com/t/16791
 layout: blog_post
 title: 'Add Role-Based Access Control to Your App with Spring Security and Thymeleaf'
 author: micah-silverman

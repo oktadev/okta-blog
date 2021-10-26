@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8424571463
+discourse_topic_id: 17361
+discourse_comment_url: https://devforum.okta.com/t/17361
 layout: blog_post
 title: The Ultimate Guide to Password Hashing in Okta
 author: karl-hughes

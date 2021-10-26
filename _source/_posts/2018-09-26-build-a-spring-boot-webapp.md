@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6932041970
+discourse_topic_id: 16938
+discourse_comment_url: https://devforum.okta.com/t/16938
 layout: blog_post
 title: "Build a Web App with Spring Boot and Spring Security in 15 Minutes"
 author: andrew-hughes

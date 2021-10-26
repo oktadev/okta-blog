@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6542047852
+discourse_topic_id: 16835
+discourse_comment_url: https://devforum.okta.com/t/16835
 layout: blog_post
 title: A Developer's Guide To Docker - Docker Compose
 author: lee-brandt

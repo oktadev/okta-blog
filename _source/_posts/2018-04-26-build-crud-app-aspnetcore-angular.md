@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6634635551
+discourse_topic_id: 16859
+discourse_comment_url: https://devforum.okta.com/t/16859
 layout: blog_post
 title: "Build a CRUD App with ASP.NET Core and Angular"
 author: team-okta

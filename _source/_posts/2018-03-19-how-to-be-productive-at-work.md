@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6562958401
+discourse_topic_id: 16841
+discourse_comment_url: https://devforum.okta.com/t/16841
 layout: blog_post
 title: "How to Achieve Massive Productivity at Work"
 author: matt-raible

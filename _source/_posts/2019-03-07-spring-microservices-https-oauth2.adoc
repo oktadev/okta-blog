@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7277893535
+discourse_topic_id: 17014
+discourse_comment_url: https://devforum.okta.com/t/17014
 layout: blog_post
 title: "Secure Service-to-Service Spring Microservices with HTTPS and OAuth 2.0"
 author: matt-raible

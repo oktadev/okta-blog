@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6300373585
+discourse_topic_id: 16772
+discourse_comment_url: https://devforum.okta.com/t/16772
 layout: blog_post
 title: How to use KentorIT AuthServices with Okta
 author: raphael-londner

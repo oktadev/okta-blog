@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7182925679
+discourse_topic_id: 16983
+discourse_comment_url: https://devforum.okta.com/t/16983
 layout: blog_post
 title: "Why OAuth API Keys and Secrets Aren't Safe in Mobile Apps"
 author: aaron-parecki

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6774746794
+discourse_topic_id: 16894
+discourse_comment_url: https://devforum.okta.com/t/16894
 layout: blog_post
 title: "Secure Your API with OAuth, Mulesoft, and Okta in 20 Minutes"
 author: tom-smith

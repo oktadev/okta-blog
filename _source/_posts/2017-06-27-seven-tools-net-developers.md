@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6300513919
+discourse_topic_id: 16777
+discourse_comment_url: https://devforum.okta.com/t/16777
 layout: blog_post
 title: '7 Essential .NET Developer Tools for 2017'
 author: lee-brandt

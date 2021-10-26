@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6318407080
+discourse_topic_id: 16802
+discourse_comment_url: https://devforum.okta.com/t/16802
 layout: blog_post
 title: Okta Software Engineering Design Principles
 author: jon-todd

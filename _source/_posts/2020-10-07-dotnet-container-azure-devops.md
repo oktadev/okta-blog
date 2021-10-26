@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8230295911
+discourse_topic_id: 17302
+discourse_comment_url: https://devforum.okta.com/t/17302
 layout: blog_post
 title: Deploy a .NET Container with Azure DevOps
 author: franco-tiveron

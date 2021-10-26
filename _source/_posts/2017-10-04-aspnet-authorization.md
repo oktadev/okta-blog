@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6300745643
+discourse_topic_id: 16785
+discourse_comment_url: https://devforum.okta.com/t/16785
 layout: blog_post
 title: "User Authorization in ASP.NET Core with Okta"
 author: lee-brandt

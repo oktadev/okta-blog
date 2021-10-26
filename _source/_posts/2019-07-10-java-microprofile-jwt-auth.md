@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7525226948
+discourse_topic_id: 17089
+discourse_comment_url: https://devforum.okta.com/t/17089
 layout: blog_post
 title: "Build a REST API Using Java, MicroProfile, and JWT Authentication"
 author: andrew-hughes

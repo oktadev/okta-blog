@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7308144743
+discourse_topic_id: 17020
+discourse_comment_url: https://devforum.okta.com/t/17020
 layout: blog_post
 title: "Linking Your Alexa Skill Securely with Okta"
 author: jefferson-haw

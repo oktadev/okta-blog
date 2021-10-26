@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6676336882
+discourse_topic_id: 16873
+discourse_comment_url: https://devforum.okta.com/t/16873
 layout: blog_post
 title: "Build and Secure Microservices with Spring Boot 2.0 and OAuth 2.0"
 author: matt-raible

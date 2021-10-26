@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6725228915
+discourse_topic_id: 16880
+discourse_comment_url: https://devforum.okta.com/t/16880
 layout: blog_post
 title: "How to Prevent Your Users from Using Breached Passwords"
 author: randall-degges

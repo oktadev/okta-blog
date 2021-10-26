@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6300618995
+discourse_topic_id: 16784
+discourse_comment_url: https://devforum.okta.com/t/16784
 layout: blog_post
 title: 'Add Authentication to Your Angular PWA'
 author: matt-raible

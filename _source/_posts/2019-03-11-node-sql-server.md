@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7286328573
+discourse_topic_id: 17004
+discourse_comment_url: https://devforum.okta.com/t/17004
 layout: blog_post
 title: "Build a Secure Node.js App with SQL Server"
 author: david-neal

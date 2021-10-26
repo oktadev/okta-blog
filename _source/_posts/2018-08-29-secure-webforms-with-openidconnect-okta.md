@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6881710331
+discourse_topic_id: 16922
+discourse_comment_url: https://devforum.okta.com/t/16922
 layout: blog_post
 title: "Secure Your ASP.NET Web Forms Application with OpenID Connect and Okta"
 author: ibrahim-suta

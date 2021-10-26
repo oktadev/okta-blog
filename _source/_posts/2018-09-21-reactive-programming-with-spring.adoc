@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6924394238
+discourse_topic_id: 16936
+discourse_comment_url: https://devforum.okta.com/t/16936
 layout: blog_post
 title: 'Get Started with Reactive Programming in Spring'
 author: matt-raible

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7112931656
+discourse_topic_id: 16972
+discourse_comment_url: https://devforum.okta.com/t/16972
 layout: blog_post
 title: 'Create a Secure Spring REST API'
 author: raphael-do-vale

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8356611521
+discourse_topic_id: 17348
+discourse_comment_url: https://devforum.okta.com/t/17348
 layout: blog_post
 title: "Tutorial: Puppet and Account Automation with Okta"
 author: frederico-hakamine

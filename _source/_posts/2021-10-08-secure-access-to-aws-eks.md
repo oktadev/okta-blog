@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8814732300
+discourse_topic_id: 17421
+discourse_comment_url: https://devforum.okta.com/t/17421
 layout: blog_post
 title: "Secure Access to AWS EKS Clusters for Admins"
 author: nicolas-triballier

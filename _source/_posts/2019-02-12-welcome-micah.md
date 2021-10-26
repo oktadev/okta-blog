@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7228446227
+discourse_topic_id: 16988
+discourse_comment_url: https://devforum.okta.com/t/16988
 layout: blog_post
 title: 'Welcome Micah Silverman'
 author: micah-silverman

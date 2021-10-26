@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6424381606
+discourse_topic_id: 16815
+discourse_comment_url: https://devforum.okta.com/t/16815
 layout: blog_post
 title: 'Protect Your Cryptocurrency Wealth Tracking PWA with Okta'
 author: matt-raible

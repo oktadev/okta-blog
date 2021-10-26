@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6803676518
+discourse_topic_id: 6030
+discourse_comment_url: https://devforum.okta.com/t/6030
 layout: blog_post
 title: "Use React and Spring Boot to Build a Simple CRUD App"
 author: matt-raible

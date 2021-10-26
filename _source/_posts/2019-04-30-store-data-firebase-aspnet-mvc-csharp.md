@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7390264191
+discourse_topic_id: 17043
+discourse_comment_url: https://devforum.okta.com/t/17043
 layout: blog_post
 title: "Use Firebase with Your ASP.NET MVC App"
 author: heather-downing

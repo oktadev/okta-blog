@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6404928904
+discourse_topic_id: 16810
+discourse_comment_url: https://devforum.okta.com/t/16810
 layout: blog_post
 title: "Build an App for iOS and Android with Xamarin"
 author: nate-barbettini

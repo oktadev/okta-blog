@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7007691912
+discourse_topic_id: 16954
+discourse_comment_url: https://devforum.okta.com/t/16954
 layout: blog_post
 title: "Tutorial: Create and Verify JWTs in Java"
 author: andrew-hughes
