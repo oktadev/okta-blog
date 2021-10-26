@@ -387,7 +387,7 @@ Open your browser and navigate to `http://localhost:8080` and you should see the
 
 {% img blog/spring-boot-r2dbc/index_html.png alt:"Index page" width:"576" %}{: .center-image }
 
-Next navigate to `http://localhost:8080/protected`. You should be prompted to log in with Okta, and after successfully authenticating returned to the protected page:
+Next navigate to `http://localhost:8080/protected`. You should be prompted to log in with Okta, and after successfully authenticating, returned to the protected page:
 
 {% img blog/spring-boot-r2dbc/protected_html.png alt:"Protected page" width:"617" %}{: .center-image }
 
@@ -402,6 +402,7 @@ package com.okta.dev.oktar2dbc.database;
 
 // imports omitted
 
+@Data
 public class HeartbeatEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -485,7 +486,7 @@ public class HeartbeatService {
                 .mapToObj(i -> {
                     double range = upper-lower;
                     char charIdx = ((char)(lower + (range * Math.random())));
-                    return new String(new char[]{charIdx});
+                    return String.valueOf(charIdx);
                 })
                 .collect(Collectors.joining());
     }
