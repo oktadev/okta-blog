@@ -575,7 +575,14 @@ public class StatsControllerTest {
 
 }
 ```
-The `mentalState` test above also verifies that the `MentalStateDamage` record type is correctly handled when used as response body. You should see response logs similar to this:
+
+Run the tests with the following Maven command:
+
+```shell
+./mvnw test -Dtest=StatsControllerTest
+```
+
+The `/mentalStateAverageDamage` test above also verifies that the `MentalStateDamage` record type is correctly handled when used as response body. For the `/endOfGame` you should see response logs similar to this:
 
 ```json
 [
@@ -680,7 +687,15 @@ public class StatsRepositoryTest {
 
 `@DataMongoTest` configures the data layer for testing. For this test, I was not able to configure a [repository populator](https://docs.spring.io/spring-data/mongodb/docs/current/reference/html/#core.repository-populators), so with the help of Testcontainers a MongoDB instance is started instead. Using a container MongoDB instance requires disabling the `EmbeddedMongoAutoConfiguration`.
 
-In the `setUp()` above, the `mongoimport` tool is executed in the test container, initializing the `stats` collection with the sample dataset. If the import runs successfully, the following line should appear in the test logs:
+In the `setUp()` above, the `mongoimport` tool is executed in the test container, initializing the `stats` collection with the sample dataset.
+
+Run the tests with the following Maven command:
+
+```shell
+./mvnw test -Dtest=StatsRepositoryTest
+```
+
+If the import runs successfully, the following line should appear in the test logs:
 
 ```text
 87 document(s) imported successfully. 0 document(s) failed to import.
