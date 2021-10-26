@@ -14,7 +14,7 @@ image: blog/spring-boot-r2dbc/r2dbc-spring-boot.png
 type: conversion
 github: https://github.com/oktadev/okta-spring-boot-r2dbc-example
 changelog:
-- 2021-10-26: Updated to use Spring Boot 2.5.6. You can view the changes in this post in [okta-blog#333](); example app changes are in [okta-spring-boot-r2dbc-example#3](https://github.com/oktadev/okta-spring-boot-r2dbc-example/pull/3).
+- 2021-10-26: Updated to use Spring Boot 2.5.6. You can view the changes in this post in [okta-blog#935](https://github.com/oktadev/okta-blog/pull/935); example app changes are in [okta-spring-boot-r2dbc-example#3](https://github.com/oktadev/okta-spring-boot-r2dbc-example/pull/3).
 ---
 
 Reactive APIs are a powerful way to handle and serve large amounts of data and large numbers of requests in a web application. They rely on a "server-side event" model in which the client (e.g. your browser) subscribes to "events" on the server, and the server "pushes" events to the client as they become available.
