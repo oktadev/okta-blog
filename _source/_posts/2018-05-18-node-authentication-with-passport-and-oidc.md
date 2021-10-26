@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6674984077
+discourse_topic_id: 16872
+discourse_comment_url: https://devforum.okta.com/t/16872
 layout: blog_post
 title: "Build Secure Node Authentication with Passport.js and OpenID Connect"
 author: lee-brandt

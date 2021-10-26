@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6758484870
+discourse_topic_id: 16890
+discourse_comment_url: https://devforum.okta.com/t/16890
 layout: blog_post
 title: "Tutorial: Build a Basic CRUD App with Node.js"
 author: randall-degges

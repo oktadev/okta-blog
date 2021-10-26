@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6300059969
+discourse_topic_id: 16755
+discourse_comment_url: https://devforum.okta.com/t/16755
 layout: blog_post
 title: 'Add Single Sign-On to Your Spring Boot Web App in 15 Minutes'
 author: silas-brazil

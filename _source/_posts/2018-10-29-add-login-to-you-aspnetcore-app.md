@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7004746161
+discourse_topic_id: 16950
+discourse_comment_url: https://devforum.okta.com/t/16950
 layout: blog_post
 title: "Add Login to Your ASP.NET Core MVC App"
 author: ibrahim-suta

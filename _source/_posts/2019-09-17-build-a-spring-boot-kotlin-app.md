@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7638877054
+discourse_topic_id: 17138
+discourse_comment_url: https://devforum.okta.com/t/17138
 layout: blog_post
 title: "Build an Application with Spring Boot and Kotlin"
 author: daniel-pereira

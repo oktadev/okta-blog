@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6346864675
+discourse_topic_id: 16807
+discourse_comment_url: https://devforum.okta.com/t/16807
 layout: blog_post
 title: Android Unit Testing Part III&#58; Disintegration
 author: victor-ronin

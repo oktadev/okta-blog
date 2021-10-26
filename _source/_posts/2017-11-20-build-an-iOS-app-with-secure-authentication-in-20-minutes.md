@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6300253848
+discourse_topic_id: 16760
+discourse_comment_url: https://devforum.okta.com/t/16760
 layout: blog_post
 title: 'Build an iOS App with Secure Authentication in 20 Minutes'
 author: jordan-melberg

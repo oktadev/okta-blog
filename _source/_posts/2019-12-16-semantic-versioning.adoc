@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7766093065
+discourse_topic_id: 17184
+discourse_comment_url: https://devforum.okta.com/t/17184
 layout: blog_post
 title: "Semantic Versioning Sucks! Long Live Semantic Versioning"
 author: matt-raible

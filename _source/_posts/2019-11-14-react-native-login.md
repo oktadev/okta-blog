@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7716741041
+discourse_topic_id: 17167
+discourse_comment_url: https://devforum.okta.com/t/17167
 layout: blog_post
 title: "Create a React Native App with Login in 10 Minutes"
 author: matt-raible

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6300228558
+discourse_topic_id: 16753
+discourse_comment_url: https://devforum.okta.com/t/16753
 layout: blog_post
 title: 'OpenID Connect for User Authentication in ASP.NET Core'
 author: lee-brandt

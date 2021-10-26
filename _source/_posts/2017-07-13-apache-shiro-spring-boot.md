@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6300572985
+discourse_topic_id: 16780
+discourse_comment_url: https://devforum.okta.com/t/16780
 layout: blog_post
 title: 'Protecting a Spring Boot App with Apache Shiro'
 author: brian-demers

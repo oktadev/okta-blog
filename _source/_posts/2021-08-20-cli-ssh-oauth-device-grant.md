@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8724998339
+discourse_topic_id: 17409
+discourse_comment_url: https://devforum.okta.com/t/17409
 layout: blog_post
 title: "Command Line Login with the OAuth Device Grant"
 author: [huan-liu,  lars-johansen]

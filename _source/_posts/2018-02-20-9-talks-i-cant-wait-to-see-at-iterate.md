@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6542113420
+discourse_topic_id: 16836
+discourse_comment_url: https://devforum.okta.com/t/16836
 layout: blog_post
 title: "9 Talks I Can't Wait to See at Iterate"
 author: lee-brandt

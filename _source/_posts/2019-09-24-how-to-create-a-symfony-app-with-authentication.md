@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7648727065
+discourse_topic_id: 17144
+discourse_comment_url: https://devforum.okta.com/t/17144
 layout: blog_post
 title: How to Create a Simple Symfony Application with Authentication
 description: "In this tutorial, you'll learn how to create a simple Symfony application and add user authentication with Okta."

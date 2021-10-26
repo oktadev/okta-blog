@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6300318797
+discourse_topic_id: 16768
+discourse_comment_url: https://devforum.okta.com/t/16768
 layout: blog_post
 title: 'Identity, Claims, & Tokens – An OpenID Connect Primer, Part 1 of 3'
 author: micah-silverman

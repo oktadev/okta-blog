@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7497885416
+discourse_topic_id: 17079
+discourse_comment_url: https://devforum.okta.com/t/17079
 layout: blog_post
 title: "IInterface Considered Harmful"
 author: lee-brandt

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6899021963
+discourse_topic_id: 16922
+discourse_comment_url: https://devforum.okta.com/t/16922
 layout: blog_post
 title: "Build a Simple CRUD App with ASP.NET Framework 4.x Web API and Vue"
 author: ibrahim-suta

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6300319295
+discourse_topic_id: 16769
+discourse_comment_url: https://devforum.okta.com/t/16769
 layout: blog_post
 title: 'OIDC in Action – An OpenID Connect Primer, Part 2 of 3'
 author: micah-silverman

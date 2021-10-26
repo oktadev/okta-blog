@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6300257491
+discourse_topic_id: 16762
+discourse_comment_url: https://devforum.okta.com/t/16762
 layout: blog_post
 title: Angular Authentication with OpenID Connect and Okta in 20 Minutes
 author: matt-raible

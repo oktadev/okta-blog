@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6631996366
+discourse_topic_id: 16858
+discourse_comment_url: https://devforum.okta.com/t/16858
 layout: blog_post
 title: "Simple Node Authentication"
 author: braden-kelley

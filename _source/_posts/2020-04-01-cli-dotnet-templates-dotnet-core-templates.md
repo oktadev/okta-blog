@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7945403548
+discourse_topic_id: 17229
+discourse_comment_url: https://devforum.okta.com/t/17229
 layout: blog_post
 title: "Baking in Security with .NET CLI Templates"
 author: chase-aucoin

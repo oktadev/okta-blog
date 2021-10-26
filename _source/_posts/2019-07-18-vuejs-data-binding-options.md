@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7539994206
+discourse_topic_id: 17092
+discourse_comment_url: https://devforum.okta.com/t/17092
 layout: blog_post
 title: "Use Vue.js Data Binding Options for Reactive Applications"
 author: micah-silverman

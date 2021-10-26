@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6712462476
+discourse_topic_id: 16877
+discourse_comment_url: https://devforum.okta.com/t/16877
 layout: blog_post
 title: "Add Authentication to Your Vanilla JavaScript App in 20 Minutes"
 author: brandon-parise

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8423992521
+discourse_topic_id: 17340
+discourse_comment_url: https://devforum.okta.com/t/17340
 layout: blog_post
 title: "Fast Java Made Easy with Quarkus and JHipster"
 author: daniel-petisme

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7540961128
+discourse_topic_id: 17097
+discourse_comment_url: https://devforum.okta.com/t/17097
 layout: blog_post
 title: "MySQL vs PostgreSQL -- Choose the Right Database for Your Project"
 author: krasimir-hristozov

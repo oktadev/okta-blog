@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6300359374
+discourse_topic_id: 16771
+discourse_comment_url: https://devforum.okta.com/t/16771
 layout: blog_post
 author: william-dawson
 by: internal-contributor

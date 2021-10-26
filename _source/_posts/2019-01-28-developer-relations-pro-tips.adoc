@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7192979178
+discourse_topic_id: 16985
+discourse_comment_url: https://devforum.okta.com/t/16985
 layout: blog_post
 title: "Pro Tips for Developer Relations"
 author: matt-raible

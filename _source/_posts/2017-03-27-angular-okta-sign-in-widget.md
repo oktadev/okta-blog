@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6542038109
+discourse_topic_id: 16833
+discourse_comment_url: https://devforum.okta.com/t/16833
 layout: blog_post
 title: Build an Angular App with Okta's Sign-In Widget in 15 Minutes
 author: matt-raible

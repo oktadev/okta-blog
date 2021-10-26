@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6787888129
+discourse_topic_id: 16899
+discourse_comment_url: https://devforum.okta.com/t/16899
 layout: blog_post
 title: "Flask Tutorial: Simple User Registration and Login"
 author: randall-degges

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6300521621
+discourse_topic_id: 16778
+discourse_comment_url: https://devforum.okta.com/t/16778
 layout: blog_post
 title: 'Build an Ionic App with User Authentication'
 author: matt-raible

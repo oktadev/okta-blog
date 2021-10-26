@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7470831178
+discourse_topic_id: 17071
+discourse_comment_url: https://devforum.okta.com/t/17071
 layout: blog_post
 title: "Build Login in Xamarin with Xamarin.Forms"
 author: terje-kolderup

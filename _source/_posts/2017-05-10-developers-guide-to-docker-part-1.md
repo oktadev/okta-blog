@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6542157805
+discourse_topic_id: 16837
+discourse_comment_url: https://devforum.okta.com/t/16837
 layout: blog_post
 title: A Developer's Guide To Docker - A Gentle Introduction
 author: lee-brandt

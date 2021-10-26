@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7273542710
+discourse_topic_id: 17012
+discourse_comment_url: https://devforum.okta.com/t/17012
 layout: blog_post
 title: "Use Schematics with React and Add OpenID Connect Authentication in 5 Minutes"
 author: matt-raible

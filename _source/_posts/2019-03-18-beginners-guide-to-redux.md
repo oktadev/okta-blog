@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7303806471
+discourse_topic_id: 17015
+discourse_comment_url: https://devforum.okta.com/t/17015
 layout: blog_post
 title: "A Beginner's Guide to Redux"
 author: braden-kelley

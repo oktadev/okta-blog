@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6364138920
+discourse_topic_id: 16809
+discourse_comment_url: https://devforum.okta.com/t/16809
 layout: blog_post
 title: "Spread Serverless Holiday Cheer with Lambda and API Gateway"
 author: nate-barbettini

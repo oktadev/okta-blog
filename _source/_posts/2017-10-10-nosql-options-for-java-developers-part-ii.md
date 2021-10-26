@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6301174454
+discourse_topic_id: 16792
+discourse_comment_url: https://devforum.okta.com/t/16792
 layout: blog_post
 title: 'NoSQL Options for Java Developers, Part II'
 author: matt-raible

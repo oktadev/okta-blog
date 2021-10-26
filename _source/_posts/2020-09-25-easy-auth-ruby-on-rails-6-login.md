@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8215332757
+discourse_topic_id: 17295
+discourse_comment_url: https://devforum.okta.com/t/17295
 layout: blog_post
 title: Easy Authentication for Ruby On Rails Login
 author: andrew-van-beek

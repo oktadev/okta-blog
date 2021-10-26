@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6761331762
+discourse_topic_id: 16891
+discourse_comment_url: https://devforum.okta.com/t/16891
 layout: blog_post
 title: "What is the OAuth 2.0 Password Grant Type?"
 author: aaron-parecki

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8643871123
+discourse_topic_id: 17390
+discourse_comment_url: https://devforum.okta.com/t/17390
 layout: blog_post
 title: "Faster Spring Boot Testing with Test Slices"
 author: ruslan-zaharov

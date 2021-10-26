@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7418139386
+discourse_topic_id: 17052
+discourse_comment_url: https://devforum.okta.com/t/17052
 layout: blog_post
 title: 'A Quick Guide to Spring Boot Login Options'
 author: andrew-hughes

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6306626572
+discourse_topic_id: 16797
+discourse_comment_url: https://devforum.okta.com/t/16797
 layout: blog_post
 title: Android Unit Testing Part IV&#58; Mocking
 author: victor-ronin

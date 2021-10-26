@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6768226456
+discourse_topic_id: 16892
+discourse_comment_url: https://devforum.okta.com/t/16892
 layout: blog_post
 title: "Build a Secure CRUD App with ASP.NET Core and React"
 author: lee-brandt

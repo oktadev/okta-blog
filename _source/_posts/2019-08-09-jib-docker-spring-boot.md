@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7578868061
+discourse_topic_id: 17112
+discourse_comment_url: https://devforum.okta.com/t/17112
 layout: blog_post
 title: "Get Jibby With Java, Docker, and Spring Boot"
 author: andrew-hughes

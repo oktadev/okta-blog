@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6300862300
+discourse_topic_id: 16788
+discourse_comment_url: https://devforum.okta.com/t/16788
 layout: blog_post
 title: "What's in a Token? – An OpenID Connect Primer, Part 3 of 3"
 author: micah-silverman

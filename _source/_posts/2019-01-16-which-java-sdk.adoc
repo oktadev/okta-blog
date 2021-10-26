@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7168215949
+discourse_topic_id: 16979
+discourse_comment_url: https://devforum.okta.com/t/16979
 layout: blog_post
 title: "Which Java SDK Should You Use?"
 author: matt-raible

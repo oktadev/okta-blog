@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6300615306
+discourse_topic_id: 16783
+discourse_comment_url: https://devforum.okta.com/t/16783
 layout: blog_post
 title: "Build a Preact App with Authentication"
 author: lee-brandt
