@@ -39,8 +39,9 @@ The `record` is a new type of declaration, a restricted form of class that acts 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public record EndOfGame(String id, LocalDate date,  LocalTime timeOfDay, String mentalState,
-                        Integer damageTaken, Integer damageToPlayers, Integer damageToStructures) {
+public record EndOfGame(String id, LocalDate date, LocalTime timeOfDay,
+                        String mentalState, Integer damageTaken,
+                        Integer damageToPlayers, Integer damageToStructures) {
 }
 ```
 As you can see in the example above, the `record` has a name, `EndOfGame` in the example above. What looks like a constructor signature is the _state description_ or _header_ declaring the _components_ of the `record`.
