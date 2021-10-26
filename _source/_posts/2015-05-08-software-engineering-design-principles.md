@@ -3,6 +3,7 @@ layout: blog_post
 title: Okta Software Engineering Design Principles
 author: jon-todd
 by: internal-contributor
+description: "Okta has been an agile development shop since the beginning. One important aspect of being agile is enabling a mix of bottom-up and top-down decision-making."
 tags: [software-engineering, architecture, design-principles]
 type: awareness
 ---

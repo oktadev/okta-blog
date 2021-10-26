@@ -3,6 +3,7 @@ layout: blog_post
 title: '7 Essential .NET Developer Tools for 2017'
 author: lee-brandt
 by: advocate
+description: "Learn about seven of of our favorite .NET developer tools, that can simplify your life and amplify your work. JSON.NET, .NET API Browser, and many more!"
 communities: [.net]
 tags: [net, tools]
 type: awareness

@@ -4,7 +4,7 @@ title: "Symfony 4.3 + Vue.js: PHP Apps Made Simple"
 author: krasimir-hristozov
 by: contractor
 communities: [javascript, php]
-description: ""
+description: "In this tutorial, you'll build a simple application with Symfony and Vue.js that allows you to keep track of the count of various items."
 tags: [php, vue, symfony, crud]
 tweets:
 - "Learn how to use @Symfony 4.3 and @VueJS to create a simple responsive application →"

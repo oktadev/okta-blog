@@ -4,6 +4,7 @@ title: "Two Approaches to Setting Up a MERN Stack Application"
 author: lee-brandt
 by: advocate
 communities: [javascript]
+description: "Learn two recommended paths for setting up a MERN (Mongo, Express, React, and Node) stack application to run and deploy as a single code base."
 tags: [mongo, express, node, react, mern]
 tweets:
   - "Check out two approaches to setting up a MERN stack app"

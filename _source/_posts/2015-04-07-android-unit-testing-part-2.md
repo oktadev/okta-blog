@@ -4,6 +4,7 @@ title: Android Unit Testing Part II&#58; Escaping Dalvik's Hold
 author: victor-ronin
 by: internal-contributor
 communities: [java, mobile]
+description: "This is the second of a four part series on Android Unit Testing. In these posts, you'll learn the key steps to make Android tests run faster."
 tags: [android, testing]
 type: conversion
 redirect_from:

@@ -4,6 +4,7 @@ title: 'Secure your SPA with Spring Boot and OAuth'
 author: brian-demers
 by: advocate
 communities: [java]
+description: "Learn how to build a simple SPA client app with a little bit of JQuery, a backend service with Spring Boot, and secure it all with OpenID Connect."
 tags: [oauth, oauth2, oauth2-dot-0, oauth-2-dot-0, spring, spring-boot, spring-security]
 type: conversion
 ---
