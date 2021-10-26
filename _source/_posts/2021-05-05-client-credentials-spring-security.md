@@ -158,7 +158,7 @@ public class DemoApplication {
     }
 
     @RestController
-    public class RequestCotroller {
+    public class RequestController {
         @PreAuthorize("hasAuthority('SCOPE_mod_custom')")
         @GetMapping("/")
         public String getMessage(Principal principal) {
