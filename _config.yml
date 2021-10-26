@@ -4,7 +4,7 @@ email: developers@okta.com
 description: > # this means to ignore newlines until "baseurl:"
   Secure, scalable, and highly available authentication and user management for any app.
 baseurl: ""
-url: "https://deploy-preview-881--okta-blog.netlify.app"
+url: "https://developer.okta.com"
 encoding: utf-8
 twitter_username: OktaDev
 github_username:  oktadev
