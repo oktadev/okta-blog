@@ -4,6 +4,7 @@ title: 'Add Single Sign-On to Your Vert.x Server with Okta'
 author: silas-brazil
 by: contractor
 communities: [java]
+description: "This tutorial will walk you through building a new Vert.x server and integrating it with Okta for security and user management."
 tags: [sso, vert-dot-x, java, oauth]
 tweets:
   - Learn how to use @vertx_project with OAuth!

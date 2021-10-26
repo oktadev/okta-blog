@@ -4,6 +4,7 @@ title: 'Use Kong Gateway to Centralize Authentication'
 author: micah-silverman
 by: advocate
 communities: [java]
+description: "You know that sci-fi movie trope in which you have a centralized hub that jumps you to other places in the galaxy? It's the same with Kong (and other API gateways)."
 tags: [kong, api-gateway, api, gateway, spring, spring-boot]
 type: conversion
 changelog: 

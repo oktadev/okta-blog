@@ -3,6 +3,7 @@ layout: blog_post
 title: "Build a Preact App with Authentication"
 author: lee-brandt
 by: advocate
+description: "In this tutorial, you'll build a basic Preact application with a couple of pages and user authentication using the Okta Sign-In Widget."
 communities: [javascript]
 tags: [react, preact, javascript, security]
 type: conversion

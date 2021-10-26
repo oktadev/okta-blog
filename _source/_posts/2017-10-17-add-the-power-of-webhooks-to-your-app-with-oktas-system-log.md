@@ -3,6 +3,7 @@ layout: blog_post
 title: "Add the Power of Webhooks to Your App with Okta's System Log"
 author: joel-franusic
 by: internal-contributor
+description: "To explain webhooks with Okta, this post will show you how to use an underappreciated feature in Okta, the System Log. Uses the Go programming language."
 communities: [go]
 tags: [webhooks, go]
 type: conversion

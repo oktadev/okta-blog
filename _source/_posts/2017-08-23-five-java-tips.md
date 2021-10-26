@@ -4,6 +4,7 @@ title: '5 Tips for Building your Java API'
 author: brian-demers
 by: advocate
 communities: [java, security]
+description: "Five tips that will save you time and code, along with making your Java applications more secure and easier to maintain."
 tags: [spring, jaxrs, java, rest, tips, dropwizard]
 type: awareness
 ---

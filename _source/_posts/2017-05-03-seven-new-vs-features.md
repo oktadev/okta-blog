@@ -3,12 +3,13 @@ layout: blog_post
 title: Seven Awesome New Features In Visual Studio 2017
 author: lee-brandt
 by: advocate
+description: "Learn seven new features about the March 2017 release of Visual Studio. There are exciting changes for the beloved Microsoft developer environment!"
 communities: [.net]
 tags: [visual-studio, xamarin, javascript, jsx, editor-config]
 type: awareness
 ---
 
-Microsoft developers have been using Visual Studio for their IDE since before .NET was even a thing. Visual Studio is twenty years old this year, and on March 7th, 2017 Microsoft released the latest version of it's flagship developer product, Visual Studio. With this release are a bunch of new features, improvements, and exciting changes for the beloved Microsoft developer environment. Here are seven features in the new IDE that will excite developers using the development environment.
+Microsoft developers have been using Visual Studio for their IDE since before .NET was even a thing. Visual Studio is twenty years old this year, and on March 7th, 2017 Microsoft released the latest version of its flagship developer product, Visual Studio. With this release are a bunch of new features, improvements, and exciting changes for the beloved Microsoft developer environment. Here are seven features in the new IDE that will excite developers using the development environment.
 
 {% img blog/seven-new-vs-features/vs-then-and-now.png alt:"Visual Studio Then And Now" %}
 

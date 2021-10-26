@@ -4,6 +4,7 @@ title: "Build User Registration with Node, React, and Okta"
 author: lee-brandt
 by: advocate
 communities: [.net, javascript]
+description: "In this tutorial, you'll learn how to set up a Node API that feeds a React UI, and build a user registration that keeps the user's information private and personal."
 tags: [asp-dot-net, webapi, security, oauth, oidc, react]
 tweets:
   - "Learn how to build user registration into your Node + React website: "
