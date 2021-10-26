@@ -13,6 +13,7 @@ tweets:
 image: blog/client-credentials-spring-security/client-credentials-flow.png
 type: conversion
 github: https://github.com/oktadev/okta-spring-boot-client-credentials-example
+changelog:
 - 2021-10-26: Updated to use Spring Boot 2.5.6. You can view the changes in this post in [okta-blog#936](https://github.com/oktadev/okta-blog/pull/935); example app changes are in [okta-spring-boot-client-credentials-example#4](https://github.com/oktadev/okta-spring-boot-client-credentials-example/pull/4).
 ---
 
