@@ -14,7 +14,7 @@ image: blog/client-credentials-spring-security/client-credentials-flow.png
 type: conversion
 github: https://github.com/oktadev/okta-spring-boot-client-credentials-example
 changelog:
-- 2021-10-26: Updated to use Spring Boot 2.5.6. You can view the changes in this post in [okta-blog#936](https://github.com/oktadev/okta-blog/pull/935); example app changes are in [okta-spring-boot-client-credentials-example#4](https://github.com/oktadev/okta-spring-boot-client-credentials-example/pull/4).
+- 2021-10-26: Updated to use Spring Boot 2.5.6. You can view this post's changes in [okta-blog#936](https://github.com/oktadev/okta-blog/pull/935); example app changes are in [okta-spring-boot-client-credentials-example#4](https://github.com/oktadev/okta-spring-boot-client-credentials-example/pull/4).
 ---
 
 The **client credentials grant** is used when two servers need to communicate with each other outside the context of a user. This is a very common scenario—and yet, it's often overlooked by tutorials and documentation online. In contrast, the **authorization code grant** type is more common, for when an application needs to authenticate a user and retrieve an authorization token, typically a JWT, that represents the user's identity within the application and defines the resources the user can access, and the actions the user can perform.
