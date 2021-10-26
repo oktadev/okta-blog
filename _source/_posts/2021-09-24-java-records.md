@@ -14,7 +14,7 @@ image:
 type: conversion
 github: https://github.com/oktadev/okta-java-records-example
 ---
-When defining classes for a simple aggregation of values, developers had to write constructors, accessors, `equals()`, `hashCode()` and `toString()`, an error-prone ceremony that has low value and deviates the focus from modeling immutable data. With the motivation of simplifying the writing of data carrier classes, Java Records were introduced as a first preview in JDK 14. The second preview came in JDK 15 and the finalized feature came in JDK 16. A summary of the history is available in the [JDK Enhancement Proposal JEP 395](https://openjdk.java.net/jeps/395).
+When defining classes for a simple aggregation of values, Java developers have traditionally constructors, accessors, `equals()`, `hashCode()` and `toString()`, an error-prone ceremony that has low value and deviates the focus from modeling immutable data. With the motivation of simplifying the writing of data carrier classes, Java Records were introduced as a first preview in JDK 14. The second preview came in JDK 15 and the finalized feature came in JDK 16. A summary of the history is available in the [JDK Enhancement Proposal JEP 395](https://openjdk.java.net/jeps/395).
 
 While code generators can be used to reduce boilerplate code, the goals of the `record` proposals rather focus on its semantics. In this post let's explore Java Records features and advantages, and apply them for building a REST API and querying a Database.
 
@@ -172,9 +172,7 @@ While searching for a dataset for this tutorial, I came across a collection of 8
 Let's jump ahead and build the a secured REST Api using the `EndOfGame` record, Spring Boot, [MongoDB](https://www.mongodb.com/community) and Okta authentication. With the help of [Spring Initializr](https://start.spring.io/) create a WebFlux application, from the web UI or with [HTTPie](https://httpie.io/):
 
 ```shell
-https -d start.spring.io/starter.zip type==maven-project \
-  language==java \
-  bootVersion==2.5.5 \
+https -d start.spring.io/starter.zip bootVersion==2.5.6 \
   baseDir==java-records \
   groupId==com.okta.developer.records \
   artifactId==records-demo \
@@ -186,7 +184,7 @@ https -d start.spring.io/starter.zip type==maven-project \
 
 **Note**: Although Java Records are available since release 14, the Spring Initializr Web UI only allows to select Java Long Term Support (LTS) releases.
 
-Extract the Maven project, and edit `pom.xml` to add two more required dependencies for this tutorial, [MongoDB Testcontainers Module](https://www.testcontainers.org/modules/databases/mongodb/) for testing database access and `spring-security-test`:
+Extract the Maven project, and edit `pom.xml` to add two more required dependencies for this tutorial, [MongoDB Testcontainers Module](https://www.testcontainers.org/modules/databases/mongodb/) for testing database access, and `spring-security-test`:
 
 ```xml
 <dependency>
@@ -211,8 +209,8 @@ Rename `application.properties` to `application.yml`, and add the following cont
 okta:
   oauth2:
     issuer: https://{yourOktaDomain}/oauth2/default
-    client-secret: {clientSecret}
     client-id: {clientId}
+    client-secret: {clientSecret}
 
 spring:
   data:
@@ -226,7 +224,7 @@ logging:
 ```
 
 
-Add the `EndOfGame` record under the package `com.okta.developer.records.domain`. Annotate the `record` with `@Document(collection = "stats")` to let MongoDB map `EndOfGame` to the `stats` collection. As you can see, a record class can be annotated. The class should look like this:
+Add an `EndOfGame` record under the package `com.okta.developer.records.domain`. Annotate the `record` with `@Document(collection = "stats")` to let MongoDB map `EndOfGame` to the `stats` collection. As you can see, a record class can be annotated. The class should look like this:
 
 ```java
 package com.okta.developer.records.domain;
@@ -480,13 +478,15 @@ public class StatsController {
 
 The controller enables the `/endOfGame` endpoint to get all entries, and the `/mentalStateAverageDamage` endpoint, that returns the damage in each category, in an average by mental state.
 
-Download the test dataset from [Github](https://github.com/indiepopart/java-records/blob/main/src/test/resources/stats.json) with HTTPie, and copy it to `src/test/resouces/stats.json`:
+Download the test dataset from [GitHub](https://github.com/oktadev/okta-java-records-example/blob/main/src/test/resources/stats.json) with HTTPie, and copy it to `src/test/resources/stats.json`:
 
 ```shell
-https -d raw.githubusercontent.com/indiepopart/java-records/9a60f81349cdffebbe001719256b0883493f987d/src/test/resources/stats.json
+https -d raw.githubusercontent.com/oktadev/okta-java-records-example/9a60f81349cdffebbe001719256b0883493f987d/src/test/resources/stats.json
+mkdir src/test/resources
+mv stats.json src/test/resources/.
 ```
 
-Create the `StatsControllerTest` class in the package `com.okta.developer.records.controller` under the `src/test` folder, to verify the endpoints basic functionality with a web test. In this test, only the web slice is verified:
+Create a `StatsControllerTest` class in the package `com.okta.developer.records.controller` under the `src/test` folder, to verify the endpoints basic functionality with a web test. In this test, only the web slice is verified:
 
 
 ```java
