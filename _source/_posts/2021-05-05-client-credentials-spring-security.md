@@ -108,9 +108,18 @@ curl https://start.spring.io/starter.tgz \
   -d bootVersion=2.5.6 \
   -d artifactId=secure-server \
   -d dependencies=oauth2-resource-server,web,security,okta \
-  -d language=java \
-  -d type=maven-project \
   -d baseDir=secure-server \
+| tar -xzvf - && cd secure-server
+```
+
+You can also use HTTPie:
+
+```shell
+https start.spring.io/starter.zip \
+  bootVersion==2.5.6 \
+  artifactId==secure-server \
+  dependencies==oauth2-resource-server,web,security,okta \
+  baseDir==secure-server \
 | tar -xzvf - && cd secure-server
 ```
 
@@ -221,7 +230,7 @@ HTTP/1.1 401
 
 ## Add a Custom Scope to Your Authorization Server
 
-Because we are using the custom scope `mod_custom` in the `@Preauthorize` annotation, you need to add this custom scope to your Okta authorization server. Run `okta login` and open the resulting URL in your browser. Sign in to the Okta Admin Console. You may need to click the **Admin** button to get to your dashboard.
+Because we are using the custom scope `mod_custom` in the `@PreAuthorize` annotation, you need to add this custom scope to your Okta authorization server. Run `okta login` and open the resulting URL in your browser. Sign in to the Okta Admin Console. You may need to click the **Admin** button to get to your dashboard.
 
 Go to **Security** > **API**. Select the **Default** authorization server by clicking on **default** in the table.
 
@@ -240,13 +249,11 @@ curl https://start.spring.io/starter.tgz \
   -d bootVersion=2.5.6 \
   -d artifactId=client \
   -d dependencies=oauth2-client,web \
-  -d language=java \
-  -d type=maven-project \
   -d baseDir=client-resttemplate \
 | tar -xzvf - && cd client-resttemplate
 ```
 
-Open this project in your IDE and a new class to hold the OAuth configuration.
+Open this project in your IDE and create a new class to hold the OAuth configuration.
 
 `src/main/java/com/example/client/OAuthClientConfiguration.java`
 ```java
@@ -366,7 +373,7 @@ public class DemoApplication implements CommandLineRunner {
 	@Autowired
 	private AuthorizedClientServiceOAuth2AuthorizedClientManager authorizedClientServiceAndManager;
 
-	// OUr command line runner method, runs once application is fully started
+	// The command line runner method, runs once application is fully started
 	@Override
 	public void run(String... args) throws Exception {
 
@@ -482,8 +489,6 @@ curl https://start.spring.io/starter.tgz \
   -d bootVersion=2.5.6 \
   -d artifactId=client \
   -d dependencies=oauth2-client,web,webflux \
-  -d language=java \
-  -d type=maven-project \
   -d baseDir=client-webclient \
 | tar -xzvf - && cd client-webclient
 ```
