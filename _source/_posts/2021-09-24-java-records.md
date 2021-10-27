@@ -44,7 +44,7 @@ public record EndOfGame(String id, LocalDate date, LocalTime timeOfDay,
                         Integer damageToPlayers, Integer damageToStructures) {
 }
 ```
-As you can see in the example above, the `record` has a name, `EndOfGame` in the example above. What looks like a constructor signature is the _state description_ or _header_ declaring the _components_ of the `record`.
+As you can see in the example above, the `record` has a name, `EndOfGame` in this case. What looks like a constructor signature is the _state description_ or _header_, declaring the _components_ of the `record`.
 
 The following members are acquired automatically with the declaration:
 
@@ -106,7 +106,7 @@ public class EndOfGameTest {
 
 }
 ```
-The automatic canonical constructor is used for creating a sample `EndOfGame` in the method `getTestEndOfGame()`.
+The automatic canonical constructor is used for creating a sample `EndOfGame` in the method `createEndOfGame()`.
 In the `equalsTest()` above, `eog1` has the same state than `eog2`, so `eog1.equals(eog2)` is `true`. This also implies both instances have the same `hashCode`.
 Automatic read accessors have the same name and return type as the component. Note there is no `get*` prefix in the read accessor name, the same name as the component, as illustrated in the `accessorTest()`.
 
@@ -671,8 +671,8 @@ public class StatsRepositoryTest {
 
         assertThat(result).isNotEmpty();
         assertThat(result).size().isEqualTo(2);
-        assertThat(result.get(0).mentalState()).isEqualTo("sober");
-        assertThat(result.get(1).mentalState()).isEqualTo("high");
+        assertThat(result.get(0).mentalState()).isIn("sober", "high");
+        assertThat(result.get(1).mentalState()).isIn("sober", "high");
 
         logger.info(result.get(0).toString());
         logger.info(result.get(1).toString());
@@ -743,7 +743,7 @@ Add also the `initdb.sh` script in the `docker` folder, to import the test data 
 mongoimport --verbose --db=fortnite --collection=stats --file=/seed/stats.json --jsonArray
 ```
 
-Generate the application container image with the following maven command:
+In the project root, generate the application container image with the following maven command:
 
 ```shell
 ./mvnw spring-boot:build-image
