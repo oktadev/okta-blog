@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8657391855
+discourse_topic_id: 17393
+discourse_comment_url: https://devforum.okta.com/t/17393
 layout: blog_post
 title: "Discovering macOS Settings with PlistWatch"
 author: phill-edwards

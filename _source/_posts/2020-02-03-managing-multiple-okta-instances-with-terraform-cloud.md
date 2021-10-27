@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7851169652
+discourse_topic_id: 17210
+discourse_comment_url: https://devforum.okta.com/t/17210
 layout: blog_post
 title: "Managing Multiple Okta Instances with Terraform Cloud"
 author: andy-march

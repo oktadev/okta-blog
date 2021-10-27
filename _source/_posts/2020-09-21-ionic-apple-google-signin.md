@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8210303089
+discourse_topic_id: 17293
+discourse_comment_url: https://devforum.okta.com/t/17293
 layout: blog_post
 title: "Ionic + Sign in with Apple and Google"
 author: matt-raible

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8711119968
+discourse_topic_id: 17400
+discourse_comment_url: https://devforum.okta.com/t/17400
 layout: blog_post
 title: "How to Prevent Reactive Java Applications from Stalling"
 author: jimena-garbarino

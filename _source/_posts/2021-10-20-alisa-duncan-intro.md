@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8832814927
+discourse_topic_id: 17438
+discourse_comment_url: https://devforum.okta.com/t/17438
 layout: blog_post
 title: "Flying Into Okta"
 author: alisa-duncan

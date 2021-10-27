@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8612896062
+discourse_topic_id: 17387
+discourse_comment_url: https://devforum.okta.com/t/17387
 layout: blog_post
 title: "Set Access Control Policies With Kong Konnect and Okta"
 author: claudio-acquaviva

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7822770412
+discourse_topic_id: 17201
+discourse_comment_url: https://devforum.okta.com/t/17201
 layout: blog_post
 title: "AWS Athena as a Data Analysis Supplement"
 author: omar-darwish

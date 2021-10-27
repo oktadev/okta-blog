@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8688571607
+discourse_topic_id: 17402
+discourse_comment_url: https://devforum.okta.com/t/17402
 layout: blog_post
 title: Fixing Common Problems with CORS and JavaScript
 author: phill-edwards
