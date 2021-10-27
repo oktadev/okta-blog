@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7082249936
+discourse_topic_id: 16965
+discourse_comment_url: https://devforum.okta.com/t/16965
 layout: blog_post
 title: "Bootiful Development with Spring Boot and Vue"
 author: matt-raible

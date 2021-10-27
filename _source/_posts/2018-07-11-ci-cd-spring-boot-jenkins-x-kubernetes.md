@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6784785639
+discourse_topic_id: 16897
+discourse_comment_url: https://devforum.okta.com/t/16897
 layout: blog_post
 title: "Add CI/CD to Your Spring Boot App with Jenkins X and Kubernetes"
 author: matt-raible

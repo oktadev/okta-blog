@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7359207922
+discourse_topic_id: 17035
+discourse_comment_url: https://devforum.okta.com/t/17035
 layout: blog_post
 title: "Upgrading Spring Security OAuth and JUnit Tests through the 👀 of a Java Hipster"
 author: matt-raible

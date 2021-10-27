@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6882122473
+discourse_topic_id: 16923
+discourse_comment_url: https://devforum.okta.com/t/16923
 layout: blog_post
 title: "Build a One-time Password Token for MFA with Okta"
 author: micah-silverman

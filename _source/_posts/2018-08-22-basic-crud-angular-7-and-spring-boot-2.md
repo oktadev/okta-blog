@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6867089210
+discourse_topic_id: 16919
+discourse_comment_url: https://devforum.okta.com/t/16919
 layout: blog_post
 title: 'Build a Basic CRUD App with Angular 7.0 and Spring Boot 2.1'
 author: matt-raible

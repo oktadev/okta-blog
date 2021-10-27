@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7260747150
+discourse_topic_id: 17008
+discourse_comment_url: https://devforum.okta.com/t/17008
 layout: blog_post
 title: "Devnexus 2019: Join the &lt;dev/>olution"
 author: matt-raible

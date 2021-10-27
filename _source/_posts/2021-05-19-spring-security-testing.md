@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8532957484
+discourse_topic_id: 17375
+discourse_comment_url: https://devforum.okta.com/t/17375
 layout: blog_post
 title: "Better Testing with Spring Security Test"
 author: jimena-garbarino

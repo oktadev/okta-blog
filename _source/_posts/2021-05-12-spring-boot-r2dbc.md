@@ -12,6 +12,9 @@ tweets:
 - "R2DBC + Spring Boot makes it so you can connect to your SQL databases without blocking. Try it today!"
 image: blog/spring-boot-r2dbc/r2dbc-spring-boot.png
 type: conversion
+github: https://github.com/oktadev/okta-spring-boot-r2dbc-example
+changelog:
+- 2021-10-26: Updated to use Spring Boot 2.5.6. You can view the changes in this post in [okta-blog#935](https://github.com/oktadev/okta-blog/pull/935); example app changes are in [okta-spring-boot-r2dbc-example#3](https://github.com/oktadev/okta-spring-boot-r2dbc-example/pull/3).
 ---
 
 Reactive APIs are a powerful way to handle and serve large amounts of data and large numbers of requests in a web application. They rely on a "server-side event" model in which the client (e.g. your browser) subscribes to "events" on the server, and the server "pushes" events to the client as they become available.
@@ -39,11 +42,11 @@ Let's get started!
 
 ## Create a Spring Boot Project with R2DBC
 
-Click [this link](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.4.5.RELEASE&packaging=jar&jvmVersion=11&groupId=com.okta.dev&artifactId=okta-r2dbc&name=okta-r2dbc&description=Spring%20Boot%20App%20for%20Okta%20%2B%20R2DBC&packageName=com.okta.dev.oktar2dbc&dependencies=lombok,data-jpa,data-r2dbc,webflux,okta,h2) or go to [start.spring.io](https://start.spring.io) and select the following options in your browser:
+Click [this link](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.5.6&packaging=jar&jvmVersion=11&groupId=com.okta.dev&artifactId=okta-r2dbc&name=okta-r2dbc&description=Spring%20Boot%20App%20for%20Okta%20%2B%20R2DBC&packageName=com.okta.dev.oktar2dbc&dependencies=lombok,data-jpa,data-r2dbc,webflux,okta,h2) or go to [start.spring.io](https://start.spring.io) and select the following options in your browser:
 
 - **Project**: `Maven Project`
 - **Language**: `Java`
-- **Spring Boot**: `2.4.5`
+- **Spring Boot**: `2.5.6`
 
 Under **Project Metadata**, set the values to the following:
 
@@ -371,32 +374,7 @@ CREATE TABLE USER_ENTITY
 );
 ```
 
-Next, add a `@Bean` which will automatically detect and execute this script on startup. Open your main application class at `com.okta.dev.oktar2dbc.OktaR2dbcApplication` and add a `ConnectionFactoryInitializer` bean:
-
-```java
-package com.okta.dev.oktar2dbc;
-
-// imports omitted
-
-@EnableWebFlux
-@EnableR2dbcRepositories
-@SpringBootApplication
-public class OktaR2dbcApplication {
-    public static void main(String[] args) {
-        SpringApplication.run(OktaR2dbcApplication.class, args);
-    }
-
-    @Bean // added
-    public ConnectionFactoryInitializer connectionFactoryInitializer(ConnectionFactory connectionFactory) {
-        ConnectionFactoryInitializer initializer = new ConnectionFactoryInitializer();
-        initializer.setConnectionFactory(connectionFactory);
-        initializer.setDatabasePopulator(new ResourceDatabasePopulator(new ClassPathResource("schema.sql")));
-        return initializer;
-    }
-}
-```
-
-`initializer.setDatabasePopulator()` will pick up the `schema.sql` file and execute it to create the `user_entity` table on startup.
+Spring Boot will automatically detect the `schema.sql` file and execute it to create the `user_entity` table on startup.
 
 Open your command line tool and run the application:
 
@@ -409,7 +387,7 @@ Open your browser and navigate to `http://localhost:8080` and you should see the
 
 {% img blog/spring-boot-r2dbc/index_html.png alt:"Index page" width:"576" %}{: .center-image }
 
-Next navigate to `http://localhost:8080/protected`. You should be prompted to log in with Okta, and after successfully authenticating returned to the protected page:
+Next navigate to `http://localhost:8080/protected`. You should be prompted to log in with Okta, and after successfully authenticating, returned to the protected page:
 
 {% img blog/spring-boot-r2dbc/protected_html.png alt:"Protected page" width:"617" %}{: .center-image }
 
@@ -424,6 +402,7 @@ package com.okta.dev.oktar2dbc.database;
 
 // imports omitted
 
+@Data
 public class HeartbeatEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -507,7 +486,7 @@ public class HeartbeatService {
                 .mapToObj(i -> {
                     double range = upper-lower;
                     char charIdx = ((char)(lower + (range * Math.random())));
-                    return new String(new char[]{charIdx});
+                    return String.valueOf(charIdx);
                 })
                 .collect(Collectors.joining());
     }
@@ -523,13 +502,7 @@ To enable scheduling, you must also add the `@EnableScheduling` annotation to a 
 @EnableWebFlux
 @EnableR2dbcRepositories
 @SpringBootApplication
-public class OktaR2dbcApplication {
-    public static void main(String[] args) {
-        SpringApplication.run(OktaR2dbcApplication.class, args);
-    }
-
-    // other code omitted
-}
+public class OktaR2dbcApplication { ... }
 ```
 
 Open your application router at `com.okta.dev.oktar2dbc.ApplicationRouter` and modify the `route()` method to add a routing for `/heartbeats`:

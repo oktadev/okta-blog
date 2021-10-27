@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6741381974
+discourse_topic_id: 16886
+discourse_comment_url: https://devforum.okta.com/t/16886
 layout: blog_post
 title: "Deploy Your ASP.NET Core Application to Azure"
 author: lee-brandt

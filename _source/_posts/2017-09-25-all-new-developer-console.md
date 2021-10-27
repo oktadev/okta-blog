@@ -1,8 +1,12 @@
 ---
+disqus_thread_id: 6300966504
+discourse_topic_id: 16790
+discourse_comment_url: https://devforum.okta.com/t/16790
 layout: blog_post
 title: "The Okta Developer Console: All New, All You"
 author: robert-damphousse
 by: internal-contributor
+description: "We recently launched an update to our Developer Console, an all-new Okta experience that is catered to your needs as an application developer."
 tags: [okta]
 type: awareness
 ---

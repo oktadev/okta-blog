@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6433358353
+discourse_topic_id: 16816
+discourse_comment_url: https://devforum.okta.com/t/16816
 layout: blog_post
 title: "Use Okta (Instead of Local Storage) to Store Your User's Data Securely"
 author: matt-raible

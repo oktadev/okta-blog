@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7631649390
+discourse_topic_id: 17137
+discourse_comment_url: https://devforum.okta.com/t/17137
 layout: blog_post
 title: "Why Public Key Cryptography Matters"
 author: william-dawson

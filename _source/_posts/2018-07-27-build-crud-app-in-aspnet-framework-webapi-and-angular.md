@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6820789089
+discourse_topic_id: 16906
+discourse_comment_url: https://devforum.okta.com/t/16906
 layout: blog_post
 title: "Build a CRUD App with ASP.NET Framework 4.x Web API and Angular"
 author: ibrahim-suta

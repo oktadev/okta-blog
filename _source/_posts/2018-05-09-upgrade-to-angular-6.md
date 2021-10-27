@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6659220402
+discourse_topic_id: 16866
+discourse_comment_url: https://devforum.okta.com/t/16866
 layout: blog_post
 title: "Angular 6: What's New, and Why Upgrade"
 author: matt-raible

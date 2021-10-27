@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7748842946
+discourse_topic_id: 17179
+discourse_comment_url: https://devforum.okta.com/t/17179
 layout: blog_post
 title: "A Quick Guide to Integrating React and GraphQL"
 author: terje-kolderup

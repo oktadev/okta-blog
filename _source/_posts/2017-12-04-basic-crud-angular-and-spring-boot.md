@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6328798297
+discourse_topic_id: 16805
+discourse_comment_url: https://devforum.okta.com/t/16805
 layout: blog_post
 title: 'Build a Basic CRUD App with Angular 5.0 and Spring Boot 2.0'
 author: matt-raible

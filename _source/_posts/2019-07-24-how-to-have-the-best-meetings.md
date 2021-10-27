@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7550736619
+discourse_topic_id: 17099
+discourse_comment_url: https://devforum.okta.com/t/17099
 layout: blog_post
 title: "How to Have the Best Meetings in Your Life"
 author: david-neal

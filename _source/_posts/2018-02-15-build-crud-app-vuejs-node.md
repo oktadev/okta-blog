@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6480347676
+discourse_topic_id: 16828
+discourse_comment_url: https://devforum.okta.com/t/16828
 layout: blog_post
 title: "Build a Basic CRUD App with Vue.js and Node"
 author: brandon-parise

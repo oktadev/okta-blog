@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6542028460
+discourse_topic_id: 16832
+discourse_comment_url: https://devforum.okta.com/t/16832
 layout: blog_post
 title: "The Lazy Developer's Guide to Authentication with Vue.js"
 author: matt-raible

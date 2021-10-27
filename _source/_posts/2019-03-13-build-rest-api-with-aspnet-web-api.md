@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7292011519
+discourse_topic_id: 17019
+discourse_comment_url: https://devforum.okta.com/t/17019
 layout: blog_post
 title: "Build a REST API with ASP.NET Web API"
 author: ryan-foster

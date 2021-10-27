@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6447834164
+discourse_topic_id: 16820
+discourse_comment_url: https://devforum.okta.com/t/16820
 layout: blog_post
 title: "Use Ionic for JHipster to Create Mobile Apps with OIDC Authentication"
 author: matt-raible

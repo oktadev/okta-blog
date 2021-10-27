@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7121729559
+discourse_topic_id: 16975
+discourse_comment_url: https://devforum.okta.com/t/16975
 layout: blog_post
 title: "Build a Basic Website with ASP.NET MVC and Angular"
 author: ibrahim-suta

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7640616629
+discourse_topic_id: 17140
+discourse_comment_url: https://devforum.okta.com/t/17140
 layout: blog_post
 title: "Build a NodeJS App with TypeScript"
 author: ivo-katunaric

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6865835027
+discourse_topic_id: 16918
+discourse_comment_url: https://devforum.okta.com/t/16918
 layout: blog_post
 title: "Build a Simple REST API with Node and OAuth 2.0"
 author: braden-kelley

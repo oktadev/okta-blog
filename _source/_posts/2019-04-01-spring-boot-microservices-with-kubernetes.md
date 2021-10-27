@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7331488144
+discourse_topic_id: 17029
+discourse_comment_url: https://devforum.okta.com/t/17029
 layout: blog_post
 title: "Build a Microservice Architecture with Spring Boot and Kubernetes"
 author: andrew-hughes

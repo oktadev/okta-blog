@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6777834858
+discourse_topic_id: 16895
+discourse_comment_url: https://devforum.okta.com/t/16895
 layout: blog_post
 title: "Add Authentication to your PHP App in 5 Minutes"
 author: aaron-parecki

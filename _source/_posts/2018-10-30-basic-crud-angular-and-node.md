@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7006972871
+discourse_topic_id: 16951
+discourse_comment_url: https://devforum.okta.com/t/16951
 layout: blog_post
 title: 'Build a Basic CRUD App with Angular and Node'
 author: holger-schmitz

@@ -1,9 +1,13 @@
 ---
+disqus_thread_id: 6307099710
+discourse_topic_id: 16799
+discourse_comment_url: https://devforum.okta.com/t/16799
 layout: blog_post
 title: The New Age of Trust
 author: vimarsh-karbhari
 by: internal-contributor
 communities: [security]
+description: "Two of the most important aspects of a product are Product Status/Trust and Customer Support. Learn about how we developed our new Trust Page."
 tags: [trust, trust-pages, trust-relationship, product, engineering, customer-success, functional-design]
 type: awareness
 ---
@@ -45,7 +49,7 @@ Once users get their hands on a product, they often find new ways to use it that
 
 It is a truism that one cannot solve for all technical constraints. Choosing the right platform on which to build your Product and Status/Trust pages is very important, but hosting both pages on the same platform risks both being down at the same time if your site crashes. 
 
-Obviously, you cannot afford to let your Trust/Status page go down, so **high availability** is key. But just in case the page ever _does_ go down, you need a **risk mitigation plan**. Central to this is making sure that you are contsantly monitoring your Trust/Status page with enterprise-class monitoring tools.
+Obviously, you cannot afford to let your Trust/Status page go down, so **high availability** is key. But just in case the page ever _does_ go down, you need a **risk mitigation plan**. Central to this is making sure that you are constantly monitoring your Trust/Status page with enterprise-class monitoring tools.
 
 ### Send rapid, robust, and consistent notifications
 In the event of trust page problems, make sure that you have ways to easily and automatically notify customers and site ops as soon as issues are detected. Employ RSS, Twitter, and other channels to notify customers; invest in monitoring tools to notify site ops.

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7446270731
+discourse_topic_id: 17063
+discourse_comment_url: https://devforum.okta.com/t/17063
 layout: blog_post
 title: "Build Your First PWA with Vue and TypeScript"
 author: holger-schmitz
