@@ -249,6 +249,10 @@ private static Collection<String> getRolesFromClaims(Map<String, Object> claims)
         claims.getOrDefault("roles", claims.getOrDefault(CLAIMS_NAMESPACE + "roles", new ArrayList<>()))
     );
 }
+
+private static List<GrantedAuthority> mapRolesToGrantedAuthorities(Collection<String> roles) {
+    return roles.stream().filter(role -> role.startsWith("ROLE_")).map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+}
 ```
 
 The `SecurityConfiguration.java` class has a bean that calls this method to configure a user's roles from their OIDC data.
