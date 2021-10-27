@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8276053990
+discourse_topic_id: 17318
+discourse_comment_url: https://devforum.okta.com/t/17318
 layout: blog_post
 title: "Build a Next.js Application with TypeScript"
 author: nickolas-fisher

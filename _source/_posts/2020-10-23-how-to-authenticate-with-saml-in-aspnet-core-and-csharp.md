@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8249121299
+discourse_topic_id: 17310
+discourse_comment_url: https://devforum.okta.com/t/17310
 layout: blog_post
 title: How to Authenticate with SAML in ASP.NET Core and C#
 author: nick-gamb

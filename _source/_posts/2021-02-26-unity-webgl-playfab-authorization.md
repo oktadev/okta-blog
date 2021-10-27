@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8413945889
+discourse_topic_id: 17359
+discourse_comment_url: https://devforum.okta.com/t/17359
 layout: blog_post
 title: Unity WebGL + PlayFab Authorization in 20 Minutes
 author: nick-gamb

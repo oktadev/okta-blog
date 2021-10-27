@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7930599991
+discourse_topic_id: 17222
+discourse_comment_url: https://devforum.okta.com/t/17222
 layout: blog_post
 title: "Security Patterns for Microservice Architectures"
 author: matt-raible

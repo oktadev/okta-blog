@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7913765961
+discourse_topic_id: 17225
+discourse_comment_url: https://devforum.okta.com/t/17225
 layout: blog_post
 title: "Build a React App with Styled Components"
 author: holger-schmitz

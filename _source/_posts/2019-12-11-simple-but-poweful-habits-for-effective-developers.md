@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7759384374
+discourse_topic_id: 17181
+discourse_comment_url: https://devforum.okta.com/t/17181
 layout: blog_post
 title: "6 Simple but Powerful Habits for Effective Developers"
 author: heather-downing

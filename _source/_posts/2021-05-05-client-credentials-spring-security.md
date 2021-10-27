@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8507481160
+discourse_topic_id: 17370
+discourse_comment_url: https://devforum.okta.com/t/17370
 layout: blog_post
 title: "How to Use Client Credentials Flow with Spring Security"
 author: andrew-hughes
