@@ -478,6 +478,9 @@ public class StatsController {
 
 The controller enables the `/endOfGame` endpoint to get all entries, and the `/mentalStateAverageDamage` endpoint, that returns the damage in each category, in an average by mental state.
 
+## Test Java Record in the Web Layer
+
+
 Download the test dataset from [GitHub](https://github.com/oktadev/okta-java-records-example/blob/main/src/test/resources/stats.json) with HTTPie, and copy it to `src/test/resources/stats.json`:
 
 ```shell
@@ -598,6 +601,8 @@ The `/mentalStateAverageDamage` test above also verifies that the `MentalStateDa
 ]
 ```
 
+## Test Java Record in the Database Layer
+
 Create the `StatsRepositoryTest` class in the package `com.okta.developer.records.repository` under the `src/test` folder, to verify the database slice:
 
 ```java
@@ -709,10 +714,77 @@ MentalStateDamage[mentalState=high, damageToPlayers=557.547619047619, damageToSt
 For this single-player dataset, the damage taken or inflicted was not orders of magnitude different when sober than when high.
 
 
+## Run the Application
+
+Create a `docker` folder in the root of the project, and add the following `docker-compose.yml` file there:
+
+```yml
+version: "3.1"
+
+services:
+  mongodb:
+    image: mongo:bionic
+    environment:
+      - MONGO_INIT_DATABASE=fortnite
+    ports:
+      - "27017:27017"
+    volumes:
+      - ../src/test/resources/stats.json:/seed/stats.json
+      - ./initdb.sh:/docker-entrypoint-initdb.d/initdb.sh
+  demo:
+    image: records-demo:0.0.1-SNAPSHOT
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://mongodb/fortnite
+    depends_on:
+      - mongodb
+```
+
+Add also the `initdb.sh` script in the `docker` folder, to import the test data into MongoDB, with the following content:
+
+```shell
+mongoimport --verbose --db=fortnite --collection=stats --file=/seed/stats.json --jsonArray
+```
+
+Generate the application container image with the following maven command:
+
+```shell
+./mvnw spring-boot:build-image
+```
+Run the application with docker-compose:
+
+```shell
+cd docker
+docker-compose up
+```
+
+Once the services are up, go to http://localhost:8080/mentalStateAverageDamage, and you should see the Okta login page:
+
+{% img blog/java-records/okta-login.png alt:"Okta Login Form" width:"400" %}{: .center-image }
+
+Sign in with your Okta credentials, and if successful, it will redirect to the `/mentalStateAverageDamage` endpoint, and you should see a response body like the following:
+
+```json
+[
+   {
+      "mentalState":"sober",
+      "damageToPlayers":604.3777777777777,
+      "damageToStructures":3373.511111111111,
+      "damageTaken":246.46666666666667
+   },
+   {
+      "mentalState":"high",
+      "damageToPlayers":557.547619047619,
+      "damageToStructures":2953.8571428571427,
+      "damageTaken":241.71428571428572
+   }
+]
+```
+
 # Java Records Advantages and Disadvantages
 
-While Java Record is more concise for declaring data carrier classes, the "war on boilerplate" is a non-goal of the construct, neither is to add features like properties or annotation-driven code generation, like [Project Lombok](https://projectlombok.org/) does. Records semantics provide benefits when modeling an immutable state data type. No hidden state is allowed, as no instance fields can be defined outside the header, hence the transparent claim. Compiler generated `equals()` and `hashCode()` avoid error-prone coding. Serialization and deserialization into JSON are straightforward thanks to its canonical constructor.
-If you need to be able to alter the state or to define a hierarchy, it is not possible with records.
+While Java Record is more concise for declaring data carrier classes, the "war on boilerplate" is a non-goal of the construct, neither is to add features like properties or annotation-driven code generation, like [Project Lombok](https://projectlombok.org/) does. Records semantics provide benefits when modeling an immutable state data type. No hidden state is allowed, as no instance fields can be defined outside the header, hence the transparent claim. Compiler generated `equals()` and `hashCode()` avoid error-prone coding. Serialization and deserialization into JSON are straightforward thanks to its canonical constructor. If you need to be able to alter the state or to define a hierarchy, it is not possible with records.
 
 
 # Learn More About Java and Spring
