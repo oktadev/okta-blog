@@ -481,14 +481,6 @@ The controller enables the `/endOfGame` endpoint to get all entries, and the `/m
 ## Test Java Record in the Web Layer
 
 
-Download the test dataset from [GitHub](https://github.com/oktadev/okta-java-records-example/blob/main/src/test/resources/stats.json) with HTTPie, and copy it to `src/test/resources/stats.json`:
-
-```shell
-https -d raw.githubusercontent.com/oktadev/okta-java-records-example/9a60f81349cdffebbe001719256b0883493f987d/src/test/resources/stats.json
-mkdir src/test/resources
-mv stats.json src/test/resources/.
-```
-
 Create a `StatsControllerTest` class in the package `com.okta.developer.records.controller` under the `src/test` folder, to verify the endpoints basic functionality with a web test. In this test, only the web slice is verified:
 
 
@@ -603,6 +595,14 @@ The `/mentalStateAverageDamage` test above also verifies that the `MentalStateDa
 
 ## Test Java Record in the Database Layer
 
+Download the test dataset from [GitHub](https://github.com/oktadev/okta-java-records-example/blob/main/src/test/resources/stats.json) with HTTPie, and copy it to `src/test/resources/stats.json`:
+
+```shell
+https -d raw.githubusercontent.com/oktadev/okta-java-records-example/9a60f81349cdffebbe001719256b0883493f987d/src/test/resources/stats.json
+mkdir src/test/resources
+mv stats.json src/test/resources/.
+```
+
 Create the `StatsRepositoryTest` class in the package `com.okta.developer.records.repository` under the `src/test` folder, to verify the database slice:
 
 ```java
@@ -690,7 +690,7 @@ public class StatsRepositoryTest {
 }
 ```
 
-`@DataMongoTest` configures the data layer for testing. For this test, I was not able to configure a [repository populator](https://docs.spring.io/spring-data/mongodb/docs/current/reference/html/#core.repository-populators), so with the help of Testcontainers a MongoDB instance is started instead. Using a container MongoDB instance requires disabling the `EmbeddedMongoAutoConfiguration`.
+`@DataMongoTest` configures the data layer for testing. For this test, I evaluated using [repository populator](https://docs.spring.io/spring-data/mongodb/docs/current/reference/html/#core.repository-populators), but decided to go for a Testcontainers MongoDB instance instead, to reuse the import process and `data.json` file later with Docker Compose. Using a container MongoDB instance requires disabling the `EmbeddedMongoAutoConfiguration`.
 
 In the `setUp()` above, the `mongoimport` tool is executed in the test container, initializing the `stats` collection with the sample dataset.
 
