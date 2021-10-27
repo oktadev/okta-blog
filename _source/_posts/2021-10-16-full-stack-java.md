@@ -475,20 +475,39 @@ public class PhotoResource {
 
 Since you're extracting the information, you can remove the fields from the UI and tests so the user cannot set these values.
 
-In `src/main/webapp/app/entities/photo/photo-update.tsx`, hide the metadata so users can't edit it. Rather than displaying the `height`, `width`, `taken`, and `uploaded` values, hide them. You can do this by searching for `photo-height`, grabbing the elements (and its following three elements) and adding them to a `metadata` variable just before the `return` block.
+In `src/main/webapp/app/entities/photo/photo-update.tsx`, hide the metadata so users can't edit it. Rather than displaying the `height`, `width`, `taken`, and `uploaded` values, hide them. You can do this by searching for `photo-height`, grabbing the elements (and its following three elements) and adding them to a `metadata` constant just after `defaultValues()` lambda function.
 
 ```tsx
+const defaultValues = () =>
+  ...
+
 const metadata = (
   <div>
-    <ValidatedField label={translate('flickr2App.photo.height')} id="photo-height" name="height" data-cy="height" type="text" />
-    <ValidatedField label={translate('flickr2App.photo.width')} id="photo-width" name="width" data-cy="width" type="text" />
-    <ValidatedField label={translate('flickr2App.photo.taken')} id="photo-taken" name="taken" data-cy="taken"
-      type="datetime-local" placeholder="YYYY-MM-DD HH:mm" />
-   <ValidatedField label={translate('flickr2App.photo.uploaded')} id="photo-uploaded" name="uploaded" data-cy="uploaded" 
-      type="datetime-local" placeholder="YYYY-MM-DD HH:mm" />
+    <ValidatedField label={translate('flickr2App.photo.height')} id='photo-height' name='height' data-cy='height'
+                    type='text' />
+    <ValidatedField label={translate('flickr2App.photo.width')} id='photo-width' name='width' data-cy='width'
+                    type='text' />
+    <ValidatedField
+      label={translate('flickr2App.photo.taken')}
+      id='photo-taken'
+      name='taken'
+      data-cy='taken'
+      type='datetime-local'
+      placeholder='YYYY-MM-DD HH:mm'
+    />
+    <ValidatedField
+      label={translate('flickr2App.photo.uploaded')}
+      id='photo-uploaded'
+      name='uploaded'
+      data-cy='uploaded'
+      type='datetime-local'
+      placeholder='YYYY-MM-DD HH:mm'
+    />
   </div>
 );
 const metadataRows = isNew ? '' : metadata;
+
+return ( ... );
 ```
 
 Then, in the `return` block, remove the JSX between the `image` property and `album` property and replace it with `{metadataRows}`.
@@ -497,24 +516,25 @@ Then, in the `return` block, remove the JSX between the `image` property and `al
 ```tsx
 <ValidatedBlobField
   label={translate('flickr2App.photo.image')}
-  id="photo-image"
-  name="image"
-  data-cy="image"
+  id='photo-image'
+  name='image'
+  data-cy='image'
   isImage
-  accept="image/*"
+  accept='image/*'
   validate={{
-    required: { value: true, message: translate('entity.validation.required') },
+    required: { value: true, message: translate('entity.validation.required') }
   }}
 />
 {metadataRows}
-<ValidatedField id="photo-album" name="albumId" data-cy="album" label={translate('flickr2App.photo.album')} type="select">
-  <option value="" key="0" />
-{albums
+<ValidatedField id='photo-album' name='albumId' data-cy='album'
+                label={translate('flickr2App.photo.album')} type='select'>
+  <option value='' key='0' />
+  {albums
     ? albums.map(otherEntity => (
-        <option value={otherEntity.id} key={otherEntity.id}>
-          {otherEntity.title}
-        </option>
-      ))
+      <option value={otherEntity.id} key={otherEntity.id}>
+        {otherEntity.title}
+      </option>
+    ))
     : null}
 </ValidatedField>
 ```
