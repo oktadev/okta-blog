@@ -20,9 +20,8 @@ A Kubernetes (k8s) cluster comprises worker machines called nodes and a control 
 When you are communicating with a Kubernetes cluster, let's say using kubectl or a client library or a tool like [KDash](https://kdash.cli.rs/), you are primarily interacting with the [Kubernetes API server](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/). The API server is responsible for managing the cluster and is responsible for handling requests from a client.
 
 **Table of Contents**{: .hide }
-
-- Table of Contents
-  {:toc}
+* Table of Contents
+{:toc}
 
 # Why is it required to secure the API server?
 
@@ -302,7 +301,7 @@ k8s_oidc_issuer_url = "https://dev-xxxxxx.okta.com/oauth2/aus2b0ql0ihgilIh95d7"
 
 You can run `terraform destroy` to revert the changes if required.
 
-**TIP**: You can use the `terraform import <resource_name.id>` command to import data and configuration from your Okta instance. Refer [these docs](https://registry.terraform.io/providers/okta/okta/latest/docs) for more information.
+> **TIP**: You can use the `terraform import <resource_name.id>` command to import data and configuration from your Okta instance. Refer [these docs](https://registry.terraform.io/providers/okta/okta/latest/docs) for more information.
 
 ## Preparing the cluster
 
