@@ -483,25 +483,23 @@ const defaultValues = () =>
 
 const metadata = (
   <div>
-    <ValidatedField label={translate('flickr2App.photo.height')} id='photo-height' name='height' data-cy='height'
-                    type='text' />
-    <ValidatedField label={translate('flickr2App.photo.width')} id='photo-width' name='width' data-cy='width'
-                    type='text' />
+    <ValidatedField label={translate('flickr2App.photo.height')} id="photo-height" name="height" data-cy="height" type="text" />
+    <ValidatedField label={translate('flickr2App.photo.width')} id="photo-width" name="width" data-cy="width" type="text" />
     <ValidatedField
       label={translate('flickr2App.photo.taken')}
-      id='photo-taken'
-      name='taken'
-      data-cy='taken'
-      type='datetime-local'
-      placeholder='YYYY-MM-DD HH:mm'
+      id="photo-taken"
+      name="taken"
+      data-cy="taken"
+      type="datetime-local"
+      placeholder="YYYY-MM-DD HH:mm"
     />
     <ValidatedField
       label={translate('flickr2App.photo.uploaded')}
-      id='photo-uploaded'
-      name='uploaded'
-      data-cy='uploaded'
-      type='datetime-local'
-      placeholder='YYYY-MM-DD HH:mm'
+      id="photo-uploaded"
+      name="uploaded"
+      data-cy="uploaded"
+      type="datetime-local"
+      placeholder="YYYY-MM-DD HH:mm"
     />
   </div>
 );
@@ -516,19 +514,18 @@ Then, in the `return` block, remove the JSX between the `image` property and `al
 ```tsx
 <ValidatedBlobField
   label={translate('flickr2App.photo.image')}
-  id='photo-image'
-  name='image'
-  data-cy='image'
+  id="photo-image"
+  name="image"
+  data-cy="image"
   isImage
-  accept='image/*'
+  accept="image/*"
   validate={{
-    required: { value: true, message: translate('entity.validation.required') }
+    required: { value: true, message: translate('entity.validation.required') },
   }}
 />
 {metadataRows}
-<ValidatedField id='photo-album' name='albumId' data-cy='album'
-                label={translate('flickr2App.photo.album')} type='select'>
-  <option value='' key='0' />
+<ValidatedField id="photo-album" name="albumId" data-cy="album" label={translate('flickr2App.photo.album')} type="select">
+  <option value="" key="0" />
   {albums
     ? albums.map(otherEntity => (
       <option value={otherEntity.id} key={otherEntity.id}>
