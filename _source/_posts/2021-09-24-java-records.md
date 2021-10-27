@@ -373,26 +373,22 @@ package com.okta.developer.records.configuration;
 
 import com.okta.developer.records.repository.LocalDateConverter;
 import com.okta.developer.records.repository.LocalTimeConverter;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.mongodb.config.AbstractReactiveMongoConfiguration;
 import org.springframework.data.mongodb.core.convert.MongoCustomConversions;
 
+import java.util.Arrays;
+
 @Configuration
-public class MongoConfiguration extends AbstractReactiveMongoConfiguration {
+public class MongoConfiguration {
 
-    @Value("${spring.data.mongodb.database}")
-    private String databaseName;
+    @Bean
+    public MongoCustomConversions mongoCustomConversions() {
 
-    @Override
-    protected String getDatabaseName() {
-        return databaseName;
-    }
-
-    @Override
-    protected void configureConverters(MongoCustomConversions.MongoConverterConfigurationAdapter adapter) {
-        adapter.registerConverter(new LocalDateConverter());
-        adapter.registerConverter(new LocalTimeConverter());
+        return new MongoCustomConversions(
+            Arrays.asList(
+                    new LocalDateConverter(),
+                    new LocalTimeConverter()));
     }
 }
 ```
@@ -736,7 +732,7 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - SPRING_DATA_MONGODB_URI=mongodb://mongodb/fortnite
+      - SPRING_DATA_MONGODB_HOST=mongodb
     depends_on:
       - mongodb
 ```
@@ -782,9 +778,20 @@ Sign in with your Okta credentials, and if successful, it will redirect to the `
 ]
 ```
 
-# Java Records Advantages and Disadvantages
+# Java Records Advantages and Limitations
 
-While Java Record is more concise for declaring data carrier classes, the "war on boilerplate" is a non-goal of the construct, neither is to add features like properties or annotation-driven code generation, like [Project Lombok](https://projectlombok.org/) does. Records semantics provide benefits when modeling an immutable state data type. No hidden state is allowed, as no instance fields can be defined outside the header, hence the transparent claim. Compiler generated `equals()` and `hashCode()` avoid error-prone coding. Serialization and deserialization into JSON are straightforward thanks to its canonical constructor. If you need to be able to alter the state or to define a hierarchy, it is not possible with records.
+While Java Record is more concise for declaring data carrier classes, the "war on boilerplate" is a non-goal of the construct, neither is to add features like properties or annotation-driven code generation, like [Project Lombok](https://projectlombok.org/) does. Records semantics provide benefits when modeling an immutable state data type. No hidden state is allowed, as no instance fields can be defined outside the header, hence the transparent claim. Compiler generated `equals()` and `hashCode()` avoid error-prone coding. Serialization and deserialization into JSON are straightforward thanks to its canonical constructor. Summarizing some of the Java Record features discussed in this post:
+
+Advantages
+- Concise syntax
+- Immutable state
+- Compiler generated `equals()` and `hashCode()`
+- Straightforward JSON serialization and deserialization
+
+Limitations
+- Immutable state
+- Cannot be used as JPA/Hibernate entities
+- Cannot be extended or inherit a class
 
 
 # Learn More About Java and Spring
