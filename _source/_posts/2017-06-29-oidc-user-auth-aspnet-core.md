@@ -1,8 +1,12 @@
 ---
+disqus_thread_id: 6300228558
+discourse_topic_id: 16753
+discourse_comment_url: https://devforum.okta.com/t/16753
 layout: blog_post
 title: 'OpenID Connect for User Authentication in ASP.NET Core'
 author: lee-brandt
 by: advocate
+description: "OpenID Connect is a protocol for authenticating users. Learn how to use it for user authentication with ASP.NET Core in this quick tutorial."
 communities: [.net, security]
 tags: [net, oidc, authentication, user, auth]
 type: conversion
@@ -27,7 +31,7 @@ First, get the [dotnet command-line program](https://dot.net/core). Once you hav
 In just a few seconds you'll have a simple ASP.NET Core app ready to go. You may need to run a `dotnet restore` command to install the dependencies for the base application.
 
 ## Add an Identity Provider
-Now you need an Identity Provider. For this tutorial you'll  use [Okta](https://developer.okta.com). Once you've created an account and logged in, click *Admin* on the top menu.
+Now you need an Identity Provider. For this tutorial you'll use [Okta](https://developer.okta.com). Once you've created an account and logged in, click *Admin* on the top menu.
 
 {% img blog/aspnet-oidc/admin_button.png alt:"Admin Button" width:"300" %}
 

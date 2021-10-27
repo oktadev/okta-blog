@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6580314608
+discourse_topic_id: 16847
+discourse_comment_url: https://devforum.okta.com/t/16847
 layout: blog_post
 title: "Hello, Okta!"
 author: aaron-parecki

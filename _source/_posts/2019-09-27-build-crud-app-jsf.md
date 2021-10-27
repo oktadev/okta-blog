@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7652939119
+discourse_topic_id: 17146
+discourse_comment_url: https://devforum.okta.com/t/17146
 layout: blog_post
 title: "Build a Simple CRUD App with Java and JSF"
 author: thiago-negri

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7450111833
+discourse_topic_id: 17065
+discourse_comment_url: https://devforum.okta.com/t/17065
 layout: blog_post
 title: 'Build Simple Authentication in Express in 15 Minutes'
 author: braden-kelley

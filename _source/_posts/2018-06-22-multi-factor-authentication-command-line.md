@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6748309670
+discourse_topic_id: 16887
+discourse_comment_url: https://devforum.okta.com/t/16887
 layout: blog_post
 title: "Use Multi-factor Authentication from the Command Line"
 author: micah-silverman

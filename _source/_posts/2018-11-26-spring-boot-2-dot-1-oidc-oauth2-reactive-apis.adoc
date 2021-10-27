@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7072923448
+discourse_topic_id: 16960
+discourse_comment_url: https://devforum.okta.com/t/16960
 layout: blog_post
 title: "Spring Boot 2.1: Outstanding OIDC, OAuth 2.0, and Reactive API Support"
 author: matt-raible

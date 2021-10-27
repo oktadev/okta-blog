@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6719222720
+discourse_topic_id: 16879
+discourse_comment_url: https://devforum.okta.com/t/16879
 layout: blog_post
 title: "Add Authentication to Any Web Page in 10 Minutes"
 author: randall-degges

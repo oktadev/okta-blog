@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8674865409
+discourse_topic_id: 17399
+discourse_comment_url: https://devforum.okta.com/t/17399
 layout: blog_post
 title: How to Toggle Functionality in C# with Feature Flags
 author: greg-sinka

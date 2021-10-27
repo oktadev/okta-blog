@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7446056941
+discourse_topic_id: 17062
+discourse_comment_url: https://devforum.okta.com/t/17062
 layout: blog_post
 title: "Debugging JVM Performance Issues at Okta"
 author: peter-yaworsky

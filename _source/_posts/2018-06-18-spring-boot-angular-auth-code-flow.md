@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6725684531
+discourse_topic_id: 16882
+discourse_comment_url: https://devforum.okta.com/t/16882
 layout: blog_post
 title: "Deploy Your Secure Spring Boot + Angular PWA as a Single Artifact"
 author: matt-raible

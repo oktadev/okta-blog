@@ -1,9 +1,13 @@
 ---
+disqus_thread_id: 6300281149
+discourse_topic_id: 16765
+discourse_comment_url: https://devforum.okta.com/t/16765
 layout: blog_post
 title: Build a React Application with User Authentication in 15 Minutes
 author: lee-brandt
 by: advocate
 communities: [javascript]
+description: "In this tutorial, you'll start with a very simple React app with a couple of pages and some routing built in, and add authentication using Okta's Sign-In Widget."
 tags: [react, sign-in-widget, okta, es6]
 type: conversion
 update-title: "A Quick Guide to React Login Options"

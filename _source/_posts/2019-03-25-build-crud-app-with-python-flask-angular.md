@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7317879468
+discourse_topic_id: 17023
+discourse_comment_url: https://devforum.okta.com/t/17023
 layout: blog_post
 title: "Build a CRUD App with Python, Flask, and Angular"
 author: matt-raible

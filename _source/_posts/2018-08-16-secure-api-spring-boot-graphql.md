@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6857603530
+discourse_topic_id: 16916
+discourse_comment_url: https://devforum.okta.com/t/16916
 layout: blog_post
 title: "Build a Secure API with Spring Boot and GraphQL"
 author: andrew-hughes

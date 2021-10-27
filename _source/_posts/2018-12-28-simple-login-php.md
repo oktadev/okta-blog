@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7122192883
+discourse_topic_id: 16976
+discourse_comment_url: https://devforum.okta.com/t/16976
 layout: blog_post
 title: 'Build Simple Login in PHP'
 author: krasimir-hristozov

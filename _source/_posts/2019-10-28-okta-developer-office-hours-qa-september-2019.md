@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7695578273
+discourse_topic_id: 17161
+discourse_comment_url: https://devforum.okta.com/t/17161
 layout: blog_post
 title: "Okta Developer Office Hours Q&A - September 2019 Edition"
 author: matt-raible

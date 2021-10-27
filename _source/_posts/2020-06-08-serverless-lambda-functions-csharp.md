@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8065677137
+discourse_topic_id: 17253
+discourse_comment_url: https://devforum.okta.com/t/17253
 layout: blog_post
 title: "How to Authenticate an AWS Lambda Function in C#"
 author: chase-aucoin

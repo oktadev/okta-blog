@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8380180145
+discourse_topic_id: 17351
+discourse_comment_url: https://devforum.okta.com/t/17351
 layout: blog_post
 title: Building a GitHub Secrets Scanner
 author: vickie-li

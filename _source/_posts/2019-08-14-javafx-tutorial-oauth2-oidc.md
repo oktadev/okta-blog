@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7586992787
+discourse_topic_id: 17116
+discourse_comment_url: https://devforum.okta.com/t/17116
 layout: blog_post
 title: "Tutorial: How to Build a JavaFX Desktop App with OIDC Authentication"
 author: andrew-hughes

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7499695329
+discourse_topic_id: 17081
+discourse_comment_url: https://devforum.okta.com/t/17081
 layout: blog_post
 title: "Build Secure Microservices in PHP"
 author: krasimir-hristozov

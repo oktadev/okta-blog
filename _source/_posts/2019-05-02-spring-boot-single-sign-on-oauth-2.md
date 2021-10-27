@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7394934842
+discourse_topic_id: 17046
+discourse_comment_url: https://devforum.okta.com/t/17046
 layout: blog_post
 title: "Easy Single Sign-On with Spring Boot and OAuth 2.0"
 author: micah-silverman

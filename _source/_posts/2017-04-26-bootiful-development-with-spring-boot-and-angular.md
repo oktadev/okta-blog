@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6300227827
+discourse_topic_id: 16752
+discourse_comment_url: https://devforum.okta.com/t/16752
 layout: blog_post
 title: Bootiful Development with Spring Boot and Angular
 author: matt-raible

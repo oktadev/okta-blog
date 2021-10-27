@@ -1,9 +1,13 @@
 ---
+disqus_thread_id: 6451589001
+discourse_topic_id: 16821
+discourse_comment_url: https://devforum.okta.com/t/16821
 layout: blog_post
 title: "How to Secure Your .NET Web API with Token Authentication"
 author: lee-brandt
 by: advocate
 communities: [.net]
+description: "With just a few lines of code, Okta can handle all the complicated and time-consuming security elements and let you concentrate on creating a stellar API."
 tags: [asp-dot-net, dotnet, webapi, security, oauth]
 tweets:
   - "Learn how to secure your #aspnetcore API with token authentication"

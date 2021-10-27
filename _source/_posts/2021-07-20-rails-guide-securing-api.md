@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8661651286
+discourse_topic_id: 17394
+discourse_comment_url: https://devforum.okta.com/t/17394
 layout: blog_post
 title: The Rails Guide to Securing an API
 author: andrew-van-beek
