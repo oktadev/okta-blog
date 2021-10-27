@@ -43,9 +43,9 @@ Having an OIDC integration also means you can use the same OIDC provider used to
 
 > Okta, Inc. is an identity and access management company providing cloud software that helps companies manage and secure user authentication into applications and for developers to build identity controls into applications, websites, web services, and devices. Okta is a certified OpenID Connect provider.
 
-Let us see how we can secure the Kubernetes API server using Okta as an OIDC provider and use RBAC to control access right from the Okta admin console. If you are using Amazon EKS, then check [this](https://developer.okta.com/blog/2021/10/08/secure-access-to-aws-eks) specific tutorial for using Okta OIDC with EKS.
+Let us see how we can secure the Kubernetes API server using Okta as an OIDC provider and use RBAC to control access right from the Okta admin console. If you are using Amazon EKS, then check [this](/blog/2021/10/08/secure-access-to-aws-eks) specific tutorial for using Okta OIDC with EKS.
 
-## What You’ll Need to Get Started
+## What You'll Need to Get Started
 
 Before you start trying this out, make sure you have access to the following.
 
@@ -58,7 +58,7 @@ Before you start trying this out, make sure you have access to the following.
 
 You can achieve OIDC login for the cluster by creating a simple OIDC application with Okta either using the Okta CLI or the Admin console. But with an OIDC application alone, you would have to use the client secret to authenticate from kubectl or any other client library. Which does not scale and is not better than default k8s authentication mechanisms as you won't have granular controls over users and roles. For a more helpful setup, we would need an OIDC application and an authorization server with customized claims and policies for Kubernetes. This way, we can make use of Okta to manage users and permissions as well.
 
-There are multiple ways to setup an OIDC application and authorization server in Okta. If you prefer to do this via a GUI, then follow the **Configure Your Okta Org section** from [this article](https://developer.okta.com/blog/2021/10/08/secure-access-to-aws-eks#configure-your-okta-org) to do it via the [Okta Admin console](https://login.okta.com/).
+There are multiple ways to setup an OIDC application and authorization server in Okta. If you prefer to do this via a GUI, then follow the **Configure Your Okta Org section** from [this article](/blog/2021/10/08/secure-access-to-aws-eks#configure-your-okta-org) to do it via the [Okta Admin console](https://login.okta.com/).
 
 In this tutorial, we will use Terraform to configure the Okta part so that you can reuse the code for any automation required. Let's dive into each step needed.
 
@@ -401,7 +401,7 @@ sudo vi /etc/kubernetes/manifests/kube-apiserver.yaml
 ...
 ```
 
-If you are using a managed service like [EKS](https://developer.okta.com/blog/2021/10/08/secure-access-to-aws-eks#add-okta-as-an-oidc-provider-on-your-eks-cluster) or [GKE](https://cloud.google.com/kubernetes-engine/docs/how-to/oidc#enabling_on_an_existing_cluster), then follow their instructions to update the API server
+If you are using a managed service like [EKS](/blog/2021/10/08/secure-access-to-aws-eks#add-okta-as-an-oidc-provider-on-your-eks-cluster) or [GKE](https://cloud.google.com/kubernetes-engine/docs/how-to/oidc#enabling_on_an_existing_cluster), then follow their instructions to update the API server
 
 ## Configure RBAC
 
