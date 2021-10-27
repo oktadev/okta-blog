@@ -10,12 +10,12 @@ tweets:
   - "Use #OIDC to access #Kubernetes API server securely. Set it up using Terraform."
   - "Access #Kubernetes API server using your favorite #OIDC provider!"
 type: conversion
-image: blog/k8s-api-server-oidc/social??.jpeg
+image: blog/k8s-api-server-oidc/kube-login-oidc.jpg
 ---
 
 A Kubernetes (k8s) cluster comprises worker machines called nodes and a control plane consisting of the API server, scheduler, etcd, controller manager, and cloud controller manager — in case of a PaaS. The containers deployed to the cluster will run in pods on the worker nodes. At the same time, the control plane takes care of scheduling, responding to requests, and managing the cluster.
 
-{% img blog/k8s-api-server-oidc/arch.jpg alt:"K8s architecture" width:"800" %}{: .center-image }
+{% img blog/k8s-api-server-oidc/kube-architecture.jpg alt:"K8s architecture" width:"800" %}{: .center-image }
 
 When you are communicating with a Kubernetes cluster, let's say using kubectl or a client library or a tool like [KDash](https://kdash.cli.rs/), you are primarily interacting with the [Kubernetes API server](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/). The API server is responsible for managing the cluster and is responsible for handling requests from a client.
 
@@ -36,9 +36,7 @@ Since the API server is the only part of the Kubernetes cluster that a client ca
 
 While the default authentication mechanism of the Kubernetes API server might be enough for simple use cases, where only a handful of people manages the cluster, it does not scale for bigger organizations. It's definitely not the most secure way as well. This is because Kubernetes does not handle user management and expects this to be done outside. This is where OpenID Connect (OIDC) comes in. OIDC can manage users and groups, which works very well with the Kubernetes RBAC to provide very granular control of who can access what inside a cluster.
 
-{% img blog/k8s-api-server-oidc/oidc-flow.jpg alt:"K8s OIDC flow" width:"800" %}{: .center-image }
-
-<!-- Image ref: https://github.com/int128/kubelogin -->
+{% img blog/k8s-api-server-oidc/kube-login-oidc.jpg alt:"K8s OIDC flow" width:"800" %}{: .center-image }
 
 Having an OIDC integration also means you can use the same OIDC provider used to do SSO in your existing infrastructure to access your Kubernetes cluster as well, like Okta or Keycloak, for example.
 
