@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7801023817
+discourse_topic_id: 17193
+discourse_comment_url: https://devforum.okta.com/t/17193
 layout: blog_post
 title: "Build a CRUD App with Angular 9 and Spring Boot 2.2"
 author: matt-raible

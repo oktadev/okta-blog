@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7810198844
+discourse_topic_id: 17197
+discourse_comment_url: https://devforum.okta.com/t/17197
 layout: blog_post
 title: "How I Learned to Love Default Implementations in C# 8.0"
 author: lee-brandt

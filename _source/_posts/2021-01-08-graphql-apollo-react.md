@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8347406451
+discourse_topic_id: 17345
+discourse_comment_url: https://devforum.okta.com/t/17345
 layout: blog_post
 title: "Easily Consume a GraphQL API from React with Apollo"
 author: nickolas-fisher

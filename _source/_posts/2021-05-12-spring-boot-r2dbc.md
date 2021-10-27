@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8517735675
+discourse_topic_id: 17373
+discourse_comment_url: https://devforum.okta.com/t/17373
 layout: blog_post
 title: "R2DBC and Spring for Non-Blocking Database Access"
 author: joe-cavazos

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8672806191
+discourse_topic_id: 17398
+discourse_comment_url: https://devforum.okta.com/t/17398
 layout: blog_post
 title: How to Write a Secure Python Serverless App on AWS Lambda
 author: phill-edwards

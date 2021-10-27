@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8351084941
+discourse_topic_id: 17346
+discourse_comment_url: https://devforum.okta.com/t/17346
 layout: blog_post
 title: "Build a Secure GraphQL API with MicroProfile"
 author: andrew-hughes

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8666360132
+discourse_topic_id: 17397
+discourse_comment_url: https://devforum.okta.com/t/17397
 layout: blog_post
 title: "Easy Distributed Tracing with Spring Cloud Sleuth"
 author: andrew-hughes
