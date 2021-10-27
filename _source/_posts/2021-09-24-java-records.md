@@ -26,6 +26,8 @@ While code generators can be used to reduce boilerplate code, the goals of the `
 - [HTTPie](https://httpie.io/)
 - [Java 14+](https://openjdk.java.net/install/index.html)
 - [Okta CLI](https://cli.okta.com)
+- [Docker](https://docs.docker.com/engine/install/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
 
 **Table of Contents**{: .hide }
 * Table of Contents
