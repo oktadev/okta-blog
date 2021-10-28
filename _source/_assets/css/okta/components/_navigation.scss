@@ -3,30 +3,33 @@
   width: 100%;
   z-index: 100;
   font-weight: 600;
+  font-family: $font-family-secondary;
   line-height: 24.08px;
   color: get-color('white');
-  background: get-color('mirage');
-  @include font-size(14px);
+  background: get-color('resolution-blue');
+  @include font-size(16px);
 
-  @include media('<medium') {
+  @include media('<x-large') {
     @include font-size(12px);
   }
 
-  @include media('<small') {
+  @include media('<medium') {
     @include font-size(16px);
   }
 
   > .nav-wrapper {
-    height: 70px;
-    padding: 0 50px 0 28px;
+    height: 87px;
+    padding: 0 50px;
 
-    @include media('>=small', '<medium') {
-      height: 53px;
-      padding: 0 13px 0 15px;
+    @include media('<x-large') {
+      height: 70px;
+      padding: 0 35px;
     }
-
+    @include media('<medium') {
+      padding: 0 16px;
+    }
     @include media('<small') {
-      padding: 0 29px 0 22px;
+      height: 60px;
     }
   }
 
@@ -38,14 +41,14 @@
     height: 22px;
     width: 157px;
     flex-shrink: 0;
-    margin-right: 39px;
+    margin-right: 59px;
 
-    @include media('>=small', '<medium') {
+    @include media('>medium', '<x-large') {
       width: 101px;
-      margin-right: 15px;
+      margin-right: 22px;
     }
 
-    @include media('<small') {
+    @include media('<medium') {
       margin-right: 0;
     }
 
@@ -60,22 +63,43 @@
   }
 
   .cta {
-    height: 44px;
-    width: 134px;
+    padding: 7px 12px;
+    margin-left: 5px;
     flex-shrink: 0;
     border-radius: 4px;
-    letter-spacing: 1.5px;
     text-decoration: none;
     color: get-color('white');
-    text-transform: uppercase;
-    background: get-color('cerise-red');
+    text-transform: none;
+    white-space: nowrap;
+    border: 1px solid get-color('white');
+    background: transparent;
     @include font-weight('bold');
+    @include font-size(14px);
 
-    @include media('>=small', '<medium') {
-      height: 32px;
-      max-width: 90px;
-      @include font-size(10px);
+    @include media('<medium') {
+      margin: 0;
+      font-size: 1rem;
+      border: none;
+      padding: 0;
+
+      &::after {
+        font-family: fontawesome;
+        content: '\f061';
+        font-size: 10px;
+        font-weight: normal;
+        right: 0;
+        margin-left: 5px;
+      }
     }
+    @include media('<small') {
+      display: none;
+    }
+  }
+
+  .menu--slideout {
+    display: flex;
+    align-items: center;
+    flex: 1 0 auto;
   }
 
   .menu,
@@ -88,7 +112,7 @@
     white-space: nowrap;
     text-decoration: none;
     color: get-color('white');
-    @include font-weight('bold');
+    font-weight: 500;
 
     &:hover {
       text-decoration: underline;
@@ -98,6 +122,12 @@
     &.active {
       color: get-color('cerise-red');
     }
+
+    &[target="_blank"] {
+      svg {
+        margin-left: 4px;
+      }
+    }
   }
 
   .mobile-controls {
@@ -105,7 +135,7 @@
     margin-left: auto;
 
     .hamburger {
-      margin-left: 20px;
+      margin-left: 30px;
     }
 
     .search-toggle {

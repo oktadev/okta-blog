@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6827881794
+discourse_topic_id: 16908
+discourse_comment_url: https://devforum.okta.com/t/16908
 layout: blog_post
 title: "Use AWS CloudFormation to Automate Static Site Deployment with S3"
 author: patrick-mcdowell

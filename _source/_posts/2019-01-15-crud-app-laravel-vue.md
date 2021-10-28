@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7168914278
+discourse_topic_id: 16980
+discourse_comment_url: https://devforum.okta.com/t/16980
 layout: blog_post
 title: 'Build a Basic CRUD App with Laravel and Vue'
 author: krasimir-hristozov

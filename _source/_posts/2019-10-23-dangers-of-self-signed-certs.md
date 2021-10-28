@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7688698409
+discourse_topic_id: 17158
+discourse_comment_url: https://devforum.okta.com/t/17158
 layout: blog_post
 title: "The Dangers of Self-Signed Certificates"
 author: brian-demers

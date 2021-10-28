@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6786097411
+discourse_topic_id: 16898
+discourse_comment_url: https://devforum.okta.com/t/16898
 layout: blog_post
 title: "Build a Health Tracking App with React, GraphQL, and User Authentication"
 author: matt-raible

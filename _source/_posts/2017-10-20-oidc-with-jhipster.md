@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6300848464
+discourse_topic_id: 16787
+discourse_comment_url: https://devforum.okta.com/t/16787
 layout: blog_post
 title: 'Use OpenID Connect Support with JHipster'
 author: matt-raible

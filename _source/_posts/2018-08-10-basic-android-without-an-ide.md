@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6846476303
+discourse_topic_id: 16912
+discourse_comment_url: https://devforum.okta.com/t/16912
 layout: blog_post
 title: 'Create a Basic Android App without an IDE'
 author: karl-penzhorn

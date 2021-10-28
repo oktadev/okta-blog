@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7679008416
+discourse_topic_id: 17157
+discourse_comment_url: https://devforum.okta.com/t/17157
 layout: blog_post
 title: "Goodbye Javascript! Build an Authenticated Web App in C# with Blazor + ASP.NET Core 3.0"
 author: heather-downing

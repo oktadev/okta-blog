@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7089221679
+discourse_topic_id: 16966
+discourse_comment_url: https://devforum.okta.com/t/16966
 layout: blog_post
 title: "Configure .NET Authentication in OWIN"
 author: jonathan-ray

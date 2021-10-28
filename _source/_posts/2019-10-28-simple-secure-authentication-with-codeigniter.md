@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7695489801
+discourse_topic_id: 17160
+discourse_comment_url: https://devforum.okta.com/t/17160
 layout: blog_post
 title: 'Simple, Secure Authentication with CodeIgniter'
 author: krasimir-hristozov

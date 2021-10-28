@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7610653380
+discourse_topic_id: 17129
+discourse_comment_url: https://devforum.okta.com/t/17129
 layout: blog_post
 title: "The Best Travel Tips for People In Tech"
 author: heather-downing

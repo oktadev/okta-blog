@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8333652932
+discourse_topic_id: 17341
+discourse_comment_url: https://devforum.okta.com/t/17341
 layout: blog_post
 title: "How to Docker with Spring Boot"
 author: ruslan-zaharov
@@ -33,6 +36,12 @@ In this tutorial, you will build and run a simple web application into the Docke
 **Table of Contents**{: .hide }
 * Table of Contents
 {:toc}
+
+If you'd rather watch a video of this tutorial, check out the screencast below from our [YouTube channel](https://youtu.be/ChYIhEEOfrk).
+
+<div style="text-align: center; margin-bottom: 1.25rem">
+<iframe width="700" height="394" style="max-width: 100%" frameborder="0" src="https://www.youtube.com/embed/ChYIhEEOfrk"  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 ## Bootstrap a Secure Spring Boot Application
 

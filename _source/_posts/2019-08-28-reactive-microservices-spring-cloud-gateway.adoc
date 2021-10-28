@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7606439620
+discourse_topic_id: 17127
+discourse_comment_url: https://devforum.okta.com/t/17127
 layout: blog_post
 title: "Secure Reactive Microservices with Spring Cloud Gateway"
 author: matt-raible

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8044921780
+discourse_topic_id: 17242
+discourse_comment_url: https://devforum.okta.com/t/17242
 layout: blog_post
 title: "Serverless Java with Amazon Web Services"
 author: andrew-hughes

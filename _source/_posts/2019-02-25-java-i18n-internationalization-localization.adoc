@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7256110474
+discourse_topic_id: 17007
+discourse_comment_url: https://devforum.okta.com/t/17007
 layout: blog_post
 title: "i18n in Java 11, Spring Boot, and JavaScript"
 author: matt-raible

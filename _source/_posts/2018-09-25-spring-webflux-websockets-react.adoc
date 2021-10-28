@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6931073891
+discourse_topic_id: 16937
+discourse_comment_url: https://devforum.okta.com/t/16937
 layout: blog_post
 title: 'Full Stack Reactive with Spring WebFlux, WebSockets, and React'
 author: matt-raible

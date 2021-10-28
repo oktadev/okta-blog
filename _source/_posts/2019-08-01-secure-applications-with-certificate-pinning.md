@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7565003732
+discourse_topic_id: 17105
+discourse_comment_url: https://devforum.okta.com/t/17105
 layout: blog_post
 title: "Secure Applications with Certificate Pinning"
 author: joel-franusic

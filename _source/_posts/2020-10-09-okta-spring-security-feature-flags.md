@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8232649451
+discourse_topic_id: 17303
+discourse_comment_url: https://devforum.okta.com/t/17303
 layout: blog_post
 title: "Test in Production with Spring Security and Feature Flags"
 author: micah-silverman

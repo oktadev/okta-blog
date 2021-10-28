@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8279564553
+discourse_topic_id: 17319
+discourse_comment_url: https://devforum.okta.com/t/17319
 layout: blog_post
 title: The Definitive Guide to WSGI
 author: phill-edwards

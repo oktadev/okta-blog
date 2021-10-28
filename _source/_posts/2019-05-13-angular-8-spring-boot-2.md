@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7414680286
+discourse_topic_id: 17050
+discourse_comment_url: https://devforum.okta.com/t/17050
 layout: blog_post
 title: 'Angular 8 + Spring Boot 2.2: Build a CRUD App Today!'
 author: matt-raible

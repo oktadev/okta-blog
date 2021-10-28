@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8119628707
+discourse_topic_id: 17264
+discourse_comment_url: https://devforum.okta.com/t/17264
 layout: blog_post
 title: "Quickly Build Node.js Apps with Sails.js"
 author: nickolas-fisher

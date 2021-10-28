@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8311041810
+discourse_topic_id: 17332
+discourse_comment_url: https://devforum.okta.com/t/17332
 layout: blog_post
 title: Rider for C# - The Best Visual Studio Alternative IDE
 author: giorgi-dalakishvili

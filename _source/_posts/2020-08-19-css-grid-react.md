@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8171087525
+discourse_topic_id: 17278
+discourse_comment_url: https://devforum.okta.com/t/17278
 layout: blog_post
 title: "How to Use CSS Grid to Build a Responsive React App"
 author: holger-schmitz

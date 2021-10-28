@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6603187884
+discourse_topic_id: 16823
+discourse_comment_url: https://devforum.okta.com/t/16823
 layout: blog_post
 title: "How to Expand Your UX to a New Audience"
 author: alex-dahl

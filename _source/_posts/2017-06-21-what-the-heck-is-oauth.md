@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6300229013
+discourse_topic_id: 16754
+discourse_comment_url: https://devforum.okta.com/t/16754
 layout: blog_post
 title: 'What the Heck is OAuth?'
 author: matt-raible

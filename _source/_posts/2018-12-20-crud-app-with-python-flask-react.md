@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7118657629
+discourse_topic_id: 16974
+discourse_comment_url: https://devforum.okta.com/t/16974
 layout: blog_post
 title: "Build a Simple CRUD App with Python, Flask, and React"
 author: kleber-correia

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8245699651
+discourse_topic_id: 17308
+discourse_comment_url: https://devforum.okta.com/t/17308
 layout: blog_post
 title: "Why I Love IntelliJ IDEA for Java Development"
 author: matt-raible

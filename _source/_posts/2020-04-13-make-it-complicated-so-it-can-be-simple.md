@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7967891921
+discourse_topic_id: 17233
+discourse_comment_url: https://devforum.okta.com/t/17233
 layout: blog_post
 title: "Make It Complicated, So It Can Be Simple"
 author: chris-gustafson

@@ -1,9 +1,13 @@
 ---
+disqus_thread_id: 6405825265
+discourse_topic_id: 16813
+discourse_comment_url: https://devforum.okta.com/t/16813
 layout: blog_post
 title: "Two Approaches to Setting Up a MERN Stack Application"
 author: lee-brandt
 by: advocate
 communities: [javascript]
+description: "Learn two recommended paths for setting up a MERN (Mongo, Express, React, and Node) stack application to run and deploy as a single code base."
 tags: [mongo, express, node, react, mern]
 tweets:
   - "Check out two approaches to setting up a MERN stack app"

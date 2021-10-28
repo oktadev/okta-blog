@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8224484321
+discourse_topic_id: 17298
+discourse_comment_url: https://devforum.okta.com/t/17298
 layout: blog_post
 title: "Easy Session Sharing in Spring Boot with Spring Session and MySQL"
 author: jimena-garbarino

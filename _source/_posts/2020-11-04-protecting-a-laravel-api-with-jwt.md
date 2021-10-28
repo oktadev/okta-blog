@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8264222267
+discourse_topic_id: 17314
+discourse_comment_url: https://devforum.okta.com/t/17314
 layout: blog_post
 title: "Protecting a Laravel API with JWT"
 author: karl-hughes

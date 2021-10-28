@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8661651286
+discourse_topic_id: 17394
+discourse_comment_url: https://devforum.okta.com/t/17394
 layout: blog_post
 title: The Rails Guide to Securing an API
 author: andrew-van-beek
@@ -185,6 +188,8 @@ When you go there you should see something like this:
 {% img blog/rails-securing-api/image7.png alt:"" width:"800" %}{: .center-image }
 
 Copy the JSON key-value for "keys" and paste it into the `keys` array variable in your code.
+
+>**Note:** In a production application, you would want to fetch the keys from the URL in your code and cache them in your application. The copy and paste method here is only for demonstration purposes and to avoid needing to create a caching solution in this sample app.
 
 For example, my end result looks like this:
 

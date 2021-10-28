@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7078785128
+discourse_topic_id: 16964
+discourse_comment_url: https://devforum.okta.com/t/16964
 layout: blog_post
 title: 'Build a Simple Web App with Express, Angular, and GraphQL'
 author: holger-schmitz

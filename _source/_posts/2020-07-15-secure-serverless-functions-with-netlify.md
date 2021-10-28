@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8127430058
+discourse_topic_id: 17265
+discourse_comment_url: https://devforum.okta.com/t/17265
 layout: blog_post
 title: "Build and Deploy Secure Serverless Functions with Netlify"
 author: david-neal

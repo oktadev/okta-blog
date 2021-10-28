@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6301194569
+discourse_topic_id: 16793
+discourse_comment_url: https://devforum.okta.com/t/16793
 layout: blog_post
 title: "The Top 10 JavaOne 2017 Sessions for the Java Hipster"
 author: matt-raible

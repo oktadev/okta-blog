@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7713678604
+discourse_topic_id: 17166
+discourse_comment_url: https://devforum.okta.com/t/17166
 layout: blog_post
 title: "Use Vue and GraphQL to Build a Secure App"
 author: holger-schmitz

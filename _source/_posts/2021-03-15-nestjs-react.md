@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8434662941
+discourse_topic_id: 17362
+discourse_comment_url: https://devforum.okta.com/t/17362
 layout: blog_post
 title: "Build a Secure NestJS Back End for Your React Application"
 author: nickolas-fisher

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6357081655
+discourse_topic_id: 16808
+discourse_comment_url: https://devforum.okta.com/t/16808
 layout: blog_post
 title: "Get Started with Spring Security 5.0 and OIDC"
 author: matt-raible

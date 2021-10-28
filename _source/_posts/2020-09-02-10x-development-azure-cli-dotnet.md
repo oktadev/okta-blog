@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8187688116
+discourse_topic_id: 17286
+discourse_comment_url: https://devforum.okta.com/t/17286
 layout: blog_post
 title: 10x Your Development with the Azure CLI
 author: franco-tiveron

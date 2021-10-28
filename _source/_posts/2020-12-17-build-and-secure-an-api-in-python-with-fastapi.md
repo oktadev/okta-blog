@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8319755648
+discourse_topic_id: 17337
+discourse_comment_url: https://devforum.okta.com/t/17337
 layout: blog_post
 title: "Build and Secure an API in Python with FastAPI"
 author: karl-hughes

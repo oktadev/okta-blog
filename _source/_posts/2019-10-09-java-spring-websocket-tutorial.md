@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7669566690
+discourse_topic_id: 17153
+discourse_comment_url: https://devforum.okta.com/t/17153
 layout: blog_post
 title: "Tutorial: Develop Apps with Secure WebSockets in Java"
 author: jimena-garbarino
