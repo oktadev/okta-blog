@@ -3,7 +3,7 @@ layout: blog_post
 title: "Oktanaut Tanay, Reporting for Duty"
 author: tanay-pant
 by: advocate
-communities: [javascript,python,announcement]
+communities: [javascript,python,devops]
 description: "Welcome to the Okta team, Tanay Pant!"
 tags: [javascript, typescript, python, advocacy, okta]
 tweets:
