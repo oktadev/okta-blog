@@ -1,13 +1,13 @@
 ---
 layout: blog_post
-title: "React Routing with Wouter"
+title: "Build a Secure SPA with React Routing"
 author: nickolas-fisher
 by: contractor
 communities: [javascript]
-description: ""
-tags: [javascript, react, routing]
+description: "This tutorial will show you how to quickly build a secure SPA using React, Okta, and Wouter."
+tags: [javascript,react,routing]
 tweets:
-- "Learn how to use React Routing to ..."
+- "Learn how to use react routing to secure your applications quickly" 
 - ""
 - ""
 image: blog/todo.png
