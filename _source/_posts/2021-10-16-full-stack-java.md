@@ -601,7 +601,12 @@ return (
 );
 ```
 
-Since you only modified the front-end code, you can run `npm start` to start an instance of webpack-dev-server that proxies requests to the backend and auto-refreshes your browser (using [Browsersync](https://browsersync.io/)) every time you change any React files.
+Save all your changes and restart your app.
+
+```shell
+source .auth0.env
+./mvnw
+```
 
 Log in and navigate to **Entities** > **Photo** in the top nav bar. You will see a plethora of photos loaded by [Liquibase](https://www.liquibase.org/) and [faker.js](https://marak.github.io/faker.js/). To make a clean screenshot without this data, I modified `src/main/resources/config/application-dev.yml` to remove the "faker" context for Liquibase.
 
