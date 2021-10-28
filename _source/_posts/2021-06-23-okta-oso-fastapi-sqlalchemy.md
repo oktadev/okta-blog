@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8610477422
+discourse_topic_id: 17386
+discourse_comment_url: https://devforum.okta.com/t/17386
 layout: blog_post
 title: "Use Okta and Oso to Secure a FastAPI + SQLAlchemy App"
 author: gabe-jackson

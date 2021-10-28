@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8633825754
+discourse_topic_id: 17388
+discourse_comment_url: https://devforum.okta.com/t/17388
 layout: blog_post
 title: "What Apple's App Tracking Changes Mean for Developers"
 author: aaron-parecki

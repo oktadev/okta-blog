@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7976055359
+discourse_topic_id: 17237
+discourse_comment_url: https://devforum.okta.com/t/17237
 layout: blog_post
 title: "Grep for System Admins: Using Grep to Automate Daily Tasks"
 author: vickie-li

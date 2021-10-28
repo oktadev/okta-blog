@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8289323588
+discourse_topic_id: 17323
+discourse_comment_url: https://devforum.okta.com/t/17323
 layout: blog_post
 title: "Spring Boot and Okta in 2 Minutes"
 author: matt-raible

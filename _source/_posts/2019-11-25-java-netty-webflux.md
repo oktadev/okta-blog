@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7732736095
+discourse_topic_id: 17174
+discourse_comment_url: https://devforum.okta.com/t/17174
 layout: blog_post
 title: "A Quick Guide to Java on Netty"
 author: andrew-hughes

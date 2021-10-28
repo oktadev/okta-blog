@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8505996637
+discourse_topic_id: 17369
+discourse_comment_url: https://devforum.okta.com/t/17369
 layout: blog_post
 title: "Auth0 Joins Forces with Okta"
 author: ali-spivak

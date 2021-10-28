@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8247637292
+discourse_topic_id: 16865
+discourse_comment_url: https://devforum.okta.com/t/16865
 layout: blog_post
 title: "Build a Video Chat Service with JavaScript, WebRTC, and Okta"
 author: nickolas-fisher

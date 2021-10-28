@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8318233851
+discourse_topic_id: 17335
+discourse_comment_url: https://devforum.okta.com/t/17335
 layout: blog_post
 title: "A Quick Guide to React Login Options"
 author: holger-schmitz

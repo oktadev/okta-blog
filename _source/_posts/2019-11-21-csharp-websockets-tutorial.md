@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7727298766
+discourse_topic_id: 17172
+discourse_comment_url: https://devforum.okta.com/t/17172
 layout: blog_post
 title: "C# WebSockets Tutorial: Build a Multiplayer Game"
 author: charlie-holland

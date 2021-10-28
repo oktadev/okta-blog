@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7889036299
+discourse_topic_id: 17218
+discourse_comment_url: https://devforum.okta.com/t/17218
 layout: blog_post
 title: "Build a Secure NestJS API with Postgres"
 author: ivo-katunaric
