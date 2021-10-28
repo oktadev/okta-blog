@@ -17,11 +17,11 @@ Greetings Oktaverse! I'm Tanay 🖖
 
 I have been following Okta for many years, and I am very excited to finally join you all and get a chance to serve this wonderful community. 
 
-First things first, here's a picture of me so that you can recognize me and say hi the next time we meet 👇 
+First things first, here's a picture of me so that you can recognize me and say hi the next time we meet. 👇 
 
 {% img blog/intro-tanay-pant/my-face.jpg alt:"My face" width:"500" %}{: .center-image }
 
-## Who am I and what I've done so far?
+## Who I am and what I've done so far
 
 I started my journey into the world of tech communities and open source back in college when I came across [Mozilla](https://www.mozilla.org/). I got the chance to participate in a lot of their projects and regional community-building initiatives. Over time, I fell in love with writing and have published books on Firefox OS, virtual assistants with Raspberry Pi, and WebVR. 
 
@@ -41,10 +41,10 @@ Do you have any book recommendations for me? 🤓
 
 ## What I'll be doing at Okta
 
-I am fortunate to have worked with some of the most vibrant communities and individuals across the globe. I hope to use all the skills and knowledge I have acquired to help you get started and succeed with Okta.
+I am fortunate to have worked with some of the most vibrant developer communities and individuals across the globe. I hope to use all the skills and knowledge I have acquired to help you get started and succeed with Okta.
 
-As a result of my experiences, my operating style in developer relations is motivated by:
-- The urge to share fascinating things that I have recently learned
+As a result of my experiences, my operating style in developer relations is motivated by the urge to:
+- Share fascinating things that I have recently learned
 - Serve my communities by empathetically understanding their pain points
 - Enable my communities to be their best selves and become successful
 
@@ -56,4 +56,4 @@ Is there anything you'd like me to create or focus on first? 🧑‍🚀
 
 You can find me on [Twitter](https://twitter.com/tanay1337), [LinkedIn](https://www.linkedin.com/in/tanay1337/), and [GitHub](https://github.com/tanay1337/). You can also write to me via my email `tanay.pant@okta.com`.
 
-Please do reach out and let me know how I can enable you and support you with being the best at what you do 🙌
+Please do reach out and let me know how I can enable you and support you with being the best at what you do! 🙌
