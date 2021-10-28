@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8258394284
+discourse_topic_id: 17312
+discourse_comment_url: https://devforum.okta.com/t/17312
 layout: blog_post
 title: "Five Engineering Stories That Will Make Your Blood Curdle"
 author: lee-brandt

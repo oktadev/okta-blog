@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7487595393
+discourse_topic_id: 17075
+discourse_comment_url: https://devforum.okta.com/t/17075
 layout: blog_post
 title: 'Tutorial: User Login and Registration in Ionic 4'
 author: matt-raible

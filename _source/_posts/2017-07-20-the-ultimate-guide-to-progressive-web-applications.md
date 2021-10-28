@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6300399210
+discourse_topic_id: 16774
+discourse_comment_url: https://devforum.okta.com/t/16774
 layout: blog_post
 title: 'The Ultimate Guide to Progressive Web Applications'
 author: matt-raible

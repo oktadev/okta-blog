@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7262896986
+discourse_topic_id: 17009
+discourse_comment_url: https://devforum.okta.com/t/17009
 layout: blog_post
 title: "Build a CRUD App with Angular and Firebase"
 author: holger-schmitz

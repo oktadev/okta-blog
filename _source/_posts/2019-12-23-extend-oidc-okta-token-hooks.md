@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7774056359
+discourse_topic_id: 17060
+discourse_comment_url: https://devforum.okta.com/t/17060
 layout: blog_post
 title: "Use Okta Token Hooks to Supercharge OpenID Connect"
 author: micah-silverman

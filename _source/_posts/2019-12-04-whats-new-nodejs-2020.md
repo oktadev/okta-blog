@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7746698118
+discourse_topic_id: 17178
+discourse_comment_url: https://devforum.okta.com/t/17178
 layout: blog_post
 title: "What's New for Node.js in 2020"
 author: david-neal

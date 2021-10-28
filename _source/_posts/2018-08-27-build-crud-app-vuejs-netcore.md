@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6877404865
+discourse_topic_id: 16920
+discourse_comment_url: https://devforum.okta.com/t/16920
 layout: blog_post
 title: "Build a Simple CRUD App with ASP.NET Core and Vue"
 author: ibrahim-suta

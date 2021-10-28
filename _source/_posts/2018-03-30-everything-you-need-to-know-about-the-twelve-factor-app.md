@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6585210883
+discourse_topic_id: 16849
+discourse_comment_url: https://devforum.okta.com/t/16849
 layout: blog_post
 title: "Everything You Need to Know About the Twelve-Factor App"
 author: randall-degges

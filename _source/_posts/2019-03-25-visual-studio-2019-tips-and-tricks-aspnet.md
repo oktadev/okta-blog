@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7317934863
+discourse_topic_id: 17022
+discourse_comment_url: https://devforum.okta.com/t/17022
 layout: blog_post
 title: "Visual Studio 2019 Tips and Tricks"
 author: heather-downing

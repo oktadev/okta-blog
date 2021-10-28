@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8725006863
+discourse_topic_id: 17408
+discourse_comment_url: https://devforum.okta.com/t/17408
 layout: blog_post
 title: "Centralize Authentication at the Gateway with Apache APISIX and OpenID Connect"
 author: xinxin-zhu

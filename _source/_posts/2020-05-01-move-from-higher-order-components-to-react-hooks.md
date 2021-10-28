@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8002419987
+discourse_topic_id: 17244
+discourse_comment_url: https://devforum.okta.com/t/17244
 layout: blog_post
 title: "How to Move from Consuming Higher-Order Components to React Hooks"
 author: lee-brandt

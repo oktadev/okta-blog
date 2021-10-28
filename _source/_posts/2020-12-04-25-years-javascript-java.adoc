@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8299226390
+discourse_topic_id: 17327
+discourse_comment_url: https://devforum.okta.com/t/17327
 layout: blog_post
 title: "25 Years of JavaScript and Java! 🎉"
 author: matt-raible

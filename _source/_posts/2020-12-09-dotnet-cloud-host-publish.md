@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8307810481
+discourse_topic_id: 17331
+discourse_comment_url: https://devforum.okta.com/t/17331
 layout: blog_post
 title: How to Deploy Your .NET Core App to Google Cloud, AWS or Azure
 author: greg-sinka

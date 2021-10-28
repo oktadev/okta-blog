@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6300255617
+discourse_topic_id: 16761
+discourse_comment_url: https://devforum.okta.com/t/16761
 layout: blog_post
 title: Get Started with Spring Boot, SAML, and Okta
 author: matt-raible

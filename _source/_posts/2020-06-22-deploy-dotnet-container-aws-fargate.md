@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8089923701
+discourse_topic_id: 17258
+discourse_comment_url: https://devforum.okta.com/t/17258
 layout: blog_post
 title: "Deploy a .NET Container with AWS Fargate"
 author: chase-aucoin

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8354058840
+discourse_topic_id: 17347
+discourse_comment_url: https://devforum.okta.com/t/17347
 layout: blog_post
 title: Developer's Cheat Sheet for C# 9.0
 author: franco-tiveron

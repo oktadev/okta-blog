@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6990434656
+discourse_topic_id: 16948
+discourse_comment_url: https://devforum.okta.com/t/16948
 layout: blog_post
 title: "Build a Single-Page App with Go and Vue"
 author: kleber-correia

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7232017664
+discourse_topic_id: 16992
+discourse_comment_url: https://devforum.okta.com/t/16992
 layout: blog_post
 title: "Modern Token Authentication in Node with Express"
 author: macy-ngan

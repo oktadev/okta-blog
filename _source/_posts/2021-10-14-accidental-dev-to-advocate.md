@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8822026609
+discourse_topic_id: 17423
+discourse_comment_url: https://devforum.okta.com/t/17423
 layout: blog_post
 title: "Spreading Some Okta Love to the DevOps World"
 author: deepu-sasidharan

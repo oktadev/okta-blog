@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6617231902
+discourse_topic_id: 16853
+discourse_comment_url: https://devforum.okta.com/t/16853
 layout: blog_post
 title: "Add Auth to Your PWA with Okta and Stencil"
 author: lee-brandt

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8635732398
+discourse_topic_id: 17389
+discourse_comment_url: https://devforum.okta.com/t/17389
 layout: blog_post
 title: Update App Secrets with Jenkins CI and .NET Core
 author: nickolas-fisher

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7717053203
+discourse_topic_id: 17168
+discourse_comment_url: https://devforum.okta.com/t/17168
 layout: blog_post
 title: "Build a Simple Microservice with C# Azure Functions"
 author: chris-green

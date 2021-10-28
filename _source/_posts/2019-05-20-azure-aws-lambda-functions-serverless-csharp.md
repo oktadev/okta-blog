@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7428607813
+discourse_topic_id: 17056
+discourse_comment_url: https://devforum.okta.com/t/17056
 layout: blog_post
 title: "AWS Lambda vs Azure Functions for C# Serverless"
 author: heather-downing

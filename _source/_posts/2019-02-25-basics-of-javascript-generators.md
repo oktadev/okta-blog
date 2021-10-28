@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7256081145
+discourse_topic_id: 17006
+discourse_comment_url: https://devforum.okta.com/t/17006
 layout: blog_post
 title: "The Basics of JavaScript Generators"
 author: lee-brandt

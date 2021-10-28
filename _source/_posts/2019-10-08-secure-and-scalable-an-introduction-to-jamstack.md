@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7667971055
+discourse_topic_id: 17151
+discourse_comment_url: https://devforum.okta.com/t/17151
 layout: blog_post
 title: "Secure and Scalable: An Introduction to JAMStack"
 author: david-neal

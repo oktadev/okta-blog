@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7612203095
+discourse_topic_id: 17130
+discourse_comment_url: https://devforum.okta.com/t/17130
 layout: blog_post
 title: "PHP Authorization with OAuth 2.0 and Okta"
 author: krasimir-hristozov

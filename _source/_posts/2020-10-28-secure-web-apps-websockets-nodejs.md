@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8255967923
+discourse_topic_id: 17311
+discourse_comment_url: https://devforum.okta.com/t/17311
 layout: blog_post
 title: "Develop Secure Apps with WebSockets and Node.js"
 author: nickolas-fisher

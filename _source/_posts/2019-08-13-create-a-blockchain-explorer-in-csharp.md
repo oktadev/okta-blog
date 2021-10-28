@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7585343626
+discourse_topic_id: 17114
+discourse_comment_url: https://devforum.okta.com/t/17114
 layout: blog_post
 title: "Create a Blockchain Explorer in C#"
 author: terje-kolderup

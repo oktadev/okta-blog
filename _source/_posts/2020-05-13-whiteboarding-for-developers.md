@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8022684628
+discourse_topic_id: 17246
+discourse_comment_url: https://devforum.okta.com/t/17246
 layout: blog_post
 title: "Whiteboarding for Developers: Yes, You Have To"
 author: chris-gustafson

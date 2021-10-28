@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7209118422
+discourse_topic_id: 16989
+discourse_comment_url: https://devforum.okta.com/t/16989
 layout: blog_post
 title: 'Create and Verify JWTs in PHP with OAuth 2.0'
 author: krasimir-hristozov

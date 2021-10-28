@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8798996515
+discourse_topic_id: 17417
+discourse_comment_url: https://devforum.okta.com/t/17417
 layout: blog_post
 title: "Announcing the Okta Identity Early Access Hackathon Winners"
 author: joyce-morrell

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7661246118
+discourse_topic_id: 17148
+discourse_comment_url: https://devforum.okta.com/t/17148
 layout: blog_post
 title: "Painless Node.js Authentication"
 author: ivo-katunaric

@@ -1,8 +1,12 @@
 ---
+disqus_thread_id: 6542157805
+discourse_topic_id: 16837
+discourse_comment_url: https://devforum.okta.com/t/16837
 layout: blog_post
 title: A Developer's Guide To Docker - A Gentle Introduction
 author: lee-brandt
 by: advocate
+description: "Not only can adding Docker to your development environment solve that issue, but it can make it drop-dead simple to onboard new developers."
 communities: [devops]
 tags: [docker, devops, developer]
 redirect_from:

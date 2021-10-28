@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7536914816
+discourse_topic_id: 17096
+discourse_comment_url: https://devforum.okta.com/t/17096
 layout: blog_post
 title: "Monitor Your Java Apps with Spring Boot Actuator"
 author: jimena-garbarino

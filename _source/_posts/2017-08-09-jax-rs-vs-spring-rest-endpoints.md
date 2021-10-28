@@ -1,14 +1,18 @@
 ---
+disqus_thread_id: 6300588220
+discourse_topic_id: 16781
+discourse_comment_url: https://devforum.okta.com/t/16781
 layout: blog_post
 title: "Let's Compare: JAX-RS vs Spring for REST Endpoints"
 author: brian-demers
 by: advocate
 communities: [java]
+description: "A comparison of JAX-RS and Spring MVC for creating REST endpoints. This tutorial includes a section showing how you can use them together."
 tags: [spring, jaxrs, java, rest, stormtrooper]
 type: awareness
 ---
 
-Need to decouple your web service and client? You're probably using REST endpoints, and if you're a Java shop you've probably tried out JAX-RS, Spring REST, or both. But is one better than the other? In this post I'll go over the the differences between the two using basically the same code for an apples to apples comparison. In future posts I'll show you how easy it is to secure these REST endpoints using Apache Shiro and Okta.
+Need to decouple your web service and client? You're probably using REST endpoints, and if you're a Java shop you've probably tried out JAX-RS, Spring REST, or both. But is one better than the other? In this post I'll go over the differences between the two using basically the same code for an apples to apples comparison. In future posts I'll show you how easy it is to secure these REST endpoints using Apache Shiro and Okta.
 
 ## Lay Down the Foundation – Model and DAO
 
@@ -200,7 +204,7 @@ X-Application-Context: application
 ]
 ```
 
-To get a single Stormtrooper, use it's ID:
+To get a single Stormtrooper, use its ID:
 
 ```bash
 $ curl http://localhost:8080/troopers/FN-2187

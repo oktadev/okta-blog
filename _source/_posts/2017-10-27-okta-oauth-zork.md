@@ -1,9 +1,13 @@
 ---
+disqus_thread_id: 6300341502
+discourse_topic_id: 16770
+discourse_comment_url: https://devforum.okta.com/t/16770
 layout: blog_post
 title: 'Play Zork, Learn OAuth'
 author: micah-silverman
 by: advocate
 communities: [security]
+description: "Learn how Micah Silverman created a Spring Boot / Spring Security application that interacts with Okta for OAuth so that you can play Zork."
 tags: [oauth, oauth2, oauth2-dot-0, oauth-2-dot-0, openid, openid-connect, oidc, spring, spring-boot, spring-security, rbac]
 type: awareness
 ---
@@ -12,7 +16,7 @@ type: awareness
 
 In the early '80s, some of the best "video" games were text-based adventures. These games would print out descriptive text of your surroundings and you would interact with the game using simple, but natural language commands like: "go north" or "take sword". Fast forward some 30 years and a specification for an authorization framework called [OAuth 2.0](https://oauth.net/2/) was published. This framework allows an application to receive a token from an external party (like [Okta](https://okta.com)) that indicates a user is authorized to use the application. What do these two things have in common? Absolutely nothing. But, I thought it would be fun to mash them together to demonstrate how OAuth works by playing a text-based game.
 
-[Infocom](http://www.infocom-if.org/company/company.html) was a popular producer of text-based games and they standardized a file format and interpreter for them called [zMachine](https://en.wikipedia.org/wiki/Z_machine). There's a great [zMachine interpreter written in Java](http://zmpp.sourceforge.net/). I incorporated this into a Spring Boot / Spring Security application that interacts with Okta for OAuth so that you can play [Zork](https://en.wikipedia.org/wiki/Zork) - one of the most iconic of these games. The application is available on the [Okta Developer Github account](https://github.com/oktadeveloper/okta-zork-oauth-example).
+[Infocom](http://www.infocom-if.org/company/company.html) was a popular producer of text-based games and they standardized a file format and interpreter for them called [zMachine](https://en.wikipedia.org/wiki/Z_machine). There's a great [zMachine interpreter written in Java](http://zmpp.sourceforge.net/). I incorporated this into a Spring Boot / Spring Security application that interacts with Okta for OAuth so that you can play [Zork](https://en.wikipedia.org/wiki/Zork) - one of the most iconic of these games. The application is available on the [Okta Developer GitHub account](https://github.com/oktadeveloper/okta-zork-oauth-example).
 
 Let's jump right in so you can see it in action and then we'll break down how everything works.
 
@@ -137,7 +141,7 @@ Click **Deploy App**. Once it's finished deploying, you should be able to browse
 
 ## Spring Boot + Spring Security + Okta = Easy OAuth
 
-The code for the Zork application is hosted on the [Okta Developer Github](https://github.com/oktadeveloper/okta-zork-oauth-example).
+The code for the Zork application is hosted on the [Okta Developer GitHub](https://github.com/oktadeveloper/okta-zork-oauth-example).
 
 The great thing is that this is just a vanilla Spring Boot with Spring Security app. It uses the Okta Spring Security starter, which hooks into the normal mechanisms of the Spring framework. The end result is that there's is *no* additional code as relates to authentication. And, there's only a few lines of Okta-specific code for saving game state. Let's take a look.
 
@@ -366,7 +370,7 @@ This is why [we are working hard](https://www.rdegges.com/2017/authentication-st
 
 I hope that you've enjoyed learning a bit about OAuth by playing a classic text-based adventure game.
 
-All the code, including the friendly purple deploy button can be found on the [Github repo](https://github.com/oktadeveloper/okta-zork-oauth-example).
+All the code, including the friendly purple deploy button can be found on the [GitHub repo](https://github.com/oktadeveloper/okta-zork-oauth-example).
 
 You can play the game without setting it up yourself by starting with the [oidc playground](https://okta-oidc-fun.herokuapp.com).
 

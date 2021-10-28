@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7430837829
+discourse_topic_id: 17057
+discourse_comment_url: https://devforum.okta.com/t/17057
 layout: blog_post
 title: "Use Schematics with Vue and Add Authentication in 5 Minutes"
 author: matt-raible
