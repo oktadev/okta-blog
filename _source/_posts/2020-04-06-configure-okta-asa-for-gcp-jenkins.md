@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7948070646
+discourse_topic_id: 17230
+discourse_comment_url: https://devforum.okta.com/t/17230
 layout: blog_post
 title: "Configure Okta Advanced Server Access (ASA) for GCP + Jenkins Service Account"
 author: nicolas-triballier

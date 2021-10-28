@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8148251728
+discourse_topic_id: 10573
+discourse_comment_url: https://devforum.okta.com/t/10573
 layout: blog_post
 title: Announcing the New Okta Developer Certification
 author: micah-silverman

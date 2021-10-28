@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8053993745
+discourse_topic_id: 17250
+discourse_comment_url: https://devforum.okta.com/t/17250
 layout: blog_post
 title: "Build a Weight Tracker App with Node.js and PostgreSQL"
 author: david-neal

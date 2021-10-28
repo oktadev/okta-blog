@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8240240731
+discourse_topic_id: 17307
+discourse_comment_url: https://devforum.okta.com/t/17307
 layout: blog_post
 title: "What's New in Laravel 8"
 author: karl-hughes

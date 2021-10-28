@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7687216675
+discourse_topic_id: 17154
+discourse_comment_url: https://devforum.okta.com/t/17154
 layout: blog_post
 title: "Get to Know Entity Framework and PostgreSQL"
 author: terje-kolderup

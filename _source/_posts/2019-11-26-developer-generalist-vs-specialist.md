@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7733144615
+discourse_topic_id: 17175
+discourse_comment_url: https://devforum.okta.com/t/17175
 layout: blog_post
 title: "Why Every Developer Needs to be a Generalist"
 author: heather-downing

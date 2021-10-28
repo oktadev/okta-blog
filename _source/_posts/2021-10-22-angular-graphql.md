@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8839808943
+discourse_topic_id: 17428
+discourse_comment_url: https://devforum.okta.com/t/17428
 layout: blog_post
 title: "A Quick Guide to Angular and GraphQL"
 author: holger-schmitz

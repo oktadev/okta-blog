@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7704981391
+discourse_topic_id: 17163
+discourse_comment_url: https://devforum.okta.com/t/17163
 layout: blog_post
 title: "Build a .NET App Quickly with Docker"
 author: charlie-holland

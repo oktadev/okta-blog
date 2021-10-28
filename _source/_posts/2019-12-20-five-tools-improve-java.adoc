@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7772363163
+discourse_topic_id: 17188
+discourse_comment_url: https://devforum.okta.com/t/17188
 layout: blog_post
 title: "Five Tools to Improve Your Java Code"
 author: brian-demers

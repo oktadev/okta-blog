@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8827773298
+discourse_topic_id: 17426
+discourse_comment_url: https://devforum.okta.com/t/17426
 layout: blog_post
 title: "An Overview of Best Practices for Security Headers"
 author: vickie-li

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8207595907
+discourse_topic_id: 17292
+discourse_comment_url: https://devforum.okta.com/t/17292
 layout: blog_post
 title: "Migrate User Passwords with Okta's Password Hook"
 author: heather-wallander
