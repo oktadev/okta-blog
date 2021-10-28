@@ -8,7 +8,7 @@ description: "Five things to keep in mind about auth for the busy developer."
 tags: [oauth, oidc, openid-connect, security, authorization, authentication]
 tweets:
 - "Hey busy dev! Check out the 5 things to keep in mind when adding auth. #OAuth #OIDC #security"
-- "😻 Need auth meow? Here's a quick overview of things to keep in mind. 😻  #security"
+- "😻 Need auth right meow? Here's a fun-to-read quick overview of things to keep in mind. 😻  #OAuth #security"
 image: blog/things-to-keep-in-mind-about-auth/things-to-keep-in-mind-social.png
 type: awareness
 ---
@@ -35,15 +35,15 @@ There are three different tokens at play in OAuth 2.0 and OpenID Connect. Depend
 
 <table>
 <tr>
-    <td>{% img blog/things-to-keep-in-mind-about-auth/id.jpg alt:"ID Token" width:"200" %}</td>
+    <td>{% img blog/things-to-keep-in-mind-about-auth/id.jpg alt:"ID Token" width:"150" %}</td>
     <td markdown="span">**ID token**: The token returned from OpenID Connect containing information about the authentication of the end-user in [JSON Web Token](https://developer.okta.com/blog/2020/12/21/beginners-guide-to-jwt) (JWT) format.</td>
 </tr>
 <tr>
-    <td>{% img blog/things-to-keep-in-mind-about-auth/access.jpg alt:"Access token" width:"200" %}</td>
+    <td>{% img blog/things-to-keep-in-mind-about-auth/access.jpg alt:"Access token" width:"150" %}</td>
     <td markdown="span">**Access token**: The token returned from OAuth flows that allows you to access the resource. Access tokens returned from Okta are in JWT format.</td>
 </tr>
 <tr>
-    <td>{% img blog/things-to-keep-in-mind-about-auth/refresh.jpg alt:"Refresh token" width:"200" %}</td>
+    <td>{% img blog/things-to-keep-in-mind-about-auth/refresh.jpg alt:"Refresh token" width:"150" %}</td>
     <td markdown="span">**Refresh token**: A long-lived token that you exchange for the short-lived access token. Not all grant types support refresh tokens.</td>
 </tr>
 </table>
@@ -62,37 +62,40 @@ First, let's start with listing all the available grant types. We'll define a hi
 
 {% img blog/things-to-keep-in-mind-about-auth/all-grants.png alt:"Graphical summarization of all the grant types" width:"800" %}{: .center-image }
 
-### Authorization Code
-
-Authorization Code is a grant type used by web apps where the source code is private, such as a server-side web app. An authorization code and a client secret are required to get an access token.
-
-### Client Credentials
-
-Client Credentials is a grant type used for back-end communications, such as API to API. Users aren't involved in this flow, so there isn't an ID token available.
-
-### Device Code
-
-Device Code is a grant type primarily used for IoT and smart devices. The flow delegates user authentication and authorization through an external device, such as a smartphone app or browser. Device Code is available as an early access feature in Okta, or follow the steps in this post to [add OAuth device flow to any server](https://developer.okta.com/blog/2019/02/19/add-oauth-device-flow-to-any-server). 
-
-### Refresh Token
-
-Refresh Token is not a grant type, per se. It's an extra scope that works with select other grant types to get longer access to resources. Authorization Code, Device Code, Hybrid, and Resource Owner Password flows support refresh tokens.
-
-### Proof Key for Code Exchange (PKCE)
-
-PKCE is a flow to create a secret to use before exchanging for tokens. This is not a grant type used on its own, but as an extra layer of security to the Authorization Code flow.
-
-### Hybrid
-
-Hybrid is a grant type from OpenID Connect spec. The `code id_token` flow is the most common and combines two grants. It combines Authorization Code and Implicit grant types, and the response includes both the Access and ID tokens.
-
-### Implicit
-
-Implicit is a grant type that used to be recommended for native and JavaScript apps. It is a simplified version of the Authorization Code grant but doesn't require the authorization code exchange for the access token. Because of security risks, OAuth 2.0 no longer recommends this grant type and it will be dropped in the upcoming OAuth 2.1.
-
-### Resource Owner Password
-
-Resource Owner Password grant type is a flow used where the client has a high degree of trust. Because of the risks involved in directly handling credentials, OAuth 2.0 no longer recommends this grant type and it will be dropped in the upcoming OAuth 2.1. There might be legacy applications requiring this flow, but that's the only reason to use it.
+<table>
+<tr>
+    <td>{% img blog/things-to-keep-in-mind-about-auth/grants/authorization-code.jpg alt:"Authorization Code" width:"150" %}</td>
+    <td markdown="span">**Authorization Code** is a grant type used by web apps where the source code is private, such as a server-side web app. An authorization code and a client secret are required to get an access token.</td>
+</tr>
+<tr>
+    <td>{% img blog/things-to-keep-in-mind-about-auth/grants/client-credentials.jpg alt:"Client Credentials" width:"150" %}</td>
+    <td markdown="span">**Client Credentials** is a grant type used for back-end communications, such as API to API. Users aren't involved in this flow, so there isn't an ID token available.</td>
+</tr>
+<tr>
+    <td>{% img blog/things-to-keep-in-mind-about-auth/grants/device-code.jpg alt:"Device Code" width:"150" %}</td>
+    <td markdown="span">**Device Code** is a grant type primarily used for IoT and smart devices. The flow delegates user authentication and authorization through an external device, such as a smartphone app or browser. Device Code is available as an early access feature in Okta, or follow the steps in this post to [add OAuth device flow to any server](https://developer.okta.com/blog/2019/02/19/add-oauth-device-flow-to-any-server).</td>
+</tr>
+<tr>
+    <td>{% img blog/things-to-keep-in-mind-about-auth/grants/refresh.jpg alt:"Refresh Token" width:"150" %}</td>
+    <td markdown="span">**Refresh Token** is not a grant type, per se. It's an extra scope that works with select other grant types to get longer access to resources. Authorization Code, Device Code, Hybrid, and Resource Owner Password flows support refresh tokens.</td>
+</tr>
+<tr>
+    <td>{% img blog/things-to-keep-in-mind-about-auth/grants/pkce.jpg alt:"Proof Key for Code Exchange" width:"150" %}</td>
+    <td markdown="span">**Proof Key for Code Exchange** (PKCE) is a flow to create a secret to use before exchanging for tokens. This is not a grant type used on its own, but as an extra layer of security to the Authorization Code flow.</td>
+</tr>
+<tr>
+    <td>{% img blog/things-to-keep-in-mind-about-auth/grants/hybrid.jpg alt:"Hybrid" width:"150" %}</td>
+    <td markdown="span">**Hybrid** is a grant type from OpenID Connect spec. The `code id_token` flow is the most common and combines two grants. It combines Authorization Code and Implicit grant types, and the response includes both the Access and ID tokens.</td>
+</tr>
+<tr>
+    <td>{% img blog/things-to-keep-in-mind-about-auth/grants/implicit.jpg alt:"Implicit" width:"150" %}</td>
+    <td markdown="span">**Implicit** is a grant type that used to be recommended for native and JavaScript apps. It is a simplified version of the Authorization Code grant but doesn't require the authorization code exchange for the access token. Because of security risks, OAuth 2.0 no longer recommends this grant type and it will be dropped in the upcoming OAuth 2.1.</td>
+</tr>
+<tr>
+    <td>{% img blog/things-to-keep-in-mind-about-auth/grants/resource-owner.jpg alt:"Resource Owner Password" width:"150" %}</td>
+    <td markdown="span">**Resource Owner Password** grant type is a flow used where the client has a high degree of trust. Because of the risks involved in directly handling credentials, OAuth 2.0 no longer recommends this grant type and it will be dropped in the upcoming OAuth 2.1. There might be legacy applications requiring this flow, but that's the only reason to use it.</td>
+</tr>
+</table>
 
 That's still a lot of flows! And a lot to keep in mind. We're busy developers! So let's distill this down to the preferred grants.
 
@@ -100,9 +103,12 @@ That's still a lot of flows! And a lot to keep in mind. We're busy developers! S
 
 That's much better! We now have a reasonable number of grant types to work with: Device Code, Client Credentials, and a combination grant type – Authorization Code with PKCE.
 
-### Authorization Code with PKCE
-
-This is the Authorization Code grant type powered by ~~pixies~~ proof key for code exchange. The flow adds a step to first generate a code challenge as an extra layer of security.
+<table>
+    <tr>
+        <td>{% img blog/things-to-keep-in-mind-about-auth/grants/authorization-code-pkce.jpg alt:"Authorization Code with PKCE" width:"150" %}</td>
+        <td markdown="span">**Authorization Code with PKCE** is the Authorization Code grant type powered by ~~pixies~~ proof key for code exchange. The flow adds a step to first generate a code challenge as an extra layer of security.</td>
+    </tr>
+</table>
 
 Now that we have an updated list of recommended grant types, how do we know which one to use? You may need to use multiple grant types in a complete software system depending on the scenario and actors involved. You may have a SPA, a native application, back-end services and processes, and integrations with external parties. Each of these requires consideration for which grant type to use. Don't worry; by checking the discovery endpoint you'll know if your identity provider is up to the task of securely handling your needs!
 
