@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7007157286
+discourse_topic_id: 16952
+discourse_comment_url: https://devforum.okta.com/t/16952
 layout: blog_post
 title: "Add Secure Authentication to your WordPress Site in 15 Minutes"
 author: aaron-parecki

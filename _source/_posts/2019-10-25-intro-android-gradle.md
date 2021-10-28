@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7690541883
+discourse_topic_id: 17159
+discourse_comment_url: https://devforum.okta.com/t/17159
 layout: blog_post
 title: "Get Familiar with Android and Gradle"
 author: mikel-pascual

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7547238967
+discourse_topic_id: 17098
+discourse_comment_url: https://devforum.okta.com/t/17098
 layout: blog_post
 title: "Servlet Authentication with Java"
 author: joy-foster

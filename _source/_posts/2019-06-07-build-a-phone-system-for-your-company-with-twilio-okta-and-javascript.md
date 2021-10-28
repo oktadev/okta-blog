@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7463504374
+discourse_topic_id: 17069
+discourse_comment_url: https://devforum.okta.com/t/17069
 layout: blog_post
 title: "Build a Phone System for Your Company With Twilio, Okta, and JavaScript"
 author: randall-degges

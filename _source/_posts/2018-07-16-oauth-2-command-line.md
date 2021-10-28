@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6796411527
+discourse_topic_id: 16900
+discourse_comment_url: https://devforum.okta.com/t/16900
 layout: blog_post
 title: "OAuth 2.0 from the Command Line"
 author: aaron-parecki

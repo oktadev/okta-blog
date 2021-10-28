@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7656695109
+discourse_topic_id: 17147
+discourse_comment_url: https://devforum.okta.com/t/17147
 layout: blog_post
 title: "How to Develop a Quarkus App with Java and OIDC Authentication"
 author: andrew-hughes

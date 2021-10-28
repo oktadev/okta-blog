@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7685782586
+discourse_topic_id: 17152
+discourse_comment_url: https://devforum.okta.com/t/17152
 layout: blog_post
 title: "An Illustrated Guide to OAuth and OpenID Connect"
 author: david-neal

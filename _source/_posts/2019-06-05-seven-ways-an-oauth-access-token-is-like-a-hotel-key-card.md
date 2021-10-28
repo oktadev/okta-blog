@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7459502543
+discourse_topic_id: 17068
+discourse_comment_url: https://devforum.okta.com/t/17068
 layout: blog_post
 title: "7 Ways an OAuth Access Token is like a Hotel Key Card"
 author: aaron-parecki

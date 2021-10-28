@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7896351529
+discourse_topic_id: 17219
+discourse_comment_url: https://devforum.okta.com/t/17219
 layout: blog_post
 title: "Build Beautiful Angular Apps with Bootstrap"
 author: matt-raible

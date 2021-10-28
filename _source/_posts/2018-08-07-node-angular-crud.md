@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6840904957
+discourse_topic_id: 16910
+discourse_comment_url: https://devforum.okta.com/t/16910
 layout: blog_post
 title: "Build a CRUD-y SPA with Node and Angular"
 author: braden-kelley

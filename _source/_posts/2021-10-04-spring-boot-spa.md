@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8809345376
+discourse_topic_id: 17419
+discourse_comment_url: https://devforum.okta.com/t/17419
 layout: blog_post
 title: "Learn How to Build a Single-Page App with Vue and Spring Boot"
 author: andrew-hughes

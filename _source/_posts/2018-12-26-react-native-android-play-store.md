@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7131615046
+discourse_topic_id: 16977
+discourse_comment_url: https://devforum.okta.com/t/16977
 layout: blog_post
 title: 'Design and Develop an Android App with React Native and Publish to Google Play Store'
 author: karl-penzhorn

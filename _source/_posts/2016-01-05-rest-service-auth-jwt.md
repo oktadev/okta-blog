@@ -1,9 +1,13 @@
 ---
+disqus_thread_id: 6300318342
+discourse_topic_id: 16767
+discourse_comment_url: https://devforum.okta.com/t/16767
 layout: blog_post
 title: REST Service Authorization with JWTs
 author: jon-todd
 by: internal-contributor
 communities: [security]
+description: "Learn about authentication and authorization both at a server level with TLS and a user level with OAuth 2.0. Explained using Java and Dropwizard."
 tags: [rest, oauth, identity, security, jwt]
 type: awareness
 ---

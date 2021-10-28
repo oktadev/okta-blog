@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7381847677
+discourse_topic_id: 17042
+discourse_comment_url: https://devforum.okta.com/t/17042
 layout: blog_post
 title: "Angular MVC - A Primer"
 author: holger-schmitz

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7567047073
+discourse_topic_id: 17106
+discourse_comment_url: https://devforum.okta.com/t/17106
 layout: blog_post
 title: 'Build a Simple CRUD App with ASP.NET Core, MySQL, and Twilio'
 author: chris-green

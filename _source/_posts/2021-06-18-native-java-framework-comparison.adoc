@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8599762812
+discourse_topic_id: 17383
+discourse_comment_url: https://devforum.okta.com/t/17383
 layout: blog_post
 title: "Build Native Java Apps with Micronaut, Quarkus, and Spring Boot"
 author: matt-raible

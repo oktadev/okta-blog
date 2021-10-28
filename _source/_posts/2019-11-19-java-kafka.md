@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7724633285
+discourse_topic_id: 17170
+discourse_comment_url: https://devforum.okta.com/t/17170
 layout: blog_post
 title: "Kafka with Java: Build a Secure, Scalable Messaging App"
 author: daniel-pereira

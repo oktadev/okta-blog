@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7349666931
+discourse_topic_id: 17033
+discourse_comment_url: https://devforum.okta.com/t/17033
 layout: blog_post
 title: 'How to Configure Better Web Site Security with Cloudflare and Netlify'
 author: frederico-hakamine

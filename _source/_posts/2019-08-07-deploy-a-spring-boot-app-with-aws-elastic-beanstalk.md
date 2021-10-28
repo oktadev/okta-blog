@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7575358986
+discourse_topic_id: 17109
+discourse_comment_url: https://devforum.okta.com/t/17109
 layout: blog_post
 title: "Easy Spring Boot Deployment with AWS Elastic Beanstalk"
 author: daniel-pereira

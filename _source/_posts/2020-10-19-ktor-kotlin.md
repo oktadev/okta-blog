@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8238886081
+discourse_topic_id: 17306
+discourse_comment_url: https://devforum.okta.com/t/17306
 layout: blog_post
 title: "Create a Secure Ktor Application with Kotlin"
 author: ruslan-zaharov

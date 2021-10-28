@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6829907421
+discourse_topic_id: 16909
+discourse_comment_url: https://devforum.okta.com/t/16909
 layout: blog_post
 title: "Upgrade your ASP.NET Core 2.1 App to Angular 6"
 author: lee-brandt

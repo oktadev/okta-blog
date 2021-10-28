@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8774700505
+discourse_topic_id: 17413
+discourse_comment_url: https://devforum.okta.com/t/17413
 layout: blog_post
 title: "Spring Native in Action with the Okta Spring Boot Starter"
 author: matt-raible

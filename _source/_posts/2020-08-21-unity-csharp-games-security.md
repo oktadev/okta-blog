@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8173408414
+discourse_topic_id: 17279
+discourse_comment_url: https://devforum.okta.com/t/17279
 layout: blog_post
 title: Identity Security for Games in C# with Unity
 author: nick-gamb

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7710637876
+discourse_topic_id: 17165
+discourse_comment_url: https://devforum.okta.com/t/17165
 layout: blog_post
 title: "Get Started with Koa.js for Node Applications"
 author: ivo-katunaric

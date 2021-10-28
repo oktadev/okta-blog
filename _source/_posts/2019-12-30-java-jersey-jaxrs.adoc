@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7785154317
+discourse_topic_id: 17191
+discourse_comment_url: https://devforum.okta.com/t/17191
 layout: blog_post
 title: "Build a Secure REST Application Using Jersey"
 author: daniel-pereira

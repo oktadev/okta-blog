@@ -1,0 +1,5 @@
+# Block all indexing
+# This file is only published on the netlify builds
+# and is not copied into the production site at developer.okta.com
+User-agent: *
+Disallow: /

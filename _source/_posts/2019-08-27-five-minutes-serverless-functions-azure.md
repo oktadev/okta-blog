@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7606272610
+discourse_topic_id: 17126
+discourse_comment_url: https://devforum.okta.com/t/17126
 layout: blog_post
 title: "5 Minute Serverless Functions in Azure without an IDE"
 author: heather-downing

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7527289609
+discourse_topic_id: 17093
+discourse_comment_url: https://devforum.okta.com/t/17093
 layout: blog_post
 title: "Secure Your ASP.NET Core App with OAuth 2.0"
 author: ryan-foster

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8402167638
+discourse_topic_id: 17355
+discourse_comment_url: https://devforum.okta.com/t/17355
 layout: blog_post
 title: Building and Securing a Go and Gin Web Application
 author: phill-edwards

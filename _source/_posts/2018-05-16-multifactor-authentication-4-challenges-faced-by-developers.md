@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6674566796
+discourse_topic_id: 16870
+discourse_comment_url: https://devforum.okta.com/t/16870
 layout: blog_post
 title: "Multi-Factor Authentication: 4 Challenges Faced by Developers"
 author: micah-silverman

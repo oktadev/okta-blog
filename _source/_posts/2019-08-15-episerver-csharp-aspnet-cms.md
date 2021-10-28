@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7588780705
+discourse_topic_id: 17118
+discourse_comment_url: https://devforum.okta.com/t/17118
 layout: blog_post
 title: "Secure an Episerver CMS website with Okta and C#"
 author: jefferson-haw

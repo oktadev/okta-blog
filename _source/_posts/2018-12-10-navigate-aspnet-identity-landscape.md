@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7098049958
+discourse_topic_id: 16968
+discourse_comment_url: https://devforum.okta.com/t/16968
 layout: blog_post
 title: "Navigating the ASP.NET Core Identity Landscape"
 author: lee-brandt

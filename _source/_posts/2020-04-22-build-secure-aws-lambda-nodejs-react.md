@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7985525952
+discourse_topic_id: 17240
+discourse_comment_url: https://devforum.okta.com/t/17240
 layout: blog_post
 title: "How to Build a Secure AWS Lambda API with Node.js and React"
 author: nickolas-fisher

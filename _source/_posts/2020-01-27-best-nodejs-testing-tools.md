@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7839312415
+discourse_topic_id: 17207
+discourse_comment_url: https://devforum.okta.com/t/17207
 layout: blog_post
 title: "The Best Testing Tools for Node.js"
 author: david-neal

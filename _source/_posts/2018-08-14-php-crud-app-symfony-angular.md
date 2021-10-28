@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6853415813
+discourse_topic_id: 16914
+discourse_comment_url: https://devforum.okta.com/t/16914
 layout: blog_post
 title: "Tutorial: Build Your First CRUD App with Symfony and Angular"
 author: krasimir-hristozov

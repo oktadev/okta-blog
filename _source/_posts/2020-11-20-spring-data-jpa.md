@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8284488711
+discourse_topic_id: 17321
+discourse_comment_url: https://devforum.okta.com/t/17321
 layout: blog_post
 title: "Build a Secure Spring Data JPA Resource Server"
 author: andrew-hughes

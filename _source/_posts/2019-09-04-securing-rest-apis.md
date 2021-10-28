@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7618970016
+discourse_topic_id: 17132
+discourse_comment_url: https://devforum.okta.com/t/17132
 layout: blog_post
 title: "Securing REST APIs"
 author: les-hazlewood

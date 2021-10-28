@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7242947215
+discourse_topic_id: 16999
+discourse_comment_url: https://devforum.okta.com/t/16999
 layout: blog_post
 title: "Add Social Login to Your JHipster App"
 author: andrew-hughes

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8682563285
+discourse_topic_id: 17401
+discourse_comment_url: https://devforum.okta.com/t/17401
 layout: blog_post
 title: "Spring WebClient for Easy Access to OAuth 2.0 Protected Resources"
 author: jimena-garbarino

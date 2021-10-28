@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6826148437
+discourse_topic_id: 16907
+discourse_comment_url: https://devforum.okta.com/t/16907
 layout: blog_post
 title: "10 Excellent Ways to Secure Your Spring Boot Application"
 author: matt-raible

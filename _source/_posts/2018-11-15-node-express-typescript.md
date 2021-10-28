@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7047839337
+discourse_topic_id: 16956
+discourse_comment_url: https://devforum.okta.com/t/16956
 layout: blog_post
 title: "Use TypeScript to Build a Node API with Express"
 author: david-neal

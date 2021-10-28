@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8729558338
+discourse_topic_id: 17410
+discourse_comment_url: https://devforum.okta.com/t/17410
 layout: blog_post
 title: "Developer Day 2021: Celebrating the Future of Identity"
 author: ali-spivak

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8698059469
+discourse_topic_id: 17406
+discourse_comment_url: https://devforum.okta.com/t/17406
 layout: blog_post
 title: "Using AWS Toolkit for Visual Studio"
 author: nickolas-fisher

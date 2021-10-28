@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6743843964
+discourse_topic_id: 16885
+discourse_comment_url: https://devforum.okta.com/t/16885
 layout: blog_post
 title: "What Happens If Your JWT Is Stolen?"
 author: randall-degges
