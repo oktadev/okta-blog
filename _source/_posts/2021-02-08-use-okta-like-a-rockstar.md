@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8389864079
+discourse_topic_id: 17354
+discourse_comment_url: https://devforum.okta.com/t/17354
 layout: blog_post
 title: Use Okta like a Rockstar
 author: karson-kwan

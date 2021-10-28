@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8697358409
+discourse_topic_id: 17405
+discourse_comment_url: https://devforum.okta.com/t/17405
 layout: blog_post
 title: Web Forms Migration to Blazor in .NET Core
 author: giorgi-dalakishvili

@@ -1,9 +1,13 @@
 ---
+disqus_thread_id: 6542438160
+discourse_topic_id: 16840
+discourse_comment_url: https://devforum.okta.com/t/16840
 layout: blog_post
 title: A Developer's Guide To Docker - The Dockerfile
 author: lee-brandt
 by: advocate
 communities: [devops]
+description: "In this tutorial you'll learn how to create a `Dockerfile` that you can use to create an image for a basic web application."
 tags: [docker, devops, developer]
 redirect_from:
   - "/blog/2017/05/10/developers-guide-to-docker-part-2"

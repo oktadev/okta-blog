@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6300377651
+discourse_topic_id: 16773
+discourse_comment_url: https://devforum.okta.com/t/16773
 layout: blog_post
 title: "Build a Secure Notes Application with Kotlin, TypeScript, and Okta"
 author: matt-raible

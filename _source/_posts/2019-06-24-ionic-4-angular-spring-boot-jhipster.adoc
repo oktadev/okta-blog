@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7489342471
+discourse_topic_id: 17078
+discourse_comment_url: https://devforum.okta.com/t/17078
 layout: blog_post
 title: "Build Mobile Apps with Angular, Ionic 4, and Spring Boot"
 author: matt-raible

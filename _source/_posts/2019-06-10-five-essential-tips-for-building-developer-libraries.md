@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7468287419
+discourse_topic_id: 17070
+discourse_comment_url: https://devforum.okta.com/t/17070
 layout: blog_post
 title: "5 Essential Tips for Building Developer Libraries"
 author: laura-rodriguez

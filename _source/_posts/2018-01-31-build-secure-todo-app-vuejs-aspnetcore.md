@@ -1,9 +1,13 @@
 ---
+disqus_thread_id: 6448648537
+discourse_topic_id: 16818
+discourse_comment_url: https://devforum.okta.com/t/16818
 layout: blog_post
 title: "Build a Secure To-Do App with Vue, ASP.NET Core, and Okta"
 author: nate-barbettini
 by: advocate
 communities: [.net, javascript]
+description: "In this tutorial, you'll learn how to build a lightweight, secure to-do app with a Vue.js frontend and an ASP.NET Core backend."
 tags: [vue-dot-js, vue, oidc, dotnet, aspnetcore]
 tweets: 
   - "ICYMI: @nbarbettini shows how to build a to-do app with #vuejs and #aspnetcore step-by-step"

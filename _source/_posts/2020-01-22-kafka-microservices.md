@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7830802573
+discourse_topic_id: 17206
+discourse_comment_url: https://devforum.okta.com/t/17206
 layout: blog_post
 title: "Communicate Between Microservices with Apache Kafka"
 author: jimena-garbarino

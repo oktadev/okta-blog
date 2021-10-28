@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7878954803
+discourse_topic_id: 17217
+discourse_comment_url: https://devforum.okta.com/t/17217
 layout: blog_post
 title: "Why CLIs Suck (and GUIs are Better)"
 author: heather-downing

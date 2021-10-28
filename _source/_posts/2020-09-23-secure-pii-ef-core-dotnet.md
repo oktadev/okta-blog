@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8213138326
+discourse_topic_id: 17294
+discourse_comment_url: https://devforum.okta.com/t/17294
 layout: blog_post
 title: How to Secure PII with Entity Framework Core
 author: giorgi-dalakishvili

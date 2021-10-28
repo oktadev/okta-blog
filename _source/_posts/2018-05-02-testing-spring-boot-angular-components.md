@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6647842694
+discourse_topic_id: 16862
+discourse_comment_url: https://devforum.okta.com/t/16862
 layout: blog_post
 title: "The Hitchhiker's Guide to Testing Spring Boot APIs and Angular Components with WireMock, Jest, Protractor, and Travis CI"
 author: matt-raible

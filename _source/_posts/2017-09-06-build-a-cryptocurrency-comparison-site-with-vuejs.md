@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6303217674
+discourse_topic_id: 16794
+discourse_comment_url: https://devforum.okta.com/t/16794
 layout: blog_post
 title: 'Build a Cryptocurrency Comparison Site with Vue.js'
 author: randall-degges

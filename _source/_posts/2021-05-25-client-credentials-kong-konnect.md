@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8550181620
+discourse_topic_id: 17374
+discourse_comment_url: https://devforum.okta.com/t/17374
 layout: blog_post
 title: "Implement Client Credentials with Kong Konnect and Okta"
 author: claudio-acquaviva

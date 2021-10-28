@@ -1,8 +1,12 @@
 ---
+disqus_thread_id: 6300745643
+discourse_topic_id: 16785
+discourse_comment_url: https://devforum.okta.com/t/16785
 layout: blog_post
 title: "User Authorization in ASP.NET Core with Okta"
 author: lee-brandt
 by: advocate
+description: "Learn how to map your Okta `Groups` to `Roles` claims and let the regular ASP.NET `AuthorizeAttribute` handle authorization."
 communities: [.net]
 tags: [asp-dot-net, aspnet-core, authz, authorization]
 type: conversion

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6297963763
+discourse_topic_id: 16750
+discourse_comment_url: https://devforum.okta.com/t/16750
 layout: blog_post
 title: 'Add Authentication to Play Framework with OIDC and Okta'
 author: matt-raible

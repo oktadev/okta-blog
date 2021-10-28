@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7863972640
+discourse_topic_id: 17212
+discourse_comment_url: https://devforum.okta.com/t/17212
 layout: blog_post
 title: "Tech at the Edge of the World: Offline Applications"
 author: heather-downing

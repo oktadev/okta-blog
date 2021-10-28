@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7719470286
+discourse_topic_id: 17169
+discourse_comment_url: https://devforum.okta.com/t/17169
 layout: blog_post
 title: "ASP.NET Core 3.0 MVC Secure Authentication"
 author: lee-brandt

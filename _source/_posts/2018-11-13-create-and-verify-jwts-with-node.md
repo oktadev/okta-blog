@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7042810817
+discourse_topic_id: 16955
+discourse_comment_url: https://devforum.okta.com/t/16955
 layout: blog_post
 title: "Create and Verify JWTs with Node"
 author: braden-kelley

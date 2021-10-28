@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6624914847
+discourse_topic_id: 16857
+discourse_comment_url: https://devforum.okta.com/t/16857
 layout: blog_post
 title: "Hello, Okta. It's me, Dave"
 author: dave-nugent

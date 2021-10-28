@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7307649423
+discourse_topic_id: 17020
+discourse_comment_url: https://devforum.okta.com/t/17020
 layout: blog_post
 title: "Build a Desktop Application with Angular and Electron"
 author: holger-schmitz

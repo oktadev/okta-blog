@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8489740287
+discourse_topic_id: 17368
+discourse_comment_url: https://devforum.okta.com/t/17368
 layout: blog_post
 title: "Elasticsearch in Go: A Developer's Guide"
 author: phill-edwards

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7590513620
+discourse_topic_id: 17119
+discourse_comment_url: https://devforum.okta.com/t/17119
 layout: blog_post
 title: "How to Work with Angular and MySQL"
 author: holger-schmitz

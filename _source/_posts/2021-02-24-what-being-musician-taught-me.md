@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8412100053
+discourse_topic_id: 17357
+discourse_comment_url: https://devforum.okta.com/t/17357
 layout: blog_post
 title: "What Being a Musician Taught Me About Being a Programmer"
 author: lee-brandt

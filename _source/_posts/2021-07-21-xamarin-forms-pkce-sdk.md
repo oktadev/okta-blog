@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8661807207
+discourse_topic_id: 17395
+discourse_comment_url: https://devforum.okta.com/t/17395
 layout: blog_post
 title: "Easy Xamarin Forms Auth with PKCE"
 author: giorgi-dalakishvili

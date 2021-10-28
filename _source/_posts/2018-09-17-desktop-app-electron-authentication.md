@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6917234227
+discourse_topic_id: 16932
+discourse_comment_url: https://devforum.okta.com/t/16932
 layout: blog_post
 title: 'Build a Desktop App with Electron and Authentication'
 author: matt-raible

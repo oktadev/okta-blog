@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7361718535
+discourse_topic_id: 17037
+discourse_comment_url: https://devforum.okta.com/t/17037
 layout: blog_post
 title: 'Build a GraphQL API with ASP.NET Core'
 author: ibrahim-suta

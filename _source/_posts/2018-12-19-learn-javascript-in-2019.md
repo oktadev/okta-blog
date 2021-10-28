@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7114897042
+discourse_topic_id: 16973
+discourse_comment_url: https://devforum.okta.com/t/16973
 layout: blog_post
 title: "Learn JavaScript in 2019"
 author: david-neal

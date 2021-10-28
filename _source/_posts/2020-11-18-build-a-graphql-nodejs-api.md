@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8282020083
+discourse_topic_id: 17320
+discourse_comment_url: https://devforum.okta.com/t/17320
 layout: blog_post
 title: "Build a secure GraphQL API with Node.js"
 author: nickolas-fisher

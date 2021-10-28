@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7202973358
+discourse_topic_id: 16987
+discourse_comment_url: https://devforum.okta.com/t/16987
 layout: blog_post
 title: 'Data Persistence with Hibernate and Spring'
 author: raphael-do-vale

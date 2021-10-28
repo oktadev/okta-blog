@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6870308400
+discourse_topic_id: 16915
+discourse_comment_url: https://devforum.okta.com/t/16915
 layout: blog_post
 title: "Tutorial: Build a Secure CRUD App with Symfony and React"
 author: krasimir-hristozov

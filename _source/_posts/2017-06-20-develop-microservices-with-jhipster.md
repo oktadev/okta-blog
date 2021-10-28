@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6300274836
+discourse_topic_id: 16764
+discourse_comment_url: https://devforum.okta.com/t/16764
 layout: blog_post
 title: 'Develop and Deploy Microservices with JHipster'
 author: matt-raible

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8357098399
+discourse_topic_id: 17349
+discourse_comment_url: https://devforum.okta.com/t/17349
 layout: blog_post
 title: "Reactive Java Microservices with Spring Boot and JHipster"
 author: matt-raible

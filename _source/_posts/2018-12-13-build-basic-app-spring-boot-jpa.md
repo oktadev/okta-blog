@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7103524390
+discourse_topic_id: 16971
+discourse_comment_url: https://devforum.okta.com/t/16971
 layout: blog_post
 title: 'Build a Basic App with Spring Boot and JPA using PostgreSQL'
 author: andrew-hughes

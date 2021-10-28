@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6542301164
+discourse_topic_id: 16839
+discourse_comment_url: https://devforum.okta.com/t/16839
 layout: blog_post
 title: "A Developer's Guide To Docker - Docker Swarm"
 author: lee-brandt

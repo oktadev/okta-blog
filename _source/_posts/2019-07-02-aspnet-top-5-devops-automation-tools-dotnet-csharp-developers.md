@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7510955738
+discourse_topic_id: 17084
+discourse_comment_url: https://devforum.okta.com/t/17084
 layout: blog_post
 title: "The Top 5 DevOps Automation Tools .NET Developers Should Know"
 author: heather-downing

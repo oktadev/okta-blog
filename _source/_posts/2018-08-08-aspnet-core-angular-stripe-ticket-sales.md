@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6842963773
+discourse_topic_id: 16911
+discourse_comment_url: https://devforum.okta.com/t/16911
 layout: blog_post
 title: "Build a SPA with ASP.NET Core 2.1, Stripe, and Angular 6"
 author: lee-brandt

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7431443482
+discourse_topic_id: 17054
+discourse_comment_url: https://devforum.okta.com/t/17054
 layout: blog_post
 title: "Java Microservices with Spring Boot and Spring Cloud"
 author: matt-raible

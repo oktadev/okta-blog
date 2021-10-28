@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8308721743
+discourse_topic_id: 17299
+discourse_comment_url: https://devforum.okta.com/t/17299
 layout: blog_post
 title: "Introducing the Okta CLI"
 author: micah-silverman

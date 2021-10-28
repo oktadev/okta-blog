@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7473533306
+discourse_topic_id: 17073
+discourse_comment_url: https://devforum.okta.com/t/17073
 layout: blog_post
 title: "Add Authentication and Personalization to VuePress"
 author: david-neal

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8006986170
+discourse_topic_id: 17234
+discourse_comment_url: https://devforum.okta.com/t/17234
 layout: blog_post
 title: "Secure Secrets With Spring Cloud Config and Vault"
 author: jimena-garbarino

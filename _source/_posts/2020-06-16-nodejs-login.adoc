@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8079245768
+discourse_topic_id: 17251
+discourse_comment_url: https://devforum.okta.com/t/17251
 layout: blog_post
 title: "Node.js Login with Express and OIDC"
 author: matt-raible

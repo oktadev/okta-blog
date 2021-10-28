@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8202674380
+discourse_topic_id: 17289
+discourse_comment_url: https://devforum.okta.com/t/17289
 layout: blog_post
 title: "Build Your First Deno App with Authentication"
 author: lee-brandt

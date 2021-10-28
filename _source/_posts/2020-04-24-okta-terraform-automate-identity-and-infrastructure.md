@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7982124487
+discourse_topic_id: 17239
+discourse_comment_url: https://devforum.okta.com/t/17239
 layout: blog_post
 title: "Using Okta Advanced Server Access & Terraform to Automate Identity & Infrastructure as Code"
 author: ivan-dwyer

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6300889831
+discourse_topic_id: 16789
+discourse_comment_url: https://devforum.okta.com/t/16789
 layout: blog_post
 title: 'What is Developer Relations at Okta?'
 author: matt-raible

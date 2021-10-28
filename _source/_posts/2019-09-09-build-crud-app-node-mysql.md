@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7626577616
+discourse_topic_id: 17134
+discourse_comment_url: https://devforum.okta.com/t/17134
 layout: blog_post
 title: "Build a Simple CRUD Application with Node and MySQL"
 author: ivo-katunaric

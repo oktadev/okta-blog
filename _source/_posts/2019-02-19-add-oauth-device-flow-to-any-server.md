@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7243515480
+discourse_topic_id: 17000
+discourse_comment_url: https://devforum.okta.com/t/17000
 layout: blog_post
 title: "Add the OAuth 2.0 Device Flow to any OAuth Server"
 author: aaron-parecki

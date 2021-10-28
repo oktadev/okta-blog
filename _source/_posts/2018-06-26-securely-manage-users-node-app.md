@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6754721334
+discourse_topic_id: 16889
+discourse_comment_url: https://devforum.okta.com/t/16889
 layout: blog_post
 title: "How to Securely Manage Users in Your Node App"
 author: braden-kelley

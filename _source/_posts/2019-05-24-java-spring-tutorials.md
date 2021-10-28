@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7436782171
+discourse_topic_id: 17059
+discourse_comment_url: https://devforum.okta.com/t/17059
 layout: blog_post
 title: "Java + Spring Tutorials"
 author: lindsay-brunner

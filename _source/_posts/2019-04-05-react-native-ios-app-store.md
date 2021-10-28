@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7339576112
+discourse_topic_id: 17031
+discourse_comment_url: https://devforum.okta.com/t/17031
 layout: blog_post
 title: 'Build an iOS App with React Native and Publish it to the App Store'
 author: karl-penzhorn

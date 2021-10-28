@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7498197738
+discourse_topic_id: 17080
+discourse_comment_url: https://devforum.okta.com/t/17080
 layout: blog_post
 title: "Decode JWTs in C# for Authorization"
 author: ryan-foster

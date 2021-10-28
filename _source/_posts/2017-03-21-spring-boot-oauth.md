@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6300244865
+discourse_topic_id: 16759
+discourse_comment_url: https://devforum.okta.com/t/16759
 layout: blog_post
 title: Get Started with Spring Boot, OAuth 2.0, and Okta
 author: matt-raible

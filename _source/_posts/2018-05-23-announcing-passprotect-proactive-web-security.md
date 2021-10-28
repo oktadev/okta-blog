@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6687316075
+discourse_topic_id: 16874
+discourse_comment_url: https://devforum.okta.com/t/16874
 layout: blog_post
 title: "Announcing PassProtect - Proactive Web Security"
 author: randall-degges

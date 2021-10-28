@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8299717293
+discourse_topic_id: 17301
+discourse_comment_url: https://devforum.okta.com/t/17301
 layout: blog_post
 title: "Use the Okta CLI to Quickly Build Secure Angular Apps"
 author: matt-raible

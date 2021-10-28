@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7548829467
+discourse_topic_id: 17100
+discourse_comment_url: https://devforum.okta.com/t/17100
 layout: blog_post
 title: "Building Scalable Laravel Apps with PostgreSQL"
 author: krasimir-hristozov
