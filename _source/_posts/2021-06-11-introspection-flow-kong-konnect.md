@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8587074709
+discourse_topic_id: 17382
+discourse_comment_url: https://devforum.okta.com/t/17382
 layout: blog_post
 title: "Implement Introspection Flow With Kong Konnect and Okta"
 author: claudio-acquaviva

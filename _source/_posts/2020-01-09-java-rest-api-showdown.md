@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7808056084
+discourse_topic_id: 17196
+discourse_comment_url: https://devforum.okta.com/t/17196
 layout: blog_post
 title: "Java REST API Showdown: Which is the Best Framework on the Market?"
 author: daniel-pereira

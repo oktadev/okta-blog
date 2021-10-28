@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8100993287
+discourse_topic_id: 17262
+discourse_comment_url: https://devforum.okta.com/t/17262
 layout: blog_post
 title: "Build a Basic CRUD App with ASP.NET Core 3.0 and MongoDB"
 author: lee-brandt

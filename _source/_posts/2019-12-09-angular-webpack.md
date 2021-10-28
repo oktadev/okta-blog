@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7755411924
+discourse_topic_id: 17180
+discourse_comment_url: https://devforum.okta.com/t/17180
 layout: blog_post
 title: "How to Customize Your Angular Build With Webpack"
 author: holger-schmitz

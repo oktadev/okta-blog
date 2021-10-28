@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7795069971
+discourse_topic_id: 17192
+discourse_comment_url: https://devforum.okta.com/t/17192
 layout: blog_post
 title: "Use MongoDB in Your C# ASP.NET Apps"
 author: terje-kolderup

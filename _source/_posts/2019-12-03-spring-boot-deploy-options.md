@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7745032787
+discourse_topic_id: 17177
+discourse_comment_url: https://devforum.okta.com/t/17177
 layout: blog_post
 title: "Deploy Your Spring Boot App the Right Way"
 author: thiago-negri

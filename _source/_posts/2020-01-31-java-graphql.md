@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7845961409
+discourse_topic_id: 17209
+discourse_comment_url: https://devforum.okta.com/t/17209
 layout: blog_post
 title: "How to GraphQL in Java"
 author: thiago-negri

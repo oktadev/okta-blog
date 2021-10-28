@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8136918546
+discourse_topic_id: 17269
+discourse_comment_url: https://devforum.okta.com/t/17269
 layout: blog_post
 title: "Identity: A First Class Architectural Citizen?"
 author: chris-gustafson

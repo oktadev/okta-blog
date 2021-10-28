@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8763706309
+discourse_topic_id: 17412
+discourse_comment_url: https://devforum.okta.com/t/17412
 layout: blog_post
 title: "How to Write Cleaner, Safer Code with SonarQube, Docker and .NET Core"
 author: pawel-szydziak

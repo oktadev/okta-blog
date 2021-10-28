@@ -434,7 +434,7 @@ nano $HOME/.kube/config
 Below is the text to include:
 ```
 - name: oidc      
-    user:
+  user:
     exec:
         apiVersion: client.authentication.k8s.io/v1beta1
         args:
@@ -446,7 +446,6 @@ Below is the text to include:
         - --oidc-extra-scope=offline_access
         - --oidc-extra-scope=profile
         - --oidc-extra-scope=openid
-        - --oidc-extra-scope=groups
         command: kubectl
 ```
 

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8130393326
+discourse_topic_id: 17266
+discourse_comment_url: https://devforum.okta.com/t/17266
 layout: blog_post
 title: "Build A Secure Node.js API with KoaJS"
 author: nickolas-fisher

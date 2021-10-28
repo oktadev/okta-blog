@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7762556532
+discourse_topic_id: 17183
+discourse_comment_url: https://devforum.okta.com/t/17183
 layout: blog_post
 title: "OAuth 2.1: How Many RFCs Does it Take to Change a Lightbulb?"
 author: lee-mcgovern

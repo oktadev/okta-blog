@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7725207685
+discourse_topic_id: 17171
+discourse_comment_url: https://devforum.okta.com/t/17171
 layout: blog_post
 title: "Symfony 4.3 + Vue.js: PHP Apps Made Simple"
 author: krasimir-hristozov

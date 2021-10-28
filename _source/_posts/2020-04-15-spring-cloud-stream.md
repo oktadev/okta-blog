@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7972110790
+discourse_topic_id: 17235
+discourse_comment_url: https://devforum.okta.com/t/17235
 layout: blog_post
 title: "A Quick Guide to Spring Cloud Stream"
 author: andrew-hughes
