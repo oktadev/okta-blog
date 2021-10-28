@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8357098399
+discourse_topic_id: 17349
+discourse_comment_url: https://devforum.okta.com/t/17349
 layout: blog_post
 title: "Reactive Java Microservices with Spring Boot and JHipster"
 author: matt-raible
@@ -13,7 +16,9 @@ tweets:
 image: blog/reactive-java-microservices/reactive-java-microservices.png
 type: conversion
 changelog:
-- 2021-03-25: Upgraded to JHipster 7.0.0 from beta 1. You can see the changes in the [example app on GitHub](https://github.com/oktadeveloper/java-microservices-examples/pull/17). Changes to this article can be viewed in [oktadeveloper/okta-blog#627](https://github.com/oktadeveloper/okta-blog/pull/627).
+- 2021-05-12: Update org name to oktadev on GitHub and added recommended Docker preferences of 6GB of memory. See [oktadev/okta-blog#791](https://github.com/oktadev/okta-blog/pull/791) for specific changes.
+- 2021-04-28: Upgraded to JHipster 7.0.1. You can see the changes in the [example app on GitHub](https://github.com/oktadev/java-microservices-examples/pull/20). Changes to this article can be viewed in [oktadev/okta-blog#779](https://github.com/oktadev/okta-blog/pull/779).
+- 2021-03-25: Upgraded to JHipster 7.0.0 from beta 1. You can see the changes in the [example app on GitHub](https://github.com/oktadev/java-microservices-examples/pull/17). Changes to this article can be viewed in [oktadev/okta-blog#627](https://github.com/oktadev/okta-blog/pull/627).
 ---
 :toc: macro
 :page-liquid:
@@ -28,6 +33,14 @@ image::{% asset_path 'blog/reactive-java-microservices/diagram-boot-reactor.svg'
 // Above image is from https://web.archive.org/web/20180803181804/http://spring.io/
 
 toc::[]
+
+You can also https://youtu.be/clkEUHWT9-M[watch this tutorial as a screencast].
+
+++++
+<div style="text-align: center; margin-bottom: 1.25rem">
+<iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/clkEUHWT9-M" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+++++
 
 == Why Reactive Java?
 
@@ -103,11 +116,11 @@ image::{% asset_path 'blog/reactive-java-microservices/reactive-java-microservic
 * https://adoptopenjdk.net/[Java 11]+
 * https://docs.docker.com/engine/install/[Docker]
 
-You can find the completed source code for this example on GitHub, in the https://github.com/oktadeveloper/java-microservices-examples/tree/main/reactive-jhipster[oktadeveloper/java-microservices-examples repository].
+You can find the completed source code for this example on GitHub, in the https://github.com/oktadev/java-microservices-examples/tree/main/reactive-jhipster[oktadeveloper/java-microservices-examples repository].
 
 [source,shell]
 ----
-git clone https://github.com/oktadeveloper/java-microservices-examples.git
+git clone https://github.com/oktadev/java-microservices-examples.git
 cd java-microservices-examples/reactive-jhipster
 ----
 
@@ -125,7 +138,7 @@ Start by installing JHipster using npm:
 
 [source,shell]
 ----
-npm i -g generator-jhipster@7.0.0
+npm i -g generator-jhipster@7.0.1
 ----
 
 After installing JHipster, you can run the following command to answer a whole slew of questions and create an app.
@@ -437,6 +450,10 @@ spring:
 
 === Prove Your Reactive Java Stack Works
 
+Before you start everything with Docker, make sure you have adequate resources configured. The default is 2GB of memory and at least 6GB is recommended. Go to **Docker Desktop** > **Preferences** > **Resources** to configure. You can see my settings in the screenshot below.
+
+image::{% asset_path 'blog/reactive-java-microservices/docker-preferences.png' %}[alt=Docker Preferences,width=700,align=center]
+
 In the `docker-compose` directory, run the following command to start all your containers.
 
 [source,shell]
@@ -471,7 +488,7 @@ JHipster creates a cloud-native microservices architecture that can be deployed 
 
 However, if you're doing microservices, you'll probably want to leverage Docker as you did in this tutorial. When your apps are containerized, they can be orchestrated with Kubernetes.
 
-JHipster has a https://www.jhipster.tech/kubernetes/[Kubernetes] sub-generator that you can use to deploy it to the cloud. I'll cover this in a future tutorial.
+JHipster has a https://www.jhipster.tech/kubernetes/[Kubernetes] sub-generator that you can use to deploy it to the cloud. I'll cover this in a link:/blog/2021/06/01/kubernetes-spring-boot-jhipster[future tutorial].
 
 In the meantime, you can watch a presentation that https://twitter.com/saturnism[Ray Tsang] and I did recently that shows how to deploy JHipster microservices with Kubernetes. If you start watching from https://youtu.be/AG4z18qePEw?t=2778[46:18], you'll see Ray show how to deploy to Google Cloud using Kubernetes.
 
@@ -508,11 +525,11 @@ spring:
         - TokenRelay
 ----
 
-You can find the completed source code for this example on GitHub, in the https://github.com/oktadeveloper/java-microservices-examples/tree/main/reactive-jhipster[oktadeveloper/java-microservices-examples repository].
+You can find the completed source code for this example on GitHub, in the https://github.com/oktadev/java-microservices-examples/tree/main/reactive-jhipster[oktadev/java-microservices-examples repository].
 
 [source,shell]
 ----
-git clone https://github.com/oktadeveloper/java-microservices-examples.git
+git clone https://github.com/oktadev/java-microservices-examples.git
 cd java-microservices-examples/reactive-jhipster
 ----
 
@@ -526,6 +543,7 @@ I'm proud to say that parts of this series were Josh Long's initial drafts for h
 
 If you liked this post, you might like some of our other Java microservices posts:
 
+* link:/blog/2021/06/01/kubernetes-spring-boot-jhipster[Kubernetes to the Cloud with Spring Boot and JHipster]
 * link:/blog/2019/05/22/java-microservices-spring-boot-spring-cloud[Java Microservices with Spring Boot and Spring Cloud].
 * link:/blog/2019/05/23/java-microservices-spring-cloud-config[Java Microservices with Spring Cloud Config and JHipster]
 * link:/blog/2019/08/28/reactive-microservices-spring-cloud-gateway[Secure Reactive Microservices with Spring Cloud Gateway]

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7457086253
+discourse_topic_id: 17066
+discourse_comment_url: https://devforum.okta.com/t/17066
 layout: blog_post
 title: "Store ASP.NET Secrets Securely with Azure KeyVault"
 author: charlie-holland

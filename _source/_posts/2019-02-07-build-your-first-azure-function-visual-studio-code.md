@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7216348140
+discourse_topic_id: 16994
+discourse_comment_url: https://devforum.okta.com/t/16994
 layout: blog_post
 title: "Build Your First Azure Function in Visual Studio Code"
 author: lee-brandt

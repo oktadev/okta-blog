@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6897685051
+discourse_topic_id: 16926
+discourse_comment_url: https://devforum.okta.com/t/16926
 layout: blog_post
 title: "Hey, Okta! Where's the Bacon?"
 author: david-neal

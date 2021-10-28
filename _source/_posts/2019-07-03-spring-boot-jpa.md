@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7512571735
+discourse_topic_id: 17082
+discourse_comment_url: https://devforum.okta.com/t/17082
 layout: blog_post
 title: "Use Spring Boot and MySQL to go Beyond Authentication"
 author: joy-foster

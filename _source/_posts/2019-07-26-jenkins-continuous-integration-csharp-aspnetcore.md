@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7554606327
+discourse_topic_id: 17102
+discourse_comment_url: https://devforum.okta.com/t/17102
 layout: blog_post
 title: "Build Continuous Integration with Jenkins in C#"
 author: charlie-holland

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8382902124
+discourse_topic_id: 17352
+discourse_comment_url: https://devforum.okta.com/t/17352
 layout: blog_post
 title: API Key Best Practices and Examples
 author: phill-edwards

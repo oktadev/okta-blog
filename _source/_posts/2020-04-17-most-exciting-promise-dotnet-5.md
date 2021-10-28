@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7975768586
+discourse_topic_id: 17236
+discourse_comment_url: https://devforum.okta.com/t/17236
 layout: blog_post
 title: "The Most Exciting Promise of .NET 5"
 author: heather-downing

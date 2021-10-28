@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7376339876
+discourse_topic_id: 17038
+discourse_comment_url: https://devforum.okta.com/t/17038
 layout: blog_post
 title: "User Account Linking in Alexa with ASP.NET Web API"
 author: heather-downing

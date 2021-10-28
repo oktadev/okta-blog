@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8423992521
+discourse_topic_id: 17340
+discourse_comment_url: https://devforum.okta.com/t/17340
 layout: blog_post
 title: "Fast Java Made Easy with Quarkus and JHipster"
 author: daniel-petisme
@@ -327,11 +330,11 @@ Once logged in, you arrive in your developer console:
 
 {% img blog/jhipster-quarkus-oidc/dev-console.png alt:"Okta developer console homepage" width:"800" %}{: .center-image }
 
-Expand **Applications** on the left nav, then go to **Applications** > **Add Application** > **Create New App** to start the app creation wizard.
+Expand **Applications** on the left nav, then go to **Applications** > **Create App Integration** to start the app creation wizard.
 
-{% img blog/jhipster-quarkus-oidc/create-new-app.png alt:"Create New App" width:"600" %}{: .center-image }
+{% img blog/jhipster-quarkus-oidc/create-new-app.png alt:"Create New App" width:"800" %}{: .center-image }
 
-Select **Web** and **OpenID Connect**. Then click **Create**.
+Select **OIDC** and **Web Application**. Then click **Next**.
 
 You now need to provide some application settings.
 
@@ -343,7 +346,7 @@ Set it to `http://localhost:8080/login/oauth2/code/oidc`, as this is what's conf
 
 Use the default values for the rest of the settings.
 
-When you're happy with your application, click **Done**. The next screen will show your application details.
+When you're happy with your application, click **Save**. The next screen will show your application details.
 
 {% img blog/jhipster-quarkus-oidc/create-application-settings.png alt:"Configure Okta application settings" width:"800" %}{: .center-image }
 

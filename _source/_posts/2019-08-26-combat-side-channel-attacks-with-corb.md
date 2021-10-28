@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7602210518
+discourse_topic_id: 17125
+discourse_comment_url: https://devforum.okta.com/t/17125
 layout: blog_post
 title: "Combat Side-Channel Attacks with Cross-Origin Read Blocking"
 author: tom-abbott

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8146012782
+discourse_topic_id: 17272
+discourse_comment_url: https://devforum.okta.com/t/17272
 layout: blog_post
 title: Easy Xamarin Essentials with Web Authenticator
 author: giorgi-dalakishvili

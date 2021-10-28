@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6483904191
+discourse_topic_id: 16829
+discourse_comment_url: https://devforum.okta.com/t/16829
 layout: blog_post
 title: "Develop a Microservices Architecture with OAuth 2.0 and JHipster"
 author: matt-raible

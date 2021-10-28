@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6711373857
+discourse_topic_id: 16876
+discourse_comment_url: https://devforum.okta.com/t/16876
 layout: blog_post
 title: "Build a Basic CRUD Application with Grails and Okta"
 author: andrew-hughes

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8290855941
+discourse_topic_id: 17324
+discourse_comment_url: https://devforum.okta.com/t/17324
 layout: blog_post
 title: Install .NET Core Apps on Linux in 5 Minutes
 author: greg-sinka

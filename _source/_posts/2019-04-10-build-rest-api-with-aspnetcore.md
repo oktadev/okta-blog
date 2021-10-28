@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7349073333
+discourse_topic_id: 17032
+discourse_comment_url: https://devforum.okta.com/t/17032
 layout: blog_post
 title: "Build a REST API with ASP.NET Core 2.2"
 author: ibrahim-suta

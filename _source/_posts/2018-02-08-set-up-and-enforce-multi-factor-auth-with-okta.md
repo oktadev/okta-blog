@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6467097522
+discourse_topic_id: 16826
+discourse_comment_url: https://devforum.okta.com/t/16826
 layout: blog_post
 title: 'Set Up and Enforce Multi-Factor Authentication with the Okta API'
 author: micah-silverman

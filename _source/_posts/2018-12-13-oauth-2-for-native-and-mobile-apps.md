@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7103506331
+discourse_topic_id: 16970
+discourse_comment_url: https://devforum.okta.com/t/16970
 layout: blog_post
 title: "OAuth 2.0 for Native and Mobile Apps"
 author: micah-silverman

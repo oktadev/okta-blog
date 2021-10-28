@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6878273186
+discourse_topic_id: 16921
+discourse_comment_url: https://devforum.okta.com/t/16921
 layout: blog_post
 title: "Use nginx to Add Authentication to Any Application"
 author: aaron-parecki

@@ -1,0 +1,785 @@
+---
+disqus_thread_id: 8599762812
+discourse_topic_id: 17383
+discourse_comment_url: https://devforum.okta.com/t/17383
+layout: blog_post
+title: "Build Native Java Apps with Micronaut, Quarkus, and Spring Boot"
+author: matt-raible
+by: advocate
+communities: [java]
+description: "Learn how to create native images with Java frameworks like Micronaut, Quarkus, and Spring Boot."
+tags: [native, java, graalvm, micronaut, quarkus, spring-boot]
+tweets:
+- "Did you know you can get supersonic startup times with @Java? That's right! Start an app in 10ms. 🔥 #serverless"
+- "Yo! We're (@java) back again. Remember the language you hate? We're wicked fast now! 🚀"
+- "Thanks to @micronautfw, @quarkusio, and @springboot, Java is legit again! 👏👏👏"
+image: blog/native-java-comparison/native-java.png
+type: conversion
+github: https://github.com/oktadev/native-java-examples
+changelog:
+- 2021-10-07: Updated to use Micronaut 3.0.3, Quarkus 2.3.0.Final, and Spring Boot 2.5.5. Changed Spring Boot to create binary instead of Docker image and updated startup performance stats. See this post's changes in [okta-blog#913](https://github.com/oktadev/okta-blog/pull/913) and the example app changes in [native-java-examples#7](https://github.com/oktadev/native-java-examples/pull/7).
+- 2021-09-16: Updated to use macOS binary (`./mvnw package -Pnative`) when calculating memory usage for Spring Boot. See the updates in [okta-blog#887](https://github.com/oktadev/okta-blog/pull/887).
+- 2021-09-16: Updated to use Micronaut 3.0.1, Quarkus 2.2.2.Final, and Spring Boot 2.5.4. Also added memory usage comparison. See this post's changes in [okta-blog#885](https://github.com/oktadev/okta-blog/pull/885) and the example app changes in [native-java-examples#6](https://github.com/oktadev/native-java-examples/pull/6).
+---
+:page-liquid:
+:toc: macro
+:experimental:
+
+Java has been able to invoke native programs on an operating system for decades. Invoking native programs is often done using JNI (Java Native Interface) and JNA (Java Native Access). In the last few years, Java has also gained the ability to run JVM apps as native apps. That is, they're binary executables that have no dependency on the Java runtime.
+
+This is _huge!_ Mostly because it gives Java apps the ability to start up in milliseconds (as opposed to seconds). If you're scaling up to handle millions of requests and using a serverless environment to save costs, this is a game-changer. Developers have enjoyed using Node.js, Python, and Go on serverless environments for years. The ability to use Java (or Kotlin) opens this world up to a massive swath of the developer community.
+
+This post will show you how to run a secure, OAuth 2.0-protected, Java REST API that allows JWT authentication. I'll showcase the three leading Java frameworks: Micronaut, Quarkus, and Spring Boot. First, I'll show you how to run them with Java and access their data. Then, I'll show you how to build and test native images with each framework. I'll mention a few gotchas I ran into along the way.
+
+// The order of frameworks is intentional as I found Micronaut the easiest to make work and Spring Boot the most difficult.
+
+**Prerequisites**
+
+- https://sdkman.io/[Java 11 with GraalVM]+
+- https://httpie.io/[HTTPie] (a better version of cURL)
+- An https://developer.okta.com[Okta Developer] Account
+
+toc::[]
+
+== Get Started with Native Java Frameworks
+
+I created a GitHub repository you can clone and run to get started with all three frameworks quickly.
+
+[source,shell]
+----
+git clone https://github.com/oktadev/native-java-examples.git
+----
+
+This project has directories with the latest versions of Micronaut, Quarkus, and Spring Boot (at the time of this writing). I'll show you how I created them in individual sections below.
+
+Open the `native-java-examples` directory in your favorite IDE, so you have easy access to each framework's project files.
+
+TIP: If you want to see how to build native images in each framework, skip to the link:#build-native-images-for-micronaut-quarkus-and-spring-boot[build native images for Micronaut, Quarkus, and Spring Boot] section.
+
+== Install a JDK with GraalVM
+
+You will need a JDK with GraalVM and its `native-image` compiler. Using SDKMAN, run the following command and set it as the default:
+
+[source,shell]
+----
+sdk install java 21.2.0.r11-grl
+----
+
+Add the native extension to the JDK:
+
+[source,shell]
+----
+gu install native-image
+----
+
+== Launch a Micronaut Java API
+
+In a terminal window, cd into the `micronaut` directory and run `mn:run` to start it.
+
+[source,shell]
+----
+cd micronaut
+./mvnw mn:run
+----
+
+If you open another terminal window and try to access it with HTTPie, you'll get a 401 Unauthorized error.
+
+[source,shell]
+----
+$ http :8080/hello
+
+HTTP/1.1 401 Unauthorized
+connection: keep-alive
+date: Thu, 7 Oct 2021 05:03:33 GMT
+transfer-encoding: chunked
+----
+
+To make it so you can access this endpoint, you'll need to generate an OAuth 2.0 access token and update the JWKS (JSON Web Key Sets) URL to yours (in this project's `application.yml`).
+
+NOTE: If you're unsure what OIDC and OAuth 2.0 are, see our link:/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc[Illustrated Guide to OAuth and OpenID Connect].
+
+{% include setup/cli.md type="spa" loginRedirectUri="https://oidcdebugger.com/debug" logoutRedirectUri="https://oidcdebugger.com" %}
+
+Take note of the `clientId` and `issuer` values. You'll need those to get an access token and to configure each framework for JWT authentication.
+
+Open `micronaut/src/main/resources/application.yml` and change the Okta URL to match yours.
+
+[source,yaml]
+----
+micronaut:
+  application:
+    name: app
+  security:
+    enabled: true
+    token:
+      jwt:
+        enabled: true
+        claims-validators:
+          issuer: https://{yourOktaDomain}/oauth2/default
+        signatures:
+          jwks:
+            okta:
+              url: https://{yourOktaDomain}/oauth2/default/v1/keys
+----
+
+Stop your Micronaut app with kbd:[Ctrl + C] and restart it with kbd:[⬆️ + Return].
+
+[source,shell]
+----
+./mvnw mn:run
+----
+
+=== Generate an OAuth 2.0 Access Token
+
+{% include setup/oidcdebugger.md %}
+
+image::{% asset_path 'blog/native-java-comparison/oidc-debugger.png' %}[alt=OIDC Debugger,width=600,align=center]
+
+Click **Send Request** to continue.
+
+Once you have an access token, set it as a `TOKEN` environment variable in a terminal window.
+
+[source,shell]
+----
+TOKEN=eyJraWQiOiJYa2pXdjMzTDRBYU1ZSzNGM...
+----
+
+TIP: You might want to keep OpenID Connect <debugger/> open to copy your access tokens. It allows you to quickly start over and regenerate a new access token if it expires.
+
+=== Test Your Micronaut API with HTTPie
+
+Use HTTPie to pass the JWT in as a bearer token in the `Authorization` header.
+
+[source,shell]
+----
+http :8080/hello Authorization:"Bearer $TOKEN"
+----
+
+You should get a 200 response with your email in it.
+
+image::{% asset_path 'blog/native-java-comparison/httpie-micronaut-bearer-token.png' %}[alt=HTTPie call to Micronaut's /hello with bearer token,width=800,align=center]
+
+=== Build a Native Micronaut App
+
+To compile this Micronaut app into a native binary, run:
+
+[source,shell]
+----
+./mvnw package -Dpackaging=native-image
+----
+
+This command will take a few minutes to complete. My 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM took 1 min. 8 s. to finish.
+
+Start it with `./target/app`:
+
+----
+$ ./target/app
+ __  __ _                                  _
+|  \/  (_) ___ _ __ ___  _ __   __ _ _   _| |_
+| |\/| | |/ __| '__/ _ \| '_ \ / _` | | | | __|
+| |  | | | (__| | | (_) | | | | (_| | |_| | |_
+|_|  |_|_|\___|_|  \___/|_| |_|\__,_|\__,_|\__|
+  Micronaut (v3.0.3)
+
+15:22:39.213 [main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 22ms. Server Running: http://localhost:8080
+----
+
+You can see it starts pretty darn quick (22ms)! Test it with HTTPie and an access token. You may have to generate a new JWT with https://oidcdebugger.com[oidcdebugger.com] if yours has expired.
+
+[source,shell]
+----
+http :8080/hello Authorization:"Bearer $TOKEN"
+----
+
+=== Make a Micronaut App from Scratch
+
+You might be wondering, "how did you build a secure Micronaut app"? Did I just hide the complexity? No, it only takes five steps to create the same app.
+
+1. Use https://sdkman.io[SDKMAN!] to install Micronaut's CLI:
+
+   sdk install micronaut
+
+2. Create an app using the `mn create-app` command and rename the project's directory:
+
+   mn create-app com.okta.rest.app --build maven -f security-jwt
+   mv app micronaut
+
+3. Add a `HelloController` in `src/main/java/com/okta/rest/controller`:
++
+[source,java]
+----
+package com.okta.rest.controller;
+
+import io.micronaut.http.MediaType;
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Get;
+import io.micronaut.http.annotation.Produces;
+import io.micronaut.security.annotation.Secured;
+import io.micronaut.security.rules.SecurityRule;
+
+import java.security.Principal;
+
+@Controller("/hello")
+public class HelloController {
+
+    @Get
+    @Secured(SecurityRule.IS_AUTHENTICATED)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String hello(Principal principal) {
+        return "Hello, " + principal.getName() + "!";
+    }
+
+}
+----
+
+4. Enable and configure JWT security in `src/main/resources/application.yml`:
++
+[source,yaml]
+----
+micronaut:
+  ...
+  security:
+    enabled: true
+    token:
+      jwt:
+        enabled: true
+        claims-validators:
+          issuer: https://{yourOktaDomain}/oauth2/default
+        signatures:
+          jwks:
+            okta:
+              url: https://{yourOktaDomain}/oauth2/default/v1/keys
+----
+
+That's it! Now you can start the app or build the native image as shown above.
+
+Now let's take a look at Quarkus.
+
+== Run a Quarkus Java API
+
+Open a terminal, cd into the `quarkus` directory, and run `quarkus:dev` to start the app.
+
+[source,shell]
+----
+cd quarkus
+./mvnw quarkus:dev
+----
+
+Update the URLs in `quarkus/src/main/resources/application.properties` to use your Okta domain.
+
+[source,properties]
+----
+mp.jwt.verify.publickey.location=https://{yourOktaDomain}/oauth2/default/v1/keys
+mp.jwt.verify.issuer=https://{yourOktaDomain}/oauth2/default
+----
+
+=== Test Your Quarkus API with HTTPie
+
+Generate or copy an access token from OpenID Connect <debugger/> and use it to test your Quarkus API.
+
+[source,shell]
+----
+http :8080/hello Authorization:"Bearer $TOKEN"
+----
+
+You should see your email in the response.
+
+image::{% asset_path 'blog/native-java-comparison/httpie-quarkus-bearer-token.png' %}[alt=HTTPie call to Quarkus's /hello with bearer token,width=800,align=center]
+
+Did you notice that Quarkus hot-reloaded your `application.properties` file updates? Pretty slick, eh?!
+
+=== Build a Native Quarkus App
+
+To compile this Quarkus app into a native binary, run:
+
+[source,shell]
+----
+./mvnw package -Pnative
+----
+
+The native compilation step will take a bit to complete. On my 2019 MacBook Pro, it took 1 minute.
+
+Start it with `./target/quarkus-1.0.0-SNAPSHOT-runner`:
+
+----
+$ ./target/quarkus-1.0.0-SNAPSHOT-runner
+__  ____  __  _____   ___  __ ____  ______
+ --/ __ \/ / / / _ | / _ \/ //_/ / / / __/
+ -/ /_/ / /_/ / __ |/ , _/ ,< / /_/ /\ \
+--\___\_\____/_/ |_/_/|_/_/|_|\____/___/
+2021-10-07 15:26:06,453 INFO  [io.quarkus] (main) quarkus 1.0.0-SNAPSHOT native (powered by Quarkus 2.3.0.Final) started in 0.019s. Listening on: http://0.0.0.0:8080
+2021-10-07 15:26:06,453 INFO  [io.quarkus] (main) Profile prod activated.
+2021-10-07 15:26:06,453 INFO  [io.quarkus] (main) Installed features: [cdi, reactive-routes, resteasy-reactive, security, smallrye-context-propagation, smallrye-jwt, vertx]
+----
+
+Supersonic Subatomic Java (in 19ms)! Test it with HTTPie and an access token.
+
+[source,shell]
+----
+http :8080/hello Authorization:"Bearer $TOKEN"
+----
+
+=== Create a Quarkus App from Scratch
+
+You can create the same Quarkus app used in this example in five steps.
+
+1. Use Maven to generate a new Quarkus app with JWT support:
++
+[source,shell]
+----
+mvn io.quarkus:quarkus-maven-plugin:2.3.0.Final:create \
+    -DprojectGroupId=com.okta.rest \
+    -DprojectArtifactId=quarkus \
+    -DclassName="com.okta.rest.quarkus.HelloResource" \
+    -Dpath="/hello" \
+    -Dextensions="smallrye-jwt,resteasy-reactive"
+----
++
+You might wonder why `resteasy-reactive` is used here. I added it because Quarkus team member,
+Georgios Andrianakis, https://github.com/oktadev/okta-blog/pull/913#discussion_r724287749[recommended it] and it will eventually be the default.
+
+2. Edit `src/java/com/okta/rest/quarkus/HelloResource.java` and add user information to the `hello()` method:
++
+[source,java]
+----
+package com.okta.rest.quarkus;
+
+import io.quarkus.security.Authenticated;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.SecurityContext;
+import java.security.Principal;
+
+@Path("/hello")
+public class HelloResource {
+
+    @GET
+    @Path("/")
+    @Authenticated
+    @Produces(MediaType.TEXT_PLAIN)
+    public String hello(@Context SecurityContext context) {
+        Principal userPrincipal = context.getUserPrincipal();
+        return "Hello, " + userPrincipal.getName() + "!";
+    }
+}
+----
+
+3. Add your Okta endpoints to `src/main/resources/application.properties`:
++
+[source,properties]
+----
+mp.jwt.verify.publickey.location=https://{yourOktaDomain}/oauth2/default/v1/keys
+mp.jwt.verify.issuer=https://{yourOktaDomain}/oauth2/default
+----
+
+4. Modify the `HelloResourceTest` to expect a 401 instead of a 200:
++
+[source,java]
+----
+package com.okta.rest.quarkus;
+
+import io.quarkus.test.junit.QuarkusTest;
+import org.junit.jupiter.api.Test;
+
+import static io.restassured.RestAssured.given;
+
+@QuarkusTest
+public class HelloResourceTest {
+
+    @Test
+    public void testHelloEndpoint() {
+        given()
+            .when().get("/hello")
+            .then()
+            .statusCode(401);
+    }
+
+}
+----
+
+Last but certainly not least, let's look at Spring Boot.
+
+== Start a Spring Boot Java API
+
+In your IDE, update the issuer in `spring-boot/src/main/resources/application.properties` to use your Okta domain.
+
+[source,properties]
+----
+spring.security.oauth2.resourceserver.jwt.issuer-uri=https://{yourOktaDomain}/oauth2/default
+----
+
+Then, start your app from your IDE or using a terminal:
+
+[source,shell]
+----
+./mvnw spring-boot:run
+----
+
+=== Test Your Spring Boot API with HTTPie
+
+Generate an access token using https://oidcdebugger.com[oidcdebugger.com] and use it to test your Spring Boot API.
+
+[source,shell]
+----
+http :8080/hello Authorization:"Bearer $TOKEN"
+----
+
+You should see a response like the following.
+
+image::{% asset_path 'blog/native-java-comparison/httpie-spring-boot-bearer-token.png' %}[alt=HTTPie call to Spring Boot's /hello with bearer token,width=800,align=center]
+
+But wait, doesn't Okta link:/blog/2020/11/24/spring-boot-okta[have a Spring Boot starter]? Yes, we do! When this post was first written, it https://github.com/okta/okta-spring-boot/issues/192[didn't work with GraalVM]. This has been fixed in the v2.1.1 release. See https://github.com/oktadev/native-java-examples/pull/5[this pull request] for the required changes.
+
+We've also published a link:/blog/2021/09/16/spring-native-okta-starter[Spring Native in Action] blog post. It contains the video from our Twitch stream with https://twitter.com/starbuxman[Josh Long]. You can watch it to see what we discovered and how we fixed things. Since then, Spring Native has improved a lot. Now, you only need to enable HTTPS!
+
+=== Build a Native Spring Boot App
+
+To compile this Spring Boot app into a native executable, you can use the `native` profile:
+
+[source,shell]
+----
+./mvnw package -Pnative
+----
+
+TIP: To build a native app and a Docker container, use the Spring Boot Maven plugin and `./mvnw spring-boot:build-image`.
+
+The native compilation step will take a bit to complete. On my 2019 MacBook Pro, it took 3 min. 18 s.
+
+Start it with `./target/demo`:
+
+----
+$ ./target/demo
+2021-10-07 15:44:54.572  INFO 61884 --- [           main] o.s.nativex.NativeListener               : This application is bootstrapped with code generated with Spring AOT
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.5.5)
+...
+2021-10-07 15:44:55.174  INFO 61884 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2021-10-07 15:44:55.175  INFO 61884 --- [           main] com.okta.rest.Application                : Started Application in 0.62 seconds (JVM running for 0.622)
+----
+
+Bootiful! Test your API with HTTPie and an access token.
+
+[source,shell]
+----
+http :8080/hello Authorization:"Bearer $TOKEN"
+----
+
+=== Start a Spring Boot App from Scratch
+
+To create the Spring Boot app used in this example, it's just five steps.
+
+1. Use HTTPie to generate a new Spring Boot app with OAuth 2.0 support:
++
+[source,shell]
+----
+http https://start.spring.io/starter.zip \
+     bootVersion==2.5.5 \
+     dependencies==web,oauth2-resource-server,native \
+     packageName==com.okta.rest \
+     name==spring-boot \
+     type==maven-project \
+     baseDir==spring-boot | tar -xzvf -
+----
+
+2. Add a `HelloController` class that returns the user's information:
++
+[source,java]
+----
+package com.okta.rest.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.security.Principal;
+
+@RestController
+public class HelloController {
+
+    @GetMapping("/hello")
+    public String hello(Principal principal) {
+        return "Hello, " + principal.getName() + "!";
+    }
+}
+----
+
+3. Configure the app to be an OAuth 2.0 resource server by adding an issuer to `application.properties`:
++
+[source,properties]
+----
+spring.security.oauth2.resourceserver.jwt.issuer-uri=https://{yourOktaDomain}/oauth2/default
+----
+
+4. Add a `SecurityConfiguration` class to configure JWT authentication:
++
+[source,java]
+----
+package com.okta.rest;
+
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
+
+@EnableWebSecurity
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+            .authorizeRequests(request -> request.anyRequest().authenticated())
+            .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
+    }
+}
+----
+
+5. Enable HTTPS for native builds by adding a `@NativeHint` annotation to the `DemoApplication` class.
++
+[source,java]
+----
+import org.springframework.nativex.hint.NativeHint;
+
+@NativeHint(options = "--enable-https")
+@SpringBootApplication
+----
+
+You can build and test a Spring Boot native image using the steps I outlined above.
+
+== Build Native Images for Micronaut, Quarkus, and Spring Boot
+
+To recap, Micronaut, Quarkus, and Spring Boot all support building native executables with https://www.graalvm.org/[GraalVM]. Yes, there are other frameworks, but these three https://trends.google.com/trends/explore?q=micronaut,quarkus,spring%20boot[seem to be the most popular].
+
+The commands to build each app are similar but not quite the same.
+
+- **Micronaut**: `./mvnw package -Dpackaging=native-image`
+- **Quarkus**: `./mvnw package -Pnative`
+- **Spring Boot**: `./mvnw package -Pnative`
+
+Of course, they all support Gradle too.
+
+=== Startup Time Comparison
+
+Performance comparisons are complex, but I'm going to do one anyway. Since this post is all about native Java, below is the data I gathered that shows the average milliseconds to start each native executable. I ran each image three times before I started recording the numbers. I then ran each command five times.
+
+_These numbers are from a 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM. I think it's important to note that my WiFi connection was 88 Mbps down and 88 Mbps up (according to the Speedtest app)._
+
+////
+Micronaut: (21 + 22 + 21 + 31 + 25) / 5 = 24ms
+Quarkus: (18 + 19 + 19 + 21 + 20) / 5 = 19.4ms
+Spring Boot: (636 + 393 + 723 + 396 + 402) / 5 = 510ms
+////
+
+.Native Java Startup times in milliseconds
+|===
+|Framework | Command executed | Milliseconds to start
+
+|Micronaut | `./target/app` | 24
+|Quarkus | `./target/quarkus-1.0.0-SNAPSHOT-runner` | 19
+|Spring Boot | `./target/demo` | 510
+|===
+
+////
+The chart below should help you visualize this comparison.
+
+++++
+<script src="https://www.gstatic.com/charts/loader.js"></script>
+<div id="native-java-chart"></div>
+<script>
+google.charts.load('current', {packages: ['corechart', 'bar']});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+  var data = google.visualization.arrayToDataTable([
+    ['Framework', 'Milliseconds to start', { role: 'style' }],
+    ['Micronaut', 24, 'blue'],
+    ['Quarkus', 19, 'red'],
+    ['Spring Boot', 510, 'green']
+  ]);
+
+  var options = {
+    title: 'Startup times of Native Java frameworks',
+    chartArea: {width: '50%'},
+    hAxis: {
+      title: 'Milliseconds',
+      minValue: 0
+    },
+    vAxis: {
+      title: 'Java Framework'
+    }
+  };
+
+  var chart = new google.visualization.BarChart(document.getElementById('native-java-chart'));
+
+  chart.draw(data, options);
+}
+</script>
+++++
+////
+
+The Spring Boot startup times looked a little long, so I contacted my friend https://twitter.com/starbuxman[Josh Long]. We did a debugging session over Zoom and discovered the longer startup times are because Spring Security is doing OIDC discovery with the issuer.
+
+Spring Boot's "initialization completed" time seemed to be right around 50ms. The duration between that and the "Started in ..." time is the time it takes to make the call to Okta. We tried optimizing it by just using the JWKS URI. For example:
+
+[source,properties]
+----
+spring.security.oauth2.resourceserver.jwt.jwk-set-uri=https://dev-133337.okta.com/oauth2/default/v1/keys
+----
+
+// (89 + 101 + 96 + 99 + 94) / 5 = 95.8ms
+This improved the startup time by over 400ms (95.8ms on average).
+
+Our hypothesis is Micronaut and Quarkus do the JWKS lookup on the first request rather than at startup. That's how they achieve faster startup times.
+
+IMPORTANT: We later confirmed this hypothesis with https://github.com/JasonTypesCodes[Jason Schindler] (from Micronaut) and https://github.com/sberyozkin[Sergey Beryozkin] (from Quarkus). Follow https://github.com/spring-projects/spring-security/issues/9991[this Spring Security issue] to see when Spring Security adds lazy OIDC discovery support.
+
+If I just take the value of the "initialization completed" time from Spring Boot, the numbers look a little more even.
+
+// (44 + 49 + 46 + 47 + 48) / 5 = 46.8
+
+.Native Java Startup times in milliseconds
+|===
+|Framework | Command executed | Milliseconds to start
+
+|Micronaut | `./target/app` | 24
+|Quarkus | `./target/quarkus-1.0.0-SNAPSHOT-runner` | 19
+|Spring Boot | `./target/demo` | 46.8
+|===
+
+The chart below should help you visualize this comparison.
+
+++++
+<script src="https://www.gstatic.com/charts/loader.js"></script>
+<div id="spring-boot-init"></div>
+<script>
+google.charts.load('current', {packages: ['corechart', 'bar']});
+google.charts.setOnLoadCallback(drawChart);
+function drawChart() {
+  var data = google.visualization.arrayToDataTable([
+    ['Framework', 'Milliseconds to start', { role: 'style' }],
+    ['Micronaut', 24, 'blue'],
+    ['Quarkus', 19, 'red'],
+    ['Spring Boot', 46.8, 'green']
+  ]);
+  var options = {
+    title: 'Startup times of Native Java frameworks',
+    chartArea: {width: '50%'},
+    hAxis: {
+      title: 'Milliseconds',
+      minValue: 0
+    },
+    vAxis: {
+      title: 'Java Framework'
+    }
+  };
+  var chart = new google.visualization.BarChart(document.getElementById('spring-boot-init'));
+  chart.draw(data, options);
+}
+</script>
+++++
+
+I also tested the memory usage in MB of each app using the command below. I made sure to send an HTTP request to each one before measuring.
+
+[source,shell]
+----
+ps -o pid,rss,command | grep --color <executable> | awk '{$2=int($2/1024)"M";}{ print;}'
+----
+
+I substituted `<executable>` as follows:
+
+.Native Java memory used in megabytes
+|===
+|Framework | Executable | Megabytes before request | Megabytes after request
+
+|Micronaut | `app` | 29 | 62
+|Quarkus | `runner` | 20 | 34
+|Spring Boot | `demo` | 69 | 82
+|===
+
+++++
+<div id="memory-usage"></div>
+<script>
+google.charts.load('current', {packages: ['corechart', 'bar']});
+google.charts.setOnLoadCallback(drawChart);
+function drawChart() {
+  var data = google.visualization.arrayToDataTable([
+    ['Framework', 'Memory usage (MB)', { role: 'style' }],
+    ['Micronaut', 62, 'blue'],
+    ['Quarkus', 34, 'red'],
+    ['Spring Boot', 82, 'green']
+  ]);
+  var options = {
+    title: 'Memory usage of Native Java frameworks',
+    chartArea: {width: '50%'},
+    hAxis: {
+      title: 'Megabytes',
+      minValue: 0
+    },
+    vAxis: {
+      title: 'Java Framework'
+    }
+  };
+  var chart = new google.visualization.BarChart(document.getElementById('memory-usage'));
+  chart.draw(data, options);
+}
+</script>
+++++
+
+NOTE: If you disagree with these numbers and think X framework should be faster, I encourage you to clone https://github.com/oktadev/native-java-examples[the repo] and run these tests yourself. If you get faster startup times for Spring Boot, do you get faster startup times for Micronaut and Quarkus too?
+
+== Testing Native Images
+
+When building native images, it's essential to test them as part of an integration testing process. This post is already long enough, so I won't explain how to test native images in this post. We'll publish a post in the future that covers this topic.
+
+I do like how Quarkus generates a `NativeHelloResourceIT` that's designed specifically for this, though.
+
+[source,java]
+----
+package com.okta.rest.quarkus;
+
+import io.quarkus.test.junit.NativeImageTest;
+
+@NativeImageTest
+public class NativeHelloResourceIT extends HelloResourceTest {
+
+    // Execute the same tests but in native mode.
+}
+----
+
+However, this test did not help me https://stackoverflow.com/questions/67977862/quarkus-jwt-authentication-doesnt-work-as-a-native-app[detect an issue with my Quarkus native image] when writing this post. That's because I was lazy in writing my test and changed it to confirm a 401 instead of https://quarkus.io/guides/security-openid-connect#integration-testing[testing it with Quarkus' OIDC testing support].
+
+In the meantime, see https://medium.com/graalvm/gradle-and-maven-plugins-for-native-image-with-initial-junit-testing-support-dde00a8caf0b[Gradle and Maven Plugins for Native Image with Initial JUnit 5 Testing Support].
+
+== Learn More About Java and GraalVM
+
+In this post, you learned how to develop, build, and run native Java apps with Micronaut, Quarkus, and Spring Boot. You learned how to secure them with OpenID Connect and access them with a JWT access token.
+
+If you're a Spring Boot aficionado, I recommend you watch Josh Long's https://www.youtube.com/watch?v=JsUAGJqdvaA[Spring Tips: Spring Native 0.10.0] video.
+
+You can find the source code for all the examples used in this post on GitHub in the https://github.com/oktadev/native-java-examples[native-java-examples repository].
+
+Server-side apps that serve up REST APIs aren't the only thing that's gone native in Java. https://twitter.com/gluonhq[Gluon] has done a lot of work in recent years to make JavaFX apps work on iOS and Android using GraalVM. See https://twitter.com/gail_asgteach[Gail Anderson]'s https://foojay.io/today/creating-mobile-apps-with-javafx-part-1/[Creating Mobile Apps with JavaFX – Part 1] to learn more about this emerging technology.
+
+In the beginning, I mentioned JNI and JNA. Baeldung has some tutorials about both:
+
+- https://www.baeldung.com/jni[Guide to JNI (Java Native Interface)]
+- https://www.baeldung.com/java-jna-dynamic-libraries[Using JNA to Access Native Dynamic Libraries]
+
+If you liked this post, chances are you'll like others we've published:
+
+- link:/blog/2021/09/16/spring-native-okta-starter[Spring Native in Action with the Okta Spring Boot Starter]
+- link:/blog/2019/11/27/graalvm-java-binaries[Watch GraalVM Turn Your Java Into Binaries]
+- link:/blog/2020/01/09/java-rest-api-showdown[Java REST API Showdown: Which is the Best Framework on the Market?]
+- link:/blog/2020/12/28/spring-boot-docker[How to Docker with Spring Boot]
+- link:/blog/2020/08/17/micronaut-jhipster-heroku[Build a Secure Micronaut and Angular App with JHipster]
+- link:/blog/2021/03/08/jhipster-quarkus-oidc[Fast Java Made Easy with Quarkus and JHipster]
+
+Got questions? Leave them in the comments below! You can also hit us up on our social channels: https://twitter.com/oktadev[@oktadev on Twitter], https://www.linkedin.com/company/oktadev[Okta for Developers on LinkedIn], https://twitch.tv/oktadev[Twitch], and https://youtube.com/oktadev[YouTube].

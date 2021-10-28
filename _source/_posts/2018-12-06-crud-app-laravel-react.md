@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7089461792
+discourse_topic_id: 16967
+discourse_comment_url: https://devforum.okta.com/t/16967
 layout: blog_post
 title: 'Build a Basic CRUD App with Laravel and React'
 author: krasimir-hristozov
@@ -11,6 +14,8 @@ tweets:
   - "This tutorial shows you how to build an React app with a Laravel backend, complete with authentication!"
 image: blog/featured/okta-react-headphones.jpg
 type: conversion
+changelog:
+  - 2021-04-16: Updated to use Okta React v4.1.0 and streamline setup with the Okta CLI. Updated Laravel CORS library from barryvdh to fruitcake. See changes in [okta-blog#681](https://github.com/oktadeveloper/okta-blog/pull/681); example app changes are in [okta-php-trivia-react#1](https://github.com/oktadeveloper/okta-php-trivia-react/pull/1);
 ---
 
 Laravel is an amazing web application framework which regularly tops the lists of best PHP frameworks available today. This is partly because its based on PHP which runs 80% of the web today and the learning curve is relatively small (despite it being packed with advanced features, you can understand the basic concepts easily). However, the real reason for its popularity is its robust ecosystem and abundance of high-quality learning resources available for free (like this blog post!).
@@ -22,8 +27,6 @@ Before you start, you'll need to set up a development environment with PHP 7 and
 ## Add Okta for Authentication
 
 Well, we might be biased, but we think Okta makes [identity management](https://developer.okta.com/product/user-management/) easier, more secure, and more scalable than what you're used to. Okta is an API service that allows you to create, edit, and securely store user accounts and user account data, and connect them with one or more applications.
-
-To complete this tutorial, you'll need to [register for a forever-free developer account](https://developer.okta.com/signup/). When you're done, come back to learn more about building a secure CRUD app with Laravel and React.
 
 ## Start Your Laravel + React CRUD Application
 
@@ -43,29 +46,14 @@ Here's how to play:
 
 ## Set Up Your Okta Dev Account
 
-Let's set up your Okta account so it's ready when you need it. 
+{% include setup/cli.md type="spa" framework="React" loginRedirectUri="http://localhost:3000/callback" %}
 
-Before you proceed, you need to log into your Okta account (or [create a new one for free](https://developer.okta.com/signup/)) and set up a new OIDC app. You'll mostly use the default settings. Make sure to take note of your Okta domain and the Client ID generated for the app.
-
-Here are the step-by-step instructions:
-
-Go to the Applications menu item and click the 'Add Application' button:
-
-{% img blog/php-laravel-react-app/add-application.png alt:"Add an application" width:"200" %}{: .center-image }
-
-Select 'Single Page Application' and click 'Next'.
-
-{% img blog/php-laravel-react-app/select-app-type.png alt:"Select the application type" width:"800" %}{: .center-image }
-
-Set a descriptive application name, add `http://localhost:3000/` as the Base URI, and `http://localhost:3000/implicit/callback` as the Login redirect URI, and click Done. You can leave the rest of the settings as they are.
-
-## Set Up Laravel 
+## Set Up Laravel
 
 Install the `laravel` command globally on your system through composer. Then create a new Laravel project, navigate to it and start the development PHP server:
 
 ```bash
-composer global require laravel/installer
-laravel new trivia-web-service
+composer create-project laravel/laravel="5.6.*" trivia-web-service
 cd trivia-web-service
 php artisan serve
 ```
@@ -266,26 +254,35 @@ The API supports methods for retrieving all players or a specific player, adding
 We also need to enable CORS so we can access our API from the frontend application:
 
 ```bash
-composer require barryvdh/laravel-cors
+composer require fruitcake/laravel-cors
 ```
 
 `app/Http/Kernel.php`
 
 ```php
-protected $middlewareGroups = [
-    'web' => [
+protected $middleware = [
         ...
-        \Barryvdh\Cors\HandleCors::class,
-    ],
-
-    'api' => [
-        ...
-        \Barryvdh\Cors\HandleCors::class,
-    ],
+        \Fruitcake\Cors\HandleCors::class,
 ];
 ```
 
-You can add some dummy data to the database or use the Faker library to automate the process of generating test data. Once you have some data, you can access these URLs:
+Publish the CORS library config:
+
+```bash
+php artisan vendor:publish --tag="cors"
+```
+
+Then edit the config file created:
+
+`config/cors.php`
+
+```php
+  ...
+  'paths' => ['api/*'],
+  ...
+```
+
+You can add some placeholder data to the database or use the Faker library to automate the process of generating test data. Once you have some data, you can access these URLs:
 
 * http://127.0.0.1:8000/api/players
 * http://127.0.0.1:8000/api/players/1
@@ -303,14 +300,14 @@ We'll use `react-create-app` (installed globally) to create our application. We 
 npm install --global create-react-app
 npx create-react-app trivia-web-client-react
 cd trivia-web-client-react
-yarn add react-router-dom@4.3.1 semantic-ui-react@0.83.0
-yarn add @okta/okta-react@1.1.4 --save
+yarn add react-router-dom@5.2.0 semantic-ui-react@2.0.3
+yarn add @okta/okta-react@4.1.0 @okta/okta-auth-js@4.8.0
 yarn start
 ```
 
 The default React application should now load on `http://localhost:3000`.
 
-## Add Authentication and Basic Routing to React 
+## Add Authentication and Basic Routing to React
 
 We will start with the most basic React application possible. Let's delete everything except the `index.js` and `App.js` files from the `/src` folder, and change their contents like this:
 
@@ -385,11 +382,11 @@ export default Trivia
 {% raw %}
 ```js
 import React, { Component } from 'react';
-import { withAuth } from '@okta/okta-react';
+import { withOktaAuth } from '@okta/okta-react';
 
 import { Container, Menu } from 'semantic-ui-react';
 
-export default withAuth(class Navbar extends Component {
+export default withOktaAuth(class Navbar extends Component {
   constructor(props) {
     super(props);
     this.state = { authenticated: null };
@@ -407,15 +404,15 @@ export default withAuth(class Navbar extends Component {
   }
 
   async login() {
-    this.props.auth.login('/');
+    this.props.oktaAuth.signInWithRedirect();
   }
 
   async logout() {
-    this.props.auth.logout('/');
+    this.props.oktaAuth.signOut('/');
   }
 
   async checkAuthentication() {
-    const authenticated = await this.props.auth.isAuthenticated();
+    const authenticated = this.props.authState.isAuthenticated;
     if (authenticated !== this.state.authenticated) {
       this.setState({ authenticated });
     }
@@ -449,30 +446,31 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
 
-import { Security, SecureRoute, ImplicitCallback } from '@okta/okta-react';
+import { Security, SecureRoute, LoginCallback } from '@okta/okta-react';
+import { OktaAuth } from '@okta/okta-auth-js';
 
 import Navbar from './Navbar';
 import Home from './Home'
 import Trivia from './Trivia'
 
-const config = {
-  issuer: 'https://{yourOktaDomain}/oauth2/default',
-  redirect_uri: window.location.origin + '/implicit/callback',
-  client_id: '{yourClientId}'
-}
-
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.oktaAuth = new OktaAuth({
+      issuer: 'https://{yourOktaDomain}/oauth2/default',
+      clientId: '{yourClientId}',
+      redirectUri: window.location.origin + '/callback'
+    });
+  }
+
   render() {
     return (
         <Router>
-            <Security issuer={config.issuer}
-                   client_id={config.client_id}
-                redirect_uri={config.redirect_uri}
-            >
+            <Security oktaAuth={this.oktaAuth}>
             <Navbar />
             <Container text style={{ marginTop: '7em' }}>
                 <Route path="/" exact component={Home} />
-                <Route path="/implicit/callback" component={ImplicitCallback} />
+                <Route path="/callback" component={LoginCallback} />
                 <SecureRoute path="/trivia" component={Trivia} />
             </Container>
         </Security>
@@ -507,11 +505,11 @@ We can now modify our `Trivia.js` component so that it looks like the below:
 ```js
 import React, { Component } from 'react';
 import { Header, Message, Table } from 'semantic-ui-react';
-import { withAuth } from '@okta/okta-react';
+import { withOktaAuth } from '@okta/okta-react';
 
 import { API_BASE_URL } from './config'
 
-export default withAuth(class Trivia extends Component {
+export default withOktaAuth(class Trivia extends Component {
 
     constructor(props) {
         super(props);
@@ -529,7 +527,7 @@ export default withAuth(class Trivia extends Component {
         if (! this.state.players) {
             try {
                 this.setState({ isLoading: true });
-                const accessToken = await this.props.auth.getAccessToken();
+                const accessToken = this.props.authState.accessToken;
                 const response = await fetch(API_BASE_URL + '/players', {
                     headers: {
                         Authorization: `Bearer ${accessToken}`,
@@ -591,7 +589,7 @@ export default withAuth(class Trivia extends Component {
 We need to secure our backend API so it uses the Okta token to allow only authorized requests. We need to install the JWT Verifier package and add a custom middleware for API authentication:
 
 ```bash
-composer require okta/jwt-verifier spomky-labs/jose guzzlehttp/psr7
+composer require okta/jwt-verifier:"^0.2" spomky-labs/jose:"^7.1" guzzlehttp/psr7:"^1.4"
 php artisan make:middleware AuthenticateWithOkta
 ```
 
@@ -707,9 +705,12 @@ import PlayerForm from './PlayerForm';
             players: [...this.state.players, player]
         })
     }
+```
 
-(below the closing </Table> tag in the render() method):
-                        <PlayerForm onAddition={this.onAddition} />
+(below the closing </Table> tag in the `render()` method):
+
+```html
+<PlayerForm onAddition={this.onAddition} />
 ```
 
 We also need to create a new `PlayerForm` component:
@@ -720,11 +721,11 @@ We also need to create a new `PlayerForm` component:
 ```js
 import React, { Component } from 'react';
 import { Button, Form, Message } from 'semantic-ui-react'
-import { withAuth } from '@okta/okta-react';
+import { withOktaAuth } from '@okta/okta-react';
 
 import { API_BASE_URL } from './config'
 
-export default withAuth(class PlayerForm extends Component {
+export default withOktaAuth(class PlayerForm extends Component {
 
     constructor (props) {
         super(props);
@@ -752,7 +753,7 @@ export default withAuth(class PlayerForm extends Component {
             errorMessage: ''
         });
 
-        const accessToken = await this.props.auth.getAccessToken();
+        const accessToken = this.props.authState.accessToken;
         const response = await fetch(API_BASE_URL + '/players', {
             method: 'POST',
             headers: {
@@ -829,7 +830,7 @@ import DeletePlayerButton from './DeletePlayerButton';
    onDelete(id) {
         let players = this.state.players;
         let index = players.findIndex(player => player.id === id)
-        players.splice(index, 1)       
+        players.splice(index, 1)
         this.setState({
             players: players
         })
@@ -847,11 +848,11 @@ Replacing the action buttons placeholder text in the table inside the `render()`
 ```js
 import React, { Component } from 'react';
 import { Form, Button } from 'semantic-ui-react'
-import { withAuth } from '@okta/okta-react';
+import { withOktaAuth } from '@okta/okta-react';
 
 import { API_BASE_URL } from './config'
 
-export default withAuth(class DeletePlayerButton extends Component {
+export default withOktaAuth(class DeletePlayerButton extends Component {
 
     constructor (props) {
         super(props);
@@ -868,7 +869,7 @@ export default withAuth(class DeletePlayerButton extends Component {
             isUpdating: true
         });
 
-        const accessToken = await this.props.auth.getAccessToken();
+        const accessToken = this.props.authState.accessToken;
         const response = await fetch(API_BASE_URL + '/players/' + this.state.id, {
             method: 'DELETE',
             headers: {
@@ -1050,11 +1051,11 @@ import WrongAnswerButton from './WrongAnswerButton';
 ```js
 import React, { Component } from 'react';
 import { Form, Button } from 'semantic-ui-react'
-import { withAuth } from '@okta/okta-react';
+import { withOktaAuth } from '@okta/okta-react';
 
 import { API_BASE_URL } from './config'
 
-export default withAuth(class RightAnswerButton extends Component {
+export default withOktaAuth(class RightAnswerButton extends Component {
 
     constructor (props) {
         super(props);
@@ -1071,7 +1072,7 @@ export default withAuth(class RightAnswerButton extends Component {
             isUpdating: true
         });
 
-        const accessToken = await this.props.auth.getAccessToken();
+        const accessToken = this.props.authState.accessToken;
         const response = await fetch(API_BASE_URL + '/players/' + this.state.id + '/answers', {
             method: 'POST',
             headers: {
@@ -1108,11 +1109,11 @@ export default withAuth(class RightAnswerButton extends Component {
 ```js
 import React, { Component } from 'react';
 import { Form, Button } from 'semantic-ui-react'
-import { withAuth } from '@okta/okta-react';
+import { withOktaAuth } from '@okta/okta-react';
 
 import { API_BASE_URL } from './config'
 
-export default withAuth(class WrongAnswerButton extends Component {
+export default withOktaAuth(class WrongAnswerButton extends Component {
 
     constructor (props) {
         super(props);
@@ -1129,7 +1130,7 @@ export default withAuth(class WrongAnswerButton extends Component {
             isUpdating: true
         });
 
-        const accessToken = await this.props.auth.getAccessToken();
+        const accessToken = this.props.authState.accessToken;
         const response = await fetch(API_BASE_URL + '/players/' + this.state.id + '/answers', {
             method: 'POST',
             headers: {
@@ -1164,10 +1165,10 @@ You can refactor `RightAnswerButton` and `WrongAnswerButton` to remove the code 
 
 ## Learn More About Laravel, React and Okta
 
-You can improve the code further by extracting the API boilerplate code (retrieving the auth token, sending the Authorization header, sending a request and receiving a response) into a service class. React does not provide dependency injection out of the box (like Angular, for example) but you can use higher-order component functions to wrap your components and decorate them with the API-related functionality (the approach would be similar to the `withAuth()` decoration applied to `Trivia.js`, `PlayerForm.js` and `DeletePlayerButton.js` for example).
+You can improve the code further by extracting the API boilerplate code (retrieving the auth token, sending the Authorization header, sending a request and receiving a response) into a service class. React does not provide dependency injection out of the box (like Angular, for example) but you can use higher-order component functions to wrap your components and decorate them with the API-related functionality (the approach would be similar to the `withOktaAuth()` decoration applied to `Trivia.js`, `PlayerForm.js` and `DeletePlayerButton.js` for example).
 
 You can find the full code here:
-<https://github.com/oktadeveloper/okta-php-trivia-react/>
+<https://github.com/oktadeveloper/okta-php-trivia-react/>.
 
 If you would like to dig deeper into the topics covered in this article, the following resources are a great starting point:
 * [Our React/PHP Quickstart Guide](https://developer.okta.com/quickstart/#/react/php/generic)

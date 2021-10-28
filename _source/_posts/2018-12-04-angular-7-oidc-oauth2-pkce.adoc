@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7076665275
+discourse_topic_id: 16962
+discourse_comment_url: https://devforum.okta.com/t/16962
 layout: blog_post
 title: "Angular 7: What's New and Noteworthy + OIDC Goodness"
 author: matt-raible

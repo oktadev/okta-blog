@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6715487429
+discourse_topic_id: 16878
+discourse_comment_url: https://devforum.okta.com/t/16878
 layout: blog_post
 title: "Secure a Node API with OAuth 2.0 Client Credentials"
 author: braden-kelley

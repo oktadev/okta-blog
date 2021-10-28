@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7552934031
+discourse_topic_id: 17101
+discourse_comment_url: https://devforum.okta.com/t/17101
 layout: blog_post
 title: "The Hardest Thing About Data Encryption"
 author: randall-degges

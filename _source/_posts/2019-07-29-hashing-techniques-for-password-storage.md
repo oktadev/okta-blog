@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7559876707
+discourse_topic_id: 17103
+discourse_comment_url: https://devforum.okta.com/t/17103
 layout: blog_post
 title: "Hashing Techniques for Password Storage"
 author: william-dawson

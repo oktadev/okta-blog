@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7273935444
+discourse_topic_id: 17013
+discourse_comment_url: https://devforum.okta.com/t/17013
 layout: blog_post
 title: "Migrate Your Spring Boot App to the Latest and Greatest Spring Security and OAuth 2.0"
 author: micah-silverman

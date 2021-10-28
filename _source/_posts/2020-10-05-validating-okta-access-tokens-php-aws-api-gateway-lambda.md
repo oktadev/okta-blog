@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8227867281
+discourse_topic_id: 17300
+discourse_comment_url: https://devforum.okta.com/t/17300
 layout: blog_post
 title: "Validating Okta Access Tokens in PHP using AWS API Gateway and Lambda Authorizers"
 author: david-marin

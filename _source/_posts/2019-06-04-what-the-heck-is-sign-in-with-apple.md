@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7457880902
+discourse_topic_id: 17067
+discourse_comment_url: https://devforum.okta.com/t/17067
 layout: blog_post
 title: "What the Heck is Sign In with Apple?"
 author: aaron-parecki

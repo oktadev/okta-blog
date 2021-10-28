@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6624935839
+discourse_topic_id: 16842
+discourse_comment_url: https://devforum.okta.com/t/16842
 layout: blog_post
 title: 'Build a React Native Application and Authenticate with OAuth 2.0'
 author: matt-raible

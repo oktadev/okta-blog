@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7867341049
+discourse_topic_id: 17213
+discourse_comment_url: https://devforum.okta.com/t/17213
 layout: blog_post
 title: "What Is Angular Ivy and Why Is It Awesome?"
 author: holger-schmitz
@@ -194,7 +197,7 @@ Build your app with AOT using the following command.
 ng build --prod
 ```
 
-If you look at the generated files in your `dist/dist/material-tic-tac-toe`, you'll see that they're **much** smaller!
+If you look at the generated files in your `dist/material-tic-tac-toe`, you'll see that they're **much** smaller!
 
 * ES5 size: 897 KB 
 * ES2015 size: 693 KB

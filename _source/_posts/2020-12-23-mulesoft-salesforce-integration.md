@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8321140518
+discourse_topic_id: 17338
+discourse_comment_url: https://devforum.okta.com/t/17338
 layout: blog_post
 title: "One Identity Across Salesforce.com and Mulesoft"
 author: jefferson-haw

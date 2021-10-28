@@ -14,7 +14,7 @@ book_section: "gateways-management-platform"
 
 Effective API management begins long before your first HTTP request. In fact, it likely begins in a document or at a whiteboard with a simple requirement and business needs. It quickly turns into a specification and then a workflow and then a data and interaction model. Eventually, it probably turns into an Open API specification, deployable code, and metrics that are carefully tracked by the team.
 
-The key technical aspect of this entire process is understanding what stage the API is in, how and where it's deployed, and how it's maintained. As a result, many of the gateways integrate with the cloud hosting services blend directly into your devops processes. Further, the process and these integrations are the same whether the APIs are destined for internal, partner, or even consumer use. In this area, that distinction is irrelevant.
+The key technical aspect of this entire process is understanding what stage the API is in, how and where it's deployed, and how it's maintained. As a result, many of the gateways integrate with the cloud hosting services blend directly into your DevOps processes. Further, the process and these integrations are the same whether the APIs are destined for internal, partner, or even consumer use. In this area, that distinction is irrelevant.
 
 ### Interface Management
 

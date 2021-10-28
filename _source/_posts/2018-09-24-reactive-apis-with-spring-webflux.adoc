@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6929772018
+discourse_topic_id: 16935
+discourse_comment_url: https://devforum.okta.com/t/16935
 layout: blog_post
 title: 'Build Reactive APIs with Spring WebFlux'
 author: matt-raible

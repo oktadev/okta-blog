@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7708563628
+discourse_topic_id: 17164
+discourse_comment_url: https://devforum.okta.com/t/17164
 layout: blog_post
 title: "Get Started with Jetty, Java, and OAuth"
 author: andrew-hughes

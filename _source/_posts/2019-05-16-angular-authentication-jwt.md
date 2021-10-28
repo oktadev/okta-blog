@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7421797065
+discourse_topic_id: 17053
+discourse_comment_url: https://devforum.okta.com/t/17053
 layout: blog_post
 title: "Angular Authentication with JWT"
 author: holger-schmitz

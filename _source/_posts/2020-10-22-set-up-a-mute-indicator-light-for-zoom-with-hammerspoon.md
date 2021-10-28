@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8246353391
+discourse_topic_id: 17309
+discourse_comment_url: https://devforum.okta.com/t/17309
 layout: blog_post
 title: "Setup a Mute Indicator Light for Zoom with Hammerspoon"
 author: joel-franusic

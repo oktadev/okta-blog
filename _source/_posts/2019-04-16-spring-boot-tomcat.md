@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7361526813
+discourse_topic_id: 17036
+discourse_comment_url: https://devforum.okta.com/t/17036
 layout: blog_post
 title: 'Deploy a Spring Boot Application into Tomcat'
 author: karl-penzhorn

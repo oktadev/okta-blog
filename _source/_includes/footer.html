@@ -1,26 +1,41 @@
 <footer class="footer">
-    <div class="row first-row">
-        <p><i>Need support?</i> Ask on the <a href="https://devforum.okta.com/" class="anchor-highlight">forum.</a></p>
-    </div>
-    <div class="row flex-justify">
+    <div class="columns row flex-justify">
+        <div class="column need-support">
+            <h4 class="column-header">Need Support?</h4> 
+            <p>
+              You can reach us directly at developers@okta.com or you can also ask us on the 
+              <a href="https://devforum.okta.com/">forum</a>.
+            </p>
+        </div>
+
         <div class="column social-links">
             <h4 class="column-header">Social</h4>
             <ul class="footer-links footer-links--social">
-                <li><a class="footer-link github" target="_blank" rel="noopener noreferrer" href="http://github.com/{{ site.github_username }}">GitHub</a></li>
-                <li><a class="footer-link twitter" target="_blank" rel="noopener noreferrer" href="http://twitter.com/{{ site.twitter_username }}">Twitter</a></li>
-                <li><a class="footer-link youtube" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/oktadev">YouTube</a></li>
-                <li><a class="footer-link forum" target="_blank" rel="noopener noreferrer" href="{{ site.dev_forum }}">Forum</a></li>
-                <li><a class="footer-link rss" target="_blank" rel="noopener noreferrer" href="https://developer.okta.com/feed.xml">Blog RSS</a></li>
-            </ul>
-        </div>
-
-        <div class="social-links-small-only">
-            <ul class="footer-links footer-links--social">
-                <li><a class="footer-link github" target="_blank" rel="noopener noreferrer" href="http://github.com/{{ site.github_username }}"></a></li>
-                <li><a class="footer-link twitter" target="_blank" rel="noopener noreferrer" href="http://twitter.com/{{ site.twitter_username }}"></a></li>
-                <li><a class="footer-link youtube" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/oktadev"></a></li>
-                <li><a class="footer-link forum" target="_blank" rel="noopener noreferrer" href="{{ site.dev_forum }}"></a></li>
-                <li><a class="footer-link rss" target="_blank" rel="noopener noreferrer" href="https://developer.okta.com/feed.xml"></a></li>
+                <li>
+                    <a class="footer-link github" target="_blank" rel="noopener noreferrer" href="http://github.com/{{ site.github_username }}">
+                        <span class="link-text">GitHub</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="footer-link twitter" target="_blank" rel="noopener noreferrer" href="http://twitter.com/{{ site.twitter_username }}">
+                        <span class="link-text">Twitter</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="footer-link youtube" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/oktadev">
+                        <span class="link-text">YouTube</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="footer-link forum" target="_blank" rel="noopener noreferrer" href="{{ site.dev_forum }}">
+                        <span class="link-text">Forum</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="footer-link rss" target="_blank" rel="noopener noreferrer" href="https://developer.okta.com/feed.xml">
+                        <span class="link-text">Blog RSS</span>
+                    </a>
+                </li>
             </ul>
         </div>
 
@@ -41,6 +56,7 @@
                 <li><a class="footer-link" target="_blank" rel="noopener noreferrer" href="{{ site.external_domain }}/okta-integration-network/">Integrate with Okta</a></li>
                 <li><a class="footer-link" href="/docs/change-log/">Change Log</a></li>
                 <li><a class="footer-link" href="/3rd_party_notices/">3rd-party notes</a></li>
+                <li><a class="footer-link" target="_blank" rel="noopener noreferrer" href="https://auth0.com/developers/">Auth0 platform</a></li>
             </ul>
         </div>
 
@@ -58,10 +74,7 @@
                 <p>System status, security, compliance</p>
             </div>
         </div>
-
-        <div class="column copyright">
-            <p>Copyright © {{ 'now' | date: "%Y" }} Okta.</p>
-        </div>
+        <div class="column copyright"><span>Copyright © 2021 Okta.</span></div>
     </div>
 </footer>
 

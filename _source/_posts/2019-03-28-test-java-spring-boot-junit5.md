@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7322085657
+discourse_topic_id: 17026
+discourse_comment_url: https://devforum.okta.com/t/17026
 layout: blog_post
 title: "Test Your Spring Boot Applications with JUnit 5"
 author: joy-foster

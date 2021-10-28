@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7335786247
+discourse_topic_id: 17030
+discourse_comment_url: https://devforum.okta.com/t/17030
 layout: blog_post
 title: "Build a CRUD App with ASP.NET Core 2.2 and Entity Framework Core"
 author: lee-brandt

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7059871975
+discourse_topic_id: 16957
+discourse_comment_url: https://devforum.okta.com/t/16957
 layout: blog_post
 title: "Build a Simple CRUD App with Spring Boot and Vue.js"
 author: andrew-hughes

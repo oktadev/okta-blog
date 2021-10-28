@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8326153643
+discourse_topic_id: 17339
+discourse_comment_url: https://devforum.okta.com/t/17339
 layout: blog_post
 title: How to Write Secure SQL Common Table Expressions
 author: nickolas-fisher

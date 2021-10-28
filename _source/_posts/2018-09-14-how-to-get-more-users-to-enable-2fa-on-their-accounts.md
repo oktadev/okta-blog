@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6911850041
+discourse_topic_id: 16930
+discourse_comment_url: https://devforum.okta.com/t/16930
 layout: blog_post
 title: 'How to Get More Internet Users to Enable 2FA on Their Accounts'
 author: conor-gilsenan

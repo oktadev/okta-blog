@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7074756752
+discourse_topic_id: 16961
+discourse_comment_url: https://devforum.okta.com/t/16961
 layout: blog_post
 title: "Build Your First Router in Node with Express"
 author: braden-kelley
