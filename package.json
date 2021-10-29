@@ -9,7 +9,7 @@
     "generate": "cross-env-shell PID_FINDER=okta_github_io JEKYLL_ENV=production bundle exec jekyll",
     "build-dev": "cross-env-shell PID_FINDER=okta_github_io JEKYLL_ENV=production bundle exec jekyll build --future -- --verbose",
     "build-prod": "npm run generate build -- --verbose",
-    "start": "bundle exec jekyll serve --future --livereload --host=0.0.0.0",
+    "start": "bundle exec jekyll serve --future --livereload --incremental --host=0.0.0.0",
     "markdown-lint": "node scripts/lint",
     "find-missing-slashes": "node scripts/find-missing-slashes",
     "prep-for-deploy": "bash scripts/prep-for-deploy.sh",
