@@ -40,21 +40,21 @@ The Amazon Elastic Kubernetes Service (EKS) lets you deploy, run, and scale your
 
 The Fargate service on AWS also provides cloud customers with the ability to use Kubernetes, but in a serverless manner. When using Fargate, you get to run a pod within a Kubernetes cluster on demand. Fargate helps to reduce the operating cost (OpEx) of your infrastructure as you will only be billed for the pods and not the EC2 instance nodes.
 
-**Related**: The article, [Deploy a .NET application using AWS Fargate](https://developer.okta.com/blog/2020/06/22/deploy-dotnet-container-aws-fargate) shows a practical use of AWS Fargate.
+**Related**: The article, [Deploy a .NET application using AWS Fargate](/blog/2020/06/22/deploy-dotnet-container-aws-fargate) shows a practical use of AWS Fargate.
 
 In the following sections, we will focus on using Kubernetes through the Elastic Kubernetes Service.
 
 ## Understanding the EKS architecture on AWS
 
-The EKS architecture comprises three main components – clusters, nodes, and the Virtual Private Cloud (VPC), which forms the networking aspect. Let’s proceed to consider the clusters, and VPC.
+The EKS architecture comprises three main components – clusters, nodes, and the Virtual Private Cloud (VPC), which forms the networking aspect. Let's proceed to consider the clusters, and VPC.
 
 ### EKS Clusters
 
-An EKS cluster is composed of a control plane and worker nodes residing within a VPC created for the cluster. A cluster’s control plane is placed in an AWS-managed account and runs the Kubernetes software. The worker nodes, on the other hand, run in a user’s AWS account, and are EC2 instances that connect to the control plane through the [API Server](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/) from the Kubernetes software.
+An EKS cluster is composed of a control plane and worker nodes residing within a VPC created for the cluster. A cluster's control plane is placed in an AWS-managed account and runs the Kubernetes software. The worker nodes, on the other hand, run in a user's AWS account, and are EC2 instances that connect to the control plane through the [API Server](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/) from the Kubernetes software.
 
 An EKS cluster can be created through several tools such as the [AWS console](https://aws.amazon.com/console/), [AWS CLI](https://aws.amazon.com/cli/), [Cloud Formation](https://aws.amazon.com/cloudformation/), [eksctl](https://eksctl.io/), or even [Terraform](https://www.terraform.io/), as well as other infrastructure as code tools. When using terminal-based tools such as the AWS CLI or eksctl, you provide the properties of the cluster to be created by EKS, either by using a configuration file or through command line arguments. Within the demo section of this article, you will use the eksctl command line tool to create a cluster.
 
-With regard to the cluster’s security, the internal connection between the control plane and worker nodes uses a certificate file generated on setup. The cluster’s data stored within [etcd](https://kubernetes.io/docs/concepts/overview/components/#etcd) is also encrypted by default using the [Key Management Service](https://aws.amazon.com/kms/) on AWS.
+With regard to the cluster's security, the internal connection between the control plane and worker nodes uses a certificate file generated on setup. The cluster's data stored within [etcd](https://kubernetes.io/docs/concepts/overview/components/#etcd) is also encrypted by default using the [Key Management Service](https://aws.amazon.com/kms/) on AWS.
 
 ### The EKS Virtual Private Cloud (VPC)
 
@@ -62,11 +62,11 @@ An AWS virtual private cloud (VPC) is an isolated virtual network made up of sma
 
 A VPC is required for creating a cluster. The VPC is also required to contain subnets within at least two availability zones. These subnets can either be public or private; however, it is recommended to have a combination of public and private subnets so that ingress traffic can be load balanced.
 
-EKS has an uptime [Service Level Agreement](https://aws.amazon.com/eks/sla/) of 99.95%. As one of the strategies to ensure high availability (HA), an Auto Scaling Group can be used within each Availability Zone to monitor the nodes within a cluster, scaling them to meet your application’s demands or even restarting them when health probes fail repeatedly.
+EKS has an uptime [Service Level Agreement](https://aws.amazon.com/eks/sla/) of 99.95%. As one of the strategies to ensure high availability (HA), an Auto Scaling Group can be used within each Availability Zone to monitor the nodes within a cluster, scaling them to meet your application's demands or even restarting them when health probes fail repeatedly.
 
 ### Creating a Docker Container
 
-With the knowledge you now have about EKS, let’s use it to create a cluster having a deployment torun the Docker image of a Node.js application secured with Okta. We will reuse the Node.js application that was built for an earlier blog post, ,[Building a Simple Authentication in Express in 15 minutes](https://developer.okta.com/blog/2019/05/31/simple-auth-express-fifteen-minutes). You needonly focus on creating a Docker image of the application.
+With the knowledge you now have about EKS, let's use it to create a cluster having a deployment torun the Docker image of a Node.js application secured with Okta. We will reuse the Node.js application that was built for an earlier blog post, ,[Building a Simple Authentication in Express in 15 minutes](/blog/2019/05/31/simple-auth-express-fifteen-minutes). You needonly focus on creating a Docker image of the application.
 
 The steps outlined below will guide you through building the Docker image of a Node.js app secured with Okta.
 
@@ -122,7 +122,7 @@ docker build . -t okta-k8-app
 
 **5.** Optionally, create a `.env` file within the project directory to securely store the Okta client credentials.
 
-Please refer to the article, [Build Simple Authentication in Express in 15 Minutes](https://developer.okta.com/blog/2019/05/31/simple-auth-express-fifteen-minutes), to create an Okta application, and retrieve the client credentials for the application through the Okta developer console before proceeding further.
+Please refer to the article, [Build Simple Authentication in Express in 15 Minutes](/blog/2019/05/31/simple-auth-express-fifteen-minutes), to create an Okta application, and retrieve the client credentials for the application through the Okta developer console before proceeding further.
 
 Add the client credentials retrieved to the `.env` file in the format below; (Make sure there is no whitespace before values.)
 
@@ -141,7 +141,7 @@ APP_SECRET=<OKTA_APP_SECRET>
 docker run --env-file .env -p 3000:3000 okta-k8-app
 ```
 
-From your terminal’s output, you can see the logs, indicating that the application is running on port 3000.
+From your terminal's output, you can see the logs, indicating that the application is running on port 3000.
 
 {% img blog/k8s-to-the-cloud-aws/1.png alt:"Running Simple Node.js application on port 3000" width:"600" %}{: .center-image }
 
@@ -171,7 +171,7 @@ Next, execute the docker tag command below to tag the docker image built previou
 docker tag okta-k8-app:latest <REPOSITORY_URI>:latest
 ```
 
-Execute the command below to authenticate your computer’s docker client with your ECR repo through an authentication token.
+Execute the command below to authenticate your computer's docker client with your ECR repo through an authentication token.
 
 ```bash
 aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws
@@ -187,7 +187,7 @@ docker push <REPOSITORY_URI>
 
 ### Creating an EKS cluster
 
-So far, you have pushed a docker image to the Elastic Container Registry. Let’s proceed to create a cluster in EKS that will use the docker image you previously pushed.
+So far, you have pushed a docker image to the Elastic Container Registry. Let's proceed to create a cluster in EKS that will use the docker image you previously pushed.
 
 Use the eksctl CLI tool to create a cluster within EKS. eksctl is a third-party CLI tool written in Go that simplifies the management of EKS clusters by leveraging AWS CloudFormation to manage your cluster and other dependent objects such as VPCs, and subnets.
 
@@ -216,7 +216,7 @@ aws eks --region us-east-2 update-kubeconfig --name okta-k8-cluster
 
 ### Creating Kubernetes resources
 
-At this point, you have an empty Kubernetes cluster running on EKS. Let’s proceed to create three resources within the cluster.
+At this point, you have an empty Kubernetes cluster running on EKS. Let's proceed to create three resources within the cluster.
 
 Using the three steps below, you will create three YAML files within the application directory to store the configurations for the following resources that will be created within the cluster: [Secret](https://kubernetes.io/docs/concepts/configuration/secret/), [deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/), and [service](https://kubernetes.io/docs/concepts/services-networking/service/)..
 
@@ -355,7 +355,7 @@ At this point, the okta-k8-cluster is almost ready for use. You've created a loa
 Navigate to your Okta Developer Console and click on the application we're using for this tutorial.
 {% img blog/k8s-to-the-cloud-aws/7.png alt:"Okta console application general settings" width:"900" %}{: .center-image }
 
-In the **LOGIN**, section, click the **Add URI** button within the **Sign-in redirect URIs** subsection to add a new URI that will be used when initiating an authentication process. Add the load balancer external IP into the input field in the format below, replacing the `LOAD_BALANCER_EXTERNAL_IP` with your cluster load balancer’s external IP.
+In the **LOGIN**, section, click the **Add URI** button within the **Sign-in redirect URIs** subsection to add a new URI that will be used when initiating an authentication process. Add the load balancer external IP into the input field in the format below, replacing the `LOAD_BALANCER_EXTERNAL_IP` with your cluster load balancer's external IP.
 
 ```
 http://LOAD_BALANCER_EXTERNAL_IP:3000/callback
@@ -371,7 +371,7 @@ http://LOAD_BALANCER_EXTERNAL_IP:3000
 
 Click the **Save** button to save the two added URIs.
 
-At this point the application is fully set up and ready for use. With your web browser, you can access the Node.js application through the load balancer’s External IP in the format of http://LOAD_BALANCER_EXTERNAL_IP:3000.
+At this point the application is fully set up and ready for use. With your web browser, you can access the Node.js application through the load balancer's External IP in the format of http://LOAD_BALANCER_EXTERNAL_IP:3000.
 
 {% img blog/k8s-to-the-cloud-aws/9.png alt:"Running Simple Node.js application on EKS" width:"900" %}{: .center-image }
 
@@ -383,9 +383,9 @@ Although this article did not focus on testing the scalability of the EKS cluste
 
 Want to continue learning about Kubernetes, infrastructure, security, auth, identity, and related topics? Here are some resources from the Okta Developer blog you might be interested in:
 
-- [Secure Access to AWS EKS Clusters for Admins](https://developer.okta.com/blog/2021/10/08/secure-access-to-aws-eks)
-- [The Top 5 DevOps Automation Tools .NET Developers Should Know](https://developer.okta.com/blog/2019/07/02/aspnet-top-5-devops-automation-tools-dotnet-csharp-developers)
-- [An Overview of Best Practices for Security Headers](https://developer.okta.com/blog/2021/10/18/security-headers-best-practices)
+- [Secure Access to AWS EKS Clusters for Admins](/blog/2021/10/08/secure-access-to-aws-eks)
+- [The Top 5 DevOps Automation Tools .NET Developers Should Know](/blog/2019/07/02/aspnet-top-5-devops-automation-tools-dotnet-csharp-developers)
+- [An Overview of Best Practices for Security Headers](/blog/2021/10/18/security-headers-best-practices)
 
 You can find the code for this tutorial on GitHub at: [https://github.com/oktadev/okta](https://github.com/oktadev/okta)
 If you liked this tutorial, chances are you like others we publish. Please follow [@oktadev](https://twitter.com/oktadev) on Twitter and [subscribe to our YouTube channel](https://youtube.com/oktadev) to get notified when we publish new developer tutorials.
