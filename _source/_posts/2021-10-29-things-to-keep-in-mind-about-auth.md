@@ -25,7 +25,7 @@ Let's establish a baseline for the rest of this post by familiarizing ourselves 
 
 What I really like about using OAuth 2.0 and OpenID Connect together is that it separates "the auths" and adds structure to each. We learned from the blog post above that OAuth 2.0 is designed for **authorization** – access to data (resources). And we learned that OIDC is a thin layer on top of OAuth 2.0 that adds login and profile information. Thus, **authentication** is the act of establishing the login session that confirms the user logging in is who they say they are. Now we can be specific in our vocabulary and understand how each standard complements the other.
 
-When you're using OpenID Connect, don't forget that you can inspect the [OpenID Connect Discovery](https://swagger.io/docs/specification/authentication/openid-connect-discovery/) to get a listing of endpoints and supported usages. You'll see references to some of the metadata available in the discovery response below.  
+When you're using OpenID Connect, don't forget that you can inspect the [OpenID Connect Discovery](https://developer.okta.com/docs/reference/api/oidc/#well-known-openid-configuration) document to get a listing of endpoints and supported usages. You'll see references to some of the metadata available in the discovery response below.  
 
 Armed with this knowledge, let's continue!
 
@@ -65,7 +65,7 @@ First, let's start with listing all the available grant types. We'll define a hi
 <table>
 <tr>
     <td>{% img blog/things-to-keep-in-mind-about-auth/grants/authorization-code.jpg alt:"Authorization Code" width:"150" %}</td>
-    <td markdown="span">**Authorization Code** is a grant type used by web apps where the source code is private, such as a server-side web app. An authorization code and a client secret are required to get an access token.</td>
+    <td markdown="span">**Authorization Code** is a grant type used by web apps where the source code is private, such as a server-side web app. An authorization code and a client secret are required to get an access token. You can make the authorization code grant type even more secure for server-side web apps by using PKCE as well! More on that below.</td>
 </tr>
 <tr>
     <td>{% img blog/things-to-keep-in-mind-about-auth/grants/client-credentials.jpg alt:"Client Credentials" width:"150" %}</td>
@@ -77,23 +77,23 @@ First, let's start with listing all the available grant types. We'll define a hi
 </tr>
 <tr>
     <td>{% img blog/things-to-keep-in-mind-about-auth/grants/refresh.jpg alt:"Refresh Token" width:"150" %}</td>
-    <td markdown="span">**Refresh Token** is not a grant type, per se. It's an extra scope that works with select other grant types to get longer access to resources. Authorization Code, Device Code, Hybrid, and Resource Owner Password flows support refresh tokens.</td>
+    <td markdown="span">**Refresh Token** is not a grant type, per se. It's a long-lived token the application may receive to get longer access to resources. Authorization Code, Device Code, Hybrid, and Resource Owner Password flows support refresh tokens if the authorization server is configured to give the app refresh tokens.</td>
 </tr>
 <tr>
     <td>{% img blog/things-to-keep-in-mind-about-auth/grants/pkce.jpg alt:"Proof Key for Code Exchange" width:"150" %}</td>
-    <td markdown="span">**Proof Key for Code Exchange** (PKCE) is a flow to create a secret to use before exchanging for tokens. This is not a grant type used on its own, but as an extra layer of security to the Authorization Code flow.</td>
+    <td markdown="span">**Proof Key for Code Exchange** (PKCE) is a flow to create a secret to use before exchanging the authorization code for tokens. This is not a grant type used on its own, but as an extra layer of security to the Authorization Code flow.</td>
 </tr>
 <tr>
     <td>{% img blog/things-to-keep-in-mind-about-auth/grants/hybrid.jpg alt:"Hybrid" width:"150" %}</td>
-    <td markdown="span">**Hybrid** is a grant type from OpenID Connect spec. The `code id_token` flow is the most common and combines two grants. It combines Authorization Code and Implicit grant types, and the response includes both the Access and ID tokens.</td>
+    <td markdown="span">**Hybrid** is a set of grant types from the OpenID Connect spec. The `code id_token` flow is the most common and combines two grants. It returns an access token via the Authorization Code grant and an ID token via the Implicit grant.</td>
 </tr>
 <tr>
     <td>{% img blog/things-to-keep-in-mind-about-auth/grants/implicit.jpg alt:"Implicit" width:"150" %}</td>
-    <td markdown="span">**Implicit** is a grant type that used to be recommended for native and JavaScript apps. It is a simplified version of the Authorization Code grant but doesn't require the authorization code exchange for the access token. Because of security risks, OAuth 2.0 no longer recommends this grant type and it will be dropped in the upcoming OAuth 2.1.</td>
+    <td markdown="span">**Implicit** is a grant type that used to be recommended for native and JavaScript apps. It is a simplified version of the Authorization Code grant but doesn't require the authorization code exchange for the access token. Because of the security risks, OAuth 2.0 no longer recommends this grant type and it will be dropped in the upcoming OAuth 2.1 spec.</td>
 </tr>
 <tr>
     <td>{% img blog/things-to-keep-in-mind-about-auth/grants/resource-owner.jpg alt:"Resource Owner Password" width:"150" %}</td>
-    <td markdown="span">**Resource Owner Password** grant type is a flow used where the client has a high degree of trust. Because of the risks involved in directly handling credentials, OAuth 2.0 no longer recommends this grant type and it will be dropped in the upcoming OAuth 2.1. There might be legacy applications requiring this flow, but that's the only reason to use it.</td>
+    <td markdown="span">**Resource Owner Password** grant type is a flow used by trusted first-party clients. Because of the risks involved in applications directly handling credentials, OAuth 2.0 no longer recommends this grant type and it will be dropped in the upcoming OAuth 2.1. There might be legacy applications requiring this flow, but that's the only reason to use it.</td>
 </tr>
 </table>
 
