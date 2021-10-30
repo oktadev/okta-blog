@@ -4,7 +4,7 @@ title: "Java Records: A WebFlux and Spring Data Example"
 author: jimena-garbarino
 by: contractor
 communities: [java]
-description: "Java Records support in Spring WebFlux Microservices and Spring Data MongoDB Access"
+description: "Want to use Java's new records? Check out this showcase of Java Records support in Spring WebFlux and Spring Data MongoDB."
 tags: [java-records, java, api, mongodb, rest, microservices]
 tweets:
 - ""
@@ -745,19 +745,19 @@ Add also the `initdb.sh` script in the `docker` folder, to import the test data 
 mongoimport --verbose --db=fortnite --collection=stats --file=/seed/stats.json --jsonArray
 ```
 
-In the project root, generate the application container image with the following maven command:
+In the project root, generate the application container image with the following Maven command:
 
 ```shell
 ./mvnw spring-boot:build-image
 ```
-Run the application with docker-compose:
+Run the application with Docker Compose:
 
 ```shell
 cd docker
 docker-compose up
 ```
 
-Once the services are up, go to http://localhost:8080/mentalStateAverageDamage, and you should see the Okta login page:
+Once the services are up, go to `http://localhost:8080/mentalStateAverageDamage`, and you should see the Okta login page:
 
 {% img blog/java-records/okta-login.png alt:"Okta Login Form" width:"400" %}{: .center-image }
 
