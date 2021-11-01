@@ -277,7 +277,7 @@ aaron-parecki:
   web: https://aaronparecki.com/
   twitter: https://twitter.com/aaronpk
   github: https://github.com/aaronpk
-  bio: "Aaron Parecki is a Senior Security Architect at Okta. He is the author of <a href=\"https://oauth2simplified.com/\">OAuth 2.0 Simplified</a>, and maintains <a href=\"https://oauth.net/\">oauth.net</a>. He regularly writes and gives talks about <a href=\"https://aaronparecki.com/oauth/\">OAuth</a> and online security. He is an editor of several internet specs, and is the co-founder of <a href=\"https://indieweb.org/\">IndieWebCamp</a>, a conference focusing on data ownership and online identity. Aaron has spoken at conferences around the world about OAuth, data ownership, quantified self, and home automation, and his work has been featured in Wired, Fast Company and more."
+  bio: 'Aaron Parecki is a Senior Security Architect at Okta. He is the author of <a href="https://oauth2simplified.com/">OAuth 2.0 Simplified</a>, and maintains <a href="https://oauth.net/">oauth.net</a>. He regularly writes and gives talks about <a href="https://aaronparecki.com/oauth/">OAuth</a> and online security. He is an editor of several internet specs, and is the co-founder of <a href="https://indieweb.org/">IndieWebCamp</a>, a conference focusing on data ownership and online identity. Aaron has spoken at conferences around the world about OAuth, data ownership, quantified self, and home automation, and his work has been featured in Wired, Fast Company and more.'
 
 alex-dahl:
   full_name: Alex Dahl
@@ -744,9 +744,11 @@ tanay-pant:
   bio: "Tanay is a Senior Developer Advocate at Okta. He loves writing and has published books on topics like Firefox OS, virtual assistants with Raspberry Pi, and WebVR."
 
 victory-nwani:
-  full_name: Victory Nwani
+  full_name: Victory C. Nwani
   display_name: Victory Nwani
-  avatar: avatar-tanay-pant.jpg
-  web:
-  twitter:
-  github:
+  avatar: avatar-victory.jpg
+  twitter: https://twitter.com/iamnwani01
+  github: https://github.com/vickywane
+  linkedin: https://www.linkedin.com/in/victory-nwani-b820b2157/
+  email: victory@hera.marketing
+  web: https://nwani.netlify.app/
