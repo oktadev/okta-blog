@@ -10,7 +10,7 @@ tweets:
   - "Want to deploy your #NodeJS application to Amazon EKS? Here is how"
   - "How to deploy a secure Node.js app to Amazon EKS with few simple steps"
 type: conversion
-image: blog/accidental-dev-to-advocate/deepu-joins-okta.jpeg
+image: blog/k8s-to-the-cloud-aws/social.jpg
 ---
 
 Since 2013 when it was released to the public, Docker has become an industry-standard tool for development teams to package applications into small executable containers. A year later, Kubernetes was released by Google to manage large amounts of containers, and provide features for High Availability (HA) and auto-scaling.
