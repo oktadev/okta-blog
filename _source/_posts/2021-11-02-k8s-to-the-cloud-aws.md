@@ -165,7 +165,7 @@ The command executed above will return a JSON response by default to describe th
 
 Next, execute the docker tag command below to tag the docker image built previously.
 
-**Note:** Replace the <REPOSITORY_URI> placeholder within the template section in the code block below with the REPOSITORY_URI of the docker image you pushed to the ECR in the format of `<REPOSITORY_URI>:latest` .
+**Note:** Replace the <REPOSITORY_URI> placeholder within the template section in the code block below with the REPOSITORY_URI of the docker image you pushed to the ECR in the format of {% raw %}`<REPOSITORY_URI>:latest`{% endraw %}.
 
 ```bash
 docker tag okta-k8-app:latest <REPOSITORY_URI>:latest
