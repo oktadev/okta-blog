@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6814529520
+discourse_topic_id: 16905
+discourse_comment_url: https://devforum.okta.com/t/16905
 layout: blog_post
 title: "Add Social Login to Your Spring Boot 2.0 App"
 author: andrew-hughes

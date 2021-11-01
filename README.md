@@ -25,7 +25,7 @@ git clone git@github.com:<your-username>/okta-blog.git
 Or, if you have access to push to this repo, you can clone it directly.
 
 ```bash
-git clone git@github.com:oktadeveloper/okta-blog.git
+git clone git@github.com:oktadev/okta-blog.git
 ```
 
 Then, install its dependencies.
@@ -36,7 +36,7 @@ bundle install
 npm i
 ```
 
-If you have issues with this setup, see [setting up your environment](https://github.com/oktadeveloper/okta-blog-archive/wiki/Setting-Up-Your-Environment) or [use Docker](#docker-instructions).
+If you have issues with this setup, see [setting up your environment](https://github.com/oktadev/okta-blog-archive/wiki/Setting-Up-Your-Environment) or [use Docker](#docker-instructions).
 
 Now you can build and start the site.
 
@@ -81,7 +81,7 @@ To begin, you should have [Docker](https://www.docker.com/) installed and workin
 Then, clone this GitHub repo, or your fork:
 
 ```bash
-git clone git@github.com:oktadeveloper/okta-blog.git
+git clone git@github.com:oktadev/okta-blog.git
 ```
 
 Once you've cloned the repository, change into the `okta-blog` directory to get started:
@@ -143,7 +143,7 @@ This section describes Markdown standards we like to use in our blog posts. Thes
 
 To describe how to setup a new application on Okta, please use the [`cli.md`](_source/_includes/setup/cli.md) or [`maven.md`](_source/_includes/setup/maven.md) includes.
 
-These will render instructions using the [Okta CLI](https://cli.okta.com) (or [Okta Maven Plugin](https://github.com/oktadeveloper/okta-maven-plugin)) and link to instructions for the Admin Console. Screenshots are discouraged because they're hard to keep up-to-date.
+These will render instructions using the [Okta CLI](https://cli.okta.com) (or [Okta Maven Plugin](https://github.com/oktadev/okta-maven-plugin)) and link to instructions for the Admin Console. Screenshots are discouraged because they're hard to keep up-to-date.
 
 The basic syntax for using the Okta CLI to set up an app is:
 
@@ -230,11 +230,11 @@ For example:
 layout: blog_post
 ...
 changelog: 
-- 2020-08-31: Updated GitHub repo to have proper starter files and fixed logout in Vue. You can see the changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-kotlin-spring-boot-vue-example/pull/4). Changes to this article can be viewed in [oktadeveloper/okta-blog#392](https://github.com/oktadeveloper/okta-blog/pull/392).
+- 2020-08-31: Updated GitHub repo to have proper starter files and fixed logout in Vue. You can see the changes in the [example app on GitHub](https://github.com/oktadev/okta-kotlin-spring-boot-vue-example/pull/4). Changes to this article can be viewed in [oktadev/okta-blog#392](https://github.com/oktadev/okta-blog/pull/392).
 ---
 ```
 
-This will render a "last updated" date at the top, and a changelog at the bottom. The list should be ordered last to first. See [this post](https://developer.okta.com/blog/2020/06/26/spring-boot-vue-kotlin) ([source](https://raw.githubusercontent.com/oktadeveloper/okta-blog/main/_source/_posts/2020-06-26-spring-boot-vue-kotlin.md)) for an example. 
+This will render a "last updated" date at the top, and a changelog at the bottom. The list should be ordered last to first. See [this post](https://developer.okta.com/blog/2020/06/26/spring-boot-vue-kotlin) ([source](https://raw.githubusercontent.com/oktadev/okta-blog/main/_source/_posts/2020-06-26-spring-boot-vue-kotlin.md)) for an example. 
 
 ## Utilities
 

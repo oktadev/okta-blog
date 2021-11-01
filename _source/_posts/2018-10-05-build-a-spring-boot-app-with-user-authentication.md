@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6951757410
+discourse_topic_id: 16942
+discourse_comment_url: https://devforum.okta.com/t/16942
 layout: blog_post
 title: 'Add User Authentication to Your Spring Boot App in 15 Minutes'
 author: andrew-hughes

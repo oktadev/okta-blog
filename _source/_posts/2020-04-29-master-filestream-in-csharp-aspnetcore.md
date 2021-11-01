@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7998209133
+discourse_topic_id: 17243
+discourse_comment_url: https://devforum.okta.com/t/17243
 layout: blog_post
 title: "How to Master the Filestream in C#"
 author: chase-aucoin

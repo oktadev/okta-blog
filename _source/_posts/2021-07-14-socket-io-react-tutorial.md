@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8647519676
+discourse_topic_id: 17391
+discourse_comment_url: https://devforum.okta.com/t/17391
 layout: blog_post
 title: "Create a Secure Chat Application with Socket.IO and React"
 author: holger-schmitz

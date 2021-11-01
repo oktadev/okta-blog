@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7404728292
+discourse_topic_id: 17047
+discourse_comment_url: https://devforum.okta.com/t/17047
 layout: blog_post
 title: "Token Authentication in PHP"
 author: krasimir-hristozov

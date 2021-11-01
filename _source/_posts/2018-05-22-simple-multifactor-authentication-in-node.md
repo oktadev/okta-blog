@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6685339466
+discourse_topic_id: 16871
+discourse_comment_url: https://devforum.okta.com/t/16871
 layout: blog_post
 title: "Simple Multi-Factor Authentication in Node"
 author: braden-kelley

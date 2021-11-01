@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6300284588
+discourse_topic_id: 16766
+discourse_comment_url: https://devforum.okta.com/t/16766
 layout: blog_post
 title: "Use OpenID Connect to Build a Simple Node.js Website"
 author: randall-degges

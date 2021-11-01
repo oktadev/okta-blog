@@ -1,8 +1,12 @@
 ---
+disqus_thread_id: 6301041793
+discourse_topic_id: 16791
+discourse_comment_url: https://devforum.okta.com/t/16791
 layout: blog_post
 title: 'Add Role-Based Access Control to Your App with Spring Security and Thymeleaf'
 author: micah-silverman
 by: advocate
+description: "With Okta's integration for Spring Boot and Spring Security you can wire up your Okta tenant to a Spring Boot app and take advantage of its built-in RBAC."
 communities: [java]
 tags: [oauth, oauth2, oauth2-dot-0, oauth-2-dot-0, openid, openid-connect, oidc, spring, spring-boot, spring-security, rbac]
 type: conversion

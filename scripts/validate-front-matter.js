@@ -86,6 +86,18 @@ function validateTags(file, tags) {
   }
 }
 
+function validateDescription(file, description) {
+  if (!description || description.trim().length === 0) {
+    console.warn(`${file} is missing a description in its front matter.`);
+  } else {
+    const min = 120;
+    const max = 160;
+    if (description.length < min || description.length > max) {
+      // console.warn(`${file} has a description (${description.length} characters, 120-160 is recommended) that needs updating.`);
+    }
+  }
+}
+
 readdir("_source/_posts", (err, files) => {
   if (err) throw err;
 
@@ -99,6 +111,7 @@ readdir("_source/_posts", (err, files) => {
       throw err;
     }
 
+    validateDescription(files[i], content.attributes.description)
     validateBy(files[i], content.attributes.by);
     validateComms(files[i], content.attributes.communities);
     validateTypes(files[i], content.attributes.type);

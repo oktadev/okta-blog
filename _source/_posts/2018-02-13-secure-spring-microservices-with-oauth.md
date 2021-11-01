@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6464357169
+discourse_topic_id: 16827
+discourse_comment_url: https://devforum.okta.com/t/16827
 layout: blog_post
 title: "Secure a Spring Microservices Architecture with Spring Security and OAuth 2.0"
 author: matt-raible

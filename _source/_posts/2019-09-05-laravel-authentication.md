@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7619743826
+discourse_topic_id: 17133
+discourse_comment_url: https://devforum.okta.com/t/17133
 layout: blog_post
 title: "Build a Simple Laravel App with Authentication"
 author: krasimir-hristozov

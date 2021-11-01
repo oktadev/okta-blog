@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8692668660
+discourse_topic_id: 17403
+discourse_comment_url: https://devforum.okta.com/t/17403
 layout: blog_post
 title: "Content Negotiation with a Java MicroProfile Application"
 author: brian-demers

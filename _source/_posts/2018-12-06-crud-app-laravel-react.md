@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7089461792
+discourse_topic_id: 16967
+discourse_comment_url: https://devforum.okta.com/t/16967
 layout: blog_post
 title: 'Build a Basic CRUD App with Laravel and React'
 author: krasimir-hristozov

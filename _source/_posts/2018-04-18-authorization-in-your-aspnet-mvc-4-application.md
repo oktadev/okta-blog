@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6619562294
+discourse_topic_id: 16855
+discourse_comment_url: https://devforum.okta.com/t/16855
 layout: blog_post
 title: "Use OpenID Connect for Authorization in Your ASP.NET MVC Framework 4.x App"
 author: lee-brandt

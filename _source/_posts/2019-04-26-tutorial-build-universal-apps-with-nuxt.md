@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7381623043
+discourse_topic_id: 17041
+discourse_comment_url: https://devforum.okta.com/t/17041
 layout: blog_post
 title: "Tutorial: Build Universal Applications with Nuxt.js"
 author: andy-march

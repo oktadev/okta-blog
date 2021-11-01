@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7199032671
+discourse_topic_id: 16986
+discourse_comment_url: https://devforum.okta.com/t/16986
 layout: blog_post
 title: "Build Your First PWA with Angular"
 author: holger-schmitz

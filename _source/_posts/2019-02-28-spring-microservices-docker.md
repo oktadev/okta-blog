@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7263143718
+discourse_topic_id: 17010
+discourse_comment_url: https://devforum.okta.com/t/17010
 layout: blog_post
 title: "Build Spring Microservices and Dockerize Them for Production"
 author: raphael-do-vale

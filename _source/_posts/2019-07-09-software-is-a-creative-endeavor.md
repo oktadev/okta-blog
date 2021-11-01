@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7523225589
+discourse_topic_id: 17087
+discourse_comment_url: https://devforum.okta.com/t/17087
 layout: blog_post
 title: "Software Development is a Creative Endeavor"
 author: lee-brandt

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7225682591
+discourse_topic_id: 16996
+discourse_comment_url: https://devforum.okta.com/t/16996
 layout: blog_post
 title: "Build Secure Login for Your Angular App"
 author: holger-schmitz

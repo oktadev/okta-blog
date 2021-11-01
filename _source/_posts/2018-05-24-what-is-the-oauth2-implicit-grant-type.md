@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6689614176
+discourse_topic_id: 16875
+discourse_comment_url: https://devforum.okta.com/t/16875
 layout: blog_post
 title: "What is the OAuth 2.0 Implicit Grant Type?"
 author: aaron-parecki

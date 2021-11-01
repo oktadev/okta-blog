@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7775763120
+discourse_topic_id: 17190
+discourse_comment_url: https://devforum.okta.com/t/17190
 layout: blog_post
 title: "Build a CRUD API with Java and MongoDB"
 author: andrew-hughes

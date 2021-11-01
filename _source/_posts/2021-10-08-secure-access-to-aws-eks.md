@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8814732300
+discourse_topic_id: 17421
+discourse_comment_url: https://devforum.okta.com/t/17421
 layout: blog_post
 title: "Secure Access to AWS EKS Clusters for Admins"
 author: nicolas-triballier
@@ -7,7 +10,7 @@ communities: [devops]
 description: "This tutorial is a step-by-step guide for admins on how to implement secure access to AWS EKS Clusters with Okta."
 tags: [aws, eks, devops, oidc, kubectl]
 tweets: 
-- "This tutorial shows how to use OIDC with Okta to securely access EKS clusters on AWS kubernetes k8s devops."
+- "This tutorial shows how to use OIDC with Okta to securely access EKS clusters on AWS #kubernetes #k8s #DevOps."
 image: blog/secure-access-to-eks/2.png
 type: conversion
 ---
@@ -431,7 +434,7 @@ nano $HOME/.kube/config
 Below is the text to include:
 ```
 - name: oidc      
-    user:
+  user:
     exec:
         apiVersion: client.authentication.k8s.io/v1beta1
         args:
@@ -443,7 +446,6 @@ Below is the text to include:
         - --oidc-extra-scope=offline_access
         - --oidc-extra-scope=profile
         - --oidc-extra-scope=openid
-        - --oidc-extra-scope=groups
         command: kubectl
 ```
 

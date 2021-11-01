@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6753779398
+discourse_topic_id: 16888
+discourse_comment_url: https://devforum.okta.com/t/16888
 layout: blog_post
 title: "Build a Photo Gallery PWA with React, Spring Boot, and JHipster"
 author: matt-raible

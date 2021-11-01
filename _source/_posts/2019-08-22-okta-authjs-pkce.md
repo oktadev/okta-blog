@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7599574918
+discourse_topic_id: 17124
+discourse_comment_url: https://devforum.okta.com/t/17124
 layout: blog_post
 title: "Implement the OAuth 2.0 Authorization Code with PKCE Flow"
 author: micah-silverman

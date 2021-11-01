@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6300240491
+discourse_topic_id: 16757
+discourse_comment_url: https://devforum.okta.com/t/16757
 layout: blog_post
 title: 'Build a Microservices Architecture for Microbrews with Spring Boot'
 author: matt-raible

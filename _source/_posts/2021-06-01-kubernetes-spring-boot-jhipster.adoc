@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8566354469
+discourse_topic_id: 17379
+discourse_comment_url: https://devforum.okta.com/t/17379
 layout: blog_post
 title: "Kubernetes to the Cloud with Spring Boot and JHipster"
 author: matt-raible

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6974187306
+discourse_topic_id: 16946
+discourse_comment_url: https://devforum.okta.com/t/16946
 layout: blog_post
 title: "Simple Token Authentication for Java Apps"
 author: andrew-hughes

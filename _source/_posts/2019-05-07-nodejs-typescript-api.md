@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7404843663
+discourse_topic_id: 17049
+discourse_comment_url: https://devforum.okta.com/t/17049
 layout: blog_post
 title: "Build a Node.js API with TypeScript"
 author: braden-kelley

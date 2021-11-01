@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7377736987
+discourse_topic_id: 17039
+discourse_comment_url: https://devforum.okta.com/t/17039
 layout: blog_post
 title: "Build a CRUD App with ASP.NET Core 2.2 and SQL Server"
 author: lee-brandt

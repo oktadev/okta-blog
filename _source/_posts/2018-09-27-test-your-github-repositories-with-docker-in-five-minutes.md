@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6934686834
+discourse_topic_id: 16940
+discourse_comment_url: https://devforum.okta.com/t/16940
 layout: blog_post
 title: "Test Your GitHub Repositories with Docker in 5 Minutes"
 author: patrick-mcdowell

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8418909726
+discourse_topic_id: 17358
+discourse_comment_url: https://devforum.okta.com/t/17358
 layout: blog_post
 title: "OAuth Patterns and Anti-Patterns - a DZone Refcard"
 author: aaron-parecki

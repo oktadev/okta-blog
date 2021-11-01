@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6964119996
+discourse_topic_id: 16944
+discourse_comment_url: https://devforum.okta.com/t/16944
 layout: blog_post
 title: "Build a Simple Web App with Express, React and GraphQL"
 author: braden-kelley

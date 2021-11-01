@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6717440668
+discourse_topic_id: 16881
+discourse_comment_url: https://devforum.okta.com/t/16881
 layout: blog_post
 title: "Static Sites vs CMS"
 author: randall-degges

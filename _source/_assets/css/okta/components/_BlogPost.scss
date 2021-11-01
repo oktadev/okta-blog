@@ -479,6 +479,33 @@
 	.hide {
 		display: none
 	}
+
+	#discourse-comments {
+		margin: 1.5em 0;
+
+		.comment-policy {
+			color: #2A2E2E;
+			background-color: #ebeef2;
+			border: none;
+			border-radius: 4px;
+			margin-top: 10px;
+			padding: 15px;
+
+			.comment-policy-title {
+				font-weight: 600;
+				margin-bottom: 4px;
+			}
+
+			.comment-policy-text {
+				margin: 0 0 4px;
+				font-weight: 400;
+			}
+		}
+
+		#discourse-embed-frame {
+			margin-top: 1.5em;
+		}
+	}
 }
 
 @include media('<860px') {

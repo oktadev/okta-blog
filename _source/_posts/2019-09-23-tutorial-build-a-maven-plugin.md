@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7645873028
+discourse_topic_id: 17142
+discourse_comment_url: https://devforum.okta.com/t/17142
 layout: blog_post
 title: How to Build a Maven Plugin
 description: 'Tutorial: How to build a Maven plugin.'

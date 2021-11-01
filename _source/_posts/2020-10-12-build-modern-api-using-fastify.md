@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8236242498
+discourse_topic_id: 17304
+discourse_comment_url: https://devforum.okta.com/t/17304
 layout: blog_post
 title: "Build a Modern API using Fastify and Node.js"
 author: nickolas-fisher

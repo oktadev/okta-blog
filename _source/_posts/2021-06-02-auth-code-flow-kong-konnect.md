@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8569176684
+discourse_topic_id: 17380
+discourse_comment_url: https://devforum.okta.com/t/17380
 layout: blog_post
 title: "Apply Authorization Code Flow With Kong Konnect and Okta"
 author: claudio-acquaviva

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8342589292
+discourse_topic_id: 17343
+discourse_comment_url: https://devforum.okta.com/t/17343
 layout: blog_post
 title: Offline JWT Validation with Go
 author: phill-edwards

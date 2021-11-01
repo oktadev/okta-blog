@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8092605189
+discourse_topic_id: 17260
+discourse_comment_url: https://devforum.okta.com/t/17260
 layout: blog_post
 title: "Heroku + Docker with Secure React in 10 Minutes"
 author: matt-raible
