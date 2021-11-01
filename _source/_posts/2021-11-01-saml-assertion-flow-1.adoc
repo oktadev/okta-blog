@@ -260,3 +260,5 @@ Hopefully this provided valuable knowledge on how the SAML Assertion Grant type 
 ** SAML Assertion flow with an application generated assertion https://github.com/emanor-okta/saml-assertion-flow-samples/tree/main/self-generated/saml-assertion-flow-self-generated[sample application]
 
 
+
+
