@@ -316,8 +316,8 @@ You can find the example code from this tutorial in the [oktadev/okta-react-rout
 
 If you liked this tutorial, you might like these others:
 
-- [Build a Simple React Application Using Hooks](https://developer.okta.com/blog/2020/08/26/react-hooks)
-- [Quickly Consume a GraphQL API from React](https://developer.okta.com/blog/2020/11/23/quick-graphql-react-app)
-- [Build Reusable React Components ](https://developer.okta.com/blog/2020/01/20/build-reusable-react-components)
+- [Build a Simple React Application Using Hooks](/blog/2020/08/26/react-hooks)
+- [Quickly Consume a GraphQL API from React](/blog/2020/11/23/quick-graphql-react-app)
+- [Build Reusable React Components ](/blog/2020/01/20/build-reusable-react-components)
 
-Make sure you follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel. If you have any questions, or you want to share what tutorial you’d like to see next, please comment below.
+Make sure you follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel. If you have any questions, or you want to share what tutorial you'd like to see next, please comment below.
