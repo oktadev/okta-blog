@@ -27,7 +27,7 @@ When you are communicating with a Kubernetes cluster, let's say using kubectl or
 
 The API server has multiple layers of security. By default, all communication with the API server uses TLS. Authentication is done using service account tokens, bearer tokens, basic authentication, a proxy, or client certificates, depending on the platform. In the case of PaaS like Amazon EKS, AKS, and GKE, it can also be done using custom authentication mechanisms. Once a request is authenticated, the API server can use one of several authorization mechanisms, like Attribute-based access control (ABAC) or Role-based access control (RBAC), to control access to resources. And finally, there are also admission control modules that can be configured to control resource modifications.
 
-Since the API server is the only part of the Kubernetes cluster that a client can access, it is essential to secure the API server. Unauthorized access of the API server can lead to the hijack of the entire cluster and maybe even your infrastructure, data theft, and so on. Hence, configuring users and roles properly is a must to secure the cluster, especially i9n organizations where more than one user can access the cluster.
+Since the API server is the only part of the Kubernetes cluster that a client can access, it is essential to secure the API server. Unauthorized access of the API server can lead to hijacking of the entire cluster and maybe even your infrastructure, data theft, and so on. Hence, configuring users and roles properly is a must to secure the cluster, especially i9n organizations where more than one user can access the cluster.
 
 # Why OpenID Connect?
 
