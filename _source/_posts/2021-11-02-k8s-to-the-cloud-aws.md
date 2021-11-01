@@ -13,7 +13,7 @@ type: conversion
 image: blog/k8s-to-the-cloud-aws/social.jpg
 ---
 
-Since 2013 when it was released to the public, Docker has become an industry-standard tool for development teams to package applications into small executable containers. A year later, Kubernetes was released by Google to manage large amounts of containers, and provide features for High Availability (HA) and auto-scaling.
+Since 2013 when it was released to the public, Docker has become an industry-standard tool for development teams to package applications into small executable containers. A year later, Kubernetes was released by Google to manage large amounts of containers, and provide features for high availability (HA) and auto-scaling.
 
 While Kubernetes adds many benefits to your container management, you might find the process of setting up Kubernetes within your on-premise infrastructure quite challenging, especially on the first try. To overcome this challenge, managed Kubernetes is offered as a service by several cloud service providers.
 
@@ -29,7 +29,7 @@ To follow along with the cluster creation steps, you will need the following:
 
 - An [AWS account](https://aws.amazon.com/). Sign up for an account to receive free AWS credits.
 - The [AWS CLI](https://aws.amazon.com/cli/) installed and configured on a local computer.
-- The [eksctl command line tool ](https://eksctl.io/introduction/#installation)installed on your local machine.
+- The [`eksctl` command line tool](https://eksctl.io/introduction/#installation)installed on your local machine.
 - [Docker](https://www.docker.com/), installed on a local computer to build a Docker image of the cloned Express.js application.
 
 ## Introducing Kubernetes offerings on Amazon
@@ -40,7 +40,7 @@ The Amazon Elastic Kubernetes Service (EKS) lets you deploy, run, and scale your
 
 The Fargate service on AWS also provides cloud customers with the ability to use Kubernetes, but in a serverless manner. When using Fargate, you get to run a pod within a Kubernetes cluster on demand. Fargate helps to reduce the operating cost (OpEx) of your infrastructure as you will only be billed for the pods and not the EC2 instance nodes.
 
-**Related**: The article, [Deploy a .NET application using AWS Fargate](/blog/2020/06/22/deploy-dotnet-container-aws-fargate) shows a practical use of AWS Fargate.
+**Related**: The article [Deploy a .NET application using AWS Fargate](/blog/2020/06/22/deploy-dotnet-container-aws-fargate) shows a practical use of AWS Fargate.
 
 In the following sections, we will focus on using Kubernetes through the Elastic Kubernetes Service.
 
@@ -52,7 +52,7 @@ The EKS architecture comprises three main components – clusters, nodes, and th
 
 An EKS cluster is composed of a control plane and worker nodes residing within a VPC created for the cluster. A cluster's control plane is placed in an AWS-managed account and runs the Kubernetes software. The worker nodes, on the other hand, run in a user's AWS account, and are EC2 instances that connect to the control plane through the [API Server](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/) from the Kubernetes software.
 
-An EKS cluster can be created through several tools such as the [AWS console](https://aws.amazon.com/console/), [AWS CLI](https://aws.amazon.com/cli/), [Cloud Formation](https://aws.amazon.com/cloudformation/), [eksctl](https://eksctl.io/), or even [Terraform](https://www.terraform.io/), as well as other infrastructure as code tools. When using terminal-based tools such as the AWS CLI or eksctl, you provide the properties of the cluster to be created by EKS, either by using a configuration file or through command line arguments. Within the demo section of this article, you will use the eksctl command line tool to create a cluster.
+An EKS cluster can be created through several tools such as the [AWS console](https://aws.amazon.com/console/), [AWS CLI](https://aws.amazon.com/cli/), [Cloud Formation](https://aws.amazon.com/cloudformation/), [`eksctl`](https://eksctl.io/), or even [Terraform](https://www.terraform.io/), as well as other *infrastructure as code* tools. When using terminal-based tools such as the AWS CLI or `eksctl`, you provide the properties of the cluster to be created by EKS, either by using a configuration file or through command line arguments. Within the demo section of this article, you will use the `eksctl` command line tool to create a cluster.
 
 With regard to the cluster's security, the internal connection between the control plane and worker nodes uses a certificate file generated on setup. The cluster's data stored within [etcd](https://kubernetes.io/docs/concepts/overview/components/#etcd) is also encrypted by default using the [Key Management Service](https://aws.amazon.com/kms/) on AWS.
 
@@ -66,17 +66,17 @@ EKS has an uptime [Service Level Agreement](https://aws.amazon.com/eks/sla/) of 
 
 ### Creating a Docker Container
 
-With the knowledge you now have about EKS, let's use it to create a cluster having a deployment torun the Docker image of a Node.js application secured with Okta. We will reuse the Node.js application that was built for an earlier blog post, ,[Building a Simple Authentication in Express in 15 minutes](/blog/2019/05/31/simple-auth-express-fifteen-minutes). You needonly focus on creating a Docker image of the application.
+With the knowledge you now have about EKS, let's create a cluster having a deployment to run the Docker image of a Node.js application secured with Okta. We will reuse the Node.js application that was built for an earlier blog post, [Building a Simple Authentication in Express in 15 minutes](/blog/2019/05/31/simple-auth-express-fifteen-minutes). You need only focus on creating a Docker image of the application.
 
 The steps outlined below will guide you through building the Docker image of a Node.js app secured with Okta.
 
-**1.** Open your terminal to execute the [git-clone](https://git-scm.com/docs/git-clone) command below to clone the Okta-secured Node.js application from the [OktaDevrepository](https://github.com/oktadev/okta-node-express-15-minute-auth-example) to your local computer.
+**1.** Open your terminal to execute the [`git-clone`](https://git-scm.com/docs/git-clone) command below to clone the Okta-secured Node.js application from the [OktaDev repository](https://github.com/oktadev/okta-node-express-15-minute-auth-example) to your local computer.
 
 ```bash
 git clone https://github.com/oktadev/okta-node-express-15-minute-auth-example.git
 ```
 
-**2.** Using your preferred code editor, open the _okta-node-express-15-minute-auth-example_ folder cloned above and create a file named `Dockerfile`. This file will store the steps for building a docker image out of the cloned application.
+**2.** Using your preferred code editor, open the `okta-node-express-15-minute-auth-example` folder cloned above and create a file named `Dockerfile`. This file will store the steps for building a docker image out of the cloned application.
 
 Next, paste the code within the code block below into the `Dockerfile`.
 
@@ -98,7 +98,7 @@ When the `docker build` command is executed, Docker will perform the following s
 
 - Use `node:alpine` as the base image of the docker image about to be built.
 - Set the current working directory to `okta-k8-app`.
-- Copy all the files from the root directory (_okta-node-express-15-minute-auth-example_) into the root directory of the docker image being built.
+- Copy all the files from the root directory (`okta-node-express-15-minute-auth-example`) into the root directory of the docker image being built.
 - Run `npm install` command to install the node.js dependencies specified in the `package.json` file for the application.
 - Expose port 3000 to allow external HTTP requests to reach the Node.js application running on port 3000.
 - Lastly, execute `npm start` command to start the application
@@ -124,7 +124,7 @@ docker build . -t okta-k8-app
 
 Please refer to the article, [Build Simple Authentication in Express in 15 Minutes](/blog/2019/05/31/simple-auth-express-fifteen-minutes), to create an Okta application, and retrieve the client credentials for the application through the Okta developer console before proceeding further.
 
-Add the client credentials retrieved to the `.env` file in the format below; (Make sure there is no whitespace before values.)
+Add the client credentials retrieved to the `.env` file in the format below. (Make sure there is no whitespace before values.)
 
 ```
 HOST_URL=<OKTA_APP_HOST_URL>
@@ -135,7 +135,7 @@ OKTA_TOKEN=<OKTA_APP_TOKEN>
 APP_SECRET=<OKTA_APP_SECRET>
 ```
 
-**6.** Optionally, execute the docker run command below from your terminal to run the docker image built above. This command will allow you to test the running docker image from your web browser.
+**6.** Optionally, execute the `docker run` command below from your terminal to run the docker image built above. This command will allow you to test the running docker image from your web browser.
 
 ```bash
 docker run --env-file .env -p 3000:3000 okta-k8-app
@@ -165,7 +165,7 @@ The command executed above will return a JSON response by default to describe th
 
 Next, execute the docker tag command below to tag the docker image built previously.
 
-**Note:** Replace the <REPOSITORY_URI> placeholder within the template section in the code block below with the REPOSITORY_URI of the docker image you pushed to the ECR in the format of {% raw %}`<REPOSITORY_URI>:latest`{% endraw %}.
+**Note:** Replace the {% raw %}`<REPOSITORY_URI>`{% endraw %} placeholder within the template section in the code block below with the REPOSITORY_URI of the docker image you pushed to the ECR in the format of <REPOSITORY_URI>`:latest` .
 
 ```bash
 docker tag okta-k8-app:latest <REPOSITORY_URI>:latest
@@ -187,18 +187,18 @@ docker push <REPOSITORY_URI>
 
 ### Creating an EKS cluster
 
-So far, you have pushed a docker image to the Elastic Container Registry. Let's proceed to create a cluster in EKS that will use the docker image you previously pushed.
+So far, you have pushed a docker image to the Elastic Container Registry. Let's create a cluster in EKS that will use the docker image you previously pushed.
 
 Use the eksctl CLI tool to create a cluster within EKS. eksctl is a third-party CLI tool written in Go that simplifies the management of EKS clusters by leveraging AWS CloudFormation to manage your cluster and other dependent objects such as VPCs, and subnets.
 
-When creating a cluster, eksctl requires a very minimal configuration. It will attempt to create a cluster using its default values. However, you can specify the cluster configurations as command line arguments to the eksctl command, or more conveniently, specify a YAML file containing your cluster configurations.
+When creating a cluster, `eksctl` requires a very minimal configuration. It will attempt to create a cluster using its default values. However, you can specify the cluster configurations as command line arguments to the `eksctl` command, or more conveniently, specify a YAML file containing your cluster configurations.
 
-When the `create cluster` command is executed without a configuration file, eksctl will create the following AWS resources, which the cluster depends on:
+When the `create cluster` command is executed without a configuration file, `eksctl` will create the following AWS resources, which the cluster depends on:
 
-- A VPC having two subnets. One is public, the other is a private subnet across three availability zones within the VPC.
+- A VPC with two subnets. One is public, the other is a private subnet across three availability zones within the VPC.
 - A [node group](https://docs.aws.amazon.com/eks/latest/userguide/managed-node-groups.html) containing two virtual machines as the worker nodes for the cluster.
 
-Execute the `create cluster` command below to create a new cluster named okta-k8-cluster within the AWS region specified. This can take a considerable amount of time, so wait until the command is executed successfully.
+Execute the `create cluster` command below to create a new cluster named `okta-k8-cluster` within the AWS region specified. This can take a considerable amount of time, so wait until the command is executed successfully.
 
 **Note**: Replace the `AWS_REGION` placeholder with the region attached to your AWS account. For this tutorial, we are using the us-east-2 region.
 
@@ -208,7 +208,7 @@ eksctl create cluster --name okta-k8-cluster
 
 {% img blog/k8s-to-the-cloud-aws/5.png alt:"Eksctl create cluster command" width:"900" %}{: .center-image }
 
-After the okta-k8-cluster has been created, execute the command to switch your kubectl context to that of the okta-k8-cluster. Executing the command will enable kubectl to connect to your EKS clusters.
+After the `okta-k8-cluster` has been created, execute the command to switch your `kubectl` context to that of the `okta-k8-cluster`. Executing the command will enable `kubectl` to connect to your EKS clusters.
 
 ```bash
 aws eks --region us-east-2 update-kubeconfig --name okta-k8-cluster
@@ -274,7 +274,7 @@ stringData:
   APP_SECRET: <OKTA_APP_SECRET>
 ```
 
-Execute the kubectl `create` command below, from the directory where the files are located, to create a Kubernetes Secret using the `secret.yaml` file above. Make sure to replace the placeholders with their actual values.
+Execute the `kubectl create` command below, from the directory where the files are located, to create a Kubernetes Secret using the `secret.yaml` file above. Make sure to replace the placeholders with their actual values.
 
 ```bash
 kubectl create -f secret.yaml
@@ -282,7 +282,7 @@ kubectl create -f secret.yaml
 
 **3.** Create a `deployment.yaml` file and add the content of the code block below to define the properties of a deployment resource type.
 
-The configuration file contains three parts that define a deployment. The metadata defines the resource information, and the spec defines the number of pods to be created, the docker image to run within the pods, and a network port within the container to expose. The deployment will also mount the volume for the Kubernetes Secrets.
+The configuration file contains three parts that define a deployment. The metadata defines the resource information; the spec defines the number of pods to be created, the docker image to run within the pods, and a network port within the container to expose. The deployment will also mount the volume for the Kubernetes Secrets.
 
 **Note**: Replace the `DOCKER-IMAGE-URI` placeholder within the template section in the code block below with the URI of the docker image that you pushed to the ECR.
 
@@ -350,7 +350,7 @@ kubectl create -f deployment.yaml
 
 ### Modifying Okta client credentials
 
-At this point, the okta-k8-cluster is almost ready for use. You've created a load balancer and a deployment resource. However, before a user can be fully authenticated through the Node.js application running within the cluster, you have to update the `redirect_uri` within the Okta credentials to point to the load balancer for the `okta-k8-cluster`.
+At this point, the `okta-k8-cluster` is almost ready for use. You've created a load balancer and a deployment resource. However, before a user can be fully authenticated through the Node.js application running within the cluster, you have to update the `redirect_uri` within the Okta credentials to point to the load balancer for the `okta-k8-cluster`.
 
 Navigate to your Okta Developer Console and click on the application we're using for this tutorial.
 {% img blog/k8s-to-the-cloud-aws/7.png alt:"Okta console application general settings" width:"900" %}{: .center-image }
@@ -361,7 +361,7 @@ In the **LOGIN**, section, click the **Add URI** button within the **Sign-in red
 http://LOAD_BALANCER_EXTERNAL_IP:3000/callback
 ```
 
-Next click the **Add URI** button within the **Sign-out redirect URIs** subsection to add a new URI that will be used when signing out of the application. Add the load balancer external IP in into the input field in the format below;
+Next click the **Add URI** button within the **Sign-out redirect URIs** subsection to add a new URI that will be used when signing out of the application. Add the load balancer external IP in the input field in the format below:
 
 ```
 http://LOAD_BALANCER_EXTERNAL_IP:3000
@@ -388,4 +388,4 @@ Want to continue learning about Kubernetes, infrastructure, security, auth, iden
 - [An Overview of Best Practices for Security Headers](/blog/2021/10/18/security-headers-best-practices)
 
 You can find the code for this tutorial on GitHub at: [https://github.com/oktadev/okta](https://github.com/oktadev/okta)
-If you liked this tutorial, chances are you like others we publish. Please follow [@oktadev](https://twitter.com/oktadev) on Twitter and [subscribe to our YouTube channel](https://youtube.com/oktadev) to get notified when we publish new developer tutorials.
+If you liked this tutorial, you might like to explore others we publish. Please follow [@oktadev](https://twitter.com/oktadev) on Twitter and [subscribe to our YouTube channel](https://youtube.com/oktadev) to get notified when we publish new developer tutorials.
