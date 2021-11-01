@@ -5,16 +5,15 @@ author: nickolas-fisher
 by: contractor
 communities: [javascript]
 description: "This tutorial will show you how to quickly build a secure SPA using React, Okta, and Wouter."
-tags: [javascript,react,routing]
+tags: [javascript, react, routing]
 tweets:
-- "Learn how to use react routing to secure your applications quickly" 
-- ""
-- ""
-image: blog/todo.png
+- "Learn how to use React routing and Wouter to secure your applications quickly!" 
+- "Wouter is a tiny React router that relies on Hooks. Learn how to use it with a secure app today!"
+- "React has alternatives to the standard React Router. Learn how to use Wouter in this quick tutorial."
+image: blog/react-routing/react-routing.png
 type: conversion
 github: https://github.com/oktadev/okta-react-routing-example
 ---
-
 
 When building an SPA (single page application) with React, routing is one of the fundamental processes a developer must handle. React routing is the process of building routes, determining the content at the route, and securing it under authentication and authorization. There are many tools available to manage and secure your routes in React. The most commonly used one is `react-router`. However, many developers are not in a situation where they can use the `react-router` library. Because of this, they may need to use Reach Router, Wouter, or maybe even no router at all.
 
@@ -32,8 +31,6 @@ This tutorial will show you how to quickly build a secure SPA using React, Okta,
 ## Create an Okta OIDC application
 
 {% include setup/cli.md type="spa" framework="React" loginRedirectUri="http://localhost:3000/callback" logoutRedirectUri="http://localhost:3000" %}
-
-
 
 Once Okta is done processing your request it will return an *Issuer* and a *Client ID*. Make sure you note these, as you will need them in your application.
 
@@ -183,6 +180,7 @@ This page leverages the `useOktaAuth` hook to determine if the user is logged in
 
 Finally, add `Home.jsx` to the `Pages` folder with the following code.
 
+{% raw %}
 ```jsx
 import React from "react";
 import { Link, Redirect } from "wouter";
@@ -236,6 +234,7 @@ const Home = () => {
 
 export default Home;
 ```
+{% endraw %}
 
 This page uses the `Redirect` component from wouter combined with the `useOktaAuth` hook to redirect authenticated users to the profile page. The page also serves as a landing page with some additional information about your application.
 
@@ -305,9 +304,9 @@ Finally, you are setting up the routing by wrapping the wouter `Router` in Okta'
 
 ## Run your React application 
 
-Your application is now complete. You can run it using `npm start` and navigate to `http://localhost:3000`. From there you click the **Login** button, which will display the Okta login screen. Once you've logged in successfully you are redirected to the `Profile` page.  
+Your application is now complete. You can run it using `npm start` and navigate to `http://localhost:3000`. From there you click the **Login** button, which will display the Okta login screen. Once you've logged in successfully you are redirected to the `Profile` page.
 
-
+{% img blog/react-routing/react-routing-demo.png alt:"React routing demo" width:"800" %}{: .center-image }
 
 ## Learn more about React
 
@@ -322,4 +321,3 @@ If you liked this tutorial, you might like these others:
 - [Build Reusable React Components ](https://developer.okta.com/blog/2020/01/20/build-reusable-react-components)
 
 Make sure you follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel. If you have any questions, or you want to share what tutorial you’d like to see next, please comment below.
-
