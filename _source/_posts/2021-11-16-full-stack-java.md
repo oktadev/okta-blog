@@ -172,7 +172,7 @@ You should see output like the following:
     ✔  All specs passed!                        00:12        5        5        -        -        -
 ```
 
-## Change your Identity Provider to Auth0
+## Change Your Identity Provider to Auth0
 
 JHipster uses Spring Security's OAuth 2.0 and OIDC support to configure which IdP it uses. When using Spring Security with Spring Boot, you can configure most settings in a properties file. You can even override properties with environment variables.
 
