@@ -64,7 +64,7 @@ A VPC is required for creating a cluster. The VPC is also required to contain su
 
 EKS has an uptime [Service Level Agreement](https://aws.amazon.com/eks/sla/) of 99.95%. As one of the strategies to ensure high availability (HA), an Auto Scaling Group can be used within each Availability Zone to monitor the nodes within a cluster, scaling them to meet your application's demands or even restarting them when health probes fail repeatedly.
 
-### Creating a Docker Container
+### Creating a Docker container
 
 With the knowledge you now have about EKS, let's create a cluster having a deployment to run the Docker image of a Node.js application secured with Okta. We will reuse the Node.js application that was built for an earlier blog post, [Building a Simple Authentication in Express in 15 minutes](/blog/2019/05/31/simple-auth-express-fifteen-minutes). You need only focus on creating a Docker image of the application.
 
