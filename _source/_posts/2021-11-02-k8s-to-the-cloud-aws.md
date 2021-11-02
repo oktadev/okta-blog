@@ -29,7 +29,7 @@ To follow along with the cluster creation steps, you will need the following:
 
 - An [AWS account](https://aws.amazon.com/). Sign up for an account to receive free AWS credits.
 - The [AWS CLI](https://aws.amazon.com/cli/) installed and configured on a local computer.
-- The [`eksctl` command line tool](https://eksctl.io/introduction/#installation)installed on your local machine.
+- The [`eksctl` command line tool](https://eksctl.io/introduction/#installation) installed on your local machine.
 - [Docker](https://www.docker.com/), installed on a local computer to build a Docker image of the cloned Express.js application.
 
 ## Introducing Kubernetes offerings on Amazon
@@ -52,7 +52,7 @@ The EKS architecture comprises three main components – clusters, nodes, and th
 
 An EKS cluster is composed of a control plane and worker nodes residing within a VPC created for the cluster. A cluster's control plane is placed in an AWS-managed account and runs the Kubernetes software. The worker nodes, on the other hand, run in a user's AWS account, and are EC2 instances that connect to the control plane through the [API Server](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/) from the Kubernetes software.
 
-An EKS cluster can be created through several tools such as the [AWS console](https://aws.amazon.com/console/), [AWS CLI](https://aws.amazon.com/cli/), [Cloud Formation](https://aws.amazon.com/cloudformation/), [`eksctl`](https://eksctl.io/), or even [Terraform](https://www.terraform.io/), as well as other *infrastructure as code* tools. When using terminal-based tools such as the AWS CLI or `eksctl`, you provide the properties of the cluster to be created by EKS, either by using a configuration file or through command line arguments. Within the demo section of this article, you will use the `eksctl` command line tool to create a cluster.
+An EKS cluster can be created through several tools such as the [AWS console](https://aws.amazon.com/console/), [AWS CLI](https://aws.amazon.com/cli/), [Cloud Formation](https://aws.amazon.com/cloudformation/), [`eksctl`](https://eksctl.io/), or even [Terraform](https://www.terraform.io/), as well as other _infrastructure as code_ tools. When using terminal-based tools such as the AWS CLI or `eksctl`, you provide the properties of the cluster to be created by EKS, either by using a configuration file or through command line arguments. Within the demo section of this article, you will use the `eksctl` command line tool to create a cluster.
 
 With regard to the cluster's security, the internal connection between the control plane and worker nodes uses a certificate file generated on setup. The cluster's data stored within [etcd](https://kubernetes.io/docs/concepts/overview/components/#etcd) is also encrypted by default using the [Key Management Service](https://aws.amazon.com/kms/) on AWS.
 
@@ -165,7 +165,7 @@ The command executed above will return a JSON response by default to describe th
 
 Next, execute the docker tag command below to tag the docker image built previously.
 
-**Note:** Replace the {% raw %}`<REPOSITORY_URI>`{% endraw %} placeholder within the template section in the code block below with the REPOSITORY_URI of the docker image you pushed to the ECR in the format of <REPOSITORY_URI>`:latest` .
+**Note:** Replace the `<REPOSITORY_URI>` placeholder within the template section in the code block below with the REPOSITORY_URI of the docker image you pushed to the ECR in the format of `<REPOSITORY_URI>:latest` .
 
 ```bash
 docker tag okta-k8-app:latest <REPOSITORY_URI>:latest
@@ -200,10 +200,10 @@ When the `create cluster` command is executed without a configuration file, `eks
 
 Execute the `create cluster` command below to create a new cluster named `okta-k8-cluster` within the AWS region specified. This can take a considerable amount of time, so wait until the command is executed successfully.
 
-**Note**: Replace the `AWS_REGION` placeholder with the region attached to your AWS account. For this tutorial, we are using the us-east-2 region.
+**Note**: Replace the `<AWS_REGION>` placeholder with the region attached to your AWS account. For this tutorial, we are using the us-east-2 region.
 
 ```bash
-eksctl create cluster --name okta-k8-cluster
+eksctl create cluster --name okta-k8-cluster --region <AWS_REGION>
 ```
 
 {% img blog/k8s-to-the-cloud-aws/5.png alt:"Eksctl create cluster command" width:"900" %}{: .center-image }
@@ -284,7 +284,7 @@ kubectl create -f secret.yaml
 
 The configuration file contains three parts that define a deployment. The metadata defines the resource information; the spec defines the number of pods to be created, the docker image to run within the pods, and a network port within the container to expose. The deployment will also mount the volume for the Kubernetes Secrets.
 
-**Note**: Replace the `DOCKER-IMAGE-URI` placeholder within the template section in the code block below with the URI of the docker image that you pushed to the ECR.
+**Note**: Replace the `<DOCKER-IMAGE-URI>` placeholder within the template section in the code block below with the URI of the docker image that you pushed to the ECR.
 
 ```yaml
 apiVersion: apps/v1
@@ -371,7 +371,7 @@ http://LOAD_BALANCER_EXTERNAL_IP:3000
 
 Click the **Save** button to save the two added URIs.
 
-At this point the application is fully set up and ready for use. With your web browser, you can access the Node.js application through the load balancer's External IP in the format of http://LOAD_BALANCER_EXTERNAL_IP:3000.
+At this point the application is fully set up and ready for use. With your web browser, you can access the Node.js application through the load balancer's External IP in the format of `http://LOAD_BALANCER_EXTERNAL_IP:3000`.
 
 {% img blog/k8s-to-the-cloud-aws/9.png alt:"Running Simple Node.js application on EKS" width:"900" %}{: .center-image }
 
@@ -387,5 +387,5 @@ Want to continue learning about Kubernetes, infrastructure, security, auth, iden
 - [The Top 5 DevOps Automation Tools .NET Developers Should Know](/blog/2019/07/02/aspnet-top-5-devops-automation-tools-dotnet-csharp-developers)
 - [An Overview of Best Practices for Security Headers](/blog/2021/10/18/security-headers-best-practices)
 
-You can find the code for this tutorial on GitHub at: [https://github.com/oktadev/okta](https://github.com/oktadev/okta)
+You can find the code for this tutorial on GitHub at: [https://github.com/oktadev/okta-node-express-15-minute-auth-example](https://github.com/oktadev/okta-node-express-15-minute-auth-example).
 If you liked this tutorial, you might like to explore others we publish. Please follow [@oktadev](https://twitter.com/oktadev) on Twitter and [subscribe to our YouTube channel](https://youtube.com/oktadev) to get notified when we publish new developer tutorials.
