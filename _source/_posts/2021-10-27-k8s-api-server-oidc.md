@@ -31,7 +31,7 @@ Since the API server is the only part of the Kubernetes cluster that a client ca
 
 # Why OpenID Connect?
 
-> [OpenID Connect](https://developer.okta.com/docs/concepts/oauth-openid/) is an authentication standard built on top of OAuth 2.0. It adds an additional token called an ID token. OpenID Connect also standardizes areas that OAuth 2.0 leaves up to choices, such as scopes, endpoint discovery, and dynamic registration of clients
+> [OpenID Connect](https://developer.okta.com/docs/concepts/oauth-openid/) is an authentication standard built on top of OAuth 2.0. It adds an additional token called an ID token. OpenID Connect also standardizes areas that OAuth 2.0 leaves up to choices, such as scopes, endpoint discovery, and dynamic registration of clients.
 
 While the default authentication mechanism of the Kubernetes API server might be enough for simple use cases, where only a handful of people manages the cluster, it does not scale for bigger organizations. It's definitely not the most secure way as well. This is because Kubernetes does not handle user management and expects this to be done outside. This is where OpenID Connect (OIDC) comes in. OIDC can manage users and groups, which works very well with the Kubernetes RBAC to provide very granular control of who can access what inside a cluster.
 
@@ -39,7 +39,7 @@ While the default authentication mechanism of the Kubernetes API server might be
 
 Having an OIDC integration also means you can use the same OIDC provider used to do SSO in your existing infrastructure to access your Kubernetes cluster as well, like Okta or Keycloak, for example.
 
-# Using Okta as an OIDC provider to secure the API server.
+# Use Okta as an OIDC provider to secure the API server
 
 > Okta, Inc. is an identity and access management company providing cloud software that helps companies manage and secure user authentication into applications and for developers to build identity controls into applications, websites, web services, and devices. Okta is a certified OpenID Connect provider.
 
@@ -56,7 +56,7 @@ Before you start trying this out, make sure you have access to the following.
 
 ## Set up an Okta OIDC application and authorization server
 
-You can achieve OIDC login for the cluster by creating a simple OIDC application with Okta either using the Okta CLI or the Admin console. But with an OIDC application alone, you would have to use the client secret to authenticate from kubectl or any other client library. Which does not scale and is not better than default k8s authentication mechanisms as you won't have granular controls over users and roles. For a more helpful setup, we would need an OIDC application and an authorization server with customized claims and policies for Kubernetes. This way, we can make use of Okta to manage users and permissions as well.
+You can achieve OIDC login for the cluster by creating a simple OIDC application with Okta either using the Okta CLI or the Admin Console. But with an OIDC application alone, you would have to use the client secret to authenticate from kubectl or any other client library. Which does not scale and is not better than default k8s authentication mechanisms as you won't have granular controls over users and roles. For a more helpful setup, we would need an OIDC application and an authorization server with customized claims and policies for Kubernetes. This way, we can make use of Okta to manage users and permissions as well.
 
 There are multiple ways to set up an OIDC application and authorization server in Okta. If you prefer to do this via a GUI, then follow the **Configure Your Okta Org section** from [this article](/blog/2021/10/08/secure-access-to-aws-eks#configure-your-okta-org) to do it via the Okta Admin Console.
 
@@ -108,7 +108,7 @@ The Okta provider is now configured and ready to go.
 
 ### Create groups
 
-Now we need some groups to differentiate and map different kinds of users who want to access our clusters. Let's say we have a group of administrators with full access to the cluster and another group of users who have limited access. You can have any number of groups as per your needs. The Below configuration will create two groups. The group's privileges will be defined using Kubernetes RBAC policies on the cluster, which we will do later.
+Now we need some groups to differentiate and map different kinds of users who want to access our clusters. Let's say we have a group of administrators with full access to the cluster and another group of users who have limited access. You can have any number of groups as per your needs. The configuration below will create two groups. The group's privileges will be defined using Kubernetes RBAC policies on the cluster, which we will do later.
 
 ```hcl
 # Set up OKTA groups
@@ -160,7 +160,7 @@ resource "okta_group_memberships" "restricted_user" {
 
 ### Create an OIDC application
 
-Now that our groups are in place let's create an OIDC application. We will set the application type to `native` and use PKCE as client authentication, which is much more secure than using a client secret. We will also set the redirect URIs to `localhost:8000` so that we can work with kubectl locally. We should also assign the groups we created earlier to this application here. Finally, we can capture the client id of the created app using an output variable.
+Now that our groups are in place let's create an OIDC application. We will set the application type to `native` and use PKCE as client authentication, which is much more secure than using a client secret. We will also set the redirect URIs to `localhost:8000` so that we can work with kubectl locally. We should also assign the groups we created earlier to this application here. Finally, we can capture the client ID of the created app using an output variable.
 
 ```hcl
 # Create an OIDC application
@@ -313,7 +313,7 @@ Now we need to prepare the cluster to work with OIDC. For this, we need to updat
 - `oidc-groups-claim`: This is the claim that will be used to identify the groups. In this case, it is `groups`.
 - `oidc-ca-file`: This is the CA file that is used to validate the OIDC server. If you are using Okta as an OIDC provider, then you don't need to set this.
 
-**Note**: If you encounter an issue where OIDC groups/users collide with Kubernetes groups/users, you can set `oidc-groups-prefix` and `oidc-username-prefix` flags as well.
+**NOTE**: If you encounter an issue where OIDC groups/users collide with Kubernetes groups/users, you can set `oidc-groups-prefix` and `oidc-username-prefix` flags as well.
 
 Flags can be set when creating the cluster or by patching the API server via SSH.
 
@@ -401,7 +401,7 @@ sudo vi /etc/kubernetes/manifests/kube-apiserver.yaml
 ...
 ```
 
-If you are using a managed service like [EKS](/blog/2021/10/08/secure-access-to-aws-eks#add-okta-as-an-oidc-provider-on-your-eks-cluster) or [GKE](https://cloud.google.com/kubernetes-engine/docs/how-to/oidc#enabling_on_an_existing_cluster), then follow their instructions to update the API server
+If you are using a managed service like [EKS](/blog/2021/10/08/secure-access-to-aws-eks#add-okta-as-an-oidc-provider-on-your-eks-cluster) or [GKE](https://cloud.google.com/kubernetes-engine/docs/how-to/oidc#enabling_on_an_existing_cluster), then follow their instructions to update the API server.
 
 ## Configure RBAC
 
@@ -431,7 +431,7 @@ EOF
 
 In real use cases, you may want to restrict further a group's access to specific resource types or namespaces, add multiple groups with different permissions, and so on. See [this](https://kubernetes.io/docs/reference/access-authn-authz/rbac/) for different possibilities.
 
-Now, Let's create a k8s role that can only view pods and services in the default namespace.
+Now, let's create a k8s role that can only view pods and services in the default namespace.
 
 ```bash
 kubectl apply -f - <<EOF
@@ -536,7 +536,7 @@ Now we can use this user to authenticate to the cluster via kubectl.
 kubectl get pods --user=oidc-user -n default
 ```
 
-This should open a browser window to authenticate you. You can use your Okta account credential to log in.
+This should open a browser window to authenticate you. You can use your Okta account credentials to log in.
 
 You can play around with different users in different groups to test out the RBAC configuration we did. Users who are not in the `k8s-admins` group in Okta should not be able to access any resource. Users who are only in the `restricted-users` group should only be able to see pods and services.
 
