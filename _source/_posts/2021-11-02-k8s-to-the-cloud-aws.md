@@ -21,7 +21,7 @@ In this article, you will learn about the services offered by Amazon Web Service
 
 {% include toc.md %}
 
-## Prerequisites
+**Prerequisites**
 
 This article will walk through the hands-on creation of a Kubernetes cluster to deploy a containerized Node.js application secured with Okta.
 
@@ -64,7 +64,7 @@ A VPC is required for creating a cluster. The VPC is also required to contain su
 
 EKS has an uptime [Service Level Agreement](https://aws.amazon.com/eks/sla/) of 99.95%. As one of the strategies to ensure high availability (HA), an Auto Scaling Group can be used within each Availability Zone to monitor the nodes within a cluster, scaling them to meet your application's demands or even restarting them when health probes fail repeatedly.
 
-### Creating a Docker container
+## Creating a Docker container
 
 With the knowledge you now have about EKS, let's create a cluster having a deployment to run the Docker image of a Node.js application secured with Okta. We will reuse the Node.js application that was built for an earlier blog post, [Building a Simple Authentication in Express in 15 minutes](/blog/2019/05/31/simple-auth-express-fifteen-minutes). You need only focus on creating a Docker image of the application.
 
@@ -149,7 +149,7 @@ With the Node.js application now running in the terminal, you can view the Node.
 
 {% img blog/k8s-to-the-cloud-aws/2.png alt:"Local sign-in page for Simple Node.js application" width:"900" %}{: .center-image }
 
-### Pushing the docker image to the Elastic Container Registry (ECR)
+## Pushing the docker image to the Elastic Container Registry (ECR)
 
 In the last section, you built the docker image for your application. Now you can proceed to create a registry within the Elastic Container Registry, and push the newly created docker image into it.
 
@@ -185,7 +185,7 @@ docker push <REPOSITORY_URI>
 
 {% img blog/k8s-to-the-cloud-aws/4.png alt:"Pushing the app image to the ECR repository" width:"900" %}{: .center-image }
 
-### Creating an EKS cluster
+## Creating an EKS cluster
 
 So far, you have pushed a docker image to the Elastic Container Registry. Let's create a cluster in EKS that will use the docker image you previously pushed.
 
@@ -214,7 +214,7 @@ After the `okta-k8-cluster` has been created, execute the command to switch your
 aws eks --region us-east-2 update-kubeconfig --name okta-k8-cluster
 ```
 
-### Creating Kubernetes resources
+## Creating Kubernetes resources
 
 At this point, you have an empty Kubernetes cluster running on EKS. Let's proceed to create three resources within the cluster.
 
@@ -348,7 +348,7 @@ Execute the kubectl create command below to create the deployment resource using
 kubectl create -f deployment.yaml
 ```
 
-### Modifying Okta client credentials
+## Modifying Okta client credentials
 
 At this point, the `okta-k8-cluster` is almost ready for use. You've created a load balancer and a deployment resource. However, before a user can be fully authenticated through the Node.js application running within the cluster, you have to update the `redirect_uri` within the Okta credentials to point to the load balancer for the `okta-k8-cluster`.
 
@@ -375,7 +375,7 @@ At this point the application is fully set up and ready for use. With your web b
 
 {% img blog/k8s-to-the-cloud-aws/9.png alt:"Running Simple Node.js application on EKS" width:"900" %}{: .center-image }
 
-### More resources for Kubernetes on AWS
+## More resources for Kubernetes on AWS
 
 In this article, we covered basic aspects of the Elastic Kubernetes Service on AWS. You created an EKS cluster with a deployment and a service that uses the Docker image of a Node.js application.
 
