@@ -555,10 +555,10 @@ While this exercise shows how to do it with Okta, the process would be very simi
 If you want to learn more about Kubernetes, OIDC, or using OIDC with Kubernetes, feel free to follow the links below.
 
 - [OAuth 2.0 and OpenID Connect Overview](https://developer.okta.com/docs/concepts/oauth-openid/)
-- [Secure Access to AWS EKS Clusters for Admins](https://developer.okta.com/blog/2021/10/08/secure-access-to-aws-eks)
-- [Build a Microservice Architecture with Spring Boot and Kubernetes](https://developer.okta.com/blog/2019/04/01/spring-boot-microservices-with-kubernetes)
-- [Kubernetes to the Cloud with Spring Boot and JHipster](https://developer.okta.com/blog/2021/06/01/kubernetes-spring-boot-jhipster)
-- [Using Okta Advanced Server Access & Terraform to Automate Identity & Infrastructure as Code](https://developer.okta.com/blog/2020/04/24/okta-terraform-automate-identity-and-infrastructure)
+- [Secure Access to AWS EKS Clusters for Admins](/blog/2021/10/08/secure-access-to-aws-eks)
+- [Build a Microservice Architecture with Spring Boot and Kubernetes](/blog/2019/04/01/spring-boot-microservices-with-kubernetes)
+- [Kubernetes to the Cloud with Spring Boot and JHipster](/blog/2021/06/01/kubernetes-spring-boot-jhipster)
+- [Using Okta Advanced Server Access & Terraform to Automate Identity & Infrastructure as Code](/blog/2020/04/24/okta-terraform-automate-identity-and-infrastructure)
 
 You can find the code for this tutorial on GitHub at <https://github.com/oktadev/okta-k8s-oidc-terraform-example>.
 
