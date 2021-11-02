@@ -189,7 +189,7 @@ docker push <REPOSITORY_URI>
 
 So far, you have pushed a docker image to the Elastic Container Registry. Let's create a cluster in EKS that will use the docker image you previously pushed.
 
-Use the eksctl CLI tool to create a cluster within EKS. eksctl is a third-party CLI tool written in Go that simplifies the management of EKS clusters by leveraging AWS CloudFormation to manage your cluster and other dependent objects such as VPCs, and subnets.
+Use the `eksctl` CLI tool to create a cluster within EKS. `eksctl` is a third-party CLI tool written in Go that simplifies the management of EKS clusters by leveraging AWS CloudFormation to manage your cluster and other dependent objects such as VPCs, and subnets.
 
 When creating a cluster, `eksctl` requires a very minimal configuration. It will attempt to create a cluster using its default values. However, you can specify the cluster configurations as command line arguments to the `eksctl` command, or more conveniently, specify a YAML file containing your cluster configurations.
 
