@@ -13,11 +13,11 @@ type: conversion
 image: blog/k8s-api-server-oidc/kube-login-oidc.jpg
 ---
 
-A Kubernetes (k8s) cluster comprises worker machines called nodes and a control plane consisting of the API server, scheduler, etcd, controller manager, and cloud controller manager — in case of a PaaS. The containers deployed to the cluster will run in pods on the worker nodes. At the same time, the control plane takes care of scheduling, responding to requests, and managing the cluster.
+A Kubernetes (k8s) cluster comprises worker machines called nodes and a control plane consisting of the API server, scheduler, etcd, controller manager, and in the case of a PaaS the cloud controller manager. The containers deployed to the cluster run in pods on the worker nodes. At the same time, the control plane takes care of scheduling, responding to requests, and managing the cluster.
 
 {% img blog/k8s-api-server-oidc/kube-architecture.jpg alt:"K8s architecture" width:"800" %}{: .center-image }
 
-When you are communicating with a Kubernetes cluster, let's say using kubectl or a client library or a tool like [KDash](https://kdash.cli.rs/), you are primarily interacting with the [Kubernetes API server](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/). The API server is responsible for managing the cluster and is responsible for handling requests from a client.
+When you communicate with a Kubernetes cluster, using kubectl or a client library or a tool like [KDash](https://kdash.cli.rs/), you are primarily interacting with the [Kubernetes API server](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/). The API server is responsible for managing the cluster and is responsible for handling requests from a client.
 
 **Table of Contents**{: .hide }
 * Table of Contents
