@@ -27,7 +27,7 @@ When you are communicating with a Kubernetes cluster, let's say using kubectl or
 
 The API server has multiple layers of security. By default, all communication with the API server uses TLS. Authentication is done using service account tokens, bearer tokens, basic authentication, a proxy, or client certificates, depending on the platform. In the case of PaaS like Amazon EKS, AKS, and GKE, it can also be done using custom authentication mechanisms. Once a request is authenticated, the API server can use one of several authorization mechanisms, like Attribute-based access control (ABAC) or Role-based access control (RBAC), to control access to resources. And finally, there are also admission control modules that can be configured to control resource modifications.
 
-Since the API server is the only part of the Kubernetes cluster that a client can access, it is essential to secure the API server. Unauthorized access of the API server can lead to hijacking of the entire cluster and maybe even your infrastructure, data theft, and so on. Hence, configuring users and roles properly is a must to secure the cluster, especially i9n organizations where more than one user can access the cluster.
+Since the API server is the only part of the Kubernetes cluster that a client can access, it is essential to secure the API server. Unauthorized access to the API server can lead to hijacking of the entire cluster, which also lets an attacker access all secrets and data accessible to the services running on it. Hence, configuring users and roles properly is a must to secure the cluster, especially i9n organizations where more than one user can access the cluster.
 
 # Why OpenID Connect?
 
@@ -43,7 +43,7 @@ Having an OIDC integration also means you can use the same OIDC provider used to
 
 > Okta, Inc. is an identity and access management company providing cloud software that helps companies manage and secure user authentication into applications and for developers to build identity controls into applications, websites, web services, and devices. Okta is a certified OpenID Connect provider.
 
-Let us see how we can secure the Kubernetes API server using Okta as an OIDC provider and use RBAC to control access right from the Okta Admin Console. If you are using Amazon EKS, then check [this](/blog/2021/10/08/secure-access-to-aws-eks) specific tutorial for using Okta OIDC with EKS.
+Let us see how we can secure the Kubernetes API server using Okta as an OIDC provider and use RBAC to control access from the Okta Admin Console. If you are using Amazon EKS, then check [this](/blog/2021/10/08/secure-access-to-aws-eks) tutorial for using Okta OIDC with EKS.
 
 ## What you'll need to get started
 
@@ -51,12 +51,12 @@ Before you start trying this out, make sure you have access to the following.
 
 - An Okta account. You can sign up for a free account [here](https://developer.okta.com/signup/). If you like, you can use another OIDC provider or [Dex](https://github.com/dexidp/dex), and the steps should be similar.
 - A Kubernetes cluster. I'm using [k3d](https://k3d.io/) to run a local [k3s](https://k3s.io/) cluster. You can use any Kubernetes distribution, including managed PaaS like Amazon EKS, AKS, and GKE, and so on.
-- kubectl installed on your machine.
-- Terraform installed on your machine. This is not required if you do the Okta configuration via the [Okta Admin Console](https://login.okta.com/) GUI.
+- [kubectl](https://kubernetes.io/docs/tasks/tools/) installed on your machine.
+- [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli) installed on your machine. This is not required if you do the Okta configuration via the [Okta Admin Console](https://login.okta.com/) GUI.
 
 ## Set up an Okta OIDC application and authorization server
 
-You can achieve OIDC login for the cluster by creating a simple OIDC application with Okta either using the Okta CLI or the Admin Console. But with an OIDC application alone, you would have to use the client secret to authenticate from kubectl or any other client library. Which does not scale and is not better than default k8s authentication mechanisms as you won't have granular controls over users and roles. For a more helpful setup, we would need an OIDC application and an authorization server with customized claims and policies for Kubernetes. This way, we can make use of Okta to manage users and permissions as well.
+You can achieve OIDC login for the cluster by creating a simple OIDC application with Okta either using the Okta CLI or the Admin Console. But with an OIDC application alone, you would have to use the client secret to authenticate from kubectl or any other client library. Authenticating with the client secret does not scale and is not better than default k8s authentication mechanisms, as you won't have granular controls over users and roles. For a more helpful setup, we  need an OIDC application and an authorization server with customized claims and policies for Kubernetes. This way, we can use Okta to manage users and permissions as well.
 
 There are multiple ways to set up an OIDC application and authorization server in Okta. If you prefer to do this via a GUI, then follow the **Configure Your Okta Org section** from [this article](/blog/2021/10/08/secure-access-to-aws-eks#configure-your-okta-org) to do it via the Okta Admin Console.
 
@@ -64,7 +64,6 @@ In this tutorial, we will use Terraform to configure the Okta part so that you c
 
 ### Set up Terraform
 
-If you don't have Terraform installed, follow [these instructions](https://learn.hashicorp.com/tutorials/terraform/install-cli) and set it up.
 
 You can find the complete Terraform source code for this article in this [GitHub repo](https://github.com/oktadev/okta-k8s-oidc-terraform-example)
 
@@ -100,9 +99,9 @@ provider "okta" {
 }
 ```
 
-You need to provide the input variables `org_name`, `base_url`, and `api_token`. For example, if the address of your Okta instance is `dev-1234.okta.com`, then your `org_name` would be `dev-1234`, and `base_url` would be everything that comes after the org name (e.g., okta.com). Update these values in a file named `okta.config.auto.tfvars`. The `.auto` in the name is important; otherwise, Terraform will not pick it up automatically.
+You need to provide the input variables `org_name`, `base_url`, and `api_token`. Update these values in a file named `okta.config.auto.tfvars`. The `.auto` in the name is important; otherwise, Terraform will not pick it up automatically. For example, if the address of your Okta instance is `dev-1234.okta.com`, then your `org_name` would be `dev-1234`, and `base_url` would be everything that comes after the org name (e.g., okta.com). 
 
-Next, You will need to generate the `api-token` value. Log in to your Okta administrator console as a superuser and select **Security** > **API** > **Tokens (Tab)** from the navigation menu. Next, click the **Create Token** button, give your token a name, click **Create Token**, and copy the newly generated token. Save this in a separate `.tfvars` file excluded from Git or in an environment variable named `TF_VAR_api_token`.
+Next, you will need to generate the `api-token` value. Log in to your Okta administrator console as a superuser and select **Security** > **API** > **Tokens (Tab)** from the navigation menu. Next, click the **Create Token** button, give your token a name, click **Create Token**, and copy the newly generated token. Save this in a separate `.tfvars` file excluded from Git or in an environment variable named `TF_VAR_api_token`.
 
 The Okta provider is now configured and ready to go.
 
@@ -202,7 +201,7 @@ output "k8s_oidc_client_id" {
 
 ### Create an authorization server
 
-Next, we would need an authorization server so that we can define policies and claims. We can also capture the issuer URL in an output variable.
+Next, we need an authorization server so that we can define policies and claims. We will also capture the issuer URL in an output variable.
 
 ```hcl
 # Create an authorization server
@@ -265,7 +264,7 @@ resource "okta_auth_server_policy_rule" "auth_policy_rule" {
 
 ### Create the Okta configurations using Terraform
 
-Now that the Terraform code is ready let's apply this. First, run `terraform plan` to see the changes that will be made. Then run `terraform apply` and type `yes` to apply the changes. You should see an output similar to this. You can also log in to the Okta Admin Console to verify the changes.
+Now that the Terraform code is ready, let's apply it. First, run `terraform plan` to see the changes that will be made. Verify that the changes proposed by the `plan` make the changes you wanted, on the resources that you intended to modify. Then run `terraform apply` and type `yes` to apply the changes. You should see an output similar to this. You can also log in to the Okta Admin Console to verify the changes.
 
 Copy the output values as we will need them for the next steps.
 
@@ -315,11 +314,11 @@ Now we need to prepare the cluster to work with OIDC. For this, we need to updat
 
 **NOTE**: If you encounter an issue where OIDC groups/users collide with Kubernetes groups/users, you can set `oidc-groups-prefix` and `oidc-username-prefix` flags as well.
 
-Flags can be set when creating the cluster or by patching the API server via SSH.
+Flags can be set when creating the cluster or by patching the API server via SSH, as described below.
 
 ### Create a cluster with OIDC enabled
 
-Here is how you can create a new k8s cluster with OIDC enabled using different tools. Execute the command for the tool of preference. Make sure to replace `<k8s_oidc_issuer_url>` and `<k8s_oidc_client_id>` with values from the output of the Terraform step. For any other tools, refer to their documentation on how to update API server flags.
+Here is how you can create a new k8s cluster with OIDC enabled using different tools. Execute the command for the tool you're using. Make sure to replace `<k8s_oidc_issuer_url>` and `<k8s_oidc_client_id>` with values from the output of the Terraform step. For any other tools, refer to their documentation on how to update API server flags.
 
 #### kubeadmn
 
@@ -552,7 +551,7 @@ Using OIDC is a great way to secure your Kubernetes clusters, especially in bigg
 
 While this exercise shows how to do it with Okta, the process would be very similar for other OIDC providers as well. Check out the [Okta Terraform provider docs](https://registry.terraform.io/providers/okta/okta/latest/docs) to see what else can be automated via Terraform. You can also automate the Kubernetes parts via terraform using the [Kubernetes Terraform provider](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs).
 
-If you want to learn more about Kubernetes, OIDC, or using OIDC with Kubernetes, feel free to follow the links below.
+If you want to learn more about Kubernetes, OIDC, or using OIDC with Kubernetes, check out these additional resources.
 
 - [OAuth 2.0 and OpenID Connect Overview](https://developer.okta.com/docs/concepts/oauth-openid/)
 - [Secure Access to AWS EKS Clusters for Admins](/blog/2021/10/08/secure-access-to-aws-eks)
