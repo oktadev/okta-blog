@@ -2,7 +2,7 @@
 layout: blog_post
 title: "Set Up the Private Key JWT Flow in Three Python Commands"
 author: cale-switzer
-by: advocate
+by: internal-contributor
 communities: [python]
 description: "The Private Key JWT flow is one of the more complicated OAuth flows to set up. Learn how the flow works at a high level and how you can implement it in three commands with Python scripting."
 tags: [python, oauth, private-key-jwt]
@@ -20,21 +20,21 @@ Once you've obtained the access token from this flow, you can throw it into the 
 
 But let's break it down a bit more:
 
-### Step 1
+### Step 1: Generate keypair
 
-Typically, one may think of JWTs as strictly being in the realm of the Identity Provider (IdP) - and in most cases that's correct. When an IdP grants tokens to a service provider (SP), it is signing those tokens with a private/secret key. Part of the responsibility of the SP when validating tokens is to use a public key provided by the IdP to verify the signature.
+Typically, one may think of JWTs as strictly being in the realm of the *identity provider* (IdP) - and in most cases that's correct. When an IdP grants tokens to a service provider (SP), it is signing those tokens with a private/secret key. Part of the responsibility of the SP when validating tokens is to use a public key provided by the IdP to verify the signature.
 
 The Private Key JWT flow flips this on its head - at least at the start. It's now the SP's turn to generate a public/private keypair, share the public key with the IdP (more on that in Step 2), create a JWT and sign it with their private key (more on that in Step 3).
 
 But I digress...Step 1 is really just about generating the keypair. (In this case, RSA keys with a 2048 bit key size).
 
-### Step 2
+### Step 2: Register public key
 
-The next step is registering your public key with the IdP - with Okta, that's done through our [clients](https://developer.okta.com/docs/reference/api/oauth-clients/#register-new-client) API. With this step, Okta will create an application integration and generate a unique client ID - this value will be important when it comes time to create the Private Key JWT. It will be this client ID as well as the working public key decryption that validates your request.
+The next step is registering your public key with the IdP. With Okta, that's done through our [clients](https://developer.okta.com/docs/reference/api/oauth-clients/#register-new-client) API. With this step, Okta will create an application integration and generate a unique client ID - this value will be important when it comes time to create the Private Key JWT. It will be this client ID as well as the working public key decryption that validates your request.
 
 In other flows like the popular [Authorization Code](https://developer.okta.com/docs/guides/implement-grant-type/authcode/main) flow, the identity provider generates a secret value called the client secret. In the Private Key JWT flow, the burden is on the service provider to generate a secret value for the same purpose - albeit by different means.
 
-### Step 3
+### Step 3: Get access token
 
 Technically this could be broken down into two separate steps - creating the private key JWT and then submitting it to the IdP to obtain an access token. I lumped it into one step because the Python command `get_access_token.py` below does both of these at once.
 
@@ -62,17 +62,17 @@ This token is sent to the /token endpoint of the IdP:
     client_assertion={private key JWT}
 ```
 
-Assuming everyting is setup correctly, the IdP should respond with an access token that you can use to access scoped resources.
+Assuming everything is set up correctly, the IdP should respond with an access token that you can use to access scoped resources.
 
-For an even deeper look at this flow, you can check out our walkthrough [here](https://developer.okta.com/docs/guides/implement-oauth-for-okta-serviceapp/overview/). For now, it's time to set this up with Python!
+For an even deeper look at this flow, you can [check out our walkthrough](https://developer.okta.com/docs/guides/implement-oauth-for-okta-serviceapp/overview/). For now, it's time to set this up with Python!
 
 ## Python Private Key JWT Setup
 
-1. Clone the repo found [here](https://github.com/Tennyx/private-key-jwt-python), open terminal and `cd` into the project root.
-2. Create a new [virtualenv](https://docs.python.org/3/library/venv.html) in the root folder with `virtualenv env`
+1. Clone the [OktaDev Private Key repo](https://github.com/Tennyx/private-key-jwt-python), open terminal, and `cd` into the project root.
+2. Create a new [virtualenv](https://docs.python.org/3/library/venv.html) in the root folder with `virtualenv env`.
 3. Run the virtual environment with `source env/bin/activate`
 4. Install necessary Python packages with `pip install -r requirements.txt`
-5. In the root folder, create a new .env file and paste the following values into it:
+5. In the root folder, create a new `.env` file and paste the following values into it:
 
 ```
 PRIVATE_KEY=
