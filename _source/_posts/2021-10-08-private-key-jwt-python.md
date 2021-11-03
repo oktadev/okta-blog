@@ -163,3 +163,5 @@ You can now use this token to perform management tasks on your Okta org based on
 The Private Key JWT flow is complicated to set up, but once the pieces are in place it should be pretty automated. As always, the private key is the key to the castle. So...
 
 ![Keep it secret, keep it safe!](https://thumbs.gfycat.com/HonestSmartBuffalo-max-1mb.gif)
+
+Got questions? You can leave them in the comments below! Want to stay in touch? Follow our social channels: [@oktadev on Twitter](https://twitter.com/oktadev), [Okta for Developers on LinkedIn](https://www.linkedin.com/company/oktadev), [Twitch](https://www.twitch.tv/oktadev), and [YouTube](https://youtube.com/oktadev).
