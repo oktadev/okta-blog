@@ -140,7 +140,7 @@ You will get confirmation in the terminal of the created app, that the client ID
 
 If you navigate to your applications in Okta, you will see this newly created app under the name **Private Key JWT Service App**.
 
-### Step 3: Create PKJ and Get Access Token
+### Step 3: Create PKJ and get access token
 
 The above two scripts should only need to be ran once for setup. From hereon out, you can run the following command to get an access token from Okta:
 
