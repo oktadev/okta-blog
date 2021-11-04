@@ -66,7 +66,7 @@ Assuming everything is set up correctly, the IdP should respond with an access t
 
 For an even deeper look at this flow, you can [check out our walkthrough](https://developer.okta.com/docs/guides/implement-oauth-for-okta-serviceapp/overview/). For now, it's time to set this up with Python!
 
-## Python Private Key JWT Setup
+## Python private key JWT setup
 
 1. Clone the [OktaDev Private Key repo](https://github.com/Tennyx/private-key-jwt-python), open terminal, and `cd` into the project root.
 2. Create a new [virtualenv](https://docs.python.org/3/library/venv.html) in the root folder with `virtualenv env`.
