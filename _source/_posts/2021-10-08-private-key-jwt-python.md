@@ -94,7 +94,7 @@ Scripts will generate values for the first 4 vars. You will need to fill out the
 
 ![SCOPES_1](https://i.imgur.com/B4zNpom.png)
 
-## Running the Scripts
+## Running the scripts
 
 To run these scripts, make sure you are still in the root folder of the cloned repository.
 
