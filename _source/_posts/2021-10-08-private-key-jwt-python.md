@@ -158,7 +158,7 @@ You should see the access token printed to terminal:
 
 You can now use this token to perform management tasks on your Okta org based on your defined scopes by passing it in the **Authorization** header as **Bearer {access_token}**.
 
-## In Conclusion
+## In conclusion: Keep it secret, keep it safe
 
 The Private Key JWT flow is complicated to set up, but once the pieces are in place it should be pretty automated. As always, the private key is the key to the castle. So...
 
