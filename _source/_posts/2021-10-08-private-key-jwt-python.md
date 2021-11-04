@@ -24,7 +24,7 @@ But let's break it down a bit more:
 
 Typically, one may think of JWTs as strictly being in the realm of the *identity provider* (IdP) - and in most cases that's correct. When an IdP grants tokens to a service provider (SP), it is signing those tokens with a private/secret key. Part of the responsibility of the SP when validating tokens is to use a public key provided by the IdP to verify the signature.
 
-The Private Key JWT flow flips this on its head - at least at the start. It's now the SP's turn to generate a public/private keypair, share the public key with the IdP (more on that in Step 2), create a JWT and sign it with their private key (more on that in Step 3).
+The Private Key JWT flow flips this on its head - at least at the start. It's now the SP's turn to generate a public/private keypair, share the public key with the IdP (more on that in Step 2), create a JWT, and sign it with their private key (more on that in Step 3).
 
 But I digress...Step 1 is really just about generating the keypair. (In this case, RSA keys with a 2048 bit key size).
 
