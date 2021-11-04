@@ -1,0 +1,82 @@
+---
+layout: blog_post
+title: "Angular and Auth0 Quickly"
+author: matt-raible
+by: advocate
+communities: [javascript]
+description: ""
+tags: []
+tweets:
+- ""
+- ""
+- ""
+image:
+type: conversion
+---
+:page-liquid:
+:toc: macro
+
+**Prerequisites:**
+
+* A favorite text editor or IDE. I recommend https://www.jetbrains.com/idea/[IntelliJ IDEA], but I know many JavaScript developers prefer https://code.visualstudio.com/[Visual Studio Code]
+* http://nodejs.org/[Node.js] v16 and npm installed.
+* https://angular.io/cli[Angular CLI] installed. If you don't have the Angular CLI installed, install it using `npm install -g @angular/cli@13`.
+
+toc::[]
+
+== Add Auth with OpenID Connect
+
+To add authentication with OpenID Connect, you'll first need a https://auth0.com/signup[free Auth0 account]. Install the https://github.com/auth0/auth0-cli#installation[Auth0 CLI] and run `auth0 login` to register your account. Then, run `auth0 apps create`. Specify a name and description of your choosing. Choose **Single Page Web Application** and use `\http://localhost:4200/home` for the Callback URL. Specify `\http://localhost:4200` for the rest of the URLs.
+
+=== Add OIDC Authentication with OktaDev Schematics
+
+Use https://github.com/oktadev/schematics[OktaDev Schematics] to add OAuth 2.0 and OpenID Connect (OIDC) support.
+
+----
+ng add @oktadev/schematics --auth0
+----
+
+You'll be prompted for an issuer and client ID. You should have these from the OIDC app you just created.
+
+This process will perform the following steps for you:
+
+1. Install the https://github.com/auth0/auth0-angular[Auth0 Angular SDK] using `npm install @auth0/auth0-angular`.
+2. Add `src/app/auth-routing.module.ts` with OIDC configuration and initialization logic.
+3. Configure an `AuthHttpInterceptor` that adds an Authorization header with an access token to outbound requests.
+4. Create a `HomeComponent` and configure it with authentication logic.
+5. Update unit tests for `AppComponent` and `HomeComponent` to mock Auth0.
+
+Run `ng serve` in your app and you should see a login button at `http://localhost:4200/home`.
+
+.Auth0 Login button
+image::{% asset_path 'blog/angular-auth0/auth0-login-button.png' %}[alt=Login button,width=800,align=center]
+
+Click the *Login* button and sign in with one of the users that's configured in your Auth0 application, or sign up as a new user.
+
+.Auth0 login form
+image::{% asset_path 'blog/angular-auth0/auth0-login-form.png' %}[alt=Login button,width=800,align=center]
+
+==== Display Authenticated User's Name
+
+To display the authenticated user's name, you can use the `user$` observable on the `AuthService` instance.
+
+Modify `home.component.html` to display a welcome message to the user and provide them with a link to search.
+
+[source,html]
+.src/app/home/home.component.html
+----
+<div>
+  <button *ngIf="(auth.isAuthenticated$ | async) === false" (click)="login()" id="login">Login</button>
+  <div *ngIf="auth.user$ | async as user">
+    <h2>Welcome, {{user?.name}}!</h2>
+  </div>
+  <button *ngIf="auth.isAuthenticated$ | async" (click)="logout()" id="logout">Logout</button>
+</div>
+----
+
+Refresh your app, and you should see your name.
+
+.View after login
+image::{% asset_path 'blog/angular-auth0/auth0-post-login.png' %}[alt=Login button,width=800,align=center]
+
+If everything works—congrats!
