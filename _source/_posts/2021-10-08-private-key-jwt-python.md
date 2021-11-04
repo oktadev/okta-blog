@@ -26,7 +26,7 @@ Typically, one may think of JWTs as strictly being in the realm of the *identity
 
 The Private Key JWT flow flips this on its head - at least at the start. It's now the SP's turn to generate a public/private keypair, share the public key with the IdP (more on that in Step 2), create a JWT, and sign it with their private key (more on that in Step 3).
 
-But I digress...Step 1 is really just about generating the keypair. (In this case, RSA keys with a 2048 bit key size).
+But I digress...Step 1 is really just about generating the keypair. (In this case, RSA keys with a 2048-bit key size).
 
 ### Step 2: Register public key
 
