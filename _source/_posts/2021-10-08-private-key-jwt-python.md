@@ -71,7 +71,7 @@ For an even deeper look at this flow, you can [check out our walkthrough](https:
 1. Clone the [OktaDev Private Key repo](https://github.com/Tennyx/private-key-jwt-python), open terminal, and `cd` into the project root.
 2. Create a new [virtualenv](https://docs.python.org/3/library/venv.html) in the root folder with `virtualenv env`.
 3. Run the virtual environment with `source env/bin/activate`.
-4. Install necessary Python packages with `pip install -r requirements.txt`
+4. Install necessary Python packages with `pip install -r requirements.txt`.
 5. In the root folder, create a new `.env` file and paste the following values into it:
 
 ```
