@@ -142,7 +142,7 @@ If you navigate to your applications in Okta, you will see this newly created ap
 
 ### Step 3: Create PKJ and get access token
 
-The above two scripts should only need to be ran once for setup. From hereon out, you can run the following command to get an access token from Okta:
+The two scripts above should only need to run once for setup. From hereon out, you can run the following command to get an access token from Okta:
 
 ```
 python get_access_token.py
