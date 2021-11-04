@@ -98,7 +98,7 @@ Scripts will generate values for the first 4 vars. You will need to fill out the
 
 To run these scripts, make sure you are still in the root folder of the cloned repository.
 
-### Step 1: Generate Keypair
+### Step 1: Generate keypair
 
 Run the following command in terminal:
 
