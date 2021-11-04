@@ -114,7 +114,7 @@ You should see confirmation printed to the terminal:
 
 Sure enough, you can pop over to the .env file to see the `PRIVATE_KEY`, `PUBLIC_KEY` and `MODULUS` values populated there.
 
-### Step 2: Create OAuth Service App in Okta
+### Step 2: Create OAuth service app in Okta
 
 Now that you have the keypair, you can create the OAuth app in Okta with the public key. The scopes you defined in the .env file will also be granted in the application. Type the following into the terminal:
 
