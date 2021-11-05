@@ -7,10 +7,10 @@ communities: [java]
 description: "Want to use Java's new records? Check out this showcase of Java Records support in Spring WebFlux and Spring Data MongoDB."
 tags: [java-records, java, api, mongodb, rest, microservices]
 tweets:
-- ""
-- ""
-- ""
-image:
+- "Learn all about Java records' features and advantages, and apply them for building a REST API and querying a database."
+- "Records are a relatively new feature of @java. Learn more about them today!"
+- "Java's new 6-month release cadence delivers new language features faster. This tutorial shows how to use records as an alternative to POJOs."
+image: blog/java-records/java-records.png
 type: conversion
 github: https://github.com/oktadev/okta-java-records-example
 ---
@@ -165,7 +165,7 @@ As `spring-web` module provides Jackson with JSON encoders and decoders, and Jav
 
 Spring Data modules that do not use the object mapping of the underlying data store (like JPA) support records, as persistence construction detection works as with other classes. For Spring Data MongoDB, the general recommendation is to _stick to immutable objects_, because they are straightforward to materialize by calling the constructor. An all-args constructor, allows materialization to skip property population for optimal performance. This too is recommended, and Java record semantics align with these guidelines.
 
-## Using Java record with Spring WebFlux and Spring Data
+## Use Java records with Spring WebFlux and Spring Data
 
 While searching for a dataset for this tutorial, I came across a collection of 87 end game statistics from a single player, for a popular game. As the author included his mental state in the game play data, I decided to use Java records for building a basic average query and finding out if the player's performance was significantly altered when sober vs when intoxicated.
 
@@ -474,7 +474,7 @@ public class StatsController {
 
 The controller enables the `/endOfGame` endpoint to get all entries, and the `/mentalStateAverageDamage` endpoint, that returns the damage in each category, as in average by mental state.
 
-### Test Java record in the web layer
+### Test Java records in the web layer
 
 
 Create a `StatsControllerTest` class in the package `com.okta.developer.records.controller` under the `src/test` folder, to verify the endpoints' basic functionality with a web test. In this test, only the web slice is verified:
@@ -589,7 +589,7 @@ The `/mentalStateAverageDamage` test above also verifies that the `MentalStateDa
 ]
 ```
 
-### Test Java record in the database layer
+### Test Java records in the database layer
 
 Download the test dataset from [GitHub](https://github.com/oktadev/okta-java-records-example/blob/main/src/test/resources/stats.json) with HTTPie, and copy it to `src/test/resources/stats.json`:
 
