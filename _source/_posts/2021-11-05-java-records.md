@@ -113,11 +113,11 @@ In the `equalsTest()` above, `eog1` has the same state as `eog2`, so `eog1.equal
 Automatic read accessors have the same name and return type as the component. Note there is no `get*` prefix in the read accessor name, which is the same name as the component, as illustrated in the `accessorTest()`.
 
 
-## Java record restrictions, and rules
+## Java record restrictions and rules
 
 While `record` provides a more concise syntax and semantics designed to help to model data aggregates, as stated before, a `record` is a restricted form of a class. Let's have a brief look at those restrictions.
 
-### Inheritance, extensibility, immutability
+### Inheritance, extensibility, and immutability
 
 A `record` is implicitly final, and cannot be abstract. You cannot enhance it later by extension, as the compiler will output the following error:
 
@@ -155,7 +155,7 @@ public EndOfGame {
 
 In the compact form, the parameters are implicit, the private fields cannot be assigned inside the body, and are automatically assigned **at the end**. This enables a  focus on validation, making defensive copies of mutable values, or some other value processing.
 
-### Serialization, encoding, mapping
+### Serialization, encoding, and mapping
 
 Record instances can extend `Serializable`, but the serialization and deserialization processes cannot be customized. Serialization and deserialization methods like `writeObject`,  `readObject` can be implemented, but will be ignored.
 
