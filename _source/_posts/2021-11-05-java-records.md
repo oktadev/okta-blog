@@ -796,7 +796,9 @@ Limitations
 
 ## Learn more about Java and Spring
 
-I hope you enjoyed this tutorial and learned about Java record semantics, its benefits, and limitations. Before choosing this feature, make sure to find out if your favorite frameworks support it. Fortunately, Spring Boot support for Java Records was recently added in 2.5.x releases through Jackson 2.12.x. I was not able to find comments about records in Spring Data documentation. To continue learning about Java records, Okta security, and Spring WebFlux, check out the links below:
+I hope you enjoyed this tutorial and learned about Java record semantics, its benefits, and limitations. Before choosing this feature, make sure to find out if your favorite frameworks support it. Fortunately, Spring Boot support for Java Records was recently added in 2.5.x releases through Jackson 2.12.x. I was not able to find comments about records in Spring Data documentation. 
+
+To continue learning about Java records, Okta security, and Spring WebFlux, check out the links below:
 
 - [java.lang.Record](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Record.html)
 - [Reactive Java Microservices with Spring Boot and JHipster](https://developer.okta.com/blog/2021/01/20/reactive-java-microservices)
@@ -805,6 +807,6 @@ I hope you enjoyed this tutorial and learned about Java record semantics, its be
 - [How to Use Client Credentials Flow with Spring Security](https://developer.okta.com/blog/2021/05/05/client-credentials-spring-security)
 - [Better Testing with Spring Security Test](https://developer.okta.com/blog/2021/05/19/spring-security-testing)
 
-You can find the completed code for this tutorial code on GitHub in the [oktadev/okta-java-records-example](https://github.com/oktadev/okta-java-records-example.git) repository.
+You can find the completed code for this tutorial on GitHub in the [oktadev/okta-java-records-example](https://github.com/oktadev/okta-java-records-example.git) repository.
 
 If you liked this tutorial, chances are you will like others we publish. Please follow [@oktadev on Twitter](https://twitter.com/oktadev) and [subscribe to our YouTube channel](https://youtube.com/oktadev) to get notified when we publish new developer tutorials.
