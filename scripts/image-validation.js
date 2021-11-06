@@ -7,16 +7,6 @@ const chalk = require("chalk");
 const readdir = require("recursive-readdir");
 const sharp = require("sharp");
 
-function validateFileSize(file, maxSize) {
-  const stat = fs.statSync(file);
-
-  if (stat.size > maxSize) {
-    console.warn(chalk.red(`${file} is too large (${(stat.size / 1000000).toFixed(2)}MB)`));
-    return false;
-  }
-  return true;
-}
-
 const maxFileSize = 400000; // 400kb
 const gifMaxFileSize = 5000000; // 5MB
 const maxWidth = 1200; // max width supported by the blog + 300px
