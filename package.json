@@ -18,7 +18,8 @@
     "post": "node scripts/post",
     "clean-post": "node scripts/dev-chars",
     "validate-front-matter": "node ./scripts/validate-front-matter",
-    "validate-images": "node ./scripts/image-validation"
+    "validate-images": "node ./scripts/image-validation",
+    "optimize-images": "node ./scripts/image-optimization"
   },
   "pre-push": [
     "dev-restore",
