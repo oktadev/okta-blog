@@ -17,12 +17,14 @@
     "dev-restore": "node scripts/dev-restore",
     "post": "node scripts/post",
     "clean-post": "node scripts/dev-chars",
-    "validate-front-matter": "node ./scripts/validate-front-matter"
+    "validate-front-matter": "node ./scripts/validate-front-matter",
+    "validate-images": "node ./scripts/image-validation"
   },
   "pre-push": [
     "dev-restore",
     "markdown-lint",
-    "validate-front-matter"
+    "validate-front-matter",
+    "validate-images"
   ],
   "repository": {
     "type": "git",
@@ -42,6 +44,7 @@
     "pre-push": "0.1.1",
     "recursive-readdir": "2.2.2",
     "simple-git": "^2.47.0",
-    "yargs": "^17.2.1"
+    "yargs": "^17.2.1",
+    "sharp": "^0.29.2"
   }
 }

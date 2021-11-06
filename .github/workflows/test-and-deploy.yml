@@ -42,6 +42,7 @@ jobs:
       run: |
         npm run markdown-lint
         npm run validate-front-matter
+        npm run validate-images
         if ! bundle exec ./scripts/htmlproofer.rb;
         then
           echo "Failed HTML link validation."
