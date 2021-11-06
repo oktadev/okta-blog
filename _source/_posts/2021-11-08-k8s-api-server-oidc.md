@@ -11,6 +11,7 @@ tweets:
   - "Access #Kubernetes API server using your favorite #OIDC provider!"
 type: conversion
 image: blog/k8s-api-server-oidc/kube-login-oidc.jpg
+github: https://github.com/oktadev/okta-k8s-oidc-terraform-example
 ---
 
 A Kubernetes (k8s) cluster comprises worker machines called nodes and a control plane consisting of the API server, scheduler, etcd, controller manager, and in the case of a PaaS the cloud controller manager. The containers deployed to the cluster run in pods on the worker nodes. At the same time, the control plane takes care of scheduling, responding to requests, and managing the cluster.
