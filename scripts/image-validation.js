@@ -22,6 +22,8 @@ const gifMaxFileSize = 5000000; // 5MB
 const maxWidth = 1200; // max width supported by the blog + 300px
 
 readdir("_source/_assets/img", (err, files) => {
+  console.log(chalk.bold.green("\nValidating blog images...\n"));
+
   if (err) throw err;
 
   let valid = true;
