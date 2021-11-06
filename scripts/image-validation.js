@@ -17,8 +17,8 @@ function validateFileSize(file, maxSize) {
   return true;
 }
 
-const maxFileSize = 300000; // 300kb
-const gifMaxFileSize = 1000000; // 1MB
+const maxFileSize = 400000; // 400kb
+const gifMaxFileSize = 5000000; // 5MB
 const maxWidth = 1200; // max width supported by the blog + 300px
 
 readdir("_source/_assets/img", (err, files) => {
@@ -27,28 +27,41 @@ readdir("_source/_assets/img", (err, files) => {
   let valid = true;
 
   files.forEach((file) => {
+    const stat = fs.statSync(file);
     if (file.endsWith(".jpg") || file.endsWith(".jpeg") || file.endsWith(".png")) {
       // fail in case or large sized jpeg/png
-      valid = validateFileSize(file, maxFileSize);
+      if (stat.size > maxFileSize) {
+        console.warn(chalk.red(`${file} is too large (${(stat.size / 1000000).toFixed(2)}MB)`));
+        valid = false;
+      }
 
-      let image = sharp(file);
-      image
-        .metadata()
-        .then((metadata) => {
-          if (metadata.format === "png") {
-            console.warn(chalk.yellow(`${file} is of PNG format. Consider using JPEG or WebP for optimal performance`));
-          }
-          if (metadata.width > maxWidth) {
-            // for now just a warning, but we should probably throw an error
-            console.warn(chalk.yellow(`${file} is wider than blog contents maxWidth (${metadata.width}px)`));
-          }
-        })
-        .catch((err) => {
-          console.warn(`${file}: Error ${err}`);
-        });
+      // check only for files modified within last 2 days
+      const modifiedTime = stat.mtime.getTime();
+      const now = new Date().getTime();
+      const diff = now - modifiedTime;
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      if (days <= 2) {
+        let image = sharp(file);
+        image
+          .metadata()
+          .then((metadata) => {
+            if (metadata.format === "png") {
+              console.warn(chalk.yellow(`${file} is of PNG format. Consider using JPEG or WebP for optimal performance`));
+            }
+            if (metadata.width > maxWidth) {
+              // for now just a warning, but we should probably throw an error
+              console.warn(chalk.yellow(`${file} is wider than blog contents maxWidth (${metadata.width}px)`));
+            }
+          })
+          .catch((err) => {
+            console.warn(`${file}: Error ${err}`);
+          });
+      }
     } else if (file.endsWith(".gif")) {
       // For GIFs just warn as they are probably always bigger than normal images
-      validateFileSize(file, gifMaxFileSize);
+      if (stat.size > gifMaxFileSize) {
+        console.warn(chalk.yellow(`${file} is too large (${(stat.size / 1000000).toFixed(2)}MB)`));
+      }
     }
   });
 

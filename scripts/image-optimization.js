@@ -1,5 +1,5 @@
 /**
- * This script will validate the size, width and filetype of all images under assets
+ * This script will resize and optimize images in _source/_assets/img
  */
 const fs = require("fs");
 
@@ -7,8 +7,9 @@ const chalk = require("chalk");
 const readdir = require("recursive-readdir");
 const sharp = require("sharp");
 
-const maxFileSize = 300000; // 300kb
+const maxFileSize = 400000; // 400kb
 const maxWidth = 1200; // max width supported by the blog + 300px
+const blogBgColor = "#ffffff";
 
 readdir("_source/_assets/img", (err, files) => {
   if (err) throw err;
@@ -23,12 +24,12 @@ readdir("_source/_assets/img", (err, files) => {
         const sfile = sharp(file);
         sfile.metadata().then((metadata) => {
           const newFileName = file.replace(/\.[^/.]+$/, ".opt.jpg");
+          let sizeConfig = { width: metadata.width, height: metadata.height };
           // resize images with width > 1200px
           if (metadata.width > maxWidth) {
-            sfile.resize({ width: maxWidth }).jpeg({ quality: 95 }).toFile(newFileName);
-          } else {
-            sfile.resize({ width: metadata.width, height: metadata.height }).jpeg({ quality: 95 }).toFile(newFileName);
+            sizeConfig = { width: maxWidth };
           }
+          sfile.flatten({ background: blogBgColor }).resize(sizeConfig).jpeg({ quality: 95 }).toFile(newFileName);
         });
       }
     }
