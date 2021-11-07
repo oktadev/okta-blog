@@ -17,7 +17,7 @@ function toMb(bytes) {
 
 function daysBetweenDates(date1, date2) {
   const diff = date1 - date2;
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  return Math.floor(diff / (1000 * 60 * 60 * 24));
 }
 
 function validateImage(path) {
