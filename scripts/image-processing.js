@@ -6,7 +6,7 @@ const chalk = require("chalk");
 const readdir = require("recursive-readdir");
 const sharp = require("sharp");
 
-const maxFileSize = 400000; // 400kb
+const maxFileSize = 500000; // 500kb
 const gifMaxFileSize = 5000000; // 5MB
 const maxWidth = 1800; // max width supported by the blog is 900px, so we take 2x for high density displays
 const blogBgColor = "#ffffff";
@@ -21,7 +21,7 @@ function daysBetweenDates(date1, date2) {
 }
 
 function validateImage(path) {
-  readdir("_source/_assets/img", (err, files) => {
+  readdir(path, (err, files) => {
     console.log(chalk.bold.green("\nValidating blog images...\n"));
 
     if (err) throw err;
@@ -74,8 +74,8 @@ function validateImage(path) {
   });
 }
 
-function processImages() {
-  readdir("_source/_assets/img", (err, files) => {
+function processImages(path, replace) {
+  readdir(path, (err, files) => {
     if (err) throw err;
 
     console.log(chalk.bold.green(`\nImages larger than (${toMb(maxFileSize)}MB) will be resized and/or compressed\n`));
@@ -93,7 +93,18 @@ function processImages() {
             if (metadata.width > maxWidth) {
               sizeConfig = { width: maxWidth };
             }
-            sfile.flatten({ background: blogBgColor }).resize(sizeConfig).jpeg({ quality: 95 }).toFile(newFileName);
+            sfile
+              .flatten({ background: blogBgColor })
+              .resize(sizeConfig)
+              .jpeg({ quality: 90 })
+              .toFile(newFileName)
+              .then(() => {
+                if (replace) {
+                  fs.rename(newFileName, file, (err) => {
+                    if (err) throw err;
+                  });
+                }
+              });
           });
         }
       }

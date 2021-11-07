@@ -3,4 +3,5 @@
  */
 const { processImages } = require("./image-processing");
 
-processImages("_source/_assets/img");
+// set the second parameter to true to replace images
+processImages("_source/_assets/img", false);
