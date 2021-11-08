@@ -99,7 +99,7 @@ provider "okta" {
 
 You need to provide the input variables `org_name`, `base_url`, and `api_token`. Update these values in a file named `okta.config.auto.tfvars`. The `.auto` in the name is important; otherwise, Terraform will not pick it up automatically. For example, if the address of your Okta instance is `dev-1234.okta.com`, then your `org_name` would be `dev-1234`, and `base_url` would be everything that comes after the org name (e.g., okta.com).
 
-Next, you will need to generate the `api-token` value. Log in to your Okta administrator console as a superuser and select **Security** > **API** > **Tokens (Tab)** from the navigation menu. Next, click the **Create Token** button, give your token a name, click **Create Token**, and copy the newly generated token. Save this in a separate `.tfvars` file excluded from Git or in an environment variable named `TF_VAR_api_token`.
+Next, you will need to generate the `api-token` value. Log in to your Okta administrator console as a superuser and select **Security** > **API** > **Tokens (Tab)** from the navigation menu. Next, click the **Create Token** button, give your token a name, click **Create Token**, and copy the newly generated token. Save this in a separate `.auto.tfvars` file excluded from Git or in an environment variable named `TF_VAR_api_token`.
 
 The Okta provider is now configured and ready to go.
 
