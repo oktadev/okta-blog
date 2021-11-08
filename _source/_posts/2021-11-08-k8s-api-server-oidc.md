@@ -300,7 +300,7 @@ You can run `terraform destroy` to revert the changes if required.
 
 > **TIP**: You can use the `terraform import <resource_name.id>` command to import data and configuration from your Okta instance. Refer to [these Okta Terraform provider docs](https://registry.terraform.io/providers/okta/okta/latest/docs) for more information.
 
-## Preparing the cluster
+# Preparing the cluster for OIDC
 
 Now we need to prepare the cluster to work with OIDC. For this, we need to update the API server flags below:
 
@@ -314,11 +314,11 @@ Now we need to prepare the cluster to work with OIDC. For this, we need to updat
 
 Flags can be set when creating the cluster or by patching the API server via SSH, as described below.
 
-### Create a cluster with OIDC enabled
+## Create a cluster with OIDC enabled
 
 Here is how you can create a new k8s cluster with OIDC enabled using different tools. Execute the command for the tool you're using. Make sure to replace `<k8s_oidc_issuer_url>` and `<k8s_oidc_client_id>` with values from the output of the Terraform step. For any other tools, refer to their documentation on how to update API server flags.
 
-#### kubeadmn
+### kubeadmn
 
 If you are using [kubeadmn](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/), add the following flags to the cluster configuration and pass them to `kubeadm init` command.
 
@@ -333,7 +333,7 @@ apiServer:
     oidc-groups-claim: groups
 ```
 
-#### kOps
+### kOps
 
 For [kOps](https://kops.sigs.k8s.io/), create a cluster with the required config. For example, the code below will create a cluster in AWS.
 
@@ -362,7 +362,7 @@ kubeAPIServer:
   oidcGroupsClaim: groups
 ```
 
-#### k3d
+### k3d
 
 To create a [k3s](https://k3s.io/) cluster using [k3d](https://k3d.io/), run the following command.
 
@@ -375,7 +375,7 @@ k3d cluster create $CLUSTER_NAME \
 --k3s-arg "--kube-apiserver-arg=oidc-groups-claim=groups@server:0"
 ```
 
-### Updating an existing cluster to enable OIDC
+## Updating an existing cluster to enable OIDC
 
 If you already have an existing cluster, you can SSH into it using the root user and patch the API server with the following command.
 
@@ -400,7 +400,7 @@ sudo vi /etc/kubernetes/manifests/kube-apiserver.yaml
 
 If you are using a managed service like [EKS](/blog/2021/10/08/secure-access-to-aws-eks#add-okta-as-an-oidc-provider-on-your-eks-cluster) or [GKE](https://cloud.google.com/kubernetes-engine/docs/how-to/oidc#enabling_on_an_existing_cluster), then follow their instructions to update the API server.
 
-## Configure RBAC
+# Configure RBAC
 
 [Role-based access control](https://kubernetes.io/docs/reference/access-authn-authz/rbac/) lets you control who can access what is inside a cluster. This is a very powerful feature and can be used to control access to specific resources. The great thing about using OIDC is that we can use it with RBAC to enable very granular control over resources.
 
@@ -464,7 +464,7 @@ EOF
 
 That's it! The cluster is now ready for some OIDC action.
 
-## Connecting to the cluster using kubectl
+# Connecting to the cluster using kubectl
 
 Before we can go ahead and test this out, we need to do some setup for kubectl so that it knows how to do OIDC authentication. We need to install [kubelogin](https://github.com/int128/kubelogin) plugin for this. Go ahead and install it using any of the following commands.
 
