@@ -556,6 +556,7 @@ If you want to learn more about Kubernetes, OIDC, or using OIDC with Kubernetes,
 - [Build a Microservice Architecture with Spring Boot and Kubernetes](/blog/2019/04/01/spring-boot-microservices-with-kubernetes)
 - [Kubernetes to the Cloud with Spring Boot and JHipster](/blog/2021/06/01/kubernetes-spring-boot-jhipster)
 - [Using Okta Advanced Server Access & Terraform to Automate Identity & Infrastructure as Code](/blog/2020/04/24/okta-terraform-automate-identity-and-infrastructure)
+- [Managing Multiple Okta Instances with Terraform Cloud](/blog/2020/02/03/managing-multiple-okta-instances-with-terraform-cloud)
 
 You can find the code for this tutorial on GitHub at <https://github.com/oktadev/okta-k8s-oidc-terraform-example>.
 
