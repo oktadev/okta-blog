@@ -16,7 +16,7 @@ tweets:
 image: blog/okta-terraform-cloud/terraform-plan.png
 type: conversion
 changelog:
-  - 2021-11-08: Updated the post to align with latest Terraform version, latest Okta Terraform provider and Okta Admin Console. Changes to this article can be viewed in [oktadev/okta-blog#392](https://github.com/oktadev/okta-blog/pull/392).
+  - 2021-11-08: Updated the post to align with latest Terraform version, latest Okta Terraform provider and Okta Admin Console. Changes to this article can be viewed in [oktadev/okta-blog#958](https://github.com/oktadev/okta-blog/pull/958).
 ---
 
 Congratulations, you've chosen to use [Okta](/) to solve your identity problems. Welcome to the happy sunny utopia of a managed identity solution! But wait! How do you manage your environments? Your applications all have separate production, staging, and development environments. How do you manage that in Okta without writing a ton of custom scripts?
