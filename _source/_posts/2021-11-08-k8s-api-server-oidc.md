@@ -36,9 +36,7 @@ While the default authentication mechanism of the Kubernetes API server might be
 
 {% img blog/k8s-api-server-oidc/kube-login-oidc.jpg alt:"K8s OIDC flow" width:"800" %}{: .center-image }
 
-
-With an OIDC integration, you can use the same OIDC provider to access your Kubernetes cluster that your existing infrastructure already uses to do SSO, like Okta or Keycloak, for example.
-
+With an OIDC integration, you can use the same OIDC provider used for SSO in your existing infrastructure to access your Kubernetes cluster, like Okta or Keycloak.
 
 # Use Okta as an OIDC provider to secure the API server
 
@@ -300,7 +298,7 @@ k8s_oidc_issuer_url = "https://dev-xxxxxx.okta.com/oauth2/aus2b0ql0ihgilIh95d7"
 
 You can run `terraform destroy` to revert the changes if required.
 
-> **TIP**: You can use the `terraform import <resource_name.id>` command to import data and configuration from your Okta instance. Refer to [these Terraform docs](https://registry.terraform.io/providers/okta/okta/latest/docs) for more information.
+> **TIP**: You can use the `terraform import <resource_name.id>` command to import data and configuration from your Okta instance. Refer to [these Okta Terraform provider docs](https://registry.terraform.io/providers/okta/okta/latest/docs) for more information.
 
 ## Preparing the cluster
 
