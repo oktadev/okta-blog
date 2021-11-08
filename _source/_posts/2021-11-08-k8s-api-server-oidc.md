@@ -57,7 +57,7 @@ Before you try this out, make sure you have access to the following.
 
 You can achieve OIDC login for the cluster by creating a simple OIDC application with Okta either using the Okta CLI or the Admin Console. But with an OIDC application alone, you would have to use the client secret to authenticate from kubectl or any other client library. Authenticating with the client secret does not scale and is not better than default k8s authentication mechanisms, as you won't have granular controls over users and roles. For a more helpful setup, we need an OIDC application and an authorization server with customized claims and policies for Kubernetes. This way, we can use Okta to manage users and permissions as well.
 
-There are multiple ways to set up an OIDC application and authorization server in Okta. If you prefer to do this via a GUI, then follow the steps in the [**Configure Your Okta Org ** section] (/blog/2021/10/08/secure-access-to-aws-eks#configure-your-okta-org) of the article mentioned earlier, to do it via the Okta Admin Console.
+There are multiple ways to set up an OIDC application and authorization server in Okta. If you prefer to do this via a GUI, then follow the steps in the [**Configure Your Okta Org ** section](/blog/2021/10/08/secure-access-to-aws-eks#configure-your-okta-org) of the article mentioned earlier, to do it via the Okta Admin Console.
 
 In this tutorial, we will use Terraform to configure the Okta part so that you can reuse the code for any automation required. Let's dive into each step needed.
 
