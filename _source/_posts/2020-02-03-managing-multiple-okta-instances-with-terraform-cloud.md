@@ -58,7 +58,7 @@ api_token = "<your-api-token>"
 
 Replace each of the placeholder values above with those from your Okta org. For example, you should use the subdomain of your Okta org to fill in the `org_name` value. If the address of your Okta instance is `dev-1234.okta.com` then your `org_name` would be `dev-1234`. The value for `base_url` should be everything that comes after the org name (e.g., `okta.com`) so be sure to update this value if you are using an `okta-emea` or `oktapreview` org. You will need to generate the `api-token` value.
 
-To generate a new Okta API token, log into your Okta administrator console as a superuser and select **API** -> **Tokens** from the navigation menu. Next, click the **Create Token** button and give your token a name, then click **Ok** and copy the newly generated token into the configuration file above.
+To generate a new Okta API token, log into your Okta administrator console as a superuser and select **Security** -> **API** -> **Tokens (tab)** from the navigation menu. Next, click the **Create Token** button and give your token a name, then click **Create Token** and copy the newly generated token into the configuration file above.
 
 Next, create a new file named `identity.tf` and add the following:
 
