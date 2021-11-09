@@ -142,7 +142,7 @@ Give your new workspace a descriptive name. We're defining our production enviro
 
 {% img blog/okta-terraform-cloud/terraform-cloud-name-workspace.png alt:"Terraform Cloud name workspace" width:"800" %}{: .center-image }
 
-Locally you defined variables in the `okta.auto.tfvars` file. But we didn't add the `api_token` variable to that file for obvious security reasons. Hence that variable is not stored in source control; Therefore, you have to define the variable explicitly in the Terraform workspace. Click the **Variables** tab in the top navbar of the workspace, then define the `api_token` variable.
+Locally you defined variables in the `okta.auto.tfvars` file. But we didn't add the api_token variable to that file for obvious security reasons; hence the variable is not stored in source control. Therefore, you have to define the variable explicitly in the Terraform workspace. Click the **Variables** tab in the top navbar of the workspace, then define the `api_token` variable.
 
 {% img blog/okta-terraform-cloud/terraform-cloud-set-variables.png alt:"Terraform Cloud set variables" width:"800" %}{: .center-image }
 
