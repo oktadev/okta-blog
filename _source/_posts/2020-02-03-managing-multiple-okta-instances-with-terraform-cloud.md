@@ -120,7 +120,7 @@ Now that you've defined your Terraform rules, you can apply these changes by run
 
 ## Get Started with Terraform Cloud
 
-Although working on your local machine is fine if you're building a simple project solo, in many cases, you'll want to use [Terraform Cloud](https://www.terraform.io/docs/cloud/index.html), which allows you have a nice Terraform workflow without needing to track state files locally. It's incredibly convenient to use for any _real_ project.
+Although working on your local machine is fine if you're building a simple project solo, in many cases, you'll want to use [Terraform Cloud](https://www.terraform.io/docs/cloud/index.html), which allows you to have a nice Terraform workflow without needing to track state files locally. It's incredibly convenient to use for any _real_ project.
 
 Now let's set up Terraform Cloud so you can configure your infrastructure without needing to worry about storing and managing local files.
 
@@ -142,7 +142,7 @@ Give your new workspace a descriptive name. We're defining our production enviro
 
 {% img blog/okta-terraform-cloud/terraform-cloud-name-workspace.png alt:"Terraform Cloud name workspace" width:"800" %}{: .center-image }
 
-Locally you defined variables in the `okta.auto.tfvars` file. But we didn't add the `api_token` to this and hence isn't stored in source control; you have to define the variable not committed to source control explicitly. Click the **Variables** tab in the top navbar of the workspace, then define the `api_token` variable.
+Locally you defined variables in the `okta.auto.tfvars` file. But we didn't add the `api_token` variable to that file for obvious security reasons. Hence that variable is not stored in source control; Therefore, you have to define the variable explicitly in the Terraform workspace. Click the **Variables** tab in the top navbar of the workspace, then define the `api_token` variable.
 
 {% img blog/okta-terraform-cloud/terraform-cloud-set-variables.png alt:"Terraform Cloud set variables" width:"800" %}{: .center-image }
 
@@ -179,7 +179,7 @@ Another nice collaboration feature of Terraform Cloud is that you can leave comm
 
 ## Manage Multiple Okta Environments with Terraform
 
-Now that you're using Terraform Cloud to manage a single environment (production). Let's add a second environment (development), which will make it easy for your developers to run tests against this new Okta environment without impacting production.
+Now that you're using Terraform Cloud to manage a single environment (production), let's add a second environment (development). Doing so will make it easy for your developers to run tests against this new Okta environment without impacting production.
 
 If you don't have a second Okta org yet, [go create one](https://developer.okta.com/signup/), and then go through the steps to create an API token once more.
 
@@ -198,7 +198,7 @@ For this environment, set the apply method in Terraform Cloud to `auto` so chang
 
 {% img blog/okta-terraform-cloud/terraform-cloud-create-workspace-2.jpg alt:"Terraform Cloud workspace settings" width:"800" %}{: .center-image }
 
-Update the `okta.auto.tfvar` file using your _new_ Okta org's `org_name` and `base_url` and create a new variable for `api_token` from this org. Click **Start new plan** and just like that, Terraform replicated your production Okta configuration from your first Okta org into the second Okta org!
+Update the `okta.auto.tfvar` file using your _new_ Okta org's `org_name` and `base_url`. Create a new Terraform Cloud workspace variable for `api_token` and make sure to use the API Token from the new Okta org. Click **Start new plan** and just like that, Terraform replicated your production Okta configuration from your first Okta org into the second Okta org!
 
 ## Promoting Changes Using Terraform
 
