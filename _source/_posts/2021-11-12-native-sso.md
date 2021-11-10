@@ -3,7 +3,7 @@ layout: blog_post
 title: "Native SSO: Desktop and Mobile Apps Single Sign-On"
 author: huan-liu
 by: internal-contributor
-communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
+communities: [mobile]
 description: ""
 tags: [ios, oauth, security, sso, mobile, desktop]
 tweets:
