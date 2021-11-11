@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "OAuth SAML 2.0 Assertion Grant Type"
-author:
+author: erik-manor
 by: advocate|contractor
 communities: [devops,security,go]
 description: "Learn how to setup the SAML 2.0 Grant Type and manually walk through the flow"
