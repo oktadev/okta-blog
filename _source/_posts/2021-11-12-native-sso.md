@@ -29,8 +29,7 @@ Before we describe the token-exchange solution, let's explore how to build a nat
 Apple introduced `SFSafariViewController` in iOS 9, which enables an embedded web browser experience inside a mobile app. But Apple quickly changed its behavior. In iOS 11, `SFSafariViewController` no longer shares any browser cookies with the standalone Safari browser on the same device, making it impossible to share SSO sessions between a mobile app and a web app.
 
 Apple introduced `ASWebAuthenticationSession` in iOS 12 to add the ability to share browser cookies, but it is restrictive:
-It can only be used in an OIDC style login flow
-It only shares persistent cookies, not session cookies
+It can only be used in an OIDC-style login flow, and only shares persistent cookies, not session cookies.
 
 The [Okta developer guide on web session sharing](https://developer.okta.com/docs/guides/shared-sso-android-ios/ios/overview/) illustrates how two mobile apps on the same device can share a web login session. At a high level, it involves these steps:
 
