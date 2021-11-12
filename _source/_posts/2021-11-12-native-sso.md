@@ -41,7 +41,7 @@ The [Okta developer guide on web session sharing](https://developer.okta.com/doc
 
 Okta's native SSO solution is based on token exchange, and it builds on an OIDC draft spec [Native SSO for Mobile Apps](https://openid.net/specs/openid-connect-native-sso-1_0.html). The following diagrams, taken from the spec, illustrate the flow to enable native SSO.
 
-Sign-in to the first application is similar to a normal OIDC sign in, using a system browser. The only difference is that we request the `device_SSO` scope, and in return, we receive a `device_secret` along with the returned tokens.
+Sign-in to the first application is similar to a normal OIDC sign in, using a system browser. The only difference is that we request the `device_sso` scope, and in return, we receive a `device_secret` along with the returned tokens.
 
 {% img blog/native-sso/native-app-1-interactions.png alt:"Native App 1 Login interaction diagram" width:"600" %}{: .center-image }
 
