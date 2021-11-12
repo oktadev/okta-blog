@@ -24,7 +24,7 @@ Fortunately, this problem is widely recognized, and an OIDC draft spec [Native S
 
 ## Sharing web sessions with native apps
 
-Before we describe the token-exchange solution, let's explore how to build a native SSO solution based on web SSO. If we could share web login sessions with native apps, we could leverage the advance in web SSO technology. Web session sharing has become more restrictive due to the continued increase in privacy lockdown on mobile devices. Apple leads the charge on adding more privacy restrictions, but Android is quickly following suit.
+Before we describe the token-exchange solution, let's explore how to build a native SSO solution based on web SSO. If we could share web login sessions with native apps, we could leverage the advance in browser SSO technology. Web session sharing has become more restrictive due to the continued increase in privacy restrictions on mobile devices. Apple leads the charge on adding more privacy restrictions, but Android is quickly following suit.
 
 Apple introduced `SFSafariViewController` in iOS 9, which enables an embedded web browser experience inside a mobile app. But Apple quickly changed its behavior. In iOS 11, `SFSafariViewController` no longer shares any browser cookies with the standalone Safari browser on the same device, making it impossible to share SSO sessions between a mobile app and a web app.
 
