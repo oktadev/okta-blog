@@ -5,7 +5,7 @@ author: [huan-liu, daniel-zeller]
 by: internal-contributor
 communities: [mobile]
 description: "Tutorial: Learn how to enable Single Sign-On for mobile and desktop applications."
-tags: [ios, macos, icloud, keychain, oauth, security, sso, native sso, mobile, desktop]
+tags: [ios, macos, icloud, keychain, oauth, security, sso, native-sso, mobile, desktop]
 tweets:
 - "Simplify authentication between mobile applications with Native single sign-on 🔒"
 - "Single sign-on isn't just for web applications. Learn about the new #OIDC spec for 'native SSO' 🛡️"
