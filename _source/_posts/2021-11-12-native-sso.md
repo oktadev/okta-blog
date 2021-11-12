@@ -10,7 +10,7 @@ tweets:
 - "Simplify authentication between mobile applications with Native single sign-on 🔒"
 - "Single sign-on isn't just for web applications. Learn about the new #OIDC spec for 'native SSO' 🛡️"
 - "Did you know you can share authenticated sessions between iOS/macOS applications!🍎"
-image:
+image: blog/native-sso/native-sso-social.jpg
 type: conversion
 ---
 
