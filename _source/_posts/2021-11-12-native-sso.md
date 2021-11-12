@@ -55,7 +55,7 @@ Our [Native SSO Guide](https://developer.okta.com/docs/guides/configure-native-s
 
 The token-exchange-based native SSO solution is simpler and better than sharing web SSO in at least several regards:
 - **Out-of-the-box config**: Sharing web SSO requires you to use an API to configure all users to use a persistent cookie for session management. (The default is to use a session cookie.) A login session will persist even after you close the browser, which may be a surprise for some users. In contrast, native SSO is one of the supported grant types that can be easily enabled in the Okta admin console.
-- **Single LogOut**: It is not possible to single logout all applications with the web SSO sharing solution. If you want to logout from all apps, you have to logout from each app one by one. In contrast, in Native SSO, one can simply revoke `device_secret`, then all apps automatically sign out.
+- **Single LogOut**: It is not possible to *single logout* all applications with the web SSO sharing solution. If you want to log out from all apps, you have to log out from each app one by one. In contrast, in native SSO, one can simply revoke `device_secret`, then all apps automatically sign out.
 - **Multiple devices**: Sharing web SSO can only work on the same device. In contrast, native SSO can work across devices, as long as `device_secret` can be safely shared. In fact, the remaining portion of this blog demonstrates how to implement native SSO across multiple Apple devices.
 
 ## Single sign-on across multiple Apple devices
