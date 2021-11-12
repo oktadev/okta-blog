@@ -4,12 +4,12 @@ title: "Native SSO: Desktop and Mobile Apps Single Sign-On"
 author: [huan-liu, daniel-zeller]
 by: internal-contributor
 communities: [mobile]
-description: ""
-tags: [ios, macOS, iCloud, keychain, oauth, security, sso, native sso, mobile, desktop]
+description: "Tutorial: Learn how to enable Single Sign-On for mobile and desktop applications."
+tags: [ios, macos, icloud, keychain, oauth, security, sso, native sso, mobile, desktop]
 tweets:
-- ""
-- ""
-- ""
+- "Simplify authentication between mobile applications with Native single sign-on 🔒"
+- "Single sign-on isn't just for web applications. Learn about the new #OIDC spec for 'native SSO' 🛡️"
+- "Did you know you can share authenticated sessions between iOS/macOS applications!🍎"
 image:
 type: conversion
 ---
@@ -65,7 +65,7 @@ Note that this demo generalizes the `device_secret` concept described in the [dr
 
 We first need to create two OIDC apps in your Okta admin console, one for the iOS mobile app, another for the Mac desktop app. See our [Native SSO Guide](https://developer.okta.com/docs/guides/configure-native-sso/main/) for full instruction.
 
-Next, let us start an Xcode project, and add two targets: one for an iOS app (`nativesso`), another for a Mac app (`nativessomac`). The full source code can be found in the [Native SSO sample app repo](https://github.com/drhuanliu/nativesso).
+Next, let us start an Xcode project, and add two targets: one for an iOS app (`nativesso`), another for a Mac app (`nativessomac`). The full source code can be found in the [Native SSO sample app repo](https://github.com/oktadev/okta-ios-native-sso-example).
 
 ### Store device secret in iCloud Keychain
 
