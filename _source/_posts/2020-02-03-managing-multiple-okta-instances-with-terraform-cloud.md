@@ -130,7 +130,7 @@ Once you create an account and sign in, you must choose the **Start from scratch
 
 {% img blog/okta-terraform-cloud/terraform-cloud-create-workspace.png alt:"Create workspace using Terraform Cloud" width:"800" %}{: .center-image }
 
-On the first page of the Workspace creation flow, select **Version control flow**, as we will be saving our configuration in a Git repository. Next, you need to select your source control provider. In my case, I'm using GitHub to store my code, so I'll select GitHub and grant permission for Terraform Cloud to access my project. When GitHub prompts to select repositories to install Terraform cloud, choose one or more repositories where you intent to store Terraform configurations.
+On the first page of the Workspace creation flow, select **Version control flow**, as we will be saving our configuration in a Git repository. Next, you need to select your source control provider. In my case, I'm using GitHub to store my code, so I'll select GitHub and grant permission for Terraform Cloud to access my project. When GitHub prompts to select repositories to install Terraform cloud, choose one or more repositories where you intend to store Terraform configurations.
 
 {% img blog/okta-terraform-cloud/terraform-cloud-select-repository.png alt:"Terraform Cloud select provider" width:"800" %}{: .center-image }
 
@@ -198,11 +198,11 @@ For this environment, set the apply method in Terraform Cloud to `auto` so chang
 
 {% img blog/okta-terraform-cloud/terraform-cloud-create-workspace-2.jpg alt:"Terraform Cloud workspace settings" width:"800" %}{: .center-image }
 
-Update the `okta.auto.tfvar` file using your _new_ Okta org's `org_name` and `base_url`. Create a new Terraform Cloud workspace variable for `api_token` and make sure to use the API Token from the new Okta org. Click **Start new plan** and just like that, Terraform replicated your production Okta configuration from your first Okta org into the second Okta org!
+Update the `okta.auto.tfvar` file using your _new_ Okta org's `org_name` and `base_url`. Create a new Terraform Cloud workspace variable for `api_token` and make sure to use the API Token from the new Okta org. Click **Start new plan** and just like that, Terraform replicates your production Okta configuration from your first Okta org into the second Okta org!
 
 ## Promoting Changes Using Terraform
 
-Now that you set up Terraform to manage your development and production environments, let's imagine your development team wants to change how Okta is configured. You'd like them to be able to do this, but you'd also still like to control and review these changes before they make their way into production. What do you do?
+Now that you've set up Terraform to manage your development and production environments, let's imagine your development team wants to change how Okta is configured. You'd like them to be able to do this, but you'd also still like to control and review these changes before they make their way into production. What do you do?
 
 To control this, you can use GitHub's [branch protection rules](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/defining-the-mergeability-of-pull-requests/about-protected-branches) feature to ensure that you review any changes going onto our main branch that controls production before they are applied. This feature is only available on pro or public repos, so you will need to make your repository public to follow along.
 
@@ -237,7 +237,7 @@ Once you create the pull request, GitHub provides a nice UI experience that show
 
 {% img blog/okta-terraform-cloud/github-review-required.png alt:"GitHub review required" width:"800" %}{: .center-image }
 
-The status checks run plans against your two Okta instances so the reviewer can verify what the change would do. Clicking **details** on either of these will open Terraform Cloud and show the output of the plan.
+The status checks run plans against your two Okta instances so the reviewer can verify what the change will do. Clicking **details** on either of these will open Terraform Cloud and show the output of the plan.
 
 In this case, the change proposed to the schema may have an unintended side effect, so the reviewer asked for a modification before applying.
 
