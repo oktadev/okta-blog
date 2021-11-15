@@ -6,7 +6,7 @@ by: internal-contributor
 communities: [python]
 description: "The Private Key JWT flow is one of the more complicated OAuth flows to set up. Learn how the flow works at a high level and how you can implement it in three commands with Python scripting."
 tags: [python, oauth, private-key-jwt]
-image:
+image: blog/private-key-jwt-python/social.jpg
 type: awareness
 ---
 
