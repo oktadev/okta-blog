@@ -20,6 +20,11 @@ function daysBetweenDates(date1, date2) {
   return Math.floor(diff / (1000 * 60 * 60 * 24));
 }
 
+function getIgnoreList() {
+  const rawdata = fs.readFileSync("scripts/image-validation-ignore.json");
+  return JSON.parse(rawdata);
+}
+
 function validateImage(path) {
   readdir(path, (err, files) => {
     console.log(chalk.bold.green("\nValidating blog images...\n"));
@@ -28,11 +33,13 @@ function validateImage(path) {
 
     let valid = true;
 
+    const ignored = getIgnoreList();
+
     files.forEach((file) => {
-      const stat = fs.statSync(file);
       if (file.endsWith(".jpg") || file.endsWith(".jpeg") || file.endsWith(".png")) {
+        const stat = fs.statSync(file);
         // fail in case or large sized jpeg/png
-        if (stat.size > maxFileSize) {
+        if (stat.size > maxFileSize && !ignored.includes(file)) {
           console.warn(chalk.red(`${file} is too large (${toMb(stat.size)}MB)`));
           valid = false;
         }
@@ -57,6 +64,7 @@ function validateImage(path) {
             });
         }
       } else if (file.endsWith(".gif")) {
+        const stat = fs.statSync(file);
         // For GIFs just warn as they are probably always bigger than normal images
         if (stat.size > gifMaxFileSize) {
           console.warn(chalk.yellow(`${file} is too large (${toMb(stat.size)}MB)`));
@@ -80,11 +88,13 @@ function processImages(path, replace) {
 
     console.log(chalk.bold.green(`\nImages larger than (${toMb(maxFileSize)}MB) will be resized and/or compressed\n`));
 
+    const ignored = getIgnoreList();
+
     files.forEach((file) => {
       if (file.endsWith(".jpg") || file.endsWith(".jpeg") || file.endsWith(".png")) {
         // resize large sized jpeg/png and convert to jpeg
         const stat = fs.statSync(file);
-        if (stat.size > maxFileSize) {
+        if (stat.size > maxFileSize && !ignored.includes(file)) {
           const sfile = sharp(file);
           sfile.metadata().then((metadata) => {
             const newFileName = file.replace(/\.[^/.]+$/, ".opt.jpg");

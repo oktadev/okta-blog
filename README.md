@@ -288,3 +288,5 @@ npm run dev-restore
 The pre-push workflow will validate image size and fail if there are images bigger than 400kb in size. It will also warn you about using PNG images as they are lossless and occupy more space, for a blog JPEGs or WebP images are better suited. So do consider using those formats. And ideally images should be under 1200px in width as there is no reason to use larger resolution since the blog content is rendered in a 900px width container.
 
 You can use `npm run optimize-images` to optimize all images in the `_source/_assets/img` directory. This will resize and compress the images and write them to new files. So make sure to update the usage and delete the original file.
+
+If a file has to be ignored for some reason, like pre-existing social images, it can be added to `scripts/image-validation-ignore.json`.
