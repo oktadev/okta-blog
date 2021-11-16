@@ -11,7 +11,7 @@ jobs:
     - name: Set up node and npm
       uses: actions/setup-node@v2.4.1
       with:
-        version: 12.9.1
+        version: 12.13.0
 
     - name: Install node dependencies
       run: npm install
@@ -42,6 +42,7 @@ jobs:
       run: |
         npm run markdown-lint
         npm run validate-front-matter
+        npm run validate-images
         if ! bundle exec ./scripts/htmlproofer.rb;
         then
           echo "Failed HTML link validation."
