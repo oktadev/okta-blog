@@ -285,7 +285,7 @@ npm run dev-restore
 
 ### Optimizing Images
 
-The pre-push workflow will validate image size and fail if there are images bigger than 400kb in size. It will also warn you about using PNG images as they are lossless and occupy more space. For a blog post, JPEGs or WebP images are better suited. So do consider using those formats. And ideally, images should be under 1800px in width The blog content is rendered in a 900px width container and [retina images](https://www.sleeplessmedia.com/2018/12/14/optimizing-website-images-and-graphics-for-retina-displays/) are 2x what's displayed.
+The pre-push workflow will validate image size and fail if there are images bigger than 400kb in size. It will also warn you about using PNG images as they are lossless and occupy more space. For a blog post, JPEGs or WebP images are better suited. So do consider using those formats. And ideally, images should be under 1800px in width. The blog content is rendered in a 900px width container and [retina images](https://www.sleeplessmedia.com/2018/12/14/optimizing-website-images-and-graphics-for-retina-displays/) are 2x what's displayed.
 
 You can use `npm run optimize-images` to optimize all images in the `_source/_assets/img` directory. This will resize and compress the images and write them to new files. So make sure to update the usage and delete the original file.
 
