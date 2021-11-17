@@ -11,20 +11,15 @@ tweets:
 - ""
 - ""
 image: blog/todo.png
-type: awareness
-github:  
+type: awareness 
 ---
 
 
 ## Okta Early Access Hackathon revisited
 
+In August, Okta's developer relations team invited intrepid developers to participate in [the virtual Okta Identity Engine Early Access Hackathon](https://developer.okta.com/blog/2021/08/11/okta-identity-engine-early-access-hackathon), and challenged them to build a working app with our limited availability new customer identity and access management (CIAM) platform. A month or so after, judges convened, [winners were announced](https://developer.okta.com/blog/2021/09/28/okta-hackathon-2021-winners), and thousands of dollars in prizes were distributed. Kudos to hundreds of participants, and props to all involved. 
 
-In August, Okta's developer relations team invited intrepid developers to participate in the virtual Okta Identity Engine Early Access Hackathon, and challenged them to build a working app with our limited availability new customer identity and access management (CIAM[a][b]) platform. A month or so after, judges convened, winners were announced, and thousands of dollars in prizes were distributed. Kudos to hundreds of participants, and props to all involved. 
-
-
-In October, we sat down with UK-based developer Matthew McKenzie, the creator of GooseClip, our first prize winner. 
-
-
+In October, we sat down with UK-based developer [Matthew McKenzie, the creator of GooseClip](https://devpost.com/software/gooseclip), our first prize winner. 
 
 
 <div style="text-align: center; margin-bottom: 1.25rem">
@@ -32,29 +27,19 @@ In October, we sat down with UK-based developer Matthew McKenzie, the creator of
 </div>
 
 
-
-
 ## Introducing peer-to-peer GooseClip 
 
+[GooseClip](https://devpost.com/software/gooseclip) is an authenticated peer-to-peer communication platform, rooted in the Go programming language, and inspired by "a frustration at the lack of interoperability of our modern devices." As Matt describes it, "GooseClip obscures the complexity of peer-to-peer networking by presenting a simple 2-route API, /attach and /connect." This becomes the base upon which he builds various example mini-products, which demonstrate the versatility and simplicity of the underlying p2p platform. 
 
-GooseClip is an authenticated peer-to-peer communication platform, rooted in the Go programming language, and inspired by "a frustration at the lack of interoperability of our modern devices." As Matt describes it, "GooseClip obscures the complexity of peer-to-peer networking by presenting a simple 2-route API, /attach and /connect." This becomes the base upon which he builds various example mini-products, which demonstrate the versatility and simplicity of the underlying p2p platform. 
-
-
-Developer advocates Heather Downing and Brian Demers spoke with Matt about peer-to-peer technology, his vision for GooseClip, and his experience hacking Okta and building auth. Matt shared some insights about building leading edge applications and launching new tech products as an independent developer and technical founder. 
+Developer advocates [Heather Downing](https://twitter.com/quorralyne) and [Brian Demers](https://twitter.com/briandemers) spoke with Matt about peer-to-peer technology, his vision for GooseClip, and his experience hacking Okta and building auth. Matt shared some insights about building leading edge applications and launching new tech products as an independent developer and technical founder. 
 
 
 ## Stay in touch with OktaDev
 
-
-If you enjoyed this video interview, be sure to subscribe to the OktaDev YouTube channel! Got questions or constructive comments? Feel free to drop us a comment below. You may also want to stay in touch by following @oktadev on twitter, OktaDev on Twitch, and Okta for Developers on LinkedIn. 
-
+If you enjoyed this video interview, be sure to subscribe to the [OktaDev YouTube channel](https://www.youtube.com/oktadev)! Got questions or constructive comments? Feel free to drop us a comment below. You may also want to stay in touch by following [@oktadev](https://twitter.com/oktadev) on twitter, [OktaDev](https://www.twitch.tv/oktadev) on Twitch, and [Okta for Developers](https://www.linkedin.com/company/oktadev/7352/) on LinkedIn. 
 
 
 
 
 
 
-
-[a]I'm always hesitant to use the term "CIAM" most developers don't know what this is.
-But this isn't a bad use here, because it isn't use anywhere else in the post :D
-[b]thanks Brian, I will always *use with care* (and only once!)
