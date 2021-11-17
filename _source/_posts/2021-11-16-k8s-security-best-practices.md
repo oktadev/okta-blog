@@ -10,7 +10,7 @@ tweets:
   - "Is your Kubernetes cluster secure? let's take a look at the security best practices for #k8s"
   - "Don't let your Kubernetes clusters be the weak link. Check out these best practices for securing your #Kubernetes clusters"
 type: awareness
-image: blog/k8s-security-best-practices/social.jpeg
+image: blog/k8s-security-best-practices/social.jpg
 ---
 
 Kubernetes has become an unavoidable part of a software infrastructure these days. If you are an enterprise or medium/large company, the chances are that you are already running Kubernetes clusters for your workloads. If you are a DevOps engineer, there is a high chance you are maintaining either an on-prem Kubernetes cluster or a PaaS like Amazon EKS, Microsoft AKS, or GKE. But regardless of how you run your Kubernetes clusters, you need to make sure that your clusters are secure.
