@@ -290,3 +290,50 @@ The pre-push workflow will validate image size and fail if there are images bigg
 You can use `npm run optimize-images` to optimize all images in the `_source/_assets/img` directory. This will resize and compress the images and write them to new files. So make sure to update the usage and delete the original file.
 
 If a file has to be ignored for some reason, like pre-existing social images, it can be added to `scripts/image-validation-ignore.json`.
+
+### Custom Jekyll tags
+
+We have the following custom Jekyll plugins that can be used in a blog post
+
+**Twitter**
+
+Use the tweet ID from the Tweets URL
+
+```bash
+{% twitter <TWEET-ID> %}
+
+# example from https://twitter.com/oktadev/status/1460993714227236868
+{% twitter 1460993714227236868 %}
+```
+
+**GitHub Gist**
+
+```bash
+{% gist <full url | user/gist_id | gist_id> [filename?] %}
+
+# examples
+{% gist https://gist.github.com/deepu105/127b220d0c7a3bbf06386cef8128d2f5 %}
+{% gist deepu105/127b220d0c7a3bbf06386cef8128d2f5 %}
+{% gist deepu105/127b220d0c7a3bbf06386cef8128d2f5 online-store.jdl %}
+{% gist 127b220d0c7a3bbf06386cef8128d2f5 %}
+{% gist 127b220d0c7a3bbf06386cef8128d2f5 online-store.jdl %}
+```
+
+**YouTube**
+
+```bash
+{% youtube <VIDEO-ID> %}
+
+# example from https://www.youtube.com/watch?v=8vY-9tXlCW4
+{% youtube 8vY-9tXlCW4 %}
+```
+
+**Speaker Deck**
+
+```bash
+{% speakerdeck <DATA-ID> %}
+
+# example from embedd code <script async class="speakerdeck-embed" data-id="ffe22480dbfd4c1f83f66c380bba2283" ...></script>
+{% speakerdeck ffe22480dbfd4c1f83f66c380bba2283 %}
+
+```
