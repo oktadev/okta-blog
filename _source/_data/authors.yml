@@ -37,7 +37,7 @@ greg-sinka:
 vickie-li:
   full_name: Vickie Li
   display_name: Vickie
-  avatar: avatar-vickie-li.png
+  avatar: avatar-vickie-li.jpg
   email: vickieli101@gmail.com
   twitter: https://twitter.com/vickieli7
   web: https://medium.com/@vickieli
@@ -442,7 +442,7 @@ heather-downing:
 ryan-foster:
   full_name: Ryan Foster
   display_name: Ryan Foster
-  avatar: avatar-ryanfoster.png
+  avatar: avatar-ryanfoster.jpg
   twitter: https://twitter.com/oktadev
 
 jefferson-haw:
@@ -567,7 +567,7 @@ omar-darwish:
 chase-aucoin:
   full_name: Chase Aucoin
   display_name: Chase Aucoin
-  avatar: avatar-chase.png
+  avatar: avatar-chase.jpg
   twitter: https://twitter.com/ChaseAucoin
 
 nicolas-triballier:
@@ -593,7 +593,7 @@ david-marin:
 heather-wallander:
   full_name: "Heather Wallander"
   display_name: "Heather Wallander"
-  avatar: avatar-heather-wallander.png
+  avatar: avatar-heather-wallander.jpg
   bio: "Heather Wallander is a Solution Engineer at Okta, specializing in Customer Identity Use Cases. After beginning her career in sales and marketing, she moved into software development, before finding the best of both worlds in Solutions Engineering. Heather has a bachelor's in Marketing and master's in Information Systems. She joined Okta in February 2019."
 
 bruno-leite:
@@ -614,7 +614,7 @@ giorgi-dalakishvili:
 nick-gamb:
   full_name: Nick Gamb
   display_name: Nick Gamb
-  avatar: avatar-nick-gamb.png
+  avatar: avatar-nick-gamb.jpg
   github: https://github.com/nickgamb
 
 ruslan-zaharov:
@@ -710,7 +710,7 @@ cale-switzer:
 edunham:
   full_name: E. Dunham
   display_name: E. Dunham
-  avatar: avatar-edunham.png
+  avatar: avatar-edunham.jpg
   github: https://github.com/edunham
   twitter: https://twitter.com/qedunham
 
