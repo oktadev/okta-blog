@@ -26,7 +26,7 @@ In October, we sat down with UK-based developer [Matthew McKenzie, the creator o
 
 ## Introducing peer-to-peer GooseClip 
 
-[GooseClip](https://devpost.com/software/gooseclip) is an authenticated peer-to-peer communication platform, rooted in the Go programming language, and inspired by "a frustration at the lack of interoperability of our modern devices." As Matt describes it, "GooseClip obscures the complexity of peer-to-peer networking by presenting a simple 2-route API, /attach and /connect." This becomes the base upon which he builds various example mini-products, which demonstrate the versatility and simplicity of the underlying p2p platform. 
+[GooseClip](https://gooseclip.com/#/) is an authenticated peer-to-peer communication platform, rooted in the Go programming language, and inspired by "a frustration at the lack of interoperability of our modern devices." As Matt describes it, "GooseClip obscures the complexity of peer-to-peer networking by presenting a simple 2-route API, /attach and /connect." This becomes the base upon which he builds various example mini-products, which demonstrate the versatility and simplicity of the underlying p2p platform. 
 
 Developer advocates [Heather Downing](https://twitter.com/quorralyne) and [Brian Demers](https://twitter.com/briandemers) spoke with Matt about peer-to-peer technology, his vision for GooseClip, and his experience hacking Okta and building auth. Matt shared some insights about building leading edge applications and launching new tech products as an independent developer and technical founder. 
 
