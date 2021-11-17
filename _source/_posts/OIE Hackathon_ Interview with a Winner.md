@@ -1,0 +1,60 @@
+---
+layout: blog_post
+title: "Getting to Know GooseClip: Interview with an Okta Hackathon Winner"
+author: [brian-demers, heather-downing]
+by: advocate
+communities: [okta, go]
+description: "Okta Developer Advocates Brian Demers and Heather Downing in conversation with Matthew McKenzie, developer of GooseClip, a peer-to-peer app which took first prize in the Okta's Identity Engine Hackathon."
+tags: [go, okta, announcement, ]
+tweets:
+- ""
+- ""
+- ""
+image: blog/todo.png
+type: awareness
+github:  
+---
+
+
+## Okta Early Access Hackathon revisited
+
+
+In August, Okta's developer relations team invited intrepid developers to participate in the virtual Okta Identity Engine Early Access Hackathon, and challenged them to build a working app with our limited availability new customer identity and access management (CIAM[a][b]) platform. A month or so after, judges convened, winners were announced, and thousands of dollars in prizes were distributed. Kudos to hundreds of participants, and props to all involved. 
+
+
+In October, we sat down with UK-based developer Matthew McKenzie, the creator of GooseClip, our first prize winner. 
+
+
+
+
+<div style="text-align: center; margin-bottom: 1.25rem">
+<iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/aLSda4LMgy8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+
+
+
+## Introducing peer-to-peer GooseClip 
+
+
+GooseClip is an authenticated peer-to-peer communication platform, rooted in the Go programming language, and inspired by "a frustration at the lack of interoperability of our modern devices." As Matt describes it, "GooseClip obscures the complexity of peer-to-peer networking by presenting a simple 2-route API, /attach and /connect." This becomes the base upon which he builds various example mini-products, which demonstrate the versatility and simplicity of the underlying p2p platform. 
+
+
+Developer advocates Heather Downing and Brian Demers spoke with Matt about peer-to-peer technology, his vision for GooseClip, and his experience hacking Okta and building auth. Matt shared some insights about building leading edge applications and launching new tech products as an independent developer and technical founder. 
+
+
+## Stay in touch with OktaDev
+
+
+If you enjoyed this video interview, be sure to subscribe to the OktaDev YouTube channel! Got questions or constructive comments? Feel free to drop us a comment below. You may also want to stay in touch by following @oktadev on twitter, OktaDev on Twitch, and Okta for Developers on LinkedIn. 
+
+
+
+
+
+
+
+
+[a]I'm always hesitant to use the term "CIAM" most developers don't know what this is.
+But this isn't a bad use here, because it isn't use anywhere else in the post :D
+[b]thanks Brian, I will always *use with care* (and only once!)
