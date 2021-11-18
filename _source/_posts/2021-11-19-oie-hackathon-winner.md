@@ -16,7 +16,7 @@ type: awareness
 
 ## Okta Early Access Hackathon revisited
 
-In August, Okta's developer relations team invited intrepid developers to participate in [the virtual Okta Identity Engine Early Access Hackathon](https://developer.okta.com/blog/2021/08/11/okta-identity-engine-early-access-hackathon), and challenged them to build a working app with our limited availability new customer identity and access management (CIAM) platform. A month or so after, judges convened, [winners were announced](https://developer.okta.com/blog/2021/09/28/okta-hackathon-2021-winners), and thousands of dollars in prizes were distributed. Kudos to hundreds of participants, and props to all involved. 
+In August, Okta's developer relations team invited intrepid developers to participate in [the virtual Okta Identity Engine Early Access Hackathon](/blog/2021/08/11/okta-identity-engine-early-access-hackathon), and challenged them to build a working app with our limited availability new customer identity and access management (CIAM) platform. A month or so after, judges convened, [winners were announced](/blog/2021/09/28/okta-hackathon-2021-winners), and thousands of dollars in prizes were distributed. Kudos to hundreds of participants, and props to all involved. 
 
 In October, we sat down with UK-based developer [Matthew McKenzie, the creator of GooseClip](https://devpost.com/software/gooseclip), our first prize winner. 
 
