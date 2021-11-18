@@ -10,7 +10,7 @@ communities: [java]
 description: "Learn how to use OAuth 2.0's client credentials grant to communicate between apps secured by Spring Security."
 tags: [java, spring-security, spring-boot, oauth2, client-credentials-flow]
 tweets:
-- "Want to developer secure server-to-server communication with @SpringSecurity? Use @oauth2's client credentials flow!"
+- "Want to develop secure server-to-server communication with @SpringSecurity? Use @oauth2's client credentials flow!"
 - "Learn how to use Spring's RestTemplate and WebClient with the OAuth 2.0 client credential flow."
 - "How to use OAuth 2.0 for server-to-server applications. 👇"
 image: blog/client-credentials-spring-security/client-credentials-flow.png
