@@ -286,8 +286,8 @@ If you want the final code for this post, you can get it [on GitHub](https://git
 
 If you want to learn more about OAuth2, OpenID Connect, or ASP.NET in general, check out these other great pieces of content!
 
-- [User Authorization in ASP.NET Core with Okta](https://developer.okta.com/blog/2017/10/04/aspnet-authorization)
+- [User Authorization in ASP.NET Core with Okta](/blog/2017/10/04/aspnet-authorization)
 - [An Illustrated Guide to OAuth and OpenID Connect](https://www.youtube.com/watch?v=t18YB3xDfXI)
-- [Build a CRUD App with ASP.NET Core 2.2 and Entity Framework Core](https://developer.okta.com/blog/2019/04/03/build-a-crud-app-with-aspnet-22-and-entity-framework)
+- [Build a CRUD App with ASP.NET Core 2.2 and Entity Framework Core](/blog/2019/04/03/build-a-crud-app-with-aspnet-22-and-entity-framework)
 
 As always, feel free to hit us up in the comments below. Also, don't forget to follow us on [Twitter](https://twitter.com/oktadev) and check out our [YouTube Channel](https://youtube.com/c/oktadev)!

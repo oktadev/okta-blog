@@ -441,9 +441,9 @@ Now you have a complete CRUD slice built in an ASP.NET Core 2.2 MVC application 
 
 If you liked this post, you'll really like some of the other content here on the Okta Developer Blog!
 
-* [Build a GraphQL API with ASP.NET Core](https://developer.okta.com/blog/2019/04/16/graphql-api-with-aspnetcore)
-* [Build a REST API with ASP.NET Core 2.2](https://developer.okta.com/blog/2019/04/10/build-rest-api-with-aspnetcore)
-* [Build a CRUD App with ASP.NET Core and TypeScript](https://developer.okta.com/blog/2019/03/26/build-a-crud-app-with-aspnetcore-and-typescript)
-* [Build a Secure Node app with SQL Server](https://developer.okta.com/blog/2019/03/11/node-sql-server)
+* [Build a GraphQL API with ASP.NET Core](/blog/2019/04/16/graphql-api-with-aspnetcore)
+* [Build a REST API with ASP.NET Core 2.2](/blog/2019/04/10/build-rest-api-with-aspnetcore)
+* [Build a CRUD App with ASP.NET Core and TypeScript](/blog/2019/03/26/build-a-crud-app-with-aspnetcore-and-typescript)
+* [Build a Secure Node app with SQL Server](/blog/2019/03/11/node-sql-server)
 
 As always, feel free to comment below and don't forget to follow us on [Twitter](https://twitter.com/oktadev) and watch us on [YouTube](https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q)!

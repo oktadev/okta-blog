@@ -72,7 +72,7 @@ login and registration, password reset functionality, social login, single
 sign-on, and lots more.
 
 **NOTE**: If you'd like to skip the following sections and get straight into the
-code, you can visit the [Github
+code, you can visit the [GitHub
 repo](https://github.com/oktadeveloper/okta-express-example) for this
 application directly.
 
@@ -495,7 +495,7 @@ One of my good friends and co-workers [Micah
 Silverman](https://twitter.com/afitnerd) recently published a three part primer
 to OIDC which I strongly recommend you read if you're interested in learning
 more about OIDC. You can [check it out
-here](https://developer.okta.com/blog/2017/07/25/oidc-primer-part-1).
+here](/blog/2017/07/25/oidc-primer-part-1).
 
 You can also [follow myself](https://twitter.com/rdegges) and
 [Okta](https://twitter.com/oktadev) on Twitter to see more of what I'm working

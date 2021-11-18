@@ -19,7 +19,7 @@ type: conversion
 
 Node.js is eating the world. Many of the largest companies are building more and more of their websites and API services with Node.js, and there's no sign of a slowdown. I've been working with Node.js since 2012 and have been excited to see the community and tooling grow and evolve — there's no better time to get started with Node.js development than right now.
 
-This tutorial will take you step-by-step through building a fully functional Node.js website. Along the way you'll learn about Express.js, the most popular web framework, user authentication with [OpenID Connect](https://developer.okta.com/blog/2017/07/25/oidc-primer-part-1), locking down routes to enforce login restrictions, and performing CRUD operations with a database (creating, reading, updating, and deleting data). This tutorial uses the following technologies but doesn't require any prior experience:
+This tutorial will take you step-by-step through building a fully functional Node.js website. Along the way you'll learn about Express.js, the most popular web framework, user authentication with [OpenID Connect](/blog/2017/07/25/oidc-primer-part-1), locking down routes to enforce login restrictions, and performing CRUD operations with a database (creating, reading, updating, and deleting data). This tutorial uses the following technologies but doesn't require any prior experience:
 
 - [Node.js](https://nodejs.org/en/)
 - [Express.js](https://expressjs.com/) and [Pug](https://pugjs.org/api/getting-started.html)
@@ -1181,12 +1181,12 @@ I hope you enjoyed building a simple CRUD app with Node.js and Express.js. I've 
 
 If you'd like to learn more about building web apps in Node, you might want to check out these other great posts:
 
-- [Build Secure Node Authentication with Passport.js and OpenID Connect](https://developer.okta.com/blog/2018/05/18/node-authentication-with-passport-and-oidc)
-- [Build User Registration with Node, React, and Okta](https://developer.okta.com/blog/2018/02/06/build-user-registration-with-node-react-and-okta)
-- [Simple Node Authentication](https://developer.okta.com/blog/2018/04/24/simple-node-authentication)
-- [Build a Basic CRUD App with Vue.js and Node](https://developer.okta.com/blog/2018/02/15/build-crud-app-vuejs-node)
+- [Build Secure Node Authentication with Passport.js and OpenID Connect](/blog/2018/05/18/node-authentication-with-passport-and-oidc)
+- [Build User Registration with Node, React, and Okta](/blog/2018/02/06/build-user-registration-with-node-react-and-okta)
+- [Simple Node Authentication](/blog/2018/04/24/simple-node-authentication)
+- [Build a Basic CRUD App with Vue.js and Node](/blog/2018/02/15/build-crud-app-vuejs-node)
 
-If you're interested in learning more about how the underlying authentication components work (OpenID Connect), you may be interested in our [OpenID Connect primer series](https://developer.okta.com/blog/2017/07/25/oidc-primer-part-1) which explains everything you need to know about OpenID Connect as a developer.
+If you're interested in learning more about how the underlying authentication components work (OpenID Connect), you may be interested in our [OpenID Connect primer series](/blog/2017/07/25/oidc-primer-part-1) which explains everything you need to know about OpenID Connect as a developer.
 
 Finally, please [follow us on Twitter](https://twitter.com/OktaDev) to find more great resources like this, request other topics for us to write about, and follow along with our new open source libraries and projects!
 

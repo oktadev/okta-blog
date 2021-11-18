@@ -120,7 +120,7 @@ Well, traditionally, OAuth 2.0 apps are issued a `client_id` and `client_secret`
 
 In OAuth 1, a secret was required in order to make every API request, which is one of its major shortcomings, and largely why it was replaced with OAuth 2.0. OAuth 1 was developed before mobile apps were as prevalent as they are today, so it wasn't developed with these constraints in mind.
 
-That changed with OAuth 2.0, especially once the PKCE (proof key code exchange) extension was introduced. I like to think of PKCE as an "on the fly" client secret. Instead of shipping a `client_secret` in a mobile app, the way PKCE works is the app creates a new random secret every time it starts the OAuth flow. This way there are no secrets shipped ahead of time, and there is nothing useful for an attacker to steal. You can read more details about how PKCE works in our blog post "[OAuth 2.0 for Native and Mobile Apps](https://developer.okta.com/blog/2018/12/13/oauth-2-for-native-and-mobile-apps)" or on [oauth.com](https://www.oauth.com/oauth2-servers/pkce/).
+That changed with OAuth 2.0, especially once the PKCE (proof key code exchange) extension was introduced. I like to think of PKCE as an "on the fly" client secret. Instead of shipping a `client_secret` in a mobile app, the way PKCE works is the app creates a new random secret every time it starts the OAuth flow. This way there are no secrets shipped ahead of time, and there is nothing useful for an attacker to steal. You can read more details about how PKCE works in our blog post "[OAuth 2.0 for Native and Mobile Apps](/blog/2018/12/13/oauth-2-for-native-and-mobile-apps)" or on [oauth.com](https://www.oauth.com/oauth2-servers/pkce/).
 
 OAuth still sends access tokens over the wire where they may be visible to you if you're using something like `mitmproxy`, but the difference is that this token is issued on the fly and is specific to the user who is using it! This way, there are no secrets shipped in the source code, and if someone wants to intercept the traffic from their own device, all they will see is an access token that was issued just to them! They won't get access to anything their app can't already access.
 
@@ -137,8 +137,8 @@ If you need to access an API from a mobile app, hopefully it supports OAuth and 
 If you'd like to dig deeper into these topics, here are a few resources:
 
 * [PKCE on oauth.com](https://www.oauth.com/oauth2-servers/pkce/)
-* [OAuth 2.0 for Native and Mobile Apps](https://developer.okta.com/blog/2018/12/13/oauth-2-for-native-and-mobile-apps)
-* [What is the OAuth 2.0 Authorization Code Grant Type?](https://developer.okta.com/blog/2018/04/10/oauth-authorization-code-grant-type)
+* [OAuth 2.0 for Native and Mobile Apps](/blog/2018/12/13/oauth-2-for-native-and-mobile-apps)
+* [What is the OAuth 2.0 Authorization Code Grant Type?](/blog/2018/04/10/oauth-authorization-code-grant-type)
  
 If you liked this post, you should [follow us on Twitter](https://twitter.com/oktadev)! We also have a [YouTube channel](https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q) where we publish screencasts and other videos.
 

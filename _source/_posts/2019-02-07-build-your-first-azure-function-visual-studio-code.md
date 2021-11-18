@@ -174,8 +174,8 @@ Now you should be able to go to the URL for your new function and get a beer sug
 ## Learn More About Azure, Visual Studio, and .NET Apps
 If you liked learning about Azure, check out some of these other posts about Azure and .NET!
 
-* [Deploy Your ASP.NET Core App to Azure](https://developer.okta.com/blog/2018/06/19/deploy-your-aspnet-core-app-to-azure)
-* [Add Login to Your ASP.NET Core MVC App](https://developer.okta.com/blog/2018/10/29/add-login-to-you-aspnetcore-app)
-* [Policy-Based Authorization in ASP.NET Core](https://developer.okta.com/blog/2018/05/11/policy-based-authorization-in-aspnet-core)
+* [Deploy Your ASP.NET Core App to Azure](/blog/2018/06/19/deploy-your-aspnet-core-app-to-azure)
+* [Add Login to Your ASP.NET Core MVC App](/blog/2018/10/29/add-login-to-you-aspnetcore-app)
+* [Policy-Based Authorization in ASP.NET Core](/blog/2018/05/11/policy-based-authorization-in-aspnet-core)
 
 If you have any questions about the post, feel free to leave me a comment below. Don't forget to follow us on [Twitter](https://twitter.com/oktadev), [Facebook](https://www.facebook.com/oktadevelopers/), and [YouTube](https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q) so you never miss any of our killer content!

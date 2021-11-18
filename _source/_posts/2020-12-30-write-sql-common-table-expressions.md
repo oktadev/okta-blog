@@ -33,7 +33,7 @@ Click on **Done**, and you will be taken to your application home screen. Make n
 
 ## Prepare the SQL Database to Use with Your CTE
 
-To work on your database, you will need to have a database first. Microsoft provides several samples via Github. For this project, I used the [Wide World Importers sample database v1.0](https://github.com/Microsoft/sql-server-samples/releases/tag/wide-world-importers-v1.0). To use this, you will need to have at least SQL 2016 installed. Microsoft provides `.bak` and `.bacpac` files for you to use.  
+To work on your database, you will need to have a database first. Microsoft provides several samples via GitHub. For this project, I used the [Wide World Importers sample database v1.0](https://github.com/Microsoft/sql-server-samples/releases/tag/wide-world-importers-v1.0). To use this, you will need to have at least SQL 2016 installed. Microsoft provides `.bak` and `.bacpac` files for you to use.  
 
 ### Common Table Expressions (CTEs)
 
@@ -495,14 +495,14 @@ This view displays the data in a nice table for your users to see.
 
 Your application is now ready to start. Press *F5* to begin debugging. You should be presented with the home page. From there, you can click on **Login** or **Dashboard**. Either should bring you to the Okta login screen. Log in with your Okta account, and you will be presented with the Dashboard.
 
-Check out this project's repo on [Github](https://github.com/oktadeveloper/okta-sql-common-table-expressions-blog-repo).
+Check out this project's repo on [GitHub](https://github.com/oktadeveloper/okta-sql-common-table-expressions-blog-repo).
 
 ## Learn More About .NET & Okta
 
 If you are interested in learning more about security and .NET check out these other great articles:
 
-- [ASP.NET Core 3.0 MVC Secure Authentication](https://developer.okta.com/blog/2019/11/15/aspnet-core-3-mvc-secure-authentication)
-- [Migrate Your ASP.NET Framework to ASP.NET Core with Okta](https://developer.okta.com/blog/2020/09/09/aspnet-migration-dotnet-core)
-- [Build an Incredibly Fast Website with Dapper + C#](https://developer.okta.com/blog/2020/04/10/build-fast-website-csharp-dapper)
+- [ASP.NET Core 3.0 MVC Secure Authentication](/blog/2019/11/15/aspnet-core-3-mvc-secure-authentication)
+- [Migrate Your ASP.NET Framework to ASP.NET Core with Okta](/blog/2020/09/09/aspnet-migration-dotnet-core)
+- [Build an Incredibly Fast Website with Dapper + C#](/blog/2020/04/10/build-fast-website-csharp-dapper)
 
 Make sure to follow us on [Twitter](https://twitter.com/oktadev), subscribe to our [YouTube Channel](https://youtube.com/c/oktadev) and check out our [Twitch](https://www.twitch.tv/oktadev) channel so that you never miss any awesome content!

@@ -231,13 +231,13 @@ There are some new challenges when self-hosting. For example, if you want to run
 
 ## Learn More about Spring Deployment
 
-We covered Azure, AWS and self-hosted Tomcat deployment on this article. You can also run your app as a Docker container, which is covered in [Get Jibby With Java, Docker, and Spring Boot](https://developer.okta.com/blog/2019/08/09/jib-docker-spring-boot).
+We covered Azure, AWS and self-hosted Tomcat deployment on this article. You can also run your app as a Docker container, which is covered in [Get Jibby With Java, Docker, and Spring Boot](/blog/2019/08/09/jib-docker-spring-boot).
 
 If you want to learn more about Java, Spring, and User Auth using Okta, check out these awesome articles:
 
-- [Simple Authentication with Spring Security](https://developer.okta.com/blog/2019/05/31/spring-security-authentication)
-- [Which Java SDK Should You Use?](https://developer.okta.com/blog/2019/01/16/which-java-sdk)
-- [Build a Web App with Spring Boot and Spring Security in 15 Minutes](https://developer.okta.com/blog/2018/09/26/build-a-spring-boot-webapp)
-- [Learning Java as a First Language](https://developer.okta.com/blog/2018/12/11/learning-java-first-language)
+- [Simple Authentication with Spring Security](/blog/2019/05/31/spring-security-authentication)
+- [Which Java SDK Should You Use?](/blog/2019/01/16/which-java-sdk)
+- [Build a Web App with Spring Boot and Spring Security in 15 Minutes](/blog/2018/09/26/build-a-spring-boot-webapp)
+- [Learning Java as a First Language](/blog/2018/12/11/learning-java-first-language)
 
 Questions? Requests for a future post? Drop them in the comments! And don't forget to follow [@oktadev on Twitter](https://twitter.com/oktadev) and [subscribe on Youtube](https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q).

@@ -627,8 +627,8 @@ To start your application you can run `node index.js`.  You should see a message
 
 If you liked this post, you might also like these other posts on Node and Express:
 
-- [Build A Simple Web App with Node and Postgres](https://developer.okta.com/blog/2019/11/22/node-postgres-simple-webapp)
-- [Build and Understand Express Middleware through Examples](https://developer.okta.com/blog/2018/09/13/build-and-understand-express-middleware-through-examples)
-- [Use TypeScript to Build a Node API with Express](https://developer.okta.com/blog/2018/11/15/node-express-typescript)
+- [Build A Simple Web App with Node and Postgres](/blog/2019/11/22/node-postgres-simple-webapp)
+- [Build and Understand Express Middleware through Examples](/blog/2018/09/13/build-and-understand-express-middleware-through-examples)
+- [Use TypeScript to Build a Node API with Express](/blog/2018/11/15/node-express-typescript)
 
 Follow us for more great content and updates from our team! You can find us on [Twitter](https://twitter.com/oktadev), [Facebook](https://www.facebook.com/oktadevelopers), and subscribe to our [YouTube Channel](https://youtube.com/c/oktadev). Questions? Hit us up in the comments below.

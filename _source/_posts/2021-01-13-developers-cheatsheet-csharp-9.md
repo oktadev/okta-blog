@@ -1553,11 +1553,11 @@ In this article, you have explored some of the important improvements introduced
 If you are interested in learning more about C# 8 and C# 9 check out these other great articles:
 
 - [Okta ASP.NET Core MVC Quickstart](https://developer.okta.com/quickstart-fragments/dotnet/aspnetcore-auth-code/)
-- [Secure Your ASP.NET Core App with OAuth 2.0](https://developer.okta.com/blog/2019/07/12/secure-your-aspnet-core-app-with-oauth)
-- [Build Single Sign-on for Your ASP.NET MVC App](https://developer.okta.com/blog/2019/07/16/build-single-sign-on-sso-for-your-aspnet-mvc-apps)
-- [Policy-Based Authorization in ASP.NET Core](https://developer.okta.com/blog/2018/05/11/policy-based-authorization-in-aspnet-core)
-- [Store ASP.NET Secrets Securely with Azure KeyVault](https://developer.okta.com/blog/2019/06/04/store-secrets-securely-int-dotnet-with-azure-keyvault)
-- [User Authorization in ASP.NET Core with Okta](https://developer.okta.com/blog/2017/10/04/aspnet-authorization)
+- [Secure Your ASP.NET Core App with OAuth 2.0](/blog/2019/07/12/secure-your-aspnet-core-app-with-oauth)
+- [Build Single Sign-on for Your ASP.NET MVC App](/blog/2019/07/16/build-single-sign-on-sso-for-your-aspnet-mvc-apps)
+- [Policy-Based Authorization in ASP.NET Core](/blog/2018/05/11/policy-based-authorization-in-aspnet-core)
+- [Store ASP.NET Secrets Securely with Azure KeyVault](/blog/2019/06/04/store-secrets-securely-int-dotnet-with-azure-keyvault)
+- [User Authorization in ASP.NET Core with Okta](/blog/2017/10/04/aspnet-authorization)
 - [What's new in C# 8.0](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-8#indices-and-ranges)
 - [What's new in C# 9.0](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-9)
 - [Welcome to C# 9.0](https://devblogs.microsoft.com/dotnet/welcome-to-c-9-0/)

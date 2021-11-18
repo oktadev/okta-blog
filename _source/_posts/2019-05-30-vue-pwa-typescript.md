@@ -16,7 +16,7 @@ tweets:
 image: blog/featured/okta-vue-bottle-headphones.jpg
 type: conversion
 changelog:
-  - 2020-05-01: Updated versions of all dependencies, including Okta libraries. This enables the use of the Authorization Code + PKCE flow, rather than the deprecated Implicit Flow. See the code changes in the [example app on Github](https://github.com/oktadeveloper/okta-vue-books-pwa-example/pull/5). Changes to this article can be viewed in [oktadeveloper/okta-blog/#275](https://github.com/oktadeveloper/okta-blog/pull/275)
+  - 2020-05-01: Updated versions of all dependencies, including Okta libraries. This enables the use of the Authorization Code + PKCE flow, rather than the deprecated Implicit Flow. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-vue-books-pwa-example/pull/5). Changes to this article can be viewed in [oktadeveloper/okta-blog/#275](https://github.com/oktadeveloper/okta-blog/pull/275)
 ---
 
 With the ever-increasing use of mobile devices over the last few years it has become more and more important for web developers to anticipate the need for users on these devices. The first step was the ability to cater for different screen sizes, thus creating the need for responsive user interface design. Over time the demands of the users increase and it is now becoming even more important to provide a high-quality user experience, independent of the network connectivity. Users have become accustomed to using native installable applications when they are offline. They are increasingly expecting the same from browser-based web applications.

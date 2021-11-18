@@ -26,7 +26,7 @@ When I started writing this article, I wanted to show you how to add authenticat
 
 ## Vue CLI + PWA!
 
-Every web app that has mobile users should add PWA support so the app loads faster and works offline. Vue.js has [excellent PWA support](https://github.com/vuejs-templates/pwa). You might recognize me as a fan of PWAs if you've read my [Ultimate Guide to Progressive Web Applications](https://developer.okta.com/blog/2017/07/20/the-ultimate-guide-to-progressive-web-applications).
+Every web app that has mobile users should add PWA support so the app loads faster and works offline. Vue.js has [excellent PWA support](https://github.com/vuejs-templates/pwa). You might recognize me as a fan of PWAs if you've read my [Ultimate Guide to Progressive Web Applications](/blog/2017/07/20/the-ultimate-guide-to-progressive-web-applications).
 
 I installed [Vue CLI](https://github.com/vuejs/vue-cli) and went to work.
 
@@ -312,7 +312,7 @@ The easiest way to fix this is to update `.eslintrc.js` to allow callback litera
 }
 ```
 
-_Thanks to [nikivancic](https://developer.okta.com/blog/2017/09/14/lazy-developers-guide-to-auth-with-vue#comment-4167385661) for this tip in the comments!_
+_Thanks to [nikivancic](/blog/2017/09/14/lazy-developers-guide-to-auth-with-vue#comment-4167385661) for this tip in the comments!_
 
 After making this change, you should be able to run `npm start` and authenticate with the hard coded values from `auth.js`.
 

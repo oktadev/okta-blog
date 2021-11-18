@@ -531,9 +531,9 @@ That's it! Okta's Xamarin SDK simplifies using Authorization Code flow with PKCE
 
 I hope this tutorial was interesting to you and that you enjoyed it. You can get the [full source code of the project from GitHub](https://github.com/Giorgi/Movie-Explorer/). For more Xamarin and Okta articles, check out these posts:
 
-- [Easy Xamarin Essentials with Web Authenticator](https://developer.okta.com/blog/2020/07/31/xamarin-essentials-webauthenticator)
-- [Build Login in Xamarin with Xamarin.Forms](https://developer.okta.com/blog/2019/06/11/build-login-in-xamarin-with-xamarin-forms/)
-- [Implement the OAuth 2.0 Authorization Code with PKCE Flow](https://developer.okta.com/blog/2019/08/22/okta-authjs-pkce)
+- [Easy Xamarin Essentials with Web Authenticator](/blog/2020/07/31/xamarin-essentials-webauthenticator)
+- [Build Login in Xamarin with Xamarin.Forms](/blog/2019/06/11/build-login-in-xamarin-with-xamarin-forms/)
+- [Implement the OAuth 2.0 Authorization Code with PKCE Flow](/blog/2019/08/22/okta-authjs-pkce)
 - [Okta Xamarin SDK](https://github.com/okta/okta-oidc-xamarin)
 
 Make sure to follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube Channel](https://youtube.com/c/oktadev) so that you never miss any excellent content!

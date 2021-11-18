@@ -75,7 +75,7 @@ Initiate login URI:
 
 
 ## Add .NET Authentication Dependencies
-Once your account is set up you need to [add the Okta.Sdk library to your project](https://github.com/okta/okta-sdk-dotnet). This post will take the approach of using the NuGet package, but the Github repository for Okta.AspNetCore can be [found here](https://github.com/okta/okta-sdk-dotnet).
+Once your account is set up you need to [add the Okta.Sdk library to your project](https://github.com/okta/okta-sdk-dotnet). This post will take the approach of using the NuGet package, but the GitHub repository for Okta.AspNetCore can be [found here](https://github.com/okta/okta-sdk-dotnet).
 
 To proceed simply search for the latest version of the `Okta.Sdk` NuGet package in your IDE of choice (version 1.2.0 at the time of this publication) and install it. If you're using Visual Studio you can do this by right-clicking on the project in the _solution explorer_ and selecting **Manage NuGet Packages**. For those of you not using Visual Studio, add the package via console window using the following command:
 

@@ -173,7 +173,7 @@ You can now open a browser window at `http://localhost:5000` to see the applicat
 
 ### Troubleshooting
 
-In case you run into a Correlation Error after logging in with Okta, you need to manually set the `SameSite` cookie attribute to `None`, and enable SSL (HTTPS) on your server. Check out more about how SameSite affects your apps in [this article](https://developer.okta.com/blog/2020/09/28/adapt-dotnet-app-for-samesite-fix).
+In case you run into a Correlation Error after logging in with Okta, you need to manually set the `SameSite` cookie attribute to `None`, and enable SSL (HTTPS) on your server. Check out more about how SameSite affects your apps in [this article](/blog/2020/09/28/adapt-dotnet-app-for-samesite-fix).
 
 ## Takeaways
 
