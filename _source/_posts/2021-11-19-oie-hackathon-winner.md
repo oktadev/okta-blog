@@ -10,7 +10,7 @@ tweets:
 - ""
 - ""
 - ""
-image:
+image: blog/oie-hackathon-winner/social.jpg
 type: awareness 
 ---
 
