@@ -38,6 +38,12 @@ You will create a simple resource server that will be secured using Okta as an O
 
 `RestTemplate` is deprecated, and while still widely used, should probably not be used for new code. Instead, the WebFlux-based class, `WebClient` should be used. In the next part of the tutorial, you will implement the same OAuth 2.0 client credentials grant using Spring `WebClient`.
 
+If you would rather follow along by watching a video, check out the screencast below from our [YouTube channel](https://youtu.be/Dy7vAhKkiGo).
+
+<div style="text-align: center; margin-bottom: 1.25rem">
+<iframe width="800" height="450" style="max-width: 100%" src="https://www.youtube.com/embed/Dy7vAhKkiGo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
 ## What Is the Client Credentials Grant Flow?
 
 The goal of the OAuth 2.0 client credentials grant is to allow two automated services to interact securely. It does this primarily by replacing the old scheme, HTTP Basic, with a token-based authentication scheme that greatly reduces the number of requests that expose sensitive access credentials.
