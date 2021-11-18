@@ -358,3 +358,18 @@ Use the tweet ID from the Tweets URL
 {% speakerdeck ffe22480dbfd4c1f83f66c380bba2283 900px %}
 
 ```
+
+**StackBlitz**
+
+Pass in the StackBlitz id. Optionally, you can also pass in the file to default to.
+
+```markup
+{% stackblitz <stackblitz-id> %}
+{% stackblitz <stackblitz-id> file=<path/filename.ext> %}
+```
+
+Examples
+```markup
+{% stackblitz angular %}
+{% stackblitz angular file=src/app/hello.component.ts %}
+```
