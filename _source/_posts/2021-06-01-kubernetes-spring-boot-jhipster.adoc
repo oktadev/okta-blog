@@ -15,6 +15,7 @@ tweets:
 - "JHipster makes it easy to create reactive @java microservices and deploy them with @kubernetesio. Learn more in this tutorial! 👇"
 image: blog/reactive-java-kubernetes/reactive-java-k8s.png
 type: conversion
+canonical: https://auth0.com/blog/full-stack-java-with-react-spring-boot-and-jhipster/
 changelog:
 - 2021-08-11: Fixed missing namespace parameters and Ingress definition. See the code changes in the [example on GitHub](https://github.com/oktadev/java-microservices-examples/pull/24). Changes to this post can be viewed in [okta-blog#857](https://github.com/oktadev/okta-blog/pull/857).
 ---

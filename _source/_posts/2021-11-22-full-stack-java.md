@@ -7,12 +7,13 @@ communities: [java,javascript]
 description: "This tutorial shows you how to create a slick-looking, full-stack, secure application using React, Spring Boot, and JHipster."
 tags: [java, full-stack, react, spring-boot, jhipster]
 tweets:
-- ""
-- ""
-- ""
-image:
+- "Full Stack Java is made easy with @jhipster! See how to configure your app with @Auth0 in this tutorial."
+- "React + Spring Boot + OpenID Connect!? Oh My! 👀"
+- "Full Stack development can be hard when you have to create everything from scratch. Generate with @JHipster and learn from its best-practice patterns instead!"
+image: blog/full-stack-java/full-stack-java-social.png
 type: conversion
 github: https://github.com/oktadev/auth0-full-stack-java-example
+canonical: https://auth0.com/blog/full-stack-java-with-react-spring-boot-and-jhipster/
 ---
 
 If you search for "Full Stack Java" on the internet, you'll likely find a lot of recruiting, courses, and jobs. Being a full stack developer can be exciting because you can create the backend and frontend of an app all by yourself. There is business logic and algorithms as well as styling, making things look good, and securing everything. It also pays pretty well. Today, I'm going to show you how you can be a full stack Java developer with Spring Boot, React, and JHipster.
@@ -279,6 +280,8 @@ public GrantedAuthoritiesMapper userAuthoritiesMapper() {
 Click **Save changes** to continue.
 
 **NOTE**: Want to have all these steps automated for you? Vote for [this issue](https://github.com/auth0/auth0-cli/issues/351) in the Auth0 CLI project.
+ 
+> Want to use Okta for your identity provider? That's possible too! See [JHipster's documentation](https://www.jhipster.tech/security/#okta).
 
 ### Run Your JHipster App with Auth0
 
