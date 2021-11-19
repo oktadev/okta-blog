@@ -309,6 +309,7 @@ Use the tweet ID from the Tweets URL
 **GitHub Gist**
 
 ```bash
+# filename is optional
 {% gist <full url | user/gist_id | gist_id> [filename?] %}
 
 # examples
@@ -322,18 +323,23 @@ Use the tweet ID from the Tweets URL
 **YouTube**
 
 ```bash
-{% youtube <VIDEO-ID> %}
+# width and height are optional (in px)
+{% youtube <VIDEO-ID> [width? height?]%}
 
 # example from https://www.youtube.com/watch?v=8vY-9tXlCW4
-{% youtube 8vY-9tXlCW4 %}
+{% youtube 8vY-9tXlCW4 %} # default width and height of 700 x 394
+{% youtube 8vY-9tXlCW4 900 %} # height calculated based on width
+{% youtube 8vY-9tXlCW4 900 600 %}
 ```
 
 **Speaker Deck**
 
 ```bash
-{% speakerdeck <DATA-ID> %}
+# width is optional, default is 700px
+{% speakerdeck <DATA-ID> [width?]%}
 
 # example from embedd code <script async class="speakerdeck-embed" data-id="ffe22480dbfd4c1f83f66c380bba2283" ...></script>
 {% speakerdeck ffe22480dbfd4c1f83f66c380bba2283 %}
+{% speakerdeck ffe22480dbfd4c1f83f66c380bba2283 900px %}
 
 ```

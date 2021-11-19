@@ -29,7 +29,7 @@ module Jekyll
           noscript_tag = gist_noscript_tag(gist_id, filename)
           script_tag   = gist_script_tag(gist_id, filename)
 
-          "#{noscript_tag}#{script_tag}"
+          "<div class='jekyll-gist-plugin' style='text-align: center; margin-bottom: 1.25rem'>#{noscript_tag}#{script_tag}</div>"
         else
           raise ArgumentError, <<~ERROR
             Syntax error in tag 'gist' while parsing the following markup:
