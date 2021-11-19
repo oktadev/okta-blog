@@ -5,7 +5,7 @@ ryan-stewart:
   web: http://ryanstewart.net
   github: https://github.com/ryanstewart
   bio: "Director of Product Management for CIAM Developer Platform at @okta"
-  
+
 pawel-szydziak:
   full_name: Paweł Szydziak
   display_name: Paweł
@@ -37,7 +37,7 @@ greg-sinka:
 vickie-li:
   full_name: Vickie Li
   display_name: Vickie
-  avatar: avatar-vickie-li.png
+  avatar: avatar-vickie-li.jpg
   email: vickieli101@gmail.com
   twitter: https://twitter.com/vickieli7
   web: https://medium.com/@vickieli
@@ -277,7 +277,7 @@ aaron-parecki:
   web: https://aaronparecki.com/
   twitter: https://twitter.com/aaronpk
   github: https://github.com/aaronpk
-  bio: "Aaron Parecki is a Senior Security Architect at Okta. He is the author of <a href=\"https://oauth2simplified.com/\">OAuth 2.0 Simplified</a>, and maintains <a href=\"https://oauth.net/\">oauth.net</a>. He regularly writes and gives talks about <a href=\"https://aaronparecki.com/oauth/\">OAuth</a> and online security. He is an editor of several internet specs, and is the co-founder of <a href=\"https://indieweb.org/\">IndieWebCamp</a>, a conference focusing on data ownership and online identity. Aaron has spoken at conferences around the world about OAuth, data ownership, quantified self, and home automation, and his work has been featured in Wired, Fast Company and more."
+  bio: 'Aaron Parecki is a Senior Security Architect at Okta. He is the author of <a href="https://oauth2simplified.com/">OAuth 2.0 Simplified</a>, and maintains <a href="https://oauth.net/">oauth.net</a>. He regularly writes and gives talks about <a href="https://aaronparecki.com/oauth/">OAuth</a> and online security. He is an editor of several internet specs, and is the co-founder of <a href="https://indieweb.org/">IndieWebCamp</a>, a conference focusing on data ownership and online identity. Aaron has spoken at conferences around the world about OAuth, data ownership, quantified self, and home automation, and his work has been featured in Wired, Fast Company and more.'
 
 alex-dahl:
   full_name: Alex Dahl
@@ -442,7 +442,7 @@ heather-downing:
 ryan-foster:
   full_name: Ryan Foster
   display_name: Ryan Foster
-  avatar: avatar-ryanfoster.png
+  avatar: avatar-ryanfoster.jpg
   twitter: https://twitter.com/oktadev
 
 jefferson-haw:
@@ -567,7 +567,7 @@ omar-darwish:
 chase-aucoin:
   full_name: Chase Aucoin
   display_name: Chase Aucoin
-  avatar: avatar-chase.png
+  avatar: avatar-chase.jpg
   twitter: https://twitter.com/ChaseAucoin
 
 nicolas-triballier:
@@ -593,7 +593,7 @@ david-marin:
 heather-wallander:
   full_name: "Heather Wallander"
   display_name: "Heather Wallander"
-  avatar: avatar-heather-wallander.png
+  avatar: avatar-heather-wallander.jpg
   bio: "Heather Wallander is a Solution Engineer at Okta, specializing in Customer Identity Use Cases. After beginning her career in sales and marketing, she moved into software development, before finding the best of both worlds in Solutions Engineering. Heather has a bachelor's in Marketing and master's in Information Systems. She joined Okta in February 2019."
 
 bruno-leite:
@@ -614,7 +614,7 @@ giorgi-dalakishvili:
 nick-gamb:
   full_name: Nick Gamb
   display_name: Nick Gamb
-  avatar: avatar-nick-gamb.png
+  avatar: avatar-nick-gamb.jpg
   github: https://github.com/nickgamb
 
 ruslan-zaharov:
@@ -707,10 +707,10 @@ cale-switzer:
   github: https://github.com/Tennyx
   linkedin: https://www.linkedin.com/in/cale-switzer-380a8630
 
-edunham: 
+edunham:
   full_name: E. Dunham
   display_name: E. Dunham
-  avatar: avatar-edunham.png
+  avatar: avatar-edunham.jpg
   github: https://github.com/edunham
   twitter: https://twitter.com/qedunham
 
@@ -722,17 +722,18 @@ deepu-sasidharan:
   github: https://github.com/deepu105
   linkedin: https://www.linkedin.com/in/deepu05
   email: deepu.sasidharan@okta.com
-  web: https://deepu.tech 
+  web: https://deepu.tech
   bio:
     Deepu is a polyglot developer and OSS aficionado. He mainly works with Java, JS, Rust, and Golang. He co-leads JHipster and created the JDL Studio and KDash.
-    He's a Developer Advocate for DevOps at Okta. He is also an international speaker and published author.
+    He's a Senior Developer Advocate for DevOps at Okta. He is also an international speaker and published author.
 
-alisa-duncan: 
+alisa-duncan:
   full_name: Alisa Duncan
   display_name: Alisa Duncan
   avatar: avatar-alisa_duncan.jpeg
   github: https://github.com/alisaduncan
   twitter: https://twitter.com/alisaduncan
+
 tanay-pant:
   full_name: Tanay Pant
   display_name: Tanay Pant
@@ -741,3 +742,13 @@ tanay-pant:
   twitter: https://twitter.com/tanay1337
   github: https://github.com/tanay1337
   bio: "Tanay is a Senior Developer Advocate at Okta. He loves writing and has published books on topics like Firefox OS, virtual assistants with Raspberry Pi, and WebVR."
+
+victory-nwani:
+  full_name: Victory C. Nwani
+  display_name: Victory Nwani
+  avatar: avatar-victory.jpg
+  twitter: https://twitter.com/iamnwani01
+  github: https://github.com/vickywane
+  linkedin: https://www.linkedin.com/in/victory-nwani-b820b2157/
+  email: victory@hera.marketing
+  web: https://nwani.netlify.app/

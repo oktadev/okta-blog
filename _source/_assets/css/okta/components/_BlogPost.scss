@@ -405,6 +405,16 @@
 
 		// fix cursor for summary
 		summary { cursor: pointer }
+
+    // Jekyll plugins
+    .jekyll-twitter-plugin {
+      max-width: 500px;
+      margin: 0 auto 1.25rem;
+      .twitter-tweet-rendered {
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
 	}
 
 	&-more {
