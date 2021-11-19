@@ -10,7 +10,7 @@ communities: [java]
 description: "Learn how to use OAuth 2.0's client credentials grant to communicate between apps secured by Spring Security."
 tags: [java, spring-security, spring-boot, oauth2, client-credentials-flow]
 tweets:
-- "Want to developer secure server-to-server communication with @SpringSecurity? Use @oauth2's client credentials flow!"
+- "Want to develop secure server-to-server communication with @SpringSecurity? Use @oauth2's client credentials flow!"
 - "Learn how to use Spring's RestTemplate and WebClient with the OAuth 2.0 client credential flow."
 - "How to use OAuth 2.0 for server-to-server applications. 👇"
 image: blog/client-credentials-spring-security/client-credentials-flow.png
@@ -37,6 +37,12 @@ Fortunately, this grant type is more straightforward than the other user-focused
 You will create a simple resource server that will be secured using Okta as an OAuth 2.0 and OpenID Connect (OIDC) provider. After that, you will create a Spring Boot-based command-line client that uses Spring's `RestTemplate` to make authenticated requests to the secure server. You will see how to authenticate the client with Okta using the client credentials grant and how to exchange the client credentials for a JSON Web Token (JWT), which will be used in the requests to the secure server. 
 
 `RestTemplate` is deprecated, and while still widely used, should probably not be used for new code. Instead, the WebFlux-based class, `WebClient` should be used. In the next part of the tutorial, you will implement the same OAuth 2.0 client credentials grant using Spring `WebClient`.
+
+If you would rather follow along by watching a video, check out the screencast below from our [YouTube channel](https://youtu.be/Dy7vAhKkiGo).
+
+<div style="text-align: center; margin-bottom: 1.25rem">
+<iframe width="800" height="450" style="max-width: 100%" src="https://www.youtube.com/embed/Dy7vAhKkiGo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 ## What Is the Client Credentials Grant Flow?
 
