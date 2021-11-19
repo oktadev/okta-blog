@@ -10,7 +10,7 @@ tweets:
 - "Full Stack Java is made easy with @jhipster! See how to configure your app with @Auth0 in this tutorial."
 - "React + Spring Boot + OpenID Connect!? Oh My! 👀"
 - "Full Stack development can be hard when you have to create everything from scratch. Generate with @JHipster and learn from its best-practice patterns instead!"
-image: blog/full-stack-java/full-stack-java-social.png
+image: blog/full-stack-java/full-stack-java-social.jpg
 type: conversion
 github: https://github.com/oktadev/auth0-full-stack-java-example
 canonical: https://auth0.com/blog/full-stack-java-with-react-spring-boot-and-jhipster/
