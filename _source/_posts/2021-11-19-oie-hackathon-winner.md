@@ -7,9 +7,9 @@ communities: [go]
 description: "Okta Developer Advocates Brian Demers and Heather Downing in conversation with Matthew McKenzie, developer of GooseClip, a peer-to-peer app which took first prize in the Okta's Identity Engine Hackathon."
 tags: [go, okta, announcement, hackathon]
 tweets:
-- ""
-- ""
-- ""
+- "Get to know #GooseClip🏆, the peer-to-peer 1st place winner in the #Okta Identity Engine Hackathon. Developer Matt McKenzie chats with @briandemers & @Quorralyne📺 "
+- "Video interview with Matt McKenzie, who built the p2p platform @GooseClip, and won 1st prize in the Okta Identity Engine Hackathon🏆 "
+- "🗣 Meet the maker of GooseClip, #Okta's 1st place hackathon winner, in conversation with @briandemers and @Quorralyne "
 image: blog/oie-hackathon-winner/social.jpg
 type: awareness 
 ---
