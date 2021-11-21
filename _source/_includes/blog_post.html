@@ -24,20 +24,20 @@
             {% endif %}
         </h1>
         <div class="BlogPost-attribution">
-            {% for author_id in authors %}
-                {%- assign author = site.data.authors[author_id] -%}
-                {% if author.avatar %}
-                <a href="/blog/authors/{{ author_id }}/">{% img '{{ author.avatar }}' alt:'{{ author.avatar }}' class:BlogPost-avatar %}</a>
-                {% endif %}
-                <span class="BlogPost-author"><a href="/blog/authors/{{ author_id }}/">{{ author.full_name }}</a></span>
-            {% endfor %}
+          {% for author_id in authors %}
+            {%- assign author = site.data.authors[author_id] -%}
+            {% if author.avatar %}
+            <a href="/blog/authors/{{ author_id }}/">{% img '{{ author.avatar }}' alt:'{{ author.avatar }}' class:BlogPost-avatar %}</a>
+            {% endif %}
+            <span class="BlogPost-author"><a href="/blog/authors/{{ author_id }}/">{{ author.full_name }}</a></span>
+          {% endfor %}
         </div>
     </header>
 
     <div class="BlogPost-content">
-        {% if page.update-url %}
-            {% include update.html title=page.update-title url=page.update-url %}
-        {% endif %}
+    {% if page.update-url %}
+      {%- include update.html title=page.update-title url=page.update-url extra=page.update-extra -%}
+    {%- endif -%}
         <div class="e-content">{{ include.post_content }}</div>
 
         {%- if page.layout == 'blog_post' and post.changelog -%}
