@@ -39,7 +39,7 @@ Another web framework took the world by storm the following year: AngularJS. Ang
 
 Together, these frameworks have had quite a run. It's hard to believe that they've lasted so long, especially considering both projects have had major rewrites!
 
-// image::{% asset_path 'blog/angular-bootstrap/angular-bootstrap.png' %}[alt=Angular 💜 Bootstrap,width=800,align=center]
+image::{% asset_path 'blog/angular-bootstrap/angular-bootstrap.png' %}[alt=Beautiful Angular Apps with Bootstrap,width=800,align=center]
 
 toc::[]
 
