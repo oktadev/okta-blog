@@ -15,7 +15,7 @@ tweets:
 - "Apache APISIX + Open ID Connect + Okta 👉  Learn how to replace traditional with centralized authentication at the gateway 👉" 
 image: blog/apache-apisix-gateway/apisix-social.jpg
 type: conversion
-canonical-url: https://apisix.apache.org/blog/2021/08/16/Using-the-Apache-APISIX-OpenID-Connect-Plugin-for-Centralized-Authentication
+canonical: https://apisix.apache.org/blog/2021/08/16/Using-the-Apache-APISIX-OpenID-Connect-Plugin-for-Centralized-Authentication
 redirect_from:
 - "/blog/2021/09/18/apache-apisix-gateway"
 ---
