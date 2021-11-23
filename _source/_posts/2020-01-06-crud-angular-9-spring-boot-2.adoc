@@ -15,7 +15,11 @@ tweets:
 - "Build secure applications with @angular and @springboot in our 2020 howto guide."
 image: blog/spring-boot-2-angular-9/bootiful-angular.png
 type: conversion
+update-title: The Angular Mini-Book
+update-url: https://www.infoq.com/minibooks/angular-mini-book/
+update-extra: Its "Integrate Angular with Spring Boot" chapter was inspired by this blog post.
 changelog:
+  - 2021-11-21: Added announcement for [The Angular Mini-Book](https://www.infoq.com/minibooks/angular-mini-book/). Its "Integrate Angular with Spring Boot" chapter was inspired by this blog post.
   - 2021-04-06: Changed Okta OIDC app creation instructions to use the Okta CLI. See changes in [okta-blog#673](https://github.com/oktadeveloper/okta-blog/pull/673).
   - 2020-06-18: Added links to other blog posts in series.
   - 2020-05-18: Updated to remove `/implicit` from Login redirect URL for Angular. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-spring-boot-2-angular-9-example/pull/6). Changes to this article can be viewed in [oktadeveloper/okta-blog#296](https://github.com/oktadeveloper/okta-blog/pull/296).
