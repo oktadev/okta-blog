@@ -733,6 +733,12 @@ alisa-duncan:
   avatar: avatar-alisa_duncan.jpeg
   github: https://github.com/alisaduncan
   twitter: https://twitter.com/alisaduncan
+  web: https://alisaduncan.dev
+  email: alisa.duncan@okta.com
+  bio:
+    Alisa Duncan is a Senior Developer Advocate at Okta, a full-stack developer, and a community builder who loves the thrill of learning new things. 
+    She is a Google Developer Expert in Angular and organizes coding workshops and community events locally and internationally.
+    Her background is primarily working on enterprise software platforms, and she is a fan of all things TypeScript and JavaScript.
 
 tanay-pant:
   full_name: Tanay Pant
