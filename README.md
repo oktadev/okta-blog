@@ -138,6 +138,7 @@ This section describes Markdown standards we like to use in our blog posts. Thes
 - [Use the Okta CLI](#use-the-okta-cli-to-register-your-app)
 - [Blog Markdown Conventions](#blog-markdown-conventions)
 - [Add a Changelog](#add-a-changelog)
+- [Add a Canonical URL](#add-a-canonical-url)
 
 ### Use the Okta CLI to Register Your App
 
@@ -233,6 +234,20 @@ changelog:
 ```
 
 This will render a "last updated" date at the top, and a changelog at the bottom. The list should be ordered last to first. See [this post](https://developer.okta.com/blog/2020/06/26/spring-boot-vue-kotlin) ([source](https://raw.githubusercontent.com/oktadev/okta-blog/main/_source/_posts/2020-06-26-spring-boot-vue-kotlin.md)) for an example.
+
+### Add a Canonical URL
+
+If you're syndicating a post on this blog, you can add a canonical URL using the front matter.
+
+For example:
+
+```yaml
+---
+layout: blog_post
+...
+canonical: https://auth0.com/blog/full-stack-java-with-react-spring-boot-and-jhipster/
+---
+```
 
 ## Utilities
 
