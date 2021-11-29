@@ -201,7 +201,7 @@ The general format is:
 
 `Authorization: Basic Base64Encode(< your client id >:< your client secret >)`
 
-Notice the `:` in the middle. Take your Client ID and join it to your Client Secret with a colon. Base64 encode the resultant string (tip: run echo `<client-id>:<client-secret> | base64` and check out the [Base64 encoding documentation](https://developer.okta.com/docs/guides/implement-grant-type/clientcreds/main/#flow-specifics) for more detail). Then include the resulting string in your request. It will look something like this:
+Notice the `:` in the middle. Take your Client ID and join it to your Client Secret with a colon. Base64 encode the resultant string (tip: run `echo <client-id>:<client-secret> | base64` and check out the [Base64 encoding documentation](https://developer.okta.com/docs/guides/implement-grant-type/clientcreds/main/#flow-specifics) for more detail). Then include the resulting string in your request. It will look something like this:
 
 `Authorization: Basic ABChZzU4NDg5YW1aTDCBCB4waDc6TUp3YWN4RU5WNzQ1bEdQNWJPdlFETV9iaDE5NGp1eHQ3SXJfdWEzQQ==`
 
