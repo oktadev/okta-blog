@@ -6,10 +6,11 @@
     </a>
     Heads up... this blog post is old!
   </p>
-  <p>For an updated version of this blog post, {% if include.title %}see {% endif %}
+  <p>For an updated version of this blog post, {% if include.title %}see {% endif -%}
     <a href="{{ include.url }}">
-      {% if include.title %}{{ include.title }}</a>.
-      {% else %}click here</a>.
-      {% endif %}
+      {%- if include.title -%}{{ include.title }}</a>.
+      {%- else -%}click here</a>.
+      {%- endif -%}
+      {%- if include.extra %} {{ include.extra }}{%- endif -%}
   </p>
 </div>

@@ -181,7 +181,7 @@ The way this works is that you need to craft a request that contains an HTTP Aut
 
 Encode your **Client ID** and **Client secret** (join with a `:` character) to create this header.
 
-You can use [base64encode](https://www.base64encode.org) to base64 encode these values manually if you'd like to play around with it.
+You can base64 encode these values manually if you'd like to play around with it, or learn more from the relevant [Base64 encoding documentation](https://developer.okta.com/docs/guides/implement-grant-type/clientcreds/main/#base64-encode-the-client-id-and-client-secret).
 
 Once you've done this, you should have a header field that looks something like this:
 `Authorization: Basic MG9haW94OGJtc0JLXhIYjNjMWJITVdxVlhrdTMwaDc6MktxRQ1FaTWVhdXBvbWdCOXZiNkNPOXBtMnFjSw`
