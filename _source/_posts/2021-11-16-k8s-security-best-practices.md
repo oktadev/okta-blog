@@ -13,11 +13,11 @@ type: awareness
 image: blog/k8s-security-best-practices/social.jpg
 ---
 
-Kubernetes has become an unavoidable part of a software infrastructure these days. If you are an enterprise or medium/large company, the chances are that you are already running Kubernetes clusters for your workloads. If you are a DevOps engineer, there is a high chance you are maintaining either an on-prem Kubernetes cluster or a PaaS like Amazon EKS, Microsoft AKS, or GKE. But regardless of how you run your Kubernetes clusters, you need to make sure that your clusters are secure.
+Kubernetes has become an unavoidable part of a software infrastructure these days. If you are an enterprise or medium/large company, chances are you are already running Kubernetes clusters for your workloads. If you are a DevOps engineer, there is a good chance you are maintaining either an on-prem Kubernetes cluster or a PaaS like Amazon EKS, Microsoft AKS, or GKE. But regardless of how you run your Kubernetes clusters, you need to make sure that they are secure.
 
 The Kubernetes API server has multiple layers of security.
 
-1. [**Transport security**](https://kubernetes.io/docs/concepts/security/controlling-access/): All API communication is done via TLS using valid certificates.
+1. [**Transport security**](https://kubernetes.io/docs/concepts/security/controlling-access/): All API communication is done via TLS (transport layer security) using valid certificates.
 2. [**Authentication**](https://kubernetes.io/docs/reference/access-authn-authz/authentication/): All API requests are authenticated with one of the several authentication mechanisms supported by Kubernetes.
 3. [**Authorization**](https://kubernetes.io/docs/reference/access-authn-authz/authorization/): All authenticated requests are authorized using one or more of the supported authorization models.
 4. [**Admission control**](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/): All authorized requests, except read/get requests, are validated by admission control modules.
@@ -85,21 +85,21 @@ Secrets are flexible and native to Kubernetes, so there is no reason for you not
 
 ## 4. Keep Kubernetes version up to date
 
-Like any other software, Kubernetes also has bugs and issues. And from time to time, there might be a high severity bug that calls for a [CVE](https://en.wikipedia.org/wiki/Common_Vulnerabilities_and_Exposures). Hence, it's an excellent idea to keep the Kubernetes version up-to-date on the server and the CLI client. If you are using a managed PaaS, it should be pretty easy to upgrade, and for on-prem installations, there are tools like [kOps](https://kops.sigs.k8s.io/), [kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/), and so on, that makes it easy to upgrade clusters.
+Like any other software, Kubernetes also has bugs and issues. And from time to time, there might be a high severity bug that calls for a [CVE](https://en.wikipedia.org/wiki/Common_Vulnerabilities_and_Exposures). Hence, it's an excellent idea to keep the Kubernetes version up to date on the server and the CLI client. If you are using a managed PaaS, it should be pretty easy to upgrade, and for on-prem installations, there are tools like [kOps](https://kops.sigs.k8s.io/), [kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/), and so on, that makes it easy to upgrade clusters.
 
 ## 5. Restrict kubelet, API, and SSH access
 
 [kubelet](https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/) is the primary "node agent" running on each node, and by default, a kubelet's HTTP endpoints are not secured. This could be an issue and hence [should be restricted](https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet-authentication-authorization/).
 
-When someone has access to a Kubernetes cluster, they can access the k8s API server and SSH into the cluster nodes themselves. Ideally, this should be limited as much as possible. Disable SSH access to non-admin users. Secure the API server using OIDC and RBAC, as we saw earlier so that only authenticated users with sufficient roles can access the API.
+When someone has access to a Kubernetes cluster, they can access the k8s API server and SSH into the cluster nodes themselves. To limit node access, cluster access should be limited as much as possible. Disable SSH access for non-admin users. Secure the API server using OIDC and RBAC, as we saw earlier, so that only authenticated users with sufficient roles can access the API.
 
 ## 6. Secure container images
 
 Securing the container images that run on the cluster is as important as securing the cluster itself. A malicious image running on a cluster could wreak havoc. Follow these best practices for container image security.
 
-- Do not run containers as root as this would give the container unlimited access to the host. Always run the containers using a non-root user
-- Enable container image scanning in your CI/CD phase to catch known vulnerabilities using tools like [clair](https://github.com/quay/clair) or [Anchore](https://github.com/anchore/anchore-engine)
-- Use minimal up to date official base images and remove all unwanted dependencies, packages, and debugging tools from the image as it will make it more secure and lightweight
+- Do not run containers as root as this would give the container unlimited access to the host. Always run the containers using a non-root user.
+- Enable container image scanning in your CI/CD phase to catch known vulnerabilities using tools like [clair](https://github.com/quay/clair) or [Anchore](https://github.com/anchore/anchore-engine).
+- Use minimal up-to-date official base images and remove all unwanted dependencies, packages, and debugging tools from the image as it will make it more secure and lightweight.
 - Prevent loading unwanted kernel modules in the containers. These can be restricted using rules in `/etc/modprobe.d/kubernetes-blacklist.conf` of the node or by uninstalling the unwanted modules from the node.
 - Use [official verified images](https://docs.docker.com/docker-hub/official_images/) for popular software. Use a trusted registry for non-official images and always verify the image publisher
 - Use [Docker Bench for Security](https://github.com/docker/docker-bench-security) to audit your container images
@@ -109,11 +109,11 @@ You can read more about it in our "[Container Security: A Developer Guide](https
 
 ## 7. Control traffic between pods and clusters
 
-Generally, pods within the same cluster will be able to communicate with each other, and if you have multiple clusters in the same network, there may be traffic between them as well. Do not let this all open, as it could lead to a compromised cluster when another in the network is affected. Use [Kubernetes network policies](https://kubernetes.io/docs/concepts/services-networking/network-policies/) to control traffic between pods and clusters and allow only necessary traffic.
+Generally, pods within the same cluster will be able to communicate with each other, and if you have multiple clusters in the same network, there may be traffic between them as well. Do not leave this all open, as it could lead to a compromised cluster when another in the network is affected. Use [Kubernetes network policies](https://kubernetes.io/docs/concepts/services-networking/network-policies/) to control traffic between pods and clusters and allow only necessary traffic.
 
 ## 8. Use namespaces to isolate workloads
 
-Do not run all your workloads in a single namespace. Isolating workloads in different namespaces based on business needs will make it more secure and easier to manage with RBAC. This way, you can fine-tune RBAC even further to let users access only what they need to see. You can also use Kubernetes network policies to isolate traffic between namespaces where applicable.
+Do not run all your workloads in a single namespace. Isolating workloads in different namespaces based on business needs is more secure and easier to manage with RBAC. This way, you can fine-tune RBAC even further to let users access only what they need to see. You can also use Kubernetes network policies to isolate traffic between namespaces where applicable.
 
 ## 9. Limit resource usages
 
@@ -125,13 +125,13 @@ Finally, it is also extremely important to monitor and audit your clusters. [Ena
 
 ## Bonus
 
-Furthermore, keep these tips also in mind when securing your Kubernetes cluster.
+Furthermore, keep these infrastructure best practices also in mind when securing your Kubernetes cluster.
 
-- Ensure that all communication is done via TLS
-- Protect etcd with TLS, Firewall, and Encryption and restrict access to it using strong credentials
-- Set up IAM access policies in a supported environment like a PaaS
+- Ensure that all communication is done via TLS.
+- Protect etcd with TLS, Firewall, and Encryption and restrict access to it using strong credentials.
+- Set up IAM access policies in a supported environment like a PaaS.
 - [Secure the Kubernetes Control Plane](https://www.cncf.io/blog/2021/08/20/how-to-secure-your-kubernetes-control-plane-and-node-components/)
-- Rotate infrastructure credentials frequently
+- Rotate infrastructure credentials frequently.
 - Restrict cloud metadata API access when running in a PaaS like AWS, Azure, or GCP.
 
 # Learn more about Kubernetes and security
