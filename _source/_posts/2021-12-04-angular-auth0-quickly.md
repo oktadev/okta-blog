@@ -5,7 +5,7 @@ author: matt-raible
 by: advocate
 communities: [javascript]
 description: "This tutorial shows you how to add OpenID Connect authentication with Auth0 in just a few minutes."
-tags: [angular, typescript, auth0]
+tags: [javascript, angular, typescript, auth0]
 tweets:
 - ""
 - ""
