@@ -765,7 +765,7 @@ Retrieve the certificate keypair that this controller generates.
 kubectl get secret -n kube-system -l sealedsecrets.bitnami.com/sealed-secrets-key -o yaml
 ----
 
-Copy the raw value of `tls.crt` and decode it. You can use the command line or an https://www.base64decode.org/[online base64 decoder].
+Copy the raw value of `tls.crt` and decode it. You can use the command line, or learn more about https://developer.okta.com/docs/guides/implement-grant-type/clientcreds/main/#base64-encode-the-client-id-and-client-secret[base64 encoding/decoding] in our documentation.
 
 [source,shell]
 ----
