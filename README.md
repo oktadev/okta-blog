@@ -138,6 +138,7 @@ This section describes Markdown standards we like to use in our blog posts. Thes
 - [Use the Okta CLI](#use-the-okta-cli-to-register-your-app)
 - [Blog Markdown Conventions](#blog-markdown-conventions)
 - [Add a Changelog](#add-a-changelog)
+- [Add a Canonical URL](#add-a-canonical-url)
 
 ### Use the Okta CLI to Register Your App
 
@@ -234,6 +235,20 @@ changelog:
 
 This will render a "last updated" date at the top, and a changelog at the bottom. The list should be ordered last to first. See [this post](https://developer.okta.com/blog/2020/06/26/spring-boot-vue-kotlin) ([source](https://raw.githubusercontent.com/oktadev/okta-blog/main/_source/_posts/2020-06-26-spring-boot-vue-kotlin.md)) for an example.
 
+### Add a Canonical URL
+
+If you're syndicating a post on this blog, you can add a canonical URL using the front matter.
+
+For example:
+
+```yaml
+---
+layout: blog_post
+...
+canonical: https://auth0.com/blog/full-stack-java-with-react-spring-boot-and-jhipster/
+---
+```
+
 ## Utilities
 
 There are a number of scripts available to assist with content creation.
@@ -290,3 +305,80 @@ The pre-push workflow will validate image size and fail if there are images bigg
 You can use `npm run optimize-images` to optimize all images in the `_source/_assets/img` directory. This will resize and compress the images and write them to new files. So make sure to update the usage and delete the original file.
 
 If a file has to be ignored for some reason, like pre-existing social images, it can be added to `scripts/image-validation-ignore.json`.
+
+### Custom Jekyll tags
+
+We have the following custom Jekyll plugins that can be used in a blog post
+
+**Twitter**
+
+Use the tweet ID from the Tweets URL
+
+```bash
+{% twitter <TWEET-ID> %}
+
+# example from https://twitter.com/oktadev/status/1460993714227236868
+{% twitter 1460993714227236868 %}
+```
+
+**GitHub Gist**
+
+```bash
+# filename is optional
+{% gist <full url | user/gist_id | gist_id> [filename?] %}
+
+# examples
+{% gist https://gist.github.com/deepu105/127b220d0c7a3bbf06386cef8128d2f5 %}
+{% gist deepu105/127b220d0c7a3bbf06386cef8128d2f5 %}
+{% gist deepu105/127b220d0c7a3bbf06386cef8128d2f5 online-store.jdl %}
+{% gist 127b220d0c7a3bbf06386cef8128d2f5 %}
+{% gist 127b220d0c7a3bbf06386cef8128d2f5 online-store.jdl %}
+```
+
+**YouTube**
+
+```bash
+# width and height are optional (in px)
+{% youtube <VIDEO-ID> [width? height?]%}
+
+# example from https://www.youtube.com/watch?v=8vY-9tXlCW4
+{% youtube 8vY-9tXlCW4 %} # default width and height of 700 x 394
+{% youtube 8vY-9tXlCW4 900 %} # height calculated based on width
+{% youtube 8vY-9tXlCW4 900 600 %}
+```
+
+**Speaker Deck**
+
+```bash
+# width is optional, default is 700px
+{% speakerdeck <DATA-ID> [width?]%}
+
+# example from embedd code <script async class="speakerdeck-embed" data-id="ffe22480dbfd4c1f83f66c380bba2283" ...></script>
+{% speakerdeck ffe22480dbfd4c1f83f66c380bba2283 %}
+{% speakerdeck ffe22480dbfd4c1f83f66c380bba2283 900px %}
+
+```
+
+**StackBlitz**
+
+This tag supports pre-created StackBlitz and auto-creating a StackBlitz directly from GitHub.
+
+Pass in either the pre-created StackBlitz id or your GitHub repo in the following format `gh_username/repo_name`. For GitHub repo import you can also specify directory path within the repo or the branch. You can read more about this on [StackBlitz's documentation](https://developer.stackblitz.com/docs/platform/importing-projects/).
+
+For example, you can use `okta-samples/okta-vue-sample/tree/vue-3`
+
+Optionally, you can also pass in the file to default to.
+
+```markup
+{% stackblitz <stackblitz-id> %}
+{% stackblitz <stackblitz-id> file=<path/filename.ext> %}
+{% stackblitz <gh_username/repo_name> %}
+{% stackblitz <gh_username/repo_name>|</tree/BRANCH> file=<path/filename.ext> %}
+```
+
+Examples
+```markup
+{% stackblitz angular %}
+{% stackblitz angular file=src/app/hello.component.ts %}
+{% stackblitz okta/samples-js-angular/tree/master/custom-login file=src/app/login/login.component.html %}
+```
