@@ -85,7 +85,7 @@ Secrets are flexible and native to Kubernetes, so there is no reason for you not
 
 ## 4. Keep Kubernetes version up to date
 
-Like any other software, Kubernetes also has bugs and issues. And from time to time, there might be a high severity bug that calls for a [CVE](https://en.wikipedia.org/wiki/Common_Vulnerabilities_and_Exposures). Hence, it's an excellent idea to keep the Kubernetes version up to date on the server and the CLI client. If you are using a managed PaaS, it should be pretty easy to upgrade, and for on-prem installations, there are tools like [kOps](https://kops.sigs.k8s.io/), [kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/), and so on, that makes it easy to upgrade clusters.
+Like any other software, Kubernetes also has bugs and issues. And from time to time, there might be a high severity bug that calls for a [CVE](https://en.wikipedia.org/wiki/Common_Vulnerabilities_and_Exposures). Hence, it's an excellent idea to keep the Kubernetes version up to date on the server and the CLI client. You can check the [Kubernetes security and disclosure information website](https://kubernetes.io/docs/reference/issues-security/security/) to see if there are known security vulnerabilities for your Kubernetes version. If you are using a managed PaaS, it should be pretty easy to upgrade, and for on-prem installations, there are tools like [kOps](https://kops.sigs.k8s.io/), [kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/), and so on, that makes it easy to upgrade clusters.
 
 ## 5. Restrict kubelet, API, and SSH access
 
