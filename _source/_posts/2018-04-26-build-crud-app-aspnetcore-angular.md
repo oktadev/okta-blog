@@ -1204,10 +1204,10 @@ Now you just need some people, and to get jogging!
 ## Build More with ASP.NET Core and Angular
 
 Interested in digging in deeper with ASP.NET Core, Angular, or Okta? We've got you covered. Check out the following resources for more cool projects:
-* [Add Authentication to Your Angular PWA](https://developer.okta.com/blog/2017/06/13/add-authentication-angular-pwa)
-* [Token Authentication in ASP.NET Core - A Complete Guide](https://developer.okta.com/blog/2018/03/23/token-authentication-aspnetcore-complete-guide)
-* [Build Your First Progressive Web App with Angular and Spring Boot](https://developer.okta.com/blog/2017/05/09/progressive-web-applications-with-angular-and-spring-boot)
-* [Play Zork, Learn OAuth](https://developer.okta.com/blog/2017/10/27/okta-oauth-zork)
-* [User Authorization in ASP.NET Core with Okta](https://developer.okta.com/blog/2017/10/04/aspnet-authorization)
+* [Add Authentication to Your Angular PWA](/blog/2017/06/13/add-authentication-angular-pwa)
+* [Token Authentication in ASP.NET Core - A Complete Guide](/blog/2018/03/23/token-authentication-aspnetcore-complete-guide)
+* [Build Your First Progressive Web App with Angular and Spring Boot](/blog/2017/05/09/progressive-web-applications-with-angular-and-spring-boot)
+* [Play Zork, Learn OAuth](/blog/2017/10/27/okta-oauth-zork)
+* [User Authorization in ASP.NET Core with Okta](/blog/2017/10/04/aspnet-authorization)
 
 And as always, we'd love to connect! Leave us a comment below, check out our [developer forum](https://devforum.okta.com/), or hit us up on Twitter [@oktadev](https://twitter.com/OktaDev)!

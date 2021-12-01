@@ -1679,8 +1679,8 @@ To learn more about Angular, Spring Boot, and Docker, see some of our other blog
 
 - link:/blog/2020/01/06/crud-angular-9-spring-boot-2[Build a CRUD App with Angular 9 and Spring Boot 2.2]
 - link:/blog/2020/03/02/angular-bootstrap[Build Beautiful Angular Apps with Bootstrap]
-- https://developer.okta.com/blog/2019/10/30/java-oauth2[OAuth 2.0 Java Guide: Secure Your App in 5 Minutes]
-- https://developer.okta.com/blog/2019/08/09/jib-docker-spring-boot[Get Jibby With Java, Docker, and Spring Boot]
-- https://developer.okta.com/blog/2017/10/11/developers-guide-to-docker-part-3[A Developer's Guide To Docker - Docker Compose]
+- link:/blog/2019/10/30/java-oauth2[OAuth 2.0 Java Guide: Secure Your App in 5 Minutes]
+- link:/blog/2019/08/09/jib-docker-spring-boot[Get Jibby With Java, Docker, and Spring Boot]
+- link:/blog/2017/10/11/developers-guide-to-docker-part-3[A Developer's Guide To Docker - Docker Compose]
 
 https://twitter.com/oktadev[Follow @oktadev on Twitter] for more posts like this one. We also have a https://youtube.com/c/oktadev[YouTube channel] you might enjoy. As always, please leave a comment below if you have any questions!

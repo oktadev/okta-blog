@@ -115,10 +115,10 @@ aws cloudformation package --template-file template.yml --s3-bucket veryuniquebu
 Finally, deploy the Template using the following command:
 
 ```console
-aws cloudformation deploy --template-file output.yml --stack-name htmlFromGithubtoS3 --capabilities CAPABILITY_IAM --parameter-overrides bucketname=nameofbuckettosharehtmlin
+aws cloudformation deploy --template-file output.yml --stack-name htmlFromGitHubtoS3 --capabilities CAPABILITY_IAM --parameter-overrides bucketname=nameofbuckettosharehtmlin
 ```
 
-When you create a stack you need to give it a name, this is what the **htmlFromGithubtoS3** field is for, as well as the name of the S3 Bucket that you want this Template to create to put your static assets in and make public.
+When you create a stack you need to give it a name, this is what the **htmlFromGitHubtoS3** field is for, as well as the name of the S3 Bucket that you want this Template to create to put your static assets in and make public.
 
 **NOTE**: The name of your S3 Bucket must be unique across all of Amazon Web Services\** (*although, I'm guessing that if you're using the command-line you know this\*).
 
@@ -150,6 +150,6 @@ aws cloudformation delete-stack --stack-name nameOfYourStack
 
 If you found this tutorial useful, you might want to take a look at [my other repository](https://github.com/pmcdowell-okta/cloudformation-deploy-okta-login-widget), which takes this example, makes changes to the HTML, and configures the [Okta Login Widget](https://github.com/okta/okta-signin-widget) in the HTML automatically.
 
-And if you're debating between building a static site or using a content management system, you may find my colleague's [thoughts on the subject](https://developer.okta.com/blog/2018/06/07/static-sites-vs-cms) interesting.
+And if you're debating between building a static site or using a content management system, you may find my colleague's [thoughts on the subject](/blog/2018/06/07/static-sites-vs-cms) interesting.
 
 As always, if you liked this post, please follow our team on Twitter [@oktadev](https://twitter.com/OktaDev) or [Facebook](https://www.facebook.com/oktadevelopers/).

@@ -179,8 +179,8 @@ Another way that you could use claims that are populated from a JWT for authoriz
 
 Interested in learning more about ASP.NET Core, JWTs, or building secure applications with Okta? Check out our [Product Documentation](https://developer.okta.com/use_cases/api_access_management/) or any of these great resources:
 
-* [Build a CRUD App with ASP.NET Core and SQL Server](https://developer.okta.com/blog/2019/04/24/crud-app-aspnet-core-sql-server)
-* [Add Login to Your ASP.NET Core MVC App](https://developer.okta.com/blog/2018/10/29/add-login-to-you-aspnetcore-app)
+* [Build a CRUD App with ASP.NET Core and SQL Server](/blog/2019/04/24/crud-app-aspnet-core-sql-server)
+* [Add Login to Your ASP.NET Core MVC App](/blog/2018/10/29/add-login-to-you-aspnetcore-app)
 * [JWT Validation Guide](https://developer.okta.com/code/dotnet/jwt-validation/)
 
 If you have questions, feel free to post them below. Don't miss any of our killer content by following us on [Twitter](https://twitter.com/oktadev) and [YouTube](https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q).

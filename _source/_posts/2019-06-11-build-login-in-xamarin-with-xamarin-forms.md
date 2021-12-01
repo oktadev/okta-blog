@@ -475,12 +475,12 @@ Now run the app with `CTRL-F5` or `F5` and start collecting your favorite Chuck 
 
 I hope you enjoyed this tutorial, for iOS and Android use cases, please check out this post:
 
-[Add Authentication to Your Xamarin App with OpenID Connect](https://developer.okta.com/blog/2018/05/01/add-authentication-xamarin-openid-connect)
+[Add Authentication to Your Xamarin App with OpenID Connect](/blog/2018/05/01/add-authentication-xamarin-openid-connect)
 
 To learn more about authentication, OpenID Connect, and Okta, we encourage you to check out the following resources from our developer blog:
 
-- [Build a CRUD App with ASP.NET Core 2.2 and SQL Server](https://developer.okta.com/blog/2019/04/24/crud-app-aspnet-core-sql-server)
+- [Build a CRUD App with ASP.NET Core 2.2 and SQL Server](/blog/2019/04/24/crud-app-aspnet-core-sql-server)
 - Our OpenID Connect Primer in three parts:
-  - [Part 1: Identity, Claims, and Tokens](https://developer.okta.com/blog/2017/07/25/oidc-primer-part-1)
-  - [Part 2: OIDC in Action](https://developer.okta.com/blog/2017/07/25/oidc-primer-part-2)
-  - [Part 3: What's in a Token?](https://developer.okta.com/blog/2017/08/01/oidc-primer-part-3)
+  - [Part 1: Identity, Claims, and Tokens](/blog/2017/07/25/oidc-primer-part-1)
+  - [Part 2: OIDC in Action](/blog/2017/07/25/oidc-primer-part-2)
+  - [Part 3: What's in a Token?](/blog/2017/08/01/oidc-primer-part-3)

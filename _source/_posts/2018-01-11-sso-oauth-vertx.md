@@ -38,7 +38,7 @@ The above handshake is what will be happening behind the scenes once this exampl
 
 As a starter guide, this post assumes only basic familiarity with Java and a few Java essentials such as Maven. If you already have a Vert.x server running, feel free to fast forward to the good stuff: you'll integrate with Okta in the [Configure the Vert.x OAuth Handler](#configure-the-vertx-oauth-handler) section.
 
-The completed code example, including imports and pom.xml, can be found [on Github](https://github.com/oktadeveloper/OktaBlogs/tree/master/VertxAndOkta).
+The completed code example, including imports and pom.xml, can be found [on GitHub](https://github.com/oktadeveloper/OktaBlogs/tree/master/VertxAndOkta).
 
 ## Start A New Vert.x Server
 
@@ -130,7 +130,7 @@ In the example above, you have created a new endpoint at `/private/secret` with 
 
 ## Create an Okta Account and Gather Credentials
 
-If you don't already have a free Okta account, you can follow [these instructions](https://developer.okta.com/blog/2017/11/20/add-sso-spring-boot-15-min#get-your-okta-credentials) to create one and set up your first Okta application. There are four key pieces of information you will need to gather:
+If you don't already have a free Okta account, you can follow [these instructions](/blog/2017/11/20/add-sso-spring-boot-15-min#get-your-okta-credentials) to create one and set up your first Okta application. There are four key pieces of information you will need to gather:
 
  - Client Id - e.g.: ***oot9wrjjararhfaa***
  - Client Secret - (keep it secret!)
@@ -256,8 +256,8 @@ With this final change, restarting your server and once again hitting `http://lo
 Congratulations, you now have a high-performance Vert.x server protected by Okta's state-of-the-art security and identity management! Okta provides a [Java SDK](https://github.com/okta/okta-sdk-java) for interacting further with users and accounts, including adding custom data and attributes to your users.
 
 Thanks for reading, and as always, please hit us up in the comments below with questions. We'd love to have you follow us on Twitter [@OktaDev](https://twitter.com/OktaDev), or read on for more great Java content from our blog:
-* [Get Started with Spring Security 5.0 and OIDC](https://developer.okta.com/blog/2017/12/18/spring-security-5-oidc)
-* [Bootiful Development with Spring Boot and React](https://developer.okta.com/blog/2017/12/06/bootiful-development-with-spring-boot-and-react)
-* [Use Kong Gateway to Centralize Authentication](https://developer.okta.com/blog/2017/12/04/use-kong-gateway-to-centralize-authentication)
-* [Build a Basic CRUD App with Angular 5.0 and Spring Boot 2.0](https://developer.okta.com/blog/2017/12/04/basic-crud-angular-and-spring-boot)
-* [Secure Your SPA with Spring Boot and OAuth](https://developer.okta.com/blog/2017/10/27/secure-spa-spring-boot-oauth)
+* [Get Started with Spring Security 5.0 and OIDC](/blog/2017/12/18/spring-security-5-oidc)
+* [Bootiful Development with Spring Boot and React](/blog/2017/12/06/bootiful-development-with-spring-boot-and-react)
+* [Use Kong Gateway to Centralize Authentication](/blog/2017/12/04/use-kong-gateway-to-centralize-authentication)
+* [Build a Basic CRUD App with Angular 5.0 and Spring Boot 2.0](/blog/2017/12/04/basic-crud-angular-and-spring-boot)
+* [Secure Your SPA with Spring Boot and OAuth](/blog/2017/10/27/secure-spa-spring-boot-oauth)

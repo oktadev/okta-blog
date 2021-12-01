@@ -822,10 +822,10 @@ I hope you now have the building blocks you need to use TypeScript for your next
 
 For more examples using Okta with Node, TypeScript, or React, check out some of these other posts, or browse the [Okta Developer Blog](https://developer.okta.com/blog/).
 
-* [Use TypeScript to Build a Node API with Express](https://developer.okta.com/blog/2018/11/15/node-express-typescript)
-* [If It Ain't TypeScript It Ain't Sexy](https://developer.okta.com/blog/2019/02/11/if-it-aint-typescript)
-* [Build and Test a React Native App with TypeScript and OAuth 2.0](https://developer.okta.com/blog/2018/11/29/build-test-react-native-typescript-oauth2)
-* [Build a Basic CRUD App with Angular and Node](https://developer.okta.com/blog/2018/10/30/basic-crud-angular-and-node)
-* [Build a Simple REST API with Node and OAuth 2.0](https://developer.okta.com/blog/2018/08/21/build-secure-rest-api-with-node)
+* [Use TypeScript to Build a Node API with Express](/blog/2018/11/15/node-express-typescript)
+* [If It Ain't TypeScript It Ain't Sexy](/blog/2019/02/11/if-it-aint-typescript)
+* [Build and Test a React Native App with TypeScript and OAuth 2.0](/blog/2018/11/29/build-test-react-native-typescript-oauth2)
+* [Build a Basic CRUD App with Angular and Node](/blog/2018/10/30/basic-crud-angular-and-node)
+* [Build a Simple REST API with Node and OAuth 2.0](/blog/2018/08/21/build-secure-rest-api-with-node)
 
 If you have any questions about this post, please add a comment below. For more awesome content, follow [@oktadev](https://twitter.com/oktadev) on Twitter, or subscribe to [our YouTube channel](https://www.youtube.com/c/oktadev).

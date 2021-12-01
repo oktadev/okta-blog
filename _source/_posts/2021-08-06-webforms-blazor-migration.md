@@ -835,8 +835,8 @@ That's it! You have now finished migrating a WebForms project to Blazor and secu
 
 Give Blazor a try. Get the [complete source code of the project from GitHub](https://github.com/oktadev/Okta.CaloriesTracker), and let us know what you think in the comments below.
 
-- [Goodbye Javascript! Build an Authenticated Web App in C# with Blazor + ASP.NET Core 3.0](https://developer.okta.com/blog/2019/10/16/csharp-blazor-authentication)
-- [How to Build Securely with Blazor WebAssembly (WASM)](https://developer.okta.com/blog/2020/09/30/blazor-webassembly-wasm-dotnetcore)
-- [ASP.NET Core 3.0 MVC Secure Authentication](https://developer.okta.com/blog/2019/11/15/aspnet-core-3-mvc-secure-authentication)
+- [Goodbye Javascript! Build an Authenticated Web App in C# with Blazor + ASP.NET Core 3.0](/blog/2019/10/16/csharp-blazor-authentication)
+- [How to Build Securely with Blazor WebAssembly (WASM)](/blog/2020/09/30/blazor-webassembly-wasm-dotnetcore)
+- [ASP.NET Core 3.0 MVC Secure Authentication](/blog/2019/11/15/aspnet-core-3-mvc-secure-authentication)
 
 Make sure to follow us on [Twitter](https://twitter.com/oktadev),  subscribe to our [YouTube Channel](https://youtube.com/c/oktadev), and check out our new [Twitch](https://www.twitch.tv/oktadev) live stream so that you never miss any awesome content!

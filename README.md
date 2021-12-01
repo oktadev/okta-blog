@@ -358,3 +358,27 @@ Use the tweet ID from the Tweets URL
 {% speakerdeck ffe22480dbfd4c1f83f66c380bba2283 900px %}
 
 ```
+
+**StackBlitz**
+
+This tag supports pre-created StackBlitz and auto-creating a StackBlitz directly from GitHub.
+
+Pass in either the pre-created StackBlitz id or your GitHub repo in the following format `gh_username/repo_name`. For GitHub repo import you can also specify directory path within the repo or the branch. You can read more about this on [StackBlitz's documentation](https://developer.stackblitz.com/docs/platform/importing-projects/).
+
+For example, you can use `okta-samples/okta-vue-sample/tree/vue-3`
+
+Optionally, you can also pass in the file to default to.
+
+```markup
+{% stackblitz <stackblitz-id> %}
+{% stackblitz <stackblitz-id> file=<path/filename.ext> %}
+{% stackblitz <gh_username/repo_name> %}
+{% stackblitz <gh_username/repo_name>|</tree/BRANCH> file=<path/filename.ext> %}
+```
+
+Examples
+```markup
+{% stackblitz angular %}
+{% stackblitz angular file=src/app/hello.component.ts %}
+{% stackblitz okta/samples-js-angular/tree/master/custom-login file=src/app/login/login.component.html %}
+```

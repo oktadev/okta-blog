@@ -346,10 +346,10 @@ In this tutorial, I have shown you how to use CSS grid to style your single page
 
 If you would like to learn more about using CSS with single-page applications, semantic markup, or React, feel free to check out the links below.
 
-* [Use Sass with React to Build Beautiful Apps](https://developer.okta.com/blog/2019/12/17/react-sass)
-* [Build a React App with Styled Components](https://developer.okta.com/blog/2020/03/16/react-styled-components)
-* [Build Beautiful Angular Apps with Bootstrap](https://developer.okta.com/blog/2020/03/02/angular-bootstrap)
-* [Build a Beautiful App + Login with Angular Material](https://developer.okta.com/blog/2020/01/21/angular-material-login)
+* [Use Sass with React to Build Beautiful Apps](/blog/2019/12/17/react-sass)
+* [Build a React App with Styled Components](/blog/2020/03/16/react-styled-components)
+* [Build Beautiful Angular Apps with Bootstrap](/blog/2020/03/02/angular-bootstrap)
+* [Build a Beautiful App + Login with Angular Material](/blog/2020/01/21/angular-material-login)
 
 You can find the code for this tutorial on GitHub at <https://github.com/oktadeveloper/okta-react-css-grid-example>. 
 

@@ -22,7 +22,7 @@ Successful web applications inevitably grow to a stage where simple user authori
 
 No matter what framework you select (including none at all) though, third-party identity management providers like [Okta](https://developer.okta.com/product/user-management/) offer a fast, secure, and simple option based on industry standards.  Okta is an API service that allows you to create, edit, and securely store user accounts and user account data, and connect them with one or more applications. It solves all of the problems associated with user account management and lets you concentrate on what really matters – providing useful features to your customers.
 
-I previously showed you how to [build simple login in PHP](https://developer.okta.com/blog/2018/12/28/simple-login-php) using just core PHP with a single dependency on an external library. In that initial version, our simple application allowed users to register, log in, and reset their passwords. Today, we'll build upon this foundation and add group and role-based authorization. 
+I previously showed you how to [build simple login in PHP](/blog/2018/12/28/simple-login-php) using just core PHP with a single dependency on an external library. In that initial version, our simple application allowed users to register, log in, and reset their passwords. Today, we'll build upon this foundation and add group and role-based authorization. 
 
 <div markdown="1" style="border: 1px #eedeaa solid; background: #ffffee; padding: 20px; border-radius: 8px;">
 **Prerequisites:** Please ensure you have already installed PHP, Composer, and have signed up for a [free Okta developer account](https://developer.okta.com/signup/).

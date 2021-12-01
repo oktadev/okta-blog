@@ -119,10 +119,10 @@ Interested in what else this new release has to offer? Get more information abou
 ## Learn More About ASP.NET
 
 * [Build a CRUD App with ASP.NET MVC and Entity Framework
-](https://developer.okta.com/blog/2019/03/11/build-a-crud-app-with-aspnet-mvc-and-entity-framework)
-* [Build Your First Azure Function in Visual Studio Code ](https://developer.okta.com/blog/2019/02/07/build-your-first-azure-function-visual-studio-code)
-* [7 Essential .NET Developer Tools ](https://developer.okta.com/blog/2017/06/27/seven-tools-net-developers)
-* [Build a REST API with ASP.NET Web API ](https://developer.okta.com/blog/2019/03/13/build-rest-api-with-aspnet-web-api)
-* [Use OpenID Connect for Authorization in Your ASP.NET MVC Framework 4.x App](https://developer.okta.com/blog/2018/04/18/authorization-in-your-aspnet-mvc-4-application)
+](/blog/2019/03/11/build-a-crud-app-with-aspnet-mvc-and-entity-framework)
+* [Build Your First Azure Function in Visual Studio Code ](/blog/2019/02/07/build-your-first-azure-function-visual-studio-code)
+* [7 Essential .NET Developer Tools ](/blog/2017/06/27/seven-tools-net-developers)
+* [Build a REST API with ASP.NET Web API ](/blog/2019/03/13/build-rest-api-with-aspnet-web-api)
+* [Use OpenID Connect for Authorization in Your ASP.NET MVC Framework 4.x App](/blog/2018/04/18/authorization-in-your-aspnet-mvc-4-application)
 
 Any questions, comments, or concerns about this post? Leave a comment below. For other great content from the Okta Dev Team, follow us on [Twitter](https://twitter.com/oktadev) and [Facebook](https://www.facebook.com/oktadevelopers)!

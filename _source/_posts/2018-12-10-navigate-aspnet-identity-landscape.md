@@ -45,8 +45,8 @@ There is no one solution that fits every organization. ASP.NET Identity might be
 Learn more about secureidentity management by reading some of our amazing content:
 
 * [What the Heck is OAuth?](/blog/2017/06/21/what-the-heck-is-oauth)
-* [User Authorization in ASP.NET Core with Okta](https://developer.okta.com/blog/2017/10/04/aspnet-authorization)
-* [Add Authentication to Any Web Page in 10 Minutes](https://developer.okta.com/blog/2018/06/08/add-authentication-to-any-web-page-in-10-minutes)
+* [User Authorization in ASP.NET Core with Okta](/blog/2017/10/04/aspnet-authorization)
+* [Add Authentication to Any Web Page in 10 Minutes](/blog/2018/06/08/add-authentication-to-any-web-page-in-10-minutes)
 * [What Happens If Your JWT is Stolen?](/blog/2018/06/20/what-happens-if-your-jwt-is-stolen)
 
 As usual, if you have any questions or comments about this post, leave them in the comments below. Also don't forget to follow us on [Twitter](https://twitter.com/oktadev), [Facebook](https://www.facebook.com/oktadevelopers/), [LinkedIn](https://www.linkedin.com/company/oktadev/), and [YouTube](https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q/)!
