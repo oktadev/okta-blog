@@ -12,6 +12,7 @@ tweets:
 - ""
 image:
 type: conversion
+github: https://github.com/oktadev/auth0-angular-example
 ---
 
 AngularJS 1.0 was released in October 2020. At the time, it was one of the most popular web frameworks to ever see the light of day. Developers loved it and many apps were created with it. It's next major release, Angular 2.0, was released in September 2016. Six years is a long time between major releases. Angular 2 took over two years to develop and many folks jumped to other frameworks rather than waiting for the rewrite. 
@@ -168,9 +169,9 @@ You can find the source code for the example on GitHub in the [@oktadev/auth0-an
 
 To learn more about Angular and OIDC, check out the following blog posts:
 
-- [What You Need to Know about Angular v13](https://developer.okta.com/blog/2021/11/10/angular-v13)
-- [The Things to Keep in Mind about Auth](https://developer.okta.com/blog/2021/10/29/things-to-keep-in-mind-about-auth)
-- [A Quick Guide to Angular and GraphQL](https://developer.okta.com/blog/2021/10/22/angular-graphql)
+- [What You Need to Know about Angular v13](/blog/2021/11/10/angular-v13)
+- [The Things to Keep in Mind about Auth](/blog/2021/10/29/things-to-keep-in-mind-about-auth)
+- [A Quick Guide to Angular and GraphQL](/blog/2021/10/22/angular-graphql)
 
 [{% img blog/angular-auth0/angular-mini-book.jpg alt:"The Angular Mini-Book" width:"100" %}{: .pull-right }](https://www.infoq.com/minibooks/angular-mini-book/)
 I [just published a mini-book book on Angular](https://raibledesigns.com/rd/entry/the_angular_mini_book_1) that might interest you too. It's called [The Angular Mini-Book](https://www.infoq.com/minibooks/angular-mini-book/) and is available as a free download from InfoQ. It's a tutorial-style book that shows you how to develop a bare-bones application, test it, and deploy it. Then you'll move on to adding Bootstrap, Angular Material, continuous integration, and authentication. Spring Boot is a popular framework for building REST APIs. You'll learn how to integrate Angular with Spring Boot and use security best practices like HTTPS and a content security policy.
