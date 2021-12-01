@@ -26,9 +26,9 @@ Kubernetes comes with many security options out of the box, but to bulletproof y
 
 ## 1. Use Kubernetes Role-Based Access Control (RBAC)
 
-Kubernetes supports multiple authorization models for its API server. These are [ABAC (Attributed-Based Access Control)](https://kubernetes.io/docs/reference/access-authn-authz/abac/), [RBAC (Role-Based Access Control)](https://kubernetes.io/docs/reference/access-authn-authz/rbac/), [Node authorization](https://kubernetes.io/docs/reference/access-authn-authz/node/) and the [Webhook mode](https://kubernetes.io/docs/reference/access-authn-authz/webhook/). Out of all these, RBAC is the most secure and most widely used and is ideal for enterprises and medium to large organizations. With RBAC, you can define role-based access control that closely resembles your organization's business rules. RBAC also works great with OIDC authentication.
+Kubernetes supports multiple authorization models for its API server. These are [ABAC (Attributed-Based Access Control)](https://kubernetes.io/docs/reference/access-authn-authz/abac/), [RBAC (Role-Based Access Control)](https://kubernetes.io/docs/reference/access-authn-authz/rbac/), [Node authorization](https://kubernetes.io/docs/reference/access-authn-authz/node/) and the [Webhook mode](https://kubernetes.io/docs/reference/access-authn-authz/webhook/). Out of all these, RBAC is the more secure and most widely used and is ideal for enterprises and medium to large organizations. With RBAC, you can define role-based access control that closely resembles your organization's business rules. RBAC also works great with OIDC authentication.
 
-Most Kubernetes distributions have RBAC enabled by default. If not, you can enable it using the `--authorization-mode` flag for the API server when creating or patching the cluster. For example, setting `--authorization-mode=RBAC,Node` will enable both RBAC and Node authorization on the cluster.
+Most Kubernetes distributions have RBAC enabled by default. You can check this by running the command `kubectl cluster-info dump | grep authorization-mode`, which should have `authorization-mode=RBAC` in the output. If not, you can enable it using the `--authorization-mode` flag for the API server when creating or patching the cluster. For example, setting `--authorization-mode=RBAC,Node` will enable both RBAC and Node authorization on the cluster.
 
 Once RBAC is enabled, you can create roles (`Role`/`ClusterRole`) and bindings (`RoleBinding`/`ClusterRoleBinding`) to control access to your resources. Here is an example of a role and role binding that lets users view pods and services.
 
@@ -89,7 +89,7 @@ Like any other software, Kubernetes also has bugs and issues. And from time to t
 
 ## 5. Restrict kubelet, API, and SSH access
 
-[kubelet](https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/) is the primary "node agent" running on each node, and by default, a kubelet's HTTP endpoints are not secured. This could be an issue and hence [should be restricted](https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet-authentication-authorization/).
+[kubelet](https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/) is the primary "node agent" running on each node, and by default, a kubelet's HTTP endpoints are not secured. This could allow unintended access and hence [should be restricted](https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet-authentication-authorization/).
 
 When someone has access to a Kubernetes cluster, they can access the k8s API server and SSH into the cluster nodes themselves. To limit node access, cluster access should be limited as much as possible. Disable SSH access for non-admin users. Secure the API server using OIDC and RBAC, as we saw earlier, so that only authenticated users with sufficient roles can access the API.
 
@@ -130,7 +130,7 @@ Furthermore, keep these infrastructure best practices also in mind when securing
 - Ensure that all communication is done via TLS.
 - Protect etcd with TLS, Firewall, and Encryption and restrict access to it using strong credentials.
 - Set up IAM access policies in a supported environment like a PaaS.
-- [Secure the Kubernetes Control Plane](https://www.cncf.io/blog/2021/08/20/how-to-secure-your-kubernetes-control-plane-and-node-components/)
+- [Secure the Kubernetes Control Plane](https://www.cncf.io/blog/2021/08/20/how-to-secure-your-kubernetes-control-plane-and-node-components/).
 - Rotate infrastructure credentials frequently.
 - Restrict cloud metadata API access when running in a PaaS like AWS, Azure, or GCP.
 
@@ -141,6 +141,7 @@ If you want to learn more about Kubernetes, OIDC, or using OIDC with Kubernetes,
 - [How to Secure Your Kubernetes Cluster with OpenID Connect and RBAC](/blog/2021/11/08/k8s-api-server-oidc)
 - [Securing a Cluster](https://kubernetes.io/docs/tasks/administer-cluster/securing-a-cluster/)
 - [OpenID Connect Tokens](https://kubernetes.io/docs/reference/access-authn-authz/authentication/#openid-connect-tokens)
+- [RBAC vs. ABAC: Definitions & When to Use](https://www.okta.com/identity-101/role-based-access-control-vs-attribute-based-access-control/)
 - [OAuth 2.0 and OpenID Connect Overview](https://developer.okta.com/docs/concepts/oauth-openid/)
 - [Secure Access to AWS EKS Clusters for Admins](/blog/2021/10/08/secure-access-to-aws-eks)
 - [Managing Multiple Okta Instances with Terraform Cloud](/blog/2020/02/03/managing-multiple-okta-instances-with-terraform-cloud)
