@@ -81,7 +81,7 @@ Which brings us to today. Today, multi-factor authentication is quickly becoming
 
 While multi-factor is awesome in that it allows a user to pick and choose what type of factor they log in with (outside of their username/password), it simply doesn't go far enough.
 
-If an attacker is able to successfully guess your username/password, they'll also be able to see what factor you've configured to log in with. Let's say you've configured your [Github account](https://github.com/), for instance, to support Google Authenticator.
+If an attacker is able to successfully guess your username/password, they'll also be able to see what factor you've configured to log in with. Let's say you've configured your [GitHub account](https://github.com/), for instance, to support Google Authenticator.
 
 All an attacker needs to do at this point is hack your Google Authenticator and then *bam*: you're right back to where you started — completely insecure.
 

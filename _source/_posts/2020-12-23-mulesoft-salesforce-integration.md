@@ -509,8 +509,8 @@ If you have more questions, feel free to leave a comment below!
 If you are interested in learning more about security and .NET check out these other great articles:
 
 - [Test in Production with Spring Security and Feature Flags](/blog/2020/10/09/okta-spring-security-feature-flags)
-- [Deploy a .NET Container with AWS Fargate](https://developer.okta.com/blog/2020/06/22/deploy-dotnet-container-aws-fargate)
-- [The Most Exciting Promise of .NET 5](https://developer.okta.com/blog/2020/04/17/most-exciting-promise-dotnet-5)
+- [Deploy a .NET Container with AWS Fargate](/blog/2020/06/22/deploy-dotnet-container-aws-fargate)
+- [The Most Exciting Promise of .NET 5](/blog/2020/04/17/most-exciting-promise-dotnet-5)
 - [Create a CI/CD pipeline for .NET with the Azure DevOps Project](https://www.azuredevopslabs.com/labs/vstsextend/azuredevopsprojectdotnet/)
 
 Make sure to follow us on [Twitter](https://twitter.com/oktadev), subscribe to our [YouTube Channel](https://youtube.com/c/oktadev) and check out our [Twitch](https://www.twitch.tv/oktadev) channel so that you never miss any awesome content!

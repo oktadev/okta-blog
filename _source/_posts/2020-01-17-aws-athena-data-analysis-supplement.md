@@ -493,9 +493,9 @@ We've only scratched the surface of utility that Athena provides investigations 
 
 If you like this post, check out some other related content on our blog.
 
-* [Use AWS CloudFormation to Automate Static Site Deployment with S3](https://developer.okta.com/blog/2018/07/31/use-aws-cloudformation-to-automate-static-site-deployment-with-s3)
-* [Easy Spring Boot Deployment with AWS Elastic Beanstalk](https://developer.okta.com/blog/2019/08/07/deploy-a-spring-boot-app-with-aws-elastic-beanstalk)
-* [AWS Lambda vs Azure Functions for C# Serverless](https://developer.okta.com/blog/2019/05/20/azure-aws-lambda-functions-serverless-csharp)
+* [Use AWS CloudFormation to Automate Static Site Deployment with S3](/blog/2018/07/31/use-aws-cloudformation-to-automate-static-site-deployment-with-s3)
+* [Easy Spring Boot Deployment with AWS Elastic Beanstalk](/blog/2019/08/07/deploy-a-spring-boot-app-with-aws-elastic-beanstalk)
+* [AWS Lambda vs Azure Functions for C# Serverless](/blog/2019/05/20/azure-aws-lambda-functions-serverless-csharp)
 
 To make sure you never miss any of our killer content, make sure to follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube channel](https://youtube.com/c/oktadev)!
 

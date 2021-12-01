@@ -33,7 +33,7 @@ In this article we'll build an authentication microservice that will receive a u
 - An [Okta Developer Account](https://developer.okta.com/signup)
 [Postman](https://www.getpostman.com/downloads/)
 
-You can find the complete working source code for this article [on Github](https://github.com/oktadeveloper/azure-function-okta-auth-service-example).
+You can find the complete working source code for this article [on GitHub](https://github.com/oktadeveloper/azure-function-okta-auth-service-example).
 
 ## Create Your C# Azure Function in Visual Studio
 

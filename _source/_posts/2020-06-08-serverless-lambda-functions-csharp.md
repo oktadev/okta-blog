@@ -208,12 +208,12 @@ You can find the source code for this tutorial on [GitHub](https://github.com/ch
 
 If you are interested in learning more about security and .NET check out these other great articles:
 
-- [The Most Exciting Promise of .NET 5](https://developer.okta.com/blog/2020/04/17/most-exciting-promise-dotnet-5)
-- [ASP.NET Core 3.0 MVC Secure Authentication](https://developer.okta.com/blog/2019/11/15/aspnet-core-3-mvc-secure-authentication)
-- [5 Minute Serverless Functions Without an IDE](https://developer.okta.com/blog/2019/08/27/five-minutes-serverless-functions-azure)
-- [Create Login and Registration in Your ASP.NET Core App](https://developer.okta.com/blog/2019/02/05/login-registration-aspnet-core-mvc)
-- [Build Secure Microservices with AWS Lambda and ASP.NET Core](https://developer.okta.com/blog/2019/03/21/build-secure-microservices-with-aspnet-core)
-- [Build a CRUD App with ASP.NET Core and Typescript](https://developer.okta.com/blog/2019/03/26/build-a-crud-app-with-aspnetcore-and-typescript)
-- [Build a GraphQL API with ASP.NET Core](https://developer.okta.com/blog/2019/04/16/graphql-api-with-aspnetcore)
+- [The Most Exciting Promise of .NET 5](/blog/2020/04/17/most-exciting-promise-dotnet-5)
+- [ASP.NET Core 3.0 MVC Secure Authentication](/blog/2019/11/15/aspnet-core-3-mvc-secure-authentication)
+- [5 Minute Serverless Functions Without an IDE](/blog/2019/08/27/five-minutes-serverless-functions-azure)
+- [Create Login and Registration in Your ASP.NET Core App](/blog/2019/02/05/login-registration-aspnet-core-mvc)
+- [Build Secure Microservices with AWS Lambda and ASP.NET Core](/blog/2019/03/21/build-secure-microservices-with-aspnet-core)
+- [Build a CRUD App with ASP.NET Core and Typescript](/blog/2019/03/26/build-a-crud-app-with-aspnetcore-and-typescript)
+- [Build a GraphQL API with ASP.NET Core](/blog/2019/04/16/graphql-api-with-aspnetcore)
 
 Want to be notified when we publish more awesome developer content? Follow [@oktadev on Twitter](https://twitter.com/oktadev), subscribe to our [YouTube channel](https://youtube.com/c/oktadev), or follow us on [LinkedIn](https://www.linkedin.com/company/oktadev/). If you have a question, please leave a comment below!

@@ -129,8 +129,8 @@ Also by dropping the "I" from the interface in _your_ code, you pass along those
 
 Want to learn more about .NET and software development in general? Check out these killer posts!
 
-* [Five Essential Tips for Building Developer Libraries](https://developer.okta.com/blog/2019/06/10/five-essential-tips-for-building-developer-libraries)
-* [Why JWTs Suck as Session Tokens](https://developer.okta.com/blog/2017/08/17/why-jwts-suck-as-session-tokens)
-* [Visual Studio 2019 Tips and Tricks](https://developer.okta.com/blog/2019/03/25/visual-studio-2019-tips-and-tricks-aspnet)
+* [Five Essential Tips for Building Developer Libraries](/blog/2019/06/10/five-essential-tips-for-building-developer-libraries)
+* [Why JWTs Suck as Session Tokens](/blog/2017/08/17/why-jwts-suck-as-session-tokens)
+* [Visual Studio 2019 Tips and Tricks](/blog/2019/03/25/visual-studio-2019-tips-and-tricks-aspnet)
 
 As always if you have comments, leave them below. If you don't want to miss out on any of our super cool content, follow us on [Twitter](https://twitter.com/oktadev) and [YouTube](https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q).

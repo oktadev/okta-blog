@@ -480,8 +480,8 @@ Go has a library that is an API on top of the Elasticsearch REST API. It makes i
 
 If you enjoyed reading this post, you might also like these posts from our blog:
 
-- [Get Started with the ELK Stack](https://developer.okta.com/blog/2019/09/26/get-started-elk-stack)
-- [NoSQL Options for Java Developers](https://developer.okta.com/blog/2017/09/08/nosql-options-for-java-developers)
-- [Build a Single-Page App with Go and Vue](https://developer.okta.com/blog/2018/10/23/build-a-single-page-app-with-go-and-vue)
+- [Get Started with the ELK Stack](/blog/2019/09/26/get-started-elk-stack)
+- [NoSQL Options for Java Developers](/blog/2017/09/08/nosql-options-for-java-developers)
+- [Build a Single-Page App with Go and Vue](/blog/2018/10/23/build-a-single-page-app-with-go-and-vue)
 
 As always, if you have any questions please comment below. Never miss out on any of our awesome content by following us on [Twitter](https://twitter.com/oktadev) and subscribing to our channel on [YouTube](https://www.youtube.com/c/oktadev)!

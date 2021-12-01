@@ -68,7 +68,7 @@ async (context, nextFunction) =>
 ## Add OWIN Authentication to a .NET Framework Web Application
 As mentioned before OWIN is standard for .NET Core however for the .NET Framework it requires some extra effort to get it implemented, and so for this tutorial you'll be working with the latter. Additionally, to authenticate I'll be using the Okta platform with the sign in page we host.
 ### Create a New ASP.NET Project
-First, create a new project in Visual Studio of type ASP.NET Web Application (.NET Framework). Name it whatever you want and on the next screen select the MVC template with No Authentication. Note: Okta also works great with Web API; if you'd like to read more on this topic there's another [great blog post about it](https://developer.okta.com/blog/2018/09/07/build-simple-crud-with-aspnet-webapi-vue).
+First, create a new project in Visual Studio of type ASP.NET Web Application (.NET Framework). Name it whatever you want and on the next screen select the MVC template with No Authentication. Note: Okta also works great with Web API; if you'd like to read more on this topic there's another [great blog post about it](/blog/2018/09/07/build-simple-crud-with-aspnet-webapi-vue).
 
 Once the ASP.NET MVC project has finished setting up you'll need to add some new NuGet packages:
 * `Microsoft.Owin.Host.SystemWeb` - This is an integral part of running the OWIN pipeline on IIS and provides the OWIN context from the `HttpContext`.
@@ -276,8 +276,8 @@ With this tutorial you've managed to set up a simple ASP.NET MVC Web Application
 To see the code from this post in full head over to [our GitHub page](https://github.com/oktadeveloper/okta-configure-dotnet-owin-tutorial).
 
 If you're interested in finding out more about working with other ASP.NET frameworks and applications I'd thoroughly encourage you to look into the following resources:
-* [Add Login to your ASP.NET Core application](https://developer.okta.com/blog/2018/10/29/add-login-to-you-aspnetcore-app)
-* [Deploy your ASP.NET Core application to Azure](https://developer.okta.com/blog/2018/06/19/deploy-your-aspnet-core-app-to-azure)
-* [Secure Your ASP.NET Web Forms Application with OpenID Connect and Okta](https://developer.okta.com/blog/2018/08/29/secure-webforms-with-openidconnect-okta)
+* [Add Login to your ASP.NET Core application](/blog/2018/10/29/add-login-to-you-aspnetcore-app)
+* [Deploy your ASP.NET Core application to Azure](/blog/2018/06/19/deploy-your-aspnet-core-app-to-azure)
+* [Secure Your ASP.NET Web Forms Application with OpenID Connect and Okta](/blog/2018/08/29/secure-webforms-with-openidconnect-okta)
 
 As always if you have any questions, comments, or concerns about this post feel free to leave a comment below. For other great content from the Okta Dev Team, follow us on Twitter [@OktaDev](https://twitter.com/oktadev), [Facebook](https://www.facebook.com/oktadevelopers), [LinkedIn](https://www.linkedin.com/company/oktadev/) and [YouTube](https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q)!

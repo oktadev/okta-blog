@@ -31,7 +31,7 @@ In this post, I start with setting up an Okta org and configuring an OpenID Conn
 
 OpenID Connect (OIDC) rides on top of OAuth 2.0 for a modern Single Sign-on, authentication and authorization standard. Okta provides these standards as a service. Don't know anything about these standards yet? Good news - You don't have to! By following some simple instructions to provision an Okta org and setup a hosted instance of OIDC, you can easily integrate a Spring Boot app with just configuration. Let's get started with 3 easy steps:
 
-> If you're interested in learning more about OIDC and OAuth 2.0, [here](https://developer.okta.com/blog/2017/07/25/oidc-primer-part-1) and [here](https://oauth.com) are good places to start. Look for more links to posts on OIDC and OAuth 2.0 at the end of this post.
+> If you're interested in learning more about OIDC and OAuth 2.0, [here](/blog/2017/07/25/oidc-primer-part-1) and [here](https://oauth.com) are good places to start. Look for more links to posts on OIDC and OAuth 2.0 at the end of this post.
 
 ### Register for an Okta Org and Create an OIDC App
 
@@ -424,9 +424,9 @@ I hope you've seen how useful it can be to set up different experiences for diff
 
 To continue learning about authentication, authorization and feature flags and experimentation, check out these links:
 
-- [Easy Session Sharing in Spring Boot with Spring Session and MySQL](https://developer.okta.com/blog/2020/10/02/spring-session-mysql)
-- [Deploy a Secure Spring Boot App to Heroku](https://developer.okta.com/blog/2020/08/31/spring-boot-heroku)
-- [Use PKCE with OAuth 2.0 and Spring Boot for Better Security](https://developer.okta.com/blog/2020/01/23/pkce-oauth2-spring-boot)
+- [Easy Session Sharing in Spring Boot with Spring Session and MySQL](/blog/2020/10/02/spring-session-mysql)
+- [Deploy a Secure Spring Boot App to Heroku](/blog/2020/08/31/spring-boot-heroku)
+- [Use PKCE with OAuth 2.0 and Spring Boot for Better Security](/blog/2020/01/23/pkce-oauth2-spring-boot)
 - [Leverage Spring Security to Test in Production](https://www.split.io/blog/spring-security-test-in-production/)
 - [Build a CRUD App with Spring Boot and MongoDB](https://www.split.io/blog/crud-spring-boot-mongodb/)
 - [7 Ways Feature Flags Improve Software Development](https://www.split.io/blog/7-ways-feature-flags-improve-software-development/)

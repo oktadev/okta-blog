@@ -16,7 +16,7 @@ type: awareness
 
 {% img blog/developer_cert/logo.png alt:"use case" width:"200" %}
 
-Over the past few months, I have been working on a side project that I am really excited about. If you know me well, you probably know I enjoy using my side projects to help other teams meet their goals (and if you don't, I am a Senior Security H@X0R at Okta. Check out my blog posts [here](https://developer.okta.com/blog/authors/micah-silverman).)
+Over the past few months, I have been working on a side project that I am really excited about. If you know me well, you probably know I enjoy using my side projects to help other teams meet their goals (and if you don't, I am a Senior Security H@X0R at Okta. Check out my blog posts [here](/blog/authors/micah-silverman).)
  
 So, when the Okta certification team asked me to help them build a cool developer certification experience, I did not hesitate to say yes.
  

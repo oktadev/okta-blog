@@ -70,7 +70,7 @@ If you want to learn how to set up these different pieces manually, I'd suggest 
 
 To learn more about the `create-react-app` (CRA) npm package, see the [GitHub repo](https://github.com/facebookincubator/create-react-app).
 For more awesome React resources, check out:
-* Matt Raible's post on [React with Spring Boot](https://developer.okta.com/blog/2017/12/06/bootiful-development-with-spring-boot-and-react)
-* My post on [React Authentication with Okta](https://developer.okta.com/blog/2017/03/30/react-okta-sign-in-widget)
-* Matt Raible's post on [Progressive Web Apps](https://developer.okta.com/blog/2017/07/20/the-ultimate-guide-to-progressive-web-applications)
+* Matt Raible's post on [React with Spring Boot](/blog/2017/12/06/bootiful-development-with-spring-boot-and-react)
+* My post on [React Authentication with Okta](/blog/2017/03/30/react-okta-sign-in-widget)
+* Matt Raible's post on [Progressive Web Apps](/blog/2017/07/20/the-ultimate-guide-to-progressive-web-applications)
 As always, feel free to contact me via [Twitter](https://twitter.com/leebrandt) or via the comments below, and be sure to check out [Okta's Free-Forever Developer Account](https://developer.okta.com/signup/).

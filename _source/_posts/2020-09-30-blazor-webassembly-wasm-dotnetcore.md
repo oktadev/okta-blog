@@ -209,7 +209,7 @@ You can also log out to play with the visibility of sections of the app.
 
 Pretty sweet!
 
-You can check out the official project code in our [Github repo](https://github.com/okta/samples-blazor/tree/master/web-assembly/hosted/okta-hosted-login).
+You can check out the official project code in our [GitHub repo](https://github.com/okta/samples-blazor/tree/master/web-assembly/hosted/okta-hosted-login).
 
 ## Recap
 

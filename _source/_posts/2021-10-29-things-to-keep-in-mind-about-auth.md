@@ -21,7 +21,7 @@ There's a lot of information out there about adding authentication to your app, 
 
 If you're implementing authentication to a new application, the best practice is to use OAuth 2.0 with OpenID Connect (OIDC). The combination of OAuth 2.0 with OIDC provides consistency across many integration providers, standardized ways to access information, and security. 
 
-Let's establish a baseline for the rest of this post by familiarizing ourselves with the basics. This [Illustrated Guide to OAuth and OpenID Connect](https://developer.okta.com/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc) is **excellent**. 
+Let's establish a baseline for the rest of this post by familiarizing ourselves with the basics. This [Illustrated Guide to OAuth and OpenID Connect](/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc) is **excellent**. 
 
 What I really like about using OAuth 2.0 and OpenID Connect together is that it separates "the auths" and adds structure to each. We learned from the blog post above that OAuth 2.0 is designed for **authorization** – access to data (resources). And we learned that OIDC is a thin layer on top of OAuth 2.0 that adds login and profile information. Thus, **authentication** is the act of establishing the login session that confirms the user logging in is who they say they are. Now we can be specific in our vocabulary and understand how each standard complements the other.
 
@@ -36,7 +36,7 @@ There are three different tokens at play in OAuth 2.0 and OpenID Connect. Depend
 <table>
 <tr>
     <td>{% img blog/things-to-keep-in-mind-about-auth/id.jpg alt:"ID Token" width:"150" %}</td>
-    <td markdown="span">**ID token**: The token returned from OpenID Connect containing information about the authentication of the end-user in [JSON Web Token](https://developer.okta.com/blog/2020/12/21/beginners-guide-to-jwt) (JWT) format.</td>
+    <td markdown="span">**ID token**: The token returned from OpenID Connect containing information about the authentication of the end-user in [JSON Web Token](/blog/2020/12/21/beginners-guide-to-jwt) (JWT) format.</td>
 </tr>
 <tr>
     <td>{% img blog/things-to-keep-in-mind-about-auth/access.jpg alt:"Access token" width:"150" %}</td>
@@ -73,7 +73,7 @@ First, let's start with listing all the available grant types. We'll define a hi
 </tr>
 <tr>
     <td>{% img blog/things-to-keep-in-mind-about-auth/grants/device-code.jpg alt:"Device Code" width:"150" %}</td>
-    <td markdown="span">**Device Code** is a grant type primarily used for IoT and smart devices. The flow delegates user authentication and authorization through an external device, such as a smartphone app or browser. Device Code is available as an early access feature in Okta, or follow the steps in this post to [add OAuth device flow to any server](https://developer.okta.com/blog/2019/02/19/add-oauth-device-flow-to-any-server).</td>
+    <td markdown="span">**Device Code** is a grant type primarily used for IoT and smart devices. The flow delegates user authentication and authorization through an external device, such as a smartphone app or browser. Device Code is available as an early access feature in Okta, or follow the steps in this post to [add OAuth device flow to any server](/blog/2019/02/19/add-oauth-device-flow-to-any-server).</td>
 </tr>
 <tr>
     <td>{% img blog/things-to-keep-in-mind-about-auth/grants/refresh.jpg alt:"Refresh Token" width:"150" %}</td>

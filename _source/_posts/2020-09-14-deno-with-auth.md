@@ -274,7 +274,7 @@ Once it's running you will be able to click on the profile link on the home page
 
 ## Learn More About Deno and Node.js
 
-The completed code for this post, is [on Github](https://github.com/oktadeveloper/okta-deno-auth-example). If you want to learn more about Deno and Node, check out the links below.
+The completed code for this post, is [on GitHub](https://github.com/oktadeveloper/okta-deno-auth-example). If you want to learn more about Deno and Node, check out the links below.
 
 * [Painless Node.js Authentication](/blog/2019/10/03/painless-node-authentication)
 * [Build a Node.js API with TypeScript](/blog/2019/05/07/nodejs-typescript-api)
