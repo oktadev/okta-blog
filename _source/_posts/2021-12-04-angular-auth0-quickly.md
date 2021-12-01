@@ -112,6 +112,8 @@ This process will perform the following steps for you:
 4. Create a `HomeComponent` and configure it with authentication logic.
 5. Update unit tests for `AppComponent` and `HomeComponent` to mock Auth0.
 
+To see all the changes it makes to your files, see [this pull request on GitHub](https://github.com/oktadev/auth0-angular-example/pull/1/files). 
+
 Run `ng serve` in your app, and you should see a login button at `http://localhost:4200/home`.
 
 {% img blog/angular-auth0/auth0-login-button.png alt:"Auth0 Login button" width:"800" %}{: .center-image }
@@ -161,6 +163,8 @@ If everything works—congrats!
 ## Learn more about Angular and OpenID Connect
 
 I hope you enjoyed this quick tutorial on using Auth0 for authentication in your Angular apps. If you're looking for a more detailed step-by-step tutorial, please read [The Complete Guide to Angular User Authentication with Auth0](https://auth0.com/blog/complete-guide-to-angular-user-authentication/).
+
+You can find the source code for the example on GitHub in the [@oktadev/auth0-angular-example](https://github.com/oktadev/auth0-angular-example) repository.
 
 To learn more about Angular and OIDC, check out the following blog posts:
 
