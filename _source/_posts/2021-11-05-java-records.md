@@ -801,11 +801,11 @@ I hope you enjoyed this tutorial and learned about Java record semantics, its be
 To continue learning about Java records, Okta security, and Spring WebFlux, check out the links below:
 
 - [java.lang.Record](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Record.html)
-- [Reactive Java Microservices with Spring Boot and JHipster](https://developer.okta.com/blog/2021/01/20/reactive-java-microservices)
-- [R2DBC and Spring for Non-Blocking Database Access](https://developer.okta.com/blog/2021/05/12/spring-boot-r2dbc)
-- [A Quick Guide to Spring Cloud Stream](https://developer.okta.com/blog/2020/04/15/spring-cloud-stream)
-- [How to Use Client Credentials Flow with Spring Security](https://developer.okta.com/blog/2021/05/05/client-credentials-spring-security)
-- [Better Testing with Spring Security Test](https://developer.okta.com/blog/2021/05/19/spring-security-testing)
+- [Reactive Java Microservices with Spring Boot and JHipster](/blog/2021/01/20/reactive-java-microservices)
+- [R2DBC and Spring for Non-Blocking Database Access](/blog/2021/05/12/spring-boot-r2dbc)
+- [A Quick Guide to Spring Cloud Stream](/blog/2020/04/15/spring-cloud-stream)
+- [How to Use Client Credentials Flow with Spring Security](/blog/2021/05/05/client-credentials-spring-security)
+- [Better Testing with Spring Security Test](/blog/2021/05/19/spring-security-testing)
 
 You can find the completed code for this tutorial on GitHub in the [oktadev/okta-java-records-example](https://github.com/oktadev/okta-java-records-example.git) repository.
 

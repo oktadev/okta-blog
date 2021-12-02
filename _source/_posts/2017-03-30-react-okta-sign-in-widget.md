@@ -11,7 +11,7 @@ description: "In this tutorial, you'll start with a very simple React app with a
 tags: [react, sign-in-widget, okta, es6]
 type: conversion
 update-title: "A Quick Guide to React Login Options"
-update-url: https://developer.okta.com/blog/2020/12/16/react-login
+update-url: /blog/2020/12/16/react-login
 changelog:
 - 2017-10-20: Changed npm install to version 2.3.0 of widget and removed npm install at beginning. Also added instructions for fixing dependency issues in npm.
 - 2017-10-17: Fixed bugs and added navbar instructions.

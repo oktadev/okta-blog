@@ -374,7 +374,7 @@ If you would like to dig deeper into the topics covered in this article, the fol
 * [Validating Access Tokens](https://developer.okta.com/authentication-guide/tokens/validating-access-tokens)
 * [Get Started with PHP + Okta](https://developer.okta.com/code/php/)
 * [Okta JWT Verifier library](https://github.com/okta/okta-jwt-verifier-php)
-* [What Happens if your JWT is Stolen?](https://developer.okta.com/blog/2018/06/20/what-happens-if-your-jwt-is-stolen)
-* [Add Authentication to your PHP App in 5 Minutes](https://developer.okta.com/blog/2018/07/09/five-minute-php-app-auth)
+* [What Happens if your JWT is Stolen?](/blog/2018/06/20/what-happens-if-your-jwt-is-stolen)
+* [Add Authentication to your PHP App in 5 Minutes](/blog/2018/07/09/five-minute-php-app-auth)
 
 Like what you learned today? Follow us on [Twitter](https://twitter.com/oktadev), like us on [Facebook](https://www.facebook.com/oktadevelopers), check us out on [LinkedIn](https://www.linkedin.com/company/oktadev/), and subscribe to our [YouTube channel](https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q) for more awesome content!

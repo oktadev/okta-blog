@@ -258,10 +258,10 @@ Building authentication in an application is hard. It's even less fun to build i
 
 If you're interested in more Angular content, check out these related blog posts:
 
-* [Build a CRUD App with Angular 9 and Spring Boot 2.2](https://developer.okta.com/blog/2020/01/06/crud-angular-9-spring-boot-2)
-* [Build Beautiful Angular Apps with Bootstrap](https://developer.okta.com/blog/2020/03/02/angular-bootstrap)
-* [Build a Beautiful App + Login with Angular Material](https://developer.okta.com/blog/2020/01/21/angular-material-login)
-* [How to Work with Angular and MySQL](https://developer.okta.com/blog/2019/08/16/angular-mysql-express)
+* [Build a CRUD App with Angular 9 and Spring Boot 2.2](/blog/2020/01/06/crud-angular-9-spring-boot-2)
+* [Build Beautiful Angular Apps with Bootstrap](/blog/2020/03/02/angular-bootstrap)
+* [Build a Beautiful App + Login with Angular Material](/blog/2020/01/21/angular-material-login)
+* [How to Work with Angular and MySQL](/blog/2019/08/16/angular-mysql-express)
 
 I hope you've enjoyed this quick tour of our Angular support. If you have questions about Okta's features, or what we're building next, please hit me up [on Twitter](https://twitter.com/mraible), [post a question to Stack Overflow with an "okta" tag](http://stackoverflow.com/questions/tagged/okta), or [open a new issue on GitHub](https://github.com/oktadeveloper/okta-angular-sign-in-widget-example/issues/new).
 

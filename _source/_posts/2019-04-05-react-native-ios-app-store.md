@@ -61,7 +61,7 @@ const config = {
 
 Start by running `react-native run-ios` from a Mac computer. An iOS simulator should appear and in the console, your project will compile. 
 
-**NOTE:** If you get an error `Print: Entry, ":CFBundleIdentifier", Does Not Exist` there are [several](https://github.com/facebook/react-native/issues/7308) [issues](https://github.com/facebook/react-native/issues/14423) on Github tracking this with various suggestions on fixing it. The simplest might just to open up `ios/prime_components.xcodeproj` in Xcode and build the project from there.
+**NOTE:** If you get an error `Print: Entry, ":CFBundleIdentifier", Does Not Exist` there are [several](https://github.com/facebook/react-native/issues/7308) [issues](https://github.com/facebook/react-native/issues/14423) on GitHub tracking this with various suggestions on fixing it. The simplest might just to open up `ios/prime_components.xcodeproj` in Xcode and build the project from there.
 
 You should see an error `'AppAuth/AppAuth.h' file not found`. You need to [link the AppAuth library to iOS](https://github.com/FormidableLabs/react-native-app-auth#ios-setup). The easiest is with Cocoapods. Put the following into `ios/Podfile`:
 

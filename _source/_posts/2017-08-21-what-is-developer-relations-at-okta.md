@@ -80,7 +80,7 @@ We plan to increase awareness of Okta's Identity API (aka [The Identity Platform
 
 ### Developer content marketing and thought leadership
 
-Okta's [Developer Blog](https://developer.okta.com/blog/) is our primary way of creating content and providing thought leadership. We're on Twitter [@OktaDev](https://twitter.com/oktadev), and chances are you'll find one of us speaking at your favorite tech conference. 
+Okta's [Developer Blog](/blog/) is our primary way of creating content and providing thought leadership. We're on Twitter [@OktaDev](https://twitter.com/oktadev), and chances are you'll find one of us speaking at your favorite tech conference. 
 
 We recognize that content is king and we use our blog posts to extend our reach into the communities we know devs are already participating in.
 

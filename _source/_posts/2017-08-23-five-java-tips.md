@@ -120,7 +120,7 @@ People treat API keys insecurely, it's a fact of life. Keys get emailed around o
 $ chmod u=r,go-rwx ~/.okta/okta.yaml
 ```
 
-If you are creating API keys for users of your applications, plan to warn them. SSH ignores files in your `~/.ssh` directory if the permissions are not set correctly. Github does a great job of warning users by marking items in the UI with 'Danger Zone' marking.
+If you are creating API keys for users of your applications, plan to warn them. SSH ignores files in your `~/.ssh` directory if the permissions are not set correctly. GitHub does a great job of warning users by marking items in the UI with 'Danger Zone' marking.
 
 <a href="https://www.youtube.com/watch?v=yK0P1Bk8Cx4" target="_blank">
 {% img blog/five-java-tips/danger-zone.png alt:"Danger Zone" width:"640" %}
@@ -133,7 +133,7 @@ Java has a bit of a reputation (and rightly so) for being verbose. All of the ex
 Shameless plug time: You can also write less code by [integrating Okta for fully featured user management](https://developer.okta.com/signup/). Just connect your apps, choose an IdP (or use ours), add users, configure rules, customize your login page, and then gain insights from our built-in reports. Want to see Okta in action? Check out these tutorials:
 
 * [Build a Secure Notes Application with Kotlin, TypeScript, and Okta](https://scotch.io/tutorials/build-a-secure-notes-application-with-kotlin-typescript-and-okta)
-* [Secure a Spring Microservices Architecture with Spring Security, JWTs, Juiser, and Okta](https://developer.okta.com/blog/2017/08/08/secure-spring-microservices)
-* [What is OpenId Connect](https://developer.okta.com/blog/2017/07/25/oidc-primer-part-1)
+* [Secure a Spring Microservices Architecture with Spring Security, JWTs, Juiser, and Okta](/blog/2017/08/08/secure-spring-microservices)
+* [What is OpenId Connect](/blog/2017/07/25/oidc-primer-part-1)
 
 And, as always, if you have any questions or comments you can hit me up on Twitter [@briandemers](https://twitter.com/briandemers), or follow our whole team [@oktadev](https://twitter.com/OktaDev).

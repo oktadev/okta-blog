@@ -21,7 +21,7 @@ Even before the release of Angular 6, Angular had gone through some changes over
 
 Today I'll show you how you to build a secure single-page app with basic CRUD functionality. You'll use [Okta's OpenID Connect (OIDC) API](https://developer.okta.com/docs/api/resources/oidc) to handle authentication. Okta provides a simple to use [Angular SDK](https://github.com/okta/okta-oidc-js/tree/master/packages/okta-angular) to get you up and running very quickly. On the backend, I'll show you how to use the [Okta JWT Verifier](https://github.com/okta/okta-oidc-js/tree/master/packages/jwt-verifier) to ensure that the user is properly authenticated before serving any sensitive content.
 
-We'll be working with Angular 6 for this project, so you can get a feel for some of the changes and news features (read more about them in our [Angular 6: What's New, and Why Upgrade? post](https://developer.okta.com/blog/2018/05/09/upgrade-to-angular-6)).
+We'll be working with Angular 6 for this project, so you can get a feel for some of the changes and news features (read more about them in our [Angular 6: What's New, and Why Upgrade? post](/blog/2018/05/09/upgrade-to-angular-6)).
 
 Let's get started!
 
@@ -1237,17 +1237,17 @@ Navigate to <http://localhost:4200>. You should be able to add, edit, view, and 
 
 I hope you've enjoyed this article and found it helpful. If you're experimenting with JavaScript frameworks or backend languages and haven't decided on your stack yet, you may want to check out these similar tutorials:
 
-- [Build a Basic CRUD App with Vue.js and Node](https://developer.okta.com/blog/2018/02/15/build-crud-app-vuejs-node)
-- [Build a Basic CRUD App with Node and React](https://developer.okta.com/blog/2018/07/10/build-a-basic-crud-app-with-node-and-react)
-- [Build a Secure CRUD App with ASP.NET Core and React](https://developer.okta.com/blog/2018/07/02/build-a-secure-crud-app-with-aspnetcore-and-react)
-- [Build a CRUD App with ASP.NET Core and Angular](https://developer.okta.com/blog/2018/04/26/build-crud-app-aspnetcore-angular)
+- [Build a Basic CRUD App with Vue.js and Node](/blog/2018/02/15/build-crud-app-vuejs-node)
+- [Build a Basic CRUD App with Node and React](/blog/2018/07/10/build-a-basic-crud-app-with-node-and-react)
+- [Build a Secure CRUD App with ASP.NET Core and React](/blog/2018/07/02/build-a-secure-crud-app-with-aspnetcore-and-react)
+- [Build a CRUD App with ASP.NET Core and Angular](/blog/2018/04/26/build-crud-app-aspnetcore-angular)
 
 If you're itching for more information, check out some of these other great articles or explore the Okta developer blog.
 
-- [The Ultimate Guide to Progressive Web Applications](https://developer.okta.com/blog/2017/07/20/the-ultimate-guide-to-progressive-web-applications)
-- [Tutorial: Build a Basic CRUD App with Node.js](https://developer.okta.com/blog/2018/06/28/tutorial-build-a-basic-crud-app-with-node)
-- [Build a Basic CRUD App with Angular 5.0 and Spring Boot 2.0](https://developer.okta.com/blog/2017/12/04/basic-crud-angular-and-spring-boot)
-- [Angular 6: What's New, and Why Upgrade](https://developer.okta.com/blog/2018/05/09/upgrade-to-angular-6)
-- [Add Authentication to Your Angular PWA](https://developer.okta.com/blog/2017/06/13/add-authentication-angular-pwa)
+- [The Ultimate Guide to Progressive Web Applications](/blog/2017/07/20/the-ultimate-guide-to-progressive-web-applications)
+- [Tutorial: Build a Basic CRUD App with Node.js](/blog/2018/06/28/tutorial-build-a-basic-crud-app-with-node)
+- [Build a Basic CRUD App with Angular 5.0 and Spring Boot 2.0](/blog/2017/12/04/basic-crud-angular-and-spring-boot)
+- [Angular 6: What's New, and Why Upgrade](/blog/2018/05/09/upgrade-to-angular-6)
+- [Add Authentication to Your Angular PWA](/blog/2017/06/13/add-authentication-angular-pwa)
 
 And as always, we'd love to hear from you. Hit us up with questions or feedback in the comments, or on Twitter [@oktadev](https://twitter.com/oktadev).

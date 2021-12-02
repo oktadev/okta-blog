@@ -626,7 +626,7 @@ When you enter your credentials, the Okta Sign-In Widget and the Vue app will fo
 
 However, in the context of a client-side application, putting the client secret in public browser code would be a major security violation. Instead, Okta uses PKCE (Proof Key for Code Exchange). In this modified flow, the client generates a one-time key that is sent with the request and is associated with the authorized JWT. This is used to ensure that only the client that requested the JWT can use it.
 
-There's a great, in-depth article on the [PKCE flow](https://developer.okta.com/blog/2019/08/22/okta-authjs-pkce) by Micah Silverman on the Okta Dev Blog.
+There's a great, in-depth article on the [PKCE flow](/blog/2019/08/22/okta-authjs-pkce) by Micah Silverman on the Okta Dev Blog.
 
 Once you've logged in you'll see the simple application screen below.
 

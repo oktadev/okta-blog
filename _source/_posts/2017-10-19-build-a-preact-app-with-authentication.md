@@ -590,11 +590,11 @@ full-fledged React for complex apps.
 ## Learn More
 
 You can find out more about Preact from [their website](https://preactjs.com/)
-and Preact-Router from the [Github
+and Preact-Router from the [GitHub
 repository](https://github.com/developit/preact-router).
 
 You can also get the complete code for this article from the [Okta Developer
-Github repository](https://github.com/oktadeveloper/okta-preact-widget-example).
+GitHub repository](https://github.com/oktadeveloper/okta-preact-widget-example).
 
 As always, if you have any questions, comments or concerns about the article,
 the code, Preact or Okta, feel free to reach out to me via
@@ -603,8 +603,8 @@ the code, Preact or Okta, feel free to reach out to me via
 
 If you're interested in learning more about authentication using the Okta
 Sign-In Widget with Angular, you can follow Matt Raible's posts at
-<https://developer.okta.com/blog/2017/03/27/angular-okta-sign-in-widget> or
-<https://developer.okta.com/blog/2017/06/13/add-authentication-angular-pwa>, and
+[Build an Angular App with Okta's Sign-In Widget in 15 Minutes](/blog/2017/03/27/angular-okta-sign-in-widget) or
+[Add Authentication to Your Angular PWA](/blog/2017/06/13/add-authentication-angular-pwa), and
 If you want to know more about Okta's Identity Platform, read Randall Degges
 post at
-<https://developer.okta.com/blog/2017/08/29/meet-the-new-okta-identity-platform>.
+[Meet the New Okta Identity Platform](/blog/2017/08/29/meet-the-new-okta-identity-platform).

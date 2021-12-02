@@ -27,7 +27,7 @@ For this article, you will use Apollo Boost to do GraphQL queries and mutations 
 git clone https://github.com/oktadeveloper/okta-dotnet-react-graphql-example.git
 ```
 
-This backend uses EntityFramework Core and that powers  an in-memory database with books and authors so you can keep a reading list. It is based on another Okta blog post, [Build a GraphQL API with ASP.NET Core](https://developer.okta.com/blog/2019/04/16/graphql-api-with-aspnetcore), so follow that post to understand more of what happens in the backend. One caveat: that backend is made with `dotnet new webapi`, while the close we use in this post is made with `dotnet new react`. This adds a starter React frontend application, and it also sets up hot reloading, which works straight out of the box when running it in Visual Studio or with the `dotnet` command.
+This backend uses EntityFramework Core and that powers  an in-memory database with books and authors so you can keep a reading list. It is based on another Okta blog post, [Build a GraphQL API with ASP.NET Core](/blog/2019/04/16/graphql-api-with-aspnetcore), so follow that post to understand more of what happens in the backend. One caveat: that backend is made with `dotnet new webapi`, while the close we use in this post is made with `dotnet new react`. This adds a starter React frontend application, and it also sets up hot reloading, which works straight out of the box when running it in Visual Studio or with the `dotnet` command.
 
 ## Add Apollo Boost to the React Frontend
 

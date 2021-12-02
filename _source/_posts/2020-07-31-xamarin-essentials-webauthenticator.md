@@ -255,15 +255,15 @@ That's it!
 
 I hope the tutorial was interesting to you and that you enjoyed it. You can get the [full source code of the project from GitHub](https://github.com/oktadeveloper/xamarin-essentials-webauthenticator-sample). For more Xamarin and Okta articles check out these posts:
 
-- [OAuth 2.0 for Native and Mobile Apps](https://developer.okta.com/blog/2018/12/13/oauth-2-for-native-and-mobile-apps)
-- [Build Login in Xamarin with Xamarin.Forms](https://developer.okta.com/blog/2019/06/11/build-login-in-xamarin-with-xamarin-forms/)
-- [Add Authentication to Your Xamarin App with OpenID Connect](https://developer.okta.com/blog/2018/05/01/add-authentication-xamarin-openid-connect)
+- [OAuth 2.0 for Native and Mobile Apps](/blog/2018/12/13/oauth-2-for-native-and-mobile-apps)
+- [Build Login in Xamarin with Xamarin.Forms](/blog/2019/06/11/build-login-in-xamarin-with-xamarin-forms/)
+- [Add Authentication to Your Xamarin App with OpenID Connect](/blog/2018/05/01/add-authentication-xamarin-openid-connect)
 - [Okta Xamarin SDK](https://github.com/okta/okta-oidc-xamarin)
 
 Okta's OpenID Connect Primer in three parts:
 
-- [Part 1: Identity, Claims, and Tokens](https://developer.okta.com/blog/2017/07/25/oidc-primer-part-1)
-- [Part 2: OIDC in Action](https://developer.okta.com/blog/2017/07/25/oidc-primer-part-2)
-- [Part 3: What's in a Token?](https://developer.okta.com/blog/2017/08/01/oidc-primer-part-3)
+- [Part 1: Identity, Claims, and Tokens](/blog/2017/07/25/oidc-primer-part-1)
+- [Part 2: OIDC in Action](/blog/2017/07/25/oidc-primer-part-2)
+- [Part 3: What's in a Token?](/blog/2017/08/01/oidc-primer-part-3)
 
 Make sure to follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube Channel](https://youtube.com/c/oktadev) so that you never miss any awesome content!

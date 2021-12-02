@@ -18,7 +18,7 @@ update-title: "How to Use Client Credentials Flow with Spring Security"
 update-url: /blog/2021/05/05/client-credentials-spring-security
 ---
 
-Most OAuth 2.0 guides are focused around the context of a user, i.e., login to an application using Google, Github, Okta, etc., then do something on behalf of that user. While useful, these guides ignore server-to-server communication where there is no user and you only have one service connecting to another one.
+Most OAuth 2.0 guides are focused around the context of a user, i.e., login to an application using Google, GitHub, Okta, etc., then do something on behalf of that user. While useful, these guides ignore server-to-server communication where there is no user and you only have one service connecting to another one.
 
 The OAuth 2 client credentials grant type is exclusively used for scenarios in which no user exists (CRON jobs, scheduled tasks, other data workloads, etc.). This flow is less *showy* than other OAuth flows as there is no end user or browser to deal with, but is far easier to understand than the more complicated user-centric OAuth 2.0 grant types.
 

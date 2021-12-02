@@ -36,7 +36,7 @@ A token in the context of web development is nothing more than an arbitrary valu
 
 A token's purpose is to help a server remember who somebody is. Take API services, for example: if you have an API key that lets you talk to an API service from your server-side application, that API key is what the API service uses to "remember" who you are, look up your account details, and allow (or disallow) you from making a request. In this example, your API key is your "token", and it allows you to access the API.
 
-However, when most people talk about tokens today, they're actually referring to JWTs (for better or [worse](https://developer.okta.com/blog/2017/08/17/why-jwts-suck-as-session-tokens)).
+However, when most people talk about tokens today, they're actually referring to JWTs (for better or [worse](/blog/2017/08/17/why-jwts-suck-as-session-tokens)).
 
 ## What is a JSON Web Token (JWT)?
 

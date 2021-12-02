@@ -317,6 +317,6 @@ Want to learn more about integrating authentication with Okta? Check out these r
 * [Using OpenID Connect in ASP.NET Core](/blog/2017/06/29/oidc-user-auth-aspnet-core)
 * [Build a React App with Authentication in 15 Minutes](/blog/2017/03/30/react-okta-sign-in-widget)
 * [Build a Simple CRUD App with ASP.NET Core and Vue](/blog/2018/08/27/build-crud-app-vuejs-netcore)
-* [Build a Secure ReST API with Node and OAuth 2.0](https://developer.okta.com/blog/2018/08/21/build-secure-rest-api-with-node)
+* [Build a Secure ReST API with Node and OAuth 2.0](/blog/2018/08/21/build-secure-rest-api-with-node)
 
 If you have any questions about the tutorial, please leave them in the comments below. Don't forget to follow us on [Twitter](https://twitter.com/oktadev) and [Facebook](https://www.facebook.com/oktadevelopers/)! You can also find video tutorials on our [YouTube channel](https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q)!

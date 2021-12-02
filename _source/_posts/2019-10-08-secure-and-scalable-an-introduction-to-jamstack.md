@@ -502,11 +502,11 @@ Of course, there is so much more you can do! For example, from here you could in
 
 In this post we've covered the basics of the JAMstack architecture, the benefits, and how to get started. However, we've only scratched the surface of everything you can do! Here are some resources to help you explore further!
 
-* [Add Authentication and Personalization to VuePress](https://developer.okta.com/blog/2019/06/14/add-authentication-and-personalization-to-vuepress)
-* [Static Sites vs CMS](https://developer.okta.com/blog/2018/06/07/static-sites-vs-cms)
+* [Add Authentication and Personalization to VuePress](/blog/2019/06/14/add-authentication-and-personalization-to-vuepress)
+* [Static Sites vs CMS](/blog/2018/06/07/static-sites-vs-cms)
 * [Tutorial: Build Universal Applications with Nuxt.js
-](https://developer.okta.com/blog/2019/04/26/tutorial-build-universal-apps-with-nuxt)
-* [How to Configure Better Web Site Security with Cloudflare and Netlify](https://developer.okta.com/blog/2019/04/11/site-security-cloudflare-netlify)
+](/blog/2019/04/26/tutorial-build-universal-apps-with-nuxt)
+* [How to Configure Better Web Site Security with Cloudflare and Netlify](/blog/2019/04/11/site-security-cloudflare-netlify)
 * [Okta Sign-In Widget](https://developer.okta.com/code/javascript/okta_sign-in_widget/)
 * [Okta Auth JavaScript SDK](https://github.com/okta/okta-auth-js)
 

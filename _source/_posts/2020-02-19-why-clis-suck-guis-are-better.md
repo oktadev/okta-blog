@@ -68,7 +68,7 @@ Since I would rather focus on the business logic I create (and not the exact way
 
 {% img blog/why-clis-suck/file-new.jpg alt:"Sublime Text File New" width:"800" %}{: .center-image }
 
-Since we weren't born naturally coding, programming is something we need to learn. The tools we use to create software should make that process easier. Some of the best tooling with visual layouts that I've used are [Github Desktop](https://desktop.github.com/), [Visual Studio](https://visualstudio.microsoft.com/downloads/) and [IntelliJ IDEA](https://www.jetbrains.com/idea/). Streamlining my development workflow with good, naturally assistive tools helped me tremendously. These tools helped me explore their  available functions by simply clicking on a dropdown and examining the sub-categories below.
+Since we weren't born naturally coding, programming is something we need to learn. The tools we use to create software should make that process easier. Some of the best tooling with visual layouts that I've used are [GitHub Desktop](https://desktop.github.com/), [Visual Studio](https://visualstudio.microsoft.com/downloads/) and [IntelliJ IDEA](https://www.jetbrains.com/idea/). Streamlining my development workflow with good, naturally assistive tools helped me tremendously. These tools helped me explore their  available functions by simply clicking on a dropdown and examining the sub-categories below.
 
 ### Remote access is easier to use with a GUI
 

@@ -1263,7 +1263,7 @@ You'll also need to add `http://localhost:8100` and `http://localhost:8080` to y
 
 ### Fix Travis Tests
 
-Changing from implicit flow and a resource server to authorization code flow broke a lot of the tests that Brian Demers and I wrote for the [Hitchhiker's Guide to Testing](https://developer.okta.com/blog/2018/05/02/testing-spring-boot-angular-components). We spent many hours fixing them and finally got everything to pass.
+Changing from implicit flow and a resource server to authorization code flow broke a lot of the tests that Brian Demers and I wrote for the [Hitchhiker's Guide to Testing](/blog/2018/05/02/testing-spring-boot-angular-components). We spent many hours fixing them and finally got everything to pass.
 
 I won't bore you with the details, but you can look at the pull requests we created for the Angular client and the Spring Boot API.
 

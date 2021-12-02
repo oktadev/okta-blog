@@ -59,8 +59,8 @@ What are your thoughts on GitHub Package Registry and the future of npm? Share i
 
 Want to learn more about Node.js and software development in general? Check out these killer posts!
 
-* [Top 10 Visual Studio Code Extensions for Node.js](https://developer.okta.com/blog/2019/05/08/top-vs-code-extensions-for-nodejs-developers)
-* [Build a Command Line Application with Node.js](https://developer.okta.com/blog/2019/06/18/command-line-app-with-nodejs)
-* [Build Simple Authentication in Express in 15 Minutes](https://developer.okta.com/blog/2019/05/31/simple-auth-express-fifteen-minutes)
+* [Top 10 Visual Studio Code Extensions for Node.js](/blog/2019/05/08/top-vs-code-extensions-for-nodejs-developers)
+* [Build a Command Line Application with Node.js](/blog/2019/06/18/command-line-app-with-nodejs)
+* [Build Simple Authentication in Express in 15 Minutes](/blog/2019/05/31/simple-auth-express-fifteen-minutes)
 
 As always if you have comments, leave them below. If you don't want to miss out on any of our super cool content, follow us on [Twitter](https://twitter.com/oktadev) and [YouTube](https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q).

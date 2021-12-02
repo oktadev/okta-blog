@@ -247,7 +247,7 @@ The first two handle Shiro exceptions and simply set the status to 401 or 403. A
 
 ## Fire it Up!
 
-If you put all of this together, or you just grab the code from [Github](https://github.com/oktadeveloper/shiro-spring-boot-example), you can start the application using `mvn spring-boot:run`.  Once you have everything running you can start making requests!
+If you put all of this together, or you just grab the code from [GitHub](https://github.com/oktadeveloper/shiro-spring-boot-example), you can start the application using `mvn spring-boot:run`.  Once you have everything running you can start making requests!
 
 ``` bash
 $ curl http://localhost:8080/troopers

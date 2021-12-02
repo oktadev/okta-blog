@@ -391,10 +391,10 @@ Even further, the Android documentation is full of more advanced topics to impro
 
 Keep learning about Android and how to easily secure your apps with our extensive set of [developer guides](https://developer.okta.com/docs/guides/), our documentation for [Identity Management in Android](https://developer.okta.com/code/android/), and these additional resources:
 
-* [Build a Basic CRUD App in Android with Kotlin](https://developer.okta.com/blog/2018/09/11/android-kotlin-crud)
-* [Build a One-time Password Token for MFA with Okta](https://developer.okta.com/blog/2018/08/30/build-one-time-password-token-for-mfa)
+* [Build a Basic CRUD App in Android with Kotlin](/blog/2018/09/11/android-kotlin-crud)
+* [Build a One-time Password Token for MFA with Okta](/blog/2018/08/30/build-one-time-password-token-for-mfa)
 * [Android Unit Testing Part I: What Makes Strong Test Automation](https://www.okta.com/blog/2015/01/android-unit-testing-part-i-what-makes-strong-test-automation/)
-* [Android Unit Testing Part II: Escaping Dalvik's Hold](https://developer.okta.com/blog/2015/04/07/android-unit-testing-part-2)
-* [Android Unit Testing Part III: Disintegration](https://developer.okta.com/blog/2015/04/14/android-unit-testing-part-3)
+* [Android Unit Testing Part II: Escaping Dalvik's Hold](/blog/2015/04/07/android-unit-testing-part-2)
+* [Android Unit Testing Part III: Disintegration](/blog/2015/04/14/android-unit-testing-part-3)
 
 Feel free to leave comments below. To make sure you stay up to date with our latest developer guides and tips, follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube Channel](https://www.youtube.com/c/oktadev)!
