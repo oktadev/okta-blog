@@ -17,6 +17,7 @@ image: blog/native-java-comparison/native-java.png
 type: conversion
 github: https://github.com/oktadev/native-java-examples
 changelog:
+- 2021-12-02: Updated to use Java 17, Micronaut 3.2.0, Quarkus 2.5.1, and Spring Boot 2.6.1. See this post's changes in [okta-blog#985](https://github.com/oktadev/okta-blog/pull/985) and the example app changes in [native-java-examples#9](https://github.com/oktadev/native-java-examples/pull/9).
 - 2021-10-07: Updated to use Micronaut 3.0.3, Quarkus 2.3.0.Final, and Spring Boot 2.5.5. Changed Spring Boot to create binary instead of Docker image and updated startup performance stats. See this post's changes in [okta-blog#913](https://github.com/oktadev/okta-blog/pull/913) and the example app changes in [native-java-examples#7](https://github.com/oktadev/native-java-examples/pull/7).
 - 2021-09-16: Updated to use macOS binary (`./mvnw package -Pnative`) when calculating memory usage for Spring Boot. See the updates in [okta-blog#887](https://github.com/oktadev/okta-blog/pull/887).
 - 2021-09-16: Updated to use Micronaut 3.0.1, Quarkus 2.2.2.Final, and Spring Boot 2.5.4. Also added memory usage comparison. See this post's changes in [okta-blog#885](https://github.com/oktadev/okta-blog/pull/885) and the example app changes in [native-java-examples#6](https://github.com/oktadev/native-java-examples/pull/6).
@@ -35,7 +36,7 @@ This post will show you how to run a secure, OAuth 2.0-protected, Java REST API 
 
 **Prerequisites**
 
-- https://sdkman.io/[Java 11 with GraalVM]+
+- https://sdkman.io/[Java 17 with GraalVM]+
 - https://httpie.io/[HTTPie] (a better version of cURL)
 - An https://developer.okta.com[Okta Developer] Account
 
@@ -62,7 +63,7 @@ You will need a JDK with GraalVM and its `native-image` compiler. Using SDKMAN, 
 
 [source,shell]
 ----
-sdk install java 21.2.0.r11-grl
+sdk install java 21.3.0.r17-grl
 ----
 
 Add the native extension to the JDK:
@@ -179,7 +180,7 @@ $ ./target/app
 | |\/| | |/ __| '__/ _ \| '_ \ / _` | | | | __|
 | |  | | | (__| | | (_) | | | | (_| | |_| | |_
 |_|  |_|_|\___|_|  \___/|_| |_|\__,_|\__,_|\__|
-  Micronaut (v3.0.3)
+  Micronaut (v3.2.0)
 
 15:22:39.213 [main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 22ms. Server Running: http://localhost:8080
 ----
@@ -307,7 +308,7 @@ __  ____  __  _____   ___  __ ____  ______
  --/ __ \/ / / / _ | / _ \/ //_/ / / / __/
  -/ /_/ / /_/ / __ |/ , _/ ,< / /_/ /\ \
 --\___\_\____/_/ |_/_/|_/_/|_|\____/___/
-2021-10-07 15:26:06,453 INFO  [io.quarkus] (main) quarkus 1.0.0-SNAPSHOT native (powered by Quarkus 2.3.0.Final) started in 0.019s. Listening on: http://0.0.0.0:8080
+2021-10-07 15:26:06,453 INFO  [io.quarkus] (main) quarkus 1.0.0-SNAPSHOT native (powered by Quarkus 2.5.1.Final) started in 0.019s. Listening on: http://0.0.0.0:8080
 2021-10-07 15:26:06,453 INFO  [io.quarkus] (main) Profile prod activated.
 2021-10-07 15:26:06,453 INFO  [io.quarkus] (main) Installed features: [cdi, reactive-routes, resteasy-reactive, security, smallrye-context-propagation, smallrye-jwt, vertx]
 ----
@@ -327,7 +328,7 @@ You can create the same Quarkus app used in this example in five steps.
 +
 [source,shell]
 ----
-mvn io.quarkus:quarkus-maven-plugin:2.3.0.Final:create \
+mvn io.quarkus:quarkus-maven-plugin:2.5.1.Final:create \
     -DprojectGroupId=com.okta.rest \
     -DprojectArtifactId=quarkus \
     -DclassName="com.okta.rest.quarkus.HelloResource" \
@@ -461,7 +462,7 @@ $ ./target/demo
  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
   '  |____| .__|_| |_|_| |_\__, | / / / /
  =========|_|==============|___/=/_/_/_/
- :: Spring Boot ::                (v2.5.5)
+ :: Spring Boot ::                (v2.6.1)
 ...
 2021-10-07 15:44:55.174  INFO 61884 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
 2021-10-07 15:44:55.175  INFO 61884 --- [           main] com.okta.rest.Application                : Started Application in 0.62 seconds (JVM running for 0.622)
@@ -483,7 +484,7 @@ To create the Spring Boot app used in this example, it's just five steps.
 [source,shell]
 ----
 http https://start.spring.io/starter.zip \
-     bootVersion==2.5.5 \
+     bootVersion==2.6.1 \
      dependencies==web,oauth2-resource-server,native \
      packageName==com.okta.rest \
      name==spring-boot \
