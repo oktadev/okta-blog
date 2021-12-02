@@ -318,9 +318,9 @@ Flags can be set when creating the cluster or by patching the API server via SSH
 
 Here is how you can create a new k8s cluster with OIDC enabled using different tools. Execute the command for the tool you're using. Make sure to replace `<k8s_oidc_issuer_url>` and `<k8s_oidc_client_id>` with values from the output of the Terraform step. For any other tools, refer to their documentation on how to update API server flags.
 
-### kubeadmn
+### kubeadm
 
-If you are using [kubeadmn](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/), add the following flags to the cluster configuration and pass them to `kubeadm init` command.
+If you are using [kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/), add the following flags to the cluster configuration and pass them to `kubeadm init` command.
 
 ```yml
 apiVersion: kubeadm.k8s.io/v1beta3
