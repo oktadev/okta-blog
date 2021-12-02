@@ -75,7 +75,7 @@ Out of all these authentication mechanisms, OIDC is the most secure and scalable
 
 {% img blog/k8s-api-server-oidc/kube-login-oidc.jpg alt:"K8s OIDC flow" width:"800" %}{: .center-image }
 
-OIDC combined with RBAC becomes necessary as more and more people start accessing the cluster. It becomes essential to create groups and roles and provide limited access to specific groups. You can read more about this in my previous post [How to Secure Your Kubernetes Cluster with OpenID Connect and RBAC](https://developer.okta.com/blog/2021/11/08/k8s-api-server-oidc).
+OIDC combined with RBAC becomes necessary as more and more people start accessing the cluster. It becomes essential to create groups and roles and provide limited access to specific groups. You can read more about this in my previous post [How to Secure Your Kubernetes Cluster with OpenID Connect and RBAC](/blog/2021/11/08/k8s-api-server-oidc).
 
 ## 3. Use Secrets for all sensitive data with appropriate access
 
@@ -105,7 +105,7 @@ Securing the container images that run on the cluster is as important as securin
 - Use [Docker Bench for Security](https://github.com/docker/docker-bench-security) to audit your container images
 - Use [Pod security policies](https://kubernetes.io/docs/concepts/policy/pod-security-policy/) to limit a container's access to the host further
 
-You can read more about it in our "[Container Security: A Developer Guide](https://developer.okta.com/blog/2019/07/18/container-security-a-developer-guide)".
+You can read more about it in our "[Container Security: A Developer Guide](/blog/2019/07/18/container-security-a-developer-guide)".
 
 ## 7. Control traffic between pods and clusters
 
