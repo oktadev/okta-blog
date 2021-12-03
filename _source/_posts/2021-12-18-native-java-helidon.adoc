@@ -18,13 +18,17 @@ github: https://github.com/oktadev/native-java-examples
 :toc: macro
 :experimental:
 
-// intro Helidon
+Project Helidon is a set of Java libraries for writing microservices. It's an open source, Apache 2.0-licensed, Oracle-sponsored project and contains support for MicroProfile as well as a reactive, functional API. Helidon's two different style are known as Helidon MP and SE, respectively. The https://helidon.io[helidon.io] website says:
 
-// reference previous post
+====
+Since Helidon is simply a collection of Java libraries running on a fast Netty core, there is no extra overhead or bloat.
+====
 
-This post will show you how to run a secure, OAuth 2.0-protected, Java REST API that allows JWT authentication. I'll showcase the three leading Java frameworks: Micronaut, Quarkus, and Spring Boot. First, I'll show you how to run them with Java and access their data. Then, I'll show you how to build and test native images with each framework. I'll mention a few gotchas I ran into along the way.
+image::{% asset_path 'blog/native-java-helidon/helidon-mp.png' %}[alt=Helidon supports MicroProfile,width=400,align=center]
 
-// The order of frameworks is intentional as I found Micronaut the easiest to make work and Spring Boot the most difficult.
+Today, I'm going to put this statement to the test! First, I'll show you how to run a secure, OAuth 2.0-protected, Java REST API that allows JWT authentication. Then, I'll show you how to build a native image with GraalVM. Finally, I'll compare Helidon to the most popular Java REST API frameworks: Micronaut, Quarkus, and Spring Book.
+
+My https://developer.okta.com/blog/2021/06/18/native-java-framework-comparison[Build Native Java Apps with Micronaut, Quarkus, and Spring Boot] post compares startup times and memory usage of these three frameworks. How does Helidon perform? Read on!
 
 **Prerequisites**
 
@@ -45,7 +49,7 @@ git clone https://github.com/oktadev/native-java-examples.git
 cd native-java-examples/helidon
 ----
 
-I'll show you how I created this example in a section below.
+I'll show you how I created this example in a section below. First, let's see how to run it.
 
 Open the `helidon` directory in your favorite IDE, so you have easy access to the example's project files.
 
@@ -67,7 +71,7 @@ Add the native extension to the JDK:
 gu install native-image
 ----
 
-== Launch a Helidon Java API
+== Run a Helidon Java API
 
 In a terminal window, run `mvn package` to package the app into a JAR. Then use `java -jar` to run it.
 
@@ -77,6 +81,8 @@ mvn package
 java -jar target/helidon.jar
 ----
 
+TIP: Helidon's Maven Plugin doesn't have a _run_ command. You can install the https://helidon.io/docs/v2/#/about/05_cli[Helidon CLI] and run `helidon dev`. Running this command allows you to change code and automatically recompile + restart your application.
+
 If you open another terminal window and try to access it with HTTPie, you'll get a 401 Unauthorized error.
 
 [source,shell]
@@ -84,9 +90,9 @@ If you open another terminal window and try to access it with HTTPie, you'll get
 $ http :8080/hello
 
 HTTP/1.1 401 Unauthorized
+Content-Length: 0
+Date: Fri, 3 Dec 2021 06:11:25 -0700
 connection: keep-alive
-date: Thu, 7 Oct 2021 05:03:33 GMT
-transfer-encoding: chunked
 ----
 
 To make it so you can access this endpoint, you'll need to generate an OAuth 2.0 access token and update the JWKS (JSON Web Key Sets) URL to yours (in this project's `application.yml`).
@@ -150,7 +156,7 @@ To compile this Micronaut app into a native binary, run:
 mvn package -Pnative-image
 ----
 
-This command will take a few minutes to complete. My 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM took 2 min. 20 s. to finish.
+This command will take a few minutes to complete. My 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM took 2 min. 34 s. to finish.
 
 Start it with `./target/helidon`:
 
@@ -158,18 +164,20 @@ Start it with `./target/helidon`:
 $ ./target/helidon
 ...
 
-2021.12.01 20:47:36 INFO io.helidon.microprofile.server.ServerCdiExtension Thread[main,5,main]:
- Server started on http://localhost:8080 (and all other host addresses) in 556 milliseconds (since JVM startup).
+2021.12.03 06:18:13 INFO io.helidon.microprofile.server.ServerCdiExtension Thread[main,5,main]: Server started on http://localhost:8080 (and all other host addresses) in 550 milliseconds (since JVM startup).
+2021.12.03 06:18:13 INFO io.helidon.common.HelidonFeatures Thread[features-thread,5,main]: Helidon MP 2.4.0 features: [CDI, Config, Fault Tolerance, Health, JAX-RS, Metrics, Open API, REST Client, Security, Server, Tracing, Web Client]
+2021.12.03 06:18:13 INFO io.helidon.common.HelidonFeatures.experimental Thread[features-thread,5,main]: You are using experimental features. These APIs may change, please follow changelog!
+2021.12.03 06:18:13 INFO io.helidon.common.HelidonFeatures.experimental Thread[features-thread,5,main]: 	Experimental feature: Web Client (WebClient)
 ----
 
-You can see it starts in a half a second (556ms)! Test it with HTTPie and an access token. You may have to generate a new JWT with https://oidcdebugger.com[oidcdebugger.com] if yours has expired.
+You can see it starts in a just over half a second (550ms)! Test it with HTTPie and an access token. You may have to generate a new JWT with https://oidcdebugger.com[oidcdebugger.com] if yours has expired.
 
 [source,shell]
 ----
 http :8080/hello Authorization:"Bearer $TOKEN"
 ----
 
-=== Make a Helidon App from Scratch
+=== Create a Helidon App from Scratch
 
 You might be wondering, "how did you build a secure Micronaut app"? Did I just hide the complexity? No, it only takes five steps to create the same app.
 
@@ -182,6 +190,10 @@ You might be wondering, "how did you build a secure Micronaut app"? Did I just h
     -DgroupId=com.okta.rest \
     -DartifactId=helidon \
     -Dpackage=com.okta.rest
++
+If you use `helidon init`, answer the questions like I did.
++
+image::{% asset_path 'blog/native-java-helidon/helidon-init.png' %}[alt=helidon init command,width=800,align=center]
 
 . Add a `HelloResource` in `src/main/java/com/okta/rest/controller/HelloResource.java`:
 +
@@ -221,12 +233,13 @@ mp.jwt.verify.publickey.location=https://{yourOktaDomain}/oauth2/default/v1/keys
 mp.jwt.verify.issuer=https://{yourOktaDomain}/oauth2/default
 ----
 
-. Add a `HelloApplication` class in `src/main/java..` to register your resource and configure JWT authentication:
+. Add a `HelloApplication` class in `src/main/java/com/okta/rest/HelloApplication.java` to register your resource and configure JWT authentication:
 +
 [source,java]
 ----
 package com.okta.rest;
 
+import com.okta.rest.controller.HelloResource;
 import org.eclipse.microprofile.auth.LoginConfig;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -243,28 +256,52 @@ public class HelloApplication extends Application {
 }
 ----
 
+. Delete `GreetingsProvider`, `GreetResource`, and `MainTest` since they're not used in this example.
+
+  rm src/main/java/com/okta/rest/Greet*
+  rm src/test/java/com/okta/rest/MainTest.java
+
 That's it! Now you can start the app or build the native image as shown above.
 
 == Native Java Startup Time Comparison
 
-Performance comparisons are complex, but I'm going to do one anyway. Since this post is all about native Java, below is the data I gathered that shows the average milliseconds to start each native executable. I ran each image three times before I started recording the numbers. I then ran each command five times.
+To compare startup times between Micronaut, Quarkus, Spring Boot, and Helidon, I first created native executables. You can run the following commands to do the same from the root directory of the example you cloned.
 
-_These numbers are from a 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM. I think it's important to note that my WiFi connection was 88 Mbps down and 88 Mbps up (according to the Speedtest app)._
+[source,shell]
+----
+cd micronaut
+./mvnw package -Dpackaging=native-image
+
+cd ../quarkus
+./mvnw package -Pnative
+
+cd ../spring-boot
+./mvnw package -Pnative
+
+# Helidon should already be built, but just in case it isn't
+cd ../helidon
+mvn package -Pnative-image
+----
+
+I ran each image three times before I started recording the numbers. I then ran each command five times.
+
+_These numbers are from a 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM. I think it's important to note that my WiFi connection was 71 Mbps down and 10 Mbps up (according to the Speedtest app)._
 
 ////
-Micronaut: (21 + 22 + 21 + 31 + 25) / 5 = 24ms
-Quarkus: (18 + 19 + 19 + 21 + 20) / 5 = 19.4ms
-Spring Boot: (636 + 393 + 723 + 396 + 402) / 5 = 510ms
+Helidon: (288 + 495 + 280 + 291 + 540) / 5 = 378.8
+Micronaut: (20 + 19 + 21 + 22 + 20) / 5 = 20.4
+Quarkus: (18 + 16 + 16 + 18 + 17) / 5 = 17
+Spring Boot: (59 + 59 + 58 + 59 + 61) / 5 = 59.2
 ////
 
 .Native Java Startup times in milliseconds
 |===
 |Framework | Command executed | Milliseconds to start
 
-|Helidon | `./target/helidon` | 713
-|Micronaut | `./target/app` | 24
-|Quarkus | `./target/quarkus-1.0.0-SNAPSHOT-runner` | 19
-|Spring Boot | `./target/demo` | 510
+|Helidon | `./helidon/target/helidon` | 378.8
+|Micronaut | `./micronaut/target/app` | 20.4
+|Quarkus | `./quarkus/target/quarkus-1.0.0-SNAPSHOT-runner` | 17
+|Spring Boot | `./spring-boot/target/demo` | 59.2
 |===
 
 The chart below should help you visualize this comparison.
@@ -278,9 +315,10 @@ google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
   var data = google.visualization.arrayToDataTable([
     ['Framework', 'Milliseconds to start', { role: 'style' }],
-    ['Micronaut', 24, 'blue'],
-    ['Quarkus', 19, 'red'],
-    ['Spring Boot', 46.8, 'green']
+    ['Helidon', 378.8, 'orange'],
+    ['Micronaut', 20.4, 'blue'],
+    ['Quarkus', 17, 'red'],
+    ['Spring Boot', 59.2, 'green']
   ]);
   var options = {
     title: 'Startup times of Native Java frameworks',
@@ -312,10 +350,10 @@ I substituted `<executable>` as follows:
 |===
 |Framework | Executable | Megabytes before request | Megabytes after request
 
-|Helidon | `helidon` | 29 | 62
-|Micronaut | `app` | 29 | 62
-|Quarkus | `runner` | 20 | 34
-|Spring Boot | `demo` | 69 | 82
+|Helidon | `helidon` | 74 | 110
+|Micronaut | `app` | 27 | 58
+|Quarkus | `runner` | 20 | 32
+|Spring Boot | `demo` | 48 | 62
 |===
 
 ++++
@@ -326,10 +364,10 @@ google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
   var data = google.visualization.arrayToDataTable([
     ['Framework', 'Memory usage (MB)', { role: 'style' }],
-    ['Helidon', 62, 'yellow'],
-    ['Micronaut', 62, 'blue'],
-    ['Quarkus', 34, 'red'],
-    ['Spring Boot', 82, 'green']
+    ['Helidon', 110, 'orange'],
+    ['Micronaut', 58, 'blue'],
+    ['Quarkus', 32, 'red'],
+    ['Spring Boot', 62, 'green']
   ]);
   var options = {
     title: 'Memory usage of Native Java frameworks',
@@ -348,11 +386,13 @@ function drawChart() {
 </script>
 ++++
 
+This data shows that Helidon has some work to do to catch up to its competition!
+
 == Learn More About Java and GraalVM
 
-In this post, you learned how to develop, build, and run native a Java app with MHelidon. You learned how to secure it with OpenID Connect and access it with a JWT access token.
+In this post, you learned how to develop, build, and run native a Java app with Helidon. You also learned how to secure it with OpenID Connect and access it with a JWT access token.
 
-You can find the source code for the example this post on GitHub in the https://github.com/oktadev/native-java-examples[native-java-examples repository].
+You can find the source code for this example on GitHub in the https://github.com/oktadev/native-java-examples/tree/main/helidon[native-java-examples repository].
 
 If you liked this post, chances are you'll like others we've published:
 
