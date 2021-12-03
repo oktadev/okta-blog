@@ -233,7 +233,7 @@ mp.jwt.verify.publickey.location=https://{yourOktaDomain}/oauth2/default/v1/keys
 mp.jwt.verify.issuer=https://{yourOktaDomain}/oauth2/default
 ----
 
-. Add a `HelloApplication` class in `src/main/java/com/okta/rest/HelloApplication.java` to register your resource and configure JWT authentication:
+. Add a `HelloApplication` class in `src/main/java/com/okta/rest` to register your resource and configure JWT authentication:
 +
 [source,java]
 ----
