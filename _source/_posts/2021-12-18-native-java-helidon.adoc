@@ -145,7 +145,7 @@ http :8080/hello Authorization:"Bearer $TOKEN"
 
 You should get a 200 response with your email in it.
 
-image::{% asset_path 'blog/native-java-helidon/httpie-helidon-bearer-token.png' %}[alt=HTTPie call to Helidon's /hello with bearer token,width=800,align=center]
+image::{% asset_path 'blog/native-java-helidon/httpie-helidon-bearer-token.jpg' %}[alt=HTTPie call to Helidon's /hello with bearer token,width=800,align=center]
 
 === Build a Native Helidon App
 
@@ -193,7 +193,7 @@ You might be wondering, "how did you build a secure Micronaut app"? Did I just h
 +
 If you use `helidon init`, answer the questions like I did.
 +
-image::{% asset_path 'blog/native-java-helidon/helidon-init.png' %}[alt=helidon init command,width=800,align=center]
+image::{% asset_path 'blog/native-java-helidon/helidon-init.jpg' %}[alt=helidon init command,width=800,align=center]
 
 . Add a `HelloResource` in `src/main/java/com/okta/rest/controller/HelloResource.java`:
 +
