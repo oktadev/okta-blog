@@ -15,9 +15,9 @@ type: awareness
 
 Businesses have unique and complex needs. In addition to the user or organization-specific data to show, there might be a need to display different views and content conditionally. The conditions might include the user's role or which department they belong to.  The information about a user might be part of the authenticated user's [ID token as a profile claim](/blog/2017/07/25/oidc-primer-part-1).
 
-In [Angular](https://angular.io), you can show different components or even parts of templates conditionally using built-in directives such as `*ngIf`. But as the number of conditions to evaluate or the differences in the view changes, managing the correct view to display becomes difficult. These types of scenarios are where [dynamic components](https://angular.io/guide/dynamic-component-loader) are helpful. Angular has the mechanics to load components at runtime so you can dynamically display content. 
+In [Angular](https://angular.io), you can show different components or even parts of templates conditionally using built-in directives such as `*ngIf`. But as the number of conditions to evaluate or the differences in the view change, managing the correct view to display becomes difficult. These types of scenarios are where [dynamic components](https://angular.io/guide/dynamic-component-loader) are helpful. Angular has the mechanics to load components at runtime so you can dynamically display content. 
 
- After following the instructions in the post, you'll have an Angular app using Material controls that displays unique content based on an authenticated user's claim value.
+ After following the instructions in this post, you'll have an Angular app using Material controls that displays unique content based on an authenticated user's claim value.
 
 The main flow for the application is after initially launching a welcome page; you'll log in using Okta from a button in the toolbar and redirect to the guarded content. The toolbar now displays your name, and you'll see a rotation of dynamically created components based on a user claim from your ID token.
 
@@ -31,9 +31,9 @@ In this post, we'll
 * Simulate an external server call and implement the dynamic components
 * Complete displaying the dynamic components using the user claim value
 
-We'll be covering a lot in this post to build out a non-trivial Angular application. As a result, this post assumes some Angular knowledge. We'll be blazing through some parts to spend more time working through the dynamic components and user profile information.
+We'll be covering a lot in this post to build out a non-trivial Angular application. As a result, this post assumes some Angular knowledge. We'll be blazing through some basics to focus on working through the dynamic components and user profile information.
 
-If you are new to Angular, check out the following fantastic resources and guides first
+If you are new to Angular, check out the following fantastic resources and guides first:
 * [Angular Quickstart](https://angular.io/guide/what-is-angular)
 * [A Quick Guide to Angular and GraphQL](/blog/2021/10/22/angular-graphql#integrate-oidc-for-auth)
 
@@ -51,9 +51,9 @@ The [Angular CLI](https://cli.angular.io) automates creating Angular apps quickl
 * use scss for styles
 * use inline templates
 * use inline styles
-* skip tests (the code repo includes tests to show working tests with testbed setup and authentication service spies, so feel free to include tests if you want to try that yourself)
+* skip tests (The code repo includes tests to show working tests with testbed setup and authentication service spies, so feel free to include tests if you want to try that yourself.)
 
-We'll have a lot of small components in this application, so having inline templates and styles allow us to minimize the number of files to touch.
+We'll have a lot of small components in this application, so inline templates and styles will allow us to minimize the number of files to touch.
 
 Run the following command to create an Angular v13 app.
 
@@ -76,7 +76,7 @@ Run the following command with preset values to add the Angular Material v13 lib
 
 ## Create components for the initial view
 
-We can now add our code with our application scaffolded and libraries added. Start by creating three components: a `Home` component that contains the application's default view, `Menu` component to handle logging in, `Profile` component to display your name after authentication by running the following code.
+With our application scaffolded and libraries added, we can now add our code. Start by creating three components: a `Home` component that contains the application's default view, a `Menu` component to handle logging in, and a `Profile` component to display your name after authentication by running the following code.
 
 ```bash
 ng generate component home
@@ -100,7 +100,7 @@ In the `NgModule` `imports` array, add the following Angular Material component 
 * `MatButtonModule` from `@angular/material/button`
 * `MatMenuModule` from `@angular/material/menu`
 
-We can now update the templates. Open `src/app/app.component.ts` and replace the entire component with the following code.
+Now we can update the templates. Open `src/app/app.component.ts` and replace the entire component with the following code.
 
 {% raw %}
 ```ts
@@ -124,7 +124,7 @@ export class AppComponent { }
 ```
 {% endraw %}
 
-We added a Material toolbar that displays text, along with the contents of the `Profile` and `Menu` components. We'll update the template of those components in a bit. Below the toolbar, the `<router-outlet></router-outlet>` shows the view for the current route. You should see the output of the Home component when you serve the app.
+We added a Material toolbar that displays text, along with the contents of the `Profile` and `Menu` components. We'll update the template of those components in a bit. Below the toolbar, the `<router-outlet></router-outlet>` shows the view for the current route. You should see the output of the `Home` component when you serve the app.
 
 Open `src/app/home/home.component.ts`, which is your welcome landing page. Feel free to change the template and styles to whatever suits you. 
 
@@ -156,7 +156,7 @@ export class HomeComponent { }
 
 ## Create module for dynamic components
 
-Next, we'll create a new module, `Protected`, to hold the view guarded by authentication. We can pass in the parameters for routing, creating the default component, and lazy-loading by running the following command.
+Next, we'll create a new module, `Protected`, to hold the view guarded by authentication. We can pass in the parameters for routing, creating the default component, and lazy-loading, by running the following command.
 
 ```bash
 ng generate module protected --routing --route=protected --module=app
@@ -189,7 +189,7 @@ ng generate component protected/department/pawesome --flat
 ng generate component protected/department/smiley --flat
 ```
 
-Let's get the main view for the `Protected` module set up. The default view in this module shows `ProtectedComponent`, which displays a task list and the `DepartmentComponent` dynamic component loader. First, we'll import the Material component modules, then update the `Protected` component template, styles, and populate the task list.
+Let's get the main view for the `Protected` module set up. The default view in this module shows `ProtectedComponent`, which displays a task list and the `DepartmentComponent` dynamic component loader. First, we'll import the Material component modules, then update the `Protected` component template and styles, and populate the task list.
 
 Open `src/app/protected/protected.module.ts` and add the following Material component modules to the imports array:
 * `MatCardModule` from `@angular/material/card`
@@ -250,11 +250,11 @@ When we add authentication, we'll automatically route to it.
 
 ## Dynamic component loading
 
-Next, let's get into this exciting dynamic component loading part! How this works is the `Department` component is the container for the dynamic components and controls which component to show. The `Department` component HTML template contains an `ng-template` element with a helper directive to identify where to add the dynamic component to the view.
+Next, let's get into this exciting dynamic component loading part! Here's how this works. The `Department` component is the container for the dynamic components, and controls which component to show. The `Department` component HTML template contains an `ng-template` element with a helper directive to identify where to add the dynamic component to the view.
 
 Angular v13 included updates to their API to make working with dynamic components more straightforward. We could use Angular Component Development Kit (CDK) [Portals](https://material.angular.io/cdk/portal/overview) instead since it has extra helper functionality, but let's take the updated Angular APIs out for a spin. 😁
 
-Each of the dynamic components needs the same base component interface. In our case, the base component interface is the `DynamicComponent` interface. Open each dynamic component file, `Clawesome`, `Pawesome`, and `Smiley`, and implement the `DynamicComponent` interface to the class. The interface is empty now, but we'll add members later. Feel free to remove the `OnInit` lifecycle hook too. The `Clawesome` component class looks like the following example, and the `Pawesome` and `Smiley` components classes should look similar.
+Each of the dynamic components needs the same base component interface. In our case, the base component interface is the `DynamicComponent` interface. Open each dynamic component file, `Clawesome`, `Pawesome`, and `Smiley`, and implement the `DynamicComponent` interface to the class. The interface is empty now, but we'll add members later. Feel free to remove the `OnInit` lifecycle hook too. The `Clawesome` component class looks like the following example, and the `Pawesome` and `Smiley` component classes should look similar.
 
 ```ts
 export class ClawesomeComponent implements DynamicComponent {
@@ -334,7 +334,7 @@ export class DepartmentComponent implements OnInit, OnDestroy {
 }
 ```
 
-Let's talk through the `loadComponent` method in a little more detail. First, we're making sure we're rotating through the messages sequentially by keeping track of where in the array we are, then clearing out the previous component. To dynamically load the component, we use the directive as an anchor and create the component into its position in the DOM. The `createComponent` method requires the component type, not the instance. We use the base interface as a generic type for all the components and use concrete component type in the method parameter.
+Let's talk through the `loadComponent` method in a little more detail. First, we make sure we're rotating through the messages sequentially by keeping track of where in the array we are, then clearing out the previous component. To dynamically load the component, we use the directive as an anchor and create the component into its position in the DOM. The `createComponent` method requires the component type, not the instance. We use the base interface as a generic type for all the components, and use concrete component type in the method parameter.
 
 If you look at your app, you'll see the components rotating!
 
@@ -346,7 +346,7 @@ Now we can start customizing based on the user information.
 
 Make a note of the `Issuer` and the `Client ID`. You will need them in the following steps.
 
-We can use the Okta provided Angular SDK to connect to the OIDC client quickly. Add the two packages by running the following command.
+We can use the Okta-provided Angular SDK to connect to the OIDC client quickly. Add the two packages by running the following command.
 
 ```bash
 npm install @okta/okta-angular@4 @okta/okta-auth-js@5.8 --save
@@ -393,7 +393,7 @@ We also want to guard the `Protected` component route to authenticated users. Ok
 const routes: Routes = [{ path: '', component: ProtectedComponent, canActivate: [OktaAuthGuard] }];
 ```
 
-For the actual logging in part, open `src/app/menu/menu.component.ts` to add a menu with login and logout buttons. We'll use some Okta provided code to log in, log out, and identify the authenticated state. Update the component code to match the code below.
+For the actual logging in, open `src/app/menu/menu.component.ts` to add a menu with login and logout buttons. We'll use some Okta-provided code to log in, log out, and identify the authenticated state. Update the component code to match the code below.
 
 {% raw %}
 ```ts
@@ -494,7 +494,7 @@ export class MessageItem {
 }
 ```
 
-When we created the dynamic components earlier, they all implemented the same base interface, `DynamicComponent`. Since all the dynamic components have some data, we need to update the `DynamicComponent` interface to reflect this shared property that all components will implement.
+When we created the dynamic components earlier, they all implemented the same base interface, `DynamicComponent`. Since all the dynamic components have some data, we need to update the `DynamicComponent` interface to reflect this shared property that all the components will implement.
 
 Open `src/app/protected/department/dynamic.component.ts` and add a property named `data` of type `MessageData` to it. The interface now looks like the following.
 
@@ -585,7 +585,7 @@ Navigate to the **Profile** tab and press **Edit**. Scroll down to **Department*
 
 Since we see different content by user claim, it's helpful to have more than one user. If you have a second user, update their department name to `2`, but you can also edit the department value between logging in.
 
-For the claim, navigate to **Security** > **API** and select your Authorization Server to edit in the Okta dashboard. If you are using a Developer Account, you'll have one named "default". In your "default" Authorization Server, navigate to the **Claims** tab. Press the **Add Claim** button to create a new claim. Name your claim "department", always include it in the "ID Token", and set it to value to `user.profile.department`. Your inputs should look like the image below.
+For the claim, navigate to **Security** > **API** and select your Authorization Server to edit in the Okta dashboard. If you are using a Developer Account, you'll have one named "default". In your "default" Authorization Server, navigate to the **Claims** tab. Press the **Add Claim** button to create a new claim. Name your claim "department", always include it in the "ID Token", and set its value to `user.profile.department`. Your inputs should look like the image below.
 
 {% img blog/angular-dynamic-components/add-claim.jpg alt:"add claim form inputs" width:"800" %}{: .center-image }
 
@@ -693,7 +693,7 @@ public getMessages(department: number): MessageItem[] {
 }
 ```
 
-Next, we need to call this service method. To do so, we'll need to read the claims values of the authenticated user and pass in the department to the `getMessages` method. We'll access the claim through the ID token from Okta's auth state subject. Even though we're in a guarded route, we'll still add the safety measures to verify the user authentication and to return a default value if the claim isn't on the ID token for some reason. Open `src/app/protected/protected.component.ts` and update to the following code.
+Next, we need to call this service method. To do so, we'll read the claims values of the authenticated user and pass in the department to the `getMessages` method. We'll access the claim through the ID token from Okta's auth state subject. Even though we're in a guarded route, we'll still add the safety measures to verify the user authentication, and to return a default value if the claim isn't on the ID token for some reason. Open `src/app/protected/protected.component.ts` and update to the following code.
 
 ```ts
 export class ProtectedComponent implements OnInit {  
@@ -756,7 +756,7 @@ componentRef.instance.data = message.data;
 ```
 {% endraw %}
 
-Now everything should compile, and you have a working app that displays a rotating set of cute animals images to help you power through working on that task list. Try logging in as a user with a different department (or change the department value for yourself in the Okta dashboard) to see the various dynamic components at work.
+Now everything should compile, and you should have a working app that displays a rotating set of cute animals images to help you power through working on that task list. Try logging in as a user with a different department (or change the department value for yourself in the Okta dashboard) to see the various dynamic components at work.
 
 You can find the code for [this project on GitHub](https://github.com/oktadev/okta-angular-dynamic-components-example).
 
@@ -764,7 +764,7 @@ We did a lot in this tutorial and had a lot of dependencies on Material and Okta
 
 ## Learn more
 
-We covered a lot in this post, tried out a new API, and checked out some cool concepts. If you liked this post, check out the following.
+We covered a lot in this post, tried out a new API, and explored some cool concepts. If you liked this post, check out the following.
 
 * [A Beginner's Guide to JWTs](/blog/2020/12/21/beginners-guide-to-jwt)
 * [What You Need to Know about Angular v13](/blog/2021/11/10/angular-v13)
