@@ -17,7 +17,7 @@ Businesses have unique and complex needs. In addition to the user or organizatio
 
 In [Angular](https://angular.io), you can show different components or even parts of templates conditionally using built-in directives such as `*ngIf`. But as the number of conditions to evaluate or the differences in the view change, managing the correct view to display becomes difficult. These types of scenarios are where [dynamic components](https://angular.io/guide/dynamic-component-loader) are helpful. Angular has the mechanics to load components at runtime so you can dynamically display content. 
 
- After following the instructions in this post, you'll have an Angular app using Material controls that displays unique content based on an authenticated user's claim value.
+ After following the instructions in this post, you'll have an Angular app using [Angular Material](https://material.angular.io) UI controls that displays unique content based on an authenticated user's claim value.
 
 The main flow for the application is after initially launching a welcome page; you'll log in using Okta from a button in the toolbar and redirect to the guarded content. The toolbar now displays your name, and you'll see a rotation of dynamically created components based on a user claim from your ID token.
 
@@ -37,12 +37,12 @@ If you are new to Angular, check out the following fantastic resources and guide
 * [Angular Quickstart](https://angular.io/guide/what-is-angular)
 * [A Quick Guide to Angular and GraphQL](/blog/2021/10/22/angular-graphql#integrate-oidc-for-auth)
 
+{% include toc.md %}
+
 **Prerequisites**
-* A valid version of [Node](https://nodejs.org/) for Angular v13, such as Node 14.15
+* A valid version of [Node.js](https://nodejs.org/) for Angular v13, such as Node.js 14.15
 * [Angular CLI](https://cli.angular.io)
 * [Okta CLI](https://cli.okta.com/)
-
-{% include toc.md %}
 
 ## Scaffold the Angular application
 
@@ -73,6 +73,8 @@ Run the following command with preset values to add the Angular Material v13 lib
 ```bash
  ng add @angular/material@13 --theme=custom --typography=true --animations=true
 ```
+
+Feel free to serve the app using `ng run` or `npm start` in a second terminal so you can view the changes as you progress through this post. 
 
 ## Create components for the initial view
 
@@ -252,7 +254,7 @@ When we add authentication, we'll automatically route to it.
 
 Next, let's get into this exciting dynamic component loading part! Here's how this works. The `Department` component is the container for the dynamic components, and controls which component to show. The `Department` component HTML template contains an `ng-template` element with a helper directive to identify where to add the dynamic component to the view.
 
-Angular v13 included updates to their API to make working with dynamic components more straightforward. We could use Angular Component Development Kit (CDK) [Portals](https://material.angular.io/cdk/portal/overview) instead since it has extra helper functionality, but let's take the updated Angular APIs out for a spin. 😁
+Angular v13 included updates to the `ViewContainerRef` API to make working with dynamic components more straightforward. We could use Angular Component Development Kit (CDK) [Portals](https://material.angular.io/cdk/portal/overview) instead since it has extra helper functionality, but let's take the updated API out for a spin. 😁
 
 Each of the dynamic components needs the same base component interface. In our case, the base component interface is the `DynamicComponent` interface. Open each dynamic component file, `Clawesome`, `Pawesome`, and `Smiley`, and implement the `DynamicComponent` interface to the class. The interface is empty now, but we'll add members later. Feel free to remove the `OnInit` lifecycle hook too. The `Clawesome` component class looks like the following example, and the `Pawesome` and `Smiley` component classes should look similar.
 
@@ -296,7 +298,7 @@ We use the `ViewChild` decorator on the `Dynamic` directive to access where to i
 
 ```ts
 export class DepartmentComponent implements OnInit, OnDestroy {  
- @ViewChild(DynamicDirective, {static: true}) private dynamicHost!: DynamicDirective;  
+  @ViewChild(DynamicDirective, {static: true}) private dynamicHost!: DynamicDirective;  
   private interval: number|undefined;  
   private currentIndex = 1;  
   
@@ -575,7 +577,7 @@ export class SmileyComponent implements DynamicComponent {
 ```
 {% endraw %}
 
-The rotating components look a little goofy now and you'll see a lot of errors in the console, but we'll get it fixed up here soon.
+The rotating components look a little goofy now and you'll see a lot of errors in the console, but we'll get it fixed up soon.
 
 ## Add claim in Okta dashboard
 
