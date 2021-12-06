@@ -413,9 +413,9 @@ For the actual logging in part, open `src/app/menu/menu.component.ts` to add a m
     </mat-menu>
   `
 })
-export class MenuComponent implements OnInit {  
+export class MenuComponent implements OnInit, OnDestroy {  
   public isAuthenticated = false;  
-  private destroySub$ = new Subject<void>();  
+  private _destroySub$ = new Subject<void>();  
   
   constructor(private _oktaAuth: OktaAuth, private _authStateService: OktaAuthStateService, private _router: Router) { }  
   
@@ -424,11 +424,15 @@ export class MenuComponent implements OnInit {
      filter((s: AuthState) => !!s),  
      map((s: AuthState) => s.isAuthenticated ?? false),  
      distinctUntilChanged(),  
-     takeUntil(this.destroySub$)
+     takeUntil(this._destroySub$)
    ).subscribe(
      (authenticated: boolean) => this.isAuthenticated = authenticated
    );  
   }  
+
+  public ngOnDestroy(): void {
+    this._destroySub.next();
+  }
   
   public async login(): Promise<void> {  
     await this._oktaAuth.signInWithRedirect().then(  
