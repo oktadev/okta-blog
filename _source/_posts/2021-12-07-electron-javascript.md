@@ -22,7 +22,7 @@ Matt Raible wrote a blog post [about using Electron with Okta](/blog/2018/09/17/
 
 {% img blog/electron-javascript/pkce-flow.png alt:"OAuth flow with PKCE" width:"800" %}{: .center-image }
 
-Both of these approaches require a callback path where Okta can send the authentication code to be processed by your application. For some companies,allowing `localhost` to receive the response from Okta may pose a security concern. There are many ways to handle this, but in this article, you will use [Okta's Auth JS SDK](https://www.npmjs.com/package/@okta/okta-auth-js). This SDK exposes a `signInWithCredentials()` method that you can use to authenticate your users.
+Both of these approaches require a callback path where Okta can send the authentication code to be processed by your application. For some companies, allowing `localhost` to receive the response from Okta may pose a security concern. There are many ways to handle this, but in this article, you will use [Okta's Auth JS SDK](https://www.npmjs.com/package/@okta/okta-auth-js). This SDK exposes a `signInWithCredentials()` method that you can use to authenticate your users.
 
 ## Create an OpenID Connect application
 
@@ -264,7 +264,7 @@ Finally, add a `home.html` file and provide a landing page for authenticated use
 
 The logout button calls your `electron` API from the `preload.js` file. You are also displaying the user's name from Okta. This helps verify that the user is logged in and who they signed in as.
 
-This page has been left intentionally simple for a very good reason. Electron doesn't care what frontend you use. This could be a full-fledged React application or could have very little JavaScript at all. How you handle managing the application and user state is up to you. But by using the Okta SDKs you can securely authenticate your users, and push them into the application state you need.
+This page has been left intentionally simple for a very good reason. Electron doesn't care what frontend you use. This could be a full-fledged React application or could have very little JavaScript at all. How you handle managing the application and user state is up to you. But, by using the Okta SDKs you can securely authenticate your users, and push them into the application state you need.
 
 With your application ready, you can use the command `npm start` or run your debugger to see the application. You will see a warning in your console when starting:
 
