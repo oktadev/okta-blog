@@ -15,6 +15,9 @@ tweets:
 - "Want to learn the basics of Deno and build your first Deno app? Check this out!"
 image: "blog/first-deno-with-auth/social-image.png"
 type: conversion
+changelog: 
+  - 2021-12-07: Updated GitHub repo with dependency updates and post to use Okta CLI. You can see the changes in the [example app on GitHub](https://github.com/oktadev/okta-deno-auth-example/pull/2). Changes to this article can be viewed in [oktadev/okta-blog#???](https://github.com/oktadev/okta-blog/pull/???).
+---
 ---
 
 The creator of Node.js, Ryan Dahl has authored a new framework for designing web applications. He went back and fixed some mistakes he made in hindsight, taking advantage of new technologies that were not available at the time he originally wrote Node. The result is [Deno](https://deno.land) (pronounced DEH-no), a framework for writing "Node-like" web applications in TypeScript. Here, I will walk you through creating a basic web application with authentication.
@@ -30,7 +33,7 @@ There aren't any basic scaffolding libraries that I could find, so I just starte
 One thing that is different about Deno is that there are no package managers for bringing in third-party libraries. You do this by using the library's full URL. Do that at the top of the `index.ts` file, then set up a basic web application.
 
 ```ts
-import { opine } from 'https://deno.land/x/opine@0.12.0/mod.ts';
+import { opine } from 'https://deno.land/x/opine@2.0.0/mod.ts';
 
 const app = opine();
 
@@ -56,9 +59,9 @@ The `-A` is a shortcut for development purposes. Deno is completely locked down 
 While this is a good first step, it's not very useful. You'll want to add some _real_ functionality that's a little more "real-world", so change the `index.ts` file so that the contents are:
 
 ```ts
-import { opine, serveStatic } from 'https://deno.land/x/opine@0.12.0/mod.ts';
-import { renderFileToString } from 'https://deno.land/x/dejs@0.7.0/mod.ts';
-import { join, dirname } from 'https://deno.land/x/opine@main/deps.ts';
+import { opine, serveStatic } from 'https://deno.land/x/opine@2.0.0/mod.ts';
+import { renderFileToString } from 'https://deno.land/x/dejs@0.10.1/mod.ts';
+import { join, dirname } from 'https://deno.land/x/opine@2.0.0/deps.ts';
 
 import { ensureAuthenticated } from './middleware/authmiddleware.ts';
 import users from './controllers/usercontroller.ts';
@@ -91,7 +94,7 @@ The line below the instantiation of the `opine()` app creates a reference to the
 Now, you'll want to create some of the missing pieces that you imported above. Start with the routes. Create a folder called `controllers` in the root of the application. Then add a `usercontroller.ts` file inside that folder with the following contents:
 
 ```ts
-import { Router } from 'https://deno.land/x/opine@0.12.0/mod.ts';
+import { Router } from 'https://deno.land/x/opine@2.0.0/mod.ts';
 
 const users = new Router();
 
@@ -160,13 +163,9 @@ Again, this page includes the header and footer, and loops through the propertie
 
 ## Add Authentication with Okta
 
-If you don't already have an Okta account, you can get a free developer account [here](https://developer.okta.com/signup). Once you've signed into Okta, you'll land on the dashboard. You'll need to create an Okta application to take advantage of Okta as an Identity Provider for your project.
+{% include setup/cli.md type="web" loginRedirectUri="http://localhost:3000/auth/callback" logoutRedirectUri="http://localhost:3000" %}
 
-Click on **Applications** in the menu, then **Add Application**. This will take you to the application wizard. Choose **Web** for your platform, then click **Next**. The next page is the **Application Settings** page. Give your application a name (I named mine DenoExample). Change all the URLs to use port `3000` instead of `8080`, then change the **Login Redirect URIs** to `http://localhost:3000/auth/callback`. This is a route you'll be implementing shortly. Finally, click **Done** to finish creating the application in Okta.
-
-{% img blog/first-deno-with-auth/okta-app-settings.png alt:"Okta App Settings" width:"700" %}{: .center-image }
-
-Once you're on the page for your newly-created application, make sure you're on the **General Settings** tab and scroll to the bottom until you see a **Client Credentials** section. You'll be using these values momentarily, so keep this window open.
+Make note of the `ISSUER`, `CLIENT_ID`, and `CLIENT_SECRET` values from the `.okta.env` file. You'll need these 3 values for the next step.
 
 Back in your application, create a new file in the root of the application called `.env`. The contents of the file will be:
 
@@ -178,12 +177,12 @@ redirectUrl=http://localhost:3000/auth/callback
 state=SuPeR-lOnG-sEcReT
 ```
 
-Copy the Client ID and Client Secret from the **Client Credentials** section of your Okta application. Then go back to the dashboard and copy your Okta org URL from the right-hand side just below the menu. 
+Copy the Client ID, Client Secret, and Issuer from the `.okta.env` file and populate the values in the `.env` file.
 
 Now you're ready to start talking to Okta for authentication. Unfortunately, I couldn't find any OpenID Connect (OIDC) libraries to make authentication with OAuth 2.0 and OIDC easier than this, so you'll have to create it by hand. However, this can be an awesome exercise to help understand how OAuth and OIDC work. In the root folder of your application, create a new folder called `middleware` and add a file called `authmiddleware.ts`. Then add this content:
 
 ```ts
-import { config } from 'https://deno.land/x/dotenv/mod.ts';
+import { config } from 'https://deno.land/x/dotenv@v3.1.0/mod.ts';
 
 export const ensureAuthenticated = async (req:any, res:any, next:any) => {
   const user = req.app.locals.user;
@@ -204,8 +203,8 @@ If there isn't a currently logged in user, it builds a URL made up of the issuer
 Next, you'll need to implement the `auth/callback` route to handle the result from the login page and exchange the authorization code that you'll receive from Okta. Create a file called `authcontroller.ts` in the `controllers` folder with the contents:
 
 ```ts
-import { Router } from 'https://deno.land/x/opine@0.12.0/mod.ts';
-import { config } from "https://deno.land/x/dotenv/mod.ts";
+import { Router } from 'https://deno.land/x/opine@2.0.0/mod.ts';
+import { config } from "https://deno.land/x/dotenv@3.1.0/mod.ts";
 
 const auth = new Router();
 
@@ -232,13 +231,14 @@ auth.get('/callback', async (req, res) => {
   });
  
   const data = await response.json();
-  if (response.status !== 200) {
+  if (!response.ok) {
     res.send(data);
+  } else {
+    const user = parseJwt(data.id_token);
+    req.app.locals.user = user;
+    req.app.locals.isAuthenticated = true;
+    res.location(req.query.state.split(':')[1] || '/').sendStatus(302);
   }
-  const user = parseJwt(data.id_token);
-  req.app.locals.user = user;
-  req.app.locals.isAuthenticated = true;
-  res.location(req.query.state.split(':')[1] || '/').sendStatus(302);
 });
 
 function parseJwt(token:string) {
