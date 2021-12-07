@@ -762,7 +762,7 @@ Now everything should compile, and you should have a working app that displays a
 
 You can find the code for [this project on GitHub](https://github.com/oktadev/okta-angular-dynamic-components-example).
 
-We did a lot in this tutorial and had a lot of dependencies on Material and Okta libraries. Please check out [this commit](https://github.com/oktadev/okta-angular-dynamic-components-example/commit/3f1e18092e30ee17c8722b73899a52adb825be50) to see the changes required to run tests and mock the Okta services.
+We did a lot in this tutorial and had a lot of dependencies on Material and Okta libraries. Please check out [this commit](https://github.com/oktadev/okta-angular-dynamic-components-example/commit/3f1e18092e30ee17c8722b73899a52adb825be50) to see the changes required to run tests and create mocks of the Okta services.
 
 ## Learn more
 
