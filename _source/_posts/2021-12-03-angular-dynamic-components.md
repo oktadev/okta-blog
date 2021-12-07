@@ -10,12 +10,12 @@ tweets:
 - "Use dynamic component loading for ultimate flexibility! Build an @angular app with dynamic components."
 - "Showing components conditionally is a breeze with dynamic components in @angular. See how in this tutorial."
 image: blog/angular-dynamic-components/social.jpg
-type: awareness
+type: conversion
 ---
 
 Businesses have unique and complex needs. In addition to the user or organization-specific data to show, there might be a need to display different views and content conditionally. The conditions might include the user's role or which department they belong to.  The information about a user might be part of the authenticated user's [ID token as a profile claim](/blog/2017/07/25/oidc-primer-part-1).
 
-In [Angular](https://angular.io), you can show different components or even parts of templates conditionally using built-in directives such as `*ngIf`. But as the number of conditions to evaluate or the differences in the view change, managing the correct view to display becomes difficult. These types of scenarios are where [dynamic components](https://angular.io/guide/dynamic-component-loader) are helpful. Angular has the mechanics to load components at runtime so you can dynamically display content. 
+In [Angular](https://angular.io), you can show different components or even parts of templates conditionally using built-in directives such as `*ngIf`. Using `*ngIf` works when the amount of conditional template changes are small, but what if the view has a lot changes, or if the number of conditions to evaluate increases? Managing the correct view only by using `*ngIf` becomes difficult. These types of scenarios are where [dynamic components](https://angular.io/guide/dynamic-component-loader) are helpful. Angular has the mechanics to load components at runtime so you can dynamically display content. 
 
  After following the instructions in this post, you'll have an Angular app using [Angular Material](https://material.angular.io) UI controls that displays unique content based on an authenticated user's claim value.
 
