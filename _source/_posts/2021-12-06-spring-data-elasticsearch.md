@@ -59,24 +59,57 @@ cd blog
 okta apps create jhipster
 ```
 
-Modify the Docker Compose file, to configure Okta as the OIDC provider for the `gateway` and `blog` service:
+
+Find the `blog` credentials in the files `blog/.okta.env` and  `gateway/.okta.env`. Their content should look like the following example:
+
+```shell
+export SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET={clientSecret}
+export SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI="https://{yourOktaDomain}/oauth2/default"
+export SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID={clientId}
+```
+
+The JHipster Registry is a also a Spring Cloud Config server, and by default it is configured with the profiles `dev` and `native`, which means the configuration will be provided from the location `docker-compose/central-config`. Let's add some files so it can provide the OAuth2 configuration to the microservices.
+Create the folder `docker-compose/central-config` and add the file `blog-prod.yml` with the following content:
+
+```yml
+security:
+  oauth2:
+    client:
+      provider:
+        oidc:
+          issuer-uri: https://{yourOktaDomain}/oauth2/default
+      registration:
+        oidc:
+          client-id: {blogClientId}
+          client-secret: {blogClientSecret}
+```
+
+Add also the file `gateway-prod.yml` with the following content:
+
+```yml
+security:
+  oauth2:
+    client:
+      provider:
+        oidc:
+          issuer-uri: https://{yourOktaDomain}/oauth2/default
+      registration:
+        oidc:
+          client-id: {gatewayClientId}
+          client-secret: {gatewayClientSecret}
+```
+
+
+For the experimentation in this tutorial, it will be very useful to configure the Kibana interface for Elasticsearch, which will allow visualizations of the Elasticsearch data.
+Edit `docker-compose/docker-compose.yml` and add the Kibana service like this:
 
 ```yml
 services:
-  gateway:
-    image: gateway
-    environment:
-      ...
-      - SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=${OKTA_ISSUER}
-      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=${GATEWAY_CLIENT_ID}
-      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=${GATEWAY_CLIENT_SECRET}
-      ...
-  blog:
-    image: blog
-    environment:
-      ...
-      - SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI==${OKTA_ISSUER}
-      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=${BLOG_CLIENT_ID}l
-      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=${BLOG_CLIENT_SECRET}l
-      ...
+  blog-kibana:
+     image: docker.elastic.co/kibana/kibana:7.13.3
+     ports:
+       - 5601:5601
+     environment:
+       ELASTICSEARCH_URL: http://blog-elasticsearch:9200
+       ELASTICSEARCH_HOSTS: '["http://blog-elasticsearch:9200"]'
 ```
