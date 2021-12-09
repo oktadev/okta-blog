@@ -60,7 +60,7 @@ I don't think Stack Overflow tags indicate that developers have a hard time with
 5. AngularJS
 6. Vue.js
 
-Angular is still very popular among developers. If you're developing an Angular app today, you probably need a way to authenticate your users. That's where OpenID Connect (OIDC) comes in. OIDC is a layer on top of OAuth 2.0 that provides identity. 
+Angular is still very popular among developers. If you're developing an Angular app today, you probably need a way to authenticate your users. That's where OpenID Connect (OIDC) can help you. OIDC is a layer on top of OAuth 2.0 that provides identity. 
 
 In this tutorial, I'll how you to add OIDC authentication with Auth0 to a new Angular app in just a few steps. 
 
@@ -68,7 +68,6 @@ In this tutorial, I'll how you to add OIDC authentication with Auth0 to a new An
 
 * A favorite text editor or IDE. I recommend [IntelliJ IDEA](https://www.jetbrains.com/idea/), but I know many JavaScript developers prefer [Visual Studio Code](https://code.visualstudio.com/).
 * [Node.js](http://nodejs.org/) v14+ and npm installed.
-* [Angular CLI](https://angular.io/cli) installed. If you don't have the Angular CLI installed, install it using `npm install -g @angular/cli@13`.
 
 {% include toc.md %}
 
@@ -77,21 +76,20 @@ In this tutorial, I'll how you to add OIDC authentication with Auth0 to a new An
 First, you'll need to create a new Angular app with routing enabled.
 
 ```shell
-ng new auth0-demo --routing
+npx @angular/cli@13 new auth0-demo --routing
 ```
 
 Select your favorite stylesheet format. The selection you make doesn't matter for this example.
 
 ## Add Auth with OpenID Connect
 
-To add authentication with Auth0, you'll first need a [free Auth0 account](https://auth0.com/signup). Install the [Auth0 CLI](https://github.com/auth0/auth0-cli#installation) and run `auth0 login` to register your account. Then, run `auth0 apps create`. Specify a name and description of your choosing. Choose **Single Page Web Application** and use `http://localhost:4200/home` for the Callback URL. Specify `http://localhost:4200` for the rest of the URLs.
+To add authentication with Auth0, you'll first need a [free Auth0 account](https://auth0.com/signup). Install the [Auth0 CLI](https://github.com/auth0/auth0-cli#installation) and run `auth0 login` to register your account. Then, run `auth0 apps create`. Specify a name and description of your choosing. Select **Single Page Web Application** and use `http://localhost:4200/home` for the Callback URL. Specify `http://localhost:4200` for the rest of the URLs.
 
 {% img blog/angular-auth0/auth0-apps-create.png alt:"auth0 apps create" width:"800" %}{: .center-image }
 
 Once you have a new Angular app and Auth0 OIDC set up, you can use [OktaDev Schematics](https://github.com/oktadev/schematics#angular--auth0) to add OAuth 2.0 and OIDC support to your Angular app.
 
 ```shell
-cd auth0-demo
 ng add @oktadev/schematics --auth0
 ```
 
@@ -113,6 +111,18 @@ This process will perform the following steps for you:
 
 To see all the changes it makes to your files, see [this pull request on GitHub](https://github.com/oktadev/auth0-angular-example/pull/1/files). 
 
+### Use the Auth0 Console instead of the CLI
+
+You can also use the Auth0 Console to create an OIDC app:
+
+* [Log in](https://auth0.com/auth/login) to Auth0 or [create an account](https://auth0.com/signup) if you don't have one. Go to **Applications** > **Create Application**.
+* Choose **Single Page Web Applications** as the application type and click **Create**.
+* Click **Angular**, then the **Settings** tab.
+* Add `http://localhost:4200/home` as an Allowed Callback URL and `http://localhost:4200` as a Logout URL.
+* Specify `http://localhost:4200` as an Allowed Origin and click **Save Changes** at the bottom.
+
+### Test your Angular authentication flow
+
 Run `ng serve` in your app, and you should see a login button at `http://localhost:4200/home`.
 
 {% img blog/angular-auth0/auth0-login-button.png alt:"Auth0 Login button" width:"800" %}{: .center-image }
@@ -125,21 +135,11 @@ You'll be redirected back to your app and a **Logout** button will be displayed 
 
 {% img blog/angular-auth0/auth0-logout-button.png alt:"Auth0 Logout button" width:"800" %}{: .center-image }
 
-### Use the Auth0 Console instead of the CLI
-
-You can also use the Auth0 Console:
-
-* [Log in](https://auth0.com/auth/login) to Auth0 or [create an account](https://auth0.com/signup) if you don't have one. Go to **Applications** > **Create Application**.
-* Choose **Single Page Web Applications** as the application type and click **Create**.
-* Click **Angular**, then the **Settings** tab.
-* Add `http://localhost:4200/home` as an Allowed Callback URL and `http://localhost:4200` as a Logout URL.
-* Specify `http://localhost:4200` as an Allowed Origin and click **Save Changes** at the bottom.
-
 ### Display the authenticated user's name
 
 To display the authenticated user's name, you can use the `user$` observable on the `AuthService` instance.
 
-Modify `src/app/home/home.component.html` to display a welcome message to the user and provide them with a link to search.
+Modify `src/app/home/home.component.html` to display a welcome message to the user.
 
 {% raw %}
 ```html
