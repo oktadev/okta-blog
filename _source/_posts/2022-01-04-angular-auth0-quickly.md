@@ -92,8 +92,6 @@ Once you have a new Angular app and Auth0 OIDC set up, you can use [OktaDev Sche
 
 ```shell
 cd auth0-demo
-# --force required until https://github.com/auth0/auth0-angular/issues/241 is fixed
-npm i @auth0/auth0-angular --force
 ng add @oktadev/schematics --auth0
 ```
 
