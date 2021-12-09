@@ -17,7 +17,7 @@ image: blog/native-java-comparison/native-java.png
 type: conversion
 github: https://github.com/oktadev/native-java-examples
 changelog:
-- 2021-12-09: Updated to use Micronaut 3.2.1 and Spring Native 0.11.0. See this post's changes in [okta-blog#996](https://github.com/oktadev/okta-blog/pull/986) and the example app changes in [native-java-examples#10](https://github.com/oktadev/native-java-examples/pull/10).
+- 2021-12-09: Updated to use Micronaut 3.2.1 and Spring Native 0.11.0. See this post's changes in [okta-blog#993](https://github.com/oktadev/okta-blog/pull/993) and the example app changes in [native-java-examples#10](https://github.com/oktadev/native-java-examples/pull/10).
 - 2021-12-02: Updated to use Java 17, Micronaut 3.2.0, Quarkus 2.5.1, and Spring Boot 2.6.1. See this post's changes in [okta-blog#986](https://github.com/oktadev/okta-blog/pull/986) and the example app changes in [native-java-examples#9](https://github.com/oktadev/native-java-examples/pull/9).
 - 2021-10-07: Updated to use Micronaut 3.0.3, Quarkus 2.3.0.Final, and Spring Boot 2.5.5. Changed Spring Boot to create binary instead of Docker image and updated startup performance stats. See this post's changes in [okta-blog#913](https://github.com/oktadev/okta-blog/pull/913) and the example app changes in [native-java-examples#7](https://github.com/oktadev/native-java-examples/pull/7).
 - 2021-09-16: Updated to use macOS binary (`./mvnw package -Pnative`) when calculating memory usage for Spring Boot. See the updates in [okta-blog#887](https://github.com/oktadev/okta-blog/pull/887).
