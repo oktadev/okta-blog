@@ -16,7 +16,7 @@ tweets:
 image: "blog/first-deno-with-auth/social-image.png"
 type: conversion
 changelog: 
-  - 2021-12-07: Updated GitHub repo with dependency updates and post to use Okta CLI. You can see the changes in the [example app on GitHub](https://github.com/oktadev/okta-deno-auth-example/pull/2). Changes to this article can be viewed in [oktadev/okta-blog#???](https://github.com/oktadev/okta-blog/pull/???).
+  - 2021-12-010: Updated GitHub repo and blog post with dependency updates. You can see the changes in the [example app on GitHub](https://github.com/oktadev/okta-deno-auth-example/pull/3). Changes to this article can be viewed in [oktadev/okta-blog#991](https://github.com/oktadev/okta-blog/pull/991).
 ---
 ---
 
@@ -161,6 +161,41 @@ This includes the footer and header partials and adds a link to the profile page
 
 Again, this page includes the header and footer, and loops through the properties of the `user` object. Granted, it's not a super-sexy profile page, but it will let you know that the authentication steps all worked.
 
+
+## Manage your dependencies
+
+Now that you created your second file, and imported the same dependencies, it's easy to see what a chore managing and updating them will be. Deno recommends placing all imports in a single `deps.ts` file to centralize dependencies. 
+
+Create a file named `deps.ts` in the root of the application. This time you'll export the dependencies you used, so the `deps.ts` file looks like this:
+
+```ts
+export {
+    opine, serveStatic, Router
+} from 'https://deno.land/x/opine@2.0.0/mod.ts';
+
+export { renderFileToString } from 'https://deno.land/x/dejs@0.10.1/mod.ts';
+export { join, dirname } from 'https://deno.land/x/opine@2.0.0/deps.ts';
+```
+
+Open `index.ts` to update the import statements. You'll now import the dependencies from `deps.ts`. The library imports in the `index.ts` file becomes:
+
+```ts
+import { 
+  opine,
+  serveStatic,
+  renderFileToString,
+  join,
+  dirname } from './deps.ts';
+```
+
+Open the `controllers/usercontroller.ts` file to update the import there. The import statement changes to:
+
+```ts
+import { Router } from './../deps.ts';
+```
+
+You'll use dependencies exported from `deps.ts` going forward in this post.
+
 ## Add Authentication with Okta
 
 {% include setup/cli.md type="web" loginRedirectUri="http://localhost:3000/auth/callback" logoutRedirectUri="http://localhost:3000" %}
@@ -179,10 +214,22 @@ state=SuPeR-lOnG-sEcReT
 
 Copy the Client ID, Client Secret, and Issuer from the `.okta.env` file and populate the values in the `.env` file.
 
-Now you're ready to start talking to Okta for authentication. Unfortunately, I couldn't find any OpenID Connect (OIDC) libraries to make authentication with OAuth 2.0 and OIDC easier than this, so you'll have to create it by hand. However, this can be an awesome exercise to help understand how OAuth and OIDC work. In the root folder of your application, create a new folder called `middleware` and add a file called `authmiddleware.ts`. Then add this content:
+First, open `deps.ts` and export a library for reading the `.env` file. The [dotenv](https://deno.land/x/dotenv) does this beautifully. Your `deps.ts` now looks like this:
 
 ```ts
-import { config } from 'https://deno.land/x/dotenv@v3.1.0/mod.ts';
+export {
+    opine, serveStatic, Router
+} from 'https://deno.land/x/opine@2.0.0/mod.ts';
+
+export { renderFileToString } from 'https://deno.land/x/dejs@0.10.1/mod.ts';
+export { join, dirname } from 'https://deno.land/x/opine@2.0.0/deps.ts';
+export { config } from 'https://deno.land/x/dotenv@v3.1.0/mod.ts';
+```
+
+You're ready to start talking to Okta for authentication. Unfortunately, I couldn't find any OpenID Connect (OIDC) libraries to make authentication with OAuth 2.0 and OIDC easier than this, so you'll have to create it by hand. However, this can be an awesome exercise to help understand how OAuth and OIDC work. In the root folder of your application, create a new folder called `middleware` and add a file called `authmiddleware.ts`. Then add this content:
+
+```ts
+import { config } from './../deps.ts';
 
 export const ensureAuthenticated = async (req:any, res:any, next:any) => {
   const user = req.app.locals.user;
@@ -196,15 +243,14 @@ export const ensureAuthenticated = async (req:any, res:any, next:any) => {
 }
 ```
 
-First, bring a library for reading the `.env` file. The [dotenv](https://deno.land/x/dotenv) does this beautifully. Then you'll implement the `ensureAuthenticated()` middleware that starts the first step of the authentication process. First, it checks to make sure the user isn't already logged in. If they are, it just calls `next()` because there is nothing to do.
+Then you'll implement the `ensureAuthenticated()` middleware that starts the first step of the authentication process. First, it checks to make sure the user isn't already logged in. If they are, it just calls `next()` because there is nothing to do.
 
 If there isn't a currently logged in user, it builds a URL made up of the issuer, clientId, redirectUrl, and state properties from the `.env` file. It makes a call to the `/v1/authorize` endpoint of the issuer's URL. It then redirects to that URL. This is a login page hosted by Okta. Kind of like when you're redirected to Google to log in with Google as the identity provider. The URL that it will call when login is done is the `http://localhost:3000/auth/callback` URL that's in the `.env` file. I've also tagged the original URL that the user was going to when they were redirected to the `state` query parameter. This will make it easy to direct them back there once they've logged in.
 
 Next, you'll need to implement the `auth/callback` route to handle the result from the login page and exchange the authorization code that you'll receive from Okta. Create a file called `authcontroller.ts` in the `controllers` folder with the contents:
 
 ```ts
-import { Router } from 'https://deno.land/x/opine@2.0.0/mod.ts';
-import { config } from "https://deno.land/x/dotenv@3.1.0/mod.ts";
+import { Router, config } from './../deps.ts';
 
 const auth = new Router();
 
