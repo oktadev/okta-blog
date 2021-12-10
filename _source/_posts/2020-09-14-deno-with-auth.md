@@ -164,7 +164,7 @@ Again, this page includes the header and footer, and loops through the propertie
 
 ## Manage your dependencies
 
-Now that you created your second file, and imported the same dependencies, it's easy to see what a chore managing and updating them will be. Deno recommends placing all imports in a single `deps.ts` file to centralize dependencies. 
+Now that you created your second file and imported the same dependencies, it's easy to see what a chore managing and updating them will be. Deno recommends placing all imports in a single `deps.ts` file to centralize dependencies. 
 
 Create a file named `deps.ts` in the root of the application. This time you'll export the dependencies you used, so the `deps.ts` file looks like this:
 
@@ -193,8 +193,6 @@ Open the `controllers/usercontroller.ts` file to update the import there. The im
 ```ts
 import { Router } from './../deps.ts';
 ```
-
-You'll use dependencies exported from `deps.ts` going forward in this post.
 
 ## Add Authentication with Okta
 
