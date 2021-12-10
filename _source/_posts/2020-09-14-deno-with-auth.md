@@ -20,7 +20,7 @@ changelog:
 ---
 ---
 
-The creator of Node.js, Ryan Dahl has authored a new framework for designing web applications. He went back and fixed some mistakes he made in hindsight, taking advantage of new technologies that were not available at the time he originally wrote Node. The result is [Deno](https://deno.land) (pronounced DEH-no), a framework for writing "Node-like" web applications in TypeScript. Here, I will walk you through creating a basic web application with authentication.
+The creator of Node.js, Ryan Dahl, has authored a new framework for designing web applications. He went back and fixed some mistakes he made in hindsight, taking advantage of new technologies that were not available at the time he originally wrote Node. The result is [Deno](https://deno.land) (pronounced DEH-no), a framework for writing "Node-like" web applications in TypeScript. Here, I will walk you through creating a basic web application with authentication.
 
 You can find almost all the information you need at the Deno website—along with information on all the third-party libraries that are currently available for Deno. That is really the biggest drawback to the framework right now. It just hit version 1.0 on May 13th of 2020, so even though there are quite a few essential libraries, there are not nearly as many libraries as there are for Node. For those who are proficient in Node however, the transition to Deno should be pretty easy.
 
@@ -162,9 +162,9 @@ This includes the footer and header partials and adds a link to the profile page
 Again, this page includes the header and footer, and loops through the properties of the `user` object. Granted, it's not a super-sexy profile page, but it will let you know that the authentication steps all worked.
 
 
-## Manage your dependencies
+## Manage Your Dependencies
 
-Now that you created your second file and imported the same dependencies, it's easy to see what a chore managing and updating them will be. Deno recommends placing all imports in a single `deps.ts` file to centralize dependencies. 
+Now that you've created your second file and imported the same dependencies, it's easy to see what a chore managing and updating them will be. Deno recommends placing all imports in a single `deps.ts` file to centralize dependencies. 
 
 Create a file named `deps.ts` in the root of the application. This time you'll export the dependencies you used, so the `deps.ts` file looks like this:
 
