@@ -16,8 +16,7 @@ tweets:
 image: "blog/first-deno-with-auth/social-image.png"
 type: conversion
 changelog: 
-  - 2021-12-010: Updated GitHub repo and blog post with dependency updates. You can see the changes in the [example app on GitHub](https://github.com/oktadev/okta-deno-auth-example/pull/3). Changes to this article can be viewed in [oktadev/okta-blog#991](https://github.com/oktadev/okta-blog/pull/991).
----
+  - 2021-12-10: Updated GitHub repo and blog post with dependency updates. You can see the changes in the [example app on GitHub](https://github.com/oktadev/okta-deno-auth-example/pull/3). Changes to this article can be viewed in [oktadev/okta-blog#991](https://github.com/oktadev/okta-blog/pull/991).
 ---
 
 The creator of Node.js, Ryan Dahl, has authored a new framework for designing web applications. He went back and fixed some mistakes he made in hindsight, taking advantage of new technologies that were not available at the time he originally wrote Node. The result is [Deno](https://deno.land) (pronounced DEH-no), a framework for writing "Node-like" web applications in TypeScript. Here, I will walk you through creating a basic web application with authentication.
