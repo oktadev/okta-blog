@@ -571,6 +571,9 @@ Quarkus: (18 + 18 + 18 + 17 + 17) / 5 = 17.6
 Spring Boot: (54 + 54 + 54 + 53 + 55) / 5 = 54
 ////
 
+[.scrollable]
+--
+
 .Native Java Startup times in milliseconds
 |===
 |Framework | Command executed | Milliseconds to start
@@ -579,6 +582,8 @@ Spring Boot: (54 + 54 + 54 + 53 + 55) / 5 = 54
 |Quarkus | `./target/quarkus-1.0.0-SNAPSHOT-runner` | 17.6
 |Spring Boot | `./target/demo` | 54
 |===
+
+--
 
 The chart below should help you visualize this comparison.
 
@@ -641,6 +646,9 @@ ps -o pid,rss,command | grep --color <executable> | awk '{$2=int($2/1024)"M";}{ 
 
 I substituted `<executable>` as follows:
 
+[.scrollable]
+--
+
 .Native Java memory used in megabytes
 |===
 |Framework | Executable | Megabytes before request | Megabytes after 1 request | Megabytes after 5 requests
@@ -649,6 +657,8 @@ I substituted `<executable>` as follows:
 |Quarkus | `runner` | 20 | 32 | 34
 |Spring Boot | `demo` | 48 | 62 | 63
 |===
+
+--
 
 ++++
 <div id="memory-usage"></div>
