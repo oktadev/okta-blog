@@ -24,7 +24,7 @@ type: conversion
 - [Docker Compose](https://docs.docker.com/compose/install/)
 
 
-## A JHipster Spring Boot Application with Elasticsearch
+## A JHipster Spring Boot Application with Spring Data Elasticsearch
 
 JHipster provides the Elasticsearch option to add search capabilities on top of your database. The integration is based on Spring Data Elasticsearch repositories, so let's generate a Blog application to explore what the generator provides. The sample Blog application built in this tutorial is based on the JHipster sample [reactive-ms.jdl](https://github.com/jhipster/jdl-samples/blob/main/reactive-ms.jdl), with some minor tweaks:
 
@@ -68,35 +68,37 @@ export SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI="https://{yourOkta
 export SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID={clientId}
 ```
 
-The JHipster Registry is a also a Spring Cloud Config server, and by default it is configured with the profiles `dev` and `native`, which means the configuration will be provided from the location `docker-compose/central-config`. Let's add some files so it can provide the OAuth2 configuration to the microservices.
-Create the folder `docker-compose/central-config` and add the file `blog-prod.yml` with the following content:
+The JHipster Registry is a also a Spring Cloud Config server, and by default it is configured with the profiles `dev` and `native`, which means the configuration will be provided from the location `docker-compose/central-server/config`. Let's add some files so it can provide the OAuth2 configuration to the microservices.
+Add the file `docker-compose/central-server-config/blog-prod.yml` with the following content:
 
 ```yml
-security:
-  oauth2:
-    client:
-      provider:
-        oidc:
-          issuer-uri: https://{yourOktaDomain}/oauth2/default
-      registration:
-        oidc:
-          client-id: {blogClientId}
-          client-secret: {blogClientSecret}
+spring:
+  security:
+    oauth2:
+      client:
+        provider:
+          oidc:
+            issuer-uri: https://{yourOktaDomain}/oauth2/default
+        registration:
+          oidc:
+            client-id: {blogClientId}
+            client-secret: {blogClientSecret}
 ```
 
-Add also the file `gateway-prod.yml` with the following content:
+Add also the file `docker-compose/central-server-config/gateway-prod.yml` with the following content:
 
 ```yml
-security:
-  oauth2:
-    client:
-      provider:
-        oidc:
-          issuer-uri: https://{yourOktaDomain}/oauth2/default
-      registration:
-        oidc:
-          client-id: {gatewayClientId}
-          client-secret: {gatewayClientSecret}
+spring:
+  security:
+    oauth2:
+      client:
+        provider:
+          oidc:
+            issuer-uri: https://{yourOktaDomain}/oauth2/default
+        registration:
+          oidc:
+            client-id: {gatewayClientId}
+            client-secret: {gatewayClientSecret}
 ```
 
 
@@ -113,3 +115,49 @@ services:
        ELASTICSEARCH_URL: http://blog-elasticsearch:9200
        ELASTICSEARCH_HOSTS: '["http://blog-elasticsearch:9200"]'
 ```
+
+Create the applications container image:
+
+```shell
+cd blog
+./mvnw -DskipTests -ntp -Pprod verify jib:dockerBuild
+```
+
+```shell
+cd gateway
+./mvnw -DskipTests -ntp -Pprod verify jib:dockerBuild
+```
+
+Run the architecture with Docker Compose:
+
+```shell
+cd docker-compose
+docker compose up
+```
+ Access the JHipster Registry at http://localhost:8761 and sign in with user=admin, password=admin.
+
+{% img blog/spring-data-elasticsearch/jhipster-registry.png alt:"JHipster Registry" width:"600" %}{: .center-image }
+
+ When you see all services up and green, go to http://localhost:8080 and sign in with your Okta account.
+
+ {% img blog/spring-data-elasticsearch/okta-signin.png alt:"Okta Sign In Form" width:"300" %}{: .center-image }
+
+
+ ## Inspecting Elasticsearch Index Mapping
+
+During sart up, Spring Data Elasticsarch will create the index for the entities annotated with `@Document`, deriving the mappings from the entity's annotation. As Kibana interface was configured in Docker Compose, before creating any entities, let's inspect the index mapping that were automatically created for the `blog` microservice.
+
+
+
+
+
+
+Go back to the application, and in the top right menu go to Entities > Tag and create some `Tag` entities. Then create some `Blog` and `Post` entities as well. As you can see, a saerch box is present in the entity list page. Go ahead and test the search functionality. The results page will return the matches with pagination.
+
+{% img blog/spring-data-elasticsearch/entity-search-box.png alt:"Entity Search Box" width:"800" %}{: .center-image }
+
+
+
+## Key Components in JHipster with Spring Data Elasticsarch
+
+The repository and the search repository.
