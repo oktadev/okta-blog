@@ -17,7 +17,7 @@ image: blog/socket-io-react-tutorial/socket-io-tutorial.png
 type: conversion
 github: https://github.com/oktadev/okta-socket-io-chat-example
 changelog:
-- 2021-12-15: Updated to use Socket.IO v4.4.0 and Okta React v6.3.0. See this post's changes in [okta-blog#993](https://github.com/oktadev/okta-blog/pull/993) and the example app changes in [okta-socket-io-chat-example#3](https://github.com/oktadev/okta-socket-io-chat-example/pull/3).
+- 2021-12-15: Updated to use Socket.IO v4.4.0 and Okta React v6.3.0. See this post's changes in [okta-blog#1001](https://github.com/oktadev/okta-blog/pull/1001) and the example app changes in [okta-socket-io-chat-example#3](https://github.com/oktadev/okta-socket-io-chat-example/pull/3).
 ---
 
 The HTTP protocol powers the web. Traditionally, HTTP is a request-response protocol. This means that a client requests data from a server, and the server responds to that request. In this model, a server will never send data to a client without having been queried first.
