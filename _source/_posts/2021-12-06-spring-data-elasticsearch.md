@@ -14,6 +14,9 @@ image:
 type: conversion
 ---
 
+
+Introduction to Spring Data Elasticsearch
+
 **Prerequisites**:
 
 - [HTTPie](https://httpie.io/)
@@ -22,6 +25,13 @@ type: conversion
 - [Okta CLI](https://cli.okta.com)
 - [Docker](https://docs.docker.com/engine/install/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
+
+
+## Integration Options for Spring Data Elasticsarch
+
+Options for integration, clients
+The search repository
+
 
 
 ## A JHipster Spring Boot Application with Spring Data Elasticsearch
@@ -143,21 +153,105 @@ docker compose up
  {% img blog/spring-data-elasticsearch/okta-signin.png alt:"Okta Sign In Form" width:"300" %}{: .center-image }
 
 
- ## Inspecting Elasticsearch Index Mapping
+## Inspecting Elasticsearch Index Mapping
 
-During sart up, Spring Data Elasticsarch will create the index for the entities annotated with `@Document`, deriving the mappings from the entity's annotation. As Kibana interface was configured in Docker Compose, before creating any entities, let's inspect the index mapping that were automatically created for the `blog` microservice.
+During start up, Spring Data Elasticsarch will create the index for the entities annotated with `@Document`, deriving the mappings from the entity's annotations. But for the properties, if the field type is not specified, it defaults to FieldType.Auto. This means, that no mapping entry is written for the property and that Elasticsearch will add a mapping entry dynamically when the first data for this property is stored.
 
+As Kibana interface was configured in Docker Compose, before creating any entities, let's inspect the index mapping that were automatically created for the `blog` microservice. Go to http://localhost:9200, the Kibana home. Then go to **Management** > **Stack Management** > **Index Management** > **Indices** tab. Besides the `user` index, an index per entity should be listed.
 
+{% img blog/spring-data-elasticsearch/kibana-indices.png alt:"Kibana Indices" width:"800" %}{: .center-image }
 
+Choose for example the `tag` index. The **Mappings** tab before persisting any instance will look like the following:
 
+```json
+{
+  "mappings": {
+    "_doc": {
+      "properties": {
+        "_class": {
+          "type": "keyword",
+          "index": false,
+          "doc_values": false
+        }
+      }
+    }
+  }
+}
+```
 
+As you can see, properties are not mapped yet.
 
-Go back to the application, and in the top right menu go to Entities > Tag and create some `Tag` entities. Then create some `Blog` and `Post` entities as well. As you can see, a saerch box is present in the entity list page. Go ahead and test the search functionality. The results page will return the matches with pagination.
+Go back to the application, and in the top right menu go to Entities > Tag and create some `Tag` entities. Then create some `Blog` and `Post` entities as well. As you can see, a search box is present in the entity list page. Go ahead and test the search functionality. The results page will return the matches with pagination.
 
 {% img blog/spring-data-elasticsearch/entity-search-box.png alt:"Entity Search Box" width:"800" %}{: .center-image }
+
+
+Go back to Kibana, and display the `Tag` mappings after persistence:
+
+```json
+{
+  "mappings": {
+    "_doc": {
+      "properties": {
+        "_class": {
+          "type": "keyword",
+          "index": false,
+          "doc_values": false
+        },
+        "id": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "name": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+As you can see, the `id` and `name` properties have been _dynamically mapped_ with _multi-field mapping_. For example, the `name` field is defined with type `text`, for full text searches, and it defines a `name.keyword` sub-field for aggregations and sorting:
+
+```json
+"name": {
+  "type": "text",
+  "fields": {
+    "keyword": {
+      "type": "keyword",
+      "ignore_above": 256
+    }
+  }
+}
+```
+
+It is often useful to index the same field in different ways for different purposes. Text fields are searchable by default, but by default are not available for aggregations, sorting, unless multi-field mapping is in place. There is another option for enabling the sorting for text fields, which is the [`fielddata`](https://www.elastic.co/guide/en/elasticsearch/reference/current/text.html#fielddata-mapping-param) mapping parameter, which will not be covered in this tutorial, as it is discouraged in the Elasticsearch documentation, because of high memory consumption.
+
+
+
+
+
+
 
 
 
 ## Key Components in JHipster with Spring Data Elasticsarch
 
 The repository and the search repository.
+The elasticsearch integration type, how the elasticsearch client looks like.
+
+
+## Learn More about Spring Data Elasticsearch
+
+-[Elasticsearch Mapping Multi-Fields ](https://www.elastic.co/guide/en/elasticsearch/reference/current/multi-fields.html)
