@@ -15,6 +15,9 @@ tweets:
 - "React, Express.js, and Socket.IO for all your real-time chat needs!"
 image: blog/socket-io-react-tutorial/socket-io-tutorial.png
 type: conversion
+github: https://github.com/oktadev/okta-socket-io-chat-example
+changelog:
+- 2021-12-15: Updated to use Socket.IO v4.4.0 and Okta React v6.3.0. See this post's changes in [okta-blog#1001](https://github.com/oktadev/okta-blog/pull/1001) and the example app changes in [okta-socket-io-chat-example#3](https://github.com/oktadev/okta-socket-io-chat-example/pull/3).
 ---
 
 The HTTP protocol powers the web. Traditionally, HTTP is a request-response protocol. This means that a client requests data from a server, and the server responds to that request. In this model, a server will never send data to a client without having been queried first.
@@ -48,7 +51,7 @@ The `npx` command is part of your Node.js installation and lets you run scripts 
 
 ```bash
 npm install
-npm install -E socket.io@4.1.2 uuid@8.3.2 cors@2.8.5
+npm install -E socket.io@4.4.0 uuid@8.3.2 cors@2.8.5
 ```
 
 The one dependency to note here is `socket.io`. This is the Socket.IO library that you will be using to provide the communication between client and server. Now, open up an editor of your choice and create a new file `chat.js` in the project folder. Paste the following contents into the file.
@@ -80,7 +83,7 @@ class Connection {
   }
   
   sendMessage(message) {
-      this.io.sockets.emit('message', message);
+    this.io.sockets.emit('message', message);
   }
   
   getMessages() {
@@ -184,7 +187,7 @@ This will create a new folder `chat-client` and initialize a React application i
 
 ```bash
 cd chat-client
-npm install -E socket.io-client@4.1.2
+npm install -E socket.io-client@4.4.0
 ```
 
 In the editor of your choice, open the file `src/App.js` and replace its contents with the code below.
@@ -420,7 +423,7 @@ Select the **Tokens** tab. Click on **Create Token** and type in a name for the 
 The next step is to add user management with Okta to the server of the chat application. Open a terminal in the project folder of the chat server and install the packages that you will need to interface with Okta.
 
 ```bash
-npm install -E @okta/jwt-verifier@2.1.0 @okta/okta-sdk-nodejs@4.6.0
+npm install -E @okta/jwt-verifier@2.3.0 @okta/okta-sdk-nodejs@6.1.0
 ```
 
 Open your editor in the project folder and open `chat.js`. Add the following code after the imports at the top of the file.
@@ -479,7 +482,8 @@ This tells Socket.IO to use the authentication handler whenever a connection fro
 Now that you have added user management to the server, it is time to add it to the client as well. In the terminal, navigate to the client project folder and install the following dependencies.
 
 ```bash
-npm install -E @okta/okta-react@6.0.0 @okta/okta-auth-js@5.1.1 react-dom@17.0.2 react-router-dom@5.2.0
+npm install -E @okta/okta-react@6.3.0 @okta/okta-auth-js@5.9.1 \
+    react-dom@17.0.2 react-router-dom@5.3.0
 ```
 
 Since the React application is already configured to use a `.env` file, open it and add the following two key-value pairs.
@@ -553,7 +557,7 @@ export const useAuth = () => {
       setUser(null);
       setToken(null);
     }
-  }, [authState, authState, user, oktaAuth]);
+  }, [authState, user, oktaAuth]);
 
   return [user, token];
 };
