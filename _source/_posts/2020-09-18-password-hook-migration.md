@@ -182,8 +182,8 @@ As mentioned earlier in this post, Inline Hooks are synchronous, pausing the pro
 
 If you'd like to learn more about Okta Hooks or if you're interested in learning how you can add Okta authentication to your Node.js application, you may find these posts helpful:
 
-- [Use Okta Token Hooks to Supercharge OpenID Connect](https://developer.okta.com/blog/2019/12/23/extend-oidc-okta-token-hooks) 
-- [Build Easy User Sync Webhooks with Okta](https://developer.okta.com/blog/2020/07/20/easy-user-sync-hooks)
-- [Node.js Login with Express and OIDC](https://developer.okta.com/blog/2020/06/16/nodejs-login)
+- [Use Okta Token Hooks to Supercharge OpenID Connect](/blog/2019/12/23/extend-oidc-okta-token-hooks) 
+- [Build Easy User Sync Webhooks with Okta](/blog/2020/07/20/easy-user-sync-hooks)
+- [Node.js Login with Express and OIDC](/blog/2020/06/16/nodejs-login)
 
 If you like this content, be sure to follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube Channel](https://youtube.com/c/oktadev) for updates on new posts and videos.

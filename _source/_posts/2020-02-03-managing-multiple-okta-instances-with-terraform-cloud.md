@@ -259,10 +259,10 @@ You now have a simple multi-stage build pipeline that allows you to review and d
 
 To continue learning about Terraform, Okta security, and DevOps, check out the links below:
 
-- [How to Secure Your Kubernetes Cluster with OpenID Connect and RBAC](https://developer.okta.com/blog/2021/11/08/k8s-api-server-oidc)
-- [The Things to Keep in Mind about Auth](https://developer.okta.com/blog/2021/10/29/things-to-keep-in-mind-about-auth)
+- [How to Secure Your Kubernetes Cluster with OpenID Connect and RBAC](/blog/2021/11/08/k8s-api-server-oidc)
+- [The Things to Keep in Mind about Auth](/blog/2021/10/29/things-to-keep-in-mind-about-auth)
 - [A Developer's Guide to Docker](/blog/2017/05/10/developers-guide-to-docker-part-1)
 - [Container Security: A Developer Guide](/blog/2019/07/18/container-security-a-developer-guide)
-- [Kubernetes to the Cloud with Spring Boot and JHipster](https://developer.okta.com/blog/2021/06/01/kubernetes-spring-boot-jhipster)
+- [Kubernetes to the Cloud with Spring Boot and JHipster](/blog/2021/06/01/kubernetes-spring-boot-jhipster)
 
 If you liked this tutorial, chances are you will like the others we publish. Please follow [@oktadev on Twitter](https://twitter.com/oktadev) and [subscribe to our YouTube channel](https://youtube.com/oktadev) to get notified when we publish new developer tutorials.

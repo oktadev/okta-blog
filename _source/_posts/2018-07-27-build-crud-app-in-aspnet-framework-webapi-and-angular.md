@@ -945,8 +945,8 @@ And now you're done! You have a secure ASP.NET Web API with an Angular frontend 
 
 If you enjoyed building this ASP.NET Core API with Angular, check out more full-stack CRUD posts from Okta.
 
-- [Angular 6 – What's New and Why Upgrade?](https://developer.okta.com/blog/2018/05/09/upgrade-to-angular-6)
-- [Token Authentication in ASP.NET Core – A Complete Guide](https://developer.okta.com/blog/2018/03/23/token-authentication-aspnetcore-complete-guide)
-- [Build a Secure CRUD App with ASP.NET Core and React](https://developer.okta.com/blog/2018/07/02/build-a-secure-crud-app-with-aspnetcore-and-react)
+- [Angular 6 – What's New and Why Upgrade?](/blog/2018/05/09/upgrade-to-angular-6)
+- [Token Authentication in ASP.NET Core – A Complete Guide](/blog/2018/03/23/token-authentication-aspnetcore-complete-guide)
+- [Build a Secure CRUD App with ASP.NET Core and React](/blog/2018/07/02/build-a-secure-crud-app-with-aspnetcore-and-react)
 
 As always if you have any questions, comments, or concerns about this post feel free to leave a comment below. For other great content from the Okta Dev Team, follow us on Twitter [@OktaDev](https://twitter.com/oktadev), [Facebook](https://www.facebook.com/oktadevelopers/), and watch us on [YouTube](https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q)!

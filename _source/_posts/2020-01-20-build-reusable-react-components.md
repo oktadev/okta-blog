@@ -612,10 +612,10 @@ So what does this all mean? What have you learned? You learned how to create a R
 
 Check out more tutorials on these subjects:
 
-- Braden shows some [Chuck Norris jokes](https://developer.okta.com/blog/2019/03/06/simple-user-authentication-in-react)
-- Matt Raible takes you mobile with [React Native](https://developer.okta.com/blog/2018/03/16/build-react-native-authentication-oauth-2)
-- Matt also shows you how to build a [backend for React in Spring Boot](https://developer.okta.com/blog/2018/07/19/simple-crud-react-and-spring-boot)
-- Braden shows some [React Redux](https://developer.okta.com/blog/2018/07/19/simple-crud-react-and-spring-boot)
-- Heather discusses [being a generalist vs. being a specialist](https://developer.okta.com/blog/2019/11/26/developer-generalist-vs-specialist)
+- Braden shows some [Chuck Norris jokes](/blog/2019/03/06/simple-user-authentication-in-react)
+- Matt Raible takes you mobile with [React Native](/blog/2018/03/16/build-react-native-authentication-oauth-2)
+- Matt also shows you how to build a [backend for React in Spring Boot](/blog/2018/07/19/simple-crud-react-and-spring-boot)
+- Braden shows some [React Redux](/blog/2018/07/19/simple-crud-react-and-spring-boot)
+- Heather discusses [being a generalist vs. being a specialist](/blog/2019/11/26/developer-generalist-vs-specialist)
 
 If you have any questions, please don't hesitate to leave a comment below, or ask us on our [Okta Developer Forums](https://devforum.okta.com). Don't forget to follow us on Twitter [@OktaDev](https://twitter.com/oktadev), on [Facebook](https://www.facebook.com/oktadevelopers) and on [YouTube](https://www.youtube.com/c/oktadev)!

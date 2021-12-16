@@ -21,7 +21,7 @@ OpenID Connect (OIDC) and OAuth 2.0 are already recognized as powerful tools for
 
 Okta has enhanced the capabilities of these standards by introducing our Inline Hooks feature. There are a number of different types of inline hooks that Okta supports. In this post, I focus on hooks that allow you to patch information into the tokens you get back from Okta via OIDC and OAuth.
 
-You'll first set up an OIDC application in Okta to see the types of tokens you get back. Then, you'll configure a Spring Boot API app that allows you to register your favorite beers (this is based on [a previous post](https://developer.okta.com/blog/2018/12/03/bootiful-spring-boot-java-vue-typescript) from my friend and colleague, Matt Raible, who is passionate about good beer). This Spring Boot app also has API endpoints to register token hooks with Okta and to service token patch requests from Okta. By the time you're done, you'll see that your favorite beers are now included in the payload of a token thanks to the hooks you registered.
+You'll first set up an OIDC application in Okta to see the types of tokens you get back. Then, you'll configure a Spring Boot API app that allows you to register your favorite beers (this is based on [a previous post](/blog/2018/12/03/bootiful-spring-boot-java-vue-typescript) from my friend and colleague, Matt Raible, who is passionate about good beer). This Spring Boot app also has API endpoints to register token hooks with Okta and to service token patch requests from Okta. By the time you're done, you'll see that your favorite beers are now included in the payload of a token thanks to the hooks you registered.
 
 To get ready for the hands-on parts of this post, set yourself up with the following:
 
@@ -377,9 +377,9 @@ Along with our Spring Boot Starter, Okta's OpenID Connect service not only confo
 
 If you'd like to learn more about OAuth and Spring Boot you might be interested in these other posts:
 
-* [Secure Server-to-Server Communication with Spring Boot and OAuth 2.0](https://developer.okta.com/blog/2018/04/02/client-creds-with-spring-boot)
-* [OAuth 2.0 for Native and Mobile Apps ](https://developer.okta.com/blog/2018/12/13/oauth-2-for-native-and-mobile-apps)
-* [Is the OAuth 2.0 Implicit Flow Dead?](https://developer.okta.com/blog/2019/05/01/is-the-oauth-implicit-flow-dead)
+* [Secure Server-to-Server Communication with Spring Boot and OAuth 2.0](/blog/2018/04/02/client-creds-with-spring-boot)
+* [OAuth 2.0 for Native and Mobile Apps ](/blog/2018/12/13/oauth-2-for-native-and-mobile-apps)
+* [Is the OAuth 2.0 Implicit Flow Dead?](/blog/2019/05/01/is-the-oauth-implicit-flow-dead)
 
 
 Like what you learned today? Follow us on [Twitter](https://twitter.com/oktadev), and subscribe to our [YouTube channel](https://www.youtube.com/c/oktadev) for more awesome content!

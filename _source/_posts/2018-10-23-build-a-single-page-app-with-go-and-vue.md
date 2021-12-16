@@ -182,7 +182,7 @@ import Auth from '@okta/okta-vue'
 
 import Home from './components/Home';
 import Login from './components/Login';
-import GitHubRepoDetails from './components/GithubRepoDetails';
+import GitHubRepoDetails from './components/GitHubRepoDetails';
 
 Vue.use(VueRouter);
 Vue.use(Auth, {
@@ -362,7 +362,7 @@ Create the `./kudo-oos/pkg/http/web/app/src/components/Home.vue` component.
 
 <script>
 import SearchBar from './SearchBar.vue'
-import GitHubRepo from './GithubRepo.vue'
+import GitHubRepo from './GitHubRepo.vue'
 import githubClient from '../githubClient'
 import { mapMutations, mapGetters, mapActions } from 'vuex'
 
@@ -399,7 +399,7 @@ export default {
 ```
 {% endraw %}
 
-`SearchBar` is the first component rendered in `Home`. When the user enters a query into the text input in the `Sidebar`, this component triggers a call to the Github API. `SearchBar` simply emits an event to its parent, `Home`, which contains the `githubQuery`.
+`SearchBar` is the first component rendered in `Home`. When the user enters a query into the text input in the `Sidebar`, this component triggers a call to the GitHub API. `SearchBar` simply emits an event to its parent, `Home`, which contains the `githubQuery`.
 
 Create `./kudo-oos/pkg/http/web/app/src/components/SearchBar.vue` and copy in the following code:
 
@@ -412,7 +412,7 @@ Create `./kudo-oos/pkg/http/web/app/src/components/SearchBar.vue` and copy in th
         solo-inverted
         flat
         hide-details
-        label="Search for your OOS project on Github + Press Enter"
+        label="Search for your OOS project on GitHub + Press Enter"
         prepend-inner-icon="search"
         v-model="query"
         @keyup.enter="onSearchSubmition"
@@ -448,9 +448,9 @@ Thanks to `@keyup.enter="onSearchSubmition"`, whenever the user hits enter `onSe
 
 The `Sidebar` is also responsible for logging the user out. Okta Vue SDK offers a handy method to clean up the session using the method `this.$auth.logout()`. Whenever the user logs out,  they can be redirected to the login page.
 
-The second component rendered in `Home` is the `GithubRepo`. This component is used inside two tabs: the first tab `Kudos` represents the user's favorites OSS projects and the `Search` tab renders the OSS projects returned from GitHub.
+The second component rendered in `Home` is the `GitHubRepo`. This component is used inside two tabs: the first tab `Kudos` represents the user's favorites OSS projects and the `Search` tab renders the OSS projects returned from GitHub.
 
-Create `./kudo-oos/pkg/http/web/app/src/components/GithubRepo.vue` and copy in the following code:
+Create `./kudo-oos/pkg/http/web/app/src/components/GitHubRepo.vue` and copy in the following code:
 
 {% raw %}
 ```js
@@ -663,9 +663,9 @@ export default {
 ```
 {% endraw %}
 
-Each `GithubRepo` has a `router-link` to `/repo/:id` that renders the `GithubRepoDetails` component. `GithubRepoDetails` shows details about the OSS project, like how many times the project has been of starred and the amount of open issues. The user can also leave a note describing why the project is special by clicking the Kudo button. The message is sent to Go server button by calling `updateKudo`.
+Each `GitHubRepo` has a `router-link` to `/repo/:id` that renders the `GitHubRepoDetails` component. `GitHubRepoDetails` shows details about the OSS project, like how many times the project has been of starred and the amount of open issues. The user can also leave a note describing why the project is special by clicking the Kudo button. The message is sent to Go server button by calling `updateKudo`.
 
-Create the `./kudo-oos/pkg/http/web/app/src/components/GithubRepoDetails.js` file with the code below.
+Create the `./kudo-oos/pkg/http/web/app/src/components/GitHubRepoDetails.js` file with the code below.
 
 {% raw %}
 ```js

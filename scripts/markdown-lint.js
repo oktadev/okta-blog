@@ -52,6 +52,10 @@ const regexValidator = [
   {
     regex: '…',
     omitFiles: []
+  },
+  {
+    regex: /https:\/\/developer\.okta\.com\/blog\/\d{4}\/\d{2}\/\d{2}\/[^\]) \[]*/,
+    omitFiles: []
   }
 ];
 
@@ -148,6 +152,8 @@ OR:
       - malformed character! Replace with (')
   - […]
       - Malformed ellipsis character! Replace with (...)
+  - [https://developer.okta.com/blog/\\d{4}/\\d{2}/\\d{2}/[^\\]\\)\\ ]*]
+      - Absolute links to other blog posts
     `);
     process.exit(1);
   } else {

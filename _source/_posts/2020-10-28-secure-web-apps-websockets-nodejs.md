@@ -238,7 +238,7 @@ module.exports = function ( io, opts ) {
 
 Here you are using `socketio-jwt` to decode the JWT you passed to the client when the user enters the room. A JWT is a token whose payload holds some information representing claims to be sent to the server. The JWT can be signed or encrypted and then validated by the server to ensure their validity. Once established, the server can read the claims from the token and decide the proper course of action. You can send the JWT with the request to the server to ensure the sender of the request is authorized to perform the requested action.
 
-(Note, you can read more about [an alternative approach using Okta as an authentication server a](https://developer.okta.com/blog/2020/07/17/secure-node-api-with-koa), where you authenticate the user when they reach a room.)
+(Note, you can read more about [an alternative approach using Okta as an authentication server a](/blog/2020/07/17/secure-node-api-with-koa), where you authenticate the user when they reach a room.)
 
 The `socket.js` file also has the logic for receiving and sending messages as well as handling users entering and leaving the room. When a user enters or leaves, you add or remove them from the room's user list and broadcast to the room that the user has left. The client side is responsible for displaying that information to the user.
 

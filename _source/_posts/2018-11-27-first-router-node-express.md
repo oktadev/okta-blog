@@ -469,16 +469,16 @@ OK, so now you're requiring users to log in before they can edit the to-do list,
 
 ## Learn more about Node, Express, and Secure Web Development
 
-Now that you have a fully functional to-do list, I encourage you to expand on it. Try storing the data in a database, or even [let Okta store it for you](https://developer.okta.com/blog/2018/01/23/replace-local-storage-with-okta-profile-attributes)! See if you can create some more routers to add to the web server.
+Now that you have a fully functional to-do list, I encourage you to expand on it. Try storing the data in a database, or even [let Okta store it for you](/blog/2018/01/23/replace-local-storage-with-okta-profile-attributes)! See if you can create some more routers to add to the web server.
 
 If you want to see the final code sample, you can find it [on GitHub](https://github.com/oktadeveloper/okta-node-express-router-example).
 
 If you'd like to learn more about Node and Express check out some of these other articles on the Okta developer blog:
 
-* [Build and Understand Express Middleware through Examples](https://developer.okta.com/blog/2018/09/13/build-and-understand-express-middleware-through-examples)
-* [Build and Understand a Simple Node.js Website with User Authentication](https://developer.okta.com/blog/2018/08/17/build-and-understand-user-authentication-in-node)
-* [Build a Simple REST API with Node and OAuth 2.0](https://developer.okta.com/blog/2018/08/21/build-secure-rest-api-with-node)
-* [Build Secure Node Authentication with Passport.js and OpenID Connect](https://developer.okta.com/blog/2018/05/18/node-authentication-with-passport-and-oidc)
-* [Secure a Node API with OAuth 2.0 Client Credentials](https://developer.okta.com/blog/2018/06/06/node-api-oauth-client-credentials)
+* [Build and Understand Express Middleware through Examples](/blog/2018/09/13/build-and-understand-express-middleware-through-examples)
+* [Build and Understand a Simple Node.js Website with User Authentication](/blog/2018/08/17/build-and-understand-user-authentication-in-node)
+* [Build a Simple REST API with Node and OAuth 2.0](/blog/2018/08/21/build-secure-rest-api-with-node)
+* [Build Secure Node Authentication with Passport.js and OpenID Connect](/blog/2018/05/18/node-authentication-with-passport-and-oidc)
+* [Secure a Node API with OAuth 2.0 Client Credentials](/blog/2018/06/06/node-api-oauth-client-credentials)
 
 If you have any questions about this post, please add a comment below. For more awesome content, follow [@oktadev](https://twitter.com/oktadev) on Twitter, like us [on Facebook](https://www.facebook.com/oktadevelopers/), or subscribe to [our YouTube channel](https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q).

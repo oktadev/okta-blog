@@ -555,9 +555,9 @@ If you're interested in learning more about the Quarkus blueprint, see the [gene
 
 I hope you liked this hip tutorial! Here are some related ones you might enjoy.
 
-* [How to Develop a Quarkus App with Java and OIDC Authentication](https://developer.okta.com/blog/2019/09/30/java-quarkus-oidc)
-* [Secure Kafka Streams with Quarkus and Java](https://developer.okta.com/blog/2020/04/08/kafka-streams)
-* [Reactive Java Microservices with Spring Boot and JHipster](https://developer.okta.com/blog/2021/01/20/reactive-java-microservices)
-* [Java Microservices with Spring Cloud Config and JHipster](https://developer.okta.com/blog/2019/05/23/java-microservices-spring-cloud-config)
+* [How to Develop a Quarkus App with Java and OIDC Authentication](/blog/2019/09/30/java-quarkus-oidc)
+* [Secure Kafka Streams with Quarkus and Java](/blog/2020/04/08/kafka-streams)
+* [Reactive Java Microservices with Spring Boot and JHipster](/blog/2021/01/20/reactive-java-microservices)
+* [Java Microservices with Spring Cloud Config and JHipster](/blog/2019/05/23/java-microservices-spring-cloud-config)
 
 You can follow me on Twitter at [@danielpetisme](https://twitter.com/danielpetisme). You can follow the Okta developer relations team at [@oktadev](https://twitter.com/oktadev). They also have a [YouTube channel](https://youtube.com/oktadev) you might enjoy.

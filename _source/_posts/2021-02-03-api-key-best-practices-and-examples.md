@@ -369,8 +369,8 @@ It is important that developers always follow best practices. Always consider us
 
 If you enjoyed reading this post, you might also like these posts from our blog:
 
-- [Why OAuth API Keys and Secrets Aren't Safe in Mobile Apps](https://developer.okta.com/blog/2019/01/22/oauth-api-keys-arent-safe-in-mobile-apps)
-- [Build and Secure an API in Python with FastAPI](https://developer.okta.com/blog/2020/12/17/build-and-secure-an-api-in-python-with-fastapi)
-- [Securing REST APIs](https://developer.okta.com/blog/2019/09/04/securing-rest-apis)
+- [Why OAuth API Keys and Secrets Aren't Safe in Mobile Apps](/blog/2019/01/22/oauth-api-keys-arent-safe-in-mobile-apps)
+- [Build and Secure an API in Python with FastAPI](/blog/2020/12/17/build-and-secure-an-api-in-python-with-fastapi)
+- [Securing REST APIs](/blog/2019/09/04/securing-rest-apis)
 
 As always, if you have any questions please comment below. Never miss out on any of our awesome content by following us on [Twitter](https://twitter.com/oktadev) and subscribing to our channel on [YouTube](https://www.youtube.com/c/oktadev)!

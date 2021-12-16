@@ -402,8 +402,8 @@ Now you're ready to rock like Beethoven! Fire the app up one more time and confi
 
 If you want to learn more about ASP.NET Core, check out some of the other great content on our blog!
 
-* [Build a CRUD App with ASP.NET Core and Typescript](https://developer.okta.com/blog/2019/03/26/build-a-crud-app-with-aspnetcore-and-typescript)
-* [Build Secure Microservices with AWS Lambda and ASP.NET Core](https://developer.okta.com/blog/2019/03/21/build-secure-microservices-with-aspnet-core)
-* [Build Your First Azure Function in Visual Studio Code](https://developer.okta.com/blog/2019/02/07/build-your-first-azure-function-visual-studio-code)
+* [Build a CRUD App with ASP.NET Core and Typescript](/blog/2019/03/26/build-a-crud-app-with-aspnetcore-and-typescript)
+* [Build Secure Microservices with AWS Lambda and ASP.NET Core](/blog/2019/03/21/build-secure-microservices-with-aspnet-core)
+* [Build Your First Azure Function in Visual Studio Code](/blog/2019/02/07/build-your-first-azure-function-visual-studio-code)
 
 As always, leave comments below and don't forget to follow us on [Twitter](https://twitter.com/oktadev) and [YouTube](https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q). Until next time, rock on!

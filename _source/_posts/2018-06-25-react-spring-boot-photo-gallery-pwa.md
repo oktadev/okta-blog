@@ -676,9 +676,9 @@ You can find the source code for the example created in this post in the [oktade
 If you'd like to learn more about React, Spring Boot, or OAuth 2.0, I'd suggest checking out the following resources:
 
 - [Bootiful Development with Spring Boot and React](/blog/2017/12/06/bootiful-development-with-spring-boot-and-react)
-- [Use OpenID Connect Support with JHipster](https://developer.okta.com/blog/2017/10/20/oidc-with-jhipster)
+- [Use OpenID Connect Support with JHipster](/blog/2017/10/20/oidc-with-jhipster)
 - [What is the OAuth 2.0 Authorization Code Grant Type?](/blog/2018/04/10/oauth-authorization-code-grant-type)
 - [Using React (with Redux) from the JHipster Docs](https://www.jhipster.tech/using-react/)
-- [Developer a Microservices Architecture with OAuth 2.0 and JHipster](https://developer.okta.com/blog/2018/03/01/develop-microservices-jhipster-oauth)
+- [Developer a Microservices Architecture with OAuth 2.0 and JHipster](/blog/2018/03/01/develop-microservices-jhipster-oauth)
 
 If you have any questions, please leave a comment below, ping me on [Twitter @mraible](https://twitter.com/mraible), or post to our [developer forums](https://devforum.okta.com/). If you liked this post, follow [@oktadev](https://twitter.com/oktadev) to be notified when others like it are published.

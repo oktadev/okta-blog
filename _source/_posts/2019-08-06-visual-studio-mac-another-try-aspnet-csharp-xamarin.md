@@ -49,7 +49,7 @@ In fact, I'd argue that Visual Studio for Mac is an excellent place to *start* l
 
 This is where some "same but different" comes into play. I find that developers coming over from Swift or Objective C development enjoy the experience of source control within Visual Studio for Mac. While there IS a difference in the process for Windows users, I don't find it particularly difficult. Visual Studio for Mac supports Git and Subversion built into the IDE, as well as TFS with a little more effort.
 
-I have used the Github Desktop app for source control of my folders without much issue. This is also my source control workflow for VS Code, and while it is not integrated into the IDE of VS for Mac, it's also not a bad option. For the hardcore command line peeps, you can alternatively use Git inside the CLI tool Terminal, which is native to Apple OS. There is no learning curve here at all for developers who use command line.
+I have used the GitHub Desktop app for source control of my folders without much issue. This is also my source control workflow for VS Code, and while it is not integrated into the IDE of VS for Mac, it's also not a bad option. For the hardcore command line peeps, you can alternatively use Git inside the CLI tool Terminal, which is native to Apple OS. There is no learning curve here at all for developers who use command line.
 
 ## Who Should Use Visual Studio for Mac?
 
@@ -69,9 +69,9 @@ New functionality, extensions and templates are all coming this next year to [Vi
 
 If you'd like to learn more about ASP.NET, Xamarin, or Apple, we've also published a number of posts that might interest you:
 
-* [Build login in Xamarin with Xamarin Forms](https://developer.okta.com/blog/2019/06/11/build-login-in-xamarin-with-xamarin-forms)
-* [Add Login to your ASP.NET Core MVC App](https://developer.okta.com/blog/2018/10/29/add-login-to-you-aspnetcore-app)
-* [What the Heck is Sign-in with Apple?](https://developer.okta.com/blog/2019/06/04/what-the-heck-is-sign-in-with-apple)
-* [Build a REST API with ASP.NET Core 2.2](https://developer.okta.com/blog/2019/04/10/build-rest-api-with-aspnetcore)
+* [Build login in Xamarin with Xamarin Forms](/blog/2019/06/11/build-login-in-xamarin-with-xamarin-forms)
+* [Add Login to your ASP.NET Core MVC App](/blog/2018/10/29/add-login-to-you-aspnetcore-app)
+* [What the Heck is Sign-in with Apple?](/blog/2019/06/04/what-the-heck-is-sign-in-with-apple)
+* [Build a REST API with ASP.NET Core 2.2](/blog/2019/04/10/build-rest-api-with-aspnetcore)
 
 For other great content from the Okta Dev Team, follow us on [Twitter](https://twitter.com/oktadev) and [Facebook](https://www.facebook.com/oktadevelopers)!

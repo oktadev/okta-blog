@@ -172,6 +172,9 @@ I also recommend using https://www.shortcutfoo.com/[ShortcutFoo] to learn and pr
 
 Below are some of the IntelliJ IDEA keyboard shortcuts I use daily.
 
+[.scrollable]
+--
+
 |===
 |macOS Shortcut |Windows/Linux |Purpose
 
@@ -199,6 +202,8 @@ Below are some of the IntelliJ IDEA keyboard shortcuts I use daily.
 |
 |Run Anything (e.g., `mvn compile`)
 |===
+
+--
 
 NOTE: How cool are Asciidoctor's https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/#ui-macros[UI Macros] for keyboard shortcuts?!
 
