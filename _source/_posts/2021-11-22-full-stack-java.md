@@ -572,7 +572,7 @@ If you upload an image you took with your smartphone, the height, width, and tak
 You've added metadata extraction to your backend, but your photos still display in a list rather than in a grid (like Flickr). To fix that, you can use the [React Photo Gallery](https://github.com/neptunian/react-photo-gallery) component. Install it using npm:
 
 ```bash
-npm i react-photo-gallery@8
+npm i react-photo-gallery@8 --force
 ```
 
 In `src/main/webapp/app/entities/photo/photo.tsx`, add an import for `Gallery`:
