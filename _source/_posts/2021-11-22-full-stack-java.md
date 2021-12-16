@@ -553,7 +553,7 @@ cy.get(`[data-cy="taken"]`).type('2021-10-11T16:46').should('have.value', '2021-
 cy.get(`[data-cy="uploaded"]`).type('2021-10-11T15:23').should('have.value', '2021-10-11T15:23'););
 ```
 
-Stop your Maven process, run `source .auth0.env`, then `./mvwn` again. Open a new terminal window, set your Auth0 credentials, and run `npm run e2e` to make sure everything still works. 
+Stop your Maven process, run `source .auth0.env`, then `./mvnw` again. Open a new terminal window, set your Auth0 credentials, and run `npm run e2e` to make sure everything still works. 
 
 ```shell
 export CYPRESS_E2E_USERNAME=<auth0-username>
@@ -572,7 +572,7 @@ If you upload an image you took with your smartphone, the height, width, and tak
 You've added metadata extraction to your backend, but your photos still display in a list rather than in a grid (like Flickr). To fix that, you can use the [React Photo Gallery](https://github.com/neptunian/react-photo-gallery) component. Install it using npm:
 
 ```bash
-npm i react-photo-gallery@8
+npm i react-photo-gallery@8 --force
 ```
 
 In `src/main/webapp/app/entities/photo/photo.tsx`, add an import for `Gallery`:
