@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: ""
+title: "A Quick Guide to Elastic Search for Spring Data and Spring Boot"
 author: jimena-garbarino
 by: contractor
 communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
@@ -15,7 +15,9 @@ type: conversion
 ---
 
 
-Introduction to Spring Data Elasticsearch
+Introduction to Spring Data Elasticsearch.
+
+Elasticsearch, Kibana amd JHipster logos.
 
 **Prerequisites**:
 
@@ -25,6 +27,12 @@ Introduction to Spring Data Elasticsearch
 - [Okta CLI](https://cli.okta.com)
 - [Docker](https://docs.docker.com/engine/install/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
+
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+
+
 
 
 ## Integration Options for Spring Data Elasticsarch
@@ -36,13 +44,13 @@ The search repository
 
 ## A JHipster Spring Boot Application with Spring Data Elasticsearch
 
-JHipster provides the Elasticsearch option to add search capabilities on top of your database. The integration is based on Spring Data Elasticsearch repositories, so let's generate a Blog application to explore what the generator provides. The sample Blog application built in this tutorial is based on the JHipster sample [reactive-ms.jdl](https://github.com/jhipster/jdl-samples/blob/main/reactive-ms.jdl), with some minor tweaks:
+JHipster provides the Elasticsearch option to add search capabilities on top of your database. The integration is based on Spring Data Elasticsearch repositories, so let's generate a reactive Blog application to explore what the generator provides. The sample Blog application built in this tutorial is based on the JHipster sample [reactive-ms.jdl](https://github.com/jhipster/jdl-samples/blob/main/reactive-ms.jdl), with some minor tweaks:
 
 - Maven as buildTool
 - MongoDB as blog database, because the Elasticsearch integration only works with SQL databases and MongoDB
 - Bootstrap pagination for the Tag and Post entities
 - Okta for authentication
-- Kibana for index mapping explorations
+- Kibana for index mapping inspection
 
 Create a `blog` folder for the project, get the application JDL from the [Github](https://github.com/indiepopart/spring-data-elasticsearch.git) repository,  and generate the application with JHipster:
 
@@ -144,20 +152,16 @@ Run the architecture with Docker Compose:
 cd docker-compose
 docker compose up
 ```
- Access the JHipster Registry at http://localhost:8761 and sign in with user=admin, password=admin.
+ Access the JHipster Registry at http://localhost:8761 and sign in with user=admin, password=admin. When you see all services up and green, go to http://localhost:8080 and sign in with your Okta account.
 
-{% img blog/spring-data-elasticsearch/jhipster-registry.png alt:"JHipster Registry" width:"600" %}{: .center-image }
-
- When you see all services up and green, go to http://localhost:8080 and sign in with your Okta account.
-
- {% img blog/spring-data-elasticsearch/okta-signin.png alt:"Okta Sign In Form" width:"300" %}{: .center-image }
+ {% img blog/spring-data-elasticsearch/okta-signin.png alt:"Okta Sign In Form" width:"400" %}{: .center-image }
 
 
 ## Inspecting Elasticsearch Index Mapping
 
 During start up, Spring Data Elasticsarch will create the index for the entities annotated with `@Document`, deriving the mappings from the entity's annotations. But for the properties, if the field type is not specified, it defaults to FieldType.Auto. This means, that no mapping entry is written for the property and that Elasticsearch will add a mapping entry dynamically when the first data for this property is stored.
 
-As Kibana interface was configured in Docker Compose, before creating any entities, let's inspect the index mapping that were automatically created for the `blog` microservice. Go to http://localhost:9200, the Kibana home. Then go to **Management** > **Stack Management** > **Index Management** > **Indices** tab. Besides the `user` index, an index per entity should be listed.
+As Kibana interface was configured in Docker Compose, before creating any entities, let's inspect the index mappings that were automatically created for the `blog` microservice. Go to http://localhost:9200, the Kibana home. Then go to **Management** > **Stack Management** > **Index Management** > **Indices** tab. Besides the `user` index, an index per entity should be listed.
 
 {% img blog/spring-data-elasticsearch/kibana-indices.png alt:"Kibana Indices" width:"800" %}{: .center-image }
 
@@ -236,7 +240,66 @@ As you can see, the `id` and `name` properties have been _dynamically mapped_ wi
 }
 ```
 
-It is often useful to index the same field in different ways for different purposes. Text fields are searchable by default, but by default are not available for aggregations, sorting, unless multi-field mapping is in place. There is another option for enabling the sorting for text fields, which is the [`fielddata`](https://www.elastic.co/guide/en/elasticsearch/reference/current/text.html#fielddata-mapping-param) mapping parameter, which will not be covered in this tutorial, as it is discouraged in the Elasticsearch documentation, because of high memory consumption.
+It is often useful to index the same field in different ways for different purposes. Text fields are searchable by default, but by default are not available for aggregations, sorting, unless multi-field mapping is in place. There is another option for enabling sorting for text fields, which is the [`fielddata` mapping parameter](https://www.elastic.co/guide/en/elasticsearch/reference/current/text.html#fielddata-mapping-param), which will not be covered in this tutorial, as it is discouraged in the Elasticsearch documentation, because of high memory consumption.
+
+
+
+## Key Components in JHipster with Spring Data Elasticsearch
+
+As mentioned before, the Blog application is a reactive application, and that was defined in the JDL file with `reactive true` in the `gateway` and `blog` application config.
+That also signals JHipster generators to include the reactive Elasticsearch dependencies in  the `blog` microservice.
+Two of key components that enable the Elasticsearch reactive integration are the `ReactiveElasticsearchClient` and the `ReactiveElasticsearchOperations`. A client es required to connect to an Elasticsarch cluster or node, and an operations abstracts the execution of CRUD and query commands. The third component is the entity `ReactiveElasticsearchRepository`, which provide domain specific search methods. Let's briefly describe each of these components.
+
+{% img blog/spring-data-elasticsearch/spring-data-collaboration.png alt:"Spring Data Collaboration" width:"600" %}{: .center-image }
+
+
+
+### ReactiveElasticsearchClient
+
+The `ReactiveElasticsearchClient` is a non official driver based on WebClient. It uses the request/response objects provided by the Elasticsearch core project. Calls are directly operated on the reactive stack, not wrapping async (thread pool bound) responses into reactive types.
+In this example, the reactive client is initialized from  the `ReactiveElasticsearchRestClientProperties`, populated from `spring.data.elasticsearch.client.reactive.*` properties. You can verify the property `spring.data.elasticsearch.client.reactive.endpoints` is set for the `blog` service in the `docker-compose.yml` file.
+
+```yml
+blog:
+  image: blog
+  environment:
+    ...
+    - SPRING_DATA_ELASTICSEARCH_CLIENT_REACTIVE_ENDPOINTS=blog-elasticsearch:9200
+    ...
+```
+
+### ReactiveElasticsearchOperations
+
+`ReactiveElasticsearchOperations` is the gateway to executing high level commands against an Elasticsearch cluster using the ReactiveElasticsearchClient.
+The `ReactiveElasticsearchTemplate` is the default implementation of `ReactiveElasticsearchOperations`.
+
+
+The entity search repository enables the document CRUD and search operations in the application. JHipster generates a search repository for the entities specified in the `search` option in the JDL. In the example, all entities must be searchable in Elasticsarch:
+
+```
+application {
+  config {
+    baseName blog
+    reactive true
+    ...
+    searchEngine elasticsearch
+  }
+  ...
+  search * with elasticsearch
+}
+
+```
+
+
+### ReactiveElasticsearchRepository
+
+The search repository sends commands through the `ReactiveElasticsearchTemplate` dependency.
+
+
+Tracing the autoconfiguration:
+
+`ReactiveElasticsearchRestClientAutoConfiguration` configures the `ReactiveElasticsearchClient` from the `ReactiveElasticsearchRestClientProperties`.
+`ElasticsearchDataAutoConfiguration` imports the `ReactiveRestClientConfiguration`, which configures `ReactiveElasticsearchTemplate`.
 
 
 
@@ -246,11 +309,11 @@ It is often useful to index the same field in different ways for different purpo
 
 
 
-## Key Components in JHipster with Spring Data Elasticsarch
 
-The repository and the search repository.
+
 The elasticsearch integration type, how the elasticsearch client looks like.
 
+The repository and the search repository.
 
 ## Learn More about Spring Data Elasticsearch
 
