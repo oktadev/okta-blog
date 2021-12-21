@@ -25,8 +25,8 @@ This isn’t just conjecture. At Okta, we were curious about how developers and 
 We went to the show to get a feel for developer attitudes towards protecting not only the development and content of the games, but also their customers' experience and data. We wanted to know how gamers felt about the handling of their information and how they play games. We interviewed developers and gamers, passed out surveys, and live-streamed the entire event in order to get a *person-on-the-street* perspective.
 
 What we heard is directly reflected in the opening lines of the report you’re looking at now. Among gamers and developers, there’s no clear consensus on who is responsible for security. Among the developers we spoke to, there’s no clear standard for how to handle security, or even a common bar for the importance of security in development.
-This report is by no means an exhaustive omnibus of the problems the game development world faces, and isn’t meant to be a hands-on guide to fixing the problems we discussed. 
-Instead, it's an attempt to pull back the curtains and say: “Hey, we all see these issues. We need to think about them, discuss them, collaborate, and work towards solving them.”
+
+This report is by no means an exhaustive omnibus of the problems the game development world faces, and isn’t meant to be a hands-on guide to fixing the problems we discussed. Instead, it's an attempt to pull back the curtains and say: “Hey, we all see these issues. We need to think about them, discuss them, collaborate, and work towards solving them.”
 
 So before we jump into the findings, I'd like to thank you, the reader, for taking the time to explore. I believe it's an important first step to bringing the games community together, and making the work we love and the games we love to play safer for everyone.
 
@@ -35,12 +35,11 @@ So before we jump into the findings, I'd like to thank you, the reader, for taki
 
 Let’s start by exploring a set of questions aimed at sussing out the answer to one overarching question:
 
-How confident are you that gaming, from development to gameplay, is secure? 
+*How confident are you that gaming, from development to gameplay, is secure?* 
 
 While answers varied, this single quote from the survey responses sums them up nicely: *“It’s a free-for-all wasteland”.*
 
 Overwhelmingly, respondents were neutral *at best*. Almost half of the answers reflect that when it comes to security in developing and interacting with games, confidence isn’t high. An additional 14% said they’re not very confident, and 6% had little-to-no assurance that the systems they use every day are secure. More importantly, *every game developer who answered the survey* felt neutral or negative about the security of their development process and the end product they create.
-
 
 For gamers, part of that lack of confidence may correlate to the responses we received to another question: Who is responsible for gaming security?
 
@@ -66,5 +65,5 @@ In the end, our findings from PAX West this year suggest that everyone is feelin
 If game security is on your mind, we'd love to hear from you in the comments below. Let's continue the exploration, and collaborate to increase security for all players in the gaming ecosystem.  
 
 Keep in touch with the OktaDev team and our various activities by following us on all or any of our social channels: You can find us on [Twitter](https://twitter.com/oktadev), [LinkedIn](https://www.linkedin.com/company/oktadev/), [YouTube](https://www.youtube.com/c/OktaDev/) or [Twitch](https://www.twitch.tv/oktadev). We'd love to hear from you. 
-and subscribe to our [YouTube channel](https://www.youtube.com/c/OktaDev/)
+
 
