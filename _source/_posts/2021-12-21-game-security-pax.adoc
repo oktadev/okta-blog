@@ -49,6 +49,7 @@ Anecdotally, many of the developers we talked to both on- and off-camera felt th
 image::{% asset_path 'blog/game-security-pax/responsible-question.png' %}[alt=bar chart showing responses to security question,width=600,align=center]
 
 Developers gave three common reasons for the lack of confidence in game security:
+
 - I don't have access to the tools I need to secure my development and my code.
 - I don't have the budget I need to get those tools.
 - There are no standards that I can look to as a baseline to build from.
