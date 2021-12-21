@@ -41,7 +41,11 @@ Overwhelmingly, respondents were neutral *at best*. Almost half of the answers r
 
 For gamers, part of that lack of confidence may correlate to the responses we received to another question: Who is responsible for gaming security?
 
+{% img blog/game-security-pax/confidence-question.png alt:"bar chart showing responses to security question" width:"600" %}{: .center-image }
+
 Anecdotally, many of the developers we talked to both on- and off-camera felt that security was the responsibility of the platforms hosting their games or of the players themselves. In contrast, most of the attendees we spoke with felt that security was the responsibility of gaming companies, developers, and regulatory bodies. That split is reflected in the survey results, too, where respondents were able to select who they felt was responsible for security from a list.
+
+{% img blog/game-security-pax/responsible-question.png alt:"bar chart showing responses to security question" width:"600" %}{: .center-image }
 
 Developers gave three common reasons for the lack of confidence in game security: 
 - I don’t have access to the tools I need to secure my development and my code. 
@@ -59,6 +63,8 @@ A key takeaway: It's a little bleak out there in the gaming ecosystem. No one is
 ## Steps to secure the future of gaming
 
 In the end, our findings from PAX West this year suggest that everyone is feeling the pain, and looking to others for the solution. Game developers and players alike would benefit from an open discussion of the security features and standards the industry aims to evaluate and implement. Here at Okta, we care deeply about security and identity. With this report, we'd like to jumpstart a dialogue, and engage all industry participants in a conversation around making gaming better and more secure for everyone. 
+
+todo: pdf here
 
 If game security is on your mind, we'd love to hear from you in the comments below. Let's continue the exploration, and collaborate to increase security for all players in the gaming ecosystem.  
 
