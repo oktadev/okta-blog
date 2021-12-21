@@ -34,15 +34,15 @@ So before we jump into the findings, I'd like to thank you, the reader, for taki
 
 Let's start by exploring a set of questions aimed at sussing out the answer to one overarching question:
 
-___How confident are you that gaming, from development to gameplay, is secure?___
+***How confident are you that gaming, from development to gameplay, is secure?***
 
-While answers varied, this single quote from the survey responses sums them up nicely: ___"It's a free-for-all wasteland.___"
+While answers varied, this single quote from the survey responses sums them up nicely: ***"It's a free-for-all wasteland."***
 
 Overwhelmingly, respondents were neutral _at best_. Almost half of the answers reflect that when it comes to security in developing and interacting with games, confidence isn't high. An additional 14% said they're not very confident, and 6% had little-to-no assurance that the systems they use every day are secure. More importantly, _every game developer who answered the survey_ felt neutral or negative about the security of their development process and the end product they create.
 
 image::{% asset_path 'blog/game-security-pax/confident-chart.png' %}[alt=bar chart showing responses to security question,width=600,align=center]
 
-For gamers, part of that lack of confidence may correlate to the responses we received to another question: ___Who is responsible for gaming security?___
+For gamers, part of that lack of confidence may correlate to the responses we received to another question: ***Who is responsible for gaming security?***
 
 image::{% asset_path 'blog/game-security-pax/responsible-chart.png' %}[alt=bar chart showing responses to security question,width=600,align=center]
 
@@ -58,12 +58,12 @@ In reality, we're all responsible for security, from company executives to gamer
 
 [quote, Gamer]
 ____
-As a gamer you have to put a lot of trust into the developers and publishers because there is limited control by gamers
+As a gamer you have to put a lot of trust into the developers and publishers because there is limited control by gamers.
 ____
 
 [quote, Game Developer]
 ____
-I feel like there's not a whole lot I can control on my end if someone picks a bad password for their account
+I feel like there's not a whole lot I can control on my end if someone picks a bad password for their account.
 ____
 
 A key takeaway: It's a little bleak out there in the gaming ecosystem. No one is happy with the way things are right now. Gamers know there's only so much they can do on their end to secure their data. They're frustrated by a lack of common standards for accessing the games they play, and they're scared of throwing their personal information into a dark well of EULAs that leave them with little to no recourse if something goes wrong. From their perspective as builders, developers too are frustrated by the lack of standards, from authentication and security methodology to common toolsets.
