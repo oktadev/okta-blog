@@ -14,8 +14,6 @@ image: blog/
 type: awareness
 ---
 
-What We Learned About Game Security at PAX West 2021
-
 When it comes to security, there seems to be a disconnect in gaming. Where other industries have embraced an all-for-one and one-for-all approach to combatting security threats, most gaming and entertainment companies seem largely happy to go it alone.
 
 This isn’t just conjecture. At Okta, we were curious about how developers and gaming companies approached security, so this past autumn we decided to take advantage of the return of PAX West, Penny Arcade’s iconic gaming conference and game culture exposition. 
@@ -58,7 +56,7 @@ In reality, we’re all responsible for security, from company executives to gam
 
 A key takeaway: It's a little bleak out there in the gaming ecosystem. No one is happy with the way things are right now. Gamers know there’s only so much they can do on their end to secure their data. They’re frustrated by a lack of common standards for accessing the games they play, and they’re scared of throwing their personal information into a dark well of EULAs that leave them with little to no recourse if something goes wrong. From their perspective as builders, developers too are frustrated by the lack of standards, from authentication and security methodology to common toolsets. 
 
-## Securing the gaming ecosystem: what's next
+## Steps to secure the future of gaming
 
 In the end, our findings from PAX West this year suggest that everyone is feeling the pain, and looking to others for the solution. Game developers and players alike would benefit from an open discussion of the security features and standards the industry aims to evaluate and implement. Here at Okta, we care deeply about security and identity. With this report, we'd like to jumpstart a dialogue, and engage all industry participants in a conversation around making gaming better and more secure for everyone. 
 
