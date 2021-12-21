@@ -1,16 +1,16 @@
-—
+---
 layout: blog_post
 title: "What We Learned About Game Security at PAX West 2021"
 Author: tristan-morris
 by: contractor
-communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
+communities: [devops,security,mobile]
 description: "We went to the PAX West conference and spoke with gamers and game developers about security standards for the gaming industry. Here's what we discovered."
 tags: [security, games]
 tweets:
 - ""
 - ""
 - ""
-Image: blog/
+image: blog/ 
 type: awareness
 ---
 
@@ -46,7 +46,6 @@ For gamers, part of that lack of confidence may correlate to the responses we re
 
 Anecdotally, many of the developers we talked to both on- and off-camera felt that security was the responsibility of the platforms hosting their games or of the players themselves. In contrast, most of the attendees we spoke with felt that security was the responsibility of gaming companies, developers, and regulatory bodies. That split is reflected in the survey results, too, where respondents were able to select who they felt was responsible for security from a list.
 
-
 Developers gave three common reasons for the lack of confidence in game security: 
 - I don’t have access to the tools I need to secure my development and my code. 
 - I don’t have the budget I need to get those tools. 
@@ -54,19 +53,18 @@ Developers gave three common reasons for the lack of confidence in game security
 
 In reality, we’re all responsible for security, from company executives to gamers themselves (or if they’re young enough, their legal guardians). According to our survey data, and validated by our conversations on the ground, both producers and consumers (players) of games are concerned about a lack of control, an ongoing lack of security, and little consensus on how to address these issues.
 
-> *“As a gamer you have to put a lot of trust into the developers and publishers because there is limited control by gamers”*
+> ***As a gamer you have to put a lot of trust into the developers and publishers because there is limited control by gamers***
 
-> *“I feel like there's not a whole lot I can control on my end if someone picks a bad password for their account”*
+> *I feel like there's not a whole lot I can control on my end if someone picks a bad password for their account*
 
 A key takeaway: It's a little bleak out there in the gaming ecosystem. No one is happy with the way things are right now. Gamers know there’s only so much they can do on their end to secure their data. They’re frustrated by a lack of common standards for accessing the games they play, and they’re scared of throwing their personal information into a dark well of EULAs that leave them with little to no recourse if something goes wrong. From their perspective as builders, developers too are frustrated by the lack of standards, from authentication and security methodology to common toolsets. 
 
-## Where do we go from PAX 
+## Securing the gaming ecosystem: what's next
 
 In the end, our findings from PAX West this year suggest that everyone is feeling the pain, and looking to others for the solution. Game developers and players alike would benefit from an open discussion of the security features and standards the industry aims to evaluate and implement. Here at Okta, we care deeply about security and identity. With this report, we'd like to jumpstart a dialogue, and engage all industry participants in a conversation around making gaming better and more secure for everyone. 
 
 If game security is on your mind, we'd love to hear from you in the comments below. Let's continue the exploration, and collaborate to increase security for all players in the gaming ecosystem.  
 
-Keep in touch with the OktaDev team and our various activities by following us on all or any of our social channels: You can find us on Twitter, LinkedIn, YouTube or Twitch. We'd love to hear from you. 
-
-
+Keep in touch with the OktaDev team and our various activities by following us on all or any of our social channels: You can find us on [Twitter](https://twitter.com/oktadev), [LinkedIn](https://www.linkedin.com/company/oktadev/), [YouTube](https://www.youtube.com/c/OktaDev/) or [Twitch](https://www.twitch.tv/oktadev). We'd love to hear from you. 
+and subscribe to our [YouTube channel](https://www.youtube.com/c/OktaDev/)
 
