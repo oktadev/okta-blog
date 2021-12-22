@@ -43,7 +43,7 @@ If you’d prefer to make these models yourself, execute a command with Laravel�
 
 Then run the following:
 
-```
+```bash
 sail php artisan make:model -m Issue
 sail php artisan make:model -m Comment
 ```
@@ -56,7 +56,7 @@ The above commands also created the necessary migrations thanks to the `-m` flag
 
 User:
 
-```
+```php
 <?php
 // database/migrations/2014_10_12_000000_create_users_table.php
 
@@ -98,7 +98,7 @@ class CreateUsersTable extends Migration
 
 Issue:
 
-```
+```php
 <?php
 // database/migrations/2021_11_14_031132_create_issues_table.php
 
@@ -139,7 +139,7 @@ class CreateIssuesTable extends Migration
 
 Comment:
 
-```
+```php
 <?php
 // database/migrations/2021_11_14_030557_create_comments_table.php
 
@@ -183,7 +183,7 @@ Next define some relationships on the models to tie everything together. Your mo
 
 User:
 
-```
+```php
 <?php
 // app/Models/User.php
 
@@ -242,8 +242,8 @@ class User extends Authenticatable
 
 Issue:
 
-```
-​​<?php
+```php
+<?php
 // app/Models/Issue.php
 
 namespace App\Models;
@@ -273,7 +273,7 @@ class Issue extends Model
 
 Comment:
 
-```
+```php
 <?php
 // app/Models/Comment.php
 
@@ -301,7 +301,7 @@ class Comment extends Model
 
 Add seeders and factories so you have some data to work with. This allows you to generate as many instances of your models as you like, as well as the pre-populated relationships you just defined. Run the following:
 
-```
+```bash
 sail php artisan make:seeder SimpleSeeder
 sail php artisan make:factory IssueFactory
 sail php artisan make:factory CommentFactory
@@ -311,8 +311,8 @@ Each of these classes will need tweaking to ensure they are generating the corre
 
 `database/factories/IssueFactory.php`:
 
-```
-​​<?php
+```php
+<?php
 
 namespace Database\Factories;
 
@@ -337,7 +337,7 @@ class IssueFactory extends Factory
 
 `database/factories/CommentFactory.php`:
 
-```
+```php
 <?php
 
 namespace Database\Factories;
@@ -362,7 +362,7 @@ class CommentFactory extends Factory
 
 `database/seeders/SimpleSeeder.php`:
 
-```
+```php
 <?php
 
 namespace Database\Seeders;
@@ -400,7 +400,7 @@ class SimpleSeeder extends Seeder
 
 Once you have updated those classes, update `DatabaseSeeder.php` to call the new `SimpleSeeder`:
 
-```
+```php
 <?php
 // database/seeders/DatabaseSeeder.php
 
@@ -424,7 +424,7 @@ class DatabaseSeeder extends Seeder
 
 To make sure that everything is working as expected, run the migrations and seeders you just created. This will populate your database with records that can be used by the GraphQL API. Execute the following command:
 
-```
+```bash
 sail php artisan migrate:fresh --seed
 ```
 
@@ -436,7 +436,7 @@ There are a few different packages for GraphQL with Laravel. This tutorial will 
 
 Install the GraphQL dependencies:
 
-```
+```bash
 sail composer require nuwave/lighthouse mll-lab/laravel-graphql-playground
 ```
 
@@ -444,20 +444,20 @@ Lighthouse will create the server for you, while the Playground allows you to te
 
 Once both dependencies are installed, run the following commands to publish the schema and config file from Lighthouse:
 
-```
+```bash
 sail php artisan vendor:publish --tag=lighthouse-schema
 sail php artisan vendor:publish --tag=lighthouse-config
 ```
 
 Add the GraphQL API route to the CORS config file. Navigate to `config/cors.php` and update the `paths` array to include `’graphql’`, like this:
 
-```
+```php
 'paths' => ['api/*', 'sanctum/csrf-cookie', 'graphql'],
 ```
 
 Finally, update the Lighthouse schema at `graphql/schema.graphql`. Change the contents to the following:
 
-```
+```graphql
 type Query {
    users: [User!]! @all
    user(id: Int! @eq): User @find
@@ -495,7 +495,7 @@ This file describes which types are accessible via GraphQL and which attributes 
 
 Navigate to [this playground site](http://localhost/graphql-playground). The interface will allow you to try out GraphQL with the backend you just made. Enter the following query on the left and click the **Play** button:
 
-```
+```graphql
 query GetIssues {
   issues {
 	id
@@ -540,7 +540,7 @@ You’ll be given your client ID—make sure to note it. You’ll be able to see
 
 Go back to your terminal and run `sail composer require okta/jwt-verifier firebase/php-jwt`. This will install the packages needed to verify the Okta access tokens. Then run `sail php artisan make:middleware VerifyJwt` to create a new class for your middleware. Open it and set its contents as follows:
 
-```
+```php
 <?php
 
 namespace App\Http\Middleware;
@@ -584,14 +584,14 @@ class VerifyJwt
 
 Once this is attached to Lighthouse’s middleware config, it will allow you to protect your GraphQL API from requests that don’t have valid tokens. The client ID and issuer are coming from environment variables, which need to be set in your .env file. Open that file and append the following:
 
-```
+```bash
 OKTA_CLIENT_ID=<the client ID you noted earlier>
 OKTA_ISSUER_URI=< the issuer URI you noted earlier>
 ```
 
 Open `config/lighthouse.php` and update the ‘middleware’ array to add the middleware to Lighthouse:
 
-```
+```php
 ...
 'middleware' => [
    // Verify BearerToken from Okta
@@ -631,7 +631,7 @@ The `index.js` file mounts your React application onto its root DOM node, but it
 
 Note: Using local storage is fine for this tutorial, but don’t take this approach in production, because changes to the underlying libraries and how they store the token might break it. 
 
-```
+```js
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
@@ -676,7 +676,7 @@ ReactDOM.render(
 
 This file houses the main body of the application and sets up the Okta client. Use your issuer URI and client ID here:
 
-```
+```js
 import React from 'react';
 import { SecureRoute, Security, LoginCallback } from '@okta/okta-react';
 import { OktaAuth, toRelativeUrl } from '@okta/okta-auth-js';
@@ -718,7 +718,7 @@ export default AppWithRouterAccess;
 
 This component acts like a dashboard, prompting the user to log in via Okta if they’re not authenticated, and giving them the link to the issue tracker if they are:
 
-```
+```js
 import { useOktaAuth } from "@okta/okta-react";
 
 const Home = () => {
@@ -758,7 +758,7 @@ export default Home;
 
 This component uses the query you tried earlier in the graphql-playground to fetch data in its desired shape. Because the access token is injected into Apollo Client, the frontend is able to query the backend despite the middleware you put in place. When the data returns, the component renders it as a list.
 
-```
+```js
 import * as React from 'react';
 
 import { useQuery, gql } from "@apollo/client";
