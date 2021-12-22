@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7349666931
+discourse_topic_id: 17033
+discourse_comment_url: https://devforum.okta.com/t/17033
 layout: blog_post
 title: 'How to Configure Better Web Site Security with Cloudflare and Netlify'
 author: frederico-hakamine
@@ -38,7 +41,7 @@ This approach is easy to take when you're just hosting a personal portfolio or b
 To host, build, and serve my site, I use:
 
 - [CloudFlare](https://cloudflare.com) for CDN and free HTTPS
-- [Github](https://github.com/sudobinbash/sudobinbash-site) for hosting page source
+- [GitHub](https://github.com/sudobinbash/sudobinbash-site) for hosting page source
 - [Hugo](https://gohugo.io/) for building my static site pages using Go
 
 To check my security. I used:

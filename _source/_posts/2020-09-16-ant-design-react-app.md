@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8205162701
+discourse_topic_id: 17291
+discourse_comment_url: https://devforum.okta.com/t/17291
 layout: blog_post
 title: "Build a React App with ANT Design Principles"
 author: nickolas-fisher

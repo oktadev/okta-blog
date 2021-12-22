@@ -1,4 +1,5 @@
 ---
+disqus_thread_id: 7060167166
 layout: blog_post
 title: "Three Developer Tools I'm Thankful For"
 author: matt-raible

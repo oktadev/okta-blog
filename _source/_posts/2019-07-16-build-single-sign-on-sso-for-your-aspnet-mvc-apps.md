@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7534154716
+discourse_topic_id: 17093
+discourse_comment_url: https://devforum.okta.com/t/17093
 layout: blog_post
 title: "Build Single Sign-on for Your ASP.NET MVC App"
 author: ryan-foster

@@ -1,10 +1,14 @@
 ---
+disqus_thread_id: 6591378122
+discourse_topic_id: 16850
+discourse_comment_url: https://devforum.okta.com/t/16850
 layout: blog_post
 title: Secure Server-to-Server Communication with Spring Boot and OAuth 2.0
 tags: [spring, oauth, oauth-2-dot-0, java, spring-boot, client-credentials]
 author: brian-demers
 by: advocate
 communities: [java]
+description: "The OAuth 2.0 client credentials grant was created to help solve for the problems that HTTP Basic Auth had. Learn how it can allow two machines to communicate securely."
 Tweets:
 - "Come learn more about securing server-to-server APIs using Spring Boot and OAuth2, it'll be fun!"
 - "Stop scrolling through twitter and spend a few minutes learning how you can better architect secure server-to-server APIs services with Spring Boot and #oauth"
@@ -14,7 +18,7 @@ update-title: "How to Use Client Credentials Flow with Spring Security"
 update-url: /blog/2021/05/05/client-credentials-spring-security
 ---
 
-Most OAuth 2.0 guides are focused around the context of a user, i.e., login to an application using Google, Github, Okta, etc., then do something on behalf of that user. While useful, these guides ignore server-to-server communication where there is no user and you only have one service connecting to another one.
+Most OAuth 2.0 guides are focused around the context of a user, i.e., login to an application using Google, GitHub, Okta, etc., then do something on behalf of that user. While useful, these guides ignore server-to-server communication where there is no user and you only have one service connecting to another one.
 
 The OAuth 2 client credentials grant type is exclusively used for scenarios in which no user exists (CRON jobs, scheduled tasks, other data workloads, etc.). This flow is less *showy* than other OAuth flows as there is no end user or browser to deal with, but is far easier to understand than the more complicated user-centric OAuth 2.0 grant types.
 

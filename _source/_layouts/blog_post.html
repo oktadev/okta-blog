@@ -36,7 +36,9 @@ show_bottom_cta: true
     <a href="/blog/authors/{{ author_id }}/">{% img '{{ author.avatar }}' alt:'{{ author.avatar }}' class:BlogPost-avatar-social %}</a>
     {%- endif -%}
 
-    {%- if author.github -%}
+    {%- if post.github -%}
+    <a href="{{ post.github }}" target="_blank"><i class="fa fa-github"></i></a>
+    {%- elsif author.github -%}
     <a href="{{ author.github }}" target="_blank"><i class="fa fa-github"></i></a>
     {%- endif -%}
     {%- if author.twitter -%}

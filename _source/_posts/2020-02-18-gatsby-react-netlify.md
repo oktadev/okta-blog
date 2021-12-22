@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7877138573
+discourse_topic_id: 17216
+discourse_comment_url: https://devforum.okta.com/t/17216
 layout: blog_post
 title: "Build a Secure Blog with Gatsby, React, and Netlify"
 author: matt-raible

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8774700505
+discourse_topic_id: 17413
+discourse_comment_url: https://devforum.okta.com/t/17413
 layout: blog_post
 title: "Spring Native in Action with the Okta Spring Boot Starter"
 author: matt-raible
@@ -40,7 +43,7 @@ To solve this desire, I scheduled a Twitch stream with link:/blog/authors/brian-
 
 This stream originally aired on June 22, 2021. Since then, there have been a few Spring Boot releases and several Spring Native releases. And don't forget, there was another https://twitter.com/mraible/status/1433072410182357000[SpringOne]!
 
-== Okta Spring Boot Starter v2.1.1 Supports Spring Native!
+== Okta Spring Boot Starter v2.1.1+ Supports Spring Native!
 
 Today, I'm happy to announce that we've added our learnings to https://github.com/okta/okta-spring-boot/releases/tag/okta-spring-boot-parent-2.1.1[Okta Spring Boot v2.1.1]; now, it only takes a couple of lines to add native support to a Spring Boot application that uses Okta.
 
@@ -88,7 +91,7 @@ Next, edit your `pom.xml` and add the Spring Native version and classifier to th
 
 [source,xml]
 ----
-<spring-native.version>0.10.3</spring-native.version>
+<spring-native.version>0.10.4</spring-native.version>
 <repackage.classifier/>
 ----
 
@@ -159,7 +162,9 @@ _Giddyup!_
 
 [source,shell]
 ----
-./mvnw
+./mvnw spring-boot:build-image
+# wait until image builds
+docker run -it -p8080:8080 okta-spring-boot-sample:0.0.1-SNAPSHOT
 ----
 
 Next, open your browser to `http://localhost:8080`. You'll likely be logged in straight away and see your name printed on the screen.

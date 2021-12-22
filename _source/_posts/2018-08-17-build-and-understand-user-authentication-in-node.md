@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6857708385
+discourse_topic_id: 16917
+discourse_comment_url: https://devforum.okta.com/t/16917
 layout: blog_post
 title: "Build and Understand a Simple Node.js Website with User Authentication"
 author: randall-degges

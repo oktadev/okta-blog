@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8135519511
+discourse_topic_id: 17268
+discourse_comment_url: https://devforum.okta.com/t/17268
 layout: blog_post
 title: "Introducing JPaseto: Security Tokens For Java"
 author: brian-demers

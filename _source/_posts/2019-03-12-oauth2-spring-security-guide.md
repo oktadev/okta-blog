@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7284130407
+discourse_topic_id: 17017
+discourse_comment_url: https://devforum.okta.com/t/17017
 layout: blog_post
 title: "A Quick Guide to OAuth 2.0 with Spring Security"
 author: andrew-hughes

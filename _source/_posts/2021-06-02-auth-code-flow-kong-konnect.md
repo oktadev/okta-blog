@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8569176684
+discourse_topic_id: 17380
+discourse_comment_url: https://devforum.okta.com/t/17380
 layout: blog_post
 title: "Apply Authorization Code Flow With Kong Konnect and Okta"
 author: claudio-acquaviva
@@ -12,7 +15,7 @@ tweets:
 - "Using Kong for your API gateway? Learn how to integrate it with @okta!"
 image: blog/auth-code-flow-kong/auth-code-flow-kong.png
 type: conversion
-canonical-url: https://konghq.com/blog/konnect-okta-authorization-code-flow/
+canonical: https://konghq.com/blog/konnect-okta-authorization-code-flow/
 ---
 
 We'll go through the authorization code flow applied to user authentication processes in our second Kong and Okta tutorial. This series will show you how to implement service authentication and authorization for [Kong Konnect](https://konghq.com/kong-konnect/) and Okta using the [OpenID Connect (OIDC) plugin](https://konghq.com/blog/openid-connect-api-gateway). Parts 1, 3, and 4 cover:

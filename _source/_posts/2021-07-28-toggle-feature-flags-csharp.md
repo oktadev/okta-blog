@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8674865409
+discourse_topic_id: 17399
+discourse_comment_url: https://devforum.okta.com/t/17399
 layout: blog_post
 title: How to Toggle Functionality in C# with Feature Flags
 author: greg-sinka
@@ -217,8 +220,8 @@ Feature flags are quite simple to implement and add great value to your applicat
 ## Learn More About Feature Flags and Authentication
 
 - [Martin Fowler's blog post from 2017 on the topic, is a must read](https://martinfowler.com/articles/feature-toggles.html)
-- [Okta CLI, the simplest way to create secure application templates](https://developer.okta.com/blog/2020/12/10/introducing-okta-cli)
-- [Get Started with ASP.NET Core + Okta](https://developer.okta.com/blog/2020/12/15/okta-linux-dotnet-server-support)
+- [Okta CLI, the simplest way to create secure application templates](/blog/2020/12/10/introducing-okta-cli)
+- [Get Started with ASP.NET Core + Okta](/blog/2020/12/15/okta-linux-dotnet-server-support)
 - [ConfigCat SDK for .NET manual and docs with advanced use cases](https://www.configcat.com/docs/sdk-reference/csharp)
 
 If you have any questions about this post, please add a comment below. For more awesome content, follow [@oktadev](https://twitter.com/oktadev) on Twitter, like us [on Facebook](https://www.facebook.com/oktadevelopers/), or subscribe to [our YouTube channel](https://www.youtube.com/oktadev).

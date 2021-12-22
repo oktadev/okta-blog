@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7597194152
+discourse_topic_id: 17123
+discourse_comment_url: https://devforum.okta.com/t/17123
 layout: blog_post
 title: Make Java Tests Groovy With Hamcrest
 description: 'A tutorial on testing Java code with Groovy.'

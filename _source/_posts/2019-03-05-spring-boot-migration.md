@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7273935444
+discourse_topic_id: 17013
+discourse_comment_url: https://devforum.okta.com/t/17013
 layout: blog_post
 title: "Migrate Your Spring Boot App to the Latest and Greatest Spring Security and OAuth 2.0"
 author: micah-silverman
@@ -508,7 +511,7 @@ return this.webClient
 
 The code for this post can be found on [GitHub OktaDeveloper](https://github.com/oktadeveloper/okta-spring-boot-oauth2-migration-example) repo.
 
-Follow these links for more information about [OIDC](https://developer.okta.com/blog/2017/07/25/oidc-primer-part-1), [OAuth 2.0](https://developer.okta.com/blog/2018/04/10/oauth-authorization-code-grant-type), [JWT](https://developer.okta.com/blog/2018/10/31/jwts-with-java), and the various [Flows](https://aaronparecki.com/oauth-2-simplified/#authorization).
+Follow these links for more information about [OIDC](/blog/2017/07/25/oidc-primer-part-1), [OAuth 2.0](/blog/2018/04/10/oauth-authorization-code-grant-type), [JWT](/blog/2018/10/31/jwts-with-java), and the various [Flows](https://aaronparecki.com/oauth-2-simplified/#authorization).
 
 Spring Boot and Spring Security's first-class support for OpenID Connect and OAuth 2.0 adds a new level of interoperability with providers (such as Okta) with minimal dependencies, minimal configuration and minimal code.
 

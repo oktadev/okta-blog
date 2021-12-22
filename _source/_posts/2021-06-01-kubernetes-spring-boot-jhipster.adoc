@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8566354469
+discourse_topic_id: 17379
+discourse_comment_url: https://devforum.okta.com/t/17379
 layout: blog_post
 title: "Kubernetes to the Cloud with Spring Boot and JHipster"
 author: matt-raible
@@ -12,6 +15,7 @@ tweets:
 - "JHipster makes it easy to create reactive @java microservices and deploy them with @kubernetesio. Learn more in this tutorial! 👇"
 image: blog/reactive-java-kubernetes/reactive-java-k8s.png
 type: conversion
+canonical: https://auth0.com/blog/full-stack-java-with-react-spring-boot-and-jhipster/
 changelog:
 - 2021-08-11: Fixed missing namespace parameters and Ingress definition. See the code changes in the [example on GitHub](https://github.com/oktadev/java-microservices-examples/pull/24). Changes to this post can be viewed in [okta-blog#857](https://github.com/oktadev/okta-blog/pull/857).
 ---
@@ -761,7 +765,7 @@ Retrieve the certificate keypair that this controller generates.
 kubectl get secret -n kube-system -l sealedsecrets.bitnami.com/sealed-secrets-key -o yaml
 ----
 
-Copy the raw value of `tls.crt` and decode it. You can use the command line or an https://www.base64decode.org/[online base64 decoder].
+Copy the raw value of `tls.crt` and decode it. You can use the command line, or learn more about https://developer.okta.com/docs/guides/implement-grant-type/clientcreds/main/#base64-encode-the-client-id-and-client-secret[base64 encoding/decoding] in our documentation.
 
 [source,shell]
 ----

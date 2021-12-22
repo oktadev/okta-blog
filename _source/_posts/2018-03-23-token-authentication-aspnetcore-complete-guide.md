@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6572366412
+discourse_topic_id: 16845
+discourse_comment_url: https://devforum.okta.com/t/16845
 layout: blog_post
 title: "Token Authentication in ASP.NET Core 2.0 - A Complete Guide"
 author: nate-barbettini

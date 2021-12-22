@@ -1,0 +1,80 @@
+---
+layout: blog_post
+title: "What We Learned About Game Security at PAX West 2021"
+author: tristan-morris
+by: contractor
+communities: [devops,security,mobile]
+description: "We went to the PAX West conference and spoke with gamers and game developers about security standards for the gaming industry. Here's what we discovered."
+tags: [security, games]
+tweets:
+- ""
+- ""
+- ""
+image: blog/game-security-pax/game-security-social.png
+type: awareness
+---
+
+:page-liquid:
+
+When it comes to security, there seems to be a disconnect in gaming. Where other industries have embraced an all-for-one and one-for-all approach to combating security threats, most gaming and entertainment companies seem largely happy to go it alone.
+
+This isn't just conjecture. At Okta, we were curious about how developers and gaming companies approached security, so this past autumn we decided to take advantage of the return of PAX West, Penny Arcade's iconic gaming conference and game culture exposition.
+
+== Voices from the _lobby track_ at PAX
+
+We went to the show to get a feel for developer attitudes towards protecting not only the development and content of the games, but also their customers' experience and data. We wanted to know how gamers felt about the handling of their information and how they play games. We interviewed developers and gamers, passed out surveys, and live-streamed the entire event in order to get a _person-on-the-street_ perspective.
+
+What we heard is directly reflected in the opening lines of the report you're looking at now. Among gamers and developers, there's no clear consensus on who is responsible for security. Among the developers we spoke to, there's no clear standard for how to handle security, or even a common bar for the importance of security in development.
+
+This report is by no means an exhaustive omnibus of the problems the game development world faces, and isn't meant to be a hands-on guide to fixing the problems we discussed. Instead, it's an attempt to pull back the curtains and say: "Hey, we all see these issues. We need to think about them, discuss them, collaborate, and work towards solving them."
+
+So before we jump into the findings, I'd like to thank you, the reader, for taking the time to explore. I believe it's an important first step to bringing the games community together, and making the work we love and the games we love to play safer for everyone.
+
+== Welcome to the wasteland
+
+Let's start by exploring a set of questions aimed at sussing out the answer to one overarching question:
+
+***How confident are you that gaming, from development to gameplay, is secure?***
+
+While answers varied, this single quote from the survey responses sums them up nicely: ***"It's a free-for-all wasteland."***
+
+Overwhelmingly, respondents were neutral _at best_. Almost half of the answers reflect that when it comes to security in developing and interacting with games, confidence isn't high. An additional 14% said they're not very confident, and 6% had little-to-no assurance that the systems they use every day are secure. More importantly, _every game developer who answered the survey_ felt neutral or negative about the security of their development process and the end product they create.
+
+image::{% asset_path 'blog/game-security-pax/confident-chart.png' %}[alt=bar chart showing responses to security question,width=600,align=center]
+
+For gamers, part of that lack of confidence may correlate to the responses we received to another question: ***Who is responsible for gaming security?***
+
+image::{% asset_path 'blog/game-security-pax/responsible-chart.png' %}[alt=bar chart showing responses to security question,width=600,align=center]
+
+Anecdotally, many of the developers we talked to both on- and off-camera felt that security was the responsibility of the platforms hosting their games or of the players themselves. In contrast, most of the attendees we spoke with felt that security was the responsibility of gaming companies, developers, and regulatory bodies. That split is reflected in the survey results, too, where respondents were able to select who they felt was responsible for security from a list.
+
+Developers gave three common reasons for the lack of confidence in game security:
+
+- I don't have access to the tools I need to secure my development and my code.
+- I don't have the budget I need to get those tools.
+- There are no standards that I can look to as a baseline to build from.
+
+In reality, we're all responsible for security, from company executives to gamers themselves (or if they're young enough, their legal guardians). According to our survey data, and validated by our conversations on the ground, both producers and consumers (players) of games are concerned about a lack of control, an ongoing lack of security, and little consensus on how to address these issues.
+
+[quote, Gamer]
+____
+As a gamer you have to put a lot of trust into the developers and publishers because there is limited control by gamers.
+____
+
+[quote, Game Developer]
+____
+I feel like there's not a whole lot I can control on my end if someone picks a bad password for their account.
+____
+
+A key takeaway: It's a little bleak out there in the gaming ecosystem. No one is happy with the way things are right now. Gamers know there's only so much they can do on their end to secure their data. They're frustrated by a lack of common standards for accessing the games they play, and they're scared of throwing their personal information into a dark well of EULAs that leave them with little to no recourse if something goes wrong. From their perspective as builders, developers too are frustrated by the lack of standards, from authentication and security methodology to common toolsets.
+
+== Steps to secure the future of gaming
+
+In the end, our findings from PAX West this year suggest that everyone is feeling the pain, and looking to others for the solution. Game developers and players alike would benefit from an open discussion of the security features and standards the industry aims to evaluate and implement. Here at Okta, we care deeply about security and identity. With this report, we'd like to jumpstart a dialogue, and engage all industry participants in a conversation around making gaming better and more secure for everyone.
+
+.Info Graphic - Click to open full PDF
+image::{% asset_path 'blog/game-security-pax/info-graphic-thumbnail.jpg' %}[alt=Thumbnail of PDF info graphic, align=center, link="{% asset_path 'game-security-pax/info-graphic.pdf' %}"]
+
+If game security is on your mind, we'd love to hear from you in the comments below. Let's continue the exploration, and collaborate to increase security for all players in the gaming ecosystem.
+
+Keep in touch with the OktaDev team and our various activities by following us on all or any of our social channels: You can find us on https://twitter.com/oktadev[Twitter], https://www.linkedin.com/company/oktadev/[LinkedIn], https://www.youtube.com/c/OktaDev/[YouTube] or https://www.twitch.tv/oktadev[Twitch]. We'd love to hear from you.

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8307810481
+discourse_topic_id: 17331
+discourse_comment_url: https://devforum.okta.com/t/17331
 layout: blog_post
 title: How to Deploy Your .NET Core App to Google Cloud, AWS or Azure
 author: greg-sinka
@@ -240,7 +243,7 @@ Now you should be able to log in and log out in your web application using your 
 
 ### Troubleshooting
 
-If you run into a Correlation Error after logging in, you'll need to manually set the `SameSite` cookie attribute to `None`, and enable SSL (HTTPS) on your server. I have a detailed article and a guide coming soon on how to set up a Linux server to support Okta login in .NET Core 3.1 applications - be on the lookout for that! To get an idea of the basics, check out my post on how to [Install .NET Core Apps on Linux in 5 Minutes](https://developer.okta.com/blog/2020/11/25/how-to-install-dotnetcore-on-linux).
+If you run into a Correlation Error after logging in, you'll need to manually set the `SameSite` cookie attribute to `None`, and enable SSL (HTTPS) on your server. I have a detailed article and a guide coming soon on how to set up a Linux server to support Okta login in .NET Core 3.1 applications - be on the lookout for that! To get an idea of the basics, check out my post on how to [Install .NET Core Apps on Linux in 5 Minutes](/blog/2020/11/25/how-to-install-dotnetcore-on-linux).
 
 ## Deploying a .NET Core 3.1 App to Google App Engine
 

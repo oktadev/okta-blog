@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6435857267
+discourse_topic_id: 16817
+discourse_comment_url: https://devforum.okta.com/t/16817
 layout: "blog_post"
 title: "Build Your Own Invoicing Service with Node, Coinbase, Bitcoin, and Okta"
 author: randall-degges
@@ -620,8 +623,8 @@ I'd also recommend creating an [Okta developer account](https://developer.okta.c
 Finally, if you'd like to see more articles like this, tweet [@oktadev](https://twitter.com/oktadev) and let me know! &lt;3 You can also look at some similar articles we've written recently:
 
 - [Protect Your Cryptocurrency Wealth Tracking PWA with
-  Okta](https://developer.okta.com/blog/2018/01/18/cryptocurrency-pwa-secured-by-okta)
+  Okta](/blog/2018/01/18/cryptocurrency-pwa-secured-by-okta)
   written by my colleague [@mraible](https://twitter.com/mraible)
 - [Build a Cryptocurrency Comparison Site with
-  Vue.js](https://developer.okta.com/blog/2017/09/06/build-a-cryptocurrency-comparison-site-with-vuejs)
+  Vue.js](/blog/2017/09/06/build-a-cryptocurrency-comparison-site-with-vuejs)
   by yours truly

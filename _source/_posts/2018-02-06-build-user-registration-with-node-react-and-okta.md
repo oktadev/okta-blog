@@ -1,9 +1,13 @@
 ---
+disqus_thread_id: 6462640861
+discourse_topic_id: 16824
+discourse_comment_url: https://devforum.okta.com/t/16824
 layout: blog_post
 title: "Build User Registration with Node, React, and Okta"
 author: lee-brandt
 by: advocate
 communities: [.net, javascript]
+description: "In this tutorial, you'll learn how to set up a Node API that feeds a React UI, and build a user registration that keeps the user's information private and personal."
 tags: [asp-dot-net, webapi, security, oauth, oidc, react]
 tweets:
   - "Learn how to build user registration into your Node + React website: "
@@ -741,8 +745,8 @@ The source code for this example is available at [oktadeveloper/okta-node-react-
 
 Also, check out other articles using Okta for authentication:
 
-- Randall Degges's article on Okta in a [Simple Node Website](https://developer.okta.com/blog/2017/10/19/use-openid-connect-to-build-a-simple-node-website)
-- My article using the [Okta Sign-In Widget in React](https://developer.okta.com/blog/2017/03/30/react-okta-sign-in-widget)
-- Matt Raible's Article on [Progressive Web Apps](https://developer.okta.com/blog/2017/07/20/the-ultimate-guide-to-progressive-web-applications)
+- Randall Degges's article on Okta in a [Simple Node Website](/blog/2017/10/19/use-openid-connect-to-build-a-simple-node-website)
+- My article using the [Okta Sign-In Widget in React](/blog/2017/03/30/react-okta-sign-in-widget)
+- Matt Raible's Article on [Progressive Web Apps](/blog/2017/07/20/the-ultimate-guide-to-progressive-web-applications)
 
 As always, if you have questions, comments, or concerns about the article you can post a comment below, email me at <lee.brandt@okta.com> or post your questions to the [developer forums](https://devforum.okta.com). For more articles and tutorials, follow us on Twitter [@OktaDev](https://twitter.com/oktadev).

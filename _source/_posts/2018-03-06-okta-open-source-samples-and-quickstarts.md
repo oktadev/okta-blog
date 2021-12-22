@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6542043016
+discourse_topic_id: 16834
+discourse_comment_url: https://devforum.okta.com/t/16834
 layout: blog_post
 title: "Open Source Framework Samples and Quickstarts for Okta's Developer APIs"
 author: matt-raible

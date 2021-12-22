@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8290958244
+discourse_topic_id: 17325
+discourse_comment_url: https://devforum.okta.com/t/17325
 layout: blog_post
 title: "Five Open Source Projects We're Thankful For In 2020"
 author: lee-brandt

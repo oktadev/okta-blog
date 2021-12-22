@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7391825451
+discourse_topic_id: 17045
+discourse_comment_url: https://devforum.okta.com/t/17045
 layout: blog_post
 title: "Is the OAuth 2.0 Implicit Flow Dead?"
 author: aaron-parecki

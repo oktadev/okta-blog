@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7842886164
+discourse_topic_id: 17208
+discourse_comment_url: https://devforum.okta.com/t/17208
 layout: blog_post
 title: "Build Single Sign-on in Java"
 author: joy-foster

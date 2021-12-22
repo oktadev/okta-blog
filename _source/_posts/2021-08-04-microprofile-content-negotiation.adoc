@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8692668660
+discourse_topic_id: 17403
+discourse_comment_url: https://devforum.okta.com/t/17403
 layout: blog_post
 title: "Content Negotiation with a Java MicroProfile Application"
 author: brian-demers
@@ -117,11 +120,16 @@ The server's response contains headers to let the client know which options were
 
 When I examine the request my browser made to display this blog post, it looks something like this:
 
+[.scrollable]
+--
+
 |=======
 |Accept |text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
 |Accept-Encoding |gzip, deflate, br
 |Accept-Language |en-US,en;q=0.9
 |=======
+
+--
 
 My browser is telling the server: I'll take anything, but here's an ordered list of what I prefer:
 

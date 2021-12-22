@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8143060731
+discourse_topic_id: 17270
+discourse_comment_url: https://devforum.okta.com/t/17270
 layout: blog_post
 title: "Build a Spring Boot Application Using Java Modules"
 author: bruno-leite

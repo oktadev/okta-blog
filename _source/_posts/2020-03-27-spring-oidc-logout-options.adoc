@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7937280862
+discourse_topic_id: 17228
+discourse_comment_url: https://devforum.okta.com/t/17228
 layout: blog_post
 title: "OpenID Connect Logout Options with Spring Boot"
 author: brian-demers

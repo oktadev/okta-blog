@@ -1,9 +1,13 @@
 ---
+disqus_thread_id: 6448648537
+discourse_topic_id: 16818
+discourse_comment_url: https://devforum.okta.com/t/16818
 layout: blog_post
 title: "Build a Secure To-Do App with Vue, ASP.NET Core, and Okta"
 author: nate-barbettini
 by: advocate
 communities: [.net, javascript]
+description: "In this tutorial, you'll learn how to build a lightweight, secure to-do app with a Vue.js frontend and an ASP.NET Core backend."
 tags: [vue-dot-js, vue, oidc, dotnet, aspnetcore]
 tweets: 
   - "ICYMI: @nbarbettini shows how to build a to-do app with #vuejs and #aspnetcore step-by-step"
@@ -18,7 +22,7 @@ There are hundreds of to-do apps out there, but today I'll show you how to build
 ## Why Vue.js and ASP.NET Core?
 In this article, I'll show you how to build a lightweight, secure to-do app with a Vue.js frontend and an ASP.NET Core backend. Not familiar with these frameworks? That's fine! You'll learn everything as you go. Here's a short introduction to both:
 
-[Vue.js](https://vuejs.org) is a JavaScript framework for building applications that run in the browser. It borrows some good ideas from both Angular and React, and has been gaining popularity recently. I like Vue because it's easy to pick up and get started. Compared to both Angular and React, the learning curve doesn't feel as steep. Plus, it has great documentation! For this tutorial, I've borrowed from Matt Raible's excellent article [The Lazy Developer's Guide to Authentication with Vue.js](https://developer.okta.com/blog/2017/09/14/lazy-developers-guide-to-auth-with-vue).
+[Vue.js](https://vuejs.org) is a JavaScript framework for building applications that run in the browser. It borrows some good ideas from both Angular and React, and has been gaining popularity recently. I like Vue because it's easy to pick up and get started. Compared to both Angular and React, the learning curve doesn't feel as steep. Plus, it has great documentation! For this tutorial, I've borrowed from Matt Raible's excellent article [The Lazy Developer's Guide to Authentication with Vue.js](/blog/2017/09/14/lazy-developers-guide-to-auth-with-vue).
 
 [ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/) is Microsoft's new open-source framework for building web apps and APIs. I like ASP.NET Core on the backend because it's type-safe, super fast, and has a large ecosystem of packages available. If you want to learn the basics, I wrote a [free ebook](http://littleasp.net/book) about version 2.0, which was released earlier this year. 
 
@@ -1192,7 +1196,7 @@ If you want to keep building, here's what you could do next:
 
 For more Vue.js inspiration, check out some other recent posts:
 
-* [The Lazy Developer's Guide to Authentication with Vue.js](https://developer.okta.com/blog/2017/09/14/lazy-developers-guide-to-auth-with-vue)
-* [Build a Cryptocurrency Comparison Site with Vue.js](https://developer.okta.com/blog/2017/09/06/build-a-cryptocurrency-comparison-site-with-vuejs)
+* [The Lazy Developer's Guide to Authentication with Vue.js](/blog/2017/09/14/lazy-developers-guide-to-auth-with-vue)
+* [Build a Cryptocurrency Comparison Site with Vue.js](/blog/2017/09/06/build-a-cryptocurrency-comparison-site-with-vuejs)
 
 Happy coding!

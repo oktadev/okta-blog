@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7640408638
+discourse_topic_id: 17139
+discourse_comment_url: https://devforum.okta.com/t/17139
 layout: blog_post
 title: "Build a Simple .NET Core App on Docker"
 author: charlie-holland

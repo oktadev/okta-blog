@@ -9,7 +9,7 @@
     "generate": "cross-env-shell PID_FINDER=okta_github_io JEKYLL_ENV=production bundle exec jekyll",
     "build-dev": "cross-env-shell PID_FINDER=okta_github_io JEKYLL_ENV=production bundle exec jekyll build --future -- --verbose",
     "build-prod": "npm run generate build -- --verbose",
-    "start": "bundle exec jekyll serve --future --livereload --host=0.0.0.0",
+    "start": "bundle exec jekyll serve --future --livereload --incremental --host=0.0.0.0",
     "markdown-lint": "node scripts/lint",
     "find-missing-slashes": "node scripts/find-missing-slashes",
     "prep-for-deploy": "bash scripts/prep-for-deploy.sh",
@@ -17,12 +17,15 @@
     "dev-restore": "node scripts/dev-restore",
     "post": "node scripts/post",
     "clean-post": "node scripts/dev-chars",
-    "validate-front-matter": "node ./scripts/validate-front-matter"
+    "validate-front-matter": "node ./scripts/validate-front-matter",
+    "validate-images": "node ./scripts/image-validation",
+    "optimize-images": "node ./scripts/image-optimization"
   },
   "pre-push": [
     "dev-restore",
     "markdown-lint",
-    "validate-front-matter"
+    "validate-front-matter",
+    "validate-images"
   ],
   "repository": {
     "type": "git",
@@ -41,7 +44,8 @@
     "fs-extra": "^10.0.0",
     "pre-push": "0.1.1",
     "recursive-readdir": "2.2.2",
-    "simple-git": "^2.45.1",
-    "yargs": "^17.1.1"
+    "simple-git": "^2.47.0",
+    "yargs": "^17.2.1",
+    "sharp": "^0.29.3"
   }
 }

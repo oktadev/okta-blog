@@ -1,10 +1,13 @@
 ---
+disqus_thread_id: 7762556532
+discourse_topic_id: 17183
+discourse_comment_url: https://devforum.okta.com/t/17183
 layout: blog_post
 title: "OAuth 2.1: How Many RFCs Does it Take to Change a Lightbulb?"
 author: lee-mcgovern
 by: external-contributor
 communities: [security]
-description: ""
+description: "The OAuth 2.0 specificiation is a maze of documentation that developers need to understand when getting started on the topic. OAuth 2.1 can help fix this!"
 tags: [oauth, oauth2, rfc, spec]
 tweets:
 - "OAuth 2.1: How Many RFCs Does it Take to Change a Lightbulb?"

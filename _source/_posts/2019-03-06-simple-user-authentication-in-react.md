@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7276222151
+discourse_topic_id: 17015
+discourse_comment_url: https://devforum.okta.com/t/17015
 layout: blog_post
 title: "Simple User Authentication in React"
 author: braden-kelley

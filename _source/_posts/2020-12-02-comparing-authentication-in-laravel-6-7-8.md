@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8297755992
+discourse_topic_id: 17326
+discourse_comment_url: https://devforum.okta.com/t/17326
 layout: blog_post
 title: "Comparing Authentication in Laravel Versions 6, 7, and 8"
 author: karl-hughes

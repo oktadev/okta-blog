@@ -1,9 +1,13 @@
 ---
+disqus_thread_id: 6306626572
+discourse_topic_id: 16797
+discourse_comment_url: https://devforum.okta.com/t/16797
 layout: blog_post
 title: Android Unit Testing Part IV&#58; Mocking
 author: victor-ronin
 by: internal-contributor
 communities: [java, mobile]
+description: "This is the last post of a four part series on Android Unit Testing. In these posts, you'll learn the key steps to make Android tests run faster."
 tags: [android, testing]
 type: conversion
 redirect_from:

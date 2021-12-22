@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8290855941
+discourse_topic_id: 17324
+discourse_comment_url: https://devforum.okta.com/t/17324
 layout: blog_post
 title: Install .NET Core Apps on Linux in 5 Minutes
 author: greg-sinka
@@ -170,7 +173,7 @@ You can now open a browser window at `http://localhost:5000` to see the applicat
 
 ### Troubleshooting
 
-In case you run into a Correlation Error after logging in with Okta, you need to manually set the `SameSite` cookie attribute to `None`, and enable SSL (HTTPS) on your server. Check out more about how SameSite affects your apps in [this article](https://developer.okta.com/blog/2020/09/28/adapt-dotnet-app-for-samesite-fix).
+In case you run into a Correlation Error after logging in with Okta, you need to manually set the `SameSite` cookie attribute to `None`, and enable SSL (HTTPS) on your server. Check out more about how SameSite affects your apps in [this article](/blog/2020/09/28/adapt-dotnet-app-for-samesite-fix).
 
 ## Takeaways
 

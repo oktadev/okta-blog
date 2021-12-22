@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7728979579
+discourse_topic_id: 17173
+discourse_comment_url: https://devforum.okta.com/t/17173
 layout: blog_post
 title: "Build A Simple Web App with Node and Postgres"
 author: nickolas-fisher

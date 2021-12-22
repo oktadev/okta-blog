@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7525367662
+discourse_topic_id: 17090
+discourse_comment_url: https://devforum.okta.com/t/17090
 layout: blog_post
 title: 'Use Azure Cosmos DB with Your ASP.NET App'
 author: chris-green

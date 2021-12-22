@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7132042378
+discourse_topic_id: 16978
+discourse_comment_url: https://devforum.okta.com/t/16978
 layout: blog_post
 title: "Build a Basic Android App with Xamarin and Visual Studio"
 author: jonathan-ray

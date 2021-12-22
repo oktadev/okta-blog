@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8666360132
+discourse_topic_id: 17397
+discourse_comment_url: https://devforum.okta.com/t/17397
 layout: blog_post
 title: "Easy Distributed Tracing with Spring Cloud Sleuth"
 author: andrew-hughes
@@ -12,6 +15,8 @@ tweets:
 - "Get 'yer distributed tracing right here with @SpringCloud Sleuth! 🤠"
 image: blog/spring-cloud-sleuth/spring-cloud-sleuth.png
 type: conversion
+changelog:
+- 2021-09-17: Based on feedback in comments, fixed a typo, updated the sleuth-example-diagram.png file, and more clearly explained about custom spans. See the updates in [okta-blog#889](https://github.com/oktadev/okta-blog/pull/889).
 ---
 
 Spring Cloud Sleuth allows you to aggregate and track log entries as requests move through a distributed software system. In a monolithic system, it's relatively easy to track requests as they move through the codebase because all requests can easily be logged to the same log file. You can generally just filter the log by the thread ID. But in a distributed system, a single client request may sprawl across any number of discrete cloud services. Any given service may have multiple instances handling different parts of the request. There is no single log file, with a request spread across multiple server instances. How do you use logs in this situation? How do you trace a request flow across a service mesh?
@@ -24,13 +29,17 @@ In this tutorial, you will see how Spring Cloud Sleuth can be integrated into a 
 
 ## What is Spring Cloud Sleuth?
 
-Spring Cloud Sleuth's solution is to inject **span** and **trace** IDs into log entries. A **trace** ID is the unique identifier that an entire request flow will share. It's like the glue that sticks all of the log entries together. A **span** is more local and is defined for each request received for each request sent event. They define particular interaction points.
+Spring Cloud Sleuth's solution is to inject **span** and **trace** IDs into log entries. A **trace** ID is the unique identifier that an entire request flow will share. It's like the glue that sticks all of the log entries together. A **span** is more local and is defined for each request received for each request sent event. They define particular interaction points. Spans can also be created for separate, discrete units of work within a process. These are called **custom spans**. Think of a span as a discrete chunk of processing or communication to be tracked.
 
 The initial span, or **root span**, is generated when a client request is received from outside the distributed system. This request lacks **trace** and **span** information. The root span becomes the trace ID for the rest of the request flow through the system.
 
 The diagram below shows how Sleuth span and trace generation would work through a hypothetical service network.
 
 {% img blog/spring-cloud-sleuth/sleuth-example-diagram.png alt:"Select OIDC app type" width:"800" %}{: .center-image }
+
+Notice how in the diagram above, the trace is the same throughout the entire processing flow. A trace will tie a tree of branching processing functions and server requests into a single, trackable unit. Also notice how each request to a new service automatically starts a new span. However, there is also a custom function. In this case, the process has started a side-process and has manually created and terminated a span.
+
+You can read more about how spans and traces work in Slueth by looking at [Spring's documentation on the subject](https://docs.spring.io/spring-cloud-sleuth/docs/current/reference/html/getting-started.html#getting-started).
 
 In practice, the span and trace IDs look like the following in log entries (the bracketed section after the `INFO`). Notice how the span ID and trace ID are the same? That's because this is the root span, the beginning of the request tree identified by that particular trace ID.
 
@@ -315,7 +324,7 @@ You're going to make a simple GET request to **service A** on endpoint `/a`. **S
 
 {% img blog/spring-cloud-sleuth/services-request-flow-diagram.png alt:"Spring Initializr" width:"1000" %}{: .center-image }
 
-This example is a little contrived, but the point is to show you how each log even will have a unique Sleuth span value while the entire request flow will share the same trace value.
+This example is a little contrived, but the point is to show you how each log event will have a unique Sleuth span value while the entire request flow will share the same trace value.
 
 Make a request to service A endpoint `/a` using the JWT you just created.
 
@@ -351,7 +360,7 @@ All of these log entries have the Sleuth span and trace IDs injected into them, 
 ```bash
 [Service A,ef0fe81ff18325ff,ef0fe81ff18325ff]
 [SERVICE NAME, TRACE, SPAN]
-``` 
+```
 
 Notice how the first ID is the same for all three entries. That's the Sleuth trace ID that ties the entire request sequence together. Also, notice that for the entries for service A, the span and trace IDs are actually the same. That's because this is the initial Sleuth logging event that kicks off the request tree, so that ID is the ID of the root span, which becomes the trace ID for the rest of the tree.
 
