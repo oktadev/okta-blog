@@ -48,7 +48,7 @@ Next set up your Laravel models and migrations. For more interesting data to wor
 - comment
 
 
-If you’d like to copy the files from the public GitHub repository, the [models can be found here](https://github.com/cpave3/graphql-demo-backend/tree/main/app/Models), and the [migrations can be found here](https://github.com/cpave3/graphql-demo-backend/tree/main/database/migrations).
+If you’d like to copy the files from the public GitHub repository, the [models can be found here](https://github.com/oktadev/okta-graphql-laravel-backend-example/tree/main/app/Models), and the [migrations can be found here](https://github.com/oktadev/okta-graphql-laravel-backend-example/tree/main/database/migrations).
 
 
 If you’d prefer to make these models yourself, execute a command with Laravel’s Artisan CLI            tool. Because you’re using Sail, execute with `sail php artisan <command>`.
@@ -741,7 +741,7 @@ Open `config/lighthouse.php` and update the ‘middleware’ array to add the mi
 You could instead add the JWT verification to the API route guard, but the above method is fine for this tutorial. The `graphql-playground` shouldn’t be able to reach your API because it doesn’t have a token. To get a token, you’ll configure a simple frontend application to log you into Okta, then use that token to call your API.
 
 
-If you just want to make sure your API is working, you can clone the frontend from the [public GitHub repo](https://github.com/cpave3/graphql-demo-frontend). You’ll need to insert your client ID and issuer URL in the `App.js` file, but it should work out-of-the-box. To build the frontend, read on.
+If you just want to make sure your API is working, you can clone the frontend from the [public GitHub repo](https://github.com/oktadev/okta-graphql-laravel-frontend-example). You’ll need to insert your client ID and issuer URL in the `App.js` file, but it should work out-of-the-box. To build the frontend, read on.
 
 
 ## Building the frontend
@@ -1013,7 +1013,7 @@ You should now have a Laravel GraphQL API secured by Okta which, as you’ve see
 Laravel, React, and GraphQL are not all that Okta can offer you, however. Check out the huge list of [supported integrations](https://www.okta.com/integrations/), and you’ll be sure to find something that suits your needs.
 
 
-To view all the code in this tutorial, check GitHub here [for the backend](https://github.com/cpave3/graphql-demo-backend) and here [for the frontend](https://github.com/cpave3/graphql-demo-frontend).
+To view all the code in this tutorial, check GitHub here [for the backend](https://github.com/oktadev/okta-graphql-laravel-backend-example) and here [for the frontend](https://github.com/oktadev/okta-graphql-laravel-frontend-example).
 
 
 If you enjoyed working through this tutorial, you can keep up with our content for developers by following us on [Twitter](https://twitter.com/oktadev) and subscribing to our [YouTube](https://www.youtube.com/c/oktadev) channel. If you have any questions, or you want to add suggestions for future tutorials, please add a comment below.
