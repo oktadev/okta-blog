@@ -44,7 +44,7 @@ Let's get started!
 
 Before we dive into building a cloud native microservice stack, let's take a look at what a service mesh is and what are the benefits of using one.
 
-A service mesh provides features to help with common distributed microservice challenges. Like service discovery, routing, load balancing and so on. Today we will be using [Istio](https://istio.io/), one of the most popular service mesh solutions available. Istio is tailored for distributed application architectures, especially the ones that you might run in Kubernetes. Istio plays extremely nice with Kubernetes, so nice that you might think that it’s part of the Kubernetes platform itself. Istio isn’t the only service mesh around, we also have platforms like [Linkerd](https://linkerd.io/) and [Consul](https://www.consul.io/) which are also quite popular.
+A service mesh provides features to help with common distributed microservice challenges. Like service discovery, routing, load balancing and so on. Today we will be using [Istio](https://istio.io/), one of the most popular service mesh solutions available. Istio is tailored for distributed application architectures, especially the ones that you might run in Kubernetes. Istio plays extremely nice with Kubernetes, so nice that you might think that it's part of the Kubernetes platform itself. Istio isn't the only service mesh around, we also have platforms like [Linkerd](https://linkerd.io/) and [Consul](https://www.consul.io/) which are also quite popular.
 
 Istio specifically provides the following features.
 
@@ -78,7 +78,7 @@ We will be using the [JHipster Domain Language (JDL)](https://www.jhipster.tech/
 We have the Istio control plane taking care of policy, load balancing and so on. We also have the Istio Ingress gateway that will route all external traffic to our applications. We have 4 microservices. First is a gateway application created by JHipster that acts as our React GUI and authentication layer. The remaining are services that provides APIs. Each of our containers will have an envoy proxy as a sidecar that is auto injected. We hook up Grafana, Prometheus, Zipkin and Kiali to the telemetry provided by Istio so that we have monitoring and observability for our cluster.
 Each microservice also has its own database.
 
-Its not an overly complex architecture but it’s also not that simple. First, let us define our microservice using JDL. Create a file called **app.jdl** and paste the following content.
+Its not an overly complex architecture but it's also not that simple. First, let us define our microservice using JDL. Create a file called **app.jdl** and paste the following content.
 
 ```kotlin
 application {
@@ -375,7 +375,7 @@ $ cd istio-$ISTIO_VERSION
 $ export PATH=$PWD/bin:$PATH
 ```
 
-You should now be able to run **istioctl** from the command line. Now, we can use the CLI to Install Istio to the GKE cluster. Istio provides few [Helm](https://helm.sh/) profiles out of the box, so for demo purposes i’ll obviously use the demo profile. You can choose the production or dev profile as well. The command should install Istio and setup everything required on our cluster.
+You should now be able to run **istioctl** from the command line. Now, we can use the CLI to Install Istio to the GKE cluster. Istio provides few [Helm](https://helm.sh/) profiles out of the box, so for demo purposes i'll obviously use the demo profile. You can choose the production or dev profile as well. The command should install Istio and setup everything required on our cluster.
 
 ```bash
 $ istioctl install --set profile=demo -y
