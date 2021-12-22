@@ -491,7 +491,7 @@ This file describes which types are accessible via GraphQL and which attributes 
 
 ### Demoing without auth
 
-Navigate to [this playground site](http://localhost/graphql-playground). The interface will allow you to try out GraphQL with the backend you just made. Enter the following query on the left and click the **Play** button:
+Navigate to the playground site at `http://localhost/graphql-playground`. The interface will allow you to try out GraphQL with the backend you just made. Enter the following query on the left and click the **Play** button:
 
 ```graphql
 query GetIssues {
@@ -530,7 +530,7 @@ On the next page, give your app integration a name like "Laravel GraphQL Demo," 
 
 {% img blog/graphql-laravel/graphql-integration-details.png alt:"Details of integration" width:"600" %}{: .center-image }
 
-You'll be given your client ID—make sure to note it. You'll be able to see your Okta domain, which you should note as well. Before you leave the Okta site, navigate to **Security > API** to see your issuer URI. Note this and go to the **Trusted Origins** tab. Click **Add Origin**, set the origin URL as "http://localhost:3000", select the CORS and Redirect checkboxes, and click **Save**. This will avoid problems with the frontend.
+You'll be given your client ID—make sure to note it. You'll be able to see your Okta domain, which you should note as well. Before you leave the Okta site, navigate to **Security > API** to see your issuer URI. Note this and go to the **Trusted Origins** tab. Click **Add Origin**, set the origin URL as `http://localhost:3000`, select the CORS and Redirect checkboxes, and click **Save**. This will avoid problems with the frontend.
 
 {% img blog/graphql-laravel/graphql-add-origin.png alt:"Add origin" width:"600" %}{: .center-image }
 
@@ -817,7 +817,7 @@ export default function IssueTracker() {
 
 ## Running the frontend
 
-With these components in place, run `npm run start` and the frontend will launch at [localhost:3000](http://localhost:3000). Navigate there, and when you click **Log In** you'll see the Okta login screen. Log in using your Okta Developer account credentials and you'll be redirected to the Home component. You should see a link to take you to the "issue tracker." Clicking this link will show you the page populated by data from your GraphQL API.
+With these components in place, run `npm run start` and the frontend will launch at `localhost:3000`. Navigate there, and when you click **Log In** you'll see the Okta login screen. Log in using your Okta Developer account credentials and you'll be redirected to the Home component. You should see a link to take you to the "issue tracker." Clicking this link will show you the page populated by data from your GraphQL API.
 
 ## Go deeper with Okta
 
