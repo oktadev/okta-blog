@@ -1,4 +1,3 @@
-﻿Build and Secure GraphQL APIs with Laravel
 ---
 layout: blog_post
 title: "Build and Secure GraphQL APIs with Laravel"
@@ -17,15 +16,13 @@ type: conversion
 ---
 
 
-
-
 GraphQL’s popularity has grown among frontend and backend developers alike. It allows frontend teams to request only the data they need while preventing an explosion of backend endpoints, since all operations can go through one simple endpoint for all models being worked on.
 
 
 In this tutorial, you will learn how to set up a GraphQL API with Laravel, a free open-source PHP web application framework. You’ll then secure the API so that it’s only accessible to authorized users logging in with Okta.
 
 
-## Building the Project
+## Building the project
 
 
 The recommended way to create a new Laravel project is to use Laravel Sail, a command-line interface designed for Laravel’s Docker environment. First, create a directory to hold both sets of code for this project—one set for the backend and one for the frontend. Make sure you have the latest versions of Docker and Docker Compose set up as well. If you need help, check [Docker’s guide](https://docs.docker.com/get-started/) as well as the documentation for [Docker Compose](https://docs.docker.com/compose/install/).
@@ -40,7 +37,7 @@ This will create a new directory, named whatever you used as the path parameter 
 After running the `up` command, you’ll find Laravel running at `http://localhost`.
 
 
-### Laravel Models
+### Laravel models
 
 
 Next set up your Laravel models and migrations. For more interesting data to work with, create some interconnected models. This is similar to building an issue-tracking system. The system will have the following models:
@@ -69,7 +66,7 @@ sail php artisan make:model -m Comment
 The user model and migration already exist by default.
 
 
-### Laravel Migrations
+### Laravel migrations
 
 
 The above commands also created the necessary migrations thanks to the `-m` flag. Update them by following the steps outlined here.
@@ -638,9 +635,7 @@ Next you’ll add authentication to your GraphQL API and allow users to log in v
 
 To add auth to your API, you’ll need to do some configuration. Go to [the Okta Developer Portal](https://developer.okta.com) and sign up for a developer account so you can create an application for your frontend. To do this, navigate to **Applications > Application** in the sidebar and select **Create App Integration**. Select **OIDC** as your sign-in method and set your application type as “Single-Page Application.”
 
-
-![Add new integration](https://i.imgur.com/U8tqO1J.png)
-
+{% img blog/graphql-laravel/graphql-add-integration.png alt:"Add new integration" width:"600" %}{: .center-image }
 
 On the next page, give your app integration a name like “Laravel GraphQL Demo,” keep the grant type as “Authorization Code,” and change the sign-in redirect and sign-out redirect URIs to port 3000 instead of 8080. For “Controlled Access,” select **allow everyone in my organization to access** since access levels aren’t important for this tutorial.
 
@@ -654,7 +649,7 @@ You’ll be given your client ID—make sure to note it. You’ll be able to see
 ![Add Origin](https://i.imgur.com/qXsLMRV.png)
 
 
-### Installing Packages
+### Installing packages
 
 
 Go back to your terminal and run `sail composer require okta/jwt-verifier firebase/php-jwt`. This will install the packages needed to verify the Okta access tokens. Then run `sail php artisan make:middleware VerifyJwt` to create a new class for your middleware. Open it and set its contents as follows:
