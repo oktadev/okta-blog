@@ -357,7 +357,7 @@ class Comment extends Model
 ```
 
 
-### Factories and Seeders
+### Factories and seeders
 
 
 Add seeders and factories so you have some data to work with. This allows you to generate as many instances of your models as you like, as well as the pre-populated relationships you just defined. Run the following:
@@ -639,14 +639,12 @@ To add auth to your API, you’ll need to do some configuration. Go to [the Okta
 
 On the next page, give your app integration a name like “Laravel GraphQL Demo,” keep the grant type as “Authorization Code,” and change the sign-in redirect and sign-out redirect URIs to port 3000 instead of 8080. For “Controlled Access,” select **allow everyone in my organization to access** since access levels aren’t important for this tutorial.
 
-
-![New integration details](https://i.imgur.com/7OLQ6DO.png)
-
+{% img blog/graphql-laravel/graphql-integration-details.png alt:"Details of integration" width:"600" %}{: .center-image }
 
 You’ll be given your client ID—make sure to note it. You’ll be able to see your Okta domain, which you should note as well. Before you leave the Okta site, navigate to **Security > API** to see your issuer URI. Note this and go to the **Trusted Origins** tab. Click **Add Origin**, set the origin URL as “http://localhost:3000”, select the CORS and Redirect checkboxes, and click **Save**. This will avoid problems with the frontend.
 
 
-![Add Origin](https://i.imgur.com/qXsLMRV.png)
+{% img blog/graphql-laravel/graphql-add-origin.png alt:"Add origin" width:"600" %}{: .center-image }
 
 
 ### Installing packages
