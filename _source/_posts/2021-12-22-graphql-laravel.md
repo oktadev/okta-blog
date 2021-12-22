@@ -3,9 +3,9 @@ layout: blog_post
 title: "Build and Secure GraphQL APIs with Laravel"
 author: cameron-pavey
 by: contractor
-communities: [PHP]
+communities: [php]
 description: "Learn how to set up a GraphQL API with Laravel, a free open-source PHP web application framework. Then secure the API with Okta, so it's only accessible to authorized users."
-tags: [PHP, graphql, apis]
+tags: [php, graphql, apis]
 tweets:
 - "#Laravel #GraphQL API secured with Okta. Easy to integrate with your projects. Provides secure, extensible authentication to your apps with minimal configuration. #PHP "
 - "Attention PHP and Laravel practitioners! Frontend and backend developers ❤️  GraphQL. Frontend teams request only the data they need, while preventing an explosion of backend endpoints. Code included. What's not to like?"
