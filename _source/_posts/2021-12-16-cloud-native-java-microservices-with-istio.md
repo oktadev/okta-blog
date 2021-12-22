@@ -573,4 +573,6 @@ If you want to learn more about Kubernetes, OIDC, or using OIDC with Kubernetes,
 - [Secure Access to AWS EKS Clusters for Admins](/blog/2021/10/08/secure-access-to-aws-eks)
 - [Managing Multiple Okta Instances with Terraform Cloud](/blog/2020/02/03/managing-multiple-okta-instances-with-terraform-cloud)
 
+Check the code out on [GitHub](https://github.com/oktadev/okta-java-spring-k8s-istio-microservices-example).
+
 If you liked this tutorial, chances are you'll enjoy the others we publish. Please follow [@oktadev on Twitter](https://twitter.com/oktadev) and [subscribe to our YouTube channel](https://youtube.com/oktadev) to get notified when we publish new developer tutorials.
