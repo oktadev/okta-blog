@@ -4,7 +4,7 @@ title: "Build and Secure GraphQL APIs with Laravel"
 author: cameron-pavey
 by: contractor
 communities: [PHP]
-description: "Learn how to set up a GraphQL API with Laravel, a free open-source PHP web application framework. Then secure the API with Okta, so it’s only accessible to authorized users."
+description: "Learn how to set up a GraphQL API with Laravel, a free open-source PHP web application framework. Then secure the API with Okta, so it's only accessible to authorized users."
 tags: [PHP, graphql, apis]
 tweets:
 - "#Laravel #GraphQL API secured with Okta. Easy to integrate with your projects. Provides secure, extensible authentication to your apps with minimal configuration. #PHP "
@@ -15,19 +15,19 @@ type: conversion
 ---
 
 
-GraphQL’s popularity has grown among frontend and backend developers alike. It allows frontend teams to request only the data they need while preventing an explosion of backend endpoints, since all operations can go through one simple endpoint for all models being worked on.
+GraphQL's popularity has grown among frontend and backend developers alike. It allows frontend teams to request only the data they need while preventing an explosion of backend endpoints, since all operations can go through one simple endpoint for all models being worked on.
 
-In this tutorial, you will learn how to set up a GraphQL API with Laravel, a free open-source PHP web application framework. You’ll then secure the API so that it’s only accessible to authorized users logging in with Okta.
+In this tutorial, you will learn how to set up a GraphQL API with Laravel, a free open-source PHP web application framework. You'll then secure the API so that it's only accessible to authorized users logging in with Okta.
 
 ## Building the Project
 
-The recommended way to create a new Laravel project is to use Laravel Sail, a command-line interface designed for Laravel’s Docker environment. First, create a directory to hold both sets of code for this project—one set for the backend and one for the frontend. Make sure you have the latest versions of Docker and Docker Compose set up as well. If you need help, check [Docker’s guide](https://docs.docker.com/get-started/) as well as the documentation for [Docker Compose](https://docs.docker.com/compose/install/).
+The recommended way to create a new Laravel project is to use Laravel Sail, a command-line interface designed for Laravel's Docker environment. First, create a directory to hold both sets of code for this project—one set for the backend and one for the frontend. Make sure you have the latest versions of Docker and Docker Compose set up as well. If you need help, check [Docker's guide](https://docs.docker.com/get-started/) as well as the documentation for [Docker Compose](https://docs.docker.com/compose/install/).
 
-To bootstrap the Laravel project for this tutorial, you can get a script from `laravel.build`. It isn’t advisable to pipe scripts from the internet into Bash, so check the script first. If you navigate to [this demo code](https://laravel.build/graphql-demo?with=mysql), you will see the generated script. You can change “graphql-demo” to whatever you want to name the project. If it looks okay to you, paste it into your terminal or pipe it directly to Bash using `curl -s "https://laravel.build/graphql-demo?with=mysql" | bash`.
+To bootstrap the Laravel project for this tutorial, you can get a script from `laravel.build`. It isn't advisable to pipe scripts from the internet into Bash, so check the script first. If you navigate to [this demo code](https://laravel.build/graphql-demo?with=mysql), you will see the generated script. You can change "graphql-demo" to whatever you want to name the project. If it looks okay to you, paste it into your terminal or pipe it directly to Bash using `curl -s "https://laravel.build/graphql-demo?with=mysql" | bash`.
 
-This will create a new directory, named whatever you used as the path parameter (graphql-demo, in this case), and will set up Laravel for you. Once the script is done downloading Docker Image for Sail, it will prompt you to run `cd graphql-demo && ./vendor/bin/sail up`. Since you’ll be calling Sail repeatedly, make an alias for it. You can use `alias sail=./vendor/bin/sail`.
+This will create a new directory, named whatever you used as the path parameter (graphql-demo, in this case), and will set up Laravel for you. Once the script is done downloading Docker Image for Sail, it will prompt you to run `cd graphql-demo && ./vendor/bin/sail up`. Since you'll be calling Sail repeatedly, make an alias for it. You can use `alias sail=./vendor/bin/sail`.
 
-After running the `up` command, you’ll find Laravel running at `http://localhost`.
+After running the `up` command, you'll find Laravel running at `http://localhost`.
 
 ### Laravel Models
 
@@ -37,9 +37,9 @@ Next set up your Laravel models and migrations. For more interesting data to wor
 - issue
 - comment
 
-If you’d like to copy the files from the public GitHub repository, the [models can be found here](https://github.com/cpave3/graphql-demo-backend/tree/main/app/Models), and the [migrations can be found here](https://github.com/cpave3/graphql-demo-backend/tree/main/database/migrations).
+If you'd like to copy the files from the public GitHub repository, the [models can be found here](https://github.com/cpave3/graphql-demo-backend/tree/main/app/Models), and the [migrations can be found here](https://github.com/cpave3/graphql-demo-backend/tree/main/database/migrations).
 
-If you’d prefer to make these models yourself, execute a command with Laravel’s Artisan CLI            tool. Because you’re using Sail, execute with `sail php artisan <command>`.
+If you'd prefer to make these models yourself, execute a command with Laravel's Artisan CLI            tool. Because you're using Sail, execute with `sail php artisan <command>`.
 
 Then run the following:
 
@@ -428,7 +428,7 @@ To make sure that everything is working as expected, run the migrations and seed
 sail php artisan migrate:fresh --seed
 ```
 
-Next you’ll install the GraphQL server.
+Next you'll install the GraphQL server.
 
 ### Installing Lighthouse
 
@@ -449,7 +449,7 @@ sail php artisan vendor:publish --tag=lighthouse-schema
 sail php artisan vendor:publish --tag=lighthouse-config
 ```
 
-Add the GraphQL API route to the CORS config file. Navigate to `config/cors.php` and update the `paths` array to include `’graphql’`, like this:
+Add the GraphQL API route to the CORS config file. Navigate to `config/cors.php` and update the `paths` array to include `'graphql'`, like this:
 
 ```php
 'paths' => ['api/*', 'sanctum/csrf-cookie', 'graphql'],
@@ -520,19 +520,19 @@ query GetIssues {
 
 You should see your seeded data on the right, in the shape you specified in your query. 
 
-Next you’ll add authentication to your GraphQL API and allow users to log in via Okta.
+Next you'll add authentication to your GraphQL API and allow users to log in via Okta.
 
 ## Adding authentication
 
-To add auth to your API, you’ll need to do some configuration. Go to [the Okta Developer Portal](https://developer.okta.com) and sign up for a developer account so you can create an application for your frontend. To do this, navigate to **Applications > Application** in the sidebar and select **Create App Integration**. Select **OIDC** as your sign-in method and set your application type as “Single-Page Application.”
+To add auth to your API, you'll need to do some configuration. Go to [the Okta Developer Portal](https://developer.okta.com) and sign up for a developer account so you can create an application for your frontend. To do this, navigate to **Applications > Application** in the sidebar and select **Create App Integration**. Select **OIDC** as your sign-in method and set your application type as "Single-Page Application."
 
 ![Add new integration](https://i.imgur.com/U8tqO1J.png)
 
-On the next page, give your app integration a name like “Laravel GraphQL Demo,” keep the grant type as “Authorization Code,” and change the sign-in redirect and sign-out redirect URIs to port 3000 instead of 8080. For “Controlled Access,” select **allow everyone in my organization to access** since access levels aren’t important for this tutorial.
+On the next page, give your app integration a name like "Laravel GraphQL Demo," keep the grant type as "Authorization Code," and change the sign-in redirect and sign-out redirect URIs to port 3000 instead of 8080. For "Controlled Access," select **allow everyone in my organization to access** since access levels aren't important for this tutorial.
 
 ![New integration details](https://i.imgur.com/7OLQ6DO.png)
 
-You’ll be given your client ID—make sure to note it. You’ll be able to see your Okta domain, which you should note as well. Before you leave the Okta site, navigate to **Security > API** to see your issuer URI. Note this and go to the **Trusted Origins** tab. Click **Add Origin**, set the origin URL as “http://localhost:3000”, select the CORS and Redirect checkboxes, and click **Save**. This will avoid problems with the frontend.
+You'll be given your client ID—make sure to note it. You'll be able to see your Okta domain, which you should note as well. Before you leave the Okta site, navigate to **Security > API** to see your issuer URI. Note this and go to the **Trusted Origins** tab. Click **Add Origin**, set the origin URL as "http://localhost:3000", select the CORS and Redirect checkboxes, and click **Save**. This will avoid problems with the frontend.
 
 ![Add Origin](https://i.imgur.com/qXsLMRV.png)
 
@@ -582,14 +582,14 @@ class VerifyJwt
 }
 ```
 
-Once this is attached to Lighthouse’s middleware config, it will allow you to protect your GraphQL API from requests that don’t have valid tokens. The client ID and issuer are coming from environment variables, which need to be set in your .env file. Open that file and append the following:
+Once this is attached to Lighthouse's middleware config, it will allow you to protect your GraphQL API from requests that don't have valid tokens. The client ID and issuer are coming from environment variables, which need to be set in your .env file. Open that file and append the following:
 
 ```bash
 OKTA_CLIENT_ID=<the client ID you noted earlier>
 OKTA_ISSUER_URI=< the issuer URI you noted earlier>
 ```
 
-Open `config/lighthouse.php` and update the ‘middleware’ array to add the middleware to Lighthouse:
+Open `config/lighthouse.php` and update the 'middleware' array to add the middleware to Lighthouse:
 
 ```php
 ...
@@ -609,27 +609,27 @@ Open `config/lighthouse.php` and update the ‘middleware’ array to add the mi
 ...
 ```
 
-You could instead add the JWT verification to the API route guard, but the above method is fine for this tutorial. The `graphql-playground` shouldn’t be able to reach your API because it doesn’t have a token. To get a token, you’ll configure a simple frontend application to log you into Okta, then use that token to call your API.
+You could instead add the JWT verification to the API route guard, but the above method is fine for this tutorial. The `graphql-playground` shouldn't be able to reach your API because it doesn't have a token. To get a token, you'll configure a simple frontend application to log you into Okta, then use that token to call your API.
 
-If you just want to make sure your API is working, you can clone the frontend from the [public GitHub repo](https://github.com/cpave3/graphql-demo-frontend). You’ll need to insert your client ID and issuer URL in the `App.js` file, but it should work out-of-the-box. To build the frontend, read on.
+If you just want to make sure your API is working, you can clone the frontend from the [public GitHub repo](https://github.com/cpave3/graphql-demo-frontend). You'll need to insert your client ID and issuer URL in the `App.js` file, but it should work out-of-the-box. To build the frontend, read on.
 
 ## Building the frontend
 
-Since this is for testing purposes, you’ll build a simple frontend with React, the official Okta React library, and Apollo Client.
+Since this is for testing purposes, you'll build a simple frontend with React, the official Okta React library, and Apollo Client.
 
-If you don’t have Node.js and npm, you can get up and running with [nvm - node version manager](https://github.com/nvm-sh/nvm).
+If you don't have Node.js and npm, you can get up and running with [nvm - node version manager](https://github.com/nvm-sh/nvm).
 
 From the parent directory (that contains your Laravel project directory), run `npx create-react-app graphql-demo-frontend`.
 
 This will create a minimal React application for you to build your frontend. To install dependencies, run `npm install @apollo/client graphql @okta/okta-react @okta/okta-auth-js react-router-dom@^5.1.6`.
 
-The React app will have files in the `src/` directory, but most of them aren’t needed. Delete them all and create the following files instead.
+The React app will have files in the `src/` directory, but most of them aren't needed. Delete them all and create the following files instead.
 
 ### index.js
 
 The `index.js` file mounts your React application onto its root DOM node, but it also handles the creation of Apollo Client, and fetches the Okta JWT from local storage.
 
-Note: Using local storage is fine for this tutorial, but don’t take this approach in production, because changes to the underlying libraries and how they store the token might break it. 
+Note: Using local storage is fine for this tutorial, but don't take this approach in production, because changes to the underlying libraries and how they store the token might break it. 
 
 ```js
 import React from 'react';
@@ -716,7 +716,7 @@ export default AppWithRouterAccess;
 
 ### Home.js
 
-This component acts like a dashboard, prompting the user to log in via Okta if they’re not authenticated, and giving them the link to the issue tracker if they are:
+This component acts like a dashboard, prompting the user to log in via Okta if they're not authenticated, and giving them the link to the issue tracker if they are:
 
 ```js
 import { useOktaAuth } from "@okta/okta-react";
@@ -822,13 +822,13 @@ export default function IssueTracker() {
 
 ## Running the frontend
 
-With these components in place, run `npm run start` and the frontend will launch at [localhost:3000](http://localhost:3000). Navigate there, and when you click **Log In** you’ll see the Okta login screen. Log in using your Okta Developer account credentials and you’ll be redirected to the Home component. You should see a link to take you to the “issue tracker.” Clicking this link will show you the page populated by data from your GraphQL API.
+With these components in place, run `npm run start` and the frontend will launch at [localhost:3000](http://localhost:3000). Navigate there, and when you click **Log In** you'll see the Okta login screen. Log in using your Okta Developer account credentials and you'll be redirected to the Home component. You should see a link to take you to the "issue tracker." Clicking this link will show you the page populated by data from your GraphQL API.
 
 ## Go deeper with Okta
 
-You should now have a Laravel GraphQL API secured by Okta which, as you’ve seen, is easy to integrate with your projects and can provide secure, extensible authentication to your applications with minimal configuration. 
+You should now have a Laravel GraphQL API secured by Okta which, as you've seen, is easy to integrate with your projects and can provide secure, extensible authentication to your applications with minimal configuration. 
 
-Laravel, React, and GraphQL are not all that Okta can offer you, however. Check out the huge list of [supported integrations](https://www.okta.com/integrations/), and you’ll be sure to find something that suits your needs.
+Laravel, React, and GraphQL are not all that Okta can offer you, however. Check out the huge list of [supported integrations](https://www.okta.com/integrations/), and you'll be sure to find something that suits your needs.
 
 To view all the code in this tutorial, check GitHub here [for the backend](https://github.com/cpave3/graphql-demo-backend) and here [for the frontend](https://github.com/cpave3/graphql-demo-frontend).
 
