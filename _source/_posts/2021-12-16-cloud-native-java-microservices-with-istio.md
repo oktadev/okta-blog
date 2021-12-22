@@ -299,6 +299,8 @@ $ docker-compose -f src/main/docker/keycloak.yml up -d # starts keycloak in daem
 $ ./gradlew # starts the spring boot application
 ```
 
+You can find a [sample application on GitHub](https://github.com/oktadev/okta-java-spring-k8s-istio-microservices-example).
+
 ## Configure Okta as Identity Provider
 
 The applications are configured by default to use Keycloak as the identity provider since we choose OAuth2 as authentication mechanism. However, you can switch to any other OAuth2 provider by editing the **application.yml** file for each of the applications.
