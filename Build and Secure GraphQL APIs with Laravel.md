@@ -11,7 +11,7 @@ tweets:
 - "#Laravel #GraphQL API secured with Okta. Easy to integrate with your projects. Provides secure, extensible authentication to your apps with minimal configuration. #PHP "
 - "Attention PHP and Laravel practitioners! Frontend and backend developers ❤️  GraphQL. Frontend teams request only the data they need, while preventing an explosion of backend endpoints. Code included. What's not to like?"
 - ""
-image: 
+image: blog/graphql-laravel/graphql-laravel-social.jpg
 type: conversion
 ---
 
