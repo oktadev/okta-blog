@@ -10,7 +10,7 @@ tweets:
 - "#Laravel #GraphQL API secured with Okta. Easy to integrate with your projects. Provides secure, extensible authentication to your apps with minimal configuration. #PHP "
 - "Attention PHP and Laravel practitioners! Frontend and backend developers ❤️  GraphQL. Frontend teams request only the data they need, while preventing an explosion of backend endpoints. Code included. What's not to like?"
 - ""
-image: 
+image: blog/graphql-laravel/graphql-laravel-social.jpg
 type: conversion
 ---
 
@@ -19,7 +19,7 @@ GraphQL's popularity has grown among frontend and backend developers alike. It a
 
 In this tutorial, you will learn how to set up a GraphQL API with Laravel, a free open-source PHP web application framework. You'll then secure the API so that it's only accessible to authorized users logging in with Okta.
 
-## Building the Project
+## Building the project
 
 The recommended way to create a new Laravel project is to use Laravel Sail, a command-line interface designed for Laravel's Docker environment. First, create a directory to hold both sets of code for this project—one set for the backend and one for the frontend. Make sure you have the latest versions of Docker and Docker Compose set up as well. If you need help, check [Docker's guide](https://docs.docker.com/get-started/) as well as the documentation for [Docker Compose](https://docs.docker.com/compose/install/).
 
@@ -29,7 +29,7 @@ This will create a new directory, named whatever you used as the path parameter 
 
 After running the `up` command, you'll find Laravel running at `http://localhost`.
 
-### Laravel Models
+### Laravel models
 
 Next set up your Laravel models and migrations. For more interesting data to work with, create some interconnected models. This is similar to building an issue-tracking system. The system will have the following models:
 
@@ -50,7 +50,7 @@ sail php artisan make:model -m Comment
 
 The user model and migration already exist by default.
 
-### Laravel Migrations
+### Laravel migrations
 
 The above commands also created the necessary migrations thanks to the `-m` flag. Update them by following the steps outlined here.
 
