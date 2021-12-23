@@ -15,11 +15,9 @@ type: conversion
 ---
 
 
-Elasticsearch concepts.
+So what is Elasticsearch? For sure you have heard about Elasticsearch or the Elastic Stack. It seems it started as a search engine based on Lucene (an open source search engine library) built by Shay Banon to index his wife's cooking recipes. From the early days, Elasticsearch has gone a long way and evolved into the Elastic Stack, a great suite for taking data from any source, search, analyze and visualize it in near real-time. So Elasticsearch is a distributed document store, data is serialized as JSON documents and stored distributed across cluster nodes. The _inverted index_ is a data structure that lists every unique word that appears in any document, and also the documents each word appears in. This gives support to fast full-text searches, a feature not supported or partially supported by database engines. The index is a collection of documents and each document is a collection of fields. In turn, each field can be indexed in an optimal data structure, for example, an inverted index for text fields, but a BKD tree for a numeric field.
 
-Introduction to Spring Data Elasticsearch.
-
-Elasticsearch, Kibana amd JHipster logos.
+How can be Elasticsearch integrated in a Spring Boot Application? What are the options for Elasticsearch integration onto a Java application? This post will give you a quck introduction to Elasticsearch integration options.
 
 
 **Prerequisites**:
@@ -40,12 +38,7 @@ Elasticsearch, Kibana amd JHipster logos.
 
 ## Elasticsearch integration options for Spring Boot
 
-
-### Elasticsearch Java clients
-
-Non spring data integrations?
-
-Elasticsearch provides the following [clients](https://www.elastic.co/guide/en/elasticsearch/client/index.html) for Java integration:
+For Java applications including Spring Boot applications, Elasticsearch provides the following [clients](https://www.elastic.co/guide/en/elasticsearch/client/index.html) for integration:
 
 [_Java Transport Client_](https://www.elastic.co/guide/en/elasticsearch/client/java-api/current/index.html)<br>
 Deprecated in Elasticsearch 7.0.0. Provides a client object to execute all operations asynchronously, accepting a listener or returning a future.
@@ -59,9 +52,10 @@ The new client library, independent from Elasticsearch core, provides strongly t
 ### Spring Data Elasticsearch
 
 
-Spring Data Elasticsearch is another integration option that adds the Spring Repository abstraction as the data access layer. Operations are sent through a client connected to the Elasticsearch node. The High Level REST Client is the default client, although Elasticsearch documentation states that this client is deprecated in favor of the Java API Client since version 7.15. The Java API Client is not listed as a supported clients yet. The Java Transport Client is still supported in Spring Data, but the general recommendation is to use the High Level Client instead.
+Spring Data Elasticsearch is another integration option that adds the Spring Repository abstraction as the data access layer. Operations are sent through a client connected to the Elasticsearch node. The High Level REST Client is the default client, although Elasticsearch documentation states that this client is deprecated in favor of the Java API Client since version 7.15. The Java API Client is not listed as a supported clients yet. The Java Transport Client is still supported in Spring Data, but the general recommendation is to use the High Level Client instead. Instead of calling the Elasticsearch APIs directly, Spring Data respository and rest template abstractions provide a simplified interface for document operations, encapsulating API requests/responses processing, and exposing a Query interface that has multiple implementations for different levels of query complexity. It also also can handle client autoconfiguration and automatic document index mapping for simple use cases.
 
 The [_Reactive Client_](https://docs.spring.io/spring-data/elasticsearch/docs/current/reference/html/#elasticsearch.clients.reactive) is a Spring Data non official driver, based on WebClient with calls operated directly on the reactive stack.
+
 
 [Compatiblity matrix](https://docs.spring.io/spring-data/elasticsearch/docs/current/reference/html/#preface.versions)
 
@@ -69,7 +63,7 @@ The [_Reactive Client_](https://docs.spring.io/spring-data/elasticsearch/docs/cu
 
 ## A JHipster Spring Boot Application with Spring Data Elasticsearch
 
-JHipster provides the Elasticsearch option to add search capabilities on top of your database. The integration is based on Spring Data Elasticsearch repositories, so let's generate a reactive Blog application to explore what the generator provides. The sample Blog application built in this tutorial is based on the JHipster sample [reactive-ms.jdl](https://github.com/jhipster/jdl-samples/blob/main/reactive-ms.jdl), but adding Maven, MongoDB (Elasticsearch integration only works with SQL databases and MongoDB), - Bootstrap pagination, Okta authentication and Kibana for index mapping inspection.
+JHipster provides the Elasticsearch option to add search capabilities on top of your database. The integration is based on Spring Data Elasticsearch repositories, so let's generate a reactive Blog application to explore what the generator provides. The sample Blog application built in this tutorial is based on the JHipster sample [reactive-ms.jdl](https://github.com/jhipster/jdl-samples/blob/main/reactive-ms.jdl), but adding Maven, MongoDB (Elasticsearch integration only works with SQL databases and MongoDB), Bootstrap pagination, Okta authentication and Kibana for index mapping inspection.
 
 Start by creating a `spring-data-elasticsearch` folder for the project, get the application JDL from the [Github](https://github.com/indiepopart/spring-data-elasticsearch.git) repository, and generate the application with JHipster:
 
@@ -325,18 +319,6 @@ _Autoconfiguration_<br>
 
 
 
-
-
-
-
-
-
-
-
-
-The elasticsearch integration type, how the elasticsearch client looks like.
-
-The repository and the search repository.
 
 ## Learn more about Spring Data Elasticsearch
 
