@@ -370,8 +370,8 @@ _Autoconfiguration_<br>
 JHipster helps to simplify the setup of Spring Boot applications or microservices with search capabilites. I hope you enjoyed this quick introduction to Elasticsearh integration options, and could taste the advantages of the Spring Data repository abstraction for encapsulating some basic Elasticsearch operations. Remember to check the [compatiblity matrix](https://docs.spring.io/spring-data/elasticsearch/docs/current/reference/html/#preface.versions) to match the right Spring Data Elasticsearch dependency for your Elasticsearch version. Keep learning, and for more examples and recipes on Elasticsearch and Okta integrations for Spring Boot, check out the following links:
 
 - [Elasticsearch Clients](https://www.elastic.co/guide/en/elasticsearch/client/index.html)
-- [Elasticsearch Mapping Multi-Fields ](https://www.elastic.co/guide/en/elasticsearch/reference/current/multi-fields.html)
-- [Get Started with the ELK Stack](https://developer.okta.com/blog/2019/09/26/get-started-elk-stack)
-- [Spring Boot and Okta in 2 Minutes](https://developer.okta.com/blog/2020/11/24/spring-boot-okta)
-- [Reactive Java Microservices with Spring Boot and JHipster](https://developer.okta.com/blog/2021/01/20/reactive-java-microservices)
+- [Elasticsearch Mapping Multi-Fields](https://www.elastic.co/guide/en/elasticsearch/reference/current/multi-fields.html)
+- [Get Started with the ELK Stack](/blog/2019/09/26/get-started-elk-stack)
+- [Spring Boot and Okta in 2 Minutes](/blog/2020/11/24/spring-boot-okta)
+- [Reactive Java Microservices with Spring Boot and JHipster](/blog/2021/01/20/reactive-java-microservices)
 - [Elasticsearh REST APIs](https://www.elastic.co/guide/en/elasticsearch/reference/current/rest-apis.html)
