@@ -1,5 +1,7 @@
 FROM ruby:2.6.5
 
+ENV LIBVIPS_VERSION=8.12.1
+
 RUN apt-get update
 
 # Handle encoding bugs
@@ -20,6 +22,18 @@ ENV LANGUAGE en_US.UTF-8
 WORKDIR /node
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
 RUN apt-get install -y nodejs
+
+# Install libvips for sharp
+RUN cd /tmp && \
+    wget "https://github.com/libvips/libvips/releases/download/v${LIBVIPS_VERSION}/vips-${LIBVIPS_VERSION}.tar.gz" && \
+    tar xf "vips-${LIBVIPS_VERSION}.tar.gz" && \
+    cd "vips-${LIBVIPS_VERSION}" && \
+    ./configure && \
+    make install && \
+    ldconfig /usr/local/lib && \
+    apt-get -y --purge autoremove && \
+    apt-get -y clean && \
+    rm -rf /usr/share/doc /usr/share/man /var/lib/apt/lists/* /root/* /tmp/* /var/tmp/*
 
 # Ruby setup
 RUN gem install bundler
