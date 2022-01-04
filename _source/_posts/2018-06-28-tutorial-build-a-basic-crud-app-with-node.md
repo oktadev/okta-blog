@@ -15,9 +15,9 @@ tweets:
  - "Want to learn #nodejs? Read through our new tutorial where we'll show you how to build your own blog with user registration, login, etc."
  - "Come check out our latest article where we show you how to build a blog using #nodejs"
 type: conversion
-github: https://github.com/oktadev/okta-express-blog
+github: https://github.com/oktadev/okta-express-basic-crud-app-example
 changelog:
-  - 2022-01-04: Updated all the dependencies and the associated code. See this post's changes in [okta-blog#1014](https://github.com/oktadev/okta-blog/pull/1014). The linked repository returned a 404; all the updates have been made at [this repository](https://github.com/oktadev/okta-express-blog).
+  - 2022-01-04: Updated all the dependencies and the associated code. See this post's changes in [okta-blog#1014](https://github.com/oktadev/okta-blog/pull/1014). The linked repository returned a 404; all the updates have been made at [this repository](https://github.com/oktadev/okta-express-basic-crud-app-example).
 ---
 
 Node.js is eating the world. Many of the largest companies are building more and more of their websites and API services with Node.js, and there's no sign of a slowdown. I've been working with Node.js since 2012 and have been excited to see the community and tooling grow and evolve — there's no better time to get started with Node.js development than right now.
@@ -33,7 +33,7 @@ This tutorial uses the following technologies but doesn't require any prior expe
 - Okta's [OIDC-middleware](https://github.com/okta/okta-oidc-middleware) and [Node SDK](https://github.com/okta/okta-sdk-nodejs)
 - [Sequelize.js](http://docs.sequelizejs.com/), a popular ORM for working with databases in Node.js
 
-If you'd like to skip the tutorial and just check out the fully built project, you can go [view it on GitHub](https://github.com/oktadev/okta-express-blog).
+If you'd like to skip the tutorial and just check out the fully built project, you can go [view it on GitHub](https://github.com/oktadev/okta-express-basic-crud-app-example).
 
 ## About Express.js
 
@@ -62,13 +62,13 @@ npm install -g express-generator
 Next, you need to initialize your project. To do this, use the newly installed express-generator program to bootstrap your application:
 
 ```bash
-express --view pug okta-express-blog
-cd okta-express-blog
+express --view pug okta-express-basic-crud-app-example
+cd okta-express-basic-crud-app-example
 npm install
 npm start
 ```
 
-The above command will initialize a new project called **okta-express-blog**, move you into the new project folder, install all project dependencies, and start up a web server.
+The above command will initialize a new project called **okta-express-basic-crud-app-example**, move you into the new project folder, install all project dependencies, and start up a web server.
 
 Once you've finished running the commands above, point your favorite browser to `http://localhost:3000`, and you should see your application running:
 
@@ -1165,7 +1165,7 @@ If you could copy the code correctly, you should be able to log in, create posts
 
 ## Do More With Node!
 
-I hope you enjoyed building a simple CRUD app with Node.js and Express.js. I've found that Express.js has a rich ecosystem of libraries and tools to make web development fun and straightforward. You can find the source code for the example created in this tutorial [on GitHub](https://github.com/oktadev/okta-express-blog).
+I hope you enjoyed building a simple CRUD app with Node.js and Express.js. I've found that Express.js has a rich ecosystem of libraries and tools to make web development fun and straightforward. You can find the source code for the example created in this tutorial [on GitHub](https://github.com/oktadev/okta-express-basic-crud-app-example).
 
 If you'd like to learn more about building web apps with Node.js, you might want to check out these other great posts:
 
