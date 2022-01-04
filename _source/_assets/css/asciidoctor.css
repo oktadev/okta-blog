@@ -365,6 +365,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 /* New rules added by mraible */
 .paragraph > p, .sectionbody .ulist, .admonitionblock, .quoteblock blockquote p:last-child, .olist, .ulist, details, details > summary.title {
     margin: 20px 0;
+    overflow-x: auto;
+}
+
+.scrollable {
+    overflow-x: auto;
 }
 
 .sect1 {
