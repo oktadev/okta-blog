@@ -91,7 +91,7 @@ $ http :8080/hello
 
 HTTP/1.1 401 Unauthorized
 Content-Length: 0
-Date: Fri, 3 Dec 2021 06:11:25 -0700
+Date: Tue, 4 Jan 2022 10:17:11 -0700
 connection: keep-alive
 ----
 
@@ -145,18 +145,18 @@ http :8080/hello Authorization:"Bearer $TOKEN"
 
 You should get a 200 response with your email in it.
 
-image::{% asset_path 'blog/native-java-helidon/httpie-helidon-bearer-token.jpg' %}[alt=HTTPie call to Helidon's /hello with bearer token,width=800,align=center]
+image::{% asset_path 'blog/native-java-helidon/httpie-helidon-bearer-token.png' %}[alt=HTTPie call to Helidon's /hello with bearer token,width=800,align=center]
 
 === Build a Native Helidon App
 
-To compile this Micronaut app into a native binary, run:
+To compile this Helidon app into a native binary, run:
 
 [source,shell]
 ----
 mvn package -Pnative-image
 ----
 
-This command will take a few minutes to complete. My 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM took 2 min. 34 s. to finish.
+This command will take a few minutes to complete. My 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM took 2 min. 14 s. to finish.
 
 Start it with `./target/helidon`:
 
@@ -164,13 +164,17 @@ Start it with `./target/helidon`:
 $ ./target/helidon
 ...
 
-2021.12.03 06:18:13 INFO io.helidon.microprofile.server.ServerCdiExtension Thread[main,5,main]: Server started on http://localhost:8080 (and all other host addresses) in 550 milliseconds (since JVM startup).
-2021.12.03 06:18:13 INFO io.helidon.common.HelidonFeatures Thread[features-thread,5,main]: Helidon MP 2.4.0 features: [CDI, Config, Fault Tolerance, Health, JAX-RS, Metrics, Open API, REST Client, Security, Server, Tracing, Web Client]
-2021.12.03 06:18:13 INFO io.helidon.common.HelidonFeatures.experimental Thread[features-thread,5,main]: You are using experimental features. These APIs may change, please follow changelog!
-2021.12.03 06:18:13 INFO io.helidon.common.HelidonFeatures.experimental Thread[features-thread,5,main]: 	Experimental feature: Web Client (WebClient)
+2022.01.04 10:28:37 INFO io.helidon.microprofile.server.ServerCdiExtension Thread[main,5,main]: Registering JAX-RS Application: HelloApplication
+2022.01.04 10:28:37 WARNING org.glassfish.jersey.internal.Errors Thread[main,5,main]: The following warnings have been detected: WARNING: The (sub)resource method hello in com.okta.rest.controller.HelloResource contains empty path annotation.
+
+2022.01.04 10:28:37 INFO io.helidon.webserver.NettyWebServer Thread[nioEventLoopGroup-2-1,10,main]: Channel '@default' started: [id: 0xbecd2683, L:/[0:0:0:0:0:0:0:0]:8080]
+2022.01.04 10:28:37 INFO io.helidon.microprofile.server.ServerCdiExtension Thread[main,5,main]: Server started on http://localhost:8080 (and all other host addresses) in 53 milliseconds (since JVM startup).
+2022.01.04 10:28:37 INFO io.helidon.common.HelidonFeatures Thread[features-thread,5,main]: Helidon MP 2.4.1 features: [CDI, Config, Fault Tolerance, Health, JAX-RS, Metrics, Open API, REST Client, Security, Server, Tracing, Web Client]
+2022.01.04 10:28:37 INFO io.helidon.common.HelidonFeatures.experimental Thread[features-thread,5,main]: You are using experimental features. These APIs may change, please follow changelog!
+2022.01.04 10:28:37 INFO io.helidon.common.HelidonFeatures.experimental Thread[features-thread,5,main]: 	Experimental feature: Web Client (WebClient)
 ----
 
-You can see it starts in a just over half a second (550ms)! Test it with HTTPie and an access token. You may have to generate a new JWT with https://oidcdebugger.com[oidcdebugger.com] if yours has expired.
+You can see it starts in a just over 50 milliseconds! Test it with HTTPie and an access token. You may have to generate a new JWT with https://oidcdebugger.com[oidcdebugger.com] if yours has expired.
 
 [source,shell]
 ----
@@ -179,21 +183,21 @@ http :8080/hello Authorization:"Bearer $TOKEN"
 
 === Create a Helidon App from Scratch
 
-You might be wondering, "how did you build a secure Micronaut app"? Did I just hide the complexity? No, it only takes five steps to create the same app.
+You might be wondering, "how did you build a secure Helidon app"? Did I just hide the complexity? No, it only takes five steps to create the same app.
 
 . Install https://helidon.io/docs/v2/#/about/05_cli[Helidon's CLI] and run `helidon init` or use Maven:
 
    mvn -U archetype:generate -DinteractiveMode=false \
     -DarchetypeGroupId=io.helidon.archetypes \
     -DarchetypeArtifactId=helidon-quickstart-mp \
-    -DarchetypeVersion=2.4.0 \
+    -DarchetypeVersion=2.4.1 \
     -DgroupId=com.okta.rest \
     -DartifactId=helidon \
     -Dpackage=com.okta.rest
 +
 If you use `helidon init`, answer the questions like I did.
 +
-image::{% asset_path 'blog/native-java-helidon/helidon-init.jpg' %}[alt=helidon init command,width=800,align=center]
+image::{% asset_path 'blog/native-java-helidon/helidon-init.png' %}[alt=helidon init command,width=800,align=center]
 
 . Add a `HelloResource` in `src/main/java/com/okta/rest/controller/HelloResource.java`:
 +
@@ -249,6 +253,7 @@ import java.util.Set;
 @LoginConfig(authMethod = "MP-JWT")
 @ApplicationScoped
 public class HelloApplication extends Application {
+
     @Override
     public Set<Class<?>> getClasses() {
         return Set.of(HelloResource.class);
