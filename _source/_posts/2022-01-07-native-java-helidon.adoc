@@ -290,22 +290,22 @@ mvn package -Pnative-image
 
 I ran each image three times before I started recording the numbers. I then ran each command five times.
 
-_These numbers are from a 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM. I think it's important to note that my WiFi connection was 71 Mbps down and 10 Mbps up (according to the Speedtest app)._
+_These numbers are from a 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM. I think it's important to note that my WiFi connection was 9.88 Mbps down and 0.37 Mbps up (according to the Speedtest app)._
 
 ////
-Helidon: (288 + 495 + 280 + 291 + 540) / 5 = 378.8
-Micronaut: (20 + 19 + 21 + 22 + 20) / 5 = 20.4
-Quarkus: (18 + 16 + 16 + 18 + 17) / 5 = 17
-Spring Boot: (59 + 59 + 58 + 59 + 61) / 5 = 59.2
+Helidon: (53 + 53 + 55 + 53 + 54) / 5 = 53.6
+Micronaut: (29 + 33 + 31 + 30 + 33) / 5 = 31.2
+Quarkus: (21 + 20 + 17 + 17 + 20) / 5 = 19
+Spring Boot: (57 + 57 + 55 + 61 + 66) / 5 = 59.2
 ////
 
 .Native Java Startup times in milliseconds
 |===
 |Framework | Command executed | Milliseconds to start
 
-|Helidon | `./helidon/target/helidon` | 378.8
-|Micronaut | `./micronaut/target/app` | 20.4
-|Quarkus | `./quarkus/target/quarkus-1.0.0-SNAPSHOT-runner` | 17
+|Helidon | `./helidon/target/helidon` | 53.6
+|Micronaut | `./micronaut/target/app` | 31.2
+|Quarkus | `./quarkus/target/quarkus-1.0.0-SNAPSHOT-runner` | 19
 |Spring Boot | `./spring-boot/target/demo` | 59.2
 |===
 
@@ -320,9 +320,9 @@ google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
   var data = google.visualization.arrayToDataTable([
     ['Framework', 'Milliseconds to start', { role: 'style' }],
-    ['Helidon', 378.8, 'orange'],
-    ['Micronaut', 20.4, 'blue'],
-    ['Quarkus', 17, 'red'],
+    ['Helidon', 53.6, 'orange'],
+    ['Micronaut', 31.2, 'blue'],
+    ['Quarkus', 19, 'red'],
     ['Spring Boot', 59.2, 'green']
   ]);
   var options = {
@@ -353,12 +353,12 @@ I substituted `<executable>` as follows:
 
 .Native Java memory used in megabytes
 |===
-|Framework | Executable | Megabytes before request | Megabytes after request
+|Framework | Executable | Megabytes before request | Megabytes after 1 request | Megabytes after 5 requests
 
-|Helidon | `helidon` | 74 | 110
-|Micronaut | `app` | 27 | 58
-|Quarkus | `runner` | 20 | 32
-|Spring Boot | `demo` | 48 | 62
+|Helidon | `helidon` | 66 | 127 | 259
+|Micronaut | `app` | 28 | 44 | 55
+|Quarkus | `runner` | 20 | 32 | 34
+|Spring Boot | `demo` | 47 | 62 | 63
 |===
 
 ++++
@@ -369,10 +369,10 @@ google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
   var data = google.visualization.arrayToDataTable([
     ['Framework', 'Memory usage (MB)', { role: 'style' }],
-    ['Helidon', 110, 'orange'],
-    ['Micronaut', 58, 'blue'],
-    ['Quarkus', 32, 'red'],
-    ['Spring Boot', 62, 'green']
+    ['Helidon', 259, 'orange'],
+    ['Micronaut', 55, 'blue'],
+    ['Quarkus', 34, 'red'],
+    ['Spring Boot', 63, 'green']
   ]);
   var options = {
     title: 'Memory usage of Native Java frameworks',
