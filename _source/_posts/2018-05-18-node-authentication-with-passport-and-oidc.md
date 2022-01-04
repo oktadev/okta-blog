@@ -13,7 +13,7 @@ tweets:
 type: conversion
 github: https://github.com/oktadev/okta-node-passport-oidc-example
 changelog:
-  - 2022-01-04: Updated all the dependencies and the associated code. A repository with accompanying code has been added at [here](https://github.com/oktadev/okta-node-passport-oidc-example).
+  - 2022-01-04: Updated all the dependencies and the associated code. A repository with accompanying code has been added [here](https://github.com/oktadev/okta-node-passport-oidc-example).
 ---
 
 Building local or social login in Node can be simple with Passport.js. There are over 500 strategies already built that make it easy to wire up identity providers. But what do you do if your identity provider doesn't already have a pre-built strategy? Do you have to build all that stuff yourself? Absolutely not! You can use generic strategies for Passport.js that make it easy to use your provider of choice without writing all the plumbing yourself. In this tutorial, we'll walk through how to use my identity provider of choice (Okta) with the generic `passport-openidconnect` package to build secure Node authentication and user management!
@@ -142,7 +142,7 @@ app.use(passport.session());
 
 ## Configure Passport.js for OpenID Connect
 
-Now you'll configure Passport.js to use Okta as your Identity Provider (IdP). To do this, tell passport to use the `OidcStrategy` created in the requirements, right below the Passport.js configuration from the last section.
+Now you'll configure Passport.js to use Okta as your Identity Provider (IdP). To do this, tell passport to use the `Strategy` created in the requirements, right below the Passport.js configuration from the last section.
 
 ```js
 // set up passport
