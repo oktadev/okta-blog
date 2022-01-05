@@ -9,11 +9,9 @@ tags: [php, microservices, laravel, microservice-patterns]
 tweets:
 - "PHP Microservices are an increasingly popular architecture. However, one complexity introduced by microservices is authentication. Still, there are multiple ways to set things up and just as many authentication patterns to suit."
 - "Learn several different ways you can handle authentication with PHP microservices. Build a demo app with four services and an API gateway."
-- ""
-image: blog/graphql-laravel/graphql-laravel-social.jpg
+image: blog/auth-patterns-php-microservices/social.jpg
 type: conversion
 ---
-
 
 Microservices are an increasingly popular architecture, as they allow you to split application development into smaller, easier-to-manage pieces. However, microservices introduce complexity when it comes to implementing authentication. Generally, you only need to worry about one point of ingress for auth with a traditional monolithic application. Still, there are multiple ways to set things up with microservices and just as many authentication patterns to suit. 
 
@@ -45,13 +43,19 @@ As this tutorial primarily focuses on the authentication patterns themselves, th
 
 To begin, create a directory to hold all of the microservices for this tutorial named something like `php-microservices-demo`. `cd` into this directory, and execute the following command: `curl -s "https://laravel.build/api-gateway?with=redis" | bash`. This will create a directory containing a Laravel project named `api-gateway`. Once this step is done, you will need to run it four more times like so; once for each of the microservices you will create:
 
-`curl -s "https://laravel.build/microservice-a?with=redis" | bash`
+```bash
+# service a
+curl -s "https://laravel.build/microservice-a?with=redis" | bash
 
-`curl -s "https://laravel.build/microservice-b?with=redis" | bash`
+# service b
+curl -s "https://laravel.build/microservice-b?with=redis" | bash
 
-`curl -s "https://laravel.build/microservice-c?with=redis" | bash`
+# service c
+curl -s "https://laravel.build/microservice-c?with=redis" | bash
 
-`curl -s "https://laravel.build/microservice-d?with=redis" | bash`
+# service d
+curl -s "https://laravel.build/microservice-d?with=redis" | bash
+```
 
 Now our directory should contain five projects in total. These projects are intended to run with [Laravel Sail](https://laravel.com/docs/8.x/sail), but it isn’t optimal for running five of them simultaneously. Use Sail to install dependencies and execute `artisan` commands, but for running the APIs, create a new `docker-compose.yml` file in the tutorial directory. This file will allow you to start all the containers together. Luckily, because the APIs will be simple, you don’t even need databases for this, only the PHP containers. In your newly created `docker-compose.yml`, add the following content:
 
