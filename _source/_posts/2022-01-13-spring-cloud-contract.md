@@ -558,9 +558,9 @@ public class ProducerApplication {
       @Override
       protected void configure(HttpSecurity http) throws Exception {
          http.authorizeRequests()
-               .anyRequest().authenticated()
-               .and()
-               .oauth2ResourceServer().jwt();
+             .anyRequest().authenticated()
+             .and()
+             .oauth2ResourceServer().jwt();
       }
    }
 }
