@@ -566,7 +566,7 @@ public class ProducerApplication {
 }
 ```
 
-Finally, you need to add the Issuer URI to your `application.properties` file. You need to replace `{yourOktaDomain}` in the line below with your actual Okta URI. 
+Finally, you need to add the Issuer URI to your `application.properties` file. You need to replace `{yourOktaDomain}` in the line below with your Okta domain. 
 
 `src/main/resources/application.properties`
 
