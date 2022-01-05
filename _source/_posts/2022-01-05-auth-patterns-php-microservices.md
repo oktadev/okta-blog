@@ -31,7 +31,7 @@ Sequence diagram:
 
 ## Implementation
 
-Before you get started, there are some dependencies you will need to install in order to follow along. First, you’ll need [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/), as this tutorial relies heavily on containers to run the microservices. If you do not already have Docker installed on your machine, please follow [Docker’s setup instructions](​​https://docs.docker.com/get-started/) for your OS of choice.
+Before you get started, there are some dependencies you will need to install in order to follow along. First, you'll need [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/), as this tutorial relies heavily on containers to run the microservices. If you do not already have Docker installed on your machine, please follow [Docker's setup instructions](​​https://docs.docker.com/get-started/) for your OS of choice.
 
 This tutorial also heavily utilizes Okta for the various authentication patterns you will implement. As such, you will need to create an [Okta Developer account](https://developer.okta.com/signup). For now, create a free account. The tutorial will cover any operations you need to perform as they come up later.
 
@@ -57,7 +57,7 @@ curl -s "https://laravel.build/microservice-c?with=redis" | bash
 curl -s "https://laravel.build/microservice-d?with=redis" | bash
 ```
 
-Now our directory should contain five projects in total. These projects are intended to run with [Laravel Sail](https://laravel.com/docs/8.x/sail), but it isn’t optimal for running five of them simultaneously. Use Sail to install dependencies and execute `artisan` commands, but for running the APIs, create a new `docker-compose.yml` file in the tutorial directory. This file will allow you to start all the containers together. Luckily, because the APIs will be simple, you don’t even need databases for this, only the PHP containers. In your newly created `docker-compose.yml`, add the following content:
+Now our directory should contain five projects in total. These projects are intended to run with [Laravel Sail](https://laravel.com/docs/8.x/sail), but it isn't optimal for running five of them simultaneously. Use Sail to install dependencies and execute `artisan` commands, but for running the APIs, create a new `docker-compose.yml` file in the tutorial directory. This file will allow you to start all the containers together. Luckily, because the APIs will be simple, you don't even need databases for this, only the PHP containers. In your newly created `docker-compose.yml`, add the following content:
 
 ```yml
 version: '2.1'
@@ -156,7 +156,7 @@ The above command may return a warning about read-only variables depending on yo
 
 Now, if you run `docker-compose up -d` from the tutorial root directory, after a moment, you should be able to access the `api-gateway` Laravel project at `http://localhost:8080`. 
 
-Before you implement authentication, you’ll need to make some simple mock APIs so that you have something to test. To do this, you can define a single route for each of the four `microservice` applications—something like `api/service/`—and have this route return a string indicating which microservice it is. Then, the API gateway can define multiple routes that will forward requests appropriately to the microservices. Because the API gateway is the only container with port mapping in the `docker-compose` file, this will be the only way for you to access the internal microservices. To do this, add the following routes for each corresponding Laravel instance’s `routes/api.php` file:
+Before you implement authentication, you'll need to make some simple mock APIs so that you have something to test. To do this, you can define a single route for each of the four `microservice` applications—something like `api/service/`—and have this route return a string indicating which microservice it is. Then, the API gateway can define multiple routes that will forward requests appropriately to the microservices. Because the API gateway is the only container with port mapping in the `docker-compose` file, this will be the only way for you to access the internal microservices. To do this, add the following routes for each corresponding Laravel instance's `routes/api.php` file:
 
 #### API Gateway:
 
@@ -217,7 +217,7 @@ Now, if you navigate to `http://localhost:8080/api/service1` in your browser or 
 
 The first pattern is a simple JWT verification at the API gateway. All API requests going through the gateway will require a valid JWT access token. To do this, you can use Laravel middleware. A *middleware* refers to code you can configure to run when a request is received but before the Controller or function that the route definition specifies can handle it. In practice, this means that you can have a middleware component that checks for valid access tokens and returns an *unauthorized* response if no valid token is found.
 
-As mentioned previously, you can use Laravel Sail to execute `php artisan` commands inside your containers. To do this, navigate to the directory containing the codebase you want to run the command on—`api-gateway`, in this case—and run `./vendor/bin/sail up`. You'll create some more containers running on your system. While they don’t matter much for the actual API, the containers provide a convenient way of executing PHP commands without custom tooling. At this point, you should also create an alias for Sail: `alias sail=./vendor/bin/sail`. The rest of the Sail commands in this tutorial will assume you have an alias like this configured for brevity.
+As mentioned previously, you can use Laravel Sail to execute `php artisan` commands inside your containers. To do this, navigate to the directory containing the codebase you want to run the command on—`api-gateway`, in this case—and run `./vendor/bin/sail up`. You'll create some more containers running on your system. While they don't matter much for the actual API, the containers provide a convenient way of executing PHP commands without custom tooling. At this point, you should also create an alias for Sail: `alias sail=./vendor/bin/sail`. The rest of the Sail commands in this tutorial will assume you have an alias like this configured for brevity.
 
 After running `sail up` in another terminal, navigate back to the same `api-gateway` directory and run `sail php artisan make:middleware VerifyJwt`. This action will create the middleware used by the gateway to check the access tokens for incoming requests. While you are here, you will also need to install two composer dependencies to verify the JWTs. To do this, run the following command: `sail composer require okta/jwt-verifier firebase/php-jwt`. Before fleshing out your newly created middleware, you will need to make a quick detour to the Okta Developer Portal to create an application so that your middleware has the details it needs to verify incoming JWTs.
 
@@ -227,7 +227,7 @@ Go to [https://developer.okta.com](https://developer.okta.com) and either sign i
 
 ![Create new app integration](https://i.imgur.com/9TpxZvV.png) 
 
-Select a new OIDC integration with a “single-page application” application type and then click **Next**. Fill out the details of your new app integration by choosing a name to help you identify it, setting the “Grant type” to “Authorization code” and the “Controlled access” to “Allow everyone in your organization to access.”
+Select a new OIDC integration with a "single-page application" application type and then click **Next**. Fill out the details of your new app integration by choosing a name to help you identify it, setting the "Grant type" to "Authorization code" and the "Controlled access" to "Allow everyone in your organization to access."
 
 Note: We're keeping things simple for now by using a single client ID throughout this whole tutorial. In practice, you'd probably want to use separate client IDs for your front-end application and each of your microservices so that you have better audit logs and can better control access.
 
@@ -289,9 +289,9 @@ OKTA_ISSUER_URI=https://{your okta domain}/oauth2/default
 OKTA_CLIENT_ID={your client id}
 ```
 
-Next, navigate to `api-gateway/app/Http/Kernel.php` and find the `$middlewareGroups` array. There should be a key of `’api’` with a corresponding array. In this array, add `\App\Http\Middleware\VerifyJwt::class` as a new item. This action will cause the middleware to run for any routes in the API group, including the ones you created earlier, to allow users to access the microservices. You can verify this by using Postman or your browser to access the same route from earlier—http://localhost:8080/api/service1 —except you should now be met with an unauthorized error, as you do not have a JWT yet.
+Next, navigate to `api-gateway/app/Http/Kernel.php` and find the `$middlewareGroups` array. There should be a key of `'api'` with a corresponding array. In this array, add `\App\Http\Middleware\VerifyJwt::class` as a new item. This action will cause the middleware to run for any routes in the API group, including the ones you created earlier, to allow users to access the microservices. You can verify this by using Postman or your browser to access the same route from earlier—http://localhost:8080/api/service1 —except you should now be met with an unauthorized error, as you do not have a JWT yet.
 
-To get a JWT, open Postman and create a new GET request. Open the **Authorization** tab, change the type to “OAuth 2.0,” and set **Add authorization data** to **Request Header**. Next, scroll down to the “Configure New Token” section and give it a name like “PHP microservices.” This name doesn’t affect anything besides how Postman displays it. Set the rest of the values as follows:
+To get a JWT, open Postman and create a new GET request. Open the **Authorization** tab, change the type to "OAuth 2.0," and set **Add authorization data** to **Request Header**. Next, scroll down to the "Configure New Token" section and give it a name like "PHP microservices." This name doesn't affect anything besides how Postman displays it. Set the rest of the values as follows:
 
 {% raw %}
 * **Grant Type:** Authorization Code (With PKCE)
@@ -322,7 +322,7 @@ Your first step is to add a custom scope for Microservice B to seek. On the Okta
 
 ![Add a new scope](https://i.imgur.com/ULDhTa3.png) 
 
-In the next step, you'll add the Microservice B middleware. If `sail up` is still running for the gateway, terminate this command (Control + C on macOS) and change the directory to Microservice B. Run `sail up` again. In another terminal, navigate to Microservice B’s directory.  Now run the following:
+In the next step, you'll add the Microservice B middleware. If `sail up` is still running for the gateway, terminate this command (Control + C on macOS) and change the directory to Microservice B. Run `sail up` again. In another terminal, navigate to Microservice B's directory.  Now run the following:
 
 ```bash
 sail composer require okta/jwt-verifier firebase/php-jwt
@@ -386,7 +386,7 @@ class VerifyJwtWithScope
 
 Note that after verifying the JWT, you can extract its claims. The `scp` claim will contain the scopes, which you can then check for the presence of your newly created scope.
 
-Register this middleware in the `Kernel.php` file for Microservice B, just like you did with the API gateway, and add the following to Microservice B’s `.env` file:
+Register this middleware in the `Kernel.php` file for Microservice B, just like you did with the API gateway, and add the following to Microservice B's `.env` file:
 
 ```bash
 OKTA_AUDIENCE=api://default
@@ -394,7 +394,7 @@ OKTA_ISSUER_URI=https://{your okta domain}/oauth2/default
 OKTA_CLIENT_ID={your client id}
 ```
 
-If you go to Postman and change your request’s URL to point to `/service2` instead of `/service1` when you fire the request, it should fail, as your token is missing the needed scope. Go back to the **Auth** tab in Postman and scroll down to where you specified your scopes. Add your new one so that it is now “openid email microservice-demo-scope” and request a new token. Once you select **Use Token**, your request to Microservice B should now succeed.
+If you go to Postman and change your request's URL to point to `/service2` instead of `/service1` when you fire the request, it should fail, as your token is missing the needed scope. Go back to the **Auth** tab in Postman and scroll down to where you specified your scopes. Add your new one so that it is now "openid email microservice-demo-scope" and request a new token. Once you select **Use Token**, your request to Microservice B should now succeed.
 
 ### Remote token introspection
 
@@ -455,14 +455,14 @@ class VerifyJwtWithIntrospection
 }
 ```
 
-Register this middleware in Microservice C’s kernel and add the following to `.env` for this microservice:
+Register this middleware in Microservice C's kernel and add the following to `.env` for this microservice:
 
 ```bash
 OKTA_DOMAIN=https://{your okta domain}
 OKTA_CLIENT_ID={your client id}
 ```
 
-Now, when you call the gateway’s `/service3` endpoint, it will forward the request to Microservice C, which will subsequently perform an introspection to see if the token has been revoked. You can see this in action by taking your access token from Postman and revoking it with [Okta’s revoke endpoint](https://developer.okta.com/docs/guides/revoke-tokens/revokeatrt/). This will cause subsequent requests to `/service3` to fail when using that token. If you use this same token to call `/service1`, you will find that it still works, as this service only does local JWT validation and is not aware that the token has been revoked elsewhere.
+Now, when you call the gateway's `/service3` endpoint, it will forward the request to Microservice C, which will subsequently perform an introspection to see if the token has been revoked. You can see this in action by taking your access token from Postman and revoking it with [Okta's revoke endpoint](https://developer.okta.com/docs/guides/revoke-tokens/revokeatrt/). This will cause subsequent requests to `/service3` to fail when using that token. If you use this same token to call `/service1`, you will find that it still works, as this service only does local JWT validation and is not aware that the token has been revoked elsewhere.
 
 ### Client Credentials Grant
 
@@ -525,7 +525,7 @@ Next, head back to the Okta Developer portal, and go to **Applications** on the 
 
 ![New integration for client credentials grant](https://i.imgur.com/ol8UyUn.png) 
 
-The new integration will provide a new client ID and secret. Make a note of these. Next, go back to **Security** > **API**, select the default auth server, and add another scope—this time calling it something like “machine-scope.” This will become the custom scope when Microservice A requests its token.
+The new integration will provide a new client ID and secret. Make a note of these. Next, go back to **Security** > **API**, select the default auth server, and add another scope—this time calling it something like "machine-scope." This will become the custom scope when Microservice A requests its token.
 
 In the `.env` file of Microservice D, add the following:
 
@@ -575,7 +575,7 @@ With these details in place, `/service1` should once again work, as it will get 
 
 ## Conclusion
 
-If you have followed along in code, you should now have an API gateway with three endpoints, supported by four underlying microservices, with four unique authentication patterns. You’ve seen the basic local JWT validation used by the API gateway. This is the fastest method, but it is unable to catch revoked tokens. Next, there is Microservice B, which checks for a specific scope. This pattern is similar to the first method but gives more granular control around which users can perform specific actions based on the scopes attached to their tokens. Finally, you saw how to validate a token with remote introspection. This approach is more robust, as it is able to catch revoked tokens, but it has the drawback of requiring an additional HTTP call when compared to the local JWT validation.
+If you have followed along in code, you should now have an API gateway with three endpoints, supported by four underlying microservices, with four unique authentication patterns. You've seen the basic local JWT validation used by the API gateway. This is the fastest method, but it is unable to catch revoked tokens. Next, there is Microservice B, which checks for a specific scope. This pattern is similar to the first method but gives more granular control around which users can perform specific actions based on the scopes attached to their tokens. Finally, you saw how to validate a token with remote introspection. This approach is more robust, as it is able to catch revoked tokens, but it has the drawback of requiring an additional HTTP call when compared to the local JWT validation.
 
 The complete code for this tutorial can be found in the public [GitHub Repo](https://github.com/cpave3/php-microservices-demo). 
 
