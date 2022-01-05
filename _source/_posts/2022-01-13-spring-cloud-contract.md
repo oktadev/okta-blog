@@ -45,7 +45,7 @@ Before you get started, you'll need to make sure you have a few tools installed.
 
 - **Java 11**: This project uses Java 11. OpenJDK 11 will work just as well.  Instructions are found on the [OpenJDK website](https://openjdk.java.net/install/). OpenJDK can also be installed using [Homebrew](https://brew.sh/). Alternatively, [SDKMAN](https://sdkman.io/) is another excellent option for installing and managing Java versions.
 
-- **HTTPie**: This is a powerful command-line HTTP request utility you’ll use to test both Spring Boot resource servers. Install it according to [the docs on their site](https://httpie.org/doc#installation).
+- **HTTPie**: This is a powerful command-line HTTP request utility you'll use to test both Spring Boot resource servers. Install it according to [the docs on their site](https://httpie.org/doc#installation).
 
 ## Bootstrap the Producer Project using Spring Initialzr
 
