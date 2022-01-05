@@ -9,7 +9,7 @@ description: "In this tutorial, you'll build a small demo application in PHP and
 tags: [PHP, microservices, laravel, microservice-patterns]
 tweets:
 - "PHP Microservices are an increasingly popular architecture. However, one complexity introduced by microservices is authentication. Still, there are multiple ways to set things up and just as many authentication patterns to suit."
-- "Learn several different ways you can handle authentication with PHP microservices. Build a demo app with four services and an API gateway"
+- "Learn several different ways you can handle authentication with PHP microservices. Build a demo app with four services and an API gateway."
 - ""
 image: blog/graphql-laravel/graphql-laravel-social.jpg
 type: conversion
