@@ -21,13 +21,9 @@ Rough architecture:
 
 {% img blog/auth-patterns-php-microservices/rough-arch.png alt:"Rough architecture diagram for the demo app with 4 microservices and a gateway API" width:"600" %}{: .center-image }
 
-![Rough architecture diagram](https://i.imgur.com/lDsWWDe.png)
-
 Sequence diagram:
 
 {% img blog/auth-patterns-php-microservices/sequence-diagram.png alt:"Diagram showing the sequence flow in the demo app with 4 microservices, an API gateway, and Okta auth" width:"600" %}{: .center-image }
-
-![Sequence diagram](https://i.imgur.com/cnXpyov.png) 
 
 ## Implementation
 
@@ -225,15 +221,11 @@ Go to [https://developer.okta.com](https://developer.okta.com) and either sign i
 
 {% img blog/auth-patterns-php-microservices/new-app-integration.png alt:"Screenshot of creating a new app integration with Okta using OIDC" width:"600" %}{: .center-image }
 
-![Create new app integration](https://i.imgur.com/9TpxZvV.png) 
-
 Select a new OIDC integration with a "single-page application" application type and then click **Next**. Fill out the details of your new app integration by choosing a name to help you identify it, setting the "Grant type" to "Authorization code" and the "Controlled access" to "Allow everyone in your organization to access."
 
 Note: We're keeping things simple for now by using a single client ID throughout this whole tutorial. In practice, you'd probably want to use separate client IDs for your front-end application and each of your microservices so that you have better audit logs and can better control access.
 
 {% img blog/auth-patterns-php-microservices/new-spa-integration.png alt:"Screenshot showing the new API services integration in Okta" width:"600" %}{: .center-image }
-
-![New app integration details](https://i.imgur.com/vWYBBRi.png) 
 
 Once these steps are complete, you'll receive a page showing your client ID and Okta domain. Make a note of both of these for later.
 
@@ -308,8 +300,6 @@ With these details set, when you click **Get New Access Token**, you should be p
 
 {% img blog/auth-patterns-php-microservices/postman-oauth-token.png alt:"Screenshot showing Access Token management in Okta" width:"600" %}{: .center-image }
 
-![Postman OAuth token](https://i.imgur.com/vVxluqD.png) 
-
 If you have not already done so, finish creating the request by setting the URL as http://localhost:8080/api/service1, and click **Send**. After a short delay, you should get a response from the API gateway forwarded from one of your microservices. Bravo! You've implemented the first auth pattern successfully. With this pattern, the gateway verifies the JWT, and Microservice A does no further verification. It assumes that the gateway has already handled verification. This approach is only viable when the underlying microservice is not publicly accessible via the internet. It works well enough when the microservice must be accessed via a gateway, as is the case here.
 
 ### JWT Scope Validation
@@ -319,8 +309,6 @@ The next pattern to implement will be for Microservice B. Microservice B will pe
 Your first step is to add a custom scope for Microservice B to seek. On the Okta portal, navigate to **Security** > **API** on the sidebar, and select the default auth server from the list. Go to the **Scopes** tab and click **Add Scope**. Give it a name like `microservice-demo-scope` and fill out the rest of the details like so:
 
 {% img blog/auth-patterns-php-microservices/new-scope.png alt:"Screenshot showing how to add a new scope in Okta" width:"600" %}{: .center-image }
-
-![Add a new scope](https://i.imgur.com/ULDhTa3.png) 
 
 In the next step, you'll add the Microservice B middleware. If `sail up` is still running for the gateway, terminate this command (Control + C on macOS) and change the directory to Microservice B. Run `sail up` again. In another terminal, navigate to Microservice B's directory.  Now run the following:
 
@@ -523,8 +511,6 @@ Next, head back to the Okta Developer portal, and go to **Applications** on the 
 
 {% img blog/auth-patterns-php-microservices/new-api-integration.png alt:"New API services integration with Okta" width:"600" %}{: .center-image }
 
-![New integration for client credentials grant](https://i.imgur.com/ol8UyUn.png) 
-
 The new integration will provide a new client ID and secret. Make a note of these. Next, go back to **Security** > **API**, select the default auth server, and add another scope—this time calling it something like "machine-scope." This will become the custom scope when Microservice A requests its token.
 
 In the `.env` file of Microservice D, add the following:
@@ -582,4 +568,3 @@ The complete code for this tutorial can be found in the public [GitHub Repo](htt
 Hopefully, this tutorial has given you some idea of the different ways you can handle authentication with PHP microservices. All of these patterns are well supported by [Okta](https://developer.okta.com/), along with many others. Okta offers a vast selection of authentication tools and services to make adding world-class authentication to your apps as easy as can be.
 
 If you enjoyed exploring authentication for microservices and creating a demo app, stay in touch. You can keep up with our content for developers by following us on [@OktaDev Twitter](https://twitter.com/oktadev) and subscribing to the [OktaDev YouTube](https://www.youtube.com/c/oktadev) channel. If you have any questions, or you want to add suggestions for future tutorials, please add a comment below.
-
