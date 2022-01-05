@@ -563,7 +563,7 @@ With these details in place, `/service1` should once again work, as it will get 
 
 If you have followed along in code, you should now have an API gateway with three endpoints, supported by four underlying microservices, with four unique authentication patterns. You've seen the basic local JWT validation used by the API gateway. This is the fastest method, but it is unable to catch revoked tokens. Next, there is Microservice B, which checks for a specific scope. This pattern is similar to the first method but gives more granular control around which users can perform specific actions based on the scopes attached to their tokens. Finally, you saw how to validate a token with remote introspection. This approach is more robust, as it is able to catch revoked tokens, but it has the drawback of requiring an additional HTTP call when compared to the local JWT validation.
 
-The complete code for this tutorial can be found in the public [GitHub Repo](https://github.com/cpave3/php-microservices-demo). 
+The complete code for this tutorial can be found in the public [GitHub Repo](https://github.com/oktadev/okta-php-microservices-example). 
 
 Hopefully, this tutorial has given you some idea of the different ways you can handle authentication with PHP microservices. All of these patterns are well supported by [Okta](https://developer.okta.com/), along with many others. Okta offers a vast selection of authentication tools and services to make adding world-class authentication to your apps as easy as can be.
 
