@@ -5,7 +5,6 @@ author: cameron-pavey
 by: contractor
 communities: [php]
 description: "In this tutorial, you'll build a small demo application in PHP and explore some handy authentication patterns for securing access to the microservices."
- ."
 tags: [php, microservices, laravel, microservice-patterns]
 tweets:
 - "PHP Microservices are an increasingly popular architecture. However, one complexity introduced by microservices is authentication. Still, there are multiple ways to set things up and just as many authentication patterns to suit."
