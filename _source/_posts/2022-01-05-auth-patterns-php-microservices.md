@@ -45,12 +45,13 @@ As this tutorial primarily focuses on the authentication patterns themselves, th
 
 To begin, create a directory to hold all of the microservices for this tutorial named something like `php-microservices-demo`. `cd` into this directory, and execute the following command: `curl -s "https://laravel.build/api-gateway?with=redis" | bash`. This will create a directory containing a Laravel project named `api-gateway`. Once this step is done, you will need to run it four more times like so; once for each of the microservices you will create:
 
-```bash
-curl -s "https://laravel.build/microservice-a?with=redis" | bash
-curl -s "https://laravel.build/microservice-b?with=redis" | bash
-curl -s "https://laravel.build/microservice-c?with=redis" | bash
-curl -s "https://laravel.build/microservice-d?with=redis" | bash
-``
+`curl -s "https://laravel.build/microservice-a?with=redis" | bash`
+
+`curl -s "https://laravel.build/microservice-b?with=redis" | bash`
+
+`curl -s "https://laravel.build/microservice-c?with=redis" | bash`
+
+`curl -s "https://laravel.build/microservice-d?with=redis" | bash`
 
 Now our directory should contain five projects in total. These projects are intended to run with [Laravel Sail](https://laravel.com/docs/8.x/sail), but it isn’t optimal for running five of them simultaneously. Use Sail to install dependencies and execute `artisan` commands, but for running the APIs, create a new `docker-compose.yml` file in the tutorial directory. This file will allow you to start all the containers together. Luckily, because the APIs will be simple, you don’t even need databases for this, only the PHP containers. In your newly created `docker-compose.yml`, add the following content:
 
@@ -576,4 +577,6 @@ If you have followed along in code, you should now have an API gateway with thre
 The complete code for this tutorial can be found in the public [GitHub Repo](https://github.com/cpave3/php-microservices-demo). 
 
 Hopefully, this tutorial has given you some idea of the different ways you can handle authentication with PHP microservices. All of these patterns are well supported by [Okta](https://developer.okta.com/), along with many others. Okta offers a vast selection of authentication tools and services to make adding world-class authentication to your apps as easy as can be.
+
+If you enjoyed exploring authentication for microservices and creating a demo app, stay in touch. You can keep up with our content for developers by following us on [@OktaDev Twitter](https://twitter.com/oktadev) and subscribing to the [OktaDev YouTube](https://www.youtube.com/c/oktadev) channel. If you have any questions, or you want to add suggestions for future tutorials, please add a comment below.
 
