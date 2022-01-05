@@ -55,7 +55,7 @@ To begin, create a directory to hold all of the microservices for this tutorial 
 
 Now our directory should contain five projects in total. These projects are intended to run with [Laravel Sail](https://laravel.com/docs/8.x/sail), but it isn’t optimal for running five of them simultaneously. Use Sail to install dependencies and execute `artisan` commands, but for running the APIs, create a new `docker-compose.yml` file in the tutorial directory. This file will allow you to start all the containers together. Luckily, because the APIs will be simple, you don’t even need databases for this, only the PHP containers. In your newly created `docker-compose.yml`, add the following content:
 
-```
+```yml
 version: '2.1'
 networks:
  php_microservices_demo:
@@ -143,7 +143,7 @@ services:
 
 This file specifies the network that the containers will share as `php_microservices_demo`, which you will need to create. Do this now by running `docker network create php_microservices_demo` in your terminal. Next, expose your current User and Group IDs as environment variables for Bash, so Bash can map the correct permissions when it builds the images. To do this, run the following commands in your terminal:
 
-```
+```bash
 export UID=${UID:-$(id -u)} 
 export GID=${GID:-$(id -g)}
 ```
@@ -156,7 +156,7 @@ Before you implement authentication, you’ll need to make some simple mock APIs
 
 #### API Gateway:
 
-```
+```php
 Route::get('/service1', function(Request $request) {
    $response = \Illuminate\Support\Facades\Http::get('http://microservice-a/api/service');
    return new \Illuminate\Http\Response($response->body(), $response->status());
@@ -177,7 +177,7 @@ Route::get('/service3', function(Request $request) {
 
 #### Microservice A:
 
-```
+```php
 ​​Route::get('/service', function (Request $request) {
    return \Illuminate\Support\Facades\Http::get('http://microservice-d/api/service');
 });
@@ -185,7 +185,7 @@ Route::get('/service3', function(Request $request) {
 
 #### Microservice B:
 
-```
+```php
 Route::get('/service', function (Request $request) {
    return new \Illuminate\Http\Response('success response from microservice b');
 });
@@ -193,7 +193,7 @@ Route::get('/service', function (Request $request) {
 
 #### Microservice C:
 
-```
+```php
 ​​Route::get('/service', function (Request $request) {
    return new \Illuminate\Http\Response('success response from microservice c');
 });
@@ -201,7 +201,7 @@ Route::get('/service', function (Request $request) {
 
 #### Microservice D:
 
-```
+```php
 Route::get('/service', function (Request $request) {
    return new \Illuminate\Http\Response('success response from microservice d');
 });
@@ -235,7 +235,7 @@ Once these steps are complete, you'll receive a page showing your client ID and 
 
 Next, navigate to the middleware you created—`api-gateway/app/Http/Middleware/VerifyJwt.php`—and set its content as follows:
 
-```
+```php
 <?php
 
 namespace App\Http\Middleware;
@@ -249,38 +249,37 @@ use Okta\JwtVerifier\JwtVerifierBuilder;
 class VerifyJwt
 {
    /**
-	* Handle an incoming request.
-	*
-	* @param  \Illuminate\Http\Request  $request
-	* @param  \Closure  $next
-	* @return mixed
-	*/
+      * Handle an incoming request.
+      *
+      * @param  \Illuminate\Http\Request  $request
+      * @param  \Closure  $next
+      * @return mixed
+      */
    public function handle(Request $request, Closure $next)
    {
 
-   	$jwtVerifier = (new JwtVerifierBuilder())
+      $jwtVerifier = (new JwtVerifierBuilder())
        	->setAdaptor(new FirebasePhpJwt())
        	->setAudience(env('OKTA_AUDIENCE'))
        	->setClientId(env('OKTA_CLIENT_ID'))
        	->setIssuer(env('OKTA_ISSUER_URI'))
        	->build();
 
-
-   	try {
+      try {
        	$jwt = $jwtVerifier->verify($request->bearerToken());
        	return $next($request);
-   	} catch (\Exception $exception) {
+      } catch (\Exception $exception) {
        	Log::error($exception);
-   	}
+      }
 
-   	return response('Unauthorized', 401);
+      return response('Unauthorized', 401);
    }
 }
 ```
 
 Then go to the`.env` file for the gateway, and add the following values:
 
-```
+```bash
 OKTA_AUDIENCE=api://default
 OKTA_ISSUER_URI=https://{your okta domain}/oauth2/default
 OKTA_CLIENT_ID={your client id}
@@ -290,14 +289,16 @@ Next, navigate to `api-gateway/app/Http/Kernel.php` and find the `$middlewareGro
 
 To get a JWT, open Postman and create a new GET request. Open the **Authorization** tab, change the type to “OAuth 2.0,” and set **Add authorization data** to **Request Header**. Next, scroll down to the “Configure New Token” section and give it a name like “PHP microservices.” This name doesn’t affect anything besides how Postman displays it. Set the rest of the values as follows:
 
+{% raw %}
 * **Grant Type:** Authorization Code (With PKCE)
 * **Callback URL:** http://localhost:8080/login/callback
 * **Auth URL:** https://{{your okta domain}}/oauth2/default/v1/authorize
 * **Access Token URL:** https://{{your okta domain}}/oauth2/default/v1/token
-* **Client ID:** {{ Your client ID }}
+* **Client ID:** {{Your client ID}}
 * **Scope:** openid email
 * **State:** 1234
 * **Client Authentication:** Send client credentials in body
+{% endraw %}
 
 With these details set, when you click **Get New Access Token**, you should be presented with an Okta login window. Log in with your Okta Developer account details, and when the process completes, you should see your new token. Click **Use Token** to set it for this request.
 
@@ -319,14 +320,14 @@ Your first step is to add a custom scope for Microservice B to seek. On the Okta
 
 In the next step, you'll add the Microservice B middleware. If `sail up` is still running for the gateway, terminate this command (Control + C on macOS) and change the directory to Microservice B. Run `sail up` again. In another terminal, navigate to Microservice B’s directory.  Now run the following:
 
-```
+```bash
 sail composer require okta/jwt-verifier firebase/php-jwt
 sail php artisan make:middleware VerifyJwtWithScope
 ```
 
 Once you've run these commands, open the new middleware located at `microservice-b/app/Http/Middleware/VerifyJwtWithScope.php` and set the contents as follows:
 
-```
+```php
 <?php
 
 namespace App\Http\Middleware;
@@ -342,40 +343,39 @@ use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 class VerifyJwtWithScope
 {
    /**
-	* Handle an incoming request.
-	*
-	* @param  \Illuminate\Http\Request  $request
-	* @param  \Closure  $next
-	* @return mixed
-	*/
+      * Handle an incoming request.
+      *
+      * @param  \Illuminate\Http\Request  $request
+      * @param  \Closure  $next
+      * @return mixed
+      */
    public function handle(Request $request, Closure $next)
    {
 
-   	$jwtVerifier = (new JwtVerifierBuilder())
+      $jwtVerifier = (new JwtVerifierBuilder())
        	->setAdaptor(new FirebasePhpJwt())
        	->setAudience(env('OKTA_AUDIENCE'))
        	->setClientId(env('OKTA_CLIENT_ID'))
        	->setIssuer(env('OKTA_ISSUER_URI'))
        	->build();
 
-
    	// Microservice B verifies the token itself, and looks for a specific scope
-   	try {
+      try {
        	$jwt = $jwtVerifier->verify($request->bearerToken());
 
        	$scopes = Arr::get($jwt->claims, 'scp', []);
        	$requiredScope = 'microservice-demo-scope';
 
        	if (!in_array($requiredScope, $scopes)) {
-           	throw new UnauthorizedHttpException('missing required scope');
+           throw new UnauthorizedHttpException('missing required scope');
        	}
 
        	return $next($request);
-   	} catch (\Exception $exception) {
+      } catch (\Exception $exception) {
        	Log::error($exception);
-   	}
+      }
 
-   	return response('Unauthorized', 401);
+      return response('Unauthorized', 401);
    }
 }
 ```
@@ -384,7 +384,7 @@ Note that after verifying the JWT, you can extract its claims. The `scp` claim w
 
 Register this middleware in the `Kernel.php` file for Microservice B, just like you did with the API gateway, and add the following to Microservice B’s `.env` file:
 
-```
+```bash
 OKTA_AUDIENCE=api://default
 OKTA_ISSUER_URI=https://{your okta domain}/oauth2/default
 OKTA_CLIENT_ID={your client id}
@@ -398,7 +398,7 @@ The third pattern to implement is for Microservice C. In this pattern, the micro
 
 Stop the running `sail up` job from the previous pattern, and change the directory to Microservice C before running `sail up` again. In your other terminal, run the following command from Microservice C: `sail php artisan make:middleware VerifyJwtWithIntrospection`. Open the newly created middleware file and set its contents as follows:
 
-```
+```php
 <?php
 
 namespace App\Http\Middleware;
@@ -413,22 +413,22 @@ use Illuminate\Validation\UnauthorizedException;
 class VerifyJwtWithIntrospection
 {
    /**
-	* Handle an incoming request.
-	*
-	* @param  \Illuminate\Http\Request  $request
-	* @param  \Closure  $next
-	* @return mixed
-	*/
+      * Handle an incoming request.
+      *
+      * @param  \Illuminate\Http\Request  $request
+      * @param  \Closure  $next
+      * @return mixed
+      */
    public function handle(Request $request, Closure $next)
    {
 
-   	$accessToken = $request->bearerToken();
-   	$accessTokenType = 'access_token';
+      $accessToken = $request->bearerToken();
+      $accessTokenType = 'access_token';
 
-   	$oktaDomain = env('OKTA_DOMAIN');
-   	$oktaClientId = env('OKTA_CLIENT_ID');
+      $oktaDomain = env('OKTA_DOMAIN');
+      $oktaClientId = env('OKTA_CLIENT_ID');
 
-   	try {
+      try {
        	// make api call to introspect endpoint
        	$introspectionResponse = Http::asForm()->post("$oktaDomain/oauth2/default/v1/introspect?client_id=$oktaClientId", [
            	'token' => $accessToken,
@@ -438,22 +438,22 @@ class VerifyJwtWithIntrospection
        	$isTokenActive = $introspectionResponse->json('active');
 
        	if (!$isTokenActive) {
-           	throw new UnauthorizedException('token is invalid');
+           throw new UnauthorizedException('token is invalid');
        	}
 
-   	} catch (\Exception $exception) {
+      } catch (\Exception $exception) {
        	Log::error($exception);
        	return new Response('Unauthorized - Token failed Introspection', 401);
-   	}
+      }
 
-   	return $next($request);
+      return $next($request);
    }
 }
 ```
 
 Register this middleware in Microservice C’s kernel and add the following to `.env` for this microservice:
 
-```
+```bash
 OKTA_DOMAIN=https://{your okta domain}
 OKTA_CLIENT_ID={your client id}
 ```
@@ -466,14 +466,14 @@ The final pattern to implement is for Microservice D. Here, you will implement t
 
 As before, stop any running `sail up` commands, navigate to Microservice D, and run `sail up`. In the other terminal, navigate to Microservice D and run these commands:
 
-```
+```bash
 sail composer require okta/jwt-verifier firebase/php-jwt
 sail php artisan make:middleware VerifyClientCredentialsToken
 ```
 
 Set the contents of the new middleware as follows, and then register it in the Microservice D kernel:
 
-```
+```php
 ​​<?php
 
 namespace App\Http\Middleware;
@@ -487,31 +487,30 @@ use Okta\JwtVerifier\JwtVerifierBuilder;
 class VerifyClientCredentialsToken
 {
    /**
-	* Handle an incoming request.
-	*
-	* @param \Illuminate\Http\Request $request
-	* @param \Closure $next
-	* @return mixed
-	*/
+      * Handle an incoming request.
+      *
+      * @param \Illuminate\Http\Request $request
+      * @param \Closure $next
+      * @return mixed
+      */
    public function handle(Request $request, Closure $next)
    {
 
-   	$jwtVerifier = (new JwtVerifierBuilder())
+      $jwtVerifier = (new JwtVerifierBuilder())
        	->setAdaptor(new FirebasePhpJwt())
        	->setAudience(env('OKTA_AUDIENCE'))
        	->setClientId(env('OKTA_CLIENT_ID'))
        	->setIssuer(env('OKTA_ISSUER_URI'))
        	->build();
 
-
-   	try {
+      try {
        	$jwtVerifier->verify($request->bearerToken());
        	return $next($request);
-   	} catch (\Exception $exception) {
+      } catch (\Exception $exception) {
        	Log::error($exception);
-   	}
+      }
 
-   	return response('Unauthorized', 401);
+      return response('Unauthorized', 401);
    }
 }
 ```
@@ -526,7 +525,7 @@ The new integration will provide a new client ID and secret. Make a note of thes
 
 In the `.env` file of Microservice D, add the following:
 
-```
+```bash
 OKTA_CLIENT_ID={your new client id from the API services integration}
 OKTA_AUDIENCE=api://default
 OKTA_ISSUER_URI=https://{your okta domain}/oauth2/default
@@ -534,7 +533,7 @@ OKTA_ISSUER_URI=https://{your okta domain}/oauth2/default
 
 You should now find that Postman calls to `/service1` will fail, as Microservice A cannot authenticate with Microservice D yet. To solve this, you need to update the API route in Microservice A to use the Client Credentials grant to get a fresh token. Open `microservice-a/routes/api.php` and change the content as follows:
 
-```
+```php
 Route::get('/service', function (Request $request) {
 
    // Microservice A needs to request a new token using the Client Credentials flow, and use that to authenticate with Microservice D.
@@ -562,7 +561,7 @@ Route::get('/service', function (Request $request) {
 
 Next, update the `.env` file for Microservice A to include these details:
 
-```
+```bash
 OKTA_CLIENT_ID={your new client credentials client Id}
 OKTA_SECRET={your new client credentials secret}
 OKTA_DOMAIN=https://{your okta domain}
