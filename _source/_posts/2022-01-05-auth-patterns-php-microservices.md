@@ -50,7 +50,7 @@ curl -s "https://laravel.build/microservice-a?with=redis" | bash
 curl -s "https://laravel.build/microservice-b?with=redis" | bash
 curl -s "https://laravel.build/microservice-c?with=redis" | bash
 curl -s "https://laravel.build/microservice-d?with=redis" | bash
-
+``
 
 Now our directory should contain five projects in total. These projects are intended to run with [Laravel Sail](https://laravel.com/docs/8.x/sail), but it isn’t optimal for running five of them simultaneously. Use Sail to install dependencies and execute `artisan` commands, but for running the APIs, create a new `docker-compose.yml` file in the tutorial directory. This file will allow you to start all the containers together. Luckily, because the APIs will be simple, you don’t even need databases for this, only the PHP containers. In your newly created `docker-compose.yml`, add the following content:
 
