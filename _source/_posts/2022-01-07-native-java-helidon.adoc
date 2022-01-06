@@ -39,7 +39,7 @@ My link:/blog/2021/06/18/native-java-framework-comparison[Build Native Java Apps
 
 toc::[]
 
-== Get Started with Helidon
+== Get started with Helidon
 
 I created a GitHub repository you can clone and run to get started with Helidon quickly.
 
