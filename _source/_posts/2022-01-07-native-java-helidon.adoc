@@ -299,7 +299,7 @@ Quarkus: (21 + 20 + 17 + 17 + 20) / 5 = 19
 Spring Boot: (57 + 57 + 55 + 61 + 66) / 5 = 59.2
 ////
 
-.Native Java Startup times in milliseconds
+.Native Java startup times in milliseconds
 |===
 |Framework | Command executed | Milliseconds to start
 
