@@ -268,7 +268,7 @@ public class HelloApplication extends Application {
 
 That's it! Now you can start the app or build the native image as shown above.
 
-== Native Java Startup Time Comparison
+== Native Java startup time comparison
 
 To compare startup times between Micronaut, Quarkus, Spring Boot, and Helidon, I first created native executables. You can run the following commands to do the same from the root directory of the example you cloned.
 
