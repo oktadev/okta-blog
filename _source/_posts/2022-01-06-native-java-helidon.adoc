@@ -7,10 +7,10 @@ communities: [java]
 description: "Learn how to create REST APIs and native images with Helidon, a Java microservices framework from Oracle."
 tags: [native, java, graalvm, helidon]
 tweets:
-- ""
-- ""
-- ""
-image:
+- "Learn how to create secure REST APIs and native @java apps using @helidon_project in this tutorial."
+- "See how Helidon stacks up against Micronaut, Quarkus, and Spring Boot."
+- "Helidon is one of the new Java kids on the block! See how to use it in this quick tutorial."
+image: blog/native-java-helidon/native-java-helidon.jpg
 type: conversion
 github: https://github.com/oktadev/native-java-examples
 ---
