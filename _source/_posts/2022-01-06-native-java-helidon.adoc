@@ -18,7 +18,7 @@ github: https://github.com/oktadev/native-java-examples
 :toc: macro
 :experimental:
 
-Project Helidon is a set of Java libraries for writing microservices. It's an open source, Apache 2.0-licensed, Oracle-sponsored project and contains support for MicroProfile as well as a reactive, functional API. Helidon's two different style are known as Helidon MP and SE, respectively. The https://helidon.io[helidon.io] website says:
+Project Helidon is a set of Java libraries for writing microservices. It's an open source, Apache 2.0-licensed, Oracle-sponsored project and contains support for MicroProfile as well as a reactive, functional API. Helidon's two different styles are known as Helidon MP and SE, respectively. The https://helidon.io[helidon.io] website says:
 
 ====
 Since Helidon is simply a collection of Java libraries running on a fast Netty core, there is no extra overhead or bloat.
@@ -26,7 +26,7 @@ Since Helidon is simply a collection of Java libraries running on a fast Netty c
 
 image::{% asset_path 'blog/native-java-helidon/helidon-mp.png' %}[alt=Helidon supports MicroProfile,width=400,align=center]
 
-Today, I'm going to put this statement to the test! First, I'll show you how to run a secure, OAuth 2.0-protected, Java REST API that allows JWT authentication. Then, I'll show you how to build a native image with GraalVM. Finally, I'll compare Helidon to the most popular Java REST API frameworks: Micronaut, Quarkus, and Spring Book.
+Today, I'm going to put this statement to the test! First, I'll show you how to run a secure, OAuth 2.0-protected Java REST API that allows JWT authentication. Then, I'll show you how to build a native image with GraalVM. Finally, I'll compare Helidon to the most popular Java REST API frameworks: Micronaut, Quarkus, and Spring Book.
 
 My link:/blog/2021/06/18/native-java-framework-comparison[Build Native Java Apps with Micronaut, Quarkus, and Spring Boot] post compares startup times and memory usage of these three frameworks. How does Helidon perform? Read on!
 
@@ -39,7 +39,7 @@ My link:/blog/2021/06/18/native-java-framework-comparison[Build Native Java Apps
 
 toc::[]
 
-== Get Started with Helidon
+== Get started with Helidon
 
 I created a GitHub repository you can clone and run to get started with Helidon quickly.
 
@@ -49,7 +49,7 @@ git clone https://github.com/oktadev/native-java-examples.git
 cd native-java-examples/helidon
 ----
 
-I'll show you how I created this example in a section below. First, let's see how to run it.
+In a section below, I'll show you how I created this example. First, let's see how to run it.
 
 Open the `helidon` directory in your favorite IDE, so you have easy access to the example's project files.
 
@@ -81,7 +81,7 @@ mvn package
 java -jar target/helidon.jar
 ----
 
-TIP: Helidon's Maven Plugin doesn't have a _run_ command. You can install the https://helidon.io/docs/v2/#/about/05_cli[Helidon CLI] and run `helidon dev`. Running this command allows you to change code and automatically recompile + restart your application.
+TIP: Helidon's Maven Plugin doesn't have a _run_ command. You can install the https://helidon.io/docs/v2/#/about/05_cli[Helidon CLI] and run `helidon dev`. Running this command allows you to change code and automatically recompile and restart your application.
 
 If you open another terminal window and try to access it with HTTPie, you'll get a 401 Unauthorized error.
 
@@ -107,8 +107,8 @@ Open `src/main/resources/META-INF/microprofile-config.properties` and change the
 
 [source,properties]
 ----
-mp.jwt.verify.publickey.location=https://{yourOktaDomain}/oauth2/default/v1/keys
 mp.jwt.verify.issuer=https://{yourOktaDomain}/oauth2/default
+mp.jwt.verify.publickey.location=${mp.jwt.verify.issuer}/v1/keys
 ----
 
 Stop your Helidon app with kbd:[Ctrl + C], repackage it, and re-run it with kbd:[⬆️ + Return].
@@ -119,7 +119,7 @@ mvn package
 java -jar target/helidon.jar
 ----
 
-=== Generate an OAuth 2.0 Access Token
+=== Generate an OAuth 2.0 access token
 
 {% include setup/oidcdebugger.md %}
 
@@ -134,7 +134,7 @@ Once you have an access token, set it as a `TOKEN` environment variable in a ter
 TOKEN=eyJraWQiOiJZMVRxUkRQbEFEcm1XN0dX...
 ----
 
-=== Test Your Helidon API with HTTPie
+=== Test your Helidon API with HTTPie
 
 Use HTTPie to pass the JWT in as a bearer token in the `Authorization` header.
 
@@ -143,11 +143,11 @@ Use HTTPie to pass the JWT in as a bearer token in the `Authorization` header.
 http :8080/hello Authorization:"Bearer $TOKEN"
 ----
 
-You should get a 200 response with your email in it.
+You should get a 200 response with your email address in it.
 
 image::{% asset_path 'blog/native-java-helidon/httpie-helidon-bearer-token.png' %}[alt=HTTPie call to Helidon's /hello with bearer token,width=800,align=center]
 
-=== Build a Native Helidon App
+=== Build a native Helidon app
 
 To compile this Helidon app into a native binary, run:
 
@@ -174,16 +174,16 @@ $ ./target/helidon
 2022.01.04 10:28:37 INFO io.helidon.common.HelidonFeatures.experimental Thread[features-thread,5,main]: 	Experimental feature: Web Client (WebClient)
 ----
 
-You can see it starts in a just over 50 milliseconds! Test it with HTTPie and an access token. You may have to generate a new JWT with https://oidcdebugger.com[oidcdebugger.com] if yours has expired.
+As you can see, it starts in just over 50 milliseconds! Test it with HTTPie and an access token. You may have to generate a new JWT with https://oidcdebugger.com[oidcdebugger.com] if yours has expired.
 
 [source,shell]
 ----
 http :8080/hello Authorization:"Bearer $TOKEN"
 ----
 
-=== Create a Helidon App from Scratch
+=== Create a Helidon app from scratch
 
-You might be wondering, "how did you build a secure Helidon app"? Did I just hide the complexity? No, it only takes five steps to create the same app.
+You might be wondering, "how did you build a secure Helidon app"? Did I just hide the complexity? No. It only takes five steps to create the same app.
 
 . Install https://helidon.io/docs/v2/#/about/05_cli[Helidon's CLI] and run `helidon init` or use Maven:
 
@@ -233,8 +233,8 @@ public class HelloResource {
 +
 [source,properties]
 ----
-mp.jwt.verify.publickey.location=https://{yourOktaDomain}/oauth2/default/v1/keys
 mp.jwt.verify.issuer=https://{yourOktaDomain}/oauth2/default
+mp.jwt.verify.publickey.location=${mp.jwt.verify.issuer}/v1/keys
 ----
 
 . Add a `HelloApplication` class in `src/main/java/com/okta/rest` to register your resource and configure JWT authentication:
@@ -268,7 +268,7 @@ public class HelloApplication extends Application {
 
 That's it! Now you can start the app or build the native image as shown above.
 
-== Native Java Startup Time Comparison
+== Native Java startup time comparison
 
 To compare startup times between Micronaut, Quarkus, Spring Boot, and Helidon, I first created native executables. You can run the following commands to do the same from the root directory of the example you cloned.
 
@@ -299,7 +299,7 @@ Quarkus: (21 + 20 + 17 + 17 + 20) / 5 = 19
 Spring Boot: (57 + 57 + 55 + 61 + 66) / 5 = 59.2
 ////
 
-.Native Java Startup times in milliseconds
+.Native Java startup times in milliseconds
 |===
 |Framework | Command executed | Milliseconds to start
 
@@ -326,7 +326,7 @@ function drawChart() {
     ['Spring Boot', 59.2, 'green']
   ]);
   var options = {
-    title: 'Startup times of Native Java frameworks',
+    title: 'Startup times of native Java frameworks',
     chartArea: {width: '50%'},
     hAxis: {
       title: 'Milliseconds',
@@ -399,9 +399,9 @@ I asked https://twitter.com/bercut2000[Dmitry Alexandrov] about these numbers an
 The numbers may look higher than expected, but, in Helidon MP you've got a fully functional CDI container and full MicroProfile support, unlike other competitors. If still require ultimate performance, you should try Helidon SE, which is a fully reactive "magic free" flavour of Helidon, designed for environments working under maximal pressure.
 ====
 
-== Learn More About Java and GraalVM
+== Learn more about Java and GraalVM
 
-In this post, you learned how to develop, build, and run native a Java app with Helidon. You also learned how to secure it with OpenID Connect and access it with a JWT access token.
+In this post, you learned how to develop, build, and run a native Java app with Helidon. You also learned how to secure it with OpenID Connect and access it with a JWT access token.
 
 You can find the source code for this example on GitHub in the https://github.com/oktadev/native-java-examples/tree/main/helidon[native-java-examples repository].
 
