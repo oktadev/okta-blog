@@ -704,7 +704,7 @@ Your Application settings should look similar to this:
 
 ### Enable CORS
 
-Now, enable CORS for `http://localhost:8080/` by following the steps mentioned [here](https://developer.okta.com/docs/guides/enable-cors/main/).
+Now, [enable CORS](https://developer.okta.com/docs/guides/enable-cors/main/) for `http://localhost:8080/` in your Okta Admin Dashboard.
 
 ### Install the Widget for Secure Authentication
 
@@ -773,7 +773,7 @@ class App {
     })
     document.getElementById('sign-out').addEventListener('click', (event) => {
       event.preventDefault()
-      this.signIn.session.close((err) => {
+      this.signIn.authClient.signOut(err => {
         if (err) {
           return alert(`Error: ${err}`)
         }
@@ -783,20 +783,27 @@ class App {
     this.signIn = new OktaSignIn({
       baseUrl: 'https://{yourOktaDomain}',
       clientId: '{clientId}',
-      redirectUri: window.location.origin,
+      redirectUri: 'http://localhost:8080',
       authParams: {
-        issuer: 'default',
+        issuer: 'https://{yourOktaDomain}/oauth2/default',
+        pkce: false,
         responseType: ['id_token','token']
+      },
+      logo: '//placehold.it/200x40?text=Your+Logo',
+      i18n: {
+        en: {
+          'primaryauth.title': 'Sign in to Calorie Tracker'
+        }
       }
     })
   }
   async init () {
-    this.signIn.session.get(async (res) => {
-      if (res.status === 'ACTIVE') {
-        this.showMeals()
-      } else {
-        this.showSignIn()
-      }
+    this.signIn.authClient.token.getUserInfo()
+    .then(user => {
+      this.showMeals()
+    })
+    .catch(() => {
+      this.showSignIn()
     })
   }
   async showMeals () {
@@ -809,12 +816,11 @@ class App {
   showSignIn () {
     document.getElementById('sign-out').style.display = 'none'
     document.getElementById('meals-container').style.display = 'none'
-    this.signIn.renderEl({ el: '#widget-container' }, (res) => {
-      if (res.status === 'SUCCESS') {
-        this.signIn.tokenManager.add('id_token', res[0])
-        this.signIn.tokenManager.add('access_token', res[1])
-        this.showMeals()
-      }
+    this.signIn.showSignInToGetTokens({
+      el: '#widget-container'
+    }).then(tokens => {
+      this.signIn.authClient.tokenManager.setTokens(tokens)
+      this.showMeals()
     })
   }
   request (method, url, data = null) {
@@ -822,9 +828,9 @@ class App {
       let xhr = new XMLHttpRequest()
       xhr.open(method, url, true)
       xhr.setRequestHeader('Content-Type', 'application/json')
-      const accessToken = this.signIn.tokenManager.get('access_token')
+      const accessToken = this.signIn.authClient.getAccessToken()
       if (accessToken) {
-        xhr.setRequestHeader('Authorization', `Bearer ${accessToken.accessToken}`)
+        xhr.setRequestHeader('Authorization', `Bearer ${accessToken}`)
       }
       xhr.onload = () => {
         if (xhr.status === 200) {
@@ -902,16 +908,23 @@ app.init()
 
 ### Initialize the Okta Sign-in Widget
 
-To initialize the widget, you instantiate a new `OktaSignIn` object.  Remember to change the `{yourOktaDomain}` and `{clientId}` to yours.
+To initialize the widget, you instantiate a new `OktaSignIn` object.  Remember to change the `{yourOktaDomain}` (twice) and `{clientId}` to yours.
 
 ```js
-new OktaSignIn({
+this.signIn = new OktaSignIn({
   baseUrl: 'https://{yourOktaDomain}',
   clientId: '{clientId}',
-  redirectUri: window.location.origin,
+  redirectUri: 'http://localhost:8080',
   authParams: {
-    issuer: 'default',
+    issuer: 'https://{yourOktaDomain}/oauth2/default',
+    pkce: false,
     responseType: ['id_token','token']
+  },
+  logo: '//placehold.it/200x40?text=Your+Logo',
+  i18n: {
+    en: {
+      'primaryauth.title': 'Sign in to Calorie Tracker'
+    }
   }
 })
 ```
@@ -921,9 +934,9 @@ new OktaSignIn({
 After you authenticate with the Sign-in Widget, an access token is stored using the widget's `tokenManager`. In the `request()` method, you can add the access token to the request, so each AJAX request contains the token. This token is verified by the server (in the following section).
 
 ```js
-const accessToken = this.signIn.tokenManager.get('access_token')
+const accessToken = this.signIn.authClient.getAccessToken()
 if (accessToken) {
-  xhr.setRequestHeader('Authorization', `Bearer ${accessToken.accessToken}`)
+  xhr.setRequestHeader('Authorization', `Bearer ${accessToken}`)
 }
 ```
 
