@@ -26,7 +26,7 @@ Since Helidon is simply a collection of Java libraries running on a fast Netty c
 
 image::{% asset_path 'blog/native-java-helidon/helidon-mp.png' %}[alt=Helidon supports MicroProfile,width=400,align=center]
 
-Today, I'm going to put this statement to the test! First, I'll show you how to run a secure, OAuth 2.0-protected Java REST API that allows JWT authentication. Then, I'll show you how to build a native image with GraalVM. Finally, I'll compare Helidon to the most popular Java REST API frameworks: Micronaut, Quarkus, and Spring Book.
+Today, I'm going to put this statement to the test! First, I'll show you how to run a secure, OAuth 2.0-protected, Java REST API that allows JWT authentication. Then, I'll show you how to build a native image with GraalVM. Finally, I'll compare Helidon to the most popular Java REST API frameworks: Micronaut, Quarkus, and Spring Boot.
 
 My link:/blog/2021/06/18/native-java-framework-comparison[Build Native Java Apps with Micronaut, Quarkus, and Spring Boot] post compares startup times and memory usage of these three frameworks. How does Helidon perform? Read on!
 
@@ -396,7 +396,7 @@ This data shows that Helidon has some work to do to catch up to its competition!
 I asked https://twitter.com/bercut2000[Dmitry Alexandrov] about these numbers and he's what he had to say:
 
 ====
-The numbers may look higher than expected, but, in Helidon MP you've got a fully functional CDI container and full MicroProfile support, unlike other competitors. If still require ultimate performance, you should try Helidon SE, which is a fully reactive "magic free" flavour of Helidon, designed for environments working under maximal pressure.
+The numbers may look higher than expected, but, in Helidon MP you've got a fully functional CDI container and full MicroProfile support, unlike other competitors. If you still require ultimate performance, you should try Helidon SE, which is a fully reactive "magic free" flavour of Helidon, designed for environments working under maximal pressure.
 ====
 
 == Learn more about Java and GraalVM
