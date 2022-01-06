@@ -119,7 +119,7 @@ mvn package
 java -jar target/helidon.jar
 ----
 
-=== Generate an OAuth 2.0 Access Token
+=== Generate an OAuth 2.0 access token
 
 {% include setup/oidcdebugger.md %}
 
