@@ -134,7 +134,7 @@ Once you have an access token, set it as a `TOKEN` environment variable in a ter
 TOKEN=eyJraWQiOiJZMVRxUkRQbEFEcm1XN0dX...
 ----
 
-=== Test Your Helidon API with HTTPie
+=== Test your Helidon API with HTTPie
 
 Use HTTPie to pass the JWT in as a bearer token in the `Authorization` header.
 
