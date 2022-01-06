@@ -53,7 +53,7 @@ In a section below, I'll show you how I created this example. First, let's see h
 
 Open the `helidon` directory in your favorite IDE, so you have easy access to the example's project files.
 
-TIP: If you just want to see how to build a native image, skip to the link:#build-native-images-for-helidon[build native images for Helidon] section.
+TIP: If you just want to see how to build a native image, skip to the link:#build-a-native-helidon-app[build a native Helidon app] section.
 
 == Install a JDK with GraalVM
 
@@ -147,7 +147,7 @@ You should get a 200 response with your email address in it.
 
 image::{% asset_path 'blog/native-java-helidon/httpie-helidon-bearer-token.png' %}[alt=HTTPie call to Helidon's /hello with bearer token,width=800,align=center]
 
-=== Build a native Helidon app
+== Build a native Helidon app
 
 To compile this Helidon app into a native binary, run:
 
@@ -181,7 +181,7 @@ As you can see, it starts in just over 50 milliseconds! Test it with HTTPie and 
 http :8080/hello Authorization:"Bearer $TOKEN"
 ----
 
-=== Create a Helidon app from scratch
+== Create a Helidon app from scratch
 
 You might be wondering, "how did you build a secure Helidon app"? Did I just hide the complexity? No. It only takes five steps to create the same app.
 
