@@ -18,7 +18,7 @@ github: https://github.com/oktadev/native-java-examples
 :toc: macro
 :experimental:
 
-Project Helidon is a set of Java libraries for writing microservices. It's an open source, Apache 2.0-licensed, Oracle-sponsored project and contains support for MicroProfile as well as a reactive, functional API. Helidon's two different style are known as Helidon MP and SE, respectively. The https://helidon.io[helidon.io] website says:
+Project Helidon is a set of Java libraries for writing microservices. It's an open source, Apache 2.0-licensed, Oracle-sponsored project and contains support for MicroProfile as well as a reactive, functional API. Helidon's two different styles are known as Helidon MP and SE, respectively. The https://helidon.io[helidon.io] website says:
 
 ====
 Since Helidon is simply a collection of Java libraries running on a fast Netty core, there is no extra overhead or bloat.
