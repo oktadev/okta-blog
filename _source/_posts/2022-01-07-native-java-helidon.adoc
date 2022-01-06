@@ -181,7 +181,7 @@ You can see it starts in a just over 50 milliseconds! Test it with HTTPie and an
 http :8080/hello Authorization:"Bearer $TOKEN"
 ----
 
-=== Create a Helidon App from Scratch
+=== Create a Helidon app from scratch
 
 You might be wondering, "how did you build a secure Helidon app"? Did I just hide the complexity? No, it only takes five steps to create the same app.
 
