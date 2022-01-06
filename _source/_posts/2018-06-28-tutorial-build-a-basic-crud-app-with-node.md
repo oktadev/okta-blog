@@ -41,7 +41,7 @@ Express.js is the most popular web framework in the Node.js ecosystem. It's incr
 
 {% img blog/tutorial-build-a-basic-crud-app-with-node/express-website-screenshot.png alt:"express website screenshot" width:"700" %}{: .center-image }
 
-Whether you’re trying to build a website or an API, Express.js provides tons of features and an excellent developer experience.
+Whether you're trying to build a website or an API, Express.js provides tons of features and an excellent developer experience.
 
 Through this tutorial, you'll be building a simple blog. The blog you build will have a homepage that lists the most recent posts, a login page where users can authenticate, a dashboard page where users can create and edit posts, and logout functionality.
 
@@ -339,7 +339,7 @@ const okta = require("@okta/okta-sdk-nodejs");
 
 
 const client = new okta.Client({
-    orgUrl: "{yourOktaOrgUrl}",
+    orgUrl: "{yourOktaDomain}",
     token: "{yourOktaToken}"
 });
 
