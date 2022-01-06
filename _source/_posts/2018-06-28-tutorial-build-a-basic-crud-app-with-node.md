@@ -349,7 +349,7 @@ module.exports = { client };
 
 This code lets you get user information from your Okta Org.
 
-**NOTE**: You need to replace `{yourOktaOrgUrl}` and `{yourOktaToken}` with the appropriate values.
+**NOTE**: You need to replace `{yourOktaDomain}` and `{yourOktaToken}` with the appropriate values.
 
 ## Create Express.js Views
 
