@@ -13,8 +13,9 @@ tweets:
  - "Having a hard time with JavaScript Framework Fatigue? Check out this tutorial that builds a calorie tracking app with good ol' JavaScript. No frameworks, no problem! 😃"
  - "Want to get your hands dirty with good ol' JavaScript? This tutorial doesn't use any JavaScript frameworks to build an app. The build process is amazing! 🤘"
 type: conversion
+github: https://github.com/oktadev/okta-vanilla-js-example
 changelog:
-  - 2020-01-07: Updated
+  - 2020-01-07: Updated dependencies, code, and screenshots. See this post's changes in [okta-blog#XXX](https://github.com/oktadev/okta-blog/pull/XXX).
 ---
 
 *"Sometimes nothing is good enough"* is a phrase that software engineers don't speak or hear often. In the fast-changing world of web development, there is no shortage of bleeding-edge JavaScript frameworks promising to make your life easier or inch out its predecessors. You may ask yourself if it is even possible to build a modern web application without one of these frameworks, let alone add secure authentication. Well, it is!
@@ -89,6 +90,7 @@ To complete the setup, create a `public` directory in your project root and crea
 First, `public/index.html`:
 
 ```html
+<!DOCTYPE html>
 <html>
   <head>
     <title>Calorie Tracker</title>
@@ -272,6 +274,7 @@ Refresh your browser, and you should see a list of meals.
 Now that you have a core understanding of the necessary DOM APIs, you can move on to building the app. Copy and paste the following code into `public/index.html`. This code will get your app to look like the screenshot at the beginning of the article.
 
 ```html
+<!DOCTYPE html>
 <html>
   <head>
     <title>Calorie Tracker</title>
@@ -691,17 +694,24 @@ Congrats! You have successfully built a dynamic SPA in around 100 lines of code.
 
 ### Configure a New Okta application
 
-To use the Okta Sign-in Widget, you must first have an Okta developer account. If you don't have one you can [create a free account](https://developer.okta.com/signup/).  After you are logged in, click **Applications** in the top navbar and then **Add Application** button. Make sure to select **SPA** as the platform and click **Next**. Finally, ensure that Login redirect URIs contains `http://localhost:8080` and click **Done**.
+To use the Okta Sign-in Widget, you must first have an Okta developer account. If you don't have one you can [create a free account](https://developer.okta.com/signup/). After you are logged in, click on the **Applications** tab and then **Create App Integration** button. 
+
+Select **OIDC - OpenID Connect** -> **Single-Page Application** and click on the **Next** button. Select **Implicit (hybrid)** as the **Grant type** and un-check **Authorization Code**. Now, Enter `http://localhost:8080/` as your **Sign-in redirect URIs**. Finally, select **Allow everyone in your organization to access** as the **Controlled access** and click on the **Save** button. 
 
 Your Application settings should look similar to this:
 
 {% img blog/vanilla-js/app-settings.png alt:"SPA App Settings" width:"600" %}{: .center-image }
+
+### Enable CORS
+
+Now, enable CORS for `http://localhost:8080/` by following the steps mentioned [here](https://developer.okta.com/docs/guides/enable-cors/main/).
 
 ### Install the Widget for Secure Authentication
 
 To get started, replace `public/index.html` with the following code.  This code adds the required `okta-sign-in.min.js` and `okta-sign-in.min.css` to correctly display the widget.
 
 ```html
+<!DOCTYPE html>
 <html>
   <head>
     <title>Calorie Tracker</title>
