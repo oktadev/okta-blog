@@ -81,7 +81,7 @@ Dealing with user authentication in web apps can be a massive pain for every dev
 
 {% include setup/cli.md type="web" loginRedirectUri="http://localhost:3000/authorization-code/callback" logoutRedirectUri="http://localhost:3000/" %}
 
-Finally, create a new API token. This will allow your app to talk to Okta to retrieve user information, among other things. You can find the steps to create an API token [here](https://developer.okta.com/docs/guides/create-an-api-token/main/). Copy down this token value as you will need it soon.
+Finally, create a new API token. This will allow your app to talk to Okta to retrieve user information, among other things. You can find the steps to [create an API token here](https://developer.okta.com/docs/guides/create-an-api-token/main/). Copy down this token value as you will need it soon.
 
 
 ## Install Dependencies
