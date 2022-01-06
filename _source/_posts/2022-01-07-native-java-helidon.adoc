@@ -147,7 +147,7 @@ You should get a 200 response with your email in it.
 
 image::{% asset_path 'blog/native-java-helidon/httpie-helidon-bearer-token.png' %}[alt=HTTPie call to Helidon's /hello with bearer token,width=800,align=center]
 
-=== Build a Native Helidon App
+=== Build a native Helidon app
 
 To compile this Helidon app into a native binary, run:
 
