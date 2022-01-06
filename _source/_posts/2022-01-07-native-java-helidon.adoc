@@ -399,7 +399,7 @@ I asked https://twitter.com/bercut2000[Dmitry Alexandrov] about these numbers an
 The numbers may look higher than expected, but, in Helidon MP you've got a fully functional CDI container and full MicroProfile support, unlike other competitors. If you still require ultimate performance, you should try Helidon SE, which is a fully reactive "magic free" flavour of Helidon, designed for environments working under maximal pressure.
 ====
 
-== Learn More About Java and GraalVM
+== Learn more about Java and GraalVM
 
 In this post, you learned how to develop, build, and run native a Java app with Helidon. You also learned how to secure it with OpenID Connect and access it with a JWT access token.
 
