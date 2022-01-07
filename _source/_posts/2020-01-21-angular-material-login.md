@@ -15,9 +15,10 @@ tweets:
 - "❤️ Angular? We do too! That's why we wrote this guide on how to build a login screen with Angular Material."
 image: blog/angular-material-login/angular-material-login.png
 type: conversion
+github: https://github.com/oktadev/okta-angular-material-login-example
 changelog:
-- 2020-03-30: Updated to use Angular 11 and the Okta Auth JS 4.8.0. You can see the changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-angular-material-login-example/pull/3). Changes to this article can be viewed in [oktadeveloper/okta-blog#???](https://github.com/oktadeveloper/okta-blog/pull/637).
 - 2022-01-07: Updated to use Angular 13 and the Okta Auth JS 5.9.1, and to handle interactions with OktaAuth library. You can see the changes in the [example app on GitHub](https://github.com/oktadev/okta-angular-material-login-example/pull/4). Changes to this article can be viewed in [oktadeveloper/okta-blog#1022](https://github.com/oktadev/okta-blog/pull/1022).
+- 2020-03-30: Updated to use Angular 11 and the Okta Auth JS 4.8.0. You can see the changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-angular-material-login-example/pull/3). Changes to this article can be viewed in [oktadeveloper/okta-blog#637](https://github.com/oktadeveloper/okta-blog/pull/637).
 ---
 
 Usability is a key aspect to consider when creating a web application, and that means designing a clean, easy-to-understand user interface. Leveraging common design languages can help make that goal a reality with their recognizable components that many users will understand right away. However, unlike desktop apps where the operating system provides a set of uniform widgets, there has historically been no common design language to lean on for web app developers. 
@@ -38,7 +39,15 @@ In this tutorial, I'll show you how to create a login form like the one above. Y
 
 ## Build an Angular Material App with Secure Login
 
-To get started, you will need to install the Angular command-line tool. I will assume that you have some familiarity with JavaScript and that you have Node installed on your system together with the Node Package Manager `npm`. Open a terminal and type the following command.
+To get started, you will need the Angular command-line tool. I will assume that you have some familiarity with JavaScript and that you have Node installed on your system together with the Node Package Manager `npm`.
+
+Open a terminal and run the following command to verify if you have Angular CLI installed.
+
+```bash
+ng version
+```
+
+If you see output with Angular CLI version installed, you're good to move on to the next step. Otherwise, you don't already have Angular CLI installed, so install it by running.
 
 ```bash
 npm install -g @angular/cli
@@ -74,7 +83,7 @@ The `@angular/material` package provides the components of the Material Design a
 
 ## Add Default Application Styles
 
-The Angular Material schematic sets up quite a bit for us but we have some default application styles to set. Open `src/styles.css` and add the style for the `h1` element below the styles Angular Material adds for us.
+The Angular Material schematic sets up quite a bit for us but we have some default application styles to set. Open `src/styles.css` and add the style for the `h1` element below the styles Angular Material added.
 
 ```css
 h1 {
@@ -418,8 +427,8 @@ Next you'll add it to the `providers` array in the `@NgModule` configuration lik
     {
       provide: OktaAuth,
       useValue: new OktaAuth({
-        issuer: 'https://{YourOktaDomain}/oauth2/default',
-        clientId: '{ClientId}',
+        issuer: 'https://{yourOktaDomain}/oauth2/default',
+        clientId: '{clientId}',
       })
     }
   ],
@@ -429,7 +438,7 @@ export class AppModule {
 }
 ```
 
-The `OktaAuth` object encapsulates the authentication, session management, and communication with the Okta servers. The `OktaAuth` constructor takes several options. The options provided here are the `issuer` and the `clientId`. In these options, you will have to replace `{YourOktaDomain}` with your Okta domain. The `{ClientId}` needs to be replaced with the client ID you obtained when you registered your application with Okta.
+The `OktaAuth` object encapsulates the authentication, session management, and communication with the Okta servers. The `OktaAuth` constructor takes several options. The options provided here are the `issuer` and the `clientId`. In these options, you will have to replace `{yourOktaDomain}` with your Okta domain. The `{clientId}` needs to be replaced with the client ID you obtained when you registered your application with Okta.
 
 With this, you are ready to create the authentication service. In the terminal, type the following command.
 
