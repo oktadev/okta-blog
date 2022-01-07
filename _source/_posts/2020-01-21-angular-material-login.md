@@ -17,7 +17,7 @@ image: blog/angular-material-login/angular-material-login.png
 type: conversion
 changelog:
 - 2020-03-30: Updated to use Angular 11 and the Okta Auth JS 4.8.0. You can see the changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-angular-material-login-example/pull/3). Changes to this article can be viewed in [oktadeveloper/okta-blog#???](https://github.com/oktadeveloper/okta-blog/pull/637).
-- 2022-01-07: Updated to use Angular 13 and the Okta Auth JS 5.9.1, and to handling interactions with OktaAuth library. You can see the changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-angular-material-login-example/pull/4). Changes to this article can be viewed in [oktadeveloper/okta-blog#1022](https://github.com/oktadeveloper/okta-blog/pull/1022).
+- 2022-01-07: Updated to use Angular 13 and the Okta Auth JS 5.9.1, and to handle interactions with OktaAuth library. You can see the changes in the [example app on GitHub](https://github.com/oktadev/okta-angular-material-login-example/pull/4). Changes to this article can be viewed in [oktadeveloper/okta-blog#1022](https://github.com/oktadev/okta-blog/pull/1022).
 ---
 
 Usability is a key aspect to consider when creating a web application, and that means designing a clean, easy-to-understand user interface. Leveraging common design languages can help make that goal a reality with their recognizable components that many users will understand right away. However, unlike desktop apps where the operating system provides a set of uniform widgets, there has historically been no common design language to lean on for web app developers. 
