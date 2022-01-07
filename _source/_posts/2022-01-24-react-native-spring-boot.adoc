@@ -1,0 +1,200 @@
+---
+layout: blog_post
+title: "Integrate React Native and Spring Boot Securely"
+author: matt-raible
+by: advocate
+communities: [mobile,java,javascript]
+description: ""
+tags: []
+tweets:
+- ""
+image:
+type: conversion
+github:
+---
+:page-liquid:
+:toc: macro
+:experimental:
+
+**Prerequisites:**
+
+* https://adoptopenjdk.net/[Java 11+]
+* https://nodejs.org[Node 14+]
+
+toc::[]
+
+== Build a Photo Gallery with JHipster (React + Spring Boot)
+
+. Create a new directory to hold your frontend and backend projects: `take react-native-spring-boot`
+
+. Clone an existing JHipster app into a `backend` directory:
+
+  git clone https://github.com/oktadev/auth0-full-stack-java-example.git backend
+  rm -rf backend/.git
+
+. Start Keycloak:
+
+  cd backend
+  docker-compose -f src/main/docker/keycloak.yml up -d
+
+. Start app using `./mvnw`, show project in IDE, and browse `http://localhost:8080`
+
+. Add a few photos and show lightbox
+
+== Generate a React Native App
+
+. Install React Native JHipster and Expo CLI
+
+  npm install -g generator-jhipster-react-native expo-cli
+
+. Create a directory for your React Native app:
+
+  take mobile
+
+. Create a JDL file with information about your backend app.
+
+  application {
+    config {
+      applicationType monolith
+      baseName flickr2
+      packageName com.auth0.flickr2
+      authenticationType oauth2
+      prodDatabaseType postgresql
+      testFrameworks [cypress]
+      clientFramework react
+      enableTranslation true
+      nativeLanguage en
+      languages [en, es]
+    }
+    entities *
+  }
+
+. Create your React Native app:
+
+  jhipster --blueprints react-native jdl app.jdl
++
+Name your app `Flickr2` when prompted
+
+. Generate entities
+
+  jhipster --blueprints react-native jdl ../backend/flickr2.jdl
++
+Press *a* (for all) when prompted to overwrite files.
+
+. Change `application-dev.yml` in backend to allow `\http://localhost:19006` for CORS:
++
+[source,yaml]
+----
+cors:
+  # Allow Ionic for JHipster by default (* no longer allowed in Spring Boot 2.4+)
+  allowed-origins: 'http://localhost:19006,...'
+----
+
+. Add `\https://auth.expo.io/@mraible/Flickr2` as a Login redirect URI in http://localhost:9080/auth/admin/[Keycloak]
+
+. Hide metadata in add photo screen when `isNewEntity`
++
+[source,jsx]
+----
+  const metadata = (
+    <div>...</div>
+  )
+  const metadataRows = isNewEntity ? '' : metadata;
+----
+
+. To run on emulators, you'll need an https://expo.io/[Expo] account
+
+. In the `backend` directory, run `./mvnw`
+
+. In the `mobile` directory, run `npm start`. Make sure to use `localhost` and not `0.0.0.0` or CORS won't work!
+
+. For Android emulators to communicate with your API and Keycloak, add some port mappings
+
+  adb reverse tcp:8080 tcp:8080 && adb reverse tcp:9080 tcp:9080
+
+. Refresh your app in Simulator using kbd:[{commandKey} + R] or by hitting kbd:[R] twice in Android
+
+== Use Auth0 for Identity
+
+. Log in to your Auth0 account (or https://auth0.com/signup[sign up] if you don't have an account). You should have a unique domain like `dev-xxx.us.auth0.com`.
+
+. Press the *Create Application* button in https://manage.auth0.com/#/applications[Applications section]. Use a name like `JHipster Baby!`, select `Regular Web Applications`, and click *Create*.
+
+. Switch to the *Settings* tab and configure your application settings:
++
+- Allowed Callback URLs: `\http://localhost:8080/login/oauth2/code/oidc`
+- Allowed Logout URLs: `\http://localhost:8080/`
+
+. Scroll to the bottom and click *Save Changes*.
+
+. In the https://manage.auth0.com/#/roles[roles] section, create new roles named `ROLE_ADMIN` and `ROLE_USER`.
+
+. Create a new user account in the https://manage.auth0.com/#/users[users] section. Click on the *Role* tab to assign the roles you just created to the new account.
++
+_Make sure your new user's email is verified before attempting to log in!_
+
+. Next, head to *Auth Pipeline* > *Rules* > *Create*. Select the `Empty rule` template. Provide a meaningful name like `Group claims` and replace the Script content with the following.
++
+[source,js]
+----
+function(user, context, callback) {
+  user.preferred_username = user.email;
+  const roles = (context.authorization || {}).roles;
+
+  function prepareCustomClaimKey(claim) {
+    return `https://www.jhipster.tech/${claim}`;
+  }
+
+  const rolesClaim = prepareCustomClaimKey('roles');
+
+  if (context.idToken) {
+    context.idToken[rolesClaim] = roles;
+  }
+
+  if (context.accessToken) {
+    context.accessToken[rolesClaim] = roles;
+  }
+
+  callback(null, user, context);
+}
+----
++
+This code is adding the user's roles to a custom claim (prefixed with `https://www.jhipster.tech/roles`). This claim is mapped to Spring Security authorities in `SecurityUtils.java`.
+
+. Click *Save changes* to continue.
+
+. Create a `backend/.auth0.env` file and populate it with your Auth0 settings.
++
+[source,shell]
+----
+export SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=https://<your-auth0-domain>/
+export SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=<your-client-id>
+export SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=<your-client-secret>
+export JHIPSTER_SECURITY_OAUTH2_AUDIENCE=https://<your-auth0-domain>/api/v2/
+----
++
+You can use the default `Auth0 Management API` audience value from the *Applications* > *API* > *API Audience* field. You can also define your own custom API and use the identifier as the API audience.
+
+=== Create a Native OIDC App
+
+. For React Native, create a *Native* app and add the following Allowed Callback URLs:
+
+  http://localhost:19006/,https://auth.expo.io/@mraible/Flickr2
+
+. Copy the client ID to `react-native/app/config/app-config.js`.
+
+. Set the Allowed Origins (CORS):
+
+  http://localhost:19006
+
+. Restart your React Native app and log in with Auth0!
++
+----
+npm start
+----
+
+== Doesn't work
+
+    - React Native Android login
+    - Auth0 logout
+
