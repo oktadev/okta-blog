@@ -690,21 +690,15 @@ Congrats! You have successfully built a dynamic SPA in around 100 lines of code.
 
 ## Add Authentication with Okta's Sign-In Widget
 
-[Okta's Sign-in Widget](https://developer.okta.com/code/javascript/okta_sign-in_widget) is a JavaScript library that gives you a full-featured and customizable login widget that can be added to any website.  With just a few lines of code, you can implement a login flow to your app.
+[Okta's Sign-in Widget](https://developer.okta.com/code/javascript/okta_sign-in_widget) is a JavaScript library that gives you a full-featured and customizable login widget that can be added to any website. With just a few lines of code, you can implement a login flow to your app.
 
 ### Configure a New Okta application
 
-To use the Okta Sign-in Widget, you must first have an Okta developer account. If you don't have one you can [create a free account](https://developer.okta.com/signup/). After you are logged in, click on the **Applications** tab and then **Create App Integration** button. 
-
-Select **OIDC - OpenID Connect** -> **Single-Page Application** and click on the **Next** button. Select **Implicit (hybrid)** as the **Grant type** and un-check **Authorization Code**. Now, Enter `http://localhost:8080/` as your **Sign-in redirect URIs**. Finally, select **Allow everyone in your organization to access** as the **Controlled access** and click on the **Save** button. 
-
-Your Application settings should look similar to this:
-
-{% img blog/vanilla-js/app-settings.png alt:"SPA App Settings" width:"600" %}{: .center-image }
+{% include setup/cli.md type="spa" loginRedirectUri="http://localhost:8080" %}
 
 ### Enable CORS
 
-Now, [enable CORS](https://developer.okta.com/docs/guides/enable-cors/main/) for `http://localhost:8080/` in your Okta Admin Dashboard.
+If you used the Admin Console to create the app, ensure that you [enable CORS](https://developer.okta.com/docs/guides/enable-cors/main/) for `http://localhost:8080`.
 
 ### Install the Widget for Secure Authentication
 
@@ -783,11 +777,9 @@ class App {
     this.signIn = new OktaSignIn({
       baseUrl: 'https://{yourOktaDomain}',
       clientId: '{clientId}',
-      redirectUri: 'http://localhost:8080',
+      redirectUri: window.location.origin,
       authParams: {
         issuer: 'https://{yourOktaDomain}/oauth2/default',
-        pkce: false,
-        responseType: ['id_token','token']
       },
       logo: '//placehold.it/200x40?text=Your+Logo',
       i18n: {
@@ -914,11 +906,9 @@ To initialize the widget, you instantiate a new `OktaSignIn` object.  Remember t
 this.signIn = new OktaSignIn({
   baseUrl: 'https://{yourOktaDomain}',
   clientId: '{clientId}',
-  redirectUri: 'http://localhost:8080',
+  redirectUri: window.location.origin,
   authParams: {
     issuer: 'https://{yourOktaDomain}/oauth2/default',
-    pkce: false,
-    responseType: ['id_token','token']
   },
   logo: '//placehold.it/200x40?text=Your+Logo',
   i18n: {
