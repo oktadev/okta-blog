@@ -62,7 +62,7 @@ Once it does you will see the *Configure your new project* screen.  Name your pr
 
 After setup is complete, take a minute to run the application and see how Blazor is set up. For this tutorial, the demo application that comes with Blazor setup is enough. We will need to make some changes to the application though.
 
-## Setup your Application
+## Set up your application
 
 First install the `Okta.AspNetCore` package from NuGet via the Command Line or NuGet package manager. This will make integration with Okta quick and easy.
 
