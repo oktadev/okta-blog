@@ -88,7 +88,7 @@ OKTA_OAUTH2_CLIENT_ID=your-client-id
 OKTA_OAUTH2_CLIENT_SECRET=your-client-secret
 ```
 
-Keeping these variables in a separate file keeps them private. It makes it easy to deploy the same code to different environments (for example, development, staging, and production) by swapping out one file.
+Keeping these variables in a separate file that is ignored by git keeps them private. It also makes it easy to deploy the same code to different environments (for example, development, staging, and production) by swapping out one file.
 
 ## Add a Protected Dashboard to Support MFA in Your Node Application
 
