@@ -380,14 +380,14 @@ Next, change the `routes` array to match the following.
 
 ```ts
 const routes: Routes = [
-  {
-    path: '',
-    component: HomeComponent
-  },
-  {
+    {
     path: 'game',
     component: GameComponent,
   },
+  {
+    path: '',
+    component: HomeComponent
+  }
 ];
 ```
 
@@ -691,18 +691,18 @@ Now, change the `routes` array to look like the following.
 ```ts
 const routes: Routes = [
   {
-    path: '',
-    component: HomeComponent
+    path: 'game',
+    component: GameComponent,
+    canActivate: [ AuthGuard ]
   },
   {
     path: 'login',
     component: LoginComponent
   },
   {
-    path: 'game',
-    component: GameComponent,
-    canActivate: [ AuthGuard ]
-  },
+    path: '',
+    component: HomeComponent
+  }
 ];
 ```
 
