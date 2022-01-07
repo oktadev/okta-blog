@@ -50,7 +50,7 @@ Return to the **Rule** page and click **Prompt for factor** and then click **Eve
 
 Open Visual Studio 2019 and select **Create a new project**. Find the **Blazor App** entry on the *Create a project* page.  Please note, if you are using a different version of Visual Studio your project create templates may look different.
 
-{% img blog/blazor-server-side-mfa/image3.png alt:"Create new project" width:8600" %}{: .center-image }
+{% img blog/blazor-server-side-mfa/image3.png alt:"Create new project" width:"800" %}{: .center-image }
 
 Under the **Create a new Blazor app** section select **Blazor Server App** and give it a minute to set up.
 
