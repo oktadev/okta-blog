@@ -379,7 +379,7 @@ else
 
 Again the only change here is the addition of the `Authorize` attribute.
 
-## Test your Application
+## Test your application
 
 Now start the application and navigate to the `Counter` page.
 
