@@ -395,8 +395,8 @@ With Okta securing your application with MFA is easier than ever. With a few con
 
 If you liked this tutorial, you might like these others:
 
-- [How to Build Securely with Blazor WebAssembly (WASM)](https://developer.okta.com/blog/2020/09/30/blazor-webassembly-wasm-dotnetcore)
-- [Web Forms Migration to Blazor in .NET Core](https://developer.okta.com/blog/2021/08/06/webforms-blazor-migration)
-- [Migrate Your ASP.NET Framework to ASP.NET Core with Okta](https://developer.okta.com/blog/2020/09/09/aspnet-migration-dotnet-core)
+- [How to Build Securely with Blazor WebAssembly (WASM)](/blog/2020/09/30/blazor-webassembly-wasm-dotnetcore)
+- [Web Forms Migration to Blazor in .NET Core](/blog/2021/08/06/webforms-blazor-migration)
+- [Migrate Your ASP.NET Framework to ASP.NET Core with Okta](/blog/2020/09/09/aspnet-migration-dotnet-core)
 
 Make sure you follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel. If you have any questions, or you want to share what tutorial you'd like to see next, please comment below!
