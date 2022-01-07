@@ -176,7 +176,7 @@ namespace Okta_ServerDemo
 }
 ```
 
-## Write your Application
+## Write your application
 
 Next, you can turn your attention to the pages. First, you will want to edit `App.razor` with the following code.
 
