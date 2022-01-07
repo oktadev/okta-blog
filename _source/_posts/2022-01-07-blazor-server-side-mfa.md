@@ -389,6 +389,8 @@ You will see the message found on your `App.razor` page. Click on the **Login** 
 
 {% img blog/blazor-server-side-mfa/image7.png alt:"Application is authorized" width:"800" %}{: .center-image }
 
+That's it! if you'd like to take a look at this solution in full, check out the [Github repo](https://github.com/oktadev/okta-blazor-server-mfa-example).
+
 ## Learn more about working with Blazor
 
 With Okta securing your application with MFA is easier than ever. With a few configuration changes, Okta does the heavy lifting and adds an additional layer of security to your Blazor server-side app.  
