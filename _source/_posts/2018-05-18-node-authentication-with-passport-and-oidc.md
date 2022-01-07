@@ -262,7 +262,7 @@ function ensureLoggedIn(req, res, next) {
 
 This function checks the request's `isAuthenticated()` method and passes the request on to the next handler if the user is logged in. If not, it redirects the user to the login page and kicks off the login process.
 
-Now add that middleware to the routes you need to be protected. In this case, just the profile route for now.
+Now add that middleware to the routes you need to protect. In this case, just the profile route for now.
 
 ```js
 app.use('/profile', ensureLoggedIn, (req, res) => {
