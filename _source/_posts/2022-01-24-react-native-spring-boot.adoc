@@ -181,11 +181,15 @@ You can use the default `Auth0 Management API` audience value from the *Applicat
 
   http://localhost:19006/,https://auth.expo.io/@mraible/Flickr2
 
-. Copy the client ID to `react-native/app/config/app-config.js`.
-
 . Set the Allowed Origins (CORS):
 
   http://localhost:19006
+
+. Copy the client ID to `app/config/app-config.js`.
+
+. Update the `audience` in `app/modules/login/login.utils.ts`:
+
+  audience: 'https://<your-auth0-domain>/api/v2/',
 
 . Restart your React Native app and log in with Auth0!
 +
