@@ -49,7 +49,7 @@ function drawChart() {
 
 I kid, I kid. 😅
 
-I don't think Stack Overflow tags indicate that developers have a hard time with the framework, I think they indicate a thriving community. The more questions, the more people are using it. 
+I don't think Stack Overflow tags indicate that developers have a hard time with the framework; I think they indicate a thriving community. The more people use technology, the more they submit questions for it. 
 
 [hotframeworks.com](https://hotframeworks.com/) lists a score that combines GitHub stars with Stack Overflow tags and says the top six web frameworks are as follows (at the time of this writing):
 
