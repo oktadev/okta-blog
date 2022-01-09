@@ -83,7 +83,7 @@ You'll be prompted to select your favorite stylesheet format. The selection you 
 
 ## Add Auth with OpenID Connect
 
-To add authentication with Auth0, you'll first need a [free Auth0 account](https://auth0.com/signup). Install the [Auth0 CLI](https://github.com/auth0/auth0-cli#installation) and run `auth0 login` to register your account. Then, run `auth0 apps create`. Specify a name and description of your choosing. Select **Single Page Web Application** and use `http://localhost:4200/home` for the Callback URL. Specify `http://localhost:4200` for the rest of the URLs.
+To add authentication with Auth0, you'll first need a [free Auth0 account](https://auth0.com/signup). Install the [Auth0 CLI](https://github.com/auth0/auth0-cli#installation) and run `auth0 login` to register your account. Then, run `auth0 apps create`. Use the name `auth0-demo` and specify a description of your choosing. Select **Single Page Web Application** and use `http://localhost:4200/home` for the Callback URL. Specify `http://localhost:4200` for the rest of the URLs. We're using 4200 as the port here because that's the default for local Angular development.
 
 {% img blog/angular-auth0/auth0-apps-create.png alt:"auth0 apps create" width:"800" %}{: .center-image }
 
