@@ -93,7 +93,7 @@ Once you have a new Angular app and Auth0 OIDC set up, you can use [OktaDev Sche
 ng add @oktadev/schematics --auth0
 ```
 
-You'll be prompted for an issuer and client ID. You should have these from the OIDC app you just created. The issuer will be displayed right above your client ID.
+The Auth0 CLI will prompt you for an issuer URL and client ID, which were displayed when setting up the app in Auth0. If you used the CLI, it would have shown the issuer URL right above the client ID.
 
 ```shell
 === dev-0ua1y-go.us.auth0.com application created
