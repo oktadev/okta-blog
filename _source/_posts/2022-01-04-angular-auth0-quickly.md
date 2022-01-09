@@ -131,7 +131,7 @@ Click the **Login** button and sign in with one of the configured users for your
 
 {% img blog/angular-auth0/auth0-login-form.png alt:"Auth0 Login form" width:"800" %}{: .center-image }
 
-You'll be redirected back to your app and a **Logout** button will be displayed in the bottom left corner.
+After login, you'll be redirected back to your app, and you'll see a **Logout** button displayed in the bottom left corner.
 
 {% img blog/angular-auth0/auth0-logout-button.png alt:"Auth0 Logout button" width:"800" %}{: .center-image }
 
