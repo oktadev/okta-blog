@@ -73,7 +73,7 @@ In this tutorial, I'll how you to add OIDC authentication with Auth0 to a new An
 
 ## Create an Angular app
 
-First, you'll need to create a new Angular app with routing enabled.
+First, you'll need to create a new Angular app with routing enabled. The Angular CLI is built to do this in a simple command.
 
 ```shell
 npx @angular/cli@13 new auth0-demo --routing
