@@ -79,7 +79,7 @@ First, you'll need to create a new Angular app with routing enabled. The Angular
 npx @angular/cli@13 new auth0-demo --routing
 ```
 
-Select your favorite stylesheet format. The selection you make doesn't matter for this example.
+You'll be prompted to select your favorite stylesheet format. The selection you make doesn't matter for this example since we're focused on functionality rather than updating visuals.
 
 ## Add Auth with OpenID Connect
 
