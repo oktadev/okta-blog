@@ -87,7 +87,7 @@ To add authentication with Auth0, you'll first need a [free Auth0 account](https
 
 {% img blog/angular-auth0/auth0-apps-create.png alt:"auth0 apps create" width:"800" %}{: .center-image }
 
-Once you have a new Angular app and Auth0 OIDC set up, you can use [OktaDev Schematics](https://github.com/oktadev/schematics#angular--auth0) to add OAuth 2.0 and OIDC support to your Angular app.
+Once you have a new Angular app and Auth0 OIDC set up, you can use [OktaDev Schematics](https://github.com/oktadev/schematics#angular--auth0) to add OAuth 2.0 and OIDC support to your Angular app. Be sure to execute this command in the folder for the app itself (`auth0-demo`) adjacent to `package.json`.
 
 ```shell
 ng add @oktadev/schematics --auth0
