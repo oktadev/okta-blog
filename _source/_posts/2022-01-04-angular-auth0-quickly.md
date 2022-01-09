@@ -127,7 +127,7 @@ Run `ng serve` in your app, and you should see a login button at `http://localho
 
 {% img blog/angular-auth0/auth0-login-button.png alt:"Auth0 Login button" width:"800" %}{: .center-image }
 
-Click the **Login** button and sign in with one of the users that's configured in your Auth0 application, or sign up as a new user.
+Click the **Login** button and sign in with one of the configured users for your Auth0 application. Because this is just a demo, you probably haven't done that - more likely, you should sign up as a new user.
 
 {% img blog/angular-auth0/auth0-login-form.png alt:"Auth0 Login form" width:"800" %}{: .center-image }
 
