@@ -718,7 +718,7 @@ One thing you might notice is that we only watch for sign in and sign out action
 
 ### Make Angular Tests Pass With Angular Material
 
-You generated a lot of code in this tutorial. When you created components, tests were created for those components as well. The tests merely verify the components render. If you run `ng test`, most of them will fail because the tests don't have the imports for the components you added and a provider for the `OktaAuth` object. If you'd like to see what it takes to make all the tests pass, see [this commit to add the Angular Material library imports](https://github.com/oktadeveloper/okta-angular-material-login-example/commit/20e899d0ba4f8074681548e268337bd13153f140), and [this commit to provide a fake OktaAuth object](https://github.com/oktadev/okta-angular-material-login-example/pull/4/commits/b53fdcafdf0b041b30b91f4ff5a1b496568bda17).
+You generated a lot of code in this tutorial. When you created components, tests were created for those components as well. The tests merely verify the components render. If you run `ng test`, most of them will fail because the tests don't have the imports for the components you added and a provider for the `OktaAuth` object. If you'd like to see what it takes to make all the tests pass, see [this commit to add the Angular Material library imports](https://github.com/oktadeveloper/okta-angular-material-login-example/commit/20e899d0ba4f8074681548e268337bd13153f140), and [this commit to provide a fake OktaAuth object](https://github.com/oktadev/okta-angular-material-login-example/commit/e06c1cc20e381b3a72f3c5597dc38dcd7095b82b).
 
 ## Learn More About Angular Material and Secure Login
 
