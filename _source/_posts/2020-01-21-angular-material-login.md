@@ -59,7 +59,7 @@ Depending on your operating system, you might have to run this using the `sudo` 
 npx @angular/cli@13 new material-tic-tac-toe
 ```
 
-You will be asked two questions. Answer **Yes** to the first question. This will set up the router in your application. The router is responsible for letting the user navigate between different parts of the app and updating the browser's URL without actually reloading the page. For the third question, accept the default choice **CSS**. This application will use simple CSS stylesheets, but you can see how easy it is to switch to a different stylesheet technology with Angular.
+You will be asked two questions. Answer **Yes** to the first question. This will set up the router in your application. The router is responsible for letting the user navigate between different parts of the app and updating the browser's URL without actually reloading the page. For the second question, accept the default choice **CSS**. This application will use simple CSS stylesheets, but you can see how easy it is to switch to a different stylesheet technology with Angular.
 
 {% img blog/angular-material-login/angular-style-options.png alt:"Angular stylesheet options" width:"700" %}{: .center-image }
 
@@ -77,9 +77,9 @@ Now you'll add Angular Material library using their schematic that automatically
 ng add @angular/material@13
 ```
 
-You'll be asked some questions. First, affirm you want to install the library, then select "Deep Purple/Amber" to apply the purple amber theme, then select "No" for typography, finally select "Yes" to add animations.
+You'll be asked some questions. First, affirm you want to install the library, select "Deep Purple/Amber" to apply the purple amber theme, then select "No" for typography, and finally select "Yes" to add animations.
 
-The `@angular/material` package provides the components of the Material Design and it installs the `@angular/cdk` library, which is a component development kit that is needed for the Material components to work. 
+The `@angular/material` package provides the components of the Material Design and it installs the `@angular/cdk` library, which is a component development kit needed for the Material components to work. 
 
 ## Add Default Application Styles
 
