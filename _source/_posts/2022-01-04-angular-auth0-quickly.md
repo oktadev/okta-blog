@@ -15,7 +15,7 @@ type: conversion
 github: https://github.com/oktadev/auth0-angular-example
 ---
 
-AngularJS 1.0 was released in October 2020. At the time, it was one of the most popular web frameworks to ever see the light of day. Developers loved it and many apps were created with it. It's next major release, Angular 2.0, was released in September 2016. Six years is a long time between major releases. Angular 2 took over two years to develop and many folks jumped to other frameworks rather than waiting for the rewrite. 
+AngularJS 1.0 was released in October 2010. At the time, it was considered one of the most revolutionary and popular web frameworks to ever see the light of day. Developers loved it and many apps were created with it. As a pioneer in the JS framework space, however, AngularJS had some growing pains and major issues. The team went back to the drawing board for a major breaking release with Angular 2. It took two years to develop, and influenced many devs to hop onto other frameworks in the meantime.  
 
 Today, five years after Angular 2 was released, we just call it "Angular" and its version numbers have far less meaning. Five years is a long time for a modern JS web framework to live and thrive. If you look at the number of Stack Overflow questions, you'll see that users struggle with React far more than Angular.
 
