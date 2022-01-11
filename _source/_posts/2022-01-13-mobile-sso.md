@@ -63,7 +63,7 @@ Apple changed `SFSafariViewController` behavior to address privacy concerns with
 
 Apple understood that  the `SFSafariViewController` behavior change would break SSO, since single sign-on relies on the ability to share cookies. Instead, Apple had to introduce `SFAuthenticationSession` as a workaround, where `SFAuthenticationSession` would share a persistent cookie with Safari. 
 
-### Iterative changes in iOS12 (2018)
+### Iterative changes in iOS 12 (2018)
 
 In 2018, Apple deprecated `SFAuthenticationSession`, but introduced [`ASWebAuthenticationSession`](https://developer.apple.com/documentation/authenticationservices/aswebauthenticationsession) as a revised solution. 
 
