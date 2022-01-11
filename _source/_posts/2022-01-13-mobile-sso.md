@@ -17,7 +17,7 @@ On an iPhone, when we log in to an app, we click a login button, and a website p
 
 However, in 2017, a new prompt appeared in the login flow, before you were taken to the website. The following screenshot came from an iOS app preparing to log you in with Facebook. The interface prompt informs you that a specific app, the Call of Duty game from Activision in this example, wants to use a specific website to sign you in, and it warns you about information sharing. 
 
-{% img blog/mobile-sso/ASWebAuthenticationSession-prompt-from-cod.png alt:"app login prompt when authenticating with ASWebAuthenticationSession" width:"800" %}{: .center-image }
+{% img blog/mobile-sso/ASWebAuthenticationSession-prompt-from-cod.jpeg alt:"app login prompt when authenticating with ASWebAuthenticationSession" width:"800" %}{: .center-image }
 
 There are a couple of problems with this prompt:
 
@@ -26,7 +26,7 @@ There are a couple of problems with this prompt:
 * **Problem 2** (Ambiguous UI message): If you implement logout functionality through the same flow, the prompt still says “Sign In”, even though the user may have already clicked a “Logout” button. This too is confusing to the end user, as shown in the following screenshot. This problem is reported as [a bug on the AppAuth library](https://github.com/openid/AppAuth-iOS/issues/255), although it was designed as a security and privacy feature.
 
 
-{% img blog/mobile-sso/ASWebAuthenticationSession-on-logout.png alt:"permission prompt when logging out with ASWebAuthenticationSession" width:"300" %}{: .center-image }
+{% img blog/mobile-sso/ASWebAuthenticationSession-on-logout.jpeg alt:"permission prompt when logging out with ASWebAuthenticationSession" width:"300" %}{: .center-image }
 
 
 In this article, I'll go into more detail on aspects of the iOS platform limitations. I'll explain why this prompt is shown and how to get around it to build a more seamless user experience. 
@@ -69,7 +69,7 @@ In 2018, Apple deprecated `SFAuthenticationSession`, but introduced [`ASWebAuthe
 
 Both `SFAuthenticationSession` and `ASWebAuthenticationSession` are designed specifically for OAuth 2.0 authentication, not for showing general web content. To avoid abuse, when `SFAuthenticationSession` or `ASWebAuthenticationSession` are used, Apple always displays the prompt we saw earlier., The prompt is designed explicitly for user sign-in, and indicates that cookies are shared. 
 
-{% img blog/mobile-sso/ASWebAuthenticationSession-prompt.png alt:"permission prompt about information sharing" width:"600" %}{: .center-image }
+{% img blog/mobile-sso/ASWebAuthenticationSession-prompt.jpeg alt:"permission prompt about information sharing" width:"600" %}{: .center-image }
 
 Apple does not know whether an `ASWebAuthenticationSession` is invoked  for sign in, sign out, or general web browsing. This is why the prompt text is generic. It only states that your app is trying to *Sign In*, regardless of the actual use case, which results in the ambiguity described earlier in  **Problem 2**. 
 
