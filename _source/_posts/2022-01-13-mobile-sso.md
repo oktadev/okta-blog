@@ -79,7 +79,7 @@ In 2019, Apple introduced `prefersEphemeralWebBrowserSession` as an option for `
 ## `SFAuthenticationSession` or `ASWebAuthenticationSession` behavior
 The various browser options offer differing levels of cookie sharing in order to limit websites'  ability to track a user. 
 
-The cookie-sharing behavior is not well documented in Apple’s documentation. The  [`SFSafariViewController` doc](https://developer.apple.com/documentation/safariservices/sfsafariviewcontroller) mentions that, “In iOS 9 and 10, it shares cookies and other website data with Safari…If you would like to share data between your app and Safari in iOS 11 and later, …use `ASWebAuthenticationSession` instead.”
+The cookie-sharing behavior is not well documented in Apple’s documentation. The  [`SFSafariViewController` doc](https://developer.apple.com/documentation/safariservices/sfsafariviewcontroller) mentions that, "In iOS 9 and 10, it shares cookies and other website data with Safari ... If you would like to share data between your app and Safari in iOS 11 and later, ... use `ASWebAuthenticationSession` instead."
 
 A few third-party websites extend Apple’s documentation to highlight that persistent cookies are shared between an embedded browser and Safari. Unfortunately, it is rarely known that session cookies can also be shared between different embedded browsers. If your application just needs SSO between your mobile apps, you do not have to use a persistent cookie; a session cookie is sufficient. 
 
