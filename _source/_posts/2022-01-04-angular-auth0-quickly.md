@@ -27,9 +27,9 @@ google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
   var data = google.visualization.arrayToDataTable([
     ['Framework', 'Stack Overflow tags', { role: 'style' }],
-    ['Angular', 266938, 'red'],
-    ['React', 348946, '#61dafb'],
-    ['Vue', 87085, '#4fc08d']
+    ['Angular', 269489, 'red'],
+    ['React', 358026, '#61dafb'],
+    ['Vue', 88703, '#4fc08d']
   ]);
   var options = {
     title: 'Stack Overflow Tagged Questions',
@@ -73,10 +73,11 @@ In this tutorial, I'll how you to add OIDC authentication with Auth0 to a new An
 
 ## Create an Angular app
 
-First, you'll need to create a new Angular app with routing enabled. The Angular CLI is built to do this in a simple command.
+First, you'll need to create a new Angular app with routing enabled. Install the Angular CLI globally, then create an app.
 
 ```shell
-npx @angular/cli@13 new auth0-demo --routing
+npm i -g @angular/cli@13
+ng new auth0-demo --routing
 ```
 
 You'll be prompted to select your favorite stylesheet format. The selection you make doesn't matter for this example since we're focused on functionality rather than updating visuals.
@@ -86,6 +87,14 @@ You'll be prompted to select your favorite stylesheet format. The selection you 
 To add authentication with Auth0, you'll first need a [free Auth0 account](https://auth0.com/signup). Install the [Auth0 CLI](https://github.com/auth0/auth0-cli#installation) and run `auth0 login` to register your account. Then, run `auth0 apps create`. Use the name `auth0-demo` and specify a description of your choosing. Select **Single Page Web Application** and use `http://localhost:4200/home` for the Callback URL. Specify `http://localhost:4200` for the rest of the URLs. We're using 4200 as the port here because that's the default for local Angular development.
 
 {% img blog/angular-auth0/auth0-apps-create.png alt:"auth0 apps create" width:"800" %}{: .center-image }
+
+> You can also use the Auth0 Console to create an OIDC app:
+>
+> * [Log in](https://auth0.com/auth/login) to Auth0 or [create an account](https://auth0.com/signup) if you don't have one. Go to **Applications** > **Create Application**.
+> * Choose **Single Page Web Applications** as the application type and click **Create**.
+> * Click **Angular**, then the **Settings** tab.
+> * Add `http://localhost:4200/home` as an Allowed Callback URL and `http://localhost:4200` as a Logout URL.
+> * Specify `http://localhost:4200` as an Allowed Origin and click **Save Changes** at the bottom.
 
 Once you have a new Angular app and Auth0 OIDC set up, you can use [OktaDev Schematics](https://github.com/oktadev/schematics#angular--auth0) to add OAuth 2.0 and OIDC support to your Angular app. Be sure to execute this command in the folder for the app itself (`auth0-demo`) adjacent to `package.json`.
 
@@ -109,17 +118,7 @@ This process will perform the following steps for you:
 4. Create a `HomeComponent` and configure it with authentication logic.
 5. Update unit tests for `AppComponent` and `HomeComponent` to mock Auth0.
 
-To see all the changes it makes to your files, see [this pull request on GitHub](https://github.com/oktadev/auth0-angular-example/pull/1/files). 
-
-### Use the Auth0 Console instead of the CLI
-
-You can also use the Auth0 Console to create an OIDC app:
-
-* [Log in](https://auth0.com/auth/login) to Auth0 or [create an account](https://auth0.com/signup) if you don't have one. Go to **Applications** > **Create Application**.
-* Choose **Single Page Web Applications** as the application type and click **Create**.
-* Click **Angular**, then the **Settings** tab.
-* Add `http://localhost:4200/home` as an Allowed Callback URL and `http://localhost:4200` as a Logout URL.
-* Specify `http://localhost:4200` as an Allowed Origin and click **Save Changes** at the bottom.
+To see all the changes it makes to your files, see [this pull request on GitHub](https://github.com/oktadev/auth0-angular-example/pull/1/files).
 
 ### Test your Angular authentication flow
 
@@ -161,7 +160,7 @@ If everything works—congrats!
 
 ## Learn more about Angular and OpenID Connect
 
-I hope you enjoyed this quick tutorial on using Auth0 for authentication in your Angular apps. If you're looking for a more detailed step-by-step tutorial, please read [The Complete Guide to Angular User Authentication with Auth0](https://auth0.com/blog/complete-guide-to-angular-user-authentication/).
+I hope you enjoyed this quick tutorial on using Auth0 and OIDC for authentication in your Angular apps. If you're looking for a more detailed step-by-step tutorial, please read [The Complete Guide to Angular User Authentication with Auth0](https://auth0.com/blog/complete-guide-to-angular-user-authentication/).
 
 You can find the source code for the example on GitHub in the [@oktadev/auth0-angular-example](https://github.com/oktadev/auth0-angular-example) repository.
 
