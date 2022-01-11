@@ -188,9 +188,9 @@ Start with the main application component. Open `src/app/app.component.html` and
 ```
 {% endraw %}
 
-This code contains the main toolbar and menu of the application. Because we used the Flex-Layout directives to set the layout for the elements, there's no extra styles needed.
+This code contains the main toolbar and menu of the application. Because we used the Flex-Layout directives to set the layout for the elements, no extra styles are needed.
 
-Now, open `src/app/app.component.ts` and modify the component title and add a public `isAuthenticated` property. The contents of the file should look like this.
+Now, open `src/app/app.component.ts`, modify the component title, and add a public `isAuthenticated` property. The contents of the file should look like this.
 
 ```ts
 import { Component } from '@angular/core';
@@ -405,7 +405,7 @@ Open your browser and navigate to `http://localhost:4200`. Click on the **Play**
 
 {% include setup/cli.md type="spa" framework="Angular" loginRedirectUri="http://localhost:4200/login" logoutRedirectUri="http://localhost:4200" %}
 
-You will be implementing a login form as part of your application. Before continuing, a few warnings. If you decide to run a production environment in which you host your own login form, make sure that you are using the secure HTTPS protocol, and you are hosting your site with a valid SSL certificate. Also, make sure to never store the login data in a session variable or the browser's storage. If you fail to take the necessary security precautions, your site may be vulnerable to attacks. As mentioned above, you will not be using any of the Angular-specific Okta libraries. Instead, install the `okta-auth-js` package by opening the terminal in the project's root folder and typing the following command.
+You will be implementing a login form as part of your application. Before continuing, a few warnings. If you decide to run a production environment in which you host your own login form, make sure you use the secure HTTPS protocol and host your site with a valid SSL certificate. Also, make sure to never store the login data in a session variable or the browser's storage. If you fail to take the necessary security precautions, your site may be vulnerable to attacks. As mentioned above, you will not be using any of the Angular-specific Okta libraries. Instead, install the `okta-auth-js` package by opening the terminal in the project's root folder and typing the following command.
 
 ```bash
 npm install -E @okta/okta-auth-js@5.9.1
@@ -500,9 +500,9 @@ export class AuthService implements OnDestroy {
 }
 ```
 
-The `AuthService` has a reference to the injected `OktaAuth` object which we use to interact with the Okta libraries. 
+The `AuthService` has a reference to the injected `OktaAuth` object, which we use to interact with the Okta libraries. 
 
-The `isAuthenticated$` property is the observable stream of a behavior subject that reflects whether the user is logged in or not. The pattern of keeping the behavior subject private and exposing only the observable is a best practice to keep other code paths from manipulating the emissions. The `AuthService` also defines two public methods. The `login()` method sends a sign-in request to the Okta server. On success, the user is authenticated and a session is established. The `logout()` method will sign out the user and redirect them to a specified route. 
+The `isAuthenticated$` property is the observable stream of a behavior subject that reflects whether the user is logged in or not. The pattern of keeping the behavior subject private, exposing only the observable, is a best practice to keep other code paths from manipulating the emissions. The `AuthService` also defines two public methods. The `login()` method sends a sign-in request to the Okta server. On success, the user is authenticated and a session is established. The `logout()` method will sign out the user and redirect them to a specified route. 
 
 Now that the service is in place, you can use it in the application component. Open `src/app/app.component.ts` and modify the contents to match the code below.
 
@@ -714,11 +714,11 @@ When you run the `ng serve` command and navigate to `http://localhost:4200` you 
 
 ### Make Your App More Secure
 
-One thing you might notice is that we only watch for sign in and sign out actions to update the authenticated state. This works for our case, but you might not want to allow users whose sessions timed out to continue playing tic-tac-toe. To make your app more secure, you need to watch for sessions timing out. There's several ways to do this, but some popular ones include subscribing to `Router` events and checking, or if your app makes calls to a back-end, redirect the user to the login page when the HTTP call returns a 401 response code. 
+Notice that we only watch for sign-in and sign-out actions to update the authenticated state. This works for our case, but you might not want to allow users whose sessions have timed out to continue playing tic-tac-toe. To make your app more secure, you need to watch for sessions timing out. There are several ways to do this, but some popular ones include subscribing to `Router` events and checking. Or, if your app makes calls to a back-end, redirect the user to the login page when the HTTP call returns a 401 response code. 
 
 ### Make Angular Tests Pass With Angular Material
 
-You generated a lot of code in this tutorial. When you created components, tests were created for those components as well. The tests merely verify the components render. If you run `ng test`, most of them will fail because the tests don't have the imports for the components you added and a provider for the `OktaAuth` object. If you'd like to see what it takes to make all the tests pass, see [this commit to add the Angular Material library imports](https://github.com/oktadeveloper/okta-angular-material-login-example/commit/20e899d0ba4f8074681548e268337bd13153f140), and [this commit to provide a fake OktaAuth object](https://github.com/oktadev/okta-angular-material-login-example/commit/e06c1cc20e381b3a72f3c5597dc38dcd7095b82b).
+You generated a lot of code in this tutorial. When you created components, tests were created for those components as well. The tests merely verify that the components render. If you run `ng test`, most of them will fail because the tests have neither the imports for the components you added nor a provider for the `OktaAuth` object. If you'd like to see what it takes to make all the tests pass, look at [this commit to add the Angular Material library imports](https://github.com/oktadeveloper/okta-angular-material-login-example/commit/20e899d0ba4f8074681548e268337bd13153f140), and [this commit to provide a fake OktaAuth object](https://github.com/oktadev/okta-angular-material-login-example/commit/e06c1cc20e381b3a72f3c5597dc38dcd7095b82b).
 
 ## Learn More About Angular Material and Secure Login
 
