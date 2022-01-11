@@ -9,7 +9,7 @@ tags: [ios, sso, mobile-sso, mobile]
 tweets:
 - ""
 - ""
-image: ""
+image: blog/mobile-sso/mobile-sso-social.jpeg
 type: conversion
 ---
 
