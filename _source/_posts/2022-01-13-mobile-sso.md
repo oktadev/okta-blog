@@ -5,7 +5,7 @@ author: huan-liu
 by: internal-contributor
 communities: [mobile]
 description: "learn platform constraint on iOS platform and how to build great SSO experience around those constraints"
-tags: [ios, sso, mobile sso, mobile]
+tags: [ios, sso, mobile-sso, mobile]
 tweets:
 - ""
 - ""
