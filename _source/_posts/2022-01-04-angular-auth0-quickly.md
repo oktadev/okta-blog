@@ -118,7 +118,7 @@ This process will perform the following steps for you:
 4. Create a `HomeComponent` and configure it with authentication logic.
 5. Update unit tests for `AppComponent` and `HomeComponent` to mock Auth0.
 
-To see all the changes it makes to your files, see [this pull request on GitHub](https://github.com/oktadev/auth0-angular-example/pull/1/files).
+To see all the changes it makes to your files, see [this pull request on GitHub](https://github.com/oktadev/auth0-angular-example/pull/1/files). If you're interested in learning more about Schematics, I recommend reading my [Use Angular Schematics to Simplify Your Life](https://developer.okta.com/blog/2019/02/13/angular-schematics) tutorial.
 
 ### Test your Angular authentication flow
 
