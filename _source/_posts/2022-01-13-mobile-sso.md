@@ -85,10 +85,14 @@ A few third-party websites extend Apple's documentation to highlight that persis
 
 The following table summarizes the complete sharing behavior in iOS 11 or later. I've omitted `SFAuthenticationSession` for brevity because it is deprecated, but it behaves the same as `ASWebAuthenticationSession`. I've also omitted the `prefersEphemeralWebBrowserSession` option for `ASWebAuthenticationSession` because when it is set, cookies are not shared at all. 
  
+<div markdown="1" class="scrollable">
+
 |   | APP1 + SFSafariViewController | App1 + ASWebAuthenticationSession | App2 + SFSafariViewController | App2 + ASWebAuthenticationSession | Safari | Other browsers (e.g., Chrome) |
 |-----|-----|-----|-----|-----|-----|-----|
-| Session cookie    |   | Yes |   |  Yes |        |   |
+| Session cookie    |   | Yes |   |  Yes |     |   |
 | Persistent cookie |   | Yes |   |  Yes | Yes |   | 
+
+</div>
 
 In the following iOS cookie behavior demo video, you can see how the session cookie and the persistent cookie are shared. The session cookie sharing behavior is not intuitive. Even when App1 is closed (which should clear all session cookies), opening App 2 would make it possible to see App1's session cookie. 
 
