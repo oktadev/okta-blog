@@ -201,7 +201,7 @@ docker run \
 <.> The port where your application is running on `localhost`.
 ====
 
-NOTE: You can codify this solution using a https://TODO[docker-compose.yml file] if you prefer!
+NOTE: You can codify this solution using a https://github.com/bdemers/localhost-tls/blob/main/docker-compose.yml[docker-compose.yml file] if you prefer!
 
 Test it out! Open up your browser to `\https://localhost/`.
 
