@@ -12,7 +12,7 @@ tweets:
 - "Serverless apps made easy with @fauna and @okta!"
 image: blog/fauna-react/fauna-react.jpg
 type: conversion
-github: https://github.com/oktadev/okta-fuanadb-react-example
+github: https://github.com/oktadev/okta-faunadb-react-example
 ---
 
 Fauna is a transactional database that is delivered to your application as a secure cloud API. Fauna hosts your database and then allows your application to make calls against it. Typically, to secure such an API, you would establish a relationship between your users and the database in your code. This would mean signing in your users using your authentication provider, in this case, Okta. Then you would need to convert that user to an authorized user to connect to your API.
@@ -29,79 +29,59 @@ In this tutorial, you will learn how to create a new Okta application, a new aut
 
 Make a note of the issuer and client ID as you will need them in your application.
 
-Once you have created the application you will need to set up a custom authorization server. FaunaDB will provide the appropriate audience
-to supply with your access token. However, Okta will not allow you to change the audience on the default authorization server.
+Once you have created the application you will need to set up a custom authorization server. FaunaDB will provide the appropriate audience to supply with your access token. However, Okta will not allow you to change the audience on the default authorization server.
 
-Run `okta login` and open the resulting URL in your favorite browser. Log in and navigate to **Security** > **API**. Select **Add
-Authorization Server** and give it a meaningful name and description. You can set your audience to anything (it cannot be left blank), but
-you will need to change this after setting up your FaunaDB database.
+Run `okta login` and open the resulting URL in your favorite browser. Log in and navigate to **Security** > **API**. Select **Add Authorization Server** and give it a meaningful name and description. You can set your audience to anything (it cannot be left blank), but you will need to change this after setting up your FaunaDB database.
 
 {% img blog/fauna-react/add-authz-server.png alt:"Add Authorization Server" width:"800" %}{: .center-image }
 
 Next, click on **Access Policies** > **Add Policy**. Name it "Default" and give it a description.
 
-{% img blog/fauna-react/add-policy.png alt:"Add Policy" width:"800" %}{: .center-image }
+{% img blog/fauna-react/add-policy.png alt:"Add Policy" width:"648" %}{: .center-image }
 
-Press **Create Policy**  and then click **Add Rule**. Name the rule "Default Rule" and make sure  **Authorization Code** is selected in
-the *Grant Type* section. You can leave the rest of the rule as it is, but I encourage you to review these settings should you need to
-change them in the future.
+Press **Create Policy**  and then click **Add Rule**. Name the rule "Default Rule" and make sure  **Authorization Code** is selected in the *Grant Type* section. You can leave the rest of the rule as it is, but I encourage you to review these settings should you need to change them in the future.
 
-{% img blog/fauna-react/add-rule.png alt:"Add Rule" width:"800" %}{: .center-image }
+{% img blog/fauna-react/add-rule.png alt:"Add Rule" width:"669" %}{: .center-image }
 
 Finally, return to the **Settings** tab and open the **Metadata URI** link. You will need the `jwks_uri` and `issuer` values from this page.
 
-You can now create your Fauna database but leave the Okta Admin Console open as you will need to change the audience in your authorization
-server after setting up the Fauna database.
+You can now create your Fauna database but leave the Okta Admin Console open as you will need to change the audience in your authorization server after setting up the Fauna database.
 
 ## Create a Fauna database
 
-Next, head over to [Fauna](https://fauna.com/) and sign up for a new account. After you've registered and authenticated, click on **New
-Database** and name your database "Products". Select a Region Group that's appropriate for your location. Click on the **Use demo data**
-checkbox and click **Create**. Fauna will automatically build a new database for you with data collections for *customers*, *managers*, *
-orders*, *products*, and *stores*. You can click on any of these collections to see the same data behind them.
+Next, head over to [Fauna](https://fauna.com/) and sign up for a new account. After you've registered and authenticated, click on **New Database** and name your database "Products". Select a Region Group that's appropriate for your location. Click on the **Use demo data** checkbox and click **Create**. Fauna will automatically build a new database for you with data collections for *customers*, *managers*, *orders*, *products*, and *stores*. You can click on any of these collections to see the same data behind them.
 
-Now you will need to add a new role to the database. Fauna requires that you assign a custom role to your provider. Under the **Security**
-tab, navigate to **Roles**. Click **New Role**. Name your role "User" and add the `products` collection to it. Give this role **Read**
-access. Click **Save** to save the changes.
+Now you will need to add a new role to the database. Fauna requires that you assign a custom role to your provider. Under the **Security** tab, navigate to **Roles**. Click **New Role**. Name your role "User" and add the `products` collection to it. Give this role **Read** access. Click **Save** to save the changes.
 
 {% img blog/fauna-react/new-role.png alt:"Add a new role to Fauna" width:"800" %}{: .center-image }
 
-Now you will want to list Okta as a registered provider for this database. Select the **Providers** tab and click **New Access Provider**.
-Name the new provider "Okta" and add the details for your *Issuer* and *JSON Web Key Secret URI* that you retrieved from Okta earlier. Add
-the `User` role to the provider and click **Save**. Now Fauna will accept the token from Okta and treat the user as though they are part of
-the `User` role, giving that user access to read the product's collection.
+Now you will want to list Okta as a registered provider for this database. Select the **Providers** tab and click **New Access Provider**. Name the new provider "Okta" and add the details for your *Issuer* and *JSON Web Key Secret URI* that you retrieved from Okta earlier. Add the `User` role to the provider and click **Save**. Now Fauna will accept the token from Okta and treat the user as though they are part of the `User` role, giving that user access to read the product's collection.
 
-Finally, under the **Providers** tab click the settings wheel next to Okta. Copy the **audience** URL from here and return to your Okta
-developer console. Under your authorization server click *edit* and replace the placeholder audience value with the one you copied from
-Fauna.
+Finally, under the **Providers** tab click the settings wheel next to Okta. Copy the **audience** URL from here and return to your Okta Admin Console. Under your authorization server click **Edit** and replace the placeholder audience value with the one you copied from Fauna.
 
 ## Create a React app with FaunaDB
 
-Now that Okta and Fauna are set up to work with each other it's time to create your site that will make use of both. Start by using the task
-runner `npx create-react-app products` to scaffold a new React application. Once the task runner has completed, type in `cd products` to
-navigate to your new project.
+Now that Okta and Fauna are set up to work with each other it's time to create your site that will make use of both. Start by using the task runner `npx create-react-app products` to scaffold a new React application. Once the task runner has completed, type in `cd products` to navigate in to your new project.
 
-For this project, you will need to install a few packages from npm. First, you will want to include the packages to make securing your
-application with Okta quick and easy.
+For this project, you will need to install a few packages from npm. First, you will want to include the packages to make securing your application with Okta quick and easy.
 
-```console
-npm i @okta/okta-auth-js@5.8.0 @okta/okta-react@6.3.0
+```shell
+npm i @okta/okta-auth-js@5.10.0 @okta/okta-react@6.3.0
 ```
 
 Next, you will need the FaunaDB JavaScript driver to make calls against your database.
 
-```console
+```shell
 npm i faunadb@4.4.1
 ```
 
 Finally, you need to include `react-router-dom`.
 
-```console
-npm i react-router-dom@6.1.1
+```shell
+npm i react-router-dom@5.3.0
 ```
 
-Now you can set up a `.env` file with your environment variables. Create a file named `.env` in the root of your application. Open the file
-and add the following code to it.
+Now you can set up a `.env` file with your environment variables. Create a file named `.env` in the root of your application. Open the file and add the following code to it.
 
 ```env
 REACT_APP_OKTA_CLIENTID={yourClientId}
@@ -114,18 +94,18 @@ PORT=3000
 Next, add a new file to your `src` directory called `AppWithRouterAccess.jsx`. Add the following code to it.
 
 ```jsx
-import React from "react";
-import { Route, useHistory } from "react-router-dom";
-import { Security, LoginCallback } from "@okta/okta-react";
-import { OktaAuth, toRelativeUrl } from "@okta/okta-auth-js";
+import React from 'react';
+import { Route, useHistory } from 'react-router-dom';
+import { Security, LoginCallback } from '@okta/okta-react';
+import { OktaAuth, toRelativeUrl } from '@okta/okta-auth-js';
 
-import Home from "./Pages/Home";
+import Home from './Pages/Home';
 
 const AppWithRouterAccess = () => {
-  const issuer = process.env.REACT_APP_OKTA_URL_BASE + "/oauth2/" +
+  const issuer = process.env.REACT_APP_OKTA_URL_BASE + '/oauth2/' +
     process.env.REACT_APP_OKTA_AUTHORIZATION_SERVER_ID;
   const clientId = process.env.REACT_APP_OKTA_CLIENTID;
-  const redirect = process.env.REACT_APP_OKTA_APP_BASE_URL + "/callback";
+  const redirect = process.env.REACT_APP_OKTA_APP_BASE_URL + '/callback';
 
   const oktaAuth = new OktaAuth({
     issuer: issuer,
@@ -141,8 +121,8 @@ const AppWithRouterAccess = () => {
 
   return (
     <Security oktaAuth={oktaAuth} restoreOriginalUri={restoreOriginalUri}>
-      <Route path="/" exact={true} component={Home}></Route>
-      <Route path="/implicit/callback" component={LoginCallback}/>
+      <Route path='/' exact={true} component={Home}></Route>
+      <Route path='/callback' component={LoginCallback}/>
     </Security>
   );
 };
@@ -173,17 +153,21 @@ export default App;
 
 Along with using the `AppWithRouterAccess`, this file also imports Bootstrap, which you will use for styling.
 
+```shell
+npm i react-bootstrap@2.1.0 bootstrap@5.1.3
+```
+
 Add the pages and components that will bring your application to life. Then add two new folders to your `src` directory; `Components` and `Pages`. In the `Pages` directory, add a file called `Home.jsx` and put the following code in it.
 
 ```jsx
-import React, { Component } from "react";
-import { Container } from "react-bootstrap";
-import faunadb from "faunadb";
+import React, { Component } from 'react';
+import { Container } from 'react-bootstrap';
+import faunadb from 'faunadb';
 
-import { withOktaAuth } from "@okta/okta-react";
+import { withOktaAuth } from '@okta/okta-react';
 
-import Header from "../Components/Header";
-import Products from "../Components/Products";
+import Header from '../Components/Header';
+import Products from '../Components/Products';
 
 export default withOktaAuth(
   class Home extends Component {
@@ -205,9 +189,9 @@ export default withOktaAuth(
       });
 
       const client = new faunadb.Client({
-        domain: "db.fauna.com",
+        domain: 'db.fauna.com',
         secret: accessToken,
-        scheme: "https",
+        scheme: 'https',
       });
       const q = faunadb.query;
 
@@ -216,7 +200,7 @@ export default withOktaAuth(
       client
         .query(
           q.Map(
-            q.Paginate(Documents(Collection("products"))),
+            q.Paginate(Documents(Collection('products'))),
             q.Lambda((x) => q.Get(x))
           )
         )
@@ -264,8 +248,8 @@ export default withOktaAuth(
             products={this.state.products}
           ></Products>
 
-          <footer className="text-muted">
-            <div className="container">
+          <footer className='text-muted'>
+            <div className='container'>
               <p>A Small demo using Okta to authentication calls to FaunaDB</p>
               <p>By Nik Fisher</p>
             </div>
@@ -294,19 +278,19 @@ const Header = ({authState, oktaAuth}) => {
   }
 
   const button = authState?.isAuthenticated ?
-    <Button variant="secondary" onClick={() => {
+    <Button variant='secondary' onClick={() => {
       oktaAuth.signOut('/');
     }}>Logout</Button> :
-    <Button variant="secondary" onClick={() => {
+    <Button variant='secondary' onClick={() => {
       oktaAuth.signInWithRedirect()
     }}>Login</Button>
 
   return (
-    <Navbar bg="light" expand="lg">
-      <Navbar.Brand href="/">Products with FaunaDB</Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav"/>
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
+    <Navbar bg='light' expand='lg'>
+      <Navbar.Brand href='/'>Products with FaunaDB</Navbar.Brand>
+      <Navbar.Toggle aria-controls='basic-navbar-nav'/>
+      <Navbar.Collapse id='basic-navbar-nav'>
+        <Nav className='mr-auto'>
         </Nav>
         <Form inline>
           {button}
@@ -324,13 +308,13 @@ This file gives a home button for the user as well as a signout button for logge
 Finally, add a file for `Products.jsx` in your `Components` folder and add the following code.
 
 ```jsx
-import React from "react";
+import React from 'react';
 
 const Products = ({authState, products}) => {
   if (!authState?.isAuthenticated) {
     return (
-      <div className="row">
-        <div className="col-lg-12">
+      <div className='row'>
+        <div className='col-lg-12'>
           <p>
             Hey there, it looks like you aren't logged in yet. To log in, click
             here.
@@ -340,8 +324,8 @@ const Products = ({authState, products}) => {
     );
   } else if (!products) {
     return (
-      <div className="row">
-        <div className="col-lg-12">
+      <div className='row'>
+        <div className='col-lg-12'>
           <p>
             Loading...
           </p>
@@ -352,7 +336,7 @@ const Products = ({authState, products}) => {
 
   return (
     <div>
-      <table className="table table-striped">
+      <table className='table table-striped'>
         <thead>
         <tr>
           <th>Product</th>
@@ -367,10 +351,10 @@ const Products = ({authState, products}) => {
               <td>{product.data.name}</td>
               <td>{product.data.description}</td>
               <td>
-                {"$ " +
+                {'$ ' +
                   product.data.price
                     .toFixed(2)
-                    .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}
+                    .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
               </td>
             </tr>
           );
@@ -388,8 +372,7 @@ This component handles the presentation of the products once they have returned 
 
 ## Run your React + FaunaDB application
 
-With your application ready you can execute the command `npm start` to see your application. Log in using your Okta credentials and wait a
-moment for the data to be returned from FaunaDB.
+With your application ready you can execute the command `npm start` to see your application. Log in using your Okta credentials and wait a moment for the data to be returned from FaunaDB.
 
 {% img blog/fauna-react/run-app.png alt:"React + Fauna app!" width:"800" %}{: .center-image }
 
@@ -397,8 +380,7 @@ moment for the data to be returned from FaunaDB.
 
 This is just the beginning of what you can do with FaunaDB and custom providers. The best part is you don't have to move away from Okta to properly secure your application. You can now manage access and authorization levels to your database from Okta rather than on the FaunaDB side. And using the libraries provided by Fauna and Okta, it's fast and easy to set up a secure web application with a FaunaDB backend.
 
-You can find the source code for this example on GitHub in
-the [@oktadev/okta-faunadb-react-example](https://github.com/oktadev/okta-fuanadb-react-example) repository.
+You can find the source code for this example on GitHub in the [@oktadev/okta-faunadb-react-example](https://github.com/oktadev/okta-faunadb-react-example) repository.
 
 If you liked this post, you might like these others:
 
