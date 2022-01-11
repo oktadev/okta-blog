@@ -194,7 +194,7 @@ Head back to your Node app running at `http://localhost:8080` and sign in. This 
 
 ## Learn More About Node and Secure Multi-Factor Authentication with Okta
 
-If you've learned anything today, hopefully, it's that securing your application doesn't need to be scary. You can add robust user sign-on with multi-factor authentication in a single afternoon without breaking a sweat! Your users can rest assured that their data is in good hands.
+Securing your application doesn't need to be scary. You can add robust user sign-on with multi-factor authentication in a single afternoon without breaking a sweat! Your users can rest assured that their data is in good hands.
 
 If you'd like to learn more about Node, Okta, and authentication or MFA, take a look at these resources, as well as the rest of the Okta developer blog:
 
