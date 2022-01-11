@@ -96,9 +96,7 @@ The following table summarizes the complete sharing behavior in iOS 11 or later.
 
 In the following iOS cookie behavior demo video, you can see how the session cookie and the persistent cookie are shared. The session cookie sharing behavior is not intuitive. Even when App1 is closed (which should clear all session cookies), opening App 2 would make it possible to see App1's session cookie. 
 
-<div style="text-align: center; margin-bottom: 1.25rem">
-  <iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/mDytgEU0bO8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
+{% youtube mDytgEU0bO8 %}
 
 It is worth noting that in iOS 14 and later you can specify another browser, such as Chrome, as the default. This does not affect the sharing behavior. `SFSafariViewController` and `ASWebAuthenticationSession` always use Safari under the hood, so they will never share cookies with browsers other than Safari, even if they are set as the default. The term *system browser*, often used in online articles, is synonymous with Safari. 
 
