@@ -23,7 +23,7 @@ There are a couple of problems with this prompt:
 
 * **Problem 1** (Where did this prompt come from?) : Many people consider this a bad user experience because the prompt looks out of place, and the wording is confusing and might alarm end users. 
 
-* **Problem 2** (Ambiguous UI message): If you implement logout functionality through the same flow, the prompt still says “Sign In”, even though the user may have already clicked a “Logout” button. This too is confusing to the end user, as shown in the following screenshot. This problem is reported as [a bug on the AppAuth library](https://github.com/openid/AppAuth-iOS/issues/255), although it was designed as a security and privacy feature.
+* **Problem 2** (Ambiguous UI message): If you implement logout functionality through the same flow, the prompt still says "Sign In", even though the user may have already clicked a "Logout" button. This too is confusing to the end user, as shown in the following screenshot. This problem is reported as [a bug on the AppAuth library](https://github.com/openid/AppAuth-iOS/issues/255), although it was designed as a security and privacy feature.
 
 
 {% img blog/mobile-sso/ASWebAuthenticationSession-on-logout.jpeg alt:"permission prompt when logging out with ASWebAuthenticationSession" width:"300" %}{: .center-image }
@@ -79,9 +79,9 @@ In 2019, Apple introduced `prefersEphemeralWebBrowserSession` as an option for `
 ## `SFAuthenticationSession` or `ASWebAuthenticationSession` behavior
 The various browser options offer differing levels of cookie sharing in order to limit websites'  ability to track a user. 
 
-The cookie-sharing behavior is not well documented in Apple’s documentation. The  [`SFSafariViewController` doc](https://developer.apple.com/documentation/safariservices/sfsafariviewcontroller) mentions that, "In iOS 9 and 10, it shares cookies and other website data with Safari ... If you would like to share data between your app and Safari in iOS 11 and later, ... use `ASWebAuthenticationSession` instead."
+The cookie-sharing behavior is not well documented in Apple's documentation. The  [`SFSafariViewController` doc](https://developer.apple.com/documentation/safariservices/sfsafariviewcontroller) mentions that, "In iOS 9 and 10, it shares cookies and other website data with Safari ... If you would like to share data between your app and Safari in iOS 11 and later, ... use `ASWebAuthenticationSession` instead."
 
-A few third-party websites extend Apple’s documentation to highlight that persistent cookies are shared between an embedded browser and Safari. Unfortunately, it is rarely known that session cookies can also be shared between different embedded browsers. If your application just needs SSO between your mobile apps, you do not have to use a persistent cookie; a session cookie is sufficient. 
+A few third-party websites extend Apple's documentation to highlight that persistent cookies are shared between an embedded browser and Safari. Unfortunately, it is rarely known that session cookies can also be shared between different embedded browsers. If your application just needs SSO between your mobile apps, you do not have to use a persistent cookie; a session cookie is sufficient. 
 
 The following table summarizes the complete sharing behavior in iOS 11 or later. I've omitted `SFAuthenticationSession` for brevity because it is deprecated, but it behaves the same as `ASWebAuthenticationSession`. I've also omitted the `prefersEphemeralWebBrowserSession` option for `ASWebAuthenticationSession` because when it is set, cookies are not shared at all. 
  
@@ -90,7 +90,7 @@ The following table summarizes the complete sharing behavior in iOS 11 or later.
 | Session cookie    |   | Yes |   |  Yes |        |   |
 | Persistent cookie |   | Yes |   |  Yes | Yes |   | 
 
-In the following iOS cookie behavior demo video, you can see how the session cookie and the persistent cookie are shared. The session cookie sharing behavior is not intuitive. Even when App1 is closed (which should clear all session cookies), opening App 2 would make it possible to see App1’s session cookie. 
+In the following iOS cookie behavior demo video, you can see how the session cookie and the persistent cookie are shared. The session cookie sharing behavior is not intuitive. Even when App1 is closed (which should clear all session cookies), opening App 2 would make it possible to see App1's session cookie. 
 
 <div style="text-align: center; margin-bottom: 1.25rem">
   <iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/mDytgEU0bO8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -115,7 +115,7 @@ However, if you  require a stronger privacy and security posture, for instance f
 
 ### Solutions to problem 1
 
-There are two potential approaches to solve problem 1.  Both solutions use browser components that do not show a prompt. Both have the drawback that no cookie can be shared, so SSO will not work. If your app requires SSO, you'll have to find a new way to share login sessions. Fortunately, Okta recently introduced [Native SSO](https://developer.okta.com/docs/guides/configure-native-sso/main/), which allows native apps to implement single sign-on without cookies. See our [blog on SSO between mobile and desktop apps](https://developer.okta.com/blog/2021/11/12/native-sso) for a full example. The following code shows how to remove the prompt, and it assumes your app either does not require SSO or uses Native SSO. 
+There are two potential approaches to solve problem 1.  Both solutions use browser components that do not show a prompt. Both have the drawback that no cookie can be shared, so SSO will not work. If your app requires SSO, you'll have to find a new way to share login sessions. Fortunately, Okta recently introduced [Native SSO](https://developer.okta.com/docs/guides/configure-native-sso/main/), which allows native apps to implement single sign-on without cookies. See our [blog on SSO between mobile and desktop apps](/blog/2021/11/12/native-sso) for a full example. The following code shows how to remove the prompt, and it assumes your app either does not require SSO or uses Native SSO. 
 
 First, you can use the `prefersEphemeralWebBrowserSession` option for `ASWebAuthenticationSession`. If you are using the [Okta OIDC iOS](https://github.com/okta/okta-oidc-ios) library, you can configure the `noSSO` option as follows:
 
