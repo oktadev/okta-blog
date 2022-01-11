@@ -15,9 +15,9 @@ type: conversion
 
 On an iPhone, when we log in to an app, we click a login button, and a website pops up to verify our credentials. Once verified, the website then redirects back to the app, and you are logged in. This familiar Single Sign-On (SSO) pattern is frequently referred to as the *redirect flow* for authentication. The use of a web browser for auth in this example was considered [a "Best Current Practice"](https://www.rfc-editor.org/rfc/rfc8252.txt) for security and usability reasons.
 
-However, in 2017, a new prompt appeared in the login flow, before you were taken to the website. The following screenshot came from an iOS app preparing to log you in with Facebook. The interface prompt informs you that a specific app, the Call of Duty game from Activision in this example, wants to use a specific website to sign you in, and it warns you about information sharing. 
+However, in 2017, a new prompt appeared in the login flow, before you were taken to the website. The following screenshot came from an iOS app preparing to log you in with Facebook. The interface prompt informs you that a specific app, the Yelp app in this example, wants to use a specific website to sign you in, and it warns you about information sharing. 
 
-{% img blog/mobile-sso/ASWebAuthenticationSession-prompt-from-cod.jpeg alt:"app login prompt when authenticating with ASWebAuthenticationSession" width:"800" %}{: .center-image }
+{% img blog/mobile-sso/ASWebAuthenticationSession-prompt-from-yelp.jpeg alt:"app login prompt when authenticating with ASWebAuthenticationSession" width:"300" %}{: .center-image }
 
 There are a couple of problems with this prompt:
 
@@ -69,7 +69,7 @@ In 2018, Apple deprecated `SFAuthenticationSession`, but introduced [`ASWebAuthe
 
 Both `SFAuthenticationSession` and `ASWebAuthenticationSession` are designed specifically for OAuth 2.0 authentication, not for showing general web content. To avoid abuse, when `SFAuthenticationSession` or `ASWebAuthenticationSession` are used, Apple always displays the prompt we saw earlier., The prompt is designed explicitly for user sign-in, and indicates that cookies are shared. 
 
-{% img blog/mobile-sso/ASWebAuthenticationSession-prompt.jpeg alt:"permission prompt about information sharing" width:"600" %}{: .center-image }
+{% img blog/mobile-sso/ASWebAuthenticationSession-prompt.jpeg alt:"permission prompt about information sharing" width:"500" %}{: .center-image }
 
 Apple does not know whether an `ASWebAuthenticationSession` is invoked  for sign in, sign out, or general web browsing. This is why the prompt text is generic. It only states that your app is trying to *Sign In*, regardless of the actual use case, which results in the ambiguity described earlier in  **Problem 2**. 
 
@@ -84,13 +84,14 @@ The cookie-sharing behavior is not well documented in Apple's documentation. The
 A few third-party websites extend Apple's documentation to highlight that persistent cookies are shared between an embedded browser and Safari. Unfortunately, it is rarely known that session cookies can also be shared between different embedded browsers. If your application just needs SSO between your mobile apps, you do not have to use a persistent cookie; a session cookie is sufficient. 
 
 The following table summarizes the complete sharing behavior in iOS 11 or later. I've omitted `SFAuthenticationSession` for brevity because it is deprecated, but it behaves the same as `ASWebAuthenticationSession`. I've also omitted the `prefersEphemeralWebBrowserSession` option for `ASWebAuthenticationSession` because when it is set, cookies are not shared at all. 
+I also use SVC as shorthand for `SFSafariViewController` and WAS as shorthand for `ASWebAuthenticationSession`.
  
 <div markdown="1" class="scrollable">
 
-|   | APP1 + SFSafariViewController | App1 + ASWebAuthenticationSession | App2 + SFSafariViewController | App2 + ASWebAuthenticationSession | Safari | Other browsers (e.g., Chrome) |
+|   | APP1 + SVC | App1 + WAS | App2 + SVC | App2 + WAS | Safari | Other browsers (e.g., Chrome) |
 |-----|-----|-----|-----|-----|-----|-----|
-| Session cookie    |   | Yes |   |  Yes |     |   |
-| Persistent cookie |   | Yes |   |  Yes | Yes |   | 
+| Session cookie    | ❌ | ✅ | ❌ | ✅ | ❌ | ❌ |
+| Persistent cookie | ❌ | ✅ | ❌ | ✅ | ✅ | ❌ | 
 
 </div>
 
@@ -132,8 +133,19 @@ Under the hook, the `noSSO` option sets the `prefersEphemeralWebBrowserSession` 
 
 Second, if you desire to support older iOS versions, you could use `SFSafariViewController` as the browser to present the login session. The following demonstrates how to launch `SFSafariViewController` if you are using the [AppAuth iOS](https://github.com/openid/AppAuth-iOS) library. 
 
-AppAuth iOS supports a concept of *external user agent*, where you can use any browser to present the sign-in webpage. By default, if you invoke `OIDAuthState.authStateByPresentingAuthorizationRequest:presentingViewController:callback:`, it will invoke a default user agent. But you can plug in any external user agent, as long as it conforms to the `OIDExternalUserAgent` protocol. There is already an implementation of using [`SFSafariViewController` as an external agent](https://gist.github.com/ugenlik/2a543f351e9b9425800b48266760dc85). You can download it and plug it into your project. Then, when you invoke the browser, call 
-`OIDAuthState.authStateByPresentingAuthorizationRequest:presentingViewController:callback:`, and pass the external user agent `OIDExternalUserAgentIOSSafariViewController`, as shown in the following snippet. 
+AppAuth iOS supports a concept of *external user agent*, where you can use any browser to present the sign-in webpage. Normally, you invoke the following method to bring up a browser:
+
+```
+OIDAuthState.authStateByPresentingAuthorizationRequest:presentingViewController:callback:
+```
+
+This method will invoke a default user agent. Alternatively, you can use the following method, which gives you an option to plug in any external user agent, as long as it conforms to the `OIDExternalUserAgent` protocol. 
+
+```
+OIDAuthState.authStateByPresentingAuthorizationRequest:presentingViewController:callback:
+```
+
+There is already an implementation of using [`SFSafariViewController` as an external agent](https://gist.github.com/ugenlik/2a543f351e9b9425800b48266760dc85). You can download it and plug it into your project. The following code snippet shows how to create and pass in an external user agent `OIDExternalUserAgentIOSSafariViewController`. 
 
 ```swift
 let appDelegate = UIApplication.shared.delegate as! AppDelegate
