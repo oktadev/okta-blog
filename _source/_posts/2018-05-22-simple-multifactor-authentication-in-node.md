@@ -23,7 +23,7 @@ Maybe you implement some requirements so that your users must have uppercase and
 
 This is where multi-factor authentication (MFA) comes into play. By adding an extra level of security, even if someone manages to phish your user's login information, they still won't be able to sign in without access to another device such as their mobile phone or a U2F key. You might be thinking, _managing passwords is hard enough; securely keeping track of various devices will be a nightmare_.
 
-To simplify that, we will use Okta to add basic authentication and MFA. Before we dive in, I'd like to give you a quick overview of what Okta does and how it can simplify the development process while ensuring best-in-class security for both you and your users.
+To simplify, we will use Okta to add basic authentication and MFA. Before we dive in, I'd like to give you a quick overview of what Okta does and how it can simplify the development process while ensuring best-in-class security for both you and your users.
 
 ## What is Okta?
 
