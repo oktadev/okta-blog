@@ -584,7 +584,7 @@ You should see the prompt to unlock Jenkins.
 	- `sudo service jenkins stop`
 	- `sudo service jenkins start`
 
-Now that you've installed Jenkins, let’s configure an ASA service account so Jenkins can connect to remote servers and run commands.
+Now that you've installed Jenkins, let's configure an ASA service account so Jenkins can connect to remote servers and run commands.
 
 First, let's install the ASA client tool on the VM where Jenkins is running. Indeed, Jenkins will act as an SSH client that will connect to remote servers over SSH.
 
