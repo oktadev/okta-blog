@@ -243,7 +243,7 @@ SPRING_CONFIG_IMPORT='${user.home}/.config/spring-boot/spring-boot-devtools.prop
 ----
 ====
 
-== Bonus: add a hostname alias
+== Bonus: Use a different hostname
 
 The above examples use `localhost`, which works, but you might want to use a different hostname. One easy way to do this is to add a hostname alias to your `/etc/hosts` file:
 
@@ -260,6 +260,13 @@ mkcert -key-file devcerts/key.pem -cert-file devcerts/cert.pem local.example
 ----
 
 WARNING: Use a domain name that you own or NOT in the official https://data.iana.org/TLD/tlds-alpha-by-domain.txt[top-level domain list] to ensure there are no conflicting or hijacked DNS entries.
+
+== Potential problems using HTTPS for local development
+
+It's not all sunshine and roses, there are a few things to watch out for. If you are a developer that works on multiple applications.
+If you are switching between applications that run on HTTP and HTTPS prototypes, your browser may automatically switch to HTTPS, especially one of your applications sets the https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security[HTTP Strict-Transport-Security (HTST) headers]. If you run into this type of problem you can clear the https://www.a2hosting.com/kb/getting-started-guide/internet-and-networking/clearing-a-web-browsers-ssl-state[SSL State] and/or https://www.thesslstore.com/blog/clear-hsts-settings-chrome-firefox/[HSTS settings] in your browser.
+
+TIP: Use different hostname for each application you are working on to avoid any browser caching.
 
 == Learn more about building secure Java applications
 
