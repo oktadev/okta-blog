@@ -4,16 +4,16 @@ title: How to Create a Seamless Mobile SSO (Single Sign-On) Experience in iOS
 author: huan-liu
 by: internal-contributor
 communities: [mobile]
-description: "learn platform constraint on iOS platform and how to build great SSO experience around those constraints"
+description: "Understanding platform-level constraints is a prerequisite for developing great mobile experiences. This article explores browser options available on iOS, how they've evolved, and their cookie-sharing behaviors."
 tags: [ios, sso, mobile-sso, mobile]
 tweets:
-- ""
-- ""
+- "Everything you need to know to create a seamless SSO experience on iOS. Plus a brief history of iOS authentication 📲 "
+- "A brief history of the iOS SSO experience and two solutions to reduce UX confusion"
 image: blog/mobile-sso/mobile-sso-social.jpeg
-type: conversion
+type: awareness
 ---
 
-On an iPhone, when we log in to an app, we click a login button, and a website pops up to verify our credentials. Once verified, the website then redirects back to the app, and you are logged in. This familiar Single Sign-On (SSO) pattern is frequently referred to as the *redirect flow* for authentication. The use of a web browser for auth in this example was considered [a "Best Current Practice"](https://www.rfc-editor.org/rfc/rfc8252.txt) for security and usability reasons.
+On an iPhone, when we log in to an app, we click a login button, and a website pops up to verify our credentials. Once verified, the website then redirects back to the app, and you are logged in. This familiar Single Sign-On (SSO) pattern is frequently referred to as the *redirect flow* for authentication. The use of a web browser for auth in this example is considered [a "Best Current Practice"](https://www.rfc-editor.org/rfc/rfc8252.txt) for security and usability reasons.
 
 However, in 2017, a new prompt appeared in the login flow, before you were taken to the website. The following screenshot came from an iOS app preparing to log you in with Facebook. The interface prompt informs you that a specific app, the Yelp app in this example, wants to use a specific website to sign you in, and it warns you about information sharing. 
 
@@ -21,9 +21,9 @@ However, in 2017, a new prompt appeared in the login flow, before you were taken
 
 There are a couple of problems with this prompt:
 
-* **Problem 1** (Where did this prompt come from?) : Many people consider this a bad user experience because the prompt looks out of place, and the wording is confusing and might alarm end users. 
+* **Problem One** (*Where did this prompt come from?*) : Many people consider this a bad user experience because the prompt looks out of place, and the wording is confusing and might alarm end users. 
 
-* **Problem 2** (Ambiguous UI message): If you implement logout functionality through the same flow, the prompt still says "Sign In", even though the user may have already clicked a "Logout" button. This too is confusing to the end user, as shown in the following screenshot. This problem is reported as [a bug on the AppAuth library](https://github.com/openid/AppAuth-iOS/issues/255), although it was designed as a security and privacy feature.
+* **Problem Two** (*Ambiguous UI message*): If you implement logout functionality through the same flow, the prompt still says "Sign In", even though the user may have already clicked a "Logout" button. This too is confusing to the end user, as shown in the following screenshot. This problem is reported as [a bug on the AppAuth library](https://github.com/openid/AppAuth-iOS/issues/255), although it was designed as a security and privacy feature.
 
 
 {% img blog/mobile-sso/ASWebAuthenticationSession-on-logout.jpeg alt:"permission prompt when logging out with ASWebAuthenticationSession" width:"300" %}{: .center-image }
@@ -106,19 +106,19 @@ It is worth noting that in iOS 14 and later you can specify another browser, suc
 
 Now that we've reviewed the evolution of iOS browser behavior , and explored the rationale for the changes, let's look at solutions to improve the user experience. 
 
-### Solution to problem 2
+### Solution to problem two
 
-Solving problem 2 only – eliminating the ambiguity of the prompt message – is straightforward: Use the browser for sign-in only; do not use the browser to sign out. You can sign out your application directly by revoking the access token and the refresh token. Okta provides a [revoke API](https://developer.okta.com/docs/guides/revoke-tokens/main/) that you can call directly. 
+Solving problem two only – eliminating the ambiguity of the prompt message – is straightforward: Use the browser for sign-in only; do not use the browser to sign out. You can sign out your application directly by revoking the access token and the refresh token. Okta provides a [revoke API](https://developer.okta.com/docs/guides/revoke-tokens/main/) that you can call directly. 
 
-Revoking a token works as a solution  if you are ok with signing the user out of the native app only. The user may still have a login session in the browser, and if the native app wants to login again, the browser will not ask the user for credentials before granting an access token. 
+Revoking a token works as a solution if you are okay with signing the user out of the native app only. The user may still have a login session in the browser, and if the native app wants to login again, the browser will not ask the user for credentials before granting an access token. 
 
 This is the recommended approach if your web session may be supporting many different native apps. For example, [FB logout](https://developers.facebook.com/docs/unity/reference/current/FB.Logout/) specifically recommends not to log out of the web session. 
 
-However, if you  require a stronger privacy and security posture, for instance for a banking app, keeping the web session alive may not be an option. 
+However, if you require a stronger privacy and security posture, for instance for a banking app, keeping the web session alive may not be an option. 
 
-### Solutions to problem 1
+### Solutions to problem one
 
-There are two potential approaches to solve problem 1.  Both solutions use browser components that do not show a prompt. Both have the drawback that no cookie can be shared, so SSO will not work. If your app requires SSO, you'll have to find a new way to share login sessions. Fortunately, Okta recently introduced [Native SSO](https://developer.okta.com/docs/guides/configure-native-sso/main/), which allows native apps to implement single sign-on without cookies. See our [blog on SSO between mobile and desktop apps](/blog/2021/11/12/native-sso) for a full example. The following code shows how to remove the prompt, and it assumes your app either does not require SSO or uses Native SSO. 
+There are two potential approaches to solve problem one.  Both solutions use browser components that do not show a prompt. Both have the drawback that no cookie can be shared, so SSO will not work. If your app requires SSO, you'll have to find a new way to share login sessions. Fortunately, Okta recently introduced [Native SSO](https://developer.okta.com/docs/guides/configure-native-sso/main/), which allows native apps to implement single sign-on without cookies. See our [blog on SSO between mobile and desktop apps](/blog/2021/11/12/native-sso) for a full example. The following code shows how to remove the prompt, and it assumes your app either does not require SSO or uses Native SSO. 
 
 First, you can use the `prefersEphemeralWebBrowserSession` option for `ASWebAuthenticationSession`. If you are using the [Okta OIDC iOS](https://github.com/okta/okta-oidc-ios) library, you can configure the `noSSO` option as follows:
 
@@ -156,7 +156,7 @@ appDelegate.currentAuthorizationFlow =
     if let authState = authState {
         self.authState = authState
         print("Got authorization tokens. Access token: " +
-                  "\(authState.lastTokenResponse?.accessToken ?? "nil")")
+              "\(authState.lastTokenResponse?.accessToken ?? "nil")")
     } else {
         print("Authorization error: \(error?.localizedDescription ?? "Unknown error")")
         self.authState = nil
