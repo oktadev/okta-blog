@@ -18,7 +18,7 @@ type: conversion
 
 In this article, you will learn how to use the Vision service's [Face](https://docs.microsoft.com/en-us/azure/cognitive-services/face/) library to perform facial analysis in a .NET MVC application and store user profile pictures in [Azure Blob Container Storage](https://azure.microsoft.com/en-us/services/storage/blobs/). You'll also authenticate with Okta and store user data as custom profile attributes.
 
-At the end of this post, you can upload a profile picture in your app and get information about image error conditions, such as when zero or more than one face is detected or when your facial features don't match a new picture.
+At the end of this post, you'll be able to upload a profile picture in your app and get information about image error conditions, such as when zero or more than one face is detected or when your facial features don't match a new picture.
 
 {% img blog/net-azure-cognitive-services/final.jpg alt:"Final project with user profile info and a profile picture." width:"800" %}{: .center-image }
 
@@ -54,7 +54,7 @@ dotnet run --project OktaProfilePicture
 
 ## Secure your app with Okta
 
-You'll use Okta to secure the application quickly and use their SDKs, so you don't have to spin up an identity provider and deal with the tricky details of authentication.
+You'll use Okta to secure the application quickly with Okta SDKs, so you don't have to spin up an identity provider and deal with the tricky details of authentication.
 
 {% include setup/cli.md type="web" loginRedirectUri="https://localhost:5001/authorization-code/callback" logoutRedirectUri="https://localhost:5001/signout/callback" %}
 
@@ -497,11 +497,11 @@ Now you should be able to edit your profile information except for your profile 
 
 ## Add Azure Storage
 
-To make your profile picture viewable, we need to persist the image somewhere. We'll use Azure Storage to do this and use a custom attribute in Okta to store a unique identifier to associate with the file in Azure. You'll be able to upload and display a profile picture in the app.
+To make your profile picture viewable, we need to persist the image somewhere. We'll use Azure Storage to do this and use a custom attribute in Okta to store a unique identifier associated with the file in Azure. You'll be able to upload and display a profile picture in the app.
 
 First, we'll create the custom attributes in Okta using the Okta admin dashboard.
 
-Log in to the [Okta admin dashboard](https://developer.okta.com/login/). Then navigate to **Directory** > **Profile Editor**. You should see an item named **User (default)**in the list, which is Okta's default user profile template. Select **User (default)** to open the **Profile Editor**. Press the **+Add Attribute** button.
+Log in to the [Okta admin dashboard](https://developer.okta.com/login/). Then navigate to **Directory** > **Profile Editor**. You should see an item named **User (default)** in the list, which is Okta's default user profile template. Select **User (default)** to open the **Profile Editor**. Press the **+Add Attribute** button.
 
 You'll add two string attributes, `profileImageKey` and `personId`:
 1. Use "Profile Image Key" as the display name and `profileImageKey` as the variable name.
@@ -517,7 +517,7 @@ Create another attribute named `personId`. If you look at the "User (default)" u
 
 Next, we'll create Azure Storage. If you don't already have an Azure subscription, [make a free account](https://azure.microsoft.com/free/?WT.mc_id=A261C142F) before you begin. We'll walk through the steps using the Azure Portal, but if you are an Azure pro, feel free to use the [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli) or [Azure PowerShell](https://docs.microsoft.com/en-us/powershell/azure/?view=azps-7.0.0).
 
-Once you have an Azure subscription, open the [Azure Portal](https://portal.azure.com). Open the menu by pressing the hamburger menu on the left, and select **Storage accounts**. Press **+Create** to create a storage account. In the **Create a storage account** view, create a Resource Group if you don't already have one for test projects. I named my Resource Group "OktaDemo". Enter `oktaprofilepicture` as the storage name, select a region (Azure's default selection is fine here), and select **Standard** performance and **Locally-redundant storage (LRS)** for redundancy. Press the **Review + create** button at the bottom as the default options for the remaining selections are acceptable. Press **Create** to complete creating the storage account.
+Once you have an Azure subscription, open the [Azure Portal](https://portal.azure.com). Open the menu by pressing the *hamburger menu* on the left, and select **Storage accounts**. Press **+Create** to create a storage account. In the **Create a storage account** view, create a Resource Group if you don't already have one for test projects. I named my Resource Group "OktaDemo". Enter `oktaprofilepicture` as the storage name, select a region (Azure's default selection is fine here), then select **Standard** performance and **Locally-redundant storage (LRS)** for redundancy. Press the **Review + create** button at the bottom as the default options for the remaining selections are acceptable. Press **Create** to complete creating the storage account.
 
 {% img blog/net-azure-cognitive-services/azure-storage.jpg alt:"Settings to create an Azure storage account." width:"800" %}{: .center-image }
 
@@ -537,7 +537,7 @@ We're going to add a new section for Azure resources to the `appsettings.Develop
 }
 ```
 
-Next, we'll need to add the packages and set up the service. You'll need to add two Nuget packages — one for Azure Storage and the other for integrating Azure clients into the DI system. Add the packages by running the following commands in the terminal.
+Next, we'll need to add the packages and set up the service. Add two Nuget packages — one for Azure Storage and the other for integrating Azure clients into the DI system. Add the packages by running the following commands in the terminal.
 
 ```shell
 dotnet add OktaProfilePicture package Azure.Storage.Blobs --version 12.9.1
@@ -567,7 +567,7 @@ public AccountController(OktaClient oktaClient, BlobServiceClient blobServiceCli
 }
 ```
 
-You need to update the `Profile()` and `EditProfile(UserProfileViewModel profile)` methods to upload and view the blob container image. First, let's update the `Profile()` method. 
+Update the `Profile()` and `EditProfile(UserProfileViewModel profile)` methods to upload and view the blob container image. First, let's update the `Profile()` method. 
 
 The blob container's access level is private, so we need to generate a [shared access signature](https://docs.microsoft.com/en-us/azure/storage/common/storage-sas-overview) that creates a read-only, temporary URL that we can use in the view. We'll also use the custom attribute `profileImageKey` to retrieve an existing image if one exists.
 
@@ -782,7 +782,7 @@ Now you can upload a picture of yourself and then upload a photo of a friend to 
 
 ## Resetting profile pictures
 
-Sometimes you need to clear everything out and start over. I uploaded a picture of myself wearing oversized sunglasses and a hat and became no longer recognizable by the face service. 😎
+Sometimes you need to clear everything out and start over. I uploaded a picture of myself wearing oversized sunglasses and a hat, and the face service no longer recognized me. 😎
 
 Let's add in the delete functionality so you can reset everything.
 
@@ -820,7 +820,7 @@ Now you can reset your profile picture and upload that picture of you wearing a 
 
 ## Learn More About Entity Framework Core, ASP.NET Core, and Okta
 
-I hope the tutorial was interesting to you and that you enjoyed it. You can get the [full source code of the project from GitHub](https://github.com/oktadev/okta-dotnet-azure-cognitive-services-example). For more ASP.NET Core and Okta articles, check out these posts:
+I hope the tutorial was interesting and enjoyable for you. You can get the [full source code of the project from GitHub](https://github.com/oktadev/okta-dotnet-azure-cognitive-services-example). For more ASP.NET Core and Okta articles, check out these posts:
 
 - [Rider for C# - The Best Visual Studio Alternative IDE](/blog/2020/11/30/rider-csharp-visual-studio-alternative)
 - [How to Secure PII with Entity Framework Core](/blog/2020/09/23/secure-pii-ef-core-dotnet)
