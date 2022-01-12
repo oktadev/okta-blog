@@ -9,14 +9,14 @@ tags: [dotnet, dotnetcore, csharp, aspnet, aspnetcore, dotnet5, azure]
 tweets:
 - "Snap a selfie! 📸  Analyze and detect faces using #azure cognitive services in this #dotnet app!" 
 - "Are you who you say you are? Analyze and detect faces using #azure cognitive services in this #dotnet app! 💻"
-- ""
 image: blog/net-azure-cognitive-services/azure-cognitive-services-social.jpg
 type: conversion
+github: https://github.com/oktadev/okta-dotnet-azure-cognitive-services-example
 ---
 
 [Azure Cognitive Services](https://azure.microsoft.com/en-us/services/cognitive-services/) is a collection of cloud-based AI products from Microsoft Azure to add cognitive intelligence into your applications quickly. With Azure Cognitive Services, you can add AI capabilities using pre-trained models, so you don't need machine learning or data science experience. Azure Cognitive Services has vision, speech, language, and decision-making services.
 
-In this article, you will learn how to use the Vision service's [Face](https://docs.microsoft.com/en-us/azure/cognitive-services/face/) library to perform facial analysis in a .NET MVC application and store user profile pictures in [Azure Blob Container Storage](https://azure.microsoft.com/en-us/services/storage/blobs/). You'll also authenticate with Okta and store user data as custom profile attributes.
+In this article, you will learn how to use the Vision [Face API](https://docs.microsoft.com/en-us/azure/cognitive-services/face/) to perform facial analysis in a .NET MVC application and store user profile pictures in [Azure Blob Container Storage](https://azure.microsoft.com/en-us/services/storage/blobs/). You'll also authenticate with Okta and store user data as custom profile attributes.
 
 At the end of this post, you'll be able to upload a profile picture in your app and get information about image error conditions, such as when zero or more than one face is detected or when your facial features don't match a new picture.
 
@@ -269,7 +269,7 @@ private async Task<IUser> GetOktaUser()
 }
 ```
 
-If your IDE is confused about which packages to use, add using statements.
+If your IDE is confused about which packages to use, add the following using statements.
 
 ```csharp
 using Microsoft.IdentityModel.JsonWebTokens;
@@ -287,7 +287,7 @@ public async Task<IActionResult> Profile()
 }
 ```
 
-We want to protect the `Profile` method against non-authenticated calls. With the Okta middle configured, you can add guards. Add the `[Authorize]` attribute directly above the `Profile` method.
+We want to protect the `Profile` method against non-authenticated calls. With the Okta middleware configured, you can add guards. Add the `[Authorize]` attribute directly above the `Profile` method.
 
 Let's update the profile view with user information. Open `Views/Account/Profile.cshtml` and replace the existing code displaying your user info and a profile pic. You won't have a profile pic to show yet, but that's coming up soon!
 
@@ -517,7 +517,7 @@ Create another attribute named `personId`. If you look at the "User (default)" u
 
 Next, we'll create Azure Storage. If you don't already have an Azure subscription, [make a free account](https://azure.microsoft.com/free/?WT.mc_id=A261C142F) before you begin. We'll walk through the steps using the Azure Portal, but if you are an Azure pro, feel free to use the [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli) or [Azure PowerShell](https://docs.microsoft.com/en-us/powershell/azure/?view=azps-7.0.0).
 
-Once you have an Azure subscription, open the [Azure Portal](https://portal.azure.com). Open the menu by pressing the *hamburger menu* on the left, and select **Storage accounts**. Press **+Create** to create a storage account. In the **Create a storage account** view, create a Resource Group if you don't already have one for test projects. I named my Resource Group "OktaDemo". Enter `oktaprofilepicture` as the storage name, select a region (Azure's default selection is fine here), then select **Standard** performance and **Locally-redundant storage (LRS)** for redundancy. Press the **Review + create** button at the bottom as the default options for the remaining selections are acceptable. Press **Create** to complete creating the storage account.
+Once you have an Azure subscription, open the [Azure Portal](https://portal.azure.com). Open the menu by pressing the _hamburger menu_ on the left, and select **Storage accounts**. Press **+Create** to create a storage account. In the **Create a storage account** view, create a Resource Group if you don't already have one for test projects. I named my Resource Group "OktaDemo". Enter `oktaprofilepicture` as the storage name, select a region (Azure's default selection is fine here), then select **Standard** performance and **Locally-redundant storage (LRS)** for redundancy. Press the **Review + create** button at the bottom as the default options for the remaining selections are acceptable. Press **Create** to complete creating the storage account.
 
 {% img blog/net-azure-cognitive-services/azure-storage.jpg alt:"Settings to create an Azure storage account." width:"800" %}{: .center-image }
 
