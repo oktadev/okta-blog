@@ -584,7 +584,7 @@ You should see the prompt to unlock Jenkins.
 	- `sudo service jenkins stop`
 	- `sudo service jenkins start`
 
-Now that you've installed Jenkins, we'll follow the instructions on [that page](https://www.scaleft.com/blog/leveraging-service-users-for-privileged-devops-automation/)—recap below.
+Now that you've installed Jenkins, let’s configure an ASA service account so Jenkins can connect to remote servers and run commands.
 
 First, let's install the ASA client tool on the VM where Jenkins is running. Indeed, Jenkins will act as an SSH client that will connect to remote servers over SSH.
 
@@ -704,7 +704,7 @@ Congrats, your Jenkins instance is properly configured with an ASA service accou
 
 #### gcp-windows-target
 
-Let's enroll our Windows VM with ASA. We'll start with instructions on [this page](https://www.scaleft.com/docs/windows/)
+Let's enroll our Windows VM with ASA.
 
 - Go to your ASA admin console
 
