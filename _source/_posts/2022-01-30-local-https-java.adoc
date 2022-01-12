@@ -52,7 +52,7 @@ public class HelloController {
 
 That's it, start the application! Either from your IDE or by running `./mvnw spring-boot:run`.
 
-Now access this boring, non-secure application in your browser: `\http://localhost:8080/`.
+Now access this boring, non-secure application in your browser at`\http://localhost:8080/`.
 
 == HTTPS using an Internet proxy
 
@@ -73,15 +73,15 @@ If you don't want to install ngrok, you could use https://localhost.run/[localho
 ssh -R 80:localhost:8080 nokey@localhost.run
 ----
 
-Similar to ngrok, a temporary URL will be generated: `\https://152ccb7ac9369e.lhr.life`
+Similar to ngrok, a temporary URL will be generated. For example, `\https://152ccb7ac9369e.lhr.life`.
 
 The goal of these tools is to provide a publicly available URL for your local development, which is perfect if you want to share something via the internet. If you don't, it's best not to expose your development machine to any potential attackers online. The following two options avoid this issue.
 
 == Create a certificate authority with mkcert
 
-The next two options use a tool called https://github.com/FiloSottile/mkcert[`mkcert`] which sets up a locally trusted certificate authority (CA), installed into the trust stores on your computer. Any certificates issued by this CA will be trusted by the client of your choice (Chrome, Firefox, curl, etc)
+The next two options use a tool called https://github.com/FiloSottile/mkcert[`mkcert`] which sets up a locally trusted certificate authority (CA), installed into the trust stores on your computer. Any certificates issued by this CA will be trusted by the client of your choice (Chrome, Firefox, curl, etc).
 
-On macOS, you can install `mkcert` with Homebrew; for other operating systems you can find instructions in the https://github.com/FiloSottile/mkcert#installation[`mkcert` readme].
+On macOS, you can install `mkcert` with Homebrew; for other operating systems you can find instructions in the https://github.com/FiloSottile/mkcert#installation[`mkcert` docs].
 
 [source,bash]
 ----
@@ -118,7 +118,7 @@ $(brew --prefix)/Cellar/httpie/*/libexec/lib/python*/site-packages/certifi/cacer
 ----
 ====
 
-That was _mostly_ painless, now let's secure our application!
+That was _mostly_ painless, now let's secure the application you just created!
 
 == Reverse proxy with Nginx
 
@@ -142,7 +142,7 @@ mkcert -key-file devcerts/key.pem -cert-file devcerts/cert.pem localhost
 
 This command generates a private key and certificate in the new `devcerts` directory for the host, `localhost`.
 
-Create an `nginx-default.conf.template` configuration file
+Create an `nginx-default.conf.template` configuration file:
 
 ====
 [source,conf]
@@ -181,7 +181,7 @@ server {
 
 === Tie it all together with Docker
 
-Now that we have our Java application, the certificates, and the Nginx configuration ready to go, the only thing left is to start it up!
+Now that you have your Java application, the certificates, and the Nginx configuration ready to go, the only thing left is to start it up!
 
 Start Nginx with `docker run` mapping the above files as volumes to configure the service.
 
@@ -205,7 +205,7 @@ NOTE: You can codify this solution using a https://github.com/bdemers/localhost-
 
 Test it out! Open up your browser to `\https://localhost/`.
 
-== Configure Spring Boot to use HTTP
+== Configure Spring Boot to use HTTPS
 
 The previous options used a separate service to handle TLS; this time, I'll configure Spring Boot's embedded Tomcat server to terminate TLS directly.
 
@@ -220,7 +220,7 @@ mkdir -p ~/.config/spring-boot
 mkcert -pkcs12 -p12-file ~/.config/spring-boot/local-tls.p12 localhost
 ----
 
-Create a properties file `~/.config/spring-boot/spring-boot-devtools.properties` containing the server port and newly genrated key store location.
+Create a properties file `~/.config/spring-boot/spring-boot-devtools.properties` containing the server port and newly generated key store location.
 
 [source,properties]
 ----
@@ -261,7 +261,7 @@ mkcert -key-file devcerts/key.pem -cert-file devcerts/cert.pem local.example
 
 WARNING: Use a domain name that you own or NOT in the official https://data.iana.org/TLD/tlds-alpha-by-domain.txt[top-level domain list] to ensure there are no conflicting or hijacked DNS entries.
 
-== Learn more about building secure applications
+== Learn more about building secure Java applications
 
 This post has demonstrated three options for running applications locally using TLS/HTTPS. They each have strengths and weaknesses.
 
