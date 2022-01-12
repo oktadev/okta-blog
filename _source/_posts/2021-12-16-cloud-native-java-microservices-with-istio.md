@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Build Cloud Native Java Microservices with a Service Mesh on Google Cloud"
+title: "Build Cloud Native Java Microservices with OIDC and a Service Mesh on the Cloud"
 author: deepu-sasidharan
 by: advocate
 communities: [devops, kubernetes, java, javascript]
@@ -151,23 +151,23 @@ It's quite straightforward. Each application defines its name, package name, aut
  */
 // Customer for the store
 entity Customer {
-    firstName String required
-    lastName String required
-    gender Gender required
-    email String required pattern(/^[^@\s]+@[^@\s]+\.[^@\s]+$/)
-    phone String required
-    addressLine1 String required
-    addressLine2 String
-    city String required
-    country String required
+  firstName String required
+  lastName String required
+  gender Gender required
+  email String required pattern(/^[^@\s]+@[^@\s]+\.[^@\s]+$/)
+  phone String required
+  addressLine1 String required
+  addressLine2 String
+  city String required
+  country String required
 }
 
 enum Gender {
-    MALE, FEMALE, OTHER
+  MALE, FEMALE, OTHER
 }
 
 relationship OneToOne {
-    Customer{user(login) required} to User
+  Customer{user(login) required} to User
 }
 
 service Customer with serviceClass
@@ -178,51 +178,51 @@ paginate Customer with pagination
  */
 // Product sold by the Online store
 entity Product {
-    name String required
-    description String
-    price BigDecimal required min(0)
-    itemSize Size required
-    image ImageBlob
+  name String required
+  description String
+  price BigDecimal required min(0)
+  itemSize Size required
+  image ImageBlob
 }
 
 enum Size {
-    S, M, L, XL, XXL
+  S, M, L, XL, XXL
 }
 
 entity ProductCategory {
-    name String required
-    description String
+  name String required
+  description String
 }
 
 entity ProductOrder {
-    placedDate Instant required
-    status OrderStatus required
-    code String required
-    invoiceId Long
-    customer String required
+  placedDate Instant required
+  status OrderStatus required
+  code String required
+  invoiceId Long
+  customer String required
 }
 
 enum OrderStatus {
-    COMPLETED, PENDING, CANCELLED
+  COMPLETED, PENDING, CANCELLED
 }
 
 entity OrderItem {
-    quantity Integer required min(0)
-    totalPrice BigDecimal required min(0)
-    status OrderItemStatus required
+  quantity Integer required min(0)
+  totalPrice BigDecimal required min(0)
+  status OrderItemStatus required
 }
 
 enum OrderItemStatus {
-    AVAILABLE, OUT_OF_STOCK, BACK_ORDER
+  AVAILABLE, OUT_OF_STOCK, BACK_ORDER
 }
 
 relationship ManyToOne {
-	OrderItem{product(name) required} to Product
+  OrderItem{product(name) required} to Product
 }
 
 relationship OneToMany {
-   ProductOrder{orderItem} to OrderItem{order(code) required} ,
-   ProductCategory{product} to Product{productCategory(name)}
+  ProductOrder{orderItem} to OrderItem{order(code) required} ,
+  ProductCategory{product} to Product{productCategory(name)}
 }
 
 service Product, ProductCategory, ProductOrder, OrderItem with serviceClass
@@ -234,31 +234,31 @@ microservice Product, ProductOrder, ProductCategory, OrderItem with product
  */
 // Invoice for sales
 entity Invoice {
-    code String required
-    date Instant required
-    details String
-    status InvoiceStatus required
-    paymentMethod PaymentMethod required
-    paymentDate Instant required
-    paymentAmount BigDecimal required
+  code String required
+  date Instant required
+  details String
+  status InvoiceStatus required
+  paymentMethod PaymentMethod required
+  paymentDate Instant required
+  paymentAmount BigDecimal required
 }
 
 enum InvoiceStatus {
-    PAID, ISSUED, CANCELLED
+  PAID, ISSUED, CANCELLED
 }
 
 entity Shipment {
-    trackingCode String
-    date Instant required
-    details String
+  trackingCode String
+  date Instant required
+  details String
 }
 
 enum PaymentMethod {
-    CREDIT_CARD, CASH_ON_DELIVERY, PAYPAL
+  CREDIT_CARD, CASH_ON_DELIVERY, PAYPAL
 }
 
 relationship OneToMany {
-    Invoice{shipment} to Shipment{invoice(code) required}
+  Invoice{shipment} to Shipment{invoice(code) required}
 }
 
 service Invoice, Shipment with serviceClass
@@ -269,16 +269,16 @@ microservice Invoice, Shipment with invoice
  * Entities for notification microservice
  */
 entity Notification {
-    date Instant required
-    details String
-    sentDate Instant required
-    format NotificationType required
-    userId Long required
-    productId Long required
+  date Instant required
+  details String
+  sentDate Instant required
+  format NotificationType required
+  userId Long required
+  productId Long required
 }
 
 enum NotificationType {
-    EMAIL, SMS, PARCEL
+  EMAIL, SMS, PARCEL
 }
 
 microservice Notification with notification
@@ -289,14 +289,15 @@ We define entities for each service and mark the entities as microservice entiti
 Now, we are ready to run JHipster. Open a terminal window on the folder where you saved the JDL and run the below command.
 
 ```bash
-$ jhipster jdl app.jdl --fork
+jhipster jdl app.jdl --fork
 ```
 
 This will create the applications with all its entities and specified configurations. You should be able to see the gateway application in action by running the below command on the **store** folder. You will be redirected to Keycloak for login.
 
 ```bash
-$ docker-compose -f src/main/docker/keycloak.yml up -d # starts keycloak in daemon mode
-$ ./gradlew # starts the spring boot application
+docker-compose -f src/main/docker/keycloak.yml up -d # starts keycloak in daemon mode
+
+./gradlew # starts the spring boot application
 ```
 
 You can find a [sample application on GitHub](https://github.com/oktadev/okta-java-spring-k8s-istio-microservices-example).
@@ -345,20 +346,20 @@ Make sure you are logged into the gcloud CLI and run the below command to create
 
 ```bash
 # set region and zone
-$ gcloud config set compute/region europe-west1
-$ gcloud config set compute/zone europe-west1-b
+gcloud config set compute/region europe-west1
+gcloud config set compute/zone europe-west1-b
 # Create a project and enable container APIs
-$ gcloud projects create jhipster-demo # You need to also enable billing via GUI
-$ gcloud config set project jhipster-demo
-$ gcloud services enable container.googleapis.com
+gcloud projects create jhipster-demo # You need to also enable billing via GUI
+gcloud config set project jhipster-demo
+gcloud services enable container.googleapis.com
 
 # Create GKE Cluster
-$ gcloud container clusters create hello-hipster \
-     --num-nodes 4 \
-     --machine-type n1-standard-2
+gcloud container clusters create hello-hipster \
+   --num-nodes 4 \
+   --machine-type n1-standard-2
 ```
 
-This could take anywhere between 5-15 minutes. `--machine-type` is important as we need more CPU than what is available in the default setup. Once the cluster is created it should be set automatically as the current Kubernetes context. You can verify that by running `kubectl config current-context`. IF the new cluster is not set as the current context, you can set it by running `gcloud container clusters get-credentials hello-hipster`.
+This could take anywhere between 5-15 minutes. `--machine-type` is important as we need more CPU than what is available in the default setup. Once the cluster is created it should be set automatically as the current Kubernetes context. You can verify that by running `kubectl config current-context`. If the new cluster is not set as the current context, you can set it by running `gcloud container clusters get-credentials hello-hipster`.
 
 {% img blog/cloud-native-java-microservices-with-istio/kdash-clusters.png alt:"GKE Cluster nodes" width:"900" %}{: .center-image }
 
@@ -369,16 +370,16 @@ This could take anywhere between 5-15 minutes. `--machine-type` is important as 
 As of writing this, i'm using Istio version 1.12.1. You can install **istioctl** by running the below command, preferably from the home directory.
 
 ```bash
-$ export ISTIO_VERSION=1.12.1
-$ curl -L https://istio.io/downloadIstio | sh -
-$ cd istio-$ISTIO_VERSION
-$ export PATH=$PWD/bin:$PATH
+export ISTIO_VERSION=1.12.1
+curl -L https://istio.io/downloadIstio | sh -
+cd istio-$ISTIO_VERSION
+export PATH=$PWD/bin:$PATH
 ```
 
 You should now be able to run **istioctl** from the command line. Now, we can use the CLI to Install Istio to the GKE cluster. Istio provides few [Helm](https://helm.sh/) profiles out of the box, so for demo purposes i'll obviously use the demo profile. You can choose the production or dev profile as well. The command should install Istio and setup everything required on our cluster.
 
 ```bash
-$ istioctl install --set profile=demo -y
+istioctl install --set profile=demo -y
 ```
 
 > **Note**: If you run into any trouble with firewall or user privilege issues, please refer to [GKE setup guide from Istio](https://istio.io/latest/docs/setup/platform-setup/gke/).
@@ -390,11 +391,11 @@ Once the installation is complete, we would need to fetch the External IP of the
 Istio also provides addons for most of the popular monitoring and observability tools. Lets install Grafana, Prometheus, Kiali and Zipkin on our cluster. These are preconfigured to work with the telemetry data provided by Istio. Make sure you are in the folder where you installed Istio, like **istio-1.12.1**.
 
 ```bash
-$ cd istio-$ISTIO_VERSION
-$ kubectl apply -f samples/addons/grafana.yaml
-$ kubectl apply -f samples/addons/prometheus.yaml
-$ kubectl apply -f samples/addons/kiali.yaml
-$ kubectl apply -f samples/addons/extras/zipkin.yaml
+cd istio-$ISTIO_VERSION
+kubectl apply -f samples/addons/grafana.yaml
+kubectl apply -f samples/addons/prometheus.yaml
+kubectl apply -f samples/addons/kiali.yaml
+kubectl apply -f samples/addons/extras/zipkin.yaml
 ```
 
 {% img blog/cloud-native-java-microservices-with-istio/istio-pods.png alt:"GKE Cluster with Istio pods" width:"900" %}{: .center-image }
@@ -429,7 +430,7 @@ I hope its self explanatory. You can refer the JDL deployment documentation for 
 Now run the following command from the root folder where you ran the previous `jhipster jdl` command.
 
 ```bash
-$ jhipster jdl deployment.jdl
+jhipster jdl deployment.jdl
 ```
 
 This will create a new folder, **kubernetes**, with all the required Kubernetes manifests like deployments, services, Istio virtual services, gateways and so on for all the applications, databases, monitoring and so on.
@@ -458,7 +459,7 @@ data:
 To get base64 of your client secret run the following command. The base64 command will be available if you have openssl installed.
 
 ```bash
-$ echo -n "your-okta-client-secret" | base64
+echo -n "your-okta-client-secret" | base64
 ```
 
 If you didn't add the client-id and issuer-url to the application.yml files, you can add them here or in the deployment spec below as they are not secrets.
@@ -508,17 +509,17 @@ spec:
 We ready to deploy now. First, we need to build and push the images to the registry. For this we can use the handy [JIB](https://github.com/GoogleContainerTools/jib) commands provided by JHipster. Navigate to each of the microservice folder and run the command below.
 
 ```bash
-$ cd store && ./gradlew bootJar -Pprod jib -Djib.to.image=deepu105/store
-$ cd invoice && ./gradlew bootJar -Pprod jib -Djib.to.image=deepu105/invoice
-$ cd notification && ./gradlew bootJar -Pprod jib -Djib.to.image=deepu105/notification
-$ cd product && ./gradlew bootJar -Pprod jib -Djib.to.image=deepu105/product
+cd store && ./gradlew bootJar -Pprod jib -Djib.to.image=deepu105/store
+cd invoice && ./gradlew bootJar -Pprod jib -Djib.to.image=deepu105/invoice
+cd notification && ./gradlew bootJar -Pprod jib -Djib.to.image=deepu105/notification
+cd product && ./gradlew bootJar -Pprod jib -Djib.to.image=deepu105/product
 ```
 
 Once the images are pushed to the docker registry, we can deploy the stack using the handy script provided by JHipster. Navigate to the kubernetes folder created by JHipster and run the following command.
 
 ```bash
-$ cd kubernetes
-$ ./kubectl-apply.sh -f
+cd kubernetes
+./kubectl-apply.sh -f
 ```
 
 Once the deployments are done we need to wait for the pods to be in **RUNNING** status. Useful links will be printed on the terminal, make note of them.
@@ -560,7 +561,7 @@ First up is Grafana and Prometheus for metrics and dashboards. Click on the URI 
 Once you are done with experiments, make sure to delete the cluster you created so that you don't end up with a big bill from Google. You can delete the cluster from the Google Cloud Console GUI or via the command line using the bel;ow command.
 
 ```bash
-$ gcloud container clusters delete hello-hipster
+gcloud container clusters delete hello-hipster
 ```
 
 ## Learn more about Java Microservices, Istio, Kubernetes and JHipster
