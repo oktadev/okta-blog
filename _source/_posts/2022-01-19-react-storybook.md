@@ -556,7 +556,7 @@ You have created a page that uses an `useAuth` hook to manage user authenticatio
 Next, install the necessary libraries. Open the terminal and run the command below.
 
 ```bash
-npm install -E @okta/okta-react@6.3.0 @okta/okta-auth-js@5.10.0 react-dom@17.0.2 react-router-dom@5.3.0
+npm install -E @okta/okta-react@6.4.1 @okta/okta-auth-js@5.10.0 react-dom@17.0.2 react-router-dom@5.3.0
 ```
 
 Open the file `src/index.js` and modify its contents to match the code below.
