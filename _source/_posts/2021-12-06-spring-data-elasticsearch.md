@@ -1,9 +1,9 @@
 ---
 layout: blog_post
-title: "A Quick Guide to Elasticsearch for Spring Data and Spring Boot"
+title: "A Quick Guide to Elasticsearch with Spring Data and Spring Boot"
 author: jimena-garbarino
 by: contractor
-communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
+communities: [java]
 description: ""
 tags: []
 tweets:
@@ -44,17 +44,17 @@ Composed by the Low Level REST Client and the High Level REST Client. The Low Le
 [_Java API Client_](https://www.elastic.co/guide/en/elasticsearch/client/java-api-client/current/index.html)<br>
 The new client library, independent from Elasticsearch core, provides strongly typed requests and responses, blocking and asynchronous versions for all APIs, fluent builders and functional patterns, jackson and JSON-b support.
 
-### Spring Data Elasticsearch
+## Hello Spring Data Elasticsearch!
 
 Spring Data Elasticsearch is another integration option that adds the Spring Repository abstraction as the data access layer. Operations are sent through a client connected to the Elasticsearch node. With Spring Data, the High Level REST Client is the default client, although Elasticsearch documentation states that this client is deprecated in favor of the Java API Client since version 7.15. The Java API Client is not listed as a supported client yet. The Java Transport Client is still supported in Spring Data, but the general recommendation is to use the High Level Client. Instead of calling the Elasticsearch APIs directly, the repository and rest template abstractions provide a simplified interface for document operations, encapsulating API request/response processing, and exposing a query interface that has multiple implementations for different levels of query complexity. Through the starter dependency, it can also handle client autoconfiguration and automatic document index mapping for simple use cases.
 
 Besides the High Level REST Client support, Spring Data provides the [_Reactive Client_](https://docs.spring.io/spring-data/elasticsearch/docs/current/reference/html/#elasticsearch.clients.reactive), a non-official driver based on WebClient, with calls operated directly on the reactive stack. The Reactive Client also depends on the Elasticsearch core as it is designed for handling Elasicsearch request/response types.
 
-## A JHipster Spring Boot application with Spring Data Elasticsearch
+## Build an application with Spring Data Elasticsearch
 
 JHipster provides the Elasticsearch option to add search capabilities on top of your database. The integration is based on Spring Data Elasticsearch repositories, so let's generate a reactive Blog application to explore what the generator provides. The Blog application built in this tutorial is based on the JHipster sample [reactive-ms.jdl](https://github.com/jhipster/jdl-samples/blob/main/reactive-ms.jdl), but adding Maven, MongoDB (Elasticsearch integration only works with SQL databases and MongoDB), Bootstrap pagination, Okta authentication, and Kibana for index mapping inspection.
 
-Start by creating a `spring-data-elasticsearch` folder for the project, get the application JDL from the [Github](https://github.com/indiepopart/spring-data-elasticsearch.git) repository, and generate the application with JHipster:
+Start by creating a `spring-data-elasticsearch` folder for the project, fetch the application JDL from the [GitHub repository](https://github.com/oktadev/okta-spring-data-elasticsearch-example), and generate the application with JHipster:
 
 ```shell
 mkdir spring-data-elasticsearch
@@ -164,7 +164,7 @@ docker compose up
 
 During start-up, Spring Data Elasticsearch will create the index for the entities annotated with `@Document`, deriving the mappings from the entity's annotations. But for the properties, if the field type is not specified, it defaults to FieldType.Auto. This means, that no mapping entry is written for the property and that Elasticsearch will add a mapping entry dynamically when the first data for this property is stored.
 
-As Kibana interface was configured in Docker Compose, before creating any entities, let's inspect the index mappings that were automatically created for the `blog` microservice. Go to http://localhost:9200, the Kibana home. Then go to **Management** > **Stack Management** > **Index Management** > **Indices** tab. Besides the `user` index, an index per entity should be listed.
+As Kibana interface was configured in Docker Compose, before creating any entities, let's inspect the index mappings that were automatically created for the `blog` microservice. Go to `http://localhost:9200`, the Kibana dashboard. Then go to **Management** > **Stack Management** > **Index Management** > **Indices** tab. Besides the `user` index, an index per entity should be listed.
 
 {% img blog/spring-data-elasticsearch/kibana-indexes.png alt:"Kibana Indexes" width:"800" %}{: .center-image }
 
@@ -248,20 +248,22 @@ It is often useful to index the same field in different ways for different purpo
 Elasticsearch exposes several APIs, and the Index APIs allow managing individual indices, index settings, aliases, mappings, and index templates. Although Kibana is a user-friendly front-end, you can also query the index mappings through the Index APIs, with an HTTPie command like the following:
 
 ```shell
-http localhost:9200/tag/_mapping
+http :9200/tag/_mapping
 ```
 
 The output should look the same as the mapping visualized in Kibana.
 
 ## Key components in reactive Spring Data Elasticsearch
 
-As mentioned before, the Blog application is reactive, and that was defined in the JDL file with `reactive true` in the `gateway` and `blog` application configuration. That also signals JHipster generators to include the reactive Elasticsearch dependencies in the `blog` microservice. JHipster generates the web layer with the entity resource class, and it optionally generates the service class for abstracting from the data layer. Two of the key components that enable the Elasticsearch reactive integration are the `ReactiveElasticsearchClient` and the `ReactiveElasticsearchOperations`. A client is required to connect to an Elasticsearch cluster or node, and operations is the interface for the execution of CRUD and query commands. The third component is the entity `ReactiveElasticsearchRepository`, which can provide domain-specific search methods. Let's briefly describe each of these components.
+As mentioned before, the `blog` application is reactive, and that's because the JDL file had `reactive true` in its `gateway` and `blog` application configurations. 
+
+This config also tels JHipster to include the Elasticsearch dependencies in the `blog` microservice. JHipster generates the web layer with the entity resource class, and it optionally generates the service class too. Two of the key components that enable the Elasticsearch reactive integration are the `ReactiveElasticsearchClient` and the `ReactiveElasticsearchOperations`. A client is required to connect to an Elasticsearch cluster or node, and `*Operations` is the interface for the execution of CRUD and query commands. The third component is the entity `ReactiveElasticsearchRepository`, which can provide domain-specific search methods. Let's briefly describe each of these components.
 
 {% img blog/spring-data-elasticsearch/spring-data-collaboration.png alt:"Spring Data Collaboration" width:"600" %}{: .center-image }
 
 _The reactive client_<br>
 
-The `ReactiveElasticsearchClient` is based on WebClient and calls are directly operated on the reactive stack. The reactive client sends and receives High Level request and response objects. In this example, the reactive client is initialized from `spring.data.elasticsearch.client.reactive.*` properties. You can verify the Elasticsearch endpoints are set in the `docker-compose.yml` file for the `blog` service.
+The `ReactiveElasticsearchClient` is based on Spring's WebClient and calls are directly operated on the reactive stack. The reactive client sends and receives high-level request and response objects. In this example, the reactive client is initialized from `spring.data.elasticsearch.client.reactive.*` properties. You can verify the Elasticsearch endpoints are set in the `docker-compose.yml` file for the `blog` service.
 
 ```yml
 blog:
@@ -335,7 +337,7 @@ _Autoconfiguration_<br>
 
 `ReactiveElasticsearchRestClientAutoConfiguration` configures the reactive Elasticsearch client from the Spring Data Elasticsearch properties. `ElasticsearchDataAutoConfiguration` is the root configuration class that triggers the reactive search template initialization.
 
-## Learn more about Spring Data Elasticsearch and Okta
+## Learn more about Elastic and JHipster
 
 JHipster helps to simplify the setup of Spring Boot applications or microservices with search capabilities. I hope you enjoyed this quick introduction to Elasticsearh integration options, and could taste the advantages of the Spring Data repository abstraction for encapsulating some basic Elasticsearch operations. Remember to check the [compatiblity matrix](https://docs.spring.io/spring-data/elasticsearch/docs/current/reference/html/#preface.versions) to match the right Spring Data Elasticsearch dependency for your Elasticsearch version. Keep learning, and for more examples and recipes on Elasticsearch and Okta integrations for Spring Boot, check out the following links:
 
@@ -344,6 +346,6 @@ JHipster helps to simplify the setup of Spring Boot applications or microservice
 - [Get Started with the ELK Stack](/blog/2019/09/26/get-started-elk-stack)
 - [Spring Boot and Okta in 2 Minutes](/blog/2020/11/24/spring-boot-okta)
 - [Reactive Java Microservices with Spring Boot and JHipster](/blog/2021/01/20/reactive-java-microservices)
-- [Elasticsearh REST APIs](https://www.elastic.co/guide/en/elasticsearch/reference/current/rest-apis.html)
+- [Elasticsearch REST APIs](https://www.elastic.co/guide/en/elasticsearch/reference/current/rest-apis.html)
 
 You can find the Blog application code of this tutorial in [GitHub](https://github.com/indiepopart/spring-data-elasticsearch).
