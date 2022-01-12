@@ -66,7 +66,7 @@ Now that Okta and Fauna are set up to work with each other it's time to create y
 For this project, you will need to install a few packages from npm. First, you will want to include the packages to make securing your application with Okta quick and easy.
 
 ```shell
-npm i @okta/okta-auth-js@5.10.0 @okta/okta-react@6.3.0
+npm i @okta/okta-auth-js@5.10.0 @okta/okta-react@6.4.0
 ```
 
 Next, you will need the FaunaDB JavaScript driver to make calls against your database.
