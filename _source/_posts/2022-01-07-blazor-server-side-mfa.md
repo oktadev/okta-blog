@@ -389,7 +389,7 @@ You will see the message found on your `App.razor` page. Click on the **Login** 
 
 {% img blog/blazor-server-side-mfa/image7.png alt:"Application is authorized" width:"800" %}{: .center-image }
 
-That's it! if you'd like to take a look at this solution in full, check out the [Github repo](https://github.com/oktadev/okta-blazor-server-mfa-example).
+That's it! if you'd like to take a look at this solution in full, check out the [GitHub repo](https://github.com/oktadev/okta-blazor-server-mfa-example).
 
 ## Learn more about working with Blazor
 
