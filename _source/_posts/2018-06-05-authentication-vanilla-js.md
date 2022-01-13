@@ -12,6 +12,7 @@ tags: [javascript, es6, vanilla-javascript, vanilla-js, authentication]
 tweets:
  - "Having a hard time with JavaScript Framework Fatigue? Check out this tutorial that builds a calorie tracking app with good ol' JavaScript. No frameworks, no problem! 😃"
  - "Want to get your hands dirty with good ol' JavaScript? This tutorial doesn't use any JavaScript frameworks to build an app. The build process is amazing! 🤘"
+image: blog/vanilla-js/vanilla-js-social.jpg
 type: conversion
 github: https://github.com/oktadev/okta-vanilla-js-example
 changelog:
