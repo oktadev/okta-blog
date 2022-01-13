@@ -15,6 +15,8 @@ tweets:
 - "Learn how to create secure .NET #containers in #AWS with Fargate ->"
 image: blog/featured/okta-dotnet-mouse-down.jpg
 type: conversion
+update-url: /blog/2022/01/13/deploy-dotnet-container-aws-fargate
+update-title: "How to Deploy a .NET Container with AWS ECS Fargate"
 ---
 
 In the last article I wrote, I showed you [how to host a serverless .NET application using AWS Lambda](/blog/2020/06/08/serverless-lambda-functions-csharp). In the article, we talked about the history of serverless and how companies are using these types of technology to simplify the process of delivering APIs and functionality faster than traditional methods. There are some problems that will start to arise in this type of application when you need more capability than your standard HTTP protocols GET, POST, PUT, DELETE, etc. A great example of this is Web Sockets.
@@ -554,7 +556,7 @@ Whew, that was a ride! Good job on making your new chat application. What can we
 - Okta makes securing any type of .NET web application easy
 - There is no reason to have an insecure site!
 
-Check the code out on GitHub [here](https://github.com/oktadeveloper/okta-dotnetcore-aws-fargate-example).
+Check the code out on GitHub [here](https://github.com/oktadev/okta-dotnetcore-aws-fargate-example/tree/v1).
 
 ## Learn More about AWS, .NET, and Authentication
 
