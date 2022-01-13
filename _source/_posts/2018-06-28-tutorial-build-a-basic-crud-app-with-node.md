@@ -15,36 +15,43 @@ tweets:
  - "Want to learn #nodejs? Read through our new tutorial where we'll show you how to build your own blog with user registration, login, etc."
  - "Come check out our latest article where we show you how to build a blog using #nodejs"
 type: conversion
+github: https://github.com/oktadev/okta-express-basic-crud-app-example
+changelog:
+  - 2022-01-04: Updated all the dependencies and the associated code. See this post's changes in [okta-blog#1014](https://github.com/oktadev/okta-blog/pull/1014). The linked repository returned a 404; all the updates have been made at [this repository](https://github.com/oktadev/okta-express-basic-crud-app-example).
 ---
 
 Node.js is eating the world. Many of the largest companies are building more and more of their websites and API services with Node.js, and there's no sign of a slowdown. I've been working with Node.js since 2012 and have been excited to see the community and tooling grow and evolve — there's no better time to get started with Node.js development than right now.
 
-This tutorial will take you step-by-step through building a fully functional Node.js website. Along the way you'll learn about Express.js, the most popular web framework, user authentication with [OpenID Connect](/blog/2017/07/25/oidc-primer-part-1), locking down routes to enforce login restrictions, and performing CRUD operations with a database (creating, reading, updating, and deleting data). This tutorial uses the following technologies but doesn't require any prior experience:
+This tutorial will take you step-by-step through building a fully-functional Node.js website. Along the way, you'll learn about Express.js, the most popular web framework, user authentication with [OpenID Connect](/blog/2017/07/25/oidc-primer-part-1), locking down routes to enforce login restrictions, and performing CRUD operations with a database (creating, reading, updating, and deleting data). 
 
+{% include toc.md %}
+
+This tutorial uses the following technologies but doesn't require any prior experience:
 - [Node.js](https://nodejs.org/en/)
 - [Express.js](https://expressjs.com/) and [Pug](https://pugjs.org/api/getting-started.html)
-- Okta's [OIDC-middleware](https://github.com/okta/okta-oidc-js/tree/master/packages/oidc-middleware) and [Node SDK](https://github.com/okta/okta-sdk-nodejs)
+- [Okta CLI](https://cli.okta.com/)
+- Okta's [OIDC-middleware](https://github.com/okta/okta-oidc-middleware) and [Node SDK](https://github.com/okta/okta-sdk-nodejs)
 - [Sequelize.js](http://docs.sequelizejs.com/), a popular ORM for working with databases in Node.js
 
-If you'd like to skip the tutorial and just check out the fully built project, you can go [view it on GitHub](https://github.com/rdegges/okta-express-blog).
+If you'd like to skip the tutorial and just check out the fully built project, you can go [view it on GitHub](https://github.com/oktadev/okta-express-basic-crud-app-example).
 
 ## About Express.js
 
-Express.js is the most popular web framework in the Node.js ecosystem. It's incredibly simple and minimalistic. Furthermore, there are thousands of developer libraries that work with Express, making developing with it fun and flexible.
+Express.js is the most popular web framework in the Node.js ecosystem. It's incredibly simple and minimalistic. Furthermore, thousands of developer libraries work with Express, making developing with it fun and flexible.
 
 {% img blog/tutorial-build-a-basic-crud-app-with-node/express-website-screenshot.png alt:"express website screenshot" width:"700" %}{: .center-image }
 
-Regardless of whether you're trying to build a website or an API, Express.js provides tons of features and a nice developer experience.
+Whether you're trying to build a website or an API, Express.js provides tons of features and an excellent developer experience.
 
 Through this tutorial, you'll be building a simple blog. The blog you build will have a homepage that lists the most recent posts, a login page where users can authenticate, a dashboard page where users can create and edit posts, and logout functionality.
 
-The blog will be built using Express.js, the user interface will be built using Pug, the authentication component will be handled by [Okta](https://developer.okta.com/), and the blog post storage and database management will be handled by Sequelize.js.
+The blog will be built using Express.js, the user interface will be built using Pug, and the authentication component will be handled by [Okta](https://developer.okta.com/). Sequelize.js will handle the blog post storage and database management.
 
 ## Create Your Express.js App
 
 Before we begin, make sure you have a recent version of Node.js installed. If you don't already have Node.js installed, please [visit this page](https://nodejs.org/en/download/package-manager/) and install it for your operating system before continuing.
 
-To get your project started quickly you can leverage [express-generator](https://github.com/expressjs/generator). This is an officially maintained program that allows you to easily scaffold an Express.js website with minimal effort.
+To get your project started quickly you can leverage [express-generator](https://github.com/expressjs/generator). This is an officially maintained program that allows you to scaffold an Express.js website with minimal effort.
 
 To install `express-generator` run:
 
@@ -55,54 +62,26 @@ npm install -g express-generator
 Next, you need to initialize your project. To do this, use the newly installed express-generator program to bootstrap your application:
 
 ```bash
-express --view pug blog
-cd blog
+express --view pug okta-express-basic-crud-app-example
+cd okta-express-basic-crud-app-example
 npm install
 npm start
 ```
 
-The above command will initialize a new project called **blog**, move you into the new project folder, install all project dependencies, and start up a web server.
+The above command will initialize a new project called **okta-express-basic-crud-app-example**, move you into the new project folder, install all project dependencies, and start up a web server.
 
-Once you've finished running the commands above, point your favorite browser to `http://localhost:3000` and you should see your application running:
+Once you've finished running the commands above, point your favorite browser to `http://localhost:3000`, and you should see your application running:
 
 {% img blog/tutorial-build-a-basic-crud-app-with-node/express-generator-page.png alt:"express generator page" width:"700" %}{: .center-image }
 
 
 ## Initialize Authentication
 
-Dealing with user authentication in web apps is a huge pain for every developer. This is where Okta shines: it helps you secure your web applications with minimal effort. To get started, you'll need to create an OpenID Connect application in Okta. [Sign up for a forever-free developer account](https://developer.okta.com/signup/) (or log in if you already have one).
+Dealing with user authentication in web apps can be a massive pain for every developer. This is where Okta shines: it helps you secure your web applications with minimal effort. 
 
-{% img blog/tutorial-build-a-basic-crud-app-with-node/okta-signup.png alt:"Okta signup page" width:"700" %}{: .center-image }
+{% include setup/cli.md type="web" loginRedirectUri="http://localhost:3000/authorization-code/callback" logoutRedirectUri="http://localhost:3000/" %}
 
-Once you've logged in and land on the dashboard page, copy down the **Org URL** pictured below. You will need this later.
-
-{% img blog/tutorial-build-a-basic-crud-app-with-node/okta-org-url.png alt:"Okta Org URL" width:"700" %}{: .center-image }
-
-Then create a new application by browsing to the **Applications** tab and clicking **Add Application**.
-
-{% img blog/tutorial-build-a-basic-crud-app-with-node/okta-app-dashboard.png alt:"Okta app dashboard" width:"700" %}{: .center-image }
-
-Next, click the **Web** platform option (since our blog project is a  web app).
-
-{% img blog/tutorial-build-a-basic-crud-app-with-node/okta-create-app-platform.png alt:"Okta create app platform" width:"700" %}{: .center-image }
-
-On the settings page, enter the following values:
-
-- **Name**: Blog
-- **Base URIs**: `http://localhost:3000`
-- **Login redirect URIs**: `http://localhost:3000/users/callback`
-
-You can leave all the other values unchanged.
-
-{% img blog/tutorial-build-a-basic-crud-app-with-node/okta-create-app-settings.png alt:"Okta create app settings" width:"700" %}{: .center-image }
-
-Now that your application has been created, copy down the **Client ID** and **Client secret** values on the following page, you'll need them soon.
-
-{% img blog/tutorial-build-a-basic-crud-app-with-node/okta-app-secrets.png alt:"Okta app secrets" width:"700" %}{: .center-image }
-
-Finally, create a new authentication token. This will allow your app to talk to Okta to retrieve user information, among other things. To do this, click the **API** tab at the top of the page followed by the **Create Token** button. Give your token a name, preferably the same name as your application, then click **Create Token**. Copy down this token value as you will need it soon.
-
-{% img blog/tutorial-build-a-basic-crud-app-with-node/okta-create-token.png alt:"Okta create token" width:"700" %}{: .center-image }
+Finally, create a new API token. This will allow your app to talk to Okta to retrieve user information, among other things. You can find the steps to [create an API token here](https://developer.okta.com/docs/guides/create-an-api-token/main/). Copy down this token value as you will need it soon.
 
 
 ## Install Dependencies
@@ -110,21 +89,21 @@ Finally, create a new authentication token. This will allow your app to talk to 
 The first thing you need to do in order to initialize your Express.js app is install all of the required dependencies.
 
 ```bash
-npm install express@4.16.3
-npm install @okta/oidc-middleware@0.1.2
-npm install @okta/okta-sdk-nodejs@1.1.0
-npm install sqlite3@4.0.1
-npm install sequelize@4.38.0
-npm install async@2.6.1
-npm install slugify@1.3.0
-npm install express-session@1.15.6
+npm install express@4
+npm install @okta/oidc-middleware@4
+npm install @okta/okta-sdk-nodejs@6
+npm install sqlite3@5
+npm install sequelize@6
+npm install async@3
+npm install slugify@1
+npm install express-session@1
 ```
 
 ## Define Database Models with Sequelize
 
 The first thing I like to do when starting a new project is define what data my application needs to store, so I can model out exactly what data I'm handling.
 
-Create a new file named `./models.js` and copy the following code inside of it.
+Create a new file named `./models.js` and copy the following code inside it.
 
 ```javascript
 const Sequelize = require("sequelize");
@@ -146,25 +125,24 @@ db.sync();
 module.exports = { Post };
 ```
 
-This code initializes a new SQLite database that will be used to store the blog data and also defines a model called `Post` which stores blog posts in the database. Each post has a title, a body, an author ID, and a slug field.
+This code initializes a new SQLite database that will be used to store the blog data. It also defines a model called `Post` which stores blog posts in the database. Each post has a title, a body, an author ID, and a slug field.
 
-- The `title` field will hold the title of a post, eg: "A Great Article"
-- The `body` field will hold the body of the article as HTML, eg: "<p>My first post!</p>"
+- The `title` field will hold the title of a post. For example, "A Great Article."
+- The `body` field will hold the body of the article as HTML. For example, "<p>My first post!</p>".
 - The `authorId` field will store the author's unique ID. This is a common pattern in relational databases: store just the identifier of a linked resource so you can look up the author's most up-to-date information later.
-- The `slug` field will store the URL-friendly version of the post's title, eg: "a-great-article"
+- The `slug` field will store the URL-friendly version of the post's title. For example, "a-great-article".
 
 **NOTE**: If you've never used SQLite before, it's amazing. It's a database that stores your data in a single file. It's great for building applications that don't require a large amount of concurrency, like this simple blog.
 
-The call to `db.sync();` at the bottom of the file will automatically create the database and all of the necessary tables once this JavaScript code runs.
+The call to `db.sync();` at the bottom of the file will automatically create the database and all the necessary tables once this JavaScript code runs.
 
 ## Initialize Your Express.js App
 
 The next thing I like to do after defining my database models is to initialize my application code. This typically involves:
 
 - Configuring application settings
-- Installing middlewares that provide functionality to the application
-- Handling errors
-- Etc.
+- Installing middlewares that provide the functionality to the application
+- Handling errors, etc.
 
 Open the `./app.js` file and replace its contents with the following code.
 
@@ -175,16 +153,13 @@ const logger = require("morgan");
 const path = require("path");
 const okta = require("@okta/okta-sdk-nodejs");
 const session = require("express-session");
-const ExpressOIDC = require("@okta/oidc-middleware").ExpressOIDC;
+const { ExpressOIDC } = require('@okta/oidc-middleware');
 
+const auth = require("./auth");
 const blogRouter = require("./routes/blog");
 const usersRouter = require("./routes/users");
 
 const app = express();
-const client = new okta.Client({
-  orgUrl: "{yourOktaOrgUrl}",
-  token: "{yourOktaToken}"
-});
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
@@ -196,18 +171,17 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
 const oidc = new ExpressOIDC({
-  issuer: "{yourOktaOrgUrl}/oauth2/default",
-  client_id: "{yourOktaClientId}",
-  client_secret: "{yourOktaClientSecret}",
-  redirect_uri: "http://localhost:3000/users/callback",
+  appBaseUrl: "http://localhost:3000",
+  issuer: "{OKTA_OAUTH2_ISSUER}",
+  client_id: "{OKTA_OAUTH2_CLIENT_ID}",
+  client_secret: "{OKTA_OAUTH2_CLIENT_SECRET}",
   scope: "openid profile",
   routes: {
     login: {
       path: "/users/login"
     },
-    callback: {
-      path: "/users/callback",
-      defaultRedirect: "/dashboard"
+    loginCallback: {
+      afterCallback: "/dashboard"
     }
   }
 });
@@ -221,11 +195,11 @@ app.use(session({
 app.use(oidc.router);
 
 app.use((req, res, next) => {
-  if (!req.userinfo) {
+  if (!req.userContext) {
     return next();
   }
 
-  client.getUser(req.userinfo.sub)
+  auth.client.getUser(req.userContext.userinfo.sub)
     .then(user => {
       req.user = user;
       res.locals.user = user;
@@ -250,22 +224,23 @@ app.use(function(err, req, res, next) {
   res.render("error");
 });
 
-
 module.exports = app;
 ```
 
 Be sure to replace the placeholder variables with your actual Okta information.
 
-- Replace `{yourOktaOrgUrl}` with the Org URL on your dashboard page
-- Replace `{yourOktaClientId}` with the Client ID on your application page
-- Replace `{yourOktaClientSecret}` with the Client secret on your application page
-- Replace `{aLongRandomString}` with a long random string (just mash your fingers on the keyboard for a second)
+- Replace `{OKTA_OAUTH2_ISSUER}` with your Org's OAuth2 Issuer URL.
+- Replace `{OKTA_OAUTH2_CLIENT_ID}` with the Client ID of your application.
+- Replace `{OKTA_OAUTH2_CLIENT_SECRET}` with the Client secret of your application.
+- Replace `{aLongRandomString}` with a long random string (just mash your fingers on the keyboard for a second).
+
+**NOTE:** We will create the `auth.js` file later on in the tutorial.
 
 Let's take a look at what this code does.
 
 ### Initialize Node.js Middlewares
 
-Middlewares in Express.js are functions that run on every request. There are many open source middlewares you can install and use to add functionality to your Express.js applications. The code below uses several popular Express.js middlewares, as well as defines some new ones.
+Middlewares in Express.js are functions that run on every request. You can install and use open-source middlewares to add functionality to your Express.js applications. The code below uses several popular Express.js middlewares and defines some new ones.
 
 ```javascript
 // Middleware
@@ -275,18 +250,17 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
 const oidc = new ExpressOIDC({
-  issuer: "{yourOktaOrgUrl}/oauth2/default",
-  client_id: "yourOktaClientId}",
-  client_secret: "{yourOktaClientSecret}",
-  redirect_uri: "http://localhost:3000/users/callback",
+  appBaseUrl: "http://localhost:3000",
+  issuer: "{OKTA_OAUTH2_ISSUER}",
+  client_id: "{OKTA_OAUTH2_CLIENT_ID}",
+  client_secret: "{OKTA_OAUTH2_CLIENT_SECRET}",
   scope: "openid profile",
   routes: {
     login: {
       path: "/users/login"
     },
-    callback: {
-      path: "/users/callback",
-      defaultRedirect: "/dashboard"
+    loginCallback: {
+      afterCallback: "/dashboard"
     }
   }
 });
@@ -300,33 +274,32 @@ app.use(session({
 app.use(oidc.router);
 
 app.use((req, res, next) => {
-  if (!req.userinfo) {
+  if (!req.userContext) {
     return next();
   }
 
-  client.getUser(req.userinfo.sub)
+  auth.client.getUser(req.userContext.userinfo.sub)
     .then(user => {
       req.user = user;
       res.locals.user = user;
-
       next();
     });
 });
 ```
 
-The first few middlewares are all standard stuff: they enable logging, parse form data, and serve static files. The interesting thing to take note of is the use of the `ExpressOIDC` middleware.
+The first few middlewares are all the standard stuff: they enable logging, parse form data, and serve static files. The interesting thing to note is the use of the `ExpressOIDC` middleware.
 
-This middleware handles the OpenID Connect authentication logic of the application which supports login, logout, etc.  The settings being passed into the `ExpressOIDC` middleware are configuration options which dictate what URLs are used to log the user into the application, and where the user will be redirected once they've been logged in.
+This middleware handles the OpenID Connect authentication logic of the application, which supports login, logout, etc.  The settings being passed into the `ExpressOIDC` middleware are configuration options that dictate what URLs are used for logging the user into the application and where the user will be redirected once they've been logged in.
 
 The next middleware is the `session` middleware. This middleware is responsible for managing user cookies and remembering who a user is. The `secret` it takes must be a long random string you define and keep private. This secret makes it impossible for attackers to tamper with cookies.
 
-The `oidc.router` middleware uses the settings you defined when creating `ExpressOIDC` to create routes for handling user authentication. Whenever a user visits `/users/login`, for instance, they'll be taken to a login page. This line of code is what makes that possible.
+The `oidc.router` middleware uses the settings you defined when creating `ExpressOIDC` to create routes for handling user authentication. For instance, whenever a user visits `/users/login`, they'll be taken to a login page. This line of code is what makes that possible.
 
-Finally, there's a custom middleware. This middleware creates a `req.user` object that you will be able to use later on to more easily access a currently logged in user's personal information.
+Finally, there's a custom middleware. This middleware creates a `req.user` object that you can use later on to more easily access a currently logged-in user's personal information.
 
 ### Initialize Node.js Routes
 
-The route code tells Express.js what code to run when a user visits a particular URL. Here is the route code from the `./app.js`.
+The route code tells Express.js what code to run when a user visits a particular URL. Here is the route code from `./app.js`.
 
 ```javascript
 // Routes
@@ -334,7 +307,7 @@ app.use("/", blogRouter);
 app.use("/users", usersRouter);
 ```
 
-This code tells Express.js that in our (yet to be created) blog and user route files there are functions that should be executed when certain URLs are hit. If a user visits a URL starting with `/users`, Express.js will look for other matching URLs in the user routes file. If a user visits any URLs starting with the `/` URL, Express.js will look in the blog routes file to see what to do.
+This code tells Express.js that in our (yet to be created) blog and user route files there are functions that should be executed when certain URLs are hit. If a user visits a URL starting with `/users`, Express.js will look for other matching URLs in the 'user routes' file. If a user visits any URLs starting with the `/` URL, Express.js will look in the 'blog routes' file to see what to do.
 
 ### Initialize Error Handlers
 
@@ -357,9 +330,30 @@ app.use(function(err, req, res, next) {
 
 These middlewares will run if any 4XX or 5XX type errors occur. In both cases, they will render a simple web page to the user showing them the error.
 
+## Get User Data
+
+Create a new file named `./auth.js` and copy the following code inside it.
+
+```javascript
+const okta = require("@okta/okta-sdk-nodejs");
+
+
+const client = new okta.Client({
+    orgUrl: "{yourOktaDomain}",
+    token: "{yourOktaToken}"
+});
+
+
+module.exports = { client };
+```
+
+This code lets you get user information from your Okta Org.
+
+**NOTE**: You need to replace `{yourOktaDomain}` and `{yourOktaToken}` with the appropriate values.
+
 ## Create Express.js Views
 
-Views in Express.js are the equivalent of HTML templates—they're the place you store front-end code and logic. The views you'll use in this project will use the [Pug](https://pugjs.org/api/getting-started.html) templating language which is one of the most popular.
+Views in Express.js are the equivalent of HTML templates — they're the place you store front-end code and logic. The views you'll use in this project will use the [Pug](https://pugjs.org/api/getting-started.html) templating language, one of the most popular.
 
 Remove your existing views by running the following command.
 
@@ -542,7 +536,7 @@ block content
 
 I'm not much of a web designer (that's why I like using Bootstrap), but every project needs a bit of visual flair. I've done my best to create some simple CSS styling.
 
-Since CSS is straightforward and not the focus of this tutorial, you can simply copy the CSS below into the `./public/stylesheets/style.css` file.
+Since CSS is straightforward and not the focus of this tutorial, you can copy the CSS below into the `./public/stylesheets/style.css` file.
 
 ```css
 footer {
@@ -662,7 +656,7 @@ The `./routes/blog.js` file will contain all of the routes related to blog funct
 
 ### Create User Routes
 
-Since Okta's [oidc-middleware library](https://github.com/okta/okta-oidc-js/tree/master/packages/oidc-middleware) is already handling user authentication for the application, there isn't a lot of user-facing functionality we need to create.
+Since Okta's [oidc-middleware library](https://github.com/okta/okta-oidc-middleware) is already handling user authentication for the application, there isn't a lot of user-facing functionality we need to create.
 
 The only route you need to define that relates to user management is a logout route — this route will log the user out of their account and redirect them to the homepage of the site. While the oidc-middleware library provides a logout helper, it doesn't create an actual route.
 
@@ -686,8 +680,8 @@ module.exports = router;
 
 The way to understand this route is simple. When a user visits the `/logout` URL, a function will run that:
 
-Uses the oidc-middleware library to log the user out of their account
-Redirects the now logged-out user to the homepage of the site
+1. Uses the oidc-middleware library to log the user out of their account
+2. Redirects the now logged-out user to the homepage of the site
 
 ### Create Blog Routes
 
@@ -699,16 +693,12 @@ Open up the `./routes/blog.js` file and copy in the following code. Don't worry 
 ```javascript
 const async = require("async");
 const express = require("express");
+const auth = require("../auth");
 const okta = require("@okta/okta-sdk-nodejs");
 const sequelize = require("sequelize");
 const slugify = require("slugify");
-
 const models = require("../models");
 
-const client = new okta.Client({
-  orgUrl: "{yourOktaOrgUrl}",
-  token: "{yourOktaToken}"
-});
 const router = express.Router();
 
 // Only let the user access the route if they are authenticated.
@@ -729,7 +719,7 @@ router.get("/", (req, res) => {
 
     async.eachSeries(posts, (post, callback) => {
       post = post.get({ plain: true });
-      client.getUser(post.authorId).then(user => {
+      auth.client.getUser(post.authorId).then(user => {
         postData.push({
           title: post.title,
           body: post.body,
@@ -814,7 +804,7 @@ router.get("/:slug/edit", ensureAuthenticated, (req, res, next) => {
     }
 
     post = post.get({ plain: true });
-    client.getUser(post.authorId).then(user => {
+    auth.client.getUser(post.authorId).then(user => {
       post.authorName = user.profile.firstName + " " + user.profile.lastName;
       res.render("edit", { post });
     });
@@ -844,7 +834,7 @@ router.post("/:slug/edit", ensureAuthenticated, (req, res, next) => {
       slug: slugify(req.body.title).toLowerCase()
     }).then(() => {
       post = post.get({ plain: true });
-      client.getUser(post.authorId).then(user => {
+      auth.client.getUser(post.authorId).then(user => {
         post.authorName = user.profile.firstName + " " + user.profile.lastName;
         res.redirect("/" + slugify(req.body.title).toLowerCase());
       });
@@ -891,7 +881,7 @@ router.get("/:slug", (req, res, next) => {
     }
 
     post = post.get({ plain: true });
-    client.getUser(post.authorId).then(user => {
+    auth.client.getUser(post.authorId).then(user => {
       post.authorName = user.profile.firstName + " " + user.profile.lastName;
       res.render("post", { post });
     });
@@ -901,8 +891,6 @@ router.get("/:slug", (req, res, next) => {
 
 module.exports = router;
 ```
-
-**NOTE**: Make sure you substitute in your values for the placeholder variables towards the top of this file. You need to replace `{yourOktaOrgUrl}` and `{yourOktaToken}` with the appropriate values.
 
 This is a lot of code, so let's take a look at each route and how it works.
 
@@ -940,7 +928,7 @@ router.get("/", (req, res) => {
 
     async.eachSeries(posts, (post, callback) => {
       post = post.get({ plain: true });
-      client.getUser(post.authorId).then(user => {
+      auth.client.getUser(post.authorId).then(user => {
         postData.push({
           title: post.title,
           body: post.body,
@@ -1057,7 +1045,7 @@ router.get("/:slug/edit", ensureAuthenticated, (req, res, next) => {
     }
 
     post = post.get({ plain: true });
-    client.getUser(post.authorId).then(user => {
+    auth.client.getUser(post.authorId).then(user => {
       post.authorName = user.profile.firstName + " " + user.profile.lastName;
       res.render("edit", { post });
     });
@@ -1087,7 +1075,7 @@ router.post("/:slug/edit", ensureAuthenticated, (req, res, next) => {
       slug: slugify(req.body.title).toLowerCase()
     }).then(() => {
       post = post.get({ plain: true });
-      client.getUser(post.authorId).then(user => {
+      auth.client.getUser(post.authorId).then(user => {
         post.authorName = user.profile.firstName + " " + user.profile.lastName;
         res.redirect("/" + slugify(req.body.title).toLowerCase());
       });
@@ -1154,7 +1142,7 @@ router.get("/:slug", (req, res, next) => {
     }
 
     post = post.get({ plain: true });
-    client.getUser(post.authorId).then(user => {
+    auth.client.getUser(post.authorId).then(user => {
       post.authorName = user.profile.firstName + " " + user.profile.lastName;
       res.render("post", { post });
     });
@@ -1164,30 +1152,30 @@ router.get("/:slug", (req, res, next) => {
 
 ## Test Your New CRUD App!
 
-By this point, you've built a fully functional Node.js website using Express.js and Okta. To test it out, run the following command to start up your web server then visit `http://localhost:3000` in the browser.
+By this point, you've built a fully functional Node.js website using Express.js and Okta. Run the following command to start your web server, then visit `http://localhost:3000` in the browser to test it out.
 
 ```bash
 npm start
 ```
 
-If you were able to copy the code properly, you should be able to log in, create posts, edit posts, and delete posts.
+Now, you should be able to log in, create posts, edit posts, and delete posts.
 
 {% img blog/tutorial-build-a-basic-crud-app-with-node/using-the-blog.gif alt:"using the blog" width:"700" %}{: .center-image }
 
 
 ## Do More With Node!
 
-I hope you enjoyed building a simple CRUD app with Node.js and Express.js. I've found that Express.js has a rich ecosystem of libraries and tools to make web development simple and fun. You can find the source code for the example created in this tutorial [on GitHub](https://github.com/rdegges/okta-express-blog).
+I hope you enjoyed building a simple CRUD app with Node.js and Express.js. I've found that Express.js has a rich ecosystem of libraries and tools to make web development fun and straightforward. You can find the source code for the example created in this tutorial [on GitHub](https://github.com/oktadev/okta-express-basic-crud-app-example).
 
-If you'd like to learn more about building web apps in Node, you might want to check out these other great posts:
+If you'd like to learn more about building web apps with Node.js, you might want to check out these other great posts:
 
 - [Build Secure Node Authentication with Passport.js and OpenID Connect](/blog/2018/05/18/node-authentication-with-passport-and-oidc)
 - [Build User Registration with Node, React, and Okta](/blog/2018/02/06/build-user-registration-with-node-react-and-okta)
 - [Simple Node Authentication](/blog/2018/04/24/simple-node-authentication)
 - [Build a Basic CRUD App with Vue.js and Node](/blog/2018/02/15/build-crud-app-vuejs-node)
 
-If you're interested in learning more about how the underlying authentication components work (OpenID Connect), you may be interested in our [OpenID Connect primer series](/blog/2017/07/25/oidc-primer-part-1) which explains everything you need to know about OpenID Connect as a developer.
+If you're interested in learning more about how the underlying authentication components work (OpenID Connect), you may be interested in our [OpenID Connect primer series](/blog/2017/07/25/oidc-primer-part-1), which explains everything you need to know about OpenID Connect as a developer.
 
-Finally, please [follow us on Twitter](https://twitter.com/OktaDev) to find more great resources like this, request other topics for us to write about, and follow along with our new open source libraries and projects!
+Finally, please [follow us on Twitter](https://twitter.com/OktaDev) to find more great resources like this, request other topics to write about, and follow along with our new open-source libraries and projects!
 
-And... If you have any questions, please leave a comment below!
+And if you have any questions, please leave a comment below!
