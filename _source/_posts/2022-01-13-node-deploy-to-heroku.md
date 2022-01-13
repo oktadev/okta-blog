@@ -64,8 +64,8 @@ npm bootstrap@5.1.3
 You will need the `okta oidc-middleware` to help secure your application.  `express-session` is required when using the oidc-middleware so you will need to install that as well.
 
 ```console
-npm install --save express-session
-npm install --save @okta/oidc-middleware
+npm install --save express-session@1.17.2
+npm install --save @okta/oidc-middleware@4.3.0
 ```
 
 ### Write your Server Code
