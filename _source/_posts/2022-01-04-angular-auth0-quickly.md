@@ -7,9 +7,9 @@ communities: [javascript]
 description: "This tutorial shows you how to add OpenID Connect authentication with Auth0 in just a few minutes."
 tags: [javascript, angular, typescript, auth0]
 tweets:
-- ""
-- ""
-- ""
+- "Add authentication to your @angular app in minutes with @auth0!"
+- "Use OpenID Connect to secure your #Angular apps quickly."
+- "Create an app with OIDC authentication in minutes! Use `ng new` to create an app, then `ng add @oktadev/schematics --auth0` to add auth."
 image:
 type: conversion
 github: https://github.com/oktadev/auth0-angular-example
