@@ -104,7 +104,7 @@ It is worth noting that in iOS 14 and later you can specify another browser, suc
 
 ## Solution: how to remove the extra prompt
 
-Now that we've reviewed the evolution of iOS browser behavior , and explored the rationale for the changes, let's look at solutions to improve the user experience. 
+Now that we've reviewed the evolution of iOS browser behavior, and explored the rationale for the changes, let's look at solutions to improve the user experience. 
 
 ### Solution to problem two
 
