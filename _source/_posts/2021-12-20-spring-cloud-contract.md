@@ -243,6 +243,8 @@ Contract.make {
 
 The last contract defines a 404 error message for hat ID 3.
 
+`src/test/resources/contracts/find_hat_by_id3.groovy`
+
 ```groovy
 package contracts
 
@@ -335,8 +337,10 @@ You might notice that the stubbed service created in the base test class above i
 To generate the stubs and the integration tests for the contracts, you run the following Maven command.
 
 ```bash
-./mvnw clean install
+./mvnw install
 ```
+
+A note on `clean` with Maven. If you've been in Java a while, you might have `mvn clean install` burned into your brain. I know I do. However, as it turns out, you often don't need to use `clean`. The Maven cache is pretty good and using clean reflexively just wastes time. That said, [the Spring docs](https://docs.spring.io/spring-cloud-contract/docs/current/reference/html/getting-started.html#getting-started) on Spring Cloud Contract use the full `./mvnw clean install` here. If you want to read more about the to-clean-or-not-to-clean controversy, take a look at [this blog post by Andres Almiray](https://andresalmiray.com/maven-verify-or-clean-install/).
 
 If you read through the console output, you'll see a lot of information about the generated integration tests and the stubs. For example, look at the following lines.
 
@@ -624,7 +628,9 @@ HTTP/1.1 200
 }
 ```
 
-One of the benefits of the Spring Cloud Contract project is that the mocked and stubbed test objects bypass authentication. This is super helpful (as long as you are not testing application security, of course). You can run `./mvnw clean install` or `./mvnw test` and you will see that the integration tests still pass and that the stubs are still being generated and deployed.
+One of the benefits of the Spring Cloud Contract project is that the mocked and stubbed test objects bypass authentication. This is super helpful (as long as you are not testing application security, of course). You can run `./mvnw install` or `./mvnw test` and you will see that that the stubs are still being generated and the integration tests are still passing.
+
+Keep in mind that `./mvnw test` runs the integration tests (in `src/test/java`) but **does not** generate the stubs or check if the contracts used to create the stubs are valid, that is it does not run the auto-generated tests created from the contracts. On the other hand, `./mvnw install` runs the integration tests as well as generating the stubs (and testing the contracts) since the `test` goal is run before the `install` goal.
 
 ## Create the Consumer Application
 
@@ -832,9 +838,9 @@ You're specifying the `com.example:producer` project, with the latest version, t
 
 You also define three tests that match the expected behavior defined in the contracts. 
 
-Next, create a more realistic integration test on the consumer in a new file, `ContractProducerTest.java`.
+Next, create a more realistic integration test on the consumer in a new file, `ContractIntegrationTest.java`.
 
-`src/test/java/com/example/consumer/ContractProducerTest.java`
+`src/test/java/com/example/consumer/ContractIntegrationTest.java`
 
 ```java
 package com.example.consumer;
