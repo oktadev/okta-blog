@@ -17,6 +17,7 @@ image: blog/native-java-comparison/native-java.png
 type: conversion
 github: https://github.com/oktadev/native-java-examples
 changelog:
+- 2022-01-04: Updated to use Micronaut 3.2.4, Quarkus 2.6.1, Spring Boot 2.6.2, and Spring Native 0.11.1. See this post's changes in [okta-blog#1016](https://github.com/oktadev/okta-blog/pull/1016) and the example app changes in [native-java-examples#11](https://github.com/oktadev/native-java-examples/pull/11).
 - 2021-12-09: Updated to use Micronaut 3.2.1 and Spring Native 0.11.0. See this post's changes in [okta-blog#993](https://github.com/oktadev/okta-blog/pull/993) and the example app changes in [native-java-examples#10](https://github.com/oktadev/native-java-examples/pull/10).
 - 2021-12-02: Updated to use Java 17, Micronaut 3.2.0, Quarkus 2.5.1, and Spring Boot 2.6.1. See this post's changes in [okta-blog#986](https://github.com/oktadev/okta-blog/pull/986) and the example app changes in [native-java-examples#9](https://github.com/oktadev/native-java-examples/pull/9).
 - 2021-10-07: Updated to use Micronaut 3.0.3, Quarkus 2.3.0.Final, and Spring Boot 2.5.5. Changed Spring Boot to create binary instead of Docker image and updated startup performance stats. See this post's changes in [okta-blog#913](https://github.com/oktadev/okta-blog/pull/913) and the example app changes in [native-java-examples#7](https://github.com/oktadev/native-java-examples/pull/7).
@@ -92,7 +93,7 @@ $ http :8080/hello
 
 HTTP/1.1 401 Unauthorized
 connection: keep-alive
-date: Thu, 9 Dec 2021 16:13:44 GMT
+date: Tue, 4 Jan 2022 17:48:31 GMT
 transfer-encoding: chunked
 ----
 
@@ -170,7 +171,7 @@ To compile this Micronaut app into a native binary, run:
 ./mvnw package -Dpackaging=native-image
 ----
 
-This command will take a few minutes to complete. My 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM took 1 min. 6 s. to finish.
+This command will take a few minutes to complete. My 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM took 1 min. 5 s. to finish.
 
 Start it with `./target/app`:
 
@@ -181,12 +182,12 @@ $ ./target/app
 | |\/| | |/ __| '__/ _ \| '_ \ / _` | | | | __|
 | |  | | | (__| | | (_) | | | | (_| | |_| | |_
 |_|  |_|_|\___|_|  \___/|_| |_|\__,_|\__,_|\__|
-  Micronaut (v3.2.1)
+  Micronaut (v3.2.4)
 
-09:16:35.692 [main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 19ms. Server Running: http://localhost:8080
+10:51:30.856 [main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 32ms. Server Running: http://localhost:8080
 ----
 
-You can see it starts pretty darn quick (19ms)! Test it with HTTPie and an access token. You may have to generate a new JWT with https://oidcdebugger.com[oidcdebugger.com] if yours has expired.
+You can see it starts pretty darn quick (32ms)! Test it with HTTPie and an access token. You may have to generate a new JWT with https://oidcdebugger.com[oidcdebugger.com] if yours has expired.
 
 [source,shell]
 ----
@@ -309,12 +310,12 @@ __  ____  __  _____   ___  __ ____  ______
  --/ __ \/ / / / _ | / _ \/ //_/ / / / __/
  -/ /_/ / /_/ / __ |/ , _/ ,< / /_/ /\ \
 --\___\_\____/_/ |_/_/|_/_/|_|\____/___/
-2021-12-09 09:18:42,143 INFO  [io.quarkus] (main) quarkus 1.0.0-SNAPSHOT native (powered by Quarkus 2.5.1.Final) started in 0.018s. Listening on: http://0.0.0.0:8080
-2021-12-09 09:18:42,143 INFO  [io.quarkus] (main) Profile prod activated.
-2021-12-09 09:18:42,144 INFO  [io.quarkus] (main) Installed features: [cdi, reactive-routes, resteasy-reactive, security, smallrye-context-propagation, smallrye-jwt, vertx]
+2022-01-04 10:55:03,264 INFO  [io.quarkus] (main) quarkus 1.0.0-SNAPSHOT native (powered by Quarkus 2.6.1.Final) started in 0.016s. Listening on: http://0.0.0.0:8080
+2022-01-04 10:55:03,265 INFO  [io.quarkus] (main) Profile prod activated.
+2022-01-04 10:55:03,265 INFO  [io.quarkus] (main) Installed features: [cdi, reactive-routes, resteasy-reactive, security, smallrye-context-propagation, smallrye-jwt, vertx]
 ----
 
-Supersonic Subatomic Java (in 18ms)! Test it with HTTPie and an access token.
+Supersonic Subatomic Java (in 16ms)! Test it with HTTPie and an access token.
 
 [source,shell]
 ----
@@ -329,7 +330,7 @@ You can create the same Quarkus app used in this example in five steps.
 +
 [source,shell]
 ----
-mvn io.quarkus:quarkus-maven-plugin:2.5.1.Final:create \
+mvn io.quarkus:quarkus-maven-plugin:2.6.1.Final:create \
     -DprojectGroupId=com.okta.rest \
     -DprojectArtifactId=quarkus \
     -DclassName="com.okta.rest.quarkus.HelloResource" \
@@ -449,14 +450,13 @@ To compile this Spring Boot app into a native executable, you can use the `nativ
 
 TIP: To build a native app and a Docker container, use the Spring Boot Maven plugin and `./mvnw spring-boot:build-image`.
 
-The native compilation step will take a bit to complete. On my 2019 MacBook Pro, it took 2 min. 59 s.
+The native compilation step will take a bit to complete. On my 2019 MacBook Pro, it took 2 min. 52 s.
 
 Start it with `./target/demo`:
 
 ----
 $ ./target/demo
-09:23:06.191 [main] INFO org.springframework.boot.SpringApplication - AOT mode enabled
-2021-12-09 09:23:06.204  INFO 18474 --- [           main] o.s.nativex.NativeListener               : This application is bootstrapped with code generated with Spring AOT
+2022-01-04 11:01:53.054  INFO 31539 --- [           main] o.s.nativex.NativeListener               : AOT mode enabled
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -464,10 +464,10 @@ $ ./target/demo
  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
   '  |____| .__|_| |_|_| |_\__, | / / / /
  =========|_|==============|___/=/_/_/_/
- :: Spring Boot ::                (v2.6.1)
+ :: Spring Boot ::                (v2.6.2)
 ...
-2021-12-09 09:23:06.246  INFO 18474 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2021-12-09 09:23:06.246  INFO 18474 --- [           main] com.okta.rest.Application                : Started Application in 0.054 seconds (JVM running for 0.056)
+2022-01-04 11:01:53.098  INFO 31539 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-01-04 11:01:53.098  INFO 31539 --- [           main] com.okta.rest.Application                : Started Application in 0.057 seconds (JVM running for 0.059)
 ----
 
 Bootiful! Test your API with HTTPie and an access token.
@@ -486,7 +486,7 @@ To create the Spring Boot app used in this example, it's just five steps.
 [source,shell]
 ----
 http https://start.spring.io/starter.zip \
-     bootVersion==2.6.1 \
+     bootVersion==2.6.2 \
      dependencies==web,oauth2-resource-server,native \
      packageName==com.okta.rest \
      name==spring-boot \
@@ -563,12 +563,12 @@ Of course, they all support Gradle too.
 
 Performance comparisons are complex, but I'm going to do one anyway. Since this post is all about native Java, below is the data I gathered that shows the average milliseconds to start each native executable. I ran each image three times before I started recording the numbers. I then ran each command five times.
 
-_These numbers are from a 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM. I think it's important to note that my WiFi connection was 73 Mbps down and 10 Mbps up (according to the Speedtest app)._
+_These numbers are from a 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM. I think it's important to note that my WiFi connection was 8.94 Mbps down and 0.45 Mbps up (according to the Speedtest app)._
 
 ////
-Micronaut: (19 + 19 + 18 + 18 + 19) / 5 = 18.6
-Quarkus: (18 + 18 + 18 + 17 + 17) / 5 = 17.6
-Spring Boot: (54 + 54 + 54 + 53 + 55) / 5 = 54
+Micronaut: (29 + 30 + 29 + 32 + 32) / 5 = 30.4
+Quarkus: (20 + 17 + 20 + 19 + 18) / 5 = 18.8
+Spring Boot: (57 + 57 + 56 + 56 + 55) / 5 = 56.2
 ////
 
 [.scrollable]
@@ -578,9 +578,9 @@ Spring Boot: (54 + 54 + 54 + 53 + 55) / 5 = 54
 |===
 |Framework | Command executed | Milliseconds to start
 
-|Micronaut | `./target/app` | 18.6
-|Quarkus | `./target/quarkus-1.0.0-SNAPSHOT-runner` | 17.6
-|Spring Boot | `./target/demo` | 54
+|Micronaut | `./target/app` | 30.4
+|Quarkus | `./target/quarkus-1.0.0-SNAPSHOT-runner` | 18.8
+|Spring Boot | `./target/demo` | 56.2
 |===
 
 --
@@ -597,9 +597,9 @@ google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
   var data = google.visualization.arrayToDataTable([
     ['Framework', 'Milliseconds to start', { role: 'style' }],
-    ['Micronaut', 18.6, 'blue'],
-    ['Quarkus', 17.6, 'red'],
-    ['Spring Boot', 54, 'green']
+    ['Micronaut', 30.4, 'blue'],
+    ['Quarkus', 18.8, 'red'],
+    ['Spring Boot', 56.2, 'green']
   ]);
 
   var options = {
@@ -653,7 +653,7 @@ I substituted `<executable>` as follows:
 |===
 |Framework | Executable | Megabytes before request | Megabytes after 1 request | Megabytes after 5 requests
 
-|Micronaut | `app` | 27 | 58 | 134
+|Micronaut | `app` | 28 | 44 | 55
 |Quarkus | `runner` | 20 | 32 | 34
 |Spring Boot | `demo` | 48 | 62 | 63
 |===
@@ -668,7 +668,7 @@ google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
   var data = google.visualization.arrayToDataTable([
     ['Framework', 'Memory usage (MB)', { role: 'style' }],
-    ['Micronaut', 58, 'blue'],
+    ['Micronaut', 44, 'blue'],
     ['Quarkus', 32, 'red'],
     ['Spring Boot', 62, 'green']
   ]);
