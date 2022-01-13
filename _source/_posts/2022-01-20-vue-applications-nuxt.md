@@ -308,7 +308,7 @@ export default Vue.extend({
 
 Finally you will need to add the login page that Nuxt will route unauthenticated users to. Add a new page to the `pages` folder named `login.vue`. Add the following code to it.
 
-```javascript
+```html
 <template>
   <div id="page-content" class="p-4">
     <a class="btn btn-primary" @click="$auth.loginWith('okta')">Login with Okta </a>
