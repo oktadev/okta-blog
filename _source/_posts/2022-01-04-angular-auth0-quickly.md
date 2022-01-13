@@ -71,6 +71,10 @@ In this tutorial, I'll how you to add OIDC authentication with Auth0 to a new An
 
 {% include toc.md %}
 
+If you would rather follow along by watching a video, check out the screencast below from [the OktaDev YouTube channel](https://youtu.be/Wm9UBtWsvZw).
+
+{% youtube Wm9UBtWsvZw %}
+
 ## Create an Angular app
 
 First, you'll need to create a new Angular app with routing enabled. Install the Angular CLI globally, then create an app.
