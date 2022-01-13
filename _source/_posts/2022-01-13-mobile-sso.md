@@ -95,7 +95,7 @@ I also use SVC as shorthand for `SFSafariViewController` and WAS as shorthand fo
 
 </div>
 
-In the following iOS cookie behavior demo video, you can see how the session cookie and the persistent cookie are shared. The session cookie sharing behavior is not intuitive. Even when App1 is closed (which should clear all session cookies), opening App 2 would make it possible to see App1's session cookie. 
+In the following iOS cookie behavior demo video, you can see how the session cookie and the persistent cookie are shared. The session cookie sharing behavior is not intuitive. Even when App1 is closed (which should clear all session cookies), opening App2 would make it possible to see App1's session cookie. 
 
 {% youtube mDytgEU0bO8 %}
 
