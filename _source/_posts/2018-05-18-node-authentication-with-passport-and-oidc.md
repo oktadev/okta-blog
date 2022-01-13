@@ -13,6 +13,7 @@ tweets:
  - "Checkout @nodejs authentication using @passportjs and OpenID Connect from @leebrandt!"
  - "Learn how to get OpenID Connect authentication into your @nodejs apps easier with @passportjs! <3"
  - "Make it easy to get authentication into your @nodejs apps with @passportjs and OpenID Connect!"
+image: blog/node-passport/node-passport-social.png
 type: conversion
 github: https://github.com/oktadev/okta-node-passport-oidc-example
 changelog:
