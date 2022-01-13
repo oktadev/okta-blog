@@ -14,7 +14,7 @@ tweets:
  - "We just published a new #nodejs article that shows you how to build a full website with database support. Go check it out!"
  - "Want to learn #nodejs? Read through our new tutorial where we'll show you how to build your own blog with user registration, login, etc."
  - "Come check out our latest article where we show you how to build a blog using #nodejs"
- image: blog/tutorial-build-a-basic-crud-app-with-node/basic-crud-social.png
+image: blog/tutorial-build-a-basic-crud-app-with-node/basic-crud-social.png
 type: conversion
 github: https://github.com/oktadev/okta-express-basic-crud-app-example
 changelog:
