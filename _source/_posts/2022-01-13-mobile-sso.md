@@ -71,7 +71,7 @@ Both `SFAuthenticationSession` and `ASWebAuthenticationSession` are designed spe
 
 {% img blog/mobile-sso/ASWebAuthenticationSession-prompt.jpeg alt:"permission prompt about information sharing" width:"500" %}{: .center-image }
 
-Apple does not know whether an `ASWebAuthenticationSession` is invoked  for sign in, sign out, or general web browsing. This is why the prompt text is generic. It only states that your app is trying to *Sign In*, regardless of the actual use case, which results in the ambiguity described earlier in  **Problem 2**. 
+Apple does not know whether an `ASWebAuthenticationSession` is invoked  for sign in, sign out, or general web browsing. This is why the prompt text is generic. It only states that your app is trying to **Sign In**, regardless of the actual use case, which results in the ambiguity described earlier in  **Problem 2**. 
 
 ### iOS 13 changes (2019)
 
