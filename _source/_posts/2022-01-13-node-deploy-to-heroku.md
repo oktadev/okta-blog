@@ -445,14 +445,14 @@ On the application page for your newly created application find the *Deployment 
 Next, in the *Connect to GitHub* section, find the repository you created for this tutorial and press **Connect**.  
 
 {% img
-blog/node-deploy-to-heroku/Connect to Github.PNG
+blog/node-deploy-to-heroku/ConnecttoGithub.PNG
 alt:"Connect Heroku to Github"
 width:"100%" %}
 
 You can enable automatic deploys under *Automatic deploys*.  You can also configure this to wait for CI to pass before the application is deployed.  Then you can configure the CI from your GitHub account.  This step isn't strictly necessary for this tutorial but it is nice to see how this fits into the CI pipeline.
 
 {% img
-blog/node-deploy-to-heroku/Enable Automatic Deploys.PNG
+blog/node-deploy-to-heroku/EnableAutomaticDeploys.PNG
 alt:"Enable Automatic Deploys"
 width:"100%" %}
 
@@ -465,7 +465,7 @@ Click the view button to be taken to your application.  At this point, your appl
 In your Heroku application click on **Settings**.  Find the section named `Config Vars` and click on **Reveal Config Vars**.  Here you will add the same key and value pairs from your `.env` file you used locally.  You can see mine below with the values blurred out.
 
 {% img
-blog/node-deploy-to-heroku/configure environment variables.PNG
+blog/node-deploy-to-heroku/configureenvironmentvariables.PNG
 alt:"Configure your Environment Variables"
 width:"100%" %}
 
