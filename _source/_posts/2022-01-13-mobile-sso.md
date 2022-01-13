@@ -23,7 +23,7 @@ There are a couple of problems with this prompt:
 
 * **Problem One** (*Where did this prompt come from?*) : Many people consider this a bad user experience because the prompt looks out of place, and the wording is confusing and might alarm end users. 
 
-* **Problem Two** (*Ambiguous UI message*): If you implement logout functionality through the same flow, the prompt still says "Sign In", even though the user may have already clicked a "Logout" button. This too is confusing to the end user, as shown in the following screenshot. This problem is reported as [a bug on the AppAuth library](https://github.com/openid/AppAuth-iOS/issues/255), although it was designed as a security and privacy feature.
+* **Problem Two** (*Ambiguous UI message*): If you implement logout functionality through the same flow, the prompt still says **Sign In**, even though the user may have already clicked a **Logout** button. This too is confusing to the end user, as shown in the following screenshot. This problem is reported as [a bug on the AppAuth library](https://github.com/openid/AppAuth-iOS/issues/255), although it was designed as a security and privacy feature.
 
 
 {% img blog/mobile-sso/ASWebAuthenticationSession-on-logout.jpeg alt:"permission prompt when logging out with ASWebAuthenticationSession" width:"300" %}{: .center-image }
