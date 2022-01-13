@@ -88,7 +88,7 @@ I also use SVC as shorthand for `SFSafariViewController` and WAS as shorthand fo
  
 <div markdown="1" class="scrollable">
 
-|   | APP1 + SVC | App1 + WAS | App2 + SVC | App2 + WAS | Safari | Other browsers (e.g., Chrome) |
+|   | APP1 + SVC | App1 + WAS | App2 + SVC | App2 + WAS | Safari | Other browsers (ex.: Chrome) |
 |-----|-----|-----|-----|-----|-----|-----|
 | Session cookie    | ❌ | ✅ | ❌ | ✅ | ❌ | ❌ |
 | Persistent cookie | ❌ | ✅ | ❌ | ✅ | ✅ | ❌ | 
