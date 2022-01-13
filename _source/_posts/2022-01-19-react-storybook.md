@@ -14,11 +14,11 @@ type: conversion
 github: https://github.com/oktadev/okta-react-storybook-example
 ---
 
-One of the tasks of UI designers and front-end developers is to create clean and consistent user interfaces. A cornerstone of software development is testing. Each part of a software project is tested individually and isolated from the other elements in unit tests. This practice has been challenging to achieve in the context of user interfaces. 
+UI designers and front-end developers are tasked with creating clean and consistent user interfaces. At the same time, testing is a cornerstone of software development. Each part of a software project is tested individually and isolated from the other elements in unit tests. This practice has been challenging to achieve in the context of user interfaces. 
 
-Now Storybook provides a framework that lets you test UI components in isolation from the rest of the website. Storybook presents you with a browser of all the components in your web application. You can test each component independently and in different configurations. The tool all runs as a separate application outside your main application, which means that you can test your components without worrying about application-specific dependencies or requirements. 
+Now [Storybook](https://storybook.js.org/) provides an open-source framework that lets you test UI components in isolation from the rest of the website. Storybook presents you with a browser of all the components in your web application. You can test each component independently and in different configurations. The tool runs as a separate application outside your main application, which means that you can test your components without worrying about application-specific dependencies or requirements. 
 
-In this tutorial, I will be showing you how to use Storybook to create a simple react application. The application will be a simple unit conversion app, and I will use Storybook to showcase the individual components and the application page itself. I will not assume any prior knowledge of React or Storybook. I will assume that you are familiar with JavaScript and Node and have an up-to-date version of the `npm` packet manager installed on your computer.
+In this tutorial, I will show you how to use Storybook to create a simple React application. The application will be a unit conversion app, and I will use Storybook to showcase the individual components and the application page itself. I will not assume any prior knowledge of React or Storybook. I will assume that you are familiar with JavaScript and Node, and have an up-to-date version of the `npm` packet manager installed on your computer.
 
 
 **Prerequisites**:
@@ -38,13 +38,13 @@ In this section, I will show you how to create a React application and implement
 npx create-react-app@5 react-storybook --use-npm
 ```
 
-The `create-react-app` command creates a new folder, `react-storybook`, and initialise a basic application skeleton. Next, turn this basic React app into a Storybook application. Navigate into the newly created folder and run the following command.
+The `create-react-app` command creates a new folder, `react-storybook`, and initialises a basic application skeleton. Next, turn this basic React app into a Storybook application. Navigate into the newly created folder and run the following command.
 
 ```bash
 npx sb@6 init
 ```
 
-When prompted, answer yes to install the `sb` package. Initializing Storybook will create a new folder, `stories` inside the `src` folder, and populate it with some pre-made demo components and stories to be used by Storybook. Open the project folder in your favourite IDE. 
+When prompted, answer *yes* to install the `sb` package. Initializing Storybook will create a new folder, `stories` inside the `src` folder, and populate it with some pre-made demo components and stories to be used by Storybook. Open the project folder in your favourite IDE. 
 
 You can test out storybook straight away. Open a terminal session in the project folder and run the following command.
 
@@ -54,7 +54,7 @@ npm run storybook
 
 The command runs the Storybook app and opens a browser tab (http://localhost:6006). For now, you will only see the components that Storybook installs by default. You can keep Storybook running while you develop your app.
 
-Using your IDE, create a new file named `src/stories/Components.jsx`. This will be the module that will contain some basic UI components. For the sake of this tutorial, I will place all these components into a single module. In practice, you might want to spread them out over several files. Open `src/stories/Components.jsx` and paste the following code into it.
+Using your IDE, create a new file named `src/stories/Components.jsx`. This will be the module that will contain some basic UI components. For the sake of this tutorial, I will place all these components into a single module. In practice, you might want to spread them out over several files. Open `src/stories/Components.jsx` and paste in the following code.
 
 ```jsx
 import React, { useState } from 'react';
@@ -149,7 +149,7 @@ Tabs.defaultProps = {
 };
 ```
 
-This module exports three components. `Input` is a configurable `<input>` element with a label for entering text or numbers, `Select` is a dropdown `<select>` element wrapped in a label, and `Tabs` is a component that shows its children in a separate tab. I am using the React feature `propTypes` to specify the properties that each React component expects as arguments, allowing Storybook to extract this meta-information and display it to the user. To provide a bit of styling for the components, create a file `src/stories/Components.css` and fill it with the following contents.
+This module exports three components. `Input` is a configurable `<input>` element with a label for entering text or numbers, `Select` is a dropdown `<select>` element wrapped in a label, and `Tabs` is a component that shows its children in a separate tab. I am using the React feature `propTypes` to specify the properties that each React component expects as arguments, allowing Storybook to extract this meta-information and display it to the user. To provide a bit of styling for the components, create a file `src/stories/Components.css`, and fill it with the following contents.
 
 ```css
 .input-component {
@@ -258,7 +258,7 @@ FloatingPoint.args = {
 };
 ```
 
-The `export default` at the top of the file tells Storybook what the component's name is and which React component the stories in this file refer to. The subsequent exports `Normal`, `Large`, `Number`, and `FloatingPoint` represent individual stories or use-cases for that component. Each story defines a member `args` that specifies the properties to pass to the component. Creating stories in this way is quick, so now create the next one for the `Select` component. Create a file `src/stories/Select.stories.jsx` and paste the following contents into it.
+The `export default` at the top of the file tells Storybook what the component's name is and which React component the stories in this file refer to. The subsequent exports `Normal`, `Large`, `Number`, and `FloatingPoint` represent individual stories or use cases for that component. Each story defines a member `args` that specifies the properties to pass to the component. Creating stories in this way is quick, so now create the next one for the `Select` component. Create a file `src/stories/Select.stories.jsx` and paste the following contents into it.
 
 ```js
 import React from 'react';
@@ -332,7 +332,7 @@ The command runs the Storybook app and opens a browser tab (http://localhost:600
 
 {% img blog/react-storybook/react-storybook-components.jpg alt:"Browsing the React components with Storybook" width:"800" %}{: .center-image }
 
-The component shows up in the main view, and the icons above let you change the background, the screen size and even allow you to check the dimensions of the component's layout. Below the main view, you can manually adjust the options passed to the component. I invite you to play around with all the features Storybook provides.
+The component shows up in the main view, and the icons above let you change the background, the screen size, and even allow you to check the dimensions of the component's layout. Below the main view, you can manually adjust the options passed to the component. I invite you to play around with all the features Storybook provides.
 
 ## Creating the unit converter application using Storybook component stories
 
@@ -396,7 +396,7 @@ Input.defaultProps = {
 };
 ```
 
-The component takes a single property called `measure`. The `measure` property specifies the type of units to be converted and can be something like `mass` or `length`. The code for this component then consists of four parts. The first action is to query the `convert-units` library for all the possible unit conversion options. The units are mapped into an array of objects, ready to use with the `Select` component. In the next part, you'll define four state properties. And in the next part, three event handlers are defined. These will react to a change in the user input and update the state accordingly. These event handlers contain the actual calls to the `convert-units` library where the unit conversion happens. Finally, the component is put together from all the parts and returned. You can also create a story for this more complex component with the individual components. Create a file `src/stories/Converter.stories.jsx` and paste the following contents into it.
+The component takes a single property called `measure`, which specifies the type of units to be converted and can be something like `mass` or `length`. The code for this component then consists of four parts. The first action is to query the `convert-units` library for all the possible unit conversion options. Units are mapped into an array of objects, ready to use with the `Select` component. In the next part, you'll define four state properties, followed by three event handlers. These will react to a change in the user input and update the state accordingly. These event handlers contain the actual calls to the `convert-units` library where the unit conversion happens. Finally, the component is put together from all the parts and returned. You can also create a story for this more complex component with the individual components. Create a file `src/stories/Converter.stories.jsx` and paste in the following contents.
 
 ```js
 import React from 'react';
@@ -422,7 +422,7 @@ Mass.args = {
 };
 ```
 
-When you installed Storybook with the `npx sb` command, the initialization script added a few components as examples to demonstrate Storybook's capabilities. You will be re-using two of these components for the unit-conversion app. 
+When you installed Storybook with the `npx sb` command, the initialization script added a few components as examples to demonstrate Storybook's capabilities. You will be reusing two of these components for the unit-conversion app. 
 Open `src/stories/Header.jsx` and replace its contents with the following code.
 
 ```js
@@ -606,7 +606,7 @@ ReactDOM.render(
 reportWebVitals();
 ```
 
-Here `{yourClientID}` is the client ID that you obtained earlier and `{yourOktaDomain}` is your Okta domain. This change does several things. The `oktaAuth` instance provides a global authentication singleton. The main `render` function now contains a `Router` element that allows the application to navigate different routes. Finally, `SecuredRoutes` is a component that wraps the routes in a `Security` component. This component makes a `useOktaAuth` hook available for all components contained within it. Inside this component, you define the routes. Note how you pass in a `useAuth` hook into the `App` and the `Page` components. Create a new file `src/auth.js` and add the following code to implement this hook.
+Here `{yourClientID}` is the client ID that you obtained earlier and `{yourOktaDomain}` is your Okta domain. This change does several things. The `oktaAuth` instance provides a global authentication singleton. The main `render` function now contains a `Router` element that allows the application to navigate different routes. Finally, `SecuredRoutes` is a component that wraps the routes in a `Security` component. This component makes a `useOktaAuth` hook available for all components contained within it. Inside this component, you define the routes. Note how you pass a `useAuth` hook into the `App` and the `Page` components. Create a new file `src/auth.js` and add the following code to implement this hook.
 
 ```js
 import { useEffect, useState } from 'react';
@@ -670,8 +670,8 @@ You should see the application's front page in your browser. When you click the 
 In this tutorial, I have shown you how to create a React application and use Storybook to browse the application's components. Storybook is a great tool that can enhance your development workflow.
 * It lets you view and test your components in isolation. 
 * You can specify the location of each component in a hierarchical menu and then browse through the components in your browser. 
-* You can have multiple stories showcasing it in different use-cases for each component. 
-* You can also modify the component parameters and see the impact on the visual appearance in real-time. 
+* You can have multiple stories showcasing it in different use cases for each component. 
+* You can also modify the component parameters and see the impact on the visual appearance in real time. 
 * Storybook can keep running during the development process, and it will reflect any changes you make to your code. 
 
 The application you wrote was a simple unit-conversion app. I guided you on using the `convert-units` library to convert length, mass, and volume. You assembled the individual components to create a larger component containing multiple input elements. I have shown you how Storybook lets you create stories, test these complex components, and complete application pages.
