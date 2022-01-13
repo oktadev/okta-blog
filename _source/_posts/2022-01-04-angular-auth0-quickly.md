@@ -4,7 +4,7 @@ title: "Add OpenID Connect to Angular Apps Quickly"
 author: matt-raible
 by: advocate
 communities: [javascript]
-description: "This tutorial shows you how to add OpenID Connect authentication with Auth0 in just a few minutes."
+description: "This tutorial shows you how to add OpenID Connect authentication to an Angular app with Auth0 in just a few minutes."
 tags: [javascript, angular, typescript, auth0]
 tweets:
 - "Add authentication to your @angular app in minutes with @auth0!"
