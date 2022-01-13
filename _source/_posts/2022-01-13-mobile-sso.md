@@ -67,7 +67,7 @@ Apple understood that  the `SFSafariViewController` behavior change would break 
 
 In 2018, Apple deprecated `SFAuthenticationSession`, but introduced [`ASWebAuthenticationSession`](https://developer.apple.com/documentation/authenticationservices/aswebauthenticationsession) as a revised solution. 
 
-Both `SFAuthenticationSession` and `ASWebAuthenticationSession` are designed specifically for OAuth 2.0 authentication, not for showing general web content. To avoid abuse, when `SFAuthenticationSession` or `ASWebAuthenticationSession` are used, Apple always displays the prompt we saw earlier., The prompt is designed explicitly for user sign-in, and indicates that cookies are shared. 
+Both `SFAuthenticationSession` and `ASWebAuthenticationSession` are designed specifically for OAuth 2.0 authentication, not for showing general web content. To avoid abuse, when `SFAuthenticationSession` or `ASWebAuthenticationSession` are used, Apple always displays the prompt we saw earlier. The prompt is designed explicitly for user sign-in, and indicates that cookies are shared. 
 
 {% img blog/mobile-sso/ASWebAuthenticationSession-prompt.jpeg alt:"permission prompt about information sharing" width:"500" %}{: .center-image }
 
