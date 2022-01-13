@@ -33,7 +33,7 @@ In this tutorial, you will build a small web application that retrieves some pos
 
 ## Build your web application with Nuxt
 
-If you wish to follow along using the completed project you can [check out the git repository here](https://github.com/oktadev/okta-vue-nuxt-example).  
+If you wish to follow along using the completed project you can [check out the GitHub repository here](https://github.com/oktadev/okta-vue-nuxt-example).  
 
 Nuxt provides a scaffolding tool called `create-nuxt-app` to make scaffolding your application easy. You can run the following command to create the application:  
 
