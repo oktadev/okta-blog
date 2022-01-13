@@ -108,7 +108,7 @@ Now that we've reviewed the evolution of iOS browser behavior , and explored the
 
 ### Solution to problem two
 
-Solving problem two only – eliminating the ambiguity of the prompt message – is straightforward: Use the browser for sign-in only; do not use the browser to sign out. You can sign out your application directly by revoking the access token and the refresh token. Okta provides a [revoke API](https://developer.okta.com/docs/guides/revoke-tokens/main/) that you can call directly. 
+Solving problem two only – eliminating the ambiguity of the prompt message – is straightforward: Use the browser for sign-in only; do not use the browser to sign out. You can sign out of your application directly by revoking the access token and the refresh token. Okta provides a [revoke API](https://developer.okta.com/docs/guides/revoke-tokens/main/) that you can call directly. 
 
 Revoking a token works as a solution if you are okay with signing the user out of the native app only. The user may still have a login session in the browser, and if the native app wants to log in again, the browser will not ask the user for credentials before granting an access token. 
 
