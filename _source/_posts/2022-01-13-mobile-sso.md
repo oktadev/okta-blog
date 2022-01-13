@@ -47,7 +47,7 @@ Before the release of iOS 9 in 2015,  there were only two ways to authenticate t
 
 * **`UIWebView`**. This approach shows web content in a `UIView`. The mobile app can intercept interactions with the `UIView`, hence it is not secure.
 
-* **Redirect to an external browser**. The mobile app can open a webpage in a separate browser app, and the browser app can redirect back to the mobile app after authentication. However,app switching is not a good experience for mobile users. In addition, the redirect back can fail if another app has registered the same URL scheme first.
+* **Redirect to an external browser**. The mobile app can open a webpage in a separate browser app, and the browser app can redirect back to the mobile app after authentication. However, app switching is not a good experience for mobile users. In addition, the redirect back can fail if another app has registered the same URL scheme first.
 
 ### Authentication in iOS 9 (2015)
 
