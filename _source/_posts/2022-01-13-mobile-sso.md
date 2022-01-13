@@ -118,7 +118,7 @@ However, if you require a stronger privacy and security posture, for instance fo
 
 ### Solutions to problem one
 
-There are two potential approaches to solve problem one.  Both solutions use browser components that do not show a prompt. Both have the drawback that no cookie can be shared, so SSO will not work. If your app requires SSO, you'll have to find a new way to share login sessions. Fortunately, Okta recently introduced [Native SSO](https://developer.okta.com/docs/guides/configure-native-sso/main/), which allows native apps to implement single sign-on without cookies. See our [blog on SSO between mobile and desktop apps](/blog/2021/11/12/native-sso) for a full example. The following code shows how to remove the prompt, and it assumes your app either does not require SSO or uses Native SSO. 
+There are two potential approaches to solve problem one.  Both solutions use browser components that do not show a prompt. Both have the drawback that no cookie can be shared, so SSO will not work. If your app requires SSO, you'll have to find a new way to share login sessions. Fortunately, Okta recently introduced [Native SSO](https://developer.okta.com/docs/guides/configure-native-sso/main/), which allows native apps to implement single sign-on without cookies. See our [blog post on SSO between mobile and desktop apps](/blog/2021/11/12/native-sso) for a full example. The following code shows how to remove the prompt, and it assumes your app either does not require SSO or uses Native SSO. 
 
 First, you can use the `prefersEphemeralWebBrowserSession` option for `ASWebAuthenticationSession`. If you are using the [Okta OIDC iOS](https://github.com/okta/okta-oidc-ios) library, you can configure the `noSSO` option as follows:
 
