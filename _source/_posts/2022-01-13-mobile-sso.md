@@ -129,7 +129,7 @@ if #available(iOS 13.0, *) {
 }
 ```
 
-Under the hook, the `noSSO` option sets the `prefersEphemeralWebBrowserSession` flag. Note that this flag is only available in iOS 13 and above. 
+Under the hood, the `noSSO` option sets the `prefersEphemeralWebBrowserSession` flag. Note that this flag is only available in iOS 13 and above. 
 
 Second, if you desire to support older iOS versions, you could use `SFSafariViewController` as the browser to present the login session. The following demonstrates how to launch `SFSafariViewController` if you are using the [AppAuth iOS](https://github.com/openid/AppAuth-iOS) library. 
 
