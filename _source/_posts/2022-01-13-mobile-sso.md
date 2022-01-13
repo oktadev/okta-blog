@@ -75,7 +75,7 @@ Apple does not know whether an `ASWebAuthenticationSession` is invoked  for sign
 
 ### iOS 13 changes (2019)
 
-In 2019, Apple introduced `prefersEphemeralWebBrowserSession` as an option for `ASWebAuthenticationSession`. If this option is set to true, `ASWebAuthenticationSession` does not show the prompt above, and as a consequence, it does not share cookies with Safari. This gives developers a choice. Either they gain  a better user experience without no confusing prompt and no SSO, or they get  SSO, along with the annoying prompt. 
+In 2019, Apple introduced `prefersEphemeralWebBrowserSession` as an option for `ASWebAuthenticationSession`. If this option is set to true, `ASWebAuthenticationSession` does not show the prompt above, and as a consequence, it does not share cookies with Safari. This gives developers a choice. Either they gain  a better user experience with no confusing prompt and no SSO, or they get  SSO, along with the annoying prompt. 
 ## `SFAuthenticationSession` or `ASWebAuthenticationSession` behavior
 The various browser options offer differing levels of cookie sharing in order to limit websites'  ability to track a user. 
 
