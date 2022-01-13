@@ -18,7 +18,7 @@ UI designers and front-end developers are tasked with creating clean and consist
 
 Now [Storybook](https://storybook.js.org/) provides an open-source framework that lets you test UI components in isolation from the rest of the website. Storybook presents you with a browser of all the components in your web application. You can test each component independently and in different configurations. The tool runs as a separate application outside your main application, which means that you can test your components without worrying about application-specific dependencies or requirements. 
 
-In this tutorial, I will show you how to use Storybook to create a simple React application. The application will be a unit conversion app, and I will use Storybook to showcase the individual components and the application page itself. I will not assume any prior knowledge of React or Storybook. I will assume that you are familiar with JavaScript and Node, and have an up-to-date version of the `npm` packet manager installed on your computer.
+In this tutorial, I will show you how to use Storybook to create a simple [React](https://reactjs.org/) application. The application will be a unit conversion app, and I will use Storybook to showcase the individual components and the application page itself. I will not assume any prior knowledge of React or Storybook. I will assume that you are familiar with JavaScript and Node, and have an up-to-date version of the `npm` packet manager installed on your computer.
 
 
 **Prerequisites**:
@@ -44,7 +44,7 @@ The `create-react-app` command creates a new folder, `react-storybook`, and init
 npx sb@6 init
 ```
 
-When prompted, answer *yes* to install the `sb` package. Initializing Storybook will create a new folder, `stories` inside the `src` folder, and populate it with some pre-made demo components and stories to be used by Storybook. Open the project folder in your favourite IDE. 
+When prompted, answer _yes_ to install the `sb` package. Initializing Storybook will create a new folder, `stories` inside the `src` folder, and populate it with some pre-made demo components and stories to be used by Storybook. Open the project folder in your favourite IDE. 
 
 You can test out storybook straight away. Open a terminal session in the project folder and run the following command.
 
@@ -543,7 +543,7 @@ LoggedOut.parameters = {
 };
 ```
 
-Note how `mockUseAuth` uses currying to return a function that can be used as the `useAuth` hook in the `Page` component. You can now use Storybook again to test the `Converter` component and the full application page. If it's not still running, run `npm run storybook` again. You can navigate to **Pages -> Page** in the left sidebar, and you should see something like the image below.
+Note how `mockUseAuth` uses [currying](https://javascript.info/currying-partials) to return a function that can be used as the `useAuth` hook in the `Page` component. You can now use Storybook again to test the `Converter` component and the full application page. If it's not still running, run `npm run storybook` again. You can navigate to **Pages -> Page** in the left sidebar, and you should see something like the image below.
 
 {% img blog/react-storybook/react-storybook-application-page.jpg alt:"Testing the application page with Storybook" width:"800" %}{: .center-image }
 
@@ -670,9 +670,9 @@ You should see the application's front page in your browser. When you click the 
 In this tutorial, I have shown you how to create a React application and use Storybook to browse the application's components. Storybook is a great tool that can enhance your development workflow.
 * It lets you view and test your components in isolation. 
 * You can specify the location of each component in a hierarchical menu and then browse through the components in your browser. 
-* You can have multiple stories showcasing it in different use cases for each component. 
-* You can also modify the component parameters and see the impact on the visual appearance in real time. 
-* Storybook can keep running during the development process, and it will reflect any changes you make to your code. 
+* You can have multiple stories showcasing different use cases for each component.
+* You can also modify the component parameters and see the impact on the visual appearance in real time.
+* Storybook can keep running during the development process, and it will reflect any changes you make to your code.
 
 The application you wrote was a simple unit-conversion app. I guided you on using the `convert-units` library to convert length, mass, and volume. You assembled the individual components to create a larger component containing multiple input elements. I have shown you how Storybook lets you create stories, test these complex components, and complete application pages.
 
