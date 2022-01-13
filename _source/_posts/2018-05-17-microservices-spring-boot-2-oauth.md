@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6676336882
+discourse_topic_id: 16873
+discourse_comment_url: https://devforum.okta.com/t/16873
 layout: blog_post
 title: "Build and Secure Microservices with Spring Boot 2.0 and OAuth 2.0"
 author: matt-raible
@@ -10,6 +13,8 @@ tweets:
  - "Wanna get up to speed on building a @java microservices architecture? 🎥 Watch @mraible build secure microservices with @springboot 2.0 and #oauth."
  - "You've built your microservices architecture with @springboot, but now you want to use an identity provider like @okta? @SpringSecurity does the hard work for you!"
 type: conversion
+update-url: /blog/2019/05/22/java-microservices-spring-boot-spring-cloud
+update-title: "Java Microservices with Spring Boot and Spring Cloud"
 ---
 
 Spring Boot has experienced massive adoption over the last several years. For Spring users, it offers a breath of fresh air, where they don't have to worry about how things are configured if they're comfortable with defaults. The Spring Boot ecosystem is filled with a wealth of what they call _starters_. Starters are bundles of dependencies that autoconfigure themselves to work as a developer might expect.

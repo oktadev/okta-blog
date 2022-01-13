@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7131615046
+discourse_topic_id: 16977
+discourse_comment_url: https://devforum.okta.com/t/16977
 layout: blog_post
 title: 'Design and Develop an Android App with React Native and Publish to Google Play Store'
 author: karl-penzhorn
@@ -9,6 +12,8 @@ tags: [android, design, react-native, play-store]
 tweets:
 - "Design an Android app and publish it to the app store in this complete and in-depth tutorial!"
 - "Want to get started developing Android apps with React Native? This tutorial is for you!"
+update-title: "Create a React Native App with Login in 10 Minutes"
+update-url: /blog/2019/11/14/react-native-login
 image: blog/featured/okta-android-skew.jpg
 type: conversion
 ---
@@ -159,8 +164,7 @@ You declare your DOM elements (`View`, `Text`), linking them to styles, and then
 
 With Styled Components you would do the following:
 
-```javascript
-
+```jsx
 const Container = styled.View`
   flex: 1;
   justify-content: center;
@@ -699,7 +703,7 @@ To display lists you need to use a React Native list view, in our cast, a `FlatL
 
 Change `components/Processing.js` to the following:
 
-```javascript
+```jsx
 import React from 'react';
 import { FlatList } from 'react-native';
 import styled from 'styled-components/native';
@@ -777,7 +781,7 @@ const List = styled.FlatList`
 
 There is also a `Button` which is your own control. Import it with `import { Button } from '.';`.
 
-Now move on to `App.js` and change the `<Processing /> tag in `render()` to:
+Now move on to `App.js` and change the `<Processing />` tag in `render()` to:
 
 ```jsx
 <Processing running={state.running} factors={state.factors} press={this.press} />
@@ -862,7 +866,7 @@ Authentication may not be mission-critical to a calculator, but it's often wise 
 
 First add a new `Login.js` component by copying `Button.js` and changing the font size to 20, the border radius and margin to zero, and the background color to something lighter like `rgb(49, 51, 53)`. 
 
-```js
+```jsx
 import React from 'react';
 import styled from 'styled-components/native';
 
@@ -910,7 +914,9 @@ Note: if you are not seeing any changes from your code reflected in the `react-n
 <uses-permission android:name="android.permission.INTERNET" />
 ```
 
-Next, you need to [sign up for a free Okta developer account](https://developer.okta.com/signup/). Then login and navigate to **Applications > Add Application**. Select **Native** and click **Next**. Choose a name and click **Done**. Note your **Login redirect URI** and the**Client ID** since you have to add them to your app.
+{% include setup/cli.md type="native"
+   loginRedirectUri="com.okta.dev-133337:/callback"
+   logoutRedirectUri="com.okta.dev-133337:/callback" %}
 
 Now install [react-native-app-auth](https://github.com/FormidableLabs/react-native-app-auth) and link it.
 
@@ -919,7 +925,7 @@ react-native install react-native-app-auth@4.0.0
 react-native link react-native-app-auth
 ```
 
-Now add the following to the `defaultConfig` section of the `android` config in `android/app/build.gradle`, using the base of your **Redirect URL**, e.g. `com.oktapreview.dev-628819`.
+Now add the following to the `defaultConfig` section of the `android` config in `android/app/build.gradle`, using the base of your **Redirect URL**, e.g. `com.okta.dev-133337`.
 
 ```gradle
 defaultConfig {
@@ -949,8 +955,6 @@ const config = {
   scopes: ['openid', 'profile', 'email', 'offline_access']
 };
 ```
-
-You can find the value for `{yourOktaDomain}` on the Okta dashboard when you are logged in.
 
 Now add `accessToken: ''` to your state initialization and add the following two functions to your `App` class:
 
@@ -1074,7 +1078,7 @@ You can also remove the alert window and internet `uses-permission` since we're 
 ### Content Rating
 Now with the release made you can enter in rating information. Go to **Content rating** in the sidebar, read the message about IARC and click `CONTINUE`.
 
-For type, click 'Utility` at the bottom. Then a questionnaire will show. You can click **No** for all the fields. Click `SAVE QUESTIONNAIRE`. After this, you can click `CALCULATE RATING`. You will see a list of how your app will be rated. Scroll to the bottom and click `APPLY RATING`.
+For type, click `Utility` at the bottom. Then a questionnaire will show. You can click **No** for all the fields. Click `SAVE QUESTIONNAIRE`. After this, you can click `CALCULATE RATING`. You will see a list of how your app will be rated. Scroll to the bottom and click `APPLY RATING`.
 
 That should put a tick next to __Content rating__. The only thing left is pricing and distribution.
 
@@ -1096,8 +1100,9 @@ You can find the app built in this blog post [on the Google Play Store](https://
 
 If you're interested in learning more about app design, React Native or secure user management with Okta, check out the following resources:
 
+* [Create a React Native App with Login in 10 Minutes](/blog/2019/11/14/react-native-login)
+* [Android Login Made Easy with OIDC](/blog/2021/01/06/android-login)
 * [Create a Basic Android App without an IDE](/blog/2018/08/10/basic-android-without-an-ide)
 * [Build and Test a React Native App with TypeScript and OAuth 2.0](/blog/2018/11/29/build-test-react-native-typescript-oauth2)
-* [Build a React Native App and Authentication with OAuth 2.0](/blog/2018/03/16/build-react-native-authentication-oauth-2)
 
 Like what you learned today? Follow us [on Twitter](https://twitter.com/oktadev), like us [on Facebook](https://www.facebook.com/oktadevelopers/), check us out [on LinkedIn](https://www.linkedin.com/company/oktadev/), and [subscribe to our YouTube channel](https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q).

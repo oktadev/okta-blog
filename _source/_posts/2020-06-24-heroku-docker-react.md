@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8092605189
+discourse_topic_id: 17260
+discourse_comment_url: https://devforum.okta.com/t/17260
 layout: blog_post
 title: "Heroku + Docker with Secure React in 10 Minutes"
 author: matt-raible
@@ -44,20 +47,10 @@ npm install
 
 This is a React app that uses Styled Components for its CSS and is secured by OpenID Connect (aka OIDC). You can read about how it was created in [Build a React App with Styled Components](/blog/2020/03/16/react-styled-components).
 
-Log into your Okta developer account (you [created one](https://developer.okta.com/signup/), right?) to register this app and enable OIDC authentication.
+{% include setup/cli.md type="spa" framework="React" 
+   loginRedirectUri="http://localhost:3000/callback" %}
 
-1. Go to **Applications** in the top menu
-2. Select **Add Application** > **Single-Page App** and click **Next**
-3. On the settings screen, give your app a name like `React Docker`
-4. Make sure the ports are set to `3000` and the **Login redirect URI** is `http://localhost:3000/callback`
-5. Click **Done**
-
-The resulting screen will provide you with a client ID.
-
-{% img blog/react-docker/okta-app-settings.png alt:"Okta App Settings" width:"700" %}{: .center-image }
-
-Copy and paste the client ID into your application's `src/App.js`.
-The value for `<yourIssuerURI>` can be found in your Okta dashboard, under **API** > **Authorization Servers**. For example, mine is `https://dev-133320.okta.com/oauth2/default`.
+Copy and paste the issuer and client ID into your application's `src/App.js`.
 
 ```jsx
 function App() {
@@ -236,7 +229,7 @@ You'll be redirected to Okta and likely see the following error:
 The 'redirect_uri' parameter must be an absolute URI that is whitelisted in the client app settings.
 ```
 
-To fix this, you'll need to modify your Okta app to add your Heroku URL as a **Login redirect URI**. For example, `https://gentle-peak-37809.herokuapp.com/callback`.
+To fix this, you'll need to modify your Okta app to add your Heroku URL as a **Login redirect URI**. For example, `https://gentle-peak-37809.herokuapp.com/callback`. Run `okta login` and open the resulting URL in your browser. Sign in to the Okta Admin Console and edit your app's general settings in the **Applications** section. 
 
 You should now be able to log in and see your app running on Heroku! You can verify its security headers are A-OK on <https://securityheaders.com>.
 

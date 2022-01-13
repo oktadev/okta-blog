@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6300244343
+discourse_topic_id: 16758
+discourse_comment_url: https://devforum.okta.com/t/16758
 layout: blog_post
 title: 'Secure a Spring Microservices Architecture with Spring Security, JWTs, Juiser, and Okta'
 author: matt-raible
@@ -10,6 +13,11 @@ tweets:
     - "Learn how to use Juiser + @SpringSecurity to lock down your microservices architecture and not share keys between your gateway/load balancer and backend servers (gateway + microservices). "
 tags: [spring, microservices, spring-security, jwt, juiser, java, okta-sign-in-widget]
 type: conversion
+update-url: /blog/2019/05/22/java-microservices-spring-boot-spring-cloud
+update-title: "Java Microservices with Spring Boot and Spring Cloud"
+changelog:
+  - 2018-02-08: Updated to use Spring Boot 1.5.10, Angular 5.2.0, and the Okta Sign-In Widget v2.6.0. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/spring-boot-microservices-example/pull/11). Changes to this article can be viewed [in this pull request](https://github.com/oktadeveloper/okta.github.io/pull/1741).
+  - 2018-01-18: Updated to use latest client from [Build Your First Progressive Web Application with Angular and Spring Boot](/blog/2017/05/09/progressive-web-applications-with-angular-and-spring-boot) and the Okta Sign-In Widget v2.5.0. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/spring-boot-microservices-example/pull/7). Changes to this article can be viewed [in this pull request](https://github.com/oktadeveloper/okta.github.io/pull/1649).
 ---
 
 You've built a microservices architecture with Spring Boot and Spring Cloud. You're happy with the results, and you like how it adds resiliency to your application. You're also pleased with how it scales and how different teams can deploy microservices independently. But what about security?
@@ -741,8 +749,3 @@ git checkout okta
 Learn more about Okta and its APIs at [developer.okta.com](http://developer.okta.com). If you have questions about this tutorial, please hit me up on Twitter [@mraible](https://twitter.com/mraible) or post a question to [Stack Overflow with an "okta" tag](https://stackoverflow.com/questions/tagged/okta).
 
 **Update:** To learn how to lock down this application with Spring Security and OAuth, see [Secure a Spring Microservices Architecture with Spring Security and OAuth 2.0](/blog/2018/02/13/secure-spring-microservices-with-oauth).
-
-**Changelog:**
-
-* Feb 8, 2018: Updated to use Spring Boot 1.5.10, Angular 5.2.0, and the Okta Sign-In Widget v2.6.0. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/spring-boot-microservices-example/pull/11). Changes to this article can be viewed [in this pull request](https://github.com/oktadeveloper/okta.github.io/pull/1741).
-* Jan 18, 2018: Updated to use latest client from [Build Your First Progressive Web Application with Angular and Spring Boot](/blog/2017/05/09/progressive-web-applications-with-angular-and-spring-boot) and the Okta Sign-In Widget v2.5.0. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/spring-boot-microservices-example/pull/7). Changes to this article can be viewed [in this pull request](https://github.com/oktadeveloper/okta.github.io/pull/1649).

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7414680286
+discourse_topic_id: 17050
+discourse_comment_url: https://devforum.okta.com/t/17050
 layout: blog_post
 title: 'Angular 8 + Spring Boot 2.2: Build a CRUD App Today!'
 author: matt-raible
@@ -12,6 +15,11 @@ tweets:
  - "Are you a @java developer using Spring Boot and want to update your UI skills? This tutorial shows you how to use Angular with Spring Boot to develop a cool cars application."
 image: blog/spring-boot-2-angular-8/angular+spring-boot+security=love.jpg
 type: conversion
+update-title: "Build a CRUD App with Angular 9 and Spring Boot 2.2"
+update-url: /blog/2020/01/06/crud-angular-9-spring-boot-2
+changelog:
+  - 2019-06-21: Updated to add a screencast, use Angular CLI 8.0.3, and to use the Okta Spring Boot Starter version 1.2.1. You can see the example app changes in [okta-spring-boot-2-angular-8-example#5](https://github.com/oktadeveloper/okta-spring-boot-2-angular-8-example/pull/5); changes to this post can be viewed in [okta.github.io#2953](https://github.com/oktadeveloper/okta.github.io/pull/2953).
+  - 2019-06-04: Updated to use Angular CLI 8.0.1, Angular 8.0.1, and Angular Material 8.0.0. You can see the example app changes in [okta-spring-boot-2-angular-8-example#3](https://github.com/oktadeveloper/okta-spring-boot-2-angular-8-example/pull/3); changes to this post can be viewed in [okta.github.io#2953](https://github.com/oktadeveloper/okta.github.io/pull/2953).
 ---
 
 If you've been a Java developer for more than 15 years, you probably remember when there were a plethora of Java web frameworks. It started with Struts and WebWork. Then Tapestry, Wicket, and JSF came along and championed the idea of component-based frameworks. Spring MVC was released in 2004 (in the same month as Flex 1.0 and JSF 1.0) and became the de-facto standard in Java web frameworks over the next six years.
@@ -1012,9 +1020,3 @@ This blog has a plethora of Spring Boot and Angular tutorials. Here are some of 
 * [Build Reactive APIs with Spring WebFlux](/blog/2018/09/24/reactive-apis-with-spring-webflux)
 
 If you have any questions, please don't hesitate to leave a comment below, or ask us on our [Okta Developer Forums](https://devforum.okta.com/). Don't forget to follow us [on Twitter](https://twitter.com/oktadev) and [YouTube](https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q) too!
-
-<a name="changelog"></a>
-**Changelog:**
-
-* Jun 21, 2019: Updated to add a screencast, use Angular CLI 8.0.3, and to use the Okta Spring Boot Starter version 1.2.1. You can see the example app changes in [okta-spring-boot-2-angular-8-example#5](https://github.com/oktadeveloper/okta-spring-boot-2-angular-8-example/pull/5); changes to this post can be viewed in [okta.github.io#2953](https://github.com/oktadeveloper/okta.github.io/pull/2953).
-* Jun 4, 2019: Updated to use Angular CLI 8.0.1, Angular 8.0.1, and Angular Material 8.0.0. You can see the example app changes in [okta-spring-boot-2-angular-8-example#3](https://github.com/oktadeveloper/okta-spring-boot-2-angular-8-example/pull/3); changes to this post can be viewed in [okta.github.io#2953](https://github.com/oktadeveloper/okta.github.io/pull/2953).

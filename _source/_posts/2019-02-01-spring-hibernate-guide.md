@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7202973358
+discourse_topic_id: 16987
+discourse_comment_url: https://devforum.okta.com/t/16987
 layout: blog_post
 title: 'Data Persistence with Hibernate and Spring'
 author: raphael-do-vale
@@ -573,25 +576,17 @@ okta.oauth2.issuer=https://${yourOktaDomain}/oauth2/default
 okta.oauth2.clientId=${clientId}
 ```
 
-This will enable your REST endpoints to only accept authorized users. To obtain the client ID, you must register for a free [Okta account](https://developer.okta.com/). 
+This will enable your REST endpoints to only accept authorized users. 
 
-In the Okta dashboard, create an application of type **Service**. This indicates a resource server that does not have a login page or any way to obtain new tokens.
+{% include setup/cli.md type="service" %}
 
-{% img blog/spring-hibernate-guide/okta-app-wizard-service.png alt:"Create new Service" width:"800" %}{: .center-image }
+Copy your _Client ID_ and paste it into the `application.properties` file (just change `${clientId}` variable).
 
-Click **Next**, type the name of your service, then click **Done**. You will be presented with a screen similar to the one below. Paste your _Client ID_ and enter it on into the `application.properties` file (just change `${clientId}` variable). 
+Now, start the application again. It'll be locked and you will be unable to make any requests as all of them are now protected. You just need to acquire a _token_ to connect.
 
-{% img blog/spring-hibernate-guide/okta-app-general.png alt:"Service Created" width:"800" %}{: .center-image }
+First, create a new **SPA** application in Okta. {% include setup/cli.md type="spa" install="false" loginRedirectUri="https://oidcdebugger.com/debug" logoutRedirectUri="https://oidcdebugger.com" %}
 
-Now, start the application again. It'll be locked and you will be unable to make any requests as all of them are now protected. You just need to acquire a _token_ to connect. An easy way to achieve a token is to generate one using [OpenID Connect <debugger/>](https://oidcdebugger.com/).
-
-Create a new **Web** application in Okta:
-
-{% img blog/spring-hibernate-guide/okta-app-wizard.png alt:"New web application" width:"800" %}{: .center-image }
-
-Set the **Login redirect URIs** field to `https://oidcdebugger.com/debug` and **Grant Type Allowed** to Hybrid. Click **Done** and copy the client ID for the next step.
-
-On the [OIDC Debugger](https://oidcdebugger.com/) website, fill the form in like the picture below (do not forget to fill in the client ID for your recently created Okta web application):
+{% include setup/oidcdebugger.md %}
 
 {% img blog/spring-hibernate-guide/oidc-config.png alt:"OpenID connect" width:"700" %}{: .center-image }
 

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6951757410
+discourse_topic_id: 16942
+discourse_comment_url: https://devforum.okta.com/t/16942
 layout: blog_post
 title: 'Add User Authentication to Your Spring Boot App in 15 Minutes'
 author: andrew-hughes
@@ -12,6 +15,8 @@ tweets:
 - "Wanna learn how to build a quick app with @springboot and add user authentication? You're in luck!"
 image: blog/featured/okta-java-short-bottle-headphones.jpg
 type: conversion
+update-title: "OAuth 2.0 Java Guide: Secure Your App in 5 Minutes"
+update-url: /blog/2019/10/30/java-oauth2
 ---
 
 When's the last time you had fun building a web application?  We love Spring Boot because it makes it super easy to build a rich Java web application, and it can even be pretty fun. By combining Spring, Spring Boot, and Gradle, we have a complete build system that can develop, test, run, and deploy Spring applications in minutes.
@@ -151,7 +156,7 @@ Start the application using the command `./gradlew bootRun`. You will need to ru
 
 You'll see a lot of text that looks like the following.
 
-```bash
+```
 > Task :bootRun 
 
   .   ____          _            __ _ _
@@ -188,19 +193,9 @@ Whew! If you get the sense that there are a lot of moving parts in all that, you
 
 Let's set up your OIDC application on Okta for OAuth 2.0 SSO!
 
-Open [developer.okta.com](https://developer.okta.com). Click on the **Applications** top menu item, and then click on **Add Application**.
-
-You should see the following screen. Click on the icon for the **Web** option. Click **Next**.
-
-{% img blog/spring-boot-user-auth/create-new-app.png alt:"Create New Application" width:"800" %}{: .center-image }
-
-You need to update a few of the initial configuration options. First, change the name to something more descriptive. I used "Okta Spring Boot Simple Web App." Next, update the **Login redirect URIs** to `http://localhost:8080/login`. Click **Done**.
-
-{% img blog/spring-boot-user-auth/oidc-app.png alt:"OIDC App Settings" width:"700" %}{: .center-image }
-
-This will take you to the new application's general configuration tab. Scroll down and note the Client ID and Client secret. You'll need these later.
-
-{% img blog/spring-boot-user-auth/client-id-and-secret.png alt:"Client ID and Secret" width:"700" %}{: .center-image }
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter"
+   loginRedirectUri="http://localhost:8080/login"
+   logoutRedirectUri="http://localhost:8080" %}
 
 That's all you need to do to set up Okta for OAuth! Now let's return to the Spring Boot app and hook our new OIDC application into the Spring Boot application.
 
@@ -216,9 +211,9 @@ public class SpringSecurityWebAppConfig extends WebSecurityConfigurerAdapter {
     @Override  
   protected void configure(HttpSecurity http) throws Exception {  
         http.authorizeRequests()  
-                .antMatchers("/").permitAll()  
-                .antMatchers("/img/**").permitAll()  
-                .anyRequest().authenticated();  
+            .antMatchers("/").permitAll()  
+            .antMatchers("/img/**").permitAll()  
+            .anyRequest().authenticated();  
     }  
       
 }
@@ -235,17 +230,6 @@ What we're saying is this:
  1. Permit anyone to access the home page
  2. Permit anyone (or any request, really) to access the `/img` subfolder
  3. Force any other requests to be authenticated
-
-The next step will be to add your Okta preview URL, Client ID, and Client secret to the `src/main/resources/application.yml` file. Your Okta preview URL is going to be something like: `https://dev-123456.oktapreview.com`.
-
-```yml
-okta:  
-  oauth2: 
-    issuer: https://{yourOktaDomain}/oauth2/default  
-    clientId: {yourClientId}
-    clientSecret: {yourClientSecret}
-    rolesClaim: groups
-```
 
 ## Start Your Spring Boot App with OAuth 2.0 SSO
 
@@ -433,11 +417,9 @@ The next thing we have to do is configure the **Admin** group on Okta, and assig
 
 ## Create an Admin Group 
 
-Go to your [developer.okta.com](https://developer.okta.com/) dashboard. From the top menu, go to  **Users**  and click on  **Groups**.
+Run `okta login` and open the resulting URL in your browser. Go to  **Directory** and select **Groups**.
 
-{% img blog/spring-boot-user-auth/groups.png alt:"Groups" width:"800" %}{: .center-image }
-
-Click on the  **Add Group**  button.
+Click on the **Add Group** button.
 
 Name the group "Admin" and give it a description (I put "Administrators", but it doesn't matter what you put here really, just something descriptive).
 
@@ -445,19 +427,21 @@ Name the group "Admin" and give it a description (I put "Administrators", but it
 
 The next thing you'll need to do is add a "groups" claim to the default authorization server.
 
-From the top menu, go to **API** and click on **Authorization Servers**.
+Navigate to **Security** > **API** and click on **Authorization Servers**.
 
-Click on the  **default** authorization server.
+Click on the **default** authorization server.
 
-Click on the  **Claims** tab.
+Click on the **Claims** tab.
 
-Click the  **Add Claim** button.
+Click the **Add Claim** button.
 
-Update the popup form to match the image below. 
+Use the following values for the new claim:
 
-Note that the *Filter Regex* is `.*`.
-
-{% img blog/spring-boot-user-auth/add-claim.png alt:"Add Claim" width:"700" %}{: .center-image }
+- Name: `groups`
+- Include in token type: **Access Token**
+- Value type: **Groups**
+- Filter: **Regex**: `.*`
+- Include in: **Any scope**
 
 This last step tells Okta to send the groups information to your application (the groups "claim"). 
 
@@ -483,11 +467,7 @@ Forbidden
 
 You're getting a 403 because your Okta user is not in the **Admin** group. Let's fix that!
 
-Log into your [developer.okta.com](https://developer.okta.com) dashboard. 
-
-From the top menu, go to **Users** and, in the drop down menu, **Groups**.
-
-{% img blog/spring-boot-user-auth/groups-with-admin.png alt:"Groups with Admin" width:"800" %}{: .center-image }
+In the Okta Admin Console, go to **Directory** > **Groups**. 
 
 Click on the **Admin** group. Click on the **Add Members** button. Use the search box to find your user in the pop up and add yourself to the group!
 
@@ -499,17 +479,9 @@ This time you'll see our super fancy "Hello Admin!" page.
 
 You've accomplished almost all of your goals! Great job. Your life is complete. Or--at least, your tutorial is almost complete. The last thing to be done is to enable Okta's Self-Service Registration (SSR). 
 
-This feature is currently only available from the **Classic UI**. On the very top of the page on the left side there is a small menu item that says **<> Developer Console**. If you hover over this, you'll see a drop down item that says **Classic UI**. Click on this.
+Navigate to **Directory** > **Self-Service Registration**.
 
-{% img blog/spring-boot-user-auth/classic-ui.png alt:"Classic UI Link" width:"700" %}{: .center-image }
-
-From the top menu of the Classic UI, go to **Directory** and select **Self-Service Registration** from the drop down menu.
-
-{% img blog/spring-boot-user-auth/directory-registration.png alt:"Directory > Registration" width:"700" %}{: .center-image }
-
-Enable the feature. Fill in the form to match the image below. I unchecked the box for email verification just to save time in this tutorial.
-
-{% img blog/spring-boot-user-auth/self-service-registration.png alt:"Self-Service Registration" width:"700" %}{: .center-image }
+Enable the feature. I unchecked the box for email verification just to save time in this tutorial.
 
 *This point in the tutorial corresponds to the `group-auth` branch in the git repository.*
 

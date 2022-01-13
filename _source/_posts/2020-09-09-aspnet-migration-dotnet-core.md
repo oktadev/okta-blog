@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8196366674
+discourse_topic_id: 17287
+discourse_comment_url: https://devforum.okta.com/t/17287
 layout: blog_post
 title: Migrate Your ASP.NET Framework to ASP.NET Core with Okta
 author: nickolas-fisher

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6972312730
+discourse_topic_id: 16945
+discourse_comment_url: https://devforum.okta.com/t/16945
 layout: blog_post
 title: "Get Started with Blazor and WebAssembly"
 author: ibrahim-suta

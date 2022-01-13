@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7099661363
+discourse_topic_id: 16969
+discourse_comment_url: https://devforum.okta.com/t/16969
 layout: blog_post
 title: "Learning Java as a First Language"
 author: matt-raible

@@ -16,6 +16,7 @@ $asset-path: "/assets";
 //-----------------------------------------------------------------------
 
 $font-family:             'proxima-nova', Helvetica, Arial, sans-serif;
+$font-family-secondary:   'ABC Whyte', $font-family;
 $font-family--alt:        'museo', Helvetica, Arial, sans-serif;
 
 $font-size:     (
@@ -94,24 +95,35 @@ $white-smoke-10: #f4f4f4; // intentional developer color
 $gainsboro-2: #dddddd;
 $gainsboro-8: #e4e4e4;
 // Grays
+$alto: #DCDCDC;
 $dim-gray-3: #5d5d5d;
 $eclipse-2: #3d3d3d;
+$dove-gray: #616161;
 $iron: #c2c3c3;
+$loblolly: #BCC3CA;
 $lily-white: #f2f5f5;
+$mischka-2: #D7D7DC;
 $mortar: #555555;
 $mystic: #dee0df;
 $night-rider: #333333;
 $nobel: #999999;
 $nobel-2: #9a9a9a;
 $shady-lady: #979797;
+$storm-gray: #6E6E78;
 $suva-gray: #888888;
 $suva-gray-4: #8f8f8f;
 $very-light-gray: #cccccc;
 // Blacks
 $black: #000000;
+$mirage: #14222A;
+$san-juan: #2B4D63;
+$shark: #1D1D21;
+$mine-shaft: #212121;
 // Reds
 $jazzberry-jam: #990f69;
 $valencia: #d9534f;
+$cerise-red: #DD2864;
+$french-rose: #F64882;
 // Oranges
 $burnt-orange: #ff7640;
 $light-coral: #f57f7f;
@@ -136,6 +148,7 @@ $navy-blue: #007dc1;
 $pacific-blue-3: #0095e5;
 $pattens-blue: #e0eef6;
 $pattens-blue-2: #deeef6;
+$resolution-blue: #00297A;
 $solitude-4: #dbe3e7;
 $summer-sky: #46b3e9;
 $turquoise: #5ce5bc;
@@ -148,6 +161,8 @@ $puerto-rico-5: #4cbf9d;
 $screamin-green: #59ff99;
 $shamrock: #4cdb82;
 $periglacial-blue: #abadac;
+$gable-green: #16262f;
+$cello: #1f3b54;
 // Purples
 $cerise: #e22866; // intentional developer color
 $lavender-3: #f7fbfd;
@@ -202,6 +217,8 @@ $colors:        (
                 'new-gray-dark':          $eclipse-2,
 
                 'red':                    $light-coral,
+                'cello':                  $cello,
+                'gable-green':            $gable-green,
 
                 // 2017-07 Redesign Colors
                 'ebony-clay':             $midnight, // Background
@@ -212,6 +229,22 @@ $colors:        (
                 'cerise':                 $cerise, // CTA buttons, links
 
                 'code-background':        $white-smoke-10,
+
+                // 2020-12 Nav Redesign Colors
+                'mirage': $mirage, // Nav background
+                'san-juan': $san-juan, // Nav mobile dropdown background
+                'cerise-red': $cerise-red, // Nav CTA background
+                'loblolly': $loblolly, // Nav SearchBox Suggestions hover color
+                'mine-shaft': $mine-shaft, // Nav SearchBox color
+                'dove-gray': $dove-gray, // Nav SearchBox placeholder color
+                'french-rose': $french-rose, // Links active state
+
+                // 2021-07 Nav Redesign
+                'resolution-blue': $resolution-blue, //Nav background
+                'shark': $shark,                     //Text dark color
+                'storm-gray': $storm-gray,           //Text color
+                'mischka-2': $mischka-2,             //Text light gray color
+                'alto': $alto,                       //Border color
 );
 
 
@@ -232,6 +265,7 @@ $gutter-width:  20px;
 
 $breakpoints:   (
                 'xx-small':               320px,
+                'x-smaller':              375px,
                 'x-small':                480px,
                 'small':                  768px,
                 'medium-small':           900px,

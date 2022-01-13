@@ -1,64 +1,111 @@
-{% assign author = site.data.authors[post.author] %}
+{% if post.author.first %}
+{%- assign authors = post.author -%}
+{% else %}
+{%- assign authors = "" | split: "," -%}
+{%- assign authors = authors | push: post.author -%}
+{% endif %}
 
-<article class="BlogPost{% if page.layout != 'blog_post' %} is-excerpt{% endif %}">
+<article class="BlogPost h-entry{% if page.layout != 'blog_post' %} is-excerpt{% endif %}">
 
     <header class="BlogPost-header">
 
-        <time class="BlogPost-date" datetime="{{ post.date | date: '%F'}}">{{ post.date | date: "%B %-d, %Y" }}</time>
-
-        <h1 class="BlogPost-title">
+        <time class="BlogPost-date dt-published" datetime="{{ post.date | date: '%F'}}">{{ post.date | date: "%B %-d, %Y" }}</time>
+        {%- if page.layout == 'blog_post' and post.changelog -%}
+        {% assign last_updated_date = post.changelog[0] | split: '=>' | first | date: "%B %-d, %Y" %}
+        <div class="BlogPost-last-updated">
+            Last Updated: <a href="#changelog">{{ last_updated_date }}</a>
+        </div>
+        {% endif %}
+        <h1 class="BlogPost-title p-name">
             {% if page.layout == 'blog_index' or page.layout == 'author' %}
             <a href="{{ post.url }}">{{ post.title }}</a>
             {% else %}
-            {{ post.title }}
+            <span>{{ post.title }}</span>
             {% endif %}
         </h1>
-
         <div class="BlogPost-attribution">
+          {% for author_id in authors %}
+            {%- assign author = site.data.authors[author_id] -%}
             {% if author.avatar %}
-            <a href="/blog/authors/{{ post.author }}/">{% img '{{ author.avatar }}' alt:'{{ author.avatar }}' class:BlogPost-avatar %}</a>
+            <a href="/blog/authors/{{ author_id }}/">{% img '{{ author.avatar }}' alt:'{{ author.avatar }}' class:BlogPost-avatar %}</a>
             {% endif %}
-            <span class="BlogPost-author"><a href="/blog/authors/{{ post.author }}/">{{ author.full_name }}</a></span>
+            <span class="BlogPost-author"><a href="/blog/authors/{{ author_id }}/">{{ author.full_name }}</a></span>
+          {% endfor %}
         </div>
-
     </header>
 
     <div class="BlogPost-content">
-        {{ include.post_content }}
+    {% if page.update-url %}
+      {%- include update.html title=page.update-title url=page.update-url extra=page.update-extra -%}
+    {%- endif -%}
+        <div class="e-content">{{ include.post_content }}</div>
+
+        {%- if page.layout == 'blog_post' and post.changelog -%}
+        <p id="changelog"><strong>Changelog</strong>:</p>
+        <ul>
+        {% for change in post.changelog %}
+          {%- assign changes = change | split: '=>' -%}
+            <li>{{ changes[0] | date: "%b %-d, %Y" }}:
+                {% assign change_text = changes[1] | markdownify | remove: '<p>'| remove: '</p>' | remove: '&#8220;' | remove: '&#8221;' | remove: '}' %}
+                {{ change_text }}
+            </li>
+        {% endfor %}
+        </ul>
+        {%- endif -%}
     </div>
 
-    {% if page.layout == 'blog_post' and author.bio %}
-        <div class="BlogPost-author-bio">
+    {% if page.layout == 'blog_post' %}
+        {% for author_id in authors %}
+            {%- assign author = site.data.authors[author_id] -%}
+            {% if author.bio %}
+        <div class="BlogPost-author-bio u-author h-card">
             <div class="BlogPost-attribution">
                 {% if author.avatar %}
-                <a href="/blog/authors/{{ post.author }}/">{% img '{{ author.avatar }}' alt:'{{ author.avatar }}' class:BlogPost-avatar %}</a>
+                <a href="/blog/authors/{{ author_id }}/">{% img '{{ author.avatar }}' alt:'{{ author.avatar }}' class:BlogPost-avatar %}</a>
                 {% endif %}
-                <span class="BlogPost-author"><a href="/blog/authors/{{ post.author }}/">{{ author.full_name }}</a></span>
+                <span class="BlogPost-author"><a href="/blog/authors/{{ post.author }}/" class="u-url p-name">{{ author.full_name }}</a></span>
             </div>
-    
-            <p>{{ author.bio }}</p>
+
+            <p class="p-bio">{{ author.bio }}</p>
         </div>
+            {% endif %}
+        {% endfor %}
     {% endif %}
+
+    <a href="{{ page.url }}" class="u-url" aria-hidden="true"></a>
 
     {% if page.layout == 'blog_post' and post.comments != false %}
-    <div id="disqus">
-        <div id="disqus_thread"></div>
-        <script type="text/javascript">
-            var disqus_title = "{{ page.title }}";
-            var disqus_url = '{{ page.url | prepend: site.url }}';
+    <a id="comments"></a>
+    <div id="discourse-comments">
+        <div id="comment-policy" class="comment-policy">
+            <p class="comment-policy-title">Okta Developer Blog Comment Policy</p>
+            <p class="comment-policy-text">We welcome relevant and respectful comments. Off-topic comments may be removed.</p>
+        </div>
 
-            (function () {
-                var dsq = document.createElement('script');
-                dsq.async = true;
-                dsq.type = 'text/javascript';
-                dsq.src = '//{{ site.disqus_shortname }}.disqus.com/embed.js';
-                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-            })();
-          </script>
-          <noscript>
-              Please enable JavaScript to view the
-              <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus</a>.
-         </noscript>
+        <script type="text/javascript">
+            if (window.location.host === 'developer.okta.com') {
+              window.DiscourseEmbed = {
+                  discourseUrl: 'https://devforum.okta.com/',
+                  {% if page.discourse_topic_id %}
+                    topicId: {{ page.discourse_topic_id }}
+                  {% else %}
+                    discourseEmbedUrl: '{{ page.url | prepend: site.url }}'
+                  {% endif %}
+              };
+
+              (function() {
+                  var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+                  d.src = window.DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+              })();
+            } else {
+              document.getElementById("comment-policy").innerHTML = "Comments are disabled on preview builds";
+            }
+        </script>
+        <noscript>
+          Please enable JavaScript to view the comments inline. <a href="https://devforum.okta.com/c/okta-dev-blog/17">Visit the forum to comment</a>.
+        </noscript>
     </div>
     {% endif %}
+
 </article>

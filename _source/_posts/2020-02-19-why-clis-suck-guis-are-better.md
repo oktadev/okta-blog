@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7878954803
+discourse_topic_id: 17217
+discourse_comment_url: https://devforum.okta.com/t/17217
 layout: blog_post
 title: "Why CLIs Suck (and GUIs are Better)"
 author: heather-downing
@@ -65,7 +68,7 @@ Since I would rather focus on the business logic I create (and not the exact way
 
 {% img blog/why-clis-suck/file-new.jpg alt:"Sublime Text File New" width:"800" %}{: .center-image }
 
-Since we weren't born naturally coding, programming is something we need to learn. The tools we use to create software should make that process easier. Some of the best tooling with visual layouts that I've used are [Github Desktop](https://desktop.github.com/), [Visual Studio](https://visualstudio.microsoft.com/downloads/) and [IntelliJ IDEA](https://www.jetbrains.com/idea/). Streamlining my development workflow with good, naturally assistive tools helped me tremendously. These tools helped me explore their  available functions by simply clicking on a dropdown and examining the sub-categories below.
+Since we weren't born naturally coding, programming is something we need to learn. The tools we use to create software should make that process easier. Some of the best tooling with visual layouts that I've used are [GitHub Desktop](https://desktop.github.com/), [Visual Studio](https://visualstudio.microsoft.com/downloads/) and [IntelliJ IDEA](https://www.jetbrains.com/idea/). Streamlining my development workflow with good, naturally assistive tools helped me tremendously. These tools helped me explore their  available functions by simply clicking on a dropdown and examining the sub-categories below.
 
 ### Remote access is easier to use with a GUI
 

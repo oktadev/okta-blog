@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7575358986
+discourse_topic_id: 17109
+discourse_comment_url: https://devforum.okta.com/t/17109
 layout: blog_post
 title: "Easy Spring Boot Deployment with AWS Elastic Beanstalk"
 author: daniel-pereira
@@ -70,7 +73,7 @@ The template is an HTML page Spring MVC uses to render the information in the us
 
 You define a Thymeleaf HTML page to receive all attributes defined in the `model` object.
 
-Inside `src\main\resources\templates`, create the file `hello-world.html`:
+Inside `src/main/resources/templates`, create the file `hello-world.html`:
 
 ```html
 <!DOCTYPE html>
@@ -91,13 +94,13 @@ Or, from the command line, execute:
 ./mvnw spring-boot:run
 ```
 
-If you go to **http://localhost:8080/** in your web browser, you will see the following message:
+If you go to `http://localhost:8080/` in your web browser, you will see the following message:
 
 ```
 Hello, World!
 ```
 
-If you want a custom message, you can add the `name` parameter. For instance, **http://localhost:8080/?name=Daniel** will return:
+If you want a custom message, you can add the `name` parameter. For instance, `http://localhost:8080/?name=Daniel` will return:
 
 ```
 Hello, Daniel
@@ -118,7 +121,7 @@ Spring Security handles authentication, authorization, and other security aspect
 
 That's it! When you add Spring Security as a dependency, it enables security by default. When you try to access your endpoints, you'll have to log in before continuing.
 
-Let's test it. Run the application, then go to **http://localhost:8080/**. You will see the following result:
+Let's test it. Run the application, then go to `http://localhost:8080/`. You will see the following result:
 
 {% img blog/spring-boot-aws/okta-aws-ebs-01.png alt:"Login Page" width:"400" %}{: .center-image }
 
@@ -174,7 +177,7 @@ public class HelloWorldController {
 
 The `Principal` interface stores the name of the current user. Spring Security takes care of the dirty work: you only need to add it as an argument, and the method receives the correct value.
 
-To see this change, stop the application and run it again. If you access **http://localhost:8080/**, it will ask you to log in again. Use `john.doe` as the username `secret` as the password. After submitting the information, you will see the following text:
+To see this change, stop the application and run it again. If you access `http://localhost:8080/`, it will ask you to log in again. Use `john.doe` as the username `secret` as the password. After submitting the information, you will see the following text:
 
 ```
 Hello, john.doe!
@@ -249,44 +252,31 @@ Remember you created a user and put the credentials inside your code? This strat
 
 Handling identity management is not a trivial task, and you'll want to use a service instead of "rolling your own".
 
-Okta is an excellent identity management service, which provides an identity provider, authentication, authorization and user security out of the box. Let's configure your application to use it.
+Okta is an excellent identity management service, which provides an identity provider, authentication, authorization and user security out of the box. 
 
-* [Create an Okta account](https://developer.okta.com/signup)
-* Login into your account
-* Click **Applications**
-* Click **Add Application**
-
-{% img blog/spring-boot-aws/okta-aws-ebs-05.png alt:"web app" width:"800" %}{: .center-image }
-
-* Select **Web** and click on the **Next** button.
-* Fill in the following options into the form:
-
-```
-Name: hello-world
-Base URIs: http://localhost:8080/, ${BEANSTALK_URL}
-Login redirect URLs: http://localhost:8080/login/oauth2/code/okta, ${BEANSTALK_URI}/login/oauth2/code/okta
-Grant Type allowed: Client Credentials. Authorization Code
-```
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" 
+   loginRedirectUri="http://localhost:8080/login/oauth2/code/okta,${BEANSTALK_URI}/login/oauth2/code/okta"
+   logoutRedirectUri="http://localhost:8080,${BEANSTALK_URI}"%}
 
 Change `${BEANSTALK_URL}` to your AWS environment URL. For instance, my value is `HelloWorld-env.t3z2mwuzhi.us-east-1.elasticbeanstalk.com`.
 
-Great! You whitelisted your local and production environments. If you make calls to your Okta application from them, it will permit the request.
+Great! You granted access to your local and production environments. If you make calls to your Okta application from them, it will permit the request.
 
 ## Secure The Application With Okta and OAuth 2.0
 
-With your application in Okta, you need to change the code to start using it. Okta handle the authentication for you from now on.
+With your application in Okta, you need to change the code to start using it. Okta handles the authentication for you from now on.
 
-Replace the Spring Security dependency inside your `pom.xml` file with the okta dependency, which itself includes Spring Security. Put the following code inside the `<dependencies>` tag:
+Replace the Spring Security dependency inside your `pom.xml` file with the Okta Spring Boot starter, which itself includes Spring Security. Put the following code inside the `<dependencies>` tag:
 
 ```xml
 <dependency>
     <groupId>com.okta.spring</groupId>
     <artifactId>okta-spring-boot-starter</artifactId>
-    <version>1.2.1</version>
+    <version>2.0.1</version>
 </dependency>
 ```
 
-The library will handle the communication between your application and Okta. All that you have to do is identify your Okta information. Set the following environment variables locally:
+The library will handle the communication between your application and Okta. All that you have to do is identify your Okta information. Set the following environment variables locally (removing the values from `src/main/resources/application.properties` to tighten security):
 
 ```bash
 OKTA_OAUTH2_ISSUER={ORG_URL}/oauth2/default
@@ -294,20 +284,8 @@ OKTA_OAUTH2_CLIENT_ID={CLIENT_ID}
 OKTA_OAUTH2_CLIENT_SECRET={CLIENT_SECRET}
 ```
 
-Great! You whitelisted your local and production environments. If you make calls to your Okta application from those places, it will permit the request.
-
-Your `{ORG_URL}` will be visible in your Okta dashboard, just click on `Dashboard` in the menu. You will see the Org URL in the right upper corner.
-
-You can find `{CLIENT_ID}` and `{CLIENT_SECRET}` in your Okta application:
-
-* In your Okta's menu, go to `Applications`
-* Select the `hello-world` application
-* Click on the `General` tab
-* Scroll down to `Client Credentials`
-
-There you'll see both the client id and secret.
-
 With these changes, you now authenticate with OpenID Connect. When the user goes to the homepage, your application will redirect her to your Okta login page, then back to webpage.
+
 > OpenID Connect is a thin layer on top of the OAuth 2.0 authorization framework and is focused on identity and authentication.
 
 With OpenID Connect, you need to change the way you receive the authenticated user. Go to the `HelloWorldController` class and update the code:
@@ -329,7 +307,7 @@ This still passes authentication information to Thymeleaf using the model, but m
 
 > **NOTE:** Since you are using Okta to authenticate, you don't need your old configuration anymore. Go ahead and delete the `SecurityConfiguration` class.
 
-Let's run the application! Start it again and go to **http://localhost:8080/**. Notice you're redirected to the Okta login page:
+Let's run the application! Start it again and go to `http://localhost:8080`. Notice you're redirected to the Okta login page:
 
 {% img blog/spring-boot-aws/okta-aws-ebs-06.png alt:"Okta login page" width:"400" %}{: .center-image }
 
@@ -366,7 +344,7 @@ The last step is to update the application to the latest version. Go inside your
 ./mvnw package -DskipTests
 ```
 
-This command generates a JAR file with the current version of your application. Go to the AWS Elastic Beanstalk dashboard, and click on the `Upload and deploy` button. Select the file aven created (such as `hello-word-0.0.1-SNAPSHOT.jar`), and click on the `Deploy` button.
+This command generates a JAR file with the current version of your application. Go to the AWS Elastic Beanstalk dashboard, and click on the `Upload and deploy` button. Select the file Maven created (such as `hello-world-0.0.1-SNAPSHOT.jar`), and click on the `Deploy` button.
 
 To make sure it is working, click on the AWS Elastic Beanstalk URL. It will redirect you to the Okta's login if you haven't logged in. When you enter valid credentials, it will redirect you to the Hello World page! In my case, the result will be:
 
@@ -380,7 +358,8 @@ If you want to take a look at the code, you can find the repository with the exa
 
 Would you like to learn more about Security, OAuth 2.0, and Spring in general? We recommend these posts:
 
-* [Simple Authentication with Spring Security ](https://developer.okta.com/blog/2019/05/31/spring-security-authentication)
-* [Easy Single Sign-On with Spring Boot and OAuth 2.0](https://developer.okta.com/blog/2019/05/02/spring-boot-single-sign-on-oauth-2)
+* [How to Docker with Spring Boot](/blog/2020/12/28/spring-boot-docker)
+* [Simple Authentication with Spring Security ](/blog/2019/05/31/spring-security-authentication)
+* [Easy Single Sign-On with Spring Boot and OAuth 2.0](/blog/2019/05/02/spring-boot-single-sign-on-oauth-2)
 
 As always, leave comments below and don't forget to follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel.

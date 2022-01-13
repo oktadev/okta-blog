@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7007691912
+discourse_topic_id: 16954
+discourse_comment_url: https://devforum.okta.com/t/16954
 layout: blog_post
 title: "Tutorial: Create and Verify JWTs in Java"
 author: andrew-hughes
@@ -11,7 +14,7 @@ tweets:
 - "Tutorial - JSON Web Tokens with @Java"
 - "Learn how to create JWTs with Java and #JJWT"
 image: blog/featured/okta-java-short-headphones.jpg
-type: conversion
+type: awareness
 ---
 
 Java support for JWT (JSON Web Tokens) used to require a lot of work: extensive customization, hours lost resolving dependencies, and pages of code just to assemble a simple JWT. Not anymore! 

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7638877054
+discourse_topic_id: 17138
+discourse_comment_url: https://devforum.okta.com/t/17138
 layout: blog_post
 title: "Build an Application with Spring Boot and Kotlin"
 author: daniel-pereira
@@ -12,6 +15,8 @@ tweets:
 - "Haven't tried @Kotlin yet? What are you waiting for⁉"
 image: blog/featured/okta-java-short-skew.jpg
 type: conversion
+changelog:
+- 2021-04-16: Updated to use Spring Boot 2.4 and Okta CLI. See blog changes in [okta-blog#727](https://github.com/oktadeveloper/okta-blog/pull/727). Example app changes can be viewed in [this PR](https://github.com/oktadeveloper/okta-spring-boot-kotlin-example/pull/1).
 ---
 
 In 2011, JetBrains, the company behind IntelliJ, decided to create a modern language that would run inside the Java Virtual Machine and address common concerns with Java at the time like its verbosity. This project became Kotlin, a quickly growing and popular language.
@@ -19,6 +24,10 @@ In 2011, JetBrains, the company behind IntelliJ, decided to create a modern lang
 Google then announced official support for Kotlin on Android, further accelerating its adoption. Many companies started to replace Java with Kotlin as their main language to take advantage of the new features it provides. Kotlin is now an increasingly important language for developers inside the JVM ecosystem to know and understand.
 
 In this tutorial, you will build a Spring Boot application from scratch, using Kotlin as the main language. You will learn how Kotlin works with Spring and how to integrate the code with other Java libraries. By the end, you will have a secure Spring application running in Kotlin that authenticates users via OAuth 2.0.
+
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
 
 ## Create the Kotlin Application with Spring Initializr
 
@@ -38,8 +47,6 @@ You can also use the command line to get the same result:
 
 ```bash
 curl https://start.spring.io/starter.zip \
-        -d bootVersion=2.1.7.RELEASE \
-        -d language=kotlin \
         -d language=kotlin \
         -d dependencies=web \
         -d packageName=com.okta \
@@ -231,7 +238,7 @@ Recall how Kotlin can use libraries from the Java ecosystem? Add Okta's Java lib
 To start, open the `build.gradle.kts` file. Inside the `dependencies` tag, add the following line:
 
 ```gradle
-implementation("com.okta.spring:okta-spring-boot-starter:1.2.1")
+implementation("com.okta.spring:okta-spring-boot-starter:2.0.1")
 ```
 
 Your `dependencies` object should look like this:
@@ -242,51 +249,16 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("com.okta.spring:okta-spring-boot-starter:1.2.1")
+    implementation("com.okta.spring:okta-spring-boot-starter:2.0.1")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
  ```
 
 This dependency adds both Okta and Spring Security to your project. They make it simple to ensure only authenticated users can access protected areas of your application.
 
-If you don't have an Okta account, [go ahead and create a free one](https://developer.okta.com/signup). After registering, go through the following steps:
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
 
-* Log into your account
-* Click **Applications**
-* Click on **Add Application**. You will be redirected to the following page:
-
-{% img blog/build-a-spring-boot-kotlin-app/okta-new-applicaiton.png alt:"Okta application page" width:"800" %}{: .center-image }
-
-* Select **Web** and click on the **Next** button
-* Fill in the following options in the form:
-
-    - Name: spring-kotlin
-    - Base URIs: http://localhost:8080/
-    - Login redirect URLs: http://localhost:8080/login/oauth2/code/okta
-    - Grant Type allowed: 
-        - Authorization Code
-
-* Click on the **Done** button.
-
-Now that you have your Okta application, you can use it to authenticate users in your Kotlin app.
-
-Add the following environment variables to your application:
-
-```txt
-OKTA_OAUTH2_ISSUER=https://{yourOktaDomain}/oauth2/default
-OKTA_OAUTH2_CLIENT_ID={CLIENT_ID}
-OKTA_OAUTH2_CLIENT_SECRET={CLIENT_SECRET}
-```
-
-You will find `{CLIENT_ID}` and `{CLIENT_SECRET}` on the application page in Okta's dashboard. To find it, follow the steps below:
-
-* In your Okta Admin Console's menu, go to **Applications**
-* Select the "hello-world" application
-* Click on the **General** tab
-
-You should see both values inside the Client Credentials area.
-
-Your `{yourOktaDomain}` will be visible in your Okta dashboard, just click on **Dashboard** in the menu. You will see the Org URL in the right upper corner.
+Now that you have your Okta OIDC application, you can use it to authenticate users in your Kotlin app.
 
 The last step is to modify your `greet` endpoint to pull the name from the authenticated user. Go to the `GreetController` class and apply the following changes:
 
@@ -319,7 +291,7 @@ class GreetController {
 
 The main difference here is that you are not receiving the user as a parameter anymore. Since you annotated the function with `AuthenticationPrincipal`, Spring knows that you want to retrieve the current user and will do it automatically.
 
-That's it! You now have an application with secure authentication out of the box. Go to `http://localhost:8080/greet`. and you should be redirected to the Okta's login page:
+That's it! You now have an application with secure authentication out of the box. Go to `http://localhost:8080/greet` and you should be redirected to the Okta's login page:
 
 {% img blog/build-a-spring-boot-kotlin-app/okta-sign-in-widget.png alt:"Okta Sign-in Widget" width:"400" %}{: .center-image }
 
@@ -333,6 +305,7 @@ Congratulations! You just finished your first app written in Kotlin. You also to
 
 Want to learn more about Kotlin, Spring and Security, and OAuth 2.0 overall? here are a few links you might be interested in:
 
+- [How to Docker with Spring Boot](/blog/2020/12/28/spring-boot-docker)
 - [Build a Secure Notes Application with Kotlin, TypeScript](/blog/2017/09/19/build-a-secure-notes-application-with-kotlin-typescript-and-okta)
 - [Build a Basic CRUD App in Android with Kotlin](/blog/2018/09/11/android-kotlin-crud)
 - [A Quick Guide to Spring Boot Login Options](/blog/2019/05/15/spring-boot-login-options)

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6424381606
+discourse_topic_id: 16815
+discourse_comment_url: https://devforum.okta.com/t/16815
 layout: blog_post
 title: 'Protect Your Cryptocurrency Wealth Tracking PWA with Okta'
 author: matt-raible
@@ -10,6 +13,8 @@ tweets:
   - "Want to learn how to build an @ionicframework app to manage your cryptocurrencies? @joshuamorony has the 🎟! See how to lock it down with @okta →"
   - "Leverage OIDC and @okta to add authentication to your cryptocurrency wealth tracking Ionic app →"
 type: conversion
+changelog:
+  - 2018-04-10: Updated dependencies in the example app to their latest versions using [npm-check-updates](https://www.npmjs.com/package/npm-check-updates). See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-ionic-crypto-pwa/pull/2). Changes to this article can be viewed in [oktadeveloper/okta.github.io#1940](https://github.com/oktadeveloper/okta.github.io/pull/1940).
 ---
 
 Cryptocurrencies are all the rage. Over the last year, the value of Bitcoin alone has risen 1,603%, driving more and more people to wonder if they're missing out on the "next big thing." Because of the massive influx of money into cryptocurrencies like Bitcoin, Ethereum, Monero, and Ripple &mdash; blockchain technology (which is the foundation of all cryptocurrency) has become an area of intense technical study. At its core, blockchain technology does nothing more than maintain a decentralized log of transactions that can be easily shared across many nodes (miners).
@@ -338,7 +343,3 @@ To learn more about Ionic and PWAs, check out the following resources:
 * [Tutorial: Develop a Mobile App With Ionic and Spring Boot](/blog/2017/05/17/develop-a-mobile-app-with-ionic-and-spring-boot)
 * [Build an Ionic App with User Authentication](/blog/2017/08/22/build-an-ionic-app-with-user-authentication)
 * [The Ultimate Guide to Progressive Web Applications](/blog/2017/07/20/the-ultimate-guide-to-progressive-web-applications)
-
-**Changelog:**
-
-* Apr 10, 2018: Updated dependencies in the example app to their latest versions using [npm-check-updates](https://www.npmjs.com/package/npm-check-updates). See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-ionic-crypto-pwa/pull/2). Changes to this article can be viewed in [oktadeveloper/okta.github.io#1940](https://github.com/oktadeveloper/okta.github.io/pull/1940).

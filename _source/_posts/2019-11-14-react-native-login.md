@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7716741041
+discourse_topic_id: 17167
+discourse_comment_url: https://devforum.okta.com/t/17167
 layout: blog_post
 title: "Create a React Native App with Login in 10 Minutes"
 author: matt-raible
@@ -12,6 +15,8 @@ tweets:
 - "Need auth in your #ReactNative app? Just add auth with @okta!"
 image: blog/react-native-login/react-native-login.png
 type: conversion
+changelog:
+- 2021-03-24: Updated to use React Native 0.64 and Okta React SDK 1.10.0. You can see the changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-react-native-login-example/pull/3). Changes to this article can be viewed in [oktadeveloper/okta-blog#624](https://github.com/oktadeveloper/okta-blog/pull/624).
 ---
 
 React Native is a mobile app development framework that allows you to use React to build native iOS and Android mobile apps. Instead of using a web view and rendering HTML and JavaScript, it converts React components to native platform components. This means you can use React Native in your existing Android and iOS projects, or you can create a whole new app from scratch.
@@ -57,23 +62,21 @@ If you'd rather watch a video, [I created a screencast of this tutorial](https:/
 <iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/mkT_I5tm3Ig" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+
 ## Create a React Native Application
 
-React Native CLI is a popular way to get started with React Native development.
+The React Native CLI is a popular way to get started with React Native development. You can create a new application using its `init` command.
 
 ```shell
-npm install -g react-native-cli@2.0.1
-```
-
-Once you have React Native CLI installed, you can create a new application using the `init` command.
-
-```shell
-react-native init ReactNativeLogin
+npx react-native@0.64 init ReactNativeLogin
 ```
 
 ## Add Login with OIDC
 
-Okta provides a [React Native SDK](https://github.com/okta/okta-oidc-js/tree/master/packages/okta-react-native) which conveniently wraps the Okta native [Android OIDC](https://github.com/okta/okta-oidc-android) and [iOS OIDC](https://github.com/okta/okta-oidc-ios) libraries.
+Okta provides a [React Native SDK](https://github.com/okta/okta-react-native) which conveniently wraps the Okta native [Android OIDC](https://github.com/okta/okta-oidc-android) and [iOS OIDC](https://github.com/okta/okta-oidc-ios) libraries.
 
 I'm going to show you two ways to add OIDC-based login with Okta: The fast way with a tool I created and the step-by-step instructions.
 
@@ -82,30 +85,20 @@ This tool is based on [Schematics](https://angular.io/guide/schematics) and mani
 Install Schematics globally.
 
 ```shell
-npm install -g @angular-devkit/schematics-cli@0.803.7
+npm install -g @angular-devkit/schematics-cli@0.1102.5
 ```
 
 ## Create a Native App in Okta
 
-Log in to your Okta Developer account (or [sign up](https://developer.okta.com/signup/) if you don't have an account).
-
-* From the **Applications** page, choose **Add Application**.
-* On the Create New Application page, select **Native** as the platform and click **Next**.
-* Give your app a memorable name, select `Refresh Token` as a grant type, and click **Done**.
-* Click the **Edit** button and add a Logout redirect URI that matches the default Login redirect URI (e.g., `com.okta.dev-123456:/callback`).
-* Click **Save**.
-
-{% img blog/react-native-login/react-native-oidc-app.png alt:"Native OIDC App on Okta" width:"700" %}{: .center-image }
+{% include setup/cli.md type="native" loginRedirectUri="com.okta.dev-133337:/callback" logoutRedirectUri="com.okta.dev-133337:/callback" %}
 
 ## Install React Native OIDC Login
 
 In a terminal, navigate into your `ReactNativeLogin` directory and install OktaDev Schematics:
 
 ```shell
-npm i @oktadev/schematics@1.0.0
+npm i -D @oktadev/schematics@3.4.1
 ```
-
-**NOTE:** If you have a React Native 0.60.x app, use `@oktadev/schematics@0.9.0`. The only difference between the two is the [tests](https://stackoverflow.com/questions/58088834/cannot-find-module-eventemitter-from-setupjest-js-with-react-native-0-61-0).
 
 Run the `add-auth` schematic in your `ReactNativeLogin` project.
 
@@ -113,34 +106,13 @@ Run the `add-auth` schematic in your `ReactNativeLogin` project.
 schematics @oktadev/schematics:add-auth
 ```
 
-You will be prompted for an `issuer` and a `clientId`. You can find your issuer under **API** > **Authorization Servers** on Okta.
-
-{% img blog/react-native-login/default-auth-server.png alt:"Default Auth Server Issuer URI" width:"800" %}{: .center-image }
-
-The client ID will be on your application screen.
-
-{% img blog/react-native-login/oidc-client-credentials.png alt:"OIDC Client ID" width:"700" %}{: .center-image }
+You'll be prompted for your `issuer` and `clientId`.
 
 This process will take a minute to complete.
 
 {% img blog/react-native-login/add-auth-process.png alt:"Add Auth Process" width:"800" %}{: .center-image }
 
-### Configure Your iOS Project to use Swift
-
-React Native uses Objective-C, but the Okta React Native library uses Swift. Because of this, you have to add a Swift file in your iOS project for it to compile. Run the following command to open your native iOS project in Xcode.
-
-```shell
-open ios/ReactNativeLogin.xcworkspace
-```
-
-To add a Swift file, complete the following steps:
-
-1. Right-click on your project and select **New File...**.
-2. Select `Swift File`, and click **Next**.
-3. Enter a name (e.g., `Polyfill`) and click **Create**.
-3. If prompted for a header file, it is not required to create one.
-
-Then cd into `ReactNativeLogin/ios` and run `pod install`.
+Then, run `pod install --project-directory=ios` to install the [Okta OIDC iOS SDK](https://github.com/okta/okta-oidc-ios).
 
 **TIP:** If you don't have CocoaPoads installed, you can install it with `gem install cocoapods`.
 
@@ -149,14 +121,14 @@ Then cd into `ReactNativeLogin/ios` and run `pod install`.
 Navigate back to the root directory of your app. Start your app and you should be able to authenticate with Okta. 🎉
 
 ```
-react-native run-ios
+npm run ios
 ```
 
 {% img blog/react-native-login/ios-login-process.png alt:"iOS Login Process" %}{: .center-image }
 
 Once you're signed in, you'll see options to log out, get the user's information from an ID token, and get the user's information from the React Native SDK's `getUser()` method (a.k.a. the request).
 
-{% img blog/react-native-login/ios-login-complete.png alt:"iOS Login Process" %}{: .center-image }
+{% img blog/react-native-login/ios-login-complete.png alt:"iOS Login Process" width="612" %}{: .center-image }
 
 **NOTE:** The prompt when you click **Login** cannot be avoided. This is an iOS safety mechanism. It also pops up when you log out. See [this issue](https://github.com/okta/samples-js-react-native/issues/14) for more information.
 
@@ -171,7 +143,7 @@ You will need to run an AVD (Android Virtual Device) before starting your app, o
 Start your AVD, then your app, and authenticate with Okta. 🎊
 
 ```
-react-native run-android
+npm run android
 ```
 
 {% img blog/react-native-login/android-login-process.png alt:"Android Login process" %}{: .center-image }
@@ -211,35 +183,21 @@ This section shows you everything that OktaDev Schematics does for you, in detai
 Create a project with React Native CLI and install Okta's SDK.
 
 ```shell
-react-native init ReactNativeLogin
+npx react-native@0.64 init ReactNativeLogin
 cd ReactNativeLogin
-npm install @okta/okta-react-native@1.2.1
+npm install @okta/okta-react-native@1.10.0
 ```
 
-For iOS, modify `ios/Podfile` to change it from iOS 9 to iOS 11.
+For iOS, modify `ios/Podfile` to change it from iOS 10 to iOS 11.
 
 ```shell
 platform :ios, '11.0'
 ```
 
-Open your project in Xcode.
-
-```shell
-open ios/ReactNativeLogin.xcworkspace
-```
-
-Add a Swift file.
-
-1. Right-click on your project and select **New File...**.
-2. Select `Swift File`, and click **Next**.
-3. Enter a name (e.g., `Polyfill`) and click **Create**.
-3. If prompted for a header file, it is not required to create one.
-
 Install iOS native dependencies with CocoaPods.
 
 ```shell
-cd ios
-pod install
+pod install --project-directory=ios
 ```
 
 ### Add Jest and Enzyme to Test Your React Native Login
@@ -249,7 +207,8 @@ Jest is a library for testing JavaScript apps and Enzyme is a library that makes
 Install testing dependencies with npm.
 
 ```shell
-npm i enzyme@3.10.0 enzyme-adapter-react-16@1.14.0 enzyme-async-helpers@0.9.1 react-dom@16.9.0
+npm i enzyme@3.11.0 enzyme-adapter-react-16@1.15.6 \
+  enzyme-async-helpers@0.9.1 react-dom@17.0.2 events@3.3.0
 ```
 
 Then change your `jest` key in `package.json` to match the following:
@@ -258,8 +217,9 @@ Then change your `jest` key in `package.json` to match the following:
 "jest": {
   "preset": "react-native",
   "automock": false,
+  "testEnvironment": "jsdom",
   "transformIgnorePatterns": [
-    "node_modules/(?!@okta|react-native)"
+    "node_modules/(?!@okta|@react-native|react-native)"
   ],
   "setupFiles": [
     "./setupJest.js"
@@ -274,7 +234,6 @@ Create `setupJest.js` to polyfill React Native for Okta.
 
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { NativeModules } from 'react-native';
 
 configure({ adapter: new Adapter() });
 
@@ -286,22 +245,35 @@ if (typeof window !== 'object') {
   global.window.navigator = {};
 }
 
-NativeModules.OktaSdkBridge = {
-  createConfig: jest.fn(),
-  signIn: jest.fn(),
-  signOut: jest.fn(),
-  getAccessToken: jest.fn(),
-  getIdToken: jest.fn(),
-  getUser: jest.fn(),
-  isAuthenticated: jest.fn(),
-  revokeAccessToken: jest.fn(),
-  revokeIdToken: jest.fn(),
-  revokeRefreshToken: jest.fn(),
-  introspectAccessToken: jest.fn(),
-  introspectIdToken: jest.fn(),
-  introspectRefreshToken: jest.fn(),
-  refreshTokens: jest.fn(),
-};
+import * as ReactNative from 'react-native';
+
+jest.doMock('react-native', () => {
+  // Extend ReactNative
+  return Object.setPrototypeOf(
+    {
+      NativeModules: {
+        ...ReactNative.NativeModules,
+        OktaSdkBridge: {
+          createConfig: jest.fn(),
+          signIn: jest.fn(),
+          signOut: jest.fn(),
+          getAccessToken: jest.fn(),
+          getIdToken: jest.fn(),
+          getUser: jest.fn(),
+          isAuthenticated: jest.fn(),
+          revokeAccessToken: jest.fn(),
+          revokeIdToken: jest.fn(),
+          revokeRefreshToken: jest.fn(),
+          introspectAccessToken: jest.fn(),
+          introspectIdToken: jest.fn(),
+          introspectRefreshToken: jest.fn(),
+          refreshTokens: jest.fn(),
+        },
+      },
+    },
+    ReactNative,
+  );
+});
 ```
 
 Create `Auth.js` to handle your authentication code.
@@ -405,6 +377,14 @@ export default class Auth extends Component {
               title="Get User From Id Token"
             />
           </View>
+          <View style={styles.button}>
+            <Button
+              onPress={async () => {
+                this.getMyUser();
+              }}
+              title="Get User From Request"
+            />
+          </View>
         </View>
       );
     }
@@ -469,9 +449,9 @@ You might notice it imports a config file at the top.
 import configFile from './auth.config';
 ```
 
-Create `auth.config` with your OIDC settings from Okta.
+Create `auth.config.js` with your OIDC settings from Okta.
 
-```json
+```js
 export default {
   oidc: {
     clientId: '$yourClientId',
@@ -484,13 +464,7 @@ export default {
 };
 ```
 
-Create an app on [Okta](https://developer.okta.com/) to get the values for `$yourClientId` and `######`.
-
-* From the **Applications** page, choose **Add Application**.
-* On the Create New Application page, select **Native** as the platform and click **Next**.
-* Give your app a memorable name, select `Refresh Token` as a grant type, and click **Done**.
-* Click the **Edit** button and add a Logout redirect URI that matches the default Login redirect URI (e.g., `com.okta.dev-123456:/callback`).
-* Click **Save**.
+**NOTE:** See the previous section, [Create a Native App in Okta](#create-a-native-app-in-okta), if you need Okta OIDC settings. Use `okta apps` to see your apps and `okta login` to see your domain name.
 
 In `App.js`, import `Auth`.
 
@@ -498,27 +472,18 @@ In `App.js`, import `Auth`.
 import Auth from './Auth';
 ```
 
-And use it in a new `<View />` after the Hermes logic.
+And use it in a new `<View />` before `<Section title="Step One">`.
 
 ```jsx
-<ScrollView
-  contentInsetAdjustmentBehavior="automatic"
-  style={styles.scrollView}>
-  <Header />
-  {global.HermesInternal == null ? null : (
-    <View style={styles.engine}>
-      <Text style={styles.footer}>Engine: Hermes</Text>
-    </View>
-  )}
-  <View style={styles.body}>
-    <View style={styles.sectionContainer}>
-      <Text style={styles.sectionTitle}>Step Zero</Text>
-      <Text style={styles.sectionDescription}>
-        Use <Text style={styles.highlight}>Okta</Text> for
-        authentication.
-      </Text>
-      <Auth />
-    </View>
+<View style={styles.sectionContainer}>
+  <Text style={styles.sectionTitle}>Step Zero</Text>
+  <Text style={styles.sectionDescription}>
+    Use <Text style={styles.highlight}>Okta</Text> for authentication.
+  </Text>
+  <Auth />
+</View>
+<Section title="Step One">
+...
 ```
 
 At this point, your tests will not pass because Okta uses an [EventEmitter](https://colinramsay.co.uk/2015/07/04/react-native-eventemitters.html) to communicate between components.
@@ -534,8 +499,10 @@ To mock the native event emitter that Okta uses, add a mock for it in `__tests__
 
 import 'react-native';
 import React from 'react';
-import renderer from 'react-test-renderer';
 import App from '../App';
+
+// Note: test renderer must be required after react-native.
+import renderer from 'react-test-renderer';
 
 jest.mock(
   '../node_modules/react-native/Libraries/EventEmitter/NativeEventEmitter',
@@ -691,27 +658,17 @@ describe('authentication flow', () => {
 
 Run `npm test` to bask in the fruits of your labor!
 
-To run your app on iOS, use `react-native run-ios`.
+To run your app on iOS, use `npm run ios`.
 
 {% img blog/react-native-login/ios-login-process.png alt:"iOS Login Process" %}{: .center-image }
 
-To run it on Android, you'll need to modify your Gradle build files. 
+To run it on Android, you'll need to modify your Gradle build file to define a redirect scheme that captures the authorization redirect. Under `android` > `defaultConfig`, add:
 
-Okta's React Native SDK depends on the [Okta OIDC Android](https://github.com/okta/okta-oidc-android) library. You have to add this library through Gradle.
+```groovy
+manifestPlaceholders = [ appAuthRedirectScheme: 'com.okta.dev-######' ]
+```
 
-1. Add Okta's BinTray repo to `android/build.gradle`, under `allprojects` -> `repositories`.
-    ```
-    maven {
-      url  "https://dl.bintray.com/okta/com.okta.android"
-    }
-    ```
-2. Make sure your `minSdkVersion` is `19` in `android/build.gradle`.
-3. Define a redirect scheme to capture the authorization redirect. In `android/app/build.gradle`, under `android` -> `defaultConfig`, add:
-    ```
-    manifestPlaceholders = [ appAuthRedirectScheme: 'com.okta.dev-###### ]
-    ```
-
-Finally, start a virtual device (or plug in your phone), and run `react-native run-android`. 
+Finally, start a virtual device (or plug in your phone), and run `npm run android`. 
 
 {% img blog/react-native-login/android-login-process.png alt:"Android Login process" %}{: .center-image }
 

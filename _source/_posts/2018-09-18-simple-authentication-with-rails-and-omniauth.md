@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6918965796
+discourse_topic_id: 16933
+discourse_comment_url: https://devforum.okta.com/t/16933
 layout: blog_post
 title: 'Simple Authentication with Rails and OmniAuth'
 author: andrew-van-beek

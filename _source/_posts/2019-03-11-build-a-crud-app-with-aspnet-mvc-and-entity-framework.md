@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7286913587
+discourse_topic_id: 17018
+discourse_comment_url: https://devforum.okta.com/t/17018
 layout: blog_post
 title: "Build a CRUD App with ASP.NET MVC and Entity Framework"
 author: heather-downing

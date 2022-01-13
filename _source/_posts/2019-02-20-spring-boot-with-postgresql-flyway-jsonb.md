@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7245334658
+discourse_topic_id: 17002
+discourse_comment_url: https://devforum.okta.com/t/17002
 layout: blog_post
 title: "Spring Boot with PostgreSQL, Flyway, and JSONB"
 author: raphael-do-vale
@@ -378,16 +381,11 @@ okta.oauth2.clientId={yourClientId}
 
 These properties are going to tell Spring and Okta where to find the OAuth 2.0 issuer and identify the client ID for this application...
 
-... Issuer, client ID, what am I talking about? To test the application, you need to [create a free-forever account on Okta](https://developer.okta.com/signup/) and set up a few things.
+... Issuer, client ID, what am I talking about? 
 
-In the Okta dashboard, create an application of type `Service`, which indicates a resource server that does not have a login page or any way to obtain new tokens.
+{% include setup/cli.md type="service" %}
 
-{% img blog/postgresql-with-spring-boot/create-new-service.png alt:"Create new service" width:"800" %}{: .center-image }
-
-
-Click **Next**, type the name of your service, then click **Done**. You will be presented with a screen similar to the one below. Copy and paste the _Client ID_ in to your `application.properties` file.
- 
-{% img blog/postgresql-with-spring-boot/service-created.png alt:"Service created" width:"800" %}{: .center-image }
+Copy and paste the _Client ID_ in to your `application.properties` file.
 
 Now, start your application as before:
 
@@ -416,11 +414,9 @@ The server returns a 401 HTTP code, which means you are unauthorized. Now, let's
 
 First, you'll need to create a new web application in Okta to use this service:
 
-{% img blog/postgresql-with-spring-boot/create-new-web-application.png alt:"New web application" width:"800" %}{: .center-image }
+{% include setup/cli.md type="web" loginRedirectUri="https://oidcdebugger.com/debug" logoutRedirectUri="https://oidcdebugger.com" install="false" %}
 
-Set the _Login redirect URIs_ field to `https://oidcdebugger.com/debug` and _Grant Type Allowed_ to `Hybrid`. Click **Done** and copy the client ID for the next step.
-
-Now, on the OpenID Connect Debugger website, fill the form in like the screenshot below (do not forget to fill in the client ID for your recently created Okta web application):
+{% include setup/oidcdebugger.md %}
 
 {% img blog/postgresql-with-spring-boot/openid-connect.png alt:"OpenID Connect" width:"700" %}{: .center-image }
 

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7735347182
+discourse_topic_id: 17176
+discourse_comment_url: https://devforum.okta.com/t/17176
 layout: blog_post
 title: "Watch GraalVM Turn Your Java Into Binaries"
 author: brian-demers

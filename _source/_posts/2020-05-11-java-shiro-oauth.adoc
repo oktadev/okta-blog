@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8019407591
+discourse_topic_id: 17245
+discourse_comment_url: https://devforum.okta.com/t/17245
 layout: blog_post
 title: "Build a Secure Java Application with Apache Shiro and OAuth 2.0"
 author: brian-demers

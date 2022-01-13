@@ -1,8 +1,12 @@
 ---
+disqus_thread_id: 6300359374
+discourse_topic_id: 16771
+discourse_comment_url: https://devforum.okta.com/t/16771
 layout: blog_post
 author: william-dawson
 by: internal-contributor
 communities: [security]
+description: "Learn how we configured Transport Layer Security (TLS) client authentication between two internal services here at Okta."
 title: TLS Client Authentication for Internal Services
 redirect_from:
   - /blog/2015/10/29/tls-client-authentication-for-services/

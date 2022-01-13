@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7930599991
+discourse_topic_id: 17222
+discourse_comment_url: https://devforum.okta.com/t/17222
 layout: blog_post
 title: "Security Patterns for Microservice Architectures"
 author: matt-raible
@@ -17,7 +20,7 @@ type: awareness
 :page-liquid:
 :experimental:
 
-If you attend a lot of Java ecosystem conferences, you'll think that everyone uses microservices. It's a trendy topic, and developers everywhere are interested in learning about them. For a good reason too! Microservice architectures are a technique for delivering code faster.
+If you attend a lot of Java ecosystem conferences, you'll think that everyone uses https://www.okta.com/blog/2021/02/microservices/[microservices]. It's a trendy topic, and developers everywhere are interested in learning about them. For a good reason too! Microservice architectures are a technique for delivering code faster.
 
 https://twitter.com/crichardson[Chris Richardson] is a friend and expert on microservices. He suggests a helpful guideline in a recent blog post:
 

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7855016244
+discourse_topic_id: 17211
+discourse_comment_url: https://devforum.okta.com/t/17211
 layout: blog_post
 title: "Node Microservices: From Zero to Hero"
 author: nickolas-fisher
@@ -14,7 +17,7 @@ image: blog/featured/okta-node-skew.jpg
 type: conversion
 ---
 
-Node is one of the premier frameworks for microservice architecture today. The microservice pattern allows developers to compartmentalize individual components of a larger application infrastructure. Because each component runs independently, you can upgrade or modify components without impacting the larger application. Each component exposes an interface to external consumers who are blind to any internal logic the service does.
+Node is one of the premier frameworks for [microservice](https://www.okta.com/blog/2021/02/microservices/) architecture today. The microservice pattern allows developers to compartmentalize individual components of a larger application infrastructure. Because each component runs independently, you can upgrade or modify components without impacting the larger application. Each component exposes an interface to external consumers who are blind to any internal logic the service does.
 
 One of the challenges of working in a microservice environment is the process of one service finding another to call it. Each service runs as an application and has an address that the calling service must find before it can call any functions on its interface.
 

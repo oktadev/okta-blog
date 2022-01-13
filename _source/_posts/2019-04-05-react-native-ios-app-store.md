@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7339576112
+discourse_topic_id: 17031
+discourse_comment_url: https://devforum.okta.com/t/17031
 layout: blog_post
 title: 'Build an iOS App with React Native and Publish it to the App Store'
 author: karl-penzhorn
@@ -22,6 +25,10 @@ Here you'll be starting with the code from a [previous monster Okta blog post](/
 
 For this post, you'll first get the Android app to work well on iOS, as well as adding a splash screen and app icon. Then you'll go through the signing process and publishing onto the App Store.
 
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+
 Start by cloning the repo and installing all the required libraries.
 
 ```bash
@@ -36,7 +43,7 @@ From here you should be able to say `react-native run-android` to deploy to an e
 
 Right now when you click Login you will be taken to an Okta login page. This is connected to an Okta account I used for development. You need to create your own account and configure this app to use it.
 
-First, [sign up for a free Okta developer account](https://developer.okta.com/signup/), or log in if you already have one. Then navigate to **Applications** > **Add Application**. Select **Native** and click **Next**. Choose a name and click **Done**. Note your **Login redirect URI** and the **Client ID** since you have to add them to your app.
+{% include setup/cli.md type="native" loginRedirectUri="com.okta.dev-133337:/callback" logoutRedirectUri="com.okta.dev-133337:/callback" %}
 
 Now in your `App.js` find where the **config** variable is defined (near the top) and change the pertinent values to that of your Okta app:
 
@@ -54,7 +61,7 @@ const config = {
 
 Start by running `react-native run-ios` from a Mac computer. An iOS simulator should appear and in the console, your project will compile. 
 
-**NOTE:** If you get an error `Print: Entry, ":CFBundleIdentifier", Does Not Exist` there are [several](https://github.com/facebook/react-native/issues/7308) [issues](https://github.com/facebook/react-native/issues/14423) on Github tracking this with various suggestions on fixing it. The simplest might just to open up `ios/prime_components.xcodeproj` in Xcode and build the project from there.
+**NOTE:** If you get an error `Print: Entry, ":CFBundleIdentifier", Does Not Exist` there are [several](https://github.com/facebook/react-native/issues/7308) [issues](https://github.com/facebook/react-native/issues/14423) on GitHub tracking this with various suggestions on fixing it. The simplest might just to open up `ios/prime_components.xcodeproj` in Xcode and build the project from there.
 
 You should see an error `'AppAuth/AppAuth.h' file not found`. You need to [link the AppAuth library to iOS](https://github.com/FormidableLabs/react-native-app-auth#ios-setup). The easiest is with Cocoapods. Put the following into `ios/Podfile`:
 

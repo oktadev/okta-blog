@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7292011519
+discourse_topic_id: 17019
+discourse_comment_url: https://devforum.okta.com/t/17019
 layout: blog_post
 title: "Build a REST API with ASP.NET Web API"
 author: ryan-foster
@@ -245,7 +248,7 @@ public HttpResponseMessage Put(int id, [FromBody]CustomListItem model)
 
 The code above is similar to the other methods you have implemented. Note that if you were updating a resource that had a uniqueness constraint, you would need to make sure the update did not violate that constraint. If a conflict was detected, you would use the status code 409 (Conflict) to inform the caller that the update failed.
 
-## Secure Your RESTful ASP.NET Web API 
+## Secure Your RESTful ASP.NET Web API
 
 What is the best way to secure this API if you need to access it from another program or service?
 
@@ -259,28 +262,22 @@ Here's how it works:
 2. When the client makes a request to your API, it sends along the access token in the authorization header.
 3. Your API validates the token. If the token is valid and contains the right permissions, your API allows the request to complete.
 
-(If this is all new to you, you can [learn more about OAuth here](https://developer.okta.com/blog/2017/06/21/what-the-heck-is-oauth).)
-
-You probably don't want to build an OAuth 2.0 authorization server yourself, so for this tutorial, you will sign up for a [forever-free Okta developer account](https://developer.okta.com/signup/) (or sign in to `{yourOktaDomain}` if you already have an account).
+(If this is all new to you, you can [learn more about OAuth here](/blog/2017/06/21/what-the-heck-is-oauth).)
 
 ## Register the Client Application for Your REST API
 
-Once you're signed in to Okta, register your client application.
+{% include setup/cli.md type="service" %}
 
-* In the top menu, click on **Applications**
-* Click on **Add Application**
-* Select **Service** and click **Next**
-* Enter `Postman` for the **Name** and click **Done**
-
-Note the **Client ID** and the **Client Secret**. This is the username and password that our client application (Postman in our case) need to send to the authorization server to request an access token. You can make note these credentials now or you can come back and get them later when you need them.
+The **OKTA_OAUTH2_CLIENT_ID** and **OKTA_OAUTH2_CLIENT_SECRET** is the username and password that our client application (Postman in our case) will need to send to the authorization server to request an access token. You can make note these credentials now or you can come back and get them later when you need them.
 
 ## Create a Custom Scope
 
 Now you need to set up the authorization server:
 
-* Go to **API** > **Authorization Servers**
-* Click the link for the **default** authorization server
-* Select the **Scopes** tab
+* Log into the Okta Admin Console (use `okta login` to get your org's URL)
+* Go to **Security** > **API**
+* Click the link for the **default** Authorization Server
+* Select the **Scopes** tab and click **Add Scope**
 * Add a scope named `manage:lists` and click **Create** (you can leave everything except for the **Name** field blank)
 
 Your client application will request access to this scope.

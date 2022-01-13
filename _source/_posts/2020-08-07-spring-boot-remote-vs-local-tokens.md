@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8157097126
+discourse_topic_id: 17274
+discourse_comment_url: https://devforum.okta.com/t/17274
 layout: blog_post
 title: "JWT vs Opaque Access Tokens: Use Both With Spring Boot"
 author: brian-demers
@@ -66,7 +69,7 @@ Click **Done**
 
 {% img blog/spring-boot-remote-vs-local-tokens/okta-app-creation.jpeg alt:"Create an Okta application screenshot" width:"600" %}
 
-Head over to [start.spring.io](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.2.6.RELEASE&packaging=jar&jvmVersion=1.8&groupId=com.okta.example&artifactId=spring-token-example&name=spring-token-example&description=Demo%20project%20for%20Spring%20Boot&packageName=com.okta.example&dependencies=security,web) and click the **Generate** button.
+Head over to [start.spring.io](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.4.1.RELEASE&packaging=jar&jvmVersion=1.8&groupId=com.okta.example&artifactId=spring-token-example&name=spring-token-example&description=Demo%20project%20for%20Spring%20Boot&packageName=com.okta.example&dependencies=security,web) and click the **Generate** button.
 
 **Note:** The above link populates the following settings:
 
@@ -89,7 +92,6 @@ Add two more dependencies to the Maven `pom.xml` file:
 <dependency>
     <groupId>com.nimbusds</groupId>
     <artifactId>oauth2-oidc-sdk</artifactId>
-    <version>7.3</version>
 </dependency>
 ```
 
@@ -328,6 +330,8 @@ Update your `src/main/resources/application.properties` file to include the prop
 spring.security.oauth2.client.provider.okta.issuer-uri = {yourOktaDomain}/oauth2/default
 spring.security.oauth2.client.registration.okta.client-id = {clientId}
 spring.security.oauth2.client.registration.okta.client-secret = {clientSecret}
+# As of Spring Boot 2.4, you must explicitly set the scope value 
+spring.security.oauth2.client.registration.okta.scope = openid
 ```
 
 Run the application on the command line:
@@ -412,3 +416,8 @@ Check out these related blog posts to learn more about building secure web appli
 * [Secure Legacy Apps with Spring Cloud Gateway](/blog/2020/01/08/secure-legacy-spring-cloud-gateway)
 
 If you like this blog post and want to see more like it, follow[@oktadev on Twitter](https://twitter.com/oktadev), subscribe to [our YouTube channel](https://youtube.com/c/oktadev), or follow us [on LinkedIn](https://www.linkedin.com/company/oktadev/). As always, please leave a comment below if you have any questions.
+
+<a name="changelog"></a>
+**Changelog**:
+
+* Dec 22, 2020: Updated post to work with Spring Boot 2.4.1 and explicitly set the OAuth scope, as Spring Security no longer provides a default value. Thanks for the suggestion, Wolf! See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-spring-jwt-and-opaque-token-example/commit/d5b63e989f52498eda3f5773a75f3733e0f12b23). Changes to this post can be viewed in [oktadeveloper/okta-blog#508](https://github.com/oktadeveloper/okta-blog/pull/508).

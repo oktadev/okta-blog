@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7273935444
+discourse_topic_id: 17013
+discourse_comment_url: https://devforum.okta.com/t/17013
 layout: blog_post
 title: "Migrate Your Spring Boot App to the Latest and Greatest Spring Security and OAuth 2.0"
 author: micah-silverman
@@ -60,30 +63,13 @@ Okta makes it a snap to configure OIDC and OAuth 2.0 for your applications. All 
 
 Get Okta set up with OIDC and OAuth 2.0 for the Spring Boot examples found in the [code](https://github.com/oktadeveloper/okta-spring-boot-oauth2-migration-example). You only need to do this configuration once for use in each of the 3 code examples.
 
-First, head on over to [https://developer.okta.com/signup/](https://developer.okta.com/signup/) and create  yourself a free developer Okta organization. Follow the instructions to activate your organization.
-
 ### Create an OIDC Application in Okta
 
-Click `Applications` from your Okta Admin UI menu
-
-{% img blog/spring-boot-migration/01_add_oidc_application.png alt:"oidc app" width:"650" %}{: .center-image }
-
-Click `Add Application` and click the `Web` option.
-
-{% img blog/spring-boot-migration/02_web_app.png alt:"web app" width:"650" %}{: .center-image }
-
-
-Click `Next`. Enter a `Name` for the app. Change the value for `Login Redirect URIs` to: `http://localhost:8080/login/oauth2/code/okta`. Add another Login Redirect Uri: `http://localhost:8080/login`. Leave all the other default values.
-
-{% img blog/spring-boot-migration/03_oidc_app_config.png alt:"oidc config" width:"650" %}{: .center-image }
+{% include setup/cli.md type="web" loginRedirectUri="http://localhost:8080/login/oauth2/code/okta,http://localhost:8080/login" logoutRedirectUri="http://localhost:8080" %}
 
 NOTE: You add two different login redirect uris to support the different versions of Spring Boot. In the 2.1.x version, you'd use: `http://localhost:8080/login/oauth2/code/okta`
 
-Click `Done`. Scroll down and capture the `Client ID` and the `Client Secret` values.
-
-{% img blog/spring-boot-migration/04_clientid_and_secret.png alt:"client id and secret" width:"650" %}{: .center-image }
-
-That's it! four steps. Not too bad.
+That's it! A couple commands. Not too bad.
 
 ## Play the Spring Boot OpenID Connect and OAuth 2.0 Game
 
@@ -170,14 +156,14 @@ security:
       clientId: {okta client id}
       clientSecret: {okta client secret}
     resource:
-      tokenInfoUri: https://{yourOktaDomain}.okta.com/oauth2/default/v1/introspect
+      tokenInfoUri: https://{yourOktaDomain}/oauth2/default/v1/introspect
 ```
 
 All that's required is a `clientId`, a `clientSecret` and a `tokenInfoUri`.
 
 Okta uses JWTs for access tokens. This means that you *could* validate the JWT locally be (a) obtaining the public key that matches the private key used to sign it and (b) parsing the values out of the payload of the JWT (like, when it expires).
 
-However, with Spring Boot 1.5, that requires additional configuration and additional code. So, to keep everything as simple as possible, this version of the Resource Server uses an [Introspect}(https://oauth.net/2/token-introspection/) request instead. The impact of this choice, though, is that the Resource Server makes an API call to Okta every time it gets a request in order for Okta to validate the access token.
+However, with Spring Boot 1.5, that requires additional configuration and additional code. So, to keep everything as simple as possible, this version of the Resource Server uses an [Introspect](https://oauth.net/2/token-introspection/) request instead. The impact of this choice, though, is that the Resource Server makes an API call to Okta every time it gets a request in order for Okta to validate the access token.
 
 You'll see in the other examples that JWT handling is built in and easier to configure and manage. Also, it's worth noting that previous versions of the Okta Spring Boot Starter included support for validating and parsing JWT access tokens, so if you must use Spring Boot 1.5.x, take a look at the matching version of the [Okta Spring Boot Starter](https://github.com/okta/okta-spring-boot/tree/okta-spring-boot-parent-0.6.1).
 
@@ -193,12 +179,12 @@ security:
     client:
       clientId: {okta client id}
       clientSecret: {okta client secret}
-      accessTokenUri: https://{yourOktaDomain}.okta.com/oauth2/default/v1/token
-      userAuthorizationUri: https://{yourOktaDomain}.okta.com/oauth2/default/v1/authorize
+      accessTokenUri: https://{yourOktaDomain}/oauth2/default/v1/token
+      userAuthorizationUri: https://{yourOktaDomain}/oauth2/default/v1/authorize
       clientAuthenticationScheme: form
       scope: openid profile email
     resource:
-      userInfoUri: https://{yourOktaDomain}.okta.com/oauth2/default/v1/userinfo
+      userInfoUri: https://{yourOktaDomain}/oauth2/default/v1/userinfo
       server: http://localhost:8081
 ```
 
@@ -300,7 +286,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: https://{yourOktaDomain}.okta.com/oauth2/default/v1/keys
+          jwk-set-uri: https://{yourOktaDomain}/oauth2/default/v1/keys
 ```
 
 Well, this is a breath of terse fresh air! All your Resource Server needs is the `jwks` (JWT Key Set) endpoint. This endpoint returns a set of public keys that the Resource Server uses to validate the cryptographic signature of the access token.
@@ -345,7 +331,7 @@ spring:
       client:
         provider:
           okta:
-            issuer-uri: https://{yourOktaDomain}.okta.com/oauth2/default
+            issuer-uri: https://{yourOktaDomain}/oauth2/default
         registration:
           okta:
             client-id: {okta client id}
@@ -356,7 +342,7 @@ spring:
 
 In this case, you just need a `client-id`, `client-secret` and an `issuer-uri`. The OAuth integration will automatically retrieve the authorization and token endpoints of the Authorization Server using a well-known endpoint. You can try it yourself by browsing to:
 
-`https://{yourOktaDomain}.okta.com/oauth2/default/.well-known/oauth-authorization-server`
+`https://{yourOktaDomain}/oauth2/default/.well-known/oauth-authorization-server`
 
 You'll get back a json document that has all the configuration information for your Okta Authorization Server, including the link to the JWT key set uri.
 
@@ -468,7 +454,7 @@ okta:
   oauth2:
     clientId: {okta client id}
     clientSecret: {okta client secret}
-    issuer: https://{yourOktaDomain}.okta.com/oauth2/default
+    issuer: https://{yourOktaDomain}/oauth2/default
     audience: http://localhost:8081
 ```
 
@@ -525,7 +511,7 @@ return this.webClient
 
 The code for this post can be found on [GitHub OktaDeveloper](https://github.com/oktadeveloper/okta-spring-boot-oauth2-migration-example) repo.
 
-Follow these links for more information about [OIDC](https://developer.okta.com/blog/2017/07/25/oidc-primer-part-1), [OAuth 2.0](https://developer.okta.com/blog/2018/04/10/oauth-authorization-code-grant-type), [JWT](https://developer.okta.com/blog/2018/10/31/jwts-with-java), and the various [Flows](https://aaronparecki.com/oauth-2-simplified/#authorization).
+Follow these links for more information about [OIDC](/blog/2017/07/25/oidc-primer-part-1), [OAuth 2.0](/blog/2018/04/10/oauth-authorization-code-grant-type), [JWT](/blog/2018/10/31/jwts-with-java), and the various [Flows](https://aaronparecki.com/oauth-2-simplified/#authorization).
 
 Spring Boot and Spring Security's first-class support for OpenID Connect and OAuth 2.0 adds a new level of interoperability with providers (such as Okta) with minimal dependencies, minimal configuration and minimal code.
 

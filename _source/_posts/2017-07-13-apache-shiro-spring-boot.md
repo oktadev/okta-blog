@@ -1,8 +1,12 @@
 ---
+disqus_thread_id: 6300572985
+discourse_topic_id: 16780
+discourse_comment_url: https://devforum.okta.com/t/16780
 layout: blog_post
 title: 'Protecting a Spring Boot App with Apache Shiro'
 author: brian-demers
 by: advocate
+description: "Learn how to use the Apache Shiro Spring Boot starter to set up role-based access control (RBAC) and permissions for your users."
 communities: [java]
 tags: [java, authentication, auth]
 type: conversion
@@ -19,7 +23,7 @@ Your boss (The Supreme Commander) shows up at your desk and tells you the curren
 
 ## Start with a REST Application
 
-To get started, grab this [Spring Boot example](https://github.com/oktadeveloper/shiro-spring-boot-example). It'll get you started with a set of REST endpoints which expose CRUD operations to manage a list of Stormtroopers. You'll be adding authentication and authorization using [Apache Shiro](https://shiro.apache.org).  All of the code is up on [Github](https://github.com/bdemers/shiro-spring-boot-example).
+To get started, grab this [Spring Boot example](https://github.com/oktadeveloper/shiro-spring-boot-example). It'll get you started with a set of REST endpoints which expose CRUD operations to manage a list of Stormtroopers. You'll be adding authentication and authorization using [Apache Shiro](https://shiro.apache.org).  All of the code is up on [GitHub](https://github.com/bdemers/shiro-spring-boot-example).
 
 
 Using the Apache Shiro Spring Boot starter is all you need, just add the dependency to your pom. (where `${shiro.version}` is at least 1.4.0):
@@ -243,7 +247,7 @@ The first two handle Shiro exceptions and simply set the status to 401 or 403. A
 
 ## Fire it Up!
 
-If you put all of this together, or you just grab the code from [Github](https://github.com/oktadeveloper/shiro-spring-boot-example), you can start the application using `mvn spring-boot:run`.  Once you have everything running you can start making requests!
+If you put all of this together, or you just grab the code from [GitHub](https://github.com/oktadeveloper/shiro-spring-boot-example), you can start the application using `mvn spring-boot:run`.  Once you have everything running you can start making requests!
 
 ``` bash
 $ curl http://localhost:8080/troopers

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7845961409
+discourse_topic_id: 17209
+discourse_comment_url: https://devforum.okta.com/t/17209
 layout: blog_post
 title: "How to GraphQL in Java"
 author: thiago-negri
@@ -367,19 +370,7 @@ Okta offers a very handy Maven plugin to set up your app's security quickly and 
 </dependency>
 ```
 
-Then run the Okta Maven plugin from your app's folder:
-
-```shell
-./mvnw com.okta:okta-maven-plugin:register
-```
-
-Answer a few questions (name, email, and company), and it will generate a new Okta developer account for you.
-
-Run the following command to register a new OIDC application, and add the correct properties into your `application.properties` file.
-
-```shell
-./mvnw com.okta:okta-maven-plugin:spring-boot
-```
+{% include setup/maven.md %}
 
 If you start your app again, you'll notice that you can't run GraphQL queries anymore. That's because you're not authenticated.
 

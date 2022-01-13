@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6674984077
+discourse_topic_id: 16872
+discourse_comment_url: https://devforum.okta.com/t/16872
 layout: blog_post
 title: "Build Secure Node Authentication with Passport.js and OpenID Connect"
 author: lee-brandt
@@ -276,6 +279,6 @@ That's all the basics of getting Passport.js to handle an OpenID Connect authent
 
 ## Learn More About Node, Authentication, and Okta
 
-Can't get enough Node? Check out our [quickstarts for Node](https://developer.okta.com/code/nodejs/) and other cool posts from the Okta Developer blog, like our post on [simple Node authentication](https://developer.okta.com/blog/2018/04/24/simple-node-authentication), and my post on [user registration with Node and React](https://developer.okta.com/blog/2018/02/06/build-user-registration-with-node-react-and-okta).
+Can't get enough Node? Check out our [quickstarts for Node](https://developer.okta.com/code/nodejs/) and other cool posts from the Okta Developer blog, like our post on [simple Node authentication](/blog/2018/04/24/simple-node-authentication), and my post on [user registration with Node and React](/blog/2018/02/06/build-user-registration-with-node-react-and-okta).
 
 As always, feel free to ping us on Twitter [@oktadev](https://twitter.com/oktadev) or leave comments below, and don't forget to check out our [YouTube channel](https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q)!

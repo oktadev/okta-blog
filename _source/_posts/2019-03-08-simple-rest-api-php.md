@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7278705186
+discourse_topic_id: 17016
+discourse_comment_url: https://devforum.okta.com/t/17016
 layout: blog_post
 title: 'Build a Simple REST API in PHP'
 author: krasimir-hristozov
@@ -14,12 +17,16 @@ type: conversion
 
 REST APIs are the backbone of modern web development. Most web applications these days are developed as single-page applications on the frontend, connected to backend APIs written in various languages. There are many great frameworks that can help you build REST APIs quickly. Laravel/Lumen and Symfony's API platform are the most often used examples in the PHP ecosystem. They provide great tools to process requests and generate JSON responses with the correct HTTP status codes. They also make it easy to handle common issues like authentication/authorization, request validation, data transformation, pagination, filters, rate throttling, complex endpoints with sub-resources, and API documentation.
 
-You certainly don't need a complex framework to build a simple but secure API though. In this article, I'll show you how to build a simple REST API in PHP from scratch. We'll make the API secure by using Okta as our authorization provider and implementing the Client Credentials Flow.
+You certainly don't need a complex framework to build a simple but secure API though. In this article, I'll show you how to build a simple REST API in PHP from scratch. We'll make the API secure by using Okta as our authorization provider and implementing the Client Credentials Flow. Okta is an API service that allows you to create, edit, and securely store user accounts and user account data, and connect them with one or more applications.
 
-Okta is an API service that allows you to create, edit, and securely store user accounts and user account data, and connect them with one or more applications. [Register for a forever-free developer account](https://developer.okta.com/signup/), and when you're done, come back to learn more about building a simple REST API in PHP.
+There are different authentication flows in OAuth 2.0, depending on if the client application is public or private and if there is a user involved or the communication is machine-to-machine only. The Client Credentials Flow is best suited for machine-to-machine communication where the client application is private (and can be trusted to hold a secret). At the end of the post, I'll show you how to build a test client application as well.
 
-There are different authentication flows in OAuth 2.0, depending on if the client application is public or private and if there is a user involved or the communication is machine-to-machine only. The Client Credentials Flow is best suited for machine-to-machine communication where the client application is private (and can be trusted to hold a secret). At the end of the post, I'll show you how to build a test client application as well. 
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+  
 ## Create the PHP Project Skeleton for Your REST API
+
 We'll start by creating a `/src` directory and a simple `composer.json` file in the top directory with just one dependency (for now): the DotEnv library which will allow us to keep our Okta authentication details in a `.env` file outside our code repository:
 
 `composer.json`
@@ -610,62 +617,46 @@ The client sends the access token to the REST API server;
 The server asks Okta for some metadata that allows it to verify tokens and validates the token (alternatively, it can just ask Okta to verify the token);
 The server then provides the API resource if the token is valid, or responds with a 401 Unauthorized status code if the token is missing, expired or invalid.
 
-Before you proceed, you need to log into your Okta account (or [create a new one for free](https://developer.okta.com/signup/)), create your authorization server and set up your client application. 
+{% include setup/cli.md type="service" %}
 
-Log in to your developer console, navigate to API, then to the Authorization Servers tab. Click on the link to your default server. We will copy the Issuer Uri field from this Settings tab and add it to our .env file:
+These are the credentials that your client application will need in order to authenticate. For this example, the client and server code will be in the same repository, so we will add these credentials to our `.env` file as well (make sure to replace `{yourClientId}` and `{yourClientSecret}` with the values from this page):
 
+Add to `.env.example`:
+
+```bash
+OKTAISSUER=
+OKTACLIENTID=
+OKTASECRET=
+```
+
+Add these keys and values to `.env`:
 
 ```bash
 OKTAISSUER=https://{yourOktaDomain}/oauth2/default
+OKTACLIENTID={yourClientId}
+OKTASECRET={yourClientSecret}
 ```
 
-{% img blog/php-rest-api/issuer-uri.png alt:"Find the issuer URI" width:"800" %}{: .center-image }
+Log in to the Okta Admin Console (tip: run `okta login`, open URL in a browser). Navigate to **Security** > **API**. Select your **default** Authorization Server. Click the **Edit** icon, go to the **Scopes** tab and click **Add Scope** to add a scope for the REST API. Name it `person_api` and check **Set as a default scope**.
 
-
-You can see the Issuer URI of my test Okta account in the screenshot above. Copy your own value and put it in your `.env` file.
-
-Next click the **Edit** icon, go to the **Scopes** tab and click **Add Scope** to add a scope for the REST API. We'll title it `person_api`:
-
-{% img blog/php-rest-api/create-the-person-scope.png alt:"Create the person_api scope" width:"800" %}{: .center-image }
-
-We need to add the scope to our `.env` file as well. We'll add the following to `.env.example`:
+Add the scope to `.env.example`:
 
 ```bash
 SCOPE=
 ```
 
-and the key with the value to .env:
+and the key with the value to `.env`:
 
 ```bash
 SCOPE=person_api
 ```
 
-The next step is to create a client. Navigate to **Applications**, then click **Add Application**. Select **Service**, then click **Next**. Enter a name for your service, (e.g. People Manager), then click **Done**. This will take you to a page that has your client credentials:
-
-{% img blog/php-rest-api/view-client-credentials.png alt:"View the client credentials" width:"800" %}{: .center-image }
-
-These are the credentials that your client application will need in order to authenticate. For this example, the client and server code will be in the same repository, so we will add these credentials to our `.env` file as well (make sure to replace `{yourClientId}` and `{yourClientSecret}` with the values from this page):
-
-Add to .env.example:
-
-```bash
-OKTACLIENTID=
-OKTASECRET=
-```
-
-Add to .env:
-
-```bash
-OKTACLIENTID={yourClientId}
-OKTASECRET={yourClientSecret}
-```
-
 ## Add Authentication to Your PHP REST API
 
-We'll use the Okta JWT Verifier library. It requires a JWT library (we'll use `spomky-labs/jose`) and a PSR-7 compliant library (we'll use `guzzlehttp/psr7`). We'll install everything through composer:
+We'll use the Okta JWT Verifier library. It requires a JWT library (we'll use `firebase/php-jwt`) and a PSR-7 compliant library (we'll use `guzzlehttp/psr7`). We'll install everything through composer:
 
 ```bash
-composer require okta/jwt-verifier spomky-labs/jose guzzlehttp/psr7
+composer require okta/jwt-verifier:"^1.1" firebase/php-jwt:"^5.2" guzzlehttp/psr7:"^1.8" mailgun/mailgun-php:"^3.5" kriswallsmith/buzz:"^1.2" nyholm/psr7:"^1.4"
 ```
 
 Now we can add the authorization code to our front controller (if using a framework, we'll do this in a middleware instead):
@@ -842,13 +833,13 @@ php -S 127.0.0.1:8000 -t public
 That's it! 
 
 ## Learn More About PHP, Secure REST APIs, and OAuth 2.0 Client Credentials Flow
-You can find the whole code example here: 
-[GitHub link](https://github.com/oktadeveloper/okta-php-core-rest-api-example)
+
+You can find all the code from this example on GitHub, in the [oktadeveloper/okta-php-core-rest-api-example](https://github.com/oktadeveloper/okta-php-core-rest-api-example) repository.
 
 If you would like to dig deeper into the topics covered in this article, the following resources are a great starting point:
 
-* [Our Vue/PHP Quickstart Guide](https://developer.okta.com/quickstart/#/vue/php/generic)
-* [Okta Authentication Overview](https://developer.okta.com/authentication-guide/auth-overview/)
+* [Our Vue/PHP Quickstart Guide](/quickstart/#/vue/php/generic)
+* [Okta Authentication Overview](/authentication-guide/auth-overview/)
 * [Add Authentication to your PHP App in 5 Minutes](/blog/2018/07/09/five-minute-php-app-auth)
 * [Build Simple Login in PHP](/blog/2018/12/28/simple-login-php)
 

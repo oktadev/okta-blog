@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8046868969
+discourse_topic_id: 17249
+discourse_comment_url: https://devforum.okta.com/t/17249
 layout: blog_post
 title: "Angular Deployment with a Side of Spring Boot"
 author: matt-raible
@@ -12,6 +15,12 @@ tweets:
 - "A Guide for deploying @angular and @springboot applications in 2020. 👇"
 image: blog/angular-deployment/angular-deployment.png
 type: conversion
+update-title: The Angular Mini-Book
+update-url: https://www.infoq.com/minibooks/angular-mini-book/
+update-extra: Its "Angular Deployment" chapter was inspired by this blog post.
+changelog:
+  - 2021-11-21: Added announcement about [The Angular Mini-Book](https://www.infoq.com/minibooks/angular-mini-book/). Its "Angular Deployment" chapter was inspired by this blog post.
+  - 2020-06-18: Updated to Spring Boot 2.3.1, Angular 9.1.11, and the latest [Okta Heroku Add-on](https://elements.heroku.com/addons/okta). See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-angular-deployment-example/pull/2). Changes to this article can be viewed in [oktadeveloper/okta-blog#328](https://github.com/oktadeveloper/okta-blog/pull/328).
 ---
 :toc: macro
 :page-liquid:
@@ -1238,8 +1247,3 @@ If you liked this tutorial, we have several others on Angular and Spring Boot.
 - link:/blog/2019/09/17/build-a-spring-boot-kotlin-app[Build an Application with Spring Boot and Kotlin]
 
 If you have any questions, please leave a comment below. Follow us on https://twitter.com/oktadev[Twitter], https://www.linkedin.com/company/oktadev[LinkedIn], or https://www.facebook.com/oktadevelopers/[Facebook] to be notified when we publish new tutorials. We have a popular https://youtube.com/c/oktadev[YouTube channel] too!
-
-[[changelog]]
-**Changelog:**
-
-* Jun 18, 2020: Updated to Spring Boot 2.3.1, Angular 9.1.11, and the latest https://elements.heroku.com/addons/okta[Okta Heroku Add-on]. See the code changes in the https://github.com/oktadeveloper/okta-angular-deployment-example/pull/2[example app on GitHub]. Changes to this article can be viewed in https://github.com/oktadeveloper/okta-blog/pull/328[oktadeveloper/okta-blog#328].

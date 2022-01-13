@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8263405573
+discourse_topic_id: 17313
+discourse_comment_url: https://devforum.okta.com/t/17313
 layout: blog_post
 title: "A Quick Guide to Security with Vaadin Fusion and Spring Boot"
 author: matt-raible
@@ -109,23 +112,10 @@ Make sure your IDE imports the dependencies, or re-run `mvn`.
 
 === Register an OpenID Connect Application
 
-Create a free Okta developer account on https://developer.okta.com/signup[developer.okta.com] if you don't already have one.
+{% include setup/cli.md type="spa" adoc="true"
+   loginRedirectUri="http://localhost:8080/callback" %}
 
-Once logged in, go to **Applications** > **Add Application** and select **Single-Page App**.
-
-image::{% asset_path 'blog/vaadin-spring-boot/select-spa.png' %}[alt=Select Single-Page App,width=800,align=center]
-
-Configure the app settings and click **Done** to create the app:
-
-image::{% asset_path 'blog/vaadin-spring-boot/spa-settings.png' %}[alt=Single-Page App Settings,width=800,align=center]
-
-- **Name**: Vaadin Fusion
-- **Base URIs**: `http://localhost:8080`
-- **Login redirect URIs**: `http://localhost:8080/callback`
-- **Logout redirect URIs**: `http://localhost:8080`
-- **Grant type allowed**: Authorization Code
-
-Store the issuer in `src/main/resources/application.properties` by adding the following property:
+You only need the issuer in `src/main/resources/application.properties`; you can delete the client ID and secret for tighter security.
 
 [source,properties]
 ----
@@ -716,4 +706,4 @@ If you want to know more about Spring Boot and Okta, you might find these blog p
 
 As always, if you have any questions, feel free to leave us a comment below. Don't forget to follow us on https://twitter.com/oktadev[Twitter], like us on https://www.facebook.com/oktadevelopers[Facebook], check us out on https://www.linkedin.com/company/oktadev/[LinkedIn], and subscribe to our https://www.youtube.com/oktadev[YouTube channel].
 
-NOTE: If you'd like to learn more about Vaadin and Okta, please join Marcus and me for a https://v.vaadin.com/vaadin-webinar-web-application-security[webinar on web app security on November 17, 2020].
+NOTE: If you'd like to learn more about Vaadin and Okta, you can watch https://www.youtube.com/watch?v=ZIweXk3guaE[Web app security made simple with Vaadin and Okta]. This is a webinar Marcus and I did on November 17, 2020.

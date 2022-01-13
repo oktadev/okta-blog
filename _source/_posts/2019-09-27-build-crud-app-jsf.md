@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7652939119
+discourse_topic_id: 17146
+discourse_comment_url: https://devforum.okta.com/t/17146
 layout: blog_post
 title: "Build a Simple CRUD App with Java and JSF"
 author: thiago-negri
@@ -20,8 +23,11 @@ Why use JSF instead of JavaServer Pages (JSP)? There are two primary reasons: Fi
 
 With that background, let's create a simple application that shows the power of JSF. In this tutorial, we will build a simple web app to manage a list of your favorite books backed by a database and secure access to your app with Okta.
 
-## Create a CRUD Application With JSF
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
 
+## Create a CRUD Application With JSF
 
 To begin, we will use the TomEE Maven archetype to generate the project:
 
@@ -580,20 +586,11 @@ Restart the app with `mvn package tomee:run`. The app will look a bit better now
 
 ## Secure Your Application With Okta
 
-At the moment, anyone can access our awesome Book application and change the database.
-To prevent that, let's add a security layer to our application with the Spring Security library and authenticate users through Okta.
+At the moment, anyone can access our awesome Book application and change the database. To prevent that, let's add a security layer to our application with the Spring Security library and authenticate users through Okta.
 
-First, [register for a forever-free developer account today!](https://developer.okta.com/signup/) When you're finished, complete the steps below to create an OIDC app.
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
 
-1. Log in to your developer account at [developer.okta.com](https://developer.okta.com/)
-2. Navigate to **Applications** and click on **Add Application**
-3. Select **Web** and click **Next**
-4. Give the application a name (.e.g., `Java JSF Secure CRUD`) 
-5. Add the following as Login redirect URI:
-    - `http://localhost:8080/login/oauth2/code/okta`
-5. Click **Done**
-
-Now, create the file `src/main/resources/application.properties` with your **Client ID** and **Client Secret**, you can find these on the **General** tab of the app you just created.
+In `src/main/resources/application.properties`, adjust the property names to match those below.
 
 ```properties
 okta.client-id={clientId}
@@ -601,7 +598,7 @@ okta.client-secret={clientSecret}
 okta.issuer-uri=https://{yourOktaDomain}/oauth2/default
 ```
 
-Let's add Spring Security as a dependency in your `pom.xml` file:
+Add Spring Security as a dependency in your `pom.xml` file:
 
 ```xml
 <properties>

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6306584317
+discourse_topic_id: 16796
+discourse_comment_url: https://devforum.okta.com/t/16796
 layout: blog_post
 title: "Meet the New Okta Identity Platform"
 author: randall-degges

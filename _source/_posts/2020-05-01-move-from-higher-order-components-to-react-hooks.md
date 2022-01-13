@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8002419987
+discourse_topic_id: 17244
+discourse_comment_url: https://devforum.okta.com/t/17244
 layout: blog_post
 title: "How to Move from Consuming Higher-Order Components to React Hooks"
 author: lee-brandt
@@ -12,6 +15,8 @@ tweets:
 - "If you're new to React Hooks and want to understand the difference from Higher-Order Components, we've got you covered!"
 image: blog/featured/okta-react-headphones.jpg
 type: conversion
+changelog:
+  - 2020-05-06: Updated to use the v3.0.1 version of the Okta React SDK and add a GitHub repo. Changes to this article can be viewed in [oktadeveloper/okta-blog#285](https://github.com/oktadeveloper/okta-blog/pull/285).
 ---
 
 Let's face it. Higher-Order Components (HOCs) allow developers to really take advantage and extend the functionality of their React components, but they can be cumbersome once you have more than one that you want to use within a component. It's mostly because of the way they're used. Not only do you have to use a class component in order, but you also use the HOC by wrapping them around your components. Wrapping the component code forces you to either end up with:
@@ -413,7 +418,3 @@ If you want to learn more about React or Okta, check out these great posts!
 
 
 Also, don't forget to follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://youtube.com/c/oktadev) channel for more great content!
-
-**Changelog:**
-
-* May 6, 2020: Updated to use the v3.0.1 version of the Okta React SDK and add a GitHub repo. Changes to this article can be viewed in [oktadeveloper/okta-blog#285](https://github.com/oktadeveloper/okta-blog/pull/285).

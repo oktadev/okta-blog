@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7499695329
+discourse_topic_id: 17081
+discourse_comment_url: https://devforum.okta.com/t/17081
 layout: blog_post
 title: "Build Secure Microservices in PHP"
 author: krasimir-hristozov
@@ -13,7 +16,7 @@ image: blog/featured/okta-php-headphones.jpg
 type: conversion
 ---
 
-The history of software is a history of improving architectures - from the underlying hardware, OS and virtualization platforms, programming languages and frameworks, to the architecture of the applications we build. The microservice architecture in PHP is a relatively new improvement that's emerged from the desire of fast-paced companies like Netflix and Amazon to improve their software continually, experiment with different ideas, ship early and ship often. This is difficult to achieve in a traditional web application built as a monolith - one single, huge code base, running in the same process. PHP applications (especially successful ones) tend to grow over time, which makes them harder to maintain, and with a monolith rather than microservices, you have to re-deploy the entire application for every single change.
+The history of software is a history of improving architectures - from the underlying hardware, OS and virtualization platforms, programming languages and frameworks, to the architecture of the applications we build. The [microservice](https://www.okta.com/blog/2021/02/microservices/) architecture in PHP is a relatively new improvement that's emerged from the desire of fast-paced companies like Netflix and Amazon to improve their software continually, experiment with different ideas, ship early and ship often. This is difficult to achieve in a traditional web application built as a monolith - one single, huge code base, running in the same process. PHP applications (especially successful ones) tend to grow over time, which makes them harder to maintain, and with a monolith rather than microservices, you have to re-deploy the entire application for every single change.
 
 ## Microservices for Your PHP App
 

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6645759099
+discourse_topic_id: 16861
+discourse_comment_url: https://devforum.okta.com/t/16861
 layout: blog_post
 title: "Add Authentication to Your Xamarin App with OpenID Connect"
 author: team-okta

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8182095029
+discourse_topic_id: 17282
+discourse_comment_url: https://devforum.okta.com/t/17282
 layout: blog_post
 title: "5 Talks I can't wait to see at Disclosure 2020"
 author: lee-brandt

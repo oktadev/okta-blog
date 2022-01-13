@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6814529520
+discourse_topic_id: 16905
+discourse_comment_url: https://devforum.okta.com/t/16905
 layout: blog_post
 title: "Add Social Login to Your Spring Boot 2.0 App"
 author: andrew-hughes
@@ -9,7 +12,10 @@ tags: [authentication, spring-boot, oidc, social-login]
 tweets:
 - "Spring Boot + Okta + Social Auth in minutes! →"
 - "Enable Social Auth for you Spring Boot app with Okta"
+- "Want to add social login to your @springboot app? This tutorial shows you how!"
 type: conversion
+changelog:
+- 2021-04-15: Updated to use Spring Boot 2.4 and the Okta CLI for OIDC app creation. See changes to this blog post in [okta-blog#765](https://github.com/oktadeveloper/okta-blog/pull/765); changes in the example can be viewed in [okta-spring-social-example#1](https://github.com/oktadeveloper/okta-spring-social-example/pull/1).
 ---
 
 We've all seen social login. It's the "Log in with Facebook" or "Log in with Twitter" buttons we see below every username and password field on the Internet. But why do these exist?
@@ -26,8 +32,6 @@ If you deploy Okta to handle your social login, when Linkedin decides to update 
 
 In this tutorial we're going to demonstrate how to use Okta social login with a Spring app written in Java. In particular, we're going to use Google and Facebook. We're also going to demonstrate how to use a custom, self-hosted login page.
 
-We're going to assume that you already have a free developer.okta.com account, and have created an OAuth 2.0 / OpenID Connect application that we can use to configure social login. If you do not already have an account, head on over to [the Okta website](http://developer.okta.com) and sign up! 
-
 The default application settings are fine to get us started. We'll need to make a few changes.
 
 ## Get Started: Download and Configure Your Spring Boot Example App
@@ -39,21 +43,15 @@ git clone https://github.com/oktadeveloper/okta-spring-social-example.git
 cd okta-spring-social-example
 ```
 
-The first thing you'll want to do is to **copy the `src/main/resources/application.template.yml` to `src/main/resources/application.yml` and fill in the necessary information.** 
+{% include setup/cli.md type="web"
+loginRedirectUri="http://localhost:8080/authorization-code/callback"
+logoutRedirectUri="http://localhost:8080" %}
 
-You'll need the following:
- - Okta application client ID
- - Okta application client secret
- - Your Okta org URL, e.g. `https://{yourOktaDomain}`
- - Your Okta issuer URL. From the Okta dashboard, select **API** in the top menu and then click **Authorization Servers**, and you'll see the **Issuer URI** for the default authorization server
+The first thing you'll want to do is to **copy the `src/main/resources/application.template.yml` to `src/main/resources/application.yml`** and fill in the necessary information from the generated `.okta.env` file.
 
-You'll want to check your Okta OIDC Application's configuration. It should match the following photo. This is also where you'll get your client ID and client secret. **Note that under "Allowed grant types" the "Implicit (Hybrid)" checkbox is checked (it's not checked by default).**
+Then, you should be able to run `./mvnw` from the terminal to run the app (you only need to type `./mvnw` because the `pom.xml` specifies a default goal of `spring-boot:run`, so typing `./mvnw` is the same as typing `./mvnw spring-boot:run`). 
 
-{% img blog/social-spring-boot/enable-implicit.png alt:"Enable Implicit Flow" width:"600" %}{: .center-image }
-
-You should be able to run `./mvnw` from the terminal to run the app (you only need to type `./mvnw` because the `pom.xml` specifies a default goal of `spring-boot:run`, so typing `./mvnw` is the same as typing `./mvnw spring-boot:run`). 
-
-To test the app, **log out of your developer.okta.com account** and go to `http://localhost:8080` (or open an incognito window).
+To test the app, **log out of your Okta developer account** and go to `http://localhost:8080` (or open an incognito window).
 
 If all goes well, you'll be redirected to the example app welcome screen that says: "Social Login, Custom Login, and Spring Boot Example".
 
@@ -107,17 +105,13 @@ Log into your developer.okta.com dashboard. Under the **Users** top menu, select
 
 From the **Add Identity Providers** dropdown, select **Facebook**.
 
-{% img blog/social-spring-boot/add-facebook-provider.png alt:"Add Facebook IdP" width:"600" %}{: .center-image }
-
 Give it a name, something clever like "Log in with Facebook", and enter your client ID and client secret values (you did save those, right?). Everything else can stay the same.
 
 Click **Add Identity Provider**
 
 Repeat this process for Google, using the client ID and client secret from your Google OAuth 2.0 client IDs.
 
-Your Okta Identity Providers page should now look like the following. Note the two "IdP IDs" - you'll need these in a moment.
-
-{% img blog/social-spring-boot/social-idps-added.png alt:"Add Facebook IdP" width:"800" %}{: .center-image }
+Your Okta Identity Providers page should now have two "IdP IDs" - you'll need these in a moment.
 
 ## Customize the Self-Hosted Sign-In Page for Your Spring Boot App
 
@@ -128,17 +122,19 @@ Open the `src/main/resources/templates/login.html` file and take a look at the J
 See the commented section of code below.
 
 ```js
-config.baseUrl = /*[[${oktaBaseUrl}]]*/ '{oktaBaseUrl}';  
-config.clientId = /*[[${oktaClientId}]]*/ '{oktaClientId}';  
-config.redirectUri = /*[[${redirectUri}]]*/ '{redirectUri}';  
-config.logo = 'https://spring.io/img/homepage/icon-spring-cloud.svg';  
-config.authParams = {  
-  issuer: /*[[${issuerUri}]]*/ '{issuerUri}',  
-  responseType: 'code',  
-  state: /*[[${state}]]*/ '{state}' || false,  
-  scopes: /*[[${scopes}]]*/ '[scopes]',  
-  display: 'page'  
-}; 
+config.baseUrl = /*[[${oktaBaseUrl}]]*/ 'https://{yourOktaDomain}';
+config.clientId = /*[[${oktaClientId}]]*/ '{clientId}';
+config.redirectUri = /*[[${redirectUri}]]*/ '{redirectUri}';
+config.logo = '/img/icon-spring-cloud.svg';
+config.authParams = {
+  issuer: /*[[${issuerUri}]]*/ '{issuerUri}',
+  responseType: 'code',
+  pkce: false,
+  state: /*[[${state}]]*/ '{state}' || false,
+  nonce: /*[[${nonce}]]*/ '{nonce}',
+  scopes: /*[[${scopes}]]*/ '[scopes]',
+  display: 'page'
+};
 
 /*********************************************************/
 /* ADD ME TO CONFIGURE SOCIAL LOGIN!!!                   */
@@ -171,7 +167,7 @@ Once the app has started, navigate to `http://localhost:8080` and click the **Lo
 
 You should see the new social login buttons and should be able to log in using Google and Facebook. 
 
-**NOTE: If your social accounts use an email address different than what you're using for your Okta preview account, you may need to add a user to the Okta application.**
+**NOTE: If your social accounts use an email address different than what you're using for your Okta developer account, you may need to add a user to the Okta application.**
 
 {% img blog/social-spring-boot/login-page-with-social.png alt:"Login page with social buttons" width:"544" %}{: .center-image }
 

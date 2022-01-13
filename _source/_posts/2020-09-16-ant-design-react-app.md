@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8205162701
+discourse_topic_id: 17291
+discourse_comment_url: https://devforum.okta.com/t/17291
 layout: blog_post
 title: "Build a React App with ANT Design Principles"
 author: nickolas-fisher
@@ -12,6 +15,8 @@ tweets:
 - "Need to quickly institute ANT design principles to your React app? We've got you covered!"
 image: blog/featured/okta-react-skew.jpg
 type: conversion
+changelog: 
+- 2021-04-13: Updated to streamline setup with the Okta CLI and add to add screenshots. [okta-blog#706](https://github.com/oktadeveloper/okta-blog/pull/706) shows what changed.
 ---
 
 For years the go-to HTML/CSS framework of choice for developers was Bootstrap. A new contender has appeared in the form of Ant Design. Ant should feel familiar to veteran developers but it's built on new principles. Their [site](https://ant.design/) spends a good amount of effort distinguishing between good and bad design. There is an emphasis on clarity and meaning. Ant Design is heavily based on psychological principles to anticipate—and be customized for—user behavior.
@@ -28,13 +33,9 @@ Ant provides many common components you will need to develop any website. This i
 
 ## Set Up Your Okta Application
 
-Okta aims to make its SSO service as simple as possible for developers. They have taken on most of the middleware logic with their suite of packages for React. Before you can build your application you will need to set up an application in Okta's developer console. Navigation to your developer's console and log in. Click on **Applications** and click on **Add Application**. On the next page select *Single-Page App* and click **Next**. 
+Okta aims to make its SSO service as simple as possible for developers. They have taken on most of the middleware logic with their suite of packages for React. 
 
-{% img blog/ant-design-react-app/okta-app-spa.png alt:"Okta SPA App" width:"700" %}{: .center-image }
-
-In the next section, you will configure your application settings. Give your application a meaningful name. I named my application *Transactions* but you can name yours whatever you like. Next, you should change the references to `localhost:8080` to `localhost:3000` as that is the default development server for React. Click **Done** and take note of your *Client ID* on the next page. You will need this in your application. 
-
-{% img blog/ant-design-react-app/okta-app-settings.png alt:"Okta App Settings" width:"800" %}{: .center-image }
+{% include setup/cli.md type="spa" framework="React" loginRedirectUri="http://localhost:3000/login/callback" %}
 
 ## Create Your React Application
 
@@ -70,13 +71,15 @@ Finally, you will want to use `dotenv` to store your sensitive values in the `.e
 npm i dotenv@8.2.0
 ```
 
-After `dotenv` is completed you can add a new file to your root directory called `.env`. Add the following code to it. `REACT_APP_OKTA_URL_BASE` is the same that you use to log in to create your application. `REACT_APP_OKTA_CLIENTID` is the ClientId that you obtained after creating your application on Okta's developer console.
+After `dotenv` is completed you can add a new file to your root directory called `.env`. Add the following code to it. `REACT_APP_OKTA_URL_BASE` is the same that you use to log in to create your application. You can get the values for `REACT_APP_OKTA_CLIENTID` and `REACT_APP_OKTA_URL_BASE` from the app you created earlier.
 
 ```json
 REACT_APP_OKTA_CLIENTID={yourClientId}
 REACT_APP_OKTA_URL_BASE={yourOktaDomain}
 REACT_APP_OKTA_APP_BASE_URL=http://localhost:3000
 ```
+
+**NOTE**: You can run `okta apps` to see your Okta OIDC applications and `okta apps config --app=<app-id>` to get a specific app's configuration.
 
 ### Add Your React Components
 
@@ -376,6 +379,8 @@ Here you see the usage of the `selectedKey` property on the `SiteHeader`. As you
 
 You can also see the `Layout` and `Content` section. Ant Design provides many well-designed examples for the basic layout of your page. The home page (and the login page) will have a simple Header/Content/Footer layout.
 
+{% img blog/ant-design-react-app/home.png alt:"The home component" width:"800" %}{: .center-image }
+
 Next, you can add the `Login.jsx` page which will make use of your `LoginForm` component.
 
 {% raw %}
@@ -400,7 +405,7 @@ const Login = ({ baseUrl, issuer }) => {
     <Redirect to={{ pathname: '/Dashboard' }} /> :
     <Layout>
       <SiteHeader selectedKey="login"></SiteHeader>
-      <Content>
+      <Content style={{ padding: 40 }}>
         <LoginForm baseUrl={baseUrl} issuer={issuer} />
       </Content>
 
@@ -413,6 +418,8 @@ export default Login;
 {% endraw %}
 
 Again you are passing the `selectedKey` value of *login* to the `SiteHeader` component. This page also checks an authenticated user and moves the user to the `Dashboard` page.
+
+{% img blog/ant-design-react-app/login.png alt:"The login component" width:"800" %}{: .center-image }
 
 Finally, add `Dashboard.jsx` to your `Pages` folder and add the following code.
 
@@ -617,6 +624,8 @@ export default Dashboard;
 ```
 {% endraw %}
 
+{% img blog/ant-design-react-app/dashboard.png alt:"The dashboard component" width:"800" %}{: .center-image }
+
 The layout here is a little more exotic. You are adding a sidebar menu, called a `Sider` in Ant Design, that will contain the user's accounts. You can see at the top of this file you added some sample data to display on this page. There are three accounts. Of course, the `Sider` menu also accepts `defaultSelectedKeys` which you are setting to the first account unless a specific account is passed into this page. The `Sider` is collapsible, providing a collapse button on the bottom of the menu. The `Breadcrumb` navigation can help users navigate on more complex web structures. This app is simple enough that the breadcrumbs are mostly for show, but they can be instrumental if your users are going to navigate down multiple paths. 
 
 You'll see here you are also using the Row/Col paradigm that you are likely familiar with. In keeping with the 24-grid system, your column spans add up to 24, although the last column isn't necessary. Finally, you are making use of the `Table` component provided by Ant Design of React. The table accepts a data source and some column definitions and uses these to generate a table for you. No more loops or maps in your code. The column definitions are very robust. In this example, you are presenting the user with some tags that describe the transactions. Because these tags are in an array you need to use the `render` function on the column definition to tell Ant what to do with this. In this case, you are creating a `Tag` for each tag in your array. A sorter on your `Amount` column allows the user to sort by the transaction amount.
@@ -686,7 +695,17 @@ And finally, you will need to import the Ant Design CSS. To do this, open your `
 
 ## Run and Test
 
-Your application is now complete. In the terminal run the command `npm start` and see the results. You should be presented with the Home page. From here you can click on **Login** and use your Okta credentials to log in. Afterward, you will be directed to the dashboard page.
+Your application is now complete. In the terminal run the command `npm start` and see the results. You should be presented with the Home page. 
+
+{% img blog/ant-design-react-app/home.png alt:"The home component" width:"800" %}{: .center-image }
+
+From here you can click on **Login** and use your Okta credentials to log in. 
+
+{% img blog/ant-design-react-app/login.png alt:"The login component" width:"800" %}{: .center-image }
+
+Afterward, you will be directed to the dashboard page.
+
+{% img blog/ant-design-react-app/dashboard.png alt:"The login component" width:"800" %}{: .center-image }
 
 Honestly, there is far more to Ant Design than what you have read here. One could take an entire course on the subject. But Ant can help developers understand what components they should be using and why. The principles developed of studies of human behavior can streamline the design process and make developers certain of which tools to use. I encourage you to try a couple of projects in Ant Design and take the time to learn the principles. In the long run, the knowledge and experience will make you that much better.
 

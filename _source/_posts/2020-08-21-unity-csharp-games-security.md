@@ -1,9 +1,12 @@
 ---
+disqus_thread_id: 8173408414
+discourse_topic_id: 17279
+discourse_comment_url: https://devforum.okta.com/t/17279
 layout: blog_post
 title: Identity Security for Games in C# with Unity
 author: nick-gamb
 by: advocate
-communities: [.net]
+communities: [.net, gaming]
 description: "Learn how to build user identity management into games in C# with Unity."
 tags: [unity, games, identitysecurity, vr, ar, csharp]
 tweets:
@@ -27,7 +30,6 @@ The level of effort to build identity security from scratch is massive. Just to 
 ## Prerequisites
 
 - Download and install [Unity](https://unity.com/).
-- Sign up for a free [Okta developer environment](https://developer.okta.com/).
 - Log in to Okta and step through the initial account creation. No other setup is needed.
 - Read about [OAuth2](https://developer.okta.com/docs/concepts/auth-overview/).
 
@@ -68,13 +70,11 @@ In order to help visualize the difference between these concepts, this blog will
 
 Get started by creating a new project in Unity Hub. Select **3D** and give the project a name.
 
-
 {% img blog/unity-csharp-security/1-unity-start.png alt:"Start Unity Project" width:"1000" %}{: .center-image }
 
 Unity will take a moment to set everything up and open the project. Once open, click **Assets** > **Import Package** and select the `OktaSDK.unitypackage` file. The Okta Auth SDK will be used for the Native UI design. The SDK is not required for OAuth. A [Okta SDK Unity Package](https://okta.box.com/s/m5q2ucervn03cbzu5dpgzx2vxmeg3xph) has been provided with this guide to simplify this process.
 
 > Note: The [Okta SDK for .NET](https://github.com/okta/okta-sdk-dotnet) and the [Okta Auth SDK for .NET](https://github.com/okta/okta-auth-dotnet) can be found on GitHub and NuGet. However, Unity does not work well with NuGet and compiling from source should not be necessary. If manual installation is desired, there are numerous dependencies that NuGet would normally add to a project with the SDK. These dependencies will need to be manually downloaded and added to Unity. [NuGet Gallery](https://www.nuget.org/) is recommended for this.
-
 
 {% img blog/unity-csharp-security/2-unity-import.png alt:"Unity import package" width:"1000" %}{: .center-image }
 
@@ -85,7 +85,6 @@ Make sure all libraries are selected and click **Import**. This will create a Pl
 Next, click on the **Asset Store** tab in the editor and search for `Unity Samples: UI.` This example asset was created by Unity Technologies as a learning asset, teaching best practices for building UI's inside of Unity. For this guide, we will leverage this UI to build our login experience.
 
 Click **Import** and import all of the assets in the package.
-
 
 {% img blog/unity-csharp-security/4-unity-samplesui.png alt:"Unity import package" width:"1000" %}{: .center-image }
 
@@ -109,7 +108,6 @@ The UI sample asset does not come with any type of input field. We will need inp
 6. Position the new InputField where the label element was
 7. Switch the gizmo to scale and resize the InputField to fill out the box
 
-
 {% img blog/unity-csharp-security/6-unity-username.png alt:"Unity import package" width:"1000" %}{: .center-image }
 
 Next, a new menu will be needed for the Auth Menu. The simplest way to create this is to duplicate the existing `MainMenu` object and customize it. To create the Auth Menu:
@@ -128,6 +126,10 @@ Next, a new menu will be needed for the Auth Menu. The simplest way to create th
 {% img blog/unity-csharp-security/7-unity-authwindow.png alt:"Unity import package" width:"1000" %}{: .center-image }
 
 Click `MenuManager` and make sure it is enabled in the inspector. Find the `PanelManager` script component attached to the `MenuManager` object and double click to edit. This will open up the primary IDE configured in Unity.
+
+## Okta CLI
+
+{% include setup/cli.md type="web" loginRedirectUri="http://127.0.0.1:51772" logoutRedirectUri="http://127.0.0.1:51772" %}
 
 ## Native: Authenticate with Okta
 
@@ -213,8 +215,7 @@ Make sure `MenuManager` is selected and notice the new properties in the `PanelM
 1. Drag the `AuthMenu` object from the project hierarchy to the `authMenu` property in the inspector.
 2. Drag the InputField from the `Username` object in the project hierarchy to the `Username` property in the inspector.
 3. Drag the InputField from the `Password` object in the project hierarchy to the `Password` property in the inspector.
-4. Enter the Okta domain from the Okta developer org "{yourOktaDomain}".
-
+4. Replace `{yourOktaDomain}` with your Okta domain.
 
 {% img blog/unity-csharp-security/8-unity-panelmanager.png alt:"Unity import package" width:"1000" %}{: .center-image }
 
@@ -303,8 +304,9 @@ private async void doOAuth()
     string code_verifier = randomDataBase64url(32);
     string code_challenge = base64urlencodeNoPadding(sha256(code_verifier));
     const string code_challenge_method = "S256";
-    // Creates a redirect URI using an available port on the loopback address.
-    string redirectURI = string.Format("http://{0}:{1}/", IPAddress.Loopback, /*GetRandomUnusedPort()*/51772);
+    // Creates a redirect URI using the loopback address.
+    int redirectPort = 51772;
+    string redirectURI = string.Format("http://{0}:{1}/", IPAddress.Loopback, redirectPort);
     output("redirect URI: " + redirectURI);
     // Creates an HttpListener to listen for requests on that redirect URI.
     var http = new HttpListener();
@@ -514,33 +516,13 @@ Click the `OktaOAuth2` GameObject and notice the public variables from the `Okta
 
 {% img blog/unity-csharp-security/13-unity-gameobject.png alt:"Unity import package" width:"1000" %}{: .center-image }
 
-Next, go to an Okta tenant, or create a new dev tenant at `developer.okta.com`, and log in.
-
-Click on **Applications** > **Add Application** and choose **Web**.
-
-{% img blog/unity-csharp-security/14-okta-addweb.png alt:"Okta add web app" width:"1000" %}{: .center-image }
-
-{% img blog/unity-csharp-security/15-okta-webapp.png alt:"Okta add web app" width:"1000" %}{: .center-image }
-
-This application is the representation of your OAuth2 client within Okta. Give the application a name and trust the local IP/Port that your client will be using to interact with Okta. By default, the sample code is set to `http://127.0.0.1:51772` where the IP is the client's local IP address.
-
-{% img blog/unity-csharp-security/16-okta-ipaddress.png alt:"Okta add web app" width:"1000" %}{: .center-image }
-
-Click **Done**.
-
-The next menu will be the General tab for the application's settings menu. At the bottom of General, there is a section containing a `Client ID` and `Client Secret`. Copy these and paste them into the inspector for the `OktaOAuth2` GameObject in Unity.
-
-{% img blog/unity-csharp-security/17-okta-clientidsecret.png alt:"Okta add web app" width:"1000" %}{: .center-image }
+From the Okta CLI `.okta.env`, copy the **OKTA_OAUTH2_CLIENT_ID** and **OKTA_OAUTH2_CLIENT_SECRET** into the **Client ID** and **Client Secret** variables in the inspector for the `OktaOAuth2` GameObject in Unity.
 
 {% img blog/unity-csharp-security/18-unity-clientidsecret.png alt:"Okta add web app" width:"1000" %}{: .center-image }
 
-For the three endpoint URL's, go back to Okta. In the top menu click **API** > **Authorization Servers**.
-
-{% img blog/unity-csharp-security/19-okta-authserver.png alt:"Okta add web app" width:"1000" %}{: .center-image }
+For the three endpoint URLs, go back to Okta (use `okta login` to get a link in your terminal). In the menu click **Security** > **API** > **Authorization Servers**.
 
 Click **default** to open the default authorization server. Click the **Metadata URI** link.
-
-{% img blog/unity-csharp-security/20-okta-defaultserver.png alt:"Okta add web app" width:"1000" %}{: .center-image }
 
 Find the `authorization endpoint`, `token endpoint`, and `userinfo endpoint` urls, copy and paste into the `OktaOAuth2` GameObject inspector in Unity.
 
@@ -568,9 +550,10 @@ To expand on the ideas discussed in this blog, I recommend further reading on se
 
 If you'd like to learn more about ASP.NET Core, check out some of our other killer content:
 
-- [How to Master the Filestream in C#](https://developer.okta.com/blog/2020/04/29/master-filestream-in-csharp-aspnetcore)
-- [How I Learned to Love Default Implementations in C# 8.0](https://developer.okta.com/blog/2020/01/10/default-implementation-csharp)
-- [Decode JWTs in C# for Authorization](https://developer.okta.com/blog/2019/06/26/decode-jwt-in-csharp-for-authorization)
-- [Create a Blockchain Explorer in C#](https://developer.okta.com/blog/2019/08/13/create-a-blockchain-explorer-in-csharp)
+- [Unity WebGL + PlayFab Authorization in 20 Minutes](/blog/2021/02/26/unity-webgl-playfab-authorization)
+- [How to Master the Filestream in C#](/blog/2020/04/29/master-filestream-in-csharp-aspnetcore)
+- [How I Learned to Love Default Implementations in C# 8.0](/blog/2020/01/10/default-implementation-csharp)
+- [Decode JWTs in C# for Authorization](/blog/2019/06/26/decode-jwt-in-csharp-for-authorization)
+- [Create a Blockchain Explorer in C#](/blog/2019/08/13/create-a-blockchain-explorer-in-csharp)
 
 We are always posting new content. If you like this content, be sure to [follow us on Twitter](https://twitter.com/oktadev) and subscribe to [our YouTube Channel](https://youtube.com/c/oktadev).

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6867089210
+discourse_topic_id: 16919
+discourse_comment_url: https://devforum.okta.com/t/16919
 layout: blog_post
 title: 'Build a Basic CRUD App with Angular 7.0 and Spring Boot 2.1'
 author: matt-raible
@@ -11,6 +14,10 @@ tweets:
   - "Spring Boot with @java + Angular with @typescriptlang = ❤️. Learn how to build a @springboot + @angular CRUD app today!"
 image: blog/spring-boot-2-angular-7/angular+spring-boot+okta=love.jpg
 type: conversion
+update-url: /blog/2020/01/06/crud-angular-9-spring-boot-2
+update-title: "Build a CRUD App with Angular 9 and Spring Boot 2.2"
+changelog:
+  - 2018-11-02: Updated to use Angular 7.0 and Spring Boot 2.1 GA releases. You can see the example app changes in [okta-spring-boot-2-angular-7-example#5](https://github.com/oktadeveloper/okta-spring-boot-2-angular-7-example/pull/5); changes to this post can be viewed in [okta.github.io#2456](https://github.com/oktadeveloper/okta.github.io/pull/2456).
 ---
 
 Technology moves fast these days. It can be challenging to keep up with the latest trends as well as new releases of your favorite projects. I'm here to help! Spring Boot and Angular are two of my favorite projects, so I figured I'd write y'all a guide to show you how to build and secure a basic app using their latest and greatest releases.
@@ -1104,7 +1111,3 @@ This blog has a plethora of Spring Boot and Angular tutorials. Here are some of 
 * [Build an Angular App with Okta's Sign-In Widget in 15 Minutes](/blog/2017/03/27/angular-okta-sign-in-widget)
 
 If you have any questions, please don't hesitate to leave a comment below, or ask us on our [Okta Developer Forums](https://devforum.okta.com/). Don't forget to follow us [on Twitter](https://twitter.com/oktadev) and [YouTube](https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q) too!
-
-**Changelog:**
-
-* Nov 2, 2018: Updated to use Angular 7.0 and Spring Boot 2.1 GA releases. You can see the example app changes in [okta-spring-boot-2-angular-7-example#5](https://github.com/oktadeveloper/okta-spring-boot-2-angular-7-example/pull/5); changes to this post can be viewed in [okta.github.io#2456](https://github.com/oktadeveloper/okta.github.io/pull/2456).

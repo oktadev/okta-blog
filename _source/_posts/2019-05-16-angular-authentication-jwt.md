@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7421797065
+discourse_topic_id: 17053
+discourse_comment_url: https://devforum.okta.com/t/17053
 layout: blog_post
 title: "Angular Authentication with JWT"
 author: holger-schmitz
@@ -12,13 +15,19 @@ tweets:
 - "Learn how to use JSON Web Tokens (JWT) to add authentication to your @angular app." 
 image: blog/featured/okta-angular-skew.jpg
 type: conversion
+changelog:
+- 2021-04-18: Updated to use Okta Angular SDK v3 and JWT Verifier v2. You can see the changes in [the example app](https://github.com/oktadeveloper/angular-jwt-authentication-example/pull/2) or [this blog post](https://github.com/oktadeveloper/okta-blog/pull/741) on GitHub.
 ---
 
-User registration and authentication are one of the features that almost no web application can do without. Authentication usually consists of a user entering using a user name and a password and then being granted access to various resources or services. Authentication, by its very nature, relies on keeping the state of the user. This seems to contradict a fundamental property of HTTP, which is a stateless protocol.
+User registration and authentication are one of the features that almost no web application can do without. Authentication usually consists of a user entering using a username and a password and then being granted access to various resources or services. Authentication, by its very nature, relies on keeping the state of the user. This seems to contradict a fundamental property of HTTP, which is a stateless protocol.
 
 JSON Web Tokens (JWTs) provide one way to solve this issue. Your Angular app can talk to a backend that produces a token. The Angular app can then pass that token in an `Authorization` header to the backend to prove they're authenticated. The backend should verify the JWT and grant access based on its validity. 
 
 Another way to solve this issue is with session-based authentication and cookies. In this scenario, the backend will produce what's called a "session cookie." This cookie provides a mechanism for the server to prove the user is authenticated. 
+
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
 
 ## Session vs JWT Authentication in Angular 
 
@@ -690,15 +699,9 @@ Another big topic that I have completely avoided covers token expiration and ref
 
 ## Build Secure JWT Authentication in Angular and Express
 
-Okta provides authentication services which can be easily integrated into your application. The Okta service is based on JWT and it takes care of all the issues related to security and user experience. You don't need to store passwords, generate tokens yourself, or think about automatically refreshing them. To start off, you will need a developer account with Okta.
+Okta provides authentication services which can be easily integrated into your application. The Okta service is based on JWT and it takes care of all the issues related to security and user experience. You don't need to store passwords, generate tokens yourself, or think about automatically refreshing them. 
 
-In your browser, navigate to [developer.okta.com](https://developer.okta.com/), click on **Create Free Account**, and enter your details. You will receive an activation email to finish creating your account. Once you are done, you will be taken to your developer dashboard. Click on the **Add Application** button to create a new application. Start by creating a new single page application. Choose **Single Page App** and click **Next**
-
-{% img blog/jwt-angular/new-app.png alt:"New Okta Application" width:"800" %}{: .center-image }
-
-On the next page, you will need to edit the default settings. Make sure that the port number is 4200. This is the default port for Angular applications. Then click **Done**.
-
-{% img blog/jwt-angular/angular-spa-okta-settings.png alt:"Settings for the new Angular SPA" width:"800" %}{: .center-image }
+{% include setup/cli.md type="spa" framework="Angular" loginRedirectUri="http://localhost:4200/callback" %}
 
 That's it. You should now see a **Client ID** which you will need to paste into your JavaScript code.
 
@@ -708,7 +711,7 @@ The server that uses authentication using the Okta service does not need to impl
 
 ```bash
 npm install -E cors@2.8.5 nodemon@1.18.10 express@4.16.4 \
-  @okta/jwt-verifier@0.0.14 body-parser@1.18.3 express-bearer-token@2.2.0
+  @okta/jwt-verifier@2.1.0 body-parser@1.18.3 express-bearer-token@2.2.0
 ```
 
 The main application file `index.js` is the same as `jwt-server/index.js`. The authentication middleware `auth.js` looks slightly different because it now uses Okta.
@@ -726,7 +729,7 @@ function oktaAuth(req, res, next) {
     return res.status(403).send({ auth: false, message: 'No token provided' });
   }
 
-  oktaJwtVerifier.verifyAccessToken(req.token).then(function(jwt) {
+  oktaJwtVerifier.verifyAccessToken(req.token, 'api://default').then(function(jwt) {
     req.userId = jwt.claims.uid;
     req.userEmail = jwt.claims.sub;
     next();
@@ -738,7 +741,7 @@ function oktaAuth(req, res, next) {
 module.exports = oktaAuth;
 ```
 
-Here, `{yourClientId}` is the client ID from the application that you created earlier in the Okta dashboard. The router implementation in `profile.js` only contains a single route. I have removed the `/register` and `/login` routes and only kept the `/profile` route.
+Here, `{yourClientId}` is the client ID from the application that you created earlier with the Okta CLI. The router implementation in `profile.js` only contains a single route. I have removed the `/register` and `/login` routes and only kept the `/profile` route.
 
 ```js
 var express = require('express');
@@ -796,7 +799,7 @@ In `src/app/app.component.html`, on the first line, change `*ngIf="authService.i
 Next, install the Okta packages.
 
 ```bash
-npm install -E @okta/okta-angular@1.2.1 @okta/okta-signin-widget@2.19.0
+npm install -E @okta/okta-angular@3.1.0 @okta/okta-signin-widget@5.5.4
 ```
 
 Just as before, create a server service.
@@ -829,9 +832,10 @@ export class ServerService {
     }
 
     const subject = new Subject<any>();
+    const token = this.oktaAuth.getAccessToken();
 
-    this.oktaAuth.getAccessToken().then((token) => {
-      const header = (token) ? {Authorization: `Bearer ${token}`} : undefined;
+    if (token) {
+      const header = {Authorization: `Bearer ${token}`};
 
       const request = this.http.request(method, baseUrl + route, {
         body: data,
@@ -841,7 +845,7 @@ export class ServerService {
       });
 
       request.subscribe(subject);
-    });
+    }
 
     return subject;
   }
@@ -849,7 +853,9 @@ export class ServerService {
   get(route: string, data?: any) {
     const subject = new Subject<any>();
 
-    this.oktaAuth.getAccessToken().then((token) => {
+    const token = this.oktaAuth.getAccessToken();
+
+    if (token) {
       const header = (token) ? {Authorization: `Bearer ${token}`} : undefined;
 
       let params = new HttpParams();
@@ -866,7 +872,7 @@ export class ServerService {
       });
 
       request.subscribe(subject);
-    });
+    }
 
     return subject;
   }
@@ -926,7 +932,7 @@ export class LoginComponent implements OnInit {
       el: '#okta-signin-container'},
       (res) => {
         if (res.status === 'SUCCESS') {
-          this.oktaAuth.loginRedirect('/profile', { sessionToken: res.session.token });
+          this.oktaAuth.signInWithRedirect({originalUri: '/profile'});
           // Hide the widget
           this.widget.hide();
         }
@@ -989,9 +995,9 @@ import { ProfileComponent } from './profile/profile.component';
 
 const oktaConfig = {
   issuer: 'https://{yourOktaDomain}/oauth2/default',
-  redirectUri: 'http://localhost:4200/implicit/callback',
+  redirectUri: 'http://localhost:4200/callback',
   clientId: '{yourClientId}',
-  scope: 'openid profile'
+  scopes: ['openid', 'profile']
 };
 
 @NgModule({
@@ -1032,7 +1038,7 @@ const routes: Routes = [
   { path: '', component: ProfileComponent, canActivate: [OktaAuthGuard], data: { onAuthRequired }  },
   { path: 'login', component: LoginComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [OktaAuthGuard], data: { onAuthRequired }  },
-  { path: 'implicit/callback', component: OktaCallbackComponent }
+  { path: 'callback', component: OktaCallbackComponent }
 ];
 
 @NgModule({
@@ -1066,8 +1072,8 @@ export class AppComponent implements OnInit {
     this.oktaAuth.isAuthenticated().then((auth) => {this.isLoggedIn.next(auth)});
   }
 
-  onLogout() {
-    this.oktaAuth.logout('/');
+  async onLogout() {
+    await this.oktaAuth.signOut();
   }
 }
 ```

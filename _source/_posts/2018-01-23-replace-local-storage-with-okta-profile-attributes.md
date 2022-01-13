@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6433358353
+discourse_topic_id: 16816
+discourse_comment_url: https://devforum.okta.com/t/16816
 layout: blog_post
 title: "Use Okta (Instead of Local Storage) to Store Your User's Data Securely"
 author: matt-raible
@@ -10,6 +13,8 @@ tweets:
  - "Learn how to use the @okta Java SDK to store custom profile attributes to manage your cryptocurrency portfolio  →"
  - "Did you know that we provide a @java SDK for talking to our REST API? It's pretty slick. This blog post shows you how to use it to manage custom profile attributes."
 type: conversion
+changelog:
+  - 2018-04-10: Updated dependencies in the example app to use Okta Spring Boot Starter and Java SDK version 0.4.0. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-ionic-crypto-java-sdk/pull/2). Changes to this article can be viewed in [oktadeveloper/okta.github.io#1941](https://github.com/oktadeveloper/okta.github.io/pull/1941).
 ---
 
 Local Storage is a JavaScript API technically known as `localStorage` that arrived with HTML5. It allows you to store information on a user's browser quickly and easily. There are many debates on the web as to whether it's better than cookies. Some say it's faster (because it doesn't send data with every request like cookies do) and more secure.
@@ -426,7 +431,3 @@ I think you'll find the following blog posts useful too!
 If you love Java too, [follow @oktadev](https://twitter.com/oktadev) on Twitter and let us know if you have any issues with this tutorial. You can also post your questions to the [Okta Developer Forums](https://devforum.okta.com/) or simply leave a comment on this post.
 
 **Update:** To learn how to test this application, see [The Hitchhiker's Guide to Testing Spring Boot APIs and Angular Components with WireMock, Jest, Protractor, and Travis CI](/blog/2018/05/02/testing-spring-boot-angular-components).
-
-**Changelog:**
-
-* Apr 10, 2018: Updated dependencies in the example app to use Okta Spring Boot Starter and Java SDK version 0.4.0. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-ionic-crypto-java-sdk/pull/2). Changes to this article can be viewed in [oktadeveloper/okta.github.io#1941](https://github.com/oktadeveloper/okta.github.io/pull/1941).
