@@ -12,6 +12,7 @@ tags: [multi-factor, authentication, developer, nodejs]
 tweets:
 - "Who knew how easy adding multi-factor authentication to your #Node app is! #mfa #javascript"
 - "Learn how to quickly add multi-factor authentication to your #Node app! #mfa #javascript"
+image: blog/simple-multifactor-authentication-in-node/mfa-node-social.png
 type: conversion
 changelog:
   - 2022-01-05: Updated dependencies, code, and screenshots. See this post's changes in [okta-blog#1017](https://github.com/oktadev/okta-blog/pull/1017).
