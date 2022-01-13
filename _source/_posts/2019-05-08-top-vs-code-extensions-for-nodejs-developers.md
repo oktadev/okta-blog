@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7404739868
+discourse_topic_id: 17048
+discourse_comment_url: https://devforum.okta.com/t/17048
 layout: blog_post
 title: "Top 10 Visual Studio Code Extensions for Node.js"
 author: david-neal

@@ -1,14 +1,18 @@
 ---
+disqus_thread_id: 6404928904
+discourse_topic_id: 16810
+discourse_comment_url: https://devforum.okta.com/t/16810
 layout: blog_post
 title: "Build an App for iOS and Android with Xamarin"
 author: nate-barbettini
 by: advocate
+description: "In this tutorial, you'll learn how to use Xamarin to build a basic app for both iOS and Android. Check it out, even if you've never done any app development before!"
 communities: [.net, mobile]
 tags: [native, mobile, ios, android, dotnet, xamarin]
 tweets:
   - "Learn how to use Xamarin to build iOS and Android apps fast →"
   - "Want to build mobile apps? Start with this short #xamarin tutorial by @nbarbettini →"
-type: conversion
+type: awareness
 ---
 
 [Xamarin](https://www.xamarin.com/) is a cross-platform technology that makes it possible to build native applications for Android and iOS using a single, shared codebase. Like other technologies such as React Native and NativeScript, it allows development teams to spend less time writing code for both platforms.
@@ -86,7 +90,7 @@ UI views are called "pages" in Xamarin.Forms lingo, and your app already contain
         <Entry x:Name="NameEntry" Text="Jane Doe" />
         <Button x:Name="SayHelloButton"
                 Text="Say Hello"
-                Clicked="SayHelloButtonOnClicked" />
+                Clicked="SayHelloButtonClicked" />
     </StackLayout>
 </ContentPage.Content>
 ```

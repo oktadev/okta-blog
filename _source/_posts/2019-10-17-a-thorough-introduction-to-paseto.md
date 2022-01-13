@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7679004555
+discourse_topic_id: 17156
+discourse_comment_url: https://devforum.okta.com/t/17156
 layout: blog_post
 title: "A Thorough Introduction to PASETO"
 author: randall-degges

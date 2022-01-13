@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6480347676
+discourse_topic_id: 16828
+discourse_comment_url: https://devforum.okta.com/t/16828
 layout: blog_post
 title: "Build a Basic CRUD App with Vue.js and Node"
 author: brandon-parise
@@ -12,14 +15,23 @@ tweets:
 - "Vue.js is the bomb! See how easy it is to integrate it with @nodejs and @okta for a secure, fast, and fun application! 😋"
 image: blog/featured/okta-vue-bottle-headphones.jpg
 type: conversion
+changelog:
+- 2021-04-12: Upgraded to use Okta Vue 3.1.0 and Okta JWT Verifier 2.1.0. You can see the changes to the example in [okta-vue-node-example#3](https://github.com/oktadeveloper/okta-vue-node-example/pull/9) or view the changes in [this blog post](https://github.com/oktadeveloper/okta-blog/pull/684).
+- 2019-09-06: Updated to migrate from Epilogue to Finale. [Epilogue is no longer maintained](http://disq.us/p/23uy4x0). Thanks to Chris Roberts for the tip! See the code changes in [okta-vue-node-example#3](https://github.com/oktadeveloper/okta-vue-node-example/pull/3). Changes to this article can be viewed in [okta.github.io#3040](https://github.com/oktadeveloper/okta.github.io/pull/3040).
+- 2018-04-16: Updated to use the latest dependencies, including Okta's Vue SDK 1.0.0. See the code changes in [okta-vue-node-example#2](https://github.com/oktadeveloper/okta-vue-node-example/pull/2). Changes to this article can be viewed in [okta.github.io#1959](https://github.com/oktadeveloper/okta.github.io/pull/1959).
+- 2018-03-12: Updated to use the latest dependencies, including Bootstrap 4.0.0. See the code changes in [okta-vue-node-example#1](https://github.com/oktadeveloper/okta-vue-node-example/pull/1). Changes to this article can be viewed in [okta.github.io#1837](https://github.com/oktadeveloper/okta.github.io/pull/1837).
 ---
 
 I've danced the JavaScript framework shuffle for years starting with jQuery, then on to Angular. After being frustrated with Angular's complexity, I found React and thought I was in the clear. What seemed simple on the surface ended up being a frustrating mess. Then I found Vue.js.  It just felt right. It worked as expected. It was fast. The documentation was incredible. Templating was eloquent. There was a unanimous consensus around how to handle state management, conditional rendering, two-way binding, routing, and more.
 
 This tutorial will take you step by step through scaffolding a Vue.js project, offloading secure authentication to [Okta's OpenID Connect API (OIDC)](/docs/api/resources/oidc), locking down protected routes, and performing CRUD operations through a backend REST API server. This tutorial uses the following technologies but doesn't require intimate knowledge to follow along:
 
-- Vue.js with [vue-cli](https://github.com/vuejs/vue-cli), [vue-router](https://github.com/vuejs/vue-router), and [Okta Vue SDK](https://github.com/okta/okta-vue)
+- Vue.js with [Vue CLI](https://github.com/vuejs/vue-cli), [vue-router](https://github.com/vuejs/vue-router), and the [Okta Vue SDK](https://github.com/okta/okta-vue)
 - Node with [Express](https://github.com/expressjs/express), [Okta JWT Verifier](https://github.com/okta/okta-oidc-js/tree/master/packages/jwt-verifier), [Sequelize](https://github.com/sequelize/sequelize), and [Finale](https://github.com/tommybananas/finale)
+
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
 
 ## About Vue.js
 
@@ -45,20 +57,20 @@ You will use JWT-based authentication when making requests from the web app and 
 
 ## Create Your Vue.js App
 
-To get your project off the ground quickly you can leverage the scaffolding functionality from [vue-cli](https://github.com/vuejs/vue-cli). For this tutorial, you are going to use the [progressive web app (PWA) template](https://github.com/vuejs-templates/pwa) that includes a handful of features including [webpack](https://github.com/webpack/webpack), [hot reloading](https://vue-loader.vuejs.org/guide/hot-reload.html), CSS extraction, and unit testing.
+To get your project off the ground quickly you can leverage the scaffolding functionality from [Vue CLI](https://github.com/vuejs/vue-cli). For this tutorial, you are going to use the [progressive web app (PWA) template](https://github.com/vuejs-templates/pwa) that includes a handful of features including [webpack](https://github.com/webpack/webpack), [hot reloading](https://vue-loader.vuejs.org/guide/hot-reload.html), CSS extraction, and unit testing.
 
 > If you're not familiar with the tenets of PWA, check out our [ultimate guide to progressive web applications](/blog/2017/07/20/the-ultimate-guide-to-progressive-web-applications).
 
-To install `vue-cli` run:
+To install the Vue CLI run:
 
 ```
-npm install -g vue-cli@2.9.3
+npm install -g @vue/cli@4.5.12 @vue/cli-init@4.5.12
 ```
 
 Next, you need to initialize your project.  When you run the `vue init` command just accept all the default values.
 
 ```
-vue init pwa my-vue-app
+vue init pwa my-vue-app 
 cd ./my-vue-app
 npm install
 npm run dev
@@ -68,13 +80,13 @@ Point your favorite browser to `http://localhost:8080` and you should see the fr
 
 {% img blog/vue-crud-node/welcome-to-vue-pwa.png alt:"Welcome to Your Vue.js PWA" width:"800" %}{: .center-image }
 
-**Extra Credit**: Check out the other [templates](https://github.com/vuejs-templates) available for `vue-cli`.
+**Extra Credit**: Check out the other [templates](https://github.com/vuejs-templates) available for the Vue CLI.
 
 ## Install Bootstrap
-Let's install [bootstrap-vue](https://github.com/bootstrap-vue/bootstrap-vue) so you can take advantage of the various premade [components](https://getbootstrap.com/docs/4.0/components/) (plus you can keep the focus on functionality and not on custom CSS):
+Let's install [bootstrap-vue](https://github.com/bootstrap-vue/bootstrap-vue) so you can take advantage of the various premade [components](https://getbootstrap.com/docs/4.5/components/) (plus you can keep the focus on functionality and not on custom CSS):
 
 ```
-npm i bootstrap-vue@2.0.0-rc.7 bootstrap@4.1.0
+npm i bootstrap-vue@2.21.2 bootstrap@4.5.3
 ```
 
 To complete the installation, modify `./src/main.js` to include [bootstrap-vue](https://github.com/bootstrap-vue/bootstrap-vue) and import the required CSS files. Your `./src/main.js` file should look like this:
@@ -85,7 +97,7 @@ To complete the installation, modify `./src/main.js` to include [bootstrap-vue](
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import BootstrapVue from 'bootstrap-vue'
+import { BootstrapVue } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
@@ -103,26 +115,14 @@ new Vue({
 
 ## Add Authentication with Okta
 
-Dealing with authentication in a web app is the bane of every developer's existence. That's where Okta comes in to secure your web applications with minimal code. To get started, you will need to create an OIDC application in Okta. [Sign up for a forever-free developer account](https://developer.okta.com/signup/) (or log in if you already have one).
+Dealing with authentication in a web app is the bane of every developer's existence. That's where Okta comes in to secure your web applications with minimal code. 
 
-{% img blog/vue-crud-node/okta-developer-sign-up.png alt:"Okta Developer Sign Up" width:"800" %}{: .center-image }
+{% include setup/cli.md type="spa" framework="Vue" loginRedirectUri="http://localhost:8080/callback" %}
 
-Once logged in, create a new application by clicking "Add Application".
-
-{% img blog/vue-crud-node/add-application.png alt:"Add Application" width:"800" %}{: .center-image }
-
-Select the "Single-Page App" platform option.
-
-{% img blog/vue-crud-node/new-application-options.png alt:"New Application Options" width:"800" %}{: .center-image }
-
-The default application settings should be the same as those pictured.
-
-{% img blog/vue-crud-node/okta-application-settings.png alt:"Okta Application Settings" width:"800" %}{: .center-image }
-
-To install the Okta Vue SDK, run the following command:
+Then, install the Okta Vue SDK and its peer dependency, the Okta AuthJS SDK:
 
 ```
-npm i @okta/okta-vue@1.0.0
+npm i @okta/okta-vue@3.1.0 @okta/okta-auth-js@4.8.0
 ```
 
 Open `./src/router/index.js` and replace the entire file with the following code.
@@ -132,16 +132,18 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Hello from '@/components/Hello'
 import PostsManager from '@/components/PostsManager'
-import Auth from '@okta/okta-vue'
+import OktaVue, { LoginCallback } from '@okta/okta-vue'
+import { OktaAuth } from '@okta/okta-auth-js'
 
-Vue.use(Auth, {
+const oktaAuth = new OktaAuth({
   issuer: 'https://{yourOktaDomain}/oauth2/default',
-  client_id: '{clientId}',
-  redirect_uri: 'http://localhost:8080/implicit/callback',
-  scope: 'openid profile email'
+  clientId: '{clientId}',
+  redirectUri: window.location.origin + '/callback',
+  scopes: ['openid', 'profile', 'email']
 })
 
 Vue.use(Router)
+Vue.use(OktaVue, { oktaAuth })
 
 let router = new Router({
   mode: 'history',
@@ -152,8 +154,8 @@ let router = new Router({
       component: Hello
     },
     {
-      path: '/implicit/callback',
-      component: Auth.handleCallback()
+      path: '/callback',
+      component: LoginCallback
     },
     {
       path: '/posts-manager',
@@ -166,40 +168,23 @@ let router = new Router({
   ]
 })
 
-router.beforeEach(Vue.prototype.$auth.authRedirectGuard())
-
 export default router
 ```
 
-You'll need to replace `{yourOktaDomain}` and `{clientId}` which can be found on your application overview page in the Okta Developer Console. This will inject an `authClient` object into your Vue instance which can be accessed by calling `this.$auth` anywhere inside your Vue instance.
+You'll need to replace `{yourOktaDomain}` and `{clientId}` with the values from the app you just created. This will inject an `authClient` object into your Vue instance which can be accessed by calling `this.$auth` anywhere inside your Vue instance.
 
-```javascript
-Vue.use(Auth, {
-  issuer: 'https://{yourOktaDomain}/oauth2/default',
-  client_id: '{clientId}',
-  redirect_uri: 'http://localhost:8080/implicit/callback',
-  scope: 'openid profile email'
-})
-```
-
-The final step of Okta's authentication flow is redirecting the user back to your app with the token values in the URL. The `Auth.handleCallback()` component included in the SDK handles the redirect and persists the tokens on the browser.
+The final step of Okta's authentication flow is redirecting the user back to your app with the token values in the URL. The `LoginCallback` component included in the SDK handles the redirect and persists the tokens on the browser.
 
 ```javascript
 {
-  path: '/implicit/callback',
-  component: Auth.handleCallback()
+  path: '/callback',
+  component: LoginCallback
 }
 ```
 
 You also need to lock down protected routes from being accessed by unauthenticated users. This is accomplished by implementing a [navigation guard](https://router.vuejs.org/guide/advanced/navigation-guards.html). As the name suggests, navigation guards are primarily used to guard navigations either by redirecting or canceling.
 
-The SDK comes with the method `auth.authRedirectGuard()` that checks matched routes' metadata for the key `requiresAuth` and redirects the user to the authentication flow if they are not authenticated.
-
-```javascript
-router.beforeEach(Vue.prototype.$auth.authRedirectGuard())
-```
-
-With this navigation guard installed, any route that has the following metadata will be protected.
+The Okta Vue SDK comes with navigation guards built-in, so any route that has the following metadata will be protected.
 
 ```javascript
 meta: {
@@ -257,14 +242,16 @@ export default {
     '$route': 'refreshActiveUser'
   },
   methods: {
-    login () {
-      this.$auth.loginRedirect()
+    async login () {
+      this.$auth.signInWithRedirect()
     },
     async refreshActiveUser () {
-      this.activeUser = await this.$auth.getUser()
+      if (this.authState.isAuthenticated) {
+        this.activeUser = await this.$auth.getUser()
+      }
     },
     async logout () {
-      await this.$auth.logout()
+      await this.$auth.signOut()
       await this.refreshActiveUser()
       this.$router.push('/')
     }
@@ -274,21 +261,18 @@ export default {
 ```
 {% endraw %}
 
-Every login must have a logout. The following snippet will logout your user, refresh the active user (which is now null), and then redirect the user to the homepage. This method is called when a user clicks on the logout link in the nav.
+Every login must have a logout. The following snippet will log out your user and then redirect the user to the homepage. This method is called when a user clicks on the logout link in the nav.
 
 ```javascript
 async logout () {
-  await this.$auth.logout()
-  await this.refreshActiveUser()
-  this.$router.push('/')
+  await this.$auth.signOut()
 }
 ```
 
-[Components](https://vuejs.org/v2/guide/components) are the building blocks within Vue.js.  Each of your pages will be defined in the app as a component. Since the vue-cli webpack template utilizes [vue-loader](https://github.com/vuejs/vue-loader), your component source files have a convention that separates template, script, and style ([see here](https://github.com/vuejs/vue-loader)).
+[Components](https://vuejs.org/v2/guide/components) are the building blocks within Vue.js.  Each of your pages will be defined in the app as a component. Since the Vue CLI webpack template utilizes [vue-loader](https://github.com/vuejs/vue-loader), your component source files have a convention that separates template, script, and style ([see here](https://github.com/vuejs/vue-loader)).
 
 Now that you've added vue-bootstrap, modify `./src/components/Hello.vue` to remove the boilerplate links vue-cli generates.
 
-{% raw %}
 ```html
 <template>
   <div class="hero">
@@ -313,13 +297,11 @@ Now that you've added vue-bootstrap, modify `./src/components/Hello.vue` to remo
   }
 </style>
 ```
-{% endraw %}
 
 At this point you can stub out the Post Manager page to test your authentication flow. Once you confirm authentication works, you'll start to build out the API calls and components required to perform CRUD operations on your Posts model.
 
 Create a new file `./src/components/PostsManager.vue` and paste the following code:
 
-{% raw %}
 ```html
 <template>
   <div class="container-fluid mt-4">
@@ -328,7 +310,6 @@ Create a new file `./src/components/PostsManager.vue` and paste the following co
   </div>
 </template>
 ```
-{% endraw %}
 
 ## Take Your Vue.js Frontend and Auth Flows for a Test Drive
 
@@ -336,7 +317,7 @@ In your terminal run `npm run dev` (if it's not already running). Navigate to `h
 
 {% img blog/vue-crud-node/new-homepage.png alt:"Hello World" width:"800" %}{: .center-image }
 
-If you click **Posts Manager** or **Login** you should be directed to Okta's flow.  Enter your Okta dev account credentials.
+If you click **Posts Manager** or **Login** you should be directed to Okta's flow.  Enter your Okta developer account credentials.
 
 **NOTE:** If you are logged in to your Okta Developer Account you will be redirected automatically back to the app. You can test this by using incognito or private browsing mode.
 
@@ -354,11 +335,12 @@ Clicking on **Posts Manager** link should render the protected component.
 
 Now that users can securely authenticate, you can build the REST API server to perform CRUD operations on a post model. Add the following dependencies to your project:
 
-```
-npm i express@4.16.3 cors@2.8.4 @okta/jwt-verifier@0.0.11 sequelize@4.37.6 sqlite3@4.0.0 finale-rest@1.0.6 axios@0.18.0
+```bash
+npm i express@4.17.1 cors@2.8.5 @okta/jwt-verifier@2.1.0 \
+  sequelize@6.6.2 sqlite3@5.0.2 finale-rest@1.1.1 axios@0.21.1
 ```
 
-Then, create the file  `./src/server.js` and paste the following code.
+Then, create the file `./src/server.js` and paste the following code.
 
 ```javascript
 const express = require('express')
@@ -385,7 +367,7 @@ app.use((req, res, next) => {
   }
   let parts = req.headers.authorization.trim().split(' ')
   let accessToken = parts.pop()
-  oktaJwtVerifier.verifyAccessToken(accessToken)
+  oktaJwtVerifier.verifyAccessToken(accessToken, 'api://default')
     .then(jwt => {
       req.user = {
         uid: jwt.claims.uid,
@@ -447,7 +429,8 @@ let database = new Sequelize({
 ```
 
 Each post has a `title` and `body`. (The fields `createdAt`, and `updatedAt` are added by Sequelize automatically). With Sequelize, you define models by calling `define()` on your instance.
-```
+
+```javascript
 let Post = database.define('posts', {
   title: Sequelize.STRING,
   body: Sequelize.TEXT
@@ -474,7 +457,7 @@ let userResource = finale.resource({
 
 ### Verify Your JWT
 
-This is the most crucial component of your REST API server. Without this middleware any user can perform CRUD operations on our database. If no authorization header is present, or the access token is invalid, the API call will fail and return an error.
+This is the most crucial component of your REST API server. Without this middleware any user can perform CRUD operations on our database. If no authorization header is present, or the access token is invalid, or the audience doesn't match, the API call will fail and return an error.
 
 ```javascript
 // verify JWT token middleware
@@ -485,7 +468,7 @@ app.use((req, res, next) => {
   }
   let parts = req.headers.authorization.trim().split(' ')
   let accessToken = parts.pop()
-  oktaJwtVerifier.verifyAccessToken(accessToken)
+  oktaJwtVerifier.verifyAccessToken(accessToken, 'api://default')
     .then(jwt => {
       req.user = {
         uid: jwt.claims.uid,
@@ -685,7 +668,7 @@ export default {
 
 ### Listing Posts
 
-You'll use ```api.getPosts()``` to fetch posts from your REST API server. You should refresh the list of posts when the component is loaded and after any mutating operation (create, update, or delete).
+You'll use `api.getPosts()` to fetch posts from your REST API server. You should refresh the list of posts when the component is loaded and after any mutating operation (create, update, or delete).
 
 ```javascript
 async refreshPosts () {
@@ -783,7 +766,3 @@ To learn more about Vue.js head over to [https://vuejs.org](https://vuejs.org/) 
 You can find the source code for the application developed in this post at <https://github.com/oktadeveloper/okta-vue-node-example>.
 
 Hit me up in the comments with any questions, and as always, follow [@oktadev](https://twitter.com/OktaDev) on Twitter to see all the cool content our dev team is creating.
-
-* Sep 6, 2019: Updated to migrate from Epilogue to Finale. [Epilogue is no longer maintained](http://disq.us/p/23uy4x0). Thanks to Chris Roberts for the tip! See the code changes in [oktadeveloper/okta-vue-node-example-example#3](https://github.com/oktadeveloper/okta-vue-node-example/pull/3). Changes to this article can be viewed in [oktadeveloper/okta.github.io#3040](https://github.com/oktadeveloper/okta.github.io/pull/3040).
-* Apr 16, 2018: Updated to use the latest dependencies, including Okta's Vue SDK 1.0.0. See the code changes in [oktadeveloper/okta-vue-node-example-example#2](https://github.com/oktadeveloper/okta-vue-node-example/pull/2). Changes to this article can be viewed in [oktadeveloper/okta.github.io#1959](https://github.com/oktadeveloper/okta.github.io/pull/1959).
-* Mar 12, 2018: Updated to use the latest dependencies, including Bootstrap 4.0.0. See the code changes in [oktadeveloper/okta-vue-node-example-example#1](https://github.com/oktadeveloper/okta-vue-node-example/pull/1). Changes to this article can be viewed in [oktadeveloper/okta.github.io#1837](https://github.com/oktadeveloper/okta.github.io/pull/1837).

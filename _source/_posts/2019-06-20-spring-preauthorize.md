@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7488844749
+discourse_topic_id: 17077
+discourse_comment_url: https://devforum.okta.com/t/17077
 layout: blog_post
 title: "Spring Method Security with PreAuthorize"
 author: andrew-hughes
@@ -12,6 +15,8 @@ tweets:
 - "Andrew explains how to secure a @springboot app with a couple of lines of code."
 image: blog/featured/okta-java-bottle-headphones.jpg
 type: conversion
+changelog:
+- 2021-03-31: Upgraded to Spring Boot 2.4.4 and streamlined setup with the Okta CLI. See the [example changes on GitHub](https://github.com/oktadeveloper/okta-spring-preauthorize-example/pull/1) and [okta-blog#643](https://github.com/oktadeveloper/okta-blog/pull/643/files) for a diff of this blog post.
 ---
 
 This tutorial will explore two ways to configure authentication and authorization in Spring Boot using Spring Security. One method is to create a `WebSecurityConfigurerAdapter` and use the fluent API to override the default settings on the `HttpSecurity` object. Another is to use the `@PreAuthorize` annotation on controller methods, known as method-level security or expression-based security. The latter will be the main focus of this tutorial. However, I will present some `HttpSecurity` code and ideas by way of contrast.
@@ -22,7 +27,7 @@ Method-level security is implemented by placing the `@PreAuthorize` annotation o
 
 ## Differentiate Between Spring Security's @PreAuthorize and HttpSecurity
 
-The first difference is subtle, but worth mentioning. `HttpSecurity` method rejects the request earlier, in a web request filter, before controller mapping has occurred. In contrast, the `@PreAuthorize` assessment happens later, directly before the execution of the controller method. This means that configuration in `HttpSecurity` is appied **before** `@PreAuthorize`.
+The first difference is subtle, but worth mentioning. `HttpSecurity` method rejects the request earlier, in a web request filter, before controller mapping has occurred. In contrast, the `@PreAuthorize` assessment happens later, directly before the execution of the controller method. This means that configuration in `HttpSecurity` is applied **before** `@PreAuthorize`.
 
 Second, `HttpSecurity` is tied to URL endpoints while `@PreAuthorize` is tied to controller methods **and is actually located within the code adjacent to the controller definitions**. Having all of your security in one place and defined by web endpoints has a certain neatness to it, especially in smaller projects, or for more global settings; however, as projects get larger, it may make more sense to keep the authorization policies near the code being protected, which is what the annotation-based method allows. 
 
@@ -32,11 +37,9 @@ Before we dive into the project, I want to also mention that Spring also provide
 
 ## Dependencies
 
-The dependencies for this tutorial are pretty simple. You need: 1) Java 8+ installed, and 2) an Okta developer account. 
+The dependencies for this tutorial are pretty simple. You need: 1) Java 11 installed, and 2) an Okta developer account. 
 
-If you do not have Java installed, go to [AdoptOpenJDK](https://adoptopenjdk.net/). On \*nix systems, you can also use [SDKMAN](https://sdkman.io/).  
-
-If you do not already have a free Okta developer account, go to [our website and sign up](https://developer.okta.com/signup/).
+If you do not have Java installed, go to [AdoptOpenJDK](https://adoptopenjdk.net/). On \*nix systems, you can also use [SDKMAN](https://sdkman.io/).
 
 ## Start a Sample Project Using Spring Initializr
 
@@ -48,11 +51,11 @@ Open a terminal and `cd` to wherever you want the project file .zip to end up. R
 curl https://start.spring.io/starter.zip \
   -d dependencies=web,security \
   -d type=gradle-project \
-  -d bootVersion=2.1.5.RELEASE \
+  -d bootVersion=2.4.4.RELEASE \
   -d groupId=com.okta.preauthorize \
   -d artifactId=application \
   -o PreAuthorizeProject.zip
-unzip PreAuthorizeProject.zip
+unzip PreAuthorizeProject.zip -d preauthorize
 ```
 
 There isn't much to the project to begin with except the `build.gradle` file and the `DemoApplication.java` class file. However, the whole project structure is there already set up for you. 
@@ -191,6 +194,9 @@ Since the app is already wide-open, I'll show you how to restrict a specific met
 In the `WebController` class, add the `@PreAuthorize` annotation to the `/restricted` endpoint, like this:
 
 ```java
+import org.springframework.security.access.prepost.PreAuthorize;
+...
+
 @PreAuthorize("isAuthenticated()")  
 @RequestMapping("/restricted")  
 @ResponseBody  
@@ -261,7 +267,7 @@ public class WebController {
 }
 ```
 
-And change the `WebSecurity` class to this:
+And change the `SecurityConfig` class to this:
 
 ```java
 @Configuration  
@@ -295,25 +301,7 @@ Form-based authentication feels pretty creaky and old these days. More and more,
 
 Very, very briefly: OAuth 2.0 is an industry-standard authorization protocol and OIDC is another open standard on top of OAuth that adds an identity layer (authentication). Together they provide a structured way for programs to manage authentication and authorization and to communicate across networks and the internet. Neither OAuth nor OIDC, however, provide an implementation. They are just specs or protocols. That's where Okta comes in. Okta has an implementation of the OAuth 2.0 and OIDC specs that allows for programs to use their services to quickly provide login, registration, and single sign-on (or social login) services. In this tutorial, you're just going to be implementing a login function, but at the end of the tutorial, you can find links to other resources to show you how to implement social login and registration.
 
-First, sign up for a free Okta Developer account: [https://developer.okta.com/signup/](https://developer.okta.com/signup/).
-
-If this is the first time you've logged in or just registered, you may need to click the **Admin** button to get to the developer console.
-
-Next, you need to configure an OIDC application.
-
-From your Okta developer dashboard, in the top menu, click on **Applications**.
-
-{% img blog/spring-preauthorize/add-app.png alt:"Okta Dashboard" width:"800" %}{: .center-image }
-
-- Click the green **Add Application** button
-- Click **Web** application type, and **Next**
-- Give the app a Name. Any name.
-- Set **Login Redirect URIs** to `http://localhost:8080/login/oauth2/code/okta`
-- Click **Done**.
-
-{% img blog/spring-preauthorize/new-oidc-app.png alt:"OIDC Application" width:"600" %}{: .center-image }
-
-Take note of the **Client ID** and **Client Secret** at the bottom of the page. You'll need these in the next section.
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
 
 And that's it on the Okta side. 
 
@@ -327,7 +315,7 @@ Update the dependencies section of your `build.gradle` file:
 
 ```groovy
 dependencies {  
-  implementation 'com.okta.spring:okta-spring-boot-starter:1.2.1'  // <-- ADDED
+  implementation 'com.okta.spring:okta-spring-boot-starter:2.0.1'  // <-- ADDED
   implementation 'org.springframework.boot:spring-boot-starter-security'  
   implementation 'org.springframework.boot:spring-boot-starter-web'  
   testImplementation 'org.springframework.boot:spring-boot-starter-test'  
@@ -347,7 +335,7 @@ okta:
 
 Don't forget to update the **client-id**, **client-secret**, and **issuer** values to match the values from your Okta developer account and OIDC app. Your Okta issuer should look something like `https://dev-123456.okta.com/oauth2/default`.
 
-Finally, update the `SecurityConfiguration.java` file:
+Finally, update the `SecurityConfig.java` file:
 
 ```java
 @Configuration  
@@ -365,7 +353,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 Notice that all you really changed here was `formLogin()` to `oauth2Login()`.
 
-Run the app: `./gradlew bootRun` (you may either need to sign out of the Okta developer dashboard or use an incognito window to see the login screen).
+Run the app: `./gradlew bootRun` (you may either need to sign out of the Okta Admin Console or use an incognito window to see the login screen).
 
 The `/` endpoint is still open, but when you go to the restricted endpoint: `http://localhost:8080/restricted`.
 
@@ -373,7 +361,7 @@ You'll see the Okta login screen.
 
 {% img blog/spring-preauthorize/okta-login.png alt:"Okta Login Screen" width:"600" %}{: .center-image }
 
-Log in with your Okta credentials and you're authenticated!
+Log in with your Okta credentials, and you're authenticated!
 
 ## Inspect the OAuth 2.0 User Attributes
 
@@ -471,15 +459,11 @@ To see how this works, in the next few sections you'll add an **Admin** group in
 
 Okta doesn't by default include the groups claim in the JSON Web Token (JWT). The JWT is what Okta uses to communicate authentication and authorization information to the client app. A deeper dive into that is available in some other blog posts linked to at the end of this one.
 
-To configure Okta to add the groups claim, go to your Okta developer dashboard.
+To configure Okta to add the groups claim, log in to the Okta Admin Console (tip: `okta login` will provide you the URL you're looking for).
 
-From the top menu, go to **API** and select **Authorization Servers**.
-
-Select the **default** authorization server.
+Then, go to **Security** > **API** and select the `default` authorization server. 
 
 Click on the **Claims** tab.
-
-{% img blog/spring-preauthorize/auth-server-claims.png alt:"Auth Server Claims" width:"800" %}{: .center-image }
 
 You are going to create two claim mappings. You're not creating two claims, per se, but instructing Okta to add the groups claim to both the Access Token and the ID Token. You need to do this because depending on the OAuth flow, the groups claim may be extracted from either. In our case, with the OIDC flow, it's actually the ID Token that matters, but it's best to just add them to both so as to avoid frustration in the future. The resource server flow requires the groups claim to be in the access token.
 
@@ -494,8 +478,6 @@ Update the following values (the other default values are fine):
  - **Value type:** Groups
  - **Filter:** Matches regex, `.*`
 
-{% img blog/spring-preauthorize/edit-claim.png alt:"Configure Claim" width:"800" %}{: .center-image }
-
 Second, add a second claim mapping for token type **ID Token**. 
 
 Click **Add Claim**.
@@ -507,11 +489,15 @@ Update the following values (just the same as above except token type):
  - **Value type:** Groups
  - **Filter:** Matches regex, `.*`
 
+When you're finished, your claims should look like the following.
+
+{% img blog/spring-preauthorize/claims.png alt:"Claims List" width:"800" %}{: .center-image }
+
 Great! So now Okta will map all of its groups to a `groups` claim on the access token and the ID token.
 
-What happens to this groups claim on the Spring side is not necessarily obvious nor automatic. One of the benefits of the Spring Boot starter is that it automatically extracts the groups claim from the JWT and maps it to a Spring authority. Otherwise you would need to implement your own `GrantedAuthoritiesExtractor`. 
+What happens to this groups claim on the Spring side is not necessarily obvious nor automatic. One of the benefits of the Spring Boot starter is that it automatically extracts the groups claim from the JWT and maps it to a Spring authority. Otherwise, you would need to implement your own `GrantedAuthoritiesExtractor`. 
 
-FYI: the name of the groups claim can be configured using the `okta.oauth2.groupsClaim` field in the `application.yml` file. It defaults to `groups`.
+FYI: the name of the groups claim can be configured using the `okta.oauth2.groupsClaim` property in the `application.yml` file. It defaults to `groups`.
 
 ## Inspect The User Attributes With Groups
 
@@ -537,11 +523,9 @@ That's the basic idea. It'll get a little more exciting in the next step when yo
 
 ## Create An Admin Group in Okta
 
-Now you want to add an **Admin** group on Okta. Log into your Okta developer dashboard.
+Now you want to add an **Admin** group on Okta. Log into your Okta org.
 
-From the top menu, go to **Users** and select **Groups**.
-
-Click **Add Group**.
+Go to **Directory** and select **Groups**. Click **Add Group**.
 
 In the popup:
 - **Name** the group "Admin".
@@ -579,7 +563,7 @@ You'll get a **403 / Unauthorized** whitepage error.
 
 ## Add Your User To the Admin Group
 
-Now you need to add your Okta user to the Admin group. From the top menu, select **Users** and click **Groups**. Click on the **Admin** group. Click **Add Members**. Search for your user in the popup and click **Add**.
+Now you need to add your Okta user to the Admin group. In the Okta Admin Console, select **Directory** and click **Groups**. Click on the **Admin** group, then **Manage People**. Add your user.
 
 ## Test the Admin Group Membership
 
@@ -615,7 +599,8 @@ You can also use the `@PreAuthorize` annotation to limit access based on OAuth s
 
 > Scope is a mechanism in OAuth 2.0 to limit an application's access to a user's account. An application can request one or more scopes, this information is then presented to the user in the consent screen, and the access token issued to the application will be limited to the scopes granted.
 
-If you look at the inspected `User Authorities` returned from the `/user/oauthinfo` endpoint, you'll see three authorities that begin with `SCOPE_`: 
+If you look at the inspected `User Authorities` returned from the `/user/oauthinfo` endpoint, you'll see three authorities that begin with `SCOPE_`:
+
 - SCOPE_email
 - SCOPE_openid
 - SCOPE_profile
@@ -662,27 +647,20 @@ Try adding a custom scope. Change `okta.oauth2.scopes` property in the `applicat
 okta:  
   oauth2:  
     ... 
-    scopes: openid email profile custom
+    scopes: openid, email, profile, custom
     ...
 ```
 
 Before you run the app and try this out, you need to add the custom scope to the Okta authorization server (if you run it now you'll get an error).
 
-Open your Okta developer dashboard.
+Open your Okta Admin Console and go to **Security** > **API** > `default`.
 
-From the top menu, go to **API** and select **Authorization Servers**.
+Click on the **Scopes** tab, then the **Add Scope** button.
 
-Select the **default** authorization server.
-
-Click on the **Scopes** tab.
-
-{% img blog/spring-preauthorize/add-scope.png alt:"Add New Scope" width:"800" %}{: .center-image }
-
-Click the **Add Scope** button.
  - **Name**: `custom`
- -  **Description**: `Custom test scope`
+ - **Description**: `Custom test scope`
  
- Click **Create**.
+Click **Create**.
 
 You just added a custom scope (cunningly named `custom`) to your default Okta authorization server.
 
@@ -709,10 +687,11 @@ If you'd like to check out this complete project, you can [find the repo on Gith
 
 If you'd like to learn more about Spring Boot, Spring Security, or secure user management, check out any of these great tutorials:
 
--   [Get Started with Spring Boot, OAuth 2.0, and Okta](/blog/2017/03/21/spring-boot-oauth)
--   [Add Single Sign-On to Your Spring Boot Web App in 15 Minutes](/blog/2017/11/20/add-sso-spring-boot-15-min)
--   [Secure Your Spring Boot Application with Multi-Factor Authentication](/blog/2018/06/12/mfa-in-spring-boot)
--   [Build a Secure API with Spring Boot and GraphQL](/blog/2018/08/16/secure-api-spring-boot-graphql)
+- [Build a Secure Spring Data JPA Resource Server](blog/2020/11/20/spring-data-jpa)
+- [Get Started with Spring Boot, OAuth 2.0, and Okta](/blog/2017/03/21/spring-boot-oauth)
+- [Add Single Sign-On to Your Spring Boot Web App in 15 Minutes](/blog/2017/11/20/add-sso-spring-boot-15-min)
+- [Secure Your Spring Boot Application with Multi-Factor Authentication](/blog/2018/06/12/mfa-in-spring-boot)
+- [Build a Secure API with Spring Boot and GraphQL](/blog/2018/08/16/secure-api-spring-boot-graphql)
 
 If you want to dive deeper, take a look at the [Okta Spring Boot Starter GitHub Project](https://github.com/okta/okta-spring-boot).
 

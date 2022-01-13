@@ -1,0 +1,115 @@
+@include media('<medium') {
+  .navigation .menu--slideout {
+    display: none;
+    position: fixed;
+    top: 70px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-width: none;
+    margin: 0;
+    padding: 0 0 20px;
+    background-color: get-color('white');
+    z-index: -1;
+    overflow-y: auto;
+
+    &.open {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 40px 16px 0;
+    }
+
+    .flex-row {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .nav-link {
+      color: get-color('shark');
+      display: block;
+      width: 100%;
+      font-size: 14px;
+      line-height: 1.5em;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+
+    ul.menu {
+      width: 100%;
+    }
+
+    .menu-item {
+      padding: 0;
+      margin: 0 0 9px;
+      position: relative;
+      width: 100%;
+      line-height: 1.5em;
+
+      .sub-menu {
+        display: none;
+        padding: 0;
+        margin: 10px 0 0;
+
+        li {
+          padding-left: 27px;
+        }
+
+        .nav-link {
+          font-weight: normal;
+          color: get-color('storm-gray');
+
+          &:hover {
+            color: get-color('shark');
+          }
+        }
+      }
+
+      &.has-children {
+        i.fa-angle-down {
+          transform: rotate(-90deg);
+          position: absolute;
+          right: 0;
+          top: 4px;
+        }
+
+        &.open {
+          i.fa-angle-down {
+            transform: rotate(0deg);
+          }
+
+          .sub-menu {
+            display: block;
+          }
+        }
+      }
+    }
+
+    .cta {
+      color: get-color('shark');
+      font-size: 14px;
+      font-weight: 500;
+      justify-content: flex-start;
+      &:after {
+        display: none;
+      }
+    }
+    .signup-btn {
+      display: none;
+      @include media('<small') {
+        display: block;
+        .cta {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+@include media('<small') {
+  .navigation .menu--slideout {
+    top: 60px;
+  }
+}

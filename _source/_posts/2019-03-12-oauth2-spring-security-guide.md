@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7284130407
+discourse_topic_id: 17017
+discourse_comment_url: https://devforum.okta.com/t/17017
 layout: blog_post
 title: "A Quick Guide to OAuth 2.0 with Spring Security"
 author: andrew-hughes
@@ -12,6 +15,8 @@ tweets:
 - "Learn how to configure OAuth 2.0 authentication with Spring Security and Spring Boot in this tutorial."
 image: blog/featured/okta-java-skew.jpg
 type: conversion
+changelog:
+  - 2020-05-07: Updated to use Spring Boot 2.2.7 and [rename `redirect-uri-template` to `redirect-uri`](https://github.com/oktadeveloper/okta-spring-boot-authz-server-example/issues/2). See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-spring-boot-authz-server-example/pull/3). Changes to this article can be viewed in [oktadeveloper/okta-blog#286](https://github.com/oktadeveloper/okta-blog/pull/286).
 ---
 
 When building a web application, authentication and authorization is a must. Doing it right, however, is not simple. Computer security is a true specialty. Legions of developers work day and night against equally numerous international hackers creating a continual development cycle of finding vulnerabilities, attacking them, and fixing them. Keeping up with all this solo would be painful (if not impossible).
@@ -21,6 +26,10 @@ Fortunately, there's no need. Spring Security and Spring Boot have made implemen
 In this tutorial, you'll first build an OAuth 2.0 web application and authentication server using Spring Boot and Spring Security. After that, you'll use Okta to get rid of your self-hosted authentication server and simplify your Spring Boot application even more.
 
 Let's get started!
+
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
 
 ## Create an OAuth 2.0 Server
 
@@ -407,15 +416,11 @@ You can stop both server and client Spring Boot apps.
 
 ## Create an OpenID Connect Application
 
-Okta is a SaaS (software-as-service) authentication and authorization provider. We provide free accounts to developers so they can develop OIDC apps with no fuss. Head over to [developer.okta.com](https://developer.okta.com/signup/) and sign up for an account. After you've verified your email, log in and perform the following steps:
+Okta is a SaaS (software-as-service) authentication and authorization provider. We provide free accounts to developers so they can develop OIDC apps with no fuss. 
 
-* Go to **Application** > **Add Application**.
-* Select application type **Web** and click **Next**.
-* Give the app a name. I named mine "Spring Boot OAuth".
-* Under **Login redirect URIs** change the value to `http://localhost:8080/login/oauth2/code/okta`. The rest of the default values will work.
-* Click **Done**.
+{% include setup/cli.md type="web" loginRedirectUri="http://localhost:8080/login/oauth2/code/okta" logoutRedirectUri="http://localhost:8080" %}
 
-Leave the page open of take note of the **Client ID** and **Client Secret**. You'll need them in a moment.
+You'll need to use the values from the generated `.okta.env` to configure OIDC in your Spring Boot apps.
 
 ## Create a New Spring Boot App
 
@@ -439,7 +444,7 @@ implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5:3.0.4.RELE
 
 Also while you're there, notice the dependency `com.okta.spring:okta-spring-boot-starter:1.1.0`. This is the Okta Spring Boot Starter. It's a handy project that makes integrating Okta with Spring Boot nice and easy. For more info, take a look at [the project's GitHub](https://github.com/okta/okta-spring-boot). 
 
-Change the `src/main/resources/application.properties` to `application.yml` and add the following:
+Change the `src/main/resources/application.properties` to `application.yml` and make sure it has the following configuration:
 
 ```yaml
 server:
@@ -453,8 +458,6 @@ spring:
   thymeleaf:
     cache: false
 ```
-
-Remember when I said you'll need your **ClientID** and **Client Secret** above. Well, the time has come. You need to fill them into the file, as well as your Okta issuer URL. It's gonna look something like this: `dev-123456.okta.com`. You can find it under **API** > **Authorization Servers**.
 
 You also need two similar template files in the `src/main/resources/templates` directory. The `index.html` template file is exactly the same, and can be copied over if you like. The `securedPage.html` template file is slightly different because of the way the authentication information is returned from Okta as compared to the simple authentication server you built earlier.
 
@@ -580,7 +583,3 @@ If you're interested in learning more about Spring Boot, OAuth 2.0, and Spring S
 * [Build a Secure API with Spring Boot and GraphQL](/blog/2018/08/16/secure-api-spring-boot-graphql)
 
 If you have any questions about this post, please add a comment below. For more awesome content, follow  [@oktadev](https://twitter.com/oktadev)  on Twitter, or subscribe to  [our YouTube channel](https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q)!
-
-**Changelog:**
-
-* May 7, 2020: Updated to use Spring Boot 2.2.7 and [rename `redirect-uri-template` to `redirect-uri`](https://github.com/oktadeveloper/okta-spring-boot-authz-server-example/issues/2). See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-spring-boot-authz-server-example/pull/3). Changes to this article can be viewed in [oktadeveloper/okta-blog#286](https://github.com/oktadeveloper/okta-blog/pull/286).

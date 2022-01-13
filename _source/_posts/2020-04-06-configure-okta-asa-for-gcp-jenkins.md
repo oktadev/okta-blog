@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7948070646
+discourse_topic_id: 17230
+discourse_comment_url: https://devforum.okta.com/t/17230
 layout: blog_post
 title: "Configure Okta Advanced Server Access (ASA) for GCP + Jenkins Service Account"
 author: nicolas-triballier
@@ -212,7 +215,7 @@ Okta should redirect you to that view:
 
 The configuration between your Okta org and your ASA team is complete. Now let's create the GCP VMs and enroll them into ASA.
 
-## Configure a Google Cloud Platform (GCP) Project
+### Configure a Google Cloud Platform (GCP) Project
 
 - Go to the [GCP web console](https://console.cloud.google.com)
 - Create a new GCP project:
@@ -235,9 +238,9 @@ The configuration between your Okta org and your ASA team is complete. Now let's
 
 {% img blog/asa-gcp-jenkins/gcp-vm-instances.png alt:"GCP VM instances" width:"600" %}{: .center-image }
 
-## Create Google Cloud VMs
+### Create Google Cloud VMs
 
-### gcp-ubuntu-bastion
+#### gcp-ubuntu-bastion
 
 - Click on **Create Instance**
 
@@ -255,11 +258,11 @@ The configuration between your Okta org and your ASA team is complete. Now let's
 
 - Click on **Create**
 
-### gcp-ubuntu-target
+#### gcp-ubuntu-target
 
 Follow the same steps as above, and choose **gcp-ubuntu-target** as the VM name on Ubuntu 16.04 LTS.
 
-### gcp-jenkins
+#### gcp-jenkins
 
 Follow the same steps as above, but choose **gcp-jenkins** as the VM name on **Ubuntu 18.04 LTS** and machine type **g1-small** (1 vCPU, 1.7 GB memory).
 
@@ -293,7 +296,7 @@ Then, you'll have to make that VM reachable from the internet over http 8080 to 
 
 {% img blog/asa-gcp-jenkins/gcp-firewall-view.png alt:"GCP rule config" width:"600" %}{: .center-image }
 
-### gcp-windows-target
+#### gcp-windows-target
 
 - Create a new VM
 - Leave the default Machine type: 1vCPU + 3.75GB memory
@@ -327,7 +330,7 @@ We'll later use those Windows credentials to RDP to the VM and start the ASA enr
 
 {% img blog/asa-gcp-jenkins/rule-list.png alt:"rule list" width:"600" %}{: .center-image }
 
-## Configure the Okta ASA Project
+### Configure the Okta ASA Project
 
 - Go to your ASA web console > **Projects**
 - Click on **Create Project**
@@ -348,9 +351,9 @@ You should see this:
 
 {% img blog/asa-gcp-jenkins/create-enrollment-token.png alt:"create enrollment token" width:"238" %}{: .center-image }
 
-## Enroll VMs with Okta ASA
+### Enroll VMs with Okta ASA
 
-### gcp-ubuntu-bastion
+#### gcp-ubuntu-bastion
 
 - Go to your ASA admin console
 - Copy the value of your enrollment token for your gcp-ubuntu-bastion. You'll need it later.
@@ -400,7 +403,7 @@ At this stage, you should be able to SSH into your bastion using ASA:
 
 {% img blog/asa-gcp-jenkins/asa-bastion.png alt:"ASA bastion" width:"600" %}{: .center-image }
 
-### gcp-ubuntu-target
+#### gcp-ubuntu-target
 
 For the target, there will be an extra step, as we need to configure it so we can access it through the bastion.
 
@@ -480,7 +483,7 @@ Also, verify the 2 hops in ASA event logs:
 
 {% img blog/asa-gcp-jenkins/related-info.png alt:"more SSH" width:"600" %}{: .center-image }
 
-### gcp-ubuntu-jenkins
+#### gcp-ubuntu-jenkins
 
 In that section, we'll config the VM so we can SSH into it using ASA.
 
@@ -581,7 +584,7 @@ You should see the prompt to unlock Jenkins.
 	- `sudo service jenkins stop`
 	- `sudo service jenkins start`
 
-Now that you've installed Jenkins, we'll follow the instructions on [that page](https://www.scaleft.com/blog/leveraging-service-users-for-privileged-devops-automation/)—recap below.
+Now that you've installed Jenkins, let's configure an ASA service account so Jenkins can connect to remote servers and run commands.
 
 First, let's install the ASA client tool on the VM where Jenkins is running. Indeed, Jenkins will act as an SSH client that will connect to remote servers over SSH.
 
@@ -699,9 +702,9 @@ Get back to Jenkins.
 
 Congrats, your Jenkins instance is properly configured with an ASA service account!
 
-### gcp-windows-target
+#### gcp-windows-target
 
-Let's enroll our Windows VM with ASA. We'll start with instructions on [this page](https://www.scaleft.com/docs/windows/)
+Let's enroll our Windows VM with ASA.
 
 - Go to your ASA admin console
 
@@ -786,7 +789,7 @@ Note: in that example, we're accessing the gcp-windows-target directly, but we c
 
 You can use the configuration steps for gcp-ubuntu-target and the custom .yaml file format if you want the WinServer behind the bastion.
 
-### Troubleshooting
+#### Troubleshooting
 
 If you're facing issues during the ASA server enrollment, check the health of the sftd agent. Here are couple of useful commands:
 
@@ -850,6 +853,12 @@ Place the following line in `/etc/ssh/sshd_config` above any Match lines to rest
 ```
 PubkeyAcceptedKeyTypes ssh-rsa-cert-v01@openssh.com
 ```
+## Automate ASA enrollment with existing CI/CD tools
+
+- Terraform: [Okta ASA Terraform Provider](https://registry.terraform.io/providers/oktadeveloper/oktaasa/latest/docs), [Tutorial](/blog/2020/04/24/okta-terraform-automate-identity-and-infrastructure)
+- Ansible: [Tutorial](/blog/2021/02/05/okta-ansible)
+- Puppet: [Tutorial](/blog/2021/01/22/okta-puppet)
+- Chef: [Tutorial](/blog/2021/02/10/okta-chef)
 
 And... That's all! Have any questions? Please leave a comment below. Or, if
 you'd like to see more content like this, consider following us on

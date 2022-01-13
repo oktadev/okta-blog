@@ -1,4 +1,5 @@
 ---
+disqus_thread_id: 6303038616
 layout: blog_post
 title: "Three Developer Tools I'm Thankful For"
 author: randall-degges

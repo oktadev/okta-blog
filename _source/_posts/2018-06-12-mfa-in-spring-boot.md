@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6727292699
+discourse_topic_id: 16883
+discourse_comment_url: https://devforum.okta.com/t/16883
 layout: blog_post
 title: "Secure Your Spring Boot Application with Multi-Factor Authentication"
 author: andrew-hughes

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8206565822
+discourse_topic_id: 17290
+discourse_comment_url: https://devforum.okta.com/t/17290
 layout: blog_post
 title: "Reintroducing Joël Franusic"
 author: joel-franusic

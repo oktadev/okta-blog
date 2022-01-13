@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7808056084
+discourse_topic_id: 17196
+discourse_comment_url: https://devforum.okta.com/t/17196
 layout: blog_post
 title: "Java REST API Showdown: Which is the Best Framework on the Market?"
 author: daniel-pereira
@@ -12,6 +15,13 @@ tweets:
 - "REST APIs are still popular! Learn how to do it in 2019 with @micronautfw, @QuarkusIO, and @springboot."
 image: blog/java-rest-api/java-rest-api-showdown.png
 type: conversion
+github: https://github.com/oktadev/okta-java-rest-api-comparison-example
+changelog:
+  - 2021-10-06: Upgraded to Micronaut 3.0.3, Quarkus 2.3.0, and Spring Boot 2.5.5. See the code changes in the [example app on GitHub](https://github.com/oktadev/okta-java-rest-api-comparison-example/pull/9). Changes to this post can be viewed in [oktadev/okta-blog#912](https://github.com/oktadev/okta-blog/pull/912).
+  - 2020-09-23: Upgraded to Micronaut 2.0.2, Quarkus 1.8.1, and Spring Boot 2.3.4. See the code changes in the [example app on GitHub](https://github.com/oktadev/okta-java-rest-api-comparison-example/pull/7). Changes to this post can be viewed in [oktadev/okta-blog#423](https://github.com/oktadev/okta-blog/pull/423).
+  - 2020-05-21: Added startup times for `java -jar` and running with GraalVM. Changes to this article can be viewed in [oktadev/okta-blog#304](https://github.com/oktadev/okta-blog/pull/304).
+  - 2020-05-20: Upgraded to Micronaut 1.3.5, Quarkus 1.4.2, and Spring Boot 2.3.0. See the code changes in the [example app on GitHub](https://github.com/oktadev/okta-java-rest-api-comparison-example/pull/5). Changes to this article can be viewed in [oktadev/okta-blog#301](https://github.com/oktadev/okta-blog/pull/301).
+  - 2020-01-30: Updated to optimize Micronaut based on [feedback from the Micronaut team](https://github.com/oktadev/okta-java-rest-api-comparison-example/pull/2). Also re-calculated startup times based on an average of three attempts. See the code changes in the [example app on GitHub](https://github.com/oktadev/okta-java-rest-api-comparison-example/pull/3). Changes to this article can be viewed in [oktadev/okta-blog#176](https://github.com/oktadev/okta-blog/pull/176).
 ---
 
 Developing services in Java, including REST APIs, wasn't always easy or productive until Spring came along and changed the landscape. Many years have passed since then, and new frameworks have emerged in the community.
@@ -38,43 +48,20 @@ If you'd like, you can [watch this tutorial as a screencast](https://youtu.be/pR
 
 This tutorial uses [Maven 3+](https://maven.apache.org). Make sure it is installed and available to use before continuing. You can certainly also use Gradle, but YMMV.
 
-You're going to build apps that authenticate requests using OAuth 2.0, secured by an Okta application. Don't have an Okta account? Don't worry, it takes less than a minute to create a new one. Not only that, but Okta supports standards like JWT, OAuth 2.0, and OIDC. We provide support for well-known frameworks like Java EE, Spring Boot, and Spring Security. Heck, we even have a [Maven plugin](https://github.com/oktadeveloper/okta-maven-plugin) that automates everything for you. 
+You're going to build apps that authenticate requests using OAuth 2.0, secured by an Okta application. Don't have an Okta account? Don't worry, it takes less than a minute to create a new one. Not only that, but Okta supports standards like JWT, OAuth 2.0, and OIDC. We provide support for well-known frameworks like Java EE, Spring Boot, and Spring Security. Heck, we even have a [Maven plugin](https://github.com/oktadev/okta-maven-plugin) that automates everything for you. 
 
 There's no need to reinvent the wheel!
 
 ### Create an Okta Account for User Management
 
-Open your terminal, and execute the following command:
-
-```bash
-mvn com.okta:okta-maven-plugin:register
-```
-
-You will be asked to input the following information:
-
-* First Name
-* Last Name
-* Email
-* Company
-
-Once you've answered the questions, you'll receive an email to activate your brand new account. After activating your account, run the following command:
-
-```bash
-mvn com.okta:okta-maven-plugin:spring-boot
-```
+{% include setup/maven.md %}
 
 This command creates an application for you with auth code flow and Spring Security's redirect URI for Okta.
-
-{% img blog/java-rest-api/okta-maven-app.png alt:"Okta Maven-generated application" width:"700" %}{: .center-image }
 
 To remember it better, you can create the same app manually:
 
 * Go to the [Okta's developer homepage](https://developer.okta.com/) and log in to your account.
-* Click on **Applications** > **Add Application** > **Web** > **Next**.
-
-You'll see the following screen:
-
-{% img blog/java-rest-api/okta-new-app.png alt:"Okta new application" width:"700" %}{: .center-image }
+* Go to the **Applications** section > **Create App Integration** > **OIDC** > **Web Application**, and click **Next**.
 
 Before you continue, make the following changes in the application:
 
@@ -84,12 +71,14 @@ Before you continue, make the following changes in the application:
 * Grant type allowed
   * Authorization Code
   * Implicit (Hybrid)
+* Assignments
+  * Allow everyone
 
 _The implicit grant type (with ID and Access Token allowed checked) is necessary to retrieve an access token in your browser._
 
 The fields not mentioned above can keep their default values. 
 
-After you finish it, click **Done**. Your app is ready! 
+After you finish it, click **Save**. Your app is ready! 
 
 The next step is to learn how to generate a valid token using it.
 
@@ -97,7 +86,7 @@ The next step is to learn how to generate a valid token using it.
 
 Okta allows you to manage your users in the cloud using its APIs. It also allows you to secure your applications using OAuth 2.0 and OpenID Connect (a.k.a., OIDC). OAuth 2.0 provides a mechanism for delegated authorization which means you don't have to store user credentials in your application. Instead, you can _delegate_ that to an OAuth 2.0 provider (Okta, in this case). OIDC provides an identity layer on top of OAuth 2.0 and that's why companies like Okta are called "identity providers", or IdPs. 
 
-You've registered your app with Okta and can now generate a token to gain access to it. One of the login redirect URIs you registered is for the OpenID Connect website. 
+You've registered your app with Okta and can now generate a token to gain access to it. One of the login redirect URIs you registered is for the OIDC Debugger website. 
 
 Your requests will be validated using a token. To generate this token, you will use OpenID Connect Debugger. This website will provide you an easy way to generate credentials for the users on your Okta application.
 
@@ -111,19 +100,7 @@ Go to the <https://oidcdebugger.com> and fill in the following information:
 * Nonce: (keep the default value)
 * Response type: `token`
 
-You can find the value for `{yourOktaDomain}` in the right upper corner of your account's homepage:
-
-{% img blog/java-rest-api/okta-homepage.png alt:"Okta Homepage" width:"800" %}{: .center-image }
-
-To find your Okta Client ID follow the steps below:
-
-* Go to **Applications**
-* Select **My Web App**
-* Click **General**
-
-The Client ID will be available in the **Client Credentials** section:
-
-{% img blog/java-rest-api/client-credentials.png alt:"Client Credentials" width:"800" %}{: .center-image }
+You can find the value for `{yourOktaDomain}` in the right upper corner of your account's homepage.
 
 After you complete all the fields, click **Send Request**. You'll be redirected to your Okta login page.
 
@@ -133,7 +110,7 @@ Once you have successfully authenticated, you'll be redirected to OIDC Debugger 
 
 You'll use this token to securely access the services you're going to build.
 
-Now that you have an Okta account and you know how to generate tokens using your Okta application, let's start comparing the frameworks!
+Now that you have an Okta account, and you know how to generate tokens using your Okta application, let's start comparing the frameworks!
 
 ## Build a Java REST API with Micronaut
 
@@ -169,11 +146,11 @@ The next step is to add the security libraries inside the project. Edit the `pom
 
 ```xml
 <dependency>
-    <groupId>io.micronaut</groupId>
+    <groupId>io.micronaut.security</groupId>
     <artifactId>micronaut-security</artifactId>
 </dependency>
 <dependency>
-    <groupId>io.micronaut</groupId>
+    <groupId>io.micronaut.security</groupId>
     <artifactId>micronaut-security-jwt</artifactId>
 </dependency>
 ```
@@ -245,7 +222,7 @@ The command above will produce a result similar to this one:
 
 ```bash
 HTTP/1.1 401 Unauthorized
-Date: Tue, 8 Jan 2019 15:47:36 GMT
+Date: Wed, 6 Oct 2021 19:14:50 GMT
 transfer-encoding: chunked
 connection: close
 ```
@@ -279,12 +256,12 @@ To develop your application using Quarkus you only need Maven installed, there a
 Let's start creating your app! Go to the directory you want to create it in and execute the following command:
 
 ```bash
-mvn io.quarkus:quarkus-maven-plugin:1.8.1.Final:create \
+mvn io.quarkus:quarkus-maven-plugin:2.3.0.Final:create \
     -DprojectGroupId=com.okta.rest \
     -DprojectArtifactId=quarkus \
     -DclassName="com.okta.rest.quarkus.HelloResource" \
     -Dpath="/hello" \
-    -Dextensions="jwt"
+    -Dextensions="smallrye-jwt"
 ```
 
 The command above creates a project using the Quarkus Maven plugin. It will create a resource named `HelloResource`, which is going to receive requests on the `/hello` path. You're also adding the JWT extension from Quarkus on the project.
@@ -380,7 +357,7 @@ Open your terminal and execute the following command:
 
 ```bash
 curl https://start.spring.io/starter.zip -d language=java \
- -d bootVersion=2.3.4.RELEASE \
+ -d bootVersion=2.5.5.RELEASE \
  -d dependencies=web,okta \
  -d packageName=com.okta.rest \
  -d name=spring-boot \
@@ -401,7 +378,6 @@ Create a `com.okta.rest.controller` package and a `HelloController` class in it:
 ```java
 package com.okta.rest.controller;
 
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -411,7 +387,7 @@ import java.security.Principal;
 public class HelloController {
 
     @GetMapping("/hello")
-    public String hello(@AuthenticationPrincipal Principal principal) {
+    public String hello(Principal principal) {
         return "Hello, " + principal.getName() + "!";
     }
 
@@ -422,7 +398,7 @@ The configuration here is very similar to the other frameworks. You annotate the
 
 Different from the other frameworks, you don't need to specify that this endpoint is authenticated since Spring already controls this information from its configurations.
 
-The last step is to add the issuer information, so  Spring Security's OIDC support can auto-discover the endpoints it needs to communicate with..
+The last step is to add the issuer information, so Spring Security's OIDC support can auto-discover the endpoints it needs to communicate with.
 
 Edit `src/main/resources/applications.properties` and add the following configuration:
 
@@ -455,7 +431,7 @@ Pragma: no-cache
 Expires: 0
 X-Frame-Options: DENY
 Content-Length: 0
-Date: Thu, 09 Jan 2020 15:46:34 GMT
+Date: Wed, 06 Oct 2021 19:23:30 GMT
 ```
 
 Test it again, now passing the token:
@@ -470,7 +446,7 @@ It worked! As with the other services, the result of this command is the followi
 Hello, daniel.pereira@email.com!
 ```
 
-Spring Boot clocks in at the least amount of code required: 17 lines of Java and only 1 line of configuration! Spring has always been excellent at making developers' lives easier, so this comes as no surprise. 
+Spring Boot clocks in at the least amount of code required: 16 lines of Java and only 1 line of configuration! Spring has always been excellent at making developers' lives easier, so this comes as no surprise. 
 
 That's it! You implemented a basic Java REST API in all three frameworks!
 
@@ -484,9 +460,9 @@ Micronaut and Quarkus are growing in popularity and gaining momentum inside the 
 
 Performance is the most often highlighted comparison point between these three frameworks. If you're looking for fast startup in a serverless environment, or the ability to create native images with GraalVM, Micronaut and Quarkus will likely work well for you. Just for fun, the startup times for each of these apps are as follows (based on the average from three attempts):
 
-* Micronaut: 474ms
-* Quarkus: 1132ms
-* Spring Boot: 1014ms
+* Micronaut: 479ms
+* Quarkus: 1582ms
+* Spring Boot: 1297ms
 
 I got these numbers from running each framework's Maven goals for development.
 
@@ -496,11 +472,13 @@ I got these numbers from running each framework's Maven goals for development.
 
 These commands aren't optimized for speed, so I packaged each application with `./mvnw package` and started them with `java -jar`.
 
-- Micronaut: 596ms
-- Quarkus: 658ms
-- Spring Boot: 1878ms
+**TIP**: You need to run `java -jar target/quarkus-app/quarkus-run.jar` for Quarkus.  
 
-**NOTE**: These numbers were calculated on a 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 CPU and 64 GB of RAM. OpenJDK 15 was used with no `JAVA_OPTS` setting.
+- Micronaut: 599ms
+- Quarkus: 632ms
+- Spring Boot: 2262ms
+
+**NOTE**: These numbers were calculated on a 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 CPU and 64 GB of RAM. OpenJDK 17 was used with no `JAVA_OPTS` setting.
 
 If you're looking for even faster startup times, you can use GraalVM. Rather than running timing tests myself, I looked at each project's documentation.
                                                                       
@@ -510,10 +488,11 @@ If you're looking for even faster startup times, you can use GraalVM. Rather tha
 
 In the end, you'll be able to productively develop a secure application, regardless of the choice you make.
 
-Want to take a look at the source code? You can find it on [GitHub at okta-java-rest-api-comparison-example](https://github.com/oktadeveloper/okta-java-rest-api-comparison-example).
+Want to take a look at the source code? You can find it on [GitHub at okta-java-rest-api-comparison-example](https://github.com/oktadev/okta-java-rest-api-comparison-example).
 
 Do you want to learn more about Java, REST APIs, and secure applications? Here are some other posts from our blog that you might find useful:
 
+* [Build Native Java Apps with Micronaut, Quarkus, and Spring Boot](/blog/2021/06/18/native-java-framework-comparison)
 * [Watch GraalVM Turn Your Java Into Binaries](/blog/2019/11/27/graalvm-java-binaries)
 * [OAuth 2.0 Java Guide: Secure Your App in 5 Minutes](/blog/2019/10/30/java-oauth2)
 * [Java Microservices with Spring Boot and Spring Cloud](/blog/2019/05/22/java-microservices-spring-boot-spring-cloud)
@@ -521,13 +500,3 @@ Do you want to learn more about Java, REST APIs, and secure applications? Here a
 * [Simple Authentication with Spring Security](/blog/2019/05/31/spring-security-authentication)
 
 For more posts like this one, follow [@oktadev on Twitter](https://twitter.com/oktadev). We also regularly publish screencasts to [our YouTube channel](https://youtube.com/c/oktadev)!
-
-<a name="changelog"></a>
-**Changelog:**
-
-* Sep 23, 2020: Upgraded to Micronaut 2.0.2, 
-Quarkus 1.8.1, and Spring Boot 2.3.4. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-java-rest-api-comparison-example/pull/7). Changes to this post can be viewed in [oktadeveloper/okta-blog#423](https://github.com/oktadeveloper/okta-blog/pull/423).
-* May 21, 2020: Added startup times for `java -jar` and running with GraalVM. Changes to this article can be viewed in [oktadeveloper/okta-blog#304](https://github.com/oktadeveloper/okta-blog/pull/304).
-* May 20, 2020: Upgraded to Micronaut 1.3.5, 
-Quarkus 1.4.2, and Spring Boot 2.3.0. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-java-rest-api-comparison-example/pull/5). Changes to this article can be viewed in [oktadeveloper/okta-blog#301](https://github.com/oktadeveloper/okta-blog/pull/301).
-* Jan 30, 2020: Updated to optimize Micronaut based on [feedback from the Micronaut team](https://github.com/oktadeveloper/okta-java-rest-api-comparison-example/pull/2). Also re-calculated startup times based on an average of three attempts. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-java-rest-api-comparison-example/pull/3). Changes to this article can be viewed in [oktadeveloper/okta-blog#176](https://github.com/oktadeveloper/okta-blog/pull/176).

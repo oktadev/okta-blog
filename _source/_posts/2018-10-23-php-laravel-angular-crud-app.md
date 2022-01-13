@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6991475518
+discourse_topic_id: 16949
+discourse_comment_url: https://devforum.okta.com/t/16949
 layout: blog_post
 title: "Tutorial: Build a Basic CRUD App with Laravel and Angular"
 author: krasimir-hristozov

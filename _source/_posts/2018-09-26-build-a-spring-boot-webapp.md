@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6932041970
+discourse_topic_id: 16938
+discourse_comment_url: https://devforum.okta.com/t/16938
 layout: blog_post
 title: "Build a Web App with Spring Boot and Spring Security in 15 Minutes"
 author: andrew-hughes
@@ -11,6 +14,8 @@ tweets:
 - "Spring Boot Web apps are easy to secure with OAuth 2.0 & Okta!"
 image: blog/build-a-spring-boot-webapp/security-config.png
 type: conversion
+update-url: /blog/2019/10/30/java-oauth2
+update-title: "OAuth 2.0 Java Guide: Secure Your App in 5 Minutes"
 ---
 
 Developers know that securing web apps can be a pain. Doing it right is tough. The worst part is that "right" is a moving target. Security protocols change. Vulnerabilities are found in dependencies and patches are released. Tons of often complex boilerplate code has to be generated. The software-as-service paradigm has proliferated over the last decade, and while I love reinventing the wheel as much as the next developer (because, clearly, I'm gonna write it better than the yahoo *they* hired), security is an area where I'm happy to offload this work to specialists. Enter Okta.
@@ -478,7 +483,7 @@ You made some real progress here. You saw how to create a simple Spring Boot app
 
 And finally, you've seen how to create groups and users on Okta, how to tie those into your Spring Boot app, and how to use the `@PreAuthorize` annotation to configure authorization based on group membership.
 
-If you'd like to check out this complete project, you can find the repo on Github at: <https://github.com/moksamedia/okta-spring-simple-app>.
+If you'd like to check out this complete project, you can find the repo on GitHub at: <https://github.com/moksamedia/okta-spring-simple-app>.
 
 If you'd like to learn more about Spring Boot, Spring Security, or Okta, check out any of these great tutorials:
 - [Get Started with Spring Boot, OAuth 2.0, and Okta](/blog/2017/03/21/spring-boot-oauth)

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7309946749
+discourse_topic_id: 17021
+discourse_comment_url: https://devforum.okta.com/t/17021
 layout: blog_post
 title: "Build Secure Microservices with AWS Lambda and ASP.NET Core"
 author: chris-green

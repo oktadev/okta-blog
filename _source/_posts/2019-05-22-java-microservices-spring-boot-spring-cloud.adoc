@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7431443482
+discourse_topic_id: 17054
+discourse_comment_url: https://devforum.okta.com/t/17054
 layout: blog_post
 title: "Java Microservices with Spring Boot and Spring Cloud"
 author: matt-raible
@@ -12,14 +15,20 @@ tweets:
 - "Java + Spring Boot + Spring Cloud = 💚 for microservices by @mraible."
 image: blog/java-microservices/java-microservices.png
 type: conversion
+changelog:
+  - 2021-03-29: Streamlined Okta app setup with the Okta CLI. You can see the example app changes in [java-microservices-examples#18](https://github.com/oktadeveloper/java-microservices-examples/pull/18); changes to this post can be viewed in [okta-blog#626](https://github.com/oktadeveloper/okta-blog/pull/626).
+  - 2020-03-10: Updated to use Spring Boot 2.2.5 and Spring Cloud Hoxton SR3. Changes to this post can be viewed in [okta-blog#217](https://github.com/oktadeveloper/okta-blog/pull/217). Updates to the example application are in [java-microservices-examples#7](https://github.com/oktadeveloper/java-microservices-examples/pull/7).
 ---
 :page-liquid:
+:toc: macro
 
-Java is a great language to use when developing a microservice architecture. In fact, some of the biggest names in our industry use it. Have you ever heard of Netflix, Amazon, or Google? What about eBay, Twitter, and LinkedIn? Yes, major companies handling incredible traffic are doing it with Java.
+Java is a great language to use when developing a https://www.okta.com/blog/2021/02/microservices/[microservice] architecture. In fact, some of the biggest names in our industry use it. Have you ever heard of Netflix, Amazon, or Google? What about eBay, Twitter, and LinkedIn? Yes, major companies handling incredible traffic are doing it with Java.
 
 Implementing a microservices architecture in Java isn't for everyone. For that matter, implementing microservices, in general, isn't often needed. Most companies do it to scale their people, not their systems. If you're going to scale your people, hiring Java developers is one of the best ways to do it. After all, there are more developers fluent in Java than most other languages - though JavaScript seems to be catching up quickly!
 
 The Java ecosystem has some well-established patterns for developing microservice architectures. If you're familiar with Spring, you'll feel right at home developing with Spring Boot and Spring Cloud. Since that's one of the quickest ways to get started, I figured I'd walk you through a quick tutorial.
+
+toc::[]
 
 If you'd rather watch a video, https://youtu.be/rH-FnPC_xCA[I created a screencast of this blog post].
 
@@ -175,7 +184,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.hateoas.CollectionModel;
@@ -190,7 +198,6 @@ import java.util.stream.Collectors;
 @EnableFeignClients
 @EnableCircuitBreaker
 @EnableDiscoveryClient
-@EnableZuulProxy
 @SpringBootApplication
 public class ApiGatewayApplication {
 
@@ -247,11 +254,11 @@ class CoolCarController {
 
 == Run a Java Microservices Architecture
 
-If you run all of these services with `./mvnw` in separate terminal windows, you can navigate to `http://localhost:8761` and see they've registered with Eureka.
+If you run all of these services with `./mvnw spring-boot:run` in separate terminal windows, you can navigate to `http://localhost:8761` and see they've registered with Eureka.
 
 image::{% asset_path 'blog/java-microservices/eureka-server.png' %}[alt=Eureka Server,width=800,align=center]
 
-If you navigate to `http://localhost:8080/cool-cars` in your browser, you'll be redirected to Okta. What the?
+If you cloned from GitHub to begin, and you navigate to `http://localhost:8080/cool-cars` in your browser, you'll be redirected to Okta. What the?
 
 == Secure Java Microservices with OAuth 2.0 and OIDC
 
@@ -272,22 +279,13 @@ I added Okta's Spring Boot starter to the `pom.xml` in `api-gateway` and `car-se
 
 Then I created a new OIDC app in Okta, configured with authorization code flow. You'll need to complete the following steps if you want to see everything in action.
 
+Open a terminal window and navigate to the `api-gateway` project.
+
 === Create a Web Application in Okta
 
-Log in to your Okta Developer account (or https://developer.okta.com/signup/[sign up] if you don't have an account).
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
 
-1. From the **Applications** page, choose **Add Application**.
-2. On the Create New Application page, select **Web**.
-3. Give your app a memorable name, add `http://localhost:8080/login/oauth2/code/okta` as a Login redirect URI, select **Refresh Token** (in addition to **Authorization Code**), and click **Done**.
-
-Copy the issuer (found under **API** > **Authorization Servers**), client ID, and client secret into `application.properties` for both projects.
-
-[source,properties]
-----
-okta.oauth2.issuer=$issuer
-okta.oauth2.client-id=$clientId
-okta.oauth2.client-secret=$clientSecret
-----
+Copy these keys and value into the `car-service` project's `application.properties` file.
 
 The Java code in the section below already exists, but I figured I'd explain it so you know what's going on.
 
@@ -415,7 +413,7 @@ hystrix.shareSecurityContext=true
 
 == See Java Microservices Running with Security Enabled
 
-Run all of the applications with `./mvnw` in separate terminal windows, or in your IDE if you prefer.
+Run all the applications with `./mvnw spring-boot:run` in separate terminal windows, or in your IDE if you prefer.
 
 TIP: To make it simpler to run in an IDE, there is an aggregator `pom.xml` in the root directory. If you'd installed https://emmanuelbernard.com/blog/2017/02/27/start-intellij-idea-command-line/[IntelliJ IDEA's command line launcher], you just need to run `idea pom.xml`.
 
@@ -583,7 +581,7 @@ public class HomeController {
 
 === Confirm Your Zuul Routes Work
 
-Since these changes are already in the project you cloned, you should be able to view `https://localhost:8080/cars` and `http://localhost:8080/home` in your browser.
+Since these changes are already in the project you cloned, you should be able to view `http://localhost:8080/cars` and `http://localhost:8080/home` in your browser.
 
 image::{% asset_path 'blog/java-microservices/zuul-home.png' %}[alt=Home with Zuul,width=800,align=center]
 
@@ -605,13 +603,13 @@ Spring has excellent support for Kotlin, and you can choose it as a language on 
 
 By default, Okta's access tokens expire after one hour. This is expected, and short-lived access tokens are recommended when using OAuth 2.0. Refresh tokens typically live a lot longer -- think days or months -- and can be used to get new access tokens. This should happen automatically when using Okta's Spring Boot starter, but it does not.
 
-I configured my Okta org so its access tokens expire in five minutes. You can do this by going to **API** > **Authorization Servers** > **Access Policies**, click on the **Default Policy**, and edit its rule. Then change the access token lifetime from 1 hour to 5 minutes.
+I configured my Okta org so its access tokens expire in five minutes. You can do this by going to **Security** > **API** > **Authorization Servers** > `default` > **Access Policies**, click on the **Default Policy**, and edit its rule. Then change the access token lifetime from 1 hour to 5 minutes.
 
-Hit `http://localhost:8080/cool-cars` in your browser and you'll be redirected to Okta to login. Log in and you should see a JSON string of cars.
+Hit `http://localhost:8080/cool-cars` in your browser and you'll be redirected to Okta to login. Log in, and you should see a JSON string of cars.
 
 Go do something else for more than 5 minutes.
 
-Come back, refresh your browser and you'll see `[]` instead of all the cars.
+Come back, refresh your browser, and you'll see `[]` instead of all the cars.
 
 I'm still working on a solution to this and will update this post once I find one. If you happen to know of a solution, please let me know!
 
@@ -634,8 +632,3 @@ We're big fans of Spring Boot, Spring Cloud, and microservices on this blog. Her
 * link:/blog/2019/02/28/spring-microservices-docker[Build Spring Microservices and Dockerize Them for Production]
 
 Please follow us https://twitter.com/oktadev[on Twitter @oktadev] and subscribe to https://www.youtube.com/c/oktadev[our YouTube channel] for more Spring Boot and microservices knowledge.
-
-[[changelog]]
-**Changelog:**
-
-* Mar 10, 2020: Updated to use Spring Boot 2.2.5 and Spring Cloud Hoxton SR3. Changes to this post can be viewed in https://github.com/oktadeveloper/okta-blog/pull/217[okta-blog#217]. Updates to the example application are in https://github.com/oktadeveloper/java-microservices-examples/pull/7[java-microservices-examples#7].

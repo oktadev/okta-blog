@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7242947215
+discourse_topic_id: 16999
+discourse_comment_url: https://devforum.okta.com/t/16999
 layout: blog_post
 title: "Add Social Login to Your JHipster App"
 author: andrew-hughes
@@ -62,20 +65,11 @@ git clone https://github.com/oktadeveloper/okta-spring-boot-social-login-example
 cd okta-social-login
 ```
 
-You're also going to need a free developer.okta.com account. If you do not have an Okta developer account, go on over to [developer.okta.com](https://developer.okta.com) and sign up! 
+You're also going to need a free Okta developer account. 
 
-You'll also need an OAuth 2.0 / OpenID Connect application that we can use to configure social login. To create one, log in to your Okta developer account and navigate to **Applications** > **Add Application** > **Web** > **Next**. Select **Authorization Code** and set the Login redirect URI to be `http://localhost:8080/login`. Click **Done** followed by **Edit**. Add `http://localhost:8080` as a Logout redirect URI.
-
-Next, create a `ROLE_ADMIN` and `ROLE_USER` group and add users into them. These are the default authorities that JHipster uses. You'll also need to make sure these groups are available in the ID token.
-
-Navigate to **API** > **Authorization Servers**, click the **Authorization Servers** tab and edit the default one. Click the **Claims** tab and **Add Claim**. Name it "groups", and include it in the ID Token. Set the value type to "Groups" and set the filter to be a Regex of `.*`.
-
-Your Okta OIDC Application's configuration should match the following screenshot. This is also where you'll get your client ID and client secret.
-
-{% img blog/spring-boot-social-login/oidc-app.png alt:"OIDC app on Okta" width:"700" %}{: .center-image }
+{% include setup/cli.md type="jhipster" loginRedirectUri="http://localhost:8080/login" logoutRedirectUri="http://localhost:8080" %}
 
 Finally, you will need a domain name that you can use to set up as custom Okta URL for your sign-in page. You'll need access to the DNS Zone entries to be able to create a CNAME record for a domain or subdomain. The custom domain doesn't actually need to be a subdomain. It can be a plain, old domain just as easily. But for this tutorial, I figure more people have access to setting up a subdomain on a domain name they have already (who doesn't have a few dozen lying around?).
-
 
 ## Configure the OAuth 2.0 Settings for Your Spring Boot App
 
@@ -94,7 +88,7 @@ security:
             user-info-uri: https://{yourOktaDomain}/oauth2/default/v1/userinfo
 ```
 
-You can also keep your settings outside of your app, and override them with environment variables. For example, create an `~/.okta.env` file:
+You can also keep your settings outside of your app, and override them with environment variables. For example, in `~/.okta.env` file:
 
 ```bash
 export SECURITY_OAUTH2_CLIENT_ACCESS_TOKEN_URI="https://{yourOktaDomain}/oauth2/default/v1/token"
@@ -160,11 +154,9 @@ security:
             ...
 ```
 
-Next, you need to configure Okta to use the custom domain.
+Next, you need to configure Okta to use the custom domain. Run `okta login`, open the returned URL in your browser, and sign in to the Okta Admin Console.
 
-From the top menu of the developer.okta.com dashboard, click on the **Customization** and select **Domain Name**.
-
-{% img blog/spring-boot-social-login/customize-domain-name.png alt:"Customize Domain Name" width:"500" %}{: .center-image }
+Go to **Settings** > **Customization** and edit the **Custom URL Domain**.
 
 Follow the instructions for adding a custom domain name. You will need a domain or subdomain that you have control over (can edit the zone file for). 
 
@@ -183,9 +175,7 @@ Once you've generated your SSL certs, you'll need to give the certificate and pr
 
 ## Customize the Hosted Sign-In Page
 
-Once you have configured the custom Okta domain name, from the developer.okta.com dashboard, click on the **Customization** top menu and select **SignIn Page**.
-
-{% img blog/spring-boot-social-login/customize-signin-page.png alt:"Customize Sign-In Page" width:"500" %}{: .center-image }
+Once you have configured the custom Okta domain name, from the Okta Admin Console, click on **Settings** > **Customization** > **Custom Sign In**.
 
 Now that you have a custom domain name, you can edit the Okta sign-in page, which allows you to add the social login links.
 
@@ -197,9 +187,7 @@ We're not quite ready to do anything here yet. We'll come back here to add our s
 
 We need to update the default authorization server to use the custom URL.
 
-From the developer.okta.com dashboard, go to **API** in the top menu and click on **Authorization Servers**. Select the **default** server. Click the **Edit** button and change the **issuer** from the "Okta URL" to the "Custom URL". Everything else should be able to stay the same. 
-
-{% img blog/spring-boot-social-login/custom-issuer.png alt:"Custom Issuer" width:"750" %}{: .center-image }
+From the developer.okta.com dashboard, go to **Security** > **API** and click on **Authorization Servers**. Select the **default** server. Click the **Edit** button and change the **issuer** from the "Okta URL" to the "Custom URL". Everything else should be able to stay the same.
 
 Click **Save**. Now we're ready to configure Google and Facebook for social login!
 
@@ -233,11 +221,9 @@ Okta [has some great documentation](https://developer.okta.com/authentication-gu
 
 ## Configure Facebook and Google as Identity Providers
 
-Log into your developer.okta.com dashboard and navigate to **Users** > **Social Identity and Providers**. 
+Run `okta login` and open the returned URL in your browser. Sign in to to the Okta Admin Console and navigate to **Security** > **Identity Providers**. 
 
 From the **Add Identity Providers** dropdown, choose **Facebook**.
-
-{% img blog/spring-boot-social-login/add-facebook-idp.png alt:"Add Identity Provider - Facebook" width:"600" %}{: .center-image }
 
 Pick a name. Enter your client ID and client secret values. Everything else can stay the same. Click **Add Identity Provider**.
 
@@ -245,14 +231,12 @@ Do this again for Google, using the client ID and client secret from your Google
 
 The Okta Identity Providers page should now look like this. Keep track of the two **IdP IDs** because you'll want them in a moment.
 
-{% img blog/spring-boot-social-login/identity-providers.png alt:"Your Identity Providers" width:"800" %}{: .center-image }
-
 **NOTE:** The access token obtained from the social IdP is stored in Okta and can be used to make subsequent requests to the IdP on the user's behalf (with consent of course). Also, Okta automatically updates social provider updates, protecting your apps from provider deprecation.
 ## Customize Your Hosted Sign-In Page
 
 The last thing you need to do is to add the social login IdPs to the Okta Sign-in Widget on your customized sign-in page. 
 
-Go to your Okta developer dashboard. Select **Customization** from the top menu, and below that: **Signin page**. 
+In the Okta Admin Console, go to **Settings** > **Customization** > **Custom Sign In**. 
 
 On this page, you need to add the identity provider definitions to the `config` variable. You'll also need the IdP IDs from above, as well as your custom Okta domain and the OIDC Application client ID.
 

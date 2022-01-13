@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7755411924
+discourse_topic_id: 17180
+discourse_comment_url: https://devforum.okta.com/t/17180
 layout: blog_post
 title: "How to Customize Your Angular Build With Webpack"
 author: holger-schmitz
@@ -12,6 +15,8 @@ tweets:
 - "Feature flags are a useful feature for developers. Learn how to add experimental features to your @angular app with a custom @wepack build." 
 image: blog/angular-webpack/angular-webpack.png
 type: conversion
+changelog: 
+- 2021-04-01: Updated to use Okta Angular SDK v3.0.1. You can see the changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-angular-webpack-example/pull/2). Changes to this article can be viewed in [oktadeveloper/okta-blog#652](https://github.com/oktadeveloper/okta-blog/pull/652).
 ---
 
 If you're a frontend dev in the world today you've probably heard of (and possibly even used) **webpack**. The Angular build process uses webpack behind the scenes to transpile TypeScript to JavaScript, transform Sass files to CSS, and many other tasks. To understand the importance of this build tool, it helps to understand why it exists. 
@@ -23,6 +28,10 @@ Webpack is not limited to simply bundling source files. Because it can support a
 In earlier versions of Angular, it was possible to eject the webpack configuration and modify it directly. With Angular 8, access to the base configuration has been disabled. But it is still possible to extend the webpack configuration and add additional loaders or configuration options. In this tutorial, I will be showing you how to create an Angular 8 application and tweak the webpack configuration.
 
 **Prerequisites:** [Node.js](https://nodejs.org/) v12+.
+
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
 
 ## Set Up Angular With Webpack
 
@@ -213,41 +222,40 @@ Next, open `src/app/demo/demo.component.html` and replace the contents with the 
 
 Almost every web application will need some sort of user authentication. Using the Okta Angular SDK it is really easy to add state of the art single sign-on authentication to any Angular app. 
 
-To get started, sign up for an Okta developer account, if you don't already have one. Open your browser and navigate to <https://developer.okta.com>. Follow the **Sign Up** link and fill in the registration form. When you have completed the registration you will be taken to your Okta dashboard. 
-
-To register a new application with Okta, select the **Applications** tab at the top and then click on the **Add Application** button. You will be taken to a configuration screen where you can modify the settings for your application. 
-
-To make Okta work with the development server of your Angular application, you have to make two modifications in these settings. First, change the base URI to `http://localhost:4200/`. Then set the Login Redirect URI to `http://localhost:4200/implicit/callback`. Select **Authorization Code** as a grant type and click the **Done** button. You will see the settings overview together with a generated client ID.
+{% include setup/cli.md type="spa" framework="Angular" loginRedirectUri="http://localhost:4200/callback" %}
 
 Open the terminal in your application directory and add the Okta package to your Angular application by running the command below.
 
 ```bash
-npm install -E @okta/okta-angular@1.2.2
+npm install -E @okta/okta-angular@3.0.1
 ```
 
-Now open `src/app/app.module.ts` and add the import of the Okta authentication module to the top of the file.
+Now open `src/app/app.module.ts` and add the import of the Okta authentication module to the top of the file. Add a `config` object with your Okta settings too.
 
 ```ts
-import { OktaAuthModule } from '@okta/okta-angular';
-```
+import { OKTA_CONFIG, OktaAuthModule } from '@okta/okta-angular';
 
-Further down in the same file, add the authentication module to the `imports` array.
-
-```ts
-OktaAuthModule.initAuth({
+const oktaConfig = {
   issuer: 'https://{yourOktaDomain}/oauth2/default',
-  redirectUri: 'http://localhost:4200/implicit/callback',
-  clientId: '{yourClientId}',
-  pkce: true
-})
+  clientId: '{clientId}',
+  redirectUri: window.location.origin + '/callback'
+};
 ```
 
-In this piece of code, `{yourOktaDomain}` is your Okta domain. This can be found on the top right of your Okta dashboard with the label **Org URL**. The value of `{yourClientId}` can be copied from the settings page of the application as described above.
+Further down in the same file, add the authentication module to the `imports` array, and provide your config to the Okta Angular SDK.
+
+```ts
+imports: [
+  ...
+  OktaAuthModule
+]
+providers: [{ provide: OKTA_CONFIG, useValue: oktaConfig }],
+```
 
 Next, open `src/app/app.component.ts` and replace the contents with the following code.
 
 ```ts
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { OktaAuthService } from '@okta/okta-angular';
 
 @Component({
@@ -255,26 +263,28 @@ import { OktaAuthService } from '@okta/okta-angular';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'angular-webpack-demo';
   isAuthenticated: boolean;
 
   constructor(public oktaAuth: OktaAuthService) {
+    // subscribe to authentication state changes
     this.oktaAuth.$authenticationState.subscribe(
-      (isAuthenticated: boolean)  => this.isAuthenticated = isAuthenticated
+      (isAuthenticated: boolean) => this.isAuthenticated = isAuthenticated
     );
   }
 
   ngOnInit() {
+    // get authentication state for immediate use
     this.oktaAuth.isAuthenticated().then((auth) => {this.isAuthenticated = auth});
   }
 
   login() {
-    this.oktaAuth.loginRedirect();
+    this.oktaAuth.signInWithRedirect();
   }
 
   logout() {
-    this.oktaAuth.logout('/');
+    this.oktaAuth.signOut();
   }
 }
 ```
@@ -294,11 +304,11 @@ Open `src/app/app-routing.module.ts` again and add the import of the Okta callba
 import { OktaCallbackComponent, OktaAuthGuard } from '@okta/okta-angular';
 ```
 
-Next, register the callback component to the `implicit/callback` route by adding the following entry to the `routes` array.
+Next, register the callback component to the `callback` route by adding the following entry to the `routes` array.
 
 ```ts
 {
-  path: 'implicit/callback',
+  path: 'callback',
   component: OktaCallbackComponent
 }
 ```
@@ -319,11 +329,11 @@ Well done! You have completed the implementation of an Angular application with 
 ng serve
 ```
 
-Open your browser and navigate to `http://localhost:4200/` and you will see your application. If you click on the **Demo** link at the top, you should be prompted to log in. After successfully signing on with the Okta service, you should see something like this.
+Open your browser and navigate to `http://localhost:4200` and you will see your application. If you click on the **Demo** link at the top, you should be prompted to log in. After successfully signing on with the Okta service, you should see something like this.
 
 {% img blog/angular-webpack/completed-demo.png alt:"The completed application" width:"526" %}{: .center-image }
 
-## Learn More about Angular and Webpack
+## Learn More About Angular and Webpack
 
 In this tutorial, I have shown you how to create a simple Angular web application with a custom webpack configuration. Starting with Angular 8, access to the internal webpack configuration has been restricted. It is still possible, however, to extend the configuration object with a custom configuration. This allows you to register custom loaders or additional webpack plugins. In the example presented here, I demonstrated how to use the `DefinePlugin` to define global constants through the configuration. This might be useful for feature flagging parts of your application.
 
@@ -331,6 +341,7 @@ As always, you can find the source code for this tutorial on GitHub in the [okta
 
 If you want to learn more about Webpack, Angular, and authentication, check out the links below.
 
+* [Use the Okta CLI to Quickly Build Secure Angular Apps](/blog/2020/12/03/angular-okta)
 * [Build a Basic CRUD App with Angular and Node](/blog/2018/10/30/basic-crud-angular-and-node)
 * [Use Angular Schematics to Simplify Your Life](/blog/2019/02/13/angular-schematics)
 * [Build Secure Login for Your Angular App](/blog/2019/02/12/secure-angular-login)

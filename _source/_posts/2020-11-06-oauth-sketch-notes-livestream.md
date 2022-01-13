@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8266680865
+discourse_topic_id: 17315
+discourse_comment_url: https://devforum.okta.com/t/17315
 layout: blog_post
 title: "OAuth Sketch Notes - Live Q&A"
 author: aaron-parecki

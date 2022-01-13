@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8186365885
+discourse_topic_id: 17285
+discourse_comment_url: https://devforum.okta.com/t/17285
 layout: blog_post
 title: "See you at Disclosure 2020!"
 author: aaron-parecki

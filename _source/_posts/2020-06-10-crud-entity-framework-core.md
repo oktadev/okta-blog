@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8069022210
+discourse_topic_id: 17255
+discourse_comment_url: https://devforum.okta.com/t/17255
 layout: blog_post
 title: "How to Make a CRUD App with Entity Framework Core"
 author: nickolas-fisher

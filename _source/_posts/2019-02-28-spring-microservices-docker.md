@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7263143718
+discourse_topic_id: 17010
+discourse_comment_url: https://devforum.okta.com/t/17010
 layout: blog_post
 title: "Build Spring Microservices and Dockerize Them for Production"
 author: raphael-do-vale
@@ -438,15 +441,9 @@ Some explanation about the properties:
 
 Now, you need something to configure and apply to this example. How about Okta's configuration? Let's put our _school-ui_ behind an authorization layer and use the property values provided by the configuration project.
 
-You can register for a [free-forever developer account](https://developer.okta.com/signup/) that will enable you to create as many user and applications you need to use! After creating your account, create a new Web Application in Okta's dashboard (**Applications** > **Add Application**):
+{% include setup/cli.md type="web" loginRedirectUri="https://localhost:8080/authorization-code/callback" %}
 
-{% img "blog/spring-microservices-docker/okta-new-web-application.png" alt:"New web application" width:"800" %}{: .center-image }
-
-And fill the next form with the following values:
-
-{% img "blog/spring-microservices-docker/okta-new-web-application-step2.png" alt:"New web application, Step 2" width:"800" %}{: .center-image }
-
-The page will return you an application ID and an secret key. Keep then safe and create a file called `school-ui.properties` in the root folder of the `config` project with the following contents. Do not forget to populate the variable values:
+Create a file called `school-ui.properties` in the root folder of the `config` project with the following contents. Do not forget to populate the variable values:
 
 ```properties
 okta.oauth2.issuer=https://{yourOktaDomain}/oauth2/default
@@ -454,7 +451,7 @@ okta.oauth2.clientId={yourClientId}
 okta.oauth2.clientSecret={yourClientSecret}
 ```
 
-Now, run the `config` project and check if its getting the configuration data properly:
+Now, run the `config` project and check if it's getting the configuration data properly:
 
 ```bash
 ./mvnw spring-boot:run

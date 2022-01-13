@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7225427994
+discourse_topic_id: 16995
+discourse_comment_url: https://devforum.okta.com/t/16995
 layout: blog_post
 title: "If It Ain't TypeScript It Ain't Sexy"
 author: david-neal

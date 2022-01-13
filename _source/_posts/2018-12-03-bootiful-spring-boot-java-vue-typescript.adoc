@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7082249936
+discourse_topic_id: 16965
+discourse_comment_url: https://devforum.okta.com/t/16965
 layout: blog_post
 title: "Bootiful Development with Spring Boot and Vue"
 author: matt-raible
@@ -11,6 +14,8 @@ tweets:
 - "Spring Boot with @java + Vue with @typescriptlang == 💚. Learn how to build a @springboot + @vuejs app today!"
 image: blog/featured/okta-vue-bottle-headphones.jpg
 type: conversion
+update-url: /blog/2020/06/26/spring-boot-vue-kotlin
+update-title: "Build a CRUD App with Vue.js, Spring Boot, and Kotlin"
 ---
 :page-liquid:
 

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7112931656
+discourse_topic_id: 16972
+discourse_comment_url: https://devforum.okta.com/t/16972
 layout: blog_post
 title: 'Create a Secure Spring REST API'
 author: raphael-do-vale
@@ -11,6 +14,8 @@ tweets:
 tags: [spring-rest, spring-rest-api, jwt, token-auth, token-authentication, java, spring-boot, oauth2, resource-server]
 image: blog/featured/okta-java-short-tile-books-mouse.jpg
 type: conversion
+update-url: /blog/2020/11/20/spring-data-jpa
+update-title: "Build a Secure Spring Data JPA Resource Server"
 ---
 
 _"If it is useful, it will be modified."_ Those words of wisdom came from a QA teacher of mine, to explain that all software evolves when it becomes useful to someone, and for as long as it is useful. We all know this. Users ask us for new features, bug fixes and changes in domain logic every day. As any project (especially a monolith) grows it can begin to become difficult to maintain, and the barrier to entry for anyone new just gets higher and higher. In this tutorial, I'm excited to walk you through building a secure Spring REST API that tries to solve for some of these pain points using a microservices architecture.

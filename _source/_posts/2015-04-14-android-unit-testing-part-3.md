@@ -1,8 +1,12 @@
 ---
+disqus_thread_id: 6346864675
+discourse_topic_id: 16807
+discourse_comment_url: https://devforum.okta.com/t/16807
 layout: blog_post
 title: Android Unit Testing Part III&#58; Disintegration
 author: victor-ronin
 by: internal-contributor
+description: "This is the third of a four part series on Android Unit Testing. In these posts, you'll learn the key steps to make Android tests run faster."
 communities: [java, mobile]
 tags: [android, testing]
 type: conversion

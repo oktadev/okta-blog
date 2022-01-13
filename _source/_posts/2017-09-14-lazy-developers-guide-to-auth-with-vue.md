@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6542028460
+discourse_topic_id: 16832
+discourse_comment_url: https://devforum.okta.com/t/16832
 layout: blog_post
 title: "The Lazy Developer's Guide to Authentication with Vue.js"
 author: matt-raible
@@ -11,6 +14,10 @@ tweets:
 - "Learn how to build a PWA with @vuejs and add authentication in this quick and easy tutorial →"
 image: blog/featured/okta-vue-tile-books-mouse.jpg
 type: conversion
+update-url: /blog/2020/05/15/vue-login
+update-title: "Vue Login and Access Control the Easy Way"
+changelog:
+  - 2018-11-01: Updated to use Vue CLI 2.9.6, Vue 2.5.2, and Vue Okta Auth SDK 2.1. You can see the example app changes in [okta-vue-auth-example#4](https://github.com/oktadeveloper/okta-vue-auth-example/pull/4); changes to this post can be viewed in [okta.github.io#2453](https://github.com/oktadeveloper/okta.github.io/pull/2453).
 ---
 
 I'll happily admit that like many of you, I'm a lazy developer. I tend to look for solutions someone else has already built before I try to build them myself. In the "old days" of the early 2000s, I used to spend a lot more time coding solutions myself. But today many solutions to coding problems are just a keyword search away. In that spirit, I approached this tutorial using keywords – looking for existing solutions first, then fitting my favorite solution on top of it. I think you'll like the results!
@@ -19,7 +26,7 @@ When I started writing this article, I wanted to show you how to add authenticat
 
 ## Vue CLI + PWA!
 
-Every web app that has mobile users should add PWA support so the app loads faster and works offline. Vue.js has [excellent PWA support](https://github.com/vuejs-templates/pwa). You might recognize me as a fan of PWAs if you've read my [Ultimate Guide to Progressive Web Applications](https://developer.okta.com/blog/2017/07/20/the-ultimate-guide-to-progressive-web-applications).
+Every web app that has mobile users should add PWA support so the app loads faster and works offline. Vue.js has [excellent PWA support](https://github.com/vuejs-templates/pwa). You might recognize me as a fan of PWAs if you've read my [Ultimate Guide to Progressive Web Applications](/blog/2017/07/20/the-ultimate-guide-to-progressive-web-applications).
 
 I installed [Vue CLI](https://github.com/vuejs/vue-cli) and went to work.
 
@@ -305,7 +312,7 @@ The easiest way to fix this is to update `.eslintrc.js` to allow callback litera
 }
 ```
 
-_Thanks to [nikivancic](https://developer.okta.com/blog/2017/09/14/lazy-developers-guide-to-auth-with-vue#comment-4167385661) for this tip in the comments!_
+_Thanks to [nikivancic](/blog/2017/09/14/lazy-developers-guide-to-auth-with-vue#comment-4167385661) for this tip in the comments!_
 
 After making this change, you should be able to run `npm start` and authenticate with the hard coded values from `auth.js`.
 
@@ -583,7 +590,3 @@ You can see the code this lazy developer created for this article [on GitHub](ht
 * [Build a Basic CRUD App with Vue.js and Node](/blog/2018/02/15/build-crud-app-vuejs-node)
 * [Tutorial: Build a Basic CRUD App with Symfony 4 and Vue](/blog/2018/06/14/php-crud-app-symfony-vue)
 * [Build a Single-Page App with Go and Vue](/blog/2018/10/23/build-a-single-page-app-with-go-and-vue)
-
-**Changelog:**
-
-Nov 1, 2018: Updated to use Vue CLI 2.9.6, Vue 2.5.2, and Vue Okta Auth SDK 2.1. You can see the example app changes in [okta-vue-auth-example#4](https://github.com/oktadeveloper/okta-vue-auth-example/pull/4); changes to this post can be viewed in [okta.github.io#2453](https://github.com/oktadeveloper/okta.github.io/pull/2453).

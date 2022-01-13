@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8134420036
+discourse_topic_id: 17267
+discourse_comment_url: https://devforum.okta.com/t/17267
 layout: blog_post
 title: "Build Easy User Sync Webhooks with Okta"
 author: heather-wallander
@@ -28,11 +31,11 @@ But first let's address a few key questions you may be wondering.
 
 ## What Are Event Hooks?
  
-If you're familiar with webhooks, then you'll recognize event hooks as similar in functionality, but with a specific tie to events that occur in Okta. Essentially, Okta Event Hooks are outbound calls from Okta that extend the steps and/or functionality of selected Okta events..
+If you're familiar with webhooks, then you'll recognize event hooks as similar in functionality, but with a specific tie to events that occur in Okta. Essentially, Okta Event Hooks are outbound calls from Okta that extend the steps and/or functionality of selected Okta events.
  
 The calls take the form of HTTPS REST calls that pass a JSON object containing event information to a URL that you specify, kicking off a process flow in a codebase you maintain and host.
  
-Event hooks require a web service with an internet-accessible endpoint.In this example we'll use Glitch, a simple to use app-hosting platform to both host and run our custom process flow. If you're interested in learning more, review our (Event Hooks Page)[https://developer.okta.com/docs/concepts/event-hooks/], which also includes a [list of eligible event hook triggers](https://developer.okta.com/docs/reference/api/event-types/?q=event-hook-eligible).
+Event hooks require a web service with an internet-accessible endpoint.In this example we'll use Glitch, a simple to use app-hosting platform to both host and run our custom process flow. If you're interested in learning more, review our [Event Hooks Page](https://developer.okta.com/docs/concepts/event-hooks/), which also includes a [list of eligible event hook triggers](https://developer.okta.com/docs/reference/api/event-types/?q=event-hook-eligible).
  
 OK,let's get started.
  
@@ -45,8 +48,9 @@ All the code is already written for you, all you have to do is copy the applicat
 {% img blog/easy-user-sync-hooks/glitch-remix.png alt:"remix" width:"773" %}{: .center-image }
 
 Remixing will create a name and URL that you'll be able to use for testing. For example:
-Glitch app name: exclusive-peppermint-neighborhood
-Glitch app URL: https://exclusive-peppermint-neighborhood.glitch.me/getUsers
+
+- Glitch app name: `exclusive-peppermint-neighborhood`
+- Glitch app URL: `https://exclusive-peppermint-neighborhood.glitch.me/getUsers`
 
 The code is written to automatically initialize a SQLite database and insert the first row of data. To confirm this, click **Show** (next to Glitch App Name) and select **In a New Window**. 
 
@@ -99,19 +103,19 @@ If more additional information is needed about the user, we'll need to request i
 
 To create the API token, navigate to **Security > API  > Tokens**, and  select **Create Token**.
 
-Give the token a name and click Create Token. A randomized token value will be displayed. Be sure to copy this value before closing the window. Once the window is closed, you will not be able to retrieve the value again.  
+Give the token a name and click **Create Token**. A randomized token value will be displayed. Be sure to copy this value before closing the window. Once the window is closed, you will not be able to retrieve the value again.  
 
 {% img blog/easy-user-sync-hooks/api-token-create.png alt:"create api token" width:"773" %}{: .center-image }
 
-Return to your Glitch app and select the .env file. You will see two variable fields with empty values for okta_key and okta_url. Enter the copied API token value as the empty okta_key value and enter your Okta url (i.e. https://subdomain.okta.com) as `okta_url`. 
+Return to your Glitch app and select the `.env` file. You will see two variable fields with empty values for `okta_key` and `okta_url`. Enter the copied API token value as the empty `okta_key` value and enter your Okta url (i.e. https://subdomain.okta.com) as `okta_url`. 
 
 {% img blog/easy-user-sync-hooks/glitch-config.png alt:"glitch config" width:"773" %}{: .center-image }
  
 **Test Your Event Hook**
 
-Now everything should be enabled for testing. You can create a user manually in the admin portal, using [Self-Service Registration](https://developer.okta.com/blog/2018/02/06/build-user-registration-with-node-react-and-okta) (if enabled on your tenant) or by using the [Create User API Requests](https://developer.okta.com/docs/reference/api/users/#create-user).
+Now everything should be enabled for testing. You can create a user manually in the admin portal, using [Self-Service Registration](/blog/2018/02/06/build-user-registration-with-node-react-and-okta) (if enabled on your tenant) or by using the [Create User API Requests](/docs/reference/api/users/#create-user).
 
-In this example, we'll create a user using the Create User Without Credentials Request from our [Okta Postman Environment](https://developer.okta.com/code/rest/). My user will have the following values, but you may create yours with whatever values you prefer.
+In this example, we'll create a user using the Create User Without Credentials Request from our [Okta Postman Environment](/code/rest/). My user will have the following values, but you may create yours with whatever values you prefer.
 
 {% img blog/easy-user-sync-hooks/postman.png alt:"postman" width:"773" %}{: .center-image }
 
@@ -123,14 +127,15 @@ That's it! You've successfully used Okta Event Hooks and synced your user's Okta
 
 ## Continue Developing with Okta and Event Hooks
 
-This post walked you through using Okta Event Hooks to automatically push user profiles to a third party user store (like a database) at the time of user creation. However, following this step-by-step guide of creating, verifying and testing Okta Event Hooks you could build out extended capabilities for any of the [eligible event hook triggers](https://developer.okta.com/docs/reference/api/event-types/?q=event-hook-eligible) to include additional processes required for your application.
+This post walked you through using Okta Event Hooks to automatically push user profiles to a third party user store (like a database) at the time of user creation. However, following this step-by-step guide of creating, verifying and testing Okta Event Hooks you could build out extended capabilities for any of the [eligible event hook triggers](/docs/reference/api/event-types/?q=event-hook-eligible) to include additional processes required for your application.
 
-With Event Hooks, calls are asynchronous, so you can add them without disrupting the process flow of the triggering event. However, if you would prefer a synchronous hook, that will pause a process until a response is received, I'd recommend reviewing [Okta's Inline Hooks](https://developer.okta.com/docs/concepts/inline-hooks/) capabilities.
+With Event Hooks, calls are asynchronous, so you can add them without disrupting the process flow of the triggering event. However, if you would prefer a synchronous hook, that will pause a process until a response is received, I'd recommend reviewing [Okta's Inline Hooks](/docs/concepts/inline-hooks/) capabilities.
+
 If you'd like to learn more about Okta Hooks or you're interested in learning how you can add Okta authentication to your Node.js application, these posts are helpful:
 
-* [Use Okta Token Hooks to Supercharge OpenID Connect](https://developer.okta.com/blog/2019/12/23/extend-oidc-okta-token-hooks) 
-* [Node.js Login with Express and OIDC](https://developer.okta.com/blog/2020/06/16/nodejs-login)
-* [Painless Node.js Authentication](https://developer.okta.com/blog/2019/10/03/painless-node-authentication)
+* [Use Okta Token Hooks to Supercharge OpenID Connect](/blog/2019/12/23/extend-oidc-okta-token-hooks) 
+* [Node.js Login with Express and OIDC](/blog/2020/06/16/nodejs-login)
+* [Painless Node.js Authentication](/blog/2019/10/03/painless-node-authentication)
 
 If you like this content, be sure to follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube Channel](https://youtube.com/c/oktadev) for updates on new posts and videos.
 

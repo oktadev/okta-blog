@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6857603530
+discourse_topic_id: 16916
+discourse_comment_url: https://devforum.okta.com/t/16916
 layout: blog_post
 title: "Build a Secure API with Spring Boot and GraphQL"
 author: andrew-hughes
@@ -11,6 +14,8 @@ tweets:
 - "Have your heard of GraphQL as an alternative to building REST APIs? This post shows you what it is and how it works with @springboot. It's #bootiful!"
 image: blog/featured/okta-java-headphones.jpg
 type: conversion
+update-url: /blog/2020/01/31/java-graphql
+update-title: "How to GraphQL in Java"
 ---
 
 GraphQL is a data query language developed by Facebook in 2012 to solve a shortcoming of REST APIs and traditional database models. All too often, when programmers write REST API data queries, they default to retrieving entire data structures when they need only a part of it. For example, if you want to find out the number of comments on a blog post, a developer might typically retrieve the entire post and all associated fields along with all the comments and all their associated fields **only to** count the number of comments in the resulting array.

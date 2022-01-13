@@ -6,3 +6,93 @@
 .is-signed-in {
   display: none;
 }
+
+.align-center {
+  align-items: center;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-auto {
+  flex: auto;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+.is-fixed {
+  position: fixed;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.show-for-small {
+  @include media('>small') {
+    display: none;
+  }
+}
+
+.hide-for-small {
+  @include media('<=small') {
+    display: none;
+  }
+}
+
+.show-for-medium {
+  @include media('>=medium') {
+    display: none;
+  }
+}
+
+.hide-for-medium {
+  @include media('<medium') {
+    display: none;
+  }
+}
+
+.hide {
+  display: none;
+}
+
+.menu-dropdown-wrapper {
+  @include media('<=small') {
+    left: 0;
+    top: 69px;
+    opacity: 0;
+    width: 100%;
+    z-index: -1;
+    position: absolute;
+    transform: translateY(-150%);
+    background: get-color('mirage');
+    transition: all 500ms cubic-bezier(.12, 1, .78, .97);
+
+    &:before {
+      content: '';
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      background: rgba(get-color('san-juan'), 0.2);
+    }
+
+    &.open {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

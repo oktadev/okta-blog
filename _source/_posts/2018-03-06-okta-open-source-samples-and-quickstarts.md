@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6542043016
+discourse_topic_id: 16834
+discourse_comment_url: https://devforum.okta.com/t/16834
 layout: blog_post
 title: "Open Source Framework Samples and Quickstarts for Okta's Developer APIs"
 author: matt-raible
@@ -9,6 +12,8 @@ tweets:
   - "Okta's DevEx Team believes in developing great documentation and easy to configure SDKs. Learn more about the awesome samples they've created →"
   - "Developers love sample applications. Open source is awesome! See how we combine the two to make a better developer experience."
 type: awareness
+changelog:
+  - 2019-04-11: Updated to list new samples. Was 9, now we're up to 16! You can see changes to this article in [oktadeveloper/okta.github.io#2843](https://github.com/oktadeveloper/okta.github.io/pull/2843).
 ---
 
 Developers love sample applications. It's one thing to see the steps to create an application or feature; but when someone provides a working app you can just build and run it's simply fantastic. Open source is near and dear to many developers today. Many of the frameworks we use to build applications are open source. It's a great way to develop widely-used software and get contributions from your users.
@@ -143,7 +148,3 @@ I thought it'd be fun to ask some questions of [Robert Damphousse](https://twitt
 The Developer Experience team at Okta is developing a plethora of framework-specific SDKs, [documentation](/documentation/), and sample applications. They're doing really great work to make your development life simpler. 
 
 However, there's always room for improvement! If you have ideas for improvement, please create pull requests in our SDKs or samples, or ask your questions on our [DevForums](https://devforum.okta.com/). Of course, we'd be happy to have a [quick chat on Twitter too](https://twitter.com/oktadev)!
-
-**Changelog:**
-
-* Apr 11, 2019: Updated to list new samples. Was 9, now we're up to 16! You can see changes to this article in [oktadeveloper/okta.github.io#2843](https://github.com/oktadeveloper/okta.github.io/pull/2843).

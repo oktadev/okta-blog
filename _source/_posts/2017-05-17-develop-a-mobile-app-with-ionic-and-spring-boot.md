@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 5847164514
+discourse_topic_id: 16749
+discourse_comment_url: https://devforum.okta.com/t/16749
 layout: blog_post
 title: 'Tutorial: Develop a Mobile App With Ionic and Spring Boot'
 author: matt-raible
@@ -7,6 +10,8 @@ communities: [java, mobile]
 description: "This tutorial will show you how to build a Spring Boot API and an Ionic app, and then how to deploy the finished product to your iOS or Android-based mobile device."
 tags: [spring-boot, java, pwa, progressive-web-app, ionic, typescript, ios, android]
 type: conversion
+changelog:
+  - 2018-02-14: Updated to use the latest versions of Ionic (3.19.1 with Angular 5) and Spring Boot (1.5.10). See the code changes in [oktadeveloper/spring-boot-ionic-example#2](https://github.com/oktadeveloper/spring-boot-ionic-example/pull/2). Changes to this article can be viewed in [oktadeveloper/okta.github.io#1759](https://github.com/oktadeveloper/okta.github.io/pull/1759).
 ---
 
 You already know that building APIs with Spring Boot is incredibly easy. But, your API isn't complete without a UI, right? Well, building UIs with Ionic is pretty easy too, especially if you know Angular!
@@ -794,8 +799,4 @@ To learn more about Ionic and Angular, please see the following resources:
 * [Use Ionic for JHipster to Create Mobile Apps with OIDC Authentication](/blog/2018/01/30/jhipster-ionic-with-oidc-authentication)
 
 **Update:** To learn how to add authentication to an Ionic app, see [Build an Ionic App with User Authentication](/blog/2017/08/22/build-an-ionic-app-with-user-authentication).
-
-**Changelog:**
-
-* Feb 14, 2018: Updated to use the latest versions of Ionic (3.19.1 with Angular 5) and Spring Boot (1.5.10). See the code changes in [oktadeveloper/spring-boot-ionic-example#2](https://github.com/oktadeveloper/spring-boot-ionic-example/pull/2). Changes to this article can be viewed in [oktadeveloper/okta.github.io#1759](https://github.com/oktadeveloper/okta.github.io/pull/1759).
 

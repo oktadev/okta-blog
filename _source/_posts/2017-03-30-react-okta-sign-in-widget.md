@@ -1,11 +1,21 @@
 ---
+disqus_thread_id: 6300281149
+discourse_topic_id: 16765
+discourse_comment_url: https://devforum.okta.com/t/16765
 layout: blog_post
 title: Build a React Application with User Authentication in 15 Minutes
 author: lee-brandt
 by: advocate
 communities: [javascript]
+description: "In this tutorial, you'll start with a very simple React app with a couple of pages and some routing built in, and add authentication using Okta's Sign-In Widget."
 tags: [react, sign-in-widget, okta, es6]
 type: conversion
+update-title: "A Quick Guide to React Login Options"
+update-url: /blog/2020/12/16/react-login
+changelog:
+- 2017-10-20: Changed npm install to version 2.3.0 of widget and removed npm install at beginning. Also added instructions for fixing dependency issues in npm.
+- 2017-10-17: Fixed bugs and added navbar instructions.
+- 2017-09-30: Updated "create an OIDC app" instructions for the [Okta Developer Console](/blog/2017/09/25/all-new-developer-console). Updated the widget reference to 2.1.0.
 ---
 
 React has quickly become one of the most favored front-end web frameworks, and is second only to plain old HTML5, [according to JAXenter](https://jaxenter.com/technology-trends-2017-top-frameworks-131993.html). So it's no surprise that [developers are learning it](https://www.lynda.com/React-js-training-tutorials/7049-0.html), and [employers are asking for it](https://stackoverflow.com/jobs?sort=i&q=ReactJS).
@@ -100,6 +110,7 @@ export default class LoginPage extends React.Component{
       clientId: '{clientId}',
       redirectUri: 'http://localhost:3000',
       authParams: {
+        issuer: 'default',
         responseType: 'id_token'
       }
     });
@@ -134,7 +145,7 @@ export default class LoginPage extends React.Component{
       clientId: '{clientId}',
       redirectUri: 'http://localhost:3000',
       authParams: {
-        issuer: 'default'
+        issuer: 'default',
         responseType: 'id_token'
       }
     });
@@ -299,9 +310,3 @@ You can find a completed version of the application created in this blog post [o
 Building authentication in an application is hard. It's even less fun to build it over and over again in each application you build. Okta does the hard part for you and makes it a lot more fun to be a developer! [Sign up for a forever-free developer account](https://developer.okta.com/signup/) and try Okta today!
 
 I hope you've enjoyed this quick tour of our React support. If you have questions about Okta's features, or what we're building next, please hit me up on Twitter [@leebrandt](https://twitter.com/leebrandt), leave a comment below, or open an issue on GitHub.
-
-### Changelog
-
-* October 20, 2017: Changed npm install to version 2.3.0 of widget and removed npm install at beginning. Also added instructions for fixing dependency issues in npm.
-* October 17, 2017: Fixed bugs and added navbar instructions.
-* September 30, 2017: Updated "create an OIDC app" instructions for the [Okta Developer Console](/blog/2017/09/25/all-new-developer-console). Updated the widget reference to 2.1.0.

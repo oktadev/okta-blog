@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7381847677
+discourse_topic_id: 17042
+discourse_comment_url: https://devforum.okta.com/t/17042
 layout: blog_post
 title: "Angular MVC - A Primer"
 author: holger-schmitz
@@ -12,6 +15,8 @@ tweets:
 - "Get the lowdown on the basics of MVC and MVVM and how @Angular implements these patterns! →"
 image: blog/featured/okta-angular-headphones.jpg
 type: conversion
+changelog:
+- 2021-04-18: Updated to use Okta Angular v3 and streamline setup with the Okta CLI. See changes to this blog post in [okta-blog#743](https://github.com/oktadeveloper/okta-blog/pull/743); example app updates can be viewed in [okta-angular-notes-app-example#1](https://github.com/oktadeveloper/okta-angular-notes-app-example/pull/1).
 ---
 
 When designing software with a user interface, it is important to structure the code in a way that makes it easy to extend and maintain. Over time, there have been a few approaches in separating out responsibilities of the different components of an application. Although there is plenty of literature on these design patterns around, it can be very confusing for a beginner to understand the features of limitations of the different patterns and the differences between them.
@@ -19,6 +24,10 @@ When designing software with a user interface, it is important to structure the 
 In this tutorial, I want to talk about the major two approaches, the Model-View-Controller (MVC) pattern and the Model-View-ViewModel (MVVM) pattern. In the MVVM pattern, the controller is replaced by a ViewModel. The main differences between these two components are the direction of dependency between the View on one side, and the Controller or ViewModel on the other side.
 
 I will be developing the ideas and explaining the patterns by example using a browser application written in TypeScript and Angular. TypeScript is an extension of JavaScript that adds type information to the code. The application will mimic the popular Notes application on MacOS/iOS. Angular enforces the MVVM pattern. Let's dive in and see the main differences between the MVC and the MVVM patterns.
+
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
 
 ## Set Up Your Application with Angular CLI
 
@@ -496,37 +505,43 @@ You can see `(click)` handlers in various places directly referring to the metho
 
 A good application is not complete without proper user authentication. In this section, you will learn how to quickly add authentication to your existing Angular application. Okta provides single sign-on authentication which can be plugged into the app with just a few lines of code.
 
-To start off, you will need a free developer account with Okta. In your favorite browser, open https://developer.okta.com, locate **Create Free Account** in the center of the page and click it. Simply fill in the form that appears with your details, accept the terms & conditions, and submit it by pressing **Get Started**. Once you have completed the registration you will be taken to the Okta dashboard. Here you can see an overview of all the applications registered with the Okta service.
-
-{% img blog/angular-mvvm-pattern/applications-developer.okta.com.png alt:"Okta Applications" width:"800" %}{: .center-image }
-
-Click on **Add Application** to register a new application. On the next screen that appears you will be given a choice of the type of application. The **Single-Page Application** is the right choice for your Angular app. On the page that follows, you will be shown the application settings. You will need to change the port number to 4200 when you are testing your application with `ng serve`.
-
-{% img blog/angular-mvvm-pattern/new-app-developer.okta.com.png alt:"New Okta Application" width:"800" %}{: .center-image }
+{% include setup/cli.md type="spa" framework="Angular" loginRedirectUri="http://localhost:4200/callback" %}
 
 That's it. Now you should be seeing a Client ID which you will need later on. Now you are ready to include the authentication service into your code. Okta provides a convenient library for Angular. You can install it by running the following command in your application root directory.
 
 ```bash
-npm install @okta/okta-angular@1.0.7 --save
+npm install @okta/okta-angular@3.1.0 --save
 ```
 
-Open `app.module.ts` and import the `OktaAuthModule`.
+Open `app.module.ts` and import `OKTA_CONFIG` and `OktaAuthModule`.
 
 ```ts
-import { OktaAuthModule } from '@okta/okta-angular';
+import { OKTA_CONFIG, OktaAuthModule } from '@okta/okta-angular';
 ```
 
-Further down, in the same file add the following in the list of `imports`.
+Define your Okta configuration:
 
 ```ts
-    OktaAuthModule.initAuth({
-      issuer: 'https://{yourOktaDomain}/oauth2/default',
-      redirectUri: 'http://localhost:4200/implicit/callback',
-      clientId: '{clientId}'
-    })
+const oktaConfig = {
+  issuer: 'https://{yourOktaDomain}/oauth2/default',
+  redirectUri: window.location.origin + '/callback',
+  clientId: '{clientId}'
+};
 ```
 
-In this snippet, `{clientId}` needs to be replaced with the client ID that you just obtained in the Okta developer dashboard. 
+Further down, in the same file update the list of `imports` and `providers`.
+
+```ts
+imports: [
+  ...
+  OktaAuthModule
+],
+providers: [
+  { provide: OKTA_CONFIG, useValue: oktaConfig }
+],
+```
+
+In this snippet, `{clientId}` needs to be replaced with the client ID that you just obtained from the Okta CLI. 
 
 To protect specific routes from being accessed without a password you need to modify `src/app/app-routing.module.ts`. Add an import for `OktaCallbackComponent` and `OktaAuthGuard`.
 
@@ -537,10 +552,10 @@ import { OktaCallbackComponent, OktaAuthGuard } from '@okta/okta-angular';
 Next, add another route to the array of routes.
 
 ```ts
-{ path: 'implicit/callback', component: OktaCallbackComponent }
+{ path: 'callback', component: OktaCallbackComponent }
 ```
 
-The `implicit/callback` route will be called by Okta when the user has completed the login process. The `OktaCallbackComponent` handles the result and redirects the user to the page that requested the authentication process. To guard individual routes, you can now simply add `OktaAuthGuard` to that route, like this.
+The `callback` route will be called by Okta when the user has completed the login process. The `OktaCallbackComponent` handles the result and redirects the user to the page that requested the authentication process. To guard individual routes, you can now simply add `OktaAuthGuard` to that route, like this.
 
 ```ts
 { path: 'notes', component: NotesComponent, canActivate: [OktaAuthGuard] }
@@ -561,12 +576,12 @@ async ngOnInit() {
   this.isAuthenticated = await this.oktaAuth.isAuthenticated();
 }
 
-login() {
-  this.oktaAuth.loginRedirect();
+async login() {
+  await this.oktaAuth.signInWithRedirect();
 }
 
-logout() {
-  this.oktaAuth.logout('/');
+async logout() {
+  await this.oktaAuth.signOut();
 }
 ```
 

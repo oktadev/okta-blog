@@ -1,8 +1,12 @@
 ---
+disqus_thread_id: 6364138920
+discourse_topic_id: 16809
+discourse_comment_url: https://devforum.okta.com/t/16809
 layout: blog_post
 title: "Spread Serverless Holiday Cheer with Lambda and API Gateway"
 author: nate-barbettini
 by: advocate
+description: "Looking for something to work on for a few minutes? Why not build an API to spread some holiday cheer? Anyone can build a Lambda with JavaScript!"
 communities: [javascript]
 tags: [javascript, serverless, api, lambda, api-gateway]
 type: conversion

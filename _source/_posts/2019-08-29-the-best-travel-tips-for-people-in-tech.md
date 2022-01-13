@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7610653380
+discourse_topic_id: 17129
+discourse_comment_url: https://devforum.okta.com/t/17129
 layout: blog_post
 title: "The Best Travel Tips for People In Tech"
 author: heather-downing
@@ -123,9 +126,9 @@ You are well on your way to travel like the pros! Got any other travel tips for 
 
 If you'd like to discover more tips from us, we've also published a number of posts that might interest you:
 
-* [Pro Tips for Developer Relations](https://developer.okta.com/blog/2019/01/28/developer-relations-pro-tips)
-* [Pro Tips for Developer Relations, Part 2](https://developer.okta.com/blog/2019/04/30/developer-relations-pro-tips-2)
-* [5 Essential Tips for Building Developer Libraries](https://developer.okta.com/blog/2019/06/10/five-essential-tips-for-building-developer-libraries)
-* [7 Ways an OAuth Token is like a Hotel Key Card](https://developer.okta.com/blog/2019/06/05/seven-ways-an-oauth-access-token-is-like-a-hotel-key-card)
+* [Pro Tips for Developer Relations](/blog/2019/01/28/developer-relations-pro-tips)
+* [Pro Tips for Developer Relations, Part 2](/blog/2019/04/30/developer-relations-pro-tips-2)
+* [5 Essential Tips for Building Developer Libraries](/blog/2019/06/10/five-essential-tips-for-building-developer-libraries)
+* [7 Ways an OAuth Token is like a Hotel Key Card](/blog/2019/06/05/seven-ways-an-oauth-access-token-is-like-a-hotel-key-card)
 
 For other great content from the Okta Dev Team, follow us on [Twitter](https://twitter.com/oktadev) and [Facebook](https://www.facebook.com/oktadevelopers)!

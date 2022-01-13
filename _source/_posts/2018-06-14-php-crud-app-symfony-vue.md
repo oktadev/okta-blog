@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6731812427
+discourse_topic_id: 16884
+discourse_comment_url: https://devforum.okta.com/t/16884
 layout: blog_post
 title: "Tutorial: Build a Basic CRUD App with Symfony 4 and Vue"
 author: krasimir-hristozov
