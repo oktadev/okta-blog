@@ -13,7 +13,7 @@ type: conversion
 github: https://github.com/oktadev/okta-vue-nuxt-example
 ---
 
-[Nuxt](https://nuxtjs.org/) calls itself *The intuitive Vue framework*. It aims to make a developer-friendly experience while not sacrificing performance or degrading the integrity of your architecture. It has been exciting to see the community and tooling around VueJS grow and evolve — there’s no better time to get started in this ecosystem than now.   
+[Nuxt](https://nuxtjs.org/) calls itself *The intuitive Vue framework*. It aims to make a developer-friendly experience while not sacrificing performance or degrading the integrity of your architecture. It has been exciting to see the community and tooling around VueJS grow and evolve — there's no better time to get started in this ecosystem than now.   
 
 In this tutorial, you will build a small web application that retrieves some posts from an API and displays them for authenticated users. For authentication, you will integrate Okta into your Nuxt application. Okta's simple authentication system and the power of Nuxt means you can configure and set up your authentication in just a few moments.  
 
@@ -63,7 +63,7 @@ If you open http://localhost:3000/ in your browser, you will see the default Nux
 
 {% img blog/vue-applications-nuxt/nuxt-default-page.png alt:"The default Nuxt page." width:"800" %}{: .center-image }
 
-The Nuxt project layout is pretty straightforward. First you have a `.nuxt` folder where your compiled server code will end up. Next there is a `components` folder. You won’t use this folder in this tutorial but in larger projects breaking pages into components is common practice. These components are then reusable in a number of pages. Next you will find a `pages` folder where your pages will go. Your routes will be inferred by Nuxt from these views. The `static` folder is where you can house css, images, or other static content to display. The store directory contains your [Vuex](https://vuex.vuejs.org/) store files.  
+The Nuxt project layout is pretty straightforward. First you have a `.nuxt` folder where your compiled server code will end up. Next there is a `components` folder. You won't use this folder in this tutorial but in larger projects breaking pages into components is common practice. These components are then reusable in a number of pages. Next you will find a `pages` folder where your pages will go. Your routes will be inferred by Nuxt from these views. The `static` folder is where you can house css, images, or other static content to display. The store directory contains your [Vuex](https://vuex.vuejs.org/) store files.  
 
 You will also add a `layouts` folder later.  You might have guessed, this folder will contain layouts. There are several other directories that are configured out of the box for Nuxt, including middleware, modules, plugins, and dist.  These are out of scope for this article but it is important to know they exist.
 
@@ -159,11 +159,11 @@ Nuxt needs you to add a file to the `store` folder called `index.vue` to use the
 
 ### Add your Nuxt Pages
 
-Now, you can start adding pages to your application. Nuxt builds your routes by looking in the `pages` folder. You can read more about Nuxt’s custom routing in their [documentation](https://nuxtjs.org/guide/routing).  
+Now, you can start adding pages to your application. Nuxt builds your routes by looking in the `pages` folder. You can read more about Nuxt's custom routing in their [documentation](https://nuxtjs.org/guide/routing).  
 
 Before working on your pages you should set up your layout. Add a new folder called `layouts` to the project directory and add a file called `default.vue`.  
 
-This file, and all of the views in this project, will use the Vue template syntax. Vue templating is very similar to most other template syntaxeis. It relies heavily on the `v-bind` HTML attribute to handle events or bind attribute values. You can handle events with the `v-on` syntax, which can be short handed to `@`, such as `@click=”doSomething”`.  The `b-*` components are from the `Bootstrap Vue` library that should have been installed via the npx task runner.
+This file, and all of the views in this project, will use the Vue template syntax. Vue templating is very similar to most other template syntaxeis. It relies heavily on the `v-bind` HTML attribute to handle events or bind attribute values. You can handle events with the `v-on` syntax, which can be short handed to `@`, such as `@click="doSomething"`.  The `b-*` components are from the `Bootstrap Vue` library that should have been installed via the npx task runner.
 
 The layout page will display the headers and footers and incorporate some branching logic to determine if a user should see a `login` or `logout` button. It also contains some common CSS and JavaScript that will be needed on each page that uses the layout. the `<nuxt />` element on this page will act as a placeholder for the code on your page. Nuxt will render your page code in this section.  
 
@@ -346,10 +346,10 @@ With a little bit of code, you can combine Nuxt and Okta to make secure Vue SPAs
 
 In this post, you learned how to use the `@nuxt/auth-next` package to secure your Nuxt application using Okta. You also learned how to create the application in Okta and configure the Vue app to use it. Finally, you learned how to use the `@nuxtjs/axios` package to pull data from a sample API.
 
-If you’d like to learn more about building web apps with Vue, you might want to check out these other great posts:
-- [Use Schematics with Vue and Add Authentication in 5 Minutes](https://developer.okta.com/blog/2019/05/21/vue-schematics)
-- [Learn How to Build a Single-Page App with Vue and Spring Boot](https://developer.okta.com/blog/2021/10/04/spring-boot-spa)
-- [Vue Login and Access Control the Easy Way](https://developer.okta.com/blog/2020/05/15/vue-login)
+If you'd like to learn more about building web apps with Vue, you might want to check out these other great posts:
+- [Use Schematics with Vue and Add Authentication in 5 Minutes](/blog/2019/05/21/vue-schematics)
+- [Learn How to Build a Single-Page App with Vue and Spring Boot](/blog/2021/10/04/spring-boot-spa)
+- [Vue Login and Access Control the Easy Way](/blog/2020/05/15/vue-login)
 
-Make sure you follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel. If you have any questions, or you want to share what tutorial you’d like to see next, please comment below.
+Make sure you follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel. If you have any questions, or you want to share what tutorial you'd like to see next, please comment below.
 
