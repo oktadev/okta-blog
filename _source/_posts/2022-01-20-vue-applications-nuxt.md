@@ -8,7 +8,7 @@ description: "A tutorial that shows how to create a web application with Nuxt an
 tags: [vue, nuxt, javascript]
 tweets:
 - "Curious about @nuxt_js? Learn how to create a secure @vuejs app using @okta and Nuxt! 🚀"
-image: blog/vue-applications-nuxt/vue-nuxt-social.png
+image: blog/vue-applications-nuxt/vue-nuxt-social.jpg
 type: conversion
 github: https://github.com/oktadev/okta-vue-nuxt-example
 ---
@@ -17,7 +17,7 @@ github: https://github.com/oktadev/okta-vue-nuxt-example
 
 In this tutorial, you will build a small web application that retrieves some posts from an API and displays them for authenticated users. For authentication, you will integrate Okta into your Nuxt application. Okta's simple authentication system and the power of Nuxt means you can configure and set up your authentication in just a few moments.  
 
-{% img blog/vue-applications-nuxt/vue-nuxt-social.png alt:"Cover image with a screenshot of the finished Nuxt app." width:"800" %}{: .center-image }
+{% img blog/vue-applications-nuxt/vue-nuxt-social.jpg alt:"Cover image with a screenshot of the finished Nuxt app." width:"800" %}{: .center-image }
 
 **What you'll need**
 
@@ -79,7 +79,7 @@ npm i @nuxtjs/auth-next@5.0.0-1637333559.35dbd53
 With your dependencies installed it's time to start building your application. First, add a new file to your root directory and name it `.env` and add the following code to it.
 
 ```bash
-OKTA_DOMAIN={yourOktaDomain}
+OKTA_DOMAIN=https://{yourOktaDomain}
 OKTA_CLIENT_ID={yourClientId}
 ```
 
@@ -137,7 +137,7 @@ export default {
       okta: {
         scheme: "openIDConnect",
         endpoints: {
-          configuration:  `https://${process.env.OKTA_DOMAIN}/oauth2/default/.well-known/oauth-authorization-server`,
+          configuration:  `${process.env.OKTA_DOMAIN}/oauth2/default/.well-known/oauth-authorization-server`,
           logout: undefined,
         },
         clientId: process.env.OKTA_CLIENT_ID,
@@ -167,6 +167,7 @@ This file, and all of the views in this project, will use the Vue template synta
 
 The layout page will display the headers and footers and incorporate some branching logic to determine if a user should see a `login` or `logout` button. It also contains some common CSS and JavaScript that will be needed on each page that uses the layout. the `<nuxt />` element on this page will act as a placeholder for the code on your page. Nuxt will render your page code in this section.  
 
+{% raw %}
 ```html
 <template>
   <div>
@@ -235,6 +236,7 @@ export default {
 }
 </style>
 ```
+{% endraw %}
 
 You will also need a basic landing page that isn't under authentication. Your landing page will give some information about the application. It will also contain a redirect for authenticated users to route them to the `Dashboard` page. 
 
