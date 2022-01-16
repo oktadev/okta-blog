@@ -480,11 +480,11 @@ connection
 
 If you run your application at this point, you'll have a secured chat application running in a container!
 
-## Deploy Your .NET Chat Application to AWS
+## Deploy your .NET chat application to AWS
 
-Now that the chat application is complete, it's time to deploy it. First, we need to build the docker image and deploy it to AWS to be used. AWS has private container repositories via its Elastic Container Registry (ECR) product.
+Now that the chat application is complete, it's time to deploy. First, we need to build the docker image and deploy it for use in AWS. AWS has private container repositories via its Elastic Container Registry (ECR) product.
 
-### Create an ECR Repository
+### Create an ECR repository
 
 First, we need to make one final change to the **Dockerfile** to get TLS working on Fargate.
 
@@ -502,7 +502,7 @@ RUN dotnet dev-certs https -ep /app/aspnetapp.pfx -p ${CERT_PASSWORD}
 ...
 ```
 
-This will create a self-signed development certificate right within the Docker image, which we can use to run the application with TLS on Fargate for demo purposes.
+This will create a self-signed development certificate right within the docker image, which we can use to run the application with TLS on Fargate for demo purposes.
 
 > **Note**: This type of development certificate is not recommended for production use. It is used here for simplicity in a demo. For a production setup, you should use a certificate signed by a certificate authority. Recommendation: to run a production .NET application on ECS, use an AWS Application Load Balancer (ALB) to route traffic to a reverse proxy (Nginx) via an HTTPS listener configured to use a certificate signed by a certificate authority. The reverse proxy would then route traffic to the application. The reverse proxy and the application should also be configured to use TLS using valid certificates.
 
