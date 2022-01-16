@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Containerless! Run WebAssembly Workloads written in Rust on Kubernetes"
+title: "Containerless! How to Run WebAssembly Workloads on Kubernetes with Rust"
 author: deepu-sasidharan
 by: advocate
 communities: [devops, rust]
