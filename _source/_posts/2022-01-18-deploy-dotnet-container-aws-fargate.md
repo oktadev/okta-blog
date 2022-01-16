@@ -14,33 +14,33 @@ image: blog/featured/okta-dotnet-mouse-down.jpg
 type: conversion
 ---
 
-In a previous article, we learned [how to host a serverless .NET application using AWS Lambda](/blog/2020/06/08/serverless-lambda-functions-csharp). We talked about the history of serverless and how companies are using these types of technology to simplify delivering APIs and functionality faster than traditional methods. Some problems will arise in this type of application when you need more capability than your standard HTTP requests like GET, POST, PUT, DELETE, etc. Web Sockets is a great example of this.
+In a previous article, we learned [how to host a serverless .NET application using AWS Lambda](/blog/2020/06/08/serverless-lambda-functions-csharp). We talked about the history of serverless and how companies are using these types of technology to simplify delivering APIs and functionality faster than traditional methods. Some problems will arise in this type of application when you need more capability than standard HTTP requests like GET, POST, PUT, DELETE, etc. Web Sockets is a great example of this.
 
 {% include toc.md %}
 
-## Understanding Containers vs. Virtual Machines
+## Understanding containers vs. virtual machines
 
-Around 2013, [Docker](https://www.docker.com/) was released, beginning a shift in how we think about hosting applications and managing infrastructure. Infrastructure teams and operations have been leveraging Virtual Machines with great success for decades, so you may be tempted to think, "isn't this just a virtual machine?" In spirit, yes; in application, no.
+In 2013, [Docker](https://www.docker.com/) was released, beginning a shift in how we think about hosting applications and managing infrastructure. Infrastructure teams and operations had been leveraging *virtual machines* with great success for decades, so you may be tempted to think, "isn't this just a virtual machine?" In spirit, yes; in application, no.
 
-To talk about containers, we have to talk about Virtual Machines. A virtual machine (VM) is a virtual representation of a computer all the way from its boot process to loading an entire operating system. This provides a lot of flexibility because you gain fine-grained control over an entire virtual computer, but it brings all the pitfalls of a whole computer as well. The operating system has to be maintained, patched, and updated; disks have to be managed, and all manner of operational overhead goes into their care and feeding. Notably, VMs are also huge because an entire OS has to go on them. So when you start a VM, you have to go through the entire boot sequence of a traditional computer.
+To talk about containers, we have to talk about virtual machines. A virtual machine (VM) is a virtual representation of a computer, all the way from its boot process to loading an entire operating system (OS). This provides a lot of flexibility. You gain fine-grained control over an entire virtual computer, as well as all the pitfalls of a whole computer. The operating system has to be maintained, patched, and updated; disks have to be managed, and all manner of operational overhead goes into their care and feeding. Notably, VMs are huge because an entire OS has to go on them. So when you start a VM, you have to go through the entire boot sequence of a traditional computer.
 
-These are the three problem areas that containers hope to solve; Ease of management, size, and speed to start. There are others, but for simplicity, we will focus on those three as I feel (IMHO) they are the most relevant to business processes. Containers differ from a traditional virtual machine in one significant way. They do not have an actual Operating System. This may come as a surprise to you, even if you might have dabbled with containers before. Containers instead have an abstraction of an operating system that provides hooks into the host operating system using standards and conventions supplied by the container system.
+There are three major problem areas that containers hope to solve: ease of management, size, and speed to start. There are others, but for simplicity, I will focus on those that are the most relevant to business processes. Containers differ from traditional virtual machines in one significant way. They do not have an actual OS. This may come as a surprise to you, even if you've dabbled in containers before. Instead, containers rely on an abstraction of an operating system that provides hooks into the host OS using standards and conventions supplied by the container system.
 
-Docker is the de facto container standard for all practical purposes, but other container technologies do exist. The notion of a standardized container comes from the shipping industry. In shipping, there was no standardization, which made transport difficult because you had to figure out how to hold each item on a boat, train, or truck. Containers provided a standard format for moving goods "you can put whatever you want inside the container so long as it conforms to a standard set of dimensions and can be opened and bolted down in a uniform way." This simplified the logistical process of moving real-world items. In this same way, standardizing the way a software container interacts with its host OS to delegate the responsibility for executing tasks simplifies management of the most crucial part, the application.
+Docker is the de facto container standard for all practical purposes, but other container technologies do exist. The notion of a standardized container comes from the shipping industry. In shipping, there was no standardization, which made transport difficult because you had to figure out how to hold each item on a boat, train, or truck. Containers provided a standard format for moving goods: "You can put whatever you want inside the container so long as it conforms to a standard set of dimensions and can be opened and bolted down in a uniform way." This simplified the logistical process of moving real-world items. In this same way, standardizing the way a software container interacts with its host OS to delegate the responsibility for executing tasks simplifies management of the most crucial part, the application.
 
-## Hosting Containers with AWS ECS Fargate
+## Hosting containers with AWS ECS Fargate
 
 Now that we have a better idea of what makes a container different from a virtual machine, how does this solve our three problems?
 
-First, it makes management easier by letting us write build scripts to create a stable, repeatable representation of the host needed to do the body of work needed by the application. Second, since an OS ultimately hosts the container, that OS can enforce company policy and security policies, so at worst, any container can only do at most that much. For example, if the host OS only allows traffic inbound from a specific subnet and port, the container cannot override that as it is ultimately bound by the host OS's networking rules.
+First, containers make management easier by letting us write build scripts to create a stable, repeatable representation of the host. This is needed to do the body of work required by the application. Second, since an OS ultimately hosts the container, that OS can enforce company and security policies.  In the worst case, this would be the most a given container could do. For example, if the host OS only allows traffic inbound from a specific subnet and port, the container cannot override this restriction. The container is ultimately bound by the host OS's networking rules.
 
-This kind of management reliability continues into data management, memory management, and any other policies that need to be enforced. This ultimately creates a great deal of business agility as operations can reliably open the doors to developers knowing that they have some established rails. As for size, without the need for a whole OS, your container images are often only a few MB, vs. many GB. On the topic of speed, since there isn't a complete boot cycle, the container can effectively start up as fast as the hosted application can start.
+This kind of management reliability continues into data management, memory management, and any other policies that need to be enforced. Ultimately, the result here is business agility. Operations can open the doors to developers knowing that established guide rails are in place. As for size–our second key problem area–since you no longer need a whole OS, container images are often as small as a few MB vs. many GB. On the topic of speed–our third key problem area–since there isn't a complete boot cycle, the container can effectively start up as fast as the hosted application.
 
-The difficulty with containers moves further up the abstraction chain (as is the style of such things) than with Virtual Machines. The challenge comes down to networking and managing container images across many resources so that you can treat a set of computing as one homogeneous unit. Fortunately, there are many solutions for this with products like Kubernetes, OpenShift, Mesos, Nomad, and others. But with this, you are ultimately back to having to manage a fleet of computers along with all the management overhead that goes along with it.
+The difficulty with containers moves further up the abstraction chain (as is the style of such things) than virtual machines. The challenge comes down to networking and managing container images across many resources so that you can treat a set of computing as one homogeneous unit. Fortunately, products like Kubernetes, OpenShift, Mesos, Nomad, and others can help you solve these challenges. However, you are ultimately back to managing a fleet of computers along with the associated management overhead.
 
-This is the sweet spot of AWS Elastic Container Service (ECS) Fargate. Fargate gives you networking abstractions across a virtual network known as a VPC (Virtual Private Cloud). This network abstraction is built right into the heart of AWS and is well vetted for any type of workload, including high-security government workloads. Fargate takes this a step further by abstracting away the machine management. You can set up traditional clusters and manage your machines if you want, but leveraging Fargate simplifies one more part of your process. Ultimately our goal with using cloud vendors in the first place is to let them be good at infrastructure management so we can be good at managing our business.
+This is the sweet spot of AWS Elastic Container Service (ECS) Fargate. Fargate gives you networking abstractions across a virtual network known as a VPC (virtual private cloud). This network abstraction is built right into the heart of AWS and is well vetted for any type of workload, including high-security government workloads. Fargate takes this a step further by abstracting away the machine management. You can set up traditional clusters and manage your machines if you want, but leveraging Fargate simplifies one more part of your process. Ultimately the goal with using cloud vendors is to let them handle the infrastructure management so we can focus on managing our business.
 
-Time to jump into it and try it out using .NET containers with AWS Fargate!
+Time to jump in and try out .NET containers with AWS Fargate!
 
 **What you will need to get started**
 
@@ -55,12 +55,12 @@ What you'll need to continue are the following:
 
 This tutorial assumes you already have Docker set up and running.
 
-## Build and Dockerize a .NET Chat Application
+## Build and dockerize a .NET chat application
 
-So what do you want to build? To keep things simple so we can see the value in using something other than standard HTTP protocols, I'll use SignalR to build a very basic chat application.
+So what do you want to build? To keep things simple and see the value in using something other than standard HTTP protocols, I'll use SignalR to build a very basic chat application.
 
 - Secure: Only logged-in clients should be able to use the chat functionality
-- Chat users names must come from their validated identity
+- Chat users' names must come from their validated identity
 - Real-time
 
 To achieve this, I am going to use four technologies:
@@ -78,11 +78,11 @@ Authentication is vital in any application, but doubly so when you need to depen
 
 Note the **Issuer URL** and **Client ID**. You will need this in the next step.
 
-> **Note**: To test out your chat application, don't forget to manually add a second user to your Okta org to use for that purpose. Log in to your Okta org and navigate to the **Directory** > **People** page. Click the **Add person** button and fill out the form.
+> **Note**: To test out your chat application, don't forget to manually add a second user to your Okta org. Log in to your Okta org and navigate to the **Directory** > **People** page. Click the **Add person** button and fill out the form.
 
-### Setup a .NET Core Web Application
+### Set up a .NET Core web application
 
-Let us create a new ASP.NET Core Web Application using the `dotnet` CLI. Navigate to the location where you want to create the project and run the following command.
+Let us create a new ASP.NET Core web application using the `dotnet` CLI. Navigate to the location where you want to create the project and run the following command.
 
 ```bash
 dotnet new webapp -n Okta.Blog.Chat
@@ -187,7 +187,7 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 
 The key difference here is `app.UseAuthentication();`.
 
-Next, create a new folder called **Hubs** and a new class file in that folder called **ChatHub.cs** this will provide our chat back-end.
+Next, create a new folder called **Hubs** and a new class file in that folder called **ChatHub.cs**.  This will provide our chat backend.
 
 ```cs
 using Microsoft.AspNetCore.SignalR;
@@ -206,7 +206,7 @@ namespace Okta.Blog.Chat.Hubs
 }
 ```
 
-You'll see in this ChatHub we've made use of the users' authentication status. This way, even if someone knows the back-end is SignalR, we've mitigated their ability to use the system unless explicitly authenticated. Any additional authorization logic could go here as well.
+You'll see in this ChatHub we've made use of the user's authentication status. This way, even if someone knows the backend is SignalR, we've mitigated their ability to use the system unless explicitly authenticated. Any additional authorization logic could go here as well.
 
 Next, you need to make sure you have the pages you need. In the **Pages** folder, go ahead and delete the page **Privacy.cshtml** and **Privacy.cshtml.cs** and add a new page named **Chat.cshtml** by running the following command from the **Pages** folder.
 
@@ -226,11 +226,11 @@ To this:
 <a class="nav-link text-dark" asp-area="" asp-page="/Chat">Chat</a>
 ```
 
-At this point, if you run the `dotnet run` command or run the application from Visual Studio, you should be able to navigate to the chat page that just has the heading **"Chat"**. Make sure that it runs successfully before moving on to the next step.
+Now, if you run the `dotnet run` command or run the application from Visual Studio, you should be able to navigate to the chat page with the heading **"Chat"**. Make sure that it runs successfully before moving on to the next step.
 
-### Add Docker Support to Your .NET Chat Application
+### Add Docker support to your .NET chat application
 
-Before you add the chat functionality, add the Docker support. Add a file named **Dockerfile** to the root **Okta.Blog.Chat** folder with below content in it.
+Before you add the chat functionality, add the Docker support. Add a file named **Dockerfile** to the root **Okta.Blog.Chat** folder with the following content:
 
 ```docker
 # build and publish the app
@@ -250,7 +250,7 @@ COPY --from=build /app ./
 ENTRYPOINT ["dotnet", "Okta.Blog.Chat.dll"]
 ```
 
-What is going on is we are building and publishing our application first. Next, we copy the build files and call `ENTRYPOINT`, which translates to "run dotnet with our published DLL" - nothing extraordinary, right? The `FROM` keywords are using other built docker files as base images to build our image from, so all the work of installing .NET etc., is already done.
+We are building and publishing our application first. Next, we copy the build files and call `ENTRYPOINT`, which translates to "run dotnet with our published DLL" - nothing extraordinary, right? The `FROM` keywords use other built docker files as base images to build our image from, so the work of installing .NET is already done.
 
 Now add a **.dockerignore** file with the below content so that they are not copied to the final image.
 
@@ -262,7 +262,7 @@ Now add a **.dockerignore** file with the below content so that they are not cop
 **/obj
 ```
 
-If you are using Visual Studio, you'll see you now have the ability to debug right into a running container in your debug toolbar. If you press **F5** or click the play button, you'll run your app in a Docker Container.
+If you use Visual Studio, you'll now have the ability to debug right into a running container in your debug toolbar. If you press **F5** or click the play button, you'll run your app in a Docker Container.
 
 {% img blog/dotnet-aws-ecs-fargate/11-DebugDocker.PNG alt:"VS Docker debug" width:"800" %}{: .center-image }
 
@@ -283,13 +283,13 @@ Modify **Setup.cs** and uncomment the following line.
 options.Conventions.AuthorizePage("/Chat");
 ```
 
-> **Note**: At this point, if you try to authenticate the `/Chat` path using Google Chrome, you'll get an error. This is because we are running the app without TLS and Chrome blocks set-cookie headers with `SameSite=None` when the `Secure` attribute is not present, which will be preset only for HTTPS requests.
+> **Note**: At this point, if you try to authenticate the `/Chat` path using Google Chrome, you'll get an error. This is because we are running the app without TLS and Chrome blocks set-cookie headers with `SameSite=None` when the `Secure` attribute is not present (which will be preset only for HTTPS requests).
 
 Let's make sure our docker container can run with HTTPS.
 
 First, we need to create a certificate. We can use the .NET CLI for creating self-signed certificates for development. Please note that this is only for development purposes and should not be used in production.
 
-Run the following command to create a self-signed certificate. Use the right command based on the OS you are using and use an appropriate password.
+Run the following command to create a self-signed certificate. Use the correct command based on your OS and use an appropriate password.
 
 ```bash
 # clean existing certs if any
@@ -302,7 +302,7 @@ dotnet dev-certs https -ep %USERPROFILE%\.aspnet\https\aspnetapp.pfx -p mypass12
 dotnet dev-certs https --trust
 ```
 
-Now we can run the container with HTTPS using the below command as we will use the certificate we created above and mount it as a volume.
+Now we can run the container with HTTPS using the below command. We will use the certificate we created above and mount it as a volume.
 
 ```bash
 # macOS/Linux
@@ -314,22 +314,22 @@ docker run -it --rm -p 5000:80 -p 5001:443 -e ASPNETCORE_URLS="https://+;http://
 
 The app should be accessible at `https://localhost:5001/` now.
 
-In your Okta Developer Portal, go to **Applications** > **Applications** and click the application's name you created using the CLI. Edit the **General Settings** and add URI for **Sign-in redirect URIs** and **Sign-out redirect URIs** as below:
+In your Okta Developer Portal, go to **Applications** > **Applications** and click the application name you created using the CLI. Edit the **General Settings**, and add URI for **Sign-in redirect URIs** and **Sign-out redirect URIs** as below:
 
 ```bash
 Sign-in redirect URI = https://localhost:5001/authorization-code/callback
 Sign-out redirect URI = https://localhost:5001/
 ```
 
-Try running the application, and you should see that to open the chat page, you'll be redirected to the Okta Single Sign-On portal and redirected back. You are now successfully authenticated.
+Try running the application.  You should see that to open the chat page, you'll be redirected to the Okta Single Sign-On portal and then redirected back. You are now successfully authenticated.
 
-### Add Chat Functionality with Vue.js and SignalR
+### Add chat functionality with Vue.js and SignalR
 
-I'll be using Vue for state management since you can take as little or as much as you want. Sometimes it feels like you gotta buy the whole farm just to get a little milk these days when it comes to developing front-end technologies, but I like that with Vue, I can start with a CDN script tag and use it for a single component, a single page, or dive deep with a robust build system on Node. For this exercise, we'll be using a CDN-hosted script.
+We'll use Vue for state management since you can take as little or as much as you want. With Vue, you. can start with a CDN script tag and use it for a single component, a single page, or a deep dive with a robust build system on Node. For this exercise, we'll be using a CDN-hosted script.
 
-But first, you need to finish one thing on the back-end.
+But first, you need to finish one thing on the backend.
 
-Since you have created your **ChatHub.cs**, open **Startup.cs** and uncomment the following line
+Since you have created your **ChatHub.cs**, open **Startup.cs** and uncomment the following line:
 
 ```cs
 endpoints.MapHub<ChatHub>("/chathub");
@@ -423,7 +423,7 @@ We use CDN for the SignalR client library, and the connection to the ChatHub use
 const connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 ```
 
-The state is stored in the data section of our Vue app. There are three properties in use; A flag to let us know if it is connected, the message currently being typed, and a chat log.
+The state is stored in the data section of our Vue app. There are three properties in use: a flag to let us know if it is connected, the message currently being typed, and a chat log.
 
 ```js
 data() {
@@ -437,7 +437,7 @@ data() {
 
 Your app has two methods: `receiveMessage` and `sendMessage`.
 
-When `receiveMessage` is called, it just appends an object to the chat log with the user and the message.
+When `receiveMessage` is called, it appends an object to the chat log with the user and the message.
 
 When `sendMessage` is called, we use the SignalR connection to invoke "SendMessage" and pass along our message properties. Once the message is sent, we blank it out to fill a new message.
 
@@ -504,17 +504,17 @@ RUN dotnet dev-certs https -ep /app/aspnetapp.pfx -p ${CERT_PASSWORD}
 
 This will create a self-signed development certificate right within the Docker image, which we can use to run the application with TLS on Fargate for demo purposes.
 
-> **Note**: Using these development certificates is not recommended for production use. I'm using it here for simplicity as this is just a demo. For production setup, you should use a certificate signed by a certificate authority. The recommended way to run a production .NET application on ECS would be to use an AWS Application Load Balancer (ALB) to route traffic to a reverse proxy (Nginx) via an HTTPS listener configured to use a certificate signed by a certificate authority. The reverse proxy would then route traffic to the application. The reverse proxy and the application should also be configured to use TLS using valid certificates.
+> **Note**: This type of development certificate is not recommended for production use. It is used here for simplicity in a demo. For a production setup, you should use a certificate signed by a certificate authority. Recommendation: to run a production .NET application on ECS, use an AWS Application Load Balancer (ALB) to route traffic to a reverse proxy (Nginx) via an HTTPS listener configured to use a certificate signed by a certificate authority. The reverse proxy would then route traffic to the application. The reverse proxy and the application should also be configured to use TLS using valid certificates.
 
-Login to your AWS console and navigate to ECR.
+Log in to your AWS console and navigate to ECR.
 
 Click **Create Repository**.
 
-For visibility settings, choose **Private** and name your repository. In my case, I'm going with _okta-chat_. Then click **Create Repository** at the bottom of the wizard.
+For visibility settings, choose **Private** and name your repository. In this case, I'm going with _okta-chat_. Then click **Create Repository** at the bottom of the wizard.
 
 {% img blog/dotnet-aws-ecs-fargate/16-reponaming.png alt:"AWS Create repo" width:"800" %}{: .center-image }
 
-Navigate to **okta-chat** and click **View push commands** this has all the steps you'll need to build and push your image to ECR.
+Navigate to **okta-chat** and click **View push commands**.  This has all the steps you'll need to build and push your image to ECR.
 
 {% img blog/dotnet-aws-ecs-fargate/17-PushCommands.png alt:"Push commands" width:"800" %}{: .center-image }
 
@@ -528,19 +528,19 @@ Select the copy button in the URI column next to your image and save that for la
 
 {% img blog/dotnet-aws-ecs-fargate/18-oktaChatRepo.png alt:"AWS save URI" width:"800" %}{: .center-image }
 
-### Set up the ECS Fargate Cluster
+### Set up the ECS Fargate cluster
 
 Now set up your ECS cluster.
 
 On the left menu, click **Clusters** under **Amazon ECS**, then click the **Create Cluster** button.
 
-Click **Networking Only** > **Next step**from the options.
+Click **Networking Only** > **Next step** from the options.
 
 {% img blog/dotnet-aws-ecs-fargate/19-NetworkOnly.PNG alt:"AWS Networking Only" width:"800" %}{: .center-image }
 
-I named my cluster "okta-test", name yours as you see fit, and click **Create** on the following screen click **View Cluster**.
+I named my cluster "okta-test", name yours as you see fit, and click **Create** on the following screen. Then click **View Cluster**.
 
-Now that the cluster is set-up you'll need to create a task for your image to run as.
+Now that the cluster is set up you'll need to create a task for your image.
 
 Click **Task Definitions** on the left menu and click **Create new Task Definition**.
 
@@ -553,7 +553,7 @@ For the **Task Definition Name**, I named mine **okta-chat**.
 Set the **Task memory (GB)** to 0.5 GB.
 Set the **Task CPU** to 0.25 vCPU.
 
-.NET Core applications are very efficient, as are containers. For many applications, you'll find you can serve many requests with smaller boxes than you might typically be accustomed to.
+.NET Core applications are very efficient, as are containers. For many applications, you'll find you can serve many requests with smaller boxes than you might expect.
 
 {% img blog/dotnet-aws-ecs-fargate/21-TaskSize.PNG alt:"Task size" width:"800" %}{: .center-image }
 
@@ -561,7 +561,7 @@ Leave other options unchanged.
 
 Now you need to define the image you want to use. Click **Add Container**.
 
-I'll name the container the same thing **okta-chat**.
+I'll name the container the same thing – **okta-chat**.
 
 For the **Image**, you'll need the path you copied from the ECR repository earlier.
 
@@ -580,51 +580,51 @@ ASPNETCORE_Kestrel__Certificates__Default__Path=./aspnetapp.pfx
 
 {% img blog/dotnet-aws-ecs-fargate/27-add-env-vars.png alt:"Run new task" width:"800" %}{: .center-image }
 
-Click **Add** at the bottom of the popup. Now click **Create** at the bottom of the page. Go back to your cluster, click on the **Tasks** tab, and click **Run new Task**.
+Click **Add** at the bottom of the pop-up. Now click **Create** at the bottom of the page. Go back to your cluster, click on the **Tasks** tab, and click **Run new Task**.
 
-> **Note**: It is recommended to create services instead of tasks for production so that you take full advantage of the elastic scaling capabilities of ECS. I'm using tasks directly for the simplicity of the demo. Using services is also required when using an ALB to route traffic to the application.
+> **Note**: Here's a recommendation: Create services instead of tasks for production to take full advantage of the elastic scaling capabilities of ECS. I'm using tasks directly for the simplicity of the demo. When using an ALB (application load balancer) to route traffic to the application, use of services is also required.
 
 {% img blog/dotnet-aws-ecs-fargate/23-RunNewTask.PNG alt:"Run new task" width:"800" %}{: .center-image }
 
 Select **FARGATE** as **Launch type**.
 
-Select your default VPC and Subnets under **VPC and security groups**
+Select your default VPC and Subnets under **VPC and security groups**.
 
 {% img blog/dotnet-aws-ecs-fargate/24-TaskSettings.png alt:"Task settings" width:"800" %}{: .center-image }
 
-Click the **Edit** button next to the **security groups**. Click on **Add rule** to add a new inbound rule for HTTPS port 443. Click **Save** on the popup.
+Click the **Edit** button next to the **security groups**. Click on **Add rule** to add a new inbound rule for HTTPS port 443. Click **Save** on the pop-up.
 
 {% img blog/dotnet-aws-ecs-fargate/28-security-group.png alt:"Task settings" width:"800" %}{: .center-image }
 
 Now, click **Run Task**.
 
-You'll be taken back to your cluster. Select the Task you created by clicking its ID. Make a note of its public IP; you'll need that to adjust your Okta application settings.
+You'll be taken back to your cluster. Select the task you created by clicking its ID. Make a note of its public IP; you'll need that to adjust your Okta application settings.
 
 {% img blog/dotnet-aws-ecs-fargate/25-RunningTask.png alt:"Running task" width:"800" %}{: .center-image }
 
-In your Okta Developer Portal, go to **Applications** > **Applications** and click the application's name you created using the CLI. Edit the **General Settings** and add URI for **Sign-in redirect URIs** and **Sign-out redirect URIs** using the IP address from your running Task as shown below:
+In your Okta Developer Portal, go to **Applications** > **Applications** and click the application's name you created using the CLI. Edit the **General Settings** and add URI for **Sign-in redirect URIs** and **Sign-out redirect URIs** using the IP address from your running task as shown below:
 
 {% img blog/dotnet-aws-ecs-fargate/26-update-okta.png alt:"Update Okta" width:"800" %}{: .center-image }
 
-Now, if you navigate to `https://YOUR_FARGET_TASK_PUBLIC_IP`, you'll see you are now the proud owner of a fully functional chat application, secured with Okta, running in an ECS Fargate container.
+Now, if you navigate to `https://YOUR_FARGET_TASK_PUBLIC_IP`, you'll see you are the proud owner of a fully functional chat application, secured with Okta, running in an ECS Fargate container.
 
 ## Recap
 
 Whew, that was a ride! Good job on making your new chat application. What can we take away from this?
 
-- Serverless is good for HTTP request/response, but other protocols need something different
+- Serverless is good for HTTP request/response, but other protocols need something different.
 - Containers are more lightweight than Virtual Machines but come with their own challenges
-- A Docker file is just the instructions to build your application, what ports to expose, and launch it
+- A docker file consists of the instructions to build your application and launch it, and which ports to expose.
 - Fargate makes the hosting of containers easier since you don't have to manage the host machine infrastructure.
-- SignalR makes real-time communication easier by abstracting most of the heavy lifting
-- Vue can be used for state management without taking on additional build and development pipeline
-- Okta makes securing any type of .NET web application easy
+- SignalR makes real-time communication easier by abstracting most of the heavy lifting.
+- Vue can be used for state management without taking on additional build and development pipeline.
+- Okta makes it easier to secure any type of .NET web application. 
 - There is no reason to have an insecure site!
-- Use AWS ALB + Nginx configured to use TLS with valid certificates in production
+- Use AWS Application Load Balancer (ALB) + Nginx configured to use TLS with valid certificates in production.
 
 Check the code out on GitHub [here](https://github.com/oktadev/okta-dotnetcore-aws-fargate-example).
 
-## Learn More about AWS, .NET, and Authentication
+## Learn more about AWS, .NET, and authentication
 
 If you are interested in learning more about security and .NET check out these other great articles:
 
