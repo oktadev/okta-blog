@@ -4,41 +4,41 @@ title: "Containerless! Run WebAssembly Workloads written in Rust on Kubernetes"
 author: deepu-sasidharan
 by: advocate
 communities: [devops, rust]
-description: "Learn how to run secure WebAssembly workloads written with Rust on Kubernetes with Krustlet"
+description: "Learn how to run secure WebAssembly workloads written with Rust on Kubernetes with Krustlet."
 tags: [rust, webassembly, kubernetes, security]
 tweets:
   - "Do you want to go Containerless on Kubernetes? Learn how to run WebAssembly workloads written in Rust on Kubernetes. #rust #webassembly #kubernetes #security"
   - "Learn how to run secure WebAssembly workloads written with Rust on Kubernetes with Krustlet. #rust #webassembly #kubernetes #security"
   - "Is WebAssembly the future of Kubernetes? Learn all about Wasm on Kubernetes with Rust. #rust #webassembly #kubernetes #security"
-image:
+image: blog/featured/rust_wasm_k8s.jpg
 type: awareness
 ---
 
-WebAssembly (Wasm) is one of the most exciting and underestimated software technology to be invented in recent times. It's a binary instruction format for a stack-based virtual machine. It aims to execute at native speeds with a memory-safe and secure sandbox. Its portable, cross-platform and language agnostic. It's designed as a compilation target for languages. Though originally part of the open web platform, it now has found use cases beyond the web. Currently WebAssembly can be used on browsers, Node.js, Deno, Kubernetes and on IoT platform.
+WebAssembly (Wasm) is one of the most exciting and underestimated software technologies invented in recent times. It's a binary instruction format for a stack-based virtual machine. It aims to execute at native speeds with a memory-safe and secure sandbox. Its portable, cross-platform, and language-agnostic. It's designed as a compilation target for languages. Though originally part of the open web platform, it has found use cases beyond the web. WebAssembly is now used in browsers, Node.js, Deno, Kubernetes, and IoT platforms.
 
 You can learn more about WebAssembly at [WebAssembly.org](https://webassembly.org/).
 
 # WebAssembly on Kubernetes
 
-WebAssembly, though originally designed for [the web](https://www.w3.org/wasm/), proved to be an ideal format for writing platform and language agnostic applications. You are used to something similar in the container world, Docker containers, and people figured WebAssembly is so similar and even more efficient since its fast, portable and secure running at native speeds. This means that you can use WebAssembly along side containers as workloads on Kubernetes. This was made possible by another WebAssembly initiative known as [WebAssembly System Interface (WASI)](https://wasi.dev/) and the [Wasmtime](https://github.com/bytecodealliance/wasmtime) project.
+WebAssembly, though initially designed for [the web](https://www.w3.org/wasm/), proved to be an ideal format for writing platform and language agnostic applications. You are used to something similar in the container world, Docker containers. People figured WebAssembly is so similar and even more efficient since it's fast, portable, and secure, running at native speeds. This means that you can use WebAssembly alongside containers as workloads on Kubernetes. This was made possible by another WebAssembly initiative known as [WebAssembly System Interface (WASI)](https://wasi.dev/) and the [Wasmtime](https://github.com/bytecodealliance/wasmtime) project.
 
 {% twitter 1111004913222324225 %}
 
-WebAssembly on Kubernetes is quite new and has some rough edges at the moment but its already proving to be revolutionary since Wasm workloads can be extremely fast, they can execute faster than a container takes to start. They are also sandboxed and hence much more secure than containers, and finally they are way smaller in size due to the binary format than containers.
+WebAssembly on Kubernetes is relatively new and has some rough edges at the moment, but it's already proving to be revolutionary. Wasm workloads can be extremely fast as they can execute faster than a container takes to start; they are sandboxed and hence much more secure than containers; they are way smaller in size due to the binary format than containers.
 
 If you want to learn more about WASI, check out [the announcement from Mozilla](https://hacks.mozilla.org/2019/03/standardizing-wasi-a-webassembly-system-interface/).
 
 # Why Rust?
 
-I previously wrote a blog post about [why Rust is a great language for the future](https://deepu.tech/my-second-impression-of-rust/), Tl;Dr; Rust is a secure and fast language without the compromises of most modern languages and Rust has the [best ecosystem and tooling](https://rustwasm.github.io/docs/book/) for WebAssembly. So Rust + Wasm makes it super secure and fast.
+I previously wrote a blog post about [why Rust is a great language for the future](https://deepu.tech/my-second-impression-of-rust/), Tl;Dr; Rust is a secure and fast language without the compromises of most modern languages, and Rust has the [best ecosystem and tooling](https://rustwasm.github.io/docs/book/) for WebAssembly. So Rust + Wasm makes it super secure and fast.
 
 # Enter Krustlet
 
-[Krustlet](https://krustlet.dev/) is a [Kubelet](https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/) written in Rust for WebAssembly workloads (written in any language). It listens for new pods assigned to it based on `tolerations` specified on the manifest and runs them. Since the default Kubernetes nodes cannot run Wasm workloads natively you need something like Krustlet for that.
+[Krustlet](https://krustlet.dev/) is a [Kubelet](https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/) written in Rust for WebAssembly workloads (written in any language). It listens for new pods assigned to it based on `tolerations` specified on the manifest and runs them. Since the default Kubernetes nodes cannot run Wasm workloads natively, you need a Kubelet that can, and this is where Krustlet comes in.
 
 # Run WebAssembly workloads on Kubernetes with Krustlet
 
-You will use Krustlet to run a Wasm workload written in Rust on Kubernetes today.
+Today, you will use Krustlet to run a Wasm workload written in Rust on Kubernetes.
 
 **Prerequisites**
 
@@ -49,21 +49,21 @@ You will use Krustlet to run a Wasm workload written in Rust on Kubernetes today
 
 ## Preparing the cluster
 
-First you need to prepare a cluster and install Krustlet on the cluster so that you can run WebAssembly on it. I'm using [kind](https://kind.sigs.k8s.io/) to run a local Kubernetes cluster, you can also use [MiniKube](https://docs.krustlet.dev/howto/krustlet-on-minikube/), [MicroK8s](https://docs.krustlet.dev/howto/krustlet-on-microk8s/), or [another Kubernetes distribution](https://docs.krustlet.dev/intro/quickstart/).
+First, you need to prepare a cluster and install Krustlet on the cluster to run WebAssembly on it. I'm using [kind](https://kind.sigs.k8s.io/) to run a local Kubernetes cluster, you can also use [MiniKube](https://docs.krustlet.dev/howto/krustlet-on-minikube/), [MicroK8s](https://docs.krustlet.dev/howto/krustlet-on-microk8s/), or [another Kubernetes distribution](https://docs.krustlet.dev/intro/quickstart/).
 
-First step is to create a cluster with the below command:
+The first step is to create a cluster with the below command:
 
 ```bash
 kind create cluster
 ```
 
-Now you need to bootstrap Krustlet and you will need `kubectl` installed and a kubeconfig that has access to create `Secrets` in the `kube-system` namespace and can approve `CertificateSigningRequests`. You can use the [handy script](https://github.com/krustlet/krustlet/tree/main/scripts) from Krustlet to do this. So download the appropriate script for your OS and run it.
+Now you need to bootstrap Krustlet, and you will need `kubectl` installed and a kubeconfig that has access to create `Secrets` in the `kube-system` namespace and can approve `CertificateSigningRequests`. You can use the [handy script](https://github.com/krustlet/krustlet/tree/main/scripts) from Krustlet to do this. So download the appropriate script for your OS and run it.
 
 ```bash
 curl https://raw.githubusercontent.com/krustlet/krustlet/main/scripts/bootstrap.sh | /bin/bash
 ```
 
-Now you can install and run Krustlet
+Now you can install and run Krustlet.
 
 Download a binary release from the [release page](https://github.com/krustlet/krustlet/releases) and run it. I'm using the Linux version.
 
@@ -79,17 +79,17 @@ KUBECONFIG=~/.krustlet/config/kubeconfig \
   --bootstrap-file=${HOME}/.krustlet/config/bootstrap.conf
 ```
 
-**Note**: If you are using Docker for Mac, the node-ip would be different. Follow [the instructions from the Krustlet docs](https://docs.krustlet.dev/howto/krustlet-on-kind/#special-note-docker-desktop-for-mac) to figure out the IP.
+**Note**: If you use Docker for Mac, the node-ip would be different. Follow [the instructions from the Krustlet docs](https://docs.krustlet.dev/howto/krustlet-on-kind/#special-note-docker-desktop-for-mac) to figure out the IP.
 
-You should see a prompt to manually approve TLS certs since the serving certs used by Krustlet needs to be manually approved. Open a new terminal and run the below command. The hostname will be shown in the prompt from the Krustlet server.
+You should see a prompt to manually approve TLS certs since the serving certs used by Krustlet need to be manually approved. Open a new terminal and run the below command. The hostname will be shown in the prompt from the Krustlet server.
 
 ```bash
 kubectl certificate approve <hostname>-tls
 ```
 
-This will be required only for the first time, when you start the Krustlet. Keep the Krustlet server running. You might see some errors being logged but lets ignore it for now as Krustlet is still in beta and there are some rough edges.
+This will be required only for the first time when you start the Krustlet. Keep the Krustlet server running. You might see some errors being logged, but let's ignore it for now as Krustlet is still in beta, and there are some rough edges.
 
-Lets see if the node is available. Run `kubectl get nodes` and you should see something like below
+Let's see if the node is available. Run `kubectl get nodes`, and you should see something like below
 
 ```bash
 kubectl get nodes -o wide
@@ -99,7 +99,7 @@ kind-control-plane   Ready    control-plane,master   16m   v1.21.1         172.2
 krustlet             Ready    <none>                 12m   1.0.0-alpha.1   172.17.0.1    <none>        <unknown>      <unknown>                 mvp
 ```
 
-Now lets test if the Krustlet is working as expected by applying the below Wasm workload to it. As you can see we have `tolerations` defined so that this will not be scheduled on normal nodes.
+Now let's test if the Krustlet is working as expected by applying the Wasm workload below. As you can see, we have `tolerations` defined so that this will not be scheduled on normal nodes.
 
 ```yml
 kubectl apply -f - <<EOF
@@ -123,9 +123,7 @@ spec:
 EOF
 ```
 
-**Note**: Depending on the platform you use, if you encounter any access control error from the pod when accessing storage classes then you might have to add ClusterRole and ClusterRoleBinding to allow `system:nodes` group to access storage classes as [shown in Krustlet docs](https://docs.krustlet.dev/howto/csi/#addendum-role-based-access-control).
-
-Once applied, run `kubectl get pods` as shown below and you should see the pod running on the Krustlet node.
+Once applied, run `kubectl get pods` as shown below, and you should see the pod running on the Krustlet node.
 
 ```bash
 kubectl get pods --field-selector spec.nodeName=krustlet
@@ -148,23 +146,23 @@ You have successfully setup a Kubelet that can run Wasm workloads on your cluste
 
 Now let us prepare an environment for WebAssembly with Rust.
 
-First you need to add `wasm32-wasi` target for rust so that you can compile Rust apps to WebAssembly. Run the below command:
+First, you need to add `wasm32-wasi` target for rust so that you can compile Rust apps to WebAssembly. Run the below command:
 
 ```bash
 rustup target add wasm32-wasi
 ```
 
-Now you can create a new Rust application with cargo
+Now you can create a new Rust application with cargo.
 
 ```bash
 cargo new --bin rust-wasm
 ```
 
-Open the created `rust-wasm` folder in your favorite IDE. I use Visual Studio Code with the awesome [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=matklad.rust-analyzer) and [CodeLLDB](https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb) plugins to develop in Rust.
+Open the created `rust-wasm` folder in your favorite IDE. I use Visual Studio Code with the fantastic [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=matklad.rust-analyzer) and [CodeLLDB](https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb) plugins to develop in Rust.
 
 ## Create the WebAssembly workload
 
-Let's write a small service that will print random cat facts on the console. You could use a free public [API that provides random cat facts](https://catfact.ninja/fact) for this.
+Let's write a small service that will print random cat facts on the console. For this, you could use a free public [API that provides random cat facts](https://catfact.ninja/fact) for this.
 
 Edit `cargo.toml` and add the following dependencies:
 
@@ -222,7 +220,7 @@ The code is simple. It makes a GET request to the API and parses and prints the 
 cargo build --release --target wasm32-wasi
 ```
 
-Thats it. You have successfully created a WebAssembly binary using Rust.
+That's it. You have successfully created a WebAssembly binary using Rust.
 
 ## Run the workload in Kubernetes
 
@@ -233,16 +231,16 @@ Let's run the workload locally using wasmtime, a small JIT-style runtime for Was
 curl https://wasmtime.dev/install.sh -sSf | bash
 ``` -->
 
-Before you can run the workload in Kubernetes, you need to push the binary to a registry that supports OCI artifacts. OCI complaint registries can be used for any OCI artifact including Docker images, Wasm binaries and so on. Docker Hub currently does not support OCI artifacts hence you can use another registry like [GitHub Package Registry](https://github.com/features/packages), [Azure Container Registry](https://azure.microsoft.com/en-in/services/container-registry/) or [Google Artifact Registry](https://cloud.google.com/artifact-registry). I'll be using GitHub Package Registry as its the simplest to get started and most of you might already have a GitHub account.
+Before you can run the workload in Kubernetes, you need to push the binary to a registry that supports OCI artifacts. OCI complaint registries can be used for any OCI artifact, including Docker images, Wasm binaries, and so on. Docker Hub currently does not support OCI artifacts; hence you can use another registry like [GitHub Package Registry](https://github.com/features/packages), [Azure Container Registry](https://azure.microsoft.com/en-in/services/container-registry/) or [Google Artifact Registry](https://cloud.google.com/artifact-registry). I'll be using GitHub Package Registry as it's the simplest to get started, and most of you might already have a GitHub account.
 
-First you need to login to GitHub Package Registry using `docker login`. Create a [personal access token on GitHub](https://github.com/settings/tokens) and use that to login to the registry.
+First, you need to log in to GitHub Package Registry using `docker login`. Create a [personal access token on GitHub](https://github.com/settings/tokens) and use that to log in to the registry.
 
 ```bash
 export CR_PAT=<your-token>
 echo $CR_PAT | docker login ghcr.io -u <Your GitHub username> --password-stdin
 ```
 
-Now you need to push your Wasm binary as an OCI artifact, for this you can use the [wasm-to-oci](https://github.com/engineerd/wasm-to-oci) CLI. Use the below command to install it on on your machine. I'm using the Linux version.
+Now you need to push your Wasm binary as an OCI artifact; for this, you can use the [wasm-to-oci](https://github.com/engineerd/wasm-to-oci) CLI. Use the below command to install it on your machine. I'm using the Linux version.
 
 ```bash
 curl -LO https://github.com/engineerd/wasm-to-oci/releases/download/v0.1.2/linux-amd64-wasm-to-oci
@@ -255,13 +253,13 @@ Now you can push the binary you built earlier to the GitHub Package Registry. Ru
 wasm-to-oci push target/wasm32-wasi/release/rust-wasm.wasm ghcr.io/<your GitHub user>/rust-wasm:latest
 ```
 
-You should see a successful message. Now check your GitHub packages page on your profile and you should see the artifact listed.
+You should see a successful message. Now check your GitHub packages page on your profile, and you should see the artifact listed.
 
 {% img blog/webassembly-on-kubernetes-with-rust/gchr_repo.png alt:"GitHub Packages Registry" width:"800" %}{: .center-image }
 
-By default the artifact would be private but you need to make it public so that you can access it from the Krustlet cluster. Click on the package name and click on the **Package settings** button, scroll down and click on **Change visibility** and change to public.
+By default, the artifact would be private, but you need to make it public so that you can access it from the Krustlet cluster. Click the package name and click the **Package settings** button, scroll down, click **Change visibility**, and change to **public**.
 
-You can check this by pulling the artifact using below command:
+You can check this by pulling the artifact using the below command:
 
 ```bash
 ghcr.io/<your GitHub user>/rust-wasm:latest
@@ -269,7 +267,7 @@ ghcr.io/<your GitHub user>/rust-wasm:latest
 
 Yay! You have successfully pushed your first Wasm artifact to an OCI registry. Now let's deploy this to the Kubernetes cluster you created earlier.
 
-Create a YAML file, lets say `k8s.yaml`, with the following contents:
+Create a YAML file, let's say `k8s.yaml`, with the following contents:
 
 ```yaml
 apiVersion: v1
@@ -308,7 +306,7 @@ spec:
 
 **Note**: Remember to replace `<your GitHub user>` with your own GitHub username.
 
-The `annotations` and `tolerations` are very important. The annotations are used to allow external network calls from the krustlet and the tolerations limit the pod to only schedule/run on Wasm nodes. We are also passing some environment variables that will be used by the application.
+The `annotations` and `tolerations` are significant. The annotations are used to allow external network calls from the krustlet, and the tolerations limit the pod to only schedule/run on Wasm nodes. We are also passing some environment variables that the application will use.
 
 Now apply the manifest using the below command and check the pod status.
 
@@ -321,7 +319,7 @@ NAME                READY   STATUS    RESTARTS   AGE     IP       NODE       NOM
 rust-wasi-example   1/1     Running   0          6m50s   <none>   krustlet   <none>           <none>
 ```
 
-You should see the Wasm workload runnning successfully on the Krustlet node. Lets check the logs.
+You should see the Wasm workload running successfully on the Krustlet node. Let's check the logs.
 
 ```bash
 kubectl logs rust-wasi-example
@@ -333,11 +331,11 @@ kubectl logs rust-wasi-example
 Awesome. You have successfully created a Wasm workload using Rust and deployed it to a Kubernetes cluster without using containers.
 If you'd like to take a look at this solution in full, check out the [GitHub repo](https://github.com/oktadev/okta-rust-webassembly-k8s-example).
 
-# So are we ready to replace containers with WebAssembly?
+# So, are we ready to replace containers with WebAssembly?
 
-WebAssembly on Kubernetes is still not production ready as a lot of the supporting ecosystem is still experimental and WASI itself is still maturing. [Networking is still not stable](https://radu-matei.com/blog/towards-sockets-networking-wasi/) and the library ecosystem is only just coming along. Krustlet is also still in beta and there are no straightforward way to run networking workloads, especially servers on it. [WasmEdge](https://wasmedge.org/) is another more mature solution for networking workloads but its much more involved to setup and run than Krustlet on Kubernetes. So for the time being Krustlet is suitable for running workloads for Jobs and use cases involving in cluster monitoring and so on and these are areas you could use the extra performance anyway.
+WebAssembly on Kubernetes is still not production-ready as a lot of the supporting ecosystem is still experimental, and WASI itself is still maturing. [Networking is still not stable](https://radu-matei.com/blog/towards-sockets-networking-wasi/) and the library ecosystem is only just coming along. Krustlet is also still in beta, and there is no straightforward way to run networking workloads, especially servers on it. [WasmEdge](https://wasmedge.org/) is another more mature solution for networking workloads, but it's much more involved to setup and run than Krustlet on Kubernetes. So, for the time being, Krustlet is suitable for running workloads for Jobs and use cases involving cluster monitoring and so on, and these are areas you could use the extra performance anyway.
 
-So while Wasm on Kubernetes is exciting and containerless on Kubernetes is definitely on the horizon, at the moment containerized applications are still the way for production use especially for networking workloads like microservices and so on. But given how fast the ecosystem is evolving, especially in the Rust + Wasm + WASI space, soon we will be able to use Wasm workloads on Kubernetes for production.
+So while Wasm on Kubernetes is exciting and containerless on Kubernetes is definitely on the horizon. Currently, containerized applications are still the way for production use, especially for networking workloads like microservices and web applications. But given how fast the ecosystem is evolving, especially in the Rust + Wasm + WASI space, soon we will be able to use Wasm workloads on Kubernetes for production.
 
 # Learn more about Kubernetes and WebAssembly
 
