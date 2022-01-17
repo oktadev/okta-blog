@@ -10,7 +10,7 @@ tweets:
   - "Do you want to go Containerless on Kubernetes? Learn how to run WebAssembly workloads written in Rust on Kubernetes. #rust #webassembly #kubernetes #security"
   - "Learn how to run secure WebAssembly workloads written with Rust on Kubernetes with Krustlet. #rust #webassembly #kubernetes #security"
   - "Is WebAssembly the future of Kubernetes? Learn all about Wasm on Kubernetes with Rust. #rust #webassembly #kubernetes #security"
-image: blog/featured/rust_wasm_k8s.jpg
+image: blog/blog/webassembly-on-kubernetes-with-rust/rust_wasm_k8s.jpg
 type: awareness
 ---
 
