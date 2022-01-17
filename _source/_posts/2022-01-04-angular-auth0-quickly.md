@@ -71,9 +71,9 @@ In this tutorial, I'll show you how to add OIDC authentication with Auth0 to a n
 
 {% include toc.md %}
 
-If you would rather follow along by watching a video, check out the screencast below from [the OktaDev YouTube channel](https://youtu.be/Y5O6nvYnues).
+If you would rather follow along by watching a video, check out the screencast below from [the OktaDev YouTube channel](https://youtu.be/YiR7XFgsD8w).
 
-{% youtube Y5O6nvYnues %}
+{% youtube YiR7XFgsD8w %}
 
 ## Create an Angular app
 
