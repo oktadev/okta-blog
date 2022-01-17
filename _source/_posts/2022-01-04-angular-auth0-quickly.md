@@ -15,9 +15,9 @@ type: conversion
 github: https://github.com/oktadev/auth0-angular-example
 ---
 
-AngularJS 1.0 was released in October 2010. At the time, it was considered one of the most revolutionary and popular web frameworks to ever see the light of day. Developers loved it and many apps were created with it. As a pioneer in the JS framework space, however, AngularJS had some growing pains and major issues. The team went back to the drawing board for a major breaking release with Angular 2. It took two years to develop, and influenced many devs to hop onto other frameworks in the meantime.  
+AngularJS 1.0 was released in October 2010. At the time, it was considered one of the most revolutionary and popular web frameworks ever to see the light of day. Developers loved it, and created many apps with it. However, as a pioneer in the JS framework space, AngularJS had some growing pains and significant issues. The team went back to the drawing board for a major breaking release with Angular 2. It took two years to develop and influenced many devs to hop onto other frameworks in the meantime.  
 
-Today, five years after Angular 2 was released, we just call it "Angular" and its version numbers have far less meaning. Five years is a long time for a modern JS web framework to live and thrive. If you look at the number of Stack Overflow questions, you'll see that users struggle with React far more than Angular.
+Today, five years after Angular 2 was released, we just call it "Angular", and its version numbers have far less meaning. Five years is a long time for a modern JS web framework to live and thrive. If you look at the number of Stack Overflow questions, you'll see that users struggle with React far more than Angular.
 
 <script src="https://www.gstatic.com/charts/loader.js"></script>
 <div id="stack-overflow-tags"></div>
@@ -62,7 +62,7 @@ I don't think Stack Overflow tags indicate that developers have a hard time with
 
 Angular is still very popular among developers. If you're developing an Angular app today, you probably need a way to authenticate your users. That's where OpenID Connect (OIDC) can help you. OIDC is a layer on top of OAuth 2.0 that provides identity. 
 
-In this tutorial, I'll how you to add OIDC authentication with Auth0 to a new Angular app in just a few steps. 
+In this tutorial, I'll show you how to add OIDC authentication with Auth0 to a new Angular app in just a few steps. 
 
 **Prerequisites:**
 
@@ -175,6 +175,6 @@ To learn more about Angular and OIDC, check out the following blog posts:
 - [A Quick Guide to Angular and GraphQL](/blog/2021/10/22/angular-graphql)
 
 [{% img blog/angular-auth0/angular-mini-book.jpg alt:"The Angular Mini-Book" width:"100" %}{: .pull-right }](https://www.infoq.com/minibooks/angular-mini-book/)
-I [just published a mini-book book on Angular](https://raibledesigns.com/rd/entry/the_angular_mini_book_1) that might interest you too. It's called [The Angular Mini-Book](https://www.infoq.com/minibooks/angular-mini-book/) and is available as a free download from InfoQ. It's a tutorial-style book that shows you how to develop a bare-bones application, test it, and deploy it. Then you'll move on to adding Bootstrap, Angular Material, continuous integration, and authentication. Spring Boot is a popular framework for building REST APIs. You'll learn how to integrate Angular with Spring Boot and use security best practices like HTTPS and a content security policy.
+I [just published a mini-book book on Angular](https://raibledesigns.com/rd/entry/the_angular_mini_book_1) that might interest you too. It's called [The Angular Mini-Book](https://www.infoq.com/minibooks/angular-mini-book/) and is available as a free download from InfoQ. The book is written tutorial-style and shows you how to develop a bare-bones application, test it, and deploy it. Then you'll move on to adding Bootstrap, Angular Material, continuous integration, and authentication. You'll also learn how to integrate Angular with Spring Boot (a popular REST API framework) and use security best practices like HTTPS and a content security policy.
 
-If you liked this tutorial, chances are you like others we publish. Please follow [Auth0](https://twitter.com/auth0) and [OktaDev](https://twitter.com/oktadev) on Twitter to get notified when we publish new developer tutorials.
+If you liked this tutorial, chances are you'll like others we publish. Please follow [Auth0](https://twitter.com/auth0) and [OktaDev](https://twitter.com/oktadev) on Twitter to get notified when we publish new developer tutorials.
