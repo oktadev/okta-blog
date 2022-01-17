@@ -12,9 +12,10 @@ tags: [multi-factor, authentication, developer, nodejs]
 tweets:
 - "Who knew how easy adding multi-factor authentication to your #Node app is! #mfa #javascript"
 - "Learn how to quickly add multi-factor authentication to your #Node app! #mfa #javascript"
+image: blog/simple-multifactor-authentication-in-node/mfa-node-social.jpg
 type: conversion
 changelog:
-  - 2022-01-5: Updated dependencies, code, and screenshots. See this post's changes in [okta-blog#1017](https://github.com/oktadev/okta-blog/pull/1017).
+  - 2022-01-05: Updated dependencies, code, and screenshots. See this post's changes in [okta-blog#1017](https://github.com/oktadev/okta-blog/pull/1017).
 ---
 
 If you're building a web application, chances are you're going to want to serve different content depending on the user. Authenticating users can be complex for many reasons. The most straightforward route is to allow users to sign in with a username and password. The problem with this is, no matter how strongly you hash passwords, there's no stopping someone from guessing that your user's password is `hunter2`, `letmein`, or `correct horse battery staple`.
