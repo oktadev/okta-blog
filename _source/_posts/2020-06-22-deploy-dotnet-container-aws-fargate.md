@@ -15,7 +15,7 @@ tweets:
 - "Learn how to create secure .NET #containers in #AWS with Fargate ->"
 image: blog/featured/okta-dotnet-mouse-down.jpg
 type: conversion
-update-url: /blog/2022/01/18/deploy-dotnet-container-aws-fargate
+update-url: /blog/2022/01/19/deploy-dotnet-container-aws-fargate
 update-title: "How to Deploy a .NET Container with AWS ECS Fargate"
 ---
 
