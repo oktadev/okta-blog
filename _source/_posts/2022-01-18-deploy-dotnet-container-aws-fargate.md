@@ -70,7 +70,7 @@ To achieve this, I am going to use four technologies:
 - SignalR to provide the socket management abstraction
 - Vue.js to provide the rendering for the front-end
 
-### Authentication for Your .NET Chat App
+### Authentication for Your .NET chat app
 
 Authentication is vital in any application, but doubly so when you need to depend on who someone is. Okta makes it really easy to delegate access to those who need it and shut down access across the entire suite of applications if a bad actor gets a set of credentials.
 
@@ -275,7 +275,7 @@ docker run -it --rm -p 5000:80 okta-chat
 
 The app should be accessible at `http://localhost:5000/`.
 
-### Authorize Your Chat App
+### Authorize Your chat app
 
 Modify **Setup.cs** and uncomment the following line.
 
@@ -613,7 +613,7 @@ Now, if you navigate to `https://YOUR_FARGET_TASK_PUBLIC_IP`, you'll see you are
 Whew, that was a ride! Good job on making your new chat application. What can we take away from this?
 
 - Serverless is good for HTTP request/response, but other protocols need something different.
-- Containers are more lightweight than Virtual Machines but come with their own challenges
+- Containers are more lightweight than virtual machines but come with their own challenges.
 - A docker file consists of the instructions to build your application and launch it, and which ports to expose.
 - Fargate makes the hosting of containers easier since you don't have to manage the host machine infrastructure.
 - SignalR makes real-time communication easier by abstracting most of the heavy lifting.
