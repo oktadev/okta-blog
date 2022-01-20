@@ -10,66 +10,63 @@ communities: [javascript]
 description: "In this article you'll learn how to use OpenID Connect to build a simple Node.js website with Express.js. You'll also learn how to log users into your website using Okta."
 tags: [javascript, oidc, openid, nodejs, expressjs]
 tweets:
-    - "Learn how to use OpenID Connect to build a simple Node website."
+    - "Learn how to use OpenID Connect to build a simple Node website 🛠"
     - "Come see how to build a simple Node website using OpenID Connect!"
 type: conversion
+image: blog/use-openid-connect-to-build-a-simple-node-website/openid-node-social.jpg
+github: https://github.com/oktadev/okta-express-example
+changelog:
+  - 2022-01-20: Updated dependencies, code, and the cover image. See this post's changes in [okta-blog#xxxx](https://github.com/oktadev/okta-blog/pull/xxxx) and the example app changes in [okta-express-example#x](https://github.com/oktadev/okta-express-example/pull/x).
 ---
 
 
 If you've ever spent time trying to figure out the best way to handle user
 authentication for your Node app and been confused: you're not alone. Over the
-last few years authentication practices have changed quite a bit.
+last few years, authentication practices have changed quite a bit.
 
 Today I'm going to show you how to use OpenID Connect to build an extremely
 simple Node.js website (using Express.js) that allows you to manage your users,
 log them in, and log them out.
 
-Back in the day, all websites would require users to register with a
-username/password and log in with those same credentials. This was simple, but
-caused a lot of security problems because developers would need to write the
+All websites would require users to register with a
+username/password and log in with those same credentials back in the day. This method was simple but
+caused many security problems because developers would need to write the
 code to authenticate the user directly, store their credentials, manage their
-data, etc. It also required developers to build custom authorization schemes so
-that they could track what permissions their users had to perform certain
+data, etc. It also required developers to build custom authorization schemes to track what permissions their users had to perform certain
 operations.
 
 A while later, OAuth came into fashion with a new idea: let a user have one
-account with a large OAuth provider (Google, Facebook, etc.), and let users log
-into your service via their OAuth account with that provider. This had some nice
-benefits: developers no longer had to worry about storing passwords and managing
-credentials. The downside was that OAuth is a flexible protocol, and doesn't lay
+account with a large OAuth provider (Google, Facebook, etc.) and allow users to log in to your service via their OAuth account with that provider. This method had some excellent
+benefits: developers no longer needed to worry about storing passwords and managing
+credentials. The downside was that OAuth is a flexible protocol and doesn't lay
 out rules around authorization, data management, etc. This means that developers
-using pure OAuth are required to write a lot of custom security code themselves,
+using pure OAuth must write a lot of custom security code themselves,
 which causes problems.
 
-Just recently, however, [OpenID Connect](http://openid.net/connect/) (OIDC) has
+Then, [OpenID Connect](http://openid.net/connect/) (OIDC) has
 come onto the scene. It's a protocol built on top of OAuth that provides
 everything you could ever want: simplified user authentication, simplified
 authorization, and lots of nice management to tie them all together. OIDC has
 been gaining popularity in the development community.
 
-The only problem with OIDC is that there still aren't a ton of great tools and
-integrations to make using it easy.
-
-One of my amazing [Okta](https://developer.okta.com/) colleagues,
-[Robert](https://github.com/robertjd), has been working on a new Node.js
-library,
-[oidc-middleware](https://www.npmjs.com/package/@okta/oidc-middleware#customizing-routes),
-that attempts to make adding user authentication and authorization to your Node
+Without further ado, let's build something together! I'll show you how to
+use the [oidc-middleware](https://www.npmjs.com/package/@okta/oidc-middleware#customizing-routes) package to make adding user authentication and authorization to your Node
 apps simple.
 
-So, without further ado, let's build something together! I'll show you how to
-use the new oidc-middleware package to build a simple website.
+{% include toc.md %}
+
+**Prerequisites**
+
+This tutorial uses the following technologies but doesn't require any prior experience:
+- [Node.js](https://nodejs.org/en/)
+- [Okta CLI](https://cli.okta.com/)
 
 
-## Create an Okta Account
+## Initialize authentication with Okta
 
-The first thing you'll need to do before we build our simple Node.js website is
-to create a free [Okta developer account](https://developer.okta.com/signup/).
+Dealing with user authentication in web apps can be a massive pain for every developer. This is where Okta shines: it helps you secure your web applications with minimal effort. 
 
-If you haven't heard of Okta before, we're an API service that allows you to
-easily store your user accounts, manage them from a simple web UI, handle user
-login and registration, password reset functionality, social login, single
-sign-on, and lots more.
+{% include setup/cli.md type="web" loginRedirectUri="http://localhost:3000/authorization-code/callback" logoutRedirectUri="http://localhost:3000/" %}
 
 **NOTE**: If you'd like to skip the following sections and get straight into the
 code, you can visit the [GitHub
@@ -77,60 +74,14 @@ repo](https://github.com/oktadeveloper/okta-express-example) for this
 application directly.
 
 
-## Create an Application
-
-Now that you've got an Okta account, you need to create an Application. Using
-Okta, you can create as many Applications as you'd like. Each Application
-represents an actual application you might be building.
-
-Since you're going to be building a simple Node website right now, you only need
-to create a single Application.
-
-To get started, go log into your new Okta dashboard. Once you're in, click the
-"Applications" tab. You'll see something like this:
-
-{% img blog/use-openid-connect-to-build-a-simple-node-website/okta-application-dashboard.png alt:"Okta Application Dashboard" width:"700" %}{: .center-image }
-
-This is where you can view all of your Okta applications, and manage them.
-
-Since we don't have an Application created yet, let's do that now. Click the big
-green "Add Application" button and then click the "Web" box (because you're
-going to build a web app):
-
-{% img blog/use-openid-connect-to-build-a-simple-node-website/okta-create-application.png alt:"Okta Create Application" width:"700" %}{: .center-image }
-
-Once you move to the next screen, you'll be able to configure your app settings.
-There's a lot of things you can do here (feel free to play around with it
-sometime!), but for now: leave all the defaults as-is.
-
-{% img blog/use-openid-connect-to-build-a-simple-node-website/okta-application-settings.png alt:"Okta Application Settings" width:"700" %}{: .center-image }
-
-Next, you'll want to copy down a few settings that we'll need later on.
-
-To start, you'll need the Client ID and Client Secret of your newly created
-Application. You'll find this on the page you land one once you've created your
-new Application:
-
-{% img blog/use-openid-connect-to-build-a-simple-node-website/okta-application-secrets.png alt:"Okta Application Secrets" width:"700" %}{: .center-image }
-
-Next, you'll need your Okta Organization URL. If you go to the Dashboard page,
-you should see it at the top-right hand corner of the page. It's the setting
-called "Org URL", and it looks like: `https://{yourOktaDomain}`
-
-{% img blog/use-openid-connect-to-build-a-simple-node-website/okta-org-url.png alt:"Okta Org URL" width:"700" %}{: .center-image }
-
-Now that you have those settings, keep them someplace safe and we'll use them
-soon.
-
-
 ## Build the Express.js App
 
-The next thing you'll do is build a simple Express.js app without any sort of
-login capabilities. It will be very simple (but that's the point!).
+Next, you'll build a simple Express.js app without any 
+login capabilities. It will be straightforward (but that's the point!).
 
 ### Create the Application Skeleton
 
-To get started, create a new folder somewhere on your computer, and enter it.
+Create a new folder somewhere on your computer and enter it to get started.
 Then create a `server.js` file and insert the following code:
 
 ```javascript
@@ -165,11 +116,11 @@ app.listen(3000);
 This is a basic Express.js application:
 
 - It creates an Express application
-- It configures Express to serve static files (css, images, etc.)
+- It configures Express to serve static files (CSS, images, etc.)
 - It contains three routes: a home page route, a dashboard route, and a logout
-  route. The home page route simply shows an HTML template (that we'll create in
+  route. The home page route shows an HTML template (that we'll create in
   a moment). The dashboard route shows a dashboard template. And the logout
-  route redirects the user back to the home page. Simple!
+  route redirects the user back to the home page.
 - On the very last line of the file, Express will start up a local web server on
   port 3000 so you can view the website locally.
 
@@ -183,16 +134,15 @@ html(lang="en")
     meta(charset="utf-8")
     meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
 
-    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css", integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M", crossorigin="anonymous")
+    link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css", integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3", crossorigin="anonymous")
     link(rel="stylesheet", href="/static/css/style.css")
 
   body
     .container
       block body
 
-    script(src="https://code.jquery.com/jquery-3.2.1.slim.min.js", integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN", crossorigin="anonymous")
-    script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js", integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4", crossorigin="anonymous")
-    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js", integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1", crossorigin="anonymous")
+    script(src="https://code.jquery.com/jquery-3.6.0.slim.min.js", integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=", crossorigin="anonymous")
+    script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js", integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p", crossorigin="anonymous")
 ```
 
 This is a simple [pug](https://pugjs.org/api/getting-started.html) template that
@@ -201,11 +151,10 @@ contains nothing more than some very basic HTML formatting, and
 you may want to read through this [excellent beginner's
 tutorial](https://www.sitepoint.com/jade-tutorial-for-beginners/).
 
-**NOTE**: pug used to be named `jade`, this is useful to know if you're looking
+**NOTE**: pug used to be named `jade`. This is useful to know if you're looking
 for resources online.
 
-Next, you'll want to create the HTML template that renders the home page of the
-site. Create the file `views/index.pug` and include the following code:
+Next, you'll want to create the HTML template that renders the site's home page. Create the file `views/index.pug` and include the following code:
 
 ```jade
 extends base.pug
@@ -223,7 +172,7 @@ block body
       Please #[a(href="/login") login] to continue.
 ```
 
-This is your simple home page template.
+This is your basic home page template.
 
 Now, let's create a dashboard page. This page will be what the user sees after
 logging into the website. Create the file `views/dashboard.pug` and include the
@@ -245,10 +194,10 @@ block body
       If you'd like to logout, please #[a(href="/logout") click here].
 ```
 
-Next, let's add a bit of CSS to make things look nice. Create a new folder to store your static assets (css, images, etc.):
+Next, let's add a bit of CSS to make things look nice. Create a new folder to store your static assets (CSS, images, etc.):
 
 ```console
-$ mkdir -p static/css
+mkdir -p static/css
 ```
 
 Now create the file `static/css/style.css` and include the following:
@@ -260,6 +209,10 @@ h1 {
 
 .jumbotron {
   margin-top: 2em;
+  padding: 2rem 1rem;
+  margin-bottom: 2rem;
+  background-color: #e9ecef;
+  border-radius: .3rem;
 }
 ```
 
@@ -267,15 +220,15 @@ Now, if you want to run this simple website, you can do so by installing the
 required dependencies, then starting up your Node server on the command line:
 
 ```console
-$ npm install express pug     # install dependencies
-$ node server.js              # run the server
+npm install express@4 pug@3
+node server.js
 ```
 
 Once the server is running, you can view the site by visiting
 `http://localhost:3000` in your browser.
 
 Remember how I said this would be a simple website? I wasn't lying! Here's what
-your new website homepage will look like:
+your new website's homepage will look like:
 
 {% img blog/use-openid-connect-to-build-a-simple-node-website/app-home.png alt:"Application Homepage" width:"700" %}{: .center-image }
 
@@ -286,15 +239,15 @@ it one step further in the next section and add OIDC.
 
 To get started, you'll need to install two new Node.js libraries:
 
-[express-session](https://github.com/expressjs/session), which will manage user
-sessions for your website, and
-[oidc-middleware](https://github.com/okta/okta-oidc-js/tree/master/packages/oidc-middleware), which will handle all
+- [express-session](https://github.com/expressjs/session), which will manage user
+sessions for your website
+- [oidc-middleware](https://github.com/okta/okta-oidc-middleware), which will handle all
 of the OIDC implementation details for your website
 
 To install these libraries, run the following command:
 
 ```console
-$ npm install express-session @okta/oidc-middleware@0.0.6
+npm install express-session@1 @okta/oidc-middleware@4
 ```
 
 Next, you'll need to import these libraries in your `server.js` from before:
@@ -302,10 +255,10 @@ Next, you'll need to import these libraries in your `server.js` from before:
 ```javascript
 const express = require("express");
 const session = require("express-session");
-const ExpressOIDC = require("@okta/oidc-middleware").ExpressOIDC;
+const { ExpressOIDC } = require("@okta/oidc-middleware");
 ```
 
-Now that the libraries are imported properly, you can initialize the session
+Now that the libraries have been imported, you can initialize the session
 middleware and the OIDC middleware:
 
 ```javascript
@@ -314,16 +267,18 @@ app.use("/static", express.static("static"));
 
 app.use(session({
   cookie: { httpOnly: true },
-  secret: "long random string"
+  secret: "can you look the other way while I type this"
 }));
 
 let oidc = new ExpressOIDC({
   issuer: "https://{yourOktaDomain}/oauth2/default",
   client_id: "{clientId}",
   client_secret: "{clientSecret}",
-  redirect_uri: "http://localhost:3000/authorization-code/callback",
+  appBaseUrl: "http://localhost:3000",
   routes: {
-    callback: { defaultRedirect: "/dashboard" }
+    loginCallback: {
+      afterCallback: "/dashboard"
+    }
   },
   scope: 'openid profile'
 });
@@ -335,10 +290,10 @@ now are the following two:
 
 - `cookie.httponly`: this option tells the browser that JavaScript code should
   not be allowed to access the session data. JavaScript on clients is a
-  dangerous thing, ensuring your cookies that contain identity information are
-  safe is always of top importance.
-- `secret`: this option should be a long random string that you create. It
-  should be the same across all your webservers, but never shared publicly or
+  dangerous thing. Ensuring your cookies that contain identity information are
+  safe is always of utmost importance.
+- `secret`: this option should be a long random string you create. It
+  should be the same across all your webservers but never shared publicly or
   stored in a public place. This value is used to ensure your user's identity
   information is protected cryptographically inside of cookies.
 
@@ -350,12 +305,9 @@ I'll walk you through them briefly:
   `/oauth2/default` appended. This is the OAuth2 endpoint that's used for
   handling authorization.
 - `client_id/client_secret`: these values are what you wrote down earlier after
-  creating your Okta Application. They can be found in your Application settings
-  in Okta.
-- `redirect_uri`: this setting tells Okta where to redirect the user after
-  they've signed in. This value should stay the same as it is listed above, as
-  this library will handle that route for you automatically.
-- `routes.callback.default_redirect`: this option tells Okta where to redirect a
+  creating your Okta Application.
+- `appBaseUrl`: the base scheme, host, and port (if not 80/443) of your app, not including any path (e.g. http://localhost:3000, not http://localhost:3000/ )
+- `routes.loginCallback.afterCallback`: this option tells Okta where to redirect a
   user once they've been signed into your website. In this case, you'll want to
   redirect them to the dashboard page.
 - `scope`: the OpenID Connect protocol has a lot of standard scopes that
@@ -377,8 +329,8 @@ app.get("/", (req, res) => {
 });
 
 app.get("/dashboard", oidc.ensureAuthenticated(), (req, res) => {
-  console.log(req.userinfo);
-  res.render("dashboard", { user: req.userinfo });
+  console.log(req.userContext.userinfo);
+  res.render("dashboard", { user: req.userContext.userinfo });
 });
 
 app.get("/logout", (req, res) => {
@@ -389,38 +341,40 @@ app.get("/logout", (req, res) => {
 
 The first thing that's happening above is that you're using the built-in OIDC
 routes that ship with the oidc-middleware library. This library provides routes
-to handle authenticating the user properly (behind the scenes), and a number of
+to handle authenticating the user correctly (behind the scenes) and many
 other things. I'll show you how these work soon.
 
 You'll also notice that your dashboard route is now using a new Node.js
 middleware: `oidc.ensureAuthenticated()`. This middleware will do the following:
 
 - If a user tries to visit `/dashboard` and is not logged in, they will be
-  redirected to Okta to log in, before being allowed to visit the page
+  redirected to Okta to log in before being allowed to visit the page
 - If a user tries to visit `/dashboard` and they *are* logged in, they will be
   allowed to view the page with no problems
 
-You'll also notice that inside the dashboard route, you're now able to access
-the logged-in user's personal information via `req.userinfo`. The
+You'll also notice that you're now able to access
+the logged-in user's personal information via `req.userContext.userinfo` inside the dashboard route. The
 oidc-middleware library makes this object available to you whenever a user is
-logged in. You'll notice that that this object shows the following information:
+logged in. You'll notice that this object shows the following information:
 
 ```javascript
-{ sub: '00uc5nynm5RZivEun0h7',
+{ 
+  sub: '00uc5nynm5RZivEun0h7',
   name: 'Randall Degges',
   locale: 'en-US',
   preferred_username: 'r@rdegges.com',
   given_name: 'Randall',
   family_name: 'Degges',
   zoneinfo: 'America/Los_Angeles',
-  updated_at: 1507772025 }
+  updated_at: 1507772025 
+}
 ```
 
 The data that's returned about each logged-in user can be modified by including
 more (or fewer) scopes (as mentioned previously).
 
-In the code above, you'll also notice that there is a real logout
-implementation. The oidc-middleware library includes a new method:
+In the code above, you'll also notice an actual logout
+implementation. The oidc-middleware library includes a new method
 `req.logout()`, which wipes all session data and logs the user out of your
 application.
 
@@ -430,13 +384,13 @@ application.
 Now that you've got your code in place, there's only one tiny piece of code left
 to change: the code that starts your web server.
 
-Normally when your Node application starts running, via the `app.listen()`
-method, the web site is immediately online. Now that you're using OIDC, however,
-you don't actually want that behavior.
+Usually, when your Node application starts running, via the `app.listen()`
+method, the website is immediately online. However, now that you're using OIDC,
+you don't want that behavior.
 
-In order to set up the OIDC rules and policies, the oidc-middleware library
-performs its setup routines asynchronously. If your site was to immediately go
-online, it could cause errors when users try to view protected pages, etc.
+To set up the OIDC rules and policies, the oidc-middleware library
+performs its setup routines asynchronously. If your site was to go
+online immediately, it could cause errors when users try to view protected pages, etc.
 
 To get around this, you'll want to modify your server start code like so:
 
@@ -452,7 +406,7 @@ oidc.on("error", err => {
 
 By listening for the events that the oidc-middleware library provides, you can
 safely start your Node server as soon as the OIDC setup has finished, thereby
-solving any timing problems you might have run into otherwise.
+solving any timing problems, you might have run into otherwise.
 
 
 ## Test It Out
@@ -463,12 +417,12 @@ you'll see how everything fits together:
 
 Once you click login, you'll be redirected to `/login` The oidc-middleware will
 intercept that `/login` request, and redirect the user to Okta's hosted sign-in
-page where they'll be prompted for their email address and password The user
-will then enter their credentials, and log in They will then be redirected back
+page where they'll be prompted for their email address and password. The user
+will then enter their credentials and log in. They will then be redirected back
 to your local website, where the oidc-middleware library will again intercept
-the request, create a session for the user, and log them in Finally, they will
+the request, create a session for the user, and log them in. Finally, they will
 be redirected to the dashboard page (`/dashboard`), where your route code will
-run and echo their basic information back to them
+run and echo their basic information back to them.
 
 Here's what each of the pages looks like in the flow:
 
@@ -487,8 +441,8 @@ can view your user information:
 ## Resources
 
 Now that you've built your first Node.js site using OIDC to handle
-authentication using our new [oidc-middleware
-library](https://github.com/okta/okta-oidc-js/tree/master/packages/oidc-middleware), you might want to learn more
+authentication using our [oidc-middleware
+library](https://github.com/okta/okta-oidc-middleware), you might want to learn more
 about OIDC.
 
 One of my good friends and co-workers [Micah
@@ -497,6 +451,6 @@ to OIDC which I strongly recommend you read if you're interested in learning
 more about OIDC. You can [check it out
 here](/blog/2017/07/25/oidc-primer-part-1).
 
-You can also [follow myself](https://twitter.com/rdegges) and
+You can also [follow me](https://twitter.com/rdegges) and
 [Okta](https://twitter.com/oktadev) on Twitter to see more of what I'm working
 on, and ask any auth-related questions you might have.
