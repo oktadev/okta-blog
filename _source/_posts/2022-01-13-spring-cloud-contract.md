@@ -341,6 +341,8 @@ To generate the stubs and the integration tests for the contracts, run the follo
 ./mvnw install
 ```
 
+The most important thing this command does (in the context of this tutorial) is that it generates the stubs and installs them in the local `.m2` (Maven) repo. In a production scenario, you might want to install the stubs in a remote repository instead. Take a look at [the Spring Cloud docs](https://docs.spring.io/spring-cloud-contract/docs/3.0.0-SNAPSHOT/reference/htmlsingle/) to see how that is accomplished.
+
 If you read through the console output, you'll see a lot of information about the generated integration tests and the stubs. For example, look at the following lines.
 
 ```bash
@@ -764,9 +766,9 @@ server.port=8081
 producer.port=8100
 ```
 
-Create your first test file called `ContractProducerTest.java`.
+Create your first test file called `ContractIntegrationTest.java`.
 
-`src/test/java/com/example/consumer/ContractProducerTest.java`
+`src/test/java/com/example/consumer/ContractIntegrationTest.java`
 
 ```java
 package com.example.consumer;
@@ -783,7 +785,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @AutoConfigureStubRunner(ids = {"com.example:producer:+:stubs:8100"}, stubsMode = StubRunnerProperties.StubsMode.LOCAL)
-public class ContractProducerTest {
+public class ContractIntegrationTest {
 
     @Test
     public void get_hat1() {
@@ -832,9 +834,9 @@ You're specifying the `com.example:producer` project, with the latest version, t
 
 You also define three tests that match the expected behavior defined in the contracts. 
 
-Next, create a more realistic integration test on the consumer in a new file, `ContractProducerTest.java`.
+Next, create a more realistic integration test on the consumer in a new file, `ContractIntegrationTest.java`.
 
-`src/test/java/com/example/consumer/ContractProducerTest.java`
+`src/test/java/com/example/consumer/ContractIntegrationTest.java`
 
 ```java
 package com.example.consumer;
