@@ -40,25 +40,25 @@ Once you have completed an Okta application setup you will need to enable multi-
 
 Under the *Access* section click on **Multifactor Settings**. For this application you will only be enabling **SMS Authentication** but you can see the **Factor Types** that Okta allows on this page. Under the **SMS Authentication** tab set the drop-down to **Active**.
 
-{% img blog/blazor-server-side-mfa/image1.png alt:"SMS Multifactor page" width:"800" %}{: .center-image }
+{% img blog/blazor-server-side-mfa/image1.jpeg alt:"SMS Multifactor page" width:"800" %}{: .center-image }
 
 Return to the **Rule** page and click **Prompt for factor** and then click **Every sign on**. Give your new rule a name and click **Save**. This sign-on policy will now trigger for anyone who attempts to sign on to this application.
 
-{% img blog/blazor-server-side-mfa/image2.png alt:"Actions page" width:"800" %}{: .center-image }
+{% img blog/blazor-server-side-mfa/image2.jpeg alt:"Actions page" width:"800" %}{: .center-image }
 
 ## Create your Blazor application
 
 Open Visual Studio 2019 and select **Create a new project**. Find the **Blazor App** entry on the *Create a project* page.  Please note, if you are using a different version of Visual Studio your project create templates may look different.
 
-{% img blog/blazor-server-side-mfa/image3.png alt:"Create new project" width:"800" %}{: .center-image }
+{% img blog/blazor-server-side-mfa/image3.jpeg alt:"Create new project" width:"800" %}{: .center-image }
 
 Under the **Create a new Blazor app** section select **Blazor Server App** and give it a minute to set up.
 
-{% img blog/blazor-server-side-mfa/image4.png alt:"Configure new project" width:"800" %}{: .center-image }
+{% img blog/blazor-server-side-mfa/image4.jpeg alt:"Configure new project" width:"800" %}{: .center-image }
 
 Once it does you will see the *Configure your new project* screen.  Name your project **Okta_ServerDemo** and press **Create**.
 
-{% img blog/blazor-server-side-mfa/image5.png alt:"Create Blazor app" width:"800" %}{: .center-image }
+{% img blog/blazor-server-side-mfa/image5.jpeg alt:"Create Blazor app" width:"800" %}{: .center-image }
 
 After setup is complete, take a minute to run the application and see how Blazor is set up. For this tutorial, the demo application that comes with Blazor setup is enough. We will need to make some changes to the application though.
 
@@ -383,11 +383,11 @@ Again the only change here is the addition of the `Authorize` attribute.
 
 Now start the application and navigate to the `Counter` page.
 
-{% img blog/blazor-server-side-mfa/image6.png alt:"Application not authorized" width:"800" %}{: .center-image }
+{% img blog/blazor-server-side-mfa/image6.jpeg alt:"Application not authorized" width:"800" %}{: .center-image }
 
 You will see the message found on your `App.razor` page. Click on the **Login** button and walk through the authentication and MFA process. Once you're logged in, you should be presented with the `** page.  
 
-{% img blog/blazor-server-side-mfa/image7.png alt:"Application is authorized" width:"800" %}{: .center-image }
+{% img blog/blazor-server-side-mfa/image7.jpeg alt:"Application is authorized" width:"800" %}{: .center-image }
 
 That's it! if you'd like to take a look at this solution in full, check out the [GitHub repo](https://github.com/oktadev/okta-blazor-server-mfa-example).
 
