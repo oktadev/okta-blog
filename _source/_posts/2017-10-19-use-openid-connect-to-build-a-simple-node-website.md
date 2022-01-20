@@ -16,7 +16,7 @@ type: conversion
 image: blog/use-openid-connect-to-build-a-simple-node-website/openid-node-social.jpg
 github: https://github.com/oktadev/okta-express-example
 changelog:
-  - 2022-01-20: Updated dependencies, code, and the cover image. See this post's changes in [okta-blog#1043](https://github.com/oktadev/okta-blog/pull/1043) and the example app changes in [okta-express-example#x](https://github.com/oktadev/okta-express-example/pull/x).
+  - 2022-01-20: Updated dependencies, code, and the cover image. See this post's changes in [okta-blog#1043](https://github.com/oktadev/okta-blog/pull/1043) and the example app changes in [okta-express-example#3](https://github.com/oktadev/okta-express-example/pull/3).
 ---
 
 
