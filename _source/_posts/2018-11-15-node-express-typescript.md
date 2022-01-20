@@ -15,6 +15,8 @@ tweets:
 - "Build a @nodejs application using @typescriptlang and #expressjs"
 image: blog/node-express-typescript/node-express-typescript.jpg
 type: conversion
+changelog: 
+  - 2021-12-08: Updated GitHub repo and blog post with dependency upgrades. You can see the changes in the [example app on GitHub](https://github.com/oktadev/okta-node-express-typescript-vue-example/pull/11). Changes to this article can be viewed in [oktadev/okta-blog#992](https://github.com/oktadev/okta-blog/pull/992).
 ---
 
 Like it or not, JavaScript has been helping developers power the Internet since 1995. In that time, JavaScript usage has grown from small user experience enhancements to complex full-stack applications using Node.js on the server and one of many frameworks on the client such as Angular, React, or Vue. 
@@ -56,7 +58,7 @@ Open up a terminal (Mac/Linux) or a command prompt (Windows) and type the follow
 node --version
 ```
 
-If you get an error, or the version of Node.js you have is less than version 8, you'll need to install Node.js. On Mac or Linux, I recommend you first install [nvm](https://github.com/creationix/nvm) and use nvm to install Node.js. On Windows, I recommend you use [Chocolatey](https://chocolatey.org/).
+If you get an error, or the version of Node.js you have is less than version 14, you'll need to install Node.js. On Mac or Linux, I recommend you first install [nvm](https://github.com/creationix/nvm) and use nvm to install Node.js. On Windows, I recommend you use [Chocolatey](https://chocolatey.org/).
 
 After ensuring you have a recent version of Node.js installed, create a folder for your project.
 
@@ -76,7 +78,7 @@ npm init -y
 In this sample application, [Express](https://expressjs.com/) is used to serve web pages and implement an API. Dependencies are installed using `npm`. Add Express to your project with the following command.
 
 ```bash
-npm install express
+npm install express@4
 ```
 
 Next, open the project in your editor of choice.
@@ -135,7 +137,7 @@ Launch your browser and navigate to `http://localhost:8080`. You should see the 
 The first step is to add the TypeScript compiler. You can install the compiler as a developer dependency using the `--save-dev` flag.
 
 ```bash
-npm install --save-dev typescript
+npm install --save-dev typescript@4
 ```
 
 The next step is to add a `tsconfig.json` file. This file instructs TypeScript how to compile (transpile) your TypeScript code into plain JavaScript. 
@@ -259,7 +261,7 @@ To assist TypeScript developers, library authors and community contributors publ
 Update your project so that TypeScript can use the type declarations for Node.js and Express.
 
 ```bash
-npm install --save-dev @types/node @types/express
+npm install --save-dev @types/node@16 @types/express@4
 ```
 
 Next, rerun the start script and verify there are no more errors.
@@ -275,7 +277,7 @@ Your Node.js application is off to a great start, but perhaps not the best looki
 First, install EJS as a dependency.
 
 ```bash
-npm install ejs
+npm install ejs@3
 ```
 
 Next, make a new folder under `/src` named `views`. In the `/src/views` folder, create a file named `index.ejs`. Add the following code to `/src/views/index.ejs`.
@@ -332,8 +334,8 @@ The TypeScript compiler does the work of generating the JavaScript files and cop
 Install the needed modules and TypeScript declarations using these commands.
 
 ```bash
-npm install --save-dev ts-node shelljs fs-extra nodemon rimraf npm-run-all
-npm install --save-dev @types/fs-extra @types/shelljs
+npm install --save-dev ts-node@10 shelljs@0.8 fs-extra@10 nodemon@2 rimraf@3 npm-run-all@4
+npm install --save-dev @types/fs-extra@9 @types/shelljs@0.8
 ```
 
 Here is a quick overview of the modules you just installed.
@@ -393,8 +395,8 @@ Node.js applications typically use environment variables for configuration. Howe
 Install `dotenv` as a project dependency.
 
 ```bash
-npm install dotenv
-npm install --save-dev @types/dotenv
+npm install dotenv@10
+npm install --save-dev @types/dotenv@8
 ```
 
 Create a file named `.env` in the root folder of the project, and add the following code. 
@@ -473,8 +475,8 @@ One of the great features of Okta is allowing users of your application to sign 
 The last step to securing your Node.js application is to configure Express to use the [Okta OpenId Connect (OIDC) middleware](https://www.npmjs.com/package/@okta/oidc-middleware).
 
 ```bash
-npm install @okta/oidc-middleware@1.0.2 express-session
-npm install --save-dev @types/express-session
+npm install @okta/oidc-middleware@4 express-session@1
+npm install --save-dev @types/express-session@1
 ```
 
 Next, update your `.env` file to add a `HOST_URL` and `SESSION_SECRET` value. You may change the `SESSION_SECRET` value to any string you wish.
@@ -499,6 +501,7 @@ export const register = ( app: any ) => {
         client_secret: process.env.OKTA_CLIENT_SECRET,
         issuer: `${ process.env.OKTA_ORG_URL }/oauth2/default`,
         redirect_uri: `${ process.env.HOST_URL }/authorization-code/callback`,
+        appBaseUrl:`${ process.env.HOST_URL }`,
         scope: "openid profile"
     } );
 
@@ -698,7 +701,7 @@ Modify the `src/views/index.ejs` and `src/views/guitars.ejs` files. Immediately 
 
 ```html
 <body>
-    <% include partials/nav %>
+    <%- include('partials/nav.ejs') %>
 ```
 
 With these changes in place, your application now has a navigation menu at the top that changes based on the login status of the user.
@@ -742,8 +745,8 @@ Here is a quick explanation of the previous Docker parameters.
 Install the PostgreSQL client module and type declarations using the following commands.
 
 ```bash
-npm install pg pg-promise
-npm install --save-dev @types/pg
+npm install pg@8 pg-promise@10
+npm install --save-dev @types/pg@8
 ```
 
 ### Database configuration settings
@@ -1031,8 +1034,8 @@ This final step of the project uses [Vue](https://vuejs.org/) for frontend rende
 First, install new dependencies at the console using the following commands.
 
 ```bash
-npm install axios vue materialize-css
-npm install --save-dev parcel-bundler @types/axios @types/materialize-css @types/vue
+npm install axios@0.24 vue@2 materialize-css@1
+npm install --save-dev parcel-bundler @types/axios@0.14 @types/materialize-css@1 @types/vue@2
 ```
 
 Make a new folder under `src` named `public`. Make a new folder under `src/public` named `js`. Create a file under `src/public/js` named `main.ts` and add the following code.
@@ -1052,21 +1055,19 @@ new Vue( {
             return this.isLoading === false && this.guitars.length === 0;
         }
     },
-    data() {
-        return {
-            brand: "",
-            color: "",
-            guitars: [],
-            isLoading: true,
-            model: "",
-            selectedGuitar: "",
-            selectedGuitarId: 0,
-            year: ""
-        };
+    data: {
+        brand: "",
+        color: "",
+        guitars: [],
+        isLoading: true,
+        model: "",
+        selectedGuitar: "",
+        selectedGuitarId: 0,
+        year: ""
     },
     el: "#app",
     methods: {
-        addGuitar() {
+        addGuitar: function {
             const guitar = {
                 brand: this.brand,
                 color: this.color,
@@ -1088,7 +1089,7 @@ new Vue( {
                     console.log( err );
                 } );
         },
-        confirmDeleteGuitar( id: string ) {
+        confirmDeleteGuitar: function ( id: string ) {
             const guitar = this.guitars.find( ( g ) => g.id === id );
             this.selectedGuitar = `${ guitar.year } ${ guitar.brand } ${ guitar.model }`;
             this.selectedGuitarId = guitar.id;
@@ -1096,7 +1097,7 @@ new Vue( {
             const modal = M.Modal.init( dc );
             modal.open();
         },
-        deleteGuitar( id: string ) {
+        deleteGuitar: function( id: string ) {
             axios
                 .delete( `/api/guitars/remove/${ id }` )
                 .then( this.loadGuitars )
@@ -1105,7 +1106,7 @@ new Vue( {
                     console.log( err );
                 } );
         },
-        loadGuitars() {
+        loadGuitars: function() {
             axios
                 .get( "/api/guitars/all" )
                 .then( ( res: any ) => {
@@ -1118,7 +1119,7 @@ new Vue( {
                 } );
         }
     },
-    mounted() {
+    mounted: function() {
         return this.loadGuitars();
     }
 } );
@@ -1201,7 +1202,7 @@ Update `src/views/guitars.ejs` to add the Vue application template and a referen
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 <body>
-    <% include partials/nav %>
+    <%- include('partials/nav.ejs') %>
     <div class="container">
         <div id="app">
             <div class="row" id="guitarList">

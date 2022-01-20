@@ -115,7 +115,7 @@ The use of registered claims is optional, but when they are present, they MUST b
 
 - Issued At (`iat`) - The time the JWT was created
 - Expiration Time (`exp`) - The time at which the JWT is no longer valid
-- Not Before (`nfb`) - The earliest time the JWT would be valid
+- Not Before (`nbf`) - The earliest time the JWT would be valid
 
 NOTE: Timestamps are "seconds since the epoch" integer format. JWT libraries usually add up to a few minutes of leeway to these values to account for clock skew between systems.
 
