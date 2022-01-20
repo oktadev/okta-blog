@@ -353,7 +353,7 @@ Congrats!! You've just used your first secure template, so try opening it up and
 
 {% img blog/cli-dotnet-templates/secure-page.png alt:"A Secure Page" width:"800" %}{: .center-image }
 
-You can check out the detailed Github repository of the entire project [here](https://github.com/Okta-Bloggers/dotnet-cli-templates-sample).
+You can check out the detailed GitHub repository of the entire project [here](https://github.com/Okta-Bloggers/dotnet-cli-templates-sample).
 
 ## Looking Forward
 

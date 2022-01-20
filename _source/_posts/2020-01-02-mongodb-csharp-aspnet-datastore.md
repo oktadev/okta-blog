@@ -666,10 +666,10 @@ You've now built a .NET application that reads data from a MongoDB document data
 
 To learn more about ASP.NET Core or MongoDB, check out any of these great resources:
 
-- [ASP.NET Core 3.0 MVC Secure Authentication](https://developer.okta.com/blog/2019/11/15/aspnet-core-3-mvc-secure-authentication)
-- [How to Connect Angular and MongoDB to Build a Secure App](https://developer.okta.com/blog/2019/09/11/angular-mongodb)
-- [Build a CRUD App with ASP.NET Core and SQL Server](https://developer.okta.com/blog/2019/04/24/crud-app-aspnet-core-sql-server)
-- [Build a CRUD App with ASP.NET Core 2.2 and Entity Framework](https://developer.okta.com/blog/2019/04/03/build-a-crud-app-with-aspnet-22-and-entity-framework)
+- [ASP.NET Core 3.0 MVC Secure Authentication](/blog/2019/11/15/aspnet-core-3-mvc-secure-authentication)
+- [How to Connect Angular and MongoDB to Build a Secure App](/blog/2019/09/11/angular-mongodb)
+- [Build a CRUD App with ASP.NET Core and SQL Server](/blog/2019/04/24/crud-app-aspnet-core-sql-server)
+- [Build a CRUD App with ASP.NET Core 2.2 and Entity Framework](/blog/2019/04/03/build-a-crud-app-with-aspnet-22-and-entity-framework)
 - [Use the Built-In ASP.NET Core 3.0 OIDC Middleware with Okta](https://www.youtube.com/watch?v=1zjz-aWdZHk)
 
 As always, if you have any questions please comment below. Never miss out on any of our awesome content by following us on [Twitter](https://twitter.com/oktadev) and subscribing to our channel on [YouTube](https://www.youtube.com/c/oktadev)!

@@ -842,9 +842,9 @@ If you've stuck with me to this point, you have successfully setup a virtual MyS
 
 Now that you're on a roll learning new stuff, keep it going with these other posts related to the topics and technologies we used in this article:
 
-- [MySQL vs PostgreSQL -- Choose the Right Database for Your Project](https://developer.okta.com/blog/2019/07/19/mysql-vs-postgres)
-- [Build a REST API with Node and Postgres](https://developer.okta.com/blog/2019/03/27/build-rest-api-with-node-and-postgres)
-- [Modern Token Authentication in Node with Express](https://developer.okta.com/blog/2019/02/14/modern-token-authentication-in-node-with-express)
-- [Build a Simple REST API with Node and OAuth 2.0](https://developer.okta.com/blog/2018/08/21/build-secure-rest-api-with-node)
+- [MySQL vs PostgreSQL -- Choose the Right Database for Your Project](/blog/2019/07/19/mysql-vs-postgres)
+- [Build a REST API with Node and Postgres](/blog/2019/03/27/build-rest-api-with-node-and-postgres)
+- [Modern Token Authentication in Node with Express](/blog/2019/02/14/modern-token-authentication-in-node-with-express)
+- [Build a Simple REST API with Node and OAuth 2.0](/blog/2018/08/21/build-secure-rest-api-with-node)
 
 Questions? Requests for a future post? Drop them in the comments! And don't forget to follow [@oktadev on Twitter](https://twitter.com/oktadev) and [subscribe on Youtube](https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q).

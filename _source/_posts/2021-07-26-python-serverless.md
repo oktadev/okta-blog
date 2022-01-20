@@ -512,10 +512,10 @@ You can find the source code for this article on GitHub in the [okta-aws-python-
 
 If you enjoyed this post, you might like related ones on this blog.
 
-- [Build and Secure an API in Python with FastAPI](https://developer.okta.com/blog/2020/12/17/build-and-secure-an-api-in-python-with-fastapi)
-- [Building a GitHub Secrets Scanner](https://developer.okta.com/blog/2021/02/01/building-a-github-secrets-scanner)
-- [The Definitive Guide to WSGI](https://developer.okta.com/blog/2020/11/16/definitive-guide-to-wsgi)
-- [Build a CRUD App with Python, Flask, and Angular](https://developer.okta.com/blog/2019/03/25/build-crud-app-with-python-flask-angular)
-- [Build a Simple CRUD App with Python, Flask, and React](https://developer.okta.com/blog/2018/12/20/crud-app-with-python-flask-react)
+- [Build and Secure an API in Python with FastAPI](/blog/2020/12/17/build-and-secure-an-api-in-python-with-fastapi)
+- [Building a GitHub Secrets Scanner](/blog/2021/02/01/building-a-github-secrets-scanner)
+- [The Definitive Guide to WSGI](/blog/2020/11/16/definitive-guide-to-wsgi)
+- [Build a CRUD App with Python, Flask, and Angular](/blog/2019/03/25/build-crud-app-with-python-flask-angular)
+- [Build a Simple CRUD App with Python, Flask, and React](/blog/2018/12/20/crud-app-with-python-flask-react)
 
 Follow us for more great content and updates from our team! You can find us on [Twitter](https://twitter.com/oktadev), [Facebook](https://www.facebook.com/oktadevelopers), subscribe to our [YouTube Channel](https://youtube.com/c/oktadev) or start the conversation below.

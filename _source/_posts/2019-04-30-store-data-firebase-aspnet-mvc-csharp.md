@@ -367,11 +367,11 @@ The only question left is - what can you make with your Fire(base) power?
 
 If you'd like to learn more about using secure OAuth and user management in ASP.NET, we've also published a number of posts that might interest you:
 
-* [Build a CRUD App with ASP.NET MVC and Entity Framework Authentication](https://developer.okta.com/blog/2019/03/11/build-a-crud-app-with-aspnet-mvc-and-entity-framework)
-* [Build a CRUD App with ASP.NET Framework 4.x Web API and Angular](https://developer.okta.com/blog/2018/07/27/build-crud-app-in-aspnet-framework-webapi-and-angular)
-* [Secure Your ASP.NET Web Forms Application with OpenID Connect and Okta](https://developer.okta.com/blog/2018/08/29/secure-webforms-with-openidconnect-okta)
-* [Use OpenID Connect for Authorization in Your ASP.NET MVC Framework 4.x App](https://developer.okta.com/blog/2018/04/18/authorization-in-your-aspnet-mvc-4-application)
-* [Build a CRUD App with Angular and Firebase](https://developer.okta.com/blog/2019/02/28/build-crud-app-with-angular-and-firebase)
+* [Build a CRUD App with ASP.NET MVC and Entity Framework Authentication](/blog/2019/03/11/build-a-crud-app-with-aspnet-mvc-and-entity-framework)
+* [Build a CRUD App with ASP.NET Framework 4.x Web API and Angular](/blog/2018/07/27/build-crud-app-in-aspnet-framework-webapi-and-angular)
+* [Secure Your ASP.NET Web Forms Application with OpenID Connect and Okta](/blog/2018/08/29/secure-webforms-with-openidconnect-okta)
+* [Use OpenID Connect for Authorization in Your ASP.NET MVC Framework 4.x App](/blog/2018/04/18/authorization-in-your-aspnet-mvc-4-application)
+* [Build a CRUD App with Angular and Firebase](/blog/2019/02/28/build-crud-app-with-angular-and-firebase)
 
 As always if you have any questions or comments about this post feel free to leave a comment below. For other great content from the Okta Dev Team, follow us on [Twitter](https://twitter.com/oktadev) and [Facebook](https://www.facebook.com/oktadevelopers)!
 

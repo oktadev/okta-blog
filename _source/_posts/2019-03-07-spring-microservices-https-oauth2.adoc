@@ -179,7 +179,7 @@ docker-compose down
 
 HTTPS stands for "Secure" HTTP. HTTPS connections are encrypted and its contents are vastly more difficult to read than HTTP connections. There's been a big movement in recent years to use HTTPS everywhere, even when developing. There are issues you might run into when running with HTTPS, and it's good to catch them early.
 
-https://letsencrypt.org/[Let's Encrypt] is a certificate authority that offers free HTTPS certificates. It also has APIs to automate their renewal. In short, it makes HTTPS so easy, there's no reason not to use it! See https://developer.okta.com/blog/2019/02/19/add-social-login-to-spring-boot#configure-the-custom-domain-name-for-your-spring-boot-app[Add Social Login to Your JHipster App] for instructions on how to use `certbot` with Let's Encrypt to generate certificates.
+https://letsencrypt.org/[Let's Encrypt] is a certificate authority that offers free HTTPS certificates. It also has APIs to automate their renewal. In short, it makes HTTPS so easy, there's no reason not to use it! See /blog/2019/02/19/add-social-login-to-spring-boot#configure-the-custom-domain-name-for-your-spring-boot-app[Add Social Login to Your JHipster App] for instructions on how to use `certbot` with Let's Encrypt to generate certificates.
 
 I also encourage you to checkout https://github.com/creactiviti/spring-boot-starter-acme[Spring Boot Starter ACME]. This is a Spring Boot module that simplifies generating certificates using Let's Encrypt and the Automatic Certificate Management Environment (ACME) protocol.
 

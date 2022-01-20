@@ -21,7 +21,7 @@ As a C# developer, I became interested in how using a serverless function could 
 
 ## AWS Lambda and Azure Functions: First Impressions
 
-Here at Okta, we have several blog posts on working with identity management on [Lambda with .NET Core](https://developer.okta.com/blog/2019/03/21/build-secure-microservices-with-aspnet-core) and [Azure Functions with .NET Core](https://developer.okta.com/blog/2019/02/07/build-your-first-azure-function-visual-studio-code) microservices - and even another using [AWS Lambda integration for Alexa](https://developer.okta.com/blog/2019/03/20/linking-your-alexa-skils-securely) (albeit done in Node.js).
+Here at Okta, we have several blog posts on working with identity management on [Lambda with .NET Core](/blog/2019/03/21/build-secure-microservices-with-aspnet-core) and [Azure Functions with .NET Core](/blog/2019/02/07/build-your-first-azure-function-visual-studio-code) microservices - and even another using [AWS Lambda integration for Alexa](/blog/2019/03/20/linking-your-alexa-skils-securely) (albeit done in Node.js).
 
 A brief summary of the options these cloud providers offer:
 
@@ -43,7 +43,7 @@ To test out the functions, I used [Postman](https://www.getpostman.com/) to ensu
 
 After signing up for an [Azure](https://azure.microsoft.com) account, I made the decision to do my development locally in Visual Studio instead of typing code directly into the function editor inside of the Azure portal. All that we are looking to accomplish is setting up whatever comes out of the box with the template and publishing it for testing. 
 
-In Visual Studio I made sure the [Azure Functions and Web Jobs Tools](https://marketplace.visualstudio.com/items?itemName=VisualStudioWebandAzureTools.AzureFunctionsandWebJobsTools) extension was installed. Since I used [Visual Studio 2019](https://developer.okta.com/blog/2019/03/25/visual-studio-2019-tips-and-tricks-aspnet) and selected the Azure development environment option upon initial IDE installation, this was already set up for me. If you are using Visual Studio 2017, make sure that your Visual Studio is up-to-date and that you are using the [most recent version](https://docs.microsoft.com/en-us/azure/azure-functions/functions-develop-vs#check-your-tools-version) of the Azure Functions tools.
+In Visual Studio I made sure the [Azure Functions and Web Jobs Tools](https://marketplace.visualstudio.com/items?itemName=VisualStudioWebandAzureTools.AzureFunctionsandWebJobsTools) extension was installed. Since I used [Visual Studio 2019](/blog/2019/03/25/visual-studio-2019-tips-and-tricks-aspnet) and selected the Azure development environment option upon initial IDE installation, this was already set up for me. If you are using Visual Studio 2017, make sure that your Visual Studio is up-to-date and that you are using the [most recent version](https://docs.microsoft.com/en-us/azure/azure-functions/functions-develop-vs#check-your-tools-version) of the Azure Functions tools.
 
 {% img blog/aws-vs-azure-csharp/awsvsazure_create_azure_project.png alt:"Azure functions template selection" width:"800" %}{: .center-image }
 
@@ -91,7 +91,7 @@ In the AWS console, I clicked on the new lambda function and selected API Gatewa
 
 Azure Functions:
 
-No option for direct integration with third-party systems like [Alexa](https://developer.okta.com/blog/2019/04/23/user-account-linking-alexa-aspnet-web-api) (something that Amazon made painless with Lambda), but that just meant I needed to set the function up as I would any other API endpoint and configure Alexa to point to it. A couple of extra steps there.
+No option for direct integration with third-party systems like [Alexa](/blog/2019/04/23/user-account-linking-alexa-aspnet-web-api) (something that Amazon made painless with Lambda), but that just meant I needed to set the function up as I would any other API endpoint and configure Alexa to point to it. A couple of extra steps there.
 
 AWS Lambda Functions:
 
@@ -107,9 +107,9 @@ From a C# perspective at least, this makes Azure seem like the better choice - e
 
 If you'd like to learn more about using secure OAuth 2.0 and user management in ASP.NET, we've also published a number of posts that might interest you:
 
-* [Build a CRUD App with ASP.NET MVC and Entity Framework Authentication](https://developer.okta.com/blog/2019/03/11/build-a-crud-app-with-aspnet-mvc-and-entity-framework)
-* [Add Login to your ASP.NET Core MVC App](https://developer.okta.com/blog/2018/10/29/add-login-to-you-aspnetcore-app)
-* [Spread Serverless Holiday Cheer with Lambda and API Gateway](https://developer.okta.com/blog/2017/12/21/spread-serverless-holiday-cheer)
-* [Build a REST API with ASP.NET Web API](https://developer.okta.com/blog/2019/03/13/build-rest-api-with-aspnet-web-api)
+* [Build a CRUD App with ASP.NET MVC and Entity Framework Authentication](/blog/2019/03/11/build-a-crud-app-with-aspnet-mvc-and-entity-framework)
+* [Add Login to your ASP.NET Core MVC App](/blog/2018/10/29/add-login-to-you-aspnetcore-app)
+* [Spread Serverless Holiday Cheer with Lambda and API Gateway](/blog/2017/12/21/spread-serverless-holiday-cheer)
+* [Build a REST API with ASP.NET Web API](/blog/2019/03/13/build-rest-api-with-aspnet-web-api)
 
 For other great content from the Okta Dev Team, follow us on [Twitter](https://twitter.com/oktadev) and [Facebook](https://www.facebook.com/oktadevelopers)!

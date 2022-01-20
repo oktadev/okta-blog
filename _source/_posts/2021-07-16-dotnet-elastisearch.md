@@ -317,7 +317,7 @@ Elasticsearch is great for numerous use cases, including searching for semi-stru
 - [Elasticsearch open-core repository on GitHub](https://github.com/elastic/elasticsearch)
 - [How to tune Elasticsearch for faster search speeds](https://www.elastic.co/guide/en/elasticsearch/reference/current/tune-for-search-speed.html)
 - [Kibana, an awesome data visualization tool for Elasticsearch](https://www.elastic.co/kibana)
-- [Okta CLI, the simplest way to create secure application templates](https://developer.okta.com/blog/2020/12/10/introducing-okta-cli)
-- [Get Started with ASP.NET Core + Okta](https://developer.okta.com/blog/2020/12/15/okta-linux-dotnet-server-support)
+- [Okta CLI, the simplest way to create secure application templates](/blog/2020/12/10/introducing-okta-cli)
+- [Get Started with ASP.NET Core + Okta](/blog/2020/12/15/okta-linux-dotnet-server-support)
 
 If you have any questions about this post, please ask in the comments below. For more tutorials like this one,, follow [@oktadev](https://twitter.com/oktadev) on Twitter, like us [on Facebook](https://www.facebook.com/oktadevelopers/), or subscribe to [our YouTube channel](https://www.youtube.com/oktadev).

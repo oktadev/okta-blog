@@ -344,8 +344,8 @@ things are valued at any given time.
 
 So... Let's get started!
 
-**NOTE**: If you'd rather just look at the completed project on Github, you can
-[check it out on Github][].
+**NOTE**: If you'd rather just look at the completed project on GitHub, you can
+[check it out on GitHub][].
 
 
 ### Bootstrapping
@@ -885,10 +885,10 @@ account][].
   [Vue.js]: https://vuejs.org/ "Vue.js"
   [React]: https://facebook.github.io/react/ "React.js"
   [Angular]: https://angularjs.org/ "Angular.js"
-  [check it out on Github]: https://github.com/rdegges/cryptocompare "cryptocompare on Github"
+  [check it out on GitHub]: https://github.com/rdegges/cryptocompare "cryptocompare on GitHub"
   [Bootstrap]: http://getbootstrap.com/ "Twitter Bootstrap"
   [vue2-filters]: https://www.npmjs.com/package/vue2-filters "vue2-filters on NPM"
-  [axios]: https://github.com/mzabriskie/axios "axios on Github"
+  [axios]: https://github.com/mzabriskie/axios "axios on GitHub"
   [CoinMarketCap]: https://coinmarketcap.com/api/ "CoinMarketCap"
   [CryptoCompare API]: https://www.cryptocompare.com/api "CryptoCompare API"
   [Twitter account]: https://twitter.com/oktadev "oktadev on Twitter"

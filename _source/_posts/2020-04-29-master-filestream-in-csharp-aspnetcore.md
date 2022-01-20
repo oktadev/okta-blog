@@ -321,7 +321,7 @@ I'm going to share an anecdote with you that explains a particular time this was
 
 Today we've learned how to break down large tasks into small chunks and how to build a secure streaming service. I hope this has given you a starting place for working with some lower-level parts of the .NET framework. They can seem scary but, if you just think about them as reading and writing data, it gets a lot less daunting.
 
-A link to the Github repository for this tutorial can be found [here](https://github.com/oktadeveloper/okta-csharp-filestreams-example). Happy coding!
+A link to the GitHub repository for this tutorial can be found [here](https://github.com/oktadeveloper/okta-csharp-filestreams-example). Happy coding!
 
 ## Learn More About .NET Core and AWS
 

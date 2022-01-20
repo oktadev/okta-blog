@@ -436,6 +436,6 @@ If you are interested in learning more about security and .NET check out these o
 - [How to Adapt Your .NET App for SameSite](/blog/2020/09/28/adapt-dotnet-app-for-samesite-fix)
 - [The Most Exciting Promise of .NET 5](/blog/2020/04/17/most-exciting-promise-dotnet-5)
 - [Get Started with Blazor and Web Assembly](/blog/2018/10/15/blazor-and-web-assembly)
-- [ASP.NET Core 3.0 MVC Secure Authentication](https://developer.okta.com/blog/2019/11/15/aspnet-core-3-mvc-secure-authentication)
+- [ASP.NET Core 3.0 MVC Secure Authentication](/blog/2019/11/15/aspnet-core-3-mvc-secure-authentication)
 
 Make sure to follow us on [Twitter](https://twitter.com/oktadev), subscribe to our [YouTube Channel](https://youtube.com/c/oktadev) and check out our [Twitch](https://www.twitch.tv/oktadev) stream so that you never miss any awesome content!

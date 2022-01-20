@@ -43,7 +43,7 @@ I've been a committer on the JHipster project ever since I [started writing the 
 
 I'm a fan of [OAuth 2.0](https://oauth.net/) and [OpenID Connect](http://openid.net/connect/) (OIDC). It helps that I work for Okta, where we implement both options in our API and allow developers to use our libraries &mdash; or third party libraries &mdash; to connect. I like how OAuth will enable me to use my existing credentials at an Identity Provider (e.g., Google, Facebook, or even Okta) to log in to applications without creating a new account.
 
-> If you want to know more about how OAuth and OIDC work, check out my article [What the Heck is OAuth](https://developer.okta.com/blog/2017/06/21/what-the-heck-is-oauth) or watch Karl McGuinness's [What the Heck is OpenID Connect talk from Oktane 17](https://www.youtube.com/watch?v=6ypYXxRPKgk).
+> If you want to know more about how OAuth and OIDC work, check out my article [What the Heck is OAuth](/blog/2017/06/21/what-the-heck-is-oauth) or watch Karl McGuinness's [What the Heck is OpenID Connect talk from Oktane 17](https://www.youtube.com/watch?v=6ypYXxRPKgk).
 
 About a month ago, I started looking into creating a JHipster Module that'd work with Okta, much like [the one I created at Stormpath](https://stormpath.com/blog/stormpath-jhipster-application). I knew that JHipster had OAuth as one of its authentication options, but I was unfamiliar with how it worked. I discovered when you chose OAuth as your authentication mechanism; it created an OAuth server and an Angular client with the client ID and client secret embedded in the code.
 

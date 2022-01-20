@@ -116,7 +116,7 @@ Once you've saved those values, scroll down and take note of the **ClientID** an
 
 *ClientId* refers to the client ID of the Okta application *ClientSecret* refers to the client secret of the Okta application *Issuer* will need the text **{yourOktaDomain}** replaced with your Okta domain, found at the top-right of the Dashboard page.
 
-You will use your Okta account settings to update those values in the `appsettings.json` file in your project. For an even more secure way to store those values, check out [this post](https://developer.okta.com/blog/2019/06/04/store-secrets-securely-int-dotnet-with-azure-keyvault) if you are using Azure to host your .NET Core app.
+You will use your Okta account settings to update those values in the `appsettings.json` file in your project. For an even more secure way to store those values, check out [this post](/blog/2019/06/04/store-secrets-securely-int-dotnet-with-azure-keyvault) if you are using Azure to host your .NET Core app.
 
 ## Configure Your Blazor App to use Okta as the External Auth Provider
 
@@ -319,9 +319,9 @@ All of that and *not one line of Javascript*. The future is looking bright for C
 
 Like what you learned today? Here are some other resources that will help learn more about adding secure authentication and user management in your .NET Core projects:
 
-* [5 Minute Serverless Functions Without an IDE](https://developer.okta.com/blog/2019/08/27/five-minutes-serverless-functions-azure)
-* [Get Started with Blazor and Web Assembly](https://developer.okta.com/blog/2018/10/15/blazor-and-web-assembly)
-* [Create Login and Registration in Your ASP.NET Core App](https://developer.okta.com/blog/2019/02/05/login-registration-aspnet-core-mvc)
-* [Build Secure Microservices with AWS Lambda and ASP.NET Core](https://developer.okta.com/blog/2019/03/21/build-secure-microservices-with-aspnet-core)
-* [Build a CRUD App with ASP.NET Core and Typescript](https://developer.okta.com/blog/2019/03/26/build-a-crud-app-with-aspnetcore-and-typescript)
-* [Build a GraphQL API with ASP.NET Core](https://developer.okta.com/blog/2019/04/16/graphql-api-with-aspnetcore)
+* [5 Minute Serverless Functions Without an IDE](/blog/2019/08/27/five-minutes-serverless-functions-azure)
+* [Get Started with Blazor and Web Assembly](/blog/2018/10/15/blazor-and-web-assembly)
+* [Create Login and Registration in Your ASP.NET Core App](/blog/2019/02/05/login-registration-aspnet-core-mvc)
+* [Build Secure Microservices with AWS Lambda and ASP.NET Core](/blog/2019/03/21/build-secure-microservices-with-aspnet-core)
+* [Build a CRUD App with ASP.NET Core and Typescript](/blog/2019/03/26/build-a-crud-app-with-aspnetcore-and-typescript)
+* [Build a GraphQL API with ASP.NET Core](/blog/2019/04/16/graphql-api-with-aspnetcore)

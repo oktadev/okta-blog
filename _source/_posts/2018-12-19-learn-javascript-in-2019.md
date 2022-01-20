@@ -104,8 +104,8 @@ Here are a few resources I personally trust to help you get started. Most of the
 * [CodeNewbie](https://www.codenewbie.org/)
 * [Scotch.io](https://scotch.io)
 * [Dev.To](https://dev.to/)
-* [Add Authentication to a JavaScript App](https://developer.okta.com/blog/2018/06/05/authentication-vanilla-js)
-* [Build a Basic App with Vue and Node.js](https://developer.okta.com/blog/2018/02/15/build-crud-app-vuejs-node)
+* [Add Authentication to a JavaScript App](/blog/2018/06/05/authentication-vanilla-js)
+* [Build a Basic App with Vue and Node.js](/blog/2018/02/15/build-crud-app-vuejs-node)
 
 ### Podcasts
 
@@ -212,8 +212,8 @@ This article only scratches the surface of what's out there for programming Java
 Take the worry out of managing your application's user logins and accounts! Check out some of our amazing content:
 
 * [What the Heck is OAuth?](/blog/2017/06/21/what-the-heck-is-oauth)
-* [Add Authentication to Any Web Page in 10 Minutes](https://developer.okta.com/blog/2018/06/08/add-authentication-to-any-web-page-in-10-minutes)
-* [Use TypeScript to Build a Node API with Express](https://developer.okta.com/blog/2018/11/15/node-express-typescript)
-* [Simple Node Authentication](https://developer.okta.com/blog/2018/04/24/simple-node-authentication)
+* [Add Authentication to Any Web Page in 10 Minutes](/blog/2018/06/08/add-authentication-to-any-web-page-in-10-minutes)
+* [Use TypeScript to Build a Node API with Express](/blog/2018/11/15/node-express-typescript)
+* [Simple Node Authentication](/blog/2018/04/24/simple-node-authentication)
 
 Follow us for more great content and updates from our team! You can find us on [Twitter](https://twitter.com/OktaDev), [Facebook](https://www.facebook.com/oktadevelopers/), and [LinkedIn](https://www.linkedin.com/company/oktadev/). Questions? Hit us up in the comments below.

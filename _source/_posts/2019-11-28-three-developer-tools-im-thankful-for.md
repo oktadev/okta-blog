@@ -20,9 +20,9 @@ As the [newest member](/blog/2019/02/05/go-for-liftoff) of the Okta Developer Re
 
 Without further ado, I'd love to share a few of the development tools I've been using lately that I am so grateful are in existence.
 
-## Github Desktop
+## GitHub Desktop
 
-I'm a visual person, and using Github's excellent [desktop app](https://desktop.github.com/) on my MacBook Pro lays everything out quite pleasingly. It also allows me to see the difference in code between my current commit and the last check-in integrated right into the editor before pushing. One of the best options out there for learning how source control works, in my humble opinion. I use it on Mac, but it's available for other operating systems as well. Prior to using Github Desktop, I installed [Git](https://git-scm.com/) and used it from the Windows Command Line with [Git Bash](https://gitforwindows.org/) and it worked just fine, but I certainly prefer the desktop app now. It's a bonus to have menus for forgetful people who are constantly looking up which command to type.
+I'm a visual person, and using GitHub's excellent [desktop app](https://desktop.github.com/) on my MacBook Pro lays everything out quite pleasingly. It also allows me to see the difference in code between my current commit and the last check-in integrated right into the editor before pushing. One of the best options out there for learning how source control works, in my humble opinion. I use it on Mac, but it's available for other operating systems as well. Prior to using GitHub Desktop, I installed [Git](https://git-scm.com/) and used it from the Windows Command Line with [Git Bash](https://gitforwindows.org/) and it worked just fine, but I certainly prefer the desktop app now. It's a bonus to have menus for forgetful people who are constantly looking up which command to type.
 
 ## Visual Studio Code
 

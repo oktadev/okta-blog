@@ -539,10 +539,10 @@ See a good primer on how SAML works here: [What is SAML and How Does it Work?](h
 
 Check out some other articles on authentication in Spring Boot:
 
-- [Use Spring Boot and MySQL to go Beyond Authentication](https://developer.okta.com/blog/2019/07/03/spring-boot-jpa)
-- [A Quick Guide to Spring Boot Login Options](https://developer.okta.com/blog/2019/05/15/spring-boot-login-options)
-- [Build a Web App with Spring Boot and Spring Security in 15 Minutes](https://developer.okta.com/blog/2018/09/26/build-a-spring-boot-webapp)
-- [Easy Single Sign-On with Spring Boot and OAuth 2.0](https://developer.okta.com/blog/2019/05/02/spring-boot-single-sign-on-oauth-2)
+- [Use Spring Boot and MySQL to go Beyond Authentication](/blog/2019/07/03/spring-boot-jpa)
+- [A Quick Guide to Spring Boot Login Options](/blog/2019/05/15/spring-boot-login-options)
+- [Build a Web App with Spring Boot and Spring Security in 15 Minutes](/blog/2018/09/26/build-a-spring-boot-webapp)
+- [Easy Single Sign-On with Spring Boot and OAuth 2.0](/blog/2019/05/02/spring-boot-single-sign-on-oauth-2)
 
 Please provide comments, questions, and any feedback in the comments section below.
 

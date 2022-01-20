@@ -59,9 +59,9 @@ As you look for the right hashing approach, the main thing to remember is that y
 
 Interested in more developer-focused security content? Check out some of our other web security articles:
 
-- [Add Authentication to Any Web Page in 10 Minutes](https://developer.okta.com/blog/2018/06/08/add-authentication-to-any-web-page-in-10-minutes)
-- [Simple Node Authentication](https://developer.okta.com/blog/2018/04/24/simple-node-authentication)
-- [How to Prevent Your Users from Using Breached Passwords](https://developer.okta.com/blog/2018/06/11/how-to-prevent-your-users-from-using-breached-passwords)
-- [Announcing PassProtect - Proactive Web Security ](https://developer.okta.com/blog/2018/05/23/announcing-passprotect-proactive-web-security)
+- [Add Authentication to Any Web Page in 10 Minutes](/blog/2018/06/08/add-authentication-to-any-web-page-in-10-minutes)
+- [Simple Node Authentication](/blog/2018/04/24/simple-node-authentication)
+- [How to Prevent Your Users from Using Breached Passwords](/blog/2018/06/11/how-to-prevent-your-users-from-using-breached-passwords)
+- [Announcing PassProtect - Proactive Web Security ](/blog/2018/05/23/announcing-passprotect-proactive-web-security)
 
 We've also got a new [security site](https://sec.okta.com/) where we're exclusively publishing security-focused articles and guides that you might find interesting.
