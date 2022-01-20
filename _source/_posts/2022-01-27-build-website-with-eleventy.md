@@ -321,8 +321,8 @@ In this article, you learned how to write static pages with HTML and Markdown an
 
 If you liked this tutorial, you might like these others:
 
-- [Static Sites vs CMS](https://developer.okta.com/blog/2018/06/07/static-sites-vs-cms)
-- [Add Secure Authentication to your WordPress Site in 15 Minutes](https://developer.okta.com/blog/2018/10/30/wordpress-authentication-with-okta)
-- [Add Authentication to Any Web Page in 10 Minutes](https://developer.okta.com/blog/2018/06/08/add-authentication-to-any-web-page-in-10-minutes)
+- [Static Sites vs CMS](/blog/2018/06/07/static-sites-vs-cms)
+- [Add Secure Authentication to your WordPress Site in 15 Minutes](/blog/2018/10/30/wordpress-authentication-with-okta)
+- [Add Authentication to Any Web Page in 10 Minutes](/blog/2018/06/08/add-authentication-to-any-web-page-in-10-minutes)
 
-Make sure you follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel. If you have any questions, or you want to share what tutorial you’d like to see next, please comment below.
+Make sure you follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel. If you have any questions, or you want to share what tutorial you'd like to see next, please comment below.
