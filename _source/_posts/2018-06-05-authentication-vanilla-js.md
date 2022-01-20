@@ -27,6 +27,8 @@ There are many reasons you may decide to forgo the framework bloat for vanilla J
 
 Along with a simple build process for your application, I'll demonstrate how simple it is to add secure user authentication with Okta. Before we get started, let me tell you what Okta is and why I think Okta is a no-brainer choice for your next front-end project.
 
+{% include toc.md %}
+
 ## What is Okta?
 
 Okta is a cloud service that allows developers to create, edit, and securely store user accounts and user account data and connect them with multiple applications. Our API enables you to:
