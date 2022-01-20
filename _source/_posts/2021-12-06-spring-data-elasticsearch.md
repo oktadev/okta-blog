@@ -22,7 +22,7 @@ How can be Elasticsearch integrated into a Spring Boot Application? What are the
 
 - [HTTPie](https://httpie.io/)
 - [JHipster 7](https://www.jhipster.tech/installation/)
-- [Java 14+](https://openjdk.java.net/install/index.html)
+- [Java 11+](https://openjdk.java.net/install/index.html)
 - [Okta CLI](https://cli.okta.com)
 - [Docker](https://docs.docker.com/engine/install/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
@@ -60,26 +60,12 @@ https -d raw.githubusercontent.com/oktadev/okta-spring-data-elasticsearch-exampl
 jhipster jdl blog-reactive-ms.jdl
 ```
 
-{% include setup/cli.md type="jhipster" %}
+{% include setup/cli.md type="jhipster"
+   loginRedirectUri="http://localhost:8080/login/oauth2/code/oidc,http://localhost:8081/login/oauth2/code/oidc,http://localhost:8761/login/oauth2/code/oidc"
+   logoutRedirectUri="http://localhost:8080,http://localhost:8081,http://localhost:8761" %}
 
-Follow the process above for creating two applications in Okta, the gateway application, and the blog application.
 
-```shell
-cd gateway
-okta apps create jhipster
-```
-
-Make sure to overwrite the login redirect URI http://localhost:8081/login/oauth2/code/oidc with port 8081 for blog microservice, when you run the next command:
-
-```shell
-cd blog
-okta apps create jhipster
-```
-
-Find the `blog` credentials in the files `blog/.okta.env` and  `gateway/.okta.env`.
-
-The JHipster Registry is also a Spring Cloud Config server, and by default, it is configured with the profiles `dev` and `native`, which means the configuration will be provided from the location `docker-compose/central-server/config`. Let's add some files so it can provide the OAuth2 configuration to the microservices.
-Add the file `docker-compose/central-server-config/blog-prod.yml` with the following content:
+The JHipster Registry is also a Spring Cloud Config server, and by default, it is configured with the profiles `dev` and `native`, which means the configuration will be provided from the location `docker-compose/central-server-config`. Update `docker-compose/central-server-config/application.yml` with the OIDC settings to be shared with all microservices. Set the values from the `.okta.env` file created with Okta CLI.
 
 ```yml
 spring:
@@ -91,25 +77,10 @@ spring:
             issuer-uri: https://{yourOktaDomain}/oauth2/default
         registration:
           oidc:
-            client-id: {blogClientId}
-            client-secret: {blogClientSecret}
+            client-id: {clientId}
+            client-secret: {clientSecret}
 ```
 
-Add also the file `docker-compose/central-server-config/gateway-prod.yml` with the following content:
-
-```yml
-spring:
-  security:
-    oauth2:
-      client:
-        provider:
-          oidc:
-            issuer-uri: https://{yourOktaDomain}/oauth2/default
-        registration:
-          oidc:
-            client-id: {gatewayClientId}
-            client-secret: {gatewayClientSecret}
-```
 
 For the experimentation in this tutorial, configure the Kibana interface for Elasticsearch, which will allow visualizations of the Elasticsearch data.
 Edit `docker-compose/docker-compose.yml` and add the Kibana service like this:
@@ -136,6 +107,7 @@ services:
     ports:
       - 9200:9200
 ```
+Remove the Keycloak service at the bottom, as Okta will be used as Identity Provider.
 
 Create each application container image:
 
@@ -152,18 +124,31 @@ cd gateway
 Run the architecture with Docker Compose:
 
 ```shell
-cd docker-compose
+cd ../docker-compose
 docker compose up
 ```
- Access the JHipster Registry at [**http://localhost:8761**](http://localhost:8761) and sign in with user=admin, password=admin. When you see all services up and green, go to http://localhost:8080 and sign in with your Okta account.
+ Access the JHipster Registry at [**http://localhost:8761**](http://localhost:8761) and sign in with your Okta credentials. When you see all services up and green, go to http://localhost:8080 and sign in with your Okta account.
 
  {% img blog/spring-data-elasticsearch/okta-signin.png alt:"Okta Sign In Form" width:"400" %}{: .center-image }
+
+
+ **IMPORTANT NOTE**: There is a potential issue observed for the blog service, as [Kubernetes probes](https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html#actuator.endpoints.kubernetes-probes) are enabled by default, the blog application might change its state to `OUT_OF_SERVICE` during start up and Eureka discards the following heartbeats with state `UP`. In that case, disable Kubernetes probes in the `docker-compose.yml` with the following environment variable:
+
+```yml
+services:
+  blog:
+    image: blog
+    environment:
+    ...
+      - MANAGEMENT_ENDPOINT_HEALTH_PROBES_ENABLED=false
+    ...    
+```
 
 ## Inspecting Elasticsearch index mapping
 
 During start-up, Spring Data Elasticsearch will create the index for the entities annotated with `@Document`, deriving the mappings from the entity's annotations. But for the properties, if the field type is not specified, it defaults to FieldType.Auto. This means, that no mapping entry is written for the property and that Elasticsearch will add a mapping entry dynamically when the first data for this property is stored.
 
-As Kibana interface was configured in Docker Compose, before creating any entities, let's inspect the index mappings that were automatically created for the `blog` microservice. Go to [**http://localhost:9200**](http://localhost:9200), the Kibana dashboard. Then go to **Management** > **Stack Management** > **Index Management** > **Indices** tab. Besides the `user` index, an index per entity should be listed.
+As Kibana interface was configured in Docker Compose, before creating any entities, let's inspect the index mappings that were automatically created for the `blog` microservice. Go to [**http://localhost:5601**](http://localhost:5601), the Kibana dashboard. On the top left menu, go to **Management** > **Stack Management** > **Index Management** > **Indices** tab. Besides the `user` index, an index per entity should be listed.
 
 {% img blog/spring-data-elasticsearch/kibana-indexes.png alt:"Kibana Indexes" width:"800" %}{: .center-image }
 
@@ -249,7 +234,9 @@ Elasticsearch exposes several APIs, and the Index APIs allow managing individual
 http :9200/tag/_mapping
 ```
 
-The output should look the same as the mapping visualized in Kibana.
+The output should look the same as the mapping visualized in Kibana:
+
+{% img blog/spring-data-elasticsearch/kibana-index-mapping.png alt:"Kibana Index Mapping" width:"800" %}{: .center-image }
 
 ## Key components in reactive Spring Data Elasticsearch
 
