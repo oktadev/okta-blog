@@ -551,9 +551,9 @@ To expand on the ideas discussed in this blog, I recommend further reading on se
 If you'd like to learn more about ASP.NET Core, check out some of our other killer content:
 
 - [Unity WebGL + PlayFab Authorization in 20 Minutes](/blog/2021/02/26/unity-webgl-playfab-authorization)
-- [How to Master the Filestream in C#](https://developer.okta.com/blog/2020/04/29/master-filestream-in-csharp-aspnetcore)
-- [How I Learned to Love Default Implementations in C# 8.0](https://developer.okta.com/blog/2020/01/10/default-implementation-csharp)
-- [Decode JWTs in C# for Authorization](https://developer.okta.com/blog/2019/06/26/decode-jwt-in-csharp-for-authorization)
-- [Create a Blockchain Explorer in C#](https://developer.okta.com/blog/2019/08/13/create-a-blockchain-explorer-in-csharp)
+- [How to Master the Filestream in C#](/blog/2020/04/29/master-filestream-in-csharp-aspnetcore)
+- [How I Learned to Love Default Implementations in C# 8.0](/blog/2020/01/10/default-implementation-csharp)
+- [Decode JWTs in C# for Authorization](/blog/2019/06/26/decode-jwt-in-csharp-for-authorization)
+- [Create a Blockchain Explorer in C#](/blog/2019/08/13/create-a-blockchain-explorer-in-csharp)
 
 We are always posting new content. If you like this content, be sure to [follow us on Twitter](https://twitter.com/oktadev) and subscribe to [our YouTube Channel](https://youtube.com/c/oktadev).

@@ -22,7 +22,7 @@ changelog:
 
 Today's modern web applications are often built with a server-side language serving data via an API and a front-end javascript framework that presents the data in an easy-to-use manner to the end user. Python is a dynamic language widely adopted by companies and developers. The language states on its core values that software should simple, readable making developers more productive and happier. You'll also use Flask to help you to quickly put together a ReST API. React is a declarative, efficient, and flexible JavaScript library developed at Facebook for building user interfaces. It facilitates the creation of complex, interactive, and stateful UIs from small and isolated pieces of code called components.
 
-In this tutorial you are going to build a JavaScript application using React in the front-end and we are also going to build a ReST API written in Python which is going to persist. Our app will be a Github open source bookmark project (a.k.a `kudo`).
+In this tutorial you are going to build a JavaScript application using React in the front-end and we are also going to build a ReST API written in Python which is going to persist. Our app will be a GitHub open source bookmark project (a.k.a `kudo`).
 
 **Table of Contents**{: .hide }
 * Table of Contents
@@ -124,7 +124,7 @@ DELETE /kudos/:id
 ```
 
 ### Define the Python Model Schemas
-Your ReST API will have two core schemas, they are `GithubRepoSchema` and `KudoSchema`. `GithubRepoSchema` will represent a Github repository sent by the clients whereas `KudoSchema` will represent the data you are going to persist in the database. 
+Your ReST API will have two core schemas, they are `GitHubRepoSchema` and `KudoSchema`. `GitHubRepoSchema` will represent a GitHub repository sent by the clients whereas `KudoSchema` will represent the data you are going to persist in the database. 
 
 Go ahead and run the following commands:
 
@@ -142,7 +142,7 @@ Copy and paste the content below within the `schema.py` file.
 ```python
 from marshmallow import Schema, fields
 
-class GithubRepoSchema(Schema):
+class GitHubRepoSchema(Schema):
   id = fields.Int(required=True)
   repo_name = fields.Str()
   full_name = fields.Str()
@@ -150,7 +150,7 @@ class GithubRepoSchema(Schema):
   description = fields.Str()
   repo_url = fields.URL()
 
-class KudoSchema(GithubRepoSchema):
+class KudoSchema(GitHubRepoSchema):
   user_id = fields.Email(required=True)
 ```
 
@@ -280,9 +280,9 @@ class Repository(object):
     return self.client.delete(selector)
 ```
 
-You might recall the user story that you're working on is that an authenticated user should able to create, delete and list all favorited Github open-source projects. In order to get that done those `MongoRepository`'s methods will come in handy.
+You might recall the user story that you're working on is that an authenticated user should able to create, delete and list all favorited GitHub open-source projects. In order to get that done those `MongoRepository`'s methods will come in handy.
 
-You will soon implement the endpoints of your ReST API. First, you need to create a service class that knows how to translate the incoming request payload to our representation `KudoSchema` defined in the `app/kudo/schema.py`. The difference between the incoming request payload, represented by `GithubSchema`, and the object you persist in the database, represented by `KudoSchema` is: The first has an `user_id` which determines who owns the object. 
+You will soon implement the endpoints of your ReST API. First, you need to create a service class that knows how to translate the incoming request payload to our representation `KudoSchema` defined in the `app/kudo/schema.py`. The difference between the incoming request payload, represented by `GitHubSchema`, and the object you persist in the database, represented by `KudoSchema` is: The first has an `user_id` which determines who owns the object. 
 
 Copy the content below to the `app/kudo/service.py` file:
 
@@ -369,7 +369,7 @@ Next, implement your endpoints. Go ahead and paste the content above into the `a
 from flask_oidc import OpenIDConnect
 from flask import Flask, json, g, request
 from app.kudo.service import Service as Kudo
-from app.kudo.schema import GithubRepoSchema
+from app.kudo.schema import GitHubRepoSchema
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -389,7 +389,7 @@ def index():
 @app.route("/kudos", methods=["POST"])
 @oidc.accept_token(True)
 def create():
-  github_repo = GithubRepoSchema().load(json.loads(request.data))
+  github_repo = GitHubRepoSchema().load(json.loads(request.data))
   
   if github_repo.errors:
     return json_response({'error': github_repo.errors}, 422)
@@ -412,7 +412,7 @@ def show(repo_id):
 @app.route("/kudo/<int:repo_id>", methods=["PUT"])
 @oidc.accept_token(True)
 def update(repo_id):
-   github_repo = GithubRepoSchema().load(json.loads(request.data))
+   github_repo = GitHubRepoSchema().load(json.loads(request.data))
   
    if github_repo.errors:
      return json_response({'error': github_repo.errors}, 422)
@@ -547,7 +547,7 @@ Your React application will have two routes:
 
 `/home` The Home route will render most of the React components you application will have. It should implement the following user stories.
 
-- An authenticated user should be able to search through the Github API the open source projects of his/her preferences
+- An authenticated user should be able to search through the GitHub API the open source projects of his/her preferences
 - An authenticated user should be able to bookmark open source projects that pleases him/her
 - An authenticated user should be able to see in different tabs his/her previously bookmarked open source projects and the search results
 
@@ -743,16 +743,16 @@ For your app, you need to list all the bookmarked open source projects as well a
 
 You can create a component to represent an open source project in both "Kudos" and "Search Results" lists, that's the beauty of React components they are highly flexible and reusable. 
 
-Go ahead and create a directory called `GithubRepo`
+Go ahead and create a directory called `GitHubRepo`
 
 ```bash
-mkdir -p src/GithubRepo
+mkdir -p src/GitHubRepo
 ```
 
 Then, within that directory, create a file named `index.js`
 
 ```bash
-touch src/GithubRepo/index.js
+touch src/GitHubRepo/index.js
 ```
 
 And paste the following content into it:
@@ -782,7 +782,7 @@ const styles = theme => ({
   }
 });
 
-class GithubRepo extends React.Component {
+class GitHubRepo extends React.Component {
   handleClick = (event) =>  {
     this.props.onKudo(this.props.repo)
   }
@@ -810,11 +810,11 @@ class GithubRepo extends React.Component {
   }
 }
 
-export default withStyles(styles)(GithubRepo);
+export default withStyles(styles)(GitHubRepo);
 ```
 {% endraw %}
 
-The `GithubRepo` is a quite simple component, it receives two `props`: A `repo` object which holds a reference to a Github repository and an `isKudo` boolean flag that indicates whether the `repo` has been bookmarked or not.
+The `GitHubRepo` is a quite simple component, it receives two `props`: A `repo` object which holds a reference to a GitHub repository and an `isKudo` boolean flag that indicates whether the `repo` has been bookmarked or not.
 
 The next component you will need is the `SearchBar`. It will have two responsibilities: log the user out and call React on every press of the `Enter` key in the search text field. 
 
@@ -928,7 +928,7 @@ class SearchBar extends React.Component {
                 <SearchIcon />
               </div>
               <InputBase
-                placeholder="Search for your OOS project on Github + Press Enter"
+                placeholder="Search for your OOS project on GitHub + Press Enter"
                 onKeyPress={this.props.onSearch}
                 classes={{
                   root: classes.inputRoot,
@@ -965,7 +965,7 @@ To install react-swipeable-views, run the command:
 npm i react-swipeable-views@0.13.9
 ```
 
-You will also need to make HTTP calls to your Python ReST API as well as to the Github ReST API. The Github HTTP client will need to have a method or function to make a request to this URL: `https://api.github.com/search/repositories?q=USER-QUERY`. You are going to use the `q` query string to pass the term the user wants to query against Github's repositories. 
+You will also need to make HTTP calls to your Python ReST API as well as to the GitHub ReST API. The GitHub HTTP client will need to have a method or function to make a request to this URL: `https://api.github.com/search/repositories?q=USER-QUERY`. You are going to use the `q` query string to pass the term the user wants to query against GitHub's repositories. 
 
 Create a file named `githubClient.js`.
 
@@ -1059,7 +1059,7 @@ import Tab from '@material-ui/core/Tab';
 import Grid from '@material-ui/core/Grid';
 import { withOktaAuth } from '@okta/okta-react';
 
-import GithubRepo from "../GithubRepo"
+import GitHubRepo from "../GitHubRepo"
 import SearchBar from "../SearchBar"
 
 import githubClient from '../githubClient'
@@ -1148,7 +1148,7 @@ class Home extends React.Component {
     return repos.map((repo) => {
       return (
         <Grid item xs={12} md={3} key={repo.id}>
-          <GithubRepo onKudo={this.onKudo} isKudo={this.isKudo(repo)} repo={repo} />
+          <GitHubRepo onKudo={this.onKudo} isKudo={this.isKudo(repo)} repo={repo} />
         </Grid>
       );
     })

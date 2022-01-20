@@ -160,8 +160,8 @@ You should now be able to run the application and see that if you're logged in w
 ## Learn More About ASP.NET and Okta
 
 If you'd like to learn more about how Okta can ease identity management for your applications, check out [Okta's product documentation](https://developer.okta.com/documentation/). Interested in learning more about ASP.NET? Check out these resources from our blog::
-* [How to Secure Your .NET Web API with Token Authentication](https://developer.okta.com/blog/2018/02/01/secure-aspnetcore-webapi-token-auth)
-* [Build a Secure To-Do App with Vue, ASP.NET Core, and Okta](https://developer.okta.com/blog/2018/01/31/build-secure-todo-app-vuejs-aspnetcore)
-* [Build an App for iOS and Android with Xamarin](https://developer.okta.com/blog/2018/01/10/build-app-for-ios-android-with-xamarin)
+* [How to Secure Your .NET Web API with Token Authentication](/blog/2018/02/01/secure-aspnetcore-webapi-token-auth)
+* [Build a Secure To-Do App with Vue, ASP.NET Core, and Okta](/blog/2018/01/31/build-secure-todo-app-vuejs-aspnetcore)
+* [Build an App for iOS and Android with Xamarin](/blog/2018/01/10/build-app-for-ios-android-with-xamarin)
 
 And as always, we'd love to hear from you. Hit us up in the comments, or on Twitter [@oktadev](https://twitter.com/OktaDev).

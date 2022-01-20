@@ -1,7 +1,7 @@
 ---
 disqus_thread_id: 7768538781
-discourse_topic_id: 17185
-discourse_comment_url: https://devforum.okta.com/t/17185
+discourse_topic_id: 17939
+discourse_comment_url: https://devforum.okta.com/t/17939
 layout: blog_post
 title: "Use Sass with React to Build Beautiful Apps"
 author: holger-schmitz

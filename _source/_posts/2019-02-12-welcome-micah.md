@@ -110,7 +110,7 @@ Maybe not very practical, but it demonstrated some key software development patt
 
 ## Gamification
 
-I also love <span data-tooltip="(5) gentle-wax-plucky-metal" data-tooltip-position="left">gamifying</span> everything! It's one of the reasons an [early blog post](https://developer.okta.com/blog/2017/10/27/okta-oauth-zork) of mine include playing the text based adventure Zork as a way to learn some of how OAuth 2.0 works.
+I also love <span data-tooltip="(5) gentle-wax-plucky-metal" data-tooltip-position="left">gamifying</span> everything! It's one of the reasons an [early blog post](/blog/2017/10/27/okta-oauth-zork) of mine include playing the text based adventure Zork as a way to learn some of how OAuth 2.0 works.
 
 I'll even make impractical devices or API mashups just to better understand concepts and standards and make it fun along the way.
 

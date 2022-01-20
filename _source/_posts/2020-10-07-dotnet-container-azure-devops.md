@@ -42,7 +42,7 @@ You'll need a machine with Window 10 (at least Professional edition, I am using 
 - [Docker Desktop](https://www.docker.com/products/docker-desktop)
 - [Git](https://git-scm.com/)
 
-This application is an example of how to extend a basic ASP.NET Core MVC application with Okta's implementation of [Open ID Connect (OIDC)](https://developer.okta.com/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc).
+This application is an example of how to extend a basic ASP.NET Core MVC application with Okta's implementation of [Open ID Connect (OIDC)](/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc).
 
 The building blocks in this integration are as follows:
 
@@ -291,11 +291,11 @@ What you learned:
 
 If you are interested in learning more about security and .NET check out these other great articles:
 
-- [Deploy Your ASP.NET Core Application to Azure](https://developer.okta.com/blog/2018/06/19/deploy-your-aspnet-core-app-to-azure)
+- [Deploy Your ASP.NET Core Application to Azure](/blog/2018/06/19/deploy-your-aspnet-core-app-to-azure)
 - [Okta ASP.NET Core MVC Quickstart](https://developer.okta.com/quickstart-fragments/dotnet/aspnetcore-auth-code/)
-- [Deploy a .NET Container with AWS Fargate](https://developer.okta.com/blog/2020/06/22/deploy-dotnet-container-aws-fargate)
-- [The Most Exciting Promise of .NET 5](https://developer.okta.com/blog/2020/04/17/most-exciting-promise-dotnet-5)
-- [Goodbye Javascript! Build an Authenticated Web App in C# with Blazor + ASP.NET Core 3.0](https://developer.okta.com/blog/2019/10/16/csharp-blazor-authentication)
+- [Deploy a .NET Container with AWS Fargate](/blog/2020/06/22/deploy-dotnet-container-aws-fargate)
+- [The Most Exciting Promise of .NET 5](/blog/2020/04/17/most-exciting-promise-dotnet-5)
+- [Goodbye Javascript! Build an Authenticated Web App in C# with Blazor + ASP.NET Core 3.0](/blog/2019/10/16/csharp-blazor-authentication)
 - [Create a CI/CD pipeline for .NET with the Azure DevOps Project](https://www.azuredevopslabs.com/labs/vstsextend/azuredevopsprojectdotnet/)
 
 Make sure to follow us on [Twitter](https://twitter.com/oktadev), subscribe to our [YouTube Channel](https://youtube.com/c/oktadev) and check out our [Twitch](https://www.twitch.tv/oktadev) channel so that you never miss any awesome content!

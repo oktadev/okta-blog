@@ -25,7 +25,7 @@ We're going to write this sample app to talk to the Okta API, but it should be e
 
 Why Okta? Well, because Okta is a free-to-use API service that stores user accounts, and makes handling user authentication, authorization, social login, password reset, etc. — simple. Okta utilizes open standards like OAuth 2.0 to make integration seamless.
 
-We first need to create an OAuth application in the Okta Developer dashboard. In the Applications section of your account, click **Add Application**, and choose **Web**. (Yes I realize this is counterintuitive, but choosing **Web** is what tells Okta that we want to do that OAuth [Authorization Code flow](https://developer.okta.com/blog/2018/04/10/oauth-authorization-code-grant-type).) You can accept all the defaults in the application settings.
+We first need to create an OAuth application in the Okta Developer dashboard. In the Applications section of your account, click **Add Application**, and choose **Web**. (Yes I realize this is counterintuitive, but choosing **Web** is what tells Okta that we want to do that OAuth [Authorization Code flow](/blog/2018/04/10/oauth-authorization-code-grant-type).) You can accept all the defaults in the application settings.
 
 {% img blog/oauth-2-command-line/create-app.png alt:"Create an application on Okta" width:"600" %}{: .center-image }
 

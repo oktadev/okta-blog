@@ -240,8 +240,8 @@ I ran into a couple of problems while deploying:
 ## Learn More About ASP.NET Core and Okta
 
 Learn more about securing your ASP.NET Core applications on our developer blog:
-* [Policy-Based Authorization in ASP.NET Core](https://developer.okta.com/blog/2018/05/11/policy-based-authorization-in-aspnet-core)
-* [Token Authentication in ASP.NET Core 2.0 - A Complete Guide](https://developer.okta.com/blog/2018/03/23/token-authentication-aspnetcore-complete-guide)
-* [Build a Secure To-Do App with Vue, ASP.NET Core, and Okta](https://developer.okta.com/blog/2018/01/31/build-secure-todo-app-vuejs-aspnetcore)
+* [Policy-Based Authorization in ASP.NET Core](/blog/2018/05/11/policy-based-authorization-in-aspnet-core)
+* [Token Authentication in ASP.NET Core 2.0 - A Complete Guide](/blog/2018/03/23/token-authentication-aspnetcore-complete-guide)
+* [Build a Secure To-Do App with Vue, ASP.NET Core, and Okta](/blog/2018/01/31/build-secure-todo-app-vuejs-aspnetcore)
 
 As always, feel free to hit me up in the comments or on Twitter [@leebrandt](https://twitter.com/leebrandt) and don't forget to follow [@OktaDev](https://twitter.com/oktadev) on Twitter, [Facebook](https://www.facebook.com/oktadevelopers/), and [YouTube](https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q)!

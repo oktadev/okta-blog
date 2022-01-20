@@ -377,7 +377,7 @@ Since you integrated the JHipster Console with Zipkin UI, in the traces-dashboar
 I hope you enjoyed this tutorial and the power of the **Elastic Stack** and the **JHipster Console** for monitoring a microservices architecture.
 To continue expanding your knowledge on JHipster monitoring and Okta integration with the Elastic Stack, check out the following links:
 
-- [JHipster Console on Github](https://github.com/jhipster/jhipster-console)
+- [JHipster Console on GitHub](https://github.com/jhipster/jhipster-console)
 - [JHipster Monitoring Documentation](https://www.jhipster.tech/monitoring/)
 - [SAML Authentication and the Elastic Stack](https://www.elastic.co/blog/how-to-enable-saml-authentication-in-kibana-and-elasticsearch)
 - [Authentication in Kibana](https://www.elastic.co/guide/en/kibana/current/kibana-authentication.html)

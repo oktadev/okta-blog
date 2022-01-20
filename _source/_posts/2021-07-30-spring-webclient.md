@@ -385,9 +385,9 @@ I hope you enjoyed this tutorial and got a clear picture of WebClient testing fo
 
 An additional aspect to explore is how to add layering, given that client registrations must be injected as controller parameters, to trigger the authorization flows when required. Keep learning about Reactive Applications with Spring Boot, and OAuth security, and check out the following links:
 
-- [How to Use Client Credentials Flow with Spring Security](https://developer.okta.com/blog/2021/05/05/client-credentials-spring-security)
-- [Reactive Java Microservices with Spring Boot and JHipster](https://developer.okta.com/blog/2021/01/20/reactive-java-microservices)
-- [Secure Reactive Microservices with Spring Cloud Gateway](https://developer.okta.com/blog/2019/08/28/reactive-microservices-spring-cloud-gateway)
+- [How to Use Client Credentials Flow with Spring Security](/blog/2021/05/05/client-credentials-spring-security)
+- [Reactive Java Microservices with Spring Boot and JHipster](/blog/2021/01/20/reactive-java-microservices)
+- [Secure Reactive Microservices with Spring Cloud Gateway](/blog/2019/08/28/reactive-microservices-spring-cloud-gateway)
 - [Spring Security - WebClient OAuth2 Setup](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#webclient-setup)
 - [Spring Framework - WebClient Testing](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-client-testing)
 - [Spring Security - @RegisteredOAuth2AuthorizedClient](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#webflux-roac)

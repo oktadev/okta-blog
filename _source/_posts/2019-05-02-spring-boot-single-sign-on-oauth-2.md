@@ -239,9 +239,9 @@ Why this dance? Your Spring Boot app never sees the credentials. Notice on step 
 
 To learn more about OAuth 2.0 and OIDC, check out these blog posts
 
-* [An OpenID Connect Primer](https://developer.okta.com/blog/2017/07/25/oidc-primer-part-1)
-* [A Quick Guide to OAuth 2.0 with Spring Security ](https://developer.okta.com/blog/2019/03/12/oauth2-spring-security-guide)
-* [Migrate Your Spring Boot App to the Latest and Greatest Spring Security and OAuth 2.0](https://developer.okta.com/blog/2019/03/05/spring-boot-migration)
+* [An OpenID Connect Primer](/blog/2017/07/25/oidc-primer-part-1)
+* [A Quick Guide to OAuth 2.0 with Spring Security ](/blog/2019/03/12/oauth2-spring-security-guide)
+* [Migrate Your Spring Boot App to the Latest and Greatest Spring Security and OAuth 2.0](/blog/2019/03/05/spring-boot-migration)
 
 ## Learn More About Secure Single Sign-on, OAuth 2.0, and Spring Boot
 
@@ -251,9 +251,9 @@ Along with our Spring Boot Starter, Okta's OpenID Connect service not only confo
 
 If you'd like to learn more about OAuth and Spring Boot you might be interested in these other posts:
 
-* [Secure Server-to-Server Communication with Spring Boot and OAuth 2.0](https://developer.okta.com/blog/2018/04/02/client-creds-with-spring-boot)
-* [OAuth 2.0 for Native and Mobile Apps ](https://developer.okta.com/blog/2018/12/13/oauth-2-for-native-and-mobile-apps)
-* [Is the OAuth 2.0 Implicit Flow Dead?](https://developer.okta.com/blog/2019/05/01/is-the-oauth-implicit-flow-dead)
+* [Secure Server-to-Server Communication with Spring Boot and OAuth 2.0](/blog/2018/04/02/client-creds-with-spring-boot)
+* [OAuth 2.0 for Native and Mobile Apps ](/blog/2018/12/13/oauth-2-for-native-and-mobile-apps)
+* [Is the OAuth 2.0 Implicit Flow Dead?](/blog/2019/05/01/is-the-oauth-implicit-flow-dead)
 
 
 Like what you learned today? Follow us on [Twitter](https://twitter.com/oktadev), and subscribe to our [YouTube channel](https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q) for more awesome content!

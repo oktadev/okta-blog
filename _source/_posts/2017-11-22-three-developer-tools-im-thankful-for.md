@@ -1,7 +1,5 @@
 ---
 disqus_thread_id: 6303038616
-discourse_topic_id: 16751
-discourse_comment_url: https://devforum.okta.com/t/16751
 layout: blog_post
 title: "Three Developer Tools I'm Thankful For"
 author: randall-degges

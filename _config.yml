@@ -72,6 +72,8 @@ assets:
   skip_prefix_with_cdn: false
   prefix: "/assets-jekyll"
   digest: true
+  sources:
+    - _assets/files
   features:
     liquid: false
     integrity: false

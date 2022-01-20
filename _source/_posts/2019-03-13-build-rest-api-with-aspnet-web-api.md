@@ -262,7 +262,7 @@ Here's how it works:
 2. When the client makes a request to your API, it sends along the access token in the authorization header.
 3. Your API validates the token. If the token is valid and contains the right permissions, your API allows the request to complete.
 
-(If this is all new to you, you can [learn more about OAuth here](https://developer.okta.com/blog/2017/06/21/what-the-heck-is-oauth).)
+(If this is all new to you, you can [learn more about OAuth here](/blog/2017/06/21/what-the-heck-is-oauth).)
 
 ## Register the Client Application for Your REST API
 

@@ -43,6 +43,12 @@ Let's get started!
 
 **Prerequisites:** [Java 11](https://adoptopenjdk.net)
 
+If you would rather follow along by watching a video, check out the screencast below from our [YouTube channel](https://www.youtube.com/watch?v=Zkcy0tlYJpI).
+
+<div style="text-align: center; margin-bottom: 1.25rem">
+<iframe width="800" height="450" style="max-width: 100%" src="https://www.youtube.com/embed/Zkcy0tlYJpI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
 ## Create a Spring Boot Project with R2DBC
 
 Click [this link](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.5.6&packaging=jar&jvmVersion=11&groupId=com.okta.dev&artifactId=okta-r2dbc&name=okta-r2dbc&description=Spring%20Boot%20App%20for%20Okta%20%2B%20R2DBC&packageName=com.okta.dev.oktar2dbc&dependencies=lombok,data-jpa,data-r2dbc,webflux,okta,h2) or go to [start.spring.io](https://start.spring.io) and select the following options in your browser:

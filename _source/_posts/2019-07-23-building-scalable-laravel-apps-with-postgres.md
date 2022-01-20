@@ -30,7 +30,7 @@ To complete this tutorial, you'll need to [register for a forever-free developer
 
 ## MySQL and PostgreSQL - Choose the Right Database for Your Project
 
-We just published [an overview on the tradeoffs between MySQL and PostgreSQL](https://developer.okta.com/blog/2019/07/19/mysql-vs-postgres) that covers many of the factors in choosing a database. Check it out for an in-depth review, but here are the highlights:
+We just published [an overview on the tradeoffs between MySQL and PostgreSQL](/blog/2019/07/19/mysql-vs-postgres) that covers many of the factors in choosing a database. Check it out for an in-depth review, but here are the highlights:
 
 * Performance - modern versions and engines have created performance parity between the two databases. Performance tradeoffs should not be a deciding factor for most applications.
 * Concurrency - PostgreSQL handles concurrency better than MySQL

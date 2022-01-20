@@ -960,13 +960,13 @@ You can try out the application by adding new records, updating, and deleting ex
 
 You can find the source code for complete application on GitHub: [https://github.com/oktadeveloper/okta-aspnet-webapi-vue-example](https://github.com/oktadeveloper/okta-aspnet-webapi-vue-example).
 
-This post was not-so-loosely based on [Build a Basic CRUD App with Vue.js and Node](https://developer.okta.com/blog/2018/02/15/build-crud-app-vuejs-node), which I would definitely recommend checking out if you're interested in learning more about Vue.js.
+This post was not-so-loosely based on [Build a Basic CRUD App with Vue.js and Node](/blog/2018/02/15/build-crud-app-vuejs-node), which I would definitely recommend checking out if you're interested in learning more about Vue.js.
 
  Here are some other great articles that can extend your knowledge of ASP.NET, Vue, and modern app development:
 
-* [The Ultimate Guide to Progressive Web Applications](https://developer.okta.com/blog/2017/07/20/the-ultimate-guide-to-progressive-web-applications)
-*[The Lazy Developer's Guide to Authentication with Vue.js](https://developer.okta.com/blog/2017/09/14/lazy-developers-guide-to-auth-with-vue)
-* [How to Secure Your .NET Web API with Token Authentication](https://developer.okta.com/blog/2018/02/01/secure-aspnetcore-webapi-token-auth)
+* [The Ultimate Guide to Progressive Web Applications](/blog/2017/07/20/the-ultimate-guide-to-progressive-web-applications)
+*[The Lazy Developer's Guide to Authentication with Vue.js](/blog/2017/09/14/lazy-developers-guide-to-auth-with-vue)
+* [How to Secure Your .NET Web API with Token Authentication](/blog/2018/02/01/secure-aspnetcore-webapi-token-auth)
 * [Use OpenID Connect for Authorization in Your ASP.NET MVC Framework 4.x App](https://okta.github.io/blog/2018/04/18/authorization-in-your-aspnet-mvc-4-application)
 
 And as always, we'd love to hear from you. Hit us up with questions or feedback in the comments, or on Twitter [@oktadev](https://twitter.com/oktadev).

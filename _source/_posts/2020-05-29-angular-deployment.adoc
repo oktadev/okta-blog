@@ -15,7 +15,11 @@ tweets:
 - "A Guide for deploying @angular and @springboot applications in 2020. 👇"
 image: blog/angular-deployment/angular-deployment.png
 type: conversion
+update-title: The Angular Mini-Book
+update-url: https://www.infoq.com/minibooks/angular-mini-book/
+update-extra: Its "Angular Deployment" chapter was inspired by this blog post.
 changelog:
+  - 2021-11-21: Added announcement about [The Angular Mini-Book](https://www.infoq.com/minibooks/angular-mini-book/). Its "Angular Deployment" chapter was inspired by this blog post.
   - 2020-06-18: Updated to Spring Boot 2.3.1, Angular 9.1.11, and the latest [Okta Heroku Add-on](https://elements.heroku.com/addons/okta). See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-angular-deployment-example/pull/2). Changes to this article can be viewed in [oktadeveloper/okta-blog#328](https://github.com/oktadeveloper/okta-blog/pull/328).
 ---
 :toc: macro

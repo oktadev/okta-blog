@@ -740,6 +740,6 @@ To learn more about OAuth 2.0 / OIDC, check out some of these in-depth posts:
 * [Using a Servlet/Shiro based application via Spring Cloud Gateway](https://github.com/bdemers/shiro-via-gateway)
 * [Get Started with Spring Boot, OAuth 2.0, and Okta](/blog/2017/03/21/spring-boot-oauth)
 * [Nimbus OAuth 2.0 SDK with OpenID Connect extensions](https://connect2id.com/products/nimbus-oauth-openid-connect-sdk)
-* [Simple Token Authentication for Java Apps](https://developer.okta.com/blog/2018/10/16/token-auth-for-java)
+* [Simple Token Authentication for Java Apps](/blog/2018/10/16/token-auth-for-java)
 
 Finally, if you're interested in more content like this, please be sure to [follow us on Twitter](https://twitter.com/oktadev) and subscribe to your [YouTube Channel](https://www.youtube.com/c/oktadev).

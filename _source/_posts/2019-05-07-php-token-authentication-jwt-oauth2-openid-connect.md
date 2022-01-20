@@ -43,7 +43,7 @@ The format of a JWT is: `header.payload.signature`
 
 The header component contains information about the signing method. The payload component is the information about the user (also known as the 'claims' of the JWT). The signature is computed by the authentication server using the shared secret or the private key.
 
-If you want to learn more about how to use JWTs securely, and how to build and verify them from scratch in PHP (without using any external libraries), you can check my previous article [Create and Verify JWTs in PHP with OAuth 2.0](https://developer.okta.com/blog/2019/02/04/create-and-verify-jwts-in-php)
+If you want to learn more about how to use JWTs securely, and how to build and verify them from scratch in PHP (without using any external libraries), you can check my previous article [Create and Verify JWTs in PHP with OAuth 2.0](/blog/2019/02/04/create-and-verify-jwts-in-php)
 
 ## Using JWTs with OAuth 2.0 and OpenID Connect in PHP
 

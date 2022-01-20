@@ -78,7 +78,7 @@ On the API Sample App's general settings, you will see the **Client Credentials*
 
 {% img blog/five-minutes-serverless-functions-azure/okta-app-created.png alt:"Okta Application created" width:"800" %}{: .center-image }
 
-For each client that you want to have access to the API, you'll need to create an Okta application for it and give it the Client ID and Client Secret. If you are interested in learning more about using ASP.NET Core with client credentials in Okta, check out [this post](https://developer.okta.com/blog/2018/02/01/secure-aspnetcore-webapi-token-auth) on the Okta developer blog.
+For each client that you want to have access to the API, you'll need to create an Okta application for it and give it the Client ID and Client Secret. If you are interested in learning more about using ASP.NET Core with client credentials in Okta, check out [this post](/blog/2018/02/01/secure-aspnetcore-webapi-token-auth) on the Okta developer blog.
 
 This is for use cases where Okta is the authorization server for your resource server. For example, an application or API that you have created (i.e. you want Okta to act as the user store for your application, but Okta is invisible to your users). This kind of authorization server is called a "Custom Authorization Server", and your full URL looks like this:
 
@@ -180,9 +180,9 @@ That's it! Pretty fast, and no IDE required.
 
 This post only scratches the surface of the awesome things you can do with serverless in .NET! Check out these other fantastic posts.
 
-* [How to Secure Your .NET Web API with Token Authentication](https://developer.okta.com/blog/2018/02/01/secure-aspnetcore-webapi-token-auth)
-* [Build a CRUD App with ASP.NET Framework 4.x Web API and Angular](https://developer.okta.com/blog/2018/07/27/build-crud-app-in-aspnet-framework-webapi-and-angular)
-* [Secure Your ASP.NET Web Forms Application with OpenID Connect and Okta](https://developer.okta.com/blog/2018/08/29/secure-webforms-with-openidconnect-okta)
-* [Use OpenID Connect for Authorization in Your ASP.NET MVC Framework 4.x App](https://developer.okta.com/blog/2018/04/18/authorization-in-your-aspnet-mvc-4-application)
+* [How to Secure Your .NET Web API with Token Authentication](/blog/2018/02/01/secure-aspnetcore-webapi-token-auth)
+* [Build a CRUD App with ASP.NET Framework 4.x Web API and Angular](/blog/2018/07/27/build-crud-app-in-aspnet-framework-webapi-and-angular)
+* [Secure Your ASP.NET Web Forms Application with OpenID Connect and Okta](/blog/2018/08/29/secure-webforms-with-openidconnect-okta)
+* [Use OpenID Connect for Authorization in Your ASP.NET MVC Framework 4.x App](/blog/2018/04/18/authorization-in-your-aspnet-mvc-4-application)
 
 You can find the complete project source code on [GitHub](https://github.com/Quorralyne/AzureFunctionPOSTTrigger).

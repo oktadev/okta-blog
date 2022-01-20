@@ -584,7 +584,7 @@ You should see the prompt to unlock Jenkins.
 	- `sudo service jenkins stop`
 	- `sudo service jenkins start`
 
-Now that you've installed Jenkins, we'll follow the instructions on [that page](https://www.scaleft.com/blog/leveraging-service-users-for-privileged-devops-automation/)—recap below.
+Now that you've installed Jenkins, let's configure an ASA service account so Jenkins can connect to remote servers and run commands.
 
 First, let's install the ASA client tool on the VM where Jenkins is running. Indeed, Jenkins will act as an SSH client that will connect to remote servers over SSH.
 
@@ -704,7 +704,7 @@ Congrats, your Jenkins instance is properly configured with an ASA service accou
 
 #### gcp-windows-target
 
-Let's enroll our Windows VM with ASA. We'll start with instructions on [this page](https://www.scaleft.com/docs/windows/)
+Let's enroll our Windows VM with ASA.
 
 - Go to your ASA admin console
 
@@ -855,10 +855,10 @@ PubkeyAcceptedKeyTypes ssh-rsa-cert-v01@openssh.com
 ```
 ## Automate ASA enrollment with existing CI/CD tools
 
-- Terraform: [Okta ASA Terraform Provider](https://registry.terraform.io/providers/oktadeveloper/oktaasa/latest/docs), [Tutorial](https://developer.okta.com/blog/2020/04/24/okta-terraform-automate-identity-and-infrastructure)
-- Ansible: [Tutorial](https://developer.okta.com/blog/2021/02/05/okta-ansible)
-- Puppet: [Tutorial](https://developer.okta.com/blog/2021/01/22/okta-puppet)
-- Chef: [Tutorial](https://developer.okta.com/blog/2021/02/10/okta-chef)
+- Terraform: [Okta ASA Terraform Provider](https://registry.terraform.io/providers/oktadeveloper/oktaasa/latest/docs), [Tutorial](/blog/2020/04/24/okta-terraform-automate-identity-and-infrastructure)
+- Ansible: [Tutorial](/blog/2021/02/05/okta-ansible)
+- Puppet: [Tutorial](/blog/2021/01/22/okta-puppet)
+- Chef: [Tutorial](/blog/2021/02/10/okta-chef)
 
 And... That's all! Have any questions? Please leave a comment below. Or, if
 you'd like to see more content like this, consider following us on

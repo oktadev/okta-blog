@@ -364,9 +364,9 @@ For the SPA app, you'll use the implicit flow for obtaining an ID Token. Here's 
 When you click the **Login** button in the app, you're redirected to Okta to authenticate. This has the advantage of your app not being responsible for handling credentials. Once you've authenticated at Okta, you're redirected back to the app with an ID Token. The ID Token is a cryptographically signed JSON Web Token ([JWT](https://tools.ietf.org/html/rfc7519)) that carries identity information in its payload. The app can then extract user information from the token. Additionally, the app uses Vuex to store the ID Token, which can be used later to log out.
 To learn more about OAuth 2.0 and OIDC, check out these blog posts:
 
-* [An OpenID Connect Primer](https://developer.okta.com/blog/2017/07/25/oidc-primer-part-1)
-* [7 Ways an OAuth Access Token is like a Hotel Key Card](https://developer.okta.com/blog/2019/06/05/seven-ways-an-oauth-access-token-is-like-a-hotel-key-card)
-* [Is the OAuth 2.0 Implicit Flow Dead?](https://developer.okta.com/blog/2019/05/01/is-the-oauth-implicit-flow-dead)
+* [An OpenID Connect Primer](/blog/2017/07/25/oidc-primer-part-1)
+* [7 Ways an OAuth Access Token is like a Hotel Key Card](/blog/2019/06/05/seven-ways-an-oauth-access-token-is-like-a-hotel-key-card)
+* [Is the OAuth 2.0 Implicit Flow Dead?](/blog/2019/05/01/is-the-oauth-implicit-flow-dead)
 
 > **Note:** In cases where you are using OpenID Connect to interact with an API, you'd also want to get back an access token. For these use cases, you would *not* want to use the implicit flow, but rather the [authorization code wtih PKCE](https://developer.okta.com/docs/concepts/auth-overview/#authorization-code-with-pkce-flow) flow.
 
@@ -539,7 +539,7 @@ This closes the loop on our SPA app, its use of the okta-auth-js library in conj
 
 ## Pick the Optimal Vue.js Data Binding Approach
 
-All the code for this post can be found on [Github](https://github.com/oktadeveloper/okta-vuejs-data-binding-example).
+All the code for this post can be found on [GitHub](https://github.com/oktadeveloper/okta-vuejs-data-binding-example).
 
 In the simplest cases, a global data store may suit your needs. Even for more complex applications, the storage pattern may suffice. I've written a number of Vue.js applications that are in production that use the storage pattern. This includes the online version of the [Zork game](https://developer.okta.com/ozork-auth) that teaches you a little about OAuth 2.0.
 
@@ -555,9 +555,9 @@ At Okta, we say: friends don't let friends build auth! If you're working on a pr
 
 Here are some more Vue.js posts that might interest you:
 
-* [Build Your First PWA with Vue and TypeScript](https://developer.okta.com/blog/2019/05/30/vue-pwa-typescript)
-* [Use Schematics with Vue and Add Authentication in 5 Minutes](https://developer.okta.com/blog/2019/05/21/vue-schematics)
-* [Build a Single-Page App with Go and Vue](https://developer.okta.com/blog/2018/10/23/build-a-single-page-app-with-go-and-vue)
+* [Build Your First PWA with Vue and TypeScript](/blog/2019/05/30/vue-pwa-typescript)
+* [Use Schematics with Vue and Add Authentication in 5 Minutes](/blog/2019/05/21/vue-schematics)
+* [Build a Single-Page App with Go and Vue](/blog/2018/10/23/build-a-single-page-app-with-go-and-vue)
 Check out the [Okta Developer YouTube](https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q/videos) channel.
 
 You can follow us on social [@oktadev](https://twitter.com/oktadev)

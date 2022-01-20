@@ -17,7 +17,7 @@ image: blog/featured/okta-dotnet-mouse-down.jpg
 type: conversion
 ---
 
-Google's recent approach to SameSite cookie attributes caused a bit of confusion among developers. Especially in cases where handling redirects is necessary. After doing some research in the topic I'd like this article to be a guide on how to handle SameSite cookie attributes properly in production. This guide can serve as the basis for deploying an application to any Linux based environment—such as [AWS Elastic Beanstalk](https://aws.amazon.com/elasticbeanstalk), [Google Cloud App Engine](https://cloud.google.com/appengine)—or any VPS Linux deployment. Also I created a sample application to demonstrate redirect handling with the Okta login flow. I won't discuss the topic of [containerization](https://developer.okta.com/blog/2019/09/18/build-a-simple-dotnet-core-app-in-docker) as a possible solution, as we have resources available that give a great overview.
+Google's recent approach to SameSite cookie attributes caused a bit of confusion among developers. Especially in cases where handling redirects is necessary. After doing some research in the topic I'd like this article to be a guide on how to handle SameSite cookie attributes properly in production. This guide can serve as the basis for deploying an application to any Linux based environment—such as [AWS Elastic Beanstalk](https://aws.amazon.com/elasticbeanstalk), [Google Cloud App Engine](https://cloud.google.com/appengine)—or any VPS Linux deployment. Also I created a sample application to demonstrate redirect handling with the Okta login flow. I won't discuss the topic of [containerization](/blog/2019/09/18/build-a-simple-dotnet-core-app-in-docker) as a possible solution, as we have resources available that give a great overview.
 
 ## What is Okta?
 
@@ -268,13 +268,13 @@ To make sure [Okta redirect flows](https://developer.okta.com/docs/concepts/okta
 - The Linux server needs to handle HTTPS requests properly to support Okta redirect flows.
 - Setting the  Nginx buffer size is critical to allocate enough buffer size to read response headers.
 
-You can find this project code on [Github](https://github.com/oktadeveloper/okta-netcore3-deploy-samesite-example).
+You can find this project code on [GitHub](https://github.com/oktadeveloper/okta-netcore3-deploy-samesite-example).
 
 ## Learn More About SameSite and .NET Core Apps on Linux
 
-- [Install .NET Core Apps on Linux in 5 Minutes](https://developer.okta.com/blog/2020/11/25/how-to-install-dotnetcore-on-linux)
-- [How to Deploy Your .NET Core App to Google Cloud, AWS or Azure](https://developer.okta.com/blog/2020/12/09/dotnet-cloud-host-publish)
-- [How to Adapt Your .NET App for SameSite](https://developer.okta.com/blog/2020/09/28/adapt-dotnet-app-for-samesite-fix)
+- [Install .NET Core Apps on Linux in 5 Minutes](/blog/2020/11/25/how-to-install-dotnetcore-on-linux)
+- [How to Deploy Your .NET Core App to Google Cloud, AWS or Azure](/blog/2020/12/09/dotnet-cloud-host-publish)
+- [How to Adapt Your .NET App for SameSite](/blog/2020/09/28/adapt-dotnet-app-for-samesite-fix)
 - [Host ASP.NET Core on Linux with Nginx](https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-nginx?view=aspnetcore-3.1)
 - [Performance Profiling of .NET Core 3 applications on Linux with dotnet-trace and PerfView](https://michaelscodingspot.com/dotnet-trace)
 
