@@ -547,7 +547,7 @@ Note how `mockUseAuth` uses [currying](https://javascript.info/currying-partials
 
 {% img blog/react-storybook/react-storybook-application-page.jpg alt:"Testing the application page with Storybook" width:"800" %}{: .center-image }
 
-# Adding authentication with Okta to the application
+## Adding authentication with Okta to the application
 
 You have created a page that uses an `useAuth` hook to manage user authentication. For the Storybook stories, you made a mock implementation of this hook. This section will show you how to implement the hook using Okta's authentication service. First, register the application with Okta.
 
