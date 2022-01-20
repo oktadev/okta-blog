@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7525810557
+discourse_topic_id: 17091
+discourse_comment_url: https://devforum.okta.com/t/17091
 layout: blog_post
 title: "10 Myths About Java in 2019"
 author: matt-raible

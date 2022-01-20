@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6674566796
+discourse_topic_id: 16870
+discourse_comment_url: https://devforum.okta.com/t/16870
 layout: blog_post
 title: "Multi-Factor Authentication: 4 Challenges Faced by Developers"
 author: micah-silverman
@@ -136,5 +139,5 @@ Happily, multi-factor authentication is at the very core of Okta's business: pro
 
 To learn more about MFA with Okta, check out these resources:
 * [Our MFA product documentation](https://developer.okta.com/use_cases/mfa/)
-* [Set Up and Enforce Multi-Factor Authentication with the Okta API](https://developer.okta.com/blog/2018/02/08/set-up-and-enforce-multi-factor-auth-with-okta)
+* [Set Up and Enforce Multi-Factor Authentication with the Okta API](/blog/2018/02/08/set-up-and-enforce-multi-factor-auth-with-okta)
 * [Biometrics for Authentication: The Risks and Potential Rewards](https://www.okta.com/security-blog/2018/05/biometrics-for-authentication-the-risks-and-potential-rewards/)

@@ -1,8 +1,12 @@
 ---
+disqus_thread_id: 6300228558
+discourse_topic_id: 16753
+discourse_comment_url: https://devforum.okta.com/t/16753
 layout: blog_post
 title: 'OpenID Connect for User Authentication in ASP.NET Core'
 author: lee-brandt
 by: advocate
+description: "OpenID Connect is a protocol for authenticating users. Learn how to use it for user authentication with ASP.NET Core in this quick tutorial."
 communities: [.net, security]
 tags: [net, oidc, authentication, user, auth]
 type: conversion
@@ -13,7 +17,7 @@ In the age of the "personalized web experience", authentication and user managem
 [OpenID Connect](http://openid.net/connect/) is a protocol for authenticating users. It is a specification by the OpenID Foundation describing the best way for the authentication "handshake" to happen. It lays out what an Identity Provider needs to provide in order to be considered "OpenID Connect Certified" which makes it easier than ever to consume authentication as a service.
 
 ## Why Not Use OAuth 2.0?
-First, [OAuth 2.0 is NOT an authentication protocol](https://developer.okta.com/blog/2017/06/21/what-the-heck-is-oauth). I know what you're thinking: "What?!!?" But it's not. It *is* an delegated authorization framework, which many modern authentication protocols are built on.
+First, [OAuth 2.0 is NOT an authentication protocol](/blog/2017/06/21/what-the-heck-is-oauth). I know what you're thinking: "What?!!?" But it's not. It *is* an delegated authorization framework, which many modern authentication protocols are built on.
 
 Second, while OAuth 2.0 does a great job of providing the necessary information for consumers to make authorization decisions, it says nothing about how that information will be exchanged securely. This has led to every authentication provider having their own way of exchanging the OAuth 2.0 information, which has led to a few well-publicized hacks. OpenID Connect fixes these problems by providing an authentication protocol that describes exactly how the exchange of authorization information happens between a subscriber and their provider.
 
@@ -27,7 +31,7 @@ First, get the [dotnet command-line program](https://dot.net/core). Once you hav
 In just a few seconds you'll have a simple ASP.NET Core app ready to go. You may need to run a `dotnet restore` command to install the dependencies for the base application.
 
 ## Add an Identity Provider
-Now you need an Identity Provider. For this tutorial you'll  use [Okta](https://developer.okta.com). Once you've created an account and logged in, click *Admin* on the top menu.
+Now you need an Identity Provider. For this tutorial you'll use [Okta](https://developer.okta.com). Once you've created an account and logged in, click *Admin* on the top menu.
 
 {% img blog/aspnet-oidc/admin_button.png alt:"Admin Button" width:"300" %}
 

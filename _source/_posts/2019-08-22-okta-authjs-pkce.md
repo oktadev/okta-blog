@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7599574918
+discourse_topic_id: 17124
+discourse_comment_url: https://devforum.okta.com/t/17124
 layout: blog_post
 title: "Implement the OAuth 2.0 Authorization Code with PKCE Flow"
 author: micah-silverman
@@ -11,7 +14,7 @@ tweets:
 - "Implement the OAuth 2.0 Authorization Code with PKCE flow with JavaScript and Okta"
 - "Say goodbye to Implicit and hello to PKCE for SPAs using OAuth 2.0"
 image: blog/featured/okta-vue-tile-books-mouse.jpg
-type: awareness
+type: conversion
 ---
 
 Imagine two levers that are inversely connected. That is, as one goes up, the other goes down. One lever is User Experience and the other is Security. It's not a perfect analogy, but most developers can attest that as user experience goes up, security goes down.
@@ -94,24 +97,9 @@ First, let's get an OpenID Connect application setup in Okta.
 
 ## Create an OIDC Application on Okta
 
-Before you can run the code, you need to create an OIDC application on Okta. If you don't have an Okta developer account, create one at [developer.okta.com/signup](https://developer.okta.com/signup).
+{% include setup/cli.md type="spa" framework="Vue" loginRedirectUri="http://localhost:8080/callback" %}
 
-From your Okta admin console, in the top menu, click on **Applications**.
-
-{% img blog/okta-authjs-pkce/okta-applications.png alt:"Add OIDC Application" width:"800" %}{: .center-image }
-
-_If you've never logged into your account before, you may need to click the **Admin** button to get to the developer dashboard._
-
-- Click the green **Add Application** button
-- Select **Single-Page App** application, and click **Next**
-- Give the app a **Name**. Any name. I used `My SPA`.
-- Change the value for **Login redirect URIs**  to `http://localhost:8080/callback`
-- Check **Authorization Code** (and leave **Implicit** clicked)
-- Click **Done**
-
-{% img blog/okta-authjs-pkce/oidc-app-settings.png alt:"OIDC Application" width:"600" %}{: .center-image }
-
-Take note of the **Client ID** at the bottom of the page. You'll need these in the next section.
+Run `okta login` and open the resulting URL in your browser. Go to the **Applications** section and select the application you just created. Edit its General Settings and add **Implicit (Hybrid)** as an allowed grant type, with access token enabled. Click **Save** and copy the client ID for the next step.
 
 > **NOTE:** The demo app uses _both_ the Implicit flow and the Authorization Code with PKCE flow for demonstration purposes. For your production app, you would uncheck the **Implicit** checkbox and check the **Authorization Code** checkbox.
 

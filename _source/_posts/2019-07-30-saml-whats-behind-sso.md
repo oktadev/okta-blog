@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7561598839
+discourse_topic_id: 17104
+discourse_comment_url: https://devforum.okta.com/t/17104
 layout: blog_post
 title: "SAML: What's Behind SSO"
 author: joel-franusic

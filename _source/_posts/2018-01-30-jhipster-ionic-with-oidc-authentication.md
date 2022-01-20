@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6447834164
+discourse_topic_id: 16820
+discourse_comment_url: https://devforum.okta.com/t/16820
 layout: blog_post
 title: "Use Ionic for JHipster to Create Mobile Apps with OIDC Authentication"
 author: matt-raible
@@ -11,6 +14,8 @@ tweets:
 - "Did you know that the team behind @oktadev developed and maintains an Ionic Module for JHipster? It's pretty sweet. This blog post shows you how to use it to generate a mobile app. "
 - "Just when you thought @java_hipster couldn't get any better, we released an @ionicframework module that allows generating a hybrid mobile app! You should try it; it'll be fun! 😋 "
 type: conversion
+update-url: /blog/2019/06/24/ionic-4-angular-spring-boot-jhipster
+update-title: "Build Mobile Apps with Angular, Ionic 4, and Spring Boot"
 ---
 
 We 💙 Ionic, JHipster, and Java here at Okta. Ionic is a framework for building native mobile apps using web technologies. Technically, this is called a "hybrid" app because it's not using native SDKs. Hybrid mobile apps are distributed just like native apps: they can be installed on mobile devices, and they're listed in app stores. As an end user, there's a good chance you can't tell the difference between a hybrid mobile app and a native mobile app.

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7540258597
+discourse_topic_id: 17095
+discourse_comment_url: https://devforum.okta.com/t/17095
 layout: blog_post
 title: "Container Security: A Developer Guide"
 author: vishal-rohilla

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6464357169
+discourse_topic_id: 16827
+discourse_comment_url: https://devforum.okta.com/t/16827
 layout: blog_post
 title: "Secure a Spring Microservices Architecture with Spring Security and OAuth 2.0"
 author: matt-raible
@@ -12,6 +15,11 @@ tweets:
 - "Spring Boot Microservices + @SpringSecurity + @oauth_2 + @okta = 😀!"
 image: blog/featured/okta-java-bottle-headphones.jpg
 type: conversion
+update-url: /blog/2019/05/22/java-microservices-spring-boot-spring-cloud
+update-title: "Java Microservices with Spring Boot and Spring Cloud"
+changelog:
+  - 2018-10-11: Updated to use Spring Boot 2.0.5, Spring Cloud Finchley SR1, and Okta Sign-In Widget 2.13.0. See the example app changes in [spring-boot-microservices-example#21](https://github.com/oktadeveloper/spring-boot-microservices-example/pull/21); changes to this post can be viewed in [okta.github.io#2390](https://github.com/oktadeveloper/okta.github.io/pull/2390).
+  - 2018-05-11: Updated to use Spring Boot 2.0 and Okta Sign-In Widget 2.0.8. See the example app changes in [spring-boot-microservices-example#17](https://github.com/oktadeveloper/spring-boot-microservices-example/pull/17); changes to this post can be viewed in [okta.github.io#2049](https://github.com/oktadeveloper/okta.github.io/pull/2049).
 ---
 
 Building a microservices architecture with Spring Boot and Spring Cloud can allow your team to scale and develop software faster. It can add resilience and elasticity to your architecture that will enable it to fail gracefully and scale infinitely. All this is great, but you need continuous deployment and excellent security to ensure your system stays up-to-date, healthy, and safe for years to come.
@@ -753,8 +761,3 @@ Also, JHipster uses this same setup with its [OAuth support](http://www.jhipster
 * [Build a Mobile App with React Native and Spring Boot](/blog/2018/10/10/react-native-spring-boot-mobile-app)
 
 Learn more about Okta and its APIs at [developer.okta.com/product](https://developer.okta.com/product/). If you have questions about this tutorial, please leave a comment below or hit me up on Twitter [@mraible](https://twitter.com/mraible).
-
-**Changelog:**
-
-* Oct 11, 2018: Updated to use Spring Boot 2.0.5, Spring Cloud Finchley SR1, and Okta Sign-In Widget 2.13.0. See the example app changes in [spring-boot-microservices-example#21](https://github.com/oktadeveloper/spring-boot-microservices-example/pull/21); changes to this post can be viewed in [okta.github.io#2390](https://github.com/oktadeveloper/okta.github.io/pull/2390).
-* May 11, 2018: Updated to use Spring Boot 2.0 and Okta Sign-In Widget 2.0.8. See the example app changes in [spring-boot-microservices-example#17](https://github.com/oktadeveloper/spring-boot-microservices-example/pull/17); changes to this post can be viewed in [okta.github.io#2049](https://github.com/oktadeveloper/okta.github.io/pull/2049).

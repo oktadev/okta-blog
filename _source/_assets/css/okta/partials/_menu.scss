@@ -1,0 +1,136 @@
+.menu {
+  margin: 0;
+  padding: 0;
+
+  .external-links {
+    .menu-item {
+      padding: 0;
+      margin: 0 0 0 25px;
+      position: relative;
+
+      @include media('<medium') {
+        padding: 0;
+      }
+
+      &:last-of-type {
+        padding-right: 0;
+      }
+
+      &.active {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .external-links .menu-item, .external-link {
+    svg {
+      margin-left: 4px;
+      width: 12px;
+      height: 12px;
+    }
+  }
+
+  .menu-item {
+    padding: 0;
+    margin: 0 30px 0 0;
+    position: relative;
+
+    &.SearchBar {
+      padding: 0;
+    }
+
+    &.has-children {
+      @include media('>=medium') {
+        .fa-angle-down {
+          margin-left: 3px;
+          transition: all 200ms ease-in-out;
+          font-weight: bold;
+        }
+
+        &:hover {
+          .fa-angle-down {
+            transform: rotate(180deg);
+          }
+
+          .sub-menu {
+            opacity: 1;
+            visibility: visible;
+          }
+        }
+      }
+    }
+  }
+
+  .sub-menu {
+    @include media('>=medium') {
+      left: 50%;
+      top: 15px;
+      opacity: 0;
+      padding: 10px 0;
+      min-width: 120px;
+      border-radius: 4px;
+      position: absolute;
+      visibility: hidden;
+      transform: translateX(-50%);
+      background: get-color('white');
+      transition: all 200ms ease-in-out;
+      box-shadow: rgba(get-color('black'), 0.3) 0 2px 10px;
+    
+      &:before {
+        content: '';
+        left: 50%;
+        top: -10px;
+        display: block;
+        position: absolute;
+        transform: translateX(-50%);
+        border-left: solid 20px transparent;
+        border-right: solid 20px transparent;
+        border-bottom: solid 20px get-color('white');
+      }
+    }
+
+    .menu-item {
+      padding: 0 15px;
+      margin: 0;
+      line-height: 28px;
+      @include media('<medium') {
+        padding: 0;
+        line-height: inherit;
+      }
+
+      &.active .nav-link {
+        text-decoration: underline;
+      }
+    }
+
+    .nav-link {
+      color: get-color('black');
+    }
+  }
+
+  .social-links {
+    margin-top: 5px;
+    padding: 10px 0 5px;
+    line-height: initial;
+    border-top: 2px solid get-color('black');
+
+    @include media('<medium') {
+      border-top: none;
+      flex-direction: row !important;
+      justify-content: flex-start;
+    }
+
+    .social {
+      @include media('<medium') {
+        margin-right: 10px;
+      }
+      svg {
+        width: 20px;
+
+        path {
+          fill: get-color('black');
+        }
+      }
+    }
+  }
+}

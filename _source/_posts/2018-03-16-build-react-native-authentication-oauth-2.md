@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6624935839
+discourse_topic_id: 16842
+discourse_comment_url: https://devforum.okta.com/t/16842
 layout: blog_post
 title: 'Build a React Native Application and Authenticate with OAuth 2.0'
 author: matt-raible
@@ -14,6 +17,11 @@ type: conversion
 redirect_from:
   - "/blog/2018/03/16/build-react-native-authentication-oauth-2.0"
 image: blog/react-native-app-auth/appauth-rules.png
+update-url: /blog/2019/11/14/react-native-login
+update-title: "Create a React Native App with Login in 10 Minutes"
+changelog:
+  - 2019-05-01: Updated paths to components and assets in Formidable Labs' GitHub repo. See [okta.github.io#2860](https://github.com/oktadeveloper/okta.github.io/pull/2860) for more information.
+  - 2018-09-28: Upgraded to React Native 0.57.1, React 16.5.0, and React Native AppAuth 3.1.0. See the example app changes in [okta-react-native-app-auth-example#2](https://github.com/oktadeveloper/okta-react-native-app-auth-example/pull/2); changes to this post can be viewed in [okta.github.io#2367](https://github.com/oktadeveloper/okta.github.io/pull/2367).
 ---
 
 With Okta and OpenID Connect (OIDC) you can easily integrate authentication into a React Native application and never have to build it yourself again. OIDC allows you to authenticate directly against the [Okta API](https://developer.okta.com/product/), and this article shows you how to do just that in a React Native application. Today you'll see how to log a user into your React Native application using an OIDC redirect via the AppAuth library.
@@ -592,8 +600,3 @@ If you're interested in seeing how to do regular React development with Okta, I 
 * [Build a Basic CRUD App with Node and React](/blog/2018/07/10/build-a-basic-crud-app-with-node-and-react)
 
 If you have any questions about this article, please hit me up on Twitter [@mraible](https://twitter.com/mraible) or leave a comment below. Don't forget to follow [@oktadev](http://twitter.com/oktadev) too!
-
-**Changelog:**
-
-* May 1, 2019: Updated paths to components and assets in Formidable Labs' GitHub repo. See [okta.github.io#2860](https://github.com/oktadeveloper/okta.github.io/pull/2860) for more information.
-* Sep 28, 2018: Upgraded to React Native 0.57.1, React 16.5.0, and React Native AppAuth 3.1.0. See the example app changes in [okta-react-native-app-auth-example#2](https://github.com/oktadeveloper/okta-react-native-app-auth-example/pull/2); changes to this post can be viewed in [okta.github.io#2367](https://github.com/oktadeveloper/okta.github.io/pull/2367).

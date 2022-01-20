@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7690541883
+discourse_topic_id: 17159
+discourse_comment_url: https://devforum.okta.com/t/17159
 layout: blog_post
 title: "Get Familiar with Android and Gradle"
 author: mikel-pascual
@@ -28,6 +31,10 @@ In true Android fashion, you can configure most aspects of Gradle's behavior by 
 
 This article will introduce you to the essential aspects of what Gradle does and how you can configure it I'll also introduce you to a couple more advanced Gradle concepts.
 
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+
 Your App will also use Okta to safely and easily authenticate users, so you can focus on your business while Okta gives you the security you need, plus services like:
 
 * User [Authentication](https://developer.okta.com/product/authentication/) and [Authorization](https://developer.okta.com/product/authorization/)
@@ -52,35 +59,33 @@ git clone https://github.com/okta/okta-oidc-android
 cd okta-oidc-android
 ```
 
-Next:
+{% include setup/cli.md type="native" loginRedirectUri="com.okta.dev-133337:/callback" logoutRedirectUri="com.okta.dev-133337:/logout" %}
 
-1. Sign up for a free [Okta developer account](https://developer.okta.com/signup/)
-2. Create a new **Application** for **Native Android**
-3. Create a *config.json* file similar to this one in the *app* module's `/app/res/raw` folder:
+Create a *config.json* file similar to this one in the *app* module's `/app/res/raw` folder:
 
-    ```json
-    {
-    "client_id": "{clientId}",
-    "redirect_uri": "{redirectUri}",
-    "end_session_redirect_uri": "{endSessionUri}",
-    "scopes": [
-        "openid",
-        "profile",
-        "offline_access"
-    ],
-    "discovery_uri": "https://{yourOktaDomain}"
-    }
-    ```
+```json
+{
+  "client_id": "{clientId}",
+  "redirect_uri": "{yourReversedOktaDomain}:/callback",
+  "end_session_redirect_uri": "{yourReversedOktaDomain}:/logout",
+  "scopes": [
+    "openid",
+    "profile",
+    "offline_access"
+  ],
+  "discovery_uri": "https://{yourOktaDomain}/oauth2/default"
+}
+```
 
-4. Set a *URI Scheme* unique to your app in the *app* module's `/app/build.gradle`:
+Set a *URI Scheme* unique to your app in the *app* module's `/app/build.gradle`:
 
-    ```groovy
-    android.defaultConfig.manifestPlaceholders = [
-        "appAuthRedirectScheme": "com.okta.example"
-    ]
-    ```
+```groovy
+android.defaultConfig.manifestPlaceholders = [
+    "appAuthRedirectScheme": "{yourReversedOktaDomain}"
+]
+```
 
-5. Add your Org URL (found in the upper right of the console home page) to your /local.properties file at the root of the project:
+Add your Okta domain to your `/local.properties` file at the root of the project:
 
 ```properties
 authn.orgUrl="https://dev-######.okta.com"
@@ -386,10 +391,10 @@ Even further, the Android documentation is full of more advanced topics to impro
 
 Keep learning about Android and how to easily secure your apps with our extensive set of [developer guides](https://developer.okta.com/docs/guides/), our documentation for [Identity Management in Android](https://developer.okta.com/code/android/), and these additional resources:
 
-* [Build a Basic CRUD App in Android with Kotlin](https://developer.okta.com/blog/2018/09/11/android-kotlin-crud)
-* [Build a One-time Password Token for MFA with Okta](https://developer.okta.com/blog/2018/08/30/build-one-time-password-token-for-mfa)
+* [Build a Basic CRUD App in Android with Kotlin](/blog/2018/09/11/android-kotlin-crud)
+* [Build a One-time Password Token for MFA with Okta](/blog/2018/08/30/build-one-time-password-token-for-mfa)
 * [Android Unit Testing Part I: What Makes Strong Test Automation](https://www.okta.com/blog/2015/01/android-unit-testing-part-i-what-makes-strong-test-automation/)
-* [Android Unit Testing Part II: Escaping Dalvik's Hold](https://developer.okta.com/blog/2015/04/07/android-unit-testing-part-2)
-* [Android Unit Testing Part III: Disintegration](https://developer.okta.com/blog/2015/04/14/android-unit-testing-part-3)
+* [Android Unit Testing Part II: Escaping Dalvik's Hold](/blog/2015/04/07/android-unit-testing-part-2)
+* [Android Unit Testing Part III: Disintegration](/blog/2015/04/14/android-unit-testing-part-3)
 
 Feel free to leave comments below. To make sure you stay up to date with our latest developer guides and tips, follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube Channel](https://www.youtube.com/c/oktadev)!

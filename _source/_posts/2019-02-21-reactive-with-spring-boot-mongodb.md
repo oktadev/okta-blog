@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7246802162
+discourse_topic_id: 17003
+discourse_comment_url: https://devforum.okta.com/t/17003
 layout: blog_post
 title: "Build a Reactive App with Spring Boot and MongoDB"
 author: andrew-hughes
@@ -262,23 +265,11 @@ And if you repeat the GET request, `http :8080/kayaks`, you'll see the new kayak
 
 ## Set Up Secure Authentication
 
-Now you need to integrate Okta for OAuth 2.0 and add token-based authentication to the resource server. **This section is exactly the same as the section in Part 1 of this tutorial,** so if you've already done that, all you need is your Client ID, and you can skip forward to to the next section.
+Now you need to integrate Okta for OAuth 2.0 and add token-based authentication to the resource server. **This section is exactly the same as the section in Part 1 of this tutorial,** so if you've already done that, all you need is your Client ID, and you can skip forward to the next section.
 
-If you haven't already, head over to [developer.okta.com](http://developer.okta.com/signup/) and sign up for a free account. Once you have an account, open the developer dashboard and create an OpenID Connect (OIDC) application by clicking on the **Application** top-menu item, and then on the **Add Application** button.
-
-{% img blog/spring-boot-mongodb/create-new-application.png alt:"Create new application" width:"800" %}{: .center-image }
-
-Select **Single-Page App**.
-
-{% img blog/spring-boot-mongodb/select-spa.png alt:"Select SPA Application" width:"700" %}{: .center-image }
-
-The default application settings are great, except that you need to add a **Login Redirect URI**: `https://oidcdebugger.com/debug`. You're going to use this in a moment to retrieve a test token.
+{% include setup/cli.md type="spa" loginRedirectUri="https://oidcdebugger.com/debug" logoutRedirectUri="https://oidcdebugger.com" %}
 
 **NOTE**: If you're implementing a front end like Angular or React, you may need to update the default login redirect URI depending on the platform you're using. Because this tutorial is only creating a resource server without a front end, it doesn't really matter for the moment. All our resource server will be doing is validating the JSON web token with the authorization server, which doesn't require a redirect.
-
-Also, note your **Client ID**, as you'll need that in a moment.
-
-{% img blog/spring-boot-mongodb/spa-with-client-id.png alt:"SPA with Client ID" width:"700" %}{: .center-image }
 
 ## Configure Your Spring Boot Server for Token Authentication
 
@@ -294,7 +285,7 @@ dependencies {
 }
 ```
 
-Create a new configuration file called `src/main/resources/application.yml`
+Create a new configuration file called `src/main/resources/application.yml`:
 
 ```yaml
 okta:
@@ -350,20 +341,13 @@ Content-Type: application/json;charset=UTF-8
 
 ## Generate an Access Token
 
-To access the server now, you need a valid access token. You can use **OpenID Connect debugger** to help you do this. In another window, open [oidcdebugger.com](https://oidcdebugger.com/).
+To access the server now, you need a valid access token. You can use **OpenID Connect debugger** to help you do this. 
 
-* **Authorize URI**: `https://{yourOktaDomain}/oauth2/default/v1/authorize`
-* **Redirect URI**: do not change. This is the value you added to your OIDC application above.
-* **Client ID**: from the OIDC application you just created.
-* **Scope**: `openid profile email`.
-* **State**: any value you want to pass through the OAuth redirect process. I set it to `{}`.
-* **Nonce**: can be left alone. Nonce means "number used once" and is a simple security measure used to prevent the same request being used multiple times.
-* **Response Type**: `token`.
-* **Response mode**: `form_post`.
+{% include setup/oidcdebugger.md %}
 
 {% img blog/spring-boot-mongodb/oidc-debugger.png alt:"OIDC Debugger" width:"600" %}{: .center-image }
 
-Click **Send Request**. If you are not logged into developer.okta.com, then you'll be required to log in. If you are (as is likely) already logged in, then the token will be generated for your signed-in identity.
+Click **Send Request**. If you are not logged into your Okta org, then you'll be required to log in. If you are (as is likely) already logged in, then the token will be generated for your signed-in identity.
 
 {% img blog/spring-boot-mongodb/access-token.png alt:"Access Token from OIDC Debugger" width:"600" %}{: .center-image }
 
@@ -387,9 +371,13 @@ http :8080/kayaks "Authorization: Bearer $TOKEN"
 
 Now you're going to make the authorization scheme a little more refined by adding the ability to control access to specific controller endpoints based on Group membership. 
 
-To use group-based authorization with Okta, you need to add a "groups" claim to your access token. Create an `Admin` group (**Users** > **Groups** > **Add Group**) and add your user to it. You can use the account you signed up with, or create a new user (**Users** > **Add Person**). Navigate to **API** > **Authorization Servers**, click the **Authorization Servers** tab and edit the default one. Click the **Claims** tab and **Add Claim**. Name it "groups", and include it in the access token. Set the value type to "Groups" and set the filter to be a Regex of `.*`.
+To use group-based authorization with Okta, you need to add a "groups" claim to your access token. Run `okta login` and open the returned URL in a browser. Sign in to the Okta Admin Console.
 
-The **groups** claim carries the groups to which the user is assigned. The default user you're using to sign into the developer.okta.com website will also be a member of both the "Everyone" group and the "Admin" group.
+Create an `Admin` group (**Directory** > **Groups** > **Add Group**) and add your user to it. You can use the account you signed up with, or create a new user (**People** > **Add Person**). 
+
+Navigate to **Security** > **API** > **Authorization Servers**, click the **Authorization Servers** tab and edit the default one. Click the **Claims** tab and **Add Claim**. Name it "groups", and include it in the access token. Set the value type to "Groups" and set the filter to be a Regex of `.*`.
+
+The **groups** claim carries the groups to which the user is assigned. The default user you're using to sign in to your Okta org website will also be a member of both the "Everyone" group, and the "Admin" group.
 
 The `SecurityConfiguration` class also needs to be updated to use group-based authorization. Update the Java file to match the following:
 
@@ -436,9 +424,7 @@ You might be wondering why it says `hasAuthority()` instead of `hasRole()` or `h
 
 ## Create a Non-Admin User
 
-To test your group-based authorization scheme, you need a user that isn't an admin. Go to the [developer.okta.com](https://developer.okta.com) dashboard.
-
-From the top-menu, select **Users** > **People**. Click the **Add Person** button.
+To test your group-based authorization scheme, you need a user that isn't an admin. In the Okta Admin Console, select **Directory** > **People**. Click the **Add Person** button.
 
 Give the user a **First Name**, **Last Name**, and **Username** (which will also be the **Primary Email**). The values do not matter, and you won't need to be able to check the email. You simply need to know the email address/username and password so you can log in to  Okta in a minute.
 
@@ -452,13 +438,13 @@ You've just created a user that is NOT a member of the *Admin* group but is a me
 
 ## Test Group-Based Authorization
 
-Log out of your Okta developer dashboard.
+Log out of the Okta Admin Console.
 
 Return to the [OIDC Debugger](https://oidcdebugger.com) and generate a new token.
 
 This time, log in as your new non-admin user. You'll be asked to choose a security question, after which you'll be redirected to the https://oidcdebugger.com/debug page where your token can be copied.
 
-If you like, you can go to [jsonwebtoken.io](https://www.jsonwebtoken.io/) and decode your new token. In the payload, the *sub* claim will show the email/username of the user, and the *groups* claim will show only the *Everyone* group.
+If you like, you can go to [token.dev](https://token.dev/) and decode your new token. In the payload, the *sub* claim will show the email/username of the user, and the *groups* claim will show only the *Everyone* group.
 
 ```json
 {

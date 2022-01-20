@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8044921780
+discourse_topic_id: 17242
+discourse_comment_url: https://devforum.okta.com/t/17242
 layout: blog_post
 title: "Serverless Java with Amazon Web Services"
 author: andrew-hughes
@@ -427,25 +430,11 @@ Remember that because of the `buildZip` task and the dependency defined on the `
 
 You're going to use Okta as your OAuth 2.0 & OpenID Connect (OIDC) provider. OAuth 2.0 and OIDC are open standards that together provide a complete authentication and authorization system. Okta provides an implementation of these standards that you'll use to add JSON Web Token (JWT) authentication to the serverless function.
 
-You should have already signed up for a free developer account with Okta. Navigate to the developer dashboard at [https://developer.okta.com](https://developer.okta.com). If this is your first time logging in, you may need to click the **Admin** button.
+{% include setup/cli.md type="web" 
+   loginRedirectUri="https://oidcdebugger.com/debug"
+   logoutRedirectUri="http://localhost:8080" %}
 
-You need to create an OIDC application.
-
-1. From the top menu, click on the **Application** button. Click the **Add Application** button.
-2. Select application type **Web**.
-3. Click **Next**.
-4. Give the app a name. I named mine `Okta Serverless Lambda`.
-5. Under **Login redirect URIs**, add a new URI: `https://oidcdebugger.com/debug`
-
-The rest of the default values will work.
-
-Click **Done**.
-
-{% img blog/serverless-java-aws/okta-oidc-application.png alt:"Okta OIDC Application" width:"700" %}{: .center-image }
-
-Leave the page open or take note of the Client ID. You'll need it in a bit when you generate a token.
-
-Open `src/main/resources/config.properties` and fill in the correct value for `okta.oauth.issuer` using your Okta developer URI. It will look something like `dev-123456.okta.com`. You can find it by going to your Okta developer dashboard and, from the top menu, selecting **API** and **Authorization servers**. You want the **Issuer URI** for the **default** authorization server in the table.
+Open `src/main/resources/config.properties` and fill in the correct value for `okta.oauth.issuer` using your Okta developer URI. It will look something like `dev-123456.okta.com`. 
 
 ```properties
 okta.oauth.issuer=https://{yourOktaUrl}/oauth2/default
@@ -556,19 +545,11 @@ Your request requires a valid JSON Web Token issued by your Okta authorization s
 
 Now you're going to use the OpenID Connect Debugger to generate a valid JWT that you can use to make a request against your serverless function.
 
-Open [https://oidcdebugger.com/](https://oidcdebugger.com/).
-
-Follow the below steps to continue:
-
-- Set the **Authorize URI** to: `https://{yourOktaDomain}/oauth2/default/v1/authorize`
-- Copy your **Client ID** from the Okta OIDC application you created above and fill it in under Client ID
--  Add something for **State**. It doesn't matter what. Just can't be blank. In production code, this is used to protect against cross-site request forgery attacks (CSRF).
-- Leave the default of **code** selected for **Response type**. Make sure neither **token** nor **id_token** are checked.
-- Scroll down. Click **Send Request**.
+{% include setup/oidcdebugger.md responseType="code" %}
 
 {% img blog/serverless-java-aws/oidc-debugger.png alt:"OIDC Debugger" width:"400" %}{: .center-image }
 
-After you authenticate to your Okta org, Okta will redirect back and you'll see the Authorization code shown in the browser:
+Scroll down and click **Send Request**. After you authenticate to your Okta org, Okta will redirect back and you'll see the Authorization code shown in the browser:
 
 {% img blog/serverless-java-aws/authorization-code.png alt:"Authorization Code from OIDC Debugger" width:"400" %}{: .center-image }
 

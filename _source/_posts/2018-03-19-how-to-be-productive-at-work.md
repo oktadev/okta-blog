@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6562958401
+discourse_topic_id: 16841
+discourse_comment_url: https://devforum.okta.com/t/16841
 layout: blog_post
 title: "How to Achieve Massive Productivity at Work"
 author: matt-raible
@@ -9,6 +12,7 @@ tweets:
  - "Tips for productivity and happiness at work →"
  - "Developers love to be productive and get stuff done. This post shows how @mraible achieves massive productivity in his role as a Developer Advocate at Okta."
 type: awareness
+image: blog/productivity-tips/productivity-tips.png
 ---
 
 "Productivity is all about efficiency and planning." -- Mahdi Yusuf, [Iterate](https://www.iterateconf.io/) 2018

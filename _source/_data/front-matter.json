@@ -5,10 +5,12 @@
     "internal-contributor",
     "external-contributor"
   ],
-    "communities": [
+  "communities": [
     ".net",
     "design",
+    "gaming",
     "go",
+    "rust",
     "java",
     "javascript",
     "mobile",
@@ -16,7 +18,9 @@
     "python",
     "ruby",
     "security",
-    "devops"
+    "devops",
+    "kubernetes",
+    "announcement"
   ],
   "types": [
     "awareness",

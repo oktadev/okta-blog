@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7583407806
+discourse_topic_id: 17113
+discourse_comment_url: https://devforum.okta.com/t/17113
 layout: blog_post
 title: 'Build a Secure React Application with JWTs and Redux'
 author: braden-kelley

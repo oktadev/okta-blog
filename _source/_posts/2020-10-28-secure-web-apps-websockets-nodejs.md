@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8255967923
+discourse_topic_id: 17311
+discourse_comment_url: https://devforum.okta.com/t/17311
 layout: blog_post
 title: "Develop Secure Apps with WebSockets and Node.js"
 author: nickolas-fisher
@@ -20,9 +23,7 @@ In this tutorial, you will learn how to create a small chat room web application
 
 ## Create Your Okta App
 
-To use Okta for authentication, you will first need to set up a new application. (You will need a free [Okta Developer account](https://developer.okta.com/signup/) if you don't already have one.) Head to the Okta Developer Console and select **Applications** then **Add Application**. On the next page, select **Web** and click **Next**. On the **Application Settings** page, give your application a meaningful name. I called my **SocketDemo**. For this application, you can leave everything else the same, as you will use port 8080 in your application. Click **Done** and you will be redirected to the settings page.
-
-{% img blog/secure-web-apps-websockets-nodejs/okta-app-settings.png alt:"Application Settings" width:"800" %}{: .center-image }
+{% include setup/cli.md type="web" loginRedirectUri="http://localhost:8080/authorization-code/callback" %}
 
 Make note of your **Client ID** and your **Client Secret**, since you will need this in your application.
 
@@ -237,7 +238,7 @@ module.exports = function ( io, opts ) {
 
 Here you are using `socketio-jwt` to decode the JWT you passed to the client when the user enters the room. A JWT is a token whose payload holds some information representing claims to be sent to the server. The JWT can be signed or encrypted and then validated by the server to ensure their validity. Once established, the server can read the claims from the token and decide the proper course of action. You can send the JWT with the request to the server to ensure the sender of the request is authorized to perform the requested action.
 
-(Note, you can read more about [an alternative approach using Okta as an authentication server a](https://developer.okta.com/blog/2020/07/17/secure-node-api-with-koa), where you authenticate the user when they reach a room.)
+(Note, you can read more about [an alternative approach using Okta as an authentication server a](/blog/2020/07/17/secure-node-api-with-koa), where you authenticate the user when they reach a room.)
 
 The `socket.js` file also has the logic for receiving and sending messages as well as handling users entering and leaving the room. When a user enters or leaves, you add or remove them from the room's user list and broadcast to the room that the user has left. The client side is responsible for displaying that information to the user.
 
@@ -397,7 +398,7 @@ Next, add a page called `dashboard.pug` to the `views` folder for authenticated 
 extends layout
 
 block variables
-  - var title = 'Let's chat about something'
+  - var title = "Let's chat about something"
 
 block content
   .row

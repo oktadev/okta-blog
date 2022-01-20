@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8218684293
+discourse_topic_id: 17296
+discourse_comment_url: https://devforum.okta.com/t/17296
 layout: blog_post
 title: How to Adapt Your .NET App for SameSite
 author: franco-tiveron

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7842886164
+discourse_topic_id: 17208
+discourse_comment_url: https://devforum.okta.com/t/17208
 layout: blog_post
 title: "Build Single Sign-on in Java"
 author: joy-foster
@@ -30,7 +33,7 @@ Once you have an account, log in because you need to set up your web application
 
 The first step is to create two OIDC applications. OpenID Connect is an authentication protocol built on top of OAuth 2.0, which is an authorization protocol. Each OIDC application defines an authentication provider endpoint for each web application instance. 
 
-In the Okta developer console, navigate to **Applications** and click **Add Application**. Choose **Web** and click **Next**. Populate the fields with these values:
+In the Okta Admin Console, navigate to **Applications** and click **Add Application**. Choose **Web**, select **OpenID Connect** and click **Create**. Populate the fields with these values:
 
 |Field                  |Value              		                    |
 |-----------------------|-----------------------------------------------|
@@ -38,7 +41,7 @@ In the Okta developer console, navigate to **Applications** and click **Add Appl
 |**Base URIs**  	    |http://localhost:8080                          |
 |**Login redirect URIs**| http://localhost:8080/login/oauth2/code/okta  |
 
-Click **Done**.
+Click **Save**.
 
 Scroll down and make a note of the `Client ID` and `Client Secret`. You'll use those values shortly.
 
@@ -50,7 +53,7 @@ Repeat these steps for your second application with these values:
 |**Base URIs**  	    |http://localhost:8081                          |
 |**Login redirect URIs**| http://localhost:8081/login/oauth2/code/okta  |
 
-Click **Done**.
+Click **Save**.
 
 You'll also need the `Client ID` and `Client Secret` from this OIDC application as well.
 
@@ -58,7 +61,7 @@ You'll also need the `Client ID` and `Client Secret` from this OIDC application 
 
 Next, you need to create two users. The first will be a user that can only log into the first application (OIDC App 1) and the second user will be one that can log into both applications. 
 
-In the developer console, click on **Users** > **People** and then click on **Add Person**. Fill out the form with the information for the first user using the table below.  Repeat this for the second user, also using the table below.
+In the Admin Console, go to **Directory** > **People** and then click on **Add Person**. Fill out the form with the information for the first user using the table below.  Repeat this for the second user, also using the table below.
 
 |                               | First User            | Second User             | Comments                                                                                                                           |
 |-------------------------------|-----------------------|-------------------------|------------------------------------------------------------------------------------------------------------------------------------|
@@ -79,13 +82,13 @@ Once you have the user created, you can click on the user name, then click on **
 
 Now you need to create an OIDC application for your resource server. This will configure access to the REST API. 
 
-In the Okta developer console, navigate to **Applications** and click **Add Application**. Choose **Service** and click **Next**. Populate the fields with these values:
+In the Okta Admin Console, navigate to **Applications** and click **Add Application**. Choose **OAuth Service** and click **Create**. Populate the fields with these values:
 
 |Field                  |Value              		     |
 |-----------------------|--------------------------------|
 |**Name**               |OIDC Resource Server            |
 
-Click **Done**.
+Click **Save**.
 
 Scroll down and copy the `Client ID` and `Client Secret`. You'll use those values shortly.
 
@@ -93,7 +96,7 @@ Scroll down and copy the `Client ID` and `Client Secret`. You'll use those value
 
 The last step in Okta is to create and configure an authorization server. This allows you to configure custom claims and to set custom access policies. This determines whether or not Okta will issue a token when one is requested, which governs a user's ability to access the client applications and the resource server.
 
-Navigate to **API** > **Authorization Servers**. Click **Add Authorization Server** and fill in the values as follows:
+Navigate to **Security** > **API** > **Authorization Servers**. Click **Add Authorization Server** and fill in the values as follows:
 
 |Field          |Value                 |
 |---------------|----------------------|
@@ -101,7 +104,7 @@ Navigate to **API** > **Authorization Servers**. Click **Add Authorization Serve
 |**Audience**  	|api://oidcauthserver  |
 |**Description**| OIDC Auth Server     |
 
-Click **Done** and then click the **Claims** tab. In Claims, click **Add Claim**, fill in the fields with the values for **Claim 1** below, and click **Create**. You can leave any value not mentioned below as default.  When done, repeat and create a second claim with the values under **Claim 2** below.
+Click **Save** and then click the **Claims** tab. In Claims, click **Add Claim**, fill in the fields with the values for **Claim 1** below, and click **Create**. You can leave any value not mentioned below as default.  When done, repeat and create a second claim with the values under **Claim 2** below.
 
 |Field                      		    |Claim 1              		            |Claim 2     |
 |---------------------------------------|---------------------------------------|------------|
@@ -149,7 +152,7 @@ You're all done configuring things in Okta. On to the code!
 
 You will be working with two different code bases. The first is the code base for the resource server, which will be used to provide the client application with additional user information if the client is authorized to get such information.
 
-Start by downloading the code for the resource server available [in the GitHub repository.](https://github.com/oktadeveloper/okta-java-spring-sso-example)
+Start by downloading the code for the resource server available [in this GitHub repository](https://github.com/oktadeveloper/okta-java-spring-sso-example).
 
 ```bash
 git clone https://github.com/oktadeveloper/okta-java-spring-sso-example.git
@@ -411,7 +414,7 @@ Got it? Time to try it out.
 
 ## Test Your Java Single Sign-On
 
-In the next few steps, you will be logging in and out of different Okta accounts on the two different applications. Using an incognito window will avoid the need to log out of the Okta developer console or the single sign-on account.
+In the next few steps, you will be logging in and out of different Okta accounts on the two different applications. Using an incognito window will avoid the need to log out of the Okta Admin Console or the single sign-on account.
 
 Open a new incognito browser window and enter the URL `http://localhost:8080`. This is the URL to the first application `OIDC App 1`. 
 
@@ -457,10 +460,11 @@ Next, you can change the URL to `http://localhost:8081`. Remember, this is the U
 
 ## Learn More About Secure Single Sign-On in Java
 
-I sincerely hope you enjoyed going through this tutorial, setting up a Spring Boot app, and finding out how easy it is to setup signle sign-on with Okta.
+I sincerely hope you enjoyed going through this tutorial, setting up a Spring Boot app, and finding out how easy it is to configure single sign-on with Okta.
 
 To learn more about Spring Boot, OpenID Connect, and other topics, you might find these links helpful:
 
+* [Spring Boot and Okta in 2 Minutes](/blog/2020/11/24/spring-boot-okta)
 * [Easy Single Sign-On with Spring Boot and OAuth 2.0](/blog/2019/05/02/spring-boot-single-sign-on-oauth-2)
 * [Java Microservices with Spring Boot and Spring Cloud](/blog/2019/05/22/java-microservices-spring-boot-spring-cloud)
 * [OAuth 2.0 and OpenID Connect](/docs/concepts/auth-overview/#authentication-api-vs-oauth-2-0-vs-openid-connect)

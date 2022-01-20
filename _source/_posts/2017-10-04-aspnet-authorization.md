@@ -1,8 +1,12 @@
 ---
+disqus_thread_id: 6300745643
+discourse_topic_id: 16785
+discourse_comment_url: https://devforum.okta.com/t/16785
 layout: blog_post
 title: "User Authorization in ASP.NET Core with Okta"
 author: lee-brandt
 by: advocate
+description: "Learn how to map your Okta `Groups` to `Roles` claims and let the regular ASP.NET `AuthorizeAttribute` handle authorization."
 communities: [.net]
 tags: [asp-dot-net, aspnet-core, authz, authorization]
 type: conversion
@@ -17,7 +21,7 @@ In the Okta world, users are separated into `Groups`. By default however, ASP.NE
 
 This second approach is far easier to implement, so that's the approach this article will take.
 
-Start by cloning the application at <https://github.com/oktadeveloper/aspnetcore-oidc-okta-example>. This is the base application with authentication covered in [my previous post](https://developer.okta.com/blog/2017/06/29/oidc-user-auth-aspnet-core). You'll add authorization to this application.
+Start by cloning the application at <https://github.com/oktadeveloper/aspnetcore-oidc-okta-example>. This is the base application with authentication covered in [my previous post](/blog/2017/06/29/oidc-user-auth-aspnet-core). You'll add authorization to this application.
 
 ## Let ASP.NET Know Where Your Roles Are
 In the `startup.cs` file, where the `OpenIdConfigurationOptions` are set, one of the items being set is the `TokenValidationParameters`. In the new `TokenValidationParameters` add a property called `RoleClaimType` with a value of `ClaimTypes.Role`. This is an enumeration in the `System.Security.Claims` namespace that holds the URL that describes the "role" claim type. Ultimately, your `TokenValidationParameters` property should look like this.

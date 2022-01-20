@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6753779398
+discourse_topic_id: 16888
+discourse_comment_url: https://devforum.okta.com/t/16888
 layout: blog_post
 title: "Build a Photo Gallery PWA with React, Spring Boot, and JHipster"
 author: matt-raible
@@ -559,7 +562,7 @@ Log in and navigate to **Entities** > **Photos** in the top nav bar. You should 
 
 {% img blog/react-photo-gallery-pwa/photo-gallery.png alt:"Gallery with Photos" width:"800" %}{: .center-image }
 
-You can also add a "lightbox" feature to the grid so you can click on photos and zoom in. The [React Photo Gallery docs](https://neptunian.github.io/react-photo-gallery/) show how to do this. I've integrated it into the example for this post, but I won't show the code here for the sake of brevity. You can see the [final `photo.tsx` with Lightbox added on GitHub](https://github.com/oktadeveloper/okta-react-photo-gallery-example/blob/master/src/main/webapp/app/entities/photo/photo.tsx) or a [diff of the changes necessary](https://github.com/oktadeveloper/okta-react-photo-gallery-example/commit/47f9ceab2b00f1d7f41d286686c9159f79decc11).
+You can also add a "lightbox" feature to the grid so you can click on photos and zoom in. The [React Photo Gallery docs](https://neptunian.github.io/react-photo-gallery/) show how to do this. I've integrated it into the example for this post, but I won't show the code here for the sake of brevity. You can see the [final `photo.tsx` with Lightbox added on GitHub](https://github.com/oktadeveloper/okta-react-photo-gallery-example/blob/master/src/main/webapp/app/entities/photo/photo.tsx) or a [diff of the changes necessary](https://github.com/oktadev/okta-react-photo-gallery-example/commit/47f9ceab2b00f1d7f41d286686c9159f79decc11).
 
 ## Make Your React + Spring Boot App into a PWA
 
@@ -673,9 +676,9 @@ You can find the source code for the example created in this post in the [oktade
 If you'd like to learn more about React, Spring Boot, or OAuth 2.0, I'd suggest checking out the following resources:
 
 - [Bootiful Development with Spring Boot and React](/blog/2017/12/06/bootiful-development-with-spring-boot-and-react)
-- [Use OpenID Connect Support with JHipster](https://developer.okta.com/blog/2017/10/20/oidc-with-jhipster)
+- [Use OpenID Connect Support with JHipster](/blog/2017/10/20/oidc-with-jhipster)
 - [What is the OAuth 2.0 Authorization Code Grant Type?](/blog/2018/04/10/oauth-authorization-code-grant-type)
 - [Using React (with Redux) from the JHipster Docs](https://www.jhipster.tech/using-react/)
-- [Developer a Microservices Architecture with OAuth 2.0 and JHipster](https://developer.okta.com/blog/2018/03/01/develop-microservices-jhipster-oauth)
+- [Developer a Microservices Architecture with OAuth 2.0 and JHipster](/blog/2018/03/01/develop-microservices-jhipster-oauth)
 
 If you have any questions, please leave a comment below, ping me on [Twitter @mraible](https://twitter.com/mraible), or post to our [developer forums](https://devforum.okta.com/). If you liked this post, follow [@oktadev](https://twitter.com/oktadev) to be notified when others like it are published.

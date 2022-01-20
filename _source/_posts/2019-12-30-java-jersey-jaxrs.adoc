@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7785154317
+discourse_topic_id: 17191
+discourse_comment_url: https://devforum.okta.com/t/17191
 layout: blog_post
 title: "Build a Secure REST Application Using Jersey"
 author: daniel-pereira
@@ -13,6 +16,7 @@ tweets:
 image: blog/featured/okta-java-short-headphones.jpg
 type: conversion
 ---
+:toc: macro
 :page-liquid:
 :experimental:
 
@@ -24,6 +28,8 @@ In this tutorial you'll create a TODO list service that will perform all four CR
 
 * Java 8+ - Install with https://sdkman.io/[SDKMAN] or directly from https://adoptopenjdk.net/[AdoptOpenJDK]
 * An https://developer.okta.com/signup[Okta account] - More on that below
+
+toc::[]
 
 == Create Your Jersey REST Application
 
@@ -382,27 +388,7 @@ Now that you have a CRUD application up and running, the last step is to make su
 
 == Secure Your Jersey REST Application
 
-You're going to use Okta to authenticate your users, so let's start by creating an account.
-
-If you don't have an Okta account, https://developer.okta.com/signup[go ahead and create one]. After creating it, go through the following steps:
-
-* Log in to your account
-* Click in **Applications**
-* Click on **Add Application**. You will be redirected to the following page:
-
-image::{% asset_path 'blog/java-jersey-jaxrs/okta-applications.png' %}[alt=Okta application page,width=600,align=center]
-
-* Select **Web** and click **Next**
-* Fill in the following options in the form:
-** Name: my-first-app
-** Base URIs: `http://localhost:8080`
-** Login redirect URL:
-*** `https://oidcdebugger.com/debug`
-** Grant Type allowed:
-*** Authorization Code
-*** Implicit(Hybrid)
-**** Allow Access Token with implicit grant type
-* Click **Done**
+{% include setup/cli.md type="web" loginRedirectUri="https://oidcdebugger.com/debug" logoutRedirectUri="https://oidcdebugger.com" %}
 
 Now that you have your Okta application you can use it to authenticate inside your app.
 
@@ -410,7 +396,7 @@ Now that you have your Okta application you can use it to authenticate inside yo
 
 Let's start by adding Okta's library inside your project.
 
-Go to the `pom.xml` and add the following dependency inside the `<depencencies>` tag:
+Go to the `pom.xml` and add the following dependency inside the `<dependencies>` tag:
 
 [source,xml]
 ----
@@ -449,7 +435,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 The configuration above will ensure all your requests will be authenticated. If you're using Spring MVC you don't need to add this configuration, but since you're developing with Jersey you need to make sure they are also included in the authentication process.
 
-Now that you added the library and the configuration, you can inform the following variables inside the `src/main/resources/application.properties` inside your project:
+Now that you added the library and the configuration, you can see your Okta configuration in the `.okta.env` inside your project. Copy your issuer into your project's `src/main/resources/application.properties` file.
 
 [source,properties]
 ----
@@ -462,8 +448,6 @@ If you want to avoid adding this configuration to source control, you can use en
 ----
 OKTA_OAUTH2_ISSUER=https://{yourOktaDomain}/oauth2/default
 ----
-
-Your `{yourOktaDomain}` will be visible in your Okta dashboard, just click on the Dashboard on the menu. You will see the Org URL in the right upper corner.
 
 Now your application is secure!
 
@@ -506,16 +490,7 @@ To validate your request you need to add the `Authorization` header to the reque
 -H 'Authorization: Bearer <token>'
 ----
 
-To generate the token you can access <https://oidcdebugger.com> and provide the following information:
-
-- Authorize URI: `\https://{yourOktaDomain}/oauth2/default/v1/authorize`
-- Redirect URI: `\https://oidcdebugger.com/debug`
-- Client ID: `{yourClientID}`
-- Scope: `openid`
-- State: `dev`
-- Response type: `token`
-
-You can keep the already filled-in value for the "Nonce" field.
+{% include setup/oidcdebugger.md %}
 
 After you fill in all the fields, click on **Send Request**. You'll be redirected to your Okta's App login page:
 
@@ -588,6 +563,7 @@ You can view the source code of this tutorial going to its https://github.com/ok
 
 Do you want to learn more about Java, REST, Jersey, and secure applications? Here are some links you might want to read:
 
+- link:/blog/2020/01/09/java-rest-api-showdown[Java REST API Showdown: Which is the Best Framework on the Market?]
 - link:/blog/2019/09/04/securing-rest-apis[Securing REST APIs]
 - link:/blog/2019/07/10/java-microprofile-jwt-auth[Build a REST API Using Java, MicroProfile, and JWT Authentication]
 - link:/blog/2019/05/13/angular-8-spring-boot-2[Build a CRUD App with Angular 8 and Spring Boot]

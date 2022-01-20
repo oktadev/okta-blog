@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8154271463
+discourse_topic_id: 17273
+discourse_comment_url: https://devforum.okta.com/t/17273
 layout: blog_post
 title: "Arm Up Your Java: Performance Benchmarks"
 author: brian-demers
@@ -95,7 +98,7 @@ This first test uses two threads, so naturally, the t3 is about 34% faster than 
 
 The Twitter HTTP Finagle test starts a small HTTP server and creates a number of clients equal to the number of vCPU cores plus one. The HTTP server has the number of CPUs*2.  This is going to create a bit of thread contention, which likely explains these results.
 
-**Winner:** t3.medium (This one was not a fair fight.)
+**Winner:** m6g.medium (This one was not a fair fight.)
 
 ## Pricing
 

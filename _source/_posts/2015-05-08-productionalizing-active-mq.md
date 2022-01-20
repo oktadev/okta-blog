@@ -1,12 +1,15 @@
 ---
+disqus_thread_id: 6307074215
+discourse_topic_id: 16798
+discourse_comment_url: https://devforum.okta.com/t/16798
 layout: blog_post
 title: Productionalizing ActiveMQ
 author: matt-loughran
 by: internal-contributor
+description: "This post describes our odyssey with ActiveMQ, an open-source version of the Java Messaging Service (JMS) API. We use ActiveMQ as our message broker."
 communities: java
 tags: [activemq, jvm]
 type: awareness
-
 ---
 
 This post describes our odyssey with ActiveMQ, an open-source version of the Java Messaging Service (JMS) API. We use ActiveMQ as the message broker among our app servers.

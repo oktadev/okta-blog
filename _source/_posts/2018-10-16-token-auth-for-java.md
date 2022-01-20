@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6974187306
+discourse_topic_id: 16946
+discourse_comment_url: https://devforum.okta.com/t/16946
 layout: blog_post
 title: "Simple Token Authentication for Java Apps"
 author: andrew-hughes
@@ -180,23 +183,9 @@ Remember:
 
 ## Configure Your Okta OIDC Application for Token Authentication in Java
 
-Soon you'll be generating and validating JWTs like a pro. But first, you need to head over to [developer.okta.com](https://developer.okta.com) and create an OpenID Connect (OIDC) application. If you haven't already, register for a free developer account. Did I mention it's totally free?
+Soon you'll be generating and validating JWTs like a pro. {% include setup/cli.md type="web" %}
 
-Log into your Okta developer dashboard. Go to **Applications** and then click the **Add Application** button.
-
-Select the **Web** application type and click **Next**.
-
-{% img blog/java-token-auth/create-new-app.png alt:"Create Okta App" width:"700" %}{: .center-image }
-
-On the next page, you'll need to give your new application a catchy name. You can name it whatever you like. You'll also need to check the **Client Credentials** checkbox. This activates the `client_credentials` grant type that you're going to use in a bit.
-
-{% img blog/java-token-auth/client-credentials.png alt:"App with Client Credentials" width:"600" %}{: .center-image }
-
-Click **Done**.
-
-Take note of the **Client ID** and **Client Secret** at the bottom of the following page. You'll need these later.
-
-{% img blog/java-token-auth/client-id-secret.png alt:"Client ID and Client Secret" width:"700" %}{: .center-image }
+You'll need to make one update to your app before you continue. Run `okta login` and open the resulting URL in your browser. Log in, navigate to the **Applications** section and select your application. **Edit** its General Settings and check **Client Credentials** as an allowed grant type. Click **Save**.
 
 ## Install HTTPie
 
@@ -212,7 +201,7 @@ The general format is:
 
 `Authorization: Basic Base64Encode(< your client id >:< your client secret >)`
 
-Notice the `:` in the middle. Take your Client ID and join it to your Client Secret with a colon. Base64 encode the resultant string (tip: use [base64encode.org](https://www.base64encode.org)). Then include it in your request. It will look something like this:
+Notice the `:` in the middle. Take your Client ID and join it to your Client Secret with a colon. Base64 encode the resultant string (tip: run `echo <client-id>:<client-secret> | base64` and check out the [Base64 encoding documentation](https://developer.okta.com/docs/guides/implement-grant-type/clientcreds/main/#flow-specifics) for more detail). Then include the resulting string in your request. It will look something like this:
 
 `Authorization: Basic ABChZzU4NDg5YW1aTDCBCB4waDc6TUp3YWN4RU5WNzQ1bEdQNWJPdlFETV9iaDE5NGp1eHQ3SXJfdWEzQQ==`
 
@@ -275,15 +264,13 @@ Let's fix it!
 
 ## Add a Custom Scope
 
-Head back over to [developer.okta.com](https://developer.okta.com). From the top menu, go to **API** and **Authorization Servers**. 
+Head back over to the Okta Admin Console. Go to **Security** > **API** and **Authorization Servers**. 
 
-Click on the **default** server from the list of servers.
+Click on the `default` server from the list of servers.
 
 Click on the **Scopes** tab, and click the **Add Scope** button.
 
 Name the scope "customScope", give it a description, and click **Create**. You'll need the name to match, but the description is arbitrary.
-
-{% img blog/java-token-auth/add-scope.png alt:"Add Custom Scope" width:"700" %}{: .center-image }
 
 ## Run the Token Request Again
 

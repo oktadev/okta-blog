@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7588780705
+discourse_topic_id: 17118
+discourse_comment_url: https://devforum.okta.com/t/17118
 layout: blog_post
 title: "Secure an Episerver CMS website with Okta and C#"
 author: jefferson-haw
@@ -153,7 +156,7 @@ Remove the entire `public void Configuration(IAppBuilder app)` and replace the c
 
 Modified *Startup.cs* in github: `https://github.com/hawjefferson/EpiserverCMSOkta/blob/master/Startup.cs`
 
-{% img blog/episerver/githubepiserverstartup.png alt:"Github code for Startup.cs" width:"1000" %}{: .center-image }
+{% img blog/episerver/githubepiserverstartup.png alt:"GitHub code for Startup.cs" width:"1000" %}{: .center-image }
 
 Import the dependent class files as separate class files and add them into your project:
 
@@ -321,9 +324,9 @@ You now have a robust CMS enabled with Okta as the identity provider! If you wan
 If you want to learn more about CMS platforms, OIDC, or C#, please take a look at a few of our other tutorials on these topics!
 
 * [Use OpenID Connect for Authorization in Your ASP.NET MVC Framework 4.x App
-](https://developer.okta.com/blog/2018/04/18/authorization-in-your-aspnet-mvc-4-application)
-* [Static Sites vs CMS](https://developer.okta.com/blog/2018/06/07/static-sites-vs-cms)
-* [Secure Your ASP.NET Core App with OAuth 2.0](https://developer.okta.com/blog/2019/07/12/secure-your-aspnet-core-app-with-oauth)
-* [Decode JWTs in C# for Authorization](https://developer.okta.com/blog/2019/06/26/decode-jwt-in-csharp-for-authorization)
+](/blog/2018/04/18/authorization-in-your-aspnet-mvc-4-application)
+* [Static Sites vs CMS](/blog/2018/06/07/static-sites-vs-cms)
+* [Secure Your ASP.NET Core App with OAuth 2.0](/blog/2019/07/12/secure-your-aspnet-core-app-with-oauth)
+* [Decode JWTs in C# for Authorization](/blog/2019/06/26/decode-jwt-in-csharp-for-authorization)
 
 We'd love to hear from you in the comments below or find us (and follow us) on Twitter [@oktadev](https://twitter.com/oktadev).

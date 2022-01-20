@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6961065423
+discourse_topic_id: 16943
+discourse_comment_url: https://devforum.okta.com/t/16943
 layout: blog_post
 title: 'Build a Mobile App with React Native and Spring Boot'
 author: matt-raible
@@ -12,6 +15,9 @@ tweets:
 - "Learn how to build a @reactnative app that talks to a @springboot API in this quick-n-easy tutorial. It also shows how to deploy to @cloudfoundry + @googlecloud with @kubernetesio!"
 image: blog/featured/okta-java-skew.jpg
 type: conversion
+changelog:
+  - 2019-01-28: Updated to use Ignite CLI 2.2.2, Ignite JHipster 2.0.3, and JHipster 5.8.0. You can see the example app changes in [okta-react-native-spring-boot-example#3](https://github.com/oktadeveloper/okta-react-native-spring-boot-example/pull/3); changes to this post can be viewed in [okta.github.io#2672](https://github.com/oktadeveloper/okta.github.io/pull/2672).
+  - 2018-12-10: Updated to use Ignite JHipster 2.0.2 and JHipster 5.7.0. You can see the example app changes in [okta-react-native-spring-boot-example#1](https://github.com/oktadeveloper/okta-react-native-spring-boot-example/pull/1); changes to this post can be viewed in [okta.github.io#2541](https://github.com/oktadeveloper/okta.github.io/pull/2541).
 ---
 :page-liquid:
 :experimental:
@@ -714,8 +720,3 @@ Wanna stay hip? Check out some of our other tutorials on React Native, Spring Bo
 * link:/blog/2018/01/30/jhipster-ionic-with-oidc-authentication[Use Ionic for JHipster to Create Mobile Apps with OIDC Authentication] - not into React Native? How about Ionic?
 
 https://twitter.com/oktadev[Follow us], https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q[watch our videos], and https://www.linkedin.com/company/oktadev/[connect with us] if you'd like to learn more about best-of-breed open source technologies. We're big fans of open source. 💙
-
-**Changelog:**
-
-* Jan 28, 2019: Updated to use Ignite CLI 2.2.2, Ignite JHipster 2.0.3, and JHipster 5.8.0. You can see the example app changes in https://github.com/oktadeveloper/okta-react-native-spring-boot-example/pull/3[okta-react-native-spring-boot-example#3]; changes to this post can be viewed in https://github.com/oktadeveloper/okta.github.io/pull/2672[okta.github.io#2672].
-* Dec 10, 2018: Updated to use Ignite JHipster 2.0.2 and JHipster 5.7.0. You can see the example app changes in https://github.com/oktadeveloper/okta-react-native-spring-boot-example/pull/1[okta-react-native-spring-boot-example#1]; changes to this post can be viewed in https://github.com/oktadeveloper/okta.github.io/pull/2541[okta.github.io#2541].

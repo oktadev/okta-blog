@@ -1,20 +1,23 @@
 ---
+disqus_thread_id: 8224484321
+discourse_topic_id: 17298
+discourse_comment_url: https://devforum.okta.com/t/17298
 layout: blog_post
 title: "Easy Session Sharing in Spring Boot with Spring Session and MySQL"
 author: jimena-garbarino
 by: contractor
 communities: [java,devops]
-description: "This tutorial shows you how to configure Spring Session to distribute your session using MySQL"
+description: "This tutorial shows you how to configure Spring Session to distribute your session using MySQL."
 tags: [java, session, spring-boot, okta, spring-session, mysql]
 tweets:
 - "Spring Boot's OAuth 2.0 and OIDC support is awesome, but what if you want to scale up with multiple instances? Spring Session to the rescue!"
 - "Want to scale your @springboot OAuth implementation? Use Spring Session and @mysql to make it happen!"
-- "Spring Session makes it easy to distribute your session between servers. See how in this tutorial on Spring Boot + Spring Session and MySQL"
+- "Spring Session makes it easy to distribute your session between servers. See how in this tutorial on Spring Boot + Spring Session and MySQL."
 image: blog/spring-session/spring-session.png
 type: conversion
 ---
 
-Session management in multi-node applications presents multiple challenges. When the architecture includes a load balancer, client requests might be routed to different servers each time, and the HTTP session might be lost. In this tutorial, we will walk you through the configuration of session sharing in a multi-node Spring Boot application.
+Session management in multi-node applications presents multiple challenges. When the architecture includes a load balancer, client requests might be routed to different servers each time, and the HTTP session might be lost. In this tutorial, I'll walk you through the configuration of session sharing in a multi-node Spring Boot application.
 
 **Prerequisites:**
 
@@ -56,21 +59,7 @@ unzip web-app.zip -d web-app
 cd web-app
 ```
 
-Run the [Okta Maven Plugin](https://github.com/oktadeveloper/okta-maven-plugin) to register a new account:
-
-```shell
-./mvnw com.okta:okta-maven-plugin:register
-```
-
-If you already have an Okta account registered, use `login` instead of `register`. 
-
-Then, configure your Spring application for authentication using Okta:
-
-```shell
-./mvnw com.okta:okta-maven-plugin:spring-boot
-```
-
-It will set up a new OIDC application for you and write your Okta settings to your `src/main/resources/application.properties` file.
+{% include setup/maven.md %}
 
 Create a `GreetingController` at `src/main/java/com/okta/developer/webapp/controller`:
 

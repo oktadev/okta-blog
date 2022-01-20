@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7430837829
+discourse_topic_id: 17057
+discourse_comment_url: https://devforum.okta.com/t/17057
 layout: blog_post
 title: "Use Schematics with Vue and Add Authentication in 5 Minutes"
 author: matt-raible
@@ -12,6 +15,8 @@ tweets:
 - "Schematics with Vue are pretty awesome - find out why!"
 image: blog/featured/okta-vue-bottle-headphones.jpg
 type: conversion
+changelog:
+- 2021-04-14: Updated to use Vue CLI 4.5 and OktaDev Schematics v3.4.1. You can see the changes to this post in [okta-blog#707](https://github.com/oktadeveloper/okta-blog/pull/707); example app changes are in [vue-schematics-example#1](https://github.com/oktadeveloper/vue-schematics-example/pull/1).
 ---
 
 Schematics is a tool from the Angular team that allows you to manipulate projects with code. You can create files, update existing files, and add dependencies to any project that has a `package.json` file. That's right, Schematics aren't only for Angular projects! 
@@ -24,6 +29,10 @@ See [The Baseline Costs of JavaScript Frameworks](https://blog.uncommon.is/the-b
 
 Bootstrap is a popular CSS framework, and Vue has support for it via [BootstrapVue](https://bootstrap-vue.js.org/). In this tutorial, you'll learn how to create a schematic that integrates BootstrapVue. It's a straightforward example, and I'll include unit and integrating testing tips.
 
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+
 ## Schematics: Manipulate Projects with Code
 
 Angular DevKit is part of the [Angular CLI project on GitHub](https://github.com/angular/angular-cli). DevKit provides libraries that can be used to manage, develop, deploy, and analyze your code. DevKit has a `schematics-cli` command line tool that you can use to create your own Schematics.
@@ -31,7 +40,7 @@ Angular DevKit is part of the [Angular CLI project on GitHub](https://github.com
 To create a Schematics project, first install the Schematics CLI:
 
 ```shell
-npm i -g @angular-devkit/schematics-cli@0.13.4
+npm i -g @angular-devkit/schematics-cli@0.1102.9
 ```
 
 Then run `schematics` to create a new empty project. Name it `bvi` as an abbreviation for Bootstrap Vue Installer.
@@ -105,7 +114,7 @@ You can use [Schematics Utilities](https://nitayneeman.github.io/schematics-util
 Start by opening a terminal window and installing `schematic-utilities` in the `bvi` project you created.
 
 ```shell
-npm i schematics-utilities
+npm i schematics-utilities@2.0.2
 ```
 
 Change `src/bvi/index.ts` to add `bootstrap` and `bootstrap-vue` as dependencies with an `addDependencies()` function. Call this method from the main function.
@@ -116,8 +125,8 @@ import { addPackageJsonDependency, NodeDependency, NodeDependencyType } from 'sc
 
 function addDependencies(host: Tree): Tree {
   const dependencies: NodeDependency[] = [
-    { type: NodeDependencyType.Default, version: '4.3.1', name: 'bootstrap' },
-    { type: NodeDependencyType.Default, version: '2.0.0-rc.13', name: 'bootstrap-vue' }
+    { type: NodeDependencyType.Default, version: '4.6.0', name: 'bootstrap' },
+    { type: NodeDependencyType.Default, version: '2.21.2', name: 'bootstrap-vue' }
   ];
   dependencies.forEach(dependency => addPackageJsonDependency(host, dependency));
   return host;
@@ -178,14 +187,14 @@ new Vue({
 Modify the `bvi()` function in `src/bvi/index.ts` to copy these templates and overwrite existing files.
 
 ```typescript
-import { Rule, SchematicContext, Tree, apply, url, template, move, forEach, FileEntry, mergeWith, MergeStrategy } from '@angular-devkit/schematics';
+import { Rule, SchematicContext, Tree, apply, url, template, move, mergeWith, MergeStrategy } from '@angular-devkit/schematics';
 import { addPackageJsonDependency, NodeDependency, NodeDependencyType } from 'schematics-utilities';
 import { normalize } from 'path';
 
 function addDependencies(host: Tree): Tree {
   const dependencies: NodeDependency[] = [
-    { type: NodeDependencyType.Default, version: '4.3.1', name: 'bootstrap' },
-    { type: NodeDependencyType.Default, version: '2.0.0-rc.13', name: 'bootstrap-vue' }
+    { type: NodeDependencyType.Default, version: '4.6.0', name: 'bootstrap' },
+    { type: NodeDependencyType.Default, version: '2.21.2', name: 'bootstrap-vue' }
   ];
   dependencies.forEach(dependency => addPackageJsonDependency(host, dependency));
   return host;
@@ -198,14 +207,7 @@ export function bvi(_options: any): Rule {
     const movePath = normalize('./src');
     const templateSource = apply(url('./templates/src'), [
       template({..._options}),
-      move(movePath),
-      // fix for https://github.com/angular/angular-cli/issues/11337
-      forEach((fileEntry: FileEntry) => {
-        if (tree.exists(fileEntry.path)) {
-          tree.overwrite(fileEntry.path, fileEntry.content);
-        }
-        return fileEntry;
-      }),
+      move(movePath)
     ]);
     const rule = mergeWith(templateSource, MergeStrategy.Overwrite);
     return rule(tree, _context);
@@ -222,8 +224,9 @@ In the `bvi/tsconfig.json` file, under compiler options, add these two lines:
 ```json
 {
   "compilerOptions": {
+    ...
     "resolveJsonModule": true,
-    "esModuleInterop": true  
+    "esModuleInterop": true
   }
 }
 ```
@@ -236,16 +239,17 @@ Create `vue-pkg.json` in the same directory as `index_spec.ts`.
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "vue": "^2.6.6"
+    "core-js": "^3.6.5",
+    "vue": "^2.6.11"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.4.0",
-    "@vue/cli-plugin-eslint": "^3.4.0",
-    "@vue/cli-service": "^3.4.0",
-    "babel-eslint": "^10.0.1",
-    "eslint": "^5.8.0",
-    "eslint-plugin-vue": "^5.0.0",
-    "vue-template-compiler": "^2.5.21"
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^6.2.2",
+    "vue-template-compiler": "^2.6.11"
   }
 }
 ```
@@ -261,18 +265,19 @@ import packageJson from './vue-pkg.json';
 const collectionPath = path.join(__dirname, '../collection.json');
 
 describe('bvi', () => {
-  it('works', () => {
+  it('works', (done) => {
     const tree = new UnitTestTree(new HostTree);
     tree.create('/package.json', JSON.stringify(packageJson));
 
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    runner.runSchematic('bvi', {}, tree);
+    runner.runSchematicAsync('bvi', {}, tree).toPromise().then(tree => {
+      expect(tree.files.length).toEqual(3);
+      expect(tree.files.sort()).toEqual(['/package.json', '/src/App.vue', '/src/main.js']);
 
-    expect(tree.files.length).toEqual(3);
-    expect(tree.files.sort()).toEqual(['/package.json', '/src/App.vue', '/src/main.js']);
-
-    const mainContent = tree.readContent('/src/main.js');
-    expect(mainContent).toContain(`Vue.use(BootstrapVue)`);
+      const mainContent = tree.readContent('/src/main.js');
+      expect(mainContent).toContain(`Vue.use(BootstrapVue)`);
+      done();
+    }, done.fail);
   });
 });
 ```
@@ -286,7 +291,7 @@ You can verify your schematic works by creating a new Vue project with Vue CLI's
 Start by installing Vue CLI if you don't already have it. 
 
 ```shell
-npm i -g @vue/cli@3.4.1
+npm i -g @vue/cli@4.5.12
 ```
 
 Run `vue create test` and select the **default** preset.
@@ -301,9 +306,9 @@ npm link ../bvi
 Run `schematics bvi:bvi` and you should see files being updated.
 
 ```shell
-UPDATE /package.json (956 bytes)
-UPDATE /src/App.vue (393 bytes)
-UPDATE /src/main.js (287 bytes)
+UPDATE package.json (906 bytes)
+UPDATE src/App.vue (393 bytes)
+UPDATE src/main.js (286 bytes)
 ```
 
 Run `npm install` followed by `npm run serve` and bask in the glory of your Vue app with Bootstrap installed!
@@ -314,16 +319,19 @@ Run `npm install` followed by `npm run serve` and bask in the glory of your Vue 
 
 Angular CLI is based on Schematics, as are its PWA and Angular Material modules. I won't go into Angular-specific Schematics here, you can read [Use Angular Schematics to Simplify Your Life](/blog/2019/02/13/angular-schematics) for that.
 
-This tutorial includes information on how to add prompts, how to publish your Schematic, and it references an [OktaDev Schematics](https://github.com/oktadeveloper/schematics) project that I helped develop. This project's continuous integration uses a [`test-app.sh`](https://github.com/oktadeveloper/schematics/blob/master/test-app.sh) script that creates projects with each framework's respective CLI. For example, here's the script that tests creating a new Vue CLI project, and installing the schematic.
+This tutorial includes information on how to add prompts, how to publish your Schematic, and it references an [OktaDev Schematics](https://github.com/oktadeveloper/schematics) project that I helped develop. This project's continuous integration uses a [`test-app.sh`](https://github.com/oktadeveloper/schematics/blob/main/test-app.sh) script that creates projects with each framework's respective CLI. For example, here's the script that tests creating a new Vue CLI project, and installing the schematic.
 
 ```bash
-elif [ "$1" == "vue" ] || [ "$1" == "v" ]
+elif [ $framework == "vue" ] || [ $framework == "v" ]
 then
   config=$(cat <<EOF
 {
   "useConfigFiles": true,
   "plugins": {
     "@vue/cli-plugin-babel": {},
+    "@vue/cli-plugin-router": {
+      "historyMode": true
+    },
     "@vue/cli-plugin-eslint": {
       "config": "base",
       "lintOn": [
@@ -331,18 +339,15 @@ then
       ]
     },
     "@vue/cli-plugin-unit-jest": {}
-  },
-  "router": true,
-  "routerHistoryMode": true
+  }
 }
 EOF
 )
-  vue create vue-app -i "$config"
+  vue create vue-app -i "$config" --registry=http://registry.npm.taobao.org
   cd vue-app
-  npm install ../../oktadev*.tgz
+  npm install -D ../../oktadev*.tgz
   schematics @oktadev/schematics:add-auth --issuer=$issuer --clientId=$clientId
   npm run test:unit
-fi
 ```
 
 This project has support for TypeScript-enabled Vue projects as well. 
@@ -351,21 +356,17 @@ Got a minute? Let me show you how to create a Vue + TypeScript project and add a
 
 ## Use Vue Schematics to Add Authentication with OpenID Connect 
 
-Run `vue create vb`, select **Manually select features** and choose **TypeScript**, **PWA**, **Router**. 
+Run `vue create vb`, select **Manually select features** and choose **TypeScript**, **PWA**, **Router**. For the remaining questions, select the defaults.
 
-{% img blog/vue-schematics/vue-cli-features.png alt:"Vue CLI features" width:"800" %}{: .center-image }
+{% img blog/vue-schematics/vue-cli-features.png alt:"Vue CLI features" width:"758" %}{: .center-image }
 
 While that process completes, create an OIDC app on Okta.
 
 ### Create an OpenID Connect App on Okta
 
-Log in to your Okta Developer account (or https://developer.okta.com/signup/[sign up] if you don't have an account) and navigate to **Applications** > **Add Application**. Click **Single-Page App**, click **Next**, and give the app a name you'll remember, and click **Done**.
+{% include setup/cli.md type="spa" framework="Vue" loginRedirectUri="http://localhost:8080/callback" %}
 
-The next screen should look similar to the following:
-
-{% img blog/vue-schematics/okta-oidc-settings.png alt:"Okta OIDC Settings" width:"700" %}{: .center-image }
-
-Go back to the terminal window where you created the `vb` app. Navigate into the directory and run the app to make sure it starts on port 8080. 
+Run the app to make sure it starts on port 8080. 
 
 ```shell
 cd vb
@@ -377,11 +378,11 @@ npm run serve
 Stop the process (Ctrl+C) and add OIDC authentication to your app with the following commands:
 
 ```shell
-npm i @oktadev/schematics@0.7.2
+npm i -D @oktadev/schematics@3.4.1
 schematics @oktadev/schematics:add-auth
 ```
 
-When prompted, enter your issuer (it can be found in Okta's dashboard under **API** > **Authorization Servers**) and client ID. When the installation completes, run `npm run serve` and marvel at your Vue app with authentication!
+When prompted, enter your issuer and client ID from the OIDC app you just created. When the installation completes, run `npm run serve` and marvel at your Vue app with authentication!
 
 {% img blog/vue-schematics/vue-with-authentication.png alt:"Vue with Authentication" width:"700" %}{: .center-image }
 

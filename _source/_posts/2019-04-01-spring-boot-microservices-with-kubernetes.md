@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7331488144
+discourse_topic_id: 17029
+discourse_comment_url: https://devforum.okta.com/t/17029
 layout: blog_post
 title: "Build a Microservice Architecture with Spring Boot and Kubernetes"
 author: andrew-hughes
@@ -26,6 +29,10 @@ The last piece of the microservice architecture is **Google Cloud and GKE**. Thi
 
 We're going to assume you're familiar with Spring Boot and Java. If not, take a look at the end of the tutorial for some links to get you started.
 
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+  
 ## Requirements for Spring Boot and Kubernetes
 
 **HTTPie**: Install HTTPie from [their website](https://httpie.org/) so that we can run HTTP requests easily from the terminal.
@@ -721,40 +728,20 @@ There's obviously a ton more that can be done with GKE and Istio. In practices, 
 
 ## Create an OpenID Connect App on Okta
 
-Log into your developer.okta.com account (You did sign up for one of their free developer accounts, right? If not head over to [developer.okta.com](https://developer.okta.com)). 
+{% include setup/cli.md type="web" loginRedirectUri="http://localhost:8080/authorization-code/callback,https://oidcdebugger.com/debug" logoutRedirectUri="https://oidcdebugger.com" %}
 
-Click on the **Application** top menu, then the **Add Application** button.
-
-Choose application type **Web**.
-
-{% img blog/spring-boot-kubernetes/create-new-application.png alt:"Create New Application" width:"800" %}{: .center-image }
-
-Click **Next**.
-
-Give the app a name. I named mine "Spring Boot GKE".
-
-Under **Login redirect URIs** add `https://oidcdebugger.com/debug`.
-
-Toward the bottom, under **Grant type allowed**, check the **Implicit (hybrid)** box.
-
-{% img blog/spring-boot-kubernetes/oidc-application-settings.png alt:"OIDC Application Settings" width:"700" %}{: .center-image }
-
-Click **Done**.
-
-Leave the page open and take note of the **Client ID** and **Client Secret**. You'll need them in a minute when you use the OIDC Debugger to generate a JSON web token.
+Take note of the **Client ID** and **Client Secret**. You'll need them in a minute when you use the OIDC Debugger to generate a JSON web token.
 
 ## Update Your Spring Boot Microservices for OAuth 2.0
 
 Add the following dependencies to your `build.gradle`:
 
 ```groovy
-
 compile 'org.springframework.security:spring-security-oauth2-client'
 compile 'org.springframework.security:spring-security-oauth2-resource-server'
-
 ```
 
-You also need to add the following to your `src/main/resources/application.properties` file (filling in your own Oktadeveloper URL, something like dev-123456.okta.com):
+Copy your issuer from the `.okta.env` file the Okta CLI created and add it to your `src/main/resources/application.properties`:
 
 ```properties
 spring.security.oauth2.resourceserver.jwt.issuer-uri=https://{yourOktaDomain}/oauth2/default
@@ -860,12 +847,9 @@ So close! The last thing you need to do is to use the OIDC Debugger tool to gene
 
 ## Generate A JWT and Test OAuth 2.0
 
-Go to the [OIDC Debugger](http://oidcdebugger.com). You'll need your **Client ID** from your Okta OIDC application.
+{% include setup/oidcdebugger.md %}
 
-* Fill in the Authorize URI: `https://{yourOktaDomain}/oauth2/default/v1/authorize`
-* Fill in the **Client ID**. 
-* Put  `abcdef` for the **state**. 
-* At the bottom, click **Send Request**.
+At the bottom, click **Send Request**.
 
 Copy the generated token, and store it in a shell variable for convenience:
 

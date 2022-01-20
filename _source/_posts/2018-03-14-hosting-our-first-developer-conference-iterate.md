@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6549522278
+discourse_topic_id: 16844
+discourse_comment_url: https://devforum.okta.com/t/16844
 layout: blog_post
 title: "Hosting Our First Developer Conference, Iterate"
 author: randall-degges

@@ -1,3 +1,12 @@
+@mixin avatar-base {
+	border-radius: 100%;
+	display: block;
+	flex-shrink: 0;
+	margin-right: get-spacing('small');
+	overflow: hidden;
+	max-width: unset;
+}
+
 .BlogPost {
 	flex-grow: 1;
 	margin: 0;
@@ -40,6 +49,33 @@
 		}
 	}
 
+	& .alert {
+		padding: 10px 20px;
+		margin-bottom: 10px;
+		border-radius: 5px;
+
+		.close {
+			float: right;
+			font-size: 16pt;
+			cursor: pointer;
+		}
+
+		.title {
+			font-size: 16pt;
+			font-weight: 700
+		}
+
+		a {
+			font-weight: 700;
+		}
+	}
+
+	& .alert-info {
+		background-color: #ebfaf4;
+		color: #155724;
+		border: 1px solid #12c677;
+	}
+
 	&-attribution {
 		align-items: center;
 		display: flex;
@@ -49,6 +85,14 @@
 		font-size: 24px;
 		font-weight: 500;
 		line-height: 24px;
+	}
+
+	&-last-updated {
+		margin-top: .5em;
+
+		a {
+			color: unset;
+		}
 	}
 
 	&-author-bio {
@@ -61,6 +105,7 @@
 	&-author {
 		font-size: 24px;
 		font-weight: 500;
+		padding-right: 1em;
 
 		a {
 			color: #3d3d3d;
@@ -72,13 +117,15 @@
 	}
 
 	&-avatar {
-		border-radius: 100%;
-		display: block;
-		flex-shrink: 0;
+		@include avatar-base;
 		height: 54px;
-		margin-right: get-spacing('small');
-		overflow: hidden;
 		width: 54px;
+	}
+
+	&-avatar-social {
+		@include avatar-base;
+		height: 32px;
+		width: 32px;
 	}
 
 	.avatar-row {
@@ -239,6 +286,14 @@
 			margin-bottom: 20px;
 		}
 
+		/* Fix links to anchors in blog posts */
+		#changelog::before, h2::before, h3::before, h4::before {
+			content: "";
+			display: block;
+			height: 80px;
+			margin: -80px 0 0;
+		}
+
 		/* -------------------------- PYGMENTS */
 
 		.highlight pre { color: $eclipse-2; } /* Base Style */
@@ -347,6 +402,19 @@
 			max-width: 100%;
 			overflow: auto;
 		}
+
+		// fix cursor for summary
+		summary { cursor: pointer }
+
+    // Jekyll plugins
+    .jekyll-twitter-plugin {
+      max-width: 500px;
+      margin: 0 auto 1.25rem;
+      .twitter-tweet-rendered {
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
 	}
 
 	&-more {
@@ -420,6 +488,33 @@
 
 	.hide {
 		display: none
+	}
+
+	#discourse-comments {
+		margin: 1.5em 0;
+
+		.comment-policy {
+			color: #2A2E2E;
+			background-color: #ebeef2;
+			border: none;
+			border-radius: 4px;
+			margin-top: 10px;
+			padding: 15px;
+
+			.comment-policy-title {
+				font-weight: 600;
+				margin-bottom: 4px;
+			}
+
+			.comment-policy-text {
+				margin: 0 0 4px;
+				font-weight: 400;
+			}
+		}
+
+		#discourse-embed-frame {
+			margin-top: 1.5em;
+		}
 	}
 }
 

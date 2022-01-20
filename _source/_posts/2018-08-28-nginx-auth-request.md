@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6878273186
+discourse_topic_id: 16921
+discourse_comment_url: https://devforum.okta.com/t/16921
 layout: blog_post
 title: "Use nginx to Add Authentication to Any Application"
 author: aaron-parecki
@@ -10,9 +13,9 @@ tweets:
 - "Add authentication to any application with the @nginx auth_request module #oauth #oidc"
 image: blog/nginx-auth-request/nginx-auth-request-sample.jpg
 type: conversion
+changelog:
+  - 2019-05-17: The Lasso project was renamed to Vouch in 2019, so all references to Lasso in this post have been updated to Vouch.
 ---
-
-
 
 Ever found yourself wanting to put an application behind a login form, but dreading writing all that code to deal with OAuth 2.0 or passwords? In this tutorial, I'll show you how to use the nginx `auth_request` module to protect any application running behind your nginx server with OAuth 2.0, without writing any code! Vouch, a microservice written in Go, handles the OAuth dance to any number of different auth providers so you don't have to.
 
@@ -22,7 +25,7 @@ Ever found yourself wanting to put an application behind a login form, but dread
 
 Imagine you use nginx to run a small private wiki for your team. At first, you probably start out with adding a wiki user account for each person. It's not too bad, adding new accounts for new hires, and removing them when they leave.
 
-A few months later, as your team and company start growing, you add some server monitoring software, and you want to put that behind a login so only your company can view it. Since it's not very sophisticated software, the easiest way to do that is to create a single password for everyone in an `.htpasswd` file, and share that user with the office. 
+A few months later, as your team and company start growing, you add some server monitoring software, and you want to put that behind a login so only your company can view it. Since it's not very sophisticated software, the easiest way to do that is to create a single password for everyone in an `.htpasswd` file, and share that user with the office.
 
 Another month goes by, and you add a continuous integration system, and that comes with GitHub authentication as an option, which seems reasonable since most of your team has GitHub accounts already.
 
@@ -139,19 +142,15 @@ You'll need to download [Vouch](https://github.com/vouch/vouch-proxy) and compil
 
 Once you've got a binary, you'll need to create the config file to define the way you want Vouch to authenticate users.
 
-Copy `config/config.yml_example` to `config/config.yml` and read through the settings there. Most of the defaults will be fine, but you'll want to create your own JWT secret string and replace the placeholder value of `your_random_string`. 
+Copy `config/config.yml_example` to `config/config.yml` and read through the settings there. Most of the defaults will be fine, but you'll want to create your own JWT secret string and replace the placeholder value of `your_random_string`.
 
 The easiest way to configure Vouch is to have it allow any user that can authenticate at the OAuth server be allowed to access the backend. This works great if you're using a private OAuth server like Okta to manage your users. Go ahead and set `allowAllUsers: true` to enable this behavior, and comment out the `domains:` chunk.
 
-You'll need to choose an OAuth 2.0 provider to use to actually authenticate users. In this example we'll use Okta, since that's the easiest way to have a full OAuth/OpenID Connect server and be able to manage all your user accounts from a single dashboard. Before you can finish filling out the config file, you'll need to sign up for an Okta Developer account at [developer.okta.com/](https://developer.okta.com/). Once you create an account, click **Applications** in the top menu, and create a new application. Choose **Web** as the application platform.
+You'll need to choose an OAuth 2.0 provider to use to actually authenticate users. In this example we'll use Okta, since that's the easiest way to have a full OAuth/OpenID Connect server and be able to manage all your user accounts from a single dashboard.
 
-{% img blog/nginx-auth-request/okta-create-app.png alt:"Create a web application with Okta" width:"800" %}{: .center-image }
+{% include setup/cli.md type="web" loginRedirectUri="https://login.avocado.lol/auth" logoutRedirectUri="https://login.avocado.lol" %}
 
-In the next screen, you'll need to configure the **Base URI** and **Login redirect URI** to match your own server's settings. Vouch's redirect URI ends in `/auth` so your configuration should look like the below screenshot.
-
-{% img blog/nginx-auth-request/okta-configure-app.png alt:"Create a web application with Okta" width:"600" %}{: .center-image }
-
-Once you've done that, Okta will give you a client ID and secret, which you'll need to include in the config file.
+Now that you've registered the application in Okta, you'll have a client ID and secret which you'll need to include in the config file. You'll also need to set the URLs for your authorization endpoint, token endpoint and userinfo endpoint. These will most likely look like the below using your Okta domain.
 
 
 `config.yml`
@@ -179,9 +178,9 @@ When you reload the nginx config, all requests to `stats.avocado.lol` will requi
 
 ## Bonus: Who Logged In?
 
-If you're putting a dynamic web app behind nginx and you care not only about _whether_ someone was able to log in, but also _who they are_, there is one more trick we can use. 
+If you're putting a dynamic web app behind nginx and you care not only about _whether_ someone was able to log in, but also _who they are_, there is one more trick we can use.
 
-By default, Vouch will extract a user ID via OpenID Connect (or GitHub or Google if you've configured those as your auth providers), and will include that user ID in an HTTP header that gets passed back up to the main server. 
+By default, Vouch will extract a user ID via OpenID Connect (or GitHub or Google if you've configured those as your auth providers), and will include that user ID in an HTTP header that gets passed back up to the main server.
 
 In your main server block, just below the line `auth_request /vouch-validate;` which enables the `auth_request` module, add the following:
 
@@ -214,9 +213,3 @@ For more information and tutorials about OAuth 2.0, check out some of our other 
 * [What is the OAuth 2.0 Implicit Grant Type?](/blog/2018/05/24/what-is-the-oauth2-implicit-grant-type)
 
 As always, we'd love to hear from you about this post, or really anything else! Hit us up in the comments, or on Twitter [@oktadev](https://twitter.com/OktaDev)!
-
-
-**Changelog:**
-
-* May 17, 2019: The Lasso project was renamed to Vouch in 2019, so all references to Lasso in this post have been updated to Vouch
-

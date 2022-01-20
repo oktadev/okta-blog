@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7006972871
+discourse_topic_id: 16951
+discourse_comment_url: https://devforum.okta.com/t/16951
 layout: blog_post
 title: 'Build a Basic CRUD App with Angular and Node'
 author: holger-schmitz
@@ -11,6 +14,8 @@ tweets:
   - "This tutorial shows you how to build an Angular app with a Node backend, complete with authentication!"
 image: blog/featured/okta-angular-bottle-headphones.jpg
 type: conversion
+changelog:
+  - 2021-04-12: Upgraded to use Okta Angular 3.0.1 and Okta JWT Verifier 2.1.0. You can see the changes to the example in [okta-angular-node-example#3](https://github.com/oktadeveloper/okta-angular-node-example/pull/3) or view the changes in [this blog post](https://github.com/oktadeveloper/okta-blog/pull/689).
 ---
 
 In recent years, single page applications (SPAs) have become more and more popular. A SPA is a website that consists of just one page. That lone page acts as a container for a JavaScript application. The JavaScript is responsible for obtaining the content and rendering it within the container. The content is typically obtained from a web service and RESTful APIs have become the go-to choice in many situations. The part of the application making up the SPA is commonly known as the _client_ or _front-end_, while the part responsible for the REST API is known as the _server_ or _back-end_. In this tutorial, you will be developing a simple Angular single page app with a REST backend, based on Node and Express. 
@@ -268,51 +273,47 @@ Then open your browser and navigate to `http://localhost:4200`.
 
 ## Add Authentication to Your Node + Angular App
 
-If you have ever developed web applications from scratch you will know how much work is involved just to allow users to register, verify, log on and log out of your application. Using Okta this process can be greatly simplified. To start off, you will need a developer account with Okta.
+If you have ever developed web applications from scratch you will know how much work is involved just to allow users to register, verify, log on and log out of your application. Using Okta this process can be greatly simplified. 
 
-{% img blog/angular-node/developer.okta.com.png alt:"developer.okta.com" width:"800" %}{: .center-image }
-
-In your browser, navigate to [developer.okta.com](https://developer.okta.com/) and click on **Create Free Account** and enter your details.
-
-{% img blog/angular-node/start-building.png alt:"Start building on Okta" width:"800" %}{: .center-image }
-
-Once you are done you will be taken to your developer dashboard. Click on the **Add Application** button to create a new application.
-
-{% img blog/angular-node/add-application.png alt:"Add Application" width:"800" %}{: .center-image }
-
-Start by creating a new single page application. Choose **Single Page App** and click **Next**.
-
-{% img blog/angular-node/single-page-app.png alt:"Create new Single Page App" width:"800" %}{: .center-image }
-
-On the next page, you will need to edit the default settings. Make sure that the port number is 4200. This is the default port for Angular applications.
-
-{% img blog/angular-node/my-angular-app.png alt:"My Angular App" width:"800" %}{: .center-image }
-
-That's it. You should now see a **Client ID** which you will need to paste into your TypeScript code.
+{% include setup/cli.md type="spa" framework="Angular" loginRedirectUri="http://localhost:4200/callback" %}
 
 To implement authentication into the client, install the Okta library for Angular.
 
 ```bash
-npm install @okta/okta-angular@1.0.7 --save-exact
+npm install @okta/okta-angular@3.0.1 --save-exact
 ```
 
-In `app.module.ts` import the `OktaAuthModule`.
+In `app.module.ts` import `OKTA_CONFIG` and `OktaAuthModule`.
 
 ```ts
-import { OktaAuthModule } from '@okta/okta-angular';
+import { OKTA_CONFIG, OktaAuthModule } from '@okta/okta-angular';
 ```
 
-In the list of `imports` of the `app` module, add:
+Then, define your Okta configuration, replacing the `{...}` placeholders with the values in your terminal.
 
 ```ts
-OktaAuthModule.initAuth({
+const oktaConfig = {
   issuer: 'https://{yourOktaDomain}/oauth2/default',
-  redirectUri: 'http://localhost:4200/implicit/callback',
-  clientId: '{YourClientId}'
+  clientId: '{clientId}',
+  redirectUri: window.location.origin + '/callback'
+};
+```
+
+In the `@NgModule`, import `OktaAuthModule` and provide `OKTA_CONFIG` with your settings.
+
+```ts
+@NgModule({
+  imports: [
+    ...
+    OktaAuthModule
+  ],
+  providers: [
+    { provide: OKTA_CONFIG, useValue: oktaConfig }
+  ],
 })
 ```
 
-Here `yourOktaDomain` should be replaced by the development domain you see in your browser when you navigate to your Okta dashboard. `YourClientId` has to be replaced by the client ID that you obtained when registering your application. The code above makes the Okta Authentication Module available in your application. Use it in `app.component.ts`, and import the service.
+The code above makes the Okta Authentication Module available in your application. Use it in `app.component.ts`, and import the service.
 
 ```ts
 import { OktaAuthService } from '@okta/okta-angular';
@@ -344,12 +345,12 @@ export class AppComponent implements OnInit {
 Finally, implement the `login` and `logout` method to react to the user interface and log the user in or out.
 
 ```ts
-login() {
-  this.oktaAuth.loginRedirect();
+async login() {
+  await this.oktaAuth.signInWithRedirect();
 }
 
-logout() {
-  this.oktaAuth.logout('/');
+async logout() {
+  await this.oktaAuth.signOut();
 }
 ```
 
@@ -363,7 +364,7 @@ Add another route to the `routes` array.
 
 ```ts
 {
-  path: 'implicit/callback',
+  path: 'callback',
   component: OktaCallbackComponent
 }
 ```
@@ -391,7 +392,9 @@ npm init
 Answer all the questions, then run:
 
 ```bash
-npm install --save-exact express@4.16.4 @types/express@4.16.0 @okta/jwt-verifier@0.0.14 express-bearer-token@2.2.0 tsc@1.20150623.0 typescript@3.1.3 typeorm@0.2.8 sqlite3@4.0.3 cors@2.8.4 @types/cors@2.8.4
+npm install --save-exact express@4.17.1 @types/express@4.17.11 @okta/jwt-verifier@2.1.0 \
+  express-bearer-token@2.4.0 tsc@1.20150623.0 typescript@4.2.4 \
+  typeorm@0.2.32 sqlite3@5.0.2 cors@2.8.5 @types/cors@2.8.10
 ```
 
 I will not cover all these libraries in detail, but you will see that `@okta/jwt-verifier` is used to verify JSON Web Tokens and authenticate them.
@@ -489,7 +492,7 @@ router.get('/product', async function (req: Request, res: Response, next: NextFu
 router.get('/product/:id', async function (req: Request, res: Response, next: NextFunction) {
   try {
     const repository = await getProductRepository();
-    const product = await repository.find({id: req.params.id});
+    const product = await repository.findOne(req.params.id);
     res.send(product);
   }
   catch (err) {
@@ -518,7 +521,7 @@ router.post('/product', async function (req: Request, res: Response, next: NextF
 router.post('/product/:id', async function (req: Request, res: Response, next: NextFunction) {
   try {
     const repository = await getProductRepository();
-    const product = await repository.findOne({id: req.params.id});
+    const product = await repository.findOne(req.params.id);
     product.name = req.body.name;
     product.sku = req.body.sku;
     product.description = req.body.description;
@@ -536,7 +539,7 @@ router.post('/product/:id', async function (req: Request, res: Response, next: N
 router.delete('/product/:id', async function (req: Request, res: Response, next: NextFunction) {
   try {
     const repository = await getProductRepository();
-    await repository.delete({id: req.params.id});
+    await repository.delete(req.params.id);
     res.send('OK');
   }
   catch (err) {
@@ -563,9 +566,10 @@ export async function oktaAuth(req:Request, res:Response, next:NextFunction) {
   try {
     const token = (req as any).token;
     if (!token) {
-      return res.status(401).send('Not Authorised');
+      return res.status(401).send('Not Authorized');
     }
-    const jwt = await oktaJwtVerifier.verifyAccessToken(token);
+    const jwt = await oktaJwtVerifier.verifyAccessToken(token, 'api://default');
+    // @ts-ignore
     req.user = {
       uid: jwt.claims.uid,
       email: jwt.claims.sub
@@ -578,7 +582,9 @@ export async function oktaAuth(req:Request, res:Response, next:NextFunction) {
 }
 ```
 
-Just as in the client application `yourOktaDomain` should be replaced by the development domain and `YourClientId` has to be replaced by your application client ID. The `oktaJwtVerifier` instance takes a JWT token and authenticates it. If successful, the user id and email will be stored in `req.user`. Otherwise, the server will respond with a 401 status code. The final piece to complete the server is the main entry point that actually starts the server and registers the middleware you have defined so far. Create a file `server.ts` with the following content.
+Just as in the client application `yourOktaDomain` should be replaced by the development domain and `YourClientId` has to be replaced by your application client ID. The `oktaJwtVerifier` instance takes a JWT token and verifies it, as well as the audience (`api://default`). 
+
+If successful, the user id and email will be stored in `req.user`. Otherwise, the server will respond with a 401 status code. The final piece to complete the server is the main entry point that actually starts the server and registers the middleware you have defined so far. Create a file `server.ts` with the following content.
 
 ```ts
 import * as express from 'express';
@@ -595,11 +601,7 @@ const app = express()
   .use(oktaAuth)
   .use(productRouter);
 
-app.listen(4201, (err) => {
-  if (err) {
-    return console.log(err);
-  }
-
+app.listen(4201, () => {
   return console.log('My Node App listening on port 4201');
 });
 ```
@@ -655,13 +657,13 @@ export class ProductsService {
   constructor(public oktaAuth: OktaAuthService, private http: HttpClient) {
   }
 
-  private async request(method: string, url: string, data?: any) {
+  private async request(method: string, url: string, data?: any, responseType?: any) {
     const token = await this.oktaAuth.getAccessToken();
 
     console.log('request ' + JSON.stringify(data));
     const result = this.http.request(method, url, {
       body: data,
-      responseType: 'json',
+      responseType: responseType || 'json',
       observe: 'body',
       headers: {
         Authorization: `Bearer ${token}`
@@ -691,7 +693,7 @@ export class ProductsService {
   }
 
   deleteProduct(id: string) {
-    return this.request('delete', `${baseUrl}/product/${id}`);
+    return this.request('delete', `${baseUrl}/product/${id}`, null, 'text');
   }
 }
 ```
@@ -753,7 +755,7 @@ export class ProductsComponent implements OnInit {
   async deleteProduct(product: Product) {
     this.loading = true;
     if (confirm(`Are you sure you want to delete the product ${product.name}. This cannot be undone.`)) {
-      this.productService.deleteProduct(product.id);
+      await this.productService.deleteProduct(product.id);
     }
     await this.refresh();
   }

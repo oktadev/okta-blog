@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7078460487
+discourse_topic_id: 16963
+discourse_comment_url: https://devforum.okta.com/t/16963
 layout: blog_post
 title: 'Build and Test a React Native App with TypeScript and OAuth 2.0'
 author: karl-penzhorn

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7320113257
+discourse_topic_id: 17024
+discourse_comment_url: https://devforum.okta.com/t/17024
 layout: blog_post
 title: "Build a CRUD App with ASP.NET Core and TypeScript"
 author: ryan-foster

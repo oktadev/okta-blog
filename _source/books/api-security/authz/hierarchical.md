@@ -18,10 +18,10 @@ It has the following divisions: Marketing, Talent Management, Engineering, and S
 
 * Marketing has product, corporate, and partner marketing
 * Talent Management has recruiting, contracts, and communications
-* Engineering has infrastructure, QA, devops, and core engineering
+* Engineering has infrastructure, QA, DevOps, and core engineering
 * Services has support, customer success, and professional services.
 
-In this hierarchical authorization model, the leader of the infrastructure engineering sub-division, should have access and view into everything in that infrastructure org but not necessarily the other sub-orgs like QA/devops and vice versa. Similarly, if we go a level above, the CTO leading the engineering org should have access to that entire org which includes all the sub orgs only in Engineering. Rinse and repeat.
+In this hierarchical authorization model, the leader of the infrastructure engineering sub-division, should have access and view into everything in that infrastructure org but not necessarily the other sub-orgs like QA/DevOps and vice versa. Similarly, if we go a level above, the CTO leading the engineering org should have access to that entire org which includes all the sub orgs only in Engineering. Rinse and repeat.
 
 Although it sounds simple, modelling authorization with a hierarchy is not an efficient model unless your app is really simple with barely any authorization decisions to make. Making authorization decisions in this model require expensive recursive database lookups. The most common queries – such as "is this employee in this group?" – require exploring a significant portion of the organization structure and the problem only gets worse as the organization grows.
 

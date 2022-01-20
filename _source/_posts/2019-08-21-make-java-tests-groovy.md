@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7597194152
+discourse_topic_id: 17123
+discourse_comment_url: https://devforum.okta.com/t/17123
 layout: blog_post
 title: Make Java Tests Groovy With Hamcrest
 description: 'A tutorial on testing Java code with Groovy.'
@@ -152,7 +155,6 @@ I've also defined the property: `groovy.version` in the `<properties>` section o
 <properties>
     <groovy.version>2.5.8</groovy.version>
 </properties>
-
 ```
 ## Add Dependencies for Groovy, Hamcrest and TestNG
 
@@ -332,28 +334,16 @@ I think it's better to avoid this scenario entirely when possible.
 
 ## Add OAuth 2.0 Support to the Application
 
-Now that we have tested our application, we can go ahead and start it. If you don't already have a free Okta Developer account, signup at [developer.okta.com](https://developer.okta.com/signup)
+Now that we have tested our application, we can go ahead and start it. 
 
-Once you have an account, take note of your Okta domain.  This will be in your initial activation email, as well as in the top right of your Okta Developer Console after you log in.
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
 
-To create an OAuth/OIDC application, from your Okta Developer Console, click **Applications** menu, then click the green **Add Application** button.
+Make sure your Okta app's values are in `src/main/resources/application.properties`.
 
-Select **Web** as the platform and click **Next**.
-
-Name your application, something like "Testing is Groovy"
-
-Change the Login redirect URIs to `http://localhost:8080/login/oauth2/code/okta`.
-
-Click **Done**.
-
-Take note of the Client ID and Client Secret on the next page and update the  `src/main/resources/application.yml`.
-
-```yaml
-okta:
-  oauth2:
-    issuer: https://{yourOktaDomain}/oauth2/default
-    client-id: {clientId}
-    client-secret: {clientSecret}
+```properties
+okta.oauth2.issuer=https://{yourOktaDomain}/oauth2/default
+okta.oauth2.client-id={yourClientId}
+okta.oauth2.client-secret={yourClientSecret}
 ```
 
 Simply run `./mvnw`, open a new Incognito window and browse to `http://localhost:8080/`.  You will be prompted to log in -- use your new Okta credentials.
@@ -371,5 +361,3 @@ If you want to learn more about Okta follow us on Twitter [@OktaDev](https://twi
 - [The Hitchhiker's Guide to Testing Spring Boot](/blog/2018/05/02/testing-spring-boot-angular-components)
 - [Spring Method Security with PreAuthorize](/blog/2019/06/20/spring-preauthorize)
 - [Get Jibby With Java, Docker, and Spring Boot](/blog/2019/08/09/jib-docker-spring-boot)
-
-

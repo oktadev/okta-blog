@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6300240491
+discourse_topic_id: 16757
+discourse_comment_url: https://devforum.okta.com/t/16757
 layout: blog_post
 title: 'Build a Microservices Architecture for Microbrews with Spring Boot'
 author: matt-raible
@@ -11,7 +14,15 @@ tweets:
   - "Do you like good 🍺? If so, you'll 💙 this tutorial that shows you how to build a microservices architecture for microbrews!"
 type: awareness
 image: blog/microservices-spring-boot/httpie-beers.png
+update-url: /blog/2019/05/22/java-microservices-spring-boot-spring-cloud
+update-title: "Java Microservices with Spring Boot and Spring Cloud"
+changelog:
+  - 2018-10-11: Updated to use Spring Boot 2.0.5 and Spring Cloud Finchley SR1. See the example app changes in [spring-boot-microservices-example#20](https://github.com/oktadeveloper/spring-boot-microservices-example/pull/20); changes to this post can be viewed in [okta.github.io#2389](https://github.com/oktadeveloper/okta.github.io/pull/2389).
+  - 2018-05-11: Updated to use Spring Boot 2.0. See the example app changes in [spring-boot-microservices-example#18](https://github.com/oktadeveloper/spring-boot-microservices-example/pull/18); changes to this post can be viewed in [okta.github.io#2046](https://github.com/oktadeveloper/okta.github.io/pull/2046).
+  - 2018-02-08: Updated to use use Spring Boot 1.5.10, Angular CLI 1.6.7, and Angular 5.2.0. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/spring-boot-microservices-example/pull/10). Changes to this article can be viewed [in this pull request](https://github.com/oktadeveloper/okta.github.io/pull/1739).
+  - 2018-01-17: Updated to use latest client from [Build Your First Progressive Web Application with Angular and Spring Boot](/blog/2017/05/09/progressive-web-applications-with-angular-and-spring-boot). See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/spring-boot-microservices-example/pull/6). Changes to this article can be viewed [in this pull request](https://github.com/oktadeveloper/okta.github.io/pull/1637).
 ---
+
 Adopting a microservice architecture provides unique opportunities to add failover and resiliency to your systems, so
 your components can handle load spikes and errors gracefully. Microservices make change less expensive too. It can also
 be a good idea when you have a large team working on a single product. Your project can likely be broken up into components
@@ -652,10 +663,3 @@ or [create an issue on GitHub](https://github.com/oktadeveloper/spring-boot-micr
 **Update:** To learn about how security fits into all this, see [Secure a Spring Microservices Architecture with Spring Security, JWTs, Juiser, and Okta](/blog/2017/08/08/secure-spring-microservices).
 
 **Update 2:** To learn how to lock this application down with Spring Security and OAuth, see [Secure a Spring Microservices Architecture with Spring Security and OAuth 2.0](/blog/2018/02/13/secure-spring-microservices-with-oauth).
-
-**Changelog:**
-
-* Oct 11, 2018: Updated to use Spring Boot 2.0.5 and Spring Cloud Finchley SR1. See the example app changes in [spring-boot-microservices-example#20](https://github.com/oktadeveloper/spring-boot-microservices-example/pull/20); changes to this post can be viewed in [okta.github.io#2389](https://github.com/oktadeveloper/okta.github.io/pull/2389).
-* May 11, 2018: Updated to use Spring Boot 2.0. See the example app changes in [spring-boot-microservices-example#18](https://github.com/oktadeveloper/spring-boot-microservices-example/pull/18); changes to this post can be viewed in [okta.github.io#2046](https://github.com/oktadeveloper/okta.github.io/pull/2046).
-* Feb 8, 2018: Updated to use use Spring Boot 1.5.10, Angular CLI 1.6.7, and Angular 5.2.0. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/spring-boot-microservices-example/pull/10). Changes to this article can be viewed [in this pull request](https://github.com/oktadeveloper/okta.github.io/pull/1739).
-* Jan 17, 2018: Updated to use latest client from [Build Your First Progressive Web Application with Angular and Spring Boot](/blog/2017/05/09/progressive-web-applications-with-angular-and-spring-boot). See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/spring-boot-microservices-example/pull/6). Changes to this article can be viewed [in this pull request](https://github.com/oktadeveloper/okta.github.io/pull/1637).

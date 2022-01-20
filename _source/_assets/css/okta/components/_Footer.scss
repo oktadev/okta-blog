@@ -1,43 +1,319 @@
-.Footer {
-  a {
-    text-decoration: none;
-  }
-
-  .Wrap {
-    padding: 0;
-  }
-
-  &-links {
-    margin-top: 28px;
-
-    li {
-      a {
-        padding: 0;
-      }
-    }
-
-    &--github,
-    &--twitter,
-    &--forum,
-    &--rss,
-    &--youtube {
-      margin-bottom: 10px;
-    }
-
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-
-  h4 {
-    @include font-size('h6');
-  }
+@mixin separator {
+  content: '';
+  position: absolute;
+  bottom: 37px;
+  left: 0;
+  width: 34px;
+  height: 1px;
+  background: get-color('white');
+  opacity: 0.3;
+}
+@mixin separator-full-width {
+  content: '';
+  position: absolute;
+  top: 0px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: get-color('white');
+  opacity: 0.3;
 }
 
-@media (max-width: 859px) {
-  .Footer {
-    .Logo {
-      margin-left: 0;
+.footer {
+  color: get-color('white');
+  background: get-color('resolution-blue');
+  padding: 94px 64px;
+  font-family: $font-family-secondary;
+
+  @include media('<x-large') {
+    padding: 60px 0;
+  }
+
+  .column-header {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.3em;
+    letter-spacing: 1.5px;
+    color: get-color('white');
+    text-transform: uppercase;
+    margin: 0 0 35px;
+
+    @include media('<x-large') {
+      margin-bottom: 20px;
+    }
+  }
+
+  .wrap {
+    margin: 0 auto;
+    max-width: 1440px;
+  }
+
+  a {
+    text-decoration: none;
+    color: get-color('white');
+  }
+
+  ul {
+    padding-left: 0;
+    list-style: none;
+  }
+
+  .footer-links {
+    li {
+      margin-top: 20px;
+      @include media('<x-large') {
+        margin-top: 8px;
+      }
+    }
+  }
+
+  .new-tab:after {
+    content: "\f105";
+    margin-left: 10px;
+    display: inline-block;
+    color: get-color('white');
+    opacity: 0.5;
+    font-family: fontawesome;
+    font-size: 14px;
+  }
+
+  .footer-link {
+    font-size: inherit;
+    display: flex;
+    line-height: 1.3em;
+    color: get-color('mischka-2');
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &.twitter:before,
+    &.github:before,
+    &.forum:before,
+    &.rss:before,
+    &.youtube:before {
+      content: '';
+      width: 18px;
+      height: 18px;
+      display: block;
+      margin-right: 16px;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    &.twitter:before {
+      background-image: url("../../../../assets-jekyll/icons/icon-twitter.svg");
+    }
+
+    &.github:before {
+      background-image: url("../../../../assets-jekyll/icons/icon-github.svg");
+    }
+
+    &.forum:before {
+      background-image: url("../../../../assets-jekyll/icons/icon-forum.svg");
+    }
+
+    &.rss:before {
+      background-image: url("../../../../assets-jekyll/icons/icon-rss.svg");
+    }
+
+    &.youtube:before {
+      background-image: url("../../../../assets-jekyll/icons/icon-youtube.svg");
+    }
+
+  }
+
+  .columns {
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+
+    @include media('<x-large') {
+      width: 83%;
+      margin: 0 auto;
+      flex-wrap: wrap;
+    }
+
+    .column {
+      flex: 0 0 170px;
+
+      @include media('<medium') {
+        flex: 1 0 50%;
+      }
+
+      &.need-support {
+        flex: 0 0 245px;
+        position: relative;
+
+        .column-header {
+          font-weight: 500;
+          font-size: 20px;
+          text-transform: none;
+          margin-bottom: 17px;
+          letter-spacing: .5px;
+
+          @include media('<x-large') {
+            margin-bottom: 16px;
+          }
+        }
+
+        p {
+          line-height: 1.8em;
+          color: get-color('white');
+          a {
+            color: get-color('white');
+            text-decoration: underline;
+          }
+          @include media('<x-large') {
+            line-height: 1.6rem;
+          }
+        }
+      }
+
+      &.social-links {
+        flex: 0 0 120px;
+
+        @include media('<x-large') {
+          flex: 1 0 100%;
+          margin-bottom: 0;
+          padding-top: 19px;
+          order: 5;
+          position: relative;
+
+          &::before {
+            @include separator-full-width;
+          }
+
+          .column-header {
+            display: none;
+          }
+
+          ul.footer-links {
+            display: flex;
+            justify-content: space-between;
+            max-width: 256px;
+            margin: 0 auto;
+
+            span.link-text {
+              display: none;
+            }
+          }
+        }
+      }
+
+      &.contact-links {
+        flex: 0 0 170px;
+        @include media('<x-large') {
+          flex: 1 0 50%;
+          margin-bottom: 29px;
+          order: 3;
+        }
+  
+        @include media('<x-smaller') {
+          flex: 1 0 100%;
+        }
+      }
+  
+      &.info-links {
+        @include media('<x-large') {
+          flex: 1 0 50%;
+          margin-bottom: 29px;
+          padding-left: 18px;
+          order: 4;
+        }
+  
+        @include media('<small') {
+          flex: 1 0 100%;
+          padding-left: 0;
+        }
+      }
+
+      &.need-support, &.external-links {
+        @include media('<x-large') {
+          flex: 1 0 100% !important;
+          justify-content: center;
+          padding-bottom: 68px;
+          position: relative;
+          &::after {
+            @include separator;
+          }
+        }
+      }
+
+      &.external-links {
+        flex: 0 0 300px;
+    
+        @include media('<x-large') {
+          flex: 1 0 40%;
+          margin-bottom: 0;
+          order: 2;
+          padding-bottom: 73px;
+          margin-bottom: 8px;
+        }
+  
+        @include media('<medium') {
+          flex: 1 0 100%;
+        }
+  
+        .external-url {
+          display: flex;
+          flex-direction: column;
+  
+          & + .external-url {
+            margin-top: 37px;
+            @include media('<x-large') {
+              margin-top: 25px;
+            }
+          }
+
+          a {
+            line-height: 1.3em;
+            letter-spacing: 1px;
+            font-weight: 500;
+          }
+  
+          p {
+            font-size: 16px;
+            line-height: 1.7em;
+            letter-spacing: 0.01em;
+            margin-top: 6px;
+            color: get-color('mischka-2');
+          }
+        }
+      }
+
+      &.copyright {
+        color: get-color('white');
+        font-size: 1em;
+        font-weight: 500;
+        clear: both;
+        margin: 38px 0 0;
+        padding: 38px 0 0;
+        position: absolute;
+        left: auto;
+        bottom: 94px;
+
+        &::before {
+          @include separator;
+          top: 0;
+        }
+
+        @include media('<x-large') {
+          position: relative;
+          bottom: auto;
+          order: 6;
+          width: 100%;
+          min-width: 100%;
+          text-align: center;
+          margin-top: 28px;
+          padding-top: 28px;
+
+          &:before {
+            @include separator-full-width;
+          }
+        }
+      }
     }
   }
 }

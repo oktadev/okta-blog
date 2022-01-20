@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7717053203
+discourse_topic_id: 17168
+discourse_comment_url: https://devforum.okta.com/t/17168
 layout: blog_post
 title: "Build a Simple Microservice with C# Azure Functions"
 author: chris-green
@@ -30,7 +33,7 @@ In this article we'll build an authentication microservice that will receive a u
 - An [Okta Developer Account](https://developer.okta.com/signup)
 [Postman](https://www.getpostman.com/downloads/)
 
-You can find the complete working source code for this article [on Github](https://github.com/oktadeveloper/azure-function-okta-auth-service-example).
+You can find the complete working source code for this article [on GitHub](https://github.com/oktadeveloper/azure-function-okta-auth-service-example).
 
 ## Create Your C# Azure Function in Visual Studio
 

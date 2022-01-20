@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7806124242
+discourse_topic_id: 17195
+discourse_comment_url: https://devforum.okta.com/t/17195
 layout: blog_post
 title: "Secure Legacy Apps with Spring Cloud Gateway"
 author: brian-demers

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7677504398
+discourse_topic_id: 17155
+discourse_comment_url: https://devforum.okta.com/t/17155
 layout: blog_post
 title: "Performance Testing with Apache Bench"
 author: lee-brandt
@@ -58,7 +61,7 @@ The last block is pretty self-explanatory. It breaks down the requests by time, 
 
 ## Guidelines for Performance Testing
 
-If you use `ab` to help gauge the performance of your web application, I have a few suggestions to make your  life easier. These rules apply to almost any performance testing scenario, regardless of whether you use Apache Bench..
+If you use `ab` to help gauge the performance of your web application, I have a few suggestions to make your  life easier. These rules apply to almost any performance testing scenario, regardless of whether you use Apache Bench.
 
 ### Automate Performance Tests
 

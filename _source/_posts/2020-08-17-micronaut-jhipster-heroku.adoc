@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8167779415
+discourse_topic_id: 17277
+discourse_comment_url: https://devforum.okta.com/t/17277
 layout: blog_post
 title: "Build a Secure Micronaut and Angular App with JHipster"
 author: matt-raible
@@ -12,6 +15,8 @@ tweets:
 - "❤️ @java? Then you're going to love this tutorial! It shows how to build a @micronautfw and deploy with @docker in minutes."
 image: blog/micronaut-jhipster/micronaut-jhipster.png
 type: conversion
+changelog:
+- 2021-04-01: Updated for the new Okta Admin Console. See [okta-blog#657](https://github.com/oktadeveloper/okta-blog/pull/657) to see what changed.
 ---
 :toc: macro
 :page-liquid:
@@ -259,7 +264,7 @@ You should be able to log in using the email and password you provided. Okta wil
 
 image::{% asset_path 'blog/micronaut-jhipster/heroku-authenticated.png' %}[alt=Heroku after authentication,width=800,align=center]
 
-You can also deploy your JHipster app as a Docker container! In https://developer.okta.com/blog/2020/06/17/angular-docker-spring-boot#heroku-spring-boot-docker[Angular + Docker with a Big Hug from Spring Boot], I showed you how to deploy Spring Boot to Heroku as a container. I also showed how you can deploy that same image to Knative on Google Cloud and Cloud Foundry. Once you have a JHipster + Micronaut image built, you can use those same instructions to deploy to those platforms.
+You can also deploy your JHipster app as a Docker container! In link:/blog/2020/06/17/angular-docker-spring-boot#heroku-spring-boot-docker[Angular + Docker with a Big Hug from Spring Boot], I showed you how to deploy Spring Boot to Heroku as a container. I also showed how you can deploy that same image to Knative on Google Cloud and Cloud Foundry. Once you have a JHipster + Micronaut image built, you can use those same instructions to deploy to those platforms.
 
 In the next section, I'll show how to deploy your container to Heroku.
 
@@ -389,14 +394,12 @@ If you test your Dockerized Angular + Micronaut app on https://securityheaders.c
 
 image::{% asset_path 'blog/micronaut-jhipster/security-headers.png' %}[alt=Security Header Score (A) for Heroku Docker container,width=800,align=center]
 
-If you want to log in to this app, you'll need to add login and logout redirect URIs to your Okta **Web** app. To access it, open https://dashboard.heroku.com[dashboard.heroku.com] in a private window. Log in and go to $docker-app-name > Resources > okta. After you're redirected to Okta, you should see your developer dashboard. If you don't, log out of Okta and try again. Then, go to **Applications** > **Web** > **General** > **Edit**.
+If you want to log in to this app, you'll need to add its login and logout redirect URIs to your Okta OIDC app. To access it, open https://dashboard.heroku.com[dashboard.heroku.com] in a private window. Log in and go to **$docker-app-name** > **Resources** > **okta**. After you're redirected to the Okta Admin Console, go to the **Applications** section, select your app, and **Edit** its general settings.
 
-For example, I added the following to mine:
+For example, I added the following redirect URIs to mine:
 
-* Login redirect URI: `\https://infinite-crag-99454.herokuapp.com/oauth2/callback/oidc`
-* Logout redirect URI: `\https://infinite-crag-99454.herokuapp.com/logout`
-
-image::{% asset_path 'blog/micronaut-jhipster/redirect-uris.png' %}[alt=Redirect URIs after updating,width=650,align=center]
+* Login: `\https://infinite-crag-99454.herokuapp.com/oauth2/callback/oidc`
+* Logout: `\https://infinite-crag-99454.herokuapp.com/logout`
 
 If you make save these changes and try to log in to your app again, you'll likely receive an error message:
 
@@ -404,7 +407,7 @@ If you make save these changes and try to log in to your app again, you'll likel
 Internal Server Error: Unable to sync user with idp.
 ----
 
-This happens when you try to log in with the super admin that the Okta add-on creates. Try logging in using a private window and it should work as expected.
+This happens when you try to log in with the super admin that the Okta add-on creates. If you log in using a private window, it should work as expected.
 
 Deploying a Micronaut app to Heroku in a Docker container is a little more difficult because JHipster doesn't configure PostgreSQL and Okta for you. However, setting a few environment variables is all you need to get things up and running.
 

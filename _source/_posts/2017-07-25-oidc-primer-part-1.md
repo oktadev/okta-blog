@@ -1,9 +1,13 @@
 ---
+disqus_thread_id: 6300318797
+discourse_topic_id: 16768
+discourse_comment_url: https://devforum.okta.com/t/16768
 layout: blog_post
 title: 'Identity, Claims, & Tokens – An OpenID Connect Primer, Part 1 of 3'
 author: micah-silverman
 by: advocate
 communities: [security]
+description: "This blog series is a primer on OIDC. In this first post, we'll review some key concepts around OIDC and tokens, explained in human terms."
 tags: [oauth, oauth2, openid, openid-connect, oidc]
 redirect_from:
   - "/blog/2017/08/01/oidc-primer-part-1"

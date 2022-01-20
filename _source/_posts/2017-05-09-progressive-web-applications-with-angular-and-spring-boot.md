@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6300236777
+discourse_topic_id: 16756
+discourse_comment_url: https://devforum.okta.com/t/16756
 layout: blog_post
 title: Build Your First Progressive Web Application with Angular and Spring Boot
 author: matt-raible
@@ -10,6 +13,9 @@ tweets:
   - "Eager to learn how to develop a PWA with Angular and TypeScript? We've got the 🎟 on our @oktadev blog. ✅ it! "
 tags: [spring-boot, java, pwa, progressive-web-app, angular, typescript, angular-cli]
 type: conversion
+changelog:
+  - 2017-11-03: Updated to use Spring Boot 1.5.8, Angular 5.0.0, and Angular CLI 1.5.0. You can see what changed in this article via [this pull request on GitHub](https://github.com/oktadeveloper/okta.github.io/pull/1453). For code changes, see [oktadeveloper/spring-boot-angular-pwa-example#2](https://github.com/oktadeveloper/spring-boot-angular-pwa-example/pull/2).
+  - 2017-02-08: Updated to use Spring Boot 1.5.10, Angular 5.2.0, and Angular CLI 1.6.7. You can see what changed in this article via [this pull request on GitHub](https://github.com/oktadeveloper/okta.github.io/pull/1737). For code changes, see [oktadeveloper/spring-boot-angular-pwa-example#3](https://github.com/oktadeveloper/spring-boot-angular-pwa-example/pull/3).
 ---
 
 An October 2016 DoubleClick report found 53% of visits are abandoned if a mobile site takes more than 3 seconds to load. That same report said the average mobile sites load in 19 seconds. According to Alex Russell in his recent talk on the state of mobile development, one of the biggest problems in mobile today is that developers use powerful laptops and desktops to develop their mobile applications, rather than using a $200 device on a 3G connection. Using this environment is "ground truth" to the majority of web users in the world. It's cool to develop native applications, but people with slow phones and internet don't want to download a 60MB app, they just want to use the web. Progressive web applications, or PWAs, are one of the easiest ways to make web applications faster and easier to use, allowing developers to build a better internet for everyone.
@@ -469,8 +475,3 @@ To learn more about progressive web applications, check out [The Ultimate Guide 
 * [Hacker News Readers as Progressive Web Apps](https://github.com/tastejs/hacker-news-pwas)
 
 **Update:** To learn how to add authentication to this application, see [Add Authentication to Your Angular PWA](/blog/2017/06/13/add-authentication-angular-pwa). I also wrote a blog post on [how to develop the backend using a microservices architecture](/blog/2017/06/15/build-microservices-architecture-spring-boot).
-
-**Changelog:**
-
-* Feb 8, 2017: Updated to use Spring Boot 1.5.10, Angular 5.2.0, and Angular CLI 1.6.7. You can see what changed in this article via [this pull request on GitHub](https://github.com/oktadeveloper/okta.github.io/pull/1737). For code changes, see [oktadeveloper/spring-boot-angular-pwa-example#3](https://github.com/oktadeveloper/spring-boot-angular-pwa-example/pull/3).
-* Nov 3, 2017: Updated to use Spring Boot 1.5.8, Angular 5.0.0, and Angular CLI 1.5.0. You can see what changed in this article via [this pull request on GitHub](https://github.com/oktadeveloper/okta.github.io/pull/1453). For code changes, see [oktadeveloper/spring-boot-angular-pwa-example#2](https://github.com/oktadeveloper/spring-boot-angular-pwa-example/pull/2).

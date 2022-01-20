@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8100993287
+discourse_topic_id: 17262
+discourse_comment_url: https://devforum.okta.com/t/17262
 layout: blog_post
 title: "Build a Basic CRUD App with ASP.NET Core 3.0 and MongoDB"
 author: lee-brandt
@@ -505,8 +508,8 @@ You should now be able to fire this new application up with either an `F5` from 
 
 If you'd like to learn more about ASP.NET Core, check out some of our other killer content:
 
-* [ASP.NET Core 3.0 MVC Secure Authentication](https://developer.okta.com/blog/2019/11/15/aspnet-core-3-mvc-secure-authentication)
-* [User Authorization in ASP.NET Core with Okta](https://developer.okta.com/blog/2017/10/04/aspnet-authorization)
-* [Secure Your ASP.NET Core App with OAuth 2.0](https://developer.okta.com/blog/2019/07/12/secure-your-aspnet-core-app-with-oauth)
+* [ASP.NET Core 3.0 MVC Secure Authentication](/blog/2019/11/15/aspnet-core-3-mvc-secure-authentication)
+* [User Authorization in ASP.NET Core with Okta](/blog/2017/10/04/aspnet-authorization)
+* [Secure Your ASP.NET Core App with OAuth 2.0](/blog/2019/07/12/secure-your-aspnet-core-app-with-oauth)
 
 We are always posting new content. If you like this content, be sure to [follow us on Twitter](https://twitter.com/oktadev) and subscribe to [our YouTube Channel](https://youtube.com/c/oktadev).

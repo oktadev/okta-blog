@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7913765961
+discourse_topic_id: 17225
+discourse_comment_url: https://devforum.okta.com/t/17225
 layout: blog_post
 title: "Build a React App with Styled Components"
 author: holger-schmitz
@@ -12,6 +15,8 @@ tweets:
 - "💙 React? We do too! That's why we wrote this guide on how to use Styled Components with @reactjs."
 type: conversion
 image: blog/featured/okta-react-headphones.jpg
+changelog:
+  - 2020-05-06: Updated to use the v3.0.1 version of the Okta React SDK. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-react-styled-components-example/pull/2). Changes to this article can be viewed in [oktadeveloper/okta-blog#284](https://github.com/oktadeveloper/okta-blog/pull/284).
 ---
 
 When you create React applications, at some point you have to make a decision on how to organize your CSS styles. For larger applications, you'll have to modularize the stylesheets. Tools such as Sass and Less let you divide up your styles into separate files and provide lots of other features that make writing CSS files more productive. But some problems remain. The tools separate your styles from your components, and keeping the styles up-to-date with the rest of your code can be difficult. It is hard to figure out if a large application that has been developed and modified for several years still uses a particular CSS class. It is also not easy to make sure that changing a style in one part of your application doesn't affect the appearance of some other unrelated component.
@@ -342,7 +347,3 @@ If you want to learn more about creating React applications, styling them, and m
 The code for this tutorial is available at [@oktadeveloper/okta-react-styled-components-example](https://github.com/oktadeveloper/okta-react-styled-components-example) on GitHub.
 
 If you liked this tutorial and want to be notified when we publish more, follow [@oktadev on Twitter](https://twitter.com/oktadev), subscribe to [our YouTube channel](https://youtube.com/c/oktadev), or [follow us on LinkedIn](https://www.linkedin.com/company/oktadev/). If you have a question, please leave a comment below.
-
-**Changelog:**
-
-* May 6, 2020: Updated to use the v3.0.1 version of the Okta React SDK. See the code changes in the [example app on GitHub](https://github.com/oktadeveloper/okta-react-styled-components-example/pull/2). Changes to this article can be viewed in [oktadeveloper/okta-blog#284](https://github.com/oktadeveloper/okta-blog/pull/284).

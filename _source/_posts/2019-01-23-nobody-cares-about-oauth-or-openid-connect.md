@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7183610096
+discourse_topic_id: 16984
+discourse_comment_url: https://devforum.okta.com/t/16984
 layout: blog_post
 title: "Nobody Cares About OAuth or OpenID Connect"
 author: randall-degges

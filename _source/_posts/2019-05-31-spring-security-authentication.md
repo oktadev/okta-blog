@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7449061820
+discourse_topic_id: 17064
+discourse_comment_url: https://devforum.okta.com/t/17064
 layout: blog_post
 title: "Simple Authentication with Spring Security"
 author: andrew-hughes
@@ -22,6 +25,10 @@ In this tutorial, you are going to build a very simple Spring Boot app that star
 
 This tutorial looks specifically at authentication, leaving authorization for another day. Authentication answers the question: who is making the request. Authorization comes after authentication and answers the question: is the authenticated user allowed to make the specific request?
 
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+  
 ## Requirements and Assumptions for Authentication with Spring Security
 
 This tutorial assumes a basic familiarity with Java and Spring Boot. The project utilizes the Gradle build system (because I find Groovy DSL endlessly preferable to XML). You do not need Gradle installed, however, since all projects include the Gradle wrapper.
@@ -408,25 +415,15 @@ Vincenzo De Notari has [an example Service Provider implementation](https://gith
 
 ## Add OAuth 2.0 + OpenID Connect Authentication
 
-Once you're in the [developer.okta.com](https://developer.okta.com) dashboard, create an OIDC Application:
-
- - From top-menu, click on **Applications**
-
-{% img blog/spring-boot-authentication/dashboard-applications.png alt:"Add OIDC App" width:"800" %}{: .center-image }
-
- - Click green **Add Applications** button
- - Click **Web** application type, and **Next**
- - Give the app a **Name**. Any name.
- - Set **Login Redirect URIs** to `http://localhost:8080/login/oauth2/code/okta`
- - Click **Done**.
-
-Take note of the **Client ID** and **Client Secret** at the bottom of the page. You'll need these in a bit.
+{% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
 
 Great! That's all you have to do to configure Okta as an OIDC provider.
 
-Open the `oauth-okta` directory from the example repository.
+Open the `oauth-okta` directory from the example repository. 
 
-Before you do anything else, you need to update the `src/main/resources/application.yml` file. You need to fill in three values:
+Copy your Okta settings from the `application.properties` file the Okta CLI generated. 
+
+Paste them in to `src/main/resources/application.yml`. You need to fill in three values:
 
  1. Okta URL, something like `https://dev-123456.okta.com/oauth2/default`
  2. Client ID (from the OIDC app you just created)
@@ -442,6 +439,8 @@ spring:
   thymeleaf:  
     cache: false
 ```
+
+You can delete the `application.properties` file now.
 
 Next, take a look at the dependencies section of the `build.gradle` file.
 

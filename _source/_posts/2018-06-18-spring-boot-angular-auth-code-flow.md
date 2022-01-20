@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6725684531
+discourse_topic_id: 16882
+discourse_comment_url: https://devforum.okta.com/t/16882
 layout: blog_post
 title: "Deploy Your Secure Spring Boot + Angular PWA as a Single Artifact"
 author: matt-raible
@@ -1260,7 +1263,7 @@ You'll also need to add `http://localhost:8100` and `http://localhost:8080` to y
 
 ### Fix Travis Tests
 
-Changing from implicit flow and a resource server to authorization code flow broke a lot of the tests that Brian Demers and I wrote for the [Hitchhiker's Guide to Testing](https://developer.okta.com/blog/2018/05/02/testing-spring-boot-angular-components). We spent many hours fixing them and finally got everything to pass.
+Changing from implicit flow and a resource server to authorization code flow broke a lot of the tests that Brian Demers and I wrote for the [Hitchhiker's Guide to Testing](/blog/2018/05/02/testing-spring-boot-angular-components). We spent many hours fixing them and finally got everything to pass.
 
 I won't bore you with the details, but you can look at the pull requests we created for the Angular client and the Spring Boot API.
 
@@ -1273,7 +1276,7 @@ I would like to point out that the [combined PR](https://github.com/oktadevelope
 
 I hope you've enjoyed this (lengthy) tour of how to switch from using OAuth 2.0's implicit flow with Angular to authorization code flow with Spring Security and Spring Boot.
 
-You can find the source code for this completed application on GitHub at https://github.com/oktadeveloper/okta-spring-boot-angular-auth-code-flow-example.
+You can find the source code for this completed application on GitHub at <https://github.com/oktadev/okta-spring-boot-angular-auth-code-flow-example>.
 
 [JHipster](https://www.jhipster.tech) uses this same setup for its OAuth 2.0/OIDC support. I [helped write it](/blog/2017/10/20/oidc-with-jhipster), that's how I know! I especially like how Spring Boot and Spring Security allow you to switch OAuth providers simply by overriding environment variables.
 

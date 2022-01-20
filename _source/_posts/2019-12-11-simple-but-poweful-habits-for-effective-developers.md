@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7759384374
+discourse_topic_id: 17181
+discourse_comment_url: https://devforum.okta.com/t/17181
 layout: blog_post
 title: "6 Simple but Powerful Habits for Effective Developers"
 author: heather-downing
@@ -12,7 +15,7 @@ image: blog/powerful-dev-habits/powerful-dev-habits-social.png
 type: awareness
 ---
 
-What a year it has been! As I reflect on all I have learned in programming in 2019, there are a few exciting standouts that I wanted to share with you. By adjusting our thinking we can adopt better habits, therefore kind of setting up our own "action automation". When you consider your New Year's Resolutions as a software engineer, try a few of these suggestions out below. You might be surprised how much the incremental value adds up by doing these small things consistently.
+What a year it has been! As I reflect on all I have learned in programming this year, there are a few exciting standouts that I wanted to share with you. By adjusting our thinking we can adopt better habits, therefore kind of setting up our own "action automation". When you consider your New Year's Resolutions as a software engineer, try a few of these suggestions out below. You might be surprised how much the incremental value adds up by doing these small things consistently.
 
 {% img blog/powerful-dev-habits/powerful-dev-habits-social.png alt:"6 Powerful Habits" width:"1000" %}{: .center-image }
 

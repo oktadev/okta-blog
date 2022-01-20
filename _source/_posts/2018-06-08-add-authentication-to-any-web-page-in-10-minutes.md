@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6719222720
+discourse_topic_id: 16879
+discourse_comment_url: https://devforum.okta.com/t/16879
 layout: blog_post
 title: "Add Authentication to Any Web Page in 10 Minutes"
 author: randall-degges
@@ -11,6 +14,10 @@ tweets:
  - "Adding user management to websites can be really difficult: you have to build a backend, etc. -- or do you? @rdegges will show you how to do it with just a few lines of #javascript"
  - "Hey you. Yah, you. Stop scrolling through Twitter and learn how to add authentication to any web page in 10 minutes flat. It'll be fun!"
 type: conversion
+changelog:
+  - 2020-08-05: Specify implicit flow as a grant type that needs to be allowed. Implicit is required for v2.x of the Sign-In Widget. The latest version supports authorization code flow with PKCE. See [okta-blog#363](https://github.com/oktadeveloper/okta-blog/pull/363) for changes.
+  - 2019-11-16: Added screencast of this tutorial. See [okta-blog#85](https://github.com/oktadeveloper/okta-blog/pull/85) for changes.
+  - 2019-10-31: Removed Trusted Origin (CORS) section since it's no longer needed. Changes to this post can be viewed in [okta-blog#69](https://github.com/oktadeveloper/okta-blog/pull/69).
 ---
 
 Adding authentication to web pages can be pretty annoying.
@@ -344,10 +351,3 @@ If you liked this, you might want to [follow @oktadev on Twitter](https://twitte
 - [Build a Basic CRUD App with Vue.js and Node](/blog/2018/02/15/build-crud-app-vuejs-node)
 
 Until next time!
-
-<a name="changelog"></a>
-**Changelog:**
-
-* Aug 5, 2020: Specify implicit flow as a grant type that needs to be allowed. Implicit is required for v2.x of the Sign-In Widget. The latest version supports authorization code flow with PKCE. See [okta-blog#363](https://github.com/oktadeveloper/okta-blog/pull/363) for changes.
-* Nov 16, 2019: Added screencast of this tutorial. See [okta-blog#85](https://github.com/oktadeveloper/okta-blog/pull/85) for changes.
-* Oct 31, 2019: Removed Trusted Origin (CORS) section since it's no longer needed. Changes to this post can be viewed in [okta-blog#69](https://github.com/oktadeveloper/okta-blog/pull/69).
