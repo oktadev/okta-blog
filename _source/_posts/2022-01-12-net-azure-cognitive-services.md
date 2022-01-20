@@ -1,7 +1,7 @@
 ---
 layout: blog_post
 title: "Using Azure Cognitive Services in a .NET App"
-author: [giorgi-dalakishvili, alisa-duncan]
+author: [alisa-duncan, giorgi-dalakishvili]
 by: advocate
 communities: [.net]
 description: "This tutorial shows you how to call Azure Cognitive Services to verify faces and store profiles pics in Azure Storage in a .NET MVC app."
