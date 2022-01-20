@@ -83,14 +83,6 @@ Otherwise, we'll get a response back with the `access_token`, `refresh_token` an
 
 ## How to Enable the Device Grant in Okta
 
-<!-- Remove following section after features is GA -->
-
-The Device Grant is an *Early Availability* feature on the Okta platform. First, you'll need to enable the feature from your org dashboard. From the left navigation pane in the Admin Console, go to **Settings** -> **Features**, locate the OAuth 2.0 Device Authorization Grant slider, and slide to enable. 
-
-{% img blog/cli-ssh-oauth-device-grant/enable-feature.png alt:"how to enable device flow EA feature" width:"800" %}{: .center-image }
-
-<!-- End Remove Block -->
-
 Follow these steps to add a new app that supports the Device Grant.
 
 1. In **Applications**->**Applications**, click **Create App Integration**. In the pop-up, choose **OIDC - OpenID Connect**, then **Native Application**. The Device Grant is only available for Native Applications.
