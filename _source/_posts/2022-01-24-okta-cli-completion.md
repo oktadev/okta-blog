@@ -8,7 +8,7 @@ description: "Introducing Okta CLI autocompletion in Fig to power up your comman
 tags: [security, oidc, cli]
 tweets:
 - "Looking to power up your commandline? 💪 Use Okta CLI with @fig for ultimate productivity."
-- "Too many terminal commands to remember? Get inline Okta CLI help with help from @fig! 🎉"
+- "Too many terminal commands to remember? Get inline Okta CLI help with @fig! 🎉"
 - ""
 image: blog/okta-cli-completion/okta-cli-completions-social.jpg
 type: awareness
@@ -22,7 +22,7 @@ Fig add autocompletion to supported terminals, which makes using CLIs so much ea
 
 {% img blog/okta-cli-completion/git-commands.jpg alt:"Git command autocompletions in Fig" width:"800" %}{: .center-image }
 
-It's a cool way to reinforce remembering Git command-line operations. But most of us use Git on a daily basis, so we probably have a good command... of our Git commands. 😳 Hilarious pun aside, the branch names in the context menu are pretty helpful.
+It's a cool way to reinforce remembering Git command-line operations. But most of us use Git on a daily basis, so we probably have a good command... of our Git commands. 😳 Hilarious pun aside, the branch names in the context menu are pretty darn helpful.
 
 ## Boosting the power of Okta CLI
 
@@ -42,7 +42,7 @@ You may need to create Okta apps and get app configurations. When you need to cr
 
 ### Help is on the way!
 
-Getting more detailed help information is easier too! The autocompletion context menu helps you navigate to the help output for a command. And yup, you can get help about `help` command. Pretty meta, right?
+Getting more detailed help information is easier too! The autocompletion context menu helps you navigate to the help output for a command. And yup, you can get help about the `help` command. Pretty meta, right?
 
 {% img blog/okta-cli-completion/help-commands.jpg alt:"Okta CLI help context" width:"800" %}{: .center-image }
 
