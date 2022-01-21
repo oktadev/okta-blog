@@ -15,7 +15,7 @@ github: https://github.com/oktadev/okta-website-eleventy-example
 
 11ty is a fantastic tool for quickly creating static sites using a variety of templating languages. 11ty is designed to make designing and developing static sites simple. It supports HTML, Markdown, JavaScript, Nunjucks, Handlebars, and many other template styles. It has built-in support for layouts, pagination, and slugify. 11ty aims to compete against other frameworks such as Jekyll, Hugo, Hexo, Gatsby, and Nuxt. The framework is indeed as simple and powerful as they claim to be. 
 
-This tutorial will teach how to secure your 11ty site using Okta. 11ty will produce static pages, which means you won't have the luxury of servers and states to help manage your authentication. But Okta still has a solution for this. To authenticate users, you will use the [Okta Sign-In Widget](https://developer.okta.com/code/javascript/okta_sign-in_widget/). Then you will store the `id token` returned from the Okta authentication server. You can then use that `id token` to query Okta's servers for many operations, including [vertifying if the token is valid](https://developer.okta.com/docs/reference/api/oidc/#introspect) or obtaining user information.
+This tutorial will teach how to secure your 11ty site using Okta. 11ty will produce static pages, which means you won't have the luxury of servers and states to help manage your authentication. But Okta still has a solution for this. To authenticate users, you will use the [Okta Sign-In Widget](https://developer.okta.com/code/javascript/okta_sign-in_widget/). Then you will store the `id token` returned from the Okta authentication server. You can then use that `id token` to query Okta's servers for many operations, including [verifying if the token is valid](https://developer.okta.com/docs/reference/api/oidc/#introspect) or obtaining user information.
 
 {% include toc.md %}
 
@@ -36,8 +36,8 @@ If you wish to follow along using the completed project you can [check out the G
 The first step is to create your 11ty site. First, create your project directory.
 
 ```console
-mkdir sample_blog
-cd sample_blog
+mkdir okta-website-eleventy-example
+cd okta-website-eleventy-example
 ```
 
 Next, create your node application and install 11ty.
@@ -74,7 +74,7 @@ Now you can add some content to your site. Your site will consist of the followi
 
 First, open the `index.html` file you just created and replace the code with the following.
 
-```HTML
+```html
 ---
 layout: _layout_unauthenticated.11ty.js
 ---
@@ -99,7 +99,7 @@ You will notice the `layout` variable at the top of the file. You have not added
 
 Next, create a file for `login.html` and add the following code.
 
-```HTML
+```html
 ---
 layout: _layout_unauthenticated.11ty.js
 ---
@@ -126,7 +126,7 @@ The only HTML in this page here is a `div` with `id="okta-login-container"`. You
 
 You can add the `protected.html` page now. Add the following code to it.
 
-```HTML
+```html
 ---
 layout: _layout_authenticated.11ty.js
 ---
@@ -162,7 +162,7 @@ This repository shows you how to use Okta on a static site built with 11ty.
 - [Okta CLI](https://cli.okta.com)
 ```
 
-This is a truncated version of the README file that you can see in the GitHub repository for this project.
+This is a truncated version of the [README file](https://github.com/oktadev/okta-website-eleventy-example/blob/master/README.md) that you can see in the GitHub repository for this project.
 
 ## Add Layout Pages
 
@@ -170,6 +170,7 @@ It's now time to add the layout pages for your static files. 11ty enables you to
 
 Add a file called `_layout_base.11ty.js` and add the following code to it.
 
+{% raw %}
 ```javascript
 exports.data = {
 
@@ -215,6 +216,7 @@ exports.render = function (data) {
 </html>`;
 };
 ```
+{% endraw %}
 
 Be sure to replace the placeholder variables with your actual Okta information.
 
@@ -307,11 +309,15 @@ npx @11ty/eleventy --serve
 
 The command will build your templates into static pages and then serve the site on `localhost:8080`. Navigate to `http://localhost:8080` to see the home page.
 
-{% img blog/build-website-with-eleventy/Home Page.png alt:"Home Page" width:"800" %}{: .center-image }
+{% img blog/build-website-with-eleventy/home-page.png alt:"Home Page" width:"800" %}{: .center-image }
 
-Next, click the login button to see the Okta Sign-in widget in action. You can log in with your Okta credentials and see the protected page.
+Next, click the login button to see the Okta Sign-in widget in action. You can log in with your Okta credentials.
 
-{% img blog/build-website-with-eleventy/Login page.png alt:"Login Page" width:"800" %}{: .center-image }
+{% img blog/build-website-with-eleventy/login-page.png alt:"Login Page" width:"800" %}{: .center-image }
+
+If everything goes well, you should see the protected page.
+
+{% img blog/build-website-with-eleventy/protected-page.png alt:"Protected Page" width:"800" %}{: .center-image }
 
 ## Learn more about working with 11ty
 
