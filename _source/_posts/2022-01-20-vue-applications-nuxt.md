@@ -151,7 +151,7 @@ export default {
 };
 ```
 
-The first thing this file does is make use of dotenv. It registers the modules you added earlier through the task runner and via npm. Finally, it sets up the options for your OAuth configuration. This is where you use the environment variables that you set up in your `.env` file.  
+The first thing this file does is make use of dotenv. It registers the modules you added earlier through the task runner and via npm. Finally, it sets up the options for your OAuth configuration. Here is where you use the environment variables that you set up in your `.env` file.  
 
 You should note the line of code that reads `logout: undefined`. This is critical because for logging the user out correctly, Okta requires the `idToken` to be passed as a query parameter. However, `nuxt-auth` won't include that parameter under the hood. The solution is to override the logout URL obtained from the configuration endpoint with undefined and manually log the user out in your page file. You will implement this shortly.
 
