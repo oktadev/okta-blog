@@ -109,7 +109,7 @@ services:
 ```
 Remove the Keycloak service at the bottom, as Okta will be used as Identity Provider.
 
-Create each application container image:
+Create each applications' container image:
 
 ```shell
 cd blog
@@ -172,7 +172,7 @@ Choose for example the `tag` index. The **Mappings** tab before persisting any i
 
 As you can see, properties are not mapped yet.
 
-Go back to the application, and in the top-right menu go to Entities > Tag and create some `Tag` entities. Then create some `Blog` and `Post` entities as well. As you can see, a search box is present on the entity list page. Go ahead and test the search functionality. The results page will return the matches with pagination.
+Go back to the application, and in the top-right menu go to **Entities** > **Tag** and create some `Tag` entities. Then create some `Blog` and `Post` entities as well. As you can see, a search box is present on the entity list page. Go ahead and test the search functionality. The results page will return the matches with pagination.
 
 {% img blog/spring-data-elasticsearch/entity-search-box.png alt:"Entity Search Box" width:"800" %}{: .center-image }
 
