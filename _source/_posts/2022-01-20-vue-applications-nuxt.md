@@ -76,7 +76,7 @@ npm i @nuxtjs/dotenv@1.4.1
 npm i @nuxtjs/auth-next@5.0.0-1637333559.35dbd53
 ```
 
-With your dependencies installed it's time to start building your application. First, add a new file to your root directory and name it `.env` and add the following code to it.
+With your dependencies installed it's time to start building your application. First, add a new file to your root directory and name it `.env`, then add the following code to it.
 
 ```bash
 OKTA_DOMAIN=https://{yourOktaDomain}
