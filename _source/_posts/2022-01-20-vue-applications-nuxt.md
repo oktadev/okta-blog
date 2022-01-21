@@ -155,7 +155,7 @@ The first thing this file does is make use of dotenv. It registers the modules y
 
 You should note the line of code that reads `logout: undefined`. It is critical for logging the user out correctly, because Okta requires the `idToken` to be passed as a query parameter. However, `nuxt-auth` won't include that parameter under the hood. The solution is to override the logout URL obtained from the configuration endpoint with `undefined` and manually log the user out in your page file. You will implement this shortly.
 
-Nuxt needs you to add a file to the `store` folder called `index.vue` to use the OAuth configuration properly. You can leave this file empty, but it needs to exist for Nuxt to use it.  If you do not have a `store` folder, create one now and add a blank `index.vue` file to it.
+To use the OAuth configuration properly, Nuxt requires you to add a file to the `store` folder called `index.vue`. You can leave this file empty, but it must exist for Nuxt to use it. If you do not have a `store` folder, create one now and add a blank `index.vue` file to it.
 
 ### Add your Nuxt Pages
 
