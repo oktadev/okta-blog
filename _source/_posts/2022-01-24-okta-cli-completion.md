@@ -7,7 +7,7 @@ communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
 description: "Introducing Okta CLI autocompletion in Fig to power up your commandline"
 tags: [security, oidc, cli]
 tweets:
-- "Looking to power up your commandline? 💪 Use Okta CLI with @fig for ultimate productivity."
+- "Looking to power up your command line? 💪  Use Okta CLI with @fig for ultimate productivity."
 - "Too many terminal commands to remember? Get inline Okta CLI help with @fig! 🎉"
 - ""
 image: blog/okta-cli-completion/okta-cli-completions-social.jpg
