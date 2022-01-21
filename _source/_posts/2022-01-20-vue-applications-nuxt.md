@@ -67,7 +67,7 @@ The Nuxt project layout is pretty straightforward. First you have a `.nuxt` fold
 
 You will also add a `layouts` folder later.  As you might have guessed, this folder will contain layouts. There are several other directories that are configured out of the box for Nuxt, including middleware, modules, plugins, and dist.  These are out of scope for this article but it is important to know they exist.
 
-Finally, you will need two packages from npm. The first is `@nuxtjs/dotenv` which is a nuxt friendly implementation of dotenv. You will use this to store sensitive information that you don't want to end up in your source control. 
+Finally, you will need two packages from npm. The first is `@nuxtjs/dotenv` which is a nuxt-friendly implementation of dotenv. You will use this to store sensitive information that you don't want to end up in your source control. 
 
 Finally you will need `@nuxt/auth-next` to control your authentication
 
