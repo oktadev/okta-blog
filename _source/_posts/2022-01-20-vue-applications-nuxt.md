@@ -344,7 +344,7 @@ Click on **Dashboard** or **Login** and this should route you to the Okta login 
 
 ## Do more with Nuxt and Vue
 
-With a little bit of code, you can combine Nuxt and Okta to make secure Vue SPAs or Universal applications. You can find the source code for the example created in this tutorial [on GitHub](https://github.com/oktadev/okta-vue-nuxt-example).
+With a little bit of code, you can combine Nuxt and Okta to make secure Vue SPAs or universal applications. You can find the source code for the example created in this tutorial [on GitHub](https://github.com/oktadev/okta-vue-nuxt-example).
 
 In this post, you learned how to use the `@nuxt/auth-next` package to secure your Nuxt application using Okta. You also learned how to create the application in Okta and configure the Vue app to use it. Finally, you learned how to use the `@nuxtjs/axios` package to pull data from a sample API.
 
