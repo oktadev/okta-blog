@@ -308,7 +308,7 @@ export default Vue.extend({
 </script>
 ```
 
-Finally you will need to add the login page that Nuxt will route unauthenticated users to. Add a new page to the `pages` folder named `login.vue`. Add the following code to it.
+Finally you will need to add the login page where Nuxt will route unauthenticated users. Add a new page to the `pages` folder named `login.vue`. Add the following code to it.
 
 ```html
 <template>
