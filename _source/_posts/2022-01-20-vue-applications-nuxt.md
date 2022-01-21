@@ -157,7 +157,7 @@ You should note the line of code that reads `logout: undefined`. It is critical 
 
 To use the OAuth configuration properly, Nuxt requires you to add a file to the `store` folder called `index.vue`. You can leave this file empty, but it must exist for Nuxt to use it. If you do not have a `store` folder, create one now and add a blank `index.vue` file to it.
 
-### Add your Nuxt Pages
+### Add your Nuxt pages
 
 Now, you can start adding pages to your application. Nuxt builds your routes by looking in the `pages` folder. You can read more about Nuxt's custom routing in their [documentation](https://nuxtjs.org/guide/routing).  
 
