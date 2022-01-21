@@ -273,7 +273,7 @@ export default {
 </script>
 ```
 
-Next, you can add the `Dashboard` page. This page makes use of the `data()` webhook to get some data from a server using Axios. This data is then displayed in a table. This page also makes use of the `auth` middleware to enforce authentication on this page. When a user attempts to hit this page they will be rerouted to your login page if they are not authenticated.
+Next, you can add the `Dashboard` page. This page makes use of the `data()` webhook to get some data from a server using Axios, which it then displays in a table. The `Dashboard` page also makes use of the `auth` middleware to enforce authentication on this page. When a user attempts to hit this page, they will be rerouted to your login page if they are not authenticated.
 
 Add a new file to the `pages` folder and name it `dashboard.vue`. Copy the following code into your `dashboard.vue` file.
 
