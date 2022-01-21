@@ -69,7 +69,7 @@ You will also add a `layouts` folder later.  As you might have guessed, this fol
 
 Finally, you will need two packages from npm. The first is `@nuxtjs/dotenv` which is a nuxt-friendly implementation of dotenv. You will use this to store sensitive information that you don't want to end up in your source control. 
 
-Finally you will need `@nuxt/auth-next` to control your authentication
+Finally you will need `@nuxt/auth-next` to control your authentication.
 
 ```console
 npm i @nuxtjs/dotenv@1.4.1
