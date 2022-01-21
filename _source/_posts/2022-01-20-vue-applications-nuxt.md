@@ -163,7 +163,7 @@ Now, you can start adding pages to your application. Nuxt builds your routes by 
 
 Before working on your pages you should set up your layout. Add a new folder called `layouts` to the project directory and add a file called `default.vue`.  
 
-This file, and all of the views in this project, will use the Vue template syntax. Vue templating is very similar to most other template syntaxeis. It relies heavily on the `v-bind` HTML attribute to handle events or bind attribute values. You can handle events with the `v-on` syntax, which can be short handed to `@`, such as `@click="doSomething"`.  The `b-*` components are from the `Bootstrap Vue` library that should have been installed via the npx task runner.
+This file, and all of the views in this project, will use the Vue template syntax. Vue templating is very similar to most other template syntaxes. It relies heavily on the `v-bind` HTML attribute to handle events or bind attribute values. You can handle events with the `v-on` syntax, which can be short handed to `@`, such as `@click="doSomething"`.  The `b-*` components are from the `Bootstrap Vue` library that should have been installed via the npx task runner.
 
 The layout page will display the headers and footers and incorporate some branching logic to determine if a user should see a `login` or `logout` button. It also contains some common CSS and JavaScript that will be needed on each page that uses the layout. the `<nuxt />` element on this page will act as a placeholder for the code on your page. Nuxt will render your page code in this section.  
 
