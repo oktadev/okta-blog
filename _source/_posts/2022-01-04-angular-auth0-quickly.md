@@ -13,6 +13,7 @@ tweets:
 image:
 type: conversion
 github: https://github.com/oktadev/auth0-angular-example
+canonical: https://auth0.com/blog/add-oidc-to-angular-apps-quickly/
 ---
 
 AngularJS 1.0 was released in October 2010. At the time, it was considered one of the most revolutionary and popular web frameworks ever to see the light of day. Developers loved it, and created many apps with it. However, as a pioneer in the JS framework space, AngularJS had some growing pains and significant issues. The team went back to the drawing board for a major breaking release with Angular 2. It took two years to develop and influenced many devs to hop onto other frameworks in the meantime.  
