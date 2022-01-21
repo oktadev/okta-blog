@@ -331,7 +331,7 @@ export default {
 </script>
 ```
 
-## Testing your Nuxt Application
+## Testing your Nuxt application
 
 Now that your application is complete you can run `npm run dev` from your terminal and the application will build. You should see the home page first. 
 
