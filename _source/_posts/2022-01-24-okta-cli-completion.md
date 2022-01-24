@@ -14,11 +14,11 @@ image: blog/okta-cli-completion/okta-cli-completions-social.jpg
 type: awareness
 ---
 
-CLIs are great. I love the speed and productivity increases I get when using a CLI, but memorizing commands, when commands need arguments, options, flags, and so on, can be daunting. Luckily, there are tools available for CLI fans out there, and one tool I've been enjoying is [Fig](https://fig.io/).
+CLIs are great. I love the speed and productivity increases I get when using a CLI, but memorizing commands – especially when commands need arguments, options, flags, and so on – can be daunting. Luckily, there are tools available for CLI fans out there, and one tool I've been enjoying is [Fig](https://fig.io/).
 
 ## Fig powers up your CLI productivity
 
-Fig add autocompletion to supported terminals, which makes using CLIs so much easier. Using Git? You'll see a small window pop up with different commands and options. 
+Fig adds autocompletion to supported terminals, which makes using CLIs so much easier. Using Git? You'll see a small window pop up with different commands and options. 
 
 {% img blog/okta-cli-completion/git-commands.jpg alt:"Git command autocompletions in Fig" width:"800" %}{: .center-image }
 
@@ -28,21 +28,21 @@ It's a cool way to reinforce remembering Git command-line operations. But most o
 
 How about when it's a CLI that you might not use daily? This is where the autocompletion shines and really helps you power up!
 
-We're pleased to announce that [Okta CLI](https://cli.okta.com/) autocompletion are available in Fig!  When you use a supported terminal, you'll see hints to help you navigate through the commands and flags, so managing your Okta applications have never been easier.
+We're pleased to announce that [Okta CLI](https://cli.okta.com/) autocompletion is available in Fig!  When you use a supported terminal, you'll see hints to help you navigate through the commands and flags, so managing your Okta applications has never been easier.
 
 {% img blog/okta-cli-completion/all-commands.jpg alt:"All command options in Okta CLI" width:"800" %}{: .center-image }
 
-The autocompletion context menu lists all the commands available and shows you which command requires an argument. The `okta start` command allows you to pass in a name, and you can see the optional argument at a glance.
+The autocomplete context menu lists all the commands available and shows you which command requires an argument. The `okta start` command allows you to pass in a name, and you can see the optional argument at a glance.
 
 ### Managing Okta apps
 
-You may need to create Okta apps and get app configurations. When you need to create an Okta app, the Okta CLI is very helpful as it steps you through the process. However, if you are an Okta power user, you may be fine creating the Okta app in one shot by passing in the app settings. The Okta CLI autocompletion is pretty handy here as it shows you all the options you can pass in!
+You may need to create Okta apps and get app configurations. When you need to create an Okta app, the Okta CLI helps you step through the process. However, if you are an Okta power user, you may be fine creating the Okta app in one shot by passing in the app settings. In this case, the Okta CLI autocomplete is pretty handy as it shows you all the options you can pass in!
 
 {% img blog/okta-cli-completion/create-apps.jpg alt:"Optional flags to pass in while creating an Okta app" width:"800" %}{: .center-image }
 
 ### Help is on the way!
 
-Getting more detailed help information is easier too! The autocompletion context menu helps you navigate to the help output for a command. And yup, you can get help about the `help` command. Pretty meta, right?
+Getting more detailed help information is easier too! The autocomplete context menu helps you navigate to the help output for a command. And yup, you can get help about the `help` command. Pretty meta, right?
 
 {% img blog/okta-cli-completion/help-commands.jpg alt:"Okta CLI help context" width:"800" %}{: .center-image }
 
@@ -52,7 +52,7 @@ Now that you're excited, here's the fine print. Fig currently only supports macO
 
 ## Learn more
 
-I hope the autocompletion helps you! I'd love to hear how you use Okta CLI and what tools you use to power up your terminal commands. We welcome issues and PRs in the [okta-cli GitHub repo](https://github.com/okta/okta-cli) too.
+I hope this autocomplete feature helps you! I'd love to hear how you use Okta CLI and what tools you use to power up your terminal commands. We welcome issues and PRs in the [okta-cli GitHub repo](https://github.com/okta/okta-cli) too.
 
 If you want to learn more about Okta, Okta CLI, security practices, and tooling, check out these posts:
 
