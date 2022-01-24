@@ -689,7 +689,7 @@ async deleteMeal (id) {
 
 ### Test Out Your New Vanilla JS App
 
-Congrats! You have successfully built a dynamic SPA in around 100 lines of code. Not bad! Go back to your browser and hit refresh. You should initially see no meals as the server starts with an empty array. You should add meals, remove meals, and refresh the page to see the app in action.
+Congrats! You have successfully built a dynamic SPA in around 100 lines of code. Not bad! Go back to your browser and hit refresh. You should initially see no meals as the server starts with an empty array. To see the app in action you can add meals or remove meals, then refresh the page to view the changes.
 
 ## Add Authentication with Okta's Sign-In Widget
 
