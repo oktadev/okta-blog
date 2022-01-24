@@ -1052,7 +1052,7 @@ You can also overwrite CSS to inject your own styles:
 }
 ```
 
-You can check out [https://ok1static.oktacdn.com/assets/js/sdk/okta-signin-widget/2.6.0/css/okta-theme.css](https://ok1static.oktacdn.com/assets/js/sdk/okta-signin-widget/2.6.0/css/okta-theme.css) for a complete list of CSS classes you can inject your styles.
+To inject your own styles, check out [this complete list of CSS classes](https://ok1static.oktacdn.com/assets/js/sdk/okta-signin-widget/2.6.0/css/okta-theme.css).
 
 ## Learn More About JavaScript, Authentication, and Okta
 
