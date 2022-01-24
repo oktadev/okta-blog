@@ -12,26 +12,32 @@ tags: [javascript, es6, vanilla-javascript, vanilla-js, authentication]
 tweets:
  - "Having a hard time with JavaScript Framework Fatigue? Check out this tutorial that builds a calorie tracking app with good ol' JavaScript. No frameworks, no problem! 😃"
  - "Want to get your hands dirty with good ol' JavaScript? This tutorial doesn't use any JavaScript frameworks to build an app. The build process is amazing! 🤘"
+image: blog/vanilla-js/vanilla-js-social.jpg
 type: conversion
+github: https://github.com/oktadev/okta-vanilla-js-example
+changelog:
+  - 2020-01-06: Updated dependencies, code, and screenshots. See this post's changes in [okta-blog#1020](https://github.com/oktadev/okta-blog/pull/1020) and the example app changes in [okta-vanilla-js-example#2](https://github.com/oktadev/okta-vanilla-js-example/pull/2). 
 ---
 
-*"Sometimes nothing is good enough"* is a phrase that software engineers don't speak or hear often. In the fast-changing world of web development, there is no shortage of bleeding-edge JavaScripts frameworks promising to make your life easier or inch out its predecessors. You may ask yourself if it is even possible to build a modern web application without one of these frameworks, let alone add secure authentication. Well, it is!
+*"Sometimes nothing is good enough"* is a phrase that software engineers don't speak or hear often. In the fast-changing world of web development, there is no shortage of bleeding-edge JavaScript frameworks promising to make your life easier or inch out its predecessors. You may ask yourself if it is even possible to build a modern web application without one of these frameworks, let alone add secure authentication. Well, it is!
 
-Vanilla JavaScript is a term frequently used to describe ordinary JavaScript leveraging the browser and DOM APIs. Yes, you read that correctly. No Angular, React, Vue, or even jQuery. And even better it's not as complicated as you might assume.
+Vanilla JavaScript is frequently used to describe ordinary JavaScript leveraging the browser and DOM APIs. Yes, you read that correctly. No Angular, React, Vue, or even jQuery. And even better, it's not as complicated as you might assume.
 
-There are many reasons you may decide to forgo the framework bloat for vanilla JavaScript. It's raw speed and no complicated build process are among my top reasons. Regardless of your reasons, this article might serve as a refresher on how to leverage the power of JavaScript to create some great user experiences.
+There are many reasons you may decide to forgo the framework bloat for vanilla JavaScript. Among my top reasons: raw speed and noncomplicated build process. Regardless of your reasons, this article serves as a refresher on leveraging the power of JavaScript to create some great user experiences.
 
-Along with a simple build process for your application, I'll also demonstrate how simple it is to add secure user authentication with Okta. Before we get started, let me tell you what Okta is, and why I think Okta is a no-brainer choice for your next frontend project.
+Along with a simple build process for your application, I'll demonstrate how simple it is to add secure user authentication with Okta. Before we get started, let me tell you what Okta is and why I think Okta is a no-brainer choice for your next front-end project.
+
+{% include toc.md %}
 
 ## What is Okta?
 
-Okta is a cloud service that allows developers to create, edit, and securely store user accounts and user account data, and connect them with one or multiple applications. Our API enables you to:
+Okta is a cloud service that allows developers to create, edit, and securely store user accounts and user account data and connect them with multiple applications. Our API enables you to:
 
-* [Authenticate](https://developer.okta.com/product/authentication/) and [authorize](https://developer.okta.com/product/authorization/) your users
+* [Authenticate](https://developer.okta.com/docs/concepts/authentication/) and [authorize](https://developer.okta.com/books/api-security/authz/) your users
 * Store data about your users
-* Perform password-based and [social login](https://developer.okta.com/authentication-guide/social-login/)
-* Secure your application with [multi-factor authentication](https://developer.okta.com/use_cases/mfa/)
-* And much more! Check out our [product documentation](https://developer.okta.com/documentation/)
+* Perform password-based and [social login](https://developer.okta.com/docs/guides/social-login/)
+* Secure your application with [multi-factor authentication](https://developer.okta.com/docs/guides/mfa/ga/main/)
+* And much more! Check out our [product documentation](https://developer.okta.com)
 
 In short: we make [authentication and user management](https://developer.okta.com/product/user-management/) a lot easier, more secure, and more scalable than what you're probably used to.
 
@@ -41,9 +47,9 @@ Now, let's dive in!
 
 ## Your Project: Secure Authentication for Vanilla JavaScript
 
-You are going to create a calorie counter app using just JavaScript DOM APIs and a simple REST server. The goal is to create a web interface to track meals and display a running total of calories.  For the backend, you are going to use Express to serve your static files and expose a few REST methods to manage meals.
+You will create a calorie counter app using just JavaScript DOM APIs and a simple REST server. The goal is to create a web interface to track meals and display a running total of calories. For the backend, you will use Express to serve your static files and expose a few REST methods to manage meals.
 
-It's inevitable at some point you will have to integrate an external library or dependency in an app. And since every app needs authentication, I'll show you how to integrate [Okta's Sign-In Widget](https://developer.okta.com/code/javascript/okta_sign-in_widget) to authenticate a user and verify REST API requests are coming from an authenticated user.
+You will inevitably have to integrate an external library or dependency in an app at some point. And since every app needs authentication, I'll show you how to integrate [Okta's Sign-In Widget](https://developer.okta.com/code/javascript/okta_sign-in_widget) to authenticate a user and verify REST API requests coming from an authenticated user.
 
 Here's a quick preview of what you will build.
 
@@ -57,16 +63,16 @@ If you require more comprehensive browser support, you can use [babel](https://b
 
 ## Create a Static File Server in Vanilla JS
 
-Perhaps the best part of using vanilla JavaScript is not having a lengthy bootstrap process or complicated build scripts. To get started, all you need is a static file server and a few files.
+Perhaps the best part of using vanilla JavaScript is not having a lengthy bootstrap process or complicated build scripts. All you need is a static file server and a few files to get started.
 
-Create a new directory for your app (I used `vanilla-js`). Open your favorite terminal and `cd` into the directory.  Initialize your app and install a single dependency:
+Create a new directory for your app (I used `vanilla-js`). Open your favorite terminal and `cd` into the directory. Initialize your app and install a single dependency:
 
 ```bash
 npm init -y
-npm install --save express@4.16.3
+npm install express@4
 ```
 
-Create the file `index.js` in your project root and paste the following code.
+Create an `index.js` file in your project root and paste the following code into it.
 
 ```js
 const express = require('express')
@@ -80,13 +86,14 @@ app.listen(8080, () => {
 })
 ```
 
-This code will start an Express server on port 8080 and serve static files from `public/` directory in your project root.
+This code will start an Express server on port 8080 and serve static files from`public/` directory in your project root.
 
-To complete the setup, create a `public` directory in your project root and create the following two files:
+To complete the setup, create a `public` directory in your project root and create the following two files in it:
 
 First, `public/index.html`:
 
 ```html
+<!DOCTYPE html>
 <html>
   <head>
     <title>Calorie Tracker</title>
@@ -119,15 +126,15 @@ app.init()
 
 ### Launch the Express App
 
-While in your terminal, run `node .` and your Express server should start up. Open a browser and navigate to `http://localhost:8080`.
+While in your terminal, run `node .` and your Express server should startup. Open a browser and navigate to `http://localhost:8080`.
 
 {% img blog/vanilla-js/hello-world.png alt:"Hello World" width:"600" %}{: .center-image }
 
 ## Get Familiar with the DOM
 
-You are going to work directly with the [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction) (Document Object Model). The DOM is an interface to change the structure, style, and content of an HTML page. By using the DOM you can render meals, listen to form events, and update the total calories all with JavaScript.
+You are going to work directly with the [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction) (Document Object Model). The DOM is an interface to change an HTML page's structure, style, and content. Using the DOM, you can render meals, listen to form events, and update the total calories with JavaScript.
 
-To quickly illustrate this, let's use the DOM to change the text color an element.  In `main.js`, add the following code to the `render()` method:
+To illustrate this quickly, let's use the DOM to change an element's text color. In `main.js`, add the following code to the `render()` method:
 
 ```js
 render () {
@@ -138,11 +145,11 @@ render () {
 
 {% img blog/vanilla-js/hello-world-red.png alt:"Hello World" width:"600" %}{: .center-image }
 
-Tab back to your browser and refresh. Voila, red text! **Mind blown**! Okay, so it's not the most impressive example ever, but it is a basic example of how you can interact with HTML elements with JavaScript.
+Go back to your browser and refresh. Voila, red text! **Mind blown**! Okay, it's not the most impressive example ever, but it is a basic example of how you can interact with HTML elements with JavaScript.
 
 ### Create Nodes
 
-By leveraging the DOM you can build and render complex, dynamic objects. Now that you are a ninja at changing colors try something a bit more advanced: creating nodes. A "node" in this context is an HTML element ("nodes" and "elements" are frequently used to represent the same thing).
+You can build and render complex, dynamic objects by leveraging the DOM. Now that you are a ninja at changing colors try something more advanced: creating nodes. A "node" in this context is an HTML element ("nodes" and "elements" are frequently used to represent the same thing).
 
 You can use the DOM to append a `<div>Oh my!</div>` to the `<app />` element.  Modify `main.js` to the following.
 
@@ -155,13 +162,13 @@ render () {
 }
 ```
 
-Refresh the web page. A `<div/>` node was not-so-magically appended to your article.  What the `render()` method does is builds a new `<div />`, sets the text and then appends it.
+Refresh the web page. A `<div/>` node was not-so-magically appended to your webpage. The `render()` method builds a new `<div />`, sets the text, and appends it to the app.
 
 {% img blog/vanilla-js/hello-world-ohmy.png alt:"Hello World - Oh my!" width:"600" %}{: .center-image }
 
 ### Remove Nodes
 
-You can remove nodes just as easily by calling `node.remove()`. To see this in action, add the following `setTimeout` call to the end of your `render()` method. The newly created div should disappear after 2 seconds.
+You can remove nodes just as easily by calling `node.remove()`. Add the following `setTimeout` call to the end of your `render()` method to see this in action. The newly created div should disappear after two seconds.
 
 ```js
 render () {
@@ -173,11 +180,11 @@ render () {
 }
 ```
 
-There are other ways you can remove nodes with the DOM like `parent.removeChild(node)` but for the sake of simplicity, `node.remove()` tends to be the easiest to understand.
+There are other ways you can remove nodes with the DOM like `parent.removeChild(node)`, but for the sake of simplicity, `node.remove()` tends to be the easiest to understand.
 
 ### Render Lists
 
-It's common for web apps to render items inside a loop.  Since you will be doing this in your app for rendering individual meals, I wanted to step you through a few ways you can accomplish this and showcase some hidden drawbacks to each approach.
+It's common for web apps to render items inside a loop. Since you will be doing this in your app for rendering individual meals, I wanted to step you through a few ways you can accomplish this and showcase some hidden drawbacks to each approach.
 
 **Example 1:** Concat each list element to the parent's `innerHTML` property:
 
@@ -195,9 +202,9 @@ render () {
 }
 ```
 
-Although this is the easiest, it's also pretty bad. For every loop iteration, you are deleting the entire parent element from the DOM and re-inserting it. This might not be an issue with 10 elements, but it will cause the browser to slow to a crawl trying to render longer lists.
+Although this is the easiest, it's also pretty bad. For every loop iteration, you delete the entire parent element from the DOM and re-insert it. This might not be an issue with ten elements, but it will cause the browser to slow down to a crawl trying to render longer lists.
 
-A better way would be to append new elements to the parent element, so the browser doesn't have to reprocess the entire parent element on each iteration.
+A better way would be to append new elements to the parent element so the browser doesn't have to reprocess the entire parent element on each iteration.
 
 **Example 2:** Use DOM API to create a new element and append it to the parent:
 
@@ -212,9 +219,9 @@ render () {
 }
 ```
 
-Using `appendChild()` cuts down significantly on the processing. But, there is one minor drawback to this approach when rendering larger lists: reflows. Reflow is the technical term of the web browser process that computes the layout of the page. For every loop iteration, the browser has to recalculate the position of each appended element.
+Using `appendChild()` cuts down significantly on the processing. But, there is one minor drawback to this approach when rendering larger lists: reflows. Reflow is the technical term of the web browser process that computes the page's layout. For every loop iteration, the browser has to recalculate the position of each appended element.
 
-A better way would be to batch all the new items into one operation, so the reflow only occurs a single time.
+A better way would be to batch all the new items into one operation, so the reflow only occurs once.
 
 **Example 3:** Batch insert nodes using [`DocumentFragment`](https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment):
 
@@ -231,9 +238,9 @@ render () {
 }
 ```
 
-We can batch our appends by creating a [`DocumentFragment`](https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment) which is calculated and tracked outside the current DOM. Since `DocumentFragment` works outside the current DOM, we can build the list of items then insert them into the DOM using one operation. This simple design change can have a significant impact on the speed the browser can render lists.
+We can batch our appends by creating a [`DocumentFragment`](https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment) which is calculated and tracked outside the current DOM. Since `DocumentFragment` works outside the current DOM, we can build the list of items then insert them into the DOM using one operation. This simple design change can significantly impact the speed at which the browser can render lists.
 
-Using this optimal approach, your `public/main.js` file should look like this.
+Using this optimal approach, your `public/main.js` file should now look like this.
 
 ```js
 class App {
@@ -261,15 +268,16 @@ let app = new App()
 app.init()
 ```
 
-Refresh your browser and you should see a list of meals.
+Refresh your browser, and you should see a list of meals.
 
 {% img blog/vanilla-js/hello-world-meals.png alt:"Hello World - Meals List" width:"600" %}{: .center-image }
 
 ## Build your App Frontend in Vanilla JavaScript
 
-Now that you have a core understanding of the necessary DOM APIs, you can move on to building the app.  Copy and paste the following code into `public/index.html`. This code will get your app looking like the screenshot at the beginning of the article.
+Now that you have a core understanding of the necessary DOM APIs, you can move on to building the app. Copy and paste the following code into `public/index.html`. This code will get your app to look like the screenshot at the beginning of the article.
 
 ```html
+<!DOCTYPE html>
 <html>
   <head>
     <title>Calorie Tracker</title>
@@ -314,7 +322,7 @@ Now that you have a core understanding of the necessary DOM APIs, you can move o
 
 ### Manage Meals
 
-You will create several methods to manage meals within the app.  To get started, copy and paste the following code into `public/main.js`.  I will step through each code chunk below in detail.
+You will create several methods to manage meals within the app.  Copy and paste the following code into `public/main.js` to get started.  I will step through each code chunk below in detail.
 
 ```js
 class App {
@@ -389,7 +397,7 @@ app.init()
 
 ### Render Stored Meals
 
-When the app first loads it should initially render all stored meals.  As I talked above, using `DocumentFragments` to batch add DOM elements is the way to go.
+When the app first loads, it should initially render all stored meals.  As I discussed above, using `DocumentFragments` to batch add DOM elements is the way to go.
 
 ```js
 render () {
@@ -432,7 +440,7 @@ document.getElementById('form-entry').addEventListener('submit', (event) => {
 })
 ```
 
-Since users are only likely to add one meal at a time, you can use `appendChild` on the parent element to insert the new meal into the DOM.  You could use a `DocumentFragment` here but the difference in time/processing would be insignificant since both operations will result in a single reflow.
+Since users are only likely to add one meal at a time, you can use `appendChild` on the parent element to insert the new meal into the DOM.  You could use a `DocumentFragment` here, but the difference in time/processing would be insignificant since both operations will result in a single reflow.
 
 ```js
 addMeal (meal) {
@@ -444,7 +452,7 @@ addMeal (meal) {
 
 ### Remove a Meal
 
-As you can see in the markup for each meal, there is a small "x" to the left of the name.  You will bind an event listener to this element to remove the meal when it's clicked.  To achieve this, you can attach a click event listener when creating the meal element.
+As you can see in the markup for each meal, there is a small "x" on the left of the name.  You will bind an event listener to this element to remove the meal when it's clicked.  You can attach a click event listener when creating the meal element to achieve this.
 
 ```js
 createMealElement ({ id, title, calories }) {
@@ -459,7 +467,7 @@ createMealElement ({ id, title, calories }) {
 }
 ```
 
-The `deleteMeal()` method will remove the meal from the local array and update total calories.
+The `deleteMeal()` method will remove the meal from the local array and update the total calories.
 
 ```js
 deleteMeal (id) {
@@ -471,20 +479,20 @@ deleteMeal (id) {
 
 ### Take Your New Vanilla JavaScript App for a Test Drive
 
-Tab back to your browser and hit refresh.  You should be able to add and delete meals!
+Tab back to your browser and hit refresh. You should be able to add and delete meals!
 
 {% img blog/vanilla-js/calorie-tracker-ice-cream.png alt:"Calorie Tracker with Ice Cream" width:"600" %}{: .center-image }
 
 ## Add REST Routes to the Express Server
 
-Now that your frontend can add and remove meals from a local array it's time for you to wire up the backend to store meal data on the server.  In my previous tutorial [Build a Basic CRUD App with Vue.js and Node](/blog/2018/02/15/build-crud-app-vuejs-node), I showed how you could persist data to SQLite using Sequelize and Epilogue.
+Now that your frontend can add and remove meals from a local array, it's time for you to wire up the backend to store meal data on the server.  In my previous tutorial [Build a Basic CRUD App with Vue.js and Node](/blog/2018/02/15/build-crud-app-vuejs-node), I showed how to persist data to SQLite using Sequelize and Epilogue.
 
-But, to keep things simple and focused on the frontend you are going to use a local in-memory store (i.e., an array) on the server.  Storing data in memory is not for production as every time you restart the server the array resets.
+But, to keep things simple and focused on the front end, you will use a local in-memory store (an array) on the server.  Storing data in memory is not for production, as every time you restart the server, the array resets.
 
-Stop the server by typing `CTRL+C` and install the following dependencies:
+Stop the server by pressing `CTRL+C` and install the following dependency:
 
 ```
-npm install --save body-parser@1.18.2
+npm install body-parser@1
 ```
 
 Copy the following code and paste it into `index.js`:
@@ -531,13 +539,13 @@ This will expose the following endpoints:
 - `POST /meals` - Add a new meal
 - `DELETE /meals/:id` - Removes a meal
 
-Restart your server by running `node .`.  Next up you'll connect the frontend using Vanilla JS + AJAX.
+Restart your server by running `node .`.  Next up, you'll connect the frontend using Vanilla JS + AJAX.
 
 ## Make an AJAX Request Without a Library
 
-Now that you have set up the required REST endpoints it's time to call them from the browser.  AJAX (via `XMLHttpRequest`) has been around for a while now but not surprisingly most developers have never written (or even seen) an `XMLHttpRequest` request.
+Now that you have set up the required REST endpoints, it's time to call them from the browser.  AJAX (via `XMLHttpRequest`) has been around for a while now but not surprisingly most developers have never written (or even seen) an `XMLHttpRequest` request.
 
-I'll admit: I grew up on jQuery.  It abstracted many browsers and DOM specific quirks.  Later in my career, I found it enlightening to challenge myself to not rely on jQuery.  The site [http://youmightnotneedjquery.com/](http://youmightnotneedjquery.com/) has been an excellent resource that shows you side by side common jQuery calls to vanilla JS.
+I'll admit: I grew up on jQuery.  It abstracted many browsers and DOM-specific quirks.  Later in my career, I found it enlightening to challenge myself to not rely on jQuery.  The site [http://youmightnotneedjquery.com/](http://youmightnotneedjquery.com/) has been an excellent resource that shows you side-by-side, standard jQuery calls to vanilla JS.
 
 A `GET` AJAX request is as simple as:
 
@@ -554,9 +562,9 @@ xhr.onload = () => {
 xhr.send()
 ```
 
-To make your code a bit more reusable, you can wrap an `XMLHttpRequest` call within a `Promise` that will allow it to be called via async/await (again, ES6 FTW!).  This method can handle all types of methods like `GET`, `POST`, and `DELETE`.
+To make your code a bit more reusable, you can wrap an `XMLHttpRequest` call within a `Promise` that will allow it to be called via async/await.  This method can handle all methods like `GET`, `POST`, and `DELETE`.
 
-In `public/main.js` add the following class method:
+In `public/main.js`, add the following class method:
 
 ```js
 request (method, url, data = null) {
@@ -582,7 +590,7 @@ request (method, url, data = null) {
 
 ### Use Async and Await
 
-With ES6, `async/await` brings you added control over asynchronous programming by leveraging promises but in a synchronous way. You can use `async/await` to make your code cleaner while still maintaining non-blocking operations.
+With ES6, `async/await` brings you added control over asynchronous programming by leveraging promises but in a synchronous way. You can use `async/await` to make your code cleaner while maintaining non-blocking operations.
 
 To illustrate this, I'll briefly show you the evolution of asynchronous programming.
 
@@ -602,7 +610,7 @@ getUser((err, user) => {
 )
 ```
 
-Promises came along removing the need for individual callbacks by allowing you to chain together multiple promises.  Additionally, you can handle errors with a single `catch` method.
+Promises came along, removing the need for individual callbacks by allowing you to chain together multiple promises. Additionally, you can handle errors with a single `catch` method.
 
 ```js
 getUser()
@@ -617,7 +625,7 @@ getUser()
   })
 ```
 
-Now with `async/await` you can combine the best of promises with a synchronous style of coding.  Using this approach, you can make your code much easier to understand and bring back your sanity when trying to orchestrate a long chain of asynchronous calls.
+Now with `async/await`, you can combine the best of promises with a synchronous coding style.  Using this approach, you can make your code much easier to understand and bring back your sanity when orchestrating a long chain of asynchronous calls.
 
 ```js
 async getPosts () => {
@@ -632,7 +640,7 @@ async getPosts () => {
 getPosts()
 ```
 
-Note: As you can see above, any call using the `await` keyword must be called from within an `async` method.  Also, `async` methods return `Promise` implicitly.
+**Note:** As you can see above, any call using the `await` keyword must be called from within an `async` method.  Also, `async` methods return `Promise` implicitly.
 
 ### Add API Integration to Your Vanilla JS App
 
@@ -649,7 +657,7 @@ async init () {
 }
 ```
 
-Adding a meal introduces a `POST /meals` call to store the data on the server.  If this method succeeds, the code should push the new meal onto the local array and recalculate the total calories.  Replace `addMeal` method in `public/main.js` with the following code:
+Adding a meal introduces a `POST /meals` call to store the data on the server.  If this method succeeds, the code should push the new meal onto the local array and recalculate the total calories.  Replace the `addMeal` method in `public/main.js` with the following code:
 
 ```js
 async addMeal (data) {
@@ -664,7 +672,7 @@ async addMeal (data) {
 }
 ```
 
-And finally, deleting a meal is done by calling `DELETE /meals/:id` on the server.  The meal is removed from the local array and total calories recalculated.
+And finally, deleting a meal is done by calling `DELETE /meals/:id` on the server. The meal is removed from the local array and total calories recalculated.
 
 ```js
 async deleteMeal (id) {
@@ -681,32 +689,33 @@ async deleteMeal (id) {
 
 ### Test Out Your New Vanilla JS App
 
-Congrats! You have successfully built a dynamic SPA in around 100 lines of code. Not bad! Tab back to your browser and hit refresh. You should initially see no meals as the server starts with an empty array. You should be able to add, remove, and refresh to see the app in action.
+Congrats! You have successfully built a dynamic SPA in around 100 lines of code. Not bad! Go back to your browser and hit refresh. You should initially see no meals as the server starts with an empty array. To see the app in action you can add meals or remove meals, then refresh the page to view the changes.
 
 ## Add Authentication with Okta's Sign-In Widget
 
-[Okta's Sign-in Widget](https://developer.okta.com/code/javascript/okta_sign-in_widget) is a JavaScript library that gives you a full-featured and customizable login widget that can be added to any website.  With just a few lines of code, you can implement a login flow to your app.
+[Okta's Sign-in Widget](https://developer.okta.com/code/javascript/okta_sign-in_widget) is a JavaScript library that gives you a full-featured and customizable login widget that can be added to any website. With just a few lines of code, you can implement a login flow to your app.
 
 ### Configure a New Okta application
 
-To use the Okta Sign-in Widget, you must first have an Okta developer account.  If you don't have one you can [create a free account](https://developer.okta.com/signup/).  After you are logged in, click **Applications** in the top navbar and then **Add Application** button.  Make sure to select **SPA** as the platform and click **Next**.  Finally, ensure that Login redirect URIs contains `http://localhost:8080` and click **Done**.
+{% include setup/cli.md type="spa" loginRedirectUri="http://localhost:8080" %}
 
-Your Application settings should look similar to this:
+### Enable CORS
 
-{% img blog/vanilla-js/app-settings.png alt:"SPA App Settings" width:"600" %}{: .center-image }
+If you used the Admin Console to create the app, ensure that you [enable CORS](https://developer.okta.com/docs/guides/enable-cors/main/) for `http://localhost:8080`.
 
 ### Install the Widget for Secure Authentication
 
 To get started, replace `public/index.html` with the following code.  This code adds the required `okta-sign-in.min.js` and `okta-sign-in.min.css` to correctly display the widget.
 
 ```html
+<!DOCTYPE html>
 <html>
   <head>
     <title>Calorie Tracker</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <script src="https://ok1static.oktacdn.com/assets/js/sdk/okta-signin-widget/2.6.0/js/okta-sign-in.min.js" type="text/javascript"></script>
-    <link href="https://ok1static.oktacdn.com/assets/js/sdk/okta-signin-widget/2.6.0/css/okta-sign-in.min.css" type="text/css" rel="stylesheet"/>
+    <script src="https://global.oktacdn.com/okta-signin-widget/5.16.0/js/okta-sign-in.min.js" type="text/javascript"></script>
+    <link href="https://global.oktacdn.com/okta-signin-widget/5.16.0/css/okta-sign-in.min.css" type="text/css" rel="stylesheet"/>
   </head>
   <body>
     <div class="container pt-4">
@@ -761,7 +770,7 @@ class App {
     })
     document.getElementById('sign-out').addEventListener('click', (event) => {
       event.preventDefault()
-      this.signIn.session.close((err) => {
+      this.signIn.authClient.signOut(err => {
         if (err) {
           return alert(`Error: ${err}`)
         }
@@ -773,18 +782,23 @@ class App {
       clientId: '{clientId}',
       redirectUri: window.location.origin,
       authParams: {
-        issuer: 'default',
-        responseType: ['id_token','token']
+        issuer: 'https://{yourOktaDomain}/oauth2/default',
+      },
+      logo: '//placehold.it/200x40?text=Your+Logo',
+      i18n: {
+        en: {
+          'primaryauth.title': 'Sign in to Calorie Tracker'
+        }
       }
     })
   }
   async init () {
-    this.signIn.session.get(async (res) => {
-      if (res.status === 'ACTIVE') {
-        this.showMeals()
-      } else {
-        this.showSignIn()
-      }
+    this.signIn.authClient.token.getUserInfo()
+    .then(user => {
+      this.showMeals()
+    })
+    .catch(() => {
+      this.showSignIn()
     })
   }
   async showMeals () {
@@ -797,12 +811,11 @@ class App {
   showSignIn () {
     document.getElementById('sign-out').style.display = 'none'
     document.getElementById('meals-container').style.display = 'none'
-    this.signIn.renderEl({ el: '#widget-container' }, (res) => {
-      if (res.status === 'SUCCESS') {
-        this.signIn.tokenManager.add('id_token', res[0])
-        this.signIn.tokenManager.add('access_token', res[1])
-        this.showMeals()
-      }
+    this.signIn.showSignInToGetTokens({
+      el: '#widget-container'
+    }).then(tokens => {
+      this.signIn.authClient.tokenManager.setTokens(tokens)
+      this.showMeals()
     })
   }
   request (method, url, data = null) {
@@ -810,9 +823,9 @@ class App {
       let xhr = new XMLHttpRequest()
       xhr.open(method, url, true)
       xhr.setRequestHeader('Content-Type', 'application/json')
-      const accessToken = this.signIn.tokenManager.get('access_token')
+      const accessToken = this.signIn.authClient.getAccessToken()
       if (accessToken) {
-        xhr.setRequestHeader('Authorization', `Bearer ${accessToken.accessToken}`)
+        xhr.setRequestHeader('Authorization', `Bearer ${accessToken}`)
       }
       xhr.onload = () => {
         if (xhr.status === 200) {
@@ -890,39 +903,44 @@ app.init()
 
 ### Initialize the Okta Sign-in Widget
 
-To initialize the widget you instantiate a new `OktaSignIn` object.  Remember to change the `{yourOktaDomain}` and `{clientId}` to yours.
+To initialize the widget, you instantiate a new `OktaSignIn` object.  Remember to change the `{yourOktaDomain}` (twice) and `{clientId}` to yours.
 
 ```js
-new OktaSignIn({
+this.signIn = new OktaSignIn({
   baseUrl: 'https://{yourOktaDomain}',
   clientId: '{clientId}',
   redirectUri: window.location.origin,
   authParams: {
-    issuer: 'default',
-    responseType: ['id_token','token']
+    issuer: 'https://{yourOktaDomain}/oauth2/default',
+  },
+  logo: '//placehold.it/200x40?text=Your+Logo',
+  i18n: {
+    en: {
+      'primaryauth.title': 'Sign in to Calorie Tracker'
+    }
   }
 })
 ```
 
 ### Authorize API Requests with a Token
 
-After you authenticate with the Sign-in Widget, an access token is stored using the widget's `tokenManager`.  In the `request()` method you can add the access token to the request, so each AJAX request contains the token.  This token is verified by the server (in the following section).
+After you authenticate with the Sign-in Widget, an access token is stored using the widget's `tokenManager`. In the `request()` method, you can add the access token to the request, so each AJAX request contains the token. This token is verified by the server (in the following section).
 
 ```js
-const accessToken = this.signIn.tokenManager.get('access_token')
+const accessToken = this.signIn.authClient.getAccessToken()
 if (accessToken) {
-  xhr.setRequestHeader('Authorization', `Bearer ${accessToken.accessToken}`)
+  xhr.setRequestHeader('Authorization', `Bearer ${accessToken}`)
 }
 ```
 
 ## Lock Down REST Routes for Secure User Management
 
-Finally, you only want to allow authenticated users the ability to manage meals. By using Okta's JWT Verifier and Express middleware, you can create a reusable way to lock down certain routes.
+Finally, you only want to allow authenticated users to manage meals. Using Okta's JWT Verifier and Express middleware, you can create a reusable way to lock down specific routes.
 
 First, install Okta's JWT Verifier:
 
 ```bash
-npm install --save @okta/jwt-verifier@0.0.12
+npm install @okta/jwt-verifier@2
 ```
 
 Replace `index.js` with the following code.
@@ -942,7 +960,7 @@ const authenticationRequired = (req, res, next) => {
   }
   let parts = req.headers.authorization.trim().split(' ')
   let accessToken = parts.pop()
-  oktaJwtVerifier.verifyAccessToken(accessToken)
+  oktaJwtVerifier.verifyAccessToken(accessToken, 'api://default')
     .then(jwt => {
       req.user = {
         uid: jwt.claims.uid,
@@ -989,11 +1007,11 @@ app.listen(8080, () => {
 
 ### Add Authentication Middleware
 
-The `authenticationRequired` middleware will pull the token from the Authorization header and verifies it.  If it's a valid token, then the request will continue to the route handlers.  We add this middleware to each of our routes to secure them.
+The `authenticationRequired` middleware will pull the token from the Authorization header and verify it. If it's a valid token, then the request will continue to the route handlers. We add this middleware to each of our routes to secure them.
 
 ## Customize Authentication with the Sign-in Widget
 
-Okta's Sign-in Widget is fully customizable via CSS and JavaScript.  Here are just a few ways that you can customize the widget.  (For a full list of configuration options see [https://github.com/okta/okta-signin-widget#configuration](https://github.com/okta/okta-signin-widget#configuration)).
+Okta's Sign-in Widget is fully customizable via CSS and JavaScript.  Here are just a few ways that you can customize the widget. (For a full list of configuration options see [https://github.com/okta/okta-signin-widget#configuration](https://github.com/okta/okta-signin-widget#configuration)).
 
 Change the widget logo:
 
@@ -1034,11 +1052,11 @@ You can also overwrite CSS to inject your own styles:
 }
 ```
 
-You can check out [https://ok1static.oktacdn.com/assets/js/sdk/okta-signin-widget/2.6.0/css/okta-theme.css](https://ok1static.oktacdn.com/assets/js/sdk/okta-signin-widget/2.6.0/css/okta-theme.css) for a full list of CSS classes you can inject your own styles.
+To inject your own styles, check out [this complete list of CSS classes](https://ok1static.oktacdn.com/assets/js/sdk/okta-signin-widget/2.6.0/css/okta-theme.css).
 
 ## Learn More About JavaScript, Authentication, and Okta
 
-In this tutorial you built a dynamic SPA using JavaScript DOM APIs and added authentication using Okta's Sign-in Widget in ~200 lines of code (including HTML).  That's pretty awesome!  While I don't suggest vanilla JavaScript for all SPAs, my hope is this tutorial reignites your desire to understand a bit more about the underlying JavaScript powering today's large frameworks.
+In this tutorial, you built a dynamic SPA using JavaScript DOM APIs and added authentication using Okta's Sign-in Widget in ~200 lines of code (including HTML). That's pretty awesome! While I don't suggest vanilla JavaScript for all SPAs, I hope this tutorial reignites your desire to understand more about the underlying JavaScript powering today's large frameworks.
 
 You can find the full source code for this tutorial at: [https://github.com/oktadeveloper/okta-vanilla-js-example](https://github.com/oktadeveloper/okta-vanilla-js-example).
 
