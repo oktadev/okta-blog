@@ -23,7 +23,7 @@ changelog:
 
 Vanilla JavaScript is frequently used to describe ordinary JavaScript leveraging the browser and DOM APIs. Yes, you read that correctly. No Angular, React, Vue, or even jQuery. And even better, it's not as complicated as you might assume.
 
-There are many reasons you may decide to forgo the framework bloat for vanilla JavaScript. Its raw speed and non-complicated build process are among my top reasons. Regardless of your reasons, this article might serve as a refresher on leveraging the power of JavaScript to create some great user experiences.
+There are many reasons you may decide to forgo the framework bloat for vanilla JavaScript. Among my top reasons: raw speed and noncomplicated build process. Regardless of your reasons, this article serves as a refresher on leveraging the power of JavaScript to create some great user experiences.
 
 Along with a simple build process for your application, I'll demonstrate how simple it is to add secure user authentication with Okta. Before we get started, let me tell you what Okta is and why I think Okta is a no-brainer choice for your next front-end project.
 
