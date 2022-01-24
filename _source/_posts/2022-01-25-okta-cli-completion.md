@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Boost your productivity using Okta CLI and Fig"
+title: "Boost Your Productivity Using Okta CLI with Fig"
 author: alisa-duncan
 by: advocate
 communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
@@ -10,7 +10,7 @@ tweets:
 - "Looking to power up your command line? 💪  Use Okta CLI with @fig for ultimate productivity."
 - "Too many terminal commands to remember? Get inline Okta CLI help with @fig! 🎉"
 - ""
-image: blog/okta-cli-completion/okta-cli-completions-social.jpg
+image: blog/okta-cli-completion/okta-cli-autocomplete-social.jpg
 type: awareness
 ---
 
@@ -38,7 +38,7 @@ The autocomplete context menu lists all the commands available and shows you whi
 
 You may need to create Okta apps and get app configurations. When you need to create an Okta app, the Okta CLI helps you step through the process. However, if you are an Okta power user, you may be fine creating the Okta app in one shot by passing in the app settings. In this case, the Okta CLI autocomplete is pretty handy as it shows you all the options you can pass in!
 
-{% img blog/okta-cli-completion/create-apps.jpg alt:"Optional flags to pass in while creating an Okta app" width:"800" %}{: .center-image }
+{% img blog/okta-cli-completion/create-apps.gif alt:"Animated image showing optional flags to pass in while creating an Okta app" width:"800" %}{: .center-image }
 
 ### Help is on the way!
 
