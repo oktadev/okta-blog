@@ -13,7 +13,7 @@ type: conversion
 github: https://github.com/oktadev/okta-vue-nuxt-example
 ---
 
-[Nuxt](https://nuxtjs.org/) calls itself *The intuitive Vue framework*. It aims to make a developer-friendly experience while not sacrificing performance or degrading the integrity of your architecture. It has been exciting to see the community and tooling around VueJS grow and evolve — there's no better time to get started in this ecosystem than now.   
+[Nuxt](https://nuxtjs.org/) calls itself *the intuitive Vue framework*. It aims to make a developer-friendly experience while not sacrificing performance or degrading the integrity of your architecture. It has been exciting to see the community and tooling around VueJS grow and evolve — there's no better time to get started in this ecosystem than now.   
 
 In this tutorial, you will build a small web application that retrieves some posts from an API and displays them for authenticated users. For authentication, you will integrate Okta into your Nuxt application. Okta's simple authentication system and the power of Nuxt means you can configure and set up your authentication in just a few moments.  
 
