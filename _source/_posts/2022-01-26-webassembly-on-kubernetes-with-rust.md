@@ -145,7 +145,7 @@ You have successfully setup a Kubelet that can run Wasm workloads on your cluste
 
 ## Setting up Rust for WebAssembly
 
-Now let us prepare an environment for WebAssembly with Rust.
+Now let us prepare an environment for WebAssembly with Rust. Make sure you are using a stable Rust version and not a nightly release.
 
 First, you need to add `wasm32-wasi` target for rust so that you can compile Rust apps to WebAssembly. Run the below command:
 
@@ -223,14 +223,25 @@ cargo build --release --target wasm32-wasi
 
 That's it. You have successfully created a WebAssembly binary using Rust.
 
-## Run the workload in Kubernetes
+## Run the workload locally (optional)
 
-<!--
-Let's run the workload locally using wasmtime, a small JIT-style runtime for Wasm and WASI. Install it using the below command.
+Let's run the workload locally using [wasmtime](https://wasmtime.dev), a small JIT-style runtime for Wasm and WASI. Since wasmtime doesn't support networking out of the box, we need to use the [wrapper](https://github.com/deislabs/wasi-experimental-http#testing-using-the-wasmtime-http-binary) provided by [wasi-experimental-http](https://github.com/deislabs/wasi-experimental-http). You can build it from source it using the below command.
 
 ```bash
-curl https://wasmtime.dev/install.sh -sSf | bash
-``` -->
+git clone https://github.com/deislabs/wasi-experimental-http.git
+# Build for your platform
+cargo build
+# move to any location that is added to your PATH variable
+mv ./target/debug/wasmtime-http ~/bin/wasmtime-http
+```
+
+Now run the below command from the `rust-wasm` project folder:
+
+```bash
+wasmtime-http target/wasm32-wasi/release/rust-wasm.wasm -a https://catfact.ninja/fact -e RUST_LOG=info
+```
+
+## Run the workload in Kubernetes
 
 Before you can run the workload in Kubernetes, you need to push the binary to a registry that supports OCI artifacts. OCI complaint registries can be used for any OCI artifact, including Docker images, Wasm binaries, and so on. Docker Hub currently does not support OCI artifacts; hence you can use another registry like [GitHub Package Registry](https://github.com/features/packages), [Azure Container Registry](https://azure.microsoft.com/en-in/services/container-registry/) or [Google Artifact Registry](https://cloud.google.com/artifact-registry). I'll be using GitHub Package Registry as it's the simplest to get started, and most of you might already have a GitHub account.
 
@@ -246,7 +257,8 @@ Now you need to push your Wasm binary as an OCI artifact; for this, you can use 
 ```bash
 # Install for Linux
 curl -LO https://github.com/engineerd/wasm-to-oci/releases/download/v0.1.2/linux-amd64-wasm-to-oci
-mv linux-amd64-wasm-to-oci ~/bin/wasm-to-oci # move to any location that is added to your PATH variable
+# move to any location that is added to your PATH variable
+mv linux-amd64-wasm-to-oci ~/bin/wasm-to-oci
 ```
 
 Now you can push the binary you built earlier to the GitHub Package Registry. Run the below command from the `rust-wasm` folder.
