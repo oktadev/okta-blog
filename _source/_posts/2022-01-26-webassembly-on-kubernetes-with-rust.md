@@ -57,21 +57,22 @@ The first step is to create a cluster with the below command:
 kind create cluster
 ```
 
-Now you need to bootstrap Krustlet, and you will need `kubectl` installed and a kubeconfig that has access to create `Secrets` in the `kube-system` namespace and can approve `CertificateSigningRequests`. You can use this [handy script](https://github.com/krustlet/krustlet/tree/main/scripts) from Krustlet to download and run the appropriate setup script for your OS:
+Now you need to bootstrap Krustlet, and you will need `kubectl` installed and a kubeconfig that has access to create `Secrets` in the `kube-system` namespace and can approve `CertificateSigningRequests`. You can use these [handy scripts](https://github.com/krustlet/krustlet/tree/main/scripts) from Krustlet to download and run the appropriate setup script for your OS:
 
 ```bash
+# Setup for Linux/macOS
 curl https://raw.githubusercontent.com/krustlet/krustlet/main/scripts/bootstrap.sh | /bin/bash
 ```
 
 Now you can install and run Krustlet.
 
-Download a binary release from the [release page](https://github.com/krustlet/krustlet/releases) and run it. I'm using the Linux version.
+Download a binary release from the [release page](https://github.com/krustlet/krustlet/releases) and run it. Download the appropriate version for your OS.
 
 ```bash
 # Download for Linux
 curl -O https://krustlet.blob.core.windows.net/releases/krustlet-v1.0.0-alpha.1-linux-amd64.tar.gz
 tar -xzf krustlet-v1.0.0-alpha.1-linux-amd64.tar.gz
-# Install
+# Install for Linux
 KUBECONFIG=~/.krustlet/config/kubeconfig \
   ./krustlet-wasi \
   --node-ip=172.17.0.1 \
@@ -79,7 +80,7 @@ KUBECONFIG=~/.krustlet/config/kubeconfig \
   --bootstrap-file=${HOME}/.krustlet/config/bootstrap.conf
 ```
 
-**Note**: If you use Docker for Mac, the node-ip would be different. Follow [the instructions from the Krustlet docs](https://docs.krustlet.dev/howto/krustlet-on-kind/#special-note-docker-desktop-for-mac) to figure out the IP. If you get the error "krustlet-wasi cannot be opened because the developer cannot be verified", you can allow it with the `allow anyway` button found at `System Preferences` / `Security & Privacy` / `General`.
+**Note**: If you use Docker for Mac, the node-ip would be different. Follow [the instructions from the Krustlet docs](https://docs.krustlet.dev/howto/krustlet-on-kind/#special-note-docker-desktop-for-mac) to figure out the IP. If you get the error "krustlet-wasi cannot be opened because the developer cannot be verified", you can allow it with the `allow anyway` button found at `System Preferences` > `Security & Privacy` > `General` on macOS.
 
 You should see a prompt to manually approve TLS certs since the serving certs used by Krustlet need to be manually approved. Open a new terminal and run the below command. The hostname will be shown in the prompt from the Krustlet server.
 
@@ -240,9 +241,10 @@ export CR_PAT=<your-token>
 echo $CR_PAT | docker login ghcr.io -u <Your GitHub username> --password-stdin
 ```
 
-Now you need to push your Wasm binary as an OCI artifact; for this, you can use the [wasm-to-oci](https://github.com/engineerd/wasm-to-oci/releases) CLI. Use the below command to install it on your machine. I'm using the Linux version.
+Now you need to push your Wasm binary as an OCI artifact; for this, you can use the [wasm-to-oci](https://github.com/engineerd/wasm-to-oci/releases) CLI. Use the below command to install it on your machine. Download the appropriate version for your OS.
 
 ```bash
+# Install for Linux
 curl -LO https://github.com/engineerd/wasm-to-oci/releases/download/v0.1.2/linux-amd64-wasm-to-oci
 mv linux-amd64-wasm-to-oci ~/bin/wasm-to-oci # move to any location that is added to your PATH variable
 ```
