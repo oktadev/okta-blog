@@ -16,7 +16,7 @@ tweets:
 image: blog/spring-data-jpa/secure-spring-data.png
 type: conversion
 changelog:
-- 2021-01-21: Updated to use `.okta.env` instead of `application.properties`. This change is necessary since the okta-spring-boot-sample now uses [dotenv to load Okta settings](https://github.com/okta-samples/okta-spring-boot-sample/pull/22). Changes to this post can be viewed in [okta-blog#1050](https://github.com/oktadev/okta-blog/pull/1050).
+- 2021-01-25: Updated to use `.okta.env` instead of `application.properties`. This change is necessary since the okta-spring-boot-sample now uses [dotenv to load Okta settings](https://github.com/okta-samples/okta-spring-boot-sample/pull/22). Changes to this post can be viewed in [okta-blog#1050](https://github.com/oktadev/okta-blog/pull/1050).
 - 2021-06-23: Add `spring.jpa.defer-datasource-initialization=true` to `application.properties` for Spring Boot 2.5. Thanks to Pranay Singhal for [the tip](http://disq.us/p/2hktl9x)! You can see changes in this post at [okta-blog#820](https://github.com/oktadev/okta-blog/pull/820). Changes in the example can be viewed in [okta-spring-data-jpa-example#5](https://github.com/oktadev/okta-spring-data-jpa-example/pull/5).
 - 2021-01-26: Updated post to use Spring Boot 2.4.2 and Spring Data 2020.0. See the code changes in the [example on GitHub](https://github.com/oktadev/okta-spring-data-jpa-example/pull/4). Changes to this post can be viewed in [okta-blog#536](https://github.com/oktadev/okta-blog/pull/536)
 ---
