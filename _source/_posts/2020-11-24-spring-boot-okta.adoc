@@ -30,7 +30,7 @@ To show you how much fun it is, I https://youtu.be/dURkaz0kBSU[created a screenc
 </div>
 ++++
 
-**NOTE**: This video puts your settings in `src/main/resources/application.properties`. We've since changed the default behavior to use [spring-dotenv](https://github.com/okta-samples/okta-spring-boot-sample/pull/22).
+**NOTE**: This video puts your settings in `src/main/resources/application.properties`. We've since changed the default behavior to use https://github.com/okta-samples/okta-spring-boot-sample/pull/22[spring-dotenv].
 
 For those that would rather read than watch, please read on.
 
