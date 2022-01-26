@@ -87,6 +87,11 @@ TIP: If you already have an Okta account, you can run `okta login` first.
 
 This command will download our https://github.com/okta-samples/okta-spring-boot-sample[Okta Spring Boot sample], register your app on Okta, and configure it by adding your Okta settings to `.okta.env`.
 
+**IMPORTANT:** Keep your secrets out of source control by adding `okta.env` to your `.gitignore` file: 
+
+```bash
+echo .okta.env >> .gitignore
+
 Add `@NativeHint(options = "--enable-https")` to the main `Application` class as specified above.
 
 Next, edit your `pom.xml` and add the Spring Native version and classifier to the `<properties>` section:
