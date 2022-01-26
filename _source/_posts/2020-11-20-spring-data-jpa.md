@@ -592,7 +592,13 @@ HTTP/1.1 401
 
 ## Generate an Access Token JWT
 
-You used Okta as your OAuth 2.0 and OpenID Connect (OIDC) provider when you used the Okta CLI. The CLI created an OIDC application for you on the Okta developer site and filled in the config details in a `.okta.env` file. Your application is now expecting a JSON Web Token (JWT) when you make requests.
+You used Okta as your OAuth 2.0 and OpenID Connect (OIDC) provider when you used the Okta CLI. The CLI created an OIDC application for you on the Okta developer site and populated the config details in a `.okta.env` file. Your application is now expecting a JSON Web Token (JWT) when you make requests.
+
+**IMPORTANT:** Keep your secrets out of source control by adding `okta.env` to your `.gitignore` file: 
+
+```bash
+echo .okta.env >> .gitignore
+```
 
 To generate a JWT, you can use the [OIDC Debugger](https://oidcdebugger.com/).
 
