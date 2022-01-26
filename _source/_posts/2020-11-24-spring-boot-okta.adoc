@@ -16,7 +16,7 @@ tweets:
 image: blog/okta-cli-spring-boot/okta-cli-loves-spring-boot.png
 type: conversion
 changelog:
-- 2021-01-21: Updated to use `.okta.env` instead of `application.properties`. This change is necessary since the okta-spring-boot-sample now uses [dotenv to load Okta settings](https://github.com/okta-samples/okta-spring-boot-sample/pull/22). Changes to this post can be viewed in [okta-blog#1048](https://github.com/oktadev/okta-blog/pull/1048).
+- 2021-01-25: Updated to use `.okta.env` instead of `application.properties`. This change is necessary since the okta-spring-boot-sample now uses [dotenv to load Okta settings](https://github.com/okta-samples/okta-spring-boot-sample/pull/22). Changes to this post can be viewed in [okta-blog#1048](https://github.com/oktadev/okta-blog/pull/1048).
 ---
 :page-liquid:
 
