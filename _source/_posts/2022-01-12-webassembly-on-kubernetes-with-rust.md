@@ -57,7 +57,7 @@ The first step is to create a cluster with the below command:
 kind create cluster
 ```
 
-Now you need to bootstrap Krustlet, and you will need `kubectl` installed and a kubeconfig that has access to create `Secrets` in the `kube-system` namespace and can approve `CertificateSigningRequests`. You can use the [handy script](https://github.com/krustlet/krustlet/tree/main/scripts) from Krustlet to do this. So download the appropriate script for your OS and run it.
+Now you need to bootstrap Krustlet, and you will need `kubectl` installed and a kubeconfig that has access to create `Secrets` in the `kube-system` namespace and can approve `CertificateSigningRequests`. You can use this [handy script](https://github.com/krustlet/krustlet/tree/main/scripts) from Krustlet to download and run the appropriate setup script for your OS:
 
 ```bash
 curl https://raw.githubusercontent.com/krustlet/krustlet/main/scripts/bootstrap.sh | /bin/bash
@@ -79,7 +79,7 @@ KUBECONFIG=~/.krustlet/config/kubeconfig \
   --bootstrap-file=${HOME}/.krustlet/config/bootstrap.conf
 ```
 
-**Note**: If you use Docker for Mac, the node-ip would be different. Follow [the instructions from the Krustlet docs](https://docs.krustlet.dev/howto/krustlet-on-kind/#special-note-docker-desktop-for-mac) to figure out the IP.
+**Note**: If you use Docker for Mac, the node-ip would be different. Follow [the instructions from the Krustlet docs](https://docs.krustlet.dev/howto/krustlet-on-kind/#special-note-docker-desktop-for-mac) to figure out the IP. If you get the error "krustlet-wasi cannot be opened because the developer cannot be verified", you can allow it with the `allow anyway` button found at `System Preferences` / `Security & Privacy` / `General`.
 
 You should see a prompt to manually approve TLS certs since the serving certs used by Krustlet need to be manually approved. Open a new terminal and run the below command. The hostname will be shown in the prompt from the Krustlet server.
 
@@ -233,14 +233,14 @@ curl https://wasmtime.dev/install.sh -sSf | bash
 
 Before you can run the workload in Kubernetes, you need to push the binary to a registry that supports OCI artifacts. OCI complaint registries can be used for any OCI artifact, including Docker images, Wasm binaries, and so on. Docker Hub currently does not support OCI artifacts; hence you can use another registry like [GitHub Package Registry](https://github.com/features/packages), [Azure Container Registry](https://azure.microsoft.com/en-in/services/container-registry/) or [Google Artifact Registry](https://cloud.google.com/artifact-registry). I'll be using GitHub Package Registry as it's the simplest to get started, and most of you might already have a GitHub account.
 
-First, you need to log in to GitHub Package Registry using `docker login`. Create a [personal access token on GitHub](https://github.com/settings/tokens) and use that to log in to the registry.
+First, you need to log in to GitHub Package Registry using `docker login`. Create a [personal access token on GitHub](https://github.com/settings/tokens) with the `write:packages` scope and use that to log in to the registry.
 
 ```bash
 export CR_PAT=<your-token>
 echo $CR_PAT | docker login ghcr.io -u <Your GitHub username> --password-stdin
 ```
 
-Now you need to push your Wasm binary as an OCI artifact; for this, you can use the [wasm-to-oci](https://github.com/engineerd/wasm-to-oci) CLI. Use the below command to install it on your machine. I'm using the Linux version.
+Now you need to push your Wasm binary as an OCI artifact; for this, you can use the [wasm-to-oci](https://github.com/engineerd/wasm-to-oci/releases) CLI. Use the below command to install it on your machine. I'm using the Linux version.
 
 ```bash
 curl -LO https://github.com/engineerd/wasm-to-oci/releases/download/v0.1.2/linux-amd64-wasm-to-oci
@@ -262,7 +262,7 @@ By default, the artifact would be private, but you need to make it public so tha
 You can check this by pulling the artifact using the below command:
 
 ```bash
-ghcr.io/<your GitHub user>/rust-wasm:latest
+wasm-to-oci pull ghcr.io/<your GitHub user>/rust-wasm:latest
 ```
 
 Yay! You have successfully pushed your first Wasm artifact to an OCI registry. Now let's deploy this to the Kubernetes cluster you created earlier.
