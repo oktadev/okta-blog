@@ -46,6 +46,10 @@ You can also clone [the completed example](https://github.com/oktadev/auth0-full
 git clone https://github.com/oktadev/auth0-full-stack-java-example
 ```
 
+If you're more of a visual learner, you can watch the screencast below from the [OktaDev YouTube channel](https://youtu.be/PECnQs5bVbQ).
+
+{% youtube PECnQs5bVbQ %}
+
 ## Full Stack Development with React and Spring Boot
 
 One of the easiest ways to get started with React is by using [Create React App](https://create-react-app.dev/) (CRA). You install it locally, then run `create-react-app <project>` to generate a React application with minimal dependencies. It uses webpack under-the-covers to build the project, launch a web server, and run its tests.
