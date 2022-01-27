@@ -44,6 +44,12 @@ This post will show you how to run a secure, OAuth 2.0-protected, Java REST API 
 
 toc::[]
 
+If you're more of a visual learner, you can https://youtu.be/sTebxMbPTCQ[watch a screencast of this tutorial].
+
+++++
+{% youtube sTebxMbPTCQ %}
+++++
+
 == Get Started with Native Java Frameworks
 
 I created a GitHub repository you can clone and run to get started with all three frameworks quickly.

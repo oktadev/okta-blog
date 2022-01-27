@@ -16,7 +16,7 @@ image: blog/vanilla-js/vanilla-js-social.jpg
 type: conversion
 github: https://github.com/oktadev/okta-vanilla-js-example
 changelog:
-  - 2020-01-06: Updated dependencies, code, and screenshots. See this post's changes in [okta-blog#1020](https://github.com/oktadev/okta-blog/pull/1020) and the example app changes in [okta-vanilla-js-example#2](https://github.com/oktadev/okta-vanilla-js-example/pull/2). 
+  - 2022-01-24: Updated dependencies, code, and screenshots. See this post's changes in [okta-blog#1020](https://github.com/oktadev/okta-blog/pull/1020) and the example app changes in [okta-vanilla-js-example#2](https://github.com/oktadev/okta-vanilla-js-example/pull/2). 
 ---
 
 *"Sometimes nothing is good enough"* is a phrase that software engineers don't speak or hear often. In the fast-changing world of web development, there is no shortage of bleeding-edge JavaScript frameworks promising to make your life easier or inch out its predecessors. You may ask yourself if it is even possible to build a modern web application without one of these frameworks, let alone add secure authentication. Well, it is!
