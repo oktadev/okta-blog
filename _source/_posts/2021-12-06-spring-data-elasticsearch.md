@@ -18,14 +18,14 @@ For sure you have heard about Elasticsearch or the Elastic Stack. It seems it st
 
 How can be Elasticsearch integrated into a Spring Boot Application? What are the options for adding Elasticsearch to a Java application? This post will give you a quick introduction to Elasticsearch integration options.
 
-**Prerequisites**:
+**This tutorial was created with the following frameworks and tools**:
 
-- [HTTPie](https://httpie.io/)
-- [JHipster 7](https://www.jhipster.tech/installation/)
-- [Java 11+](https://openjdk.java.net/install/index.html)
-- [Okta CLI](https://cli.okta.com)
-- [Docker](https://docs.docker.com/engine/install/)
-- [Docker Compose](https://docs.docker.com/compose/install/)
+- [HTTPie 3.0.2](https://httpie.io/)
+- [JHipster 7.6.0](https://www.jhipster.tech/installation/)
+- [Java OpenJDK 11](https://jdk.java.net/java-se-ri/11)
+- [Okta CLI 0.9.0](https://cli.okta.com)
+- [Docker 20.10.7](https://docs.docker.com/engine/install/)
+
 
 **Table of Contents**{: .hide }
 * Table of Contents
@@ -51,7 +51,29 @@ Besides the High Level REST Client support, Spring Data provides the [_Reactive 
 
 JHipster provides the Elasticsearch option to add search capabilities on top of your database. The integration is based on Spring Data Elasticsearch repositories, so let's generate a reactive Blog application to explore what the generator provides. The Blog application built in this tutorial is based on the JHipster sample [reactive-ms.jdl](https://github.com/jhipster/jdl-samples/blob/main/reactive-ms.jdl), but adding Maven, MongoDB (Elasticsearch integration only works with SQL databases and MongoDB), Bootstrap pagination, Okta authentication, and Kibana for index mapping inspection.
 
-Start by creating a `spring-data-elasticsearch` folder for the project, fetch the application JDL from the [GitHub repository](https://github.com/oktadev/okta-spring-data-elasticsearch-example), and generate the application with JHipster:
+JHipster has a [quick setup](https://www.jhipster.tech/installation/#local-installation-with-npm-recommended-for-normal-users) you can follow to setup your environment. For installing Node.js, I like [NVM (Node Version Manager)](https://github.com/nvm-sh/nvm/blob/master/README.md)
+
+```shell
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+nvm install 14.18.3
+```
+
+Install JHipster with the following line:
+```shell
+npm install -g generator-jhipster@7.6.0
+```
+
+Verify the JHipster version with the folling line:
+```shell
+jhipster --version
+```
+```
+INFO! Using JHipster version installed globally
+7.6.0
+```
+
+
+Once your environment is ready, create a `spring-data-elasticsearch` folder for the project, fetch the application JDL from the [GitHub repository](https://github.com/oktadev/okta-spring-data-elasticsearch-example), and generate the application with JHipster:
 
 ```shell
 mkdir spring-data-elasticsearch
