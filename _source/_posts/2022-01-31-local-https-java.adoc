@@ -90,7 +90,6 @@ brew install mkcert nss
 
 Create and install the certificate authority:
 
-====
 [source,bash]
 ----
 mkcert -install
@@ -103,7 +102,6 @@ Sudo password:
 The local CA is now installed in the system trust store! ⚡️
 The local CA is now installed in Java's trust store! ☕️
 ----
-====
 
 [IMPORTANT]
 ====
