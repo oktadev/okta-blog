@@ -45,7 +45,7 @@ For Java applications including Spring Boot applications, Elasticsearch provides
 
 Spring Data Elasticsearch is another integration option that adds the Spring Repository abstraction at the search layer, providing access and search functionality for domain objects stored in Elasticsearch. Operations are sent through a client connected to the Elasticsearch node. With Spring Data, the High Level REST Client is the default client, although Elasticsearch documentation states that this client is deprecated in favor of the Java API Client since version 7.15. The Java API Client is not listed as a supported client yet. The Java Transport Client is still supported in Spring Data, but the general recommendation is to use the High Level Client. Instead of calling the Elasticsearch APIs directly, the repository and rest template abstractions provide a simplified interface for document operations, encapsulating API request/response processing, and exposing a query interface that has multiple implementations for different levels of query complexity. Through the starter dependency, it can also handle client autoconfiguration and automatic document index mapping for simple use cases.
 
-Besides the High Level REST Client support, Spring Data provides the [_Reactive Client_](https://docs.spring.io/spring-data/elasticsearch/docs/current/reference/html/#elasticsearch.clients.reactive), a non-official driver based on WebClient, with calls operated directly on the reactive stack. The Reactive Client also depends on the Elasticsearch core as it is designed for handling Elasicsearch request/response types.
+Besides the high-level REST client support, Spring Data provides the [Reactive Client](https://docs.spring.io/spring-data/elasticsearch/docs/current/reference/html/#elasticsearch.clients.reactive), a non-official driver based on WebClient, with calls operated directly on the reactive stack. The Reactive Client also depends on the Elasticsearch core as it is designed for handling Elasicsearch request/response types.
 
 ## Build an application with Spring Data Elasticsearch
 
@@ -87,7 +87,7 @@ jhipster jdl blog-reactive-ms.jdl
    logoutRedirectUri="http://localhost:8080,http://localhost:8081,http://localhost:8761" %}
 
 
-The JHipster Registry is also a Spring Cloud Config server, and by default, it is configured with the profiles `dev` and `native`, which means the configuration will be provided from the location `docker-compose/central-server-config`. Update `docker-compose/central-server-config/application.yml` with the OIDC settings to be shared with all microservices. Set the values from the `.okta.env` file created with Okta CLI.
+The JHipster Registry is also a Spring Cloud Config server, and by default, it is configured with the profiles `dev` and `native`, which means the configuration will be provided from the location `docker-compose/central-server-config`. Update `docker-compose/central-server-config/application.yml` with the OIDC settings to be shared with all microservices. Set the values from the `.okta.env` file the Okta CLI created.
 
 ```yml
 spring:
@@ -104,14 +104,14 @@ spring:
 ```
 
 
-For the experimentation in this tutorial, configure the Kibana interface for Elasticsearch, which will allow visualizations of the Elasticsearch data.
+For the experiment in this tutorial, configure the Kibana interface for Elasticsearch, which will allow visualizations of the Elasticsearch data.
 Edit `docker-compose/docker-compose.yml` and add the Kibana service like this:
 
 ```yml
 services:
-...  
+  ...  
   blog-kibana:
-     image: docker.elastic.co/kibana/kibana:7.13.3
+     image: docker.elastic.co/kibana/kibana:7.15.2
      ports:
        - 5601:5601
      environment:
@@ -119,6 +119,7 @@ services:
        ELASTICSEARCH_HOSTS: '["http://blog-elasticsearch:9200"]'
 ...       
 ```
+**NOTE**: The Kibana version must match the version of Elasticsearch that's used by the `blog-elasticsearch` image.
 
 Also add the following additional configuration to the `blog-elasticsearch` service, to expose the ports to the local host for sending APIs requests:
 
@@ -143,13 +144,13 @@ cd gateway
 ./mvnw -DskipTests -ntp -Pprod verify jib:dockerBuild
 ```
 
-Run the architecture with Docker Compose:
+Run all your images with Docker Compose:
 
 ```shell
 cd ../docker-compose
 docker compose up
 ```
- Access the JHipster Registry at [**http://localhost:8761**](http://localhost:8761) and sign in with your Okta credentials. When you see all services up and green, go to http://localhost:8080 and sign in with your Okta account.
+ Access the JHipster Registry at `http://localhost:8761` and sign in with your Okta credentials. When you see all services up and green, go to `http://localhost:8080` and sign in with your Okta account.
 
  {% img blog/spring-data-elasticsearch/okta-signin.png alt:"Okta Sign In Form" width:"400" %}{: .center-image }
 
@@ -161,16 +162,16 @@ services:
   blog:
     image: blog
     environment:
-    ...
+      ...
       - MANAGEMENT_ENDPOINT_HEALTH_PROBES_ENABLED=false
-    ...    
 ```
+Restart your microservices stack using Ctrl+C and run `docker compose up` again.
 
 ## Inspecting Elasticsearch index mapping
 
 During start-up, Spring Data Elasticsearch will create the index for the entities annotated with `@Document`, deriving the mappings from the entity's annotations. But for the properties, if the field type is not specified, it defaults to FieldType.Auto. This means, that no mapping entry is written for the property and that Elasticsearch will add a mapping entry dynamically when the first data for this property is stored.
 
-As Kibana interface was configured in Docker Compose, before creating any entities, let's inspect the index mappings that were automatically created for the `blog` microservice. Go to [**http://localhost:5601**](http://localhost:5601), the Kibana dashboard. On the top left menu, go to **Management** > **Stack Management** > **Index Management** > **Indices** tab. Besides the `user` index, an index per entity should be listed.
+As Kibana interface was configured in Docker Compose, before creating any entities, let's inspect the index mappings that were automatically created for the `blog` microservice. Go to `http://localhost:5601`, the Kibana dashboard. On the top left menu, go to **Management** > **Stack Management** > **Index Management** > **Indices** tab. Besides the `user` index, an index per entity should be listed.
 
 {% img blog/spring-data-elasticsearch/kibana-indexes.png alt:"Kibana Indexes" width:"800" %}{: .center-image }
 
@@ -248,7 +249,7 @@ Now the `id` and `name` properties have been _dynamically mapped_ with _multi-fi
 }
 ```
 
-It is often useful to index the same field in different ways for different purposes. Text fields are searchable by default, but by default are not available for aggregations, sorting, unless multi-field mapping is in place. There is another option for enabling sorting for text fields, which is the [**`fielddata` mapping parameter**](https://www.elastic.co/guide/en/elasticsearch/reference/current/text.html#fielddata-mapping-param), which will not be covered in this tutorial, as it is discouraged in the Elasticsearch documentation, because of high memory consumption.
+It is often useful to index the same field in different ways for different purposes. Text fields are searchable by default, but by default are not available for aggregations, sorting, unless multi-field mapping is in place. There is another option for enabling sorting for text fields, which is the [`fielddata` mapping parameter](https://www.elastic.co/guide/en/elasticsearch/reference/current/text.html#fielddata-mapping-param), which will not be covered in this tutorial, as it is discouraged in the Elasticsearch documentation, because of high memory consumption.
 
 Elasticsearch exposes several APIs, and the Index APIs allow managing individual indices, index settings, aliases, mappings, and index templates. Although Kibana is a user-friendly front-end, you can also query the index mappings through the Index APIs, with an HTTPie command like the following:
 
@@ -272,7 +273,7 @@ When using the starter dependency, `ReactiveElasticsearchRestClientAutoConfigura
 
 
 
-_The reactive client_
+### The reactive client
 
 The `ReactiveElasticsearchClient` is based on Spring's WebClient and calls are directly operated on the reactive stack. The reactive client sends and receives high-level request and response objects. In this example, the reactive client is initialized from `spring.data.elasticsearch.client.reactive.*` properties. You can verify the Elasticsearch endpoints are set in the `docker-compose.yml` file for the `blog` service.
 
@@ -281,16 +282,16 @@ blog:
   image: blog
   environment:
     ...
-    - SPRING_DATA_ELASTICSEARCH_CLIENT_REACTIVE_ENDPOINTS=blog-elasticsearch:9200
+    - SPRING_ELASTICSEARCH_URIS=http://blog-elasticsearch:9200
     ...
 ```
 
-_The operations abstraction_
+### The operations abstraction
 
 `ReactiveElasticsearchOperations` is the gateway for executing high-level commands against an Elasticsearch cluster using the `ReactiveElasticsearchClient`.
 The `ReactiveElasticsearchTemplate` is the default implementation of `ReactiveElasticsearchOperations`. Some high-level operations are `save`, `get`, `delete` and `search`, which accept the Spring Data Query types as parameters.
 
-_The entity search repository_
+### The entity search repository
 
 The entity search repository enables the document CRUD and search operations in the application. The search repository extends `ReactiveElasticsearchRepository`, the persistence technology-specific abstraction, that builds on the core repository support utilizing operations provided through the `ReactiveElasticsearchTemplate` executed by the `ReactiveElasticsearchClient`. JHipster generates a search repository for the entities specified in the `search` option in the JDL. In the example, all entities are set to be searchable in Elasticsearch:
 
@@ -346,7 +347,9 @@ class TagSearchRepositoryInternalImpl implements TagSearchRepositoryInternal {
 
 ## Learn more about Elastic and JHipster
 
-JHipster helps to simplify the setup of Spring Boot applications or microservices with search capabilities. I hope you enjoyed this quick introduction to Elasticsearh integration options, and could taste the advantages of the Spring Data repository abstraction for encapsulating some basic Elasticsearch operations. Remember to check the [compatiblity matrix](https://docs.spring.io/spring-data/elasticsearch/docs/current/reference/html/#preface.versions) to match the right Spring Data Elasticsearch dependency for your Elasticsearch version. Keep learning, and for more examples and recipes on Elasticsearch and Okta integrations for Spring Boot, check out the following links:
+JHipster helps to simplify the setup of Spring Boot applications or microservices with search capabilities. I hope you enjoyed this quick introduction to Elasticsearh integration options, and could taste the advantages of the Spring Data repository abstraction for encapsulating some basic Elasticsearch operations. Remember to check the [compatiblity matrix](https://docs.spring.io/spring-data/elasticsearch/docs/current/reference/html/#preface.versions) to match the right Spring Data Elasticsearch dependency for your Elasticsearch version. 
+
+Keep learning, and for more examples and recipes on Elasticsearch and Okta integrations for Spring Boot, check out the following links:
 
 - [Full Stack Java with React, Spring Boot, and JHipster](/blog/2021/11/22/full-stack-java)
 - [Kubernetes to the Cloud with Spring Boot and JHipster](/blog/2021/06/01/kubernetes-spring-boot-jhipster)
@@ -355,6 +358,6 @@ JHipster helps to simplify the setup of Spring Boot applications or microservice
 - [Elasticsearch Clients](https://www.elastic.co/guide/en/elasticsearch/client/index.html)
 - [Get Started with the ELK Stack](/blog/2019/09/26/get-started-elk-stack)
 
-You can find the Blog application code of this tutorial in [GitHub](https://github.com/oktadev/okta-spring-data-elasticsearch-example.).
+You can find the source code for this tutorial in the [@oktadev/okta-spring-data-elasticsearch-example repository on GitHub](https://github.com/oktadev/okta-spring-data-elasticsearch-example).
 
-Be sure to follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube Channel](https://youtube.com/c/oktadev) so that you never miss any excellent content!
+Be sure to follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube Channel](https://youtube.com/c/oktadev) so that you never miss any of our excellent content!
