@@ -4,13 +4,12 @@ title: "HTTPS for Local Java Development"
 author: brian-demers
 by: advocate
 communities: [java]
-description: ""
+description: "Three ways to run your Java locally with HTTPS!"
 tags: [java, security, https, localhost, spring, spring-boot]
 tweets:
-- ""
-- ""
-- ""
-image:
+- "Your prod env uses HTTPS, how about dev? If your answer is no, keep reading 🔒"
+- "Learn how to enable HTTPS for your local #Java development 🔒"
+image: blog/local-https-java/java-https-social.jpg
 type: awareness
 ---
 :page-liquid:
@@ -273,7 +272,7 @@ TIP: Use a different hostname for each application you are working on to avoid b
 This post has demonstrated three options for running applications locally using TLS/HTTPS. Each option has its own strengths and weaknesses.
 
 * Using an Internet proxy exposes your application to the world; however, this could be what you want if you are testing link:/docs/concepts/inline-hooks/[web hooks].
-* Running a reverse proxy will work for any application, but it's one more service to manage (...and remember to start 😉  ).  
+* Running a reverse proxy will work for any application, but it's one more service to manage (...and remember to start 😉 ).
 * Running directly in the Spring Boot application, _just works_™️ once it's set up. However, it cannot use the default HTTPS port (`443`) without some other workaround, like (https://mcaikovski.blogspot.com/2018/01/forwarding-ports-80-to-8080-or-443-to.html[iptables], https://serverfault.com/questions/112795/how-to-run-a-server-on-port-80-as-a-normal-user-on-linux#answer-112805[authbind], https://techblog.jeppson.org/2017/12/make-java-run-privileged-ports-centos-7/[setcap], etc.).
 
 Now that your application is running securely with TLS, check out these posts to learn how to add secure user authentication!
