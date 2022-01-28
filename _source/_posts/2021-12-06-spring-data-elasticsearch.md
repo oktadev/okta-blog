@@ -95,7 +95,7 @@ The JHipster Registry is also a Spring Cloud Config server, and by default, it i
 
 
 ```shell
-source ~/.okta.env
+source .okta.env
 echo \"
 spring:
   security:
@@ -124,7 +124,6 @@ services:
      environment:
        ELASTICSEARCH_URL: http://blog-elasticsearch:9200
        ELASTICSEARCH_HOSTS: '["http://blog-elasticsearch:9200"]'
-...       
 ```
 **NOTE**: The Kibana version must match the version of Elasticsearch that's used by the `blog-elasticsearch` image.
 
