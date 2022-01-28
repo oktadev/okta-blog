@@ -14,7 +14,9 @@ image:
 type: conversion
 ---
 
-For sure you have heard about Elasticsearch or the Elastic Stack. It seems it started as a search engine based on Lucene, an open-source search engine library built by Shay Banon to index his wife's cooking recipes. From the early days, Elasticsearch has gone a long way and evolved into the Elastic Stack, a great suite for taking data from any source, search, analyze and visualize it in near real-time. So Elasticsearch is a distributed document store, data is serialized as JSON documents and stored distributed across cluster nodes. The _inverted index_ is a data structure that lists every unique word that appears in any document, and also the documents each word appears in. This gives support to fast full-text searches, a feature not supported or partially supported by database engines. The index is a collection of documents and each document is a collection of fields. In turn, each field can be indexed in an optimal data structure, for example, an inverted index for text fields, but a BKD tree for a numeric field.
+For sure you have heard about Elasticsearch or the Elastic Stack. It seems it started as a search engine based on Lucene, an open-source search engine library built by Shay Banon to index his wife's cooking recipes. From the early days, Elasticsearch has gone a long way and evolved into the Elastic Stack, a great suite for taking data from any source, search, analyze and visualize it in near real-time.
+
+Elasticsearch is a distributed document store, data is serialized as JSON documents and stored distributed across cluster nodes. The _inverted index_ is a data structure that lists every unique word that appears in any document, and also the documents each word appears in. This gives support to fast full-text searches, a feature not supported or partially supported by database engines. The index is a collection of documents and each document is a collection of fields. In turn, each field can be indexed in an optimal data structure, for example, an inverted index for text fields, but a BKD tree for a numeric field.
 
 How can be Elasticsearch integrated into a Spring Boot Application? What are the options for adding Elasticsearch to a Java application? This post will give you a quick introduction to Elasticsearch integration options.
 
@@ -35,15 +37,17 @@ How can be Elasticsearch integrated into a Spring Boot Application? What are the
 
 For Java applications including Spring Boot applications, Elasticsearch provides the following [clients](https://www.elastic.co/guide/en/elasticsearch/client/index.html) for integration:
 
-- [**Java Transport Client**](https://www.elastic.co/guide/en/elasticsearch/client/java-api/current/index.html) Deprecated in Elasticsearch 7.0.0. Provides a client object to execute all operations asynchronously, accepting a listener or returning a future.
+- [Java Transport Client](https://www.elastic.co/guide/en/elasticsearch/client/java-api/current/index.html): Deprecated in Elasticsearch 7.0.0. Provides a client object to execute all operations asynchronously, accepting a listener or returning a future.
 
-- [**Java REST Client**](https://www.elastic.co/guide/en/elasticsearch/client/java-rest/7.15/index.html) Composed by the Low Level REST Client and the High Level REST Client. The Low Level Client provides load balancing, failover, persistent connections, and request/response trace logging. The High Level Client works on top of the Low Level Client and is the replacement for the `TransportClient`. It depends on the Elasticsearch core and provides synchronous and asynchronous APIs.
+- [Java REST Client](https://www.elastic.co/guide/en/elasticsearch/client/java-rest/7.15/index.html): Composed by the Low Level REST Client and the High Level REST Client. The Low Level Client provides load balancing, failover, persistent connections, and request/response trace logging. The High Level Client works on top of the Low Level Client and is the replacement for the `TransportClient`. It depends on the Elasticsearch core and provides synchronous and asynchronous APIs.
 
-- [**Java API Client**](https://www.elastic.co/guide/en/elasticsearch/client/java-api-client/current/index.html) The new client library, independent from Elasticsearch core, provides strongly typed requests and responses, blocking and asynchronous versions for all APIs, fluent builders and functional patterns, jackson and JSON-b support.
+- [Java API Client](https://www.elastic.co/guide/en/elasticsearch/client/java-api-client/current/index.html): The new client library, independent from Elasticsearch core, provides strongly typed requests and responses, blocking and asynchronous versions for all APIs, fluent builders and functional patterns, jackson and JSON-b support.
 
 ## Hello Spring Data Elasticsearch!
 
-Spring Data Elasticsearch is another integration option that adds the Spring Repository abstraction at the search layer, providing access and search functionality for domain objects stored in Elasticsearch. Operations are sent through a client connected to the Elasticsearch node. With Spring Data, the High Level REST Client is the default client, although Elasticsearch documentation states that this client is deprecated in favor of the Java API Client since version 7.15. The Java API Client is not listed as a supported client yet. The Java Transport Client is still supported in Spring Data, but the general recommendation is to use the High Level Client. Instead of calling the Elasticsearch APIs directly, the repository and rest template abstractions provide a simplified interface for document operations, encapsulating API request/response processing, and exposing a query interface that has multiple implementations for different levels of query complexity. Through the starter dependency, it can also handle client autoconfiguration and automatic document index mapping for simple use cases.
+Spring Data Elasticsearch is another integration option that adds the Spring Repository abstraction at the search layer, providing access and search functionality for domain objects stored in Elasticsearch. Operations are sent through a client connected to the Elasticsearch node. With Spring Data, the High Level REST Client is the default client, although Elasticsearch documentation states that this client is deprecated in favor of the Java API Client since version 7.15. The Java API Client is not listed as a supported client yet. The Java Transport Client is still supported in Spring Data, but the general recommendation is to use the High Level Client.
+
+Instead of calling the Elasticsearch APIs directly, the repository and rest template abstractions provide a simplified interface for document operations, encapsulating API request/response processing, and exposing a query interface that has multiple implementations for different levels of query complexity. Through the starter dependency, it can also handle client autoconfiguration and automatic document index mapping for simple use cases.
 
 Besides the high-level REST client support, Spring Data provides the [Reactive Client](https://docs.spring.io/spring-data/elasticsearch/docs/current/reference/html/#elasticsearch.clients.reactive), a non-official driver based on WebClient, with calls operated directly on the reactive stack. The Reactive Client also depends on the Elasticsearch core as it is designed for handling Elasicsearch request/response types.
 
@@ -63,7 +67,7 @@ Install JHipster with the following line:
 npm install -g generator-jhipster@7.6.0
 ```
 
-Verify the JHipster version with the folling line:
+Verify the JHipster version with the following line:
 ```shell
 jhipster --version
 ```
