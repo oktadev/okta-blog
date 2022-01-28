@@ -21,7 +21,7 @@ If you're developing a web application, chances are you want your dev environmen
 
 toc::[]
 
-== Start with a Simple Java Application
+== Start with a simple Java application
 
 To test out these options, you will, of course, need a Java web application. If you already have one handy, skip this step!
 
@@ -31,7 +31,7 @@ Bootstrap a new application using the https://start.spring.io/#!type=maven-proje
 2. Extract the zip file.
 3. Open the project with your favorite IDE.
 
-The last thing to do, is add a basic `RestController` in `src/main/java/com/example/demo/HelloController.java`:
+The last thing to do is to add a basic `RestController` in `src/main/java/com/example/demo/HelloController.java`:
 
 [source,java]
 ----
@@ -50,11 +50,11 @@ public class HelloController {
 }
 ----
 
-That's it, start the application! Either from your IDE or by running `./mvnw spring-boot:run`.
+That's it! Start the application either from your IDE or by running `./mvnw spring-boot:run`.
 
 Now access this boring, non-secure application in your browser at`\http://localhost:8080/`.
 
-== HTTPS using an Internet proxy
+== HTTPS using an internet proxy
 
 One of the quickest ways to get a local application running with TLS is to use an internet proxy like ngrok.
 https://ngrok.com/download[Download and install ngrok] and then start up the service using:
@@ -66,7 +66,7 @@ ngrok http 8080
 
 This command will expose your local service running port `8080` over the internet on a _generated_ URL such as `\https://abcd-11-22-33-44.ngrok.io`.
 
-If you don't want to install ngrok, you could use https://localhost.run/[localhost.run], which works using SSH port forwarding; try it out with:
+If you don't want to install ngrok, you could use https://localhost.run/[localhost.run], which works using SSH port forwarding. Try it out with:
 
 [source,bash]
 ----
@@ -75,11 +75,11 @@ ssh -R 80:localhost:8080 nokey@localhost.run
 
 Similar to ngrok, a temporary URL will be generated. For example, `\https://152ccb7ac9369e.lhr.life`.
 
-The goal of these tools is to provide a publicly available URL for your local development, which is perfect if you want to share something via the internet. If you don't, it's best not to expose your development machine to any potential attackers online. The following two options avoid this issue.
+The goal of these tools is to provide a publicly available URL for your local development, which is perfect if you want to share something via the internet. If you don't want to share, it's best not to expose your development machine to any potential attackers online. The following two options avoid this issue.
 
 == Create a certificate authority with mkcert
 
-The next two options use a tool called https://github.com/FiloSottile/mkcert[`mkcert`] which sets up a locally trusted certificate authority (CA), installed into the trust stores on your computer. Any certificates issued by this CA will be trusted by the client of your choice (Chrome, Firefox, curl, etc).
+The next two options use a tool called https://github.com/FiloSottile/mkcert[`mkcert`], which sets up a locally trusted certificate authority (CA), installed into the trust stores on your computer. Any certificates issued by this CA will be trusted by the client of your choice (Chrome, Firefox, curl, etc).
 
 On macOS, you can install `mkcert` with Homebrew; for other operating systems you can find instructions in the https://github.com/FiloSottile/mkcert#installation[`mkcert` docs].
 
@@ -122,7 +122,7 @@ That was _mostly_ painless, now let's secure the application you just created!
 
 == Reverse proxy with Nginx
 
-Many production applications terminate TLS using a reverse proxy like Nginx; this can also be an excellent option for local development and has the added advantage of working with any web application framework.
+Many production applications terminate TLS using a reverse proxy like Nginx. This can also be an excellent option for local development and has the added advantage of working with any web application framework.
 
 To run Nginx, I'll use the https://hub.docker.com/_/nginx[official Nginx Docker image]. To keep things organized, create a new directory to hold the configuration:
 
@@ -183,7 +183,7 @@ server {
 
 Now that you have your Java application, the certificates, and the Nginx configuration ready to go, the only thing left is to start it up!
 
-Start Nginx with `docker run` mapping the above files as volumes to configure the service.
+Use `docker run` to start Nginx with the above files as volumes that configure the service.
 
 ====
 [source,bash]
@@ -209,7 +209,7 @@ Test it out! Open up your browser to `\https://localhost/`.
 
 The previous options used a separate service to handle TLS; this time, I'll configure Spring Boot's embedded Tomcat server to terminate TLS directly.
 
-Generate another set of certificates with `mkcert`, but this time set the output format to `pkcs12`, which is a format the Java Keystore understands.
+Generate another set of certificates with `mkcert`. This time set the output format to `pkcs12`, which is a format the Java KeyStore understands.
 
 [source,bash]
 ----
@@ -220,7 +220,7 @@ mkdir -p ~/.config/spring-boot
 mkcert -pkcs12 -p12-file ~/.config/spring-boot/local-tls.p12 localhost
 ----
 
-Create a properties file `~/.config/spring-boot/spring-boot-devtools.properties` containing the server port and newly generated key store location.
+Create a properties file `~/.config/spring-boot/spring-boot-devtools.properties` containing the server port and newly generated keystore location.
 
 [source,properties]
 ----
@@ -252,29 +252,29 @@ The above examples use `localhost`, which works, but you might want to use a dif
 sudo sh -c 'echo "127.0.0.1 local.example" >> /etc/hosts'
 ----
 
-In the above examples, when generating certificates with `mkcert`, replace `localhost` with your domain name, for example:
+In the above examples, when generating certificates with `mkcert`, replace `localhost` with your domain name. Here's an example:
 
 [source,bash]
 ----
 mkcert -key-file devcerts/key.pem -cert-file devcerts/cert.pem local.example
 ----
 
-WARNING: Use a domain name that you own or NOT in the official https://data.iana.org/TLD/tlds-alpha-by-domain.txt[top-level domain list] to ensure there are no conflicting or hijacked DNS entries.
+WARNING: Use a domain name that you own or that is NOT in the official https://data.iana.org/TLD/tlds-alpha-by-domain.txt[top-level domain list] to ensure there are no conflicting or hijacked DNS entries.
 
 == Potential problems using HTTPS for local development
 
-It's not all sunshine and roses, there are a few things to watch out for. If you are a developer that works on multiple applications.
-If you are switching between applications that run on HTTP and HTTPS prototypes, your browser may automatically switch to HTTPS, especially one of your applications sets the https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security[HTTP Strict-Transport-Security (HTST) headers]. If you run into this type of problem you can clear the https://www.a2hosting.com/kb/getting-started-guide/internet-and-networking/clearing-a-web-browsers-ssl-state[SSL State] and/or https://www.thesslstore.com/blog/clear-hsts-settings-chrome-firefox/[HSTS settings] in your browser.
+It's not all sunshine and roses. If you are a developer that works on multiple applications there are a few things to watch out for.
+If you are switching between applications that run on HTTP and HTTPS prototypes, your browser may automatically switch to HTTPS, especially if one of your applications sets the https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security[HTTP Strict-Transport-Security (HTST) headers]. If you run into this type of problem you can clear the https://www.a2hosting.com/kb/getting-started-guide/internet-and-networking/clearing-a-web-browsers-ssl-state[SSL State] and/or https://www.thesslstore.com/blog/clear-hsts-settings-chrome-firefox/[HSTS settings] in your browser.
 
-TIP: Use different hostname for each application you are working on to avoid any browser caching.
+TIP: Use a different hostname for each application you are working on to avoid browser caching.
 
 == Learn more about building secure Java applications
 
-This post has demonstrated three options for running applications locally using TLS/HTTPS. They each have strengths and weaknesses.
+This post has demonstrated three options for running applications locally using TLS/HTTPS. Each option has its own strengths and weaknesses.
 
 * Using an Internet proxy exposes your application to the world; however, this could be what you want if you are testing link:/docs/concepts/inline-hooks/[web hooks].
-* Running a reverse proxy will work for any application, but it's one more service to manage (or likely, in my case, forget to start).
-* Directly in Spring Boot application, "just works™️" once it's setup, but it cannot use the default HTTPS port (`443`) unless you employ some other workaround, like (https://mcaikovski.blogspot.com/2018/01/forwarding-ports-80-to-8080-or-443-to.html[iptables], https://serverfault.com/questions/112795/how-to-run-a-server-on-port-80-as-a-normal-user-on-linux#answer-112805[authbind], https://techblog.jeppson.org/2017/12/make-java-run-privileged-ports-centos-7/[setcap], etc.).
+* Running a reverse proxy will work for any application, but it's one more service to manage (...and remember to start 😉  ).  
+* Running directly in the Spring Boot application, _just works_™️ once it's set up. However, it cannot use the default HTTPS port (`443`) without some other workaround, like (https://mcaikovski.blogspot.com/2018/01/forwarding-ports-80-to-8080-or-443-to.html[iptables], https://serverfault.com/questions/112795/how-to-run-a-server-on-port-80-as-a-normal-user-on-linux#answer-112805[authbind], https://techblog.jeppson.org/2017/12/make-java-run-privileged-ports-centos-7/[setcap], etc.).
 
 Now that your application is running securely with TLS, check out these posts to learn how to add secure user authentication!
 
