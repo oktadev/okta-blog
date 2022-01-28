@@ -91,20 +91,23 @@ jhipster jdl blog-reactive-ms.jdl
    logoutRedirectUri="http://localhost:8080,http://localhost:8081,http://localhost:8761" %}
 
 
-The JHipster Registry is also a Spring Cloud Config server, and by default, it is configured with the profiles `dev` and `native`, which means the configuration will be provided from the location `docker-compose/central-server-config`. Update `docker-compose/central-server-config/application.yml` with the OIDC settings to be shared with all microservices. Set the values from the `.okta.env` file the Okta CLI created.
+The JHipster Registry is also a Spring Cloud Config server, and by default, it is configured with the profiles `dev` and `native`, which means the configuration will be provided from the location `docker-compose/central-server-config`. Update `docker-compose/central-server-config/application.yml` with the OIDC settings to be shared with all microservices. Set the values from the `.okta.env` file the Okta CLI created. To avoid copy/paste errors, you can do it from the command line:
 
-```yml
+
+```shell
+source ~/.okta.env
+echo \"
 spring:
   security:
     oauth2:
       client:
         provider:
           oidc:
-            issuer-uri: https://{yourOktaDomain}/oauth2/default
+            issuer-uri: $SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI
         registration:
           oidc:
-            client-id: {clientId}
-            client-secret: {clientSecret}
+            client-id: $SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID
+            client-secret: $SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET\" >> docker-compose/central-server-config/application.yml
 ```
 
 
@@ -273,13 +276,13 @@ This config also tells JHipster to include the Elasticsearch dependencies in the
 
 {% img blog/spring-data-elasticsearch/spring-data-collaboration.png alt:"Spring Data Collaboration" width:"600" %}{: .center-image }
 
-When using the starter dependency, `ReactiveElasticsearchRestClientAutoConfiguration` configures the reactive Elasticsearch client from the Spring Data Elasticsearch properties. `ElasticsearchDataAutoConfiguration` is the root configuration class that triggers the reactive search template initialization. Let's briefly describe each of the mentioned components.
+When using the starter dependency, `ReactiveElasticsearchRestClientAutoConfiguration` configures the reactive Elasticsearch client from the Spring Elasticsearch properties. `ElasticsearchDataAutoConfiguration` is the root configuration class that triggers the reactive search template initialization. Let's briefly describe each of the mentioned components.
 
 
 
 ### The reactive client
 
-The `ReactiveElasticsearchClient` is based on Spring's WebClient and calls are directly operated on the reactive stack. The reactive client sends and receives high-level request and response objects. In this example, the reactive client is initialized from `spring.data.elasticsearch.client.reactive.*` properties. You can verify the Elasticsearch endpoints are set in the `docker-compose.yml` file for the `blog` service.
+The `ReactiveElasticsearchClient` is based on Spring's WebClient and calls are directly operated on the reactive stack. The reactive client sends and receives high-level request and response objects. In this example, the reactive client is initialized from `spring.elasticsearch.*` properties. You can verify the Elasticsearch endpoints are set in the `docker-compose.yml` file for the `blog` service.
 
 ```yml
 blog:
@@ -351,7 +354,7 @@ class TagSearchRepositoryInternalImpl implements TagSearchRepositoryInternal {
 
 ## Learn more about Elastic and JHipster
 
-JHipster helps to simplify the setup of Spring Boot applications or microservices with search capabilities. I hope you enjoyed this quick introduction to Elasticsearh integration options, and could taste the advantages of the Spring Data repository abstraction for encapsulating some basic Elasticsearch operations. Remember to check the [compatiblity matrix](https://docs.spring.io/spring-data/elasticsearch/docs/current/reference/html/#preface.versions) to match the right Spring Data Elasticsearch dependency for your Elasticsearch version. 
+JHipster helps to simplify the setup of Spring Boot applications or microservices with search capabilities. I hope you enjoyed this quick introduction to Elasticsearh integration options, and could taste the advantages of the Spring Data repository abstraction for encapsulating some basic Elasticsearch operations. Remember to check the [compatiblity matrix](https://docs.spring.io/spring-data/elasticsearch/docs/current/reference/html/#preface.versions) to match the right Spring Data Elasticsearch dependency for your Elasticsearch version.
 
 Keep learning, and for more examples and recipes on Elasticsearch and Okta integrations for Spring Boot, check out the following links:
 
