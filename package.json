@@ -43,6 +43,7 @@
     "front-matter": "^4.0.2",
     "fs-extra": "^10.0.0",
     "pre-push": "0.1.1",
+    "shelljs": "^0.8.5",
     "recursive-readdir": "2.2.2",
     "simple-git": "^3.1.0",
     "yargs": "^17.3.1",
