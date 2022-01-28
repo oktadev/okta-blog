@@ -80,7 +80,7 @@ KUBECONFIG=~/.krustlet/config/kubeconfig \
   --bootstrap-file=${HOME}/.krustlet/config/bootstrap.conf
 ```
 
-**Note**: If you use Docker for Mac, the node-ip will be different. Follow [the instructions from the Krustlet docs](https://docs.krustlet.dev/howto/krustlet-on-kind/#special-note-docker-desktop-for-mac) to figure out the IP. If you get the error "krustlet-wasi cannot be opened because the developer cannot be verified," you can allow it with the `allow anyway` button found at `System Preferences` > `Security & Privacy` > `General` on macOS.
+**Note**: If you use Docker for Mac, the node-ip will be different. Follow [the instructions from the Krustlet docs](https://docs.krustlet.dev/howto/krustlet-on-kind/#special-note-docker-desktop-for-mac) to figure out the IP. If you get the error `krustlet-wasi cannot be opened because the developer cannot be verified`, you can allow it with the **allow anyway** button found at **System Preferences** > **Security & Privacy** > **General** on macOS.
 
 You should see a prompt to manually approve TLS certs since the serving certs Krustlet uses must be manually approved. Open a new terminal and run the below command. The hostname will be shown in the prompt from the Krustlet server.
 
@@ -90,7 +90,7 @@ kubectl certificate approve <hostname>-tls
 
 This will be required only for the first time when you start the Krustlet. Keep the Krustlet server running. You might see some errors being logged, but let's ignore it for now as Krustlet is still in beta, and there are some rough edges.
 
-Let's see if the node is available. Run `kubectl get nodes`, and you should see something like this: 
+Let's see if the node is available. Run `kubectl get nodes`, and you should see something like this:
 
 ```bash
 kubectl get nodes -o wide
@@ -349,7 +349,7 @@ If you'd like to take a look at this solution in full, check out the [GitHub rep
 
 WebAssembly on Kubernetes is not yet production-ready as a lot of the supporting ecosystem is still experimental, and WASI itself is still maturing. [Networking is not yet stable](https://radu-matei.com/blog/towards-sockets-networking-wasi/) and the library ecosystem is only just coming along. Krustlet is also still in beta, and there is no straightforward way to run networking workloads, especially servers on it. [WasmEdge](https://wasmedge.org/) is a more mature alternative solution for networking workloads, but it's much more involved to set up and run than Krustlet on Kubernetes. [WasmCloud](https://wasmcloud.dev/) is another project to keep an eye on. So, for the time being, Krustlet is suitable for running workloads for jobs and use cases involving cluster monitoring and so on. These are areas where you could use the extra performance anyway.
 
-So, while Wasm on Kubernetes is exciting, and containerless on Kubernetes is definitely on the horizon.  containerized applications are still the way to go for production use. This is especially true for networking workloads like microservices and web applications. But, given how fast the ecosystem is evolving, especially in the Rust + Wasm + WASI space, soon I expect we will be able to use Wasm workloads on Kubernetes for production.
+So, while Wasm on Kubernetes is exciting, and containerless on Kubernetes is definitely on the horizon. containerized applications are still the way to go for production use. This is especially true for networking workloads like microservices and web applications. But, given how fast the ecosystem is evolving, especially in the Rust + Wasm + WASI space, soon I expect we will be able to use Wasm workloads on Kubernetes for production.
 
 # Learn more about Kubernetes and WebAssembly
 
