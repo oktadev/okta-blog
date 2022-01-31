@@ -877,7 +877,7 @@ public class ConsumerIntegrationTest {
 
 This is why you specified the producer port in the `application.properties` file. By using different ports in `src/test/java` and `src/main/java` you are able to direct the tests to the stubbed producer, which allows you to create a true integration test. In the test above, the mocked consumer calls the stubbed producer and returns the result, which is checked against the expected value. Otherwise, when you ran the test above, it would try and call the producer on port `8080`, which would call the actual producer running on that port.
 
-## Learn More About Spring Boot and Spring Cloud Contract
+## Learn more about Spring Boot and Spring Cloud Contract
 
 In this tutorial you saw how Spring Cloud Contract can be used with Spring Boot to improve integration testing of Java-based microservices. You also saw how Okta can be used to implement OAuth 2.0 and OIDC security in a Spring Boot application.
 
