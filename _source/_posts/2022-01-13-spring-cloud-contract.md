@@ -518,7 +518,7 @@ HTTP/1.1 404
 
 Remember that here you are seeing the "live" data, not the test data that is defined in the base test class and the contracts. In production, this live data would likely be complex data structures residing in a database and would not be so easily generated as is being done in the `HatService` class.
 
-## Add Identity with Okta
+## Add identity with Okta
 
 Now you are going to add Okta JSON Web Token (JWT) auth to the application. You should have already installed the CLI and signed up for a free Okta developer account. If you have not, please follow the installation instructions on the [Okta CLI project website](https://cli.okta.com/manual/#installation)and run `okta register`. 
 
