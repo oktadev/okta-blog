@@ -753,7 +753,7 @@ Enjoy your new Sombrero
 
 ```
 
-## Import the Producer Stubs Into the Consumer Project and Create Integration Tests
+## Import the producer stubs into the consumer project and create integration tests
 
 Now, the exciting part. You're going to import the stubs generated from the producer project into the consumer project and use them for integration tests. 
 
