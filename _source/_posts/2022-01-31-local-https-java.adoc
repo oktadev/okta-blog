@@ -78,7 +78,7 @@ The goal of these tools is to provide a publicly available URL for your local de
 
 == Create a certificate authority with mkcert
 
-The next two options use a tool called https://github.com/FiloSottile/mkcert[`mkcert`], which sets up a locally trusted certificate authority (CA), installed into the trust stores on your computer. Any certificates issued by this CA will be trusted by the client of your choice (Chrome, Firefox, curl, etc).
+The next two options use a tool called https://github.com/FiloSottile/mkcert[`mkcert`], which sets up a locally trusted certificate authority (CA), installed into the trust stores on your computer. Any certificates issued by this CA will be trusted by the client of your choice (Chrome, Firefox, curl, etc.).
 
 On macOS, you can install `mkcert` with Homebrew; for other operating systems you can find instructions in the https://github.com/FiloSottile/mkcert#installation[`mkcert` docs].
 
@@ -261,7 +261,7 @@ WARNING: Use a domain name that you own or that is NOT in the official https://d
 == Potential problems using HTTPS for local development
 
 It's not all sunshine and roses. If you are a developer that works on multiple applications there are a few things to watch out for.
-If you are switching between applications that run on HTTP and HTTPS prototypes, your browser may automatically switch to HTTPS, especially if one of your applications sets the https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security[HTTP Strict-Transport-Security (HTST) headers]. If you run into this type of problem you can clear the https://www.a2hosting.com/kb/getting-started-guide/internet-and-networking/clearing-a-web-browsers-ssl-state[SSL State] and/or https://www.thesslstore.com/blog/clear-hsts-settings-chrome-firefox/[HSTS settings] in your browser.
+Your browser may automatically switch to HTTPS if you are switching between applications that run on HTTP and HTTPS prototypes, especially if one of your applications sets the https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security[HTTP Strict-Transport-Security (HTST) headers]. If you run into this type of problem you can clear the https://www.a2hosting.com/kb/getting-started-guide/internet-and-networking/clearing-a-web-browsers-ssl-state[SSL State] and/or https://www.thesslstore.com/blog/clear-hsts-settings-chrome-firefox/[HSTS settings] in your browser.
 
 TIP: Use a different hostname for each application you are working on to avoid browser caching.
 
