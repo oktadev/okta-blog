@@ -591,7 +591,7 @@ Start the application (or, if it is still running, use `control-c` to stop it an
 ```bash
 ./mvnw spring-boot:run
 ```
-## Generate a JWT and Test the Secure App
+## Generate a JWT and test the secure app
 
 
 To generate a valid JWT, you need to create an OpenID Connect (OIDC) application on Okta and use the OIDC Debugger application to request a JWT from the OIDC application. 
