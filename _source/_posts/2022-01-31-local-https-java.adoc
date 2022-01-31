@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "HTTPS for Local Java Development"
+title: "Three Ways to Run Your Java Locally with HTTPS"
 author: brian-demers
 by: advocate
 communities: [java]
