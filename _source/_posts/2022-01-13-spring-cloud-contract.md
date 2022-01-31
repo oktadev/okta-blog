@@ -720,7 +720,7 @@ public class ConsumerApplication {
 }
 ```
 
-Add a line to the `application.properties` file to change the application port from the default, 8080, to 8081 so that it does not conflict with the producer application. You're also going to specify the producer port in the properties file so that the integration tests can use a different port for the mocked service (you'll see why in a bit).
+Add a line to the `application.properties` file to change the application port from the default, 8080, to 8081 so that it does not conflict with the producer application. You're also going to specify the producer port in the properties file so that the integration tests can use a different port for the mocked service. (You'll see why in a bit.)
 
 `src/main/resources/application.properties`
 
