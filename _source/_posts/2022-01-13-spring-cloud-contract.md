@@ -170,7 +170,7 @@ HTTP/1.1 200
 }
 ```
 
-## Create the Producer Contract
+## Create the producer contract
 
 Next, you need to write the contracts that define the interservice agreement to govern the behavior of the producer. This is where Spring Cloud Contract comes in and things get interesting.
 
