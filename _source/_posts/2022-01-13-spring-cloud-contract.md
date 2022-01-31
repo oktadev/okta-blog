@@ -629,7 +629,7 @@ HTTP/1.1 200
 
 One of the benefits of the Spring Cloud Contract project is that the mocked and stubbed test objects bypass authentication. This is super helpful (as long as you are not testing application security, of course). You can run `./mvnw clean install` or `./mvnw test` and you will see that the integration tests still pass and that the stubs are still being generated and deployed.
 
-## Create the Consumer Application
+## Create the consumer application
 
 The next step is to create the consumer application. This will simulate a public-facing service that will retrieve hats from the producer and serve them to the clients. The key point in this tutorial is to see how the stubs generated from the producer project can be imported into the consumer project and used to verify application behavior.  
 
