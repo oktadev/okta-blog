@@ -55,7 +55,7 @@ You are creating a Java project -- Java 11 -- using Maven as the build system. T
 
 - **[Spring Web](https://docs.spring.io/spring-framework/docs/current/reference/html/web.html)**: adds the basic HTTP/web capabilities to build a REST API.
 - **[Contract Verifier](https://spring.io/projects/spring-cloud-contract)**: brings in Spring Cloud Contract project by enabling Consumer Drive Contracts and stub generation
-- **[Lombok](https://projectlombok.org/)**: helper project that will generate some getters, setters, and constructors
+- **[Lombok](https://projectlombok.org/)**: is a helper project that will generate some getters, setters, and constructors.
 
 When you're ready, click **Generate** and save the zip file in an appropriate parent directory. You'll be making two Spring Boot projects (as mentioned, a producer and a consumer), so it probably makes sense to have a parent directory named something like `Spring Cloud Contract Tutorial` or `spring-cloud-contract-tutorial` (if you dislike spaces in directory names). 
 
