@@ -45,7 +45,7 @@ Before you get started, you'll need to make sure you have a few tools installed.
 
 - **HTTPie**: This is a powerful command-line HTTP request utility you'll use to test both Spring Boot resource servers. Install it according to [the docs on their site](https://httpie.org/doc#installation).
 
-## Bootstrap the Producer Project using Spring Initialzr
+## Bootstrap the producer project using Spring Initialzr
 
 You'll use the Spring Initializr project to bootstrap the Producer project. Open [this link](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.6.2&packaging=jar&jvmVersion=11&groupId=com.example&artifactId=producer&name=producer&description=Producer%20project%20for%20Spring%20Boot%20Contract&packageName=com.example.contract&dependencies=web,cloud-contract-verifier,lombok) to access the pre-configured starter project.
 
