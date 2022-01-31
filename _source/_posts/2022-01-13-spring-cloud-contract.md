@@ -174,7 +174,7 @@ HTTP/1.1 200
 
 Next, you need to write the contracts that define the interservice agreement to govern the behavior of the producer. This is where Spring Cloud Contract comes in and things get interesting.
 
-You're going to create three contracts under `src/test/resources/contracts`. The contracts can be written in YAML or as a Groovy, Java, or Kotlin DSL script. In this tutorial I've chosen to go with the Groovy. According to the spec, you can put multiple contracts in one file, which is what I initially did. This worked fine on the producer side, but when I tried to import the stubs on the consumer side for integration testing, it didn't work. For this reason, the three contracts below are in three separate files. 
+You're going to create three contracts under `src/test/resources/contracts`. The contracts can be written in YAML or as a Groovy, Java, or Kotlin DSL script. In this tutorial I've chosen to go with the [Groovy](https://groovy-lang.org/). According to the spec, you can put multiple contracts in one file, which is what I initially did. This worked fine on the producer side, but when I tried to import the stubs on the consumer side for integration testing, it didn't work. For this reason, the three contracts below are in three separate files. 
 
 Create the first contract in your `src/test/resources` directory. 
 
