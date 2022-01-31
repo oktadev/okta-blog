@@ -21,7 +21,7 @@ The first, deploying the entire mesh of microservices for testing, has the obvio
 
 {% include toc.md %}
 
-Imagine a simple microservice with a producer and a consumer. When writing tests in the consumer project, you have to write mocks or stubs that model the behavior of the producer project, while conversely, when you write tests in the producer project, you have to write mocks or stubs that model the behavior of the consumer project. As such, multiple sets of related, redundant code have to be maintained in parallel in disconnected projects.
+Imagine a simple microservice with a producer and a consumer. When writing tests in the consumer project, you have to write mocks or stubs that model the behavior of the producer project. Conversely, when you write tests in the producer project, you have to write mocks or stubs that model the behavior of the consumer project. As such, multiple sets of related, redundant code have to be maintained in parallel in disconnected projects.
 
 For every change made to the producer project, the developer needs to go to the consumer project -- a totally separate code base -- and make sure that the integration tests there reflect the new behavior producer. Keeping this up across a complex system with many different services, at best, requires a lot of discipline, and at worst, is unlikely. It's very easy for integration tests to give a false sense of security and not actually reflect the reality of the service being tested.
 
