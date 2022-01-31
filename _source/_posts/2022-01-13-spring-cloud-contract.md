@@ -53,7 +53,7 @@ You'll use the Spring Initializr project to bootstrap the Producer project. Open
 
 You are creating a Java project -- Java 11 -- using Maven as the build system. The Spring Boot version was 2.6.2 when I wrote this tutorial. You are including three dependencies: 
 
-- **[Spring Web](https://docs.spring.io/spring-framework/docs/current/reference/html/web.html)**: adds the basic HTTP/web capabilities to build a REST API 
+- **[Spring Web](https://docs.spring.io/spring-framework/docs/current/reference/html/web.html)**: adds the basic HTTP/web capabilities to build a REST API.
 - **[Contract Verifier](https://spring.io/projects/spring-cloud-contract)**: brings in Spring Cloud Contract project by enabling Consumer Drive Contracts and stub generation
 - **[Lombok](https://projectlombok.org/)**: helper project that will generate some getters, setters, and constructors
 
