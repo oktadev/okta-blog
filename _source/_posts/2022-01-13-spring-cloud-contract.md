@@ -333,7 +333,7 @@ In the `pom.xml`, you need to define the configuration entry for the base test c
 
 You might notice that the stubbed service created in the base test class above is returning different hats than the hats served by the producer application itself. Don't get confused. The contract and the base test class define **testing** behavior. The application is defining **live, production** behavior (of course, here it's pretty simplistic and test-like since the implementation is really just for demonstration purposes). Thus integration tests will be expecting `/hat/1` to return `Test Hat 1` while, as you'll see below, when you run the application, the same endpoint will return `Sombrero`. 
 
-## Generate the Stubs and Test the Producer
+## Generate the stubs and test the producer
 
 To generate the stubs and the integration tests for the contracts, run the following Maven command.
 
