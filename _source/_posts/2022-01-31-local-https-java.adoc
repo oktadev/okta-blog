@@ -4,7 +4,7 @@ title: "Three Ways to Run Your Java Locally with HTTPS"
 author: brian-demers
 by: advocate
 communities: [java]
-description: "Three ways to run your Java locally with HTTPS!"
+description: "This post describes three different options to get your local Java app running securely with TLS in no time, whether you need it publicly available or not."
 tags: [java, security, https, localhost, spring, spring-boot]
 tweets:
 - "Your prod env uses HTTPS, how about dev? If your answer is no, keep reading 🔒"
