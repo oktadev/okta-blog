@@ -631,7 +631,7 @@ One of the benefits of the Spring Cloud Contract project is that the mocked and 
 
 ## Create the consumer application
 
-The next step is to create the consumer application. This will simulate a public-facing service that will retrieve hats from the producer and serve them to the clients. The key point in this tutorial is to see how the stubs generated from the producer project can be imported into the consumer project and used to verify application behavior.  
+The next step is to create the consumer application. This will simulate a public-facing service to retrieve hats from the producer and serve them to the clients. The key point in this tutorial is to see how the stubs generated from the producer project can be imported into the consumer project and used to verify application behavior.  
 
 Use the Spring Initializr to create the starter project by following [this link](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.6.2&packaging=jar&jvmVersion=11&groupId=com.example&artifactId=consumer&name=consumer&description=Producer%20project%20for%20Spring%20Boot%20Contract&packageName=com.example.consumer&dependencies=web,cloud-contract-stub-runner,lombok).
 
