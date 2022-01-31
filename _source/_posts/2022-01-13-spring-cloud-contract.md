@@ -59,7 +59,7 @@ You are creating a Java project -- Java 11 -- using Maven as the build system. T
 
 When you're ready, click **Generate** and save the zip file in an appropriate parent directory. You'll be making two Spring Boot projects (as mentioned, a producer and a consumer), so it probably makes sense to have a parent directory named something like `Spring Cloud Contract Tutorial` or `spring-cloud-contract-tutorial` (if you dislike spaces in directory names). 
 
-Unzip the file and open the directory in your favorite editor or IDE (I'm an IDE/IntelliJ man myself -- hopefully that's not disappointing to y'all -- because in the immortal words of Buckaroo Banzai "Life is too short for vim.").
+Unzip the file and open the directory in your favorite editor or IDE. (I'm an IDE/IntelliJ man myself -- hopefully that's not disappointing to y'all -- because in the immortal words of Buckaroo Banzai "Life is too short for vim".)
 
 Let's start by building the hat producer. Both the producer and consumer projects will be Spring Boot resource servers that use Spring Web to implement a simple REST API.
 
