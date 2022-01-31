@@ -83,7 +83,7 @@ public class Hat {
 }
 ```
 
-The hat has four attributes, an `id` as well as `name`, `size`, and `color`. Notice the two annotations. These are what Lombok helped us with. The `@Data` annotation generates getters and setters as well as a `toString()` and a constructor for all required arguments ([check out the docs](https://projectlombok.org/features/Data)). The `@AllArgsConstructor` annotation generates an constructor for all fields in the class. I really like it because it de-clutters the data model classes and saves some time generating all of the 'ceremony' methods. 
+The hat has four attributes, an `id` as well as `name`, `size`, and `color`. Notice the two annotations. These are what Lombok helped us with. The `@Data` annotation generates getters and setters as well as a `toString()` and a constructor for all required arguments ([check out the docs](https://projectlombok.org/features/Data)). The `@AllArgsConstructor` annotation generates a constructor for all fields in the class. I really like it because it de-clutters the data model classes and saves some time generating all of the 'ceremony' methods. 
 
 Next create a `HatService.java`. This is in lieu of using JPA and an actual database to persist the Hat object instances. It's just for demonstration purposes and simply creates two hats --  a large, red sombrero and a smaller blue beanie -- and serves them by ID.  
 
