@@ -729,7 +729,7 @@ server.port=8081
 producer.port=8080
 ```
 
-This is a very simple consumer service. It makes a request to the producer for a hat by ID, simply passing along the `Authorization` header. The project could be made more realistic by adding security to the consumer as well (the process would be exactly as described above for the producer). And in a live scenario, this service would probably be pulling data from multiple other services and performing some sort of business logic before returning a value. However, here, the goal here is to demonstrate the stubs and integration testing, so I'm keeping the consumer itself as basic as possible. 
+This is a very simple consumer service. It makes a request to the producer for a hat by ID, simply passing along the `Authorization` header. The project could be made more realistic by adding security to the consumer as well. (The process would be exactly as described above for the producer.) And in a live scenario, this service would probably be pulling data from multiple other services and performing some sort of business logic before returning a value. However, here, the goal here is to demonstrate the stubs and integration testing, so I'm keeping the consumer itself as basic as possible. 
 
 Make sure your producer application is still running. In a new shell, run the consumer application.
 
