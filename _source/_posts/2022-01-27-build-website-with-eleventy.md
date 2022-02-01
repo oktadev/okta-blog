@@ -141,7 +141,7 @@ layout: _layout_authenticated.11ty.js
 </script>
 ```
 
-Since you haven't seen the `_layout_authenticated.11ty.js` page yet, this will need some explanation. After verifying the user has is authenticated, the `loadPage` function is called by the layout.  
+Since you haven't seen the `_layout_authenticated.11ty.js` page yet, this will need some explanation. After verifying that the user has authenticated, the `loadPage` function is called by the layout.  
 
 There's a comment to replace the code here with an API call. You can add an API call to verify the ID token on the server-side before displaying any content to the user.
 
