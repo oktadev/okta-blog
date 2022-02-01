@@ -162,7 +162,7 @@ This repository shows you how to use Okta on a static site built with 11ty.
 - [Okta CLI](https://cli.okta.com)
 ```
 
-This is a truncated version of the [README file](https://github.com/oktadev/okta-website-eleventy-example/blob/master/README.md) that you can see in the GitHub repository for this project.
+The `README.md`you've just added is a truncated version of the [README file](https://github.com/oktadev/okta-website-eleventy-example/blob/master/README.md) that you can see in the GitHub repository for this project.
 
 ## Add Layout Pages
 
