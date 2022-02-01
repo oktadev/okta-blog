@@ -220,7 +220,7 @@ exports.render = function (data) {
 
 Be sure to replace the placeholder variables with your actual Okta information.
 
-This file will be the base layout for all of your pages.  This file loads `bootstrap` into all of your pages.  It also initializes the `OktaSignIn` widget on each page.  This way, you can access it in the javascript of your file no matter where you are.
+This file will be the base layout for all of your pages.  It loads `bootstrap` into all of your pages and also initializes the `OktaSignIn` widget on each page.  In this way, you can access it in the JavaScript of your file no matter where you are.
 
 Next, add a file for `_layout_unauthenticated.11ty.js` and add the following code to it.
 
