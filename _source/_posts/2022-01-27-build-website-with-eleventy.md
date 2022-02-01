@@ -164,7 +164,7 @@ This repository shows you how to use Okta on a static site built with 11ty.
 
 The `README.md`you've just added is a truncated version of the [README file](https://github.com/oktadev/okta-website-eleventy-example/blob/master/README.md) that you can see in the GitHub repository for this project.
 
-## Add Layout Pages
+## Add layout pages
 
 It's now time to add the layout pages for your static files. 11ty enables you to write layouts in several templating languages. For this project, you will use the stock `11ty.js` format. Create a new folder called `_includes` using the command `mkdir _includes`. 
 
