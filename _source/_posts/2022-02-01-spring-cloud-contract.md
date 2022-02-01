@@ -7,9 +7,9 @@ communities: [java]
 description: "Using Spring Cloud Contract to create better integration tests for microservices."
 tags: [java, spring-cloud-contract, spring-security, spring-boot, oauth2]
 tweets:
-- ""
-- ""
-- ""
+- "For testing your microservices, do you want fast feedback without the need to set up the whole world of microservices? Of course you do! Check out @SpringCloud Contract. It's pretty slick!"
+- "Spring Cloud Contract helps you test interconnected microservices. See how to use it in this quick tutorial."
+- "Learn how to use Spring Cloud Contract to create solid integration tests for your microservices."
 image:
 type: conversion
 github: https://github.com/oktadev/okta-spring-cloud-contract-example
@@ -41,27 +41,27 @@ Before you get started, you'll need to make sure you have a few tools installed.
 
 - **Okta CLI**: The Okta CLI is an easy way to create projects that use Okta for security. Follow the installation instructions on the [Okta CLI project website](https://cli.okta.com/manual/#installation). You should log in to your existing account or register for a new account using the CLI before continuing with the tutorial.
 
-- **Java 11**: This project uses Java 11. OpenJDK 11 will work just as well.  Instructions are found on the [OpenJDK website](https://openjdk.java.net/install/). OpenJDK can also be installed using [Homebrew](https://brew.sh/). Alternatively, [SDKMAN](https://sdkman.io/) is another excellent option for installing and managing Java versions.
+- **Java 11**: This project uses Java 11. OpenJDK 11 will work just as well. Installation instructions can be found on the [OpenJDK website](https://openjdk.java.net/install/). OpenJDK can also be installed using [Homebrew](https://brew.sh/). Alternatively, [SDKMAN](https://sdkman.io/) is another excellent option for installing and managing Java versions.
 
 - **HTTPie**: This is a powerful command-line HTTP request utility you'll use to test both Spring Boot resource servers. Install it according to [the docs on their site](https://httpie.org/doc#installation).
 
 ## Bootstrap the producer project using Spring Initialzr
 
-You'll use the Spring Initializr project to bootstrap the Producer project. Open [this link](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.6.2&packaging=jar&jvmVersion=11&groupId=com.example&artifactId=producer&name=producer&description=Producer%20project%20for%20Spring%20Boot%20Contract&packageName=com.example.contract&dependencies=web,cloud-contract-verifier,lombok) to access the pre-configured starter project.
+You'll use the Spring Initializr project to bootstrap the Producer project. Open [this link](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.6.3&packaging=jar&jvmVersion=11&groupId=com.example&artifactId=producer&name=producer&description=Producer%20project%20for%20Spring%20Boot%20Contract&packageName=com.example.contract&dependencies=web,cloud-contract-verifier,lombok) to access the pre-configured starter project.
 
 {% img blog/spring-cloud-contract/producer-starter-config.png alt:"Producer Starter Configuration" width:"1000" %}{: .center-image }
 
-You are creating a Java project -- Java 11 -- using Maven as the build system. The Spring Boot version was 2.6.2 when I wrote this tutorial. You are including three dependencies: 
+You are creating a Java project -- Java 11 -- using Maven as the build system. The Spring Boot version was 2.6.3 when I wrote this tutorial. You are including three dependencies: 
 
-- **[Spring Web](https://docs.spring.io/spring-framework/docs/current/reference/html/web.html)**: adds the basic HTTP/web capabilities to build a REST API.
-- **[Contract Verifier](https://spring.io/projects/spring-cloud-contract)**: brings in Spring Cloud Contract project by enabling Consumer Drive Contracts and stub generation.
-- **[Lombok](https://projectlombok.org/)**: is a helper project that will generate some getters, setters, and constructors.
+- [Spring Web](https://docs.spring.io/spring-framework/docs/current/reference/html/web.html): adds the basic HTTP/web capabilities to build a REST API.
+- [Contract Verifier](https://spring.io/projects/spring-cloud-contract): brings in Spring Cloud Contract project by enabling Consumer Drive Contracts and stub generation.
+- [Lombok](https://projectlombok.org/): is a helper project that will generate some getters, setters, and constructors.
 
 When you're ready, click **Generate** and save the zip file in an appropriate parent directory. You'll be making two Spring Boot projects (as mentioned, a producer and a consumer), so it probably makes sense to have a parent directory named something like `Spring Cloud Contract Tutorial` or `spring-cloud-contract-tutorial` (if you dislike spaces in directory names). 
 
 Unzip the file and open the directory in your favorite editor or IDE. (I'm an IDE/IntelliJ man myself -- hopefully that's not disappointing to y'all -- because in the immortal words of Buckaroo Banzai "Life is too short for vim".)
 
-Let's start by building the hat producer. Both the producer and consumer projects will be Spring Boot resource servers that use Spring Web to implement a simple REST API.
+Let's start by building the hat producer. Both the producer and consumer projects will be Spring Boot resource servers that use Spring MVC to implement a simple REST API.
 
 Create a `Hat.java` file that is the data model for the hats the producer will serve.
 
@@ -83,7 +83,7 @@ public class Hat {
 }
 ```
 
-The hat has four attributes, an `id` as well as `name`, `size`, and `color`. Notice the two annotations. These are what Lombok helped us with. The `@Data` annotation generates getters and setters as well as a `toString()` and a constructor for all required arguments ([check out the docs](https://projectlombok.org/features/Data)). The `@AllArgsConstructor` annotation generates a constructor for all fields in the class. I really like it because it de-clutters the data model classes and saves some time generating all of the 'ceremony' methods. 
+The hat has four attributes, an `id` as well as `name`, `size`, and `color`. Notice the two annotations. These are what Lombok helps us with. The `@Data` annotation generates getters and setters as well as a `toString()` and a constructor for all required arguments ([check out the docs](https://projectlombok.org/features/Data)). The `@AllArgsConstructor` annotation generates a constructor for all fields in the class. I really like it because it de-clutters the data model classes and saves some time generating all of the 'ceremony' methods. 
 
 Next create a `HatService.java`. This is in lieu of using JPA and an actual database to persist the Hat object instances. It's just for demonstration purposes and simply creates two hats --  a large, red sombrero and a smaller blue beanie -- and serves them by ID.  
 
@@ -246,6 +246,8 @@ Contract.make {
 
 The last contract defines a 404 error message for hat ID 3.
 
+`src/test/resources/contracts/find_hat_by_id3.groovy`
+
 ```groovy
 package contracts
 
@@ -266,8 +268,6 @@ Contract.make {
 }
 ```
 
-
-
 For the integration tests generated from these contracts to work, you need to define a base class and add the base class to the `pom.xml`.
 
 Create a `BaseClass.java` test class (notice that this is in `src/test` not `src/main`).
@@ -276,7 +276,6 @@ Create a `BaseClass.java` test class (notice that this is in `src/test` not `src
 
 ```java
 package com.example.contract;
-
 
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.junit.jupiter.api.BeforeEach;
@@ -341,7 +340,7 @@ To generate the stubs and the integration tests for the contracts, run the follo
 ./mvnw install
 ```
 
-The most important thing this command does (in the context of this tutorial) is that it generates the stubs and installs them in the local `.m2` (Maven) repo. In a production scenario, you might want to install the stubs in a remote repository instead. Take a look at [the Spring Cloud docs](https://docs.spring.io/spring-cloud-contract/docs/3.0.0-SNAPSHOT/reference/htmlsingle/) to see how that is accomplished.
+The most important thing this command does (in the context of this tutorial) is that it generates the stubs and installs them in the local `.m2` (Maven) repo. In a production scenario, you might want to install the stubs in a remote repository instead. Take a look at [the Spring Cloud docs](https://docs.spring.io/spring-cloud-contract/docs/3.1.0/reference/html/) to see how that is accomplished.
 
 If you read through the console output, you'll see a lot of information about the generated integration tests and the stubs. For example, look at the following lines.
 
@@ -354,7 +353,6 @@ If you read through the console output, you'll see a lot of information about th
 [INFO] Using [com.example.contract.BaseClass] as base class for test classes, [null] as base package for tests, [null] as package with base classes, base class mappings []
 [INFO] Creating new class file [.../producer/target/generated-test-sources/contracts/com/example/contract/ContractVerifierTest.java]
 [INFO] Generated 1 test classes.
-
 ```
 
 These lines tell you that Spring found the contracts in the `src/test/resources/contracts` folder, used the base test class defined in the `pom.xml`, and generated integration tests based on the contracts.
@@ -435,19 +433,19 @@ You'll also see lines like the following, showing that the producer stubs have b
 
 ```bash
 [INFO] Converting from Spring Cloud Contract Verifier contracts to WireMock stubs mappings
-[INFO]      Spring Cloud Contract Verifier contracts directory: /home/andrewcarterhughes/Development/okta/2021/spring-book-contracts/QA1/producer/src/test/resources/contracts
-[INFO] Stub Server stubs mappings directory: /home/andrewcarterhughes/Development/okta/2021/spring-book-contracts/QA1/producer/target/stubs/META-INF/com.example/producer/0.0.1-SNAPSHOT/mappings
-[INFO] Creating new stub [/home/andrewcarterhughes/Development/okta/2021/spring-book-contracts/QA1/producer/target/stubs/META-INF/com.example/producer/0.0.1-SNAPSHOT/mappings/find_hat_by_id.json]
-[INFO] Creating new stub [/home/andrewcarterhughes/Development/okta/2021/spring-book-contracts/QA1/producer/target/stubs/META-INF/com.example/producer/0.0.1-SNAPSHOT/mappings/find_hat_by_id2.json]
-[INFO] Creating new stub [/home/andrewcarterhughes/Development/okta/2021/spring-book-contracts/QA1/producer/target/stubs/META-INF/com.example/producer/0.0.1-SNAPSHOT/mappings/find_hat_by_id3.json]
+[INFO]      Spring Cloud Contract Verifier contracts directory: /home/andrewcarterhughes/Development/okta/2021/spring-cloud-contracts/QA1/producer/src/test/resources/contracts
+[INFO] Stub Server stubs mappings directory: /home/andrewcarterhughes/Development/okta/2021/spring-cloud-contracts/QA1/producer/target/stubs/META-INF/com.example/producer/0.0.1-SNAPSHOT/mappings
+[INFO] Creating new stub [/home/andrewcarterhughes/Development/okta/2021/spring-cloud-contracts/QA1/producer/target/stubs/META-INF/com.example/producer/0.0.1-SNAPSHOT/mappings/find_hat_by_id.json]
+[INFO] Creating new stub [/home/andrewcarterhughes/Development/okta/2021/spring-cloud-contracts/QA1/producer/target/stubs/META-INF/com.example/producer/0.0.1-SNAPSHOT/mappings/find_hat_by_id2.json]
+[INFO] Creating new stub [/home/andrewcarterhughes/Development/okta/2021/spring-cloud-contracts/QA1/producer/target/stubs/META-INF/com.example/producer/0.0.1-SNAPSHOT/mappings/find_hat_by_id3.json]
 ```
 
 And toward the end of the console output, you'll see that the stubs jar has been installed in the local Maven repo along with the producer application jar and the POM.
 
 ```bash
-[INFO] Installing /home/andrewcarterhughes/Development/okta/2021/spring-book-contracts/QA1/producer/target/producer-0.0.1-SNAPSHOT.jar to /home/andrewcarterhughes/.m2/repository/com/example/producer/0.0.1-SNAPSHOT/producer-0.0.1-SNAPSHOT.jar
-[INFO] Installing /home/andrewcarterhughes/Development/okta/2021/spring-book-contracts/QA1/producer/pom.xml to /home/andrewcarterhughes/.m2/repository/com/example/producer/0.0.1-SNAPSHOT/producer-0.0.1-SNAPSHOT.pom
-[INFO] Installing /home/andrewcarterhughes/Development/okta/2021/spring-book-contracts/QA1/producer/target/producer-0.0.1-SNAPSHOT-stubs.jar to /home/andrewcarterhughes/.m2/repository/com/example/producer/0.0.1-SNAPSHOT/producer-0.0.1-SNAPSHOT-stubs.jar
+[INFO] Installing /home/andrewcarterhughes/Development/okta/2021/spring-cloud-contracts/QA1/producer/target/producer-0.0.1-SNAPSHOT.jar to /home/andrewcarterhughes/.m2/repository/com/example/producer/0.0.1-SNAPSHOT/producer-0.0.1-SNAPSHOT.jar
+[INFO] Installing /home/andrewcarterhughes/Development/okta/2021/spring-cloud-contracts/QA1/producer/pom.xml to /home/andrewcarterhughes/.m2/repository/com/example/producer/0.0.1-SNAPSHOT/producer-0.0.1-SNAPSHOT.pom
+[INFO] Installing /home/andrewcarterhughes/Development/okta/2021/spring-cloud-contracts/QA1/producer/target/producer-0.0.1-SNAPSHOT-stubs.jar to /home/andrewcarterhughes/.m2/repository/com/example/producer/0.0.1-SNAPSHOT/producer-0.0.1-SNAPSHOT-stubs.jar
 ```
 
 These stubs are what you will, in a few minutes, import into the consumer application for integration testing. **Notice how, because of the autogenerated integration testing, the behavior of the stubs is guaranteed to match the behavior tested and defined by the contract.** This is awesome. However, bear in mind, "the devil is in the contract," as they say. 
@@ -520,7 +518,7 @@ Remember that here you are seeing the "live" data, not the test data that is def
 
 ## Add identity with Okta
 
-Now you are going to add Okta JSON Web Token (JWT) auth to the application. You should have already installed the CLI and signed up for a free Okta developer account. If you have not, please follow the installation instructions on the [Okta CLI project website](https://cli.okta.com/manual/#installation)and run `okta register`. 
+Now you are going to add Okta JSON Web Token (JWT) auth to the application. You should have already installed the CLI and signed up for a free Okta developer account. If you have not, please follow the installation instructions on the [Okta CLI project website](https://cli.okta.com/manual/#installation) and run `okta register`. 
 
 Add the dependency for Okta's Spring Boot starter to the `pom.xml` file. This project adds the necessary dependencies to use Okta as an OAuth 2.0 and OIDC provider. Take a look at [the project's GitHub page](https://github.com/okta/okta-spring-boot) for more info.
 
@@ -591,12 +589,12 @@ Start the application (or, if it is still running, use `control-c` to stop it an
 ```bash
 ./mvnw spring-boot:run
 ```
-## Generate a JWT and test the secure app
 
+## Generate a JWT and test the secure app
 
 To generate a valid JWT, you need to create an OpenID Connect (OIDC) application on Okta and use the OIDC Debugger application to request a JWT from the OIDC application. 
 
-{% include setup/cli.md type="web" install="false" loginRedirectUri="https://oidcdebugger.com/debug" %}
+{% include setup/cli.md type="spa" install="false" loginRedirectUri="https://oidcdebugger.com/debug" logoutRedirectUri="https://oidcdebugger.com/" %}
 
 {% include setup/oidcdebugger.md %}
 
@@ -633,9 +631,9 @@ One of the benefits of the Spring Cloud Contract project is that the mocked and 
 
 The next step is to create the consumer application. This will simulate a public-facing service to retrieve hats from the producer and serve them to the clients. The key point in this tutorial is to see how the stubs generated from the producer project can be imported into the consumer project and used to verify application behavior.  
 
-Use the Spring Initializr to create the starter project by following [this link](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.6.2&packaging=jar&jvmVersion=11&groupId=com.example&artifactId=consumer&name=consumer&description=Producer%20project%20for%20Spring%20Boot%20Contract&packageName=com.example.consumer&dependencies=web,cloud-contract-stub-runner,lombok).
+Use the Spring Initializr to create the starter project by following [this link](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.6.3&packaging=jar&jvmVersion=11&groupId=com.example&artifactId=consumer&name=consumer&description=Producer%20project%20for%20Spring%20Boot%20Contract&packageName=com.example.consumer&dependencies=web,cloud-contract-stub-runner,lombok).
 
-The project is very similar to the producer project except that the included dependencies are different. Here you are including the **Spring Web MVC** and the **Contract Stub Runner** (in place of the **Contract Verifier**).
+The project is very similar to the producer project except that the included dependencies are different. Here you are including **Spring Web** and **Contract Stub Runner** (in place of the **Contract Verifier**).
 
 {% img blog/spring-cloud-contract/consumer-dependencies.png alt:"Consumer Dependencies" width:"600" %}{: .center-image }
 
@@ -737,7 +735,7 @@ Make sure your producer application is still running. In a new shell, run the co
 ./mvnw spring-boot:run
 ```
 
-Once the application is running, you can use the auth token you created earlier to make a request on the consumer (which will pass along the request to the secured producer).
+Once the application is running, you can use the access token you created earlier to make a request on the consumer (which will pass along the request to the secured producer).
 
 ```bash
 http :8081/wearhat/1 "Authorization: Bearer $TOKEN"
@@ -757,7 +755,7 @@ Enjoy your new Sombrero
 
 Now, the exciting part. You're going to import the stubs generated from the producer project into the consumer project and use them for integration tests. 
 
-First, create a `resources.properties` file in the `src/test` folder. Notice that you are changing the `producer.port` to `8100`. This is the port on which the stubbed producer will run. It's helpful if this is different than the actual port on which the producer runs.
+First, create an `application.properties` file in the `src/test/resources` folder. Notice that you are changing the `producer.port` to `8100`. This is the port on which the stubbed producer will run. It's helpful if this is different than the actual port on which the producer runs.
 
 `src/test/resources/application.properties`
 
@@ -834,9 +832,9 @@ You're specifying the `com.example:producer` project, with the latest version, t
 
 You also define three tests that match the expected behavior defined in the contracts. 
 
-Next, create a more realistic integration test on the consumer in a new file, `ContractIntegrationTest.java`.
+Next, create a more realistic integration test on the consumer in a new file, `ConsumerIntegrationTest.java`.
 
-`src/test/java/com/example/consumer/ContractIntegrationTest.java`
+`src/test/java/com/example/consumer/ConsumerIntegrationTest.java`
 
 ```java
 package com.example.consumer;
@@ -872,10 +870,21 @@ public class ConsumerIntegrationTest {
     }
 
 }
-
 ```
 
 This is why you specified the producer port in the `application.properties` file. By using different ports in `src/test/java` and `src/main/java` you are able to direct the tests to the stubbed producer, which allows you to create a true integration test. In the test above, the mocked consumer calls the stubbed producer and returns the result, which is checked against the expected value. Otherwise, when you ran the test above, it would try and call the producer on port `8080`, which would call the actual producer running on that port.
+
+You can run these tests in your IDE or from the command line with `./mvnw test`. Everything should pass!
+
+```
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+```
 
 ## Learn more about Spring Boot and Spring Cloud Contract
 
