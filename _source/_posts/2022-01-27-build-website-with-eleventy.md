@@ -250,7 +250,7 @@ exports.render = function (data) {
 
 This file extends the base layout you created by creating a header with a `Home` button and a `Login` button that will direct the user to the `Login` page with your Okta sign-in widget.
 
-Finally, add a new file called `_layout_authenticated.11ty.js`. Add the following code to it.
+Finally, add a new file called `_layout_authenticated.11ty.js`. Then, add the following code.
 
 ```javascript
 exports.data = {
