@@ -297,7 +297,7 @@ ${data.content}
 };
 ```
 
-Again, this file will extend the base layout. It also adds some additional functionality to each page using this layout. When the page loads, it will attempt to contact the Okta authorization server to obtain information about the user with the ID token stored in the browser. If that request is successful, it will call the `loadPage` function implemented in those pages. Otherwise, it redirects the user to the `Login` page. This page also contains a header with a `Logout` button and a method for `logout` that uses the sign-in widget to log the user out.
+Again, this file will extend the base layout, while adding some additional functionality to each page that uses this layout. When the page loads, it will attempt to contact the Okta authorization server for information about the user with the ID token stored in the browser. If the contact request is successful, it will call the `loadPage` function implemented in those pages. Otherwise, the code redirects the user to the `Login` page. This page also contains a header with a `Logout` button and a method for `logout` that uses the sign-in widget to log the user out.
 
 ## Start your 11ty website
 
