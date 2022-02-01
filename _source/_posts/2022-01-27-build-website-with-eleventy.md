@@ -63,7 +63,7 @@ By default, 11ty will attempt to use port `8080` on localhost, so navigate to `h
 
 **NOTE:** If you are using Windows, you will need to open the index file you just created and resave it with `UTF-8` encoding, as 11ty uses `UTF-16 LE` by default.  
 
-## Add a Couple of Static Pages
+## Add a couple of static pages
 
 Now you can add some content to your site. Your site will consist of the following pages:
 
