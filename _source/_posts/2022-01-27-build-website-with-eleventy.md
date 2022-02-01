@@ -311,7 +311,7 @@ The command will build your templates into static pages and then serve the site 
 
 {% img blog/build-website-with-eleventy/home-page.png alt:"Home Page" width:"800" %}{: .center-image }
 
-Next, click the login button to see the Okta Sign-in widget in action. You can log in with your Okta credentials.
+Next, click the login button to see the Okta Sign-In Widget in action. You can log in with your Okta credentials.
 
 {% img blog/build-website-with-eleventy/login-page.png alt:"Login Page" width:"800" %}{: .center-image }
 
