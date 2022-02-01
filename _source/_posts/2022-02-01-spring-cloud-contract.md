@@ -10,7 +10,7 @@ tweets:
 - "For testing your microservices, do you want fast feedback without the need to set up the whole world of microservices? Of course you do! Check out @SpringCloud Contract. It's pretty slick!"
 - "Spring Cloud Contract helps you test interconnected microservices. See how to use it in this quick tutorial."
 - "Learn how to use Spring Cloud Contract to create solid integration tests for your microservices."
-image:
+image: blog/spring-cloud-contract/spring-cloud-contract.jpg
 type: conversion
 github: https://github.com/oktadev/okta-spring-cloud-contract-example
 ---
@@ -874,7 +874,7 @@ public class ConsumerIntegrationTest {
 
 This is why you specified the producer port in the `application.properties` file. By using different ports in `src/test/java` and `src/main/java` you are able to direct the tests to the stubbed producer, which allows you to create a true integration test. In the test above, the mocked consumer calls the stubbed producer and returns the result, which is checked against the expected value. Otherwise, when you ran the test above, it would try and call the producer on port `8080`, which would call the actual producer running on that port.
 
-You can run these tests in your IDE or from the command line with `./mvnw test`. Everything should pass!
+You can run these tests in your IDE or from the command line with `./mvnw test`. All tests should pass.
 
 ```
 [INFO] Results:
