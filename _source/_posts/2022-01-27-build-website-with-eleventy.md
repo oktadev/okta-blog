@@ -323,7 +323,7 @@ If everything goes well, you should see the protected page.
 
 11ty is an excellent tool for building static websites using several different templating languages. Together with Okta, you can create secure static sites easily and quickly.  
 
-In this article, you learned how to write static pages with HTML and Markdown and use 11ty to convert pages into a static site. You learned how to create a page under authentication and protect it using Okta's sign-in widget. Finally, you learned how to use 11ty's layout feature to streamline your coding experience.
+In this article, you learned how to write static pages with HTML and Markdown and use 11ty to convert pages into a static site. Then you saw how to create a page under authentication and protect it using Okta's Sign-In Widget. Finally, I showed how you can use 11ty's layout feature to streamline your coding experience.
 
 If you liked this tutorial, you might like these others:
 
