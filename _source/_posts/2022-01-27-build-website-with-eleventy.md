@@ -301,7 +301,7 @@ Again, this file will extend the base layout, while adding some additional funct
 
 ## Start your 11ty website
 
-If you are still running the site, then 11ty would have hot reloaded the site, and you should see the home page. If not, run the following command:
+If you are still running the site, then 11ty will have hot reloaded the site, and you should see the home page. If not, run the following command:
 
 ```console
 npx @11ty/eleventy --serve
