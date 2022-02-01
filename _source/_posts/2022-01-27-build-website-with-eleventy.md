@@ -152,7 +152,7 @@ Finally, add a page for `README.md` and add the following markdown to it.
 layout: _layout_unauthenticated.11ty.js
 ---
 
-# Okta Eleventy Website Example
+# Okta Eleventy website example
 
 This repository shows you how to use Okta on a static site built with 11ty.
 
