@@ -61,7 +61,7 @@ npx @11ty/eleventy --serve
 
 By default, 11ty will attempt to use port `8080` on localhost, so navigate to `http://localhost:8080`, and you can see your **Hello World** page.  
 
-**NOTE:** If you are using Windows, you will need to open the index file you just created and resave it with `UTF-8` encoding as 11ty uses `UTF-16 LE` by default.  
+**NOTE:** If you are using Windows, you will need to open the index file you just created and resave it with `UTF-8` encoding, as 11ty uses `UTF-16 LE` by default.  
 
 ## Add a Couple of Static Pages
 
