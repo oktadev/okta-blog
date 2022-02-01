@@ -95,7 +95,7 @@ layout: _layout_unauthenticated.11ty.js
 </div>
 ```
 
-You will notice the `layout` variable at the top of the file. You have not added this file to your project yet and will need to do that later. But you can assign the layout page to this file, so you don't have to add it later.
+You will notice the `layout` variable at the top of the file. You have not added this file to your project yet and will need to do that. But you can assign the layout page to this file, so you don't have to add it later.
 
 Next, create a file for `login.html` and add the following code.
 
