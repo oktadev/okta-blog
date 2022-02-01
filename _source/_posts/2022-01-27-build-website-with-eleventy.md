@@ -29,7 +29,7 @@ This tutorial will teach how to secure your 11ty site using Okta. 11ty will prod
 {% include setup/cli.md type="spa" framework="Vue"
    loginRedirectUri="http://localhost:8080/callback" signup="false" %}
 
-## Create your 11ty Site
+## Create your 11ty site
 
 If you wish to follow along using the completed project you can [check out the GitHub repository here](https://github.com/oktadev/okta-website-eleventy-example).  
 
