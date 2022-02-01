@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: How to Build a Basic Shopping App with Node.js and Minio
+title: How to Build a Basic Shopping App with Node.js and MinIO
 author: deepa-mahalingam
 by: internal-contributor
 communities: [javascript]
@@ -25,8 +25,8 @@ This tutorial will guide you through the code to build a simple Node.js Shopping
 * [Node.js](https://nodejs.org/en/)
 * [MinIO Client (mc)](https://docs.minio.io/docs/minio-client-quickstart-guide)
 * [Minio Server](https://docs.min.io/)
-* [Okta CLI]()
- 
+* [Okta CLI](https://cli.okta.com/)
+
 If you'd like to skip the tutorial and just check out the fully built project, you can go [view it on GitHub]().
 
 ## Build your application with Express
@@ -38,10 +38,10 @@ mkdir okta_commerce
 cd okta_commerce
 ```
 
-Use the following command to create a `package.json` file for your application. This command will ask you several things about your application. Make sure that you set the name of the entry point to `main-store.js`.
+Use the following command to create a `package.json` file for your application.
 
 ```sh
-npm init 
+npm init -y
 ```
 
 Now install the following dependencies in the `okta_commerce` directory.
@@ -55,16 +55,16 @@ npm i @okta/oidc-middleware@4
 npm i @okta/okta-signin-widget@5
 ```
 
-Create the folder setup & the handlebar files as seen in ![here](https://github.com/deepamahalingam-okta/okta_commerce/tree/main/views) and copy paste.
+## Set Up Authentication With Okta
 
-Once you have all the code for the views and main-store.js as shown, do npm install to get the express, handlebars and minio node-modules installed. We will explore snippets of code in each file in the rest of the tutorial. At any point, you may clone the entire repo and install and run the application as shown below.
+Dealing with user authentication in web apps can be a massive pain for every developer. This is where Okta shines: it helps you secure your web applications with minimal effort. 
 
-```sh
- git clone https://github.com/deepamahalingam-okta/okta_commerce.git
- cd  okta_commerce
- npm install
-```
-`main-store.js` will serve as our app's entry point.
+{% include setup/cli.md type="spa" loginRedirectUri="http://localhost:3000/callback" logoutRedirectUri="http://localhost:3000/" %}
+
+Configure your Okta tenant so that Security > Profile Enrollment > Self-Service Registration is enabled for your application.
+
+Configure your Okta tenant so that Security > Authenticators > Password has a rule that allows for password unlock for your application.
+
 
 ## Set Up MinIO Object Storage
 
@@ -74,23 +74,29 @@ There are three steps when setting up the assets.
 
 We've created a public minio server https://play.minio.io:9000 for developers to use as a sandbox. Minio Client `mc` is  preconfigured to use the play server.  
 
-Make a bucket called `okta-commerce` on play.minio.io. Use `mc mb` command to accomplish this. More details on the `mc mb` command can be found [here](https://docs.minio.io/docs/minio-client-complete-guide#mb).
+Make a bucket called `okta-commerce` on play.minio.io using the following command: 
 
 ```sh
 mc mb play/okta-commerce
 ```
 
+More details on the `mc mb` command can be found [here](https://docs.minio.io/docs/minio-client-complete-guide#mb).
+
+
 ### Set up bucket policy on MinIO play server
 
-Store product image assets can be set to public readwrite. Use `mc policy` command to set the access policy on this bucket to "both". More details on the `mc policy` command can be found [here](https://docs.minio.io/docs/minio-client-complete-guide#policy).
+Store product image assets can be set to public readwrite. Use `mc policy` command to set the access policy on this bucket to "both". 
 
 ```sh
 mc policy set public play/okta-commerce
 ```
 
-## Copy store’s assets to MinIO bucket
+More details on the `mc policy` command can be found [here](https://docs.minio.io/docs/minio-client-complete-guide#policy).
 
-Upload store product pictures into this bucket.  Use `mc cp`  command to do this. More details on the `mc cp` command can be found [here](https://docs.minio.io/docs/minio-client-complete-guide#cp).
+
+### Copy store’s assets to MinIO bucket
+
+Upload store product pictures into this bucket.  Use `mc cp`  command to do this. 
 
 ```sh
 mc cp ~/Downloads/Product-1.jpg play/okta-commerce/
@@ -99,11 +105,12 @@ mc cp ~/Downloads/Product-3.jpg play/okta-commerce/
 mc cp ~/Downloads/Product-4.jpg play/okta-commerce/
 ```
 
-**NOTE** : We have already created an okta-commerce bucket on play.minio.io and copied the assets used in this example, into this bucket.
+More details on the `mc cp` command can be found [here](https://docs.minio.io/docs/minio-client-complete-guide#cp).
 
 
 ## Access the MinIO assets programmatically
-There are two steps in programmatically accessing your assets inside your javascript application.
+
+There are two steps in programmatically accessing your assets inside your JavaScript application.
 
 ### Pointing to Minio Server with Keys
 
