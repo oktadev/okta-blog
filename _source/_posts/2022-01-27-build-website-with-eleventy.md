@@ -122,7 +122,7 @@ layout: _layout_unauthenticated.11ty.js
 </script>
 ```
 
-The only HTML in this page here is a `div` with `id="okta-login-container"`. You call the `OktaSignIn` features and display the login screen to the user using the JavaScript code on this page. Okta will create the login form and handle the actual authentication. All you need to do is call the `showSignInToGetTokens` method and handle the promise to set the token using the `tokenManager`. Once you have done that, you will redirect the user to the `protected` page. 
+The only HTML in this page here is a `div` with `id="okta-login-container"`. You call the `OktaSignIn` features and display the login screen to the user with the JavaScript code on this page. Okta will create the login form and handle the actual authentication. All you need to do is call the `showSignInToGetTokens` method and handle the promise to set the token using the `tokenManager`. Once you have done that, you will redirect the user to the `protected` page. 
 
 You can add the `protected.html` page now. Add the following code to it.
 
