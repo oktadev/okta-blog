@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Integration Testing With Spring Cloud Contract"
+title: "Better Integration Testing With Spring Cloud Contract"
 author: andrew-hughes
 by: contractor
 communities: [java]
