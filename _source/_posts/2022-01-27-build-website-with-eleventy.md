@@ -33,7 +33,7 @@ This tutorial will teach how to secure your 11ty site using Okta. 11ty will prod
 
 If you wish to follow along using the completed project you can [check out the GitHub repository here](https://github.com/oktadev/okta-website-eleventy-example).  
 
-The first step is to create your 11ty site. First, create your project directory.
+The first step is to create your 11ty site. Create your project directory.
 
 ```console
 mkdir okta-website-eleventy-example
