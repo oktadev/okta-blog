@@ -748,7 +748,6 @@ HTTP/1.1 200
 ...
 
 Enjoy your new Sombrero
-
 ```
 
 ## Import the producer stubs into the consumer project and create integration tests
