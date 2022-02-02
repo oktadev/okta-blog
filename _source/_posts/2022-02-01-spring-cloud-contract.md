@@ -14,7 +14,7 @@ image: blog/spring-cloud-contract/spring-cloud-contract.jpg
 type: conversion
 github: https://github.com/oktadev/okta-spring-cloud-contract-example
 changelog:
-- 2022-02-02: Fixed mistake that said putting multiple contracts in one file caused an error. See [okta-blog#1064](https://github.com/oktadev/okta-blog/pull/1064) for the changes made in this post.
+- 2022-02-02: Fixed mistake that said putting multiple contracts in one file caused an error. See [okta-blog#1064](https://github.com/oktadev/okta-blog/pull/1064) and [okta-blog#1065](https://github.com/oktadev/okta-blog/pull/1065) for the changes made in this post.
 ---
 
 Spring Cloud Contract was created as a way to help test interconnected microservices. Generally speaking, there are two options when testing microservices: 1) you can deploy the entire mesh of services in your integration tests and test against that, or 2) you can mock each service in your integration tests. Both of these options have serious drawbacks. 
@@ -176,7 +176,7 @@ HTTP/1.1 200
 
 Next, you need to write the contracts that define the interservice agreement to govern the behavior of the producer. This is where Spring Cloud Contract comes in and things get interesting.
 
-You're going to create three contracts under `src/test/resources/contracts`. The contracts can be written in YAML or as a Groovy, Java, or Kotlin DSL script. In this tutorial I've chosen to go with the [Groovy](https://groovy-lang.org/). These contracts could also be in a single file instead of separate files. See [the docs](https://cloud.spring.io/spring-cloud-contract/2.1.x/multi/multi_contract-dsl.html#_multiple_contracts_in_one_file).
+You're going to create three contracts under `src/test/resources/contracts`. The contracts can be written in YAML or as a Groovy, Java, or Kotlin DSL script. In this tutorial I've chosen to go with the [Groovy](https://groovy-lang.org/). These contracts could also be in a single file instead of separate files. See [the docs](https://docs.spring.io/spring-cloud-contract/docs/current/reference/html/project-features.html#contract-dsl-multiple).
 
 Create the first contract in your `src/test/resources` directory. 
 
