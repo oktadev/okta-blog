@@ -18,9 +18,9 @@ type: awareness
 
 Access control in websites and web applications is a top priority for security, but how you set it up depends on how you store the data to be authenticated.This, in turn, enables user authorization.Cookies and tokens are two common ways of setting up authentication..
 
-Cookies are chunks of data created by the server and sent to the client for communication purposes.Tokens, usually JSON Web Tokens (JWTs), are signed credentials encoded into a long string of characters created by the server.The main difference between cookies and tokens is their nature: tokens are stateless while cookies are stateful.
+Cookies are chunks of data created by the server and sent to the client for communication purposes. Tokens, usually JSON Web Tokens (JWTs), are signed credentials encoded into a long string of characters created by the server.The main difference between cookies and tokens is their nature: tokens are stateless while cookies are stateful.
 
-With this in mind, why is there a need to store authentication on the browser? Because HTTP is stateless, even if you authenticate with one request, the server essentially "forgets" that authentication with subsequent requests.Therefore, you need to supply the token/cookie on every request for authentication by the server.The frontend stores the token or cookie and uses it to make subsequent requests to the server until the cookie or token is expired.
+With this in mind, why is there a need to store authentication on the browser? Because HTTP is stateless, even if you authenticate with one request, the server essentially "forgets" that authentication with subsequent requests. Therefore, you need to supply the token/cookie on every request for authentication by the server. The frontend stores the token or cookie and uses it to make subsequent requests to the server until the cookie or token is expired.
 
 This article will examine the use of cookies or tokens for authentication, comparing the pros and cons of each method, so that you can determine which is best for your project.
 
@@ -34,7 +34,7 @@ Authentication is the act of verifying user credentials in terms of either corre
 
 - **Time**: The authentication token assigned to the user is only valid for a specific period of time. If the token becomes invalid, the user needs to be re-authenticated before access can be granted.
 
-(The term "token/authentication token" is used here to describe any form of authentication credential that might be implemented by the application, not explicitly an access token.)
+NOTE: The term "token/authentication token" is used here to describe any form of authentication credential that might be implemented by the application, not explicitly an access token.
 
 The above instances aren't environment-specific and could be demonstrated visually on the frontend or the backend during API testing.
 
@@ -47,6 +47,7 @@ There are two reasons why authentication is necessary to allow full access to an
 - Authentication gives each user a distinct identity, protecting your data and theirs. Applications that require users to create an account give each user a unique profile, which is what determines the data shown to the user. For example, PayPal requires users to sign in before displaying their account balance and transactions.
 
 Generally, the process works like this:
+
 - You sign in.
 - The server verifies your sign-in details and assigns you an authentication token.
 - The authentication token is used to make a request to your homepage that displays your unique dashboard.
