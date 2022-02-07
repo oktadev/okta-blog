@@ -10,7 +10,7 @@ tweets:
 - "Add authentication to your @angular app in minutes with @auth0!"
 - "Use OpenID Connect to secure your #Angular apps quickly."
 - "Create an app with OIDC authentication in minutes! Use `ng new` to create an app, then `ng add @oktadev/schematics --auth0` to add auth."
-image:
+image: blog/angular-auth0/angular-quickly.png
 type: conversion
 github: https://github.com/oktadev/auth0-angular-example
 canonical: https://auth0.com/blog/add-oidc-to-angular-apps-quickly/
