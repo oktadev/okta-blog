@@ -8,13 +8,13 @@ description: ""
 tags: [sign-in-widget, okta, node, minio]
 type: conversion
 image: 
-github: 
+github: https://github.com/oktadev/okta-express-minio-app-example
 tweets:
 ---
 
 These days, a lot of e-commerce solutions are built with Node.js. Typically, e-commerce applications have many images and video assets managed in object storage. As the number of products in an e-commerce store increases, so does the size of the object storage. We’ll build our Node.js application with a Kubernetes-friendly object storage service called MinIO to scale with demand. Finally, we’ll secure this scalable application with the Okta Sign-in Widget.
 
-This tutorial will guide you through the code to build a simple Node.js Shopping App with the Okta's Sign-In Widget for authentication and a [MinIO Server](https://min.io/) to host the store's assets. We will use Express as our application framework and Handlebars as the view engine. We will use the [Minio Javascript Client SDK](https://docs.minio.io/docs/javascript-client-quickstart-guide) to fetch the application's image assets from the Minio Server.
+This tutorial will guide you through the code to build a simple Node.js Shopping App with the Okta's Sign-In Widget for authentication and a [MinIO Server](https://min.io/) to host the store's assets. We will use Express as our application framework and Handlebars as the view engine. We will use the [MinIO Javascript Client SDK](https://docs.minio.io/docs/javascript-client-quickstart-guide) to fetch the application's image assets from the Minio Server.
 
 ![BRU_app](https://github.com/deepamahalingam-okta/okta_commerce/blob/main/docs/screenshots/BRU_app.png?raw=true)
 
