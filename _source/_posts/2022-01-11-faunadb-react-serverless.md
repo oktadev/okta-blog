@@ -49,7 +49,7 @@ You can now create your Fauna database but leave the Okta Admin Console open as 
 
 ## Create a Fauna database
 
-Next, head over to [Fauna](https://fauna.com/) and sign up for a new account. After you've registered and authenticated, click on **Create Database** and name your database "Products". Select a Region Group that's appropriate for your location. Click on the **Use demo data** checkbox and click **Create**. Fauna will automatically build a new database for you with data collections for *customers*, *managers*, *orders*, *products*, and *stores*. You can click on any of these collections to see the same data behind them.
+Next, head over to [Fauna](https://fauna.com/) and sign up for a new account. After you've registered and authenticated, click on **Create Database** and name your database "Products". Select the **Classic** Region Group for this tutorial. Click on the **Use demo data** checkbox and click **Create**. Fauna will automatically build a new database for you with data collections for *customers*, *managers*, *orders*, *products*, and *stores*. You can click on any of these collections to see the same data behind them.
 
 Now you will need to add a new role to the database. Fauna requires that you assign a custom role to your provider. Under the **Security** tab, navigate to **Roles**. Click **New Role**. Name your role "User" and add the `products` collection to it. Give this role **Read** access. Click **Save** to save the changes.
 
@@ -222,9 +222,9 @@ export default withOktaAuth(
       }
     };
 
-    componentDidUpdate = (prevProps, prevState, snapshot) => {
+    componentDidMount = () => {
       if (
-        this.props.authState.isAuthenticated &&
+        this.props.authState?.isAuthenticated &&
         !this.state.pendingProducts &&
         !this.state.products
       ) {
@@ -259,6 +259,8 @@ export default withOktaAuth(
   }
 );
 ```
+
+**NOTE**: If you chose US or EU for your database's region, the domain will need to be `db.us.fauna.com` or `db.eu.fauna.com`.
 
 Your application will only have one page. Depending on the state of the application, you will display different messages to the user. If the user isn't logged in, present them with a message telling them such and a login button. When the user clicks the login button, Okta takes care of the authentication process, and signs in the user. You can access information about the user's state using `this.props.authState`.
 
