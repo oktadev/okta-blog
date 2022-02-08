@@ -60,15 +60,15 @@ Session cookies are stateful elements. They contain data that the server sends t
 
 === Advantages of cookies
 
-**Cookies provide the following key benefits:**
+**Consider these key benefits:**
 
-* **Use the same session across subdomains**: Cookies take a https://en.wikipedia.org/wiki/HTTP_cookie#Domain_and_Path[`Domain`] argument: You specify the domain name for which the cookie is valid. Setting the domain name to `yoursite.com` allows the same session for the domain and subdomains.
+* **Cookies use the same session across subdomains**: They take a https://en.wikipedia.org/wiki/HTTP_cookie#Domain_and_Path[`Domain`] argument: You specify the domain name for which the cookie is valid. Setting the domain name to `yoursite.com` allows the same session for the domain and subdomains.
 
 * **They reduce manipulation by client-side JavaScript**: You can restrict client-side access by setting the https://owasp.org/www-community/HttpOnly[`HttpOnly`] flag. This reduces the likelihood of cross-site scripting (XSS) attacks on your application, since most XSS attacks involve the use of malicious JS code.
 
 * **They require little storage**: Cookies use as little as 6 KB to store a simple user ID. Depending on what information you store in your cookie, you'll transmit a minimal amount of bytes with every request.
 
-* **Are managed by the browser**: This is automatic, so you don't have to worry about it.
+* **Finally, cookies are managed by the browser**: This is automatic, so you don't have to worry about it.
 
 === The downside of cookies
 
