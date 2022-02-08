@@ -171,7 +171,7 @@ Be sure to replace the placeholder variables with your actual Okta information.
 - Replace `{OKTA_OAUTH2_CLIENT_SECRET}` with the Client secret of your application.
 - Replace `{OKTA_DOMAIN}` with your Org's Okta domain. It is the same as your OAuth2 Issuer URL without the `https://` and `/oauth2/default` segments.
 
-The code above sets the name of the strategy as 'oidc' and set all the URLs that the strategy needs to know to pull off the authorization code flow for OpenID Connect. 
+The code above sets the name of the strategy as 'oidc.' Then it sets all the URLs that the strategy needs to complete the authorization code flow for OpenID Connect. 
 
 The last argument is a function that pushes the profile object returned from the authentication call into `req.user` so that you can use it in the route handlers. You could manipulate the object you pass in to have other information or save/update the user in your database.
 
