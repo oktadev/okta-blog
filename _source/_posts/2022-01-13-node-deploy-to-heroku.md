@@ -171,7 +171,7 @@ router.get("/", function (req, res, next) {
 module.exports = router;
 ```
 
-Here are you added a property for the `index.jade` template to use called `loggedIn`.  This property will help the view decide if it should display a `login` or `logout` button.  The rest of the home page will be static so there is no need for a more sophisticated model.
+Here you added a property for the `index.jade` template to use called `loggedIn`.  This property will help the view decide if it should display a `login` or `logout` button.  The rest of the home page will be static so there is no need for a more sophisticated model.
 
 Finally, open your `routes/users.js` file and replace the code there with the code below.
 
