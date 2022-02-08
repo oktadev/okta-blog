@@ -23,7 +23,7 @@ However, in this tutorial, you will learn how to build a small application using
 To continue you will need:
 
 - [Visual Studio Code](https://code.visualstudio.com/)
-- [Node.Js](https://nodejs.org/en/)
+- [Node.js](https://nodejs.org/en/)
 - An [Okta Developer Account](https://developer.okta.com/) (free forever, to handle your OAuth needs)
 - A [Heroku Account](https://signup.heroku.com/)
 - A [Git Repository](https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository)
