@@ -28,7 +28,7 @@ To continue you will need:
 - A [Heroku Account](https://signup.heroku.com/)
 - A [Git Repository](https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository)
 
-Of course, if you want to just see the code feel free [to view it on github](https://github.com/nickolasfisher/Okta_Heroku).
+Of course, if you want to just see the code feel free [to view it on GitHub](https://github.com/nickolasfisher/Okta_Heroku).
 
 ## Create your Okta Application
 
