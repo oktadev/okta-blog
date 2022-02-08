@@ -72,7 +72,7 @@ npm install --save @okta/oidc-middleware@4.3.0
 
 The express-generator package does a great job of scaffolding a simple Node.js application.  For this tutorial, you can leave most of the application the way it is.  You will need to make a few changes though.  
 
-First, add a new file called .env to the root of your application and add the following values.  These values can be found in `.okta.env`.
+First, add a new file called `.env` to the root of your application and add the following values.  These values can be found in `.okta.env`.
 
 ```dotenv
 OKTA_OAUTH2_ISSUER={yourOktaDomain}/oauth2/default
