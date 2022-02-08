@@ -125,6 +125,8 @@ This process will perform the following steps for you:
 
 To see all the changes it makes to your files, see [this pull request on GitHub](https://github.com/oktadev/auth0-angular-example/pull/1/files). If you're interested in learning more about Schematics, I recommend reading my [Use Angular Schematics to Simplify Your Life](/blog/2019/02/13/angular-schematics) tutorial.
 
+> Want to use Okta for your identity provider? That's possible too! See [Use the Okta CLI to Quickly Build Secure Angular Apps](/blog/2020/12/03/angular-okta).
+
 ### Test your Angular authentication flow
 
 Run `ng serve` in your app, and you should see a login button at `http://localhost:4200/home`.
