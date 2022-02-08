@@ -16,7 +16,7 @@ type: awareness
 :toc: macro
 :experimental:
 
-Access control in websites and web applications is a top priority for security, but how you set up access depends on how you store the data to be authenticated. This, in turn, enables user authorization.Cookies and tokens are two common ways of setting up authentication..
+Access control in websites and web applications is a top priority for security, but how you set up access depends on how you store the data to be authenticated. This, in turn, enables user authorization. Cookies and tokens are two common ways of setting up authentication.
 
 Cookies are chunks of data created by the server and sent to the client for communication purposes. Tokens, usually referring to JSON Web Tokens (JWTs), are signed credentials encoded into a long string of characters created by the server. The main difference between cookies and tokens is their nature: tokens are stateless while cookies are stateful.
 
