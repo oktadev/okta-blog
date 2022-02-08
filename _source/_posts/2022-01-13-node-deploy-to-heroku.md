@@ -62,7 +62,7 @@ Next, you will want to add bootstrap.  You will use the bootstrap libraries in y
 npm bootstrap@5.1.3
 ```
 
-You will need the `oidc-middleware` from Okta to help secure your application.  `express-session` is required when using the `oidc-middleware` so you will need to install that as well.
+You will need the `oidc-middleware` from Okta to help secure your application.  This package will make integrating with Okta painless, quick, and secure.  You will be able to configure the middleware with your Okta application details and start securing your routes with only a few lines of code.  `express-session` is required when using the `oidc-middleware` so you will need to install that as well.
 
 ```console
 npm install --save express-session@1.17.2
