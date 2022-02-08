@@ -132,7 +132,7 @@ app.use(session({
 }));
 ```
 
-Below that, add the following configuration that tells Express to use Passport for sessions.
+Add the following configuration that tells Express to use Passport for sessions.
 
 ```js
 app.use(passport.initialize());
