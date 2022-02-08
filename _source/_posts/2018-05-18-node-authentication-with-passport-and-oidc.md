@@ -79,7 +79,7 @@ run the app:
 
 Go ahead and change into the new directory and install the dependencies. I use [Visual Studio Code](https://code.visualstudio.com/) for my Node development which has excellent support for writing and debugging Node applications. It works on all platforms and is completely free. Running the application with a debugger attached is as easy as hitting the `F5` key!
 
-Once VS Code is installed, you can open the project from the command line using the `code` command.
+Once you've installed VS Code, you can open the project from the command line using the `code` command.
 
 ```bash
 code .
