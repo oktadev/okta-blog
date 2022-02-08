@@ -27,6 +27,7 @@ To continue you will need:
 - An [Okta Developer Account](https://developer.okta.com/) (free forever, to handle your OAuth needs)
 - A [Heroku Account](https://signup.heroku.com/)
 - A [Git Repository](https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository)
+- A [Github Account](https://github.com/signup?ref_cta=Sign+up&ref_loc=header+logged+out&ref_page=%2F&source=header-home)
 
 Of course, if you want to just see the code feel free [to view it on GitHub](https://github.com/nickolasfisher/Okta_Heroku).
 
