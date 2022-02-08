@@ -37,7 +37,7 @@ Of course, if you want to just see the code feel free [to view it on GitHub](htt
 
 ## Create your Express Application
 
-Now it's time to turn your attention to writing your application.   YOu will quickly scaffold your application by using the `express application generator` with the npx command `npx express-generator`.  Open the folder where your application will live and run the command `npx express-generator`.  
+Now it's time to turn your attention to writing your application.   You will quickly scaffold your application by using the `express application generator` with the npx command `npx express-generator`.  Open the folder where your application will live and run the command `npx express-generator`.  
 
 ### Install your Dependencies
 
