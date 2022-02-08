@@ -39,6 +39,10 @@ This tutorial will show you how to create a simple chat application using Socket
 * Table of Contents
 {:toc}
 
+If you would rather follow along by watching a video, check out the screencast below from our [YouTube channel](https://youtu.be/449z_p6rkP8).
+
+{% youtube 449z_p6rkP8 %}
+
 ## Create a Chat Server with Express and Socket.IO
 
 I will start by showing you how to implement the server. In a folder of your choice, open a terminal. Execute the following command to create a chat server project.
