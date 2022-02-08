@@ -49,13 +49,13 @@ You can now create your Fauna database but leave the Okta Admin Console open as 
 
 ## Create a Fauna database
 
-Next, head over to [Fauna](https://fauna.com/) and sign up for a new account. After you've registered and authenticated, click on **New Database** and name your database "Products". Select a Region Group that's appropriate for your location. Click on the **Use demo data** checkbox and click **Create**. Fauna will automatically build a new database for you with data collections for *customers*, *managers*, *orders*, *products*, and *stores*. You can click on any of these collections to see the same data behind them.
+Next, head over to [Fauna](https://fauna.com/) and sign up for a new account. After you've registered and authenticated, click on **Create Database** and name your database "Products". Select a Region Group that's appropriate for your location. Click on the **Use demo data** checkbox and click **Create**. Fauna will automatically build a new database for you with data collections for *customers*, *managers*, *orders*, *products*, and *stores*. You can click on any of these collections to see the same data behind them.
 
 Now you will need to add a new role to the database. Fauna requires that you assign a custom role to your provider. Under the **Security** tab, navigate to **Roles**. Click **New Role**. Name your role "User" and add the `products` collection to it. Give this role **Read** access. Click **Save** to save the changes.
 
 {% img blog/fauna-react/new-role.png alt:"Add a new role to Fauna" width:"800" %}{: .center-image }
 
-Now you will want to list Okta as a registered provider for this database. Select the **Providers** tab and click **New Access Provider**. Name the new provider "Okta" and add the details for your *Issuer* and *JSON Web Key Secret URI* that you retrieved from Okta earlier. Add the `User` role to the provider and click **Save**. Now Fauna will accept the token from Okta and treat the user as though they are part of the `User` role, giving that user access to read the product's collection.
+Now you will want to list Okta as a registered provider for this database. Select the **Providers** tab and select **New Access Provider**. Name the new provider "Okta" and add the details for your *Issuer* and *JSON Web Key Secret URI* that you retrieved from Okta earlier. Add the `User` role to the provider and click **Save**. Now Fauna will accept the token from Okta and treat the user as though they are part of the `User` role, giving that user access to read the product's collection.
 
 Finally, under the **Providers** tab click the settings wheel next to Okta. Copy the **audience** URL from here and return to your Okta Admin Console. Under your authorization server click **Edit** and replace the placeholder audience value with the one you copied from Fauna.
 
@@ -66,13 +66,13 @@ Now that Okta and Fauna are set up to work with each other it's time to create y
 For this project, you will need to install a few packages from npm. First, you will want to include the packages to make securing your application with Okta quick and easy.
 
 ```shell
-npm i @okta/okta-auth-js@5.10.0 @okta/okta-react@6.4.1
+npm i @okta/okta-auth-js@6.0.0 @okta/okta-react@6.4.2
 ```
 
 Next, you will need the FaunaDB JavaScript driver to make calls against your database.
 
 ```shell
-npm i faunadb@4.4.1
+npm i faunadb@4.5.2
 ```
 
 Finally, you need to include `react-router-dom`.
@@ -88,7 +88,6 @@ REACT_APP_OKTA_CLIENTID={yourClientId}
 REACT_APP_OKTA_URL_BASE=https://{yourOktaDomain}
 REACT_APP_OKTA_AUTHORIZATION_SERVER_ID={yourAuthorizationServerId}
 REACT_APP_OKTA_APP_BASE_URL=http://localhost:3000
-PORT=3000
 ```
 
 Next, add a new file to your `src` directory called `AppWithRouterAccess.jsx`. Add the following code to it.
@@ -121,7 +120,7 @@ const AppWithRouterAccess = () => {
 
   return (
     <Security oktaAuth={oktaAuth} restoreOriginalUri={restoreOriginalUri}>
-      <Route path='/' exact={true} component={Home}></Route>
+      <Route path='/' exact={true} component={Home}/>
       <Route path='/callback' component={LoginCallback}/>
     </Security>
   );
@@ -132,7 +131,7 @@ export default AppWithRouterAccess;
 
 This file sets up your Okta authentication and wraps your routes with the `<Security>` node. This will provide access to the `oktaAuth` object in those routes.
 
-You will need to add it to your stock `App.js` file to make this file work. Open `App.js` and replace the code there with the following.
+You will need to add it to your stock `App.js` file to make this file work. Open `src/App.js` and replace the code there with the following.
 
 ```jsx
 import React from 'react';
@@ -154,7 +153,7 @@ export default App;
 Along with using the `AppWithRouterAccess`, this file also imports Bootstrap, which you will use for styling.
 
 ```shell
-npm i react-bootstrap@2.1.0 bootstrap@5.1.3
+npm i react-bootstrap@2.1.2 bootstrap@5.1.3
 ```
 
 Add the pages and components that will bring your application to life. Then add two new folders to your `src` directory; `Components` and `Pages`. In the `Pages` directory, add a file called `Home.jsx` and put the following code in it.
@@ -292,7 +291,7 @@ const Header = ({authState, oktaAuth}) => {
       <Navbar.Collapse id='basic-navbar-nav'>
         <Nav className='mr-auto'>
         </Nav>
-        <Form inline>
+        <Form className='d-flex'>
           {button}
         </Form>
       </Navbar.Collapse>
@@ -303,7 +302,7 @@ const Header = ({authState, oktaAuth}) => {
 export default Header;
 ```
 
-This file gives a home button for the user as well as a signout button for logged-in users or a login button for those who need it.
+This file gives a home button for the user as well as a logout button for logged-in users or a login button for those who need it.
 
 Finally, add a file for `Products.jsx` in your `Components` folder and add the following code.
 
