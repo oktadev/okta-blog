@@ -32,7 +32,7 @@ Websites used to require users to register with a
 username/password and log in with those same credentials. This method was simple but
 caused many security problems because developers would need to write the
 code to authenticate the user directly, store their credentials, manage their
-data, etc. It also required developers to build custom authorization schemes to track what permissions their users had to perform certain
+data, etc. This practice also required developers to build custom authorization schemes to track the user permissions necessary to perform certain 
 operations.
 
 A while later, OAuth came into fashion with a new idea: let a user have one
