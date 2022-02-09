@@ -451,5 +451,5 @@ more about OIDC. You can [check it out
 here](/blog/2017/07/25/oidc-primer-part-1).
 
 You can also [follow OktaDev](https://twitter.com/oktadev) and
-[Okta](https://twitter.com/oktadev) on Twitter to see more of what I'm working
+[Okta](https://twitter.com/oktadev) on Twitter to see more of what we're working on at Okta or follow [Randall](https://twitter.com/rdegges) for my latest work. 
 on, and ask any auth-related questions you might have.
