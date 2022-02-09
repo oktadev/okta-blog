@@ -29,7 +29,7 @@ simple Node.js website (using Express.js) that allows you to manage your users,
 log them in, and log them out.
 
 Websites used to require users to register with a
-username/password and log in with those same credentials back in the day. This method was simple but
+username/password and log in with those same credentials. This method was simple but
 caused many security problems because developers would need to write the
 code to authenticate the user directly, store their credentials, manage their
 data, etc. It also required developers to build custom authorization schemes to track what permissions their users had to perform certain
