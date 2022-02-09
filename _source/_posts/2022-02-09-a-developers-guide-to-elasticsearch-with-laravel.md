@@ -286,7 +286,7 @@ If you don't already have an Okta account, go ahead and [create one](https://dev
 
 In the pop-up, select **OIDC - OpenID Connect** and **Web Application**, then click **Next**.
 
-{% img blog/elasticsearch-laravel/create-new-app-integration.png alt:"Create new app integration" width:"800" %}{: .center-image }
+{% img blog/elasticsearch-laravel/create-new-app-integration.jpg alt:"Create new app integration" width:"800" %}{: .center-image }
 
 Next, on the page that opens, you'll enter details about the new integration. In the first section, you need to enter the app's name. For **Grant Type**, choose **Client Credentials**, and for **Sign-in redirect URIs**, enter http://localhost:8000/login/redirect. Later, this is where you'll handle the authentication.
 
