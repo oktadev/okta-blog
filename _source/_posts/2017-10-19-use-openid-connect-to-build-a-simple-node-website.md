@@ -450,6 +450,6 @@ to OIDC which I strongly recommend you read if you're interested in learning
 more about OIDC. You can [check it out
 here](/blog/2017/07/25/oidc-primer-part-1).
 
-You can also [follow me](https://twitter.com/rdegges) and
+You can also [follow OktaDev](https://twitter.com/oktadev) and
 [Okta](https://twitter.com/oktadev) on Twitter to see more of what I'm working
 on, and ask any auth-related questions you might have.
