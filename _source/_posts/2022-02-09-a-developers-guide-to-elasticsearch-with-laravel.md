@@ -24,7 +24,7 @@ In this tutorial, you'll learn how to integrate Elasticsearch into a Laravel blo
 
 [Elasticsearch](https://www.elastic.co) allows you to index your data and perform searches quickly and efficiently. It also allows you to better understand your data, and to track your query load times using tools like [Kibana](https://www.elastic.co/kibana/), a visualization dashboard for your data .
 
-If you have an e-commerce website, it's important to add a search engine that will allow your users to search through thousands of products, including multiple fields like titles, descriptions, and categories in the search. Elasticsearch a versatile search engine that not only makes the process easy for you, but also indexes and [caches](https://www.elastic.co/blog/elasticsearch-caching-deep-dive-boosting-query-speed-one-cache-at-a-time) data to provide a faster and more optimized response to your queries.
+If you have an e-commerce website, it's important to add a search engine that will allow your users to search through thousands of products, including multiple fields like titles, descriptions, and categories in the search. Elasticsearch is a versatile search engine that not only makes the process easy for you, but also indexes and [caches](https://www.elastic.co/blog/elasticsearch-caching-deep-dive-boosting-query-speed-one-cache-at-a-time) data to provide a faster and more optimized response to your queries.
 
 ## Integrate Elasticsearch with Laravel
 
@@ -311,7 +311,7 @@ Okta is now ready to be used for authentication!
 
 #### Add authentication in Laravel
 
-Back in Laravel, you'll add the authentication with Okta by using [Socialite](https://laravel.com/docs/8.x/socialite). Socialite allows you to add social logins, like Okta, to your Laravel app.
+Back in Laravel, you'll add the authentication with Okta by using [Socialite](https://laravel.com/docs/8.x/socialite). Socialite allows you to add social logins, as well as OAuth providers like Okta, to your Laravel app.
 
 Install the package for authentication with Okta using Socialite:
 
@@ -343,7 +343,7 @@ $listen = [
 ```
 
 You can now use Socialite to authenticate with Okta.
-Start first by importing the `Socialite` facade at the beginning of `app/Http/Controllers/BlogController.php`:
+Start by first importing the `Socialite` facade at the beginning of `app/Http/Controllers/BlogController.php`:
 
 ```php
 use Laravel\Socialite\Facades\Socialite;
@@ -417,7 +417,7 @@ public function handleLogin () {
 }
 ```
 
-This tells Socialite to retrieve the Okta user, then checks if the user's email address is in the database. If it is, the `token` field is changed to reflect the user's token. If it isn't, a new user is created, and the `token` field updates with their information. The user is then authenticated on your Laravel blog using `Auth::login` and is redirected to the homepage.
+This tells Socialite to retrieve the Okta user, then checks if the user's email address is in the database. If it is, the `token` field is changed to reflect the user's token. If it isn't, a new user is created, and the `token` field updates with their information. The user is then authenticated on your Laravel blog using `Auth::login` and is redirected to the home page.
 
 Next, add the route in `routes/web.php`:
 
@@ -530,7 +530,7 @@ Change the value for the `action` attribute of the form in `post-form.blade.php`
 
 Open the page with the **Add Post** form again, enter a title and body content, then submit the form. You'll be redirected to the home page, which will now display the post you added.
 
-### Add Search functionality
+### Add search functionality
 
 The last part of this project is adding a search bar and integrating it with Elasticsearch to index data and fetch results.
 
