@@ -43,7 +43,7 @@ out rules around authorization, data management, etc. This means that developers
 using pure OAuth must write a lot of custom security code themselves,
 which causes problems.
 
-Then, [OpenID Connect](http://openid.net/connect/) (OIDC) has
+Then, [OpenID Connect](http://openid.net/connect/) (OIDC) 
 come onto the scene. It's a protocol built on top of OAuth that provides
 everything you could ever want: simplified user authentication, simplified
 authorization, and lots of nice management to tie them all together. OIDC has
