@@ -290,7 +290,7 @@ now are the following two:
 
 - `cookie.httponly`: this option tells the browser that JavaScript code should
   not be allowed to access the session data. JavaScript on clients is a
-  dangerous thing. Ensuring your cookies that contain identity information are
+  dangerous thing. It's essential to ensure the safety of cookies that contain identity information.
   safe is always of utmost importance.
 - `secret`: this option should be a long random string you create. It
   should be the same across all your webservers but never shared publicly or
