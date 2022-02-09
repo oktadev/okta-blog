@@ -34,11 +34,11 @@ You can find the code for this tutorial in [this GitHub repository](https://gith
 
 ### Prerequisites
 
-Before you start with this tutorial, you'll need [PHP](https://www.php.net) version 7.3 or higher. If you’re running Windows, you’ll also need to enable the use of the SQLite3 extension by adding a DLL to the system `PATH`, following the directions in the [SQLite3 installation guide](https://www.php.net/manual/en/sqlite3.installation.php). You also need to have [Composer](https://getcomposer.org/download/) installed.
+Before you start with this tutorial, you'll need [PHP](https://www.php.net) version 7.3 or higher. If you're running Windows, you'll also need to enable the use of the SQLite3 extension by adding a DLL to the system `PATH`, following the directions in the [SQLite3 installation guide](https://www.php.net/manual/en/sqlite3.installation.php). You also need to have [Composer](https://getcomposer.org/download/) installed.
 
 To use Elasticsearch, you need to have it installed and running on your machine. You can follow the installation steps in [this guide from Elastic](https://www.elastic.co/guide/en/elasticsearch/reference/current/install-elasticsearch.html), and then [learn the basics here](https://www.elastic.co/guide/en/elasticsearch/reference/current/starting-elasticsearch.html).
 
-If you have a fresh PHP installation, or haven’t worked with Laravel before, you might need to install some extensions, such as `php-dom`, `php-zip`, and `php-curl`. For more detail on how to install any of these extensions, you can follow [this guide on how to install the PHP extensions necessary for Laravel](https://betterprogramming.pub/the-hitchhikers-guide-to-laravel-setup-6c1fd98c2670). Please note that the linked guide uses PHP version 7.3—if you’re using PHP version 7.4, be sure to replace `7.3` in the commands with `7.4`.
+If you have a fresh PHP installation, or haven't worked with Laravel before, you might need to install some extensions, such as `php-dom`, `php-zip`, and `php-curl`. For more detail on how to install any of these extensions, you can follow [this guide on how to install the PHP extensions necessary for Laravel](https://betterprogramming.pub/the-hitchhikers-guide-to-laravel-setup-6c1fd98c2670). Please note that the linked guide uses PHP version 7.3—if you're using PHP version 7.4, be sure to replace `7.3` in the commands with `7.4`.
 
 ### Creating your project
 
@@ -56,7 +56,7 @@ cd laravel-es
 
 ### Build your database
 
-To manage the blog data, you’ll need a database. To keep this tutorial simple, you'll be using [SQLite](https://www.sqlite.org/index.html). Run the following command to create the database:
+To manage the blog data, you'll need a database. To keep this tutorial simple, you'll be using [SQLite](https://www.sqlite.org/index.html). Run the following command to create the database:
 
 ```bash
 touch database/db.sqlite
@@ -255,7 +255,7 @@ Make the file `resources/views/layout.blade.php` with the following content:
 ```
 {% endraw %}
 
-This eliminates repeated code by creating a layout view that other views can extend. For ease of styling, you’re using [Bootstrap](https://getbootstrap.com) to create your layout. 
+This eliminates repeated code by creating a layout view that other views can extend. For ease of styling, you're using [Bootstrap](https://getbootstrap.com) to create your layout. 
 
 All pages will have a navigation bar. When the user is not authenticated, they'll see a sign-in link. Otherwise, they'll see a link to add a post.
 
@@ -278,7 +278,7 @@ This will run your server, typically on `localhost:8000`. Open it in your browse
 
 ### Add authentication with Okta
 
-You’re going to add user authentication to your website using [Okta](https://developer.okta.com). 
+You're going to add user authentication to your website using [Okta](https://developer.okta.com). 
 
 #### Set up Okta
 
@@ -288,7 +288,7 @@ In the pop-up, select **OIDC - OpenID Connect** and **Web Application**, then cl
 
 {% img blog/elasticsearch-laravel/create-new-app-integration.png alt:"Create new app integration" width:"800" %}{: .center-image }
 
-Next, on the page that opens, you’ll enter details about the new integration. In the first section, you need to enter the app's name. For **Grant Type**, choose **Client Credentials**, and for **Sign-in redirect URIs**, enter http://localhost:8000/login/redirect. Later, this is where you’ll handle the authentication.
+Next, on the page that opens, you'll enter details about the new integration. In the first section, you need to enter the app's name. For **Grant Type**, choose **Client Credentials**, and for **Sign-in redirect URIs**, enter http://localhost:8000/login/redirect. Later, this is where you'll handle the authentication.
 
 {% img blog/elasticsearch-laravel/configure-app.png alt:"Configure app settings" width:"800" %}{: .center-image }
 
@@ -303,7 +303,7 @@ OKTA_CLIENT_SECRET=
 OKTA_REDIRECT_URI=http://localhost:8000/login/redirect
 ```
 
-The last thing you need is your organization’s Okta base URL, which can be found by going to **Security**, then **API**. It'll be in the table under **Issuer URI**. You only need the authority, not the full path.
+The last thing you need is your organization's Okta base URL, which can be found by going to **Security**, then **API**. It'll be in the table under **Issuer URI**. You only need the authority, not the full path.
 
 {% img blog/elasticsearch-laravel/get-base-uri.png alt:"Get the base URI from the issuer URI" width:"800" %}{: .center-image }
 
@@ -331,11 +331,11 @@ After installing the package, you need to add Okta in the `config/services.php` 
       ],
 ```
 
-You also need to configure Socialite’s listener to listen to the `SocialiteWasCalled` event to use Okta. In `app/Providers/EventServiceProvider.php` add the event in the `$listen` array inside the `EventServiceProvider` class:
+You also need to configure Socialite's listener to listen to the `SocialiteWasCalled` event to use Okta. In `app/Providers/EventServiceProvider.php` add the event in the `$listen` array inside the `EventServiceProvider` class:
 
 ```php
 $listen = [
-  …,
+  ...,
   \SocialiteProviders\Manager\SocialiteWasCalled::class => [
               \SocialiteProviders\Okta\OktaExtendSocialite::class.'@handle',
         ],
@@ -375,13 +375,13 @@ Change the URL of the **Sign In** link in `resources/views/layout.blade.php`:
 ```
 {% endraw %}
 
-Now when you open the home page again and click the **Sign In** link in the navigation bar, you’ll be taken to Okta's authentication screen.
+Now when you open the home page again and click the **Sign In** link in the navigation bar, you'll be taken to Okta's authentication screen.
 
 {% img blog/elasticsearch-laravel/okta-login-prompt.png alt:"Okta login prompt" width:"400" %}{: .center-image }
 
 Before you can test the authentication, you need to add the redirect route that will handle the response of the successful authentication.
 
-In `app/Http/Controllers/BlogController.php`, add the necessary import at the beginning of the file for `Auth`, which you’ll be using for authentication:
+In `app/Http/Controllers/BlogController.php`, add the necessary import at the beginning of the file for `Auth`, which you'll be using for authentication:
 
 ```php
 use Illuminate\Support\Facades\Auth;
@@ -417,7 +417,7 @@ public function handleLogin () {
 }
 ```
 
-This tells Socialite to retrieve the Okta user, then checks if the user’s email address is in the database. If it is, the `token` field is changed to reflect the user’s token. If it isn't, a new user is created, and the `token` field updates with their information. The user is then authenticated on your Laravel blog using `Auth::login` and is redirected to the homepage.
+This tells Socialite to retrieve the Okta user, then checks if the user's email address is in the database. If it is, the `token` field is changed to reflect the user's token. If it isn't, a new user is created, and the `token` field updates with their information. The user is then authenticated on your Laravel blog using `Auth::login` and is redirected to the homepage.
 
 Next, add the route in `routes/web.php`:
 
@@ -427,7 +427,7 @@ Route::get('/login/redirect', [App\Http\Controllers\BlogController::class, 'hand
 
 You can now test the authentication. Fill out the Okta form with your name and password. 
 
-After logging in, you’ll be redirected to the home page, and you'll see that the link in the navigation bar has changed to **Add Post**. You'll also see your name on the right side of the navigation bar.
+After logging in, you'll be redirected to the home page, and you'll see that the link in the navigation bar has changed to **Add Post**. You'll also see your name on the right side of the navigation bar.
 
 {% img blog/elasticsearch-laravel/logged-in.png alt:"Logged-in dashboard view" width:"800" %}{: .center-image }
 
@@ -534,7 +534,7 @@ Open the page with the **Add Post** form again, enter a title and body content, 
 
 The last part of this project is adding a search bar and integrating it with Elasticsearch to index data and fetch results.
 
-You’ll need to install the `laravel-elasticsearch` package, which wraps Elasticsearch's PHP package so it can be used easily in Laravel:
+You'll need to install the `laravel-elasticsearch` package, which wraps Elasticsearch's PHP package so it can be used easily in Laravel:
 
 ```bash
 composer require cviebrock/laravel-elasticsearch
@@ -606,7 +606,7 @@ php artisan index:posts
 
 You should see a message that posts were successfully indexed.
 
-Finally, you’ll add a search bar to the home page so users can search the posts. In `resources/views/home.blade.php`, add the following before the `@forelse` loop:
+Finally, you'll add a search bar to the home page so users can search the posts. In `resources/views/home.blade.php`, add the following before the `@forelse` loop:
 
 {% raw %}
 ```php
@@ -667,13 +667,13 @@ Opening the home page now, you'll see a search bar. If you enter a search term, 
 
 ## Learn more about Elasticsearch, Laravel, and Okta
 
-In this tutorial, you learned how to create a blog with Laravel, then integrate Elasticsearch into your blog. You also added authentication into your new Laravel blog using Okta. Don’t hesitate to reach out in the comments section if you have any questions, or if there are future tutorials that you’d like to see.
+In this tutorial, you learned how to create a blog with Laravel, then integrate Elasticsearch into your blog. You also added authentication into your new Laravel blog using Okta. Don't hesitate to reach out in the comments section if you have any questions, or if there are future tutorials that you'd like to see.
 
 If you enjoyed this tutorial, you might also be interested in some of these related posts: 
 
-* [PHP Authorization with OAuth 2.0 and Okta](https://developer.okta.com/blog/2019/08/30/php-authorization-oauth-2-okta)
-* [Build a Simple Laravel App with Authentication](https://developer.okta.com/blog/2019/09/05/laravel-authentication)
-* [Comparing Authentication in Laravel Versions 6, 7, and 8](https://developer.okta.com/blog/2020/12/02/comparing-authentication-in-laravel-6-7-8)
-* [Get Started with the ELK Stack](https://developer.okta.com/blog/2019/09/26/get-started-elk-stack)
+* [PHP Authorization with OAuth 2.0 and Okta](/blog/2019/08/30/php-authorization-oauth-2-okta)
+* [Build a Simple Laravel App with Authentication](/blog/2019/09/05/laravel-authentication)
+* [Comparing Authentication in Laravel Versions 6, 7, and 8](/blog/2020/12/02/comparing-authentication-in-laravel-6-7-8)
+* [Get Started with the ELK Stack](/blog/2019/09/26/get-started-elk-stack)
 
-Be sure to follow Okta on [Twitter](https://twitter.com/oktadev) and [YouTube](https://www.youtube.com/oktadev) so that you don’t miss any of our fantastic tutorials and other resources. 
+Be sure to follow Okta on [Twitter](https://twitter.com/oktadev) and [YouTube](https://www.youtube.com/oktadev) so that you don't miss any of our fantastic tutorials and other resources. 
