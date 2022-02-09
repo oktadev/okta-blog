@@ -633,8 +633,8 @@ In this tutorial, you learned a bit about the structure of an ASP.NET Core appli
 
 If you liked this tutorial, there's a good chance you'll enjoy these too:
 
-[Build Single Sign-on for Your ASP.NET MVC App](https://developer.okta.com/blog/2019/07/16/build-single-sign-on-sso-for-your-aspnet-mvc-apps)
-[ASP.NET Core 3.0 MVC Secure Authentication](https://developer.okta.com/blog/2019/11/15/aspnet-core-3-mvc-secure-authentication)
-[Migrate Your ASP.NET Framework to ASP.NET Core with Okta](https://developer.okta.com/blog/2020/09/09/aspnet-migration-dotnet-core)
+- [Build Single Sign-on for Your ASP.NET MVC App](/blog/2019/07/16/build-single-sign-on-sso-for-your-aspnet-mvc-apps)
+- [ASP.NET Core 3.0 MVC Secure Authentication](/blog/2019/11/15/aspnet-core-3-mvc-secure-authentication)
+- [Migrate Your ASP.NET Framework to ASP.NET Core with Okta](/blog/2020/09/09/aspnet-migration-dotnet-core)
 
 Make sure to follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel. If you have any questions or want to share what tutorial you'd like to see next, please comment below.
