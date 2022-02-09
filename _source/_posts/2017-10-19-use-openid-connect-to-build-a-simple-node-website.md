@@ -28,7 +28,7 @@ Today I'm going to show you how to use OpenID Connect to build an extremely
 simple Node.js website (using Express.js) that allows you to manage your users,
 log them in, and log them out.
 
-All websites would require users to register with a
+Websites used to require users to register with a
 username/password and log in with those same credentials back in the day. This method was simple but
 caused many security problems because developers would need to write the
 code to authenticate the user directly, store their credentials, manage their
