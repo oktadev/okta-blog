@@ -42,10 +42,10 @@ If you have a fresh PHP installation, or haven't worked with Laravel before, you
 
 ### Creating your project
 
-In your terminal, run the following command to create a Laravel project:
+In your terminal, run the following command to create a Laravel 8 project:
 
 ```bash
-composer create-project laravel/laravel laravel-es
+composer create-project laravel/laravel laravel-es '^8'
 ```
 
 Navigate to the directory of the newly created project:
