@@ -11,7 +11,7 @@ tweets:
 - "Integrating Elasticsearch into Laravel is easier than it looks. Check out the step-by-step process for publishing, integrating, and authenticating your blog with a little help from Okta."
 image: blog/elasticsearch-laravel/elasticsearch-laravel.jpg
 type: conversion
-github: https://github.com/oktadev/okta-website-eleventy-example
+github: https://github.com/oktadev/okta-php-laravel-elasticsearch-sample
 ---
 
 Elasticsearch is a search engine that can be integrated into any of your tech stacks using its REST APIs and its wide selection of libraries.
@@ -30,7 +30,7 @@ If you have an e-commerce website, it's important to add a search engine that wi
 
 In this section, you'll create a blog with [Laravel](https://laravel.com) that shows posts for unauthenticated users and allows users authenticated with [Okta](https://developer.okta.com) to add posts. Then you'll integrate Elasticsearch, adding search functionality to the blog.
 
-You can find the code for this tutorial in [this GitHub repository](https://github.com/shahednasser/laravel-elasticsearch).
+You can find the code for this tutorial in [this GitHub repository](https://github.com/oktadev/okta-php-laravel-elasticsearch-sample).
 
 ### Prerequisites
 
