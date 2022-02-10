@@ -1,0 +1,339 @@
+---
+layout: blog_post
+title: "Three ways to configure Okta in your Angular app"
+author: alisa-duncan
+by: advocate
+communities: [javascript]
+description: "Handling Okta module configuration in Angular three different ways - from static to run-time loading."
+tags: [javascript, typescript, angular]
+tweets:
+- ""
+- ""
+- ""
+image:
+type: awareness
+github: https://github.com/oktadev/okta-angular-async-load
+---
+
+Configurations are a part of a developer's life. Configuration data is information your app needs to run and may include tokens for third-party systems or settings you pass into libraries. There are different ways to load configuration data as part of application initialization in [Angular](https://angular.io/). Your requirements for configuration data might change based on needs. For example, you may have one unchanging configuration for your app, or you may need a different configuration based on the environment it runs on. We'll cover a few different ways to load configuration values and identify when you should use each method.
+
+> We're covering specific use cases using Angular, so this post assumes you have some experience developing Angular apps. If you're interested in learning more about building your first Angular app, check out the [Angular Getting Started](https://angular.io/guide/what-is-angular) docs, or check out the [links to tutorials](#learn-more) that walk you through integrating Okta into Angular apps.
+
+In this post, we'll cover the following forms of configuration
+* defining configuration directly in code
+* defining configuration for different environments
+* loading configuration data via an API call
+
+We'll show examples, including how to integrate with Okta, for each method. We'll also identify when to use each technique and what to watch out for.
+
+{% include toc.md %}
+
+We'll use an Angular v9 app in the code sample to keep things on an even playing field and avoid any new Angular feature funny-business. All the outlined methods also apply to the current version, version 13.
+
+## Create the Angular app
+
+You'll need a recent version of [Node](https://nodejs.org/en/) and [npm](https://www.npmjs.com/).
+
+Create the Angular v9 app with routing and standard CSS for styling by running the following command:
+
+```shell
+npx @angular/cli@9 new async-load --routing --style=css
+```
+
+You now have an Angular v9 app to follow along with.
+
+## Create the Okta application
+
+Let's create the Okta resource to have the configuration values we need to integrate. 
+
+{% include setup/cli.md type="spa" framework="Angular" loginRedirectUri="http://localhost:4200/login/callback" logoutRedirectUri="http://localhost:4200" %}
+
+We'll need the Okta Angular and Okta Auth JS libraries. Add them to your application by running the following command.
+
+```shell
+npm install @okta/okta-angular@5.1 @okta/okta-auth-js@6.0
+```
+
+This post won't walk you through setting up sign-in and sign-out; we're interested only in setting up the configuration. If the Angular app runs without errors, the configuration aspect is correct. Try excluding `issuer` or don't replace the `{yourOktaDomain}` with the values you got back from the Okta CLI, and you'll see the types of errors we're trying to avoid. The sample code repo does have sign-in and sign-out integrated.
+
+## Define configuration in code
+
+Defining the configuration directly in the code when your configuration is static is the most straightforward way to configure libraries. You'd define the configuration data in the `AppModule` or a feature module in this method. Examples of this method might look something like defining the configuration for routes and passing it into the `RouterModule`:
+
+```ts
+const routes: Routes = [
+    { path: 'profile', component: ProfileComponent }
+];
+
+@NgModule({
+    declarations: [ AppComponent, ProfileComponent ],
+    imports: [
+        BrowserModule,
+        RouterModule.forRoot(routes)
+    ],
+    bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+
+You might be surprised to see routing as an example of defining configuration directly in code but passing in application-wide configuration into a module's [`forRoot()` static method](https://angular.io/guide/ngmodule-faq#what-is-the-forroot-method) is precisely that. 
+
+If you've followed many of our code examples and blog posts to integrate Okta into Angular apps, you've followed a similar pattern where configuration is defined directly in the application. 
+
+Your configuration code looks something like this:
+
+```ts
+import { OktaAuthModule, OKTA_CONFIG } from '@okta/okta-angular';
+import { OktaAuth } from '@okta/okta-auth-js';
+
+const oktaAuth = new OktaAuth({
+  issuer: 'https://{yourOktaDomain}/oauth2/default',
+  clientId: '{yourClientId', 
+  redirectUri: window.location.origin + '/login/callback'
+});
+
+@NgModule({
+  declarations: [ AppComponent, ProfileComponent ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    OktaAuthModule
+  ],
+  providers: [
+    { provide: OKTA_CONFIG, useValue: { oktaAuth } }
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+
+**Summary**
+
+The most straightforward way to add configuration to your app is when the configuration does not change based on external factors.
+
+**When to use**
+
+* As often as you can since it's the easiest way to configure things
+
+**Best for**
+
+* Static app configurations
+* Configuring third-party libraries
+* Quick tests
+
+**Watch out for**
+
+* Configuration that involves private keys or tokens
+
+## Configuration that changes by environment
+
+Angular has a built-in way to support per environment differences using the `environments/environment.*.ts` files. When serving locally, Angular CLI uses the values in `environments/environment.ts`, and when you build for prod, Angular CLI substitutes `environment.prod.ts` instead. You can see this file substitution defined in the `angular.json` build configuration. And if you have more environments to support, you can customize the build configuration to suit your needs.
+
+The environment files are helpful when you have different configurations you want to support at build time. Some examples include enabling user analytics only on prod environments or defining the API endpoints your QA environment calls.
+
+An example of configuration that changes by environment already built into your app is in `src/main.ts`. Here you see the following:
+
+```ts
+import { enableProdMode } from '@angular/core';
+import { environment } from './environments/environment';
+
+if (environment.production) {
+    enableProdMode();
+}
+```
+
+Angular utilizes the environment files to identify when to call the `enableProdMode()` method. Notice the file imports from `./environments/environment`. That's because the build process handles that file swap.
+
+Now let's look at how we'd use this when integrating with Okta. 
+
+In `src/environments/environment.ts`, add the Okta auth configuration like this.
+
+```ts
+export const environment = {
+  production: false,
+  authConfig: {
+    issuer: 'https://{yourOktaDomain}/oauth2/default',
+    clientId: '{yourClientId}'
+  }
+};
+```
+
+In `src/environments/environment.prod.ts`, you'll add the same `authConfig` properties with values that match your prod environment.
+
+You'll use the environment file to initialize the `OktaAuthModule` in the `AppModule` like this.
+
+```ts
+import { OktaAuthModule, OKTA_CONFIG } from '@okta/okta-angular';
+import { OktaAuth } from '@okta/okta-auth-js';
+import { environment } from '../environments/environment.ts';
+
+const oktaAuth = new OktaAuth({
+  ...environment.authConfig,
+  redirectUri: window.location.orgin + '/login/callback'
+});
+
+@NgModule({
+    declarations: [ AppComponent, ProfileComponent ],
+    imports: [ BrowserModule, AppRoutingModule, OktaAuthModule ],
+    providers: [
+        { provide: OKTA_CONFIG, useValue: { oktaAuth }}
+    ],
+    bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+
+**Summary**
+
+Customizing environment files is the Angular recommended method to inject values during build time.
+
+**When to use**
+
+* You have different configuration values based on build output
+
+**Best for**
+
+* Devmode - keep apps served locally from doing things only prod apps should do 
+* Multiple staging environment systems
+
+**Watch out for**
+
+* Configuration that involves private keys or tokens
+* Run your build for all the different environments when testing changes you make. You don't want to miss adding a property and potentially get a runtime error.
+
+## Loading configurations from external APIs
+
+Sometimes you need to load configuration at runtime. Doing so makes sense if you use release promotion style deployments - creating a build for a staging/pre-production environment and promoting the same build to production after verification. You don't want to create a new build, but what if your staging and production environments require different configurations? Loading configuration from an external API is handy in scenarios like these.
+
+I'll focus only on the Okta example for this configuration method to keep this post from getting too heavy.
+
+In this example, we'll look at `src/main.ts` where we bootstrap the Angular application. When you need configuration before the application loads, we can take advantage of `platformBrowserDynamic()` platform injector's `extraProviders` functionality to [provide platform providers](https://angular.io/guide/hierarchical-dependency-injection#platform-injector).
+
+Since we need to make the server call to get the configuration before we have a full Angular application context, we need to use Web APIs to call the API. Then we can configure the provider for Okta's `OKTA_CONFIG` injection token.
+
+For a configuration API call response that looks like this
+
+```json
+{
+  issuer: 'https://{yourOktaDomain}/oauth2/default',
+  clientId: '{yourClientId}', 
+  redirectUri: '{correctHostForTheEnvironment}/login/callback'
+}
+```
+
+The code in your `src/main.ts` changes to
+
+```ts
+import { enableProdMode } from '@angular/core';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+
+import { AppModule } from './app/app.module';
+import { environment } from './environments/environment';
+import { OKTA_CONFIG } from '@okta/okta-angular';
+import { OktaAuth } from '@okta/okta-auth-js';
+
+if (environment.production) {
+  enableProdMode();
+}
+
+fetch('http://{yourApiUri}/config').then(async res => {
+  const authConfig = await res.json();
+
+  platformBrowserDynamic([
+    { provide: OKTA_CONFIG, useValue: {oktaAuth: new OktaAuth(authConfig)}}
+  ]).bootstrapModule(AppModule)
+    .catch(err => console.error(err));
+});
+```
+
+Then your `AppModule` only needs to import `OktaAuthModule` since you already provided the `OKTA_CONFIG` injection token.
+
+If you need to create the callback URI programmatically or if you need to use the configuration in multiple places, you can store the configuration in the app instead. The minimum we need is a class that holds the config, which we will show in the example, but you can also wrap the config in a service if your needs are more involved than what we show here.
+
+You'll add a new file and create an interface that matches the response and a class to hold the config:
+
+```ts
+export interface AuthConfig {
+  issuer: string;
+  clientId: string;
+}
+
+export class OktaAuthConfig {
+  constructor(public config: AuthConfig) { }
+}
+```
+
+Edit the `src/main.ts` to provide the `OktaAuthConfig` class instead
+
+```ts
+import { OktaAuthConfig } from './app/auth-config';
+
+fetch('http://{yourApiUri}/config').then(async res => {
+  const authConfig = new OktaAuthConfig(await res.json());
+
+  platformBrowserDynamic([
+    { provide: OktaAuthConfig, useValue: authConfig }
+  ]).bootstrapModule(AppModule)
+  .catch(err => console.error(err));
+})
+```
+
+In the `AppModule` you can provide the `OKTA_CONFIG` needed to integrate with Okta by accessing `OktaAuthConfig`:
+
+```ts
+@NgModule({
+  declarations: [ AppComponent, ProfileComponent ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    OktaAuthModule
+  ],
+  providers: [
+    {
+      provide: OKTA_CONFIG,
+      deps: [OktaAuthConfig],
+      useFactory: (oktaConfig: OktaAuthConfig) => ({
+        oktaAuth: new OktaAuth({
+          ...oktaConfig.config,
+          redirectUri: window.location.origin + '/login/callback'
+        })
+      })
+    }
+  ]
+})
+export class AppModule { }
+```
+
+You can now load a config from an API and use the app's location.
+
+You might be asking yourself, "Isn't there an `APP_INITIALIZER` token or something we can use instead"? Well, yes, there is an [`APP_INITIALIZER` token](https://angular.io/api/core/APP_INITIALIZER) for executing initialization functions that complete before application initialization completes, but in our case, we need the auth configuration _in order_ to initialize. So, we need to finish loading the configuration before initializing the app, which we can do when bootstrapping.
+
+**Summary**
+
+Load configuration from an API and provide the config to the application. Depending on your needs, the configuration loading may occur during bootstrapping or via `APP_INITIALIZER`.
+
+**When to use**
+
+* You want the configuration to load at runtime
+
+**Best for**
+
+* You have different configurations for staging and prod and use release-promotion style deployment processes
+* Your configuration changes frequently or often enough where building and deploying the app is not feasible
+
+**Watch out for**
+
+* Configuration errors or network blips - Your app **will not run** since it's dependent on the external API
+* Potentially harder to verify and test since configuration may change
+
+## Learn more
+
+I hope this post was helpful as you consider how to integrate Okta into your Angular app. You can check out the [sample code for loading configurations from an external server](https://github.com/oktadev/okta-angular-async-load), along with a minimal Express API to simulate the config loading. 
+
+If you liked this post, check out the following.
+
+* [Loading Components Dynamically in an Angular App](/blog/2021/12/08/angular-dynamic-loading)
+* [What Is Angular Ivy and Why Is It Awesome?](/blog/2020/02/12/angular-ivy)
+* [Build a Beautiful App + Login with Angular Material](/blog/2020/01/21/angular-material-login)
+
+Don't forget to follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube channel](https://www.youtube.com/c/OktaDev/) for more exciting content. We also want to hear from you about what tutorials you want to see. Leave us a comment below.
