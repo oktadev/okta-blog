@@ -28,7 +28,7 @@ While many of these libraries did extend support into .NET Core, these days the 
 
 In this article, you will learn to use the default implementation of dependency injection that comes with .NET 5. You will see how to register services with different service lifetimes and understand the differences between those service lifetimes. You will also learn how to inject services into controllers, which is the most common usage of services in ASP.Net Core, and how to inject services into middleware. And I will show you how to write services so that they can be injected.  
 
-The example application will consist of a single page withs three pieces of information; your application's name with randomized upper and lower case letters, the number of requests made to the server, and a list of users from your Okta account. Each of these three pieces of information will be obtained from their service. Each service will have a different service lifetime.  
+The example application will consist of a single page with three pieces of information; your application's name with randomized upper and lower case letters, the number of requests made to the server, and a list of users from your Okta account. Each of these three pieces of information will be obtained from its respective service. Each service will have a different service lifetime.  
 
 ## Prerequisites
 
