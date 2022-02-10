@@ -395,7 +395,7 @@ namespace OktaDependencyInjection.Services
 }
 ```
 
-While it's a silly function, this class will take a string and randomize if the text should be uppercase or lowercase. It will `pRodUCe STriNgS lIkE THiS`.  
+Although it's a silly function, this class will take a string and randomize if the text should be uppercase or lowercase. It will `pRodUCe STriNgS lIkE THiS`.  
 
 #### Register your services
 
