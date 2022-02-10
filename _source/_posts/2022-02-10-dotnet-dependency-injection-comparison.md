@@ -541,7 +541,7 @@ namespace OktaDependencyInjection.Middleware
 }
 ```
 
-Middleware is code that executes in your request pipeline. For example, authorizing a user is middleware. Before any controller code is called, your application will attempt to authorize the user and if that fails, it will handle an unauthorized user as instructed. If the user is unauthorized there is no need to tie up resources calling controller code.  
+Middleware is code that executes in your request pipeline. For example, authorizing a user is middleware. Before any controller code is called, your application will attempt to authorize the user and if that fails, it will handle an unauthorized user as instructed. If the user is unauthorized, there is no need to tie up resources calling controller code.  
 
 In Asp.NET Core, a middleware class is required to contain a public constructor with a parameter of type `RequestDelegate` and a public Method called `Invoke` or `InvokeASync`. This must return a task and accept a first parameter type of `HttpContext`.  
 
