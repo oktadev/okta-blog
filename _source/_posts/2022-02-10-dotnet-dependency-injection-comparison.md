@@ -166,7 +166,7 @@ namespace OktaDependencyInjection.Models
 
 This model will contain the application name and a list of users associated with your Okta account. It will also have the number of times that a request has been made against your website since the last time the application was started.  
 
-#### Edit the Home View
+#### Edit the home view
 
 Open the file `Views/Home/Index.cshtml` and replace the code with the following.
 
