@@ -87,13 +87,17 @@
 		line-height: 24px;
 	}
 
-	&-last-updated {
+	&-last-updated, &-canonical {
 		margin-top: .5em;
 
 		a {
 			color: unset;
 		}
 	}
+
+  &-canonical {
+    font-size: .85rem;
+  }
 
 	&-author-bio {
 		@include color('charcoal');
