@@ -269,7 +269,7 @@ Finally, you will want to update your `Views/Shared/_Layout.cshtml` view. This s
 
 This is the last piece of code you can write before you start to focus on the dependency injection. Now, to populate your model and keep track of the number of hits, you will need to set up some middleware and services.  
 
-#### Write your Services
+#### Write your services
 
 First, you want to write the services. As mentioned above, the client needs access to an interface so it knows what to call on the service, even though it doesn't know about the implementation. Since C# gives us access to interfaces, you can separate your services into interfaces and concrete implementations. Later you will bind the implementation to the interface to make it available for clients.
 
