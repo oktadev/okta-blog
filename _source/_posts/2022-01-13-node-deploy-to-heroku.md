@@ -53,7 +53,7 @@ Finally, you will need to install the custom dependencies as well.
 First, you will add `dotenv` to house your sensitive and environment-specific information.  
 
 ```console
-npm dotenv@10.0.0
+npm dotenv@16.0.0
 ```
 
 Next, you will want to add bootstrap.  You will use the bootstrap libraries in your `jade` templates once you begin writing the front end.  Bootstrap is a simple UI framework that has many samples to get you developing HTML pages quickly.
@@ -73,19 +73,16 @@ npm install --save @okta/oidc-middleware@4.3.0
 
 The express-generator package does a great job of scaffolding a simple Node.js application.  For this tutorial, you can leave most of the application the way it is.  You will need to make a few changes though.  
 
-First, add a new file called `.env` to the root of your application and add the following values.  These values can be found in `.okta.env`.
+First, open `.okta.env` and add the following to your file after your Okta configuration values.
 
 ```dotenv
-OKTA_OAUTH2_ISSUER={yourOktaDomain}/oauth2/default
-OKTA_OAUTH2_CLIENT_SECRET={yourClientSecret}
-OKTA_OAUTH2_CLIENT_ID={yourClientId}
-APP_BASEURL=http://localhost:3000
+export APP_BASEURL="localhost:3000"
 ```
 
 Next, open `app.js` and replace the code there with the following.
 
 ```javascript
-require("dotenv").config();
+require('dotenv').config({ path: '.okta.env' })
 
 var createError = require("http-errors");
 var express = require("express");
@@ -110,12 +107,14 @@ app.use(
   })
 );
 
+const { OKTA_OAUTH2_ISSUER, OKTA_OAUTH2_CLIENT_ID, OKTA_OAUTH2_CLIENT_SECRET, APP_BASEURL } = process.env;
+
 const oidc = new ExpressOIDC({
-  issuer: process.env.OKTA_OAUTH2_ISSUER,
-  client_id: process.env.OKTA_OAUTH2_CLIENT_ID,
-  client_secret: process.env.OKTA_OAUTH2_CLIENT_SECRET,
-  appBaseUrl: process.env.APP_BASEURL,
-  redirect_uri: `${process.env.APP_BASEURL}/authorization-code/callback`,
+  issuer: OKTA_OAUTH2_ISSUER,
+  client_id: OKTA_OAUTH2_CLIENT_ID,
+  client_secret: OKTA_OAUTH2_CLIENT_SECRET,
+  appBaseUrl: APP_BASEURL,
+  redirect_uri: `${APP_BASEURL}/authorization-code/callback`,
   scope: "openid profile",
 });
 
@@ -311,7 +310,7 @@ Click the view button to be taken to your application.  At this point, your appl
 
 ### Configure your Environment Variables
 
-In your Heroku application click on **Settings**.  Find the section named `Config Vars` and click on **Reveal Config Vars**.  Here you will add the same key and value pairs from your `.env` file you used locally.  You can see mine below with the values blurred out.
+In your Heroku application click on **Settings**.  Find the section named `Config Vars` and click on **Reveal Config Vars**.  Here you will add the same key and value pairs from your `.okta.env` file you used locally.  You can see mine below with the values blurred out.
 
 {% img
 blog/node-deploy-to-heroku/configureenvironmentvariables.PNG
