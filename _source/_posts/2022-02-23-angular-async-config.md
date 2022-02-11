@@ -28,9 +28,12 @@ We'll show examples, including how to integrate with Okta, for each method. We'l
 
 {% include toc.md %}
 
-We'll use an Angular v9 app in the code sample to keep things on an even playing field and avoid any new Angular feature funny-business. All the outlined methods also apply to the current version, version 13.
+## Set up the sample project
 
-## Create the Angular app
+We'll first set up the base project and Okta resources so you can follow along with the post.
+
+We'll use an Angular v9 app in the code sample to keep things on an even playing field and avoid any new Angular feature funny-business. All the outlined methods also apply to the current version, version 13.
+### Create the Angular app
 
 You'll need a recent version of [Node](https://nodejs.org/en/) and [npm](https://www.npmjs.com/).
 
@@ -40,9 +43,7 @@ Create the Angular v9 app with routing and standard CSS for styling by running t
 npx @angular/cli@9 new async-load --routing --style=css
 ```
 
-You now have an Angular v9 app to follow along with.
-
-## Create the Okta application
+### Create the Okta application
 
 Let's create the Okta resource to have the configuration values we need to integrate. 
 
@@ -54,7 +55,7 @@ We'll need the Okta Angular and Okta Auth JS libraries. Add them to your applica
 npm install @okta/okta-angular@5.1 @okta/okta-auth-js@6.0
 ```
 
-This post won't walk you through setting up sign-in and sign-out; we're interested only in setting up the configuration. If the Angular app runs without errors, the configuration aspect is correct. Try excluding `issuer` or don't replace the `{yourOktaDomain}` with the values you got back from the Okta CLI, and you'll see the types of errors we're trying to avoid. The sample code repo does have sign-in and sign-out integrated.
+This post won't walk you through setting up sign-in and sign-out; we're interested only in setting up the configuration. If the Angular app runs without errors, the configuration aspect is correct. Try excluding `issuer` or don't replace the `{yourOktaDomain}` with the values you got back from the Okta CLI, and you'll see the types of errors we're trying to avoid. The sample code repo does have sign-in and sign-out integrated so you can see authentication working all the way through.
 
 ## Define configuration in code
 
@@ -62,16 +63,16 @@ Defining the configuration directly in the code when your configuration is stati
 
 ```ts
 const routes: Routes = [
-    { path: 'profile', component: ProfileComponent }
+  { path: 'profile', component: ProfileComponent }
 ];
 
 @NgModule({
-    declarations: [ AppComponent, ProfileComponent ],
-    imports: [
-        BrowserModule,
-        RouterModule.forRoot(routes)
-    ],
-    bootstrap: [AppComponent]
+  declarations: [ AppComponent, ProfileComponent ],
+  imports: [
+    BrowserModule,
+    RouterModule.forRoot(routes)
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
 ```
@@ -138,7 +139,7 @@ import { enableProdMode } from '@angular/core';
 import { environment } from './environments/environment';
 
 if (environment.production) {
-    enableProdMode();
+  enableProdMode();
 }
 ```
 
@@ -173,12 +174,12 @@ const oktaAuth = new OktaAuth({
 });
 
 @NgModule({
-    declarations: [ AppComponent, ProfileComponent ],
-    imports: [ BrowserModule, AppRoutingModule, OktaAuthModule ],
-    providers: [
-        { provide: OKTA_CONFIG, useValue: { oktaAuth }}
-    ],
-    bootstrap: [AppComponent]
+  declarations: [ AppComponent, ProfileComponent ],
+  imports: [ BrowserModule, AppRoutingModule, OktaAuthModule ],
+  providers: [
+    { provide: OKTA_CONFIG, useValue: { oktaAuth }}
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
 ```
@@ -315,6 +316,7 @@ Load configuration from an API and provide the config to the application. Depend
 **When to use**
 
 * You want the configuration to load at runtime
+* Your configuration properties include private information that you don't want to commit to source control
 
 **Best for**
 
