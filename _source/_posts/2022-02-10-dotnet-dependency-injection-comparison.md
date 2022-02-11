@@ -49,15 +49,15 @@ If you are using Visual Studio 2022 you can follow the instructions below.
 
 First, open Visual Studio and then click **Create Project**. In the *Create a new project* pane select `ASP.Net Core Web App (Model-View-Controller)` as your template.  
 
-{% img blog/dotnet-di-compare/image1.png alt:"" width:"400" %}{: .center-image }
+{% img blog/dotnet-di-compare/image1.png alt:"" width:"800" %}{: .center-image }
 
 Click **Next** and under *Configure your new project* and name it `OktaDependencyInjection` and press **Next**.
 
-{% img blog/dotnet-di-compare/image2.png alt:"" width:"400" %}{: .center-image }
+{% img blog/dotnet-di-compare/image2.png alt:"" width:"800" %}{: .center-image }
 
 Under additional info make sure you have `.NET 5.0` selected as your framework. You can leave the other options as the default.
 
-{% img blog/dotnet-di-compare/image3.png alt:"" width:"400" %}{: .center-image }
+{% img blog/dotnet-di-compare/image3.png alt:"" width:"800" %}{: .center-image }
 
 Click **Create** and give Visual Studio a moment to scaffold your project.
 
@@ -619,11 +619,11 @@ The `ILogger` is boilerplate for all controller code. The other services are inj
 
 Start your application and you should see your homepage.  
 
-{% img blog/dotnet-di-compare/image4.png alt:"" width:"500" %}{: .center-image }
+{% img blog/dotnet-di-compare/image4.png alt:"" width:"800" %}{: .center-image }
 
 As you can see, the first time you visit the page you are presented with a wacky-looking title, a banner telling you that there has been one hit so far, and a list of users. In my case, I only have one user in my Okta account so it's just me. Refresh this page five or six times.
 
-{% img blog/dotnet-di-compare/image5.png alt:"" width:"500" %}{: .center-image }
+{% img blog/dotnet-di-compare/image5.png alt:"" width:"800" %}{: .center-image }
 
 Now you can see that the number of hits counter is up to six and the uppercase and lowercase letters on the title of the application are randomized differently. Success! All your services are set up correctly and working as intended.
 
