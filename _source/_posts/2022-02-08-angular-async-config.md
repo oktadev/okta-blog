@@ -12,7 +12,7 @@ tweets:
 - ""
 image:
 type: awareness
-github: https://github.com/oktadev/okta-angular-async-load
+github: https://github.com/oktadev/okta-angular-async-load-example
 ---
 
 Configurations are a part of a developer's life. Configuration data is information your app needs to run and may include tokens for third-party systems or settings you pass into libraries. There are different ways to load configuration data as part of application initialization in [Angular](https://angular.io/). Your requirements for configuration data might change based on needs. For example, you may have one unchanging configuration for your app, or you may need a different configuration based on the environment it runs on. We'll cover a few different ways to load configuration values and identify when you should use each method.
@@ -328,7 +328,7 @@ Load configuration from an API and provide the config to the application. Depend
 
 ## Learn more
 
-I hope this post was helpful as you consider how to integrate Okta into your Angular app. You can check out the [sample code for loading configurations from an external server](https://github.com/oktadev/okta-angular-async-load), along with a minimal Express API to simulate the config loading. 
+I hope this post was helpful as you consider how to integrate Okta into your Angular app. You can check out the [sample code for loading configurations from an external server](https://github.com/oktadev/okta-angular-async-load-example), along with a minimal Express API to simulate the config loading. 
 
 If you liked this post, check out the following.
 
