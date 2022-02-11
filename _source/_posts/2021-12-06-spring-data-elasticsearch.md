@@ -14,11 +14,11 @@ image:
 type: conversion
 ---
 
-For sure you have heard about Elasticsearch or the Elastic Stack. It seems it started as a search engine based on Lucene, an open-source search engine library built by Shay Banon to index his wife's cooking recipes. From the early days, Elasticsearch has gone a long way and evolved into the Elastic Stack, a great suite for taking data from any source, search, analyze and visualize it in near real-time.
+You've probably heard of Elasticsearch or the Elastic Stack. The project started as a search engine based on [Lucene](https://lucene.apache.org/), an open-source search engine library built by Shay Banon to index his wife's cooking recipes. Since its early days, Elasticsearch has come a long way and has evolved into the [Elastic Stack](https://www.elastic.co/elastic-stack), a great suite for taking data from any source, in order to search, analyze, and visualize it in near real-time.
 
 Elasticsearch is a distributed document store, data is serialized as JSON documents and stored distributed across cluster nodes. The _inverted index_ is a data structure that lists every unique word that appears in any document, and also the documents each word appears in. This gives support to fast full-text searches, a feature not supported or partially supported by database engines. The index is a collection of documents and each document is a collection of fields. In turn, each field can be indexed in an optimal data structure, for example, an inverted index for text fields, but a BKD tree for a numeric field.
 
-How can be Elasticsearch integrated into a Spring Boot Application? What are the options for adding Elasticsearch to a Java application? This post will give you a quick introduction to Elasticsearch integration options.
+How can be Elasticsearch integrated into a Spring Boot application? What are the options for adding Elasticsearch to a Java app? This post will give you a quick introduction to Elasticsearch integration options.
 
 **This tutorial was created with the following frameworks and tools**:
 
@@ -39,23 +39,23 @@ For Java applications including Spring Boot applications, Elasticsearch provides
 
 - [Java Transport Client](https://www.elastic.co/guide/en/elasticsearch/client/java-api/current/index.html): Deprecated in Elasticsearch 7.0.0. Provides a client object to execute all operations asynchronously, accepting a listener or returning a future.
 
-- [Java REST Client](https://www.elastic.co/guide/en/elasticsearch/client/java-rest/7.15/index.html): Composed by the Low Level REST Client and the High Level REST Client. The Low Level Client provides load balancing, failover, persistent connections, and request/response trace logging. The High Level Client works on top of the Low Level Client and is the replacement for the `TransportClient`. It depends on the Elasticsearch core and provides synchronous and asynchronous APIs.
+- [Java REST Client](https://www.elastic.co/guide/en/elasticsearch/client/java-rest/7.15/index.html): Composed of the Low Level REST Client and the High Level REST Client. The Low Level Client provides load balancing, failover, persistent connections, and request/response trace logging. The High Level Client works on top of the Low Level Client and is the replacement for the `TransportClient`. It depends on the Elasticsearch core and provides synchronous and asynchronous APIs.
 
-- [Java API Client](https://www.elastic.co/guide/en/elasticsearch/client/java-api-client/current/index.html): The new client library, independent from Elasticsearch core, provides strongly typed requests and responses, blocking and asynchronous versions for all APIs, fluent builders and functional patterns, jackson and JSON-b support.
+- [Java API Client](https://www.elastic.co/guide/en/elasticsearch/client/java-api-client/current/index.html): The new client library, independent from Elasticsearch core, provides strongly typed requests and responses, blocking and asynchronous versions for all APIs, fluent builders and functional patterns, as well as jackson and JSON-b support.
 
 ## Hello Spring Data Elasticsearch!
 
-Spring Data Elasticsearch is another integration option that adds the Spring Repository abstraction at the search layer, providing access and search functionality for domain objects stored in Elasticsearch. Operations are sent through a client connected to the Elasticsearch node. With Spring Data, the High Level REST Client is the default client, although Elasticsearch documentation states that this client is deprecated in favor of the Java API Client since version 7.15. The Java API Client is not listed as a supported client yet. The Java Transport Client is still supported in Spring Data, but the general recommendation is to use the High Level Client.
+Spring Data Elasticsearch is another integration option that adds the Spring Repository abstraction at the search layer, providing access and search functionality for domain objects stored in Elasticsearch. Operations are sent through a client connected to the Elasticsearch node. With Spring Data, the High Level REST Client is the default client, although Elasticsearch documentation states that it's been deprecated in favor of the Java API Client since version 7.15. The Java API Client is not listed as a supported client yet. In the meantime, the Java Transport Client is still supported in Spring Data, but the general recommendation is to use the High Level Client.
 
-Instead of calling the Elasticsearch APIs directly, the repository and rest template abstractions provide a simplified interface for document operations, encapsulating API request/response processing, and exposing a query interface that has multiple implementations for different levels of query complexity. Through the starter dependency, it can also handle client autoconfiguration and automatic document index mapping for simple use cases.
+Instead of calling the Elasticsearch APIs directly, the repository and REST template abstractions provide a simplified interface for document operations, encapsulating API request/response processing, and exposing a query interface that has multiple implementations for different levels of query complexity. Through the starter dependency, it can also handle client auto-configuration and automatic document index mapping for simple use cases.
 
-Besides the high-level REST client support, Spring Data provides the [Reactive Client](https://docs.spring.io/spring-data/elasticsearch/docs/current/reference/html/#elasticsearch.clients.reactive), a non-official driver based on WebClient, with calls operated directly on the reactive stack. The Reactive Client also depends on the Elasticsearch core as it is designed for handling Elasicsearch request/response types.
+Besides the high-level REST client support, Spring Data provides the [Reactive Client](https://docs.spring.io/spring-data/elasticsearch/docs/current/reference/html/#elasticsearch.clients.reactive), a non-official driver based on WebClient, with calls operated directly on the Reactive Stack. The Reactive Client also depends on the Elasticsearch core, as it is designed for handling Elasticsearch request/response types.
 
 ## Build an application with Spring Data Elasticsearch
 
-JHipster provides the Elasticsearch option to add search capabilities on top of your database. The integration is based on Spring Data Elasticsearch repositories, so let's generate a reactive Blog application to explore what the generator provides. The Blog application built in this tutorial is based on the JHipster sample [reactive-ms.jdl](https://github.com/jhipster/jdl-samples/blob/main/reactive-ms.jdl), but adding Maven, MongoDB (Elasticsearch integration only works with SQL databases and MongoDB), Bootstrap pagination, Okta authentication, and Kibana for index mapping inspection.
+JHipster provides the Elasticsearch option to add search capabilities on top of your database. The integration is based on Spring Data Elasticsearch repositories, so let's generate a reactive blog application to explore what the generator provides. The blog application built in this tutorial is based on the JHipster sample [reactive-ms.jdl](https://github.com/jhipster/jdl-samples/blob/main/reactive-ms.jdl), but adding Maven, MongoDB (Elasticsearch integration only works with SQL databases and MongoDB), Bootstrap pagination, Okta authentication, and Kibana for index mapping inspection.
 
-JHipster has a [quick setup](https://www.jhipster.tech/installation/#local-installation-with-npm-recommended-for-normal-users) you can follow to setup your environment. For installing Node.js, I like [NVM (Node Version Manager)](https://github.com/nvm-sh/nvm/blob/master/README.md)
+JHipster has a [quick setup](https://www.jhipster.tech/installation/#local-installation-with-npm-recommended-for-normal-users) you can follow to set up your environment. For installing Node.js, I like [NVM (Node Version Manager)](https://github.com/nvm-sh/nvm/blob/master/README.md)
 
 ```shell
 wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
@@ -136,9 +136,9 @@ services:
     ports:
       - 9200:9200
 ```
-Remove the Keycloak service at the bottom, as Okta will be used as Identity Provider.
+Remove the Keycloak service at the bottom, as Okta will be used as the identity provider (IdP).
 
-Create each applications' container image:
+Create each application's container image:
 
 ```shell
 cd blog
@@ -161,7 +161,7 @@ docker compose up
  {% img blog/spring-data-elasticsearch/okta-signin.png alt:"Okta Sign In Form" width:"400" %}{: .center-image }
 
 
- **IMPORTANT NOTE**: There is a potential issue observed for the blog service, as [Kubernetes probes](https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html#actuator.endpoints.kubernetes-probes) are enabled by default, the blog application might change its state to `OUT_OF_SERVICE` during start up and Eureka discards the following heartbeats with state `UP`. In that case, disable Kubernetes probes in the `docker-compose.yml` with the following environment variable:
+ **IMPORTANT NOTE**: There is a potential issue observed for the blog service. As [Kubernetes probes](https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html#actuator.endpoints.kubernetes-probes) are enabled by default, the blog application might change its state to `OUT_OF_SERVICE` during start up and Eureka might discard the following heartbeats with state `UP`. In this case, disable Kubernetes probes in the `docker-compose.yml` with the following environment variable:
 
 ```yml
 services:
@@ -175,13 +175,13 @@ Restart your microservices stack using Ctrl+C and run `docker compose up` again.
 
 ## Inspecting Elasticsearch index mapping
 
-During start-up, Spring Data Elasticsearch will create the index for the entities annotated with `@Document`, deriving the mappings from the entity's annotations. But for the properties, if the field type is not specified, it defaults to FieldType.Auto. This means, that no mapping entry is written for the property and that Elasticsearch will add a mapping entry dynamically when the first data for this property is stored.
+During startup, Spring Data Elasticsearch will create the index for the entities annotated with `@Document`, deriving the mappings from the entity's annotations. But for the properties, if the field type is not specified, it will default to FieldType.Auto. This means that no mapping entry is written for the property and that Elasticsearch will add a mapping entry dynamically when the first data for this property is stored.
 
-As Kibana interface was configured in Docker Compose, before creating any entities, let's inspect the index mappings that were automatically created for the `blog` microservice. Go to `http://localhost:5601`, the Kibana dashboard. On the top left menu, go to **Management** > **Stack Management** > **Index Management** > **Indices** tab. Besides the `user` index, an index per entity should be listed.
+As our Kibana interface was configured in Docker Compose, before creating any entities, let's inspect the index mappings that were automatically created for the `blog` microservice. Go to `http://localhost:5601`, the Kibana dashboard. On the top left menu, go to **Management** > **Stack Management** > **Index Management** > **Indices** tab. Besides the `user` index, an index per entity should be listed.
 
 {% img blog/spring-data-elasticsearch/kibana-indexes.png alt:"Kibana Indexes" width:"800" %}{: .center-image }
 
-Choose for example the `tag` index. The **Mappings** tab before persisting any instance will look like the following:
+Choose for example the `tag` index. Before persisting any instance, the **Mappings** tab will look like the following:
 
 ```json
 {
@@ -201,7 +201,7 @@ Choose for example the `tag` index. The **Mappings** tab before persisting any i
 
 As you can see, properties are not mapped yet.
 
-Go back to the application, and in the top-right menu go to **Entities** > **Tag** and create some `Tag` entities. Then create some `Blog` and `Post` entities as well. As you can see, a search box is present on the entity list page. Go ahead and test the search functionality. The results page will return the matches with pagination.
+Go back to the application, and in the top-right menu go to **Entities** > **Tag** and create some `Tag` entities. Then create some `Blog` and `Post` entities as well. You'll see that a search box is present on the entity list page. Go ahead and test the search functionality. The results page will return the matches with pagination.
 
 {% img blog/spring-data-elasticsearch/entity-search-box.png alt:"Entity Search Box" width:"800" %}{: .center-image }
 
@@ -255,7 +255,7 @@ Now the `id` and `name` properties have been _dynamically mapped_ with _multi-fi
 }
 ```
 
-It is often useful to index the same field in different ways for different purposes. Text fields are searchable by default, but by default are not available for aggregations, sorting, unless multi-field mapping is in place. There is another option for enabling sorting for text fields, which is the [`fielddata` mapping parameter](https://www.elastic.co/guide/en/elasticsearch/reference/current/text.html#fielddata-mapping-param), which will not be covered in this tutorial, as it is discouraged in the Elasticsearch documentation, because of high memory consumption.
+It is often useful to index the same field in different ways for different purposes. Text fields are searchable by default, but by default are not available for aggregations, sorting, unless multi-field mapping is in place. There is another option for enabling sorting for text fields, which is the [`fielddata` mapping parameter](https://www.elastic.co/guide/en/elasticsearch/reference/current/text.html#fielddata-mapping-param). This option will not be covered in our tutorial, as it is discouraged in the Elasticsearch documentation, because of high memory consumption.
 
 Elasticsearch exposes several APIs, and the Index APIs allow managing individual indices, index settings, aliases, mappings, and index templates. Although Kibana is a user-friendly front-end, you can also query the index mappings through the Index APIs, with an HTTPie command like the following:
 
@@ -314,7 +314,7 @@ application {
 }
 ```
 
-When the entity in the JDL definition requires the Elasticsearch engine, and also pagination, the entity search repository is generated with pagination and sorting options. For example, the generated TagSearchRepository adds a custom `search()` method that assembles a native search query and passes it to the `ReactiveElasticsearchTemplate`:
+When the entity in the JDL definition requires the Elasticsearch engine, and also pagination, the entity search repository is generated with pagination and sorting options. For example, the generated `TagSearchRepository` adds a custom `search()` method that assembles a native search query and passes it to the `ReactiveElasticsearchTemplate`:
 
 ```java
 public interface TagSearchRepository extends ReactiveElasticsearchRepository<Tag, String>, TagSearchRepositoryInternal {}
