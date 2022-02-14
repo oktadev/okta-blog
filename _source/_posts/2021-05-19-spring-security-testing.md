@@ -974,7 +974,7 @@ Again, try the tests with:
 ./mvnw test
 ```
 
-# On Mocking Features in Spring Security Test
+## On Mocking Features in Spring Security Test
 
 Spring Security Test documentation indicates that when testing with `WebTestClient` and `mockOpaqueToken()` (or any other configurer), the request will pass correctly through any authentication API, and the mock authentication object will be available for the authorization mechanism to verify. The same applies for `MockMvc`. That is likely why an invalid audience, expiration, or issuer in the token attributes is ignored in this kind of test.
 For example, the following `AirbnbListingMvcTest` test will pass:
@@ -998,7 +998,7 @@ public void collectionGet_withOpaqueToken_returnsOk() throws Exception {
 }
 ```
 
-# Verify Authorization and Audience Validation
+## Verify Authorization and Audience Validation
 
 Let's run an end-to-end test using HTTPie to verify both the authorization and that the audience is enforced in both services.
 
@@ -1259,7 +1259,7 @@ WWW-Authenticate: Bearer error="invalid_token",
 
 You can verify the same in the `theaters` service.
 
-# Learn More About Spring Security and OAuth
+## Learn More About Spring Security and OAuth
 
 I hope you enjoyed this tutorial and understand more about `SecurityMockServerConfigurers` in reactive test support and `SecurityMockMvcRequestPostProcessors` in the MockMvc test support (available since Spring Security 5). You can see how useful these can be for integration testing, as well as the limitations of request and response mocking.
 
