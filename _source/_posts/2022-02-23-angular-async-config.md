@@ -1,16 +1,15 @@
 ---
 layout: blog_post
-title: "Three ways to configure Okta in your Angular app"
+title: "Three ways to configure modules in your Angular app"
 author: alisa-duncan
 by: advocate
 communities: [javascript]
-description: "Handling Okta module configuration in Angular three different ways - from static to run-time loading."
+description: "Learn how to add configuration to modules in Angular three different ways - from static, changing configs at build time, and to loading configurations at run-time."
 tags: [javascript, typescript, angular]
 tweets:
-- ""
-- ""
-- ""
-image:
+- "How do you handle your module configuration in #Angular apps? 🤔 We cover 3 ways to configure modules and when to use each method."
+- "Needing to load your Okta config from an API in your #Angular app? Learn when to use run-time loading and how to add it to your Okta integration."
+image: blog/angular-async-config/angular-async-config-social.jpg
 type: awareness
 github: https://github.com/oktadev/okta-angular-async-load-example
 ---
@@ -28,7 +27,7 @@ We'll show examples, including how to integrate with Okta, for each method. We'l
 
 {% include toc.md %}
 
-## Set up the sample project
+## Set up Angular and Okta in a sample project
 
 We'll first set up the base project and Okta resources so you can follow along with the post.
 
