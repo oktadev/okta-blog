@@ -16,6 +16,11 @@
             Last Updated: <a href="#changelog">{{ last_updated_date }}</a>
         </div>
         {% endif %}
+        {%- if page.canonical -%}
+        <div class="BlogPost-canonical">
+           Originally published at <a href="{{ page.canonical }}">{{ page.canonical | split: '//' | last | split: '/' | first }}</a>.
+        </div>
+        {% endif %}
         <h1 class="BlogPost-title p-name">
             {% if page.layout == 'blog_index' or page.layout == 'author' %}
             <a href="{{ post.url }}">{{ post.title }}</a>
