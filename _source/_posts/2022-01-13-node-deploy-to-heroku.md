@@ -1,85 +1,87 @@
 ---
 layout: blog_post
-title: ""
-author:
-by: advocate|contractor
-communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
-description: ""
-tags: []
+title: "Build and Deploy a Node.js App to Heroku"
+author: nickolas-fisher
+by: contractor
+communities: [javascript]
+description: "A tutorial that shows you how to build and deploy a Node.js app to Heroku."
+tags: [javascript, node, heroku, express]
 tweets:
-- ""
-- ""
-- ""
-image:
-type: awareness|conversion
+- "Learn how to build and deploy a @nodejs app to @heroku 🔥"
+image: blog/node-deploy-to-heroku/cover-image.jpg
+type: conversion
+github: https://github.com/oktadev/okta-node-heroku-app-example
 ---
 
-## Introduction
+Heroku is a platform as a service that supports many languages.  Initially, it supported only Ruby sites but now supports various languages, including JavaScript with Node.js.  Heroku also has docker support so that you can deploy just about anything to it.  
 
-Heroku is a platform as a service that supports many languages.  Initially, it was developed to support Ruby sites but now supports an array of languages including JavaScript with Node.js.  Heroku also has docker support so you can deploy just about anything to it.  
+This tutorial will teach you how to build a small application using the Express framework for Node.js.  You will then secure that application using Okta by creating an application in Okta for web applications and integrating the Okta OIDC middleware with your application.  Finally, you will learn how to deploy the application to Heroku, update your Okta application for your Heroku site, and set the environment variables for your app in Heroku.
 
-However, in this tutorial, you will learn how to build a small application using the `express` framework for Node.js.  You will then secure that application using Okta by creating an application in Okta for web applications and integrating the Okta OIDC middleware with your application.  Finally, you will learn how to deploy the application to Heroku, update your Okta application for your Heroku site, and how to set the environment variables for your app in Heroku.
-
-To continue you will need:
+This tutorial uses the following technologies but doesn’t require any prior experience:
 
 - [Visual Studio Code](https://code.visualstudio.com/)
 - [Node.js](https://nodejs.org/en/)
 - An [Okta Developer Account](https://developer.okta.com/) (free forever, to handle your OAuth needs)
-- A [Heroku Account](https://signup.heroku.com/)
-- A [Git Repository](https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository)
-- A [Github Account](https://github.com/signup?ref_cta=Sign+up&ref_loc=header+logged+out&ref_page=%2F&source=header-home)
+- [Heroku Account](https://signup.heroku.com/)
+- A [repository on GitHub](https://docs.github.com/en/get-started/quickstart/create-a-repo)
 
-Of course, if you want to just see the code feel free [to view it on GitHub](https://github.com/nickolasfisher/Okta_Heroku).
+Of course, if you want to just see the code feel free [to view it on GitHub](https://github.com/oktadev/okta-node-heroku-app-example).
 
-## Create your Okta Application
+## Create your Okta application
 
 {% include setup/cli.md type="web" framework="node"
    loginRedirectUri="http://localhost:3000/authorization-code/callback" signup="false" %}
 
-## Create your Express Application
+## Create your Express application
 
-Now it's time to turn your attention to writing your application.   You will quickly scaffold your application by using the `express application generator` with the npx command `npx express-generator`.  Open the folder where your application will live and run the command `npx express-generator`.  
-
-### Install your Dependencies
-
-Next, run the command to install the default dependencies from express-generator.
+Now it's time to turn your attention to writing your application.  You will scaffold your application using `express application generator`.  Open the folder where your application will live and run the following command:
 
 ```console
-npm i
+npx express-generator
 ```
 
-Finally, you will need to install the custom dependencies as well.  
+### Install your dependencies
+
+Run the following command to install the default dependencies from express-generator:
+
+```console
+npm install
+```
+
+You will need to install some additional dependencies for your application.  
 
 First, you will add `dotenv` to house your sensitive and environment-specific information.  
 
 ```console
-npm dotenv@16.0.0
+npm i dotenv@16.0.0
 ```
 
-Next, you will want to add bootstrap.  You will use the bootstrap libraries in your `jade` templates once you begin writing the front end.  Bootstrap is a simple UI framework that has many samples to get you developing HTML pages quickly.
+Next, you will add bootstrap.  You will use the bootstrap libraries in your `jade` templates for writing the front end.  Bootstrap is a simple UI framework with many samples to develop HTML pages quickly.
 
 ```console
-npm bootstrap@5.1.3
+npm i bootstrap@5.1.3
 ```
 
-You will need the `oidc-middleware` from Okta to help secure your application.  This package will make integrating with Okta painless, quick, and secure.  You will be able to configure the middleware with your Okta application details and start securing your routes with only a few lines of code.  `express-session` is required when using the `oidc-middleware` so you will need to install that as well.
+You will need `oidc-middleware` from Okta to help secure your application.  This package will make integrating with Okta painless, quick, and secure.  You will be able to configure the middleware with your Okta application details and start securing your routes with only a few lines of code.  `express-session` is required when using the `oidc-middleware` so you will need to install that as well.
 
 ```console
-npm install --save express-session@1.17.2
-npm install --save @okta/oidc-middleware@4.3.0
+npm i express-session@1.17.2
+npm i @okta/oidc-middleware@4.3.0
 ```
 
-### Write your Server Code
+### Write your server code
 
-The express-generator package does a great job of scaffolding a simple Node.js application.  For this tutorial, you can leave most of the application the way it is.  You will need to make a few changes though.  
+The express-generator package does a great job of scaffolding a simple Node.js application.  For this tutorial, you can leave most of the application the way it is.  You will need to make a few changes, though. 
 
-First, open `.okta.env` and add the following to your file after your Okta configuration values.
+Open `.okta.env` and add the following to the end of your file after your Okta configuration values:
 
 ```dotenv
-export APP_BASEURL="localhost:3000"
+export APP_BASEURL="http://localhost:3000"
 ```
 
-Next, open `app.js` and replace the code there with the following.
+**NOTE:** Make sure that you add the `.okta.env` to your `.gitignore` file.
+
+Next, open `app.js` and replace the contents of the file with the following code:
 
 ```javascript
 require('dotenv').config({ path: '.okta.env' })
@@ -155,9 +157,9 @@ app.use(function (err, req, res, next) {
 module.exports = app;
 ```
 
-Most of this code is boilerplate from the express-generator but the notable addition is the configuration for the Okta OIDC.  First, you need to enable `dotenv` at the top of this file.  Next, you configure the `express-session` and add it to your application.  Finally, you can configure your Okta OIDC middleware using the variables from `.env`.   
+Most of this code is boilerplate from the express-generator, but the notable addition is the configuration for the Okta OIDC.  First, you need to enable `dotenv` at the top of this file.  Next, you configure the `express-session` and add it to your application.  Finally, you can configure your Okta OIDC middleware using the variables from `.env`.  
 
-Next, open your `routes/index.js` file and replace the code with the following.
+Open your `routes/index.js` file and replace the contents of the file with the following code:
 
 ```javascript
 var express = require("express");
@@ -171,9 +173,9 @@ router.get("/", function (req, res, next) {
 module.exports = router;
 ```
 
-Here you added a property for the `index.jade` template to use called `loggedIn`.  This property will help the view decide if it should display a `login` or `logout` button.  The rest of the home page will be static so there is no need for a more sophisticated model.
+Here you added a property for the `index.jade` template to use called `loggedIn`.  This property will help the view decide if it should display a `login` or `logout` button.  The rest of the home page will be static.
 
-Finally, open your `routes/users.js` file and replace the code there with the code below.
+Open your `routes/users.js` file and replace the contents of the file with the following code:
 
 ```javascript
 var express = require("express");
@@ -196,13 +198,13 @@ function userRoutes(options) {
 module.exports.userRoutes = userRoutes;
 ```
 
-This file is where the magic from the Okta OIDC middleware shines.  In your route definition, you are passing in the `oidc.ensureAuthenticated` middleware.  This function will reroute unauthenticated users to the login route you defined in your `app.js` file.  Because you didn't explicitly set this parameter it will direct the user to `/login` and trigger the authentication flow.  The model is passed to the view here also contains some information about the user that you will display to the user when they land on this page.  
+This file is where the magic from the Okta OIDC middleware shines.  You are passing in the `oidc.ensureAuthenticated` middleware in your route definition.  This function will reroute unauthenticated users to the login route you defined in your `app.js` file.  Because you didn't explicitly set this parameter, it will direct the user to `/login` and trigger the authentication flow.  The model is passed to the view here also contains some information about the user that you will display when they land on this page. 
 
-### Write some Client Code
+### Write your frontend code
 
-Now you can write some client code.  By default, the express-generator sets up some views using `jade`.  Jade is a templating engine for Node.js.  The language incorporates some conditionals and flow controls to make templating HTML from your model easier.  The syntax is fairly simple to learn and there are many HTML to jade converters out there.
+Now you can write some client code.  By default, the express-generator sets up some views using `jade`.  Jade is a templating engine for Node.js.  The language incorporates some conditionals and flow controls to make templating HTML from your model easier.  The syntax is pretty simple to learn, and there are many HTML to jade converters out there.
 
-Open the `layout.jade` file that was generated with your project and replace the code with the following.
+Open the `layout.jade` file that was generated with your project and replace the code with the following:
 
 ```jade
 doctype html
@@ -232,9 +234,9 @@ html
       block content
 ```
 
-As you can see the HTML elements are used, the classes are chained with a `.` between them, and attributes are bounded by parentheses.  This simple layout takes the `loggedIn` value from the server and determines if it should display a `login` or `logout` button.  It also conditionally shows a tab for the `Profile` page if the user is logged in. 
+We have used the HTML elements and the classes are chained with a `.` between them. The attributes are bounded by parentheses.  This simple layout takes the `loggedIn` value from the server and determines if it should display a `login` or `logout` button.  It also conditionally shows a tab for the `Profile` page if the user is logged in. 
 
-You can add the profile page by creating a new folder called `users` in your `views` folder and adding a new file called `index.jade`.  Add the following code to it.
+You can add the profile page by creating a new folder called `users` in your `views` folder and adding a new file called `index.jade`.  Add the following code to it:
 
 ```jade
 extends ../layout
@@ -245,9 +247,9 @@ block content
   p UserName: #{user.preferred_username}
 ```
 
-The page here displays the user information that was retrieved from Okta when the user logged in.
+This page displays the user information that was retrieved from Okta when the user logged in.
 
-Finally, replace the code in `views/index.jade` with the following.
+Replace the code in `views/index.jade` with the following:
 
 ```jade
 extends layout
@@ -265,76 +267,69 @@ block content
         a(href="https://www.okta.com/"  target="_blank") Okta
         | .  Written by 
         a(href="https://profile.fishbowlllc.com/"  target="_blank") Nik Fisher.
+  br
   p
-    | This repository shows you how to use Okta in a Node.js application and how to deploy the application to Heroku. Please read 
-    a(href='https://developer.okta.com/blog/2021/xyz') Deploy a NodeJs application to Heroku
-    |  to see how it was created.
-  p
-    Truncated for the purposes of the article
-  p
-    | Apache 2.0, see 
-    a(href='LICENSE') LICENSE
-    | .
+    | This repository shows you how to use Okta in a Node.js application and how to deploy the application to Heroku.
+  p Truncated for the purposes of the article.
 ```
 
-As mentioned before, this is static page will a ReadMe on how to deploy this application to Heroku.  And that's your next step, deploying the application.  But before you move on to that, run the command `npm run start` and navigate to `localhost:3000` to view your application and ensure it is working locally.
+As mentioned before, this is a static page.  Your next step is deploying the application.  But before you move on to that, run the command `npm run start` and navigate to `http://localhost:3000` to view your application and ensure it is working locally.
 
 {% img
-blog/node-deploy-to-heroku/HomePage.PNG
-alt:"You Home Page"
+blog/node-deploy-to-heroku/HomePage.png
+alt:"Your Home Page"
 width:"100%" %}
 
 ## Deploy to Heroku
 
-First, make sure all your code is running and checked into your GitHub repository.  Next, navigate to your [Heroku Dashboard](https://dashboard.heroku.com/apps).  If this is your first time using Heroku you shouldn't have any apps configured yet.  Click on **New** and then **Create New App**.  Name your app `okta-heroku-webapp-{yourUserName}` or another unique name you feel is appropriate.  Press **Create App**.
+Make sure all your code is running and checked into your GitHub repository.  Navigate to your [Heroku Dashboard](https://dashboard.heroku.com/apps).  If this is your first time using Heroku you shouldn't have any apps configured yet.  Click on **New** and then **Create New App**.  Name your app `okta-heroku-webapp-{yourUserName}` or another unique name you feel is appropriate.  Press **Create App**.
 
 On the application page for your newly created application find the *Deployment Method* section on the *Deploy* tab.  Click on **GitHub** and connect your Heroku account to your GitHub account.  
 
 Next, in the *Connect to GitHub* section, find the repository you created for this tutorial and press **Connect**.  
 
 {% img
-blog/node-deploy-to-heroku/ConnecttoGithub.PNG
+blog/node-deploy-to-heroku/ConnecttoGithub.png
 alt:"Connect Heroku to Github"
 width:"100%" %}
 
-You can enable automatic deploys under *Automatic deploys*.  You can also configure this to wait for CI to pass before the application is deployed.  Then you can configure the CI from your GitHub account.  This step isn't strictly necessary for this tutorial but it is nice to see how this fits into the CI pipeline.
+You can enable automatic deploys under *Automatic deploys*.  You can also configure this to wait for CI to pass before deploying the application.  You can configure the CI from your GitHub account.  This step isn't strictly necessary for this tutorial, but seeing how this fits into the CI pipeline is nice.
 
 {% img
-blog/node-deploy-to-heroku/EnableAutomaticDeploys.PNG
+blog/node-deploy-to-heroku/EnableAutomaticDeploys.png
 alt:"Enable Automatic Deploys"
 width:"100%" %}
 
-Finally, under *Manual Deploy* choose the branch you wish to deploy and click **Deploy Branch**.  Wait a moment and you should receive a message from Heroku saying `Your app was successfully deployed.`  
+Finally, under *Manual Deploy* choose the branch you wish to deploy and click **Deploy Branch**.  Wait a moment and you should receive a message from Heroku saying that your app was successfully deployed.
 
 Click the view button to be taken to your application.  At this point, your application won't be running because it isn't configured correctly.  Make note of the URL of your site and makes a few changes.
 
-### Configure your Environment Variables
+### Configure your environment variables
 
 In your Heroku application click on **Settings**.  Find the section named `Config Vars` and click on **Reveal Config Vars**.  Here you will add the same key and value pairs from your `.okta.env` file you used locally.  You can see mine below with the values blurred out.
 
 {% img
-blog/node-deploy-to-heroku/configureenvironmentvariables.PNG
+blog/node-deploy-to-heroku/configureenvironmentvariables.png
 alt:"Configure your Environment Variables"
 width:"100%" %}
 
 ### Configure your Okta Application
 
-Next, you will need to configure your Okta application to accept the new URL from Heroku.  Navigate to your application in the Okta admin dashboard and find the *General Settings* tab.  Click **Edit**.  Under the *Login* section add a value for *Sign-in redirect URIs* that matches your URI from your development settings, but replace *localhost:3000* with the URL from your Heroku application.  For example, my URI would be `https://okta-heroku-webapp-nfisher.herokuapp.com/authorization-code/callback`.  
+Next, you will need to configure your Okta application to accept the new URL from Heroku.  Navigate to your application in the Okta admin dashboard and find the *General Settings* tab.  Click **Edit**.  Under the *Login* section add a value for *Sign-in redirect URIs* that matches your URI from your development settings, but replace `http://localhost:3000` with the URL from your Heroku application.  For example, my URI would be `https://okta-heroku-webapp-nfisher.herokuapp.com`.  
 
-Next, add a similar value for your *Sign-out redirects URIs* that should just be your application's home page from Heroku.  
+Add a similar value for your *Sign-out redirects URIs* which should just be your application's home page from Heroku.  
 
 Now return to your application.  You should be able to log in and see your application running as expected.
 
-## Conclusions
+## Do more with Node and Heroku
 
 Heroku is a great way to quickly and easily (and free, to start) deploy a quick application that slides into your existing CI process.  Together with Express and Okta you can quickly build secure web applications and deploy them to a modern platform.
 
 In this tutorial, you learned how to build an express application with the [express-generator](https://expressjs.com/en/starter/generator.html) toolchain.  You then secured that application with Okta.  Next, you learned how to create an application on Heroku, connect it to your GitHub repository and deploy your application from GitHub to Heroku.  Finally, you learned how to configure Heroku and Okta to work with each other.  
 
-## Learn More
+If you’d like to learn more about building web apps with Node.js or Heroku, you might want to check out these other great posts:
 
-[Node.js Login with Express and OIDC](https://developer.okta.com/blog/2020/06/16/nodejs-login)
-
-[Heroku + Docker with Secure React in 10 Minutes](https://developer.okta.com/blog/2020/06/24/heroku-docker-react)
-
-[Deploy a Secure Spring Boot App to Heroku](https://developer.okta.com/blog/2020/08/31/spring-boot-heroku)
+- [Node.js Login with Express and OIDC](https://developer.okta.com/blog/2020/06/16/nodejs-login)
+- [Heroku + Docker with Secure React in 10 Minutes](https://developer.okta.com/blog/2020/06/24/heroku-docker-react)
+- [Deploy a Secure Spring Boot App to Heroku](https://developer.okta.com/blog/2020/08/31/spring-boot-heroku)
+- [Build Secure Node Authentication with Passport.js and OpenID Connect](https://developer.okta.com/blog/2018/05/18/node-authentication-with-passport-and-oidc)
