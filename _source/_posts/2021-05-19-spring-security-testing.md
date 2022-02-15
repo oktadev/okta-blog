@@ -247,7 +247,7 @@ With `@AutoConfigureWebTestClient`, Spring Boot initializes a `WebTestClient` th
 
 The test `get_noAuth_returnsRedirectLogin()` verifies that the server will redirect to the OIDC Login flow if no authentication is present.
 
-The test `get_withOidcLogin_returnsOk` configures the mock request with an `OidcUser`, using `mockOidcLogin()`. The mock `OidcUser.idToken` is modified by adding the `name` claim because `UserDataController` expects it for populating the response. `mockOidcLogin()` belongs to a set of `SecurityMockServerConfigurers` that ship with Spring Security Test 5 as part of the reactive test support features.
+The test `get_withOidcLogin_returnsOk()` configures the mock request with an `OidcUser`, using `mockOidcLogin()`. The mock `OidcUser.idToken` is modified by adding the `name` claim because `UserDataController` expects it for populating the response. `mockOidcLogin()` belongs to a set of `SecurityMockServerConfigurers` that ship with Spring Security Test 5 as part of the reactive test support features.
 
 Run the tests with:
 
