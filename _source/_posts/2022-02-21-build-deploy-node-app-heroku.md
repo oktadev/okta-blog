@@ -8,7 +8,7 @@ description: "A tutorial that shows you how to build and deploy a Node.js app to
 tags: [javascript, node, heroku, express]
 tweets:
 - "Learn how to build and deploy a @nodejs app to @heroku 🔥"
-image: blog/node-deploy-to-heroku/cover-image.jpg
+image: blog/build-deploy-node-app-heroku/cover-image.jpg
 type: conversion
 github: https://github.com/oktadev/okta-node-heroku-app-example
 ---
@@ -17,7 +17,7 @@ Heroku is a platform as a service that supports many languages.  Initially, it s
 
 This tutorial will teach you how to build a small application using the Express framework for Node.js.  You will then secure that application using Okta by creating an application in Okta for web applications and integrating the Okta OIDC middleware with your application.  Finally, you will learn how to deploy the application to Heroku, update your Okta application for your Heroku site, and set the environment variables for your app in Heroku.
 
-This tutorial uses the following technologies but doesn’t require any prior experience:
+This tutorial uses the following technologies but doesn't require any prior experience:
 
 - [Visual Studio Code](https://code.visualstudio.com/)
 - [Node.js](https://nodejs.org/en/)
@@ -276,7 +276,7 @@ block content
 As mentioned before, this is a static page.  Your next step is deploying the application.  But before you move on to that, run the command `npm run start` and navigate to `http://localhost:3000` to view your application and ensure it is working locally.
 
 {% img
-blog/node-deploy-to-heroku/HomePage.png
+blog/build-deploy-node-app-heroku/HomePage.png
 alt:"Your Home Page"
 width:"100%" %}
 
@@ -289,14 +289,14 @@ On the application page for your newly created application find the *Deployment 
 Next, in the *Connect to GitHub* section, find the repository you created for this tutorial and press **Connect**.  
 
 {% img
-blog/node-deploy-to-heroku/ConnecttoGithub.png
-alt:"Connect Heroku to Github"
+blog/build-deploy-node-app-heroku/ConnecttoGitHub.png
+alt:"Connect Heroku to GitHub"
 width:"100%" %}
 
 You can enable automatic deploys under *Automatic deploys*.  You can also configure this to wait for CI to pass before deploying the application.  You can configure the CI from your GitHub account.  This step isn't strictly necessary for this tutorial, but seeing how this fits into the CI pipeline is nice.
 
 {% img
-blog/node-deploy-to-heroku/EnableAutomaticDeploys.png
+blog/build-deploy-node-app-heroku/EnableAutomaticDeploys.png
 alt:"Enable Automatic Deploys"
 width:"100%" %}
 
@@ -309,7 +309,7 @@ Click the view button to be taken to your application.  At this point, your appl
 In your Heroku application click on **Settings**.  Find the section named `Config Vars` and click on **Reveal Config Vars**.  Here you will add the same key and value pairs from your `.okta.env` file you used locally.  You can see mine below with the values blurred out.
 
 {% img
-blog/node-deploy-to-heroku/configureenvironmentvariables.png
+blog/build-deploy-node-app-heroku/configureenvironmentvariables.png
 alt:"Configure your Environment Variables"
 width:"100%" %}
 
@@ -327,9 +327,9 @@ Heroku is a great way to quickly and easily (and free, to start) deploy a quick 
 
 In this tutorial, you learned how to build an express application with the [express-generator](https://expressjs.com/en/starter/generator.html) toolchain.  You then secured that application with Okta.  Next, you learned how to create an application on Heroku, connect it to your GitHub repository and deploy your application from GitHub to Heroku.  Finally, you learned how to configure Heroku and Okta to work with each other.  
 
-If you’d like to learn more about building web apps with Node.js or Heroku, you might want to check out these other great posts:
+If you'd like to learn more about building web apps with Node.js or Heroku, you might want to check out these other great posts:
 
-- [Node.js Login with Express and OIDC](https://developer.okta.com/blog/2020/06/16/nodejs-login)
-- [Heroku + Docker with Secure React in 10 Minutes](https://developer.okta.com/blog/2020/06/24/heroku-docker-react)
-- [Deploy a Secure Spring Boot App to Heroku](https://developer.okta.com/blog/2020/08/31/spring-boot-heroku)
-- [Build Secure Node Authentication with Passport.js and OpenID Connect](https://developer.okta.com/blog/2018/05/18/node-authentication-with-passport-and-oidc)
+- [Node.js Login with Express and OIDC](/blog/2020/06/16/nodejs-login)
+- [Heroku + Docker with Secure React in 10 Minutes](/blog/2020/06/24/heroku-docker-react)
+- [Deploy a Secure Spring Boot App to Heroku](/blog/2020/08/31/spring-boot-heroku)
+- [Build Secure Node Authentication with Passport.js and OpenID Connect](/blog/2018/05/18/node-authentication-with-passport-and-oidc)
