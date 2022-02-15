@@ -16,7 +16,7 @@ tweets:
 image: blog/spring-security-test/spring-security-testing.png
 type: conversion
 changelog:
-- 2022-02-15: Updated to use Spring Boot 2.6.3 and Spring Security 5.6.1. See the changes to this post in [okta-blog#1000](). You can see the updates to the example app in [okta-spring-security-test-example#2]().
+- 2022-02-15: Updated to use Spring Boot 2.6.3 and Spring Security 5.6.1. See the changes to this post in [okta-blog#1081](https://github.com/oktadev/okta-blog/pull/1081). You can see the updates to the example app in [okta-spring-security-test-example#3](https://github.com/oktadev/okta-spring-security-test-example/pull/3).
 ---
 
 Integration testing in modern Spring Boot microservices has become easier since the release of Spring Framework 5 and Spring Security 5. Spring Framework's `WebTestClient` for reactive web, and `MockMvc` for servlet web, allow for testing controllers in a lightweight fashion without running a server. Both frameworks leverage Spring Test mock implementations of requests and responses, allowing you to verify most of the application functionality using targeted tests.
