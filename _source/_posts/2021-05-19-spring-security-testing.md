@@ -594,7 +594,7 @@ Add the Nimbus `oauth2-oidc-sdk` dependency to the `pom.xml`, required for token
 <dependency>
     <groupId>com.nimbusds</groupId>
     <artifactId>oauth2-oidc-sdk</artifactId>
-    <version>8.19</version>
+    <version>9.25</version>
     <scope>runtime</scope>
 </dependency>
 <dependency>
