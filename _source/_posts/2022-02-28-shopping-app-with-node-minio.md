@@ -12,7 +12,7 @@ github: https://github.com/oktadev/okta-express-minio-app-example
 tweets:
 ---
 
-These days, a lot of e-commerce solutions are built with Node.js. Typically, e-commerce applications have many images and video assets managed in object storage. As the number of products in an e-commerce store increases, so does the size of the object storage. We’ll build our Node.js application with a Kubernetes-friendly object storage service called MinIO to scale with demand. Finally, we’ll secure this scalable application with the Okta Sign-in Widget.
+These days, a lot of e-commerce solutions are built with Node.js. Typically, e-commerce applications have many images and video assets managed in object storage. As the number of products in an e-commerce store increases, so does the size of the object storage. We'll build our Node.js application with a Kubernetes-friendly object storage service called MinIO to scale with demand. Finally, we'll secure this scalable application with the Okta Sign-in Widget.
 
 This tutorial will guide you through the code to build a simple Node.js Shopping App with the Okta's Sign-In Widget for authentication and a [MinIO Server](https://min.io/) to host the store's assets. We will use Express as our application framework and Handlebars as the view engine. We will use the [MinIO Javascript Client SDK](https://docs.minio.io/docs/javascript-client-quickstart-guide) to fetch the application's image assets from the Minio Server.
 
@@ -94,7 +94,7 @@ Store product image assets can be set to public readwrite. Use `mc policy` comma
 mc policy set public play/okta-commerce
 ```
 
-### Copy store’s assets to MinIO bucket
+### Copy store's assets to MinIO bucket
 
 [Upload](https://docs.minio.io/docs/minio-client-complete-guide#cp) store product pictures into this bucket. You can use these pictures:
 
@@ -701,7 +701,7 @@ To see the app, open a browser window and visit `http://localhost:3000`. Now log
 
 ## Do more with Node and MinIO
 
-We have set up an e-commerce app with node.js, express.js and minio and secured access to the store with the customer hosted Okta Sign-In Widget all within a few minutes. We have also learnt how to use the `flow` parameter to bootstrap Okta’s Sign-In Widget for different pages within your application. Hope you enjoyed this tutorial. Let us know if you have any questions.
+We have set up an e-commerce app with node.js, express.js and minio and secured access to the store with the customer hosted Okta Sign-In Widget all within a few minutes. We have also learnt how to use the `flow` parameter to bootstrap Okta's Sign-In Widget for different pages within your application. Hope you enjoyed this tutorial. Let us know if you have any questions.
 
 If you'd like to learn more about building web apps with Node.js, you might want to check out these other great posts:
 
