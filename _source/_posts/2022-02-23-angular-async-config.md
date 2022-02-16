@@ -58,7 +58,7 @@ This post won't walk you through setting up sign-in and sign-out; we're interest
 
 ## Define configuration in code
 
-Defining the configuration directly in the code when your configuration is static is the most straightforward way to configure libraries. You'd define the configuration data in the `AppModule` or a feature module in this method. Examples of this method might look something like defining the configuration for routes and passing it into the `RouterModule`:
+When your configuration is static the most straightforward way to configure libraries is to define the configuration directly in the code. In this method, you'd define the configuration data in the `AppModule` or in a feature module in this method. Examples of this method might look something like defining the configuration for routes and passing it into the `RouterModule`:
 
 ```ts
 const routes: Routes = [
@@ -107,11 +107,11 @@ const oktaAuth = new OktaAuth({
 export class AppModule { }
 ```
 
-**Summary**
+**Summary of _define configuration in code_:**
 
 The most straightforward way to add configuration to your app is when the configuration does not change based on external factors.
 
-**When to *define configuration in code*:**
+**When to use:**
 
 * Use as often as you can since it's the easiest way to configure things.
 
@@ -121,7 +121,7 @@ The most straightforward way to add configuration to your app is when the config
 * Configuring third-party libraries
 * Quick tests
 
-**Watch out for**
+**Watch out for:**
 
 * Configuration that involves private keys or tokens
 
@@ -131,7 +131,7 @@ Angular has a built-in way to support per-environment differences using the `env
 
 The environment files are helpful when you have different configurations you want to support at build time. Some examples include enabling user analytics only on prod environments or defining the API endpoints your QA environment calls.
 
-An example of configuration that changes by environment already built into your app is in `src/main.ts`. Here you see the following:
+`src/main.ts` contains an example of a configuration that changes based on the environment. Here you see the following:
 
 ```ts
 import { enableProdMode } from '@angular/core';
@@ -183,23 +183,23 @@ const oktaAuth = new OktaAuth({
 export class AppModule { }
 ```
 
-**Summary**
+**Summary of _configuration that changes by environment_:**
 
 Customizing environment files is the Angular recommended method to inject values during build time.
 
-**When to use *configuration that changes by environment* **
+**When to use:**
 
 * You have different configuration values based on build output
 
-**Best use cases**
+**Best use cases:**
 
 * Devmode - keep apps served locally from doing things only prod apps should do 
 * Multiple staging environment systems
 
-**Watch out for**
+**Watch out for:**
 
 * Configuration that involves private keys or tokens
-* Run your build for all the different environments when testing changes you make. You don't want to miss adding a property and potentially get a runtime error.
+* Run the build for each environment to test changes you make. You don't want to miss adding a property and potentially get a runtime error.
 
 ## Loading configurations from external APIs
 
@@ -207,9 +207,9 @@ Sometimes you need to load configuration at runtime. This makes sense if you use
 
 To keep things simple for this *external API* configuration method, I'll focus only on the Okta example. 
 
-In this example, we'll look at `src/main.ts` where we bootstrap the Angular application. When you need configuration before the application loads, we can take advantage of `platformBrowserDynamic()` platform injector's `extraProviders` functionality to [provide platform providers](https://angular.io/guide/hierarchical-dependency-injection#platform-injector).
+In this example, we'll look at `src/main.ts` where we bootstrap the Angular application. When you need configuration before the application loads, we can take advantage of `platformBrowserDynamic()` platform injector's `extraProviders` functionality. The `extraProviders` allows us to [provide platform providers](https://angular.io/guide/hierarchical-dependency-injection#platform-injector), much in the same way we can provide application-wide providers in the `AppModule`.
 
-Since we need to make the server call to get the configuration before we have a full Angular application context, we need to use Web APIs to call the API. Then we can configure the provider for Okta's `OKTA_CONFIG` injection token.
+Since we need to make the server call to get the configuration before we have a full Angular application context, we use Web APIs to call the API. Then we can configure the provider for Okta's `OKTA_CONFIG` injection token.
 
 For a configuration API call response that looks like this: 
 
@@ -306,30 +306,30 @@ export class AppModule { }
 
 You can now load a config from an API and use the app's location.
 
-You might be asking yourself, "Isn't there an `APP_INITIALIZER` token or something we can use instead"? Well, yes, there is an [`APP_INITIALIZER` token](https://angular.io/api/core/APP_INITIALIZER) for executing initialization functions that complete before application initialization completes, but in our case, we need the auth configuration _in order_ to initialize. So, we need to finish loading the configuration before initializing the app, which we can do when bootstrapping.
+You might be asking yourself, "Isn't there an `APP_INITIALIZER` token or something we can use instead"? Well, yes, there is an [`APP_INITIALIZER` token](https://angular.io/api/core/APP_INITIALIZER) for executing initialization functions that complete before application initialization completes. However, in our case, we need the auth configuration _in order_ to initialize. So, we need to finish loading the configuration before initializing the app, which we can do when bootstrapping.
 
-**Summary**
+**Summary of _loading configuration from an external API_:**
 
 Load configuration from an API and provide the config to the application. Depending on your needs, the configuration loading may occur during bootstrapping or via `APP_INITIALIZER`.
 
-**When to use**
+**When to use:**
 
-* You want the configuration to load at runtime
+* You want the configuration to load at runtime instead of being baked into the code
 * Your configuration properties include private information that you don't want to commit to source control
 
-**Best use cases**
+**Best use cases:**
 
 * You have different configurations for staging and prod and use release-promotion style deployment processes
 * Your configuration changes frequently or often enough where building and deploying the app is not feasible
 
-**Watch out for**
+**Watch out for:**
 
 * Configuration errors or network blips - your app **will not run** since it's dependent on the external API.
 * Potentially harder to verify and test since configuration may change.
 
 ## Learn more
 
-I hope this post was helpful as you consider how to integrate Okta into your Angular app. You can check out the [sample code for loading configurations from an external server](https://github.com/oktadev/okta-angular-async-load-example), along with a minimal Express API to simulate the config loading. 
+I hope this post is helpful as you consider how to integrate Okta into your Angular app. You can check out the [sample code for loading configurations from an external server](https://github.com/oktadev/okta-angular-async-load-example), along with a minimal Express API to simulate the config loading. 
 
 If you liked this post, check out the following.
 
