@@ -15,6 +15,7 @@ tweets:
 - "Spring Session makes it possible to distribute your session between servers. See how in this tutorial on @springboot + Spring Session and Redis."
 image: blog/spring-session-redis/spring-session-redis.png
 type: conversion
+github: https://github.com/oktadeveloper/okta-spring-session-redis-example
 ---
 
 Spring Boot and Spring Security have delighted developers with their APIs for quite some time now. Spring Security has done an excellent job of implementing OAuth and OpenID Connect (OIDC) standards for the last few years.
