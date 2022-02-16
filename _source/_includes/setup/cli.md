@@ -40,7 +40,6 @@ Next, create an API token. Run `okta login` and open the resulting URL in your b
   {%- endif -%}
 ** and press **Enter**.
 {% endif %}
-
   {% if include.type == "spa" %}
 Use `{% if adoc %}\{% endif %}{{ include.loginRedirectUri }}` for the Redirect URI and {% if include.logoutRedirectUri %}set the Logout Redirect URI to `{% if adoc %}\{% endif %}{{ include.logoutRedirectUri }}`{% else %}accept the default Logout Redirect URI of `{% if adoc %}\{% endif %}{{ baseUrl }}`{% endif %}.
   {% elsif include.type == "web" %}
