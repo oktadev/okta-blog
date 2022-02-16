@@ -386,7 +386,7 @@ backend servers
 
 In the configuration above, `store1` and `store2` are the backend servers to load balance with a round-robin strategy. With **option redispatch**, HAProxy will re-dispatch the request to another server if the selected server fails.
 
-HAProxy listens on port 80 so you'll need to update your Okta application. Run `okta login`, open the resulting URL in your browser, and go to **Applications**. Select your application and add `http://localhost/login/oauth2/code/oidc` as a **Login redirect URI**, and `http://localhost` as a **Logout redirect URI**.
+HAProxy listens on port 80, so you'll need to update your Okta application. Run `okta login`, open the resulting URL in your browser, and go to **Applications**. Select your application and add `http://localhost/login/oauth2/code/oidc` as a **Login redirect URI**, and `http://localhost` as a **Logout redirect URI**.
 
 Run all your Spring services again:
 
