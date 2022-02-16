@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Three ways to configure modules in your Angular app"
+title: "Three Ways to Configure Modules in Your Angular App"
 author: alisa-duncan
 by: advocate
 communities: [javascript]
@@ -14,24 +14,24 @@ type: awareness
 github: https://github.com/oktadev/okta-angular-async-load-example
 ---
 
-Configurations are a part of a developer's life. Configuration data is information your app needs to run and may include tokens for third-party systems or settings you pass into libraries. There are different ways to load configuration data as part of application initialization in [Angular](https://angular.io/). Your requirements for configuration data might change based on needs. For example, you may have one unchanging configuration for your app, or you may need a different configuration based on the environment it runs on. We'll cover a few different ways to load configuration values and identify when you should use each method.
+Configurations are part of a developer's life. Configuration data is information your app needs to run and may include tokens for third-party systems or settings you pass into libraries. There are different ways to load configuration data as part of application initialization in [Angular](https://angular.io/). Your requirements for configuration data might change based on needs. For example, you may have one unchanging configuration for your app, or you may need a different configuration based on the environment where the app is running. We'll cover a few different ways to load configuration values and identify when you should use each method.
 
-> We're covering specific use cases using Angular, so this post assumes you have some experience developing Angular apps. If you're interested in learning more about building your first Angular app, check out the [Angular Getting Started](https://angular.io/guide/what-is-angular) docs, or check out the [links to tutorials](#learn-more) that walk you through integrating Okta into Angular apps.
+> We're covering specific use cases using Angular, so this post assumes you have some experience developing Angular apps. If you're interested in learning more about building your first Angular app, check out the [Angular Getting Started](https://angular.io/guide/what-is-angular) docs or the [links to tutorials](#learn-more) that walk you through integrating Okta into Angular apps.
 
-In this post, we'll cover the following forms of configuration
+In this post, we'll cover the following forms of configuration:
 * defining configuration directly in code
 * defining configuration for different environments
 * loading configuration data via an API call
 
-We'll show examples, including how to integrate with Okta, for each method. We'll also identify when to use each technique and what to watch out for.
+We'll show examples, including how to integrate with Okta, for each method. Also, we'll identify when to use each technique and what to watch out for.
 
 {% include toc.md %}
 
 ## Set up Angular and Okta in a sample project
 
-We'll first set up the base project and Okta resources so you can follow along with the post.
+First we'll set up the base project and Okta resources so you can follow along with the post.
 
-We'll use an Angular v9 app in the code sample to keep things on an even playing field and avoid any new Angular feature funny-business. All the outlined methods also apply to the current version, version 13.
+To keep things on an even playing field and avoid any new Angular feature funny-business, we'll use an Angular v9 app in the code sample. All the outlined methods also apply to the current version, Angular v13.
 ### Create the Angular app
 
 You'll need a recent version of [Node](https://nodejs.org/en/) and [npm](https://www.npmjs.com/).
@@ -54,7 +54,7 @@ We'll need the Okta Angular and Okta Auth JS libraries. Add them to your applica
 npm install @okta/okta-angular@5.1 @okta/okta-auth-js@6.0
 ```
 
-This post won't walk you through setting up sign-in and sign-out; we're interested only in setting up the configuration. If the Angular app runs without errors, the configuration aspect is correct. Try excluding `issuer` or don't replace the `{yourOktaDomain}` with the values you got back from the Okta CLI, and you'll see the types of errors we're trying to avoid. The sample code repo does have sign-in and sign-out integrated so you can see authentication working all the way through.
+This post won't walk you through setting up sign-in and sign-out; we're interested only in setting up the configuration. If the Angular app runs without errors, the configuration aspect is correct. To see the types of errors we're trying to avoid, try excluding `issuer` or don't replace the `{yourOktaDomain}` with the values you got back from the Okta CLI. The sample code repo does have sign-in and sign-out integrated so you can see authentication working all the way through.
 
 ## Define configuration in code
 
@@ -76,7 +76,7 @@ const routes: Routes = [
 export class AppModule { }
 ```
 
-You might be surprised to see routing as an example of defining configuration directly in code but passing in application-wide configuration into a module's [`forRoot()` static method](https://angular.io/guide/ngmodule-faq#what-is-the-forroot-method) is precisely that. 
+You might be surprised to see routing as an example of defining configuration directly in code.  And yet, when you pass application-wide configuration into a module's [`forRoot()` static method](https://angular.io/guide/ngmodule-faq#what-is-the-forroot-method) that's precisely what you're doing. 
 
 If you've followed many of our code examples and blog posts to integrate Okta into Angular apps, you've followed a similar pattern where configuration is defined directly in the application. 
 
@@ -111,11 +111,11 @@ export class AppModule { }
 
 The most straightforward way to add configuration to your app is when the configuration does not change based on external factors.
 
-**When to use**
+**When to *define configuration in code*:**
 
-* As often as you can since it's the easiest way to configure things
+* Use as often as you can since it's the easiest way to configure things.
 
-**Best for**
+**Best use cases:**
 
 * Static app configurations
 * Configuring third-party libraries
@@ -127,7 +127,7 @@ The most straightforward way to add configuration to your app is when the config
 
 ## Configuration that changes by environment
 
-Angular has a built-in way to support per environment differences using the `environments/environment.*.ts` files. When serving locally, Angular CLI uses the values in `environments/environment.ts`, and when you build for prod, Angular CLI substitutes `environment.prod.ts` instead. You can see this file substitution defined in the `angular.json` build configuration. And if you have more environments to support, you can customize the build configuration to suit your needs.
+Angular has a built-in way to support per-environment differences using the `environments/environment.*.ts` files. When serving locally, Angular CLI uses the values in `environments/environment.ts`, and when you build for production, Angular CLI substitutes `environment.prod.ts` instead. You can see this file substitution defined in the `angular.json` build configuration. And if you have more environments to support, you can customize the build configuration to suit your needs.
 
 The environment files are helpful when you have different configurations you want to support at build time. Some examples include enabling user analytics only on prod environments or defining the API endpoints your QA environment calls.
 
@@ -187,11 +187,11 @@ export class AppModule { }
 
 Customizing environment files is the Angular recommended method to inject values during build time.
 
-**When to use**
+**When to use *configuration that changes by environment* **
 
 * You have different configuration values based on build output
 
-**Best for**
+**Best use cases**
 
 * Devmode - keep apps served locally from doing things only prod apps should do 
 * Multiple staging environment systems
@@ -203,15 +203,15 @@ Customizing environment files is the Angular recommended method to inject values
 
 ## Loading configurations from external APIs
 
-Sometimes you need to load configuration at runtime. Doing so makes sense if you use release promotion style deployments - creating a build for a staging/pre-production environment and promoting the same build to production after verification. You don't want to create a new build, but what if your staging and production environments require different configurations? Loading configuration from an external API is handy in scenarios like these.
+Sometimes you need to load configuration at runtime. This makes sense if you use release promotion style deployments - creating a build for a staging/pre-production environment and promoting the same build to production after verification. You don't want to create a new build, but what if your staging and production environments require different configurations? Loading configuration from an external API is handy in scenarios like these.
 
-I'll focus only on the Okta example for this configuration method to keep this post from getting too heavy.
+To keep things simple for this *external API* configuration method, I'll focus only on the Okta example. 
 
 In this example, we'll look at `src/main.ts` where we bootstrap the Angular application. When you need configuration before the application loads, we can take advantage of `platformBrowserDynamic()` platform injector's `extraProviders` functionality to [provide platform providers](https://angular.io/guide/hierarchical-dependency-injection#platform-injector).
 
 Since we need to make the server call to get the configuration before we have a full Angular application context, we need to use Web APIs to call the API. Then we can configure the provider for Okta's `OKTA_CONFIG` injection token.
 
-For a configuration API call response that looks like this
+For a configuration API call response that looks like this: 
 
 ```json
 {
@@ -221,7 +221,7 @@ For a configuration API call response that looks like this
 }
 ```
 
-The code in your `src/main.ts` changes to
+...the code in your `src/main.ts` changes to:
 
 ```ts
 import { enableProdMode } from '@angular/core';
@@ -246,11 +246,11 @@ fetch('http://{yourApiUri}/config').then(async res => {
 });
 ```
 
-Then your `AppModule` only needs to import `OktaAuthModule` since you already provided the `OKTA_CONFIG` injection token.
+Then your `AppModule` only needs to import `OktaAuthModule` since you've already provided the `OKTA_CONFIG` injection token.
 
-If you need to create the callback URI programmatically or if you need to use the configuration in multiple places, you can store the configuration in the app instead. The minimum we need is a class that holds the config, which we will show in the example, but you can also wrap the config in a service if your needs are more involved than what we show here.
+If you need to create the callback URI programmatically or if you need to use the configuration in multiple places, you can store the configuration in the app instead. The minimum we need is a class that holds the config, which we will show in the example. You can wrap the config in a service if your needs are more involved than what we'll show here.
 
-You'll add a new file and create an interface that matches the response and a class to hold the config:
+You'll add a new file and create an interface that matches the response, as well as a class to hold the config:
 
 ```ts
 export interface AuthConfig {
@@ -317,15 +317,15 @@ Load configuration from an API and provide the config to the application. Depend
 * You want the configuration to load at runtime
 * Your configuration properties include private information that you don't want to commit to source control
 
-**Best for**
+**Best use cases**
 
 * You have different configurations for staging and prod and use release-promotion style deployment processes
 * Your configuration changes frequently or often enough where building and deploying the app is not feasible
 
 **Watch out for**
 
-* Configuration errors or network blips - Your app **will not run** since it's dependent on the external API
-* Potentially harder to verify and test since configuration may change
+* Configuration errors or network blips - your app **will not run** since it's dependent on the external API.
+* Potentially harder to verify and test since configuration may change.
 
 ## Learn more
 
