@@ -1,18 +1,19 @@
 ---
 layout: blog_post
-title: How to Build a Basic Shopping App with Node.js and MinIO
+title: Build a Basic Shopping App with Node.js and MinIO
 author: deepa-mahalingam
 by: internal-contributor
 communities: [javascript]
-description: ""
+description: "A tutorial that shows you how to build a basic shopping app with Node.js and MinIO."
 tags: [sign-in-widget, okta, node, minio]
 type: conversion
 image: blog/shopping-app-with-node-minio/cover-image.jpg
 github: https://github.com/oktadev/okta-express-minio-app-example
 tweets:
+- "Learn how to build a basic shopping app with @nodejs and @Minio 🍿"
 ---
 
-These days, a lot of e-commerce solutions are built with Node.js. Typically, e-commerce applications have many images and video assets managed in object storage. As the number of products in an e-commerce store increases, so does the size of the object storage. We'll build our Node.js application with a Kubernetes-friendly object storage service called MinIO to scale with demand. Finally, we'll secure this scalable application with the Okta Sign-in Widget.
+These days, a lot of e-commerce applications use Node.js. Typically, e-commerce applications have many images and video assets managed in object storage. As the number of products in an e-commerce store increases, so does the size of the object storage. We'll build our Node.js application with a Kubernetes-friendly object storage service, MinIO, to scale with demand.
 
 This tutorial will guide you through the code to build a simple Node.js Shopping App with the Okta's Sign-In Widget for authentication and a [MinIO Server](https://min.io/) to host the store's assets. We will use Express as our application framework and Handlebars as the view engine. We will use the [MinIO Javascript Client SDK](https://docs.minio.io/docs/javascript-client-quickstart-guide) to fetch the application's image assets from the Minio Server.
 
@@ -37,20 +38,22 @@ If you'd like to skip the tutorial and just check out the fully built project, y
 
 ## Scaffold your application
  
-First, create a new directory for your `okta_commerce` application and navigate into it.
+Create a new directory for your application and navigate into it.
 
 ```sh
 mkdir okta-express-minio-app-example
 cd okta-express-minio-app-example
 ```
 
-Use the following command to create a `package.json` file for your application.
+Use the following command to create a `package.json` file for your application:
 
 ```sh
 npm init -y
 ```
 
-Now install the following dependencies in the `okta_commerce` directory.
+We need the `express` package for building our application, `express-handlebars` as the template engine and `minio` for programmatically accessing object storage. We need the `@okta/okta-signin-widget` package for authenticating users. We have added `@okta/oidc-middleware` and `express-session` so that you can continue to build this shopping app beyond the basics after this tutorial.
+
+Run the following command to install these dependencies:
 
 ```sh
 npm i express@4
@@ -61,24 +64,43 @@ npm i @okta/oidc-middleware@4
 npm i @okta/okta-signin-widget@5
 ```
 
-## Set up authentication With Okta
+## Set up authentication with Okta
 
 Dealing with user authentication in web apps can be a massive pain for every developer. This is where Okta shines: it helps you secure your web applications with minimal effort. 
 
 {% include setup/cli.md type="spa" loginRedirectUri="http://localhost:3000/callback" logoutRedirectUri="http://localhost:3000/" %}
 
-Configure your Okta tenant so that Security > Profile Enrollment > Self-Service Registration is enabled for your application.
+Configure the Okta tenant so that *Security* > *Profile Enrollment* > *Self-Service Registration* is enabled for your application.
 
-Configure your Okta tenant so that Security > Authenticators > Password has a rule that allows for password unlock for your application.
+{% img
+blog/shopping-app-with-node-minio/SSPR.png
+alt:"SSPR"
+width:"100%" %}
+
+Configure the Okta tenant so that *Security* > *Authenticators* > *Password* has a rule that allows for password unlock for your application.
+
+{% img
+blog/shopping-app-with-node-minio/Unlock.png
+alt:"Unlock"
+width:"100%" %}
+
+Add a new folder called `public` in the project directory and inside it create a folder called `js`. Create a new file in the `js` folder named `okta-config.js`. Add the following code to it:
+
+```js
+const credentials = {
+    domain: 'https://{yourOktaDomain}',
+    clientId: '{clientId}'
+};
+```
+
+**NOTE**: Make sure to replace the placeholder values with your actual Okta credentials.
 
 
 ## Setup MinIO object storage
 
 There are three steps when setting up the assets. 
 
-### Create the bucket on MinIO play server
-
-We've created a public minio server https://play.minio.io:9000 for developers to use as a sandbox. Minio Client `mc` is  preconfigured to use the play server.  
+**Create the bucket on MinIO play server:** We've created a public MinIO server https://play.minio.io:9000 for developers to use as a sandbox. MinIO Client `mc` is  preconfigured to use the play server.  
 
 [Make a bucket](https://docs.minio.io/docs/minio-client-complete-guide#mb) called `okta-commerce` on play.minio.io using the following command: 
 
@@ -86,17 +108,13 @@ We've created a public minio server https://play.minio.io:9000 for developers to
 mc mb play/okta-commerce
 ```
 
-### Set up bucket policy on MinIO play server
-
-Store product image assets can be set to public readwrite. Use `mc policy` command to set the [access policy](https://docs.minio.io/docs/minio-client-complete-guide#policy) on this bucket to "both". 
+**Set up bucket policy on MinIO play server:** Store product image assets can be set to public readwrite. Use `mc policy` command to set the [access policy](https://docs.minio.io/docs/minio-client-complete-guide#policy) on this bucket to "both". 
 
 ```sh
 mc policy set public play/okta-commerce
 ```
 
-### Copy store's assets to MinIO bucket
-
-[Upload](https://docs.minio.io/docs/minio-client-complete-guide#cp) store product pictures into this bucket. You can use these pictures:
+**Copy store's assets to MinIO bucket:** [Upload](https://docs.minio.io/docs/minio-client-complete-guide#cp) store product pictures into this bucket. You can use these pictures:
 
 {% img
 blog/shopping-app-with-node-minio/coffee-1.jpg
@@ -113,7 +131,7 @@ blog/shopping-app-with-node-minio/coffee-4.jpg
 alt:"Sample Image 4"
 width:"50%" %}
 
-Use the `mc cp` command for this: 
+Use the `mc cp` command: 
 
 ```sh
 mc cp ~/Downloads/coffee-1.jpg play/okta-commerce/
@@ -126,7 +144,7 @@ mc cp ~/Downloads/coffee-4.jpg play/okta-commerce/
 
 ## Build your application with Express
 
-We need to create the Express server to run our application. Create a new file called `index.js` in the project root and add the following code to it.
+We need to create the Express server to run our application. Create a new file called `index.js` in the project root and add the following code to it:
 
 ```js
 var express = require('express');
@@ -195,7 +213,7 @@ Here we have defined the different routes for the different functionalities of t
 You can add further functionality to the callback route to exchange code for tokens and store the details for the logged in users using `express-session`.
 
 
-## Access the MinIO assets programmatically
+## Access MinIO assets programmatically
 
 There are two steps in programmatically accessing your assets inside your JavaScript application. Create a new folder called `services` and add a new file called `minio-handler.js`. Add the following code to it:
 
@@ -232,9 +250,9 @@ module.exports = assets;
 
 In the `services/minio-handler.js` file, we import `minio` and instantiate a `minioClient` object with the play server's endpoint, port and access keys. Access & Secret keys to the play server are open to public use.
 
-We use the [listObjects]( https://docs.minio.io/docs/javascript-client-api-reference#listObjects) method to get a list of all the files from the minio-store bucket. `listObjects` returns product URLs which are pushed into an array called `assets`. We will export this array so that it can be imported into the different routes of the application.
+We use the [listObjects]( https://docs.minio.io/docs/javascript-client-api-reference#listObjects) method to get a list of all the files from the minio-store bucket. `listObjects` returns product URLs which are pushed into an array called `assets`. We will export this array so that it can be imported into the different routes of the application defined in the `index.js` file.
 
-**NOTE**: When running minio server locally also add `secure: false,` to the code above.
+**NOTE**: If you are running a MinIO server locally, add `secure: false,` to the code above.
 
 
 ## Create views for the application
@@ -577,18 +595,6 @@ blog/shopping-app-with-node-minio/forgot-password.png
 alt:"Forgot password page"
 width:"100%" %}
 
-## Configure Okta credentials
-
-Add a new folder called `public` in the project directory and inside it create a folder called `js`. Create a new file in the `js` folder named `okta-config.js`. Add the following code to it:
-
-```js
-const credentials = {
-    domain: 'https://{yourOktaDomain}',
-    clientId: '{clientId}'
-};
-```
-
-**NOTE**: Make sure to replace the placeholder values with your actual Okta credentials.
 
 ## Style your application
 
@@ -671,23 +677,6 @@ body {
 }	
 ```
 
-## Set up Okta tenant
-
-Configure the Okta tenant so that Security > Profile Enrollment > Self-Service Registration is enabled for your application.
-
-{% img
-blog/shopping-app-with-node-minio/SSPR.png
-alt:"SSPR"
-width:"100%" %}
-
-Configure the Okta tenant so that Security > Authenticators > Password has a rule that allows for password unlock for your application.
-
-{% img
-blog/shopping-app-with-node-minio/Unlock.png
-alt:"Unlock"
-width:"100%" %}
-
-
 ## Run your application
 
 Run the following command to start the app server:
@@ -701,7 +690,7 @@ To see the app, open a browser window and visit `http://localhost:3000`. Now log
 
 ## Do more with Node and MinIO
 
-We have set up an e-commerce app with node.js, express.js and minio and secured access to the store with the customer hosted Okta Sign-In Widget all within a few minutes. We have also learnt how to use the `flow` parameter to bootstrap Okta's Sign-In Widget for different pages within your application. Hope you enjoyed this tutorial. Let us know if you have any questions.
+We have set up a basic e-commerce app with Node.js, Express, and MinIO. We secured access to the store with the Okta Sign-In Widget. We also learned how to use the `flow` parameter to bootstrap Okta's Sign-In Widget for different pages within your application.
 
 If you'd like to learn more about building web apps with Node.js, you might want to check out these other great posts:
 
