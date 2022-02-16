@@ -4,14 +4,15 @@ title: "A Quick Guide to Elasticsearch with Spring Data and Spring Boot"
 author: jimena-garbarino
 by: contractor
 communities: [java]
-description: ""
-tags: []
+description: "This tutorial provides a quick introduction to Elasticsearch integration options and Java integration."
+tags: [java, elastic, elasticsearch, spring-data]
 tweets:
-- ""
-- ""
-- ""
-image:
+- "Give Elasticsearch a try with @jhipster!"
+- "You've always wanted to try Elasticsearch, haven't you? Try this tutorial!"
+- "Check out Elasticsearch! It's excellent for enterprise search, observability, and security."
+image: blog/spring-data-elasticsearch/elasticsearch-spring-data.png
 type: conversion
+github: https://github.com/oktadev/okta-spring-data-elasticsearch-example
 ---
 
 You've probably heard of Elasticsearch or the Elastic Stack. The project started as a search engine based on [Lucene](https://lucene.apache.org/), an open-source search engine library built by Shay Banon to index his wife's cooking recipes. Since its early days, Elasticsearch has come a long way and has evolved into the [Elastic Stack](https://www.elastic.co/elastic-stack), a great suite for taking data from any source, in order to search, analyze, and visualize it in near real-time.
@@ -28,7 +29,6 @@ How can be Elasticsearch integrated into a Spring Boot application? What are the
 - [Okta CLI 0.9.0](https://cli.okta.com)
 - [Docker 20.10.7](https://docs.docker.com/engine/install/)
 
-
 **Table of Contents**{: .hide }
 * Table of Contents
 {:toc}
@@ -41,13 +41,13 @@ For Java applications including Spring Boot applications, Elasticsearch provides
 
 - [Java REST Client](https://www.elastic.co/guide/en/elasticsearch/client/java-rest/7.15/index.html): Composed of the Low Level REST Client and the High Level REST Client. The Low Level Client provides load balancing, failover, persistent connections, and request/response trace logging. The High Level Client works on top of the Low Level Client and is the replacement for the `TransportClient`. It depends on the Elasticsearch core and provides synchronous and asynchronous APIs.
 
-- [Java API Client](https://www.elastic.co/guide/en/elasticsearch/client/java-api-client/current/index.html): The new client library, independent from Elasticsearch core, provides strongly typed requests and responses, blocking and asynchronous versions for all APIs, fluent builders and functional patterns, as well as jackson and JSON-b support.
+- [Java API Client](https://www.elastic.co/guide/en/elasticsearch/client/java-api-client/current/index.html): The new client library, independent of Elasticsearch core, provides strongly typed requests and responses, blocking and asynchronous versions for all APIs, fluent builders and functional patterns, as well as jackson and JSON-b support.
 
 ## Hello Spring Data Elasticsearch!
 
-Spring Data Elasticsearch is another integration option that adds the Spring Repository abstraction at the search layer, providing access and search functionality for domain objects stored in Elasticsearch. Operations are sent through a client connected to the Elasticsearch node. With Spring Data, the High Level REST Client is the default client, although Elasticsearch documentation states that it's been deprecated in favor of the Java API Client since version 7.15. The Java API Client is not listed as a supported client yet. In the meantime, the Java Transport Client is still supported in Spring Data, but the general recommendation is to use the High Level Client.
+Spring Data Elasticsearch is another integration option that adds the Spring repository abstraction at the search layer, providing access and search functionality for domain objects stored in Elasticsearch. Operations are sent through a client connected to the Elasticsearch node. With Spring Data, the High Level REST Client is the default client, although Elasticsearch documentation states that it's been deprecated in favor of the Java API Client since version 7.15. The Java API Client is not listed as a supported client yet. In the meantime, the Java Transport Client is still supported in Spring Data, but the general recommendation is to use the High Level Client.
 
-Instead of calling the Elasticsearch APIs directly, the repository and REST template abstractions provide a simplified interface for document operations, encapsulating API request/response processing, and exposing a query interface that has multiple implementations for different levels of query complexity. Through the starter dependency, it can also handle client auto-configuration and automatic document index mapping for simple use cases.
+Instead of calling the Elasticsearch APIs directly, the repository and REST template abstractions provide a simplified interface for document operations, encapsulating API request/response processing, and exposing a query interface that has multiple implementations for different levels of query complexity. Through the starter dependency, it can also handle client autoconfiguration and automatic document index mapping for simple use cases.
 
 Besides the high-level REST client support, Spring Data provides the [Reactive Client](https://docs.spring.io/spring-data/elasticsearch/docs/current/reference/html/#elasticsearch.clients.reactive), a non-official driver based on WebClient, with calls operated directly on the Reactive Stack. The Reactive Client also depends on the Elasticsearch core, as it is designed for handling Elasticsearch request/response types.
 
@@ -68,6 +68,7 @@ npm install -g generator-jhipster@7.6.0
 ```
 
 Verify the JHipster version with the following line:
+
 ```shell
 jhipster --version
 ```
@@ -75,7 +76,6 @@ jhipster --version
 INFO! Using JHipster version installed globally
 7.6.0
 ```
-
 
 Once your environment is ready, create a `spring-data-elasticsearch` folder for the project, fetch the application JDL from the [GitHub repository](https://github.com/oktadev/okta-spring-data-elasticsearch-example), and generate the application with JHipster:
 
@@ -90,9 +90,7 @@ jhipster jdl blog-reactive-ms.jdl
    loginRedirectUri="http://localhost:8080/login/oauth2/code/oidc,http://localhost:8081/login/oauth2/code/oidc,http://localhost:8761/login/oauth2/code/oidc"
    logoutRedirectUri="http://localhost:8080,http://localhost:8081,http://localhost:8761" %}
 
-
 The JHipster Registry is also a Spring Cloud Config server, and by default, it is configured with the profiles `dev` and `native`, which means the configuration will be provided from the location `docker-compose/central-server-config`. Update `docker-compose/central-server-config/application.yml` with the OIDC settings to be shared with all microservices. Set the values from the `.okta.env` file the Okta CLI created. To avoid copy/paste errors, you can do it from the command line:
-
 
 ```shell
 source .okta.env
@@ -110,11 +108,11 @@ spring:
             client-secret: $SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET\" >> docker-compose/central-server-config/application.yml
 ```
 
-
 For the experiment in this tutorial, configure the Kibana interface for Elasticsearch, which will allow visualizations of the Elasticsearch data.
+
 Edit `docker-compose/docker-compose.yml` and add the Kibana service like this:
 
-```yml
+```yaml
 services:
   ...  
   blog-kibana:
@@ -129,13 +127,14 @@ services:
 
 Also add the following additional configuration to the `blog-elasticsearch` service, to expose the ports to the local host for sending APIs requests:
 
-```yml
+```yaml
 services:
   blog-elasticsearch:
     ...
     ports:
       - 9200:9200
 ```
+
 Remove the Keycloak service at the bottom, as Okta will be used as the identity provider (IdP).
 
 Create each application's container image:
@@ -156,14 +155,14 @@ Run all your images with Docker Compose:
 cd ../docker-compose
 docker compose up
 ```
- Access the JHipster Registry at `http://localhost:8761` and sign in with your Okta credentials. When you see all services up and green, go to `http://localhost:8080` and sign in with your Okta account.
 
- {% img blog/spring-data-elasticsearch/okta-signin.png alt:"Okta Sign In Form" width:"400" %}{: .center-image }
+Access the JHipster Registry at `http://localhost:8761` and sign in with your Okta credentials. When you see all services up and green, go to `http://localhost:8080` and sign in with your Okta account.
 
+{% img blog/spring-data-elasticsearch/okta-signin.png alt:"Okta Sign In Form" width:"400" %}{: .center-image }
 
  **IMPORTANT NOTE**: There is a potential issue observed for the blog service. As [Kubernetes probes](https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html#actuator.endpoints.kubernetes-probes) are enabled by default, the blog application might change its state to `OUT_OF_SERVICE` during start up and Eureka might discard the following heartbeats with state `UP`. In this case, disable Kubernetes probes in the `docker-compose.yml` with the following environment variable:
 
-```yml
+```yaml
 services:
   blog:
     image: blog
@@ -171,6 +170,7 @@ services:
       ...
       - MANAGEMENT_ENDPOINT_HEALTH_PROBES_ENABLED=false
 ```
+
 Restart your microservices stack using Ctrl+C and run `docker compose up` again.
 
 ## Inspecting Elasticsearch index mapping
@@ -241,7 +241,7 @@ Go back to Kibana, and display the `Tag` mappings after persistence:
 }
 ```
 
-Now the `id` and `name` properties have been _dynamically mapped_ with _multi-field mapping_. For example, the `name` field is defined with type `text`, for full-text searches, and it defines a `name.keyword` sub-field for aggregations and sorting:
+Now the `id` and `name` properties have been _dynamically mapped_ with _multi-field mapping_. For example, the `name` field is defined with type `text`, for full-text searches, and it defines a `name.keyword` subfield for aggregations and sorting:
 
 ```json
 "name": {
@@ -276,8 +276,6 @@ This config also tells JHipster to include the Elasticsearch dependencies in the
 {% img blog/spring-data-elasticsearch/spring-data-collaboration.png alt:"Spring Data Collaboration" width:"600" %}{: .center-image }
 
 When using the starter dependency, `ReactiveElasticsearchRestClientAutoConfiguration` configures the reactive Elasticsearch client from the Spring Elasticsearch properties. `ElasticsearchDataAutoConfiguration` is the root configuration class that triggers the reactive search template initialization. Let's briefly describe each of the mentioned components.
-
-
 
 ### The reactive client
 
@@ -353,7 +351,7 @@ class TagSearchRepositoryInternalImpl implements TagSearchRepositoryInternal {
 
 ## Learn more about Elastic and JHipster
 
-JHipster helps to simplify the setup of Spring Boot applications or microservices with search capabilities. I hope you enjoyed this quick introduction to Elasticsearh integration options, and could taste the advantages of the Spring Data repository abstraction for encapsulating some basic Elasticsearch operations. Remember to check the [compatiblity matrix](https://docs.spring.io/spring-data/elasticsearch/docs/current/reference/html/#preface.versions) to match the right Spring Data Elasticsearch dependency for your Elasticsearch version.
+JHipster helps to simplify the setup of Spring Boot applications or microservices with search capabilities. I hope you enjoyed this quick introduction to Elasticsearch integration options, and could taste the advantages of the Spring Data repository abstraction for encapsulating some basic Elasticsearch operations. Remember to check the [compatibility matrix](https://docs.spring.io/spring-data/elasticsearch/docs/current/reference/html/#preface.versions) to match the right Spring Data Elasticsearch dependency for your Elasticsearch version.
 
 Keep learning, and for more examples and recipes on Elasticsearch and Okta integrations for Spring Boot, check out the following links:
 
