@@ -4,7 +4,7 @@ title: "A Quick Guide to Elasticsearch with Spring Data and Spring Boot"
 author: jimena-garbarino
 by: contractor
 communities: [java]
-description: "This tutorial provides a quick introduction to Elasticsearch integration options and Java integration."
+description: "This tutorial provides a quick introduction to Elasticsearch integration options with Spring Boot and JHipster."
 tags: [java, elastic, elasticsearch, spring-data]
 tweets:
 - "Give Elasticsearch a try with @jhipster!"
@@ -349,7 +349,7 @@ class TagSearchRepositoryInternalImpl implements TagSearchRepositoryInternal {
 }
 ```
 
-## Learn more about Elastic and JHipster
+## Learn more about Elasticsearch, Spring Boot, and JHipster
 
 JHipster helps to simplify the setup of Spring Boot applications or microservices with search capabilities. I hope you enjoyed this quick introduction to Elasticsearch integration options, and could taste the advantages of the Spring Data repository abstraction for encapsulating some basic Elasticsearch operations. Remember to check the [compatibility matrix](https://docs.spring.io/spring-data/elasticsearch/docs/current/reference/html/#preface.versions) to match the right Spring Data Elasticsearch dependency for your Elasticsearch version.
 
