@@ -10,7 +10,7 @@ tweets:
 - "Give Elasticsearch a try with @jhipster!"
 - "You've always wanted to try Elasticsearch, haven't you? Try this tutorial!"
 - "Check out Elasticsearch! It's excellent for enterprise search, observability, and security."
-image: blog/spring-data-elasticsearch/elasticsearch-spring-data.png
+image: blog/spring-data-elasticsearch/elasticsearch-spring-data.jpg
 type: conversion
 github: https://github.com/oktadev/okta-spring-data-elasticsearch-example
 ---
