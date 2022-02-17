@@ -1,8 +1,8 @@
 ---
 layout: blog_post
-title: "Spring Boot + Spring Native + { Angular, React, Vue } = 🚀"
+title: "Spring Boot + Spring Native + { Angular, React, Vue } = JHipster! 🚀"
 #title: "Start your JHipster + Spring Boot app in just 1s with @GraalVM!"
-#title: "Start your Spring Boot app in 1 seconds like I did, a howto:"
+#title: "Start your Spring Boot app in 1 seconds like I did, a HowTo Guide"
 #title: "Introducing JHipster Native: 'Wow! That was quick!' 😂"
 #title: "Native Java with Spring Boot, Spring Native, and JHipster"
 author: matt-raible
