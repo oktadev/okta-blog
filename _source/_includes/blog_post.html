@@ -22,7 +22,7 @@
         </div>
         {% endif %}
         <h1 class="BlogPost-title p-name">
-            {% if page.layout == 'blog_index' or page.layout == 'author' %}
+            {% if page.layout == 'blog_index' or page.layout == 'author' or page.layout == 'tag' %}
             <a href="{{ post.url }}">{{ post.title }}</a>
             {% else %}
             <span>{{ post.title }}</span>
