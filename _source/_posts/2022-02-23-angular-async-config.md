@@ -31,12 +31,20 @@ We'll show examples, including how to integrate with Okta, for each method. Also
 
 First we'll set up the base project and Okta resources so you can follow along with the post.
 
-To keep things on an even playing field and avoid any new Angular feature funny-business, we'll use an Angular v9 app in the code sample. All the outlined methods also apply to the current version, Angular v13.
+To keep things on an even playing field and avoid any new Angular feature funny-business, I'll use an Angular v9 app in the code sample. All the outlined methods apply from Angular v7 to the current version, Angular v13.
 ### Create the Angular app
 
-You'll need a recent version of [Node](https://nodejs.org/en/) and [npm](https://www.npmjs.com/).
+You'll need a version of [Node](https://nodejs.org/en/) and [npm](https://www.npmjs.com/) that works for the Angular app version you want to create. 
 
-Create the Angular v9 app with routing and standard CSS for styling by running the following command:
+I'm using Node v14.18.1 and npm v6.14.15 to create an Angular v9 app, but you can create the app for your favorite Angular v7+ version.
+
+Use your globally installed Angular CLI to create an Angular app with routing and standard CSS for styling by running
+
+```shell
+ng new async-load --routing --style=css
+```
+
+Or create the Angular v9 app by running the following command:
 
 ```shell
 npx @angular/cli@9 new async-load --routing --style=css
