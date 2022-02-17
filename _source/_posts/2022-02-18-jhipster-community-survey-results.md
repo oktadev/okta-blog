@@ -63,7 +63,7 @@ This was an open question, where everyone could share what they like about JHips
 * Flexibility and customizations out of the box
 * Continuous support and community
 
-…and many other things.
+... and many other things.
 
 Thanks everyone for this great feedback!
 
