@@ -1,0 +1,143 @@
+---
+layout: blog_post
+title: "Spring Boot + Spring Native + { Angular, React, Vue } = 🚀"
+#title: "Start your JHipster + Spring Boot app in just 1s with @GraalVM!"
+#title: "Start your Spring Boot app in 1 seconds like I did, a howto:"
+#title: "Introducing JHipster Native: 'Wow! That was quick!' 😂"
+#title: "Native Java with Spring Boot, Spring Native, and JHipster"
+author: matt-raible
+by: advocate
+communities: [java]
+description: "Do you want to build a full-stack Java webapp that starts in milliseconds? Spring has your back! 👊"
+tags: [java, spring-boot, spring-native, jhipster]
+tweets:
+- "Start your @JHipster + Spring Boot app in just over 1s with @GraalVM!"
+- "Introducing JHipster Native: 'Wow! That was quick!' 😂"
+- "Oh my... that was fast! Is your name @springboot?"
+image:
+type: conversion
+# keywords: spring native (6600), native java (2400, but different topic), spring native jhipster (70)
+# My LinkedIn post is at the bottom of Google's page 1! That's the one to beat.
+# https://www.linkedin.com/pulse/jhipster-works-spring-native-matt-raible/
+---
+:page-liquid:
+:toc: macro
+:experimental:
+
+// intro
+
+toc::[]
+
+== Way should I care about Java native?
+
+// Java has a long history, startup speed isn't our best story
+// BUT: Java compiler is waaaayyyyy faster than TypeScript in my experience
+
+== Introducing JHipster 7: Fast Java for Everyone
+
+// why serverless is cool (1p)
+
+// mention micronaut, quarkus, and spring-boot comparison (1p)
+
+// JUG presentations / research with Josh (+pictures and tweets)
+
+== 💥 The JHipster Native blueprint!
+
+// @mshima is a magician
+// How it works
+
+== Go native with Spring Native and GraalVM
+
+// use Auth0 example, no upgrade needed because regen
+
+Show IntelliJ and commit view with rollback and such
+
+----
+git checkout .gitignore
+git checkout README.md
+git checkout demo.adoc
+git checkout flickr.jdl
+git checkout screenshots
+git checkout src/test/javascript/cypress/integration/entity/photo.spec.ts
+git checkout src/main/webapp/app/entities/photo/photo.tsx
+git checkout src/main/webapp/app/entities/photo/photo-update.tsx
+git checkout src/main/java/com/auth0/flickr2/config/SecurityConfiguration.java
+git checkout src/main/java/com/auth0/flickr2/web/rest/PhotoResource.java
+git checkout src/main/resources/config/application-heroku.yml
+git checkout src/main/resources/config/bootstrap-heroku.yml
+git checkout Procfile
+git checkout system.properties
+
+application-dev.yml - remove faker for liquibase
+
+Maven, re-add drewnoakes:
+
+<dependency>
+<groupId>com.drewnoakes</groupId>
+<artifactId>metadata-extractor</artifactId>
+<version>2.16.0</version>
+</dependency>
+
+npm i react-photo-gallery@8 --force
+npm i react-images
+
+rm src/main/docker/zipkin.yml
+
+Add type hints for Drew:
+
+@org.springframework.nativex.hint.TypeHint(
+types = {
+...
+com.drew.metadata.exif.ExifIFD0Directory.class,
+com.drew.metadata.exif.ExifSubIFDDirectory.class,
+com.drew.metadata.exif.makernotes.AppleMakernoteDirectory.class,
+com.drew.metadata.exif.GpsDirectory.class,
+}
+)
+@NativeHint(options = "-H:+AddAllCharsets")
+/*
+The NativeHint above solves this exception:
+Caused by: java.nio.charset.UnsupportedCharsetException: Cp1252
+at java.nio.charset.Charset.forName(Charset.java:528) ~[native-executable:na]
+at com.drew.lang.Charsets.<clinit>(Charsets.java:40) ~[native-executable:2.16.0]
+*/
+----
+
+== Configure your OpenID Connect identity provider
+
+// Keycloak by default, Auth0 is cool, but Okta is four words: okta apps create jhipster
+
+// show Auth0 and Okta CLI or consoles, whichever is easier
+
+== What does the JHipster Native blueprint do?
+
+// collects findings from @starbuxman and @mraible's research:
+// - 2021-12-14: https://www.linkedin.com/pulse/jhipster-works-spring-native-part-2-matt-raible/
+// - 2021-09-30: https://www.linkedin.com/pulse/jhipster-works-spring-native-matt-raible/
+
+// sometimes it's the small things: e.g., HashSet
+
+https://github.com/mraible/spring-native-examples#readme
+
+*TL;DR* It configures Spring Boot and GraalVM so it recognizes classes that are not easily discoverable. For example, those that are instantiated using reflection. It's a really slick extension to Spring Boot and will likely disappear with Spring Boot 3 because it'll be native by default.
+
+What does it do? We've basically automated the README above!
+
+----
+/me I could copy and paste it here, but it's easier to just update it in one place. ;)
+----
+
+The only major thing I found is it https://github.com/spring-projects-experimental/spring-native/issues/465[doesn't support caching]. If you're looking to start/stop your infra as fast as possible, you probably don't care about caching. Caching is made for long-lived, JVM-strong, JVM-loving apps.
+
+== What about Spring Boot 3?
+
+// an attempt, but no demo: https://www.youtube.com/watch?v=J2_-eC7Mpfk
+// if demo ready, schedule!
+
+== Learn more about GraalVM and Spring Native
+
+Links:
+
+https://developer.okta.com/blog/2021/09/16/spring-native-okta-starter
+https://developer.okta.com/blog/2021/06/18/native-java-framework-comparison
+https://developer.okta.com/blog/2022/01/06/native-java-helidon
