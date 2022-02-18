@@ -134,6 +134,25 @@ The only major thing I found is it https://github.com/spring-projects-experiment
 // an attempt, but no demo: https://www.youtube.com/watch?v=J2_-eC7Mpfk
 // if demo ready, schedule!
 
+== Automate the wait
+
+jhipster ci-cd
+
+Options:
+
+- Modify the generated YAML to use the GraalVM plugin
+- Revert the script changes in package.json so it's just a JVM build. Add a publish script that only builds when you create a release.
+- Nightly build of native https://kyuubang.github.io/devops/2022/01/22/nightly-build-with-github-actions.html
+
+This post is already long enough. I'll show you in a future post!
+
+////
+In next post, show existing blueprint tests
+
+https://github.com/jhipster/generator-jhipster-native/blob/main/.github/workflows/jdl.yml
+
+////
+
 == Learn more about GraalVM and Spring Native
 
 Links:
