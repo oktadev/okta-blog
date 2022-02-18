@@ -794,3 +794,11 @@ james-hickey:
   web: https://www.jamesmichaelhickey.com/
   twitter: https://twitter.com/jamesmh_dev
   bio: James is a Microsoft MVP with a background building web and mobile applications in fintech and insurance industries. He's the author of "Refactoring TypeScript" and creator of open-source tools for .NET called Coravel. He lives in Canada, just ten minutes from the highest tides in the world.
+
+alina-yurenko:
+  full_name: "Alina Yurenko"
+  display_name: "Alina Yurenko"
+  avatar: avatar-alina_yurenko.png
+  web: https://dev.to/alina_yurenko
+  twitter: https://twitter.com/alina_yurenko
+  bio: I ❤️ all things tech, open source and community. Developer 🥑 for @GraalVM at @OracleLabs, helping @jhipster, ex @googledevgroups
