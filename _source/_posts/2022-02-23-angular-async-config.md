@@ -223,9 +223,9 @@ For a configuration API call response that looks like this:
 
 ```json
 {
-  issuer: 'https://{yourOktaDomain}/oauth2/default',
-  clientId: '{yourClientId}', 
-  redirectUri: '{correctHostForTheEnvironment}/login/callback'
+  "issuer": "https://{yourOktaDomain}/oauth2/default",
+  "clientId": "{yourClientId}", 
+  "redirectUri": "{correctHostForTheEnvironment}/login/callback"
 }
 ```
 
@@ -335,7 +335,7 @@ Load configuration from an API and provide the config to the application. Depend
 * Configuration errors or network blips - your app **will not run** since it's dependent on the external API.
 * Potentially harder to verify and test since configuration may change.
 
-## Learn more
+## Learn more about Angular
 
 I hope this post is helpful as you consider how to integrate Okta into your Angular app. You can check out the [sample code for loading configurations from an external server](https://github.com/oktadev/okta-angular-async-load-example), along with a minimal Express API to simulate the config loading. 
 
