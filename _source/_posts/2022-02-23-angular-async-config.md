@@ -333,6 +333,7 @@ Load configuration from an API and provide the config to the application. Depend
 **Watch out for:**
 
 * Configuration errors or network blips - your app **will not run** since it's dependent on the external API.
+* Anything that can decrease performance such as overly large configuration response, calling too many endpoints, or slow server response
 * Potentially harder to verify and test since configuration may change.
 
 ## Learn more about Angular
