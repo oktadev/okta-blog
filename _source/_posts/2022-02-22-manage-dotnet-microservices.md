@@ -255,7 +255,7 @@ Here, you'll be using the API gateway to proxy requests for API access tokens to
 
 {% img blog/dotnet-microservices-federation/okta.png alt:"Okta as the identity provider" width:"800" %}{: .center-image }
 
-In these next steps, you'll be utilizing your [Okta account](https://developer.okta.com/).
+In these next steps, you'll be utilizing your [Okta account](https://developer.okta.com/signup).
 
 Once signed into [Okta](https://developer.okta.com/), you'll be at the home page/dashboard. Navigate to **Applications** on the left-hand menu, and click the **Create App Integration** button. Choose **API Services**, and create a name for your app.
 
