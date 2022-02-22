@@ -204,7 +204,7 @@ This file is where the magic from the Okta OIDC middleware shines.  You are pass
 
 Now you can write some client code.  By default, the express-generator sets up some views using `jade`.  Jade is a templating engine for Node.js.  The language incorporates some conditionals and flow controls to make templating HTML from your model easier.  The syntax is pretty simple to learn, and there are many HTML to jade converters out there.
 
-Open the `layout.jade` file that was generated with your project and replace the code with the following:
+Open the `layout.jade` file that was generated with your project and replace that code with the following:
 
 ```jade
 doctype html
