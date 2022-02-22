@@ -319,7 +319,7 @@ Next, you will need to configure your Okta application to accept the new URL fro
 
 Add a similar value for your *Sign-out redirects URIs*, which should just be your application's home page from Heroku.  
 
-Now return to your application.  You should be able to log in and see your application running as expected.
+Now return to your application.  You should be able to log in and see your app running as expected.
 
 ## Do more with Node and Heroku
 
