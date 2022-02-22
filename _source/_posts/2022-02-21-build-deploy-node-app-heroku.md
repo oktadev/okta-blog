@@ -157,7 +157,7 @@ app.use(function (err, req, res, next) {
 module.exports = app;
 ```
 
-Most of this code is boilerplate from the express-generator, but the notable addition is the configuration for the Okta OIDC.  First, you need to enable `dotenv` at the top of this file.  Next, you configure the `express-session` and add it to your application.  Finally, you can configure your Okta OIDC middleware using the variables from `.env`.  
+Most of this code is boilerplate from the express-generator—the notable addition is the configuration for the Okta OIDC.  First, you need to enable `dotenv` at the top of this file.  Next, configure the `express-session` and add it to your application.  Finally, you can configure your Okta OIDC middleware using the variables from `.env`.  
 
 Open your `routes/index.js` file and replace the contents of the file with the following code:
 
