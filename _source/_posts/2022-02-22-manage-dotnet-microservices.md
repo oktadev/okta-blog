@@ -442,7 +442,7 @@ Now you can run all your microservices and the API gateway and test them.
 
 In this tutorial, you built the skeleton of the API gateway and two .NET microservices, which were all exposed on specific ports.
 
-You also learned how to use [Okta's Client Credentials API token endpoint](https://developer.okta.com/docs/guides/implement-grant-type/clientcreds/main/) to retrieve a server-to-server access token by using your API gateway as a proxy. WithOkta's [Okta.AspNetCore](https://github.com/okta/okta-aspnet) library, you then enabled your API gateway to process and validate incoming access tokens.
+You also learned how to use [Okta's Client Credentials API token endpoint](https://developer.okta.com/docs/guides/implement-grant-type/clientcreds/main/) to retrieve a server-to-server access token by using your API gateway as a proxy. With Okta's [Okta.AspNetCore](https://github.com/okta/okta-aspnet) library, you then enabled your API gateway to process and validate incoming access tokens.
 
 In the end, you had the entire suite of services running in one click by using Docker compose.
 
