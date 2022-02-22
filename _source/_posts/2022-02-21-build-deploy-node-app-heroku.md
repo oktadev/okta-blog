@@ -306,7 +306,7 @@ Click the view button to be taken to your application.  At this point, your appl
 
 ### Configure your environment variables
 
-In your Heroku application click on **Settings**.  Find the section named `Config Vars` and click on **Reveal Config Vars**.  Here you will add the same key and value pairs from your `.okta.env` file you used locally.  You can see mine below with the values blurred out.
+In your Heroku application click on **Settings**.  Find the section named `Config Vars` and click on **Reveal Config Vars**.  Here you will add the same key and value pairs from the `.okta.env` file you used locally.  You can see mine below with the values blurred out.
 
 {% img
 blog/build-deploy-node-app-heroku/configureenvironmentvariables.png
