@@ -22,7 +22,7 @@ However, the [API Federation](https://engineering.salesforce.com/api-federation-
 
 The gateway also short-circuits requests that otherwise might use unnecessary resources. Protecting internal APIs and microservices from [DDoS detection](https://www.kentik.com/kentipedia/ddos-detection/) can be added in one place, which safeguards backend services.
 
-![API gateway](https://i.imgur.com/px7XhgW.png)
+{% img blog/dotnet-microservices-federation/apigateway.png alt:"API gateway" width:"800" %}{: .center-image }
 
 In this article, you'll learn how to build [.NET microservices](https://dotnet.microsoft.com/en-us/learn/aspnet/microservices-architecture) that are federated via another .NET API gateway. You'll see how using an API gateway can protect internal services from the outside world by allowing the gateway to handle authentication using [Okta's](https://www.okta.com/) authentication services. These are easily integrated into our .NET microservice.
 
@@ -235,17 +235,17 @@ Both of these files make the services listen to traffic on a custom port so that
 
 Now, it's time to try to run it. Open up three separate terminals (any terminal should work). Navigate to the root directory for each of the .NET projects you created and execute `dotnet run`.
 
-![Three terminals running .NET projects](https://i.imgur.com/mHm7kDj.png)
+{% img blog/dotnet-microservices-federation/threeterminals.png alt:"Three terminals running .NET projects" width:"800" %}{: .center-image }
 
 To test the API gateway, run the following request in Postman:
 
-![HTTP request in Postman](https://i.imgur.com/8sU5dgT.png)
+{% img blog/dotnet-microservices-federation/httprequest.png alt:"HTTP request in Postman" width:"600" %}{: .center-image }
 
 You should see some HTTP headers and the HTTP body "You're looking at SKU 1234!"
 
 Here's what the current topology looks like:
 
-![.NET API gateway routing](https://i.imgur.com/vi157XX.png)
+{% img blog/dotnet-microservices-federation/gateway.png alt:".NET API gateway routing" width:"800" %}{: .center-image }
 
 ## Add Okta auth to your API gateway
 
@@ -253,7 +253,7 @@ In the next steps, you'll add authentication to your API gateway. By placing aut
 
 Here, you'll be using the API gateway to proxy requests for API access tokens to Okta behind the scenes.
 
-![Okta as the identity provider](https://i.imgur.com/qFwbgTs.png)
+{% img blog/dotnet-microservices-federation/okta.png alt:"Okta as the identity provider" width:"800" %}{: .center-image }
 
 In these next steps, you'll be utilizing your [Okta account](https://developer.okta.com/).
 
@@ -368,11 +368,11 @@ You'll have to provide a bearer token to the gateway service in order to access 
 
 To get an access token to access `/sales/sku/<sku>`, you'll need to execute the following request in Postman by using your own `client_id` and `client_secret` values:
 
-![Request token in Postman](https://i.imgur.com/We2tH8G.png)
+{% img blog/dotnet-microservices-federation/postman.png alt:"Request token in Postman" width:"600" %}{: .center-image }
 
 You should have a response with the `access_token` displayed. Copy the token and then issue the following request using Postman to replace the bearer token with your access token:
 
-![Successful response in Postman](https://i.imgur.com/kCRZ8wU.png)
+{% img blog/dotnet-microservices-federation/successresponse.png alt:"Successful response in Postman" width:"600" %}{: .center-image }
 
 If implemented correctly, you should see a successful response!
 
@@ -430,11 +430,11 @@ At the top of Visual Studio 2022, there will be a new launch profile available c
 
 Use the same Postman request as earlier to fetch your token:
 
-![Request token in Postman](https://i.imgur.com/We2tH8G.png)
+{% img blog/dotnet-microservices-federation/requesttoken.png alt:"Request token in Postman" width:"600" %}{: .center-image }
 
 Then, using that token, you can make requests to the `/sales/sku/<sku>` path:
 
-![Successful response in Postman](https://i.imgur.com/kCRZ8wU.png)
+{% img blog/dotnet-microservices-federation/postmanresponse.png alt:"Successful response in Postman" width:"600" %}{: .center-image }
 
 Now you can run all your microservices and the API gateway and test them.
 
