@@ -161,7 +161,7 @@ builder.Services.AddHttpClient();
 
 var app = builder.Build();
 
-// Expose the gateway via port “4300”
+// Expose the gateway via port "4300"
 app.Urls.Clear();
 app.Urls.Add("http://localhost:4300");
 
@@ -241,7 +241,7 @@ To test the API gateway, run the following request in Postman:
 
 ![HTTP request in Postman](https://i.imgur.com/8sU5dgT.png)
 
-You should see some HTTP headers and the HTTP body “You're looking at SKU 1234!”
+You should see some HTTP headers and the HTTP body "You're looking at SKU 1234!"
 
 Here's what the current topology looks like:
 
@@ -426,7 +426,7 @@ In the `ServiceGateway` project's `Program.cs` file, replace the two URLs for th
 
 For example, the code for the external `/warehouse` route will now become the internal URL of `http://host.docker.internal:4301/inventory`.
 
-At the top of Visual Studio 2022, there will be a new launch profile available called “Docker Compose.”
+At the top of Visual Studio 2022, there will be a new launch profile available called "Docker Compose."
 
 Use the same Postman request as earlier to fetch your token:
 
