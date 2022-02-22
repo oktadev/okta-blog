@@ -325,7 +325,7 @@ Now return to your application.  You should be able to log in and see your appli
 
 Heroku is a great way to quickly and easily (and free, to start) deploy a quick application that slides into your existing CI process.  Together with Express and Okta you can quickly build secure web applications and deploy them to a modern platform.
 
-In this tutorial, you learned how to build an express application with the [express-generator](https://expressjs.com/en/starter/generator.html) toolchain.  You then secured that application with Okta.  Next, you learned how to create an application on Heroku, connect it to your GitHub repository and deploy your application from GitHub to Heroku.  Finally, you learned how to configure Heroku and Okta to work with each other.  
+In this tutorial, you learned how to build an express application with the [express-generator](https://expressjs.com/en/starter/generator.html) toolchain.  You then secured it with Okta.  Next, you learned how to create an application on Heroku, connect it to your GitHub repository and deploy your app from GitHub to Heroku.  Finally, you learned how to configure Heroku and Okta to work with each other.  
 
 If you'd like to learn more about building web apps with Node.js or Heroku, you might want to check out these other great posts:
 
