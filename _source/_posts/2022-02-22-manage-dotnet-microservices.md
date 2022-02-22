@@ -382,7 +382,7 @@ In Visual Studio, right-click each project and click on **Add** > **Docker Suppo
 
 Right-click the `ServiceGateway` project and choose **Add** > **Container orchestration support**. Choose **Docker Compose** and then **Linux** as the target OS. This step will add a `docker-compose.yml` file.
 
-![Visual Studio Docker tools](https://i.imgur.com/9ASEGwT.png)
+{% img blog/dotnet-microservices-federation/vsdocker.png alt:"Visual Studio Docker tools" width:"600" %}{: .center-image }
 
 Replace the `docker-compose.yml` file with the following:
 
