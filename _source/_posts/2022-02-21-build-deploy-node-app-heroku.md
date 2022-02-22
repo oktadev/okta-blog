@@ -34,7 +34,7 @@ Of course, if you want to just see the code feel free [to view it on GitHub](htt
 
 ## Create your Express application
 
-Now it's time to turn your attention to writing your application.  You will scaffold your application using `express application generator`.  Open the folder where your application will live and run the following command:
+Now it's time to turn your attention to writing your application.  You will scaffold it using `express application generator`.  Open the folder where your application will live and run the following command:
 
 ```console
 npx express-generator
