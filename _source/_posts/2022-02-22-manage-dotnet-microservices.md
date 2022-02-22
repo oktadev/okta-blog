@@ -32,7 +32,7 @@ In this article, you'll learn how to build [.NET microservices](https://dotnet.m
 
 Larger organizations need to be able to keep cross-cutting and security concerns at a higher-level abstraction so that individual API teams don't need to worry about them.
 
-API federation addresses this need by centralizing cross-cutting and security concerns into a gateway. All incoming API traffic can have security controls applied such as ([DDoS protection](https://www.cloudflare.com/learning/ddos/ddos-mitigation/), [SSL termination](https://avinetworks.com/glossary/ssl-termination/), and [rate-limiting](https://en.wikipedia.org/wiki/Rate_limiting), etc.), and will proxy those requests to internal services.
+API federation addresses this need by centralizing cross-cutting and security concerns into a gateway. All incoming API traffic can have security controls applied such as [DDoS protection](https://www.cloudflare.com/learning/ddos/ddos-mitigation/), [SSL termination](https://avinetworks.com/glossary/ssl-termination/), and [rate-limiting](https://en.wikipedia.org/wiki/Rate_limiting), and will proxy those requests to internal services.
 
 In this article, you'll be using the [federated identity](https://docs.microsoft.com/en-us/azure/architecture/patterns/federated-identity) approach. This enables authentication and authorization to be handled by one team or system (i.e., API gateway) so that other internal teams and APIs don't have to worry about cross-cutting concerns.
 
