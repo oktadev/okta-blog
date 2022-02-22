@@ -21,7 +21,7 @@ This tutorial uses the following technologies but doesn't require any prior expe
 
 - [Visual Studio Code](https://code.visualstudio.com/)
 - [Node.js](https://nodejs.org/en/)
-- An [Okta Developer Account](https://developer.okta.com/) (free forever, to handle your OAuth needs)
+- A free [Okta Developer Account](https://developer.okta.com/) (to handle your OAuth needs)
 - [Heroku Account](https://signup.heroku.com/)
 - A [repository on GitHub](https://docs.github.com/en/get-started/quickstart/create-a-repo)
 
