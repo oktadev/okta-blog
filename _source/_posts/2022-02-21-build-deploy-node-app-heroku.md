@@ -293,7 +293,7 @@ blog/build-deploy-node-app-heroku/ConnecttoGitHub.png
 alt:"Connect Heroku to GitHub"
 width:"100%" %}
 
-You can enable automatic deploys under *Automatic deploys*.  You can also configure this to wait for CI to pass before deploying the application.  You can configure the CI from your GitHub account.  This step isn't strictly necessary for this tutorial, but seeing how this fits into the CI pipeline is nice.
+You can enable automatic deploys under *Automatic deploys*.  In addition, you can configure it to wait for CI to pass before deploying the application.  CI can be configured from your GitHub account.  This step isn't strictly necessary for this tutorial, but it's nice to see how this fits into the CI pipeline.
 
 {% img
 blog/build-deploy-node-app-heroku/EnableAutomaticDeploys.png
