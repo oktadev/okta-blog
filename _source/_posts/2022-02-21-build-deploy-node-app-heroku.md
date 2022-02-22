@@ -56,7 +56,7 @@ First, you will add `dotenv` to house your sensitive and environment-specific in
 npm i dotenv@16.0.0
 ```
 
-Next, you will add bootstrap.  You will use the bootstrap libraries in your `jade` templates for writing the front end.  Bootstrap is a simple UI framework with many samples to develop HTML pages quickly.
+Next, you will add Bootstrap.  You will use the Bootstrap libraries in your `jade` templates for writing the front end.  Bootstrap is a simple UI framework with many samples to help you develop HTML pages quickly.
 
 ```console
 npm i bootstrap@5.1.3
