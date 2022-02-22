@@ -317,7 +317,7 @@ width:"100%" %}
 
 Next, you will need to configure your Okta application to accept the new URL from Heroku.  Navigate to your application in the Okta admin dashboard and find the *General Settings* tab.  Click **Edit**.  Under the *Login* section add a value for *Sign-in redirect URIs* that matches your URI from your development settings, but replace `http://localhost:3000` with the URL from your Heroku application.  For example, my URI would be `https://okta-heroku-webapp-nfisher.herokuapp.com`.  
 
-Add a similar value for your *Sign-out redirects URIs* which should just be your application's home page from Heroku.  
+Add a similar value for your *Sign-out redirects URIs*, which should just be your application's home page from Heroku.  
 
 Now return to your application.  You should be able to log in and see your application running as expected.
 
