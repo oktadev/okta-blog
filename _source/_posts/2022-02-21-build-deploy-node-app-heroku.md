@@ -198,7 +198,7 @@ function userRoutes(options) {
 module.exports.userRoutes = userRoutes;
 ```
 
-This file is where the magic from the Okta OIDC middleware shines.  You are passing in the `oidc.ensureAuthenticated` middleware in your route definition.  This function will reroute unauthenticated users to the login route you defined in your `app.js` file.  Because you didn't explicitly set this parameter, it will direct the user to `/login` and trigger the authentication flow.  The model is passed to the view here also contains some information about the user that you will display when they land on this page. 
+This file is where the magic from the Okta OIDC middleware shines.  You are passing in the `oidc.ensureAuthenticated` middleware in your route definition.  This function will reroute unauthenticated users to the login route you defined in your `app.js` file.  Because you didn't explicitly set this parameter, it will direct the user to `/login` and trigger the authentication flow.  The model that is passed to the view here also contains some information about the user, which you'll display when the user lands on this page. 
 
 ### Write your frontend code
 
