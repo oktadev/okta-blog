@@ -284,7 +284,7 @@ width:"100%" %}
 
 Make sure all your code is running and checked into your GitHub repository.  Navigate to your [Heroku Dashboard](https://dashboard.heroku.com/apps).  If this is your first time using Heroku you shouldn't have any apps configured yet.  Click on **New** and then **Create New App**.  Name your app `okta-heroku-webapp-{yourUserName}` or another unique name you feel is appropriate.  Press **Create App**.
 
-On the application page for your newly created application find the *Deployment Method* section on the *Deploy* tab.  Click on **GitHub** and connect your Heroku account to your GitHub account.  
+On the application page for your newly created app, find the *Deployment Method* section on the *Deploy* tab.  Click on **GitHub** and connect your Heroku account to your GitHub account.  
 
 Next, in the *Connect to GitHub* section, find the repository you created for this tutorial and press **Connect**.  
 
