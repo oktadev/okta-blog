@@ -273,7 +273,7 @@ block content
   p Truncated for the purposes of the article.
 ```
 
-As mentioned before, this is a static page.  Your next step is deploying the application.  But before you move on to that, run the command `npm run start` and navigate to `http://localhost:3000` to view your application and ensure it is working locally.
+As mentioned earlier, this is a static page.  Your next step is deploying the application.  But before you move on to that, run the command `npm run start` and navigate to `http://localhost:3000` to view your application and ensure it is working locally.
 
 {% img
 blog/build-deploy-node-app-heroku/HomePage.png
