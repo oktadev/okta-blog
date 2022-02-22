@@ -13,7 +13,7 @@ type: conversion
 github: https://github.com/oktadev/okta-node-heroku-app-example
 ---
 
-Heroku is a platform as a service that supports many languages.  Initially, it supported only Ruby sites but now supports various languages, including JavaScript with Node.js.  Heroku also has docker support so that you can deploy just about anything to it.  
+Heroku is a platform as a service (PaaS) that supports many languages.  Initially, it supported only Ruby sites but now supports various languages, including JavaScript with Node.js.  Heroku also has Docker support so that you can deploy just about anything to it.  
 
 This tutorial will teach you how to build a small application using the Express framework for Node.js.  You will then secure that application using Okta by creating an application in Okta for web applications and integrating the Okta OIDC middleware with your application.  Finally, you will learn how to deploy the application to Heroku, update your Okta application for your Heroku site, and set the environment variables for your app in Heroku.
 
