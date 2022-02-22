@@ -302,7 +302,7 @@ width:"100%" %}
 
 Finally, under *Manual Deploy* choose the branch you wish to deploy and click **Deploy Branch**.  Wait a moment and you should receive a message from Heroku saying that your app was successfully deployed.
 
-Click the view button to be taken to your application.  At this point, your application won't be running because it isn't configured correctly.  Make note of the URL of your site and makes a few changes.
+Click the view button to be taken to your application.  At this point, your application won't be running because it isn't configured correctly yet.  Make note of the URL of your site and then you'll make a few changes.
 
 ### Configure your environment variables
 
