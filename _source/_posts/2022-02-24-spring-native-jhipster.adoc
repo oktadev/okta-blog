@@ -23,35 +23,116 @@ type: conversion
 :page-liquid:
 :toc: macro
 :experimental:
+:commandkey: &#8984;
 
-// intro
+Over the years, I've developed a lot of Java applications. I spent 10 years doing Java before I tried another server-side application language. I was impressed when I first tried building apps in Ruby on Rails, Python, and Node.js - they all started super-fast!
+
+Starting fast is cool, but we in the Java community have often asked, does it perform over time? The Java Virtual Machine is famous for performance and optimization over time.
+
+I scoffed at serverless when it first came out. Mostly because I was a Java developer and my apps didn't start in milliseconds. They also used a whole lotta memory and there was no hope in sight.
+
+Then, along came https://www.graalvm.org/[GraalVM]. It's gained support from many Java frameworks in the last few years and has made their apps start in milliseconds!
+
+*Prerequisites*:
+
+- https://sdkman.io/[Java 17 with GraalVM]+
+- https://docs.docker.com/desktop/#download-and-install[Docker Desktop]
 
 toc::[]
 
-== Way should I care about Java native?
+== Way should I care about Serverless and GraalVM?
 
-// Java has a long history, startup speed isn't our best story
-// BUT: Java compiler is waaaayyyyy faster than TypeScript in my experience
+From https://www.ibm.com/cloud/learn/serverless[IBM's What is Serverless computing?]
+
+> Serverless is a cloud execution model that enables a simpler, more cost-effective way to build and operate cloud-native applications.
+
+That's it. For companies with high traffic and large cloud bills, serverless makes sense. They can save millions of dollars a month!
 
 == Introducing JHipster 7: Fast Java for Everyone
 
-// why serverless is cool (1p)
+I've been playing with GraalVM and the Java frameworks that support it for around 18 months. After doing a lot of research, I blogged about link:/blog/2021/06/18/native-java-framework-comparison[building native Java apps with Micronaut, Quarkus, and Spring Boot].
 
-// mention micronaut, quarkus, and spring-boot comparison (1p)
+In September 2021, I did a talk with Josh Long about Spring Native with JHipster at the San Francisco JUG. I flew out on a Monday, we got everything working by Wednesday afternoon, and then spoke about our experience on Wednesday night. I wrote about it in https://www.linkedin.com/pulse/jhipster-works-spring-native-matt-raible/[JHipster Works with Spring Native!] on LinkedIn and created a https://github.com/jhipster/generator-jhipster/issues/16498[JHipster issue] to automate our learnings.
 
-// JUG presentations / research with Josh (+pictures and tweets)
+++++
+{% twitter 1442698739563446276 %}
+++++
 
-== 💥 The JHipster Native blueprint!
+As a result of that presentation, we were invited to speak at the Garden State JUG in September. We laid low for a few months and rekindled our research in December. I wrote about it in https://www.linkedin.com/pulse/jhipster-works-spring-native-part-2-matt-raible/[JHipster works with Spring Native, Part 2!]
 
-// @mshima is a magician
-// How it works
+== 💥 Introducing the JHipster Native blueprint!
+
+In late January 2022, we upgraded JHipster to Spring Boot 2.6 and released version https://www.jhipster.tech/2022/01/23/jhipster-release-7.6.0.html[7.6.0].
+
+In early February, I updated the Spring Native with JHipster examples that Josh and I'd been using for research. I was ready to start automating the Spring Native integration using a JHipster module. When https://github.com/jhipster/generator-jhipster/issues/16498#issuecomment-1030263905[I asked the team] about the best way to do it, https://github.com/mshima[Marcelo Shima] volunteered to create the initial blueprint.
+
+This was on a Friday afternoon (mountain time).
+
+By the next morning, Marcelo had the MVP finished and provided steps to reproduce our examples!
+
+I was amazed! I remember telling (my partner) Trish that he'd done a week worth of (my estimated) work in a matter of hours.
+
+Today, I'm proud to announce the https://github.com/jhipster/generator-jhipster-native[JHipster Native blueprint] is available! Here's how to use it:
+
+[source,shell]
+----
+npm install -g generator-jhipster-native
+jhipster-native
+----
+
+This will generate a JHipster app and integrate GraalVM automatically. You can build and run a native image with the following commands:
+
+[source,shell]
+----
+./mvnw package -Pnative,prod -DskipTests
+./target/native-executable
+----
+
+Gradle is not currently an option, but can be if we add support to the JHipster Native blueprint.
 
 == Go native with Spring Native and GraalVM
 
-// use Auth0 example, no upgrade needed because regen
+Let's look at a https://auth0.com/blog/full-stack-java-with-react-spring-boot-and-jhipster/[previous JHipster app I created for the Auth0 blog]. First, clone the example:
 
-Show IntelliJ and commit view with rollback and such
+[source,shell]
+----
+git clone https://github.com/oktadev/auth0-full-stack-java-example.git jhipster-native
+cd jhipster-native
+----
 
+[TIP]
+====
+You can also clone the `spring-native` branch with the changes below already made:
+----
+git clone -b spring-native oktadev/auth0-full-stack-java-example.git jhipster-native
+----
+
+Then, skip to the <<Configure your OpenID Connect identity provider>> section to continue.
+====
+
+Install JHipster 7.6.0 and the JHipster Native blueprint:
+
+[source,shell]
+----
+npm i -g generator-jhipster@7.6.0
+npm i -g generator-jhipster-native@1.0.0
+----
+
+Then, remove all the existing project files and regenerate it. When prompted to `Overwrite .gitignore?`, type `a` to overwrite all files.
+
+[source,shell]
+----
+rm -rf *
+jhipster-native --with-entities
+----
+
+If you open the project in IntelliJ IDEA, you can use the *Commit Tools Window* (kbd:[{commandkey} + 0] on macOS or kbd:[Ctrl + 0] on Linux/Windows) to view files that changed.
+
+image::{% asset_path 'blog/spring-native-jhipster/commit-tools-window.png' %}[alt=IntelliJ IDEA's Commit Tools Window,width=800,align=center]
+
+Next, run the following `git` commands to restore the files that were modified in the original example.
+
+[source,shell]
 ----
 git checkout .gitignore
 git checkout README.md
@@ -67,47 +148,198 @@ git checkout src/main/resources/config/application-heroku.yml
 git checkout src/main/resources/config/bootstrap-heroku.yml
 git checkout Procfile
 git checkout system.properties
+----
 
-application-dev.yml - remove faker for liquibase
+If you'd rather not use the command line, you can right-click on each file and select *Rollback*.
 
-Maven, re-add drewnoakes:
+image::{% asset_path 'blog/spring-native-jhipster/rollback-commit.png' %}[alt=Rollback...,width=800,align=center]
 
+There are a few other changes I made in the first tutorial that will need to be re-applied:
+
+. In `src/main/resources/config/application-dev.yml`, remove the `faker` profile for Liquibase
+
+. In `pom.xml`, re-add Drew Noake's `metadata-extractor` library:
++
+[source,xml]
+----
 <dependency>
-<groupId>com.drewnoakes</groupId>
-<artifactId>metadata-extractor</artifactId>
-<version>2.16.0</version>
+    <groupId>com.drewnoakes</groupId>
+    <artifactId>metadata-extractor</artifactId>
+    <version>2.16.0</version>
 </dependency>
+----
 
+. Install the React libraries needed:
++
+[source,shell]
+----
 npm i react-photo-gallery@8 --force
 npm i react-images
+----
 
-rm src/main/docker/zipkin.yml
-
-Add type hints for Drew:
-
+. Add type hints for Drew Noake's library in your main application class:
++
+[source,java]
+----
 @org.springframework.nativex.hint.TypeHint(
 types = {
-...
-com.drew.metadata.exif.ExifIFD0Directory.class,
-com.drew.metadata.exif.ExifSubIFDDirectory.class,
-com.drew.metadata.exif.makernotes.AppleMakernoteDirectory.class,
-com.drew.metadata.exif.GpsDirectory.class,
-}
-)
-@NativeHint(options = "-H:+AddAllCharsets")
-/*
-The NativeHint above solves this exception:
+    ...
+    com.drew.metadata.exif.ExifIFD0Directory.class,
+    com.drew.metadata.exif.ExifSubIFDDirectory.class,
+    com.drew.metadata.exif.makernotes.AppleMakernoteDirectory.class,
+    com.drew.metadata.exif.GpsDirectory.class,
+})
+@org.springframework.nativex.hint.NativeHint(options = "-H:+AddAllCharsets")
+----
++
+The `@NativeHint` solves this exception that happens when you save an image:
++
+----
 Caused by: java.nio.charset.UnsupportedCharsetException: Cp1252
 at java.nio.charset.Charset.forName(Charset.java:528) ~[native-executable:na]
 at com.drew.lang.Charsets.<clinit>(Charsets.java:40) ~[native-executable:2.16.0]
-*/
 ----
+
+Once you've made all the changes (or cloned the `spring-native` branch), you can build the native binary.
+
+== Build a native JHipster app
+
+You will need a JDK with GraalVM and its `native-image` compiler. Using SDKMAN, run the following command and set it as the default:
+
+[source,shell]
+----
+sdk install java 21.3.0.r17-grl
+----
+
+Add the native extension to the JDK:
+
+[source,shell]
+----
+gu install native-image
+----
+
+Then, use Maven to build the project. Skip tests since there's no support for Mockito at this time.
+
+[source,shell]
+----
+./mvnw package -Pnative,prod -DskipTests
+----
+
+This process will take several minutes to complete.
 
 == Configure your OpenID Connect identity provider
 
-// Keycloak by default, Auth0 is cool, but Okta is four words: okta apps create jhipster
+When you generate a JHipster app with OAuth 2.0 / OIDC for authentication, it defaults to using Keycloak. It creates a `src/main/docker/keycloak.yml` file for Docker Compose, as well as a `src/main/docker/realm-config` directory with files to auto-create users and OIDC clients.
 
-// show Auth0 and Okta CLI or consoles, whichever is easier
+If you want to use Keycloak for your running app, start it with the following command:
+
+[source,shell]
+----
+docker-compose -f src/main/docker/keycloak.yml up -d
+----
+
+If you'd rather use Okta or Auth0, that's possible too!
+
+=== Use Okta as your identity provider
+
+The https://cli.okta.com[Okta CLI] makes it very simple to configure a JHipster application.
+
+If you haven't used the Okta CLI before, and you already have an Okta developer account, run `okta login`. If you don't have an Okta developer account, you can create one with `okta register`.
+
+[source,shell]
+----
+okta apps create jhipster
+----
+
+That's it!
+
+You'll need to source the `.okta.env` file this command creates to override the default Spring Security settings.
+
+[source,shell]
+----
+source .okta.env
+----
+
+NOTE: If you're on Windows, you can modify this file to use `set` instead of `export` and rename it to `okta.bat`. Then, run it with `okta.bat` from the command line.
+
+CAUTION: Modify your existing `.gitignore` file to have `*.env` so you don't accidentally check in your secrets!
+
+// todo: use cli include
+
+=== Use Auth0 as your identity provider
+
+To switch from Keycloak to Auth0, you only need to override the default properties (for Spring Security OAuth). You don't even need to write any code!
+
+To see how it works, create a `.auth0.env` file in the root of your project, and fill it with the code below to override the default OIDC settings:
+
+[source,shell]
+----
+export SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=https://<your-auth0-domain>/
+export SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=<your-client-id>
+export SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=<your-client-secret>
+export JHIPSTER_SECURITY_OAUTH2_AUDIENCE=https://<your-auth0-domain>/api/v2/
+----
+
+You'll need to create a new web application in Auth0 and fill in the `<...>` placeholders before this works.
+
+==== Create an OpenID Connect App on Auth0
+
+Log in to your Auth0 account (or [sign up](https://auth0.com/signup) if you don't have an account). You should have a unique domain like `dev-xxx.eu.auth0.com`.
+
+Press the **Create Application** button in [Applications section](https://manage.auth0.com/#/applications). Use a name like `JHipster Native!`, select `Regular Web Applications`, and click **Create**.
+
+Switch to the **Settings** tab and configure your application settings:
+
+- Allowed Callback URLs: `http://localhost:8080/login/oauth2/code/oidc`
+- Allowed Logout URLs: `http://localhost:8080/`
+
+Scroll to the bottom and click **Save Changes**.
+
+Copy your Auth0 domain, client ID, and client secret into the `.auth0.env` file you created earlier. Then, run `source .auth0.env`.
+
+In the https://manage.auth0.com/#/roles[roles] section, create new roles named `ROLE_ADMIN` and `ROLE_USER`.
+
+Create a new user account in the https://manage.auth0.com/#/users[users] section. Click on the **Role** tab to assign the roles you just created to the new account.
+
+_Make sure your new user's email is verified before attempting to log in!_
+
+Next, head to **Auth Pipeline** > **Rules** > **Create**. Select the `Empty rule` template. Provide a meaningful name like `Group claims` and replace the Script content with the following.
+
+[source,js]
+----
+function(user, context, callback) {
+  user.preferred_username = user.email;
+  const roles = (context.authorization || {}).roles;
+
+  function prepareCustomClaimKey(claim) {
+    return `https://www.jhipster.tech/${claim}`;
+  }
+
+  const rolesClaim = prepareCustomClaimKey('roles');
+
+  if (context.idToken) {
+    context.idToken[rolesClaim] = roles;
+  }
+
+  if (context.accessToken) {
+    context.accessToken[rolesClaim] = roles;
+  }
+
+  callback(null, user, context);
+}
+----
+
+This code is adding the user's roles to a custom claim (prefixed with `https://www.jhipster.tech/roles`). Click **Save changes** to continue.
+
+**NOTE**: Want to have all these steps automated for you? Vote for [this issue](https://github.com/auth0/auth0-cli/issues/351) in the Auth0 CLI project.
+
+== Run your native JHipster app
+
+After you've built your app, it will be available in `target/native-executable`. Start Keycloak or source your Okta/Auth0 settings. Then, run `./target/native-executable`. It should start in under around one second!
+
+++++
+{% twitter 1494118802988089348 %}
+++++
 
 == What does the JHipster Native blueprint do?
 
