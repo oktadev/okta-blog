@@ -15,7 +15,7 @@ github: https://github.com/oktadev/okta-node-heroku-app-example
 
 Heroku is a platform as a service that supports many languages.  Initially, it supported only Ruby sites but now supports various languages, including JavaScript with Node.js.  Heroku also has docker support so that you can deploy just about anything to it.  
 
-This tutorial will teach you how to build a small application using the Express framework for Node.js.  You will then secure that application using Okta by creating an application in Okta for web applications and integrating the Okta OIDC middleware with your application.  Finally, you will learn how to deploy the application to Heroku, update your Okta application for your Heroku site, and set the environment variables for your app in Heroku.
+This tutorial will teach you how to build a small application using the Express framework for Node.js.  You will then secure that application using Okta by integrating the Okta OIDC middleware with your application.  Finally, you will learn how to deploy the application to Heroku, update your Okta application for your Heroku site, and set the environment variables for your app in Heroku.
 
 This tutorial uses the following technologies but doesn't require any prior experience:
 
@@ -234,7 +234,7 @@ html
       block content
 ```
 
-We have used the HTML elements and the classes are chained with a `.` between them. The attributes are bounded by parentheses.  This simple layout takes the `loggedIn` value from the server and determines if it should display a `login` or `logout` button.  It also conditionally shows a tab for the `Profile` page if the user is logged in. 
+We have used the HTML elements; the classes are chained with a `.` between them. The attributes are bounded by parentheses.  This simple layout takes the `loggedIn` value from the server and determines if it should display a `login` or `logout` button.  It also conditionally shows a tab for the `Profile` page if the user is logged in. 
 
 You can add the profile page by creating a new folder called `users` in your `views` folder and adding a new file called `index.jade`.  Add the following code to it:
 
