@@ -38,7 +38,7 @@ You'll need a version of [Node](https://nodejs.org/en/) and [npm](https://www.np
 
 I'm using Node v14.18.1 and npm v6.14.15 to create an Angular v9 app, but you can create the app for your favorite Angular v7+ version.
 
-Use your globally installed Angular CLI to create an Angular app with routing and standard CSS for styling by running
+Use your globally installed Angular CLI to create an Angular app with routing and standard CSS for styling by running:
 
 ```shell
 ng new async-load --routing --style=css
@@ -333,8 +333,8 @@ Load configuration from an API and provide the config to the application. Depend
 **Watch out for:**
 
 * Configuration errors or network blips - your app **will not run** since it's dependent on the external API.
-* Anything that can decrease application load speed such as overly large configuration response, calling too many endpoints, or slow server response
-* Potentially harder to verify and test since configuration may change.
+* Anything that can decrease application load speed such as overly large configuration response, calling too many endpoints, or slow server response.
+* Potential challenges with verification and testing, since configuration may change.
 
 ## Learn more about Angular
 
