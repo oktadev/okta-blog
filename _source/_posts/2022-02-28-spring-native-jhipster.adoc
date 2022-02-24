@@ -114,9 +114,9 @@ cd jhipster-native
 
 [TIP]
 ====
-Want results? Clone the `spring-native` branch with the changes below already made:
+Want results right away? Clone the `spring-native` branch with the changes below already made:
 ----
-git clone -b spring-native oktadev/auth0-full-stack-java-example.git jhipster-native
+git clone -b spring-native https://github.com/oktadev/auth0-full-stack-java-example.git jhipster-native
 ----
 
 Then, skip to the <<Configure your OpenID Connect identity provider>> section to continue.
@@ -433,6 +433,8 @@ What about the M1 Max? That's https://twitter.com/mraible/status/149441705113758
 == Learn more about GraalVM and Spring Native
 
 I hope you've enjoyed learning how to make JHipster work with Spring Native and GraalVM. It's still a work-in-progress. Startup time isn't the end-all-be-all metric, but it is important in a serverless environment.
+
+You can find the source code for this example on GitHub in the https://github.com/oktadev/auth0-full-stack-java-example/tree/spring-native[auth0-full-stack-java-example repository].
 
 JHipster also has Micronaut and Quarkus blueprints. However, their native support is currently a work-in-progress. I hope to help improve them in the next few months.
 
