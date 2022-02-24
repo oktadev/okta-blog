@@ -17,7 +17,7 @@ tweets:
 - "Start your @JHipster + Spring Boot app in just over 1s with @GraalVM!"
 - "Introducing JHipster Native: 'Wow! That was quick!' 😂"
 - "Oh my... that was fast! Is your name @springboot?"
-image: blog/spring-native-jhipster/spring-native-jhipster.png
+image: blog/spring-native-jhipster/spring-native-jhipster.jpg
 type: conversion
 # keywords: spring native (6600), native java (2400, but different topic), spring native jhipster (70)
 # My LinkedIn post is at the bottom of Google's page 1! That's the one to beat.
@@ -141,7 +141,7 @@ jhipster-native --with-entities
 
 If you open the project in IntelliJ IDEA, you can use the *Commit Tools Window* (kbd:[{commandkey} + 0] on macOS or kbd:[Ctrl + 0] on Linux/Windows) to view files that changed.
 
-image::{% asset_path 'blog/spring-native-jhipster/commit-tools-window.png' %}[alt=IntelliJ IDEA's Commit Tools Window,align=center]
+image::{% asset_path 'blog/spring-native-jhipster/commit-tools-window.jpg' %}[alt=IntelliJ IDEA's Commit Tools Window,align=center]
 
 Next, run the following `git checkout` commands to restore the files that were modified in the original example.
 
