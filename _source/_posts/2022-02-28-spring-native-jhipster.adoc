@@ -17,7 +17,7 @@ tweets:
 - "Start your @JHipster + Spring Boot app in just over 1s with @GraalVM!"
 - "Introducing JHipster Native: 'Wow! That was quick!' 😂"
 - "Oh my... that was fast! Is your name @springboot?"
-image: blog/spring-native-jhipster/spring-native-jhipster.jpg
+image:
 type: conversion
 # keywords: spring native (6600), native java (2400, but different topic), spring native jhipster (70)
 # My LinkedIn post is at the bottom of Google's page 1! That's the one to beat.
