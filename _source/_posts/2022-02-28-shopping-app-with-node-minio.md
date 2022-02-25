@@ -68,7 +68,7 @@ npm i @okta/okta-signin-widget@5
 
 Dealing with user authentication in web apps can be a massive pain for every developer. This is where Okta shines: it helps you secure your web applications with minimal effort. 
 
-{% include setup/cli.md type="web" loginRedirectUri="http://localhost:3000/callback" logoutRedirectUri="http://localhost:3000/" %}
+{% include setup/cli.md type="spa" loginRedirectUri="http://localhost:3000/callback" logoutRedirectUri="http://localhost:3000/" %}
 
 Configure the Okta tenant so that *Security* > *Profile Enrollment* > *Self-Service Registration* is enabled for your application.
 
