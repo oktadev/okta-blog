@@ -120,7 +120,7 @@ I'll show you how to configure Okta as the authentication provider for the store
 
 ## Add Authentication with OpenID Connect
 
-In a terminal, navigate into the `docker-compose` directory. 
+In a terminal, navigate into the `docker-compose` directory.
 
 {% include setup/cli.md type="jhipster" %}
 
@@ -377,7 +377,7 @@ frontend http-in
 backend servers
     balance roundrobin
     cookie SERVERUSED insert indirect nocache
-    option httpchk /
+    option httpchk GET /
     option redispatch
     default-server check
     server store1 store1:8080 cookie store1
