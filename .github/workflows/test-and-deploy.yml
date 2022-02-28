@@ -27,7 +27,7 @@ jobs:
         bundle install
 
     - name: Set up python and pip
-      uses: actions/setup-python@v2.3.2
+      uses: actions/setup-python@v3
       with:
         python-version: 3.7
         architecture: x64
