@@ -508,7 +508,7 @@ Create a file called `register.handlebars`and add the following code to it:
 ```
 {% endraw %}
 
-Here, we specify `flow: 'signup'` to initialize the sign-in widget flows to start from the register or signup screens.
+Here, we specify `flow: 'signup'` to initialize the Sign-In Widget flows to start from the register or signup screens.
 
 {% img
 blog/shopping-app-with-node-minio/register.png
