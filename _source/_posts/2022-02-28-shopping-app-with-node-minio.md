@@ -146,7 +146,7 @@ mc cp ~/Downloads/coffee-4.jpg play/okta-commerce/
 
 ## Build your application with Express
 
-We need to create the Express server to run our application. Create a new file called `index.js` in the project root and add the following code to it:
+Now we need to create the Express server to run our application. Create a new file called `index.js` in the project root and add the following code to it:
 
 ```js
 var express = require('express');
