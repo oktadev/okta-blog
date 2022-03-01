@@ -549,7 +549,7 @@ Create a file called `unlock.handlebars`and add the following code to it:
 ```
 {% endraw %}
 
-Here, we specify `flow: 'unlockAccount'` to initialize the sign-in widget flows to start from the unlock screens.
+Here, we specify `flow: 'unlockAccount'` to initialize the Sign-In Widget flows to start from the unlock screens.
 
 {% img
 blog/shopping-app-with-node-minio/unlock-account.png
