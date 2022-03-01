@@ -45,7 +45,7 @@ mkdir okta-express-minio-app-example
 cd okta-express-minio-app-example
 ```
 
-Use the following command to create a `package.json` file for your application:
+Use the following command to create a `package.json` file for your app:
 
 ```sh
 npm init -y
