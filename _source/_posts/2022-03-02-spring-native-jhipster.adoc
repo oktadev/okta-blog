@@ -74,7 +74,7 @@ I flew out on a Monday, we got everything working by Wednesday afternoon, and th
 
 Spring Native provides an API to configure Spring Boot and GraalVM so classes that are not easily discoverable become recognizable. For example, those that are instantiated using reflection. It's a really slick extension to Spring Boot and will likely disappear with Spring Boot 3 because it'll be native by default.
 
-As a result of Josh and I's successful https://youtu.be/F9oydL_MndA[presentation at the SF JUG], we were invited to speak at the Garden State JUG in December. We laid low for a few months and rekindled our research in December. I wrote about it in https://www.linkedin.com/pulse/jhipster-works-spring-native-part-2-matt-raible/[JHipster works with Spring Native, Part 2!]
+As a result of Josh and I's successful https://youtu.be/F9oydL_MndA[presentation at the SF JUG], we were invited to speak at the Garden State JUG in December. We laid low for a few months and rekindled our research in December. I wrote about our experience in https://www.linkedin.com/pulse/jhipster-works-spring-native-part-2-matt-raible/[JHipster works with Spring Native, Part 2!]
 
 == 🔥 Announcing the JHipster Native blueprint v1.0!
 
@@ -124,11 +124,11 @@ git clone -b spring-native https://github.com/oktadev/auth0-full-stack-java-exam
 Then, skip to the <<Configure your OpenID Connect identity provider>> section to continue.
 ====
 
-Install JHipster 7.6.0 and the JHipster Native blueprint:
+Install JHipster 7.7.0 and the JHipster Native blueprint:
 
 [source,shell]
 ----
-npm i -g generator-jhipster@7.6.0
+npm i -g generator-jhipster@7.7.0
 npm i -g generator-jhipster-native@1.0.0
 ----
 
@@ -152,7 +152,7 @@ Next, run the following `git checkout` commands to restore the files that were m
 git checkout .gitignore
 git checkout README.md
 git checkout demo.adoc
-git checkout flickr.jdl
+git checkout flickr2.jdl
 git checkout screenshots
 git checkout src/test/javascript/cypress/integration/entity/photo.spec.ts
 git checkout src/main/webapp/app/entities/photo/photo.tsx
@@ -207,7 +207,7 @@ types = {
 @org.springframework.nativex.hint.NativeHint(options = "-H:+AddAllCharsets")
 ----
 
-The `@NativeHint` solves the following exception that happens when you upload a photo:
+The `@NativeHint(options = "-H:+AddAllCharsets")` solves the following exception that happens when you upload a photo:
 
 ----
 Caused by: java.nio.charset.UnsupportedCharsetException: Cp1252
@@ -258,8 +258,6 @@ If you'd rather use Okta or Auth0, that's possible too!
 ==== Use Okta as your identity provider
 
 {% include setup/cli.md type="jhipster" %}
-
-That's it!
 
 You'll need to source the `.okta.env` file the Okta CLI creates to override the default Spring Security settings.
 
@@ -337,9 +335,9 @@ function(user, context, callback) {
 }
 ----
 
-This code is adding the user's roles to a custom claim (prefixed with `https://www.jhipster.tech/roles`). Click **Save changes** to continue.
+This code is adding the user's roles to a custom claim (prefixed with `\https://www.jhipster.tech/roles`). Click **Save changes** to continue.
 
-**NOTE**: Want to have all these steps automated for you? Vote for https://github.com/auth0/auth0-cli/issues/351[issue #351] in the Auth0 CLI project.
+TIP: Want to have all these steps automated for you? Add a 👍 to https://github.com/auth0/auth0-cli/issues/351[issue #351] in the Auth0 CLI project.
 
 === Run your native JHipster app
 
