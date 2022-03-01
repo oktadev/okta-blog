@@ -250,7 +250,7 @@ objectsStream.on('end', function(e) {
 module.exports = assets;
 ```
 
-In the `services/minio-handler.js` file, we import `minio` and instantiate a `minioClient` object with the play server's endpoint, port and access keys. Access & Secret keys to the play server are open to public use.
+In the `services/minio-handler.js` file, we import `minio` and instantiate a `minioClient` object with the play server's endpoint, port, and access keys. Access keys and secret keys to the play server are open to public use.
 
 We use the [listObjects]( https://docs.minio.io/docs/javascript-client-api-reference#listObjects) method to get a list of all the files from the minio-store bucket. `listObjects` returns product URLs which are pushed into an array called `assets`. We will export this array so that it can be imported into the different routes of the application defined in the `index.js` file.
 
