@@ -32,7 +32,7 @@ This tutorial uses the following technologies but doesn't require any prior expe
 * [Node.js](https://nodejs.org/en/)
 * [MinIO Client (mc)](https://docs.minio.io/docs/minio-client-quickstart-guide)
 * [Minio Server](https://docs.min.io/)
-* [Okta CLI](https://cli.okta.com/)
+* [Okta CLI](https://cli.okta.com/) v0.10.0
 
 If you'd like to skip the tutorial and just check out the fully built project, you can go [view it on GitHub](https://github.com/oktadev/okta-express-minio-app-example).
 
