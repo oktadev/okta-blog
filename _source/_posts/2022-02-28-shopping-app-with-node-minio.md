@@ -13,14 +13,14 @@ tweets:
 - "Learn how to build a basic shopping app with @nodejs and @Minio 🍿"
 ---
 
-These days, a lot of e-commerce applications use Node.js. Typically, e-commerce applications have many images and video assets managed in object storage. As the number of products in an e-commerce store increases, so does the size of the object storage. We'll build our Node.js application with a Kubernetes-friendly object storage service, MinIO, to scale with demand.
+Node.js has become the staple for e-commerce applications. Typically, e-commerce applications have many images and video assets managed in object storage. As the number of products in an e-commerce store increases, so does the size of the object storage. We'll build our Node.js application with a Kubernetes-friendly object storage service, [MinIO](https://min.io/), to scale with demand and secure this application using the [Okta Sign-In Widget](https://github.com/okta/okta-signin-widget).
 
 This tutorial will guide you through the code to build a simple Node.js Shopping App with the Okta's Sign-In Widget for authentication and a [MinIO Server](https://min.io/) to host the store's assets. We will use Express as our application framework and Handlebars as the view engine. We will use the [MinIO Javascript Client SDK](https://docs.minio.io/docs/javascript-client-quickstart-guide) to fetch the application's image assets from the Minio Server.
 
 {% img
 blog/shopping-app-with-node-minio/home.png
 alt:"The example application"
-width:"100%" %}
+width:"800" %}{: .center-image }
 
 
 {% include toc.md %}
@@ -29,7 +29,7 @@ width:"100%" %}
 
 This tutorial uses the following technologies but doesn't require any prior experience:
 
-* [Node.js](https://nodejs.org/en/)
+* [Node.js](https://nodejs.org/en/) v16.14.0
 * [MinIO Client (mc)](https://docs.minio.io/docs/minio-client-quickstart-guide)
 * [Minio Server](https://docs.min.io/)
 * [Okta CLI](https://cli.okta.com/) v0.10.0
@@ -70,26 +70,28 @@ Dealing with user authentication in web apps can be a massive pain for every dev
 
 {% include setup/cli.md type="spa" loginRedirectUri="http://localhost:3000/callback" logoutRedirectUri="http://localhost:3000/" %}
 
+Open the application that you just created in the Okta Admin Dashboard. In the *General Settings* section, click on the *Edit*. Check *Interaction Code* as the *Grant Type* and click on the *Save* button.
+
 Configure the Okta tenant so that *Security* > *Profile Enrollment* > *Self-Service Registration* is enabled for your application.
 
 {% img
 blog/shopping-app-with-node-minio/SSPR.png
 alt:"SSPR"
-width:"100%" %}
+width:"800" %}{: .center-image }
 
 Configure the Okta tenant so that *Security* > *Authenticators* > *Password* has a rule that allows for password unlock for your application.
 
 {% img
 blog/shopping-app-with-node-minio/Unlock.png
 alt:"Unlock"
-width:"100%" %}
+width:"800" %}{: .center-image }
 
 Add a new folder called `public` in the project directory and inside it create a folder called `js`. Create a new file in the `js` folder named `okta-config.js`. Add the following code to it:
 
 ```js
 const credentials = {
-    domain: 'https://{yourOktaDomain}',
-    clientId: '{clientId}'
+  domain: 'https://{yourOktaDomain}',
+  clientId: '{clientId}'
 };
 ```
 
@@ -223,11 +225,11 @@ var Minio = require('minio');
 // Instantiate a minioClient Object with an endPoint, port & keys.
 // This minio server runs locally. 
 var minioClient = new Minio.Client({
-    endPoint: 'play.minio.io',
-    port: 9000,
-    accessKey: 'Q3AM3UQ867SPQQA43P2F',
-    secretKey: 'zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG',
-    useSSL: true
+  endPoint: 'play.minio.io',
+  port: 9000,
+  accessKey: 'Q3AM3UQ867SPQQA43P2F',
+  secretKey: 'zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG',
+  useSSL: true
 });
   
 var minioBucket = 'okta-commerce'
@@ -235,14 +237,14 @@ var minioBucket = 'okta-commerce'
 var assets = [];
 var objectsStream = minioClient.listObjects(minioBucket, '', true)
 objectsStream.on('data', function(obj) {
-    var publicUrl = minioClient.protocol + '//' + minioClient.host + ':' + minioClient.port + '/' + minioBucket + '/' + obj.name
-    assets.push(publicUrl);
+  var publicUrl = minioClient.protocol + '//' + minioClient.host + ':' + minioClient.port + '/' + minioBucket + '/' + obj.name
+  assets.push(publicUrl);
 });
 objectsStream.on('error', function(e) {
-    console.log(e);
+  console.log(e);
 });
 objectsStream.on('end', function(e) {
-    return assets
+  return assets
 });
 
 module.exports = assets;
@@ -381,9 +383,10 @@ Create a file called `home.handlebars`and add the following code to it:
 {% img
 blog/shopping-app-with-node-minio/home.png
 alt:"Home page"
-width:"100%" %}
+width:"800" %}{: .center-image }
 
-The app needs several entry points such as login, register, forgot-password and unlock. We will specify the configuration of the sign-in widget in each of these handlebars with the appropriate `flow:<entry point>` option.
+The app needs several entry points such as login, register, forgot-password and unlock. We will specify the configuration of the sign-in widget in each of these handlebars with the appropriate `flow:<entry point>` option. The `flow` config option is new in the sign-in widget and it's currently in beta.
+
 
 ### Login page
 
@@ -452,7 +455,6 @@ Create a file called `Login.handlebars`and add the following code to it:
       issuer: credentials.domain + '/oauth2/default',
       responseType: ['code'],
       useInteractionCodeFlow: true,
-      pkce: true,
       scopes: ['openid', 'email', 'profile'],
     },
   };
@@ -472,7 +474,7 @@ The flow parameter is not needed for the login flow since its the default flow f
 {% img
 blog/shopping-app-with-node-minio/login.png
 alt:"Login page"
-width:"100%" %}
+width:"800" %}{: .center-image }
 
 ### Register page
 
@@ -511,7 +513,7 @@ Here, we specify `flow: 'signup'` to initialize the sign-in widget flows to star
 {% img
 blog/shopping-app-with-node-minio/register.png
 alt:"Register page"
-width:"100%" %}
+width:"800" %}{: .center-image }
 
 ### Unlock page
 
@@ -552,7 +554,7 @@ Here, we specify `flow: 'unlockAccount'` to initialize the sign-in widget flows 
 {% img
 blog/shopping-app-with-node-minio/unlock-account.png
 alt:"Unlock page"
-width:"100%" %}
+width:"800" %}{: .center-image }
 
 ### Forgot password page
 
@@ -593,7 +595,7 @@ Here, we specify `flow: 'resetPassword'` to initialize the sign-in widget flows 
 {% img
 blog/shopping-app-with-node-minio/forgot-password.png
 alt:"Forgot password page"
-width:"100%" %}
+width:"800" %}{: .center-image }
 
 
 ## Style your application
@@ -602,78 +604,78 @@ In the `public` folder create a new folder named `css`. Inside the `css` folder,
 
 ```css
 body {
-    padding-left: 30px;
-    padding-top: 70px;
+  padding-left: 30px;
+  padding-top: 70px;
 }
 	
 /* navbar */
 .navbar-default {
-    background-color: #496572;
-    border-color: #496572;
+  background-color: #496572;
+  border-color: #496572;
 }
 /* title */
 .navbar-default .navbar-brand {
-    color: white;
+  color: white;
 }
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
-    color: #5E5E5E;
+  color: #5E5E5E;
 }
 /* link */
 .navbar-default .navbar-nav > li > a {
-    color: white;
+  color: white;
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
-    color: #333;
+  color: #333;
 }
 .navbar-default .navbar-nav > .active > a, 
 .navbar-default .navbar-nav > .active > a:hover, 
 .navbar-default .navbar-nav > .active > a:focus {
-    color: #555;
-    background-color: #E7E7E7;
+  color: #555;
+  background-color: #E7E7E7;
 }
 .navbar-default .navbar-nav > .open > a, 
 .navbar-default .navbar-nav > .open > a:hover, 
 .navbar-default .navbar-nav > .open > a:focus {
-    color: #555;
-    background-color: #D5D5D5;
+  color: #555;
+  background-color: #D5D5D5;
 }
 /* caret */
 .navbar-default .navbar-nav > .dropdown > a .caret {
-    border-top-color: #777;
-    border-bottom-color: #777;
+  border-top-color: #777;
+  border-bottom-color: #777;
 }
 .navbar-default .navbar-nav > .dropdown > a:hover .caret,
 .navbar-default .navbar-nav > .dropdown > a:focus .caret {
-    border-top-color: #333;
-    border-bottom-color: #333;
+  border-top-color: #333;
+  border-bottom-color: #333;
 }
 .navbar-default .navbar-nav > .open > a .caret, 
 .navbar-default .navbar-nav > .open > a:hover .caret, 
 .navbar-default .navbar-nav > .open > a:focus .caret {
-    border-top-color: #555;
-    border-bottom-color: #555;
+  border-top-color: #555;
+  border-bottom-color: #555;
 }
 /* mobile version */
 .navbar-default .navbar-toggle {
-    border-color: #DDD;
+  border-color: #DDD;
 }
 .navbar-default .navbar-toggle:hover,
 .navbar-default .navbar-toggle:focus {
-    background-color: #DDD;
+  background-color: #DDD;
 }
 .navbar-default .navbar-toggle .icon-bar {
-    background-color: #CCC;
+  background-color: #CCC;
 }
 @media (max-width: 767px) {
-    .navbar-default .navbar-nav .open .dropdown-menu > li > a {
-        color: #777;
-    }
-    .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
-    .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
-        color: #333;
-    }
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+      color: #777;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+      color: #333;
+  }
 }	
 ```
 
@@ -692,9 +694,10 @@ To see the app, open a browser window and visit `http://localhost:3000`. Now log
 
 We have set up a basic e-commerce app with Node.js, Express, and MinIO. We secured access to the store with the Okta Sign-In Widget. We also learned how to use the `flow` parameter to bootstrap Okta's Sign-In Widget for different pages within your application.
 
-If you'd like to learn more about building web apps with Node.js, you might want to check out these other great posts:
+If you'd like to learn more about building web apps with Node.js, you might want to check out these other great posts and resources:
 
 - [Build Secure Node Authentication with Passport.js and OpenID Connect](/blog/2018/05/18/node-authentication-with-passport-and-oidc)
+- [Build with MinIO JS SDK](https://github.com/minio/minio-js)
 - [Build User Registration with Node, React, and Okta](/blog/2018/02/06/build-user-registration-with-node-react-and-okta)
 - [Simple Node Authentication](/blog/2018/04/24/simple-node-authentication)
 - [Build a Basic CRUD App with Vue.js and Node](/blog/2018/02/15/build-crud-app-vuejs-node)
