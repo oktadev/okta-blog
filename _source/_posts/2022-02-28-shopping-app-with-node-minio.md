@@ -330,7 +330,7 @@ Add a folder called `layouts` and add a file named `main.handlebars` inside it:
     <div class="container">
       <header class="jumbotron hero-spacer">
         <h1>Atko Coffee Store </h1>
-        <p>Authenticate with Okta Sign-In Widget. Store your assets in a Minio Server or Amazon S3 and retrieve them inside your Node.js e-commerce application.</p>
+        <p>Authenticate with Okta Sign-In Widget. Store your assets in a MinIO Server or Amazon S3 and retrieve them inside your Node.js e-commerce application.</p>
       </header>
       <hr>
       {{{body}}}
