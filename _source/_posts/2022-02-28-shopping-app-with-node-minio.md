@@ -385,7 +385,7 @@ blog/shopping-app-with-node-minio/home.png
 alt:"Home page"
 width:"800" %}{: .center-image }
 
-The app needs several entry points such as login, register, forgot-password and unlock. We will specify the configuration of the sign-in widget in each of these handlebars with the appropriate `flow:<entry point>` option. The `flow` config option is new in the sign-in widget and it's currently in beta.
+The app needs several entry points such as login, register, forgot-password and unlock. We will specify the configuration of the Sign-In Widget in each of these handlebars with the appropriate `flow:<entry point>` option. The `flow` config option is new in the Sign-In Widget and it's currently in beta.
 
 
 ### Login page
