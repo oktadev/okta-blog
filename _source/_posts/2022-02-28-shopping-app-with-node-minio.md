@@ -340,7 +340,7 @@ Add a folder called `layouts` and add a file named `main.handlebars` inside it:
 ```
 {% endraw %}
 
-Here we have imported the Okta Sign-in Widget as well as Bootstrap for styling the content on our pages. We have also used conditional logic to check if the user has logged in and show the Login and Logout buttons accordingly.
+Here we have imported the Okta Sign-In Widget as well as Bootstrap for styling the content on our pages. We have also used conditional logic to check if the user has logged in and show the Login and Logout buttons accordingly.
 
 In the `views` folder, create the following files:
 
