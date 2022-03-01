@@ -62,11 +62,13 @@ For companies with high traffic and large cloud bills, serverless makes sense. T
 
 I've been playing with GraalVM and the Java frameworks that support it for around 18 months. After doing a lot of research, I blogged about link:/blog/2021/06/18/native-java-framework-comparison[building native Java apps with Micronaut, Quarkus, and Spring Boot].
 
-In September 2021, I did a talk with Josh Long about Spring Native with JHipster at the San Francisco JUG. I flew out on a Monday, we got everything working by Wednesday afternoon, and then spoke about our experience on Wednesday night. I wrote about it in https://www.linkedin.com/pulse/jhipster-works-spring-native-matt-raible/[JHipster Works with Spring Native!] on LinkedIn and created a https://github.com/jhipster/generator-jhipster/issues/16498[JHipster issue] to automate our learnings.
+In September 2021, I did a talk with Josh Long about Spring Native with JHipster at the San Francisco JUG.
 
 ++++
 {% twitter 1442698739563446276 %}
 ++++
+
+I flew out on a Monday, we got everything working by Wednesday afternoon, and then spoke about our experience on Wednesday night. I wrote about it in https://www.linkedin.com/pulse/jhipster-works-spring-native-matt-raible/[JHipster Works with Spring Native!] on LinkedIn and created a https://github.com/jhipster/generator-jhipster/issues/16498[JHipster issue] to automate our learnings.
 
 == What is Spring Native?
 
