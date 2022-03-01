@@ -51,7 +51,7 @@ Use the following command to create a `package.json` file for your app:
 npm init -y
 ```
 
-We need the `express` package for building our application, `express-handlebars` as the template engine and `minio` for programmatically accessing object storage. We need the `@okta/okta-signin-widget` package for authenticating users. We have added `@okta/oidc-middleware` and `express-session` so that you can continue to build this shopping app beyond the basics after this tutorial.
+We need the `express` package for building our application, `express-handlebars` as the template engine, and `minio` for programmatically accessing object storage. We need the `@okta/okta-signin-widget` package for authenticating users. So that you can continue to build this shopping app beyond the basics after this tutorial, we've added `@okta/oidc-middleware` and `express-session`.
 
 Run the following command to install these dependencies:
 
