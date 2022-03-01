@@ -590,7 +590,7 @@ Create a file called `forgot-password.handlebars` and add the following code to 
 ```
 {% endraw %}
 
-Here, we specify `flow: 'resetPassword'` to initialize the sign-in widget flows to start from the forgot-password screens.
+Here, we specify `flow: 'resetPassword'` to initialize the Sign-In Widget flows to start from the forgot-password screens.
 
 {% img
 blog/shopping-app-with-node-minio/forgot-password.png
