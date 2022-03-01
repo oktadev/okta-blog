@@ -61,7 +61,7 @@ npm i express-handlebars@6
 npm i express-session@1
 npm i minio@7
 npm i @okta/oidc-middleware@4
-npm i @okta/okta-signin-widget@5
+npm i @okta/okta-signin-widget@6
 ```
 
 ## Set up authentication with Okta
@@ -110,7 +110,7 @@ There are three steps when setting up the assets.
 mc mb play/okta-commerce
 ```
 
-**Set up bucket policy on MinIO play server:** Store product image assets can be set to public readwrite. Use the`mc policy` command to set the [access policy](https://docs.minio.io/docs/minio-client-complete-guide#policy) on this bucket to "both". 
+**Set up bucket policy on MinIO play server:** Store product image assets can be set to public readwrite. Use the `mc policy` command to set the [access policy](https://docs.minio.io/docs/minio-client-complete-guide#policy) on this bucket to "both". 
 
 ```sh
 mc policy set public play/okta-commerce
