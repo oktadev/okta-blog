@@ -79,7 +79,7 @@ blog/shopping-app-with-node-minio/SSPR.png
 alt:"SSPR"
 width:"800" %}{: .center-image }
 
-Configure the Okta tenant so that *Security* > *Authenticators* > *Password* has a rule that allows for password unlock for your application.
+Configure the Okta tenant so that *Security* > *Authenticators* > *Password* has a rule that allows password unlock for your application.
 
 {% img
 blog/shopping-app-with-node-minio/Unlock.png
