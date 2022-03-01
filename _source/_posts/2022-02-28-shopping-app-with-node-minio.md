@@ -469,7 +469,7 @@ Create a file called `Login.handlebars`and add the following code to it:
 ```
 {% endraw %}
 
-The flow parameter is not needed for the login flow since its the default flow for the sign in widget.
+The flow parameter is not needed for the login flow since it's the default flow for the Sign-In Widget.
 
 {% img
 blog/shopping-app-with-node-minio/login.png
