@@ -98,7 +98,7 @@ const credentials = {
 **NOTE**: Make sure to replace the placeholder values with your actual Okta credentials.
 
 
-## Setup MinIO object storage
+## Set up MinIO object storage
 
 There are three steps when setting up the assets. 
 
