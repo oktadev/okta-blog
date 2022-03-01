@@ -556,7 +556,7 @@ width:"100%" %}
 
 ### Forgot password page
 
-Create a file called `forgot-password.handlebars`and add the following code to it:
+Create a file called `forgot-password.handlebars` and add the following code to it:
 
 {% raw %}
 ```html
