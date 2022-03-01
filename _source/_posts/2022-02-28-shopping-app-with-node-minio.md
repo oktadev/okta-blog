@@ -110,7 +110,7 @@ There are three steps when setting up the assets.
 mc mb play/okta-commerce
 ```
 
-**Set up bucket policy on MinIO play server:** Store product image assets can be set to public readwrite. Use `mc policy` command to set the [access policy](https://docs.minio.io/docs/minio-client-complete-guide#policy) on this bucket to "both". 
+**Set up bucket policy on MinIO play server:** Store product image assets can be set to public readwrite. Use the`mc policy` command to set the [access policy](https://docs.minio.io/docs/minio-client-complete-guide#policy) on this bucket to "both". 
 
 ```sh
 mc policy set public play/okta-commerce
