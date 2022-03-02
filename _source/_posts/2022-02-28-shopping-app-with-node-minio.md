@@ -346,7 +346,7 @@ In the `views` folder, create the following files:
 
 ### Home page
 
-Create a file called `home.handlebars`and add the following code to it:
+Create a file called `views/home.handlebars`and add the following code to it:
 
 {% raw %}
 ```html
