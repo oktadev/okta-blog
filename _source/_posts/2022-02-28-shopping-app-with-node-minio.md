@@ -254,7 +254,7 @@ In the `services/minio-handler.js` file, we import `minio` and instantiate a `mi
 
 We use the [`listObjects`]( https://docs.minio.io/docs/javascript-client-api-reference#listObjects) method to get a list of all the files from the minio-store bucket. `listObjects` returns product URLs, which are pushed into an array called `assets`. We will export this array so that it can be imported into the different routes of the application defined in the `index.js` file.
 
-**NOTE**: If you are running a MinIO server locally, add `secure: false,` to the code above.
+> **NOTE**: If you are running a MinIO server locally, add `secure: false,` to the code above.
 
 
 ## Create views for the application
