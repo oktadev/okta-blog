@@ -478,7 +478,7 @@ width:"800" %}{: .center-image }
 
 ### Register page
 
-Create a file called `register.handlebars`and add the following code to it:
+Create a file called `views/register.handlebars`and add the following code to it:
 
 {% raw %}
 ```html
