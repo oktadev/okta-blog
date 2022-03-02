@@ -99,7 +99,7 @@ This will generate a JHipster app and integrate GraalVM automatically. You can b
 [source,shell]
 ----
 ./mvnw package -Pnative,prod -DskipTests
-npm run ci:e2e:prepare # start dependent docker images
+npm run ci:e2e:prepare # start docker dependencies
 ./target/native-executable
 ----
 
