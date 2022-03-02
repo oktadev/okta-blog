@@ -95,7 +95,7 @@ const credentials = {
 };
 ```
 
-**NOTE**: Make sure to replace the placeholder values with your actual Okta credentials.
+> **NOTE**: Make sure to replace the placeholder values with your actual Okta credentials from the previous section.
 
 
 ## Set up MinIO object storage
