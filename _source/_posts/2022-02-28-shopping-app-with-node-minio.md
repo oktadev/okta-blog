@@ -142,7 +142,7 @@ mc cp ~/Downloads/coffee-3.jpg play/okta-commerce/
 mc cp ~/Downloads/coffee-4.jpg play/okta-commerce/
 ```
 
-**NOTE**: You might need to update the commands above depending on where you have downloaded the images.
+> **NOTE**: You might need to update the commands above depending on where you have downloaded the images.
 
 ## Build your application with Express
 
