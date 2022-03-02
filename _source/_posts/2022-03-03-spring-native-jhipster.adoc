@@ -1,27 +1,17 @@
 ---
-#keywords: spring native
 layout: blog_post
-title: "Spring Native: start your JHipster + Spring Boot app in just 1s️!"
-#title: "Spring Native: starting your Java apps in seconds!"
-#title: "Introducing JHipster Native: serverless full-stack Java for all ⚡️"
-#title: "Spring Boot + Spring Native + { Angular, React, Vue } = JHipster! 🚀"
-#title: "Start your Spring Boot app in 1 seconds like I did, a HowTo Guide"
-#title: "Introducing JHipster Native: 'Wow! That was quick!' 😂"
-#title: "Native Java with Spring Boot, Spring Native, and JHipster"
+title: "Introducing JHipster Native: serverless full-stack Java for all"
 author: matt-raible
 by: advocate
 communities: [java]
 description: "Do you want to build a full-stack Java webapp that starts in milliseconds? Spring has your back! 👊"
 tags: [java, spring-boot, spring-native, jhipster, graalvm]
 tweets:
-- "Start your @JHipster + Spring Boot app in just over 1s with @GraalVM!"
-- "Introducing JHipster Native: 'Wow! That was quick!' 😂"
-- "Oh my... that was fast! Is your name @springboot?"
+- "Start your @JHipster + Spring Boot app in under a second with Spring Native and @GraalVM!"
+- "Introducing JHipster Native: 'Wow! That was quick!'"
+- "Spring Boot + Spring Native + { Angular, React, Vue } = JHipster! 🚀"
 image: blog/spring-native-jhipster/spring-native-jhipster.png
 type: conversion
-# keywords: spring native (6600), native java (2400, but different topic), spring native jhipster (70)
-# My LinkedIn post is at the bottom of Google's page 1! That's the one to beat.
-# https://www.linkedin.com/pulse/jhipster-works-spring-native-matt-raible/
 github: https://github.com/oktadev/auth0-full-stack-java-example/tree/spring-native
 ---
 :page-liquid:
