@@ -70,7 +70,7 @@ Dealing with user authentication in web apps can be a massive pain for every dev
 
 {% include setup/cli.md type="spa" loginRedirectUri="http://localhost:3000/callback" logoutRedirectUri="http://localhost:3000/" %}
 
-Open the application that you just created in the Okta Admin Dashboard. In the *General Settings* section, click on *Edit*. Check *Interaction Code* as the *Grant Type* and click on the *Save* button.
+Open the application that you just created in the Okta Admin Dashboard. In the **General Settings** section, click on **Edit**. Check *Interaction Code* as the *Grant Type* and click on the **Save** button.
 
 Configure the Okta tenant so that **Security** > **Profile Enrollment** > **Default Policy** > **Self-Service Registration** is enabled for your application.
 
