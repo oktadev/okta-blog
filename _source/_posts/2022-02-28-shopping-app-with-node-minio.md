@@ -390,7 +390,7 @@ The app needs several entry points such as login, register, forgot-password and 
 
 ### Login page
 
-Create a file called `Login.handlebars`and add the following code to it:
+Create a file called `views/login.handlebars`and add the following code to it:
 
 {% raw %}
 ```html
