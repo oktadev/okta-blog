@@ -517,7 +517,7 @@ width:"800" %}{: .center-image }
 
 ### Unlock page
 
-Create a file called `unlock.handlebars`and add the following code to it:
+Create a file called `views/unlock.handlebars`and add the following code to it:
 
 {% raw %}
 ```html
