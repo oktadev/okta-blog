@@ -72,7 +72,7 @@ Dealing with user authentication in web apps can be a massive pain for every dev
 
 Open the application that you just created in the Okta Admin Dashboard. In the *General Settings* section, click on *Edit*. Check *Interaction Code* as the *Grant Type* and click on the *Save* button.
 
-Configure the Okta tenant so that *Security* > *Profile Enrollment* > *Self-Service Registration* is enabled for your application.
+Configure the Okta tenant so that **Security** > **Profile Enrollment** > **Default Policy** > **Self-Service Registration** is enabled for your application.
 
 {% img
 blog/shopping-app-with-node-minio/SSPR.png
