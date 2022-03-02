@@ -76,7 +76,7 @@ Spring Native provides an API to configure Spring Boot and GraalVM so classes th
 
 As a result of our successful https://youtu.be/F9oydL_MndA[presentation at the SF JUG], Josh and I were invited to speak at the Garden State JUG in December. We laid low for a few months and rekindled our research in December. I wrote about it in https://www.linkedin.com/pulse/jhipster-works-spring-native-part-2-matt-raible/[JHipster works with Spring Native, Part 2!]
 
-== 🔥 Announcing the JHipster Native blueprint v1.0!
+== 🔥 Announcing the JHipster Native blueprint!
 
 In late January 2022, we (the JHipster team) upgraded JHipster to use Spring Boot 2.6 and released version https://www.jhipster.tech/2022/01/23/jhipster-release-7.6.0.html[7.6.0].
 
@@ -90,7 +90,7 @@ Today, I'm proud to announce the https://github.com/jhipster/generator-jhipster-
 
 [source,shell]
 ----
-npm install -g generator-jhipster-native
+npm install -g generator-jhipster-native@1.0
 jhipster-native
 ----
 
@@ -99,6 +99,7 @@ This will generate a JHipster app and integrate GraalVM automatically. You can b
 [source,shell]
 ----
 ./mvnw package -Pnative,prod -DskipTests
+npm run ci:e2e:prepare # start dependent docker images
 ./target/native-executable
 ----
 
@@ -132,12 +133,12 @@ npm i -g generator-jhipster@7.7
 npm i -g generator-jhipster-native@1.0
 ----
 
-Then, remove all the existing project files and regenerate it.
+Then, remove all the existing project files and regenerate them. The `jhipster-native` command includes parameters to disable caching because it's not supported by Spring Native, yet.
 
 [source,shell]
 ----
 rm -rf *
-jhipster-native --with-entities
+jhipster-native --with-entities --cache-provider no --no-enable-hibernate-cache
 # When prompted to overwrite .gitignore, type "a" to overwrite all files
 ----
 
@@ -154,11 +155,9 @@ git checkout README.md
 git checkout demo.adoc
 git checkout flickr2.jdl
 git checkout screenshots
-git checkout src/test/javascript/cypress/integration/entity/photo.spec.ts
 git checkout src/main/webapp/app/entities/photo/photo.tsx
 git checkout src/main/webapp/app/entities/photo/photo-update.tsx
 git checkout src/main/java/com/auth0/flickr2/config/SecurityConfiguration.java
-git checkout src/main/java/com/auth0/flickr2/web/rest/PhotoResource.java
 git checkout src/main/resources/config/application-heroku.yml
 git checkout src/main/resources/config/bootstrap-heroku.yml
 git checkout Procfile
@@ -169,7 +168,7 @@ If you'd rather not use the command line, you can right-click on each file and s
 
 image::{% asset_path 'blog/spring-native-jhipster/rollback-commit.png' %}[alt=Rollback...,align=center]
 
-If you ran the `git checkout` commands, there are a few other changes I made in the first tutorial that'll need to be re-applied:
+If you ran the `git checkout` commands, there are several changes I made in the first tutorial that'll need to be re-applied:
 
 . In `src/main/resources/config/application-dev.yml`, remove the `faker` profile for Liquibase.
 
@@ -184,6 +183,77 @@ If you ran the `git checkout` commands, there are a few other changes I made in 
 </dependency>
 ----
 
+. Next, modify the `createPhoto()` method in `src/main/java/com/auth0/flickr2/web/rest/PhotoResource.java` to set the metadata when an image is uploaded.
++
+[source, java]
+----
+import com.drew.imaging.ImageMetadataReader;
+import com.drew.imaging.ImageProcessingException;
+import com.drew.metadata.Metadata;
+import com.drew.metadata.MetadataException;
+import com.drew.metadata.exif.ExifSubIFDDirectory;
+import com.drew.metadata.jpeg.JpegDirectory;
+
+import javax.xml.bind.DatatypeConverter;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+import java.time.Instant;
+import java.util.Date;
+
+public class PhotoResource {
+...
+
+    public ResponseEntity<Photo> createPhoto(@Valid @RequestBody Photo photo) throws Exception {
+        log.debug("REST request to save Photo : {}", photo);
+        if (photo.getId() != null) { ... }
+
+        try {
+            photo = setMetadata(photo);
+        } catch (ImageProcessingException | IOException | MetadataException ipe) {
+            log.error(ipe.getMessage());
+        }
+
+        Photo result = photoRepository.save(photo);
+        ...
+    }
+
+    private Photo setMetadata(Photo photo) throws ImageProcessingException, IOException, MetadataException {
+        String str = DatatypeConverter.printBase64Binary(photo.getImage());
+        byte[] data2 = DatatypeConverter.parseBase64Binary(str);
+        InputStream inputStream = new ByteArrayInputStream(data2);
+        BufferedInputStream bis = new BufferedInputStream(inputStream);
+        Metadata metadata = ImageMetadataReader.readMetadata(bis);
+        ExifSubIFDDirectory directory = metadata.getFirstDirectoryOfType(ExifSubIFDDirectory.class);
+
+        if (directory != null) {
+            Date date = directory.getDateDigitized();
+            if (date != null) {
+                photo.setTaken(date.toInstant());
+            }
+        }
+
+        if (photo.getTaken() == null) {
+            log.debug("Photo EXIF date digitized not available, setting taken on date to now...");
+            photo.setTaken(Instant.now());
+        }
+
+        photo.setUploaded(Instant.now());
+
+        JpegDirectory jpgDirectory = metadata.getFirstDirectoryOfType(JpegDirectory.class);
+        if (jpgDirectory != null) {
+            photo.setHeight(jpgDirectory.getImageHeight());
+            photo.setWidth(jpgDirectory.getImageWidth());
+        }
+
+        return photo;
+    }
+    ...
+}
+----
+
 . Install the React libraries needed:
 +
 [source,shell]
@@ -192,7 +262,17 @@ npm i react-photo-gallery@8 --force
 npm i react-images
 ----
 
-Then, you'll need to add type hints for Drew Noake's EXIF processing library in your main application class:
+. In `src/test/javascript/cypress/integration/entity/photo.spec.ts`, remove the code that sets the calculated data in the `should create an instance of Photo` test:
++
+[source,typrescript]
+----
+cy.get(`[data-cy="height"]`).type('99459').should('have.value', '99459');
+cy.get(`[data-cy="width"]`).type('61514').should('have.value', '61514');
+cy.get(`[data-cy="taken"]`).type('2021-10-11T16:46').should('have.value', '2021-10-11T16:46');
+cy.get(`[data-cy="uploaded"]`).type('2021-10-11T15:23').should('have.value', '2021-10-11T15:23');
+----
+
+Then, you'll need to add type hints for Drew Noake's EXIF processing library in `src/main/java/com/auth0/flickr2/Flickr2App.java`:
 
 [source,java]
 ----
@@ -201,6 +281,7 @@ types = {
     ...
     com.drew.metadata.exif.ExifIFD0Directory.class,
     com.drew.metadata.exif.ExifSubIFDDirectory.class,
+    com.drew.metadata.exif.ExifThumbnailDirectory.class,
     com.drew.metadata.exif.makernotes.AppleMakernoteDirectory.class,
     com.drew.metadata.exif.GpsDirectory.class,
 })
@@ -341,13 +422,17 @@ TIP: Want to have all these steps automated for you? Add a 👍 to https://githu
 
 === Run your native JHipster app
 
-After you've built your app, it will be available in `target/native-executable`. Start Keycloak or source your Okta/Auth0 settings. Then, run `./target/native-executable`. It should start in under one second!
+After you've built your app, it will be available in `target/native-executable`. Start Keycloak or source your Okta/Auth0 settings. Then, run the following commands:
 
-++++
-{% twitter 1494118802988089348 %}
-++++
+[source,shell]
+----
+npm run ci:e2e:prepare # start docker dependencies
+./target/native-executable
+----
 
-// todo: I like showing the tweet ^^ because it got so many likes, but maybe just the screenshot would be better?
+It should start in under a second!
+
+image::{% asset_path 'blog/spring-native-jhipster/native-start.png' %}[alt=Started Flickr2App in 0.581 seconds,width=800, align=center]
 
 == What does the JHipster Native blueprint do?
 
@@ -360,44 +445,18 @@ The unexpected thing is, one of the hardest problems we had to solve was with JP
 
 During this experience, I was surprised to find that Spring Native https://github.com/spring-projects-experimental/spring-native/issues/465[doesn't support caching yet]. I believe this support will be added by the community soon. In the meantime, if you're looking to start/stop your infra as fast as possible, you probably don't care about caching. Caching is made for long-lived, JVM-strong, JVM-loving apps.
 
-////
-== What about Spring Boot 3?
-
-// an attempt, but no demo: https://www.youtube.com/watch?v=J2_-eC7Mpfk
-// if demo ready, schedule!
-
-== Automate the wait
-
-jhipster ci-cd
-
-Options:
-
-- Modify the generated YAML to use the GraalVM plugin
-- Revert the script changes in package.json so it's just a JVM build. Add a publish script that only builds when you create a release.
-- Nightly build of native https://kyuubang.github.io/devops/2022/01/22/nightly-build-with-github-actions.html
-
-This post is already long enough. I'll show you in a future post!
-
-In the next post, show existing blueprint tests
-
-https://github.com/jhipster/generator-jhipster-native/blob/main/.github/workflows/jdl.yml
-
-////
-
 == What's the performance like?
 
-The native binary starts in just over 1s on my 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM. If I start it in JVM mode with Maven, it takes https://twitter.com/mraible/status/1494123702203654148[around six seconds].
+The native binary starts in just over 500ms (583ms) on my 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM.
+
+If I start it in JVM mode with Maven, it takes just under five seconds.
+
+image::{% asset_path 'blog/spring-native-jhipster/jvm-start.png' %}[alt=Started Flickr2App in 4.887 seconds,width=800, align=center]
 
 As far as build time goes, Spring Native says:
 
 ----
-Finished generating 'native-executable' in 3m 28s.
-----
-
-Maven tells a different story:
-
-----
-[INFO] Total time:  04:36 min
+Finished generating 'native-executable' in 3m 10s.
 ----
 
 If I build a Docker image with the native binary:
@@ -409,18 +468,18 @@ mvn spring-boot:build-image -Pprod
 It takes a while the first time:
 
 ----
-Total time:  09:25 min
+Total time:  06:30 min
 ----
 
-And it's a little faster the 2nd time:
+And it's slightly faster the second time:
 
 ----
-Total time:  07:52 min
+Total time:  06:18 min
 ----
 
-The amount of memory used after starting: `179 MB`.
+The amount of memory used after starting: `180 MB`.
 
-The amount of memory used after running `npm run e2e`: `247 MB`.
+The amount of memory used after running `npm run e2e`: `196 MB`.
 
 In the interest of full disclosure, here's the command I used to measure the amount of memory used:
 
@@ -434,7 +493,7 @@ What about the M1 Max? That's https://twitter.com/mraible/status/149441705113758
 
 I hope you've enjoyed learning how to make JHipster work with Spring Native and GraalVM. It's still a work-in-progress. Startup time isn't the end-all-be-all metric, but it is important in a serverless environment.
 
-You can find the source code for this example on GitHub in the https://github.com/oktadev/auth0-full-stack-java-example/tree/spring-native[auth0-full-stack-java-example repository].
+You can find the source code for this example on GitHub in the https://github.com/oktadev/auth0-full-stack-java-example/tree/spring-native[@oktadev/auth0-full-stack-java-example repository]. The source for the JHipster Native blueprint is in the https://github.com/jhipster/generator-jhipster-native[@jhipster/generator-jhipster-native repository].
 
 JHipster also has Micronaut and Quarkus blueprints. However, their native support is currently a work-in-progress. I hope to help improve them in the next few months.
 
