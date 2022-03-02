@@ -102,7 +102,7 @@ const credentials = {
 
 There are three steps when setting up the assets. 
 
-**Create the bucket on MinIO play server:** We've created a public MinIO server https://play.minio.io:9000 for developers to use as a sandbox. MinIO Client `mc` is  preconfigured to use the play server.  
+**Create the bucket on MinIO play server:** We've created a public MinIO server `https://play.minio.io:9000` for developers to use as a sandbox. MinIO Client `mc` is preconfigured to use the play server.  
 
 [Make a bucket](https://docs.minio.io/docs/minio-client-complete-guide#mb) called `okta-commerce` on play.minio.io using the following command: 
 
