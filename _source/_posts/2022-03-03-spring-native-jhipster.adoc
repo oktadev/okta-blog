@@ -254,7 +254,7 @@ npm i react-images
 
 . In `src/test/javascript/cypress/integration/entity/photo.spec.ts`, remove the code that sets the calculated data in the `should create an instance of Photo` test:
 +
-[source,typrescript]
+[source,typescript]
 ----
 cy.get(`[data-cy="height"]`).type('99459').should('have.value', '99459');
 cy.get(`[data-cy="width"]`).type('61514').should('have.value', '61514');
@@ -267,13 +267,13 @@ Then, you'll need to add type hints for Drew Noake's EXIF processing library in 
 [source,java]
 ----
 @org.springframework.nativex.hint.TypeHint(
-types = {
-    ...
-    com.drew.metadata.exif.ExifIFD0Directory.class,
-    com.drew.metadata.exif.ExifSubIFDDirectory.class,
-    com.drew.metadata.exif.ExifThumbnailDirectory.class,
-    com.drew.metadata.exif.makernotes.AppleMakernoteDirectory.class,
-    com.drew.metadata.exif.GpsDirectory.class,
+    types = {
+        ...
+        com.drew.metadata.exif.ExifIFD0Directory.class,
+        com.drew.metadata.exif.ExifSubIFDDirectory.class,
+        com.drew.metadata.exif.ExifThumbnailDirectory.class,
+        com.drew.metadata.exif.makernotes.AppleMakernoteDirectory.class,
+        com.drew.metadata.exif.GpsDirectory.class,
 })
 @org.springframework.nativex.hint.NativeHint(options = "-H:+AddAllCharsets")
 ----
@@ -282,8 +282,8 @@ The `@NativeHint(options = "-H:+AddAllCharsets")` solves the following exception
 
 ----
 Caused by: java.nio.charset.UnsupportedCharsetException: Cp1252
-at java.nio.charset.Charset.forName(Charset.java:528) ~[native-executable:na]
-at com.drew.lang.Charsets.<clinit>(Charsets.java:40) ~[native-executable:2.16.0]
+    at java.nio.charset.Charset.forName(Charset.java:528) ~[native-executable:an]
+    at com.drew.lang.Charsets.<clinit>(Charsets.java:40) ~[native-executable:2.16.0]
 ----
 
 Once you've made all the changes (or cloned the `spring-native` branch), you can build your hip native binary.
@@ -473,6 +473,7 @@ The amount of memory used after running `npm run e2e`: `196 MB`.
 
 In the interest of full disclosure, here's the command I used to measure the amount of memory used:
 
+[source,shell]
 ----
 ps -o pid,rss,command | grep --color native | awk '{$2=int($2/1024)" MB";}{ print;}'
 ----
