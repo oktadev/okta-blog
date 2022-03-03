@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Introducing Spring Native for JHipster: serverless full-stack made easy"
+title: "Introducing Spring Native for JHipster: Serverless Full-Stack Made Easy"
 author: matt-raible
 by: advocate
 communities: [java]
