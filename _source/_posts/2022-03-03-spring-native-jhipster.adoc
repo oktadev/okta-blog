@@ -29,12 +29,10 @@ Then, along came https://www.graalvm.org/[GraalVM]. It's gained support from man
 
 Today, I'm proud to announce that this same capability is now available for your JHipster 7+ apps!
 
-////
 *Prerequisites*:
 
 - https://sdkman.io/[Java 17 with GraalVM]+
 - https://docs.docker.com/desktop/#download-and-install[Docker Desktop]
-////
 
 toc::[]
 
@@ -194,7 +192,7 @@ import java.time.Instant;
 import java.util.Date;
 
 public class PhotoResource {
-...
+    ...
 
     public ResponseEntity<Photo> createPhoto(@Valid @RequestBody Photo photo) throws Exception {
         log.debug("REST request to save Photo : {}", photo);
