@@ -66,7 +66,7 @@ npm i @okta/okta-signin-widget@6
 
 ## Set up authentication with Okta
 
-Dealing with user authentication in web apps can be a massive pain for every developer. This is where Okta shines: it helps you secure your web applications with minimal effort. 
+Dealing with user authentication in web apps can be a massive pain for every developer. This is where Okta shines:  it helps you implement authentication for your web applications with minimal effort.
 
 {% include setup/cli.md type="spa" loginRedirectUri="http://localhost:3000/callback" logoutRedirectUri="http://localhost:3000/" %}
 
