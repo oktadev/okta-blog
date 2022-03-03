@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Introducing JHipster Native: serverless full-stack Java for all"
+title: "Introducing Spring Native for JHipster: serverless full-stack made easy"
 author: matt-raible
 by: advocate
 communities: [java]
@@ -70,7 +70,7 @@ As a result of our successful https://youtu.be/F9oydL_MndA[presentation at the S
 
 In late January 2022, we (the JHipster team) upgraded JHipster to use Spring Boot 2.6 and released version https://www.jhipster.tech/2022/01/23/jhipster-release-7.6.0.html[7.6.0].
 
-In early February, I updated the Spring Native with JHipster examples that Josh and I'd been using for research. I was ready to start automating the Spring Native integration using a JHipster module. When https://github.com/jhipster/generator-jhipster/issues/16498#issuecomment-1030263905[I asked the JHipster team] about the best way to implement it, https://github.com/mshima[Marcelo Shima] volunteered to create the initial blueprint.
+In early February, I updated https://github.com/mraible/spring-native-examples[the Spring Native with JHipster examples] that Josh and I'd been using for research. I was ready to start automating the Spring Native integration using a JHipster module. When https://github.com/jhipster/generator-jhipster/issues/16498#issuecomment-1030263905[I asked the JHipster team] about the best way to implement it, https://github.com/mshima[Marcelo Shima] volunteered to create the initial blueprint.
 
 This was on a Friday afternoon (Mountain Time or MT). By the next morning, Marcelo had the MVP finished and provided steps to reproduce our examples. 😳
 
@@ -478,7 +478,7 @@ In the interest of full disclosure, here's the command I used to measure the amo
 ps -o pid,rss,command | grep --color native | awk '{$2=int($2/1024)" MB";}{ print;}'
 ----
 
-What about the M1 Max? That's https://twitter.com/mraible/status/1494417051137585152[not an option yet].
+What about the M1 Max? That's https://twitter.com/mraible/status/1494417051137585152[not an option yet], but https://github.com/oracle/graal/issues/2666#issuecomment-1057819284[could be in the next release of GraalVM].
 
 == Learn more about GraalVM and Spring Native
 
@@ -498,4 +498,4 @@ If you liked this post, there's a good chance you'll like similar ones:
 - link:/blog/2021/06/18/native-java-framework-comparison[Build Native Java Apps with Micronaut, Quarkus, and Spring Boot]
 - link:/blog/2022/01/06/native-java-helidon[Build REST APIs and Native Java Apps with Helidon]
 
-If you have questions, please ask them in the comments below! If you're into social media, follow us: https://twitter.com/oktadev[@oktadev on Twitter], https://www.linkedin.com/company/oktadev[Okta for Developers on LinkedIn], https://www.facebook.com/oktadevelopers[OktaDev] on Facebook. If you like learning via video, subscribe to https://youtube.com/oktadev[our YouTube channel].
+If you have questions, please ask them in the comments below! If you're into social media, follow us: https://twitter.com/oktadev[@oktadev on Twitter], https://www.linkedin.com/company/oktadev[Okta for Developers on LinkedIn], and https://www.facebook.com/oktadevelopers[OktaDev] on Facebook. If you like learning via video, subscribe to https://youtube.com/oktadev[our YouTube channel].
