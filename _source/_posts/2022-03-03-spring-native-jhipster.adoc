@@ -435,7 +435,7 @@ During this experience, I was surprised to find that Spring Native https://githu
 
 == What's the performance like?
 
-The native binary starts in just over 500ms (583ms) on my 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM.
+The native binary starts in just over 500ms (581ms) on my 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM.
 
 If I start it in JVM mode with Maven, it takes just under five seconds.
 
