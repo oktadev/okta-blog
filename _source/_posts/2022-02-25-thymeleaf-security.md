@@ -273,7 +273,7 @@ Go to http://localhost:8080 and you should see the home page and a **Sign In** b
 
 # Protect content areas with roles
 
-Let's add a `userProfile.html` template that will display the claims contained in the id token returned from Okta, and also the authorities that spring security derives from the token.
+Let's add a `userProfile.html` template that will display the claims contained in the access token returned from Okta, and also the authorities that spring security derives from the token.
 
 ```html
 <html xmlns:th="http://www.thymeleaf.org">
@@ -348,21 +348,232 @@ Add a link in the `home` page for the `userProfile` page, below the "You success
 <p th:if="${#lists.contains(authorities, 'SCOPE_profile')}">Visit the <a th:href="@{/profile}">My Profile</a> page in this application to view the information retrieved with your OAuth Access Token.</p>
 ```
 
-Run the application again. After signing in, you still won't see the new link, and if you go to http://localhost:8080/profile, you will get HTTP ERROR 403, which means forbidden. This is because in `application.yml`, as part of the Okta configuration, only `email` and `openid` scopes are requested, and `profile` scope is not returned in the id token claims. Add the missing scope in the yml, restart, and the `userProfile` view should be displayed:
+Run the application again. After signing in, you still won't see the new link, and if you go to http://localhost:8080/profile, you will get HTTP ERROR 403, which means forbidden. This is because in `application.yml`, as part of the Okta configuration, only `email` and `openid` scopes are requested, and `profile` scope is not returned in the acccess token claims. Add the missing scope in the yml, restart, and the `userProfile` view should be displayed:
+
+
+{% img blog/thymeleaf-security/profile-page.png alt:"Profile Page" width:"800" %}{: .center-image }
+{% img blog/thymeleaf-security/spring-security-authorities.png alt:"Spring Security derived authorities" width:"800" %}{: .center-image }
+
+As you can see Spring Security assigns the groups contained in the claim, as well as the requested scopes as authorities. Scopes are prefixed with `SCOPE_`. `ROLE_ADMIN` and `ROLE_USER` groups are created by default when you create a client application with Okta CLI, and your user is assigned to them.
+
+
+# Prevent CSRF when submitting forms
+
+Spring Security CSRF protection is enabled by default for both Servlet and WebFlux applications. The predominant protection mechanism is the [Synchronizer Token Pattern](https://docs.spring.io/spring-security/reference/features/exploits/csrf.html#csrf-protection-stp), that ensures each HTTP request must contain a secure random generated value, the CSRF token. The token must be required in a part of the request that is not populated automatically by the browser. For example, an HTTP parameter or header.
+
+Let's verify the CSRF protection is active by creating a quiz form to the application. Create the template `quiz.html` with the following content:
+
+```html
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thymeleaf Quiz</title>
+    <!--/*/ <th:block th:include="head :: head"/> /*/-->
+</head>
+<body id="samples">
+<div th:replace="menu :: menu"></div>
+
+<div id="content" class="container">
+    <div>
+        <h2>Select the right answer</h2>
+    </div>
+    <form action="#" th:action="@{/quiz}" th:object="${quiz}"
+          method="post" class="col-md-4 fw-light">
+        <ul>
+            <li th:errors="*{answer}" />
+        </ul>
+        <div class="col-md-12">
+            <h3>What is Thymeleaf?</h3>
+        </div>
+        <div class="col-md-12 form-check">
+            <input class="form-check-input" type="radio" th:field="*{answer}" value="A" id="check-1-1"/>
+            <label class="form-check-label" for="check-1-1">
+                <strong>A.</strong> A server-side Java template engine
+            </label>
+        </div>
+        <div class="col-md-12 form-check">
+            <input class="form-check-input" type="radio" th:field="*{answer}" value="B" id="check-1-2"/>
+            <label class="form-check-label" for="check-1-2">
+                <strong>B.</strong> A markup language
+            </label>
+        </div>
+        <div class="col-md-12 form-check">
+            <input class="form-check-input" type="radio" th:field="*{answer}" value="B" id="check-1-3"/>
+            <label class="form-check-label" for="check-1-3">
+                <strong>C.</strong> A web framework
+            </label>
+        </div>
+        <div class="col-md-12 mt-4 mb-4">
+            <p>Your CSRF token is:<span th:text="${_csrf.token}"/></p>
+        </div>
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>
+</body>
+<!--/*/ <th:block th:include="footer :: footer"/> /*/-->
+</html>
+```
+
+Add a template for the quiz result with the name `result.html`:
+
+```html
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thymeleaf Quiz Submission</title>
+    <!--/*/ <th:block th:include="head :: head"/> /*/-->
+</head>
+<body id="samples">
+<div th:replace="menu :: menu"></div>
+<div id="content" class="container">
+    <div class="text-center">
+        <i th:if=${quiz.answer=='A'} class="bi-balloon-heart-fill" style="font-size: 6rem; color: green;"></i>
+        <i th:unless=${quiz.answer=='A'} class="bi-x-circle-fill" style="font-size: 6rem; color: red;"></i>
+        <div class="panel mt-4 text-center">
+            <div class="panel-body">
+                <h4>Your selected answer is <strong>
+                    <span th:text="${quiz.answer}"></span>
+                </strong></h4><p>Good Job!</p>
+            </div>
+        </div>
+        <div th:unless=${quiz.answer=='A'} class="panel mt-4 text-center">
+            <div class="panel-body">
+                <h4>The right answer is <strong>A:</strong> A server-side
+                    Java template engine</h4>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<!--/*/ <th:block th:include="footer :: footer"/> /*/-->
+</html>
+```
+
+Add a `QuizSubmission` data class, for holding the quiz answer:
+
+```java
+package com.okta.developer.demo;
+
+public class QuizSubmission {
+
+    private String answer;
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
+}
+```
+
+Add the `QuizController` for displaying the quiz and processing the form submission:
+
+```java
+package com.okta.developer.demo;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.reactive.result.view.Rendering;
+import reactor.core.publisher.Mono;
+
+@Controller
+public class QuizController {
+
+    private static Logger logger = LoggerFactory.getLogger(QuizController.class);
+
+    @GetMapping("/quiz")
+    @PreAuthorize("hasAuthority('SCOPE_quiz')")
+    public Mono<Rendering> showQuiz() {
+
+        return Mono.just(Rendering.view("quiz").modelAttribute("quiz", new QuizSubmission()).build());
+    }
+
+    @PostMapping(path = "/quiz", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    @PreAuthorize("hasAuthority('SCOPE_quiz')")
+    public Mono<Rendering> saveQuiz(QuizSubmission quizSubmission) {
+        logger.info("Submission {}", quizSubmission.getAnswer());
+        return Mono.just(Rendering.view("result").modelAttribute("quiz", quizSubmission).build());
+    }
+}
+```
+
+In the new controller and templates, the quiz is authorized for users that have `SCOPE_quiz` authority. Add a protected link to the `home.html` template, below the profile link:
+
+```html
+<p>You have successfully authenticated against your Okta org, and have been redirected back to this application.</p>
+<p th:if="${#lists.contains(authorities, 'SCOPE_profile')}">Visit the <a th:href="@{/profile}">My Profile</a> page in this application to view the information retrieved with your OAuth Access Token.</p>
+<p th:if="${#lists.contains(authorities, 'SCOPE_quiz')}">Visit the <a th:href="@{/quiz}">Thymeleaf Quiz</a> to test Cross-Site Request Forgery (CSRF) protection.</p>
+```
+Before running the application again, let's verify CSRF protection with a controller test. Add `QuizControllerTest` to `src/test/java` under the package `com.okta.developer.demo`:
+
+```java
+package com.okta.developer.demo;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.reactive.server.WebTestClient;
+import org.springframework.web.reactive.function.BodyInserters;
+
+import static org.springframework.security.test.web.reactive.server.SecurityMockServerConfigurers.csrf;
+import static org.springframework.security.test.web.reactive.server.SecurityMockServerConfigurers.mockOidcLogin;
+
+@WebFluxTest
+public class QuizControllerTest {
+
+    @Autowired
+    private WebTestClient client;
+
+    @Test
+    void testPostQuiz_noCSRFToken() throws Exception {
+        QuizSubmission quizSubmission = new QuizSubmission();
+        this.client.mutateWith(mockOidcLogin())
+                .post().uri("/quiz")
+                .exchange()
+                .expectStatus().isForbidden()
+                .expectBody().returnResult()
+                .toString().contains("An expected CSRF token cannot be found");
+    }
+
+    @Test
+    void testPostQuiz() throws Exception {
+        this.client.mutateWith(csrf()).mutateWith(mockOidcLogin())
+                .post().uri("/quiz")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .exchange().expectStatus().isOk();
+    }
+
+    @Test
+    void testGetQuiz_noAuth() throws Exception {
+        this.client.get().uri("/quiz").exchange().expectStatus().is3xxRedirection();
+    }
+
+    @Test
+    void testGetQuiz() throws Exception {
+        this.client.mutateWith(mockOidcLogin())
+                .get().uri("/quiz").exchange().expectStatus().isOk();
+    }
+}
+```
+
+
+- Explain test
 
 
 
-
-
-
-- Add profile page
-
-
-- Add quiz form
-- Require quiz scope in app
+- Add quiz scope in app yml
 - Add quiz scope in okta
-- verify CSRF
-- Add junit for CSRF
-- Controller method security
-- Add 403 page
+- verify CSRF in form
+
+
+
 - Learn more
