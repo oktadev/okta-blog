@@ -41,11 +41,12 @@
     "chalk": "4.1.2",
     "cross-env": "7.0.3",
     "front-matter": "^4.0.2",
-    "fs-extra": "^10.0.0",
+    "fs-extra": "^10.0.1",
     "pre-push": "0.1.1",
+    "shelljs": "^0.8.5",
     "recursive-readdir": "2.2.2",
-    "simple-git": "^2.47.0",
-    "yargs": "^17.3.0",
-    "sharp": "^0.29.3"
+    "simple-git": "^3.2.6",
+    "yargs": "^17.3.1",
+    "sharp": "^0.30.1"
   }
 }

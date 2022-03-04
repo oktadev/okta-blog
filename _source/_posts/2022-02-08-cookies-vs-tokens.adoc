@@ -1,0 +1,135 @@
+---
+layout: blog_post
+title: "A Comparison of Cookies and Tokens for Secure Authentication"
+author: teniola-fatunmbi
+by: contractor
+communities: [javascript]
+description: "This article examines the use of cookies vs. tokens for authentication, comparing the pros and cons of each method, so that you can determine which is best for your project."
+tags: [security, javascript, jwt, json-web-tokens, tokens, https, cookies]
+tweets:
+- "Trouble deciding between cookies or tokens? Here are some pros and cons of each method to capture your authentication data. "
+- "Cookies and tokens, apples and oranges. See which method fits your authentication use case the best?"
+image: blog/cookies-vs-tokens/cookies-vs-tokens-social.png
+type: awareness
+---
+:page-liquid:
+:toc: macro
+:experimental:
+
+Access control in websites and web applications is a top priority for security, but how you set up access depends on how you store the data to be authenticated. This, in turn, enables user authorization. Cookies and tokens are two common ways of setting up authentication.
+
+Cookies are chunks of data created by the server and sent to the client for communication purposes. Tokens, usually referring to JSON Web Tokens (JWTs), are signed credentials encoded into a long string of characters created by the server. The main difference between cookies and tokens is their nature: tokens are stateless while cookies are stateful.
+
+With this in mind, why is there a need to store authentication on the browser? Because HTTP is stateless, even if you authenticate with one request, the server essentially "forgets" that authentication with subsequent requests. Therefore, you need to supply the token/cookie on every request for authentication by the server. The frontend stores the token or cookie and uses it to make subsequent requests to the server until the cookie or token expires.
+
+This article will examine the use of cookies or tokens for authentication, comparing the pros and cons of each method, so that you can determine which is best for your project.
+
+toc::[]
+
+== About authentication
+
+Authentication is the act of verifying user credentials in terms of either correctness or time.
+
+- **Correctness**: The user credentials are verified based on existing details. At the sign-in request, an authentication token is assigned to the user. It will be used to authorize the user and authenticate subsequent interactions with the application.
+
+- **Time**: The authentication token assigned to the user is only valid for a specific period of time. If the token becomes invalid, the user needs to be re-authenticated before access can be granted.
+
+NOTE: The term "authentication token" is used here to describe any form of authentication credential that might be implemented by the application, not explicitly an access token.
+
+The above instances aren't environment-specific and could be demonstrated visually on the frontend or the backend during API testing.
+
+== Why use authentication
+
+There are two reasons why authentication is necessary to allow full access to an application:
+
+- Authentication establishes the identity of the user and verifies that the user is who (or what) it says it is. Authentication protects your resources by denying access to unauthenticated users.
+
+- Authentication gives each user a distinct identity, protecting your data and theirs. Applications that require users to create an account give each user a unique profile, which is what determines the data shown to the user. For example, PayPal requires users to sign in before displaying their account balance and transactions.
+
+Generally, the process works like this:
+
+- You sign in.
+- The server verifies your sign-in details and assigns you an authentication token.
+- The authentication token is used to make a request to your homepage that displays your unique dashboard.
+
+Both session cookies and access tokens allow users to make requests to the server without needing to re-authenticate at each request. The following is a comparison of the two.
+
+== What you should know about cookies
+
+Session cookies are stateful elements. They contain data that the server sends to the browser for temporary use. The authentication data inside a cookie is stored on both the client and server. The server keeps track of active sessions in a database, while the browser holds the identifier to the active session. When a request is made to the server, the session ID is used to look up information such as user roles or privileges for authentication, in order to check if the session is still valid.
+
+=== Advantages of cookies
+
+**Consider these key benefits:**
+
+* **Cookies use the same session across subdomains**: They take a https://en.wikipedia.org/wiki/HTTP_cookie#Domain_and_Path[`Domain`] argument: You specify the domain name for which the cookie is valid. Setting the domain name to `yoursite.com` allows the same session for the domain and subdomains.
+
+* **They reduce manipulation by client-side JavaScript**: You can restrict client-side access by setting the https://owasp.org/www-community/HttpOnly[`HttpOnly`] flag. This reduces the likelihood of cross-site scripting (XSS) attacks on your application, since most XSS attacks involve the use of malicious JS code.
+
+* **They require little storage**: Cookies use as little as 6 KB to store a simple user ID. Depending on what information you store in your cookie, you'll transmit a minimal amount of bytes with every request.
+
+* **Finally, cookies are managed by the browser**: This is automatic, so you don't have to worry about it.
+
+=== The downside of cookies
+
+**Some of the disadvantages of cookies include:**
+
+* ** Cross-site request forgery attacks (XSRF or CSRF)**: CSRF attacks are only possible with cookie-based session handling. The https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite[`SameSite`] attribute allows you to decide whether cookies should be sent to third-party apps using the **Strict** or **Lax** settings. A strict setting can prevent CSRF attacks, but it can also contribute to a poor browser experience for the user. For example, say your site uses a cookie named `tutorials_shown` to determine whether a user has already seen specific tutorials in order to show them new ones every time they visit. If `SameSite` is set to `Strict` and someone follows a link to your site, the cookie will not be sent on that first request, and previously viewed tutorials will be shown. This creates a less personalized user experience.
+
+* **Scaling issues**: Since sessions are tied to a particular server, you can run into issues when scaling your application. In a load-balanced application, if a logged-in user is redirected to a new server, the existing session data is lost. To prevent this, sessions need to be stored in a shared database or cache. This  increases the complexity of each interaction.
+
+* **Not good for API authentication**: APIs provide one-time resources for authenticated end-users and don't need to keep track of user sessions. Cookies don't work perfectly in this case, since they track and verify active sessions. Tokens, meanwhile, provide authentication with a unique identifier on every request to the API endpoints.
+
+Cookies aren't the only way to store session IDs; other options include URLs and form fields. Cookies are more secure than those two, but how secure are cookies?
+
+* Cookies are only secure in an HTTPS connection. Enforcing the https://en.wikipedia.org/wiki/HTTP_cookie#Secure_and_HttpOnly[`Secure`] flag ensures that cookies are only sent via an encrypted HTTPS connection. Use of HTTPS prevents disclosure of session ID in person-in-the-middle (https://en.wikipedia.org/wiki/Man-in-the-middle_attack[MITM]) attacks.
+
+* As noted earlier, cookies can be manipulated by client-side scripts (JavaScript or Visual Basic). This can be prevented by using the https://en.wikipedia.org/wiki/HTTP_cookie#Secure_and_HttpOnly[`HttpOnly`] flag.
+
+While cookies can be made secure by setting the appropriate attributes and following best practices, they can also be made insecure by neglecting these steps.
+
+== Structured security tokens
+
+Tokens—or JWTs in this context—are stateless in nature, meaning the server doesn't need to keep a record of the token. Each token is self-contained, holding the information needed for verification and identification on the server.
+
+=== Advantages of tokens
+
+**Here are some specific advantages of tokens:**
+
+* **Flexibility and ease of use**: JWTs are easy to use. Their self-containing nature helps you achieve what you need for verification without database lookups. This makes JWTs more suitable to use in an API, since the API server doesn't need to keep track of user sessions.
+
+* **Cross-platform capabilities**: Because of their stateless nature, tokens can be seamlessly implemented on mobile platforms and internet of things (IoT) applications, especially in  comparison to cookies..
+
+* **Multiple storage options**: Tokens can be stored in a number of ways in browsers or front-end applications.
+
+If you use a browser's local storage, tokens can't be accessed by a subdomain. However, they can be accessed and manipulated by any JavaScript code on the webpage, as well as by browser plugins. This isn't a recommended method: first, itposes a security risk, plus you must manage the storage.
+
+Session storage is another way to store tokens. The drawback is that the token is destroyed when the browser is closed.
+
+=== Disadvantages of JWT tokens
+
+**Here are some downsides of tokens to be aware of:**
+
+* **Revocation**: A JWT cannot be revoked. Even if a JWT leaks, it remains valid until it expires, resulting in a serious security hole. As a workaround, you must implement a deny-list technique that requires a more complex setup.
+
+* **Need more space**: A JWT might need 300+ bytes to store a simple user ID, because they store other data for authentication.
+
+* **Stale**: The information inside of a JWT represents a snapshot in time when the token was originally created. The associated user may now have different access levels or have been removed from the system altogether.
+
+But what about the security of tokens?
+
+* JWTs are cryptographically signed and base64-encoded. They're only secure when they aren't exposed, so they should be treated like passwords.
+* A JWT can be viewed but not manipulated on the client side. You can take your token to https://jwt.io/[jwt.io], choose the algorithm you used to sign, and see the data. You just can't tamper with it because it's issued on the server.
+* The lifespan of a JWT should be kept short to limit the risk caused by a leaked token.
+
+== When to use cookies or tokens
+
+In general, the choice between a session cookie or a structured token will depend on your use case. You should use cookies when you need to keep track of user interactions, such as with an e-commerce application or website. You can use tokens when building API services or implementing distributed systems.
+
+For more information about cookies, tokens, or authentication in general, check out these posts:
+
+* link:/blog/2019/05/16/angular-authentication-jwt[Angular Authentication with JWT]
+* link:/blog/2021/06/16/session-mgmt-react[A developer's guide to session management in React]
+* link:/blog/2019/05/07/php-token-authentication-jwt-oauth2-openid-connect[Token authentication in PHP]
+
+Please comment below with any questions. For more interesting content, follow https://twitter.com/oktadev[@oktadev] on Twitter, find us https://www.linkedin.com/company/oktadev/[on LinkedIn], or subscribe to https://www.youtube.com/oktadev[our YouTube channel].

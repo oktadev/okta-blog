@@ -22,7 +22,14 @@
 {%- endif -%}
 
 {% if include.type == "jhipster" %}
-Then, run `okta apps create jhipster`. Select the default app name, or change it as you see fit. Accept the default Redirect URI values provided for you.
+Then, run `okta apps create jhipster`. Select the default app name, or change it as you see fit.
+  {% if include.loginRedirectUri and include.logoutRedirectUri %}Then, change the Redirect URIs to: 
+```
+{% if adoc %}\{% endif %}{{ include.loginRedirectUri }}
+```
+Use `{% if adoc %}\{% endif %}{{ include.logoutRedirectUri }}` for the Logout Redirect URIs.
+  {% else %}Accept the default Redirect URI values provided for you.
+  {% endif %}
 {% elsif include.type == "token" %}
 Next, create an API token. Run `okta login` and open the resulting URL in your browser. Log in and go to **Security** > **API** > **Tokens**. Create a new token and store the value somewhere safe. Make sure you don't check it into GitHub!
 {% else %}
@@ -64,7 +71,7 @@ Use `{{ include.loginRedirectUri }}` for the Redirect URI and set the Logout Red
 {%- if include.type == "jhipster" -%}
 The Okta CLI streamlines configuring a JHipster app and does several things for you:
 
-1. Creates an OIDC app with the correct redirect URIs: 
+1. Creates an OIDC app with the correct {% if include.loginRedirectUri %}(see above, below are the default values) {% endif %}redirect URIs: 
   - login: `http://localhost:8080/login/oauth2/code/oidc` and `http://localhost:8761/login/oauth2/code/oidc`
   - logout: `http://localhost:8080` and `http://localhost:8761`
 2. Creates `ROLE_ADMIN` and `ROLE_USER` groups that JHipster expects
