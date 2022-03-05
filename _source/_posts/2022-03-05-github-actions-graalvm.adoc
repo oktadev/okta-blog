@@ -1,8 +1,8 @@
 ---
 layout: blog_post
 title: "GitHub Actions for GraalVM Native Images"
-author:
-by: advocate|contractor
+author: matt-raible
+by: advocate
 communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
 description: ""
 tags: []
@@ -11,7 +11,7 @@ tweets:
 - ""
 - ""
 image:
-type: awareness|conversion
+type: conversion
 ---
 :page-liquid:
 :toc: macro
