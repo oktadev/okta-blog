@@ -348,7 +348,7 @@ Add a link in the `home` page for the `userProfile` page, below the "You success
 <p th:if="${#lists.contains(authorities, 'SCOPE_profile')}">Visit the <a th:href="@{/profile}">My Profile</a> page in this application to view the information retrieved with your OAuth Access Token.</p>
 ```
 
-Run the application again. After signing in, you still won't see the new link, and if you go to http://localhost:8080/profile, you will get HTTP ERROR 403, which means forbidden. This is because in `application.yml`, as part of the Okta configuration, only `email` and `openid` scopes are requested, and `profile` scope is not returned in the acccess token claims. Add the missing scope in the yml, restart, and the `userProfile` view should be displayed:
+Run the application again. After signing in, you still won't see the new link, and if you go to http://localhost:8080/profile, you will get HTTP ERROR 403, which means forbidden. This is because in `application.yml`, as part of the Okta configuration, only `email` and `openid` scopes are requested, and `profile` scope is not returned in the access token claims. Add the missing scope in the yml, restart, and the `userProfile` view should be displayed:
 
 
 {% img blog/thymeleaf-security/profile-page.png alt:"Profile Page" width:"800" %}{: .center-image }
@@ -358,6 +358,8 @@ As you can see Spring Security assigns the groups contained in the claim, as wel
 
 
 # Prevent CSRF when submitting forms
+
+- What is CSRF?
 
 Spring Security CSRF protection is enabled by default for both Servlet and WebFlux applications. The predominant protection mechanism is the [Synchronizer Token Pattern](https://docs.spring.io/spring-security/reference/features/exploits/csrf.html#csrf-protection-stp), that ensures each HTTP request must contain a secure random generated value, the CSRF token. The token must be required in a part of the request that is not populated automatically by the browser. For example, an HTTP parameter or header.
 
@@ -414,6 +416,9 @@ Let's verify the CSRF protection is active by creating a quiz form to the applic
 <!--/*/ <th:block th:include="footer :: footer"/> /*/-->
 </html>
 ```
+
+The CSRF token is available as a request attribute and will be displayed in the `quiz.html` template for learning purposes.
+
 
 Add a template for the quiz result with the name `result.html`:
 
@@ -565,14 +570,47 @@ public class QuizControllerTest {
 }
 ```
 
+In the test class above, the first test `testPostQuiz_noCSRFToken()` verifies the quiz cannot be submited without the CSRF token, even if the user did sign in. In the second test `testPostQuiz()`, the CSRF token is added to the mock request with `mutateWith(csrf())`, so the expected response status is HTTP 200 OK. The third test `testGetQuiz_noAuth` verifies a request of the quiz will be redirected (to Okta sign in form) if the user is not authenticated. And the last test `testGetQuiz()` verifies the quiz can be accessed if the user has been authenticated with an OIDC login.
 
-- Explain test
+Before running the application, as `quiz` is not a standard scope, or a scope defined in Okta, you have to define it for the default authorization server. Sign in to the Okta dashboard, and in the left menu, go to **Security > API**, the choose the **default** authorization server. In the **Scopes** tab, click **Add Scope**. Set the scope name as `quiz` and add a description, leave all the remaining fields with default values and click on **Create**. Now the `quiz` scope can be required during the OIDC login.
+
+{% img blog/thymeleaf-security/add-scope.png alt:"Add Scope Page" width:"800" %}{: .center-image }
 
 
+Run the application without adding the `quiz` scope to the `application.yml` file, sign in and you should not see the quiz link yet. If you make a GET request with the browser to http://localhost:8080/quiz, the response will be 403 Forbidden.
 
-- Add quiz scope in app yml
-- Add quiz scope in okta
-- verify CSRF in form
+Now add `quiz` to the list of scopes in the Okta configuration in `application.yml`. The final configuration should look like:
+
+```yml
+spring:
+  security:
+    oauth2:
+      client:
+        provider:
+          okta:
+            user-name-attribute: email
+
+okta:
+  oauth2:
+    issuer: https://{yourOktaDomain}/oauth2/default
+    client-id: {clientId}
+    client-secret: {clientSecret}
+    scopes:
+      - email
+      - openid
+      - profile
+      - quiz
+```
+
+Run the application again and you should see the quiz link "Visit the **Thymeleaf Quiz** to test Cross-Site Request Forgery (CSRF) protection". Click the link and the quiz will be displayed:
+
+
+{% img blog/thymeleaf-security/quiz-form.png alt:"Thymeleaf Quiz Form" width:"800" %}{: .center-image }
+
+The CSRF token is displayed, but if you turn on developer tools, you can also find it as a hidden attribute that Spring Security adds to the form.
+
+- Make the POST request wo the CSRF
+
 
 
 
