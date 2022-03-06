@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Security when using Thymeleaf templates with Spring Webflux"
+title: "Securing your application when using Thymeleaf templates with Spring Webflux"
 author: jimena-garbarino
 by: contractor
 communities: [security,java]
@@ -14,13 +14,26 @@ image:
 type: conversion
 ---
 
+
 - Introduction
-
-- Tools
-
-- Index
-- What is Thymeleaf
 - Goals
+
+
+
+**This tutorial was created with the following frameworks and tools**:
+
+- [HTTPie 3.0.2](https://httpie.io/)
+- [Java OpenJDK 11](https://jdk.java.net/java-se-ri/11)
+- [Okta CLI 0.9.0](https://cli.okta.com)
+- [Docker 20.10.7](https://docs.docker.com/engine/install/)
+
+**Table of Contents**{: .hide }
+* Table of Contents
+{:toc}
+
+# What is Thymeleaf?
+
+
 
 # Create a Spring Boot Webflux application with Thymeleaf
 
@@ -54,6 +67,8 @@ Extract the Maven project, and some additional dependencies. `thymeleaf-extras-s
 </dependency>
 ```
 
+## Add Okta authentication
+
 {% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
 
 
@@ -79,6 +94,7 @@ okta:
       - openid
 ```
 
+## Add some Thymeleaf templates
 
 Create a `src/main/resources/templates` folder for the templates you are going to create. Create the `home.html` template with the following content:
 
@@ -183,6 +199,8 @@ Add the `head.html` template:
 </html>
 ```
 
+## Create the first controller class
+
 A Controller is required to access the `home` page. Add a `HomeController` class under `src/main/java` in the `com.okta.developer.demo` package, with the following content:
 
 ```java
@@ -216,7 +234,10 @@ public class HomeController {
 ```
 
 The controller will render the `home` view, and will set the authorities as model attribute, for security checks that will be added soon.
-The default Okta starter autoconfiguration will request authentication to access any page, so to customize the security, add a `SecurityConfiguration` class in the same package as before.
+
+## Tweak the Security Configuration
+
+The default Okta starter auto-configuration will request authentication to access any page, so to customize the security, add a `SecurityConfiguration` class in the same package as before.
 
 ```java
 package com.okta.developer.demo;
@@ -259,6 +280,8 @@ public class SecurityConfiguration {
 
 In the configuration above, access to the home `/` page is allowed to all with anonymous authentication, which is required for the authentication test in the Thymeleaf `home` template to work. An authentication object must be in the security context.
 
+## Run the application
+
 Run the application with Maven:
 
 ```shell
@@ -271,7 +294,7 @@ Go to http://localhost:8080 and you should see the home page and a **Sign In** b
 {% img blog/thymeleaf-security/home-authenticated.png alt:"Home Page Authenticated" width:"800" %}{: .center-image }
 
 
-# Protect content areas with roles
+## Protect content areas with authorization
 
 Let's add a `userProfile.html` template that will display the claims contained in the access token returned from Okta, and also the authorities that spring security derives from the token.
 
@@ -339,13 +362,18 @@ public Mono<Rendering> userDetails(OAuth2AuthenticationToken authentication) {
 }
 ```
 
-The annotation `@PreAuthorize` allows to define an authorization predicate that can be written in SpEL (Spring Expression Language), and will be checked before the method execution. Only users with the authority `SCOPE_PROFILE` can display the `userProfile` page.
+The annotation `@PreAuthorize` allows to define an authorization predicate that can be written in SpEL (Spring Expression Language), and will be checked before the method execution. Only users with the authority `SCOPE_PROFILE` can request a display of the `userProfile` page. This is the server side protection.
 
-Add a link in the `home` page for the `userProfile` page, below the "You successfully ..." paragraph:
+For the client side, add a link in the `home` page for the `userProfile` page, below the "You successfully ..." paragraph. The link will also only display for users that have the `SCOPE_profile` authority.
 
 ```html
 <p>You have successfully authenticated against your Okta org, and have been redirected back to this application.</p>
 <p th:if="${#lists.contains(authorities, 'SCOPE_profile')}">Visit the <a th:href="@{/profile}">My Profile</a> page in this application to view the information retrieved with your OAuth Access Token.</p>
+```
+
+**IMPORTANT NOTE:** The authorization conditional is implemented in this way, because authorization-oriented expressions (such as those in 'sec:authorize') are restricted in WebFlux applications due to a lack of support in the reactive side of Spring Security (as of Spring Security 5.1). Only a minimal set of security expressions is allowed: [isAuthenticated(), isFullyAuthenticated(), isAnonymous(), isRememberMe()].The following expression is not supported in WebFlux:
+```html
+sec:authorize="hasRole('SCOPE_profile')
 ```
 
 Run the application again. After signing in, you still won't see the new link, and if you go to http://localhost:8080/profile, you will get HTTP ERROR 403, which means forbidden. This is because in `application.yml`, as part of the Okta configuration, only `email` and `openid` scopes are requested, and `profile` scope is not returned in the access token claims. Add the missing scope in the yml, restart, and the `userProfile` view should be displayed:
@@ -607,11 +635,32 @@ Run the application again and you should see the quiz link "Visit the **Thymelea
 
 {% img blog/thymeleaf-security/quiz-form.png alt:"Thymeleaf Quiz Form" width:"800" %}{: .center-image }
 
-The CSRF token is displayed, but if you turn on developer tools, you can also find it as a hidden attribute that Spring Security adds to the form.
+The CSRF token is displayed, but if you turn on developer tools, you can also find it as a hidden attribute `<input type="hidden" name="_csrf" value="...">` that Spring Security adds to the form.
 
-- Make the POST request wo the CSRF
+You can try the POST request with HTTPie, and you will again verify the POST request is rejected without the CSRF token.
 
+ ```shell
+ thymeleaf-security http POST http://localhost:8080/    
+HTTP/1.1 403 Forbidden
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Content-Type: text/plain
+Expires: 0
+Pragma: no-cache
+Referrer-Policy: no-referrer
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+X-XSS-Protection: 1 ; mode=block
+content-length: 38
 
+An expected CSRF token cannot be found
+```
 
+The interesting fact here is that it seems CSRF protection takes precedence over authentication in the Spring Security filter chain.
 
-- Learn more
+# Learn more about Spring Boot, Web Security and Okta
+
+I hope you enjoyed this brief introduction to Thymeleaf and learn how secure content and implement authorization in the server side using Spring Security. You could also grasp how fast and easy is to integrate OIDC Authenticatin using Oka. To learn more about Spring Boot Security and OIDC, check out the following links:
+
+- [Learn How to Build a Single-Page App with Vue and Spring Boot](/blog/2021/10/04/spring-boot-spa)
+- [Kubernetes to the Cloud with Spring Boot and JHipster](/blog/2021/06/01/kubernetes-spring-boot-jhipster)
+- [Spring Native in Action with the Okta Spring Boot Starter](/blog/2021/09/16/spring-native-okta-starter)
