@@ -14,10 +14,8 @@ image:
 type: conversion
 ---
 
-
-- Introduction
-- Goals
-
+Thymeleaf library has been around at least for 10 years and it is still actively maintained as of today. It is designed to allow stronger collaboration between design and developer teams for some use cases, as Thymeleaf templates look like HTML and can be displayed in the browser as static prototypes.
+In this post you will learn how to create a simple Spring Boot WebFlux application with Thymeleaf and Okta OIDC authentication, addressing the security concerns of preventing CSRF when submitting forms, and protecting functionality based on the user authorities and authentication status.
 
 
 **This tutorial was created with the following frameworks and tools**:
@@ -42,11 +40,7 @@ Among its features, Thymeleaf allows to:
 - Render variables and externalized text messages trough its [Standard Expression Syntax](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#standard-expression-syntax)
 - Perform iterations and conditional evaluations
 
-
-{% img blog/thymeleaf-security/home-authenticated.png alt:"Home Page Authenticated" width:"800" %}{: .center-image }
-
-
-
+{% img blog/thymeleaf-security/thymeleaf-logo-white.png alt:"Thymeleaf Logo" width:"600" %}{: .center-image }
 
 # Create a Spring Boot Webflux application with Thymeleaf
 
@@ -248,7 +242,7 @@ public class HomeController {
 
 The controller will render the `home` view, and will set the authorities as model attribute, for security checks that will be added soon.
 
-## Tweak the Security Configuration
+## Tweak the security configuration
 
 The default Okta starter auto-configuration will request authentication to access any page, so to customize the security, add a `SecurityConfiguration` class in the same package as before.
 
@@ -400,7 +394,7 @@ As you can see Spring Security assigns the groups contained in the claim, as wel
 
 # Prevent CSRF when submitting forms
 
-- What is CSRF?
+CSRF stands for Cross Site Request Forgery, and is a form of cyber-attack through the submission of a form from a malicious site to a known site, exploiting the browser behaviour by which the malicious request is sent along with the known site cookies, passing as an authenticated request.
 
 Spring Security CSRF protection is enabled by default for both Servlet and WebFlux applications. The predominant protection mechanism is the [Synchronizer Token Pattern](https://docs.spring.io/spring-security/reference/features/exploits/csrf.html#csrf-protection-stp), that ensures each HTTP request must contain a secure random generated value, the CSRF token. The token must be required in a part of the request that is not populated automatically by the browser. For example, an HTTP parameter or header.
 
@@ -677,3 +671,7 @@ I hope you enjoyed this brief introduction to Thymeleaf and learn how secure con
 - [Learn How to Build a Single-Page App with Vue and Spring Boot](/blog/2021/10/04/spring-boot-spa)
 - [Kubernetes to the Cloud with Spring Boot and JHipster](/blog/2021/06/01/kubernetes-spring-boot-jhipster)
 - [Spring Native in Action with the Okta Spring Boot Starter](/blog/2021/09/16/spring-native-okta-starter)
+
+You can find the complete source code for this tutorial on [Github](https://github.com/indiepopart/thymeleaf-security).
+
+Be sure to follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube Channel](https://youtube.com/c/oktadev) so that you never miss any of our excellent content!
