@@ -33,6 +33,19 @@ type: conversion
 
 # What is Thymeleaf?
 
+Thymeleaf is an open source server side Java template engine for standalone and web applications, that was created by Daniel Fernández. The templates look like HTML and can be integrated with Spring MVC and Spring Security among other popular development frameworks. Although documentation about integration with Spring Webflux is hard to find, it is currently supported and the Thymeleaf starter dependency performs the [auto-configuration](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-view-thymeleaf) of the template engine, template resolver and reactive view resolver.
+
+Among its features, Thymeleaf allows to:
+
+- Work with fragments: only a part of a template can be rendered, which can be useful for updating part of a page from responses in AJAX calls. It also provides a componentization tool, as the fragments can be included in multiple templates.
+- Handle forms with model objects containing its fields
+- Render variables and externalized text messages trough its [Standard Expression Syntax](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#standard-expression-syntax)
+- Perform iterations and conditional evaluations
+
+
+{% img blog/thymeleaf-security/home-authenticated.png alt:"Home Page Authenticated" width:"800" %}{: .center-image }
+
+
 
 
 # Create a Spring Boot Webflux application with Thymeleaf
