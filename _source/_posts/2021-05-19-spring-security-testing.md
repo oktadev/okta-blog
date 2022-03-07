@@ -39,6 +39,10 @@ In this tutorial, you will explore security mocking with `SecurityMockServerConf
 * Table of Contents
 {:toc}
 
+If you prefer to learn visually, you can [watch a screencast of this tutorial](https://youtu.be/H1Un1eDEfGY).
+
+{% youtube H1Un1eDEfGY %}
+
 ## Test a WebFlux Gateway with `mockOidcLogin()`
 
 Let's start by building and testing a Webflux API Gateway with Okta OIDC login enabled. With HTTPie and Spring Initializr, create and download a Spring Boot Maven project:
