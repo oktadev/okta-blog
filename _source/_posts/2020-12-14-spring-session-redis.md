@@ -25,7 +25,7 @@ If you're using Spring Security's default authorization code flow with OIDC, it'
 **Prerequisites**:
 
 - [Java 11](https://adoptopenjdk.net/)
-- [JHipster 7.6.0](https://www.jhipster.tech/installation/)
+- [JHipster 7.7.0](https://www.jhipster.tech/installation/)
 - [Docker](https://docs.docker.com/get-docker/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
 - [Okta CLI 0.9.0+](https://github.com/okta/okta-cli)
@@ -41,7 +41,7 @@ Let's start by building a microservices architecture. With JHipster and [JHipste
 Install JHipster:
 
 ```shell
-npm install -g generator-jhipster@7.6.0
+npm install -g generator-jhipster@7.7.0
 ```
 
 For this tutorial, you can use the JDL sample [`microservice-ecommerce-store-4-apps`](https://github.com/jhipster/jdl-samples/blob/main/microservice-ecommerce-store-4-apps.jdl) from the JDL samples repository.
@@ -153,17 +153,17 @@ docker compose up
 The JHipster Registry will log the following message once it is ready:
 
 ```
-...  | 2022-02-16 00:48:23.512  INFO 1 --- [           main] t.jhipster.registry.JHipsterRegistryApp  :
-...  | ----------------------------------------------------------
-...  | 	Application 'jhipster-registry' is running! Access URLs:
-...  | 	Local: 		http://localhost:8761/
-...  | 	External: 	http://172.19.0.11:8761/
-...  | 	Profile(s): 	[composite, dev, api-docs, oauth2]
-...  | ----------------------------------------------------------
-...  | 2022-02-16 00:48:23.513  INFO 1 --- [           main] t.jhipster.registry.JHipsterRegistryApp  :
-...  | ----------------------------------------------------------
-...  | 	Config Server: 	Connected to the JHipster Registry running in Docker
-...  | ----------------------------------------------------------
+... | 2022-03-04 05:09:08.717  INFO 1 --- [           main] t.jhipster.registry.JHipsterRegistryApp  : 
+... | ----------------------------------------------------------
+... |        Application 'jhipster-registry' is running! Access URLs:
+... |        Local:          http://localhost:8761/
+... |        External:       http://172.19.0.8:8761/
+... |        Profile(s):     [composite, dev, api-docs, oauth2]
+... | ----------------------------------------------------------
+... | 2022-03-04 05:09:08.718  INFO 1 --- [           main] t.jhipster.registry.JHipsterRegistryApp  : 
+... | ----------------------------------------------------------
+... |        Config Server:  Connected to the JHipster Registry running in Docker
+... | ----------------------------------------------------------
 ```
 
 You can sign in to the JHipster Registry at `http://localhost:8761` to check if all services are up:
