@@ -285,7 +285,7 @@ public class SecurityConfiguration {
 }
 ```
 
-In the configuration above, access to the home `/` page is allowed to all with anonymous authentication, which is required for the authentication test in the Thymeleaf `home` template to work. An authentication object must be in the security context.
+In the configuration above, access to the home `/` page is allowed to all with anonymous authentication, which is required for the authentication expression in the Thymeleaf `home.html` template to work. An authentication object must be in the security context.
 
 ## Run the application
 
@@ -371,14 +371,14 @@ public Mono<Rendering> userDetails(OAuth2AuthenticationToken authentication) {
 
 The annotation `@PreAuthorize` allows to define an authorization predicate that can be written in SpEL (Spring Expression Language), and will be checked before the method execution. Only users with the authority `SCOPE_PROFILE` can request a display of the `userProfile` page. This is the server side protection.
 
-For the client side, add a link in the `home` page for the `userProfile` page, below the "You successfully ..." paragraph. The link will also only display for users that have the `SCOPE_profile` authority.
+For the client side, add a link in the `home.html` template to access the `userProfile` page, below the "You successfully ..." paragraph. The link will also only display for users that have the `SCOPE_profile` authority.
 
 ```html
 <p>You have successfully authenticated against your Okta org, and have been redirected back to this application.</p>
 <p th:if="${#lists.contains(authorities, 'SCOPE_profile')}">Visit the <a th:href="@{/profile}">My Profile</a> page in this application to view the information retrieved with your OAuth Access Token.</p>
 ```
 
-**IMPORTANT NOTE:** The authorization conditional is implemented in this way, because authorization-oriented expressions (such as those in 'sec:authorize') are restricted in WebFlux applications due to a lack of support in the reactive side of Spring Security (as of Spring Security 5.1). Only a minimal set of security expressions is allowed: [isAuthenticated(), isFullyAuthenticated(), isAnonymous(), isRememberMe()].The following expression is not supported in WebFlux:
+**IMPORTANT NOTE:** The authorization conditional is implemented in this way, because authorization-oriented expressions like `${#authorization.expression('hasRole(''SCOPE_profile'')')}` are restricted in WebFlux applications due to a lack of support in the reactive side of Spring Security (as of Spring Security 5.1). Only a minimal set of security expressions is allowed: [isAuthenticated(), isFullyAuthenticated(), isAnonymous(), isRememberMe()].The following expression is not supported in WebFlux:
 ```html
 sec:authorize="hasRole('SCOPE_profile')
 ```
@@ -465,21 +465,22 @@ Add a template for the quiz result with the name `result.html`:
 </head>
 <body id="samples">
 <div th:replace="menu :: menu"></div>
-<div id="content" class="container">
+<div class="container" id="content">
     <div class="text-center">
-        <i th:if=${quiz.answer=='A'} class="bi-balloon-heart-fill" style="font-size: 6rem; color: green;"></i>
-        <i th:unless=${quiz.answer=='A'} class="bi-x-circle-fill" style="font-size: 6rem; color: red;"></i>
+        <i class="bi-balloon-heart-fill" style="font-size: 6rem; color: green;" th:if=${quiz.answer=='A'}></i>
+        <i class="bi-x-circle-fill" style="font-size: 6rem; color: red;" th:unless=${quiz.answer=='A'}></i>
         <div class="panel mt-4 text-center">
             <div class="panel-body">
                 <h4>Your selected answer is <strong>
                     <span th:text="${quiz.answer}"></span>
-                </strong></h4><p>Good Job!</p>
+                </strong></h4>
+                <p th:if=${quiz.answer=='A'}>Good Job!</p>
             </div>
         </div>
-        <div th:unless=${quiz.answer=='A'} class="panel mt-4 text-center">
+        <div class="panel mt-4 text-center" th:unless=${quiz.answer=='A'}>
             <div class="panel-body">
-                <h4>The right answer is <strong>A:</strong> A server-side
-                    Java template engine</h4>
+                <h4>The right answer is <strong>A:</strong></h4>
+                <h4>A server-side Java template engine</h4>
             </div>
         </div>
     </div>
@@ -505,7 +506,6 @@ public class QuizSubmission {
     public void setAnswer(String answer) {
         this.answer = answer;
     }
-
 }
 ```
 
@@ -532,14 +532,12 @@ public class QuizController {
     @GetMapping("/quiz")
     @PreAuthorize("hasAuthority('SCOPE_quiz')")
     public Mono<Rendering> showQuiz() {
-
         return Mono.just(Rendering.view("quiz").modelAttribute("quiz", new QuizSubmission()).build());
     }
 
     @PostMapping(path = "/quiz", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     @PreAuthorize("hasAuthority('SCOPE_quiz')")
     public Mono<Rendering> saveQuiz(QuizSubmission quizSubmission) {
-        logger.info("Submission {}", quizSubmission.getAnswer());
         return Mono.just(Rendering.view("result").modelAttribute("quiz", quizSubmission).build());
     }
 }
@@ -562,7 +560,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import org.springframework.web.reactive.function.BodyInserters;
 
 import static org.springframework.security.test.web.reactive.server.SecurityMockServerConfigurers.csrf;
 import static org.springframework.security.test.web.reactive.server.SecurityMockServerConfigurers.mockOidcLogin;
