@@ -197,7 +197,7 @@ Delete the store image:
 docker rmi store --force
 ```
 
-Edit the `store/pom.xml` and add the Spring Session + Redis dependency:
+Edit `store/pom.xml` and add the Spring Session + Redis dependencies:
 
 ```xml
 <dependency>
@@ -360,7 +360,7 @@ FROM haproxy:2.5
 COPY haproxy.cfg /usr/local/etc/haproxy/haproxy.cfg
 ```
 
-Create the file `docker-compose/haproxy.cfg` with the HAProxy service configuration:
+Create a `docker-compose/haproxy.cfg` file with the HAProxy service configuration:
 
 ```
 global
@@ -428,7 +428,7 @@ I hope you enjoyed this tutorial and helped you understand one possible approach
 - [JHipster OAuth 2.0 and OIDC](https://www.jhipster.tech/security/#oauth2)
 - [Redis Cache vs. Session Store](https://redislabs.com/blog/cache-vs-session-store/)
 
-You can find all the code for this tutorial in [our okta-spring-session-redis-example repository](https://github.com/oktadeveloper/okta-spring-session-redis-example).
+You can find all the code for this tutorial in [our okta-spring-session-redis-example repository](https://github.com/oktadev/okta-spring-session-redis-example).
 
 If you liked this tutorial, you might like these:
 
