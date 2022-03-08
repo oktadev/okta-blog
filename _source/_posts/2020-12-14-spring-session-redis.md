@@ -16,6 +16,8 @@ tweets:
 image: blog/spring-session-redis/spring-session-redis.png
 type: conversion
 github: https://github.com/oktadeveloper/okta-spring-session-redis-example
+changelog:
+- 2022-03-08: Updated to use JHipster 7.7.0. See the changes to this post in [okta-blog#1082](https://github.com/oktadev/okta-blog/pull/1082). You can see the updates to the example app in [okta-spring-session-redis-example#2](https://github.com/oktadev/okta-spring-session-redis-example/pull/2).
 ---
 
 Spring Boot and Spring Security have delighted developers with their APIs for quite some time now. Spring Security has done an excellent job of implementing OAuth and OpenID Connect (OIDC) standards for the last few years.
@@ -153,16 +155,16 @@ docker compose up
 The JHipster Registry will log the following message once it is ready:
 
 ```
-... | 2022-03-04 05:09:08.717  INFO 1 --- [           main] t.jhipster.registry.JHipsterRegistryApp  : 
+... | 2022-03-08 17:44:26.245  INFO 1 --- [           main] t.jhipster.registry.JHipsterRegistryApp  :
 ... | ----------------------------------------------------------
-... |        Application 'jhipster-registry' is running! Access URLs:
-... |        Local:          http://localhost:8761/
-... |        External:       http://172.19.0.8:8761/
-... |        Profile(s):     [composite, dev, api-docs, oauth2]
+... | 	Application 'jhipster-registry' is running! Access URLs:
+... | 	Local: 		http://localhost:8761/
+... | 	External: 	http://172.19.0.11:8761/
+... | 	Profile(s): 	[composite, dev, api-docs, oauth2]
 ... | ----------------------------------------------------------
-... | 2022-03-04 05:09:08.718  INFO 1 --- [           main] t.jhipster.registry.JHipsterRegistryApp  : 
+... | 2022-03-08 17:44:26.246  INFO 1 --- [           main] t.jhipster.registry.JHipsterRegistryApp  :
 ... | ----------------------------------------------------------
-... |        Config Server:  Connected to the JHipster Registry running in Docker
+... | 	Config Server: 	Connected to the JHipster Registry running in Docker
 ... | ----------------------------------------------------------
 ```
 
@@ -215,6 +217,7 @@ To enable Redis for your Spring profiles, add the following configuration to `st
 
 ```yaml
 spring:
+  ...
   session:
     store-type: redis
 ```
@@ -245,7 +248,7 @@ Edit `docker-compose/docker-compose.yml` to set the Redis configuration. Under t
 - LOGGING_LEVEL_COM_JHIPSTER_DEMO_STORE=TRACE
 - SPRING_REDIS_HOST=store-redis
 - SPRING_REDIS_PASSWORD=password
-- SPRING_REDIS_PORT=6379      
+- SPRING_REDIS_PORT=6379
 ```
 
 Add the `store-redis` instance as a new service (at the bottom of the file, and indent two spaces):
@@ -274,7 +277,7 @@ docker exec docker-compose-store-redis-1 redis-cli -a password KEYS \*
 The output should look like this:
 
 ```shell
-spring:session:sessions:b65b2bf8-1fbb-4d7d-b0a3-a7c57b583c84
+spring:session:sessions:0847fe57-fe63-40b4-8e86-40f000844280
 ```
 
 ## Spring Session Redis with HAProxy Load Balancing
@@ -303,7 +306,7 @@ services:
       - SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=${OKTA_OAUTH2_ISSUER}
       - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=${OKTA_OAUTH2_CLIENT_ID}
       - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=${OKTA_OAUTH2_CLIENT_SECRET}
-      - JHIPSTER_SLEEP=30
+      - JHIPSTER_SLEEP=60
       - JHIPSTER_REGISTRY_PASSWORD=admin
       - LOGGING_LEVEL_COM_JHIPSTER_DEMO_STORE=TRACE
       - SPRING_REDIS_HOST=store-redis
@@ -397,7 +400,7 @@ docker compose up
 Once all services are up, sign in to `http://localhost` with your credentials and navigate to **Entities** > **Product**. In your browser's developer console, check the **SERVERUSED** cookie by typing `document.cookie`. You should output like the following:
 
 ```
-"SERVERUSED=store2; XSRF-TOKEN=6aa9ebef-b62f-40b5-9310-3e9d74042fa6"
+'XSRF-TOKEN=e594183a-8eb6-4eec-9e26-200b29c4beec; SERVERUSED=store2'
 ```
 
 Stop the container of that `store` instance:
@@ -408,7 +411,7 @@ docker stop docker-compose-store2-1
 
 **TIP**: If you get a "No such container" error, run {% raw %}`docker ps --format '{{.Names}}'`{% endraw %} to print your container names. For example, it might be named `docker-compose-store2-1`.
 
-Create a new entity and inspect the POST request to verify that a different server responds, without losing the session:
+Create a new entity and inspect the cookies in the POST request to verify that a different server responds, without losing the session:
 
 ```
 SERVERUSED=store1
