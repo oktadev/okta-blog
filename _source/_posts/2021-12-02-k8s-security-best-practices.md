@@ -40,7 +40,7 @@ metadata:
   name: pod-service-reader
 rules:
 - apiGroups: [""] # "" indicates the core API group
-  resources: ["pods", "services]
+  resources: ["pods", "services"]
   verbs: ["get", "watch", "list"]
 ```
 

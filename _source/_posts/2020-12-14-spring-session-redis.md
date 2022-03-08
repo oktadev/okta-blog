@@ -30,7 +30,7 @@ If you're using Spring Security's default authorization code flow with OIDC, it'
 - [JHipster 7.7.0](https://www.jhipster.tech/installation/)
 - [Docker](https://docs.docker.com/get-docker/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
-- [Okta CLI 0.9.0+](https://github.com/okta/okta-cli)
+- [Okta CLI 0.10.0+](https://github.com/okta/okta-cli)
 
 **Table of Contents**{: .hide }
 * Table of Contents
@@ -341,7 +341,7 @@ services:
 
 Create the HAProxy base configuration at `docker-compose/haproxy.yml` with the following content:
 
-```yml
+```yaml
 version: '3'
 services:
   haproxy:
