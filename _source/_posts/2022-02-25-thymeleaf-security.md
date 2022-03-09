@@ -31,13 +31,13 @@ In this post you will learn how to create a simple Spring Boot WebFlux applicati
 
 # What is Thymeleaf?
 
-Thymeleaf is an open source server side Java template engine for standalone and web applications, that was created by Daniel Fernández. The templates look like HTML and can be integrated with Spring MVC and Spring Security among other popular development frameworks. Although documentation about integration with Spring Webflux is hard to find, it is currently supported and the Thymeleaf starter dependency performs the [auto-configuration](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-view-thymeleaf) of the template engine, template resolver and reactive view resolver.
+Thymeleaf is an open-source server-side Java template engine for standalone and web applications, that was created by Daniel Fernández. The templates look like HTML and can be integrated with Spring MVC and Spring Security among other popular development frameworks. Although documentation about integration with Spring WebFlux is hard to find, it is currently supported and the Thymeleaf starter dependency performs the [auto-configuration](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-view-thymeleaf) of the template engine, template resolver and reactive view resolver.
 
 Among its features, Thymeleaf allows to:
 
 - Work with fragments: only a part of a template can be rendered, which can be useful for updating part of a page from responses in AJAX calls. It also provides a componentization tool, as the fragments can be included in multiple templates.
-- Handle forms with model objects containing its fields
-- Render variables and externalized text messages trough its [Standard Expression Syntax](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#standard-expression-syntax)
+- Handle forms with model objects containing their fields
+- Render variables and externalized text messages through its [Standard Expression Syntax](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#standard-expression-syntax)
 - Perform iterations and conditional evaluations
 
 {% img blog/thymeleaf-security/thymeleaf-logo-white.png alt:"Thymeleaf Logo" width:"600" %}{: .center-image }
@@ -139,7 +139,7 @@ Create a `src/main/resources/templates` folder for the templates you are going t
 </html>
 ```
 
-In the template above, the commented out `<th:block/>` allows to include a header and a footer fragments defined in `header.html` and `footer.html`. They contain the Bootstrap dependencies for the templates styling. There is also a menu fragment that will replace the `<div th:replace ...` element.
+In the template above, the commented out `<th:block/>` allows to include a header and footer fragments defined in `header.html` and `footer.html`. They contain the Bootstrap dependencies for the templates styling. There is also a menu fragment that will replace the `<div th:replace ...` element.
 Conditionals  `th:if` and `th:unless` are used to evaluate the authentication status. If the visitor is not authenticated, the **Sign In** button will be displayed. Otherwise, a greeting by username will be displayed.
 
 Add the `head.html` template:
@@ -240,7 +240,7 @@ public class HomeController {
 }
 ```
 
-The controller will render the `home` view, and will set the authorities as model attribute, for security checks that will be added soon.
+The controller will render the `home` view and will set the authorities as a model attribute, for security checks that will be added soon.
 
 ## Tweak the security configuration
 
@@ -295,7 +295,7 @@ Run the application with Maven:
 ./mvnw spring-boot:run
 ```
 
-Go to http://localhost:8080 and you should see the home page and a **Sign In** button. Click the button and sign-in with your Okta credentials. After signing in, you should be redirected back to the home page and see the content for authenticated users.
+Go to http://localhost:8080 and you should see the home page and a **Sign In** button. Click the button and sign in with your Okta credentials. After signing in, you should be redirected back to the home page and see the content for authenticated users.
 
 
 {% img blog/thymeleaf-security/home-authenticated.png alt:"Home Page Authenticated" width:"800" %}{: .center-image }
@@ -369,9 +369,9 @@ public Mono<Rendering> userDetails(OAuth2AuthenticationToken authentication) {
 }
 ```
 
-The annotation `@PreAuthorize` allows to define an authorization predicate that can be written in SpEL (Spring Expression Language), and will be checked before the method execution. Only users with the authority `SCOPE_PROFILE` can request a display of the `userProfile` page. This is the server side protection.
+The annotation `@PreAuthorize` allows to define an authorization predicate that can be written in SpEL (Spring Expression Language), and will be checked before the method execution. Only users with the authority `SCOPE_PROFILE` can request a display of the `userProfile` page. This is server-side protection.
 
-For the client side, add a link in the `home.html` template to access the `userProfile` page, below the "You successfully ..." paragraph. The link will also only display for users that have the `SCOPE_profile` authority.
+For the client-side, add a link in the `home.html` template to access the `userProfile` page, below the "You successfully ..." paragraph. The link will also only display for users that have the `SCOPE_profile` authority.
 
 ```html
 <p>You have successfully authenticated against your Okta org, and have been redirected back to this application.</p>
@@ -394,9 +394,9 @@ As you can see Spring Security assigns the groups contained in the claim, as wel
 
 # Prevent CSRF when submitting forms
 
-CSRF stands for Cross Site Request Forgery, and is a form of cyber-attack through the submission of a form from a malicious site to a known site, exploiting the browser behaviour by which the malicious request is sent along with the known site cookies, passing as an authenticated request.
+CSRF stands for Cross-Site Request Forgery, and is a form of cyber-attack through the submission of a form from a malicious site to a known site, exploiting the browser behavior by which the malicious request is sent along with the known site cookies, passing as an authenticated request.
 
-Spring Security CSRF protection is enabled by default for both Servlet and WebFlux applications. The predominant protection mechanism is the [Synchronizer Token Pattern](https://docs.spring.io/spring-security/reference/features/exploits/csrf.html#csrf-protection-stp), that ensures each HTTP request must contain a secure random generated value, the CSRF token. The token must be required in a part of the request that is not populated automatically by the browser. For example, an HTTP parameter or header.
+Spring Security CSRF protection is enabled by default for both Servlet and WebFlux applications. The predominant protection mechanism is the [Synchronizer Token Pattern](https://docs.spring.io/spring-security/reference/features/exploits/csrf.html#csrf-protection-stp), which ensures each HTTP request must contain a secure random generated value, the CSRF token. The token must be required in a part of the request that is not populated automatically by the browser. For example, an HTTP parameter or header.
 
 Let's verify the CSRF protection is active by creating a quiz form to the application. Create the template `quiz.html` with the following content:
 
@@ -602,16 +602,16 @@ public class QuizControllerTest {
 }
 ```
 
-In the test class above, the first test `testPostQuiz_noCSRFToken()` verifies the quiz cannot be submited without the CSRF token, even if the user did sign in. In the second test `testPostQuiz()`, the CSRF token is added to the mock request with `mutateWith(csrf())`, so the expected response status is HTTP 200 OK. The third test `testGetQuiz_noAuth` verifies a request of the quiz will be redirected (to Okta sign in form) if the user is not authenticated. And the last test `testGetQuiz()` verifies the quiz can be accessed if the user has been authenticated with an OIDC login.
+In the test class above, the first test `testPostQuiz_noCSRFToken()` verifies the quiz cannot be submitted without the CSRF token, even if the user did sign in. In the second test `testPostQuiz()`, the CSRF token is added to the mock request with `mutateWith(csrf())`, so the expected response status is HTTP 200 OK. The third test `testGetQuiz_noAuth` verifies a request of the quiz will be redirected (to Okta sign-in form) if the user is not authenticated. And the last test `testGetQuiz()` verifies the quiz can be accessed if the user has been authenticated with an OIDC login.
 
-Before running the application, as `quiz` is not a standard scope, or a scope defined in Okta, you have to define it for the default authorization server. Sign in to the Okta dashboard, and in the left menu, go to **Security > API**, the choose the **default** authorization server. In the **Scopes** tab, click **Add Scope**. Set the scope name as `quiz` and add a description, leave all the remaining fields with default values and click on **Create**. Now the `quiz` scope can be required during the OIDC login.
+Before running the application, as `quiz` is not a standard scope or a scope defined in Okta, you have to define it for the default authorization server. Sign in to the Okta dashboard, and in the left menu, go to **Security > API**, the choose the **default** authorization server. In the **Scopes** tab, click **Add Scope**. Set the scope name as `quiz` and add a description, leave all the remaining fields with default values and click on **Create**. Now the `quiz` scope can be required during the OIDC login.
 
 {% img blog/thymeleaf-security/add-scope.png alt:"Add Scope Page" width:"800" %}{: .center-image }
 
 
 Run the application without adding the `quiz` scope to the `application.yml` file, sign in and you should not see the quiz link yet. If you make a GET request with the browser to http://localhost:8080/quiz, the response will be 403 Forbidden.
 
-Now add `quiz` to the list of scopes in the Okta configuration in `application.yml`. The final configuration should look like:
+Now add `quiz` to the list of scopes in the Okta configuration in `application.yml`. The final configuration should look like this:
 
 ```yml
 spring:
@@ -663,7 +663,7 @@ The interesting fact here is that it seems CSRF protection takes precedence over
 
 # Learn more about Spring Boot, Web Security and Okta
 
-I hope you enjoyed this brief introduction to Thymeleaf and learn how secure content and implement authorization in the server side using Spring Security. You could also grasp how fast and easy is to integrate OIDC Authenticatin using Oka. To learn more about Spring Boot Security and OIDC, check out the following links:
+I hope you enjoyed this brief introduction to Thymeleaf and learn how secure content and implement authorization on the server-side using Spring Security. You could also grasp how fast and easy is to integrate OIDC Authentication using Oka. To learn more about Spring Boot Security and OIDC, check out the following links:
 
 - [Learn How to Build a Single-Page App with Vue and Spring Boot](/blog/2021/10/04/spring-boot-spa)
 - [Kubernetes to the Cloud with Spring Boot and JHipster](/blog/2021/06/01/kubernetes-spring-boot-jhipster)
