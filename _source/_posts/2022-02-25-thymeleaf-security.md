@@ -377,10 +377,7 @@ For the client-side, add a link in the `home.html` template to access the `userP
 <p th:if="${#lists.contains(authorities, 'SCOPE_profile')}">Visit the <a th:href="@{/profile}">My Profile</a> page in this application to view the information retrieved with your OAuth Access Token.</p>
 ```
 
-**IMPORTANT NOTE:** The authorization conditional is implemented in this way, because authorization-oriented expressions like `${#authorization.expression('hasRole(''SCOPE_profile'')')}` are restricted in WebFlux applications due to a lack of support in the reactive side of Spring Security (as of Spring Security 5.1). Only a minimal set of security expressions is allowed: [isAuthenticated(), isFullyAuthenticated(), isAnonymous(), isRememberMe()].The following expression is not supported in WebFlux:
-```html
-sec:authorize="hasRole('SCOPE_profile')
-```
+**IMPORTANT NOTE:** The authorization conditional is implemented in this way, because authorization-oriented expressions like `${#authorization.expression('hasRole(''SCOPE_profile'')')}` are restricted in WebFlux applications due to a lack of support in the reactive side of Spring Security (as of Spring Security 5.6). Only a minimal set of security expressions is allowed: [isAuthenticated(), isFullyAuthenticated(), isAnonymous(), isRememberMe()].
 
 Run the application again. After signing in, you still won't see the new link, and if you go to http://localhost:8080/profile, you will get HTTP ERROR 403, which means forbidden. This is because in `application.yml`, as part of the Okta configuration, only `email` and `openid` scopes are requested, and `profile` scope is not returned in the access token claims. Add the missing scope in the yml, restart, and the `userProfile` view should be displayed:
 
@@ -662,7 +659,7 @@ The interesting fact here is that it seems CSRF protection takes precedence over
 
 # Learn more about Spring Boot, Web Security and Okta
 
-I hope you enjoyed this brief introduction to Thymeleaf and learn how secure content and implement authorization on the server-side using Spring Security. You could also grasp how fast and easy is to integrate OIDC Authentication using Oka. To learn more about Spring Boot Security and OIDC, check out the following links:
+I hope you enjoyed this brief introduction to Thymeleaf and learned how to secure content and implement authorization on the server-side using Spring Security. You could also experience how fast and easy is to integrate OIDC Authentication using Oka. To learn more about Spring Boot Security and OIDC, check out the following links:
 
 - [Learn How to Build a Single-Page App with Vue and Spring Boot](/blog/2021/10/04/spring-boot-spa)
 - [Kubernetes to the Cloud with Spring Boot and JHipster](/blog/2021/06/01/kubernetes-spring-boot-jhipster)
