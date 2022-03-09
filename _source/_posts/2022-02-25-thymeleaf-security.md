@@ -23,7 +23,6 @@ In this post you will learn how to create a simple Spring Boot WebFlux applicati
 - [HTTPie 3.0.2](https://httpie.io/)
 - [Java OpenJDK 11](https://jdk.java.net/java-se-ri/11)
 - [Okta CLI 0.9.0](https://cli.okta.com)
-- [Docker 20.10.7](https://docs.docker.com/engine/install/)
 
 **Table of Contents**{: .hide }
 * Table of Contents
