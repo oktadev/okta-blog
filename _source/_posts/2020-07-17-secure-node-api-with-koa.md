@@ -8,7 +8,7 @@ author: nickolas-fisher
 by: contractor
 communities: [javascript]
 description: "Koa is a next-generation framework for Node.js from the makers of Express. Learn how you can build a secure API using Koa!"
-tags: [nodejs, node, koa, koajs, api]
+tags: [node, koa, koajs, api]
 tweets:
   - "Learn to build a secure Node.js API using Koa! #nodejs #koajs"
   - "Want to learn how to build an API in Node.js using Koa? Follow this tutorial! #nodejs #koajs"

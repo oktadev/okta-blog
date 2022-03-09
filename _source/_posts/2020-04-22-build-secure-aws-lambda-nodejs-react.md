@@ -8,7 +8,7 @@ author: nickolas-fisher
 by: contractor
 communities: [javascript]
 description: "Build a secure serverless API using AWS Lambda functions, Node.js, and React."
-tags: [aws-lambda, lambda, serverless, node-dot-js, javascript]
+tags: [aws-lambda, lambda, serverless, node, javascript]
 tweets:
 - "Learn how to build a secure AWS Lambda API with Node.js and React! #nodejs #react #serverless"
 - "Want to learn how to build a secure AWS Lambda API with Node.js and React? Check this out! #nodejs #react #serverless"

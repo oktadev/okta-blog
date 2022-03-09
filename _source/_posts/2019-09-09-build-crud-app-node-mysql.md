@@ -8,7 +8,7 @@ author: ivo-katunaric
 by: contractor
 communities: [javascript]
 description: "Learn to build a simple CRUD application using Node.js and MySQL"
-tags: [ node, nodejs, express, expressjs, mysql, crud ]
+tags: [ node, node, express, expressjs, mysql, crud ]
 tweets:
 - "Build a secure Yelp-style CRUD application using Node.js and MySQL ➡"
 - "Learn to build a simple CRUD application using Node.js and MySQL ➡"

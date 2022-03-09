@@ -8,7 +8,7 @@ author: ibrahim-suta
 by: contractor
 communities: [.net, javascript]
 description: "This tutorial walks you through building a basic CRUD application with ASP.NET Core and Vue.js."
-tags: [aspnet, aspnetcore, vue, vuejs, vue-dot-js]
+tags: [aspnet, aspnetcore, vue]
 tweets:
 - "Wanna build an app using #aspnetcore and @vuejs? We've got you covered!"
 - "If you need to learn more about using #aspnetcore and @vuejs to build application, check this out!"
