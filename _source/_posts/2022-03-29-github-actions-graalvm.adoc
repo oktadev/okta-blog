@@ -3,9 +3,9 @@ layout: blog_post
 title: "Use GitHub Actions to Build your GraalVM Native Images"
 author: matt-raible
 by: advocate
-communities: [devops,java]
-description: ""
-tags: []
+communities: [java,devops]
+description: "Sometimes it takes a journey of many hours and many builds to produce a released artifact. GraalVM + GitHub Actions = ❤️."
+tags: [graalvm,jhipster,springnative,jhipsternative]
 tweets:
 - ""
 - ""
@@ -13,18 +13,12 @@ tweets:
 image:
 type: conversion
 ---
+// could also be awareness to since it's *barely* conversion
 :page-liquid:
 :toc: macro
 :experimental:
 
-////
-Keywords:
-
-- GitHub actions: 74K
-- GraalVM spring boot: 590
-- GitHub actions tutorial: 2400
-- GitHub ci cd: 5400
-////
+// keywords: github actions (74K), graalvm spring boot (590), github actions tutorial (2400), github ci cd (5400)
 
 Getting something to work is one of the greatest feelings you can have as a developer. Especially when you've spent hours, days, or months trying to make it happen. The last mile can be one of the most painful and rewarding experiences, all wrapped into the same day or two.
 
@@ -36,9 +30,9 @@ If you'd like to follow along and learn how to configure GitHub Actions to creat
 
 *Prerequisites*:
 
-- Java 11
-- Node 16
-- A GitHub Account
+- https://sdkman.io[Java 11]
+- https://nodejs.org[Node 16]
+- A https://github.com/signup[GitHub Account]
 
 toc::[]
 
@@ -54,15 +48,16 @@ You can read the full conversation (aka a condensed version of this post) via th
 
 I'm going to speed things up for you and just show you how to configure GitHub Actions for an existing JHipster app. In this case, it's a full-stack React + Spring Boot app.
 
-_If you'd like a bit more background, please read https://auth0.com/blog/full-stack-java-with-react-spring-boot-and-jhipster/[Full Stack Java with React, Spring Boot, and JHipster] followed by link:/blog/2022/03/03/spring-native-jhipster[Introducing Spring Native for JHipster]._
+====
+If you'd like a bit more background, please read https://auth0.com/blog/full-stack-java-with-react-spring-boot-and-jhipster/[Full Stack Java with React, Spring Boot, and JHipster] followed by link:/blog/2022/03/03/spring-native-jhipster[Introducing Spring Native for JHipster].
+====
 
 Clone the result of these two blog posts, right after I integrated the JHipster Native blueprint 1.0.
 
 [source,shell]
 ----
 git clone -b jhipster-native-1.0 \
-  https://github.com/oktadev/auth0-full-stack-java-example.git \
-  flickr2
+  https://github.com/oktadev/auth0-full-stack-java-example.git flickr2
 cd flickr2
 ----
 
@@ -79,13 +74,13 @@ git branch -M main
 git push -u origin main
 ----
 
-== Automate the wait with JHipster's CI-CD sub-generator
+== Automate the wait with JHipster's CI/CD
 
 Building native images with GraalVM brings me back to the days when we'd build Java apps with Ant and XDoclet back in the early 2000s. You'd start the build and go do something else for a while because it took _minutes_ for the artifacts to be built.
 
 There's another often-overlooked issue with native binaries: you have to build one for each operating system. It's not like Java where you can build a JAR and run it anywhere.
 
-Generate continuous integration (CI) configuration for GitHub Actions using https://www.jhipster.tech/setting-up-ci/[JHipster's CI-CD sub-generator].
+Generate continuous integration (CI) configuration for GitHub Actions using https://www.jhipster.tech/setting-up-ci/[JHipster's CI/CD sub-generator].
 
 [source,shell]
 ----
@@ -211,7 +206,7 @@ git push origin actions
 
 This should pass.
 
-image::{% asset_path 'blog/github-actions-graalvm/restore-jvm-mode.png' %}[alt=Restore JVM mode for CI,width=800, align=center]
+image::{% asset_path 'blog/github-actions-graalvm/restore-jvm-mode.png' %}[alt=Restore JVM mode for CI, align=center]
 
 Merge this PR since everything works.
 
@@ -261,7 +256,7 @@ The Windows issue was fixed by https://github.com/graalvm/setup-graalvm/issues/6
 
 === Create a `publish.yml` action
 
-Create a `.github/workflows/publish.yml` file to do your GraalVM builds on Linux, macOS, and Windows when you create a release. This file configures Linux and Windows so they have enough memory, it uploads artifacts to the actions job, and it uploads the native binaries to the release on GitHub. It will only execute when you create a release.
+Create a `.github/workflows/publish.yml` file to do your GraalVM builds on Linux, macOS, and Windows when you publish a release. This file configures Linux and Windows so they have enough memory, it uploads artifacts to the actions job, and it uploads the native binaries to the release on GitHub. It will only execute when you create a release (aka a tag).
 
 {% raw %}
 [source,yaml]
@@ -421,11 +416,11 @@ git push origin main
 
 CAUTION: I recently tried to use `windows-latest` instead of `windows-2019` and I https://github.com/graalvm/setup-graalvm/issues/6#issuecomment-1058328963[ran out of disk space].
 
-=== Create a release
+=== Create a release on GitHub
 
 Open your repository's page in your favorite browser and click on *Create a new release*. Create a new `v0.0.1` tag, title the release `v0.0.1`, and add some fun text in the description. Click **Publish release**.
 
-image::{% asset_path 'blog/github-actions-graalvm/release-v0.0.1.png' %}[alt=Restore JVM mode for CI,width=800, align=center]
+image::{% asset_path 'blog/github-actions-graalvm/release.png' %}[alt=Restore v0.0.1 - Giddyup!,width=800, align=center]
 
 Click the **Actions** tab to watch your release execute. I'd like to warn you though, it's gonna take a while!
 
@@ -433,9 +428,11 @@ Click the **Actions** tab to watch your release execute. I'd like to warn you th
 {% twitter 1498471457638293507 %}
 ++++
 
-But you'll be pleased with the results!
+However, I think you'll be pleased with the results!
 
-// successful release image
+image::{% asset_path 'blog/github-actions-graalvm/release-with-artifacts.png' %}[alt=Released with native binaries attached,width=800, align=center]
+
+TIP: If your builds fail, you can delete the tag for the release by running `git push origin :v0.0.1`. Your release will then become a draft and you can easily create the release again using the GitHub UI.
 
 == Run your released binaries locally
 
@@ -457,21 +454,20 @@ docker-compose -f src/main/docker/keycloak.yml up -d
 
 Or, configure it to use link:/blog/2022/03/03/spring-native-jhipster#use-okta-as-your-identity-provider[Okta] or link:/blog/2022/03/03/spring-native-jhipster#use-auth0-as-your-identity-provider[Auth0]!
 
-Then, start it by executing it, and everything should work as expected. Pretty slick, don't you think!
+Then, start it by executing it, and everything should work as expected. Pretty slick, don't you think?
 
 You can see a released version of the artifacts https://github.com/oktadev/auth0-full-stack-java-example/releases[on the auth0-full-stack-java-example's releases page].
 
-== Learn more about Continuous Integration and JHipster
+== Learn more about CI, JHipster, and Java
 
 I hope you've enjoyed this tour of how to configure GitHub Actions to create GraalVM binaries of Java applications. Native binaries start quite a bit faster than JARs, but they do take a lot longer to build. That's why it's a good idea to farm out those processes to a continuous integration server.
 
 If you liked this tutorial, chances are you'll like these:
 
+- link:/blog/2022/03/03/spring-native-jhipster[Introducing Spring Native for JHipster]
+- link:/blog/2021/01/20/reactive-java-microservices[Reactive Java Microservices with Spring Boot and JHipster]
 - link:/blog/2020/05/18/travis-ci-to-github-actions[Migrate From Travis CI to GitHub Actions]
 - link:/blog/2021/07/08/jenkins-ci-dotnet-update-secrets[Update App Secrets with Jenkins CI and .NET Core]
 - link:/blog/2020/03/18/ci-with-jenkins-and-java[Continuous Integration with Jenkins and Java]
-- link:/blog/2022/03/03/spring-native-jhipster[Introducing Spring Native for JHipster]
-- https://auth0.com/blog/full-stack-java-with-react-spring-boot-and-jhipster/[Full Stack Java with React, Spring Boot, and JHipster]
-- link:/blog/2021/01/20/reactive-java-microservices[Reactive Java Microservices with Spring Boot and JHipster]
 
 Follow us https://twitter.com/oktadev[@oktadev] on Twitter and subscribe to our https://youtube.com/oktadev[YouTube channel] for more modern Java goodness.
