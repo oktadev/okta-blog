@@ -6,7 +6,7 @@ jobs:
     name: Test & Deploy
     runs-on: ubuntu-18.04
     steps:
-    - uses: actions/checkout@v2.4.0
+    - uses: actions/checkout@v3
 
     - name: Set up node and npm
       uses: actions/setup-node@v3
