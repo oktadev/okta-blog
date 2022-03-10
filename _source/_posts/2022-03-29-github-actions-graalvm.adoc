@@ -28,7 +28,7 @@ Keywords:
 
 Getting something to work is one of the greatest feelings you can have as a developer. Especially when you've spent hours, days, or months trying to make it happen. The last mile can be one of the most painful and rewarding experiences, all wrapped into the same day or two.
 
-I experienced this recently with https://developer.okta.com/blog/2022/03/03/spring-native-jhipster[Spring Native for JHipster]. If I look back, it took a year's worth of desire, research, and perseverance to make it happen. When we finally got it working&mdash;and automated&mdash;you can image my excitement!
+I experienced this recently with link:/blog/2022/03/03/spring-native-jhipster[Spring Native for JHipster]. If I look back, it took a year's worth of desire, research, and perseverance to make it happen. When we finally got it working&mdash;and automated&mdash;you can image my excitement!
 
 After a few days of euphoria, I thought it'd be easy to create native builds for each operating system (Linux, macOS, and Windows) using GitHub Actions. I was wrong.
 
@@ -54,7 +54,7 @@ You can read the full conversation (aka a condensed version of this post) via th
 
 I'm going to speed things up for you and just show you how to configure GitHub Actions for an existing JHipster app. In this case, it's a full-stack React + Spring Boot app.
 
-_If you'd like a bit more background, please read https://auth0.com/blog/full-stack-java-with-react-spring-boot-and-jhipster/[Full Stack Java with React, Spring Boot, and JHipster] followed by https://developer.okta.com/blog/2022/03/03/spring-native-jhipster[Introducing Spring Native for JHipster]._
+_If you'd like a bit more background, please read https://auth0.com/blog/full-stack-java-with-react-spring-boot-and-jhipster/[Full Stack Java with React, Spring Boot, and JHipster] followed by link:/blog/2022/03/03/spring-native-jhipster[Introducing Spring Native for JHipster]._
 
 Clone the result of these two blog posts, right after I integrated the JHipster Native blueprint 1.0.
 
@@ -455,7 +455,7 @@ You could do the same for Keycloak:
 docker-compose -f src/main/docker/keycloak.yml up -d
 ----
 
-Or, configure it to use https://developer.okta.com/blog/2022/03/03/spring-native-jhipster#use-okta-as-your-identity-provider[Okta] or https://developer.okta.com/blog/2022/03/03/spring-native-jhipster#use-auth0-as-your-identity-provider[Auth0]!
+Or, configure it to use link:/blog/2022/03/03/spring-native-jhipster#use-okta-as-your-identity-provider[Okta] or link:/blog/2022/03/03/spring-native-jhipster#use-auth0-as-your-identity-provider[Auth0]!
 
 Then, start it by executing it, and everything should work as expected. Pretty slick, don't you think!
 
