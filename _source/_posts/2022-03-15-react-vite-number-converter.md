@@ -32,7 +32,7 @@ Vite was originally developed for Vue, but you can also create React and Svelte 
 
 ## Using Vite to create the TypeScript React application
 
-Before you start, you should have a recent version of Node and npm installed on your system. The first step is to use the Vite command to create a new application. This can be done using the `npm init` command without installing any additional software. Open a terminal in a folder of your choice and run the following command.
+Before you start, you should have recent versions of Node and npm installed on your system. The first step is to use the Vite command to create a new application. This can be done using the `npm init` command without installing any additional software. Open a terminal in a folder of your choice and run the following command.
 
 ```bash
 npm init vite@latest vite-number-conversion -- --template react-ts
@@ -60,7 +60,7 @@ Now open your favorite IDE in the project folder. Feel free to browse around a l
 
 Your React components are saved as `.tsx` files in the `src/` folder. To keep things organized, create a new folder `src/components` and add a new file `src/components/Home.tsx`. This will be the component to show the application's home page. Paste the following contents into the file.
 
-```ts
+```tsx
 function Home() {
     return <div>
         <h1>Number Converter</h1>
@@ -72,7 +72,7 @@ export default Home;
 
 Next, create the component that contains the number conversion tool. Create another file `src/components/Converter.tsx` with the contents below.
 
-```ts
+```tsx
 import { useState } from "react";
 
 function Converter() {
@@ -137,7 +137,7 @@ import { BrowserRouter } from 'react-router-dom'
 
 Then, modify the render function to look like the code below.
 
-```ts
+```tsx
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
@@ -150,7 +150,7 @@ ReactDOM.render(
 
 To add the routes to the application, open `src/App.tsx` and replace its contents with the following code.
 
-```ts
+```tsx
 import './App.css'
 import { Link, Route, Switch } from "react-router-dom";
 import Home from './components/Home';
@@ -235,7 +235,7 @@ If you are used to React applications built with `create-react-app`, you might e
 
 You can now open your browser at `http://localhost:3000/` and test the application. When I click the **Converter** link in the navigation bar, I see something like this.
 
-{% img blog/react-vite-number-converter/react-vite-application.jpg alt:"The number conversion utility" width:"800" %}{: .center-image }
+{% img blog/react-vite-number-converter/react-vite-application.jpg alt:"The number conversion utility" width:"512" %}{: .center-image }
 
 I opened up the Developer Tools in Chrome to understand how Vite achieves these fast starting-up times. When you open up the **Network** tab and filter by JS requests, you will see many requests to individual JavaScript sources. You will even see the `.tsx` sources you just edited. 
 
@@ -245,7 +245,7 @@ I then looked closer at `App.tsx,` and saw what is shown in the above image. Whe
 
 ## Adding authentication with Okta to the application
 
-Every good application will need user authentication to keep unwanted users out of restricted areas. With Okta, it is easy to add authentication to your Vite application in just a few steps. 
+A secure application needs user authentication to keep unauthorized users out of restricted areas. With Okta, it is easy to add authentication to your Vite application in just a few steps. 
 
 {% include setup/cli.md type="spa" framework="React" loginRedirectUri="http://localhost:3000/callback" logoutRedirectUri="http://localhost:3000" %}
 
@@ -295,7 +295,7 @@ function restoreOriginalUri(oktaAuth: OktaAuth, originalUri: string) {
 
 Here `{yourClientID}` is the client ID that you obtained earlier and `{yourOktaDomain}` is your Okta domain. Next, surround the `BrowserRouter` component with the `Security` component, passing in `oktaAuth` and `restoreOriginalUri` as parameters. The call to the render function should look something like this.
 
-```ts
+```tsx
 ReactDOM.render(
   <React.StrictMode>
     <Security oktaAuth={oktaAuth} restoreOriginalUri={restoreOriginalUri}>
@@ -316,7 +316,7 @@ import { LoginCallback, SecureRoute } from '@okta/okta-react';
 
 Finally, convert the route that serves the `Converter` component to a secured route and add another route that handles the login callback from Okta. The code inside the `Switch` component should resemble the code below.
 
-```ts
+```tsx
 <Switch>
   <Route exact path="/" component={Home} />
   <SecureRoute path="/converter" component={Converter} />
