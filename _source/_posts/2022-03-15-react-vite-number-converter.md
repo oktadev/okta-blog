@@ -330,15 +330,15 @@ Congratulations, you are ready to power up the application again. If it is still
 npm run dev
 ```
 
-Now, whenever you navigate to the **Converter** route, the application checks if you are authenticated. If not, it will redirect you to the Okta sign-in page, where you can enter your user credentials. After successfully logging in, you are to the application page you requested.
+Now, whenever you navigate to the **Converter** route, the application checks if you are authenticated. If not, it will redirect you to the Okta sign-in page, where you can enter your user credentials. After successfully logging in, you are able to access the application page you requested.
 
 ## Learn more about React, TypeScript, and Okta 
 
-In this tutorial, I guided you through creating a TypeScript React application using Vite. Vite is a lightning-fast development server and package bundler that leverages modern ES module browser support and hot module replacement—speeding up refresh times after changes to the codebase can significantly improve development productivity. 
+In this tutorial, I guided you through creating a TypeScript React application using Vite. Vite is a lightning-fast development server and package bundler that leverages modern ES module browser support and Hot Module Replacement—speeding up refresh times after changes to the codebase can significantly improve development productivity. 
 
 As an example, I showed you how to implement a number conversion utility that converts between decimal, hexadecimal, and binary formats. The application was secured using Okta authentication, and you have seen how this can be achieved in just a few lines of code.
 
-If you want to learn more about React, Typescript, or Okta authentication in JavaScript, please follow the links below.
+If you want to learn more about React, TypeScript, or Okta authentication in JavaScript, please follow the links below.
 
 * [Build a Secure SPA with React Routing](/blog/2021/11/01/react-routing)
 * [How to Create a React App with Storybook](/blog/2022/01/20/react-storybook)
