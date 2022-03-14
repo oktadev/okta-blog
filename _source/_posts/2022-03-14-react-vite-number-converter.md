@@ -73,7 +73,7 @@ export default Home;
 Next, create the component that contains the number conversion tool. Create another file `src/components/Converter.tsx` with the contents below.
 
 ```tsx
-import { useState } from "react";
+import { useState } from 'react';
 
 function Converter() {
     const [value, setValue] = useState<number>();
@@ -132,7 +132,7 @@ The `updateValue()` function is a little bit more tricky. It is a function that 
 Next, open `src/main.tsx` and add the Router to the application. At the top of the file, add the following import.
 
 ```ts
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom';
 ```
 
 Then, modify the render function to look like the code below.
@@ -152,7 +152,7 @@ To add the routes to the application, open `src/App.tsx` and replace its content
 
 ```tsx
 import './App.css'
-import { Link, Route, Switch } from "react-router-dom";
+import { Link, Route, Switch } from 'react-router-dom';
 import Home from './components/Home';
 import Converter from './components/Converter';
 
@@ -277,7 +277,7 @@ npm i –save-dev @types/node
 Now, open `src/main.tsx` and add the following code immediately after the `import` statements.
 
 ```ts
-import { Security } from "@okta/okta-react";
+import { Security } from '@okta/okta-react';
 import { OktaAuth, toRelativeUrl } from '@okta/okta-auth-js';
 
 const oktaAuth = new OktaAuth({
