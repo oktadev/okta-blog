@@ -53,7 +53,7 @@ https -d start.spring.io/starter.zip bootVersion==2.6.4 \
   name==thymeleaf-security \
   packageName==com.okta.developer.demo \
   javaVersion==11 \
-  dependencies==webflux,okta,thymeleaf
+  dependencies==webflux,okta,thymeleaf,devtools
 ```
 
 Extract the Maven project and some additional dependencies. The `thymeleaf-extras-springsecurity5` dependency is required to include security conditionals in the templates, and
@@ -78,6 +78,8 @@ The Okta configuration is now in `application.properties`. Rename it to `applica
 
 ```yml
 spring:
+  thymeleaf:
+    prefix: file:src/main/resources/templates/  
   security:
     oauth2:
       client:
@@ -95,7 +97,7 @@ okta:
       - openid
 ```
 
-Notice the `profile` scope is not requested for the first test. Only `openid` is a [required scope](https://openid.net/specs/openid-connect-basic-1_0.html#Scopes) to perform an OpenID Connect request.
+Notice the `profile` scope is not requested for the first test. Only `openid` is a [required scope](https://openid.net/specs/openid-connect-basic-1_0.html#Scopes) to perform an OpenID Connect request. The `thymeleaf.prefix` property enables the hot-reloading of the templates, when the `spring-boot-devtools` dependency is included in the project.
 
 ### Add some Thymeleaf templates
 
@@ -117,7 +119,7 @@ Create a `src/main/resources/templates` folder for the templates you are going t
         <p>Hello!</p>
         <p>If you're viewing this page then you have successfully configured and started this example server.</p>
         <p>This example shows you how to use the <a href="https://github.com/okta/okta-spring-boot">Okta Spring Boot Starter</a> to add the <a href="https://developer.okta.com/authentication-guide/implementing-authentication/auth-code.html">Authorization Code Flow</a> to your application.</p>
-        <p>When you click the login button below, you will be redirected to the login page on your Okta org.  After you authenticate, you will be returned to this application.</p>
+        <p>When you click the sign-in button below, you will be redirected to the login page on your Okta org.  After you authenticate, you will be returned to this application.</p>
       </div>
 
       <div th:if="${#authorization.expression('isAuthenticated()')}" class="text fw-light fs-6 lh-1">
@@ -373,7 +375,6 @@ Run the application again. After signing in, you still won't see the new link, a
 
 
 {% img blog/thymeleaf-security/profile-page.png alt:"Profile Page" width:"800" %}{: .center-image }
-{% img blog/thymeleaf-security/spring-security-authorities.png alt:"Spring Security derived authorities" width:"800" %}{: .center-image }
 
 As you can see, Spring Security assigns the groups contained in the claim as well as the requested scopes as authorities. Scopes are prefixed with `SCOPE_`. `ROLE_ADMIN`, and `ROLE_USER` groups are created by default when you create a client application with Okta CLI, and your user is assigned to them.
 
@@ -419,7 +420,7 @@ Let's verify the CSRF protection is active by creating a quiz form to the applic
             </label>
         </div>
         <div class="col-md-12 form-check">
-            <input class="form-check-input" type="radio" th:field="*{answer}" value="B" id="check-1-3"/>
+            <input class="form-check-input" type="radio" th:field="*{answer}" value="C" id="check-1-3"/>
             <label class="form-check-label" for="check-1-3">
                 <strong>C.</strong> A web framework
             </label>
@@ -462,8 +463,8 @@ Add a template for the quiz result with the name `result.html`:
         </div>
         <div class="panel mt-4 text-center" th:unless=${quiz.answer=='A'}>
             <div class="panel-body">
-                <h4>The right answer is <strong>A:</strong></h4>
-                <h4>A server-side Java template engine</h4>
+                <p>It is not the right answer</p>
+                <p><a th:href="@{/quiz}">Try again!</a></p>
             </div>
         </div>
     </div>
@@ -589,7 +590,7 @@ In the test class above, the first test `testPostQuiz_noCSRFToken()` verifies th
 
 As `quiz` is not a standard scope or a scope defined in Okta, you have to define it for the default authorization server before running the application. Sign in to the Okta dashboard, and in the left menu, go to **Security > API**, the choose the **default** authorization server. In the **Scopes** tab, click **Add Scope**. Set the scope name as `quiz` and add a description, leave all the remaining fields with default values and click on **Create**. Now the `quiz` scope can be required during the OIDC login.
 
-{% img blog/thymeleaf-security/add-scope.png alt:"Add Scope Page" width:"800" %}{: .center-image }
+{% img blog/thymeleaf-security/add-scope.png alt:"Add Scope Page" width:"700" %}{: .center-image }
 
 
 Run the application without adding the `quiz` scope to the `application.yml` file, sign in, and you should not see the quiz link yet. If you make a GET request with the browser to `http://localhost:8080/quiz`, the response will be 403 Forbidden.
@@ -618,7 +619,6 @@ okta:
 ```
 
 Run the application again and you should see the quiz link "Visit the **Thymeleaf Quiz** to test Cross-Site Request Forgery (CSRF) protection". Click the link and the quiz will be displayed:
-
 
 {% img blog/thymeleaf-security/quiz-form.png alt:"Thymeleaf Quiz Form" width:"800" %}{: .center-image }
 
