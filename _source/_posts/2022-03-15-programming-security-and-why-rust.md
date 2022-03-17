@@ -17,11 +17,11 @@ As programmers, how many of you have a good understanding of programming safety 
 
 What is safe programming, or to be more precise, what does being safe mean for a programming language? or rather what does unsafe mean? Let's set the context first.
 
+{% include toc.md %}
+
 If you would rather follow along by watching a video, check out the video of the talk I made on the same topic, at FOSDEM'22, below from [the OktaDev YouTube channel](https://youtu.be/8jtPUOytWyU).
 
 {% youtube 8jtPUOytWyU %}
-
-{% include toc.md %}
 
 # Programming safety
 
@@ -107,9 +107,11 @@ For those not familiar, Rust is a high-level multi-paradigm language. It's ideal
 
 ## Safety guarantee
 
+The safety guarantee is one of the most important aspects of Rust; Rust is memory-safe, null-safe, type-safe, and thread-safe by design.
+
 {% img blog/programming-security-and-why-rust/safety-meme.jpg alt:"memory safety meme" width:"600" %}{: .center-image }
 
-The safety guarantee is one of the most important aspects of Rust; Rust is memory-safe, null-safe, type-safe, and thread-safe by design. If the compiler detects unsafe code, it will refuse to compile that code by default. You would have to go out of your way to break those guarantees using the `unsafe` keyword. So even in cases where you would have to write unsafe code, you are making it explicit so that issues can easily be traced down to specific code blocks.
+If the compiler detects unsafe code, it will refuse to compile that code by default. You would have to go out of your way to break those guarantees using the `unsafe` keyword. So even in cases where you would have to write unsafe code, you are making it explicit so that issues can easily be traced down to specific code blocks.
 
 ### Memory safety
 
