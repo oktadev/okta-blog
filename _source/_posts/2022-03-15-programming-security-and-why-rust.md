@@ -37,7 +37,7 @@ Yes, to varying extents. But some languages are unsafe by default—for example,
 >
 > - Tony Hoare
 
-Then there is also null safety which is kind of related to memory safety. I come from a Java/JavaScript background, and we are so used to the concept of null. Infamous for being the worst invention in programming. Garbage collected languages need a concept of nothing so that a pointer can be freed when unused. But it also leads to issues and pain, like the null pointer exceptions. Technically this falls under memory safety, but most memory-safe languages still let you use null as a value leading to null pointer errors.
+Then there is also null safety which is kind of related to memory safety. I come from a Java/JavaScript background, and we are so used to the concept of null. Null is infamous for being the worst invention in programming. Garbage collected languages need a concept of nothing so that a pointer can be freed when unused. But it also leads to issues and pain, like the null pointer exceptions. Technically this falls under memory safety, but most memory-safe languages still let you use null as a value leading to null pointer errors.
 
 ## Type safety
 
@@ -129,7 +129,7 @@ Rust guarantees thread safety using similar concepts for memory safety and provi
 I wrote about [my impressions of Rust](https://deepu.tech/my-second-impression-of-rust/) in a detailed post on my blog where I explain Rust's excellent features that make it unique. Here is a short summary of those features:
 
 - **Zero cost abstractions**: Rust offers true zero-cost abstractions, which means that you can write code in any style with any number of abstractions without paying any performance penalty. Very few languages offer this, which is why Rust is so fast. Rust compiler will always generate the best byte code regardless of the style of code you write. This means you can write functional-style code and get the same performance as its imperative counterpart.
-- **Immutable default**: Values in Rust are immutable, or read-only, by default. Mutability has to be declared explicitly. This, along with the ability to pass by value or reference, makes it super easy to write functional code without side effects.
+- **Immutable by default**: Values in Rust are immutable, or read-only, by default. Mutability has to be declared explicitly. This, along with the ability to pass by value or reference, makes it super easy to write functional code without side effects.
 - **Pattern matching**: Rust has excellent support for advanced pattern matching. Pattern matching is used extensively for error handling and control flows in Rust.
 - **Advanced generics, traits, and types**: Rust has advanced [generics](https://doc.rust-lang.org/book/ch10-01-syntax.html) and [traits](https://doc.rust-lang.org/book/ch10-02-traits.html) with [type aliasing](https://doc.rust-lang.org/reference/items/type-aliases.html) and [type inference](https://doc.rust-lang.org/rust-by-example/types/inference.html) support. Though generics could easily become complex when combined with lifetimes, it's one of the most powerful features of Rust.
 - **Macros**: There is also support for metaprogramming using [macros](https://doc.rust-lang.org/book/ch19-06-macros.html). Rust supports both declarative macros and procedural macros. Macros can be used like annotations, attributes, and functions.
@@ -142,7 +142,7 @@ Usually, a programming language would offer a choice between safety, speed, and 
 >
 > – TechRepublic
 
-This doesn't mean there are no downsides, and Rust is definitely not a silver bullet. There are issues like the steep learning curve and complexity of the language. But it's the closest thing to a silver bullet, in my opinion. That doesn't mean you should just start using Rust for everything. If a use case requires speed, concurrency, building system tools, or building CLIs, then Rust is an ideal choice. Personally, I would recommend Rust over C/C++ for any use case unless you are building a tool for a legacy platform that Rust does not support. 
+This doesn't mean there are no downsides, and Rust is definitely not a silver bullet. There are issues like the steep learning curve and complexity of the language. But it's the closest thing to a silver bullet, in my opinion. That doesn't mean you should just start using Rust for everything. If a use case requires speed, concurrency, building system tools, or building CLIs, then Rust is an ideal choice. Personally, I would recommend Rust over C/C++ for any use case unless you are building a tool for a legacy platform that Rust does not support.
 
 # Learn more about Rust and Security
 
