@@ -17,6 +17,10 @@ As programmers, how many of you have a good understanding of programming safety 
 
 What is safe programming, or to be more precise, what does being safe mean for a programming language? or rather what does unsafe mean? Let's set the context first.
 
+If you would rather follow along by watching a video, check out the video of the talk I made on the same topic, at FOSDEM'22, below from [the OktaDev YouTube channel](https://youtu.be/8jtPUOytWyU).
+
+{% youtube 8jtPUOytWyU %}
+
 {% include toc.md %}
 
 # Programming safety
