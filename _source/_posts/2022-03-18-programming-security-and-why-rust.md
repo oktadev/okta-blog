@@ -39,7 +39,7 @@ Yes, to varying extents. But some languages are unsafe by default—for example,
 
 > I call it my billion-dollar mistake. It was the invention of the null reference in 1965
 >
-> - Tony Hoare
+> – Tony Hoare
 
 Then there is also null safety which is kind of related to memory safety. I come from a Java/JavaScript background, and we are used to the concept of null. Null is infamous for being the worst invention in programming. Garbage collected languages need a concept of nothing so that a pointer can be freed when unused. But the concept also leads to issues and pain, like the null pointer exceptions. Technically this relates to memory safety, but most memory-safe languages still let you use null as a value leading to null pointer errors.
 
