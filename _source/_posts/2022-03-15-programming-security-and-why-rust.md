@@ -111,7 +111,7 @@ The safety guarantee is one of the most important aspects of Rust; Rust is memor
 
 {% img blog/programming-security-and-why-rust/safety-meme.jpg alt:"memory safety meme" width:"600" %}{: .center-image }
 
-If the compiler detects unsafe code, it will refuse to compile that code by default. You would have to go out of your way to break those guarantees using the `unsafe` keyword. So even in cases where you would have to write unsafe code, you are making it explicit so that issues can easily be traced down to specific code blocks.
+If the compiler detects unsafe code, it will refuse to compile that code by default. You would have to go out of your way to break those guarantees using the `unsafe` keyword. So even in cases where you would have to write unsafe code, you are making it explicit and hence issues can easily be traced down to specific code blocks.
 
 #### Memory safety in Rust
 
