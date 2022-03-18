@@ -57,7 +57,7 @@ Ok! Why does this matter, and why should we care? Let's take a look at some stat
 
 ### Memory safety issues
 
-Memory safety issues are the cause of most security CVEs we encounter. Undefined behavior can be abused by a hacker to take control of the program or to leak privileged information. If you try to access an array element out of its bound in memory-safe languages, you will just crash the program with panic or error, which is predictable behavior.
+Memory safety issues are the cause of most security CVEs (Common Vulnerabilities and Exposures) we encounter. Undefined behavior can be abused by a hacker to take control of the program or to leak privileged information. If you try to access an out of bounds array element in a memory-safe language, you will just crash the program with panic or error, which is predictable behavior.
 
 This is why memory-related bugs in C/C++ systems often result in CVEs and emergency patches. There are other memory-unsafe behaviors in C/C++, like accessing pointers from stack frames that have been popped, a memory that has been de-allocated, iterator invalidation, and so on. Memory safe languages, even ones that are not the safest, still protect against such security issues.
 
@@ -126,11 +126,11 @@ I've written detailed articles about [memory management in different languages](
 
 Rust is statically typed, and it guarantees type safety by strict compile-time type checks and by guaranteeing memory safety. This is not special, as most modern languages are statically typed. Rust also allows some level of dynamic typing with the `dyn` keyword and `Any` type when required. But the powerful type inference and the compiler ensure type safety even in those cases.
 
-### Thread safety in Rust
+#### Thread safety in Rust
 
-Rust guarantees thread safety using similar concepts for memory safety and provides standard library features like channels, mutex, and ARC. In safe Rust, you can have either one mutable reference to a value or unlimited read-only references to it at any given time. The ownership mechanism makes it impossible to cause accidental data race from a shared state. This makes us confident to focus on code and let the compiler worry about shared data between threads.
+Rust guarantees thread safety using similar concepts for memory safety and provides standard library features like channels, mutex, and ARC (Atomically Reference Counted) pointers. In safe Rust, you can have either one mutable reference to a value or unlimited read-only references to it at any given time. The ownership mechanism makes it impossible to cause accidental data race from a shared state. This makes us confident to focus on code and let the compiler worry about shared data between threads.
 
-### What else?
+### Other Rust features
 
 I wrote about [my impressions of Rust](https://deepu.tech/my-second-impression-of-rust/) in a detailed post on my blog where I explain Rust's excellent features that make it unique. Here is a short summary of those features:
 
