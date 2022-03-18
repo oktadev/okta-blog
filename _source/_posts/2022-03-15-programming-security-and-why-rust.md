@@ -15,7 +15,7 @@ type: awareness
 
 As programmers, how many of you have a good understanding of programming safety or secure programming? It's not the same as application security or cyber security. I have to confess; I didn't know a lot about these in the early years of my career, especially since I didn't come from a computer science background. But looking back, I think programming security is something every programmer should be aware of and should be taught at a junior level.
 
-What is safe programming, or to be more precise, what does being safe mean for a programming language? or rather what does unsafe mean? Let's set the context first.
+What is safe programming, or to be more precise, what does being safe mean for a programming language? Or rather, what does unsafe mean? Let's set the context first.
 
 {% include toc.md %}
 
