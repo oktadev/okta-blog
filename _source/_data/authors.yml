@@ -804,7 +804,7 @@ alina-yurenko:
   bio: I ❤️ all things tech, open source and community. Developer 🥑 for @GraalVM at @OracleLabs, helping @jhipster, ex @googledevgroups
   
 alex-doukas:
-  full_name: "Alex Doukas"
+  full_name: Alex Doukas
   display_name: "Alex Doukas"
   avatar:  
   linkedin: https://www.linkedin.com/in/alexdoukas/
@@ -826,6 +826,13 @@ lukonde-mwila:
   twitter: https://twitter.com/LuKE9ine
   bio: Lukonde is a Principal Technical Evangelist at SUSE and is an AWS Container Hero. He specializes in cloud and DevOps engineering and cloud-native technologies. He is passionate about sharing knowledge through various mediums and engaging with the developer community at large.
 
+olabayo-balogun:
+  full_name: Olabayo Balogun
+  display_name: Olabayo Balogun
+  avatar: avatar-OBalogun.jpg
+  linkedin: https://www.linkedin.com/in/olabayobalogun/
+  bio: "A .Net, Blazor and Angular software engineer who is committed to building technological infrastructures capable of solving the challenges of netizens now and in the future. "
+  
 
   
   
