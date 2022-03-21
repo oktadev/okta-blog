@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Thymeleaf Templates with Spring WebFlux to Secure Your Apps"
+title: "Use Thymeleaf Templates with Spring WebFlux to Secure Your Apps"
 author: jimena-garbarino
 by: contractor
 communities: [java]
@@ -10,18 +10,20 @@ tweets:
 - "Learn how to use @thymeleaf templates with @springboot and @springsecurity in this quick tutorial."
 - "Thymeleaf works great with Spring Security and WebFlux. Learn more in this tutorial. 👇"
 - "A new guide for @thymeleaf with @springwebflux. We think you're gonna 💚 it!"
-image:
+image: blog/thymeleaf-security/thymeleaf-webflux-security.png
 type: conversion
+github: https://github.com/oktadev/okta-thymeleaf-security-example
 ---
 
-Thymeleaf library has been around at least for 10 years and it is still actively maintained as of today. It is designed to allow stronger collaboration between design and developer teams for some use cases, as Thymeleaf templates look like HTML and can be displayed in the browser as static prototypes.
-In this post you will learn how to create a simple Spring Boot WebFlux application with Thymeleaf and Okta OIDC authentication, addressing the security concerns of preventing CSRF when submitting forms, and protecting functionality based on the user authorities and authentication status.
+The Thymeleaf library has been around at least for 10 years and it is still actively maintained as of today. It is designed to allow stronger collaboration between design and developer teams for some use cases, as Thymeleaf templates look like HTML and can be displayed in the browser as static prototypes.
+
+In this tutorial you will learn how to create a simple Spring WebFlux application with Thymeleaf and Okta OIDC authentication, addressing the security concerns of preventing CSRF when submitting forms, and protecting functionality based on the user authorities and authentication status.
 
 **This tutorial was created with the following frameworks and tools**:
 
 - [HTTPie 3.0.2](https://httpie.io/)
-- [Java OpenJDK 11](https://jdk.java.net/java-se-ri/11)
-- [Okta CLI 0.9.0](https://cli.okta.com)
+- [Java 11](https://jdk.java.net/java-se-ri/11)
+- [Okta CLI 0.10.0](https://cli.okta.com)
 
 **Table of Contents**{: .hide }
 * Table of Contents
@@ -40,7 +42,7 @@ Among its features, Thymeleaf allows you to:
 - Render variables and externalized text messages through its [Standard Expression Syntax](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#standard-expression-syntax)
 - Perform iterations and conditional evaluations
 
-## Create a Spring Boot WebFlux application with Thymeleaf
+## Create a Spring WebFlux application with Thymeleaf
 
 Create a simple monolithic Spring Boot reactive application, that will use Thymeleaf for page templates.
 You can use [Spring Initializr](https://start.spring.io/), from its web UI, or download the starter app with the following HTTPie command:
@@ -74,6 +76,7 @@ Extract the Maven project and some additional dependencies. The `thymeleaf-extra
 ### Add Okta authentication
 
 {% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
+
 The Okta configuration is now in `application.properties`. Rename it to `application.yml` and add the following additional properties:
 
 ```yml
@@ -109,36 +112,43 @@ Create a `src/main/resources/templates` folder for the templates you are going t
     <title>User Details</title>
     <!--/*/ <th:block th:include="head :: head"/> /*/-->
 </head>
-  <body id="samples">
-  <div th:replace="menu :: menu"></div>
+<body id="samples">
+<div th:replace="menu :: menu"></div>
 
-    <div id="content" class="container">
-      <h2>Okta Hosted Login + Spring Boot Example</h2>
+<div id="content" class="container">
+    <h2>Okta Hosted Login + Spring Boot Example</h2>
 
-      <div th:unless="${#authorization.expression('isAuthenticated()')}" class="text fw-light fs-6 lh-1">
+    <div th:unless="${#authorization.expression('isAuthenticated()')}" class="text fw-light fs-6 lh-1">
         <p>Hello!</p>
         <p>If you're viewing this page then you have successfully configured and started this example server.</p>
-        <p>This example shows you how to use the <a href="https://github.com/okta/okta-spring-boot">Okta Spring Boot Starter</a> to add the <a href="https://developer.okta.com/authentication-guide/implementing-authentication/auth-code.html">Authorization Code Flow</a> to your application.</p>
-        <p>When you click the sign-in button below, you will be redirected to the login page on your Okta org.  After you authenticate, you will be returned to this application.</p>
-      </div>
-
-      <div th:if="${#authorization.expression('isAuthenticated()')}" class="text fw-light fs-6 lh-1">
-        <p>Welcome home, <span th:text="${#authentication.principal.name}">Joe Coder</span>!</p>
-        <p>You have successfully authenticated against your Okta org, and have been redirected back to this application.</p>
-      </div>
-
-      <form th:unless="${#authorization.expression('isAuthenticated()')}" method="get" th:action="@{/oauth2/authorization/okta}">
-        <button id="login-button" class="btn btn-primary" type="submit">Sign In</button>
-      </form>
-
+        <p>This example shows you how to use the <a href="https://github.com/okta/okta-spring-boot">Okta Spring Boot
+            Starter</a> to add the <a
+            href="https://developer.okta.com/docs/guides/implement-grant-type/authcode/main/">Authorization
+            Code Flow</a> to your application.</p>
+        <p>When you click the login button below, you will be redirected to the login page on your Okta org. After you
+            authenticate, you will be returned to this application.</p>
     </div>
-  </body>
-  <!--/*/ <th:block th:include="footer :: footer"/> /*/-->
+
+    <div th:if="${#authorization.expression('isAuthenticated()')}" class="text fw-light fs-6 lh-1">
+        <p>Welcome home, <span th:text="${#authentication.principal.name}">Joe Coder</span>!</p>
+        <p>You have successfully authenticated against your Okta org, and have been redirected back to this 
+          application.</p>
+    </div>
+
+    <form th:unless="${#authorization.expression('isAuthenticated()')}" method="get" 
+          th:action="@{/oauth2/authorization/okta}">
+        <button id="login-button" class="btn btn-primary" type="submit">Sign In</button>
+    </form>
+
+</div>
+</body>
+<!--/*/ <th:block th:include="footer :: footer"/> /*/-->
 </html>
 ```
 
-In the template above, the commented out `<th:block/>` allows to include a header and footer fragments defined in `header.html` and `footer.html`. They contain the Bootstrap dependencies for the templates styling. There is also a menu fragment that will replace the `<div th:replace ...` element.
-Conditionals  `th:if` and `th:unless` are used to evaluate the authentication status. If the visitor is not authenticated, the **Sign In** button will be displayed. Otherwise, a greeting by username will be displayed.
+In the template above, the commented out `<th:block/>` allows to include a header and footer fragments defined in `header.html` and `footer.html`. They contain the Bootstrap dependencies for the templates styling. There is also a menu fragment that will replace the `<div th:replace ...>` element.
+
+The `th:if` and `th:unless` conditionals are used to evaluate the authentication status. If the visitor is not authenticated, the **Sign In** button will be displayed. Otherwise, a greeting by username will be displayed.
 
 Add a `head.html` template:
 
@@ -148,11 +158,12 @@ Add a `head.html` template:
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" 
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 </head>
 <body>
-    <p>Nothing to see here, move along.</p>
+<p>Nothing to see here, move along.</p>
 </body>
 </html>
 ```
@@ -167,7 +178,9 @@ Create a `footer.html` template:
 <p>Nothing to see here, move along.</p>
 </body>
 <footer th:fragment="footer">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"  
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" 
+            crossorigin="anonymous"></script>
 </footer>
 </html>
 ```
@@ -269,11 +282,11 @@ public class SecurityConfiguration {
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         http
-          .authorizeExchange().pathMatchers("/").permitAll().and().anonymous()
-          .and().authorizeExchange().anyExchange().authenticated()
-          .and().oauth2Client()
-          .and().oauth2Login()
-          .and().logout().logoutSuccessHandler(logoutSuccessHandler());
+            .authorizeExchange().pathMatchers("/").permitAll().and().anonymous()
+            .and().authorizeExchange().anyExchange().authenticated()
+            .and().oauth2Client()
+            .and().oauth2Login()
+            .and().logout().logoutSuccessHandler(logoutSuccessHandler());
 
         return http.build();
     }
@@ -305,46 +318,49 @@ Let's add a `userProfile.html` template that will display the claims contained i
     <!--/*/ <th:block th:include="head :: head"/> /*/-->
 </head>
 <body id="samples">
-  <div th:replace="menu :: menu"></div>
+<div th:replace="menu :: menu"></div>
 
-    <div id="content" class="container">
+<div id="content" class="container">
 
-      <div>
+    <div>
         <h2>My Profile</h2>
-        <p>Hello, <span th:text="${#authentication.principal.attributes['name']}">Joe Coder</span>. Below is the information that was read with your <a href="https://developer.okta.com/docs/api/resources/oidc.html#get-user-information">Access Token</a>.
+        <p>Hello, <span th:text="${#authentication.principal.attributes['name']}">Joe Coder</span>. Below is the 
+            information that was read with your <a 
+            href="https://developer.okta.com/docs/api/resources/oidc.html#get-user-information">Access Token</a>.
         </p>
-        <p>This route is protected with the annotation <code>@PreAuthorize("hasAuthority('SCOPE_profile')")</code>, which will ensure that this page cannot be accessed until you have authenticated, and have the scope <code>profile</code>.</p>
-      </div>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Claim</th>
-            <th>Value</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr th:each="item : ${details}">
-                <td th:text="${item.key}">Key</td>
-                <td th:id="${'claim-' + item.key}" th:text="${item.value}">Value</td>
-            </tr>
-        </tbody>
-      </table>
-
-      <table class="table table-striped">
+        <p>This route is protected with the annotation <code>@PreAuthorize("hasAuthority('SCOPE_profile')")</code>, 
+            which will ensure that this page cannot be accessed until you have authenticated, and have the scope <code>profile</code>.</p>
+    </div>
+    <table class="table table-striped">
         <thead>
         <tr>
-          <th>Spring Security Authorities</th>
+            <th>Claim</th>
+            <th>Value</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${details}">
+              <td th:text="${item.key}">Key</td>
+              <td th:id="${'claim-' + item.key}" th:text="${item.value}">Value</td>
+          </tr>
+        </tbody>
+    </table>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Spring Security Authorities</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="scope : ${#authentication.authorities}">
-          <td><code th:text="${scope}">Authority</code></td>
+              <td><code th:text="${scope}">Authority</code></td>
         </tr>
         </tbody>
-      </table>
+    </table>
 
-    </div>
-  </body>
+</div>
+</body>
 <!--/*/ <th:block th:include="footer :: footer"/> /*/-->
 </html>
 ```
@@ -355,8 +371,9 @@ Add the route mapping in the `HomeController`:
 @GetMapping("/profile")
 @PreAuthorize("hasAuthority('SCOPE_profile')")
 public Mono<Rendering> userDetails(OAuth2AuthenticationToken authentication) {
-    return Mono.just(Rendering.view("userProfile").modelAttribute("details", authentication.getPrincipal().getAttributes())
-            .build());
+    return Mono.just(Rendering.view("userProfile")
+        .modelAttribute("details", authentication.getPrincipal().getAttributes())
+        .build());
 }
 ```
 
@@ -372,7 +389,6 @@ For the client-side, add a link in the `home.html` template to access the `userP
 **IMPORTANT NOTE:** The authorization conditional is implemented in this way, because authorization-oriented expressions like `${#authorization.expression('hasRole(''SCOPE_profile'')')}` are restricted in WebFlux applications due to a lack of support in the reactive side of Spring Security (as of Spring Security 5.6). Only a minimal set of security expressions is allowed: [`isAuthenticated()`, `isFullyAuthenticated()`, `isAnonymous()`, `isRememberMe()`].
 
 Run the application again. After signing in, you still won't see the new link, and if you go to `http://localhost:8080/profile`, you will get HTTP ERROR 403, which means forbidden. This is because in `application.yml`, as part of the Okta configuration, only `email` and `openid` scopes are requested, and `profile` scope is not returned in the access token claims. Add the missing scope in the `application.yml`, restart, and the `userProfile` view should now be visible:
-
 
 {% img blog/thymeleaf-security/profile-page.png alt:"Profile Page" width:"800" %}{: .center-image }
 
@@ -426,7 +442,7 @@ Let's verify the CSRF protection is active by creating a quiz form to the applic
             </label>
         </div>
         <div class="col-md-12 mt-4 mb-4">
-            <p>Your CSRF token is:<span th:text="${_csrf.token}"/></p>
+            <p>Your CSRF token is: <span th:text="${_csrf.token}"/></p>
         </div>
         <div class="col-md-12">
             <button type="submit" class="btn btn-primary">Submit</button>
@@ -439,6 +455,7 @@ Let's verify the CSRF protection is active by creating a quiz form to the applic
 ```
 
 The CSRF token is available as a request attribute and will be displayed in the `quiz.html` template for learning purposes.
+
 Add a template for the quiz result with the name `result.html`:
 
 ```html
@@ -534,6 +551,7 @@ In the new controller and templates, the quiz is authorized for users that have 
 <p th:if="${#lists.contains(authorities, 'SCOPE_profile')}">Visit the <a th:href="@{/profile}">My Profile</a> page in this application to view the information retrieved with your OAuth Access Token.</p>
 <p th:if="${#lists.contains(authorities, 'SCOPE_quiz')}">Visit the <a th:href="@{/quiz}">Thymeleaf Quiz</a> to test Cross-Site Request Forgery (CSRF) protection.</p>
 ```
+
 Before running the application again, let's verify CSRF protection with a controller test. Add `QuizControllerTest` to `src/test/java` under the package `com.okta.developer.demo`:
 
 ```java
@@ -588,10 +606,9 @@ public class QuizControllerTest {
 
 In the test class above, the first test `testPostQuiz_noCSRFToken()` verifies the quiz cannot be submitted without the CSRF token, even if the user did sign in. In the second test `testPostQuiz()`, the CSRF token is added to the mock request with `mutateWith(csrf())`, so the expected response status is HTTP 200 OK. The third test `testGetQuiz_noAuth()` verifies a request of the quiz will be redirected (to the Okta sign-in form) if the user is not authenticated. And the last test `testGetQuiz()` verifies the quiz can be accessed if the user has been authenticated with an OIDC login.
 
-As `quiz` is not a standard scope or a scope defined in Okta, you have to define it for the default authorization server before running the application. Sign in to the Okta dashboard, and in the left menu, go to **Security > API**, the choose the **default** authorization server. In the **Scopes** tab, click **Add Scope**. Set the scope name as `quiz` and add a description, leave all the remaining fields with default values and click on **Create**. Now the `quiz` scope can be required during the OIDC login.
+As `quiz` is not a standard scope or a scope defined in Okta, you have to define it for the default authorization server before running the application. Sign in to the Okta Admin Console, and in the left menu, go to **Security > API**, the choose the **default** authorization server. In the **Scopes** tab, click **Add Scope**. Set the scope name as `quiz` and add a description, leave all the remaining fields with default values and click on **Create**. Now the `quiz` scope can be required during the OIDC login.
 
 {% img blog/thymeleaf-security/add-scope.png alt:"Add Scope Page" width:"700" %}{: .center-image }
-
 
 Run the application without adding the `quiz` scope to the `application.yml` file, sign in, and you should not see the quiz link yet. If you make a GET request with the browser to `http://localhost:8080/quiz`, the response will be 403 Forbidden.
 
@@ -645,7 +662,7 @@ An expected CSRF token cannot be found
 
 The interesting fact here is that it seems CSRF protection takes precedence over authentication in the Spring Security filter chain.
 
-## Learn more about Spring Boot, Web Security, and Okta
+## Learn more about Spring Boot, Spring Security, and Okta
 
 I hope you enjoyed this brief introduction to Thymeleaf and learned how to secure content and implement authorization on the server-side using Spring Security. You could also experience how fast and easy is to integrate OIDC Authentication using Okta. To learn more about Spring Boot Security and OIDC, check out the following links:
 
