@@ -4,12 +4,12 @@ title: "Thymeleaf Templates with Spring WebFlux to Secure Your Apps"
 author: jimena-garbarino
 by: contractor
 communities: [java]
-description: "Securing your application when using Thymeleaf templates with Spring Webflux"
-tags: [thymeleaf, security, method-security, oidc, webflux, spring, spring-boot, spring-security, csrf, authorization]
+description: "This tutorial shows how to secure your Spring WebFlux apps when using Thymeleaf templates."
+tags: [java, thymeleaf, webflux, spring-boot, spring-security, csrf]
 tweets:
-- ""
-- ""
-- ""
+- "Learn how to use @thymeleaf templates with @springboot and @springsecurity in this quick tutorial."
+- "Thymeleaf works great with Spring Security and WebFlux. Learn more in this tutorial. 👇"
+- "A new guide for @thymeleaf with @springwebflux. We think you're gonna 💚 it!"
 image:
 type: conversion
 ---
