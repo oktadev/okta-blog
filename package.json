@@ -45,8 +45,8 @@
     "pre-push": "0.1.1",
     "shelljs": "^0.8.5",
     "recursive-readdir": "2.2.2",
-    "simple-git": "^3.2.6",
+    "simple-git": "^3.3.0",
     "yargs": "^17.3.1",
-    "sharp": "^0.30.2"
+    "sharp": "^0.30.3"
   }
 }
