@@ -42,7 +42,7 @@
     "cross-env": "7.0.3",
     "front-matter": "^4.0.2",
     "fs-extra": "^10.0.1",
-    "pre-push": "0.1.1",
+    "pre-push": "0.1.2",
     "shelljs": "^0.8.5",
     "recursive-readdir": "2.2.2",
     "simple-git": "^3.4.0",
