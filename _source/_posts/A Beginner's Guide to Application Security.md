@@ -1,3 +1,4 @@
+---
 A Beginner's Guide to  Application Security
 layout: blog_post
 title: “A Beginner's Guide to Application Security”
@@ -9,9 +10,10 @@ Tags: [access-control, api-security, appsec, authentication]
 tweets:
 - “This tutorial will teach you the basics of application security and offer resources to continue your education.” [LINK]
 - “Application security needs to be a top priority for developers. Discover ways to implement AppSec in your project and achieve great results.” [LINK]
-Image: !(https://imgur.com/a/7PQgid1.png)
+Image: blog/beginners-app-sec/beginners-app-sec.png
 type: awareness
-—
+
+---
 
 
 
