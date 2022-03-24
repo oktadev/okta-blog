@@ -73,7 +73,7 @@ Extract the Maven project and some additional dependencies. The `thymeleaf-extra
     <scope>test</scope>
 </dependency>
 ```
-### Add Okta authentication
+### Add authentication with OpenID Connect
 
 {% include setup/cli.md type="web" framework="Okta Spring Boot Starter" %}
 
@@ -662,7 +662,7 @@ An expected CSRF token cannot be found
 
 The interesting fact here is that it seems CSRF protection takes precedence over authentication in the Spring Security filter chain.
 
-## Learn more about Spring Boot, Spring Security, and Okta
+## Learn more about Spring Boot and Spring Security
 
 I hope you enjoyed this brief introduction to Thymeleaf and learned how to secure content and implement authorization on the server-side using Spring Security. You could also experience how fast and easy is to integrate OIDC Authentication using Okta. To learn more about Spring Boot Security and OIDC, check out the following links:
 
