@@ -22,6 +22,8 @@ When coding a solution using regular expressions, you typically use the built-in
 
 In this article, you'll learn how to use regular expressions to define a pattern for searching or manipulating strings in Java. You can find [the GitHub repository for the code in this article here](https://github.com/karllhughes/RegexExamples).
 
+{% include toc.md %}
+
 ## The what and why of regular expressions
 
 So, what are regular expressions? Wikipediadefines a [regular expression](https://en.wikipedia.org/wiki/Regular_expression) as "a sequence of characters that specifies a search pattern in text."
