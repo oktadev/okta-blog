@@ -14,7 +14,7 @@ image:
 type: awareness
 ---
 
-Whether you're coding, using a search engine, searching and replacing text in text editor, or using the command-line utilities `grep`, `sed`, and `awk` in Linux, you're using regular expressions (also known as “regex” or “regexp”). Yes, they're everywhere.
+Whether you're coding, using a search engine, searching and replacing text in text editor, or using the command-line utilities `grep`, `sed`, and `awk` in Linux, you're using regular expressions (also known as "regex" or "regexp"). Yes, they're everywhere.
 
 A regular expression is a sequence of characters used to describe a text pattern. Working with regular expressions is rarelydescribed as fun, but they are useful to help solve various problems while coding a feature, usually to find and replace operations with strings.
 
@@ -24,7 +24,7 @@ In this article, you'll learn how to use regular expressions to define a pattern
 
 ## The what and why of regular expressions
 
-So, what are regular expressions? Wikipediadefines a [regular expression](https://en.wikipedia.org/wiki/Regular_expression) as “a sequence of characters that specifies a search pattern in text.”
+So, what are regular expressions? Wikipediadefines a [regular expression](https://en.wikipedia.org/wiki/Regular_expression) as "a sequence of characters that specifies a search pattern in text."
 
 For example, if you use the regular expression `ab*`, you're issuing an instruction to match a string that has an `a` followed by zero or more `b`'s. So strings like `ab`, `abc`, `abbc`, etc. will match our regular expression. The asterisk symbol, `*`, denotes the number of times a character or a sequence of characters may occur.
 
