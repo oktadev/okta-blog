@@ -1,15 +1,15 @@
 ---
 A Beginner's Guide to  Application Security
 layout: blog_post
-title: “A Beginner's Guide to Application Security”
+title: "A Beginner's Guide to Application Security"
 Author: alex-doukas
 by: contractor
 communities: security
 Description: Learn the basics of building and maintaining security for your applications, including elements like authentication and user management. 
 Tags: [access-control, api-security, appsec, authentication]
 tweets:
-- “This tutorial will teach you the basics of application security and offer resources to continue your education.” [LINK]
-- “Application security needs to be a top priority for developers. Discover ways to implement AppSec in your project and achieve great results.” [LINK]
+- "This tutorial will teach you the basics of application security and offer resources to continue your education." [LINK]
+- "Application security needs to be a top priority for developers. Discover ways to implement AppSec in your project and achieve great results." [LINK]
 Image: blog/beginners-app-sec/beginners-app-sec.png
 type: awareness
 
@@ -17,15 +17,15 @@ type: awareness
 
 Over the past decade, and even more swiftly since the time of the COVID-19 pandemic, digital transformation of the workplace has primarily been [driven by applications](https://accelerationeconomy.com/business-apps/top-10-apps-driving-digital-transformation/). Apps have become an integral part of everyday life for many organizations.
 
-Modern applications are complex. Their functionality frequently relies on APIs and third-party integrations, leading to an increased attack surface and more security vulnerabilities. A data breach or an attacker exploiting a security weakness can permanently damage your business. It’s crucial that you understand and secure your application’s infrastructure.
+Modern applications are complex. Their functionality frequently relies on APIs and third-party integrations, leading to an increased attack surface and more security vulnerabilities. A data breach or an attacker exploiting a security weakness can permanently damage your business. It's crucial that you understand and secure your application's infrastructure.
 
 There are a number of actions you can take to keep attackers away. Following are some tips and best practices for a more secure application.
 
 ## Understanding application security 
 
-Application security, or *AppSec*, as it’s commonly known, takes place throughout the development lifecycle. It’s the process of creating applications that are secure from both internal and external threats. Internal threats can range from simple human error to malicious acts. External threats, which include data breaches, malware, and phishing attacks, can be constant and costly. It’s estimated that distributed denial-of-service (DDoS) attacks alone [will grow to 15.4 million by 2023](https://www.cisco.com/c/en/us/solutions/collateral/executive-perspectives/annual-internet-report/white-paper-c11-741490.html).
+Application security, or *AppSec*, as it's commonly known, takes place throughout the development lifecycle. It's the process of creating applications that are secure from both internal and external threats. Internal threats can range from simple human error to malicious acts. External threats, which include data breaches, malware, and phishing attacks, can be constant and costly. It's estimated that distributed denial-of-service (DDoS) attacks alone [will grow to 15.4 million by 2023](https://www.cisco.com/c/en/us/solutions/collateral/executive-perspectives/annual-internet-report/white-paper-c11-741490.html).
 
-As attackers target applications ever more aggressively, keeping them secure plays a vital role in a holistic cybersecurity strategy. Application security is necessary to avoid financial and legal repercussions, protect your organization’s reputation, and build trust with your customers and partners.
+As attackers target applications ever more aggressively, keeping them secure plays a vital role in a holistic cybersecurity strategy. Application security is necessary to avoid financial and legal repercussions, protect your organization's reputation, and build trust with your customers and partners.
 
 ## Application security concepts
 
@@ -70,7 +70,7 @@ A *user management system* is an  [essential part of application security](https
 
 As with authentication, you might want to build your own user management system. However, these are complex systems to create that generally require dedicated teams, especially for enterprise-level applications. You could run into issues such as failing to sanitize user input or being stuck with a frustrating registration process.
 
-With an external user management system, you’ll get a robust, out-of-the-box solution that adjusts to your needs while handling tricky tasks like scaling or regulatory compliance. This can also help you reduce overall user management costs since you won’t need to pay in-house developers to do the work.
+With an external user management system, you'll get a robust, out-of-the-box solution that adjusts to your needs while handling tricky tasks like scaling or regulatory compliance. This can also help you reduce overall user management costs since you won't need to pay in-house developers to do the work.
 
 ### Up-to-date programs are a best practice
 
@@ -80,9 +80,9 @@ Update the antivirus programs on your devices and your firewalls. You can also u
 
 ### Secure communication protocols
 
-Be sure your site or application uses [Hypertext Transfer Protocol Secure (HTTPS)](https://en.wikipedia.org/wiki/HTTPS). It adds a security layer to traditional HTTP by encrypting the data exchanged between computers and servers over the internet. For example, if your user fills out a form with personal information, even if the data is stolen, it won’t have any value to the attacker because it cannot easily be decoded.
+Be sure your site or application uses [Hypertext Transfer Protocol Secure (HTTPS)](https://en.wikipedia.org/wiki/HTTPS). It adds a security layer to traditional HTTP by encrypting the data exchanged between computers and servers over the internet. For example, if your user fills out a form with personal information, even if the data is stolen, it won't have any value to the attacker because it cannot easily be decoded.
 
-HTTPS is [so important](https://www.troyhunt.com/heres-why-your-static-website-needs-https/) that it’s become the de facto industry standard. All major web browsers discourage users from visiting non-HTTPS websites, and search engines penalize those websites in search results.
+HTTPS is [so important](https://www.troyhunt.com/heres-why-your-static-website-needs-https/) that it's become the de facto industry standard. All major web browsers discourage users from visiting non-HTTPS websites, and search engines penalize those websites in search results.
 
 HTTPS protects data with the [Transport Layer Security (TLS)](https://www.internetsociety.org/deploy360/tls/basics/) protocol, which uses a [public-key encryption system](https://www.cloudflare.com/en-gb/learning/ssl/how-does-public-key-encryption-work/) to ensure that applications communicate and exchange data safely.
 
@@ -90,17 +90,17 @@ Learn more about how to get started with HTTPS [in this series](https://httpsise
 
 ### Security testing tools 
 
-Use security testing to detect vulnerabilities in your application. Testing can help you protect your applications from data breaches and avoid performance issues. You can also determine your application’s level of security stability and avoid future problems.
+Use security testing to detect vulnerabilities in your application. Testing can help you protect your applications from data breaches and avoid performance issues. You can also determine your application's level of security stability and avoid future problems.
 
 Testing can be a time-consuming ongoing process, but there are solutions to help you test efficiently. Two popular testing tools are vulnerability assessment and penetration testing.
 
-[*Vulnerability assessment*](https://www.techtarget.com/searchsecurity/definition/vulnerability-assessment-vulnerability-analysis) or scanner tools review your application to see if it’s vulnerable to security attacks. They identify, analyze, and help you solve security risks.
+[*Vulnerability assessment*](https://www.techtarget.com/searchsecurity/definition/vulnerability-assessment-vulnerability-analysis) or scanner tools review your application to see if it's vulnerable to security attacks. They identify, analyze, and help you solve security risks.
 
 [*Penetration testing*](https://www.okta.com/identity-101/penetration-testing/) (or pen testing)  is a white-hat hacking technique you can use to detect security flaws. You imitate the steps a cyber attacker would take in order to identify and fix vulnerabilities before real attackers can discover them.
 
 ### Certifications in app security
 
-You might be inspired to learn even more about application security. If that’s the case, consider pursuing [certification](https://www.csoonline.com/article/3631530/8-top-cloud-security-certifications.html), so you can develop expertise in cloud security. This in-demand skill set will benefit you as well as your company or organization. 
+You might be inspired to learn even more about application security. If that's the case, consider pursuing [certification](https://www.csoonline.com/article/3631530/8-top-cloud-security-certifications.html), so you can develop expertise in cloud security. This in-demand skill set will benefit you as well as your company or organization. 
 
 ## Use your knowledge
 
