@@ -1,5 +1,6 @@
 ---
-A Beginner's Guide to  Application Security
+
+
 layout: blog_post
 title: "A Beginner's Guide to Application Security"
 author: alex-doukas
