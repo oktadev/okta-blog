@@ -1,0 +1,385 @@
+---
+layout: blog_post
+title: "Authenticate from the Command Line with Java"
+author: brian-demers
+by: advocate
+communities: [java]
+description: ""
+tags: [java, oauth, oauth2, cli, access-tokens, command-line]
+tweets:
+- ""
+- ""
+- ""
+image:
+type: conversion
+---
+:page-liquid:
+:toc: macro
+:experimental:
+
+Anyone who has tried to type a password using a television remote can tell you what a pain it is. Not only will you be frustrated with the keyboard, but it's not secure; everyone else in the room can see what you are typing. Fortunately, there is an easier way by using the OAuth 2.0 Device Authorization Grant. The name is a mouthful, but if you have ever logged in to a TV by scanning a QR code or typing a short code, you have already used this flow.
+
+image::{% asset_path 'blog/java-cli-device-grant/device-grant-tv.png' %}[alt=Login with QR code,width=800,align=center]
+
+The great thing about this flow is that it isn't just for televisions, it works with any internet-connected device, alarm clocks, https://auth0.com/blog/build-user-signup-counter-with-arduino-part2/[Arduino's], and even command-line tools.
+
+I'll walk through how the OAuth 2.0 Device Authorization Grant works in this post and build a simple Java console application!
+
+If you want to skip the post and jump directly into the code, you can find it on [GitHub](https://github.com/oktadev/TODO).
+
+**Prerequisites:**
+
+- An Okta organization - (Sign up for free using your https://developer.okta.com/signup/[browser], or the https://cli.okta.com/[Okta CLI])
+- Java 11+ (Tested with 11, 17, & 18)
+
+toc::[]
+
+== How does the OAuth 2.0 Device Authorization Grant work?
+
+NOTE: This example will work the same with any Identity Provider (IdP) that supports the flow, but you may need to tweak the URLs.
+
+At a high level, the flow works like this:
+
+1. A device or application initiates the flow `POST /v1/device/authorize`
+2. The IdP responds with a "device code", "user code", and a URL.
+3. The user is instructed to visit a URL,  enter the "user code", and authenticate.
+4. The application polls the IdP using the "device code" until the user has logged in.
+5. The IdP response with an access token.
+
+image::{% asset_path 'blog/java-cli-device-grant/flow-diagram.png' %}[alt=Device grant flow diagram,width=800,align=center]
+
+== OAuth 2.0 from the command line
+
+You might not think of your terminal as an "input restricted device", but that still doesn't mean you should start typing a website's passwords; there are a couple of problems related to this:
+
+* You should ONLY enter a password into the website it was created for.
+* Your terminal doesn't support the same factors your browser does.
+* You may be ssh'd into another computer.
+
+NOTE: The Authorization Device Grant requires a user. If you are trying to call APIs from an automated process or other server-to-server communication, check out the [OAuth 2.0 Client Credential Flow](link:/blog/2021/05/05/client-credentials-spring-security).
+
+== Setup Okta
+
+First, you need to create an Okta application that supports the device grant.
+
+. In **Applications**->**Applications**, click **Create App Integration**. In the pop-up, choose **OIDC - OpenID Connect**, then **Native Application**. The Device Grant is only available for Native Applications.
++
+image::{% asset_path 'blog/cli-ssh-oauth-device-grant/create-native-app.png' %}[alt=Set up a native app,width=800,align=center]
+
+. In the next step, check **Device Authorization** in the **Grant type** section.
++
+image::{% asset_path 'blog/cli-ssh-oauth-device-grant/enable-device-flow.png' %}[alt=Enable device grant,width=800,align=center]
+
+Make a note of the **Client ID**, you will need it below.
+
+   If you are using an https://developer.okta.com/docs/concepts/auth-servers/#available-authorization-server-types[Okta Authorization Server], you also need to enable the grant type in the authorization server's policy interface:
+
+. Go to **Security**->**API**
+. Select the authorization server you want to use (for example, default).
+. Click the **Access Policies** tab, and edit the rule for your policy. Make sure to select the **Device Authorization** check box.
++
+image::{% asset_path 'blog/cli-ssh-oauth-device-grant/custom-as.png' %}[alt=Enable device flow on a custom Authorization Server,width=800,align=center]
+
+Make note of your Issuer URI, if you are using an Okta Custom Authorization Server, it will look something like this (updating the hostname to match your Okta Org):
+
+[source,txt]
+----
+https://dev-133337.okta.com/api/v1/authorizationServers/default
+----
+
+Otherwise, it will be the same as your Okta Url:
+
+[source,txt]
+----
+https://dev-133337.okta.com
+----
+
+== Create a Java application
+
+On to the fun part, writing some code!
+
+Create a new project in your favorite IDE (I'm a fan of https://www.jetbrains.com/idea/[IntelliJ IDEA]). This project will use of `java.net.http.HttpClient`, make sure our target Java is set to at least `11`.
+
+The `HttpClient` API is much easier to use than its predecessor `URLConnection`, but Java is still no way to parse JSON out of the box. Add a dependency on https://github.com/FasterXML/jackson-databind[Jackson Databind] to fix that.
+
+The complete Maven `pom.xml` file looks like this:
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.okta.sample</groupId>
+    <artifactId>okta-device-grant-java-example</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.13.2</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <!-- make it easy to run the example -->
+        <defaultGoal>compile exec:java</defaultGoal>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <mainClass>com.okta.example.device.DeviceGrantApp</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
+----
+
+=== A little more boilerplate
+
+The fluent `HttpClient` is handy, but along with not having JSON support, it's doesn't have direct support for form encoded requests. Fortunately, both are easy to fix by adding a couple of helper methods!
+
+Create a new `DeviceGrantApp` class; the above `pom.xml` assumes this file is in `src/main/java/com/okta/example/device/DeviceGrantApp.java`:
+
+[source,java]
+----
+public class DeviceGrantApp {
+
+    // Convert a map into a encoded form body
+    private static HttpRequest.BodyPublisher formBody(Map<String, String> params) {
+        // Wrap an encoded String in a BodyPublisher
+        return HttpRequest.BodyPublishers.ofString(
+            // url encode <key>=<value>&
+            params.entrySet().stream()
+                .map(entry -> URLEncoder.encode(entry.getKey(), UTF_8)
+                              + "="
+                              + URLEncoder.encode(entry.getValue(), UTF_8))
+                .collect(joining("&")));
+    }
+
+    // parse a response body using Jackson
+    public static <W> HttpResponse.BodySubscriber<W> parseJson(Class<W> targetType) {
+        return HttpResponse.BodySubscribers.mapping(
+            HttpResponse.BodySubscribers.ofByteArray(),
+            (byte[] bytes) -> {
+                try {
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    return objectMapper.readValue(bytes, targetType);
+                } catch (IOException e) {
+                    throw new UncheckedIOException(e);
+                }
+            });
+    }
+}
+----
+
+
+
+== Initiate the authorization request
+
+From the above [[#setup-okta]#Setup Okta] section you have a public "client id" and "issuer" URI, for convenience's sake, set those as `String` variables:
+
+[source,sh]
+----
+public static void main(String[] args) throws Exception {
+
+    String clientId = "your-client-id-here" ;
+    String issuer = "https://dev-l33337.okta.com/oauth2/default";
+----
+
+IMPORTANT: These values are public, meaning they are safe to bundle in your application.
+
+[source,java]
+----
+// Create a client
+HttpClient client = HttpClient.newHttpClient();
+
+// List of scopes requested by your application (oauth scopes are space separated)
+String scopes = String.join(" ", "openid", "profile", "offline_access");
+
+// HTTP POST form arguments
+Map<String, String> authArgs = Map.of(
+        "client_id", clientId,
+        "scope", scopes); // the arg name IS the singular form of scope
+----
+
+Using the fluent API, create a post request to `$\{issuer}/v1/device/authorize`, including the client ID and scopes.
+
+[source,java]
+----
+HttpRequest request = HttpRequest.newBuilder()
+        .uri(URI.create(issuer + "/v1/device/authorize"))
+        .POST(formBody(authArgs))
+        .header("Accept", "application/json")
+        .header("Content-Type", "application/x-www-form-urlencoded")
+        .build();
+
+// execute the request
+HttpResponse<Map> httpResponse = client.send(request, rs -> parseJson(Map.class));
+
+// Fail on anything except a 200 response
+if (httpResponse.statusCode() != 200) {
+    System.err.println("Error: " + httpResponse);
+    throw new RuntimeException("Failed to initialize device grant authorization, likely " +
+                                                    "caused by an invalid IdP configuration");
+}
+
+Map authorizationResponse = httpResponse.body();
+
+String deviceCode = (String) authorizationResponse.get("device_code");
+String verificationUri = (String) authorizationResponse.get("verification_uri");
+String userCode = (String) authorizationResponse.get("user_code");
+String verificationUriComplete = (String) authorizationResponse.get("verification_uri_complete");
+Duration interval = Duration.ofSeconds((int) authorizationResponse.get("interval"));
+Duration expiresIn = Duration.ofSeconds((int) authorizationResponse.get("expires_in"));
+----
+
+NOTE: To keep the steps minimal in this post, I'm parsing the JSON to a map, but you could create a typed object to avoid any of the above casting.
+
+Assuming all went well, the response returned from the IdP will be a JSON block (parsed into the above values) that looks like this:
+
+====
+[source,json]
+----
+{
+  "device_code": "a-random-device-code", # <.>
+  "user_code": "ABCD1234", # <.>
+  "verification_uri": "https://id.bdemers.io/activate", # <.>
+  "verification_uri_complete": "https:/dev-133337/activate?user_code=ABCD1234", # <.>
+  "expires_in": 600, # <.>
+  "interval": 5 # <.>
+}
+----
+
+<.> `device_code` - A secret known by the device/application, it will be used in the following steps.
+<.> user_code` - Shown to the user, and ties a different browser session to this device/application.
+<.> `verification_uri`- URL the user needs to visit and type enter the `user_code` before logging in.
+<.> `verification_uri_complete` - A URL combining the `verification_uri` and `user_code` which can be shown directly to the user (if they can copy and paste) or rendered as a QR code (on a TV).
+<.> `expires_in` - Number of seconds the user has to finish the flow before the codes expire.
+<.> `interval` - Minimum frequency in seconds the application should wait while polling the server to see if the user has been authorized.
+====
+
+=== User logs in via a browser
+
+How you tell the user to open the URL is up to your application. For the best user experience, you may want to open a browser automatically. However, that might not be possible, so always fall back to showing the URL and code.
+
+[source,java]
+----
+if (!GraphicsEnvironment.isHeadless()) {
+    System.out.println("Opening browser to: " + verificationUriComplete);
+    Desktop.getDesktop().browse(URI.create(verificationUriComplete));
+} else {
+    System.out.println("Open a browser and go to: " + verificationUri +
+                       "  enter the code: "+ userCode);
+}
+----
+
+If you are building an application for a television, you may want to render value of `verificationUriComplete` as a QR code, so the user can scan it with a mobile device.
+
+Whichever method you choose, the user will need to confirm the activation code before authenticating.
+
+image::{% asset_path 'blog/java-cli-device-grant/enter-device-code.png' %}[alt=Enter code before logging in,width=800,align=center]
+
+=== Get an access token
+
+While the user is logging in, the application will continue making requests to the IdP, checking if the user has authorized the application.
+
+Using the `device_code` from the first request, continue to query the IdP for the authorization status until the code expires.
+
+[source,java]
+----
+long pollUntilMillis = System.currentTimeMillis() + expiresIn.toMillis();
+while (System.currentTimeMillis() < pollUntilMillis) {
+
+    // first sleep, give the user time to log in!
+    System.out.println("Sleeping for " + interval.getSeconds() + " seconds");
+   Thread.sleep(interval.toMillis());
+
+    Map<String, String> tokenArgs = Map.of("client_id", clientId,
+            "grant_type","urn:ietf:params:oauth:grant-type:device_code",
+            "device_code", deviceCode);
+
+    HttpRequest tokenRequest = HttpRequest.newBuilder()
+            .uri(URI.create(issuer + "/v1/token"))
+            .POST(formBody(tokenArgs))
+            .header("Accept", "application/json")
+            .header("Content-Type", "application/x-www-form-urlencoded")
+            .build();
+
+    HttpResponse<Map> tokenResponse =
+            client.send(tokenRequest, rs -> parseJson(Map.class));
+
+    if (tokenResponse.statusCode() == 200) {
+            // Do something with the tokens
+            System.out.println("Authorization complete!");
+            System.out.println(tokenResponse.body());
+            break;
+    } else {
+            // error, keep polling until timeout
+            System.out.println("Error: " + tokenResponse.body());
+            System.out.println(tokenResponse);
+        }
+    }
+}
+----
+
+If the user has not yet logged in, an error is returned with the `authorization_pending` message:
+
+[source,json]
+----
+{
+  "error": "authorization_pending",
+  "error_description": "The device authorization is pending. Please try again later."
+}
+----
+
+Otherwise, if the user has already logged in, a response containing an access token will be returned:
+
+[source,json]
+----
+{
+  "token_type": "Bearer",
+  "expires_in": 3600,
+  "access_token": "...",
+  "scope": "openid profile offline_access",
+  "id_token": "..."
+}
+----
+
+NOTE: This access token would be used to make application-specific REST requests on behalf of the user, typically by setting the `Authorization` header in the HTTP request, for example:
+
+[source,http]
+----
+HttpRequest.newBuilder()
+        .header("Authorization", "Bearer " + accessToken)
+----
+
+== Putting it all together
+
+If you haven't already skipped ahead and ran the application from your IDE, you can do so by running `mvn` on the command line.
+
+NOTE: The above Maven `pom.xml` file configures the `exec-maven-plugin` and sets the default goal to run `compile` and `exec:java` (which compiles and executes the `DeviceGrantApp` class).
+
+
+== Learn more about OAuth
+
+How you authenticate and authorize a user changes based on the capabilities of your application. This post has shown how to build a command-line application that authenticates a user using two simple HTTP requests while allowing them to authenticate using the device and browser of their choice.
+
+Learn more about building secure applications by reading these posts:
+
+* link:/blog/2021/05/05/client-credentials-spring-security[How to Use Client Credentials Flow with Spring Security]
+* link:/blog/2020/11/24/spring-boot-okta[Spring Boot and Okta in 2 Minutes]
+* link:/blog/2022/01/06/native-java-helidon[Build REST APIs and Native Java Apps with Helidon]
+
+Please comment below with any questions. For more interesting content, follow https://twitter.com/oktadev[@oktadev] on Twitter, find us https://www.linkedin.com/company/oktadev/[on LinkedIn], or subscribe to https://www.youtube.com/oktadev[our YouTube channel].
