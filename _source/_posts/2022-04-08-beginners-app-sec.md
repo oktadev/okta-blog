@@ -1,19 +1,16 @@
 ---
-
-
 layout: blog_post
 title: "A Beginner's Guide to Application Security"
 author: alex-doukas
 by: contractor
 communities: security
-description: Learn the basics of building and maintaining security for your applications, including elements like authentication and user management. 
+description: "Learn the basics of building and maintaining security for your applications, including elements like authentication and user management." 
 tags: [access-control, api-security, appsec, authentication]
 tweets:
 - "This tutorial will teach you the basics of application security and offer resources to continue your education." [LINK]
 - "Application security needs to be a top priority for developers. Discover ways to implement AppSec in your project and achieve great results." [LINK]
 image: blog/beginners-app-sec/beginners-app-sec.png
 type: awareness
-
 ---
 
 Over the past decade, and even more swiftly since the time of the COVID-19 pandemic, digital transformation of the workplace has primarily been [driven by applications](https://accelerationeconomy.com/business-apps/top-10-apps-driving-digital-transformation/). Apps have become an integral part of everyday life for many organizations.
