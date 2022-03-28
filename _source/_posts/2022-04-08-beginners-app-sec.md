@@ -7,8 +7,8 @@ communities: security
 description: "Learn the basics of building and maintaining security for your applications, including elements like authentication and user management." 
 tags: [access-control, api-security, appsec, authentication]
 tweets:
-- "This tutorial will teach you the basics of application security and offer resources to continue your education." [LINK]
-- "Application security needs to be a top priority for developers. Discover ways to implement AppSec in your project and achieve great results." [LINK]
+- "This tutorial will teach you the basics of application security and offer resources to continue your education."  
+- "Application security needs to be a top priority for developers. Discover ways to implement AppSec in your project and achieve great results."  
 image: blog/beginners-app-sec/beginners-app-sec.png
 type: awareness
 ---
