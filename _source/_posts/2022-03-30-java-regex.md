@@ -10,7 +10,7 @@ tweets:
 - "A regular expression can be a single character, or a more complicated pattern. Learn how to use them in @java with this quick guide."
 - "A regular expression is a pattern of characters that describes a set of strings. Learn how to use the `java.util.regex` package in this tutorial."
 - "Java has a regular expressions API for defining String patterns that can be used for searching, manipulating, and editing a string in Java. Learn more in this tutorial."
-image: blog/regular-expressions-java/regular-expressions-java.png
+image: blog/regular-expressions-java/regular-expressions-java.jpg
 type: awareness
 ---
 
