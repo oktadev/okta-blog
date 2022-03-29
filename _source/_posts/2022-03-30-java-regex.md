@@ -4,7 +4,7 @@ title: "A Quick Guide to Java Regular Expressions"
 author: karl-hughes
 by: contractor
 communities: [java]
-description: ""
+description: "In this tutorial, you'll learn how to use regular expressions to define a pattern for searching or manipulating strings in Java."
 tags: [java]
 tweets:
 - ""
