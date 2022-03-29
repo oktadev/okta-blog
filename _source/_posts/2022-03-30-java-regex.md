@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "A Quick Guide to Java Regular Expressions"
+title: "A Quick Guide to Regular Expressions in Java"
 author: karl-hughes
 by: contractor
 communities: [java]
@@ -10,7 +10,7 @@ tweets:
 - ""
 - ""
 - ""
-image:
+image: blog/regular-expressions-java/regular-expressions-java.png
 type: awareness
 ---
 
@@ -20,7 +20,7 @@ A regular expression is a sequence of characters used to describe a text pattern
 
 When coding a solution using regular expressions, you typically use the built-in libraries provided by the programming language you're using. Java is no exception. It includes support for regular expressions using classes in the `java.util.regex` package.
 
-In this article, you'll learn how to use regular expressions to define a pattern for searching or manipulating strings in Java. You can find [the GitHub repository for the code in this article here](https://github.com/oktadev/java-regex-examples).
+In this article, you'll learn how to use regular expressions to define a pattern for searching or manipulating strings in Java. You can find [the code in this article on GitHub](https://github.com/oktadev/java-regex-examples).
 
 {% include toc.md %}
 
@@ -47,8 +47,8 @@ Supporting classes for regular expressions in Java are available in the `java.ut
 
 Here are the different implementation details and method signature of the `compile()` method available in the `Pattern` class as per Java's documentation.
 
- ```java
-   /**
+```java
+/**
 * Compiles the given regular expression into a pattern.
 *
 * @param  regex
@@ -60,6 +60,7 @@ Here are the different implementation details and method signature of the `compi
 public static Pattern compile(String regex) {
     return new Pattern(regex, 0);
 }
+
 /**
 * Compiles the given regular expression into a pattern with the given
 * flags.
@@ -95,9 +96,9 @@ public class TestRegularExpressions {
 
     public static void main(String[] args) {
         Pattern pattern = Pattern.compile("Java", Pattern.CASE_INSENSITIVE);
-        System.out.println(pattern.matcher("java").matches()); //prints true
-        System.out.println(pattern.matcher("JAVA").matches());//prints true
-        System.out.println(pattern.matcher("javascript").matches()); //prints false
+        System.out.println(pattern.matcher("java").matches()); // prints true
+        System.out.println(pattern.matcher("JAVA").matches()); // prints true
+        System.out.println(pattern.matcher("javascript").matches()); // prints false
     }
 }
 ```
@@ -112,7 +113,8 @@ public class StringRegexOperations {
         String str2 = "J,AVA";
         System.out.println(str2.replaceFirst(",", "")); // prints "JAVA"
         String str3 = "C,Java,Kotlin,C++";
-        System.out.println(Arrays.stream(str3.split(",")).filter(s -> s.equals("Java")).findFirst().get()); // prints "Java"
+        System.out.println(Arrays.stream(str3.split(","))
+            .filter(s -> s.equals("Java")).findFirst().get()); // prints "Java"
         String str4 = "jane@okta.com";
         System.out.println(str4.matches("^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")); // prints true
     }
@@ -141,53 +143,53 @@ import java.util.regex.Pattern;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-
 class DemoApplicationTests {
-	/**
-	 * We will use the following test method `setUp()` that accepts two inputs, i.e. the regex pattern and the string to be searched in the given pattern.
-	 * @param inputRegex
-	 * @param searchString
-	 */
-	boolean setUp(String inputRegex, String searchString) {
-		Pattern p = Pattern.compile(inputRegex, Pattern.CASE_INSENSITIVE);
-		Matcher m = p.matcher(searchString);
-		return m.matches();
-	}
+    /**
+     * We will use the following test method `setUp()` that accepts two inputs, i.e. the regex pattern and the string to be searched in the given pattern.
+     * @param inputRegex
+     * @param searchString
+     */
+    boolean setUp(String inputRegex, String searchString) {
+        Pattern p = Pattern.compile(inputRegex, Pattern.CASE_INSENSITIVE);
+        Matcher m = p.matcher(searchString);
+        return m.matches();
+    }
 
-	/**
-	 * The following test shows how to do email validation using classes available in the `java.util.regex` Java package against the valid input.
-	 * This test should pass.
-	 */
-	@Test
-	void when_email_is_valid() {
-		assertTrue(setUp("[a-zA-Z0-9_+&*-]*@" + "okta.com$", "julia@okta.com"));
-	}
+    /**
+     * The following test shows how to do email validation using classes available in the `java.util.regex` Java package against the valid input.
+     * This test should pass.
+     */
+    @Test
+    void when_email_is_valid() {
+        assertTrue(setUp("[a-zA-Z0-9_+&*-]*@" + "okta.com$", "julia@okta.com"));
+    }
 
-	/**
-	 * And this test shows how to do so against the invalid input. This test should result in a failure.
-	 */
-	@Test
-	void when_email_is_invalid() {
-		assertFalse(setUp("[a-zA-Z0-9_+&*-]*@" + "okta.com$", "julia@okta"));
-	}
+    /**
+     * And this test shows how to do so against the invalid input. This test should result in a failure.
+     */
+    @Test
+    void when_email_is_invalid() {
+        assertFalse(setUp("[a-zA-Z0-9_+&*-]*@" + "okta.com$", "julia@okta"));
+    }
 
-	/**
-	 * The following tests show how to do phone validation using classes available in the `java.util.regex` Java package.
-	 * It uses a basic regular expression to check if the number is a valid ten digit. Advanced use cases could also handle country codes and so forth.
-	 */
-	@Test
-	void when_phone_number_is_valid() {
-		String regex = "^[0-9]{10}$";
-		assertTrue(setUp("^[0-9]{10}$", "1234567890"));
-	}
-	/**
-	 * And this test shows how to do so against the invalid input. This test should result in a failure.
-	 */
-	@Test
-	void when_phone_number_is_invalid() {
-		String regex = "^[0-9]{10}$";
-		assertFalse(setUp("^[0-9]{10}$", "123456789"));
-	}
+    /**
+     * The following tests show how to do phone validation using classes available in the `java.util.regex` Java package.
+     * It uses a basic regular expression to check if the number is a valid ten digit. Advanced use cases could also handle country codes and so forth.
+     */
+    @Test
+    void when_phone_number_is_valid() {
+        String regex = "^[0-9]{10}$";
+        assertTrue(setUp("^[0-9]{10}$", "1234567890"));
+    }
+
+    /**
+     * And this test shows how to do so against the invalid input. This test should result in a failure.
+     */
+    @Test
+    void when_phone_number_is_invalid() {
+        String regex = "^[0-9]{10}$";
+        assertFalse(setUp("^[0-9]{10}$", "123456789"));
+    }
 }
 ```
 
@@ -201,7 +203,7 @@ Several resources are available to help you with using regular expressions. Here
 
 To use a community pattern, you must first select a pattern, click on its URL, or double-click the list to load the full pattern. You can also use the right arrow icon to load the expression or text. In the screenshot below, we have picked an existing community pattern for password validation. We have run some tests to ensure that it does proper password validation as per the regex.
 
-![regexr image](https://imgur.com/XVfkqzK.jpg)
+{% img blog/regular-expressions-java/regexr.png alt:"Regexr screenshot" width:"800" %}{: .center-image }
 
 ### GitHub Copilot
 
@@ -209,7 +211,7 @@ Thanks to [GitHub Copilot](https://copilot.github.com/), an AI tool developed by
 
 The following screenshot shows Copilot suggesting a regex for email validation. In the IntelliJ Idea IDE, we can press `TAB` to accept the suggestion.
 
-![regexr image](https://i.imgur.com/xrPQWZI.jpg)
+{% img blog/regular-expressions-java/github-copilot.png alt:"GitHub Copilot" width:"800" %}{: .center-image }
 
 ### JavaVerbalExpressions
 
@@ -217,9 +219,9 @@ The following screenshot shows Copilot suggesting a regex for email validation. 
 
 ```xml
 <dependency>
-  <groupId>ru.lanwen.verbalregex</groupId>
-  <artifactId>java-verbal-expressions</artifactId>
-  <version>1.8</version>
+    <groupId>ru.lanwen.verbalregex</groupId>
+    <artifactId>java-verbal-expressions</artifactId>
+    <version>1.8</version>
 </dependency>
 ```
 
@@ -227,8 +229,8 @@ JavaVerbalExpressions uses a builder pattern to construct regex. Below is an exa
 
 ```java
 VerbalExpression testRegex = VerbalExpression.regex()
-                                                .startOfLine().then("abc").or("def")
-                                                .build();
+  .startOfLine().then("abc").or("def")
+  .build();
 
 String testString = "defzzz";
 
@@ -240,9 +242,9 @@ testRegex.getText(testString);    // returns: def
 
 ## Learn more about regular expressions in Java
 
-Regular expressions aren't exciting, but it's useful to learn how to use them well. They're also a valuable transferable skill that you won't only use in Java. This article showed you how to use regular expressions to define a pattern for searching or manipulating strings in Java. Here's the article's [GitHub repository](https://github.com/oktadev/java-regex-examples).
+Regular expressions aren't exciting, but it's useful to learn how to use them well. They're also a valuable transferable skill that you won't only use in Java. This article showed you how to use regular expressions to define a pattern for searching or manipulating strings in Java. 
 
-<!-- I didn't use an "okta" prefix for the repo above because it's awareness and not conversation. -->
+You can find the source code used in this example in the [oktadev/java-regex-examples repository on GitHub](https://github.com/oktadev/java-regex-examples).
 
 These resources offer more information about regular expressions and Java:
 
