@@ -5,7 +5,7 @@ author: karl-hughes
 by: contractor
 communities: [java]
 description: ""
-tags: []
+tags: [java]
 tweets:
 - ""
 - ""
@@ -14,19 +14,19 @@ image:
 type: awareness
 ---
 
-Whether you're coding, using a search engine, searching and replacing text in text editor, or using the command-line utilities `grep`, `sed`, and `awk` in Linux, you're using regular expressions (also known as "regex" or "regexp"). Yes, they're everywhere.
+Whether you're coding, using a search engine, searching and replacing text in a text editor, or using the command-line utilities `grep`, `sed`, and `awk` in Linux, you're using regular expressions (also known as "regex" or "regexp"). Yes, they're everywhere.
 
-A regular expression is a sequence of characters used to describe a text pattern. Working with regular expressions is rarelydescribed as fun, but they are useful to help solve various problems while coding a feature, usually to find and replace operations with strings.
+A regular expression is a sequence of characters used to describe a text pattern. Working with regular expressions is rarely described as fun, but they are useful for various problems while coding a feature, such as finding and replacing operations with strings.
 
 When coding a solution using regular expressions, you typically use the built-in libraries provided by the programming language you're using. Java is no exception. It includes support for regular expressions using classes in the `java.util.regex` package.
 
-In this article, you'll learn how to use regular expressions to define a pattern for searching or manipulating strings in Java. You can find [the GitHub repository for the code in this article here](https://github.com/karllhughes/RegexExamples).
+In this article, you'll learn how to use regular expressions to define a pattern for searching or manipulating strings in Java. You can find [the GitHub repository for the code in this article here](https://github.com/oktadev/java-regex-examples).
 
 {% include toc.md %}
 
 ## The what and why of regular expressions
 
-So, what are regular expressions? Wikipediadefines a [regular expression](https://en.wikipedia.org/wiki/Regular_expression) as "a sequence of characters that specifies a search pattern in text."
+So, what are regular expressions? Wikipedia defines a [regular expression](https://en.wikipedia.org/wiki/Regular_expression) as "a sequence of characters that specifies a search pattern in text."
 
 For example, if you use the regular expression `ab*`, you're issuing an instruction to match a string that has an `a` followed by zero or more `b`'s. So strings like `ab`, `abc`, `abbc`, etc. will match our regular expression. The asterisk symbol, `*`, denotes the number of times a character or a sequence of characters may occur.
 
@@ -223,7 +223,7 @@ The following screenshot shows Copilot suggesting a regex for email validation. 
 </dependency>
 ```
 
-This library uses a builder pattern to construct regex. Below is an example showing how to use it to play with regular expressions.
+JavaVerbalExpressions uses a builder pattern to construct regex. Below is an example showing how to use it to play with regular expressions.
 
 ```java
 VerbalExpression testRegex = VerbalExpression.regex()
@@ -244,10 +244,10 @@ Regular expressions aren't exciting, but it's useful to learn how to use them we
 
 <!-- I didn't use an "okta" prefix for the repo above because it's awareness and not conversation. -->
 
-If you want to know more, these resources have more information about regular expressions and Java:
+These resources offer more information about regular expressions and Java:
 
 - [Regular Expressions for Security Professionals](https://sec.okta.com/articles/2020/04/quick-introduction-regular-expressions-security-professionals)
-- [Java Regular Expressions](https://www.w3schools.com/java/java_regex.asp)
+- [Java Regex](https://www.javatpoint.com/java-regex)
 - [JavaVerbalExpressions](https://github.com/VerbalExpressions/JavaVerbalExpressions)
 - [Quick-Start: Regex Cheat Sheet](https://www.rexegg.com/regex-quickstart.html)
 
