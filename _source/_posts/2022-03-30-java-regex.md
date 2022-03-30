@@ -12,6 +12,7 @@ tweets:
 - "Java has a regular expressions API for defining String patterns that can be used for searching, manipulating, and editing a string in Java. Learn more in this tutorial."
 image: blog/regular-expressions-java/regular-expressions-java.jpg
 type: awareness
+github: https://github.com/oktadev/java-regex-examples
 ---
 
 Whether you're coding, using a search engine, searching and replacing text in a text editor, or using the command-line utilities `grep`, `sed`, and `awk` in Linux, you're using regular expressions (also known as "regex" or "regexp"). Yes, they're everywhere.
@@ -252,5 +253,6 @@ These resources offer more information about regular expressions and Java:
 - [Java Regex](https://www.javatpoint.com/java-regex)
 - [JavaVerbalExpressions](https://github.com/VerbalExpressions/JavaVerbalExpressions)
 - [Quick-Start: Regex Cheat Sheet](https://www.rexegg.com/regex-quickstart.html)
+- [OAuth 2.0 Java Guide: Secure Your App in 5 Minutes](/blog/2019/10/30/java-oauth2)
 
 If you have any questions about this post, feel free to comment below. For more relevant and interesting content, follow [@oktadev](https://twitter.com/oktadev) on Twitter, connect with us on [LinkedIn](https://www.linkedin.com/company/oktadev), and subscribe to [our YouTube channel](https://www.youtube.com/oktadev).
