@@ -31,6 +31,7 @@ Today, I'm proud to announce that this same capability is now available for your
 
 *Prerequisites*:
 
+- https://nodejs.org/[Node 14]+
 - https://sdkman.io/[Java 17 with GraalVM]+
 - https://docs.docker.com/desktop/#download-and-install[Docker Desktop]
 
@@ -424,7 +425,7 @@ image::{% asset_path 'blog/spring-native-jhipster/native-start.png' %}[alt=Start
 
 == What does the JHipster Native blueprint do?
 
-The JHipster Native plugin integrates Spring Native into a JHipster project based on https://github.com/mraible/spring-native-examples#readme[findings from the research by Josh Long and me]. I documented our findings in September and December 2021.
+The JHipster Native blueprint integrates Spring Native into a JHipster project based on https://github.com/mraible/spring-native-examples#readme[findings from the research by Josh Long and me]. I documented our findings in September and December 2021.
 
 - Sep 30, 2021: https://www.linkedin.com/pulse/jhipster-works-spring-native-matt-raible/[JHipster Works with Spring Native!]
 - Dec 14, 2021: https://www.linkedin.com/pulse/jhipster-works-spring-native-part-2-matt-raible/[JHipster works with Spring Native, Part 2!]
