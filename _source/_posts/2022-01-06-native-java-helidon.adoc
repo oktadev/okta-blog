@@ -190,7 +190,7 @@ You might be wondering, "how did you build a secure Helidon app"? Did I just hid
    mvn -U archetype:generate -DinteractiveMode=false \
     -DarchetypeGroupId=io.helidon.archetypes \
     -DarchetypeArtifactId=helidon-quickstart-mp \
-    -DarchetypeVersion=2.4.1 \
+    -DarchetypeVersion=2.4.2 \
     -DgroupId=com.okta.rest \
     -DartifactId=helidon \
     -Dpackage=com.okta.rest
@@ -290,23 +290,23 @@ mvn package -Pnative-image
 
 I ran each image three times before I started recording the numbers. I then ran each command five times.
 
-_These numbers are from a 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM. I think it's important to note that my WiFi connection was 9.88 Mbps down and 0.37 Mbps up (according to the Speedtest app)._
+_These numbers are from a 2021 MacBook Pro with an M1 Max processor and 64 GB of RAM. I think it's important to note that my WiFi connection was 48.2 Mbps down and 9.71 Mbps up (according to the Speedtest app)._
 
 ////
-Helidon: (53 + 53 + 55 + 53 + 54) / 5 = 53.6
-Micronaut: (29 + 33 + 31 + 30 + 33) / 5 = 31.2
-Quarkus: (21 + 20 + 17 + 17 + 20) / 5 = 19
-Spring Boot: (57 + 57 + 55 + 61 + 66) / 5 = 59.2
+Helidon: (23 + 20 + 23 + 30 + 19) / 5 = 23
+Micronaut: (20 + 18 + 17 + 19 + 18) / 5 = 18.4
+Quarkus: (13 + 10 + 11 + 12 + 12) / 5 = 11.6
+Spring Boot: (36 + 36 + 38 + 36 + 34) / 5 = 36
 ////
 
 .Native Java startup times in milliseconds
 |===
 |Framework | Command executed | Milliseconds to start
 
-|Helidon | `./helidon/target/helidon` | 53.6
-|Micronaut | `./micronaut/target/app` | 31.2
-|Quarkus | `./quarkus/target/quarkus-1.0.0-SNAPSHOT-runner` | 19
-|Spring Boot | `./spring-boot/target/demo` | 59.2
+|Helidon | `./helidon/target/helidon` | 23
+|Micronaut | `./micronaut/target/app` | 18.4
+|Quarkus | `./quarkus/target/quarkus-1.0.0-SNAPSHOT-runner` | 11.6
+|Spring Boot | `./spring-boot/target/demo` | 36
 |===
 
 The chart below should help you visualize this comparison.
@@ -320,10 +320,10 @@ google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
   var data = google.visualization.arrayToDataTable([
     ['Framework', 'Milliseconds to start', { role: 'style' }],
-    ['Helidon', 53.6, 'orange'],
-    ['Micronaut', 31.2, 'blue'],
-    ['Quarkus', 19, 'red'],
-    ['Spring Boot', 59.2, 'green']
+    ['Helidon', 23, 'orange'],
+    ['Micronaut', 18.4, 'blue'],
+    ['Quarkus', 11.6, 'red'],
+    ['Spring Boot', 36, 'green']
   ]);
   var options = {
     title: 'Startup times of native Java frameworks',
@@ -355,10 +355,10 @@ I substituted `<executable>` as follows:
 |===
 |Framework | Executable | Megabytes before request | Megabytes after 1 request | Megabytes after 5 requests
 
-|Helidon | `helidon` | 66 | 127 | 259
-|Micronaut | `app` | 28 | 44 | 55
-|Quarkus | `runner` | 20 | 32 | 34
-|Spring Boot | `demo` | 47 | 62 | 63
+|Helidon | `helidon` | 64 | 75 | 81
+|Micronaut | `app` | 41 | 58 | 68
+|Quarkus | `runner` | 32 | 44 | 46
+|Spring Boot | `demo` | 63 | 75 | 75
 |===
 
 ++++
@@ -369,13 +369,13 @@ google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
   var data = google.visualization.arrayToDataTable([
     ['Framework', 'Memory usage (MB)', { role: 'style' }],
-    ['Helidon', 259, 'orange'],
-    ['Micronaut', 55, 'blue'],
-    ['Quarkus', 34, 'red'],
-    ['Spring Boot', 63, 'green']
+    ['Helidon', 81, 'orange'],
+    ['Micronaut', 68, 'blue'],
+    ['Quarkus', 46, 'red'],
+    ['Spring Boot', 75, 'green']
   ]);
   var options = {
-    title: 'Memory usage of Native Java frameworks',
+    title: 'Memory usage of native Java frameworks',
     chartArea: {width: '50%'},
     hAxis: {
       title: 'Megabytes',

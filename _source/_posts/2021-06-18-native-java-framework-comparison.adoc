@@ -71,14 +71,10 @@ You will need a JDK with GraalVM and its `native-image` compiler. Using SDKMAN, 
 
 [source,shell]
 ----
-sdk install java 21.3.0.r17-grl
-----
-
-Add the native extension to the JDK:
-
-[source,shell]
-----
-gu install native-image
+# Downloaded and expanded graalvm-ce-java17-darwin-aarch64-dev.tar.gz from https://github.com/graalvm/graalvm-ce-dev-builds/releases/download/22.2.0-dev-20220326_0133/graalvm-ce-java17-darwin-aarch64-dev.tar.gz
+mv ~/Downloads/graalvm-ce-java17-22.2.0-dev/Contents/Home ~/.sdkman/candidates/java/22.2.0.dev.r17-grl
+sudo xattr -r -d com.apple.quarantine ~/.sdkman/candidates/java/22.2.0.dev.r17-grl
+sdk default java 22.2.0.dev.r17-grl
 ----
 
 == Launch a Micronaut Java API
@@ -258,6 +254,10 @@ micronaut:
           jwks:
             okta:
               url: https://{yourOktaDomain}/oauth2/default/v1/keys
+netty:
+  default:
+    allocator:
+      max-order: 3
 ----
 
 That's it! Now you can start the app or build the native image as shown above.
@@ -336,7 +336,7 @@ You can create the same Quarkus app used in this example in five steps.
 +
 [source,shell]
 ----
-mvn io.quarkus:quarkus-maven-plugin:2.6.1.Final:create \
+mvn io.quarkus:quarkus-maven-plugin:2.7.5.Final:create \
     -DprojectGroupId=com.okta.rest \
     -DprojectArtifactId=quarkus \
     -DclassName="com.okta.rest.quarkus.HelloResource" \
@@ -492,7 +492,7 @@ To create the Spring Boot app used in this example, it's just five steps.
 [source,shell]
 ----
 http https://start.spring.io/starter.zip \
-     bootVersion==2.6.2 \
+     bootVersion==2.6.5 \
      dependencies==web,oauth2-resource-server,native \
      packageName==com.okta.rest \
      name==spring-boot \
@@ -572,9 +572,9 @@ Performance comparisons are complex, but I'm going to do one anyway. Since this 
 _These numbers are from a 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM. I think it's important to note that my WiFi connection was 8.94 Mbps down and 0.45 Mbps up (according to the Speedtest app)._
 
 ////
-Micronaut: (29 + 30 + 29 + 32 + 32) / 5 = 30.4
-Quarkus: (20 + 17 + 20 + 19 + 18) / 5 = 18.8
-Spring Boot: (57 + 57 + 56 + 56 + 55) / 5 = 56.2
+Micronaut: (20 + 18 + 17 + 19 + 18) / 5 = 18.4
+Quarkus: (13 + 10 + 11 + 12 + 12) / 5 = 11.6
+Spring Boot: (36 + 36 + 38 + 36 + 34) / 5 = 36
 ////
 
 [.scrollable]
@@ -584,9 +584,9 @@ Spring Boot: (57 + 57 + 56 + 56 + 55) / 5 = 56.2
 |===
 |Framework | Command executed | Milliseconds to start
 
-|Micronaut | `./target/app` | 30.4
-|Quarkus | `./target/quarkus-1.0.0-SNAPSHOT-runner` | 18.8
-|Spring Boot | `./target/demo` | 56.2
+|Micronaut | `./target/app` | 18.4
+|Quarkus | `./target/quarkus-1.0.0-SNAPSHOT-runner` | 11.6
+|Spring Boot | `./target/demo` | 36
 |===
 
 --
@@ -603,9 +603,9 @@ google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
   var data = google.visualization.arrayToDataTable([
     ['Framework', 'Milliseconds to start', { role: 'style' }],
-    ['Micronaut', 30.4, 'blue'],
-    ['Quarkus', 18.8, 'red'],
-    ['Spring Boot', 56.2, 'green']
+    ['Micronaut', 18.4, 'blue'],
+    ['Quarkus', 11.6, 'red'],
+    ['Spring Boot', 36, 'green']
   ]);
 
   var options = {
@@ -659,9 +659,9 @@ I substituted `<executable>` as follows:
 |===
 |Framework | Executable | Megabytes before request | Megabytes after 1 request | Megabytes after 5 requests
 
-|Micronaut | `app` | 28 | 44 | 55
-|Quarkus | `runner` | 20 | 32 | 34
-|Spring Boot | `demo` | 48 | 62 | 63
+|Micronaut | `app` | 41 | 58 | 68
+|Quarkus | `runner` | 32 | 44 | 46
+|Spring Boot | `demo` | 63 | 75 | 75
 |===
 
 --
@@ -674,12 +674,12 @@ google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
   var data = google.visualization.arrayToDataTable([
     ['Framework', 'Memory usage (MB)', { role: 'style' }],
-    ['Micronaut', 44, 'blue'],
-    ['Quarkus', 32, 'red'],
-    ['Spring Boot', 62, 'green']
+    ['Micronaut', 58, 'blue'],
+    ['Quarkus', 44, 'red'],
+    ['Spring Boot', 75, 'green']
   ]);
   var options = {
-    title: 'Memory usage of Native Java frameworks',
+    title: 'Memory usage of native Java frameworks',
     chartArea: {width: '50%'},
     hAxis: {
       title: 'Megabytes',
