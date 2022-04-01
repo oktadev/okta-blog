@@ -442,9 +442,9 @@ You should see a response like the following.
 
 image::{% asset_path 'blog/native-java-comparison/httpie-spring-boot-bearer-token.png' %}[alt=HTTPie call to Spring Boot's /hello with bearer token,width=800,align=center]
 
-But wait, doesn't Okta link:/blog/2020/11/24/spring-boot-okta[have a Spring Boot starter]? Yes, we do! When this post was first written, it https://github.com/okta/okta-spring-boot/issues/192[didn't work with GraalVM]. This has been fixed in the v2.1.1 release. See https://github.com/oktadev/native-java-examples/pull/5[this pull request] for the required changes.
+But wait, doesn't Okta link:/blog/2020/11/24/spring-boot-okta[have a Spring Boot starter]? Yes, we do! When this post was first written, it https://github.com/okta/okta-spring-boot/issues/192[didn't work with GraalVM]. This was fixed in Okta Spring Boot v2.1.1. Unfortunately, it broke again with Spring Native 0.11+ because https://github.com/spring-projects-experimental/spring-native/issues/1367[EnvironmentPostProcessor implementations are not invoked at build-time]. This should be fixed in Spring Boot 3. Please use Spring Security's OAuth libraries if you need native support in the meantime. You can still use the Okta Spring Boot starter in JVM mode. See https://github.com/oktadev/native-java-examples/pull/5[this pull request] for the required changes.
 
-We've also published a link:/blog/2021/09/16/spring-native-okta-starter[Spring Native in Action] blog post. It contains the video from our Twitch stream with https://twitter.com/starbuxman[Josh Long]. You can watch it to see what we discovered and how we fixed things. Since then, Spring Native has improved a lot. Now, you don't need to make any changes!
+If you're curious to learn more about our experience making the starter work, see our link:/blog/2021/09/16/spring-native-okta-starter[Spring Native in Action] blog post. It contains the video from our Twitch stream with https://twitter.com/starbuxman[Josh Long]. You can watch it to see what we discovered and how we fixed things at that time.
 
 === Build a Native Spring Boot App
 
