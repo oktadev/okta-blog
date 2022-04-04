@@ -235,11 +235,6 @@ export const environment = {
 };
 ----
 
-. Modify Ionic's `login.page.ts` and `welcome.page.ts` to pass in `audience` as a parameter.
-
-  # is this still needed?
-  await this.authService.signIn({ audience: environment.oidcConfig.audience });
-
 . Restart your mobile apps and log in with Auth0!
 +
 ----
