@@ -6,10 +6,10 @@ jobs:
     name: Test & Deploy
     runs-on: ubuntu-18.04
     steps:
-    - uses: actions/checkout@v2.4.0
+    - uses: actions/checkout@v3
 
     - name: Set up node and npm
-      uses: actions/setup-node@v2.5.1
+      uses: actions/setup-node@v3
       with:
         version: 12.13.0
 
@@ -27,7 +27,7 @@ jobs:
         bundle install
 
     - name: Set up python and pip
-      uses: actions/setup-python@v2.3.1
+      uses: actions/setup-python@v3
       with:
         python-version: 3.7
         architecture: x64
