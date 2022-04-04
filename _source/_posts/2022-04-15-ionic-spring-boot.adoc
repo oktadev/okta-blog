@@ -64,6 +64,11 @@ toc::[]
 
 . Hide metadata in `photo-update.html` with `<div *ngIf="!isNew">`
 
+. Generate a native iOS project with the following commands:
+
+  ionic build
+  ionic capacitor add ios
+
 . Add your custom scheme to `ios/App/App/Info.plist`:
 +
 [source,xml]
