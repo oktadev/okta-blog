@@ -10,6 +10,7 @@
     "build-dev": "cross-env-shell PID_FINDER=okta_github_io JEKYLL_ENV=production bundle exec jekyll build --future -- --verbose",
     "build-prod": "npm run generate build -- --verbose",
     "start": "bundle exec jekyll serve --future --livereload --incremental --host=0.0.0.0",
+    "doctor": "bundle exec jekyll doctor",
     "markdown-lint": "node scripts/lint",
     "find-missing-slashes": "node scripts/find-missing-slashes",
     "prep-for-deploy": "bash scripts/prep-for-deploy.sh",
@@ -45,7 +46,7 @@
     "pre-push": "0.1.2",
     "shelljs": "^0.8.5",
     "recursive-readdir": "2.2.2",
-    "simple-git": "^3.4.0",
+    "simple-git": "^3.5.0",
     "yargs": "^17.4.0",
     "sharp": "^0.30.3"
   }

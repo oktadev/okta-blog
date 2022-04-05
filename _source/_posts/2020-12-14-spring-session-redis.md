@@ -35,6 +35,10 @@ If you're using Spring Security's default authorization code flow with OIDC, it'
 **Table of Contents**{: .hide }
 * Table of Contents
 {:toc}
+  
+You can also [watch a video of this tutorial](https://youtu.be/3kGrkVUZ_Fo).
+
+{% youtube 3kGrkVUZ_Fo %}
 
 ## Build a Microservices Architecture with Spring Session and Redis
 
