@@ -21,10 +21,10 @@ github: https://github.com/oktadev/okta-jhipster-ionic-example
 
 Ionic allows you to create mobile apps with web technologies that look and act like native apps. Because they're built with web technologies (HTML, JavaScript, and CSS), you can also deploy your Ionic apps as webapps. Or, even better, as progressive web apps (PWAs) that work offline.
 
-Ionic provides support for the big three web frameworks: Angular, React, and Vue. Once you've written your app with one of these, you can deploy it to a simulator or device with https://capacitorjs.com/[Capacitor]. Capacitor provides the runtime for your app to communicate with the native operating system and vise versa.
-
 // borrowed from https://capacitorjs.com/
-image::{% asset_path 'blog/jhipster-ionic-blueprint/capacitor.png' %}[alt=Capacitor diagram,width=800,align=center]
+image::{% asset_path 'blog/jhipster-ionic-blueprint/capacitor.png' %}[alt=Capacitor diagram,width=200,align=right]
+
+Ionic provides support for the big three web frameworks: Angular, React, and Vue. Once you've written your app with one of these, you can deploy it to a simulator or device with https://capacitorjs.com/[Capacitor]. Capacitor provides the runtime for your app to communicate with the native operating system and vise versa.
 
 Ionic's main competitors are native apps built with Swift or Objective-C (for iOS) and Java or Kotlin (for Android). Ionic also competes with React Native, which uses web technologies and translates them to native components. The Ionic blog has an interesting post that https://ionicframework.com/blog/ionic-vs-react-native-performance-comparison/[does a performance comparison between Ionic and React Native].
 
