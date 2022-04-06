@@ -12,18 +12,21 @@ tweets:
 - "Ionic is awesome. Learn how you to create apps quickly using this powerful framework. 💪"
 image:
 type: conversion
-github: https://github.com/oktadev/okta-ionic-jhipster-example
+github: https://github.com/oktadev/okta-jhipster-ionic-example
 ---
 :page-liquid:
 :toc: macro
 :experimental:
 :commandkey: &#8984;
 
-Ionic allows you to create mobile apps with web technologies. They look and act like native apps. Because they're built with web technologies (HTML, JavaScript, and CSS), you can also deploy your Ionic apps as webapps. Or, even better, as progressive web apps (PWAs) that work offline.
+Ionic allows you to create mobile apps with web technologies that look and act like native apps. Because they're built with web technologies (HTML, JavaScript, and CSS), you can also deploy your Ionic apps as webapps. Or, even better, as progressive web apps (PWAs) that work offline.
 
-Ionic provides support for the big three web frameworks: Angular, React, and Vue. Once you've written your app with one of these, you can deploy it to a simulator or device with [Capacitor]. Capacitor provides the platform for your app to communicate with the native operating system and vise versa.
+Ionic provides support for the big three web frameworks: Angular, React, and Vue. Once you've written your app with one of these, you can deploy it to a simulator or device with https://capacitorjs.com/[Capacitor]. Capacitor provides the runtime for your app to communicate with the native operating system and vise versa.
 
-Ionic's main competitors are native apps built with Swift or Objective-C (for iOS) and Java or Kotlin (for Android). Ionic also competes with React Native, which uses web technologies and translates them to native components. The Ionic blog has an interesting post that [compares Ionic and React Native performance].
+// borrowed from https://capacitorjs.com/
+image::{% asset_path 'blog/jhipster-ionic-blueprint/capacitor.png' %}[alt=Capacitor diagram,width=800,align=center]
+
+Ionic's main competitors are native apps built with Swift or Objective-C (for iOS) and Java or Kotlin (for Android). Ionic also competes with React Native, which uses web technologies and translates them to native components. The Ionic blog has an interesting post that https://ionicframework.com/blog/ionic-vs-react-native-performance-comparison/[does a performance comparison between Ionic and React Native].
 
 **Prerequisites:**
 
@@ -270,13 +273,17 @@ source .okta.env
 ./mvnw -Pprod
 ----
 
-To learn more about how this works, see https://www.jhipster.tech/security/#okta[JHipster's Okta documentation]. With Keycloak, you don't need a separate OIDC app for Ionic. However, with Okta and Auth0, you do. See [Okta's native mobile app docs] for more information.
+To learn more about how this works, see https://www.jhipster.tech/security/#okta[JHipster's Okta documentation]. With Keycloak, you don't need a separate OIDC app for Ionic. With Okta, you do.
+
+See https://www.jhipster.tech/security/#create-a-native-app-for-mobile-on-okta[create a native app for mobile on Okta] for more information.
 
 After you've changed the client ID in your Ionic app, run it using `npm start`. You'll be prompted to log in using your Okta credentials at `\http://localhost:8100`.
 
 === Switch your identity provider to Auth0
 
-To switch your identity provider to Auth0, you first need an https://auth0.com/signup[Auth0 account]. Then, create an `.auth0.env` file and see https://www.jhipster.tech/security/#auth0[JHipster's Auth0 docs] for how to populate it. Next, configure a [native mobile app on Auth0] for Ionic.
+To switch your identity provider to Auth0, you first need an https://auth0.com/signup[Auth0 account]. Then, create an `.auth0.env` file and see https://www.jhipster.tech/security/#auth0[JHipster's Auth0 docs] for how to populate it.
+
+Next, https://www.jhipster.tech/security/#create-a-native-app-for-mobile-on-auth0[configure a native app for mobile on Auth0]. Once you're finished, you should be able to run your backend and new frontend client using the following commands:
 
 // todo: make sure this is in JHipster's Auth0 docs:
 // TIP: Want to have all these steps automated for you? Add a 👍 to https://github.com/auth0/auth0-cli/issues/351[issue #351] in the Auth0 CLI project.
@@ -313,7 +320,7 @@ npx cap run android
 
 I hope you've enjoyed learning about Ionic and the new Ionic blueprint for JHipster. In my opinion, it's pretty neat that you can rapidly prototype a mobile client for your JHipster. It's even better that you can use a leading-edge mobile application framework to do it.
 
-You can find the source code for this example on GitHub, in the [@oktadev/okta-ionic-jhipster-example] repository.
+You can find the source code for this example on GitHub, in the https://github.com/oktadev/okta-jhipster-ionic-example[@oktadev/okta-jhipster-ionic-example] repository.
 
 If you liked this post, you might like these others too.
 
