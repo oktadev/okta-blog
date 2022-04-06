@@ -1,76 +1,178 @@
 ---
 layout: blog_post
-title: "Integrate Ionic and Spring Boot Securely"
+title: "Integrate Ionic and Spring Boot Securely with JWT and OAuth 2.0"
 author: matt-raible
 by: advocate
 communities: [mobile,java,javascript]
-description: ""
-tags: []
+description: "Build an Ionic frontend for your Spring Boot backend, all using the power of JHipster!"
+tags: [ionic, spring-boot, spring-security, jhipster]
 tweets:
-- ""
+- "Create an Ionic app with a Spring Boot backend in minutes with the new Ionic blueprint for @jhipster!"
+- "Introducing JHipster Ionic: 'Wow! Did you really just build that?!'"
+- "Ionic is awesome. Learn how you to create apps quickly using this powerful framework. 💪"
 image:
 type: conversion
-github:
+github: https://github.com/oktadev/okta-ionic-jhipster-example
 ---
 :page-liquid:
 :toc: macro
 :experimental:
+:commandkey: &#8984;
+
+Ionic allows you to create mobile apps with web technologies. They look and act like native apps. Because they're built with web technologies (HTML, JavaScript, and CSS), you can also deploy your Ionic apps as webapps. Or, even better, as progressive web apps (PWAs) that work offline.
+
+Ionic provides support for the big three web frameworks: Angular, React, and Vue. Once you've written your app with one of these, you can deploy it to a simulator or device with [Capacitor]. Capacitor provides the platform for your app to communicate with the native operating system and vise versa.
+
+Ionic's main competitors are native apps built with Swift or Objective-C (for iOS) and Java or Kotlin (for Android). Ionic also competes with React Native, which uses web technologies and translates them to native components. The Ionic blog has an interesting post that [compares Ionic and React Native performance].
 
 **Prerequisites:**
 
-* https://adoptopenjdk.net/[Java 11+]
-* https://nodejs.org[Node 14+]
+- https://nodejs.org[Node 16+]
+- https://sdkman.io/[Java 11+]
+- https://docs.docker.com/desktop/#download-and-install[Docker Desktop]
 
 toc::[]
 
-== Build a Photo Gallery with JHipster
+== ✨ Introducing the Ionic blueprint for JHipster!
 
-. Create a new directory to hold your frontend and backend projects: `take ionic-spring-boot`
+The JHipster project has provided support for generating an Ionic app using a `generator-jhipster-ionic` module for the past several years. As the primary maintainer of this module, I'm proud to announce that this module has been re-written as a blueprint and it's _much_ easier to understand now. The previous module relied on the Ionic CLI, the base Angular [starter], a [JHipster Ionic starter], and the module to put it all together. Now, the source code is all contained in one project.
 
-. Clone an existing JHipster app into a `backend` directory:
+https://github.com/mshima[Marcelo Shima] volunteered to do the conversation and after XXX months, I'm proud to say that https://github.com/jhipster/generator-jhipster-ionic[Ionic for JHipster v8] is now available! Here's how to use it:
 
-  git clone https://github.com/oktadev/auth0-full-stack-java-example.git backend
-  rm -rf backend/.git
+Create a `ionic-app` directory alongside your JHipster app.
 
-. Start Keycloak:
+[source,shell]
+----
+- jhipster-app
+- ionic-app
+----
 
-  cd backend
-  docker-compose -f src/main/docker/keycloak.yml up -d
+Navigate into it using your terminal. Install Ionic for JHipster and create a new app using `jhipster-ionic`.
 
-. Start app using `./mvnw`, show project in IDE, and browse `http://localhost:8080`
+[source,shell]
+----
+npm install -g generator-jhipster-ionic@8
+jhipster-ionic
+----
 
-. Add a few photos and show lightbox
+You'll be prompted for the location of your JHipster app, a name for your Ionic app, and then you'll be off to the races!
 
-== Generate an Ionic App
+[screenshot of prompt]
 
-. Install Ionic CLI, Ionic for JHipster, and Yeoman
+You can also create a JHipster app and an Ionic app at the same time using the following command:
 
-  npm i -g generator-jhipster-ionic @ionic/cli yo
+[source,shell]
+----
+jhipster jdl bug-tracker.jh --blueprints ionic
+----
 
-. Create an Ionic app named `Flickr2`
+This will follow the same convention where the generated backend and frontend apps are side-by-side on your hard drive.
 
-  yo jhipster-ionic
+Then you can run both apps from your Ionic app using easy-to-remember commands.
 
-. Rename `Flickr2` to `client`
+[source,shell]
+----
+npm run backend:start
+# open a new terminal window
+npm start
+----
 
-  mv Flickr2 client
-  cd client
+[screenshot of both running]
 
-. Launch app and log in after running `ionic serve`
+NOTE: The JHipster Ionic blueprint currently only supports Angular. However, with this refactoring, it should be much easier to add support for Vue and React. If you're interested in helping out, please let me know! Okta is a platinum sponsor of the project and enjoys assigning bug bounties for feature development.
 
-. Generate entities using the JDL from the Spring Boot API
+== Build a Mobile App with Ionic
 
-  yo jhipster-ionic:import-jdl ../backend/flickr2.jdl
+To see Ionic + JHipster in action, let's look at a https://auth0.com/blog/full-stack-java-with-react-spring-boot-and-jhipster/[previous JHipster app I created for the Auth0 blog]. This app is a Flickr clone that allows you to upload photos, tag them, and organize them into albums. First, clone the example:
 
-. Hide metadata in `photo-update.html` with `<div *ngIf="!isNew">`
+[source,shell]
+----
+git clone https://github.com/oktadev/auth0-full-stack-java-example.git backend
+cd backend
+----
 
-. Generate a native iOS project with the following commands:
+Install JHipster 7.8 and the JHipster Ionic blueprint:
 
-  ionic build
-  ionic capacitor add ios
+[source,shell]
+----
+npm i -g generator-jhipster@7.8
+npm i -g generator-jhipster-ionic@8
+----
 
-. Add your custom scheme to `ios/App/App/Info.plist`:
-+
+Create a new directory to hold your Ionic project, then run `jhipster-ionic`:
+
+[source,shell]
+----
+mkdir ionic-app
+cd ionic-app
+jhipster-ionic
+----
+
+Provide the path to your backend JHipster app and name your app `flickr2`.
+
+[screenshot of jhipster-ionic]
+
+That's it! The blueprint will generate an Ionic client, complete with screens for editing entities, unit tests, and end-to-end tests with Protractor. Yes, we're [working on moving to Cypress] for end-to-end tests.
+
+Petty slick, don't you think?
+
+=== Run your Spring Boot app
+
+You'll need to start your backend first, so your Ionic app can talk to it. First, start Keycloak and PostgreSQL in Docker containers:
+
+[source,shell]
+----
+cd backend
+docker-compose -f src/main/docker/keycloak.yml up -d
+docker-compose -f src/main/docker/postgresql.yml up -d
+----
+
+Then, start the backend app using `./mvnw -Pprod`. You should be able to log in at `http://localhost:8080` and add new photos using *Entities* > *Photos*. Add a few photos so you have some data to work with.
+
+[screenshot of added photos]
+
+=== Run your Ionic app
+
+Open another terminal and navigate to the `ionic-app` folder. Launch your Ionic client using `ionic serve` or `npm start`. The app will be opened at `http://localhost:8100` in your default browser.
+
+[screenshot of app]
+
+You should be able to log in with Keycloak and see all the listed entities in your app.
+
+[listed entities]
+
+In the JHipster app's tutorial, there's a section where you're instructed to remove photo fields that can be calculated. Specifically, height, width, date taken, and date uploaded. These values are calculated when the photos are uploaded, so there's no reason to display them when adding a photo.
+
+To add this same functionality to your Ionic app, modify `photo-update.html` and wrap these fields with `<div *ngIf="!isNew">`.
+
+[source,html]
+----
+<div *ngIf="!isNew">
+  ...
+</div>
+----
+
+You'll want to comment out the following lines in `path/to/file` so Protractor doesn't try to enter these values when running end-to-end (e2e) tests.
+
+When you save these files, the Ionic CLI will auto-compile and reload the app in your browser. You can prove everything works as expected by running all the e2e tests in another terminal window.
+
+[source,shell]
+----
+npm run e2e
+----
+
+== Run your Ionic app on iOS using Capacitor
+
+Generate a native iOS project with the following commands:
+
+[source,shell]
+----
+ionic build
+ionic capacitor add ios
+----
+
+Add your custom scheme (`dev.localhost.ionic`) to `ios/App/App/Info.plist`. This is configured in `/path/to/file`; you can easily change it something else if you like.
+
 [source,xml]
 ----
 <key>CFBundleURLTypes</key>
@@ -87,21 +189,25 @@ toc::[]
 </array>
 ----
 
-. Modify the JHipster app's CORS settings (in `backend/src/main/resources/config/application-dev.yml`) to allow `capacitor://localhost` as an origin.
+Modify the JHipster app's CORS settings (in `backend/src/main/resources/config/{application-dev.yml,application-prod.yml}`) to allow `capacitor://localhost` as an origin.
 
-. Start your app with `npm start` and verify you can see photos
+Run your app in Simulator.
 
-=== Run your App on iOS
+[source,shell]
+----
+npx cap run ios
+----
 
-. Run your app in Simulator.
+[screenshot of running in iOS]
 
-  npx cap run ios
+=== Run your Ionic app on Android
 
-. You can also open your project in Xcode and run it from there.
+Generate an Android project with Capacitor.
 
-  npx cap open ios
-
-=== Run your App on Android
+[source,shell]
+----
+ionic capacitor add android
+----
 
 Change the custom scheme in `android/app/src/main/res/values/strings.xml` to use `dev.localhost.ionic`:
 
@@ -110,6 +216,8 @@ Change the custom scheme in `android/app/src/main/res/values/strings.xml` to use
 <string name="custom_url_scheme">dev.localhost.ionic</string>
 ----
 
+Then, install Jetifier (todo: add reason) and sync the changed files with the Android project.
+
 [source,shell]
 ----
 npm install jetifier
@@ -117,7 +225,7 @@ npx jetify
 npx cap sync android
 ----
 
-Then, run your project using the Capacitor CLI:
+Next, run your project using the Capacitor CLI:
 
 [source,shell]
 ----
@@ -141,108 +249,77 @@ If you see `java.io.IOException: Cleartext HTTP traffic to localhost not permitt
     android:usesCleartextTraffic="true">
 ----
 
-== Use Auth0 for Identity
+You should be able to log in and edit entities, just like you can in a browser and on iOS!
 
-. Log in to your Auth0 account (or https://auth0.com/signup[sign up] if you don't have an account). You should have a unique domain like `dev-xxx.us.auth0.com`.
+[screenshot of Android]
 
-. Press the *Create Application* button in https://manage.auth0.com/#/applications[Applications section]. Use a name like `Ionic Rocks!`, select `Regular Web Applications`, and click *Create*.
+== Why use OpenID Connect for mobile apps?
 
-. Switch to the *Settings* tab and configure your application settings:
-+
-- Allowed Callback URLs: `\http://localhost:8080/login/oauth2/code/oidc`
-- Allowed Logout URLs: `\http://localhost:8080/`
+// grab 1-2 paragraphs from one of Aaron's mobile posts
+// mention SSO and login/logout prompt from iOS
 
-. Scroll to the bottom and click *Save Changes*.
+=== Switch your identity provider to Okta
 
-. In the https://manage.auth0.com/#/roles[roles] section, create new roles named `ROLE_ADMIN` and `ROLE_USER`.
+If you don't have an Okta developer account, you can https://developer.okta.com/signup[sign up for one] or run `okta register` after installing the Okta CLI.
 
-. Create a new user account in the https://manage.auth0.com/#/users[users] section. Click on the *Role* tab to assign the roles you just created to the new account.
-+
-_Make sure your new user's email is verified before attempting to log in!_
+If you want to change your JHipster app to use Okta, the https://cli.okta.com[Okta CLI] makes this as easy as `okta apps create jhipster`. When you run this command, it creates an `.okta.env` file you can source to override the default Keycloak settings.
 
-. Next, head to *Auth Pipeline* > *Rules* > *Create*. Select the `Empty rule` template. Provide a meaningful name like `Group claims` and replace the Script content with the following.
-+
-[source,js]
-----
-function(user, context, callback) {
-  user.preferred_username = user.email;
-  const roles = (context.authorization || {}).roles;
-
-  function prepareCustomClaimKey(claim) {
-    return `https://www.jhipster.tech/${claim}`;
-  }
-
-  const rolesClaim = prepareCustomClaimKey('roles');
-
-  if (context.idToken) {
-    context.idToken[rolesClaim] = roles;
-  }
-
-  if (context.accessToken) {
-    context.accessToken[rolesClaim] = roles;
-  }
-
-  callback(null, user, context);
-}
-----
-+
-This code is adding the user's roles to a custom claim (prefixed with `https://www.jhipster.tech/roles`). This claim is mapped to Spring Security authorities in `SecurityUtils.java`.
-
-. Click *Save changes* to continue.
-
-. Create a `backend/.auth0.env` file and populate it with your Auth0 settings.
-+
 [source,shell]
 ----
-export SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=https://<your-auth0-domain>/
-export SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=<your-client-id>
-export SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=<your-client-secret>
-export JHIPSTER_SECURITY_OAUTH2_AUDIENCE=https://<your-auth0-domain>/api/v2/
-----
-+
-You can use the default `Auth0 Management API` audience value from the *Applications* > *API* > *API Audience* field. You can also define your own custom API and use the identifier as the API audience.
-
-=== Create a Native OIDC App
-
-. For Ionic, create a *Native* app and add the following Allowed Callback URLs:
-
-  http://localhost:8100/callback,dev.localhost.ionic:/callback
-
-. Set the Allowed Logout URLs to:
-
-  http://localhost:8100/logout,dev.localhost.ionic:/logout
-
-. Set the Allowed Origins (CORS):
-
-  http://localhost:8100 # is capacitor://localhost needed?
-
-. Update `ionic/src/app/auth/auth-config.service.ts` to use the generated client ID:
-
-  environment.oidcConfig.server_host = this.authConfig.issuer;
-  environment.oidcConfig.client_id = 'Dz7Oc9Zv9onjUBsdC55wReC4ifGMlA7G';
-
-. Update `environment.ts` to specify your audience.
-+
-[source,ts]
-----
-export const environment = {
-  ...
-  oidcConfig: {
-    ...
-    audience: 'https://<your-auth0-domain>/api/v2/'
-  },
-  ...
-};
+source .okta.env
+./mvnw -Pprod
 ----
 
-. Restart your mobile apps and log in with Auth0!
-+
+To learn more about how this works, see https://www.jhipster.tech/security/#okta[JHipster's Okta documentation]. With Keycloak, you don't need a separate OIDC app for Ionic. However, with Okta and Auth0, you do. See [Okta's native mobile app docs] for more information.
+
+After you've changed the client ID in your Ionic app, run it using `npm start`. You'll be prompted to log in using your Okta credentials at `\http://localhost:8100`.
+
+=== Switch your identity provider to Auth0
+
+To switch your identity provider to Auth0, you first need an https://auth0.com/signup[Auth0 account]. Then, create an `.auth0.env` file and see https://www.jhipster.tech/security/#auth0[JHipster's Auth0 docs] for how to populate it. Next, configure a [native mobile app on Auth0] for Ionic.
+
+// todo: make sure this is in JHipster's Auth0 docs:
+// TIP: Want to have all these steps automated for you? Add a 👍 to https://github.com/auth0/auth0-cli/issues/351[issue #351] in the Auth0 CLI project.
+
+[source,shell]
 ----
+source .auth0.env
+npm run backend:start
+# one a new terminal
+npm start
+----
+
+To see it in action on your mobile emulators, use the following commands:
+
+[source,shell]
+----
+# iOS
+npx cap sync ios
 npx cap run ios
+
+# Android
+npx cap sync android
+npx cap run android
 ----
 
-== Doesn't work
+////
+== Todo: doesn't work
 
 - Ionic Android login
 - Auth0 logout
+////
 
+== Learn more about Ionic, Spring Boot, and JHipster
+
+I hope you've enjoyed learning about Ionic and the new Ionic blueprint for JHipster. In my opinion, it's pretty neat that you can rapidly prototype a mobile client for your JHipster. It's even better that you can use a leading-edge mobile application framework to do it.
+
+You can find the source code for this example on GitHub, in the [@oktadev/okta-ionic-jhipster-example] repository.
+
+If you liked this post, you might like these others too.
+
+- Ionic with Social Login
+- Spring Boot Docker
+- Full Stack JHipster from Auth0 blog
+- Elasticsearch + JHipster
+
+If you have any questions, please leave a comment below. You can follow https://twitter.com/oktadev[@oktadev on Twitter] and subscribe to https://youtube.com/oktadev[our YouTube channel] for more leading-edge content. We're also on [LinkedIn] and [Facebook].
