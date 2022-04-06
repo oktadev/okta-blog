@@ -40,7 +40,7 @@ toc::[]
 
 == ✨ Introducing the JHipster Ionic blueprint!
 
-The JHipster project has provided support for generating an Ionic app using a `generator-jhipster-ionic` module for the past several years. As the primary maintainer of this module, I'm proud to announce that this module has been re-written as a blueprint and it's _much_ easier to understand now. The previous module relied on the Ionic CLI, the base Angular https://github.com/ionic-team/starters[starter], a https://github.com/oktadev/ionic-jhipster-starter[Ionic JHipster starter], and the custom code to glue it all together. Now, the source code is all contained in one project.
+The JHipster project has provided support for generating an Ionic app using a `generator-jhipster-ionic` module for the past several years. As the primary maintainer of this module, I'm proud to announce that this module has been re-written as a blueprint and it's _much_ easier to understand now. The previous module relied on the Ionic CLI, the base Angular https://github.com/ionic-team/starters[starter], a https://github.com/oktadev/ionic-jhipster-starter[Ionic JHipster starter], and custom code to glue it all together. Now, the source code is all contained in one project.
 
 https://github.com/mshima[Marcelo Shima] volunteered to do the conversion and after a couple of months, I'm proud to say the https://github.com/jhipster/generator-jhipster-ionic[JHipster Ionic blueprint] is now available! Here's how to use it:
 
@@ -62,7 +62,7 @@ jhipster-ionic
 
 You'll be prompted for the location of your JHipster app, a name for your Ionic app, and then you'll be off to the races!
 
-[screenshot of prompt]
+image::{% asset_path 'blog/jhipster-ionic-blueprint/jhipster-ionic.png' %}[alt=JHipster Ionic prompts,width=800,align=center]
 
 You can also create a JHipster app and an Ionic app at the same time using the following command:
 
@@ -79,10 +79,10 @@ Then you can run both apps from your Ionic app using easy-to-remember commands.
 ----
 npm run backend:start
 # open a new terminal window
-npm start
+ionic serve
 ----
 
-[screenshot of both running]
+image::{% asset_path 'blog/jhipster-ionic-blueprint/ionic-serve.png' %}[alt=Ionic serve command with backend running,width=800,align=center]
 
 NOTE: The JHipster Ionic blueprint currently only supports Angular. However, with this refactoring, it should be much easier to add support for Vue and React. If you're interested in helping out, please let me know! Okta is a platinum sponsor of the project and enjoys assigning bug bounties for feature development.
 
@@ -115,9 +115,9 @@ jhipster-ionic
 
 Provide the path to your backend JHipster app and name your app `flickr2`.
 
-[screenshot of jhipster-ionic]
+image::{% asset_path 'blog/jhipster-ionic-blueprint/jhipster-ionic-flickr2.png' %}[alt=JHipster Ionic with Flickr2 app,width=800,align=center]
 
-That's it! The blueprint will generate an Ionic client, complete with screens for editing entities, unit tests, and end-to-end tests with Protractor. Yes, we're [working on moving to Cypress] for end-to-end tests.
+That's it! The blueprint will generate an Ionic client, complete with screens for editing entities, unit tests, and end-to-end tests with Protractor. Yes, we're https://github.com/jhipster/generator-jhipster-ionic/issues/639[working on moving to Cypress] for end-to-end tests.
 
 Petty slick, don't you think?
 
@@ -132,39 +132,78 @@ docker-compose -f src/main/docker/keycloak.yml up -d
 docker-compose -f src/main/docker/postgresql.yml up -d
 ----
 
-Then, start the backend app using `./mvnw -Pprod`. You should be able to log in at `http://localhost:8080` and add new photos using *Entities* > *Photos*. Add a few photos so you have some data to work with.
+Next, update `backend/src/main/resources/config/application-prod.yml` to allow CORS from `\http://localhost:8100`.
 
-[screenshot of added photos]
+[source,yaml]
+----
+jhipster:
+  ...
+  cors:
+    allowed-origins: 'http://localhost:8100'
+    allowed-methods: '*'
+    allowed-headers: '*'
+    exposed-headers: 'Authorization,Link,X-Total-Count,X-${jhipster.clientApp.name}-alert,X-${jhipster.clientApp.name}-error,X-${jhipster.clientApp.name}-params'
+    allow-credentials: true
+    max-age: 1800
+----
+
+Then, start the backend app using `./mvnw -Pprod`. You should be able to log in at `http://localhost:8080` (with `admin/admin`) and add new photos using *Entities* > *Photos*. Add a few photos so you have some data to work with.
+
+image::{% asset_path 'blog/jhipster-ionic-blueprint/flickr2-photos.png' %}[alt=Flickr2 photos,width=800,align=center]
 
 === Run your Ionic app
 
-Open another terminal and navigate to the `ionic-app` folder. Launch your Ionic client using `ionic serve` or `npm start`. The app will be opened at `http://localhost:8100` in your default browser.
+Open another terminal and navigate to the `ionic-app` folder. Launch your Ionic client using `ionic serve` (or `npm start`). The app will be opened at `\http://localhost:8100` in your default browser.
 
-[screenshot of app]
+image::{% asset_path 'blog/jhipster-ionic-blueprint/ionic-app.png' %}[alt=Ionic app,width=657,align=center]
 
 You should be able to log in with Keycloak and see all the listed entities in your app.
 
-[listed entities]
+image::{% asset_path 'blog/jhipster-ionic-blueprint/ionic-entities.png' %}[alt=Ionic entities,width=580,align=center]
 
 In the JHipster app's tutorial, there's a section where you're instructed to remove photo fields that can be calculated. Specifically, height, width, date taken, and date uploaded. These values are calculated when the photos are uploaded, so there's no reason to display them when adding a photo.
 
-To add this same functionality to your Ionic app, modify `photo-update.html` and wrap these fields with `<div *ngIf="!isNew">`.
+To add this same functionality to your Ionic app, modify `src/app/pages/entities/photo/photo-update.html` and wrap these fields with `<div *ngIf="!isNew">`.
 
 [source,html]
 ----
 <div *ngIf="!isNew">
+  <ion-item>
+    <ion-label position="floating">Height</ion-label>
+    <ion-input type="number" name="height" formControlName="height"></ion-input>
+  </ion-item>
   ...
+  <ion-item>
+    <ion-label>Uploaded</ion-label>
+    <ion-datetime displayFormat="MM/DD/YYYY HH:mm" formControlName="uploaded" id="field_uploaded"></ion-datetime>
+  </ion-item>
 </div>
 ----
 
-You'll want to comment out the following lines in `path/to/file` so Protractor doesn't try to enter these values when running end-to-end (e2e) tests.
+You'll want to comment out the following lines in `e2e/entities/photo/photo.e2e-spec.ts` so Protractor doesn't try to enter these values when running end-to-end (e2e) tests.
 
-When you save these files, the Ionic CLI will auto-compile and reload the app in your browser. You can prove everything works as expected by running all the e2e tests in another terminal window.
+[source,ts]
+----
+// await photoUpdatePage.setHeightInput(height);
+// await photoUpdatePage.setWidthInput(width);
+----
+
+When you save these files, the Ionic CLI will auto-compile and reload the app in your browser. You can prove everything works as expected by stopping your app (with kbd:[Ctrl + 0]) and running all the e2e tests.
 
 [source,shell]
 ----
 npm run e2e
 ----
+
+////
+At this point, the Ionic e2e tests fail to compile
+
+https://github.com/jhipster/generator-jhipster-ionic/issues/579
+
+e2e/entities/photo/photo.e2e-spec.ts:60:41 - error TS2552: Cannot find name 'image'. Did you mean 'Image'?
+
+60     await photoUpdatePage.setImageInput(image);
+////
 
 == Run your Ionic app on iOS using Capacitor
 
@@ -176,7 +215,9 @@ ionic build
 ionic capacitor add ios
 ----
 
-Add your custom scheme (`dev.localhost.ionic`) to `ios/App/App/Info.plist`. This is configured in `/path/to/file`; you can easily change it something else if you like.
+Add your custom scheme (`dev.localhost.ionic`) to `ios/App/App/Info.plist`. This is configured in `src/environments/environment.ts`; you can easily change it something else if you like.
+
+// todo: update src/app/auth/factories/auth.factory.ts to use {scheme} from environment
 
 [source,xml]
 ----
@@ -194,16 +235,24 @@ Add your custom scheme (`dev.localhost.ionic`) to `ios/App/App/Info.plist`. This
 </array>
 ----
 
-Modify the JHipster app's CORS settings (in `backend/src/main/resources/config/{application-dev.yml,application-prod.yml}`) to allow `capacitor://localhost` as an origin.
+Modify the JHipster app's CORS settings (in `backend/src/main/resources/config/application-prod.yml`) to allow `capacitor://localhost` as an origin.
 
-Run your app in Simulator.
+[source,yaml]
+----
+jhipster:
+  ...
+  cors:
+    allowed-origins: 'http://localhost:8100,capacitor://localhost'
+----
+
+Restart your backend app. Deploy your Ionic app to iOS Simulator and run it.
 
 [source,shell]
 ----
 npx cap run ios
 ----
 
-[screenshot of running in iOS]
+image::{% asset_path 'blog/jhipster-ionic-blueprint/flickr2-simulator.png' %}[alt=Flickr2 running on Simulator,width=585,align=center]
 
 === Run your Ionic app on Android
 
@@ -221,12 +270,21 @@ Change the custom scheme in `android/app/src/main/res/values/strings.xml` to use
 <string name="custom_url_scheme">dev.localhost.ionic</string>
 ----
 
-Then, install Jetifier (todo: add reason) and sync the changed files with the Android project.
+////
+todo: confirm this is necessary
+
+The https://github.com/EddyVerbruggen/cordova-plugin-safariviewcontroller[SafariViewController Cordova Plugin] is installed as part of this project. Capacitor uses AndroidX dependencies, but the SafariViewController plugin uses an older non-AndroidX dependency. Use https://developer.android.com/studio/command-line/jetifier[jetifier] to patch usages of old support libraries with the following commands:
 
 [source,shell]
 ----
-npm install jetifier
+npm install -D jetifier
 npx jetify
+----
+////
+
+Sync the compiled project files with the Android project.
+
+----
 npx cap sync android
 ----
 
@@ -236,6 +294,17 @@ Next, run your project using the Capacitor CLI:
 ----
 npx cap run android
 ----
+
+////
+        FAILURE: Build failed with an exception.
+
+        * What went wrong:
+        Could not open settings generic class cache for settings file
+        '/Users/mraible/Downloads/okta-jhipster-ionic-example/ionic-app/android/settings.gradle'
+        (/Users/mraible/.gradle/caches/7.0/scripts/e9mpndfhapalb0yx4e9cyujbp).
+        > BUG! exception in phase 'semantic analysis' in source unit '_BuildScript_' Unsupported
+        class file major version 61
+////
 
 You'll need to run a couple commands to allow the emulator to communicate with JHipster and Keycloak.
 
