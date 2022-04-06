@@ -252,7 +252,7 @@ Restart your backend app. Deploy your Ionic app to iOS Simulator and run it.
 npx cap run ios
 ----
 
-image::{% asset_path 'blog/jhipster-ionic-blueprint/flickr2-simulator.png' %}[alt=Flickr2 running on Simulator,width=585,align=center]
+image::{% asset_path 'blog/jhipster-ionic-blueprint/flickr2-simulator.png' %}[alt=Flickr2 running on Simulator,width=300,align=center]
 
 === Run your Ionic app on Android
 
