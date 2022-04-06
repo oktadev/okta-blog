@@ -22,11 +22,13 @@ github: https://github.com/oktadev/okta-jhipster-ionic-example
 Ionic allows you to create mobile apps with web technologies that look and act like native apps. Because they're built with web technologies (HTML, JavaScript, and CSS), you can also deploy your Ionic apps as webapps. Or, even better, as progressive web apps (PWAs) that work offline.
 
 // borrowed from https://capacitorjs.com/
-image::{% asset_path 'blog/jhipster-ionic-blueprint/capacitor.png' %}[alt=Capacitor diagram,width=200,align=right]
+image::{% asset_path 'blog/jhipster-ionic-blueprint/capacitor.png' %}[alt=Capacitor diagram,width=300,role="pull-right m-up-20",link={% asset_path 'blog/jhipster-ionic-blueprint/capacitor.png' %}]
 
-Ionic provides support for the big three web frameworks: Angular, React, and Vue. Once you've written your app with one of these, you can deploy it to a simulator or device with https://capacitorjs.com/[Capacitor]. Capacitor provides the runtime for your app to communicate with the native operating system and vise versa.
+Ionic provides support for the big three web frameworks: Angular, React, and Vue. Once you've written your app with one of these, you can deploy it to a simulator or device with https://capacitorjs.com/[Capacitor]. Capacitor (pictured on the right as the blue layer) provides the runtime for your app to communicate with the native operating system and vise versa.
 
-Ionic's main competitors are native apps built with Swift or Objective-C (for iOS) and Java or Kotlin (for Android). Ionic also competes with React Native, which uses web technologies and translates them to native components. The Ionic blog has an interesting post that https://ionicframework.com/blog/ionic-vs-react-native-performance-comparison/[does a performance comparison between Ionic and React Native].
+Ionic's main competitors are native apps built with Swift or Objective-C (for iOS) and Java or Kotlin (for Android). Ionic also competes with React Native, which uses web technologies and translates them to native components.
+
+The Ionic blog has a recent post that https://ionicframework.com/blog/ionic-vs-react-native-performance-comparison/[does a performance comparison between Ionic and React Native]. TL;DR: Both options will give you a high performance app with a truly native look and feel.
 
 **Prerequisites:**
 
@@ -36,11 +38,11 @@ Ionic's main competitors are native apps built with Swift or Objective-C (for iO
 
 toc::[]
 
-== ✨ Introducing the Ionic blueprint for JHipster!
+== ✨ Introducing the JHipster Ionic blueprint!
 
-The JHipster project has provided support for generating an Ionic app using a `generator-jhipster-ionic` module for the past several years. As the primary maintainer of this module, I'm proud to announce that this module has been re-written as a blueprint and it's _much_ easier to understand now. The previous module relied on the Ionic CLI, the base Angular [starter], a [JHipster Ionic starter], and the module to put it all together. Now, the source code is all contained in one project.
+The JHipster project has provided support for generating an Ionic app using a `generator-jhipster-ionic` module for the past several years. As the primary maintainer of this module, I'm proud to announce that this module has been re-written as a blueprint and it's _much_ easier to understand now. The previous module relied on the Ionic CLI, the base Angular https://github.com/ionic-team/starters[starter], a https://github.com/oktadev/ionic-jhipster-starter[Ionic JHipster starter], and the custom code to glue it all together. Now, the source code is all contained in one project.
 
-https://github.com/mshima[Marcelo Shima] volunteered to do the conversation and after XXX months, I'm proud to say that https://github.com/jhipster/generator-jhipster-ionic[Ionic for JHipster v8] is now available! Here's how to use it:
+https://github.com/mshima[Marcelo Shima] volunteered to do the conversion and after a couple of months, I'm proud to say the https://github.com/jhipster/generator-jhipster-ionic[JHipster Ionic blueprint] is now available! Here's how to use it:
 
 Create a `ionic-app` directory alongside your JHipster app.
 

@@ -237,6 +237,14 @@
 			width: 200px;
 		}
 
+    .m-up-10 {
+      margin-top: -10px;
+    }
+
+    .m-up-20 {
+      margin-top: -20px;
+    }
+
 		/* Don't force small images in tables */
 		table td img {
 			max-width: unset;
