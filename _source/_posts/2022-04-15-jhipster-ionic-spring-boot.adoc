@@ -32,8 +32,8 @@ The Ionic blog has a recent post that https://ionicframework.com/blog/ionic-vs-r
 
 **Prerequisites:**
 
-- https://nodejs.org[Node 16+]
-- https://sdkman.io/[Java 11+]
+- https://nodejs.org[Node 16]
+- https://sdkman.io/[Java 11]
 - https://docs.docker.com/desktop/#download-and-install[Docker Desktop]
 
 toc::[]
@@ -155,7 +155,7 @@ image::{% asset_path 'blog/jhipster-ionic-blueprint/flickr2-photos.jpg' %}[alt=F
 
 Open another terminal and navigate to the `ionic-app` folder. Launch your Ionic client using `ionic serve` (or `npm start`). The app will be opened at `\http://localhost:8100` in your default browser.
 
-image::{% asset_path 'blog/jhipster-ionic-blueprint/ionic-app.png' %}[alt=Ionic app,width=657,align=center]
+image::{% asset_path 'blog/jhipster-ionic-blueprint/ionic-app.png' %}[alt=Ionic app,width=580,align=center]
 
 You should be able to log in with Keycloak and see all the listed entities in your app.
 
@@ -295,16 +295,10 @@ Next, run your project using the Capacitor CLI:
 npx cap run android
 ----
 
-////
-        FAILURE: Build failed with an exception.
+CAUTION: If you get an error when running this command, make sure you're using Java 11.
 
-        * What went wrong:
-        Could not open settings generic class cache for settings file
-        '/Users/mraible/Downloads/okta-jhipster-ionic-example/ionic-app/android/settings.gradle'
-        (/Users/mraible/.gradle/caches/7.0/scripts/e9mpndfhapalb0yx4e9cyujbp).
-        > BUG! exception in phase 'semantic analysis' in source unit '_BuildScript_' Unsupported
-        class file major version 61
-////
+// Apple M1 doesn't run AVDs: Device Manager terminates
+// todo: try on Intel
 
 You'll need to run a couple commands to allow the emulator to communicate with JHipster and Keycloak.
 
@@ -325,12 +319,17 @@ If you see `java.io.IOException: Cleartext HTTP traffic to localhost not permitt
 
 You should be able to log in and edit entities, just like you can in a browser and on iOS!
 
-[screenshot of Android]
+// todo: screenshot of Android
 
 == Why use OpenID Connect for mobile apps?
 
-// grab 1-2 paragraphs from one of Aaron's mobile posts
-// mention SSO and login/logout prompt from iOS
+Storing link:/blog/2019/01/22/oauth-api-keys-arent-safe-in-mobile-apps[API keys and secrets in mobile apps is not safe].
+
+// The following two paragraphs copied from: link:/blog/2019/01/22/oauth-api-keys-arent-safe-in-mobile-apps#how-to-protect-secrets-in-mobile-apps
+
+OAuth 2.0 solves this problem by not shipping any secrets in mobile apps, and instead involving the user in the process of getting an access token into the app. These access tokens are unique per user and every time they log in. The https://www.oauth.com/oauth2-servers/pkce/[PKCE extension] provides a solution for securely doing the OAuth flow on a mobile app even when there is no pre-provisioned secret.
+
+If you need to access an API from a mobile app, hopefully it supports OAuth and PKCE! Thankfully most of the hard work of PKCE is handled by SDKs like https://appauth.io/[AppAuth] so you don't have to write all that code yourself. If you're working with an API like Okta, then Okta's own SDKs do PKCE automatically so you don't have to worry about it at all.
 
 === Switch your identity provider to Okta
 
@@ -346,7 +345,7 @@ source .okta.env
 
 To learn more about how this works, see https://www.jhipster.tech/security/#okta[JHipster's Okta documentation]. With Keycloak, you don't need a separate OIDC app for Ionic. With Okta, you do.
 
-See https://www.jhipster.tech/security/#create-a-native-app-for-mobile-on-okta[create a native app for mobile on Okta] for more information.
+Learn how in JHipster's documentation on how to https://www.jhipster.tech/security/#create-a-native-app-for-mobile-on-okta[create a native app for mobile on Okta].
 
 After you've changed the client ID in your Ionic app, run it using `npm start`. You'll be prompted to log in using your Okta credentials at `\http://localhost:8100`.
 
@@ -395,9 +394,9 @@ You can find the source code for this example on GitHub, in the https://github.c
 
 If you liked this post, you might like these others too.
 
-- Ionic with Social Login
-- Spring Boot Docker
-- Full Stack JHipster from Auth0 blog
-- Elasticsearch + JHipster
+- link:/blog/2020/09/21/ionic-apple-google-signin[Ionic + Sign in with Apple and Google]
+- link:/blog/2020/12/28/spring-boot-docker[How to Docker with Spring Boot]
+- https://auth0.com/blog/full-stack-java-with-react-spring-boot-and-jhipster/[Full Stack Java with React, Spring Boot, and JHipster]
+- link:/blog/2022/02/16/spring-data-elasticsearch[A Quick Guide to Elasticsearch with Spring Data and Spring Boot]
 
-If you have any questions, please leave a comment below. You can follow https://twitter.com/oktadev[@oktadev on Twitter] and subscribe to https://youtube.com/oktadev[our YouTube channel] for more leading-edge content. We're also on [LinkedIn] and [Facebook].
+If you have any questions, please leave a comment below. You can follow https://twitter.com/oktadev[@oktadev on Twitter] and subscribe to https://youtube.com/oktadev[our YouTube channel] for more leading-edge content. We're also on https://www.linkedin.com/company/oktadev/[LinkedIn] and https://www.facebook.com/oktadevelopers/[Facebook].
