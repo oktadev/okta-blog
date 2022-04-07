@@ -149,7 +149,7 @@ jhipster:
 
 Then, start the backend app using `./mvnw -Pprod`. You should be able to log in at `http://localhost:8080` (with `admin/admin`) and add new photos using *Entities* > *Photos*. Add a few photos so you have some data to work with.
 
-image::{% asset_path 'blog/jhipster-ionic-blueprint/flickr2-photos.png' %}[alt=Flickr2 photos,width=800,align=center]
+image::{% asset_path 'blog/jhipster-ionic-blueprint/flickr2-photos.jpg' %}[alt=Flickr2 photos,width=800,align=center]
 
 === Run your Ionic app
 
