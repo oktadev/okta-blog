@@ -146,6 +146,10 @@ function Home() {
   const createBadge = async () => {
     var data = new FormData();
     data.append("file", image);
+
+    // Ideally the Azure Function should call the `/userprofile` endpoint to get  
+    // the user name instead of relying on the client to send it since the client
+    // could manipulate the data
     data.append("firstLetter", authState.idToken.claims.name[0]);
 
     const resp = await fetch("api/CreateBadge", {
@@ -235,6 +239,8 @@ This file contains the bulk of your logic. First, it provides Login/Logout funct
 The badge creator logic prompts users to upload a photo of themselves for the template. It then posts this to the nebulous `api/CreateBadge`. This route stands for the CreateBadge function that you will create later in this article. Azure will know how to find that route whether you're running this application locally on Azure's emulator or Azure's infrastructure. It will even be able to route to the appropriate environment on Azure's servers.
 
 A note here, you would likely expect to send the `accessToken` in the `Authorization` header; however, Azure overwrites the `Authorization` header with its token by default. You can eliminate this step on the standard pricing model by using the custom providers in the Static Web App and the Function. However, you will need to use this workaround on the free model.
+
+In this tutorial, the client sends the username from the ID Token. Ideally, the Azure Function should retrieve the username from making a call to the `/userprofile` endpoint. By having the Azure Function handle this, you can ensure you get the accurate username and not rely on the client potentially sending something inaccurate.
 
 One other note is that environment variables do not work at this time on Static Web Apps. If you attempt to use `process.env.{variable}` in your code and set it in the application settings, it will not work.
 
@@ -379,7 +385,22 @@ Finally, navigate back to your Azure domain and log in using Okta. Select an ima
 
 ### Use the Azure emulator
 
-If you've run into an error and need to debug your application locally, you can use the Azure emulator to tie your full product together. Return to VS code and navigate to your React application's directory. As usual, run the command `npm run start` to run the application locally on port 3000. Next, open a new terminal in the root directory of your project and run the command `swa start http://localhost:3000 –api-location api`. This command will start the _Static Web App_ emulator reading from `localhost:3000` and setting the api location. A note here, it's possible to run this app from the build directory, but you will lose the benefits of hot-reloading as you make changes.
+If you've run into an error deploying and need to debug your project locally, you can use the [Azure Static Web App emulator](https://docs.microsoft.com/en-us/azure/static-web-apps/local-development) to tie your full product together. You'll need to install some npm packages to run both the web app and the api functions.
+
+In the terminal, run the following commands to install the necessary packages:
+
+```console
+npm install -g @azure/static-web-apps-cli azure-functions-core-tools
+npm install -g azure-functions-core-tools@3 --unsafe-perm true
+```
+
+Navigate to the root directory of the project and run the following command to start the _Static Web App_ emunlator, run the web app in dev mode, and also run the api function:
+
+```console
+swa start http://localhost:4280 --app-location azure-static-app --run="npm start" --api-location ./api --func-args="--javascript"
+```
+
+A note here, it's possible to run this app from the build directory, but you will lose the benefits of hot-reloading as you make changes.
 
 ## Wrap up
 
