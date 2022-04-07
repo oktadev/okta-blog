@@ -7,10 +7,9 @@ communities: [javascript]
 description: "A tutorial that shows you how to build and deploy a React app that securely calls serverless functions on Azure."
 tags: [react, azure, serverless, javascript]
 tweets:
-  - ""
-  - ""
-  - ""
-image:
+  - "Learn how to build and deploy a @react app to @azure 🔥"
+  - "The forecast calls for 100% cloud! ☁️ Build a #react @AzureStaticApps with powered by serverless @AzureFunctions! ⚡"
+image: blog/react-azure-functions/react-azure-serverless-social.jpg
 type: conversion
 github: https://github.com/oktadev/okta-react-azure-functions-example
 ---
