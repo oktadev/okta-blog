@@ -3,7 +3,7 @@ layout: blog_post
 title: "Does Java finally have a secure alternative to JNI?"
 author: deepu-sasidharan
 by: advocate
-communities: [security, java]
+communities: [java]
 description: "Let's look at the state of Foreign Function Interface (FFI) in Java."
 tags: [java, security]
 tweets:
