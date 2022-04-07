@@ -4,12 +4,12 @@ title: "Authenticate from the Command Line with Java"
 author: brian-demers
 by: advocate
 communities: [java]
-description: ""
+description: "Tutorial: Build a Java application with JBang that uses the OAuth 2.0 Device Grant and log in with a code."
 tags: [java, oauth, oauth2, cli, access-tokens, command-line]
 tweets:
-- ""
-- ""
-- ""
+- "OAuth isn't just for web applications, terminal apps can authenticate the same way as your smart TV 📺"
+- "Ever wondered how you log into your TV using a code? This #Java CLI app will show you how with 2 requests‼️"
+- "Command line applications need authentication too! It just takes two HTTP requests💥"
 image:
 type: conversion
 ---
@@ -25,12 +25,13 @@ The great thing about this flow is that it isn't just for televisions, it works 
 
 In this post, I'll walk through how the OAuth 2.0 Device Authorization Grant works and build a basic Java console application!
 
-If you want to skip the post and jump directly into the code, you can find it on https://github.com/oktadev/TODO[GitHub].
+If you want to skip the post and jump directly into the code, you can find it on oktadev/okta-device-grant-java-example[GitHub].
 
 **Prerequisites:**
 
 - An Okta organization - (Sign up for free using your https://developer.okta.com/signup/[browser], or the https://cli.okta.com/[Okta CLI])
-- Java 11+ (Tested with 11, 17, & 18)
+- https://adoptium.net/[Java 11+] (Tested with 11, 17, & 18)
+- https://www.jbang.dev/download/[JBang] (v0.92.2)
 
 toc::[]
 
@@ -119,89 +120,87 @@ Create a new project in your favorite IDE (I'm a fan of https://www.jetbrains.co
 
 The `HttpClient` API is much easier to use than its predecessor `URLConnection`, but Java is still no way to parse JSON out of the box. Add a dependency on https://github.com/FasterXML/jackson-databind[Jackson Databind] to fix that.
 
-The complete Maven `pom.xml` file looks like this:
+To keep things all contained in a single `java` file, I'll use https://www.jbang.dev[JBang]. If you haven't used JBang before, the TL;DR it makes it easy to create Java... scripts. Your project dependencies get added to the top of the `java` file.
 
-[source,xml]
+Create a new `DeviceGrant.java` and add `jackson-databind` as a dependency:
+
+====
+[source,java]
 ----
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+//DEPS com.fasterxml.jackson.core:jackson-databind:2.13.2 // <.>
 
-    <groupId>com.okta.sample</groupId>
-    <artifactId>okta-device-grant-java-example</artifactId>
-    <version>1.0-SNAPSHOT</version>
+import com.fasterxml.jackson.databind.ObjectMapper; // <.>
 
-    <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-    </properties>
+import java.awt.*; // <.>
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.net.URI;
+import java.net.URLEncoder;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
+import java.time.Duration;
+import java.util.Map;
 
-    <dependencies>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.13.2</version>
-        </dependency>
-    </dependencies>
+import static java.util.stream.Collectors.joining;
 
-    <build>
-        <!-- make it easy to run the example -->
-        <defaultGoal>compile exec:java</defaultGoal>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.0.0</version>
-                <configuration>
-                    <mainClass>com.okta.example.device.DeviceGrantApp</mainClass>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-</project>
+public class DeviceGrant {
+
+    public static void main(String[] args) throws Exception {
+
+    }
+}
 ----
+
+<.> Make sure there is no space between the `//` and `DEPS`.
+<.> Add the following imports, they will be used below.
+<.> AWT? Yes, keep reading I'll get to that 😉
+====
+
+Execute the application from the command line using:
+
+[source,shell]
+----
+jbang DeviceGrant.java
+----
+
+This application doesn't do anything yet, we can fix the in the next few steps!
 
 === A little more boilerplate
 
 The fluent `HttpClient` is handy, but along with not having JSON support, it doesn't have direct support for form encoded requests. Fortunately, both are easy to fix by adding a couple of helper methods!
 
-Create a new `DeviceGrantApp` class; the above `pom.xml` assumes this file is in `src/main/java/com/okta/example/device/DeviceGrantApp.java`:
+In `DeviceGrant.java` add the following two methods:
 
 [source,java]
 ----
-public class DeviceGrantApp {
+// Convert a map into a encoded form body
+private static HttpRequest.BodyPublisher formBody(Map<String, String> params) {
+    // Wrap an encoded String in a BodyPublisher
+    return HttpRequest.BodyPublishers.ofString(
+        // url encode <key>=<value>&
+        params.entrySet().stream()
+            .map(entry -> URLEncoder.encode(entry.getKey(), UTF_8)
+                          + "="
+                          + URLEncoder.encode(entry.getValue(), UTF_8))
+            .collect(joining("&")));
+}
 
-    // Convert a map into a encoded form body
-    private static HttpRequest.BodyPublisher formBody(Map<String, String> params) {
-        // Wrap an encoded String in a BodyPublisher
-        return HttpRequest.BodyPublishers.ofString(
-            // url encode <key>=<value>&
-            params.entrySet().stream()
-                .map(entry -> URLEncoder.encode(entry.getKey(), UTF_8)
-                              + "="
-                              + URLEncoder.encode(entry.getValue(), UTF_8))
-                .collect(joining("&")));
-    }
-
-    // parse a response body using Jackson
-    public static <W> HttpResponse.BodySubscriber<W> parseJson(Class<W> targetType) {
-        return HttpResponse.BodySubscribers.mapping(
-            HttpResponse.BodySubscribers.ofByteArray(),
-            (byte[] bytes) -> {
-                try {
-                    ObjectMapper objectMapper = new ObjectMapper();
-                    return objectMapper.readValue(bytes, targetType);
-                } catch (IOException e) {
-                    throw new UncheckedIOException(e);
-                }
-            });
-    }
+// parse a response body using Jackson
+public static <W> HttpResponse.BodySubscriber<W> parseJson(Class<W> targetType) {
+    return HttpResponse.BodySubscribers.mapping(
+        HttpResponse.BodySubscribers.ofByteArray(),
+        (byte[] bytes) -> {
+            try {
+                ObjectMapper objectMapper = new ObjectMapper();
+                return objectMapper.readValue(bytes, targetType);
+            } catch (IOException e) {
+                throw new UncheckedIOException(e);
+            }
+        });
 }
 ----
-
-
 
 == Initiate the authorization request
 
@@ -391,10 +390,14 @@ HttpRequest.newBuilder()
 
 == Putting it all together
 
-If you haven't already skipped ahead and ran the application from your IDE, you can do so by running `mvn` on the command line.
+If you haven't already skipped ahead and ran the finished application, run it now:
 
-NOTE: The above Maven `pom.xml` file configures the `exec-maven-plugin` and sets the default goal to run `compile` and `exec:java` (which compiles and executes the `DeviceGrantApp` class).
+[source,shell]
+----
+jbang DeviceGrant.java
+----
 
+This will open a browser with a display a code, make sure this code matches what is displayed in your terminal, and continue logging in!
 
 == Learn more about OAuth
 
