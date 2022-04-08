@@ -13,26 +13,26 @@ image: blog/state-of-ffi-java/cover.png
 type: awareness
 ---
 
-Java 18 was released last month (March 2022), and with it comes the second incubator of the Foreign Function & Memory API so let us look at the state of Foreign Function Interface (FFI) in Java.
+Java 18 was released last month (March 2022), and with it comes the second incubator of the Foreign Function & Memory API, so let us look at the state of Foreign Function Interface (FFI) in Java.
 
 {% include toc.md %}
 
-If you would instead follow along by watching a video, check out the video of the talk I made on the same topic, at FOSDEM'22, below from [the OktaDev YouTube channel](https://youtu.be/lW69_AtAXzE).
+If you would prefer to follow along by watching a video, here's the recording of my FOSDEM'22 talk on this topic, from the [the OktaDev YouTube channel](https://youtu.be/lW69_AtAXzE).
 
 {% youtube lW69_AtAXzE %}
 
 ## What is a Foreign Function Interface?
 
-A foreign function interface is the ability to call functions or routines written in one programming language from another programming language. This is generally used to access native functions or programs on the host OS written in low-level languages like C. Most languages provide this feature out of the box in some forms. The term originated from common LISP, but it's known by different names in different languages. Most languages use the C/C++ calling conventions for FFI and natively support calling C/C++ functions.
+A foreign function interface is the ability to call functions or routines written in one programming language from another programming language. This is generally used to access native functions or programs on the host OS written in low-level languages like C. Most languages provide some form of this feature out of the box. The term originated from common LISP, but it's known by different names in different languages. Most languages use the C/C++ calling conventions for FFI and natively support calling C/C++ functions.
 
 ## Why is Foreign Function Interface needed?
 
-Most of the use cases for FFI were around interacting with legacy apps and accessing host OS features or native libraries. But the recent surge in machine learning and advanced arithmetics made FFI even more necessary. These days we use foreign functions for an array of use cases, some of which are:
+Most of the use cases for FFI are around interacting with legacy apps and accessing host OS features or native libraries. But the recent surge in machine learning and advanced arithmetics make FFI even more necessary. These days we use foreign functions for an array of use cases, some of which are:
 
-- Interact with legacy apps
-- Access features not available in the language
-- Use native libraries
-- Access functions or programs on the host OS
+- Interacting with legacy apps
+- Accessing features not available in the language
+- Using native libraries
+- Accessing functions or programs on the host OS
 - Multi-precision arithmetic, Matrix multiplications
 - GPU and CPU offloading (Cuda, OpenCL, OpenGL, Vulcan, DirectX, and so on)
 - Deep learning (Tensorflow, cuDNN, Blas, and so on)
@@ -44,10 +44,10 @@ Before we dwell on the current state of FFI in Java, let's look at a brief histo
 
 ### Java Native Interface (JNI)
 
-For a long time, the standard for FFI in Java has been Java Native Interface (JNI), and it is notorious for being slow and insecure. If you are used to other languages like Rust, Go, or Python, you will probably know how easy and intuitive it is to use FFI in them and that leaves something to be desired in Java. Even to do a small native call using JNI, you have to do a considerable amount of work, and it could still go wrong and end up being a security issue for the app.
+For a long time, the standard for FFI in Java has been Java Native Interface (JNI), and it is notorious for being slow and insecure. If you are used to other languages like Rust, Go, or Python, you probably know how easy and intuitive it is to use FFI in them and that leaves something to be desired in Java. Even to do a small native call using JNI, you have to do a considerable amount of work, and it could still go wrong and end up being a security issue for the app.
 
-The main issues with JNI are its complexity to use and the need to write C bridge code manually. This could lead to unsafe code and pose security risks. It can also cause performance overhead in some situations.
-The performance and memory safety of the JNI code depends on the developer, and hence the mileage will vary.
+The main issues with JNI are its complexity to use and the need to write C bridge code manually. These issues can lead to unsafe code and security risks. This can also cause performance overhead in some situations.
+The performance and memory safety of the JNI code depends on the developer, and hence reliability will vary.
 
 **Pros**
 
@@ -64,7 +64,7 @@ The performance and memory safety of the JNI code depends on the developer, and 
 
 ### Java Native Access (JNA)
 
-The complexity of JNI gave rise to some community-driven libraries that made it simpler to do FFI in Java. [Java Native Access (JNA)](https://github.com/java-native-access/jna) is one of them. It's built on top of JNI and at least makes FFI easier to use, especially it removes the need to write any C binding code manually and reduces the chances of memory safety issues. It still has some disadvantages of being JNI-based and is slightly slower than JNI in many cases. It's also widely used and battle-tested, so definitely a better option than using JNI directly.
+The complexity of JNI has given rise to some community-driven libraries that make it simpler to do FFI in Java. [Java Native Access (JNA)](https://github.com/java-native-access/jna) is one of them. It's built on top of JNI and at least makes FFI easier to use, especially as it removes the need to write any C binding code manually and reduces the chances of memory safety issues. Still, it has some of the disadvantages of being JNI-based and is slightly slower than JNI in many cases. However, JNA is widely used and battle-tested, so definitely a better option than using JNI directly.
 
 **Pros**
 
