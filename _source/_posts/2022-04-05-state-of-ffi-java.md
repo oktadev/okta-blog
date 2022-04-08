@@ -70,7 +70,7 @@ The complexity of JNI has given rise to some community-driven libraries that mak
 
 - Native interface access for C/C++/Assembly
 - Simpler to use compared to JNI
-- Dynamic binding. No need to write any C binding code manually
+- Dynamic binding, no need to write any C binding code manually
 - Widely used and mature library
 
 **Cons**
@@ -88,7 +88,7 @@ Another popular option is [Java Native Runtime (JNR)](https://github.com/jnr/jnr
 
 - Native interface access for C/C++/Assembly
 - Easy to use
-- Dynamic binding. No need to write any C binding code manually
+- Dynamic binding, no need to write any C binding code manually
 - Modern API
 - Comparable performance to JNI
 
@@ -97,19 +97,19 @@ Another popular option is [Java Native Runtime (JNR)](https://github.com/jnr/jnr
 - Built on top of JNI
 - Difficult to debug
 
-## Enter project Panama
+## Enter Project Panama
 
 Project Panama is the latest Java project aiming to simplify and improve FFI in Java, and as part of this, many proposals are currently being incubated. Let's take a look at some of the active proposals and how they will work, and let's see if we finally get proper native FFI in Java.
 
 ### Foreign-Memory Access API
 
-The first piece of the puzzle is the foreign memory access API. It was first incubated in JDK 14, and after three incubations, A new JEP combined it into Foreign Function & Memory API.
+The first piece of the puzzle is the foreign-memory access API. It was first incubated in JDK 14, and after three incubations, a new JEP combined it into the Foreign Function & Memory API.
 
 - API to safely and efficiently access foreign memory outside of the Java heap
   - Consistent API for different types of memory
-  - It will not compromise JVM memory safety
+  - Does not compromise JVM memory safety
   - Explicit memory deallocation
-  - Interact with different memory resources, including off-heap or native memory
+  - Interacts with different memory resources, including off-heap or native memory
 - JEP-370 - First incubator in JDK 14
 - JEP-383 - Second incubator in JDK 15
 - JEP-393 - Third incubator in JDK 16
@@ -119,10 +119,10 @@ The first piece of the puzzle is the foreign memory access API. It was first inc
 Another essential part that makes FFI possible is Foreign Linker API. This was first incubated in JDK 16 and was combined into Foreign Function & Memory API in the next revision.
 
 - API for statically-typed, pure-Java access to native code
-  - Focus on ease of use, flexibility, and performance
+  - Focuses on ease of use, flexibility, and performance
   - Initial support for C interop
-  - Call native code in a `.dll`, `.so`, or `.dylib`
-  - Create a native function pointer to a Java method that can be passed to code in a native library
+  - Calls native code in a `.dll`, `.so`, or `.dylib`
+  - Creates a native function pointer to a Java method that can be passed to code in a native library
 - JEP-389 - First incubator in JDK 16
 
 ### Vector API
