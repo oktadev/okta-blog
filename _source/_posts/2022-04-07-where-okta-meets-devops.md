@@ -7,9 +7,9 @@ communities: [devops]
 description: "It's more than just SSO"
 tags: [devops]
 tweets:
-- ""
-- ""
-- ""
+- "Do you know the 4 main ways that DevOps professionals can benefit from Okta's products?"
+- "Could an identity provider help manage your CI/CD systems, SSH access controls, and more?"
+- "DevOps doesn't work without managing identity. What tools will you choose?"
 image: blog/where-okta-meets-devops/devops.png
 type: awareness
 ---
