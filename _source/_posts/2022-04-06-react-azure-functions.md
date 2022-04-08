@@ -18,7 +18,7 @@ Microsoft's Azure platform has as many high-tech products as anyone could ever w
 
 However, you may run into situations where you want some back-end support, such as when you need the backend to run one or two API calls. For this task, Azure offers the [Functions](https://azure.microsoft.com/en-us/services/functions/) platform as well. Functions is a serverless computing platform that supports .NET, Node.js, Python, etc. It takes care of setting up a server, builds logging and exception handling, and provides a high availability environment at a reasonable price.
 
-This tutorial will show you how to create a React application and deploy it to Azure Static Web Apps. The application will be on the Azure free tier, so you will not be able to rely on the built-in authentication providers that connect Azure and Okta to handle the authentication. Therefore, you will use the `okta-react` package from Okta to secure your SPA (single-page application) manually. Once the user authenticates, they'll be able to upload an image and receive a badge from a serverless Azure function.
+This tutorial will show you how to create a React application and deploy it to Azure Static Web Apps. The application will be on the Azure free tier, so you will not be able to rely on the built-in authentication providers that connect Azure and Okta to handle the authentication. Therefore, you will use the `okta-react` package from Okta to secure your single page application (SPA) manually. Once the user authenticates, they'll be able to upload an image and receive a badge from a serverless Azure function.
 
 This serverless function will handle the work of accepting the input image from the SPA and using a template to create a personalized badge for the user. Since you will be using the free version of Azure Static Web Apps, you will have to deploy the function as a _Managed Azure Function_.
 
@@ -235,7 +235,7 @@ export default Home;
 
 This file contains the bulk of your logic. First, it provides Login/Logout functionality using the `useOktaAuth` hook. With this hook, you can determine the user's authenticated state. If the user is not authenticated,  prompt them to do so; otherwise, you will allow them to use the badge creator.
 
-The badge creator logic prompts users to upload a photo of themselves for the template. It then posts this to the nebulous `api/CreateBadge`. This route stands for the CreateBadge function that you will create later in this article. Azure will know how to find that route whether you're running this application locally on Azure's emulator or Azure's infrastructure. It will even be able to route to the appropriate environment on Azure's servers.
+The badge creator logic prompts users to upload a photo of themselves for the template. It then posts this to the nebulous `api/CreateBadge`. This route stands for the `CreateBadge` function that you will create later in this article. Azure will know how to find that route whether you're running this application locally on Azure's emulator or Azure's infrastructure. It will even be able to route to the appropriate environment on Azure's servers.
 
 A note here: You might expect to send the `accessToken` in the `Authorization` header; however, Azure overwrites the `Authorization` header with its token by default. You can eliminate this step on the Azure standard pricing model by using the custom providers in the Static Web App and the Function. However, you will need to use this workaround on the free model.
 
@@ -349,7 +349,7 @@ module.exports = async function (context, req) {
 
 This file uses the `OktaJwtVerifier` to verify the token sent from the React front end. It does this by parsing the `okta-authorization` header. If the token is invalid, it will return a 403.
 
-The other primary function of this code is to take the image uploaded by the user and modify a template image by adding the uploaded image to it. You will also pull the user's name from the JWT and replace the name on the badge with the first letter of the user's first name. Like Agent J. Assuming this was all a success, you would return the image to the SPA to display to the user.
+The other primary function of this code is to take the image uploaded by the user and modify a template image by adding the uploaded image to it. You will also pull the user's name from the JWT and replace the name on the badge with the first letter of the user's first name. If your name is "Okta Developers", you'll see "Agent O". Assuming this was all a success, you would return the image to the SPA to display to the user.
 
 ## Deploy your application to Azure Static Web Apps and Azure Functions
 
