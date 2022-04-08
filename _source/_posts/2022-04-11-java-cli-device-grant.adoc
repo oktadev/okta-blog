@@ -10,7 +10,7 @@ tweets:
 - "OAuth isn't just for web applications, terminal apps can authenticate the same way as your smart TV 📺"
 - "Ever wondered how you log into your TV using a code? This #Java CLI app will show you how with 2 requests‼️"
 - "Command line applications need authentication too! It just takes two HTTP requests💥"
-image:
+image: blog/java-cli-device-grant/oauth-java-cli-social.jpeg
 type: conversion
 ---
 :page-liquid:
