@@ -22,7 +22,7 @@ While many tech professionals know Okta and its competitors as the way they acce
 
 ## Accessing SaaS services and tooling
 
-In 2022, it's vanishingly rare for a tech company to host every software product that they use on- premises. Although there are open or [self-hosted versions](https://github.com/awesome-selfhosted/awesome-selfhosted) of every major tool in the modern workflow, maintaining separate services gets prohibitively expensive. Instead of hosting physical servers, most organizations rent cloud resources. Instead of running email ((Mailman)[https://list.org/]), chat ([IRC](https://datatracker.ietf.org/doc/html/rfc1459), [XMPP](https://xmpp.org/about/technology-overview/)), user account management ([LDAP](https://ldap.com/)), and more in-house, companies instead rent services providing these features from specialist providers. 
+In 2022, it's vanishingly rare for a tech company to host every software product that they use on- premises. Although there are open or [self-hosted versions](https://github.com/awesome-selfhosted/awesome-selfhosted) of every major tool in the modern workflow, maintaining separate services gets prohibitively expensive. Instead of hosting physical servers, most organizations rent cloud resources. Instead of running email ([Mailman](https://list.org/)), chat ([IRC](https://datatracker.ietf.org/doc/html/rfc1459), [XMPP](https://xmpp.org/about/technology-overview/)), user account management ([LDAP](https://ldap.com/)), and more in-house, companies instead rent services providing these features from specialist providers. 
 
 Before the pattern of using a central identity provider and protocols like OAuth became commonplace, users would have to manage a separate login and password to every software-as-a-service vendor that their company used. This created security and administrative headaches for everyone involved. But thanks to widespread adoption of the underlying protocols, a company can now use a single identity provider like Okta to allow everyone in the organization to access all of the software that it buys for them. 
 
@@ -33,13 +33,13 @@ In a CI/CD pipeline, one might use Okta to log in to [Jenkins](https://www.okta.
 ## Automating Okta administration tasks
 Just as sysadmins and IT managed identity for small to medium organizations in the olden days, DevOps engineers may be responsible for some administrative tasks in their company's Okta instance. 
 
-Software and infrastructure administration and management tasks can be automated using a plethora of tools, including Hashicorp's Terraform. Terraform allows users to describe the desired state of their resources, and then changes the resources to match that description.  Using Okta's [Terraform provider](https://github.com/okta/terraform-provider-okta), users can manage their Okta resources and track their changes with version control. This is particularly useful for those whose business needs have them managing many different Okta accounts and trying to keep the settings consistent across all of them. 
+Software and infrastructure administration and management tasks can be automated using a plethora of tools, including Hashicorp's Terraform. Terraform allows users to describe the desired state of their resources, and then changes the resources to match that description.  Using [Okta's Terraform provider](https://github.com/okta/terraform-provider-okta), users can manage their Okta resources and track their changes with version control. This is particularly useful for those whose business needs have them managing many different Okta accounts and trying to keep the settings consistent across all of them. 
 
 ## Managing Server Access
 
 Modern code and infrastructure best practices recommend architecting systems to require minimal human access and intervention. But production-readiness is always a balancing act between aspirations and real-world limitations, and many successful codebases were architected before modern tooling made these hands-off design patterns feasible. Updating production code and infrastructure is often likened to repairing a jet engine while in flight: it has to keep working after every change that you make. When logging into servers is an important part of existing workflows, streamlining that process can be an essential step toward moving past the need to fix things by hand at all. 
 
-One way to improve the security and user experience of SSHing or RDPing to servers is to stop asking users to manage their own keys, and stop asking servers to keep track of who's allowed to access them. In an organization whose identity provider already tracks which team members should have infrastructure access, Okta's [ASA](https://www.okta.com/demo/okta-advanced-server-access/) (formerly ScaleFT) provides a great way to reduce the value of SSH and RDP credentials by making them ephemeral. 
+One way to improve the security and user experience of SSHing or RDPing to servers is to stop asking users to manage their own keys, and stop asking servers to keep track of who's allowed to access them. In an organization whose identity provider already tracks which team members should have infrastructure access, [Okta's ASA](https://www.okta.com/demo/okta-advanced-server-access/) (formerly ScaleFT) provides a great way to reduce the value of SSH and RDP credentials by making them ephemeral. 
 
 Additionally, Okta is working on [more new products](https://www.okta.com/press-room/press-releases/okta-introduces-new-okta-privileged-access-product-to-strengthen-security/) for privileged access management, which will be interesting in the DevOps use case. 
 
@@ -58,8 +58,8 @@ Although the field itself is ambiguously defined, DevOps tools and practices con
 If you work in DevOps, you can't escape the responsibility of managing identity as it relates to your infrastructure. But you can choose how to manage it: Will your organization support you in delegating these tasks to specialists, do you have a use case where it's better to attempt to reinvent these wheels yourself?
 
 * For more ways to watch what Okta is doing from within your own tools, see the [developer docs on monitoring](https://developer.okta.com/docs/concepts/monitor). 
-* For more about the Okta Terraform provider, check out the [GitHub repo](https://github.com/okta/terraform-provider-okta)
-* To learn about securing Kubernetes with OpenID Connect and Okta, read [this blog post](/blog/2021/11/08/k8s-api-server-oidc)
+* Checkout out the [Okta Terraform provider](https://github.com/okta/terraform-provider-okta)
+* To learn about [securing Kubernetes with OpenID Connect and Okta](/blog/2021/11/08/k8s-api-server-oidc)
 * For further information about managing server access with Okta's ASA, see [ASA's overview docs](https://help.okta.com/asa/en-us/Content/Topics/Adv_Server_Access/docs/asa-overview.htm)
 
 To keep up to date with the latest informationa about Okta and what you can do with it, follow [@oktadev](https://twitter.com/oktadev) on Twitter, like us [on LinkedIn](https://www.linkedin.com/company/oktadev/), or subscribe to [our YouTube channel](https://www.youtube.com/oktadev)
