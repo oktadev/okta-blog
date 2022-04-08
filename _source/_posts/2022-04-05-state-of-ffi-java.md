@@ -1,13 +1,13 @@
 ---
 layout: blog_post
-title: "Does Java finally have a secure alternative to JNI?"
+title: "Does Java 18 finally have a better alternative to JNI?"
 author: deepu-sasidharan
 by: advocate
 communities: [java]
 description: "Let's look at the state of Foreign Function Interface (FFI) in Java."
 tags: [java, security]
 tweets:
-  - "Does #Java finally have a secure alternative to JNI? Let's find out and take a deep look into FFI in Java."
+  - "Does #Java finally have a better alternative to JNI? Let's find out and take a deep look into FFI in Java."
   - "What is the secure alternative to JNI in Java 18? Let's find out #java #security"
 image: blog/state-of-ffi-java/cover.png
 type: awareness
@@ -61,6 +61,7 @@ The performance and memory safety of the JNI code depends on the developer, and 
 - Overhead and performance loss is possible
 - Difficult to debug
 - Depends on Java developers to write safe C binding code manually
+- You need to compile and ship the C code for each target platform
 
 ### Java Native Access (JNA)
 
@@ -72,6 +73,7 @@ The complexity of JNI has given rise to some community-driven libraries that mak
 - Simpler to use compared to JNI
 - Dynamic binding, no need to write any C binding code manually
 - Widely used and mature library
+- Better cross-platform support
 
 **Cons**
 
@@ -91,6 +93,7 @@ Another popular option is [Java Native Runtime (JNR)](https://github.com/jnr/jnr
 - Dynamic binding, no need to write any C binding code manually
 - Modern API
 - Comparable performance to JNI
+- Better cross-platform support
 
 **Cons**
 
@@ -103,16 +106,16 @@ Project Panama is the latest Java project aiming to simplify and improve FFI in 
 
 ### Foreign-Memory Access API
 
-The first piece of the puzzle is the foreign-memory access API. It was first incubated in JDK 14, and after three incubations, a new JEP combined it into the Foreign Function & Memory API.
+The first piece of the puzzle is the foreign-memory access API. It was first incubated in JDK 14, and after three incubations, a new [JEP](https://openjdk.java.net/jeps/412) combined it into the Foreign Function & Memory API.
 
 - API to safely and efficiently access foreign memory outside of the Java heap
   - Consistent API for different types of memory
   - Does not compromise JVM memory safety
   - Explicit memory deallocation
   - Interacts with different memory resources, including off-heap or native memory
-- JEP-370 - First incubator in JDK 14
-- JEP-383 - Second incubator in JDK 15
-- JEP-393 - Third incubator in JDK 16
+- [JEP-370](https://openjdk.java.net/jeps/370) - First incubator in JDK 14
+- [JEP-383](https://openjdk.java.net/jeps/383) - Second incubator in JDK 15
+- [JEP-393](https://openjdk.java.net/jeps/393) - Third incubator in JDK 16
 
 ### Foreign Linker API
 
@@ -123,7 +126,7 @@ Another essential part that makes FFI possible is Foreign Linker API. This was f
   - Initial support for C interop
   - Calls native code in a `.dll`, `.so`, or `.dylib`
   - Creates a native function pointer to a Java method that can be passed to code in a native library
-- JEP-389 - First incubator in JDK 16
+- [JEP-389](https://openjdk.java.net/jeps/389) - First incubator in JDK 16
 
 ### Vector API
 
@@ -134,9 +137,9 @@ Next is the vector API, which is crucial for FFI, especially in machine learning
   - Clear and concise API
   - Reliable runtime compilation and performance
   - Graceful degradations
-- JEP-338 - First incubator in JDK 16
-- JEP-414 - Second incubator in JDK 17
-- JEP-417 - Third incubator in JDK 18
+- [JEP-338](https://openjdk.java.net/jeps/338) - First incubator in JDK 16
+- [JEP-414](https://openjdk.java.net/jeps/414) - Second incubator in JDK 17
+- [JEP-417](https://openjdk.java.net/jeps/417) - Third incubator in JDK 18
 
 ### Foreign Function & Memory API
 
@@ -144,10 +147,11 @@ Finally, the Foreign Linker API & Foreign-Memory Access API has evolved together
 
 - Evolution of the Foreign-Memory Access API and the Foreign Linker API
   - Same goals and features as the original two (ease of use, safety, performance, generality)
-- JEP-412 - First incubator in JDK 17
-- JEP-419 - Second incubator in JDK 18
+- [JEP-412](https://openjdk.java.net/jeps/412) - First incubator in JDK 17
+- [JEP-419](https://openjdk.java.net/jeps/419) - Second incubator in JDK 18
+- [JEP-424](https://openjdk.java.net/jeps/424) - First preview expected in JDK 19
 
-### Jextract
+### jextract
 
 And finally, there is the fantastic jextract tool. While it's not an API or part of the JDK itself, it is an essential tool for Project Panama.
 
@@ -170,7 +174,7 @@ Since JNI is the current standard and Panama aims to replace that, it makes sens
 
 {% img blog/state-of-ffi-java/JNI-getpid.png alt:"getpid with JNI" width:"800" %}{: .center-image }
 
-As you can see here, there are precisely six steps to make this simple native call using JNI. You start by writing a Java class that declares the native method. Then you use `javac` to generate a header file and a C class for this. These are the native bindings. Next, you will implement the C class. Remember, these are Java developers writing C code. This means you must write memory-safe C code, which has access to the entire JVM via the `JNIEnv` variable passed to the C class.  In many scenarios, the developer may not have much experience in C. So that will be fun... or more like a security nightmare. Next, you will compile the C code into a platform-specific dynamic library and determine where to place that binary. Pray that all this works without exposing the app to a security vulnerability. Then, you will load this into the Java class and compile and run the class, and hopefully, it works.
+As you can see here, there are precisely six steps to make this simple native call using JNI. You start by writing a Java class that declares the native method. Then you use `javac` to generate a header file and a C class for this. These are the native bindings. Next, you will implement the C class. Remember, these are Java developers writing C code. This means you must write memory-safe C code, which has access to the entire JVM via the `JNIEnv` variable passed to the C class.  In many scenarios, the developer may not have much experience in C. So that will be fun... or more like a security nightmare. Next, you will compile the C code into a platform-specific dynamic library and determine where to place that binary. Pray, if you must, that all this works without exposing the app to a security vulnerability. Then, you will load this into the Java class and compile and run the class, and hopefully, it works.
 
 Ooof! This was just a simple `getpid` call; imagine writing something like an OpenGL interface or GPU offloading program using JNI.
 
@@ -262,7 +266,7 @@ The current state of Project Panama, as of JDK 18, is as follows.
 - Still incubating
 - Can already work with languages that have C interop like C/C++, Fortran, Rust, etc.
 - Performance on par or better than JNI. Hopefully, this will be improved further.
-- Jextract makes it really easy to use native libs.
+- jextract makes it really easy to use native libs.
 - Memory safe and less brittle than JNI
 - Native/off-heap memory access
 - Documentation needs huge improvement. It's an incubator feature, so expect this to improve.
