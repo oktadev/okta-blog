@@ -140,23 +140,23 @@ Next is the vector API, which is crucial for FFI, especially in machine learning
 
 ### Foreign Function & Memory API
 
-Finally, the Foreign Linker API & Foreign-Memory Access API has evolved together to become Foreign Function & Memory API. It was first incubated in JDK 17.
+Finally, the Foreign Linker API & Foreign-Memory Access API has evolved together to become the Foreign Function & Memory API. It was first incubated in JDK 17.
 
 - Evolution of the Foreign-Memory Access API and the Foreign Linker API
-  - Same goals and features as the original two (Ease of use, safety, performance, generality)
+  - Same goals and features as the original two (ease of use, safety, performance, generality)
 - JEP-412 - First incubator in JDK 17
 - JEP-419 - Second incubator in JDK 18
 
 ### Jextract
 
-And finally, there is the fantastic jextract tool. While it's not an API or part of the JDK itself, it is an essential tool for project Panama.
+And finally, there is the fantastic jextract tool. While it's not an API or part of the JDK itself, it is an essential tool for Project Panama.
 
 - A simple command-line tool
 - Generates a Java API from one or more native C headers
-- Shipped with OpenJDK Panama builds at the moment and will be part of the JDK in the future
+- Ships with OpenJDK Panama builds at the moment and will be part of the JDK in the future
 - Makes working with large C headers a cakewalk
 
-For example, to generate a Java API for OpenGL with Jextract, you could simply run the following on a Unix like OS:
+For example, to generate a Java API for OpenGL with jextract, you could simply run the following on a Unix like OS:
 
 ```bash
 jextract --source -t org.opengl -I /usr/include /usr/include/GL/glut.h
