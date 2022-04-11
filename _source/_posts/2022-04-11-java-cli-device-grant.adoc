@@ -271,7 +271,7 @@ Assuming all went well, the response returned from the IdP will be a JSON block 
 {
   "device_code": "a-random-device-code", # <.>
   "user_code": "ABCD1234", # <.>
-  "verification_uri": "https://id.bdemers.io/activate", # <.>
+  "verification_uri": "https:/dev-l33337.okta.com/activate", # <.>
   "verification_uri_complete": "https:/dev-l33337.okta.com/activate?user_code=ABCD1234", # <.>
   "expires_in": 600, # <.>
   "interval": 5 # <.>
