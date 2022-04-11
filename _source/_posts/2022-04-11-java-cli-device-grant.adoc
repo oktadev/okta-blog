@@ -17,15 +17,15 @@ type: conversion
 :toc: macro
 :experimental:
 
-Anyone who has tried to type a password using a television remote can tell you what a pain it is. Not only will you be frustrated with the keyboard, but it's not secure; everyone else in the room can see what you are typing. Fortunately, there is an easier way by using the OAuth 2.0 Device Authorization Grant. The name is a mouthful, but if you have ever logged in to a TV by scanning a QR code or typing a short code, you have already used this flow.
+Anyone who has tried to type a password using a television remote can tell you what a pain it is. Not only will you be frustrated with the keyboard, but it's not secure; everyone else in the room can see what you are typing. Fortunately, the OAuth 2.0 Device Authorization Grant gives you an easier way to sign in. The name is a mouthful, but if you have ever logged in to a TV by scanning a QR code or typing a short code, you've already used this flow.
 
 image::{% asset_path 'blog/java-cli-device-grant/device-grant-tv.jpg' %}[alt=Login with QR code,width=800,align=center]
 
-The great thing about this flow is that it isn't just for televisions, it works with any "input restricted" internet-connected device, alarm clocks, https://auth0.com/blog/build-user-signup-counter-with-arduino-part2/[Arduino's], and even command-line tools.
+The great thing about this authentication flow is that it isn't just for televisions. It works with any "input restricted" internet-connected device, including alarm clocks, https://auth0.com/blog/build-user-signup-counter-with-arduino-part2/[Arduinos], and even command-line tools.
 
 In this post, I'll walk through how the OAuth 2.0 Device Authorization Grant works and build a basic Java console application!
 
-If you want to skip the post and jump directly into the code, you can find it on oktadev/okta-device-grant-java-example[GitHub].
+If you want to skip the text and jump directly into the example code, you can find it on oktadev/okta-device-grant-java-example[our GitHub repo].
 
 **Prerequisites:**
 
@@ -41,9 +41,9 @@ At a high level, the flow works like this:
 
 1. A device or application initiates the flow `POST /v1/device/authorize`
 2. The IdP responds with a "device code", "user code", and a URL.
-3. The user is instructed to visit a URL,  enter the "user code", and authenticate.
+3. The user is instructed to visit the URL,  enter the "user code", and authenticate.
 4. The application polls the IdP using the "device code" until the user has logged in.
-5. The IdP response with an access token.
+5. The IdP responds with an access token.
 
 image::{% asset_path 'blog/java-cli-device-grant/flow-diagram.jpg' %}[alt=Device grant flow diagram,width=800,align=center]
 
@@ -68,7 +68,7 @@ NOTE: This example will work the same with any Identity Provider (IdP) that supp
 
 == OAuth 2.0 from the command line
 
-You might not think of your terminal as an "input restricted device", but that still doesn't mean you should start typing a website's passwords; there are a few problems related to this:
+You might not think of your terminal as an "input restricted device", but that doesn't mean you should start typing a website's passwords. There are a few problems to be aware of related to this:
 
 * You should ONLY enter a password into the website it was created for.
 * Your terminal doesn't support the same factors your browser does.
@@ -76,9 +76,9 @@ You might not think of your terminal as an "input restricted device", but that s
 
 NOTE: The Authorization Device Grant requires a user. If you are trying to call APIs from an automated process or other server-to-server communication, check out the link:/blog/2021/05/05/client-credentials-spring-security[OAuth 2.0 Client Credential Flow].
 
-== Setup Okta
+== Set up Okta
 
-First, you need to create an Okta application that supports the device grant.
+First, you need to create an Okta application that supports the Device Grant.
 
 . In **Applications**->**Applications**, click **Create App Integration**. In the pop-up, choose **OIDC - OpenID Connect**, then **Native Application**. The Device Grant is only available for Native Applications.
 +
@@ -92,20 +92,20 @@ Make a note of the **Client ID**, you will need it below.
 
 If you are using an https://developer.okta.com/docs/concepts/auth-servers/#available-authorization-server-types[Okta Authorization Server], you also need to enable the grant type in the authorization server's policy interface:
 
-. Go to **Security**->**API**
+. Go to **Security**->**API**.
 . Select the authorization server you want to use (for example, "default").
 . Click the **Access Policies** tab, and edit the rule for your policy. Make sure to select the **Device Authorization** check box.
 +
 image::{% asset_path 'blog/java-cli-device-grant/custom-as.jpg' %}[alt=Enable device flow on a custom Authorization Server,width=800,align=center]
 
-Make note of your Issuer URI, if you are using an Okta Custom Authorization Server, it will look something like this (updating the hostname to match your Okta Org):
+Make note of your Issuer URI. If you are using an Okta Custom Authorization Server, it will look something like this (updating the hostname to match your Okta Org):
 
 [source,txt]
 ----
 https://dev-133337.okta.com/api/v1/authorizationServers/default
 ----
 
-Otherwise, it will be the same as your Okta Url:
+Otherwise, it will be the same as your Okta URL:
 
 [source,txt]
 ----
@@ -116,11 +116,11 @@ https://dev-133337.okta.com
 
 On to the fun part, writing some code!
 
-Create a new project in your favorite IDE (I'm a fan of https://www.jetbrains.com/idea/[IntelliJ IDEA]). The code below uses the `java.net.http.HttpClient`, make sure our target Java is set to at least `11`.
+Create a new project in your favorite IDE. (I'm a fan of https://www.jetbrains.com/idea/[IntelliJ IDEA].) The code below uses the `java.net.http.HttpClient`, make sure our target Java is set to at least `11`.
 
 The `HttpClient` API is much easier to use than its predecessor `URLConnection`, but Java is still no way to parse JSON out of the box. Add a dependency on https://github.com/FasterXML/jackson-databind[Jackson Databind] to fix that.
 
-To keep things all contained in a single `java` file, I'll use https://www.jbang.dev[JBang]. If you haven't used JBang before, the TL;DR it makes it easy to create Java... scripts. Your project dependencies get added to the top of the `java` file.
+To keep things all contained in a single `java` file, I'll use https://www.jbang.dev[JBang]. If you haven't used JBang before, here's the TL;DR: JBang makes it easy to create Java... scripts. It's a scripting tool that  lets you run Java application with minimal setup. Your project dependencies get added to the top of the `java` file.
 
 Create a new `DeviceGrant.java` and add `jackson-databind` as a dependency:
 
@@ -165,11 +165,11 @@ Execute the application from the command line using:
 jbang DeviceGrant.java
 ----
 
-This application doesn't do anything yet, we can fix the in the next few steps!
+This application doesn't do anything yet. We can fix the in the next few steps!
 
 === A little more boilerplate
 
-The fluent `HttpClient` is handy, but along with not having JSON support, it doesn't have direct support for form encoded requests. Fortunately, both are easy to fix by adding a couple of helper methods!
+The fluent `HttpClient` is handy, but along with not having JSON support, it also doesn't have direct support for form-encoded requests. Fortunately, both issues are easy to fix by adding a couple of helper methods.
 
 In `DeviceGrant.java` add the following two methods:
 
@@ -204,7 +204,7 @@ public static <W> HttpResponse.BodySubscriber<W> parseJson(Class<W> targetType) 
 
 == Initiate the authorization request
 
-From the above link:#setup-okta[Setup Okta] section you have a public "client id" and "issuer" URI, for convenience's sake, set those as `String` variables:
+From the above link:#setup-okta[Set up Okta] section you have a public "client id" and "issuer" URI. For the sake of convenience, set those as `String` variables:
 
 [source,java]
 ----
@@ -286,7 +286,7 @@ Assuming all went well, the response returned from the IdP will be a JSON block 
 <.> `interval` - Minimum frequency in seconds the application should wait while polling the server to see if the user has been authorized.
 ====
 
-=== User logs in via a browser
+=== User login via a browser
 
 The end user needs to open a browser to log in, how they do that is up to your application. For the best user experience, you may want to open a browser automatically. However, that might not be possible, so always fall back to showing the URL and code.
 
@@ -302,7 +302,7 @@ if (!GraphicsEnvironment.isHeadless() && Desktop.getDesktop().isSupported(Deskto
 }
 ----
 
-If you are building an application for a television, you may want to render value of `verificationUriComplete` as a QR code, so the user can scan it with a mobile device.
+If you are building an application for a television, you may want to render the value of `verificationUriComplete` as a QR code, so the user can scan it with a mobile device.
 
 Whichever method you choose, the user will need to confirm the activation code before authenticating.
 
@@ -380,7 +380,7 @@ Otherwise, if the user has already logged in, a response containing an access to
 }
 ----
 
-NOTE: This access token would be used to make application-specific REST requests on behalf of the user, typically by setting the `Authorization` header in an HTTP request, for example:
+NOTE: This access token would be used to make application-specific REST requests on behalf of the user, typically by setting the `Authorization` header in an HTTP request. For example:
 
 [source,java]
 ----
@@ -390,7 +390,7 @@ HttpRequest.newBuilder()
 
 == Putting it all together
 
-If you haven't already skipped ahead and ran the finished application, run it now:
+If you haven't already skipped ahead to run the finished application, run it now:
 
 [source,shell]
 ----
@@ -401,7 +401,7 @@ This will open a browser with a display a code, make sure this code matches what
 
 == Learn more about OAuth
 
-How you authenticate and authorize a user changes based on the capabilities of your application. This post has shown how to build a command-line Java application that authenticates a user using two simple HTTP requests while allowing them to authenticate using the device and browser of their choice.
+How you authenticate and authorize a user changes based on the capabilities of your application. This post has shown how to build a command-line Java application that authenticates a user with two simple HTTP requests, while allowing them to authenticate using the device and browser of their choice.
 
 Learn more about building secure applications by reading these posts:
 
