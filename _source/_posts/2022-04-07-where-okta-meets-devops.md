@@ -4,7 +4,9 @@ title: "How Can DevOps Engineers Use Okta?"
 author: edunham 
 by: advocate
 communities: [devops]
-description: "It's more than just SSO"
+description: "It's more than just SSO. This overview describes using Okta to access SaaS services and tooling, automate administration tasks, manage server access, and more."
+This description is excerpted in a host of places, so more detail is useful for SEO. 
+
 tags: [devops]
 tweets:
 - "Do you know the 4 main ways that DevOps professionals can benefit from Okta's products?"
