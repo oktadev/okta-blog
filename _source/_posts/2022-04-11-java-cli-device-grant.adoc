@@ -68,7 +68,7 @@ NOTE: This example will work the same with any Identity Provider (IdP) that supp
 
 == OAuth 2.0 from the command line
 
-You might not think of your terminal as an "input restricted device", but that doesn't mean you should start typing a website's passwords. There are a few problems to be aware of related to this:
+You might not think of your terminal as an "input restricted device", but that doesn't mean you should type a website's passwords into your console. There are a few problems to be aware of related to this:
 
 * You should ONLY enter a password into the website it was created for.
 * Your terminal doesn't support the same factors your browser does.
