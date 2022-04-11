@@ -25,7 +25,7 @@ The great thing about this authentication flow is that it isn't just for televis
 
 In this post, I'll walk through how the OAuth 2.0 Device Authorization Grant works and build a basic Java console application!
 
-If you want to skip the text and jump directly into the example code, you can find it on oktadev/okta-device-grant-java-example[our GitHub repo].
+If you want to skip the text and jump directly into the example code, you can find it on https://github.com/oktadev/okta-device-grant-java-example[our GitHub repo].
 
 **Prerequisites:**
 
@@ -272,7 +272,7 @@ Assuming all went well, the response returned from the IdP will be a JSON block 
   "device_code": "a-random-device-code", # <.>
   "user_code": "ABCD1234", # <.>
   "verification_uri": "https://id.bdemers.io/activate", # <.>
-  "verification_uri_complete": "https:/dev-133337/activate?user_code=ABCD1234", # <.>
+  "verification_uri_complete": "https:/dev-l33337.okta.com/activate?user_code=ABCD1234", # <.>
   "expires_in": 600, # <.>
   "interval": 5 # <.>
 }
@@ -302,7 +302,7 @@ if (!GraphicsEnvironment.isHeadless() && Desktop.getDesktop().isSupported(Deskto
 }
 ----
 
-TIP: The Abstract Window Toolkit (AWT) is Java's _original_ platform-independent UI framework. If you are building a JavaFX application, you may want to avoid mixing AWT and use the https://openjfx.io/javadoc/17/javafx.graphics/javafx/application/HostServices.html#showDocument(java.lang.String)[JavaFX `HostServices`] instead. 
+TIP: The Abstract Window Toolkit (AWT) is Java's _original_ platform-independent UI framework. If you are building a JavaFX application, you may want to avoid mixing AWT and use the https://openjfx.io/javadoc/17/javafx.graphics/javafx/application/HostServices.html#showDocument(java.lang.String)[JavaFX `HostServices`] instead.
 
 If you are building an application for a television, you may want to render the value of `verificationUriComplete` as a QR code, so the user can scan it with a mobile device.
 
