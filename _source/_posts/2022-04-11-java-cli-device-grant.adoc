@@ -399,7 +399,7 @@ If you haven't already skipped ahead to run the finished application, run it now
 jbang DeviceGrant.java
 ----
 
-This will open a browser with a display a code, make sure this code matches what is displayed in your terminal, and continue logging in!
+This will open a browser and display a code. Make sure this code matches what is displayed in your terminal, and continue logging in.
 
 == Learn more about OAuth
 
