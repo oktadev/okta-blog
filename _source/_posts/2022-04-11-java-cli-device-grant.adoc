@@ -302,6 +302,8 @@ if (!GraphicsEnvironment.isHeadless() && Desktop.getDesktop().isSupported(Deskto
 }
 ----
 
+TIP: The Abstract Window Toolkit (AWT) is Java's _original_ platform-independent UI framework. If you are building a JavaFX application, you may want to avoid mixing AWT and use the https://openjfx.io/javadoc/17/javafx.graphics/javafx/application/HostServices.html#showDocument(java.lang.String)[JavaFX `HostServices`] instead. 
+
 If you are building an application for a television, you may want to render the value of `verificationUriComplete` as a QR code, so the user can scan it with a mobile device.
 
 Whichever method you choose, the user will need to confirm the activation code before authenticating.
