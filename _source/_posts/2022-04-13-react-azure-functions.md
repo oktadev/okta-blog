@@ -184,7 +184,7 @@ function Home() {
           </ul>
         </nav>
 
-        <h1 className="cover-heading">Create your Men In Black badge</h1>
+        <h1 className="cover-heading">Create your Intergalactic Mining Federation badge</h1>
 
         {!authState?.isAuthenticated && (
           <div>
@@ -204,7 +204,7 @@ function Home() {
               Upload
             </button>
             <br />
-            {display && <img className="pt-4" alt="your MIB badge" src={display}></img>}
+            {display && <img className="pt-4" alt="your IMF badge" src={display}></img>}
           </div>
         )}
 
@@ -294,7 +294,7 @@ const letterStart = [250, 205];
 
 const multipart = require("parse-multipart-data");
 
-badgeTemplateUrl = "https://i.imgur.com/HjluofW.png";
+badgeTemplateUrl = "https://i.imgur.com/50dOBYK.png";
 
 const OktaJwtVerifier = require("@okta/jwt-verifier");
 
