@@ -322,7 +322,7 @@ while (System.currentTimeMillis() < pollUntilMillis) {
 
     // first sleep, give the user time to log in!
     System.out.println("Sleeping for " + interval.getSeconds() + " seconds");
-   Thread.sleep(interval.toMillis()); // <.>
+    Thread.sleep(interval.toMillis()); // <.>
 
     Map<String, String> tokenArgs = Map.of("client_id", clientId,
             "grant_type","urn:ietf:params:oauth:grant-type:device_code", // <.>
