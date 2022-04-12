@@ -13,6 +13,8 @@ tweets:
 image: blog/spring-native-jhipster/spring-native-jhipster.png
 type: conversion
 github: https://github.com/oktadev/auth0-full-stack-java-example/tree/spring-native
+changelog:
+- 2022-04-12: Updated to use JHipster 7.8.1 and JHipster Native 1.1.1. See this post's changes in [okta-blog#1123](https://github.com/oktadev/okta-blog/pull/1123) and the example app changes in [auth0-full-stack-java-example#15](https://github.com/oktadev/auth0-full-stack-java-example/pull/15).
 ---
 :page-liquid:
 :toc: macro
@@ -78,7 +80,7 @@ Today, I'm proud to announce the https://github.com/jhipster/generator-jhipster-
 
 [source,shell]
 ----
-npm install -g generator-jhipster-native@1.0
+npm install -g generator-jhipster-native@1.1.1
 jhipster-native
 ----
 
@@ -113,12 +115,12 @@ git clone -b spring-native https://github.com/oktadev/auth0-full-stack-java-exam
 Then, skip to the <<Configure your OpenID Connect identity provider>> section to continue.
 ====
 
-Install JHipster 7.7.0 and the JHipster Native blueprint:
+Install JHipster 7.8.1 and the JHipster Native blueprint:
 
 [source,shell]
 ----
-npm i -g generator-jhipster@7.7
-npm i -g generator-jhipster-native@1.0
+npm i -g generator-jhipster@7.8.1
+npm i -g generator-jhipster-native@1.1.1
 ----
 
 Then, remove all the existing project files and regenerate them. The `jhipster-native` command includes parameters to disable caching because it's not supported by Spring Native, yet.
