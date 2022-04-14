@@ -35,7 +35,7 @@ You will write your application in Visual Studio Code and use the Azure extensio
   - [Azure Functions VS Code Extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions) 
   - [Azure Static Web Apps VS Code Extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurestaticwebapps)
 
-If you want to see the code, you can download it or fork it [from the example on github](https://github.com/oktadev/okta-react-azure-functions-example).
+If you want to see the code, you can download it or fork it [from the example on GitHub](https://github.com/oktadev/okta-react-azure-functions-example).
 
 **Table of Contents**{: .hide }
 * Table of Contents
@@ -383,7 +383,7 @@ Next, navigate to **Security** > **API** and click **Trusted Origins**. Add your
 
 Finally, navigate back to your Azure domain and log in using Okta. Select an image you want to use for your profile picture and click **Upload**. After a moment, your function should return your new badge.
 
-{% img blog/react-azure-functions/finished-app.jpg alt:"Screenshot depicting final application with a Men In Black Agent badge that includes a profile image of your choosing along with your name" width:"800" %}{: .center-image }
+{% img blog/react-azure-functions/finished-app.jpg alt:"Screenshot depicting final application with an Intergalactic Mining Federation Agent badge that includes a profile image of your choosing along with your name" width:"800" %}{: .center-image }
 
 ### Use the Azure emulator
 
@@ -396,7 +396,7 @@ npm install -g @azure/static-web-apps-cli azure-functions-core-tools
 npm install -g azure-functions-core-tools@3 --unsafe-perm true
 ```
 
-Navigate to the root directory of the project and run the following command to start the _Static Web App_ emunlator, run the web app in dev mode, and also run the API function:
+Navigate to the root directory of the project and run the following command to start the _Static Web App_ emulator, run the web app in dev mode, and also run the API function:
 
 ```console
 swa start http://localhost:4280 --app-location azure-static-app --run="npm start" --api-location ./api --func-args="--javascript"
