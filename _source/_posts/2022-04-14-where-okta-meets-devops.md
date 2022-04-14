@@ -4,7 +4,7 @@ title: "How Can DevOps Engineers Use Okta?"
 author: edunham 
 by: advocate
 communities: [devops]
-description: "It's more than just SSO. This overview describes using Okta to access SaaS services and tooling, automate administration tasks, manage server access, and more."
+description: "Okta's most familiar use case is SSO to applications like mail, chat, AWS, GCP, Azure, Jenkins, Spinnaker, and CircleCi. But it can also help automate administration tasks with Terraform, manage server access with PAM and ASA, and provide data for metrics and monitoring."
 
 tags: [devops]
 tweets:
