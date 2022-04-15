@@ -81,7 +81,7 @@ Today, I'm proud to announce the https://github.com/jhipster/generator-jhipster-
 
 [source,shell]
 ----
-npm install -g generator-jhipster-native@1.1.1
+npm install -g generator-jhipster-native
 jhipster-native
 ----
 
