@@ -14,7 +14,7 @@ image: blog/spring-native-jhipster/spring-native-jhipster.png
 type: conversion
 github: https://github.com/oktadev/auth0-full-stack-java-example/tree/spring-native
 changelog:
-- 2022-04-15: Updated to use JHipster 7.8.1 and JHipster Native 1.1.1. See this post's changes in [okta-blog#1123](https://github.com/oktadev/okta-blog/pull/1123) and the example app changes in [auth0-full-stack-java-example#15](https://github.com/oktadev/auth0-full-stack-java-example/pull/15).
+- 2022-04-15: Updated to use JHipster 7.8.1 and JHipster Native 1.1.1. See this post's changes in [okta-blog#1137](https://github.com/oktadev/okta-blog/pull/1137) and the example app changes in [auth0-full-stack-java-example#15](https://github.com/oktadev/auth0-full-stack-java-example/pull/15).
 ---
 :page-liquid:
 :toc: macro
