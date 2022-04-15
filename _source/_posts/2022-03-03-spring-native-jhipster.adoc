@@ -94,7 +94,7 @@ npm run ci:e2e:prepare # start docker dependencies
 ./target/native-executable
 ----
 
-NOTE: Gradle is not currently an option, but it can be if we add support to the JHipster Native blueprint.
+NOTE: Gradle is not currently an option. Follow https://github.com/jhipster/generator-jhipster-native/pull/25[this issue] to see when it's supported.
 
 == Go native with Spring Native and GraalVM
 
