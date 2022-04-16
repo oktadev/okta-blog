@@ -17,6 +17,7 @@ image: blog/native-java-comparison/native-java.png
 type: conversion
 github: https://github.com/oktadev/native-java-examples
 changelog:
+- 2022-04-16: Updated to use Micronaut 3.4.2, Quarkus 2.8.0, and Spring Native 0.11.4. See this post's changes in [okta-blog#1123](https://github.com/oktadev/okta-blog/pull/1123) and the example app changes in [native-java-examples#16](https://github.com/oktadev/native-java-examples/pull/16).
 - 2022-03-31: Updated to use GraalVM 22.0, Micronaut 3.4.1, Quarkus 2.7.5, Spring Boot 2.6.6, and Spring Native 0.11.3. See this post's changes in [okta-blog#1123](https://github.com/oktadev/okta-blog/pull/1123) and the example app changes in [native-java-examples#16](https://github.com/oktadev/native-java-examples/pull/16).
 - 2022-01-04: Updated to use Micronaut 3.2.4, Quarkus 2.6.1, Spring Boot 2.6.2, and Spring Native 0.11.3. See this post's changes in [okta-blog#1016](https://github.com/oktadev/okta-blog/pull/1016) and the example app changes in [native-java-examples#11](https://github.com/oktadev/native-java-examples/pull/11).
 - 2021-12-09: Updated to use Micronaut 3.2.1 and Spring Native 0.11.0. See this post's changes in [okta-blog#993](https://github.com/oktadev/okta-blog/pull/993) and the example app changes in [native-java-examples#10](https://github.com/oktadev/native-java-examples/pull/10).
@@ -73,13 +74,6 @@ You will need a JDK with GraalVM and its `native-image` compiler. Using SDKMAN, 
 [source,shell]
 ----
 sdk install java 22.0.0.2.r17-grl
-----
-
-Add the native extension to the JDK:
-
-[source,shell]
-----
-gu install native-image
 ----
 
 == Launch a Micronaut Java API
@@ -337,12 +331,12 @@ You can create the same Quarkus app used in this example in five steps.
 +
 [source,shell]
 ----
-mvn io.quarkus:quarkus-maven-plugin:2.7.5.Final:create \
+mvn io.quarkus:quarkus-maven-plugin:2.8.0.Final:create \
     -DprojectGroupId=com.okta.rest \
     -DprojectArtifactId=quarkus \
     -DclassName="com.okta.rest.quarkus.HelloResource" \
     -Dpath="/hello" \
-    -Dextensions="smallrye-jwt,resteasy"
+    -Dextensions="smallrye-jwt,resteasy-reactive"
 ----
 +
 You might wonder why `resteasy-reactive` is used here. I added it because Quarkus team member,
@@ -581,7 +575,7 @@ You can build and test a Spring Boot native image using the steps I outlined abo
 
 == Build Native Images for Micronaut, Quarkus, and Spring Boot
 
-To recap, Micronaut, Quarkus, and Spring Boot all support building native executables with https://www.graalvm.org/[GraalVM]. Yes, there are other frameworks, but these three https://trends.google.com/trends/explore?q=micronaut,quarkus,spring%20boot[seem to be the most popular].
+To recap, Micronaut, Quarkus, and Spring Boot all support building native executables with https://www.graalvm.org/[GraalVM].Yes, there are other frameworks, but these three https://trends.google.com/trends/explore?q=micronaut,quarkus,spring%20boot[seem to be the most popular].
 
 The commands to build each app are similar but not quite the same.
 
@@ -727,16 +721,16 @@ NOTE: If you disagree with these numbers and think X framework should be faster,
 
 When building native images, it's essential to test them as part of an integration testing process. This post is already long enough, so I won't explain how to test native images in this post. We'll publish a post in the future that covers this topic.
 
-I do like how Quarkus generates a `NativeHelloResourceIT` that's designed specifically for this, though.
+I do like how Quarkus generates a `HelloResourceIT` that's designed specifically for this, though.
 
 [source,java]
 ----
 package com.okta.rest.quarkus;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
-public class NativeHelloResourceIT extends HelloResourceTest {
+@QuarkusIntegrationTest
+public class HelloResourceIT extends HelloResourceTest {
 
     // Execute the same tests but in native mode.
 }
