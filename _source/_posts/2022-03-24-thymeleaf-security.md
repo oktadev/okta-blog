@@ -309,7 +309,7 @@ Go to `http://localhost:8080` and you should see the home page and a **Sign In**
 
 ### Protect content areas with authorization
 
-Let's add a `userProfile.html` template that will display the claims contained in the access token returned from Okta, as well as the authorities that Spring Security derives from the token.
+Let's add a `userProfile.html` template that will display the claims contained in the ID token returned from Okta, as well as the authorities that Spring Security derives from the token.
 
 ```html
 <html xmlns:th="http://www.thymeleaf.org">
@@ -326,7 +326,7 @@ Let's add a `userProfile.html` template that will display the claims contained i
         <h2>My Profile</h2>
         <p>Hello, <span th:text="${#authentication.principal.attributes['name']}">Joe Coder</span>. Below is the 
             information that was read with your <a 
-            href="https://developer.okta.com/docs/api/resources/oidc.html#get-user-information">Access Token</a>.
+            href="https://developer.okta.com/docs/api/resources/oidc.html#get-user-information">ID Token</a>.
         </p>
         <p>This route is protected with the annotation <code>@PreAuthorize("hasAuthority('SCOPE_profile')")</code>, 
             which will ensure that this page cannot be accessed until you have authenticated, and have the scope <code>profile</code>.</p>
