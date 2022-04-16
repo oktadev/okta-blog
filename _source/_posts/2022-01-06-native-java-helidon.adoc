@@ -14,6 +14,7 @@ image: blog/native-java-helidon/native-java-helidon.jpg
 type: conversion
 github: https://github.com/oktadev/native-java-examples
 changelog:
+- 2022-04-16: Updated to use Helidon 2.5.0. See this post's changes in [okta-blog#1143](https://github.com/oktadev/okta-blog/pull/1143) and the example app changes in [native-java-examples#23](https://github.com/oktadev/native-java-examples/pull/23).
 - 2022-03-31: Updated to use GraalVM 22.0 and Helidon 2.4.2. See this post's changes in [okta-blog#1124](https://github.com/oktadev/okta-blog/pull/1124) and the example app changes in [native-java-examples#17](https://github.com/oktadev/native-java-examples/pull/17).
 ---
 :page-liquid:
@@ -64,13 +65,6 @@ You will need a JDK with GraalVM and its `native-image` compiler. Using SDKMAN, 
 [source,shell]
 ----
 sdk install java 22.0.0.2.r17-grl
-----
-
-Add the native extension to the JDK:
-
-[source,shell]
-----
-gu install native-image
 ----
 
 == Run a Helidon Java API
@@ -190,7 +184,7 @@ You might be wondering, "how did you build a secure Helidon app"? Did I just hid
    mvn -U archetype:generate -DinteractiveMode=false \
     -DarchetypeGroupId=io.helidon.archetypes \
     -DarchetypeArtifactId=helidon-quickstart-mp \
-    -DarchetypeVersion=2.4.2 \
+    -DarchetypeVersion=2.5.0 \
     -DgroupId=com.okta.rest \
     -DartifactId=helidon \
     -Dpackage=com.okta.rest
