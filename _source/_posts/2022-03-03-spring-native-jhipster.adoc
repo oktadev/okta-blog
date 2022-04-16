@@ -327,6 +327,7 @@ docker-compose -f src/main/docker/keycloak.yml up -d
 
 If you'd rather use Okta or Auth0, that's possible too!
 
+[#use-okta-as-your-identity-provider]
 ==== Use Okta as your identity provider
 
 {% include setup/cli.md type="jhipster" %}
@@ -344,6 +345,7 @@ CAUTION: Modify your existing `.gitignore` file to have `*.env` so you don't acc
 
 _Skip to <<Run your native JHipster app>> if you've configured your app for Okta and just want to see it running._
 
+[#use-auth0-as-your-identity-provider]
 ==== Use Auth0 as your identity provider
 
 To switch from Keycloak to Auth0, override the Spring Security OAuth properties. You don't even need to write any code!
