@@ -51,11 +51,11 @@ I'm going to speed things up for you and just show you how to configure GitHub A
 If you'd like a bit more background, please read https://auth0.com/blog/full-stack-java-with-react-spring-boot-and-jhipster/[Full Stack Java with React, Spring Boot, and JHipster] followed by link:/blog/2022/03/03/spring-native-jhipster[Introducing Spring Native for JHipster].
 ====
 
-Clone the result of these two blog posts, right after I integrated the JHipster Native blueprint 1.0. Install its dependencies using npm.
+Clone the result of these two blog posts, right after I integrated the JHipster Native blueprint. Install its dependencies using npm.
 
 [source,shell]
 ----
-git clone -b jhipster-native-1.0 \
+git clone -b jhipster-native-1.1.1 \
   https://github.com/oktadev/auth0-full-stack-java-example.git flickr2
 cd flickr2
 npm install
@@ -84,19 +84,14 @@ Generate continuous integration (CI) configuration for GitHub Actions using http
 
 [source,shell]
 ----
-jhipster ci-cd
+npx jhipster ci-cd
 ----
 
 This will prompt you to select a CI/CD pipeline. Select **GitHub Actions**.
 
 image::{% asset_path 'blog/github-actions-graalvm/jhipster-ci-cd.png' %}[alt=Welcome to the JHipster CI/CD Sub-Generator,width=800, align=center]
 
-When prompted for the tasks/integrations for this quick example (Sonar, Docker, Snyk, Heroku, and Cypress Dashboard), don't select any. This will create a `.github/workflows/github-actions.yml` file. Rename it to `.github/workflows/main.yml` for simplicity.
-
-[source,source]
-----
-mv .github/workflows/github-actions.yml .github/workflows/main.yml
-----
+When prompted for the tasks/integrations for this quick example (Sonar, Docker, Snyk, Heroku, and Cypress Dashboard), don't select any. This will create a `.github/workflows/main.yml` file.
 
 This file configures GitHub Actions to check out your project, configures Node 16, configures Java 11, and runs your project's backend tests, its frontend tests, and its end-to-end tests. Not only that, it'll start your dependent containers (e.g. Keycloak) in Docker. You can see that most of this functionality is hidden behind `npm run` commands.
 
@@ -178,7 +173,7 @@ If you do, every time you create a PR, and commit to it, it will run a native bu
 
 To me, this seems as bad for the environment as cryptocurrency. If you're using a private repo, it'll also make you wish you bought crypto a couple of years ago. You only get 2000 free minutes of GitHub Actions for private repos. Any minutes after that, you get charged for.
 
-_Yes, I know the cryptocurrency topic is controversial. I do like to poke fun at it though. Native builds on every commit and mining bitcoin seem similar to me._
+_Yes, I know the cryptocurrency topic is controversial. I do like to poke fun at it though. Native builds on every commit and mining bitcoin seem similar to me. Then again, https://www.fastcompany.com/90717181/surfing-the-web-isnt-just-bad-for-your-brain-its-terrible-for-the-environment[simply surfing the web] is terrible for the environment too._
 
 == Continuously test JVM builds with GitHub Actions
 
@@ -437,7 +432,7 @@ TIP: If your builds fail, you can delete the tag for the release by running `git
 
 If you were to download these binaries from GitHub and try to run them locally, you'd get failures because they can't connect to instances of Keycloak or PostgreSQL.
 
-To start up a PostgreSQL database for it to talk to, you can run the following command from your `flickr2` directory.
+To start up a PostgreSQL database for the app to talk to, you can run the following command from your `flickr2` directory.
 
 [source,shell]
 ----
