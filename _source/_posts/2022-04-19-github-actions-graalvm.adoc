@@ -41,9 +41,7 @@ You can read the full conversation (aka a condensed version of this post) via th
 {% twitter 1496278460293324801 %}
 ++++
 
-== Configure a full-stack native Java app to use GitHub Actions
-// == Configure a JHipster app to use GitHub Actions
-// == Configure a Spring Native app to use GitHub Actions
+== Configure a JHipster app to use GitHub Actions
 
 I'm going to speed things up for you and just show you how to configure GitHub Actions for an existing JHipster app. In this case, it's a full-stack React + Spring Boot app.
 
@@ -91,9 +89,15 @@ This will prompt you to select a CI/CD pipeline. Select **GitHub Actions**.
 
 image::{% asset_path 'blog/github-actions-graalvm/jhipster-ci-cd.png' %}[alt=Welcome to the JHipster CI/CD Sub-Generator,width=800, align=center]
 
-When prompted for the tasks/integrations for this quick example (Sonar, Docker, Snyk, Heroku, and Cypress Dashboard), don't select any. This will create a `.github/workflows/main.yml` file.
+When prompted for the tasks/integrations for this quick example (Sonar, Docker, Snyk, Heroku, and Cypress Dashboard), don't select any. This will create three files:
 
-This file configures GitHub Actions to check out your project, configures Node 16, configures Java 11, and runs your project's backend tests, its frontend tests, and its end-to-end tests. Not only that, it'll start your dependent containers (e.g. Keycloak) in Docker. You can see that most of this functionality is hidden behind `npm run` commands.
+- `.github/workflows/main.yml`
+- `.github/workflows/native.yml`
+- `.github/workflows/native-artifact.yml`
+
+I'll show you what each file contains in the sections below. Let's start by examining `main.yml`.
+
+The `main.yml` workflow file configures GitHub Actions to check out your project, configures Node 16, configures Java 11, and runs your project's backend tests, its frontend tests, and its end-to-end tests. Not only that, it'll start your dependent containers (e.g. Keycloak) in Docker. You can see that most of this functionality is hidden behind `npm run` commands.
 
 {% raw %}
 [source,yaml]
@@ -112,11 +116,11 @@ jobs:
       SPRING_JPA_SHOW_SQL: false
       JHI_DISABLE_WEBPACK_LOGS: true
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: 16.14.0
-      - uses: actions/setup-java@v2
+      - uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
           java-version: 11
@@ -152,67 +156,217 @@ To test this out on your new repository, you'll need to create a branch and pull
 git checkout -b actions
 git add .
 git commit -m "Add GitHub Actions"
-git push ci-cd actions
-----
-
-If you watch the tests run from your PR, you'll be pretty pleased until it hits the **E2E: Package** phase. It'll fail with the following error:
-
-----
-Error:  Failed to execute goal org.graalvm.buildtools:native-maven-plugin:0.9.10:build
-  (build-native) on project flickr-2: Execution build-native of goal
-  org.graalvm.buildtools:native-maven-plugin:0.9.10:build failed:
-  GraalVM native-image is missing from your system.
-Error:   Make sure that GRAALVM_HOME environment variable is present.
-----
-
-== The environmental impact of GraalVM builds
-
-This brings us to a fork in the road. Should you use the https://github.com/graalvm/setup-graalvm/issues/6[setup-graalvm action] to configure GraalVM and your Java SDK?
-
-If you do, every time you create a PR, and commit to it, it will run a native build. These take a 3-4 minutes for me locally, but with GitHub Actions, it takes 30+ minutes! Also, it only builds on Linux, so you won't know if there are issues with macOS or Windows.
-
-To me, this seems as bad for the environment as cryptocurrency. If you're using a private repo, it'll also make you wish you bought crypto a couple of years ago. You only get 2000 free minutes of GitHub Actions for private repos. Any minutes after that, you get charged for.
-
-_Yes, I know the cryptocurrency topic is controversial. I do like to poke fun at it though. Native builds on every commit and mining bitcoin seem similar to me. Then again, https://www.fastcompany.com/90717181/surfing-the-web-isnt-just-bad-for-your-brain-its-terrible-for-the-environment[simply surfing the web] is terrible for the environment too._
-
-== Continuously test JVM builds with GitHub Actions
-
-There's a better way, in my opinion. Revert the changes made by the JHipster Native blueprint to the tasks that are run by the `npm run` commands. That is, change `ci:e2e:package` from `npm run native-package` to the following:
-
-[source,json]
-----
-"ci:e2e:package": "npm run java:$npm_package_config_packaging:$npm_package_config_default_environment -- -Pe2e -Denforcer.skip=true",
-----
-
-Make a similar change to `ci:e2e:server:start`. JHipster Native changes it to `npm run native-start`. The default works better for continuous integration.
-
-[source,json]
-----
-"ci:e2e:server:start": "java -jar target/e2e.$npm_package_config_packaging --spring.profiles.active=e2e,$npm_package_config_default_environment -Dlogging.level.ROOT=OFF -Dlogging.level.org.zalando=OFF -Dlogging.level.tech.jhipster=OFF -Dlogging.level.com.auth0.flickr2=OFF -Dlogging.level.org.springframework=OFF -Dlogging.level.org.springframework.web=OFF -Dlogging.level.org.springframework.security=OFF --logging.level.org.springframework.web=ERROR",
-----
-
-Commit your changes and push.
-
-[source,shell]
-----
-git add .
-git commit -m "Restore JVM mode for CI"
 git push origin actions
 ----
 
-This should pass.
+You should see a link in your terminal to create a pull request (PR).
 
-image::{% asset_path 'blog/github-actions-graalvm/restore-jvm-mode.png' %}[alt=Restore JVM mode for CI, align=center]
+[source,shell]
+----
+remote: Create a pull request for 'actions' on GitHub by visiting:
+remote:      https://github.com/mraible/jhipster-flickr2/pull/new/actions
+----
 
-Merge this PR since everything works.
+If you watch the tests run from your PR, you'll be pretty pleased until it hits the **E2E: Package** phase. It'll likely fail with the following error:
+
+[source,shell]
+----
+Found orphan containers (docker_keycloak_1) for this project. If you removed or renamed
+this service in your compose file, you can run this command with the --remove-orphans flag
+to clean it up.
+----
+
+I https://github.com/jhipster/generator-jhipster/issues/18387[reported this issue in JHipster] since `--remove-orphans` was recently removed from the `docker:db:down` and `docker:keycloak:down` commands. The explanation provided enough information for me to close the issue. Add them back into `package.json` as a workaround.
+
+[source,json]
+----
+"scripts": {
+  ...
+  "docker:db:down": "docker-compose -f src/main/docker/postgresql.yml down -v --remove-orphans",
+  ...
+  "docker:keycloak:down": "docker-compose -f src/main/docker/keycloak.yml down -v --remove-orphans",
+  ...
+}
+----
+
+Commit and push these changes. Now everything should pass.
+
+image::{% asset_path 'blog/github-actions-graalvm/first-successful-build.png' %}[alt=First successful build in GitHub Actions,width=800,align=center]
+
+Merge this PR into the `main` branch.
+
+== The environmental impact of GraalVM builds
+
+This brings us to an interesting delimma. If you're creating native images as your application's distribution artifact, shouldn't you use the https://github.com/graalvm/setup-graalvm/issues/6[setup-graalvm action] to configure GraalVM and your Java SDK?
+
+If you do, every time you create a PR, and commit to it, it will run a native build. A GraalVM build of this project takes 3-4 minutes for me locally. With GitHub Actions, it takes 30+ minutes! Also, it only builds on Linux, so you won't know if there are issues with macOS or Windows.
+
+To me, this seems as bad for the environment as cryptocurrency. If you're using a private repo, it'll also make you wish you bought crypto several years ago. You only get 2000 free minutes of GitHub Actions for private repos. Any minutes after that you get charged for.
+
+_Yes, I know the cryptocurrency topic is controversial. I do like to poke fun at it though. Native builds on every commit and mining bitcoin seem similar to me. Then again, https://www.fastcompany.com/90717181/surfing-the-web-isnt-just-bad-for-your-brain-its-terrible-for-the-environment[simply surfing the web] is terrible for the environment too._
+
+== Best Practices for GraalVM with GitHub Actions
+
+When I first started investigating GitHub Actions for GraalVM, the JHipster Native blueprint modified commands in `package.json` to always build native images and to use them when running end-to-end tests. This meant that when you first tried to add GitHub Actions support, the build would fail because `GRAALVM_HOME` wasn't found. To solve this, you could switch from `actions/setup-java` to `graalvm/setup-graalvm` to solve this, but that's not very environmentally sustainable.
+
+Since then, we've modified the blueprint to generate two new workflows that reflect (in my opinion) best practices for GitHub Actions and GraalVM.
+
+1. `native.yml`: run nightly tests using GraalVM
+2. `native-artifact.yml`: builds and uploads native binaries for releases
+
+The `main.yml` stays the same as JHipster's default and continuously tests on the JVM.
+
+== Run nightly tests with GraalVM and GitHub Actions
+
+The `native.yml` workflow file performs similar actions to `main.yml`, but with GraalVM. It runs on a schedule every day at midnight.
+
+{% raw %}
+[source,yaml]
+----
+name: Native CI
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'
+permissions:
+  contents: read
+jobs:
+  pipeline:
+    name: flickr2 native pipeline
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[ci skip]') && !contains(github.event.head_commit.message, '[skip ci]') && !contains(github.event.pull_request.title, '[skip ci]') && !contains(github.event.pull_request.title, '[ci skip]')"
+    timeout-minutes: 40
+    env:
+      SPRING_OUTPUT_ANSI_ENABLED: DETECT
+      SPRING_JPA_SHOW_SQL: false
+      JHI_DISABLE_WEBPACK_LOGS: true
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16.14.0
+      - name: 'SETUP: setup graalvm'
+        uses: graalvm/setup-graalvm@v1
+        with:
+          version: '22.0.0.2'
+          java-version: '11'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install node.js packages
+        run: npm install
+      - name: 'E2E: Package'
+        run: npm run native-package
+      - name: 'E2E: Prepare'
+        run: npm run ci:e2e:prepare
+      - name: 'E2E: Run'
+        run: npm run native-e2e
+----
+{% endraw %}
+
+If you compare `native.yml` with `main.yml`, you'll see it doesn't run unit tests (because Spring Native doesn't support Mockito yet). It does build a native executable and runs end-to-end tests against it.
+
+image::{% asset_path 'blog/github-actions-graalvm/compare-native-main.png' %}[alt=Compare native.yml to main.yml,width=800,align=center]
+
+If you wait until after midnight, you can view this workflow's results in your repo's *Actions* tab. It also has a `workflow_dispatch` event trigger, so you can trigger it manually from your browser.
+
+image::{% asset_path 'blog/github-actions-graalvm/run-native-workflow.png' %}[alt=Run native workflow,width=800,align=center]
+
+When I first tried triggering it, it failed with the following error:
+
+----
+The job running on runner GitHub Actions 2 has exceeded the maximum execution time of 40 minutes.
+----
+
+I'll address this issue in a bit.
 
 == How to build and upload native binaries when releasing on GitHub
 
-I think it's better to only build native binaries for releases if you're using GitHub Actions.
+The `native-artifact.yml` workflow file creates binaries for macOS, Linux, and Windows when a release is created. This file shows how to configure Linux and Windows so they have enough memory, uploads artifacts to the actions job, and uploads the native binaries to the release on GitHub. It will only execute when you create a release (aka a tag).
 
-_Of course, you should test them locally before releasing. However, I'd rather run a process for five minutes locally than wait for 30-60 minutes for it to happen in the cloud._
+{% raw %}
+[source,yaml]
+----
+name: Generate Executables
+on:
+  workflow_dispatch:
+  release:
+    types: [published]
+permissions:
+  contents: write
+jobs:
+  build:
+    name: GraalVM - ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-2019]
+        graalvm-version: ['22.0.0.2']
+        java-version: ['11']
+        include:
+          - os: ubuntu-latest
+            executable-suffix: ''
+          - os: macos-latest
+            executable-suffix: ''
+          - os: windows-2019
+            executable-suffix: '.exe'
+    steps:
+      # OS customizations that should improve the build time, disabled due to non official sources.
+      #- name: Set up swap space
+      #  if: runner.os == 'Linux'
+      #  uses: pierotofy/set-swap-space@v1.0
+      #  with:
+      #    swap-size-gb: 10
+      #- name: Configure pagefile
+      #  uses: al-cheb/configure-pagefile-action@v1.2
+      #  if: runner.os == 'Windows'
+      #  with:
+      #    minimum-size: 10GB
+      #    maximum-size: 12GB
+      #- name: Set up pagefile
+      #  if: runner.os == 'Windows'
+      #  run: |
+      #    (Get-CimInstance Win32_PageFileUsage).AllocatedBaseSize
 
-You can do this quite easily with a GitHub Action that only runs when you create a release. If you want to test things more often, you could do it with a https://kyuubang.github.io/devops/2022/01/22/nightly-build-with-github-actions.html[nightly build].
+      - uses: actions/checkout@v3
+      - id: executable
+        run: echo "::set-output name=name::flickr2-${{ runner.os }}-${{ github.event.release.tag_name || 'snapshot' }}-x86_64"
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16.14.0
+      - name: Set up GraalVM (Java ${{ matrix.java-version }})
+        uses: graalvm/setup-graalvm@v1
+        with:
+          version: '${{ matrix.graalvm-version }}'
+          java-version: '${{ matrix.java-version }}'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Cache Maven dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-maven
+      - name: Cache npm dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+      - name: Build ${{ steps.executable.outputs.name }} native image
+        run: npm run native-package -- -B -ntp "-Dnative-image-name=${{ steps.executable.outputs.name }}"
+      - name: Archive binary
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ steps.executable.outputs.name }}
+          path: target/${{ steps.executable.outputs.name }}${{ matrix.executable-suffix }}
+      - name: Upload release
+        if: github.event.release.tag_name
+        run: gh release upload ${{ github.event.release.tag_name }} target/${{ steps.executable.outputs.name }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+----
+{% endraw %}
 
 === Linux and Windows problems and solutions
 
@@ -240,7 +394,7 @@ I'm happy to say that I was able to fix the OOM error on Linux by specifying `-J
 
 TIP: If you need to see more details from the `native-maven-plugin`, you can add `--verbose` as an additional argument.
 
-Commit it to the main branch.
+Commit it to the main branch and push.
 
 [source,shell]
 ----
@@ -249,164 +403,10 @@ git pull origin main
 # Add -J-Xmx10g to pom.xml
 git add .
 git commit -m "Add -J-Xmx10g for native builds"
-----
-
-The Windows issue was fixed by https://github.com/graalvm/setup-graalvm/issues/6#issuecomment-1054582083[native build tools 0.9.10], which the JHipster Native blueprint v1.0 uses by default.
-
-=== Create a `publish.yml` workflow
-
-Create a `.github/workflows/publish.yml` file to do your GraalVM builds on Linux, macOS, and Windows when you publish a release. This file configures Linux and Windows so they have enough memory, it uploads artifacts to the actions job, and it uploads the native binaries to the release on GitHub. It will only execute when you create a release (aka a tag).
-
-{% raw %}
-[source,yaml]
-----
-name: Publish
-
-on:
-  release:
-    types: [published]
-
-env:
-  graalvm_version: '22.0.0.2'
-  java_version: '17'
-
-jobs:
-  build:
-    name: GraalVM - ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    timeout-minutes: 90
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest]
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up GraalVM (Java ${{ env.java_version }})
-        uses: graalvm/setup-graalvm@v1
-        with:
-          version: '${{ env.graalvm_version }}'
-          java-version: '${{ env.java_version }}'
-          components: 'native-image'
-
-      - name: Cache Maven dependencies
-        uses: actions/cache@v2
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-maven
-
-      - name: Cache npm dependencies
-        uses: actions/cache@v2
-        with:
-          path: |
-            ~/.npm
-            ~/.cache/Cypress/
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-
-      - name: Set up swap space
-        if: runner.os == 'Linux'
-        uses: pierotofy/set-swap-space@v1.0
-        with:
-          swap-size-gb: 10
-
-      - name: Build native images
-        run: ./mvnw -B -ntp package -Pnative,prod -DskipTests
-
-      - name: Archive binary
-        uses: actions/upload-artifact@v2
-        with:
-          name: flickr2-${{ matrix.os }}-x86_64
-          path: target/native-executable
-
-      - name: Rename binary
-        run: mv target/native-executable target/flickr2-${{ runner.os }}-${{ github.event.release.tag_name }}-x86_64
-      - name: Upload release
-        uses: alexellis/upload-assets@0.3.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          asset_paths: '["target/flickr2-${{ runner.os }}*"]'
-
-  build-windows:
-    name: GraalVM - ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    timeout-minutes: 90
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [windows-2019]
-    steps:
-      - uses: actions/checkout@v2
-      - uses: ilammy/msvc-dev-cmd@v1
-      - uses: microsoft/setup-msbuild@v1
-
-      - name: Set up GraalVM (Java ${{ env.java_version }})
-        uses: graalvm/setup-graalvm@v1
-        with:
-          version: '${{ env.graalvm_version }}'
-          java-version: '${{ env.java_version }}'
-          components: 'native-image'
-
-      - name: Cache Maven dependencies
-        uses: actions/cache@v2
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-maven
-
-      - name: Cache npm dependencies
-        uses: actions/cache@v2
-        with:
-          path: |
-            ~/.npm
-            ~/.cache/Cypress/
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-
-      - name: Configure pagefile
-        uses: al-cheb/configure-pagefile-action@v1.2
-        with:
-          minimum-size: 10GB
-          maximum-size: 12GB
-
-      - name: Set up pagefile
-        run: |
-          (Get-CimInstance Win32_PageFileUsage).AllocatedBaseSize
-      - name: mvnw --version
-        run: mvnw --version
-        shell: cmd
-
-      - name: Maven resolve
-        run: mvnw -B -ntp dependency:resolve-plugins
-        shell: cmd
-
-      - name: Build native images
-        run: mvnw -B -ntp package -Pnative,prod -DskipTests
-        shell: cmd
-
-      - name: Archive binary
-        uses: actions/upload-artifact@v2
-        with:
-          name: flickr-${{ matrix.os }}-x86_64.exe
-          path: target/native-executable.exe
-
-      - name: Rename binary
-        run: move target/native-executable.exe target/flickr2-${{ runner.os }}-${{ github.event.release.tag_name }}-x86_64.exe
-      - name: Upload release
-        uses: alexellis/upload-assets@0.3.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          asset_paths: '["target/flickr2-${{ runner.os }}*"]'
-----
-{% endraw %}
-
-Add this file to your `main` branch.
-
-[source,shell]
-----
-git add .
-git commit -m "Add native artifacts to release"
 git push origin main
 ----
+
+The Windows issue was fixed by https://github.com/graalvm/setup-graalvm/issues/6#issuecomment-1054582083[native build tools 0.9.10], which the JHipster Native blueprint uses by default.
 
 CAUTION: I recently tried to use `windows-latest` instead of `windows-2019` and I https://github.com/graalvm/setup-graalvm/issues/6#issuecomment-1058328963[ran out of disk space].
 
@@ -470,7 +470,7 @@ image::{% asset_path 'blog/github-actions-graalvm/run-native-binary.png' %}[alt=
 
 You can see a released version of the artifacts https://github.com/oktadev/auth0-full-stack-java-example/releases[on the auth0-full-stack-java-example's releases page].
 
-== Learn more about CI, JHipster, and Java
+== Learn more about CI, JHipster, and GraalVM
 
 I hope you've enjoyed this tour of how to configure GitHub Actions to create GraalVM binaries of Java applications. Native binaries start quite a bit faster than JARs, but they do take a lot longer to build. That's why it's a good idea to farm out those processes to a continuous integration server.
 
@@ -479,7 +479,7 @@ If you liked this tutorial, chances are you'll like these:
 - link:/blog/2022/03/03/spring-native-jhipster[Introducing Spring Native for JHipster]
 - link:/blog/2021/01/20/reactive-java-microservices[Reactive Java Microservices with Spring Boot and JHipster]
 - link:/blog/2020/05/18/travis-ci-to-github-actions[Migrate From Travis CI to GitHub Actions]
-- link:/blog/2021/07/08/jenkins-ci-dotnet-update-secrets[Update App Secrets with Jenkins CI and .NET Core]
 - link:/blog/2020/03/18/ci-with-jenkins-and-java[Continuous Integration with Jenkins and Java]
+- link:/blog/2019/11/27/graalvm-java-binaries[Watch GraalVM Turn Your Java Into Binaries]
 
 Follow us https://twitter.com/oktadev[@oktadev] on Twitter and subscribe to our https://youtube.com/oktadev[YouTube channel] for more modern Java goodness.
