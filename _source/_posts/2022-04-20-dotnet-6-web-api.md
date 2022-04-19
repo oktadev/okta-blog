@@ -339,10 +339,10 @@ In this tutorial, you learned how to build an API with .NET 6 and secure that ap
 
 Here are some related posts that you might find useful:
 
-[Comparison of Dependency Injection in .NET](https://developer.okta.com/blog/2022/02/10/dotnet-dependency-injection-comparison)
+[Comparison of Dependency Injection in .NET](/blog/2022/02/10/dotnet-dependency-injection-comparison)
 
-[Build a Basic CRUD App with ASP.NET Core 3.0 and MongoDB](https://developer.okta.com/blog/2020/06/29/aspnet-core-mongodb)
+[Build a Basic CRUD App with ASP.NET Core 3.0 and MongoDB](/blog/2020/06/29/aspnet-core-mongodb)
 
-[Build a CRUD App with ASP.NET Core and TypeScript](https://developer.okta.com/blog/2019/03/26/build-a-crud-app-with-aspnetcore-and-typescript)
+[Build a CRUD App with ASP.NET Core and TypeScript](/blog/2019/03/26/build-a-crud-app-with-aspnetcore-and-typescript)
 
-Make sure you follow us on [Twitter](https://twitter.com/oktadev), connect with us on [LinkedIn](https://www.linkedin.com/company/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel. If you have any questions, or you want to share what tutorial you’d like to see next, please comment below!
+Make sure you follow us on [Twitter](https://twitter.com/oktadev), connect with us on [LinkedIn](https://www.linkedin.com/company/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel. If you have any questions, or you want to share what tutorial you'd like to see next, please comment below!
