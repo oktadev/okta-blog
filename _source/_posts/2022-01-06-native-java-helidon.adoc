@@ -14,7 +14,7 @@ image: blog/native-java-helidon/native-java-helidon.jpg
 type: conversion
 github: https://github.com/oktadev/native-java-examples
 changelog:
-- 2022-04-18: Updated to use Helidon 2.5.0. See this post's changes in [okta-blog#1143](https://github.com/oktadev/okta-blog/pull/1143) and the example app changes in [native-java-examples#23](https://github.com/oktadev/native-java-examples/pull/23).
+- 2022-04-19: Updated to use Helidon 2.5.0. See this post's changes in [okta-blog#1143](https://github.com/oktadev/okta-blog/pull/1143) and the example app changes in [native-java-examples#23](https://github.com/oktadev/native-java-examples/pull/23).
 - 2022-03-31: Updated to use GraalVM 22.0 and Helidon 2.4.2. See this post's changes in [okta-blog#1124](https://github.com/oktadev/okta-blog/pull/1124) and the example app changes in [native-java-examples#17](https://github.com/oktadev/native-java-examples/pull/17).
 ---
 :page-liquid:
