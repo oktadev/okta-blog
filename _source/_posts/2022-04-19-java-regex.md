@@ -29,7 +29,7 @@ In this article, you'll learn how to use regular expressions to define a pattern
 
 So, what are regular expressions? Wikipedia defines a [regular expression](https://en.wikipedia.org/wiki/Regular_expression) as "a sequence of characters that specifies a search pattern in text."
 
-For example, if you use the regular expression `ab*`, you're issuing an instruction to match a string that has an `a` followed by zero or more `b`'s. So strings like `ab`, `abc`, `abbc`, etc. will match our regular expression. The asterisk symbol, `*`, denotes the number of times a character or a sequence of characters may occur.
+For example, if you use the regular expression `ab*`, you're issuing an instruction to match a string that has an `a` followed by zero or more `b`'s. So parts of the strings: `ab`, `abc`, `abbc`, etc. will match our regular expression. The asterisk symbol, `*`, denotes the number of times a character or a sequence of characters may occur.
 
 Regular expressions make finding patterns in text much easier. Some high-level use cases include:
 * Email validation
