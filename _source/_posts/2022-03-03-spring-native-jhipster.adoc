@@ -13,6 +13,8 @@ tweets:
 image: blog/spring-native-jhipster/spring-native-jhipster.png
 type: conversion
 github: https://github.com/oktadev/auth0-full-stack-java-example/tree/spring-native
+changelog:
+- 2022-04-15: Updated to use JHipster 7.8.1 and JHipster Native 1.1.1. See this post's changes in [okta-blog#1137](https://github.com/oktadev/okta-blog/pull/1137) and the example app changes in [auth0-full-stack-java-example#15](https://github.com/oktadev/auth0-full-stack-java-example/pull/15).
 ---
 :page-liquid:
 :toc: macro
@@ -31,6 +33,7 @@ Today, I'm proud to announce that this same capability is now available for your
 
 *Prerequisites*:
 
+- https://nodejs.org/[Node 14]+
 - https://sdkman.io/[Java 17 with GraalVM]+
 - https://docs.docker.com/desktop/#download-and-install[Docker Desktop]
 
@@ -78,7 +81,7 @@ Today, I'm proud to announce the https://github.com/jhipster/generator-jhipster-
 
 [source,shell]
 ----
-npm install -g generator-jhipster-native@1.0
+npm install -g generator-jhipster-native
 jhipster-native
 ----
 
@@ -91,7 +94,7 @@ npm run ci:e2e:prepare # start docker dependencies
 ./target/native-executable
 ----
 
-NOTE: Gradle is not currently an option, but it can be if we add support to the JHipster Native blueprint.
+NOTE: Gradle is not currently an option. Follow https://github.com/jhipster/generator-jhipster-native/issues/24[generator-jhipster-native#24] to see when it's supported.
 
 == Go native with Spring Native and GraalVM
 
@@ -113,12 +116,12 @@ git clone -b spring-native https://github.com/oktadev/auth0-full-stack-java-exam
 Then, skip to the <<Configure your OpenID Connect identity provider>> section to continue.
 ====
 
-Install JHipster 7.7.0 and the JHipster Native blueprint:
+Install JHipster 7.8.1 and the JHipster Native blueprint:
 
 [source,shell]
 ----
-npm i -g generator-jhipster@7.7
-npm i -g generator-jhipster-native@1.0
+npm i -g generator-jhipster@7.8.1
+npm i -g generator-jhipster-native@1.1.1
 ----
 
 Then, remove all the existing project files and regenerate them. The `jhipster-native` command includes parameters to disable caching because it's not supported by Spring Native, yet.
@@ -154,7 +157,7 @@ git checkout system.properties
 
 If you'd rather not use the command line, you can right-click on each file and select *Rollback*.
 
-image::{% asset_path 'blog/spring-native-jhipster/rollback-commit.png' %}[alt=Rollback...,align=center]
+image::{% asset_path 'blog/spring-native-jhipster/rollback-commit.jpg' %}[alt=Rollback...,align=center]
 
 If you ran the `git checkout` commands, there are several changes I made in the first tutorial that'll need to be re-applied:
 
@@ -194,7 +197,7 @@ import java.util.Date;
 public class PhotoResource {
     ...
 
-    public ResponseEntity<Photo> createPhoto(@Valid @RequestBody Photo photo) throws Exception {
+    public ResponseEntity<Photo> createPhoto(@Valid @RequestBody Photo photo) throws URISyntaxException {
         log.debug("REST request to save Photo : {}", photo);
         if (photo.getId() != null) { ... }
 
@@ -246,9 +249,16 @@ public class PhotoResource {
 +
 [source,shell]
 ----
-npm i react-photo-gallery@8 --force
-npm i react-images
+npm i react-photo-album react-images
 ----
++
+[IMPORTANT]
+====
+In the previous tutorial, I used `react-photo-gallery`. I switched to `react-photo-album` because https://github.com/neptunian/react-photo-gallery/issues/205#issuecomment-1086995379[it supports React 17]. Because of this, you'll also need to update `src/main/webapp/app/entities/photo/photo.tsx`.
+
+1. Change `import Gallery from 'react-photo-gallery'` to `import PhotoAlbum from 'react-photo-album'`.
+2. Change `<Gallery photos={photoSet} onClick={openLightbox} />` to `<PhotoAlbum photos={photoSet} layout="rows" onClick={openLightbox} />`.
+====
 
 . In `src/test/javascript/cypress/integration/entity/photo.spec.ts`, remove the code that sets the calculated data in the `should create an instance of Photo` test:
 +
@@ -292,14 +302,7 @@ You will need a JDK with GraalVM and its `native-image` compiler. Using SDKMAN, 
 
 [source,shell]
 ----
-sdk install java 21.3.0.r17-grl
-----
-
-Add the native extension to the JDK:
-
-[source,shell]
-----
-gu install native-image
+sdk install java 22.0.0.2.r17-grl
 ----
 
 Then, use Maven to build the project. Skip tests since there's no support for Mockito at this time.
@@ -324,6 +327,7 @@ docker-compose -f src/main/docker/keycloak.yml up -d
 
 If you'd rather use Okta or Auth0, that's possible too!
 
+[#use-okta-as-your-identity-provider]
 ==== Use Okta as your identity provider
 
 {% include setup/cli.md type="jhipster" %}
@@ -341,6 +345,7 @@ CAUTION: Modify your existing `.gitignore` file to have `*.env` so you don't acc
 
 _Skip to <<Run your native JHipster app>> if you've configured your app for Okta and just want to see it running._
 
+[#use-auth0-as-your-identity-provider]
 ==== Use Auth0 as your identity provider
 
 To switch from Keycloak to Auth0, override the Spring Security OAuth properties. You don't even need to write any code!
@@ -424,7 +429,7 @@ image::{% asset_path 'blog/spring-native-jhipster/native-start.png' %}[alt=Start
 
 == What does the JHipster Native blueprint do?
 
-The JHipster Native plugin integrates Spring Native into a JHipster project based on https://github.com/mraible/spring-native-examples#readme[findings from the research by Josh Long and me]. I documented our findings in September and December 2021.
+The JHipster Native blueprint integrates Spring Native into a JHipster project based on https://github.com/mraible/spring-native-examples#readme[findings from the research by Josh Long and me]. I documented our findings in September and December 2021.
 
 - Sep 30, 2021: https://www.linkedin.com/pulse/jhipster-works-spring-native-matt-raible/[JHipster Works with Spring Native!]
 - Dec 14, 2021: https://www.linkedin.com/pulse/jhipster-works-spring-native-part-2-matt-raible/[JHipster works with Spring Native, Part 2!]
@@ -435,16 +440,16 @@ During this experience, I was surprised to find that Spring Native https://githu
 
 == What's the performance like?
 
-The native binary starts in just over 500ms (581ms) on my 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM.
+The native binary starts in just over 500ms (577ms) on my 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM.
 
-If I start it in JVM mode with Maven, it takes just under five seconds.
+If I start it in JVM mode with Maven, it takes a little over four seconds.
 
 image::{% asset_path 'blog/spring-native-jhipster/jvm-start.png' %}[alt=Started Flickr2App in 4.887 seconds,width=800, align=center]
 
 As far as build time goes, Spring Native says:
 
 ----
-Finished generating 'native-executable' in 3m 10s.
+Finished generating 'native-executable' in 3m 15s.
 ----
 
 If I build a Docker image with the native binary:
@@ -456,18 +461,18 @@ mvn spring-boot:build-image -Pprod
 It takes a while the first time:
 
 ----
-Total time:  06:30 min
+Total time:  07:24 min
 ----
 
 And it's slightly faster the second time:
 
 ----
-Total time:  06:18 min
+Total time:  06:43 min
 ----
 
-The amount of memory used after starting: `180 MB`.
+The amount of memory used after starting: `178 MB`.
 
-The amount of memory used after running `npm run e2e`: `196 MB`.
+The amount of memory used after running `npm run e2e`: `211 MB`.
 
 In the interest of full disclosure, here's the command I used to measure the amount of memory used:
 
