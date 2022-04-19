@@ -573,7 +573,7 @@ You can build and test a Spring Boot native image using the steps I outlined abo
 
 == Build Native Images for Micronaut, Quarkus, and Spring Boot
 
-To recap, Micronaut, Quarkus, and Spring Boot all support building native executables with https://www.graalvm.org/[GraalVM].Yes, there are other frameworks, but these three https://trends.google.com/trends/explore?q=micronaut,quarkus,spring%20boot[seem to be the most popular].
+To recap, Micronaut, Quarkus, and Spring Boot all support building native executables with https://www.graalvm.org/[GraalVM]. Yes, there are other frameworks, but these three https://trends.google.com/trends/explore?q=micronaut,quarkus,spring%20boot[seem to be the most popular].
 
 The commands to build each app are similar but not quite the same.
 
