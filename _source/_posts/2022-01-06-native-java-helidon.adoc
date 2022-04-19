@@ -87,7 +87,7 @@ $ http :8080/hello
 
 HTTP/1.1 401 Unauthorized
 Content-Length: 0
-Date: Sat, 16 Apr 2022 22:52:20 -0600
+Date: Tue, 19 Apr 2022 14:39:22 -0600
 connection: keep-alive
 ----
 
@@ -152,23 +152,23 @@ To compile this Helidon app into a native binary, run:
 mvn package -Pnative-image
 ----
 
-This command will take a few minutes to complete. My 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM took 1 min. 44 s. to finish.
+This command will take a few minutes to complete. My 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM took 1 min. 21 s. to finish.
 
 Start it with `./target/helidon`:
 
 ----
 $ ./target/helidon
-2022.04.16 22:55:52 INFO io.helidon.common.LogConfig Thread[main,5,main]: Logging at runtime configured using classpath: /logging.properties
-2022.04.16 22:55:52 INFO io.helidon.microprofile.security.SecurityCdiExtension Thread[main,5,main]: Authorization provider is missing from security configuration, but security extension for microprofile is enabled (requires providers configuration at key security.providers). ABAC provider is configured for authorization.
-2022.04.16 22:55:52 INFO io.helidon.microprofile.server.ServerCdiExtension Thread[main,5,main]: Registering JAX-RS Application: HelloApplication
-2022.04.16 22:55:52 INFO io.helidon.webserver.NettyWebServer Thread[nioEventLoopGroup-2-1,10,main]: Channel '@default' started: [id: 0xbfa18e6b, L:/[0:0:0:0:0:0:0:0]:8080]
-2022.04.16 22:55:52 INFO io.helidon.microprofile.server.ServerCdiExtension Thread[main,5,main]: Server started on http://localhost:8080 (and all other host addresses) in 38 milliseconds (since JVM startup).
-2022.04.16 22:55:52 INFO io.helidon.common.HelidonFeatures Thread[features-thread,5,main]: Helidon MP 2.5.0 features: [CDI, Config, Health, JAX-RS, Metrics, Security, Server, Web Client]
-2022.04.16 22:55:52 INFO io.helidon.common.HelidonFeatures.experimental Thread[features-thread,5,main]: You are using experimental features. These APIs may change, please follow changelog!
-2022.04.16 22:55:52 INFO io.helidon.common.HelidonFeatures.experimental Thread[features-thread,5,main]: 	Experimental feature: Web Client (WebClient)
+2022.04.19 14:40:00 INFO io.helidon.common.LogConfig Thread[main,5,main]: Logging at runtime configured using classpath: /logging.properties
+2022.04.19 14:40:00 INFO io.helidon.microprofile.security.SecurityCdiExtension Thread[main,5,main]: Authorization provider is missing from security configuration, but security extension for microprofile is enabled (requires providers configuration at key security.providers). ABAC provider is configured for authorization.
+2022.04.19 14:40:00 INFO io.helidon.microprofile.server.ServerCdiExtension Thread[main,5,main]: Registering JAX-RS Application: HelloApplication
+2022.04.19 14:40:00 INFO io.helidon.webserver.NettyWebServer Thread[nioEventLoopGroup-2-1,10,main]: Channel '@default' started: [id: 0x41ec32cc, L:/[0:0:0:0:0:0:0:0]:8080]
+2022.04.19 14:40:00 INFO io.helidon.microprofile.server.ServerCdiExtension Thread[main,5,main]: Server started on http://localhost:8080 (and all other host addresses) in 41 milliseconds (since JVM startup).
+2022.04.19 14:40:00 INFO io.helidon.common.HelidonFeatures Thread[features-thread,5,main]: Helidon MP 2.5.0 features: [CDI, Config, Health, JAX-RS, Metrics, Security, Server, Web Client]
+2022.04.19 14:40:00 INFO io.helidon.common.HelidonFeatures.experimental Thread[features-thread,5,main]: You are using experimental features. These APIs may change, please follow changelog!
+2022.04.19 14:40:00 INFO io.helidon.common.HelidonFeatures.experimental Thread[features-thread,5,main]: 	Experimental feature: Web Client (WebClient)
 ----
 
-As you can see, it starts in just 38 milliseconds! Test it with HTTPie and an access token. You may have to generate a new JWT with https://oidcdebugger.com[oidcdebugger.com] if yours has expired.
+As you can see, it starts in just 41 milliseconds! Test it with HTTPie and an access token. You may have to generate a new JWT with https://oidcdebugger.com[oidcdebugger.com] if yours has expired.
 
 [source,shell]
 ----
@@ -296,10 +296,10 @@ I ran each image three times before I started recording the numbers. I then ran 
 _These numbers are from a 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM. I think it's important to note that my WiFi connection was 73.3 Mbps down and 10.1 Mbps up (according to the Speedtest app)._
 
 ////
-Helidon: (43 + 45 + 40 + 47 + 53) / 5 = 45.6
-Micronaut: (32 + 29 + 26 + 26 + 26) / 5 = 27.8
-Quarkus: (16 + 17 + 18 + 18 + 17) / 5 = 17.2
-Spring Boot: (60 + 59 + 64 + 65 + 65) / 5 = 62.6
+Helidon: (40 + 40 + 42 + 42 + 38) / 5 = 40.4
+Micronaut: (25 + 29 + 29 + 28 + 28) / 5 = 27.8
+Quarkus: (17 + 18 + 18 + 18 + 17) / 5 = 17.6
+Spring Boot: (54 + 55 + 52 + 54 + 54) / 5 = 53.8
 ////
 
 [.scrollable]
@@ -309,10 +309,10 @@ Spring Boot: (60 + 59 + 64 + 65 + 65) / 5 = 62.6
 |===
 |Framework | Command executed | Milliseconds to start
 
-|Helidon | `./helidon/target/helidon` | 45.6
+|Helidon | `./helidon/target/helidon` | 40.4
 |Micronaut | `./micronaut/target/app` | 27.8
-|Quarkus | `./quarkus/target/quarkus-1.0.0-SNAPSHOT-runner` | 17.2
-|Spring Boot | `./spring-boot/target/demo` | 62.6
+|Quarkus | `./quarkus/target/quarkus-1.0.0-SNAPSHOT-runner` | 17.6
+|Spring Boot | `./spring-boot/target/demo` | 53.8
 |===
 
 --
@@ -328,10 +328,10 @@ google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
   var data = google.visualization.arrayToDataTable([
     ['Framework', 'Milliseconds to start', { role: 'style' }],
-    ['Helidon', 45.6, 'orange'],
+    ['Helidon', 40.4, 'orange'],
     ['Micronaut', 27.8, 'blue'],
-    ['Quarkus', 17.2, 'red'],
-    ['Spring Boot', 62.6, 'green']
+    ['Quarkus', 17.6, 'red'],
+    ['Spring Boot', 53.8, 'green']
   ]);
   var options = {
     title: 'Startup times of native Java frameworks',
@@ -366,13 +366,15 @@ I substituted `<executable>` as follows:
 |===
 |Framework | Executable | Megabytes before request | Megabytes after 1 request | Megabytes after 5 requests
 
-|Helidon | `helidon` | 44 | 54 | 59
-|Micronaut | `app` | 29 | 43 | 54
-|Quarkus | `quarkus` | 20 | 32 | 34
+|Helidon | `helidon` | 44 | 55 | 63
+|Micronaut | `app` | 28 | 43 | 54
+|Quarkus | `quarkus` | 20 | 31 | 33
 |Spring Boot | `demo` | 46 | 57 | 58
 |===
 
 --
+
+The chart below shows the memory usage after five requests.
 
 ++++
 <div id="memory-usage"></div>
@@ -382,9 +384,9 @@ google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
   var data = google.visualization.arrayToDataTable([
     ['Framework', 'Memory usage (MB)', { role: 'style' }],
-    ['Helidon', 59, 'orange'],
+    ['Helidon', 63, 'orange'],
     ['Micronaut', 54, 'blue'],
-    ['Quarkus', 34, 'red'],
+    ['Quarkus', 33, 'red'],
     ['Spring Boot', 58, 'green']
   ]);
   var options = {
