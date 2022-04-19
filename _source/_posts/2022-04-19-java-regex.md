@@ -5,7 +5,7 @@ author: karl-hughes
 by: contractor
 communities: [java]
 description: "In this tutorial, you'll learn how to use regular expressions to define a pattern for searching or manipulating strings in Java."
-tags: [java]
+tags: [java, regex, regular-expressions]
 tweets:
 - "A regular expression can be a single character, or a more complicated pattern. Learn how to use them in @java with this quick guide."
 - "A regular expression is a pattern of characters that describes a set of strings. Learn how to use the `java.util.regex` package in this tutorial."
