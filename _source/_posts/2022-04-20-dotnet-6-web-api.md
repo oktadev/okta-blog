@@ -5,7 +5,7 @@ author: nickolas-fisher
 by: contractor
 communities: [.net]
 description: "Use OAuth to secure your .NET 6 Web API."
-tags: csharp-9, dotnet, dotnetcore, csharp, aspnetcore, webapi, dotnet-6]
+tags: [csharp-9, dotnet, dotnetcore, csharp, aspnetcore, webapi, dotnet-6]
 tweets:
 - "Learn how to use #OAuth2 with #dotnet6 and Okta ->"
 - "Get up to speed on using #OAuth for your #dotnet6 project"
