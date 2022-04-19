@@ -293,7 +293,7 @@ mvn package -Pnative-image
 
 I ran each image three times before I started recording the numbers. I then ran each command five times.
 
-_These numbers are from a 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM. I think it's important to note that my WiFi connection was 73.3 Mbps down and 10.1 Mbps up (according to the Speedtest app)._
+_These numbers are from a 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM. I think it's important to note that my WiFi connection was 73.9 Mbps down and 10.1 Mbps up (according to the Speedtest app)._
 
 ////
 Helidon: (40 + 40 + 42 + 42 + 38) / 5 = 40.4
