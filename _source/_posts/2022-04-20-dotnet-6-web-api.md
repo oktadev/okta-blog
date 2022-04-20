@@ -103,7 +103,7 @@ This serves as a template for the `appsettings.Development.json` you will add sh
 }
 ```
 
-The `default` endpoint in this URI refers to the authorization server. Assuming you used the `default` authorization server this should work.However, if you are using a custom authorization server you will want to obtain the `Issuer` from your Okta admin portal.
+The `default` endpoint in this URI refers to the authorization server. Assuming you used the `default` authorization server this should work. However, if you are using a custom authorization server you will want to obtain the `Issuer` from your Okta admin portal.
 
 ### Add your API code
 
