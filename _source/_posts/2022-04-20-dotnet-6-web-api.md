@@ -306,11 +306,11 @@ app.Run();
 
 In addition to the boilerplate code from Visual Studio, this class also configures your `OktaJwtVerificationOptions` and the dependency injection for the `IJwtValidator`.
 
-## Test your API
+## Test your .NET 6 API
 
 Now you are ready to see the flow come together. First, start your Web API in Visual Studio.
 
-Next, open your API test tool of choice and set up your request to the Okta authorization server.
+Next, open your API test tool of choice (such as [Postman](https://www.postman.com/), or using the built in Swagger test page) and set up your request to the Okta authorization server.
 
 - {yourOktaDomain}/oauth2/default/v1/token POST
 - headers - Accept: `application/json` Authorization: `Basic {yourBase64EncodedCredentials}` Content-Type: `application/x-www-form-urlencoded`
@@ -339,10 +339,8 @@ In this tutorial, you learned how to build an API with .NET 6 and secure that ap
 
 Here are some related posts that you might find useful:
 
-[Comparison of Dependency Injection in .NET](/blog/2022/02/10/dotnet-dependency-injection-comparison)
-
-[Build a Basic CRUD App with ASP.NET Core 3.0 and MongoDB](/blog/2020/06/29/aspnet-core-mongodb)
-
-[Build a CRUD App with ASP.NET Core and TypeScript](/blog/2019/03/26/build-a-crud-app-with-aspnetcore-and-typescript)
+- [Comparison of Dependency Injection in .NET](/blog/2022/02/10/dotnet-dependency-injection-comparison)
+- [Build a Basic CRUD App with ASP.NET Core 3.0 and MongoDB](/blog/2020/06/29/aspnet-core-mongodb)
+- [Build a CRUD App with ASP.NET Core and TypeScript](/blog/2019/03/26/build-a-crud-app-with-aspnetcore-and-typescript)
 
 Make sure you follow us on [Twitter](https://twitter.com/oktadev), connect with us on [LinkedIn](https://www.linkedin.com/company/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel. If you have any questions, or you want to share what tutorial you'd like to see next, please comment below!
