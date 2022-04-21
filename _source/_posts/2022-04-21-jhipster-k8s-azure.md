@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: ""
+title: "JHipster Microservice Deployed to Azure with Cosmos DB"
 author: andrew-hughes
 by: contractor
 communities: [devops,security,java,javascript]
