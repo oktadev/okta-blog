@@ -76,13 +76,6 @@ Building native images with GraalVM brings me back to the days when we'd build J
 
 There's another often-overlooked issue with native binaries: you have to build one for each operating system. It's not like Java where you can build a JAR (Java ARchive) and run it anywhere.
 
-Install the latest code from the JHipster Native blueprint to get fixes that make this tutorial smoother:
-
-[source,shell]
-----
-npm i jhipster/generator-jhipster-native
-----
-
 Next, generate continuous integration (CI) workflows using https://www.jhipster.tech/setting-up-ci/[JHipster's CI/CD sub-generator].
 
 [source,shell]
@@ -202,7 +195,7 @@ Merge this PR into the `main` branch.
 
 == The environmental impact of GraalVM builds
 
-This brings us to an interesting delimma. If you're creating native images as your application's distribution artifact, shouldn't you use the https://github.com/graalvm/setup-graalvm/issues/6[setup-graalvm action] to configure GraalVM and your Java SDK?
+This brings us to an interesting dilemma. If you're creating native images as your application's distribution artifact, shouldn't you use the https://github.com/graalvm/setup-graalvm/issues/6[setup-graalvm action] to configure GraalVM and your Java SDK?
 
 I don't think so. If you do, every time you create a PR, and commit to it, it will run a native build. A GraalVM build of this project takes 3-4 minutes for me locally. With GitHub Actions, it takes 30+ minutes!
 
