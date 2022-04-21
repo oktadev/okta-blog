@@ -123,10 +123,59 @@ Then deploy the application to Minikube, in the `k8s` directory, run:
 ```shell
 ./kubectl-apply.sh -f
 ```
+Now it is a good time to install [k9s](https://k9scli.io/topics/install/), a terminal based UI to interact with Kubernetes clusters. Then run k9s with:
 
+```shell
+k9s -n demo
+```
+
+{% img blog/jhipster-digital-ocean/k9s-UI.png alt:"k9s UI" width:"800" %}{: .center-image }
+
+Checkout the [commands list](https://k9scli.io/topics/commands/), some useful ones are:
+- `:namespace`: show all available namespaces
+- `:pods`: show all available pods
+You can navigate the pods with `ENTER` and go back with `ESC` keys.
+
+Set up port-forwarding for the the JHipster Registry.
+
+```shell
+kubectl port-forward svc/jhipster-registry -n demo 8761
+```
+
+Navigate to http://localhost:8761 and sign in with your Okta credentials. When the registry shows all services in green, Set up port-forwarding for the gateway as well.
+
+```shell
+kubectl port-forward svc/gateway -n demo 8080
+```
+
+Navigate to http://localhost:8080, sign in, and create some entities to verify everything is working fine.
 
 
 ## Deploy to Digital Ocean cloud
+
+Now that the architecture works locally, let's proceed to the cloud deployment. First, create a [Digital Ocean](https://cloud.digitalocean.com/registrations/new) account, you can try their services with $100 credit that is available for 60 days.
+
+Most of the cluster tasks, if not all, can be accomplished using [doctl](https://github.com/digitalocean/doctl#installing-doctl), the command-line interface (CLI) for the Digital Ocean API.
+
+Install the tool, and perform the authentication with Digital Ocean:
+
+```shell
+doctl auth init
+```
+You will be prompted to enter the DigitalOcean access token that you can generate in the DigitalOcean control panel.
+
+{% img blog/jhipster-digital-ocean/do-control-panel-token.png alt:"Digital Ocean Control Panel for Token Create" width:"800" %}{: .center-image }
+
+You can find a detailed list of pricing for cluster resources at [Digital Ocean](https://docs.digitalocean.com/products/kubernetes/),  and with `doctl` you can quickly retrieve a list of node size options available for your account:
+
+```shell
+ doctl k options sizes
+ ```
+
+ **NOTE**: I tested the cluster with the higher size Intel nodes available for my account, `s-2vcpu-4gb-intel`, in an attempt to run the application in the default cluster configuration, a three-node cluster with a single node pool in the nyc1 region, using the latest Kubernetes version. As I started to see pods not starting due to "insufficient CPU", I increased the number of nodes.
+
+
+
 
 ### Increase CPU
 ### Increase Storage
