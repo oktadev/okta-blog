@@ -545,7 +545,7 @@ Your request requires a valid JSON Web Token issued by your Okta authorization s
 
 Now you're going to use the OpenID Connect Debugger to generate a valid JWT that you can use to make a request against your serverless function.
 
-{% include setup/oidcdebugger.md responseType="code" %}
+{% include setup/oidcdebugger.md %}
 
 {% img blog/serverless-java-aws/oidc-debugger.png alt:"OIDC Debugger" width:"400" %}{: .center-image }
 

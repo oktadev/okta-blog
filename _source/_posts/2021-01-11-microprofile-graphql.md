@@ -384,7 +384,7 @@ Click **Create**.
 
 Every request to the secured API will require a valid JWT. Typically, the JWT is generated when a user signs in via a client application. In this case, there is no client application. Instead, you are going to use the OpenID Connect Debugger to generate a token. This web application allows you to perform a request for a JWT against Okta servers and inspect the results.
 
-{% include setup/oidcdebugger.md responseType="code" %}
+{% include setup/oidcdebugger.md %}
 
 {% img blog/microprofile-graphql/oidcdebugger-settings.png alt:"OIDC Debugger Settings" width:"500" %}{: .center-image }
 

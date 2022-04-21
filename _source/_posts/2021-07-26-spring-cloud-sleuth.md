@@ -295,7 +295,7 @@ This is expected. You need to include a valid JWT.
 
 ## Create a Valid JWT with OIDC Debugger
 
-{% include setup/oidcdebugger.md responseType="token" %}
+{% include setup/oidcdebugger.md %}
 
 Scroll down and click **SEND REQUEST**.
 
