@@ -78,6 +78,13 @@ Building native images with GraalVM brings me back to the days when we'd build J
 
 There's another often-overlooked issue with native binaries: you have to build one for each operating system. It's not like Java where you can build a JAR (Java ARchive) and run it anywhere.
 
+Install the latest code from the JHipster Native blueprint to get fixes that make this tutorial smoother:
+
+[source,shell]
+----
+npm i jhipster/generator-jhipster-native
+----
+
 Generate continuous integration (CI) configuration for GitHub Actions using https://www.jhipster.tech/setting-up-ci/[JHipster's CI/CD sub-generator].
 
 [source,shell]
@@ -182,9 +189,9 @@ I https://github.com/jhipster/generator-jhipster/issues/18387[reported this issu
 ----
 "scripts": {
   ...
-  "docker:db:down": "docker-compose -f src/main/docker/postgresql.yml down -v --remove-orphans",
+  "docker:db:down": "... --remove-orphans",
   ...
-  "docker:keycloak:down": "docker-compose -f src/main/docker/keycloak.yml down -v --remove-orphans",
+  "docker:keycloak:down": "... --remove-orphans",
   ...
 }
 ----
@@ -199,7 +206,7 @@ Merge this PR into the `main` branch.
 
 This brings us to an interesting delimma. If you're creating native images as your application's distribution artifact, shouldn't you use the https://github.com/graalvm/setup-graalvm/issues/6[setup-graalvm action] to configure GraalVM and your Java SDK?
 
-If you do, every time you create a PR, and commit to it, it will run a native build. A GraalVM build of this project takes 3-4 minutes for me locally. With GitHub Actions, it takes 30+ minutes! Also, it only builds on Linux, so you won't know if there are issues with macOS or Windows.
+I don't think so. If you do, every time you create a PR, and commit to it, it will run a native build. A GraalVM build of this project takes 3-4 minutes for me locally. With GitHub Actions, it takes 30+ minutes!
 
 To me, this seems as bad for the environment as cryptocurrency. If you're using a private repo, it'll also make you wish you bought crypto several years ago. You only get 2000 free minutes of GitHub Actions for private repos. Any minutes after that you get charged for.
 
@@ -207,11 +214,11 @@ _Yes, I know the cryptocurrency topic is controversial. I do like to poke fun at
 
 == Best Practices for GraalVM with GitHub Actions
 
-When I first started investigating GitHub Actions for GraalVM, the JHipster Native blueprint modified commands in `package.json` to always build native images and to use them when running end-to-end tests. This meant that when you first tried to add GitHub Actions support, the build would fail because `GRAALVM_HOME` wasn't found. To solve this, you could switch from `actions/setup-java` to `graalvm/setup-graalvm` to solve this, but that's not very environmentally sustainable.
+When I first started investigating GitHub Actions for GraalVM, the JHipster Native blueprint modified commands in `package.json` to always build native images and to use them when running end-to-end tests. This meant that when you first tried to add GitHub Actions support, the build would fail because `GRAALVM_HOME` wasn't found. To solve this, you could switch from `actions/setup-java` to `graalvm/setup-graalvm`, but that's not very environmentally sustainable.
 
 Since then, we've modified the blueprint to generate two new workflows that reflect (in my opinion) best practices for GitHub Actions and GraalVM.
 
-1. `native.yml`: run nightly tests using GraalVM
+1. `native.yml`: run nightly tests at midnight using GraalVM
 2. `native-artifact.yml`: builds and uploads native binaries for releases
 
 The `main.yml` stays the same as JHipster's default and continuously tests on the JVM.
@@ -233,29 +240,89 @@ permissions:
 jobs:
   pipeline:
     name: flickr2 native pipeline
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     if: "!contains(github.event.head_commit.message, '[ci skip]') && !contains(github.event.head_commit.message, '[skip ci]') && !contains(github.event.pull_request.title, '[skip ci]') && !contains(github.event.pull_request.title, '[ci skip]')"
-    timeout-minutes: 40
+    timeout-minutes: 90
     env:
       SPRING_OUTPUT_ANSI_ENABLED: DETECT
       SPRING_JPA_SHOW_SQL: false
       JHI_DISABLE_WEBPACK_LOGS: true
+    defaults:
+      run:
+        shell: bash
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-2019]
+        graalvm-version: ['22.0.0.2']
+        java-version: ['11']
+        include:
+          - os: ubuntu-latest
+            executable-suffix: ''
+            native-build-args: --verbose -J-Xmx10g
+          - os: macos-latest
+            executable-suffix: ''
+            native-build-args: --verbose -J-Xmx13g
+          - os: windows-2019
+            executable-suffix: '.exe'
+            native-build-args: --verbose -J-Xmx10g
     steps:
+      # OS customizations that allow the builds to succeed on Linux and Windows.
+      # Using hash for better security due to third party actions.
+      - name: Set up swap space
+        if: runner.os == 'Linux'
+        # v1.0 (49819abfb41bd9b44fb781159c033dba90353a7c)
+        uses: pierotofy/set-swap-space@49819abfb41bd9b44fb781159c033dba90353a7c
+        with:
+          swap-size-gb: 10
+      - name:
+          Configure pagefile
+          # v1.2 (7e234852c937eea04d6ee627c599fb24a5bfffee)
+        uses: al-cheb/configure-pagefile-action@7e234852c937eea04d6ee627c599fb24a5bfffee
+        if: runner.os == 'Windows'
+        with:
+          minimum-size: 10GB
+          maximum-size: 12GB
+      - name: Set up pagefile
+        if: runner.os == 'Windows'
+        run: |
+          (Get-CimInstance Win32_PageFileUsage).AllocatedBaseSize
+        shell: pwsh
+      - name: 'SETUP: docker'
+        run: |
+          HOMEBREW_NO_AUTO_UPDATE=1 brew install --cask docker
+          sudo /Applications/Docker.app/Contents/MacOS/Docker --unattended --install-privileged-components
+          open -a /Applications/Docker.app --args --unattended --accept-license
+          #echo "We are waiting for Docker to be up and running. It can take over 2 minutes..."
+          #while ! /Applications/Docker.app/Contents/Resources/bin/docker info &>/dev/null; do sleep 1; done
+        if: runner.os == 'macOS'
+
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 16.14.0
-      - name: 'SETUP: setup graalvm'
+      - name: Set up GraalVM (Java ${{ matrix.java-version }})
         uses: graalvm/setup-graalvm@v1
         with:
-          version: '22.0.0.2'
-          java-version: '11'
+          version: '${{ matrix.graalvm-version }}'
+          java-version: '${{ matrix.java-version }}'
           components: 'native-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Cache Maven dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-maven
+      - name: Cache npm dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
       - name: Install node.js packages
         run: npm install
       - name: 'E2E: Package'
-        run: npm run native-package
+        run: npm run native-package -- -B -ntp "-Dnative-build-args=${{ matrix.native-build-args }}"
       - name: 'E2E: Prepare'
         run: npm run ci:e2e:prepare
       - name: 'E2E: Run'
@@ -265,23 +332,33 @@ jobs:
 
 If you compare `native.yml` with `main.yml`, you'll see it doesn't run unit tests (because Spring Native doesn't support Mockito yet). It does build a native executable and runs end-to-end tests against it.
 
-image::{% asset_path 'blog/github-actions-graalvm/compare-native-main.png' %}[alt=Compare native.yml to main.yml,width=800,align=center]
+// image::{% asset_path 'blog/github-actions-graalvm/compare-native-main.png' %}[alt=Compare native.yml to main.yml,width=800,align=center]
 
 If you wait until after midnight, you can view this workflow's results in your repo's *Actions* tab. It also has a `workflow_dispatch` event trigger, so you can trigger it manually from your browser.
 
 image::{% asset_path 'blog/github-actions-graalvm/run-native-workflow.png' %}[alt=Run native workflow,width=800,align=center]
 
-When I first tried triggering it, it failed with the following error:
+When I first tried triggering it, the Windows build failed with the following error:
 
+[source,shell]
 ----
-The job running on runner GitHub Actions 2 has exceeded the maximum execution time of 40 minutes.
+> ./mvnw package -Pnative,prod -DskipTests "-B" "-ntp" "-Dnative-build-args=--verbose -J-Xmx10g"
+
+'.' is not recognized as an internal or external command,
 ----
 
-I'll address this issue in a bit.
+To fix this, I changed the `native-package` in `package.json` to use `mvn`:
+
+[source,json]
+----
+"native-package": "mvn package -Pnative,prod -DskipTests",
+----
+
+When I pushed my changes, the nightly build succeeded when I manually triggered it.
 
 == How to build and upload native binaries when releasing on GitHub
 
-The `native-artifact.yml` workflow file creates binaries for macOS, Linux, and Windows when a release is created. This file shows how to configure Linux and Windows so they have enough memory, uploads artifacts to the actions job, and uploads the native binaries to the release on GitHub. It will only execute when you create a release (aka a tag).
+The `native-artifact.yml` workflow file creates binaries for macOS, Linux, and Windows when a release is created. This workflow configures Linux and Windows so they have enough memory, uploads artifacts to the actions job, and uploads the native binaries to the release on GitHub. It will only execute when you create a release (aka a tag).
 
 {% raw %}
 [source,yaml]
@@ -295,9 +372,12 @@ permissions:
   contents: write
 jobs:
   build:
-    name: GraalVM - ${{ matrix.os }}
+    name: Generate executable - ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 90
+    defaults:
+      run:
+        shell: bash
     strategy:
       fail-fast: false
       matrix:
@@ -307,27 +387,35 @@ jobs:
         include:
           - os: ubuntu-latest
             executable-suffix: ''
+            native-build-args: --verbose -J-Xmx10g
           - os: macos-latest
             executable-suffix: ''
+            native-build-args: --verbose -J-Xmx13g
           - os: windows-2019
             executable-suffix: '.exe'
+            native-build-args: --verbose -J-Xmx10g
     steps:
-      # OS customizations that should improve the build time, disabled due to non official sources.
-      #- name: Set up swap space
-      #  if: runner.os == 'Linux'
-      #  uses: pierotofy/set-swap-space@v1.0
-      #  with:
-      #    swap-size-gb: 10
-      #- name: Configure pagefile
-      #  uses: al-cheb/configure-pagefile-action@v1.2
-      #  if: runner.os == 'Windows'
-      #  with:
-      #    minimum-size: 10GB
-      #    maximum-size: 12GB
-      #- name: Set up pagefile
-      #  if: runner.os == 'Windows'
-      #  run: |
-      #    (Get-CimInstance Win32_PageFileUsage).AllocatedBaseSize
+      # OS customizations that allow the builds to succeed on Linux and Windows.
+      # Using hash for better security due to third party actions.
+      - name: Set up swap space
+        if: runner.os == 'Linux'
+        # v1.0 (49819abfb41bd9b44fb781159c033dba90353a7c)
+        uses: pierotofy/set-swap-space@49819abfb41bd9b44fb781159c033dba90353a7c
+        with:
+          swap-size-gb: 10
+      - name:
+          Configure pagefile
+          # v1.2 (7e234852c937eea04d6ee627c599fb24a5bfffee)
+        uses: al-cheb/configure-pagefile-action@7e234852c937eea04d6ee627c599fb24a5bfffee
+        if: runner.os == 'Windows'
+        with:
+          minimum-size: 10GB
+          maximum-size: 12GB
+      - name: Set up pagefile
+        if: runner.os == 'Windows'
+        run: |
+          (Get-CimInstance Win32_PageFileUsage).AllocatedBaseSize
+        shell: pwsh
 
       - uses: actions/checkout@v3
       - id: executable
@@ -354,7 +442,7 @@ jobs:
           path: ~/.npm
           key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
       - name: Build ${{ steps.executable.outputs.name }} native image
-        run: npm run native-package -- -B -ntp "-Dnative-image-name=${{ steps.executable.outputs.name }}"
+        run: npm run native-package -- -B -ntp "-Dnative-image-name=${{ steps.executable.outputs.name }}" "-Dnative-build-args=${{ matrix.native-build-args }}"
       - name: Archive binary
         uses: actions/upload-artifact@v3
         with:
@@ -362,7 +450,7 @@ jobs:
           path: target/${{ steps.executable.outputs.name }}${{ matrix.executable-suffix }}
       - name: Upload release
         if: github.event.release.tag_name
-        run: gh release upload ${{ github.event.release.tag_name }} target/${{ steps.executable.outputs.name }}
+        run: gh release upload ${{ github.event.release.tag_name }} target/${{ steps.executable.outputs.name }}${{ matrix.executable-suffix }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ----
@@ -375,7 +463,7 @@ When I first started trying to build native binaries with GraalVM, I quickly ran
 - Linux: `java.lang.OutOfMemoryError: GC overhead limit exceeded`
 - Windows: `The command line is too long.`
 
-I'm happy to say that I was able to fix the OOM error on Linux by specifying `-J-Xmx10g` in the build arguments of the `native-maven-plugin` plugin. Make this change in your project too.
+I'm happy to say that I was able to fix the OOM error on Linux by specifying `-J-Xmx10g` in the build arguments of the `native-maven-plugin` plugin. JHipster Native now configures this setting by default and optimizes it for your OS when building native artifacts.
 
 [source,xml]
 ----
@@ -392,23 +480,9 @@ I'm happy to say that I was able to fix the OOM error on Linux by specifying `-J
 </plugin>
 ----
 
-TIP: If you need to see more details from the `native-maven-plugin`, you can add `--verbose` as an additional argument.
-
-Commit it to the main branch and push.
-
-[source,shell]
-----
-git checkout main
-git pull origin main
-# Add -J-Xmx10g to pom.xml
-git add .
-git commit -m "Add -J-Xmx10g for native builds"
-git push origin main
-----
-
 The Windows issue was fixed by https://github.com/graalvm/setup-graalvm/issues/6#issuecomment-1054582083[native build tools 0.9.10], which the JHipster Native blueprint uses by default.
 
-CAUTION: I recently tried to use `windows-latest` instead of `windows-2019` and I https://github.com/graalvm/setup-graalvm/issues/6#issuecomment-1058328963[ran out of disk space].
+The reason we use `windows-2019` instead of `windows-latest` is because I https://github.com/graalvm/setup-graalvm/issues/6#issuecomment-1058328963[ran out of disk space] when I tried it.
 
 === Publish a release on GitHub
 
@@ -422,7 +496,7 @@ Click the **Actions** tab to watch your release execute. I'd like to warn you th
 - Linux: 33m 50s
 - Windows: 59m 45s
 
-However, I think you'll be pleased with the results. 🤠
+I think you'll be pleased with the results. 🤠
 
 image::{% asset_path 'blog/github-actions-graalvm/release-with-artifacts.png' %}[alt=Released with native binaries attached,width=800,align=center]
 
