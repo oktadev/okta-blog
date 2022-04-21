@@ -17,8 +17,6 @@ type: conversion
 :toc: macro
 :experimental:
 
-// keywords: github actions (74K), graalvm spring boot (590), github actions tutorial (2400), github ci cd (5400)
-
 Getting something to work is one of the greatest feelings you can have as a developer. Especially when you've spent hours, days, or months trying to make it happen. The last mile can be one of the most painful and rewarding experiences, all wrapped into the same day or two.
 
 I experienced this recently with link:/blog/2022/03/03/spring-native-jhipster[Spring Native for JHipster]. If I look back, it took a year's worth of desire, research, and perseverance to make it happen. When we finally got it working&mdash;and automated&mdash;you can imagine my excitement!
@@ -74,7 +72,7 @@ git push -u origin main
 
 == Automate the wait with JHipster's CI/CD
 
-Building native images with GraalVM brings me back to the days when we'd build Java apps with Ant and XDoclet back in the early 2000s. You'd start the build and go do something else for a while because it took _minutes_ for the artifacts to be built.
+Building native images with GraalVM brings me back to the days when we'd build Java apps with Ant and XDoclet in the early 2000s. We'd start the build and go do something else for a while because it took _several minutes_ for the artifact to be built.
 
 There's another often-overlooked issue with native binaries: you have to build one for each operating system. It's not like Java where you can build a JAR (Java ARchive) and run it anywhere.
 
@@ -85,7 +83,7 @@ Install the latest code from the JHipster Native blueprint to get fixes that mak
 npm i jhipster/generator-jhipster-native
 ----
 
-Generate continuous integration (CI) configuration for GitHub Actions using https://www.jhipster.tech/setting-up-ci/[JHipster's CI/CD sub-generator].
+Next, generate continuous integration (CI) workflows using https://www.jhipster.tech/setting-up-ci/[JHipster's CI/CD sub-generator].
 
 [source,shell]
 ----
@@ -104,7 +102,7 @@ When prompted for the tasks/integrations for this quick example (Sonar, Docker, 
 
 I'll show you what each file contains in the sections below. Let's start by examining `main.yml`.
 
-The `main.yml` workflow file configures GitHub Actions to check out your project, configures Node 16, configures Java 11, and runs your project's backend tests, its frontend tests, and its end-to-end tests. Not only that, it'll start your dependent containers (e.g. Keycloak) in Docker. You can see that most of this functionality is hidden behind `npm run` commands.
+The `main.yml` workflow file configures GitHub Actions to check out your project, configure Node 16, configure Java 11, and run your project's backend/frontend tests, and its end-to-end tests. Not only that, it'll start your dependent containers (e.g. Keycloak) in Docker. You can see that most of this functionality is hidden behind `npm run` commands.
 
 {% raw %}
 [source,yaml]
