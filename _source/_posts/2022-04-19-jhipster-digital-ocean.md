@@ -150,6 +150,12 @@ kubectl port-forward svc/gateway -n demo 8080
 
 Navigate to http://localhost:8080, sign in, and create some entities to verify everything is working fine.
 
+After looking around, stop minikube before the cloud deployment:
+
+```shell
+minikube stop
+```
+
 
 ## Deploy to Digital Ocean cloud
 
@@ -174,10 +180,88 @@ You can find a detailed list of pricing for cluster resources at [Digital Ocean]
 
  **NOTE**: I tested the cluster with the higher size Intel nodes available for my account, `s-2vcpu-4gb-intel`, in an attempt to run the application in the default cluster configuration, a three-node cluster with a single node pool in the nyc1 region, using the latest Kubernetes version. As I started to see pods not starting due to "insufficient CPU", I increased the number of nodes.
 
+ Create the cluster with the following command line:
 
+ ```shell
+ doctl k cluster create do1 -v --size s-2vcpu-4gb-intel
+ ```
+ After creating a cluster, `doctl` adds a configuration context to kubectl and makes it active, so start monitoring your cluster right away with k9s. But fist, some tweaks to the Kubernetes descriptors are required.
+
+Digital Ocean latest and default Kubernetes version at the moment of writing this tutorial is 1.22.8. For the `store-mongodb` deployment to work in Digital Ocean, the property `Service.spec.publishNotReadyAddresses `, instead of the annotation `service.alpha.kubernetes.io/tolerate-unready-endpoints`, as it was deprecated in [release 1.11](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.11.md#kubernetes-111-release-notes). For some reason, the generated spec worked in the local minikube deployment with a newer Kubernetes version, but not in Digital Ocean.
+
+In the k8s folder, edit `store-mongodb.yml` and add the `publishNotReadyAddresses: true` property to the `spec`:
+
+```yml
+# Headless service for DNS record
+apiVersion: v1
+kind: Service
+metadata:
+  name: store-mongodb
+  namespace: demo
+spec:
+  type: ClusterIP
+  clusterIP: None
+  publishNotReadyAddresses: true
+  ports:
+    - name: peer
+      port: 27017
+  selector:
+    app: store-mongodb
+```
+
+Apply the resources configuration to the Digital Ocean cluster:
+
+```shell
+./kubectl-apply.sh -f
+```
+
+Monitor the deployment with k9s again:
+
+ ```shell
+ k9s -n demo
+ ```
+
+{% img blog/jhipster-digital-ocean/k9s-do-cluster.png alt:"k9s user interface monitoring digital ocean Kubernetes" width:"800" %}{: .center-image }
+
+Once you see the jhipster-registry pods are up, set up port forwarding again if you want to monitor the services status there.
 
 
 ### Increase CPU
+
+The three-node cluster might not provide enough CPU for this microservices architecture, so you might see `insufficient CPU` logs for some pods. You can get the pod events with `kubectl describe`:
+
+```shell
+kubectl describe pod jhipster-registry-0 -n demo
+```
+```text
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  39m   default-scheduler  Successfully assigned demo/jhipster-registry-0 to do3-default-pool-cq7c1
+  Normal  Pulled     39m   kubelet            Container image "jhipster/jhipster-registry:v7.2.0" already present on machine
+  Normal  Created    39m   kubelet            Created container jhipster-registry
+  Normal  Started    39m   kubelet            Started container jhipster-registry
+```
+Increase the number of nodes with `doctl`:
+
+```shell
+doctl k cluster node-pool update do1 do1-default-pool --count 5
+```
+
 ### Increase Storage
+
+For the `store-mongodb` stateful set with 3 replicas, some of the pods did not run due to _unbound immediate PersistentVolumeClaims_. When inspecting the pod events, I found out there was a failure in volume provisioning:
+
+```text
+Events:
+  Type     Reason                Age                  From                                                                       Message
+  ----     ------                ----                 ----                                                                       -------
+  Normal   Provisioning          3m6s (x10 over 11m)  dobs.csi.digitalocean.com_master-do3_cebb3451-5eba-4805-956c-753ec148e2ea  External provisioner is provisioning volume for claim "demo/datadir-store-mongodb-2"
+  Warning  ProvisioningFailed    3m5s (x10 over 11m)  dobs.csi.digitalocean.com_master-do3_cebb3451-5eba-4805-956c-753ec148e2ea  failed to provision volume with StorageClass "do-block-storage": rpc error: code = ResourceExhausted desc = volume limit (10) has been reached. Current number of volumes: 10. Please contact support.
+  Normal   ExternalProvisioning  103s (x43 over 11m)  persistentvolume-controller                                                waiting for a volume to be created, either by external provisioner "dobs.csi.digitalocean.com" or manually created by system administrator
+```
+
+As instructed by the message, I contacted Digital Ocean support and they fixed it.
+
 
 ## Secure web traffic with HTTPS
