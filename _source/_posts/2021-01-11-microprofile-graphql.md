@@ -386,13 +386,13 @@ Every request to the secured API will require a valid JWT. Typically, the JWT is
 
 {% include setup/oidcdebugger.md %}
 
-{% img blog/microprofile-graphql/oidcdebugger-settings.png alt:"OIDC Debugger Settings" width:"500" %}{: .center-image }
+{% img blog/microprofile-graphql/oidcdebugger-settings.png alt:"OIDC Debugger Settings" width:"650" %}{: .center-image }
 
 Scroll down and click **Send Request**.
 
 You should see a success screen with an authorization code.
 
-{% img blog/microprofile-graphql/oidcdebugger-success.png alt:"OIDC Debugger Success" width:"631" %}{: .center-image }
+{% img blog/microprofile-graphql/oidcdebugger-success.png alt:"OIDC Debugger Success" width:"600" %}{: .center-image }
 
 You can use HTTPie to exchange this authorization code for an actual token.  Fill in the values in brackets with your values: the **authorization code**, your **Okta domain**, your OIDC app **client ID**, and your OIDC app **client secret**.
 

@@ -424,7 +424,7 @@ Submit the form to start the authentication process. You'll receive an Okta logi
 
 {% img blog/postgresql-with-spring-boot/openid-connect-token.png alt:"Token from OpenID Connect" width:"800" %}{: .center-image }
 
-The token will be valid for one hour so you can do a lot of testing with your API. It's simple to use the token, just copy it and modify the curl command to use it as follows:
+The access token will be valid for one hour so you can do a lot of testing with your API. It's simple to use the token, just copy it and modify the curl command to use it as follows:
 
 ```bash
 export TOKEN={YOUR_TOKEN}
