@@ -524,7 +524,7 @@ To access the server now, you need a valid access token. {% include setup/oidcde
 
 Click **Send Request**. If you are not logged into Okta, then you'll be required to log in. If you are (as is likely) already logged in, then the access token will be generated for your signed-in identity.
 
-{% img blog/basic-app-spring-boot-jpa/access-token-success.png alt:"Access Token success" width:"700" %}{: .center-image }
+{% img blog/basic-app-spring-boot-jpa/access-token-success.jpg alt:"Access Token success" width:"700" %}{: .center-image }
 
 ## Use the Access Token
 

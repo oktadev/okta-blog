@@ -457,7 +457,7 @@ Scroll down to the bottom and click **Send Request**.
 
 If all went well, you will see your brand-new access token.
 
-{% img blog/java-mongodb-crud/access-token.png alt:"OAuth 2.0 Access Token" width:"800" %}{: .center-image }
+{% img blog/java-mongodb-crud/access-token.jpg alt:"OAuth 2.0 Access Token" width:"800" %}{: .center-image }
 
 Copy the access token to your clipboard and store it in a shell variable like so:
 
