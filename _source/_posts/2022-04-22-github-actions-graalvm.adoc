@@ -49,7 +49,7 @@ If you'd like a bit more background, please read https://auth0.com/blog/full-sta
 
 Clone the result of these two blog posts, right after I integrated the JHipster Native blueprint. Install its dependencies using npm.
 
-// todo: make sure you delete .github/workflows from jhipster-native branch or it will include publish.yml
+// todo: If you update the jhipster-native branch, make sure to remove .github/workflows
 
 [source,shell]
 ----
@@ -258,6 +258,8 @@ jobs:
             native-build-args: --verbose -J-Xmx13g
           - os: windows-2019
             executable-suffix: '.exe'
+            # e2e is disabled due to unstable docker step
+            e2e: false
             native-build-args: --verbose -J-Xmx10g
     steps:
       # OS customizations that allow the builds to succeed on Linux and Windows.
@@ -317,15 +319,15 @@ jobs:
       - name: 'E2E: Package'
         run: npm run native-package -- -B -ntp "-Dnative-build-args=${{ matrix.native-build-args }}"
       - name: 'E2E: Prepare'
+        if: matrix.e2e != false
         run: npm run ci:e2e:prepare
       - name: 'E2E: Run'
+        if: matrix.e2e != false
         run: npm run native-e2e
 ----
 {% endraw %}
 
 If you compare `native.yml` with `main.yml`, you'll see it doesn't run unit tests (because Spring Native doesn't support Mockito yet). It does build a native executable and runs end-to-end tests against it.
-
-// image::{% asset_path 'blog/github-actions-graalvm/compare-native-main.png' %}[alt=Compare native.yml to main.yml,width=800,align=center]
 
 If you wait until after midnight UTC, you can view this workflow's results in your repo's *Actions* tab. It also has a `workflow_dispatch` event trigger, so you can trigger it manually from your browser.
 
@@ -418,6 +420,7 @@ jobs:
         with:
           path: ~/.npm
           key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+      - run: npm install
       - name: Build ${{ steps.executable.outputs.name }} native image
         run: npm run native-package -- -B -ntp "-Dnative-image-name=${{ steps.executable.outputs.name }}" "-Dnative-build-args=${{ matrix.native-build-args }}"
       - name: Archive binary
