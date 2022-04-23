@@ -235,17 +235,15 @@ kubectl describe pod jhipster-registry-0 -n demo
 ```
 ```text
 Events:
-  Type    Reason     Age   From               Message
-  ----    ------     ----  ----               -------
-  Normal  Scheduled  39m   default-scheduler  Successfully assigned demo/jhipster-registry-0 to do3-default-pool-cq7c1
-  Normal  Pulled     39m   kubelet            Container image "jhipster/jhipster-registry:v7.2.0" already present on machine
-  Normal  Created    39m   kubelet            Created container jhipster-registry
-  Normal  Started    39m   kubelet            Started container jhipster-registry
+  Type     Reason                  Age                   From                     Message
+  ----     ------                  ----                  ----                     -------
+  Normal   NotTriggerScaleUp       4m30s                 cluster-autoscaler       pod didn't trigger scale-up:
+  Warning  FailedScheduling        69s (x3 over 95s)     default-scheduler        0/3 nodes are available: 3 Insufficient cpu.
 ```
 Increase the number of nodes with `doctl`:
 
 ```shell
-doctl k cluster node-pool update do1 do1-default-pool --count 5
+doctl k cluster node-pool update do1 do1-default-pool --count 4
 ```
 
 ### Increase Storage
@@ -261,7 +259,53 @@ Events:
   Normal   ExternalProvisioning  103s (x43 over 11m)  persistentvolume-controller                                                waiting for a volume to be created, either by external provisioner "dobs.csi.digitalocean.com" or manually created by system administrator
 ```
 
-As instructed by the message, I contacted Digital Ocean support and they fixed it.
+As instructed by the event message, I contacted Digital Ocean support and they fixed it.
+
+
+### The gateway external IP
+
+
+Once all the pods are running, find the gateway external IP with the `kubectl describe` command:
+
+```shelll
+kubectl describe service gateway -n demo
+```
+
+```text
+Name:                     gateway
+Namespace:                demo
+Labels:                   app=gateway
+Annotations:              kubernetes.digitalocean.com/load-balancer-id: e81d2b8c-6c28-430d-8ba8-6dab29a1ba76
+                          service.beta.kubernetes.io/do-loadbalancer-certificate-id: bd0b1d03-0f90-449d-abbe-ac6a4026c133
+Selector:                 app=gateway
+Type:                     LoadBalancer
+IP Family Policy:         SingleStack
+IP Families:              IPv4
+IP:                       10.245.47.51
+IPs:                      10.245.47.51
+LoadBalancer Ingress:     157.230.200.181
+Port:                     http  8080/TCP
+TargetPort:               8080/TCP
+NodePort:                 http  31048/TCP
+Endpoints:                10.244.1.42:8080
+Session Affinity:         None
+External Traffic Policy:  Cluster
+```
+
+Navigate to http://loadBalancerIngressIP:8080.
 
 
 ## Secure web traffic with HTTPS
+
+As the gateway service acts as the application front-end, in the k8s descriptors it is defined as a `LoadBalancer` service type. This exposes the service externally using the cloud provider's load balancer. DigitalOcean Load Balancers are a fully-managed, highly available network load balancing service. Load balancers distribute traffic to groups of Droplets, which decouples the overall health of a backend service from the health of a single server to ensure that your services stay online.
+
+A standard practice is to secure web traffic to your application with HTTPs. For the traffic encryption you need a TLS (SSL) cerificate. Digital Ocean also provides automatic certificate creation and renewal if you manage your domain with DigitalOcean DNS, which is free. But domain registration is not provided.  To use DigitalOcean DNS, you need to register a domain name with a registrar and update your domain's NS records to point to DigitalOcean's name servers.
+
+Then, the chosen configuration in this tutorial, Digital Ocean managed domain and certificate, you must [delegate the domain](https://docs.digitalocean.com/tutorials/dns-registrars/), updating NS records in the registrar.
+
+**IMPORTANT NOTE**: Before changing the registrar NS records (the nameservers), add your domain to Digital Ocean, to minimize service disruptions.
+
+You can create the certificate and the domain at the same time, in the Digital Ocean control panel, when you set up the load balancer HTTPs forwarding.
+
+Talk about SSL termination.
+Certificate screenshots.
