@@ -4,11 +4,11 @@ title: "The Ultimate Guide to Using Elasticsearch in Node.js"
 author: arek-nawo
 by: contractor
 communities: [javascript]
-description: “Learn how to set up a secure Node.js API with search capabilities using Express.js and Elasticsearch. Then secure the API with Okta so it’s only accessible to authorized users.”
+description: "Learn how to set up a secure Node.js API with search capabilities using Express.js and Elasticsearch. Then secure the API with Okta so it's only accessible to authorized users."
 tags: [api-security, elasticsearch, express, node] 
 tweets:
-- “No matter what software system you’re working on, searching capabilities are an expectation of the highest degree. Develop some solutions of your own by leveraging Elasticsearch in Node.js.”
-- “The difference between a good search tool and a great search tool is all in the details. In this tutorial, we’re teaching you how to build a fully functional Node.js API with searching capabilities.”
+- "No matter what software system you're working on, searching capabilities are an expectation of the highest degree. Develop some solutions of your own by leveraging Elasticsearch in Node.js."
+- "The difference between a good search tool and a great search tool is all in the details. In this tutorial, we're teaching you how to build a fully functional Node.js API with searching capabilities."
 image: blog/ultimate-guide-elasticsearch-nodejs/social-image.png
 github: https://github.com/oktadev/okta-elasticsearch-node-example
 type: conversion
@@ -16,26 +16,26 @@ type: conversion
 
 [Elasticsearch](https://www.elastic.co/) is one of the most powerful and popular search engines on the market. Elasticsearch lets you search through vast amounts of data, whether you're implementing real-time search experiences or doing in-depth data analysis.
 
-In this tutorial, you’ll learn how to integrate Elasticsearch into your Node.js app. You’ll see how to connect it with the front-end and how to secure your entire API and data with Okta.
+In this tutorial, you'll learn how to integrate Elasticsearch into your Node.js app. You'll see how to connect it with the front-end and how to secure your entire API and data with Okta.
 
 You can follow along with [this GitHub repository](https://github.com/oktadev/okta-elasticsearch-node-example).
 
 
 ## What is Elasticsearch?
 
-At its core, Elasticsearch is a NoSQL analytics database with an extensive JSON-centric REST API used for querying and indexing data. It’s built in Java, on top of [Apache Lucene](https://lucene.apache.org/), providing a scalable and performant search experience.
+At its core, Elasticsearch is a NoSQL analytics database with an extensive JSON-centric REST API used for querying and indexing data. It's built in Java, on top of [Apache Lucene](https://lucene.apache.org/), providing a scalable and performant search experience.
 
 Over time, Elasticsearch and its ecosystem have evolved dramatically, turning into a set of software components called the Elastic Stack (also known as ELK Stack). This stack includes the Elasticsearch service as the core, Kibana for data visualization and management, and Logstash for processing and indexing data into Elasticsearch.
 
 Elasticsearch and the accompanying Elastic Stack provide solutions for a growing number of use cases, such as the following:
-- **Search services:** Whether it’s inside an app or website or across an enterprise’s internal data sets, Elasticsearch can power all kinds of search experiences.
+- **Search services:** Whether it's inside an app or website or across an enterprise's internal data sets, Elasticsearch can power all kinds of search experiences.
 - **Data analytics:** Because of its near-real-time data querying and easy data injection, Elasticsearch is suitable for analyzing data from system logs or business operations.
 - **Monitoring:** Apart from analytics, Elasticsearch is also suitable for all kinds of monitoring, serving as a central hub for different data sources.
 
 
 ## Integrating Elasticsearch with Express
 
-Before getting started with the app, you’ll first want to ensure you have the following software installed:
+Before getting started with the app, you'll first want to ensure you have the following software installed:
 - [Node.js](https://nodejs.org/en/) together with NPM (v12.2.0 or newer)
 - [Okta CLI](https://cli.okta.com/)
 
@@ -51,7 +51,7 @@ npm install express body-parser express-async-errors express-openid-connect dote
 
 Installed dependencies are as follows:
 - **[Express](https://expressjs.com/):** The Node.js framework
-- **[Body parser](http://expressjs.com/en/resources/middleware/body-parser.html):** Express middleware for parsing incoming request’s bodies
+- **[Body parser](http://expressjs.com/en/resources/middleware/body-parser.html):** Express middleware for parsing incoming request's bodies
 - **[Express async errors](https://github.com/davidbanham/express-async-errors):** Module for improved handling of `async`/`await` errors in Express routes
 - **[Express OpenID Connect](https://github.com/auth0/express-openid-connect):** Express middleware wrapper around [openid-client](https://github.com/panva/node-openid-client)
 - **[Dotenv](https://github.com/motdotla/dotenv):** Module for loading `.env` files
@@ -62,7 +62,7 @@ Installed dependencies are as follows:
 
 When it comes to the setup, Elasticsearch provides two primary options: self-managed or Elastic Cloud. This tutorial will guide you through the setup process for the [Elastic Cloud trial](https://www.elastic.co/cloud/).
 
-Remember that you can always switch to a self-hosted Elasticsearch instance without much effort. For reference, here’s the [official guide to installing Elasticsearch on Docker](https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html).
+Remember that you can always switch to a self-hosted Elasticsearch instance without much effort. For reference, here's the [official guide to installing Elasticsearch on Docker](https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html).
 
 To get started, create a new Elastic Cloud account or log in to an existing one.
 
@@ -79,7 +79,7 @@ ELASTIC_USERNAME="your-username"
 ELASTIC_PASSWORD="your-password"
 ```
 
-The last detail you need is your deployment’s Cloud ID. To get that, return to your dashboard and go to the deployment settings. You can access the settings by clicking on the cog next to the deployment name under the **Elasticsearch Service** section.
+The last detail you need is your deployment's Cloud ID. To get that, return to your dashboard and go to the deployment settings. You can access the settings by clicking on the cog next to the deployment name under the **Elasticsearch Service** section.
 
 {% img blog/ultimate-guide-elasticsearch-nodejs/elastic-cloud-dashboard.png alt:"Elastic Cloud dashboard" width:"800" %}{: .center-image }
 
@@ -94,7 +94,7 @@ ELASTIC_PASSWORD="your-password"
 
 ### Creating the Elasticsearch index
 
-With the Elastic Cloud credentials in place, create an **elastic-client.js** file where you’ll initialize the Elasticsearch Node.js client:
+With the Elastic Cloud credentials in place, create an **elastic-client.js** file where you'll initialize the Elasticsearch Node.js client:
 
 ```javascript
 // backend/elastic-client.js
@@ -137,7 +137,7 @@ Running the script with **node create-index.js** will initiate the index and pre
 
 ### Creating Express routes
 
-Start integrating Elasticsearch with Express by creating an **index.js** file, where you’ll initialize a new Express app:
+Start integrating Elasticsearch with Express by creating an **index.js** file, where you'll initialize a new Express app:
 
 ```javascript
 // backend/index.js
@@ -203,16 +203,16 @@ app.get("/posts", async (req, res) => {
 // ...
 ```
 
-To operate on the index’s data, the `index()` method can be used to insert documents, while `delete()` can remove a document matching a provided ID. Finally, `search()` is one of the most important and versatile methods of the client, providing tons of options for querying the data.
+To operate on the index's data, the `index()` method can be used to insert documents, while `delete()` can remove a document matching a provided ID. Finally, `search()` is one of the most important and versatile methods of the client, providing tons of options for querying the data.
 
 For this example, only `fuzzy` matching (matching the term closely rather than exactly to the query) and `match_all` query parameters are used to search for blog posts by their titles and return all blog posts from the index.
 
-You might have noticed that the root route (`/`) redirects to port `3000`—that’s where the frontend will be located.
+You might have noticed that the root route (`/`) redirects to port `3000`—that's where the frontend will be located.
 
 
 ### Frontend setup
 
-To see how this backend setup integrates with a modern frontend, let’s create a new React app powered by [Vite](https://vitejs.dev/).
+To see how this backend setup integrates with a modern frontend, let's create a new React app powered by [Vite](https://vitejs.dev/).
 
 To set up a new Vite project from a template, install necessary dependencies and start the development server. Use the following commands to do so in the project root folder:
 
@@ -257,12 +257,12 @@ export default defineConfig({
 });
 ```
 
-With the above configuration, all requests to the Vite development server’s `/api` route will be redirected to the back-end server, allowing access to both from the same host.
+With the above configuration, all requests to the Vite development server's `/api` route will be redirected to the back-end server, allowing access to both from the same host.
 
 
 ### Building the UI
 
-While not the primary focus of this tutorial, thanks to MUI, it’s easy to make a good-looking frontend without much effort.
+While not the primary focus of this tutorial, thanks to MUI, it's easy to make a good-looking frontend without much effort.
 
 The whole UI will fit into the **src/App.jsx** file, with only a few changes required to the **src/main.jsx** file:
 
@@ -398,7 +398,7 @@ export default App;
 
 The app consists of a search bar, editing menu, and a table to display and manage the data. You can see the structure for API integration in the form of the `api` object, table configuration for the incoming data in the `columns`, and multiple state management functions right inside the `<App/>` component.
 
-The `<TopMenu/>` and `<EditMenu/>` components will serve as the app bar and data-edit controls, respectively. Where necessary, they’ll use the state and control methods provided through props to control the state.
+The `<TopMenu/>` and `<EditMenu/>` components will serve as the app bar and data-edit controls, respectively. Where necessary, they'll use the state and control methods provided through props to control the state.
 
 {% raw %}
 ```javascript
@@ -511,7 +511,7 @@ const search = async () => {
 
 Here, the `addPost()` function creates a new post using the data from Faker.js and updates it both on the frontend and the backend. A similar process happens in `removePosts()`, which, given an array of post IDs, removes the related data on both ends. Finally, `search()` sends a query to the backend and selects the matching results in the table.
 
-To load the initial data on the component mount, you’ll have to use the `useEffect()` hook, which will fetch the posts and update the view accordingly:
+To load the initial data on the component mount, you'll have to use the `useEffect()` hook, which will fetch the posts and update the view accordingly:
 
 ```javascript
 // ...
@@ -539,7 +539,7 @@ Now, ensure both your backend and frontend servers are running, and check out al
 
 ## Securing data access with Okta
 
-While the app is working, it’s completely exposed to unauthorized access, which can be harmful to your data, code, and infrastructure as a whole. To fix that, you can use [Okta](https://developer.okta.com/signup).
+While the app is working, it's completely exposed to unauthorized access, which can be harmful to your data, code, and infrastructure as a whole. To fix that, you can use [Okta](https://developer.okta.com/signup).
 
 The entire process is quite simple and requires only a few changes on both ends of the app.
 
@@ -767,6 +767,6 @@ If you want to see the entire project, you can clone it from [GitHub here](https
 
 ## Build more with Node and Elasticsearch
 
-After completing this tutorial, you now know how to implement powerful Elasticsearch features into your Express app and secure it with Okta. But that’s just the first step to building a feature-rich, scalable, and secure application!
+After completing this tutorial, you now know how to implement powerful Elasticsearch features into your Express app and secure it with Okta. But that's just the first step to building a feature-rich, scalable, and secure application!
 
 If you enjoyed working through this tutorial, you can keep up with our content for developers by following [@oktadev](https://twitter.com/oktadev) on Twitter, connecting with us on [LinkedIn](https://www.linkedin.com/company/oktadev/), or subscribing to our [YouTube](https://www.youtube.com/oktadev) channel. If you have any questions or want to add suggestions for future tutorials, please add a comment below.
