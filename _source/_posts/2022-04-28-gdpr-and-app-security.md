@@ -2,21 +2,21 @@
 type: awareness
 github: https://github.com/oktadev/okta-dotnet6-webapi-example
 layout: blog_post
-title: “GDPR and application security”
+title: "GDPR and application security"
 author: olabayo-balogun
 by: contractor
 communities: []
 description: "Learn more about GDPR rules and how they apply to your organization. Make sure your application contains the needed features to ensure high-level security."
 tags: [best-practices, security, privacy, gdpr]
 tweets:
-  - "GDPR rules can be long and esoteric, but it’s important to know how to stay in compliance with the policy. Not only will you avoid fines for violations, but users will be more willing to trust your application. In other words: compliance is worth the work."
-  - "As the internet has grown, so too has the need to protect users from privacy invasions, fraud, and other types of abuse. If your organization or application is subject to GDPR rules, you’ll need to know how to get and stay in compliance."
+  - "GDPR rules can be long and esoteric, but it's important to know how to stay in compliance with the policy. Not only will you avoid fines for violations, but users will be more willing to trust your application. In other words: compliance is worth the work."
+  - "As the internet has grown, so too has the need to protect users from privacy invasions, fraud, and other types of abuse. If your organization or application is subject to GDPR rules, you'll need to know how to get and stay in compliance."
 image: blog/gdpr-and-app-security/gdpr-cover.png
 ---
 
-As the internet has grown, so has the need to protect users from privacy invasions, fraud, or other types of abuse by attackers. The European Union’s solution is the General Data Protection Regulation, or [GDPR](https://gdpr.eu/). First put into effect in 2018, the policy applies not only to the organizations in the EU but to any organization that uses or collects data from people in the EU.
+As the internet has grown, so has the need to protect users from privacy invasions, fraud, or other types of abuse by attackers. The European Union's solution is the General Data Protection Regulation, or [GDPR](https://gdpr.eu/). First put into effect in 2018, the policy applies not only to the organizations in the EU but to any organization that uses or collects data from people in the EU.
 
-If your organization is subject to GDPR, you’ll need to know how to stay in compliance. This article will break down the details of this policy so that you understand its potential effects on your application.
+If your organization is subject to GDPR, you'll need to know how to stay in compliance. This article will break down the details of this policy so that you understand its potential effects on your application.
 
 ## What to know about GDPR
 
@@ -28,10 +28,10 @@ GDPR compliance imposes multiple requirements on your organization. Here is what
 
 - Enhanced application security.
 - Facilities for users to exercise their data privacy rights.
-- Quick data purge at a user’s request.
+- Quick data purge at a user's request.
 - Users given access to data collected from or about them.
-- Consent from users about what data is obtained and how it’s used.
-- Processing of user data in a way that doesn’t compromise the user.
+- Consent from users about what data is obtained and how it's used.
+- Processing of user data in a way that doesn't compromise the user.
 
 ### GDPR penalties
 
@@ -39,7 +39,7 @@ The penalties for breaching GDPR are capped at whichever sum is higher: [$22.8 m
 
 ## How GDPR affects application security
 
-If you’re responsible for managing your application’s security, GDPR can feel like a threat. There is a lot of work involved, and mistakes can lead to costly fines. If you use it properly, though, following GDPR can help your application. Here are some of the benefits it can offer:
+If you're responsible for managing your application's security, GDPR can feel like a threat. There is a lot of work involved, and mistakes can lead to costly fines. If you use it properly, though, following GDPR can help your application. Here are some of the benefits it can offer:
 
 ### Bigger security budget
 
@@ -49,11 +49,11 @@ Because GDPR demands that organizations increase data security and backs up thos
 
 ### More security integrations
 
-Applications that help with [automation testing](https://www.globalapptesting.com/blog/what-is-automation-testing), [automated breach and attack simulation](https://www.xmcyber.com/what-is-breach-and-attack-simulation/), [virtual private networks (VPNs)](https://www.kaspersky.com/resource-center/definitions/what-is-a-vpn), and [virtual private clouds (VPCs)](https://www.ibm.com/cloud/learn/vpc) are more likely to be added to an organization’s security strategy. Such additions help shore up the defenses of digital infrastructure; VPCs and VPNs also offer a sandbox environment for employees to experiment with security features.
+Applications that help with [automation testing](https://www.globalapptesting.com/blog/what-is-automation-testing), [automated breach and attack simulation](https://www.xmcyber.com/what-is-breach-and-attack-simulation/), [virtual private networks (VPNs)](https://www.kaspersky.com/resource-center/definitions/what-is-a-vpn), and [virtual private clouds (VPCs)](https://www.ibm.com/cloud/learn/vpc) are more likely to be added to an organization's security strategy. Such additions help shore up the defenses of digital infrastructure; VPCs and VPNs also offer a sandbox environment for employees to experiment with security features.
 
 ### Faster response to breaches
 
-Previously, user data theft wasn’t always handled as promptly as it should have been. GDPR enforcement requires organizations to communicate quickly about security breaches, which helps protect affected users and keeps other stakeholders well-informed. This can reduce the fallout of data theft.
+Previously, user data theft wasn't always handled as promptly as it should have been. GDPR enforcement requires organizations to communicate quickly about security breaches, which helps protect affected users and keeps other stakeholders well-informed. This can reduce the fallout of data theft.
 
 ## How to comply with GDPR
 
@@ -94,11 +94,11 @@ The following are questions you need to answer in order to keep your application
 
 - Do users have the ability to request copies of their data?
 - Do users have the ability to object to certain uses of their data?
-- Can you delete a user’s data immediately if they request it? Does this include removing their data from your backups?
+- Can you delete a user's data immediately if they request it? Does this include removing their data from your backups?
 
 **Data transfer**
 
-- Is the data transfer process handled in a way that doesn’t compromise data?
+- Is the data transfer process handled in a way that doesn't compromise data?
 - Does the receiver have enough security installations in place to protect data?
 - Does the receiver comply with the human rights charter?
 - Is the receiver allowed to obtain data from entities bound by GDPR laws?
@@ -111,17 +111,17 @@ Following are examples of features that you can implement in your application to
 
 Users must be able to choose whether or not to accept cookies. GDPR emphasizes that users should be able to reject cookies easily. Some organizations make it [difficult to do this](https://www.zdnet.com/article/cookie-consent-most-websites-break-law-by-making-it-hard-to-reject-all-tracking/), but such underhanded tactics can result in heavy fines.
 
-A rule of thumb is to display the **Decline** button right next to the **Accept** button (and in the same font size) rather than offering a “Settings” or “Manage Cookies” link that makes it harder for users to refuse cookies and subtly bullies them into accepting the cookies on your platform. There are a ton of [resources](https://betterprogramming.pub/implement-a-cookie-consent-notification-within-5-minutes-82c845c55487) online that can help you implement GDPR-friendly frontend cookies. Compare your options so that you can adopt one that suits your organization best.
+A rule of thumb is to display the **Decline** button right next to the **Accept** button (and in the same font size) rather than offering a "Settings" or "Manage Cookies" link that makes it harder for users to refuse cookies and subtly bullies them into accepting the cookies on your platform. There are a ton of [resources](https://betterprogramming.pub/implement-a-cookie-consent-notification-within-5-minutes-82c845c55487) online that can help you implement GDPR-friendly frontend cookies. Compare your options so that you can adopt one that suits your organization best.
 
 ### Data mapping
 
-[Data mapping](https://en.wikipedia.org/wiki/Data_mapping), or connecting information from multiple data sets, requires a top-down analysis of all of an organization’s databases and what information they hold. This can be a big task, but it ensures transparency and accountability. Data mapping is required for the next steps.
+[Data mapping](https://en.wikipedia.org/wiki/Data_mapping), or connecting information from multiple data sets, requires a top-down analysis of all of an organization's databases and what information they hold. This can be a big task, but it ensures transparency and accountability. Data mapping is required for the next steps.
 
 Data mapping can be manual, semi-automated, or automated. You should determine which approach works best for you, depending on the size of your company, your budget, the quality of your data management team, and the amount of data you work with. Deciding how to [implement data mapping](https://blog.hubspot.com/marketing/data-mapping) will require some understanding of your databases, as well as knowing which duplicated columns can be optimized to reduce redundancy.
 
 ### Data purge functionality
 
-Previously, even after users requested that their data be deleted, organizations could remove it from public access and keep it somewhere hidden; however, the GDPR mandates that “officially” deleted data must be deleted everywhere. Organizations must ensure that they monitor data to delete it properly from all resources as needed.
+Previously, even after users requested that their data be deleted, organizations could remove it from public access and keep it somewhere hidden; however, the GDPR mandates that "officially" deleted data must be deleted everywhere. Organizations must ensure that they monitor data to delete it properly from all resources as needed.
 
 Data purge functionality [implementation](https://success.outsystems.com/Documentation/Best_Practices/Architecture/Data_Purging) will likely require some modification to your database schema so that you can identify data to mark for deletion, per user requests, and data to purge due to staleness. A `LastUpdatedDate` and `IsDeleted` column in your data table can be useful in identifying either type of data.
 
@@ -129,11 +129,11 @@ Data purge functionality [implementation](https://success.outsystems.com/Documen
 
 Data purge functionality may involve refactoring [database (DB) schemas](https://en.wikipedia.org/wiki/Database_schema) to add columns noting when a resource was created or whether it was deleted. These columns can be used to automate data purges based on whether the data has been held longer than needed, for instance.
 
-Further DB schema analysis may also be required to ensure that more data isn’t being collected than absolutely necessary.
+Further DB schema analysis may also be required to ensure that more data isn't being collected than absolutely necessary.
 
 ## Compliance is worth the work
 
-GDPR rules can be long and esoteric, but it’s important for your organization to understand how to stay in compliance with the policy. Not only will you avoid fines for violations, but users will be more willing to trust your application. Ensuring better data privacy helps all stakeholders.
+GDPR rules can be long and esoteric, but it's important for your organization to understand how to stay in compliance with the policy. Not only will you avoid fines for violations, but users will be more willing to trust your application. Ensuring better data privacy helps all stakeholders.
 
 If necessary, remember you can seek help from a GDPR officer to ensure compliance. Doing this work upfront can save your organization from more costly consequences later on.
 
