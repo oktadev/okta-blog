@@ -27,6 +27,7 @@ The project has a few different pieces:
 {% img blog/jhipster-k8s-azure/microservice-structure.png alt:"Microservice structure" width:"800" %}{: .center-image }
 
 This tutorial has a lot of different technologies in it. I've tried to make it as simple and as explicit as possible, but it's probably helpful to have some basic knowledge of Docker and Kubernetes before you start.
+{% include toc.md %}
 
 If you're already familiar with all the tech in this tutorial, you can skip ahead to the prerequisites section. If not, I'm going to explain them a little before we move on.
 
