@@ -71,11 +71,11 @@ The application stores two data object classes: users and credentials. Users are
 
 ### User data
 
-There are two goals for the user data: track the existence and uniqueness of the user and their credentials, and enable the creation of two JavaScript objectsdictionaries for the browser to make WebAuthn API requests: [`PublicKeyCredentialCreationOptions`](https://developer.mozilla.org/en-US/docs/Web/API/CredentialsContainer/create) for registration and [`PublicKeyCredentialRequestOptions`](https://developer.mozilla.org/en-US/docs/Web/API/PublicKeyCredentialRequestOptions) for authentication.
+There are two goals for the user data: track the existence and uniqueness of the user and their credentials, and enable the creation of two JavaScript objects for the browser to make WebAuthn API requests: [`PublicKeyCredentialCreationOptions`](https://developer.mozilla.org/en-US/docs/Web/API/CredentialsContainer/create) for registration and [`PublicKeyCredentialRequestOptions`](https://developer.mozilla.org/en-US/docs/Web/API/PublicKeyCredentialRequestOptions) for authentication.
 
 Using Spring JPA, the `AppUser` data class starts with traditional fields for organizing users in a system, an `id` for database lookup, and a unique `username` to enable user self-identification.
 
-There are also fields that the server needs to create the WebAuthn requests:
+The `displayName` and `handle` fields are used by the server to create WebAuthn requests:
 
 ```java
 import com.yubico.webauthn.data.ByteArray;
@@ -111,7 +111,7 @@ public class AppUser {
 
 The name field is set by the user. It is intended to be displayed by UI elements on the client as part of the registration and authentication process, but it's also entirely optional in the WebAuthn process. According to the [WebAuthn Specification](https://www.w3.org/TR/webauthn-1/#sctn-user-handle-privacy), a nickname string like `username` is not suitable for identification, so WebAuthn identity requests are made using a user handle, a byte sequence with a maximum length of 64.
 
-Byte data (like the user handle) is stored in the database as a Binary Large Object. To convert these data fields to the `ByteArray` object the application uses, the application implements a JPA `AttributeConverter` class with the `Converter` annotation.
+Byte data (like the user handle) is stored in the database as a binary large object (BLOB). To convert these data fields to the `ByteArray` object the application uses, the application implements a JPA `AttributeConverter` class with the `Converter` annotation.
 
 ```java
 import com.yubico.webauthn.data.ByteArray;
@@ -133,7 +133,7 @@ public class ByteArrayAttributeConverter implements AttributeConverter<ByteArray
 }
 ```
 
-The application converts data classes into Java objects provided by the Yubico library that can produce JSON-formatted strings the client will pass to the WebAuthn API. The `toUserIdentity` function converts a `AuthUser` data class to a `UserIdentity` object that can access the username, the screen name, and the all-important user handle. Traditional property getters are created with the Lombok `@Getter` annotation.
+The application converts data classes into Java objects provided by the Yubico library that can produce JSON-formatted strings the client will pass to the WebAuthn API. The `toUserIdentity()` function converts a `AuthUser` data class to a `UserIdentity` object that can access the username, the screen name, and the all-important user handle. Traditional property getters are created with the Lombok `@Getter` annotation.
 
 ```java
 public AppUser(UserIdentity user) {
