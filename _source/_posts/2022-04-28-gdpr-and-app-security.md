@@ -11,7 +11,7 @@ tags: [best-practices, security, privacy, gdpr]
 tweets:
   - "GDPR rules can be long and esoteric, but it's important to know how to stay in compliance with the policy. Not only will you avoid fines for violations, but users will be more willing to trust your application. In other words: compliance is worth the work."
   - "As the internet has grown, so too has the need to protect users from privacy invasions, fraud, and other types of abuse. If your organization or application is subject to GDPR rules, you'll need to know how to get and stay in compliance."
-image: blog/gdpr-and-app-security/gdpr-cover.png
+image: blog/gdpr-and-app-security/gdpr-cover.jpg
 ---
 
 As the internet has grown, so has the need to protect users from privacy invasions, fraud, or other types of abuse by attackers. The European Union's solution is the General Data Protection Regulation, or [GDPR](https://gdpr.eu/). First put into effect in 2018, the policy applies not only to the organizations in the EU but to any organization that uses or collects data from people in the EU.
