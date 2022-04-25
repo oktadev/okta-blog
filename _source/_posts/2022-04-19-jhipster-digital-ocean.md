@@ -301,11 +301,33 @@ As the gateway service acts as the application front-end, in the k8s descriptors
 
 A standard practice is to secure web traffic to your application with HTTPs. For the traffic encryption you need a TLS (SSL) cerificate. Digital Ocean also provides automatic certificate creation and renewal if you manage your domain with DigitalOcean DNS, which is free. But domain registration is not provided.  To use DigitalOcean DNS, you need to register a domain name with a registrar and update your domain's NS records to point to DigitalOcean's name servers.
 
-Then, the chosen configuration in this tutorial, Digital Ocean managed domain and certificate, you must [delegate the domain](https://docs.digitalocean.com/tutorials/dns-registrars/), updating NS records in the registrar.
+Then, for the chosen configuration in this tutorial, Digital Ocean managed domain and certificate, you must [delegate the domain](https://docs.digitalocean.com/tutorials/dns-registrars/), updating NS records in the registrar.
 
 **IMPORTANT NOTE**: Before changing the registrar NS records (the nameservers), add your domain to Digital Ocean, to minimize service disruptions.
 
 You can create the certificate and the domain at the same time, in the Digital Ocean control panel, when you set up the load balancer HTTPs forwarding.
 
-Talk about SSL termination.
-Certificate screenshots.
+Digital Ocean load balancers support two main configurations for encrypted web traffic:
+
+- SSL termination: decrypts SSL requests at the load balancer and sends them unencrypted to the backend at the Droplets' private IP address. The slower and CPU-intensive work of decryption is performed at the load balancer, and certificate management is simplified. The traffic between the load balancer and the backend is secured by routing over the VPC network, but data is readable inside the private network.
+- SSL assthrough: sends the encrypted SSL requests directly to the backend at the Droplets' private IP address, traffic between the load balancer and the backend is secured. Every backend server must have the certificate, and client information contained in `X-forwarded-*` headers might be lost.
+
+Taking advantage of the simplified certificate management, in the following steps SSL termination is configured, through the Digital Ocean control panel.
+
+Login to your Digital Ocean account, and in the left menu choose **Kubernetes**. Then choose your cluster, and in the cluster page, choose **Resources**. In the _LOAD BALANCERS_ list, choose the single load balancer that must have been created. In the load balancer page, choose the **Settings** tab. Click **Edit** in the _Forwarding Rules_. Add a forwarding rule for HTTPS in port 443, and in the certificate drop-down, choose **New certificate**.
+
+{% img blog/jhipster-digital-ocean/do-new-certificate.png alt:"Digital Ocean new certificate form" width:"800" %}{: .center-image }
+
+In the **New Certificate** form, choose **Use Let's Encrypt** tab, and then in the domain box, choose **Add new domain**. Then enter your domain name, and list other subdomains to include. Add a name for the certificate and click **Generate Certificate**.
+
+{% img blog/jhipster-digital-ocean/do-new-domain.png alt:"Digital Ocean new domain form" width:"800" %}{: .center-image }
+
+Back in the _Forwarding rules_ page, check the generated certificate is selected, and forward the traffic to the Droplet HTTP port where the gateway is running. Tick the checkbox **Create DNS records for all the new Let's Encrypt certifcates** and then **Save** the forwarding settings.
+
+{% img blog/jhipster-digital-ocean/do-forwarding.png alt:"Digital Ocean load balancer forwarding settings" width:"800" %}{: .center-image }
+
+Finally in the SSL section of the settings, tick the checkbox **Redirect HTTP to HTTPS**.
+
+{% img blog/jhipster-digital-ocean/do-ssl-redirect.png alt:"Digital Ocean load balancer ssl redirect settings" width:"800" %}{: .center-image }
+
+Test the configuration navigating to http://yourDomain, the gateway should redirect to the Okta sign in page.
