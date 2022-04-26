@@ -356,7 +356,7 @@ public Optional<ByteArray> getUserHandleForUsername(String username) {
 }
 ```
 
-The `getUsernameForUserHandle` function lets applications handle logins without usernames. The server organizes and recognizes users by means of usernames, but only user handles are necessary for the WebAuthn API to function. `getUsernameForUserHandle` can be used in login flows that don't require usernames up front. Hypothetically, an application could entirely dispense with usernames and identify users exclusively by unique byte array identifiers, though this application does not explore that possibility.
+The `getUsernameForUserHandle()` function lets applications handle logins without usernames. The server organizes and recognizes users by means of usernames, but only user handles are necessary for the WebAuthn API to function. `getUsernameForUserHandle` can be used in login flows that don't require usernames upfront. Hypothetically, an application could entirely dispense with usernames and identify users exclusively by unique byte array identifiers, though this application does not explore that possibility.
 
 ```java
 @Override
