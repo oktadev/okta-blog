@@ -366,7 +366,7 @@ public Optional<String> getUsernameForUserHandle(ByteArray userHandle) {
 }
 ```
 
-The `lookup` function is active during the final step of credential verification. A registered authenticator provides an assertion signature and a credential ID to the browser's WebAuthn API, which is sent to the server. The server looks up a stored credential using the credential ID and user handle provided by the authenticator. At this point, the server will use the object returned by this lookup function to validate the assertion signature (and optionally the signature count) from the authenticator.
+The `lookup()` function is active during the final step of credential verification. A registered authenticator provides an assertion signature and a credential ID to the browser's WebAuthn API, which is sent to the server. The server looks up a stored credential using the credential ID and user handle provided by the authenticator. At this point, the server will use the object returned by this lookup function to validate the assertion signature (and optionally the signature count) from the authenticator.
 
 ```java
 @Override
@@ -383,7 +383,7 @@ public Optional<RegisteredCredential> lookup(ByteArray credentialId, ByteArray u
 }
 ```
 
-In a similar way, the `lookupAll` function returns a set of `RegisteredCredential` objects. Instead of validating the authenticator's signature, this function ensures that there aren't multiple credentials registered with the same credential ID.
+In a similar way, the `lookupAll()` function returns a set of `RegisteredCredential` objects. Instead of validating the authenticator's signature, this function ensures that there aren't multiple credentials registered with the same credential ID.
 
 ```java
 @Override
