@@ -346,7 +346,7 @@ public Set<PublicKeyCredentialDescriptor> getCredentialIdsForUsername(String use
 }
 ```
 
-The `getUserHandleForUsername` function is called during credential authentication when the user provides a username. The authenticator looks up generated credentials with the help of the user handle byte array, which the server needs to store for this purpose. The demo application uses this function to look up the user handle that's passed into the `navigator.credential.get()` function in the browser.
+The `getUserHandleForUsername()` function is called during credential authentication when the user provides a username. The authenticator looks up generated credentials with the help of the user handle byte array, which the server needs to store for this purpose. The demo application uses this function to look up the user handle that's passed into the `navigator.credential.get()` function in the browser.
 
 ```java
 @Override
