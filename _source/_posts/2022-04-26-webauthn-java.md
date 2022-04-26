@@ -324,13 +324,13 @@ public class RegistrationService implements CredentialRepository {
     @Autowired
     private AuthenticatorRepository authRepository;
 
-  // methods added in next section    
+    // methods added in next section    
 }
 ```
 
 ### Data interface
 
-The `getCredentialIdsForUsername` function is used during credential registration. Any associated credential IDs stored in the database are returned as a set of [`PublicKeyCredentialDescriptor`](https://developers.yubico.com/java-webauthn-server/JavaDoc/webauthn-server-core/1.5.0/com/yubico/webauthn/data/PublicKeyCredentialDescriptor.html) objects. This list of existing credential IDs is [passed to the WebAuthn API](https://www.w3.org/TR/webauthn-2/#dom-publickeycredentialcreationoptions-excludecredentials) as a list of excluded credentials to prevent the same credential from being registered twice.
+The `getCredentialIdsForUsername()` function is used during credential registration. Any associated credential IDs stored in the database are returned as a set of [`PublicKeyCredentialDescriptor`](https://developers.yubico.com/java-webauthn-server/JavaDoc/webauthn-server-core/1.5.0/com/yubico/webauthn/data/PublicKeyCredentialDescriptor.html) objects. This list of existing credential IDs is [passed to the WebAuthn API](https://www.w3.org/TR/webauthn-2/#dom-publickeycredentialcreationoptions-excludecredentials) as a list of excluded credentials to prevent the same credential from being registered twice.
 
 ```java
 @Override
