@@ -11,6 +11,7 @@ tweets:
 - "Having problems with password abuse? A WebAuthn specification lets developers create passwordless applications with an increasingly broad and accessible range of hardware authenticators. Learn how to build your own WebAuthn application with Java here!"
 image: blog/webauthn-java/java-webauthn-social.jpg
 type: awareness
+github: https://github.com/oktadev/webauthn-java-example
 ---
 
 The [Web Authentication (WebAuthn)](https://webauthn.io/) specification, given [official approval](https://www.w3.org/2019/03/pressrelease-webauthn-rec.html) by the World Wide Web Consortium (W3C) and the FIDO Alliance in 2019, aims to strengthen online security by allowing users to sign in to sites with elements like biometrics and FIDO security keys. The WebAuthn API can replace or supplement less-secure passwords, which may be weak and are often shared.
@@ -49,7 +50,7 @@ The final version of the code can be found [here](https://github.com/oktadev/web
 
 First, go to the [Spring Initializr page](https://start.spring.io/#!type=maven-project&language=java&&packaging=jar&jvmVersion=17&groupId=com.webauthn&artifactId=app&name=app&description=Demo%20Java%20project%20for%20WebAuthN%20Authentication&packageName=com.webauthn.app&dependencies=lombok,data-jpa,h2,web,thymeleaf) and add your dependencies:
 
-* **Lombok**: A library for automatically generating Initializer classes, getters, and setters for speed of development.
+* **Lombok**: A library used to speed up development by automatically generating constructors, getters and setters.
 * **Spring Data JPA**: An ORM (Object-relational mapping) tool to persist data and map Java classes to data objects.
 * **H2 Database**: An in-memory database for simple data persistence. No saved data will exist after application shutdown. For a production-ready application, replace this with a traditional database and edit the `spring.datasource.driver-class-name` property.
 * **Spring Web**: To handle web requests.
