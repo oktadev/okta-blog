@@ -769,7 +769,7 @@ If you want to see the entire project, you can clone it from [GitHub here](https
 
 After completing this tutorial, you now know how to implement powerful Elasticsearch features into your Express app and secure it with Okta. But that's just the first step to building a feature-rich, scalable, and secure application!
 
-If you’d like to learn more about building web apps with Node.js, you might want to check out these other great posts:
+If you'd like to learn more about building web apps with Node.js, you might want to check out these other great posts:
 
 - [Build Secure Node Authentication with Passport.js and OpenID Connect](/blog/2018/05/18/node-authentication-with-passport-and-oidc)
 - [Build User Registration with Node, React, and Okta](/blog/2018/02/06/build-user-registration-with-node-react-and-okta)
