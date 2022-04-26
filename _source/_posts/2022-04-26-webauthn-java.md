@@ -46,7 +46,7 @@ In this article, you're going to build a Java application that authenticates use
 
 The final version of the code can be found [here](https://github.com/oktadev/webauthn-java-example). The demo application uses Java 17 and Apache Maven for dependency management.
 
-## Getting started
+## Get started with WebAuthn and Spring Boot
 
 First, go to the [Spring Initializr page](https://start.spring.io/#!type=maven-project&language=java&&packaging=jar&jvmVersion=17&groupId=com.webauthn&artifactId=app&name=app&description=Demo%20Java%20project%20for%20WebAuthN%20Authentication&packageName=com.webauthn.app&dependencies=lombok,data-jpa,h2,web,thymeleaf) and add your dependencies:
 
@@ -66,7 +66,7 @@ After creating and downloading this project, add the [Yubico WebAuthn server dep
 </dependency>
 ```
 
-## Data layer
+## Spring JPA data layer overview
 
 The application stores two data object classes: users and credentials. Users are people using the system, and they can have multiple credentials. Credentials contain the information needed to identify and verify a device implementing Client to Authenticator (CTAP2) protocol. CTAP2 is a spec that describes communication between a roaming authenticator and another client/platform at the application layer, as well as bindings to a variety of transport protocols that use different physical media.
 
@@ -110,7 +110,7 @@ public class AppUser {
 }
 ```
 
-The name field is set by the user. It is intended to be displayed by UI elements on the client as part of the registration and authentication process, but it's also entirely optional in the WebAuthn process. According to the [WebAuthn Specification](https://www.w3.org/TR/webauthn-1/#sctn-user-handle-privacy), a nickname string like `username` is not suitable for identification, so WebAuthn identity requests are made using a user handle, a byte sequence with a maximum length of 64.
+The username field is set by the user. It is intended to be displayed by UI elements on the client as part of the registration and authentication process, but it's also entirely optional in the WebAuthn process. According to the [WebAuthn Specification](https://www.w3.org/TR/webauthn-1/#sctn-user-handle-privacy), a nickname string like `username` is not suitable for identification, so WebAuthn identity requests are made using a user handle, a byte sequence with a maximum length of 64.
 
 Byte data (like the user handle) is stored in the database as a binary large object (BLOB). To convert these data fields to the `ByteArray` object the application uses, the application implements a JPA `AttributeConverter` class with the `Converter` annotation.
 
@@ -211,11 +211,12 @@ public class Authenticator {
 
     @ManyToOne
     private AppUser user;
-```
 
-The authenticator potentially provides a range of additional information. This application stores some of it to enable functionality that could be useful for a production-quality web authentication project.
+    /* The authenticator potentially provides a range of additional information. This 
+     * application stores some of it to enable functionality that could be useful for
+     * a production-quality web authentication project.
+    */
 
-```java
     @Column(nullable = false)
     private Long count;
 
@@ -465,7 +466,7 @@ public class AuthController {
 
 Both registration and authentication ceremonies happen in two steps. The client makes an initial request to the server with some identifier. The code below uses the username, but the user handle works as well. After prompting the user for a unique username, the server constructs a `PublicKeyCredentialCreationOptions` for registration, which contains the user handle, the domain of the key, and a challenge token.
 
-#### Registration endpoints
+**Registration endpoints**:
 
 ```java
 public String newUserRegistration(@RequestParam String username,
@@ -517,7 +518,7 @@ public String newAuthRegistration(@RequestParam AppUser user, HttpSession sessio
 }
 ```
 
-#### Authentication endpoints
+**Authentication endpoints:**
 
 ```java
 @PostMapping("/login")
@@ -601,9 +602,27 @@ Information is sent to the browser, where it's encoded and passed to the WebAuth
 
 To kick off the registration ceremony, the client submits a uniquely identifying piece of information using a `fetch` request—in this case, a username. The server verifies that the username is unique and then creates and saves a 16-byte user handle. Configuration information about the server (like hostname and origin) was included in the `RelyingParty` bean when the server was created. This bean takes a `PublicKeyCredentialRequestOptions` object to collect the user information, and generates a challenge field, a random buffer of at least 16 bytes long. This object is cached on the server to preserve the challenge field, then turned into a JSON string and sent to the client.
 
-Once the information is received by the client, it's parsed into a JavaScript [`PublicKeyCredentialCreationOptions`](https://www.w3.org/TR/webauthn-2/#dictionary-makecredentialoptions) object. Then it is passed into the `navigator.credentials.create()` function as a `publicKey` option.
-
 > **IMPORTANT:** You will need to grab the client code from the example's [GitHub](https://github.com/oktadev/webauthn-java-example/tree/main/src/main/resources) repository.  Copy the `static` and `templates` folders to your project's `src/main/resources` directory.
+>
+> ```shell
+> # CSS
+> curl --create-dirs -O --output-dir src/main/resources/static/css https://raw.githubusercontent.com/oktadev/webauthn-java-example/main/src/main/resources/static/css/tachyons.css
+>
+> # JS
+> curl --create-dirs -O --output-dir src/main/resources/static/javascript https://raw.githubusercontent.com/oktadev/webauthn-java-example/main/src/main/resources/static/javascript/base64js.min.js
+> curl --create-dirs -O --output-dir src/main/resources/static/javascript https://raw.githubusercontent.com/oktadev/webauthn-java-example/main/src/main/resources/static/javascript/custom.js
+> curl --create-dirs -O --output-dir src/main/resources/static/javascript https://raw.githubusercontent.com/oktadev/webauthn-java-example/main/src/main/resources/static/javascript/login.js
+> curl --create-dirs -O --output-dir src/main/resources/static/javascript  https://raw.githubusercontent.com/oktadev/webauthn-java-example/main/src/main/resources/static/javascript/registerauth.js
+>
+> # Templates
+> curl --create-dirs -O --output-dir src/main/resources/templates https://raw.githubusercontent.com/oktadev/webauthn-java-example/main/src/main/resources/templates/index.html
+> curl --create-dirs -O --output-dir src/main/resources/templates https://raw.githubusercontent.com/oktadev/webauthn-java-example/main/src/main/resources/templates/register.html
+> curl --create-dirs -O --output-dir src/main/resources/templates https://raw.githubusercontent.com/oktadev/webauthn-java-example/main/src/main/resources/templates/login.html
+> curl --create-dirs -O --output-dir src/main/resources/templates https://raw.githubusercontent.com/oktadev/webauthn-java-example/main/src/main/resources/templates/welcome.html
+> curl --create-dirs -O --output-dir src/main/resources/templates https://raw.githubusercontent.com/oktadev/webauthn-java-example/main/src/main/resources/templates/header.html
+> ```
+
+Once the information is received by the client, it's parsed into a JavaScript [`PublicKeyCredentialCreationOptions`](https://www.w3.org/TR/webauthn-2/#dictionary-makecredentialoptions) object. Then it is passed into the `navigator.credentials.create()` function as a `publicKey` option.
 
 ```javascript
 .then(credentialCreateJson => ({
@@ -625,7 +644,7 @@ Once the information is received by the client, it's parsed into a JavaScript [`
     navigator.credentials.create(credentialCreateOptions))
 ```
 
-The browser checks with whatever source of authentication is available to it using the `Client to Authenticator Protocol` version two (CTAP2). This check can be implemented by the operating system, browser, or by a standalone authentication device connected by USB or Bluetooth. This device generates a series of fields—the most important are `credentialId` and `publicKey` (generated from a private key the authenticator should never share). Next, the browser collates this information into a `PublicKeyCredential`, which is turned into a JSON object, stringified, and sent back to the server.
+The browser checks with whatever source of authentication is available to it using the "Client to Authenticator Protocol version two" (CTAP2). This check can be implemented by the operating system, browser, or by a standalone authentication device connected by USB or Bluetooth. This device generates a series of fields—the most important are `credentialId` and `publicKey` (generated from a private key the authenticator should never share). Next, the browser collates this information into a `PublicKeyCredential`, which is turned into a JSON object, stringified, and sent back to the server.
 
 ```javascript
 .then(publicKeyCredential => ({
@@ -695,9 +714,17 @@ There are other devices that can be used for WebAuthn. For a complete list, you 
 * YubiKey
 * Apple Touch ID
 
+Start the application using your favorite IDE or run:
+
+```shell
+mvn spring-boot:run
+```
+
+Then open your browser to `http://localhost:8080`.
+
 {% img blog/webauthn-java/app-welcome-page.png alt:"Successful authentication" width:"800" %}{: .center-image }
 
-## An easier way
+## An easier way to WebAuthn
 
 Walking through this sample is a great way to learn how WebAuthn works in Java, but it's still only part of an overall login experience. Your application needs a way to deal with other user scenarios, such as what to do when someone loses their YubiKey or drops their phone in a pool. Both [Okta](https://help.okta.com/en/prod/Content/Topics/Security/mfa-webauthn.htm) and [Auth0](https://auth0.com/blog/auth0-webauthn-passwordless-with-device-biometrics-is-now-available/) make it easy to add WebAuthn factor support to your application without applying any of the code above.
 
