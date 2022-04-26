@@ -606,54 +606,54 @@ Once the information is received by the client, it's parsed into a JavaScript [`
 > **IMPORTANT:** You will need to grab the client code from the example's [GitHub](https://github.com/oktadev/webauthn-java-example/tree/main/src/main/resources) repository.  Copy the `static` and `templates` folders to your project's `src/main/resources` directory.
 
 ```javascript
-    .then(credentialCreateJson => ({
-        publicKey: {
-            ...credentialCreateJson.publicKey,
-            challenge: base64urlToUint8array(credentialCreateJson.publicKey.challenge),
-        user: {
-            ...credentialCreateJson.publicKey.user,
-            id: base64urlToUint8array(credentialCreateJson.publicKey.user.id),
-        },
-        excludeCredentials: credentialCreateJson.publicKey.excludeCredentials.map(credential => ({
-            ...credential,
-            id: base64urlToUint8array(credential.id),
-        })),
-        extensions: credentialCreateJson.publicKey.extensions,
-        },
-    }))
-    .then(credentialCreateOptions =>
-        navigator.credentials.create(credentialCreateOptions))
+.then(credentialCreateJson => ({
+    publicKey: {
+        ...credentialCreateJson.publicKey,
+        challenge: base64urlToUint8array(credentialCreateJson.publicKey.challenge),
+    user: {
+        ...credentialCreateJson.publicKey.user,
+        id: base64urlToUint8array(credentialCreateJson.publicKey.user.id),
+    },
+    excludeCredentials: credentialCreateJson.publicKey.excludeCredentials.map(credential => ({
+        ...credential,
+        id: base64urlToUint8array(credential.id),
+    })),
+    extensions: credentialCreateJson.publicKey.extensions,
+    },
+}))
+.then(credentialCreateOptions =>
+    navigator.credentials.create(credentialCreateOptions))
 ```
 
 The browser checks with whatever source of authentication is available to it using the `Client to Authenticator Protocol` version two (CTAP2). This check can be implemented by the operating system, browser, or by a standalone authentication device connected by USB or Bluetooth. This device generates a series of fields—the most important are `credentialId` and `publicKey` (generated from a private key the authenticator should never share). Next, the browser collates this information into a `PublicKeyCredential`, which is turned into a JSON object, stringified, and sent back to the server.
 
 ```javascript
-    .then(publicKeyCredential => ({
-        type: publicKeyCredential.type,
-        id: publicKeyCredential.id,
-        response: {
-        attestationObject: uint8arrayToBase64url(publicKeyCredential.response.attestationObject),
-        clientDataJSON: uint8arrayToBase64url(publicKeyCredential.response.clientDataJSON),
-        transports: publicKeyCredential.response.getTransports && publicKeyCredential.response.getTransports() || [],
-        },
-        clientExtensionResults: publicKeyCredential.getClientExtensionResults(),
-    }))
-    .then((encodedResult) => {
-        const form = document.getElementById("form");
-        const formData = new FormData(form);
-        formData.append("credential", JSON.stringify(encodedResult));
-        return fetch("/finishauth", {
-            method: 'POST',
-            body: formData
-        })
+.then(publicKeyCredential => ({
+    type: publicKeyCredential.type,
+    id: publicKeyCredential.id,
+    response: {
+    attestationObject: uint8arrayToBase64url(publicKeyCredential.response.attestationObject),
+    clientDataJSON: uint8arrayToBase64url(publicKeyCredential.response.clientDataJSON),
+    transports: publicKeyCredential.response.getTransports && publicKeyCredential.response.getTransports() || [],
+    },
+    clientExtensionResults: publicKeyCredential.getClientExtensionResults(),
+}))
+.then((encodedResult) => {
+    const form = document.getElementById("form");
+    const formData = new FormData(form);
+    formData.append("credential", JSON.stringify(encodedResult));
+    return fetch("/finishauth", {
+        method: 'POST',
+        body: formData
     })
+})
 ```
 
 The server receives the `PublicKeyCredential` object and verifies the challenge field against the cached `PublicKeyCredentialCreationOptions` object. It checks the origin of the response, then creates a new credential data object by saving the `PublicKey` and `credentialId`. The server also saves some helpful information like a user-friendly name, the associated `user_id` for username and user handle lookup, and the AAGUID field associated with the authenticator. In addition, it creates a count field for tracking the number of times the credential has been used. A simple application would probably only need to store `publicKey` and `credentialId` for the credential.
 
 {% img blog/webauthn-java/reg-page.png alt:"Register authentication frontend" width:"800" %}{: .center-image }
 
-### Client JavaScript
+### Client JavaScript overview
 
 The client is generating JavaScript objects containing byte fields that are Base64Url encoded. Don't confuse this with regular base64 encoding. Base64Url is mostly the same, but it encodes `-` and `_`, whereas the more familiar base64 encodes `+` and `\`. This enables Base64Url to safely encode filenames and URLs. When encoding and decoding strings, be sure that the application is using the correct data encoding.
 
