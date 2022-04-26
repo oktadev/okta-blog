@@ -597,7 +597,7 @@ public String finishLogin(@RequestParam String credential,
 
 Information is sent to the browser, where it's encoded and passed to the WebAuthn API as a [`PublicKeyCredential` object](https://developer.mozilla.org/en-US/docs/Web/API/PublicKeyCredential). The response containing all the data needed for verification is sent to the server and used to create or verify a credential.
 
-#### Registration ceremony
+#### Start the registration ceremony
 
 To kick off the registration ceremony, the client submits a uniquely identifying piece of information using a `fetch` request—in this case, a username. The server verifies that the username is unique and then creates and saves a 16-byte user handle. Configuration information about the server (like hostname and origin) was included in the `RelyingParty` bean when the server was created. This bean takes a `PublicKeyCredentialRequestOptions` object to collect the user information, and generates a challenge field, a random buffer of at least 16 bytes long. This object is cached on the server to preserve the challenge field, then turned into a JSON string and sent to the client.
 
