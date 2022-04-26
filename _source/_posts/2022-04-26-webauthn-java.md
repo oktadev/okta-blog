@@ -292,7 +292,7 @@ Add configuration for localhost in your `src/main/resources/application.properti
 
 ```properties
 authn.hostname=localhost
-authn.display=Otka WebAuthn Sample Application
+authn.display=Spring Boot WebAuthn Sample Application
 authn.origin=http://localhost:8080
 ```
 
