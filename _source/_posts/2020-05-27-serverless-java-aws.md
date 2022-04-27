@@ -545,13 +545,13 @@ Your request requires a valid JSON Web Token issued by your Okta authorization s
 
 Now you're going to use the OpenID Connect Debugger to generate a valid JWT that you can use to make a request against your serverless function.
 
-{% include setup/oidcdebugger.md responseType="code" %}
+{% include setup/oidcdebugger.md %}
 
-{% img blog/serverless-java-aws/oidc-debugger.png alt:"OIDC Debugger" width:"400" %}{: .center-image }
+{% img blog/serverless-java-aws/oidc-debugger.png alt:"OIDC Debugger" width:"650" %}{: .center-image }
 
 Scroll down and click **Send Request**. After you authenticate to your Okta org, Okta will redirect back and you'll see the Authorization code shown in the browser:
 
-{% img blog/serverless-java-aws/authorization-code.png alt:"Authorization Code from OIDC Debugger" width:"400" %}{: .center-image }
+{% img blog/serverless-java-aws/authorization-code.png alt:"Authorization Code from OIDC Debugger" width:"600" %}{: .center-image }
 
 You'll also see instructions for how to exchange the code for tokens. You'll can use HTTPie for this. See the command below. Don't forget to fill in the values in brackets: the **authorization code**, your **Okta domain**, your OIDC app **client ID**, and your OIDC app **client secret**.
 
