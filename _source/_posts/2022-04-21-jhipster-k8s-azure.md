@@ -19,7 +19,7 @@ In this tutorial, you'll learn how to deploy a JHipster-based, reactive microser
 
 The project has a few different pieces:
 
-- JHipster registry: a Eureka server for service discovery and a Spring Cloud Config server for centralized configuration management
+- JHipster Registry: a Eureka server for service discovery and a Spring Cloud Config server for centralized configuration management
 - Gateway: public gateway application built with Vue
 - Store: simple demo store API using Azure's Cosmo DB API for MongoDB
 - Blog: simple demo blog API using a Neo4J database
