@@ -347,7 +347,7 @@ To access the server now, you need a valid access token. You can use **OpenID Co
 
 {% img blog/spring-boot-mongodb/oidc-debugger.png alt:"OIDC Debugger" width:"600" %}{: .center-image }
 
-Click **Send Request**. If you are not logged into your Okta org, then you'll be required to log in. If you are (as is likely) already logged in, then the token will be generated for your signed-in identity.
+Click **Send Request**. If you are not logged into your Okta org, then you'll be required to log in. If you are (as is likely) already logged in, then the access token will be generated for your signed-in identity.
 
 {% img blog/spring-boot-mongodb/access-token.png alt:"Access Token from OIDC Debugger" width:"600" %}{: .center-image }
 

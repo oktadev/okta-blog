@@ -305,7 +305,7 @@ Success! Of sorts. You still need to get a valid token. Fortunately, OpenID Conn
 
 Scroll down and click **Send Request**.
 
-Copy the token from the success screen and save it in a shell variable:
+Copy the access token from the success screen and save it in a shell variable:
 
 ```bash
 TOKEN=eyJraWQiOiJxMm5rZmtwUDR...
