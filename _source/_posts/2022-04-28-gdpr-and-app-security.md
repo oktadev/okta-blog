@@ -18,6 +18,7 @@ As the internet has grown, so has the need to protect users from privacy invasio
 
 If your organization is subject to GDPR, you'll need to know how to stay in compliance. This article will break down the details of this policy so that you understand its potential effects on your application.
 
+{% include toc.md %}
 ## What to know about GDPR
 
 GDPR, which officially took effect on May 25, 2018, primarily encourages organizations to properly handle user data and privacy. Those not in compliance can face fines, in some cases [large ones](https://gdpr.eu/the-gdpr-meets-its-first-challenge-facebook/).
