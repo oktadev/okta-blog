@@ -528,7 +528,7 @@ Thus, to harden the OIDC client secret, you must (1) define an `ENCRYPTION_KEY` 
 
 Securing the Cosmos DB connection string is the same as the `ENCRYPT_KEY`: use Kubernetes secrets and `kubeseal` to properly encrypt it.
 
-Matt Raible did a great job of explaining secrets management in Kubernetes in his post, [Kubernetes to the Cloud with Spring Boot and JHipster](https://developer.okta.com/blog/2021/06/01/kubernetes-spring-boot-jhipster#encrypt-your-kubernetes-secrets). He also linked to a lot of great resources. I'm not going to go into much more detail explaining it here. Check the post out for more info.
+Matt Raible did a great job of explaining secrets management in Kubernetes in his post, [Kubernetes to the Cloud with Spring Boot and JHipster](https://developer.okta.com/blog/2021/06/01/kubernetes-spring-boot-jhipster#encrypt-your-kubernetes-secrets). He also linked to a lot of great resources. I'm not going to go into much more detail explaining it here. Check his post out for more info.
 
 The first thing you need to do is install `kubeseal` into the AKS cluster. You can take a look at [the `kubeseal` GitHub page](https://github.com/bitnami-labs/sealed-secrets) for more info.
 
