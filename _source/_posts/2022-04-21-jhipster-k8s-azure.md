@@ -84,7 +84,7 @@ Clone the modified JHipster reactive microservice project from GitHub and checko
 
 ```bash
 git clone git@github.com:moksamedia/okta-azure-kubernetes-cosmodb.git
-cd okta-azure-kubernetes-cosmodb
+cd azure-k8s-cosmosdb
 git fetch --all --tags
 git checkout tags/start -b working
 ```
