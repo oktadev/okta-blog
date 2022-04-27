@@ -256,7 +256,7 @@ Because the example app is an API, it expects the request to come with a valid t
 
 Scroll down and click **Send Request**.
 
-If all went well, you'll see a success page with the JWT. Leave this page open, as you'll need the token value in a moment.
+If all went well, you'll see a success page with the JWT. Leave this page open, as you'll need the access token value in a moment.
 
 ## Add JWT Auth To MicroProfile
 

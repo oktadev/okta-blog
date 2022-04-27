@@ -592,9 +592,9 @@ First, create a new **SPA** application in Okta. {% include setup/cli.md type="s
 
 Submit the form to start the authentication process. You'll receive an Okta login form if you are not logged in or you'll see the screen below with your custom token.
 
-{% img blog/spring-hibernate-guide/oidc-success.png alt:"OpenID connect - getting token" width:"800" %}{: .center-image }
+{% img blog/spring-hibernate-guide/oidc-success.jpg alt:"OpenID connect - getting token" width:"800" %}{: .center-image }
 
-The token will be valid for one hour so you can do a lot of testing with your API. It's simple to use the token, just copy it and modify the curl command to use it as follows:
+The access token will be valid for one hour so you can do a lot of testing with your API. It's simple to use the token, just copy it and modify the curl command to use it as follows:
 
 ```bash
 export TOKEN=${YOUR_TOKEN}
