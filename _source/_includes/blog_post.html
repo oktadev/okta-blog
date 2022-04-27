@@ -16,8 +16,13 @@
             Last Updated: <a href="#changelog">{{ last_updated_date }}</a>
         </div>
         {% endif %}
+        {%- if page.canonical -%}
+        <div class="BlogPost-canonical">
+           Originally published at <a href="{{ page.canonical }}">{{ page.canonical | split: '//' | last | split: '/' | first }}</a>.
+        </div>
+        {% endif %}
         <h1 class="BlogPost-title p-name">
-            {% if page.layout == 'blog_index' or page.layout == 'author' %}
+            {% if page.layout == 'blog_index' or page.layout == 'author' or page.layout == 'tag' %}
             <a href="{{ post.url }}">{{ post.title }}</a>
             {% else %}
             <span>{{ post.title }}</span>
@@ -72,7 +77,7 @@
         {% endfor %}
     {% endif %}
 
-    <a href="{{ page.url }}" class="u-url" aria-hidden="true"></a>
+    <a href="{{ post.url }}" class="u-url" aria-hidden="true"></a>
 
     {% if page.layout == 'blog_post' and post.comments != false %}
     <a id="comments"></a>

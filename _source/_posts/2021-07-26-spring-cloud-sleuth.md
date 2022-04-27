@@ -295,7 +295,7 @@ This is expected. You need to include a valid JWT.
 
 ## Create a Valid JWT with OIDC Debugger
 
-{% include setup/oidcdebugger.md responseType="token" %}
+{% include setup/oidcdebugger.md %}
 
 Scroll down and click **SEND REQUEST**.
 
@@ -303,7 +303,7 @@ You should get a success page with an access token. Then, if you're curious, you
 
 {% img blog/spring-cloud-sleuth/oidc-debugger.png alt:"Token Success" width:"800" %}{: .center-image }
 
-Copy the token value to the clipboard.
+Copy the access token's value to the clipboard.
 
 In the bash shell that you will make the HTTP requests from, save the token value as a shell variable.
 

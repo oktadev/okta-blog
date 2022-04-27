@@ -15,11 +15,11 @@ type: awareness|conversion
 ---
 ## JHipster Azure AKS Microservice
 
-In this tutorial, you're going to deploy a JHipster-based, reactive microservice to Azure Kubernetes Service (AKS). You'll use Azure's Cosmos DB as a persistent store for one of the services. For security, you'll use Okta as an OAuth and OIDC provider. You'll also securely encrypt all secrets in the project configuration files using Kubernetes secrets and `kubeseal`. This tutorial focuses on deploying an already generated project to Azure AKS. It does not go into great detail about generating the project. To see how the project was generated using JHipster, take a look at [this previous tutorial](https://developer.okta.com/blog/2021/01/20/reactive-java-microservices). 
+In this tutorial, you'll learn how to deploy a JHipster-based, reactive microservice to Azure Kubernetes Service (AKS). You'll use Azure's Cosmos DB as a persistent store for one of the services. For security, you'll use Okta as an OAuth 2.0 and OpenID Connect (OIDC) provider. You'll also securely encrypt all secrets in the project configuration files using Kubernetes secrets and `kubeseal`. This tutorial focuses on deploying an already generated project to Azure AKS. It does not go into great detail about generating the project. To see how the project was generated using JHipster, take a look at [Reactive Java Microservices with Spring Boot and JHipster](https://developer.okta.com/blog/2021/01/20/reactive-java-microservices). 
 
 The project has a few different pieces:
 
-- JHipster registry: a Eureka server for service discovery and a Spring Cloud Config server for centralized configuration management
+- JHipster Registry: a Eureka server for service discovery and a Spring Cloud Config server for centralized configuration management
 - Gateway: public gateway application built with Vue
 - Store: store API using Azure's Cosmo DB API for MongoDB
 - Blog: blog API using a Neo4J database
@@ -27,6 +27,8 @@ The project has a few different pieces:
 {% img blog/jhipster-k8s-azure/microservice-structure.png alt:"Microservice structure" width:"800" %}{: .center-image }
 
 This tutorial has a lot of different technologies in it. I've tried to make it as simple and as explicit as possible, but it's probably helpful to have some basic knowledge of Docker and Kubernetes before you start.
+
+{% include toc.md %}
 
 If you're already familiar with all the tech in this tutorial, you can skip ahead to the prerequisites section. If not, I'm going to explain them a little before we move on.
 
@@ -86,7 +88,7 @@ Clone the modified JHipster reactive microservice project from GitHub and checko
 
 ```bash
 git clone git@github.com:moksamedia/okta-azure-kubernetes-cosmodb.git
-cd okta-azure-kubernetes-cosmodb
+cd azure-k8s-cosmosdb
 git fetch --all --tags
 git checkout tags/start -b working
 ```
@@ -562,7 +564,7 @@ Thus, to harden the OIDC client secret, you must (1) define an `ENCRYPTION_KEY` 
 
 Securing the Cosmos DB connection string is the same as the `ENCRYPT_KEY`: use Kubernetes secrets and `kubeseal` to properly encrypt it.
 
-Matt Raible did a great job of explaining secrets management in Kubernetes in his post, [Kubernetes to the Cloud with Spring Boot and JHipster](https://developer.okta.com/blog/2021/06/01/kubernetes-spring-boot-jhipster#encrypt-your-kubernetes-secrets). He also linked to a lot of great resources. I'm not going to go into much more detail explaining it here. Check the post out for more info.
+Matt Raible did a great job of explaining secrets management in Kubernetes in his post, [Kubernetes to the Cloud with Spring Boot and JHipster](https://developer.okta.com/blog/2021/06/01/kubernetes-spring-boot-jhipster#encrypt-your-kubernetes-secrets). He also linked to a lot of great resources. I'm not going to go into much more detail explaining it here. Check his post out for more info.
 
 The first thing you need to do is install `kubeseal` into the AKS cluster. You can take a look at [the `kubeseal` GitHub page](https://github.com/bitnami-labs/sealed-secrets) for more info.
 
@@ -687,7 +689,10 @@ Thanks to [Julien Dubois](https://twitter.com/juliendubois) for help getting thi
 
 In this project you saw how to deploy a JHipster microservice to Azure AKS. You saw how you can use a managed Cosmos DB instance in place of a MongoDB pod in Kubernetes. You saw how to deploy the app first with Docker Compose and then later with `kubectl` and the Azure CLI. Finally, you properly encrypted all of the sensitive configuration values using a combination of JHipster registry encryption, Kubernetes secrets, and `kubeseal`. 
 
-As I mentioned at the top, this project is based on two of Matt Raible's tutorials: *[Reactive Java Microservices with Spring Boot and JHipster](https://developer.okta.com/blog/2021/01/20/reactive-java-microservices)* and *[Kubernetes to the Cloud with Spring Boot and JHipster](https://developer.okta.com/blog/2021/06/01/kubernetes-spring-boot-jhipster)*. 
+As I mentioned at the top, this project is based on two of Matt Raible's tutorials: 
+
+- *[Reactive Java Microservices with Spring Boot and JHipster](https://developer.okta.com/blog/2021/01/20/reactive-java-microservices)* 
+- *[Kubernetes to the Cloud with Spring Boot and JHipster](https://developer.okta.com/blog/2021/06/01/kubernetes-spring-boot-jhipster)*. 
 
 Deepu Sasidharan wrote a tutorial, [Deploying JHipster Microservices on Azure Kubernetes Service (AKS)](https://deepu.tech/deploying-jhipster-microservices-on-azure-kubernetes-service-aks/), that was also a big help.
 

@@ -16,6 +16,7 @@ tweets:
 image: blog/spring-data-jpa/secure-spring-data.png
 type: conversion
 changelog:
+- 2022-01-25: Updated to use `.okta.env` instead of `application.properties`. This change is necessary since the okta-spring-boot-sample now uses [dotenv to load Okta settings](https://github.com/okta-samples/okta-spring-boot-sample/pull/22). Changes to this post can be viewed in [okta-blog#1050](https://github.com/oktadev/okta-blog/pull/1050).
 - 2021-06-23: Add `spring.jpa.defer-datasource-initialization=true` to `application.properties` for Spring Boot 2.5. Thanks to Pranay Singhal for [the tip](http://disq.us/p/2hktl9x)! You can see changes in this post at [okta-blog#820](https://github.com/oktadev/okta-blog/pull/820). Changes in the example can be viewed in [okta-spring-data-jpa-example#5](https://github.com/oktadev/okta-spring-data-jpa-example/pull/5).
 - 2021-01-26: Updated post to use Spring Boot 2.4.2 and Spring Data 2020.0. See the code changes in the [example on GitHub](https://github.com/oktadev/okta-spring-data-jpa-example/pull/4). Changes to this post can be viewed in [okta-blog#536](https://github.com/oktadev/okta-blog/pull/536)
 ---
@@ -66,6 +67,8 @@ If you would rather follow along by watching a video, check out the screencast b
 <iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/1i96a_0wCFM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
+**NOTE**: This video puts your settings in `src/main/resources/application.properties`. We've since changed the default behavior to use [spring-dotenv](https://github.com/okta-samples/okta-spring-boot-sample/pull/22).
+
 ## Bootstrap a Spring Data JPA Project with the Okta CLI
 
 Open a shell and, in a reasonable parent folder location, and run the Okta CLI.
@@ -85,8 +88,9 @@ Created OIDC application, client-id: 0oa168nw50nxJSSmg4x7
 Change the directory:
     cd spring-boot
 
-Okta configuration written to: src/main/resources/application.properties
-Don't EVER commit src/main/resources/application.properties into source control
+Okta configuration written to .okta.env.
+
+Add this file to .gitignore!
 
 Run this application with:
     ./mvnw spring-boot:run
@@ -560,10 +564,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 Remember that you or the Okta CLI put the necessary OAuth configuration for Okta in the `src/main/resources/application.properties` file, which should look something like the following:
 
 ```properties
-okta.oauth2.issuer=https://{yourOktaDomain}/oauth2/default
-okta.oauth2.client-id={yourClientId}
-okta.oauth2.client-secret={yourClientSecret}
+okta.oauth2.issuer=${env.ISSUER}
+okta.oauth2.client-id=${env.CLIENT_ID}
+okta.oauth2.client-secret=${env.CLIENT_SECRET}
 ```
+
+The `env.*` variables are read from `.okta.env` using [spring-dotenv](https://github.com/paulschwarz/spring-dotenv). 
 
 Stop (Control-C) and re-start the Spring Boot app.
 
@@ -586,7 +592,13 @@ HTTP/1.1 401
 
 ## Generate an Access Token JWT
 
-You used Okta as your OAuth 2.0 and OpenID Connect (OIDC) provider when you used the Okta CLI. The CLI created an OIDC application for you on the Okta developer site and filled in the config details in the `application.properties` file. Your application is now expecting a JSON Web Token (JWT) when you make requests.
+You used Okta as your OAuth 2.0 and OpenID Connect (OIDC) provider when you used the Okta CLI. The CLI created an OIDC application for you on the Okta developer site and populated the config details in a `.okta.env` file. Your application is now expecting a JSON Web Token (JWT) when you make requests.
+
+**IMPORTANT:** Keep your secrets out of source control by adding `okta.env` to your `.gitignore` file: 
+
+```bash
+echo .okta.env >> .gitignore
+```
 
 To generate a JWT, you can use the [OIDC Debugger](https://oidcdebugger.com/).
 
