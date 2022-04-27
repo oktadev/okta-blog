@@ -48,11 +48,13 @@ This tutorial has a lot of pieces. Install the required software below and sign 
 
 - [Docker](https://docs.docker.com/get-docker/): you'll need to have both **Docker Engine** and **Docker Compose** installed (If you install the docker desktop, this will automatically install both. On Linux, if you install Docker Engine individually, you will have to also [install Docker Compose](https://docs.docker.com/compose/install/)) separately.
 - [Docker Hub](https://hub.docker.com/): you'll need this to host the docker images so that Azure can pull them
-- [Java 11](https://adoptopenjdk.net/)+
+- [Java 11](https://adoptopenjdk.net/): this post requires Java 11. If you need to manage multiple Java versions, SDKMAN! is a good solution. Check out [their docs to install it](https://sdkman.io/installit).
 - [Okta CLI](https://cli.okta.com/manual/#installation): you'll use Okta to add security to the microservice network. You can register for a free account from the CLI.
 - [Azure Cloud account](https://azure.microsoft.com/en-us/free/): they offer an account with a $200 credit to start out. 
 - [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli): you'll use the Azure CLI to manage the Kubernetes cluster
 - [kubectl](https://kubernetes.io/docs/tasks/tools/): CLI to manage Kubernetes clusters
+
+If you have never had an Azure account before, you can create a new one that will allow free-tier access and has $200 credit allocated to it. This is more than enough to finish this tutorial. However, the credit does expire after 30 days. If you do not have credit left or your credit has expired, this tutorial should only cost a few dollars **if you stop and start the AKS cluster when you are not working on it** You can keep an eye on your costs using the cost explorer in the Azure portal and set alerts if you are concerned about it.
 
 #### Modifying the Generated JHipster Microservice Project for Azure and Cosmos DB
 
@@ -91,7 +93,37 @@ git checkout tags/start -b working
 
 You need to create an Azure Cosmos DB instance. You can either use the [Azure Portal](portal.azure.com) or the CLI to create a new Cosmos DB instance. Make sure you create a one that is **Azure Cosmos DB API for MongoDB** (Cosmos DB supports various database types). If you use the portal, it's pretty self-explanatory but don't forget to enable the free tier and enable a public network.
 
-Here are the instructions for using the CLI. This assumes you have already logged into the Azure CLI (if not, do so first using `az login` from a Bash shell).
+Here are the instructions for using the CLI. 
+
+Log into the Azure CLI using a Bash shell. This will redirect you to a browser to log into the Azure portal.
+```bash
+az login
+```
+
+This should show you the subscriptions for your account.
+```bash
+[
+  {
+    "cloudName": "AzureCloud",
+    "homeTenantId": "21c44b6d-a007-4d48-80cb-c45966ca1af9",
+    "id": "90eb9f51-b4be-4a9f-a69f-11b7668a874d",
+    "isDefault": true,
+    "managedByTenants": [],
+    "name": "Azure subscription 1",
+    "state": "Enabled",
+    "tenantId": "21c44b6d-a007-4d48-80cb-c45966ca1af9",
+    "user": {
+      "name": "andrewcarterhughes@outlook.com",
+      "type": "user"
+    }
+  }
+]
+```
+
+Set the subscription in the shell. Your subscription is probably `Azure subscription 1`, as that is the default. Make sure you use the subscription that was created when you registered for a free account (or whatever subscription you want if you already have an account).
+```bash
+az account set --subscription <you-subscription-name>
+```
 
 Open a Bash shell. Create a resource group with the following command.
 
