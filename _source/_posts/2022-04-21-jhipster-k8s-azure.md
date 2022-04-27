@@ -95,7 +95,7 @@ git checkout tags/start -b working
 
 ## Create the Azure Cosmos DB Mongo Database
 
-You need to create an Azure Cosmos DB instance. You can either use the [Azure Portal](portal.azure.com) or the CLI to create a new Cosmos DB instance. Make sure you create a one that is **Azure Cosmos DB API for MongoDB** (Cosmos DB supports various database types). If you use the portal, it's pretty self-explanatory but don't forget to enable the free tier and enable a public network.
+You need to create an Azure Cosmos DB instance. You can either use the [Azure Portal](https://portal.azure.com) or the CLI to create a new Cosmos DB instance. Make sure you create a one that is **Azure Cosmos DB API for MongoDB** (Cosmos DB supports various database types). If you use the portal, it's pretty self-explanatory but don't forget to enable the free tier and enable a public network.
 
 Here are the instructions for using the CLI. 
 
