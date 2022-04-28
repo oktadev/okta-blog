@@ -93,7 +93,6 @@ To see Ionic + JHipster in action, let's look at a https://auth0.com/blog/full-s
 [source,shell]
 ----
 git clone https://github.com/oktadev/auth0-full-stack-java-example.git backend
-cd backend
 ----
 
 Install JHipster 7.8 and the JHipster Ionic blueprint:
@@ -101,7 +100,7 @@ Install JHipster 7.8 and the JHipster Ionic blueprint:
 [source,shell]
 ----
 npm i -g generator-jhipster@7.8
-npm i -g generator-jhipster-ionic@8
+npm i -g generator-jhipster-ionic
 ----
 
 Create a new directory to hold your Ionic project, then run `jhipster-ionic`:
@@ -117,7 +116,7 @@ Provide the path to your backend JHipster app and name your app `flickr2`.
 
 image::{% asset_path 'blog/jhipster-ionic-blueprint/jhipster-ionic-flickr2.png' %}[alt=JHipster Ionic with Flickr2 app,width=800,align=center]
 
-That's it! The blueprint will generate an Ionic client, complete with screens for editing entities, unit tests, and end-to-end tests with Protractor. Yes, we're https://github.com/jhipster/generator-jhipster-ionic/issues/639[working on moving to Cypress] for end-to-end tests.
+That's it! The blueprint will generate an Ionic client, complete with screens for editing entities, unit tests, and end-to-end tests with Cypress.
 
 Petty slick, don't you think?
 
@@ -147,7 +146,7 @@ jhipster:
     max-age: 1800
 ----
 
-Then, start the backend app using `./mvnw -Pprod`. You should be able to log in at `http://localhost:8080` (with `admin/admin`) and add new photos using *Entities* > *Photos*. Add a few photos so you have some data to work with.
+Then, start the backend app using `./mvnw -Pprod`. You should be able to log in at `\http://localhost:8080` (with `admin/admin`) and add new photos using *Entities* > *Photos*. Add a few photos so you have some data to work with.
 
 image::{% asset_path 'blog/jhipster-ionic-blueprint/flickr2-photos.jpg' %}[alt=Flickr2 photos,width=800,align=center]
 
@@ -180,30 +179,30 @@ To add this same functionality to your Ionic app, modify `src/app/pages/entities
 </div>
 ----
 
-You'll want to comment out the following lines in `e2e/entities/photo/photo.e2e-spec.ts` so Protractor doesn't try to enter these values when running end-to-end (e2e) tests.
+You'll want to comment out (or delete) the following lines in `cypress/integration/entities/photo/photo.e2e-spec.ts` so Cypress doesn't try to enter these values when running end-to-end (e2e) tests.
 
 [source,ts]
 ----
-// await photoUpdatePage.setHeightInput(height);
-// await photoUpdatePage.setWidthInput(width);
+/*if (photoSample.height !== undefined && photoSample.height !== null) {
+  photoUpdatePage.setHeightInput(photoSample.height);
+}
+if (photoSample.width !== undefined && photoSample.width !== null) {
+  photoUpdatePage.setWidthInput(photoSample.width);
+}
+if (photoSample.taken !== undefined && photoSample.taken !== null) {
+  photoUpdatePage.setTakenInput(photoSample.taken);
+}
+if (photoSample.uploaded !== undefined && photoSample.uploaded !== null) {
+  photoUpdatePage.setUploadedInput(photoSample.uploaded);
+}*/
 ----
 
-When you save these files, the Ionic CLI will auto-compile and reload the app in your browser. You can prove everything works as expected by stopping your app (with kbd:[Ctrl + 0]) and running all the e2e tests.
+When you save these files, the Ionic CLI will auto-compile and reload the app in your browser. You can prove everything works as expected by stopping your app (with kbd:[Ctrl + C]) and running all the e2e tests.
 
 [source,shell]
 ----
 npm run e2e
 ----
-
-////
-At this point, the Ionic e2e tests fail to compile
-
-https://github.com/jhipster/generator-jhipster-ionic/issues/579
-
-e2e/entities/photo/photo.e2e-spec.ts:60:41 - error TS2552: Cannot find name 'image'. Did you mean 'Image'?
-
-60     await photoUpdatePage.setImageInput(image);
-////
 
 == Run your Ionic app on iOS using Capacitor
 
