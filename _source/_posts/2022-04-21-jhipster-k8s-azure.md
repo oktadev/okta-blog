@@ -87,7 +87,7 @@ In the `k8s/store-k8s` directory:
 Clone the modified JHipster reactive microservice project from GitHub and checkout the `start` tag.
 
 ```bash
-git clone git@github.com:moksamedia/okta-azure-kubernetes-cosmodb.git
+git clone https://github.com/oktadev/okta-azure-kubernetes-cosmosdb-example.git azure-k8s-cosmosdb
 cd azure-k8s-cosmosdb
 git fetch --all --tags
 git checkout tags/start -b working
@@ -449,7 +449,7 @@ You can manage a Kubernetes service purely with `kubectl`. However, there are so
 
 Open a Bash shell and navigate to the `k8s` subdirectory of the project.
 
-Run the microservice with: 
+Deploy your microservice architecture to Azure with: 
 
 ```bash
 ./kubectl-apply.sh -f
