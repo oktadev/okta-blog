@@ -159,7 +159,7 @@ This will list four connection strings. You need to save (copy and paste somewhe
 {
   "connectionStrings": [
     {
-      "connectionString": "mongodb://jhipster-cosmosdb:XBq5KZ81V8hM63KjCOezi1arq...,
+      "connectionString": "mongodb://jhipster-cosmosdb:XBq5KZ81V8hM63KjCOezi1arq...",
       "description": "Primary MongoDB Connection String"
     },
     ...
@@ -417,7 +417,7 @@ Both the encryption key and the database connection string are sensitive values 
 
 ## Build Docker Images and Push to Docker Hub
 
-Previously you built the docker images, but you left them in the local repository. You need to upload them to Docker Hub so that Azure AKS can find them. In each of the three directories (`blog`, `store`, and `gateway`), run the following command. Save your docker repo name in a Bash variable as shown below and you can copy and paste the commands and run them in each service directory.
+Previously you built the docker images, but you left them in the local repository. You need to upload them to Docker Hub so that Azure AKS can find them. If you haven't already [signed up for a Docker Hub account](https://hub.docker.com/), please do so now. In each of the three directories (`blog`, `store`, and `gateway`), run the following command. Save your docker repo name in a Bash variable as shown below and you can copy and paste the commands and run them in each service directory.
 
 ```bash
 DOCKER_REPO_NAME=<docker-repo-name>
@@ -468,7 +468,7 @@ kubectl apply -f store-${suffix}/
 ...
 ```
 
-You can check on your pods with the following command. Everything was up and running almost immediately for me on AKS.
+You can check on your pods with the following command. If you're on the free tier, this may take a few minutes. Using the pay-as-you-go plan, everything was up and running almost immediately for me.
 
 ```bash
 kubectl get pods -n demo
@@ -564,7 +564,7 @@ When you use JHipster registry encryption, you have to define an `ENCRYPT_KEY` v
 
 The Cosmos DB connection string (the `SPRING_DATA_MONGODB_URI` env var) is a Kubernetes deployment value, same as the `ENCRYPT_KEY`, not a Spring Cloud Config value.
 
-Thus, to harden the OIDC client secret, you must (1) define an `ENCRYPTION_KEY` to enable JHipster registry encryption, (2) use JHipster registry to encrypt the client ID and place the encrypted value in the `application-configmap.yml`, and (3) use Kubernetes secrets and `kubeseal` to properly encrypt the `ENCRYPTION_KEY`. 
+Thus, to harden the OIDC client secret, you must (1) define an `ENCRYPT_KEY` to enable JHipster registry encryption, (2) use JHipster registry to encrypt the client ID and place the encrypted value in the `application-configmap.yml`, and (3) use Kubernetes secrets and `kubeseal` to properly encrypt the `ENCRYPT_KEY`. 
 
 Securing the Cosmos DB connection string is the same as the `ENCRYPT_KEY`: use Kubernetes secrets and `kubeseal` to properly encrypt it.
 
