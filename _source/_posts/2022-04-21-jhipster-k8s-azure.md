@@ -143,11 +143,11 @@ az cosmosdb create --name jhipster-cosmosdb --resource-group australia-east --ki
 
 Once that command returns (it may take a few minutes), it should list a lot of JSON showing properties of the created Cosmos DB account.
 
-If you get an error that says`(BadRequest) DNS record for cosmosdb under zone Document is already taken.` you need to change the `--name` parameter to something else.
+If you get an error that says`(BadRequest) DNS record for cosmosdb under zone Document is already taken.` you need to change the `--name` parameter to something else. Since this is used to generate the public URI for the database it needs to be unique across Azure. Try adding your name or some random numbers if it clashes.
 
 I'm using the Australia East location because that was the location that had free tier AKS nodes available when I wrote this tutorial. You can use any resource group you want as long as it allows you to create the AKS cluster later in the tutorial. Even if you can't use the free tier or the free credits, if you stop and start the AKS cluster between working on the tutorial, the cost should be very small (mine was less than a few dollars). The application should still work if the Cosmos DB database is in a different resource group and region since the database URI is configured to be publicly accessible.
 
-List the connection string for the Cosmos DB API for MongoDB endpoint using the following command.
+List the connection string for the Cosmos DB API for MongoDB endpoint using the following command. If you change the database name above, you will need to update it in the command below.
 
 ```bash
 az cosmosdb keys list --type connection-strings --name jhipster-cosmosdb --resource-group australia-east
@@ -686,7 +686,7 @@ Log in. Make sure everything works. Kick the tires. Start a blog. Create some pr
 Once you're done with everything, you can delete the resource group. This will also delete all of the resources in the resource group, including the Cosmos database and the AKS cluster.
 
 ```bash
-az aks delete --name jhipster-demo --resource-group australia-east --no-wait --yes
+az group delete --name australia-east --no-wait --yes
 ```
 
 ## Azure AKS, Kubernetes, and Spring Boot microservice deployed!
