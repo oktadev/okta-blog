@@ -38,7 +38,7 @@ If you're already familiar with all the tech in this tutorial, you can skip ahea
 
 The project in this tutorial uses Spring Boot with Java resource servers and a Vue frontend. It was built with the JHipster generator that quickly scaffolds a new application based on either an interactive shell or a DSL file. You can read more about generating microservices with JHipster [in their docs](https://www.jhipster.tech/creating-microservices/). One of the slick features of the JHipster generator is that you can generate data entities along with applications.
 
-The [JHipster registry](https://www.jhipster.tech/jhipster-registry/) that is generated with the microservice includes two important functions: a Eureka server and a Spring Cloud Config server. The Eureka server is what allows the microservices to dynamically find each other without having to use hard-coded URIs. This means that the microservice can scale and services can be replaced without causing problems. It's a bit like a phonebook or a DNS service for the microservice. The [Spring Cloud Config](https://cloud.spring.io/spring-cloud-config/reference/html/) server allows project configuration to be centralized and distributed to all of the different services. You'll use this feature in this tutorial to configure all of the services for Okta OAuth in one place.
+The [JHipster Registry](https://www.jhipster.tech/jhipster-registry/) that is generated with the microservice includes two important functions: a Eureka server and a Spring Cloud Config server. The Eureka server is what allows the microservices to dynamically find each other without having to use hard-coded URIs. This means that the microservice can scale and services can be replaced without causing problems. It's a bit like a phonebook or a DNS service for the microservice. The [Spring Cloud Config](https://cloud.spring.io/spring-cloud-config/reference/html/) server allows project configuration to be centralized and distributed to all of the different services. You'll use this feature in this tutorial to configure all of the services for Okta OAuth in one place.
 
 The [JHipster API Gateway](https://www.jhipster.tech/api-gateway/) is the public face of your microservice. All public traffic comes through this service, which also includes the Vue frontend. The gateway is one of three application types that can be created by the JHipster generator DSL. The other two are monolith and microservice. A monolith is a non-microservice application with a single service.
 
@@ -58,7 +58,7 @@ This tutorial has a lot of pieces. Install the required software below and sign 
 - [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli): you'll use the Azure CLI to manage the Kubernetes cluster
 - [kubectl](https://kubernetes.io/docs/tasks/tools/): CLI to manage Kubernetes clusters
 
-If you have never had an Azure account before, you can create a new one that will allow free-tier access and has $200 credit allocated to it. This is more than enough to finish this tutorial. However, the credit does expire after 30 days. If you do not have credit left or your credit has expired, this tutorial should only cost a few dollars **if you stop and start the AKS cluster when you are not working on it** You can keep an eye on your costs using the cost explorer in the Azure portal and set alerts if you are concerned about it.
+If you have never had an Azure account before, you can create a new one that will allow free-tier access and has $200 credit allocated to it. This is more than enough to finish this tutorial. However, the credit does expire after 30 days. If you do not have credit left or your credit has expired, this tutorial should only cost a few dollars **if you stop and start the AKS cluster when you are not working on it** You can keep an eye on your costs using the cost explorer in the Azure portal and set alerts if you are concerned about it. Upgrading to pay-as-you-go may also alleviate some resource throttling issues around testing the AKS clusters.
 
 ## Modifying the generated JHipster microservice project for Azure and Cosmos DB
 
@@ -515,7 +515,9 @@ kubectl port-forward svc/jhipster-registry -n demo 8761
 
 Open a browser and navigate to `http://localhost:8761`. You will be redirected to the Okta login screen, after which you will be taken to the registry.
 
-Make sure everything is green. If you have an error, check the logs for the pod that caused the error. You can restart a specific deployment by deleting it and re-applying it. For example, to restart the store, you can use the commands below from the `k8s` directory. I found that I sometimes had to delete and restart the store to get it to work.
+Make sure everything is green. If you have an error, check the logs for the pod that caused the error. You can restart a specific deployment by deleting it and re-applying it. For example, to restart the store, you can use the commands below from the `k8s` directory. 
+
+I found that sometimes I had to delete and restart the store to get it to work. I think this has to do with resource availability as the cluster boots.
 
 ```bash
 kubectl delete -f store-k8s/
@@ -532,7 +534,7 @@ Go to `http://localhost:8080`.
 
 Authenticate with Okta. Make sure you can add blogs, posts, tags, and products. Because the store service uses the same Cosmos DB instance that you were using with Docker Compose locally, any test products you created earlier will still be there.
 
-In preparation for the next step. delete everything you just deployed to AKS in the `demo` namespace.
+In preparation for the next step, delete everything you just deployed to AKS in the `demo` namespace.
 
 ```bash
 kubectl delete all --all -n demo
@@ -542,7 +544,7 @@ The first `all` refers to all resource types. The second `--all` refers to every
 
 This is one of the benefits of using a namespace. You can do a delete like this. If you do this from the default namespace, you'll risk deleting things you didn't mean to delete or pods added by Kubernetes and Azure for infrastructure administration.
 
-You can also just delete the entire namespace. It will be recreated if you use the Bash script to apply the deployments. This deletes absolutely everything from the namespace but is a little slower. 
+You can also just delete the entire namespace. It will be recreated if you use the Bash script to apply the deployments. This deletes absolutely everything from the namespace but is a little slower. If you do this, you need to make sure that you recreate the namespace later (I'll remind you).
 
 ```bash
 kubectl delete namespace demo
@@ -605,7 +607,7 @@ kubectl create secret generic project-secrets \
   --dry-run=client -o yaml > secrets.yml
 ```
 
-If you deleted the namespace earlier, you need to create it again.
+If you deleted the namespace earlier, you need to create it again (it won't hurt to run this if you didn't delete the namespace).
 
 ```bash
 kubectl apply -f namespace.yml
