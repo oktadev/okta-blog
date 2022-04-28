@@ -155,7 +155,8 @@ az cosmosdb keys list --type connection-strings --name jhipster-cosmosdb --resou
 
 This will list four connection strings. You need to save (copy and paste somewhere) the first, the primary connection string. (Ellipses have been used for brevity below)
 
-```bash
+```json
+{
   "connectionStrings": [
     {
       "connectionString": "mongodb://jhipster-cosmosdb:XBq5KZ81V8hM63KjCOezi1arq...,
