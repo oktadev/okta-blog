@@ -51,7 +51,7 @@ The generator creates four applications. They are designed to be built and run a
 This tutorial has a lot of pieces. Install the required software below and sign up for an Azure Cloud account. You'll need a free Okta account, but you can use the Okta CLI to sign up for it later in the tutorial.
 
 - [Docker](https://docs.docker.com/get-docker/): you'll need to have both **Docker Engine** and **Docker Compose** installed (If you install the docker desktop, this will automatically install both. On Linux, if you install Docker Engine individually, you will have to also [install Docker Compose](https://docs.docker.com/compose/install/)) separately.
-- [Docker Hub](https://hub.docker.com/): you'll need this to host the docker images so that Azure can pull them
+- [Docker Hub](https://hub.docker.com/): you'll need this to host the docker images so that Azure can pull them.
 - [Java 11](https://adoptopenjdk.net/): this post requires Java 11. If you need to manage multiple Java versions, SDKMAN! is a good solution. Check out [their docs to install it](https://sdkman.io/installit).
 - [Okta CLI](https://cli.okta.com/manual/#installation): you'll use Okta to add security to the microservice network. You can register for a free account from the CLI.
 - [Azure Cloud account](https://azure.microsoft.com/en-us/free/): they offer an account with a $200 credit to start out. 
@@ -60,7 +60,7 @@ This tutorial has a lot of pieces. Install the required software below and sign 
 
 If you have never had an Azure account before, you can create a new one that will allow free-tier access and has $200 credit allocated to it. This is more than enough to finish this tutorial. However, the credit does expire after 30 days. If you do not have credit left or your credit has expired, this tutorial should only cost a few dollars **if you stop and start the AKS cluster when you are not working on it** You can keep an eye on your costs using the cost explorer in the Azure portal and set alerts if you are concerned about it.
 
-## Modifying the Generated JHipster Microservice Project for Azure and Cosmos DB
+## Modifying the generated JHipster microservice project for Azure and Cosmos DB
 
 This project is based on two of Matt Raible's tutorials: *[Reactive Java Microservices with Spring Boot and JHipster](https://developer.okta.com/blog/2021/01/20/reactive-java-microservices)* and *[Kubernetes to the Cloud with Spring Boot and JHipster](https://developer.okta.com/blog/2021/06/01/kubernetes-spring-boot-jhipster)*. In these tutorials, he builds a reactive Java microservice and shows how to deploy it to Google Cloud (GCP). I have modified the project to work with Azure and Cosmos DB.
 
@@ -68,7 +68,7 @@ You will first run the project using Docker Compose. Once you have this working,
 
 Listed briefly, the changes I made from Matt Raible's posts to make this work with Azure and Cosmos DB are as follows. You can skip this list and go right to cloning the Git repository if you want, but since this documents how to update a JHipster-generated project to use Cosmos DB, I thought it was worth putting in here.
 
-In the `docker-compose/docker-compose.yml`  file:
+In the `docker-compose/docker-compose.yml` file:
 
 - removed the MongoDB service
 - updating the `store` service property `SPRING_DATA_MONGODB_URI` to point to the Cosmos DB instance via a `.env` file
@@ -82,7 +82,7 @@ In the `k8s/store-k8s` directory:
   - updated `SPRING_DATA_MONGODB_URI` env value of the `store-app` container to the Cosmos DB URI (points the store to the Cosmos DB instance)
   - properly secure the Cosmos DB connection string using Kubernetes secrets and `kubeseal`
 
-## Clone the Modified Project from GitHub
+## Clone the modified project from GitHub
 
 Clone the modified JHipster reactive microservice project from GitHub and checkout the `start` tag.
 
@@ -93,7 +93,7 @@ git fetch --all --tags
 git checkout tags/start -b working
 ```
 
-## Create the Azure Cosmos DB Mongo Database
+## Create the Azure Cosmos DB with API for MongoDB
 
 You need to create an Azure Cosmos DB instance. You can either use the [Azure Portal](https://portal.azure.com) or the CLI to create a new Cosmos DB instance. Make sure you create a one that is **Azure Cosmos DB API for MongoDB** (Cosmos DB supports various database types). If you use the portal, it's pretty self-explanatory but don't forget to enable the free tier and enable a public network.
 
@@ -155,7 +155,7 @@ az cosmosdb keys list --type connection-strings --name jhipster-cosmosdb --resou
 
 This will list four connection strings. You need to save (copy and paste somewhere) the first, the primary connection string. (Ellipses have been used for brevity below)
 
-```bash
+```json
   "connectionStrings": [
     {
       "connectionString": "mongodb://jhipster-cosmosdb:XBq5KZ81V8hM63KjCOezi1arq...,
@@ -205,7 +205,7 @@ Open `docker-compose/central-server-config/application.yml` and add the followin
 
 `docker-compose/central-server-config/application.yml`
 
-```yml
+```yaml
 spring:
   security:
     oauth2:
@@ -219,7 +219,7 @@ spring:
             client-secret: <client-secret>
 ```
 
-## Build the Docker Images and Run the App with Docker Compose
+## Build the Docker images and run the app with Docker Compose
 
 You're all set to run the app locally using Docker and Docker Compose. You need to build the docker image for each of the projects: `gateway`, `store`, and `blog`.
 
@@ -257,7 +257,7 @@ You can also check the JHipster Registry: http://localhost:8761/
 {% img blog/jhipster-k8s-azure/registry.png alt:"Authenticated" width:"800" %}{: .center-image }
 
 
-## Encrypt the Client Secret
+## Encrypt the client secret
 
 Leaving secrets in plain text in repositories is a security risk. There are two values in this app that are sensitive: the Cosmos DB connection string that includes the username and password and the Okta OIDC app client secret. You were able to avoid exposing the database credentials by using a `.env` file. However, the Okta client secret is exposed as plain text in the Spring Cloud Config file (`docker-compose/central-server-config/application.yml`). This can be encrypted using the JHipster registry.
 
@@ -273,12 +273,12 @@ You can now copy the encrypted value and paste it back into the `application.yml
 
 `docker-compose/central-server-config/application.yml`
 
-```yml
+```yaml
 ...
 spring:
   security:
     oauth2:
-                  client:
+      client:
         provider:
           oidc:
             issuer-uri: https://dev-123456.okta.com/oauth2/default
@@ -298,13 +298,13 @@ Make sure you can still sign into the gateway: http://localhost:8080/
 
 You may be wondering (like I did initially), why can't I just put the client secret in the `.env` file? This doesn't work because the `.env` file is processed by Spring Cloud Config and JHipster registry after the container is composed, not Docker Compose during the container creation, which is when the `.env` file is processed.
 
-You're down with the Docker Compose implementation. To clean up, you can run the following command. This will stop and remove the containers, networks, volumes, and images created by `docker-compose up`.
+You're done with the Docker Compose implementation. To clean up, you can run the following command. This will stop and remove the containers, networks, volumes, and images created by `docker-compose up`.
 
 ```bash
 docker-compose down --remove-orphans
 ```
 
-## Create the Azure Kubernetes Cluster
+## Create the Azure Kubernetes cluster
 
 The app works locally. Now it's time to deploy it to an Azure Kubernetes Cluster (AKS). The first step is to create an AKS cluster.
 
@@ -316,7 +316,9 @@ The size I'm using for this tutorial is `Standard B4ms` with two nodes. I found 
 
 Run the following command to create the AKS cluster.
 
-`az aks create --resource-group australia-east --name jhipster-demo --node-count 2 --enable-addons monitoring --generate-ssh-keys --node-vm-size standard_b4ms`
+```bash
+az aks create --resource-group australia-east --name jhipster-demo --node-count 2 --enable-addons monitoring --generate-ssh-keys --node-vm-size standard_b4ms
+```
 
 This will probably take a few minutes.
 
@@ -355,6 +357,7 @@ kubectl get nodes
 ```bash
 NAME                                STATUS   ROLES   AGE   VERSION
 aks-nodepool1-58487107-vmss000000   Ready    agent   12m   v1.22.6
+aks-nodepool1-01098098-vmss000000   Ready    agent   12m   v1.22.6
 ```
 
 You can also  list a lot of information about the cluster in JSON format using:
@@ -365,7 +368,7 @@ az aks list --resource-group australia-east
 
 ## Configure Kubernetes for Okta OAuth and Cosmos DB
 
-The Kubernetes files in the `k8s` directory were created with the JHipster Kubernetes sub-generator ([see the docs for info](https://www.jhipster.tech/kubernetes/)). To see how the original project was generated, take a look at [Matt Raible's tutorial](https://developer.okta.com/blog/2021/06/01/kubernetes-spring-boot-jhipster). As outlined above, these files were modified to work with Azure Cosmos DB instead of MongoDB in a Kubernetes pod (which is what the sub-generator assumes).
+The Kubernetes files in the `k8s` directory were created with the JHipster Kubernetes sub-generator ([see the docs for info](https://www.jhipster.tech/kubernetes/)). To see how the original project was generated, take a look at [Matt Raible's JHipster and Kubernetes tutorial](https://developer.okta.com/blog/2021/06/01/kubernetes-spring-boot-jhipster). As outlined above, these files were modified to work with Azure Cosmos DB instead of MongoDB in a Kubernetes pod (which is what the sub-generator assumes).
 
 Configure Spring OAuth in the Kubernetes pod by updating `k8s/registry-k8s/application-configmap.yml`. You can use the same values you used above in the Docker Compose section, in `docker-compose/central-server-config/application.yml`.
 
@@ -429,7 +432,7 @@ To briefly explain what's happening here, take a look at the blog service Kubern
 
 `k8s/blog-k8s/blog-deployment.yml`
 
-```yml
+```yaml
 containers:
   - name: blog-app
     image: andrewcarterhughes/blog
@@ -439,7 +442,7 @@ Thus in the `k8s` directory, each service (store, blog, gateway, and registry) d
 
 One nice feature of Kubernetes is the ability to define [init containers](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/). These are containers that run before the main container and can be used to create or wait for necessary resources like databases. I noticed while I was debugging things in this app that a lot of the errors happened in the init containers. It's helpful to know this because if you try and inspect the main container log nothing will be there because the container hasn't even started you. You have to check the log for the init container that failed. The Kubernetes management tools that I mention below really come in handy for this.
 
-## Deploy the Microservice to Azure AKS
+## Deploy the microservice to Azure AKS
 
 You can manage a Kubernetes service purely with `kubectl`. However, there are some pretty helpful tools for monitoring and logging. Both [k9s](https://github.com/derailed/k9s) and [Kubernetes Lens](https://k8slens.dev/) are great. I recommend installing one or both of these and using them to inspect and monitor your Kubernetes services. They are especially helpful when things go wrong (not that things ever go wrong, I wouldn't know anything about that, I just heard about it from friends, I swear). Kubernetes Lens is a full-on desktop app that describes itself as a Kubernetes IDE. In comparison, k9s is a lighter-weight, text-based tool. 
 
@@ -544,7 +547,7 @@ You can also just delete the entire namespace. It will be recreated if you use t
 kubectl delete namespace demo
 ```
 
-## Encrypt the Sensitive Configuration Parameters
+## Encrypt the sensitive configuration parameters
 
 There are two really important config values that need to be encrypted: (1) the Cosmos DB connection string (which contains the database credentials) and (2) the OIDC client secret. Because these two values are processed differently, you're going to use two slightly different methods for encrypting them.
 
@@ -622,7 +625,7 @@ kubectl apply -n demo -f sealed-secrets.yml && kubectl get -n demo sealedsecret 
 
 You need to update the `yml` files to refer to the encrypted values. Add the following env variable to the `jhister-registry` container in `k8s/registry-k8s/jhipster-registry.yml` (if an `ENCRYPT_KEY` already exists, replace it).
 
-```yml
+```yaml
 env:
 ...
   - name: ENCRYPT_KEY
