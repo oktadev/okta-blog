@@ -410,7 +410,7 @@ To configure the `store` service to use the Cosmo database, you need to put your
   value: "<your-connection-string>"
 ```
 
-Both the encryption key and the database connection string are sensitive values that need to be encrypted. You'll see how to do that just a little later in the tutorial.
+Both the encryption key and the database connection string are sensitive values that need to be encrypted. You'll see how to do that just a little later in this tutorial.
 
 ## Build Docker Images and Push to Docker Hub
 
