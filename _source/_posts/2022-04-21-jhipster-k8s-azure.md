@@ -34,27 +34,33 @@ If you're already familiar with all the tech in this tutorial, you can skip ahea
 
 ## JHipster program structure
 
-[JHipster](https://www.jhipster.tech/) is a development platform that streamlines the generation, development, and deployment of both monolithic and microservice applications. It supports a dizzying array of frontend (Angular, React, and Vue) and backend (Spring Boot, Micronaut, Quarkus, Node.js, and .NET) technologies. It's designed to be deployed using Docker and Kubernetes, and can easily deploy to all the major cloud platforms, such as AWS, Azure, Heroku, Cloud Foundry, Google Cloud Platform, and OpenShift. 
+**[JHipster](https://www.jhipster.tech/)** is a development platform that streamlines the generation, development, and deployment of both monolithic and microservice applications. It supports a dizzying array of frontend (Angular, React, and Vue) and backend (Spring Boot, Micronaut, Quarkus, Node.js, and .NET) technologies. It's designed to be deployed using Docker and Kubernetes, and can easily deploy to all the major cloud platforms, such as AWS, Azure, Heroku, Cloud Foundry, Google Cloud Platform, and OpenShift. 
 
-The project in this tutorial uses Spring Boot with Java resource servers and a Vue frontend. It was built with the JHipster generator that quickly scaffolds a new application based on either an interactive shell or a DSL file. You can read more about generating microservices with JHipster [in their docs](https://www.jhipster.tech/creating-microservices/). One of the slick features of the JHipster generator is that you can generate data entities along with applications.
+{% img blog/jhipster-k8s-azure/jhipster.png alt:"JHipster" width:"600" %}{: .center-image }
 
-The [JHipster Registry](https://www.jhipster.tech/jhipster-registry/) that is generated with the microservice includes two important functions: a Eureka server and a Spring Cloud Config server. The Eureka server is what allows the microservices to dynamically find each other without having to use hard-coded URIs. This means that the microservice can scale and services can be replaced without causing problems. It's a bit like a phonebook or a DNS service for the microservice. The [Spring Cloud Config](https://cloud.spring.io/spring-cloud-config/reference/html/) server allows project configuration to be centralized and distributed to all of the different services. You'll use this feature in this tutorial to configure all of the services for Okta OAuth in one place.
+The project in this tutorial uses **Spring Boot** with Java resource servers and a **Vue** frontend. It was built with the **JHipster generator** that quickly scaffolds a new application based on either an interactive shell or a DSL file. You can read more about generating microservices with JHipster [in their docs](https://www.jhipster.tech/creating-microservices/). One of the slick features of the JHipster generator is that you can generate data entities along with applications.
 
-The [JHipster API Gateway](https://www.jhipster.tech/api-gateway/) is the public face of your microservice. All public traffic comes through this service, which also includes the Vue frontend. The gateway is one of three application types that can be created by the JHipster generator DSL. The other two are monolith and microservice. A monolith is a non-microservice application with a single service.
+{% img blog/jhipster-k8s-azure/spring-and-vue-logos.png alt:"Spring and Vue" width:"400" %}{: .center-image }
+
+The **[JHipster Registry](https://www.jhipster.tech/jhipster-registry/)** that is generated with the microservice includes two important functions: a **Eureka server** and a **Spring Cloud Config** server. The Eureka server is what allows the microservices to dynamically find each other without having to use hard-coded URIs. This means that the microservice can scale and services can be replaced without causing problems. It's a bit like a phonebook or a DNS service for the microservice. The [Spring Cloud Config](https://cloud.spring.io/spring-cloud-config/reference/html/) server allows project configuration to be centralized and distributed to all of the different services. You'll use this feature in this tutorial to configure all of the services for Okta OAuth in one place.
+
+The **[JHipster API Gateway](https://www.jhipster.tech/api-gateway/)** is the public face of your microservice. All public traffic comes through this service, which also includes the Vue frontend. The gateway is one of three application types that can be created by the JHipster generator DSL. The other two are monolith and microservice. A monolith is a non-microservice application with a single service.
 
 The store service and blog service are both examples of the microservice application type. This means that they are a Spring Boot resources server with some type of SQL or NoSQL backend.
 
-The generator creates four applications. They are designed to be built and run as docker containers, which makes it easy for them to be packaged in [Kubernetes](https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/) pods. Kubernetes is a container orchestrator specifically designed for managing microservice networks. It's something like Docker Compose but designed for microservices with a lot of great features like service discovery, load balancing, automatic rollouts and restarts, resource management, and storage mounting.
+{% img blog/jhipster-k8s-azure/kubernetes-logo.png alt:"Kubernetes" width:"600" %}{: .center-image }
+
+The generator creates four applications. They are designed to be built and run as **docker containers**, which makes it easy for them to be packaged in **[Kubernetes](https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/)** pods. Kubernetes is a container orchestrator specifically designed for managing microservice networks. It's something like **Docker Compose** but designed for microservices with a lot of great features like service discovery, load balancing, automatic rollouts and restarts, resource management, and storage mounting.
 
 ## Prerequisites
 
 This tutorial has a lot of pieces. Install the required software below and sign up for an Azure Cloud account. You'll need a free Okta account, but you can use the Okta CLI to sign up for it later in the tutorial.
 
 - [Docker](https://docs.docker.com/get-docker/): you'll need to have both **Docker Engine** and **Docker Compose** installed (If you install the docker desktop, this will automatically install both. On Linux, if you install Docker Engine individually, you will have to also [install Docker Compose](https://docs.docker.com/compose/install/)) separately.
-- [Docker Hub](https://hub.docker.com/): you'll need this to host the docker images so that Azure can pull them.
+- [Docker Hub](https://hub.docker.com/): you'll need a Docker Hub to host the docker images so that Azure can pull them.
 - [Java 11](https://adoptopenjdk.net/): this post requires Java 11. If you need to manage multiple Java versions, SDKMAN! is a good solution. Check out [their docs to install it](https://sdkman.io/installit).
 - [Okta CLI](https://cli.okta.com/manual/#installation): you'll use Okta to add security to the microservice network. You can register for a free account from the CLI.
-- [Azure Cloud account](https://azure.microsoft.com/en-us/free/): they offer an account with a $200 credit to start out. 
+- [Azure Cloud account](https://azure.microsoft.com/en-us/free/): they offer an account with a $200 credit to start. 
 - [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli): you'll use the Azure CLI to manage the Kubernetes cluster
 - [kubectl](https://kubernetes.io/docs/tasks/tools/): CLI to manage Kubernetes clusters
 
@@ -62,7 +68,7 @@ If you have never had an Azure account before, you can create a new one that wil
 
 ## Modifying the generated JHipster microservice project for Azure and Cosmos DB
 
-This project is based on two of Matt Raible's tutorials: *[Reactive Java Microservices with Spring Boot and JHipster](https://developer.okta.com/blog/2021/01/20/reactive-java-microservices)* and *[Kubernetes to the Cloud with Spring Boot and JHipster](https://developer.okta.com/blog/2021/06/01/kubernetes-spring-boot-jhipster)*. In these tutorials, he builds a reactive Java microservice and shows how to deploy it to Google Cloud (GCP). I have modified the project to work with Azure and Cosmos DB.
+This project is based on two of Matt Raible's tutorials: [Reactive Java Microservices with Spring Boot and JHipster](https://developer.okta.com/blog/2021/01/20/reactive-java-microservices) and [Kubernetes to the Cloud with Spring Boot and JHipster](https://developer.okta.com/blog/2021/06/01/kubernetes-spring-boot-jhipster). In these tutorials, he builds a reactive Java microservice and shows how to deploy it to Google Cloud (GCP). I have modified the project to work with Azure and Cosmos DB.
 
 You will first run the project using Docker Compose. Once you have this working, you will run the project as a Kubernetes cluster on Azure. The modifications were relatively minor and involved removing the unnecessary MongoDB instances (from both the `docker-compose.yml` file and from the Kubernetes descriptors) as well as updating environment values to point the `store` service to the Cosmos DB instance instead of a MongoDB instance.
 
@@ -147,7 +153,7 @@ If you get an error that says`(BadRequest) DNS record for cosmosdb under zone Do
 
 I'm using the Australia East location because that was the location that had free tier AKS nodes available when I wrote this tutorial. You can use any resource group you want as long as it allows you to create the AKS cluster later in the tutorial. Even if you can't use the free tier or the free credits, if you stop and start the AKS cluster between working on the tutorial, the cost should be very small (mine was less than a few dollars). The application should still work if the Cosmos DB database is in a different resource group and region since the database URI is configured to be publicly accessible.
 
-List the connection string for the Cosmos DB API for MongoDB endpoint using the following command. If you change the database name above, you will need to update it in the command below.
+List the connection string for the Cosmos DB API for MongoDB endpoint using the following command. **If you changed the database name above, you will need to update it in the command below.**
 
 ```bash
 az cosmosdb keys list --type connection-strings --name jhipster-cosmosdb --resource-group australia-east
@@ -229,6 +235,11 @@ You're all set to run the app locally using Docker and Docker Compose. You need 
 ```
 ./gradlew -Pprod bootJar jibDockerBuild
 ```
+The default Docker resource settings may not be enough to run this project. You may need to bump them. These settings worked for me.
+- CPUs: 8
+- Memory: 25 GB
+- Swap: 2 GB
+- Disk image size: 120 GB
 
 Navigate to the `docker-compose` directory and run the app. You can use the `-d` param to run it as a daemon but for the moment I like seeing the logs. You're just running this in Docker Compose as a warm-up for the Azure deployment anyway.
 
