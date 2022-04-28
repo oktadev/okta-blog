@@ -195,7 +195,7 @@ You can accept the default values by pressing **enter**. If you want to give the
 This command created a config file named `.okta.env`. It will look something like the following. It helpfully lists the values you will need in the next step.
 
 ```bas
-export SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI="https://dev-123456/oauth2/default"
+export SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI="https://dev-13337.okta.com/oauth2/default"
 export SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID="2989u928u383..."
 export SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET="09328uu098u4..."
 ```
