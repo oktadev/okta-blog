@@ -449,7 +449,7 @@ You can manage a Kubernetes service purely with `kubectl`. However, there are so
 
 Open a Bash shell and navigate to the `k8s` subdirectory of the project.
 
-Run the microservice with: 
+Deploy your microservice architecture to Azure with: 
 
 ```bash
 ./kubectl-apply.sh -f
