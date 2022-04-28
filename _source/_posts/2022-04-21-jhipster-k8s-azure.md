@@ -87,7 +87,7 @@ In the `k8s/store-k8s` directory:
 Clone the modified JHipster reactive microservice project from GitHub and checkout the `start` tag.
 
 ```bash
-git clone git@github.com:moksamedia/okta-azure-kubernetes-cosmodb.git
+git clone https://github.com/oktadev/okta-azure-kubernetes-cosmosdb-example.git azure-k8s-cosmosdb
 cd azure-k8s-cosmosdb
 git fetch --all --tags
 git checkout tags/start -b working
