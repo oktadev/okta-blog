@@ -5,7 +5,7 @@ layout: blog_post
 title: "GDPR and application security"
 author: olabayo-balogun
 by: contractor
-communities: []
+communities: [security]
 description: "Learn more about GDPR rules and how they apply to your organization. Make sure your application contains the needed features to ensure high-level security."
 tags: [best-practices, security, privacy, gdpr]
 tweets:
@@ -146,4 +146,4 @@ Check out these posts and whitepapers from Okta for more information about GDPR:
 
 If you have any questions about this post, please add a comment below. For more interesting content, follow [@oktadev](https://twitter.com/oktadev) on Twitter, connect with us on [LinkedIn](https://www.linkedin.com/company/oktadev/), and subscribe to our [YouTube](https://www.youtube.com/oktadev) channel.
 
-Cover image credit: Photo of security cameras by Lianhao Qu via [Unsplash](https://unsplash.com/photos/LfaN1gswV5c)
+_Cover image credit: Photo of security cameras by Lianhao Qu via [Unsplash](https://unsplash.com/photos/LfaN1gswV5c)._
