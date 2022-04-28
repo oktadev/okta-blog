@@ -175,7 +175,7 @@ The `ENCRYPT_KEY` will be used as the key for encrypting sensitive values stored
 
 ```env
 SPRING_DATA_MONGO_URI="<your-connection-string>"
-ENCRYPT_KEY=<your-encryption-key
+ENCRYPT_KEY=<your-encryption-key>
 ```
 
 ## Configure Okta OAuth
