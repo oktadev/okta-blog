@@ -20,6 +20,7 @@ In this tutorial, you'll learn how to integrate Elasticsearch into your Node.js 
 
 You can follow along with [this GitHub repository](https://github.com/oktadev/okta-elasticsearch-node-example).
 
+{% include toc.md %}
 
 ## What is Elasticsearch?
 
