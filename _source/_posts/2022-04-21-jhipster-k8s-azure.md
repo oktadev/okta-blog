@@ -156,6 +156,7 @@ az cosmosdb keys list --type connection-strings --name jhipster-cosmosdb --resou
 This will list four connection strings. You need to save (copy and paste somewhere) the first, the primary connection string. (Ellipses have been used for brevity below)
 
 ```json
+{
   "connectionStrings": [
     {
       "connectionString": "mongodb://jhipster-cosmosdb:XBq5KZ81V8hM63KjCOezi1arq...,
@@ -172,9 +173,9 @@ The `ENCRYPT_KEY` will be used as the key for encrypting sensitive values stored
 
 `docker-compose/.env`
 
-```.env
+```env
 SPRING_DATA_MONGO_URI="<your-connection-string>"
-ENCRYPT_KEY=<your-encryption-key
+ENCRYPT_KEY=<your-encryption-key>
 ```
 
 ## Configure Okta OAuth
@@ -194,7 +195,7 @@ You can accept the default values by pressing **enter**. If you want to give the
 This command created a config file named `.okta.env`. It will look something like the following. It helpfully lists the values you will need in the next step.
 
 ```bas
-export SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI="https://dev-123456/oauth2/default"
+export SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI="https://dev-13337.okta.com/oauth2/default"
 export SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID="2989u928u383..."
 export SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET="09328uu098u4..."
 ```
@@ -412,7 +413,7 @@ To configure the `store` service to use the Cosmo database, you need to put your
   value: "<your-connection-string>"
 ```
 
-Both the encryption key and the database connection string are sensitive values that need to be encrypted. You'll see how to do that just a little later in the tutorial.
+Both the encryption key and the database connection string are sensitive values that need to be encrypted. You'll see how to do that just a little later in this tutorial.
 
 ## Build Docker Images and Push to Docker Hub
 
