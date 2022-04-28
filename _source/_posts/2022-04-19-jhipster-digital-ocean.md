@@ -1,10 +1,10 @@
 ---
 layout: blog_post
-title: "JHipster Application Deployment to Digital Ocean Kubernetes"
+title: "JHipster Application Deployment to DigitalOcean Kubernetes"
 author: jimena-garbarino
 by: contractor
 communities: [devops,java]
-description: "A step-by-step guide for JHipster deployment to Digital Ocean cloud"
+description: "A step-by-step guide for JHipster deployment to DigitalOcean cloud"
 tags: []
 tweets:
 - ""
@@ -14,7 +14,8 @@ image:
 type: conversion
 ---
 
-introduction. talk about the survey. mention do.
+
+The users who participated in the last JHipster Community Survey value getting to production fast, and suggested there should be more cloud tutorials.
 
 **This tutorial was created with the following frameworks and tools**:
 - [JHipster 7.6.0](https://www.jhipster.tech/installation/)
@@ -28,7 +29,16 @@ introduction. talk about the survey. mention do.
 
 
 
-## Digital Ocean
+## DigitalOcean
+
+
+DigitalOcean is a cloud services company founded in 2011 by brothers Ben and Moisey Uretsky. The headquarters are in New York City in United States, and they also have offices in Massachussets and Bangalore. Last March 2022, it reached its IPO (Initial Public Offering) and some press articles describe it as the cloud services provider for small businesses: "Cloud services for the Little Guy".
+
+DigitalOcean Kubernetes (DOKS) is a managed Kubernetes service that lets you deploy Kubernetes clusters without the complexities of handling the control plane and containerized infrastructure. Clusters are compatible with standard Kubernetes toolchains and integrate natively with DigitalOcean load balancers and block storage volumes. DOKS offers fast provisioning and deployment, provides a free high-availability control pane, for reliability management. It can also provide a Cluster Autoscaler that automatically adjusts the size of the cluster by adding or removing nodes based on the cluster's capacity to schedule pods. Pricing for Kubernetes workloads is based on resources required by the cluster, droplets, block storage and load balancers.
+
+The company publishes its data center [certification reports](https://www.digitalocean.com/trust/certification-reports) on their web, and all the data centers have approved two or more of SOC (System and Organization Controls) 1 Type II, SOC 2 Type II, SOC 3 Type II, ISO/IEC 27001:2013 (Security techniques - Information security management systems). PCI-DSS (Payment Card Industry - Data Security Standard) has been certified in all data centers.
+
+
 
 ## Set up a microservices architecture for Kubernetes
 
@@ -157,22 +167,22 @@ minikube stop
 ```
 
 
-## Deploy to Digital Ocean cloud
+## Deploy to DigitalOcean cloud
 
-Now that the architecture works locally, let's proceed to the cloud deployment. First, create a [Digital Ocean](https://cloud.digitalocean.com/registrations/new) account, you can try their services with $100 credit that is available for 60 days.
+Now that the architecture works locally, let's proceed to the cloud deployment. First, create a [DigitalOcean](https://cloud.digitalocean.com/registrations/new) account, you can try their services with $100 credit that is available for 60 days.
 
-Most of the cluster tasks, if not all, can be accomplished using [doctl](https://github.com/digitalocean/doctl#installing-doctl), the command-line interface (CLI) for the Digital Ocean API.
+Most of the cluster tasks, if not all, can be accomplished using [doctl](https://github.com/digitalocean/doctl#installing-doctl), the command-line interface (CLI) for the DigitalOcean API.
 
-Install the tool, and perform the authentication with Digital Ocean:
+Install the tool, and perform the authentication with DigitalOcean:
 
 ```shell
 doctl auth init
 ```
 You will be prompted to enter the DigitalOcean access token that you can generate in the DigitalOcean control panel.
 
-{% img blog/jhipster-digital-ocean/do-control-panel-token.png alt:"Digital Ocean Control Panel for Token Create" width:"800" %}{: .center-image }
+{% img blog/jhipster-digital-ocean/do-control-panel-token.png alt:"DigitalOcean Control Panel for Token Create" width:"500" %}{: .center-image }
 
-You can find a detailed list of pricing for cluster resources at [Digital Ocean](https://docs.digitalocean.com/products/kubernetes/),  and with `doctl` you can quickly retrieve a list of node size options available for your account:
+You can find a detailed list of pricing for cluster resources at [DigitalOcean](https://docs.digitalocean.com/products/kubernetes/),  and with `doctl` you can quickly retrieve a list of node size options available for your account:
 
 ```shell
  doctl k options sizes
@@ -187,7 +197,7 @@ You can find a detailed list of pricing for cluster resources at [Digital Ocean]
  ```
  After creating a cluster, `doctl` adds a configuration context to kubectl and makes it active, so start monitoring your cluster right away with k9s. But fist, some tweaks to the Kubernetes descriptors are required.
 
-Digital Ocean latest and default Kubernetes version at the moment of writing this tutorial is 1.22.8. For the `store-mongodb` deployment to work in Digital Ocean, the property `Service.spec.publishNotReadyAddresses `, instead of the annotation `service.alpha.kubernetes.io/tolerate-unready-endpoints`, as it was deprecated in [release 1.11](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.11.md#kubernetes-111-release-notes). For some reason, the generated spec worked in the local minikube deployment with a newer Kubernetes version, but not in Digital Ocean.
+DigitalOcean latest and default Kubernetes version at the moment of writing this tutorial is 1.22.8. For the `store-mongodb` deployment to work in DigitalOcean, the property `Service.spec.publishNotReadyAddresses `, instead of the annotation `service.alpha.kubernetes.io/tolerate-unready-endpoints`, as it was deprecated in [release 1.11](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.11.md#kubernetes-111-release-notes). For some reason, the generated spec worked in the local minikube deployment with a newer Kubernetes version, but not in DigitalOcean.
 
 In the k8s folder, edit `store-mongodb.yml` and add the `publishNotReadyAddresses: true` property to the `spec`:
 
@@ -209,7 +219,7 @@ spec:
     app: store-mongodb
 ```
 
-Apply the resources configuration to the Digital Ocean cluster:
+Apply the resources configuration to the DigitalOcean cluster:
 
 ```shell
 ./kubectl-apply.sh -f
@@ -221,7 +231,7 @@ Monitor the deployment with k9s again:
  k9s -n demo
  ```
 
-{% img blog/jhipster-digital-ocean/k9s-do-cluster.png alt:"k9s user interface monitoring digital ocean Kubernetes" width:"800" %}{: .center-image }
+{% img blog/jhipster-digital-ocean/k9s-do-cluster.png alt:"k9s user interface monitoring DigitalOcean Kubernetes" width:"800" %}{: .center-image }
 
 Once you see the jhipster-registry pods are up, set up port forwarding again if you want to monitor the services status there.
 
@@ -259,7 +269,7 @@ Events:
   Normal   ExternalProvisioning  103s (x43 over 11m)  persistentvolume-controller                                                waiting for a volume to be created, either by external provisioner "dobs.csi.digitalocean.com" or manually created by system administrator
 ```
 
-As instructed by the event message, I contacted Digital Ocean support and they fixed it.
+As instructed by the event message, I contacted DigitalOcean support and they fixed it.
 
 
 ### The gateway external IP
@@ -299,35 +309,35 @@ Navigate to http://loadBalancerIngressIP:8080.
 
 As the gateway service acts as the application front-end, in the k8s descriptors it is defined as a `LoadBalancer` service type. This exposes the service externally using the cloud provider's load balancer. DigitalOcean Load Balancers are a fully-managed, highly available network load balancing service. Load balancers distribute traffic to groups of Droplets, which decouples the overall health of a backend service from the health of a single server to ensure that your services stay online.
 
-A standard practice is to secure web traffic to your application with HTTPs. For the traffic encryption you need a TLS (SSL) cerificate. Digital Ocean also provides automatic certificate creation and renewal if you manage your domain with DigitalOcean DNS, which is free. But domain registration is not provided.  To use DigitalOcean DNS, you need to register a domain name with a registrar and update your domain's NS records to point to DigitalOcean's name servers.
+A standard practice is to secure web traffic to your application with HTTPs. For the traffic encryption you need a TLS (SSL) cerificate. DigitalOcean also provides automatic certificate creation and renewal if you manage your domain with DigitalOcean DNS, which is free. But domain registration is not provided.  To use DigitalOcean DNS, you need to register a domain name with a registrar and update your domain's NS records to point to DigitalOcean's name servers.
 
-Then, for the chosen configuration in this tutorial, Digital Ocean managed domain and certificate, you must [delegate the domain](https://docs.digitalocean.com/tutorials/dns-registrars/), updating NS records in the registrar.
+Then, for the chosen configuration in this tutorial, DigitalOcean managed domain and certificate, you must [delegate the domain](https://docs.digitalocean.com/tutorials/dns-registrars/), updating NS records in the registrar.
 
-**IMPORTANT NOTE**: Before changing the registrar NS records (the nameservers), add your domain to Digital Ocean, to minimize service disruptions.
+**IMPORTANT NOTE**: Before changing the registrar NS records (the nameservers), add your domain to DigitalOcean, to minimize service disruptions.
 
-You can create the certificate and the domain at the same time, in the Digital Ocean control panel, when you set up the load balancer HTTPs forwarding.
+You can create the certificate and the domain at the same time, in the DigitalOcean control panel, when you set up the load balancer HTTPs forwarding.
 
-Digital Ocean load balancers support two main configurations for encrypted web traffic:
+DigitalOcean load balancers support two main configurations for encrypted web traffic:
 
 - SSL termination: decrypts SSL requests at the load balancer and sends them unencrypted to the backend at the Droplets' private IP address. The slower and CPU-intensive work of decryption is performed at the load balancer, and certificate management is simplified. The traffic between the load balancer and the backend is secured by routing over the VPC network, but data is readable inside the private network.
 - SSL assthrough: sends the encrypted SSL requests directly to the backend at the Droplets' private IP address, traffic between the load balancer and the backend is secured. Every backend server must have the certificate, and client information contained in `X-forwarded-*` headers might be lost.
 
-Taking advantage of the simplified certificate management, in the following steps SSL termination is configured, through the Digital Ocean control panel.
+Taking advantage of the simplified certificate management, in the following steps SSL termination is configured, through the DigitalOcean control panel.
 
-Login to your Digital Ocean account, and in the left menu choose **Kubernetes**. Then choose your cluster, and in the cluster page, choose **Resources**. In the _LOAD BALANCERS_ list, choose the single load balancer that must have been created. In the load balancer page, choose the **Settings** tab. Click **Edit** in the _Forwarding Rules_. Add a forwarding rule for HTTPS in port 443, and in the certificate drop-down, choose **New certificate**.
+Login to your DigitalOcean account, and in the left menu choose **Kubernetes**. Then choose your cluster, and in the cluster page, choose **Resources**. In the _LOAD BALANCERS_ list, choose the single load balancer that must have been created. In the load balancer page, choose the **Settings** tab. Click **Edit** in the _Forwarding Rules_. Add a forwarding rule for HTTPS in port 443, and in the certificate drop-down, choose **New certificate**.
 
-{% img blog/jhipster-digital-ocean/do-new-certificate.png alt:"Digital Ocean new certificate form" width:"800" %}{: .center-image }
+{% img blog/jhipster-digital-ocean/do-new-certificate.png alt:"DigitalOcean new certificate form" width:"500" %}{: .center-image }
 
 In the **New Certificate** form, choose **Use Let's Encrypt** tab, and then in the domain box, choose **Add new domain**. Then enter your domain name, and list other subdomains to include. Add a name for the certificate and click **Generate Certificate**.
 
-{% img blog/jhipster-digital-ocean/do-new-domain.png alt:"Digital Ocean new domain form" width:"800" %}{: .center-image }
+{% img blog/jhipster-digital-ocean/do-new-domain.png alt:"DigitalOcean new domain form" width:"500" %}{: .center-image }
 
 Back in the _Forwarding rules_ page, check the generated certificate is selected, and forward the traffic to the Droplet HTTP port where the gateway is running. Tick the checkbox **Create DNS records for all the new Let's Encrypt certifcates** and then **Save** the forwarding settings.
 
-{% img blog/jhipster-digital-ocean/do-forwarding.png alt:"Digital Ocean load balancer forwarding settings" width:"800" %}{: .center-image }
+{% img blog/jhipster-digital-ocean/do-forwarding.png alt:"DigitalOcean load balancer forwarding settings" width:"800" %}{: .center-image }
 
 Finally in the SSL section of the settings, tick the checkbox **Redirect HTTP to HTTPS**.
 
-{% img blog/jhipster-digital-ocean/do-ssl-redirect.png alt:"Digital Ocean load balancer ssl redirect settings" width:"800" %}{: .center-image }
+{% img blog/jhipster-digital-ocean/do-ssl-redirect.png alt:"DigitalOcean load balancer ssl redirect settings" width:"800" %}{: .center-image }
 
-Test the configuration navigating to http://yourDomain, the gateway should redirect to the Okta sign in page.
+Test the configuration navigating to http://yourDomain. First the load balancer should redirect to HTTPs, and then the gateway should redirect to the Okta sign in page.
