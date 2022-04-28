@@ -429,7 +429,7 @@ DOCKER_REPO_NAME=<docker-repo-name>
 ./gradlew bootJar -Pprod jib -Djib.to.image=$DOCKER_REPO_NAME/gateway
 ```
 
-To briefly explain what's happening here, take a look at the blog service Kubernetes descriptor file. It defines a container named `blog-app` that uses the docker image `andrewcarterhughes/blog`, which is my docker repository name and the blog image.
+To briefly explain what's happening here, take a look at the blog service's Kubernetes descriptor file. It defines a container named `blog-app` that uses the docker image `andrewcarterhughes/blog`, which is my docker repository name and the blog image.
 
 `k8s/blog-k8s/blog-deployment.yml`
 
