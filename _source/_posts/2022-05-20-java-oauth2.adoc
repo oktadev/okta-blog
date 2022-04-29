@@ -1,0 +1,57 @@
+---
+layout: blog_post
+title: "OAuth 2.0 in Java"
+# title: "OAuth 2.1 in Java"
+# title: "OAuth 2.0 on the JVM"
+author: matt-raible
+by: advocate
+communities: [java]
+description: ""
+tags: []
+tweets:
+- ""
+- ""
+- ""
+image:
+type: awareness
+---
+:page-liquid:
+:toc: macro
+:experimental:
+
+toc::[]
+
+== What the heck is OAuth?
+
+// not about OIDC, I'll do another post for that
+
+== Can you do OAuth without a browser?
+
+== Java's OAuth 2.0 Support
+
+=== OAuth in Java Frameworks
+
+// Matrix of Frameworks and Security features
+
+// alphabetical order
+// paragraphs or matrix?
+
+==== Helidon
+==== Jakarta EE
+==== Micronaut
+==== Quarkus
+==== Spring Boot
+
+== Java Security Frameworks
+
+=== Apache Shiro
+=== Spring Security
+=== Pac4j
+
+// https://developer.okta.com/blog/2018/09/12/secure-java-ee-rest-api
+
+== What about JavaFX?
+
+== Does Kotlin do OAuth?
+
+== Learn more about Java and OAuth 2.0
