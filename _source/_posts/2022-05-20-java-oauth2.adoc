@@ -48,8 +48,6 @@ toc::[]
 === Spring Security
 === Pac4j
 
-// [Build a Java REST API with Java EE and OIDC](https://developer.okta.com/blog/2018/09/12/secure-java-ee-rest-api)
-
 == What about JavaFX?
 
 == Does Kotlin do OAuth?
