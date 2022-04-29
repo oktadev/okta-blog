@@ -48,15 +48,15 @@ Create a `ionic-app` directory alongside your JHipster app.
 
 [source,shell]
 ----
-- jhipster-app
+- backend
 - ionic-app
 ----
 
-Navigate into it using your terminal. Install Ionic for JHipster and create a new app using `jhipster-ionic`.
+Navigate into `ionic-app` using your terminal. Install Ionic for JHipster and create a new app using `jhipster-ionic`.
 
 [source,shell]
 ----
-npm install -g generator-jhipster-ionic@8
+npm install -g generator-jhipster-ionic
 jhipster-ionic
 ----
 
@@ -84,31 +84,63 @@ ionic serve
 
 image::{% asset_path 'blog/jhipster-ionic-blueprint/ionic-serve.png' %}[alt=Ionic serve command with backend running,width=800,align=center]
 
-NOTE: The JHipster Ionic blueprint currently only supports Angular. However, with this refactoring, it should be much easier to add support for Vue and React. If you're interested in helping out, please let me know! Okta is a platinum sponsor of the project and enjoys assigning bug bounties for feature development.
+NOTE: The JHipster Ionic blueprint currently only supports Angular. Now that it's a blueprint, it will be much easier to add support for Vue and React. If you're interested in helping out, please let me know! Okta is a platinum sponsor of the project and enjoys assigning bug bounties for feature development.
 
 == Build a Mobile App with Ionic
 
-To see Ionic + JHipster in action, let's look at a https://auth0.com/blog/full-stack-java-with-react-spring-boot-and-jhipster/[previous JHipster app I created for the Auth0 blog]. This app is a Flickr clone that allows you to upload photos, tag them, and organize them into albums. First, clone the example:
+To see Ionic + JHipster in action, let's start with a https://auth0.com/blog/full-stack-java-with-react-spring-boot-and-jhipster/[previous JHipster app I created for the Auth0 blog]. I updated the app to the latest version of JHipster (v7.8.1) and created an Ionic app with JHipster Ionic so everything is guaranteed to work. This app is a Flickr clone that allows you to upload photos, tag them, and organize them into albums. First, clone the example:
+
+[source,shell]
+----
+git clone https://github.com/oktadev/okta-jhipster-ionic-example.git jhipster-ionic
+cd jhipster-ionic/backend
+----
+
+Start the app:
+
+[source,shell]
+----
+npm run ci:e2e:prepare
+./mvnw
+----
+
+Then, navigate to `http://localhost:8080` in your favorite browser. Sign in with `admin/admin` credentials and rejoice when it all works.
+
+Open a new terminal window and cd into the `jhipster-ionic/ionic-app` directory. Run `ionic serve` and test out the Ionic client.
+
+// ionic client screenshot
+
+== How to integrate Ionic and Spring Boot
+
+JHipster makes it easy to create a Spring Boot API that's protected by Spring Security. The JHipster Ionic blueprint generates an Ionic client that talks to your Spring Boot API and understands its auth mechanism. I created the `jhipster-ionic` project using the following steps:
+
+Install JHipster 7.8.1 and the JHipster Ionic blueprint:
+
+[source,shell]
+----
+npm i -g generator-jhipster@7.8.1 generator-jhipster-ionic@7.5.0
+----
+
+Create a parent directory to hold everything:
+
+[source,shell]
+----
+# take is a shortcut for mdkir && cd
+take jhipster-ionic
+----
+
+Clone an existing JHipster Flickr example:
 
 [source,shell]
 ----
 git clone https://github.com/oktadev/auth0-full-stack-java-example.git backend
 ----
 
-Install JHipster 7.8 and the JHipster Ionic blueprint:
+Create a new directory to hold your Ionic project, then run `jhipster-ionic` in it:
 
 [source,shell]
 ----
-npm i -g generator-jhipster@7.8
-npm i -g generator-jhipster-ionic
-----
-
-Create a new directory to hold your Ionic project, then run `jhipster-ionic`:
-
-[source,shell]
-----
-mkdir ionic-app
-cd ionic-app
+take ionic-app
 jhipster-ionic
 ----
 
@@ -118,7 +150,7 @@ image::{% asset_path 'blog/jhipster-ionic-blueprint/jhipster-ionic-flickr2.png' 
 
 That's it! The blueprint will generate an Ionic client, complete with screens for editing entities, unit tests, and end-to-end tests with Cypress.
 
-Petty slick, don't you think?
+Pretty slick, don't you think?! 😎
 
 === Run your Spring Boot app
 
@@ -131,14 +163,14 @@ docker-compose -f src/main/docker/keycloak.yml up -d
 docker-compose -f src/main/docker/postgresql.yml up -d
 ----
 
-Next, update `backend/src/main/resources/config/application-prod.yml` to allow CORS from `\http://localhost:8100`.
+Next, update `backend/src/main/resources/config/application-prod.yml` to allow CORS from `\http://localhost:8100` and `\http://localhost:4200`.
 
 [source,yaml]
 ----
 jhipster:
   ...
   cors:
-    allowed-origins: 'http://localhost:8100'
+    allowed-origins: 'http://localhost:8100,http://localhost:4200'
     allowed-methods: '*'
     allowed-headers: '*'
     exposed-headers: 'Authorization,Link,X-Total-Count,X-${jhipster.clientApp.name}-alert,X-${jhipster.clientApp.name}-error,X-${jhipster.clientApp.name}-params'
@@ -241,7 +273,7 @@ Modify the JHipster app's CORS settings (in `backend/src/main/resources/config/a
 jhipster:
   ...
   cors:
-    allowed-origins: 'http://localhost:8100,capacitor://localhost'
+    allowed-origins: '...,capacitor://localhost'
 ----
 
 Restart your backend app. Deploy your Ionic app to iOS Simulator and run it.
