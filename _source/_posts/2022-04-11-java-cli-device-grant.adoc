@@ -226,8 +226,8 @@ String scopes = String.join(" ", "openid", "profile", "offline_access");
 
 // HTTP POST form arguments
 Map<String, String> authArgs = Map.of(
-        "client_id", clientId,
-        "scope", scopes); // the arg name IS the singular form of scope
+    "client_id", clientId,
+    "scope", scopes); // the arg name IS the singular form of scope
 ----
 
 Using the fluent API, create a post request to `$\{issuer}/v1/device/authorize`, including the client ID and scopes.
@@ -235,11 +235,11 @@ Using the fluent API, create a post request to `$\{issuer}/v1/device/authorize`,
 [source,java]
 ----
 HttpRequest request = HttpRequest.newBuilder()
-        .uri(URI.create(issuer + "/v1/device/authorize"))
-        .POST(formBody(authArgs))
-        .header("Accept", "application/json")
-        .header("Content-Type", "application/x-www-form-urlencoded")
-        .build();
+    .uri(URI.create(issuer + "/v1/device/authorize"))
+    .POST(formBody(authArgs))
+    .header("Accept", "application/json")
+    .header("Content-Type", "application/x-www-form-urlencoded")
+    .build();
 
 // execute the request
 HttpResponse<Map> httpResponse = client.send(request, rs -> parseJson(Map.class));
@@ -327,29 +327,28 @@ while (System.currentTimeMillis() < pollUntilMillis) {
     Thread.sleep(interval.toMillis()); // <.>
 
     Map<String, String> tokenArgs = Map.of("client_id", clientId,
-            "grant_type","urn:ietf:params:oauth:grant-type:device_code", // <.>
-            "device_code", deviceCode);
+        "grant_type","urn:ietf:params:oauth:grant-type:device_code", // <.>
+        "device_code", deviceCode);
 
     HttpRequest tokenRequest = HttpRequest.newBuilder() // <.>
-            .uri(URI.create(issuer + "/v1/token"))
-            .POST(formBody(tokenArgs))
-            .header("Accept", "application/json")
-            .header("Content-Type", "application/x-www-form-urlencoded")
-            .build();
+        .uri(URI.create(issuer + "/v1/token"))
+        .POST(formBody(tokenArgs))
+        .header("Accept", "application/json")
+        .header("Content-Type", "application/x-www-form-urlencoded")
+        .build();
 
     HttpResponse<Map> tokenResponse =
-            client.send(tokenRequest, rs -> parseJson(Map.class));
+        client.send(tokenRequest, rs -> parseJson(Map.class));
 
     if (tokenResponse.statusCode() == 200) { // <.>
-            // Do something with the tokens
-            System.out.println("Authorization complete!");
-            System.out.println(tokenResponse.body());
-            break;
+        // Do something with the tokens
+        System.out.println("Authorization complete!");
+        System.out.println(tokenResponse.body());
+        break;
     } else {
-            // error, keep polling until timeout
-            System.out.println("Error: " + tokenResponse.body());
-            System.out.println(tokenResponse);
-        }
+        // error, keep polling until timeout
+        System.out.println("Error: " + tokenResponse.body());
+        System.out.println(tokenResponse);
     }
 }
 ----
