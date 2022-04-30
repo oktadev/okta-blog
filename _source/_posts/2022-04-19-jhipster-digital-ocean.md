@@ -14,31 +14,31 @@ image:
 type: conversion
 ---
 
-
-The users who participated in the last JHipster Community Survey value getting to production fast, and suggested there should be more cloud tutorials.
+Cloud adoption continues to increase rapidly and worldwide, and not only in the software industry. Every year more and more companies move their applications to the cloud. In the last JHipster community survey, in December 2021, users who participated expressed they value getting to production fast, thanks to JHipster, and requested more tutorials on deployment to cloud platforms. DigitalOcean is among the most popular "other" cloud vendors, according to some surveys. This post is a quick walk-through of the deployment of a JHipster microservices architecture to a Kubernetes cluster in DigitalOcean cloud.
 
 **This tutorial was created with the following frameworks and tools**:
 - [JHipster 7.6.0](https://www.jhipster.tech/installation/)
 - [Java OpenJDK 11](https://jdk.java.net/java-se-ri/11)
 - [Okta CLI 0.9.0](https://cli.okta.com)
-
+- [doctl 1.72.0-release](https://docs.digitalocean.com/reference/doctl/)
+- [kubectl 1.23](https://kubernetes.io/docs/tasks/tools/#kubectl)
+- [minikube v1.25.2](https://minikube.sigs.k8s.io/docs/start/)
+- [k9s v0.25.18](https://k9scli.io/topics/install/)
 
 **Table of Contents**{: .hide }
 * Table of Contents
 {:toc}
 
-
-
-## DigitalOcean
+## About DigitalOcean
 
 
 DigitalOcean is a cloud services company founded in 2011 by brothers Ben and Moisey Uretsky. The headquarters are in New York City in United States, and they also have offices in Massachussets and Bangalore. Last March 2022, it reached its IPO (Initial Public Offering) and some press articles describe it as the cloud services provider for small businesses: "Cloud services for the Little Guy".
 
+{% img blog/jhipster-digital-ocean/do-logo.png alt:"DigitalOcean Logo" width:"200" %}{: .center-image }
+
 DigitalOcean Kubernetes (DOKS) is a managed Kubernetes service that lets you deploy Kubernetes clusters without the complexities of handling the control plane and containerized infrastructure. Clusters are compatible with standard Kubernetes toolchains and integrate natively with DigitalOcean load balancers and block storage volumes. DOKS offers fast provisioning and deployment, provides a free high-availability control pane, for reliability management. It can also provide a Cluster Autoscaler that automatically adjusts the size of the cluster by adding or removing nodes based on the cluster's capacity to schedule pods. Pricing for Kubernetes workloads is based on resources required by the cluster, droplets, block storage and load balancers.
 
 The company publishes its data center [certification reports](https://www.digitalocean.com/trust/certification-reports) on their web, and all the data centers have approved two or more of SOC (System and Organization Controls) 1 Type II, SOC 2 Type II, SOC 3 Type II, ISO/IEC 27001:2013 (Security techniques - Information security management systems). PCI-DSS (Payment Card Industry - Data Security Standard) has been certified in all data centers.
-
-
 
 ## Set up a microservices architecture for Kubernetes
 
@@ -166,8 +166,7 @@ After looking around, stop minikube before the cloud deployment:
 minikube stop
 ```
 
-
-## Deploy to DigitalOcean cloud
+## Deploy to DigitalOcean Kubernetes
 
 Now that the architecture works locally, let's proceed to the cloud deployment. First, create a [DigitalOcean](https://cloud.digitalocean.com/registrations/new) account, you can try their services with $100 credit that is available for 60 days.
 
@@ -341,3 +340,15 @@ Finally in the SSL section of the settings, tick the checkbox **Redirect HTTP to
 {% img blog/jhipster-digital-ocean/do-ssl-redirect.png alt:"DigitalOcean load balancer ssl redirect settings" width:"800" %}{: .center-image }
 
 Test the configuration navigating to http://yourDomain. First the load balancer should redirect to HTTPs, and then the gateway should redirect to the Okta sign in page.
+
+
+## Learn more about JHipster and cloud deployment
+
+And this was a brief walk-through for deploying JHipster to a DigitalOcean managed Kubernetes cluster. Some important topics for production deployment were not covered in this post, to focus on DigitalOcean resource requirements in particular. Among them, external configuration storage with Spring Cloud Config and Git was not covered, secrets encryption both for the cloud configuration and Kubernetes configuration, also was not covered. You can learn about these good practices in the first post of this cloud deployment series: [Kubernetes to the Cloud with Spring Boot and JHipster](/blog/2021/06/01/kubernetes-spring-boot-jhipster). Keep learning, and for more content on JHipster, check out the following links:
+
+- [Introducing Spring Native for JHipster: Serverless Full-Stack Made Easy](/blog/2022/03/03/spring-native-jhipster)
+- [Full Stack Java with React, Spring Boot, and JHipster](/blog/2021/11/22/full-stack-java)
+- [Fast Java Made Easy with Quarkus and JHipster](/blog/2021/03/08/jhipster-quarkus-oidc)
+
+
+Be sure to follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube Channel](https://youtube.com/c/oktadev) so that you never miss any of our excellent content!
