@@ -90,69 +90,11 @@ In the `k8s/store-k8s` directory:
 
 ## Setting the store app initial status for Eureka
 
-Creating this tutorial, I ran into a problem with the store app failing to start. The Spring Boot app itself would start fine in the Kubernetes pod, but the status would get stuck as `OUT_OF_SERVICE`. When I inspected the logs, what I found was that the service started as `UP`, quickly went to `DOWN` and then `OUT_OF_SERVICE`. Later, it would go back to `UP` but the Eureka server never registered this change. It got stuck in `OUT_OF_SERVICE` as far as Eureka was concerned.
+Creating this tutorial, I ran into a problem with the store app geting stuck as `OUT_OF_SERVICE`. When I inspected the logs, what I found was that the service started as `UP`, quickly went to `DOWN` and then `OUT_OF_SERVICE`. Later, it would go back to `UP` but the Eureka server never registered this change.
 
-You can see what was happening in the logs below (I'm eliding a lot of entries).
+There's an open issue with this problem on [Spring Cloud Netflix](https://github.com/spring-cloud/spring-cloud-netflix/issues/3941) and [Netflix Eureka](https://github.com/Netflix/eureka/issues/1398). 
 
-```bash
-..
-2022-04-29 18:04:45.825  INFO 1 --- [           main] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1651255485824, current=UP, previous=STARTING]
-...
-2022-04-29 18:04:46.141  INFO 1 --- [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1651255486140, current=DOWN, previous=UP]
-...
-2022-04-29 18:04:46.235  INFO 1 --- [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1651255486235, current=OUT_OF_SERVICE, previous=DOWN]
-...
-2022-04-29 18:04:46.393  INFO 1 --- [           main] com.okta.developer.store.StoreApp        : 
-----------------------------------------------------------
-	Application 'store' is running! Access URLs:
-	Local: 		http://localhost:8082/
-	External: 	http://10.244.1.16:8082/
-	Profile(s): 	[prod]
-----------------------------------------------------------
-...
-2022-04-29 18:05:01.246  INFO 1 --- [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1651255501246, current=UP, previous=OUT_OF_SERVICE]
-...
-```
-
-In the last log entry, you can see that the store app transitions from `OUT_OF_SERVICE` to `UP`. However, Eureka never picks this up and the store remains out of service on the network.
-
-There's an open issue with this problem on [Spring Cloud Netflix](https://github.com/spring-cloud/spring-cloud-netflix/issues/3941) and [Netflix Eureka](https://github.com/Netflix/eureka/issues/1398). According to the issue, the Spring Boot client should never report `OUT_OF_SERVICE` because Eureka assumes this is only assigned on the server-side, and not client-side as part of a standard health check . As such, once it is set to `OUT_OF_SERVICE`, Eureka stops listening to changes in status.
-
-A temporary fix taken from the issue on Github is to override the health reporting implementation so that it returns `DOWN` instead of `OUT_OF_SERVICE` while the program is still starting. This blocks it from ever reporting `OUT_OF_SERVICE`.
-
-`store/src/main/java/com/okta/developer/store/EurekaFix.java`
-
-```java
-package com.okta.developer.store;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.boot.actuate.health.HealthIndicator;
-import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.EventListener;
-import org.springframework.stereotype.Component;
-
-@Component
-public class EurekaFix implements HealthIndicator {
-    private static Logger LOG = LoggerFactory.getLogger(EurekaFix.class);
-
-    private boolean applicationIsUp = false;
-
-    @EventListener(ApplicationReadyEvent.class)
-    public void onStartup() {
-        this.applicationIsUp = true;
-    }
-
-    @Override
-    public Health health() {
-        if (!applicationIsUp) {
-            return Health.down().build();
-        }
-        return Health.up().build();
-    }
-}
-```
+A temporary fix taken from the issue on GitHub is to override the health reporting implementation so that it returns `DOWN` instead of `OUT_OF_SERVICE` while the program is still starting. This blocks it from ever reporting `OUT_OF_SERVICE`. You can see the fix in the `EurekaFix.java` file in the store app.
 
 ## Clone the modified project from GitHub
 
