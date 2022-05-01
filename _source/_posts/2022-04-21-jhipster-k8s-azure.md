@@ -60,7 +60,7 @@ This tutorial has a lot of pieces. Install the required software below and sign 
 - [Docker Hub](https://hub.docker.com/): you'll need a Docker Hub to host the docker images so that Azure can pull them.
 - [Java 11](https://adoptopenjdk.net/): this post requires Java 11. If you need to manage multiple Java versions, SDKMAN! is a good solution. Check out [their docs to install it](https://sdkman.io/installit).
 - [Okta CLI](https://cli.okta.com/manual/#installation): you'll use Okta to add security to the microservice network. You can register for a free account from the CLI.
-- [Azure Cloud account](https://azure.microsoft.com/en-us/free/): they offer an account with a $200 credit to start. 
+- [Azure Cloud account](https://azure.microsoft.com/en-us/free/): they offer a free-tier account with a $200 credit to start
 - [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli): you'll use the Azure CLI to manage the Kubernetes cluster
 - [kubectl](https://kubernetes.io/docs/tasks/tools/): CLI to manage Kubernetes clusters
 
@@ -72,7 +72,7 @@ This project is based on two of Matt Raible's tutorials: [Reactive Java Microser
 
 You will first run the project using Docker Compose. Once you have this working, you will run the project as a Kubernetes cluster on Azure. The modifications were relatively minor and involved removing the unnecessary MongoDB instances (from both the `docker-compose.yml` file and from the Kubernetes descriptors) as well as updating environment values to point the `store` service to the Cosmos DB instance instead of a MongoDB instance.
 
-Listed briefly, the changes I made from Matt Raible's posts to make this work with Azure and Cosmos DB are as follows. You can skip this list and go right to cloning the Git repository if you want, but since this documents how to update a JHipster-generated project to use Cosmos DB, I thought it was worth putting in here.
+Listed briefly, the changes I made from Matt Raible's posts to make this work with Azure and Cosmos DB are as follows. You can skip this list (and the next section) and go right to cloning the Git repository if you want, but since this documents how to update a JHipster-generated project to use Cosmos DB, I thought it was worth putting in here.
 
 In the `docker-compose/docker-compose.yml` file:
 
@@ -87,6 +87,72 @@ In the `k8s/store-k8s` directory:
   - removed the `initContainers`  (the init container waits for the MongoDB instance, which is removed)
   - updated `SPRING_DATA_MONGODB_URI` env value of the `store-app` container to the Cosmos DB URI (points the store to the Cosmos DB instance)
   - properly secure the Cosmos DB connection string using Kubernetes secrets and `kubeseal`
+
+## Setting the store app initial status for Eureka
+
+Creating this tutorial, I ran into a problem with the store app failing to start. The Spring Boot app itself would start fine in the Kubernetes pod, but the status would get stuck as `OUT_OF_SERVICE`. When I inspected the logs, what I found was that the service started as `UP`, quickly went to `DOWN` and then `OUT_OF_SERVICE`. Later, it would go back to `UP` but the Eureka server never registered this change. It got stuck in `OUT_OF_SERVICE` as far as Eureka was concerned.
+
+You can see what was happening in the logs below (I'm eliding a lot of entries).
+
+```bash
+..
+2022-04-29 18:04:45.825  INFO 1 --- [           main] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1651255485824, current=UP, previous=STARTING]
+...
+2022-04-29 18:04:46.141  INFO 1 --- [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1651255486140, current=DOWN, previous=UP]
+...
+2022-04-29 18:04:46.235  INFO 1 --- [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1651255486235, current=OUT_OF_SERVICE, previous=DOWN]
+...
+2022-04-29 18:04:46.393  INFO 1 --- [           main] com.okta.developer.store.StoreApp        : 
+----------------------------------------------------------
+	Application 'store' is running! Access URLs:
+	Local: 		http://localhost:8082/
+	External: 	http://10.244.1.16:8082/
+	Profile(s): 	[prod]
+----------------------------------------------------------
+...
+2022-04-29 18:05:01.246  INFO 1 --- [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1651255501246, current=UP, previous=OUT_OF_SERVICE]
+...
+```
+
+In the last log entry, you can see that the store app transitions from `OUT_OF_SERVICE` to `UP`. However, Eureka never picks this up and the store remains out of service on the network.
+
+There's an open issue with this problem on [Spring Cloud Netflix](https://github.com/spring-cloud/spring-cloud-netflix/issues/3941) and [Netflix Eureka](https://github.com/Netflix/eureka/issues/1398). According to the issue, the Spring Boot client should never report `OUT_OF_SERVICE` because Eureka assumes this is only assigned on the server-side, and not client-side as part of a standard health check . As such, once it is set to `OUT_OF_SERVICE`, Eureka stops listening to changes in status.
+
+A temporary fix taken from the issue on Github is to override the health reporting implementation so that it returns `DOWN` instead of `OUT_OF_SERVICE` while the program is still starting. This blocks it from ever reporting `OUT_OF_SERVICE`.
+
+`store/src/main/java/com/okta/developer/store/EurekaFix.java`
+
+```java
+package com.okta.developer.store;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
+import org.springframework.stereotype.Component;
+
+@Component
+public class EurekaFix implements HealthIndicator {
+    private static Logger LOG = LoggerFactory.getLogger(EurekaFix.class);
+
+    private boolean applicationIsUp = false;
+
+    @EventListener(ApplicationReadyEvent.class)
+    public void onStartup() {
+        this.applicationIsUp = true;
+    }
+
+    @Override
+    public Health health() {
+        if (!applicationIsUp) {
+            return Health.down().build();
+        }
+        return Health.up().build();
+    }
+}
+```
 
 ## Clone the modified project from GitHub
 
@@ -149,7 +215,7 @@ az cosmosdb create --name jhipster-cosmosdb --resource-group australia-east --ki
 
 Once that command returns (it may take a few minutes), it should list a lot of JSON showing properties of the created Cosmos DB account.
 
-If you get an error that says`(BadRequest) DNS record for cosmosdb under zone Document is already taken.` you need to change the `--name` parameter to something else. Since this is used to generate the public URI for the database it needs to be unique across Azure. Try adding your name or some random numbers if it clashes.
+If you get an error that says`(BadRequest) DNS record for cosmosdb under zone Document is already taken.`, you need to change the `--name` parameter to something else. Since this is used to generate the public URI for the database it needs to be unique across Azure. Try adding your name or a few random numbers.
 
 I'm using the Australia East location because that was the location that had free tier AKS nodes available when I wrote this tutorial. You can use any resource group you want as long as it allows you to create the AKS cluster later in the tutorial. Even if you can't use the free tier or the free credits, if you stop and start the AKS cluster between working on the tutorial, the cost should be very small (mine was less than a few dollars). The application should still work if the Cosmos DB database is in a different resource group and region since the database URI is configured to be publicly accessible.
 
@@ -173,7 +239,7 @@ This will list four connection strings. You need to save (copy and paste somewhe
 }
 ```
 
-Create a `.env` file in the `docker-compose` subdirectory. Add the following variables to it, substituting your connection string for the placeholder. Make sure the connection string is enclosed in quotes. This value is referenced by the `docker-compose.yml` file and passed to the `store` service, pointing it to the Cosmos DB MongoDB database.
+Edit the `.env` file in the `docker-compose` subdirectory. Add the following variables to it, substituting your connection string for the placeholder. Make sure the connection string is enclosed in quotes. This value is referenced by the `docker-compose.yml` file and passed to the `store` service, pointing it to the Cosmos DB MongoDB database.
 
 The `ENCRYPT_KEY` will be used as the key for encrypting sensitive values stored in the Spring Cloud Config and used by the JHipster registry. You can put whatever value you want in there. A UUID works well, but any string value will work. The longer, the better.
 
@@ -228,7 +294,7 @@ spring:
 
 ## Build the Docker images and run the app with Docker Compose
 
-You're all set to run the app locally using Docker and Docker Compose. You need to build the docker image for each of the projects: `gateway`, `store`, and `blog`.
+You're all set to run the app locally using Docker and Docker Compose. You need to build the docker image for each of the projects: `gateway`, `store`, and `blog` (you don't have to build the `registry` because it uses an image).
 
  In the three different app directories, run the following Gradle command.
 
@@ -367,9 +433,9 @@ kubectl get nodes
 ```
 
 ```bash
-NAME                                STATUS   ROLES   AGE   VERSION
-aks-nodepool1-58487107-vmss000000   Ready    agent   12m   v1.22.6
-aks-nodepool1-01098098-vmss000000   Ready    agent   12m   v1.22.6
+NAME                                STATUS   ROLES   AGE    VERSION
+aks-nodepool1-21657131-vmss000000   Ready    agent   105s   v1.22.6
+aks-nodepool1-21657131-vmss000001   Ready    agent   108s   v1.22.6
 ```
 
 You can also  list a lot of information about the cluster in JSON format using:
@@ -428,7 +494,9 @@ Both the encryption key and the database connection string are sensitive values 
 
 ## Build Docker Images and Push to Docker Hub
 
-Previously you built the docker images, but you left them in the local repository. You need to upload them to Docker Hub so that Azure AKS can find them. If you haven't already [signed up for a Docker Hub account](https://hub.docker.com/), please do so now. In each of the three directories (`blog`, `store`, and `gateway`), run the following command. Save your docker repo name in a Bash variable as shown below and you can copy and paste the commands and run them in each service directory.
+Previously you built the docker images, but you left them in the local repository. You need to upload them to Docker Hub so that Azure AKS can find them. If you haven't already [signed up for a Docker Hub account](https://hub.docker.com/), please do so now. 
+
+In each of the three directories (`blog`, `store`, and `gateway`), run the following command. Save your docker repo name in a Bash variable as shown below and you can copy and paste the commands and run them in each service directory.
 
 ```bash
 DOCKER_REPO_NAME=<docker-repo-name>
@@ -492,7 +560,6 @@ blog-neo4j-0                          1/1     Running   0          3m48s
 gateway-7f6d57765f-2fhfb              1/1     Running   0          3m46s
 gateway-postgresql-647476b4d5-jdp5c   1/1     Running   0          3m44s
 jhipster-registry-0                   1/1     Running   0          3m52s
-jhipster-registry-1                   1/1     Running   0          3m39s
 store-7889695569-k4wkv                1/1     Running   0          3m41s
 ```
 
@@ -527,8 +594,6 @@ kubectl port-forward svc/jhipster-registry -n demo 8761
 Open a browser and navigate to `http://localhost:8761`. You will be redirected to the Okta login screen, after which you will be taken to the registry.
 
 Make sure everything is green. If you have an error, check the logs for the pod that caused the error. You can restart a specific deployment by deleting it and re-applying it. For example, to restart the store, you can use the commands below from the `k8s` directory. 
-
-I found that sometimes I had to delete and restart the store to get it to work. I think this has to do with resource availability as the cluster boots.
 
 ```bash
 kubectl delete -f store-k8s/
