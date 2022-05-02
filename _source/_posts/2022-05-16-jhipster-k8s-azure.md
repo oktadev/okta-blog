@@ -90,7 +90,7 @@ In the `k8s/store-k8s` directory:
 
 ## Setting the store app initial status for Eureka
 
-Creating this tutorial, I ran into a problem with the store app geting stuck as `OUT_OF_SERVICE`. When I inspected the logs, what I found was that the service started as `UP`, quickly went to `DOWN` and then `OUT_OF_SERVICE`. Later, it would go back to `UP` but the Eureka server never registered this change.
+Creating this tutorial, I ran into a problem with the store app getting stuck as `OUT_OF_SERVICE`. When I inspected the logs, what I found was that the service started as `UP`, quickly went to `DOWN` and then `OUT_OF_SERVICE`. Later, it would go back to `UP` but the Eureka server never registered this change.
 
 There's an open issue with this problem on [Spring Cloud Netflix](https://github.com/spring-cloud/spring-cloud-netflix/issues/3941) and [Netflix Eureka](https://github.com/Netflix/eureka/issues/1398). 
 
