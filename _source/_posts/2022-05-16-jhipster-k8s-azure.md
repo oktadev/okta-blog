@@ -330,7 +330,7 @@ The app works locally. Now it's time to deploy it to an Azure Kubernetes Cluster
 
 It's super easy to use the CLI to create a cluster. I'll show you the command below. However, there's a wrinkle. The free tier cannot create a cluster in many of the regions because of resource quotas. At least, this was the case when I was working on this tutorial. Nor is there an easy way to quickly see what regions will allow you to create a free-tier cluster. This is why I used Australia East as the region--it allowed me to create a free cluster. 
 
-If the command below does not work, I suggest going to the Auzure portal and create a Kubernetes cluster there. Select **Create a service** and **Kubernetes Service**. You'll have to select different regions and see what sizes are available (under **Node size** and **Change size**) until you find a region that will allow you to create something in the free tier. But hopefully the command will work and you won't have to worry about it.
+If the command below does not work, I suggest going to the Azure portal and creating a Kubernetes cluster there. Select **Create a service** and **Kubernetes Service**. You'll have to select different regions and see what sizes are available (under **Node size** and **Change size**) until you find a region that will allow you to create something in the free tier. But hopefully the command will work and you won't have to worry about it.
 
 The size I'm using for this tutorial is `Standard B4ms` with two nodes. I found that I needed two nodes for the cluster to start properly.
 
