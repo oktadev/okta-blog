@@ -64,7 +64,7 @@ This tutorial has a lot of pieces. Install the required software below and sign 
 - [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli): you'll use the Azure CLI to manage the Kubernetes cluster
 - [kubectl](https://kubernetes.io/docs/tasks/tools/): CLI to manage Kubernetes clusters
 
-If you have never had an Azure account before, you can create a new one that will allow free-tier access and has $200 credit allocated to it. This is more than enough to finish this tutorial. However, the credit does expire after 30 days. If you do not have credit left or your credit has expired, this tutorial should only cost a few dollars **if you stop and start the AKS cluster when you are not working on it** You can keep an eye on your costs using the cost explorer in the Azure portal and set alerts if you are concerned about it. Upgrading to pay-as-you-go may also alleviate some resource throttling issues around testing the AKS clusters.
+If you have never had an Azure account before, you can create a new one that will allow free-tier access and has $200 credit allocated to it. This is more than enough to finish this tutorial. However, the credit does expire after 30 days. If you do not have credit left or your credit has expired, this tutorial should only cost a few dollars **if you stop and start the AKS cluster when you are not working on it**. You can keep an eye on your costs using the cost explorer in the Azure portal and set alerts if you are concerned about it. Upgrading to pay-as-you-go may also alleviate some resource throttling issues around testing the AKS clusters.
 
 ## Modifying the generated JHipster microservice project for Azure and Cosmos DB
 
