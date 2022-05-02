@@ -356,7 +356,7 @@ az aks start --resource-group australia-east --name jhipster-demo
 
 You can also stop and start the cluster from the Azure portal as well. 
 
-The next step is to get the credentials for the cluster and merge them into `.kube/confg` so that `kubectl` can use them. Use the following command.
+The next step is to get the credentials for the cluster and merge them into `.kube/config` so that `kubectl` can use them. Use the following command.
 
 ```bash
 az aks get-credentials --resource-group australia-east --name jhipster-demo
