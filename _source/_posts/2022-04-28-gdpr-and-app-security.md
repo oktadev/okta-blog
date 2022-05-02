@@ -1,7 +1,7 @@
 ---
 type: awareness
 layout: blog_post
-title: "GDPR and application security"
+title: "The Benefits of GDPR for Application Security"
 author: olabayo-balogun
 by: contractor
 communities: [security]
