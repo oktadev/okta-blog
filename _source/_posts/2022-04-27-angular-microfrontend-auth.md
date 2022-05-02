@@ -11,6 +11,7 @@ tweets:
 - "Build an @angular app using micro-frontends! This walkthrough uses #angular & Module Federation, shares state, and 🧁! 😋"
 image: 
 type: conversion
+github: https://github.com/oktadev/okta-angular-microfrontend-example
 ---
 
 The demands placed on front-end web applications continue to grow. We expect our web applications to be feature-rich and highly performant as consumers. As developers, we worry about how to provide features and performance while keeping good development practices and architecture in mind.
