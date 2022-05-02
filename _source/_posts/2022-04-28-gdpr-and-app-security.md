@@ -1,6 +1,5 @@
 ---
 type: awareness
-github: https://github.com/oktadev/okta-dotnet6-webapi-example
 layout: blog_post
 title: "GDPR and application security"
 author: olabayo-balogun
