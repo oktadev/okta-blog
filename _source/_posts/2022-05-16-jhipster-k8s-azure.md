@@ -337,7 +337,8 @@ The size I'm using for this tutorial is `Standard B4ms` with two nodes. I found 
 Run the following command to create the AKS cluster.
 
 ```bash
-az aks create --resource-group australia-east --name jhipster-demo --node-count 2 --enable-addons monitoring --generate-ssh-keys --node-vm-size standard_b4ms
+az aks create --resource-group australia-east --name jhipster-demo \
+  --node-count 2 --enable-addons monitoring --generate-ssh-keys --node-vm-size standard_b4ms
 ```
 
 This will probably take a few minutes.
