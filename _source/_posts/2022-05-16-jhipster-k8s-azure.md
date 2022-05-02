@@ -58,7 +58,7 @@ This tutorial has a lot of pieces. Install the required software below and sign 
 
 - [Docker](https://docs.docker.com/get-docker/): you'll need to have both **Docker Engine** and **Docker Compose** installed (If you install the docker desktop, this will automatically install both. On Linux, if you install Docker Engine individually, you will have to also [install Docker Compose](https://docs.docker.com/compose/install/)) separately.
 - [Docker Hub](https://hub.docker.com/): you'll need a Docker Hub to host the docker images so that Azure can pull them.
-- [Java 11](https://adoptopenjdk.net/): this post requires Java 11. If you need to manage multiple Java versions, SDKMAN! is a good solution. Check out [their docs to install it](https://sdkman.io/installit).
+- [Java 11](https://adoptopenjdk.net/): this tutorial requires Java 11. If you need to manage multiple Java versions, SDKMAN! is a good solution. Check out [their docs to install it](https://sdkman.io/installit).
 - [Okta CLI](https://cli.okta.com/manual/#installation): you'll use Okta to add security to the microservice network. You can register for a free account from the CLI.
 - [Azure Cloud account](https://azure.microsoft.com/en-us/free/): they offer a free-tier account with a $200 credit to start
 - [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli): you'll use the Azure CLI to manage the Kubernetes cluster
