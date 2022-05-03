@@ -64,10 +64,12 @@ You'll be prompted for the location of your JHipster app, a name for your Ionic 
 
 image::{% asset_path 'blog/jhipster-ionic-blueprint/jhipster-ionic.png' %}[alt=JHipster Ionic prompts,width=800,align=center]
 
-You can also create a JHipster app and an Ionic app at the same time using the following command:
+You can also create a JHipster app and an Ionic app at the same time. The command will only work if you've already installed JHipster with `npm install -g generator-jhipster`.
 
 [source,shell]
 ----
+mkdir backend
+cd backend
 jhipster jdl bug-tracker.jh --blueprints ionic
 ----
 
