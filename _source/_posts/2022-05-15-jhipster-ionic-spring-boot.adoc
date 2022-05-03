@@ -81,7 +81,7 @@ Then you can run both apps from your Ionic app using easy-to-remember commands.
 ----
 npm run backend:start
 # open a new terminal window
-ionic serve
+npm start
 ----
 
 image::{% asset_path 'blog/jhipster-ionic-blueprint/ionic-serve.png' %}[alt=Ionic serve command with backend running,width=800,align=center]
@@ -102,7 +102,7 @@ Start the app:
 
 [source,shell]
 ----
-npm run ci:e2e:prepare
+npm run ci:e2e:prepare # starts Keycloak and PostgreSQL in Docker
 ./mvnw
 ----
 
@@ -213,7 +213,8 @@ To add this same functionality to your Ionic app, modify `src/app/pages/entities
 </div>
 ----
 
-You'll want to comment out (or delete) the following lines in `cypress/integration/entities/photo/photo.e2e-spec.ts` so Cypress doesn't try to enter these values when running end-to-end (e2e) tests.
+////
+You can comment out (or delete) the following lines in `cypress/integration/entities/photo/photo.e2e-spec.ts` so Cypress doesn't try to enter these values when running end-to-end (e2e) tests.
 
 [source,ts]
 ----
@@ -230,6 +231,8 @@ if (photoSample.uploaded !== undefined && photoSample.uploaded !== null) {
   photoUpdatePage.setUploadedInput(photoSample.uploaded);
 }*/
 ----
+////
+
 
 When you save these files, the Ionic CLI will auto-compile and reload the app in your browser. You can prove everything works as expected by stopping your app (with kbd:[Ctrl + C]) and running all the e2e tests.
 
@@ -244,14 +247,11 @@ Generate a native iOS project with the following commands:
 
 [source,shell]
 ----
-ionic build
-ionic capacitor add ios
+npx ionic build
+npx ionic capacitor add ios
 ----
 
-Add your custom scheme (`dev.localhost.ionic`) to `ios/App/App/Info.plist`. This is configured in `src/environments/environment.ts`; you can easily change it something else if you like.
-
-// todo: update src/app/auth/factories/auth.factory.ts to use {scheme} from environment
-
+Add your custom scheme (`dev.localhost.ionic`) to `ios/App/App/Info.plist`. This is configured in `src/environments/environment.ts`; you can easily change it to something else if you like.
 [source,xml]
 ----
 <key>CFBundleURLTypes</key>
