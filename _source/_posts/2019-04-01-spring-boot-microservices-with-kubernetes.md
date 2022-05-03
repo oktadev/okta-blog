@@ -851,7 +851,7 @@ So close! The last thing you need to do is to use the OIDC Debugger tool to gene
 
 At the bottom, click **Send Request**.
 
-Copy the generated token, and store it in a shell variable for convenience:
+Copy the generated access token, and store it in a shell variable for convenience:
 
 ```bash
 TOKEN=eyJraWQiOiI4UlE5REJGVUJOTnJER0VGaEExekd6bWJqREp...
