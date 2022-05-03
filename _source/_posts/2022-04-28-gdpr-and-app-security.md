@@ -18,15 +18,16 @@ As the internet has grown, so has the need to protect users from privacy invasio
 If your organization is subject to GDPR, you'll need to know how to stay in compliance. This article will break down the details of this policy so that you understand its potential effects on your application.
 
 {% include toc.md %}
+
 ## What to know about GDPR
 
-GDPR, which officially took effect on May 25, 2018, primarily encourages organizations to properly handle user data and privacy. Those not in compliance can face fines, in some cases [large ones](https://gdpr.eu/the-gdpr-meets-its-first-challenge-facebook/).
+GDPR, which officially took effect on May 25, 2018, primarily encourages organizations to properly handle user data and privacy. Those not in compliance can face fines, in some cases [large ones like Facebook](https://gdpr.eu/the-gdpr-meets-its-first-challenge-facebook/).
 
 ### GDPR requirements
 
 GDPR compliance imposes multiple requirements on your organization. Here is what you must include in your application:
 
-- Enhanced application security.
+- Enhanced application security. For example, end-to-end encryption, multi-factor authentication, and so on.
 - Facilities for users to exercise their data privacy rights.
 - Quick data purge at a user's request.
 - Users given access to data collected from or about them.
@@ -123,7 +124,7 @@ Data mapping can be manual, semi-automated, or automated. You should determine w
 
 Previously, even after users requested that their data be deleted, organizations could remove it from public access and keep it somewhere hidden; however, the GDPR mandates that "officially" deleted data must be deleted everywhere. Organizations must ensure that they monitor data to delete it properly from all resources as needed.
 
-Implementing [data purge functionality](https://success.outsystems.com/Documentation/Best_Practices/Architecture/Data_Purging) will likely require some modification to your database schema so that you can identify data to mark for deletion, per user requests, and data to purge due to staleness.  Using `last_updated_date` and `is_deleted` columns in your data table can be useful in identifying either type of data.
+Implementing [data purge functionality](https://success.outsystems.com/Documentation/Best_Practices/Architecture/Data_Purging) will likely require some modification to your database schema so that you can identify data to mark for deletion, per user requests, and data to purge due to staleness. Using `last_updated_date` and `is_deleted` columns in your data table can be useful in identifying either type of data.
 
 ### Refactoring database schemas
 
@@ -139,9 +140,9 @@ If necessary, remember you can seek help from a GDPR officer to ensure complianc
 
 Check out these posts and whitepapers from Okta for more information about GDPR:
 
-- [Starting Your General Data Protection Regulation (GDPR) Journey with Okta](/whitepaper/starting-your-general-data-protection-regulation-journey-with-okta/)
-- [GDPR, Privacy and Consent Management: How Okta Can Support Your CIAM Requirements](/blog/2019/01/gdpr-privacy-and-consent-management-how-okta-can-support-your-ciam-requirements/)
-- [CCPA vs. GDPR: Similarities and Differences Explained](/blog/2021/04/ccpa-vs-gdpr/)
+- [Starting Your General Data Protection Regulation (GDPR) Journey with Okta](https://www.okta.com/resources/whitepaper/starting-your-general-data-protection-regulation-journey-with-okta/)
+- [GDPR, Privacy and Consent Management: How Okta Can Support Your CIAM Requirements](https://www.okta.com/blog/2019/01/gdpr-privacy-and-consent-management-how-okta-can-support-your-ciam-requirements/)
+- [CCPA vs. GDPR: Similarities and Differences Explained](https://www.okta.com/blog/2021/04/ccpa-vs-gdpr/)
 
 If you have any questions about this post, please add a comment below. For more interesting content, follow [@oktadev](https://twitter.com/oktadev) on Twitter, connect with us on [LinkedIn](https://www.linkedin.com/company/oktadev/), and subscribe to our [YouTube](https://www.youtube.com/oktadev) channel.
 
