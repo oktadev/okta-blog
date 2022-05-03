@@ -24,6 +24,7 @@ Cloud adoption continues to increase rapidly and worldwide, and not only in the 
 - [kubectl 1.23](https://kubernetes.io/docs/tasks/tools/#kubectl)
 - [minikube v1.25.2](https://minikube.sigs.k8s.io/docs/start/)
 - [k9s v0.25.18](https://k9scli.io/topics/install/)
+- [Docker 20.10.12](https://docs.docker.com/engine/install/)
 
 **Table of Contents**{: .hide }
 * Table of Contents
@@ -36,7 +37,7 @@ DigitalOcean is a cloud services company founded in 2011 by brothers Ben and Moi
 
 {% img blog/jhipster-digital-ocean/do-logo.png alt:"DigitalOcean Logo" width:"200" %}{: .center-image }
 
-DigitalOcean Kubernetes (DOKS) is a managed Kubernetes service that lets you deploy Kubernetes clusters without the complexities of handling the control plane and containerized infrastructure. Clusters are compatible with standard Kubernetes toolchains and integrate natively with DigitalOcean load balancers and block storage volumes. DOKS offers fast provisioning and deployment, provides a free high-availability control pane, for reliability management. It can also provide a Cluster Autoscaler that automatically adjusts the size of the cluster by adding or removing nodes based on the cluster's capacity to schedule pods. Pricing for Kubernetes workloads is based on resources required by the cluster, droplets, block storage and load balancers.
+DigitalOcean Kubernetes (DOKS) is a managed Kubernetes service that lets you deploy Kubernetes clusters without the complexities of handling the control pane and containerized infrastructure. Clusters are compatible with standard Kubernetes toolchains and integrate natively with DigitalOcean load balancers and block storage volumes. DOKS offers fast provisioning and deployment, provides a free high-availability control pane, for reliability management. It can also provide a Cluster Autoscaler that automatically adjusts the size of the cluster by adding or removing nodes based on the cluster's capacity to schedule pods. Pricing for Kubernetes workloads is based on resources required by the cluster, droplets, block storage and load balancers.
 
 The company publishes its data center [certification reports](https://www.digitalocean.com/trust/certification-reports) on their web, and all the data centers have approved two or more of SOC (System and Organization Controls) 1 Type II, SOC 2 Type II, SOC 3 Type II, ISO/IEC 27001:2013 (Security techniques - Information security management systems). PCI-DSS (Payment Card Industry - Data Security Standard) has been certified in all data centers.
 
@@ -44,7 +45,7 @@ The company publishes its data center [certification reports](https://www.digita
 
 Before working on the application, you need to install JHipster. The classical way of working with JHipster is to do a local installation with NPM, follow the instructions at [jhipster.tech](https://www.jhipster.tech/installation/#local-installation-with-npm-recommended-for-normal-users).
 
-For this tutorial, start from the `reactive-jhipster` example in the `java-microservices-examples` repository on [GitHub](https://github.com/oktadeveloper/java-microservices-examples). The example is a JHipster  reactive microservices architecture with Spring Cloud Gateway and Spring WebFlux, Vue as the client framework and Gradle as the build tool.
+For this test, start from the `reactive-jhipster` example in the `java-microservices-examples` repository on [GitHub](https://github.com/oktadeveloper/java-microservices-examples). The example is a JHipster  reactive microservices architecture with Spring Cloud Gateway and Spring WebFlux, Vue as the client framework and Gradle as the build tool.
 
 ```shell
 git clone https://github.com/oktadeveloper/java-microservices-examples.git
@@ -67,7 +68,7 @@ Choose the following options when prompted:
 - Which applications? (select all)
 - Set up monitoring? **No**
 - Which applications with clustered databases? select **store**
-- Admin password for JHipster Registry: <generate one>
+- Admin password for JHipster Registry: (generate one)
 - Kubernetes namespace: **demo**
 - Docker repository name: (your docker hub username)
 - Command to push Docker image: `docker push`
@@ -83,9 +84,11 @@ Choose the following options when prompted:
 Build the `gateway`, `store` and `blog` services container images with Jib. For example, for the `gateway` service:
 
 ```shell
-cd gateway
+cd ../gateway
 ./gradlew bootJar -Pprod jib -Djib.to.image=<docker-repo-name>/gateway
 ```
+
+Check the images were uploaded to [DockerHub](hub.docker.com), and navigate to the project root folder in the terminal for the next step.
 
 ## Configure Okta for authentication
 
@@ -121,82 +124,21 @@ Enable the OIDC authentication in the `jhiipster-registry` service by adding the
 
 ## Run locally with Minikube
 
-[Install Minikube](https://minikube.sigs.k8s.io/docs/start/) and [`kubectl`](https://kubernetes.io/docs/tasks/tools/).
+Install [Minikube](https://minikube.sigs.k8s.io/docs/start/) and [`kubectl`](https://kubernetes.io/docs/tasks/tools/).
 
 For Minkube, you will need at least 2 CPUs. Start MiniKube with your number of CPUs:
 
 ```shell
+cd k8s
 minikube --cpus <ncpu> start
 ```
-Then deploy the application to Minikube, in the `k8s` directory, run:
+Minikube will log the Kubernetes and Docker versions on start:
 
-```shell
-./kubectl-apply.sh -f
 ```
-Now it is a good time to install [k9s](https://k9scli.io/topics/install/), a terminal based UI to interact with Kubernetes clusters. Then run k9s with:
-
-```shell
-k9s -n demo
+Preparing Kubernetes v1.23.3 on Docker 20.10.12 ...
 ```
 
-{% img blog/jhipster-digital-ocean/k9s-UI.png alt:"k9s UI" width:"800" %}{: .center-image }
-
-Checkout the [commands list](https://k9scli.io/topics/commands/), some useful ones are:
-- `:namespace`: show all available namespaces
-- `:pods`: show all available pods
-You can navigate the pods with `ENTER` and go back with `ESC` keys.
-
-Set up port-forwarding for the the JHipster Registry.
-
-```shell
-kubectl port-forward svc/jhipster-registry -n demo 8761
-```
-
-Navigate to http://localhost:8761 and sign in with your Okta credentials. When the registry shows all services in green, Set up port-forwarding for the gateway as well.
-
-```shell
-kubectl port-forward svc/gateway -n demo 8080
-```
-
-Navigate to http://localhost:8080, sign in, and create some entities to verify everything is working fine.
-
-After looking around, stop minikube before the cloud deployment:
-
-```shell
-minikube stop
-```
-
-## Deploy to DigitalOcean Kubernetes
-
-Now that the architecture works locally, let's proceed to the cloud deployment. First, create a [DigitalOcean](https://cloud.digitalocean.com/registrations/new) account, you can try their services with $100 credit that is available for 60 days.
-
-Most of the cluster tasks, if not all, can be accomplished using [doctl](https://github.com/digitalocean/doctl#installing-doctl), the command-line interface (CLI) for the DigitalOcean API.
-
-Install the tool, and perform the authentication with DigitalOcean:
-
-```shell
-doctl auth init
-```
-You will be prompted to enter the DigitalOcean access token that you can generate in the DigitalOcean control panel.
-
-{% img blog/jhipster-digital-ocean/do-control-panel-token.png alt:"DigitalOcean Control Panel for Token Create" width:"500" %}{: .center-image }
-
-You can find a detailed list of pricing for cluster resources at [DigitalOcean](https://docs.digitalocean.com/products/kubernetes/),  and with `doctl` you can quickly retrieve a list of node size options available for your account:
-
-```shell
- doctl k options sizes
- ```
-
- **NOTE**: I tested the cluster with the higher size Intel nodes available for my account, `s-2vcpu-4gb-intel`, in an attempt to run the application in the default cluster configuration, a three-node cluster with a single node pool in the nyc1 region, using the latest Kubernetes version. As I started to see pods not starting due to "insufficient CPU", I increased the number of nodes.
-
- Create the cluster with the following command line:
-
- ```shell
- doctl k cluster create do1 -v --size s-2vcpu-4gb-intel
- ```
- After creating a cluster, `doctl` adds a configuration context to kubectl and makes it active, so start monitoring your cluster right away with k9s. But fist, some tweaks to the Kubernetes descriptors are required.
-
-DigitalOcean latest and default Kubernetes version at the moment of writing this tutorial is 1.22.8. For the `store-mongodb` deployment to work in DigitalOcean, the property `Service.spec.publishNotReadyAddresses `, instead of the annotation `service.alpha.kubernetes.io/tolerate-unready-endpoints`, as it was deprecated in [release 1.11](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.11.md#kubernetes-111-release-notes). For some reason, the generated spec worked in the local minikube deployment with a newer Kubernetes version, but not in DigitalOcean.
+For the `store-mongodb` deployment to work, the property `Service.spec.publishNotReadyAddresses` was required, instead of the annotation `service.alpha.kubernetes.io/tolerate-unready-endpoints`, as the later was deprecated in [release 1.11](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.11.md#kubernetes-111-release-notes).
 
 In the k8s folder, edit `store-mongodb.yml` and add the `publishNotReadyAddresses: true` property to the `spec`:
 
@@ -218,13 +160,79 @@ spec:
     app: store-mongodb
 ```
 
-Apply the resources configuration to the DigitalOcean cluster:
+Then deploy the application to Minikube, in the `k8s` directory, run:
+
+```shell
+./kubectl-apply.sh -f
+```
+Now it is a good time to install [k9s](https://k9scli.io/topics/install/), a terminal based UI to interact with Kubernetes clusters. Then run k9s with:
+
+```shell
+k9s -n demo
+```
+
+{% img blog/jhipster-digital-ocean/k9s-pods.png alt:"k9s UI" width:"800" %}{: .center-image }
+
+Checkout the [commands list](https://k9scli.io/topics/commands/), some useful ones are:
+- `:namespace`: show all available namespaces
+- `:pods`: show all available pods
+You can navigate the pods with `ENTER` and go back with `ESC` keys.
+
+Set up port-forwarding for the the JHipster Registry.
+
+```shell
+kubectl port-forward svc/jhipster-registry -n demo 8761
+```
+
+Navigate to `http://localhost:8761` and sign in with your Okta credentials. When the registry shows all services in green, Set up port-forwarding for the gateway as well.
+
+```shell
+kubectl port-forward svc/gateway -n demo 8080
+```
+
+Navigate to `http://localhost:8080`, sign in, and create some entities to verify everything is working fine.
+
+After looking around, stop minikube before the cloud deployment:
+
+```shell
+minikube stop
+```
+
+## Deploy to DigitalOcean Kubernetes
+
+Now that the architecture works locally, let's proceed to the cloud deployment. First, create a [DigitalOcean](https://cloud.digitalocean.com/registrations/new) account, you can try their services with $100 credit that is available for 60 days.
+
+Most of the cluster tasks, if not all, can be accomplished using [doctl](https://github.com/digitalocean/doctl#installing-doctl), the command-line interface (CLI) for the DigitalOcean API.
+
+Install the tool, and perform the authentication with DigitalOcean:
+
+```shell
+doctl auth init
+```
+You will be prompted to enter the DigitalOcean access token that you can generate in the DigitalOcean control panel. Sign in, and then in the left menu go to **API**, click **Generate New Token**. Enter a token name, and click **Generate Token**. Copy the new token from the **Tokens/Keys** table.
+
+{% img blog/jhipster-digital-ocean/do-control-panel-token.png alt:"DigitalOcean Control Panel for Token Create" width:"500" %}{: .center-image }
+
+You can find a detailed list of pricing for cluster resources at [DigitalOcean](https://docs.digitalocean.com/products/kubernetes/),  and with `doctl` you can quickly retrieve a list of node size options available for your account:
+
+```shell
+ doctl k options sizes
+ ```
+
+ **NOTE**: I tested the cluster with the higher size Intel nodes available for my account, `s-2vcpu-4gb-intel`, in an attempt to run the application in the default cluster configuration, a three-node cluster with a single node pool in the nyc1 region, using the latest Kubernetes version. As I started to see pods not running due to "insufficient CPU", I increased the number of nodes later. DigitalOcean latest and default Kubernetes version at the moment of writing this post is 1.22.8.
+
+ Create the cluster with the following command line:
+
+ ```shell
+ doctl k cluster create do1 -v --size s-2vcpu-4gb-intel
+ ```
+After creating a cluster, `doctl` adds a configuration context to kubectl and makes it active, so you can start monitoring your cluster right away with k9s. First apply the resources configuration to the DigitalOcean cluster:
 
 ```shell
 ./kubectl-apply.sh -f
 ```
 
-Monitor the deployment with k9s again:
+Monitor the deployment with k9s:
 
  ```shell
  k9s -n demo
@@ -232,7 +240,7 @@ Monitor the deployment with k9s again:
 
 {% img blog/jhipster-digital-ocean/k9s-do-cluster.png alt:"k9s user interface monitoring DigitalOcean Kubernetes" width:"800" %}{: .center-image }
 
-Once you see the jhipster-registry pods are up, set up port forwarding again if you want to monitor the services status there.
+Once you see the `jhipster-registry` pods are up, set up port forwarding again so you can also monitor the services status in the registry UI.
 
 
 ### Increase CPU
@@ -301,7 +309,9 @@ Session Affinity:         None
 External Traffic Policy:  Cluster
 ```
 
-Navigate to http://loadBalancerIngressIP:8080.
+Update the redirect URIs in Okta to allow the gateway address as a valid redirect. Run `okta login`, open the returned URL in your browser, and sign in to the Okta Admin Console. Go to the **Applications** section, find your application, and edit it.
+
+Navigate to `http://loadBalancerIngressIP:8080`.
 
 
 ## Secure web traffic with HTTPS
@@ -310,7 +320,7 @@ As the gateway service acts as the application front-end, in the k8s descriptors
 
 A standard practice is to secure web traffic to your application with HTTPs. For the traffic encryption you need a TLS (SSL) cerificate. DigitalOcean also provides automatic certificate creation and renewal if you manage your domain with DigitalOcean DNS, which is free. But domain registration is not provided.  To use DigitalOcean DNS, you need to register a domain name with a registrar and update your domain's NS records to point to DigitalOcean's name servers.
 
-Then, for the chosen configuration in this tutorial, DigitalOcean managed domain and certificate, you must [delegate the domain](https://docs.digitalocean.com/tutorials/dns-registrars/), updating NS records in the registrar.
+Then, for the chosen configuration in this post, DigitalOcean managed domain and certificate, you must [delegate the domain](https://docs.digitalocean.com/tutorials/dns-registrars/), updating NS records in the registrar.
 
 **IMPORTANT NOTE**: Before changing the registrar NS records (the nameservers), add your domain to DigitalOcean, to minimize service disruptions.
 
@@ -339,7 +349,10 @@ Finally in the SSL section of the settings, tick the checkbox **Redirect HTTP to
 
 {% img blog/jhipster-digital-ocean/do-ssl-redirect.png alt:"DigitalOcean load balancer ssl redirect settings" width:"800" %}{: .center-image }
 
-Test the configuration navigating to http://yourDomain. First the load balancer should redirect to HTTPs, and then the gateway should redirect to the Okta sign in page.
+
+Once again, update the redirect URIs in Okta to allow the newly configured domain. Set up the URIs with `https://yourDomain` prefix.
+
+Test the configuration navigating to `http://yourDomain`. First the load balancer should redirect to HTTPs, and then the gateway should redirect to the Okta sign in page.
 
 
 ## Learn more about JHipster and cloud deployment
