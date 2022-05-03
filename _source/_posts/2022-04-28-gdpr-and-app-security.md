@@ -49,9 +49,9 @@ Because GDPR demands that organizations increase data security and backs up thos
 
 ### More security integrations
 
-Applications that help with [automation testing](https://www.globalapptesting.com/blog/what-is-automation-testing), [automated breach and attack simulation](https://www.xmcyber.com/what-is-breach-and-attack-simulation/), [virtual private networks (VPNs)](https://www.kaspersky.com/resource-center/definitions/what-is-a-vpn), and [virtual private clouds (VPCs)](https://www.ibm.com/cloud/learn/vpc) are more likely to be added to an organization's security strategy. Such additions help shore up the defenses of digital infrastructure; VPCs and VPNs also offer a sandbox environment for employees to experiment with security features.
+Products and services that help with [automation testing](https://www.globalapptesting.com/blog/what-is-automation-testing), [automated breach and attack simulation](https://www.xmcyber.com/what-is-breach-and-attack-simulation/), [virtual private networks (VPNs)](https://www.kaspersky.com/resource-center/definitions/what-is-a-vpn), and [virtual private clouds (VPCs)](https://www.ibm.com/cloud/learn/vpc) are more likely to be added to an organization's security strategy. Such additions can shore up the defenses of digital infrastructure; VPCs and VPNs also offer a sandbox environment for employees to experiment with security features.
 
-### Faster response to breaches
+### Faster response to security incidents
 
 Previously, user data theft wasn't always handled as promptly as it should have been. GDPR enforcement requires organizations to communicate quickly about security breaches, which helps protect affected users and keeps other stakeholders well-informed. This can reduce the fallout of data theft.
 
@@ -105,7 +105,7 @@ The following are questions you need to answer in order to keep your application
 
 ## Common GDPR features
 
-Following are examples of features that you can implement in your application to ensure GDPR compliance:
+Here are examples of features that you can implement in your application to ensure GDPR compliance:
 
 ### Frontend cookie consent
 
@@ -123,9 +123,9 @@ Data mapping can be manual, semi-automated, or automated. You should determine w
 
 Previously, even after users requested that their data be deleted, organizations could remove it from public access and keep it somewhere hidden; however, the GDPR mandates that "officially" deleted data must be deleted everywhere. Organizations must ensure that they monitor data to delete it properly from all resources as needed.
 
-Data purge functionality [implementation](https://success.outsystems.com/Documentation/Best_Practices/Architecture/Data_Purging) will likely require some modification to your database schema so that you can identify data to mark for deletion, per user requests, and data to purge due to staleness. A `LastUpdatedDate` and `IsDeleted` column in your data table can be useful in identifying either type of data.
+Implementing [data purge functionality](https://success.outsystems.com/Documentation/Best_Practices/Architecture/Data_Purging) will likely require some modification to your database schema so that you can identify data to mark for deletion, per user requests, and data to purge due to staleness.  Using `last_updated_date` and `is_deleted` columns in your data table can be useful in identifying either type of data.
 
-### Refactoring DB schemas
+### Refactoring database schemas
 
 Data purge functionality may involve refactoring [database (DB) schemas](https://en.wikipedia.org/wiki/Database_schema) to add columns noting when a resource was created or whether it was deleted. These columns can be used to automate data purges based on whether the data has been held longer than needed, for instance.
 
