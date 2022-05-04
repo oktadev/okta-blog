@@ -281,4 +281,4 @@ If you want to learn more about Java and FFI in general, check out these additio
 - [Java Records: A WebFlux and Spring Data Example](/blog/2021/11/05/java-records/)
 - [Project Panama for Newbies](https://foojay.io/today/project-panama-for-newbies-part-1/)
 
-If you liked this tutorial, chances are you'll enjoy the others we publish. Please follow [@oktadev on Twitter](https://twitter.com/oktadev) and [subscribe to our YouTube channel](https://youtube.com/oktadev) to get notified when we publish new developer tutorials.
+If you liked this article, chances are you'll enjoy the others we publish. Please follow [@oktadev on Twitter](https://twitter.com/oktadev) and [subscribe to our YouTube channel](https://youtube.com/oktadev) to get notified when we publish new developer tutorials.
