@@ -1,6 +1,8 @@
 ---
 layout: blog_post
 title: "Integrate Ionic and Spring Boot Securely with JWT and OAuth 2.0"
+// Integrate Ionic and Spring Boot with OAuth/OIDC
+// Integrate Ionic and Spring Boot
 author: matt-raible
 by: advocate
 communities: [mobile,java,javascript]
