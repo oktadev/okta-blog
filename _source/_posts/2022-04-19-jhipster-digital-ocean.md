@@ -32,7 +32,6 @@ Cloud adoption continues to increase rapidly and worldwide, and not only in the 
 
 ## About DigitalOcean
 
-
 DigitalOcean is a cloud services company founded in 2011 by brothers Ben and Moisey Uretsky. The headquarters are in New York City in United States, and they also have offices in Massachussets and Bangalore. Last March 2022, it reached its IPO (Initial Public Offering) and some press articles describe it as the cloud services provider for small businesses: "Cloud services for the Little Guy".
 
 {% img blog/jhipster-digital-ocean/do-logo.png alt:"DigitalOcean Logo" width:"200" %}{: .center-image }
@@ -77,9 +76,7 @@ Choose the following options when prompted:
 - Use dynamic storage provisioning? **Yes**
 - Use a specific storage class? (leave empty)
 
-
 **NOTE**: You can leave the Docker repository name blank for running Kubernetes locally, but a repository will be required for the cloud deployment, so go ahead and create a Docker personal account, and the image pull configuration will be ready for both local and cloud deployments.
-
 
 Build the `gateway`, `store` and `blog` services container images with Jib. For example, for the `gateway` service:
 
@@ -202,9 +199,7 @@ minikube stop
 
 Now that the architecture works locally, let's proceed to the cloud deployment. First, create a [DigitalOcean](https://cloud.digitalocean.com/registrations/new) account, you can try their services with $100 credit that is available for 60 days.
 
-Most of the cluster tasks, if not all, can be accomplished using [doctl](https://github.com/digitalocean/doctl#installing-doctl), the command-line interface (CLI) for the DigitalOcean API.
-
-Install the tool, and perform the authentication with DigitalOcean:
+Most of the cluster tasks, if not all, can be accomplished using [doctl](https://github.com/digitalocean/doctl#installing-doctl), the command-line interface (CLI) for the DigitalOcean API. Install the tool, and perform the authentication with DigitalOcean:
 
 ```shell
 doctl auth init
@@ -242,7 +237,6 @@ Monitor the deployment with k9s:
 
 Once you see the `jhipster-registry` pods are up, set up port forwarding again so you can also monitor the services status in the registry UI.
 
-
 ### Increase CPU
 
 The three-node cluster might not provide enough CPU for this microservices architecture, so you might see `insufficient CPU` logs for some pods. You can get the pod events with `kubectl describe`:
@@ -278,9 +272,7 @@ Events:
 
 As instructed by the event message, I contacted DigitalOcean support and they fixed it.
 
-
 ### The gateway external IP
-
 
 Once all the pods are running, find the gateway external IP with the `kubectl describe` command:
 
@@ -312,7 +304,6 @@ External Traffic Policy:  Cluster
 Update the redirect URIs in Okta to allow the gateway address as a valid redirect. Run `okta login`, open the returned URL in your browser, and sign in to the Okta Admin Console. Go to the **Applications** section, find your application, and edit it.
 
 Navigate to `http://loadBalancerIngressIP:8080`.
-
 
 ## Secure web traffic with HTTPS
 
@@ -349,11 +340,9 @@ Finally in the SSL section of the settings, tick the checkbox **Redirect HTTP to
 
 {% img blog/jhipster-digital-ocean/do-ssl-redirect.png alt:"DigitalOcean load balancer ssl redirect settings" width:"800" %}{: .center-image }
 
-
 Once again, update the redirect URIs in Okta to allow the newly configured domain. Set up the URIs with `https://yourDomain` prefix.
 
 Test the configuration navigating to `http://yourDomain`. First the load balancer should redirect to HTTPs, and then the gateway should redirect to the Okta sign in page.
-
 
 ## Learn more about JHipster and cloud deployment
 
@@ -362,6 +351,5 @@ And this was a brief walk-through for deploying JHipster to a DigitalOcean manag
 - [Introducing Spring Native for JHipster: Serverless Full-Stack Made Easy](/blog/2022/03/03/spring-native-jhipster)
 - [Full Stack Java with React, Spring Boot, and JHipster](/blog/2021/11/22/full-stack-java)
 - [Fast Java Made Easy with Quarkus and JHipster](/blog/2021/03/08/jhipster-quarkus-oidc)
-
 
 Be sure to follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube Channel](https://youtube.com/c/oktadev) so that you never miss any of our excellent content!
