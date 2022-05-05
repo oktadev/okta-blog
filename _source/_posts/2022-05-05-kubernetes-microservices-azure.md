@@ -4,13 +4,13 @@ title: "Kubernetes Microservices on Azure with Cosmos DB"
 author: andrew-hughes
 by: contractor
 communities: [java,devops]
-description: "A in-depth tutorial on how to deploy Spring Boot and Spring Cloud microservices to Azure. "
+description: "A in-depth guide to deploying JHipster microservices to Azure. Tech stack: Spring Boot, Spring Cloud, Cosmos DB, and Vue."
 tags: [java,jhipster,kubernetes,k8s,devops,microservices]
 tweets:
-- ""
-- ""
-- ""
-image:
+- "Want to deploy your @java microservices architecture on @Azure? Use Kubernetes!"
+- "Learn how to deploy your @kubernetes_io microservices on #Azure in this in-depth tutorial."
+- "Kubernetes microservices made easy with @jhipster! 🤓"
+image: blog/jhipster-k8s-azure/microservice-structure.png
 type: conversion
 ---
 
