@@ -441,19 +441,19 @@ Both the encryption key and the database connection string are sensitive values 
 
 Previously you built the docker images, but you left them in the local repository. Now you need to upload them to Docker Hub so that Azure AKS can find them. If you haven't already [signed up for a Docker Hub account](https://hub.docker.com/), please do so now. 
 
-In each of the three directories (`blog`, `store`, and `gateway`), run the following command. Save your Docker repo name in a Bash variable as shown below and you can copy and paste the commands and run them in each service directory.
+In each of the three directories (`blog`, `store`, and `gateway`), run the following command. Save your Docker Hub username in a Bash variable as shown below and you can copy and paste the commands and run them in each service directory.
 
 ```bash
-DOCKER_REPO_NAME=<docker-repo-name>
+DOCKER_HUB_USERNAME=<docker-hub-username>
 # in blog
-./gradlew bootJar -Pprod jib -Djib.to.image=$DOCKER_REPO_NAME/blog
+./gradlew bootJar -Pprod jib -Djib.to.image=$DOCKER_HUB_USERNAME/blog
 # in store
-./gradlew bootJar -Pprod jib -Djib.to.image=$DOCKER_REPO_NAME/store
+./gradlew bootJar -Pprod jib -Djib.to.image=$DOCKER_HUB_USERNAME/store
 # in gateway
-./gradlew bootJar -Pprod jib -Djib.to.image=$DOCKER_REPO_NAME/gateway
+./gradlew bootJar -Pprod jib -Djib.to.image=$DOCKER_HUB_USERNAME/gateway
 ```
 
-To briefly explain what's happening here, take a look at the blog service's Kubernetes descriptor file. It defines a container named `blog-app` that uses the docker image `andrewcarterhughes/blog`, which is my Docker repository name and the blog image.
+To briefly explain what's happening here, take a look at the blog service's Kubernetes descriptor file. It defines a container named `blog-app` that uses the docker image `andrewcarterhughes/blog`, which is my Docker Hub username and the blog image.
 
 `k8s/blog-k8s/blog-deployment.yml`
 
@@ -464,6 +464,8 @@ containers:
 ```
 
 Thus in the `k8s` directory, each service (store, blog, gateway, and registry) defines a container and a docker image to be run in that container, along with a whole lot of configuration (which is really a lot of what JHipster is bootstrapping for you). The registry does not have a project folder because it uses a stock image that can be pulled directly from the JHipster Docker repository.
+
+To use the images you just created with Kubernetes, do a find and replace in the `k8s` directory. Replace all instances of `andrewcarterhughes` with your Docker Hub username (`<docker-hub-username>`). 
 
 One nice feature of Kubernetes is the ability to define [init containers](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/). These are containers that run before the main container and can be used to create or wait for necessary resources like databases. I noticed while I was debugging things in this app that a lot of the errors happened in the init containers. It's helpful to know this because if you try and inspect the main container log nothing will be there because the container hasn't even started yet. You have to check the log for the init container that failed. The Kubernetes management tools that I mention below really come in handy for this.
 
