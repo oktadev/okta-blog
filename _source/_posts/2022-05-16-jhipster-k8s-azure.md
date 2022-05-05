@@ -1,11 +1,11 @@
 ---
 layout: blog_post
-title: "JHipster Microservice Deployed to Azure with Cosmos DB"
+title: "Kubernetes Microservices on Azure with Cosmos DB"
 author: andrew-hughes
 by: contractor
-communities: [devops,security,java,javascript]
-description: ""
-tags: []
+communities: [java,devops]
+description: "A in-depth tutorial on how to deploy Spring Boot and Spring Cloud microservices to Azure. "
+tags: [java,jhipster,kubernetes,k8s,devops,microservices]
 tweets:
 - ""
 - ""
@@ -13,16 +13,17 @@ tweets:
 image:
 type: conversion
 ---
-## JHipster Azure AKS Microservice
 
 In this tutorial, you'll learn how to deploy a JHipster-based, reactive microservice to Azure Kubernetes Service (AKS). You'll use Azure's Cosmos DB as a persistent store for one of the services. For security, you'll use Okta as an OAuth 2.0 and OpenID Connect (OIDC) provider. You'll also securely encrypt all secrets in the project configuration files using Kubernetes secrets and `kubeseal`. This tutorial focuses on deploying an already generated project to Azure AKS. It does not go into great detail about generating the project. To see how the project was generated using JHipster, take a look at [Reactive Java Microservices with Spring Boot and JHipster](/blog/2021/01/20/reactive-java-microservices). 
+
+## Java Microservices on Azure AKS
 
 The project has a few different pieces:
 
 - JHipster Registry: a Eureka server for service discovery and a Spring Cloud Config server for centralized configuration management
-- Gateway: public gateway application built with Vue
-- Store: store API using Azure's Cosmo DB API for MongoDB
-- Blog: blog API using a Neo4J database
+- Gateway: public Spring Cloud Gateway application using Vue
+- Store: Spring Boot microservice using Azure's Cosmo DB API for MongoDB
+- Blog: Spring Boot microservice using a Neo4J database
 
 {% img blog/jhipster-k8s-azure/microservice-structure.png alt:"Microservice structure" width:"800" %}{: .center-image }
 
