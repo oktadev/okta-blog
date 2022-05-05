@@ -7,9 +7,9 @@ communities: [java,devops]
 description: "A in-depth guide to deploying JHipster microservices to Azure. Tech stack: Spring Boot, Spring Cloud, Cosmos DB, and Vue."
 tags: [java,jhipster,kubernetes,k8s,devops,microservices]
 tweets:
-- "Want to deploy your @java microservices architecture on @Azure? Use Kubernetes!"
-- "Learn how to deploy your @kubernetes_io microservices on #Azure in this in-depth tutorial."
-- "Kubernetes microservices made easy with @jhipster! 🤓"
+- "Want to deploy your @Java microservices architecture on @Azure? Use Kubernetes!"
+- "Learn how to deploy your @kubernetesio microservices on #Azure with this in-depth tutorial."
+- "Kubernetes microservices on #Azure made easy with @jhipster! 🤓"
 image: blog/jhipster-k8s-azure/kubernetes-microservices.jpg
 type: conversion
 github: https://github.com/oktadev/okta-azure-kubernetes-cosmosdb-example
