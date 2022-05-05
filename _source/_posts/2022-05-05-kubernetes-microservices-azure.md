@@ -14,7 +14,7 @@ image: blog/jhipster-k8s-azure/microservice-structure.png
 type: conversion
 ---
 
-In this tutorial, you'll learn how to deploy a JHipster-based, reactive microservice to Azure Kubernetes Service (AKS). You'll use Azure's Cosmos DB as a persistent store for one of the services. For security, you'll use Okta as an OAuth 2.0 and OpenID Connect (OIDC) provider. You'll also securely encrypt all secrets in the project configuration files using Kubernetes secrets and `kubeseal`. This tutorial focuses on deploying an already generated project to Azure AKS. It does not go into great detail about generating the project. To see how the project was generated using JHipster, take a look at [Reactive Java Microservices with Spring Boot and JHipster](/blog/2021/01/20/reactive-java-microservices). 
+In this tutorial, you'll learn how to deploy a JHipster-based reactive microservice to Azure Kubernetes Service (AKS). You'll use Azure's Cosmos DB as a persistent store for one of the services. For security, you'll use Okta as an OAuth 2.0 and OpenID Connect (OIDC) provider. You'll also securely encrypt all secrets in the project configuration files using Kubernetes secrets and `kubeseal`. This tutorial focuses on deploying an already generated project to Azure AKS. It does not go into great detail about generating the project. To see how the project was generated using JHipster, take a look at [Reactive Java Microservices with Spring Boot and JHipster](/blog/2021/01/20/reactive-java-microservices). 
 
 ## Java Microservices on Azure AKS
 
@@ -43,11 +43,11 @@ The project in this tutorial uses **Spring Boot** with Java resource servers and
 
 {% img blog/jhipster-k8s-azure/spring-and-vue-logos.png alt:"Spring and Vue" width:"400" %}{: .center-image }
 
-The **[JHipster Registry](https://www.jhipster.tech/jhipster-registry/)** that is generated with the microservice includes two important functions: a **Eureka server** and a **Spring Cloud Config** server. The Eureka server is what allows the microservices to dynamically find each other without having to use hard-coded URIs. This means that the microservice can scale and services can be replaced without causing problems. It's a bit like a phonebook or a DNS service for the microservice. The [Spring Cloud Config](https://cloud.spring.io/spring-cloud-config/reference/html/) server allows project configuration to be centralized and distributed to all of the different services. You'll use this feature in this tutorial to configure all of the services for Okta OAuth in one place.
+The **[JHipster Registry](https://www.jhipster.tech/jhipster-registry/)** that is generated with the microservice includes two important functions: a **Eureka server** and a **Spring Cloud Config** server. The Eureka server allows the microservices to dynamically find each other without having to use hard-coded URIs. This means that the microservice can scale and services can be replaced without causing problems. It's a bit like a phonebook or a DNS service for the microservice. The [Spring Cloud Config](https://cloud.spring.io/spring-cloud-config/reference/html/) server allows project configuration to be centralized and distributed to all of the different services. In this tutorial you'll use this feature to configure all of the services for Okta OAuth in one place.
 
 The **[JHipster API Gateway](https://www.jhipster.tech/api-gateway/)** is the public face of your microservice. All public traffic comes through this service, which also includes the Vue frontend. The gateway is one of three application types that can be created by the JHipster generator DSL. The other two are monolith and microservice. A monolith is a non-microservice application with a single service.
 
-The store service and blog service are both examples of the microservice application type. This means that they are a Spring Boot resources server with some type of SQL or NoSQL backend.
+The store service and blog service are both examples of the microservice application type. This means that each service is a Spring Boot resources server with some type of SQL or NoSQL backend.
 
 {% img blog/jhipster-k8s-azure/kubernetes-logo.png alt:"Kubernetes" width:"600" %}{: .center-image }
 
@@ -57,43 +57,43 @@ The generator creates four applications. They are designed to be built and run a
 
 This tutorial has a lot of pieces. Install the required software below and sign up for an Azure Cloud account. You'll need a free Okta account, but you can use the Okta CLI to sign up for it later in the tutorial.
 
-- [Docker](https://docs.docker.com/get-docker/): you'll need to have both **Docker Engine** and **Docker Compose** installed (If you install the docker desktop, this will automatically install both. On Linux, if you install Docker Engine individually, you will have to also [install Docker Compose](https://docs.docker.com/compose/install/)) separately.
+- [Docker](https://docs.docker.com/get-docker/): you'll need to have both **Docker Engine** and **Docker Compose** installed (If you install the Docker desktop, this will automatically install both. On Linux, if you install Docker Engine individually, you will have to also [install Docker Compose](https://docs.docker.com/compose/install/)) separately.
 - [Docker Hub](https://hub.docker.com/): you'll need a Docker Hub to host the docker images so that Azure can pull them.
-- [Java 11](https://adoptopenjdk.net/): this post requires Java 11. If you need to manage multiple Java versions, SDKMAN! is a good solution. Check out [their docs to install it](https://sdkman.io/installit).
+- [Java 11](https://adoptopenjdk.net/): this tutorial requires Java 11. If you need to manage multiple Java versions, SDKMAN! is a good solution. Check out [their docs to install it](https://sdkman.io/installit).
 - [Okta CLI](https://cli.okta.com/manual/#installation): you'll use Okta to add security to the microservice network. You can register for a free account from the CLI.
-- [Azure Cloud account](https://azure.microsoft.com/en-us/free/): they offer a free-tier account with a $200 credit to start
-- [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli): you'll use the Azure CLI to manage the Kubernetes cluster
-- [kubectl](https://kubernetes.io/docs/tasks/tools/): CLI to manage Kubernetes clusters
+- [Azure Cloud account](https://azure.microsoft.com/en-us/free/): they offer a free-tier account with a $200 credit to start.
+- [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli): you'll use the Azure CLI to manage the Kubernetes cluster.
+- [kubectl](https://kubernetes.io/docs/tasks/tools/): CLI to manage Kubernetes clusters.
 
-If you have never had an Azure account before, you can create a new one that will allow free-tier access and has $200 credit allocated to it. This is more than enough to finish this tutorial. However, the credit does expire after 30 days. If you do not have credit left or your credit has expired, this tutorial should only cost a few dollars **if you stop and start the AKS cluster when you are not working on it** You can keep an eye on your costs using the cost explorer in the Azure portal and set alerts if you are concerned about it. Upgrading to pay-as-you-go may also alleviate some resource throttling issues around testing the AKS clusters.
+If you have never had an Azure account before, you can create a new one that will allow free-tier access and has $200 credit allocated to it. This is more than enough to finish this tutorial. However, the credit does expire after 30 days. If you do not have credit left or your credit has expired, this tutorial should only cost a few dollars **if you stop and start the AKS cluster when you are not working on it**. You can keep an eye on your costs using the cost explorer in the Azure portal and set alerts if you are concerned about it. Upgrading to pay-as-you-go may also alleviate some resource throttling issues around testing the AKS clusters.
 
 ## Modifying the generated JHipster microservice project for Azure and Cosmos DB
 
-This project is based on two of Matt Raible's tutorials: [Reactive Java Microservices with Spring Boot and JHipster](/blog/2021/01/20/reactive-java-microservices) and [Kubernetes to the Cloud with Spring Boot and JHipster](/blog/2021/06/01/kubernetes-spring-boot-jhipster). In these tutorials, he builds a reactive Java microservice and shows how to deploy it to Google Cloud (GCP). I have modified the project to work with Azure and Cosmos DB.
+This project is based on two of Matt Raible's tutorials: [Reactive Java Microservices with Spring Boot and JHipster](/blog/2021/01/20/reactive-java-microservices) and [Kubernetes to the Cloud with Spring Boot and JHipster](/blog/2021/06/01/kubernetes-spring-boot-jhipster). In these tutorials, he builds a reactive Java microservice architecture and shows how to deploy it to Google Cloud (GCP). I have modified the project to work with Azure and Cosmos DB.
 
-You will first run the project using Docker Compose. Once you have this working, you will run the project as a Kubernetes cluster on Azure. The modifications were relatively minor and involved removing the unnecessary MongoDB instances (from both the `docker-compose.yml` file and from the Kubernetes descriptors) as well as updating environment values to point the `store` service to the Cosmos DB instance instead of a MongoDB instance.
+You will first run the project using Docker Compose. Once you have this working, you will run the project as a Kubernetes cluster on Azure. My modifications were relatively minor and involved removing the unnecessary MongoDB instances (from both the `docker-compose.yml` file and from the Kubernetes descriptors) as well as updating environment values to point the `store` service to the Cosmos DB instance instead of a MongoDB instance.
 
-Listed briefly, the changes I made from Matt Raible's posts to make this work with Azure and Cosmos DB are as follows. You can skip this list (and the next section) and go right to cloning the Git repository if you want, but since this documents how to update a JHipster-generated project to use Cosmos DB, I thought it was worth putting in here.
+Listed briefly, the changes I made from Matt Raible's posts to make this work with Azure and Cosmos DB are as follows. You can skip this list (and the next section) and go right to cloning the Git repository if you want, but since this documents how to update a JHipster-generated project to use Cosmos DB, I thought it was worth including.
 
 In the `docker-compose/docker-compose.yml` file:
 
 - removed the MongoDB service
-- updating the `store` service property `SPRING_DATA_MONGODB_URI` to point to the Cosmos DB instance via a `.env` file
-- removed the Keycloak service and the environment variables that configured auth to use keycloak from the remaining services (not strictly necessary but cleaned things up)
+- updated the `store` service property `SPRING_DATA_MONGODB_URI` to point to the Cosmos DB instance via a `.env` file
+- removed the Keycloak service and the environment variables that configured auth to use Keycloak from the remaining services (not strictly necessary but cleaned things up)
 
 In the `k8s/store-k8s` directory:
 
-- removed the `store-mongodb.yml` file (this creates the MongoDB Kubernetes service that this project does not need)
+- removed the `store-mongodb.yml` file (This creates the MongoDB Kubernetes service that our project does not need.)
 - in `store-deployment.yml`
-  - removed the `initContainers`  (the init container waits for the MongoDB instance, which is removed)
-  - updated `SPRING_DATA_MONGODB_URI` env value of the `store-app` container to the Cosmos DB URI (points the store to the Cosmos DB instance)
-  - properly secure the Cosmos DB connection string using Kubernetes secrets and `kubeseal`
+  - removed the `initContainers`  (The init container waits for the MongoDB instance, which is removed.)
+  - updated `SPRING_DATA_MONGODB_URI` env value of the `store-app` container to the Cosmos DB URI (This points the store to the Cosmos DB instance.)
+  - properly secured the Cosmos DB connection string using Kubernetes secrets and `kubeseal`
 
 ## Setting the store app initial status for Eureka
 
-Creating this tutorial, I ran into a problem with the store app geting stuck as `OUT_OF_SERVICE`. When I inspected the logs, what I found was that the service started as `UP`, quickly went to `DOWN` and then `OUT_OF_SERVICE`. Later, it would go back to `UP` but the Eureka server never registered this change.
+Creating this tutorial, I ran into a problem with the store app getting stuck as `OUT_OF_SERVICE`. When I inspected the logs, I found that the service started as `UP`, quickly went to `DOWN`, and then `OUT_OF_SERVICE`. Later, it would go back to `UP` but the Eureka server never registered this change.
 
-There's an open issue with this problem on [Spring Cloud Netflix](https://github.com/spring-cloud/spring-cloud-netflix/issues/3941) and [Netflix Eureka](https://github.com/Netflix/eureka/issues/1398). 
+There's an open issue documenting this problem on [Spring Cloud Netflix](https://github.com/spring-cloud/spring-cloud-netflix/issues/3941) and [Netflix Eureka](https://github.com/Netflix/eureka/issues/1398). 
 
 A temporary fix taken from the issue on GitHub is to override the health reporting implementation so that it returns `DOWN` instead of `OUT_OF_SERVICE` while the program is still starting. This blocks it from ever reporting `OUT_OF_SERVICE`. You can see the fix in the `EurekaFix.java` file in the store app.
 
@@ -199,7 +199,7 @@ Use the Okta CLI to create an OIDC (OpenID Connect) application. This is what yo
 
 If you already have an Okta account, use `okta login` to log into that account with the CLI. Otherwise, use `okta register` to sign up for a free account. 
 
-Create the OIDC app using the following command using a Bash shell opened to the project root.
+Create the OIDC app with the following command using a Bash shell opened to the project root.
 
 ```bash
 okta apps create jhipster
@@ -317,7 +317,7 @@ docker-compose up
 
 Make sure you can still sign into the gateway: http://localhost:8080/
 
-You may be wondering (like I did initially), why can't I just put the client secret in the `.env` file? This doesn't work because the `.env` file is processed by Spring Cloud Config and JHipster registry after the container is composed, not Docker Compose during the container creation, which is when the `.env` file is processed.
+You may be wondering (like I did initially), why can't I just put the client secret in the `.env` file? This doesn't work because the `.env` file is processed by Spring Cloud Config and JHipster registry after the container is composed, not by Docker Compose during the container creation, which is when the `.env` file is processed.
 
 You're done with the Docker Compose implementation. To clean up, you can run the following command. This will stop and remove the containers, networks, volumes, and images created by `docker-compose up`.
 
@@ -331,19 +331,20 @@ The app works locally. Now it's time to deploy it to an Azure Kubernetes Cluster
 
 It's super easy to use the CLI to create a cluster. I'll show you the command below. However, there's a wrinkle. The free tier cannot create a cluster in many of the regions because of resource quotas. At least, this was the case when I was working on this tutorial. Nor is there an easy way to quickly see what regions will allow you to create a free-tier cluster. This is why I used Australia East as the region--it allowed me to create a free cluster. 
 
-If the command below does not work, I suggest going to the Auzure portal and create a Kubernetes cluster there. Select **Create a service** and **Kubernetes Service**. You'll have to select different regions and see what sizes are available (under **Node size** and **Change size**) until you find a region that will allow you to create something in the free tier. But hopefully the command will work and you won't have to worry about it.
+If the command below does not work, I suggest going to the Azure portal and creating a Kubernetes cluster there. Select **Create a service** and **Kubernetes Service**. You'll have to select different regions and see what sizes are available (under **Node size** and **Change size**) until you find a region that will allow you to create something in the free tier. But hopefully the command will work and you won't have to worry about it.
 
 The size I'm using for this tutorial is `Standard B4ms` with two nodes. I found that I needed two nodes for the cluster to start properly.
 
 Run the following command to create the AKS cluster.
 
 ```bash
-az aks create --resource-group australia-east --name jhipster-demo --node-count 2 --enable-addons monitoring --generate-ssh-keys --node-vm-size standard_b4ms
+az aks create --resource-group australia-east --name jhipster-demo \
+  --node-count 2 --enable-addons monitoring --generate-ssh-keys --node-vm-size standard_b4ms
 ```
 
 This will probably take a few minutes.
 
-As a side note, at any point, you can stop the cluster. This will pause billing on the cluster.
+As a side note, you can stop the cluster at any point. This will pause billing on the cluster.
 
 ```bash
 az aks stop --resource-group australia-east --name jhipster-demo 
@@ -355,9 +356,9 @@ And you can start it again.
 az aks start --resource-group australia-east --name jhipster-demo 
 ```
 
-You can also stop and start the cluster from the Azure portal as well. 
+You can stop and start the cluster from the Azure portal as well. 
 
-The next step is to get the credentials for the cluster and merge them into `.kube/confg` so that `kubectl` can use them. Use the following command.
+The next step is to get the credentials for the cluster and merge them into `.kube/config` so that `kubectl` can use them. Use the following command.
 
 ```bash
 az aks get-credentials --resource-group australia-east --name jhipster-demo
@@ -381,7 +382,7 @@ aks-nodepool1-21657131-vmss000000   Ready    agent   105s   v1.22.6
 aks-nodepool1-21657131-vmss000001   Ready    agent   108s   v1.22.6
 ```
 
-You can also  list a lot of information about the cluster in JSON format using:
+You can also list a lot of information about the cluster in JSON format using:
 
 ```bash
 az aks list --resource-group australia-east
@@ -435,11 +436,11 @@ To configure the `store` service to use the Cosmo database, you need to put your
 
 Both the encryption key and the database connection string are sensitive values that need to be encrypted. You'll see how to do that just a little later in this tutorial.
 
-## Build Docker Images and Push to Docker Hub
+## Build Docker images and push to Docker Hub
 
-Previously you built the docker images, but you left them in the local repository. You need to upload them to Docker Hub so that Azure AKS can find them. If you haven't already [signed up for a Docker Hub account](https://hub.docker.com/), please do so now. 
+Previously you built the docker images, but you left them in the local repository. Now you need to upload them to Docker Hub so that Azure AKS can find them. If you haven't already [signed up for a Docker Hub account](https://hub.docker.com/), please do so now. 
 
-In each of the three directories (`blog`, `store`, and `gateway`), run the following command. Save your docker repo name in a Bash variable as shown below and you can copy and paste the commands and run them in each service directory.
+In each of the three directories (`blog`, `store`, and `gateway`), run the following command. Save your Docker repo name in a Bash variable as shown below and you can copy and paste the commands and run them in each service directory.
 
 ```bash
 DOCKER_REPO_NAME=<docker-repo-name>
@@ -451,7 +452,7 @@ DOCKER_REPO_NAME=<docker-repo-name>
 ./gradlew bootJar -Pprod jib -Djib.to.image=$DOCKER_REPO_NAME/gateway
 ```
 
-To briefly explain what's happening here, take a look at the blog service's Kubernetes descriptor file. It defines a container named `blog-app` that uses the docker image `andrewcarterhughes/blog`, which is my docker repository name and the blog image.
+To briefly explain what's happening here, take a look at the blog service's Kubernetes descriptor file. It defines a container named `blog-app` that uses the docker image `andrewcarterhughes/blog`, which is my Docker repository name and the blog image.
 
 `k8s/blog-k8s/blog-deployment.yml`
 
@@ -461,9 +462,9 @@ containers:
     image: andrewcarterhughes/blog
 ```
 
-Thus in the `k8s` directory, each service (store, blog, gateway, and registry) defines a container and a docker image to be run in that container, along with a whole lot of configuration (which is really a lot of what JHipster is bootstrapping for you). The registry does not have a project folder because it uses a stock image that can be pulled directly from the JHipster docker repository.
+Thus in the `k8s` directory, each service (store, blog, gateway, and registry) defines a container and a docker image to be run in that container, along with a whole lot of configuration (which is really a lot of what JHipster is bootstrapping for you). The registry does not have a project folder because it uses a stock image that can be pulled directly from the JHipster Docker repository.
 
-One nice feature of Kubernetes is the ability to define [init containers](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/). These are containers that run before the main container and can be used to create or wait for necessary resources like databases. I noticed while I was debugging things in this app that a lot of the errors happened in the init containers. It's helpful to know this because if you try and inspect the main container log nothing will be there because the container hasn't even started you. You have to check the log for the init container that failed. The Kubernetes management tools that I mention below really come in handy for this.
+One nice feature of Kubernetes is the ability to define [init containers](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/). These are containers that run before the main container and can be used to create or wait for necessary resources like databases. I noticed while I was debugging things in this app that a lot of the errors happened in the init containers. It's helpful to know this because if you try and inspect the main container log nothing will be there because the container hasn't even started yet. You have to check the log for the init container that failed. The Kubernetes management tools that I mention below really come in handy for this.
 
 ## Deploy the microservice to Azure AKS
 
@@ -730,4 +731,4 @@ If you liked this post, there's a good chance you'll like similar ones:
 - [Spring Cloud Config for Shared Microservice Configuration](/blog/2020/12/07/spring-cloud-config)
 - [Kubernetes To The Cloud With AWS: Deploying a Node.js App to EKS](/blog/2021/11/02/k8s-to-the-cloud-aws)
 
-If you have questions, please ask them in the comments below! If you're into social media, follow us: [@oktadev on Twitter](https://twitter.com/oktadev), [Okta for Developers on LinkedIn](https://www.linkedin.com/company/oktadev), and [OktaDev](https://www.facebook.com/oktadevelopers) on Facebook. If you like learning via video, subscribe to [our YouTube channel](https://youtube.com/oktadev)
+If you have questions, please ask them in the comments below! If you're into social media, follow us: [@oktadev on Twitter](https://twitter.com/oktadev), [Okta for Developers on LinkedIn](https://www.linkedin.com/company/oktadev), and [OktaDev](https://www.facebook.com/oktadevelopers) on Facebook. If you like learning via video, subscribe to [our YouTube channel](https://youtube.com/oktadev).
