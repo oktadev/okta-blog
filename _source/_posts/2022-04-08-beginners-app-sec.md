@@ -51,7 +51,8 @@ Below are the top ten security vulnerabilities as noted in the latest [OWASP rep
 9. Security logging and monitoring failures
 10. Server-side request forgery
 
- ### Authentication basics
+### Authentication basics
+
 
 Authentication is a necessary feature of modern applications because it prevents unauthorized users from accessing and misusing sensitive information.
 
