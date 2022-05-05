@@ -31,7 +31,8 @@ There are a few concepts you should understand before you develop an application
 
 ### OWASP top 10
 
-The [Open Web Application Security Project (OWASP)](https://en.wikipedia.org/wiki/OWASP) online community studies and reports on web application security. The [OWASP Top 10 report lists the most critical security vulnerabilities an application can face.
+The [Open Web Application Security Project (OWASP)](https://owasp.org/) online community studies and reports on web application security. The [OWASP Top 10](https://owasp.org/www-project-top-ten/) report lists the most critical security vulnerabilities an application can face.
+
 
 The list—based on survey data from cybersecurity professionals—is determined by the frequency and likelihood of a vulnerability, how easy it is to detect, and the impact it can have on your organization.
 
