@@ -29,7 +29,7 @@ As attackers target applications ever more aggressively, keeping them secure pla
 
 There are a few concepts you should understand before you develop an application security strategy. Learning these will help you avoid common pitfalls or ineffective techniques that could compromise the security of your application.
 
-### OWASP top 10
+### OWASP Top 10
 
 The [Open Web Application Security Project (OWASP)](https://owasp.org/) online community studies and reports on web application security. The [OWASP Top 10](https://owasp.org/www-project-top-ten/) report lists the most critical security vulnerabilities an application can face.
 
