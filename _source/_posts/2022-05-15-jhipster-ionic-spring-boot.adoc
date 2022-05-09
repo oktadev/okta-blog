@@ -1,8 +1,6 @@
 ---
 layout: blog_post
 title: "Integrate Ionic and Spring Boot Securely with JWT and OAuth 2.0"
-// Integrate Ionic and Spring Boot with OAuth/OIDC
-// Integrate Ionic and Spring Boot
 author: matt-raible
 by: advocate
 communities: [mobile,java,javascript]
@@ -21,9 +19,18 @@ github: https://github.com/oktadev/okta-jhipster-ionic-example
 :experimental:
 :commandkey: &#8984;
 
+[comment]
+--
+todo: research and figure out best title. Other options:
+
+- Integrate Ionic and Spring Boot with OAuth/OIDC
+- Integrate Ionic and Spring Boot
+- Ionic for JHipster
+--
+
 Ionic allows you to create mobile apps with web technologies that look and act like native apps. Because they're built with web technologies (HTML, JavaScript, and CSS), you can also deploy your Ionic apps as webapps. Or, even better, as progressive web apps (PWAs) that work offline.
 
-// borrowed from https://capacitorjs.com/
+// image below borrowed from https://capacitorjs.com/
 image::{% asset_path 'blog/jhipster-ionic-blueprint/capacitor.png' %}[alt=Capacitor diagram,width=300,role="pull-right m-up-20",link={% asset_path 'blog/jhipster-ionic-blueprint/capacitor.png' %}]
 
 Ionic provides support for the big three web frameworks: Angular, React, and Vue. Once you've written your app with one of these, you can deploy it to a simulator or device with https://capacitorjs.com/[Capacitor]. Capacitor (pictured on the right as the blue layer) provides the runtime for your app to communicate with the native operating system and vise versa.
@@ -106,7 +113,7 @@ npm run ci:e2e:prepare
 ./mvnw
 ----
 
-Then, navigate to `http://localhost:8080` in your favorite browser. Sign in with `admin/admin` credentials and rejoice when it all works.
+Then, navigate to `\http://localhost:8080` in your favorite browser. Sign in with `admin/admin` credentials and rejoice when it all works.
 
 Open a new terminal window and cd into the `jhipster-ionic/ionic-app` directory. Run `ionic serve` and test out the Ionic client.
 
@@ -165,14 +172,14 @@ docker-compose -f src/main/docker/keycloak.yml up -d
 docker-compose -f src/main/docker/postgresql.yml up -d
 ----
 
-Next, update `backend/src/main/resources/config/application-prod.yml` to allow CORS from `\http://localhost:8100` and `\http://localhost:4200`.
+Next, update `backend/src/main/resources/config/application-prod.yml` to allow CORS from `\http://localhost:8100`.
 
 [source,yaml]
 ----
 jhipster:
   ...
   cors:
-    allowed-origins: 'http://localhost:8100,http://localhost:4200'
+    allowed-origins: 'http://localhost:8100'
     allowed-methods: '*'
     allowed-headers: '*'
     exposed-headers: 'Authorization,Link,X-Total-Count,X-${jhipster.clientApp.name}-alert,X-${jhipster.clientApp.name}-error,X-${jhipster.clientApp.name}-params'
@@ -186,7 +193,7 @@ image::{% asset_path 'blog/jhipster-ionic-blueprint/flickr2-photos.jpg' %}[alt=F
 
 === Run your Ionic app
 
-Open another terminal and navigate to the `ionic-app` folder. Launch your Ionic client using `ionic serve` (or `npm start`). The app will be opened at `\http://localhost:8100` in your default browser.
+Open another terminal and navigate to the `ionic-app` folder. Launch your Ionic client using  `npm start`. The app will be opened at `\http://localhost:8100` in your default browser.
 
 image::{% asset_path 'blog/jhipster-ionic-blueprint/ionic-app.png' %}[alt=Ionic app,width=580,align=center]
 
@@ -213,25 +220,7 @@ To add this same functionality to your Ionic app, modify `src/app/pages/entities
 </div>
 ----
 
-You'll want to comment out (or delete) the following lines in `cypress/integration/entities/photo/photo.e2e-spec.ts` so Cypress doesn't try to enter these values when running end-to-end (e2e) tests.
-
-[source,ts]
-----
-/*if (photoSample.height !== undefined && photoSample.height !== null) {
-  photoUpdatePage.setHeightInput(photoSample.height);
-}
-if (photoSample.width !== undefined && photoSample.width !== null) {
-  photoUpdatePage.setWidthInput(photoSample.width);
-}
-if (photoSample.taken !== undefined && photoSample.taken !== null) {
-  photoUpdatePage.setTakenInput(photoSample.taken);
-}
-if (photoSample.uploaded !== undefined && photoSample.uploaded !== null) {
-  photoUpdatePage.setUploadedInput(photoSample.uploaded);
-}*/
-----
-
-When you save these files, the Ionic CLI will auto-compile and reload the app in your browser. You can prove everything works as expected by stopping your app (with kbd:[Ctrl + C]) and running all the e2e tests.
+When you save this file, the Ionic CLI will auto-compile and reload the app in your browser. You can prove everything works as expected by stopping your app (with kbd:[Ctrl + C]) and running all the end-to-end tests with Cypress.
 
 [source,shell]
 ----
@@ -244,13 +233,11 @@ Generate a native iOS project with the following commands:
 
 [source,shell]
 ----
-ionic build
-ionic capacitor add ios
+npx ionic build
+npx ionic capacitor add ios
 ----
 
 Add your custom scheme (`dev.localhost.ionic`) to `ios/App/App/Info.plist`. This is configured in `src/environments/environment.ts`; you can easily change it something else if you like.
-
-// todo: update src/app/auth/factories/auth.factory.ts to use {scheme} from environment
 
 [source,xml]
 ----
@@ -275,7 +262,7 @@ Modify the JHipster app's CORS settings (in `backend/src/main/resources/config/a
 jhipster:
   ...
   cors:
-    allowed-origins: '...,capacitor://localhost'
+    allowed-origins: 'http://localhost:8100,capacitor://localhost'
 ----
 
 Restart your backend app. Deploy your Ionic app to iOS Simulator and run it.
@@ -285,7 +272,9 @@ Restart your backend app. Deploy your Ionic app to iOS Simulator and run it.
 npx cap run ios
 ----
 
-image::{% asset_path 'blog/jhipster-ionic-blueprint/flickr2-simulator.png' %}[alt=Flickr2 running on Simulator,width=300,align=center]
+Confirm you can log in and rejoice in your success!
+
+image::{% asset_path 'blog/jhipster-ionic-blueprint/flickr2-simulator.png' %}[alt=Flickr2 running on iOS,width=300,align=center]
 
 === Run your Ionic app on Android
 
@@ -293,35 +282,41 @@ Generate an Android project with Capacitor.
 
 [source,shell]
 ----
-ionic capacitor add android
+npx ionic capacitor add android
 ----
 
-Change the custom scheme in `android/app/src/main/res/values/strings.xml` to use `dev.localhost.ionic`:
+Enable clear text traffic and add `dev.localhost.ionic` as a scheme in `android/app/src/main/AndroidManifest.xml`:
 
 [source,xml]
 ----
-<string name="custom_url_scheme">dev.localhost.ionic</string>
+<activity ... android:usesCleartextTraffic="true">
+  <!-- You'll need to add this intent filter so redirects work -->
+  <intent-filter>
+    <action android:name="android.intent.action.VIEW" />
+    <category android:name="android.intent.category.DEFAULT" />
+    <category android:name="android.intent.category.BROWSABLE" />
+    <data android:scheme="dev.localhost.ionic" />
+    <!--data android:scheme="com.okta.dev-133337" /-->
+  </intent-filter>
+
+  <intent-filter>
+    <action android:name="android.intent.action.MAIN" />
+    <category android:name="android.intent.category.LAUNCHER" />
+  </intent-filter>
+</activity>
 ----
 
-////
-todo: confirm this is necessary
+Modify the JHipster app's CORS settings to allow `\http://localhost` as an origin.
 
-The https://github.com/EddyVerbruggen/cordova-plugin-safariviewcontroller[SafariViewController Cordova Plugin] is installed as part of this project. Capacitor uses AndroidX dependencies, but the SafariViewController plugin uses an older non-AndroidX dependency. Use https://developer.android.com/studio/command-line/jetifier[jetifier] to patch usages of old support libraries with the following commands:
-
-[source,shell]
+[source,yaml]
 ----
-npm install -D jetifier
-npx jetify
-----
-////
-
-Sync the compiled project files with the Android project.
-
-----
-npx cap sync android
+jhipster:
+  ...
+  cors:
+    allowed-origins: 'http://localhost:8100,capacitor://localhost,http://localhost'
 ----
 
-Next, run your project using the Capacitor CLI:
+Restart your backend app and run your Ionic app on Android using the Capacitor CLI:
 
 [source,shell]
 ----
@@ -329,9 +324,6 @@ npx cap run android
 ----
 
 CAUTION: If you get an error when running this command, make sure you're using Java 11.
-
-// Apple M1 doesn't run AVDs: Device Manager terminates
-// todo: try on Intel
 
 You'll need to run a couple commands to allow the emulator to communicate with JHipster and Keycloak.
 
@@ -341,28 +333,19 @@ adb reverse tcp:8080 tcp:8080
 adb reverse tcp:9080 tcp:9080
 ----
 
-If you see `java.io.IOException: Cleartext HTTP traffic to localhost not permitted` in your Android Studio console, enable clear text traffic in `android/app/src/main/AndroidManifest.xml`:
-
-[source,xml]
-----
-<application
-    ...
-    android:usesCleartextTraffic="true">
-----
-
 You should be able to log in and edit entities, just like you can in a browser and on iOS!
 
-// todo: screenshot of Android
+image::{% asset_path 'blog/jhipster-ionic-blueprint/flickr2-android.png' %}[alt=Flickr2 running on Android,width=300,align=center]
 
 == Why use OpenID Connect for mobile apps?
 
 Storing link:/blog/2019/01/22/oauth-api-keys-arent-safe-in-mobile-apps[API keys and secrets in mobile apps is not safe].
 
-// The following two paragraphs copied from: link:/blog/2019/01/22/oauth-api-keys-arent-safe-in-mobile-apps#how-to-protect-secrets-in-mobile-apps
-
 OAuth 2.0 solves this problem by not shipping any secrets in mobile apps, and instead involving the user in the process of getting an access token into the app. These access tokens are unique per user and every time they log in. The https://www.oauth.com/oauth2-servers/pkce/[PKCE extension] provides a solution for securely doing the OAuth flow on a mobile app even when there is no pre-provisioned secret.
 
 If you need to access an API from a mobile app, hopefully it supports OAuth and PKCE! Thankfully most of the hard work of PKCE is handled by SDKs like https://appauth.io/[AppAuth] so you don't have to write all that code yourself. If you're working with an API like Okta, then Okta's own SDKs do PKCE automatically so you don't have to worry about it at all.
+
+The JHipster Ionic blueprint uses https://www.npmjs.com/package/ionic-appauth[Ionic AppAuth], which supports PKCE.
 
 === Switch your identity provider to Okta
 
@@ -376,9 +359,7 @@ source .okta.env
 ./mvnw -Pprod
 ----
 
-To learn more about how this works, see https://www.jhipster.tech/security/#okta[JHipster's Okta documentation]. With Keycloak, you don't need a separate OIDC app for Ionic. With Okta, you do.
-
-Learn how in JHipster's documentation on how to https://www.jhipster.tech/security/#create-a-native-app-for-mobile-on-okta[create a native app for mobile on Okta].
+With Keycloak, you don't need a separate OIDC app for Ionic. With Okta, you do. See JHipster's documentation to learn https://www.jhipster.tech/security/#create-a-native-app-for-mobile-on-okta[how to create a native app for mobile on Okta].
 
 After you've changed the client ID in your Ionic app, run it using `npm start`. You'll be prompted to log in using your Okta credentials at `\http://localhost:8100`.
 
@@ -386,16 +367,13 @@ After you've changed the client ID in your Ionic app, run it using `npm start`. 
 
 To switch your identity provider to Auth0, you first need an https://auth0.com/signup[Auth0 account]. Then, create an `.auth0.env` file and see https://www.jhipster.tech/security/#auth0[JHipster's Auth0 docs] for how to populate it.
 
-Next, https://www.jhipster.tech/security/#create-a-native-app-for-mobile-on-auth0[configure a native app for mobile on Auth0]. Once you're finished, you should be able to run your backend and new frontend client using the following commands:
-
-// todo: make sure this is in JHipster's Auth0 docs:
-// TIP: Want to have all these steps automated for you? Add a 👍 to https://github.com/auth0/auth0-cli/issues/351[issue #351] in the Auth0 CLI project.
+Next, https://www.jhipster.tech/security/#create-a-native-app-for-mobile-on-auth0[configure a native app for mobile on Auth0]. Once you're finished updating your Ionic app with a new client ID and audience, you should be able to run your backend and new frontend client using the following commands:
 
 [source,shell]
 ----
 source .auth0.env
 npm run backend:start
-# one a new terminal
+# open a new terminal
 npm start
 ----
 
@@ -403,21 +381,14 @@ To see it in action on your mobile emulators, use the following commands:
 
 [source,shell]
 ----
+npm run build
+
 # iOS
-npx cap sync ios
 npx cap run ios
 
 # Android
-npx cap sync android
 npx cap run android
 ----
-
-////
-== Todo: doesn't work
-
-- Ionic Android login
-- Auth0 logout
-////
 
 == Learn more about Ionic, Spring Boot, and JHipster
 
