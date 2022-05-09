@@ -13,7 +13,7 @@ image: blog/beginners-app-sec/beginners-app-sec.jpg
 type: awareness
 ---
 
-Over the past decade, and even more swiftly since the time of the COVID-19 pandemic, digital transformation of the workplace has primarily been [driven by applications](https://accelerationeconomy.com/business-apps/top-10-apps-driving-digital-transformation/). Apps have become an integral part of everyday life for many organizations.
+Over the past decade, and even more swiftly since the time of the COVID-19 pandemic, digital transformation of the workplace has primarily been [driven by applications](https://www.vmware.com/content/dam/digitalmarketing/vmware/en/pdf/report/global-commentary-report-2020-apps-at-the-ready.pdf). Apps have become an integral part of everyday life for many organizations.
 
 Modern applications are complex. Their functionality frequently relies on APIs and third-party integrations, leading to an increased attack surface and more security vulnerabilities. A data breach or an attacker exploiting a security weakness can permanently damage your business. It's crucial that you understand and secure your application's infrastructure.
 
