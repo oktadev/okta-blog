@@ -190,7 +190,7 @@ Clone an existing JHipster Flickr example:
 
 [source,shell]
 ----
-git clone https://github.com/oktadev/auth0-full-stack-java-example.git backend
+git clone https://github.com/oktadev/auth0-full-stack-java-example.git backend --depth 1
 ----
 
 Create a new directory to hold your Ionic project, then run `jhipster-ionic` in it:
@@ -202,6 +202,8 @@ jhipster-ionic
 ----
 
 Provide the path to your backend JHipster app and name your app `flickr2`.
+
+// todo: update this image when JHipster Ionic blueprint is released
 
 image::{% asset_path 'blog/jhipster-ionic-blueprint/jhipster-ionic-flickr2.png' %}[alt=JHipster Ionic with Flickr2 app,width=800,align=center]
 
