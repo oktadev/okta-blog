@@ -156,7 +156,7 @@ You should be able to sign in and add a new photo.
   </tr>
   <tr style="background: #fff">
     <td><img src="{% asset_path 'blog/jhipster-ionic-blueprint/ionic-home.png' %}" alt="Ionic home after log in" width="400" loading="lazy" /></td>
-    <td><img src="{% asset_path 'blog/jhipster-ionic-blueprint/ionic-photo.png' %}" alt="Hefe the Bus!" width="400" loading="lazy" /></td>
+    <td><img src="{% asset_path 'blog/jhipster-ionic-blueprint/ionic-photo.jpg' %}" alt="Hefe the Bus!" width="400" loading="lazy" /></td>
   </tr>
 </table>
 ++++
