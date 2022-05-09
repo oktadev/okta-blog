@@ -73,10 +73,12 @@ You'll be prompted for the location of your JHipster app, a name for your Ionic 
 
 image::{% asset_path 'blog/jhipster-ionic-blueprint/jhipster-ionic.png' %}[alt=JHipster Ionic prompts,width=800,align=center]
 
-You can also create a JHipster app and an Ionic app at the same time using the following command:
+You can also create a JHipster app and an Ionic app at the same time. The command will only work if you've already installed JHipster with `npm install -g generator-jhipster`.
 
 [source,shell]
 ----
+mkdir backend
+cd backend
 jhipster jdl bug-tracker.jh --blueprints ionic
 ----
 
@@ -88,7 +90,7 @@ Then you can run both apps from your Ionic app using easy-to-remember commands.
 ----
 npm run backend:start
 # open a new terminal window
-ionic serve
+npm start
 ----
 
 image::{% asset_path 'blog/jhipster-ionic-blueprint/ionic-serve.png' %}[alt=Ionic serve command with backend running,width=800,align=center]
@@ -109,7 +111,7 @@ Start the app:
 
 [source,shell]
 ----
-npm run ci:e2e:prepare
+npm run ci:e2e:prepare # starts Keycloak and PostgreSQL in Docker
 ./mvnw
 ----
 
@@ -237,7 +239,7 @@ npx ionic build
 npx ionic capacitor add ios
 ----
 
-Add your custom scheme (`dev.localhost.ionic`) to `ios/App/App/Info.plist`. This is configured in `src/environments/environment.ts`; you can easily change it something else if you like.
+Add your custom scheme (`dev.localhost.ionic`) to `ios/App/App/Info.plist`. This is configured in `src/environments/environment.ts`; you can easily change it to something else if you like.
 
 [source,xml]
 ----
