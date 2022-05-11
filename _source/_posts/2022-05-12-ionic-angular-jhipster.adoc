@@ -1,16 +1,16 @@
 ---
 layout: blog_post
-title: "Integrate Ionic and Spring Boot Securely with JWT and OAuth 2.0"
+title: "Build Secure Ionic Apps with Angular and JHipster"
 author: matt-raible
 by: advocate
 communities: [mobile,java,javascript]
-description: "Build an Ionic frontend for your Spring Boot backend, all using the power of JHipster!"
+description: "Build an Ionic + Angular frontend for your Spring Boot backend, all using the power of JHipster! Secured by OpenID Connect."
 tags: [ionic, spring-boot, spring-security, jhipster]
 tweets:
 - "Create an Ionic app with a Spring Boot backend in minutes with the new Ionic blueprint for @jhipster!"
 - "Introducing JHipster Ionic: 'Wow! Did you really just build that?!'"
 - "Ionic is awesome. Learn how you to create apps quickly using this powerful framework. 💪"
-image:
+image: blog/jhipster-ionic-blueprint/ionic-angular.jpg
 type: conversion
 github: https://github.com/oktadev/okta-jhipster-ionic-example
 ---
@@ -18,16 +18,6 @@ github: https://github.com/oktadev/okta-jhipster-ionic-example
 :toc: macro
 :experimental:
 :commandkey: &#8984;
-
-[comment]
---
-todo: research and figure out best title.
-Other options:
-
-- Integrate Ionic and Spring Boot with OAuth/OIDC
-- Integrate Ionic and Spring Boot
-- Ionic for JHipster
---
 
 Ionic allows you to create mobile apps with web technologies that look and act like native apps.
 Because they're built with web technologies (HTML, JavaScript, and CSS), you can also deploy your Ionic apps as web apps.
@@ -53,6 +43,16 @@ TL;DR: Both options will give you a high performance app with a truly native loo
 - https://docs.docker.com/desktop/#download-and-install[Docker Desktop]
 
 toc::[]
+
+== What the heck is JHipster?
+
+In this tutorial, I'll show you how to use Ionic, Angular, and Capacitor to build a mobile app that talks to a Spring Boot backend. It won't take but a few minutes, thanks to JHipster!
+
+https://www.jhipster.tech[JHipster] is an application generator that creates an Angular frontend and a Spring Boot backend based on a number of options you select. It has the ability for you, as a developer, to customize what it generates with _blueprints_. This has resulted in many additional options when generating an app: Kotlin, Spring Native, Micronaut, Quarkus, .NET Core, NestJS, and Svelte.
+
+Below is a diagram of the app you'll create in this tutorial and its authentication flow.
+
+image::{% asset_path 'blog/jhipster-ionic-blueprint/ionic-jhipster-flow.png' %}[alt=JHipster Ionic OAuth 2.0 flow,width=800,align=center]
 
 == ✨ Introducing the JHipster Ionic blueprint!
 
@@ -112,7 +112,7 @@ Now that it's a blueprint, it will be much easier to add support for Vue and Rea
 If you're interested in helping out, please let me know!
 Okta is a platinum sponsor of the JHipster project and enjoys assigning bug bounties for feature development.
 
-== Build a mobile app with Ionic
+== Build a mobile app with Ionic and Angular
 
 To see Ionic + JHipster in action, let's start with a https://auth0.com/blog/full-stack-java-with-react-spring-boot-and-jhipster/[Full Stack Java + React app I created for the Auth0 blog].
 I updated the app to the latest version of JHipster (v7.8.1) and created an Ionic app with JHipster Ionic so everything is guaranteed to work.
@@ -172,7 +172,6 @@ I created the `jhipster-ionic` project using the following steps:
 
 Install the JHipster Ionic blueprint:
 
-// todo: test with generator-jhipster-ionic@8.0.0
 [source,shell]
 ----
 npm i -g generator-jhipster-ionic@8.0.0
@@ -202,8 +201,6 @@ jhipster-ionic
 ----
 
 Provide the path to your backend JHipster app and name your app `flickr2`.
-
-// todo: update this image when JHipster Ionic blueprint is released
 
 image::{% asset_path 'blog/jhipster-ionic-blueprint/jhipster-ionic-flickr2.png' %}[alt=JHipster Ionic with Flickr2 app,width=800,align=center]
 
@@ -337,7 +334,7 @@ Confirm you can log in and rejoice in your success!
 
 image::{% asset_path 'blog/jhipster-ionic-blueprint/flickr2-simulator.png' %}[alt=Flickr2 running on iOS,width=300,align=center]
 
-=== Run your Ionic app on Android
+== Run your Ionic app on Android
 
 Generate an Android project with Capacitor.
 
@@ -408,8 +405,9 @@ The https://www.oauth.com/oauth2-servers/pkce/[PKCE extension] provides a soluti
 If you need to access an API from a mobile app, hopefully it supports OAuth and PKCE!
 Thankfully most of the hard work of PKCE is handled by SDKs like https://appauth.io/[AppAuth] so you don't have to write all that code yourself.
 If you're working with an API like Okta, then Okta's own SDKs do PKCE automatically so you don't have to worry about it at all.
+The JHipster Ionic blueprint uses https://www.npmjs.com/package/ionic-appauth[Ionic AppAuth].
 
-The JHipster Ionic blueprint uses https://www.npmjs.com/package/ionic-appauth[Ionic AppAuth], which supports PKCE.
+The previous sections showed you how to use Keycloak as your identity provider. If you're deploying to production, you might not want to manage your users and authentication system. That's where Okta and Auth0 can help!
 
 === Switch your identity provider to Okta
 
@@ -470,9 +468,10 @@ You can find the source code for this example on GitHub, in the https://github.c
 
 If you liked this post, you might like these others too.
 
+- link:/blog/2021/11/22/full-stack-java[Full Stack Java with React, Spring Boot, and JHipster]
 - link:/blog/2020/09/21/ionic-apple-google-signin[Ionic + Sign in with Apple and Google]
+- link:/blog/2019/06/24/ionic-4-angular-spring-boot-jhipster[Build Mobile Apps with Angular, Ionic 4, and Spring Boot]
 - link:/blog/2020/12/28/spring-boot-docker[How to Docker with Spring Boot]
-- https://auth0.com/blog/full-stack-java-with-react-spring-boot-and-jhipster/[Full Stack Java with React, Spring Boot, and JHipster]
 - link:/blog/2022/02/16/spring-data-elasticsearch[A Quick Guide to Elasticsearch with Spring Data and Spring Boot]
 
 If you have any questions, please leave a comment below.
