@@ -17,6 +17,7 @@ image: blog/native-java-comparison/native-java.png
 type: conversion
 github: https://github.com/oktadev/native-java-examples
 changelog:
+- 2022-05-11: Updated to use Micronaut 3.4.3, Quarkus 2.9.0, Spring Boot 2.6.7, and Spring Native 0.11.5. See this post's changes in [okta-blog#1164](https://github.com/oktadev/okta-blog/pull/1164) and the example app changes in [native-java-examples#25](https://github.com/oktadev/native-java-examples/pull/25).
 - 2022-04-19: Updated to use Micronaut 3.4.2, Quarkus 2.8.1, Spring Boot 2.6.6, and Spring Native 0.11.4. See this post's changes in [okta-blog#1142](https://github.com/oktadev/okta-blog/pull/1142) and the example app changes in [native-java-examples#22](https://github.com/oktadev/native-java-examples/pull/22).
 - 2022-03-31: Updated to use GraalVM 22.0, Micronaut 3.4.1, Quarkus 2.7.5, Spring Boot 2.6.5, and Spring Native 0.11.3. See this post's changes in [okta-blog#1123](https://github.com/oktadev/okta-blog/pull/1123) and the example app changes in [native-java-examples#16](https://github.com/oktadev/native-java-examples/pull/16).
 - 2022-01-04: Updated to use Micronaut 3.2.4, Quarkus 2.6.1, Spring Boot 2.6.2, and Spring Native 0.11.3. See this post's changes in [okta-blog#1016](https://github.com/oktadev/okta-blog/pull/1016) and the example app changes in [native-java-examples#11](https://github.com/oktadev/native-java-examples/pull/11).
@@ -73,7 +74,7 @@ You will need a JDK with GraalVM and its `native-image` compiler. Using SDKMAN, 
 
 [source,shell]
 ----
-sdk install java 22.0.0.2.r17-grl
+sdk install java 22.1.0.r17-grl
 ----
 
 == Launch a Micronaut Java API
@@ -94,7 +95,7 @@ $ http :8080/hello
 
 HTTP/1.1 401 Unauthorized
 connection: keep-alive
-date: Tue, 19 Apr 2022 20:31:05 GMT
+date: Wed, 11 May 2022 14:22:05 GMT
 transfer-encoding: chunked
 ----
 
@@ -169,7 +170,7 @@ To compile this Micronaut app into a native binary, run:
 
 [source,shell]
 ----
-./mvnw clean package -Dpackaging=native-image
+./mvnw package -Dpackaging=native-image
 ----
 
 This command will take a few minutes to complete. My 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM took 1 min. 9 s. to finish.
@@ -330,7 +331,7 @@ You can create the same Quarkus app used in this example in five steps.
 +
 [source,shell]
 ----
-mvn io.quarkus:quarkus-maven-plugin:2.8.1.Final:create \
+mvn io.quarkus:quarkus-maven-plugin:2.9.0.Final:create \
     -DprojectGroupId=com.okta.rest \
     -DprojectArtifactId=quarkus \
     -DclassName="com.okta.rest.quarkus.HelloResource" \
@@ -485,7 +486,7 @@ To create the Spring Boot app used in this example, it's just five steps.
 [source,shell]
 ----
 http https://start.spring.io/starter.zip \
-     bootVersion==2.6.6 \
+     bootVersion==2.6.7 \
      dependencies==web,oauth2-resource-server,native \
      packageName==com.okta.rest \
      name==spring-boot \
