@@ -9,7 +9,7 @@ tags: [ionic, spring-boot, spring-security, jhipster]
 tweets:
 - "Create an Ionic app with a Spring Boot backend in minutes with the new Ionic blueprint for @jhipster!"
 - "Introducing JHipster Ionic: 'Wow! Did you really just build that?!'"
-- "Ionic is awesome. Learn how you to create apps quickly using this powerful framework. 💪"
+- "Ionic is awesome. Learn how to create apps quickly using this powerful framework. 💪"
 image: blog/jhipster-ionic-blueprint/ionic-angular.jpg
 type: conversion
 github: https://github.com/oktadev/okta-jhipster-ionic-example
@@ -20,21 +20,21 @@ github: https://github.com/oktadev/okta-jhipster-ionic-example
 :commandkey: &#8984;
 
 Ionic allows you to create mobile apps with web technologies that look and act like native apps.
-Because they're built with web technologies (HTML, JavaScript, and CSS), you can also deploy your Ionic apps as web apps.
+Because they're built with web technologies (HTML, JavaScript, and CSS), you can also deploy your Ionic apps as single-page applications.
 Or, even better, as progressive web apps (PWAs) that work offline.
 
 // image below borrowed from https://capacitorjs.com/
 image::{% asset_path 'blog/jhipster-ionic-blueprint/capacitor.png' %}[alt=Capacitor diagram,width=300,role="pull-right m-up-20",link={% asset_path 'blog/jhipster-ionic-blueprint/capacitor.png' %}]
 
-Ionic provides support for the big three web frameworks: Angular, React, and Vue.
-Once you've written your app with one of these, you can deploy it to a simulator or device with https://capacitorjs.com/[Capacitor].
-Capacitor (pictured on the right as the blue layer) provides the runtime for your app to communicate with the native operating system and vise versa.
+Ionic supports the big three web frameworks: Angular, React, and Vue.
+Once you've written your app, you can deploy it to a simulator or device with https://capacitorjs.com/[Capacitor].
+Capacitor (pictured on the right as the blue layer) provides the runtime for your app to communicate with the native operating system and vice versa.
 
 Ionic's main competitors are native apps built with Swift or Objective-C (for iOS) and Java or Kotlin (for Android).
 Ionic also competes with React Native, which uses web technologies and translates them to native components.
 
 The Ionic blog has a recent post that https://ionicframework.com/blog/ionic-vs-react-native-performance-comparison/[does a performance comparison between Ionic and React Native].
-TL;DR: Both options will give you a high performance app with a truly native look and feel.
+TL;DR: Both options will give you a high-performance app with a truly native look and feel.
 
 **Prerequisites:**
 
@@ -46,9 +46,9 @@ toc::[]
 
 == What the heck is JHipster?
 
-In this tutorial, I'll show you how to use Ionic, Angular, and Capacitor to build a mobile app that talks to a Spring Boot backend. It won't take but a few minutes, thanks to JHipster!
+This tutorial will show you how to use Ionic, Angular, and Capacitor to build a mobile app that talks to a Spring Boot backend. It won't take but a few minutes, thanks to JHipster!
 
-https://www.jhipster.tech[JHipster] is an application generator that creates an Angular frontend and a Spring Boot backend based on a number of options you select. It has the ability for you, as a developer, to customize what it generates with _blueprints_. This has resulted in many additional options when generating an app: Kotlin, Spring Native, Micronaut, Quarkus, .NET Core, NestJS, and Svelte.
+https://www.jhipster.tech[JHipster] is an application generator that creates an Angular frontend and a Spring Boot backend based on the options you choose. It has the ability for you, as a developer, to customize what it generates with _blueprints_. The blueprints feature has resulted in many additional options for an app: Kotlin, Spring Native, Micronaut, Quarkus, .NET Core, NestJS, and Svelte.
 
 Below is a diagram of the app you'll create in this tutorial and its authentication flow.
 
@@ -56,15 +56,15 @@ image::{% asset_path 'blog/jhipster-ionic-blueprint/ionic-jhipster-flow.png' %}[
 
 == ✨ Introducing the JHipster Ionic blueprint!
 
-The JHipster project has provided support for generating an Ionic app using a `generator-jhipster-ionic` module for the past several years.
-As the primary maintainer of this module, I'm proud to announce that it has been re-written as a blueprint and it's _much_ easier to understand now.
+The JHipster project has supported generating an Ionic app using a `generator-jhipster-ionic` module for the past several years.
+As the primary maintainer of this module, I'm proud to announce that it has been re-written as a blueprint, and it's _much_ easier to understand now.
 The previous module relied on the Ionic CLI, the base Angular https://github.com/ionic-team/starters[starter], the https://github.com/oktadev/ionic-jhipster-starter[Ionic JHipster starter], and custom code to glue it all together.
 Now, the source code is all contained in one project.
 
-https://github.com/mshima[Marcelo Shima] volunteered to do the conversion and after a couple of months, I'm proud to say the https://github.com/jhipster/generator-jhipster-ionic[JHipster Ionic blueprint] is now available!
+https://github.com/mshima[Marcelo Shima] volunteered to do the conversion, and after a couple of months, I'm proud to say the https://github.com/jhipster/generator-jhipster-ionic[JHipster Ionic blueprint] is now available!
 Here's how to use it:
 
-Create a `ionic-app` directory alongside your JHipster app.
+Create an `ionic-app` directory alongside your JHipster app.
 
 [source,shell]
 ----
@@ -85,7 +85,7 @@ You'll be prompted for the location of your JHipster app, a name for your Ionic 
 
 image::{% asset_path 'blog/jhipster-ionic-blueprint/jhipster-ionic.png' %}[alt=JHipster Ionic prompts,width=800,align=center]
 
-You can also create a JHipster app and an Ionic app at the same time by using the bundled JHipster.
+You can also create a JHipster app and an Ionic app simultaneously by using the bundled JHipster.
 
 [source,shell]
 ----
@@ -94,7 +94,7 @@ jhipster-ionic jdl bug-tracker.jh
 cd ../ionic4j
 ----
 
-This will follow the same convention where the generated backend and frontend apps are side-by-side on your hard drive.
+This process will follow the same convention where the generated backend and frontend apps are side-by-side on your hard drive.
 
 Then you can run both apps from your Ionic app using easy-to-remember commands.
 
@@ -115,8 +115,8 @@ Okta is a platinum sponsor of the JHipster project and enjoys assigning bug boun
 == Build a mobile app with Ionic and Angular
 
 To see Ionic + JHipster in action, let's start with a https://auth0.com/blog/full-stack-java-with-react-spring-boot-and-jhipster/[Full Stack Java + React app I created for the Auth0 blog].
-I updated the app to the latest version of JHipster (v7.8.1) and created an Ionic app with JHipster Ionic so everything is guaranteed to work.
-This app is a Flickr clone that allows you to upload photos, tag them, and organize them into albums.
+I updated the app to the latest version of JHipster (v7.8.1) and created an Ionic app with JHipster Ionic, so everything is guaranteed to work.
+This Flickr clone allows you to upload photos, tag them, and organize them into albums.
 First, clone the example:
 
 [source,shell]
@@ -137,7 +137,7 @@ npm run ci:e2e:prepare # starts Keycloak and PostgreSQL in Docker
 Then, navigate to `\http://localhost:8080` in your favorite browser.
 Sign in with `admin/admin` credentials and rejoice when it all works.
 
-Open a new terminal window and cd into the `jhipster-ionic/ionic-app` directory.
+Open a new terminal window and enter the `jhipster-ionic/ionic-app` directory.
 Install its dependencies and run `npm start` to test the Ionic client.
 
 [source,shell]
@@ -166,7 +166,7 @@ Or, skip ahead to link:#run-your-ionic-app-on-ios-using-capacitor[run your Ionic
 
 == How to integrate Ionic and Spring Boot
 
-JHipster makes it easy to create a Spring Boot API that's protected by Spring Security.
+JHipster makes it easy to create a Spring Boot API that Spring Security protects.
 The JHipster Ionic blueprint generates an Ionic client that talks to your Spring Boot API and understands its auth mechanism.
 I created the `jhipster-ionic` project using the following steps:
 
@@ -246,7 +246,7 @@ image::{% asset_path 'blog/jhipster-ionic-blueprint/flickr2-photos.jpg' %}[alt=F
 
 Open another terminal and navigate to the `ionic-app` folder.
 Launch your Ionic client using  `npm start`.
-The app will be opened at `\http://localhost:8100` in your default browser.
+In your default browser, the app will be opened at `\http://localhost:8100`.
 
 image::{% asset_path 'blog/jhipster-ionic-blueprint/ionic-welcome.png' %}[alt=Ionic welcome,width=400,align=center]
 
@@ -275,7 +275,7 @@ To add this same functionality to your Ionic app, modify `src/app/pages/entities
 </div>
 ----
 
-When you save this file, the Ionic CLI will auto-compile and reload the app in your browser.
+The Ionic CLI will auto-compile and reload the app in your browser when you save this file.
 You can prove everything works as expected by stopping your app (with kbd:[Ctrl + C]) and running all the end-to-end tests with Cypress.
 
 [source,shell]
@@ -294,7 +294,7 @@ npx ionic capacitor add ios
 ----
 
 Add your custom scheme (`dev.localhost.ionic`) to `ios/App/App/Info.plist`.
-This is configured in `src/environments/environment.ts`; you can easily change it to something else if you like.
+This scheme is configured in `src/environments/environment.ts`; you can easily change it to something else if you like.
 
 [source,xml]
 ----
@@ -381,9 +381,9 @@ Restart your backend app and run your Ionic app on Android using the Capacitor C
 npx cap run android
 ----
 
-CAUTION: If you get an error when running this command, make sure you're using Java 11.
+CAUTION: If you get an error when running this command, make sure to use Java 11.
 
-You'll need to run a couple commands to allow the emulator to communicate with JHipster and Keycloak.
+You'll need to run a couple of commands to allow the emulator to communicate with JHipster and Keycloak.
 
 [source,shell]
 ----
@@ -398,13 +398,13 @@ image::{% asset_path 'blog/jhipster-ionic-blueprint/flickr2-android.png' %}[alt=
 == Why use OpenID Connect for mobile apps?
 
 Storing link:/blog/2019/01/22/oauth-api-keys-arent-safe-in-mobile-apps[API keys and secrets in mobile apps is not safe].
-OAuth 2.0 solves this problem by not shipping any secrets in mobile apps, and instead involving the user in the process of getting an access token into the app.
-These access tokens are unique per user and they're updated every time the user logs in.
+OAuth 2.0 solves this problem by not shipping any secrets in mobile apps and instead involving the user in the process of getting an access token into the app.
+These access tokens are unique per user, and they're updated every time the user logs in.
 The https://www.oauth.com/oauth2-servers/pkce/[PKCE extension] provides a solution for securely doing the OAuth flow on a mobile app even when there is no pre-provisioned secret.
 
-If you need to access an API from a mobile app, hopefully it supports OAuth and PKCE!
-Thankfully most of the hard work of PKCE is handled by SDKs like https://appauth.io/[AppAuth] so you don't have to write all that code yourself.
-If you're working with an API like Okta, then Okta's own SDKs do PKCE automatically so you don't have to worry about it at all.
+If you need to access an API from a mobile app, hopefully, it supports OAuth and PKCE!
+Thankfully most of the hard work of PKCE is handled by SDKs like https://appauth.io/[AppAuth], so you don't have to write all that code yourself.
+If you're working with an API like Okta, then Okta's SDKs do PKCE automatically, so you don't have to worry about it.
 The JHipster Ionic blueprint uses https://www.npmjs.com/package/ionic-appauth[Ionic AppAuth].
 
 The previous sections showed you how to use Keycloak as your identity provider. If you're deploying to production, you might not want to manage your users and authentication system. That's where Okta and Auth0 can help!
@@ -414,7 +414,7 @@ The previous sections showed you how to use Keycloak as your identity provider. 
 If you don't have an Okta developer account, you can https://developer.okta.com/signup[sign up for one] or run `okta register` after installing the Okta CLI.
 
 If you want to change your JHipster app to use Okta, the https://cli.okta.com[Okta CLI] makes this as easy as `okta apps create jhipster`.
-When you run this command, it creates an `.okta.env` file you can source to override the default Keycloak settings.
+This command creates an `.okta.env` file you can source to override the default Keycloak settings.
 
 [source,shell]
 ----
@@ -424,7 +424,7 @@ source .okta.env
 
 With Keycloak, you don't need a separate OIDC app for Ionic.
 With Okta, you do.
-See JHipster's documentation to learn https://www.jhipster.tech/security/#create-a-native-app-for-mobile-on-okta[how to create a native app for mobile on Okta].
+See JHipster's documentation to learn https://www.jhipster.tech/security/#create-a-native-app-for-mobile-on-okta[how to create a native app for Ionic on Okta].
 
 After you've changed the client ID in your Ionic app, run it using `npm start`.
 You'll be prompted to log in using your Okta credentials at `\http://localhost:8100`.
@@ -432,9 +432,9 @@ You'll be prompted to log in using your Okta credentials at `\http://localhost:8
 === Switch your identity provider to Auth0
 
 To switch your identity provider to Auth0, you first need an https://auth0.com/signup[Auth0 account].
-Then, create an `.auth0.env` file and see https://www.jhipster.tech/security/#auth0[JHipster's Auth0 docs] for how to populate it.
+Then, create a `.auth0.env` file and see https://www.jhipster.tech/security/#auth0[JHipster's Auth0 docs] for how to populate it.
 
-Next, https://www.jhipster.tech/security/#create-a-native-app-for-mobile-on-auth0[configure a native app for mobile on Auth0].
+Next, https://www.jhipster.tech/security/#create-a-native-app-for-mobile-on-auth0[configure a native app for Ionic on Auth0].
 Once you're finished updating your Ionic app with a new client ID and audience, you should be able to run your backend and new frontend client using the following commands:
 
 [source,shell]
