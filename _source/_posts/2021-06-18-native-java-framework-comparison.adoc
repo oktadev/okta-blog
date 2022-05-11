@@ -170,7 +170,7 @@ To compile this Micronaut app into a native binary, run:
 
 [source,shell]
 ----
-./mvnw package -Dpackaging=native-image
+./mvnw clean package -Dpackaging=native-image
 ----
 
 This command will take a few minutes to complete. My 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM took 1 min. 9 s. to finish.
