@@ -1,10 +1,10 @@
 ---
 layout: blog_post
-title: "JHipster Application Deployment to DigitalOcean Kubernetes"
+title: "JHipster Application Deployment to DigitalOcean's Kubernetes"
 author: jimena-garbarino
 by: contractor
 communities: [devops,java]
-description: "A step-by-step guide for JHipster deployment to DigitalOcean cloud"
+description: "A step-by-step guide for JHipster deployment to DigitalOcean's cloud"
 tags: []
 tweets:
 - ""
@@ -19,7 +19,7 @@ Cloud adoption continues to increase rapidly and worldwide, and not only in the 
 **This tutorial was created with the following frameworks and tools**:
 - [JHipster 7.6.0](https://www.jhipster.tech/installation/)
 - [Java OpenJDK 11](https://jdk.java.net/java-se-ri/11)
-- [Okta CLI 0.9.0](https://cli.okta.com)
+- [Okta CLI 0.10.0](https://cli.okta.com)
 - [doctl 1.72.0-release](https://docs.digitalocean.com/reference/doctl/)
 - [kubectl 1.23](https://kubernetes.io/docs/tasks/tools/#kubectl)
 - [minikube v1.25.2](https://minikube.sigs.k8s.io/docs/start/)
@@ -42,11 +42,17 @@ The company publishes its data center [certification reports](https://www.digita
 
 ## Set up a microservices architecture for Kubernetes
 
-Before working on the application, you need to install JHipster. The classical way of working with JHipster is to do a local installation with NPM, follow the instructions at [jhipster.tech](https://www.jhipster.tech/installation/#local-installation-with-npm-recommended-for-normal-users).
+Before working on the application, you need to install JHipster. The classical way of working with JHipster is to do a local installation with NPM.
+
+```bash
+npm install -g generator-jhipster@7
+```
+
+If you'd rather use Yarn or Docker, follow the instructions at [jhipster.tech](https://www.jhipster.tech/installation/#local-installation-with-npm-recommended-for-normal-users).
 
 For this test, start from the `reactive-jhipster` example in the `java-microservices-examples` repository on [GitHub](https://github.com/oktadev/java-microservices-examples). The example is a JHipster reactive microservices architecture with Spring Cloud Gateway and Spring WebFlux, Vue as the client framework, and Gradle as the build tool. You can read about how it was built in [Reactive Java Microservices with Spring Boot and JHipster](/blog/2021/01/20/reactive-java-microservices).
 
-```shell
+```bash
 git clone https://github.com/oktadev/java-microservices-examples.git
 cd java-microservices-examples/reactive-jhipster
 ```
@@ -54,7 +60,7 @@ If you inspect the project folder, you will find sub-folders for the `gateway` s
 
 The next step is to generate the Kubernetes deployment descriptors. In the project root folder, create a `k8s` directory and run the `k8s` JHipster sub-generator:
 
-```shell
+```bash
 mkdir k8s
 cd k8s
 jhipster k8s
@@ -80,7 +86,7 @@ Choose the following options when prompted:
 
 Build the `gateway`, `store` and `blog` services container images with Jib. For example, for the `gateway` service:
 
-```shell
+```bash
 cd ../gateway
 ./gradlew bootJar -Pprod jib -Djib.to.image=<docker-repo-name>/gateway
 ```
@@ -125,7 +131,7 @@ Install [Minikube](https://minikube.sigs.k8s.io/docs/start/) and [`kubectl`](htt
 
 For Minkube, you will need at least 2 CPUs. Start MiniKube with your number of CPUs:
 
-```shell
+```bash
 cd k8s
 minikube --cpus <ncpu> start
 ```
@@ -159,12 +165,12 @@ spec:
 
 Then deploy the application to Minikube, in the `k8s` directory, run:
 
-```shell
+```bash
 ./kubectl-apply.sh -f
 ```
 Now is a good time to install [k9s](https://k9scli.io/topics/install/), a terminal-based UI to interact with Kubernetes clusters. Then run k9s with:
 
-```shell
+```bash
 k9s -n demo
 ```
 
@@ -177,13 +183,13 @@ You can navigate the pods with `ENTER` and go back with `ESC` keys.
 
 Set up port-forwarding for the JHipster Registry.
 
-```shell
+```bash
 kubectl port-forward svc/jhipster-registry -n demo 8761
 ```
 
 Navigate to `http://localhost:8761` and sign in with your Okta credentials. When the registry shows all services in green, Set up port-forwarding for the gateway as well.
 
-```shell
+```bash
 kubectl port-forward svc/gateway -n demo 8080
 ```
 
@@ -191,7 +197,7 @@ Navigate to `http://localhost:8080`, sign in, and create some entities to verify
 
 After looking around, stop minikube before the cloud deployment:
 
-```shell
+```bash
 minikube stop
 ```
 
@@ -201,7 +207,7 @@ Now that the architecture works locally, let's proceed to the cloud deployment. 
 
 Most of the cluster tasks, if not all, can be accomplished using [doctl](https://github.com/digitalocean/doctl#installing-doctl), the command-line interface (CLI) for the DigitalOcean API. Install the tool, and perform the authentication with DigitalOcean:
 
-```shell
+```bash
 doctl auth init
 ```
 You will be prompted to enter the DigitalOcean access token that you can generate in the DigitalOcean control panel. Sign in, and then in the left menu go to **API**, click **Generate New Token**. Enter a token name, and click **Generate Token**. Copy the new token from the **Tokens/Keys** table.
@@ -210,28 +216,28 @@ You will be prompted to enter the DigitalOcean access token that you can generat
 
 You can find a detailed list of pricing for cluster resources at [DigitalOcean](https://docs.digitalocean.com/products/kubernetes/),  and with `doctl` you can quickly retrieve a list of node size options available for your account:
 
-```shell
- doctl k options sizes
- ```
+```bash
+doctl k options sizes
+```
 
- **NOTE**: I tested the cluster with the higher size Intel nodes available for my account, `s-2vcpu-4gb-intel`, in an attempt to run the application in the default cluster configuration, a three-node cluster with a single node pool in the nyc1 region, using the latest Kubernetes version. As I started to see pods not running due to "insufficient CPU", I increased the number of nodes later. DigitalOcean's latest and default Kubernetes version at the moment of writing this post is 1.22.8.
+**NOTE**: I tested the cluster with the higher size Intel nodes available for my account, `s-2vcpu-4gb-intel`, in an attempt to run the application in the default cluster configuration, a three-node cluster with a single node pool in the nyc1 region, using the latest Kubernetes version. As I started to see pods not running due to "insufficient CPU", I increased the number of nodes later. DigitalOcean's latest and default Kubernetes version at the moment of writing this post is 1.22.8.
 
- Create the cluster with the following command line:
+Create the cluster with the following command line:
 
- ```shell
- doctl k cluster create do1 -v --size s-2vcpu-4gb-intel
- ```
+```bash
+doctl k cluster create do1 -v --size s-2vcpu-4gb-intel
+```
 After creating a cluster, `doctl` adds a configuration context to kubectl and makes it active, so you can start monitoring your cluster right away with k9s. First, apply the resources configuration to the DigitalOcean cluster:
 
-```shell
+```bash
 ./kubectl-apply.sh -f
 ```
 
 Monitor the deployment with k9s:
 
- ```shell
- k9s -n demo
- ```
+```bash
+k9s -n demo
+```
 
 {% img blog/jhipster-digital-ocean/k9s-do-cluster.png alt:"k9s user interface monitoring DigitalOcean Kubernetes" width:"800" %}{: .center-image }
 
@@ -241,7 +247,7 @@ Once you see the `jhipster-registry` pods are up, set up port forwarding again s
 
 The three-node cluster might not provide enough CPU for this microservices architecture, so you might see `insufficient CPU` logs for some pods. You can get the pod events with `kubectl describe`:
 
-```shell
+```bash
 kubectl describe pod jhipster-registry-0 -n demo
 ```
 ```text
@@ -253,7 +259,7 @@ Events:
 ```
 Increase the number of nodes with `doctl`:
 
-```shell
+```bash
 doctl k cluster node-pool update do1 do1-default-pool --count 4
 ```
 
@@ -276,7 +282,7 @@ As instructed by the event message, I contacted DigitalOcean support and they fi
 
 Once all the pods are running, find the gateway external IP with the `kubectl describe` command:
 
-```shell
+```bash
 kubectl describe service gateway -n demo
 ```
 
@@ -304,6 +310,54 @@ External Traffic Policy:  Cluster
 Update the redirect URIs in Okta to allow the gateway address as a valid redirect. Run `okta login`, open the returned URL in your browser, and sign in to the Okta Admin Console. Go to the **Applications** section, find your application, and edit it.
 
 Navigate to `http://<load-balancer-ingress-ip>:8080`.
+
+### Inspect and manage cluster resources
+
+You can retrieve the cluster details with the following `doctl` commands:
+
+```bash
+doctl k cluster get do1
+```
+```
+ID                                      Name    Region    Version        Auto Upgrade    HA Control Plane    Status     Endpoint                                                               IPv4             Cluster Subnet    Service Subnet    Tags                                            Created At                       Updated At                       Node Pools
+f59fc483-4ee4-4b59-be2c-bb017a932941    do1     nyc1      1.22.8-do.1    false           false               running    https://f59fc483-4ee4-4b59-be2c-bb017a932941.k8s.ondigitalocean.com    137.184.48.14    10.244.0.0/16     10.245.0.0/16     k8s,k8s:f59fc483-4ee4-4b59-be2c-bb017a932941    2022-05-03 20:40:01 +0000 UTC    2022-05-07 00:01:41 +0000 UTC    do1-default-pool
+```
+```bash
+ doctl k cluster list-associated-resources do1
+```
+```
+Volumes                                                                                                                                                                                       Volume Snapshots    Load Balancers
+[a33dbaba-cb22-11ec-9383-0a58ac145375 a6e18809-cb22-11ec-8723-0a58ac14468c 65fb3778-cb23-11ec-9383-0a58ac145375 ac106c49-cb22-11ec-9383-0a58ac145375 c7122288-cb22-11ec-bd08-0a58ac14467d]    []                  [8ebbcbf2-1e67-46f5-b38a-eddae17f00f3]
+```
+
+Unfortunately, there is no way to pause the cluster. According to DigitalOcean, you can power a droplet off, but this does not halt the billing. Billing costs can be reduced by taking a snapshot of the droplet and then destroying it. The snapshot cost is less expensive.
+
+While testing the platform, you can delete the cluster in between sessions, to avoid spending the trial credit while not actively working on it.
+
+```bash
+doctl k cluster delete do1
+```
+
+Volumes provisioned to the cluster are not deleted with the cluster, and charges are generated hourly. You can delete volumes using the control panel or with the following commands:
+
+```bash
+doctl compute volume list
+doctl compute volume delete <volume-id>
+```
+
+The load balancers are not deleted with the cluster either:
+
+```bash
+doctl compute load-balancer list
+doctl compute load-balancer delete <load-balancer-id>
+```
+
+During registration, a project must have been created, allowing to organize resources. You can list all the resources associated with a project with the following command:
+
+```bash
+doctl projects list
+doctl projects resources list <project-id>
+```
 
 ## Secure web traffic with HTTPS
 
@@ -348,6 +402,8 @@ Test the configuration by navigating to `http://yourDomain`. First, the load bal
 
 And this was a brief walk-through for deploying JHipster to a DigitalOcean's managed Kubernetes cluster. Some important topics for production deployment were not covered in this post, to focus on DigitalOcean resource requirements in particular. Among them, external configuration storage with Spring Cloud Config and Git was not covered, secrets encryption both for the cloud configuration and Kubernetes configuration also was not covered. You can learn about these good practices in the first post of this cloud deployment series: [Kubernetes to the Cloud with Spring Boot and JHipster](/blog/2021/06/01/kubernetes-spring-boot-jhipster). Keep learning, and for more content on JHipster, check out the following links:
 
+- [Kubernetes to the Cloud with Spring Boot and JHipster](/blog/2021/06/01/kubernetes-spring-boot-jhipster)
+- [Kubernetes Microservices on Azure with Cosmos DB](/blog/2022/05/05/kubernetes-microservices-azure#spring-boot-microservices-for-azure-and-cosmos-db)
 - [Introducing Spring Native for JHipster: Serverless Full-Stack Made Easy](/blog/2022/03/03/spring-native-jhipster)
 - [Full Stack Java with React, Spring Boot, and JHipster](/blog/2021/11/22/full-stack-java)
 - [Fast Java Made Easy with Quarkus and JHipster](/blog/2021/03/08/jhipster-quarkus-oidc)
