@@ -30,7 +30,7 @@ Other options:
 --
 
 Ionic allows you to create mobile apps with web technologies that look and act like native apps.
-Because they're built with web technologies (HTML, JavaScript, and CSS), you can also deploy your Ionic apps as webapps.
+Because they're built with web technologies (HTML, JavaScript, and CSS), you can also deploy your Ionic apps as web apps.
 Or, even better, as progressive web apps (PWAs) that work offline.
 
 // image below borrowed from https://capacitorjs.com/
@@ -57,8 +57,8 @@ toc::[]
 == ✨ Introducing the JHipster Ionic blueprint!
 
 The JHipster project has provided support for generating an Ionic app using a `generator-jhipster-ionic` module for the past several years.
-As the primary maintainer of this module, I'm proud to announce that this module has been re-written as a blueprint and it's _much_ easier to understand now.
-The previous module relied on the Ionic CLI, the base Angular https://github.com/ionic-team/starters[starter], a https://github.com/oktadev/ionic-jhipster-starter[Ionic JHipster starter], and custom code to glue it all together.
+As the primary maintainer of this module, I'm proud to announce that it has been re-written as a blueprint and it's _much_ easier to understand now.
+The previous module relied on the Ionic CLI, the base Angular https://github.com/ionic-team/starters[starter], the https://github.com/oktadev/ionic-jhipster-starter[Ionic JHipster starter], and custom code to glue it all together.
 Now, the source code is all contained in one project.
 
 https://github.com/mshima[Marcelo Shima] volunteered to do the conversion and after a couple of months, I'm proud to say the https://github.com/jhipster/generator-jhipster-ionic[JHipster Ionic blueprint] is now available!
@@ -85,13 +85,13 @@ You'll be prompted for the location of your JHipster app, a name for your Ionic 
 
 image::{% asset_path 'blog/jhipster-ionic-blueprint/jhipster-ionic.png' %}[alt=JHipster Ionic prompts,width=800,align=center]
 
-You can also create a JHipster app and an Ionic app at the same time.
-The command will only work if you've already installed JHipster with `npm install -g generator-jhipster`.
+You can also create a JHipster app and an Ionic app at the same time by using the bundled JHipster.
 
 [source,shell]
 ----
 mkdir bug-tracker && cd bug-tracker
-jhipster jdl bug-tracker.jh --blueprints ionic
+jhipster-ionic jdl bug-tracker.jh
+cd ../ionic4j
 ----
 
 This will follow the same convention where the generated backend and frontend apps are side-by-side on your hard drive.
@@ -110,9 +110,9 @@ image::{% asset_path 'blog/jhipster-ionic-blueprint/ionic-serve.png' %}[alt=Ioni
 NOTE: The JHipster Ionic blueprint currently only supports Angular.
 Now that it's a blueprint, it will be much easier to add support for Vue and React.
 If you're interested in helping out, please let me know!
-Okta is a platinum sponsor of the project and enjoys assigning bug bounties for feature development.
+Okta is a platinum sponsor of the JHipster project and enjoys assigning bug bounties for feature development.
 
-== Build a Mobile App with Ionic
+== Build a mobile app with Ionic
 
 To see Ionic + JHipster in action, let's start with a https://auth0.com/blog/full-stack-java-with-react-spring-boot-and-jhipster/[Full Stack Java + React app I created for the Auth0 blog].
 I updated the app to the latest version of JHipster (v7.8.1) and created an Ionic app with JHipster Ionic so everything is guaranteed to work.
@@ -170,12 +170,12 @@ JHipster makes it easy to create a Spring Boot API that's protected by Spring Se
 The JHipster Ionic blueprint generates an Ionic client that talks to your Spring Boot API and understands its auth mechanism.
 I created the `jhipster-ionic` project using the following steps:
 
-Install JHipster 7.8.1 and the JHipster Ionic blueprint:
+Install the JHipster Ionic blueprint:
 
 // todo: test with generator-jhipster-ionic@8.0.0
 [source,shell]
 ----
-npm i -g generator-jhipster@7.8.1 generator-jhipster-ionic@8.0.0
+npm i -g generator-jhipster-ionic@8.0.0
 ----
 
 Create a parent directory to hold everything:
@@ -221,8 +221,7 @@ First, start Keycloak and PostgreSQL in Docker containers:
 [source,shell]
 ----
 cd backend
-docker-compose -f src/main/docker/keycloak.yml up -d
-docker-compose -f src/main/docker/postgresql.yml up -d
+npm run ci:e2e:prepare # starts Keycloak and PostgreSQL in Docker
 ----
 
 Next, update `backend/src/main/resources/config/application-prod.yml` to allow CORS from `\http://localhost:8100`.
@@ -403,7 +402,7 @@ image::{% asset_path 'blog/jhipster-ionic-blueprint/flickr2-android.png' %}[alt=
 
 Storing link:/blog/2019/01/22/oauth-api-keys-arent-safe-in-mobile-apps[API keys and secrets in mobile apps is not safe].
 OAuth 2.0 solves this problem by not shipping any secrets in mobile apps, and instead involving the user in the process of getting an access token into the app.
-These access tokens are unique per user and every time they log in.
+These access tokens are unique per user and they're updated every time the user logs in.
 The https://www.oauth.com/oauth2-servers/pkce/[PKCE extension] provides a solution for securely doing the OAuth flow on a mobile app even when there is no pre-provisioned secret.
 
 If you need to access an API from a mobile app, hopefully it supports OAuth and PKCE!
