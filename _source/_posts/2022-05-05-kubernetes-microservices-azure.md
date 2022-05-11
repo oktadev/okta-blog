@@ -705,11 +705,13 @@ kubectl port-forward svc/gateway -n demo 8080
 
 Log in. Make sure everything works. Kick the tires. Start a blog. Create some products. Influence some people. Restore democracy. Take over the world. Whatever you want.
 
-Once you're done with everything, you can delete the resource group. This will also delete all of the resources in the resource group, including the Cosmos database and the AKS cluster.
+Once you're done with everything, you can delete the resource group. This will also delete all the resources in the resource group, including the Cosmos database and the AKS cluster. If you have multiple subscriptions, you may need to add a `--subscription` param.
 
 ```bash
-az group delete --name australia-east --no-wait --yes
+az group delete --name australia-east
 ```
+
+Wait for this to finish. Once it is done, it's probably a good idea to log into the [Azure Portal](https://portal.azure.com) and make sure that the AKS cluster, the Cosmos DB instance, and the resource group have been deleted.
 
 ## Azure AKS, Kubernetes, and Spring Boot microservices deployed!
 
