@@ -44,10 +44,10 @@ The company publishes its data center [certification reports](https://www.digita
 
 Before working on the application, you need to install JHipster. The classical way of working with JHipster is to do a local installation with NPM, follow the instructions at [jhipster.tech](https://www.jhipster.tech/installation/#local-installation-with-npm-recommended-for-normal-users).
 
-For this test, start from the `reactive-jhipster` example in the `java-microservices-examples` repository on [GitHub](https://github.com/oktadeveloper/java-microservices-examples). The example is a JHipster reactive microservices architecture with Spring Cloud Gateway and Spring WebFlux, Vue as the client framework, and Gradle as the build tool.
+For this test, start from the `reactive-jhipster` example in the `java-microservices-examples` repository on [GitHub](https://github.com/oktadev/java-microservices-examples). The example is a JHipster reactive microservices architecture with Spring Cloud Gateway and Spring WebFlux, Vue as the client framework, and Gradle as the build tool. You can read about how it was built in [Reactive Java Microservices with Spring Boot and JHipster](/blog/2021/01/20/reactive-java-microservices).
 
 ```shell
-git clone https://github.com/oktadeveloper/java-microservices-examples.git
+git clone https://github.com/oktadev/java-microservices-examples.git
 cd java-microservices-examples/reactive-jhipster
 ```
 If you inspect the project folder, you will find sub-folders for the `gateway` service, which will act as the front-end application, and a gateway to the `store` and `blog` microservices, which also have their subfolders. A `docker-compose` sub-folder contains the service definitions for running the application containers.
@@ -76,7 +76,7 @@ Choose the following options when prompted:
 - Use dynamic storage provisioning? **Yes**
 - Use a specific storage class? (leave empty)
 
-**NOTE**: You can leave the Docker repository name blank for running Kubernetes locally, but a repository will be required for the cloud deployment, so go ahead and create a Docker personal account, and the image pull configuration will be ready for both local and cloud deployments.
+**NOTE**: You can leave the Docker repository name blank for running Kubernetes locally, but a repository will be required for the cloud deployment, so go ahead and create a [Docker Hub](https://hub.docker.com/) personal account, and the image pull configuration will be ready for both local and cloud deployments.
 
 Build the `gateway`, `store` and `blog` services container images with Jib. For example, for the `gateway` service:
 
@@ -85,9 +85,9 @@ cd ../gateway
 ./gradlew bootJar -Pprod jib -Djib.to.image=<docker-repo-name>/gateway
 ```
 
-Check the images were uploaded to [DockerHub](hub.docker.com), and navigate to the project root folder in the terminal for the next step.
+Check the images were uploaded to [DockerHub](https://hub.docker.com), and navigate to the project root folder in the terminal for the next step.
 
-## Configure Okta for authentication
+## Configure authentication with OpenID Connect and Okta
 
 One more configuration step before running the architecture locally, let's configure Okta for authentication.
 
@@ -112,7 +112,7 @@ data:
                 client-secret: <client-secret>
 ```
 
-Enable the OIDC authentication in the `jhiipster-registry` service by adding the `oauth2` profile in the `k8s/registry-k8s/jhipster-registry.yml` file:
+Enable the OIDC authentication in the `jhipster-registry` service by adding the `oauth2` profile in the `k8s/registry-k8s/jhipster-registry.yml` file:
 
 ```yml
 - name: SPRING_PROFILES_ACTIVE
@@ -272,7 +272,7 @@ Events:
 
 As instructed by the event message, I contacted DigitalOcean support and they fixed it.
 
-### The gateway external IP
+### Find your gateway's external IP and update redirect URIs
 
 Once all the pods are running, find the gateway external IP with the `kubectl describe` command:
 
@@ -303,7 +303,7 @@ External Traffic Policy:  Cluster
 
 Update the redirect URIs in Okta to allow the gateway address as a valid redirect. Run `okta login`, open the returned URL in your browser, and sign in to the Okta Admin Console. Go to the **Applications** section, find your application, and edit it.
 
-Navigate to `http://loadBalancerIngressIP:8080`.
+Navigate to `http://<load-balancer-ingress-ip>:8080`.
 
 ## Secure web traffic with HTTPS
 
