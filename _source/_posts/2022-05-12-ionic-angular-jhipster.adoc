@@ -19,7 +19,7 @@ github: https://github.com/oktadev/okta-jhipster-ionic-example
 :experimental:
 :commandkey: &#8984;
 
-Ionic allows you to create mobile apps with web technologies that look and act like native apps.
+Ionic is a framework for building mobile apps with web technologies that look and act like native apps.
 Because they're built with web technologies (HTML, JavaScript, and CSS), you can also deploy your Ionic apps as single-page applications.
 Or, even better, as progressive web apps (PWAs) that work offline.
 
@@ -414,7 +414,7 @@ The previous sections showed you how to use Keycloak as your identity provider. 
 If you don't have an Okta developer account, you can https://developer.okta.com/signup[sign up for one] or run `okta register` after installing the Okta CLI.
 
 If you want to change your JHipster app to use Okta, the https://cli.okta.com[Okta CLI] makes this as easy as `okta apps create jhipster`.
-This command creates an `.okta.env` file you can source to override the default Keycloak settings.
+This command creates a `.okta.env` file you can source to override the default Keycloak settings.
 
 [source,shell]
 ----
