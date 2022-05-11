@@ -17,7 +17,7 @@ image: blog/native-java-comparison/native-java.png
 type: conversion
 github: https://github.com/oktadev/native-java-examples
 changelog:
-- 2022-05-11: Updated to use Micronaut 3.4.3, Quarkus 2.9.0, Spring Boot 2.6.7, and Spring Native 0.11.5. See this post's changes in [okta-blog#1165](https://github.com/oktadev/okta-blog/pull/1165) and the example app changes in [native-java-examples#25](https://github.com/oktadev/native-java-examples/pull/25).
+- 2022-05-11: Updated to use GraalVM 22.1, Micronaut 3.4.3, Quarkus 2.9.0, Spring Boot 2.6.7, and Spring Native 0.11.5. See this post's changes in [okta-blog#1165](https://github.com/oktadev/okta-blog/pull/1165) and the example app changes in [native-java-examples#25](https://github.com/oktadev/native-java-examples/pull/25).
 - 2022-04-19: Updated to use Micronaut 3.4.2, Quarkus 2.8.1, Spring Boot 2.6.6, and Spring Native 0.11.4. See this post's changes in [okta-blog#1142](https://github.com/oktadev/okta-blog/pull/1142) and the example app changes in [native-java-examples#22](https://github.com/oktadev/native-java-examples/pull/22).
 - 2022-03-31: Updated to use GraalVM 22.0, Micronaut 3.4.1, Quarkus 2.7.5, Spring Boot 2.6.5, and Spring Native 0.11.3. See this post's changes in [okta-blog#1123](https://github.com/oktadev/okta-blog/pull/1123) and the example app changes in [native-java-examples#16](https://github.com/oktadev/native-java-examples/pull/16).
 - 2022-01-04: Updated to use Micronaut 3.2.4, Quarkus 2.6.1, Spring Boot 2.6.2, and Spring Native 0.11.3. See this post's changes in [okta-blog#1016](https://github.com/oktadev/okta-blog/pull/1016) and the example app changes in [native-java-examples#11](https://github.com/oktadev/native-java-examples/pull/11).
