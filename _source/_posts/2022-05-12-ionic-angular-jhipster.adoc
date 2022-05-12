@@ -63,7 +63,9 @@ Now, the source code is all contained in one project.
 
 https://github.com/mshima[Marcelo Shima] volunteered to do the conversion, and after a couple of months, I'm proud to say the https://github.com/jhipster/generator-jhipster-ionic[JHipster Ionic blueprint] is now available!
 
+++++
 {% twitter 1523893356744609792 %}
+++++
 
 Here's how to use it:
 
