@@ -1,0 +1,220 @@
+---
+layout: blog_post
+title: "Build a Secure Java REST API with Micronaut"
+author: matt-raible
+by: advocate
+communities: [java]
+description: ""
+tags: [java]
+tweets:
+- ""
+- ""
+- ""
+image:
+type: conversion
+---
+:page-liquid:
+:experimental:
+:commandkey: &#8984;
+:toc: macro
+
+In this tutorial, I'll show you how to create a secure REST API and native image with Micronaut. You'll see how to run a secure, OAuth 2.0-protected, Java REST API that allows JWT authentication. Then, I'll compare its performance with Quarkus, Spring Boot, and Helidon.
+
+This tutorial is also available as a screencast.
+
+== todo: embed screencast
+
+**Prerequisites:**
+
+- https://sdkman.io/[SDKMAN] (for Java 17 with GraalVM)
+- https://httpie.io/[HTTPie] (a better version of cURL)
+- An https://developer.okta.com[Okta Developer] Account (or the https://cli.okta.com/[Okta CLI])
+
+TIP: The brackets at the end of some steps indicate the IntelliJ Live Templates to use. You can find the template definitions at https://github.com/mraible/idea-live-templates[mraible/idea-live-templates].
+
+toc::[]
+
+== Install a JDK with GraalVM
+
+Use SDKMAN to install Java 17 with GraalVM
+
+  sdk install java 22.1.0.r17-grl
+
+== Generate an OAuth 2.0 Access Token
+
+. Install the https://cli.okta.com/[Okta CLI] and run `okta register` to sign up for a new account. If you already have an account, run `okta login`.
+
+. Run `okta apps create spa`. Set `oidcdebugger` as an app name and press **Enter**.
+
+. Use `\https://oidcdebugger.com/debug` for the Redirect URI and set the Logout Redirect URI to `\https://oidcdebugger.com`.
+
+. Navigate to the https://oidcdebugger.com/[OpenID Connect Debugger website].
+
+.. Fill in your client ID
+.. Use `\https://{yourOktaDomain}/oauth2/default/v1/authorize` for the Authorize URI
+.. Select **code** for the response type and **Use PKCE**
+.. Click **Send Request** to continue
+
+. Set the access token as a `TOKEN` environment variable in a terminal window.
+
+  TOKEN=eyJraWQiOiJYa2pXdjMzTDRBYU1ZSzNGM...
+
+== Make a Micronaut Java REST API
+
+. Use SDKMAN to install Micronaut's CLI and create an app:
++
+[source,shell]
+----
+sdk install micronaut
+mn create-app com.okta.rest.app --build maven -f security-jwt -f micronaut-aot
+mv app micronaut
+----
+
+. Create `controller/HelloController.java`: [`mn-hello`]
++
+[source,java]
+----
+package com.okta.rest.controller;
+
+import io.micronaut.http.MediaType;
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Get;
+import io.micronaut.http.annotation.Produces;
+import io.micronaut.security.annotation.Secured;
+import io.micronaut.security.rules.SecurityRule;
+
+import java.security.Principal;
+
+@Controller("/hello")
+public class HelloController {
+
+    @Get
+    @Secured(SecurityRule.IS_AUTHENTICATED)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String hello(Principal principal) {
+        return "Hello, " + principal.getName() + "!";
+    }
+
+}
+----
+
+. Enable and configure JWT security in `src/main/resources/application.yml`: [`mn-security-config`]
++
+[source,yaml]
+----
+micronaut:
+  ...
+  security:
+    enabled: true
+    token:
+      jwt:
+        enabled: true
+        claims-validators:
+          issuer: https://{yourOktaDomain}/oauth2/default
+        signatures:
+          jwks:
+            okta:
+              url: https://{yourOktaDomain}/oauth2/default/v1/keys
+----
+
+=== Run and Test Your Micronaut REST API with HTTPie
+
+. Start your app:
+
+  ./mvnw mn:run
+
+. Use HTTPie to pass the JWT in as a bearer token in the `Authorization` header:
+
+  http :8080/hello Authorization:"Bearer $TOKEN"
++
+You should get a 200 response with your email in it.
+
+=== Build a Native Micronaut App
+
+. Compile your Micronaut app into a native binary:
+
+  ./mvnw clean package -Dpackaging=native-image
+
+. Start your Micronaut app:
+
+  ./target/app
+
+. Test it with HTTPie and an access token. You may have to generate a new JWT with oidcdebugger.com if yours has expired.
+
+  http :8080/hello Authorization:"Bearer $TOKEN"
+
+== Startup Time Comparison
+
+. Run each image three times before recording the numbers, then each command five times
+
+. Write each time down, add them up, and divide by five for the average. For example:
++
+----
+Micronaut: (27 + 29 + 26 + 29 + 28) / 5 = 27.8
+Quarkus: (19 + 19 + 20 + 19 + 19) / 5 = 19.2
+Spring Boot: (58 + 58 + 58 + 60 + 59) / 5 = 58.6
+Helidon: (40 + 42 + 48 + 41 + 41) / 5 = 42.4
+----
+
+.Java REST API framework startup times in milliseconds
+|===
+|Framework | Command executed | Milliseconds to start
+
+|Micronaut | `./micronaut/target/app` | 27.8
+|Quarkus | `./quarkus/target/quarkus-1.0.0-SNAPSHOT-runner` | 19.2
+|Spring Boot | `./spring-boot/target/demo` | 58.6
+|Helidon | `./helidon/target/helidon` | 42.4
+|===
+
+== Memory Usage Comparison
+
+Test the memory usage in MB of each app using the command below. Make sure to send an HTTP request to each one before measuring.
+
+[source,shell]
+----
+ps -o pid,rss,command | grep --color <executable> | awk '{$2=int($2/1024)"M";}{ print;}'
+----
+
+Substitute `<executable>` as follows:
+
+.Java REST API framework memory used in megabytes
+|===
+|Framework | Executable | Megabytes before request | Megabytes after request| Megabytes after 5 requests
+
+|Micronaut | `app` | 31 | 45 | 56
+|Quarkus | `quarkus` | 23 | 34 | 36
+|Spring Boot | `demo` | 50 | 61 | 62
+|Helidon | `helidon` | 42 | 54 | 62
+|===
+
+IMPORTANT: If you disagree with these numbers and think X framework should be faster, I encourage you to clone https://github.com/oktadev/native-java-examples[the repo] and run these tests yourself. If you get faster startup times for Micronaut, do you get faster startup times for Helidon, Quarkus, and Spring Boot too?
+
+.What about the MacBook Pro M1 Max?
+****
+
+My MacBook Pro (16-inch, 2021) with Apple M1 Max builds _much_ faster, apps startup 2x faster, but they use more memory.
+
+////
+start: started 3 times and took fastest
+
+ps -o pid,rss,command | grep --color <executable> | awk '{$2=int($2/1024)"M";}{ print;}'
+////
+
+[cols="<,^,^,^,^",options=header]
+|===
+|Metric | Micronaut | Quarkus | Spring Boot | Helidon
+
+|Milliseconds to start | `17` | `12` | `36` | `23`
+|MB used on start | `42` | `33` | `63` | `64`
+|MB after 5 requests | `68` | `47` | `75` | `84`
+|===
+
+****
+
+== Secure Native Java with Micronaut FTW!
+
+⚡️ Create a secure REST API with Micronaut: `okta start micronaut`
+
+🚀 Find this example's code on GitHub: https://github.com/oktadev/native-java-examples/tree/main/micronaut[@oktadev/native-java-examples/micronaut]
+
+👀 Read the blog post: link:/blog/2021/06/18/native-java-framework-comparison[Build Native Java Apps with Micronaut, Quarkus, and Spring Boot]
