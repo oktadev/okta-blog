@@ -1,0 +1,249 @@
+---
+layout: blog_post
+title: "Build a Secure Java REST API with Helidon"
+author: matt-raible
+by: advocate
+communities: [java]
+description: ""
+tags: [java]
+tweets:
+- ""
+- ""
+- ""
+image:
+type: conversion
+---
+:page-liquid:
+:experimental:
+:commandkey: &#8984;
+:toc: macro
+
+In this tutorial, I'll show you how to create a secure REST API and native image with Helidon. You'll see how to run a secure, OAuth 2.0-protected, Java REST API that allows JWT authentication. Then, I'll compare its performance with Micronaut, Quarkus, and Spring Boot.
+
+This tutorial is also available as a screencast.
+
+== todo: embed screencast
+
+**Prerequisites:**
+
+- https://sdkman.io/[SDKMAN] (for Java 17 with GraalVM)
+- https://httpie.io/[HTTPie] (a better version of cURL)
+- An https://developer.okta.com[Okta Developer] Account (or the https://cli.okta.com/[Okta CLI])
+
+TIP: The brackets at the end of some steps indicate the IntelliJ Live Templates to use. You can find the template definitions at https://github.com/mraible/idea-live-templates[mraible/idea-live-templates].
+
+toc::[]
+
+== Install a JDK with GraalVM
+
+Use SDKMAN to install Java 17 with GraalVM
+
+  sdk install java 22.1.0.r17-grl
+
+== Generate an OAuth 2.0 Access Token
+
+. Install the https://cli.okta.com/[Okta CLI] and run `okta register` to sign up for a new account. If you already have an account, run `okta login`.
+
+. Run `okta apps create spa`. Set `oidcdebugger` as an app name and press **Enter**.
+
+. Use `\https://oidcdebugger.com/debug` for the Redirect URI and set the Logout Redirect URI to `\https://oidcdebugger.com`.
+
+. Navigate to the https://oidcdebugger.com/[OpenID Connect Debugger website].
+
+.. Fill in your client ID
+.. Use `\https://{yourOktaDomain}/oauth2/default/v1/authorize` for the Authorize URI
+.. Select **code** for the response type and **Use PKCE**
+.. Click **Send Request** to continue
+
+. Set the access token as a `TOKEN` environment variable in a terminal window.
+
+  TOKEN=eyJraWQiOiJYa2pXdjMzTDRBYU1ZSzNGM...
+
+== Build a Java REST API with Helidon
+
+. Create a Helidon app with OAuth 2.0 support:
++
+[source,shell]
+----
+mvn -U archetype:generate -DinteractiveMode=false \
+   -DarchetypeGroupId=io.helidon.archetypes \
+   -DarchetypeArtifactId=helidon-quickstart-mp \
+   -DarchetypeVersion=2.5.0 \
+   -DgroupId=com.okta.rest \
+   -DartifactId=helidon \
+   -Dpackage=com.okta.rest
+----
++
+TIP: You can also install the https://helidon.io/docs/v2/#/about/05_cli[Helidon's CLI] and run `helidon init`.
+
+. Add MicroProfile JWT support in `pom.xml`:
++
+[source,xml]
+----
+<dependency>
+    <groupId>io.helidon.microprofile.jwt</groupId>
+    <artifactId>helidon-microprofile-jwt-auth</artifactId>
+</dependency>
+----
+
+. Add a `HelloResource` class that returns the user's information: [`h-hello`]
++
+[source,java]
+----
+package com.okta.rest.controller;
+
+import io.helidon.security.Principal;
+import io.helidon.security.SecurityContext;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import java.util.Optional;
+
+import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
+
+@Path("/hello")
+public class HelloResource {
+
+    @GET
+    @Path("/")
+    @Produces(TEXT_PLAIN)
+    public String hello(@Context SecurityContext context) {
+        Optional<Principal> userPrincipal = context.userPrincipal();
+        return "Hello, " + userPrincipal.get().getName() + "!";
+    }
+}
+----
+
+. Add a `HelloApplication` class in `src/main/java/com/okta/rest` to register your resource and configure JWT authentication: [`h-app`]
++
+[source,java]
+----
+package com.okta.rest;
+
+import com.okta.rest.controller.HelloResource;
+import org.eclipse.microprofile.auth.LoginConfig;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.ws.rs.core.Application;
+import java.util.Set;
+
+@LoginConfig(authMethod = "MP-JWT")
+@ApplicationScoped
+public class HelloApplication extends Application {
+
+    @Override
+    public Set<Class<?>> getClasses() {
+        return Set.of(HelloResource.class);
+    }
+}
+----
+
+. Add your Okta endpoints to `src/main/resources/META-INF/microprofile-config.properties`.
++
+[source,properties]
+----
+mp.jwt.verify.publickey.location=https://{yourOktaDomain}/oauth2/default/v1/keys
+mp.jwt.verify.issuer=https://{yourOktaDomain}/oauth2/default
+----
+
+=== Run and Test Your Helidon REST API with HTTPie
+
+. Start your app from your IDE or using a terminal:
+
+  mvn package && java -jar ./target/helidon.jar
+
+. Test your API with an access token.
+
+  http :8080/hello Authorization:"Bearer $TOKEN"
+
+=== Build a native Helidon app with GraalVM
+
+. Compile your Helidon app into a native executable using the `native-image` profile:
+
+  mvn package -Pnative-image
+
+. Start your Helidon app:
+
+  ./target/helidon
+
+. Test your API with an access token.
+
+  http :8080/hello Authorization:"Bearer $TOKEN"
+
+== Startup Time Comparison
+
+. Run each image three times before recording the numbers, then each command five times
+
+. Write each time down, add them up, and divide by five for the average. For example:
++
+----
+Helidon: (40 + 42 + 48 + 41 + 41) / 5 = 42.4
+Micronaut: (27 + 29 + 26 + 29 + 28) / 5 = 27.8
+Quarkus: (19 + 19 + 20 + 19 + 19) / 5 = 19.2
+Spring Boot: (58 + 58 + 58 + 60 + 59) / 5 = 58.6
+----
+
+.Java REST API framework startup times in milliseconds
+|===
+|Framework | Command executed | Milliseconds to start
+
+|Helidon | `./helidon/target/helidon` | 42.4
+|Micronaut | `./micronaut/target/app` | 27.8
+|Quarkus | `./quarkus/target/quarkus-1.0.0-SNAPSHOT-runner` | 19.2
+|Spring Boot | `./spring-boot/target/demo` | 58.6
+|===
+
+== Memory Usage Comparison
+
+Test the memory usage in MB of each app using the command below. Make sure to send an HTTP request to each one before measuring.
+
+[source,shell]
+----
+ps -o pid,rss,command | grep --color <executable> | awk '{$2=int($2/1024)"M";}{ print;}'
+----
+
+Substitute `<executable>` as follows:
+
+.Java REST API framework memory used in megabytes
+|===
+|Framework | Executable | Megabytes before request | Megabytes after request| Megabytes after 5 requests
+
+|Helidon | `helidon` | 42 | 54 | 62
+|Micronaut | `app` | 31 | 45 | 56
+|Quarkus | `quarkus` | 23 | 34 | 36
+|Spring Boot | `demo` | 50 | 61 | 62
+|===
+
+IMPORTANT: If you disagree with these numbers and think X framework should be faster, I encourage you to clone https://github.com/oktadev/native-java-examples[the repo] and run these tests yourself. If you get faster startup times for Helidon, do you get faster startup times for Micronaut and Quarkus too?
+
+.What about the MacBook Pro M1 Max?
+****
+
+My MacBook Pro (16-inch, 2021) with Apple M1 Max builds _much_ faster, apps startup 2x faster, but they use more memory.
+
+////
+start: started 3 times and took fastest
+
+ps -o pid,rss,command | grep --color <executable> | awk '{$2=int($2/1024)"M";}{ print;}'
+////
+
+[cols="<,^,^,^,^",options=header]
+|===
+|Metric | Micronaut | Quarkus | Spring Boot | Helidon
+
+|Milliseconds to start | `17` | `12` | `36` | `23`
+|MB used on start | `42` | `33` | `63` | `64`
+|MB after 5 requests | `68` | `47` | `75` | `84`
+|===
+
+****
+
+== Secure Native Java with Helidon FTW!
+
+⚡️ Create a secure REST API with Helidon: `okta start helidon`
+
+🚀 Find this example's code on GitHub: https://github.com/oktadev/native-java-examples/tree/main/helidon[@oktadev/native-java-examples/helidon]
+
+👀 Read the blog post: link:/blog/2022/01/06/native-java-helidon[Build REST APIs and Native Java Apps with Helidon]
