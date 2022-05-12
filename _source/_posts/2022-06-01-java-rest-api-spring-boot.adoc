@@ -1,0 +1,259 @@
+---
+layout: blog_post
+title: "Build a Secure Java REST API with Spring Boot"
+author: matt-raible
+by: advocate
+communities: [java]
+description: ""
+tags: [java]
+tweets:
+- ""
+- ""
+- ""
+image:
+type: conversion
+---
+:page-liquid:
+:experimental:
+:commandkey: &#8984;
+:toc: macro
+
+In this tutorial, I'll show you how to create a secure REST API and native image with Spring Boot. You'll see how to run a secure, OAuth 2.0-protected, Java REST API that allows JWT authentication. Then, I'll compare its performance with Micronaut, Quarkus, and Helidon.
+
+This tutorial is also available as a screencast.
+
+== todo: embed screencast
+
+**Prerequisites:**
+
+- https://sdkman.io/[SDKMAN] (for Java 17 with GraalVM)
+- https://httpie.io/[HTTPie] (a better version of cURL)
+- An https://developer.okta.com[Okta Developer] Account (or the https://cli.okta.com/[Okta CLI])
+
+TIP: The brackets at the end of some steps indicate the IntelliJ Live Templates to use. You can find the template definitions at https://github.com/mraible/idea-live-templates[mraible/idea-live-templates].
+
+toc::[]
+
+== Install a JDK with GraalVM
+
+Use SDKMAN to install Java 17 with GraalVM
+
+  sdk install java 22.1.0.r17-grl
+
+== Generate an OAuth 2.0 Access Token
+
+. Install the https://cli.okta.com/[Okta CLI] and run `okta register` to sign up for a new account. If you already have an account, run `okta login`.
+
+. Run `okta apps create spa`. Set `oidcdebugger` as an app name and press **Enter**.
+
+. Use `\https://oidcdebugger.com/debug` for the Redirect URI and set the Logout Redirect URI to `\https://oidcdebugger.com`.
+
+. Navigate to the https://oidcdebugger.com/[OpenID Connect Debugger website].
+
+.. Fill in your client ID
+.. Use `\https://{yourOktaDomain}/oauth2/default/v1/authorize` for the Authorize URI
+.. Select **code** for the response type and **Use PKCE**
+.. Click **Send Request** to continue
+
+. Set the access token as a `TOKEN` environment variable in a terminal window.
+
+  TOKEN=eyJraWQiOiJYa2pXdjMzTDRBYU1ZSzNGM...
+
+== Start a Spring Boot Java REST API
+
+. Create a Spring Boot app with OAuth 2.0 support:
++
+[source,shell]
+----
+https start.spring.io/starter.zip \
+  bootVersion==2.6.7 \
+  dependencies==web,oauth2-resource-server,native \
+  packageName==com.okta.rest \
+  name==spring-boot \
+  type==maven-project \
+  baseDir==spring-boot | tar -xzvf -
+----
+
+. Modify `pom.xml` to use `tomcat-embed-programmatic` instead of the default Tomcat.
++
+[source,xml]
+----
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
+    <exclusions>
+        <exclusion>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-core</artifactId>
+        </exclusion>
+        <exclusion>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-websocket</artifactId>
+        </exclusion>
+    </exclusions>
+</dependency>
+<dependency>
+    <groupId>org.apache.tomcat.experimental</groupId>
+    <artifactId>tomcat-embed-programmatic</artifactId>
+    <version>${tomcat.version}</version>
+</dependency>
+----
+
+. Add a `HelloController` class that returns the user's information: [`sb-hello`]
++
+[source,java]
+----
+package com.okta.rest.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.security.Principal;
+
+@RestController
+public class HelloController {
+
+    @GetMapping("/hello")
+    public String hello(Principal principal) {
+        return "Hello, " + principal.getName() + "!";
+    }
+}
+----
+
+. Configure the app to be an OAuth 2.0 resource server by adding the issuer to `application.properties`.
++
+[source,properties]
+----
+spring.security.oauth2.resourceserver.jwt.issuer-uri=https://{yourOktaDomain}/oauth2/default
+----
+
+. Add a `SecurityConfiguration` class to configure JWT authentication: [`securityconfig`]
++
+[source,java]
+----
+package com.okta.rest;
+
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
+
+@EnableWebSecurity
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+            .authorizeRequests(request -> request.anyRequest().authenticated())
+            .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
+    }
+}
+----
+
+=== Run and Test Your Spring Boot REST API with HTTPie
+
+. Start your app from your IDE or using a terminal:
+
+  ./mvnw spring-boot:run
+
+. Test your API with an access token.
+
+  http :8080/hello Authorization:"Bearer $TOKEN"
+
+=== Build a Native Spring Boot App
+
+. Compile your Spring Boot app into a native executable using the `native` profile:
+
+  ./mvnw package -Pnative
++
+TIP: To build a native app and a Docker container, use the Spring Boot Maven plugin and `./mvnw spring-boot:build-image`.
+
+. Start your Spring Boot app:
+
+  ./target/demo
+
+. Test your API with an access token.
+
+  http :8080/hello Authorization:"Bearer $TOKEN"
+
+== Startup Time Comparison
+
+. Run each image three times before recording the numbers, then each command five times
+
+. Write each time down, add them up, and divide by five for the average. For example:
++
+----
+Spring Boot: (58 + 58 + 58 + 60 + 59) / 5 = 58.6
+Micronaut: (27 + 29 + 26 + 29 + 28) / 5 = 27.8
+Quarkus: (19 + 19 + 20 + 19 + 19) / 5 = 19.2
+Helidon: (40 + 42 + 48 + 41 + 41) / 5 = 42.4
+----
+
+.Native Java startup times in milliseconds
+|===
+|Framework | Command executed | Milliseconds to start
+
+|Spring Boot | `./spring-boot/target/demo` | 58.6
+|Micronaut | `./micronaut/target/app` | 27.8
+|Quarkus | `./quarkus/target/quarkus-1.0.0-SNAPSHOT-runner` | 19.2
+|Helidon | `./helidon/target/helidon` | 42.4
+|===
+
+== Memory Usage Comparison
+
+Test the memory usage in MB of each app using the command below. Make sure to send an HTTP request to each one before measuring.
+
+[source,shell]
+----
+ps -o pid,rss,command | grep --color <executable> | awk '{$2=int($2/1024)"M";}{ print;}'
+----
+
+Substitute `<executable>` as follows:
+
+.Native Java memory used in megabytes
+|===
+|Framework | Executable | Megabytes before request | Megabytes after request| Megabytes after 5 requests
+
+|Spring Boot | `demo` | 50 | 61 | 62
+|Micronaut | `app` | 31 | 45 | 56
+|Quarkus | `quarkus` | 23 | 34 | 36
+|Helidon | `helidon` | 42 | 54 | 62
+|===
+
+IMPORTANT: If you disagree with these numbers and think X framework should be faster, I encourage you to clone https://github.com/oktadev/native-java-examples[the repo] and run these tests yourself. If you get faster startup times for Spring Boot, do you get faster startup times for Helidon, Micronaut, and Quarkus too?
+
+.What about the MacBook Pro M1 Max?
+****
+
+My MacBook Pro (16-inch, 2021) with Apple M1 Max builds _much_ faster, apps startup 2x faster, but they use more memory.
+
+////
+start: started 3 times and took fastest
+
+ps -o pid,rss,command | grep --color <executable> | awk '{$2=int($2/1024)"M";}{ print;}'
+////
+
+[cols="<,^,^,^,^",options=header]
+|===
+|Metric | Micronaut | Quarkus | Spring Boot | Helidon
+
+|Milliseconds to start | `17` | `12` | `36` | `23`
+|MB used on start | `42` | `33` | `63` | `64`
+|MB after 5 requests | `68` | `47` | `75` | `84`
+|===
+
+****
+
+== Secure Native Java with Spring Boot FTW!
+
+⚡️ Create a secure REST API with Spring Boot:
+
+[source,shell]
+----
+okta start spring-boot
+okta start spring-boot -b webflux
+----
+
+🚀 Find this example's code on GitHub: https://github.com/oktadev/native-java-examples/tree/main/spring-boot[@oktadev/native-java-examples/spring-boot]
+
+👀 Read the blog post: link:/blog/2021/06/18/native-java-framework-comparison[Build Native Java Apps with Micronaut, Quarkus, and Spring Boot]
