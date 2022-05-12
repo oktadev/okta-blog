@@ -1,10 +1,10 @@
 ---
 layout: blog_post
-title: "Secure and Deploy Micro-Frontends in Angular"
+title: "Secure and Deploy Micro-Frontends with Angular"
 author: alisa-duncan
 by: advocate
 communities: [javascript]
-description: "A tutorial to prepare your micro-frontend project for production by using dynamic module loading, then configure deployment using Vercel. "
+description: "A tutorial to prepare your micro-frontend project for production by using dynamic module loading, with deployment configured using Vercel. "
 tags: [angular, typescript]
 tweets:
 - ""
@@ -14,11 +14,11 @@ type: conversion
 github: https://github.com/oktadev/okta-angular-microfrontend-example
 ---
 
-Micro-frontends continue to gain a lot of interest and traction in front-end development. The architecture models the same concept as micro-services - as a way to decompose monolithic front-end applications. And just like with micro-services, micro-frontends have complexities to manage.
+Micro-frontends continue to gain interest and traction in front-end development. The architecture models the same concept as micro-services - as a way to decompose monolithic front-end applications. And just like with micro-services, micro-frontends have complexities to manage.
 
-This post is part two in a series where we'll build an e-commerce site using Angular using micro-frontends. We're using Webpack 5 with Module Federation to support wiring the micro-frontends together, demonstrate sharing authenticated state between the different front-ends, prepare for deployment using dynamic module loading, and deploy it all to Vercel's free hosting plan. 
+This post is part two in a series about building an e-commerce site with Angular using micro-frontends. We use Webpack 5 with Module Federation to wire the micro-frontends together, demonstrate sharing authenticated state between the different front ends, prepare for deployment using dynamic module loading, and deploy it all to Vercel's free hosting plan. 
 
-In this second post in the series, we're building on the site we created in the first post. Check out [How to Build Micro-Frontends Using Module Federation in Angular](/blog/2022/05/02/angular-microfrontend-auth). Let's continue working on our cupcake e-commerce site by adding dynamic module loading, securing unprotected routes, and setting up deploying the site in Vercel. 🎉
+In this second post, we're building on the site we created in part one, [How to Build Micro-Frontends Using Module Federation in Angular](/blog/2022/05/02/angular-microfrontend-auth). Let's add dynamic module loading to our cupcake e-commerce site, secure unprotected routes, and set up the site for deployment in Vercel, a service designed to improve the front-end development workflow. 🎉
 
 In the end, you'll have an app that looks like this publicly available through Vercel:
 
@@ -35,7 +35,7 @@ In the end, you'll have an app that looks like this publicly available through V
 
 ## Review the Angular micro-frontends project using Webpack and Module Federation
 
-Let's start by refreshing our memories about where we left off—dust off your project from the first post. Just like last time, we'll need both IDE and the terminal. 
+Let's start by refreshing our memories—dust off your project from the first post. Just like last time, we'll need both IDE and the terminal. 
 
 We have the host application, `shell`, and two micro-frontend remotes, `mfe-basket` and `mfe-profile`. We're using `@angular-architects/module-federation` to help facilitate the Module Federation plugin configuration. The cupcake basket functionality code resides in the shared library, and we share authenticated state using Okta's SDKs. 
 
@@ -45,9 +45,9 @@ Serve all of the Angular applications in the project by running:
 npm run run:all
 ```
 
-When you run the project, you should see all the beautiful cupcakes this store sells, be able to sign in, view your profile, add items to your basket, view your cupcake basket, and sign out. All the basics for handling your sweet treat needs!  
+When you run the project, you should see all the beautiful cupcakes this store sells. You'll be able to sign in, view your profile, add items to your basket, view your cupcake basket, and sign out. All the basics for handling your sweet treat needs!  
 
-> **Note**: _If you only want to follow the tutorial in this post and skip the first, you can clone the code sample repo to get going. You will be missing quite a bit of context, though. Use the following commands in this case:_
+> **Note**: _If you want to skip the first post and follow along with this tutorial, you can clone the code sample repo to get going. You will be missing quite a bit of context, though. Use the following commands in this case:_
 ```shell
 git clone https://github.com/oktadev/okta-angular-microfrontend-example.git
 cd okta-angular-microfrontend-example
@@ -59,11 +59,11 @@ _You'll need to follow the instructions on creating the Okta application and upd
 
 ## Dynamic loading of micro-frontend remotes
 
-So far, we've been serving the cupcake micro-frontend website using the npm script `run:all`, which serves all three applications at once. Let's see what happens if we only try serving the host application. Stop serving the site, and run `ng serve shell` to serve the default application, `shell`, and open the browser.
+So far, we've been serving the cupcake micro-frontend website using the npm script `run:all`, which serves all three applications at once. Let's see what happens if we only try serving the host application. Stop serving the site, run `ng serve shell` to serve the default application, `shell`, and open the browser.
 
 When you navigate to `http://localhost:4200`, you see a blank screen and a couple of console errors. The console errors happen because `shell` can't find the micro-frontend remotes at ports 4201 and 4202. 👀
 
-These errors mean the host is loading the micro-frontends upon initialization of the host, not upon route change like you might think based on configuring a lazy-loaded route in the routing module. Doh!
+These errors mean the host is loading the micro frontends upon initialization of the host, not upon route change like you might think based on configuring a lazy-loaded route in the routing module. Doh!
 
 With the `@angular-architects/module-federation` library's `loadRemoteModule()` method, we can dynamically load the micro-frontend remotes upon route change with a few quick changes.
 
@@ -112,13 +112,13 @@ You should now see the shell application and only see a console error when navig
 
 Now that the cupcakes site is working locally let's deploy this beautiful website using [Vercel](https://vercel.com/). Ensure you've authorized Vercel access to GitHub because we'll take advantage of the built-in integration to deploy changes from the main branch automatically.
 
-First, push your project up to a GitHub repo. If you wish to obscure your Okta configuration, you can make the repo private. The Okta configuration code is not confidential information, as single-page applications are public clients. If you don't like committing the configuration values into code, you can load the configuration values at run-time or use environment variables as part of your build step. I won't get into details of how to handle that in this post but I will include some links at the end.
+First, push your project up to a GitHub repo. If you wish to obscure your Okta configuration, you can make the repo private. The Okta configuration code is not confidential information, as single-page applications are public clients. If you don't like committing the configuration values into code, you can load the configuration values at runtime or use environment variables as part of your build step. I won't get into the details of how to handle that here, but I will include some links at the end.
 
-In the Vercel dashboard, press the **+ New Project** button to import a Git repository. Depending on what permissions you granted to Vercel, you might see your newly created GitHub repo immediately. If you don't, follow the instructions to adjust GitHub app permissions and allow Vercel access to the repo. Press the **Import** button for the repo to continue. You'll see a form to configure the project within Vercel.
+In the Vercel dashboard, press the **+ New Project** button to import a Git repository. Depending on what permissions you granted to Vercel, you might see your newly created GitHub repo immediately. If not, follow the instructions to adjust GitHub app permissions and allow Vercel access to the repo. Press the **Import** button for the repo to continue. You'll see a form to configure the project within Vercel.
 
 The idea behind micro-frontends is to be able to deploy each application independently. We can do this in Vercel by creating a separate project for each application. Vercel limits the number of projects for a single repo to three in the free plan. What an extraordinary coincidence!
 
-First, we'll configure the project for the micro-frontend host, the `shell` application. To help keep the projects straight, incorporate the application name into the Vercel project name, such as `okta-angular-mfe-shell`. You'll also need to update the build command and output directory for the `shell` application. Update your configuration to look like the screenshot below.
+First, we'll configure the project for the micro-frontend host, the `shell` application. To keep the projects organized, incorporate the application name into the Vercel project name, such as `okta-angular-mfe-shell`. You'll also need to update the build command and output directory for the `shell` application. Update your configuration to look like the screenshot below.
 
 {% img blog/angular-microfrontend-deploy/vercel-configure-shell.jpg alt:"Vercel configuration for shell application. The build command is set to 'ng build shell' and the output directory is 'dist/shell/'" width:"800" %}{: .center-image }
 
@@ -214,7 +214,7 @@ Next, add the deploy URI as a Trusted Origin in Okta. Navigate to **Security** >
 Commit your changes and push to your main branch. After the build succeeds, you should be able to use the deployed site from end to end!
 
 
-## Secure your micro-frontends
+## Secure your micro frontends
 
 Right now, you can access what should be protected routes by manually typing in the full URI to the profile route. Even though you don't see any profile information, we aren't guarding the route. Let's make the site a little more secure by protecting the route.
 
@@ -234,15 +234,15 @@ import { OktaCallbackComponent, OktaAuthGuard} from '@okta/okta-angular';
 },
 ```
 
-Now what happens is if you navigate directly to the profile route, you'll first redirect to Okta's sign-in page, then redirect back to the profile route. 
+Now if you navigate directly to the profile route, you'll first redirect to Okta's sign-in page, then redirect back to the profile route. 
 
-Route protection works well from within the micro-frontend shell. But what if you navigate directly to the URI where the profile micro-frontend resides? You will still be able to navigate to the profile route within the micro-frontend because there isn't a guard within the profile application. 
+Route protection works well from within the micro-frontend shell. But what if you navigate directly to the URI where the profile micro frontend resides? You will still be able to navigate to the profile route within the micro frontend because there isn't a guard within the profile application. 
 
-This brings us to an interesting concept, in order to fully secure your micro-frontends, you should protect routes defined within your micro-frontend as well. To add the Okta route guard, you'll need to import the `OktaAuthModule` into the `mfe-profile` application's `AppModule`, and add the same configuration as you did for the `shell` application. The Module Federation configuration shares the Okta library between the applications when accessed via the host application, but `mfe-profile` will need it's own instance of authenticated state when accessed in isolation from the `shell` application. Having it's own instance of authenticated state means you should add sign in and sign out capability in the `AppComponent` of the `mfe-profile` application too. Doing so will also allow you to test each micro-frontend application independently.
+This brings us to an interesting concept. In order to fully secure your micro frontends, you should protect routes defined within your micro frontend as well. To add the Okta route guard, you'll need to import the `OktaAuthModule` into the `mfe-profile` application's `AppModule`, and add the same configuration as you did for the `shell` application. The Module Federation configuration shares the Okta library between the applications when accessed via the host application. In contrast, `mfe-profile` will need its own instance of authenticated state when accessed in isolation from the `shell` application. Having its own instance of authenticated state means you should add sign in and sign out capability in the `AppComponent` of the `mfe-profile` application too. This will also allow you to test each micro-frontend application independently.
 
 Security + testing = winning!
 
-## Build the micro-frontend on a relevant change
+## Build the micro frontend on a relevant change
 
 As mentioned in this post, the value of micro-frontends is the ability to deploy each application independently. In production systems, you may need to handle multiple build steps and build out an entire workflow of CI/CD, but for this tutorial, we can cheat a little and still get the benefits of separate deployments. We will add a configuration in Vercel only to kick off a build when there's changes in the relevant application code.
 
@@ -254,7 +254,7 @@ Add the following command:
 git diff --quiet HEAD^ HEAD ./projects/mfe-basket
 ```
 
-Next, open the Vercel project for the `mfe-profile` application to update the **Ignored Build Step** command. Add the following command:
+Next, open the Vercel project for the `mfe-profile` application to update the **Ignored Build Step** command. Now add this command:
 
 ```shell
 git diff --quiet HEAD^ HEAD ./projects/mfe-profile
@@ -270,7 +270,7 @@ Now, if you make a change in a micro-frontend application, only that micro-front
 
 ## Beyond this post
 
-I hope you enjoyed creating and deploying this micro-frontend e-commerce site with beautiful pictures of tasty cupcakes. In this post, we used dynamic module loading to load micro-frontends lazily within the host application, deployed the project to Vercel, added in multi-environment route configuration, and leveraged a benefit of micro-frontend by enabling deployment upon relevant changes. You can check out the completed code for this project in the [`deploy` branch of the code repo](https://github.com/oktadev/okta-angular-microfrontend-example/tree/deploy).
+I hope you've enjoyed creating and deploying this micro-frontend e-commerce site with beautiful pictures of tasty cupcakes. In this post, we used dynamic module loading to load micro frontends lazily within the host application, deployed the project to Vercel, added in multi-environment route configuration, and leveraged a micro-frontend benefit by enabling deployment upon relevant changes. You can check out the completed code for this project in the [`deploy` branch of the code repo](https://github.com/oktadev/okta-angular-microfrontend-example/tree/deploy).
 
 ## Learn more
 
