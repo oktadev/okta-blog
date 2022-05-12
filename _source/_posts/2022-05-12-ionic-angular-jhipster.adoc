@@ -115,7 +115,7 @@ image::{% asset_path 'blog/jhipster-ionic-blueprint/ionic-serve.png' %}[alt=Ioni
 NOTE: The JHipster Ionic blueprint currently only supports Angular.
 Now that it's a blueprint, it will be much easier to add support for Vue and React.
 If you're interested in helping out, please let me know!
-Okta is a platinum sponsor of the JHipster project and enjoys assigning bug bounties for feature development.
+Okta is a platinum sponsor of the JHipster project and enjoys assigning https://github.com/jhipster/generator-jhipster/issues?q=is%3Aissue+is%3Aopen+label%3A%22%24%24+bug-bounty+%24%24%22[bug bounties] for feature development.
 
 == Build a mobile app with Ionic and Angular
 
