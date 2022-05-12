@@ -245,6 +245,13 @@
 			margin-top: -20px;
 		}
 
+		/* Fix m-up-20 on mobile */
+		@media only screen and (width: 980px), (hover: none) {
+			.m-up-20 {
+				float: unset;
+			}
+		}
+
 		/* Don't force small images in tables */
 		table td img {
 			max-width: unset;
@@ -331,7 +338,7 @@
 		.highlight .vi { color: $dark-cerulean; } /* Name Variable Instance */
 		.highlight .bp { color: $dark-cerulean; } /* Name Builtin Pseudo */
 		.highlight .g { color: $eclipse-2; } /* Base Style */
-		.highlight .gd { color: $eclipse-2; } /*  */
+		.highlight .gd { color: $eclipse-2; } /*		*/
 		.highlight .o { color: $eclipse-2; } /* Base Style */
 		.highlight .ow { color: $puerto-rico; } /* Operator Word */
 		.highlight .c { color: $nobel-2; font-style: italic; }/* Base Style */
@@ -418,15 +425,15 @@
 		// fix cursor for summary
 		summary { cursor: pointer }
 
-    // Jekyll plugins
-    .jekyll-twitter-plugin {
-      max-width: 500px;
-      margin: 0 auto 1.25rem;
-      .twitter-tweet-rendered {
-        margin-left: auto;
-        margin-right: auto;
-      }
-    }
+	// Jekyll plugins
+	.jekyll-twitter-plugin {
+			max-width: 500px;
+			margin: 0 auto 1.25rem;
+			.twitter-tweet-rendered {
+		margin-left: auto;
+		margin-right: auto;
+			}
+	}
 	}
 
 	&-more {
@@ -552,7 +559,7 @@
 			&-attribution {
 				order: 2;
 				width: 100%;
-              	padding: 20px 0;
+						padding: 20px 0;
 
 				img {
 					width: 56px;
