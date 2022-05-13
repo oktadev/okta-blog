@@ -147,6 +147,7 @@ You should get a 200 response with your email in it.
 
 . Run each image three times before recording the numbers, then each command five times
 
+////
 . Write each time down, add them up, and divide by five for the average. For example:
 +
 ----
@@ -155,6 +156,7 @@ Quarkus: (19 + 19 + 20 + 19 + 19) / 5 = 19.2
 Spring Boot: (58 + 58 + 58 + 60 + 59) / 5 = 58.6
 Helidon: (40 + 42 + 48 + 41 + 41) / 5 = 42.4
 ----
+////
 
 .Java REST API framework startup times in milliseconds
 |===
@@ -165,6 +167,39 @@ Helidon: (40 + 42 + 48 + 41 + 41) / 5 = 42.4
 |Spring Boot | `./spring-boot/target/demo` | 58.6
 |Helidon | `./helidon/target/helidon` | 42.4
 |===
+
+The chart below should help you visualize this comparison.
+
+++++
+<script src="https://www.gstatic.com/charts/loader.js"></script>
+<div id="startup-times"></div>
+<script>
+google.charts.load('current', {packages: ['corechart', 'bar']});
+google.charts.setOnLoadCallback(drawChart);
+function drawChart() {
+  var data = google.visualization.arrayToDataTable([
+    ['Framework', 'Milliseconds to start', { role: 'style' }],
+    ['Quarkus', 19.2, 'red'],
+    ['Micronaut', 27.8, 'blue'],
+    ['Helidon', 42.4, 'orange'],
+    ['Spring Boot', 58.6, 'green']
+  ]);
+  var options = {
+    title: 'Startup times of native Java frameworks',
+    chartArea: {width: '50%'},
+    hAxis: {
+      title: 'Milliseconds',
+      minValue: 0
+    },
+    vAxis: {
+      title: 'Java Framework'
+    }
+  };
+  var chart = new google.visualization.BarChart(document.getElementById('startup-times'));
+  chart.draw(data, options);
+}
+</script>
+++++
 
 == Memory Usage Comparison
 
@@ -187,7 +222,37 @@ Substitute `<executable>` as follows:
 |Helidon | `helidon` | 42 | 54 | 62
 |===
 
-IMPORTANT: If you disagree with these numbers and think X framework should be faster, I encourage you to clone https://github.com/oktadev/native-java-examples[the repo] and run these tests yourself. If you get faster startup times for Micronaut, do you get faster startup times for Helidon, Quarkus, and Spring Boot too?
+The chart below shows the memory usage after five requests.
+
+++++
+<div id="memory-usage"></div>
+<script>
+google.charts.load('current', {packages: ['corechart', 'bar']});
+google.charts.setOnLoadCallback(drawChart);
+function drawChart() {
+  var data = google.visualization.arrayToDataTable([
+    ['Framework', 'Memory usage (MB)', { role: 'style' }],
+    ['Quarkus', 36, 'red'],
+    ['Micronaut', 56, 'blue'],
+    ['Spring Boot', 62, 'green'],
+    ['Helidon', 62, 'orange'],
+  ]);
+  var options = {
+    title: 'Memory usage of native Java frameworks',
+    chartArea: {width: '50%'},
+    hAxis: {
+      title: 'Megabytes',
+      minValue: 0
+    },
+    vAxis: {
+      title: 'Java Framework'
+    }
+  };
+  var chart = new google.visualization.BarChart(document.getElementById('memory-usage'));
+  chart.draw(data, options);
+}
+</script>
+++++
 
 .What about the MacBook Pro M1 Max?
 ****
@@ -208,6 +273,36 @@ ps -o pid,rss,command | grep --color <executable> | awk '{$2=int($2/1024)"M";}{ 
 |MB used on start | `42` | `33` | `63` | `64`
 |MB after 5 requests | `68` | `47` | `75` | `84`
 |===
+
+++++
+<div id="startup-times-m1"></div>
+<script>
+google.charts.load('current', {packages: ['corechart', 'bar']});
+google.charts.setOnLoadCallback(drawChart);
+function drawChart() {
+  var data = google.visualization.arrayToDataTable([
+    ['Framework', 'Milliseconds to start', { role: 'style' }],
+    ['Quarkus', 12, 'red'],
+    ['Micronaut', 17, 'blue'],
+    ['Helidon', 23, 'orange'],
+    ['Spring Boot', 36, 'green']
+  ]);
+  var options = {
+    title: 'Startup times of Java REST frameworks on Apple Silicon',
+    chartArea: {width: '50%'},
+    hAxis: {
+      title: 'Milliseconds',
+      minValue: 0
+    },
+    vAxis: {
+      title: 'Java Framework'
+    }
+  };
+  var chart = new google.visualization.BarChart(document.getElementById('startup-times-m1'));
+  chart.draw(data, options);
+}
+</script>
+++++
 
 ****
 
