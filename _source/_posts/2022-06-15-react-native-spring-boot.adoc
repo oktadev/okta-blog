@@ -199,6 +199,6 @@ npm start
 
 == Doesn't work
 
-    - React Native Android login
-    - Auth0 logout
+    - React Native Android login (probably need to add `https://localhost` as an allowed origin on Auth0, or make sure the scheme for the app is being used as the redirect URI)
+    - Auth0 logout (we might have to update the React Native blueprint to do something https://github.com/jhipster/generator-jhipster-ionic/commit/2c3e73fa7b9a6b3904054768c4393011964cd1ed#diff-ed2d76eda842ee95cc732713079be326b1948dd3904f5ad2bd006df6c5f152a9R35[like we did in the Ionic blueprint])
 
