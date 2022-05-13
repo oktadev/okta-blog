@@ -4,11 +4,11 @@ title: "How to Build Micro Frontends Using Module Federation in Angular"
 author: alisa-duncan
 by: advocate
 communities: [javascript]
-description: "How to create an Angular web application with micro-frontends using Webpack 5 and Module Federation. In this first post of the series, you'll set up the project and share authenticated state in the web application."
+description: "How to create an Angular web application with micro frontends using Webpack 5 and Module Federation. In this first post of the series, you'll set up the project and share authenticated state in the web application."
 tags: [angular, typescript]
 tweets:
-- "Curious about micro-frontends and how to share state? 👀  Here's walkthrough on creating micro-frontends with #angular 🅰️"
-- "Build an @angular app using micro-frontends! This walkthrough uses #angular & Module Federation, shares state, and 🧁! 😋"
+- "Curious about micro frontends and how to share state? 👀  Here's walkthrough on creating micro frontends with #angular 🅰️"
+- "Build an @angular app using micro frontends! This walkthrough uses #angular & Module Federation, shares state, and 🧁! 😋"
 image: 
 type: conversion
 github: https://github.com/oktadev/okta-angular-microfrontend-example
@@ -432,7 +432,7 @@ I hope you enjoyed this first post on creating an Angular micro-frontend site. W
 
 Stay tuned for next time. I'll show how to prepare for deployment by transitioning to dynamic module loading and deploying the site to a free cloud provider.
 
-## Learn more
+## Learn about Angular, OpenID Connect, micro-frontends and more
 
 Can't wait to learn more? If you liked this post, check out the following.
 
