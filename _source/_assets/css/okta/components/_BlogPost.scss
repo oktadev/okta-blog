@@ -87,12 +87,16 @@
 		line-height: 24px;
 	}
 
-	&-last-updated {
+	&-last-updated, &-canonical {
 		margin-top: .5em;
 
 		a {
 			color: unset;
 		}
+	}
+
+	&-canonical {
+		font-size: .85rem;
 	}
 
 	&-author-bio {
@@ -231,6 +235,21 @@
 
 		.w-200 {
 			width: 200px;
+		}
+
+		.m-up-10 {
+			margin-top: -10px;
+		}
+
+		.m-up-20 {
+			margin-top: -20px;
+		}
+
+		/* Fix m-up-20 on mobile */
+		@media only screen and (width: 980px), (hover: none) {
+			.m-up-20 {
+				float: unset;
+			}
 		}
 
 		/* Don't force small images in tables */
@@ -406,15 +425,15 @@
 		// fix cursor for summary
 		summary { cursor: pointer }
 
-    // Jekyll plugins
-    .jekyll-twitter-plugin {
-      max-width: 500px;
-      margin: 0 auto 1.25rem;
-      .twitter-tweet-rendered {
-        margin-left: auto;
-        margin-right: auto;
-      }
-    }
+		// Jekyll plugins
+		.jekyll-twitter-plugin {
+			max-width: 500px;
+			margin: 0 auto 1.25rem;
+			.twitter-tweet-rendered {
+				margin-left: auto;
+				margin-right: auto;
+			}
+		}
 	}
 
 	&-more {
@@ -540,7 +559,7 @@
 			&-attribution {
 				order: 2;
 				width: 100%;
-              	padding: 20px 0;
+				padding: 20px 0;
 
 				img {
 					width: 56px;

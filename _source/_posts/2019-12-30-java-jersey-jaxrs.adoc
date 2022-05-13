@@ -496,9 +496,9 @@ After you fill in all the fields, click on **Send Request**. You'll be redirecte
 
 image::{% asset_path 'blog/java-jersey-jaxrs/okta-login.png' %}[alt=Okta Login Page,width=400,align=center]
 
-Put your username and password, and click on **Sign In**. You'll be redirected to the OIDC Debugger again, where you'll see the generated token:
+Put your username and password, and click on **Sign In**. You'll be redirected to the OIDC Debugger again, where you'll see the generated access token:
 
-image::{% asset_path 'blog/java-jersey-jaxrs/generated-token.png' %}[alt=OIDC Generated Token,width=800,align=center]
+image::{% asset_path 'blog/java-jersey-jaxrs/generated-token.jpg' %}[alt=OIDC Generated Token,width=800,align=center]
 
 Copy the value and replace with the `<token>` keyword in the command below:
 
