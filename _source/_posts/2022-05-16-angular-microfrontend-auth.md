@@ -428,7 +428,12 @@ Now, you should be able to run the project using `npm run run:all`, and the cupc
 
 ## Next steps
 
-I hope you enjoyed this first post on creating an Angular micro-frontend site. We explored the capabilities of micro frontends and shared state between micro frontends using Webpack's Module Federation in Angular.  You can check out the completed code for this post in the [`local` branch in the @oktadev/okta-angular-microfrontend-example GitHub repo](https://github.com/oktadev/okta-angular-microfrontend-example/tree/local).
+I hope you enjoyed this first post on creating an Angular micro-frontend site. We explored the capabilities of micro frontends and shared state between micro frontends using Webpack's Module Federation in Angular.  You can check out the completed code for this post in the [`local` branch in the @oktadev/okta-angular-microfrontend-example GitHub repo](https://github.com/oktadev/okta-angular-microfrontend-example/tree/local) by using the following command:
+
+```shell
+git clone --branch local https://github.com/oktadev/okta-angular-microfrontend-example.git
+```
+
 
 Stay tuned for next time. I'll show how to prepare for deployment by transitioning to dynamic module loading and deploying the site to a free cloud provider.
 
