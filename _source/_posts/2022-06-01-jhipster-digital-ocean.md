@@ -100,7 +100,7 @@ cd ../gateway
 
 Check the images were uploaded to [DockerHub](https://hub.docker.com), and navigate to the project root folder in the terminal for the next step.
 
-## Configure authentication with OpenID Connect and Okta
+## Configure authentication with OpenID Connect
 
 One more configuration step before running the architecture locally, let's configure Okta for authentication.
 
@@ -152,7 +152,8 @@ For the `store-mongodb` deployment to work, the property `Service.spec.publishNo
 
 In the k8s folder, edit `store-mongodb.yml` and add the `publishNotReadyAddresses: true` property to the `spec`:
 
-```yml
+```yaml
+...
 # Headless service for DNS record
 apiVersion: v1
 kind: Service
