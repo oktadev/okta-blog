@@ -82,9 +82,16 @@ Choose the following options when prompted:
 - Use dynamic storage provisioning? **Yes**
 - Use a specific storage class? (leave empty)
 
-**NOTE**: You can leave the Docker repository name blank for running Kubernetes locally, but a repository will be required for the cloud deployment, so go ahead and create a [Docker Hub](https://hub.docker.com/) personal account, and the image pull configuration will be ready for both local and cloud deployments.
+**NOTE**: You can leave the Docker repository name blank for running Kubernetes locally, but a repository will be required for the cloud deployment, so go ahead and create a [DockerHub](https://hub.docker.com/) personal account, and the image pull configuration will be ready for both local and cloud deployments.
 
-Build the `gateway`, `store` and `blog` services container images with Jib. For example, for the `gateway` service:
+Build the `gateway`, `store` and `blog` services container images with Jib. As Jib will push the images to DockerHub, you first need to do a `docker login`.
+
+```bash
+docker login
+```
+If you have two-factor authentication enabled, you must generate a token and use it as the password for the login. In the Docker web, go to the user menu and choose **Account Settings**. Then in the left menu choose **Security** and **New Access Token**.
+
+For example, for building the `gateway` service image:
 
 ```bash
 cd ../gateway
