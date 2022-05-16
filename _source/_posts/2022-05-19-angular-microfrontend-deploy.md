@@ -9,7 +9,7 @@ tags: [angular, typescript]
 tweets:
 - "Ship it! 🚀  Let's deploy an #Angular micro frontend project using @vercel"
 - "Deploy an @angular project using micro frontends! This walkthrough configures an #Angular micro frontend project for multiple environments and deploys to @vercel. 👀"
-image: 
+image: blog/angular-microfrontend-deploy/angular-microfrontend-deploy-social.jpg
 type: conversion
 github: https://github.com/oktadev/okta-angular-microfrontend-example
 ---
