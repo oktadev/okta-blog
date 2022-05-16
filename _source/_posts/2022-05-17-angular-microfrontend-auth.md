@@ -9,7 +9,7 @@ tags: [angular, typescript]
 tweets:
 - "Curious about micro frontends and how to share state? 👀  Here's walkthrough on creating micro frontends with #angular 🅰️"
 - "Build an @angular app using micro frontends! This walkthrough uses #angular & Module Federation, shares state, and 🧁! 😋"
-image: blogs/angular-microfrontend-auth/angular-microfrontend-auth-social.jpg
+image: blog/angular-microfrontend-auth/angular-microfrontend-auth-social.jpg
 type: conversion
 github: https://github.com/oktadev/okta-angular-microfrontend-example
 ---
