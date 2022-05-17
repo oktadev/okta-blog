@@ -17,7 +17,7 @@ type: conversion
 Cloud adoption continues to increase rapidly and worldwide, and not only in the software industry. Every year more and more companies move their applications to the cloud. In the last JHipster community survey, in December 2021, users who participated expressed they value getting to production fast, thanks to JHipster, and requested more tutorials on deployment to cloud platforms. DigitalOcean is among the most popular "other" cloud vendors, according to some surveys. This post is a quick walk-through of the deployment of a JHipster microservices architecture to a Kubernetes cluster in DigitalOcean's cloud.
 
 **This tutorial was created with the following frameworks and tools**:
-- [JHipster 7.6.0](https://www.jhipster.tech/installation/)
+- [JHipster 7.8.1](https://www.jhipster.tech/installation/)
 - [Java OpenJDK 11](https://jdk.java.net/java-se-ri/11)
 - [Okta CLI 0.10.0](https://cli.okta.com)
 - [doctl 1.72.0-release](https://docs.digitalocean.com/reference/doctl/)
