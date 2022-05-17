@@ -35,7 +35,7 @@ In the end, you'll have an app that looks like this publicly available through V
 
 ## Review the Angular micro-frontends project using Webpack and Module Federation
 
-Let's start by refreshing our memories—dust off your project from the first post. Just like last time, we'll need both IDE and the terminal. 
+Let's start by refreshing our memories—dust off your project from the [first post](https://developer.okta.com/blog/2022/05/17/angular-microfrontend-auth). Just like last time, we'll need both IDE and the terminal. 
 
 We have the host application, `shell`, and two micro-frontend remotes, `mfe-basket` and `mfe-profile`. We're using `@angular-architects/module-federation` to help facilitate the Module Federation plugin configuration. The cupcake basket functionality code resides in the shared library, and we share authenticated state using Okta's SDKs. 
 
@@ -238,7 +238,7 @@ Now if you navigate directly to the profile route, you'll first redirect to Okta
 
 Route protection works well from within the micro-frontend shell. But what if you navigate directly to the URI where the profile micro frontend resides? You will still be able to navigate to the profile route within the micro frontend because there isn't a guard within the profile application. 
 
-This brings us to an interesting concept. In order to fully secure your micro frontends, you should protect routes defined within your micro frontend as well. To add the Okta route guard, you'll need to import the `OktaAuthModule` into the `mfe-profile` application's `AppModule`, and add the same configuration as you did for the `shell` application. The Module Federation configuration shares the Okta library between the applications when accessed via the host application. In contrast, `mfe-profile` will need its own instance of authenticated state when accessed in isolation from the `shell` application. Having its own instance of authenticated state means you should add sign in and sign out capability in the `AppComponent` of the `mfe-profile` application too. This will also allow you to test each micro-frontend application independently.
+This brings us to an interesting concept. In order to fully secure your micro frontends, you should protect routes defined within your micro frontend as well. To add the Okta route guard, you'll need to import the `OktaAuthModule` into the `mfe-profile` application's `AppModule`, and add the same configuration as you did for the `shell` application. The Module Federation configuration shares the Okta library between the applications when accessed via the host application. In contrast, `mfe-profile` will need its own instance of authenticated state when accessed in isolation from the `shell` application. Having its own instance of authenticated state means you should add sign-in and sign-out capability in the `AppComponent` of the `mfe-profile` application too. This will also allow you to test each micro-frontend application independently.
 
 Security + testing = winning!
 
