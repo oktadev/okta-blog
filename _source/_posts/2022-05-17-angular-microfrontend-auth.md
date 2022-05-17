@@ -28,7 +28,7 @@ So, your e-commerce site using micro frontends to decompose different functional
 
 {% img blog/angular-microfrontend-auth/example-site-diagram.jpg alt:"Image of the example balloon e-commerce site showing a breakdown of the views. The entire site is wrapped in a host named 'Shell', and micro-frontends for the 'Cart' and 'Account' links" width:"800" %}{: .center-image }
 
-You might be saying, "Micro-frontends sound cool, but managing the different frontends and orchestrating state across the micro frontends also sounds complicated." You're right. The concept of a micro frontend has been around for a few years and rolling your own micro-frontend implementation, shared state, and tools to support it _was_ quite an undertaking. However, micro frontends are now well supported with Webpack 5 and [Module Federation](https://webpack.js.org/concepts/module-federation/). Not all web apps require a micro-frontend architecture, but for those large, feature-rich web apps that have started to get unwieldy, the first-class support of micro frontends in our web tooling is definitely a plus.
+You might be saying, "Micro frontends sound cool, but managing the different frontends and orchestrating state across the micro frontends also sounds complicated." You're right. The concept of a micro frontend has been around for a few years and rolling your own micro-frontend implementation, shared state, and tools to support it _was_ quite an undertaking. However, micro frontends are now well supported with Webpack 5 and [Module Federation](https://webpack.js.org/concepts/module-federation/). Not all web apps require a micro-frontend architecture, but for those large, feature-rich web apps that have started to get unwieldy, the first-class support of micro frontends in our web tooling is definitely a plus.
 
 This post is part one in a series where we'll build an e-commerce site using Angular and micro frontends. We'll use Webpack 5 with Module Federation to support wiring the micro frontends together. Then we'll demonstrate sharing authenticated state between the different frontends, and deploy it all to a free cloud hosting provider. 
 
@@ -115,7 +115,7 @@ npm run run:all
 
 When you do so, you'll see both applications open in your browser and how they fit together in the `shell` application running on port 4200. Click the **Basket** button to navigate to a new route that displays the `BasketModule` in the `mfe-basket` application. The sign-in button doesn't work quite yet, but we'll get it going here next.
 
-**Note** - _Another option I could have used for the starter is a [Nx workspace](https://nx.dev/). Nx has great tooling and built-in support for building micro-frontends with Webpack and Module Federation. But I wanted to go minimalistic on the project tooling so you'd have a chance to dip your toes into some of the configuration requirements._
+**Note** - _Another option I could have used for the starter is a [Nx workspace](https://nx.dev/). Nx has great tooling and built-in support for building micro frontends with Webpack and Module Federation. But I wanted to go minimalistic on the project tooling so you'd have a chance to dip your toes into some of the configuration requirements._
 
 The `@shared` syntax might look a little unusual to you. You may have expected to see a relative path to the library. The `@shared` syntax is an alias for the library's path, which is defined in the project's `tsconfig.json` file. You don't have to do this. You can leave libraries using the relative path, but adding aliases makes your code look cleaner and helps ensure best practices for code architecture.
 
@@ -420,9 +420,9 @@ shared: share({
 })
 ```
 
-When you create a library within this project, like the basket service and project service in the starter code, you'd add the library to the `sharedMappings` array at the top of the `webpack.config.js` file. If you create a new library to wrap Okta's libraries, this is where you'd add it.
+When you create a library within this project, like the basket service and project service in the starter code, you add the library to the `sharedMappings` array at the top of the `webpack.config.js` file. If you create a new library to wrap Okta's libraries, this is where you'd add it.
 
-Now that you added the Okta libraries to the micro-frontend host, you need to also add them to the remotes that consume the dependencies. In our case, only the `mfe-profile` application uses Okta authenticated state information. Open `projects/mfe-profile/webpack.config.js`. Add the two Okta libraries to the `shared` property as you did for the `shell` application.
+Now that you've added the Okta libraries to the micro-frontend host, you need to also add them to the remotes that consume the dependencies. In our case, only the `mfe-profile` application uses Okta authenticated state information. Open `projects/mfe-profile/webpack.config.js`. Add the two Okta libraries to the `shared` property as you did for the `shell` application.
 
 Now, you should be able to run the project using `npm run run:all`, and the cupcake storefront should allow you to log in, see your profile, log out, and add items to your cupcake basket!
 
@@ -435,9 +435,9 @@ git clone --branch local https://github.com/oktadev/okta-angular-microfrontend-e
 ```
 
 
-Stay tuned for next time. I'll show how to prepare for deployment by transitioning to dynamic module loading and deploying the site to a free cloud provider.
+Stay tuned for part two. I'll show how to prepare for deployment by transitioning to dynamic module loading and deploying the site to a free cloud provider.
 
-## Learn about Angular, OpenID Connect, micro-frontends and more
+## Learn about Angular, OpenID Connect, micro frontends, and more
 
 Can't wait to learn more? If you liked this post, check out the following.
 
