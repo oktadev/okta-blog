@@ -58,11 +58,11 @@ cd java-microservices-examples/reactive-jhipster
 ```
 If you inspect the project folder, you will find sub-folders for the `gateway` service, which will act as the front-end application, and a gateway to the `store` and `blog` microservices, which also have their subfolders. A `docker-compose` sub-folder contains the service definitions for running the application containers.
 
-The next step is to generate the Kubernetes deployment descriptors. In the project root folder, create a `k8s` directory and run the `k8s` JHipster sub-generator:
+The next step is to generate the Kubernetes deployment descriptors. In the project root folder, create a `kubernetes` directory and run the `k8s` JHipster sub-generator:
 
 ```bash
-mkdir k8s
-cd k8s
+mkdir kubernetes
+cd kubernetes
 jhipster k8s
 ```
 
@@ -106,7 +106,7 @@ One more configuration step before running the architecture locally, let's confi
 
 {% include setup/cli.md type="jhipster" %}
 
-The settings from the generated `.okta.env` must be added to the `k8s/registry-k8s/application-configmap.yml`:
+The settings from the generated `.okta.env` must be added to the `kubernetes/registry-k8s/application-configmap.yml`:
 
 ```yml
 data:
@@ -125,7 +125,7 @@ data:
                 client-secret: <client-secret>
 ```
 
-Enable the OIDC authentication in the `jhipster-registry` service by adding the `oauth2` profile in the `k8s/registry-k8s/jhipster-registry.yml` file:
+Enable the OIDC authentication in the `jhipster-registry` service by adding the `oauth2` profile in the `kubernetes/registry-k8s/jhipster-registry.yml` file:
 
 ```yml
 - name: SPRING_PROFILES_ACTIVE
@@ -139,7 +139,7 @@ Install [Minikube](https://minikube.sigs.k8s.io/docs/start/) and [`kubectl`](htt
 For Minkube, you will need at least 2 CPUs. Start MiniKube with your number of CPUs:
 
 ```bash
-cd k8s
+cd kubernetes
 minikube --cpus <ncpu> start
 ```
 Minikube will log the Kubernetes and Docker versions on start:
@@ -150,7 +150,7 @@ Preparing Kubernetes v1.23.3 on Docker 20.10.12 ...
 
 For the `store-mongodb` deployment to work, the property `Service.spec.publishNotReadyAddresses` was required, instead of the annotation `service.alpha.kubernetes.io/tolerate-unready-endpoints`, as the latter was deprecated in [Kubernetes release 1.11](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.11.md#kubernetes-111-release-notes).
 
-In the k8s folder, edit `store-mongodb.yml` and add the `publishNotReadyAddresses: true` property to the `spec`:
+In the project `kubernetes` folder, edit `store-mongodb.yml` and add the `publishNotReadyAddresses: true` property to the `spec`:
 
 ```yaml
 ...
@@ -171,7 +171,7 @@ spec:
     app: store-mongodb
 ```
 
-Then deploy the application to Minikube, in the `k8s` directory, run:
+Then deploy the application to Minikube, in the `kubernetes` directory, run:
 
 ```bash
 ./kubectl-apply.sh -f
