@@ -35,7 +35,7 @@ In the end, you'll have an app that looks like this publicly available through V
 
 ## Review the Angular micro-frontends project using Webpack and Module Federation
 
-Let's start by refreshing our memories—dust off your project from the [first post](https://developer.okta.com/blog/2022/05/17/angular-microfrontend-auth). Just like last time, we'll need both IDE and the terminal. 
+Let's start by refreshing our memories—dust off your project from the [first post](/blog/2022/05/17/angular-microfrontend-auth). Just like last time, we'll need both IDE and the terminal. 
 
 We have the host application, `shell`, and two micro-frontend remotes, `mfe-basket` and `mfe-profile`. We're using `@angular-architects/module-federation` to help facilitate the Module Federation plugin configuration. The cupcake basket functionality code resides in the shared library, and we share authenticated state using Okta's SDKs. 
 
