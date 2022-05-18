@@ -1,10 +1,10 @@
 ---
 layout: blog_post
-title: "Build a Secure Java REST API with Quarkus"
+title: "Kickstart a Java REST API with Quarkus"
 author: matt-raible
 by: advocate
 communities: [java]
-description: ""
+description: "Learn how to build a Java REST API with Quarkus in minutes!"
 tags: [java]
 tweets:
 - ""
@@ -18,7 +18,6 @@ type: conversion
 :commandkey: &#8984;
 :toc: macro
 
-
 In this tutorial, I'll show you how to create a secure REST API and native image with Quarkus. You'll see how to run a secure, OAuth 2.0-protected, Java REST API that allows JWT authentication. Then, I'll compare its performance with Micronaut, Spring Boot, and Helidon.
 
 This tutorial is also available as a screencast.
@@ -31,7 +30,7 @@ This tutorial is also available as a screencast.
 - https://httpie.io/[HTTPie] (a better version of cURL)
 - An https://developer.okta.com[Okta Developer] Account (or the https://cli.okta.com/[Okta CLI])
 
-TIP: The brackets at the end of some steps indicate the IntelliJ Live Templates to use. You can find the template definitions at https://github.com/mraible/idea-live-templates[mraible/idea-live-templates].
+TIP: The brackets at the end of some steps indicate the IntelliJ Live Templates I used in the video. You can find the template definitions at https://github.com/mraible/idea-live-templates[mraible/idea-live-templates].
 
 toc::[]
 
@@ -166,18 +165,7 @@ public class HelloResourceTest {
 
 == Startup Time Comparison
 
-. Run each image three times before recording the numbers, then each command five times
-
-////
-. Write each time down, add them up, and divide by five for the average. For example:
-+
-----
-Quarkus: (19 + 19 + 20 + 19 + 19) / 5 = 19.2
-Micronaut: (27 + 29 + 26 + 29 + 28) / 5 = 27.8
-Spring Boot: (58 + 58 + 58 + 60 + 59) / 5 = 58.6
-Helidon: (40 + 42 + 48 + 41 + 41) / 5 = 42.4
-----
-////
+I compared startup times between frameworks by running each image three times before recording the numbers, then five more times. I recorded these numbers on a 2019 MacBook Pro with an SSD, 2.4 GHz 8-Core Intel Core i9 processor, and 64 GB of RAM.
 
 .Native Java startup times in milliseconds
 |===
@@ -224,14 +212,12 @@ function drawChart() {
 
 == Memory Usage Comparison
 
-Test the memory usage in MB of each app using the command below. Make sure to send an HTTP request to each one before measuring.
+I tested the memory usage in MB of each app using the command below. I ran it right after I started the app, after a single authenticated request, and after five authenticated requests.
 
 [source,shell]
 ----
 ps -o pid,rss,command | grep --color <executable> | awk '{$2=int($2/1024)"M";}{ print;}'
 ----
-
-Substitute `<executable>` as follows:
 
 .Native Java memory used in megabytes
 |===
@@ -280,12 +266,6 @@ function drawChart() {
 
 My MacBook Pro (16-inch, 2021) with Apple M1 Max builds _much_ faster, apps startup 2x faster, but they use more memory.
 
-////
-start: started 3 times and took fastest
-
-ps -o pid,rss,command | grep --color <executable> | awk '{$2=int($2/1024)"M";}{ print;}'
-////
-
 [cols="<,^,^,^,^",options=header]
 |===
 |Metric | Micronaut | Quarkus | Spring Boot | Helidon
@@ -326,6 +306,14 @@ function drawChart() {
 ++++
 
 ****
+
+== Comparing Native Java REST API Frameworks Live Stream
+
+I missed Devoxx France this year, but I'm still doing my presentation! I'll be live-streaming https://speakerdeck.com/mraible/comparing-native-java-rest-api-frameworks-devoxx-france-2022[Comparing Native Java REST API Frameworks] on June 7, 2022 at 6:00 MDT (14:00 CEST). Join me or watch the recorded version below!
+
+++++
+{% youtube dp3YbdIEyWU %}
+++++
 
 == Secure Native Java with Quarkus FTW!
 
