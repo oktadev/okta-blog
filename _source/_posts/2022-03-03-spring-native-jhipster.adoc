@@ -40,6 +40,12 @@ Today, I'm proud to announce that this same capability is now available for your
 
 toc::[]
 
+If you'd rather learn visually, you can https://youtu.be/8hPDL9GCD5Q[watch a video of this tutorial].
+
+++++
+{% youtube 8hPDL9GCD5Q %}
+++++
+
 == Why should you care about serverless?
 
 From https://www.ibm.com/cloud/learn/serverless[IBM's What is Serverless computing?]
