@@ -321,8 +321,8 @@ I missed Devoxx France this year, but I'm still doing my presentation! I'll be l
 
 == Secure Native Java with Quarkus FTW!
 
-⚡️ Create a secure REST API with Quarkus: `okta start quarkus`
+⚡️ Create a secure REST API with Quarkus and the Okta CLI: `okta start quarkus`
 
 🚀 Find this example's code on GitHub: https://github.com/oktadev/native-java-examples/tree/main/quarkus[@oktadev/native-java-examples/quarkus]
 
-👀 Read the blog post: link:/blog/2021/06/18/native-java-framework-comparison[Build Native Java Apps with Micronaut, Quarkus, and Spring Boot]
+👀 Related blog post: link:/blog/2021/06/18/native-java-framework-comparison[Build Native Java Apps with Micronaut, Quarkus, and Spring Boot]
