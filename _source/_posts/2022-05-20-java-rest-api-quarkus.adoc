@@ -165,8 +165,11 @@ public class HelloResourceTest {
 
 == Startup Time Comparison
 
-I compared startup times between frameworks by running each image three times before recording the numbers, then five more times. I recorded these numbers on a 2019 MacBook Pro with an SSD, 2.4 GHz 8-Core Intel Core i9 processor, and 64 GB of RAM.
+I compared startup times between frameworks by running each image three times before recording the numbers. Then, I ran each app five more times and averaged the results. I gathered these numbers on a 2019 MacBook Pro with an SSD, 2.4 GHz 8-Core Intel Core i9 processor, and 64 GB of RAM.
 
+Versions used: GraalVM 22.1, Micronaut 3.4.3, Quarkus 2.9.0, and Spring Boot 2.6.7 with Spring Native 0.11.5.
+
+////
 .Native Java startup times in milliseconds
 |===
 |Framework | Command executed | Milliseconds to start
@@ -176,8 +179,7 @@ I compared startup times between frameworks by running each image three times be
 |Spring Boot | `./spring-boot/target/demo` | 58.6
 |Helidon | `./helidon/target/helidon` | 42.4
 |===
-
-The chart below should help you visualize this comparison.
+////
 
 ++++
 <script src="https://www.gstatic.com/charts/loader.js"></script>
@@ -212,22 +214,12 @@ function drawChart() {
 
 == Memory Usage Comparison
 
-I tested the memory usage in MB of each app using the command below. I ran it right after I started the app, after a single authenticated request, and after five authenticated requests.
+I tested the memory usage (in megabytes) of each app using the command below. I ran it right after I started the app, after a single authenticated request, and after five authenticated requests.
 
 [source,shell]
 ----
 ps -o pid,rss,command | grep --color <executable> | awk '{$2=int($2/1024)"M";}{ print;}'
 ----
-
-.Native Java memory used in megabytes
-|===
-|Framework | Executable | Megabytes before request | Megabytes after request| Megabytes after 5 requests
-
-|Quarkus | `quarkus` | 23 | 34 | 36
-|Micronaut | `app` | 31 | 45 | 56
-|Spring Boot | `demo` | 50 | 61 | 62
-|Helidon | `helidon` | 42 | 54 | 62
-|===
 
 The chart below shows the memory usage after five requests.
 
@@ -261,19 +253,22 @@ function drawChart() {
 </script>
 ++++
 
+////
+.Native Java memory used in megabytes
+|===
+|Framework | Executable | Megabytes before request | Megabytes after request| Megabytes after 5 requests
+
+|Quarkus | `quarkus` | 23 | 34 | 36
+|Micronaut | `app` | 31 | 45 | 56
+|Spring Boot | `demo` | 50 | 61 | 62
+|Helidon | `helidon` | 42 | 54 | 62
+|===
+////
+
 .What about the MacBook Pro M1 Max?
 ****
 
 My MacBook Pro (16-inch, 2021) with Apple M1 Max builds _much_ faster, apps startup 2x faster, but they use more memory.
-
-[cols="<,^,^,^,^",options=header]
-|===
-|Metric | Micronaut | Quarkus | Spring Boot | Helidon
-
-|Milliseconds to start | `17` | `12` | `36` | `23`
-|MB used on start | `42` | `33` | `63` | `64`
-|MB after 5 requests | `68` | `47` | `75` | `84`
-|===
 
 ++++
 <div id="startup-times-m1"></div>
@@ -300,6 +295,47 @@ function drawChart() {
     }
   };
   var chart = new google.visualization.BarChart(document.getElementById('startup-times-m1'));
+  chart.draw(data, options);
+}
+</script>
+++++
+
+////
+[cols="<,^,^,^,^",options=header]
+|===
+|Metric | Quarkus | Micronaut | Spring Boot | Helidon
+
+|Milliseconds to start | `12` | `17` | `36` | `23`
+|MB used on start | `33` | `42` | `63` | `64`
+|MB after 5 requests | `47` | `68` | `75` | `84`
+|===
+////
+
+++++
+<div id="memory-usage-m1"></div>
+<script>
+google.charts.load('current', {packages: ['corechart', 'bar']});
+google.charts.setOnLoadCallback(drawChart);
+function drawChart() {
+  var data = google.visualization.arrayToDataTable([
+    ['Framework', 'Memory usage (MB)', { role: 'style' }],
+    ['Quarkus', 47, 'red'],
+    ['Micronaut', 68, 'blue'],
+    ['Spring Boot', 75, 'green'],
+    ['Helidon', 84, 'orange'],
+  ]);
+  var options = {
+    title: 'Memory usage of native Java frameworks',
+    chartArea: {width: '50%'},
+    hAxis: {
+      title: 'Megabytes',
+      minValue: 0
+    },
+    vAxis: {
+      title: 'Java Framework'
+    }
+  };
+  var chart = new google.visualization.BarChart(document.getElementById('memory-usage-m1'));
   chart.draw(data, options);
 }
 </script>
