@@ -45,7 +45,7 @@ The company publishes its data center [certification reports](https://www.digita
 Before working on the application, you need to install JHipster. The classical way of working with JHipster is to do a local installation with NPM.
 
 ```bash
-$ npm install -g generator-jhipster@7
+npm install -g generator-jhipster@7
 ```
 
 If you'd rather use Yarn or Docker, follow the instructions at [jhipster.tech](https://www.jhipster.tech/installation/#local-installation-with-npm-recommended-for-normal-users).
@@ -53,17 +53,17 @@ If you'd rather use Yarn or Docker, follow the instructions at [jhipster.tech](h
 For this test, start from the `reactive-jhipster` example in the `java-microservices-examples` repository on [GitHub](https://github.com/oktadev/java-microservices-examples). The example is a JHipster reactive microservices architecture with Spring Cloud Gateway and Spring WebFlux, Vue as the client framework, and Gradle as the build tool. You can read about how it was built in [Reactive Java Microservices with Spring Boot and JHipster](/blog/2021/01/20/reactive-java-microservices).
 
 ```bash
-$ git clone https://github.com/oktadev/java-microservices-examples.git
-$ cd java-microservices-examples/reactive-jhipster
+git clone https://github.com/oktadev/java-microservices-examples.git
+cd java-microservices-examples/reactive-jhipster
 ```
 If you inspect the project folder, you will find sub-folders for the `gateway` service, which will act as the front-end application, and a gateway to the `store` and `blog` microservices, which also have their subfolders. A `docker-compose` sub-folder contains the service definitions for running the application containers.
 
 The next step is to generate the Kubernetes deployment descriptors. In the project root folder, create a `kubernetes` directory and run the `k8s` JHipster sub-generator:
 
 ```bash
-$ mkdir kubernetes
-$ cd kubernetes
-$ jhipster k8s
+mkdir kubernetes
+cd kubernetes
+jhipster k8s
 ```
 
 Choose the following options when prompted:
@@ -87,15 +87,15 @@ Choose the following options when prompted:
 Build the `gateway`, `store` and `blog` services container images with Jib. As Jib will push the images to DockerHub, you first need to do a `docker login`.
 
 ```bash
-$ docker login
+docker login
 ```
 If you have two-factor authentication enabled, you must generate a token and use it as the password for the login. In the Docker web, go to the user menu and choose **Account Settings**. Then in the left menu choose **Security** and **New Access Token**.
 
 For example, for building the `gateway` service image:
 
 ```bash
-$ cd ../gateway
-$ ./gradlew bootJar -Pprod jib -Djib.to.image=<docker-repo-name>/gateway
+cd ../gateway
+./gradlew bootJar -Pprod jib -Djib.to.image=<docker-repo-name>/gateway
 ```
 **IMPORTANT NOTE**: Unfortunately the application example does not build with Java 17 at the moment of writing this post.
 
@@ -140,8 +140,8 @@ Install [Minikube](https://minikube.sigs.k8s.io/docs/start/) and [`kubectl`](htt
 For Minkube, you will need at least 2 CPUs. Start MiniKube with your number of CPUs:
 
 ```bash
-$ cd kubernetes
-$ minikube --cpus <ncpu> start
+cd kubernetes
+minikube --cpus <ncpu> start
 ```
 Minikube will log the Kubernetes and Docker versions on start:
 
@@ -175,12 +175,12 @@ spec:
 Then deploy the application to Minikube, in the `kubernetes` directory, run:
 
 ```bash
-$ ./kubectl-apply.sh -f
+./kubectl-apply.sh -f
 ```
 Now is a good time to install [k9s](https://k9scli.io/topics/install/), a terminal-based UI to interact with Kubernetes clusters. Then run k9s with:
 
 ```bash
-$ k9s -n demo
+k9s -n demo
 ```
 
 {% img blog/jhipster-digital-ocean/k9s-pods.png alt:"k9s UI" width:"800" %}{: .center-image }
@@ -193,13 +193,13 @@ You can navigate the pods with `ENTER` and go back with `ESC` keys.
 Set up port-forwarding for the JHipster Registry.
 
 ```bash
-$ kubectl port-forward svc/jhipster-registry -n demo 8761
+kubectl port-forward svc/jhipster-registry -n demo 8761
 ```
 
 Navigate to `http://localhost:8761` and sign in with your Okta credentials. When the registry shows all services in green, Set up port-forwarding for the gateway as well.
 
 ```bash
-$ kubectl port-forward svc/gateway -n demo 8080
+kubectl port-forward svc/gateway -n demo 8080
 ```
 
 Navigate to `http://localhost:8080`, sign in, and create some entities to verify everything is working fine.
@@ -207,7 +207,13 @@ Navigate to `http://localhost:8080`, sign in, and create some entities to verify
 After looking around, stop minikube before the cloud deployment:
 
 ```bash
-$ minikube stop
+minikube stop
+```
+
+Also delete the minikube cluster to have a clean slate for future tests:
+
+```bash
+minikube delete
 ```
 
 ## Deploy to DigitalOcean Kubernetes
@@ -217,7 +223,7 @@ Now that the architecture works locally, let's proceed to the cloud deployment. 
 Most of the cluster tasks, if not all, can be accomplished using [doctl](https://github.com/digitalocean/doctl#installing-doctl), the command-line interface (CLI) for the DigitalOcean API. Install the tool, and perform the authentication with DigitalOcean:
 
 ```bash
-$ doctl auth init
+doctl auth init
 ```
 You will be prompted to enter the DigitalOcean access token that you can generate in the DigitalOcean control panel. Sign in, and then in the left menu go to **API**, click **Generate New Token**. Enter a token name, and click **Generate Token**. Copy the new token from the **Tokens/Keys** table.
 
@@ -226,7 +232,7 @@ You will be prompted to enter the DigitalOcean access token that you can generat
 You can find a detailed list of pricing for cluster resources at [DigitalOcean](https://docs.digitalocean.com/products/kubernetes/),  and with `doctl` you can quickly retrieve a list of node size options available for your account:
 
 ```bash
-$ doctl k options sizes
+doctl k options sizes
 ```
 
 **NOTE**: I tested the cluster with the higher size Intel nodes available for my account, `s-2vcpu-4gb-intel`, in an attempt to run the application in the default cluster configuration, a three-node cluster with a single node pool in the nyc1 region, using the latest Kubernetes version. As I started to see pods not running due to "insufficient CPU", I increased the number of nodes later. DigitalOcean's latest and default Kubernetes version at the moment of writing this post is 1.22.8.
@@ -234,18 +240,18 @@ $ doctl k options sizes
 Create the cluster with the following command line:
 
 ```bash
-$ doctl k cluster create do1 -v --size s-2vcpu-4gb-intel
+doctl k cluster create do1 -v --size s-2vcpu-4gb-intel
 ```
 After creating a cluster, `doctl` adds a configuration context to kubectl and makes it active, so you can start monitoring your cluster right away with k9s. First, apply the resources configuration to the DigitalOcean cluster:
 
 ```bash
-$ ./kubectl-apply.sh -f
+./kubectl-apply.sh -f
 ```
 
 Monitor the deployment with k9s:
 
 ```bash
-$ k9s -n demo
+k9s -n demo
 ```
 
 {% img blog/jhipster-digital-ocean/k9s-do-cluster.png alt:"k9s user interface monitoring DigitalOcean Kubernetes" width:"800" %}{: .center-image }
@@ -257,7 +263,7 @@ Once you see the `jhipster-registry` pods are up, set up port forwarding again s
 The three-node cluster might not provide enough CPU for this microservices architecture, so you might see `insufficient CPU` logs for some pods. You can get the pod events with `kubectl describe`, for example, for the `jhipster-registry-0` pod:
 
 ```bash
-$ kubectl describe pod jhipster-registry-0 -n demo
+kubectl describe pod jhipster-registry-0 -n demo
 ```
 
 The output of the command, in the events section, for a pod that failed due to insufficient cpu, looks like the following:
@@ -274,7 +280,7 @@ If you see a pod failing in `k9s`, check the events for that pod with `kubectl d
 To add cpu, increase the number of nodes with `doctl`:
 
 ```bash
-$ doctl k cluster node-pool update do1 do1-default-pool --count 4
+doctl k cluster node-pool update do1 do1-default-pool --count 4
 ```
 
 ### Increase Storage
@@ -282,8 +288,8 @@ $ doctl k cluster node-pool update do1 do1-default-pool --count 4
 After adding cpu, for the `store-mongodb` stateful set with 3 replicas, some of the pods did not run due to _unbound immediate PersistentVolumeClaims_. This was reported in the pod events, in the output of `kubectl describe pod`, for the failing pods. I then inspected persistent volume claims with the following commands:
 
 ```bash
-$ kubectl get pvc -n demo
-$ kubectl describe pvc datadir-store-mongodb-2 -n demo
+kubectl get pvc -n demo
+kubectl describe pvc datadir-store-mongodb-2 -n demo
 ```
 
 The `kubectl describe pvc` command output was showing provisioning errors, and instructed to contact support:
@@ -304,7 +310,7 @@ As instructed by the event message, I contacted DigitalOcean support and they fi
 Once all the pods are running, find the gateway external IP with the `kubectl describe` command:
 
 ```bash
-$ kubectl describe service gateway -n demo
+kubectl describe service gateway -n demo
 ```
 The output will look like:
 
@@ -371,8 +377,8 @@ Finally, in the SSL section of the settings, tick the checkbox **Redirect HTTP t
 {% img blog/jhipster-digital-ocean/do-ssl-redirect.png alt:"DigitalOcean load balancer ssl redirect settings" width:"800" %}{: .center-image }
 
 Once again, update the redirect URIs in Okta to allow the newly configured domain. Add the following redirect URIs:
-- Sign-in redirect URIs: `http://<your-domain>:8080/login/oauth2/code/oidc`
-- Sign-out redirect URIs: `http://<your-domain>:8080`
+- Sign-in redirect URIs: `https://<your-domain>:8080/login/oauth2/code/oidc`
+- Sign-out redirect URIs: `https://<your-domain>:8080`
 
 Test the configuration by navigating to `http://<your-domain>`. First, the load balancer should redirect to HTTPs, and then the gateway should redirect to the Okta sign-in page.
 
@@ -381,7 +387,7 @@ Test the configuration by navigating to `http://<your-domain>`. First, the load 
 You can retrieve the cluster associated resources with the following `doctl` command:
 
 ```bash
-$ doctl k cluster list-associated-resources do1
+doctl k cluster list-associated-resources do1
 ```
 
 The output will list the volumes and load balancers created for the cluster, which generate billing charges besides the cost of the nodes:
@@ -396,28 +402,28 @@ Unfortunately, there is no way to pause the cluster. According to DigitalOcean, 
 While testing the platform, you can delete the cluster in between sessions, to avoid spending the trial credit while not actively working on it.
 
 ```bash
-$ doctl k cluster delete do1
+doctl k cluster delete do1
 ```
 
 Volumes provisioned to the cluster are not deleted with the cluster, and charges are generated hourly. You can delete volumes using the control panel or with the following commands:
 
 ```bash
-$ doctl compute volume list
-$ doctl compute volume delete <volume-id>
+doctl compute volume list
+doctl compute volume delete <volume-id>
 ```
 
 The load balancers are not deleted with the cluster either:
 
 ```bash
-$ doctl compute load-balancer list
-$ doctl compute load-balancer delete <load-balancer-id>
+doctl compute load-balancer list
+doctl compute load-balancer delete <load-balancer-id>
 ```
 
 During registration, a project must have been created, allowing to organize resources. You can list all the resources associated with a project with the following command:
 
 ```bash
-$ doctl projects list
-$ doctl projects resources list <project-id>
+doctl projects list
+doctl projects resources list <project-id>
 ```
 
 ## Learn more about JHipster and cloud deployment
