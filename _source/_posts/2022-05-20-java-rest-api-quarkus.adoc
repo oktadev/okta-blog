@@ -138,7 +138,7 @@ public class HelloResourceTest {
 }
 ----
 
-=== Run and Test Your Quarkus REST API with HTTPie
+=== Run and test your Quarkus REST API with HTTPie
 
 . Run your Quarkus app:
 
