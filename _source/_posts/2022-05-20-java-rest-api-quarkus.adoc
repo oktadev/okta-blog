@@ -166,7 +166,7 @@ public class HelloResourceTest {
 
   http :8080/hello Authorization:"Bearer $TOKEN"
 
-== Startup Time Comparison
+== Startup time comparison
 
 I compared startup times between frameworks by running each image three times before recording the numbers. Then, I ran each app five more times and averaged the results. I gathered these numbers on a 2019 MacBook Pro with an SSD, 2.4 GHz 8-Core Intel Core i9 processor, and 64 GB of RAM.
 
@@ -205,7 +205,7 @@ function drawChart() {
 *Versions used*: Quarkus 2.9.0, Micronaut 3.4.3, Helidon 2.5.0, and Spring Boot 2.6.7 with Spring Native 0.11.5.
 ====
 
-== Memory Usage Comparison
+== Memory usage comparison
 
 I tested the memory usage (in megabytes) of each app using the command below. I ran it right after I started the app, after a single authenticated request, and after five authenticated requests.
 
