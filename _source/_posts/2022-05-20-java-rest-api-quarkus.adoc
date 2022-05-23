@@ -21,9 +21,11 @@ github: https://github.com/oktadev/native-java-examples/tree/main/quarkus
 
 In this tutorial, I'll show you how to create a secure REST API and native image with Quarkus. You'll see how to run a secure, OAuth 2.0-protected, Java REST API that allows JWT authentication. Then, I'll compare its performance with Micronaut, Spring Boot, and Helidon.
 
-This tutorial is also available as a screencast.
+This tutorial is also available https://youtu.be/3J9uFVd3BoY[as a screencast].
 
-== todo: embed screencast
+++++
+{% youtube 3J9uFVd3BoY %}
+++++
 
 **Prerequisites:**
 
