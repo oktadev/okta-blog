@@ -10,7 +10,7 @@ tweets:
 - "Learn how to build a Java REST API with Quarkus and secure it with OAuth 2.0 in 7.5 minutes!"
 - "Build a secure Java REST API with this quick tutorial."
 - "Build a REST API with subatomic, supersonic Java! 🚀"
-image:
+image: blog/java-rest-api-quarkus/java-rest-api-quarkus.jpg
 type: conversion
 github: https://github.com/oktadev/native-java-examples/tree/main/quarkus
 ---
