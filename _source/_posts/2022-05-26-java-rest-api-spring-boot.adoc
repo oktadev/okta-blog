@@ -40,7 +40,7 @@ Use SDKMAN to install Java 17 with GraalVM
 
   sdk install java 22.1.0.r17-grl
 
-== Generate an OAuth 2.0 Access Token
+== Generate an OAuth 2.0 access token
 
 . Install the https://cli.okta.com/[Okta CLI] and run `okta register` to sign up for a new account. If you already have an account, run `okta login`.
 
@@ -48,7 +48,7 @@ Use SDKMAN to install Java 17 with GraalVM
 
 . Use `\https://oidcdebugger.com/debug` for the Redirect URI and set the Logout Redirect URI to `\https://oidcdebugger.com`.
 
-. Navigate to the https://oidcdebugger.com/[OpenID Connect Debugger website].
+. Navigate to the https://oidcdebugger.com/[OpenID Connect debugger website].
 
 .. Fill in your client ID
 .. Use `\https://{yourOktaDomain}/oauth2/default/v1/authorize` for the Authorize URI
@@ -150,7 +150,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 }
 ----
 
-=== Run and Test Your Spring Boot REST API with HTTPie
+=== Run and test your Spring Boot REST API with HTTPie
 
 . Start your app from your IDE or using a terminal:
 
@@ -160,7 +160,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
   http :8080/hello Authorization:"Bearer $TOKEN"
 
-=== Build a Native Spring Boot App
+=== Build a native Spring Boot App
 
 . Compile your Spring Boot app into a native executable using the `native` profile:
 
@@ -176,9 +176,9 @@ TIP: To build a native app and a Docker container, use the Spring Boot Maven plu
 
   http :8080/hello Authorization:"Bearer $TOKEN"
 
-== Startup Time Comparison
+== Startup time comparison
 
-. Run each image three times before recording the numbers, then each command five times
+. Run each image three times before recording the numbers, then run each command five times.
 
 ////
 . Write each time down, add them up, and divide by five for the average. For example:
@@ -234,7 +234,7 @@ function drawChart() {
 </script>
 ++++
 
-== Memory Usage Comparison
+== Memory usage comparison
 
 Test the memory usage in MB of each app using the command below. Make sure to send an HTTP request to each one before measuring.
 
