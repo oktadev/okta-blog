@@ -256,7 +256,7 @@ k9s -n demo
 
 Once you see the `jhipster-registry` pods are up, set up port forwarding again so you can also monitor the status of the services in the registry UI.
 
-### Notes on DigialOcean's nodes sizes and volumes
+### Notes on DigitalOcean's nodes sizes and volumes
 
 Deploying to a Kubernetes cluster on DigitalOcean's cloud can be tricky if you don't specify enough capacity from the start.
 
@@ -306,7 +306,7 @@ Events:
 
 As instructed by the event message, I contacted DigitalOcean support and they fixed it.
 
-Finally, I had to create a second support ticket requesting higher node sizes, so I could use the size `s-4vcpu-8gb-intel`. Not all the options where available for my account when I signed up.
+Finally, I had to open a second support ticket requesting higher node sizes, so I could use the size `s-4vcpu-8gb-intel`. Not all the size options where available for my account when I signed up.
 
 ### Find your gateway's external IP and update redirect URIs
 
