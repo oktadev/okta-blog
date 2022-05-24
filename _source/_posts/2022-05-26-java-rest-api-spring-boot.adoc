@@ -1,17 +1,18 @@
 ---
 layout: blog_post
-title: "Build a Secure Java REST API with Spring Boot"
+title: "Start a Java REST API with Spring Boot"
 author: matt-raible
 by: advocate
 communities: [java]
-description: ""
+description: "Learn how to build a Java REST API with Spring Boot in minutes!"
 tags: [java]
 tweets:
-- ""
-- ""
-- ""
+- "Learn how to build a Java REST API with Spring Boot and secure it with OAuth 2.0 in less than 10 minutes!"
+- "Build a secure Java REST API using @springboot in this quick tutorial."
+- "Build a REST API with the tried and true framework you love, Spring Boot! 💚"
 image:
 type: conversion
+github: https://github.com/oktadev/native-java-examples/tree/main/spring-boot
 ---
 :page-liquid:
 :experimental:
