@@ -235,12 +235,10 @@ You can find a detailed list of pricing for cluster resources at [DigitalOcean](
 doctl k options sizes
 ```
 
-**NOTE**: I tested the cluster with the higher size Intel nodes available for my account, `s-2vcpu-4gb-intel`, in an attempt to run the application in the default cluster configuration, a three-node cluster with a single node pool in the nyc1 region, using the latest Kubernetes version. As I started to see pods not running due to "insufficient CPU", I increased the number of nodes later. DigitalOcean's latest and default Kubernetes version at the moment of writing this post is 1.22.8.
-
 Create the cluster with the following command line:
 
 ```bash
-doctl k cluster create do1 -v --size s-2vcpu-4gb-intel
+doctl k cluster create do1 -v --size s-4vcpu-8gb-intel
 ```
 After creating a cluster, `doctl` adds a configuration context to kubectl and makes it active, so you can start monitoring your cluster right away with k9s. First, apply the resources configuration to the DigitalOcean cluster:
 
@@ -258,9 +256,13 @@ k9s -n demo
 
 Once you see the `jhipster-registry` pods are up, set up port forwarding again so you can also monitor the status of the services in the registry UI.
 
-### Increase CPU
+### Notes on DigialOcean's nodes sizes and volumes
 
-The three-node cluster might not provide enough CPU for this microservices architecture, so you might see `insufficient CPU` logs for some pods. You can get the pod events with `kubectl describe`, for example, for the `jhipster-registry-0` pod:
+Deploying to a Kubernetes cluster on DigitalOcean's cloud can be tricky if you don't specify enough capacity from the start.
+
+At first, I tested the cluster with the higher size Intel nodes available for my account, `s-2vcpu-4gb-intel`, in an attempt to run the application in the default cluster configuration, a three-node cluster with a single node pool in the nyc1 region, using the latest Kubernetes version. As I started to see pods not running due to `insufficient CPU`, I increased the number of nodes later. DigitalOcean's latest and default Kubernetes version at the moment of writing this post is 1.22.8.
+
+If you need to find out the reason why a pod is not running, you can get the pod events with `kubectl describe`, for example, for the `jhipster-registry-0` pod:
 
 ```bash
 kubectl describe pod jhipster-registry-0 -n demo
@@ -282,10 +284,9 @@ To add cpu, increase the number of nodes with `doctl`:
 ```bash
 doctl k cluster node-pool update do1 do1-default-pool --count 4
 ```
+You don't need to restart pods when adding nodes.
 
-### Increase Storage
-
-After adding cpu, for the `store-mongodb` stateful set with 3 replicas, some of the pods did not run due to _unbound immediate PersistentVolumeClaims_. This was reported in the pod events, in the output of `kubectl describe pod`, for the failing pods. I then inspected persistent volume claims with the following commands:
+After I increased cpu adding one more node to the cluster, some of the pods, in the `store-mongodb` stateful set with 3 replicas, did not run due to _unbound immediate PersistentVolumeClaims_. This was reported in the pod events, in the output of `kubectl describe pod`, for the failing pods. I then inspected persistent volume claims with the following commands:
 
 ```bash
 kubectl get pvc -n demo
@@ -304,6 +305,8 @@ Events:
 ```
 
 As instructed by the event message, I contacted DigitalOcean support and they fixed it.
+
+Finally, I had to create a second support ticket requesting higher node sizes, so I could use the size `s-4vcpu-8gb-intel`. Not all the options where available for my account when I signed up.
 
 ### Find your gateway's external IP and update redirect URIs
 
