@@ -435,7 +435,7 @@ git clone --branch local https://github.com/oktadev/okta-angular-microfrontend-e
 ```
 
 
-Stay tuned for part two. I'll show how to prepare for deployment by transitioning to dynamic module loading and deploying the site to a free cloud provider.
+In the next post I'll show how to prepare for deployment by transitioning to dynamic module loading and deploying the site to a free cloud provider. Let's continue building the site by reading "[Secure and Deploy Micro Frontends with Angular](/blog/2022/05/19/angular-microfrontend-deploy)"!
 
 ## Learn about Angular, OpenID Connect, micro frontends, and more
 
