@@ -128,11 +128,19 @@ I've created a few screencasts to show how to build a REST API with these framew
 === Spring Security
 === Pac4j
 
+== Auth 2.0 Authorization Servers
+
+// Identity Providers - should this be a headline?
+
+// What about Identity and Authn?
+
 == What about JavaFX?
 
 // https://twitter.com/mraible/status/1520048029641986048
 
 == Does Kotlin do OAuth?
+
+// or, What about Kotlin and Scala
 
 == Learn more about Java and OAuth 2.0
 
