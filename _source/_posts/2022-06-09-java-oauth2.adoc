@@ -64,6 +64,10 @@ SOAP (Simple Object Access Protocol) was a popular implementation for web servic
 
 OAuth is an abbreviation for **O**pen **A**uthorization. It's an open standard that anyone can implement. More specifically, OAuth is a standard that apps can use to provide client applications with "secure delegated access”. OAuth works over HTTPS and authorizes devices, APIs, servers, and applications with access tokens rather than credentials.
 
+You can think of OAuth like hotel key cards, but for apps. If you have a hotel key card, you can get access to your room.
+
+How do you get a hotel key card? You have to do an authentication process at the front desk to get it. After authenticating and obtaining the key card, you can access resources across the hotel.
+
 *OAuth 2.0 is not an authentication protocol.*
 
 Open ID Connect (aka OIDC) _is_ an authentication protocol. I'll cover that in another post.
