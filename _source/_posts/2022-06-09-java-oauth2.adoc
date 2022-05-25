@@ -1,0 +1,139 @@
+---
+layout: blog_post
+title: "OAuth 2.0 in Java"
+# title: "OAuth 2.1 in Java"
+# title: "OAuth 2.0 on the JVM"
+author: matt-raible
+by: advocate
+communities: [java]
+description: ""
+tags: [java, oauth2]
+tweets:
+- ""
+- ""
+- ""
+image:
+type: awareness
+---
+:page-liquid:
+:toc: macro
+:experimental:
+
+You can use OAuth to secure apps, APIs, and devices. It's becoming more and more popular, especially as developers are asked knit together hundreds of apps and thousands of users in enterprise environments.
+
+The Java ecosystem is vast and wide with over 10 million developers around the world and an abundance of frameworks to make them more productive.
+// I also like plethora as an alternative to abundance.
+
+Today, I'd provide you with a state of the OAuth ecosystem in Java. You'll learn which frameworks support OAuth and which ones don't. I'll also provide you with some practical examples you can run in just a few minutes.
+
+////
+
+todo: We might want to save the snark for the OIDC version of this post
+
+I will not discuss SAML because I consider it a legacy technology.
+
+++++
+{% twitter 1379871695163510795 %}
+++++
+////
+
+toc::[]
+
+////
+
+todo: This might fit better in my upcoming Spring Boot SAML and/or Java and OIDC posts
+
+There's another standard that's popular for single sign-on: SAML. SAML stands for Security Assertion Markup Language and its 2.0 version was ratified as an OASIS Standard in March 2005.
+
+You know what else was pretty new in the Java world around 2005?
+
+- JSF 1.0
+- Spring 1.0
+- Flex 1.0
+- AJAX term coined in February
+
+Simply put, if you're using SAML for single sign-on (SSO), you're still living in the dark ages of web development. The dawn of a new era happened in 2005 and 2006 with the invention of Ruby on Rails, jQuery, and GWT.
+
+SOAP (Simple Object Access Protocol) was a popular implementation for web services, but quickly dropped out of favor for REST (REpresentational State Transfer). Developers everywhere discovered that XML was cumbersome to use compared to JSON.
+
+{% twitter 1379871695163510795 %}
+
+////
+
+== What the heck is OAuth?
+
+OAuth is an abbreviation for **O**pen **A**uthorization. It's an open standard that anyone can implement. More specifically, OAuth is a standard that apps can use to provide client applications with "secure delegated access”. OAuth works over HTTPS and authorizes devices, APIs, servers, and applications with access tokens rather than credentials.
+
+*OAuth 2.0 is not an authentication protocol.*
+
+Open ID Connect (aka OIDC) _is_ an authentication protocol. I'll cover that in another post.
+
+OAuth 2.0 has many flows and https://oauth.net/2.1/[OAuth 2.1] is an in-progress effort to consolidate and simplify the best flows for developers. In a nutshell, Proof Key for Code Exchange (PKCE) is required for authorization code flows, and implicit and password credential flows are removed.
+
+// should I link to What the Heck is OAuth here, or at the end? Or should I link to one of Aaron's posts instead?
+
+== Can you do OAuth without a browser?
+
+Developers often wonder, is it possible to do an OAuth flow _without_ a browser in the mix?
+
+https://twitter.com/briandemers/status/1520104453155835905[A browser is required]. The browser doesn't need to be on the same device. There are _basically_ 3 options if a user is involved:
+
+- Web app: handle a redirect
+- CLI, TV, etc: use the Device Grant (browser on another device), app uses REST
+- Native app: use a custom URL handler
+
+== Java's OAuth 2.0 Support
+
+Java does not have native OAuth support. In fact, the JDK doesn't even contain APIs to write a web app. The basic building blocks for constructing web apps in Java is provided by the https://jakarta.ee/specifications/servlet/5.0/[Servlet API and Jakarta EE].
+
+The Servlet API has a https://jakarta.ee/specifications/servlet/5.0/jakarta-servlet-spec-5.0.html#security[security section], but there's no OAuth in it. Kinda strange for something that's an "enterprise edition", eh?
+
+On the upside, Java 18 does contain a `jwebserver` you can use to https://inside.java/2021/12/06/working-with-the-simple-web-server/[serve up static files]. That's about all the "web" you'll find in the JDK though.
+
+=== OAuth in Java Frameworks
+
+// Matrix of Frameworks and Security features
+
+// alphabetical order
+// paragraphs or matrix?
+
+==== Helidon
+==== Jakarta EE
+==== Micronaut
+==== Quarkus
+==== Spring Boot
+
+I've created a few screencasts to show how to build a REST API with these frameworks and secure them with OAuth 2.0. These videos also show how the Okta CLI has samples for all of them with its `okta start` command.
+
+++++
+<div class="video-grid">
+  <div class="video">
+    <iframe width="267" height="150" src="https://www.youtube.com/embed/3J9uFVd3BoY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+  <div class="video">
+    <iframe width="267" height="150" src="https://www.youtube.com/embed/w-qKailh3WQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+  <div class="video">
+    <iframe width="267" height="150" src="https://www.youtube.com/embed/IG2uo4IP1QI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+  <div class="video">
+    <iframe width="267" height="150" src="https://www.youtube.com/embed/Bj69rOIwQwY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</div>
+++++
+
+== Java Security Frameworks
+
+=== Apache Shiro
+=== Spring Security
+=== Pac4j
+
+== What about JavaFX?
+
+// https://twitter.com/mraible/status/1520048029641986048
+
+== Does Kotlin do OAuth?
+
+== Learn more about Java and OAuth 2.0
+
+- https://developer.okta.com/blog/2017/06/21/what-the-heck-is-oauth[What the Heck is OAuth?]
