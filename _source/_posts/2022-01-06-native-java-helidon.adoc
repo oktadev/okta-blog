@@ -14,6 +14,7 @@ image: blog/native-java-helidon/native-java-helidon.jpg
 type: conversion
 github: https://github.com/oktadev/native-java-examples
 changelog:
+- 2022-05-11: Updated to use GraalVM 22.1. See this post's changes in [okta-blog#1166](https://github.com/oktadev/okta-blog/pull/1166).
 - 2022-04-19: Updated to use Helidon 2.5.0. See this post's changes in [okta-blog#1143](https://github.com/oktadev/okta-blog/pull/1143) and the example app changes in [native-java-examples#23](https://github.com/oktadev/native-java-examples/pull/23).
 - 2022-03-31: Updated to use GraalVM 22.0 and Helidon 2.4.2. See this post's changes in [okta-blog#1124](https://github.com/oktadev/okta-blog/pull/1124) and the example app changes in [native-java-examples#17](https://github.com/oktadev/native-java-examples/pull/17).
 ---
@@ -64,7 +65,7 @@ You will need a JDK with GraalVM and its `native-image` compiler. Using SDKMAN, 
 
 [source,shell]
 ----
-sdk install java 22.0.0.2.r17-grl
+sdk install java 22.1.0.r17-grl
 ----
 
 == Run a Helidon Java API
@@ -87,7 +88,7 @@ $ http :8080/hello
 
 HTTP/1.1 401 Unauthorized
 Content-Length: 0
-Date: Tue, 19 Apr 2022 14:39:22 -0600
+Date: Wed, 11 May 2022 11:23:16 -0600
 connection: keep-alive
 ----
 
@@ -152,23 +153,23 @@ To compile this Helidon app into a native binary, run:
 mvn package -Pnative-image
 ----
 
-This command will take a few minutes to complete. My 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM took 1 min. 21 s. to finish.
+This command will take a few minutes to complete. My 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM took 1 min. 23 s. to finish.
 
 Start it with `./target/helidon`:
 
 ----
 $ ./target/helidon
-2022.04.19 14:40:00 INFO io.helidon.common.LogConfig Thread[main,5,main]: Logging at runtime configured using classpath: /logging.properties
-2022.04.19 14:40:00 INFO io.helidon.microprofile.security.SecurityCdiExtension Thread[main,5,main]: Authorization provider is missing from security configuration, but security extension for microprofile is enabled (requires providers configuration at key security.providers). ABAC provider is configured for authorization.
-2022.04.19 14:40:00 INFO io.helidon.microprofile.server.ServerCdiExtension Thread[main,5,main]: Registering JAX-RS Application: HelloApplication
-2022.04.19 14:40:00 INFO io.helidon.webserver.NettyWebServer Thread[nioEventLoopGroup-2-1,10,main]: Channel '@default' started: [id: 0x41ec32cc, L:/[0:0:0:0:0:0:0:0]:8080]
-2022.04.19 14:40:00 INFO io.helidon.microprofile.server.ServerCdiExtension Thread[main,5,main]: Server started on http://localhost:8080 (and all other host addresses) in 41 milliseconds (since JVM startup).
-2022.04.19 14:40:00 INFO io.helidon.common.HelidonFeatures Thread[features-thread,5,main]: Helidon MP 2.5.0 features: [CDI, Config, Health, JAX-RS, Metrics, Security, Server, Web Client]
-2022.04.19 14:40:00 INFO io.helidon.common.HelidonFeatures.experimental Thread[features-thread,5,main]: You are using experimental features. These APIs may change, please follow changelog!
-2022.04.19 14:40:00 INFO io.helidon.common.HelidonFeatures.experimental Thread[features-thread,5,main]: 	Experimental feature: Web Client (WebClient)
+2022.05.11 11:25:37 INFO io.helidon.common.LogConfig Thread[main,5,main]: Logging at runtime configured using classpath: /logging.properties
+2022.05.11 11:25:37 INFO io.helidon.microprofile.security.SecurityCdiExtension Thread[main,5,main]: Authorization provider is missing from security configuration, but security extension for microprofile is enabled (requires providers configuration at key security.providers). ABAC provider is configured for authorization.
+2022.05.11 11:25:37 INFO io.helidon.microprofile.server.ServerCdiExtension Thread[main,5,main]: Registering JAX-RS Application: HelloApplication
+2022.05.11 11:25:37 INFO io.helidon.webserver.NettyWebServer Thread[nioEventLoopGroup-2-1,10,main]: Channel '@default' started: [id: 0x440397cf, L:/[0:0:0:0:0:0:0:0]:8080]
+2022.05.11 11:25:37 INFO io.helidon.microprofile.server.ServerCdiExtension Thread[main,5,main]: Server started on http://localhost:8080 (and all other host addresses) in 39 milliseconds (since JVM startup).
+2022.05.11 11:25:37 INFO io.helidon.common.HelidonFeatures Thread[features-thread,5,main]: Helidon MP 2.5.0 features: [CDI, Config, Health, JAX-RS, Metrics, Security, Server, Web Client]
+2022.05.11 11:25:37 INFO io.helidon.common.HelidonFeatures.experimental Thread[features-thread,5,main]: You are using experimental features. These APIs may change, please follow changelog!
+2022.05.11 11:25:37 INFO io.helidon.common.HelidonFeatures.experimental Thread[features-thread,5,main]: 	Experimental feature: Web Client (WebClient)
 ----
 
-As you can see, it starts in just 41 milliseconds! Test it with HTTPie and an access token. You may have to generate a new JWT with https://oidcdebugger.com[oidcdebugger.com] if yours has expired.
+As you can see, it starts in just 39 milliseconds! Test it with HTTPie and an access token. You may have to generate a new JWT with https://oidcdebugger.com[oidcdebugger.com] if yours has expired.
 
 [source,shell]
 ----
@@ -296,10 +297,10 @@ I ran each image three times before I started recording the numbers. I then ran 
 _These numbers are from a 2019 MacBook Pro with a 2.4 GHz 8-Core Intel Core i9 processor and 64 GB of RAM. I think it's important to note that my WiFi connection was 73.9 Mbps down and 10.1 Mbps up (according to the Speedtest app)._
 
 ////
-Helidon: (40 + 40 + 42 + 42 + 38) / 5 = 40.4
-Micronaut: (25 + 29 + 29 + 28 + 28) / 5 = 27.8
-Quarkus: (17 + 18 + 18 + 18 + 17) / 5 = 17.6
-Spring Boot: (54 + 55 + 52 + 54 + 54) / 5 = 53.8
+Helidon: (40 + 42 + 48 + 41 + 41) / 5 = 42.4
+Micronaut: (27 + 29 + 26 + 29 + 28) / 5 = 27.8
+Quarkus: (19 + 19 + 20 + 19 + 19) / 5 = 19.2
+Spring Boot: (58 + 58 + 58 + 60 + 59) / 5 = 58.6
 ////
 
 [.scrollable]
@@ -309,10 +310,10 @@ Spring Boot: (54 + 55 + 52 + 54 + 54) / 5 = 53.8
 |===
 |Framework | Command executed | Milliseconds to start
 
-|Helidon | `./helidon/target/helidon` | 40.4
+|Helidon | `./helidon/target/helidon` | 42.4
 |Micronaut | `./micronaut/target/app` | 27.8
-|Quarkus | `./quarkus/target/quarkus-1.0.0-SNAPSHOT-runner` | 17.6
-|Spring Boot | `./spring-boot/target/demo` | 53.8
+|Quarkus | `./quarkus/target/quarkus-1.0.0-SNAPSHOT-runner` | 19.2
+|Spring Boot | `./spring-boot/target/demo` | 58.6
 |===
 
 --
@@ -328,10 +329,10 @@ google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
   var data = google.visualization.arrayToDataTable([
     ['Framework', 'Milliseconds to start', { role: 'style' }],
-    ['Helidon', 40.4, 'orange'],
+    ['Helidon', 42.4, 'orange'],
     ['Micronaut', 27.8, 'blue'],
-    ['Quarkus', 17.6, 'red'],
-    ['Spring Boot', 53.8, 'green']
+    ['Quarkus', 19.2, 'red'],
+    ['Spring Boot', 58.6, 'green']
   ]);
   var options = {
     title: 'Startup times of native Java frameworks',
@@ -366,10 +367,10 @@ I substituted `<executable>` as follows:
 |===
 |Framework | Executable | Megabytes before request | Megabytes after 1 request | Megabytes after 5 requests
 
-|Helidon | `helidon` | 44 | 55 | 63
-|Micronaut | `app` | 28 | 43 | 54
-|Quarkus | `quarkus` | 20 | 31 | 33
-|Spring Boot | `demo` | 46 | 57 | 58
+|Helidon | `helidon` | 42 | 54 | 62
+|Micronaut | `app` | 31 | 45 | 56
+|Quarkus | `runner` | 23 | 34 | 36
+|Spring Boot | `demo` | 50 | 61 | 62
 |===
 
 --
@@ -384,10 +385,10 @@ google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
   var data = google.visualization.arrayToDataTable([
     ['Framework', 'Memory usage (MB)', { role: 'style' }],
-    ['Helidon', 63, 'orange'],
-    ['Micronaut', 54, 'blue'],
-    ['Quarkus', 33, 'red'],
-    ['Spring Boot', 58, 'green']
+    ['Helidon', 62, 'orange'],
+    ['Micronaut', 56, 'blue'],
+    ['Quarkus', 36, 'red'],
+    ['Spring Boot', 62, 'green']
   ]);
   var options = {
     title: 'Memory usage of native Java frameworks',
