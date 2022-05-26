@@ -97,7 +97,7 @@ For example, for building the `gateway` service image:
 cd ../gateway
 ./gradlew bootJar -Pprod jib -Djib.to.image=<docker-repo-name>/gateway
 ```
-**IMPORTANT NOTE**: Unfortunately the application example does not build with Java 17 at the moment of writing this post.
+**IMPORTANT NOTE**: Unfortunately the application example does not build with Java 17 at the moment of writing this post. As specified in the introduction, this example was built with Java 11.
 
 Check the images were uploaded to [DockerHub](https://hub.docker.com), and navigate to the project root folder in the terminal for the next step.
 
@@ -218,7 +218,7 @@ minikube delete
 
 ## Deploy to DigitalOcean Kubernetes
 
-Now that the architecture works locally, let's proceed to the cloud deployment. First, create a [DigitalOcean](https://www.digitalocean.com/try/free-trial-offer) account, you can try their services with a free $100 credit that is available for 60 days. The registration requires a $5 PayPal payment, or providing a credit card.
+Now that the architecture works locally, let's proceed to the cloud deployment. First, create a [DigitalOcean](https://cloud.digitalocean.com/registrations/new) account. The registration requires a $5 PayPal payment, or providing a credit card.
 
 Most of the cluster tasks, if not all, can be accomplished using [doctl](https://github.com/digitalocean/doctl#installing-doctl), the command-line interface (CLI) for the DigitalOcean API. Install the tool, and perform the authentication with DigitalOcean:
 
@@ -306,7 +306,7 @@ Events:
 
 As instructed by the event message, I contacted DigitalOcean support and they fixed it.
 
-Finally, I had to open a second support ticket requesting higher node sizes, so I could use the size `s-4vcpu-8gb-intel`. Not all the size options were available for my account when I signed up.
+Finally, as I first registered for the free trial account, I had to open a second support ticket requesting higher node sizes, so I could use the size `s-4vcpu-8gb-intel`. Not all the size options were available after signing up for the trial, but that is not the case for a standard account. Billing may be under 10 dollars for a short Kubernetes service test.
 
 ### Find your gateway's external IP and update redirect URIs
 
