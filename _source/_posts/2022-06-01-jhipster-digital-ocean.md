@@ -14,7 +14,7 @@ image:
 type: conversion
 ---
 
-Cloud adoption continues to increase rapidly and worldwide, and not only in the software industry. Every year more and more companies move their applications to the cloud. In the last JHipster community survey, in December 2021, users who participated expressed they value getting to production fast, thanks to JHipster, and requested more tutorials on deployment to cloud platforms. DigitalOcean is among the most popular "other" cloud vendors, according to some surveys. This post is a quick walk-through of the deployment of a JHipster microservices architecture to a Kubernetes cluster in DigitalOcean's cloud.
+Cloud adoption continues to increase rapidly worldwide, and not only in the software industry. Every year more and more companies move their applications to the cloud. In the last JHipster community survey, from December 2021, participants valued JHipster's ability to get them to production faster, and requested more tutorials on deployment to cloud platforms. DigitalOcean is among the most popular "other" cloud vendors, according to some surveys. This post is a quick walk-through of the deployment of a JHipster microservices architecture to a Kubernetes cluster in DigitalOcean's cloud.
 
 **This tutorial was created with the following frameworks and tools**:
 - [JHipster 7.8.1](https://www.jhipster.tech/installation/)
@@ -133,17 +133,17 @@ Enable the OIDC authentication in the `jhipster-registry` service by adding the 
   value: prod,k8s,oauth2
 ```
 
-## Run locally with Minikube
+## Run locally with minikube
 
-Install [Minikube](https://minikube.sigs.k8s.io/docs/start/) and [`kubectl`](https://kubernetes.io/docs/tasks/tools/).
+Install [minikube](https://minikube.sigs.k8s.io/docs/start/) and [`kubectl`](https://kubernetes.io/docs/tasks/tools/).
 
-For Minkube, you will need at least 2 CPUs. Start MiniKube with your number of CPUs:
+For minikube, you will need at least 2 CPUs. Start MiniKube with your number of CPUs:
 
 ```bash
 cd kubernetes
 minikube --cpus <ncpu> start
 ```
-Minikube will log the Kubernetes and Docker versions on start:
+minikube will log the Kubernetes and Docker versions on start:
 
 ```
 Preparing Kubernetes v1.23.3 on Docker 20.10.12 ...
@@ -172,7 +172,7 @@ spec:
     app: store-mongodb
 ```
 
-Then deploy the application to Minikube, in the `kubernetes` directory, run:
+Then deploy the application to minikube, in the `kubernetes` directory, run:
 
 ```bash
 ./kubectl-apply.sh -f
@@ -256,11 +256,11 @@ k9s -n demo
 
 Once you see the `jhipster-registry` pods are up, set up port forwarding again so you can also monitor the status of the services in the registry UI.
 
-### Notes on DigitalOcean's nodes sizes and volumes
+### Notes on DigitalOcean's node sizes and volumes
 
 Deploying to a Kubernetes cluster on DigitalOcean's cloud can be tricky if you don't specify enough capacity from the start.
 
-At first, I tested the cluster with the higher size Intel nodes available for my account, `s-2vcpu-4gb-intel`, in an attempt to run the application in the default cluster configuration, a three-node cluster with a single node pool in the nyc1 region, using the latest Kubernetes version. As I started to see pods not running due to `insufficient CPU`, I increased the number of nodes later. DigitalOcean's latest and default Kubernetes version at the moment of writing this post is 1.22.8.
+At first, I tested the cluster with the higher size Intel nodes available for my account, `s-2vcpu-4gb-intel`. It was my attempt to run the application in the default cluster configuration, a three-node cluster with a single node pool in the nyc1 region, using the latest Kubernetes version. As I started to see pods not running due to `insufficient CPU`, I increased the number of nodes later. DigitalOcean's latest and default Kubernetes version at the moment of writing this post is 1.22.8.
 
 If you need to find out the reason why a pod is not running, you can get the pod events with `kubectl describe`, for example, for the `jhipster-registry-0` pod:
 
@@ -268,7 +268,7 @@ If you need to find out the reason why a pod is not running, you can get the pod
 kubectl describe pod jhipster-registry-0 -n demo
 ```
 
-The output of the command, in the events section, for a pod that failed due to insufficient cpu, looks like the following:
+The output of the command, in the events section, for a pod that has failed due to insufficient cpu, looks like the following:
 
 ```text
 Events:
@@ -306,7 +306,7 @@ Events:
 
 As instructed by the event message, I contacted DigitalOcean support and they fixed it.
 
-Finally, I had to open a second support ticket requesting higher node sizes, so I could use the size `s-4vcpu-8gb-intel`. Not all the size options where available for my account when I signed up.
+Finally, I had to open a second support ticket requesting higher node sizes, so I could use the size `s-4vcpu-8gb-intel`. Not all the size options were available for my account when I signed up.
 
 ### Find your gateway's external IP and update redirect URIs
 
@@ -346,22 +346,22 @@ Navigate to `http://<load-balancer-ingress-ip>:8080`.
 
 ## Secure web traffic with HTTPS
 
-As the gateway service acts as the application front-end, in the k8s descriptors it is defined as a `LoadBalancer` service type. This exposes the service externally using the cloud provider's load balancer. DigitalOcean load balancers are a fully-managed, highly available network load balancing service. Load balancers distribute traffic to groups of droplets, which decouples the overall health of a backend service from the health of a single server to ensure that your services stay online.
+Since the gateway service acts as the application front-end, in the k8s descriptors it is defined as a `LoadBalancer` service type. This exposes the service externally using the cloud provider's load balancer. DigitalOcean load balancers are a fully-managed, highly available network load-balancing service. Load balancers distribute traffic to groups of droplets, which decouples the overall health of a backend service from the health of a single server to ensure that your services stay online.
 
-The standard practice is to secure web traffic to your application with HTTPs. For traffic encryption, you need a TLS (SSL) certificate. DigitalOcean also provides automatic certificate creation and renewal if you manage your domain with DigitalOcean's DNS, which is free. But domain registration is not provided.  To use DigitalOcean's DNS, you need to register a domain name with a registrar and update your domain's NS records to point to DigitalOcean's name servers.
+The standard practice is to secure web traffic to your application with HTTPS. For traffic encryption, you need a TLS (SSL) certificate. DigitalOcean also provides automatic certificate creation and renewal if you manage your domain with DigitalOcean's DNS, which is free. But domain registration is not provided.  To use DigitalOcean's DNS, you need to register a domain name with a registrar and update your domain's NS records to point to DigitalOcean's name servers.
 
 Then, for using DigitalOcean's managed domain and certificate, you must [delegate the domain](https://docs.digitalocean.com/tutorials/dns-registrars/), updating NS records in the registrar. Because of this requirement, you cannot use free DNS services where you cannot set up NS records, like nip.io.
 
 **IMPORTANT NOTE**: Before changing the registrar NS records (the nameservers), add your domain to DigitalOcean, to minimize service disruptions.
 
-You can create the certificate and the domain at the same time, in the DigitalOcean control panel, when you set up the load balancer HTTPs forwarding.
+You can create the certificate and the domain at the same time in the DigitalOcean control panel, when you set up the load balancer HTTPS forwarding.
 
 DigitalOcean load balancers support two main configurations for encrypted web traffic:
 
 - SSL termination: decrypts SSL requests at the load balancer and sends them unencrypted to the backend at the Droplets' private IP address. The slower and CPU-intensive work of decryption is performed at the load balancer, and certificate management is simplified. The traffic between the load balancer and the backend is secured by routing over the VPC network, but data is readable inside the private network.
 - SSL passthrough: sends the encrypted SSL requests directly to the backend at the Droplets' private IP address, traffic between the load balancer and the backend is secured. Every backend server must have the certificate, and client information contained in `X-forwarded-*` headers might be lost.
 
-Taking advantage of the simplified certificate management, in the following steps SSL termination will be configured, through the DigitalOcean control panel.
+Taking advantage of the simplified certificate management, SSL termination will be configured in the following steps through the DigitalOcean control panel.
 
 Login to your DigitalOcean account, and in the left menu choose **Kubernetes**. Then choose your cluster, and on the cluster page, choose **Resources**. In the _LOAD BALANCERS_ list, choose the single load balancer that must have been created. On the load balancer page, choose the **Settings** tab. Click **Edit** in the _Forwarding Rules_. Add a forwarding rule for HTTPS in port 443, and in the certificate drop-down, choose **New certificate**.
 
@@ -371,7 +371,7 @@ In the **New Certificate** form, choose the **Use Let's Encrypt** tab, and then 
 
 {% img blog/jhipster-digital-ocean/do-new-domain.png alt:"DigitalOcean new domain form" width:"500" %}{: .center-image }
 
-Back in the _Forwarding rules_ page, check the generated certificate is selected, and forward the traffic to the droplet HTTP port where the gateway is running. Tick the checkbox **Create DNS records for all the new Let's Encrypt certificates** and then **Save** the forwarding settings.
+Back in the _Forwarding rules_ page, check that the generated certificate is selected, and forward the traffic to the droplet HTTP port where the gateway is running. Tick the checkbox **Create DNS records for all the new Let's Encrypt certificates** and then **Save** the forwarding settings.
 
 {% img blog/jhipster-digital-ocean/do-forwarding.png alt:"DigitalOcean load balancer forwarding settings" width:"800" %}{: .center-image }
 
@@ -422,7 +422,7 @@ doctl compute load-balancer list
 doctl compute load-balancer delete <load-balancer-id>
 ```
 
-During registration, a project must have been created, allowing to organize resources. You can list all the resources associated with a project with the following command:
+During registration, a project must have been created, allowing you to organize resources. You can list all the resources associated with a project with the following command:
 
 ```bash
 doctl projects list
@@ -431,7 +431,7 @@ doctl projects resources list <project-id>
 
 ## Learn more about JHipster and cloud deployment
 
-And this was a brief walk-through for deploying JHipster to a DigitalOcean's managed Kubernetes cluster. Some important topics for production deployment were not covered in this post, to focus on DigitalOcean resource requirements in particular. Among them, external configuration storage with Spring Cloud Config and Git was not covered, secrets encryption both for the cloud configuration and Kubernetes configuration also was not covered. You can learn about these good practices in the first post of this cloud deployment series: [Kubernetes to the Cloud with Spring Boot and JHipster](/blog/2021/06/01/kubernetes-spring-boot-jhipster). Keep learning, and for more content on JHipster, check out the following links:
+This has been a brief walkthrough for deploying JHipster to a DigitalOcean's managed Kubernetes cluster. Some important topics for production deployment were not covered in this post, to focus in particular on DigitalOcean resource requirements. Some key topics we did not cover in this post include external configuration storage with Spring Cloud Config and Git and secrets encryption both for the cloud configuration and Kubernetes configuration. You can learn about these good practices in the first post of this cloud deployment series: [Kubernetes to the Cloud with Spring Boot and JHipster](/blog/2021/06/01/kubernetes-spring-boot-jhipster). Keep learning, and for more content on JHipster, check out the following links:
 
 - [Kubernetes to the Cloud with Spring Boot and JHipster](/blog/2021/06/01/kubernetes-spring-boot-jhipster)
 - [Kubernetes Microservices on Azure with Cosmos DB](/blog/2022/05/05/kubernetes-microservices-azure#spring-boot-microservices-for-azure-and-cosmos-db)
