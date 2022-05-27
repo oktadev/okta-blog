@@ -19,7 +19,9 @@ Developers like CRUD (create, read, update, and delete) apps because they show a
 
 Today, I'll show you how to create a basic CRUD app with Spring Boot in React. In this tutorial, I'll be using the OAuth 2.0 Authorization Code flow and packaging the React app in the Spring Boot app for production. At the same time, I'll show you how to keep React's productive workflow for developing locally.
 
-You will need [Java 11](http://sdkman.io) and [Node.js 16](https://nodejs.org/) installed to complete this tutorial.
+You will need [Java 11](http://sdkman.io) and [Node 16](https://nodejs.org/) installed to complete this tutorial.
+
+{% include toc.md %}
 
 ## Create an API App with Spring Boot
 
@@ -33,7 +35,9 @@ To begin, navigate to [start.spring.io](https://start.spring.io) and make the fo
 * **Artifact:** `jugtours`
 * **Dependencies**: `JPA`, `H2`, `Web`, `Lombok`
 
+{% comment %}
 {% img blog/spring-boot-2-react/spring-initializr.png alt:"Spring Initializr" width:"800" %}{: .center-image }
+{% endcomment %}
 
 Click **Generate Project**, expand `jugtours.zip` after downloading, and open the project in your favorite IDE.
 
@@ -372,7 +376,9 @@ To learn more about proxying API requests, see Create React App's [documentation
 
 Make sure Spring Boot is running, then run `npm start` in your `app` directory. You should see the list of default groups. You might have to scroll down to see this list. 
 
+{% comment %}
 {% img blog/spring-boot-2-react/jug-list.png alt:"JUG List" width:"800" %}{: .center-image }
+{% endcomment %}
 
 ## Build a React GroupList Component
 
@@ -573,11 +579,15 @@ To make your UI a bit more spacious, add a top margin to Bootrap's container cla
 
 Your React app should update itself as you make changes and you should see a screen like the following at `http://localhost:3000`.
 
+{% comment %}
 {% img blog/spring-boot-2-react/home-with-link.png alt:"Home screen with Manage JUG Tour link" width:"800" %}{: .center-image }
+{% endcomment %}
 
 Click on **Manage JUG Tour** and you should see a list of the default groups.
 
+{% comment %}
 {% img blog/spring-boot-2-react/group-list.png alt:"Group List screen" width:"800" %}{: .center-image }
+{% endcomment %}
 
 It's great that you can see your Spring Boot API's data in your React app, but it's no fun if you can't edit it!
 
@@ -719,9 +729,11 @@ class App extends Component {
 
 Now you should be able to add and edit groups!
 
+{% comment %}
 {% img blog/spring-boot-react/add-group.png alt:"Add Group screen" width:"800" %}{: .center-image }
 
 {% img blog/spring-boot-react/edit-group.png alt:"Edit Group screen" width:"800" %}{: .center-image }
+{% endcomment %}
 
 ## Add Authentication with Okta
 
@@ -1275,9 +1287,11 @@ export default withCookies(withRouter(GroupEdit));
 
 After all these changes, you should be able to restart both Spring Boot and React and witness the glory of planning your very own JUG Tour!
 
+{% comment %}
 {% img blog/spring-boot-react/react-login.png alt:"React Login" width:"800" %}{: .center-image }
 
 {% img blog/spring-boot-react/my-jug-tour.png alt:"My JUG Tour" width:"800" %}{: .center-image }
+{% endcomment %}
 
 ## Configure Maven to Build and Package React with Spring Boot
 
@@ -1437,7 +1451,9 @@ public class RedirectController {
 
 After adding this, you should be able to run `./mvnw spring-boot:run -Pprod` and your app see your app running on `http://localhost:8080`. 
 
+{% comment %}
 {% img blog/spring-boot-react/localhost-8080.png alt:"App Running with Maven" width:"800" %}{: .center-image }
+{% endcomment %}
 
 ## Learn More about Spring Boot and React
 
