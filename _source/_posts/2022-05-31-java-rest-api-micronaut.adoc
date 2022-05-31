@@ -229,7 +229,7 @@ function drawChart() {
 .What about the MacBook Pro M1 Max?
 ****
 
-My MacBook Pro (16-inch, 2021) with Apple M1 Max builds _much_ faster, apps startup 2x faster, but they use more memory.
+My MacBook Pro (16-inch, 2021) with Apple M1 Max builds _much_ faster, apps start up 2x faster, but they use more memory.
 
 ++++
 <div id="startup-times-m1"></div>
