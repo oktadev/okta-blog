@@ -197,7 +197,7 @@ ps -o pid,rss,command | grep --color <executable> | awk '{$2=int($2/1024)"M";}{ 
 The chart below shows the memory usage after five requests.
 
 ++++
-<div id="memory-usage"></div>
+<div id="memory-usage" style="margin-bottom: 1.5em"></div>
 <script>
 google.charts.load('current', {packages: ['corechart', 'bar']});
 google.charts.setOnLoadCallback(drawChart);
@@ -296,6 +296,10 @@ function drawChart() {
 == Comparing Native Java REST API Frameworks Live Stream
 
 I missed Devoxx France this year, but I'm still doing my presentation! I'll be live-streaming https://speakerdeck.com/mraible/comparing-native-java-rest-api-frameworks-devoxx-france-2022[Comparing Native Java REST API Frameworks] on June 7, 2022 at 6:00 MDT (14:00 CEST). Join me or watch the recorded version below!
+
+++++
+{% youtube dp3YbdIEyWU %}
+++++
 
 == Secure Native Java with Micronaut FTW!
 
