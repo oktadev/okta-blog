@@ -541,7 +541,7 @@ cd notification && ./gradlew bootJar -Pprod jib -Djib.to.image=deepu105/notifica
 cd product && ./gradlew bootJar -Pprod jib -Djib.to.image=deepu105/product
 ```
 
-Once the images are pushed to the Docker registry, we can deploy the stack using the handy script provided by JHipster. Navigate to the kubernetes folder created by JHipster and run the following command.
+Once the images are pushed to the Docker registry, we can deploy the stack using the handy script provided by JHipster. Navigate to the `kubernetes` folder created by JHipster and run the following command.
 
 ```bash
 cd kubernetes
