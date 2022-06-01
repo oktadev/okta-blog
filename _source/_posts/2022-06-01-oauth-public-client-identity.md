@@ -56,7 +56,7 @@ The authorization server may choose to skip the credential prompt if the user is
 
 Some services may restrict certain APIs for use only by specific clients. If the service has some APIs that should only be called from a particular mobile app, the service may want to reject requests made from other apps that are accessing other parts of the system. Additionally, some services may set different API rate limits for different clients depending on the trust level of the developer or whether the client is a first-party or third-party client. 
 
-In order to do this, the API needs to know which client an access token was issued to. Typically the authorization server will embed the application's client_id in one of the claims of the access token so that it's accessible to the API when it validates the token. Of course this information is only as good as the authorization server's confidence that it was really that app making the token request. Again, if the client can authenticate itself, then this is reasonably reliable. But for public clients, there is much less certainty.
+In order to do this, the API needs to know which client an access token was issued to. Typically, the authorization server will embed the application's client_id in one of the claims of the access token. In this way, the client_id is accessible to the API when it validates the token. Of course, this information is only as good as the authorization server's confidence that it was really that app making the token request. Again, if the client can authenticate itself, then this is reasonably reliable. But for public clients, there is much less certainty.
 
 Keep privileged access in mind when you're building APIs that limit features based on the application.
 
