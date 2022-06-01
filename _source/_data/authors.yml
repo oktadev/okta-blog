@@ -102,11 +102,10 @@ matt-raible:
   web: http://raibledesigns.com
   twitter: https://twitter.com/mraible
   github: https://github.com/mraible
-  bio:
-    Matt Raible is a well-known figure in the Java community and has been building web applications for most of his adult life.
+  bio: Matt Raible is a well-known figure in the Java community and has been building web applications for most of his adult life.
     For over 20 years, he has helped developers learn and adopt open source frameworks and use them effectively.
     He's a web developer, Java Champion, and Developer Advocate at Okta.
-    Matt has been a speaker at many conferences worldwide, including Devoxx Belgium, Devoxx France, Jfokus, and Devnexus.
+    Matt has been a speaker at many conferences worldwide, including Devnexus, Devoxx Belgium, Devoxx France, Jfokus, and JavaOne.
     He is the author of <a href="https://www.infoq.com/minibooks/angular-mini-book/">The Angular Mini-Book</a>, <a href="https://www.infoq.com/minibooks/jhipster-mini-book">The JHipster Mini-Book</a>, Spring Live, and contributed to Pro JSP.
     He is frequent contributor to open source and a member of the JHipster development team.
     You can find him online <a href="https://twitter.com/mraible">@mraible</a> and <a href="https://raibledesigns.com">raibledesigns.com</a>.
@@ -128,8 +127,7 @@ lars-johansen:
   web: https://www.linkedin.com/in/larskrjo
   twitter: https://twitter.com/larskrjo
   github: https://github.com/larskrjo
-  bio:
-    Lars K. Johansen is a Staff Software Engineer and the lead for the Customer Federations team in the CIAM
+  bio: Lars K. Johansen is a Staff Software Engineer and the lead for the Customer Federations team in the CIAM
     (Customer Identity Access Management) Products sphere at Okta. He has a great passion for software that
     involves security, scalability, efficiency, and reliability. Lars was born and raised in Oslo, Norway, and
     he enjoys going on hikes, playing tennis, and loves to cook and eat delicious food. Before Okta,
@@ -152,8 +150,7 @@ brian-demers:
   web: https://www.linkedin.com/in/bdemers/
   twitter: https://twitter.com/briandemers
   github: https://github.com/bdemers
-  bio:
-    Brian Demers is a Developer Advocate at Okta and a PMC member for the Apache Shiro project. He spends much of his
+  bio: Brian Demers is a Developer Advocate at Okta and a PMC member for the Apache Shiro project. He spends much of his
     day contributing to OSS projects in the form of writing code, tutorials, blogs, and answering questions. Along with
     typical software development, Brian also has a passion for fast builds and automation.
     Away from the keyboard, Brian is a beekeeper and can likely be found playing board games.
@@ -166,8 +163,7 @@ xinxin-zhu:
   email: xinxinzhu@api7.ai
   twitter: https://twitter.com/starszcan
   github: https://github.com/starsz
-  bio:
-    Xinxin Zhu is a System Engineer at API7.AI and a committer for the Apache APISIX project. He is an open-source enthusiast and
+  bio: Xinxin Zhu is a System Engineer at API7.AI and a committer for the Apache APISIX project. He is an open-source enthusiast and
     a Golang developer. Now, he is working on the control plane of Apache APISIX writing code, reviewing code, and answering questions
     in the community. Xinxin Zhu is a fun guy, you can find him on Twitter at <a href="https://twitter.com/starszcan">@starszcan</a> 🙂
 
@@ -178,8 +174,7 @@ huan-liu:
   email: huan.liu@okta.com
   web: https://huanliu.wordpress.com
   github: https://github.com/drhuanliu
-  bio:
-    Huan Liu is a Director of Engineering and Sphere Head for CIAM (Customer Identity Access Management) Products.
+  bio: Huan Liu is a Director of Engineering and Sphere Head for CIAM (Customer Identity Access Management) Products.
     His team is responsible for both the end-to-end CIAM experiences and the underlying federation protocols.
     Prior to Okta, Huan was an Engineering Manager and Head of the Terragraph program at Facebook. He was also the
     co-lead of the Maveric program, which brings Facebook's ML expertise to 5G networks. Huan holds a Ph.D. degree in
@@ -192,8 +187,7 @@ micah-silverman:
   web: https://afitnerd.com
   twitter: https://twitter.com/afitnerd
   github: https://github.com/dogeared
-  bio:
-    Micah Silverman is a Senior Security H@X0R. With 25 years of Java Experience (yup, that's from the beginning),
+  bio: Micah Silverman is a Senior Security H@X0R. With 25 years of Java Experience (yup, that's from the beginning),
     he's authored numerous articles, co-authored a Java EE book and spoken at many conferences. He's a maker, who's
     built full size MAME arcade cabinets and repaired
     <a href="http://afitnerd.com/2011/10/16/weekend-project-fix-dark-tower/" target="_blank">old electronic games</a>.
@@ -610,6 +604,7 @@ giorgi-dalakishvili:
   github: https://github.com/Giorgi/
   twitter: https://twitter.com/GioDalakishvili
   linkedin: https://www.linkedin.com/in/giorgidalakishvili/
+  web: https://giorgi.dev
 
 nick-gamb:
   full_name: Nick Gamb
@@ -724,7 +719,7 @@ deepu-sasidharan:
   email: deepu.sasidharan@okta.com
   web: https://deepu.tech
   bio:
-    Deepu is a polyglot developer and OSS aficionado. He mainly works with Java, JS, Rust, and Golang. He co-leads JHipster and created the JDL Studio and KDash.
+    Deepu is a polyglot developer, Java Champion, and OSS aficionado. He mainly works with Java, JS, Rust, and Golang. He co-leads JHipster and created the JDL Studio and KDash.
     He's a Senior Developer Advocate for DevOps at Okta. He is also an international speaker and published author.
 
 alisa-duncan:
@@ -736,7 +731,7 @@ alisa-duncan:
   web: https://alisaduncan.dev
   email: alisa.duncan@okta.com
   bio:
-    Alisa Duncan is a Senior Developer Advocate at Okta, a full-stack developer, and a community builder who loves the thrill of learning new things. 
+    Alisa Duncan is a Senior Developer Advocate at Okta, a full-stack developer, and a community builder who loves the thrill of learning new things.
     She is a Google Developer Expert in Angular and organizes coding workshops and community events locally and internationally.
     Her background is primarily working on enterprise software platforms, and she is a fan of all things TypeScript and JavaScript.
 
@@ -758,25 +753,97 @@ victory-nwani:
   linkedin: https://www.linkedin.com/in/victory-nwani-b820b2157/
   email: victory@hera.marketing
   web: https://nwani.netlify.app/
-  
-teniola-fatunmbi:							
-  full_name: Teniola Fatunmbi							
-  display_name: Teniola Fatunmbi							
-  avatar: avatar-TFatunmbi.png													
-  bio: "I am a web developer and computer science undergraduate. I build web applications with JavaScript (React and Node) and also write about them sometimes."							
-  
-sebastian-nilsson:							
-  full_name: Sebastian Nilsson							
-  display_name: Sebastian Nilsson							
-  avatar: avatar-SNilsson.jpg											
-  web: https://sebnilsson.com/														
+
+teniola-fatunmbi:
+  full_name: Teniola Fatunmbi
+  display_name: Teniola Fatunmbi
+  avatar: avatar-TFatunmbi.png
+  bio: "I am a web developer and computer science undergraduate. I build web applications with JavaScript (React and Node) and also write about them sometimes."
+
+sebastian-nilsson:
+  full_name: Sebastian Nilsson
+  display_name: Sebastian Nilsson
+  avatar: avatar-SNilsson.jpg
+  web: https://sebnilsson.com/
   bio: "Sebastian Nilsson is a professional problem solver, with expertise in the Microsoft ecosystem and a passion for the web and open source."
-  
-cameron-pavey:																									
-  full_name: Cameron Pavey																									
-  display_name: Cameron Pavey																								
-  avatar: avatar-CPavey.jpg																																																	
-  twitter: https://twitter.com/cpave3																																																		
-  bio: "Cameron is a full-stack dev living and working in Melbourne. He's committed himself to the never-ending journey of understanding the intricacies of quality code, developer productivity, and job satisfaction."																									
-  
-  
+
+cameron-pavey:
+  full_name: Cameron Pavey
+  display_name: Cameron Pavey
+  avatar: avatar-CPavey.jpg
+  twitter: https://twitter.com/cpave3
+  bio: "Cameron is a full-stack dev living and working in Melbourne. He's committed himself to the never-ending journey of understanding the intricacies of quality code, developer productivity, and job satisfaction."
+
+tristan-morris:
+  full_name: "Tristan Morris"
+  display_name: "Tristan Morris"
+  avatar: avatar-tristan-morris.jpg
+  linkedin: https://www.linkedin.com/in/howlertristan/
+
+shahed-nasser:
+  full_name: "Shahed Nasser"
+  display_name: "Shahed Nasser"
+  avatar: avatar-SNasser.jpg
+  web: https://blog.shahednasser.com/
+  bio: Shahed is a full-stack developer with high expertise in web development. She also loves writing technical articles, as they help her learn, become better, and spread her knowledge in the hopes that it will help someone out there.
+
+james-hickey:
+  full_name: "James Hickey"
+  display_name: "James Hickey"
+  avatar: avatar-JHickey.jpg
+  web: https://www.jamesmichaelhickey.com/
+  twitter: https://twitter.com/jamesmh_dev
+  bio: James is a Microsoft MVP with a background building web and mobile applications in fintech and insurance industries. He's the author of "Refactoring TypeScript" and creator of open-source tools for .NET called Coravel. He lives in Canada, just ten minutes from the highest tides in the world.
+
+alina-yurenko:
+  full_name: "Alina Yurenko"
+  display_name: "Alina Yurenko"
+  avatar: avatar-alina_yurenko.png
+  web: https://dev.to/alina_yurenko
+  twitter: https://twitter.com/alina_yurenko
+  bio: I ❤️ all things tech, open source and community. Developer 🥑 for @GraalVM at @OracleLabs, helping @jhipster, ex @googledevgroups
+
+alex-doukas:
+  full_name: Alex Doukas
+  display_name: "Alex Doukas"
+  avatar:  avatar-ADoukas.png
+  linkedin: https://www.linkedin.com/in/alexdoukas/
+  bio: I'm Alex, a front end developer. My main area of expertise is web development and everything that comes along with it. I also have extensive knowledge of topics such as software testing, UX design, big data, social media marketing, and SEO techniques.
+
+john-gramila:
+  full_name: John Gramila
+  display_name: John Gramila
+  avatar: avatar-JGramila.jpg
+  web: https://toughpixels.com/
+  twitter: https://twitter.com/jgramila
+  bio: John is a developer and writer working in Chicago. Failure and success both create growth, and growth never stops.
+
+lukonde-mwila:
+  full_name: Lukonde Mwila
+  display_name: Lukonde Mwila
+  avatar: avatar-LMwila.jpg
+  web: https://toughpixels.com/
+  twitter: https://twitter.com/LuKE9ine
+  bio: Lukonde is a Principal Technical Evangelist at SUSE and is an AWS Container Hero. He specializes in cloud and DevOps engineering and cloud-native technologies. He is passionate about sharing knowledge through various mediums and engaging with the developer community at large.
+
+olabayo-balogun:
+  full_name: Olabayo Balogun
+  display_name: Olabayo Balogun
+  avatar: avatar-OBalogun.jpg
+  linkedin: https://www.linkedin.com/in/olabayobalogun/
+  bio: "A .Net, Blazor and Angular software engineer who is committed to building technological infrastructures capable of solving the challenges of netizens now and in the future. "
+
+chris-concannon:
+  full_name: Chris Concannon
+  display_name: Chris Concannon
+  avatar: avatar-chris-concannon.jpeg
+  web: https://blog.concannon.tech
+  bio: Chris is a Senior Solutions Engineer at Okta. He studied biomedical engineering at Duke University. After spending several years in the medical device industry, he pivoted his career to software development. Chris lives in San Francisco and spends much of his free time enjoying the great outdoors.
+
+arek-nawo:
+  full_name: Arek Nawo
+  display_name: Arek Nawo
+  avatar: avatar-ANawo.jpg
+  web: https://areknawo.com/
+  twitter: https://twitter.com/areknawo
+  github: https://github.com/areknawo

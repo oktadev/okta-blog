@@ -21,6 +21,15 @@ type: awareness|conversion
 ---
 `
 
+const postTemplate = {
+  md: defaultPostFrontMatter,
+  adoc: defaultPostFrontMatter +
+`:page-liquid:
+:toc: macro
+:experimental:
+`
+};
+
 yargs.command("create [post-name] [format] [date]", "create a new blog post", yargs => {
     yargs.positional("post-name", {
         describe: "name of post",
@@ -48,7 +57,7 @@ const createPost = async ( postName, date, format ) => {
         const imgPath = path.join(blogImagePath, postName);
         const exists = await fs.pathExists(postPath);
         if (!exists) {
-            await fs.writeFile( postPath, defaultPostFrontMatter, { encoding: "UTF-8" } );
+            await fs.writeFile( postPath, postTemplate[format], { encoding: "UTF-8" } );
         }
         console.log( "image path:", imgPath);
         await fs.ensureDir(imgPath);

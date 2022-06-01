@@ -118,10 +118,10 @@ Copy the **Login redirect URI** from your app configuration to the `Callback` fi
 Before you use the `WebAuthenticator` class, you need to perform each platform-specific setup. For Android, add the following class to the `OktaAuth.Android` project:
 
 ```cs
-[Activity(NoHistory = true, LaunchMode = LaunchModeSingleTop)]
-[IntentFilter(new[] { Android.Content.Intent.ActionView ,
-  Categories = new[] { Android.Content.IntentCategoryDefault, Android.Content.IntentCategoryBrowsable },
-  DataScheme = OktaConfiguration.CallbackScheme)]
+[Activity(NoHistory = true, LaunchMode = LaunchMode.SingleTop)]
+    [IntentFilter(new[] { Android.Content.Intent.ActionView },
+        Categories = new[] { Android.Content.Intent.CategoryDefault, Android.Content.Intent.CategoryBrowsable },
+        DataScheme = OktaConfiguration.CallbackScheme)]
 public class WebAuthenticationCallbackActivity : XamarinEssentials.WebAuthenticatorCallbackActivity
 {
   protected override void OnResume()

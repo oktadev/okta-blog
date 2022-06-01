@@ -598,7 +598,7 @@ To access the protected endpoints, you need to generate an access token JWT. {% 
 
 Scroll down and click **Send Request**.
 
-Copy the token to your clipboard and store it in a shell variable in the shell window you're using to make requests.
+Copy the access token to your clipboard and store it in a shell variable in the shell window you're using to make requests.
 
 ```bash
 TOKEN=eyJraWQiOiJIb05xb01mNE9jREltWnBGRnBINjZGTkFOM0J... 

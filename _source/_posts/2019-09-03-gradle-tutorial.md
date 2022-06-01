@@ -562,7 +562,7 @@ Scroll down and click **Send Request**.
 
 You should see the success screen.
 
-{% img blog/gradle-tutorial/oidc-debugger-token.png alt:"OIDC Debugger returns a token" width:"800" %}{: .center-image }
+{% img blog/gradle-tutorial/oidc-debugger-token.jpg alt:"OIDC Debugger returns a token" width:"800" %}{: .center-image }
 
 Copy the access token, open a terminal, and store it in a shell variable like this:
 
