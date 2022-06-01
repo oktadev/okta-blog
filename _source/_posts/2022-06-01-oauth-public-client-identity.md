@@ -79,7 +79,7 @@ Without the support of the mobile operating system, there's nothing in the API c
 
 ### Does PKCE solve client impersonation?
 
-Nope! This is a common point of confusion, likely because of how PKCE was originally developed and rolled out. PKCE was originally described as a way for a mobile app to do the authorization code flow safely. But keep in mind this was back in 2015 when the previous advice was for mobile apps to use the Implicit flow, or the authorization code flow without credentials.
+Nope! This is a common point of confusion, likely because of how PKCE was originally developed and rolled out. PKCE was originally described as a way for a mobile app to do the authorization code flow safely. But keep in mind this was back in 2015 when mobile apps were still advised to use the Implicit flow or the authorization code flow without credentials.
 
 Despite PKCE being originally described as a technique for mobile apps, it is not an alternative to client authentication and doesn't ever attempt to pretend it is. PKCE prevents a few specific attacks, mainly authorization code interception and authorization code injection. And interestingly, authorization code injection is also possible even if the app does use a client secret or other client authentication. That's the reason PKCE is now recommended for all types of OAuth clients, regardless of whether they are a mobile app, a SPA, or a server-side app with credentials.
 
