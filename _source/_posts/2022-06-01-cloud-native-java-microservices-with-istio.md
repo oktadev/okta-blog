@@ -556,7 +556,7 @@ You can now access the application at the given `http://store.jhipster.<istio-in
 
 {% img blog/cloud-native-java-microservices-with-istio/jh-store-app.png alt:"Store gateway application" width:"900" %}{: .center-image }
 
-In another blog post, we will see how to use OIDC with Okta instead of JWT to secure these microservices on Istio.
+Currently the JHipster OIDC setup does not work with Istio and there is an [open issue](https://github.com/jhipster/generator-jhipster/issues/17384) in JHipster issue tracker for this. Alternative solutions would be to use an [external authorization server](https://istio.io/latest/blog/2021/better-external-authz/) with something like [Open Policy Agent](https://www.openpolicyagent.org/). We will cover this in a later blog post.
 
 ### Monitoring and observability
 
