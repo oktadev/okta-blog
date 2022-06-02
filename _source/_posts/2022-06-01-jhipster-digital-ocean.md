@@ -32,13 +32,13 @@ Cloud adoption continues to increase rapidly worldwide, and not only in the soft
 
 ## About DigitalOcean
 
-DigitalOcean is a cloud services company founded in 2011 by brothers Ben and Moisey Uretsky. The headquarters are in New York City in the United States, and they also have offices in Massachusetts and Bangalore. Last March 2022, it reached its IPO (Initial Public Offering) and some press articles describe it as the cloud services provider for small businesses: "Cloud services for the Little Guy".
+DigitalOcean is a cloud services company founded in 2011 by brothers Ben and Moisey Uretsky. Their headquarters are in New York City in the United States, and they also have offices in Massachusetts and Bangalore. Last March 2022, DigitalOcean reached its IPO (Initial Public Offering), and some press articles describe it as the cloud services provider for small businesses: "Cloud services for the Little Guy".
 
 {% img blog/jhipster-digital-ocean/do-logo.png alt:"DigitalOcean Logo" width:"200" %}{: .center-image }
 
 DigitalOcean Kubernetes (DOKS) is a managed Kubernetes service that lets you deploy Kubernetes clusters without the complexities of handling the control pane and containerized infrastructure. Clusters are compatible with standard Kubernetes toolchains and integrate natively with DigitalOcean load balancers and block storage volumes. DOKS offers fast provisioning and deployment, and provides a free high-availability control pane, for reliability management. It can also provide a Cluster Autoscaler that automatically adjusts the size of the cluster by adding or removing nodes based on the cluster's capacity to schedule pods. Pricing for Kubernetes workloads is based on resources required by the cluster, droplets, block storage, and load balancers.
 
-The company publishes its data center [certification reports](https://www.digitalocean.com/trust/certification-reports) on its web, and all the data centers have approved two or more of the following certifications: SOC (System and Organization Controls) 1 Type II, SOC 2 Type II, SOC 3 Type II, ISO/IEC 27001:2013 (Security techniques - Information security management systems). PCI-DSS (Payment Card Industry - Data Security Standard) has been certified in all data centers.
+The company publishes its data center [certification reports](https://www.digitalocean.com/trust/certification-reports) on its website, and all the data centers have approved two or more of the following certifications: SOC (System and Organization Controls) 1 Type II, SOC 2 Type II, SOC 3 Type II, and ISO/IEC 27001:2013 (Security techniques - Information security management systems). PCI-DSS (Payment Card Industry - Data Security Standard) has been certified in all data centers.
 
 ## Set up a microservices architecture for Kubernetes
 
@@ -99,7 +99,7 @@ cd ../gateway
 ```
 **IMPORTANT NOTE**: Unfortunately the application example does not build with Java 17 at the moment of writing this post. As specified in the introduction, this example was built with Java 11.
 
-Check the images were uploaded to [DockerHub](https://hub.docker.com), and navigate to the project root folder in the terminal for the next step.
+Check that the images were uploaded to [DockerHub](https://hub.docker.com), and navigate to the project root folder in the terminal for the next step.
 
 ## Configure authentication with OpenID Connect
 
@@ -137,7 +137,7 @@ Enable the OIDC authentication in the `jhipster-registry` service by adding the 
 
 Install [minikube](https://minikube.sigs.k8s.io/docs/start/) and [`kubectl`](https://kubernetes.io/docs/tasks/tools/).
 
-For minikube, you will need at least 2 CPUs. Start MiniKube with your number of CPUs:
+For minikube, you will need at least 2 CPUs. Start minikube with your number of CPUs:
 
 ```bash
 cd kubernetes
@@ -172,7 +172,7 @@ spec:
     app: store-mongodb
 ```
 
-Then deploy the application to minikube, in the `kubernetes` directory, run:
+Then deploy the application to minikube.  In the `kubernetes` directory, run:
 
 ```bash
 ./kubectl-apply.sh -f
@@ -315,7 +315,7 @@ Once all the pods are running, find the gateway external IP with the `kubectl de
 ```bash
 kubectl describe service gateway -n demo
 ```
-The output will look like:
+The output will look like this:
 
 ```text
 Name:                     gateway
@@ -338,7 +338,7 @@ Session Affinity:         None
 External Traffic Policy:  Cluster
 ```
 
-Update the redirect URIs in Okta to allow the gateway address as a valid redirect. Run `okta login`, open the returned URL in your browser, and sign in to the Okta Admin Console. Go to the **Applications** section, find your application, edit and add:
+Update the redirect URIs in Okta to allow the gateway address as a valid redirect. Run `okta login`, open the returned URL in your browser, and sign in to the Okta Admin Console. Go to the **Applications** section, find your application, edit, and add:
 - Sign-in redirect URIs: `http://<load-balancer-ingress-ip>:8080/login/oauth2/code/oidc`
 - Sign-out redirect URIs: `http://<load-balancer-ingress-ip>:8080`
 
@@ -358,12 +358,12 @@ You can create the certificate and the domain at the same time in the DigitalOce
 
 DigitalOcean load balancers support two main configurations for encrypted web traffic:
 
-- SSL termination: decrypts SSL requests at the load balancer and sends them unencrypted to the backend at the Droplets' private IP address. The slower and CPU-intensive work of decryption is performed at the load balancer, and certificate management is simplified. The traffic between the load balancer and the backend is secured by routing over the VPC network, but data is readable inside the private network.
-- SSL passthrough: sends the encrypted SSL requests directly to the backend at the Droplets' private IP address, traffic between the load balancer and the backend is secured. Every backend server must have the certificate, and client information contained in `X-forwarded-*` headers might be lost.
+- **SSL termination:** decrypts SSL requests at the load balancer and sends them unencrypted to the backend at the Droplets' private IP address. The slower and CPU-intensive work of decryption is performed at the load balancer, and certificate management is simplified. The traffic between the load balancer and the backend is secured by routing over the VPC network, but data is readable inside the private network.
+- **SSL passthrough:** sends the encrypted SSL requests directly to the backend at the Droplets' private IP address, traffic between the load balancer and the backend is secured. Every backend server must have the certificate, and client information contained in `X-forwarded-*` headers might be lost.
 
 Taking advantage of the simplified certificate management, SSL termination will be configured in the following steps through the DigitalOcean control panel.
 
-Login to your DigitalOcean account, and in the left menu choose **Kubernetes**. Then choose your cluster, and on the cluster page, choose **Resources**. In the _LOAD BALANCERS_ list, choose the single load balancer that must have been created. On the load balancer page, choose the **Settings** tab. Click **Edit** in the _Forwarding Rules_. Add a forwarding rule for HTTPS in port 443, and in the certificate drop-down, choose **New certificate**.
+Log in to your DigitalOcean account, and in the left menu choose **Kubernetes**. Then choose your cluster, and on the cluster page, choose **Resources**. In the _LOAD BALANCERS_ list, choose the single load balancer that must have been created. On the load balancer page, choose the **Settings** tab. Click **Edit** in the _Forwarding Rules_. Add a forwarding rule for HTTPS in port 443, and in the certificate drop-down, choose **New certificate**.
 
 {% img blog/jhipster-digital-ocean/do-new-certificate.png alt:"DigitalOcean new certificate form" width:"500" %}{: .center-image }
 
