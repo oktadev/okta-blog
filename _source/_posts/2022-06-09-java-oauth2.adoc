@@ -294,7 +294,7 @@ The most popular Scala web framework is still Play and it does have OAuth suppor
 
 == Learn more about Java and OAuth 2.0
 
-- https://developer.okta.com/blog/2017/06/21/what-the-heck-is-oauth[What the Heck is OAuth?]
+- link:/blog/2017/06/21/what-the-heck-is-oauth[What the Heck is OAuth?]
 - An Aaron video or two
 - Don't use implicit
 - Okta CLI
