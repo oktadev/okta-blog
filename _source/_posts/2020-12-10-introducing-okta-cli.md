@@ -324,7 +324,7 @@ We've created a few screencasts to show the Okta CLI in action. The videos below
     <iframe width="267" height="150" src="https://www.youtube.com/embed/jUOjIw-NBJ0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
   </div>
   <div class="video">
-    // todo: add JHipster CLI video
+    <iframe width="267" height="150" src="https://www.youtube.com/embed/ThytrcxL31s" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
   </div>
 </div>
 
