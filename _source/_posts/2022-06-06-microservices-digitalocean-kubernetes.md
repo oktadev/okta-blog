@@ -85,7 +85,7 @@ Choose the following options when prompted:
 
 **NOTE**: You can leave the Docker repository name blank for running Kubernetes locally, but a repository will be required for the cloud deployment, so go ahead and create a [DockerHub](https://hub.docker.com/) personal account, and the image pull configuration will be ready for both local and cloud deployments.
 
-Build the `gateway`, `store` and `blog` services container images with Jib. As Jib will push the images to DockerHub, you first need to do a `docker login`.
+Build the `gateway`, `store`, and `blog` services container images with Jib. As Jib will push the images to DockerHub, you first need to do a `docker login`.
 
 ```bash
 docker login
@@ -187,8 +187,10 @@ k9s -n demo
 {% img blog/jhipster-digital-ocean/k9s-pods.png alt:"k9s UI" width:"800" %}{: .center-image }
 
 Check out the [commands list](https://k9scli.io/topics/commands/), some useful ones are:
+
 - `:namespace`: show all available namespaces
 - `:pods`: show all available pods
+
 You can navigate the pods with `ENTER` and go back with `ESC` keys.
 
 Set up port-forwarding for the JHipster Registry.
