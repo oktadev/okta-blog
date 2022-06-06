@@ -434,7 +434,7 @@ doctl projects resources list <project-id>
 
 ## Learn more about JHipster and Kubernetes
 
-This has been a brief walkthrough for deploying JHipster to a DigitalOcean's managed Kubernetes cluster. Some important topics for production deployment were not covered in this post, to focus in particular on DigitalOcean resource requirements. Some key topics we did not cover in this post include external configuration storage with Spring Cloud Config and Git and secrets encryption both for the cloud configuration and Kubernetes configuration. You can learn about these good practices in the first post of this cloud deployment series: [Kubernetes to the Cloud with Spring Boot and JHipster](/blog/2021/06/01/kubernetes-spring-boot-jhipster). 
+This has been a brief walkthrough for deploying JHipster to a DigitalOcean's managed Kubernetes cluster. Some important topics for production deployment were not covered in this post, to focus in particular on DigitalOcean resource requirements. Some key topics we did not cover in this post include external configuration storage with Spring Cloud Config and Git as well as secrets encryption both for the cloud configuration and Kubernetes configuration. You can learn about these good practices in the first post of this cloud deployment series: [Kubernetes to the Cloud with Spring Boot and JHipster](/blog/2021/06/01/kubernetes-spring-boot-jhipster). 
 
 Keep learning, and for more content on JHipster, check out the following links:
 
