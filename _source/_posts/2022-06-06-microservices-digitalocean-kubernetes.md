@@ -309,7 +309,7 @@ Events:
 
 As instructed by the event message, I contacted DigitalOcean support and they fixed it.
 
-Finally, as I first registered for the free trial account, I had to open a second support ticket requesting higher node sizes, so I could use the size `s-4vcpu-8gb-intel`. Not all the size options were available after signing up for the trial, but that is not the case for a standard account. Billing should be under 10 USD for a short Kubernetes service test.
+Finally, as I first registered for the free trial account, I had to open a second support ticket requesting higher node sizes, so I could use the size `s-4vcpu-8gb-intel`. Not all the size options were available after signing up for the trial, but that is not the case for a standard account. Billing should be under $10 USD for a short Kubernetes service test.
 
 ### Find your gateway's external IP and update redirect URIs
 
