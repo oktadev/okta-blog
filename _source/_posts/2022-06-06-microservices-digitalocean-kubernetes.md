@@ -1,22 +1,23 @@
 ---
 layout: blog_post
-title: "JHipster Application Deployment to DigitalOcean's Kubernetes"
+title: "Run Microservices on DigitalOcean with Kubernetes"
 author: jimena-garbarino
 by: contractor
 communities: [devops,java]
-description: "A step-by-step guide for JHipster deployment to DigitalOcean's cloud"
-tags: []
+description: "A step-by-step guide for JHipster deployment to DigitalOcean's cloud."
+tags: [java, kubernetes, digitalocean, jhipster, spring-boot, spring-cloud]
 tweets:
-- ""
-- ""
-- ""
-image:
+- "DigitalOcean Kubernetes is designed for you and your small business. Learn how to use it with @jhipster today!"
+- "Learn how to deploy your @java microservices to @digitalocean with @kubernetesio and this magnificent tutorial."
+- "A quick guide to deploying microservices to @digitalocean with @kubernetesio. 👇"
+image: blog/jhipster-digital-ocean/digitalocean-kubernetes.png
 type: conversion
 ---
 
 Cloud adoption continues to increase rapidly worldwide, and not only in the software industry. Every year more and more companies move their applications to the cloud. In the last JHipster community survey, from December 2021, participants valued JHipster's ability to get them to production faster, and requested more tutorials on deployment to cloud platforms. DigitalOcean is among the most popular "other" cloud vendors, according to some surveys. This post is a quick walk-through of the deployment of a JHipster microservices architecture to a Kubernetes cluster in DigitalOcean's cloud.
 
-**This tutorial was created with the following frameworks and tools**:
+This tutorial was created with the following frameworks and tools:
+
 - [JHipster 7.8.1](https://www.jhipster.tech/installation/)
 - [Java OpenJDK 11](https://jdk.java.net/java-se-ri/11)
 - [Okta CLI 0.10.0](https://cli.okta.com)
@@ -107,7 +108,7 @@ One more configuration step before running the architecture locally, let's confi
 
 {% include setup/cli.md type="jhipster" %}
 
-The settings from the generated `.okta.env` must be added to the `kubernetes/registry-k8s/application-configmap.yml`:
+Add the settings from the generated `.okta.env` to `kubernetes/registry-k8s/application-configmap.yml`:
 
 ```yml
 data:
@@ -240,7 +241,7 @@ Create the cluster with the following command line:
 ```bash
 doctl k cluster create do1 -v --size s-4vcpu-8gb-intel
 ```
-After creating a cluster, `doctl` adds a configuration context to kubectl and makes it active, so you can start monitoring your cluster right away with k9s. First, apply the resources configuration to the DigitalOcean cluster:
+After creating a cluster, `doctl` adds a configuration context to `kubectl` and makes it active, so you can start monitoring your cluster right away with k9s. First, apply the resources configuration to the DigitalOcean cluster:
 
 ```bash
 ./kubectl-apply.sh -f
@@ -260,7 +261,7 @@ Once you see the `jhipster-registry` pods are up, set up port forwarding again s
 
 Deploying to a Kubernetes cluster on DigitalOcean's cloud can be tricky if you don't specify enough capacity from the start.
 
-At first, I tested the cluster with the higher size Intel nodes available for my account, `s-2vcpu-4gb-intel`. It was my attempt to run the application in the default cluster configuration, a three-node cluster with a single node pool in the nyc1 region, using the latest Kubernetes version. As I started to see pods not running due to `insufficient CPU`, I increased the number of nodes later. DigitalOcean's latest and default Kubernetes version at the moment of writing this post is 1.22.8.
+At first, I tested the cluster with the highest size Intel nodes available for my account, `s-2vcpu-4gb-intel`. I attempted to run the application in the default cluster configuration, a three-node cluster with a single node pool in the nyc1 region, using the latest Kubernetes version. As I started to see pods not running due to `insufficient CPU`, I increased the number of nodes and got everything working. DigitalOcean's latest and default Kubernetes version at the moment of writing this post was 1.22.8.
 
 If you need to find out the reason why a pod is not running, you can get the pod events with `kubectl describe`, for example, for the `jhipster-registry-0` pod:
 
@@ -279,14 +280,14 @@ Events:
 ```
 If you see a pod failing in `k9s`, check the events for that pod with `kubectl describe pod` as in the example above.
 
-To add cpu, increase the number of nodes with `doctl`:
+To add CPU, increase the number of nodes with `doctl`:
 
 ```bash
 doctl k cluster node-pool update do1 do1-default-pool --count 4
 ```
 You don't need to restart pods when adding nodes.
 
-After I increased cpu adding one more node to the cluster, some of the pods, in the `store-mongodb` stateful set with 3 replicas, did not run due to _unbound immediate PersistentVolumeClaims_. This was reported in the pod events, in the output of `kubectl describe pod`, for the failing pods. I then inspected persistent volume claims with the following commands:
+After I increased CPU (adding one more node to the cluster), some of the pods, in the `store-mongodb` stateful set with 3 replicas, did not run due to _unbound immediate PersistentVolumeClaims_. This was reported in the pod events, in the output of `kubectl describe pod`, for the failing pods. I then inspected persistent volume claims with the following commands:
 
 ```bash
 kubectl get pvc -n demo
@@ -306,7 +307,7 @@ Events:
 
 As instructed by the event message, I contacted DigitalOcean support and they fixed it.
 
-Finally, as I first registered for the free trial account, I had to open a second support ticket requesting higher node sizes, so I could use the size `s-4vcpu-8gb-intel`. Not all the size options were available after signing up for the trial, but that is not the case for a standard account. Billing may be under 10 dollars for a short Kubernetes service test.
+Finally, as I first registered for the free trial account, I had to open a second support ticket requesting higher node sizes, so I could use the size `s-4vcpu-8gb-intel`. Not all the size options were available after signing up for the trial, but that is not the case for a standard account. Billing should be under 10 USD for a short Kubernetes service test.
 
 ### Find your gateway's external IP and update redirect URIs
 
@@ -342,7 +343,7 @@ Update the redirect URIs in Okta to allow the gateway address as a valid redirec
 - Sign-in redirect URIs: `http://<load-balancer-ingress-ip>:8080/login/oauth2/code/oidc`
 - Sign-out redirect URIs: `http://<load-balancer-ingress-ip>:8080`
 
-Navigate to `http://<load-balancer-ingress-ip>:8080`.
+Navigate to `http://<load-balancer-ingress-ip>:8080` and rejoice when everything works!
 
 ## Secure web traffic with HTTPS
 
@@ -350,7 +351,7 @@ Since the gateway service acts as the application front-end, in the k8s descript
 
 The standard practice is to secure web traffic to your application with HTTPS. For traffic encryption, you need a TLS (SSL) certificate. DigitalOcean also provides automatic certificate creation and renewal if you manage your domain with DigitalOcean's DNS, which is free. But domain registration is not provided.  To use DigitalOcean's DNS, you need to register a domain name with a registrar and update your domain's NS records to point to DigitalOcean's name servers.
 
-Then, for using DigitalOcean's managed domain and certificate, you must [delegate the domain](https://docs.digitalocean.com/tutorials/dns-registrars/), updating NS records in the registrar. Because of this requirement, you cannot use free DNS services where you cannot set up NS records, like nip.io.
+Then, for using DigitalOcean's managed domain and certificate, you must [delegate the domain](https://docs.digitalocean.com/tutorials/dns-registrars/), updating NS records in the registrar. Because of this requirement, you cannot use free DNS services where you cannot set up NS records, like [nip.io](https://nip.io/).
 
 **IMPORTANT NOTE**: Before changing the registrar NS records (the nameservers), add your domain to DigitalOcean, to minimize service disruptions.
 
@@ -380,8 +381,8 @@ Finally, in the SSL section of the settings, tick the checkbox **Redirect HTTP t
 {% img blog/jhipster-digital-ocean/do-ssl-redirect.png alt:"DigitalOcean load balancer ssl redirect settings" width:"800" %}{: .center-image }
 
 Once again, update the redirect URIs in Okta to allow the newly configured domain. Add the following redirect URIs:
-- Sign-in redirect URIs: `https://<your-domain>:8080/login/oauth2/code/oidc`
-- Sign-out redirect URIs: `https://<your-domain>:8080`
+- Sign-in redirect URIs: `https://<your-domain>/login/oauth2/code/oidc`
+- Sign-out redirect URIs: `https://<your-domain>`
 
 Test the configuration by navigating to `http://<your-domain>`. First, the load balancer should redirect to HTTPs, and then the gateway should redirect to the Okta sign-in page.
 
@@ -429,11 +430,12 @@ doctl projects list
 doctl projects resources list <project-id>
 ```
 
-## Learn more about JHipster and cloud deployment
+## Learn more about JHipster and Kubernetes
 
-This has been a brief walkthrough for deploying JHipster to a DigitalOcean's managed Kubernetes cluster. Some important topics for production deployment were not covered in this post, to focus in particular on DigitalOcean resource requirements. Some key topics we did not cover in this post include external configuration storage with Spring Cloud Config and Git and secrets encryption both for the cloud configuration and Kubernetes configuration. You can learn about these good practices in the first post of this cloud deployment series: [Kubernetes to the Cloud with Spring Boot and JHipster](/blog/2021/06/01/kubernetes-spring-boot-jhipster). Keep learning, and for more content on JHipster, check out the following links:
+This has been a brief walkthrough for deploying JHipster to a DigitalOcean's managed Kubernetes cluster. Some important topics for production deployment were not covered in this post, to focus in particular on DigitalOcean resource requirements. Some key topics we did not cover in this post include external configuration storage with Spring Cloud Config and Git and secrets encryption both for the cloud configuration and Kubernetes configuration. You can learn about these good practices in the first post of this cloud deployment series: [Kubernetes to the Cloud with Spring Boot and JHipster](/blog/2021/06/01/kubernetes-spring-boot-jhipster). 
 
-- [Kubernetes to the Cloud with Spring Boot and JHipster](/blog/2021/06/01/kubernetes-spring-boot-jhipster)
+Keep learning, and for more content on JHipster, check out the following links:
+
 - [Kubernetes Microservices on Azure with Cosmos DB](/blog/2022/05/05/kubernetes-microservices-azure#spring-boot-microservices-for-azure-and-cosmos-db)
 - [Introducing Spring Native for JHipster: Serverless Full-Stack Made Easy](/blog/2022/03/03/spring-native-jhipster)
 - [Full Stack Java with React, Spring Boot, and JHipster](/blog/2021/11/22/full-stack-java)
