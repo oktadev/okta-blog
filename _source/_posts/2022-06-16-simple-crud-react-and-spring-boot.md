@@ -23,7 +23,7 @@ You will need [Java 11](http://sdkman.io) and [Node 16](https://nodejs.org/) ins
 
 {% include toc.md %}
 
-## Create an API App with Spring Boot
+## Create an API app with Spring Boot
 
 I'm a frequent speaker at conferences and user groups around the world. My favorite user groups to speak at are Java User Groups (JUGs). I've been a Java developer for almost 20 years, and I love the Java community. One of my good friends, James Ward, said doing a JUG Tour was one of his favorite developer advocate activities back in the day. I recently took his advice and traded overseas conferences for JUG meetups in the US.
 
@@ -43,7 +43,7 @@ Click **Generate Project**, expand `jugtours.zip` after downloading, and open th
 
 **TIP:** If you're using IntelliJ IDEA or Spring Tool Suite, you can also use Spring Initializr when creating a new project.
 
-### Add a JPA Domain Model
+### Add a JPA domain model
 
 The first thing you'll need to do is to create a domain model that'll hold your data. At a high level, there's a `Group` that represents the JUG, an `Event` that has a many-to-one relationship with `Group`, and a `User` that has a one-to-many relationship with `Group`.
 
@@ -316,7 +316,7 @@ Add Bootstrap's CSS file as an import in `app/src/index.js`.
 import 'bootstrap/dist/css/bootstrap.min.css';
 ```
 
-## Call Your Spring Boot API and Display the Results
+## Call Your Spring Boot API and display the results
 
 Modify `app/src/App.js` to use the following code that calls `/api/groups` and display the list in the UI.
 
@@ -380,7 +380,7 @@ Make sure Spring Boot is running, then run `npm start` in your `app` directory. 
 {% img blog/spring-boot-2-react/jug-list.png alt:"JUG List" width:"800" %}{: .center-image }
 {% endcomment %}
 
-## Build a React GroupList Component
+## Build a React `GroupList` component
 
 React is all about components, and you don't want to render everything in your main `App`, so create `app/src/GroupList.js` and populate it with the following JavaScript.
 
@@ -591,7 +591,7 @@ Click on **Manage JUG Tour** and you should see a list of the default groups.
 
 It's great that you can see your Spring Boot API's data in your React app, but it's no fun if you can't edit it!
 
-## Add a React GroupEdit Component
+## Add a React `GroupEdit` component
 
 Create `app/src/GroupEdit.js` and use its `componentDidMount()` to fetch the group resource with the ID from the URL.
 
@@ -735,7 +735,7 @@ Now you should be able to add and edit groups!
 {% img blog/spring-boot-react/edit-group.png alt:"Edit Group screen" width:"800" %}{: .center-image }
 {% endcomment %}
 
-## Add Authentication with Okta
+## Add authentication with Okta
 
 It's pretty cool to build a CRUD app, but it's even cooler to build a _secure_ one. To achieve that, you'll want to add authentication so users have to log in before viewing/modifying groups. To make this simple, you can use Okta's API for OIDC. At Okta, our goal is to make [identity management](https://developer.okta.com/product/user-management/) a lot easier, more secure, and more scalable than what you're used to. Okta is a cloud service that allows developers to create, edit, and securely store user accounts and user account data, and connect them with one or multiple applications. Our API enables you to:
 
@@ -787,7 +787,7 @@ Are you sold? [Register for a forever-free developer account](https://developer.
 </project>
 ```
 
-### Create an OIDC App in Okta
+### Create an OIDC app in Okta
 
 {% include setup/cli.md type="web" framework="Okta Spring Boot Starter" signup="false"
    loginRedirectUri="http://localhost:8080/login/oauth2/code/okta"
@@ -810,7 +810,7 @@ spring:
             issuer-uri: https://{yourOktaDomain}/oauth2/default
 ```
 
-## Configure Spring Security for React and User Identity
+## Configure Spring Security for React and user identity
 
 To make Spring Security React-friendly, create a `SecurityConfiguration.java` file in `src/main/java/.../jugtours/config`. Create the `config` directory and put this class in it.
 
@@ -1058,7 +1058,7 @@ ResponseEntity<Group> createGroup(@Valid @RequestBody Group group,
 }
 ```
 
-## Modify React to Handle CSRF and be Identity Aware
+## Modify React to handle CSRF and be identity-aware
 
 You'll need to make a few changes to your React components to make them identity-aware. The first thing you'll want to do is modify `App.js` to wrap everything in a `CookieProvider`. This component allows you to read the CSRF cookie and send it back as a header.
 
@@ -1293,7 +1293,7 @@ After all these changes, you should be able to restart both Spring Boot and Reac
 {% img blog/spring-boot-react/my-jug-tour.png alt:"My JUG Tour" width:"800" %}{: .center-image }
 {% endcomment %}
 
-## Configure Maven to Build and Package React with Spring Boot
+## Configure Maven to build and package React with Spring Boot
 
 To build and package your React app with Maven, you can use the [frontend-maven-plugin](https://github.com/eirslett/frontend-maven-plugin) and Maven's profiles to activate it. Add properties for versions, and a `<profiles>` section to your `pom.xml`.
 
@@ -1407,7 +1407,7 @@ spring:
   security:
 ```
 
-### Fix Redirect After Login in Prod Profile
+### Fix redirect after login in prod profile
 
 The `RequestCache` bean in the `SecurityConfiguration.java` class is useful for redirecting back to `http://localhost:3000` in development, but it doesn't work when everything is running in the same app. The error that happens is as follows:
 
