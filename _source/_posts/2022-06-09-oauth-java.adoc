@@ -274,6 +274,7 @@ However, there are a couple of open source authorization servers you can use.
 
 - https://www.keycloak.org/[Keycloak]
 - https://spring.io/projects/spring-authorization-server[Spring Authorization Server]
+- https://github.com/wso2/product-is[WSO2 Identity Server]
 
 Since I work for a company that is an identity provider, it's my duty to inform you that using one of these is called "building your own." We recommend buying instead. From us, of course. 😉
 
