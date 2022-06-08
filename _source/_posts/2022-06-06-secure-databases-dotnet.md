@@ -641,10 +641,10 @@ In this tutorial, you learned how to store data in Cosmos DB from an ASP.NET Cor
 
 ## Learn more about Azure and ASP.NET Core
 
-[Build a Simple Microservice with C# Azure Functions](https://developer.okta.com/blog/2019/11/13/build-simple-microservice-csharp-azure-functions)
+[Build a Simple Microservice with C# Azure Functions](/blog/2019/11/13/build-simple-microservice-csharp-azure-functions)
 
-[Deploy a .NET Container with Azure DevOps](https://developer.okta.com/blog/2020/10/07/dotnet-container-azure-devops)
+[Deploy a .NET Container with Azure DevOps](/blog/2020/10/07/dotnet-container-azure-devops)
 
-[Secure Your .NET 6 Web API](https://developer.okta.com/blog/2022/04/20/dotnet-6-web-api)
+[Secure Your .NET 6 Web API](/blog/2022/04/20/dotnet-6-web-api)
 
-Make sure you follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel. If you have any questions or want to share what tutorial you’d like to see next, please comment below.
+Make sure you follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel. If you have any questions or want to share what tutorial you'd like to see next, please comment below.
