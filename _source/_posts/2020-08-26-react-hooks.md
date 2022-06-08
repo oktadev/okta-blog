@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8179204633
+discourse_topic_id: 17280
+discourse_comment_url: https://devforum.okta.com/t/17280
 layout: blog_post
 title: "Build a Simple React Application Using Hooks"
 author: holger-schmitz

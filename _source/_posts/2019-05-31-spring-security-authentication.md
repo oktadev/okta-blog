@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7449061820
+discourse_topic_id: 17064
+discourse_comment_url: https://devforum.okta.com/t/17064
 layout: blog_post
 title: "Simple Authentication with Spring Security"
 author: andrew-hughes

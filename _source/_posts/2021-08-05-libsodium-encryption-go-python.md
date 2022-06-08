@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8692988417
+discourse_topic_id: 17404
+discourse_comment_url: https://devforum.okta.com/t/17404
 layout: blog_post
 title: Getting Started with Libsodium in Python and Go
 author: phill-edwards

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6300244343
+discourse_topic_id: 16758
+discourse_comment_url: https://devforum.okta.com/t/16758
 layout: blog_post
 title: 'Secure a Spring Microservices Architecture with Spring Security, JWTs, Juiser, and Okta'
 author: matt-raible

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7485542570
+discourse_topic_id: 17055
+discourse_comment_url: https://devforum.okta.com/t/17055
 layout: blog_post
 title: "Build a Command Line Application with Node.js"
 author: david-neal

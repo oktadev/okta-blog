@@ -41,6 +41,9 @@
   {% if page.layout == "blog_post" and page.path contains ".adoc" %}
     {% css asciidoctor %}
   {% endif %}
+  {% if page.layout == "blog_post" and page.path contains ".md" %}
+    {% css markdown %}
+  {% endif %}
   <link rel="apple-touch-icon" sizes="180x180" href="/assets-jekyll/favicon/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets-jekyll/favicon/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/assets-jekyll/favicon/favicon-16x16.png">
@@ -48,8 +51,8 @@
   <link rel="mask-icon" href="/assets-jekyll/favicon/safari-pinned-tab.svg" color="#21313a">
   <meta name="msapplication-config" content="/assets-jekyll/favicon/browserconfig.xml">
   <meta name="theme-color" content="#ffffff">
-  {% if page.canonical-url -%}
-  <link rel="canonical" href="{{ page.canonical-url }}" />
+  {% if page.canonical -%}
+  <link rel="canonical" href="{{ page.canonical }}" />
   {%- else -%}
   <link rel="canonical" href="{{ site.external_domain }}{{ page.url }}" />
   {%- endif -%}
@@ -65,7 +68,7 @@
     {% capture image %}"image": "{{ site.external_domain }}{{ blog_image }}",{% endcapture %}
   <script type="application/ld+json">
     {
-      "@context": "http://schema.org",
+      "@context": "https://schema.org",
       "@type": "BlogPosting",
       "headline": "{{ page.title }}",
       "genre": "Technology",
@@ -81,7 +84,10 @@
       "url": "{{ site.external_domain }}{{ page.url }}",
       "datePublished": "{{ page.date | date: "%Y-%m-%d" }}",
       "dateCreated": "{{ page.date | date: "%Y-%m-%d" }}",
-      "dateModified": "{{ page.date | date: "%Y-%m-%d" }}",
+    {%- if page.layout == 'blog_post' and page.changelog -%}
+    {% assign last_updated_date = page.changelog[0] | split: '=>' | first | date: "%Y-%m-%d" %}
+      "dateModified": "{{ last_updated_date }}",{% else %}
+      "dateModified": "{{ page.date | date: "%Y-%m-%d" }}",{% endif %}
       "articleBody": "{% if page.description %}{{ page.description | strip_html | strip_newlines | truncate: 300 }}{% elsif page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate 300 }}{% else %}{{ site.description }}{% endif %}",
       "author": {
         "@type": "Person",

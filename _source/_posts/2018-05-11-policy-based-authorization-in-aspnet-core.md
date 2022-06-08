@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6664454445
+discourse_topic_id: 16869
+discourse_comment_url: https://devforum.okta.com/t/16869
 layout: blog_post
 title: "Policy-Based Authorization in ASP.NET Core"
 author: lee-brandt

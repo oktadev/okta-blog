@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8507481160
+discourse_topic_id: 17370
+discourse_comment_url: https://devforum.okta.com/t/17370
 layout: blog_post
 title: "How to Use Client Credentials Flow with Spring Security"
 author: andrew-hughes
@@ -7,11 +10,14 @@ communities: [java]
 description: "Learn how to use OAuth 2.0's client credentials grant to communicate between apps secured by Spring Security."
 tags: [java, spring-security, spring-boot, oauth2, client-credentials-flow]
 tweets:
-- "Want to developer secure server-to-server communication with @SpringSecurity? Use @oauth2's client credentials flow!"
+- "Want to develop secure server-to-server communication with @SpringSecurity? Use @oauth2's client credentials flow!"
 - "Learn how to use Spring's RestTemplate and WebClient with the OAuth 2.0 client credential flow."
 - "How to use OAuth 2.0 for server-to-server applications. 👇"
 image: blog/client-credentials-spring-security/client-credentials-flow.png
 type: conversion
+github: https://github.com/oktadev/okta-spring-boot-client-credentials-example
+changelog:
+- 2021-10-26: Updated to use Spring Boot 2.5.6. You can view this post's changes in [okta-blog#936](https://github.com/oktadev/okta-blog/pull/935); example app changes are in [okta-spring-boot-client-credentials-example#4](https://github.com/oktadev/okta-spring-boot-client-credentials-example/pull/4).
 ---
 
 The **client credentials grant** is used when two servers need to communicate with each other outside the context of a user. This is a very common scenario—and yet, it's often overlooked by tutorials and documentation online. In contrast, the **authorization code grant** type is more common, for when an application needs to authenticate a user and retrieve an authorization token, typically a JWT, that represents the user's identity within the application and defines the resources the user can access, and the actions the user can perform.
@@ -31,6 +37,12 @@ Fortunately, this grant type is more straightforward than the other user-focused
 You will create a simple resource server that will be secured using Okta as an OAuth 2.0 and OpenID Connect (OIDC) provider. After that, you will create a Spring Boot-based command-line client that uses Spring's `RestTemplate` to make authenticated requests to the secure server. You will see how to authenticate the client with Okta using the client credentials grant and how to exchange the client credentials for a JSON Web Token (JWT), which will be used in the requests to the secure server. 
 
 `RestTemplate` is deprecated, and while still widely used, should probably not be used for new code. Instead, the WebFlux-based class, `WebClient` should be used. In the next part of the tutorial, you will implement the same OAuth 2.0 client credentials grant using Spring `WebClient`.
+
+If you would rather follow along by watching a video, check out the screencast below from our [YouTube channel](https://youtu.be/Dy7vAhKkiGo).
+
+<div style="text-align: center; margin-bottom: 1.25rem">
+<iframe width="800" height="450" style="max-width: 100%" src="https://www.youtube.com/embed/Dy7vAhKkiGo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 ## What Is the Client Credentials Grant Flow?
 
@@ -102,12 +114,21 @@ Open a BASH shell and navigate to the base project directory. Run the command be
 
 ```shell
 curl https://start.spring.io/starter.tgz \
-  -d bootVersion=2.4.5 \
+  -d bootVersion=2.5.6 \
   -d artifactId=secure-server \
   -d dependencies=oauth2-resource-server,web,security,okta \
-  -d language=java \
-  -d type=maven-project \
   -d baseDir=secure-server \
+| tar -xzvf - && cd secure-server
+```
+
+You can also use HTTPie:
+
+```shell
+https start.spring.io/starter.zip \
+  bootVersion==2.5.6 \
+  artifactId==secure-server \
+  dependencies==oauth2-resource-server,web,security,okta \
+  baseDir==secure-server \
 | tar -xzvf - && cd secure-server
 ```
 
@@ -155,7 +176,7 @@ public class DemoApplication {
     }
 
     @RestController
-    public class RequestCotroller {
+    public class RequestController {
         @PreAuthorize("hasAuthority('SCOPE_mod_custom')")
         @GetMapping("/")
         public String getMessage(Principal principal) {
@@ -218,7 +239,7 @@ HTTP/1.1 401
 
 ## Add a Custom Scope to Your Authorization Server
 
-Because we are using the custom scope `mod_custom` in the `@Preauthorize` annotation, you need to add this custom scope to your Okta authorization server. Run `okta login` and open the resulting URL in your browser. Sign in to the Okta Admin Console. You may need to click the **Admin** button to get to your dashboard.
+Because we are using the custom scope `mod_custom` in the `@PreAuthorize` annotation, you need to add this custom scope to your Okta authorization server. Run `okta login` and open the resulting URL in your browser. Sign in to the Okta Admin Console. You may need to click the **Admin** button to get to your dashboard.
 
 Go to **Security** > **API**. Select the **Default** authorization server by clicking on **default** in the table.
 
@@ -234,16 +255,14 @@ Next, you will create a command-line application that makes an authorized reques
 
 ```bash
 curl https://start.spring.io/starter.tgz \
-  -d bootVersion=2.4.5 \
+  -d bootVersion=2.5.6 \
   -d artifactId=client \
   -d dependencies=oauth2-client,web \
-  -d language=java \
-  -d type=maven-project \
   -d baseDir=client-resttemplate \
 | tar -xzvf - && cd client-resttemplate
 ```
 
-Open this project in your IDE and a new class to hold the OAuth configuration.
+Open this project in your IDE and create a new class to hold the OAuth configuration.
 
 `src/main/java/com/example/client/OAuthClientConfiguration.java`
 ```java
@@ -363,7 +382,7 @@ public class DemoApplication implements CommandLineRunner {
 	@Autowired
 	private AuthorizedClientServiceOAuth2AuthorizedClientManager authorizedClientServiceAndManager;
 
-	// OUr command line runner method, runs once application is fully started
+	// The command line runner method, runs once application is fully started
 	@Override
 	public void run(String... args) throws Exception {
 
@@ -476,11 +495,9 @@ Run this command from a Bash shell from the project root directory.
 
 ```bash
 curl https://start.spring.io/starter.tgz \
-  -d bootVersion=2.4.5 \
+  -d bootVersion=2.5.6 \
   -d artifactId=client \
   -d dependencies=oauth2-client,web,webflux \
-  -d language=java \
-  -d type=maven-project \
   -d baseDir=client-webclient \
 | tar -xzvf - && cd client-webclient
 ```

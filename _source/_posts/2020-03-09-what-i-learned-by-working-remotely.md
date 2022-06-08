@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7908827216
+discourse_topic_id: 17223
+discourse_comment_url: https://devforum.okta.com/t/17223
 layout: blog_post
 title: "What I Learned After Working Remotely for a Year"
 author: heather-downing

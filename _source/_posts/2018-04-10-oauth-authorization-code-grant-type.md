@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6604182321
+discourse_topic_id: 16851
+discourse_comment_url: https://devforum.okta.com/t/16851
 layout: blog_post
 title: "What is the OAuth 2.0 Authorization Code Grant Type?"
 author: aaron-parecki

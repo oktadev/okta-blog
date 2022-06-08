@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8263405573
+discourse_topic_id: 17313
+discourse_comment_url: https://devforum.okta.com/t/17313
 layout: blog_post
 title: "A Quick Guide to Security with Vaadin Fusion and Spring Boot"
 author: matt-raible

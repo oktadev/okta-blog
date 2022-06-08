@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8299717293
+discourse_topic_id: 17301
+discourse_comment_url: https://devforum.okta.com/t/17301
 layout: blog_post
 title: "Use the Okta CLI to Quickly Build Secure Angular Apps"
 author: matt-raible
@@ -12,6 +15,8 @@ tweets:
 - "We 💙 the Okta CLI here at @oktadev. This screencast shows how to use it with @angular."
 image: blog/okta-cli-angular/okta-cli-angular.png
 type: conversion
+changelog:
+- 2020-02-02: Added note about `okta start angular` changing its default from using the Sign-In Widget to using the more secure redirect authentication. See [okta-blog#1066](https://github.com/oktadev/okta-blog/pull/1066) for changes to this post.
 ---
 :page-liquid:
 
@@ -24,6 +29,7 @@ To show you how easy it is, I https://youtu.be/aMmTcLnoZzc[created a screencast 
 <iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/aMmTcLnoZzc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 ++++
+IMPORTANT: To create the same app as the one shown in this video, you'll need to run `okta apps angular --branch widget`.
 
 For those that would rather read than watch—this is for you.
 
@@ -63,19 +69,21 @@ Click **Login** and authenticate with your credentials.
 
 image::{% asset_path 'blog/okta-cli-angular/login.png' %}[alt=Angular Login,width=800,align=center]
 
-Upon successful sign-in, you'll be returned to your app. Click on **Profile** to see your data that's retrieved using the Okta Angular SDK's `getUser()` method.
+Upon successful sign-in, you'll be returned to your app. Click on **Profile** to see your data that's retrieved from your ID token.
 
 [source,typescript]
 ----
 export class ProfileComponent implements OnInit {
-  claims: Array<Claim>;
+  claims!: { name: string; value: unknown }[];
 
-  constructor(public oktaAuth: OktaAuthService) {}
+  constructor(@Inject(OKTA_AUTH) public oktaAuth: OktaAuth) {
+  }
 
   async ngOnInit() {
-    const userClaims = await this.oktaAuth.getUser();
-    this.claims = Object.entries(userClaims).map(entry => ({ claim: entry[0], value: entry[1] }));
+    const idToken = await this.oktaAuth.tokenManager.get('idToken');
+    this.claims = Object.entries(idToken.claims).map(entry => ({ name: entry[0], value: entry[1] }));
   }
+
 }
 ----
 

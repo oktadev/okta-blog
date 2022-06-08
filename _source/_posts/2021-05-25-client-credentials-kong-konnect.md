@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8550181620
+discourse_topic_id: 17374
+discourse_comment_url: https://devforum.okta.com/t/17374
 layout: blog_post
 title: "Implement Client Credentials with Kong Konnect and Okta"
 author: claudio-acquaviva
@@ -12,7 +15,7 @@ tweets:
 - "Using Kong for your API gateway? Learn how to integrate it with @okta!"
 image: blog/client-credentials-kong/client-credentials-kong.png
 type: conversion
-canonical-url: https://konghq.com/blog/kong-and-okta-client-credentials/
+canonical: https://konghq.com/blog/kong-and-okta-client-credentials/
 ---
 
 Using Kong's [OpenID Connect (OIDC) plugin](https://docs.konghq.com/hub/kong-inc/openid-connect/), Kong and Okta work together to solve three significant application development challenges:

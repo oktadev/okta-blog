@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7525226948
+discourse_topic_id: 17089
+discourse_comment_url: https://devforum.okta.com/t/17089
 layout: blog_post
 title: "Build a REST API Using Java, MicroProfile, and JWT Authentication"
 author: andrew-hughes
@@ -253,7 +256,7 @@ Because the example app is an API, it expects the request to come with a valid t
 
 Scroll down and click **Send Request**.
 
-If all went well, you'll see a success page with the JWT. Leave this page open, as you'll need the token value in a moment.
+If all went well, you'll see a success page with the JWT. Leave this page open, as you'll need the access token value in a moment.
 
 ## Add JWT Auth To MicroProfile
 

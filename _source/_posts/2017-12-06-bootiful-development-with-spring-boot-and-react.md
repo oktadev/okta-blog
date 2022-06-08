@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6332881169
+discourse_topic_id: 16801
+discourse_comment_url: https://devforum.okta.com/t/16801
 layout: blog_post
 title: 'Bootiful Development with Spring Boot and React'
 author: matt-raible

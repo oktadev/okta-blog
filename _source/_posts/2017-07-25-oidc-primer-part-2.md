@@ -1,16 +1,20 @@
 ---
+disqus_thread_id: 6300319295
+discourse_topic_id: 16769
+discourse_comment_url: https://devforum.okta.com/t/16769
 layout: blog_post
 title: 'OIDC in Action – An OpenID Connect Primer, Part 2 of 3'
 author: micah-silverman
 by: advocate
 communities: [security]
+description: "This blog series is a primer on OIDC. In this post, we'll dive into the mechanics of OIDC and see the various flows in action."
 tags: [oauth, oauth2, oauth2-dot-0, oauth-2-dot-0, openid, openid-connect, oidc]
 redirect_from:
   - "/blog/2017-08-01-oidc-primer-part-2"
 type: awareness
 ---
 
-In the [first installment of this OpenID Connect (OIDC) series](https://developer.okta.com/blog/2017/07/25/oidc-primer-part-1), we looked at some OIDC basics, its history, and the various flow types, scopes, and tokens involved. In this post, we'll dive into the mechanics of OIDC and see the various flows in action.
+In the [first installment of this OpenID Connect (OIDC) series](/blog/2017/07/25/oidc-primer-part-1), we looked at some OIDC basics, its history, and the various flow types, scopes, and tokens involved. In this post, we'll dive into the mechanics of OIDC and see the various flows in action.
 
 The token(s) you get back from an OIDC flow and the contents of the `/userinfo` endpoint are a function of the flow type and scopes requested. You can see this live on the [OIDC flow test site](https://okta-oidc-fun.herokuapp.com). Here, you can set different toggles for `scope` and `response_type`, which determines the type of flow for your app.
 

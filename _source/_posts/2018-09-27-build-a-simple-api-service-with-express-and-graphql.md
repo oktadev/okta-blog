@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6934913131
+discourse_topic_id: 16941
+discourse_comment_url: https://devforum.okta.com/t/16941
 layout: blog_post
 title: "Build a Simple API Service with Express and GraphQL"
 author: braden-kelley

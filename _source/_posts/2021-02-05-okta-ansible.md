@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8383259950
+discourse_topic_id: 17350
+discourse_comment_url: https://devforum.okta.com/t/17350
 layout: blog_post
 title: "Tutorial: Ansible and Account Automation with Okta"
 author: frederico-hakamine

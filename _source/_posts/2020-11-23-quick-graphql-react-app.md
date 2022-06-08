@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8288261236
+discourse_topic_id: 17322
+discourse_comment_url: https://devforum.okta.com/t/17322
 layout: blog_post
 title: "Quickly Consume a GraphQL API from React"
 author: nickolas-fisher

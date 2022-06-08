@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7867341049
+discourse_topic_id: 17213
+discourse_comment_url: https://devforum.okta.com/t/17213
 layout: blog_post
 title: "What Is Angular Ivy and Why Is It Awesome?"
 author: holger-schmitz

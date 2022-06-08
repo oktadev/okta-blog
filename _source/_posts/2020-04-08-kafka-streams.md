@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7957870289
+discourse_topic_id: 17231
+discourse_comment_url: https://devforum.okta.com/t/17231
 layout: blog_post
 title: "Secure Kafka Streams with Quarkus and Java"
 author: andrew-hughes

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8532957484
+discourse_topic_id: 17375
+discourse_comment_url: https://devforum.okta.com/t/17375
 layout: blog_post
 title: "Better Testing with Spring Security Test"
 author: jimena-garbarino
@@ -12,6 +15,8 @@ tweets:
 - "Test your @java and @springsecurity apps that use JWT and OAuth. 👇"
 image: blog/spring-security-test/spring-security-testing.png
 type: conversion
+changelog:
+- 2022-02-15: Updated to use Spring Boot 2.6.3 and Spring Security 5.6.1. See the changes to this post in [okta-blog#1081](https://github.com/oktadev/okta-blog/pull/1081). You can see the updates to the example app in [okta-spring-security-test-example#3](https://github.com/oktadev/okta-spring-security-test-example/pull/3).
 ---
 
 Integration testing in modern Spring Boot microservices has become easier since the release of Spring Framework 5 and Spring Security 5. Spring Framework's `WebTestClient` for reactive web, and `MockMvc` for servlet web, allow for testing controllers in a lightweight fashion without running a server. Both frameworks leverage Spring Test mock implementations of requests and responses, allowing you to verify most of the application functionality using targeted tests.
@@ -34,6 +39,10 @@ In this tutorial, you will explore security mocking with `SecurityMockServerConf
 * Table of Contents
 {:toc}
 
+If you prefer to learn visually, you can [watch a screencast of this tutorial](https://youtu.be/H1Un1eDEfGY).
+
+{% youtube H1Un1eDEfGY %}
+
 ## Test a WebFlux Gateway with `mockOidcLogin()`
 
 Let's start by building and testing a Webflux API Gateway with Okta OIDC login enabled. With HTTPie and Spring Initializr, create and download a Spring Boot Maven project:
@@ -41,7 +50,7 @@ Let's start by building and testing a Webflux API Gateway with Okta OIDC login e
 ```shell
 http -d https://start.spring.io/starter.zip type==maven-project \
   language==java \
-  bootVersion==2.4.5 \
+  bootVersion==2.6.3 \
   baseDir==api-gateway \
   groupId==com.okta.developer \
   artifactId==api-gateway \
@@ -85,10 +94,9 @@ Add the Spring Security Test dependency to the `pom.xml`:
 
 ```xml
 <dependency>
-  <groupId>org.springframework.security</groupId>
-  <artifactId>spring-security-test</artifactId>
-  <version>5.4.5</version>
-  <scope>test</scope>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-test</artifactId>
+    <scope>test</scope>
 </dependency>
 ```
 
@@ -154,11 +162,11 @@ public class SecurityConfiguration {
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         http.csrf().disable()
-                .authorizeExchange()
-                .anyExchange()
-                .authenticated()
-                .and().oauth2Login()
-                .and().oauth2ResourceServer().jwt();
+            .authorizeExchange()
+            .anyExchange()
+            .authenticated()
+            .and().oauth2Login()
+            .and().oauth2ResourceServer().jwt();
         return http.build();
     }
 }
@@ -217,33 +225,33 @@ public class UserDataControllerTest {
     private WebTestClient client;
 
     @Test
-    public void get_noAuth_returnsRedirectLogin(){
+    public void get_noAuth_returnsRedirectLogin() {
         this.client.get().uri("/userdata")
-                .exchange()
-                .expectStatus().is3xxRedirection();
+            .exchange()
+            .expectStatus().is3xxRedirection();
     }
 
     @Test
-    public void get_withOidcLogin_returnsOk(){
+    public void get_withOidcLogin_returnsOk() {
         this.client.mutateWith(mockOidcLogin().idToken(token -> token.claim("name", "Mock User")))
-                .get().uri("/userdata")
-                .exchange()
-                .expectStatus().isOk()
-                .expectBody()
-                .jsonPath("$.userName").isNotEmpty()
-                .jsonPath("$.idToken").isNotEmpty()
-                .jsonPath("$.accessToken").isNotEmpty();
+            .get().uri("/userdata")
+            .exchange()
+            .expectStatus().isOk()
+            .expectBody()
+            .jsonPath("$.userName").isNotEmpty()
+            .jsonPath("$.idToken").isNotEmpty()
+            .jsonPath("$.accessToken").isNotEmpty();
     }
 }
 ```
 
 By default, `@SpringBootTest` loads the web `ApplicationContext` and provides a mock web environment.
 
-With `@AutoConfigureWebTestClient`, Spring Boot initializes a `WebTestClient` that can be injected into the test classes. The alternative for mock web testing is`@WebFluxTest`, which also configures a `WebTestClient`, but the test is limited to a single controller, and _collaborators need to be mocked_.
+With `@AutoConfigureWebTestClient`, Spring Boot initializes a `WebTestClient` that can be injected into the test classes. The alternative for mock web testing is `@WebFluxTest`, which also configures a `WebTestClient`, but the test is limited to a single controller, and _collaborators need to be mocked_.
 
-The test `get_noAuth_returnsRedirectLogin` verifies that the server will redirect to the OIDC Login flow if no authentication is present.
+The test `get_noAuth_returnsRedirectLogin()` verifies that the server will redirect to the OIDC Login flow if no authentication is present.
 
-The test `get_withOidcLogin_returnsOk` configures the mock request with an `OidcUser`, using `mockOidcLogin()`. The mock `OidcUser.idToken` is modified by adding the `name` claim because `UserDataController` expects it for populating the response.`mockOidcLogin()` belongs to a set of `SecurityMockServerConfigurers` that ship with Spring Security Test 5 as part of the reactive test support features.
+The test `get_withOidcLogin_returnsOk()` configures the mock request with an `OidcUser`, using `mockOidcLogin()`. The mock `OidcUser.idToken` is modified by adding the `name` claim because `UserDataController` expects it for populating the response. `mockOidcLogin()` belongs to a set of `SecurityMockServerConfigurers` that ship with Spring Security Test 5 as part of the reactive test support features.
 
 Run the tests with:
 
@@ -253,13 +261,13 @@ Run the tests with:
 
 ## Test an MVC Resource Server with `jwt()` Mocking and Testcontainers
 
-Now, let's create a JWT microservice for lodge listings using Spring Data REST. On application load, a sample dataset will be seeded to the embedded MongoDB instance initialized by Flapdoodle. JWT access tokens are decoded, verified, and validated locally by Spring Security in the microservice.
+Now, let's create a JWT microservice for lodge listings using Spring Data REST. On application load, a sample dataset will be seeded to the embedded MongoDB instance initialized by [Testcontainers](https://www.testcontainers.org/). JWT access tokens are decoded, verified, and validated locally by Spring Security in the microservice.
 
 ```shell
 http --download https://start.spring.io/starter.zip \
   type==maven-project \
   language==java \
-  bootVersion==2.4.5 \
+  bootVersion==2.6.3 \
   baseDir==listings \
   groupId==com.okta.developer \
   artifactId==listings \
@@ -275,16 +283,15 @@ Again, add the `spring-security-test` dependency and Testcontainers' [MongoDB Mo
 
 ```xml
 <dependency>
-  <groupId>org.springframework.security</groupId>
-  <artifactId>spring-security-test</artifactId>
-  <version>5.4.5</version>
-  <scope>test</scope>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-test</artifactId>
+    <scope>test</scope>
 </dependency>
 <dependency>
-  <groupId>org.testcontainers</groupId>
-  <artifactId>mongodb</artifactId>
-  <version>1.15.3</version>
-  <scope>test</scope>
+    <groupId>org.testcontainers</groupId>
+    <artifactId>mongodb</artifactId>
+    <version>1.16.3</version>
+    <scope>test</scope>
 </dependency>
 ```
 
@@ -369,7 +376,7 @@ public interface AirbnbListingRepository extends MongoRepository<AirbnbListing, 
 
 The annotation `@RepositoryRestResource` directs Spring MVC to create RESTful endpoints at the specified path. The `save()` operation is overridden to configure authorization, requiring the authority `listing_admin`.
 
-Create the package `com.okta.developer.listings.config` under `src/main/java`. Add a `RestConfiguration` class for tweaking the Spring Data Rest responses:
+Create the package `com.okta.developer.listings.config` under `src/main/java`. Add a `RestConfiguration` class for tweaking the Spring Data REST responses:
 
 ```java
 package com.okta.developer.listings.config;
@@ -401,8 +408,6 @@ Create the package `com.okta.developer.listings.security`. Add `SecurityConfigur
 package com.okta.developer.listings.security;
 
 import com.okta.spring.boot.oauth.Okta;
-import com.okta.spring.boot.oauth.config.OktaOAuth2Properties;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -412,19 +417,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private final OktaOAuth2Properties oktaOAuth2Properties;
-
-    public SecurityConfiguration(OktaOAuth2Properties oktaOAuth2Properties) {
-        this.oktaOAuth2Properties = oktaOAuth2Properties;
-    }
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .anyRequest()
-                .authenticated()
-                .and()
-                .oauth2ResourceServer().jwt();
+            .anyRequest()
+            .authenticated()
+            .and()
+            .oauth2ResourceServer().jwt();
         
         Okta.configureResourceServer401ResponseBody(http);
     }
@@ -499,7 +498,8 @@ public class AirbnbListingMvcTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    private static final MongoDBContainer mongoDBContainer = new MongoDBContainer(DockerImageName.parse("mongo:bionic"))
+    private static final MongoDBContainer mongoDBContainer =
+        new MongoDBContainer(DockerImageName.parse("mongo:bionic"))
             .withExposedPorts(27017)
             .withEnv("MONGO_INIT_DATABASE", "airbnb");
 
@@ -525,7 +525,7 @@ public class AirbnbListingMvcTest {
         listing.setName("test");
         String json = objectMapper.writeValueAsString(listing);
         this.mockMvc.perform(post("/listing").content(json).with(jwt()))
-                .andExpect(status().isForbidden());
+            .andExpect(status().isForbidden());
     }
 
     @Test
@@ -533,27 +533,28 @@ public class AirbnbListingMvcTest {
         AirbnbListing listing = new AirbnbListing();
         listing.setName("test");
         String json = objectMapper.writeValueAsString(listing);
-        this.mockMvc.perform(post("/listing").content(json).with(jwt().authorities(new SimpleGrantedAuthority("listing_admin"))))
-                .andDo(print())
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id").isNotEmpty());
+        this.mockMvc.perform(post("/listing").content(json).with(jwt()
+                .authorities(new SimpleGrantedAuthority("listing_admin"))))
+            .andDo(print())
+            .andExpect(status().isCreated())
+            .andExpect(jsonPath("$.id").isNotEmpty());
     }
 
     @AfterAll
-    public static void tearDown(){
+    public static void tearDown() {
         mongoDBContainer.stop();
     }
 
 }
 ```
 
-The test `collectionGet_noAuth_returnsUnauthorized` verifies that if no JWT token is present in the request, the service will return 404 Unauthorized.
+The test `collectionGet_noAuth_returnsUnauthorized()` verifies that if no JWT token is present in the request, the service will return 404 Unauthorized.
 
-The test `collectionGet_withValidJwtToken_returnsOk` verifies that with valid JWT authentication, the `/listing` GET returns 200 Ok.
+The test `collectionGet_withValidJwtToken_returnsOk()` verifies that with valid JWT authentication, the `/listing` GET returns 200 Ok.
 
-The test `save_withMissingAuhtorities_returnsForbidden` verifies that if the JWT lacks the `listing_admin` authority, the save operation is denied with 403 Forbidden.
+The test `save_withMissingAuhtorities_returnsForbidden()` verifies that if the JWT lacks the `listing_admin` authority, the save operation is denied with 403 Forbidden.
 
-The test `save_withValidJwtToken_returnsCreated` mocks a JWT with the required authority, verifies the save operation succeeds, and returns 201 Created.
+The test `save_withValidJwtToken_returnsCreated()` mocks a JWT with the required authority, verifies the save operation succeeds, and returns 201 Created.
 
 Try the tests with:
 
@@ -571,7 +572,7 @@ The OpaqueToken is validated remotely with a request to the authorization server
 http --download https://start.spring.io/starter.zip \
   type==maven-project \
   language==java \
-  bootVersion==2.4.5 \
+  bootVersion==2.6.3 \
   baseDir==theaters \
   groupId==com.okta.developer \
   artifactId==theaters \
@@ -587,26 +588,25 @@ Add the Nimbus `oauth2-oidc-sdk` dependency to the `pom.xml`, required for token
 
 ```xml
 <dependency>
-  <groupId>com.nimbusds</groupId>
-  <artifactId>oauth2-oidc-sdk</artifactId>
-  <version>8.19</version>
-  <scope>runtime</scope>
+    <groupId>com.nimbusds</groupId>
+    <artifactId>oauth2-oidc-sdk</artifactId>
+    <version>9.25</version>
+    <scope>runtime</scope>
 </dependency>
 <dependency>
-  <groupId>org.springframework.security</groupId>
-  <artifactId>spring-security-test</artifactId>
-  <version>5.4.5</version>
-  <scope>test</scope>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-test</artifactId>
+    <scope>test</scope>
 </dependency>
 <dependency>
-  <groupId>org.testcontainers</groupId>
-  <artifactId>mongodb</artifactId>
-  <version>1.15.3</version>
-  <scope>test</scope>
+    <groupId>org.testcontainers</groupId>
+    <artifactId>mongodb</artifactId>
+    <version>1.16.3</version>
+    <scope>test</scope>
 </dependency>
 ```
 
-Token introspection involves a call to the authorization server, so create a client app with Okta CLI, as illustrated for the `api-gateway`.
+Token introspection involves a call to the authorization server, so create an OIDC app with the Okta CLI, as illustrated for the `api-gateway`.
 
 ```shell
 cd theaters
@@ -763,7 +763,8 @@ public class JwtOpaqueTokenIntrospector implements ReactiveOpaqueTokenIntrospect
     @PostConstruct
     private void setUp() {
         delegate =
-            new NimbusReactiveOpaqueTokenIntrospector(oAuth2.getOpaquetoken().getIntrospectionUri(),
+            new NimbusReactiveOpaqueTokenIntrospector(
+                oAuth2.getOpaquetoken().getIntrospectionUri(),
                 oAuth2.getOpaquetoken().getClientId(),
                 oAuth2.getOpaquetoken().getClientSecret());
     }
@@ -775,7 +776,8 @@ public class JwtOpaqueTokenIntrospector implements ReactiveOpaqueTokenIntrospect
 
     private Mono<OAuth2AuthenticatedPrincipal> enhance(OAuth2AuthenticatedPrincipal principal) {
         Collection<GrantedAuthority> authorities = extractAuthorities(principal);
-        OAuth2AuthenticatedPrincipal enhanced = new DefaultOAuth2AuthenticatedPrincipal(principal.getAttributes(), authorities);
+        OAuth2AuthenticatedPrincipal enhanced = 
+            new DefaultOAuth2AuthenticatedPrincipal(principal.getAttributes(), authorities);
         return Mono.just(enhanced);
     }
 
@@ -847,7 +849,8 @@ import java.util.List;
 @ActiveProfiles("test")
 class TheatersApplicationTests {
 
-    private static final MongoDBContainer mongoDBContainer = new MongoDBContainer(DockerImageName.parse("mongo:bionic"))
+    private static final MongoDBContainer mongoDBContainer = 
+        new MongoDBContainer(DockerImageName.parse("mongo:bionic"))
             .withExposedPorts(27017)
             .withEnv("MONGO_INIT_DATABASE", "airbnb");
 
@@ -862,7 +865,7 @@ class TheatersApplicationTests {
     }
 
     @AfterAll
-    public static void tearDown(){
+    public static void tearDown() {
         mongoDBContainer.stop();
     }
 }
@@ -909,7 +912,8 @@ public class TheaterControllerTest {
     @Autowired
     private WebTestClient client;
 
-    private static final MongoDBContainer mongoDBContainer = new MongoDBContainer(DockerImageName.parse("mongo:bionic"))
+    private static final MongoDBContainer mongoDBContainer =
+        new MongoDBContainer(DockerImageName.parse("mongo:bionic"))
             .withExposedPorts(27017)
             .withEnv("MONGO_INIT_DATABASE", "airbnb");
 
@@ -918,7 +922,7 @@ public class TheaterControllerTest {
         mongoDBContainer.setPortBindings(List.of("27017:27017"));
         mongoDBContainer.start();
     }
-    
+
     @Test
     public void collectionGet_noAuth_returnsUnauthorized() throws Exception {
         this.client.get().uri("/theater").exchange().expectStatus().isUnauthorized();
@@ -926,7 +930,8 @@ public class TheaterControllerTest {
 
     @Test
     public void collectionGet_withValidOpaqueToken_returnsOk() throws Exception {
-        this.client.mutateWith(mockOpaqueToken()).get().uri("/theater").exchange().expectStatus().isOk();
+        this.client.mutateWith(mockOpaqueToken())
+            .get().uri("/theater").exchange().expectStatus().isOk();
     }
 
     @Test
@@ -935,35 +940,36 @@ public class TheaterControllerTest {
         theater.setId("123");
         theater.setLocation(new Location());
         this.client.mutateWith(mockOpaqueToken())
-                .post().uri("/theater").body(fromValue(theater))
-                .exchange().expectStatus().isForbidden();
+            .post().uri("/theater").body(fromValue(theater))
+            .exchange().expectStatus().isForbidden();
     }
 
     @Test
     public void post_withValidOpaqueToken_returnsCreated() throws Exception {
         Theater theater = new Theater();
         theater.setLocation(new Location());
-        this.client.mutateWith(mockOpaqueToken().authorities(new SimpleGrantedAuthority("theater_admin")))
-                .post().uri("/theater").body(fromValue(theater))
-                .exchange()
-                .expectStatus().isCreated()
-                .expectBody().jsonPath("$.id").isNotEmpty();
+        this.client.mutateWith(
+                mockOpaqueToken().authorities(new SimpleGrantedAuthority("theater_admin")))
+            .post().uri("/theater").body(fromValue(theater))
+            .exchange()
+            .expectStatus().isCreated()
+            .expectBody().jsonPath("$.id").isNotEmpty();
     }
 
     @AfterAll
-    public static void tearDown(){
+    public static void tearDown() {
         mongoDBContainer.stop();
     }
 }
 ```
 
-The test `collectionGet_noAuth_returnsUnauthorized` verifies that access is denied if there is no token in the request.
+The test `collectionGet_noAuth_returnsUnauthorized()` verifies that access is denied if there is no token in the request.
 
-The test `collectionGet_withValidOpaqueToken_returnsOk` sets a mock opaque token in the request, so the controller must return 200 OK.
+The test `collectionGet_withValidOpaqueToken_returnsOk()` sets a mock opaque token in the request, so the controller must return 200 OK.
 
-The test `post_withMissingAuthorities_returnsFodbidden` verifies that without the required authorities, the controller rejects the request with 403 Forbidden.
+The test `post_withMissingAuthorities_returnsFodbidden()` verifies that without the required authorities, the controller rejects the request with 403 Forbidden.
 
-The test `post_withValidOpaqueToken_returnsCreated` verifies that if `theater_admin` authority is present in the token, the create request will pass, returning the new `theater` in the response body.
+The test `post_withValidOpaqueToken_returnsCreated()` verifies that if `theater_admin` authority is present in the token, the create request will pass, returning the new `theater` in the response body.
 
 Again, try the tests with:
 
@@ -971,9 +977,10 @@ Again, try the tests with:
 ./mvnw test
 ```
 
-# On Mocking Features in Spring Security Test
+## On Mocking Features in Spring Security Test
 
 Spring Security Test documentation indicates that when testing with `WebTestClient` and `mockOpaqueToken()` (or any other configurer), the request will pass correctly through any authentication API, and the mock authentication object will be available for the authorization mechanism to verify. The same applies for `MockMvc`. That is likely why an invalid audience, expiration, or issuer in the token attributes is ignored in this kind of test.
+
 For example, the following `AirbnbListingMvcTest` test will pass:
 
 ```java
@@ -995,7 +1002,7 @@ public void collectionGet_withOpaqueToken_returnsOk() throws Exception {
 }
 ```
 
-# Verify Authorization and Audience Validation
+## Verify Authorization and Audience Validation
 
 Let's run an end-to-end test using HTTPie to verify both the authorization and that the audience is enforced in both services.
 
@@ -1005,7 +1012,7 @@ First, create a Eureka server:
 http --download https://start.spring.io/starter.zip \
   type==maven-project \
   language==java \
-  bootVersion==2.4.5 \
+  bootVersion==2.6.3 \
   baseDir==eureka \
   groupId==com.okta.developer \
   artifactId==eureka \
@@ -1017,7 +1024,7 @@ http --download https://start.spring.io/starter.zip \
 unzip eureka.zip
 ```
 
-Edit `EurekaServiceApplication` to add `@EnableEurekaServer` annotation:
+Edit `EurekaApplication` to add `@EnableEurekaServer` annotation:
 
 ```java
 package com.okta.developer.eureka;
@@ -1053,7 +1060,7 @@ eureka:
       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
 ```
 
-Configure `theater` and `listing` routes in the `api-gateway` project. Edit `ApiGatewayApplication` to add the `RouteLocator` bean:
+Configure `theater` and `listing` routes in the `api-gateway` project. Edit `ApiGatewayApplication` to add a `RouteLocator` bean:
 
 ```java
 package com.okta.developer.gateway;
@@ -1093,7 +1100,7 @@ public class ApiGatewayApplication {
 Create a `docker` folder at the root level (same level as the api-gateway, theaters, and listings), where all services are contained. Add a `docker-compose.yml` file with the following content:
 
 ```yaml
-version: "3.1"
+version: "3.8"
 
 services:
   mongo:
@@ -1175,7 +1182,7 @@ Run the services with Docker Compose:
 
 ```shell
 cd docker
-docker-compose up
+docker compose up
 ```
 
 Go to `http://localhost:8761`, and you should see the Eureka home. (Wait for all services to register.)
@@ -1236,7 +1243,7 @@ Rebuild the `listings` service image.
 
 ```shell
 cd listings
-./mvnw spring-boot:build-image
+./mvnw spring-boot:build-image -DskipTests
 ```
 
 Restart the services and repeat the HTTPie POST request:
@@ -1256,7 +1263,7 @@ WWW-Authenticate: Bearer error="invalid_token",
 
 You can verify the same in the `theaters` service.
 
-# Learn More About Spring Security and OAuth
+## Learn More About Spring Security and OAuth
 
 I hope you enjoyed this tutorial and understand more about `SecurityMockServerConfigurers` in reactive test support and `SecurityMockMvcRequestPostProcessors` in the MockMvc test support (available since Spring Security 5). You can see how useful these can be for integration testing, as well as the limitations of request and response mocking.
 
@@ -1264,8 +1271,8 @@ You can find all the code from this tutorial on GitHub, in the [okta-spring-secu
 
 Check out the links below to learn more about Spring Security and OAuth 2.0 patterns:
 
-- [Spring Security's SecurityMockMvcRequestPostProcessors documentation](https://docs.spring.io/spring-security/site/docs/5.4.5/reference/html5/#test-mockmvc-smmrpp)
-- [Spring Security's WebTestClientSupport documentation](https://docs.spring.io/spring-security/site/docs/5.4.5/reference/html5/#test-webtestclient)
+- [Spring Security's SecurityMockMvcRequestPostProcessors documentation](https://docs.spring.io/spring-security/site/docs/5.6.1/reference/html5/#test-mockmvc-smmrpp)
+- [Spring Security's WebTestClientSupport documentation](https://docs.spring.io/spring-security/site/docs/5.6.1/reference/html5/#test-webtestclient)
 - [OAuth 2.0 Patterns with Spring Cloud Gateway](/blog/2020/08/14/spring-gateway-patterns)
 - [JWT vs Opaque Access Tokens: Use Both With Spring Boot](/blog/2020/08/07/spring-boot-remote-vs-local-tokens)
 - [Security Patterns for Microservice Architectures](/blog/2020/03/23/microservice-security-patterns)

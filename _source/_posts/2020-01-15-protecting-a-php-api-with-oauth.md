@@ -1,10 +1,13 @@
 ---
+disqus_thread_id: 7819305664
+discourse_topic_id: 17199
+discourse_comment_url: https://devforum.okta.com/t/17199
 layout: blog_post
 title: "Protecting a PHP API Using OAuth"
 author: krasimir-hristozov
 by: contractor
 communities: [php]
-description: ""
+description: "In this tutorial, you'll learn how to build a simple API in PHP from scratch and integrate it with Okta to provide user authentication."
 tags: [php, oauth, api]
 tweets:
 - "Wondering what's the difference between local and remote access token validation? Check out this post!"

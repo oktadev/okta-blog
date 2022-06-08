@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7612547066
+discourse_topic_id: 17131
+discourse_comment_url: https://devforum.okta.com/t/17131
 layout: blog_post
 title: "Get Groovy with Gradle"
 author: andrew-hughes
@@ -559,7 +562,7 @@ Scroll down and click **Send Request**.
 
 You should see the success screen.
 
-{% img blog/gradle-tutorial/oidc-debugger-token.png alt:"OIDC Debugger returns a token" width:"800" %}{: .center-image }
+{% img blog/gradle-tutorial/oidc-debugger-token.jpg alt:"OIDC Debugger returns a token" width:"800" %}{: .center-image }
 
 Copy the access token, open a terminal, and store it in a shell variable like this:
 

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8270551257
+discourse_topic_id: 17316
+discourse_comment_url: https://devforum.okta.com/t/17316
 layout: blog_post
 title: "The Development Environment of the Future"
 author: joel-franusic

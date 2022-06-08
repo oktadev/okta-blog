@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7168914278
+discourse_topic_id: 16980
+discourse_comment_url: https://devforum.okta.com/t/16980
 layout: blog_post
 title: 'Build a Basic CRUD App with Laravel and Vue'
 author: krasimir-hristozov
@@ -930,8 +933,8 @@ You can find the full code here: [https://github.com/oktadeveloper/okta-php-lara
 If you would like to dig deeper into the topics covered in this article, the following resources are a great starting point:
 
 * [Our Vue/PHP Quickstart Guide](https://developer.okta.com/quickstart/#/vue/php/generic)
-* [Build a Basic CRUD App with Laravel and Angular](https://developer.okta.com/blog/2018/10/23/php-laravel-angular-crud-app)
-* [Build a Basic CRUD App with Laravel and React](https://developer.okta.com/blog/2018/12/06/crud-app-laravel-react)
+* [Build a Basic CRUD App with Laravel and Angular](/blog/2018/10/23/php-laravel-angular-crud-app)
+* [Build a Basic CRUD App with Laravel and React](/blog/2018/12/06/crud-app-laravel-react)
 
 If you find any issues, please add a comment below, and we'll do our best to help. If you liked this tutorial, you should[follow us on Twitter](https://twitter.com/oktadev). We also have a [YouTube channel](https://www.youtube.com/channel/UC5AMiWqFVFxF1q9Ya1FuZ_Q) where we publish screencasts and other videos.
 

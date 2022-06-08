@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7245334658
+discourse_topic_id: 17002
+discourse_comment_url: https://devforum.okta.com/t/17002
 layout: blog_post
 title: "Spring Boot with PostgreSQL, Flyway, and JSONB"
 author: raphael-do-vale
@@ -415,13 +418,13 @@ First, you'll need to create a new web application in Okta to use this service:
 
 {% include setup/oidcdebugger.md %}
 
-{% img blog/postgresql-with-spring-boot/openid-connect.png alt:"OpenID Connect" width:"700" %}{: .center-image }
+{% img blog/postgresql-with-spring-boot/openid-connect.jpg alt:"OpenID Connect" width:"700" %}{: .center-image }
 
 Submit the form to start the authentication process. You'll receive an Okta login form if you are not logged in or you'll see the screen below with your custom token.
 
-{% img blog/postgresql-with-spring-boot/openid-connect-token.png alt:"Token from OpenID Connect" width:"800" %}{: .center-image }
+{% img blog/postgresql-with-spring-boot/openid-connect-token.jpg alt:"Token from OpenID Connect" width:"800" %}{: .center-image }
 
-The token will be valid for one hour so you can do a lot of testing with your API. It's simple to use the token, just copy it and modify the curl command to use it as follows:
+The access token will be valid for one hour so you can do a lot of testing with your API. It's simple to use the token, just copy it and modify the curl command to use it as follows:
 
 ```bash
 export TOKEN={YOUR_TOKEN}

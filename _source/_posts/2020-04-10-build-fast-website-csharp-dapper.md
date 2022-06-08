@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7961889268
+discourse_topic_id: 17232
+discourse_comment_url: https://devforum.okta.com/t/17232
 layout: blog_post
 title: "Build an Incredibly Fast Website with Dapper + C#"
 author: chase-aucoin

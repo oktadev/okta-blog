@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8245699651
+discourse_topic_id: 17308
+discourse_comment_url: https://devforum.okta.com/t/17308
 layout: blog_post
 title: "Why I Love IntelliJ IDEA for Java Development"
 author: matt-raible
@@ -169,6 +172,9 @@ I also recommend using https://www.shortcutfoo.com/[ShortcutFoo] to learn and pr
 
 Below are some of the IntelliJ IDEA keyboard shortcuts I use daily.
 
+[.scrollable]
+--
+
 |===
 |macOS Shortcut |Windows/Linux |Purpose
 
@@ -196,6 +202,8 @@ Below are some of the IntelliJ IDEA keyboard shortcuts I use daily.
 |
 |Run Anything (e.g., `mvn compile`)
 |===
+
+--
 
 NOTE: How cool are Asciidoctor's https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/#ui-macros[UI Macros] for keyboard shortcuts?!
 

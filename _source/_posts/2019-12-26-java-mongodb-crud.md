@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7775763120
+discourse_topic_id: 17190
+discourse_comment_url: https://devforum.okta.com/t/17190
 layout: blog_post
 title: "Build a CRUD API with Java and MongoDB"
 author: andrew-hughes
@@ -454,9 +457,9 @@ Scroll down to the bottom and click **Send Request**.
 
 If all went well, you will see your brand-new access token.
 
-{% img blog/java-mongodb-crud/access-token.png alt:"OAuth 2.0 Access Token" width:"800" %}{: .center-image }
+{% img blog/java-mongodb-crud/access-token.jpg alt:"OAuth 2.0 Access Token" width:"800" %}{: .center-image }
 
-Copy the token to your clipboard and store it in a shell variable like so:
+Copy the access token to your clipboard and store it in a shell variable like so:
 
 ```bash
 TOKEN=eyJraWQiOiJrQkNxZ3o1MmQtOUhVSl94c0x4aGtzYlJxUDVD...

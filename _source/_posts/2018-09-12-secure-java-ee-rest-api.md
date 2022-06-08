@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6904443990
+discourse_topic_id: 16927
+discourse_comment_url: https://devforum.okta.com/t/16927
 layout: blog_post
 title: 'Build a Java REST API with Java EE and OIDC'
 author: matt-raible
@@ -18,6 +21,8 @@ Java EE allows you to build Java REST APIs quickly and easily with JAX-RS and JP
 In the early 2000s, Java developers used servlets and EJBs to develop their server applications. Hibernate and Spring came along in 2002 and 2004, respectively. Both technologies had a huge impact on Java developers everywhere, showing them it was possible to write distributed, robust applications without EJBs. Hibernate's POJO model was eventually adopted as the JPA standard and heavily influenced EJB as well.
 
 Fast forward to 2018, and Java EE certainly doesn't look like it used to! Now, it's mostly POJOs and annotations and far simpler to use.
+
+{% include toc.md %}
 
 ## Why Build a Java REST API with Java EE and Not Spring Boot?
 
@@ -1386,16 +1391,16 @@ git clone -b pac4j https://github.com/oktadeveloper/okta-java-ee-rest-api-exampl
 
 As I mentioned previously, most of the Java tutorials we have on this blog show how to use Spring Boot. In case you're interested in learning Spring Boot, here are some tutorials I've written that will show you the gist of things.
 
-* [Get Started with Spring Boot, OAuth 2.0, and Okta](https://developer.okta.com/blog/2017/03/21/spring-boot-oauth)
-* [Use React and Spring Boot to Build a Simple CRUD App](https://developer.okta.com/blog/2018/07/19/simple-crud-react-and-spring-boot)
-* [Build a Basic CRUD App with Angular 7.0 and Spring Boot 2.1](https://developer.okta.com/blog/2018/08/22/basic-crud-angular-7-and-spring-boot-2)
+* [Get Started with Spring Boot, OAuth 2.0, and Okta](/blog/2017/03/21/spring-boot-oauth)
+* [Use React and Spring Boot to Build a Simple CRUD App](/blog/2018/07/19/simple-crud-react-and-spring-boot)
+* [Build a Basic CRUD App with Angular 7.0 and Spring Boot 2.1](/blog/2018/08/22/basic-crud-angular-7-and-spring-boot-2)
 
 If you're new to OIDC, I'd recommend you check out the following posts:
 
-* [Get Started with Spring Security 5.0 and OIDC](https://developer.okta.com/blog/2017/12/18/spring-security-5-oidc)
-* [Identity, Claims, & Tokens – An OpenID Connect Primer, Part 1 of 3](https://developer.okta.com/blog/2017/07/25/oidc-primer-part-1)
-* [OIDC in Action – An OpenID Connect Primer, Part 2 of 3](https://developer.okta.com/blog/2017/07/25/oidc-primer-part-2)
-* [What's in a Token? – An OpenID Connect Primer, Part 3 of 3](https://developer.okta.com/blog/2017/08/01/oidc-primer-part-3)
+* [Get Started with Spring Security 5.0 and OIDC](/blog/2017/12/18/spring-security-5-oidc)
+* [Identity, Claims, & Tokens – An OpenID Connect Primer, Part 1 of 3](/blog/2017/07/25/oidc-primer-part-1)
+* [OIDC in Action – An OpenID Connect Primer, Part 2 of 3](/blog/2017/07/25/oidc-primer-part-2)
+* [What's in a Token? – An OpenID Connect Primer, Part 3 of 3](/blog/2017/08/01/oidc-primer-part-3)
 
 For more about Java REST APIs and TomEE, I recommend these sources:
 

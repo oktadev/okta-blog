@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7578868061
+discourse_topic_id: 17112
+discourse_comment_url: https://devforum.okta.com/t/17112
 layout: blog_post
 title: "Get Jibby With Java, Docker, and Spring Boot"
 author: andrew-hughes
@@ -302,7 +305,7 @@ Success! Of sorts. You still need to get a valid token. Fortunately, OpenID Conn
 
 Scroll down and click **Send Request**.
 
-Copy the token from the success screen and save it in a shell variable:
+Copy the access token from the success screen and save it in a shell variable:
 
 ```bash
 TOKEN=eyJraWQiOiJxMm5rZmtwUDR...

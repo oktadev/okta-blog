@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8725006863
+discourse_topic_id: 17408
+discourse_comment_url: https://devforum.okta.com/t/17408
 layout: blog_post
 title: "Centralize Authentication at the Gateway with Apache APISIX and OpenID Connect"
 author: xinxin-zhu
@@ -12,7 +15,7 @@ tweets:
 - "Apache APISIX + Open ID Connect + Okta 👉  Learn how to replace traditional with centralized authentication at the gateway 👉" 
 image: blog/apache-apisix-gateway/apisix-social.jpg
 type: conversion
-canonical-url: https://apisix.apache.org/blog/2021/08/16/Using-the-Apache-APISIX-OpenID-Connect-Plugin-for-Centralized-Authentication
+canonical: https://apisix.apache.org/blog/2021/08/16/Using-the-Apache-APISIX-OpenID-Connect-Plugin-for-Centralized-Authentication
 redirect_from:
 - "/blog/2021/09/18/apache-apisix-gateway"
 ---

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8165467193
+discourse_topic_id: 17276
+discourse_comment_url: https://devforum.okta.com/t/17276
 layout: blog_post
 title: "OAuth 2.0 Patterns with Spring Cloud Gateway"
 author: jimena-garbarino

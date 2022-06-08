@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7708563628
+discourse_topic_id: 17164
+discourse_comment_url: https://devforum.okta.com/t/17164
 layout: blog_post
 title: "Get Started with Jetty, Java, and OAuth"
 author: andrew-hughes
@@ -595,7 +598,7 @@ To access the protected endpoints, you need to generate an access token JWT. {% 
 
 Scroll down and click **Send Request**.
 
-Copy the token to your clipboard and store it in a shell variable in the shell window you're using to make requests.
+Copy the access token to your clipboard and store it in a shell variable in the shell window you're using to make requests.
 
 ```bash
 TOKEN=eyJraWQiOiJIb05xb01mNE9jREltWnBGRnBINjZGTkFOM0J... 

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8351084941
+discourse_topic_id: 17346
+discourse_comment_url: https://devforum.okta.com/t/17346
 layout: blog_post
 title: "Build a Secure GraphQL API with MicroProfile"
 author: andrew-hughes
@@ -381,15 +384,15 @@ Click **Create**.
 
 Every request to the secured API will require a valid JWT. Typically, the JWT is generated when a user signs in via a client application. In this case, there is no client application. Instead, you are going to use the OpenID Connect Debugger to generate a token. This web application allows you to perform a request for a JWT against Okta servers and inspect the results.
 
-{% include setup/oidcdebugger.md responseType="code" %}
+{% include setup/oidcdebugger.md %}
 
-{% img blog/microprofile-graphql/oidcdebugger-settings.png alt:"OIDC Debugger Settings" width:"500" %}{: .center-image }
+{% img blog/microprofile-graphql/oidcdebugger-settings.png alt:"OIDC Debugger Settings" width:"650" %}{: .center-image }
 
 Scroll down and click **Send Request**.
 
 You should see a success screen with an authorization code.
 
-{% img blog/microprofile-graphql/oidcdebugger-success.png alt:"OIDC Debugger Success" width:"631" %}{: .center-image }
+{% img blog/microprofile-graphql/oidcdebugger-success.png alt:"OIDC Debugger Success" width:"600" %}{: .center-image }
 
 You can use HTTPie to exchange this authorization code for an actual token.  Fill in the values in brackets with your values: the **authorization code**, your **Okta domain**, your OIDC app **client ID**, and your OIDC app **client secret**.
 

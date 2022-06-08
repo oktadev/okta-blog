@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8811463470
+discourse_topic_id: 17420
+discourse_comment_url: https://devforum.okta.com/t/17420
 layout: blog_post
 title: Okta Developer Plan Changes
 author: ryan-stewart 

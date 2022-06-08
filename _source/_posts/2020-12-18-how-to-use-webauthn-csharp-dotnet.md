@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8318379960
+discourse_topic_id: 17336
+discourse_comment_url: https://devforum.okta.com/t/17336
 layout: blog_post
 title: How to Use WebAuthn in C#
 author: giorgi-dalakishvili

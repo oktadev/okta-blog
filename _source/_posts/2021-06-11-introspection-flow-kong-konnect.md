@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8587074709
+discourse_topic_id: 17382
+discourse_comment_url: https://devforum.okta.com/t/17382
 layout: blog_post
 title: "Implement Introspection Flow With Kong Konnect and Okta"
 author: claudio-acquaviva
@@ -12,7 +15,7 @@ tweets:
 - "Using Kong for your API gateway? Learn how to integrate it with @okta!"
 image: blog/introspection-flow-kong-konnect/introspection-flow-kong.png
 type: conversion
-canonical-url: https://konghq.com/blog/introspection-flow-konnect-okta/
+canonical: https://konghq.com/blog/introspection-flow-konnect-okta/
 ---
 
 In our third Kong and Okta tutorial, we'll go through the introspection flow implementation. This series will show you how to implement service authentication and authorization for [Kong Konnect](https://konghq.com/kong-konnect/) and Okta using the [OpenID Connect](https://konghq.com/blog/openid-connect-api-gateway) ([OIDC](https://docs.konghq.com/hub/kong-inc/openid-connect/)) plugin. Parts 1, 2 and 4 cover:

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8611010935
+discourse_topic_id: 17385
+discourse_comment_url: https://devforum.okta.com/t/17385
 layout: blog_post
 title: "Developers Guide to GPG and YubiKey"
 author: brian-demers
@@ -315,7 +318,7 @@ If you would rather use a graphical application to enter your passphrase, you ca
 brew install pinentry-mac
 
 # configure gpg-agent to use this pinentry application
-echo "pinentry-program /usr/local/bin/pinentry-mac" >> ~/.gnupg/gpg-agent.conf
+echo "pinentry-program $(which pinentry-mac)" >>  ~/.gnupg/gpg-agent.conf
 
 # Restart gpg-agent
 gpg-connect-agent reloadagent /bye

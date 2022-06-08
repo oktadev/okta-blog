@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 5847164514
+discourse_topic_id: 16749
+discourse_comment_url: https://devforum.okta.com/t/16749
 layout: blog_post
 title: 'Tutorial: Develop a Mobile App With Ionic and Spring Boot'
 author: matt-raible

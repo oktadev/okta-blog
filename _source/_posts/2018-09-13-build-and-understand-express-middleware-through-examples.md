@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6909681654
+discourse_topic_id: 16931
+discourse_comment_url: https://devforum.okta.com/t/16931
 layout: blog_post
 title: "Build and Understand Express Middleware through Examples"
 author: lee-brandt

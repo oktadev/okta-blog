@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7594723935
+discourse_topic_id: 17120
+discourse_comment_url: https://devforum.okta.com/t/17120
 layout: blog_post
 title: 'Welcome, Brian Demers'
 author: brian-demers

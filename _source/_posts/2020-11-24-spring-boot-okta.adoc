@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8289323588
+discourse_topic_id: 17323
+discourse_comment_url: https://devforum.okta.com/t/17323
 layout: blog_post
 title: "Spring Boot and Okta in 2 Minutes"
 author: matt-raible
@@ -12,6 +15,8 @@ tweets:
 - "We 💙 the Okta CLI here at @oktadev. This screencast shows how to use it with @springboot."
 image: blog/okta-cli-spring-boot/okta-cli-loves-spring-boot.png
 type: conversion
+changelog:
+- 2022-01-25: Updated to use `.okta.env` instead of `application.properties`. This change is necessary since the okta-spring-boot-sample now uses [dotenv to load Okta settings](https://github.com/okta-samples/okta-spring-boot-sample/pull/22). Changes to this post can be viewed in [okta-blog#1048](https://github.com/oktadev/okta-blog/pull/1048).
 ---
 :page-liquid:
 
@@ -24,6 +29,8 @@ To show you how much fun it is, I https://youtu.be/dURkaz0kBSU[created a screenc
 <iframe width="700" height="394" style="max-width: 100%" src="https://www.youtube.com/embed/dURkaz0kBSU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 ++++
+
+NOTE: This video puts your settings in `src/main/resources/application.properties`. We've since changed the default behavior to use https://github.com/okta-samples/okta-spring-boot-sample/pull/22[spring-dotenv].
 
 For those that would rather read than watch, please read on.
 
@@ -44,7 +51,17 @@ To create a secure Spring Boot app with Okta, run `okta start spring-boot`. You'
 
 TIP: If you already have an Okta account, you can run `okta login` first.
 
-This will download our https://github.com/okta-samples/okta-spring-boot-sample[Okta Spring Boot sample], register your app on Okta, and configure it by adding your Okta settings to `src/main/resources/application.properties`.
+This will download our https://github.com/okta-samples/okta-spring-boot-sample[Okta Spring Boot sample], register your app on Okta, and configure it by adding your Okta settings to a `.okta.env` file.
+
+[IMPORTANT]
+====
+Keep your secrets out of source control by adding `okta.env` to your `.gitignore` file:
+
+[source,shell]
+----
+echo .okta.env >> .gitignore
+----
+====
 
 Follow the instructions that are printed out for you. To summarize:
 

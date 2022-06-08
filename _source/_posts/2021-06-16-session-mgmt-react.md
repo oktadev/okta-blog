@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8597004464
+discourse_topic_id: 17384
+discourse_comment_url: https://devforum.okta.com/t/17384
 layout: blog_post
 title: "A Developer's Guide to Session Management in React"
 author: nickolas-fisher

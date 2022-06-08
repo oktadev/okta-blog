@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6980543565
+discourse_topic_id: 16947
+discourse_comment_url: https://devforum.okta.com/t/16947
 layout: blog_post
 title: "Stolen Access Tokens and You"
 author: keith-casey

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7322085657
+discourse_topic_id: 17026
+discourse_comment_url: https://devforum.okta.com/t/17026
 layout: blog_post
 title: "Test Your Spring Boot Applications with JUnit 5"
 author: joy-foster
@@ -506,7 +509,7 @@ Submit the form to start the authentication process. You'll receive an Okta logi
 
 {% img blog/junit5-spring-boot/access-token.png alt:"OAuth 2.0 Access Token" width:"700" %}{: .center-image }
 
-**NOTE:** The token will be valid for one hour, so you may have to repeat the process if you are testing for a long time.
+**NOTE:** The access token will be valid for one hour, so you may have to repeat the process if you are testing for a long time.
 
 ## Test Your Secured Spring Boot Application with JUnit 5
 

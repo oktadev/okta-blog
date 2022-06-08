@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8221905057
+discourse_topic_id: 17297
+discourse_comment_url: https://devforum.okta.com/t/17297
 layout: blog_post
 title: "How to Build Securely with Blazor WebAssembly (WASM)"
 author: heather-downing
@@ -206,7 +209,7 @@ You can also log out to play with the visibility of sections of the app.
 
 Pretty sweet!
 
-You can check out the official project code in our [Github repo](https://github.com/okta/samples-blazor/tree/master/web-assembly/hosted/okta-hosted-login).
+You can check out the official project code in our [GitHub repo](https://github.com/okta/samples-blazor/tree/master/web-assembly/hosted/okta-hosted-login).
 
 ## Recap
 

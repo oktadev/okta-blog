@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 7445061918
+discourse_topic_id: 17061
+discourse_comment_url: https://devforum.okta.com/t/17061
 layout: blog_post
 title: "Build a CRUD App with Node.js and GraphQL"
 author: braden-kelley

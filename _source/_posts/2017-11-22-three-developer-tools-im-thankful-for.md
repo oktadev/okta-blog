@@ -1,4 +1,5 @@
 ---
+disqus_thread_id: 6303038616
 layout: blog_post
 title: "Three Developer Tools I'm Thankful For"
 author: randall-degges
@@ -8,8 +9,6 @@ tags: [holiday, tools, thanksgiving]
 tweets:
     - "@rdegges really likes zsh, vim, and tmux. What about you?"
     - "What developer tools are you thankful for?"
-redirect_from:
-    - "/blog/2017/11/22/three-developer-tools-im-thankful-for"
 type: awareness
 ---
 

@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 8324796312
+discourse_topic_id: 17328
+discourse_comment_url: https://devforum.okta.com/t/17328
 layout: blog_post
 title: "A Beginner's Guide to JWTs"
 author: brian-demers
@@ -112,7 +115,7 @@ The use of registered claims is optional, but when they are present, they MUST b
 
 - Issued At (`iat`) - The time the JWT was created
 - Expiration Time (`exp`) - The time at which the JWT is no longer valid
-- Not Before (`nfb`) - The earliest time the JWT would be valid
+- Not Before (`nbf`) - The earliest time the JWT would be valid
 
 NOTE: Timestamps are "seconds since the epoch" integer format. JWT libraries usually add up to a few minutes of leeway to these values to account for clock skew between systems.
 

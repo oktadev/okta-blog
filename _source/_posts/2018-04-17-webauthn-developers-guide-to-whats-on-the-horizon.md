@@ -1,4 +1,7 @@
 ---
+disqus_thread_id: 6617587084
+discourse_topic_id: 16854
+discourse_comment_url: https://devforum.okta.com/t/16854
 layout: blog_post
 title: "WebAuthn: A Developer's Guide to What's on the Horizon"
 author: aaron-parecki
