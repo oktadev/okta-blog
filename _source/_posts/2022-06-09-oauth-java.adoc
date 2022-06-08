@@ -148,6 +148,8 @@ I've already mentioned Helidon and Quarkus, what about the other popular Java AP
 // alphabetical order
 // paragraphs or matrix?
 
+// todo: it seems like a shame that Quarkus and Helidon don't get an H3
+
 === Micronaut
 
 Micronaut has support for OAuth and good documentation on how to configure it with IdPs like Okta, Google, and GitHub.
@@ -310,17 +312,23 @@ The most popular Scala web framework is still Play and it does have OAuth suppor
 
 == Learn more about Java and OAuth 2.0
 
+Java developers might like:
+
+- link:/blog/2022/04/19/java-regex[A Quick Guide to Regular Expressions in Java]
+- link:/blog/2022/04/11/java-cli-device-grant[Authenticate from the Command Line with Java]
+- link:/blog/2022/02/16/spring-data-elasticsearch[A Quick Guide to Elasticsearch with Spring Data and Spring Boot]
+
 Check out these in-depth posts about OAuth:
 
 - link:/blog/2017/06/21/what-the-heck-is-oauth[What the Heck is OAuth?]
 - link:/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc[An Illustrated Guide to OAuth and OpenID Connect]
 - https://aaronparecki.com/2019/12/12/21/its-time-for-oauth-2-dot-1[It's Time for OAuth 2.1]
 
-These videos are pretty awesome:
+These videos are pretty awesome too:
 
 - 📺 https://www.youtube.com/watch?v=KT8ybowdyr0[What is OAuth and why does it matter?]
 - 📺 https://www.youtube.com/watch?v=CHzERullHe8[What's going on with the OAuth 2.0 Implicit flow?]
 
 And check out link:/blog/2020/12/10/introducing-okta-cli[the Okta CLI]. It's the easiest way to get started with Okta!
 
-If you have questions, please ask them in the comments below! If you're on social media, follow us: https://twitter.com/oktadev[@oktadev on Twitter], https://www.linkedin.com/company/oktadev[Okta for Developers on LinkedIn], and https://www.facebook.com/oktadevelopers[OktaDev] on Facebook. If you like learning via video, subscribe to https://youtube.com/oktadev[our YouTube channel].
+If you have questions, please ask them in the comments below! If you're on social media, follow us: https://twitter.com/oktadev[on Twitter], https://www.linkedin.com/company/oktadev[on LinkedIn], and https://www.facebook.com/oktadevelopers[on Facebook]. If you like learning via video, subscribe to https://youtube.com/oktadev[our YouTube channel].
