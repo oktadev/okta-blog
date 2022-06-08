@@ -298,7 +298,7 @@ My guess is this won't be solved anytime soon. I'd love to be wrong.
 
 // == What about Kotlin and Scala?
 // I like this ^^ title, but it seems to clash with the previous title for JavaFX
-== Do Scala and Kotlin do OAuth?
+== Do Scala and Kotlin support OAuth?
 
 Scala was all the rage in the mid-2010s. When the Play framework team announced they were writing Play 2 in Scala, the JVM world rejoiced. I was interested in it too. I took a course from Martin Odersky, learned a ton, and reached the top of Hacker News for the first time when I blogged about it at Devoxx Belgium.
 
