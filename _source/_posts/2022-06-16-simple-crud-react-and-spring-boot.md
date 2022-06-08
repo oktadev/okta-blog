@@ -35,9 +35,7 @@ To begin, navigate to [start.spring.io](https://start.spring.io) and make the fo
 * **Artifact:** `jugtours`
 * **Dependencies**: `JPA`, `H2`, `Web`, `Lombok`
 
-{% comment %}
-{% img blog/spring-boot-2-react/spring-initializr.png alt:"Spring Initializr" width:"800" %}{: .center-image }
-{% endcomment %}
+{% img blog/spring-boot-react/spring-initializr.png alt:"Spring Initializr" width:"800" %}{: .center-image }
 
 Click **Generate Project**, expand `jugtours.zip` after downloading, and open the project in your favorite IDE.
 
@@ -185,15 +183,16 @@ class Initializer implements CommandLineRunner {
 
     @Override
     public void run(String... strings) {
-        Stream.of("Denver JUG", "Utah JUG", "Seattle JUG",
-                "Richmond JUG").forEach(name ->
+        Stream.of("Seattle JUG", "Denver JUG", "Dublin JUG",
+                "London JUG").forEach(name ->
                 repository.save(new Group(name))
         );
 
-        Group djug = repository.findByName("Denver JUG");
-        Event e = Event.builder().title("Full Stack Reactive")
-                .description("Reactive with Spring Boot + React")
-                .date(Instant.parse("2018-12-12T18:00:00.000Z"))
+        Group djug = repository.findByName("Seattle JUG");
+        Event e = Event.builder().title("Micro Frontends for Java Developers")
+                .description("JHipster now has microfrontend support!")
+                .date(Instant.parse("2022-09-13T17:00:00.000Z"))
+                // todo: is this ^^ the correct time for Seattle JUG?
                 .build();
         djug.setEvents(Collections.singleton(e));
         repository.save(djug);
@@ -208,6 +207,7 @@ class Initializer implements CommandLineRunner {
 If you start your app (using `./mvnw spring-boot:run`) after adding this code, you'll see the list of groups and events displayed in your console.
 
 ```
+// todo: update
 Group(id=1, name=Denver JUG, address=null, city=null, stateOrProvince=null, country=null, postalCode=null, user=null, events=[Event(id=5, date=2018-12-12T18:00:00Z, title=Full Stack Reactive, description=Reactive with Spring Boot + React, attendees=[])])
 Group(id=2, name=Utah JUG, address=null, city=null, stateOrProvince=null, country=null, postalCode=null, user=null, events=[])
 Group(id=3, name=Seattle JUG, address=null, city=null, stateOrProvince=null, country=null, postalCode=null, user=null, events=[])
@@ -305,10 +305,10 @@ After the app creation process completes, navigate into the `app` directory and 
 
 ```bash
 cd app
-npm i bootstrap@4.1.3 react-cookie@3.0.4 react-router-dom@4.3.1 reactstrap@6.5.0
+npm i bootstrap@5 react-cookie@4 react-router-dom@6 reactstrap@9
 ```
 
-You'll use Bootstrap's CSS and Reactstrap's components to make the UI look better, especially on mobile phones. If you'd like to learn more about Reactstrap, see <https://reactstrap.github.io>. It has extensive documentation on its various components and how to use them.
+You'll use Bootstrap's CSS and Reactstrap's components to make the UI look better, especially on mobile phones. If you'd like to learn more about Reactstrap, see [reactstrap.github.io](https://reactstrap.github.io). It has extensive documentation on its various components and how to use them.
 
 Add Bootstrap's CSS file as an import in `app/src/index.js`.
 
@@ -316,7 +316,7 @@ Add Bootstrap's CSS file as an import in `app/src/index.js`.
 import 'bootstrap/dist/css/bootstrap.min.css';
 ```
 
-## Call Your Spring Boot API and display the results
+## Call your Spring Boot API and display the results
 
 Modify `app/src/App.js` to use the following code that calls `/api/groups` and display the list in the UI.
 
@@ -372,7 +372,7 @@ To proxy from `/api` to `http://localhost:8080/api`, add a proxy setting to `app
 "proxy": "http://localhost:8080",
 ```
 
-To learn more about proxying API requests, see Create React App's [documentation](https://facebook.github.io/create-react-app/docs/proxying-api-requests-in-development#docsNav). 
+To learn more about proxying API requests, see Create React App's [documentation](https://create-react-app.dev/docs/proxying-api-requests-in-development/#docsNav). 
 
 Make sure Spring Boot is running, then run `npm start` in your `app` directory. You should see the list of default groups. You might have to scroll down to see this list. 
 
