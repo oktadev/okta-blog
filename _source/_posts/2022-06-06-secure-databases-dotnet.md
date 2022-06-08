@@ -71,11 +71,11 @@ Navigate to [the Azure portal](https://portal.azure.com) and select **Create a r
 
 Next, you will see a page asking which API best suits your workload. Find *Core (SQL) - Recommended* and press **Create**.  
 
-{% img blog/secure-databases-dotnet/cosmos api.PNG alt:"Cosmos Select API " width:"800" %}{: .center-image }
+{% img blog/secure-databases-dotnet/cosmos-api.PNG alt:"Cosmos Select API " width:"800" %}{: .center-image }
 
 The *Create Azure Cosmos DB Account - Core (SQL)* page provides the details about your subscription and resource group. Make sure you select `Apply` under the *Apply Free Tier Discount* then press **Review + create**.
 
-{% img blog/secure-databases-dotnet/cosmos create account.PNG alt:"Cosmos Create Account" width:"800" %}{: .center-image }
+{% img blog/secure-databases-dotnet/cosmos-create-account.PNG alt:"Cosmos Create Account" width:"800" %}{: .center-image }
 
 ## Create your web application
 
@@ -621,15 +621,15 @@ Next, add a file for `Upload.cshtml` that will display the results as they come 
 
 With your application complete you can now start debugging. You should be greeted with the home screen.
 
-{% img blog/secure-databases-dotnet/Home Screen.PNG alt:"Home Screen" width:"800" %}{: .center-image }
+{% img blog/secure-databases-dotnet/Home-Screen.PNG alt:"Home Screen" width:"800" %}{: .center-image }
 
 Click on **Login** and follow the login page to Okta and then back to your import page. Download the [CSV File found here](https://github.com/nickolasfisher/Okta_Cosmos/blob/master/Okta_CosmosDb/TestData/SampleFile.csv) and upload this to your server using the application page.
 
-{% img blog/secure-databases-dotnet/Import Page.PNG alt:"Import Page" width:"800" %}{: .center-image }
+{% img blog/secure-databases-dotnet/Import-Page.PNG alt:"Import Page" width:"800" %}{: .center-image }
 
 Your application will then process this file and save the results to Cosmos DB. You can navigate to your Cosmos DB portal using the `Data Explorer`.  
 
-{% img blog/secure-databases-dotnet/cosmos data.PNG alt:"the data in Cosmos" width:"800" %}{: .center-image }
+{% img blog/secure-databases-dotnet/cosmos-data.PNG alt:"the data in Cosmos" width:"800" %}{: .center-image }
 
 You will note that the social security number does not appear in the data you sent to Cosmos DB.
 
