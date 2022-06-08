@@ -227,7 +227,7 @@ I've created a few screencasts to show how to build a REST API with Quarkus, Spr
 </div>
 ++++
 
-At the end of each video, I show how the https://cli.okta.com[Okta CLI] allows you to create working examples for each framework with the `okta start <framework>` command.
+At the end of each video, I show how the https://cli.okta.com[Okta CLI] allows you to create working examples for each framework with the `okta start` command.
 
 If you prefer reading and copy pasta over video, check out these quick tutorials:
 
