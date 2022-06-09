@@ -9,7 +9,8 @@ tags: [kubernetes, jhipster, spring-boot, spring, java, istio, gcp, react, servi
 tweets:
   - "Build a #Java microservice stack on Google Cloud using #JHipster, #Istio, and #Kubernetes"
   - "Deploy a cloud-native #Java microservice stack to GKE with #Istio and #JHipster"
-image:
+image: blog/cloud-native-java-microservices-with-istio/cover.jpg
+github: https://github.com/oktadev/okta-java-spring-k8s-istio-microservices-example
 type: awareness
 ---
 
@@ -27,21 +28,21 @@ So here is what we will do today:
 
 Let's get started!
 
-{% include toc.md %}
-
-If you prefer to follow along by watching a video, see [How to Build Low-Code Microservices on the Cloud Using Istio, JHipster, and Kubernetes] on the [OktaDev YouTube channel](https://youtube.com/oktadev).
-
-{% youtube zGpnIhRgMaM %}
-
 **Prerequisites**
 
 - A [Google Cloud Platform](https://cloud.google.com/) account
 - [Docker](https://www.docker.com/get-started) installed on your machine
 - [Node.js](https://nodejs.org/en/) installed on your machine
-- [JHipster](https://www.jhipster.tech/installation/)  installed on your machine
+- [JHipster](https://www.jhipster.tech/installation/) installed on your machine
 - [Google Cloud SDK](https://cloud.google.com/sdk/docs/install) installed and configured on your machine
 - [kubectl](https://kubernetes.io/docs/tasks/tools/) or [KDash](https://github.com/kdash-rs/kdash)
 - Basic understanding of Java, Spring, Containers, and Kubernetes
+
+{% include toc.md %}
+
+If you prefer to follow along by watching a video, see [How to Build Low-Code Microservices on the Cloud Using Istio, JHipster, and Kubernetes] on the [OktaDev YouTube channel](https://youtube.com/oktadev).
+
+{% youtube zGpnIhRgMaM %}
 
 ## Why build cloud-native microservices using a service mesh?
 
@@ -64,9 +65,9 @@ Let's take a quick look at Istio internals. The Istio architecture can be classi
 
 {% img blog/cloud-native-java-microservices-with-istio/istio-architecture.png alt:"Istio Service Mesh Architecture" width:"900" %}{: .center-image }
 
-**Data plane**: It's made of [Envoy](https://www.envoyproxy.io/) proxies deployed as sidecars to our application containers. Envoy is a high-performance, lightweight distributed proxy. It controls all the incoming and outgoing traffic to the container it is attached to.
-
 **Control plane**: It consists of the istiod demon, and it manages and configures the envoy proxies to route traffic. The control plane also enforces policies and collects telemetry, and includes components like Pilot for traffic management, Citadel to manage security, and Galley to manage configurations.
+
+**Data plane**: It's made of [Envoy](https://www.envoyproxy.io/) proxies deployed as sidecars to our application containers. Envoy is a high-performance, lightweight distributed proxy. It controls all the incoming and outgoing traffic to the container it is attached to.
 
 We can use tools like [Grafana](https://grafana.com/), [Prometheus](https://prometheus.io/), [Kiali](https://www.kiali.io/) and [Zipkin](https://zipkin.io/) for monitoring and observability as they work well with the telemetry provided by Istio. You can use these or use your existing monitoring stack as well.
 
@@ -82,7 +83,11 @@ We have the Istio control plane taking care of policy, load balancing, etc. We a
 
 If you would prefer not to build the application yourself, clone the example from [GitHub](https://github.com/oktadev/okta-java-spring-k8s-istio-microservices-example).
 
-It's not an overly complex architecture, but it's also not that simple. First, let us define our microservice using JDL. Create a file called **app.jdl** and paste the following content into it.
+```bash
+git clone https://github.com/oktadev/okta-java-spring-k8s-istio-microservices-example.git
+```
+
+It's not an overly complex architecture, but it's also not that simple. First, let us define our microservice using JDL. Create a file called `app.jdl` and paste the following content into it.
 
 ```kotlin
 application {
@@ -301,7 +306,7 @@ This will create the applications with all their entities and specified configur
 ./gradlew # starts the Spring Boot application
 ```
 
-You can find a [sample application on GitHub](https://github.com/oktadev/okta-java-spring-k8s-istio-microservices-example).
+You can see everything that's generated in the [example application on GitHub](https://github.com/oktadev/okta-java-spring-k8s-istio-microservices-example).
 
 ## Create a GKE cluster and install Istio
 
@@ -309,7 +314,7 @@ To deploy the stack to Google Kubernetes Engine, we need to create a cluster and
 
 ### Create a cluster
 
-Ensure you are logged into the gcloud CLI and run the following command to create a GKE cluster.
+Ensure you are logged into the [gcloud CLI](https://cloud.google.com/sdk/gcloud) and run the following command to create a GKE cluster.
 
 ```bash
 # set region and zone
@@ -351,7 +356,11 @@ istioctl install --set profile=demo -y
 
 > **Note**: If you run into any trouble with firewall or user privilege issues, please refer to [GKE setup guide from Istio](https://istio.io/latest/docs/setup/platform-setup/gke/).
 
-Once the installation is complete, we need to fetch the External IP of the Istio Ingress Gateway. If you are using KDash, you can see it on the services tab, or you can run this command to get it using kubectl: `kubectl get svc istio-ingressgateway -n istio-system`
+Once the installation is complete, we need to fetch the External IP of the Istio Ingress Gateway. If you are using KDash, you can see it on the services tab, or you can run the following command to get it using kubectl.
+
+```bash
+kubectl get svc istio-ingressgateway -n istio-system
+```
 
 ### Install observability tools
 
@@ -367,7 +376,11 @@ kubectl apply -f samples/addons/extras/zipkin.yaml
 
 {% img blog/cloud-native-java-microservices-with-istio/istio-pods.png alt:"GKE Cluster with Istio pods" width:"900" %}{: .center-image }
 
-If we look at the istio-system namespace, we can see all the Istio components along with Grafana, Prometheus, Kiali, and Zipkin running. You can also see this by running `kubectl get pods -n istio-system`.
+If we look at the istio-system namespace, we can see all the Istio components along with Grafana, Prometheus, Kiali, and Zipkin running. You can also see this by running the following command .
+
+```bash
+kubectl get pods -n istio-system
+```
 
 ## Deploy the microservice stack to GKE
 
@@ -375,7 +388,7 @@ Our cluster is ready, and we have Istio installed. Now, we can deploy our micros
 
 ### Create Kubernetes manifests
 
-Create a new JDL file, say **deployment.jdl**, and add the following content.
+Create a new JDL file, say `deployment.jdl`, and add the following content.
 
 ```kotlin
 // will be created under 'kubernetes' folder
@@ -535,10 +548,10 @@ As you can see, there are also many useful commands printed on the console that 
 We are ready to deploy now. First, we need to build and push the images to the registry. We can use the handy [Jib](https://github.com/GoogleContainerTools/jib) commands provided by JHipster. Navigate to each of the microservice folders and run the commands below.
 
 ```bash
-cd store && ./gradlew bootJar -Pprod jib -Djib.to.image=deepu105/store
-cd invoice && ./gradlew bootJar -Pprod jib -Djib.to.image=deepu105/invoice
-cd notification && ./gradlew bootJar -Pprod jib -Djib.to.image=deepu105/notification
-cd product && ./gradlew bootJar -Pprod jib -Djib.to.image=deepu105/product
+cd store && ./gradlew bootJar -Pprod jib -Djib.to.image=yourDockerRepository/store
+cd invoice && ./gradlew bootJar -Pprod jib -Djib.to.image=yourDockerRepository/invoice
+cd notification && ./gradlew bootJar -Pprod jib -Djib.to.image=yourDockerRepository/notification
+cd product && ./gradlew bootJar -Pprod jib -Djib.to.image=yourDockerRepository/product
 ```
 
 Once the images are pushed to the Docker registry, we can deploy the stack using the handy script provided by JHipster. Navigate to the `kubernetes` folder created by JHipster and run the following command.
@@ -562,25 +575,25 @@ Currently the JHipster OIDC setup does not work with Istio and there is an [open
 
 Since we deployed tools for observability, let's see what we have.
 
-**Grafana**
+#### Grafana
 
 First up are Grafana and Prometheus for metrics and dashboards. Click the URI for Grafana from the previous deployment step. Click **General** at the top left corner and click the **istio** folder. You should see multiple preconfigured dashboards. You can monitor the performance of the workloads and the istio system itself here. You can also create your own dashboards if you like. Prometheus provides the data visualized on Grafana.
 
 {% img blog/cloud-native-java-microservices-with-istio/grafana.png alt:"Grafana dashboard" width:"900" %}{: .center-image }
 
-**Kiali**
+#### Kiali
 
 Kiali is a management console for Istio service mesh, and it provides a web interface for visualizing the network topology of your service mesh. You can use it to explore the network topology of your cluster and see the network traffic flowing through it. Click **Graph** on the left side menu to see the network topology.
 
 {% img blog/cloud-native-java-microservices-with-istio/kiali.png alt:"Kiali dashboard" width:"900" %}{: .center-image }
 
-**Zipkin**
+#### Zipkin
 
 Zipkin is a distributed tracing solution for distributed systems. It is a tool for capturing distributed traces and providing a centralized view of the traces. This is essential for a microservice setup where a request could span multiple services, and debugging would require tracing them. Click **RUN QUERY** on the home screen to fetch recent traces, and click **SHOW** on one of them.
 
 {% img blog/cloud-native-java-microservices-with-istio/zipkin.png alt:"Zipkin dashboard" width:"900" %}{: .center-image }
 
-### Cleanup
+### Cleanup the GCP cluster
 
 Once you are done with experiments, make sure to delete the cluster you created so that you don't end up with a big bill from Google. You can delete the cluster from the Google Cloud Console GUI or via the command line using the following command.
 
