@@ -151,7 +151,7 @@ application {
 }
 ```
 
-It's pretty straightforward. Each application defines its name, package name, authentication type, database, etc. For all supported options and configurations, please refer to the [JDL applications documentation](https://www.jhipster.tech/jdl/applications). Each application also defines the `applicationType` and the entities it serves. The next step is to add these entities.
+Each application defines its name, package name, authentication type, database, etc. For all supported options and configurations, please refer to the [JDL applications documentation](https://www.jhipster.tech/jdl/applications). Each application also defines the `applicationType` and the entities it serves. Next, add the entity definitions to the `app.jdl` you just created.
 
 ```kotlin
 /**
@@ -297,6 +297,9 @@ We define entities for each service and mark the entities as microservice entiti
 Now, we are ready to run JHipster. Open a terminal window on the folder where you saved the JDL and run the following command.
 
 ```bash
+mkdir jhipster-istio
+cd jhipster-istio
+
 jhipster jdl app.jdl --fork
 ```
 
@@ -314,7 +317,7 @@ To deploy the stack to Google Kubernetes Engine, we need to create a cluster and
 
 ### Create a cluster
 
-Ensure you are logged into the [gcloud CLI](https://cloud.google.com/sdk/gcloud) and run the following command to create a GKE cluster.
+Ensure you are logged into the [gcloud CLI](https://cloud.google.com/sdk/gcloud) from the command-line and run the following command to create a GKE cluster.
 
 ```bash
 # set region and zone
@@ -339,7 +342,7 @@ This could take anywhere from 5 to 15 minutes. `--machine-type` is important as 
 
 ### Install Istio to cluster
 
-As of writing this, I'm using Istio version 1.13.4. You can install **istioctl** by running the following command, preferably from the home directory.
+As of writing this, I'm using Istio version 1.13.4. You can install **istioctl** by running the following command, preferably from your home directory.
 
 ```bash
 export ISTIO_VERSION=1.13.4
@@ -569,7 +572,7 @@ You can now access the application at the given `http://store.jhipster.<istio-in
 
 {% img blog/cloud-native-java-microservices-with-istio/jh-store-app.png alt:"Store gateway application" width:"900" %}{: .center-image }
 
-Currently the JHipster OIDC setup does not work with Istio and there is an [open issue](https://github.com/jhipster/generator-jhipster/issues/17384) in JHipster issue tracker for this. An alternative solution is to use an [external authorization server](https://istio.io/latest/blog/2021/better-external-authz/) with something like [Open Policy Agent](https://www.openpolicyagent.org/). We will cover this in a future blog post.
+> **Note**: Currently, the JHipster OIDC setup does not work with Istio and there is an [open issue](https://github.com/jhipster/generator-jhipster/issues/17384) in JHipster issue tracker for this. Alternative solutions would be to use an [external authorization server](https://istio.io/latest/blog/2021/better-external-authz/) with something like [Open Policy Agent](https://www.openpolicyagent.org/). We will cover this in a later blog post.
 
 ### Monitoring and observability
 
