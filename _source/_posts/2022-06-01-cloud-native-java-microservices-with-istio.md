@@ -29,11 +29,11 @@ Let's get started!
 
 {% include toc.md %}
 
-If you prefer to follow along by watching a video, here's the video from the [OktaDev YouTube channel](https://youtu.be/zGpnIhRgMaM).
+If you prefer to follow along by watching a video, see [How to Build Low-Code Microservices on the Cloud Using Istio, JHipster, and Kubernetes] on the [OktaDev YouTube channel](https://youtube.com/oktadev).
 
 {% youtube zGpnIhRgMaM %}
 
-**Pre-requisites**
+**Prerequisites**
 
 - A [Google Cloud Platform](https://cloud.google.com/) account
 - [Docker](https://www.docker.com/get-started) installed on your machine
@@ -72,7 +72,7 @@ We can use tools like [Grafana](https://grafana.com/), [Prometheus](https://prom
 
 ## Build a Java Microservices Stack using JHipster
 
-Before you proceed, ensure you have installed JHipster. If not, install it using the command `npm -g install generator-jhipster`. At the moment of writing, I'm using the JHipster version **7.8.1**
+Before you proceed, ensure you have installed JHipster. If not, install it using the command `npm -g install generator-jhipster`. At the moment of writing, I'm using JHipster version **7.8.1**.
 
 We will be using the [JHipster Domain Language (JDL)](https://www.jhipster.tech/jdl/intro) to define our microservices, entities, and deployment options. But first, let's take a look at the architecture we will be building today.
 
@@ -80,9 +80,9 @@ We will be using the [JHipster Domain Language (JDL)](https://www.jhipster.tech/
 
 We have the Istio control plane taking care of policy, load balancing, etc. We also have the Istio Ingress gateway to route all external traffic to our applications. We have four microservices. First is a gateway application created by JHipster that acts as our React GUI and authentication layer. The remaining are services that provide APIs. Each of our containers will have an envoy proxy as an auto-injected sidecar. We hook up Grafana, Prometheus, Zipkin, and Kiali to the telemetry provided by Istio so that we have monitoring and observability for our cluster. Each microservice also has its own database.
 
-If you would prefer not to build the application yourself, clone the example from [GitHub](https://github.com/oktadev/okta-java-spring-k8s-istio-microservices-example)
+If you would prefer not to build the application yourself, clone the example from [GitHub](https://github.com/oktadev/okta-java-spring-k8s-istio-microservices-example).
 
-It's not an overly complex architecture, but it's also not that simple. First, let us define our microservice using JDL. Create a file called **app.jdl** and paste the following content.
+It's not an overly complex architecture, but it's also not that simple. First, let us define our microservice using JDL. Create a file called **app.jdl** and paste the following content into it.
 
 ```kotlin
 application {
@@ -146,7 +146,7 @@ application {
 }
 ```
 
-It's pretty straightforward. Each application defines its name, package name, authentication type, database, etc. For all supported options and configurations, please refer to the [JDL applications documentation](https://www.jhipster.tech/jdl/applications). Each application also defines the `applicationType` and the entities it serves. So next step would be to add these entities.
+It's pretty straightforward. Each application defines its name, package name, authentication type, database, etc. For all supported options and configurations, please refer to the [JDL applications documentation](https://www.jhipster.tech/jdl/applications). Each application also defines the `applicationType` and the entities it serves. The next step is to add these entities.
 
 ```kotlin
 /**
@@ -224,7 +224,7 @@ relationship ManyToOne {
 }
 
 relationship OneToMany {
-  ProductOrder{orderItem} to OrderItem{order(code) required} ,
+  ProductOrder{orderItem} to OrderItem{order(code) required}
   ProductCategory{product} to Product{productCategory(name)}
 }
 
@@ -298,7 +298,7 @@ jhipster jdl app.jdl --fork
 This will create the applications with all their entities and specified configurations. You should be able to see the gateway application in action by running the following command on the **store** folder.
 
 ```bash
-./gradlew # starts the spring boot application
+./gradlew # starts the Spring Boot application
 ```
 
 You can find a [sample application on GitHub](https://github.com/oktadev/okta-java-spring-k8s-istio-microservices-example).
@@ -532,7 +532,7 @@ As you can see, there are also many useful commands printed on the console that 
 
 ### Deploy to GKE
 
-We are ready to deploy now. First, we need to build and push the images to the registry. We can use the handy [Jib](https://github.com/GoogleContainerTools/jib) commands provided by JHipster. Navigate to each of the microservice folders and run the command below.
+We are ready to deploy now. First, we need to build and push the images to the registry. We can use the handy [Jib](https://github.com/GoogleContainerTools/jib) commands provided by JHipster. Navigate to each of the microservice folders and run the commands below.
 
 ```bash
 cd store && ./gradlew bootJar -Pprod jib -Djib.to.image=deepu105/store
@@ -588,7 +588,7 @@ Once you are done with experiments, make sure to delete the cluster you created 
 gcloud container clusters delete hello-hipster
 ```
 
-## Learn more about Java Microservices, Istio, Kubernetes and JHipster
+## Learn more about Java Microservices, Istio, Kubernetes, and JHipster
 
 If you want to learn more about Kubernetes, OIDC, or using OIDC with Kubernetes, and security in general, check out these additional resources.
 
@@ -599,6 +599,6 @@ If you want to learn more about Kubernetes, OIDC, or using OIDC with Kubernetes,
 - [OAuth 2.0 and OpenID Connect Overview](https://developer.okta.com/docs/concepts/oauth-openid/)
 - [Secure Access to AWS EKS Clusters for Admins](/blog/2021/10/08/secure-access-to-aws-eks)
 
-Check the code out on [GitHub](https://github.com/oktadev/okta-java-spring-k8s-istio-microservices-example).
+You can find all the code from this example on [GitHub](https://github.com/oktadev/okta-java-spring-k8s-istio-microservices-example).
 
 If you liked this tutorial, chances are you'll enjoy the others we publish. Please follow [@oktadev on Twitter](https://twitter.com/oktadev) and [subscribe to our YouTube channel](https://youtube.com/oktadev) to get notified when we publish new developer tutorials.
