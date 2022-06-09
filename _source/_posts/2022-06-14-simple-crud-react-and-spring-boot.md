@@ -35,7 +35,7 @@ To begin, navigate to [start.spring.io](https://start.spring.io) and make the fo
 * **Artifact:** `jugtours`
 * **Dependencies**: `JPA`, `H2`, `Web`, `Lombok`
 
-{% img blog/spring-boot-react/spring-initializr.png alt:"Spring Initializr" width:"800" %}{: .center-image }
+{% img blog/spring-boot-react/spring-initializr.png alt:"Spring Initializr" %}{: .center-image }
 
 Click **Generate Project**, expand `jugtours.zip` after downloading, and open the project in your favorite IDE.
 
@@ -204,14 +204,27 @@ class Initializer implements CommandLineRunner {
 
 **TIP:** If your IDE has issues with `Event.builder()`, it means that you need to turn on annotation processing and/or install the Lombok plugin. I had to uninstall/reinstall the Lombok plugin in IntelliJ IDEA to get things to work.
 
-If you start your app (using `./mvnw spring-boot:run`) after adding this code, you'll see the list of groups and events displayed in your console.
+If you start your app (using `./mvnw spring-boot:run`) ...
+
+... it will fail because Spring Boot 2.7.0 forces H2 v2.0. The H2 2.0 ecosystem doesn't seem like it's quite ready for prime-time, so I recommend you downgrade to H2 version `1.4.200` in your `pom.xml`.
+
+```xml
+<dependency>
+  <groupId>com.h2database</groupId>
+  <artifactId>h2</artifactId>
+  <scope>runtime</scope>
+  <version>1.4.200</version>
+</dependency>
+```
+
+Then, `mvn spring-boot:run` should result in something like:
 
 ```
-// todo: update
-Group(id=1, name=Denver JUG, address=null, city=null, stateOrProvince=null, country=null, postalCode=null, user=null, events=[Event(id=5, date=2018-12-12T18:00:00Z, title=Full Stack Reactive, description=Reactive with Spring Boot + React, attendees=[])])
-Group(id=2, name=Utah JUG, address=null, city=null, stateOrProvince=null, country=null, postalCode=null, user=null, events=[])
-Group(id=3, name=Seattle JUG, address=null, city=null, stateOrProvince=null, country=null, postalCode=null, user=null, events=[])
-Group(id=4, name=Richmond JUG, address=null, city=null, stateOrProvince=null, country=null, postalCode=null, user=null, events=[])
+Group(id=1, name=Seattle JUG, address=null, city=null, stateOrProvince=null, country=null, postalCode=null, user=null, 
+  events=[Event(id=5, date=2022-09-13T17:00:00Z, title=Micro Frontends for Java Developers, description=JHipster now has microfrontend support!, attendees=[])])
+Group(id=2, name=Denver JUG, address=null, city=null, stateOrProvince=null, country=null, postalCode=null, user=null, events=[])
+Group(id=3, name=Dublin JUG, address=null, city=null, stateOrProvince=null, country=null, postalCode=null, user=null, events=[])
+Group(id=4, name=London JUG, address=null, city=null, stateOrProvince=null, country=null, postalCode=null, user=null, events=[])
 ```
 
 Add a `GroupController.java` class (in `src/main/java/.../jugtours/web/GroupController.java`) that allows you to CRUD groups.
@@ -280,14 +293,24 @@ class GroupController {
 }
 ```
 
-If you restart your server app and hit `http://localhost:8080/api/groups` with your browser, or a command line client, you should see the list of groups.
+Add the following dependency to your `pom.xml` to fix compilation errors:
+
+```xml
+<dependency>
+  <groupId>jakarta.validation</groupId>
+  <artifactId>jakarta.validation-api</artifactId>
+  <version>2.0.2</version>
+</dependency>
+```
+
+If you stop and start your server app and hit `http://localhost:8080/api/groups` with your browser, or a command line client, you should see the list of groups.
 
 You can create, read, update, and delete groups with the following [HTTPie](https://httpie.org) commands.
 
 ```bash
-http POST :8080/api/group name='Dublin JUG' city=Dublin country=Ireland
+http POST :8080/api/group name='Utah JUG' city='Salt Lake City' country=USA
 http :8080/api/group/6
-http PUT :8080/api/group/6 name='Dublin JUG' city=Dublin country=Ireland address=Downtown
+http PUT :8080/api/group/6 id=6 name='Utah JUG' address='On the slopes'
 http DELETE :8080/api/group/6
 ```
 
@@ -298,7 +321,7 @@ Create React App is a command line utility that generates React projects for you
 Create a new project in the `jugtours` directory with `npx`.
 
 ```bash
-npx create-react-app@18
+npx create-react-app@5 app
 ```
 
 After the app creation process completes, navigate into the `app` directory and install [Bootstrap](https://getbootstrap.com/), cookie support for React, React Router, and [Reactstrap](https://reactstrap.github.io/).
@@ -374,11 +397,9 @@ To proxy from `/api` to `http://localhost:8080/api`, add a proxy setting to `app
 
 To learn more about proxying API requests, see Create React App's [documentation](https://create-react-app.dev/docs/proxying-api-requests-in-development/#docsNav). 
 
-Make sure Spring Boot is running, then run `npm start` in your `app` directory. You should see the list of default groups. You might have to scroll down to see this list. 
+Make sure Spring Boot is running, then run `npm start` in your `app` directory. You should see the list of default groups. 
 
-{% comment %}
-{% img blog/spring-boot-2-react/jug-list.png alt:"JUG List" width:"800" %}{: .center-image }
-{% endcomment %}
+{% img blog/spring-boot-react/jug-list.png alt:"JUG List" width:"800" %}{: .center-image }
 
 ## Build a React `GroupList` component
 
@@ -546,6 +567,8 @@ export default Home;
 
 Also, change `app/src/App.js` to use React Router to navigate between components.
 
+// nope: export 'Switch' (imported as 'Switch') was not found in 'react-router-dom'
+
 ```jsx
 import React, { Component } from 'react';
 import './App.css';
@@ -569,7 +592,7 @@ class App extends Component {
 export default App;
 ```
 
-To make your UI a bit more spacious, add a top margin to Bootrap's container classes in `app/src/App.css`.
+To make your UI a bit more spacious, add a top margin to Bootstrap's container classes in `app/src/App.css`.
 
 ```css
 .container, .container-fluid {
