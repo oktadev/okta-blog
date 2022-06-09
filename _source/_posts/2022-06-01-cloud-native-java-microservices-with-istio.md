@@ -13,16 +13,16 @@ image:
 type: awareness
 ---
 
-Microservices are not everyone's cup of tea, and they shouldn't be. Not every problem can be or should be solved by microservices. Sometimes building a simple monolith is a far better option. Microservices are solutions for use cases where scale and scalability are important. A few years ago, microservices were all the rage, made popular, especially by companies like Netflix, Spotify, Google, etc. While the hype has died down a bit, the genuine use cases still exist, and with the advances in cloud computing technologies, building microservices as cloud-native services is the way to go due to many of its benefits.
+Microservices are not everyone's cup of tea, and they shouldn't be. Not every problem can or should be solved by microservices. Sometimes building a simple monolith is a far better option. Microservices are solutions for use cases where scale and scalability are important. A few years ago, microservices were all the rage, made popular, especially by companies like Netflix, Spotify, Google, etc. While the hype has died down a bit, genuine use cases still exist. With ongoing advances in cloud computing technologies, building microservices as cloud-native services is the way to go due to many benefits.
 
-Today we will look at building a cloud-native Java microservice stack that utilizes a service mesh to provide most of the distributed system needs and will deploy it to the cloud using Kubernetes.
+Today we will look at building a cloud-native Java microservice stack that utilizes a service mesh to provide most of the distributed system needs and we'll deploy it to the cloud using Kubernetes.
 
-So here is what we will be doing today:
+So here is what we will do today:
 
 - Build a Java microservice stack using JHipster, Spring Boot, and Spring Cloud
 - Create a Google Kubernetes Engine (GKE) cluster
 - Deploy Istio service mesh to the cluster
-- Setup monitoring and observability
+- Set up monitoring and observability
 - Deploy and monitor the microservices to the cluster
 
 Let's get started!
@@ -38,25 +38,25 @@ If you prefer to follow along by watching a video, here's the video from the [Ok
 - A [Google Cloud Platform](https://cloud.google.com/) account
 - [Docker](https://www.docker.com/get-started) installed on your machine
 - [Node.js](https://nodejs.org/en/) installed on your machine
-- [JHipster installed](https://www.jhipster.tech/installation/) on your machine
+- [JHipster](https://www.jhipster.tech/installation/)  installed on your machine
 - [Google Cloud SDK](https://cloud.google.com/sdk/docs/install) installed and configured on your machine
 - [kubectl](https://kubernetes.io/docs/tasks/tools/) or [KDash](https://github.com/kdash-rs/kdash)
 - Basic understanding of Java, Spring, Containers, and Kubernetes
 
-## Why Build Cloud-Native Microservices Using a Service Mesh?
+## Why build cloud-native microservices using a service mesh?
 
 Before we dive into building a cloud-native microservice stack, let's look at what a service mesh is and the benefits of using one.
 
-A service mesh provides features to help with common distributed microservice challenges. Like service discovery, routing, load balancing, and so on. Today we will be using [Istio](https://istio.io/), one of the most popular service mesh solutions available. Istio is tailored for distributed application architectures, especially those you might run in Kubernetes. Istio plays extremely nice with Kubernetes, so nice that you might think that it's part of the Kubernetes platform itself. Istio isn't the only service mesh around; we also have platforms like [Linkerd](https://linkerd.io/) and [Consul](https://www.consul.io/) which are also quite popular.
+A service mesh provides features to help with common distributed microservice challenges. Like service discovery, routing, load balancing, and so on. Today we will be using [Istio](https://istio.io/), one of the most popular service mesh solutions available. Istio is tailored for distributed application architectures, especially those you might run in Kubernetes. Istio plays nicely with Kubernetes, so nicely that you might think that it's part of the Kubernetes platform itself. Istio isn't the only service mesh around; we also have platforms like [Linkerd](https://linkerd.io/) and [Consul](https://www.consul.io/), which are also quite popular.
 
 Istio specifically provides the following features.
 
 - Secure service-to-service communication over TLS. Of course, with support for identity-based authentication and authorization.
-- Service discovery, so that your microservices can discover each other
+- Service discovery, so that your microservices can discover each other.
 - Automatic load balancing for the services
 - Traffic control features like routing, circuit breaking, retries, fail-overs, and fault injection.
 - A pluggable policy layer that can enforce stuff like access control, rate limiting, A/B testing, traffic splits, quotas, etc.
-- It also provides automatic metrics, logs, and traces for all traffic within the cluster from Ingres to Egress and between pods.
+- It also provides automatic metrics, logs, and traces for all traffic within the cluster from Ingress to Egress and between pods.
 
 ### What is Istio Service Mesh?
 
@@ -66,9 +66,9 @@ Let's take a quick look at Istio internals. The Istio architecture can be classi
 
 **Data plane**: It's made of [Envoy](https://www.envoyproxy.io/) proxies deployed as sidecars to our application containers. Envoy is a high-performance, lightweight distributed proxy. It controls all the incoming and outgoing traffic to the container it is attached to.
 
-**Control plane**: It consists of the istiod demon, and it manages and configures the envoy proxies to route traffic. It also enforces policies and collects telemetry. It has components like Pilot for traffic management, Citadel to manage security, and Galley to manage configurations.
+**Control plane**: It consists of the istiod demon, and it manages and configures the envoy proxies to route traffic. The control plane also enforces policies and collects telemetry, and includes components like Pilot for traffic management, Citadel to manage security, and Galley to manage configurations.
 
-We can use tools like [Grafana](https://grafana.com/), [Prometheus](https://prometheus.io/), [Kiali](https://www.kiali.io/) and [Zipkin](https://zipkin.io/) for Monitoring and Observability as they work well with the telemetry provided by Istio. You can use this or use your existing monitoring stack as well.
+We can use tools like [Grafana](https://grafana.com/), [Prometheus](https://prometheus.io/), [Kiali](https://www.kiali.io/) and [Zipkin](https://zipkin.io/) for monitoring and observability as they work well with the telemetry provided by Istio. You can use these or use your existing monitoring stack as well.
 
 ## Build a Java Microservices Stack using JHipster
 
@@ -289,13 +289,13 @@ microservice Notification with notification
 
 We define entities for each service and mark the entities as microservice entities. We also define relationships between entities, enums, and other options like pagination, service layer, etc. Please refer to JDL [Entities](https://www.jhipster.tech/jdl/entities-fields) and [relationships](https://www.jhipster.tech/jdl/relationships) documentation for more possibilities.
 
-Now, we are ready to run JHipster. Open a terminal window on the folder where you saved the JDL and run the below command.
+Now, we are ready to run JHipster. Open a terminal window on the folder where you saved the JDL and run the following command.
 
 ```bash
 jhipster jdl app.jdl --fork
 ```
 
-This will create the applications with all their entities and specified configurations. You should be able to see the gateway application in action by running the below command on the **store** folder.
+This will create the applications with all their entities and specified configurations. You should be able to see the gateway application in action by running the following command on the **store** folder.
 
 ```bash
 ./gradlew # starts the spring boot application
@@ -303,13 +303,13 @@ This will create the applications with all their entities and specified configur
 
 You can find a [sample application on GitHub](https://github.com/oktadev/okta-java-spring-k8s-istio-microservices-example).
 
-## Create a GKE Cluster and Install Istio
+## Create a GKE cluster and install Istio
 
 To deploy the stack to Google Kubernetes Engine, we need to create a cluster and install Istio. So let's begin by creating a cluster using Google Cloud SDK.
 
 ### Create a cluster
 
-Ensure you are logged into the gcloud CLI and run the below command to create a GKE cluster.
+Ensure you are logged into the gcloud CLI and run the following command to create a GKE cluster.
 
 ```bash
 # set region and zone
@@ -326,7 +326,7 @@ gcloud container clusters create hello-hipster \
    --machine-type n1-standard-2
 ```
 
-This could take anywhere between 5 to 15 minutes. `--machine-type` is important as we need more CPU than available in the default setup. Once the cluster is created, it should be set automatically as the current Kubernetes context. You can verify that by running `kubectl config current-context`. If the new cluster is not set as the current context, you can set it by running `gcloud container clusters get-credentials hello-hipster`.
+This could take anywhere from 5 to 15 minutes. `--machine-type` is important as we need more CPU than available in the default setup. Once the cluster is created, it should be set automatically as the current Kubernetes context. You can verify that by running `kubectl config current-context`. If the new cluster is not set as the current context, you can set it by running `gcloud container clusters get-credentials hello-hipster`.
 
 {% img blog/cloud-native-java-microservices-with-istio/kdash-clusters.png alt:"GKE Cluster nodes" width:"900" %}{: .center-image }
 
@@ -334,7 +334,7 @@ This could take anywhere between 5 to 15 minutes. `--machine-type` is important 
 
 ### Install Istio to cluster
 
-As of writing this, I'm using Istio version 1.13.4. You can install **istioctl** by running the below command, preferably from the home directory.
+As of writing this, I'm using Istio version 1.13.4. You can install **istioctl** by running the following command, preferably from the home directory.
 
 ```bash
 export ISTIO_VERSION=1.13.4
@@ -343,7 +343,7 @@ cd istio-$ISTIO_VERSION
 export PATH=$PWD/bin:$PATH
 ```
 
-You should now be able to run **istioctl** from the command line. Now, we can use the CLI to Install Istio to the GKE cluster. Istio provides a few [Helm](https://helm.sh/) profiles out of the box. We will use the demo profile for demo purposes. You can choose the production or dev profile as well. The command should install Istio and setup everything required on our cluster.
+You should now be able to run **istioctl** from the command line. Now, we can use the CLI to Install Istio to the GKE cluster. Istio provides a few [Helm](https://helm.sh/) profiles out of the box. We will use the demo profile for demo purposes. You can choose the production or dev profile as well. The command should install Istio and set up everything required on our cluster.
 
 ```bash
 istioctl install --set profile=demo -y
@@ -353,9 +353,9 @@ istioctl install --set profile=demo -y
 
 Once the installation is complete, we need to fetch the External IP of the Istio Ingress Gateway. If you are using KDash, you can see it on the services tab, or you can run this command to get it using kubectl: `kubectl get svc istio-ingressgateway -n istio-system`
 
-### Install Observability tools
+### Install observability tools
 
-Istio also provides addons for most of the popular monitoring and observability tools. Lets install Grafana, Prometheus, Kiali and Zipkin on our cluster. These are pre-configured to work with the telemetry data provided by Istio. Ensure you are in the folder where you installed Istio, like **istio-1.13.4**.
+Istio also provides addons for most of the popular monitoring and observability tools. Let's install Grafana, Prometheus, Kiali and Zipkin on our cluster. These are preconfigured to work with the telemetry data provided by Istio. Ensure you are in the folder where you installed Istio, like **istio-1.13.4**.
 
 ```bash
 cd istio-$ISTIO_VERSION
@@ -371,7 +371,7 @@ If we look at the istio-system namespace, we can see all the Istio components al
 
 ## Deploy the microservice stack to GKE
 
-Our cluster is ready, and we have Istio installed. Now, we can deploy our microservice stack to the cluster. But before that, we need to create Kubernetes manifests for our deployments and services and configurations for Istio. And once again, JHipster comes to the rescue. We can use the [JDL deployment](https://www.jhipster.tech/jdl/deployments) configurations to generate Kubernetes setup for our stack with one command easily.
+Our cluster is ready, and we have Istio installed. Now, we can deploy our microservice stack to the cluster. First, we need to create Kubernetes manifests for our deployments and services and configurations for Istio. And once again, JHipster comes to the rescue. We can use the [JDL deployment](https://www.jhipster.tech/jdl/deployments) configurations to generate Kubernetes setup for our stack with one command easily.
 
 ### Create Kubernetes manifests
 
@@ -400,11 +400,11 @@ Now run the following command from the root folder where you ran the previous `j
 jhipster jdl deployment.jdl
 ```
 
-This will create a new folder, **kubernetes**, with all the required Kubernetes manifests like deployments, services, Istio virtual services, gateways, and so on for all the applications, databases, and monitoring.
+This will create a new folder, **kubernetes**, with all the required Kubernetes manifests like deployments, services, Istio virtual services, gateways, and so on, for all the applications, databases, and monitoring.
 
 {% img blog/cloud-native-java-microservices-with-istio/k8s-deployment.png alt:"JHipster JDL deployment" width:"900" %}{: .center-image }
 
-Each of the services will also have an Istio [virtual service](https://istio.io/latest/docs/reference/config/networking/virtual-service/) and [destination rule](https://istio.io/latest/docs/reference/config/networking/destination-rule/). For example, the invoice service will have the below destination rule defining traffic policies.
+Each of the services will also have an Istio [virtual service](https://istio.io/latest/docs/reference/config/networking/virtual-service/) and [destination rule](https://istio.io/latest/docs/reference/config/networking/destination-rule/). For example, the invoice service will have the following destination rule defining traffic policies.
 
 ```yaml
 apiVersion: networking.istio.io/v1beta1
@@ -436,7 +436,7 @@ spec:
         version: "v1"
 ```
 
-It also has the below virtual service that defines the route. You could also use virtual services to do traffic split between two versions of the same app, among other things.
+It also includes the following virtual service that defines the route. You could also use virtual services to do traffic split between two versions of the same app, among other things.
 
 ```yaml
 apiVersion: networking.istio.io/v1beta1
@@ -556,7 +556,7 @@ You can now access the application at the given `http://store.jhipster.<istio-in
 
 {% img blog/cloud-native-java-microservices-with-istio/jh-store-app.png alt:"Store gateway application" width:"900" %}{: .center-image }
 
-Currently the JHipster OIDC setup does not work with Istio and there is an [open issue](https://github.com/jhipster/generator-jhipster/issues/17384) in JHipster issue tracker for this. Alternative solutions would be to use an [external authorization server](https://istio.io/latest/blog/2021/better-external-authz/) with something like [Open Policy Agent](https://www.openpolicyagent.org/). We will cover this in a later blog post.
+Currently the JHipster OIDC setup does not work with Istio and there is an [open issue](https://github.com/jhipster/generator-jhipster/issues/17384) in JHipster issue tracker for this. An alternative solution is to use an [external authorization server](https://istio.io/latest/blog/2021/better-external-authz/) with something like [Open Policy Agent](https://www.openpolicyagent.org/). We will cover this in a future blog post.
 
 ### Monitoring and observability
 
@@ -564,7 +564,7 @@ Since we deployed tools for observability, let's see what we have.
 
 **Grafana**
 
-First up are Grafana and Prometheus for metrics and dashboards. Click the URI for Grafana from the previous deployment step. Click **General** at the top left corner and click the **istio** folder. You should see multiple pre-configured dashboards. You can monitor the performance of the workloads and the istio system itself here. You can also create your own dashboards if you like. Prometheus provides the data visualized on Grafana.
+First up are Grafana and Prometheus for metrics and dashboards. Click the URI for Grafana from the previous deployment step. Click **General** at the top left corner and click the **istio** folder. You should see multiple preconfigured dashboards. You can monitor the performance of the workloads and the istio system itself here. You can also create your own dashboards if you like. Prometheus provides the data visualized on Grafana.
 
 {% img blog/cloud-native-java-microservices-with-istio/grafana.png alt:"Grafana dashboard" width:"900" %}{: .center-image }
 
@@ -582,7 +582,7 @@ Zipkin is a distributed tracing solution for distributed systems. It is a tool f
 
 ### Cleanup
 
-Once you are done with experiments, make sure to delete the cluster you created so that you don't end up with a big bill from Google. You can delete the cluster from the Google Cloud Console GUI or via the command line using the below command.
+Once you are done with experiments, make sure to delete the cluster you created so that you don't end up with a big bill from Google. You can delete the cluster from the Google Cloud Console GUI or via the command line using the following command.
 
 ```bash
 gcloud container clusters delete hello-hipster
