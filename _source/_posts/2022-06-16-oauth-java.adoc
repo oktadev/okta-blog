@@ -362,7 +362,7 @@ The most popular Scala web framework is still Play and it does have https://www.
 
 We published a tutorial about link:/blog/2020/10/19/ktor-kotlin[Ktor and Okta] in late 2020.
 
-== Learn more about Java and OAuth 2.0
+== Learn more about Java and OAuth
 
 I hope you've enjoyed this overview of Java and its OAuth support. Please hit me up on Twitter https://twitter.com[@mraible] or use the comment feature below if you have any questions!
 
