@@ -314,9 +314,16 @@ http PUT :8080/api/group/6 id=6 name='Utah JUG' address='On the slopes'
 http DELETE :8080/api/group/6
 ```
 
+<!--
+<build>
+  <defaultGoal>spring-boot:run</defaultGoal>
+  ...
+</build>
+-->
+
 ## Create a React UI with Create React App
 
-Create React App is a command line utility that generates React projects for you. It's a convenient tool because it also offers commands that will build and optimize your project for production. It uses webpack under the covers for building. If you want to learn more about webpack, I recommend [webpack.academy](https://webpack.academy).
+Create React App is a command line utility that generates React projects for you. It's a convenient tool because it also offers commands that will build and optimize your project for production. It uses webpack under the covers to build everything.
 
 Create a new project in the `jugtours` directory with `npx`.
 
@@ -330,6 +337,7 @@ After the app creation process completes, navigate into the `app` directory and 
 cd app
 npm i bootstrap@5 react-cookie@4 react-router-dom@6 reactstrap@9
 ```
+<!-- npm install bootstrap@5.2.0-beta1 fixes autprefixer issue -->
 
 You'll use Bootstrap's CSS and Reactstrap's components to make the UI look better, especially on mobile phones. If you'd like to learn more about Reactstrap, see [reactstrap.github.io](https://reactstrap.github.io). It has extensive documentation on its various components and how to use them.
 
@@ -567,23 +575,21 @@ export default Home;
 
 Also, change `app/src/App.js` to use React Router to navigate between components.
 
-// nope: export 'Switch' (imported as 'Switch') was not found in 'react-router-dom'
-
 ```jsx
 import React, { Component } from 'react';
 import './App.css';
 import Home from './Home';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import GroupList from './GroupList';
 
 class App extends Component {
   render() {
     return (
       <Router>
-        <Switch>
-          <Route path='/' exact={true} component={Home}/>
-          <Route path='/groups' exact={true} component={GroupList}/>
-        </Switch>
+        <Routes>
+          <Route exact path="/" element={<Home/>}/>
+          <Route path='/groups' exact={true} element={<GroupList/>}/>
+        </Routes>
       </Router>
     )
   }
@@ -595,28 +601,26 @@ export default App;
 To make your UI a bit more spacious, add a top margin to Bootstrap's container classes in `app/src/App.css`.
 
 ```css
-.container, .container-fluid {
+nav + .container, nav + .container-fluid {
   margin-top: 20px;
-}  
+} 
 ```
 
 Your React app should update itself as you make changes and you should see a screen like the following at `http://localhost:3000`.
 
-{% comment %}
-{% img blog/spring-boot-2-react/home-with-link.png alt:"Home screen with Manage JUG Tour link" width:"800" %}{: .center-image }
-{% endcomment %}
+{% img blog/spring-boot-react/home-with-link.png alt:"Home screen with Manage JUG Tour link" width:"800" %}{: .center-image }
 
 Click on **Manage JUG Tour** and you should see a list of the default groups.
 
-{% comment %}
-{% img blog/spring-boot-2-react/group-list.png alt:"Group List screen" width:"800" %}{: .center-image }
-{% endcomment %}
+{% img blog/spring-boot-react/group-list.png alt:"Group List screen" width:"800" %}{: .center-image }
 
 It's great that you can see your Spring Boot API's data in your React app, but it's no fun if you can't edit it!
 
 ## Add a React `GroupEdit` component
 
 Create `app/src/GroupEdit.js` and use its `componentDidMount()` to fetch the group resource with the ID from the URL.
+
+// todo: export 'withRouter' (imported as 'withRouter') was not found in 'react-router-dom'
 
 ```jsx
 import React, { Component } from 'react';
@@ -740,10 +744,10 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <Switch>
+        <Routes>
           ...
-          <Route path='/groups/:id' component={GroupEdit}/>
-        </Switch>
+          <Route path='/groups/:id' element={<GroupEdit/>}/>
+        </Routes>
       </Router>
     )
   }
