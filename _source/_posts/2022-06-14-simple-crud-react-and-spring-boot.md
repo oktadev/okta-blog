@@ -192,7 +192,6 @@ class Initializer implements CommandLineRunner {
         Event e = Event.builder().title("Micro Frontends for Java Developers")
                 .description("JHipster now has microfrontend support!")
                 .date(Instant.parse("2022-09-13T17:00:00.000Z"))
-                // todo: is this ^^ the correct time for Seattle JUG?
                 .build();
         djug.setEvents(Collections.singleton(e));
         repository.save(djug);
@@ -352,45 +351,45 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 Modify `app/src/App.js` to use the following code that calls `/api/groups` and display the list in the UI.
 
 ```jsx
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-class App extends Component {
-  state = {
-    isLoading: true,
-    groups: []
-  };
+const App = () => {
 
-  async componentDidMount() {
-    const response = await fetch('/api/groups');
-    const body = await response.json();
-    this.setState({ groups: body, isLoading: false });
+  const [groups, setGroups] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+
+    fetch('api/groups')
+      .then(response => response.json())
+      .then(data => {
+        setGroups(data);
+        setLoading(false);
+      })
+  }, [setGroups, setLoading]);
+
+  if (loading) {
+    return <p>Loading...</p>;
   }
 
-  render() {
-    const {groups, isLoading} = this.state;
-
-    if (isLoading) {
-      return <p>Loading...</p>;
-    }
-
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <div className="App-intro">
-            <h2>JUG List</h2>
-            {groups.map(group =>
-              <div key={group.id}>
-                {group.name}
-              </div>
-            )}
-          </div>
-        </header>
-      </div>
-    );
-  }
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <div className="App-intro">
+          <h2>JUG List</h2>
+          {groups.map(group =>
+            <div key={group.id}>
+              {group.name}
+            </div>
+          )}
+        </div>
+      </header>
+    </div>
+  );
 }
 
 export default App;
@@ -415,28 +414,28 @@ React is all about components, and you don't want to render everything in your m
 
 {% raw %}
 ```jsx
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, ButtonGroup, Container, Table } from 'reactstrap';
 import AppNavbar from './AppNavbar';
 import { Link } from 'react-router-dom';
 
-class GroupList extends Component {
+const GroupList = () => {
 
-  constructor(props) {
-    super(props);
-    this.state = {groups: [], isLoading: true};
-    this.remove = this.remove.bind(this);
-  }
+  const [groups, setGroups] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  componentDidMount() {
-    this.setState({isLoading: true});
+  useEffect(() => {
+    setLoading(true);
 
     fetch('api/groups')
       .then(response => response.json())
-      .then(data => this.setState({groups: data, isLoading: false}));
-  }
+      .then(data => {
+        setGroups(data);
+        setLoading(false);
+      })
+  }, [setGroups, setLoading]);
 
-  async remove(id) {
+  const remove = async (id) => {
     await fetch(`/api/group/${id}`, {
       method: 'DELETE',
       headers: {
@@ -444,65 +443,61 @@ class GroupList extends Component {
         'Content-Type': 'application/json'
       }
     }).then(() => {
-      let updatedGroups = [...this.state.groups].filter(i => i.id !== id);
-      this.setState({groups: updatedGroups});
+      let updatedGroups = [...groups].filter(i => i.id !== id);
+      setGroups(updatedGroups);
     });
   }
 
-  render() {
-    const {groups, isLoading} = this.state;
-
-    if (isLoading) {
-      return <p>Loading...</p>;
-    }
-
-    const groupList = groups.map(group => {
-      const address = `${group.address || ''} ${group.city || ''} ${group.stateOrProvince || ''}`;
-      return <tr key={group.id}>
-        <td style={{whiteSpace: 'nowrap'}}>{group.name}</td>
-        <td>{address}</td>
-        <td>{group.events.map(event => {
-          return <div key={event.id}>{new Intl.DateTimeFormat('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: '2-digit'
-          }).format(new Date(event.date))}: {event.title}</div>
-        })}</td>
-        <td>
-          <ButtonGroup>
-            <Button size="sm" color="primary" tag={Link} to={"/groups/" + group.id}>Edit</Button>
-            <Button size="sm" color="danger" onClick={() => this.remove(group.id)}>Delete</Button>
-          </ButtonGroup>
-        </td>
-      </tr>
-    });
-
-    return (
-      <div>
-        <AppNavbar/>
-        <Container fluid>
-          <div className="float-right">
-            <Button color="success" tag={Link} to="/groups/new">Add Group</Button>
-          </div>
-          <h3>My JUG Tour</h3>
-          <Table className="mt-4">
-            <thead>
-            <tr>
-              <th width="20%">Name</th>
-              <th width="20%">Location</th>
-              <th>Events</th>
-              <th width="10%">Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            {groupList}
-            </tbody>
-          </Table>
-        </Container>
-      </div>
-    );
+  if (loading) {
+    return <p>Loading...</p>;
   }
-}
+
+  const groupList = groups.map(group => {
+    const address = `${group.address || ''} ${group.city || ''} ${group.stateOrProvince || ''}`;
+    return <tr key={group.id}>
+      <td style={{whiteSpace: 'nowrap'}}>{group.name}</td>
+      <td>{address}</td>
+      <td>{group.events.map(event => {
+        return <div key={event.id}>{new Intl.DateTimeFormat('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: '2-digit'
+        }).format(new Date(event.date))}: {event.title}</div>
+      })}</td>
+      <td>
+        <ButtonGroup>
+          <Button size="sm" color="primary" tag={Link} to={"/groups/" + group.id}>Edit</Button>
+          <Button size="sm" color="danger" onClick={() => remove(group.id)}>Delete</Button>
+        </ButtonGroup>
+      </td>
+    </tr>
+  });
+
+  return (
+    <div>
+      <AppNavbar/>
+      <Container fluid>
+        <div className="float-end">
+          <Button color="success" tag={Link} to="/groups/new">Add Group</Button>
+        </div>
+        <h3>My JUG Tour</h3>
+        <Table className="mt-4">
+          <thead>
+          <tr>
+            <th width="20%">Name</th>
+            <th width="20%">Location</th>
+            <th>Events</th>
+            <th width="10%">Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          {groupList}
+          </tbody>
+        </Table>
+      </Container>
+    </div>
+  );
+};
 
 export default GroupList;
 ```
@@ -510,64 +505,56 @@ export default GroupList;
 
 Create `AppNavbar.js` in the same directory to establish a common UI feature between components.
 
+{% raw %}
 ```jsx
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-export default class AppNavbar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {isOpen: false};
-    this.toggle = this.toggle.bind(this);
-  }
+const AppNavbar = () => {
 
-  toggle() {
-    this.setState({
-      isOpen: !this.state.isOpen
-    });
-  }
+  const [isOpen, setIsOpen] = useState(false);
 
-  render() {
-    return <Navbar color="dark" dark expand="md">
+  return (
+    <Navbar color="dark" dark expand="md">
       <NavbarBrand tag={Link} to="/">Home</NavbarBrand>
-      <NavbarToggler onClick={this.toggle}/>
-      <Collapse isOpen={this.state.isOpen} navbar>
-        <Nav className="ml-auto" navbar>
+      <NavbarToggler onClick={() => { setIsOpen(!isOpen) }}/>
+      <Collapse isOpen={isOpen} navbar>
+        <Nav className="justify-content-end" style={{width: "100%"}} navbar>
           <NavItem>
-            <NavLink
-              href="https://twitter.com/oktadev">@oktadev</NavLink>
+            <NavLink href="https://twitter.com/oktadev">@oktadev</NavLink>
           </NavItem>
           <NavItem>
             <NavLink href="https://github.com/oktadev/okta-spring-boot-react-crud-example">GitHub</NavLink>
           </NavItem>
         </Nav>
       </Collapse>
-    </Navbar>;
-  }
-}
+    </Navbar>
+  );
+};
+
+export default AppNavbar;
 ```
+{% endraw %}
 
 Create `app/src/Home.js` to serve as the landing page for your app.
 
 ```jsx
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
 import AppNavbar from './AppNavbar';
 import { Link } from 'react-router-dom';
 import { Button, Container } from 'reactstrap';
 
-class Home extends Component {
-  render() {
-    return (
-      <div>
-        <AppNavbar/>
-        <Container fluid>
-          <Button color="link"><Link to="/groups">Manage JUG Tour</Link></Button>
-        </Container>
-      </div>
-    );
-  }
+const Home = () => {
+  return (
+    <div>
+      <AppNavbar/>
+      <Container fluid>
+        <Button color="link"><Link to="/groups">Manage JUG Tour</Link></Button>
+      </Container>
+    </div>
+  );
 }
 
 export default Home;
@@ -576,23 +563,22 @@ export default Home;
 Also, change `app/src/App.js` to use React Router to navigate between components.
 
 ```jsx
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
 import Home from './Home';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import GroupList from './GroupList';
+import GroupEdit from './GroupEdit';
 
-class App extends Component {
-  render() {
-    return (
-      <Router>
-        <Routes>
-          <Route exact path="/" element={<Home/>}/>
-          <Route path='/groups' exact={true} element={<GroupList/>}/>
-        </Routes>
-      </Router>
-    )
-  }
+const App = () => {
+  return (
+    <Router>
+      <Routes>
+        <Route exact path="/" element={<Home/>}/>
+        <Route path='/groups' exact={true} element={<GroupList/>}/>
+      </Routes>
+    </Router>
+  )
 }
 
 export default App;
@@ -618,19 +604,16 @@ It's great that you can see your Spring Boot API's data in your React app, but i
 
 ## Add a React `GroupEdit` component
 
-Create `app/src/GroupEdit.js` and use its `componentDidMount()` to fetch the group resource with the ID from the URL.
-
-// todo: export 'withRouter' (imported as 'withRouter') was not found in 'react-router-dom'
+Create `app/src/GroupEdit.js` and use `useEffect()` to fetch the group resource with the ID from the URL.
 
 ```jsx
-import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap';
 import AppNavbar from './AppNavbar';
 
-class GroupEdit extends Component {
-
-  emptyItem = {
+const GroupEdit = () => {
+  const initialFormState = {
     name: '',
     address: '',
     city: '',
@@ -638,86 +621,76 @@ class GroupEdit extends Component {
     country: '',
     postalCode: ''
   };
+  const [group, setGroup] = useState(initialFormState);
+  const navigate = useNavigate();
+  const { id } = useParams();
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      item: this.emptyItem
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  async componentDidMount() {
-    if (this.props.match.params.id !== 'new') {
-      const group = await (await fetch(`/api/group/${this.props.match.params.id}`)).json();
-      this.setState({item: group});
+  useEffect(() => {
+    if (id !== 'new') {
+      fetch(`/api/group/${id}`)
+        .then(response => response.json())
+        .then(data => setGroup(data));
     }
+  }, [id, setGroup]);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target
+
+    setGroup({ ...group, [name]: value })
   }
 
-  handleChange(event) {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
-    let item = {...this.state.item};
-    item[name] = value;
-    this.setState({item});
-  }
-
-  async handleSubmit(event) {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const {item} = this.state;
 
-    await fetch('/api/group' + (item.id ? '/' + item.id : ''), {
-      method: (item.id) ? 'PUT' : 'POST',
+    await fetch('/api/group' + (group.id ? '/' + group.id : ''), {
+      method: (group.id) ? 'PUT' : 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(item),
+      body: JSON.stringify(group)
     });
-    this.props.history.push('/groups');
+    setGroup(initialFormState);
+    navigate('/groups');
   }
 
-  render() {
-    const {item} = this.state;
-    const title = <h2>{item.id ? 'Edit Group' : 'Add Group'}</h2>;
+  const title = <h2>{group.id ? 'Edit Group' : 'Add Group'}</h2>;
 
-    return <div>
+  return (<div>
       <AppNavbar/>
       <Container>
         {title}
-        <Form onSubmit={this.handleSubmit}>
+        <Form onSubmit={handleSubmit}>
           <FormGroup>
             <Label for="name">Name</Label>
-            <Input type="text" name="name" id="name" value={item.name || ''}
-                   onChange={this.handleChange} autoComplete="name"/>
+            <Input type="text" name="name" id="name" value={group.name || ''}
+                   onChange={handleChange} autoComplete="name"/>
           </FormGroup>
           <FormGroup>
             <Label for="address">Address</Label>
-            <Input type="text" name="address" id="address" value={item.address || ''}
-                   onChange={this.handleChange} autoComplete="address-level1"/>
+            <Input type="text" name="address" id="address" value={group.address || ''}
+                   onChange={handleChange} autoComplete="address-level1"/>
           </FormGroup>
           <FormGroup>
             <Label for="city">City</Label>
-            <Input type="text" name="city" id="city" value={item.city || ''}
-                   onChange={this.handleChange} autoComplete="address-level1"/>
+            <Input type="text" name="city" id="city" value={group.city || ''}
+                   onChange={handleChange} autoComplete="address-level1"/>
           </FormGroup>
           <div className="row">
             <FormGroup className="col-md-4 mb-3">
               <Label for="stateOrProvince">State/Province</Label>
-              <Input type="text" name="stateOrProvince" id="stateOrProvince" value={item.stateOrProvince || ''}
-                     onChange={this.handleChange} autoComplete="address-level1"/>
+              <Input type="text" name="stateOrProvince" id="stateOrProvince" value={group.stateOrProvince || ''}
+                     onChange={handleChange} autoComplete="address-level1"/>
             </FormGroup>
             <FormGroup className="col-md-5 mb-3">
               <Label for="country">Country</Label>
-              <Input type="text" name="country" id="country" value={item.country || ''}
-                     onChange={this.handleChange} autoComplete="address-level1"/>
+              <Input type="text" name="country" id="country" value={group.country || ''}
+                     onChange={handleChange} autoComplete="address-level1"/>
             </FormGroup>
             <FormGroup className="col-md-3 mb-3">
               <Label for="country">Postal Code</Label>
-              <Input type="text" name="postalCode" id="postalCode" value={item.postalCode || ''}
-                     onChange={this.handleChange} autoComplete="address-level1"/>
+              <Input type="text" name="postalCode" id="postalCode" value={group.postalCode || ''}
+                     onChange={handleChange} autoComplete="address-level1"/>
             </FormGroup>
           </div>
           <FormGroup>
@@ -727,40 +700,36 @@ class GroupEdit extends Component {
         </Form>
       </Container>
     </div>
-  }
-}
+  )
+};
 
-export default withRouter(GroupEdit);
+export default GroupEdit;
 ```
 
-The `withRouter()` higher-order component is needed at the bottom to expose `this.props.history` so you can navigate back to the `GroupList` after adding or saving a group.
+The `useParams()` hook is used to grab the ID from the URL and `useNavigate()` allows you to navigate back to the `GroupList` after adding or saving a group.
 
 Modify `app/src/App.js` to import `GroupEdit` and specify a path to it.
 
 ```jsx
 import GroupEdit from './GroupEdit';
 
-class App extends Component {
-  render() {
-    return (
-      <Router>
-        <Routes>
-          ...
-          <Route path='/groups/:id' element={<GroupEdit/>}/>
-        </Routes>
-      </Router>
-    )
-  }
+const App = () => {
+  return (
+    <Router>
+      <Routes>
+        ...
+        <Route path='/groups/:id' element={<GroupEdit/>}/>
+      </Routes>
+    </Router>
+  )
 }
 ```
 
 Now you should be able to add and edit groups!
 
-{% comment %}
 {% img blog/spring-boot-react/add-group.png alt:"Add Group screen" width:"800" %}{: .center-image }
 
 {% img blog/spring-boot-react/edit-group.png alt:"Edit Group screen" width:"800" %}{: .center-image }
-{% endcomment %}
 
 ## Add authentication with Okta
 
@@ -776,42 +745,35 @@ Are you sold? [Register for a forever-free developer account](https://developer.
 
 ### Spring Security + OIDC
 
-[Spring Security added OIDC support in its 5.0 release](/blog/2017/12/18/spring-security-5-oidc). Since then, they've made quite a few improvements and simplified its required configuration. I figured it'd be fun to explore the latest and greatest, so I started by upgrading Spring Boot to [2.1.0](https://spring.io/blog/2018/10/30/spring-boot-2-1-0) (which includes [Spring Security 5.1](https://spring.io/blog/2018/09/27/spring-security-5-1-goes-ga)), and adding the necessary Spring Security dependencies to do OIDC authentication.
+[Spring Security added OIDC support in its 5.0 release](/blog/2017/12/18/spring-security-5-oidc). Since then, they've made quite a few improvements and simplified its required configuration. Add the Okta Spring Boot starter to do OIDC authentication.
 
 ```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<project>
-    ...
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.0.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
+<dependency>
+    <groupId>com.okta.spring</groupId>
+    <artifactId>okta-spring-boot-starter</artifactId>
+    <version>2.1.5</version>
+</dependency>
+```
 
-    <dependencies>
-        ...
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-config</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-oauth2-client</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-oauth2-jose</artifactId>
-        </dependency>
-    </dependencies>
+This dependency is a thin wrapper about Spring Security's OAuth and bundles the following dependencies:
 
-    <build...>
-
-</project>
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-security</artifactId>
+</dependency>
+<dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-config</artifactId>
+</dependency>
+<dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-oauth2-client</artifactId>
+</dependency>
+<dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-oauth2-jose</artifactId>
+</dependency>
 ```
 
 ### Create an OIDC app in Okta
@@ -819,23 +781,6 @@ Are you sold? [Register for a forever-free developer account](https://developer.
 {% include setup/cli.md type="web" framework="Okta Spring Boot Starter" signup="false"
    loginRedirectUri="http://localhost:8080/login/oauth2/code/okta"
    logoutRedirectUri="[http://localhost:3000,http://localhost:8080]" %}
-
-Copy and paste the issuer, client ID, and client secret into `src/main/resources/application.yml`. Create this file, and you can delete the `application.properties` file in the same directory.
-
-```yaml
-spring:
-  security:
-    oauth2:
-      client:
-        registration:
-          okta:
-            client-id: {clientId}
-            client-secret: {clientSecret}
-            scope: openid, email, profile
-        provider:
-          okta:
-            issuer-uri: https://{yourOktaDomain}/oauth2/default
-```
 
 ## Configure Spring Security for React and user identity
 
@@ -848,6 +793,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
@@ -857,19 +803,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @EnableWebSecurity
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class SecurityConfiguration {
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .oauth2Login().and()
-            .csrf()
-                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .and()
-            .authorizeRequests()
+            .authorizeHttpRequests((authz) -> authz
                 .antMatchers("/**/*.{js,html,css}").permitAll()
                 .antMatchers("/", "/api/user").permitAll()
-                .anyRequest().authenticated();
+                .anyRequest().authenticated()
+            )
+            .csrf((csrf) -> csrf
+                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+            )
+            .oauth2Login();
+        return http.build();
     }
 
     @Bean
@@ -879,7 +827,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             public void saveRequest(HttpServletRequest request, HttpServletResponse response) {
                 String referrer = request.getHeader("referer");
                 if (referrer != null) {
-                    request.getSession().setAttribute("SPRING_SECURITY_SAVED_REQUEST", new SimpleSavedRequest(referrer));
+                    request.getSession().setAttribute("SPRING_SECURITY_SAVED_REQUEST",
+                        new SimpleSavedRequest(referrer));
                 }
             }
         };
@@ -897,7 +846,8 @@ public RequestCache refererRequestCache() {
         public void saveRequest(HttpServletRequest request, HttpServletResponse response) {
             String referrer = request.getHeader("referer");
             if (referrer != null) {
-                request.getSession().setAttribute("SPRING_SECURITY_SAVED_REQUEST", new SimpleSavedRequest(referrer));
+                request.getSession().setAttribute("SPRING_SECURITY_SAVED_REQUEST",
+                    new SimpleSavedRequest(referrer));
             }
         }
     };
@@ -1087,58 +1037,54 @@ ResponseEntity<Group> createGroup(@Valid @RequestBody Group group,
 
 ## Modify React to handle CSRF and be identity-aware
 
-You'll need to make a few changes to your React components to make them identity-aware. The first thing you'll want to do is modify `App.js` to wrap everything in a `CookieProvider`. This component allows you to read the CSRF cookie and send it back as a header.
+You'll need to make a few changes to your React components to make them identity-aware. The first thing you'll want to do is modify `src/index.js` to wrap everything in a `CookieProvider`. This component allows you to read the CSRF cookie and send it back as a header.
 
 ```jsx
 import { CookiesProvider } from 'react-cookie';
 
-class App extends Component {
-  render() {
-    return (
-      <CookiesProvider>
-        <Router...>
-      </CookiesProvider>
-    )
-  }
-}
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <CookiesProvider>
+      <App />
+    </CookiesProvider>
+  </React.StrictMode>
+);
 ```
 
 Modify `app/src/Home.js` to call `/api/user` to see if the user is logged in. If they're not, show a `Login` button.
 
 ```jsx
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import AppNavbar from './AppNavbar';
 import { Link } from 'react-router-dom';
 import { Button, Container } from 'reactstrap';
-import { withCookies } from 'react-cookie';
+import { useCookies } from 'react-cookie';
 
-class Home extends Component {
-  state = {
-    isLoading: true,
-    isAuthenticated: false,
-    user: undefined
-  };
+const Home = () => {
 
-  constructor(props) {
-    super(props);
-    const {cookies} = props;
-    this.state.csrfToken = cookies.get('XSRF-TOKEN');
-    this.login = this.login.bind(this);
-    this.logout = this.logout.bind(this);
-  }
+  const [authenticated, setAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState(undefined);
+  const [cookies] = useCookies(['XSRF-TOKEN']);
 
-  async componentDidMount() {
-    const response = await fetch('/api/user', {credentials: 'include'});
-    const body = await response.text();
-    if (body === '') {
-      this.setState(({isAuthenticated: false}))
-    } else {
-      this.setState({isAuthenticated: true, user: JSON.parse(body)})
-    }
-  }
+  useEffect(() => {
+    setLoading(true);
+    fetch('api/user', { credentials: 'include' })
+      .then(response => response.text())
+      .then(body => {
+        if (body === '') {
+          setAuthenticated(false);
+        } else {
+          setUser(JSON.parse(body));
+          setAuthenticated(true);
+        }
+        setLoading(false);
+      });
+  }, [setAuthenticated, setLoading, setUser])
 
-  login() {
+  const login = () => {
     let port = (window.location.port ? ':' + window.location.port : '');
     if (port === ':3000') {
       port = ':8080';
@@ -1146,179 +1092,128 @@ class Home extends Component {
     window.location.href = '//' + window.location.hostname + port + '/private';
   }
 
-  logout() {
-    fetch('/api/logout', {method: 'POST', credentials: 'include',
-      headers: {'X-XSRF-TOKEN': this.state.csrfToken}}).then(res => res.json())
+  const logout = () => {
+    fetch('/api/logout', {
+      method: 'POST', credentials: 'include',
+      headers: { 'X-XSRF-TOKEN': cookies['XSRF-TOKEN'] }
+    })
+      .then(res => res.json())
       .then(response => {
         window.location.href = response.logoutUrl + "?id_token_hint=" +
           response.idToken + "&post_logout_redirect_uri=" + window.location.origin;
       });
   }
 
-  render() {
-    const message = this.state.user ?
-      <h2>Welcome, {this.state.user.name}!</h2> :
-      <p>Please log in to manage your JUG Tour.</p>;
+  const message = user ?
+    <h2>Welcome, {user.name}!</h2> :
+    <p>Please log in to manage your JUG Tour.</p>;
 
-    const button = this.state.isAuthenticated ?
-      <div>
-        <Button color="link"><Link to="/groups">Manage JUG Tour</Link></Button>
-        <br/>
-        <Button color="link" onClick={this.logout}>Logout</Button>
-      </div> :
-      <Button color="primary" onClick={this.login}>Login</Button>;
+  const button = authenticated ?
+    <div>
+      <Button color="link"><Link to="/groups">Manage JUG Tour</Link></Button>
+      <br/>
+      <Button color="link" onClick={logout}>Logout</Button>
+    </div> :
+    <Button color="primary" onClick={login}>Login</Button>;
 
-    return (
-      <div>
-        <AppNavbar/>
-        <Container fluid>
-          {message}
-          {button}
-        </Container>
-      </div>
-    );
+  if (loading) {
+    return <p>Loading...</p>;
   }
+
+  return (
+    <div>
+      <AppNavbar/>
+      <Container fluid>
+        {message}
+        {button}
+      </Container>
+    </div>
+  );
 }
 
-export default withCookies(Home);
+export default Home;
 ```
 
 There are some things you should be aware of in this component:
 
-1. `withCookies()` wraps the `Home` component at the bottom to give it access to cookies. Then you can use `const {cookies} = props` in the constructor, and fetch a cookie with `cookies.get('XSRF-TOKEN')`. 
+1. `useCookies()` is used for access to cookies. Then you can fetch a cookie with `cookies['XSRF-TOKEN']`. 
 2. When using `fetch()`, you need to include `{credentials: 'include'}` to transfer cookies. You will get a 403 Forbidden if you do not include this option.
 3. The CSRF cookie from Spring Security has a different name than the header you need to send back. The cookie name is `XSRF-TOKEN`, while the header name is `X-XSRF-TOKEN`. 
 
 Update `app/src/GroupList.js` to have similar changes. The good news is you don't need to make any changes to the `render()` method.
 
-```js
-import { Link, withRouter } from 'react-router-dom';
-import { instanceOf } from 'prop-types';
-import { withCookies, Cookies } from 'react-cookie';
+```jsx
+import { useCookies } from 'react-cookie';
 
-class GroupList extends Component {
-  static propTypes = {
-    cookies: instanceOf(Cookies).isRequired
-  };
+const GroupList = () => {
 
-  constructor(props) {
-    super(props);
-    const {cookies} = props;
-    this.state = {groups: [], csrfToken: cookies.get('XSRF-TOKEN'), isLoading: true};
-    this.remove = this.remove.bind(this);
-  }
+  ...
+  const [cookies] = useCookies(['XSRF-TOKEN']);
 
-  componentDidMount() {
-    this.setState({isLoading: true});
-
-    fetch('api/groups', {credentials: 'include'})
-      .then(response => response.json())
-      .then(data => this.setState({groups: data, isLoading: false}))
-      .catch(() => this.props.history.push('/'));
-  }
-
-  async remove(id) {
+  ...
+  const remove = async (id) => {
     await fetch(`/api/group/${id}`, {
       method: 'DELETE',
       headers: {
-        'X-XSRF-TOKEN': this.state.csrfToken,
+        'X-XSRF-TOKEN': cookies['XSRF-TOKEN'],
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
       credentials: 'include'
     }).then(() => {
-        let updatedGroups = [...this.state.groups].filter(i => i.id !== id);
-        this.setState({groups: updatedGroups});
-      });
+      let updatedGroups = [...groups].filter(i => i.id !== id);
+      setGroups(updatedGroups);
+    });
   }
+  ...
 
-  render() {...}
+  return (...)
 }
 
-export default withCookies(withRouter(GroupList));
+export default GroupList;
 ```
 
 Update `GroupEdit.js` too.
 
-```js
-import { instanceOf } from 'prop-types';
-import { Cookies, withCookies } from 'react-cookie';
+```jsx
+import { useCookies } from 'react-cookie';
 
-class GroupEdit extends Component {
-  static propTypes = {
-    cookies: instanceOf(Cookies).isRequired
-  };
+const GroupEdit = () => {
+  
+  ...
+  const [cookies] = useCookies(['XSRF-TOKEN']);
 
-  emptyItem = {
-    name: '',
-    address: '',
-    city: '',
-    stateOrProvince: '',
-    country: '',
-    postalCode: ''
-  };
-
-  constructor(props) {
-    super(props);
-    const {cookies} = props;
-    this.state = {
-      item: this.emptyItem,
-      csrfToken: cookies.get('XSRF-TOKEN')
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  async componentDidMount() {
-    if (this.props.match.params.id !== 'new') {
-      try {
-        const group = await (await fetch(`/api/group/${this.props.match.params.id}`, {credentials: 'include'})).json();
-        this.setState({item: group});
-      } catch (error) {
-        this.props.history.push('/');
-      }
-    }
-  }
-
-  handleChange(event) {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
-    let item = {...this.state.item};
-    item[name] = value;
-    this.setState({item});
-  }
-
-  async handleSubmit(event) {
+  ...
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const {item, csrfToken} = this.state;
 
-    await fetch('/api/group' + (item.id ? '/' + item.id : ''), {
-      method: (item.id) ? 'PUT' : 'POST',
+    await fetch('/api/group' + (group.id ? '/' + group.id : ''), {
+      method: (group.id) ? 'PUT' : 'POST',
       headers: {
-        'X-XSRF-TOKEN': csrfToken,
+        'X-XSRF-TOKEN': cookies['XSRF-TOKEN'],
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(item),
+      body: JSON.stringify(group),
       credentials: 'include'
     });
-    this.props.history.push('/groups');
+    setGroup(initialFormState);
+    navigate('/groups');
   }
 
-  render() {...}
+  ...
+
+  return (...)
 }
 
-export default withCookies(withRouter(GroupEdit));
+export default GroupEdit;
 ```
 
 After all these changes, you should be able to restart both Spring Boot and React and witness the glory of planning your very own JUG Tour!
 
-{% comment %}
 {% img blog/spring-boot-react/react-login.png alt:"React Login" width:"800" %}{: .center-image }
 
 {% img blog/spring-boot-react/my-jug-tour.png alt:"My JUG Tour" width:"800" %}{: .center-image }
-{% endcomment %}
 
 ## Configure Maven to build and package React with Spring Boot
 
@@ -1327,9 +1222,9 @@ To build and package your React app with Maven, you can use the [frontend-maven-
 ```xml
 <properties>
     ...
-    <frontend-maven-plugin.version>1.6</frontend-maven-plugin.version>
-    <node.version>v10.13.0</node.version>
-    <npm.version>v1.12.1</npm.version>
+    <frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
+    <node.version>v16.15.1</node.version>
+    <npm.version>v8.6.0</npm.version>
 </properties>
 
 <profiles>
@@ -1411,7 +1306,7 @@ To build and package your React app with Maven, you can use the [frontend-maven-
                             </goals>
                             <phase>compile</phase>
                             <configuration>
-                                <arguments>build</arguments>
+                                <arguments>run build</arguments>
                             </configuration>
                         </execution>
                     </executions>
@@ -1425,13 +1320,10 @@ To build and package your React app with Maven, you can use the [frontend-maven-
 </profiles>
 ```
 
-While you're at it, add the active profile setting to `src/main/resources/application.yml`:
+While you're at it, add the active profile setting to `src/main/resources/application.properties`:
 
-```yaml
-spring:
-  profiles:
-    active: @spring.profiles.active@
-  security:
+```properties
+spring.profiles.active=@spring.profiles.active@
 ```
 
 ### Fix redirect after login in prod profile
@@ -1448,7 +1340,7 @@ To fix this, add `@Profile("dev")` to this bean.
 ```java
 import org.springframework.context.annotation.Profile;
 ...
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class SecurityConfiguration {
     
     @Bean
     @Profile("dev")
@@ -1478,9 +1370,7 @@ public class RedirectController {
 
 After adding this, you should be able to run `./mvnw spring-boot:run -Pprod` and your app see your app running on `http://localhost:8080`. 
 
-{% comment %}
 {% img blog/spring-boot-react/localhost-8080.png alt:"App Running with Maven" width:"800" %}{: .center-image }
-{% endcomment %}
 
 ## Learn More about Spring Boot and React
 
@@ -1490,7 +1380,11 @@ You can find the example created in this tutorial on GitHub at [https://github.c
 
 We've written some other cool Spring Boot and React tutorials, check them out if you're interested.
 
+* [Creating a TypeScript React Application with Vite](/blog/2022/03/14/react-vite-number-converter)
+* [How to Create a React App with Storybook](https://developer.okta.com/blog/2022/01/20/react-storybook)
+* [How to Build and Deploy a Serverless React App on Azure](/blog/2022/04/13/react-azure-functions)
+* [A Quick Guide to Elasticsearch with Spring Data and Spring Boot](/blog/2022/02/16/spring-data-elasticsearch)
+* [Full Stack Java with React, Spring Boot, and JHipster](/blog/2021/11/22/full-stack-java)
 * [Build a CRUD Application with Kotlin and React](/blog/2020/01/13/kotlin-react-crud)
-// todo: full stack, react native, and other react posts
 
 If you have any questions, please don't hesitate to leave a comment below, or ask us on our [Okta Developer Forums](https://devforum.okta.com/). Follow us [on Twitter](https://twitter.com/oktadev) if you want to see more tutorials like this one!
