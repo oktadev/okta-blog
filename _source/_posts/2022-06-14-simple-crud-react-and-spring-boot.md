@@ -1381,7 +1381,7 @@ You can find the example created in this tutorial on GitHub at [https://github.c
 We've written some other cool Spring Boot and React tutorials, check them out if you're interested.
 
 * [Creating a TypeScript React Application with Vite](/blog/2022/03/14/react-vite-number-converter)
-* [How to Create a React App with Storybook](https://developer.okta.com/blog/2022/01/20/react-storybook)
+* [How to Create a React App with Storybook](/blog/2022/01/20/react-storybook)
 * [How to Build and Deploy a Serverless React App on Azure](/blog/2022/04/13/react-azure-functions)
 * [A Quick Guide to Elasticsearch with Spring Data and Spring Boot](/blog/2022/02/16/spring-data-elasticsearch)
 * [Full Stack Java with React, Spring Boot, and JHipster](/blog/2021/11/22/full-stack-java)
