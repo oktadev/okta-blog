@@ -318,7 +318,7 @@ Apparently, there's a demand for it from their customers and users. Or maybe it'
 OIDC does it better, just use it!
 ====
 
-== Auth 2.0 authorization servers
+== OAuth 2.0 authorization servers
 
 Up to this point, all the things I've talked about are OAuth clients. They require an identity provider to do OAuth flows. An identity provider has OAuth 2.0 authorization servers. Most of the big providers have their own proprietary implementation.
 
