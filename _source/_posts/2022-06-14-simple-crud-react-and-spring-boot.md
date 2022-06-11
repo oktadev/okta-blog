@@ -755,7 +755,7 @@ Are you sold? [Register for a forever-free developer account](https://developer.
 </dependency>
 ```
 
-This dependency is a thin wrapper about Spring Security's OAuth and bundles the following dependencies:
+This dependency is a thin wrapper around Spring Security's OAuth and encapsulates the following dependencies:
 
 ```xml
 <dependency>
