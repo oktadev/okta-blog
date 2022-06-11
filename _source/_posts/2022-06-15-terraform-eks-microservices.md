@@ -546,6 +546,7 @@ Image names would be `store`, `invoice`, and `product`.
 You can start the deployment using the handy script provided by JHipster. You could also manually apply deployments using `kubectl apply -f <file>` commands.
 
 ```bash
+cd kubernetes
 ./kubectl-apply.sh -f
 ```
 
