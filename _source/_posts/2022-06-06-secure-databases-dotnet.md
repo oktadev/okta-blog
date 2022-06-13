@@ -48,7 +48,7 @@ Like most Platform as a Service (PaaS) offerings, Cosmos DB provides many featur
 
 First, as a PaaS, Microsoft takes responsibility for network controls, host infrastructure, and physical security. They share application-level controls and identity access with you as well as the data classification. Endpoint protection is your responsibility.  
 
-It is important to note though that [Azure is HIPPA compliant](https://docs.microsoft.com/en-us/azure/cosmos-db/faq#:~:text=Is%20Azure%20Cosmos%20DB%20HIPAA,of%20individually%20identifiable%20health%20information). Ultimately, the data that you choose to store is your responsibility and subject to laws and regulations that are out of scope for this article. .  
+It is important to note though that [Azure is HIPPA compliant](https://docs.microsoft.com/en-us/azure/cosmos-db/faq#:~:text=Is%20Azure%20Cosmos%20DB%20HIPAA,of%20individually%20identifiable%20health%20information). Ultimately, the data that you choose to store is your responsibility and subject to laws and regulations that are out of scope for this article.
 
 You should also take a moment to familiarize yourself with the Cosmos DB resource model. I won't go into it too deeply here, but the short version is that a `database account` owns a `database`. The `database` contains `containers`. `Containers` can contain `items`, `stored procedures`, `triggers`, and other objects. In this tutorial, you will create the database account on the Azure portal, but you will create the database, container, and items from your web application.  
 
