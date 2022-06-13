@@ -593,7 +593,7 @@ This simple page provides an opportunity for the user to import a CSV file and s
 
 Next, add a file for `Upload.cshtml` that will display the results as they come back.
 
-```HTML
+```html
 @model List<Okta_CosmosDb.Models.ScrubResult>
 @(ViewData["Title"] = "Scrub Results")
 
