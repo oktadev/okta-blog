@@ -503,7 +503,7 @@ Here you have the `Index` method but the logic is replaced to redirect authentic
 
 The first view to edit is the `_Layout.cshtml` in your `Views/Shared` folder.  
 
-```HTML
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
