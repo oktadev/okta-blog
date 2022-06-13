@@ -26,7 +26,7 @@ The shift to serverless database operations is one of the most obvious advantage
 
 As developers, we need to be mindful of how we can protect data at rest. In this article, you will learn how Cosmos DB helps to protect data at rest and what you can do to remove sensitive data like personally identifiable information (PII) from data that you intend to store in Cosmos DB.  
 
-### The application you will build
+### A secure application for PII
 
 One of my first jobs in development was writing applications that would perform a `scrubbing` process on personal data coming from clients. Effectively we would receive data that included the person's name, social security number, and address. This data would then be sent out for verification to a consumer reporting corporation,  and that company would return a result letting us know if the address was current and if the information we'd received was correct. Once the data returned we could import the result into our software and if the scrub came back successful then the account was good to contact.  
 
@@ -79,7 +79,7 @@ The *Create Azure Cosmos DB Account - Core (SQL)* page provides the details abou
 
 ## Create your web application
 
-Now you can turn your attention toward creating your web application. Open Visual Studio and press **Create a new project**. Find the template for *ASP.NET Core Web App (Model-View-Controller)* and press **Next**. Name your application `Okta_CosmosDb` and press **Next**. Finally, select *.NET 6.0 (Long-term support)* from your framework and press **Create**. Allow Visual Studio a minute to scaffold the project.
+Now you can turn your attention toward creating your web application. Open Visual Studio and press **Create a new project**. Find the template for *ASP.NET Core Web App (Model-View-Controller)* and press **Next**. Name your application `Okta_CosmosDb` and press **Next**. Finally, select *.NET 6.0 (Long-term support)* from your framework and press **Create**. Allow Visual Studio a moment to scaffold the project.
 
 Next, you can install the two packages you will need in your project.  
 
@@ -117,7 +117,7 @@ Next, open `appsettings.Development.json` and replace the code there with the fo
 }
 ```
 
-You can find the Okta values in `.okta.env` produced by the CLI when you initialized your Okta application. To find your Cosmos values navigate to your Cosmos DB account page and open the `Settings > Keys` tab. Here you will find the `URI`, `PRIMARY KEY`, and other values you may need down the line.
+You can find the Okta values in `.okta.env` produced by the CLI when you initialized your Okta application. To find your Cosmos values, navigate to your Cosmos DB account page and open the `Settings > Keys` tab. Here you will find the `URI`, `PRIMARY KEY`, and other values you may need down the line.
 
 Next, replace the code in `Program.cs` with the following.
 
@@ -184,9 +184,9 @@ Much of this code is boilerplate from the Visual Studio scaffolding process but 
 
 First, you need to configure your authentication to use `AddOktaMvc` and provide the configuration values from your `appsettings` file.
 
-Next, you are setting up the dependency injection for a couple of custom services that you will write soon. These are the `IScrubService` which will handle your scrubbing process and the `ICosmosService` which will handle communication to your Cosmos DB account.
+Next, you are setting up the dependency injection for a couple of custom services that you will write soon. These are the `IScrubService`, which will handle your scrubbing process, and the `ICosmosService`, which will handle communication to your Cosmos DB account.
 
-Finally, you are calling `InitializeCosmosClientInstanceAsync` which will set up your database and container if they do not exist. Then it will return the `CosmosService` as a singleton.  
+Finally, you are calling `InitializeCosmosClientInstanceAsync`, which will set up your database and container if they do not exist. Then it will return the `CosmosService` as a singleton.  
 
 ### Create your application services
 
@@ -270,7 +270,7 @@ namespace Okta_CosmosDb.Services
 
 This service does two tasks. First, it stores data in Cosmos DB using the `SaveResultAsync` method. This simply calls the container you are operating on and creates an item in that container.
 
-This class also contains the static `InitializeCosmosClientInstanceAsync` method which your `Program.cs` called to return the service. Anytime you attempt to access an `ICosmosService` your application will return a singleton using this method. This method will ensure your database and your container are created before passing the instance of the `CosmosService` to the consumer to be used.  
+This class also contains the static `InitializeCosmosClientInstanceAsync` method, which your `Program.cs` called to return the service. Anytime you attempt to access an `ICosmosService` your application will return a singleton using this method. This method will ensure your database and your container are created before passing the instance of the `CosmosService` to the consumer to be used.  
 
 Next open `ScrubService.cs` and replace the code there with this implementation.
 
@@ -343,7 +343,7 @@ There are a couple of things going on here that you should understand. First, yo
 
 The real kicker here is that the API is using the `Newtonsoft.Json` package to serialize the objects into JSON strings. This means you can use any of the features that come with the Newtonsoft package to manipulate your data. This is what you did on the `Person` object where you use the `JsonIgnore` attribute to hide the SSN.
 
-While `JsonIgnore` is the simplest way to remove the SSN from this object, there are many other approaches. You could even create a custom attribute using the `Newtonsoft.Json.Serialization.DefaultContractResolver` and hash, encrypt, or otherwise translate the field into something less sensitive.  
+While `JsonIgnore` is the simplest way to remove the SSN from this object, there are many other approaches. You could even create a custom attribute using the `Newtonsoft.Json.Serialization.DefaultContractResolver`, and hash, encrypt, or otherwise translate the field into something less sensitive.  
 
 ### Add the controller logic
 
@@ -563,7 +563,7 @@ The first view to edit is the `_Layout.cshtml` in your `Views/Shared` folder.
 </html>
 ```
 
-Most of the boilerplate layout is fine but it doesn't include a `Login` or `Logout` buttons. You added these to the navbar and displayed the appropriate one based on the user's authentication status.
+Most of the boilerplate layout is fine but it doesn't include `Login` or `Logout` buttons. You added these to the navbar and displayed the appropriate one based on the user's authentication status.
 
 Next, replace the `Home\Index.cshtml` code with the following.
 
@@ -637,7 +637,7 @@ You will note that the social security number does not appear in the data you se
 
 As developers, we always need to be thinking about protecting =users' data. The rise of PaaS and SaaS platforms has decreased risk when used properly. But along with these new platforms, we must make sure we use best practices and keep an attentive eye on the data we choose to retain.  
 
-In this tutorial, you learned how to store data in Cosmos DB from an ASP.NET Core application. You learned how to set up your Cosmos DB account and how to set up your application to create databases and containers to store your items. Finally, you learned how to use the JSON functionality to remove sensitive data from your data model before storing it.
+In this tutorial, you learned how to store data in Cosmos DB from an ASP.NET Core application. You learned how to set up your Cosmos DB account and how to set up your application to create databases and containers to store your items. Finally, you used the JSON functionality to remove sensitive data from your data model before storing it.
 
 ## Learn more about Azure and ASP.NET Core
 
