@@ -190,7 +190,7 @@ Finally, you are calling `InitializeCosmosClientInstanceAsync`, which will set u
 
 ### Create your application services
 
-Create a new folder in your root and name it `Services`. You will add the following four files to this directory.
+Create a new folder in the project root and name it `Services`. You will add the following four files to this directory.
 
 * ICosmosService.cs
 * CosmosService.cs
