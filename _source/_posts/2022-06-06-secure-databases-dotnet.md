@@ -580,7 +580,7 @@ This is just a little home page with some information about the tutorial.
 
 Finally, create a new folder (if one wasn't created already) for `Import` in your `Views` folder. Add a file called `Index.cshtml` with the following code.
 
-```HTML
+```html
 @(ViewData["Title"] = "Import Clients")
 
 <form method="POST" asp-controller="Import" asp-action="Upload" enctype="multipart/form-data">
