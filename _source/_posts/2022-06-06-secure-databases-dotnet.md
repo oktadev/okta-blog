@@ -192,10 +192,10 @@ Finally, you are calling `InitializeCosmosClientInstanceAsync`, which will set u
 
 Create a new folder in the project root and name it `Services`. You will add the following four files to this directory.
 
-* ICosmosService.cs
-* CosmosService.cs
-* IScrubService.cs
-* ScrubService.cs
+* `ICosmosService.cs`
+* `CosmosService.cs`
+* `IScrubService.cs`
+* `ScrubService.cs`
 
 Start by replacing the code in the two interfaces. First, replace the code in `ICosmosService.cs` with the following.
 
