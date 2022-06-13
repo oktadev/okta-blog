@@ -1,20 +1,16 @@
 ---
 layout: blog_post
 title: "OAuth for Java Developers"
-# title: "OAuth 2.0 for Java Developers"
-# title: "OAuth 2.0 in Java"
-# title: "OAuth 2.1 in Java"
-# title: "OAuth 2.0 on the JVM"
 author: matt-raible
 by: advocate
 communities: [java]
-description: ""
-tags: [java, oauth2]
+description: "Java has rich support for OAuth 2.0, even though it's not part of any Java standards. Learn more in this OAuth guide for developers."
+tags: [java, oauth2, security]
 tweets:
-- ""
-- ""
-- ""
-image:
+- "Want to see how Java supports OAuth standards? This post is for you!"
+- "Learn about the state of the OAuth ecosystem in Java and which frameworks have support for it."
+- "OAuth makes your Java web apps more secure. Learn how and why in this post."
+image: blog/java-oauth2-2022/oauth-for-java-developers.png
 type: awareness
 ---
 :page-liquid:
@@ -34,40 +30,6 @@ Image v1 by https://twitter.com/javinpaul[@javinpaul] - https://javarevisited.bl
 · v2+ https://github.com/devoxx/JavaRoadmap2022[maintained on GitHub] by https://twitter.com/stephan007[@stephan007]
 
 Today, I'd provide you with a state of the OAuth ecosystem in Java. You'll learn which frameworks support OAuth and which ones don't. I'll also provide you with some practical examples you can run in just a few minutes.
-
-////
-
-todo: We might want to save the snark for the OIDC version of this post
-
-I will not discuss SAML because I consider it a legacy technology.
-
-++++
-{% twitter 1379871695163510795 %}
-++++
-////
-
-toc::[]
-
-////
-
-todo: This might fit better in my upcoming Spring Boot SAML and/or Java and OIDC posts
-
-There's another standard that's popular for single sign-on: SAML. SAML stands for Security Assertion Markup Language and its 2.0 version was ratified as an OASIS Standard in March 2005.
-
-You know what else was pretty new in the Java world around 2005?
-
-- JSF 1.0
-- Spring 1.0
-- Flex 1.0
-- AJAX term coined in February
-
-Simply put, if you're using SAML for single sign-on (SSO), you're still living in the dark ages of web development. The dawn of a new era happened in 2005 and 2006 with the invention of Ruby on Rails, jQuery, and GWT.
-
-SOAP (Simple Object Access Protocol) was a popular implementation for web services, but quickly dropped out of favor for REST (REpresentational State Transfer). Developers everywhere discovered that XML was cumbersome to use compared to JSON.
-
-{% twitter 1379871695163510795 %}
-
-////
 
 == What the heck is OAuth?
 
