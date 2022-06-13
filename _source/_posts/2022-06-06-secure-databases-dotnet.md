@@ -24,7 +24,7 @@ type: conversion
 
 The shift to serverless database operations is one of the most obvious advantages of migrating. Cosmos DB can automatically scale your throughput based on load, rather than the traditional provisioning of throughput in advance.  
 
-As developers, we need to be mindful of how we can protect data at rest. In this article, you will learn how Cosmos DB helps to protect data at rest and what you can do to remove sensitive data like personal identifiable information (PII) from data that you intend to store in Cosmos DB.  
+As developers, we need to be mindful of how we can protect data at rest. In this article, you will learn how Cosmos DB helps to protect data at rest and what you can do to remove sensitive data like personally identifiable information (PII) from data that you intend to store in Cosmos DB.  
 
 ### The application you will build
 
