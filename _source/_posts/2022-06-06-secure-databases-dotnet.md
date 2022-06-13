@@ -79,7 +79,7 @@ The *Create Azure Cosmos DB Account - Core (SQL)* page provides the details abou
 
 ## Create your web application
 
-Now you can turn your attention toward creating your web application. Open Visual Studio and press **Create a new project**. Find the template for *ASP.NET Core Web App (Model-View-Controller)* and press **Next**. Name your application `Okta_CosmosDb` and press **Next**. Finally, select *.NET 6.0 (Long-term support)* from your framework and press **Create**. Allow Visual Studio a moment to scaffold the project.
+Now you can turn your attention toward creating your web application. Open Visual Studio and press **Create a new project**. Find the template for **ASP.NET Core Web App (Model-View-Controller)** and press **Next**. Name your application `Okta_CosmosDb` and press **Next**. Finally, select **.NET 6.0 (Long-term support)** from your framework and press **Create**. Allow Visual Studio a moment to scaffold the project.
 
 Next, you can install the two packages you will need in your project.  
 
