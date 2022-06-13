@@ -565,7 +565,7 @@ The first view to edit is the `_Layout.cshtml` in your `Views/Shared` folder.
 Most of the boilerplate layout is fine but it doesn't include `Login` or `Logout` buttons. You added these to the navbar and displayed the appropriate one based on the user's authentication status.
 
 Next, replace the `Home\Index.cshtml` code with the following.
-
+```html
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -575,6 +575,7 @@ Next, replace the `Home\Index.cshtml` code with the following.
     <br />Secured by <a href="https://www.okta.com/free-trial/">Okta.</a> <br />
     Written by <a href="https://github.com/nickolasfisher"> Nik Fisher.</a>
 </div>
+```
 
 This is just a little home page with some information about the tutorial.
 
