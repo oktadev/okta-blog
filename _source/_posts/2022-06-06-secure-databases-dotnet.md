@@ -73,7 +73,7 @@ Next, you will see a page asking which API best suits your workload. Find *Core 
 
 {% img blog/secure-databases-dotnet/cosmos-api.PNG alt:"Cosmos Select API " width:"800" %}{: .center-image }
 
-The *Create Azure Cosmos DB Account - Core (SQL)* page provides the details about your subscription and resource group. Make sure you select `Apply` under the *Apply Free Tier Discount* then press **Review + create**.
+The **Create Azure Cosmos DB Account - Core (SQL)** page provides the details about your subscription and resource group. Make sure you select `Apply` under the **Apply Free Tier Discount** then press **Review + create**.
 
 {% img blog/secure-databases-dotnet/cosmos-create-account.PNG alt:"Cosmos Create Account" width:"800" %}{: .center-image }
 
