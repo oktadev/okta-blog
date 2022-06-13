@@ -635,7 +635,7 @@ You will note that the social security number does not appear in the data you se
 
 ## Conclusions
 
-As developers, we always need to be thinking about protecting =users' data. The rise of PaaS and SaaS platforms has decreased risk when used properly. But along with these new platforms, we must make sure we use best practices and keep an attentive eye on the data we choose to retain.  
+As developers, we always need to be thinking about protecting users' data. The rise of PaaS and SaaS platforms has decreased risk when used properly. But along with these new platforms, we must make sure we use best practices and keep an attentive eye on the data we choose to retain.  
 
 In this tutorial, you learned how to store data in Cosmos DB from an ASP.NET Core application. You learned how to set up your Cosmos DB account and how to set up your application to create databases and containers to store your items. Finally, you used the JSON functionality to remove sensitive data from your data model before storing it.
 
