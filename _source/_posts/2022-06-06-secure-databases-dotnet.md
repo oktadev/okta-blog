@@ -1,19 +1,19 @@
 ---
 layout: blog_post
-title: ""
-author:
-by: advocate|contractor
-communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
-description: ""
-tags: []
+title: "How to Secure User Data in Azure Cosmos DB"
+author: nickolas-fisher
+by: contractor 
+communities: [.net]
+description: "Learn how Cosmos DB helps protect data at rest and how to remove sensitive personally identifiable information (PII) from data you intend to store in Cosmos DB."
+tags: [.net, aspnet-core, cosmos-db, azure]
 tweets:
-- ""
-- ""
+- "Learn how to build an ASP.NET Core web application that accepts a CSV file, then secure the data to protect your users' PII 😎 #cosmosDB #.NET6"
+
+- "Build an ASP.NET Core web application on .NET 6 with Azure Cosmos DB. Serverless. Scalable. Secure."
 - ""
 image:
-type: awareness|conversion
+type: conversion
 ---
-## Securing personal identifying information in an Azure Cosmos DB account
 
 [Cosmos DB](https://azure.microsoft.com/en-us/services/cosmos-db/) is a cloud database product from Microsoft that offers scalable and high-performance services. The core product runs on a proprietary NoSQL database that should look familiar to experienced MongoDB developers. Microsoft offers several APIs in addition to the core Cosmos DB API. These include APIs for:
 
