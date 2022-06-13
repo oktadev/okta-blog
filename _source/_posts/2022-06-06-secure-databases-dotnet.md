@@ -421,7 +421,6 @@ namespace Okta_CosmosDb.Controllers
                 _cosmosService.SaveResultAsync(result);
             }
 
-
             return View(results);
         }
     }
