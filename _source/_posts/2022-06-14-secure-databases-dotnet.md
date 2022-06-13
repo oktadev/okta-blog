@@ -40,7 +40,7 @@ To continue you will need:
 - [Okta CLI](https://cli.okta.com)
 - An [Azure account with a subscription](https://azure.microsoft.com/en-us/)
 
-Of course, if you just want to see the code feel free [to view it on github](https://github.com/nickolasfisher/Okta_Cosmos).
+Of course, if you just want to see the code feel free [to view it on Github](https://github.com/oktadev/okta_dotnet_cosmosdb_example).
 
 ## Cosmos DB overview
 
