@@ -582,9 +582,9 @@ You can also access the application via the load balancer exposed. Find the exte
 kubectl get svc store -n jhipster
 ```
 
-Navigate to the Okta Admin Console and go to **Applications** > **Applications** from left-hand navigation. Find the application you created earlier with `okta apps create jhipster` and add the external IP from `kubectl get svc` command t the **Sign-in redirect URIs** and **Sign-out redirect URIs**.
+Navigate to the Okta Admin Console and go to **Applications** > **Applications** from left-hand navigation. Find the application you created earlier with `okta apps create jhipster` and add the external IP from `kubectl get svc` command to the **Sign-in redirect URIs** and **Sign-out redirect URIs**.
 
-Now you should be able to visit the external IP of the `store` service and see the application, and you should be able to log in using your Okta credentials.
+Now you should be able to visit the external IP of the `store` service on port 8080 and see the application, and you should be able to log in using your Okta credentials.
 
 ## Teardown the cluster with Terraform
 
