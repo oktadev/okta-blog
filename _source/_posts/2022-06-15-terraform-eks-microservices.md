@@ -73,7 +73,7 @@ The JHipster scaffolded sample application has a gateway application, two micros
 
 ## Create an EKS cluster using Terraform
 
-Now let us move on to the important part of the tutorial. Creating an EKS cluster in AWS is not as straightforward as in GCP. You need to also create a lot more resources for everything to work correctly without surprises. You will be using a bunch of Terraform providers to help us with this, and you will also use some prebuilt terraform modules like [AWS VPC Terraform module](https://github.com/terraform-aws-modules/terraform-aws-vpc) and [Amazon EKS Blueprints for Terraform](https://github.com/aws-ia/terraform-aws-eks-blueprints) to reduce the amount of boilerplate you need to write
+Now let us move on to the important part of the tutorial. Creating an EKS cluster in AWS is not as straightforward as in GCP. You need to also create a lot more resources for everything to work correctly without surprises. You will be using a bunch of Terraform providers to help us with this, and you will also use some prebuilt Terraform modules like [AWS VPC Terraform module](https://github.com/terraform-aws-modules/terraform-aws-vpc) and [Amazon EKS Blueprints for Terraform](https://github.com/aws-ia/terraform-aws-eks-blueprints) to reduce the amount of boilerplate you need to write.
 
 This is the AWS resources and VPC architecture you will create:
 
@@ -81,7 +81,7 @@ This is the AWS resources and VPC architecture you will create:
 
 ### Build the Terraform configuration
 
-First, you need to make sure you use a specific version of the providers as different versions might use different attributes and features. Create a file:
+First, you need to make sure you use a specific version of the providers as different versions might use different attributes and features. Create a `versions.tf` file:
 
 ```bash
 mkdir terraform
@@ -120,7 +120,7 @@ terraform {
 }
 ```
 
-Next, you need to define variables and configure the providers. Create a file:
+Next, you need to define variables and configure the providers. Create a `config.tf` file:
 
 ```bash
 touch config.tf
@@ -200,7 +200,7 @@ You can uncomment the `backend` section above to save state in S3 instead of you
 
 ### Build the VPC
 
-Next up, you need a VPC, subnets, route tables, and other networking bits. You will use the `vpc` module from the [`terraform-aws-modules`](https://github.com/terraform-aws-modules) repository. This module is a wrapper around the AWS VPC module. It makes it easier to configure VPCs and all the other required networking resources. Create a file:
+Next up, you need a VPC, subnets, route tables, and other networking bits. You will use the `vpc` module from the [`terraform-aws-modules`](https://github.com/terraform-aws-modules) repository. This module is a wrapper around the AWS VPC module. It makes it easier to configure VPCs and all the other required networking resources. Create a `vpc.tf` file:
 
 ```bash
 touch vpc.tf
@@ -258,7 +258,9 @@ This will create;
 
 ### Build the EKS Cluster
 
-Now that you have the networking part done, you can build configurations for the EKS cluster and its add-ons. You will use the `eks_blueprints` module from [`terraform-aws-eks-blueprints`](https://aws-ia.github.io/terraform-aws-eks-blueprints/v4.0.9/), which is a wrapper around the [`terraform-aws-modules`](https://github.com/terraform-aws-modules) and provides additional modules to configure EKS add-ons. Create a file:
+Now that you have the networking part done, you can build configurations for the EKS cluster and its add-ons. You will use the `eks_blueprints` module from [`terraform-aws-eks-blueprints`](https://aws-ia.github.io/terraform-aws-eks-blueprints/v4.0.9/), which is a wrapper around the [`terraform-aws-modules`](https://github.com/terraform-aws-modules) and provides additional modules to configure EKS add-ons. 
+
+Create a `eks-cluster.tf` file:
 
 ```bash
 touch eks-cluster.tf
@@ -326,21 +328,21 @@ resource "null_resource" "kubeconfig" {
 }
 ```
 
-The `eks_blueprints` module definition creates;
+The `eks_blueprints` module definition creates:
 
 - EKS Cluster Control plane with one managed node group and fargate profile,
 - Cluster and node security groups and rules, IAM roles and policies required,
-- AWS Key Management Service (KMS) configuration.
+- and AWS Key Management Service (KMS) configuration.
 
-The `eks_blueprints_kubernetes_addons` module definition creates;
+The `eks_blueprints_kubernetes_addons` module definition creates:
 
 - Amazon EKS add-ons vpc-cni, CoreDNS, and kube-proxy,
 - AWS Load Balancer Controller that provisions an AWS Network Load Balancer for distributing traffic,
-- [Metrics Server](https://github.com/kubernetes-sigs/metrics-server), and Cluster Autoscaler for scaling your workloads.
+- and [Metrics Server](https://github.com/kubernetes-sigs/metrics-server), and Cluster Autoscaler for scaling your workloads.
 
 The `null_resource` configuration updates your local kubeconfig with the new cluster details. It's not a required step for provisioning but just a handy hack.
 
-Finally, you can also define some outputs to be captured. Create a file:
+Finally, you can also define some outputs to be captured. Create a `outputs.tf` file:
 
 ```bash
 touch outputs.tf
@@ -426,7 +428,7 @@ terraform apply
 
 Confirm by typing `yes` when prompted. This will take a while (15-20 minutes), so sit back and have a coffee or contemplate what led you to this point in life 😉.
 
-Once the EKS cluster is ready, you will see the output variables printed on the console.
+Once the EKS cluster is ready, you will see the output variables printed to the console.
 
 ```
 configure_kubectl = "aws eks --region eu-west-1 update-kubeconfig --name okta-tf-demo"
@@ -501,7 +503,7 @@ First, navigate to the **store** application folder.
 
 > **Note**: Make sure to add the newly created `.okta.env` file to your `.gitignore` file so that you don't accidentally expose your credentials to the public.
 
-Update `kubernetes/registry-k8s/application-configmap.yml` with the OIDC configuration from the `.okta.env` file. The Spring Cloud Config server reads from this file and shares the values with the gateway and the microservices.
+Update `kubernetes/registry-k8s/application-configmap.yml` with the OIDC configuration from the `.okta.env` file. The Spring Cloud Config server reads from this file and shares the values with the gateway and microservices.
 
 ```yaml
 data:
@@ -520,7 +522,7 @@ data:
                 client-secret: <client-secret>
 ```
 
-Next, configure the JHipster Registry to use OIDC for authentication, modify `kubernetes/registry-k8s/jhipster-registry.yml` to enable the `oauth2` profile, which is pre-configured in the JHipster Registry application.
+Next, configure the JHipster Registry to use OIDC for authentication. Modify `kubernetes/registry-k8s/jhipster-registry.yml` to enable the `oauth2` profile, which is pre-configured in the JHipster Registry application.
 
 ```yaml
 - name: SPRING_PROFILES_ACTIVE
@@ -545,7 +547,7 @@ You need to build Docker images for each app. This is specific to the JHipster a
 ./gradlew bootJar -Pprod jib -Djib.to.image=<docker-repo-uri-or-name>/<image-name>
 ```
 
-Image names would be `store`, `invoice`, and `product`.
+Image names should be `store`, `invoice`, and `product`.
 
 ### Deploy the applications to EKS
 
@@ -564,13 +566,13 @@ You can also run the following command to see the status of the deployments:
 kubectl get pods -n jhipster
 ```
 
-You can view the registry using port-forwarding as follows, and you will be able to access the application at `http://localhost:8761`
+You can view the registry using port-forwarding as follows, and you will be able to access the application at `http://localhost:8761`.
 
 ```bash
 kubectl port-forward svc/jhipster-registry -n jhipster 8761
 ```
 
-You can access the gateway application using port-forwarding as follows, and you will be able to access the application at `http://localhost:8080`
+You can access the gateway application using port-forwarding as follows, and you will be able to access the application at `http://localhost:8080`.
 
 ```bash
 kubectl port-forward svc/store -n jhipster 8080
@@ -592,7 +594,7 @@ Once you are done with the tutorial, you can delete the cluster and all the reso
 
 ```bash
 cd terraform
-# Takes a while. If this fails, then manually delete load balancers from AWS EC2 console and try again
+# The commands below might take a while to finish. If they fail, then manually delete the load balancers from AWS EC2 console and try again
 terraform destroy -target="module.eks_blueprints_kubernetes_addons" -auto-approve
 terraform destroy -target="module.eks_blueprints" -auto-approve
 terraform destroy -target="module.vpc" -auto-approve
