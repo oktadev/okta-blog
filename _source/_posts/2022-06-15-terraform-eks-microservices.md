@@ -9,7 +9,7 @@ tags: [kubernetes, jhipster, spring-boot, spring, java, aws, eks, react, terrafo
 tweets:
   - "Deploy a #Java microservice stack on Amazon EKS using #Terraform and #Kubernetes"
   - "Deploy a cloud-native #Java microservice stack to Amazon EKS with #Terraform and #Kubernetes"
-image: blog/jhipster-k8s-eks-terraform/cover.jpg
+image: blog/jhipster-k8s-eks-terraform/cover-alt.jpg
 github: https://github.com/oktadev/okta-jhipster-k8s-eks-microservices-example
 type: conversion
 ---
@@ -50,6 +50,8 @@ At this point, the first question that might pop up in your mind would be, "Why 
 
 You need a microservice stack to deploy to the cluster. I'm using a microservice stack scaffolded for demo purposes using [JHipster](https://www.jhipster.tech). You can use another microservice stack if you want. If you prefer using the same application as in this demo, then you can either scaffold it using JHipster [JDL](https://www.jhipster.tech/jdl/intro) or clone the sample repository from [GitHub](https://github.com/oktadev/okta-jhipster-k8s-eks-microservices-example)
 
+{% img blog/jhipster-k8s-eks-terraform/jh-microservice-eks.jpg alt:"JHipster microservice architecture" width:"900" %}{: .center-image }
+
 **Scaffold the microservice stack using JHipster**
 
 ```bash
@@ -72,6 +74,10 @@ The JHipster scaffolded sample application has a gateway application, two micros
 ## Create an EKS cluster using Terraform
 
 Now let us move on to the important part of the tutorial. Creating an EKS cluster in AWS is not as straightforward as in GCP. You need to also create a lot more resources for everything to work correctly without surprises. You will be using a bunch of Terraform providers to help us with this, and you will also use some prebuilt terraform modules like [AWS VPC Terraform module](https://github.com/terraform-aws-modules/terraform-aws-vpc) and [Amazon EKS Blueprints for Terraform](https://github.com/aws-ia/terraform-aws-eks-blueprints) to reduce the amount of boilerplate you need to write
+
+This is the AWS resources we will create:
+
+{% img blog/jhipster-k8s-eks-terraform/tf-eks-arch.jpg alt:"AWS EKS and VPC architecture" width:"900" %}{: .center-image }
 
 ### Build the Terraform configuration
 
@@ -247,7 +253,7 @@ module "vpc" {
 This will create;
 
 - A new VPC, 3 Private Subnets, and 3 Public Subnets,
-- Internet gateway for public subnets and NAT Gateway for private subnets,
+- Internet gateway and NAT Gateway for the subnets,
 - AWS routes for the gateways, public/private route tables, and route table associations.
 
 ### Build the EKS Cluster
@@ -329,7 +335,7 @@ The `eks_blueprints` module definition creates;
 The `eks_blueprints_kubernetes_addons` module definition creates;
 
 - Amazon EKS add-ons vpc-cni, CoreDNS, and kube-proxy,
-- AWS Load Balancer Controller for distributing traffic,
+- AWS Load Balancer Controller that provisions an AWS Network Load Balancer for distributing traffic,
 - [Metrics Server](https://github.com/kubernetes-sigs/metrics-server), and Cluster Autoscaler for scaling your workloads.
 
 The `null_resource` configuration updates your local kubeconfig with the new cluster details. It's not a required step for provisioning but just a handy hack.
