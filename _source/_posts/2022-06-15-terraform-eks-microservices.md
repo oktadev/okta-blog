@@ -52,7 +52,7 @@ You need a microservice stack to deploy to the cluster. I'm using a microservice
 
 {% img blog/jhipster-k8s-eks-terraform/jh-microservice-eks.jpg alt:"JHipster microservice architecture" width:"900" %}{: .center-image }
 
-**Scaffold the microservice stack using JHipster**
+**Option 1: Scaffold the microservice stack using JHipster**
 
 ```bash
 mkdir jhipster-microservice-stack
@@ -63,7 +63,7 @@ jhipster download https://raw.githubusercontent.com/oktadev/okta-jhipster-k8s-ek
 jhipster jdl apps.jdl
 ```
 
-**Clone the sample repository**
+**Option 2: Clone the sample repository**
 
 ```
 git clone https://github.com/oktadev/okta-jhipster-k8s-eks-microservices-example
@@ -75,7 +75,7 @@ The JHipster scaffolded sample application has a gateway application, two micros
 
 Now let us move on to the important part of the tutorial. Creating an EKS cluster in AWS is not as straightforward as in GCP. You need to also create a lot more resources for everything to work correctly without surprises. You will be using a bunch of Terraform providers to help us with this, and you will also use some prebuilt terraform modules like [AWS VPC Terraform module](https://github.com/terraform-aws-modules/terraform-aws-vpc) and [Amazon EKS Blueprints for Terraform](https://github.com/aws-ia/terraform-aws-eks-blueprints) to reduce the amount of boilerplate you need to write
 
-This is the AWS resources we will create:
+This is the AWS resources and VPC architecture you will create:
 
 {% img blog/jhipster-k8s-eks-terraform/tf-eks-arch.jpg alt:"AWS EKS and VPC architecture" width:"900" %}{: .center-image }
 
@@ -133,7 +133,7 @@ Add the following to the file:
 # backend "s3" {
 #   bucket = "create-an-s3-bucket-and-provide-name-here"
 #   region = local.region
-#   key    = "e2e/eks-cluster-with-new-vpc/terraform.tfstate"
+#   key    = "eks-cluster-with-new-vpc/terraform.tfstate"
 # }
 
 variable "region" {
