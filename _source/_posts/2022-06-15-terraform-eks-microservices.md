@@ -20,7 +20,7 @@ This doesn't mean that deploying and managing microservices on the public cloud 
 
 If you want to run a microservice stack on EKS, you would need to spend some extra time and effort setting it up and managing it. This is where infrastructure as code (IaC) tools like [Terraform](https://www.terraform.io/) comes in handy.
 
-So here is what you will do today:
+So here is what you will learn to do today:
 
 - Scaffold a Java microservice stack using JHipster, Spring Boot, and Spring Cloud
 - Create an EKS cluster, Virtual Private Cloud (VPC), subnets, and required Kubernetes add-ons using Terraform on AWS
@@ -31,13 +31,13 @@ So here is what you will do today:
 
 - [AWS account](https://portal.aws.amazon.com/billing/signup) with the [IAM permissions to create EKS clusters](https://docs.aws.amazon.com/eks/latest/userguide/security_iam_id-based-policy-examples.html)
 - AWS CLI [installed](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) and [configured](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html)
-- [AWS IAM Authenticator](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html) installed on your machine
-- [kubectl](https://kubernetes.io/docs/tasks/tools/) installed on your machine
-- [Docker](https://docs.docker.com/get-docker/) installed and configured on your machine
-- [Terraform](https://www.terraform.io/downloads) installed on your machine
-- [Java 11+](https://sdkman.io/usage) installed on your machine
-- [Okta CLI](https://cli.okta.com/) installed on your machine
-- [Optional] [JHipster](https://www.jhipster.tech/installation/) installed on your machine
+- [AWS IAM Authenticator](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html) installed
+- [kubectl](https://kubernetes.io/docs/tasks/tools/) installed
+- [Docker](https://docs.docker.com/get-docker/) installed and configured
+- [Terraform](https://www.terraform.io/downloads) installed
+- [Java 11+](https://sdkman.io/usage) installed
+- [Okta CLI](https://cli.okta.com/) installed
+- [Optional] [JHipster](https://www.jhipster.tech/installation/) CLI installed
 - [Optional] [KDash](https://github.com/kdash-rs/kdash)
 
 {% include toc.md %}
@@ -48,7 +48,7 @@ At this point, the first question that might pop up in your mind would be, "Why 
 
 ## Scaffold a Java microservice stack using JHipster
 
-You need a microservice stack to deploy to the cluster. I'm using a microservice stack scaffolded for demo purposes using [JHipster](https://www.jhipster.tech). You can use another microservice stack if you want. If you prefer using the same application as in this demo, then you can either scaffold it using JHipster [JDL](https://www.jhipster.tech/jdl/intro) or clone the sample repository from [GitHub](https://github.com/oktadev/okta-jhipster-k8s-eks-microservices-example)
+You need a microservice stack to deploy to the cluster. I'm using a microservice stack scaffolded for demo purposes using [JHipster](https://www.jhipster.tech). You can use another microservice stack if you want. If you prefer using the same application as in this demo, then you can either scaffold it using JHipster [JDL](https://www.jhipster.tech/jdl/intro) or clone the sample repository from [GitHub](https://github.com/oktadev/okta-jhipster-k8s-eks-microservices-example).
 
 {% img blog/jhipster-k8s-eks-terraform/jh-microservice-eks.jpg alt:"JHipster microservice architecture" width:"900" %}{: .center-image }
 
@@ -73,7 +73,7 @@ The JHipster scaffolded sample application has a gateway application, two micros
 
 ## Create an EKS cluster using Terraform
 
-Now let us move on to the important part of the tutorial. Creating an EKS cluster in AWS is not as straightforward as in GCP. You need to also create a lot more resources for everything to work correctly without surprises. You will be using a bunch of Terraform providers to help us with this, and you will also use some prebuilt Terraform modules like [AWS VPC Terraform module](https://github.com/terraform-aws-modules/terraform-aws-vpc) and [Amazon EKS Blueprints for Terraform](https://github.com/aws-ia/terraform-aws-eks-blueprints) to reduce the amount of boilerplate you need to write.
+Now let us move on to the important part of the tutorial. Creating an EKS cluster in AWS is not as straightforward as in Google Cloud Platform (GCP). You need to also create a lot more resources for everything to work correctly without surprises. You will be using a bunch of Terraform providers to help us with this, and you will also use some prebuilt Terraform modules like [AWS VPC Terraform module](https://github.com/terraform-aws-modules/terraform-aws-vpc) and [Amazon EKS Blueprints for Terraform](https://github.com/aws-ia/terraform-aws-eks-blueprints) to reduce the amount of boilerplate you need to write.
 
 This is the AWS resources and VPC architecture you will create:
 
@@ -168,7 +168,9 @@ provider "aws" {
 }
 
 # Kubernetes provider
-# You should **not** schedule deployments and services in this workspace. This keeps workspaces modular (one for provision EKS, another for scheduling Kubernetes resources) as per best practices.
+# You should **not** schedule deployments and services in this workspace.
+# This keeps workspaces modular (one for provision EKS, another for scheduling
+# Kubernetes resources) as per best practices.
 provider "kubernetes" {
   host                   = module.eks_blueprints.eks_cluster_endpoint
   cluster_ca_certificate = base64decode(module.eks_blueprints.eks_cluster_certificate_authority_data)
@@ -209,7 +211,6 @@ touch vpc.tf
 Add the following to the file:
 
 ```hcl
-
 #---------------------------------------------------------------
 # VPC, Subnets, Internet gateway, Route tables, etc.
 #---------------------------------------------------------------
@@ -252,13 +253,13 @@ module "vpc" {
 
 This will create;
 
-- A new VPC, 3 Private Subnets, and 3 Public Subnets,
-- Internet gateway and NAT Gateway for the public subnets,
+- A new VPC, three private subnets, and three public subnets,
+- Internet gateway and NAT gateway for the public subnets,
 - AWS routes for the gateways, public/private route tables, and route table associations.
 
 ### Build the EKS Cluster
 
-Now that you have the networking part done, you can build configurations for the EKS cluster and its add-ons. You will use the `eks_blueprints` module from [`terraform-aws-eks-blueprints`](https://aws-ia.github.io/terraform-aws-eks-blueprints/v4.0.9/), which is a wrapper around the [`terraform-aws-modules`](https://github.com/terraform-aws-modules) and provides additional modules to configure EKS add-ons. 
+Now that you have the networking part done, you can build configurations for the EKS cluster and its add-ons. You will use the `eks_blueprints` module from [`terraform-aws-eks-blueprints`](https://aws-ia.github.io/terraform-aws-eks-blueprints/v4.0.9/), which is a wrapper around the [`terraform-aws-modules`](https://github.com/terraform-aws-modules) and provides additional modules to configure EKS add-ons.
 
 Create a `eks-cluster.tf` file:
 
@@ -426,11 +427,11 @@ Now you can apply the changes:
 terraform apply
 ```
 
-Confirm by typing `yes` when prompted. This will take a while (15-20 minutes), so sit back and have a coffee or contemplate what led you to this point in life 😉.
+Confirm by typing `yes` when prompted. This will take a while (15-20 minutes), so sit back and have a coffee or contemplate what led you to this point in life. 😉
 
 Once the EKS cluster is ready, you will see the output variables printed to the console.
 
-```
+```hcl
 configure_kubectl = "aws eks --region eu-west-1 update-kubeconfig --name okta-tf-demo"
 eks_cluster_id = "okta-tf-demo"
 eks_managed_nodegroup_arns = tolist([
@@ -491,7 +492,7 @@ vpc_public_subnet_cidr = [
 
 You should see the cluster details if you run `kdash` or `kubectl get nodes` commands.
 
-{% img blog/jhipster-k8s-eks-terraform/eks_cluster.png alt:"EKS cluster in KDash" width:"900" %}{: .center-image }
+{% img blog/jhipster-k8s-eks-terraform/eks-cluster.png alt:"EKS cluster in KDash" width:"900" %}{: .center-image }
 
 ## Set up OIDC authentication using Okta
 
@@ -558,7 +559,7 @@ cd kubernetes
 ./kubectl-apply.sh -f
 ```
 
-{% img blog/jhipster-k8s-eks-terraform/jhi_pods.png alt:"EKS cluster in KDash" width:"900" %}{: .center-image }
+{% img blog/jhipster-k8s-eks-terraform/jhi-pods.png alt:"EKS cluster in KDash" width:"900" %}{: .center-image }
 
 You can also run the following command to see the status of the deployments:
 
@@ -584,7 +585,7 @@ You can also access the application via the load balancer exposed. Find the exte
 kubectl get svc store -n jhipster
 ```
 
-Navigate to the Okta Admin Console and go to **Applications** > **Applications** from left-hand navigation. Find the application you created earlier with `okta apps create jhipster` and add the external IP from `kubectl get svc` command to the **Sign-in redirect URIs** and **Sign-out redirect URIs**.
+Navigate to the Okta Admin Console and go to **Applications** > **Applications** from left-hand navigation. Find the application you created earlier with `okta apps create jhipster` and add the external IP from `kubectl get svc` command to the **Sign-in redirect URIs** and **Sign-out redirect URIs**. Make sure to use the same paths as the current `localhost` entries.
 
 Now you should be able to visit the external IP of the `store` service on port 8080 and see the application, and you should be able to log in using your Okta credentials.
 
@@ -594,7 +595,8 @@ Once you are done with the tutorial, you can delete the cluster and all the reso
 
 ```bash
 cd terraform
-# The commands below might take a while to finish. If they fail, then manually delete the load balancers from AWS EC2 console and try again
+# The commands below might take a while to finish.
+# If they fail, then manually delete the load balancers from AWS EC2 console and try again
 terraform destroy -target="module.eks_blueprints_kubernetes_addons" -auto-approve
 terraform destroy -target="module.eks_blueprints" -auto-approve
 terraform destroy -target="module.vpc" -auto-approve
