@@ -1326,48 +1326,6 @@ While you're at it, add the active profile setting to `src/main/resources/applic
 spring.profiles.active=@spring.profiles.active@
 ```
 
-### Fix redirect after login in prod profile
-
-The `RequestCache` bean in the `SecurityConfiguration.java` class is useful for redirecting back to `http://localhost:3000` in development, but it doesn't work when everything is running in the same app. The error that happens is as follows:
-
-```
-2018-10-31 12:47:01.206  WARN 37083 --- [io-8080-exec-10] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved
- [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'null' not supported]
-```
-
-To fix this, add `@Profile("dev")` to this bean.
-
-```java
-import org.springframework.context.annotation.Profile;
-...
-public class SecurityConfiguration {
-    
-    @Bean
-    @Profile("dev")
-    public RequestCache refererRequestCache() {...}
-}
-```
-
-You might've noticed that `Home.js` makes a request to `/private` when you click the **Login** button. When running with the "prod" profile, Spring Security will redirect to this endpoint after authentication. To make it redirect back to the React app, create a `RedirectController.java` in the `com.okta.developer.jugtours.web` package.
-
-```java
-package com.okta.developer.jugtours.web;
-
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-
-@Controller
-@Profile("prod")
-public class RedirectController {
-
-    @GetMapping("/private")
-    public String redirectToRoot() {
-        return "redirect:/";
-    }
-}
-```
-
 After adding this, you should be able to run `./mvnw spring-boot:run -Pprod` and your app see your app running on `http://localhost:8080`. 
 
 {% img blog/spring-boot-react/localhost-8080.png alt:"App Running with Maven" width:"800" %}{: .center-image }
