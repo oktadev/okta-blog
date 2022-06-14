@@ -253,7 +253,7 @@ module "vpc" {
 This will create;
 
 - A new VPC, 3 Private Subnets, and 3 Public Subnets,
-- Internet gateway and NAT Gateway for the subnets,
+- Internet gateway and NAT Gateway for the public subnets,
 - AWS routes for the gateways, public/private route tables, and route table associations.
 
 ### Build the EKS Cluster
