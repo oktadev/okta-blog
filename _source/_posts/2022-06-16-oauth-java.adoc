@@ -17,11 +17,11 @@ type: awareness
 :toc: macro
 :experimental:
 
-You can use OAuth to secure apps, APIs, and devices. OAuth has become more and more popular, especially as developers are asked to knit together hundreds of apps and thousands of users in enterprise environments.
+You can use OAuth to secure apps, APIs, and devices. OAuth has become increasingly popular, especially as developers are asked to knit together hundreds of apps and thousands of users in enterprise environments.
 
-The Java ecosystem is vast and wide with over 10 million developers around the world and an abundance of IDEs, build tools, libraries, and frameworks to make them more productive. The infographic below is recommended as a starting point for Java developers. It's designed to help guide your learning as you go and add your own software components while your experience grows.
+The Java ecosystem is vast, with over 10 million developers worldwide and an abundance of IDEs, build tools, libraries, and frameworks to make them more productive. The infographic below is recommended as a starting point for Java developers. It's designed to help guide your learning as you go and add your own software components while your experience grows.
 
-Click on the image to zoom in.
+Click the image to zoom in.
 
 image::{% asset_path 'blog/java-oauth2-2022/java-roadmap-preview.jpg' %}[alt=2022 Java Developers Roadmap,link={% asset_path 'blog/java-oauth2-2022/java-roadmap.jpg' %}]
 
@@ -29,19 +29,18 @@ image::{% asset_path 'blog/java-oauth2-2022/java-roadmap-preview.jpg' %}[alt=202
 Image v1 by https://twitter.com/javinpaul[@javinpaul] - https://javarevisited.blogspot.com/2019/10/the-java-developer-roadmap.html[The 2022 Java Developer RoadMap article]
 · v2+ https://github.com/devoxx/JavaRoadmap2022[maintained on GitHub] by https://twitter.com/stephan007[@stephan007]
 
-Today, I'll provide you with a state of the OAuth ecosystem in Java. You'll learn which frameworks support OAuth and which ones don't. I'll also provide you with some practical examples you can run in just a few minutes.
+Today, I'll provide you with a state of the OAuth ecosystem in Java. You'll learn which frameworks support OAuth and which ones don't. I'll also offer some practical examples you can run in just a few minutes.
 
 == What the heck is OAuth?
 
-OAuth is an abbreviation for **O**pen **Auth**orization. It's an open standard that anyone can implement. More specifically, OAuth is a standard that apps can use to provide client applications with "secure delegated access". OAuth works over HTTPS and authorizes devices, APIs, servers, and applications with access tokens rather than credentials.
+OAuth is an abbreviation for **O**pen **Auth**orization. It's an open standard that anyone can implement. More specifically, OAuth is a standard that apps can use to provide client applications with "secure delegated access." OAuth works over HTTPS and authorizes devices, APIs, servers, and applications with access tokens rather than credentials.
 
-In the old days (2006), websites used to prompt users for their Gmail credentials so they could invite their contacts to use the website. Users would often provide their credentials, but there was not proof that the website didn't store those credentials for later use. OAuth was developed to users don't have to provide credentials. Instead, they provide an access token from a trusted identity provider.
+In the old days (2006), websites used to prompt users for their Gmail credentials, so they could invite their contacts to use the website. Users often provided their credentials, but there was no proof that the website didn't store those credentials for later use. OAuth was developed to users don't have to provide credentials. Instead, they provide an access token from a trusted identity provider.
 
 You can think of OAuth like hotel key cards, but for apps. If you have a hotel key card, you can get access to your room.
 
 How do you get a hotel key card? You have to do an authentication process at the front desk to get it. After authenticating and obtaining the key card, you can access other resources across the hotel.
 
-// todo: is there a better version of this?
 image::{% asset_path 'blog/java-oauth2-2022/hotel-key-cards.jpg' %}[alt=OAuth is Hotel key cards for apps,width=720,align=center]
 
 *OAuth 2.0 is not an authentication protocol.*
@@ -68,15 +67,15 @@ https://twitter.com/briandemers/status/1520104453155835905[A browser is required
 
 == Java's OAuth 2.0 support
 
-Java, the language, does not have native OAuth support. In fact, the JDK doesn't even contain APIs to write a web app. The basic building blocks for constructing web apps are provided by the https://jakarta.ee/specifications/servlet/5.0/[Servlet API and Jakarta EE].
+Java, the language, does not have built-in OAuth support. In fact, the JDK doesn't even contain APIs to write a web app. The basic building blocks for constructing web apps are provided by the https://jakarta.ee/specifications/servlet/5.0/[Servlet API and Jakarta EE].
 
-The Servlet specification has a https://jakarta.ee/specifications/servlet/5.0/jakarta-servlet-spec-5.0.html#security[security section], but there's no OAuth in it. The https://jakarta.ee/specifications/security/3.0/[Jakara Security 3.0] (still under development at the time of this writing) does mention that OpenID Connect and OAuth did _not_ make it into the specification. To me, it seems strange that the "enterprise edition" of Java doesn't have support for delegated authorization or federated identity. Hopefully we can work as a community to fix this in the future.
+The Servlet specification has a https://jakarta.ee/specifications/servlet/5.0/jakarta-servlet-spec-5.0.html#security[security section], but there's no OAuth in it. The https://jakarta.ee/specifications/security/3.0/[Jakara Security 3.0] (still under development at the time of this writing) does mention that OpenID Connect and OAuth did _not_ make it into the specification. To me, it seems strange that the "enterprise edition" of Java doesn't have support for delegated authorization or federated identity. Hopefully, we can work as a community to fix this in the future.
 
-On the upside, Java 18 does contain a `jwebserver` you can use to https://inside.java/2021/12/06/working-with-the-simple-web-server/[serve up static files]. That's about all the "web" you'll find in the JDK though.
+On the upside, Java 18 does contain a `jwebserver` you can use to https://inside.java/2021/12/06/working-with-the-simple-web-server/[serve up static files]. That's about all the "web" you'll find in the JDK.
 
 === OAuth in Java frameworks
 
-When SAML was first invented in 2005, Java web frameworks were experiencing their peak of popularity. There were _hundreds_ of Java web frameworks and developers would make fun of this embarrassment of riches like they did with JavaScript frameworks in the late 2000s.
+When SAML was first invented in 2005, Java web frameworks were experiencing their peak popularity. There were _hundreds_ of Java web frameworks, and developers would make fun of this embarrassment of riches like they did with JavaScript frameworks in the late 2000s.
 
 image::{% asset_path 'blog/java-oauth2-2022/history-of-web-frameworks-timeline.png' %}[alt=History of web frameworks timeline,link={% asset_path 'blog/java-oauth2-2022/history-of-web-frameworks-timeline.png' %}]
 
@@ -85,9 +84,9 @@ Image https://github.com/mraible/history-of-web-frameworks-timeline[maintained o
 
 Most Java web frameworks supported a form of MVC and others were component-based. All of them rendered their UIs on the server-side.
 
-Fast-forward to 2022 and Java is mostly used for APIs, while JavaScript is often used for UIs.
+Fast-forward to 2022, and Java is mainly used for APIs, while JavaScript is often used for UIs.
 
-"I do find it ironic that there are now several JavaScript frameworks that provide developers joy with server-side rendering. It's like the Java MVC frameworks of old, but new to JavaScript. History repeats itself, eh?"
+"I do find it ironic that there are now several JavaScript frameworks that provide developers joy with server-side rendering. It's like the Java MVC frameworks of old but relatively new to JavaScript. History repeats itself, eh?"
 -- Matt Raible
 
 One of OAuth's key patterns is a *resource server*. A resource server accepts an access token. If the token is valid, it gives a client access to the resource owner's data. In this example, a client is an app, the resource owner is a user, and the resource server is the Java API you develop.
@@ -96,11 +95,11 @@ In the section below, I'll show you how you can use OAuth and set up a resource 
 
 === MicroProfile JWT authentication
 
-When Java EE stagnated in the early 2010s, the Java EE community did too, and eventually created MicroProfile in 2015. MicroProfile is a standards-based effort to group the parts of Java EE that can be used to create a microservice architecture.
+When Java EE stagnated in the early 2010s, the Java EE community did too and eventually created MicroProfile in 2015. MicroProfile is a standards-based effort to group the parts of Java EE that can be used to create a microservice architecture.
 
 As part of MicroProfile, there is a JWT Auth specification. Even though it doesn't mention OAuth, it's very much a viable way to implement an OAuth 2.0 resource server.
 
-If you're using a Java framework that supports MicroProfile, you can likely add the framework's JWT authentication dependency, plus a couple of properties to define the issuer and JWKS (JSON Web Token Key Signatures) location. The key names are standardized and can be used in frameworks like Helidon and Quarkus.
+Suppose you're using a Java framework that supports MicroProfile. In that case, you can likely add the framework's JWT authentication dependency, plus a couple of properties to define the issuer and JWKS (JSON Web Token Key Signatures) location. The key names are standardized and can be used in frameworks like Helidon and Quarkus.
 
 [source,properties]
 ----
@@ -150,7 +149,7 @@ Helidon is very similar to Quarkus. The only difference is its dependency's coor
 </dependency>
 ----
 
-I've already mentioned Helidon and Quarkus, what about the other popular Java API frameworks?
+I've already mentioned Helidon and Quarkus. What about the other popular Java API frameworks?
 
 === Micronaut
 
@@ -178,7 +177,7 @@ As you can see, Micronaut also requires you to specify the JWKS location, even t
 
 === Spring Boot
 
-Spring Boot uses Spring Security by default and it's the only framework that allows you to configure a resource server with one line of code.
+Spring Boot uses Spring Security by default, and it's the only framework that allows you to configure a resource server with one line of code.
 
 [source,properties]
 ----
@@ -206,7 +205,7 @@ public class SecurityConfiguration {
 
 TIP: If you use the https://github.com/okta/okta-spring-boot[Okta Spring Boot Starter], you do not need to configure things with Java. We've included https://github.com/okta/okta-spring-boot/blob/master/oauth2/src/main/java/com/okta/spring/boot/oauth/OktaOAuth2AutoConfig.java[this configuration] for you.
 
-From this information, I hope you have a decent overview of where Java is when it comes to OAuth. If you like to learn by watching, reading, or doing&mdash;keep reading!
+From this information, I hope you have a decent overview of where Java is regarding OAuth. If you like to learn by watching, reading, or doing&mdash;keep reading!
 
 == Watch OAuth 2.0 in action with Java frameworks
 
@@ -240,23 +239,23 @@ If you prefer reading and _copy pasta_ over video, check out these quick tutoria
 
 == Java web frameworks without OAuth support
 
-You might get away with saying that JSF and Wicket don't have OAuth support. However, they both build on the Servlet API so it is possible to use them with some of Java's independent-minded security frameworks.
+You might get away with saying that JSF and Wicket don't have OAuth support. However, they both build on the Servlet API, so it is possible to use them with some of Java's independent-minded security frameworks.
 
 It's possible your favorite framework doesn't have a dedicated security plugin for OAuth, but that's not important if you can get _something_ to work, IMHO.
 
 == Java security frameworks
 
-There are a few Java security frameworks that aren't tied to a specific web framework. I like to call them independent-minded, but honestly, they seem to struggle as volunteer-driven versus funded open source projects.
+A few Java security frameworks aren't tied to a specific web framework. I like to call them independent-minded, but honestly, they seem to struggle as volunteer-driven versus funded open source projects.
 
 === Apache Shiro
 
-Apache Shiro expects to operate in a servlet environment and can work with any framework that's based on servlets and filters. It has many https://shiro.apache.org/integration.html[integrations]&mdash;such as Play, Wicket, and Lift&mdash;but most are dated and unmaintained.
+Apache Shiro expects to operate in a servlet environment and can work with any framework based on servlets and filters. It has many https://shiro.apache.org/integration.html[integrations]&mdash;such as Play, Wicket, and Lift&mdash;but most are dated and unmaintained.
 
-Shiro can be adapted to work with OAuth 2.0 as demonstrated by Brian Demers in link:/blog/2020/05/11/java-shiro-oauth[Build a Secure Java Application with Apache Shiro and OAuth 2.0].
+Shiro can be adapted to work with OAuth 2.0, as demonstrated by Brian Demers in link:/blog/2020/05/11/java-shiro-oauth[Build a Secure Java Application with Apache Shiro and OAuth 2.0].
 
 === Pac4j
 
-Pac4j is a security framework with many sub-projects that implement OAuth 2.0, OIDC, and many others, like SAML.
+Pac4j is a security framework with many sub-projects implementing OAuth 2.0, OIDC, and many others, like SAML.
 
 A gentle reminder:
 
@@ -266,7 +265,7 @@ A gentle reminder:
 
 When a framework doesn't have OAuth support, I've been able to use Pac4J successfully. For example, with link:/blog/2017/10/31/add-authentication-to-play-framework-with-oidc[Play framework] and link:/blog/2018/09/12/secure-java-ee-rest-api#use-pac4j-to-lock-down-your-java-rest-api[plain ol' Java EE].
 
-You don't hear much about Pac4J in the Java ecosystem. I'm not certain why that is. I've heard its quality isn't that great and I also believe it suffers because it's not tied to a popular framework.
+You don't hear much about Pac4J in the Java ecosystem. I'm not sure why that is. I've heard its quality isn't that great, and I also believe it suffers because it's not tied to a popular framework.
 
 It's kinda like the every-language-needs-a-framework concept. Maybe every security framework needs a web framework to help it succeed?
 
@@ -279,14 +278,14 @@ It has https://docs.spring.io/spring-security/reference/servlet/oauth2/index.htm
 ====
 It's a shame Spring Security has to support SAML. 😞
 
-Apparently, there's a demand for SAML from Spring Security customers and users. Or maybe it's just misinformed decision makers? Are developers still implementing SOAP APIs? I hope not! If not, why are developers still using SAML?!
+Apparently, there's a demand for SAML from Spring Security customers and users. Or maybe it's just misinformed decision-makers? Are developers still implementing SOAP APIs? I hope not! If not, why are developers still using SAML?!
 
-OIDC does it better, just use it!
+OIDC does it better. Just use it!
 ====
 
 == OAuth 2.0 authorization servers
 
-Up to this point, all the things I've talked about are OAuth clients. They require an identity provider to do OAuth flows. An identity provider has OAuth 2.0 authorization servers. Most of the big providers have their own proprietary implementation.
+Up to this point, all the things I've talked about are OAuth clients. They require an identity provider to do OAuth flows. An identity provider has OAuth 2.0 authorization servers. Most of the prominent providers have their own proprietary implementation.
 
 However, there are a couple of open source Java-based authorization servers you can use:
 
@@ -296,7 +295,7 @@ However, there are a couple of open source Java-based authorization servers you 
 
 Since I work for a company that is an OAuth 2.0 identity provider, it's my duty to inform you that using one of these is called "building your own." We recommend buying instead. From us, of course. 😉
 
-In reality, if you're a developer, you're always going to _build your own_ somewhat. Even if you use a library like Spring Security, you can't just add it to your project and expect everything to work without writing any code. Granted, it might only require 10 lines of code, but you're still building _something_.
+In reality, if you're a developer, you're always going to _build your own_ somewhat. Even if you use a library like Spring Security, you can't just add it to your project and expect everything to work without writing any code. Granted, it might only require ten lines of code, but you're still building _something_.
 
 You can't just buy Okta and secure a Java API with it without writing code.
 
@@ -304,7 +303,7 @@ You can't just buy Okta and secure a Java API with it without writing code.
 
 JavaFX is often touted as an excellent way to build desktop apps. The folks that recommend it are typically Java FX experts and Java enthusiasts that hate JavaScript.
 
-JavaFX's OAuth support is virtually non-existent and there don't seem to be many folks interested in fixing that.
+JavaFX's OAuth support is virtually non-existent, and there don't seem to be many folks interested in fixing that.
 
 As one of the few Java Champions that likes JavaScript, I poked the bear a couple of weeks ago.
 
@@ -314,23 +313,21 @@ As one of the few Java Champions that likes JavaScript, I poked the bear a coupl
 
 My guess is this won't be solved anytime soon. I'd love to be wrong.
 
-// == What about Kotlin and Scala?
-// I like this ^^ title, but it seems to clash with the previous title for JavaFX
 == Do Scala and Kotlin support OAuth?
 
 Scala was all the rage in the mid-2010s. When the Play framework team announced they were writing Play 2 in Scala, the JVM world rejoiced. I was interested in it too. I took a course from Martin Odersky, learned a ton, and reached the top of Hacker News when I https://raibledesigns.com/rd/entry/play_2_0_a_web[live-blogged about it] at Devoxx Belgium in 2011.
 
-Since then, the popularity of Play has waned, Spring Boot has taken over, and Kotlin is a JVM language that lots of developers admire.
+Since then, Play's popularity has waned, Spring Boot has taken over, and Kotlin is a JVM language that many developers admire.
 
-The good news for these languages is they have excellent Java interop. In theory, you should be able to use any Java security library for your Scala or Kotlin app. However, each language has their own web frameworks, so it might not be that easy.
+The good news for these languages is they have excellent Java interop. In theory, you should be able to use any Java security library for your Scala or Kotlin app. However, each language has its own web frameworks, so it might not be that easy.
 
-The most popular Scala web framework is still Play and it does have https://www.playframework.com/modules/oauth-1.0/home[OAuth support]. Kotlin has Ktor and it has easy-to-use https://ktor.io/docs/oauth.html[OAuth support] too.
+The most popular Scala web framework is still Play and it does have https://www.playframework.com/modules/oauth-1.0/home[OAuth support]. Kotlin has Ktor, and it has easy-to-use https://ktor.io/docs/oauth.html[OAuth support] too.
 
 We published a tutorial about link:/blog/2020/10/19/ktor-kotlin[Ktor and Okta] in late 2020.
 
 == Learn more about Java and OAuth
 
-I hope you've enjoyed this overview of Java and its OAuth support. Please hit me up on Twitter https://twitter.com[@mraible] or use the comment feature below if you have any questions!
+I hope you've enjoyed this overview of Java and its OAuth support. Please hit me up on Twitter https://twitter.com/mraible[@mraible] or use the comment feature below if you have any questions!
 
 If you're a Java developer, you might like these posts:
 
