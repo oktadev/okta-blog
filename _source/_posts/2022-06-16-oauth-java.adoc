@@ -185,7 +185,7 @@ Spring Boot uses Spring Security by default and it's the only framework that all
 spring.security.oauth2.resourceserver.jwt.issuer-uri=https://dev-13337.okta.com/oauth2/default
 ----
 
-Of course, you could use YAML instead. That would be a bad life choice. Then it would require six lines of code. Don't be that person. Spring Security is smart enough to look up the JWKS location from the issuer.
+Of course, you could use YAML instead. That would be a bad life choice. Then it would require six lines of code. Don't be that person. Spring Security is smart enough to look up the JWKS location from the issuer. 😉
 
 To be fair, Spring Security does require some Java code to complete the configuration, while the others do everything automatically.
 
