@@ -204,7 +204,7 @@ public class SecurityConfiguration {
 }
 ----
 
-TIP: If you use the https://github.com/okta/okta-spring-boot[Okta Spring Boot Starter], you do not need to configure things with Java. We've included this configuration for you.
+TIP: If you use the https://github.com/okta/okta-spring-boot[Okta Spring Boot Starter], you do not need to configure things with Java. We've included https://github.com/okta/okta-spring-boot/blob/master/oauth2/src/main/java/com/okta/spring/boot/oauth/OktaOAuth2AutoConfig.java[this configuration] for you.
 
 From this information, I hope you have a decent overview of where Java is when it comes to OAuth. If you like to learn by watching, reading, or doing&mdash;keep reading!
 
