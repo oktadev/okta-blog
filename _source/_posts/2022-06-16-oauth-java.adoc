@@ -50,6 +50,8 @@ OpenID Connect (aka OIDC) _is_ an authentication protocol. I'll cover that in an
 
 OAuth 2.0 has many flows and https://oauth.net/2.1/[OAuth 2.1] is an in-progress effort to consolidate and simplify the best flows for developers. In a nutshell, OAuth 2.0 requires Proof Key for Code Exchange (PKCE) for authorization code flows and implicit and password credential flows are removed.
 
+TIP: You can learn more about PKCE by reading link:/blog/2020/01/23/pkce-oauth2-spring-boot[Use PKCE with OAuth 2.0 and Spring Boot for Better Security].
+
 If you'd like to play with OAuth 2.0's flows, you can try the https://www.oauth.com/playground/[OAuth 2.0 Playground] (built by https://twitter.com/aaronpk[Aaron Parecki]).
 
 image::{% asset_path 'blog/java-oauth2-2022/oauth2-playground.png' %}[alt=OAuth 2.0 Playground,align=center,link=https://www.oauth.com/playground/]
@@ -89,6 +91,8 @@ Fast-forward to 2022 and Java is mostly used for APIs, while JavaScript is often
 -- Matt Raible
 
 One of OAuth's key patterns is a *resource server*. A resource server accepts an access token. If the token is valid, it gives a client access to the resource owner's data. In this example, a client is an app, the resource owner is a user, and the resource server is the Java API you develop.
+
+In the section below, I'll show you how you can use OAuth and set up a resource server with the most popular Java frameworks. You might think that Spring Boot is the de facto standard, and you should just use it. However, there's a lot of innovation happening elsewhere, and I think it's good to be aware of other options.
 
 === MicroProfile JWT authentication
 
