@@ -231,7 +231,7 @@ I've created a few screencasts to show how to build a REST API with Quarkus, Spr
 
 At the end of each video, I show how the https://cli.okta.com[Okta CLI] allows you to create working examples for each framework with the `okta start` command.
 
-If you prefer reading and copy pasta over video, check out these quick tutorials:
+If you prefer reading and _copy pasta_ over video, check out these quick tutorials:
 
 - link:/blog/2022/05/23/java-rest-api-quarkus[Kickstart a Java REST API with Quarkus]
 - link:/blog/2022/05/25/java-rest-api-spring-boot[Start a Java REST API with Spring Boot]
