@@ -35,7 +35,7 @@ Today, I'll provide you with a state of the OAuth ecosystem in Java. You'll lear
 
 OAuth is an abbreviation for **O**pen **Auth**orization. It's an open standard that anyone can implement. More specifically, OAuth is a standard that apps can use to provide client applications with "secure delegated access." OAuth works over HTTPS and authorizes devices, APIs, servers, and applications with access tokens rather than credentials.
 
-In the old days (2006), websites used to prompt users for their Gmail credentials, so they could invite their contacts to use the website. Users often provided their credentials, but there was no proof that the website didn't store those credentials for later use. OAuth was developed to users don't have to provide credentials. Instead, they provide an access token from a trusted identity provider.
+In the old days (2006), websites used to prompt users for their Gmail credentials, so they could invite their contacts to use the website. Users often provided credentials, but there was no proof that the website didn't store them for later use. OAuth was developed so users don't have to provide credentials. Instead, users provide an access token from a trusted identity provider.
 
 You can think of OAuth like hotel key cards, but for apps. If you have a hotel key card, you can get access to your room.
 
