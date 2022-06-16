@@ -16,7 +16,7 @@ type: conversion
 
 When it comes to infrastructure, public clouds are the most popular choice these days, especially Amazon Web Services (AWS). If you are in one of those lucky or unlucky (depending on how you see it) teams running microservices, then you need a way to orchestrate their deployments. When it comes to orchestrating microservices, Kubernetes is the de-facto choice. Most public cloud providers also provide managed Kubernetes as a service; for example, Google provides Google Kubernetes Engine (GKE), Microsoft provides Azure Kubernetes Service (AKS), and Amazon provides Amazon Elastic Kubernetes Service (EKS).
 
-This doesn't mean that deploying and managing microservices on the public cloud is easy; they come with their own challenges and pain. This is especially true for Amazon EKS, which in my opinion, is the hardest to use Kubernetes service but also one of the most flexible. This is because EKS is nothing but some clever orchestrations doing a complex dance on top of other AWS services like EC2, EBS, etc.
+This doesn't mean that deploying and managing microservices on the public cloud is easy; each cloud service comes with its own challenges and pain. This is especially true for Amazon EKS, which, in my opinion, is the most difficult Kubernetes service to use, but also one of the most flexible. This is because EKS consists of some clever orchestrations doing a complex dance on top of other AWS services like EC2, EBS, etc.
 
 If you want to run a microservice stack on EKS, you will need to spend some extra time and effort setting it up and managing it. This is where infrastructure as code (IaC) tools like [Terraform](https://www.terraform.io/) come in handy.
 
