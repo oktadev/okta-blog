@@ -18,7 +18,7 @@ When it comes to infrastructure, public clouds are the most popular choice these
 
 This doesn't mean that deploying and managing microservices on the public cloud is easy; they come with their own challenges and pain. This is especially true for Amazon EKS, which in my opinion, is the hardest to use Kubernetes service but also one of the most flexible. This is because EKS is nothing but some clever orchestrations doing a complex dance on top of other AWS services like EC2, EBS, etc.
 
-If you want to run a microservice stack on EKS, you would need to spend some extra time and effort setting it up and managing it. This is where infrastructure as code (IaC) tools like [Terraform](https://www.terraform.io/) comes in handy.
+If you want to run a microservice stack on EKS, you will need to spend some extra time and effort setting it up and managing it. This is where infrastructure as code (IaC) tools like [Terraform](https://www.terraform.io/) come in handy.
 
 So here is what you will learn to do today:
 
@@ -44,7 +44,7 @@ So here is what you will learn to do today:
 
 ## Why Terraform, why not CloudFormation?
 
-At this point, the first question that might pop up in your mind would be, "Why not use [CloudFormation](https://aws.amazon.com/cloudformation/)?". It's a good question; after all, CloudFormation is built by AWS and hence sounds like an excellent solution to manage AWS resources. But anyone who has tried both CloudFormation and Terraform would tell you to forget that CloudFormation even exists. I think CloudFormation is far more complex to use and less developer-friendly than Terraform. You also need to write a lot more boilerplate with CloudFormation in YAML or JSON. Yikes! And most importantly, Terraform is far more powerful and flexible than CloudFormation and is cross-platform, which means you can take care of all your infrastructure management needs on any platform with one tool.
+At this point, the first question that might pop up in your mind would be, "Why not use [CloudFormation](https://aws.amazon.com/cloudformation/)?". It's a good question; after all, CloudFormation is built by AWS and hence sounds like an excellent solution to manage AWS resources. But anyone who has tried both CloudFormation and Terraform will probably tell you to forget that CloudFormation even exists. I think CloudFormation is far more complex and less developer-friendly than Terraform. You also need to write a lot more boilerplate with CloudFormation in YAML or JSON. Yikes! And most importantly, Terraform is far more powerful and flexible than CloudFormation. It's cross-platform, which means you can take care of all your infrastructure management needs on any platform with one tool.
 
 ## Scaffold a Java microservice stack using JHipster
 
@@ -75,13 +75,13 @@ The JHipster scaffolded sample application has a gateway application, two micros
 
 Now let us move on to the important part of the tutorial. Creating an EKS cluster in AWS is not as straightforward as in Google Cloud Platform (GCP). You need to also create a lot more resources for everything to work correctly without surprises. You will be using a bunch of Terraform providers to help us with this, and you will also use some prebuilt Terraform modules like [AWS VPC Terraform module](https://github.com/terraform-aws-modules/terraform-aws-vpc) and [Amazon EKS Blueprints for Terraform](https://github.com/aws-ia/terraform-aws-eks-blueprints) to reduce the amount of boilerplate you need to write.
 
-This is the AWS resources and VPC architecture you will create:
+These are the AWS resources and VPC architecture you will create:
 
 {% img blog/jhipster-k8s-eks-terraform/tf-eks-arch.jpg alt:"AWS EKS and VPC architecture" width:"900" %}{: .center-image }
 
 ### Build the Terraform configuration
 
-First, you need to make sure you use a specific version of the providers as different versions might use different attributes and features. Create a `versions.tf` file:
+First, make sure you use a specific version of the providers as different versions might use different attributes and features. Create a `versions.tf` file:
 
 ```bash
 mkdir terraform
@@ -257,7 +257,7 @@ This will create:
 - Internet gateway and NAT gateway for the public subnets,
 - and AWS routes for the gateways, public/private route tables, and route table associations.
 
-### Build the EKS Cluster
+### Build the EKS cluster
 
 Now that you have the networking part done, you can build configurations for the EKS cluster and its add-ons. You will use the `eks_blueprints` module from [`terraform-aws-eks-blueprints`](https://aws-ia.github.io/terraform-aws-eks-blueprints/v4.0.9/), which is a wrapper around the [`terraform-aws-modules`](https://github.com/terraform-aws-modules) and provides additional modules to configure EKS add-ons.
 
@@ -414,7 +414,7 @@ terraform init
 terraform plan
 ```
 
-Review the plan and make sure everything is correct. Ensure you have configured your AWS CLI and IAM Authenticator to use the correct AWS account. If not, run and following:
+Review the plan and make sure everything is correct. Ensure you have configured your AWS CLI and IAM Authenticator to use the correct AWS account. If not, run the following:
 
 ```bash
 # Visit https://console.aws.amazon.com/iam/home?#/security_credentials for creating access keys
@@ -523,7 +523,7 @@ data:
                 client-secret: <client-secret>
 ```
 
-Next, configure the JHipster Registry to use OIDC for authentication. Modify `kubernetes/registry-k8s/jhipster-registry.yml` to enable the `oauth2` profile, which is pre-configured in the JHipster Registry application.
+Next, configure the JHipster Registry to use OIDC for authentication. Modify `kubernetes/registry-k8s/jhipster-registry.yml` to enable the `oauth2` profile, which is preconfigured in the JHipster Registry application.
 
 ```yaml
 - name: SPRING_PROFILES_ACTIVE
@@ -534,7 +534,7 @@ The application is now ready.
 
 ### Secure secrets
 
-If you have noticed, you are setting secrets in plain text on the `application-configmap.yml` file, which is not ideal and is not a best practice for security. For the specific JHipster application, you can use the encrypt functionality provided by the JHipster Registry to encrypt the secrets. See [Encrypt Your Secrets with Spring Cloud Config](/blog/2021/06/01/kubernetes-spring-boot-jhipster#encrypt-your-secrets-with-spring-cloud-config) to learn how to do this. But that would also rely on a base64 encoded encryption key added as a Kubernetes Secret, which still can be decoded. The best way to do this would be using [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/), an external service like [HashiCorp Vault](https://www.hashicorp.com/products/vault), or with [Sealed Secrets](https://github.com/bitnami-labs/sealed-secrets). To learn more about these methods see [Encrypt Your Kubernetes Secrets](/blog/2021/06/01/kubernetes-spring-boot-jhipster#encrypt-your-kubernetes-secrets).
+If you have noticed, you are setting secrets in plain text on the `application-configmap.yml` file, which is not ideal and is not a best practice for security. For the specific JHipster application, you can use the encrypt functionality provided by the JHipster Registry to encrypt the secrets. See [Encrypt Your Secrets with Spring Cloud Config](/blog/2021/06/01/kubernetes-spring-boot-jhipster#encrypt-your-secrets-with-spring-cloud-config) to learn how to do this. But that would also rely on a base64 encoded encryption key added as a Kubernetes Secret, which still can be decoded. The best way to do this would be to use [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/), an external service like [HashiCorp Vault](https://www.hashicorp.com/products/vault), or [Sealed Secrets](https://github.com/bitnami-labs/sealed-secrets). To learn more about these methods see [Encrypt Your Kubernetes Secrets](/blog/2021/06/01/kubernetes-spring-boot-jhipster#encrypt-your-kubernetes-secrets).
 
 ## Deploy the microservice stack
 
@@ -552,7 +552,7 @@ Image names should be `store`, `invoice`, and `product`.
 
 ### Deploy the applications to EKS
 
-You can start the deployment using the handy script provided by JHipster. You could also manually apply deployments using `kubectl apply -f <file>` commands.
+Start the deployment using the handy script provided by JHipster. You could also manually apply deployments using `kubectl apply -f <file>` commands.
 
 ```bash
 cd kubernetes
@@ -567,7 +567,7 @@ You can also run the following command to see the status of the deployments:
 kubectl get pods -n jhipster
 ```
 
-You can view the registry using port-forwarding as follows, and you will be able to access the application at `http://localhost:8761`.
+View the registry using port-forwarding as follows, and you will be able to access the application at `http://localhost:8761`.
 
 ```bash
 kubectl port-forward svc/jhipster-registry -n jhipster 8761
@@ -579,7 +579,7 @@ You can access the gateway application using port-forwarding as follows, and you
 kubectl port-forward svc/store -n jhipster 8080
 ```
 
-You can also access the application via the load balancer exposed. Find the external IP of the `store` service by navigating to the service tab in KDash or by running the following:
+Or, you can access the application via the load balancer exposed. Find the external IP of the `store` service by navigating to the service tab in KDash or by running the following:
 
 ```bash
 kubectl get svc store -n jhipster
@@ -589,7 +589,7 @@ Navigate to the Okta Admin Console and go to **Applications** > **Applications**
 
 Now you should be able to visit the external IP of the `store` service on port 8080 and see the application, and you should be able to log in using your Okta credentials.
 
-## Teardown the cluster with Terraform
+## Tear down the cluster with Terraform
 
 Once you are done with the tutorial, you can delete the cluster and all the resources created using Terraform by running the following commands:
 
