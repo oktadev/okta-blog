@@ -31,6 +31,8 @@ Image v1 by https://twitter.com/javinpaul[@javinpaul] - https://javarevisited.bl
 
 Today, I'll provide you with a state of the OAuth ecosystem in Java. You'll learn which frameworks support OAuth and which ones don't. I'll also offer some practical examples you can run in just a few minutes.
 
+toc::[]
+
 == What the heck is OAuth?
 
 OAuth is an abbreviation for **O**pen **Auth**orization. It's an open standard that anyone can implement. More specifically, OAuth is a standard that apps can use to provide client applications with "secure delegated access." OAuth works over HTTPS and authorizes devices, APIs, servers, and applications with access tokens rather than credentials.
@@ -80,7 +82,7 @@ When SAML was first invented in 2005, Java web frameworks were experiencing thei
 image::{% asset_path 'blog/java-oauth2-2022/history-of-web-frameworks-timeline.png' %}[alt=History of web frameworks timeline,link={% asset_path 'blog/java-oauth2-2022/history-of-web-frameworks-timeline.png' %}]
 
 [role="text-right small"]
-Image https://github.com/mraible/history-of-web-frameworks-timeline[maintained on GitHub] by https://twitter.com/mraible[@mraible]
+This History of Web Frameworks Timeline image is https://github.com/mraible/history-of-web-frameworks-timeline[maintained on GitHub] by https://twitter.com/mraible[@mraible]
 
 Most Java web frameworks supported a form of MVC and others were component-based. All of them rendered their UIs on the server-side.
 
@@ -184,7 +186,7 @@ Spring Boot uses Spring Security by default, and it's the only framework that al
 spring.security.oauth2.resourceserver.jwt.issuer-uri=https://dev-13337.okta.com/oauth2/default
 ----
 
-Of course, you could use YAML instead. That would be a bad life choice. Then it would require six lines of code. Don't be that person. Spring Security is smart enough to look up the JWKS location from the issuer. 😉
+Of course, you could use YAML instead. That would be a bad life choice. Then it would require six lines of code. Don't be that person. 😉 Spring Security is smart enough to look up the JWKS location from the issuer.
 
 To be fair, Spring Security does require some Java code to complete the configuration, while the others do everything automatically.
 
@@ -301,11 +303,11 @@ You can't just buy Okta and secure a Java API with it without writing code.
 
 == What about JavaFX?
 
-JavaFX is often touted as an excellent way to build desktop apps. The folks that recommend it are typically Java FX experts and Java enthusiasts that hate JavaScript.
+JavaFX is often touted as an excellent way to build desktop apps. The folks that recommend it are typically JavaFX experts and Java enthusiasts that hate JavaScript.
 
 JavaFX's OAuth support is virtually non-existent, and there don't seem to be many folks interested in fixing that.
 
-As one of the few Java Champions that likes JavaScript, I poked the bear a couple of weeks ago.
+As one of the few Java Champions that likes JavaScript, I poked the bear several weeks ago.
 
 ++++
 {% twitter 1520048029641986048 %}
