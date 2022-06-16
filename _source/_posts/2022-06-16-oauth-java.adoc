@@ -188,24 +188,9 @@ spring.security.oauth2.resourceserver.jwt.issuer-uri=https://dev-13337.okta.com/
 
 Of course, you could use YAML instead. That would be a bad life choice. Then it would require six lines of code. Don't be that person. 😉 Spring Security is smart enough to look up the JWKS location from the issuer.
 
-To be fair, Spring Security does require some Java code to complete the configuration, while the others do everything automatically.
+Spring Boot will https://github.com/spring-projects/spring-boot/blob/252cf9433252b08d8af6dc2457dea57b99658d6b/spring-boot-project/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/security/oauth2/resource/servlet/OAuth2ResourceServerJwtConfiguration.java#L100-L112[auto-configure Spring Security's filter chain for a resource server], so that's all the code you need!
 
-[source,java]
-----
-@EnableWebSecurity
-public class SecurityConfiguration {
-
-    @Bean
-    public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
-        http
-            .authorizeRequests(request -> request.anyRequest().authenticated())
-            .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
-        return http.build();
-    }
-}
-----
-
-TIP: If you use the https://github.com/okta/okta-spring-boot[Okta Spring Boot Starter], you do not need to configure things with Java. We've included https://github.com/okta/okta-spring-boot/blob/master/oauth2/src/main/java/com/okta/spring/boot/oauth/OktaOAuth2AutoConfig.java[this configuration] for you.
+TIP: If you use the https://github.com/okta/okta-spring-boot[Okta Spring Boot Starter], you'll also have `oauthClient()` and `oauth2Login()` https://github.com/okta/okta-spring-boot/blob/ba1f203bdfc9ae7e969b7b5bc1cba211b38d9cc7/oauth2/src/main/java/com/okta/spring/boot/oauth/OktaOAuth2AutoConfig.java#L76-L90[auto-configured].
 
 From this information, I hope you have a decent overview of where Java is regarding OAuth. If you like to learn by watching, reading, or doing&mdash;keep reading!
 
