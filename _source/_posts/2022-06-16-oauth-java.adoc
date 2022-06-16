@@ -49,7 +49,7 @@ image::{% asset_path 'blog/java-oauth2-2022/hotel-key-cards.jpg' %}[alt=OAuth is
 
 OpenID Connect (aka OIDC) _is_ an authentication protocol. I'll cover that in another post.
 
-OAuth 2.0 has many flows and https://oauth.net/2.1/[OAuth 2.1] is an in-progress effort to consolidate and simplify the best flows for developers. In a nutshell, OAuth 2.0 requires Proof Key for Code Exchange (PKCE) for authorization code flows and implicit and password credential flows are removed.
+OAuth 2.0 has many flows and https://oauth.net/2.1/[OAuth 2.1] is an in-progress effort to consolidate and simplify the best flows for developers. In a nutshell, OAuth 2.1 requires Proof Key for Code Exchange (PKCE) for authorization code flows and implicit and password credential flows are removed.
 
 TIP: You can learn more about PKCE by reading link:/blog/2020/01/23/pkce-oauth2-spring-boot[Use PKCE with OAuth 2.0 and Spring Boot for Better Security].
 
@@ -71,7 +71,7 @@ https://twitter.com/briandemers/status/1520104453155835905[A browser is required
 
 Java, the language, does not have built-in OAuth support. In fact, the JDK doesn't even contain APIs to write a web app. The basic building blocks for constructing web apps are provided by the https://jakarta.ee/specifications/servlet/5.0/[Servlet API and Jakarta EE].
 
-The Servlet specification has a https://jakarta.ee/specifications/servlet/5.0/jakarta-servlet-spec-5.0.html#security[security section], but there's no OAuth in it. The https://jakarta.ee/specifications/security/3.0/[Jakara Security 3.0] (still under development at the time of this writing) does mention that OpenID Connect and OAuth did _not_ make it into the specification. To me, it seems strange that the "enterprise edition" of Java doesn't have support for delegated authorization or federated identity. Hopefully, we can work as a community to fix this in the future.
+The Servlet specification has a https://jakarta.ee/specifications/servlet/5.0/jakarta-servlet-spec-5.0.html#security[security section], but there's no OAuth in it. The https://jakarta.ee/specifications/security/3.0/[Jakarta Security 3.0] (still under development at the time of this writing) does mention that OpenID Connect and OAuth did _not_ make it into the specification. To me, it seems strange that the "enterprise edition" of Java doesn't have support for delegated authorization or federated identity. Hopefully, we can work as a community to fix this in the future.
 
 On the upside, Java 18 does contain a `jwebserver` you can use to https://inside.java/2021/12/06/working-with-the-simple-web-server/[serve up static files]. That's about all the "web" you'll find in the JDK.
 
