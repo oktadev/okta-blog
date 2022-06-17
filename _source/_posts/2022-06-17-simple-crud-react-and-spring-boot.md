@@ -369,7 +369,7 @@ const App = () => {
         setGroups(data);
         setLoading(false);
       })
-  }, [setGroups, setLoading]);
+  }, []);
 
   if (loading) {
     return <p>Loading...</p>;
