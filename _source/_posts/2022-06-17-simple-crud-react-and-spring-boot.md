@@ -205,7 +205,7 @@ class Initializer implements CommandLineRunner {
 
 If you start your app (using `./mvnw spring-boot:run`) ...
 
-... it will fail because Spring Boot 2.7.0 forces H2 v2.0. The H2 2.0 ecosystem doesn't seem like it's quite ready for prime-time, so I recommend you downgrade to H2 version `1.4.200` in your `pom.xml`.
+... it will fail because Spring Boot 2.7.0 forces H2 v2.0. The H2 2.0 ecosystem doesn't seem like it's quite ready for prime time, so I recommend you downgrade to H2 version `1.4.200` in your `pom.xml`.
 
 ```xml
 <dependency>
@@ -338,7 +338,7 @@ npm i bootstrap@5 react-cookie@4 react-router-dom@6 reactstrap@9
 ```
 <!-- npm install bootstrap@5.2.0-beta1 fixes autprefixer issue -->
 
-You'll use Bootstrap's CSS and Reactstrap's components to make the UI look better, especially on mobile phones. If you'd like to learn more about Reactstrap, see [reactstrap.github.io](https://reactstrap.github.io). It has extensive documentation on its various components and how to use them.
+You'll use Bootstrap's CSS and Reactstrap's components to make the UI look better, especially on mobile phones. If you'd like to learn more about Reactstrap, see [reactstrap.github.io](https://reactstrap.github.io). It has extensive documentation on Reactstrap's various components and how to use them.
 
 Add Bootstrap's CSS file as an import in `app/src/index.js`.
 
@@ -394,6 +394,8 @@ const App = () => {
 
 export default App;
 ```
+
+**TIP**: I learned a lot about React Hooks from [Build a CRUD App in React with Hooks](https://www.taniarascia.com/crud-app-in-react-with-hooks/) by [Tania Rascia](https://twitter.com/taniarascia).
 
 To proxy from `/api` to `http://localhost:8080/api`, add a proxy setting to `app/package.json`.
 
@@ -780,7 +782,7 @@ This dependency is a thin wrapper around Spring Security's OAuth and encapsulate
 
 {% include setup/cli.md type="web" framework="Okta Spring Boot Starter" signup="false"
    loginRedirectUri="http://localhost:8080/login/oauth2/code/okta"
-   logoutRedirectUri="[http://localhost:3000,http://localhost:8080]" %}
+   logoutRedirectUri="http://localhost:3000,http://localhost:8080" %}
 
 ## Configure Spring Security for React and user identity
 
@@ -854,7 +856,7 @@ public RequestCache refererRequestCache() {
 }
 ```
 
-Configuring CSRF (cross site request forgery) protection with `CookieCsrfTokenRepository.withHttpOnlyFalse()` means that the `XSRF-TOKEN` cookie won't be marked HTTP-only, so React can read it and send it back when it tries to manipulate data. 
+Configuring CSRF (cross-site request forgery) protection with `CookieCsrfTokenRepository.withHttpOnlyFalse()` means that the `XSRF-TOKEN` cookie won't be marked HTTP-only, so React can read it and send it back when it tries to manipulate data. 
 
 The `antMatchers` lines define what URLs are allowed for anonymous users. You will soon configure things so your React app is served up by your Spring Boot app, hence the reason for allowing web files and "/". You might notice there's an exposed `/api/user` path too. Create `src/main/java/.../jugtours/web/UserController.java` and populate it with the following code. This API will be used by React to 1) find out if a user is authenticated, and 2) perform global logout.
 
@@ -1089,7 +1091,7 @@ const Home = () => {
     if (port === ':3000') {
       port = ':8080';
     }
-    window.location.href = '//' + window.location.hostname + port + '/private';
+    window.location.href = `//${window.location.hostname}${port}/private`;
   }
 
   const logout = () => {
@@ -1099,8 +1101,8 @@ const Home = () => {
     })
       .then(res => res.json())
       .then(response => {
-        window.location.href = response.logoutUrl + "?id_token_hint=" +
-          response.idToken + "&post_logout_redirect_uri=" + window.location.origin;
+        window.location.href = `${response.logoutUrl}?id_token_hint=${response.idToken}`
+          + `&post_logout_redirect_uri=${window.location.origin}`;
       });
   }
 
@@ -1187,8 +1189,8 @@ const GroupEdit = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    await fetch('/api/group' + (group.id ? '/' + group.id : ''), {
-      method: (group.id) ? 'PUT' : 'POST',
+    await fetch(`/api/group${group.id ? `/${group.id}` : ''}`, {
+      method: group.id ? 'PUT' : 'POST',
       headers: {
         'X-XSRF-TOKEN': cookies['XSRF-TOKEN'],
         'Accept': 'application/json',
@@ -1326,11 +1328,11 @@ While you're at it, add the active profile setting to `src/main/resources/applic
 spring.profiles.active=@spring.profiles.active@
 ```
 
-After adding this, you should be able to run `./mvnw spring-boot:run -Pprod` and your app see your app running on `http://localhost:8080`. 
+After adding this, you should be able to run `./mvnw spring-boot:run -Pprod` and see your app running on `http://localhost:8080`. 
 
 {% img blog/spring-boot-react/localhost-8080.png alt:"App Running with Maven" width:"800" %}{: .center-image }
 
-## Learn More about Spring Boot and React
+## Learn more about Spring Boot and React
 
 I hope you've enjoyed this tutorial on how to do CRUD with React, Spring Boot, and Spring Security. You can see that Spring Security's OIDC support is pretty robust, and doesn't require a whole lot of configuration. Adding CSRF protection and packaging your Spring Boot + React app as a single artifact is pretty cool too!
 
