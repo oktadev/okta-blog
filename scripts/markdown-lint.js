@@ -24,10 +24,7 @@ const regexValidator = [
   // For global ignores, update the getFiles() method.
   {
     regex: 'https?:\/\/(your-org|example|rain|your-subdomain|your-domain|{org}).okta*',
-    omitFiles: [
-      '/_docs/api/postman/apps.json',
-      '/_docs/api/postman/example.oktapreview.com.environment'
-    ]
+    omitFiles: []
   },
   {
     regex: 'https?:\/\/{yourOktaDomain}.com*',
@@ -55,7 +52,9 @@ const regexValidator = [
   },
   {
     regex: /https:\/\/developer\.okta\.com\/blog\/\d{4}\/\d{2}\/\d{2}\/[^\]) \[]*/,
-    omitFiles: []
+    omitFiles: [
+      '/_source/_redirects'
+    ]
   }
 ];
 
