@@ -72,10 +72,7 @@ async function getFiles(dir) {
   for (let file of files) {
     const relative = file.replace(dir, '');
     fileMap[relative] = true;
-    if (!file.includes('/_source/_redirects')
-      && !file.includes('/_assets')
-      && !file.includes('/.asset-cache')
-      ) {
+    if (!file.includes('/_assets') && !file.includes('/.asset-cache')) {
       filesToCheck.push({ orig: file, relative });
     }
   }
