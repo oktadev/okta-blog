@@ -4,20 +4,20 @@ title: "Use React and Spring Boot to Build a Simple CRUD App"
 author: matt-raible
 by: advocate
 communities: [java, javascript]
-description: "React is one of the most popular JavaScript frameworks, and Spring Boot is wildly popular in the Java ecosystem. This article shows you how to use them in the same app, and secure it all with Okta."
+description: "React is one of the most popular JavaScript frameworks, and Spring Boot is wildly popular in the Java ecosystem. This article shows you how to use them in the same app and secure it all with Okta."
 tags: [java, spring-boot, react, reactjs]
 tweets:
-- "React + Spring Boot makes for a nice development experience. Learn how to make them work together with OIDC authentication →"
+- "React + Spring Boot makes for a nice development experience. Learn how to make them work together with OIDC authentication."
 - "Spring Boot with @java + React with @javascript == 💙. Learn how to build a @springboot + @reactjs CRUD app today!"
 image: blog/featured/okta-react-bottle-headphones.jpg
 type: conversion
 ---
 
-React was designed to make it painless to create interactive UIs. Its state management is efficient and only updates components when your data changes. Component logic is written in JavaScript, which means you can keep state out of the DOM and create components that are encapsulated.
+React was designed to make it painless to create interactive UIs. Its state management is efficient and only updates components when your data changes. Component logic is written in JavaScript, meaning you can keep state out of the DOM and create encapsulated components.
 
-Developers like CRUD (create, read, update, and delete) apps because they show a lot of the base functionality that you need when creating an app. Once you have the basics of CRUD completed in an app, most of the client-server plumbing is finished, and you can move on to implementing the necessary business logic.
+Developers like CRUD (create, read, update, and delete) apps because they show a lot of the base functionality you need when creating an app. Once you have the basics of CRUD completed in an app, most of the client-server plumbing is finished, and you can move on to implementing the necessary business logic.
 
-Today, I'll show you how to create a basic CRUD app with Spring Boot in React. In this tutorial, I'll be using the OAuth 2.0 Authorization Code flow and packaging the React app in the Spring Boot app for production. At the same time, I'll show you how to keep React's productive workflow for developing locally.
+Today, I'll show you how to create a basic CRUD app with Spring Boot in React. In this tutorial, I'll use the OAuth 2.0 Authorization Code flow and package the React app in the Spring Boot app for production. At the same time, I'll show you how to keep React's productive workflow for developing locally.
 
 You will need [Java 11](http://sdkman.io) and [Node 16](https://nodejs.org/) installed to complete this tutorial.
 
@@ -25,9 +25,9 @@ You will need [Java 11](http://sdkman.io) and [Node 16](https://nodejs.org/) ins
 
 ## Create an API app with Spring Boot
 
-I'm a frequent speaker at conferences and user groups around the world. My favorite user groups to speak at are Java User Groups (JUGs). I've been a Java developer for almost 20 years, and I love the Java community. One of my good friends, James Ward, said doing a JUG Tour was one of his favorite developer advocate activities back in the day. I recently took his advice and traded overseas conferences for JUG meetups in the US.
+I'm a frequent speaker at conferences and user groups around the world. My favorite user groups to speak at are Java User Groups (JUGs). I've been a Java developer for almost 20 years and love the Java community. One of my good friends, James Ward, said doing a JUG Tour was one of his favorite developer advocate activities back in the day. I recently took his advice and traded overseas conferences for JUG meetups in the US.
 
-Why am I telling you this? Because I thought it'd be fun to create a "JUG Tours" app today that allows you to create/edit/delete JUGs, as well as view upcoming events.
+Why am I telling you this? Because I thought it'd be fun to create a "JUG Tours" app today that allows you to create/edit/delete JUGs and view upcoming events.
 
 To begin, navigate to [start.spring.io](https://start.spring.io) and make the following selections:
 
@@ -118,7 +118,7 @@ public class Event {
 }
 ```
 
-And, a `User.java` class.
+And a `User.java` class.
 
 ```java
 package com.okta.developer.jugtours.model;
@@ -201,7 +201,7 @@ class Initializer implements CommandLineRunner {
 }
 ```
 
-**TIP:** If your IDE has issues with `Event.builder()`, it means that you need to turn on annotation processing and/or install the Lombok plugin. I had to uninstall/reinstall the Lombok plugin in IntelliJ IDEA to get things to work.
+**TIP:** If your IDE has issues with `Event.builder()`, you need to turn on annotation processing and/or install the Lombok plugin. I had to uninstall/reinstall the Lombok plugin in IntelliJ IDEA to get things to work.
 
 If you start your app (using `./mvnw spring-boot:run`) ...
 
@@ -322,7 +322,7 @@ http DELETE :8080/api/group/6
 
 ## Create a React UI with Create React App
 
-Create React App is a command line utility that generates React projects for you. It's a convenient tool because it also offers commands that will build and optimize your project for production. It uses webpack under the covers to build everything.
+Create React App is a command line utility that generates React projects for you. It's a convenient tool because it also offers commands to build and optimize your project for production. It uses webpack under the covers to build everything.
 
 Create a new project in the `jugtours` directory with `npx`.
 
@@ -338,7 +338,7 @@ npm i bootstrap@5 react-cookie@4 react-router-dom@6 reactstrap@9
 ```
 <!-- npm install bootstrap@5.2.0-beta1 fixes autprefixer issue -->
 
-You'll use Bootstrap's CSS and Reactstrap's components to make the UI look better, especially on mobile phones. If you'd like to learn more about Reactstrap, see [reactstrap.github.io](https://reactstrap.github.io). It has extensive documentation on Reactstrap's various components and how to use them.
+You'll use Bootstrap's CSS and Reactstrap's components to make the UI look better, especially on mobile phones. If you'd like to learn more about Reactstrap, see [reactstrap.github.io](https://reactstrap.github.io). It has extensive documentation on Reactstrap's various components and their use.
 
 Add Bootstrap's CSS file as an import in `app/src/index.js`.
 
@@ -348,7 +348,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 ## Call your Spring Boot API and display the results
 
-Modify `app/src/App.js` to use the following code that calls `/api/groups` and display the list in the UI.
+Modify `app/src/App.js` to use the following code that calls `/api/groups` and displays the list in the UI.
 
 ```jsx
 import React, { useEffect, useState } from 'react';
@@ -594,7 +594,7 @@ nav + .container, nav + .container-fluid {
 } 
 ```
 
-Your React app should update itself as you make changes and you should see a screen like the following at `http://localhost:3000`.
+Your React app should update itself as you make changes, and you should see a screen like the following at `http://localhost:3000`.
 
 {% img blog/spring-boot-react/home-with-link.png alt:"Home screen with Manage JUG Tour link" width:"800" %}{: .center-image }
 
@@ -858,7 +858,7 @@ public RequestCache refererRequestCache() {
 
 Configuring CSRF (cross-site request forgery) protection with `CookieCsrfTokenRepository.withHttpOnlyFalse()` means that the `XSRF-TOKEN` cookie won't be marked HTTP-only, so React can read it and send it back when it tries to manipulate data. 
 
-The `antMatchers` lines define what URLs are allowed for anonymous users. You will soon configure things so your React app is served up by your Spring Boot app, hence the reason for allowing web files and "/". You might notice there's an exposed `/api/user` path too. Create `src/main/java/.../jugtours/web/UserController.java` and populate it with the following code. This API will be used by React to 1) find out if a user is authenticated, and 2) perform global logout.
+The `antMatchers` lines define what URLs are allowed for anonymous users. You will soon configure things so your React app is served up by your Spring Boot app, hence the reason for allowing web files and "/". You might also notice an exposed `/api/user` path. Create `src/main/java/.../jugtours/web/UserController.java` and populate it with the following code. This API will be used by React to 1) find out if a user is authenticated, and 2) perform global logout.
 
 ```java
 package com.okta.developer.jugtours.web;
@@ -1219,7 +1219,7 @@ After all these changes, you should be able to restart both Spring Boot and Reac
 
 ## Configure Maven to build and package React with Spring Boot
 
-To build and package your React app with Maven, you can use the [frontend-maven-plugin](https://github.com/eirslett/frontend-maven-plugin) and Maven's profiles to activate it. Add properties for versions, and a `<profiles>` section to your `pom.xml`.
+To build and package your React app with Maven, you can use the [frontend-maven-plugin](https://github.com/eirslett/frontend-maven-plugin) and Maven's profiles to activate it. Add properties for versions and a `<profiles>` section to your `pom.xml`.
 
 ```xml
 <properties>
@@ -1338,7 +1338,7 @@ I hope you've enjoyed this tutorial on how to do CRUD with React, Spring Boot, a
 
 You can find the example created in this tutorial on GitHub at [https://github.com/oktadev/okta-spring-boot-react-crud-example](https://github.com/oktadev/okta-spring-boot-react-crud-example).
 
-We've written some other cool Spring Boot and React tutorials, check them out if you're interested.
+We've written some other cool Spring Boot and React tutorials. Check them out if you're interested.
 
 * [Creating a TypeScript React Application with Vite](/blog/2022/03/14/react-vite-number-converter)
 * [How to Create a React App with Storybook](/blog/2022/01/20/react-storybook)
@@ -1347,4 +1347,4 @@ We've written some other cool Spring Boot and React tutorials, check them out if
 * [Full Stack Java with React, Spring Boot, and JHipster](/blog/2021/11/22/full-stack-java)
 * [Build a CRUD Application with Kotlin and React](/blog/2020/01/13/kotlin-react-crud)
 
-If you have any questions, please don't hesitate to leave a comment below, or ask us on our [Okta Developer Forums](https://devforum.okta.com/). Follow us [on Twitter](https://twitter.com/oktadev) if you want to see more tutorials like this one!
+If you have any questions, please don't hesitate to leave a comment below or ask us on our [Okta Developer Forums](https://devforum.okta.com/). Follow us [on Twitter](https://twitter.com/oktadev) if you want to see more tutorials like this one!
