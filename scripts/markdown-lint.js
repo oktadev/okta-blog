@@ -52,9 +52,7 @@ const regexValidator = [
   },
   {
     regex: /https:\/\/developer\.okta\.com\/blog\/\d{4}\/\d{2}\/\d{2}\/[^\]) \[]*/,
-    omitFiles: [
-      '/_source/_redirects'
-    ]
+    omitFiles: []
   }
 ];
 
@@ -74,7 +72,7 @@ async function getFiles(dir) {
   for (let file of files) {
     const relative = file.replace(dir, '');
     fileMap[relative] = true;
-    if (!file.includes('_sdk/')
+    if (!file.includes('/_source/_redirects')
       && !file.includes('/_assets')
       && !file.includes('/.asset-cache')
       ) {
