@@ -13,14 +13,13 @@ tweets:
 image:
 type: awareness|conversion
 ---
-
-In this tutorial you'll use JHipster to build a microservice and deploy it to Amazon Elastic Kuberetes Service (EKS). The Kubernetes microservice will use Java and Spring Boot for resource servers and Vue for the frontend. It will include multiple databases and database types: PostgresSQL, MongoDB, and Neo4j. You'll secure the service using OAuth 2.0 and OpenID Connect (OIDC) using Okta as a security provier. With Kubernetes secrets and `kubeseal`, you'll encrypt all of the secrets in the project configuration files. To generate the project, you'll use JHipster's generator and the generator DSL.
+In this tutorial, you'll use JHipster to build a microservice and deploy it to Amazon Elastic Kubernetes Service (EKS). The Kubernetes microservice will use Java and Spring Boot for resource servers and Vue for the frontend. It will include multiple databases and database types: PostgresSQL, MongoDB, and Neo4j. You'll secure the service using OAuth 2.0 and OpenID Connect (OIDC) using Okta as a security provider. With Kubernetes secrets and `kubeseal`, you'll encrypt all of the secrets in the project configuration files. To generate the project, you'll use JHipster's generator and the generator DSL.
 
 **Prerequisites**
 
-Before you get started, install the required software listed below. You'll need to sign up for an Amazon Web Services account and a free Okta account (which you you will be able to sign up for later using the Okta CLI). The Kubernetes cluster required to finish this tutorial **does not qualify for free tier on AWS**. However, **if you are careful about stopping and deleting the cluster** when not actively working on the tutorial, the cost should be very small, only a few dollars.
+Before you get started, install the required software listed below. You'll need to sign up for an Amazon Web Services account and a free Okta account (which you will be able to sign up for later using the Okta CLI). The Kubernetes cluster required to finish this tutorial **does not qualify for free tier on AWS**. However, **if you are careful about stopping and deleting the cluster** when not actively working on the tutorial, the cost should be very small, only a few dollars.
 
-- [Docker](https://docs.docker.com/get-docker/): you’ll need to have both **Docker Engine** and **Docker Compose** installed (If you install the Docker desktop, this will automatically  install both. On Linux, if you install Docker Engine individually, you  will have to also [install Docker Compose](https://docs.docker.com/compose/install/)) separately.
+- [Docker](https://docs.docker.com/get-docker/): you’ll need to have both **Docker Engine** and **Docker Compose** installed (If you install the Docker desktop, this will automatically install both. On Linux, if you install Docker Engine individually, you will have to also [install Docker Compose](https://docs.docker.com/compose/install/)) separately.
 - [Docker Hub](https://hub.docker.com/): you’ll need a Docker Hub to host the docker images so that Azure can pull them.
 - [Java 11](https://adoptopenjdk.net/): this tutorial requires Java 11. If you need to manage multiple Java versions, SDKMAN! is a good solution. Check out [their docs to install it](https://sdkman.io/installit).
 - [Okta CLI](https://cli.okta.com/manual/#installation): you’ll use Okta to add security to the microservice network. You can register for a free account from the CLI.
@@ -65,7 +64,7 @@ This will generate a microservice with four services:
 - Store
 - Blog
 
-When you look at the DSL below, you  might notice that there isn't a registry application listed. The [JHipster registry](https://www.jhipster.tech/jhipster-registry/) is a standard application in the JHipster microservice stack that doesn't need to be defined. It includes a Eureka server and a Spring Cloud Config server. The Eureka server is a [Spring Cloud Netflix](https://cloud.spring.io/spring-cloud-netflix/reference/html/) service discovery registry that allows services to find each other on the network. The [Spring Cloud Config](https://cloud.spring.io/spring-cloud-config/reference/html/) server allows the centralization of service configuration. You'll use it to centralize the Okta OAuth 2.0 and OIDC configuration, allowing you to configure all of the services to use the same OIDC application from the same configuration point.
+When you look at the DSL below, you might notice that there isn't a registry application listed. The [JHipster registry](https://www.jhipster.tech/jhipster-registry/) is a standard application in the JHipster microservice stack that doesn't need to be defined. It includes a Eureka server and a Spring Cloud Config server. The Eureka server is a [Spring Cloud Netflix](https://cloud.spring.io/spring-cloud-netflix/reference/html/) service discovery registry that allows services to find each other on the network. The [Spring Cloud Config](https://cloud.spring.io/spring-cloud-config/reference/html/) server allows the centralization of service configuration. You'll use it to centralize the Okta OAuth 2.0 and OIDC configuration, allowing you to configure all of the services to use the same OIDC application from the same configuration point.
 
 The [JHipster API gateway](https://www.jhipster.tech/api-gateway/) is the front-facing, public face of the application. It has a Vue front-end and a PostgresSQL database backend. The gateway also includes features like load balancing and circuit breaking. Public requests to the service go through the gateway.
 
@@ -228,7 +227,7 @@ These four directories hold the deployment descriptors for the Kubernetes servic
 
 ## Fix Eureka OUT_OF_SERVICE Error
 
-There is an issue with Eureka that currently requires a work around. You can read about the issue on [Spring Cloud Netflix](https://github.com/spring-cloud/spring-cloud-netflix/issues/3941) and [Netflix Eureka](https://github.com/Netflix/eureka/issues/1398). Essentially what happens is that the app gets stuck as `OUT_OF_SERVICE` and Eureka fails to register when it comes back up. This only happens with the store in this microservice.
+There is an issue with Eureka that currently requires a workaround. You can read about the issue on [Spring Cloud Netflix](https://github.com/spring-cloud/spring-cloud-netflix/issues/3941) and [Netflix Eureka](https://github.com/Netflix/eureka/issues/1398). Essentially what happens is that the app gets stuck as `OUT_OF_SERVICE` and Eureka fails to register when it comes back up. This only happens with the store in this microservice.
 
 Add the following file to the store application.
 
@@ -250,7 +249,7 @@ import org.springframework.stereotype.Component;
  * Currently, if there is a noticeable delay in starting the application, the eureka 
  * health check returns OUT_OF_SERVICE initially. This is a problem as when a service 
  * is in this state it will ignore all 'up' reports. The fix here is to initially 
- * report us as down, which will override the out of service state, and allow all
+ * report us as down, which will override the out-of-service state, and allow all
  * subsequent transitions to up to occur successfully.
  */
 @Component
@@ -286,7 +285,7 @@ public class EurekaFix implements HealthIndicator {
 }
 ```
 
-You also need to update the kubernetes deployment definition for the store's headless MongoDB service. This fixes a problem with the store not being able to find the database. **This entry is at the bottom of the file.**
+You also need to update the Kubernetes deployment definition for the store's headless MongoDB service. This fixes a problem with the store not being able to find the database. **This entry is at the bottom of the file.**
 
 `kubernetes/store-k8s/store-mongodb.yml`
 
@@ -427,7 +426,7 @@ eksctl create cluster --name okta-k8s \
 
 You are using a managed cluster with EC2 nodes. You are not using the newer, Fargate managed clusters because as of right now there is a compatibility problem between Fargate and Eureka. See [this google groups thread](https://groups.google.com/g/jhipster-dev/c/148uESs6vns) and [this GitHub repository](https://github.com/jussiseppala/eurekafargatesample).
 
-You can look at [the AWS docs on managed node groups](https://docs.aws.amazon.com/eks/latest/userguide/managed-node-groups.html) for more in-depth information. Basically, though, being managed means that you do not need to separately provision and register the EC2 instances in the node group. The EC2 instances and Kubernetes nodes are packaged together and managed as a unit. Unmanaged node groups alloy you to separate the node group management from the EC2 instances, allowing for finer control but also requiring more direct involvement in instance management.
+You can look at [the AWS docs on managed node groups](https://docs.aws.amazon.com/eks/latest/userguide/managed-node-groups.html) for more in-depth information. Basically, though, being managed means that you do not need to separately provision and register the EC2 instances in the node group. The EC2 instances and Kubernetes nodes are packaged together and managed as a unit. Unmanaged node groups allow you to separate the node group management from the EC2 instances, allowing for finer control but also requiring more direct involvement in instance management.
 
 ## Using AWS CloudFormation to troubleshoot problems
 
@@ -488,7 +487,7 @@ Next you'll use `kubectl` to deploy the microservice to AWS EKS. Before you do t
 
 Open a Bash shell and navigate to the `kubernetes` subdirectory of the project.
 
-Run the following command to update the AWS kubernetes configuration.
+Run the following command to update the AWS Kubernetes configuration.
 
 ```bash
 aws eks update-kubeconfig --name okta-k8s
@@ -759,7 +758,7 @@ It wouldn't hurt to log into the console and make sure all of the resources were
 
 ## AWS, Kubernetes, and Spring Boot Microservice is done!
 
-In this project you deployed a JHipster microservice to AWS EKS. You used the AWS CLI to create the Kubernetes resources, and you used `kubectl` to deploy the applications to the kkubernetes pods. You also used Okta as an OAuth 2.0 and OIDC provider to secure the microservice. Finally, you properly encrypted all of the sensitive configuration values using a combination of JHipster registry encryption, Kubernetes secrets, and `kubeseal`. 
+In this project you deployed a JHipster microservice to AWS EKS. You used the AWS CLI to create the Kubernetes resources, and you used `kubectl` to deploy the applications to the Kubernetes pods. You also used Okta as an OAuth 2.0 and OIDC provider to secure the microservice. Finally, you properly encrypted all of the sensitive configuration values using a combination of JHipster registry encryption, Kubernetes secrets, and `kubeseal`. 
 
 This project is based on two of Matt Raible's tutorials, which were helpful for me when I was writing it.
 
