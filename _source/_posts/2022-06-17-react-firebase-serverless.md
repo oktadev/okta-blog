@@ -14,9 +14,9 @@ type: conversion
 github: https://github.com/oktadev/okta-react-firebase-serverless-example
 ---
 
-Firebase is an exciting Cloud platform from Google available to businesses today.  Firebase connects everything from simple static websites to IoT devices to AI and Machine learning platforms. The platform provides various services to facilitate these ends, like storage and authentication.
+Firebase is an exciting cloud platform from Google available to businesses today.  Firebase connects everything from simple static websites to IoT devices to AI and machine learning platforms. The platform provides various services to facilitate these connections, like storage and authentication.
 
-In this tutorial, you will learn about two core Firebase products; Functions and Hosting. Hosting is for deploying static web applications. Functions are the Firebase serverless platform.  You will create a static application using React that authenticates users using Okta's React library. After obtaining an access token from Okta's authorization server, you will use a Firebase Function to exchange the Okta token for a Firebase token and sign in the user using Firebase's authentication structure. You will obtain additional user information by calling the `userInfo` endpoint on your Okta authorization server and including that data in your Firebase token. Finally, you will create another function endpoint to handle a simple HTTP request that requires an authenticated user.
+In this tutorial, you will learn about two core Firebase products: Functions and Hosting. Hosting is for deploying static web applications. Functions are the Firebase serverless platform.  You will create a static application using React that authenticates users via Okta's React library. After obtaining an access token from Okta's authorization server, you will use a Firebase Function to exchange the Okta token for a Firebase token and sign in the user using Firebase's authentication structure. You will obtain additional user information by calling the `userInfo` endpoint on your Okta authorization server and including that data in your Firebase token. Finally, you will create another function endpoint to handle a simple HTTP request that requires an authenticated user.
 
 Once you've built your application, you will deploy it to the Firebase platform for public consumption using the Firebase CLI.  
 
@@ -25,11 +25,11 @@ Once you've built your application, you will deploy it to the Firebase platform 
 - [Node.js](https://nodejs.org/en/)
 - [Firebase Account](https://firebase.google.com)
 - [Okta CLI](https://cli.okta.com)
-> [Okta](https://developer.okta.com/) has Authentication and User Management APIs that reduce development time with instant-on, scalable user infrastructure. Okta's intuitive API and expert support make it easy for developers to authenticate, manage and secure users and roles in any application.
+> [Okta](https://developer.okta.com/) offers Authentication and User Management APIs that reduce development time with instant-on, scalable user infrastructure. Okta's intuitive API and expert support make it easy for developers to authenticate, manage, and secure users and roles in any application.
 - [Visual Studio Code](https://code.visualstudio.com/download)
 - [Firebase CLI](https://firebase.google.com/docs/cli)
 
-If you wish, you can follow with the [GitHub repository found here](https://github.com/oktadev/okta-react-firebase-serverless-example).
+If you wish, you can follow along with the [GitHub repository found here](https://github.com/oktadev/okta-react-firebase-serverless-example).
 
 {% include toc.md %}
 
@@ -41,11 +41,11 @@ The CLI outputs the Issuer and Client ID. You'll need those coming up.
 
 ## Create your Firebase project
 
-Next, open the [Firebase console](https://console.firebase.google.com/u/0/) and click **Add Project**. Give your project a name, preferably `okta-firebase`. You can turn off the analytics for now and create the project. Once that's complete, you can access the project dashboard.  
+Next, open the [Firebase console](https://console.firebase.google.com/u/0/) and click **Add Project**. Give your project a name, preferably `okta-firebase`. For now, you can turn off the analytics and create the project. Once that's completed, you'll be able to access the project dashboard.  
 
 First, click the **Upgrade** button next to the *Spark* option at the bottom of your screen. Change your plan to Blaze and if you wish, set a billing budget for $1 to let you know when you are incurring a charge. Blaze is pay-as-you-go, and the rates are pretty generous for hobby projects. You shouldn't incur any charges at this time, but the budget will let you know if you do.
 
-Click the settings wheel next to *Project Overview* and click **Project settings**. At the bottom of the overview page, there's a prompt to **Select a platform to get started** and select web app (it will look like *</>*). Give your app the nickname `okta-firebase-demo` and select **Also set up Firebase Hosting for this app**. Click **Register app**, and you will see some JavaScript code for setting up your Firebase app in a moment.
+Click the settings wheel next to *Project Overview* and click **Project settings**. At the bottom of the overview page, there's a prompt to **Select a platform to get started** and select web app (it will look like *</>*). Give your app the nickname `okta-firebase-demo` and select **Also set up Firebase Hosting for this app**. Click **Register app**, and in a moment you will see some JavaScript code for setting up your Firebase app.
 
 {% img blog/react-firebase-serverless/firebase-config.jpg alt:"Firebase configuration generated by Firebase console under 'Add Firebase SDK' step" width:"800" %}{: .center-image }
 
@@ -53,7 +53,7 @@ Hold onto this information as you will need it in your app. Click through the re
 
 {% img blog/react-firebase-serverless/firebase-admin.jpg alt:"Screenshot of 'Firebase Admin SDK' view with a button to 'Generate new private key'" width:"800" %}{: .center-image }
 
-Finally, click the **Build**>**Authentication** in the side nav and click **Get Started**. Pressing the **Get Started** button generates a **Web API Key** that you will need to use the auth features. 
+Finally, click the **Build**>**Authentication** in the side nav and click **Get Started**. Pressing the **Get Started** button generates a **Web API Key** that is required for using the auth features. 
 
 ## Create your front end in React
 
@@ -100,7 +100,7 @@ REACT_APP_ENV=production
 
 You obtained the Okta values when you created your application using the Okta CLI earlier. Your Okta domain is part of the Issuer. The Firebase values came from the configuration you copied when you first created your application.
 
-There is currently a known error in React 18 with the Okta React library where multiple rerenders can lead to an error message in the `oktaAuth` object. While fixing the error is ongoing, you can work around it by taking React out of `strict` mode. Replace the code in your `index.js` file with the following code.
+There is currently a known error in React 18 with the Okta React library where multiple rerenders can lead to an error message in the `oktaAuth` object. Work on fixing this error is ongoing. In the meantime, you can work around it by taking React out of `strict` mode. Replace the code in your `index.js` file with the following code.
 
 ```jsx
 import React from 'react';
@@ -144,7 +144,7 @@ function App() {
 export default App;
 ```
 
-You are replacing the default code with a `Router` and an `AppWithRouterAccess` that you will write next. Add a new file called `AppWithRouterAccess.jsx` and the following code.
+You are replacing the default code with a `Router` and an `AppWithRouterAccess` that you will write next. Open a new file called `AppWithRouterAccess.jsx` and add the following code.
 
 ```jsx
 import "./App.css";
@@ -406,7 +406,7 @@ This page will handle both the authenticated and unauthenticated states. If the 
 
 The `getGrades` function ensures the user is authenticated using the build-in authentication function in Firebase. Firebase also integrates with authentication tokens from providers such as Okta. To utilize this functionality, you will mint a Firebase authentication token using an Okta authentication token. Okta returns an `accessToken` to the client when the user logs in. The client then passes the `accessToken` to a Firebase function called `exchangeOktaTokenForFirebaseToken`. In this Function, you verify the token and return a Firebase token to log the user in. Then subsequent calls to the functions will treat that user as logged in to Firebase.
 
-At this point, you can use the `npm run start` command to run your app locally. You'll see a few console errors from Firebase, and you'll see **Login** buttons. At this stage, you'll be able to authenticate with Okta, but the login process doesn't call Firebase yet, so your login is incomplete.  
+At this point, you can use the `npm run start` command to run your app locally. You'll see a few console errors from Firebase, and you'll see **Login** buttons. Notice that you're able to authenticate with Okta now, but the login process doesn't call Firebase yet, so your login is still incomplete.  
 
 ## Make your React application ready for Firebase
 
@@ -428,7 +428,7 @@ Select **Use an existing project** and select your `okta-firebase-{ID}` project
 
 After a moment, you'll see prompts to set up Functions. Select the following options
  1. Language - **Javascript**
- 2. EsLint - **No** (you should use this in production level applications)
+ 2. EsLint - **No** (You should use this in production-ready applications.)
  3. When prompted to install dependencies say **Yes**
 
 Next, select the following options to set up hosting.
@@ -625,13 +625,13 @@ const grades = [
 module.exports = { getGrades };
 ```
 
-First, `exchangeOktaTokenForFirebaseToken` will provide a custom token from Firebase to use in your application. Firebase allows you complete control over your authentication via the `signInWithCustomToken` method you used on the client. You need to create a custom token using your service account. You downloaded your service account definition as a JSON file earlier. Then you can call `createCustomToken` from your `auth` object against your service account. This function requires a `uid` and optionally accepts other claims you may wish to add.  Be mindful that [Firebase reserves token names](https://firebase.google.com/docs/auth/admin/create-custom-tokens#reserved_custom_token_names).  
+First, `exchangeOktaTokenForFirebaseToken` will provide a custom token from Firebase to use in your application. Firebase allows you complete control over your authentication via the `signInWithCustomToken` method you used on the client. You need to create a custom token using your service account. You downloaded your service account definition as a JSON file earlier. Now you can call `createCustomToken` from your `auth` object against your service account. This function requires a `uid` and optionally accepts other claims you may wish to add.  Be mindful that [Firebase reserves token names](https://firebase.google.com/docs/auth/admin/create-custom-tokens#reserved_custom_token_names).  
 
 You can then obtain a token from the Okta authorization server and present it to the Firebase Function to be verified using the `OktaJwtVerifier`. If the Okta token is valid, you will call your Okta authorization server's `userInfo` endpoint to obtain additional information about your user. You can include this information in your Firebase token as its custom claims. Then you can use the `firebaseApp` object to create your token with those claims. You'll return this token to the client and sign in with it. 
 
 Next, you have the `getGrades` function. You check `context.auth` to see if the user is logged in. If they aren't, you are throwing an error. If they are, allow the user to access the grades data in that file.  
 
-There are two different ways to set up functions in Firebase, `onCall` and `onRequest`. `onRequest` gives you a more raw form of handling the incoming call. You'd need to set up your CORS code, your authentication, and all the good stuff that the `onCall` wrapper takes care of for you. For example, `context.auth` is provided because you used the `onCall` whereas you would need to obtain this information manually through `onRequest`.  
+There are two different ways to set up functions in Firebase, `onCall` and `onRequest`. `onRequest` gives you a more raw form of handling the incoming call. You'd need to set up your CORS code, your authentication, and all the good stuff that the `onCall` wrapper takes care of for you. For example, `context.auth` is provided because you used the `onCall`, whereas through `onRequest` you would need to obtain this information manually.  
 
 ## Test your app locally using Firebase emulators
 
@@ -683,7 +683,7 @@ If you find that you have conflicts with the default ports that Firebase uses, y
 
 You'll need to open the Okta admin console and navigate to your Okta application to add these ports to the allowlist.
 
-Open [Okta Developer Portal](https://developer.okta.com/) and **Sign in to Okta**. Then press **Admin** to launch the Admin console. 
+Open [Okta Developer Portal](https://developer.okta.com/) and **Sign in to Okta**. Then press **Admin** to launch the admin console. 
 
 Navigate to **Applications** > **Applications** and find your Okta application for this project. Select it to edit. On the **General** tab, **Edit** the General Settings with the new ports. For example, if your Firebase hosting port is 5000, add `http://localhost:5000/login/callback` to *Sign-in redirect URIs* and `http://localhost:5000` to your *Sign-out redirect URIs*. Update the port number based on your Firebase emulator settings and save. 
 
@@ -697,13 +697,13 @@ At this point, you should be able to log in to Okta, exchange your token for a F
 
 Once this works, you are ready to deploy your application to Firebase. First, set your `.env` entry for `REACT_APP_ENV` back to `production` if you had set it to `development`. You may need to run the `npm run build` command once more in case you've made any edits or changes. Once complete, run the command `firebase deploy` from your root directory.  
 
-After completing this step, your CLI will provide you with a URL to your application. You should see your application running on Firebase if you click that. But, Okta won't work at this point. You need to go back to your Okta admin portal, under your application, and add `{yourFirebaseDomain}/login/callback` to your *Sign-in redirect URIs* and `{yourFirebaseDomain}` to your *Sign-out redirect URIs* to the **General Settings** tab of your Okta application, and add {yourFirebaseDomain} as a **Trusted Origin**  
+After completing this step, your CLI will provide a URL to your application. You should see your application running on Firebase if you click that. But, Okta won't work at this point. You need to go back to your Okta admin portal, under your application, and add `{yourFirebaseDomain}/login/callback` to your *Sign-in redirect URIs*, `{yourFirebaseDomain}` to your *Sign-out redirect URIs* to the **General Settings** tab of your Okta application, and add {yourFirebaseDomain} as a **Trusted Origin**  
 
-Now return to your application in Firebase and click **Sign In** to ensure Okta is hooked up correctly. Once you are signed in, you should be able to select a semester and click **Get Grades** to see your report card get generated.
+Now return to your application in Firebase and click **Sign In** to ensure Okta is hooked up correctly. Once you are signed in, you should be able to select a semester and click **Get Grades** to see your report card generated.
 
 ## Review your React app with authenticated Firebase Functions
 
-In this article, you learned how to create and deploy a web application to Google Firebase. You also learned how to build Firebase functions as a backend for your web application. Finally, you learned how to secure your SPA using Okta and exchange your Okta access token for a Firebase token that it will know how to use in its pipeline.
+In this article, you learned how to create and deploy a web application to Google Firebase. You also learned how to build Firebase functions as a backend for your web application. Finally, you learned how to secure your SPA using Okta and exchange your Okta access token for a Firebase token that it will know how to use in its pipeline. Here are some related articles that might also be of interest: 
 
 [How to Build and Deploy a Serverless React App on Azure](/blog/2022/04/13/react-azure-functions)
 [Build a CRUD App with Angular and Firebase](/blog/2019/02/28/build-crud-app-with-angular-and-firebase)
