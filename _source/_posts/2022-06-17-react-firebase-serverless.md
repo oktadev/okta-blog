@@ -16,7 +16,7 @@ github: https://github.com/oktadev/okta-react-firebase-serverless-example
 
 Firebase is an exciting cloud platform from Google available to businesses today.  Firebase connects everything from simple static websites to IoT devices to AI and machine learning platforms. The platform provides various services to facilitate these connections, like storage and authentication.
 
-In this tutorial, you will learn about two core Firebase products: Functions and Hosting. Hosting is for deploying static web applications. Functions are the Firebase serverless platform.  You will create a static application using React that authenticates users via Okta's React library. After obtaining an access token from Okta's authorization server, you will use a Firebase Function to exchange the Okta token for a Firebase token and sign in the user using Firebase's authentication structure. You will obtain additional user information by calling the `userInfo` endpoint on your Okta authorization server and including that data in your Firebase token. Finally, you will create another function endpoint to handle a simple HTTP request that requires an authenticated user.
+In this tutorial, you will learn about two core Firebase products: Cloud Functions for Firebase and Firebase Hosting. Hosting is for deploying static web applications. Functions are the Firebase serverless platform.  You will create a static application using React that authenticates users via Okta's React library. After obtaining an access token from Okta's authorization server, you will use a Firebase function to exchange the Okta token for a Firebase token and sign in the user using Firebase's authentication structure. You will obtain additional user information by calling the `userInfo` endpoint on your Okta authorization server and including that data in your Firebase token. Finally, you will create another function endpoint to handle a simple HTTP request that requires an authenticated user.
 
 Once you've built your application, you will deploy it to the Firebase platform for public consumption using the Firebase CLI.  
 
@@ -404,7 +404,7 @@ export default Home;
 
 This page will handle both the authenticated and unauthenticated states. If the user is not authenticated, they are presented with a screen requesting them to do so. If the user is authenticated, they can `getGrades` by selecting a semester from the drop-down and calling the server.
 
-The `getGrades` function ensures the user is authenticated using the build-in authentication function in Firebase. Firebase also integrates with authentication tokens from providers such as Okta. To utilize this functionality, you will mint a Firebase authentication token using an Okta authentication token. Okta returns an `accessToken` to the client when the user logs in. The client then passes the `accessToken` to a Firebase function called `exchangeOktaTokenForFirebaseToken`. In this Function, you verify the token and return a Firebase token to log the user in. Then subsequent calls to the functions will treat that user as logged in to Firebase.
+The `getGrades` function ensures the user is authenticated using the build-in authentication function in Firebase. Firebase also integrates with authentication tokens from providers such as Okta. To utilize this functionality, you will mint a Firebase authentication token using an Okta authentication token. Okta returns an `accessToken` to the client when the user logs in. The client then passes the `accessToken` to a Firebase function called `exchangeOktaTokenForFirebaseToken`. In this Cloud Function for Firebase, you verify the token and return a Firebase token to log the user in. Then subsequent calls to the functions will treat that user as logged in to Firebase.
 
 At this point, you can use the `npm run start` command to run your app locally. You'll see a few console errors from Firebase, and you'll see **Login** buttons. Notice that you're able to authenticate with Okta now, but the login process doesn't call Firebase yet, so your login is still incomplete.  
 
@@ -426,7 +426,7 @@ Select both of the following features:
 
 Select **Use an existing project** and select your `okta-firebase-{ID}` project
 
-After a moment, you'll see prompts to set up Functions. Select the following options
+After a moment, you'll see prompts to set up Firebase functions. Select the following options:
  1. Language - **Javascript**
  2. EsLint - **No** (You should use this in production-ready applications.)
  3. When prompted to install dependencies say **Yes**
@@ -440,7 +440,7 @@ Before deploying your application, you must run the `build` command on your Reac
 
 ## Add authenticated Firebase functions
 
-You should notice that a new folder called `functions` has been added to your directory. There, you will see some Firebase config stuff and a file called `index.js`. You're going to add the code for two Functions.  
+You should notice that a new folder called `functions` has been added to your directory. There, you will see some Firebase config stuff and a file called `index.js`. You're going to add the code for two functions.  
 
 First, you will need one that accepts an Okta token and returns a Firebase token for the client to use. To verify the token, you will use the `@okta/jwt-verifier` package from Okta.  
 
@@ -701,7 +701,7 @@ After completing this step, your CLI will provide a URL to your application. You
 
 Now return to your application in Firebase and click **Sign In** to ensure Okta is hooked up correctly. Once you are signed in, you should be able to select a semester and click **Get Grades** to see your report card generated.
 
-## Review your React app with authenticated Firebase Functions
+## Review your React app with authenticated Firebase functions
 
 In this article, you learned how to create and deploy a web application to Google Firebase. You also learned how to build Firebase functions as a backend for your web application. Finally, you learned how to secure your SPA using Okta and exchange your Okta access token for a Firebase token that it will know how to use in its pipeline. Here are some related articles that might also be of interest: 
 
