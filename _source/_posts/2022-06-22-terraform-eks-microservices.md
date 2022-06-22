@@ -73,7 +73,7 @@ The JHipster scaffolded sample application has a gateway application, two micros
 
 ## Create an EKS cluster using Terraform
 
-Now let us move on to the important part of the tutorial. Creating an EKS cluster in AWS is not as straightforward as in Google Cloud Platform (GCP). You need to also create a lot more resources for everything to work correctly without surprises. You will be using a bunch of Terraform providers to help us with this, and you will also use some prebuilt Terraform modules like [AWS VPC Terraform module](https://github.com/terraform-aws-modules/terraform-aws-vpc) and [Amazon EKS Blueprints for Terraform](https://github.com/aws-ia/terraform-aws-eks-blueprints) to reduce the amount of boilerplate you need to write.
+Now let us move on to the important part of the tutorial. Creating an EKS cluster in AWS is not as straightforward as in Google Cloud Platform (GCP). You need to also create a lot more resources for everything to work correctly without surprises. You will be using a bunch of Terraform providers to help with this, and you will also use some prebuilt Terraform modules like [AWS VPC Terraform module](https://github.com/terraform-aws-modules/terraform-aws-vpc) and [Amazon EKS Blueprints for Terraform](https://github.com/aws-ia/terraform-aws-eks-blueprints) to reduce the amount of boilerplate you need to write.
 
 These are the AWS resources and VPC architecture you will create:
 
