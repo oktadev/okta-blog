@@ -57,9 +57,10 @@ You need a microservice stack to deploy to the cluster. I'm using a microservice
 ```bash
 mkdir jhipster-microservice-stack
 cd jhipster-microservice-stack
-# download the JDL file
+# download the JDL file.
 jhipster download https://raw.githubusercontent.com/oktadev/okta-jhipster-k8s-eks-microservices-example/main/apps.jdl
-# scaffold
+# Update the `dockerRepositoryName` property to use your Docker Repository URI/Name.
+# scaffold the apps.
 jhipster jdl apps.jdl
 ```
 
@@ -68,6 +69,8 @@ jhipster jdl apps.jdl
 ```
 git clone https://github.com/oktadev/okta-jhipster-k8s-eks-microservices-example
 ```
+
+In either case, remember to change the Docker repository name to match your Docker repository.
 
 The JHipster scaffolded sample application has a gateway application, two microservices, and uses [JHipster Registry](https://www.jhipster.tech/jhipster-registry/) for service discovery and centralized configuration.
 
@@ -331,7 +334,7 @@ resource "null_resource" "kubeconfig" {
 
 The `eks_blueprints` module definition creates:
 
-- EKS Cluster Control plane with one managed node group and fargate profile,
+- EKS Cluster Control plane with one [managed node group](https://docs.aws.amazon.com/eks/latest/userguide/managed-node-groups.html) and [fargate profile](https://docs.aws.amazon.com/eks/latest/userguide/fargate-profile.html),
 - Cluster and node security groups and rules, IAM roles and policies required,
 - and AWS Key Management Service (KMS) configuration.
 
@@ -494,6 +497,8 @@ You should see the cluster details if you run `kdash` or `kubectl get nodes` com
 
 {% img blog/jhipster-k8s-eks-terraform/eks-cluster.png alt:"EKS cluster in KDash" width:"900" %}{: .center-image }
 
+> **Note**: The EKS cluster defined here will not come under AWS free tier; hence, running this will cost money, so delete the cluster as soon as you finish the tutorial to keep the cost within a few dollars.
+
 ## Set up OIDC authentication using Okta
 
 You can proceed to deploy the sample application. You could skip this step if you used a sample that does not use Okta or OIDC for authentication.
@@ -542,7 +547,7 @@ You are ready to deploy to our shiny new EKS cluster, but first, you need to bui
 
 ### Build the Docker images
 
-You need to build Docker images for each app. This is specific to the JHipster application used in this tutorial. Navigate to each app folder (**store**, **invoice**, **product**) and run the following command:
+You need to build Docker images for each app. This is specific to the JHipster application used in this tutorial which uses [Jib](https://github.com/GoogleContainerTools/jib) to build the images. Make sure you are logged into Docker using `docker login`. Navigate to each app folder (**store**, **invoice**, **product**) and run the following command:
 
 ```bash
 ./gradlew bootJar -Pprod jib -Djib.to.image=<docker-repo-uri-or-name>/<image-name>
@@ -597,7 +602,7 @@ Once you are done with the tutorial, you can delete the cluster and all the reso
 cd terraform
 # The commands below might take a while to finish.
 terraform destroy -target="module.eks_blueprints_kubernetes_addons" -auto-approve
-# If deleting VPC fails, then manually delete the load balancers and security groups 
+# If deleting VPC fails, then manually delete the load balancers and security groups
 # for the load balancer associated with the VPC from AWS EC2 console and try again.
 terraform destroy -target="module.eks_blueprints" -auto-approve
 terraform destroy -target="module.vpc" -auto-approve
