@@ -615,7 +615,7 @@ Click **Encrypt**.
 
 {% img blog/kubernetes-jhipster-aws/encrypting-client-secret.png alt:"Encrypting the client secret" width:"800" %}{: .center-image }
 
-Copy that value, including the `{cipher}` part, and past it back over the old value. 
+Copy that value, including the `{cipher}` part, and paste it back over the old value. 
 
 ```yaml
 registration:
