@@ -705,9 +705,9 @@ Now return to your application in Firebase and click **Sign In** to ensure Okta 
 
 In this article, you learned how to create and deploy a web application to Google Firebase. You also learned how to build Firebase functions as a backend for your web application. Finally, you learned how to secure your SPA using Okta and exchange your Okta access token for a Firebase token that it will know how to use in its pipeline. Here are some related articles that might also be of interest: 
 
-[How to Build and Deploy a Serverless React App on Azure](/blog/2022/04/13/react-azure-functions)
-[Build a CRUD App with Angular and Firebase](/blog/2019/02/28/build-crud-app-with-angular-and-firebase)
-[Use Firebase with Your ASP.NET MVC App](/blog/2019/04/30/store-data-firebase-aspnet-mvc-csharp)
-[Build Reusable React Components](/blog/2020/01/20/build-reusable-react-components)
+* [How to Build and Deploy a Serverless React App on Azure](/blog/2022/04/13/react-azure-functions)
+* [Build a CRUD App with Angular and Firebase](/blog/2019/02/28/build-crud-app-with-angular-and-firebase)
+* [Use Firebase with Your ASP.NET MVC App](/blog/2019/04/30/store-data-firebase-aspnet-mvc-csharp)
+* [Build Reusable React Components](/blog/2020/01/20/build-reusable-react-components)
 
 Make sure you follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube](https://www.youtube.com/c/oktadev) channel. Please comment below if you have any questions or want to share what tutorial you'd like to see next.
