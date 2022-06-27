@@ -303,7 +303,7 @@ spec:
 
 ## Use Jib to build the Docker images and push to your Docker Hub registry
 
-Kubernetes on AWS needs to be able to access your docker images. The easiest way to do this is to push them to your Docker Hub account (which you should have already signed up for, if you didn't already have one).
+Kubernetes on AWS needs to be able to access your Docker images. The easiest way to do this is to push them to your Docker Hub account (which you should have already signed up for, if you didn't already have one).
 
 Gradle and Jib make this super easy. In fact, you have the commands you need **in your console output**. You can copy and paste them from there and run them in the correct directories. You cannot copy and paste the commands from my terminal listing above without replacing the docker repository name.
 
