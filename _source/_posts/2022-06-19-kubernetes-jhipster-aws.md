@@ -527,7 +527,7 @@ store-7bf788586b-6jq2f                1/1     Running   0          15m
 store-mongodb-0                       1/1     Running   0          15m
 ```
 
-In K8s Lens, this looks like this:
+In K8s Lens, here's what it looks like:
 
 {% img blog/kubernetes-jhipster-aws/lens-status-green.png alt:"Lens status green" width:"1000" %}{: .center-image }
 
