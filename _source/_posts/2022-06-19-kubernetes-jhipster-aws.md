@@ -13,7 +13,7 @@ tweets:
 image:
 type: conversion
 ---
-In this tutorial, you'll use JHipster to build a microservice and deploy it to Amazon Elastic Kubernetes Service (EKS). The Kubernetes microservice will use Java and Spring Boot for resource servers and Vue for the frontend. It will include multiple databases and database types: PostgresSQL, MongoDB, and Neo4j. You'll secure the service using OAuth 2.0 and OpenID Connect (OIDC) using Okta as a security provider. With Kubernetes secrets and `kubeseal`, you'll encrypt all of the secrets in the project configuration files. To generate the project, you'll use JHipster's generator and the generator DSL.
+In this tutorial, you'll use JHipster to build a microservice stack and deploy it to Amazon Elastic Kubernetes Service (EKS). The microservices will use Java and Spring Boot for resource servers and Vue for the frontend. It will include multiple databases and database types: PostgresSQL, MongoDB, and Neo4j. You'll secure the service using OAuth 2.0 and OpenID Connect (OIDC) using Okta as the OIDC provider. With Kubernetes secrets and `kubeseal`, you'll encrypt all of the secrets in the project configuration files. To generate the project, you'll use JHipster CLI and the JHipster Domain Language (JDL).
 
 **Prerequisites**
 
