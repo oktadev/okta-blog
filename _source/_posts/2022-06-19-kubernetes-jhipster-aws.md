@@ -1,10 +1,10 @@
 ---
 layout: blog_post
-title: "Kubernetes Microservice on AWS with Amazon Elastic Kubernetes Service"
+title: "JHipster Microservices on AWS with Amazon Elastic Kubernetes Service"
 author: andrew-hughes
 by: contractor
 communities: [java,devops]
-description: ""
+description: "Build a JHipster Microservice on AWS with Amazon Elastic Kubernetes Service and secure it with OAuth 2.0 and OIDC using Okta as a provider"
 tags: [java,jhipster,kubernetes,k8s,devops,microservices]
 tweets:
 - ""
@@ -504,10 +504,10 @@ Now you're ready to deploy the microservice.
 Run the following command (again, from the `kubernetes` subdirectory).
 
 ```bash
-./kubectl -f
+./kubectl-apply.sh -f
 ```
 
-the CLI to check on the pods, you can use:
+To use the CLI to check on the pods, you can use:
 
 ```bash
 kubectl get pods -n demo
@@ -535,7 +535,7 @@ In K8s Lens, here's what it looks like:
 Another useful command is `describe` (I won’t replicate the output here). This is great for more detailed information for debugging.
 
 ```
-kubectl describe pods -n demo
+kubectl describe pod <pod-name> -n demo
 ```
 
 You can also tail logs of a specific pod using the following command.
@@ -550,7 +550,7 @@ To access the Eureka registry service, you need to forward the port.
 kubectl port-forward svc/jhipster-registry -n demo 8761
 ```
 
-Open a browser and navigate to http://localhost:8761
+Open a browser and navigate to http://localhost:8761. You may have to log in if you aren't already logged into Okta.
 
 You want to see a lot of green.
 
@@ -586,7 +586,7 @@ Remember that the blog application uses a Ne04j database backend and the store u
 
 The microservice is working. The only thing left to do is to protect any sensitive configuration parameters that you don't want to check into a repository. In this case, the main value that needs to be protected is the Okta OIDC client secret (and the `ENCRYPT_KEY`, which, as you'll see in a moment, is used to encrypt the client secret but which itself will need to be encrypted using `kubeseal`).
 
- In `kubernetes/registry-k8s/jhipster-registry.yml`, add an environment key-value pair (you can add it anywhere under the same `env` list that you edited earlier). Make up an encryption key. The longer the better.
+ In `kubernetes/registry-k8s/jhipster-registry.yml`, add an environment key-value pair (you can add it anywhere under the same `env` list that you edited earlier). Make up an encryption key. The longer the better. Generating a UUID is a good solution. Linux has a tool called `uuid` that can be used. There are also [websites](https://www.uuidgenerator.net/) that will generate a UUID. 
 
 ```yaml
 - name: ENCRYPT_KEY
@@ -768,6 +768,7 @@ This project is based on two of Matt Raible's tutorials, which were helpful for 
 
 If you liked this post, there's a good chance you'll like similar ones:
 
+- [How to Deploy Java Microservices on Amazon EKS Using Terraform and Kubernetes](https://developer.okta.com/blog/2022/06/22/terraform-eks-microservices)
 - [Introducing Spring Native for JHipster: Serverless Full-Stack Made Easy](/blog/2022/03/03/spring-native-jhipster)
 - [How to Secure Your Kubernetes Clusters With Best Practices](/blog/2021/12/02/k8s-security-best-practices)
 - [Mobile Development with Ionic, React Native, and JHipster](/blog/2020/04/27/mobile-development-ionic-react-native-jhipster)
