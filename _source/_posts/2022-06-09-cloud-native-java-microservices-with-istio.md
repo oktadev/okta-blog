@@ -408,7 +408,7 @@ deployment {
 }
 ```
 
-I hope it's self-explanatory. You can refer to the JDL deployment documentation for all the available options. We have enabled Istio and set the ingress domain to the Istio Ingress Gateway's external IP that we noted earlier. Now we need a DNS for our IP. For real use-cases, you should map a DNS for the IP using a service provided by your cloud vendor like Google Cloud DNS, but for testing and demo purposes, we can use a wildcard DNS service like [**nip.io**](http://nip.io) to resolve our IP. Just append `nip.io` to our IP and use that as the `ingressDomain`. Make sure to use a docker repo where you have push rights.
+I hope it's self-explanatory. You can refer to the JDL deployment documentation for all the available options. We have enabled Istio and set the ingress domain to the Istio Ingress Gateway's external IP that we noted earlier. Now we need a DNS for our IP. For real use cases, you should map a DNS for the IP using a service provided by your cloud vendor like Google Cloud DNS. For testing and demo purposes, we can use a wildcard DNS service like [**nip.io**](http://nip.io) to resolve our IP. Append `nip.io` to our IP and use that as the `ingressDomain`. Make sure to use a docker repo where you have push rights.
 
 Now run the following command from the root folder where you ran the previous `jhipster jdl` command.
 
