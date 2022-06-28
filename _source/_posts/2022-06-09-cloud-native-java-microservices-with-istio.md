@@ -408,7 +408,7 @@ deployment {
 }
 ```
 
-I hope it's self-explanatory. You can refer to the JDL deployment documentation for all the available options. We have enabled Istio and set the ingress domain to the Istio Ingress Gateway's external IP that we noted earlier. Make sure to use a docker repo where you have push rights.
+I hope it's self-explanatory. You can refer to the JDL deployment documentation for all the available options. We have enabled Istio and set the ingress domain to the Istio Ingress Gateway's external IP that we noted earlier. Now we need a DNS for our IP. For real use cases, you should map a DNS for the IP using a service provided by your cloud vendor like Google Cloud DNS. For testing and demo purposes, we can use a wildcard DNS service like [**nip.io**](http://nip.io) to resolve our IP. Append `nip.io` to our IP and use that as the `ingressDomain`. Make sure to use a docker repo where you have push rights.
 
 Now run the following command from the root folder where you ran the previous `jhipster jdl` command.
 
@@ -608,10 +608,10 @@ gcloud container clusters delete hello-hipster
 
 If you want to learn more about Kubernetes, OIDC, or using OIDC with Kubernetes, and security in general, check out these additional resources.
 
+- [How to Deploy Java Microservices on Amazon EKS Using Terraform and Kubernetes](/blog/2022/06/22/terraform-eks-microservices)
 - [How to Secure Your Kubernetes Cluster with OpenID Connect and RBAC](/blog/2021/11/08/k8s-api-server-oidc)
 - [Kubernetes Microservices on Azure with Cosmos DB](/blog/2022/05/05/kubernetes-microservices-azure)
 - [How to Secure Your Kubernetes Clusters With Best Practices](/blog/2021/12/02/k8s-security-best-practices)
-- [Securing a Cluster](https://kubernetes.io/docs/tasks/administer-cluster/securing-a-cluster/)
 - [OAuth 2.0 and OpenID Connect Overview](https://developer.okta.com/docs/concepts/oauth-openid/)
 - [Secure Access to AWS EKS Clusters for Admins](/blog/2021/10/08/secure-access-to-aws-eks)
 
