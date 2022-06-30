@@ -20,6 +20,8 @@ This is the second post in a series about web security for SPAs. In the last pos
 
  This post will use the concepts to banish some well-known web vulnerabilities.
 
+ {% include toc.md %}
+
 ## Practice data cleanliness
 One vulnerability that continues to plague web developers is Cross-Site Scripting (XSS). This vulnerability is a type of injection attack and is so common that it's [number 3 on the OWASP Top Ten list](https://owasp.org/Top10/A03_2021-Injection/). 
 
@@ -51,7 +53,7 @@ Sanitizing removes code that might be malicious but still preserves some safe HT
 
 There's a lot more to discuss regarding XSS, including types of XSS and mitigation technique specifics, so keep an eye out for a follow-up post with more details, including the built-in XSS security mechanisms in some SPA frameworks.
 
-## Dive into script injection
+## Dive into XSS
 Can't wait to read more about XSS? Check out these resources that cover how XSS works
 * [API Security book chapter on Sanitizing Data by Okta](https://developer.okta.com/books/api-security/sanitizing/)
 * [Cross-site scripting resource from Port Swigger Web Security Academy](https://portswigger.net/web-security/cross-site-scripting)
