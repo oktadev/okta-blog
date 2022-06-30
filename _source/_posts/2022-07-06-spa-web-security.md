@@ -4,13 +4,12 @@ title: "Defend Your SPA from Security Woes"
 author: alisa-duncan
 by: advocate
 communities: [security,javascript]
-description: ""
+description: "Learn the basics of web security and how to apply web security foundation to protect your Single Page Applications."
 tags: [security, react, vue, angular]
 tweets:
-- ""
-- ""
-- ""
-image:
+- "Protect your SPA and web 🍪  by keeping these web security tips in mind!"
+- "Confused about web security? 🤔 Read this post to demystify actionable steps you can take to protect your SPA. ✅"
+image: blog/spa-web-security/social.jpg
 type: awareness
 ---
 
@@ -134,7 +133,5 @@ Can't wait to learn more? Check out out the following resources
 * [Security Patterns for Microservice Architectures](/blog/2020/03/23/microservice-security-patterns)
 * [Security and Web Development](https://auth0.com/blog/security-and-web-development/)
 * [OWASP Top Ten 2021: Related Cheat Sheets](https://cheatsheetseries.owasp.org/IndexTopTen.html)
-
-
 
 Don't forget to follow us on [Twitter](https://twitter.com/oktadev) and subscribe to our [YouTube channel](https://www.youtube.com/c/OktaDev/) for more great tutorials. We'd also love to hear from you! If you have any questions or want to share what tutorial you'd like to see next, please comment below.
