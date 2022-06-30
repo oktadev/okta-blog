@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Defense Against the Dark Hacks for SPAs"
+title: "Defend Your SPA from Security Woes"
 author: alisa-duncan
 by: advocate
 communities: [security,javascript]
