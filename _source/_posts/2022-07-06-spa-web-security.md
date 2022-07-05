@@ -24,7 +24,8 @@ So why do we worry about web security anyway? When we have vulnerabilities in ou
 ## Use the OWASP Top 10 to identify the most common vulnerabilities
 If you're new to thinking about security, you may not have heard of the [**O**pen **W**eb **A**pplication **S**ecurity **P**roject](https://owasp.org/) (OWASP). OWASP is a group that focuses on making the web a safer place. They maintain and publish a list of the most common web vulnerabilities named the "[OWASP Top Ten](https://owasp.org/www-project-top-ten/)" and have a new top ten list for 2021; their infographic shows how the top web vulnerabilities have changed from 2017 to 2021.
 
-![OWASP Top 10 for 2021 shows the following vulnerabilities in order: Broken Access Control, Cryptographic Failures, Injection, Insecure Design, Security Misconfiguration, Vulnerable and Outdated Components, Identification and Authentication Failures, Software and Data Integrity Failures, Security Logging and Monitoring Failures, and Server-Side Request Forgery](https://owasp.org/www-project-top-ten/assets/images/mapping.png)
+{% img blog/spa-web-security/owasp-top-ten.jpg alt:"OWASP Top 10 for 2021 shows the following vulnerabilities in order: Broken Access Control, Cryptographic Failures, Injection, Insecure Design, Security Misconfiguration, Vulnerable and Outdated Components, Identification and Authentication Failures, Software and Data Integrity Failures, Security Logging and Monitoring Failures, and Server-Side Request Forgery" width:"800" %}{: .center-image }
+<cite>[CC-by Open Web Application Security Project](https://owasp.org/Top10/)</cite>
 
 As this is a list of web vulnerabilities, the entire list is pertinent to our work as web developers. However, a few critical vulnerabilities call for extra attention, and some vulnerabilities are less susceptible when the front-end is a SPA with a JSON-based backend API.
 
