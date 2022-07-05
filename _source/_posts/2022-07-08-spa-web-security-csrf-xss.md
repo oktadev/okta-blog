@@ -4,7 +4,7 @@ title: "Defend Your SPA From the Common Web Attacks"
 author: alisa-duncan
 by: advocate
 communities: [security,javascript]
-description: "Learn the basics of two most common web security attacks and the ways to mitigate those attacks to your Single Page Applications."
+description: "Learn the basics of the two most common web security attacks and the ways to mitigate those attacks to your Single Page Applications."
 tags: [security, react, vue, angular]
 tweets:
 - "Don't let bad actors cause security problems! Learn the basics of XSS and CSRF web attacks, and how to keep your SPA safe!"
@@ -13,18 +13,18 @@ image: blog/spa-web-security-csrf-xss/social.jpg
 type: awareness
 ---
 
-This is the second post in a series about web security for SPAs. In the last post, we laid the groundwork for thinking about web security and applying security mechanisms to our application stack. We covered what the [OWASP Top Ten](https://owasp.org/Top10/) is, using secure data communication with SSL/TLS, using security headers to help enhance built-in browser mechanisms, keeping dependencies updated, and safeguarding cookies.
+This is the second post in a series about web security for SPAs. In the last post, we laid the groundwork for thinking about web security and applying security mechanisms to our application stack. We covered the [OWASP Top Ten](https://owasp.org/Top10/), using secure data communication with SSL/TLS, using security headers to help enhance built-in browser mechanisms, keeping dependencies updated, and safeguarding cookies.
 
 <!-- Add table with links to all the posts in the series here -->
 
- This post will use the concepts to banish some well-known web vulnerabilities.
+ This post will use the concepts we introduced to banish some well-known web vulnerabilities.
 
  {% include toc.md %}
 
 ## Practice data cleanliness
-One vulnerability that continues to plague web developers is Cross-Site Scripting (XSS). This vulnerability is a type of injection attack and is so common that it's [number 3 on the OWASP Top Ten list](https://owasp.org/Top10/A03_2021-Injection/). 
+Cross-Site Scripting (XSS) is a vulnterability that continues to plague web developers. This vulnerability is a type of injection attack and is so common that it's [number 3 on the OWASP Top Ten list](https://owasp.org/Top10/A03_2021-Injection/). 
 
-How does this vulnerability work? In short, XSS happens when code pollutes data, and you don't take appropriate safeguards. 
+How does this vulnerability work? In short, XSS happens when code pollutes data, and you don't implement safeguards. 
 
 Ok, fine, but what does that mean? A classic example is a website that allows user input, like adding comments or reviews. Suppose the input takes anything the user types in and doesn't appropriately safeguard that user input before storing the input and displaying it to other users. In that case, it's at risk for XSS. 
 
