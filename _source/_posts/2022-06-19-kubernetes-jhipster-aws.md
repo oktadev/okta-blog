@@ -357,7 +357,7 @@ Existing group 'ROLE_ADMIN' found
 Okta application configuration has been written to: /home/andrewcarterhughes/Development/okta/2022/aws-kubernetes/QA1/kubernetes/.okta.env
 ```
 
-This command creates an OIDC application on the Okta servers for you. It also creates a a `groups` claim on your authorization server and adds to groups: `ROLE_USER` and `ROLE_ADMIN`. The group names have `ROLE_` prefixed to them because of the way Spring Boot processes group names. You need these default groups for authentication to work.
+This command creates an OIDC application on the Okta servers for you. It also creates a `groups` claim on your authorization server and adds to groups: `ROLE_USER` and `ROLE_ADMIN`. The group names have `ROLE_` prefixed to them because of the way Spring Boot processes group names. You need these default groups for authentication to work.
 
 Remember the name of the OIDC application. You'll need to find it in the Okta Admin Console later. The `okta apps` command creates a config file named `.okta.env`. This should look something like the following.
 
