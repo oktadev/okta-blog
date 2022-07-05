@@ -456,7 +456,7 @@ The error reads:
 >Resource handler returned message: "Your requested instance type (t2.xlarge) is not supported in your requested Availability Zone (us-west-2d). Please retry your request by not specifying an Availability Zone or choosing us-west-2a, us-west-2b, us-west-2c. (Service: Eks, Status Code: 400, Request ID: 442805e0-f485-4503-a697-838dfbd690d0, Extended Request ID: null)" (RequestToken: 13e73586-c07b-6a2b-2209-a31bd1bc2560, HandlerErrorCode: InvalidRequest)
 
 
-I needed to add an additional flag to my command to specify an availability zone. If you look at [the AWS `eksctl` docs](https://eksctl.io/usage/creating-and-managing-clusters/), there's a note about this for the `us-east-1` region. This was the first time I'd run into it in the `us-west-1` region.
+I needed to add an additional flag to my command to specify an availability zone. If you look at [the `eksctl` docs](https://eksctl.io/usage/creating-and-managing-clusters/), there's a note about this for the `us-east-1` region. This was the first time I'd run into it in the `us-west-1` region.
 
 ```bash
 --zones=us-west-2a,us-west-2b,us-west-2c
