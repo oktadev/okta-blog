@@ -166,6 +166,8 @@ deployment {
   appsFolders [gateway, blog, store]
   dockerRepositoryName "{your-docker-repository-name}"
   kubernetesNamespace demo
+  serviceDiscoveryType eureka
+  kubernetesServiceType LoadBalancer
 }
 ```
 
