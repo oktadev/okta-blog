@@ -367,7 +367,7 @@ export SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID="0oa7pu3434Dasv
 export SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET="09328uu098u4..."
 ```
 
-The Kubernetes microservice uses Spring Cloud Config to centralize configuration (this service is part of the JHipster registry). This means that you can configure the entire microservice to use Okta as an OAuth and OpenID Connect (OIDC) provider in a single place.
+The microservices use Spring Cloud Config to centralize configuration (this service is part of the JHipster registry). This means that you can configure the entire microservice to use Okta as an OAuth and OpenID Connect (OIDC) provider in a single place.
 
 Open `kubernetes/registry-k8s/application-configmap.yml`. Add the following at the end of the `data.application.yml` entry (before the `jhipster-registry.yml` entry), filling in the `issuer-uri`, `client-id`, and `client-secret` taken from the `.okta.env` file. 
 
