@@ -55,7 +55,7 @@ Just so you have a general idea of what you're going to do, the general steps in
 
 ## Generate the application using the JHipster generator
 
-The JHipster generator makes it easy to bootstrap complex applications, including microservices with multiple services and data objects. You can read more about it in [the JHipster docs](https://www.jhipster.tech/creating-an-app/). In this tutorial, you are going to create a microservice using the JHipster generator JDL.
+The JHipster generator makes it easy to bootstrap complex applications, including microservices with multiple services and domain models. You can read more about it in [the JHipster docs](https://www.jhipster.tech/creating-an-app/). In this tutorial, you are going to create a microservice using the JHipster Domain Language.
 
 This will generate a microservice with four services:
 
