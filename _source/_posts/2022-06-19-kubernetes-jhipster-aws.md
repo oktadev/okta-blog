@@ -49,7 +49,7 @@ Just so you have a general idea of what you're going to do, the general steps in
 1. Generate the microservice applications and Kubernetes descriptor files using JHipster
 2. Build the apps and push the Docker images to Docker Hub
 3. Configure the services to use Okta for OIDC authentication
-4. Create an Amazon Elastic Kubernetes Service
+4. Create an Amazon EKS cluster
 5. Deploy the Kubernetes stack to EKS (which will pull your Docker images and deploy them to AWS EKS)
 6. Test the app
 
