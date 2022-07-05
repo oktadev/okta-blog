@@ -24,7 +24,10 @@ Before you get started, install the required software listed below. You'll need 
 - [Java 11](https://adoptopenjdk.net/): this tutorial requires Java 11. If you need to manage multiple Java versions, SDKMAN! is a good solution. Check out [their docs to install it](https://sdkman.io/installit).
 - [Okta CLI](https://cli.okta.com/manual/#installation): you’ll use Okta to add security to the microservice network. You can register for a free account from the CLI.
 - [Amazon Web Services](https://aws.amazon.com/free): sign up for an AWS account.
+- [AWS CLI](https://aws.amazon.com/cli/): Amazon Web Service CLI
+- [eksctl](https://github.com/weaveworks/eksctl): you'll use this ot create your cluster on EKS
 - [kubectl](https://kubernetes.io/docs/tasks/tools/): CLI to manage Kubernetes clusters. As of the time I was writing this tutorial, there was a bug in `kubectl` version 1.24 that results in an "invalid apiVersion" error. You can avoid this error by installing version 1.23.6.
+- [JHipster CLI](https://www.jhipster.tech/installation/): you'll use the JHipster CLI to bootstrap the application. To install with `npm` just use `npm install -g generator-jhipster`
 
 For more info on the `kubectl` error, see [this issue](https://github.com/aws/aws-cli/issues/6920) on GitHub. 
 
@@ -98,9 +101,6 @@ application {
     authenticationType oauth2
     buildTool gradle
     databaseType neo4j
-    devDatabaseType neo4j
-    prodDatabaseType neo4j
-    enableHibernateCache false
     serverPort 8081
     serviceDiscoveryType eureka
   }
@@ -116,9 +116,6 @@ application {
     authenticationType oauth2
     buildTool gradle
     databaseType mongodb
-    devDatabaseType mongodb
-    prodDatabaseType mongodb
-    enableHibernateCache false
     serverPort 8082
     serviceDiscoveryType eureka
   }
@@ -305,7 +302,7 @@ spec:
 
 Kubernetes on AWS needs to be able to access your Docker images. The easiest way to do this is to push them to your Docker Hub account (which you should have already signed up for, if you didn't already have one).
 
-Gradle and Jib make this super easy. In fact, you have the commands you need **in your console output**. You can copy and paste them from there and run them in the correct directories. You cannot copy and paste the commands from my terminal listing above without replacing the docker repository name.
+Gradle and [Jib](https://github.com/GoogleContainerTools/jib/tree/master/jib-gradle-plugin) make this super easy. In fact, you have the commands you need **in your console output**. You can copy and paste them from there and run them in the correct directories. You cannot copy and paste the commands from my terminal listing above without replacing the docker repository name.
 
 Make sure you are logged into Docker.
 
@@ -430,7 +427,9 @@ You can look at [the AWS docs on managed node groups](https://docs.aws.amazon.co
 
 ## Using AWS CloudFormation to troubleshoot problems
 
-If you have a problem, you can log into the AWS console and search for the CloudFormation tool. For example, my console ended with this non-specific error.
+If you have a problem, you can log into the AWS console and search for the CloudFormation tool. CloudFormation is an AWS service that (according to [their docs](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html)) "helps you model and set up your AWS resources." It allows you to create templates for configuring and provisioning resources and can help with dependencies between AWS resources. The `eksctl` tool uses CloudFormation behind the scenes.
+
+My console ended with this non-specific error.
 
 ```bash
 2022-06-17 09:32:51 [ℹ]  waiting for CloudFormation stack "eksctl-okta-k8s-nodegroup-okta-k8s-nodes"
