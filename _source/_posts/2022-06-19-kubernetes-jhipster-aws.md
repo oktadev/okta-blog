@@ -46,7 +46,7 @@ For Windows and Mac, there are instructions on how to install specific versions 
 
 Just so you have a general idea of what you're going to do, the general steps in this tutorial are:
 
-1. Generate the microservice applications and Kubernetes descriptor files using JHipster generator
+1. Generate the microservice applications and Kubernetes descriptor files using JHipster
 2. Build the apps and push the Docker images to Docker Hub
 3. Configure the services to use Okta auth
 4. Create an Amazon Elastic Kubernetes Service
