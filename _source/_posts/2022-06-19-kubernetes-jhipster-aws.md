@@ -395,7 +395,7 @@ jhipster-registry.yml: |-
   ...
 ```
 
-You also need to configure the registry to use OAuth. In the `kubernetes/registry-k8s/jhipster-registry.yml` file, add `oauth` to the values under `SPRING_PROFILES_ACTIVE` (as shown below).
+You also need to configure the registry to use OAuth. In the `kubernetes/registry-k8s/jhipster-registry.yml` file, add `oauth2` to the values under `SPRING_PROFILES_ACTIVE` (as shown below).
 
 `kubernetes/registry-k8s/jhipster-registry.yml`
 
