@@ -17,7 +17,7 @@ There's a lot of information floating out there about web security. But when I r
 
 <!-- Table with all the posts here as each post publishes -->
 
-So why do we worry about web security anyway? When we have vulnerabilities in our applications, it's an avenue for exploitation. In the wrong hands, exploiting the vulnerabilities can cause risks to your application, data, reputation, and bottom line. In the words of my coworker [Aaron Parecki](https://developer.okta.com/blog/authors/aaron-parecki/), it all boils down to one thing—liability. And we don't want to expose ourselves, our applications, and our companies to liability. If you feel threatened, it's a good time to read on and identify how to harden your application.
+So why do we worry about web security anyway? When we have vulnerabilities in our applications, it's an avenue for exploitation by bad actors. In the wrong hands, exploiting the vulnerabilities can cause risks to your application, data, reputation, and bottom line. In the words of my coworker [Aaron Parecki](https://developer.okta.com/blog/authors/aaron-parecki/), it all boils down to one thing—liability. And we don't want to expose ourselves, our applications, and our companies to liability. If you feel threatened, it's a good time to read on and identify how to harden your application.
 
 {% include toc.md %}
 
@@ -72,7 +72,7 @@ That's it. Just do it. It's important. Outdated components are a source of _liab
 Check out a step-by-step guide on dependency management for JavaScript developers by the OWASP team - [NPM Security best practices](https://cheatsheetseries.owasp.org/cheatsheets/NPM_Security_Cheat_Sheet.html).
 
 ## Load resources securely
-A particular concern for SPAs are cross-origin resources, that is, resources your web app uses that are not hosted on the same origin as your web application. When all the resources the front-end needs are available through the same origin, we have confidence that the resources our secure. Hopefully, we're not pwning ourselves! At least not intentionally, right?!
+Cross-origin resources are a particular concern for SPAs; this refers to resources your web app uses that are not hosted on the same origin as your web application. When all the resources the front-end needs are available through the same origin, we have confidence that the resources are secure. Hopefully, we're not pwning ourselves! At least not intentionally, right?!
 
 A typical pattern for setting up URLs for SPA communicating to back-end APIs might look like the following, where your front-end is
 
@@ -86,7 +86,7 @@ and the back-end API URL is
 https://apis.myfavekdramas.com
 ```
 
-But the API URL is a subdomain, so the request is cross-origin. Most browsers (once again BUH-BYE Internet Explorer!) protect us by allowing only specific cross-origin requests. 
+But the API URL is a subdomain, so the request is cross-origin. Most browsers (once again BUH-BYE Internet Explorer!) protect us by allowing only specific cross-origin requests. We can configure resource access by enabling **C**ross-**o**rigin **R**esource **S**haring (CORS);
 
 Between your production environment setup resembling the above URLs, and local development using different ports for your front-end and back-end, you might be tempted to enable CORS to allow all sorts of requests. Unlike other security measures covered in this post, your browser already protects you in the strictest way possible. Enabling CORS _loosens_ that restriction.
 
@@ -112,7 +112,7 @@ Having the `httpOnly` attribute means that JavaScript can't access the cookie, b
 This is where the `SameSite` attribute comes into play. You can control when cookies should be sent by using the `SameSite` attribute and setting one of 3 values:
 1. `Strict` - only send cookies if they are going to the same site that requested them.
 2. `Lax` - only send cookies when the user is navigating to the origin site. (This is the default behavior now for Chromium-based browsers.)
-3. `None` - send the cookies to everyone, everywhere. As a safeguard for your concerningly generous behavior, you're also required to add the `Secure` attribute
+3. `None` - send the cookies to everyone, everywhere. As a safeguard for your concerningly generous behavior, which is concerning to the browser, you're also required to add the `Secure` attribute
 
 With the `SameSite` attribute set, you can no longer have a scenario like this
 ![Giphy of multiple hands holding out cookies to Cookie Monster. Cookie Monster grabs and eats them all.](https://media.giphy.com/media/xT0xeMA62E1XIlup68/giphy.gif)
