@@ -94,6 +94,7 @@ So the advice is to enable CORS appropriately with considered use of allowlists.
 
 ### Dive into cross-origin resource sharing
 Want to understand better when CORS rules apply or how to set up the allowlist rules? Read these resources for a deep dive.
+* [Fixing Common Problems with CORS and JavaScript](/blog/2021/08/02/fix-common-problems-cors)
 * [MDN CORS Reference](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)
 * [Auth0's CORS Tutorial](https://auth0.com/blog/cors-tutorial-a-guide-to-cross-origin-resource-sharing/)
 
