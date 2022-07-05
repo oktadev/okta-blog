@@ -58,7 +58,7 @@ Just so you have a general idea of what you're going to do, the general steps in
 
 ## Generate the application using the JHipster generator
 
-The JHipster generator makes it easy to bootstrap complex applications, including microservices with multiple services and data objects. You can read more about it in [the JHipster docs](https://www.jhipster.tech/creating-an-app/). In this tutorial, you are going to create a microservice using the JHipster generator JDL.
+The JHipster generator makes it easy to bootstrap complex applications, including microservices with multiple services and domain models. You can read more about it in [the JHipster docs](https://www.jhipster.tech/creating-an-app/). In this tutorial, you are going to create a microservice using the JHipster Domain Language.
 
 This will generate a microservice with four services:
 
@@ -67,7 +67,7 @@ This will generate a microservice with four services:
 - Store
 - Blog
 
-When you look at the DSL below, you might notice that there isn't a registry application listed. The [JHipster registry](https://www.jhipster.tech/jhipster-registry/) is a standard application in the JHipster microservice stack that doesn't need to be defined. It includes a Eureka server and a Spring Cloud Config server. The Eureka server is a [Spring Cloud Netflix](https://cloud.spring.io/spring-cloud-netflix/reference/html/) service discovery registry that allows services to find each other on the network. The [Spring Cloud Config](https://cloud.spring.io/spring-cloud-config/reference/html/) server allows the centralization of service configuration. You'll use it to centralize the Okta OAuth 2.0 and OIDC configuration, allowing you to configure all of the services to use the same OIDC application from the same configuration point.
+When you look at the DSL below, you might notice that there isn't a registry application listed. The [JHipster registry](https://www.jhipster.tech/jhipster-registry/) is a standard application in the JHipster microservice stack that doesn't need to be defined. It includes a Eureka server and a Spring Cloud Config server. The Eureka server is a [Spring Cloud Netflix](https://cloud.spring.io/spring-cloud-netflix/reference/html/) service discovery registry that allows services to find each other on the network. The [Spring Cloud Config](https://cloud.spring.io/spring-cloud-config/reference/html/) server allows the centralization of service configuration. You'll use it to centralize the Okta OAuth 2.0 and OIDC configuration, among other things, allowing you to configure all of the services to use the same OIDC application from the same configuration point.
 
 The [JHipster API gateway](https://www.jhipster.tech/api-gateway/) is the front-facing, public face of the application. It has a Vue front-end and a PostgresSQL database backend. The gateway also includes features like load balancing and circuit breaking. Public requests to the service go through the gateway.
 
@@ -163,6 +163,8 @@ deployment {
   appsFolders [gateway, blog, store]
   dockerRepositoryName "{your-docker-repository-name}"
   kubernetesNamespace demo
+  serviceDiscoveryType eureka
+  kubernetesServiceType LoadBalancer
 }
 ```
 
@@ -352,7 +354,7 @@ Existing group 'ROLE_ADMIN' found
 Okta application configuration has been written to: /home/andrewcarterhughes/Development/okta/2022/aws-kubernetes/QA1/kubernetes/.okta.env
 ```
 
-This command creates an OIDC application on the Okta servers for you. It also creates a a `groups` claim on your authorization server and adds to groups: `ROLE_USER` and `ROLE_ADMIN`. The group names have `ROLE_` prefixed to them because of the way Spring Boot processes group names. You need these default groups for authentication to work.
+This command creates an OIDC application on the Okta servers for you. It also creates a `groups` claim on your authorization server and adds to groups: `ROLE_USER` and `ROLE_ADMIN`. The group names have `ROLE_` prefixed to them because of the way Spring Boot processes group names. You need these default groups for authentication to work.
 
 Remember the name of the OIDC application. You'll need to find it in the Okta Admin Console later. The `okta apps` command creates a config file named `.okta.env`. This should look something like the following.
 
@@ -362,7 +364,7 @@ export SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID="0oa7pu3434Dasv
 export SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET="09328uu098u4..."
 ```
 
-The Kubernetes microservice uses Spring Cloud Config to centralize configuration (this service is part of the JHipster registry). This means that you can configure the entire microservice to use Okta as an OAuth and OpenID Connect (OIDC) provider in a single place.
+The microservices use Spring Cloud Config to centralize configuration (this service is part of the JHipster registry). This means that you can configure the entire microservice to use Okta as an OAuth and OpenID Connect (OIDC) provider in a single place.
 
 Open `kubernetes/registry-k8s/application-configmap.yml`. Add the following at the end of the `data.application.yml` entry (before the `jhipster-registry.yml` entry), filling in the `issuer-uri`, `client-id`, and `client-secret` taken from the `.okta.env` file. 
 
@@ -390,7 +392,7 @@ jhipster-registry.yml: |-
   ...
 ```
 
-You also need to configure the registry to use OAuth. In the `kubernetes/registry-k8s/jhipster-registry.yml` file, add `oauth` to the values under `SPRING_PROFILES_ACTIVE` (as shown below).
+You also need to configure the registry to use OAuth. In the `kubernetes/registry-k8s/jhipster-registry.yml` file, add `oauth2` to the values under `SPRING_PROFILES_ACTIVE` (as shown below).
 
 `kubernetes/registry-k8s/jhipster-registry.yml`
 
@@ -405,9 +407,9 @@ spec:
 
 ## Create an Amazon Elastic Kubernetes (EKS) cluster
 
-Now you are going to create the EKS cluster on AWS using the AWS CLI.
+Now you are going to create the EKS cluster on AWS using the [eksctl](https://eksctl.io/).
 
-You should have the AWS CLI installed already. Use the following command to create the Kubernetes cluster for the microservice. After you run the command, go get some coffee or lunch. This command is *slooooow*.
+You should have the AWS CLI and eksctl installed and configured already. Use the following command to create the Kubernetes cluster for the microservice. After you run the command, go get some coffee or lunch. This command is *slooooow*.
 
 ```bash
 eksctl create cluster --name okta-k8s \
@@ -453,7 +455,7 @@ The error reads:
 >Resource handler returned message: "Your requested instance type (t2.xlarge) is not supported in your requested Availability Zone (us-west-2d). Please retry your request by not specifying an Availability Zone or choosing us-west-2a, us-west-2b, us-west-2c. (Service: Eks, Status Code: 400, Request ID: 442805e0-f485-4503-a697-838dfbd690d0, Extended Request ID: null)" (RequestToken: 13e73586-c07b-6a2b-2209-a31bd1bc2560, HandlerErrorCode: InvalidRequest)
 
 
-I needed to add an additional flag to my command to specify an availability zone. If you look at [the AWS `eksctl` docs](https://eksctl.io/usage/creating-and-managing-clusters/), there's a note about this for the `us-east-1` region. This was the first time I'd run into it in the `us-west-1` region.
+I needed to add an additional flag to my command to specify an availability zone. If you look at [the `eksctl` docs](https://eksctl.io/usage/creating-and-managing-clusters/), there's a note about this for the `us-east-1` region. This was the first time I'd run into it in the `us-west-1` region.
 
 ```bash
 --zones=us-west-2a,us-west-2b,us-west-2c
@@ -486,7 +488,7 @@ Next you'll use `kubectl` to deploy the microservice to AWS EKS. Before you do t
 
 Open a Bash shell and navigate to the `kubernetes` subdirectory of the project.
 
-Run the following command to update the AWS Kubernetes configuration.
+Run the following command to update your local Kubernetes configuration with the AWS EKS cluster config.
 
 ```bash
 aws eks update-kubeconfig --name okta-k8s
