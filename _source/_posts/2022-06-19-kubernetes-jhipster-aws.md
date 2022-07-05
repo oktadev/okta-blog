@@ -489,7 +489,7 @@ Next you'll use `kubectl` to deploy the microservice to AWS EKS. Before you do t
 
 Open a Bash shell and navigate to the `kubernetes` subdirectory of the project.
 
-Run the following command to update the AWS Kubernetes configuration.
+Run the following command to update your local Kubernetes configuration with the AWS EKS cluster config.
 
 ```bash
 aws eks update-kubeconfig --name okta-k8s
