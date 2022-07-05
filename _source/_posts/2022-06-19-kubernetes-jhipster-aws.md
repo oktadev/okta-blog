@@ -12,7 +12,9 @@ tweets:
 - ""
 image:
 type: conversion
+
 ---
+
 In this tutorial, you'll use JHipster to build a microservice stack and deploy it to Amazon Elastic Kubernetes Service (EKS). The microservices will use Java and Spring Boot for resource servers and Vue for the frontend. It will include multiple databases and database types: PostgresSQL, MongoDB, and Neo4j. You'll secure the service using OAuth 2.0 and OpenID Connect (OIDC) using Okta as the OIDC provider. With Kubernetes secrets and `kubeseal`, you'll encrypt all of the secrets in the project configuration files. To generate the project, you'll use JHipster CLI and the JHipster Domain Language (JDL).
 
 **Prerequisites**
@@ -101,6 +103,9 @@ application {
     authenticationType oauth2
     buildTool gradle
     databaseType neo4j
+    prodDatabaseType neo4j
+    devDatabaseType neo4j
+    enableHibernateCache false
     serverPort 8081
     serviceDiscoveryType eureka
   }
@@ -116,6 +121,9 @@ application {
     authenticationType oauth2
     buildTool gradle
     databaseType mongodb
+    prodDatabaseType mongodb
+    devDatabaseType mongodb
+    enableHibernateCache false
     serverPort 8082
     serviceDiscoveryType eureka
   }
@@ -161,7 +169,7 @@ microservice Blog, Post, Tag with blog
 deployment {
   deploymentType kubernetes
   appsFolders [gateway, blog, store]
-  dockerRepositoryName "{your-docker-repository-name}"
+  dockerRepositoryName "andrewcarterhughes"
   kubernetesNamespace demo
   serviceDiscoveryType eureka
   kubernetesServiceType LoadBalancer
@@ -174,7 +182,7 @@ From the root project directory, run the generator.
 jhipster jdl app.jdl
 ```
 
-This will probably take a minute or two to complete.
+This will probably take a minute or so to complete.
 
 It should end with something like the following output.
 
@@ -224,65 +232,7 @@ If you looked in that directory, you'd see four subdirectories (as well as some 
 
 These four directories hold the deployment descriptors for the Kubernetes services that correspond to the four applications in the microservice.
 
-## Fix Eureka OUT_OF_SERVICE Error
-
-There is an issue with Eureka that currently requires a workaround. You can read about the issue on [Spring Cloud Netflix](https://github.com/spring-cloud/spring-cloud-netflix/issues/3941) and [Netflix Eureka](https://github.com/Netflix/eureka/issues/1398). Essentially what happens is that the app gets stuck as `OUT_OF_SERVICE` and Eureka fails to register when it comes back up. This only happens with the store in this microservice.
-
-Add the following file to the store application.
-
-`store/src/main/java/com/okta/developer/store/EurekaFix.java`
-
-```java
-package com.okta.developer.store;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.boot.actuate.health.HealthIndicator;
-import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.EventListener;
-import org.springframework.stereotype.Component;
-
-/**
- * There is a bug in the eureka health check indicator that this class works around. 
- * Currently, if there is a noticeable delay in starting the application, the eureka 
- * health check returns OUT_OF_SERVICE initially. This is a problem as when a service 
- * is in this state it will ignore all 'up' reports. The fix here is to initially 
- * report us as down, which will override the out-of-service state, and allow all
- * subsequent transitions to up to occur successfully.
- */
-@Component
-public class EurekaFix implements HealthIndicator {
-    private static Logger LOG = LoggerFactory.getLogger(EurekaFix.class);
-
-    private boolean applicationIsUp = false;
-
-    /**
-     * When we receive notification that the application has started, report that we 
-     * are now in an up state
-     */
-    @EventListener(ApplicationReadyEvent.class)
-    public void onStartup() {
-        this.applicationIsUp = true;
-        LOG.warn("Application has started, reporting to eureka that application is now available");
-    }
-
-    /**
-     * Force ourselves into a down state while the application is starting, and transition us 
-     * to an up state once we have started. Down should override out of service.
-     *
-     * @return down if we are not yet fully started, otherwise put us in an up state
-     */
-    @Override
-    public Health health() {
-        if (!applicationIsUp) {
-            LOG.warn("Reporting application as down to eureka as application has not yet started");
-            return Health.down().build();
-        }
-        return Health.up().build();
-    }
-}
-```
+## Update MongoDB headless service configuration
 
 You also need to update the Kubernetes deployment definition for the store's headless MongoDB service. This fixes a problem with the store not being able to find the database. **This entry is at the bottom of the file.**
 
@@ -423,7 +373,7 @@ eksctl create cluster --name okta-k8s \
 
 **This cluster costs money as long as it is running.** If you only keep it running for the hour or so you need to run the tutorial, the costs are small. **If you forget and leave it running for a month or two, it could cost a lot more. Don't forget to delete it when you are done!**
 
-You are using a managed cluster with EC2 nodes. You are not using the newer, Fargate managed clusters because as of right now there is a compatibility problem between Fargate and Eureka. See [this google groups thread](https://groups.google.com/g/jhipster-dev/c/148uESs6vns) and [this GitHub repository](https://github.com/jussiseppala/eurekafargatesample).
+You are using a managed cluster with EC2 nodes. You are not using the newer, Fargate managed clusters because when I tried Fargate I ran into problems. There are reports of a compatibility problem between Fargate and Eureka. See [this google groups thread](https://groups.google.com/g/jhipster-dev/c/148uESs6vns) and [this GitHub repository](https://github.com/jussiseppala/eurekafargatesample).
 
 You can look at [the AWS docs on managed node groups](https://docs.aws.amazon.com/eks/latest/userguide/managed-node-groups.html) for more in-depth information. Basically, though, being managed means that you do not need to separately provision and register the EC2 instances in the node group. The EC2 instances and Kubernetes nodes are packaged together and managed as a unit. Unmanaged node groups allow you to separate the node group management from the EC2 instances, allowing for finer control but also requiring more direct involvement in instance management.
 
