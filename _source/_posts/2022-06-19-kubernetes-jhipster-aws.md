@@ -27,7 +27,7 @@ Before you get started, install the required software listed below. You'll need 
 - [Okta CLI](https://cli.okta.com/manual/#installation): you’ll use Okta to add security to the microservice network. You can register for a free account from the CLI.
 - [Amazon Web Services](https://aws.amazon.com/free): sign up for an AWS account.
 - [AWS CLI](https://aws.amazon.com/cli/): Amazon Web Service CLI
-- [eksctl](https://github.com/weaveworks/eksctl): you'll use this ot create your cluster on EKS
+- [eksctl](https://github.com/weaveworks/eksctl): you'll use eksctl to create your cluster on EKS
 - [kubectl](https://kubernetes.io/docs/tasks/tools/): CLI to manage Kubernetes clusters. As of the time I was writing this tutorial, there was a bug in `kubectl` version 1.24 that results in an "invalid apiVersion" error. You can avoid this error by installing version 1.23.6.
 - [JHipster CLI](https://www.jhipster.tech/installation/): you'll use the JHipster CLI to bootstrap the application. To install with `npm` just use `npm install -g generator-jhipster`
 
