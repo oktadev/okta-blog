@@ -531,7 +531,7 @@ Once you're authenticated, you'll be directed to the authenticated front page.
 
 To verify that the application works, try and create a product and a blog. Go to the **Entities** menu and click on **Product**. Click **Create a new Product** and fill in the form with dummy values. You should be able to successfully create a new product. Do the same thing with **Entities** and **Blog**. You should be able to create a blog and a blog post.
 
-Remember that the blog application uses a Ne04j database backend and the store uses a Mongo DB backend. You're accessing these services through the public gateway application, but this is forwarding the requests to the private services and their associated databases.
+Remember that the blog application uses a Neo4j database backend and the store uses a Mongo DB backend. You're accessing these services through the public gateway application, but this is forwarding the requests to the private services and their associated databases.
 
 ## Protect sensitive configuration values using `kubeseal`
 
