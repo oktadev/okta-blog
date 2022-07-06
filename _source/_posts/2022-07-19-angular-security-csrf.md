@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Protect Your Angular app from CSRF"
+title: "Protect Your Angular app from Cross-Site Request Forgery"
 author: alisa-duncan
 by: advocate
 communities: [security,javascript]
@@ -16,13 +16,17 @@ type: awareness
 
 Previously, I wrote about web security at a high level and the framework-agnostic ways to increase safety and mitigate vulnerabilities.
 
-<!-- Table with all the posts here as each post publishes -->
+|Posts in the SPA web security series|
+| --- |
+| 1. [Defend Your SPA from Security Woes](/blog/2022/07/06/spa-web-security) |
+| 2. [Defend Your SPA from Common Web Attacks](/blog/2022/07/08/spa-web-securty-csrf-xss) |
+| 3. [Protect Your Angular app from Cross-Site Request Forgery](/blog/2022/07/19/angular-security-csrf) |
 
 Now, I want to dive into the vulnerabilities a little deeper. In this short post, we'll dive into **C**ross-**S**ite **R**equest **F**orgery (CSRF) and look at the built-in help you get when using Angular.
 
 {% include toc.md %}
 
-## Cross-Site Request Forgery protection
+## Cross-Site Request Forgery (CSRF) protection
 
 In the previous post's overview, you learn about how the attack for CSRF occurs when an agitator uses your active session for a trusted site to perform unauthorized actions. We also learned there's built-in support from browsers to mitigate attacks with `SameSite` attributes on cookies, validating the authenticity of the request on the back-end, and potentially having the front-end send a CSRF token to the back-end for every request.
 
@@ -73,7 +77,13 @@ imports: [
 ```
 
 ## Learn more about CSRF and creating applications using Angular
-Watch for the next post in this series as we dive into XSS and learn how Angular's built-in security mechanisms protect us.
+Watch for the next post in this series as we dive into Cross-Site Scripting (XSS) and learn how Angular's built-in security mechanisms protect us.
+
+|Posts in the SPA web security series|
+| --- |
+| 1. [Defend Your SPA from Security Woes](/blog/2022/07/06/spa-web-security) |
+| 2. [Defend Your SPA from Common Web Attacks](/blog/2022/07/08/spa-web-securty-csrf-xss) |
+| 3. [Protect Your Angular app from Cross-Site Request Forgery](/blog/2022/07/19/angular-security-csrf) |
 
 If you liked this post, you might be interested in these links.
 * [Security: XSRF protection documentation from Angular](https://angular.io/guide/http#security-xsrf-protection)
