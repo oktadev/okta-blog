@@ -29,7 +29,7 @@ Next, we'll dive into Cross-Site Scripting (XSS) and look at the built-in securi
 
 ## Cross-Site Scripting (XSS) protection
 
-In the [second post of this series](linky), we covered an overview of Cross-Site Scripting (XSS). In summary, you learned that XSS occurs when code pollutes data and your application doesn't take safeguards to prevent the code from running.
+In the [second post of this series](/blog/2022/07/08/spa-web-securty-csrf-xss), we covered an overview of Cross-Site Scripting (XSS). In summary, you learned that XSS occurs when code pollutes data and your application doesn't take safeguards to prevent the code from running.
 
 Let's recap the example attack vector.
 
