@@ -33,13 +33,13 @@ Ok, fine, but what does that mean? A classic example is a website that allows us
 
 Imagine an overly dramatic but otherwise innocent scenario like this
 >1. A website allows you to add comments about your favorite K-Drama.
->2. An agitator adds the comment `<script>alert('Crash Landing On You stinks!');</script>`.
+>2. An agitator adds the comment `<script>alert('Crash Landing on You stinks!');</script>`.
 >3. That terrible comment saves as is to the database.
 >4. A K-Drama fan opens the website.
 >5. The terrible comment is added to the website, appending the `<script></script>` tag to the DOM.
 >6. The K-Drama fan is outraged by the JavaScript alert saying their favorite K-Drama stinks.
 
-So, this is obviously awful. Least of all because we all know "[Crash Landing On You](https://www.imdb.com/title/tt10850932/)" is, in fact, wonderful, but also, this scenario exposes a colossal breach in what injection attacks can do. With JavaScript, the attack could grab cookies, dig around your browser's local storage for authentication information, access your file system, make calls to other sites, and do even more harm.
+So, this is obviously awful. Least of all because we all know "[Crash Landing on You](https://www.imdb.com/title/tt10850932/)" is, in fact, wonderful, but also, this scenario exposes a colossal breach in what injection attacks can do. With JavaScript, the attack could grab cookies, dig around your browser's local storage for authentication information, access your file system, make calls to other sites, and do even more harm.
 
 In this case, we show an example very clearly using a `<script></script>` tag just to make it easier for us to talk about, but the attack can use anything that runs JavaScript, such as adding an HTML element with JS embedded in the attribute, adding JS to resource URLs, embedding JS into CSS, and so forth. This is the true stuff of nightmares!
 
@@ -91,7 +91,7 @@ For SPAs, getting that CSRF token from the server is the difficult part. In trad
 The recommendation is to have your client call an endpoint on your back-end to get the CSRF token. The endpoint **must** be super vigilant about confirming the caller's origin and keeping that CORS allowlist very strict.
 
 ### Dive deeper into CSRF
-Luckily, there are a lot of browser protections that help us mitigate CSRF. Check out these links if you want to learn more about CSRF.
+There are a lot of browser protections that help us mitigate CSRF. Check out these links if you want to learn more about CSRF.
 * [Prevent Cross-Site Request Forgery (CSRF) Attacks by Auth0](https://auth0.com/blog/cross-site-request-forgery-csrf/)
 * [Cross-Site Request Forgery Prevention Cheat Sheet by OWASP](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html)
 * [Understanding CSRF from the Express team](https://github.com/pillarjs/understanding-csrf)
