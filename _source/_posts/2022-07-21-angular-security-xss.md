@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Protect your Angular app from XSS"
+title: "Protect your Angular app from Cross-Site Scripting"
 author: alisa-duncan
 by: advocate
 communities: [security,javascript]
@@ -16,13 +16,18 @@ type: awareness
 
 In the last post of this SPA security series, we covered Cross-Site Request Forgery (CSRF) and how Angular helps you with a mitigation technique. 
 
-<!-- Table with all the posts here as each post publishes -->
+|Posts in the SPA web security series|
+| --- |
+| 1. [Defend Your SPA from Security Woes](/blog/2022/07/06/spa-web-security) |
+| 2. [Defend Your SPA from Common Web Attacks](/blog/2022/07/08/spa-web-securty-csrf-xss) |
+| 3. [Protect Your Angular app from Cross-Site Request Forgery](/blog/2022/07/19/angular-security-csrf) |
+| 4. [Protect Your Angular app from Cross-Site Scripting](/blog/2022/07/21/angular-security-xss) |
 
 Next, we'll dive into Cross-Site Scripting (XSS) and look at the built-in security guards you get when using Angular.
 
 {% include toc.md %}
 
-## Cross-Site Scripting protection
+## Cross-Site Scripting (XSS) protection
 
 In the [second post of this series](linky), we covered an overview of Cross-Site Scripting (XSS). In summary, you learned that XSS occurs when code pollutes data and your application doesn't take safeguards to prevent the code from running.
 
@@ -68,7 +73,7 @@ But what if an agitator constructs a URL like this?
 https://myfavekdramas.com/dramas?search=<img src=1 onerror="alert('Doh!')"/>
 ```
 
-You may think that you'd never navigate to a link like that! Who would?! But let's remember, in a previous post, you _did_ click the link in your spam email to send money to a Nigerian prince. Pointing this out is not judgment but merely pointing out the past behavior of clicking fishy links. Also, agitators are pretty tricksy. They might use URL shorteners to obscure it.
+You may think that you'd never navigate to a link like that! Who would?! But let's remember, in a previous post, you _did_ click the link in your spam email to send money to your high school sweetheart. Pointing this out is not judgment but merely pointing out the past behavior of clicking fishy links. Also, agitators are pretty tricksy. They might use URL shorteners to obscure it.
 
 ### DOM-based XSS
 
@@ -367,7 +372,7 @@ export class WayBetterComponent implements AfterViewInit {
 }
 ```
 
-Now you'll have the image without the potentially shady code.
+Now you'll have the image without the potentially dangerous code tagging along for the ride.
 
 ### Consider Trusted Types
 
@@ -378,6 +383,13 @@ Angular has built-in support for defining policies for a CSP called [Trusted Typ
 ## Learn more about XSS, Trusted Types, and creating applications using Angular
 
 This series taught us about web security, common web attacks, and how Angular's built-in security mechanisms protect us from accidental attacks.
+
+|Posts in the SPA web security series|
+| --- |
+| 1. [Defend Your SPA from Security Woes](/blog/2022/07/06/spa-web-security) |
+| 2. [Defend Your SPA from Common Web Attacks](/blog/2022/07/08/spa-web-securty-csrf-xss) |
+| 3. [Protect Your Angular app from Cross-Site Request Forgery](/blog/2022/07/19/angular-security-csrf) |
+| 4. [Protect Your Angular app from Cross-Site Scripting](/blog/2022/07/21/angular-security-xss) |
 
 If you liked this post, you might be interested in these links.
 * [Security documentation from Angular](https://angular.io/guide/security#security)
