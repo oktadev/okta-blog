@@ -4,7 +4,7 @@ title: "Defend Your SPA from the Common Web Attacks"
 author: alisa-duncan
 by: advocate
 communities: [security,javascript]
-description: "Learn the basics of the two most common web security attacks and the ways to mitigate those attacks to your Single Page Applications."
+description: "Learn the basics of the two most common web security attacks and the ways to mitigate those attacks in your Single Page Applications."
 tags: [security, react, vue, angular]
 tweets:
 - "Don't let bad actors cause security problems! Learn the basics of XSS and CSRF web attacks, and how to keep your SPA safe!"
