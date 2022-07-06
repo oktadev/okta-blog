@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Defend Your SPA from Attackers"
+title: "Defend Your SPA from the Common Web Attacks"
 author: alisa-duncan
 by: advocate
 communities: [security,javascript]
@@ -18,7 +18,7 @@ This is the second post in a series about web security for SPAs. In the last pos
 |Posts in the SPA web security series|
 | --- |
 | 1. [Defend Your SPA from Security Woes](/blog/2022/07/06/spa-web-security) |
-| 2. [Defend Your SPA from Attackers](/blog/2022/07/xx/spa-web-securty-csrf-xss) |
+| 2. [Defend Your SPA from the Common Web Attacks](/blog/2022/07/xx/spa-web-securty-csrf-xss) |
 
  Ready to continue and make your SPA safer? This post will use the concepts we introduced to banish some well-known web vulnerabilities.
 
@@ -102,7 +102,7 @@ Stay tuned for the next post in this series as we dive deeper into CSRF and lear
 |Posts in the SPA web security series|
 | --- |
 | 1. [Defend Your SPA from Security Woes](/blog/2022/07/06/spa-web-security) |
-| 2. [Defend Your SPA from Attackers](/blog/2022/07/xx/spa-web-securty-csrf-xss) |
+| 2. [Defend Your SPA from the Common Web Attacks](/blog/2022/07/xx/spa-web-securty-csrf-xss) |
 
 Ready to learn more? Check out out the following resources.
 * [A Comparison of Cookies and Tokens for Secure Authentication](/blog/2022/02/08/cookies-vs-tokens)
