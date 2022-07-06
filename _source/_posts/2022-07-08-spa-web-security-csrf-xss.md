@@ -45,13 +45,13 @@ In this case, we've show an example very clearly using a `<script></script>` tag
 
 How do we avoid these sorts of shenanigans? There are a few different defensive tactics, but the main one is to ensure you practice good data hygiene through **escaping** and **sanitizing**.
 
-*Escaping* refers to replacing certain specific characters in HTML so they are read as text strings, such as replacing `<b>` with `&lt;b&gt;`). When you escape, the browser no longer treats the value as part of the code. It's simply text or data. Although we're talking XSS here, escaping is a good practice in general as it will protect you against SQL injection, a different type of injection attack.
+**Escaping** refers to replacing certain specific characters in HTML so they are read as text strings, such as replacing `<b>` with `&lt;b&gt;`). When you escape, the browser no longer treats the value as part of the code. It's simply text or data. Although we're talking XSS here, escaping is a good practice in general as it will protect you against SQL injection, a different type of injection attack.
 
 ![A cartoon showing a person on the phone. The conversation goes like this "Hi, this is your son's school. We're having some computer trouble." The person responds "Oh dear - did he break something?" School- "In a way... Did you really name your son Robert'); DROP TABLE Students; -- ?" Person - "Oh. Yes. Little Bobby Tables, we call him." School- "Well, we've lost this year's student records. I hope you're happy." Person-"And I hope you've learned to sanitize your database inputs."](https://imgs.xkcd.com/comics/exploits_of_a_mom.png)
 
 -- <cite>[xkcd](https://xkcd.com/327/)</cite>
 
-Sanitizing removes code that might be malicious, while preserving some safe HTML tags. The primary use case for choosing to *sanitize* instead of to *escape* the code is when you want to allow markup to display, like if you have a rich text editor on your website.
+**Sanitizing** removes code that might be malicious, while preserving some safe HTML tags. The primary use case for choosing to _sanitize_ instead of to _escape_ the code is when you want to allow markup to display, like if you have a rich text editor on your website.
 
 There's a lot more to discuss regarding cross-site scripting, including types of XSS and mitigation technique specifics, so keep an eye out for a follow-up post with more details, including the built-in XSS security mechanisms provided in some SPA frameworks.
 
