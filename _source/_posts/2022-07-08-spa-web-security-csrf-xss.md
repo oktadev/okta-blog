@@ -29,9 +29,9 @@ Cross-Site Scripting (XSS) is a vulnterability that continues to plague web deve
 
 How does this vulnerability work? In short, XSS happens when code pollutes data, and you don't implement safeguards. 
 
-Ok, fine, but what does that mean? A classic example is a website that allows user input, like adding comments or reviews. Suppose the input takes anything the user types in and doesn't appropriately safeguard that user input before storing the input and displaying it to other users. In that case, it's at risk for XSS. 
+Ok, fine, but what does that mean? A classic example is a website that allows user input, like adding comments or reviews. Suppose the input form accepts anything the user types in and doesn't appropriately safeguard that user input before storing and displaying it to other users. In that case, it's at risk for XSS. 
 
-Imagine an overly dramatic but otherwise innocent scenario like this
+Imagine an overly dramatic but otherwise innocent scenario like this:
 >1. A website allows you to add comments about your favorite K-Drama.
 >2. An agitator adds the comment `<script>alert('Crash Landing on You stinks!');</script>`.
 >3. That terrible comment saves as is to the database.
@@ -39,24 +39,24 @@ Imagine an overly dramatic but otherwise innocent scenario like this
 >5. The terrible comment is added to the website, appending the `<script></script>` tag to the DOM.
 >6. The K-Drama fan is outraged by the JavaScript alert saying their favorite K-Drama stinks.
 
-So, this is obviously awful. Least of all because we all know "[Crash Landing on You](https://www.imdb.com/title/tt10850932/)" is, in fact, wonderful, but also, this scenario exposes a colossal breach in what injection attacks can do. With JavaScript, the attack could grab cookies, dig around your browser's local storage for authentication information, access your file system, make calls to other sites, and do even more harm.
+So, this is obviously awful. Least of all because we all know "[Crash Landing on You](https://www.imdb.com/title/tt10850932/)" is, in fact, wonderful. Also, this scenario exposes your website to the possibility of a colossal breach in which an injection attack can do all sorts of bad things. With JavaScript, the attack could grab cookies, dig around your browser's local storage for authentication information, access your file system, make calls to other sites, and do even more harm.
 
-In this case, we show an example very clearly using a `<script></script>` tag just to make it easier for us to talk about, but the attack can use anything that runs JavaScript, such as adding an HTML element with JS embedded in the attribute, adding JS to resource URLs, embedding JS into CSS, and so forth. This is the true stuff of nightmares!
+In this case, we've show an example very clearly using a `<script></script>` tag to make it easier for us to talk about, but an attack can use anything that runs JavaScript, such as adding an HTML element with JS embedded in the attribute, adding JS to resource URLs, embedding JS into CSS, and so forth. This is the true stuff of nightmares!
 
-How do we avoid this sort of shenanigans? There are a few different things to do, but the main one is to ensure you practice good data hygiene through **escaping** and **sanitizing**.
+How do we avoid these sorts of shenanigans? There are a few different defensive tactics, but the main one is to ensure you practice good data hygiene through **escaping** and **sanitizing**.
 
-Escaping (where you replace certain characters in HTML so it's as text, such as replacing `<b>` with `&lt;b&gt;`). When you escape, the browser no longer treats the value as part of the code. It's simply text or data. While we're talking XSS here, escaping is a good practice in general as it will protect you against SQL injection.
+*Escaping* refers to replacing certain specific characters in HTML so they are read as text strings, such as replacing `<b>` with `&lt;b&gt;`). When you escape, the browser no longer treats the value as part of the code. It's simply text or data. Although we're talking XSS here, escaping is a good practice in general as it will protect you against SQL injection, a different type of injection attack.
 
-![A cartoon showing a person on the phone. The conversation goes like this "Hi, this is your son's school. We're having some computer trouble." The person responds "Oh dear - did he break something?" School- "In a way... Did you really name your soon Robert'); DROP TABLE Students; -- ?" Person - "Oh. Yes. Little Bobby Tables, we call him." School- "Well, we've lost this year's student records. I hope you're happy." Person-"And I hope you've learned to sanitize your database inputs."](https://imgs.xkcd.com/comics/exploits_of_a_mom.png)
+![A cartoon showing a person on the phone. The conversation goes like this "Hi, this is your son's school. We're having some computer trouble." The person responds "Oh dear - did he break something?" School- "In a way... Did you really name your son Robert'); DROP TABLE Students; -- ?" Person - "Oh. Yes. Little Bobby Tables, we call him." School- "Well, we've lost this year's student records. I hope you're happy." Person-"And I hope you've learned to sanitize your database inputs."](https://imgs.xkcd.com/comics/exploits_of_a_mom.png)
 
 -- <cite>[xkcd](https://xkcd.com/327/)</cite>
 
-Sanitizing removes code that might be malicious but still preserves some safe HTML tags. The primary use case for preferring sanitizing over escaping is when you want to allow markup to display, like if you have a rich text editor on your website.
+Sanitizing removes code that might be malicious, while preserving some safe HTML tags. The primary use case for choosing to *sanitize* instead of to *escape* the code is when you want to allow markup to display, like if you have a rich text editor on your website.
 
-There's a lot more to discuss regarding XSS, including types of XSS and mitigation technique specifics, so keep an eye out for a follow-up post with more details, including the built-in XSS security mechanisms in some SPA frameworks.
+There's a lot more to discuss regarding cross-site scripting, including types of XSS and mitigation technique specifics, so keep an eye out for a follow-up post with more details, including the built-in XSS security mechanisms provided in some SPA frameworks.
 
 ## Dive into XSS
-Can't wait to read more about XSS? Check out these resources that cover how XSS works
+Can't wait to read more about XSS? Check out these resources that cover how cross-site scripting works:
 * [API Security book chapter on Sanitizing Data by Okta](https://developer.okta.com/books/api-security/sanitizing/)
 * [Cross-site scripting resource from Port Swigger Web Security Academy](https://portswigger.net/web-security/cross-site-scripting)
 
@@ -66,29 +66,29 @@ Cross-Site Request Forgery (CSRF) is another well-known vulnerability in the [to
 The exploit works like this.
 
 >1. You log in to the K-Drama site to upvote some recent shows you watched.
->2. Then, in a loss of judgment, you open some spam emails and click the link to transfer money to an agitator claiming to be a Nigerian prince.
+>2. Then, in a loss of judgment, you open a spam email and click the link to transfer money to an agitator claiming to be your long lost high school sweetheart. (What were you thinking!) 
 >3. The link takes you to a malicious site with a hidden form embedded within it.
 >4. The hidden form sends an HTTP POST request with terrible comments to the K-Drama site along with the active session cookie. 
 >5. Since you have an active authenticated session on the K-Drama site, the POST completes as if you were the one adding terrible comments about "Hospital Playlist"!
 
-Luckily in this example, the unauthorized action isn't irreversible or devastating. You can delete the terrible comments, and you can explain how it wasn't really you who posted such comments to horrified "[Hospital Playlist](https://www.imdb.com/title/tt11769304/)" fans. However, you can see how frightful this exploit can be if the target was something more malicious like a bank!
+Luckily in this example, the unauthorized action isn't irreversible or devastating. You can delete the terrible comments, and you can explain how it wasn't really you who posted such comments to horrified "[Hospital Playlist](https://www.imdb.com/title/tt11769304/)" fans. However, you can see how dangerous and malicious this exploit would be if the target was something fundamental like a bank!
 
 The only way to mitigate against CSRF is to ensure the request is legitimate.
 
-Fortunately, we already have some tools at our disposal that we covered previously, such as
-1. Prefer tokens in HTTP headers for authenticated HTTP calls and ideally store those tokens in-memory
-2. Configuring tight CORS controls
+Fortunately, we already have some tools and actions at our disposal that we covered previously, such as: 
+1. Prefer tokens in HTTP headers for authenticated HTTP calls and ideally store those tokens in-memory.
+2. Configure tight CORS controls.
 3. Protect your cookies!
 
-These mechanisms are so good that [some say there's nothing more you need to do for SPAs](https://scotthelme.co.uk/csrf-is-dead/)! 
+These mechanisms are so good that some say [there's nothing more you need to do for SPAs](https://scotthelme.co.uk/csrf-is-dead/)! 
 
-However, CSRF relies on your back-end not doing due diligence to verify the authenticity of the requests and allowing non-JSON payloads. Hackers are very clever, and you may need to allow `<form>` payloads in your backend, so you may need extra guards. When you do need extra guards, you can add a unique CSRF token for communication between your front-end and back-end. The back-end needs to verify standard authentication and authorization safeguards and verify the CSRF token's legitimacy. 
+However, CSRF relies on your backend not completing due diligence to verify the authenticity of the requests and allowing non-JSON payloads. Hackers are very clever, and you may need to allow `<form>` payloads in your backend, so you may need extra safeguards. When you do need extra guards, you can add a unique CSRF token for communication between your frontend and backend. The backend needs to verify standard authentication and authorization safeguards and verify the CSRF token's legitimacy. 
 
-The token is generated by the back-end and sent to the front end. The front-end then uses the token in subsequent calls to the back-end by adding it as a custom HTTP header.
+The token is generated by the backend and sent to the frontend. The frontend then uses the token in subsequent calls to the backend by adding it as a custom HTTP header.
 
 For SPAs, getting that CSRF token from the server is the difficult part. In traditional web apps, it's not a problem. But for SPAs, you don't call your back-end API until after you load the application. You also want CSRF protection before logging in if you're not delegating authentication to a third-party authentication provider. 😎
 
-The recommendation is to have your client call an endpoint on your back-end to get the CSRF token. The endpoint **must** be super vigilant about confirming the caller's origin and keeping that CORS allowlist very strict.
+The recommendation is to have your client call an endpoint on your backend to get the CSRF token. The endpoint **must** be super vigilant about confirming the caller's origin and keeping that CORS allowlist very strict.
 
 ### Dive deeper into CSRF
 There are a lot of browser protections that help us mitigate CSRF. Check out these links if you want to learn more about CSRF.
@@ -96,7 +96,7 @@ There are a lot of browser protections that help us mitigate CSRF. Check out the
 * [Cross-Site Request Forgery Prevention Cheat Sheet by OWASP](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html)
 * [Understanding CSRF from the Express team](https://github.com/pillarjs/understanding-csrf)
 
-## Learn more about the common web attacks
+## Learn more about common web attacks
 Stay tuned for the next post in this series as we dive deeper into CSRF and learn how Angular helps protect against it.
 
 |Posts in the SPA web security series|
