@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Defend Your SPA From the Common Web Attacks"
+title: "Defend Your SPA from Attackers"
 author: alisa-duncan
 by: advocate
 communities: [security,javascript]
@@ -15,9 +15,12 @@ type: awareness
 
 This is the second post in a series about web security for SPAs. In the last post, we laid the groundwork for thinking about web security and applying security mechanisms to our application stack. We covered the [OWASP Top Ten](https://owasp.org/Top10/), using secure data communication with SSL/TLS, using security headers to help enhance built-in browser mechanisms, keeping dependencies updated, and safeguarding cookies.
 
-<!-- Add table with links to all the posts in the series here -->
+|Posts in the SPA web security series|
+| --- |
+| 1. [Defend Your SPA from Security Woes](/blog/2022/07/06/spa-web-security) |
+| 2. [Defend Your SPA from Attackers](/blog/2022/07/xx/spa-web-securty-csrf-xss) |
 
- This post will use the concepts we introduced to banish some well-known web vulnerabilities.
+ Ready to continue and make your SPA safer? This post will use the concepts we introduced to banish some well-known web vulnerabilities.
 
  {% include toc.md %}
 
@@ -96,7 +99,12 @@ Luckily, there are a lot of browser protections that help us mitigate CSRF. Chec
 ## Learn more about the common web attacks
 Stay tuned for the next post in this series as we dive deeper into CSRF and learn how Angular helps protect against it.
 
-Ready to learn more? Check out out the following resources
+|Posts in the SPA web security series|
+| --- |
+| 1. [Defend Your SPA from Security Woes](/blog/2022/07/06/spa-web-security) |
+| 2. [Defend Your SPA from Attackers](/blog/2022/07/xx/spa-web-securty-csrf-xss) |
+
+Ready to learn more? Check out out the following resources.
 * [A Comparison of Cookies and Tokens for Secure Authentication](/blog/2022/02/08/cookies-vs-tokens)
 * [Defend Your Web Apps from Cross-Site Scripting (XSS)](https://auth0.com/blog/cross-site-scripting-xss/)
 * [OWASP Top Ten 2021: Related Cheat Sheets](https://cheatsheetseries.owasp.org/IndexTopTen.html)
