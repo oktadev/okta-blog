@@ -169,7 +169,7 @@ microservice Blog, Post, Tag with blog
 deployment {
   deploymentType kubernetes
   appsFolders [gateway, blog, store]
-  dockerRepositoryName "andrewcarterhughes"
+  dockerRepositoryName "{your-docker-repository-name}"
   kubernetesNamespace demo
   serviceDiscoveryType eureka
   kubernetesServiceType LoadBalancer
