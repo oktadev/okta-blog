@@ -357,7 +357,7 @@ spec:
 
 ## Create an Amazon Elastic Kubernetes (EKS) cluster
 
-Now you are going to create the EKS cluster on AWS using the [eksctl](https://eksctl.io/).
+Now you are going to create the EKS cluster on AWS using the [eksctl](https://eksctl.io/) CLI.
 
 You should have the AWS CLI and eksctl installed and configured already. Use the following command to create the Kubernetes cluster for the microservice. After you run the command, go get some coffee or lunch. This command is *slooooow*.
 
