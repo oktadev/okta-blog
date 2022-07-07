@@ -49,7 +49,7 @@ sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 
 For Windows and Mac, there are instructions on how to install specific versions on the [kubernetes docs pages](https://kubernetes.io/docs/tasks/tools/).
 
-Just so you have a general idea of what you're going to do, the general steps in this tutorial are:
+Just so you have a general idea of what you're going to do, the basic steps in this tutorial are:
 
 1. Generate the microservice applications and Kubernetes descriptor files using JHipster
 2. Build the apps and push the Docker images to Docker Hub
