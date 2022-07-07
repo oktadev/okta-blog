@@ -560,7 +560,7 @@ Open http://localhost:8761
 
 Go to **Configuration** and **Encryption**
 
-Copy your client secret (from `kubernetes/registry-k8s/application-configmap.yml` or from the `.okta.env` file) and past it into the text field.
+Copy your client secret (from `kubernetes/registry-k8s/application-configmap.yml` or from the `.okta.env` file) and paste it into the text field.
 
 Click **Encrypt**.
 
