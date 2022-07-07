@@ -428,7 +428,7 @@ eksctl create cluster --name okta-k8s \
 --nodes 2
 ```
 
-You may have to rename the cluster. I found that sometimes even through the cluster resources have been deleted, the name is still unavailable.
+You may have to rename the cluster. I found that sometimes even though the cluster resources have been deleted, the name is still unavailable.
 
 Perhaps you are wondering, if you got this error, why I didn't include the `--zones` flag in the original command. Was it just for the teachable moment? Not entirely. I wasn't sure if the availability in the zones is consistent enough to warrant including the specific zones in the original command.
 
