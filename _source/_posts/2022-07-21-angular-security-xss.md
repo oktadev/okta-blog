@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Protect your Angular app from Cross-Site Scripting"
+title: "Protect Your Angular App From Cross-Site Scripting"
 author: alisa-duncan
 by: advocate
 communities: [security,javascript]
@@ -18,10 +18,10 @@ In the last post of this SPA security series, we covered Cross-Site Request Forg
 
 |Posts in the SPA web security series|
 | --- |
-| 1. [Defend Your SPA from Security Woes](/blog/2022/07/06/spa-web-security) |
-| 2. [Defend Your SPA from Common Web Attacks](/blog/2022/07/08/spa-web-securty-csrf-xss) |
-| 3. [Protect Your Angular app from Cross-Site Request Forgery](/blog/2022/07/19/angular-security-csrf) |
-| 4. [Protect Your Angular app from Cross-Site Scripting](/blog/2022/07/21/angular-security-xss) |
+| 1. [Defend Your SPA From Security Woes](/blog/2022/07/06/spa-web-security) |
+| 2. [Defend Your SPA From Common Web Attacks](/blog/2022/07/08/spa-web-securty-csrf-xss) |
+| 3. [Protect Your Angular App From Cross-Site Request Forgery](/blog/2022/07/19/angular-security-csrf) |
+| 4. **Protect Your Angular App From Cross-Site Scripting** |
 
 Next, we'll dive into Cross-Site Scripting (XSS) and look at the built-in security guards you get when using Angular.
 
@@ -95,7 +95,7 @@ Well, darn it, we've got some problems.
 
 ## XSS Support in Angular
 
-Fortunately, Angular has a lot of built-in security protections. Angular treats all values as suspicious and untrusted by default, which is incredibly helpful because the framework automatically guards us against unintentionally creating vulnerabilities in our applications. 
+Fortunately, Angular has a lot of built-in security protections. Angular treats all values as suspicious and untrusted by default, which is incredibly helpful because the framework automatically guards us against unintentionally creating vulnerabilities in our applications. Angular automatically removes any `script` tags so we won't have to worry about the original hypothentical example.
 
 Let's see some examples of how Angular protects us against XSS.
 
@@ -128,15 +128,15 @@ The XSS attack vector works only if the web app treats all values as trustworthy
 When you add values through interpolation in templates (using the {% raw %}`{{}}`{% endraw %} syntax), Angular automatically escapes the data. So the comment
 
 ```
-<script>alert('Crash Landing on You stinks!')</script>
+<a href="javascript:alert(\'Crash Landing on You stinks!\')">Click to win a free prize!</a>
 ```
 
-displays exactly like what's written above as text. It's still a terrible comment and unfriendly to "Crash Landing on You" fans, but it doesn't run the code in the script tag. This is awesome because even if the attack were more malicious, it still wouldn't perform any actions.
+displays exactly like what's written above as text. It's still a terrible comment and unfriendly to "Crash Landing on You" fans, but it doesn't add the anchor element to the app. This is awesome because even if the attack were more malicious, it still wouldn't perform any actions.
 
 ### Angular automatically sanitizes values
 
 Let's say we want to display the comments preserving any safe markup a user enters. We already have two malicious comments to start us off on shaky grounds:
-1. `<script>alert('Crash Landing on You stinks!')</script>`
+1. `<a href="javascript:alert(\'Crash Landing on You stinks!\')">Click to win a free prize!</a>`
 2. `<img src=1 onerror="alert('Doh!')"/>`
 
 And a K-Drama fan adds a new comment with safe markup.
@@ -163,9 +163,9 @@ Now, the site displays only the second comment correctly formatted like this:
 
 {% img blog/angular-security-xss/binding.jpg alt:"Screenshot of comments in the browser when bound to the innerHTML property. It shows a broken image and the new comment in strong font-weight." width:"800" %}{: .center-image }
 
-The first comment with the `script` tag doesn't display at all! The second comment with the attack in the `onerror` handler only shows the broken image and doesn't run the error code! Angular doesn't publish a list of unsafe tags. Still, we can sneak a peek into the codebase to see Angular considers tags such as `form`, `textarea`, `button`, `embed`, `link`, `style`, `template` as suspicious and may altogether remove the tag or remove specific attributes/child elements.
+The first comment with the `anchor` tag doesn't display the alert when clicked! The second comment with the attack in the `onerror` handler only shows the broken image and doesn't run the error code! Angular doesn't publish a list of unsafe tags. Still, we can sneak a peek into the codebase to see Angular considers tags such as `form`, `textarea`, `button`, `embed`, `link`, `style`, `template` as suspicious and may altogether remove the tag or remove specific attributes/child elements.
 
-As we learned earlier, sanitizing removes suspicious code while keeping safe code. Angular automatically strips out `<script>` tag and displays the second comment. You will see a warning in the console letting you know Angular cleaned the content up. 
+As we learned earlier, sanitizing removes suspicious code while keeping safe code. Angular automatically strips out unsafe attributes from safe elements. You will see a warning in the console letting you know Angular cleaned the content up. 
 
 {% img blog/angular-security-xss/console-warning.jpg alt:"Screenshot of DevTools console showing a warning. The warning says, 'WARNING: sanitizing HTML stripped some content, see https\://g.co/ng/security#xss'" width:"800" %}{: .center-image }
 
@@ -386,10 +386,10 @@ This series taught us about web security, common web attacks, and how Angular's 
 
 |Posts in the SPA web security series|
 | --- |
-| 1. [Defend Your SPA from Security Woes](/blog/2022/07/06/spa-web-security) |
-| 2. [Defend Your SPA from Common Web Attacks](/blog/2022/07/08/spa-web-securty-csrf-xss) |
-| 3. [Protect Your Angular app from Cross-Site Request Forgery](/blog/2022/07/19/angular-security-csrf) |
-| 4. [Protect Your Angular app from Cross-Site Scripting](/blog/2022/07/21/angular-security-xss) |
+| 1. [Defend Your SPA From Security Woes](/blog/2022/07/06/spa-web-security) |
+| 2. [Defend Your SPA From Common Web Attacks](/blog/2022/07/08/spa-web-securty-csrf-xss) |
+| 3. [Protect Your Angular App From Cross-Site Request Forgery](/blog/2022/07/19/angular-security-csrf) |
+| 4. **Protect Your Angular App From Cross-Site Scripting** |
 
 If you liked this post, you might be interested in these links.
 * [Security documentation from Angular](https://angular.io/guide/security#security)
