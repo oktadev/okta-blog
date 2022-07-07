@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Protect Your Angular App From Cross-Site Scripting"
+title: "Protect Your Angular App from Cross-Site Scripting"
 author: alisa-duncan
 by: advocate
 communities: [security,javascript]
@@ -18,10 +18,10 @@ In the last post of this SPA security series, we covered Cross-Site Request Forg
 
 |Posts in the SPA web security series|
 | --- |
-| 1. [Defend Your SPA From Security Woes](/blog/2022/07/06/spa-web-security) |
-| 2. [Defend Your SPA From Common Web Attacks](/blog/2022/07/08/spa-web-securty-csrf-xss) |
-| 3. [Protect Your Angular App From Cross-Site Request Forgery](/blog/2022/07/19/angular-security-csrf) |
-| 4. **Protect Your Angular App From Cross-Site Scripting** |
+| 1. [Defend Your SPA from Security Woes](/blog/2022/07/06/spa-web-security) |
+| 2. [Defend Your SPA from Common Web Attacks](/blog/2022/07/08/spa-web-securty-csrf-xss) |
+| 3. [Protect Your Angular App from Cross-Site Request Forgery](/blog/2022/07/19/angular-security-csrf) |
+| 4. **Protect Your Angular App from Cross-Site Scripting** |
 
 Next, we'll dive into Cross-Site Scripting (XSS) and look at the built-in security guards you get when using Angular.
 
@@ -386,10 +386,10 @@ This series taught us about web security, common web attacks, and how Angular's 
 
 |Posts in the SPA web security series|
 | --- |
-| 1. [Defend Your SPA From Security Woes](/blog/2022/07/06/spa-web-security) |
-| 2. [Defend Your SPA From Common Web Attacks](/blog/2022/07/08/spa-web-securty-csrf-xss) |
-| 3. [Protect Your Angular App From Cross-Site Request Forgery](/blog/2022/07/19/angular-security-csrf) |
-| 4. **Protect Your Angular App From Cross-Site Scripting** |
+| 1. [Defend Your SPA from Security Woes](/blog/2022/07/06/spa-web-security) |
+| 2. [Defend Your SPA from Common Web Attacks](/blog/2022/07/08/spa-web-securty-csrf-xss) |
+| 3. [Protect Your Angular App from Cross-Site Request Forgery](/blog/2022/07/19/angular-security-csrf) |
+| 4. **Protect Your Angular App from Cross-Site Scripting** |
 
 If you liked this post, you might be interested in these links.
 * [Security documentation from Angular](https://angular.io/guide/security#security)
