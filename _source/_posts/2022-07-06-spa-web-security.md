@@ -87,7 +87,7 @@ and the back-end API URL is
 https://apis.myfavekdramas.com
 ```
 
-But the API URL is a subdomain, so the request is cross-origin. Most browsers (once again BUH-BYE Internet Explorer!) protect us by allowing only specific cross-origin requests. We can configure resource access by enabling **C**ross-**o**rigin **R**esource **S**haring (CORS);
+But the API URL is a subdomain, so the request is cross-origin. Most browsers (once again BUH-BYE Internet Explorer!) protect us by allowing only specific cross-origin requests. We can configure resource access by enabling **C**ross-**o**rigin **R**esource **S**haring (CORS).
 
 Between your production environment setup resembling the above URLs, and local development using different ports for your front-end and back-end, you might be tempted to enable CORS to allow all sorts of requests. Unlike other security measures covered in this post, your browser already protects you in the strictest way possible. Enabling CORS _loosens_ that restriction.
 
@@ -113,7 +113,7 @@ Having the `httpOnly` attribute means that JavaScript can't access the cookie, b
 This is where the `SameSite` attribute comes into play. You can control when cookies should be sent by using the `SameSite` attribute and setting one of 3 values:
 1. `Strict` - only send cookies if they are going to the same site that requested them.
 2. `Lax` - only send cookies when the user is navigating to the origin site. (This is the default behavior now for Chromium-based browsers.)
-3. `None` - send the cookies to everyone, everywhere. As a safeguard for your concerningly generous behavior, which is concerning to the browser, you're also required to add the `Secure` attribute
+3. `None` - send the cookies to everyone, everywhere. As a safeguard for your generous behavior, which is concerning to the browser, you're also required to add the `Secure` attribute.
 
 With the `SameSite` attribute set, you can no longer have a scenario like this
 ![Giphy of multiple hands holding out cookies to Cookie Monster. Cookie Monster grabs and eats them all.](https://media.giphy.com/media/xT0xeMA62E1XIlup68/giphy.gif)
