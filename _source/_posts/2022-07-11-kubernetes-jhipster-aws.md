@@ -219,7 +219,7 @@ If you look at the directories in your root project, you'll see four subdirector
 └── store
 ```
 
-Three of the directories are the application projects for your services: blog, store, and gateway. Remember that the registry uses a stock image, so it doesn't need a local project. The fourth directory, kubernetes, holds the descriptor files for the kubernetes deployements (YAML files that tell Kubernetes how to deploy your applications from the Docker images).
+Three of the directories are the application projects for your services: blog, store, and gateway. Remember that the registry uses a stock image, so it doesn't need a local project. The fourth directory, kubernetes, holds the descriptor files for the kubernetes deployments (YAML files that tell Kubernetes how to deploy your applications from the Docker images).
 
 If you looked in that directory, you'd see four subdirectories (as well as some other files).
 
