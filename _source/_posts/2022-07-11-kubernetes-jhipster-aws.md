@@ -22,11 +22,11 @@ In this tutorial, you'll use JHipster to build a microservice stack and deploy i
 
 Before you get started, install the required software listed below. You'll need to sign up for an Amazon Web Services account and a free Okta account (which you will be able to sign up for later using the Okta CLI). The Kubernetes cluster required to finish this tutorial **does not qualify for free tier on AWS**. However, **if you are careful about stopping and deleting the cluster** when not actively working on the tutorial, the cost should be very small, only a few dollars.
 
-- [Docker](https://docs.docker.com/get-docker/): you’ll need to have **Docker Engine** installed.
-- [Docker Hub](https://hub.docker.com/): you’ll need a Docker Hub account to host the Docker images so that EKS can pull them.
+- [Docker](https://docs.docker.com/get-docker/): you'll need to have **Docker Engine** installed.
+- [Docker Hub](https://hub.docker.com/): you'll need a Docker Hub account to host the Docker images so that EKS can pull them.
 - [Java 11](https://adoptopenjdk.net/): this tutorial requires Java 11. If you need to manage multiple Java versions, SDKMAN! is a good solution. Check out [their docs to install it](https://sdkman.io/install).
 - [JHipster CLI](https://www.jhipster.tech/installation/): you'll use the JHipster CLI to bootstrap the application. To install with `npm` just use `npm install -g generator-jhipster`
-- [Okta CLI](https://cli.okta.com/manual/#installation): you’ll use Okta to add security to the microservice network. You can register for a free account from the CLI.
+- [Okta CLI](https://cli.okta.com/manual/#installation): you'll use Okta to add security to the microservice network. You can register for a free account from the CLI.
 - [Amazon Web Services](https://aws.amazon.com/free): sign up for an AWS account.
 - [AWS CLI](https://aws.amazon.com/cli/): Amazon Web Service CLI
 - [eksctl](https://github.com/weaveworks/eksctl): you'll use `eksctl` to create your cluster on EKS
@@ -278,7 +278,7 @@ You're only building the blog, store, and gateway, not the registry. This is bec
 
 ## Configure OAuth Security with Okta
 
-Before you start, you’ll need a free Okta developer account. Install the [Okta CLI](https://cli.okta.com). Run `okta register` to sign up for a new account. If you already have an account, run `okta login`.
+Before you start, you'll need a free Okta developer account. Install the [Okta CLI](https://cli.okta.com). Run `okta register` to sign up for a new account. If you already have an account, run `okta login`.
 
 Then, from the root project directory, open a Bash shell and run `okta apps create jhipster`. 
 
@@ -484,7 +484,7 @@ In K8s Lens, here's what it looks like:
 {% img blog/kubernetes-jhipster-aws/lens-status-green.png alt:"Lens status green" width:"1000" %}{: .center-image }
 
 
-Another useful command is `describe` (I won’t replicate the output here). This is great for more detailed information for debugging.
+Another useful command is `describe` (I won't replicate the output here). This is great for more detailed information for debugging.
 
 ```
 kubectl describe pod <pod-name> -n demo
@@ -578,7 +578,7 @@ registration:
 
 You can redeploy your app (`./kubectl-apply.sh -f`) and verify that the encrypted client secret is working (by making sure you can still log in). However, unfortunately, because the `ENCRYPT_KEY` is sitting there in the configuration files right alongside the encrypted client secret, this isn't all that secure.
 
-Fortunately, you can use `kubeseal` to secure the `ENCRYPT_KEY`. Matt Raible explains secrets management in Kubernetes in his post,  [Kubernetes to the Cloud with Spring Boot and JHipster](https://developer.okta.com/blog/2021/06/01/kubernetes-spring-boot-jhipster#encrypt-your-kubernetes-secrets). He also includes a lot of great resources. Check out his post for more info. You can also take a look at [the `kubeseal` GitHub page](https://github.com/bitnami-labs/sealed-secrets) for more info. In this post, I'm just going to show you how to get it working. 
+Fortunately, you can use `kubeseal` to secure the `ENCRYPT_KEY`. Matt Raible explains secrets management in Kubernetes in his post,  [Kubernetes to the Cloud with Spring Boot and JHipster](/blog/2021/06/01/kubernetes-spring-boot-jhipster#encrypt-your-kubernetes-secrets). He also includes a lot of great resources. Check out his post for more info. You can also take a look at [the `kubeseal` GitHub page](https://github.com/bitnami-labs/sealed-secrets) for more info. In this post, I'm just going to show you how to get it working. 
 
 Install `kubeseal` in the EKS cluster.
 
@@ -720,7 +720,7 @@ This project is based on two of Matt Raible's tutorials, which were helpful for 
 
 If you liked this post, there's a good chance you'll like similar ones:
 
-- [How to Deploy Java Microservices on Amazon EKS Using Terraform and Kubernetes](https://developer.okta.com/blog/2022/06/22/terraform-eks-microservices)
+- [How to Deploy Java Microservices on Amazon EKS Using Terraform and Kubernetes](/blog/2022/06/22/terraform-eks-microservices)
 - [Introducing Spring Native for JHipster: Serverless Full-Stack Made Easy](/blog/2022/03/03/spring-native-jhipster)
 - [How to Secure Your Kubernetes Clusters With Best Practices](/blog/2021/12/02/k8s-security-best-practices)
 - [Mobile Development with Ionic, React Native, and JHipster](/blog/2020/04/27/mobile-development-ionic-react-native-jhipster)
