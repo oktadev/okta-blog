@@ -15,7 +15,10 @@ type: awareness
 
 There's a lot of information floating out there about web security. But when I read through the material, I noticed some information wasn't up to date, or it was written specifically for traditional server-rendered web applications, or the author recommended anti-patterns. In a series of posts, I will cover web security concerns that all web devs should be aware of, emphasizing client-side applications, namely Single Page Applications (SPAs). Furthermore, I'm not going to get into the nitty-gritty of web security, cryptography, and networking.  Instead, I'll focus on the main takeaways and high-level to-do lists. I'll also provide links to resources where you can dive in deeper.
 
-<!-- Table with all the posts here as each post publishes -->
+|Posts in the SPA web security series|
+| --- |
+| 1. **Defend Your SPA from Security Woes** |
+| 2. [Defend Your SPA from Common Web Attacks](/blog/2022/07/08/spa-web-securty-csrf-xss) |
 
 So why do we worry about web security anyway? When we have vulnerabilities in our applications, it's an avenue for exploitation by bad actors. In the wrong hands, exploiting the vulnerabilities can cause risks to your application, data, reputation, and bottom line. In the words of my coworker [Aaron Parecki](https://developer.okta.com/blog/authors/aaron-parecki/), it all boils down to one thing—liability. And we don't want to expose ourselves, our applications, and our companies to liability. If you feel threatened, it's a good time to read on and identify how to harden your application.
 
@@ -87,7 +90,7 @@ and the back-end API URL is
 https://apis.myfavekdramas.com
 ```
 
-But the API URL is a subdomain, so the request is cross-origin. Most browsers (once again BUH-BYE Internet Explorer!) protect us by allowing only specific cross-origin requests. We can configure resource access by enabling **C**ross-**o**rigin **R**esource **S**haring (CORS);
+But the API URL is a subdomain, so the request is cross-origin. Most browsers (once again BUH-BYE Internet Explorer!) protect us by allowing only specific cross-origin requests. We can configure resource access by enabling **C**ross-**o**rigin **R**esource **S**haring (CORS).
 
 Between your production environment setup resembling the above URLs, and local development using different ports for your front-end and back-end, you might be tempted to enable CORS to allow all sorts of requests. Unlike other security measures covered in this post, your browser already protects you in the strictest way possible. Enabling CORS _loosens_ that restriction.
 
@@ -113,7 +116,7 @@ Having the `httpOnly` attribute means that JavaScript can't access the cookie, b
 This is where the `SameSite` attribute comes into play. You can control when cookies should be sent by using the `SameSite` attribute and setting one of 3 values:
 1. `Strict` - only send cookies if they are going to the same site that requested them.
 2. `Lax` - only send cookies when the user is navigating to the origin site. (This is the default behavior now for Chromium-based browsers.)
-3. `None` - send the cookies to everyone, everywhere. As a safeguard for your concerningly generous behavior, which is concerning to the browser, you're also required to add the `Secure` attribute
+3. `None` - send the cookies to everyone, everywhere. As a safeguard for your generous behavior, which is concerning to the browser, you're also required to add the `Secure` attribute.
 
 With the `SameSite` attribute set, you can no longer have a scenario like this
 ![Giphy of multiple hands holding out cookies to Cookie Monster. Cookie Monster grabs and eats them all.](https://media.giphy.com/media/xT0xeMA62E1XIlup68/giphy.gif)
@@ -128,6 +131,11 @@ Learn more about protecting your cookies by checking out these fantastic resourc
 
 ## Learn more about web security
 Stay tuned for the next post in this series as we learn about two well-known web security attacks, along with mitigation techniques using what we covered here.
+
+|Posts in the SPA web security series|
+| --- |
+| 1. **Defend Your SPA from Security Woes** |
+| 2. [Defend Your SPA from Common Web Attacks](/blog/2022/07/08/spa-web-securty-csrf-xss) |
 
 Can't wait to learn more? Check out out the following resources.
 * [A Beginner's Guide to Application Security](/blog/2022/05/09/beginners-app-sec)
