@@ -7,8 +7,9 @@ communities: [java,devops]
 description: "Build a JHipster Microservice on AWS with Amazon Elastic Kubernetes Service and secure it with OAuth 2.0 and OIDC using Okta as a provider"
 tags: [java,jhipster,kubernetes,k8s,devops,microservices]
 tweets:
-- ""
-- ""
+- "From soup 🍲 to nuts 🥜: here's everything you need to build a microservice stack and deploy it to Amazon Elastic Kubernetes Service #EKS. 
+Not-so-secret ingredients: @jhipster for your generator and @okta for #OIDC "
+- "Bootstrap complex apps with multiple microservices and domain models. @jhipster makes it easier. And Okta helps with #OAuth #security."
 - ""
 image:
 type: conversion
@@ -23,7 +24,7 @@ Before you get started, install the required software listed below. You'll need 
 
 - [Docker](https://docs.docker.com/get-docker/): you’ll need to have **Docker Engine** installed.
 - [Docker Hub](https://hub.docker.com/): you’ll need a Docker Hub to host the Docker images so that EKS can pull them.
-- [Java 11](https://adoptopenjdk.net/): this tutorial requires Java 11. If you need to manage multiple Java versions, SDKMAN! is a good solution. Check out [their docs to install it](https://sdkman.io/installit).
+- [Java 11](https://adoptopenjdk.net/): this tutorial requires Java 11. If you need to manage multiple Java versions, SDKMAN! is a good solution. Check out [their docs to install it](https://sdkman.io/install).
 - [Okta CLI](https://cli.okta.com/manual/#installation): you’ll use Okta to add security to the microservice network. You can register for a free account from the CLI.
 - [Amazon Web Services](https://aws.amazon.com/free): sign up for an AWS account.
 - [AWS CLI](https://aws.amazon.com/cli/): Amazon Web Service CLI
