@@ -36,7 +36,7 @@ For more info on the `kubectl` error, see [this issue](https://github.com/aws/aw
 
 The error looks like this:
 
-```bash
+```txt
 2022-05-31 18:56:08 [✖]  parsing kubectl version string  (upstream error: error: exec plugin: invalid apiVersion "client.authentication.k8s.io/v1alpha1"
 ) / "0.0.0": Version string empty
 ```
