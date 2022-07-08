@@ -187,7 +187,7 @@ This will probably take a minute or so to complete.
 
 It should end with something like the following output.
 
-```bash
+```txt
 ...
 
 INFO! Alternatively, you can use Jib to build and push image directly to a remote registry:
