@@ -364,10 +364,10 @@ You should have the AWS CLI and `eksctl` installed and configured already. Use t
 
 ```bash
 eksctl create cluster --name okta-k8s \
---region us-west-2 \
---nodegroup-name okta-k8s-nodes \
---node-type t2.xlarge \
---nodes 2
+    --region us-west-2 \
+    --nodegroup-name okta-k8s-nodes \
+    --node-type t2.xlarge \
+    --nodes 2
 ```
 
 **This will take several minutes to run.**
