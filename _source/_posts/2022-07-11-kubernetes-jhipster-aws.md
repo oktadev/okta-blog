@@ -384,7 +384,7 @@ If you have a problem, you can log into the AWS console and search for the Cloud
 
 My console ended with this non-specific error.
 
-```bash
+```txt
 2022-06-17 09:32:51 [ℹ]  waiting for CloudFormation stack "eksctl-okta-k8s-nodegroup-okta-k8s-nodes"
 2022-06-17 09:32:51 [!]  1 error(s) occurred and cluster hasn't been created properly, you may wish to check CloudFormation console
 2022-06-17 09:32:51 [ℹ]  to cleanup resources, run 'eksctl delete cluster --region=us-west-2 --name=okta-k8s'
