@@ -372,7 +372,7 @@ eksctl create cluster --name okta-k8s \
 
 **This will take several minutes to run.**
 
-**This cluster costs money as long as it is running.** If you only keep it running for the hour or so you need to run the tutorial, the costs are small. **If you forget and leave it running for a month or two, it could cost a lot more. Don't forget to delete it when you are done!**
+> **IMPORTANT:** **This cluster costs money as long as it is running.** If you only keep it running for the hour or so you need to run the tutorial, the costs are small. **If you forget and leave it running for a month or two, it could cost a lot more. Don't forget to delete it when you are done!**
 
 You are using a managed cluster with EC2 nodes. You are not using the newer, Fargate managed clusters because when I tried Fargate I ran into problems. There are reports of a compatibility problem between Fargate and Eureka. See [this google groups thread](https://groups.google.com/g/jhipster-dev/c/148uESs6vns) and [this GitHub repository](https://github.com/jussiseppala/eurekafargatesample).
 
