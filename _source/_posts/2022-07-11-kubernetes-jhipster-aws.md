@@ -11,7 +11,7 @@ tweets:
 Not-so-secret ingredients: @jhipster for your generator and @okta for #OIDC "
 - "Bootstrap complex apps with multiple microservices and domain models. @jhipster makes it easier. And Okta helps with #OAuth #security."
 - ""
-image:
+image: blog/kubernetes-jhipster-aws/kubernetes-jhipster-aws-social.jpg
 type: conversion
 
 ---
