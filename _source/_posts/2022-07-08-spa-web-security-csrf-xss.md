@@ -24,7 +24,7 @@ This is the second post in a series about web security for SPAs. In the last pos
 
  {% include toc.md %}
 
-## Practice data cleanliness
+## Practice data cleanliness to mitigate XSS
 Cross-Site Scripting (XSS) is a vulnterability that continues to plague web developers. This vulnerability is a type of injection attack and is so common that it's [number 3 on the OWASP Top Ten list](https://owasp.org/Top10/A03_2021-Injection/). 
 
 How does this vulnerability work? In short, XSS happens when code pollutes data, and you don't implement safeguards. 
@@ -55,12 +55,12 @@ How do we avoid these sorts of shenanigans? There are a few different defensive 
 
 There's a lot more to discuss regarding cross-site scripting, including types of XSS and mitigation technique specifics, so keep an eye out for a follow-up post with more details, including the built-in XSS security mechanisms provided in some SPA frameworks.
 
-## Dive into XSS
+### Dive into XSS
 Can't wait to read more about XSS? Check out these resources that cover how cross-site scripting works:
 * [API Security book chapter on Sanitizing Data by Okta](https://developer.okta.com/books/api-security/sanitizing/)
 * [Cross-site scripting resource from Port Swigger Web Security Academy](https://portswigger.net/web-security/cross-site-scripting)
 
-## Validate requests for authenticity
+## Validate requests for authenticity to mitigate CSRF
 Cross-Site Request Forgery (CSRF) is another well-known vulnerability in the [top spot of the OWASP Top Ten, Broken Access Control](https://owasp.org/Top10/A01_2021-Broken_Access_Control/). CSRF allows attackers to exploit your identity to perform unauthorized actions. Sounds pretty bad, right? Well, yup, you're correct.
 
 The exploit works like this.
