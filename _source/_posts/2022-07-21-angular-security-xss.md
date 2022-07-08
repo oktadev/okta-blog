@@ -103,6 +103,7 @@ Let's see some examples of how Angular protects us against XSS.
 
 Web applications implement comment features like in the Stored XSS example by calling an API to get a list of comments, then adds the comments to the template. In Angular, an extremely simplified comments component might look something like this:
 
+{% raw %}
 ```ts
 @Component({
   selector: 'app-comments'
@@ -122,6 +123,7 @@ export class CommentsComponent implements OnInit {
   }
 }
 ```
+{% endraw %}
 
 The XSS attack vector works only if the web app treats all values as trustworthy and appends them directly to the template, such as when the web app doesn't escape or sanitize values first. Luckily for us, Angular automatically does both for us.
 
@@ -307,7 +309,6 @@ On the flip side, the other form of compilation is Just-in-time (JIT). JIT was t
 Angular trusts template code and only escapes values defined in the template using interpolation. So if you attempt something clever to circumvent the more common forms of defining the template for a component, you won't be protected. 
 
 For example, you won't have Angular's built-in protections if you try to dynamically construct templates combining HTML with data using string concatenation or have an API whip up a payload with a template you somehow inject into the app. Your clever hacks with dynamic components might cause you security woes. 
-
 
 ### Beware of constructing DOM elements without using Angular templates
 
