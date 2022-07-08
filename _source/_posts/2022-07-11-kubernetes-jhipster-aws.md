@@ -23,7 +23,7 @@ In this tutorial, you'll use JHipster to build a microservice stack and deploy i
 Before you get started, install the required software listed below. You'll need to sign up for an Amazon Web Services account and a free Okta account (which you will be able to sign up for later using the Okta CLI). The Kubernetes cluster required to finish this tutorial **does not qualify for free tier on AWS**. However, **if you are careful about stopping and deleting the cluster** when not actively working on the tutorial, the cost should be very small, only a few dollars.
 
 - [Docker](https://docs.docker.com/get-docker/): you’ll need to have **Docker Engine** installed.
-- [Docker Hub](https://hub.docker.com/): you’ll need a Docker Hub to host the Docker images so that EKS can pull them.
+- [Docker Hub](https://hub.docker.com/): you’ll need a Docker Hub account to host the Docker images so that EKS can pull them.
 - [Java 11](https://adoptopenjdk.net/): this tutorial requires Java 11. If you need to manage multiple Java versions, SDKMAN! is a good solution. Check out [their docs to install it](https://sdkman.io/install).
 - [Okta CLI](https://cli.okta.com/manual/#installation): you’ll use Okta to add security to the microservice network. You can register for a free account from the CLI.
 - [Amazon Web Services](https://aws.amazon.com/free): sign up for an AWS account.
