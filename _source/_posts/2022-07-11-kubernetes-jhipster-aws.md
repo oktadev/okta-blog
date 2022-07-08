@@ -78,7 +78,7 @@ The store and blog applications are backend resource servers with MongoDB and Ne
 
 Create a file called `app.jdl` in the root directory for the project. Paste the contents below into the file. **You need to add your docker repository name** at the bottom in place of the placeholder `{your-docker-repository-name}`.
 
-```bash
+```txt
 application {
   config {
     baseName gateway
