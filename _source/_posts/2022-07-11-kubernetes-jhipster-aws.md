@@ -378,7 +378,7 @@ You are using a managed cluster with EC2 nodes. You are not using the newer, Far
 
 You can look at [the AWS docs on managed node groups](https://docs.aws.amazon.com/eks/latest/userguide/managed-node-groups.html) for more in-depth information. Basically, though, being managed means that you do not need to separately provision and register the EC2 instances in the node group. The EC2 instances and Kubernetes nodes are packaged together and managed as a unit. Unmanaged node groups allow you to separate the node group management from the EC2 instances, allowing for finer control but also requiring more direct involvement in instance management.
 
-## Using AWS CloudFormation to troubleshoot problems
+## Troubleshoot problems using AWS CloudFormation
 
 If you have a problem, you can log into the AWS console and search for the CloudFormation tool. CloudFormation is an AWS service that (according to [their docs](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html)) "helps you model and set up your AWS resources." It allows you to create templates for configuring and provisioning resources and can help with dependencies between AWS resources. The `eksctl` tool uses CloudFormation behind the scenes.
 
