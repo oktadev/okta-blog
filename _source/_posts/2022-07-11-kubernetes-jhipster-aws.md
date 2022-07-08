@@ -538,7 +538,7 @@ Remember that the blog application uses a Neo4j database backend and the store u
 
 The microservice is working. The only thing left to do is to protect any sensitive configuration parameters that you don't want to check into a repository. In this case, the main value that needs to be protected is the Okta OIDC client secret (and the `ENCRYPT_KEY`, which, as you'll see in a moment, is used to encrypt the client secret but which itself will need to be encrypted using `kubeseal`).
 
- In `kubernetes/registry-k8s/jhipster-registry.yml`, add an environment key-value pair (you can add it anywhere under the same `env` list that you edited earlier). Make up an encryption key. The longer the better. Generating a UUID is a good solution. Linux has a tool called `uuid` that can be used. There are also [websites](https://www.uuidgenerator.net/) that will generate a UUID. 
+ In `kubernetes/registry-k8s/jhipster-registry.yml`, add an environment key-value pair (you can add it anywhere under the same `env` list that you edited earlier). Make up an encryption key. The longer the better. Generating a UUID is a good solution. Linux has a tool called `uuid` that can be used.
 
 ```yaml
 - name: ENCRYPT_KEY
