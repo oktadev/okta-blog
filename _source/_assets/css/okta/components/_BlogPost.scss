@@ -24,8 +24,40 @@
 		display: flex;
 		flex-direction: column;
 		width: 100%;
-    max-width: 869px;
+    // max-width: 900px;
+
+    .before-post-tags {
+      ul.tags {
+        list-style: none;
+        display: flex;
+        flex-direction: row;
+        padding: 0;
+        margin: 0;
+        li {
+          height: 24px;
+          margin: 0 10px 0 0;
+          background: $blue-tag;
+          border-radius: 4px;
+          padding: 0px 6px;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          a {
+            color: $white;
+          }
+        }
+      }
+    }
 	}
+
+  &-header-divider {
+    display: block;
+    width: 30px;
+    border: 1px solid $very-light-gray-2;
+    margin: 50px 0;
+  }
+
 
 	&-title {
 		@include font-size('new-h1');
@@ -79,6 +111,22 @@
     line-height: 21px;
   }
 
+  &-social-share {
+    a {
+      color: $white;
+      font-size: 14px;
+      text-decoration: none;
+      margin-right: 5px;
+      padding: 2px 5px;
+      background: $very-light-gray-2;
+      border-radius: 50%;
+    }
+    a:active,
+    a:hover {
+      @include color('accent');
+    }
+  }
+
   &-canonical-container {
     display: flex;
     margin-top: 16px;
@@ -123,6 +171,32 @@
 		border-top: 1px #ccc solid;
 		padding-top: 20px;
 		margin-top: 20px;
+
+    .author {
+      font-size: 18px;
+      font-weight: 400;
+      padding-right: 1em;
+    }
+
+    .social {
+      display: flex;
+
+      a {
+        color: $white;
+        display: block;
+        font-size: 15px;
+        text-decoration: none;
+        margin-right: 10px;
+        padding: 0px 6px;
+        background: $very-light-gray-2;
+        border-radius: 50%;
+      }
+
+      a:active,
+      a:hover {
+        @include color('accent');
+      }
+    }
 	}
 
 	&-author {
@@ -226,7 +300,6 @@
 		}
 
     p {
-      max-width: 869px;
       text-align: justify;
     }
 
@@ -501,6 +574,10 @@
 		flex-wrap: wrap;
 	}
 
+	&.is-excerpt &-header-divider {
+		display: none;
+	}
+
   $excerpt-height: 40px;
 
 	&.is-excerpt &-avatar {
@@ -634,6 +711,11 @@
   }
 }
 
+@include media('<600px') {
+  .BlogPost-header:first-child {
+    margin-top: 100px;
+  }
+}
 
 @include media('<860px') {
 	.BlogPost.is-excerpt {

@@ -10,12 +10,12 @@
     <header class="BlogPost-header">
       <!-- post tags -->
         {% if page.tags %}
-        <div class="after-post-tags">
+        <div class="before-post-tags">
           <ul class="tags">
               {% assign sortedTags = page.tags | sort %}
               {% for tag in sortedTags %}
               <li>
-                  <a class="smoothscroll" href="{{site.baseurl}}/tags#{{ tag | replace: " ","-" }}">#{{ tag }}</a>
+                  <a class="smoothscroll" href="{{site.baseurl}}/tags#{{ tag | replace: " ","-" }}">{{ tag }}</a>
               </li>
               {% endfor %}
           </ul>
@@ -64,7 +64,8 @@
            <!-- social share -->
            <div class="BlogPost-social-share">
               <span class="vertical-spacer"></span>
-              // TODO
+              <a href="https://twitter.com/intent/tweet?text={{ page.title }} by @oktadev &url={{ page.url | absolute_url }}" target="_blank" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter"><i class="fa fa-twitter"></i></a>
+              <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url={{ page.url | absolute_url }}" onclick="window.open(this.href, 'linkedin-share', 'width=550,height=435');return false;" title="Share on Linkedin"><i class="fa fa-linkedin"></i></a>
            </div>
           </div>
       </div>
@@ -77,6 +78,8 @@
         {% endif %}
       </div>
     </header>
+
+    <div class="BlogPost-header-divider"></div>
 
     <div class="BlogPost-content">
     {% if page.update-url %}
@@ -105,9 +108,23 @@
         <div class="BlogPost-author-bio u-author h-card">
             <div class="BlogPost-attribution">
                 {% if author.avatar %}
-                <a href="/blog/authors/{{ author_id }}/">{% img '{{ author.avatar }}' alt:'{{ author.avatar }}' class:BlogPost-avatar %}</a>
+                <a href="/blog/authors/{{ author_id }}/">{% img '{{ author.avatar }}' alt:'{{ author.avatar }}' class:BlogPost-avatar-social %}</a>
                 {% endif %}
-                <span class="BlogPost-author"><a href="/blog/authors/{{ post.author }}/" class="u-url p-name">{{ author.full_name }}</a></span>
+                <span class="author"><a href="/blog/authors/{{ author_id }}/" class="u-url p-name">{{ author.full_name }}</a></span>
+                <div class="social">
+                    {%- if author.github -%}
+                    <a href="{{ author.github }}" target="_blank"><i class="fa fa-github"></i></a>
+                    {%- endif -%}
+                    {%- if author.twitter -%}
+                    <a href="{{ author.twitter }}" target="_blank"><i class="fa fa-twitter"></i></a>
+                    {%- endif -%}
+                    {%- if author.linkedin -%}
+                    <a href="{{ author.linkedin }}" target="_blank"><i class="fa fa-linkedin"></i></a>
+                    {%- endif -%}
+                    {%- if author.web -%}
+                    <a href="{{ author.web }}" target="_blank"><i class="fa fa-external-link"></i></a>
+                    {%- endif -%}
+                </div>
             </div>
 
             <p class="p-bio">{{ author.bio }}</p>
