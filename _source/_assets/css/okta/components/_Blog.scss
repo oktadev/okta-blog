@@ -76,6 +76,12 @@
 	}
 }
 
+@include media('<1024px') {
+  .Blog {
+    padding-top: 50px;
+  }
+}
+
 
 @include media('<860px') {
 	.Blog {

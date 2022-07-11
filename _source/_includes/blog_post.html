@@ -8,19 +8,20 @@
 <article class="BlogPost h-entry{% if page.layout != 'blog_post' %} is-excerpt{% endif %}">
 
     <header class="BlogPost-header">
-
-        <time class="BlogPost-date dt-published" datetime="{{ post.date | date: '%F'}}">{{ post.date | date: "%B %-d, %Y" }}</time>
-        {%- if page.layout == 'blog_post' and post.changelog -%}
-        {% assign last_updated_date = post.changelog[0] | split: '=>' | first | date: "%B %-d, %Y" %}
-        <div class="BlogPost-last-updated">
-            Last Updated: <a href="#changelog">{{ last_updated_date }}</a>
+      <!-- post tags -->
+        {% if page.tags %}
+        <div class="after-post-tags">
+          <ul class="tags">
+              {% assign sortedTags = page.tags | sort %}
+              {% for tag in sortedTags %}
+              <li>
+                  <a class="smoothscroll" href="{{site.baseurl}}/tags#{{ tag | replace: " ","-" }}">#{{ tag }}</a>
+              </li>
+              {% endfor %}
+          </ul>
         </div>
         {% endif %}
-        {%- if page.canonical -%}
-        <div class="BlogPost-canonical">
-           Originally published at <a href="{{ page.canonical }}">{{ page.canonical | split: '//' | last | split: '/' | first }}</a>.
-        </div>
-        {% endif %}
+        <!-- Post title -->
         <h1 class="BlogPost-title p-name">
             {% if page.layout == 'blog_index' or page.layout == 'author' or page.layout == 'tag' %}
             <a href="{{ post.url }}">{{ post.title }}</a>
@@ -28,15 +29,53 @@
             <span>{{ post.title }}</span>
             {% endif %}
         </h1>
-        <div class="BlogPost-attribution">
-          {% for author_id in authors %}
-            {%- assign author = site.data.authors[author_id] -%}
-            {% if author.avatar %}
-            <a href="/blog/authors/{{ author_id }}/">{% img '{{ author.avatar }}' alt:'{{ author.avatar }}' class:BlogPost-avatar %}</a>
+        <div class="BlogPost-metadata">
+          <div>
+            <!-- author details -->
+            <div class="BlogPost-attribution">
+              {% for author_id in authors %}
+                {%- assign author = site.data.authors[author_id] -%}
+                {% if author.avatar %}
+                <a href="/blog/authors/{{ author_id }}/">{% img '{{ author.avatar }}' alt:'{{ author.avatar }}' class:BlogPost-avatar %}</a>
+                {% endif %}
+                <span class="BlogPost-author"><a href="/blog/authors/{{ author_id }}/">{{ author.full_name }}</a></span>
+              {% endfor %}
+            </div>
+            <span class="vertical-spacer"></span>
+            <!-- post dates -->
+            <div>
+              <time class="BlogPost-date dt-published" datetime="{{ post.date | date: '%F'}}">{{ post.date | date: "%B %-d, %Y" }}</time>
+            </div>
+            <span class="vertical-spacer md-hide"></span>
+            {%- if page.layout == 'blog_post' and post.changelog -%}
+            {% assign last_updated_date = post.changelog[0] | split: '=>' | first | date: "%B %-d, %Y" %}
+            <span class="vertical-spacer md-show"></span>
+            <div class="BlogPost-last-updated">
+                Last Updated: <a href="#changelog">{{ last_updated_date }}</a>
+            </div>
+            <span class="vertical-spacer md-hide"></span>
             {% endif %}
-            <span class="BlogPost-author"><a href="/blog/authors/{{ author_id }}/">{{ author.full_name }}</a></span>
-          {% endfor %}
+          </div>
+          <div>
+            <!-- time to read -->
+            <div class="BlogPost-readtime">
+              {% include reading-time.html content=post.content %}
+           </div>
+           <!-- social share -->
+           <div class="BlogPost-social-share">
+              <span class="vertical-spacer"></span>
+              // TODO
+           </div>
+          </div>
+      </div>
+      <div class="BlogPost-canonical-container">
+        <!-- canonical info -->
+        {%- if page.canonical -%}
+        <div class="BlogPost-canonical">
+            Originally published at <a href="{{ page.canonical }}">{{ page.canonical | split: '//' | last | split: '/' | first }}</a>.
         </div>
+        {% endif %}
+      </div>
     </header>
 
     <div class="BlogPost-content">

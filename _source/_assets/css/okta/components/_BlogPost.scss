@@ -2,7 +2,7 @@
 	border-radius: 100%;
 	display: block;
 	flex-shrink: 0;
-	margin-right: get-spacing('small');
+	margin-right: get-spacing('x-small');
 	overflow: hidden;
 	max-width: unset;
 }
@@ -24,17 +24,17 @@
 		display: flex;
 		flex-direction: column;
 		width: 100%;
+    max-width: 869px;
 	}
 
 	&-title {
 		@include font-size('new-h1');
 		@include font-weight('new-h1');
 		@include line-height('new-h1');
-		@include margin(medium 0);
-
+		@include margin(16px 0);
 		&,
 		a {
-			@include color('default');
+			color: #00297A;
 			@include transition(border normal, color normal);
 		}
 
@@ -48,6 +48,43 @@
 			}
 		}
 	}
+
+  &-metadata {
+    display: flex;
+		font-size: 14px;
+    font-weight: 400;
+    align-items: center;
+    > div {
+      display: flex;
+    }
+    .vertical-spacer {
+      width: 0px;
+      min-height: 25px;
+      border: 1px solid #EBEBED;
+      margin: 0 20px 0 20px;
+      &.md-show {
+        display: none;
+      }
+    }
+  }
+
+  &-readtime {
+    background: #F2F5FF;
+    border-radius: 50px;
+    padding: 2px 10px;
+    font-weight: 700;
+    font-size: 10px;
+    color: #007dc1;
+    height: 21px;
+    line-height: 21px;
+  }
+
+  &-canonical-container {
+    display: flex;
+    margin-top: 16px;
+    font-size: 14px;
+    font-weight: 400;
+  }
 
 	& .alert {
 		padding: 10px 20px;
@@ -81,24 +118,6 @@
 		display: flex;
 	}
 
-	&-date {
-		font-size: 24px;
-		font-weight: 500;
-		line-height: 24px;
-	}
-
-	&-last-updated, &-canonical {
-		margin-top: .5em;
-
-		a {
-			color: unset;
-		}
-	}
-
-	&-canonical {
-		font-size: .85rem;
-	}
-
 	&-author-bio {
 		@include color('charcoal');
 		border-top: 1px #ccc solid;
@@ -107,23 +126,15 @@
 	}
 
 	&-author {
-		font-size: 24px;
-		font-weight: 500;
+		font-size: 14px;
+		font-weight: 400;
 		padding-right: 1em;
-
-		a {
-			color: #3d3d3d;
-		}
-		a:hover {
-			color: #6d6d6d;
-			text-decoration: none;
-		}
 	}
 
 	&-avatar {
 		@include avatar-base;
-		height: 54px;
-		width: 54px;
+		height: 20px;
+		width: 20px;
 	}
 
 	&-avatar-social {
@@ -213,6 +224,11 @@
 			font-weight: 500;
 			line-height: 24px;
 		}
+
+    p {
+      max-width: 869px;
+      text-align: justify;
+    }
 
 		/* helper classes for images */
 		.m-x-sm {
@@ -485,27 +501,38 @@
 		flex-wrap: wrap;
 	}
 
+  $excerpt-height: 40px;
+
 	&.is-excerpt &-avatar {
-		height: 96px;
-		width: 96px;
+		height: $excerpt-height;
+		width: $excerpt-height;
+	}
+
+	&.is-excerpt &-metadata {
+    margin-top: 16px;
 	}
 
 	&.is-excerpt &-attribution {
-		order: 1;
-		width: 50%;
+    line-height: $excerpt-height;
 	}
 
 	&.is-excerpt &-date {
-		order: 2;
-		text-align: right;
-		width: 50%;
+    line-height: $excerpt-height;
 	}
 
 	&.is-excerpt &-title {
-		order: 3;
+		// order: 3;
 		margin-bottom: 0;
 		width: 100%;
 	}
+
+  &.is-excerpt &-social-share {
+    display: none;
+  }
+
+  &.is-excerpt &-last-updated {
+    display: none;
+  }
 
 	#disqus {
 		margin-top: get-spacing('medium');
@@ -567,6 +594,47 @@
 	}
 }
 
+@include media('<' + map-get($breakpoints, "medium")) {
+  :not(.is-excerpt) {
+    &.BlogPost {
+      .BlogPost-metadata {
+        flex-direction: column;
+        align-items: flex-start;
+        > div {
+          flex-direction: row;
+          margin-top: 10px;
+        }
+        .vertical-spacer.md-hide {
+          display: none;
+        }
+        .vertical-spacer.md-show {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+@include media('<' + map-get($breakpoints, "small")) {
+  .BlogPost {
+    &-metadata {
+      flex-direction: column;
+      align-items: flex-start;
+      > div {
+        flex-direction: column !important;
+        margin-top: 0px !important;
+        > * {
+          margin-top: 10px !important;;
+        }
+      }
+      .vertical-spacer, .vertical-spacer.md-show {
+        display: none !important;;
+      }
+    }
+  }
+}
+
+
 @include media('<860px') {
 	.BlogPost.is-excerpt {
 		.BlogPost {
@@ -578,23 +646,6 @@
 				@include line-height('h2');
 				@include font-size('h2');
 				margin: 20px 0;
-			}
-
-			&-date {
-				order: 1;
-				width: 100%;
-				text-align: left;
-			}
-
-			&-attribution {
-				order: 2;
-				width: 100%;
-				padding: 20px 0;
-
-				img {
-					width: 56px;
-					height: 56px;
-				}
 			}
 		}
 	}
