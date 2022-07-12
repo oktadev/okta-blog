@@ -19,7 +19,7 @@ type: conversion
 
 You will use Prisma to connect to a database server in this project.  You will build a schema to model a workout tracker application.  Then you will create some seed data to begin working with and use Prisma to run migrations and seed your database.  You will then create the web application using [Pug](https://pugjs.org/api/getting-started.html) and [Tailwind CSS](https://tailwindcss.com/) to build the application frontend.  
 
-### Prequresites
+### Prerequisites
 
 To continue you will need:
 
