@@ -3,7 +3,7 @@ layout: blog_post
 title: "How to Build an Express application using Prisma"
 author: nickolas-fisher
 by: contractor
-communities: [devops,security,mobile,.net,java,javascript,go,php,python,ruby]
+communities: [javascript]
 description: ""
 tags: []
 tweets:
