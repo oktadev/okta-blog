@@ -25,7 +25,7 @@ In this project, you will use Prisma to connect to a database server.  You will 
 
 To continue you will need:
 
-- An IDE for javascript.  I will use [Visual Studio Code](https://code.visualstudio.com/) but you can use Atom, Webstorm, or any other IDE you wish
+- An IDE for JavaScript.  I will use [Visual Studio Code](https://code.visualstudio.com/) but you can use Atom, Webstorm, or any other IDE you prefer
 - [Node.js](https://nodejs.org/en/)
 - A database, one of PostgreSQL, MySQL, SQLite, SQL Server, or MongoDB.  I will be using SQL Server
 - An [Okta Developer Account](https://developer.okta.com/) (free forever, to handle your OAuth needs)
