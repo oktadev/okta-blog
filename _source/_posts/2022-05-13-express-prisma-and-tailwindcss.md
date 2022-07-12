@@ -121,7 +121,7 @@ The `SEED_USER_NAME` setting is used in your seed data.  You want to make sure t
 }
 ```
 
-This will add the `prisma.seed` command you will need later.  
+This will add the `prisma seed` command you will need later.  
 
 Now you can initialize tailwindcss.  
 
