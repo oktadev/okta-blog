@@ -11,7 +11,7 @@ tweets:
 image:
 type: conversion
 ---
-## Building an Express application using Prisma 
+## How to Build an Express application using Prisma
 
 [Express](https://expressjs.com/) is one of the most popular web frameworks available today.  Understanding the tools available when building any web application is critical to being a good developer.
 
