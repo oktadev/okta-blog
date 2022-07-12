@@ -4,7 +4,7 @@ title: "How to Build an Express application using Prisma"
 author: nickolas-fisher
 by: contractor
 communities: [javascript]
-description: ""
+description: "Learn how to build a workout tracker application using Express and Prisma and secure it using Okta."
 tags: []
 tweets:
 - ""
