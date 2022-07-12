@@ -25,7 +25,7 @@ image::{% asset_path 'blog/add-auth-to-any-app-with-oauth2-proxy/oauth2-proxy-di
 
 **Prerequisites**
 
-* https://docs.docker.com/get-docker/[Docker]
+* https://docs.docker.com/get-docker/[Docker] and https://docs.docker.com/compose/install/[Docker Compose]
 * https://httpie.io/cli[Httpie] (A user friendly HTTP client)
 * https://cli.okta.com/[Okta CLI] (Configures applications in Okta)
 * https://sdkman.io/[Java 17] (optional)
@@ -44,7 +44,7 @@ git clone https://github.com/bdemers/okta-oauth2-proxy-example.git -b start
 cd okta-oauth2-proxy-example
 ----
 
-IMPORTANT: If you want to skip to the end, check out the `main` branch instead.
+IMPORTANT: If you want to see the completed project, check out the `main` branch instead.
 
 If you are interested in the details for this Java application, take a look at the `EchoApplication` class, it contains a single endpoint that will handle all requests and "dump" the contents of the request as a JSON object:
 
@@ -121,9 +121,9 @@ Now that we have a working application, let's secure it!
 
 Before moving on to the next section, stop the app with kbd:[Ctrl + C], don't worry; we will start it back up in a minute.
 
-== Setup Okta
+== Set up Okta
 
-To secure our application with OAuth 2.0, we are going to need an OAuth Identity Provider (IdP). Just about any OpenID Connect (OIDC) capable server should work, https://auth0.com/[Auth0], https://www.keycloak.org/[Keycloak], but this is an Okta blog, so let's use Okta.
+To secure our application with OAuth 2.0, we are going to need an OAuth Identity Provider (IdP). Just about any OpenID Connect (OIDC) capable server should work, such as https://auth0.com/[Auth0] or https://www.keycloak.org/[Keycloak], but this is an Okta blog, so let's use Okta.
 
 If you don't already have one, you'll need a free Okta developer account. Install the https://cli.okta.com/[Okta CLI]
 and from the project directory, run `okta start` to sign up for a new account and configure this application!
@@ -151,9 +151,9 @@ CLIENT_SECRET=NEVER-SHOW-SECRETS
 ----
 ====
 
-== Setup OAuth2 Proxy
+== Set up OAuth2 Proxy
 
-There are two ways to use OAuth2 Proxy: route your traffic through it directly or use it with the Nginx `auth_request` directive. I'd recommend routing traffic through Nginx if possible, but I'll walk both options and explain my recommendation below.
+There are two ways to use OAuth2 Proxy: route your traffic through it directly or use it with the Nginx `auth_request` directive. I'd recommend routing traffic through Nginx if possible, but I'll walk through both options and explain my recommendation below.
 
 To reduce the number of moving parts, I'll leave Nginx out to start with; all of our web traffic will flow through OAuth2 Proxy. Users who access the echo web application will be redirected to Okta to sign in. Once they have signed in, OAuth2 Proxy will set a session cookie. OAuth2 Proxy will validate the session before passing the request to the echo web app in future requests.
 
@@ -161,7 +161,7 @@ image::{% asset_path 'blog/add-auth-to-any-app-with-oauth2-proxy/oauth2-proxy-br
 
 This example is going to outgrow manually using `docker run` commands; switch to using `docker compose` to start the echo web-app and oauth2-proxy.
 
-Let's start simple and increase the complexity as we go along, create a `docker-compose.yml` with oauth2-proxy and the web app from above:
+Let's start simple and increase the complexity as we go along. Create a `docker-compose.yml` with oauth2-proxy and the web app from above:
 
 ====
 [source,yaml]
@@ -195,12 +195,12 @@ services:
 
 <.> Build and run Dockerfile in the current directory.
 <.> Listen on port `4180`.
-<.> Proxy authenticated requests to the Java web-app container
+<.> Proxy authenticated requests to the Java web-app container.
 <.> OIDC client information (issuer, client ID, and client secret), these values are defined in the `.env` file.
 <.> Optionally, pass the access to the web-app.
 <.> Allow all email domains unless you use a social auth provider, you'll want to manage this in your IdP and NOT in your application.
 <.> Set the redirect URL to an `http` URL, this defaults to `https`.
-<.> Open up the `.env` file and set this variable to a random 32-byte base64 string `openssl rand -base64 32 | tr -- '+/' '-_'`
+<.> Open up the `.env` file and set this variable to a random 32-byte base64 string `openssl rand -base64 32 | tr -- '+/' '-_'`.
 <.> Expose port `4180`.
 ====
 
@@ -250,11 +250,11 @@ These first two problems can be fixed with a few updates to the OAuth2 Proxy con
 ----
 
 <.> Skip the default login page and redirect directly to the IdP.
-<.> By default, the cookie name is `_oauth2_proxy`; change it to `SESSION`
+<.> By default, the cookie name is `_oauth2_proxy`; change it to `SESSION`.
 <.> Set the cookie's same site policy to `lax`; the redirect from the OAuth IdP will need the session cookie.
-<.> Use Redis to store session information
-<.> Start up a Redis container
-<.> Persist the Redis data between restarts
+<.> Use Redis to store session information.
+<.> Start up a Redis container.
+<.> Persist the Redis data between restarts.
 ====
 
 Stop the docker-compose process (kbd:[Ctrl + C]) and start it up again:
@@ -268,7 +268,7 @@ Once again, open your browser to `\http://localhost:4180/` and open up your netw
 
 You _could_ stop here, but you shouldn't; we still have a few issues: API clients are not supported, and we haven't talked about logging out.
 
-IMPORTANT: For the next section, you will need an access token. You can use the access token from your last request's `x-access-token` header. Open your terminal and set an environment variable: `export TOKEN=\{you-token-value}`.
+IMPORTANT: For the next section, you will need an access token. You can use the access token from your last request's `x-access-token` header. Open your terminal and set an environment variable: `export TOKEN=\{your-token-value}`.
 
 == REST API Clients
 
@@ -300,7 +300,7 @@ In the `docker-compose.yml`, trim down the environment variables to the bare min
 ...
 ----
 
-<.> We are not actually using any of the OIDC flows, but this is still required
+<.> We are not actually using any of the OIDC flows, but this is still required.
 <.> Perhaps a poorly named variable, this tells `oauth2-proxy` to validate the JWT access token and to "skip" looking for an OAuth 2.0 session.
 <.> Read the user's email from the `sub` claim in the access token.
 <.> The same issuer URL is used, the JWKS endpoint will be looked up automatically via the OIDC discovery metadata.
@@ -309,9 +309,9 @@ In the `docker-compose.yml`, trim down the environment variables to the bare min
 <.> Same with the cookie secret, these flows do not use cookies, but the field is required.
 ====
 
-Restart the services (stop and then run `docker compose up` again.)
+Restart the services. (Stop and then run `docker compose up` again.)
 
-Using the access token environment variable, you set in the previous section run:
+Using the access token environment variable you set in the previous section, run this:
 
 [source,bash]
 ----
@@ -320,7 +320,7 @@ http :4180/echo "Authorization: Bearer ${TOKEN}"
 
 Awesome! Now your application is secured for REST clients!
 
-Not so fast; now our browser clients don't work correctly, the client ID and secret are not correct, which means users will not be able to log in. We can fix both of these problems with Nginx.
+Not so fast; now our browser clients don't work correctly! The client ID and secret are not correct, which means users will not be able to log in. We can fix both of these problems with Nginx.
 
 == Add Nginx to route traffic
 
@@ -328,7 +328,7 @@ Adding another reverse proxy into the mix might seem excessive; for a request to
 
 image::{% asset_path 'blog/add-auth-to-any-app-with-oauth2-proxy/nginx-oauth2-proxy-browser.svg' %}[alt=Sequence Diagram showing a flowing through both request with Nginx and oauth2-proxy,align=center,link={% asset_path 'blog/add-auth-to-any-app-with-oauth2-proxy/nginx-oauth2-proxy-browser.svg' %}]
 
-While we could route our traffic through both proxies as pictured above, I will use the Nginx `auth_request` directive instead. Nginx will make a REST request to OAuth2 Proxy's `/oauth2/auth` endpoint using the original request headers (including any cookies and `Authorization` headers). OAuth2 Proxy will respond with a `202` status code if the request was valid or a `401` otherwise.
+While we could route our traffic through both proxies as pictured above, I will use the Nginx `auth_request` directive instead. Nginx will make a REST request to OAuth2 Proxy's `/oauth2/auth` endpoint using the original request headers (including any cookies and `Authorization` headers). OAuth2 Proxy will respond with a `202` status code if the request is valid or a `401` otherwise.
 
 image::{% asset_path 'blog/add-auth-to-any-app-with-oauth2-proxy/nginx-oauth2-proxy-api.svg' %}[alt=Sequence Diagram showing an request with Nginx and oauth2-proxy,align=center,link={% asset_path 'blog/add-auth-to-any-app-with-oauth2-proxy/nginx-oauth2-proxy-api.svg' %}]
 
@@ -352,7 +352,7 @@ Jump back into the `docker-compose.yml` and add a new `service` for Nginx:
       - 80:80
 ----
 
-Next, create a `nginx-default.conf.template` file this block is a little involved, be sure to read the annotations:
+Next, create a `nginx-default.conf.template` file.  This code block is a little involved, be sure to read the annotations:
 
 ====
 [source,conf]
@@ -414,13 +414,13 @@ http localhost/echo "Authorization: Bearer ${TOKEN}"
 
 If you remove or change the `Authorization` header, a `401` will be returned. Browser requests will now also return a `401`!
 
-Almost done! We still need to make everything work for both API clients and browsers and handle sign-out requests.
+Almost done! We still need to make everything work for both API clients and browsers, and handle sign-out requests.
 
 == Route  all traffic through Nginx
 
-Sending all the traffic through Nginx has the added benefit of being able to control how the OAuth2 Proxy endpoints are exposed. For example, the previous section marked the `/oauth2/auth` route as "internal," so only the `auth_requst` directive can use it.
+Sending all the traffic through Nginx has the added benefit of giving you control of how the OAuth2 Proxy endpoints are exposed. For example, the previous section marked the `/oauth2/auth` route as "internal," so only the `auth_requst` directive can use it.
 
-In the `nginx-default.conf.template` add a couple of new `location` sections to expose the other `/oauth2` endpoints. The first `location` will handle the OAuth 2.0-related requests like the redirect callback. The second will configure the sign-out endpoint to accept only POST requests (this prevents a rogue GET request from ending the user's session).
+In the `nginx-default.conf.template`, add a couple of new `location` sections to expose the other `/oauth2` endpoints. The first `location` will handle the OAuth 2.0-related requests like the redirect callback. The second will configure the sign-out endpoint to accept only POST requests. (This prevents a rogue GET request from ending the user's session).
 
 ====
 [source,conf]
@@ -469,7 +469,7 @@ location / {
 
 == Configure OAuth2 Proxy to support API and browser clients
 
-If you have been following along closely, you noticed that there are a few OAuth2 Proxy configuration values that are overloaded; for example, the "client ID" is used both as the ID of the OAuth client, and the JWT value for the audience. Luckily there is a workaround! Here is the final annotated `docker-compose.yml`:
+If you have been following along closely, you'll have noticed that there are a few OAuth2 Proxy configuration values that are overloaded; for example, the "client ID" is used both as the ID of the OAuth client, and the JWT value for the audience. Luckily, there is a workaround! Here is the final annotated `docker-compose.yml`:
 
 ====
 [source,yml]
@@ -572,7 +572,7 @@ It's not perfect, though; there are a few shortcomings:
 
 Where does it shine?
 
-If you need to add authentication to an application that doesn't have OAuth support, or you need to support various types of applications in a standard way. In that case, OAuth2 Proxy can be a great choice! As a bonus, it has excellent https://oauth2-proxy.github.io/oauth2-proxy/docs/[documentation].
+If you need to add authentication to an application that doesn't have OAuth support, or you need to support various types of applications in a standard way, OAuth2 Proxy can be a great choice! As a bonus, it has excellent https://oauth2-proxy.github.io/oauth2-proxy/docs/[documentation].
 
 If you enjoyed this post and want to read more like it check out these other posts:
 
