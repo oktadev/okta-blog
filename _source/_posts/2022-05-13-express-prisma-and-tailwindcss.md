@@ -5,7 +5,7 @@ author: nickolas-fisher
 by: contractor
 communities: [javascript]
 description: "Learn how to build a workout tracker application using Express and Prisma and secure it using Okta."
-tags: []
+tags: [prisma, node, express]
 tweets:
 - ""
 - ""
