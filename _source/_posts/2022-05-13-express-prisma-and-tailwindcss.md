@@ -8,7 +8,6 @@ description: "Learn how to build a workout tracker application using Express and
 tags: [prisma, node, express]
 tweets:
 - "Learn how to build a workout tracker application using Express and Prisma and secure it using Okta ⚡️"
-- ""
 image:
 type: conversion
 ---
