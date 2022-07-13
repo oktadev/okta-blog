@@ -64,7 +64,7 @@ npm i -D prisma@3.13.0
 > `Tailwind CSS` is the CSS framework you will use.  If you've never used Tailwind before, you may wonder why it's a development dependency.  This is because Tailwind will dynamically build your CSS files from your views and configuration.  More on that later
 > `prisma` is the ORM you are using.  This is a dev dependency because the prisma library handles the migrations, seed data, etc, while the `@prisma/client` package is used in your application at runtime.
 
-At this point, you should initialize tailwindcss and prisma even though you won't configure to use either quite yet.
+At this point, you should initialize Tailwind CSS and prisma even though you won't configure to use either quite yet.
 
 Start with prisma.  Run the following command.
 
@@ -123,7 +123,7 @@ The `SEED_USER_NAME` setting is used in your seed data.  You want to make sure t
 
 This will add the `prisma seed` command you will need later.  
 
-Now you can initialize tailwindcss.  
+Now you can initialize Tailwind CSS.  
 
 ```console
 npx tailwindcss init
@@ -141,7 +141,7 @@ module.exports = {
 }
 ```
 
-This will tell tailwindcss where to find the classes that you used in your application.  In this case, you want tailwind to look in `.pug` files located in your `views` directory.  Tailwindcss is extremely extensible as you can see by the `theme` and `plugins` settings in the configuration object.  A deep dive into this is out of the scope of this article but I encourage you to look into tailwindcss's site for more information.  
+This will tell Tailwind CSS where to find the classes that you used in your application.  In this case, you want tailwind to look in `.pug` files located in your `views` directory.  Tailwind CSS is extremely extensible as you can see by the `theme` and `plugins` settings in the configuration object.  A deep dive into this is out of the scope of this article but I encourage you to look into Tailwind CSS's site for more information.  
 
 ### Use Prisma to create your database
 
@@ -505,7 +505,7 @@ html
     block content
 ```
 
-You'll notice a couple of things about this file.  First, the classes are very specific and plentiful.  This is typical of tailwindcss.  Rather than defining how a specific element looks, tailwindcss strives to define how a particular style looks, then you can add and remove styles from elements to fit the desired look.  
+You'll notice a couple of things about this file.  First, the classes are very specific and plentiful.  This is typical of Tailwind CSS.  Rather than defining how a specific element looks, Tailwind CSS strives to define how a particular style looks, then you can add and remove styles from elements to fit the desired look.  
 
 The other thing you'll see is the Login/Logout button that will change based on the `isAuthenticated` property.  
 
@@ -527,13 +527,13 @@ block content
           a(href="https://developer.okta.com/signup") Okta.
           br          
           | This app uses 
-          a(href="https://tailwindcss.com/") tailwindcss 
+          a(href="https://tailwindcss.com/") Tailwind CSS 
           | for its CSS framework and 
           a(href="https://www.prisma.io/") Prisma.JS 
           | for its ORM.  
 ```
 
-There's not much to talk about here.  Just a splash page with some more tailwindcss and some links to the technologies used.
+There's not much to talk about here.  Just a splash page with some more Tailwind CSS and some links to the technologies used.
 
 Finally, add a file for `dashboard.pug` with the following code.
 
@@ -603,7 +603,7 @@ block content
 
 As you saw before this page is protected, therefore it's required that you have a user access this page.  The application will pull the user details and workout logs and reform them into a summary at the top of the page with a couple of tables of the logs based on the exercises the user has performed.  
 
-### Create the CSS file using tailwindcss
+### Create the CSS file using Tailwind CSS
 
 The last part of this process is to create the actual CSS file that your application will use.  In your `public/stylesheets` directory, you'll see a file called `style.css`.  replace the code in that file with the code below.
 
@@ -630,7 +630,7 @@ Next, you can compile the classes you used in your pug files along with the styl
 npx tailwindcss -i ./public/stylesheets/style.css -o ./public/stylesheets/output.css --watch
 ```
 
-Now you can open the `output.css` file and see the full tailwindcss code.  The `--watch` parameter here is useful for local development.  This will rebuild the `output.css` file each time you make a change to one of your layouts.  If you do not want to make any changes you can disregard them.
+Now you can open the `output.css` file and see the full Tailwind CSS code.  The `--watch` parameter here is useful for local development.  This will rebuild the `output.css` file each time you make a change to one of your layouts.  If you do not want to make any changes you can disregard them.
 
 ## Test your application
 
@@ -652,7 +652,7 @@ Use the login button at the top of the screen and navigate out to the Okta login
 
 In this article, you learned how to use Prisma to define a schema for your database.  You then learned how to create a migration from that schema and how to seed your database.  You saw that Prisma can be used with the most popular database options including SQL Server, MySql, MongoDB, and more.  
 
-You also learned how to build a CSS file with tailwindcss.  You learned the simple tailwind configuration and how the tailwind CLI uses your code to build its CSS file.
+You also learned how to build a CSS file with Tailwind CSS.  You learned the simple tailwind configuration and how the tailwind CLI uses your code to build its CSS file.
 
 Finally, you learned how to secure your express application using passport.
 
