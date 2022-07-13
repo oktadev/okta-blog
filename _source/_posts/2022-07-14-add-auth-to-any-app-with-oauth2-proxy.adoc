@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Add Auth to any app with OAuth2 Proxy"
+title: "Add Auth to Any App with OAuth2 Proxy"
 author: brian-demers
 by: advocate
 communities: [devops,security,java]
