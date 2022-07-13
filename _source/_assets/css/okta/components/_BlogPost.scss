@@ -338,7 +338,7 @@
 		.highlight .vi { color: $dark-cerulean; } /* Name Variable Instance */
 		.highlight .bp { color: $dark-cerulean; } /* Name Builtin Pseudo */
 		.highlight .g { color: $eclipse-2; } /* Base Style */
-		.highlight .gd { color: $eclipse-2; } /*  */
+		.highlight .gd { color: $eclipse-2; } /*	*/
 		.highlight .o { color: $eclipse-2; } /* Base Style */
 		.highlight .ow { color: $puerto-rico; } /* Operator Word */
 		.highlight .c { color: $nobel-2; font-style: italic; }/* Base Style */
@@ -432,6 +432,36 @@
 			.twitter-tweet-rendered {
 				margin-left: auto;
 				margin-right: auto;
+			}
+		}
+
+		// responsive iframes for videos in a grid
+		.video-grid {
+			width: 100%;
+			display: grid;
+			grid-template-columns: 50% 50%;
+			grid-column-gap: 20px;
+			grid-row-gap: 20px;
+
+			.video {
+				border-radius: 10px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+
+				overflow: hidden;
+				/* 16:9 aspect ratio */
+				padding-top: 56.25%;
+				position: relative;
+
+				iframe {
+					border: 0;
+					height: 100%;
+					left: 0;
+					position: absolute;
+					top: 0;
+					width: 100%;
+				}
 			}
 		}
 	}
