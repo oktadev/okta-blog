@@ -40,7 +40,7 @@ You can grab the project from https://github.com/oktadev/okta-oauth2-proxy-examp
 
 [source,bash]
 ----
-git clone https://github.com/bdemers/okta-oauth2-proxy-example.git -b start
+git clone https://github.com/oktadev/okta-oauth2-proxy-example.git -b start
 cd okta-oauth2-proxy-example
 ----
 
