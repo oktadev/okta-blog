@@ -25,7 +25,7 @@ To continue you will need:
 
 - An IDE for JavaScript.  I will use [Visual Studio Code](https://code.visualstudio.com/) but you can use Atom, Webstorm, or any other IDE you prefer
 - [Node.js](https://nodejs.org/en/)
-- A database, one of PostgreSQL, MySQL, SQLite, SQL Server, or MongoDB.  I will be using SQL Server
+- A database, one of PostgreSQL, MySQL, SQLite, SQL Server, or MongoDB.  In this tutorial you will use SQLite
 - An [Okta Developer Account](https://developer.okta.com/) (free forever, to handle your OAuth needs)
 - [Okta CLI](https://cli.okta.com)
 
@@ -81,11 +81,11 @@ This command will add a new folder named `prisma` to your application. This also
 # Prisma supports the native connection string format for PostgreSQL, MySQL, SQLite, SQL Server, MongoDB, and CockroachDB (Preview).
 # See the documentation for all the connection string options: https://pris.ly/d/connection-strings
 
-DATABASE_URL={yourServersConnectionString}
+DATABASE_URL="file:./dev.db"
 SEED_USER_NAME={yourOktaUserName}
 ```
 
-In this example I used Microsoft's SQL Server because that's what I had installed at the time of writing this application.  But one of the cool things about Prisma and most ORMs is that they are built to support many databases.  The boilerplate code includes comments about how to configure your application for other database servers.  Feel free to use what you feel most comfortable with and use the appropriate connection string.
+In this example I used SQLite because its easy and compact.  But one of the cool things about Prisma and most ORMs is that they are built to support many databases.  The boilerplate code includes comments about how to configure your application for other database servers.  Feel free to use what you feel most comfortable with and use the appropriate connection string.
 
 The `SEED_USER_NAME` setting is used in your seed data.  You want to make sure that it's the same as the Okta username you sign in to.  This will allow the application to associate your logged-in user with the data that you will seed into your database.  
 
@@ -173,7 +173,7 @@ model WorkoutLog {
 
 model User {
   id          Int          @id @default(autoincrement())
-  username    String       @unique @db.VarChar(255)
+  username    String       @unique
   workoutLogs WorkoutLog[]
 }
 ```
