@@ -4,13 +4,13 @@ title: "Add Auth to any app with OAuth2 Proxy"
 author: brian-demers
 by: advocate
 communities: [devops,security,java]
-description: ""
+description: "Tutorial: Use OAuth2 Proxy to add auth for you web apps and REST APIs."
 tags: [java, oauth2, oidc, oauth2-proxy]
 tweets:
-- ""
-- ""
-- ""
-image:
+- "Put #OAuth2_Proxy in front of your app to manage auth for you 🔒"
+- "Don't have an OAuth library for your #Java framework? Let #OAuth2_Proxy handle it‼️"
+- "#OAuth2_Proxy is a reverse proxy that sits in front of your app that handles auth for you 🔒"
+image: blog/add-auth-to-any-app-with-oauth2-proxy/oauth2-proxy-social.jpg
 type: conversion
 ---
 :page-liquid:
