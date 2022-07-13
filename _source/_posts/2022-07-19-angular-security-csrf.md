@@ -77,7 +77,7 @@ imports: [
 ```
 
 ## Learn more about CSRF and creating applications using Angular
-Watch for the next post in this series as we dive into Cross-Site Scripting (XSS) and learn how Angular's built-in security mechanisms protect us.
+Watch for the fourth and final post in this series, as we dive into Cross-Site Scripting (XSS) and learn how Angular's built-in security mechanisms protect us.
 
 |Posts in the SPA web security series|
 | --- |
