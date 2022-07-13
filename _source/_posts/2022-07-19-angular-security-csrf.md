@@ -28,7 +28,7 @@ Now, I want to dive a little deeper into the vulnerabilities. In this short post
 
 ## Cross-Site Request Forgery (CSRF) protection
 
-In the previous post's overview, you learn about how the attack for CSRF occurs when an agitator uses your active session for a trusted site to perform unauthorized actions. We also learned there's built-in support from browsers to mitigate attacks with `SameSite` attributes on cookies, validating the authenticity of the request on the back-end, and potentially having the front-end send a CSRF token to the back-end for every request.
+In the [previous post](/blog/2022/07/08/spa-web-securty-csrf-xss#validate-requests-for-authenticity-to-mitigate-csrf), you learned how an attack for CSRF occurs when an agitator uses your active session for a trusted site to perform unauthorized actions. We also learned there's built-in support from browsers to mitigate attacks with `SameSite` attributes on cookies, validating the authenticity of the request on the backend, and potentially having the frontend send a CSRF token to the backend for every request.
 
 The mitigation strategies primarily require server-side work, except for that game of CSRF token sending, where the client needs to send the token back in a way the backend can validate.
 
