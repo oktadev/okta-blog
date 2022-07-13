@@ -33,7 +33,7 @@ If you wish to look at the app you can [view it on github](https://github.com/ni
 
 ## Create your Okta application
 
-Create a new directory for your application.  
+Create a new directory for your application.  Use the `cd` command to navigate to that folder. 
 
 {% include setup/cli.md type="web" loginRedirectUri="http://localhost:3000/authorization-code/callback" %}
 
