@@ -27,7 +27,7 @@ Ready? Let's get started!
 **Prerequisites**
 
 - Okta developer account - these instructions assume you already have signed up. If you didn't, you can sign up for an account using the CLI! 
-- Python
+- Python 3
 
 We will go over how to install the CLI and SDK during this tutorial. 
 
@@ -62,11 +62,11 @@ Let's get the Okta CLI installed. Okta has a great resource page about the CLI t
 3. Next, we need to log in. We already have our Okta developer account, so in the Terminal, type:
     ```okta login```
 
-4. Now we want to provide the credentials we are asked for. When asked for your organization, this is the URL that appears in your developer account in the upper right corner. Type out the entire URL, if the format is different the CLI will make you enter it again. You'll also need an API token. In your developer dashboard, from the choices on the left, click *Security* and choose *API*.
+4. Now we want to provide the credentials we are asked for. When asked for your organization, this is the URL that appears in your developer account in the upper right corner. Type out the entire URL, if the format is different the CLI will make you enter it again. You'll also need an API token. In your developer dashboard, from the choices on the left, click **Security** and choose **API**.
 
-5. On the API screen you can see your organization URL(s) and a tab called *Tokens*. Click the *Tokens* tab.
+5. On the API screen you can see your organization URL(s) and a tab called **Tokens**. Click the **Tokens** tab.
 
-6. On the Token page, you can manage and see all the tokens you created. You can't see the token's value after creating it, so save the token information somewhere secure. Click *Create Token*.
+6. On the Token page, you can manage and see all the tokens you created. You can't see the token's value after creating it, so save the token information somewhere secure. Click **Create Token**.
 
 7. Follow the Create Token wizard to make your new token, and save the value to put in the CLI when prompted for credentials.
 
@@ -74,9 +74,9 @@ After you've done this, you will have a developer account associated with the CL
 
 ## Configure the project
 
-If you download the CLI, you can automatically type *okta start flask* and follow the provided instructions to get the project set up. The GitHub repo is pulled in for you. 
+If you download the CLI, you can automatically type **okta start flask** and follow the provided instructions to get the project set up. The GitHub repo is pulled in for you. 
 
-Sometimes, the CLI does not populate an .okta.env file for you and you will need to add things manually. Open your .okta.env file and if something is missing like the CLIENT ID or CLIENT SECRET, retrieve the information from your developer dashboard and add it. 
+Sometimes, the CLI does not populate an `.okta.env` file for you and you will need to add things manually. Open your .okta.env file and if something is missing like the CLIENT ID or CLIENT SECRET, retrieve the information from your developer dashboard and add it. 
 
 ## Create an application (optional)
 
@@ -93,9 +93,9 @@ NOTE: The CLI doesn't allow you to make all kinds of applications, only some, so
 
 4. For framework, choose 1. 
 
-5. Now you need to enter the URIs you want to use to redirect. In the CLI this is referred to as Redirect URIs. In your developer dashboard, this is called sign-in redirect URIs. For this walkthrough, we'll use: http://localhost:3000/authorization-code/callback You can other localhosts ports, just be sure to write out the link with the /authorization-code/callback added at the end. 
+5. Now you need to enter the URIs you want to use to redirect. In the CLI this is referred to as Redirect URIs. In your developer dashboard, this is called sign-in redirect URIs. For this walkthrough, we'll use: `http://localhost:3000/authorization-code/callback` You can other localhosts ports, just be sure to write out the link with the `/authorization-code/callback` added at the end. 
 
-6. You also need to put your Post Logout Redirect URIs. In the developer dashboard, these are called Sign-out redirect URIs. Since we used localhost:3000, the URI will be: http://localhost:3000/ 
+6. You also need to put your Post Logout Redirect URIs. In the developer dashboard, these are called Sign-out redirect URIs. Since we used localhost:3000, the URI will be: `http://localhost:3000/` 
 
 ## Run the project
 
@@ -117,22 +117,22 @@ You should then be able to use localhost:5000 again.
 
 ### I tried everything and I still can't view localhost:5000
 
-If you cannot access the *Sharing* folder on your Mac due to permissions, or you tried shutting off AirPlay Receiver and it still isn't letting you see localhost:5000, then change the project to use localhost:3000. You'll need to do these things for that to work: 
+If you cannot access the *Sharing* folder on your Mac due to permissions, or you tried shutting off AirPlay Receiver and it still isn't letting you see `localhost:5000`, then change the project to use `localhost:3000`. You'll need to do these things for that to work: 
 
 1. In your copy of the project, navigate to *app.py*. Change:
    ```app.run(host="localhost", port=5000, debug=True)```
    To: 
    ```app.run(host="localhost", port=3000, debug=True)```
 
-2. In *app.py*, go to where it says *# get request params* and in the json for *query_params* change the *redirect_uri* from "http://localhost:5000/authorization-code/callback" to "http://localhost:3000/authorization-code/callback".
+2. In **app.py**, go to where it says **# get request params** and in the json for **query_params** change the **redirect_uri** from `http://localhost:5000/authorization-code/callback` to `http://localhost:3000/authorization-code/callback`.
 
-3. Log in as an administrator to your Okta developer account. Your log in URL for this will be your Organization URL, with a tweak to show you're logging in as the administrator. The URL takes the form of https://dev-assignednumber-admin.okta.com. 
+3. Log in as an administrator to your Okta developer account. Your log in URL for this will be your Organization URL, with a tweak to show you're logging in as the administrator. The URL takes the form of `https://dev-assignednumber-admin.okta.com`. 
 
-4. From the left panel, choose *Applications*. 
+4. From the left panel, choose **Applications**. 
 
 5. Click on the application you are using for the sample. 
 
-6. At the top of the *General Settings* section, click *Edit*. Then scroll down to the *Login* section. For *Sign-in redirect URIs* make sure it says http://localhost:3000/authorization-code/callback. For *Sign-out redirect URIs* make sure it says http://localhost:3000/.
+6. At the top of the **General Settings** section, click **Edit**. Then scroll down to the **Login** section. For **Sign-in redirect URIs** make sure it says `http://localhost:3000/authorization-code/callback`. For **Sign-out redirect URIs** make sure it says `http://localhost:3000/`.
 
 That should solve the issue.
 
@@ -142,18 +142,18 @@ Sometimes, the .okta.env file does not populate with the information you need. I
 
 1. Log in to your dashboard.
 
-2. From the left panel, click *Applications*.
+2. From the left panel, click **Applications**.
 
-3. Choose your application, if you used the CLI to create it as instructed it should be called *okta-flask-sample*. 
+3. Choose your application, if you used the CLI to create it as instructed it should be called **okta-flask-sample**. 
 
-4. Get the *Client ID* and the *Client Secret*. These map respectively to CLIENT_ID and CLIENT_SECRET in your *okta.env* file. 
+4. Get the **Client ID** and the **Client Secret**. These map respectively to CLIENT_ID and CLIENT_SECRET in your `.okta.env` file. 
 
 5. If you need your Organization URL, that's up in the right corner of your dashboard under your email address. Grab that URL and put it in the *okta.env* file for ORG_URL.
 
 ## I have the wrong credentials in the Okta CLI
 
-If there's something wrong with your credentials in the Okta CLI, you can try changing them in the Okta CLI. If that doesn't work, you might need to delete your *okta.yaml* file. It's in a hidden directory. It's added by the CLI, and it's usually at *Users/yourname/.okta/okta.yaml*. Delete the entire folder and try what you were doing again with the CLI. 
+If there's something wrong with your credentials in the Okta CLI, you can try changing them in the Okta CLI. If that doesn't work, you might need to delete your `okta.yaml` file. It's in a hidden directory. It's added by the CLI, and it's usually at `Users/yourname/.okta/okta.yaml`. Delete the entire folder and try what you were doing again with the CLI. 
 
 ## I forgot my API token, do I HAVE to make a new one?
 
-If you configured your CLI correctly, you can actually retrieve your API token! The CLI stores this in a yaml file that's hidden in the *.okta* folder. Navigate to *Users/yourname/.okta/okta.yaml*. Copy the token from there. 
+If you configured your CLI correctly, you can actually retrieve your API token! The CLI stores this in a yaml file that's hidden in the `.okta` folder. Navigate to `Users/yourname/.okta/okta.yaml`. Copy the token from there. 
