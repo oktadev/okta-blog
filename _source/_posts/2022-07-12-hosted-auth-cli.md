@@ -14,7 +14,7 @@ image:
 type: conversion
 ---
 
-Okta is a customizable, secure solution that lets you add authentication and access management to your applications. Since this can be a complex topic, we recommend setting up your first project with our CLI. In this walk through, we will:
+Okta is a customizable, secure solution that lets you add authentication and access management to your applications. Since this can be a complex topic, we recommend setting up your first project with our CLI. In this walkthrough, we will:
 - Configure the Okta CLI
 - Install the Okta Python SDK
 - Teach you how to create your first application
@@ -37,19 +37,19 @@ We will go over how to install the CLI and SDK during this tutorial.
 This section quickly goes over a few key concepts.
 
 ### Org URL
-When you're starting out with Okta, you're provided an Org URL. This is what you'll use to set up all of your applications. Think of it as a reference ID that lets Okta figure out who you are and which projects are yours. If you want to learn more about the complexities of the Org URL (it has many more features than what we've just described and it's possible to have more than one depending on your needs), you can read about it here: https://developer.okta.com/docs/concepts/okta-organizations/#org-features
+When you're starting out with Okta, you're provided an Org URL. This is what you'll use to set up all of your applications. Think of it as a reference ID that lets Okta figure out who you are and which projects are yours. If you want to learn more about the complexities of the Org URL (it has many more features than what we've just described and it's possible to have more than one depending on your needs), you can read about it here: [Org URL features](https://developer.okta.com/docs/concepts/okta-organizations/#org-features).
 
 ### Tokens, client IDs, and client secrets
-You're also provided some information for authentication. It can get a bit confusing as there are tokens, client IDs, and client secrets. You need to use all three for the Okta application we're working on today. Let's quickly go over what each thing does for you. 
-Tokens - these are like an API key. You're going to provide the token so that you can authenticate with the API. You use this for every request and it contains details about what you can and can't access. They are presented to you only once, and never shown again. However, if you forget your token but you authenticate with the CLI, you can retrieve it. We'll go over that in a bit. 
-Client ID - this is a way to say which application you're working with. 
-Client Secret - a password that goes with your Client ID and gives you permission to access a particular application.
+You're also provided some information for authentication. It can get a bit confusing as there are *tokens*, *client IDs*, and *client secrets*. You need to use all three for the Okta application we're working on today. Let's quickly go over what each thing does for you. 
+* Tokens - these are like an API key. You're going to provide the token so that you can authenticate with the API. You use this for every request and it contains details about what you can and can't access. Tokens are presented to you only once, and never shown again. However, if you forget your token but you authenticate with the CLI, you can retrieve it. We'll go over that in a bit. 
+* Client ID - this is a way to say which application you're working with. 
+* Client secret - a password that goes with your Client ID and gives you permission to access a particular application.
 
 Not every project needs all three of these things. You will generally need a token, you may not always need the other items. Sometimes you may require additional credentials when integrating with third party applications.
 
 ## Configure the Okta CLI
 
-Let's get the Okta CLI installed. Okta has a great resource page about the CLI that's available here: https://cli.okta.com/ and it contains installation instructions. We're going to do ours slightly differently from the instructions, so be sure to follow the steps here. 
+Let's get the Okta CLI installed. Okta has a great [resource page](https://cli.okta.com/) about the CLI and it contains installation instructions. We're going to do ours slightly differently from the instructions, so be sure to follow the steps here. 
 
 1. Install the CLI with the provided command:
     ```brew install –cask oktadeveloper/tap/okta```
@@ -74,9 +74,11 @@ After you've done this, you will have a developer account associated with the CL
 
 ## Configure the project
 
-If you download the CLI, you can automatically type **okta start flask** and follow the provided instructions to get the project set up. The GitHub repo is pulled in for you. 
+If you download the CLI, you can automatically type `okta start flask` and follow the provided instructions to get the project set up. The GitHub repo is pulled in for you. 
 
-Sometimes, the CLI does not populate an `.okta.env` file for you and you will need to add things manually. Open your .okta.env file and if something is missing like the CLIENT ID or CLIENT SECRET, retrieve the information from your developer dashboard and add it. 
+Sometimes, the CLI does not populate an `.okta.env` file for you and you will need to add things manually. Open your `.okta.env` file and if something is missing like the CLIENT ID or CLIENT SECRET, retrieve the information from your developer dashboard and add it. 
+
+NOTE: You need to enter the URIs you want to use to redirect. In the CLI these are referred to as Redirect URIs. In your developer dashboard, this is called sign-in redirect URIs. For this walkthrough, we'll use: `http://localhost:3000/authorization-code/callback` You can use other localhost ports, just be sure to write out the link with the `/authorization-code/callback` added at the end. You also need to add your **Post Logout Redirect URIs**. In the developer dashboard, these are called **Sign-out redirect URIs**. Since we used localhost:3000, the URI will be: `http://localhost:3000/` 
 
 ## Create an application (optional)
 
@@ -93,9 +95,9 @@ NOTE: The CLI doesn't allow you to make all kinds of applications, only some, so
 
 4. For framework, choose 1. 
 
-5. Now you need to enter the URIs you want to use to redirect. In the CLI this is referred to as Redirect URIs. In your developer dashboard, this is called sign-in redirect URIs. For this walkthrough, we'll use: `http://localhost:3000/authorization-code/callback` You can other localhosts ports, just be sure to write out the link with the `/authorization-code/callback` added at the end. 
+5. You need to enter the URIs you want to use to redirect. In the CLI these are referred to as Redirect URIs. In your developer dashboard, this is called sign-in redirect URIs. For this walkthrough, we'll use: `http://localhost:3000/authorization-code/callback` You can use other localhost ports, just be sure to write out the link with the `/authorization-code/callback` added at the end.
 
-6. You also need to put your Post Logout Redirect URIs. In the developer dashboard, these are called Sign-out redirect URIs. Since we used localhost:3000, the URI will be: `http://localhost:3000/` 
+6. You also need to add your **Post Logout Redirect URIs**. In the developer dashboard, these are called **Sign-out redirect URIs**. Since we used localhost:3000, the URI will be: `http://localhost:3000/`  
 
 ## Run the project
 
@@ -111,7 +113,7 @@ Never fear, the troubleshooting section is here to help you figure out what's go
 
 ### It says I'm not authorized to view localhost:5000
 
-If your Mac runs Monterey or later, it uses port 5000 for the AirPlay Receiver. If you have access to the *Sharing* folder on your computer, you may be able to shut it off and run the application at that point. If you want to try that, follow these instructions to turn off the AirPlay Receiver: https://www.businessinsider.com/how-to-turn-off-airplay
+If your Mac runs Monterey or later, it uses port 5000 for the AirPlay Receiver. If you have access to the *Sharing* folder on your computer, you may be able to shut it off and run the application at that point. If you want to try that, [follow these instructions](https://www.businessinsider.com/how-to-turn-off-airplay) to turn off the AirPlay Receiver.
 
 You should then be able to use localhost:5000 again. 
 
@@ -152,8 +154,15 @@ Sometimes, the .okta.env file does not populate with the information you need. I
 
 ## I have the wrong credentials in the Okta CLI
 
-If there's something wrong with your credentials in the Okta CLI, you can try changing them in the Okta CLI. If that doesn't work, you might need to delete your `okta.yaml` file. It's in a hidden directory. It's added by the CLI, and it's usually at `Users/yourname/.okta/okta.yaml`. Delete the entire folder and try what you were doing again with the CLI. 
+If there's something wrong with your credentials in the Okta CLI, you can try changing them in the Okta CLI. If that doesn't work, you might need to delete your `okta.yaml` file. It's in a hidden directory. This file is added by the CLI, and it's usually at `Users/yourname/.okta/okta.yaml`. Delete the entire folder and try what you were doing again with the CLI. 
 
 ## I forgot my API token, do I HAVE to make a new one?
 
 If you configured your CLI correctly, you can actually retrieve your API token! The CLI stores this in a yaml file that's hidden in the `.okta` folder. Navigate to `Users/yourname/.okta/okta.yaml`. Copy the token from there. 
+
+# Learn more 
+
+Here's some resources you might want to take a look at: 
+* [OpenID Connect & OAuth2](https://developer.okta.com/docs/reference/api/oidc/)
+* [Okta CLI Documentation](https://cli.okta.com)
+* [Okta Flask Dance Github](https://github.com/singingwolfboy/flask-dance)
