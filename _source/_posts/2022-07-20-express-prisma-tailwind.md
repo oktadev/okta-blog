@@ -1,41 +1,42 @@
 ---
 layout: blog_post
-title: "How to Build an Express application using Prisma"
+title: "How to Build an Express Application using Prisma"
 author: nickolas-fisher
 by: contractor
 communities: [javascript]
 description: "Learn how to build a workout tracker application using Express and Prisma and secure it using Okta."
-tags: [prisma, node, express]
+tags: [prisma, node, express, passport]
 tweets:
 - "Learn how to build a workout tracker application using Express and Prisma and secure it using Okta ⚡️"
-image:
+image: blog/express-prisma-and-tailwindcss/social.jpg
+github: https://github.com/oktadev/okta-express-prisma-tailwind-example
 type: conversion
 ---
-## How to Build an Express application using Prisma
 
 [Express](https://expressjs.com/) is one of the most popular web frameworks available today.  Understanding the tools available when building any web application is critical to being a good developer.
 
-[Prisma](https://www.prisma.io/) is an ORM for Node.js using TypeScript.  It integrates with many of the most popular databases today including MySQL, SQL Server, SQLite, and MongoDB.   Prisma emphasizes a human-readable schema with a type-safe database client.  Prisma also includes other features such as migrations, seed data, and a virtual database browser.  
+[Prisma](https://www.prisma.io/) is an ORM for Node.js using TypeScript.  It integrates with many of the most popular databases today, including MySQL, SQL Server, SQLite, and MongoDB.   Prisma emphasizes a human-readable schema with a type-safe database client.  Prisma includes other features such as migrations, seed data, and a virtual database browser.   
 
-You will use Prisma to connect to a database server in this project.  You will build a schema to model a workout tracker application.  Then you will create some seed data to begin working with and use Prisma to run migrations and seed your database.  You will then create the web application using [Pug](https://pugjs.org/api/getting-started.html) and [Tailwind CSS](https://tailwindcss.com/) to build the application frontend.  
+You will use Prisma to connect to a database server in this project.  You will build a schema to model a workout tracker application.  Then you will create some seed data and use Prisma to run migrations and seed your database.  You will then create the web application using [Pug](https://pugjs.org/api/getting-started.html) and [Tailwind CSS](https://tailwindcss.com/) to build the application frontend.  
+
+{% include toc.md %}
 
 ### Prerequisites
 
-To continue you will need:
+This tutorial uses the following technologies but doesn't require any prior experience:
 
 - An IDE for JavaScript.  I will use [Visual Studio Code](https://code.visualstudio.com/) but you can use Atom, Webstorm, or any other IDE you prefer
 - [Node.js](https://nodejs.org/en/)
 - A database, one of PostgreSQL, MySQL, SQLite, SQL Server, or MongoDB.  In this tutorial you will use SQLite
-- An [Okta Developer Account](https://developer.okta.com/) (free forever, to handle your OAuth needs)
 - [Okta CLI](https://cli.okta.com)
 
-If you wish to look at the app you can [view it on github](https://github.com/nickolasfisher/Okta_Primsa).
+If you'd like to skip the tutorial and just check out the fully built project, you can go [view it on GitHub](https://github.com/oktadev/okta-express-prisma-tailwind-example).
 
 ## Create your Okta application
 
 Create a new directory for your application.  Use the `cd` command to navigate to that folder. 
 
-{% include setup/cli.md type="web" loginRedirectUri="http://localhost:3000/authorization-code/callback" %}
+{% include setup/cli.md type="web" loginRedirectUri="http://localhost:3000/authorization-code/callback" logoutRedirectUri="http://localhost:3000/" %}
 
 ## Create your Express Application
 
@@ -57,16 +58,16 @@ npm i -D tailwindcss@3.0.24
 npm i -D prisma@3.13.0
 ```
 
-> `@prisma/client` is used to access the database from your server code
-> `dotenv` reads configuration settings from `.env` files like the one produced by the Okta CLI
-> `passport` is a middleware for Node.js that is flexible enough to handle most authentication scenarios, including Okta.  `passport-openidconnect` is a module for passport that lets you authenticate with OpenID Connect
-> `express-session` is required for passport.  Express apps use this package for session support.  You application must intiialize session support to use passport.  
-> `Tailwind CSS` is the CSS framework you will use.  If you've never used Tailwind before, you may wonder why it's a development dependency.  This is because Tailwind will dynamically build your CSS files from your views and configuration.  More on that later
-> `prisma` is the ORM you are using.  This is a dev dependency because the prisma library handles the migrations, seed data, etc, while the `@prisma/client` package is used in your application at runtime.
+- `@prisma/client` is used to access the database from your server code
+- `dotenv` reads configuration settings from `.env` files like the one produced by the Okta CLI
+- `passport` is a middleware for Node.js that is flexible enough to handle most authentication scenarios, including Okta.  `passport-openidconnect` is a module for passport that lets you authenticate with OpenID Connect
+- `express-session` is required for passport.  Express apps use this package for session support.  You application must intiialize session support to use passport.  
+- `Tailwind CSS` is the CSS framework you will use.  If you've never used Tailwind before, you may wonder why it's a development dependency.  This is because Tailwind will dynamically build your CSS files from your views and configuration.  More on that later
+- `prisma` is the ORM you are using.  This is a dev dependency because the Prisma library handles the migrations, seed data, etc., while the `@prisma/client` package is used in your application at runtime.
 
-At this point, you should initialize Tailwind CSS and prisma even though you won't configure to use either quite yet.
+At this point, you will initialize Tailwind CSS and Prisma. You will configure them for usage later on.
 
-Start with prisma.  Run the following command.
+Start with Prisma and run the following command.
 
 ```console
 npx prisma init
@@ -85,11 +86,11 @@ DATABASE_URL="file:./dev.db"
 SEED_USER_NAME={yourOktaUserName}
 ```
 
-In this example I used SQLite because its easy and compact.  But one of the cool things about Prisma and most ORMs is that they are built to support many databases.  The boilerplate code includes comments about how to configure your application for other database servers.  Feel free to use what you feel most comfortable with and use the appropriate connection string.
+In this example, I used SQLite because it's easy and compact.  But one of the cool things about Prisma and most ORMs is that they can support many databases.  The boilerplate code includes comments about configuring your application for other database servers.  Feel free to use what you feel most comfortable with and use the appropriate connection string.
 
-The `SEED_USER_NAME` setting is used in your seed data.  You want to make sure that it's the same as the Okta username you sign in to.  This will allow the application to associate your logged-in user with the data that you will seed into your database.  
+Your seed data will use the `SEED_USER_NAME` setting.  You want to ensure that it's the same as the Okta username with which you sign in.  This will allow the application to associate your logged-in user with the data you will seed into your database.  
 
- Next, update your `package.json` file with the following code.
+Next, update your `package.json` file with the following code.
 
 ```JSON
 {
@@ -133,7 +134,7 @@ This will add a new file called `tailwind.config.js` to the root of your applica
 
 ```javascript
 module.exports = {
-  content: ["./views/**/*.{pug}"],
+  content: ["./views/**/*.pug"],
   theme: {
     extend: {},
   },
@@ -141,13 +142,13 @@ module.exports = {
 }
 ```
 
-This will tell Tailwind CSS where to find the classes that you used in your application.  In this case, you want tailwind to look in `.pug` files located in your `views` directory.  Tailwind CSS is extremely extensible as you can see by the `theme` and `plugins` settings in the configuration object.  A deep dive into this is out of the scope of this article but I encourage you to look into Tailwind CSS's site for more information.  
+This will tell Tailwind CSS where to find the classes you used in your application.  In this case, you want Tailwind to look in the `.pug` files in your `views` directory.  Tailwind CSS is highly extensible, as seen by the configuration object's `theme` and `plugins` settings.  A deep dive into this is out of the scope of this article, but I encourage you to look into Tailwind CSS's site for more information.  
 
 ### Use Prisma to create your database
 
-The next task is to create the database for your application.  This will involve creating the schema, writing some seed data, creating your migration, and applying the migration which will also seed your data.
+The next task is to create the database for your application.  This will involve writing the schema, writing some seed data, creating the migration, and applying the migration, which will also seed your data.
 
-The `prisma init` task from above should have added a folder called `schema.prisma` to your `prisma` directory.  Replace the code there with the code below.
+The `prisma init` task from above should have added a file called `schema.prisma` to your `prisma` directory.  Replace the code there with the code below.
 
 ```javascript
 generator client {
@@ -178,9 +179,9 @@ model User {
 }
 ```
 
-Make sure you replace `{yourDatabaseProvider}` with [the provider you are using](https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#datasource).  As you can see this file defines the `User` and `WorkoutLog` objects that you will store in the database.  The `WorkoutLog` has some basic information about what the user did on a specific day and then associates that record with the `User` object.  You can define keys, constraints, and indices from this file as well.  Note the `user` property on the `WorkoutLog` has a relation defined by the `userId` to the `id` of the `User` table.  
+Make sure you replace `{yourDatabaseProvider}` with [the provider you are using](https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#datasource).  As you can see, this file defines the `User` and `WorkoutLog` objects that you will store in the database.  The `WorkoutLog` has basic information about the user's workout on a specific day and then associates that record with the `User` object.  You can also define keys, constraints, and indices from this file.  Note the `user` property on the `WorkoutLog` has a relation defined by the `userId` to the `id` of the `User` table.  
 
-Add a file to the `prisma` directory named `seed.js` and add the following code.
+Add a file to the `prisma` directory named `seed.js` and add the following code to it.
 
 ```javascript
 const { PrismaClient } = require("@prisma/client");
@@ -294,34 +295,34 @@ main()
 
 Prisma knows to use the `seed.js` file from the command you added to `package.json`.  This file will insert the data when you run that command.  
 
-You can now add and apply the migration using the Prisma CLI.
+You can now add and apply the migration using the Prisma CLI. From the root of your application directory, run the following command.
 
 ```console
 npx prisma migrate dev --name init
 ```
 
-The CLI has several ways to add and apply migrations.  I suggest you understand the best way to manage migrations for your environment.  The method above is the easiest and fastest way to get your database ready.  As part of the migration process, this command will look for the `seed` command from your `package.json` and run that as well.  Once this process is complete your database should be ready with a database full of seed data ready to work.
+The CLI has several ways to add and apply migrations.  I suggest you understand the best way to manage migrations for your environment.  The method above is the easiest and fastest way to prepare your database.  As part of the migration process, this command will look for the `seed` command from your `package.json` and run that as well.  Once complete, your database should be ready with a database full of seed data ready to work.
 
 ### Complete the development of your express application
 
-Now that your database is set up you can turn your attention to the core of your application.
+Now that your database is ready, you can turn your attention to the core of your application.
 
 First, add a new file in the root of your application called `ensureLoggedIn.js` and add the following code to it.
 
 ```javascript
 function ensureLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
-      return next();
+        return next();
     }
     res.redirect('/login')
-  }
+}
 
-  module.exports = ensureLoggedIn;
+module.exports = ensureLoggedIn;
 ```
 
-This little piece of middleware will just make sure the user is authenticated.  If they aren't then you will redirect them to the `login` route which you will configure to use Okta.  Otherwise, you will allow the user to the next instruction.  
+This little piece of middleware will make sure the user is authenticated.  If they aren't, you will redirect them to the `login` route, which you will configure to use Okta.  Otherwise, you will allow the user to reach the next screen.  
 
-Next, you can update your routes.  First, remove `users.js` as you won't be using that.  Next, replace the code in `index.js` with the following.
+Next, you can update your routes in the `routes` directory.  First, remove `users.js` as you won't be using that.  Next, replace the code in `index.js` with the following.
 
 ```javascript
 var express = require('express');
@@ -371,7 +372,7 @@ router.get("/", ensureLoggedIn, async function (req, res) {
 module.exports = router;
 ```
 
-There's a lot of magic in this route.  First, you are using the `ensureLoggedIn` middleware to protect this route.  Then you can extract the username from the request and lookup the user in the database using the prisma client.  Since the user has a property for its workout logs, you can simply pass the user as the model and parse the logs on the pug view you will create.  This will give the view access to the user's name as well.  Of course, you could query the `workoutLogs` table directly and include features such as pagination and searching if that better fit your workflow.  
+There's a lot of magic in this route.  First, you are using the `ensureLoggedIn` middleware to protect this route.  Then you can extract the username from the request and look up the user in the database using the Prisma client.  Since the user has a property for its workout logs, you can pass the user as the model and parse the logs on the pug view you will create.  This will give the view access to the user's name as well.  Of course, you could query the `workoutLogs` table directly and include features such as pagination and searching if that better fit your workflow.  
 
 Next, replace the code in `app.js` with the following.
 
@@ -478,11 +479,11 @@ app.use(function(err, req, res, next) {
 module.exports = app;
 ```
 
-You needed to do a little work to update your routes to properly use the `dashboard` routes as well as any login or logout routes that Okta will use.  You also set up passport to use Okta using the values the Okta CLI produced in the `.okta.env` file.  
+You updated your routes to properly use the `dashboard` routes as well as any login or logout routes that Okta will use.  You also set up passport to use Okta using the values the Okta CLI produced in the `.okta.env` file.  
 
 ### Add your views to bring your project to life
 
-By default, express-generator will add a few views for you.  You will need to edit a couple and add a new one of your own.  Start by opening the `layout.pug` file in the `views` directory and replacing the code there with the following.
+By default, `express-generator` will add a few views for you.  You will need to edit them and add a new one of your own.  Start by opening the `layout.pug` file in the `views` directory and replacing the code there with the following.
 
 ```pug
 doctype html
@@ -601,11 +602,11 @@ block content
                                 td=log.calories                        
 ```
 
-As you saw before this page is protected, therefore it's required that you have a user access this page.  The application will pull the user details and workout logs and reform them into a summary at the top of the page with a couple of tables of the logs based on the exercises the user has performed.  
+As you saw before, this page is protected.  Therefore, it requires that you have a user to access this page.  The application will pull the user details and workout logs and reform them into a summary at the top of the page with a couple of tables of the logs based on the exercises the user has performed.  
 
 ### Create the CSS file using Tailwind CSS
 
-The last part of this process is to create the actual CSS file that your application will use.  In your `public/stylesheets` directory, you'll see a file called `style.css`.  replace the code in that file with the code below.
+The last part of this process is to create the actual CSS file that your application will use.  In your `public/stylesheets` directory, you'll see a file called `style.css`.  Replace the code in that file with the code below.
 
 ```css
 @tailwind base;
@@ -622,19 +623,19 @@ a {
 }
 ```
 
-This is largely the same however you are importing the directives for each of Tailwind's layers.
+This is largely the same. However, you are importing the directives for each of Tailwind's layers.
 
-Next, you can compile the classes you used in your pug files along with the style sheet you just modified to create a new CSS file.  Run the following command.
+Next, you can compile the classes you used in your pug files and the style sheet you just modified to create a new CSS file. Run the following command.
 
 ```bash
 npx tailwindcss -i ./public/stylesheets/style.css -o ./public/stylesheets/output.css --watch
 ```
 
-Now you can open the `output.css` file and see the full Tailwind CSS code.  The `--watch` parameter here is useful for local development.  This will rebuild the `output.css` file each time you make a change to one of your layouts.  If you do not want to make any changes you can disregard them.
+Now you can open the `output.css` file and see the complete Tailwind CSS code.  The `--watch` parameter here is helpful for local development.  This will rebuild the `output.css` file each time you change one of your layouts.  You can disregard that parameter if you do not want to make any changes.
 
 ## Test your application
 
-You're not ready to start your application.  Run the following command.
+You're now ready to start your application.  Run the following command.
 
 ```bash
 npm run start
@@ -650,14 +651,15 @@ Use the login button at the top of the screen and navigate out to the Okta login
 
 ## What you learned in this article
 
-In this article, you learned how to use Prisma to define a schema for your database.  You then learned how to create a migration from that schema and how to seed your database.  You saw that Prisma can be used with the most popular database options including SQL Server, MySql, MongoDB, and more.  
+In this article, you learned how to use Prisma to define a schema for your database.  You then learned how to create a migration from that schema and seed your database.  You saw that Prisma could be used with the most popular database options, including SQL Server, MySql, MongoDB, and more.  
 
-You also learned how to build a CSS file with Tailwind CSS.  You learned the simple tailwind configuration and how the tailwind CLI uses your code to build its CSS file.
+You also learned how to build a CSS file with Tailwind CSS.  You learned the simple tailwind configuration and how the Tailwind CLI uses your code to build its CSS file.
 
 Finally, you learned how to secure your express application using passport.
 
-## Further Reading
+## Learn More About Node, Authentication, and Okta
 
-[Build and Deploy a Node.js App to Heroku](https://developer.okta.com/blog/2022/02/28/build-deploy-node-app-heroku)
-[Node.js Login with Express and OIDC](https://developer.okta.com/blog/2020/06/16/nodejs-login)
-[Build a Node.js API with TypeScript](https://developer.okta.com/blog/2019/05/07/nodejs-typescript-api)
+Can't get enough of Node? Check out our [quickstarts for Node](https://developer.okta.com/code/nodejs/) and other excellent posts from the Okta Developer blog:
+- [Build and Deploy a Node.js App to Heroku](https://developer.okta.com/blog/2022/02/28/build-deploy-node-app-heroku)
+- [Node.js Login with Express and OIDC](https://developer.okta.com/blog/2020/06/16/nodejs-login)
+- [Build a Node.js API with TypeScript](https://developer.okta.com/blog/2019/05/07/nodejs-typescript-api)
