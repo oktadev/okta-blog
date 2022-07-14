@@ -267,7 +267,7 @@ Stop the docker-compose process (kbd:[Ctrl + C]) and start it up again:
 docker compose up
 ----
 
-Once again, open your browser to `\http://localhost:4180/` and open up your network tab, you will see the renamed and now smaller `SESSION` cookie.
+Once again, open your browser to `\http://localhost:4180/echo` and open up your network tab, you will see the renamed and now smaller `SESSION` cookie.
 
 You _could_ stop here, but you shouldn't. We still have a few issues: API clients are not supported, and we haven't talked about logging out.
 
