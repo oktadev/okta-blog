@@ -553,7 +553,7 @@ volumes:
 <.> Configure the encryption key (loaded from the `.env` file).
 ====
 
-Restart the services and access the application through your browser: `http://localhost/echo`. Try again using HTTPie:
+Restart the services and access the application through your browser: `\http://localhost/echo`. Try again using HTTPie:
 
 [source,bash]
 ----
