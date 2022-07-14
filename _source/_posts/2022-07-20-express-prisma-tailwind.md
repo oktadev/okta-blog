@@ -660,6 +660,6 @@ Finally, you learned how to secure your express application using passport.
 ## Learn More About Node, Authentication, and Okta
 
 Can't get enough of Node? Check out our [quickstarts for Node](https://developer.okta.com/code/nodejs/) and other excellent posts from the Okta Developer blog:
-- [Build and Deploy a Node.js App to Heroku](https://developer.okta.com/blog/2022/02/28/build-deploy-node-app-heroku)
-- [Node.js Login with Express and OIDC](https://developer.okta.com/blog/2020/06/16/nodejs-login)
-- [Build a Node.js API with TypeScript](https://developer.okta.com/blog/2019/05/07/nodejs-typescript-api)
+- [Build and Deploy a Node.js App to Heroku](/blog/2022/02/28/build-deploy-node-app-heroku)
+- [Node.js Login with Express and OIDC](/blog/2020/06/16/nodejs-login)
+- [Build a Node.js API with TypeScript](/blog/2019/05/07/nodejs-typescript-api)
