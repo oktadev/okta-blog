@@ -36,7 +36,7 @@ toc::[]
 
 First things first, we need an application. You can use any web application, but for this post, I'll stick with a Java Spring Boot app that will echo the details of the inbound HTTP request. Echoing the request information will help visualize the additional HTTP headers added by OAuth2 Proxy, such as the user's email address.
 
-You can grab the project from https://github.com/oktadev/okta-oauth2-proxy-example[GitHub]
+You can grab the project from https://github.com/oktadev/okta-oauth2-proxy-example[GitHub]:
 
 [source,bash]
 ----
