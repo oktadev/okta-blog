@@ -499,7 +499,7 @@ html
         div
           if(isAuthenticated)
             form(action="logout" method="POST") 
-              button(type="submit").inline-block.text-sm.px-4.py-2.leading-none.border.rounded.text-white.border-white.mt-4(href='#' class='hover:border-transparent hover:text-teal-500 hover:bg-white lg:mt-0') Logout
+              button(type="submit").inline-block.text-sm.px-4.py-2.leading-none.border.rounded.text-white.border-white.mt-4 Logout
           else 
             a.inline-block.text-sm.px-4.py-2.leading-none.border.rounded.text-white.border-white.mt-4(href='Login' class='hover:border-transparent hover:text-teal-500 hover:bg-white lg:mt-0') Login
     
