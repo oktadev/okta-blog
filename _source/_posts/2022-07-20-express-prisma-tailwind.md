@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "How to Build an Express Application using Prisma"
+title: "How to Build an Express Application Using Prisma"
 author: nickolas-fisher
 by: contractor
 communities: [javascript]
