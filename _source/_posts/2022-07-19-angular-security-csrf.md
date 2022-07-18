@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: "Protect Your Angular App from Cross-Site Request Forgery"
+title: "Protect Your Angular App From Cross-Site Request Forgery"
 author: alisa-duncan
 by: advocate
 communities: [security,javascript]
@@ -33,7 +33,7 @@ The mitigation strategies primarily require server-side work, except for that ga
 
 ![Giphy of a dog picking up mail from the postal worker](https://media.giphy.com/media/V6XBe0GQZSNO0/giphy.gif)
 
-When using CSRF tokens, it's essential to tie the token to the user's session so that the back-end can validate the request. The most common ways are through the patterns called [Synchronizer Token Pattern](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html#synchronizer-token-pattern) and [Double Submit Cookie](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html#double-submit-cookie).
+When using CSRF tokens, it's essential to tie the token to the user's session so that the backend can validate the request. The most common ways are through the patterns called [Synchronizer Token Pattern](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html#synchronizer-token-pattern) and [Double Submit Cookie](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html#double-submit-cookie).
 
 ### Synchronizer Token Pattern
 
@@ -47,17 +47,17 @@ The Synchronizer Token Pattern requires the backend to store the user's session 
 </form> 
 ```
 
-Submitting this form POSTS to `https://myfavekdramas.com/fave-form` using the `application/x-www-form-urlencoded` content type. CSRF is especially susceptible when using non-JSON data.
+Submitting this form POSTs to `https://myfavekdramas.com/fave-form` using the `application/x-www-form-urlencoded` content type. CSRF is especially susceptible when using non-JSON data.
 
 ### Double Submit Cookie Pattern
 
 Sadly, this pattern doesn't involve double the cookies—it's a dual submission. Sad news indeed for chocolate-chip cookie fans. 🍪🍪 😢 But the good news is the Double Submit Cookie Pattern doesn't require the backend to track the user's session to the CSRF token. 
 
-In this pattern, the CSRF token is a separate cookie from the user's session identifier. The client sends the CSRF token in every request, and the back-end validates that the CSRF token cookie and the token in the request values match. This pattern is more common for SPAs.
+In this pattern, the CSRF token is a separate cookie from the user's session identifier. The client sends the CSRF token in every request, and the backend validates that the CSRF token cookie and the token in the request values match. This pattern is more common for SPAs.
 
-## CSRF Support in Angular
+## CSRF support in Angular
 
-Angular has built-in support for a flavor of the Double Submit Cookie Pattern, where the CSRF token is automatically added as an HTTP header for every back-end request once you have a CSRF token in a cookie. Nice!
+Angular has built-in support for a flavor of the Double Submit Cookie Pattern, where the CSRF token is automatically added as an HTTP header for every backend request once you have a CSRF token in a cookie. Nice!
 
 The `HttpClientXsrfModule` automatically adds an interceptor for your HTTP requests. The interceptor grabs the CSRF token from a session cookie named `XSRF-TOKEN` and adds the token value to outgoing requests in the HTTP header named `X-XSRF-TOKEN`. Then your backend is responsible for verifying the values for the cookie and HTTP header match.
 
