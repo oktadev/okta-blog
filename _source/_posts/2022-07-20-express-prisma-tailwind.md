@@ -46,7 +46,7 @@ Next, you will use the `express-generator` application generator tool to quickly
 npx express-generator --view=pug
 ```
 
-Next, you will need to install your packages.  
+Now you can install your packages.  
 
 ```console
 npm i @prisma/client@3.13.0
