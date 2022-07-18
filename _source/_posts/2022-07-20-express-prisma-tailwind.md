@@ -25,7 +25,7 @@ type: conversion
 
 This tutorial uses the following technologies but doesn't require any prior experience:
 
-- An IDE for JavaScript.  I will use [Visual Studio Code](https://code.visualstudio.com/) but you can use Atom, Webstorm, or any other IDE you prefer
+- An IDE for JavaScript.  I will use [Visual Studio Code](https://code.visualstudio.com/) but you can use Atom, Webstorm, or any other IDE you prefer.
 - [Node.js](https://nodejs.org/en/)
 - A database, one of PostgreSQL, MySQL, SQLite, SQL Server, or MongoDB.  In this tutorial you will use SQLite
 - [Okta CLI](https://cli.okta.com)
