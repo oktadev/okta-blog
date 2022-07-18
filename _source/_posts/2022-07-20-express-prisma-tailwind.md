@@ -73,7 +73,7 @@ Start with Prisma and run the following command.
 npx prisma init
 ```
 
-This command will add a new folder named `prisma` to your application. This also adds a file called `.env` to your project with some default configuration. Replace the contents of that file with the code below.
+This command will add a new folder named `prisma` to your application. It also adds a file called `.env` to your project with some default configuration. Replace the contents of that file with the code below.
 
 ```bash
 # Environment variables declared in this file are automatically made available to Prisma.
